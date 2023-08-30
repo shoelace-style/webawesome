@@ -1,4 +1,4 @@
-{% include "layout-templates/reset.css.njk" %}
+{% include "layout-templates/reset.css" %}
 
 main {
   min-height: 100%;

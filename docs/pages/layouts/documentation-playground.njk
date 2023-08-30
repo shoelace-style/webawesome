@@ -2,9 +2,9 @@
 layout: layout-example.njk
 ---
 
-
-{% set html_file = "layout-templates/documentation.html.njk" %}
-{% set css_file = "layout-templates/documentation.css.njk" %}
-
+<!-- Required for load layout widget -->
 {% set in_playground = true %}
+{% set html_file = "layout-templates/documentation.html" %}
+{% set css_file = "layout-templates/documentation.css" %}
+
 {% include "playground.njk" %}
