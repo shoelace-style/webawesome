@@ -18,114 +18,113 @@ export default css`
     --sub-header-height: 0px;
   }
 
-  [part~="base"] {
+  [part~='base'] {
     min-height: 100%;
     display: grid;
     grid-template-rows: repeat(3, minmax(0, auto)) minmax(0, 1fr) minmax(0, auto);
     grid-template-columns: 100%;
     width: 100%;
     grid-template-areas:
-      "banner"
-      "header"
-      "sub-header"
-      "body"
-      "footer";
+      'banner'
+      'header'
+      'sub-header'
+      'body'
+      'footer';
   }
 
   /* Grid areas */
-  [part~="banner"] {
+  [part~='banner'] {
     grid-area: banner;
   }
 
-  [part~="header"] {
+  [part~='header'] {
     grid-area: header;
   }
 
-  [part~="sub-header"] {
+  [part~='sub-header'] {
     grid-area: sub-header;
   }
 
-  [part~="menu"] {
+  [part~='menu'] {
     grid-area: menu;
   }
 
-  [part~="body"] {
+  [part~='body'] {
     grid-area: body;
   }
 
-  [part~="main"] {
+  [part~='main'] {
     grid-area: main;
   }
 
-  [part~="aside"] {
+  [part~='aside'] {
     grid-area: aside;
   }
 
-  [part~="footer"] {
+  [part~='footer'] {
     grid-area: footer;
   }
 
   /* Z-indexes */
-  [part~="banner"],
-  [part~="header"],
-  [part~="sub-header"] {
+  [part~='banner'],
+  [part~='header'],
+  [part~='sub-header'] {
     position: sticky;
     z-index: 5;
   }
 
-  [part~="banner"] {
+  [part~='banner'] {
     top: 0px;
   }
 
-  [part~="header"] {
+  [part~='header'] {
     top: var(--banner-height);
     display: grid;
     grid-template-columns: minmax(0, auto) minmax(0, 1fr);
     align-items: center;
   }
 
-  :host([hide-nav-button]) [part~="nav-button"] {
+  :host([hide-nav-button]) [part~='nav-button'] {
     display: none;
   }
 
-  :host([hide-nav-button]) [part~="header"] {
+  :host([hide-nav-button]) [part~='header'] {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  [part~="sub-header"] {
+  [part~='sub-header'] {
     top: calc(var(--header-height) + var(--banner-height));
   }
 
-  [part~="body"] {
+  [part~='body'] {
     display: grid;
     height: 100%;
     align-items: flex-start;
     grid-template-columns: minmax(0, var(--menu-width)) minmax(0, var(--main-width)) minmax(0, var(--aside-width));
     grid-template-rows: minmax(0, 1fr);
-    grid-template-areas:
-      "menu main aside";
+    grid-template-areas: 'menu main aside';
   }
 
-  [part~="main"] {
+  [part~='main'] {
     display: grid;
     min-height: 100%;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
     grid-template-areas:
-      "main-header"
-      "main-content"
-      "main-footer";
+      'main-header'
+      'main-content'
+      'main-footer';
   }
 
-  [part~="main-header"] {
+  [part~='main-header'] {
     grid-area: main-header;
   }
 
-  [part~="main-content"] {
+  [part~='main-content'] {
     grid-area: main-content;
   }
 
-  [part~="main-footer"] {
+  [part~='main-footer'] {
     grid-area: main-footer;
   }
 
@@ -138,8 +137,8 @@ export default css`
     background-color: var(--sl-color-neutral-0);
   }
 
-  [part~="menu"],
-  [part~="aside"] {
+  [part~='menu'],
+  [part~='aside'] {
     position: sticky;
     top: calc(var(--banner-height) + var(--header-height) + var(--sub-header-height));
     z-index: 4;
@@ -148,18 +147,18 @@ export default css`
     overflow: auto;
   }
 
-  [part~="menu"] {
+  [part~='menu'] {
     height: 100%;
   }
 
-  [part~="navigation"] {
+  [part~='navigation'] {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   }
 
-  [part~="nav-button"] {
+  [part~='nav-button'] {
     font-size: 1.5rem;
   }
 `;

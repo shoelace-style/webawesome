@@ -5,7 +5,7 @@
 module.exports = function (doc, options) {
   // We don't want to run this on layouts.
   if (doc.querySelector("[data-layout='layout-example.njk']")) {
-    return
+    return;
   }
 
   const tables = [...doc.querySelectorAll('table')];

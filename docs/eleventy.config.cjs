@@ -28,12 +28,12 @@ module.exports = function (eleventyConfig) {
   //
   // Global data
   //
-  let baseUrl = 'https://shoelace.style/'
+  let baseUrl = 'https://shoelace.style/';
 
   if (process.env.VERCEL_URL) {
-    baseUrl = process.env.VERCEL_URL
+    baseUrl = process.env.VERCEL_URL;
     if (!process.env.VERCEL_URL.match(/^https?/)) {
-      baseUrl = 'https://' + baseUrl
+      baseUrl = 'https://' + baseUrl;
     }
   }
 

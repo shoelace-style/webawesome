@@ -24,7 +24,7 @@
   }
 
   function updateInert() {
-    const sidebar = getSidebar()
+    const sidebar = getSidebar();
 
     if (sidebar) {
       sidebar.inert = !isSidebarVisible();

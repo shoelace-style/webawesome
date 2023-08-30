@@ -255,10 +255,7 @@ if (serve) {
   const browserSyncConfig = {
     snippetOptions: {
       // Ignore all HTML files within the templates folder
-      ignorePaths: [
-        "/assets/playground-service-worker-proxy.html",
-        "/assets/playground-service-worker.js",
-      ],
+      ignorePaths: ['/assets/playground-service-worker-proxy.html', '/assets/playground-service-worker.js']
     },
     startPath: '/',
     port,
