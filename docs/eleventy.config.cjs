@@ -28,7 +28,16 @@ module.exports = function (eleventyConfig) {
   //
   // Global data
   //
-  eleventyConfig.addGlobalData('baseUrl', 'https://shoelace.style/'); // the production URL
+  let baseUrl = 'https://shoelace.style/'
+
+  if (process.env.VERCEL_URL) {
+    baseUrl = process.env.VERCEL_URL
+    if (!process.env.VERCEL_URL.match(/^https?/)) {
+      baseUrl = 'https://' + baseUrl
+    }
+  }
+
+  eleventyConfig.addGlobalData('baseUrl', baseUrl); // the production URL
   eleventyConfig.addGlobalData('layout', 'default'); // make 'default' the default layout
   eleventyConfig.addGlobalData('toc', true); // enable the table of contents
   eleventyConfig.addGlobalData('meta', {
@@ -182,21 +191,23 @@ module.exports = function (eleventyConfig) {
         }).window.document;
         const content = doc.querySelector('#content');
 
-        // Get title and headings
-        const title = (doc.querySelector('title')?.textContent || path.basename(result.outputPath)).trim();
-        const headings = [...content.querySelectorAll('h1, h2, h3, h4')]
-          .map(heading => heading.textContent)
-          .join(' ')
-          .replace(/\s+/g, ' ')
-          .trim();
+        if (content) {
+          // Get title and headings
+          const title = (doc.querySelector('title')?.textContent || path.basename(result.outputPath)).trim();
+          const headings = [...content.querySelectorAll('h1, h2, h3, h4')]
+            .map(heading => heading.textContent)
+            .join(' ')
+            .replace(/\s+/g, ' ')
+            .trim();
 
-        // Remove code blocks and whitespace from content
-        [...content.querySelectorAll('code[class|=language]')].forEach(code => code.remove());
-        const textContent = content.textContent.replace(/\s+/g, ' ').trim();
+          // Remove code blocks and whitespace from content
+          [...content.querySelectorAll('code[class|=language]')].forEach(code => code.remove());
+          const textContent = content.textContent.replace(/\s+/g, ' ').trim();
 
-        // Update the index and map
-        this.add({ id: index, t: title, h: headings, c: textContent });
-        map[index] = { title, url };
+          // Update the index and map
+          this.add({ id: index, t: title, h: headings, c: textContent });
+          map[index] = { title, url };
+        }
       });
     });
 

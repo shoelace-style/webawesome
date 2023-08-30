@@ -249,7 +249,17 @@ if (serve) {
 
   const bs = browserSync.create();
   const port = await getPort({ port: portNumbers(4000, 4999) });
+  /**
+   * @type {import("browser-sync").Options}
+   */
   const browserSyncConfig = {
+    snippetOptions: {
+      // Ignore all HTML files within the templates folder
+      ignorePaths: [
+        "/assets/playground-service-worker-proxy.html",
+        "/assets/playground-service-worker.js",
+      ],
+    },
     startPath: '/',
     port,
     logLevel: 'silent',

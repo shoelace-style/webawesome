@@ -57,6 +57,7 @@ export { default as SlTooltip } from './components/tooltip/tooltip.js';
 export { default as SlTree } from './components/tree/tree.js';
 export { default as SlTreeItem } from './components/tree-item/tree-item.js';
 export { default as SlVisuallyHidden } from './components/visually-hidden/visually-hidden.js';
+export { default as SlLayout } from './components/layout/layout.js';
 /* plop:component */
 
 // Utilities

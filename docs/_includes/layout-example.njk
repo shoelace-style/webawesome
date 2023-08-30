@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-layout="{{ layout }}"
+  data-shoelace-version="{{ meta.version }}"
+>
+  <head>
+    {# Metadata #}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ meta.description }}" />
+    <title>{{ meta.title }}</title>
+
+    {# Opt out of Turbo caching #}
+    <meta name="turbo-cache-control">
+
+    {# Favicons #}
+    <link rel="icon" href="{{ assetUrl('images/logo.svg') }}" type="image/x-icon" />
+
+    {# Twitter Cards #}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="shoelace_style" />
+    <meta name="twitter:image" content="{{ assetUrl(meta.image, true) }}" />
+
+    {# OpenGraph #}
+    <meta property="og:url" content="{{ rootUrl(page.url, true) }}" />
+    <meta property="og:title" content="{{ meta.title }}" />
+    <meta property="og:description" content="{{ meta.description }}" />
+    <meta property="og:image" content="{{ assetUrl(meta.image, true) }}" />
+
+    {# Shoelace #}
+    <link rel="stylesheet" href="/dist/themes/light.css" />
+    <link rel="stylesheet" href="/dist/themes/dark.css" />
+    <script type="module" src="/dist/shoelace-autoloader.js"></script>
+
+    {# Set the initial theme and menu states here to prevent flashing #}
+    <script>
+      (() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = localStorage.getItem('theme') || 'auto';
+        document.documentElement.classList.toggle('sl-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+      })();
+    </script>
+
+  </head>
+  <body>
+    {% block content %}
+      {{ content | safe }}
+    {% endblock %}
+  </body>
+</html>

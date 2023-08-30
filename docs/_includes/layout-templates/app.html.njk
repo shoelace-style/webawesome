@@ -1,0 +1,449 @@
+<sl-layout main-id="main-content" class="sl-theme-light">
+  <sl-button href="#" variant="text" style="padding: 0 0.4rem" class="sl-button--logo sl-button--stretch sl-button--muted" size="large" slot="navigation-header">
+    <sl-icon name="music-note" slot="prefix" style="font-size: 2rem;"></sl-icon>
+    Musicify
+  </sl-button>
+
+  <nav class="app-navigation" slot="navigation">
+    <ul class="app-navigation__list">
+      <li>
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="search" slot="prefix"></sl-icon>
+          Search
+        </sl-button>
+      </li>
+
+     <li>
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="bell" slot="prefix"></sl-icon>
+          Notifications
+        </sl-button>
+      </li>
+
+      <li><sl-divider style=""></sl-divider></li>
+
+      <li class="is-active">
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="house-door" slot="prefix"></sl-icon>
+          Home
+        </sl-button>
+      </li>
+      <li>
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="music-note-list" slot="prefix"></sl-icon>
+          Playlists
+        </sl-button>
+      </li>
+
+      <li>
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="file-earmark-music" slot="prefix"></sl-icon>
+          Tracks
+        </sl-button>
+      </li>
+
+      <li>
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="gear" slot="prefix"></sl-icon>
+          Settings
+        </sl-button>
+      </li>
+
+
+      <li style="margin-top: auto;">
+        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
+          <sl-icon name="question-circle" slot="prefix"></sl-icon>
+          Help
+        </sl-button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hacky override to make padding 8px -->
+  <sl-button slot="navigation-footer" outline class="sl-button--square sl-button--stretch sl-button--muted sl-button--nav-footer" size="large" href="#">
+    <div style="display: grid; align-items: center; max-width: 100%; gap: 8px; grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);">
+      <sl-avatar shape="rounded" style="--size: 36px;"></sl-avatar>
+      <div style="text-overflow: ellipsis; max-width: 100%; overflow: hidden; text-align: start;">Really really really long name</div>
+      <sl-icon name="chevron-right"></sl-icon>
+    </div>
+  </sl-button>
+
+
+  <main id="main-content" class="main">
+    <h1 style="margin: 0.5rem 0 2rem 0;">Good Evening, Konnor Rogers</h1>
+
+    <section>
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: flex-end; gap: 8px;">
+        <h2 style="">Overview</h2>
+
+        <sl-select value="monthly">
+          <sl-option value="daily">Daily</sl-option>
+          <sl-option value="weekly">Weekly</sl-option>
+          <sl-option value="monthly">Monthly</sl-option>
+          <sl-option value="yearly">Yearly</sl-option>
+        </sl-select>
+      </div>
+
+    <sl-divider></sl-divider>
+
+
+      <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); grid-auto-rows: 1fr; gap: var(--sl-spacing-large); text-align: center;">
+        <sl-card class="sl-card--muted" style="--padding: 8px;">
+          <h3 slot="header">Total listening time</h3>
+
+          <p>
+            <strong><sl-format-number value="35000"></sl-format-number></strong> minutes
+          </p>
+          <p>
+            <mark class="highlight highlight--success">
+              +16%
+            </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </sl-card>
+
+        <sl-card class="sl-card--muted" style="--padding: 8px;">
+          <h3 slot="header">Total songs played</h3>
+
+          <p>
+            <strong><sl-format-number value="302"></sl-format-number></strong> songs
+          </p>
+
+          <p>
+            <mark class="highlight highlight--danger">
+              -0.3%
+            </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </sl-card>
+
+        <sl-card class="sl-card--muted" style="--padding: 8px;">
+          <h3 slot="header">Average listening session</h3>
+
+          <p>
+            <strong><sl-format-number value="36"></sl-format-number></strong> minutes
+          </p>
+
+          <p>
+            <mark class="highlight highlight--success">
+              +11.4%
+            </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </sl-card>
+
+        <sl-card class="sl-card--muted" style="--padding: 8px;">
+          <h3 slot="header">Average track listening time</h3>
+
+          <p>
+            <strong><sl-format-number value="2"></sl-format-number></strong> minutes,
+            <strong><sl-format-number value="42"></sl-format-number></strong> seconds
+          </p>
+          <p>
+            <mark class="highlight highlight--success">
+              -6.2%
+            </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </sl-card>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem;">
+      <h2>Recent playlists</h2>
+
+      <div style="margin-top: 1rem; --card-width: clamp(200px, 100%, 350px); display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr)); gap: 16px;">
+
+        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+          <div style="display: flex; gap: 1rem;">
+            <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%; flex: 0 1 auto;">
+
+            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                Punk Rock Anthems
+              </h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                For when you just wanna rock out, have a good time, and feel angsty.
+              </p>
+
+              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+            </article>
+          </div>
+        </sl-button>
+
+
+        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+          <div style="display: flex; gap: 1rem;">
+            <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%;">
+
+            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                Random
+              </h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                Throw it on shuffle, and embrace the chaos.
+              </p>
+
+              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+            </article>
+          </div>
+        </sl-button>
+
+        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+          <div style="display: flex; gap: 1rem;">
+            <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block;">
+
+            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                Classics
+              </h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
+                Timeless songs that you love to relive.
+              </p>
+
+              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+            </article>
+          </div>
+        </sl-button>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem;">
+      <h2>Recent tracks</h2>
+
+      <div style="margin-top: 1rem; max-width: 100%; overflow: auto;">
+        <table style="width: 100%; min-width: 500px; border-spacing: 2px;">
+          <thead>
+            <tr>
+              <th>
+                Release Date
+              </th>
+
+              <th>
+                Name
+              </th>
+
+              <th>
+                Album
+              </th>
+
+              <th>
+                Artist
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+              </td>
+
+              <td>
+                No Strangers to Love
+              </td>
+
+              <td>
+                You Know the Rules
+              </td>
+
+              <td>
+                Rick Barry
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+</sl-layout>

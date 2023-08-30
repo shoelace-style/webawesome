@@ -1,8 +1,13 @@
 /**
- * Turns headings into clickable, deep linkable anchors. The provided doc should be a document object provided by JSDOM.
+ * Turns tables into scrollable tables
  * The same document will be returned with the appropriate DOM manipulations.
  */
 module.exports = function (doc, options) {
+  // We don't want to run this on layouts.
+  if (doc.querySelector("[data-layout='layout-example.njk']")) {
+    return
+  }
+
   const tables = [...doc.querySelectorAll('table')];
 
   options = {

@@ -1,0 +1,241 @@
+{% include "layout-templates/reset.css.njk" %}
+
+main {
+  min-height: 100%;
+  padding: 1rem 2rem;
+}
+
+/* Layout */
+sl-layout {
+  background-color: var(--sl-color-neutral-50);
+  color: var(--sl-color-neutral-800);
+}
+
+
+sl-layout::part(header) {
+  /** Because headers are sticky, this keeps text from leaking through. */
+  background-color: var(--sl-color-neutral-0);
+}
+
+sl-layout[view="mobile"] {
+  background-color: var(--sl-color-neutral-0);
+  --menu-width: 0px;
+}
+
+sl-layout[view="mobile"]::part(header) {
+  padding: 0.25rem;
+  border-bottom: 1px solid var(--sl-color-neutral-300);
+}
+
+sl-layout[view="mobile"]::part(navigation) {
+  display: none;
+}
+
+sl-layout[view="desktop"]::part(main) {
+  padding-top: 1rem;
+}
+
+sl-layout[view="desktop"] {
+  --menu-width: 250px;
+}
+
+
+sl-layout[view="desktop"]::part(navigation) {
+  padding-top: 1.9rem;
+}
+
+sl-layout[view="desktop"] > [slot="header"] {
+  display: none;
+}
+
+sl-layout[view="desktop"]::part(header) {
+  display: none;
+}
+
+sl-layout[view="desktop"] main {
+  background-color: var(--sl-color-neutral-0);
+  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.05);
+  border: 1px solid var(--sl-color-neutral-200);
+  border-top-left-radius: 8px;
+}
+
+/* Navigation / Lists */
+.app-navigation {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.app-navigation__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: "";
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 100%;
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 4px;
+}
+
+.app-navigation__list li {
+  position: relative;
+  padding: 0px 8px;
+}
+
+/* We use a blank marker to work around a safari bug with "list-style-type: none;" */
+.app-navigation__list li::marker {
+  content: "";
+}
+
+.app-navigation__list li.is-active sl-button {
+  --background-color: var(--sl-color-primary-600);
+  --background-color-active: var(--sl-color-primary-700);
+  --text-color: var(--sl-color-neutral-0);
+  --text-color-active: var(--sl-color-neutral-0);
+}
+
+.app-navigation__list li sl-button {
+  --text-color: var(--sl-color-neutral-600);
+}
+
+/* Highlights */
+.highlight {
+  font-size: 0.85em;
+  padding: 0.4em 0.6em;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.highlight--success {
+  background-color: var(--sl-color-success-50);
+  color: var(--sl-color-success-700);
+}
+
+.highlight--danger {
+  background-color: var(--sl-color-danger-50);
+  color: var(--sl-color-danger-700);
+}
+
+/* Text */
+.text--light {
+  color: var(--sl-color-neutral-600);
+}
+
+/* Cards */
+.sl-card--muted::part(base) {
+  --border-color: transparent;
+  background-color: transparent;
+  display: grid;
+  height: 100%;
+  box-shadow: none;
+}
+
+.sl-card--muted::part(body) {
+  display: grid;
+  align-content: flex-end;
+  gap: var(--padding);
+}
+
+/* Buttons */
+.sl-button--card {
+  --border-radius: 8px;
+  --padding: 1rem 0px;
+}
+
+.sl-button--card.sl-button--muted {
+  --background-color: var(--sl-color-neutral-100);
+}
+
+.sl-button--card::part(base) {
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+}
+
+.sl-button--card::part(label) {
+  width: 100%;
+}
+
+.sl-button--muted {
+  --text-color: var(--sl-color-neutral-700);
+  --text-color-active: var(--sl-color-neutral-700);
+  --background-color: transparent;
+  --background-color-active: var(--sl-color-neutral-200);
+  --border-color: transparent;
+  --border-color-active: var(--sl-color-neutral-200);
+}
+
+.sl-button--muted::part(base) {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.sl-button--muted:is(:focus-within)::part(base) {
+  background-color: var(--background-color);
+  color: var(--text-color-active);
+  border-color: var(--border-color-active);
+}
+
+.sl-button--muted:is(:hover)::part(base) {
+  background-color: var(--background-color-active);
+  color: var(--text-color-active);
+  border-color: var(--border-color-active);
+}
+
+.sl-button--logo::part(base) {
+  font-size: 1.5rem;
+  color: var(--sl-color-neutral-700);
+}
+
+.sl-button--square::part(base) {
+  border-radius: 0px;
+}
+
+.sl-button--stretch {
+  width: 100%;
+}
+
+.sl-button--stretch::part(label) {
+  flex: 1 1 auto;
+}
+
+.sl-button--nav-footer {
+  --border-color: var(--sl-color-neutral-300);
+  --sl-spacing-large: 8px;
+}
+
+sl-layout[view="desktop"] .sl-button--nav-footer::part(base) {
+  --border-color: transparent;
+  border-top-color: var(--sl-color-neutral-300);
+}
+
+/* Tables */
+table {
+  max-width: 100%;
+  border: none;
+  border-collapse: collapse;
+  color: inherit;
+}
+
+table tr {
+  border-bottom: 1px solid var(--sl-color-neutral-300);
+}
+
+table th {
+  font-weight: var(--sl-font-weight-semibold);
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+table td {
+  line-height: var(--sl-line-height-normal);
+  padding: 1rem;
+}
+
+* > table {
+  max-width: 100%;
+  overflow-x: auto;
+}

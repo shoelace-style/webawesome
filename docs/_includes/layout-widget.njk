@@ -1,0 +1,92 @@
+<!-- playground-hide -->
+<style>
+  .layout-widget {
+    position: fixed;
+    z-index: 9999;
+    background-color: white;
+    bottom: 4rem;
+    left: 4rem;
+  }
+
+  .layout-widget:not(:defined) {
+    display: none;
+  }
+</style>
+
+<sl-dropdown id="js-layout-widget" class="layout-widget" stay-open-on-select>
+  <sl-button slot="trigger" caret>Dropdown</sl-button>
+  <sl-menu></sl-menu>
+</sl-dropdown>
+
+<script type="module">
+  const layoutWidget = document.querySelector("#js-layout-widget")
+  const docFrag = new DocumentFragment()
+
+  function makeMenuItem (type, slot) {
+    const menuItem = Object.assign(document.createElement("sl-menu-item"), {
+      type: "checkbox",
+      textContent: `${type} ${slot}`
+    })
+
+    menuItem.setAttribute("value", `${type}-${slot}`)
+    return menuItem
+  }
+
+  document.querySelectorAll("sl-layout > [slot]").forEach((el) => {
+    const slot = el.getAttribute("slot");
+    docFrag.append(makeMenuItem("toggle", slot), makeMenuItem("overflow", slot), document.createElement("sl-divider"))
+  })
+
+  docFrag.append(makeMenuItem("toggle", "main"), makeMenuItem("overflow", "main"))
+  layoutWidget.querySelector("sl-menu").append(docFrag)
+
+  function capitalize(string) {
+    return string.split(/\s+/).map((str) => str[0].toUppercase() + str.slice(1)).join(" ")
+  }
+
+  function handleSelect (e) {
+    const item = e.detail.item
+    const val = item.getAttribute("value")
+
+    if (val === "footer-0") {
+
+    }
+
+    const slot = val.split("-").slice(1).join("-")
+
+    let el
+
+    if (slot === "main") {
+      el = document.querySelector(`main`)
+    } else {
+      el = document.querySelector(`sl-layout > [slot='${slot}']`)
+    }
+
+    if (val.startsWith("overflow")) {
+      if (item.checked) {
+        el.textContent = "lorem ".repeat(1_000)
+        return
+      }
+
+      el.textContent = slot
+      return
+    }
+
+    if (val.startsWith("toggle")) {
+      if (item.checked) {
+        el.setAttribute("hidden", "")
+        return
+      }
+
+      el.removeAttribute("hidden")
+      return
+    }
+  }
+
+  layoutWidget.addEventListener("sl-select", handleSelect);
+{% if in_playground %}
+  &lt;/script>
+{% else %}
+  </script>
+{% endif %}
+<!-- playground-hide-end -->

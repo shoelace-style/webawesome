@@ -1,0 +1,22 @@
+<sl-layout main-id="main-content" class="sl-theme-light">
+  <header slot="banner" class="grid banner">
+    Banner
+  </header>
+
+  <header slot="header" class="grid header">Header</header>
+
+  <aside class="grid" slot="menu">Menu</aside>
+
+  <header class="grid" slot="main-header">Inline header</header>
+
+  <main class="grid" id="main-content">
+    <div style="width: 20ch; margin: 0 auto; background-color: white;">Main</div>
+  </main>
+
+  <footer class="grid" slot="main-footer">Inline footer</footer>
+
+  <aside class="grid" slot="aside">Aside</aside>
+  <footer class="grid" slot="footer">Footer</footer>
+</sl-layout>
+
+{% include "layout-widget.njk" %}

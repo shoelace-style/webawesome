@@ -15,7 +15,7 @@
   }
 
   function isSidebarVisible() {
-    return getSidebar().getBoundingClientRect().x >= 0;
+    return getSidebar()?.getBoundingClientRect().x >= 0;
   }
 
   function toggleSidebar(force) {
@@ -24,7 +24,11 @@
   }
 
   function updateInert() {
-    getSidebar().inert = !isSidebarVisible();
+    const sidebar = getSidebar()
+
+    if (sidebar) {
+      sidebar.inert = !isSidebarVisible();
+    }
   }
 
   // Toggle the menu
