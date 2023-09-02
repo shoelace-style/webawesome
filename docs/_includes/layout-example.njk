@@ -42,6 +42,25 @@
       })();
     </script>
 
+    <style>
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+
   </head>
   <body>
     {% block content %}

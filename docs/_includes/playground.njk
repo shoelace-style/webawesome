@@ -1,126 +1,21 @@
-<style>
-  playground-ide {
-    height: 100vh;
-    height: 100dvh;
-    --playground-preview-width: 75%;
-    max-height: 100vh;
-    overflow: hidden;
-  }
-
-  playground-ide::part(preview) {
-    background-color: var(--sl-color-neutral-50);
-    min-height: 100vh;
-    max-height: 100vh;
-  }
-  playground-ide::part(editor) {
-    overflow: auto;
-    height: 100vh;
-    max-height: calc(100vh - var(--playground-preview-height, 44px));
-    max-height: calc(100dvh - var(--playground-preview-height, 44px));
-  }
-
-  body {
-    margin: 0;
-    /* Playgrounds have a weird like 1px overflow I can't track down. */
-    overflow: hidden;
-  }
-</style>
-
 <script type="module">
-  import 'https://esm.run/playground-elements';
-  import * as prettier from "https://unpkg.com/prettier@3.0.2/standalone.mjs";
-  import prettierPluginBabel from "https://unpkg.com/prettier@3.0.2/plugins/babel.mjs";
-  import prettierPluginEstree from "https://unpkg.com/prettier@3.0.2/plugins/estree.mjs";
-  import prettierPluginHtml from "https://unpkg.com/prettier@3.0.2/plugins/html.mjs";
-  import prettierPluginPostCss from "https://unpkg.com/prettier@3.0.2/plugins/postcss.mjs";
-
-  const types = ["html", "css", "js"]
-
-  const [html,css,js] = await Promise.allSettled(types.map(async (type) => {
-    let innerHTML = document.querySelector(`#playground-${type}`).innerHTML
-
-    let parser = type
-    let plugins = {
-      html: [prettierPluginHtml],
-      css: [prettierPluginPostCss],
-      js: [prettierPluginHtml, prettierPluginBabel, prettierPluginEstree]
-    }
-
-    innerHTML = innerHTML.replaceAll("&gt;", ">")
-    innerHTML = innerHTML.replaceAll("&lt;", "<")
-
-    if (type === "js") {
-      parser = "babel"
-    }
-
-    const str = await prettier.format(innerHTML, {
-      parser,
-      plugins: plugins[type],
-    }).catch((err) => {
-      console.error(err)
-    })
-
-    return str
-  }))
-
-
-  const files = {}
-
-  types.forEach((type) => {
-    const filename = `index.${type}`
-
-    files[filename] = {}
-
-    if (type === "html") {
-      files[filename].selected = true
-      files[filename].content = html.value
-    } else if (type === "css") {
-      files[filename].content = css.value
-    } else if (type === "js") {
-      files[filename].content = js.value
-    }
-  })
-
-  // So we can't target the iFrame with CSS parts, so this is a hack to get full height iframe in Chrome.
-  await customElements.whenDefined("playground-ide").then(() => {
-    setTimeout(() => {
-      const ide = document.querySelector("playground-ide")
-
-      const iframe = ide.shadowRoot.querySelector("playground-preview").shadowRoot.querySelector("iframe")
-      iframe.setAttribute("style", "position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; height: 100%; width: 100%;")
-
-      ide.config = {
-        files
-      }
-
-    }, 10)
-  })
+  import "https://esm.run/light-pen"
 </script>
 
-<script id="playground-html" type="text/plain">
-  <!doctype html>
-  <head>
-    <link rel="stylesheet" href="./index.css">
-  </head>
-  <body>
+<light-pen style="height: 100%; padding: 8px;" resize-position="30">
+  <template slot="html">
     {% include html_file %}
+  </template>
 
-    &lt;script type="module" src="./index.js"&gt;&lt;/script&gt;
-  </body>
-</script>
+  <template slot="css">
+    @import "/dist/themes/light.css";
+    @import "/dist/themes/dark.css";
 
-<script id="playground-js" type="text/plain">
-  import { setBasePath } from "/dist/shoelace.js"
-  setBasePath("/dist")
-</script>
+    {% include css_file %}
+  </template>
 
-<script id="playground-css" type="text/plain">
-  @import "/dist/themes/light.css";
-  @import "/dist/themes/dark.css";
-
-  {% include css_file %}
-</script>
-
-<playground-ide line-numbers resizable sandbox-base-url={{ rootUrl("/assets", true) }}>
-</playground-ide>
-
+  <template slot="js">
+    import { setBasePath } from "/dist/shoelace.js";
+    setBasePath("/dist")
+  </template>
+</light-pen>
