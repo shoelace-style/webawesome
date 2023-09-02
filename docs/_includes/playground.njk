@@ -1,21 +1,21 @@
 <script type="module">
-  import "https://esm.run/light-pen"
+  import "https://cdn.jsdelivr.net/npm/light-pen@1.0.1/+esm"
 </script>
 
 <light-pen style="height: 100%; padding: 8px;" resize-position="30">
-  <template slot="html">
-    {% include html_file %}
-  </template>
+  <script type="text/plain" slot="html">
+{% include html_file %}
+  </script>
 
-  <template slot="css">
-    @import "/dist/themes/light.css";
-    @import "/dist/themes/dark.css";
+  <script type="text/plain" slot="css">
+@import "/dist/themes/light.css";
+@import "/dist/themes/dark.css";
 
-    {% include css_file %}
-  </template>
+{% include css_file %}
+  </script>
 
-  <template slot="js">
-    import { setBasePath } from "/dist/shoelace.js";
-    setBasePath("/dist")
-  </template>
+  <script type="text/plain" slot="js">
+import { setBasePath } from "/dist/shoelace.js";
+setBasePath("/dist")
+  </script>
 </light-pen>
