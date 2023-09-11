@@ -1,18 +1,18 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type SlRadio from './radio';
-import type SlRadioGroup from '../radio-group/radio-group';
+import type WaRadio from './radio';
+import type WaRadioGroup from '../radio-group/radio-group';
 
-describe('<sl-radio>', () => {
+describe('<wa-radio>', () => {
   it('should not get checked when disabled', async () => {
-    const radioGroup = await fixture<SlRadioGroup>(html`
-      <sl-radio-group value="1">
-        <sl-radio id="radio-1" value="1"></sl-radio>
-        <sl-radio id="radio-2" value="2" disabled></sl-radio>
-      </sl-radio-group>
+    const radioGroup = await fixture<WaRadioGroup>(html`
+      <wa-radio-group value="1">
+        <wa-radio id="radio-1" value="1"></wa-radio>
+        <wa-radio id="radio-2" value="2" disabled></wa-radio>
+      </wa-radio-group>
     `);
-    const radio1 = radioGroup.querySelector<SlRadio>('#radio-1')!;
-    const radio2 = radioGroup.querySelector<SlRadio>('#radio-2')!;
+    const radio1 = radioGroup.querySelector<WaRadio>('#radio-1')!;
+    const radio2 = radioGroup.querySelector<WaRadio>('#radio-2')!;
 
     radio2.click();
     await Promise.all([radio1.updateComplete, radio2.updateComplete]);

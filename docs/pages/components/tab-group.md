@@ -8,44 +8,44 @@ layout: component
 Tab groups make use of [tabs](/components/tab) and [tab panels](/components/tab-panel). Each tab must be slotted into the `nav` slot and its `panel` must refer to a tab panel of the same name.
 
 ```html:preview
-<sl-tab-group>
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-  <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-  <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+<wa-tab-group>
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-  <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-  <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
+  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup>
-    <SlTab slot="nav" panel="general">
+  <WaTabGroup>
+    <WaTab slot="nav" panel="general">
       General
-    </SlTab>
-    <SlTab slot="nav" panel="custom">
+    </WaTab>
+    <WaTab slot="nav" panel="custom">
       Custom
-    </SlTab>
-    <SlTab slot="nav" panel="advanced">
+    </WaTab>
+    <WaTab slot="nav" panel="advanced">
       Advanced
-    </SlTab>
-    <SlTab slot="nav" panel="disabled" disabled>
+    </WaTab>
+    <WaTab slot="nav" panel="disabled" disabled>
       Disabled
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-    <SlTabPanel name="custom">This is the custom tab panel.</SlTabPanel>
-    <SlTabPanel name="advanced">This is the advanced tab panel.</SlTabPanel>
-    <SlTabPanel name="disabled">This is a disabled tab panel.</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+    <WaTabPanel name="custom">This is the custom tab panel.</WaTabPanel>
+    <WaTabPanel name="advanced">This is the advanced tab panel.</WaTabPanel>
+    <WaTabPanel name="disabled">This is a disabled tab panel.</WaTabPanel>
+  </WaTabGroup>
 );
 ```
 
@@ -56,44 +56,44 @@ const App = () => (
 Tabs can be shown on the bottom by setting `placement` to `bottom`.
 
 ```html:preview
-<sl-tab-group placement="bottom">
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-  <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-  <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+<wa-tab-group placement="bottom">
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-  <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-  <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
+  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup placement="bottom">
-    <SlTab slot="nav" panel="general">
+  <WaTabGroup placement="bottom">
+    <WaTab slot="nav" panel="general">
       General
-    </SlTab>
-    <SlTab slot="nav" panel="custom">
+    </WaTab>
+    <WaTab slot="nav" panel="custom">
       Custom
-    </SlTab>
-    <SlTab slot="nav" panel="advanced">
+    </WaTab>
+    <WaTab slot="nav" panel="advanced">
       Advanced
-    </SlTab>
-    <SlTab slot="nav" panel="disabled" disabled>
+    </WaTab>
+    <WaTab slot="nav" panel="disabled" disabled>
       Disabled
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-    <SlTabPanel name="custom">This is the custom tab panel.</SlTabPanel>
-    <SlTabPanel name="advanced">This is the advanced tab panel.</SlTabPanel>
-    <SlTabPanel name="disabled">This is a disabled tab panel.</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+    <WaTabPanel name="custom">This is the custom tab panel.</WaTabPanel>
+    <WaTabPanel name="advanced">This is the advanced tab panel.</WaTabPanel>
+    <WaTabPanel name="disabled">This is a disabled tab panel.</WaTabPanel>
+  </WaTabGroup>
 );
 ```
 
@@ -102,44 +102,44 @@ const App = () => (
 Tabs can be shown on the starting side by setting `placement` to `start`.
 
 ```html:preview
-<sl-tab-group placement="start">
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-  <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-  <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+<wa-tab-group placement="start">
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-  <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-  <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
+  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup placement="start">
-    <SlTab slot="nav" panel="general">
+  <WaTabGroup placement="start">
+    <WaTab slot="nav" panel="general">
       General
-    </SlTab>
-    <SlTab slot="nav" panel="custom">
+    </WaTab>
+    <WaTab slot="nav" panel="custom">
       Custom
-    </SlTab>
-    <SlTab slot="nav" panel="advanced">
+    </WaTab>
+    <WaTab slot="nav" panel="advanced">
       Advanced
-    </SlTab>
-    <SlTab slot="nav" panel="disabled" disabled>
+    </WaTab>
+    <WaTab slot="nav" panel="disabled" disabled>
       Disabled
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-    <SlTabPanel name="custom">This is the custom tab panel.</SlTabPanel>
-    <SlTabPanel name="advanced">This is the advanced tab panel.</SlTabPanel>
-    <SlTabPanel name="disabled">This is a disabled tab panel.</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+    <WaTabPanel name="custom">This is the custom tab panel.</WaTabPanel>
+    <WaTabPanel name="advanced">This is the advanced tab panel.</WaTabPanel>
+    <WaTabPanel name="disabled">This is a disabled tab panel.</WaTabPanel>
+  </WaTabGroup>
 );
 ```
 
@@ -148,44 +148,44 @@ const App = () => (
 Tabs can be shown on the ending side by setting `placement` to `end`.
 
 ```html:preview
-<sl-tab-group placement="end">
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-  <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-  <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+<wa-tab-group placement="end">
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-  <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-  <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
+  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup placement="end">
-    <SlTab slot="nav" panel="general">
+  <WaTabGroup placement="end">
+    <WaTab slot="nav" panel="general">
       General
-    </SlTab>
-    <SlTab slot="nav" panel="custom">
+    </WaTab>
+    <WaTab slot="nav" panel="custom">
       Custom
-    </SlTab>
-    <SlTab slot="nav" panel="advanced">
+    </WaTab>
+    <WaTab slot="nav" panel="advanced">
       Advanced
-    </SlTab>
-    <SlTab slot="nav" panel="disabled" disabled>
+    </WaTab>
+    <WaTab slot="nav" panel="disabled" disabled>
       Disabled
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-    <SlTabPanel name="custom">This is the custom tab panel.</SlTabPanel>
-    <SlTabPanel name="advanced">This is the advanced tab panel.</SlTabPanel>
-    <SlTabPanel name="disabled">This is a disabled tab panel.</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+    <WaTabPanel name="custom">This is the custom tab panel.</WaTabPanel>
+    <WaTabPanel name="advanced">This is the advanced tab panel.</WaTabPanel>
+    <WaTabPanel name="disabled">This is a disabled tab panel.</WaTabPanel>
+  </WaTabGroup>
 );
 ```
 
@@ -194,24 +194,24 @@ const App = () => (
 Add the `closable` attribute to a tab to show a close button. This example shows how you can dynamically remove tabs from the DOM when the close button is activated.
 
 ```html:preview
-<sl-tab-group class="tabs-closable">
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="closable-1" closable>Closable 1</sl-tab>
-  <sl-tab slot="nav" panel="closable-2" closable>Closable 2</sl-tab>
-  <sl-tab slot="nav" panel="closable-3" closable>Closable 3</sl-tab>
+<wa-tab-group class="tabs-closable">
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="closable-1" closable>Closable 1</wa-tab>
+  <wa-tab slot="nav" panel="closable-2" closable>Closable 2</wa-tab>
+  <wa-tab slot="nav" panel="closable-3" closable>Closable 3</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="closable-1">This is the first closable tab panel.</sl-tab-panel>
-  <sl-tab-panel name="closable-2">This is the second closable tab panel.</sl-tab-panel>
-  <sl-tab-panel name="closable-3">This is the third closable tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="closable-1">This is the first closable tab panel.</wa-tab-panel>
+  <wa-tab-panel name="closable-2">This is the second closable tab panel.</wa-tab-panel>
+  <wa-tab-panel name="closable-3">This is the third closable tab panel.</wa-tab-panel>
+</wa-tab-group>
 
 <script>
   const tabGroup = document.querySelector('.tabs-closable');
 
-  tabGroup.addEventListener('sl-close', async event => {
+  tabGroup.addEventListener('wa-close', async event => {
     const tab = event.target;
-    const panel = tabGroup.querySelector(`sl-tab-panel[name="${tab.panel}"]`);
+    const panel = tabGroup.querySelector(`wa-tab-panel[name="${tab.panel}"]`);
 
     // Show the previous tab if the tab is currently active
     if (tab.active) {
@@ -226,9 +226,9 @@ Add the `closable` attribute to a tab to show a close button. This example shows
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => {
   function handleClose(event) {
@@ -238,7 +238,7 @@ const App = () => {
     // would significantly complicate the example.
     //
     const tab = event.target;
-    const tabGroup = tab.closest('sl-tab-group');
+    const tabGroup = tab.closest('wa-tab-group');
     const tabPanel = tabGroup.querySelector(`[aria-labelledby="${tab.id}"]`);
 
     tab.remove();
@@ -246,25 +246,25 @@ const App = () => {
   }
 
   return (
-    <SlTabGroup className="tabs-closable" onSlClose={handleClose}>
-      <SlTab slot="nav" panel="general">
+    <WaTabGroup className="tabs-closable" onWaClose={handleClose}>
+      <WaTab slot="nav" panel="general">
         General
-      </SlTab>
-      <SlTab slot="nav" panel="closable-1" closable onSlClose={handleClose}>
+      </WaTab>
+      <WaTab slot="nav" panel="closable-1" closable onWaClose={handleClose}>
         Closable 1
-      </SlTab>
-      <SlTab slot="nav" panel="closable-2" closable onSlClose={handleClose}>
+      </WaTab>
+      <WaTab slot="nav" panel="closable-2" closable onWaClose={handleClose}>
         Closable 2
-      </SlTab>
-      <SlTab slot="nav" panel="closable-3" closable onSlClose={handleClose}>
+      </WaTab>
+      <WaTab slot="nav" panel="closable-3" closable onWaClose={handleClose}>
         Closable 3
-      </SlTab>
+      </WaTab>
 
-      <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-      <SlTabPanel name="closable-1">This is the first closable tab panel.</SlTabPanel>
-      <SlTabPanel name="closable-2">This is the second closable tab panel.</SlTabPanel>
-      <SlTabPanel name="closable-3">This is the third closable tab panel.</SlTabPanel>
-    </SlTabGroup>
+      <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+      <WaTabPanel name="closable-1">This is the first closable tab panel.</WaTabPanel>
+      <WaTabPanel name="closable-2">This is the second closable tab panel.</WaTabPanel>
+      <WaTabPanel name="closable-3">This is the third closable tab panel.</WaTabPanel>
+    </WaTabGroup>
   );
 };
 ```
@@ -274,140 +274,140 @@ const App = () => {
 When there are more tabs than horizontal space allows, the nav will be scrollable.
 
 ```html:preview
-<sl-tab-group>
-  <sl-tab slot="nav" panel="tab-1">Tab 1</sl-tab>
-  <sl-tab slot="nav" panel="tab-2">Tab 2</sl-tab>
-  <sl-tab slot="nav" panel="tab-3">Tab 3</sl-tab>
-  <sl-tab slot="nav" panel="tab-4">Tab 4</sl-tab>
-  <sl-tab slot="nav" panel="tab-5">Tab 5</sl-tab>
-  <sl-tab slot="nav" panel="tab-6">Tab 6</sl-tab>
-  <sl-tab slot="nav" panel="tab-7">Tab 7</sl-tab>
-  <sl-tab slot="nav" panel="tab-8">Tab 8</sl-tab>
-  <sl-tab slot="nav" panel="tab-9">Tab 9</sl-tab>
-  <sl-tab slot="nav" panel="tab-10">Tab 10</sl-tab>
-  <sl-tab slot="nav" panel="tab-11">Tab 11</sl-tab>
-  <sl-tab slot="nav" panel="tab-12">Tab 12</sl-tab>
-  <sl-tab slot="nav" panel="tab-13">Tab 13</sl-tab>
-  <sl-tab slot="nav" panel="tab-14">Tab 14</sl-tab>
-  <sl-tab slot="nav" panel="tab-15">Tab 15</sl-tab>
-  <sl-tab slot="nav" panel="tab-16">Tab 16</sl-tab>
-  <sl-tab slot="nav" panel="tab-17">Tab 17</sl-tab>
-  <sl-tab slot="nav" panel="tab-18">Tab 18</sl-tab>
-  <sl-tab slot="nav" panel="tab-19">Tab 19</sl-tab>
-  <sl-tab slot="nav" panel="tab-20">Tab 20</sl-tab>
+<wa-tab-group>
+  <wa-tab slot="nav" panel="tab-1">Tab 1</wa-tab>
+  <wa-tab slot="nav" panel="tab-2">Tab 2</wa-tab>
+  <wa-tab slot="nav" panel="tab-3">Tab 3</wa-tab>
+  <wa-tab slot="nav" panel="tab-4">Tab 4</wa-tab>
+  <wa-tab slot="nav" panel="tab-5">Tab 5</wa-tab>
+  <wa-tab slot="nav" panel="tab-6">Tab 6</wa-tab>
+  <wa-tab slot="nav" panel="tab-7">Tab 7</wa-tab>
+  <wa-tab slot="nav" panel="tab-8">Tab 8</wa-tab>
+  <wa-tab slot="nav" panel="tab-9">Tab 9</wa-tab>
+  <wa-tab slot="nav" panel="tab-10">Tab 10</wa-tab>
+  <wa-tab slot="nav" panel="tab-11">Tab 11</wa-tab>
+  <wa-tab slot="nav" panel="tab-12">Tab 12</wa-tab>
+  <wa-tab slot="nav" panel="tab-13">Tab 13</wa-tab>
+  <wa-tab slot="nav" panel="tab-14">Tab 14</wa-tab>
+  <wa-tab slot="nav" panel="tab-15">Tab 15</wa-tab>
+  <wa-tab slot="nav" panel="tab-16">Tab 16</wa-tab>
+  <wa-tab slot="nav" panel="tab-17">Tab 17</wa-tab>
+  <wa-tab slot="nav" panel="tab-18">Tab 18</wa-tab>
+  <wa-tab slot="nav" panel="tab-19">Tab 19</wa-tab>
+  <wa-tab slot="nav" panel="tab-20">Tab 20</wa-tab>
 
-  <sl-tab-panel name="tab-1">Tab panel 1</sl-tab-panel>
-  <sl-tab-panel name="tab-2">Tab panel 2</sl-tab-panel>
-  <sl-tab-panel name="tab-3">Tab panel 3</sl-tab-panel>
-  <sl-tab-panel name="tab-4">Tab panel 4</sl-tab-panel>
-  <sl-tab-panel name="tab-5">Tab panel 5</sl-tab-panel>
-  <sl-tab-panel name="tab-6">Tab panel 6</sl-tab-panel>
-  <sl-tab-panel name="tab-7">Tab panel 7</sl-tab-panel>
-  <sl-tab-panel name="tab-8">Tab panel 8</sl-tab-panel>
-  <sl-tab-panel name="tab-9">Tab panel 9</sl-tab-panel>
-  <sl-tab-panel name="tab-10">Tab panel 10</sl-tab-panel>
-  <sl-tab-panel name="tab-11">Tab panel 11</sl-tab-panel>
-  <sl-tab-panel name="tab-12">Tab panel 12</sl-tab-panel>
-  <sl-tab-panel name="tab-13">Tab panel 13</sl-tab-panel>
-  <sl-tab-panel name="tab-14">Tab panel 14</sl-tab-panel>
-  <sl-tab-panel name="tab-15">Tab panel 15</sl-tab-panel>
-  <sl-tab-panel name="tab-16">Tab panel 16</sl-tab-panel>
-  <sl-tab-panel name="tab-17">Tab panel 17</sl-tab-panel>
-  <sl-tab-panel name="tab-18">Tab panel 18</sl-tab-panel>
-  <sl-tab-panel name="tab-19">Tab panel 19</sl-tab-panel>
-  <sl-tab-panel name="tab-20">Tab panel 20</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="tab-1">Tab panel 1</wa-tab-panel>
+  <wa-tab-panel name="tab-2">Tab panel 2</wa-tab-panel>
+  <wa-tab-panel name="tab-3">Tab panel 3</wa-tab-panel>
+  <wa-tab-panel name="tab-4">Tab panel 4</wa-tab-panel>
+  <wa-tab-panel name="tab-5">Tab panel 5</wa-tab-panel>
+  <wa-tab-panel name="tab-6">Tab panel 6</wa-tab-panel>
+  <wa-tab-panel name="tab-7">Tab panel 7</wa-tab-panel>
+  <wa-tab-panel name="tab-8">Tab panel 8</wa-tab-panel>
+  <wa-tab-panel name="tab-9">Tab panel 9</wa-tab-panel>
+  <wa-tab-panel name="tab-10">Tab panel 10</wa-tab-panel>
+  <wa-tab-panel name="tab-11">Tab panel 11</wa-tab-panel>
+  <wa-tab-panel name="tab-12">Tab panel 12</wa-tab-panel>
+  <wa-tab-panel name="tab-13">Tab panel 13</wa-tab-panel>
+  <wa-tab-panel name="tab-14">Tab panel 14</wa-tab-panel>
+  <wa-tab-panel name="tab-15">Tab panel 15</wa-tab-panel>
+  <wa-tab-panel name="tab-16">Tab panel 16</wa-tab-panel>
+  <wa-tab-panel name="tab-17">Tab panel 17</wa-tab-panel>
+  <wa-tab-panel name="tab-18">Tab panel 18</wa-tab-panel>
+  <wa-tab-panel name="tab-19">Tab panel 19</wa-tab-panel>
+  <wa-tab-panel name="tab-20">Tab panel 20</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup>
-    <SlTab slot="nav" panel="tab-1">
+  <WaTabGroup>
+    <WaTab slot="nav" panel="tab-1">
       Tab 1
-    </SlTab>
-    <SlTab slot="nav" panel="tab-2">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-2">
       Tab 2
-    </SlTab>
-    <SlTab slot="nav" panel="tab-3">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-3">
       Tab 3
-    </SlTab>
-    <SlTab slot="nav" panel="tab-4">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-4">
       Tab 4
-    </SlTab>
-    <SlTab slot="nav" panel="tab-5">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-5">
       Tab 5
-    </SlTab>
-    <SlTab slot="nav" panel="tab-6">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-6">
       Tab 6
-    </SlTab>
-    <SlTab slot="nav" panel="tab-7">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-7">
       Tab 7
-    </SlTab>
-    <SlTab slot="nav" panel="tab-8">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-8">
       Tab 8
-    </SlTab>
-    <SlTab slot="nav" panel="tab-9">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-9">
       Tab 9
-    </SlTab>
-    <SlTab slot="nav" panel="tab-10">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-10">
       Tab 10
-    </SlTab>
-    <SlTab slot="nav" panel="tab-11">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-11">
       Tab 11
-    </SlTab>
-    <SlTab slot="nav" panel="tab-12">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-12">
       Tab 12
-    </SlTab>
-    <SlTab slot="nav" panel="tab-13">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-13">
       Tab 13
-    </SlTab>
-    <SlTab slot="nav" panel="tab-14">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-14">
       Tab 14
-    </SlTab>
-    <SlTab slot="nav" panel="tab-15">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-15">
       Tab 15
-    </SlTab>
-    <SlTab slot="nav" panel="tab-16">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-16">
       Tab 16
-    </SlTab>
-    <SlTab slot="nav" panel="tab-17">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-17">
       Tab 17
-    </SlTab>
-    <SlTab slot="nav" panel="tab-18">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-18">
       Tab 18
-    </SlTab>
-    <SlTab slot="nav" panel="tab-19">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-19">
       Tab 19
-    </SlTab>
-    <SlTab slot="nav" panel="tab-20">
+    </WaTab>
+    <WaTab slot="nav" panel="tab-20">
       Tab 20
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="tab-1">Tab panel 1</SlTabPanel>
-    <SlTabPanel name="tab-2">Tab panel 2</SlTabPanel>
-    <SlTabPanel name="tab-3">Tab panel 3</SlTabPanel>
-    <SlTabPanel name="tab-4">Tab panel 4</SlTabPanel>
-    <SlTabPanel name="tab-5">Tab panel 5</SlTabPanel>
-    <SlTabPanel name="tab-6">Tab panel 6</SlTabPanel>
-    <SlTabPanel name="tab-7">Tab panel 7</SlTabPanel>
-    <SlTabPanel name="tab-8">Tab panel 8</SlTabPanel>
-    <SlTabPanel name="tab-9">Tab panel 9</SlTabPanel>
-    <SlTabPanel name="tab-10">Tab panel 10</SlTabPanel>
-    <SlTabPanel name="tab-11">Tab panel 11</SlTabPanel>
-    <SlTabPanel name="tab-12">Tab panel 12</SlTabPanel>
-    <SlTabPanel name="tab-13">Tab panel 13</SlTabPanel>
-    <SlTabPanel name="tab-14">Tab panel 14</SlTabPanel>
-    <SlTabPanel name="tab-15">Tab panel 15</SlTabPanel>
-    <SlTabPanel name="tab-16">Tab panel 16</SlTabPanel>
-    <SlTabPanel name="tab-17">Tab panel 17</SlTabPanel>
-    <SlTabPanel name="tab-18">Tab panel 18</SlTabPanel>
-    <SlTabPanel name="tab-19">Tab panel 19</SlTabPanel>
-    <SlTabPanel name="tab-20">Tab panel 20</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="tab-1">Tab panel 1</WaTabPanel>
+    <WaTabPanel name="tab-2">Tab panel 2</WaTabPanel>
+    <WaTabPanel name="tab-3">Tab panel 3</WaTabPanel>
+    <WaTabPanel name="tab-4">Tab panel 4</WaTabPanel>
+    <WaTabPanel name="tab-5">Tab panel 5</WaTabPanel>
+    <WaTabPanel name="tab-6">Tab panel 6</WaTabPanel>
+    <WaTabPanel name="tab-7">Tab panel 7</WaTabPanel>
+    <WaTabPanel name="tab-8">Tab panel 8</WaTabPanel>
+    <WaTabPanel name="tab-9">Tab panel 9</WaTabPanel>
+    <WaTabPanel name="tab-10">Tab panel 10</WaTabPanel>
+    <WaTabPanel name="tab-11">Tab panel 11</WaTabPanel>
+    <WaTabPanel name="tab-12">Tab panel 12</WaTabPanel>
+    <WaTabPanel name="tab-13">Tab panel 13</WaTabPanel>
+    <WaTabPanel name="tab-14">Tab panel 14</WaTabPanel>
+    <WaTabPanel name="tab-15">Tab panel 15</WaTabPanel>
+    <WaTabPanel name="tab-16">Tab panel 16</WaTabPanel>
+    <WaTabPanel name="tab-17">Tab panel 17</WaTabPanel>
+    <WaTabPanel name="tab-18">Tab panel 18</WaTabPanel>
+    <WaTabPanel name="tab-19">Tab panel 19</WaTabPanel>
+    <WaTabPanel name="tab-20">Tab panel 20</WaTabPanel>
+  </WaTabGroup>
 );
 ```
 
@@ -416,43 +416,43 @@ const App = () => (
 When focused, keyboard users can press [[Left]] or [[Right]] to select the desired tab. By default, the corresponding tab panel will be shown immediately (automatic activation). You can change this behavior by setting `activation="manual"` which will require the user to press [[Space]] or [[Enter]] before showing the tab panel (manual activation).
 
 ```html:preview
-<sl-tab-group activation="manual">
-  <sl-tab slot="nav" panel="general">General</sl-tab>
-  <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-  <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-  <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+<wa-tab-group activation="manual">
+  <wa-tab slot="nav" panel="general">General</wa-tab>
+  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
 
-  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-  <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-  <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-  <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-</sl-tab-group>
+  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
+  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
+</wa-tab-group>
 ```
 
 ```jsx:react
-import SlTab from '@shoelace-style/shoelace/dist/react/tab';
-import SlTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
-import SlTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
+import WaTab from '@shoelace-style/shoelace/dist/react/tab';
+import WaTabGroup from '@shoelace-style/shoelace/dist/react/tab-group';
+import WaTabPanel from '@shoelace-style/shoelace/dist/react/tab-panel';
 
 const App = () => (
-  <SlTabGroup activation="manual">
-    <SlTab slot="nav" panel="general">
+  <WaTabGroup activation="manual">
+    <WaTab slot="nav" panel="general">
       General
-    </SlTab>
-    <SlTab slot="nav" panel="custom">
+    </WaTab>
+    <WaTab slot="nav" panel="custom">
       Custom
-    </SlTab>
-    <SlTab slot="nav" panel="advanced">
+    </WaTab>
+    <WaTab slot="nav" panel="advanced">
       Advanced
-    </SlTab>
-    <SlTab slot="nav" panel="disabled" disabled>
+    </WaTab>
+    <WaTab slot="nav" panel="disabled" disabled>
       Disabled
-    </SlTab>
+    </WaTab>
 
-    <SlTabPanel name="general">This is the general tab panel.</SlTabPanel>
-    <SlTabPanel name="custom">This is the custom tab panel.</SlTabPanel>
-    <SlTabPanel name="advanced">This is the advanced tab panel.</SlTabPanel>
-    <SlTabPanel name="disabled">This is a disabled tab panel.</SlTabPanel>
-  </SlTabGroup>
+    <WaTabPanel name="general">This is the general tab panel.</WaTabPanel>
+    <WaTabPanel name="custom">This is the custom tab panel.</WaTabPanel>
+    <WaTabPanel name="advanced">This is the advanced tab panel.</WaTabPanel>
+    <WaTabPanel name="disabled">This is a disabled tab panel.</WaTabPanel>
+  </WaTabGroup>
 );
 ```

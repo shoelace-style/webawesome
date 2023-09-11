@@ -6,39 +6,39 @@ layout: component
 ---
 
 ```html:preview
-<sl-menu style="max-width: 200px;">
-  <sl-menu-label>Fruits</sl-menu-label>
-  <sl-menu-item value="apple">Apple</sl-menu-item>
-  <sl-menu-item value="banana">Banana</sl-menu-item>
-  <sl-menu-item value="orange">Orange</sl-menu-item>
-  <sl-divider></sl-divider>
-  <sl-menu-label>Vegetables</sl-menu-label>
-  <sl-menu-item value="broccoli">Broccoli</sl-menu-item>
-  <sl-menu-item value="carrot">Carrot</sl-menu-item>
-  <sl-menu-item value="zucchini">Zucchini</sl-menu-item>
-</sl-menu>
+<wa-menu style="max-width: 200px;">
+  <wa-menu-label>Fruits</wa-menu-label>
+  <wa-menu-item value="apple">Apple</wa-menu-item>
+  <wa-menu-item value="banana">Banana</wa-menu-item>
+  <wa-menu-item value="orange">Orange</wa-menu-item>
+  <wa-divider></wa-divider>
+  <wa-menu-label>Vegetables</wa-menu-label>
+  <wa-menu-item value="broccoli">Broccoli</wa-menu-item>
+  <wa-menu-item value="carrot">Carrot</wa-menu-item>
+  <wa-menu-item value="zucchini">Zucchini</wa-menu-item>
+</wa-menu>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuLabel from '@shoelace-style/shoelace/dist/react/menu-label';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuLabel from '@shoelace-style/shoelace/dist/react/menu-label';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlMenu style={{ maxWidth: '200px' }}>
-    <SlMenuLabel>Fruits</SlMenuLabel>
-    <SlMenuItem value="apple">Apple</SlMenuItem>
-    <SlMenuItem value="banana">Banana</SlMenuItem>
-    <SlMenuItem value="orange">Orange</SlMenuItem>
-    <SlDivider />
-    <SlMenuLabel>Vegetables</SlMenuLabel>
-    <SlMenuItem value="broccoli">Broccoli</SlMenuItem>
-    <SlMenuItem value="carrot">Carrot</SlMenuItem>
-    <SlMenuItem value="zucchini">Zucchini</SlMenuItem>
-  </SlMenu>
+  <WaMenu style={{ maxWidth: '200px' }}>
+    <WaMenuLabel>Fruits</WaMenuLabel>
+    <WaMenuItem value="apple">Apple</WaMenuItem>
+    <WaMenuItem value="banana">Banana</WaMenuItem>
+    <WaMenuItem value="orange">Orange</WaMenuItem>
+    <WaDivider />
+    <WaMenuLabel>Vegetables</WaMenuLabel>
+    <WaMenuItem value="broccoli">Broccoli</WaMenuItem>
+    <WaMenuItem value="carrot">Carrot</WaMenuItem>
+    <WaMenuItem value="zucchini">Zucchini</WaMenuItem>
+  </WaMenu>
 );
 ```
 

@@ -2,9 +2,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html, literal } from 'lit/static-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property, query, state } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './icon-button.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,16 +13,16 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
- * @event sl-blur - Emitted when the icon button loses focus.
- * @event sl-focus - Emitted when the icon button gains focus.
+ * @event wa-blur - Emitted when the icon button loses focus.
+ * @event wa-focus - Emitted when the icon button gains focus.
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlIconButton extends ShoelaceElement {
+export default class WaIconButton extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   @query('.icon-button') button: HTMLButtonElement | HTMLLinkElement;
 
@@ -60,12 +60,12 @@ export default class SlIconButton extends ShoelaceElement {
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   private handleClick(event: MouseEvent) {
@@ -117,13 +117,13 @@ export default class SlIconButton extends ShoelaceElement {
         @focus=${this.handleFocus}
         @click=${this.handleClick}
       >
-        <sl-icon
+        <wa-icon
           class="icon-button__icon"
           name=${ifDefined(this.name)}
           library=${ifDefined(this.library)}
           src=${ifDefined(this.src)}
           aria-hidden="true"
-        ></sl-icon>
+        ></wa-icon>
       </${tag}>
     `;
   }

@@ -1,8 +1,8 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './card.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -27,7 +27,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --border-width - The width of the card's borders.
  * @cssproperty --padding - The padding to use for the card's sections.
  */
-export default class SlCard extends ShoelaceElement {
+export default class WaCard extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');

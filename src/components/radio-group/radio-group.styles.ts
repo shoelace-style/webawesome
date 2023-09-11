@@ -22,8 +22,8 @@ export default css`
   }
 
   .radio-group--required .radio-group__label::after {
-    content: var(--sl-input-required-content);
-    margin-inline-start: var(--sl-input-required-content-offset);
+    content: var(--wa-form-controls-required-content);
+    margin-inline-start: var(--wa-form-controls-required-content-offset);
   }
 
   .visually-hidden {

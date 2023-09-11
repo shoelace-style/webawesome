@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './spinner.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -17,7 +17,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --indicator-color - The color of the spinner's indicator.
  * @cssproperty --speed - The time it takes for the spinner to complete one animation cycle.
  */
-export default class SlSpinner extends ShoelaceElement {
+export default class WaSpinner extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private readonly localize = new LocalizeController(this);

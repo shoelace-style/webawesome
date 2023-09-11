@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --arrow-color: var(--sl-color-neutral-1000);
-    --arrow-size: 6px;
+    --arrow-color: var(--wa-color-black);
+    --arrow-size: var(--wa-tooltip-arrow-size);
 
     /*
      * These properties are computed to account for the arrow's dimensions after being rotated 45º. The constant

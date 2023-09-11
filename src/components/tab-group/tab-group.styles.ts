@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --indicator-color: var(--sl-color-primary-600);
-    --track-color: var(--sl-color-neutral-200);
+    --indicator-color: var(--wa-color-brand-fill-vivid);
+    --track-color: var(--wa-color-neutral-fill-muted-alt);
     --track-width: 2px;
 
     display: block;
@@ -24,12 +24,12 @@ export default css`
 
   .tab-group__indicator {
     position: absolute;
-    transition: var(--sl-transition-fast) translate ease, var(--sl-transition-fast) width ease;
+    transition: var(--wa-transition-fast) translate ease, var(--wa-transition-fast) width ease;
   }
 
   .tab-group--has-scroll-controls .tab-group__nav-container {
     position: relative;
-    padding: 0 var(--sl-spacing-x-large);
+    padding: 0 var(--wa-space-xl);
   }
 
   .tab-group__body {
@@ -44,7 +44,7 @@ export default css`
     position: absolute;
     top: 0;
     bottom: 0;
-    width: var(--sl-spacing-x-large);
+    width: var(--wa-space-xl);
   }
 
   .tab-group__scroll-button--start {
@@ -107,8 +107,8 @@ export default css`
     order: 2;
   }
 
-  .tab-group--top ::slotted(sl-tab-panel) {
-    --padding: var(--sl-spacing-medium) 0;
+  .tab-group--top ::slotted(wa-tab-panel) {
+    --padding: var(--wa-space-m) 0;
   }
 
   /*
@@ -153,8 +153,8 @@ export default css`
     order: 1;
   }
 
-  .tab-group--bottom ::slotted(sl-tab-panel) {
-    --padding: var(--sl-spacing-medium) 0;
+  .tab-group--bottom ::slotted(wa-tab-panel) {
+    --padding: var(--wa-space-m) 0;
   }
 
   /*
@@ -190,8 +190,8 @@ export default css`
     order: 2;
   }
 
-  .tab-group--start ::slotted(sl-tab-panel) {
-    --padding: 0 var(--sl-spacing-medium);
+  .tab-group--start ::slotted(wa-tab-panel) {
+    --padding: 0 var(--wa-space-m);
   }
 
   /*
@@ -227,7 +227,7 @@ export default css`
     order: 1;
   }
 
-  .tab-group--end ::slotted(sl-tab-panel) {
-    --padding: 0 var(--sl-spacing-medium);
+  .tab-group--end ::slotted(wa-tab-panel) {
+    --padding: 0 var(--wa-space-m);
   }
 `;

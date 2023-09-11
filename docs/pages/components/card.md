@@ -6,7 +6,7 @@ layout: component
 ---
 
 ```html:preview
-<sl-card class="card-overview">
+<wa-card class="card-overview">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -18,10 +18,10 @@ layout: component
   <small>6 weeks old</small>
 
   <div slot="footer">
-    <sl-button variant="primary" pill>More Info</sl-button>
-    <sl-rating></sl-rating>
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
   </div>
-</sl-card>
+</wa-card>
 
 <style>
   .card-overview {
@@ -29,7 +29,7 @@ layout: component
   }
 
   .card-overview small {
-    color: var(--sl-color-neutral-500);
+    color: var(--wa-color-text-quiet);
   }
 
   .card-overview [slot='footer'] {
@@ -41,9 +41,9 @@ layout: component
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlCard from '@shoelace-style/shoelace/dist/react/card';
-import SlRating from '@shoelace-style/shoelace/dist/react/rating';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaCard from '@shoelace-style/shoelace/dist/react/card';
+import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 
 const css = `
   .card-overview {
@@ -51,7 +51,7 @@ const css = `
   }
 
   .card-overview small {
-    color: var(--sl-color-neutral-500);
+    color: var(--wa-color-text-quiet);
   }
 
   .card-overview [slot="footer"] {
@@ -63,7 +63,7 @@ const css = `
 
 const App = () => (
   <>
-    <SlCard className="card-overview">
+    <WaCard className="card-overview">
       <img
         slot="image"
         src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -75,12 +75,12 @@ const App = () => (
       <br />
       <small>6 weeks old</small>
       <div slot="footer">
-        <SlButton variant="primary" pill>
+        <WaButton variant="brand" pill>
           More Info
-        </SlButton>
-        <SlRating></SlRating>
+        </WaButton>
+        <WaRating></WaRating>
       </div>
-    </SlCard>
+    </WaCard>
 
     <style>{css}</style>
   </>
@@ -94,9 +94,9 @@ const App = () => (
 Basic cards aren't very exciting, but they can display any content you want them to.
 
 ```html:preview
-<sl-card class="card-basic">
+<wa-card class="card-basic">
   This is just a basic card. No image, no header, and no footer. Just your content.
-</sl-card>
+</wa-card>
 
 <style>
   .card-basic {
@@ -106,7 +106,7 @@ Basic cards aren't very exciting, but they can display any content you want them
 ```
 
 ```jsx:react
-import SlCard from '@shoelace-style/shoelace/dist/react/card';
+import WaCard from '@shoelace-style/shoelace/dist/react/card';
 
 const css = `
   .card-basic {
@@ -116,9 +116,9 @@ const css = `
 
 const App = () => (
   <>
-    <SlCard className="card-basic">
+    <WaCard className="card-basic">
       This is just a basic card. No image, no header, and no footer. Just your content.
-    </SlCard>
+    </WaCard>
 
     <style>{css}</style>
   </>
@@ -130,14 +130,14 @@ const App = () => (
 Headers can be used to display titles and more.
 
 ```html:preview
-<sl-card class="card-header">
+<wa-card class="card-header">
   <div slot="header">
     Header Title
-    <sl-icon-button name="gear" label="Settings"></sl-icon-button>
+    <wa-icon-button name="gear" label="Settings"></wa-icon-button>
   </div>
 
   This card has a header. You can put all sorts of things in it!
-</sl-card>
+</wa-card>
 
 <style>
   .card-header {
@@ -154,15 +154,15 @@ Headers can be used to display titles and more.
     margin: 0;
   }
 
-  .card-header sl-icon-button {
-    font-size: var(--sl-font-size-medium);
+  .card-header wa-icon-button {
+    font-size: var(--wa-font-size-m);
   }
 </style>
 ```
 
 ```jsx:react
-import SlCard from '@shoelace-style/shoelace/dist/react/card';
-import SlIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
+import WaCard from '@shoelace-style/shoelace/dist/react/card';
+import WaIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
 
 const css = `
   .card-header {
@@ -179,20 +179,20 @@ const css = `
     margin: 0;
   }
 
-  .card-header sl-icon-button {
-    font-size: var(--sl-font-size-medium);
+  .card-header wa-icon-button {
+    font-size: var(--wa-font-size-m);
   }
 `;
 
 const App = () => (
   <>
-    <SlCard className="card-header">
+    <WaCard className="card-header">
       <div slot="header">
         Header Title
-        <SlIconButton name="gear"></SlIconButton>
+        <WaIconButton name="gear"></WaIconButton>
       </div>
       This card has a header. You can put all sorts of things in it!
-    </SlCard>
+    </WaCard>
 
     <style>{css}</style>
   </>
@@ -204,14 +204,14 @@ const App = () => (
 Footers can be used to display actions, summaries, or other relevant content.
 
 ```html:preview
-<sl-card class="card-footer">
+<wa-card class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
   <div slot="footer">
-    <sl-rating></sl-rating>
-    <sl-button variant="primary">Preview</sl-button>
+    <wa-rating></wa-rating>
+    <wa-button variant="brand">Preview</wa-button>
   </div>
-</sl-card>
+</wa-card>
 
 <style>
   .card-footer {
@@ -227,9 +227,9 @@ Footers can be used to display actions, summaries, or other relevant content.
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlCard from '@shoelace-style/shoelace/dist/react/card';
-import SlRating from '@shoelace-style/shoelace/dist/react/rating';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaCard from '@shoelace-style/shoelace/dist/react/card';
+import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 
 const css = `
   .card-footer {
@@ -245,15 +245,15 @@ const css = `
 
 const App = () => (
   <>
-    <SlCard className="card-footer">
+    <WaCard className="card-footer">
       This card has a footer. You can put all sorts of things in it!
       <div slot="footer">
-        <SlRating></SlRating>
-        <SlButton slot="footer" variant="primary">
+        <WaRating></WaRating>
+        <WaButton slot="footer" variant="brand">
           Preview
-        </SlButton>
+        </WaButton>
       </div>
-    </SlCard>
+    </WaCard>
 
     <style>{css}</style>
   </>
@@ -265,14 +265,14 @@ const App = () => (
 Cards accept an `image` slot. The image is displayed atop the card and stretches to fit.
 
 ```html:preview
-<sl-card class="card-image">
+<wa-card class="card-image">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
     alt="A kitten walks towards camera on top of pallet."
   />
   This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-</sl-card>
+</wa-card>
 
 <style>
   .card-image {
@@ -282,7 +282,7 @@ Cards accept an `image` slot. The image is displayed atop the card and stretches
 ```
 
 ```jsx:react
-import SlCard from '@shoelace-style/shoelace/dist/react/card';
+import WaCard from '@shoelace-style/shoelace/dist/react/card';
 
 const css = `
   .card-image {
@@ -292,14 +292,14 @@ const css = `
 
 const App = () => (
   <>
-    <SlCard className="card-image">
+    <WaCard className="card-image">
       <img
         slot="image"
         src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
         alt="A kitten walks towards camera on top of pallet."
       />
       This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-    </SlCard>
+    </WaCard>
 
     <style>{css}</style>
   </>

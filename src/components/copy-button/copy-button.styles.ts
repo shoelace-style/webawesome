@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --error-color: var(--sl-color-danger-600);
-    --success-color: var(--sl-color-success-600);
+    --error-color: var(--wa-color-danger-fill-vivid-alt);
+    --success-color: var(--wa-color-success-fill-vivid-alt);
 
     display: inline-block;
   }
@@ -17,12 +17,12 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--sl-border-radius-medium);
+    border-radius: var(--wa-corners-1x);
     font-size: inherit;
     color: inherit;
-    padding: var(--sl-spacing-x-small);
+    padding: var(--wa-space-xs);
     cursor: pointer;
-    transition: var(--sl-transition-x-fast) color;
+    transition: var(--wa-transition-faster) color;
   }
 
   .copy-button--success .copy-button__button {
@@ -34,8 +34,8 @@ export default css`
   }
 
   .copy-button__button:focus-visible {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .copy-button__button[disabled] {

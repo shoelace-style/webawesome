@@ -1,12 +1,12 @@
-import SlQrCode from './qr-code.component.js';
+import WaQrCode from './qr-code.component.js';
 
 export * from './qr-code.component.js';
-export default SlQrCode;
+export default WaQrCode;
 
-SlQrCode.define('sl-qr-code');
+WaQrCode.define('wa-qr-code');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-qr-code': SlQrCode;
+    'wa-qr-code': WaQrCode;
   }
 }

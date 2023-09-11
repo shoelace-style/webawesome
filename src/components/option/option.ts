@@ -1,12 +1,12 @@
-import SlOption from './option.component.js';
+import WaOption from './option.component.js';
 
 export * from './option.component.js';
-export default SlOption;
+export default WaOption;
 
-SlOption.define('sl-option');
+WaOption.define('wa-option');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-option': SlOption;
+    'wa-option': WaOption;
   }
 }

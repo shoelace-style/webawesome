@@ -1,18 +1,18 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { aTimeout, expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type SlSwitch from './switch.js';
+import type WaSwitch from './switch.js';
 
-describe('<sl-switch>', () => {
+describe('<wa-switch>', () => {
   it('should pass accessibility tests', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch>Switch</sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch>Switch</wa-switch> `);
     await expect(el).to.be.accessible();
   });
 
   it('default properties', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
 
     expect(el.name).to.equal('');
     expect(el.value).to.be.undefined;
@@ -24,32 +24,32 @@ describe('<sl-switch>', () => {
   });
 
   it('should have title if title attribute is set', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch title="Test"></sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch title="Test"></wa-switch> `);
     const input = el.shadowRoot!.querySelector('input')!;
 
     expect(input.title).to.equal('Test');
   });
 
   it('should be disabled with the disabled attribute', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch disabled></sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch disabled></wa-switch> `);
     const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;
 
     expect(input.disabled).to.be.true;
   });
 
   it('should be valid by default', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
 
     expect(el.checkValidity()).to.be.true;
   });
 
-  it('should emit sl-change and sl-input when clicked', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+  it('should emit wa-change and wa-input when clicked', async () => {
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
     const changeHandler = sinon.spy();
     const inputHandler = sinon.spy();
 
-    el.addEventListener('sl-change', changeHandler);
-    el.addEventListener('sl-input', inputHandler);
+    el.addEventListener('wa-change', changeHandler);
+    el.addEventListener('wa-input', inputHandler);
     el.click();
     await el.updateComplete;
 
@@ -58,13 +58,13 @@ describe('<sl-switch>', () => {
     expect(el.checked).to.be.true;
   });
 
-  it('should emit sl-change when toggled with spacebar', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+  it('should emit wa-change when toggled with spacebar', async () => {
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
     const changeHandler = sinon.spy();
     const inputHandler = sinon.spy();
 
-    el.addEventListener('sl-change', changeHandler);
-    el.addEventListener('sl-input', inputHandler);
+    el.addEventListener('wa-change', changeHandler);
+    el.addEventListener('wa-input', inputHandler);
     el.focus();
     await sendKeys({ press: ' ' });
 
@@ -73,13 +73,13 @@ describe('<sl-switch>', () => {
     expect(el.checked).to.be.true;
   });
 
-  it('should emit sl-change and sl-input when toggled with the right arrow', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+  it('should emit wa-change and wa-input when toggled with the right arrow', async () => {
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
     const changeHandler = sinon.spy();
     const inputHandler = sinon.spy();
 
-    el.addEventListener('sl-change', changeHandler);
-    el.addEventListener('sl-input', inputHandler);
+    el.addEventListener('wa-change', changeHandler);
+    el.addEventListener('wa-input', inputHandler);
     el.focus();
     await sendKeys({ press: 'ArrowRight' });
     await el.updateComplete;
@@ -89,13 +89,13 @@ describe('<sl-switch>', () => {
     expect(el.checked).to.be.true;
   });
 
-  it('should emit sl-change and sl-input when toggled with the left arrow', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch checked></sl-switch> `);
+  it('should emit wa-change and wa-input when toggled with the left arrow', async () => {
+    const el = await fixture<WaSwitch>(html` <wa-switch checked></wa-switch> `);
     const changeHandler = sinon.spy();
     const inputHandler = sinon.spy();
 
-    el.addEventListener('sl-change', changeHandler);
-    el.addEventListener('sl-input', inputHandler);
+    el.addEventListener('wa-change', changeHandler);
+    el.addEventListener('wa-input', inputHandler);
     el.focus();
     await sendKeys({ press: 'ArrowLeft' });
     await el.updateComplete;
@@ -105,10 +105,10 @@ describe('<sl-switch>', () => {
     expect(el.checked).to.be.false;
   });
 
-  it('should not emit sl-change or sl-input when checked is set by JavaScript', async () => {
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
-    el.addEventListener('sl-change', () => expect.fail('sl-change incorrectly emitted'));
-    el.addEventListener('sl-input', () => expect.fail('sl-change incorrectly emitted'));
+  it('should not emit wa-change or wa-input when checked is set by JavaScript', async () => {
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
+    el.addEventListener('wa-change', () => expect.fail('wa-change incorrectly emitted'));
+    el.addEventListener('wa-input', () => expect.fail('wa-change incorrectly emitted'));
     el.checked = true;
     await el.updateComplete;
     el.checked = false;
@@ -119,7 +119,7 @@ describe('<sl-switch>', () => {
     //
     // See: https://github.com/shoelace-style/shoelace/issues/1169
     //
-    const el = await fixture<SlSwitch>(html` <sl-switch></sl-switch> `);
+    const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
     const label = el.shadowRoot!.querySelector('.switch')!;
     const input = el.shadowRoot!.querySelector('.switch__input')!;
 
@@ -134,11 +134,11 @@ describe('<sl-switch>', () => {
     it('should submit the correct value when a value is provided', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-switch name="a" value="1" checked></sl-switch>
-          <sl-button type="submit">Submit</sl-button>
+          <wa-switch name="a" value="1" checked></wa-switch>
+          <wa-button type="submit">Submit</wa-button>
         </form>
       `);
-      const button = form.querySelector('sl-button')!;
+      const button = form.querySelector('wa-button')!;
       const submitHandler = sinon.spy((event: SubmitEvent) => {
         formData = new FormData(form);
         event.preventDefault();
@@ -156,11 +156,11 @@ describe('<sl-switch>', () => {
     it('should submit "on" when no value is provided', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-switch name="a" checked></sl-switch>
-          <sl-button type="submit">Submit</sl-button>
+          <wa-switch name="a" checked></wa-switch>
+          <wa-button type="submit">Submit</wa-button>
         </form>
       `);
-      const button = form.querySelector('sl-button')!;
+      const button = form.querySelector('wa-button')!;
       const submitHandler = sinon.spy((event: SubmitEvent) => {
         formData = new FormData(form);
         event.preventDefault();
@@ -178,12 +178,12 @@ describe('<sl-switch>', () => {
     it('should show a constraint validation error when setCustomValidity() is called', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-switch name="a" value="1" checked></sl-switch>
-          <sl-button type="submit">Submit</sl-button>
+          <wa-switch name="a" value="1" checked></wa-switch>
+          <wa-button type="submit">Submit</wa-button>
         </form>
       `);
-      const button = form.querySelector('sl-button')!;
-      const slSwitch = form.querySelector('sl-switch')!;
+      const button = form.querySelector('wa-button')!;
+      const slSwitch = form.querySelector('wa-switch')!;
       const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
 
       // Submitting the form after setting custom validity should not trigger the handler
@@ -196,12 +196,12 @@ describe('<sl-switch>', () => {
     });
 
     it('should be invalid when required and unchecked', async () => {
-      const slSwitch = await fixture<HTMLFormElement>(html` <sl-switch required></sl-switch> `);
+      const slSwitch = await fixture<HTMLFormElement>(html` <wa-switch required></wa-switch> `);
       expect(slSwitch.checkValidity()).to.be.false;
     });
 
     it('should be valid when required and checked', async () => {
-      const slSwitch = await fixture<HTMLFormElement>(html` <sl-switch required checked></sl-switch> `);
+      const slSwitch = await fixture<HTMLFormElement>(html` <wa-switch required checked></wa-switch> `);
       expect(slSwitch.checkValidity()).to.be.true;
     });
 
@@ -209,9 +209,9 @@ describe('<sl-switch>', () => {
       const el = await fixture<HTMLFormElement>(html`
         <div>
           <form id="f">
-            <sl-button type="submit">Submit</sl-button>
+            <wa-button type="submit">Submit</wa-button>
           </form>
-          <sl-switch form="f" name="a" value="1" checked></sl-switch>
+          <wa-switch form="f" name="a" value="1" checked></wa-switch>
         </div>
       `);
       const form = el.querySelector('form')!;
@@ -221,8 +221,8 @@ describe('<sl-switch>', () => {
     });
 
     it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-      const el = await fixture<HTMLFormElement>(html` <form novalidate><sl-switch required></sl-switch></form> `);
-      const slSwitch = el.querySelector<SlSwitch>('sl-switch')!;
+      const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-switch required></wa-switch></form> `);
+      const slSwitch = el.querySelector<WaSwitch>('wa-switch')!;
 
       expect(slSwitch.hasAttribute('data-required')).to.be.true;
       expect(slSwitch.hasAttribute('data-optional')).to.be.false;
@@ -237,12 +237,12 @@ describe('<sl-switch>', () => {
     it('should reset the element to its initial value', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-switch name="a" value="1" checked></sl-switch>
-          <sl-button type="reset">Reset</sl-button>
+          <wa-switch name="a" value="1" checked></wa-switch>
+          <wa-button type="reset">Reset</wa-button>
         </form>
       `);
-      const button = form.querySelector('sl-button')!;
-      const switchEl = form.querySelector('sl-switch')!;
+      const button = form.querySelector('wa-button')!;
+      const switchEl = form.querySelector('wa-switch')!;
       switchEl.checked = false;
 
       await switchEl.updateComplete;
@@ -267,52 +267,52 @@ describe('<sl-switch>', () => {
     // https://github.com/shoelace-style/shoelace/issues/1169
     const el = await fixture<HTMLDivElement>(html`
       <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px;">
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
-        <sl-switch>Switch</sl-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
+        <wa-switch>Switch</wa-switch>
       </div>
       ;
     `);
 
-    const switches = el.querySelectorAll<SlSwitch>('sl-switch');
+    const switches = el.querySelectorAll<WaSwitch>('wa-switch');
     const lastSwitch = switches[switches.length - 1];
 
     expect(window.scrollY).to.equal(0);
@@ -323,5 +323,5 @@ describe('<sl-switch>', () => {
     expect(window.scrollY).to.equal(0);
   });
 
-  runFormControlBaseTests('sl-switch');
+  runFormControlBaseTests('wa-switch');
 });

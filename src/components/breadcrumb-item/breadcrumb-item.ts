@@ -1,12 +1,12 @@
-import SlBreadcrumbItem from './breadcrumb-item.component.js';
+import WaBreadcrumbItem from './breadcrumb-item.component.js';
 
 export * from './breadcrumb-item.component.js';
-export default SlBreadcrumbItem;
+export default WaBreadcrumbItem;
 
-SlBreadcrumbItem.define('sl-breadcrumb-item');
+WaBreadcrumbItem.define('wa-breadcrumb-item');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-breadcrumb-item': SlBreadcrumbItem;
+    'wa-breadcrumb-item': WaBreadcrumbItem;
   }
 }

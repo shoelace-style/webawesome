@@ -1,14 +1,14 @@
 ---
 meta:
   title: Themes
-  description: Everything you need to know about theming Shoelace.
+  description: Everything you need to know about theming Web Awesome.
 ---
 
 # Themes
 
-Shoelace is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.
+Web Awesome is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.
 
-A theme is nothing more than a stylesheet that uses the Shoelace API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and the [`::part` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
+A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and the [`::part` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
 
 :::tip
 For component developers, built-in themes are also available as JavaScript modules that export [Lit CSSResult](https://lit.dev/docs/api/styles/#CSSResult) objects. You can find them in `%NPMDIR%/themes/*.styles.js`.
@@ -16,13 +16,13 @@ For component developers, built-in themes are also available as JavaScript modul
 
 ## Theme Basics
 
-All themes are scoped to classes using the `sl-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `sl-theme-light` and `sl-theme-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `sl-theme-purple-power`
+All themes are scoped to classes using the `sl-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `wa-theme-light` and `wa-theme-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `sl-theme-purple-power`
 
 All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to `:host` so they can be imported and applied to custom element shadow roots.
 
 ```css
 :host,
-.sl-theme-purple-power {
+.wa-theme-purple-power {
   /* ... */
 }
 ```
@@ -32,7 +32,7 @@ All selectors must be scoped to the theme's class to ensure interoperability wit
 To activate a theme, import it and apply the theme's class to the `<html>` element. This example imports and activates the built-in dark theme.
 
 ```html
-<html class="sl-theme-dark">
+<html class="wa-theme-dark">
   <head>
     <link rel="stylesheet" href="path/to/shoelace/%NPMDIR%/themes/dark.css" />
   </head>
@@ -54,12 +54,12 @@ You can activate themes on various containers throughout the page. This example 
 ```html
 <html>
   <head>
-    <link rel="stylesheet" href="path/to/shoelace/%NPMDIR%/themes/light.css" />
+    <link rel="stylesheet" href="path/to/shoelace/%NPMDIR%/themes/default.css" />
     <link rel="stylesheet" href="path/to/shoelace/%NPMDIR%/themes/dark.css" />
   </head>
 
   <body>
-    <nav class="sl-theme-dark">
+    <nav class="wa-theme-dark">
       <!-- dark-themed sidebar -->
     </nav>
 
@@ -76,14 +76,14 @@ There are two ways to create themes. The easiest way is to customize a built-in 
 
 ### Customizing a Built-in Theme
 
-The easiest way to customize Shoelace is to override one of the built-in themes. You can do this by importing the light or dark theme as-is, then creating a separate stylesheet that overrides [design tokens](/getting-started/customizing#design-tokens) and adds [component styles](/getting-started/customizing#component-parts) to your liking. You must import your theme _after_ the built-in theme.
+The easiest way to customize Web Awesome is to override one of the built-in themes. You can do this by importing the light or dark theme as-is, then creating a separate stylesheet that overrides [design tokens](/getting-started/customizing#design-tokens) and adds [component styles](/getting-started/customizing#component-parts) to your liking. You must import your theme _after_ the built-in theme.
 
 If you're customizing the light theme, you should scope your styles to the following selectors.
 
 ```css
 :root,
 :host,
-.sl-theme-light {
+.wa-theme-light {
   /* your custom styles here */
 }
 ```
@@ -92,12 +92,12 @@ If you're customizing the dark theme, you should scope your styles to the follow
 
 ```css
 :host,
-.sl-theme-dark {
+.wa-theme-dark {
   /* your custom styles here */
 }
 ```
 
-By customizing a built-in theme, you'll maintain a smaller stylesheet containing only the changes you've made. Contrast this to [creating a new theme](#creating-a-new-theme), where you need to explicitly define every design token required by the library. This approach is more "future-proof," as new design tokens that emerge in subsequent versions of Shoelace will be accounted for by the built-in theme.
+By customizing a built-in theme, you'll maintain a smaller stylesheet containing only the changes you've made. Contrast this to [creating a new theme](#creating-a-new-theme), where you need to explicitly define every design token required by the library. This approach is more "future-proof," as new design tokens that emerge in subsequent versions of Web Awesome will be accounted for by the built-in theme.
 
 While this approach is easier to maintain, the drawback is that your theme can't be activated independently — it's tied to the built-in theme you're extending.
 
@@ -109,14 +109,14 @@ Start by changing the selector to match your theme's name. Assuming your new the
 
 ```css
 :host,
-.sl-theme-purple-power {
+.wa-theme-purple-power {
   /* your custom styles here */
 }
 ```
 
 By creating a new theme, you won't be relying on a built-in theme as a foundation. Because the theme is decoupled from the built-ins, you can activate it independently as an alternative to the built-ins. This is the recommended approach if you're looking to open source your theme for others to use.
 
-You will, however, need to maintain your theme more carefully, as new versions of Shoelace may introduce new design tokens that your theme won't have accounted for. Because of this, it's recommended that you clearly specify which version(s) of Shoelace your theme is designed to work with and keep it up to date as new versions of Shoelace are released.
+You will, however, need to maintain your theme more carefully, as new versions of Web Awesome may introduce new design tokens that your theme won't have accounted for. Because of this, it's recommended that you clearly specify which version(s) of Web Awesome your theme is designed to work with and keep it up to date as new versions of Web Awesome are released.
 
 ## Dark Theme
 
@@ -133,20 +133,20 @@ To install the dark theme, add the following to the `<head>` section of your pag
 />
 ```
 
-To activate the theme, apply the `sl-theme-dark` class to the `<html>` element.
+To activate the theme, apply the `wa-theme-dark` class to the `<html>` element.
 
 ```html
-<html class="sl-theme-dark">
+<html class="wa-theme-dark">
   ...
 </html>
 ```
 
 ### Detecting the User's Color Scheme Preference
 
-Shoelace doesn't try to auto-detect the user's light/dark mode preference. This should be done at the application level. As a best practice, to provide a dark theme in your app, you should:
+Web Awesome doesn't try to auto-detect the user's light/dark mode preference. This should be done at the application level. As a best practice, to provide a dark theme in your app, you should:
 
 - Check for [`prefers-color-scheme`](https://stackoverflow.com/a/57795495/567486) and use its value by default
 - Allow the user to override the setting in your app
 - Remember the user's preference and restore it on subsequent logins
 
-Shoelace avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.
+Web Awesome avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.

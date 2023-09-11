@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-textarea></sl-textarea>
+<wa-textarea></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea />;
+const App = () => <WaTextarea />;
 ```
 
 :::tip
@@ -26,13 +26,13 @@ This component works with standard `<form>` elements. Please refer to the sectio
 Use the `label` attribute to give the textarea an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html:preview
-<sl-textarea label="Comments"></sl-textarea>
+<wa-textarea label="Comments"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea label="Comments" />;
+const App = () => <WaTextarea label="Comments" />;
 ```
 
 ### Help Text
@@ -40,13 +40,13 @@ const App = () => <SlTextarea label="Comments" />;
 Add descriptive help text to a textarea with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
 
 ```html:preview
-<sl-textarea label="Feedback" help-text="Please tell us what you think."> </sl-textarea>
+<wa-textarea label="Feedback" help-text="Please tell us what you think."> </wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea label="Feedback" help-text="Please tell us what you think." />;
+const App = () => <WaTextarea label="Feedback" help-text="Please tell us what you think." />;
 ```
 
 ### Rows
@@ -54,13 +54,13 @@ const App = () => <SlTextarea label="Feedback" help-text="Please tell us what yo
 Use the `rows` attribute to change the number of text rows that get shown.
 
 ```html:preview
-<sl-textarea rows="2"></sl-textarea>
+<wa-textarea rows="2"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea rows={2} />;
+const App = () => <WaTextarea rows={2} />;
 ```
 
 ### Placeholders
@@ -68,13 +68,13 @@ const App = () => <SlTextarea rows={2} />;
 Use the `placeholder` attribute to add a placeholder.
 
 ```html:preview
-<sl-textarea placeholder="Type something"></sl-textarea>
+<wa-textarea placeholder="Type something"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea placeholder="Type something" />;
+const App = () => <WaTextarea placeholder="Type something" />;
 ```
 
 ### Filled Textareas
@@ -82,13 +82,13 @@ const App = () => <SlTextarea placeholder="Type something" />;
 Add the `filled` attribute to draw a filled textarea.
 
 ```html:preview
-<sl-textarea placeholder="Type something" filled></sl-textarea>
+<wa-textarea placeholder="Type something" filled></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea placeholder="Type something" filled />;
+const App = () => <WaTextarea placeholder="Type something" filled />;
 ```
 
 ### Disabled
@@ -96,13 +96,13 @@ const App = () => <SlTextarea placeholder="Type something" filled />;
 Use the `disabled` attribute to disable a textarea.
 
 ```html:preview
-<sl-textarea placeholder="Textarea" disabled></sl-textarea>
+<wa-textarea placeholder="Textarea" disabled></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea placeholder="Textarea" disabled />;
+const App = () => <WaTextarea placeholder="Textarea" disabled />;
 ```
 
 ### Sizes
@@ -110,23 +110,23 @@ const App = () => <SlTextarea placeholder="Textarea" disabled />;
 Use the `size` attribute to change a textarea's size.
 
 ```html:preview
-<sl-textarea placeholder="Small" size="small"></sl-textarea>
+<wa-textarea placeholder="Small" size="small"></wa-textarea>
 <br />
-<sl-textarea placeholder="Medium" size="medium"></sl-textarea>
+<wa-textarea placeholder="Medium" size="medium"></wa-textarea>
 <br />
-<sl-textarea placeholder="Large" size="large"></sl-textarea>
+<wa-textarea placeholder="Large" size="large"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
 const App = () => (
   <>
-    <SlTextarea placeholder="Small" size="small"></SlTextarea>
+    <WaTextarea placeholder="Small" size="small"></WaTextarea>
     <br />
-    <SlTextarea placeholder="Medium" size="medium"></SlTextarea>
+    <WaTextarea placeholder="Medium" size="medium"></WaTextarea>
     <br />
-    <SlTextarea placeholder="Large" size="large"></SlTextarea>
+    <WaTextarea placeholder="Large" size="large"></WaTextarea>
   </>
 );
 ```
@@ -136,13 +136,13 @@ const App = () => (
 By default, textareas can be resized vertically by the user. To prevent resizing, set the `resize` attribute to `none`.
 
 ```html:preview
-<sl-textarea resize="none"></sl-textarea>
+<wa-textarea resize="none"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea resize="none" />;
+const App = () => <WaTextarea resize="none" />;
 ```
 
 ### Expand with Content
@@ -150,11 +150,11 @@ const App = () => <SlTextarea resize="none" />;
 Textareas will automatically resize to expand to fit their content when `resize` is set to `auto`.
 
 ```html:preview
-<sl-textarea resize="auto"></sl-textarea>
+<wa-textarea resize="auto"></wa-textarea>
 ```
 
 ```jsx:react
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
-const App = () => <SlTextarea resize="auto" />;
+const App = () => <WaTextarea resize="auto" />;
 ```

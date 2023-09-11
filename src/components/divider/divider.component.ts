@@ -1,7 +1,7 @@
 import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './divider.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -14,7 +14,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --width - The width of the divider.
  * @cssproperty --spacing - The spacing of the divider.
  */
-export default class SlDivider extends ShoelaceElement {
+export default class WaDivider extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   /** Draws the divider in a vertical orientation. */

@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { query } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlMenuItem from '../menu-item/menu-item.component.js';
 import styles from './menu.styles.js';
+import WaMenuItem from '../menu-item/menu-item.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 export interface MenuSelectEventDetail {
-  item: SlMenuItem;
+  item: WaMenuItem;
 }
 
 /**
@@ -16,9 +16,9 @@ export interface MenuSelectEventDetail {
  *
  * @slot - The menu's content, including menu items, menu labels, and dividers.
  *
- * @event {{ item: SlMenuItem }} sl-select - Emitted when a menu item is selected.
+ * @event {{ item: WaMenuItem }} wa-select - Emitted when a menu item is selected.
  */
-export default class SlMenu extends ShoelaceElement {
+export default class WaMenu extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   @query('slot') defaultSlot: HTMLSlotElement;
@@ -29,17 +29,17 @@ export default class SlMenu extends ShoelaceElement {
   }
 
   private handleClick(event: MouseEvent) {
-    if (!(event.target instanceof SlMenuItem)) {
+    if (!(event.target instanceof WaMenuItem)) {
       return;
     }
 
-    const item: SlMenuItem = event.target;
+    const item: WaMenuItem = event.target;
 
     if (item.type === 'checkbox') {
       item.checked = !item.checked;
     }
 
-    this.emit('sl-select', { detail: { item } });
+    this.emit('wa-select', { detail: { item } });
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -90,7 +90,7 @@ export default class SlMenu extends ShoelaceElement {
     const target = event.target as HTMLElement;
 
     if (this.isMenuItem(target)) {
-      this.setCurrentItem(target as SlMenuItem);
+      this.setCurrentItem(target as WaMenuItem);
     }
   }
 
@@ -105,7 +105,7 @@ export default class SlMenu extends ShoelaceElement {
 
   private isMenuItem(item: HTMLElement) {
     return (
-      item.tagName.toLowerCase() === 'sl-menu-item' ||
+      item.tagName.toLowerCase() === 'wa-menu-item' ||
       ['menuitem', 'menuitemcheckbox', 'menuitemradio'].includes(item.getAttribute('role') ?? '')
     );
   }
@@ -117,7 +117,7 @@ export default class SlMenu extends ShoelaceElement {
         return false;
       }
       return true;
-    }) as SlMenuItem[];
+    }) as WaMenuItem[];
   }
 
   /**
@@ -132,7 +132,7 @@ export default class SlMenu extends ShoelaceElement {
    * @internal Sets the current menu item to the specified element. This sets `tabindex="0"` on the target element and
    * `tabindex="-1"` to all other items. This method must be called prior to setting focus on a menu item.
    */
-  setCurrentItem(item: SlMenuItem) {
+  setCurrentItem(item: WaMenuItem) {
     const items = this.getAllItems();
 
     // Update tab indexes

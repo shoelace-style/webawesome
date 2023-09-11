@@ -1,15 +1,15 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 // cspell:dictionaries lorem-ipsum
 import { aTimeout, elementUpdated, expect, fixture, html, waitUntil } from '@open-wc/testing';
 import { LitElement } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type SlDialog from './dialog';
+import type WaDialog from './dialog';
 
-describe('<sl-dialog>', () => {
+describe('<wa-dialog>', () => {
   it('should be visible with the open attribute', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
@@ -17,24 +17,24 @@ describe('<sl-dialog>', () => {
   });
 
   it('should not be visible without the open attribute', async () => {
-    const el = await fixture<SlDialog>(
-      html` <sl-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog> `
+    const el = await fixture<WaDialog>(
+      html` <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog> `
     );
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
     expect(base.hidden).to.be.true;
   });
 
-  it('should emit sl-show and sl-after-show when calling show()', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+  it('should emit wa-show and wa-after-show when calling show()', async () => {
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
     const showHandler = sinon.spy();
     const afterShowHandler = sinon.spy();
 
-    el.addEventListener('sl-show', showHandler);
-    el.addEventListener('sl-after-show', afterShowHandler);
+    el.addEventListener('wa-show', showHandler);
+    el.addEventListener('wa-after-show', afterShowHandler);
     el.show();
 
     await waitUntil(() => showHandler.calledOnce);
@@ -45,16 +45,16 @@ describe('<sl-dialog>', () => {
     expect(base.hidden).to.be.false;
   });
 
-  it('should emit sl-hide and sl-after-hide when calling hide()', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+  it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
     const hideHandler = sinon.spy();
     const afterHideHandler = sinon.spy();
 
-    el.addEventListener('sl-hide', hideHandler);
-    el.addEventListener('sl-after-hide', afterHideHandler);
+    el.addEventListener('wa-hide', hideHandler);
+    el.addEventListener('wa-after-hide', afterHideHandler);
     el.hide();
 
     await waitUntil(() => hideHandler.calledOnce);
@@ -65,16 +65,16 @@ describe('<sl-dialog>', () => {
     expect(base.hidden).to.be.true;
   });
 
-  it('should emit sl-show and sl-after-show when setting open = true', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+  it('should emit wa-show and wa-after-show when setting open = true', async () => {
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
     const showHandler = sinon.spy();
     const afterShowHandler = sinon.spy();
 
-    el.addEventListener('sl-show', showHandler);
-    el.addEventListener('sl-after-show', afterShowHandler);
+    el.addEventListener('wa-show', showHandler);
+    el.addEventListener('wa-after-show', afterShowHandler);
     el.open = true;
 
     await waitUntil(() => showHandler.calledOnce);
@@ -85,16 +85,16 @@ describe('<sl-dialog>', () => {
     expect(base.hidden).to.be.false;
   });
 
-  it('should emit sl-hide and sl-after-hide when setting open = false', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+  it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
     const hideHandler = sinon.spy();
     const afterHideHandler = sinon.spy();
 
-    el.addEventListener('sl-hide', hideHandler);
-    el.addEventListener('sl-after-hide', afterHideHandler);
+    el.addEventListener('wa-hide', hideHandler);
+    el.addEventListener('wa-after-hide', afterHideHandler);
     el.open = false;
 
     await waitUntil(() => hideHandler.calledOnce);
@@ -105,13 +105,13 @@ describe('<sl-dialog>', () => {
     expect(base.hidden).to.be.true;
   });
 
-  it('should not close when sl-request-close is prevented', async () => {
-    const el = await fixture<SlDialog>(html`
-      <sl-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</sl-dialog>
+  it('should not close when wa-request-close is prevented', async () => {
+    const el = await fixture<WaDialog>(html`
+      <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
     const overlay = el.shadowRoot!.querySelector<HTMLElement>('[part~="overlay"]')!;
 
-    el.addEventListener('sl-request-close', event => {
+    el.addEventListener('wa-request-close', event => {
       event.preventDefault();
     });
     overlay.click();
@@ -120,14 +120,14 @@ describe('<sl-dialog>', () => {
   });
 
   it('should allow initial focus to be set', async () => {
-    const el = await fixture<SlDialog>(html` <sl-dialog><input /></sl-dialog> `);
+    const el = await fixture<WaDialog>(html` <wa-dialog><input /></wa-dialog> `);
     const input = el.querySelector('input')!;
     const initialFocusHandler = sinon.spy((event: Event) => {
       event.preventDefault();
       input.focus();
     });
 
-    el.addEventListener('sl-initial-focus', initialFocusHandler);
+    el.addEventListener('wa-initial-focus', initialFocusHandler);
     el.show();
 
     await waitUntil(() => initialFocusHandler.calledOnce);
@@ -137,10 +137,10 @@ describe('<sl-dialog>', () => {
   });
 
   it('should close when pressing Escape', async () => {
-    const el = await fixture<SlDialog>(html` <sl-dialog open></sl-dialog> `);
+    const el = await fixture<WaDialog>(html` <wa-dialog open></wa-dialog> `);
     const hideHandler = sinon.spy();
 
-    el.addEventListener('sl-hide', hideHandler);
+    el.addEventListener('wa-hide', hideHandler);
 
     await sendKeys({ press: 'Escape' });
     await waitUntil(() => hideHandler.calledOnce);
@@ -149,10 +149,10 @@ describe('<sl-dialog>', () => {
   });
 
   // https://github.com/shoelace-style/shoelace/issues/1382
-  it('should properly cycle through tabbable elements when sl-dialog is used in a shadowRoot', async () => {
+  it('should properly cycle through tabbable elements when wa-dialog is used in a shadowRoot', async () => {
     class AContainer extends LitElement {
       get dialog() {
-        return this.shadowRoot?.querySelector('sl-dialog');
+        return this.shadowRoot?.querySelector('wa-dialog');
       }
 
       openDialog() {
@@ -162,15 +162,15 @@ describe('<sl-dialog>', () => {
       render() {
         return html`
           <h1>Dialog Example</h1>
-          <sl-dialog label="Dialog" class="dialog-overview">
+          <wa-dialog label="Dialog" class="dialog-overview">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             <br />
             <label><input type="checkbox" />A</label>
             <label><input type="checkbox" />B</label>
             <button>Button</button>
-          </sl-dialog>
+          </wa-dialog>
 
-          <sl-button @click=${this.openDialog}>Open Dialog</sl-button>
+          <wa-button @click=${this.openDialog}>Open Dialog</wa-button>
         `;
       }
     }
@@ -197,19 +197,19 @@ describe('<sl-dialog>', () => {
     }
 
     await elementUpdated(container);
-    const dialog = container.shadowRoot?.querySelector('sl-dialog');
+    const dialog = container.shadowRoot?.querySelector('wa-dialog');
 
     if (!dialog) {
-      throw Error('Could not find <sl-dialog> element.');
+      throw Error('Could not find <wa-dialog> element.');
     }
 
-    const closeButton = dialog.shadowRoot?.querySelector('sl-icon-button');
+    const closeButton = dialog.shadowRoot?.querySelector('wa-icon-button');
     const checkbox1 = dialog.querySelector("input[type='checkbox']");
     const checkbox2 = dialog.querySelectorAll("input[type='checkbox']")[1];
     const button = dialog.querySelector('button');
 
     // Opens modal.
-    const openModalButton = container.shadowRoot?.querySelector('sl-button');
+    const openModalButton = container.shadowRoot?.querySelector('wa-button');
 
     if (openModalButton) openModalButton.click();
 

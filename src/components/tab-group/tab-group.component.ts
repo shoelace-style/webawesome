@@ -4,12 +4,12 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIconButton from '../icon-button/icon-button.component.js';
 import styles from './tab-group.styles.js';
+import WaIconButton from '../icon-button/icon-button.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type SlTab from '../tab/tab.js';
-import type SlTabPanel from '../tab-panel/tab-panel.js';
+import type WaTab from '../tab/tab.js';
+import type WaTabPanel from '../tab-panel/tab-panel.js';
 
 /**
  * @summary Tab groups organize content into a container that shows one section at a time.
@@ -17,20 +17,20 @@ import type SlTabPanel from '../tab-panel/tab-panel.js';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon-button
+ * @dependency wa-icon-button
  *
- * @slot - Used for grouping tab panels in the tab group. Must be `<sl-tab-panel>` elements.
- * @slot nav - Used for grouping tabs in the tab group. Must be `<sl-tab>` elements.
+ * @slot - Used for grouping tab panels in the tab group. Must be `<wa-tab-panel>` elements.
+ * @slot nav - Used for grouping tabs in the tab group. Must be `<wa-tab>` elements.
  *
- * @event {{ name: String }} sl-tab-show - Emitted when a tab is shown.
- * @event {{ name: String }} sl-tab-hide - Emitted when a tab is hidden.
+ * @event {{ name: String }} wa-tab-show - Emitted when a tab is shown.
+ * @event {{ name: String }} wa-tab-hide - Emitted when a tab is hidden.
  *
  * @csspart base - The component's base wrapper.
  * @csspart nav - The tab group's navigation container where tabs are slotted in.
  * @csspart tabs - The container that wraps the tabs.
  * @csspart active-tab-indicator - The line that highlights the currently selected tab.
  * @csspart body - The tab group's body where tab panels are slotted in.
- * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, an `<sl-icon-button>`.
+ * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, an `<wa-icon-button>`.
  * @csspart scroll-button--start - The starting scroll button.
  * @csspart scroll-button--end - The ending scroll button.
  * @csspart scroll-button__base - The scroll button's exported `base` part.
@@ -39,17 +39,17 @@ import type SlTabPanel from '../tab-panel/tab-panel.js';
  * @cssproperty --track-color - The color of the indicator's track (the line that separates tabs from panels).
  * @cssproperty --track-width - The width of the indicator's track (the line that separates tabs from panels).
  */
-export default class SlTabGroup extends ShoelaceElement {
+export default class WaTabGroup extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon-button': SlIconButton };
+  static dependencies = { 'wa-icon-button': WaIconButton };
 
   private readonly localize = new LocalizeController(this);
 
-  private activeTab?: SlTab;
+  private activeTab?: WaTab;
   private mutationObserver: MutationObserver;
   private resizeObserver: ResizeObserver;
-  private tabs: SlTab[] = [];
-  private panels: SlTabPanel[] = [];
+  private tabs: WaTab[] = [];
+  private panels: WaTabPanel[] = [];
 
   @query('.tab-group') tabGroup: HTMLElement;
   @query('.tab-group__body') body: HTMLSlotElement;
@@ -72,8 +72,8 @@ export default class SlTabGroup extends ShoelaceElement {
 
   connectedCallback() {
     const whenAllDefined = Promise.all([
-      customElements.whenDefined('sl-tab'),
-      customElements.whenDefined('sl-tab-panel')
+      customElements.whenDefined('wa-tab'),
+      customElements.whenDefined('wa-tab-panel')
     ]);
 
     super.connectedCallback();
@@ -124,15 +124,15 @@ export default class SlTabGroup extends ShoelaceElement {
   private getAllTabs(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const slot = this.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="nav"]')!;
 
-    return [...(slot.assignedElements() as SlTab[])].filter(el => {
+    return [...(slot.assignedElements() as WaTab[])].filter(el => {
       return options.includeDisabled
-        ? el.tagName.toLowerCase() === 'sl-tab'
-        : el.tagName.toLowerCase() === 'sl-tab' && !el.disabled;
+        ? el.tagName.toLowerCase() === 'wa-tab'
+        : el.tagName.toLowerCase() === 'wa-tab' && !el.disabled;
     });
   }
 
   private getAllPanels() {
-    return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === 'sl-tab-panel') as [SlTabPanel];
+    return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === 'wa-tab-panel') as [WaTabPanel];
   }
 
   private getActiveTab() {
@@ -141,8 +141,8 @@ export default class SlTabGroup extends ShoelaceElement {
 
   private handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const tab = target.closest('sl-tab');
-    const tabGroup = tab?.closest('sl-tab-group');
+    const tab = target.closest('wa-tab');
+    const tabGroup = tab?.closest('wa-tab-group');
 
     // Ensure the target tab is in this tab group
     if (tabGroup !== this) {
@@ -156,8 +156,8 @@ export default class SlTabGroup extends ShoelaceElement {
 
   private handleKeyDown(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
-    const tab = target.closest('sl-tab');
-    const tabGroup = tab?.closest('sl-tab-group');
+    const tab = target.closest('wa-tab');
+    const tabGroup = tab?.closest('wa-tab-group');
 
     // Ensure the target tab is in this tab group
     if (tabGroup !== this) {
@@ -177,7 +177,7 @@ export default class SlTabGroup extends ShoelaceElement {
       const activeEl = this.tabs.find(t => t.matches(':focus'));
       const isRtl = this.localize.dir() === 'rtl';
 
-      if (activeEl?.tagName.toLowerCase() === 'sl-tab') {
+      if (activeEl?.tagName.toLowerCase() === 'wa-tab') {
         let index = this.tabs.indexOf(activeEl);
 
         if (event.key === 'Home') {
@@ -239,7 +239,7 @@ export default class SlTabGroup extends ShoelaceElement {
     });
   }
 
-  private setActiveTab(tab: SlTab, options?: { emitEvents?: boolean; scrollBehavior?: 'auto' | 'smooth' }) {
+  private setActiveTab(tab: WaTab, options?: { emitEvents?: boolean; scrollBehavior?: 'auto' | 'smooth' }) {
     options = {
       emitEvents: true,
       scrollBehavior: 'auto',
@@ -262,10 +262,10 @@ export default class SlTabGroup extends ShoelaceElement {
       // Emit events
       if (options.emitEvents) {
         if (previousTab) {
-          this.emit('sl-tab-hide', { detail: { name: previousTab.panel } });
+          this.emit('wa-tab-hide', { detail: { name: previousTab.panel } });
         }
 
-        this.emit('sl-tab-show', { detail: { name: this.activeTab.panel } });
+        this.emit('wa-tab-show', { detail: { name: this.activeTab.panel } });
       }
     }
   }
@@ -383,7 +383,7 @@ export default class SlTabGroup extends ShoelaceElement {
         <div class="tab-group__nav-container" part="nav">
           ${this.hasScrollControls
             ? html`
-                <sl-icon-button
+                <wa-icon-button
                   part="scroll-button scroll-button--start"
                   exportparts="base:scroll-button__base"
                   class="tab-group__scroll-button tab-group__scroll-button--start"
@@ -391,7 +391,7 @@ export default class SlTabGroup extends ShoelaceElement {
                   library="system"
                   label=${this.localize.term('scrollToStart')}
                   @click=${this.handleScrollToStart}
-                ></sl-icon-button>
+                ></wa-icon-button>
               `
             : ''}
 
@@ -404,7 +404,7 @@ export default class SlTabGroup extends ShoelaceElement {
 
           ${this.hasScrollControls
             ? html`
-                <sl-icon-button
+                <wa-icon-button
                   part="scroll-button scroll-button--end"
                   exportparts="base:scroll-button__base"
                   class="tab-group__scroll-button tab-group__scroll-button--end"
@@ -412,7 +412,7 @@ export default class SlTabGroup extends ShoelaceElement {
                   library="system"
                   label=${this.localize.term('scrollToEnd')}
                   @click=${this.handleScrollToEnd}
-                ></sl-icon-button>
+                ></wa-icon-button>
               `
             : ''}
         </div>
@@ -425,6 +425,6 @@ export default class SlTabGroup extends ShoelaceElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tab-group': SlTabGroup;
+    'wa-tab-group': WaTabGroup;
   }
 }

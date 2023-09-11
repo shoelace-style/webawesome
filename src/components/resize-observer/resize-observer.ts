@@ -1,12 +1,12 @@
-import SlResizeObserver from './resize-observer.component.js';
+import WaResizeObserver from './resize-observer.component.js';
 
 export * from './resize-observer.component.js';
-export default SlResizeObserver;
+export default WaResizeObserver;
 
-SlResizeObserver.define('sl-resize-observer');
+WaResizeObserver.define('wa-resize-observer');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-resize-observer': SlResizeObserver;
+    'wa-resize-observer': WaResizeObserver;
   }
 }

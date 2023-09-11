@@ -6,68 +6,68 @@ layout: component
 ---
 
 ```html:preview
-<sl-tree>
-  <sl-tree-item>
+<wa-tree>
+  <wa-tree-item>
     Deciduous
-    <sl-tree-item>Birch</sl-tree-item>
-    <sl-tree-item>
+    <wa-tree-item>Birch</wa-tree-item>
+    <wa-tree-item>
       Maple
-      <sl-tree-item>Field maple</sl-tree-item>
-      <sl-tree-item>Red maple</sl-tree-item>
-      <sl-tree-item>Sugar maple</sl-tree-item>
-    </sl-tree-item>
-    <sl-tree-item>Oak</sl-tree-item>
-  </sl-tree-item>
+      <wa-tree-item>Field maple</wa-tree-item>
+      <wa-tree-item>Red maple</wa-tree-item>
+      <wa-tree-item>Sugar maple</wa-tree-item>
+    </wa-tree-item>
+    <wa-tree-item>Oak</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Coniferous
-    <sl-tree-item>Cedar</sl-tree-item>
-    <sl-tree-item>Pine</sl-tree-item>
-    <sl-tree-item>Spruce</sl-tree-item>
-  </sl-tree-item>
+    <wa-tree-item>Cedar</wa-tree-item>
+    <wa-tree-item>Pine</wa-tree-item>
+    <wa-tree-item>Spruce</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Non-trees
-    <sl-tree-item>Bamboo</sl-tree-item>
-    <sl-tree-item>Cactus</sl-tree-item>
-    <sl-tree-item>Fern</sl-tree-item>
-  </sl-tree-item>
-</sl-tree>
+    <wa-tree-item>Bamboo</wa-tree-item>
+    <wa-tree-item>Cactus</wa-tree-item>
+    <wa-tree-item>Fern</wa-tree-item>
+  </wa-tree-item>
+</wa-tree>
 ```
 
 <!-- prettier-ignore -->
 ```jsx:react
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => (
-  <SlTree>
-    <SlTreeItem>
+  <WaTree>
+    <WaTreeItem>
       Deciduous
-      <SlTreeItem>Birch</SlTreeItem>
-      <SlTreeItem>
+      <WaTreeItem>Birch</WaTreeItem>
+      <WaTreeItem>
         Maple
-        <SlTreeItem>Field maple</SlTreeItem>
-        <SlTreeItem>Red maple</SlTreeItem>
-        <SlTreeItem>Sugar maple</SlTreeItem>
-      </SlTreeItem>
-      <SlTreeItem>Oak</SlTreeItem>
-    </SlTreeItem>
+        <WaTreeItem>Field maple</WaTreeItem>
+        <WaTreeItem>Red maple</WaTreeItem>
+        <WaTreeItem>Sugar maple</WaTreeItem>
+      </WaTreeItem>
+      <WaTreeItem>Oak</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Coniferous
-      <SlTreeItem>Cedar</SlTreeItem>
-      <SlTreeItem>Pine</SlTreeItem>
-      <SlTreeItem>Spruce</SlTreeItem>
-    </SlTreeItem>
+      <WaTreeItem>Cedar</WaTreeItem>
+      <WaTreeItem>Pine</WaTreeItem>
+      <WaTreeItem>Spruce</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Non-trees
-      <SlTreeItem>Bamboo</SlTreeItem>
-      <SlTreeItem>Cactus</SlTreeItem>
-      <SlTreeItem>Fern</SlTreeItem>
-    </SlTreeItem>
-  </SlTree>
+      <WaTreeItem>Bamboo</WaTreeItem>
+      <WaTreeItem>Cactus</WaTreeItem>
+      <WaTreeItem>Fern</WaTreeItem>
+    </WaTreeItem>
+  </WaTree>
 );
 ```
 
@@ -82,36 +82,36 @@ The `selection` attribute lets you change the selection behavior of the tree.
 - Use `leaf` to only allow leaf nodes to be selected.
 
 ```html:preview
-<sl-select id="selection-mode" value="single" label="Selection">
-  <sl-option value="single">Single</sl-option>
-  <sl-option value="multiple">Multiple</sl-option>
-  <sl-option value="leaf">Leaf</sl-option>
-</sl-select>
+<wa-select id="selection-mode" value="single" label="Selection">
+  <wa-option value="single">Single</wa-option>
+  <wa-option value="multiple">Multiple</wa-option>
+  <wa-option value="leaf">Leaf</wa-option>
+</wa-select>
 
 <br />
 
-<sl-tree class="tree-selectable">
-  <sl-tree-item>
+<wa-tree class="tree-selectable">
+  <wa-tree-item>
     Item 1
-    <sl-tree-item>
+    <wa-tree-item>
       Item A
-      <sl-tree-item>Item Z</sl-tree-item>
-      <sl-tree-item>Item Y</sl-tree-item>
-      <sl-tree-item>Item X</sl-tree-item>
-    </sl-tree-item>
-    <sl-tree-item>Item B</sl-tree-item>
-    <sl-tree-item>Item C</sl-tree-item>
-  </sl-tree-item>
-  <sl-tree-item>Item 2</sl-tree-item>
-  <sl-tree-item>Item 3</sl-tree-item>
-</sl-tree>
+      <wa-tree-item>Item Z</wa-tree-item>
+      <wa-tree-item>Item Y</wa-tree-item>
+      <wa-tree-item>Item X</wa-tree-item>
+    </wa-tree-item>
+    <wa-tree-item>Item B</wa-tree-item>
+    <wa-tree-item>Item C</wa-tree-item>
+  </wa-tree-item>
+  <wa-tree-item>Item 2</wa-tree-item>
+  <wa-tree-item>Item 3</wa-tree-item>
+</wa-tree>
 
 <script>
   const selectionMode = document.querySelector('#selection-mode');
   const tree = document.querySelector('.tree-selectable');
 
-  selectionMode.addEventListener('sl-change', () => {
-    tree.querySelectorAll('sl-tree-item').forEach(item => (item.selected = false));
+  selectionMode.addEventListener('wa-change', () => {
+    tree.querySelectorAll('wa-tree-item').forEach(item => (item.selected = false));
     tree.selection = selectionMode.value;
   });
 </script>
@@ -119,37 +119,37 @@ The `selection` attribute lets you change the selection behavior of the tree.
 
 <!-- prettier-ignore -->
 ```jsx:react
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => {
   const [selection, setSelection] = useState('single');
 
   return (
     <>
-      <SlSelect label="Selection" value={selection} onSlChange={event => setSelection(event.target.value)}>
-        <SlMenuItem value="single">single</SlMenuItem>
-        <SlMenuItem value="multiple">multiple</SlMenuItem>
-        <SlMenuItem value="leaf">leaf</SlMenuItem>
-      </SlSelect>
+      <WaSelect label="Selection" value={selection} onWaChange={event => setSelection(event.target.value)}>
+        <WaMenuItem value="single">single</WaMenuItem>
+        <WaMenuItem value="multiple">multiple</WaMenuItem>
+        <WaMenuItem value="leaf">leaf</WaMenuItem>
+      </WaSelect>
 
       <br />
 
-      <SlTree selection={selection}>
-        <SlTreeItem>
+      <WaTree selection={selection}>
+        <WaTreeItem>
           Item 1
-          <SlTreeItem>
+          <WaTreeItem>
             Item A
-            <SlTreeItem>Item Z</SlTreeItem>
-            <SlTreeItem>Item Y</SlTreeItem>
-            <SlTreeItem>Item X</SlTreeItem>
-          </SlTreeItem>
-          <SlTreeItem>Item B</SlTreeItem>
-          <SlTreeItem>Item C</SlTreeItem>
-        </SlTreeItem>
-        <SlTreeItem>Item 2</SlTreeItem>
-        <SlTreeItem>Item 3</SlTreeItem>
-      </SlTree>
+            <WaTreeItem>Item Z</WaTreeItem>
+            <WaTreeItem>Item Y</WaTreeItem>
+            <WaTreeItem>Item X</WaTreeItem>
+          </WaTreeItem>
+          <WaTreeItem>Item B</WaTreeItem>
+          <WaTreeItem>Item C</WaTreeItem>
+        </WaTreeItem>
+        <WaTreeItem>Item 2</WaTreeItem>
+        <WaTreeItem>Item 3</WaTreeItem>
+      </WaTree>
     </>
   );
 };
@@ -160,33 +160,33 @@ const App = () => {
 Indent guides can be drawn by setting `--indent-guide-width`. You can also change the color, offset, and style, using `--indent-guide-color`, `--indent-guide-style`, and `--indent-guide-offset`, respectively.
 
 ```html:preview
-<sl-tree class="tree-with-lines">
-  <sl-tree-item expanded>
+<wa-tree class="tree-with-lines">
+  <wa-tree-item expanded>
     Deciduous
-    <sl-tree-item>Birch</sl-tree-item>
-    <sl-tree-item expanded>
+    <wa-tree-item>Birch</wa-tree-item>
+    <wa-tree-item expanded>
       Maple
-      <sl-tree-item>Field maple</sl-tree-item>
-      <sl-tree-item>Red maple</sl-tree-item>
-      <sl-tree-item>Sugar maple</sl-tree-item>
-    </sl-tree-item>
-    <sl-tree-item>Oak</sl-tree-item>
-  </sl-tree-item>
+      <wa-tree-item>Field maple</wa-tree-item>
+      <wa-tree-item>Red maple</wa-tree-item>
+      <wa-tree-item>Sugar maple</wa-tree-item>
+    </wa-tree-item>
+    <wa-tree-item>Oak</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Coniferous
-    <sl-tree-item>Cedar</sl-tree-item>
-    <sl-tree-item>Pine</sl-tree-item>
-    <sl-tree-item>Spruce</sl-tree-item>
-  </sl-tree-item>
+    <wa-tree-item>Cedar</wa-tree-item>
+    <wa-tree-item>Pine</wa-tree-item>
+    <wa-tree-item>Spruce</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Non-trees
-    <sl-tree-item>Bamboo</sl-tree-item>
-    <sl-tree-item>Cactus</sl-tree-item>
-    <sl-tree-item>Fern</sl-tree-item>
-  </sl-tree-item>
-</sl-tree>
+    <wa-tree-item>Bamboo</wa-tree-item>
+    <wa-tree-item>Cactus</wa-tree-item>
+    <wa-tree-item>Fern</wa-tree-item>
+  </wa-tree-item>
+</wa-tree>
 
 <style>
   .tree-with-lines {
@@ -199,37 +199,37 @@ Indent guides can be drawn by setting `--indent-guide-width`. You can also chang
 
 <!-- prettier-ignore -->
 ```jsx:react
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => (
-  <SlTree class="tree-with-lines" style={{ '--indent-guide-width': '1px' }}>
-    <SlTreeItem expanded>
+  <WaTree class="tree-with-lines" style={{ '--indent-guide-width': '1px' }}>
+    <WaTreeItem expanded>
       Deciduous
-      <SlTreeItem>Birch</SlTreeItem>
-      <SlTreeItem expanded>
+      <WaTreeItem>Birch</WaTreeItem>
+      <WaTreeItem expanded>
         Maple
-        <SlTreeItem>Field maple</SlTreeItem>
-        <SlTreeItem>Red maple</SlTreeItem>
-        <SlTreeItem>Sugar maple</SlTreeItem>
-      </SlTreeItem>
-      <SlTreeItem>Oak</SlTreeItem>
-    </SlTreeItem>
+        <WaTreeItem>Field maple</WaTreeItem>
+        <WaTreeItem>Red maple</WaTreeItem>
+        <WaTreeItem>Sugar maple</WaTreeItem>
+      </WaTreeItem>
+      <WaTreeItem>Oak</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Coniferous
-      <SlTreeItem>Cedar</SlTreeItem>
-      <SlTreeItem>Pine</SlTreeItem>
-      <SlTreeItem>Spruce</SlTreeItem>
-    </SlTreeItem>
+      <WaTreeItem>Cedar</WaTreeItem>
+      <WaTreeItem>Pine</WaTreeItem>
+      <WaTreeItem>Spruce</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Non-trees
-      <SlTreeItem>Bamboo</SlTreeItem>
-      <SlTreeItem>Cactus</SlTreeItem>
-      <SlTreeItem>Fern</SlTreeItem>
-    </SlTreeItem>
-  </SlTree>
+      <WaTreeItem>Bamboo</WaTreeItem>
+      <WaTreeItem>Cactus</WaTreeItem>
+      <WaTreeItem>Fern</WaTreeItem>
+    </WaTreeItem>
+  </WaTree>
 );
 ```
 
@@ -237,25 +237,25 @@ const App = () => (
 
 ### Lazy Loading
 
-Use the `lazy` attribute on a tree item to indicate that the content is not yet present and will be loaded later. When the user tries to expand the node, the `loading` state is set to `true` and the `sl-lazy-load` event will be emitted to allow you to load data asynchronously. The item will remain in a loading state until its content is changed.
+Use the `lazy` attribute on a tree item to indicate that the content is not yet present and will be loaded later. When the user tries to expand the node, the `loading` state is set to `true` and the `wa-lazy-load` event will be emitted to allow you to load data asynchronously. The item will remain in a loading state until its content is changed.
 
 If you want to disable this behavior after the first load, simply remove the `lazy` attribute and, on the next expand, the existing content will be shown instead.
 
 ```html:preview
-<sl-tree>
-  <sl-tree-item lazy>Available Trees</sl-tree-item>
-</sl-tree>
+<wa-tree>
+  <wa-tree-item lazy>Available Trees</wa-tree-item>
+</wa-tree>
 
 <script type="module">
-  const lazyItem = document.querySelector('sl-tree-item[lazy]');
+  const lazyItem = document.querySelector('wa-tree-item[lazy]');
 
-  lazyItem.addEventListener('sl-lazy-load', () => {
+  lazyItem.addEventListener('wa-lazy-load', () => {
     // Simulate asynchronous loading
     setTimeout(() => {
       const subItems = ['Birch', 'Cedar', 'Maple', 'Pine'];
 
       for (const item of subItems) {
-        const treeItem = document.createElement('sl-tree-item');
+        const treeItem = document.createElement('wa-tree-item');
         treeItem.innerText = item;
         lazyItem.append(treeItem);
       }
@@ -268,8 +268,8 @@ If you want to disable this behavior after the first load, simply remove the `la
 ```
 
 ```jsx:react
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => {
   const [childItems, setChildItems] = useState([]);
@@ -286,14 +286,14 @@ const App = () => {
   };
 
   return (
-    <SlTree>
-      <SlTreeItem lazy={lazy} onSlLazyLoad={handleLazyLoad}>
+    <WaTree>
+      <WaTreeItem lazy={lazy} onWaLazyLoad={handleLazyLoad}>
         Available Trees
         {childItems.map(item => (
-          <SlTreeItem>{item}</SlTreeItem>
+          <WaTreeItem>{item}</WaTreeItem>
         ))}
-      </SlTreeItem>
-    </SlTree>
+      </WaTreeItem>
+    </WaTree>
   );
 };
 ```
@@ -303,39 +303,39 @@ const App = () => {
 Use the `expand-icon` and `collapse-icon` slots to change the expand and collapse icons, respectively. To disable the animation, override the `rotate` property on the `expand-button` part as shown below.
 
 ```html:preview
-<sl-tree class="custom-icons">
-  <sl-icon name="plus-square" slot="expand-icon"></sl-icon>
-  <sl-icon name="dash-square" slot="collapse-icon"></sl-icon>
+<wa-tree class="custom-icons">
+  <wa-icon name="plus-square" slot="expand-icon"></wa-icon>
+  <wa-icon name="dash-square" slot="collapse-icon"></wa-icon>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Deciduous
-    <sl-tree-item>Birch</sl-tree-item>
-    <sl-tree-item>
+    <wa-tree-item>Birch</wa-tree-item>
+    <wa-tree-item>
       Maple
-      <sl-tree-item>Field maple</sl-tree-item>
-      <sl-tree-item>Red maple</sl-tree-item>
-      <sl-tree-item>Sugar maple</sl-tree-item>
-    </sl-tree-item>
-    <sl-tree-item>Oak</sl-tree-item>
-  </sl-tree-item>
+      <wa-tree-item>Field maple</wa-tree-item>
+      <wa-tree-item>Red maple</wa-tree-item>
+      <wa-tree-item>Sugar maple</wa-tree-item>
+    </wa-tree-item>
+    <wa-tree-item>Oak</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Coniferous
-    <sl-tree-item>Cedar</sl-tree-item>
-    <sl-tree-item>Pine</sl-tree-item>
-    <sl-tree-item>Spruce</sl-tree-item>
-  </sl-tree-item>
+    <wa-tree-item>Cedar</wa-tree-item>
+    <wa-tree-item>Pine</wa-tree-item>
+    <wa-tree-item>Spruce</wa-tree-item>
+  </wa-tree-item>
 
-  <sl-tree-item>
+  <wa-tree-item>
     Non-trees
-    <sl-tree-item>Bamboo</sl-tree-item>
-    <sl-tree-item>Cactus</sl-tree-item>
-    <sl-tree-item>Fern</sl-tree-item>
-  </sl-tree-item>
-</sl-tree>
+    <wa-tree-item>Bamboo</wa-tree-item>
+    <wa-tree-item>Cactus</wa-tree-item>
+    <wa-tree-item>Fern</wa-tree-item>
+  </wa-tree-item>
+</wa-tree>
 
 <style>
-  .custom-icons sl-tree-item::part(expand-button) {
+  .custom-icons wa-tree-item::part(expand-button) {
     /* Disable the expand/collapse animation */
     rotate: none;
   }
@@ -344,40 +344,40 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 
 <!-- prettier-ignore -->
 ```jsx:react
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => (
-  <SlTree>
-    <SlIcon name="plus-square" slot="expand-icon"></SlIcon>
-    <SlIcon name="dash-square" slot="collapse-icon"></SlIcon>
+  <WaTree>
+    <WaIcon name="plus-square" slot="expand-icon"></WaIcon>
+    <WaIcon name="dash-square" slot="collapse-icon"></WaIcon>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Deciduous
-      <SlTreeItem>Birch</SlTreeItem>
-      <SlTreeItem>
+      <WaTreeItem>Birch</WaTreeItem>
+      <WaTreeItem>
         Maple
-        <SlTreeItem>Field maple</SlTreeItem>
-        <SlTreeItem>Red maple</SlTreeItem>
-        <SlTreeItem>Sugar maple</SlTreeItem>
-      </SlTreeItem>
-      <SlTreeItem>Oak</SlTreeItem>
-    </SlTreeItem>
+        <WaTreeItem>Field maple</WaTreeItem>
+        <WaTreeItem>Red maple</WaTreeItem>
+        <WaTreeItem>Sugar maple</WaTreeItem>
+      </WaTreeItem>
+      <WaTreeItem>Oak</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Coniferous
-      <SlTreeItem>Cedar</SlTreeItem>
-      <SlTreeItem>Pine</SlTreeItem>
-      <SlTreeItem>Spruce</SlTreeItem>
-    </SlTreeItem>
+      <WaTreeItem>Cedar</WaTreeItem>
+      <WaTreeItem>Pine</WaTreeItem>
+      <WaTreeItem>Spruce</WaTreeItem>
+    </WaTreeItem>
 
-    <SlTreeItem>
+    <WaTreeItem>
       Non-trees
-      <SlTreeItem>Bamboo</SlTreeItem>
-      <SlTreeItem>Cactus</SlTreeItem>
-      <SlTreeItem>Fern</SlTreeItem>
-    </SlTreeItem>
-  </SlTree>
+      <WaTreeItem>Bamboo</WaTreeItem>
+      <WaTreeItem>Cactus</WaTreeItem>
+      <WaTreeItem>Fern</WaTreeItem>
+    </WaTreeItem>
+  </WaTree>
 );
 ```
 
@@ -386,91 +386,91 @@ const App = () => (
 Decorative icons can be used before labels to provide hints for each node.
 
 ```html:preview
-<sl-tree class="tree-with-icons">
-  <sl-tree-item expanded>
-    <sl-icon name="folder"></sl-icon>
+<wa-tree class="tree-with-icons">
+  <wa-tree-item expanded>
+    <wa-icon name="folder"></wa-icon>
     Documents
 
-    <sl-tree-item>
-      <sl-icon name="folder"> </sl-icon>
+    <wa-tree-item>
+      <wa-icon name="folder"> </wa-icon>
       Photos
-      <sl-tree-item>
-        <sl-icon name="image"></sl-icon>
+      <wa-tree-item>
+        <wa-icon name="image"></wa-icon>
         birds.jpg
-      </sl-tree-item>
-      <sl-tree-item>
-        <sl-icon name="image"></sl-icon>
+      </wa-tree-item>
+      <wa-tree-item>
+        <wa-icon name="image"></wa-icon>
         kitten.jpg
-      </sl-tree-item>
-      <sl-tree-item>
-        <sl-icon name="image"></sl-icon>
+      </wa-tree-item>
+      <wa-tree-item>
+        <wa-icon name="image"></wa-icon>
         puppy.jpg
-      </sl-tree-item>
-    </sl-tree-item>
+      </wa-tree-item>
+    </wa-tree-item>
 
-    <sl-tree-item>
-      <sl-icon name="folder"></sl-icon>
+    <wa-tree-item>
+      <wa-icon name="folder"></wa-icon>
       Writing
-      <sl-tree-item>
-        <sl-icon name="file"></sl-icon>
+      <wa-tree-item>
+        <wa-icon name="file"></wa-icon>
         draft.txt
-      </sl-tree-item>
-      <sl-tree-item>
-        <sl-icon name="file-pdf"></sl-icon>
+      </wa-tree-item>
+      <wa-tree-item>
+        <wa-icon name="file-pdf"></wa-icon>
         final.pdf
-      </sl-tree-item>
-      <sl-tree-item>
-        <sl-icon name="file-bar-graph"></sl-icon>
+      </wa-tree-item>
+      <wa-tree-item>
+        <wa-icon name="file-bar-graph"></wa-icon>
         sales.xls
-      </sl-tree-item>
-    </sl-tree-item>
-  </sl-tree-item>
-</sl-tree>
+      </wa-tree-item>
+    </wa-tree-item>
+  </wa-tree-item>
+</wa-tree>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlTree from '@shoelace-style/shoelace/dist/react/tree';
-import SlTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaTree from '@shoelace-style/shoelace/dist/react/tree';
+import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => {
   return (
-    <SlTree class="tree-with-icons">
-      <SlTreeItem expanded>
-        <SlIcon name="folder" />
+    <WaTree class="tree-with-icons">
+      <WaTreeItem expanded>
+        <WaIcon name="folder" />
         Root
-        <SlTreeItem>
-          <SlIcon name="folder" />
-          Folder 1<SlTreeItem>
-            <SlIcon name="files" />
+        <WaTreeItem>
+          <WaIcon name="folder" />
+          Folder 1<WaTreeItem>
+            <WaIcon name="files" />
             File 1 - 1
-          </SlTreeItem>
-          <SlTreeItem disabled>
-            <SlIcon name="files" />
+          </WaTreeItem>
+          <WaTreeItem disabled>
+            <WaIcon name="files" />
             File 1 - 2
-          </SlTreeItem>
-          <SlTreeItem>
-            <SlIcon name="files" />
+          </WaTreeItem>
+          <WaTreeItem>
+            <WaIcon name="files" />
             File 1 - 3
-          </SlTreeItem>
-        </SlTreeItem>
-        <SlTreeItem>
-          <SlIcon name="files" />
-          Folder 2<SlTreeItem>
-            <SlIcon name="files" />
+          </WaTreeItem>
+        </WaTreeItem>
+        <WaTreeItem>
+          <WaIcon name="files" />
+          Folder 2<WaTreeItem>
+            <WaIcon name="files" />
             File 2 - 1
-          </SlTreeItem>
-          <SlTreeItem>
-            <SlIcon name="files" />
+          </WaTreeItem>
+          <WaTreeItem>
+            <WaIcon name="files" />
             File 2 - 2
-          </SlTreeItem>
-        </SlTreeItem>
-        <SlTreeItem>
-          <SlIcon name="files" />
+          </WaTreeItem>
+        </WaTreeItem>
+        <WaTreeItem>
+          <WaIcon name="files" />
           File 1
-        </SlTreeItem>
-      </SlTreeItem>
-    </SlTree>
+        </WaTreeItem>
+      </WaTreeItem>
+    </WaTree>
   );
 };
 ```

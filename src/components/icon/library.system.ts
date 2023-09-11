@@ -4,7 +4,7 @@ import type { IconLibrary } from './library.js';
 // System icons are a separate library to ensure they're always available, regardless of how the default icon library is
 // configured or if its icons resolve properly.
 //
-// All Shoelace components must use the system library instead of the default library. For visual consistency, system
+// All Web Awesome components must use the system library instead of the default library. For visual consistency, system
 // icons are a subset of Bootstrap Icons.
 //
 const icons = {

@@ -26,54 +26,54 @@ export default css`
    * Variant modifiers
    */
 
-  .tag--primary {
-    background-color: var(--sl-color-primary-50);
-    border-color: var(--sl-color-primary-200);
-    color: var(--sl-color-primary-800);
+  .tag--brand {
+    background-color: var(--wa-color-brand-fill-muted);
+    border-color: var(--wa-color-brand-outline-muted-alt);
+    color: var(--wa-color-brand-text-on-muted);
   }
 
-  .tag--primary:active > sl-icon-button {
-    color: var(--sl-color-primary-600);
+  .tag--brand:active > wa-icon-button {
+    color: var(--wa-color-brand-text-on-muted);
   }
 
   .tag--success {
-    background-color: var(--sl-color-success-50);
-    border-color: var(--sl-color-success-200);
-    color: var(--sl-color-success-800);
+    background-color: var(--wa-color-success-fill-muted);
+    border-color: var(--wa-color-success-outline-muted-alt);
+    color: var(--wa-color-success-text-on-muted);
   }
 
-  .tag--success:active > sl-icon-button {
-    color: var(--sl-color-success-600);
+  .tag--success:active > wa-icon-button {
+    color: var(--wa-color-success-text-on-muted);
   }
 
   .tag--neutral {
-    background-color: var(--sl-color-neutral-50);
-    border-color: var(--sl-color-neutral-200);
-    color: var(--sl-color-neutral-800);
+    background-color: var(--wa-color-neutral-fill-muted);
+    border-color: var(--wa-color-neutral-outline-muted-alt);
+    color: var(--wa-color-neutral-text-on-muted);
   }
 
-  .tag--neutral:active > sl-icon-button {
-    color: var(--sl-color-neutral-600);
+  .tag--neutral:active > wa-icon-button {
+    color: var(--wa-color-neutral-text-on-muted);
   }
 
   .tag--warning {
-    background-color: var(--sl-color-warning-50);
-    border-color: var(--sl-color-warning-200);
-    color: var(--sl-color-warning-800);
+    background-color: var(--wa-color-warning-fill-muted);
+    border-color: var(--wa-color-warning-outline-muted-alt);
+    color: var(--wa-color-warning-text-on-muted);
   }
 
-  .tag--warning:active > sl-icon-button {
-    color: var(--sl-color-warning-600);
+  .tag--warning:active > wa-icon-button {
+    color: var(--wa-color-warning-text-on-muted);
   }
 
   .tag--danger {
-    background-color: var(--sl-color-danger-50);
-    border-color: var(--sl-color-danger-200);
-    color: var(--sl-color-danger-800);
+    background-color: var(--wa-color-danger-fill-muted);
+    border-color: var(--wa-color-danger-outline-muted-alt);
+    color: var(--wa-color-danger-text-on-muted);
   }
 
-  .tag--danger:active > sl-icon-button {
-    color: var(--sl-color-danger-600);
+  .tag--danger:active > wa-icon-button {
+    color: var(--wa-color-danger-text-on-muted);
   }
 
   /*
@@ -81,31 +81,25 @@ export default css`
    */
 
   .tag--small {
-    font-size: var(--sl-button-font-size-small);
-    height: calc(var(--sl-input-height-small) * 0.8);
-    line-height: calc(var(--sl-input-height-small) - var(--sl-input-border-width) * 2);
-    border-radius: var(--sl-input-border-radius-small);
-    padding: 0 var(--sl-spacing-x-small);
+    font-size: var(--wa-font-size-xs);
+    border-radius: var(--wa-corners-1x);
+    padding: var(--wa-space-3xs) var(--wa-space-2xs);
   }
 
   .tag--medium {
-    font-size: var(--sl-button-font-size-medium);
-    height: calc(var(--sl-input-height-medium) * 0.8);
-    line-height: calc(var(--sl-input-height-medium) - var(--sl-input-border-width) * 2);
-    border-radius: var(--sl-input-border-radius-medium);
-    padding: 0 var(--sl-spacing-small);
+    font-size: var(--wa-font-size-s);
+    border-radius: var(--wa-corners-1x);
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
   }
 
   .tag--large {
-    font-size: var(--sl-button-font-size-large);
-    height: calc(var(--sl-input-height-large) * 0.8);
-    line-height: calc(var(--sl-input-height-large) - var(--sl-input-border-width) * 2);
-    border-radius: var(--sl-input-border-radius-large);
-    padding: 0 var(--sl-spacing-medium);
+    font-size: var(--wa-font-size-m);
+    border-radius: var(--wa-corners-1x);
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
   }
 
   .tag__remove {
-    margin-inline-start: var(--sl-spacing-x-small);
+    margin-inline-start: var(--wa-space-2xs);
   }
 
   /*
@@ -113,6 +107,6 @@ export default css`
    */
 
   .tag--pill {
-    border-radius: var(--sl-border-radius-pill);
+    border-radius: var(--wa-corners-pill);
   }
 `;

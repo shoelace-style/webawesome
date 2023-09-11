@@ -11,9 +11,9 @@ Since visually hidden content can receive focus when tabbing, the element will b
 
 ```html:preview
 <div style="min-height: 1.875rem;">
-  <sl-visually-hidden>
+  <wa-visually-hidden>
     <a href="#">Skip to main content</a>
-  </sl-visually-hidden>
+  </wa-visually-hidden>
 </div>
 ```
 
@@ -26,8 +26,8 @@ In this example, the link will open a new window. Screen readers will announce "
 ```html:preview
 <a href="https://example.com/" target="_blank">
   Visit External Page
-  <sl-icon name="box-arrow-up-right"></sl-icon>
-  <sl-visually-hidden>opens in a new window</sl-visually-hidden>
+  <wa-icon name="box-arrow-up-right"></wa-icon>
+  <wa-visually-hidden>opens in a new window</wa-visually-hidden>
 </a>
 ```
 
@@ -36,11 +36,11 @@ In this example, the link will open a new window. Screen readers will announce "
 Adding a label may seem redundant at times, but they're very helpful for unsighted users. Rather than omit them, you can provide context to unsighted users with visually hidden content that will be announced by assistive devices such as screen readers.
 
 ```html:preview
-<sl-card style="width: 100%; max-width: 360px;">
+<wa-card style="width: 100%; max-width: 360px;">
   <header>
-    <sl-visually-hidden>Personal Info</sl-visually-hidden>
+    <wa-visually-hidden>Personal Info</wa-visually-hidden>
   </header>
-  <sl-input label="Name" style="margin-bottom: .5rem;"></sl-input>
-  <sl-input label="Email" type="email"></sl-input>
-</sl-card>
+  <wa-input label="Name" style="margin-bottom: .5rem;"></wa-input>
+  <wa-input label="Email" type="email"></wa-input>
+</wa-card>
 ```

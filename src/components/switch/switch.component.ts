@@ -6,10 +6,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './switch.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
  * @summary Switches allow the user to toggle an option on or off.
@@ -19,11 +19,11 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  *
  * @slot - The switch's label.
  *
- * @event sl-blur - Emitted when the control loses focus.
- * @event sl-change - Emitted when the control's checked state changes.
- * @event sl-input - Emitted when the control receives input.
- * @event sl-focus - Emitted when the control gains focus.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the control loses focus.
+ * @event wa-change - Emitted when the control's checked state changes.
+ * @event wa-input - Emitted when the control receives input.
+ * @event wa-focus - Emitted when the control gains focus.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
  * @csspart control - The control that houses the switch's thumb.
@@ -34,13 +34,13 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @cssproperty --height - The height of the switch.
  * @cssproperty --thumb-size - The size of the thumb.
  */
-export default class SlSwitch extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaSwitch extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
 
   private readonly formControlController = new FormControlController(this, {
-    value: (control: SlSwitch) => (control.checked ? control.value || 'on' : undefined),
-    defaultValue: (control: SlSwitch) => control.defaultChecked,
-    setValue: (control: SlSwitch, checked: boolean) => (control.checked = checked)
+    value: (control: WaSwitch) => (control.checked ? control.value || 'on' : undefined),
+    defaultValue: (control: WaSwitch) => control.defaultChecked,
+    setValue: (control: WaSwitch, checked: boolean) => (control.checked = checked)
   });
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
@@ -92,11 +92,11 @@ export default class SlSwitch extends ShoelaceElement implements ShoelaceFormCon
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleInput() {
-    this.emit('sl-input');
+    this.emit('wa-input');
   }
 
   private handleInvalid(event: Event) {
@@ -106,27 +106,27 @@ export default class SlSwitch extends ShoelaceElement implements ShoelaceFormCon
 
   private handleClick() {
     this.checked = !this.checked;
-    this.emit('sl-change');
+    this.emit('wa-change');
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   private handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
       this.checked = false;
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
       this.checked = true;
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
@@ -225,6 +225,6 @@ export default class SlSwitch extends ShoelaceElement implements ShoelaceFormCon
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-switch': SlSwitch;
+    'wa-switch': WaSwitch;
   }
 }

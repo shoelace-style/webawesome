@@ -1,12 +1,12 @@
-import SlTab from './tab.component.js';
+import WaTab from './tab.component.js';
 
 export * from './tab.component.js';
-export default SlTab;
+export default WaTab;
 
-SlTab.define('sl-tab');
+WaTab.define('wa-tab');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tab': SlTab;
+    'wa-tab': WaTab;
   }
 }

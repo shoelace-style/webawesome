@@ -12,26 +12,26 @@ export default css`
     position: relative;
     display: inline-flex;
     align-items: flex-start;
-    font-family: var(--sl-input-font-family);
-    font-weight: var(--sl-input-font-weight);
-    color: var(--sl-input-label-color);
+    font-family: var(--wa-font-family-body);
+    font-weight: var(--wa-font-weight-normal);
+    color: var(--wa-form-controls-text-color);
     vertical-align: middle;
     cursor: pointer;
   }
 
   .checkbox--small {
-    --toggle-size: var(--sl-toggle-size-small);
-    font-size: var(--sl-input-font-size-small);
+    --toggle-size: var(--wa-form-control-toggle-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .checkbox--medium {
-    --toggle-size: var(--sl-toggle-size-medium);
-    font-size: var(--sl-input-font-size-medium);
+    --toggle-size: var(--wa-form-control-toggle-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   .checkbox--large {
-    --toggle-size: var(--sl-toggle-size-large);
-    font-size: var(--sl-input-font-size-large);
+    --toggle-size: var(--wa-form-control-toggle-size-l);
+    font-size: var(--wa-font-size-l);
   }
 
   .checkbox__control {
@@ -42,12 +42,12 @@ export default css`
     justify-content: center;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    border: solid var(--sl-input-border-width) var(--sl-input-border-color);
+    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
     border-radius: 2px;
-    background-color: var(--sl-input-background-color);
-    color: var(--sl-color-neutral-0);
-    transition: var(--sl-transition-fast) border-color, var(--sl-transition-fast) background-color,
-      var(--sl-transition-fast) color, var(--sl-transition-fast) box-shadow;
+    background-color: var(--wa-form-controls-background);
+    color: var(--wa-form-controls-text-color);
+    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) color, var(--wa-transition-fast) box-shadow;
   }
 
   .checkbox__input {
@@ -65,37 +65,26 @@ export default css`
     height: var(--toggle-size);
   }
 
-  /* Hover */
-  .checkbox:not(.checkbox--checked):not(.checkbox--disabled) .checkbox__control:hover {
-    border-color: var(--sl-input-border-color-hover);
-    background-color: var(--sl-input-background-color-hover);
-  }
-
   /* Focus */
   .checkbox:not(.checkbox--checked):not(.checkbox--disabled) .checkbox__input:focus-visible ~ .checkbox__control {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    border-color: var(--wa-form-controls-border-color-activated);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   /* Checked/indeterminate */
   .checkbox--checked .checkbox__control,
   .checkbox--indeterminate .checkbox__control {
-    border-color: var(--sl-color-primary-600);
-    background-color: var(--sl-color-primary-600);
-  }
-
-  /* Checked/indeterminate + hover */
-  .checkbox.checkbox--checked:not(.checkbox--disabled) .checkbox__control:hover,
-  .checkbox.checkbox--indeterminate:not(.checkbox--disabled) .checkbox__control:hover {
-    border-color: var(--sl-color-primary-500);
-    background-color: var(--sl-color-primary-500);
+    color: var(--wa-color-brand-text-on-vivid);
+    border-color: var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-fill-vivid);
   }
 
   /* Checked/indeterminate + focus */
   .checkbox.checkbox--checked:not(.checkbox--disabled) .checkbox__input:focus-visible ~ .checkbox__control,
   .checkbox.checkbox--indeterminate:not(.checkbox--disabled) .checkbox__input:focus-visible ~ .checkbox__control {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   /* Disabled */
@@ -106,14 +95,14 @@ export default css`
 
   .checkbox__label {
     display: inline-block;
-    color: var(--sl-input-label-color);
     line-height: var(--toggle-size);
-    margin-inline-start: 0.5em;
+    margin-inline-start: var(--wa-space-xs);
     user-select: none;
   }
 
   :host([required]) .checkbox__label::after {
-    content: var(--sl-input-required-content);
-    margin-inline-start: var(--sl-input-required-content-offset);
+    content: var(--wa-form-controls-required-content);
+    color: var(--wa-form-controls-required-content-color);
+    margin-inline-start: var(--wa-form-controls-required-content-offset);
   }
 `;

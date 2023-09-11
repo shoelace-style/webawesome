@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-spinner></sl-spinner>
+<wa-spinner></wa-spinner>
 ```
 
 ```jsx:react
-import SlSpinner from '@shoelace-style/shoelace/dist/react/spinner';
+import WaSpinner from '@shoelace-style/shoelace/dist/react/spinner';
 
-const App = () => <SlSpinner />;
+const App = () => <WaSpinner />;
 ```
 
 ## Examples
@@ -22,21 +22,21 @@ const App = () => <SlSpinner />;
 Spinners are sized based on the current font size. To change their size, set the `font-size` property on the spinner itself or on a parent element as shown below.
 
 ```html:preview
-<sl-spinner></sl-spinner>
-<sl-spinner style="font-size: 2rem;"></sl-spinner>
-<sl-spinner style="font-size: 3rem;"></sl-spinner>
+<wa-spinner></wa-spinner>
+<wa-spinner style="font-size: 2rem;"></wa-spinner>
+<wa-spinner style="font-size: 3rem;"></wa-spinner>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlSpinner from '@shoelace-style/shoelace/dist/react/spinner';
+import WaSpinner from '@shoelace-style/shoelace/dist/react/spinner';
 
 const App = () => (
   <>
-    <SlSpinner />
-    <SlSpinner style={{ fontSize: '2rem' }} />
-    <SlSpinner style={{ fontSize: '3rem' }} />
+    <WaSpinner />
+    <WaSpinner style={{ fontSize: '2rem' }} />
+    <WaSpinner style={{ fontSize: '3rem' }} />
   </>
 );
 ```
@@ -48,16 +48,16 @@ const App = () => (
 The width of the spinner's track can be changed by setting the `--track-width` custom property.
 
 ```html:preview
-<sl-spinner style="font-size: 50px; --track-width: 10px;"></sl-spinner>
+<wa-spinner style="font-size: 50px; --track-width: 10px;"></wa-spinner>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlSpinner from '@shoelace-style/shoelace/dist/react/spinner';
+import WaSpinner from '@shoelace-style/shoelace/dist/react/spinner';
 
 const App = () => (
-  <SlSpinner
+  <WaSpinner
     style={{
       fontSize: '3rem',
       '--track-width': '6px'
@@ -73,16 +73,16 @@ const App = () => (
 The spinner's colors can be changed by setting the `--indicator-color` and `--track-color` custom properties.
 
 ```html:preview
-<sl-spinner style="font-size: 3rem; --indicator-color: deeppink; --track-color: pink;"></sl-spinner>
+<wa-spinner style="font-size: 3rem; --indicator-color: deeppink; --track-color: pink;"></wa-spinner>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlSpinner from '@shoelace-style/shoelace/dist/react/spinner';
+import WaSpinner from '@shoelace-style/shoelace/dist/react/spinner';
 
 const App = () => (
-  <SlSpinner
+  <WaSpinner
     style={{
       fontSize: '3rem',
       '--indicator-color': 'deeppink',

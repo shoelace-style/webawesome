@@ -71,8 +71,8 @@ async function buildTheDocs(watch = false) {
 
       child.stderr.on('data', data => {
         if (data.includes(errorSignal)) {
-          // This closes the dev server, not sure if thats what we want?
-          reject(output);
+          // Resolve to prevent the dev server from closing
+          resolve(output);
         }
       });
     } else {
@@ -97,9 +97,9 @@ async function buildTheSource() {
       // NOTE: Entry points must be mapped in package.json > exports, otherwise users won't be able to import them!
       //
       // The whole shebang
-      './src/shoelace.ts',
+      './src/webawesome.ts',
       // The auto-loader
-      './src/shoelace-autoloader.ts',
+      './src/autoloader.ts',
       // Components
       ...(await globby('./src/components/**/!(*.(style|test)).ts')),
       // Translations
@@ -128,7 +128,7 @@ async function buildTheSource() {
     splitting: true,
     plugins: [
       replace({
-        __SHOELACE_VERSION__: shoelaceVersion
+        __WEBAWESOME_VERSION__: shoelaceVersion
       })
     ]
   };
@@ -215,9 +215,8 @@ await nextTask('Running the TypeScript compiler', () => {
 });
 
 // Copy the above steps to the CDN directory directly so we don't need to twice the work for nothing.
-await nextTask(`Copying Web Types, Themes, Icons, and TS Types to "${cdndir}"`, async () => {
+await nextTask(`Themes, Icons, and TS Types to "${cdndir}"`, async () => {
   await deleteAsync(cdndir);
-  await copy('./web-types.json', `${outdir}/web-types.json`);
   await copy(outdir, cdndir);
 });
 
@@ -260,7 +259,7 @@ if (serve) {
     startPath: '/',
     port,
     logLevel: 'silent',
-    logPrefix: '[shoelace]',
+    logPrefix: '[webawesome]',
     logFileChanges: true,
     notify: false,
     single: false,

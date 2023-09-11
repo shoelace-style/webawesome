@@ -1,12 +1,12 @@
-import SlVisuallyHidden from './visually-hidden.component.js';
+import WaVisuallyHidden from './visually-hidden.component.js';
 
 export * from './visually-hidden.component.js';
-export default SlVisuallyHidden;
+export default WaVisuallyHidden;
 
-SlVisuallyHidden.define('sl-visually-hidden');
+WaVisuallyHidden.define('wa-visually-hidden');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-visually-hidden': SlVisuallyHidden;
+    'wa-visually-hidden': WaVisuallyHidden;
   }
 }

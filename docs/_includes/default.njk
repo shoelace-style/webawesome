@@ -2,7 +2,7 @@
 <html
   lang="en"
   data-layout="{{ layout }}"
-  data-shoelace-version="{{ meta.version }}"
+  data-wa-version="{{ meta.version }}"
 >
   <head>
     {# Metadata #}
@@ -33,19 +33,14 @@
     <meta property="og:description" content="{{ meta.description }}" />
     <meta property="og:image" content="{{ assetUrl(meta.image, true) }}" />
 
-    {# Shoelace #}
-    <link rel="stylesheet" href="/dist/themes/light.css" />
-    <link rel="stylesheet" href="/dist/themes/dark.css" />
-    <script type="module" src="/dist/shoelace-autoloader.js"></script>
+    {# Web Awesome #}
+    <link rel="stylesheet" href="/dist/themes/default.css" />
+    <script type="module" src="/dist/autoloader.js"></script>
 
-    {# Set the initial theme and menu states here to prevent flashing #}
-    <script>
-      (() => {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = localStorage.getItem('theme') || 'auto';
-        document.documentElement.classList.toggle('sl-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
-      })();
-    </script>
+    {# Web Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Noto+Sans+Mono&display=swap" rel="stylesheet">
 
     {# Turbo + Scroll positioning #}
     <script src="{{ assetUrl('scripts/turbo.js') }}" type="module"></script>
@@ -68,37 +63,10 @@
       </svg>
     </button>
 
-    {# Icon toolbar #}
-    <div id="icon-toolbar">
-      {# GitHub #}
-      <a href="https://github.com/shoelace-style/shoelace" title="View Shoelace on GitHub">
-        <sl-icon name="github"></sl-icon>
-      </a>
-
-      {# Twitter #}
-      <a href="https://twitter.com/shoelace_style" title="Follow Shoelace on Twitter">
-        <sl-icon name="twitter"></sl-icon>
-      </a>
-
-      {# Theme selector #}
-      <sl-dropdown id="theme-selector" placement="bottom-end" distance="3">
-        <sl-button slot="trigger" size="small" variant="text" caret title="Press \ to toggle">
-          <sl-icon class="only-light" name="sun-fill"></sl-icon>
-          <sl-icon class="only-dark" name="moon-fill"></sl-icon>
-        </sl-button>
-        <sl-menu>
-          <sl-menu-item type="checkbox" value="light">Light</sl-menu-item>
-          <sl-menu-item type="checkbox" value="dark">Dark</sl-menu-item>
-          <sl-divider></sl-divider>
-          <sl-menu-item type="checkbox" value="auto">System</sl-menu-item>
-        </sl-menu>
-      </sl-dropdown>
-    </div>
-
     <aside id="sidebar" data-preserve-scroll>
       <header>
         <a href="/">
-          <img src="{{ assetUrl('images/wordmark.svg') }}" alt="Shoelace" />
+          {% include 'workmark.njk' %}
         </a>
         <div class="sidebar-version">
           {{ meta.version }}
@@ -106,19 +74,19 @@
       </header>
 
       <div class="sidebar-buttons">
-        <sl-button size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
-          <sl-icon slot="prefix" name="github"></sl-icon> Code
-        </sl-button>
-        <sl-button size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
-          <sl-icon slot="prefix" name="star-fill"></sl-icon> Star
-        </sl-button>
-        <sl-button size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
-          <sl-icon slot="prefix" name="twitter"></sl-icon> Follow
-        </sl-button>
+        <wa-button size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
+          <wa-icon slot="prefix" name="github"></wa-icon> Code
+        </wa-button>
+        <wa-button size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
+          <wa-icon slot="prefix" name="star-fill"></wa-icon> Star
+        </wa-button>
+        <wa-button size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
+          <wa-icon slot="prefix" name="twitter"></wa-icon> Follow
+        </wa-button>
       </div>
 
       <button class="search-box" type="button" title="Press / to search" aria-label="Search" data-plugin="search">
-        <sl-icon name="search"></sl-icon>
+        <wa-icon name="search"></wa-icon>
         <span>Search</span>
       </button>
 

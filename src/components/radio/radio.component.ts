@@ -2,9 +2,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './radio.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,22 +13,22 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
  * @slot - The radio's label.
  *
- * @event sl-blur - Emitted when the control loses focus.
- * @event sl-focus - Emitted when the control gains focus.
+ * @event wa-blur - Emitted when the control loses focus.
+ * @event wa-focus - Emitted when the control gains focus.
  *
  * @csspart base - The component's base wrapper.
  * @csspart control - The circular container that wraps the radio's checked state.
  * @csspart control--checked - The radio control when the radio is checked.
- * @csspart checked-icon - The checked icon, an `<sl-icon>` element.
+ * @csspart checked-icon - The checked icon, an `<wa-icon>` element.
  * @csspart label - The container that wraps the radio's label.
  */
-export default class SlRadio extends ShoelaceElement {
+export default class WaRadio extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   @state() checked = false;
   @state() protected hasFocus = false;
@@ -59,7 +59,7 @@ export default class SlRadio extends ShoelaceElement {
 
   private handleBlur = () => {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   };
 
   private handleClick = () => {
@@ -70,7 +70,7 @@ export default class SlRadio extends ShoelaceElement {
 
   private handleFocus = () => {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   };
 
   private setInitialAttributes() {
@@ -106,7 +106,7 @@ export default class SlRadio extends ShoelaceElement {
       >
         <span part="${`control${this.checked ? ' control--checked' : ''}`}" class="radio__control">
           ${this.checked
-            ? html` <sl-icon part="checked-icon" class="radio__checked-icon" library="system" name="radio"></sl-icon> `
+            ? html` <wa-icon part="checked-icon" class="radio__checked-icon" library="system" name="radio"></wa-icon> `
             : ''}
         </span>
 
@@ -118,6 +118,6 @@ export default class SlRadio extends ShoelaceElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-radio': SlRadio;
+    'wa-radio': WaRadio;
   }
 }

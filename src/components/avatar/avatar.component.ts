@@ -2,9 +2,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './avatar.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,9 +13,9 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
- * @slot icon - The default icon to use when no image or initials are present. Works best with `<sl-icon>`.
+ * @slot icon - The default icon to use when no image or initials are present. Works best with `<wa-icon>`.
  *
  * @csspart base - The component's base wrapper.
  * @csspart icon - The container that wraps the avatar's icon.
@@ -24,10 +24,10 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --size - The size of the avatar.
  */
-export default class SlAvatar extends ShoelaceElement {
+export default class WaAvatar extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
-    'sl-icon': SlIcon
+    'wa-icon': WaIcon
   };
 
   @state() private hasError = false;
@@ -73,7 +73,7 @@ export default class SlAvatar extends ShoelaceElement {
       avatarWithoutImage = html`
         <div part="icon" class="avatar__icon" aria-hidden="true">
           <slot name="icon">
-            <sl-icon name="person-fill" library="system"></sl-icon>
+            <wa-icon name="person-fill" library="system"></wa-icon>
           </slot>
         </div>
       `;

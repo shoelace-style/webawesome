@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './carousel-item.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -14,7 +14,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --aspect-ratio - The slide's aspect ratio. Inherited from the carousel by default.
  *
  */
-export default class SlCarouselItem extends ShoelaceElement {
+export default class WaCarouselItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   static isCarouselItem(node: Node) {

@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-badge>Badge</sl-badge>
+<wa-badge>Badge</wa-badge>
 ```
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
 
-const App = () => <SlBadge>Badge</SlBadge>;
+const App = () => <WaBadge>Badge</WaBadge>;
 ```
 
 ## Examples
@@ -22,23 +22,23 @@ const App = () => <SlBadge>Badge</SlBadge>;
 Set the `variant` attribute to change the badge's variant.
 
 ```html:preview
-<sl-badge variant="primary">Primary</sl-badge>
-<sl-badge variant="success">Success</sl-badge>
-<sl-badge variant="neutral">Neutral</sl-badge>
-<sl-badge variant="warning">Warning</sl-badge>
-<sl-badge variant="danger">Danger</sl-badge>
+<wa-badge variant="brand">Brand</wa-badge>
+<wa-badge variant="success">Success</wa-badge>
+<wa-badge variant="neutral">Neutral</wa-badge>
+<wa-badge variant="warning">Warning</wa-badge>
+<wa-badge variant="danger">Danger</wa-badge>
 ```
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
 
 const App = () => (
   <>
-    <SlBadge variant="primary">Primary</SlBadge>
-    <SlBadge variant="success">Success</SlBadge>
-    <SlBadge variant="neutral">Neutral</SlBadge>
-    <SlBadge variant="warning">Warning</SlBadge>
-    <SlBadge variant="danger">Danger</SlBadge>
+    <WaBadge variant="brand">Brand</WaBadge>
+    <WaBadge variant="success">Success</WaBadge>
+    <WaBadge variant="neutral">Neutral</WaBadge>
+    <WaBadge variant="warning">Warning</WaBadge>
+    <WaBadge variant="danger">Danger</WaBadge>
   </>
 );
 ```
@@ -48,33 +48,33 @@ const App = () => (
 Use the `pill` attribute to give badges rounded edges.
 
 ```html:preview
-<sl-badge variant="primary" pill>Primary</sl-badge>
-<sl-badge variant="success" pill>Success</sl-badge>
-<sl-badge variant="neutral" pill>Neutral</sl-badge>
-<sl-badge variant="warning" pill>Warning</sl-badge>
-<sl-badge variant="danger" pill>Danger</sl-badge>
+<wa-badge variant="brand" pill>Brand</wa-badge>
+<wa-badge variant="success" pill>Success</wa-badge>
+<wa-badge variant="neutral" pill>Neutral</wa-badge>
+<wa-badge variant="warning" pill>Warning</wa-badge>
+<wa-badge variant="danger" pill>Danger</wa-badge>
 ```
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
 
 const App = () => (
   <>
-    <SlBadge variant="primary" pill>
-      Primary
-    </SlBadge>
-    <SlBadge variant="success" pill>
+    <WaBadge variant="brand" pill>
+      Brand
+    </WaBadge>
+    <WaBadge variant="success" pill>
       Success
-    </SlBadge>
-    <SlBadge variant="neutral" pill>
+    </WaBadge>
+    <WaBadge variant="neutral" pill>
       Neutral
-    </SlBadge>
-    <SlBadge variant="warning" pill>
+    </WaBadge>
+    <WaBadge variant="warning" pill>
       Warning
-    </SlBadge>
-    <SlBadge variant="danger" pill>
+    </WaBadge>
+    <WaBadge variant="danger" pill>
       Danger
-    </SlBadge>
+    </WaBadge>
   </>
 );
 ```
@@ -85,25 +85,25 @@ Use the `pulse` attribute to draw attention to the badge with a subtle animation
 
 ```html:preview
 <div class="badge-pulse">
-  <sl-badge variant="primary" pill pulse>1</sl-badge>
-  <sl-badge variant="success" pill pulse>1</sl-badge>
-  <sl-badge variant="neutral" pill pulse>1</sl-badge>
-  <sl-badge variant="warning" pill pulse>1</sl-badge>
-  <sl-badge variant="danger" pill pulse>1</sl-badge>
+  <wa-badge variant="brand" pill pulse>1</wa-badge>
+  <wa-badge variant="success" pill pulse>1</wa-badge>
+  <wa-badge variant="neutral" pill pulse>1</wa-badge>
+  <wa-badge variant="warning" pill pulse>1</wa-badge>
+  <wa-badge variant="danger" pill pulse>1</wa-badge>
 </div>
 
 <style>
-  .badge-pulse sl-badge:not(:last-of-type) {
+  .badge-pulse wa-badge:not(:last-of-type) {
     margin-right: 1rem;
   }
 </style>
 ```
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
 
 const css = `
-  .badge-pulse sl-badge:not(:last-of-type) {
+  .badge-pulse wa-badge:not(:last-of-type) {
     margin-right: 1rem;
   }
 `;
@@ -111,21 +111,21 @@ const css = `
 const App = () => (
   <>
     <div className="badge-pulse">
-      <SlBadge variant="primary" pill pulse>
+      <WaBadge variant="brand" pill pulse>
         1
-      </SlBadge>
-      <SlBadge variant="success" pill pulse>
+      </WaBadge>
+      <WaBadge variant="success" pill pulse>
         1
-      </SlBadge>
-      <SlBadge variant="neutral" pill pulse>
+      </WaBadge>
+      <WaBadge variant="neutral" pill pulse>
         1
-      </SlBadge>
-      <SlBadge variant="warning" pill pulse>
+      </WaBadge>
+      <WaBadge variant="warning" pill pulse>
         1
-      </SlBadge>
-      <SlBadge variant="danger" pill pulse>
+      </WaBadge>
+      <WaBadge variant="danger" pill pulse>
         1
-      </SlBadge>
+      </WaBadge>
     </div>
 
     <style>{css}</style>
@@ -138,48 +138,48 @@ const App = () => (
 One of the most common use cases for badges is attaching them to buttons. To make this easier, badges will be automatically positioned at the top-right when they're a child of a button.
 
 ```html:preview
-<sl-button>
+<wa-button>
   Requests
-  <sl-badge pill>30</sl-badge>
-</sl-button>
+  <wa-badge pill>30</wa-badge>
+</wa-button>
 
-<sl-button style="margin-inline-start: 1rem;">
+<wa-button style="margin-inline-start: 1rem;">
   Warnings
-  <sl-badge variant="warning" pill>8</sl-badge>
-</sl-button>
+  <wa-badge variant="warning" pill>8</wa-badge>
+</wa-button>
 
-<sl-button style="margin-inline-start: 1rem;">
+<wa-button style="margin-inline-start: 1rem;">
   Errors
-  <sl-badge variant="danger" pill>6</sl-badge>
-</sl-button>
+  <wa-badge variant="danger" pill>6</wa-badge>
+</wa-button>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
 
 const App = () => (
   <>
-    <SlButton>
+    <WaButton>
       Requests
-      <SlBadge pill>30</SlBadge>
-    </SlButton>
+      <WaBadge pill>30</WaBadge>
+    </WaButton>
 
-    <SlButton style={{ marginInlineStart: '1rem' }}>
+    <WaButton style={{ marginInlineStart: '1rem' }}>
       Warnings
-      <SlBadge variant="warning" pill>
+      <WaBadge variant="warning" pill>
         8
-      </SlBadge>
-    </SlButton>
+      </WaBadge>
+    </WaButton>
 
-    <SlButton style={{ marginInlineStart: '1rem' }}>
+    <WaButton style={{ marginInlineStart: '1rem' }}>
       Errors
-      <SlBadge variant="danger" pill>
+      <WaBadge variant="danger" pill>
         6
-      </SlBadge>
-    </SlButton>
+      </WaBadge>
+    </WaButton>
   </>
 );
 ```
@@ -191,44 +191,40 @@ const App = () => (
 When including badges in menu items, use the `suffix` slot to make sure they're aligned correctly.
 
 ```html:preview
-<sl-menu style="max-width: 240px;">
-  <sl-menu-label>Messages</sl-menu-label>
-  <sl-menu-item>Comments <sl-badge slot="suffix" variant="neutral" pill>4</sl-badge></sl-menu-item>
-  <sl-menu-item>Replies <sl-badge slot="suffix" variant="neutral" pill>12</sl-badge></sl-menu-item>
-</sl-menu>
+<wa-menu style="max-width: 240px;">
+  <wa-menu-label>Messages</wa-menu-label>
+  <wa-menu-item>Comments <wa-badge slot="suffix" variant="neutral" pill>4</wa-badge></wa-menu-item>
+  <wa-menu-item>Replies <wa-badge slot="suffix" variant="neutral" pill>12</wa-badge></wa-menu-item>
+</wa-menu>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlBadge from '@shoelace-style/shoelace/dist/react/badge';
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
-import SlMenuLabel from '@shoelace-style/shoelace/dist/react/menu-label';
+import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaMenuLabel from '@shoelace-style/shoelace/dist/react/menu-label';
 
 const App = () => (
-  <SlMenu
-    style={{
-      maxWidth: '240px',
-      border: 'solid 1px var(--sl-panel-border-color)',
-      borderRadius: 'var(--sl-border-radius-medium)'
-    }}
+  <WaMenu
+    style={{ maxWidth: '240px' }}
   >
-    <SlMenuLabel>Messages</SlMenuLabel>
-    <SlMenuItem>
+    <WaMenuLabel>Messages</WaMenuLabel>
+    <WaMenuItem>
       Comments
-      <SlBadge slot="suffix" variant="neutral" pill>
+      <WaBadge slot="suffix" variant="neutral" pill>
         4
-      </SlBadge>
-    </SlMenuItem>
-    <SlMenuItem>
+      </WaBadge>
+    </WaMenuItem>
+    <WaMenuItem>
       Replies
-      <SlBadge slot="suffix" variant="neutral" pill>
+      <WaBadge slot="suffix" variant="neutral" pill>
         12
-      </SlBadge>
-    </SlMenuItem>
-  </SlMenu>
+      </WaBadge>
+    </WaMenuItem>
+  </WaMenu>
 );
 ```
 

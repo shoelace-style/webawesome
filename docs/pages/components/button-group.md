@@ -6,23 +6,23 @@ layout: component
 ---
 
 ```html:preview
-<sl-button-group label="Alignment">
-  <sl-button>Left</sl-button>
-  <sl-button>Center</sl-button>
-  <sl-button>Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
 
 const App = () => (
-  <SlButtonGroup label="Alignment">
-    <SlButton>Left</SlButton>
-    <SlButton>Center</SlButton>
-    <SlButton>Right</SlButton>
-  </SlButtonGroup>
+  <WaButtonGroup label="Alignment">
+    <WaButton>Left</WaButton>
+    <WaButton>Center</WaButton>
+    <WaButton>Right</WaButton>
+  </WaButtonGroup>
 );
 ```
 
@@ -33,58 +33,58 @@ const App = () => (
 All button sizes are supported, but avoid mixing sizes within the same button group.
 
 ```html:preview
-<sl-button-group label="Alignment">
-  <sl-button size="small">Left</sl-button>
-  <sl-button size="small">Center</sl-button>
-  <sl-button size="small">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="small">Left</wa-button>
+  <wa-button size="small">Center</wa-button>
+  <wa-button size="small">Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button size="medium">Left</sl-button>
-  <sl-button size="medium">Center</sl-button>
-  <sl-button size="medium">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="medium">Left</wa-button>
+  <wa-button size="medium">Center</wa-button>
+  <wa-button size="medium">Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button size="large">Left</sl-button>
-  <sl-button size="large">Center</sl-button>
-  <sl-button size="large">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="large">Left</wa-button>
+  <wa-button size="large">Center</wa-button>
+  <wa-button size="large">Right</wa-button>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
 
 const App = () => (
   <>
-    <SlButtonGroup label="Alignment">
-      <SlButton size="small">Left</SlButton>
-      <SlButton size="small">Center</SlButton>
-      <SlButton size="small">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="small">Left</WaButton>
+      <WaButton size="small">Center</WaButton>
+      <WaButton size="small">Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton size="medium">Left</SlButton>
-      <SlButton size="medium">Center</SlButton>
-      <SlButton size="medium">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="medium">Left</WaButton>
+      <WaButton size="medium">Center</WaButton>
+      <WaButton size="medium">Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton size="large">Left</SlButton>
-      <SlButton size="large">Center</SlButton>
-      <SlButton size="large">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="large">Left</WaButton>
+      <WaButton size="large">Center</WaButton>
+      <WaButton size="large">Right</WaButton>
+    </WaButtonGroup>
   </>
 );
 ```
@@ -94,92 +94,92 @@ const App = () => (
 Theme buttons are supported through the button's `variant` attribute.
 
 ```html:preview
-<sl-button-group label="Alignment">
-  <sl-button variant="primary">Left</sl-button>
-  <sl-button variant="primary">Center</sl-button>
-  <sl-button variant="primary">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button variant="brand">Left</wa-button>
+  <wa-button variant="brand">Center</wa-button>
+  <wa-button variant="brand">Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button variant="success">Left</sl-button>
-  <sl-button variant="success">Center</sl-button>
-  <sl-button variant="success">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button variant="success">Left</wa-button>
+  <wa-button variant="success">Center</wa-button>
+  <wa-button variant="success">Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button variant="neutral">Left</sl-button>
-  <sl-button variant="neutral">Center</sl-button>
-  <sl-button variant="neutral">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button variant="warning">Left</sl-button>
-  <sl-button variant="warning">Center</sl-button>
-  <sl-button variant="warning">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button variant="warning">Left</wa-button>
+  <wa-button variant="warning">Center</wa-button>
+  <wa-button variant="warning">Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button variant="danger">Left</sl-button>
-  <sl-button variant="danger">Center</sl-button>
-  <sl-button variant="danger">Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button variant="danger">Left</wa-button>
+  <wa-button variant="danger">Center</wa-button>
+  <wa-button variant="danger">Right</wa-button>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
 
 const App = () => (
   <>
-    <SlButtonGroup label="Alignment">
-      <SlButton variant="primary">Left</SlButton>
-      <SlButton variant="primary">Center</SlButton>
-      <SlButton variant="primary">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton variant="brand">Left</WaButton>
+      <WaButton variant="brand">Center</WaButton>
+      <WaButton variant="brand">Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton variant="success">Left</SlButton>
-      <SlButton variant="success">Center</SlButton>
-      <SlButton variant="success">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton variant="success">Left</WaButton>
+      <WaButton variant="success">Center</WaButton>
+      <WaButton variant="success">Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton variant="neutral">Left</SlButton>
-      <SlButton variant="neutral">Center</SlButton>
-      <SlButton variant="neutral">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton>Left</WaButton>
+      <WaButton>Center</WaButton>
+      <WaButton>Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton variant="warning">Left</SlButton>
-      <SlButton variant="warning">Center</SlButton>
-      <SlButton variant="warning">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton variant="warning">Left</WaButton>
+      <WaButton variant="warning">Center</WaButton>
+      <WaButton variant="warning">Right</WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton variant="danger">Left</SlButton>
-      <SlButton variant="danger">Center</SlButton>
-      <SlButton variant="danger">Right</SlButton>
-    </SlButtonGroup>
+    <WaButtonGroup label="Alignment">
+      <WaButton variant="danger">Left</WaButton>
+      <WaButton variant="danger">Center</WaButton>
+      <WaButton variant="danger">Right</WaButton>
+    </WaButtonGroup>
   </>
 );
 ```
@@ -189,121 +189,121 @@ const App = () => (
 Pill buttons are supported through the button's `pill` attribute.
 
 ```html:preview
-<sl-button-group label="Alignment">
-  <sl-button size="small" pill>Left</sl-button>
-  <sl-button size="small" pill>Center</sl-button>
-  <sl-button size="small" pill>Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="small" pill>Left</wa-button>
+  <wa-button size="small" pill>Center</wa-button>
+  <wa-button size="small" pill>Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button size="medium" pill>Left</sl-button>
-  <sl-button size="medium" pill>Center</sl-button>
-  <sl-button size="medium" pill>Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="medium" pill>Left</wa-button>
+  <wa-button size="medium" pill>Center</wa-button>
+  <wa-button size="medium" pill>Right</wa-button>
+</wa-button-group>
 
 <br /><br />
 
-<sl-button-group label="Alignment">
-  <sl-button size="large" pill>Left</sl-button>
-  <sl-button size="large" pill>Center</sl-button>
-  <sl-button size="large" pill>Right</sl-button>
-</sl-button-group>
+<wa-button-group label="Alignment">
+  <wa-button size="large" pill>Left</wa-button>
+  <wa-button size="large" pill>Center</wa-button>
+  <wa-button size="large" pill>Right</wa-button>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
 
 const App = () => (
   <>
-    <SlButtonGroup label="Alignment">
-      <SlButton size="small" pill>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="small" pill>
         Left
-      </SlButton>
-      <SlButton size="small" pill>
+      </WaButton>
+      <WaButton size="small" pill>
         Center
-      </SlButton>
-      <SlButton size="small" pill>
+      </WaButton>
+      <WaButton size="small" pill>
         Right
-      </SlButton>
-    </SlButtonGroup>
+      </WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton size="medium" pill>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="medium" pill>
         Left
-      </SlButton>
-      <SlButton size="medium" pill>
+      </WaButton>
+      <WaButton size="medium" pill>
         Center
-      </SlButton>
-      <SlButton size="medium" pill>
+      </WaButton>
+      <WaButton size="medium" pill>
         Right
-      </SlButton>
-    </SlButtonGroup>
+      </WaButton>
+    </WaButtonGroup>
 
     <br />
     <br />
 
-    <SlButtonGroup label="Alignment">
-      <SlButton size="large" pill>
+    <WaButtonGroup label="Alignment">
+      <WaButton size="large" pill>
         Left
-      </SlButton>
-      <SlButton size="large" pill>
+      </WaButton>
+      <WaButton size="large" pill>
         Center
-      </SlButton>
-      <SlButton size="large" pill>
+      </WaButton>
+      <WaButton size="large" pill>
         Right
-      </SlButton>
-    </SlButtonGroup>
+      </WaButton>
+    </WaButtonGroup>
   </>
 );
 ```
 
 ### Dropdowns in Button Groups
 
-Dropdowns can be placed inside button groups as long as the trigger is an `<sl-button>` element.
+Dropdowns can be placed inside button groups as long as the trigger is an `<wa-button>` element.
 
 ```html:preview
-<sl-button-group label="Example Button Group">
-  <sl-button>Button</sl-button>
-  <sl-button>Button</sl-button>
-  <sl-dropdown>
-    <sl-button slot="trigger" caret>Dropdown</sl-button>
-    <sl-menu>
-      <sl-menu-item>Item 1</sl-menu-item>
-      <sl-menu-item>Item 2</sl-menu-item>
-      <sl-menu-item>Item 3</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
-</sl-button-group>
+<wa-button-group label="Example Button Group">
+  <wa-button>Button</wa-button>
+  <wa-button>Button</wa-button>
+  <wa-dropdown>
+    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-menu>
+      <wa-menu-item>Item 1</wa-menu-item>
+      <wa-menu-item>Item 2</wa-menu-item>
+      <wa-menu-item>Item 3</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlButtonGroup label="Example Button Group">
-    <SlButton>Button</SlButton>
-    <SlButton>Button</SlButton>
-    <SlDropdown>
-      <SlButton slot="trigger" caret>
+  <WaButtonGroup label="Example Button Group">
+    <WaButton>Button</WaButton>
+    <WaButton>Button</WaButton>
+    <WaDropdown>
+      <WaButton slot="trigger" caret>
         Dropdown
-      </SlButton>
-      <SlMenu>
-        <SlMenuItem>Item 1</SlMenuItem>
-        <SlMenuItem>Item 2</SlMenuItem>
-        <SlMenuItem>Item 3</SlMenuItem>
-      </SlMenu>
-    </SlDropdown>
-  </SlButtonGroup>
+      </WaButton>
+      <WaMenu>
+        <WaMenuItem>Item 1</WaMenuItem>
+        <WaMenuItem>Item 2</WaMenuItem>
+        <WaMenuItem>Item 3</WaMenuItem>
+      </WaMenu>
+    </WaDropdown>
+  </WaButtonGroup>
 );
 ```
 
@@ -312,40 +312,40 @@ const App = () => (
 Create a split button using a button and a dropdown. Use a [visually hidden](/components/visually-hidden) label to ensure the dropdown is accessible to users with assistive devices.
 
 ```html:preview
-<sl-button-group label="Example Button Group">
-  <sl-button variant="primary">Save</sl-button>
-  <sl-dropdown placement="bottom-end">
-    <sl-button slot="trigger" variant="primary" caret>
-      <sl-visually-hidden>More options</sl-visually-hidden>
-    </sl-button>
-    <sl-menu>
-      <sl-menu-item>Save</sl-menu-item>
-      <sl-menu-item>Save as&hellip;</sl-menu-item>
-      <sl-menu-item>Save all</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
-</sl-button-group>
+<wa-button-group label="Example Button Group">
+  <wa-button variant="brand">Save</wa-button>
+  <wa-dropdown placement="bottom-end">
+    <wa-button slot="trigger" variant="brand" caret>
+      <wa-visually-hidden>More options</wa-visually-hidden>
+    </wa-button>
+    <wa-menu>
+      <wa-menu-item>Save</wa-menu-item>
+      <wa-menu-item>Save as&hellip;</wa-menu-item>
+      <wa-menu-item>Save all</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlButtonGroup label="Example Button Group">
-    <SlButton variant="primary">Save</SlButton>
-    <SlDropdown placement="bottom-end">
-      <SlButton slot="trigger" variant="primary" caret></SlButton>
-      <SlMenu>
-        <SlMenuItem>Save</SlMenuItem>
-        <SlMenuItem>Save as&hellip;</SlMenuItem>
-        <SlMenuItem>Save all</SlMenuItem>
-      </SlMenu>
-    </SlDropdown>
-  </SlButtonGroup>
+  <WaButtonGroup label="Example Button Group">
+    <WaButton variant="brand">Save</WaButton>
+    <WaDropdown placement="bottom-end">
+      <WaButton slot="trigger" variant="brand" caret></WaButton>
+      <WaMenu>
+        <WaMenuItem>Save</WaMenuItem>
+        <WaMenuItem>Save as&hellip;</WaMenuItem>
+        <WaMenuItem>Save all</WaMenuItem>
+      </WaMenu>
+    </WaDropdown>
+  </WaButtonGroup>
 );
 ```
 
@@ -354,41 +354,41 @@ const App = () => (
 Buttons can be wrapped in tooltips to provide more detail when the user interacts with them.
 
 ```html:preview
-<sl-button-group label="Alignment">
-  <sl-tooltip content="I'm on the left">
-    <sl-button>Left</sl-button>
-  </sl-tooltip>
+<wa-button-group label="Alignment">
+  <wa-tooltip content="I'm on the left">
+    <wa-button>Left</wa-button>
+  </wa-tooltip>
 
-  <sl-tooltip content="I'm in the middle">
-    <sl-button>Center</sl-button>
-  </sl-tooltip>
+  <wa-tooltip content="I'm in the middle">
+    <wa-button>Center</wa-button>
+  </wa-tooltip>
 
-  <sl-tooltip content="I'm on the right">
-    <sl-button>Right</sl-button>
-  </sl-tooltip>
-</sl-button-group>
+  <wa-tooltip content="I'm on the right">
+    <wa-button>Right</wa-button>
+  </wa-tooltip>
+</wa-button-group>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
-import SlTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
 
 const App = () => (
   <>
-    <SlButtonGroup label="Alignment">
-      <SlTooltip content="I'm on the left">
-        <SlButton>Left</SlButton>
-      </SlTooltip>
+    <WaButtonGroup label="Alignment">
+      <WaTooltip content="I'm on the left">
+        <WaButton>Left</WaButton>
+      </WaTooltip>
 
-      <SlTooltip content="I'm in the middle">
-        <SlButton>Center</SlButton>
-      </SlTooltip>
+      <WaTooltip content="I'm in the middle">
+        <WaButton>Center</WaButton>
+      </WaTooltip>
 
-      <SlTooltip content="I'm on the right">
-        <SlButton>Right</SlButton>
-      </SlTooltip>
-    </SlButtonGroup>
+      <WaTooltip content="I'm on the right">
+        <WaButton>Right</WaButton>
+      </WaTooltip>
+    </WaButtonGroup>
   </>
 );
 ```
@@ -399,110 +399,110 @@ Create interactive toolbars with button groups.
 
 ```html:preview
 <div class="button-group-toolbar">
-  <sl-button-group label="History">
-    <sl-tooltip content="Undo">
-      <sl-button><sl-icon name="arrow-counterclockwise" label="Undo"></sl-icon></sl-button>
-    </sl-tooltip>
-    <sl-tooltip content="Redo">
-      <sl-button><sl-icon name="arrow-clockwise" label="Redo"></sl-icon></sl-button>
-    </sl-tooltip>
-  </sl-button-group>
+  <wa-button-group label="History">
+    <wa-tooltip content="Undo">
+      <wa-button><wa-icon name="arrow-counterclockwise" label="Undo"></wa-icon></wa-button>
+    </wa-tooltip>
+    <wa-tooltip content="Redo">
+      <wa-button><wa-icon name="arrow-clockwise" label="Redo"></wa-icon></wa-button>
+    </wa-tooltip>
+  </wa-button-group>
 
-  <sl-button-group label="Formatting">
-    <sl-tooltip content="Bold">
-      <sl-button><sl-icon name="type-bold" label="Bold"></sl-icon></sl-button>
-    </sl-tooltip>
-    <sl-tooltip content="Italic">
-      <sl-button><sl-icon name="type-italic" label="Italic"></sl-icon></sl-button>
-    </sl-tooltip>
-    <sl-tooltip content="Underline">
-      <sl-button><sl-icon name="type-underline" label="Underline"></sl-icon></sl-button>
-    </sl-tooltip>
-  </sl-button-group>
+  <wa-button-group label="Formatting">
+    <wa-tooltip content="Bold">
+      <wa-button><wa-icon name="type-bold" label="Bold"></wa-icon></wa-button>
+    </wa-tooltip>
+    <wa-tooltip content="Italic">
+      <wa-button><wa-icon name="type-italic" label="Italic"></wa-icon></wa-button>
+    </wa-tooltip>
+    <wa-tooltip content="Underline">
+      <wa-button><wa-icon name="type-underline" label="Underline"></wa-icon></wa-button>
+    </wa-tooltip>
+  </wa-button-group>
 
-  <sl-button-group label="Alignment">
-    <sl-tooltip content="Align Left">
-      <sl-button><sl-icon name="justify-left" label="Align Left"></sl-icon></sl-button>
-    </sl-tooltip>
-    <sl-tooltip content="Align Center">
-      <sl-button><sl-icon name="justify" label="Align Center"></sl-icon></sl-button>
-    </sl-tooltip>
-    <sl-tooltip content="Align Right">
-      <sl-button><sl-icon name="justify-right" label="Align Right"></sl-icon></sl-button>
-    </sl-tooltip>
-  </sl-button-group>
+  <wa-button-group label="Alignment">
+    <wa-tooltip content="Align Left">
+      <wa-button><wa-icon name="justify-left" label="Align Left"></wa-icon></wa-button>
+    </wa-tooltip>
+    <wa-tooltip content="Align Center">
+      <wa-button><wa-icon name="justify" label="Align Center"></wa-icon></wa-button>
+    </wa-tooltip>
+    <wa-tooltip content="Align Right">
+      <wa-button><wa-icon name="justify-right" label="Align Right"></wa-icon></wa-button>
+    </wa-tooltip>
+  </wa-button-group>
 </div>
 
 <style>
-  .button-group-toolbar sl-button-group:not(:last-of-type) {
-    margin-right: var(--sl-spacing-x-small);
+  .button-group-toolbar wa-button-group:not(:last-of-type) {
+    margin-right: var(--wa-space-xs);
   }
 </style>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaButtonGroup from '@shoelace-style/shoelace/dist/react/button-group';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
 
 const css = `
-  .button-group-toolbar sl-button-group:not(:last-of-type) {
-    margin-right: var(--sl-spacing-x-small);
+  .button-group-toolbar wa-button-group:not(:last-of-type) {
+    margin-right: var(--wa-space-xs);
   }
 `;
 
 const App = () => (
   <>
     <div className="button-group-toolbar">
-      <SlButtonGroup label="History">
-        <SlTooltip content="Undo">
-          <SlButton>
-            <SlIcon name="arrow-counterclockwise"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-        <SlTooltip content="Redo">
-          <SlButton>
-            <SlIcon name="arrow-clockwise"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-      </SlButtonGroup>
+      <WaButtonGroup label="History">
+        <WaTooltip content="Undo">
+          <WaButton>
+            <WaIcon name="arrow-counterclockwise"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+        <WaTooltip content="Redo">
+          <WaButton>
+            <WaIcon name="arrow-clockwise"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+      </WaButtonGroup>
 
-      <SlButtonGroup label="Formatting">
-        <SlTooltip content="Bold">
-          <SlButton>
-            <SlIcon name="type-bold"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-        <SlTooltip content="Italic">
-          <SlButton>
-            <SlIcon name="type-italic"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-        <SlTooltip content="Underline">
-          <SlButton>
-            <SlIcon name="type-underline"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-      </SlButtonGroup>
+      <WaButtonGroup label="Formatting">
+        <WaTooltip content="Bold">
+          <WaButton>
+            <WaIcon name="type-bold"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+        <WaTooltip content="Italic">
+          <WaButton>
+            <WaIcon name="type-italic"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+        <WaTooltip content="Underline">
+          <WaButton>
+            <WaIcon name="type-underline"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+      </WaButtonGroup>
 
-      <SlButtonGroup label="Alignment">
-        <SlTooltip content="Align Left">
-          <SlButton>
-            <SlIcon name="justify-left"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-        <SlTooltip content="Align Center">
-          <SlButton>
-            <SlIcon name="justify"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-        <SlTooltip content="Align Right">
-          <SlButton>
-            <SlIcon name="justify-right"></SlIcon>
-          </SlButton>
-        </SlTooltip>
-      </SlButtonGroup>
+      <WaButtonGroup label="Alignment">
+        <WaTooltip content="Align Left">
+          <WaButton>
+            <WaIcon name="justify-left"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+        <WaTooltip content="Align Center">
+          <WaButton>
+            <WaIcon name="justify"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+        <WaTooltip content="Align Right">
+          <WaButton>
+            <WaIcon name="justify-right"></WaIcon>
+          </WaButton>
+        </WaTooltip>
+      </WaButtonGroup>
     </div>
 
     <style>{css}</style>

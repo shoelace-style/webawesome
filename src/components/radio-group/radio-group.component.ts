@@ -9,13 +9,13 @@ import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlButtonGroup from '../button-group/button-group.component.js';
 import styles from './radio-group.styles.js';
+import WaButtonGroup from '../button-group/button-group.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
-import type SlRadio from '../radio/radio.js';
-import type SlRadioButton from '../radio-button/radio-button.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
+import type WaRadio from '../radio/radio.js';
+import type WaRadioButton from '../radio-button/radio-button.js';
 
 /**
  * @summary Radio groups are used to group multiple [radios](/components/radio) or [radio buttons](/components/radio-button) so they function as a single form control.
@@ -23,15 +23,15 @@ import type SlRadioButton from '../radio-button/radio-button.js';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-button-group
+ * @dependency wa-button-group
  *
- * @slot - The default slot where `<sl-radio>` or `<sl-radio-button>` elements are placed.
+ * @slot - The default slot where `<wa-radio>` or `<wa-radio-button>` elements are placed.
  * @slot label - The radio group's label. Required for proper accessibility. Alternatively, you can use the `label`
  *  attribute.
  *
- * @event sl-change - Emitted when the radio group's selected value changes.
- * @event sl-input - Emitted when the radio group receives user input.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-change - Emitted when the radio group's selected value changes.
+ * @event wa-input - Emitted when the radio group receives user input.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and help text.
  * @csspart form-control-label - The label's wrapper.
@@ -40,9 +40,9 @@ import type SlRadioButton from '../radio-button/radio-button.js';
  * @csspart button-group - The button group that wraps radio buttons.
  * @csspart button-group__base - The button group's `base` part.
  */
-export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaRadioGroup extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-button-group': SlButtonGroup };
+  static dependencies = { 'wa-button-group': WaButtonGroup };
 
   protected readonly formControlController = new FormControlController(this);
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
@@ -122,11 +122,11 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
   }
 
   private getAllRadios() {
-    return [...this.querySelectorAll<SlRadio | SlRadioButton>('sl-radio, sl-radio-button')];
+    return [...this.querySelectorAll<WaRadio | WaRadioButton>('wa-radio, wa-radio-button')];
   }
 
   private handleRadioClick(event: MouseEvent) {
-    const target = (event.target as HTMLElement).closest<SlRadio | SlRadioButton>('sl-radio, sl-radio-button')!;
+    const target = (event.target as HTMLElement).closest<WaRadio | WaRadioButton>('wa-radio, wa-radio-button')!;
     const radios = this.getAllRadios();
     const oldValue = this.value;
 
@@ -138,8 +138,8 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
     radios.forEach(radio => (radio.checked = radio === target));
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
@@ -181,8 +181,8 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
 
     event.preventDefault();
@@ -216,7 +216,7 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
       })
     );
 
-    this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'sl-radio-button');
+    this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
 
     if (!radios.some(radio => radio.checked)) {
       if (this.hasButtonGroup) {
@@ -231,7 +231,7 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
     }
 
     if (this.hasButtonGroup) {
-      const buttonGroup = this.shadowRoot?.querySelector('sl-button-group');
+      const buttonGroup = this.shadowRoot?.querySelector('wa-button-group');
 
       if (buttonGroup) {
         buttonGroup.disableRole = true;
@@ -240,22 +240,22 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
   }
 
   private syncRadios() {
-    if (customElements.get('sl-radio') && customElements.get('sl-radio-button')) {
+    if (customElements.get('wa-radio') && customElements.get('wa-radio-button')) {
       this.syncRadioElements();
       return;
     }
 
-    if (customElements.get('sl-radio')) {
+    if (customElements.get('wa-radio')) {
       this.syncRadioElements();
     } else {
-      customElements.whenDefined('sl-radio').then(() => this.syncRadios());
+      customElements.whenDefined('wa-radio').then(() => this.syncRadios());
     }
 
-    if (customElements.get('sl-radio-button')) {
+    if (customElements.get('wa-radio-button')) {
       this.syncRadioElements();
     } else {
-      // Rerun this handler when <sl-radio> or <sl-radio-button> is registered
-      customElements.whenDefined('sl-radio-button').then(() => this.syncRadios());
+      // Rerun this handler when <wa-radio> or <wa-radio-button> is registered
+      customElements.whenDefined('wa-radio-button').then(() => this.syncRadios());
     }
   }
 
@@ -375,9 +375,9 @@ export default class SlRadioGroup extends ShoelaceElement implements ShoelaceFor
 
           ${this.hasButtonGroup
             ? html`
-                <sl-button-group part="button-group" exportparts="base:button-group__base" role="presentation">
+                <wa-button-group part="button-group" exportparts="base:button-group__base" role="presentation">
                   ${defaultSlot}
-                </sl-button-group>
+                </wa-button-group>
               `
             : defaultSlot}
         </div>

@@ -1,22 +1,22 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type SlSpinner from './spinner';
+import type WaSpinner from './spinner';
 
-describe('<sl-spinner>', () => {
+describe('<wa-spinner>', () => {
   describe('when provided no parameters', () => {
     it('should pass accessibility tests', async () => {
-      const spinner = await fixture<SlSpinner>(html` <sl-spinner></sl-spinner> `);
+      const spinner = await fixture<WaSpinner>(html` <wa-spinner></wa-spinner> `);
       await expect(spinner).to.be.accessible();
     });
 
     it('should have a role of "status".', async () => {
-      const spinner = await fixture<SlSpinner>(html` <sl-spinner></sl-spinner> `);
+      const spinner = await fixture<WaSpinner>(html` <wa-spinner></wa-spinner> `);
       const base = spinner.shadowRoot!.querySelector('[part~="base"]')!;
       expect(base).have.attribute('role', 'progressbar');
     });
 
     it('should use "transform: rotate(x)" instead of "rotate: x" when animating', async () => {
-      const spinner = await fixture<SlSpinner>(html` <sl-spinner></sl-spinner> `);
+      const spinner = await fixture<WaSpinner>(html` <wa-spinner></wa-spinner> `);
       const indicator = spinner.shadowRoot!.querySelector('.spinner__indicator')!;
 
       //

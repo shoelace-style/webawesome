@@ -1,5 +1,11 @@
 <ul>
   <li>
+    <h2>Experimental</h2>
+    <ul>
+      <li><a href="/experimental/themer">Themer</a></li>
+    </ul>
+  </li>
+  <li>
     <h2>Getting Started</h2>
     <ul>
       <li><a href="/">Home</a></li>
@@ -34,7 +40,7 @@
     <ul>
       {% for component in meta.components %}
         <li>
-          <a href="/components/{{ component.tagName | removeSlPrefix }}">
+          <a href="/components/{{ component.tagName | removeWaPrefix }}">
             {{ component.name | classNameToComponentName }}
           </a>
         </li>
@@ -47,8 +53,8 @@
       <li><a href="/tokens/typography">Typography</a></li>
       <li><a href="/tokens/color">Color</a></li>
       <li><a href="/tokens/spacing">Spacing</a></li>
-      <li><a href="/tokens/elevation">Elevation</a></li>
-      <li><a href="/tokens/border-radius">Border Radius</a></li>
+      <li><a href="/tokens/borders">Borders</a></li>
+      <li><a href="/tokens/shadows">Shadows</a></li>
       <li><a href="/tokens/transition">Transition</a></li>
       <li><a href="/tokens/z-index">Z-index</a></li>
       <li><a href="/tokens/more">More Tokens</a></li>

@@ -1,4 +1,4 @@
-# Contributing to Shoelace
+# Contributing to Web Awesome
 
 Before contributing, please review the contributions guidelines at:
 

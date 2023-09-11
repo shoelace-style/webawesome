@@ -1,16 +1,16 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type SlCopyButton from './copy-button.js';
+import type WaCopyButton from './copy-button.js';
 
 // We use aria-live to announce labels via tooltips
 const ignoredRules = ['button-name'];
 
-describe('<sl-copy-button>', () => {
-  let el: SlCopyButton;
+describe('<wa-copy-button>', () => {
+  let el: WaCopyButton;
 
   describe('when provided no parameters', () => {
     before(async () => {
-      el = await fixture(html`<sl-copy-button value="something"></sl-copy-button> `);
+      el = await fixture(html`<wa-copy-button value="something"></wa-copy-button> `);
     });
 
     it('should pass accessibility tests', async () => {

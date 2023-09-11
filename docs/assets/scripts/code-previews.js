@@ -1,7 +1,7 @@
 (() => {
   function convertModuleLinks(html) {
     html = html
-      .replace(/@shoelace-style\/shoelace/g, `https://esm.sh/@shoelace-style/shoelace@${shoelaceVersion}`)
+      .replace(/@shoelace-style\/shoelace/g, `https://esm.sh/@shoelace-style/shoelace@${waVersion}`)
       .replace(/from 'react'/g, `from 'https://esm.sh/react@${reactVersion}'`)
       .replace(/from "react"/g, `from "https://esm.sh/react@${reactVersion}"`);
 
@@ -64,7 +64,7 @@
     });
   }
 
-  const shoelaceVersion = document.documentElement.getAttribute('data-shoelace-version');
+  const waVersion = document.documentElement.getAttribute('data-wa-version');
   const reactVersion = '18.2.0';
   const cdndir = 'cdn';
   const npmdir = 'dist';
@@ -72,8 +72,8 @@
   let count = 1;
 
   // We need the version to open
-  if (!shoelaceVersion) {
-    throw new Error('The data-shoelace-version attribute is missing from <html>.');
+  if (!waVersion) {
+    throw new Error('The data-wa-version attribute is missing from <html>.');
   }
 
   // Sync flavor UI on page load
@@ -166,7 +166,7 @@
       const htmlExample = codeBlock.querySelector('.code-preview__source--html > pre > code')?.textContent;
       const reactExample = codeBlock.querySelector('.code-preview__source--react > pre > code')?.textContent;
       const isReact = flavor === 'react' && typeof reactExample === 'string';
-      const theme = document.documentElement.classList.contains('sl-theme-dark') ? 'dark' : 'light';
+      const theme = document.documentElement.classList.contains('wa-theme-dark') ? 'dark' : 'light';
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const isDark = theme === 'dark' || (theme === 'auto' && prefersDark);
       const editors = isReact ? '0010' : '1000';
@@ -182,7 +182,7 @@
       // HTML templates
       if (!isReact) {
         htmlTemplate =
-          `<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${shoelaceVersion}/${cdndir}/shoelace.js"></script>\n` +
+          `<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${waVersion}/${cdndir}/autoloader.js"></script>\n` +
           `\n${htmlExample}`;
         jsTemplate = '';
       }
@@ -193,10 +193,10 @@
         jsTemplate =
           `import React from 'https://esm.sh/react@${reactVersion}';\n` +
           `import ReactDOM from 'https://esm.sh/react-dom@${reactVersion}';\n` +
-          `import { setBasePath } from 'https://esm.sh/@shoelace-style/shoelace@${shoelaceVersion}/${cdndir}/utilities/base-path';\n` +
+          `import { setBasePath } from 'https://esm.sh/@shoelace-style/shoelace@${waVersion}/${cdndir}/utilities/base-path';\n` +
           `\n` +
-          `// Set the base path for Shoelace assets\n` +
-          `setBasePath('https://esm.sh/@shoelace-style/shoelace@${shoelaceVersion}/${npmdir}/')\n` +
+          `// Set the base path for Web Awesome assets\n` +
+          `setBasePath('https://esm.sh/@shoelace-style/shoelace@${waVersion}/${npmdir}/')\n` +
           `\n${convertModuleLinks(reactExample)}\n` +
           `\n` +
           `ReactDOM.render(<App />, document.getElementById('root'));`;
@@ -204,25 +204,25 @@
 
       // CSS templates
       cssTemplate =
-        `@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${shoelaceVersion}/${cdndir}/themes/${
+        `@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${waVersion}/${cdndir}/themes/${
           isDark ? 'dark' : 'light'
         }.css';\n` +
         '\n' +
         'body {\n' +
-        '  font: 16px sans-serif;\n' +
-        '  background-color: var(--sl-color-neutral-0);\n' +
-        '  color: var(--sl-color-neutral-900);\n' +
-        '  padding: 1rem;\n' +
+        '  font: var(--wa-font-size-root) sans-serif;\n' +
+        '  background-color: var(--wa-color-surface-default);\n' +
+        '  color: var(--wa-color-text-normal);\n' +
+        '  padding: var(--wa-space-m);\n' +
         '}';
 
       // Docs: https://blog.codepen.io/documentation/prefill/
       const data = {
         title: '',
         description: '',
-        tags: ['shoelace', 'web components'],
+        tags: ['web awesome', 'web components'],
         editors,
         head: `<meta name="viewport" content="width=device-width">`,
-        html_classes: `sl-theme-${isDark ? 'dark' : 'light'}`,
+        html_classes: `wa-theme-${isDark ? 'dark' : 'light'}`,
         css_external: ``,
         js_external: ``,
         js_module: true,

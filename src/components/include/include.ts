@@ -1,12 +1,12 @@
-import SlInclude from './include.component.js';
+import WaInclude from './include.component.js';
 
 export * from './include.component.js';
-export default SlInclude;
+export default WaInclude;
 
-SlInclude.define('sl-include');
+WaInclude.define('wa-include');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-include': SlInclude;
+    'wa-include': WaInclude;
   }
 }

@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './radio-button.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -18,8 +18,8 @@ import type { CSSResultGroup } from 'lit';
  * @slot prefix - A presentational prefix icon or similar element.
  * @slot suffix - A presentational suffix icon or similar element.
  *
- * @event sl-blur - Emitted when the button loses focus.
- * @event sl-focus - Emitted when the button gains focus.
+ * @event wa-blur - Emitted when the button loses focus.
+ * @event wa-focus - Emitted when the button gains focus.
  *
  * @csspart base - The component's base wrapper.
  * @csspart button - The internal `<button>` element.
@@ -28,7 +28,7 @@ import type { CSSResultGroup } from 'lit';
  * @csspart label - The container that wraps the radio button's label.
  * @csspart suffix - The container that wraps the suffix.
  */
-export default class SlRadioButton extends ShoelaceElement {
+export default class WaRadioButton extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
@@ -66,7 +66,7 @@ export default class SlRadioButton extends ShoelaceElement {
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleClick(e: MouseEvent) {
@@ -81,7 +81,7 @@ export default class SlRadioButton extends ShoelaceElement {
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -108,7 +108,8 @@ export default class SlRadioButton extends ShoelaceElement {
           aria-checked="${this.checked}"
           class=${classMap({
             button: true,
-            'button--default': true,
+            'button--neutral': !this.checked,
+            'button--brand': this.checked,
             'button--small': this.size === 'small',
             'button--medium': this.size === 'medium',
             'button--large': this.size === 'large',

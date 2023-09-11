@@ -1,12 +1,12 @@
-import SlSplitPanel from './split-panel.component.js';
+import WaSplitPanel from './split-panel.component.js';
 
 export * from './split-panel.component.js';
-export default SlSplitPanel;
+export default WaSplitPanel;
 
-SlSplitPanel.define('sl-split-panel');
+WaSplitPanel.define('wa-split-panel');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-split-panel': SlSplitPanel;
+    'wa-split-panel': WaSplitPanel;
   }
 }

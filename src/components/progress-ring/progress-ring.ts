@@ -1,12 +1,12 @@
-import SlProgressRing from './progress-ring.component.js';
+import WaProgressRing from './progress-ring.component.js';
 
 export * from './progress-ring.component.js';
-export default SlProgressRing;
+export default WaProgressRing;
 
-SlProgressRing.define('sl-progress-ring');
+WaProgressRing.define('wa-progress-ring');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-progress-ring': SlProgressRing;
+    'wa-progress-ring': WaProgressRing;
   }
 }

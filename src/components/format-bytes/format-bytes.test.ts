@@ -1,11 +1,11 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
-import type SlFormatBytes from './format-bytes';
+import type WaFormatBytes from './format-bytes';
 
-describe('<sl-format-bytes>', () => {
+describe('<wa-format-bytes>', () => {
   describe('defaults ', () => {
     it('default properties', async () => {
-      const el = await fixture<SlFormatBytes>(html` <sl-format-bytes></sl-format-bytes> `);
+      const el = await fixture<WaFormatBytes>(html` <wa-format-bytes></wa-format-bytes> `);
 
       expect(el.value).to.equal(0);
       expect(el.unit).to.equal('byte');
@@ -44,7 +44,7 @@ describe('<sl-format-bytes>', () => {
 
     results.forEach(expected => {
       it('bytes : display formats', async () => {
-        const el = await fixture<SlFormatBytes>(html` <sl-format-bytes></sl-format-bytes> `);
+        const el = await fixture<WaFormatBytes>(html` <wa-format-bytes></wa-format-bytes> `);
         // short
         el.value = expected.value;
         await elementUpdated(el);
@@ -95,7 +95,7 @@ describe('<sl-format-bytes>', () => {
 
     results.forEach(expected => {
       it('bits : display formats', async () => {
-        const el = await fixture<SlFormatBytes>(html` <sl-format-bytes unit="bit"></sl-format-bytes> `);
+        const el = await fixture<WaFormatBytes>(html` <wa-format-bytes unit="bit"></wa-format-bytes> `);
         // short
         el.value = expected.value;
         await elementUpdated(el);

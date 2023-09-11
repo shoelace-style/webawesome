@@ -6,9 +6,9 @@ export default css`
 
   :host {
     --width: 31rem;
-    --header-spacing: var(--sl-spacing-large);
-    --body-spacing: var(--sl-spacing-large);
-    --footer-spacing: var(--sl-spacing-large);
+    --header-spacing: var(--wa-space-l);
+    --body-spacing: var(--wa-space-l);
+    --footer-spacing: var(--wa-space-l);
 
     display: contents;
   }
@@ -22,7 +22,7 @@ export default css`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: var(--sl-z-index-dialog);
+    z-index: var(--wa-z-index-dialog);
   }
 
   .dialog__panel {
@@ -30,11 +30,11 @@ export default css`
     flex-direction: column;
     z-index: 2;
     width: var(--width);
-    max-width: calc(100% - var(--sl-spacing-2x-large));
-    max-height: calc(100% - var(--sl-spacing-2x-large));
-    background-color: var(--sl-panel-background-color);
-    border-radius: var(--sl-border-radius-medium);
-    box-shadow: var(--sl-shadow-x-large);
+    max-width: calc(100% - var(--wa-space-2xl));
+    max-height: calc(100% - var(--wa-space-2xl));
+    background-color: var(--wa-color-surface-raised);
+    border-radius: var(--wa-corners-1x);
+    box-shadow: var(--wa-shadow-level-3);
   }
 
   .dialog__panel:focus {
@@ -61,8 +61,8 @@ export default css`
   .dialog__title {
     flex: 1 1 auto;
     font: inherit;
-    font-size: var(--sl-font-size-large);
-    line-height: var(--sl-line-height-dense);
+    font-size: var(--wa-font-size-l);
+    line-height: var(--wa-line-height-compact);
     padding: var(--header-spacing);
     margin: 0;
   }
@@ -72,16 +72,16 @@ export default css`
     display: flex;
     flex-wrap: wrap;
     justify-content: end;
-    gap: var(--sl-spacing-2x-small);
+    gap: var(--wa-space-2xs);
     padding: 0 var(--header-spacing);
   }
 
-  .dialog__header-actions sl-icon-button,
-  .dialog__header-actions ::slotted(sl-icon-button) {
+  .dialog__header-actions wa-icon-button,
+  .dialog__header-actions ::slotted(wa-icon-button) {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    font-size: var(--sl-font-size-medium);
+    font-size: var(--wa-font-size-m);
   }
 
   .dialog__body {
@@ -98,8 +98,8 @@ export default css`
     padding: var(--footer-spacing);
   }
 
-  .dialog__footer ::slotted(sl-button:not(:first-of-type)) {
-    margin-inline-start: var(--sl-spacing-x-small);
+  .dialog__footer ::slotted(wa-button:not(:first-of-type)) {
+    margin-inline-start: var(--wa-spacing-xs);
   }
 
   .dialog:not(.dialog--has-footer) .dialog__footer {
@@ -112,12 +112,12 @@ export default css`
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--sl-overlay-background-color);
+    background-color: var(--wa-overlay-color);
   }
 
   @media (forced-colors: active) {
     .dialog__panel {
-      border: solid 1px var(--sl-color-neutral-0);
+      border: solid 1px white;
     }
   }
 `;

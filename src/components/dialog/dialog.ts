@@ -1,12 +1,12 @@
-import SlDialog from './dialog.component.js';
+import WaDialog from './dialog.component.js';
 
 export * from './dialog.component.js';
-export default SlDialog;
+export default WaDialog;
 
-SlDialog.define('sl-dialog');
+WaDialog.define('wa-dialog');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-dialog': SlDialog;
+    'wa-dialog': WaDialog;
   }
 }

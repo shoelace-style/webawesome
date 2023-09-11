@@ -3,8 +3,8 @@ import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
 import QrCreator from 'qr-creator';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './qr-code.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -15,7 +15,7 @@ import type { CSSResultGroup } from 'lit';
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlQrCode extends ShoelaceElement {
+export default class WaQrCode extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   @query('canvas') canvas: HTMLElement;

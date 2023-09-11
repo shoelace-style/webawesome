@@ -21,7 +21,7 @@ const components = getAllComponents(metadata);
 const index = [];
 
 components.map(component => {
-  const tagWithoutPrefix = component.tagName.replace(/^sl-/, '');
+  const tagWithoutPrefix = component.tagName.replace(/^wa-/, '');
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');
   const importPath = component.path.replace(/\.js$/, '.component.js');

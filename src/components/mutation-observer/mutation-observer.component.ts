@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './mutation-observer.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -11,11 +11,11 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @event {{ mutationList: MutationRecord[] }} sl-mutation - Emitted when a mutation occurs.
+ * @event {{ mutationList: MutationRecord[] }} wa-mutation - Emitted when a mutation occurs.
  *
  * @slot - The content to watch for mutations.
  */
-export default class SlMutationObserver extends ShoelaceElement {
+export default class WaMutationObserver extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private mutationObserver: MutationObserver;
@@ -56,7 +56,7 @@ export default class SlMutationObserver extends ShoelaceElement {
   }
 
   private handleMutation = (mutationList: MutationRecord[]) => {
-    this.emit('sl-mutation', {
+    this.emit('wa-mutation', {
       detail: { mutationList }
     });
   };

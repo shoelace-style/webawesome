@@ -8,23 +8,23 @@ layout: component
 Radio buttons are designed to be used with [radio groups](/components/radio-group). When a radio button has focus, the arrow keys can be used to change the selected option just like standard radio controls.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button value="1">Option 1</sl-radio-button>
-  <sl-radio-button value="2">Option 2</sl-radio-button>
-  <sl-radio-button value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2">Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton value="1">Option 1</SlRadioButton>
-    <SlRadioButton value="2">Option 2</SlRadioButton>
-    <SlRadioButton value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2">Option 2</WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -35,23 +35,23 @@ const App = () => (
 To set the initial value and checked state, use the `value` attribute on the containing radio group.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button value="1">Option 1</sl-radio-button>
-  <sl-radio-button value="2">Option 2</sl-radio-button>
-  <sl-radio-button value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2">Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton value="1">Option 1</SlRadioButton>
-    <SlRadioButton value="2">Option 2</SlRadioButton>
-    <SlRadioButton value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2">Option 2</WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -60,25 +60,25 @@ const App = () => (
 Use the `disabled` attribute to disable a radio button.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button value="1">Option 1</sl-radio-button>
-  <sl-radio-button value="2" disabled>Option 2</sl-radio-button>
-  <sl-radio-button value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2" disabled>Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton value="1">Option 1</SlRadioButton>
-    <SlRadioButton value="2" disabled>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2" disabled>
       Option 2
-    </SlRadioButton>
-    <SlRadioButton value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+    </WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -87,55 +87,55 @@ const App = () => (
 Use the `size` attribute to change a radio button's size.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button size="small" value="1">Option 1</sl-radio-button>
-  <sl-radio-button size="small" value="2">Option 2</sl-radio-button>
-  <sl-radio-button size="small" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button size="small" value="1">Option 1</wa-radio-button>
+  <wa-radio-button size="small" value="2">Option 2</wa-radio-button>
+  <wa-radio-button size="small" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 
 <br />
 
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button size="medium" value="1">Option 1</sl-radio-button>
-  <sl-radio-button size="medium" value="2">Option 2</sl-radio-button>
-  <sl-radio-button size="medium" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button size="medium" value="1">Option 1</wa-radio-button>
+  <wa-radio-button size="medium" value="2">Option 2</wa-radio-button>
+  <wa-radio-button size="medium" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 
 <br />
 
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button size="large" value="1">Option 1</sl-radio-button>
-  <sl-radio-button size="large" value="2">Option 2</sl-radio-button>
-  <sl-radio-button size="large" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button size="large" value="1">Option 1</wa-radio-button>
+  <wa-radio-button size="large" value="2">Option 2</wa-radio-button>
+  <wa-radio-button size="large" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton size="small" value="1">Option 1</SlRadioButton>
-    <SlRadioButton size="small" value="2">Option 2</SlRadioButton>
-    <SlRadioButton size="small" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton size="small" value="1">Option 1</WaRadioButton>
+    <WaRadioButton size="small" value="2">Option 2</WaRadioButton>
+    <WaRadioButton size="small" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 
   <br />
 
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton size="medium" value="1">Option 1</SlRadioButton>
-    <SlRadioButton size="medium" value="2">Option 2</SlRadioButton>
-    <SlRadioButton size="medium" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton size="medium" value="1">Option 1</WaRadioButton>
+    <WaRadioButton size="medium" value="2">Option 2</WaRadioButton>
+    <WaRadioButton size="medium" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 
   <br />
 
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton size="large" value="1">Option 1</SlRadioButton>
-    <SlRadioButton size="large" value="2">Option 2</SlRadioButton>
-    <SlRadioButton size="large" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton size="large" value="1">Option 1</WaRadioButton>
+    <WaRadioButton size="large" value="2">Option 2</WaRadioButton>
+    <WaRadioButton size="large" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -144,55 +144,55 @@ const App = () => (
 Use the `pill` attribute to give radio buttons rounded edges.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button pill size="small" value="1">Option 1</sl-radio-button>
-  <sl-radio-button pill size="small" value="2">Option 2</sl-radio-button>
-  <sl-radio-button pill size="small" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button pill size="small" value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill size="small" value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill size="small" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 
 <br />
 
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button pill size="medium" value="1">Option 1</sl-radio-button>
-  <sl-radio-button pill size="medium" value="2">Option 2</sl-radio-button>
-  <sl-radio-button pill size="medium" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button pill size="medium" value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill size="medium" value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill size="medium" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 
 <br />
 
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button pill size="large" value="1">Option 1</sl-radio-button>
-  <sl-radio-button pill size="large" value="2">Option 2</sl-radio-button>
-  <sl-radio-button pill size="large" value="3">Option 3</sl-radio-button>
-</sl-radio-group>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button pill size="large" value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill size="large" value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill size="large" value="3">Option 3</wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton pill size="small" value="1">Option 1</SlRadioButton>
-    <SlRadioButton pill size="small" value="2">Option 2</SlRadioButton>
-    <SlRadioButton pill size="small" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton pill size="small" value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill size="small" value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill size="small" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 
   <br />
 
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton pill size="medium" value="1">Option 1</SlRadioButton>
-    <SlRadioButton pill size="medium" value="2">Option 2</SlRadioButton>
-    <SlRadioButton pill size="medium" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton pill size="medium" value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill size="medium" value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill size="medium" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 
   <br />
 
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton pill size="large" value="1">Option 1</SlRadioButton>
-    <SlRadioButton pill size="large" value="2">Option 2</SlRadioButton>
-    <SlRadioButton pill size="large" value="3">Option 3</SlRadioButton>
-  </SlRadioGroup>
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton pill size="large" value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill size="large" value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill size="large" value="3">Option 3</WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -201,48 +201,48 @@ const App = () => (
 Use the `prefix` and `suffix` slots to add icons.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="1">
-  <sl-radio-button value="1">
-    <sl-icon slot="prefix" name="archive"></sl-icon>
+<wa-radio-group label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">
+    <wa-icon slot="prefix" name="archive"></wa-icon>
     Option 1
-  </sl-radio-button>
+  </wa-radio-button>
 
-  <sl-radio-button value="2">
-    <sl-icon slot="suffix" name="bag"></sl-icon>
+  <wa-radio-button value="2">
+    <wa-icon slot="suffix" name="bag"></wa-icon>
     Option 2
-  </sl-radio-button>
+  </wa-radio-button>
 
-  <sl-radio-button value="3">
-    <sl-icon slot="prefix" name="gift"></sl-icon>
-    <sl-icon slot="suffix" name="cart"></sl-icon>
+  <wa-radio-button value="3">
+    <wa-icon slot="prefix" name="gift"></wa-icon>
+    <wa-icon slot="suffix" name="cart"></wa-icon>
     Option 3
-  </sl-radio-button>
-</sl-radio-group>
+  </wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="1">
-    <SlRadioButton value="1">
-      <SlIcon slot="prefix" name="archive" />
+  <WaRadioGroup label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">
+      <WaIcon slot="prefix" name="archive" />
       Option 1
-    </SlRadioButton>
+    </WaRadioButton>
 
-    <SlRadioButton value="2">
-      <SlIcon slot="suffix" name="bag" />
+    <WaRadioButton value="2">
+      <WaIcon slot="suffix" name="bag" />
       Option 2
-    </SlRadioButton>
+    </WaRadioButton>
 
-    <SlRadioButton value="3">
-      <SlIcon slot="prefix" name="gift" />
-      <SlIcon slot="suffix" name="cart" />
+    <WaRadioButton value="3">
+      <WaIcon slot="prefix" name="gift" />
+      <WaIcon slot="suffix" name="cart" />
       Option 3
-    </SlRadioButton>
-  </SlRadioGroup>
+    </WaRadioButton>
+  </WaRadioGroup>
 );
 ```
 
@@ -251,55 +251,55 @@ const App = () => (
 You can omit button labels and use icons instead. Make sure to set a `label` attribute on each icon so screen readers will announce each option correctly.
 
 ```html:preview
-<sl-radio-group label="Select an option" name="a" value="neutral">
-  <sl-radio-button value="angry">
-    <sl-icon name="emoji-angry" label="Angry"></sl-icon>
-  </sl-radio-button>
+<wa-radio-group label="Select an option" name="a" value="neutral">
+  <wa-radio-button value="angry">
+    <wa-icon name="emoji-angry" label="Angry"></wa-icon>
+  </wa-radio-button>
 
-  <sl-radio-button value="sad">
-    <sl-icon name="emoji-frown" label="Sad"></sl-icon>
-  </sl-radio-button>
+  <wa-radio-button value="sad">
+    <wa-icon name="emoji-frown" label="Sad"></wa-icon>
+  </wa-radio-button>
 
-  <sl-radio-button value="neutral">
-    <sl-icon name="emoji-neutral" label="Neutral"></sl-icon>
-  </sl-radio-button>
+  <wa-radio-button value="neutral">
+    <wa-icon name="emoji-neutral" label="Neutral"></wa-icon>
+  </wa-radio-button>
 
-  <sl-radio-button value="happy">
-    <sl-icon name="emoji-smile" label="Happy"></sl-icon>
-  </sl-radio-button>
+  <wa-radio-button value="happy">
+    <wa-icon name="emoji-smile" label="Happy"></wa-icon>
+  </wa-radio-button>
 
-  <sl-radio-button value="laughing">
-    <sl-icon name="emoji-laughing" label="Laughing"></sl-icon>
-  </sl-radio-button>
-</sl-radio-group>
+  <wa-radio-button value="laughing">
+    <wa-icon name="emoji-laughing" label="Laughing"></wa-icon>
+  </wa-radio-button>
+</wa-radio-group>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
-import SlRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
+import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <SlRadioGroup label="Select an option" name="a" value="neutral">
-    <SlRadioButton value="angry">
-      <SlIcon name="emoji-angry" label="Angry" />
-    </SlRadioButton>
+  <WaRadioGroup label="Select an option" name="a" value="neutral">
+    <WaRadioButton value="angry">
+      <WaIcon name="emoji-angry" label="Angry" />
+    </WaRadioButton>
 
-    <SlRadioButton value="sad">
-      <SlIcon name="emoji-frown" label="Sad" />
-    </SlRadioButton>
+    <WaRadioButton value="sad">
+      <WaIcon name="emoji-frown" label="Sad" />
+    </WaRadioButton>
 
-    <SlRadioButton value="neutral">
-      <SlIcon name="emoji-neutral" label="Neutral" />
-    </SlRadioButton>
+    <WaRadioButton value="neutral">
+      <WaIcon name="emoji-neutral" label="Neutral" />
+    </WaRadioButton>
 
-    <SlRadioButton value="happy">
-      <SlIcon name="emoji-smile" label="Happy" />
-    </SlRadioButton>
+    <WaRadioButton value="happy">
+      <WaIcon name="emoji-smile" label="Happy" />
+    </WaRadioButton>
 
-    <SlRadioButton value="laughing">
-      <SlIcon name="emoji-laughing" label="Laughing" />
-    </SlRadioButton>
-  </SlRadioGroup>
+    <WaRadioButton value="laughing">
+      <WaIcon name="emoji-laughing" label="Laughing" />
+    </WaRadioButton>
+  </WaRadioGroup>
 );
 ```

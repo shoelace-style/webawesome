@@ -5,9 +5,9 @@ export default css`
   ${componentStyles}
 
   :host {
-    --color: var(--sl-panel-border-color);
-    --width: var(--sl-panel-border-width);
-    --spacing: var(--sl-spacing-medium);
+    --color: var(--wa-color-surface-outline);
+    --width: var(--wa-border-width-thin);
+    --spacing: var(--wa-space-m);
   }
 
   :host(:not([vertical])) {

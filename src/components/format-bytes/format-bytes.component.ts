@@ -1,6 +1,6 @@
 import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**
  * @summary Formats a number as a human readable bytes value.
@@ -8,7 +8,7 @@ import ShoelaceElement from '../../internal/shoelace-element.js';
  * @status stable
  * @since 2.0
  */
-export default class SlFormatBytes extends ShoelaceElement {
+export default class WaFormatBytes extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /** The number to format in bytes. */

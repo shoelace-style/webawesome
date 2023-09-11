@@ -1,12 +1,12 @@
 {% extends "default.njk" %}
 
 {# Find the component based on the `tag` front matter #}
-{% set component = getComponent('sl-' + page.fileSlug) %}
+{% set component = getComponent('wa-' + page.fileSlug) %}
 
 {% block content %}
   {# Determine the badge variant #}
   {% if component.status == 'stable' %}
-    {% set badgeVariant = 'primary' %}
+    {% set badgeVariant = 'brand' %}
   {% elseif component.status == 'experimental' %}
     {% set badgeVariant = 'warning' %}
   {% elseif component.status == 'planned' %}
@@ -26,12 +26,12 @@
     </div>
 
     <div class="component-header__info">
-      <sl-badge variant="neutral" pill>
+      <wa-badge variant="neutral" pill>
         Since {{component.since or '?' }}
-      </sl-badge>
-      <sl-badge variant="{{ badgeVariant }}" pill style="text-transform: capitalize;">
+      </wa-badge>
+      <wa-badge variant="{{ badgeVariant }}" pill style="text-transform: capitalize;">
         {{ component.status }}
-      </sl-badge>
+      </wa-badge>
     </div>
   </header>
 
@@ -51,42 +51,42 @@
     any of the following snippets to <a href="/getting-started/installation#cherry-picking">cherry pick</a> this component.
   </p>
 
-  <sl-tab-group>
-    <sl-tab slot="nav" panel="script">Script</sl-tab>
-    <sl-tab slot="nav" panel="import">Import</sl-tab>
-    <sl-tab slot="nav" panel="bundler">Bundler</sl-tab>
-    <sl-tab slot="nav" panel="react">React</sl-tab>
+  <wa-tab-group>
+    <wa-tab slot="nav" panel="script">Script</wa-tab>
+    <wa-tab slot="nav" panel="import">Import</wa-tab>
+    <wa-tab slot="nav" panel="bundler">Bundler</wa-tab>
+    <wa-tab slot="nav" panel="react">React</wa-tab>
 
-    <sl-tab-panel name="script">
+    <wa-tab-panel name="script">
       <p>
         To import this component from <a href="https://www.jsdelivr.com/package/npm/@shoelace-style/shoelace">the CDN</a>
         using a script tag:
       </p>
       <pre><code class="language-html">&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@{{ meta.version }}/{{ meta.cdndir }}/{{ component.path }}&quot;&gt;&lt;/script&gt;</code></pre>
-    </sl-tab-panel>
+    </wa-tab-panel>
 
-    <sl-tab-panel name="import">
+    <wa-tab-panel name="import">
       <p>
         To import this component from <a href="https://www.jsdelivr.com/package/npm/@shoelace-style/shoelace">the CDN</a>
         using a JavaScript import:
       </p>
       <pre><code class="language-js">import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@{{ meta.version }}/{{ meta.cdndir }}/{{ component.path }}';</code></pre>
-    </sl-tab-panel>
+    </wa-tab-panel>
 
-    <sl-tab-panel name="bundler">
+    <wa-tab-panel name="bundler">
       <p>
         To import this component using <a href="{{ rootUrl('/getting-started/installation#bundling') }}">a bundler</a>:
       </p>
       <pre><code class="language-js">import '@shoelace-style/shoelace/{{ meta.npmdir }}/{{ component.path }}';</code></pre>
-    </sl-tab-panel>
+    </wa-tab-panel>
 
-    <sl-tab-panel name="react">
+    <wa-tab-panel name="react">
       <p>
         To import this component as a <a href="/frameworks/react">React component</a>:
       </p>
       <pre><code class="language-js">import {{ component.name }} from '@shoelace-style/shoelace/{{ meta.npmdir }}/react/{{ component.tagNameWithoutPrefix }}';</code></pre>
-    </sl-tab-panel>
-  </sl-tab-group>
+    </wa-tab-panel>
+  </wa-tab-group>
 
   {# Slots #}
   {% if component.slots.length %}
@@ -140,13 +140,13 @@
               {% if prop.attribute | length > 0 %}
                 {% if prop.attribute != prop.name %}
                   <br>
-                  <sl-tooltip content="This attribute is different from its property">
+                  <wa-tooltip content="This attribute is different from its property">
                     <small>
                       <code class="nowrap">
                         {{ prop.attribute }}
                       </code>
                     </small>
-                  </sl-tooltip>
+                  </wa-tooltip>
                 {% endif %}
               {% endif %}
             </td>
@@ -155,7 +155,7 @@
             </td>
             <td style="text-align: center;">
               {% if prop.reflects %}
-                <sl-icon label="yes" name="check-lg"></sl-icon>
+                <wa-icon label="yes" name="check-lg"></wa-icon>
               {% endif %}
             </td>
             <td>

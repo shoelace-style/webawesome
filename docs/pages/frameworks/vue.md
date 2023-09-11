@@ -1,12 +1,12 @@
 ---
 meta:
   title: Vue
-  description: Tips for using Shoelace in your Vue 3 app.
+  description: Tips for using Web Awesome in your Vue 3 app.
 ---
 
 # Vue
 
-Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use Shoelace in your Vue apps with ease.
+Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use Web Awesome in your Vue apps with ease.
 
 :::tip
 These instructions are for Vue 3 and above. If you're using Vue 2, please see the [Vue 2 instructions](/frameworks/vue-2).
@@ -14,7 +14,7 @@ These instructions are for Vue 3 and above. If you're using Vue 2, please see th
 
 ## Installation
 
-To add Shoelace to your Vue app, install the package from npm.
+To add Web Awesome to your Vue app, install the package from npm.
 
 ```bash
 npm install @shoelace-style/shoelace
@@ -23,7 +23,7 @@ npm install @shoelace-style/shoelace
 Next, [include a theme](/getting-started/themes) and set the [base path](/getting-started/installation#setting-the-base-path) for icons and other assets. In this example, we'll import the light theme and use the CDN as a base path.
 
 ```jsx
-import '@shoelace-style/shoelace/dist/themes/light.css';
+import '@shoelace-style/shoelace/dist/themes/default.css';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
 
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/');
@@ -35,7 +35,7 @@ If you'd rather not use the CDN for assets, you can create a build task that cop
 
 ## Configuration
 
-You'll need to tell Vue to ignore Shoelace components. This is pretty easy because they all start with `sl-`.
+You'll need to tell Vue to ignore Web Awesome components. This is pretty easy because they all start with `sl-`.
 
 ```js
 import { fileURLToPath, URL } from 'url';
@@ -49,7 +49,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: tag => tag.startsWith('sl-')
+          isCustomElement: tag => tag.startsWith('wa-')
         }
       }
     })
@@ -62,7 +62,7 @@ export default defineConfig({
 });
 ```
 
-Now you can start using Shoelace components in your app!
+Now you can start using Web Awesome components in your app!
 
 ## Usage
 
@@ -73,9 +73,9 @@ Now you can start using Shoelace components in your app!
   <div class="container">
     <h1>QR code generator</h1>
 
-    <sl-input maxlength="255" clearable label="Value" v-model="qrCode"></sl-input>
+    <wa-input maxlength="255" clearable label="Value" v-model="qrCode"></wa-input>
 
-    <sl-qr-code :value="qrCode"></sl-qr-code>
+    <wa-qr-code :value="qrCode"></wa-qr-code>
   </div>
 </template>
 
@@ -93,8 +93,8 @@ Now you can start using Shoelace components in your app!
     margin: 0 auto;
   }
 
-  sl-input {
-    margin: var(--sl-spacing-large) 0;
+  wa-input {
+    margin: var(--wa-space-l) 0;
   }
 </style>
 ```
@@ -104,24 +104,24 @@ Now you can start using Shoelace components in your app!
 When binding complex data such as objects and arrays, use the `.prop` modifier to make Vue bind them as a property instead of an attribute.
 
 ```html
-<sl-color-picker :swatches.prop="mySwatches" />
+<wa-color-picker :swatches.prop="mySwatches" />
 ```
 
 :::tip
-Are you using Shoelace with Vue? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/vue.md)
+Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/vue.md)
 :::
 
 ### Slots
 
-To use Shoelace components with slots, follow the Vue documentation on using [slots with custom elements](https://vuejs.org/guide/extras/web-components.html#building-custom-elements-with-vue).
+To use Web Awesome components with slots, follow the Vue documentation on using [slots with custom elements](https://vuejs.org/guide/extras/web-components.html#building-custom-elements-with-vue).
 
 Here is an example:
 
 ```html
-<sl-drawer label="Drawer" placement="start" class="drawer-placement-start" :open="drawerIsOpen">
+<wa-drawer label="Drawer" placement="start" class="drawer-placement-start" :open="drawerIsOpen">
   This drawer slides in from the start.
   <div slot="footer">
-    <sl-button variant="primary" @click=" drawerIsOpen = false">Close</sl-button>
+    <wa-button variant="brand" @click=" drawerIsOpen = false">Close</wa-button>
   </div>
-</sl-drawer>
+</wa-drawer>
 ```

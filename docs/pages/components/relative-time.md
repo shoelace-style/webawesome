@@ -8,14 +8,14 @@ layout: component
 Localization is handled by the browser's [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.
 
 ```html:preview
-<!-- Shoelace 2 release date 🎉 -->
-<sl-relative-time date="2020-07-15T09:17:00-04:00"></sl-relative-time>
+<!-- Web Awesome 2 release date 🎉 -->
+<wa-relative-time date="2020-07-15T09:17:00-04:00"></wa-relative-time>
 ```
 
 ```jsx:react
-import SlRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
+import WaRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
 
-const App = () => <SlRelativeTime date="2020-07-15T09:17:00-04:00" />;
+const App = () => <WaRelativeTime date="2020-07-15T09:17:00-04:00" />;
 ```
 
 The `date` attribute determines when the date/time is calculated from. It must be a string that [`Date.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) can interpret or a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object set via JavaScript.
@@ -32,23 +32,23 @@ Use the `sync` attribute to update the displayed value automatically as time pas
 
 ```html:preview
 <div class="relative-time-sync">
-  <sl-relative-time sync></sl-relative-time>
+  <wa-relative-time sync></wa-relative-time>
 </div>
 
 <script>
   const container = document.querySelector('.relative-time-sync');
-  const relativeTime = container.querySelector('sl-relative-time');
+  const relativeTime = container.querySelector('wa-relative-time');
 
   relativeTime.date = new Date(new Date().getTime() - 60000);
 </script>
 ```
 
 ```jsx:react
-import SlRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
+import WaRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
 
 const date = new Date(new Date().getTime() - 60000);
 
-const App = () => <SlRelativeTime date={date} sync />;
+const App = () => <WaRelativeTime date={date} sync />;
 ```
 
 ### Formatting Styles
@@ -56,21 +56,21 @@ const App = () => <SlRelativeTime date={date} sync />;
 You can change how the time is displayed using the `format` attribute. Note that some locales may display the same values for `narrow` and `short` formats.
 
 ```html:preview
-<sl-relative-time date="2020-07-15T09:17:00-04:00" format="narrow"></sl-relative-time><br />
-<sl-relative-time date="2020-07-15T09:17:00-04:00" format="short"></sl-relative-time><br />
-<sl-relative-time date="2020-07-15T09:17:00-04:00" format="long"></sl-relative-time>
+<wa-relative-time date="2020-07-15T09:17:00-04:00" format="narrow"></wa-relative-time><br />
+<wa-relative-time date="2020-07-15T09:17:00-04:00" format="short"></wa-relative-time><br />
+<wa-relative-time date="2020-07-15T09:17:00-04:00" format="long"></wa-relative-time>
 ```
 
 ```jsx:react
-import SlRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
+import WaRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
 
 const App = () => (
   <>
-    <SlRelativeTime date="2020-07-15T09:17:00-04:00" format="narrow" />
+    <WaRelativeTime date="2020-07-15T09:17:00-04:00" format="narrow" />
     <br />
-    <SlRelativeTime date="2020-07-15T09:17:00-04:00" format="short" />
+    <WaRelativeTime date="2020-07-15T09:17:00-04:00" format="short" />
     <br />
-    <SlRelativeTime date="2020-07-15T09:17:00-04:00" format="long" />
+    <WaRelativeTime date="2020-07-15T09:17:00-04:00" format="long" />
   </>
 );
 ```
@@ -80,27 +80,27 @@ const App = () => (
 Use the `lang` attribute to set the desired locale.
 
 ```html:preview
-English: <sl-relative-time date="2020-07-15T09:17:00-04:00" lang="en-US"></sl-relative-time><br />
-Chinese: <sl-relative-time date="2020-07-15T09:17:00-04:00" lang="zh-CN"></sl-relative-time><br />
-German: <sl-relative-time date="2020-07-15T09:17:00-04:00" lang="de"></sl-relative-time><br />
-Greek: <sl-relative-time date="2020-07-15T09:17:00-04:00" lang="el"></sl-relative-time><br />
-Russian: <sl-relative-time date="2020-07-15T09:17:00-04:00" lang="ru"></sl-relative-time>
+English: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="en-US"></wa-relative-time><br />
+Chinese: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="zh-CN"></wa-relative-time><br />
+German: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="de"></wa-relative-time><br />
+Greek: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="el"></wa-relative-time><br />
+Russian: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="ru"></wa-relative-time>
 ```
 
 ```jsx:react
-import SlRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
+import WaRelativeTime from '@shoelace-style/shoelace/dist/react/relative-time';
 
 const App = () => (
   <>
-    English: <SlRelativeTime date="2020-07-15T09:17:00-04:00" lang="en-US" />
+    English: <WaRelativeTime date="2020-07-15T09:17:00-04:00" lang="en-US" />
     <br />
-    Chinese: <SlRelativeTime date="2020-07-15T09:17:00-04:00" lang="zh-CN" />
+    Chinese: <WaRelativeTime date="2020-07-15T09:17:00-04:00" lang="zh-CN" />
     <br />
-    German: <SlRelativeTime date="2020-07-15T09:17:00-04:00" lang="de" />
+    German: <WaRelativeTime date="2020-07-15T09:17:00-04:00" lang="de" />
     <br />
-    Greek: <SlRelativeTime date="2020-07-15T09:17:00-04:00" lang="el" />
+    Greek: <WaRelativeTime date="2020-07-15T09:17:00-04:00" lang="el" />
     <br />
-    Russian: <SlRelativeTime date="2020-07-15T09:17:00-04:00" lang="ru" />
+    Russian: <WaRelativeTime date="2020-07-15T09:17:00-04:00" lang="ru" />
   </>
 );
 ```

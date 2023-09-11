@@ -6,77 +6,77 @@ layout: component
 ---
 
 ```html:preview
-<sl-carousel pagination>
-  <sl-carousel-item>
+<wa-carousel pagination>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees - Photo by Adam Kool on Unsplash"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest - Photo by Thomas Kelly on Unsplash"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field - Photo by Leonard Cotte on Unsplash"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background - Photo by Sapan Patel on Unsplash"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in - Photo by V2osk on Unsplash"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel pagination>
-    <SlCarouselItem>
+  <WaCarousel pagination>
+    <WaCarouselItem>
       <img
         alt="The sun shines on the mountains and trees - Photo by Adam Kool on Unsplash"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A waterfall in the middle of a forest - Photo by Thomas Kelly on Unsplash"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="The sun is setting over a lavender field - Photo by Leonard Cotte on Unsplash"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A field of grass with the sun setting in the background - Photo by Sapan Patel on Unsplash"
         src="/assets/examples/carousel/field.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A scenic view of a mountain with clouds rolling in - Photo by V2osk on Unsplash"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </SlCarouselItem>
-  </SlCarousel>
+    </WaCarouselItem>
+  </WaCarousel>
 );
 ```
 

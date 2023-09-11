@@ -1,12 +1,12 @@
-import SlSelect from './select.component.js';
+import WaSelect from './select.component.js';
 
 export * from './select.component.js';
-export default SlSelect;
+export default WaSelect;
 
-SlSelect.define('sl-select');
+WaSelect.define('wa-select');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-select': SlSelect;
+    'wa-select': WaSelect;
   }
 }

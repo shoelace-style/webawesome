@@ -7,7 +7,7 @@ let codeBlockId = 0;
 module.exports = function (doc) {
   doc.querySelectorAll('pre > code').forEach(code => {
     const pre = code.closest('pre');
-    const button = doc.createElement('sl-copy-button');
+    const button = doc.createElement('wa-copy-button');
 
     if (!code.id) {
       code.id = `code-block-${++codeBlockId}`;

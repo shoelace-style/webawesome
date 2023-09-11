@@ -6,9 +6,9 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlPopup from '../popup/popup.component.js';
 import styles from './tooltip.styles.js';
+import WaPopup from '../popup/popup.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -17,17 +17,17 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-popup
+ * @dependency wa-popup
  *
  * @slot - The tooltip's target element. Avoid slotting in more than one element, as subsequent ones will be ignored.
  * @slot content - The content to render in the tooltip. Alternatively, you can use the `content` attribute.
  *
- * @event sl-show - Emitted when the tooltip begins to show.
- * @event sl-after-show - Emitted after the tooltip has shown and all animations are complete.
- * @event sl-hide - Emitted when the tooltip begins to hide.
- * @event sl-after-hide - Emitted after the tooltip has hidden and all animations are complete.
+ * @event wa-show - Emitted when the tooltip begins to show.
+ * @event wa-after-show - Emitted after the tooltip has shown and all animations are complete.
+ * @event wa-hide - Emitted when the tooltip begins to hide.
+ * @event wa-after-hide - Emitted after the tooltip has hidden and all animations are complete.
  *
- * @csspart base - The component's base wrapper, an `<sl-popup>` element.
+ * @csspart base - The component's base wrapper, an `<wa-popup>` element.
  * @csspart base__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
  * @csspart base__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
  * @csspart body - The tooltip's body where its content is rendered.
@@ -39,16 +39,16 @@ import type { CSSResultGroup } from 'lit';
  * @animation tooltip.show - The animation to use when showing the tooltip.
  * @animation tooltip.hide - The animation to use when hiding the tooltip.
  */
-export default class SlTooltip extends ShoelaceElement {
+export default class WaTooltip extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-popup': SlPopup };
+  static dependencies = { 'wa-popup': WaPopup };
 
   private hoverTimeout: number;
   private readonly localize = new LocalizeController(this);
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('.tooltip__body') body: HTMLElement;
-  @query('sl-popup') popup: SlPopup;
+  @query('wa-popup') popup: WaPopup;
 
   /** The tooltip's content. If you need to display HTML, use the `content` slot instead. */
   @property() content = '';
@@ -180,7 +180,7 @@ export default class SlTooltip extends ShoelaceElement {
       }
 
       // Show
-      this.emit('sl-show');
+      this.emit('wa-show');
 
       await stopAnimations(this.body);
       this.body.hidden = false;
@@ -188,10 +188,10 @@ export default class SlTooltip extends ShoelaceElement {
       const { keyframes, options } = getAnimation(this, 'tooltip.show', { dir: this.localize.dir() });
       await animateTo(this.popup.popup, keyframes, options);
 
-      this.emit('sl-after-show');
+      this.emit('wa-after-show');
     } else {
       // Hide
-      this.emit('sl-hide');
+      this.emit('wa-hide');
 
       await stopAnimations(this.body);
       const { keyframes, options } = getAnimation(this, 'tooltip.hide', { dir: this.localize.dir() });
@@ -199,7 +199,7 @@ export default class SlTooltip extends ShoelaceElement {
       this.popup.active = false;
       this.body.hidden = true;
 
-      this.emit('sl-after-hide');
+      this.emit('wa-after-hide');
     }
   }
 
@@ -225,7 +225,7 @@ export default class SlTooltip extends ShoelaceElement {
     }
 
     this.open = true;
-    return waitForEvent(this, 'sl-after-show');
+    return waitForEvent(this, 'wa-after-show');
   }
 
   /** Hides the tooltip */
@@ -235,18 +235,18 @@ export default class SlTooltip extends ShoelaceElement {
     }
 
     this.open = false;
-    return waitForEvent(this, 'sl-after-hide');
+    return waitForEvent(this, 'wa-after-hide');
   }
 
   //
   // NOTE: Tooltip is a bit unique in that we're using aria-live instead of aria-labelledby to trick screen readers into
   // announcing the content. It works really well, but it violates an accessibility rule. We're also adding the
-  // aria-describedby attribute to a slot, which is required by <sl-popup> to correctly locate the first assigned
+  // aria-describedby attribute to a slot, which is required by <wa-popup> to correctly locate the first assigned
   // element, otherwise positioning is incorrect.
   //
   render() {
     return html`
-      <sl-popup
+      <wa-popup
         part="base"
         exportparts="
           popup:base__popup,
@@ -271,7 +271,7 @@ export default class SlTooltip extends ShoelaceElement {
         <div part="body" id="tooltip" class="tooltip__body" role="tooltip" aria-live=${this.open ? 'polite' : 'off'}>
           <slot name="content">${this.content}</slot>
         </div>
-      </sl-popup>
+      </wa-popup>
     `;
   }
 }

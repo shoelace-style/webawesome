@@ -1,12 +1,12 @@
-import SlInput from './input.component.js';
+import WaInput from './input.component.js';
 
 export * from './input.component.js';
-export default SlInput;
+export default WaInput;
 
-SlInput.define('sl-input');
+WaInput.define('wa-input');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-input': SlInput;
+    'wa-input': WaInput;
   }
 }

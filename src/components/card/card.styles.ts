@@ -5,10 +5,10 @@ export default css`
   ${componentStyles}
 
   :host {
-    --border-color: var(--sl-color-neutral-200);
-    --border-radius: var(--sl-border-radius-medium);
-    --border-width: 1px;
-    --padding: var(--sl-spacing-large);
+    --border-color: var(--wa-color-surface-outline);
+    --border-radius: var(--wa-corners-1x);
+    --border-width: var(--wa-border-width-thin);
+    --padding: var(--wa-space-l);
 
     display: inline-block;
   }
@@ -16,8 +16,8 @@ export default css`
   .card {
     display: flex;
     flex-direction: column;
-    background-color: var(--sl-panel-background-color);
-    box-shadow: var(--sl-shadow-x-small);
+    background-color: var(--wa-color-surface-raised);
+    box-shadow: var(--wa-shadow-level-1);
     border: solid var(--border-width) var(--border-color);
     border-radius: var(--border-radius);
   }

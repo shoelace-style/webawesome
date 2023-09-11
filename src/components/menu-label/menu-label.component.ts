@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './menu-label.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,7 +13,7 @@ import type { CSSResultGroup } from 'lit';
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlMenuLabel extends ShoelaceElement {
+export default class WaMenuLabel extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   render() {
@@ -23,6 +23,6 @@ export default class SlMenuLabel extends ShoelaceElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-menu-label': SlMenuLabel;
+    'wa-menu-label': WaMenuLabel;
   }
 }

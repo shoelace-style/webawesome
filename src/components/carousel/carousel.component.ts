@@ -9,10 +9,10 @@ import { property, query, state } from 'lit/decorators.js';
 import { range } from 'lit/directives/range.js';
 import { ScrollController } from './scroll-controller.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlCarouselItem from '../carousel-item/carousel-item.component.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './carousel.styles.js';
+import WaCarouselItem from '../carousel-item/carousel-item.component.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -21,13 +21,13 @@ import type { CSSResultGroup } from 'lit';
  * @since 2.2
  * @status experimental
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
- * @event {{ index: number, slide: SlCarouselItem }} sl-slide-change - Emitted when the active slide changes.
+ * @event {{ index: number, slide: WaCarouselItem }} wa-slide-change - Emitted when the active slide changes.
  *
- * @slot - The carousel's main content, one or more `<sl-carousel-item>` elements.
- * @slot next-icon - Optional next icon to use instead of the default. Works best with `<sl-icon>`.
- * @slot previous-icon - Optional previous icon to use instead of the default. Works best with `<sl-icon>`.
+ * @slot - The carousel's main content, one or more `<wa-carousel-item>` elements.
+ * @slot next-icon - Optional next icon to use instead of the default. Works best with `<wa-icon>`.
+ * @slot previous-icon - Optional previous icon to use instead of the default. Works best with `<wa-icon>`.
  *
  * @csspart base - The carousel's internal wrapper.
  * @csspart scroll-container - The scroll container that wraps the slides.
@@ -44,9 +44,9 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --scroll-hint - The amount of padding to apply to the scroll area, allowing adjacent slides to become
  *  partially visible as a scroll hint.
  */
-export default class SlCarousel extends ShoelaceElement {
+export default class WaCarousel extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   /** When set, allows the user to navigate the carousel in the same direction indefinitely. */
   @property({ type: Boolean, reflect: true }) loop = false;
@@ -87,7 +87,7 @@ export default class SlCarousel extends ShoelaceElement {
 
   private autoplayController = new AutoplayController(this, () => this.next());
   private scrollController = new ScrollController(this);
-  private readonly slides = this.getElementsByTagName('sl-carousel-item');
+  private readonly slides = this.getElementsByTagName('wa-carousel-item');
   private intersectionObserver: IntersectionObserver; // determines which slide is displayed
   // A map containing the state of all the slides
   private readonly intersectionObserverEntries = new Map<Element, IntersectionObserverEntry>();
@@ -207,14 +207,14 @@ export default class SlCarousel extends ShoelaceElement {
 
     // Activate the first intersecting slide
     if (firstIntersecting) {
-      this.activeSlide = slides.indexOf(firstIntersecting.target as SlCarouselItem);
+      this.activeSlide = slides.indexOf(firstIntersecting.target as WaCarouselItem);
     }
   }
 
   private handleSlotChange = (mutations: MutationRecord[]) => {
     const needsInitialization = mutations.some(mutation =>
       [...mutation.addedNodes, ...mutation.removedNodes].some(
-        node => SlCarouselItem.isCarouselItem(node) && !(node as HTMLElement).hasAttribute('data-clone')
+        node => WaCarouselItem.isCarouselItem(node) && !(node as HTMLElement).hasAttribute('data-clone')
       )
     );
 
@@ -282,7 +282,7 @@ export default class SlCarousel extends ShoelaceElement {
 
     // Do not emit an event on first render
     if (this.hasUpdated) {
-      this.emit('sl-slide-change', {
+      this.emit('wa-slide-change', {
         detail: {
           index: this.activeSlide,
           slide: slides[this.activeSlide]
@@ -420,7 +420,7 @@ export default class SlCarousel extends ShoelaceElement {
                   @click=${prevEnabled ? () => this.previous() : null}
                 >
                   <slot name="previous-icon">
-                    <sl-icon library="system" name="${isLtr ? 'chevron-left' : 'chevron-right'}"></sl-icon>
+                    <wa-icon library="system" name="${isLtr ? 'chevron-left' : 'chevron-right'}"></wa-icon>
                   </slot>
                 </button>
 
@@ -437,7 +437,7 @@ export default class SlCarousel extends ShoelaceElement {
                   @click=${nextEnabled ? () => this.next() : null}
                 >
                   <slot name="next-icon">
-                    <sl-icon library="system" name="${isLtr ? 'chevron-right' : 'chevron-left'}"></sl-icon>
+                    <wa-icon library="system" name="${isLtr ? 'chevron-right' : 'chevron-left'}"></wa-icon>
                   </slot>
                 </button>
               </div>

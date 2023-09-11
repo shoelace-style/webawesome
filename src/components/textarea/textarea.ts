@@ -1,12 +1,12 @@
-import SlTextarea from './textarea.component.js';
+import WaTextarea from './textarea.component.js';
 
 export * from './textarea.component.js';
-export default SlTextarea;
+export default WaTextarea;
 
-SlTextarea.define('sl-textarea');
+WaTextarea.define('wa-textarea');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-textarea': SlTextarea;
+    'wa-textarea': WaTextarea;
   }
 }

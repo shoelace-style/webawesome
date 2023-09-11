@@ -1,6 +1,6 @@
 import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**
  * @summary Formats a number using the specified locale and options.
@@ -8,7 +8,7 @@ import ShoelaceElement from '../../internal/shoelace-element.js';
  * @status stable
  * @since 2.0
  */
-export default class SlFormatNumber extends ShoelaceElement {
+export default class WaFormatNumber extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /** The number to format. */

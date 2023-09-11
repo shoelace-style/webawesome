@@ -2,9 +2,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIconButton from '../icon-button/icon-button.component.js';
 import styles from './tag.styles.js';
+import WaIconButton from '../icon-button/icon-button.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,25 +13,25 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon-button
+ * @dependency wa-icon-button
  *
  * @slot - The tag's content.
  *
- * @event sl-remove - Emitted when the remove button is activated.
+ * @event wa-remove - Emitted when the remove button is activated.
  *
  * @csspart base - The component's base wrapper.
  * @csspart content - The tag's content.
- * @csspart remove-button - The tag's remove button, an `<sl-icon-button>`.
+ * @csspart remove-button - The tag's remove button, an `<wa-icon-button>`.
  * @csspart remove-button__base - The remove button's exported `base` part.
  */
-export default class SlTag extends ShoelaceElement {
+export default class WaTag extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon-button': SlIconButton };
+  static dependencies = { 'wa-icon-button': WaIconButton };
 
   private readonly localize = new LocalizeController(this);
 
   /** The tag's theme variant. */
-  @property({ reflect: true }) variant: 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' = 'neutral';
+  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' = 'neutral';
 
   /** The tag's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -43,7 +43,7 @@ export default class SlTag extends ShoelaceElement {
   @property({ type: Boolean }) removable = false;
 
   private handleRemoveClick() {
-    this.emit('sl-remove');
+    this.emit('wa-remove');
   }
 
   render() {
@@ -54,7 +54,7 @@ export default class SlTag extends ShoelaceElement {
           tag: true,
 
           // Types
-          'tag--primary': this.variant === 'primary',
+          'tag--brand': this.variant === 'brand',
           'tag--success': this.variant === 'success',
           'tag--neutral': this.variant === 'neutral',
           'tag--warning': this.variant === 'warning',
@@ -75,7 +75,7 @@ export default class SlTag extends ShoelaceElement {
 
         ${this.removable
           ? html`
-              <sl-icon-button
+              <wa-icon-button
                 part="remove-button"
                 exportparts="base:remove-button__base"
                 name="x-lg"
@@ -84,7 +84,7 @@ export default class SlTag extends ShoelaceElement {
                 class="tag__remove"
                 @click=${this.handleRemoveClick}
                 tabindex="-1"
-              ></sl-icon-button>
+              ></wa-icon-button>
             `
           : ''}
       </span>

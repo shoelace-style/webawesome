@@ -7,10 +7,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './textarea.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -21,11 +21,11 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @slot label - The textarea's label. Alternatively, you can use the `label` attribute.
  * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
  *
- * @event sl-blur - Emitted when the control loses focus.
- * @event sl-change - Emitted when an alteration to the control's value is committed by the user.
- * @event sl-focus - Emitted when the control gains focus.
- * @event sl-input - Emitted when the control receives input.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the control loses focus.
+ * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
+ * @event wa-focus - Emitted when the control gains focus.
+ * @event wa-input - Emitted when the control receives input.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and help text.
  * @csspart form-control-label - The label's wrapper.
@@ -34,11 +34,11 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @csspart base - The component's base wrapper.
  * @csspart textarea - The internal `<textarea>` control.
  */
-export default class SlTextarea extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaTextarea extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
 
   private readonly formControlController = new FormControlController(this, {
-    assumeInteractionOn: ['sl-blur', 'sl-input']
+    assumeInteractionOn: ['wa-blur', 'wa-input']
   });
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
   private resizeObserver: ResizeObserver;
@@ -166,23 +166,23 @@ export default class SlTextarea extends ShoelaceElement implements ShoelaceFormC
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleChange() {
     this.value = this.input.value;
     this.setTextareaHeight();
-    this.emit('sl-change');
+    this.emit('wa-change');
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   private handleInput() {
     this.value = this.input.value;
-    this.emit('sl-input');
+    this.emit('wa-input');
   }
 
   private handleInvalid(event: Event) {

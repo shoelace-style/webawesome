@@ -5,10 +5,10 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { SubmenuController } from './submenu-controller.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
-import SlPopup from '../popup/popup.component.js';
 import styles from './menu-item.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WaPopup from '../popup/popup.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -17,8 +17,8 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
- * @dependency sl-popup
+ * @dependency wa-icon
+ * @dependency wa-popup
  *
  * @slot - The menu item's label.
  * @slot prefix - Used to prepend an icon or similar element to the menu item.
@@ -34,11 +34,11 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty [--submenu-offset=-2px] - The distance submenus shift to overlap the parent menu.
  */
-export default class SlMenuItem extends ShoelaceElement {
+export default class WaMenuItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
-    'sl-icon': SlIcon,
-    'sl-popup': SlPopup
+    'wa-icon': WaIcon,
+    'wa-popup': WaPopup
   };
 
   private cachedTextLabel: string;
@@ -165,7 +165,7 @@ export default class SlMenuItem extends ShoelaceElement {
         ?aria-expanded="${isSubmenuExpanded ? true : false}"
       >
         <span part="checked-icon" class="menu-item__check">
-          <sl-icon name="check" library="system" aria-hidden="true"></sl-icon>
+          <wa-icon name="check" library="system" aria-hidden="true"></wa-icon>
         </span>
 
         <slot name="prefix" part="prefix" class="menu-item__prefix"></slot>
@@ -175,7 +175,7 @@ export default class SlMenuItem extends ShoelaceElement {
         <slot name="suffix" part="suffix" class="menu-item__suffix"></slot>
 
         <span part="submenu-icon" class="menu-item__chevron">
-          <sl-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" aria-hidden="true"></sl-icon>
+          <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" aria-hidden="true"></wa-icon>
         </span>
 
         ${this.submenuController.renderSubmenu()}

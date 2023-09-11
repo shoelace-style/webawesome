@@ -1,12 +1,12 @@
-import SlTree from './tree.component.js';
+import WaTree from './tree.component.js';
 
 export * from './tree.component.js';
-export default SlTree;
+export default WaTree;
 
-SlTree.define('sl-tree');
+WaTree.define('wa-tree');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tree': SlTree;
+    'wa-tree': WaTree;
   }
 }

@@ -1,12 +1,12 @@
-import SlColorPicker from './color-picker.component.js';
+import WaColorPicker from './color-picker.component.js';
 
 export * from './color-picker.component.js';
-export default SlColorPicker;
+export default WaColorPicker;
 
-SlColorPicker.define('sl-color-picker');
+WaColorPicker.define('wa-color-picker');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-color-picker': SlColorPicker;
+    'wa-color-picker': WaColorPicker;
   }
 }

@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 
-import '../../dist/shoelace.js';
+import '../../dist/webawesome.js';
 import { activeElements } from './active-elements.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
@@ -32,13 +32,13 @@ window.customElements.define(
     }
     connectedCallback() {
       this.shadowRoot!.innerHTML = `
-      <sl-drawer>
+      <wa-drawer>
         <slot name="label" slot="label"></slot>
 
         <slot></slot>
 
         <slot name="footer" slot="footer"></slot>
-      </sl-drawer>
+      </wa-drawer>
     `;
     }
   }
@@ -48,13 +48,13 @@ it('Should allow tabbing to slotted elements', async () => {
   const el = await fixture(html`
     <tab-test-1>
       <div slot="label">
-        <sl-button id="focus-1">Focus 1</sl-button>
+        <wa-button id="focus-1">Focus 1</wa-button>
       </div>
 
       <div>
-        <!-- Focus 2 lives as the close-button from <sl-drawer> -->
-        <sl-button id="focus-3">Focus 3</sl-button>
-        <button id="focus-4">Focus 4</sl-button>
+        <!-- Focus 2 lives as the close-button from <wa-drawer> -->
+        <wa-button id="focus-3">Focus 3</wa-button>
+        <button id="focus-4">Focus 4</wa-button>
         <input id="focus-5" value="Focus 5">
       </div>
 
@@ -65,7 +65,7 @@ it('Should allow tabbing to slotted elements', async () => {
     </tab-test-1>
   `);
 
-  const drawer = el.shadowRoot?.querySelector('sl-drawer');
+  const drawer = el.shadowRoot?.querySelector('wa-drawer');
 
   if (drawer === null || drawer === undefined) throw Error('Could not find drawer inside of the test element');
 
@@ -75,12 +75,12 @@ it('Should allow tabbing to slotted elements', async () => {
 
   const focusZero = drawer.shadowRoot?.querySelector("[role='dialog']");
 
-  if (focusZero === null || focusZero === undefined) throw Error('Could not find dialog panel inside <sl-drawer>');
+  if (focusZero === null || focusZero === undefined) throw Error('Could not find dialog panel inside <wa-drawer>');
 
   const focusOne = el.querySelector('#focus-1');
   const focusTwo = drawer.shadowRoot?.querySelector("[part~='close-button']");
 
-  if (focusTwo === null || focusTwo === undefined) throw Error('Could not find close button inside <sl-drawer>');
+  if (focusTwo === null || focusTwo === undefined) throw Error('Could not find close button inside <wa-drawer>');
 
   const focusThree = el.querySelector('#focus-3');
   const focusFour = el.querySelector('#focus-4');

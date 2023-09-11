@@ -1,12 +1,12 @@
-import SlAlert from './alert.component.js';
+import WaAlert from './alert.component.js';
 
 export * from './alert.component.js';
-export default SlAlert;
+export default WaAlert;
 
-SlAlert.define('sl-alert');
+WaAlert.define('wa-alert');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-alert': SlAlert;
+    'wa-alert': WaAlert;
   }
 }

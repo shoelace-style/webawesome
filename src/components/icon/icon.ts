@@ -1,12 +1,12 @@
-import SlIcon from './icon.component.js';
+import WaIcon from './icon.component.js';
 
 export * from './icon.component.js';
-export default SlIcon;
+export default WaIcon;
 
-SlIcon.define('sl-icon');
+WaIcon.define('wa-icon');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-icon': SlIcon;
+    'wa-icon': WaIcon;
   }
 }

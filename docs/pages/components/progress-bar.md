@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-progress-bar value="50"></sl-progress-bar>
+<wa-progress-bar value="50"></wa-progress-bar>
 ```
 
 ```jsx:react
-import SlProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
+import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
-const App = () => <SlProgressBar value={50} />;
+const App = () => <WaProgressBar value={50} />;
 ```
 
 ## Examples
@@ -22,13 +22,13 @@ const App = () => <SlProgressBar value={50} />;
 Use the `label` attribute to label the progress bar and tell assistive devices how to announce it.
 
 ```html:preview
-<sl-progress-bar value="50" label="Upload progress"></sl-progress-bar>
+<wa-progress-bar value="50" label="Upload progress"></wa-progress-bar>
 ```
 
 ```jsx:react
-import SlProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
+import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
-const App = () => <SlProgressBar value="50" label="Upload progress" />;
+const App = () => <WaProgressBar value="50" label="Upload progress" />;
 ```
 
 ### Custom Height
@@ -36,15 +36,15 @@ const App = () => <SlProgressBar value="50" label="Upload progress" />;
 Use the `--height` custom property to set the progress bar's height.
 
 ```html:preview
-<sl-progress-bar value="50" style="--height: 6px;"></sl-progress-bar>
+<wa-progress-bar value="50" style="--height: 6px;"></wa-progress-bar>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
+import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
-const App = () => <SlProgressBar value={50} style={{ '--height': '6px' }} />;
+const App = () => <WaProgressBar value={50} style={{ '--height': '6px' }} />;
 ```
 
 {% endraw %}
@@ -54,12 +54,12 @@ const App = () => <SlProgressBar value={50} style={{ '--height': '6px' }} />;
 Use the default slot to show a value.
 
 ```html:preview
-<sl-progress-bar value="50" class="progress-bar-values">50%</sl-progress-bar>
+<wa-progress-bar value="50" class="progress-bar-values">50%</wa-progress-bar>
 
 <br />
 
-<sl-button circle><sl-icon name="dash" label="Decrease"></sl-icon></sl-button>
-<sl-button circle><sl-icon name="plus" label="Increase"></sl-icon></sl-button>
+<wa-button circle><wa-icon name="dash" label="Decrease"></wa-icon></wa-button>
+<wa-button circle><wa-icon name="plus" label="Increase"></wa-icon></wa-button>
 
 <script>
   const progressBar = document.querySelector('.progress-bar-values');
@@ -82,9 +82,9 @@ Use the default slot to show a value.
 
 ```jsx:react
 import { useState } from 'react';
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
 const App = () => {
   const [value, setValue] = useState(50);
@@ -98,17 +98,17 @@ const App = () => {
 
   return (
     <>
-      <SlProgressBar value={value}>{value}%</SlProgressBar>
+      <WaProgressBar value={value}>{value}%</WaProgressBar>
 
       <br />
 
-      <SlButton circle onClick={() => adjustValue(-10)}>
-        <SlIcon name="dash" label="Decrease" />
-      </SlButton>
+      <WaButton circle onClick={() => adjustValue(-10)}>
+        <WaIcon name="dash" label="Decrease" />
+      </WaButton>
 
-      <SlButton circle onClick={() => adjustValue(10)}>
-        <SlIcon name="plus" label="Increase" />
-      </SlButton>
+      <WaButton circle onClick={() => adjustValue(10)}>
+        <WaIcon name="plus" label="Increase" />
+      </WaButton>
     </>
   );
 };
@@ -119,11 +119,11 @@ const App = () => {
 The `indeterminate` attribute can be used to inform the user that the operation is pending, but its status cannot currently be determined. In this state, `value` is ignored and the label, if present, will not be shown.
 
 ```html:preview
-<sl-progress-bar indeterminate></sl-progress-bar>
+<wa-progress-bar indeterminate></wa-progress-bar>
 ```
 
 ```jsx:react
-import SlProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
+import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
-const App = () => <SlProgressBar indeterminate />;
+const App = () => <WaProgressBar indeterminate />;
 ```

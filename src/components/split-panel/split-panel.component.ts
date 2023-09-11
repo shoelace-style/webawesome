@@ -5,8 +5,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './split-panel.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -15,7 +15,7 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @event sl-reposition - Emitted when the divider's position changes.
+ * @event wa-reposition - Emitted when the divider's position changes.
  *
  * @slot start - Content to place in the start panel.
  * @slot end - Content to place in the end panel.
@@ -32,7 +32,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty [--min=0] - The minimum allowed size of the primary panel.
  * @cssproperty [--max=100%] - The maximum allowed size of the primary panel.
  */
-export default class SlSplitPanel extends ShoelaceElement {
+export default class WaSplitPanel extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private cachedPositionInPixels: number;
@@ -198,7 +198,7 @@ export default class SlSplitPanel extends ShoelaceElement {
   handlePositionChange() {
     this.cachedPositionInPixels = this.percentageToPixels(this.position);
     this.positionInPixels = this.percentageToPixels(this.position);
-    this.emit('sl-reposition');
+    this.emit('wa-reposition');
   }
 
   @watch('positionInPixels')
@@ -271,6 +271,6 @@ export default class SlSplitPanel extends ShoelaceElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-split-panel': SlSplitPanel;
+    'wa-split-panel': WaSplitPanel;
   }
 }

@@ -1,12 +1,12 @@
-import SlSpinner from './spinner.component.js';
+import WaSpinner from './spinner.component.js';
 
 export * from './spinner.component.js';
-export default SlSpinner;
+export default WaSpinner;
 
-SlSpinner.define('sl-spinner');
+WaSpinner.define('wa-spinner');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-spinner': SlSpinner;
+    'wa-spinner': WaSpinner;
   }
 }

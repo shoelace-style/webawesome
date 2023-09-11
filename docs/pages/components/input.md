@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-input></sl-input>
+<wa-input></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput />;
+const App = () => <WaInput />;
 ```
 
 :::tip
@@ -26,14 +26,14 @@ This component works with standard `<form>` elements. Please refer to the sectio
 Use the `label` attribute to give the input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html:preview
-<sl-input label="What is your name?"></sl-input>
+<wa-input label="What is your name?"></wa-input>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput label="What is your name?" />;
+const App = () => <WaInput label="What is your name?" />;
 ```
 
 ### Help Text
@@ -41,14 +41,14 @@ const App = () => <SlInput label="What is your name?" />;
 Add descriptive help text to an input with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
 
 ```html:preview
-<sl-input label="Nickname" help-text="What would you like people to call you?"></sl-input>
+<wa-input label="Nickname" help-text="What would you like people to call you?"></wa-input>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput label="Nickname" help-text="What would you like people to call you?" />;
+const App = () => <WaInput label="Nickname" help-text="What would you like people to call you?" />;
 ```
 
 ### Placeholders
@@ -56,13 +56,13 @@ const App = () => <SlInput label="Nickname" help-text="What would you like peopl
 Use the `placeholder` attribute to add a placeholder.
 
 ```html:preview
-<sl-input placeholder="Type something"></sl-input>
+<wa-input placeholder="Type something"></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput placeholder="Type something" />;
+const App = () => <WaInput placeholder="Type something" />;
 ```
 
 ### Clearable
@@ -70,13 +70,13 @@ const App = () => <SlInput placeholder="Type something" />;
 Add the `clearable` attribute to add a clear button when the input has content.
 
 ```html:preview
-<sl-input placeholder="Clearable" clearable></sl-input>
+<wa-input placeholder="Clearable" clearable></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput placeholder="Clearable" clearable />;
+const App = () => <WaInput placeholder="Clearable" clearable />;
 ```
 
 ### Toggle Password
@@ -84,13 +84,13 @@ const App = () => <SlInput placeholder="Clearable" clearable />;
 Add the `password-toggle` attribute to add a toggle button that will show the password when activated.
 
 ```html:preview
-<sl-input type="password" placeholder="Password Toggle" password-toggle></sl-input>
+<wa-input type="password" placeholder="Password Toggle" password-toggle></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput type="password" placeholder="Password Toggle" size="medium" password-toggle />;
+const App = () => <WaInput type="password" placeholder="Password Toggle" size="medium" password-toggle />;
 ```
 
 ### Filled Inputs
@@ -98,13 +98,13 @@ const App = () => <SlInput type="password" placeholder="Password Toggle" size="m
 Add the `filled` attribute to draw a filled input.
 
 ```html:preview
-<sl-input placeholder="Type something" filled></sl-input>
+<wa-input placeholder="Type something" filled></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput placeholder="Type something" filled />;
+const App = () => <WaInput placeholder="Type something" filled />;
 ```
 
 ### Disabled
@@ -112,13 +112,13 @@ const App = () => <SlInput placeholder="Type something" filled />;
 Use the `disabled` attribute to disable an input.
 
 ```html:preview
-<sl-input placeholder="Disabled" disabled></sl-input>
+<wa-input placeholder="Disabled" disabled></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
-const App = () => <SlInput placeholder="Disabled" disabled />;
+const App = () => <WaInput placeholder="Disabled" disabled />;
 ```
 
 ### Sizes
@@ -126,23 +126,23 @@ const App = () => <SlInput placeholder="Disabled" disabled />;
 Use the `size` attribute to change an input's size.
 
 ```html:preview
-<sl-input placeholder="Small" size="small"></sl-input>
+<wa-input placeholder="Small" size="small"></wa-input>
 <br />
-<sl-input placeholder="Medium" size="medium"></sl-input>
+<wa-input placeholder="Medium" size="medium"></wa-input>
 <br />
-<sl-input placeholder="Large" size="large"></sl-input>
+<wa-input placeholder="Large" size="large"></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => (
   <>
-    <SlInput placeholder="Small" size="small" />
+    <WaInput placeholder="Small" size="small" />
     <br />
-    <SlInput placeholder="Medium" size="medium" />
+    <WaInput placeholder="Medium" size="medium" />
     <br />
-    <SlInput placeholder="Large" size="large" />
+    <WaInput placeholder="Large" size="large" />
   </>
 );
 ```
@@ -152,23 +152,23 @@ const App = () => (
 Use the `pill` attribute to give inputs rounded edges.
 
 ```html:preview
-<sl-input placeholder="Small" size="small" pill></sl-input>
+<wa-input placeholder="Small" size="small" pill></wa-input>
 <br />
-<sl-input placeholder="Medium" size="medium" pill></sl-input>
+<wa-input placeholder="Medium" size="medium" pill></wa-input>
 <br />
-<sl-input placeholder="Large" size="large" pill></sl-input>
+<wa-input placeholder="Large" size="large" pill></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => (
   <>
-    <SlInput placeholder="Small" size="small" pill />
+    <WaInput placeholder="Small" size="small" pill />
     <br />
-    <SlInput placeholder="Medium" size="medium" pill />
+    <WaInput placeholder="Medium" size="medium" pill />
     <br />
-    <SlInput placeholder="Large" size="large" pill />
+    <WaInput placeholder="Large" size="large" pill />
   </>
 );
 ```
@@ -178,23 +178,23 @@ const App = () => (
 The `type` attribute controls the type of input the browser renders.
 
 ```html:preview
-<sl-input type="email" placeholder="Email"></sl-input>
+<wa-input type="email" placeholder="Email"></wa-input>
 <br />
-<sl-input type="number" placeholder="Number"></sl-input>
+<wa-input type="number" placeholder="Number"></wa-input>
 <br />
-<sl-input type="date" placeholder="Date"></sl-input>
+<wa-input type="date" placeholder="Date"></wa-input>
 ```
 
 ```jsx:react
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => (
   <>
-    <SlInput type="email" placeholder="Email" />
+    <WaInput type="email" placeholder="Email" />
     <br />
-    <SlInput type="number" placeholder="Number" />
+    <WaInput type="number" placeholder="Number" />
     <br />
-    <SlInput type="date" placeholder="Date" />
+    <WaInput type="date" placeholder="Date" />
   </>
 );
 ```
@@ -204,42 +204,42 @@ const App = () => (
 Use the `prefix` and `suffix` slots to add icons.
 
 ```html:preview
-<sl-input placeholder="Small" size="small">
-  <sl-icon name="house" slot="prefix"></sl-icon>
-  <sl-icon name="chat" slot="suffix"></sl-icon>
-</sl-input>
+<wa-input placeholder="Small" size="small">
+  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon name="chat" slot="suffix"></wa-icon>
+</wa-input>
 <br />
-<sl-input placeholder="Medium" size="medium">
-  <sl-icon name="house" slot="prefix"></sl-icon>
-  <sl-icon name="chat" slot="suffix"></sl-icon>
-</sl-input>
+<wa-input placeholder="Medium" size="medium">
+  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon name="chat" slot="suffix"></wa-icon>
+</wa-input>
 <br />
-<sl-input placeholder="Large" size="large">
-  <sl-icon name="house" slot="prefix"></sl-icon>
-  <sl-icon name="chat" slot="suffix"></sl-icon>
-</sl-input>
+<wa-input placeholder="Large" size="large">
+  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon name="chat" slot="suffix"></wa-icon>
+</wa-input>
 ```
 
 ```jsx:react
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => (
   <>
-    <SlInput placeholder="Small" size="small">
-      <SlIcon name="house" slot="prefix"></SlIcon>
-      <SlIcon name="chat" slot="suffix"></SlIcon>
-    </SlInput>
+    <WaInput placeholder="Small" size="small">
+      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon name="chat" slot="suffix"></WaIcon>
+    </WaInput>
     <br />
-    <SlInput placeholder="Medium" size="medium">
-      <SlIcon name="house" slot="prefix"></SlIcon>
-      <SlIcon name="chat" slot="suffix"></SlIcon>
-    </SlInput>
+    <WaInput placeholder="Medium" size="medium">
+      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon name="chat" slot="suffix"></WaIcon>
+    </WaInput>
     <br />
-    <SlInput placeholder="Large" size="large">
-      <SlIcon name="house" slot="prefix"></SlIcon>
-      <SlIcon name="chat" slot="suffix"></SlIcon>
-    </SlInput>
+    <WaInput placeholder="Large" size="large">
+      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon name="chat" slot="suffix"></WaIcon>
+    </WaInput>
   </>
 );
 ```
@@ -249,9 +249,9 @@ const App = () => (
 Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls.
 
 ```html:preview
-<sl-input class="label-on-left" label="Name" help-text="Enter your name"></sl-input>
-<sl-input class="label-on-left" label="Email" type="email" help-text="Enter your email"></sl-input>
-<sl-textarea class="label-on-left" label="Bio" help-text="Tell us something about yourself"></sl-textarea>
+<wa-input class="label-on-left" label="Name" help-text="Enter your name"></wa-input>
+<wa-input class="label-on-left" label="Email" type="email" help-text="Enter your email"></wa-input>
+<wa-textarea class="label-on-left" label="Bio" help-text="Tell us something about yourself"></wa-textarea>
 
 <style>
   .label-on-left {
@@ -260,13 +260,13 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
   }
 
   .label-on-left + .label-on-left {
-    margin-top: var(--sl-spacing-medium);
+    margin-top: var(--wa-space-m);
   }
 
   .label-on-left::part(form-control) {
     display: grid;
     grid: auto / var(--label-width) 1fr;
-    gap: var(--sl-spacing-3x-small) var(--gap-width);
+    gap: var(--wa-space-3xs) var(--gap-width);
     align-items: center;
   }
 

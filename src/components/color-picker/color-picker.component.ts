@@ -10,18 +10,18 @@ import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { TinyColor } from '@ctrl/tinycolor';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlButton from '../button/button.component.js';
-import SlButtonGroup from '../button-group/button-group.component.js';
-import SlDropdown from '../dropdown/dropdown.component.js';
-import SlIcon from '../icon/icon.component.js';
-import SlInput from '../input/input.component.js';
-import SlVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
 import styles from './color-picker.styles.js';
+import WaButton from '../button/button.component.js';
+import WaButtonGroup from '../button-group/button-group.component.js';
+import WaDropdown from '../dropdown/dropdown.component.js';
+import WaIcon from '../icon/icon.component.js';
+import WaInput from '../input/input.component.js';
+import WaVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
-import type { SlChangeEvent } from '../../events/sl-change.js';
-import type { SlInputEvent } from '../../events/sl-input.js';
+import type { WaChangeEvent } from '../../events/wa-change.js';
+import type { WaInputEvent } from '../../events/wa-input.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -41,19 +41,19 @@ declare const EyeDropper: EyeDropperConstructor;
  * @status stable
  * @since 2.0
  *
- * @dependency sl-button
- * @dependency sl-button-group
- * @dependency sl-dropdown
- * @dependency sl-input
- * @dependency sl-visually-hidden
+ * @dependency wa-button
+ * @dependency wa-button-group
+ * @dependency wa-dropdown
+ * @dependency wa-input
+ * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
  *
- * @event sl-blur - Emitted when the color picker loses focus.
- * @event sl-change - Emitted when the color picker's value changes.
- * @event sl-focus - Emitted when the color picker receives focus.
- * @event sl-input - Emitted when the color picker receives input.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the color picker loses focus.
+ * @event wa-change - Emitted when the color picker's value changes.
+ * @event wa-focus - Emitted when the color picker receives focus.
+ * @event wa-input - Emitted when the color picker receives input.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
  * @csspart trigger - The color picker's dropdown trigger.
@@ -89,16 +89,16 @@ declare const EyeDropper: EyeDropperConstructor;
  * @cssproperty --slider-handle-size - The diameter of the slider's handle.
  * @cssproperty --swatch-size - The size of each predefined color swatch.
  */
-export default class SlColorPicker extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaColorPicker extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
 
   static dependencies = {
-    'sl-button-group': SlButtonGroup,
-    'sl-button': SlButton,
-    'sl-dropdown': SlDropdown,
-    'sl-icon': SlIcon,
-    'sl-input': SlInput,
-    'sl-visually-hidden': SlVisuallyHidden
+    'wa-button-group': WaButtonGroup,
+    'wa-button': WaButton,
+    'wa-dropdown': WaDropdown,
+    'wa-icon': WaIcon,
+    'wa-input': WaInput,
+    'wa-visually-hidden': WaVisuallyHidden
   };
 
   private readonly formControlController = new FormControlController(this);
@@ -106,8 +106,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
   private readonly localize = new LocalizeController(this);
 
   @query('[part~="base"]') base: HTMLElement;
-  @query('[part~="input"]') input: SlInput;
-  @query('.color-dropdown') dropdown: SlDropdown;
+  @query('[part~="input"]') input: WaInput;
+  @query('.color-dropdown') dropdown: WaDropdown;
   @query('[part~="preview"]') previewButton: HTMLButtonElement;
   @query('[part~="trigger"]') trigger: HTMLButtonElement;
 
@@ -222,12 +222,12 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
 
   private handleFocusIn = () => {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   };
 
   private handleFocusOut = () => {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   };
 
   private handleFormatToggle() {
@@ -235,8 +235,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this.setColor(this.value);
-    this.emit('sl-change');
-    this.emit('sl-input');
+    this.emit('wa-change');
+    this.emit('wa-input');
   }
 
   private handleAlphaDrag(event: PointerEvent) {
@@ -255,8 +255,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
 
         if (this.value !== oldValue) {
           oldValue = this.value;
-          this.emit('sl-change');
-          this.emit('sl-input');
+          this.emit('wa-change');
+          this.emit('wa-input');
         }
       },
       initialEvent: event
@@ -279,8 +279,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
 
         if (this.value !== oldValue) {
           oldValue = this.value;
-          this.emit('sl-change');
-          this.emit('sl-input');
+          this.emit('wa-change');
+          this.emit('wa-input');
         }
       },
       initialEvent: event
@@ -306,8 +306,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
 
         if (this.value !== oldValue) {
           oldValue = this.value;
-          this.emit('sl-change');
-          this.emit('sl-input');
+          this.emit('wa-change');
+          this.emit('wa-input');
         }
       },
       onStop: () => (this.isDraggingGridHandle = false),
@@ -344,8 +344,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
@@ -378,8 +378,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
@@ -412,16 +412,16 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
-  private handleInputChange(event: SlChangeEvent) {
+  private handleInputChange(event: WaChangeEvent) {
     const target = event.target as HTMLInputElement;
     const oldValue = this.value;
 
-    // Prevent the <sl-input>'s sl-change event from bubbling up
+    // Prevent the <wa-input>'s wa-change event from bubbling up
     event.stopPropagation();
 
     if (this.input.value) {
@@ -432,15 +432,15 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
-      this.emit('sl-input');
+      this.emit('wa-change');
+      this.emit('wa-input');
     }
   }
 
-  private handleInputInput(event: SlInputEvent) {
+  private handleInputInput(event: WaInputEvent) {
     this.formControlController.updateValidity();
 
-    // Prevent the <sl-input>'s sl-input event from bubbling up
+    // Prevent the <wa-input>'s wa-input event from bubbling up
     event.stopPropagation();
   }
 
@@ -453,8 +453,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
         this.input.value = this.value;
 
         if (this.value !== oldValue) {
-          this.emit('sl-change');
-          this.emit('sl-input');
+          this.emit('wa-change');
+          this.emit('wa-input');
         }
 
         setTimeout(() => this.input.select());
@@ -625,8 +625,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
         this.setColor(colorSelectionResult.sRGBHex);
 
         if (this.value !== oldValue) {
-          this.emit('sl-change');
-          this.emit('sl-input');
+          this.emit('wa-change');
+          this.emit('wa-input');
         }
       })
       .catch(() => {
@@ -641,8 +641,8 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
       this.setColor(color);
 
       if (this.value !== oldValue) {
-        this.emit('sl-change');
-        this.emit('sl-input');
+        this.emit('wa-change');
+        this.emit('wa-input');
       }
     }
   }
@@ -772,10 +772,10 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
     if (!this.inline && !this.validity.valid) {
       // If the input is inline and invalid, show the dropdown so the browser can focus on it
       this.dropdown.show();
-      this.addEventListener('sl-after-show', () => this.input.reportValidity(), { once: true });
+      this.addEventListener('wa-after-show', () => this.input.reportValidity(), { once: true });
 
       if (!this.disabled) {
-        // By standards we have to emit a `sl-invalid` event here synchronously.
+        // By standards we have to emit a `wa-invalid` event here synchronously.
         this.formControlController.emitInvalidEvent();
       }
 
@@ -813,9 +813,9 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
       >
         ${this.inline
           ? html`
-              <sl-visually-hidden id="label">
+              <wa-visually-hidden id="label">
                 <slot name="label">${this.label}</slot>
-              </sl-visually-hidden>
+              </wa-visually-hidden>
             `
           : null}
 
@@ -920,7 +920,7 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
         </div>
 
         <div class="color-picker__user-input" aria-live="polite">
-          <sl-input
+          <wa-input
             part="input"
             type="text"
             name=${this.name}
@@ -933,17 +933,17 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
             ?disabled=${this.disabled}
             aria-label=${this.localize.term('currentValue')}
             @keydown=${this.handleInputKeyDown}
-            @sl-change=${this.handleInputChange}
-            @sl-input=${this.handleInputInput}
-            @sl-invalid=${this.handleInputInvalid}
-            @sl-blur=${this.stopNestedEventPropagation}
-            @sl-focus=${this.stopNestedEventPropagation}
-          ></sl-input>
+            @wa-change=${this.handleInputChange}
+            @wa-input=${this.handleInputInput}
+            @wa-invalid=${this.handleInputInvalid}
+            @wa-blur=${this.stopNestedEventPropagation}
+            @wa-focus=${this.stopNestedEventPropagation}
+          ></wa-input>
 
-          <sl-button-group>
+          <wa-button-group>
             ${!this.noFormatToggle
               ? html`
-                  <sl-button
+                  <wa-button
                     part="format-button"
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
@@ -954,16 +954,16 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
                       caret:format-button__caret
                     "
                     @click=${this.handleFormatToggle}
-                    @sl-blur=${this.stopNestedEventPropagation}
-                    @sl-focus=${this.stopNestedEventPropagation}
+                    @wa-blur=${this.stopNestedEventPropagation}
+                    @wa-focus=${this.stopNestedEventPropagation}
                   >
                     ${this.setLetterCase(this.format)}
-                  </sl-button>
+                  </wa-button>
                 `
               : ''}
             ${hasEyeDropper
               ? html`
-                  <sl-button
+                  <wa-button
                     part="eye-dropper-button"
                     exportparts="
                       base:eye-dropper-button__base,
@@ -973,18 +973,18 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
                       caret:eye-dropper-button__caret
                     "
                     @click=${this.handleEyeDropper}
-                    @sl-blur=${this.stopNestedEventPropagation}
-                    @sl-focus=${this.stopNestedEventPropagation}
+                    @wa-blur=${this.stopNestedEventPropagation}
+                    @wa-focus=${this.stopNestedEventPropagation}
                   >
-                    <sl-icon
+                    <wa-icon
                       library="system"
                       name="eyedropper"
                       label=${this.localize.term('selectAColorFromTheScreen')}
-                    ></sl-icon>
-                  </sl-button>
+                    ></wa-icon>
+                  </wa-button>
                 `
               : ''}
-          </sl-button-group>
+          </wa-button-group>
         </div>
 
         ${swatches.length > 0
@@ -1030,13 +1030,13 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
 
     // Render as a dropdown
     return html`
-      <sl-dropdown
+      <wa-dropdown
         class="color-dropdown"
         aria-disabled=${this.disabled ? 'true' : 'false'}
         .containing-element=${this}
         ?disabled=${this.disabled}
         ?hoist=${this.hoist}
-        @sl-after-hide=${this.handleAfterHide}
+        @wa-after-hide=${this.handleAfterHide}
       >
         <button
           part="trigger"
@@ -1056,12 +1056,12 @@ export default class SlColorPicker extends ShoelaceElement implements ShoelaceFo
           })}
           type="button"
         >
-          <sl-visually-hidden>
+          <wa-visually-hidden>
             <slot name="label">${this.label}</slot>
-          </sl-visually-hidden>
+          </wa-visually-hidden>
         </button>
         ${colorPicker}
-      </sl-dropdown>
+      </wa-dropdown>
     `;
   }
 }

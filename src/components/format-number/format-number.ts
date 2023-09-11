@@ -1,12 +1,12 @@
-import SlFormatNumber from './format-number.component.js';
+import WaFormatNumber from './format-number.component.js';
 
 export * from './format-number.component.js';
-export default SlFormatNumber;
+export default WaFormatNumber;
 
-SlFormatNumber.define('sl-format-number');
+WaFormatNumber.define('wa-format-number');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-format-number': SlFormatNumber;
+    'wa-format-number': WaFormatNumber;
   }
 }

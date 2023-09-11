@@ -1,14 +1,14 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type SlQrCode from './qr-code';
+import type WaQrCode from './qr-code';
 
-const getCanvas = (qrCode: SlQrCode): HTMLCanvasElement => {
+const getCanvas = (qrCode: WaQrCode): HTMLCanvasElement => {
   const possibleCanvas = qrCode.shadowRoot?.querySelector<HTMLCanvasElement>('.qr-code');
   expect(possibleCanvas).to.exist;
   return possibleCanvas!;
 };
 
-const expectCanvasToHaveAriaLabel = (qrCode: SlQrCode, expectedLabel: string): void => {
+const expectCanvasToHaveAriaLabel = (qrCode: WaQrCode, expectedLabel: string): void => {
   const canvas = getCanvas(qrCode);
   expect(canvas).to.have.attribute('aria-label', expectedLabel);
 };
@@ -52,7 +52,7 @@ const getColorFromPixel = (colorArray: Uint8ClampedArray, pixelNumber: number): 
   );
 };
 
-const getQrCodeColors = (qrCode: SlQrCode): QrCodeColors => {
+const getQrCodeColors = (qrCode: WaQrCode): QrCodeColors => {
   const canvas = getCanvas(qrCode);
   const context = canvas.getContext('2d');
   const imageData = context?.getImageData(0, 0, canvas.width, canvas.height);
@@ -78,7 +78,7 @@ const red = new Color(255, 0, 0, 255);
 const white = new Color(255, 255, 255, 255);
 const blue = new Color(0, 0, 255, 255);
 
-const expectQrCodeColorsToBe = (qrCode: SlQrCode, expectedColors: QrCodeColors): void => {
+const expectQrCodeColorsToBe = (qrCode: WaQrCode, expectedColors: QrCodeColors): void => {
   const qrCodeColors = getQrCodeColors(qrCode);
   const backgroundMessage =
     'expected background color to be ' +
@@ -94,47 +94,47 @@ const expectQrCodeColorsToBe = (qrCode: SlQrCode, expectedColors: QrCodeColors):
   expect(qrCodeColors.foreground.equals(expectedColors.foreground), foregroundMessage).to.be.true;
 };
 
-describe('<sl-qr-code>', () => {
+describe('<wa-qr-code>', () => {
   it('should render a component', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
     expect(qrCode).to.exist;
   });
 
   it('should be accessible', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
     await expect(qrCode).to.be.accessible();
   });
 
   it('uses the value as label if none given', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
     expectCanvasToHaveAriaLabel(qrCode, 'test data');
   });
 
   it('uses the label if given', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data" label="test label"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" label="test label"></wa-qr-code>`);
 
     expectCanvasToHaveAriaLabel(qrCode, 'test label');
   });
 
   it('sets the correct color for the qr code', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data" fill="red"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" fill="red"></wa-qr-code>`);
 
     expectQrCodeColorsToBe(qrCode, { foreground: red, background: white });
   });
 
   it('sets the correct background for the qr code', async () => {
-    const qrCode = await fixture<SlQrCode>(
-      html` <sl-qr-code value="test data" fill="red" background="blue"></sl-qr-code>`
+    const qrCode = await fixture<WaQrCode>(
+      html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`
     );
 
     expectQrCodeColorsToBe(qrCode, { foreground: red, background: blue });
   });
 
   it('has the expected size', async () => {
-    const qrCode = await fixture<SlQrCode>(html` <sl-qr-code value="test data" size="100"></sl-qr-code>`);
+    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100"></wa-qr-code>`);
 
     const height = qrCode.getBoundingClientRect().height;
     const width = qrCode.getBoundingClientRect().width;

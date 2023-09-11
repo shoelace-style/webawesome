@@ -1,12 +1,12 @@
-import SlAvatar from './avatar.component.js';
+import WaAvatar from './avatar.component.js';
 
 export * from './avatar.component.js';
-export default SlAvatar;
+export default WaAvatar;
 
-SlAvatar.define('sl-avatar');
+WaAvatar.define('wa-avatar');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-avatar': SlAvatar;
+    'wa-avatar': WaAvatar;
   }
 }

@@ -5,9 +5,9 @@ export default css`
   ${componentStyles}
 
   :host {
-    --border-radius: var(--sl-border-radius-pill);
-    --color: var(--sl-color-neutral-200);
-    --sheen-color: var(--sl-color-neutral-300);
+    --border-radius: var(--wa-corners-pill);
+    --color: var(--wa-color-neutral-fill-muted);
+    --sheen-color: color-mix(in oklch, var(--wa-color-neutral-fill-muted), white 50%);
 
     display: block;
     position: relative;

@@ -10,61 +10,61 @@ Dropdowns consist of a trigger and a panel. By default, activating the trigger w
 Dropdowns are designed to work well with [menus](/components/menu) to provide a list of options the user can select from. However, dropdowns can also be used in lower-level applications (e.g. [color picker](/components/color-picker)). The API gives you complete control over showing, hiding, and positioning the panel.
 
 ```html:preview
-<sl-dropdown>
-  <sl-button slot="trigger" caret>Dropdown</sl-button>
-  <sl-menu>
-    <sl-menu-item>Dropdown Item 1</sl-menu-item>
-    <sl-menu-item>Dropdown Item 2</sl-menu-item>
-    <sl-menu-item>Dropdown Item 3</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item type="checkbox" checked>Checkbox</sl-menu-item>
-    <sl-menu-item disabled>Disabled</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item>
+<wa-dropdown>
+  <wa-button slot="trigger" caret>Dropdown</wa-button>
+  <wa-menu>
+    <wa-menu-item>Dropdown Item 1</wa-menu-item>
+    <wa-menu-item>Dropdown Item 2</wa-menu-item>
+    <wa-menu-item>Dropdown Item 3</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item type="checkbox" checked>Checkbox</wa-menu-item>
+    <wa-menu-item disabled>Disabled</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item>
       Prefix
-      <sl-icon slot="prefix" name="gift"></sl-icon>
-    </sl-menu-item>
-    <sl-menu-item>
+      <wa-icon slot="prefix" name="gift"></wa-icon>
+    </wa-menu-item>
+    <wa-menu-item>
       Suffix Icon
-      <sl-icon slot="suffix" name="heart"></sl-icon>
-    </sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+      <wa-icon slot="suffix" name="heart"></wa-icon>
+    </wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlDropdown>
-    <SlButton slot="trigger" caret>
+  <WaDropdown>
+    <WaButton slot="trigger" caret>
       Dropdown
-    </SlButton>
-    <SlMenu>
-      <SlMenuItem>Dropdown Item 1</SlMenuItem>
-      <SlMenuItem>Dropdown Item 2</SlMenuItem>
-      <SlMenuItem>Dropdown Item 3</SlMenuItem>
-      <SlDivider />
-      <SlMenuItem type="checkbox" checked>
+    </WaButton>
+    <WaMenu>
+      <WaMenuItem>Dropdown Item 1</WaMenuItem>
+      <WaMenuItem>Dropdown Item 2</WaMenuItem>
+      <WaMenuItem>Dropdown Item 3</WaMenuItem>
+      <WaDivider />
+      <WaMenuItem type="checkbox" checked>
         Checkbox
-      </SlMenuItem>
-      <SlMenuItem disabled>Disabled</SlMenuItem>
-      <SlDivider />
-      <SlMenuItem>
+      </WaMenuItem>
+      <WaMenuItem disabled>Disabled</WaMenuItem>
+      <WaDivider />
+      <WaMenuItem>
         Prefix
-        <SlIcon slot="prefix" name="gift" />
-      </SlMenuItem>
-      <SlMenuItem>
+        <WaIcon slot="prefix" name="gift" />
+      </WaMenuItem>
+      <WaMenuItem>
         Suffix Icon
-        <SlIcon slot="suffix" name="heart" />
-      </SlMenuItem>
-    </SlMenu>
-  </SlDropdown>
+        <WaIcon slot="suffix" name="heart" />
+      </WaMenuItem>
+    </WaMenu>
+  </WaDropdown>
 );
 ```
 
@@ -72,25 +72,25 @@ const App = () => (
 
 ### Getting the Selected Item
 
-When dropdowns are used with [menus](/components/menu), you can listen for the [`sl-select`](/components/menu#events) event to determine which menu item was selected. The menu item element will be exposed in `event.detail.item`. You can set `value` props to make it easier to identify commands.
+When dropdowns are used with [menus](/components/menu), you can listen for the [`wa-select`](/components/menu#events) event to determine which menu item was selected. The menu item element will be exposed in `event.detail.item`. You can set `value` props to make it easier to identify commands.
 
 ```html:preview
 <div class="dropdown-selection">
-  <sl-dropdown>
-    <sl-button slot="trigger" caret>Edit</sl-button>
-    <sl-menu>
-      <sl-menu-item value="cut">Cut</sl-menu-item>
-      <sl-menu-item value="copy">Copy</sl-menu-item>
-      <sl-menu-item value="paste">Paste</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
+  <wa-dropdown>
+    <wa-button slot="trigger" caret>Edit</wa-button>
+    <wa-menu>
+      <wa-menu-item value="cut">Cut</wa-menu-item>
+      <wa-menu-item value="copy">Copy</wa-menu-item>
+      <wa-menu-item value="paste">Paste</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
 </div>
 
 <script>
   const container = document.querySelector('.dropdown-selection');
-  const dropdown = container.querySelector('sl-dropdown');
+  const dropdown = container.querySelector('wa-dropdown');
 
-  dropdown.addEventListener('sl-select', event => {
+  dropdown.addEventListener('wa-select', event => {
     const selectedItem = event.detail.item;
     console.log(selectedItem.value);
   });
@@ -98,10 +98,10 @@ When dropdowns are used with [menus](/components/menu), you can listen for the [
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => {
   function handleSelect(event) {
@@ -110,16 +110,16 @@ const App = () => {
   }
 
   return (
-    <SlDropdown>
-      <SlButton slot="trigger" caret>
+    <WaDropdown>
+      <WaButton slot="trigger" caret>
         Edit
-      </SlButton>
-      <SlMenu onSlSelect={handleSelect}>
-        <SlMenuItem value="cut">Cut</SlMenuItem>
-        <SlMenuItem value="copy">Copy</SlMenuItem>
-        <SlMenuItem value="paste">Paste</SlMenuItem>
-      </SlMenu>
-    </SlDropdown>
+      </WaButton>
+      <WaMenu onWaSelect={handleSelect}>
+        <WaMenuItem value="cut">Cut</WaMenuItem>
+        <WaMenuItem value="copy">Copy</WaMenuItem>
+        <WaMenuItem value="paste">Paste</WaMenuItem>
+      </WaMenu>
+    </WaDropdown>
   );
 };
 ```
@@ -128,21 +128,21 @@ Alternatively, you can listen for the `click` event on individual menu items. No
 
 ```html:preview
 <div class="dropdown-selection-alt">
-  <sl-dropdown>
-    <sl-button slot="trigger" caret>Edit</sl-button>
-    <sl-menu>
-      <sl-menu-item value="cut">Cut</sl-menu-item>
-      <sl-menu-item value="copy">Copy</sl-menu-item>
-      <sl-menu-item value="paste">Paste</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
+  <wa-dropdown>
+    <wa-button slot="trigger" caret>Edit</wa-button>
+    <wa-menu>
+      <wa-menu-item value="cut">Cut</wa-menu-item>
+      <wa-menu-item value="copy">Copy</wa-menu-item>
+      <wa-menu-item value="paste">Paste</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
 </div>
 
 <script>
   const container = document.querySelector('.dropdown-selection-alt');
-  const cut = container.querySelector('sl-menu-item[value="cut"]');
-  const copy = container.querySelector('sl-menu-item[value="copy"]');
-  const paste = container.querySelector('sl-menu-item[value="paste"]');
+  const cut = container.querySelector('wa-menu-item[value="cut"]');
+  const copy = container.querySelector('wa-menu-item[value="copy"]');
+  const paste = container.querySelector('wa-menu-item[value="paste"]');
 
   cut.addEventListener('click', () => console.log('cut'));
   copy.addEventListener('click', () => console.log('copy'));
@@ -151,10 +151,10 @@ Alternatively, you can listen for the `click` event on individual menu items. No
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => {
   function handleCut() {
@@ -170,16 +170,16 @@ const App = () => {
   }
 
   return (
-    <SlDropdown>
-      <SlButton slot="trigger" caret>
+    <WaDropdown>
+      <WaButton slot="trigger" caret>
         Edit
-      </SlButton>
-      <SlMenu>
-        <SlMenuItem onClick={handleCut}>Cut</SlMenuItem>
-        <SlMenuItem onClick={handleCopy}>Copy</SlMenuItem>
-        <SlMenuItem onClick={handlePaste}>Paste</SlMenuItem>
-      </SlMenu>
-    </SlDropdown>
+      </WaButton>
+      <WaMenu>
+        <WaMenuItem onClick={handleCut}>Cut</WaMenuItem>
+        <WaMenuItem onClick={handleCopy}>Copy</WaMenuItem>
+        <WaMenuItem onClick={handlePaste}>Paste</WaMenuItem>
+      </WaMenu>
+    </WaDropdown>
   );
 };
 ```
@@ -189,40 +189,40 @@ const App = () => {
 The preferred placement of the dropdown can be set with the `placement` attribute. Note that the actual position may vary to ensure the panel remains in the viewport.
 
 ```html:preview
-<sl-dropdown placement="top-start">
-  <sl-button slot="trigger" caret>Edit</sl-button>
-  <sl-menu>
-    <sl-menu-item>Cut</sl-menu-item>
-    <sl-menu-item>Copy</sl-menu-item>
-    <sl-menu-item>Paste</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item>Find</sl-menu-item>
-    <sl-menu-item>Replace</sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+<wa-dropdown placement="top-start">
+  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-menu>
+    <wa-menu-item>Cut</wa-menu-item>
+    <wa-menu-item>Copy</wa-menu-item>
+    <wa-menu-item>Paste</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item>Find</wa-menu-item>
+    <wa-menu-item>Replace</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlDropdown placement="top-start">
-    <SlButton slot="trigger" caret>
+  <WaDropdown placement="top-start">
+    <WaButton slot="trigger" caret>
       Edit
-    </SlButton>
-    <SlMenu>
-      <SlMenuItem>Cut</SlMenuItem>
-      <SlMenuItem>Copy</SlMenuItem>
-      <SlMenuItem>Paste</SlMenuItem>
-      <SlDivider />
-      <SlMenuItem>Find</SlMenuItem>
-      <SlMenuItem>Replace</SlMenuItem>
-    </SlMenu>
-  </SlDropdown>
+    </WaButton>
+    <WaMenu>
+      <WaMenuItem>Cut</WaMenuItem>
+      <WaMenuItem>Copy</WaMenuItem>
+      <WaMenuItem>Paste</WaMenuItem>
+      <WaDivider />
+      <WaMenuItem>Find</WaMenuItem>
+      <WaMenuItem>Replace</WaMenuItem>
+    </WaMenu>
+  </WaDropdown>
 );
 ```
 
@@ -231,40 +231,40 @@ const App = () => (
 The distance from the panel to the trigger can be customized using the `distance` attribute. This value is specified in pixels.
 
 ```html:preview
-<sl-dropdown distance="30">
-  <sl-button slot="trigger" caret>Edit</sl-button>
-  <sl-menu>
-    <sl-menu-item>Cut</sl-menu-item>
-    <sl-menu-item>Copy</sl-menu-item>
-    <sl-menu-item>Paste</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item>Find</sl-menu-item>
-    <sl-menu-item>Replace</sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+<wa-dropdown distance="30">
+  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-menu>
+    <wa-menu-item>Cut</wa-menu-item>
+    <wa-menu-item>Copy</wa-menu-item>
+    <wa-menu-item>Paste</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item>Find</wa-menu-item>
+    <wa-menu-item>Replace</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlDropdown distance={30}>
-    <SlButton slot="trigger" caret>
+  <WaDropdown distance={30}>
+    <WaButton slot="trigger" caret>
       Edit
-    </SlButton>
-    <SlMenu>
-      <SlMenuItem>Cut</SlMenuItem>
-      <SlMenuItem>Copy</SlMenuItem>
-      <SlMenuItem>Paste</SlMenuItem>
-      <SlDivider />
-      <SlMenuItem>Find</SlMenuItem>
-      <SlMenuItem>Replace</SlMenuItem>
-    </SlMenu>
-  </SlDropdown>
+    </WaButton>
+    <WaMenu>
+      <WaMenuItem>Cut</WaMenuItem>
+      <WaMenuItem>Copy</WaMenuItem>
+      <WaMenuItem>Paste</WaMenuItem>
+      <WaDivider />
+      <WaMenuItem>Find</WaMenuItem>
+      <WaMenuItem>Replace</WaMenuItem>
+    </WaMenu>
+  </WaDropdown>
 );
 ```
 
@@ -273,125 +273,125 @@ const App = () => (
 The offset of the panel along the trigger can be customized using the `skidding` attribute. This value is specified in pixels.
 
 ```html:preview
-<sl-dropdown skidding="30">
-  <sl-button slot="trigger" caret>Edit</sl-button>
-  <sl-menu>
-    <sl-menu-item>Cut</sl-menu-item>
-    <sl-menu-item>Copy</sl-menu-item>
-    <sl-menu-item>Paste</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item>Find</sl-menu-item>
-    <sl-menu-item>Replace</sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+<wa-dropdown skidding="30">
+  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-menu>
+    <wa-menu-item>Cut</wa-menu-item>
+    <wa-menu-item>Copy</wa-menu-item>
+    <wa-menu-item>Paste</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item>Find</wa-menu-item>
+    <wa-menu-item>Replace</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlDropdown skidding={30}>
-    <SlButton slot="trigger" caret>
+  <WaDropdown skidding={30}>
+    <WaButton slot="trigger" caret>
       Edit
-    </SlButton>
-    <SlMenu>
-      <SlMenuItem>Cut</SlMenuItem>
-      <SlMenuItem>Copy</SlMenuItem>
-      <SlMenuItem>Paste</SlMenuItem>
-      <SlDivider />
-      <SlMenuItem>Find</SlMenuItem>
-      <SlMenuItem>Replace</SlMenuItem>
-    </SlMenu>
-  </SlDropdown>
+    </WaButton>
+    <WaMenu>
+      <WaMenuItem>Cut</WaMenuItem>
+      <WaMenuItem>Copy</WaMenuItem>
+      <WaMenuItem>Paste</WaMenuItem>
+      <WaDivider />
+      <WaMenuItem>Find</WaMenuItem>
+      <WaMenuItem>Replace</WaMenuItem>
+    </WaMenu>
+  </WaDropdown>
 );
 ```
 
 ### Submenus
 
-To create a submenu, nest an `<sl-menu slot="submenu">` element in a [menu item](/components/menu-item).
+To create a submenu, nest an `<wa-menu slot="submenu">` element in a [menu item](/components/menu-item).
 
 ```html:preview
-<sl-dropdown>
-  <sl-button slot="trigger" caret>Edit</sl-button>
+<wa-dropdown>
+  <wa-button slot="trigger" caret>Edit</wa-button>
 
-  <sl-menu style="max-width: 200px;">
-    <sl-menu-item value="undo">Undo</sl-menu-item>
-    <sl-menu-item value="redo">Redo</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item value="cut">Cut</sl-menu-item>
-    <sl-menu-item value="copy">Copy</sl-menu-item>
-    <sl-menu-item value="paste">Paste</sl-menu-item>
-    <sl-divider></sl-divider>
-    <sl-menu-item>
+  <wa-menu style="max-width: 200px;">
+    <wa-menu-item value="undo">Undo</wa-menu-item>
+    <wa-menu-item value="redo">Redo</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item value="cut">Cut</wa-menu-item>
+    <wa-menu-item value="copy">Copy</wa-menu-item>
+    <wa-menu-item value="paste">Paste</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item>
       Find
-      <sl-menu slot="submenu">
-        <sl-menu-item value="find">Find…</sl-menu-item>
-        <sl-menu-item value="find-previous">Find Next</sl-menu-item>
-        <sl-menu-item value="find-next">Find Previous</sl-menu-item>
-      </sl-menu>
-    </sl-menu-item>
-    <sl-menu-item>
+      <wa-menu slot="submenu">
+        <wa-menu-item value="find">Find…</wa-menu-item>
+        <wa-menu-item value="find-previous">Find Next</wa-menu-item>
+        <wa-menu-item value="find-next">Find Previous</wa-menu-item>
+      </wa-menu>
+    </wa-menu-item>
+    <wa-menu-item>
       Transformations
-      <sl-menu slot="submenu">
-        <sl-menu-item value="uppercase">Make uppercase</sl-menu-item>
-        <sl-menu-item value="lowercase">Make lowercase</sl-menu-item>
-        <sl-menu-item value="capitalize">Capitalize</sl-menu-item>
-      </sl-menu>
-    </sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+      <wa-menu slot="submenu">
+        <wa-menu-item value="uppercase">Make uppercase</wa-menu-item>
+        <wa-menu-item value="lowercase">Make lowercase</wa-menu-item>
+        <wa-menu-item value="capitalize">Capitalize</wa-menu-item>
+      </wa-menu>
+    </wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const css = `
   .dropdown-hoist {
-    border: solid 2px var(--sl-panel-border-color);
-    padding: var(--sl-spacing-medium);
+    border: solid 2px var(--wa-color-surface-outline);
+    padding: var(--wa-space-m);
     overflow: hidden;
   }
 `;
 
 const App = () => (
   <>
-    <SlDropdown>
-      <SlButton slot="trigger" caret>Edit</SlButton>
+    <WaDropdown>
+      <WaButton slot="trigger" caret>Edit</WaButton>
 
-      <SlMenu style="max-width: 200px;">
-        <SlMenuItem value="undo">Undo</SlMenuItem>
-        <SlMenuItem value="redo">Redo</SlMenuItem>
-        <SlDivider />
-        <SlMenuItem value="cut">Cut</SlMenuItem>
-        <SlMenuItem value="copy">Copy</SlMenuItem>
-        <SlMenuItem value="paste">Paste</SlMenuItem>
-        <SlDivider />
-        <SlMenuItem>
+      <WaMenu style="max-width: 200px;">
+        <WaMenuItem value="undo">Undo</WaMenuItem>
+        <WaMenuItem value="redo">Redo</WaMenuItem>
+        <WaDivider />
+        <WaMenuItem value="cut">Cut</WaMenuItem>
+        <WaMenuItem value="copy">Copy</WaMenuItem>
+        <WaMenuItem value="paste">Paste</WaMenuItem>
+        <WaDivider />
+        <WaMenuItem>
           Find
-          <SlMenu slot="submenu">
-            <SlMenuItem value="find">Find…</SlMenuItem>
-            <SlMenuItem value="find-previous">Find Next</SlMenuItem>
-            <SlMenuItem value="find-next">Find Previous</SlMenuItem>
-          </SlMenu>
-        </SlMenuItem>
-        <SlMenuItem>
+          <WaMenu slot="submenu">
+            <WaMenuItem value="find">Find…</WaMenuItem>
+            <WaMenuItem value="find-previous">Find Next</WaMenuItem>
+            <WaMenuItem value="find-next">Find Previous</WaMenuItem>
+          </WaMenu>
+        </WaMenuItem>
+        <WaMenuItem>
           Transformations
-          <SlMenu slot="submenu">
-            <SlMenuItem value="uppercase">Make uppercase</SlMenuItem>
-            <SlMenuItem value="lowercase">Make lowercase</SlMenuItem>
-            <SlMenuItem value="capitalize">Capitalize</SlMenuItem>
-          </SlMenu>
-        </SlMenuItem>
-      </SlMenu>
-    </SlDropdown>
+          <WaMenu slot="submenu">
+            <WaMenuItem value="uppercase">Make uppercase</WaMenuItem>
+            <WaMenuItem value="lowercase">Make lowercase</WaMenuItem>
+            <WaMenuItem value="capitalize">Capitalize</WaMenuItem>
+          </WaMenu>
+        </WaMenuItem>
+      </WaMenu>
+    </WaDropdown>
   </>
 );
 ```
@@ -406,46 +406,46 @@ Dropdown panels will be clipped if they're inside a container that has `overflow
 
 ```html:preview
 <div class="dropdown-hoist">
-  <sl-dropdown>
-    <sl-button slot="trigger" caret>No Hoist</sl-button>
-    <sl-menu>
-      <sl-menu-item>Item 1</sl-menu-item>
-      <sl-menu-item>Item 2</sl-menu-item>
-      <sl-menu-item>Item 3</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
+  <wa-dropdown>
+    <wa-button slot="trigger" caret>No Hoist</wa-button>
+    <wa-menu>
+      <wa-menu-item>Item 1</wa-menu-item>
+      <wa-menu-item>Item 2</wa-menu-item>
+      <wa-menu-item>Item 3</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
 
-  <sl-dropdown hoist>
-    <sl-button slot="trigger" caret>Hoist</sl-button>
-    <sl-menu>
-      <sl-menu-item>Item 1</sl-menu-item>
-      <sl-menu-item>Item 2</sl-menu-item>
-      <sl-menu-item>Item 3</sl-menu-item>
-    </sl-menu>
-  </sl-dropdown>
+  <wa-dropdown hoist>
+    <wa-button slot="trigger" caret>Hoist</wa-button>
+    <wa-menu>
+      <wa-menu-item>Item 1</wa-menu-item>
+      <wa-menu-item>Item 2</wa-menu-item>
+      <wa-menu-item>Item 3</wa-menu-item>
+    </wa-menu>
+  </wa-dropdown>
 </div>
 
 <style>
   .dropdown-hoist {
     position: relative;
-    border: solid 2px var(--sl-panel-border-color);
-    padding: var(--sl-spacing-medium);
+    border: solid 2px var(--wa-color-surface-outline);
+    padding: var(--wa-space-m);
     overflow: hidden;
   }
 </style>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const css = `
   .dropdown-hoist {
-    border: solid 2px var(--sl-panel-border-color);
-    padding: var(--sl-spacing-medium);
+    border: solid 2px var(--wa-color-surface-outline);
+    padding: var(--wa-space-m);
     overflow: hidden;
   }
 `;
@@ -453,27 +453,27 @@ const css = `
 const App = () => (
   <>
     <div className="dropdown-hoist">
-      <SlDropdown>
-        <SlButton slot="trigger" caret>
+      <WaDropdown>
+        <WaButton slot="trigger" caret>
           No Hoist
-        </SlButton>
-        <SlMenu>
-          <SlMenuItem>Item 1</SlMenuItem>
-          <SlMenuItem>Item 2</SlMenuItem>
-          <SlMenuItem>Item 3</SlMenuItem>
-        </SlMenu>
-      </SlDropdown>
+        </WaButton>
+        <WaMenu>
+          <WaMenuItem>Item 1</WaMenuItem>
+          <WaMenuItem>Item 2</WaMenuItem>
+          <WaMenuItem>Item 3</WaMenuItem>
+        </WaMenu>
+      </WaDropdown>
 
-      <SlDropdown hoist>
-        <SlButton slot="trigger" caret>
+      <WaDropdown hoist>
+        <WaButton slot="trigger" caret>
           Hoist
-        </SlButton>
-        <SlMenu>
-          <SlMenuItem>Item 1</SlMenuItem>
-          <SlMenuItem>Item 2</SlMenuItem>
-          <SlMenuItem>Item 3</SlMenuItem>
-        </SlMenu>
-      </SlDropdown>
+        </WaButton>
+        <WaMenu>
+          <WaMenuItem>Item 1</WaMenuItem>
+          <WaMenuItem>Item 2</WaMenuItem>
+          <WaMenuItem>Item 3</WaMenuItem>
+        </WaMenu>
+      </WaDropdown>
     </div>
 
     <style>{css}</style>

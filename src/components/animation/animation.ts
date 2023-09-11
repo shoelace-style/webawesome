@@ -1,12 +1,12 @@
-import SlAnimation from './animation.component.js';
+import WaAnimation from './animation.component.js';
 
 export * from './animation.component.js';
-export default SlAnimation;
+export default WaAnimation;
 
-SlAnimation.define('sl-animation');
+WaAnimation.define('wa-animation');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-animation': SlAnimation;
+    'wa-animation': WaAnimation;
   }
 }

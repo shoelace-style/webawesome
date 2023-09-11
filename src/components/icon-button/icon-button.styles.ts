@@ -6,7 +6,7 @@ export default css`
 
   :host {
     display: inline-block;
-    color: var(--sl-color-neutral-600);
+    color: var(--wa-color-text-quiet);
   }
 
   .icon-button {
@@ -15,22 +15,22 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--sl-border-radius-medium);
+    border-radius: var(--wa-corners-1x);
     font-size: inherit;
     color: inherit;
-    padding: var(--sl-spacing-x-small);
+    padding: var(--wa-space-xs);
     cursor: pointer;
-    transition: var(--sl-transition-x-fast) color;
+    transition: var(--wa-transition-faster) color;
     -webkit-appearance: none;
   }
 
   .icon-button:hover:not(.icon-button--disabled),
   .icon-button:focus-visible:not(.icon-button--disabled) {
-    color: var(--sl-color-primary-600);
+    color: var(--wa-color-brand-text-on-surface);
   }
 
   .icon-button:active:not(.icon-button--disabled) {
-    color: var(--sl-color-primary-700);
+    color: color-mix(in oklch, var(--wa-color-brand-text-on-surface), black 8%);
   }
 
   .icon-button:focus {
@@ -43,8 +43,8 @@ export default css`
   }
 
   .icon-button:focus-visible {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .icon-button__icon {

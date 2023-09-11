@@ -6,30 +6,30 @@ layout: component
 ---
 
 ```html:preview
-<sl-breadcrumb>
-  <sl-breadcrumb-item>
-    <sl-icon slot="prefix" name="house"></sl-icon>
+<wa-breadcrumb>
+  <wa-breadcrumb-item>
+    <wa-icon slot="prefix" name="house"></wa-icon>
     Home
-  </sl-breadcrumb-item>
-  <sl-breadcrumb-item>Clothing</sl-breadcrumb-item>
-  <sl-breadcrumb-item>Shirts</sl-breadcrumb-item>
-</sl-breadcrumb>
+  </wa-breadcrumb-item>
+  <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
+  <wa-breadcrumb-item>Shirts</wa-breadcrumb-item>
+</wa-breadcrumb>
 ```
 
 ```jsx:react
-import SlBreadcrumb from '@shoelace-style/shoelace/dist/react/breadcrumb';
-import SlBreadcrumbItem from '@shoelace-style/shoelace/dist/react/breadcrumb-item';
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaBreadcrumb from '@shoelace-style/shoelace/dist/react/breadcrumb';
+import WaBreadcrumbItem from '@shoelace-style/shoelace/dist/react/breadcrumb-item';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const App = () => (
-  <SlBreadcrumb>
-    <SlBreadcrumbItem>
-      <SlIcon slot="prefix" name="house"></SlIcon>
+  <WaBreadcrumb>
+    <WaBreadcrumbItem>
+      <WaIcon slot="prefix" name="house"></WaIcon>
       Home
-    </SlBreadcrumbItem>
-    <SlBreadcrumbItem>Clothing</SlBreadcrumbItem>
-    <SlBreadcrumbItem>Shirts</SlBreadcrumbItem>
-  </SlBreadcrumb>
+    </WaBreadcrumbItem>
+    <WaBreadcrumbItem>Clothing</WaBreadcrumbItem>
+    <WaBreadcrumbItem>Shirts</WaBreadcrumbItem>
+  </WaBreadcrumb>
 );
 ```
 

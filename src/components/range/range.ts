@@ -1,12 +1,12 @@
-import SlRange from './range.component.js';
+import WaRange from './range.component.js';
 
 export * from './range.component.js';
-export default SlRange;
+export default WaRange;
 
-SlRange.define('sl-range');
+WaRange.define('wa-range');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-range': SlRange;
+    'wa-range': WaRange;
   }
 }

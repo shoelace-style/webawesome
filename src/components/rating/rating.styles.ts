@@ -5,10 +5,10 @@ export default css`
   ${componentStyles}
 
   :host {
-    --symbol-color: var(--sl-color-neutral-300);
-    --symbol-color-active: var(--sl-color-amber-500);
-    --symbol-size: 1.2rem;
-    --symbol-spacing: var(--sl-spacing-3x-small);
+    --symbol-color: var(--wa-color-neutral-fill-muted-alt);
+    --symbol-color-active: var(--wa-color-yellow-70);
+    --symbol-size: var(--wa-font-size-l);
+    --symbol-spacing: var(--wa-space-3xs);
 
     display: inline-flex;
   }
@@ -16,7 +16,7 @@ export default css`
   .rating {
     position: relative;
     display: inline-flex;
-    border-radius: var(--sl-border-radius-medium);
+    border-radius: var(--wa-corners-1x);
     vertical-align: middle;
   }
 
@@ -25,8 +25,8 @@ export default css`
   }
 
   .rating:focus-visible {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .rating__symbols {
@@ -59,7 +59,7 @@ export default css`
   }
 
   .rating__symbol {
-    transition: var(--sl-transition-fast) scale;
+    transition: var(--wa-transition-fast) scale;
   }
 
   .rating__symbol--hover {

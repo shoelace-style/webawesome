@@ -6,12 +6,12 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
-import SlSpinner from '../spinner/spinner.component.js';
 import styles from './button.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WaSpinner from '../spinner/spinner.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
  * @summary Buttons represent actions that are available to the user.
@@ -19,12 +19,12 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
- * @dependency sl-spinner
+ * @dependency wa-icon
+ * @dependency wa-spinner
  *
- * @event sl-blur - Emitted when the button loses focus.
- * @event sl-focus - Emitted when the button gains focus.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the button loses focus.
+ * @event wa-focus - Emitted when the button gains focus.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @slot - The button's label.
  * @slot prefix - A presentational prefix icon or similar element.
@@ -34,14 +34,14 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @csspart prefix - The container that wraps the prefix.
  * @csspart label - The button's label.
  * @csspart suffix - The container that wraps the suffix.
- * @csspart caret - The button's caret icon, an `<sl-icon>` element.
+ * @csspart caret - The button's caret icon, an `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  */
-export default class SlButton extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaButton extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
   static dependencies = {
-    'sl-icon': SlIcon,
-    'sl-spinner': SlSpinner
+    'wa-icon': WaIcon,
+    'wa-spinner': WaSpinner
   };
 
   private readonly formControlController = new FormControlController(this, {
@@ -69,8 +69,7 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
   @property() title = ''; // make reactive to pass through
 
   /** The button's theme variant. */
-  @property({ reflect: true }) variant: 'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' =
-    'default';
+  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'text' = 'neutral';
 
   /** The button's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -89,12 +88,6 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
 
   /** Draws a pill-style button with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
-
-  /**
-   * Draws a circular icon button. When this attribute is present, the button expects a single `<sl-icon>` in the
-   * default slot.
-   */
-  @property({ type: Boolean, reflect: true }) circle = false;
 
   /**
    * The type of button. Note that the default value is `button` instead of `submit`, which is opposite of how native
@@ -179,21 +172,25 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
-  private handleClick() {
+  private handleClick(event: MouseEvent) {
     if (this.type === 'submit') {
       this.formControlController.submit(this);
     }
 
     if (this.type === 'reset') {
       this.formControlController.reset(this);
+    }
+
+    if (this.href) {
+      event.preventDefault();
     }
   }
 
@@ -275,8 +272,7 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
         part="base"
         class=${classMap({
           button: true,
-          'button--default': this.variant === 'default',
-          'button--primary': this.variant === 'primary',
+          'button--brand': this.variant === 'brand',
           'button--success': this.variant === 'success',
           'button--neutral': this.variant === 'neutral',
           'button--warning': this.variant === 'warning',
@@ -286,7 +282,6 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
           'button--medium': this.size === 'medium',
           'button--large': this.size === 'large',
           'button--caret': this.caret,
-          'button--circle': this.circle,
           'button--disabled': this.disabled,
           'button--focused': this.hasFocus,
           'button--loading': this.loading,
@@ -319,9 +314,9 @@ export default class SlButton extends ShoelaceElement implements ShoelaceFormCon
         <slot part="label" class="button__label"></slot>
         <slot name="suffix" part="suffix" class="button__suffix"></slot>
         ${
-          this.caret ? html` <sl-icon part="caret" class="button__caret" library="system" name="caret"></sl-icon> ` : ''
+          this.caret ? html` <wa-icon part="caret" class="button__caret" library="system" name="caret"></wa-icon> ` : ''
         }
-        ${this.loading ? html`<sl-spinner part="spinner"></sl-spinner>` : ''}
+        ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
       </${tag}>
     `;
     /* eslint-enable lit/no-invalid-html */

@@ -6,9 +6,9 @@ export default css`
 
   :host {
     --height: 1rem;
-    --track-color: var(--sl-color-neutral-200);
-    --indicator-color: var(--sl-color-primary-600);
-    --label-color: var(--sl-color-neutral-0);
+    --track-color: var(--wa-color-neutral-fill-muted);
+    --indicator-color: var(--wa-color-brand-fill-vivid);
+    --label-color: var(--wa-color-brand-text-on-vivid);
 
     display: block;
   }
@@ -17,16 +17,16 @@ export default css`
     position: relative;
     background-color: var(--track-color);
     height: var(--height);
-    border-radius: var(--sl-border-radius-pill);
-    box-shadow: inset var(--sl-shadow-small);
+    border-radius: var(--wa-corners-pill);
+    box-shadow: inset var(--wa-shadow-level-1);
     overflow: hidden;
   }
 
   .progress-bar__indicator {
     height: 100%;
-    font-family: var(--sl-font-sans);
-    font-size: 12px;
-    font-weight: var(--sl-font-weight-normal);
+    font-family: var(--wa-font-family-body);
+    font-size: var(--wa-font-size-xs);
+    font-weight: var(--wa-font-weight-regular);
     background-color: var(--indicator-color);
     color: var(--label-color);
     text-align: center;
@@ -50,7 +50,7 @@ export default css`
   @media (forced-colors: active) {
     .progress-bar {
       outline: solid 1px SelectedItem;
-      background-color: var(--sl-color-neutral-0);
+      background-color: var(--wa-color-surface-default);
     }
 
     .progress-bar__indicator {

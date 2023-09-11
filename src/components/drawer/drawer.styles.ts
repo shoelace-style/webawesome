@@ -6,9 +6,9 @@ export default css`
 
   :host {
     --size: 25rem;
-    --header-spacing: var(--sl-spacing-large);
-    --body-spacing: var(--sl-spacing-large);
-    --footer-spacing: var(--sl-spacing-large);
+    --header-spacing: var(--wa-space-l);
+    --body-spacing: var(--wa-space-l);
+    --footer-spacing: var(--wa-space-l);
 
     display: contents;
   }
@@ -29,7 +29,7 @@ export default css`
 
   .drawer--fixed {
     position: fixed;
-    z-index: var(--sl-z-index-drawer);
+    z-index: var(--wa-z-index-drawer);
   }
 
   .drawer__panel {
@@ -39,8 +39,8 @@ export default css`
     z-index: 2;
     max-width: 100%;
     max-height: 100%;
-    background-color: var(--sl-panel-background-color);
-    box-shadow: var(--sl-shadow-x-large);
+    background-color: var(--wa-color-surface-raised);
+    box-shadow: var(--wa-shadow-level-3);
     overflow: auto;
     pointer-events: all;
   }
@@ -92,8 +92,8 @@ export default css`
   .drawer__title {
     flex: 1 1 auto;
     font: inherit;
-    font-size: var(--sl-font-size-large);
-    line-height: var(--sl-line-height-dense);
+    font-size: var(--wa-font-size-l);
+    line-height: var(--wa-line-height-compact);
     padding: var(--header-spacing);
     margin: 0;
   }
@@ -103,16 +103,16 @@ export default css`
     display: flex;
     flex-wrap: wrap;
     justify-content: end;
-    gap: var(--sl-spacing-2x-small);
+    gap: var(--wa-space-2xs);
     padding: 0 var(--header-spacing);
   }
 
-  .drawer__header-actions sl-icon-button,
-  .drawer__header-actions ::slotted(sl-icon-button) {
+  .drawer__header-actions wa-icon-button,
+  .drawer__header-actions ::slotted(wa-icon-button) {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    font-size: var(--sl-font-size-medium);
+    font-size: var(--wa-font-size-m);
   }
 
   .drawer__body {
@@ -128,8 +128,8 @@ export default css`
     padding: var(--footer-spacing);
   }
 
-  .drawer__footer ::slotted(sl-button:not(:last-of-type)) {
-    margin-inline-end: var(--sl-spacing-x-small);
+  .drawer__footer ::slotted(wa-button:not(:last-of-type)) {
+    margin-inline-end: var(--wa-spacing-xs);
   }
 
   .drawer:not(.drawer--has-footer) .drawer__footer {
@@ -143,7 +143,7 @@ export default css`
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--sl-overlay-background-color);
+    background-color: var(--wa-overlay-color);
     pointer-events: all;
   }
 
@@ -153,7 +153,7 @@ export default css`
 
   @media (forced-colors: active) {
     .drawer__panel {
-      border: solid 1px var(--sl-color-neutral-0);
+      border: solid 1px white;
     }
   }
 `;

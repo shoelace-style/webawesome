@@ -23,12 +23,20 @@ markdown.use(markdownItReplaceIt);
 
 // Callouts
 ['tip', 'warning', 'danger'].forEach(type => {
+  const variant = type === 'tip' ? 'brand' : type;
+  let icon = 'info-circle';
+  if (type === 'warning') icon = 'exclamation-circle';
+  if (type === 'danger') icon = 'exclamation-triangle';
+
   markdown.use(markdownItContainer, type, {
     render: function (tokens, idx) {
       if (tokens[idx].nesting === 1) {
-        return `<div role="alert" class="callout callout--${type}">`;
+        return `
+          <wa-alert class="callout" variant="${variant}" open>
+            <wa-icon slot="icon" name="${icon}"></wa-icon>
+        `;
       }
-      return '</div>\n';
+      return '</wa-alert>\n';
     }
   });
 });

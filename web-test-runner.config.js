@@ -28,7 +28,7 @@ export default {
     <html lang="en-US">
       <head></head>
       <body>
-        <link rel="stylesheet" href="dist/themes/light.css">
+        <link rel="stylesheet" href="dist/themes/default.css">
         <script>
           window.process = {env: { NODE_ENV: "production" }}
         </script>

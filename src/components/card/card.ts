@@ -1,12 +1,12 @@
-import SlCard from './card.component.js';
+import WaCard from './card.component.js';
 
 export * from './card.component.js';
-export default SlCard;
+export default WaCard;
 
-SlCard.define('sl-card');
+WaCard.define('wa-card');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-card': SlCard;
+    'wa-card': WaCard;
   }
 }

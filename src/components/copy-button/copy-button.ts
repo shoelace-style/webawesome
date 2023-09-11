@@ -1,12 +1,12 @@
-import SlCopyButton from './copy-button.component.js';
+import WaCopyButton from './copy-button.component.js';
 
 export * from './copy-button.component.js';
-export default SlCopyButton;
+export default WaCopyButton;
 
-SlCopyButton.define('sl-copy-button');
+WaCopyButton.define('wa-copy-button');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-copy-button': SlCopyButton;
+    'wa-copy-button': WaCopyButton;
   }
 }

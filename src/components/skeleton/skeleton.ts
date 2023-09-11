@@ -1,12 +1,12 @@
-import SlSkeleton from './skeleton.component.js';
+import WaSkeleton from './skeleton.component.js';
 
 export * from './skeleton.component.js';
-export default SlSkeleton;
+export default WaSkeleton;
 
-SlSkeleton.define('sl-skeleton');
+WaSkeleton.define('wa-skeleton');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-skeleton': SlSkeleton;
+    'wa-skeleton': WaSkeleton;
   }
 }

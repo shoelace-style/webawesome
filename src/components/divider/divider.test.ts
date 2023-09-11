@@ -1,16 +1,16 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
-import type SlDivider from './divider.js';
+import type WaDivider from './divider.js';
 
-describe('<sl-divider>', () => {
+describe('<wa-divider>', () => {
   describe('defaults ', () => {
     it('passes accessibility test', async () => {
-      const el = await fixture<SlDivider>(html` <sl-divider></sl-divider> `);
+      const el = await fixture<WaDivider>(html` <wa-divider></wa-divider> `);
       await expect(el).to.be.accessible();
     });
 
     it('default properties', async () => {
-      const el = await fixture<SlDivider>(html` <sl-divider></sl-divider> `);
+      const el = await fixture<WaDivider>(html` <wa-divider></wa-divider> `);
 
       expect(el.vertical).to.be.false;
       expect(el.getAttribute('role')).to.equal('separator');
@@ -20,7 +20,7 @@ describe('<sl-divider>', () => {
 
   describe('vertical property change ', () => {
     it('aria-orientation is updated', async () => {
-      const el = await fixture<SlDivider>(html` <sl-divider></sl-divider> `);
+      const el = await fixture<WaDivider>(html` <wa-divider></wa-divider> `);
 
       el.vertical = true;
       await elementUpdated(el);

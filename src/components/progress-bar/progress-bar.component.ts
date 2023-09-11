@@ -4,8 +4,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './progress-bar.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -25,7 +25,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --indicator-color - The color of the indicator.
  * @cssproperty --label-color - The color of the label.
  */
-export default class SlProgressBar extends ShoelaceElement {
+export default class WaProgressBar extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   private readonly localize = new LocalizeController(this);
 

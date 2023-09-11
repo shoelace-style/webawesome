@@ -3,13 +3,13 @@ import { type HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { type LocalizeController } from '../../utilities/localize.js';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import type SlMenuItem from './menu-item.js';
-import type SlPopup from '../popup/popup.js';
+import type WaMenuItem from './menu-item.js';
+import type WaPopup from '../popup/popup.js';
 
 /** A reactive controller to manage the registration of event listeners for submenus. */
 export class SubmenuController implements ReactiveController {
-  private host: ReactiveControllerHost & SlMenuItem;
-  private popupRef: Ref<SlPopup> = createRef();
+  private host: ReactiveControllerHost & WaMenuItem;
+  private popupRef: Ref<WaPopup> = createRef();
   private enableSubmenuTimer = -1;
   private isConnected = false;
   private isPopupConnected = false;
@@ -19,7 +19,7 @@ export class SubmenuController implements ReactiveController {
   private readonly submenuOpenDelay = 100;
 
   constructor(
-    host: ReactiveControllerHost & SlMenuItem,
+    host: ReactiveControllerHost & WaMenuItem,
     hasSlotController: HasSlotController,
     localize: LocalizeController
   ) {
@@ -101,7 +101,7 @@ export class SubmenuController implements ReactiveController {
     // Menus
     let menuItems: NodeListOf<Element> | null = null;
     for (const elt of submenuSlot.assignedElements()) {
-      menuItems = elt.querySelectorAll("sl-menu-item, [role^='menuitem']");
+      menuItems = elt.querySelectorAll("wa-menu-item, [role^='menuitem']");
       if (menuItems.length !== 0) {
         break;
       }
@@ -169,7 +169,7 @@ export class SubmenuController implements ReactiveController {
       event.stopPropagation();
     } else if (
       event.target instanceof Element &&
-      (event.target.tagName === 'sl-menu-item' || event.target.role?.startsWith('menuitem'))
+      (event.target.tagName === 'wa-menu-item' || event.target.role?.startsWith('menuitem'))
     ) {
       this.disableSubmenu();
     }
@@ -240,13 +240,13 @@ export class SubmenuController implements ReactiveController {
   renderSubmenu() {
     const isLtr = this.localize.dir() === 'ltr';
 
-    // Always render the slot, but conditionally render the outer <sl-popup>
+    // Always render the slot, but conditionally render the outer <wa-popup>
     if (!this.isConnected) {
       return html` <slot name="submenu" hidden></slot> `;
     }
 
     return html`
-      <sl-popup
+      <wa-popup
         ${ref(this.popupRef)}
         placement=${isLtr ? 'right-start' : 'left-start'}
         anchor="anchor"
@@ -256,7 +256,7 @@ export class SubmenuController implements ReactiveController {
         strategy="fixed"
       >
         <slot name="submenu"></slot>
-      </sl-popup>
+      </wa-popup>
     `;
   }
 }

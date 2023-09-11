@@ -1,0 +1,298 @@
+:root,
+:host,
+.wa-theme-default {
+  color-scheme: light;
+
+  /**
+   * Primitives
+   */
+  --wa-color-red-95: #ffefef;
+  --wa-color-red-90: #ffdedf;
+  --wa-color-red-80: #ffb7bb;
+  --wa-color-red-70: #fb9098;
+  --wa-color-red-60: #f36677;
+  --wa-color-red-50: #e41c51;
+  --wa-color-red-40: #ab203e;
+  --wa-color-red-30: #831f31;
+  --wa-color-red-20: #5d1b25;
+  --wa-color-red-10: #331417;
+
+  --wa-color-yellow-95: #f9f2db;
+  --wa-color-yellow-90: #f4e5b6;
+  --wa-color-yellow-80: #e8c762;
+  --wa-color-yellow-70: #d6a927;
+  --wa-color-yellow-60: #b78f21;
+  --wa-color-yellow-50: #92701b;
+  --wa-color-yellow-40: #705514;
+  --wa-color-yellow-30: #584210;
+  --wa-color-yellow-20: #41300c;
+  --wa-color-yellow-10: #261c07;
+
+  --wa-color-green-95: #e6f7ea;
+  --wa-color-green-90: #cceed4;
+  --wa-color-green-80: #91daa2;
+  --wa-color-green-70: #51c56c;
+  --wa-color-green-60: #3da856;
+  --wa-color-green-50: #308544;
+  --wa-color-green-40: #256534;
+  --wa-color-green-30: #1d4f29;
+  --wa-color-green-20: #15391d;
+  --wa-color-green-10: #0c2211;
+
+  --wa-color-blue-95: #eaf3fe;
+  --wa-color-blue-90: #d5e8fd;
+  --wa-color-blue-80: #a6cdfb;
+  --wa-color-blue-70: #76b2f9;
+  --wa-color-blue-60: #4496f6;
+  --wa-color-blue-50: #0070f2;
+  --wa-color-blue-40: #0055b9;
+  --wa-color-blue-30: #004390;
+  --wa-color-blue-20: #00316a;
+  --wa-color-blue-10: #001d40;
+
+  --wa-color-neutral-95: #f2f2f4;
+  --wa-color-neutral-90: #e5e5ea;
+  --wa-color-neutral-80: #c8c9d3;
+  --wa-color-neutral-70: #acaebc;
+  --wa-color-neutral-60: #9193a6;
+  --wa-color-neutral-50: #71748c;
+  --wa-color-neutral-40: #56586a;
+  --wa-color-neutral-30: #434453;
+  --wa-color-neutral-20: #30323c;
+  --wa-color-neutral-10: #1c1d23;
+
+  --wa-color-white: white;
+  --wa-color-black: black;
+
+  /**
+   * App
+   */
+  --wa-color-surface-raised: var(--wa-color-white);
+  --wa-color-surface-default: var(--wa-color-white);
+  --wa-color-surface-lowered: var(--wa-color-neutral-95);
+  --wa-color-surface-outline: var(--wa-color-neutral-90);
+
+  --wa-color-text-normal: var(--wa-color-neutral-10);
+  --wa-color-text-quiet: var(--wa-color-neutral-40);
+  --wa-color-text-inverse: var(--wa-color-white);
+
+  --wa-color-text-link: var(--wa-color-brand-text-on-surface);
+
+  --wa-color-selection-background: var(--wa-color-blue-80);
+  --wa-color-selection-text: var(--wa-color-black);
+
+  --wa-color-focus: var(--wa-color-blue-60); /* semantic variants? */
+
+  --wa-color-tint-white: rgb(255 255 255 / 0.2);
+  --wa-color-tint-black: rgb(0 0 0 / 0.2);
+
+  /**
+   * Semantic color variants
+   */
+  /* TODO: Add comments for semantic color tokens and usage expectations */
+  /* TODO: Add tokens for hover and active tints */
+  /* CONSIDER: Change -alt naming to -tint or -shade? */
+  --wa-color-brand-fill-vivid: var(--wa-color-blue-50);
+  --wa-color-brand-fill-vivid-alt: var(--wa-color-blue-40);
+  --wa-color-brand-fill-muted: var(--wa-color-blue-95);
+  --wa-color-brand-fill-muted-alt: var(--wa-color-blue-90);
+  --wa-color-brand-outline-vivid: var(--wa-color-blue-50);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-blue-30);
+  --wa-color-brand-outline-muted: var(--wa-color-blue-90);
+  --wa-color-brand-outline-muted-alt: var(--wa-color-blue-80);
+  --wa-color-brand-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-brand-text-on-muted: var(--wa-color-blue-40);
+  --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
+
+  --wa-color-success-fill-vivid: var(--wa-color-green-50);
+  --wa-color-success-fill-vivid-alt: var(--wa-color-green-40);
+  --wa-color-success-fill-muted: var(--wa-color-green-95);
+  --wa-color-success-fill-muted-alt: var(--wa-color-green-90);
+  --wa-color-success-outline-vivid: var(--wa-color-green-50);
+  --wa-color-success-outline-vivid-alt: var(--wa-color-green-30);
+  --wa-color-success-outline-muted: var(--wa-color-green-90);
+  --wa-color-success-outline-muted-alt: var(--wa-color-green-80);
+  --wa-color-success-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-success-text-on-muted: var(--wa-color-green-40);
+  --wa-color-success-text-on-surface: var(--wa-color-green-50);
+
+  --wa-color-warning-fill-vivid: var(--wa-color-yellow-50);
+  --wa-color-warning-fill-vivid-alt: var(--wa-color-yellow-40);
+  --wa-color-warning-fill-muted: var(--wa-color-yellow-95);
+  --wa-color-warning-fill-muted-alt: var(--wa-color-yellow-90);
+  --wa-color-warning-outline-vivid: var(--wa-color-yellow-50);
+  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-30);
+  --wa-color-warning-outline-muted: var(--wa-color-yellow-90);
+  --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-80);
+  --wa-color-warning-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-warning-text-on-muted: var(--wa-color-yellow-40);
+  --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
+
+  --wa-color-danger-fill-vivid: var(--wa-color-red-50);
+  --wa-color-danger-fill-vivid-alt: var(--wa-color-red-40);
+  --wa-color-danger-fill-muted: var(--wa-color-red-95);
+  --wa-color-danger-fill-muted-alt: var(--wa-color-red-90);
+  --wa-color-danger-outline-vivid: var(--wa-color-red-50);
+  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-30);
+  --wa-color-danger-outline-muted: var(--wa-color-red-90);
+  --wa-color-danger-outline-muted-alt: var(--wa-color-red-80);
+  --wa-color-danger-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-danger-text-on-muted: var(--wa-color-red-40);
+  --wa-color-danger-text-on-surface: var(--wa-color-red-50);
+
+  --wa-color-neutral-fill-vivid: var(--wa-color-neutral-50);
+  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-40);
+  --wa-color-neutral-fill-muted: var(--wa-color-neutral-95);
+  --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-90);
+  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-30);
+  --wa-color-neutral-outline-muted: var(--wa-color-neutral-90);
+  --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-80);
+  --wa-color-neutral-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-neutral-text-on-muted: var(--wa-color-neutral-40);
+  --wa-color-neutral-text-on-surface: var(--wa-color-neutral-50);
+
+  /**
+   * Typography
+   */
+  --wa-font-family-heading: system-ui;
+  --wa-font-family-body: system-ui;
+  --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --wa-font-family-longform: 'Lora', serif;
+
+  --wa-font-weight-light: 300;
+  --wa-font-weight-normal: 400;
+  --wa-font-weight-medium: 500;
+  --wa-font-weight-heavy: 600;
+
+  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-body: var(--wa-font-weight-normal);
+  --wa-font-weight-action: var(--wa-font-weight-medium);
+
+  --wa-font-size-root: 16px;
+  --wa-font-size-2xs: 0.625rem; /* 10 */
+  --wa-font-size-xs: 0.75rem; /* 12 */
+  --wa-font-size-s: 0.875rem; /* 14 */
+  --wa-font-size-m: 1rem; /* 16 */
+  --wa-font-size-l: 1.375rem; /* 22 */
+  --wa-font-size-xl: 1.875rem; /* 30 */
+  --wa-font-size-2xl: 2.625rem; /* 42 */
+
+  --wa-font-line-height-compact: 1.25;
+  --wa-font-line-height-regular: 1.625;
+  --wa-font-line-height-comfortable: 2;
+
+  /**
+   * Spacing
+   */
+  --wa-space-3xs: 0.125rem; /* 2 */
+  --wa-space-2xs: 0.25rem; /* 4 */
+  --wa-space-xs: 0.5rem; /* 8 */
+  --wa-space-s: 0.75rem; /* 12 */
+  --wa-space-m: 1rem; /* 16 */
+  --wa-space-l: 1.25rem; /* 20 */
+  --wa-space-xl: 1.5rem; /* 24 */
+  --wa-space-2xl: 2rem; /* 32 */
+  --wa-space-3xl: 3rem; /* 48 */
+
+  --wa-space-square-xs: var(--wa-space-xs);
+  --wa-space-square-s: var(--wa-space-s);
+  --wa-space-square-m: var(--wa-space-m);
+  --wa-space-square-l: var(--wa-space-l);
+  --wa-space-square-xl: var(--wa-space-xl);
+
+  --wa-space-stretch-xs: var(--wa-space-xs) var(--wa-space-m);
+  --wa-space-stretch-s: var(--wa-space-s) var(--wa-space-l);
+  --wa-space-stretch-m: var(--wa-space-m) var(--wa-space-xl);
+  --wa-space-stretch-l: var(--wa-space-l) var(--wa-space-2xl);
+  --wa-space-stretch-xl: var(--wa-space-xl) var(--wa-space-3xl);
+
+  --wa-space-squish-xs: var(--wa-space-xs) var(--wa-space-3xs);
+  --wa-space-squish-s: var(--wa-space-s) var(--wa-space-2xs);
+  --wa-space-squish-m: var(--wa-space-m) var(--wa-space-xs);
+  --wa-space-squish-l: var(--wa-space-l) var(--wa-space-s);
+  --wa-space-squish-xl: var(--wa-space-xl) var(--wa-space-m);
+
+  /**
+   * Borders & corners
+   */
+  --wa-border-width-thin: 0.0625rem; /* 1px*/
+  --wa-border-width-medium: calc(var(--wa-border-width-thin) * 2);
+  --wa-border-width-thick: calc(var(--wa-border-width-thin) * 3);
+
+  --wa-border-style: solid;
+
+  --wa-corners-half: calc(var(--wa-corners-1x) * 0.5);
+  --wa-corners-1x: 0.25rem;
+  --wa-corners-2x: calc(var(--wa-corners-1x) * 2);
+  --wa-corners-3x: calc(var(--wa-corners-1x) * 3);
+
+  --wa-corners-pill: 9999px;
+  --wa-corners-circle: 50%;
+  --wa-corners-sharp: 0;
+
+  /**
+   * Focus
+   */
+  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-focus);
+  --wa-focus-ring-offset: 0.0625rem; /* 1px */
+
+  /**
+   * Shadows
+   */
+  --wa-shadow-level-0: none;
+  --wa-shadow-level-1: 0 0.0625rem 0.125rem rgb(0 0 0 / 0.08);
+  --wa-shadow-level-2: 0 0.125rem 0.25rem rgb(0 0 0 / 0.06);
+  --wa-shadow-level-3: 0 0.25rem 0.5rem rgb(0 0 0 / 0.04);
+
+  /**
+   * Z-index
+   */
+  --wa-z-index-drawer: 700;
+  --wa-z-index-dialog: 800;
+  --wa-z-index-dropdown: 900;
+  --wa-z-index-alert-group: 950;
+  --wa-z-index-tooltip: 1000;
+
+  /**
+   * Transitions
+   */
+  --wa-transition-normal: 250ms;
+  --wa-transition-fast: 150ms;
+  --wa-transition-faster: 50ms;
+
+  /**
+   * Form controls
+   */
+  --wa-form-controls-background: var(--wa-color-surface-raised);
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-thin);
+  --wa-form-controls-corners: var(--wa-corners-1x);
+  /* prettier-ignore */
+  --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
+  /* prettier-ignore */
+  --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-vivid);
+  --wa-form-controls-text-color: var(--wa-color-text-normal);
+  --wa-form-controls-value-line-height: var(--wa-font-height-compact);
+  --wa-form-controls-padding: var(--wa-space-square-s);
+  --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
+
+  /**
+  * From 2.x
+  */
+  --wa-form-controls-height-s: 2rem;
+  --wa-form-controls-height-m: 2.75rem;
+  --wa-form-controls-height-l: 3.5rem;
+  --wa-form-control-toggle-size-s: 0.875rem;
+  --wa-form-control-toggle-size-m: 1.125rem;
+  --wa-form-control-toggle-size-l: 1.375rem;
+  --wa-form-controls-required-content: '*';
+  --wa-form-controls-required-content-color: inherit;
+  --wa-form-controls-required-content-offset: -0.1em;
+
+  --wa-overlay-color: hsl(240 3.8% 46.1% / 33%);
+
+  --wa-tooltip-arrow-size: 0.375rem;
+}
+
+/* _utility.css */

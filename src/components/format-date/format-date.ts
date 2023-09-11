@@ -1,12 +1,12 @@
-import SlFormatDate from './format-date.component.js';
+import WaFormatDate from './format-date.component.js';
 
 export * from './format-date.component.js';
-export default SlFormatDate;
+export default WaFormatDate;
 
-SlFormatDate.define('sl-format-date');
+WaFormatDate.define('wa-format-date');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-format-date': SlFormatDate;
+    'wa-format-date': WaFormatDate;
   }
 }

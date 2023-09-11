@@ -1,12 +1,12 @@
-import SlCarouselItem from './carousel-item.component.js';
+import WaCarouselItem from './carousel-item.component.js';
 
 export * from './carousel-item.component.js';
-export default SlCarouselItem;
+export default WaCarouselItem;
 
-SlCarouselItem.define('sl-carousel-item');
+WaCarouselItem.define('wa-carousel-item');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-carousel-item': SlCarouselItem;
+    'wa-carousel-item': WaCarouselItem;
   }
 }

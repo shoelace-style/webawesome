@@ -1,8 +1,8 @@
 import { aTimeout, elementUpdated, expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { registerIconLibrary } from '../../../dist/shoelace.js';
-import type { SlErrorEvent } from '../../events/sl-error';
-import type { SlLoadEvent } from '../../events/sl-load';
-import type SlIcon from './icon';
+import { registerIconLibrary } from '../../../dist/webawesome.js';
+import type { WaErrorEvent } from '../../events/wa-error';
+import type { WaLoadEvent } from '../../events/wa-load';
+import type WaIcon from './icon';
 
 const testLibraryIcons = {
   'test-icon1': `
@@ -18,7 +18,7 @@ const testLibraryIcons = {
   'bad-icon': `<div></div>`
 };
 
-describe('<sl-icon>', () => {
+describe('<wa-icon>', () => {
   before(() => {
     registerIconLibrary('test-library', {
       resolver: (name: keyof typeof testLibraryIcons) => {
@@ -38,7 +38,7 @@ describe('<sl-icon>', () => {
 
   describe('defaults ', () => {
     it('default properties', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
 
       expect(el.name).to.be.undefined;
       expect(el.src).to.be.undefined;
@@ -46,9 +46,9 @@ describe('<sl-icon>', () => {
       expect(el.library).to.equal('default');
     });
 
-    it('renders pre-loaded system icons and emits sl-load event', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="system"></sl-icon> `);
-      const listener = oneEvent(el, 'sl-load') as Promise<SlLoadEvent>;
+    it('renders pre-loaded system icons and emits wa-load event', async () => {
+      const el = await fixture<WaIcon>(html` <wa-icon library="system"></wa-icon> `);
+      const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
 
       el.name = 'check';
       const ev = await listener;
@@ -59,12 +59,12 @@ describe('<sl-icon>', () => {
     });
 
     it('the icon is accessible', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="system" name="check"></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check"></wa-icon> `);
       await expect(el).to.be.accessible();
     });
 
     it('the icon has the correct default aria attributes', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="system" name="check"></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check"></wa-icon> `);
 
       expect(el.getAttribute('role')).to.be.null;
       expect(el.getAttribute('aria-label')).to.be.null;
@@ -75,7 +75,7 @@ describe('<sl-icon>', () => {
   describe('when a label is provided', () => {
     it('the icon has the correct default aria attributes', async () => {
       const fakeLabel = 'a label';
-      const el = await fixture<SlIcon>(html` <sl-icon label="${fakeLabel}" library="system" name="check"></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon label="${fakeLabel}" library="system" name="check"></wa-icon> `);
 
       expect(el.getAttribute('role')).to.equal('img');
       expect(el.getAttribute('aria-label')).to.equal(fakeLabel);
@@ -86,9 +86,9 @@ describe('<sl-icon>', () => {
   describe('when a valid src is provided', () => {
     it('the svg is rendered', async () => {
       const fakeId = 'test-src';
-      const el = await fixture<SlIcon>(html` <sl-icon></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
 
-      const listener = oneEvent(el, 'sl-load');
+      const listener = oneEvent(el, 'wa-load');
       el.src = `data:image/svg+xml,${encodeURIComponent(`<svg id="${fakeId}"></svg>`)}`;
 
       await listener;
@@ -101,9 +101,9 @@ describe('<sl-icon>', () => {
   });
 
   describe('new library', () => {
-    it('renders icons from the new library and emits sl-load event', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="test-library"></sl-icon> `);
-      const listener = oneEvent(el, 'sl-load') as Promise<SlLoadEvent>;
+    it('renders icons from the new library and emits wa-load event', async () => {
+      const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
+      const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
 
       el.name = 'test-icon1';
       const ev = await listener;
@@ -114,7 +114,7 @@ describe('<sl-icon>', () => {
     });
 
     it('runs mutator from new library', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="test-library" name="test-icon1"></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="test-icon1"></wa-icon> `);
       await elementUpdated(el);
 
       const svg = el.shadowRoot?.querySelector('svg');
@@ -125,14 +125,14 @@ describe('<sl-icon>', () => {
   describe('negative cases', () => {
     // using new library so we can test for malformed icons when registered
     it("svg not rendered with an icon that doesn't exist in the library", async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="test-library" name="does-not-exist"></sl-icon> `);
+      const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="does-not-exist"></wa-icon> `);
 
       expect(el.shadowRoot?.querySelector('svg')).to.be.null;
     });
 
-    it('emits sl-error when the file cant be retrieved', async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="test-library"></sl-icon> `);
-      const listener = oneEvent(el, 'sl-error') as Promise<SlErrorEvent>;
+    it('emits wa-error when the file cant be retrieved', async () => {
+      const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
+      const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
 
       el.name = 'bad-request';
       const ev = await listener;
@@ -142,9 +142,9 @@ describe('<sl-icon>', () => {
       expect(ev).to.exist;
     });
 
-    it("emits sl-error when there isn't an svg element in the registered icon", async () => {
-      const el = await fixture<SlIcon>(html` <sl-icon library="test-library"></sl-icon> `);
-      const listener = oneEvent(el, 'sl-error') as Promise<SlErrorEvent>;
+    it("emits wa-error when there isn't an svg element in the registered icon", async () => {
+      const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
+      const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
 
       el.name = 'bad-icon';
       const ev = await listener;
@@ -165,7 +165,7 @@ describe('<sl-icon>', () => {
         spriteSheet: true
       });
 
-      const el = await fixture<SlIcon>(html`<sl-icon name="arrow-left" library="sprite"></sl-icon>`);
+      const el = await fixture<WaIcon>(html`<wa-icon name="arrow-left" library="sprite"></wa-icon>`);
 
       await elementUpdated(el);
 
@@ -192,7 +192,7 @@ describe('<sl-icon>', () => {
         spriteSheet: true
       });
 
-      const el = await fixture<SlIcon>(html`<sl-icon name="non-existent" library="sprite"></sl-icon>`);
+      const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
 
       await elementUpdated(el);
 
@@ -219,8 +219,8 @@ describe('<sl-icon>', () => {
         spriteSheet: true
       });
 
-      const el = await fixture<SlIcon>(html`<sl-icon name="bad-icon" library="sprite"></sl-icon>`);
-      const listener = oneEvent(el, 'sl-error') as Promise<SlErrorEvent>;
+      const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
+      const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
 
       el.name = 'bad-icon';
       const ev = await listener;

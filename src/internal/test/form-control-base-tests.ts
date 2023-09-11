@@ -1,10 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
-import type { ShoelaceFormControl } from '../shoelace-element.js';
+import type { WebAwesomeFormControl } from '../webawesome-element.js';
 
-type CreateControlFn = () => Promise<ShoelaceFormControl>;
+type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
-/** Runs a set of generic tests for Shoelace form controls */
-export function runFormControlBaseTests<T extends ShoelaceFormControl = ShoelaceFormControl>(
+/** Runs a set of generic tests for Web Awesome form controls */
+export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwesomeFormControl>(
   tagNameOrConfig:
     | string
     | {
@@ -38,7 +38,7 @@ export function runFormControlBaseTests<T extends ShoelaceFormControl = Shoelace
 }
 
 //
-// Applicable for all Shoelace form controls. This function checks the behavior of:
+// Applicable for all Web Awesome form controls. This function checks the behavior of:
 //   - `.validity`
 //   - `.validationMessage`,
 //   - `.checkValidity()`
@@ -48,7 +48,7 @@ export function runFormControlBaseTests<T extends ShoelaceFormControl = Shoelace
 function runAllValidityTests(
   tagName: string, //
   displayName: string,
-  createControl: () => Promise<ShoelaceFormControl>
+  createControl: () => Promise<WebAwesomeFormControl>
 ) {
   // will be used later to retrieve meta information about the control
   describe(`Form validity base test for ${displayName}`, async () => {
@@ -92,36 +92,36 @@ function runAllValidityTests(
       expect(control.reportValidity()).to.equal(true);
     });
 
-    it('should not emit an `sl-invalid` event when `.checkValidity()` is called while valid', async () => {
+    it('should not emit an `wa-invalid` event when `.checkValidity()` is called while valid', async () => {
       const control = await createControl();
-      const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.checkValidity());
+      const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
       expect(emittedEvents.length).to.equal(0);
     });
 
-    it('should not emit an `sl-invalid` event when `.reportValidity()` is called while valid', async () => {
+    it('should not emit an `wa-invalid` event when `.reportValidity()` is called while valid', async () => {
       const control = await createControl();
-      const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.reportValidity());
+      const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
       expect(emittedEvents.length).to.equal(0);
     });
 
-    // TODO: As soon as `SlRadioGroup` has a property `disabled` this
+    // TODO: As soon as `WaRadioGroup` has a property `disabled` this
     // condition can be removed
-    if (tagName !== 'sl-radio-group') {
-      it('should not emit an `sl-invalid` event when `.checkValidity()` is called in custom error case while disabled', async () => {
+    if (tagName !== 'wa-radio-group') {
+      it('should not emit an `wa-invalid` event when `.checkValidity()` is called in custom error case while disabled', async () => {
         const control = await createControl();
         control.setCustomValidity('error');
         control.disabled = true;
         await control.updateComplete;
-        const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.checkValidity());
+        const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
         expect(emittedEvents.length).to.equal(0);
       });
 
-      it('should not emit an `sl-invalid` event when `.reportValidity()` is called in custom error case while disabled', async () => {
+      it('should not emit an `wa-invalid` event when `.reportValidity()` is called in custom error case while disabled', async () => {
         const control = await createControl();
         control.setCustomValidity('error');
         control.disabled = true;
         await control.updateComplete;
-        const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.reportValidity());
+        const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
         expect(emittedEvents.length).to.equal(0);
       });
     }
@@ -141,7 +141,7 @@ function runAllValidityTests(
 }
 
 //
-//  Special tests for <sl-button type="button">
+//  Special tests for <wa-button type="button">
 //
 function runSpecialTests_slButtonOfTypeButton(createControl: CreateControlFn) {
   it('should make sure that `.validity.valid` is `false` in custom error case', async () => {
@@ -162,28 +162,28 @@ function runSpecialTests_slButtonOfTypeButton(createControl: CreateControlFn) {
     expect(control.reportValidity()).to.equal(true);
   });
 
-  it('should not emit an `sl-invalid` event when `.checkValidity()` is called in custom error case, and not disabled', async () => {
+  it('should not emit an `wa-invalid` event when `.checkValidity()` is called in custom error case, and not disabled', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.checkValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(0);
   });
 
-  it('should not emit an `sl-invalid` event when `.reportValidity()` is called in custom error case, and not disabled', async () => {
+  it('should not emit an `wa-invalid` event when `.reportValidity()` is called in custom error case, and not disabled', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.reportValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
 
     expect(emittedEvents.length).to.equal(0);
   });
 }
 
 //
-// Special tests for <sl-button href="...">
+// Special tests for <wa-button href="...">
 //
 function runSpecialTests_slButtonWithHref(createControl: CreateControlFn) {
   it('should make sure that calling `.checkValidity()` will return `true` in custom error case', async () => {
@@ -198,19 +198,19 @@ function runSpecialTests_slButtonWithHref(createControl: CreateControlFn) {
     expect(control.reportValidity()).to.equal(true);
   });
 
-  it('should not emit an `sl-invalid` event when `.checkValidity()` is called in custom error case', async () => {
+  it('should not emit an `wa-invalid` event when `.checkValidity()` is called in custom error case', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.checkValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(0);
   });
 
-  it('should not emit an `sl-invalid` event when `.reportValidity()` is called in custom error case', async () => {
+  it('should not emit an `wa-invalid` event when `.reportValidity()` is called in custom error case', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.reportValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
     expect(emittedEvents.length).to.equal(0);
   });
 }
@@ -237,21 +237,21 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
     expect(control.reportValidity()).to.equal(false);
   });
 
-  it('should emit an `sl-invalid` event when `.checkValidity()` is called in custom error case and not disabled', async () => {
+  it('should emit an `wa-invalid` event when `.checkValidity()` is called in custom error case and not disabled', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.checkValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 
-  it('should emit an `sl-invalid` event when `.reportValidity()` is called in custom error case and not disabled', async () => {
+  it('should emit an `wa-invalid` event when `.reportValidity()` is called in custom error case and not disabled', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'sl-invalid', () => control.reportValidity());
+    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 }
@@ -260,14 +260,14 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
 // Local helper functions
 //
 
-// Creates a testable Shoelace form control instance
-async function createFormControl<T extends ShoelaceFormControl = ShoelaceFormControl>(tagName: string): Promise<T> {
+// Creates a testable Web Awesome form control instance
+async function createFormControl<T extends WebAwesomeFormControl = WebAwesomeFormControl>(tagName: string): Promise<T> {
   return await fixture<T>(`<${tagName}></${tagName}>`);
 }
 
 // Runs an action while listening for emitted events of a given type. Returns an array of all events of the given type
 // that have been been emitted while the action was running.
-function checkEventEmissions(control: ShoelaceFormControl, eventType: string, action: () => void): Event[] {
+function checkEventEmissions(control: WebAwesomeFormControl, eventType: string, action: () => void): Event[] {
   const emittedEvents: Event[] = [];
 
   const eventHandler = (event: Event) => {
@@ -284,11 +284,11 @@ function checkEventEmissions(control: ShoelaceFormControl, eventType: string, ac
   return emittedEvents;
 }
 
-// Component `sl-button` behaves quite different to the other components. To keep things simple we use simple conditions
-// here. `sl-button` might stay the only component in Shoelace core behaves that way, so we just hard code it here.
-function getMode(control: ShoelaceFormControl) {
+// Component `wa-button` behaves quite different to the other components. To keep things simple we use simple conditions
+// here. `wa-button` might stay the only component in Web Awesome core behaves that way, so we just hard code it here.
+function getMode(control: WebAwesomeFormControl) {
   if (
-    control.localName === 'sl-button' && //
+    control.localName === 'wa-button' && //
     'href' in control &&
     'type' in control &&
     control.type === 'button' &&
@@ -297,8 +297,8 @@ function getMode(control: ShoelaceFormControl) {
     return 'slButtonOfTypeButton';
   }
 
-  // <sl-button href="...">
-  if (control.localName === 'sl-button' && 'href' in control && !!control.href) {
+  // <wa-button href="...">
+  if (control.localName === 'wa-button' && 'href' in control && !!control.href) {
     return 'slButtonWithHRef';
   }
 

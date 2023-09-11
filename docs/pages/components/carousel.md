@@ -6,78 +6,78 @@ layout: component
 ---
 
 ```html:preview
-<sl-carousel pagination navigation mouse-dragging loop>
-  <sl-carousel-item>
+<wa-carousel pagination navigation mouse-dragging loop>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
   <>
-    <SlCarousel pagination mouse-dragging>
-      <SlCarouselItem>
+    <WaCarousel pagination mouse-dragging>
+      <WaCarouselItem>
         <img
           alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
           src="/assets/examples/carousel/mountains.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
           src="/assets/examples/carousel/waterfall.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
           src="/assets/examples/carousel/sunset.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
           src="/assets/examples/carousel/field.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
           src="/assets/examples/carousel/valley.jpg"
         />
-      </SlCarouselItem>
-    </SlCarousel>
+      </WaCarouselItem>
+    </WaCarousel>
   </>
 );
 ```
@@ -89,77 +89,77 @@ const App = () => (
 Use the `pagination` attribute to show the total number of slides and the current slide as a set of interactive dots.
 
 ```html:preview
-<sl-carousel pagination>
-  <sl-carousel-item>
+<wa-carousel pagination>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel pagination>
-    <SlCarouselItem>
+  <WaCarousel pagination>
+    <WaCarouselItem>
       <img
         alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
         src="/assets/examples/carousel/field.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </SlCarouselItem>
-  </SlCarousel>
+    </WaCarouselItem>
+  </WaCarousel>
 );
 ```
 
@@ -168,77 +168,77 @@ const App = () => (
 Use the `navigation` attribute to show previous and next buttons.
 
 ```html:preview
-<sl-carousel navigation>
-  <sl-carousel-item>
+<wa-carousel navigation>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel navigation>
-    <SlCarouselItem>
+  <WaCarousel navigation>
+    <WaCarouselItem>
       <img
         alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
         src="/assets/examples/carousel/field.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </SlCarouselItem>
-  </SlCarousel>
+    </WaCarouselItem>
+  </WaCarousel>
 );
 ```
 
@@ -247,77 +247,77 @@ const App = () => (
 By default, the carousel will not advanced beyond the first and last slides. You can change this behavior and force the carousel to "wrap" with the `loop` attribute.
 
 ```html:preview
-<sl-carousel loop navigation pagination>
-  <sl-carousel-item>
+<wa-carousel loop navigation pagination>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel loop navigation pagination>
-    <SlCarouselItem>
+  <WaCarousel loop navigation pagination>
+    <WaCarouselItem>
       <img
         alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
         src="/assets/examples/carousel/field.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </SlCarouselItem>
-  </SlCarousel>
+    </WaCarouselItem>
+  </WaCarousel>
 );
 ```
 
@@ -326,77 +326,77 @@ const App = () => (
 The carousel will automatically advance when the `autoplay` attribute is used. To change how long a slide is shown before advancing, set `autoplay-interval` to the desired number of milliseconds. For best results, use the `loop` attribute when autoplay is enabled. Note that autoplay will pause while the user interacts with the carousel.
 
 ```html:preview
-<sl-carousel autoplay loop pagination>
-  <sl-carousel-item>
+<wa-carousel autoplay loop pagination>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel autoplay loop pagination>
-    <SlCarouselItem>
+  <WaCarousel autoplay loop pagination>
+    <WaCarouselItem>
       <img
         alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
         src="/assets/examples/carousel/field.jpg"
       />
-    </SlCarouselItem>
-    <SlCarouselItem>
+    </WaCarouselItem>
+    <WaCarouselItem>
       <img
         alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </SlCarouselItem>
-  </SlCarousel>
+    </WaCarouselItem>
+  </WaCarousel>
 );
 ```
 
@@ -408,50 +408,50 @@ This example is best demonstrated using a mouse. Try clicking and dragging the s
 
 ```html:preview
 <div class="mouse-dragging">
-  <sl-carousel pagination>
-    <sl-carousel-item>
+  <wa-carousel pagination>
+    <wa-carousel-item>
       <img
         alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
         src="/assets/examples/carousel/mountains.jpg"
       />
-    </sl-carousel-item>
-    <sl-carousel-item>
+    </wa-carousel-item>
+    <wa-carousel-item>
       <img
         alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
         src="/assets/examples/carousel/waterfall.jpg"
       />
-    </sl-carousel-item>
-    <sl-carousel-item>
+    </wa-carousel-item>
+    <wa-carousel-item>
       <img
         alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
         src="/assets/examples/carousel/sunset.jpg"
       />
-    </sl-carousel-item>
-    <sl-carousel-item>
+    </wa-carousel-item>
+    <wa-carousel-item>
       <img
         alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
         src="/assets/examples/carousel/field.jpg"
       />
-    </sl-carousel-item>
-    <sl-carousel-item>
+    </wa-carousel-item>
+    <wa-carousel-item>
       <img
         alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
         src="/assets/examples/carousel/valley.jpg"
       />
-    </sl-carousel-item>
-  </sl-carousel>
+    </wa-carousel-item>
+  </wa-carousel>
 
-  <sl-divider></sl-divider>
+  <wa-divider></wa-divider>
 
-  <sl-switch>Enable mouse dragging</sl-switch>
+  <wa-switch>Enable mouse dragging</wa-switch>
 </div>
 
 <script>
   const container = document.querySelector('.mouse-dragging');
-  const carousel = container.querySelector('sl-carousel');
-  const toggle = container.querySelector('sl-switch');
+  const carousel = container.querySelector('wa-carousel');
+  const toggle = container.querySelector('wa-switch');
 
-  toggle.addEventListener('sl-change', () => {
+  toggle.addEventListener('wa-change', () => {
     carousel.toggleAttribute('mouse-dragging', toggle.checked);
   });
 </script>
@@ -459,54 +459,54 @@ This example is best demonstrated using a mouse. Try clicking and dragging the s
 
 ```jsx:react
 import { useState } from 'react';
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlSwitch from '@shoelace-style/shoelace/dist/react/switch';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaSwitch from '@shoelace-style/shoelace/dist/react/switch';
 
 const App = () => {
   const [isEnabled, setIsEnabled] = useState(false);
 
   return (
     <>
-      <SlCarousel navigation mouseDragging={isEnabled}>
-        <SlCarouselItem>
+      <WaCarousel navigation mouseDragging={isEnabled}>
+        <WaCarouselItem>
           <img
             alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
             src="/assets/examples/carousel/mountains.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
             src="/assets/examples/carousel/waterfall.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
             src="/assets/examples/carousel/sunset.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
             src="/assets/examples/carousel/field.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
             src="/assets/examples/carousel/valley.jpg"
           />
-        </SlCarouselItem>
-      </SlCarousel>
+        </WaCarouselItem>
+      </WaCarousel>
 
-      <SlDivider></SlDivider>
+      <WaDivider></WaDivider>
 
-      <SlSwitch checked={isEnabled} onSlInput={() => setIsEnabled(!isEnabled)}>
+      <WaSwitch checked={isEnabled} onWaInput={() => setIsEnabled(!isEnabled)}>
         Enable mouse dragging
-      </SlSwitch>
+      </WaSwitch>
     </>
   );
 };
@@ -517,31 +517,31 @@ const App = () => {
 The `slides-per-page` attribute makes it possible to display multiple slides at a time. You can also use the `slides-per-move` attribute to advance more than once slide at a time, if desired.
 
 ```html:preview
-<sl-carousel navigation pagination slides-per-page="2" slides-per-move="2">
-  <sl-carousel-item style="background: var(--sl-color-red-200);">Slide 1</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-orange-200);">Slide 2</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-yellow-200);">Slide 3</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-green-200);">Slide 4</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-blue-200);">Slide 5</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-violet-200);">Slide 6</sl-carousel-item>
-</sl-carousel>
+<wa-carousel navigation pagination slides-per-page="2" slides-per-move="2">
+  <wa-carousel-item style="background: red;">Slide 1</wa-carousel-item>
+  <wa-carousel-item style="background: orange;">Slide 2</wa-carousel-item>
+  <wa-carousel-item style="background: yellow;">Slide 3</wa-carousel-item>
+  <wa-carousel-item style="background: green;">Slide 4</wa-carousel-item>
+  <wa-carousel-item style="background: blue;">Slide 5</wa-carousel-item>
+  <wa-carousel-item style="background: purple;">Slide 6</wa-carousel-item>
+</wa-carousel>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const App = () => (
-  <SlCarousel navigation pagination slidesPerPage={2} slidesPerMove={2}>
-    <SlCarouselItem style={{ background: 'var(--sl-color-red-200)' }}>Slide 1</SlCarouselItem>
-    <SlCarouselItem style={{ background: 'var(--sl-color-orange-200)' }}>Slide 2</SlCarouselItem>
-    <SlCarouselItem style={{ background: 'var(--sl-color-yellow-200)' }}>Slide 3</SlCarouselItem>
-    <SlCarouselItem style={{ background: 'var(--sl-color-green-200)' }}>Slide 4</SlCarouselItem>
-    <SlCarouselItem style={{ background: 'var(--sl-color-blue-200)' }}>Slide 5</SlCarouselItem>
-    <SlCarouselItem style={{ background: 'var(--sl-color-violet-200)' }}>Slide 6</SlCarouselItem>
-  </SlCarousel>
+  <WaCarousel navigation pagination slidesPerPage={2} slidesPerMove={2}>
+    <WaCarouselItem style={{ background: 'red' }}>Slide 1</WaCarouselItem>
+    <WaCarouselItem style={{ background: 'orange' }}>Slide 2</WaCarouselItem>
+    <WaCarouselItem style={{ background: 'yellow' }}>Slide 3</WaCarouselItem>
+    <WaCarouselItem style={{ background: 'green' }}>Slide 4</WaCarouselItem>
+    <WaCarouselItem style={{ background: 'blue' }}>Slide 5</WaCarouselItem>
+    <WaCarouselItem style={{ background: 'purple' }}>Slide 6</WaCarouselItem>
+  </WaCarousel>
 );
 ```
 
@@ -552,15 +552,15 @@ const App = () => (
 The content of the carousel can be changed by adding or removing carousel items. The carousel will update itself automatically.
 
 ```html:preview
-<sl-carousel class="dynamic-carousel" pagination navigation>
-  <sl-carousel-item style="background: var(--sl-color-red-200)">Slide 1</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-orange-200)">Slide 2</sl-carousel-item>
-  <sl-carousel-item style="background: var(--sl-color-yellow-200)">Slide 3</sl-carousel-item>
-</sl-carousel>
+<wa-carousel class="dynamic-carousel" pagination navigation>
+  <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
+  <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
+  <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
+</wa-carousel>
 
 <div class="carousel-options">
-  <sl-button id="dynamic-add">Add slide</sl-button>
-  <sl-button id="dynamic-remove">Remove slide</sl-button>
+  <wa-button id="dynamic-add">Add slide</wa-button>
+  <wa-button id="dynamic-remove">Remove slide</wa-button>
 </div>
 
 <style>
@@ -571,16 +571,16 @@ The content of the carousel can be changed by adding or removing carousel items.
   .dynamic-carousel ~ .carousel-options {
     display: flex;
     justify-content: center;
-    gap: var(--sl-spacing-x-small);
-    margin-top: var(--sl-spacing-large);
+    gap: var(--wa-space-xs);
+    margin-top: var(--wa-space-l);
   }
 
-  .dynamic-carousel sl-carousel-item {
+  .dynamic-carousel wa-carousel-item {
     flex: 0 0 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--sl-font-size-2x-large);
+    font-size: var(--wa-font-size-2xl);
   }
 </style>
 
@@ -589,21 +589,21 @@ The content of the carousel can be changed by adding or removing carousel items.
     const dynamicCarousel = document.querySelector('.dynamic-carousel');
     const dynamicAdd = document.querySelector('#dynamic-add');
     const dynamicRemove = document.querySelector('#dynamic-remove');
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
     let colorIndex = 2;
 
     const addSlide = () => {
-      const slide = document.createElement('sl-carousel-item');
+      const slide = document.createElement('wa-carousel-item');
       const color = colors[++colorIndex % colors.length];
       slide.innerText = `Slide ${dynamicCarousel.children.length + 1}`;
-      slide.style.setProperty('background', `var(--sl-color-${color}-200)`);
+      slide.style.setProperty('background', color);
       dynamicCarousel.appendChild(slide);
       dynamicRemove.disabled = false;
     };
 
     const removeSlide = () => {
       const slide = dynamicCarousel.children[dynamicCarousel.children.length - 1];
-      const numSlides = dynamicCarousel.querySelectorAll('sl-carousel-item').length;
+      const numSlides = dynamicCarousel.querySelectorAll('wa-carousel-item').length;
 
       if (numSlides > 1) {
         slide.remove();
@@ -623,8 +623,8 @@ The content of the carousel can be changed by adding or removing carousel items.
 
 ```jsx:react
 import { useState } from 'react';
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const css = `
   .dynamic-carousel {
@@ -634,22 +634,22 @@ const css = `
   .dynamic-carousel ~ .carousel-options {
     display: flex;
     justify-content: center;
-    margin-top: var(--sl-spacing-large);
+    margin-top: var(--wa-space-l);
   }
 
-  .dynamic-carousel sl-carousel-item {
+  .dynamic-carousel wa-carousel-item {
     flex: 0 0 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: var(--sl-font-size-2x-large);
+    font-size: var(--wa-font-size-2xl);
   }
 `;
 
 const App = () => {
   const [slides, setSlides] = useState(['#204ed8', '#be133d', '#6e28d9']);
-  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
+  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
   const addSlide = () => {
     setSlides([...slides, getRandomColor()]);
@@ -661,17 +661,17 @@ const App = () => {
 
   return (
     <>
-      <SlCarousel className="dynamic-carousel" pagination navigation>
+      <WaCarousel className="dynamic-carousel" pagination navigation>
         {slides.map((color, i) => (
-          <SlCarouselItem style={{ background: colors[i % colors.length }}>
+          <WaCarouselItem style={{ background: colors[i % colors.length }}>
             Slide {i}
-          </SlCarouselItem>
+          </WaCarouselItem>
         ))}
-      </SlCarousel>
+      </WaCarousel>
 
       <div className="carousel-options">
-        <SlButton onClick={addSlide}>Add slide</SlButton>
-        <SlButton onClick={removeSlide}>Remove slide</SlButton>
+        <WaButton onClick={addSlide}>Add slide</WaButton>
+        <WaButton onClick={removeSlide}>Remove slide</WaButton>
       </div>
 
       <style>{css}</style>
@@ -687,38 +687,38 @@ const App = () => {
 Setting the `orientation` attribute to `vertical` will render the carousel in a vertical layout. If the content of your slides vary in height, you will need to set amn explicit `height` or `max-height` on the carousel using CSS.
 
 ```html:preview
-<sl-carousel class="vertical" pagination orientation="vertical">
-  <sl-carousel-item>
+<wa-carousel class="vertical" pagination orientation="vertical">
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 <style>
   .vertical {
     max-height: 400px;
@@ -740,8 +740,8 @@ Setting the `orientation` attribute to `vertical` will render the carousel in a 
 ```
 
 ```jsx:react
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
 
 const css = `
   .vertical {
@@ -764,38 +764,38 @@ const css = `
 
 const App = () => (
   <>
-    <SlCarousel className="vertical" loop pagination orientation="vertical">
-      <SlCarouselItem>
+    <WaCarousel className="vertical" loop pagination orientation="vertical">
+      <WaCarouselItem>
         <img
           alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
           src="/assets/examples/carousel/mountains.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
           src="/assets/examples/carousel/waterfall.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
           src="/assets/examples/carousel/sunset.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
           src="/assets/examples/carousel/field.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
           src="/assets/examples/carousel/valley.jpg"
         />
-      </SlCarouselItem>
-    </SlCarousel>
+      </WaCarouselItem>
+    </WaCarousel>
     <style>{css}</style>
   </>
 );
@@ -806,53 +806,53 @@ const App = () => (
 Use the `--aspect-ratio` custom property to customize the size of the carousel's viewport.
 
 ```html:preview
-<sl-carousel class="aspect-ratio" navigation pagination style="--aspect-ratio: 3/2;">
-  <sl-carousel-item>
+<wa-carousel class="aspect-ratio" navigation pagination style="--aspect-ratio: 3/2;">
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 
-<sl-divider></sl-divider>
+<wa-divider></wa-divider>
 
-<sl-select label="Aspect ratio" name="aspect" value="3/2">
-  <sl-option value="1/1">1/1</sl-option>
-  <sl-option value="3/2">3/2</sl-option>
-  <sl-option value="16/9">16/9</sl-option>
-</sl-select>
+<wa-select label="Aspect ratio" name="aspect" value="3/2">
+  <wa-option value="1/1">1/1</wa-option>
+  <wa-option value="3/2">3/2</wa-option>
+  <wa-option value="16/9">16/9</wa-option>
+</wa-select>
 
 <script>
   (() => {
-    const carousel = document.querySelector('sl-carousel.aspect-ratio');
-    const aspectRatio = document.querySelector('sl-select[name="aspect"]');
+    const carousel = document.querySelector('wa-carousel.aspect-ratio');
+    const aspectRatio = document.querySelector('wa-select[name="aspect"]');
 
-    aspectRatio.addEventListener('sl-change', () => {
+    aspectRatio.addEventListener('wa-change', () => {
       carousel.style.setProperty('--aspect-ratio', aspectRatio.value);
     });
   })();
@@ -863,62 +863,62 @@ Use the `--aspect-ratio` custom property to customize the size of the carousel's
 
 ```jsx:react
 import { useState } from 'react';
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlSelect from '@shoelace-style/shoelace/dist/react/select';
-import SlOption from '@shoelace-style/shoelace/dist/react/option';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaSelect from '@shoelace-style/shoelace/dist/react/select';
+import WaOption from '@shoelace-style/shoelace/dist/react/option';
 
 const App = () => {
   const [aspectRatio, setAspectRatio] = useState('3/2');
 
   return (
     <>
-      <SlCarousel className="aspect-ratio" navigation pagination style={{ '--aspect-ratio': aspectRatio }}>
-        <SlCarouselItem>
+      <WaCarousel className="aspect-ratio" navigation pagination style={{ '--aspect-ratio': aspectRatio }}>
+        <WaCarouselItem>
           <img
             alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
             src="/assets/examples/carousel/mountains.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
             src="/assets/examples/carousel/waterfall.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
             src="/assets/examples/carousel/sunset.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
             src="/assets/examples/carousel/field.jpg"
           />
-        </SlCarouselItem>
-        <SlCarouselItem>
+        </WaCarouselItem>
+        <WaCarouselItem>
           <img
             alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
             src="/assets/examples/carousel/valley.jpg"
           />
-        </SlCarouselItem>
-      </SlCarousel>
+        </WaCarouselItem>
+      </WaCarousel>
 
-      <SlDivider />
+      <WaDivider />
 
-      <SlSelect
+      <WaSelect
         label="Aspect ratio"
         name="aspect"
         value={aspectRatio}
-        onSlChange={event => setAspectRatio(event.target.value)}
+        onWaChange={event => setAspectRatio(event.target.value)}
       >
-        <SlOption value="1 / 1">1 / 1</SlOption>
-        <SlOption value="3 / 2">3 / 2</SlOption>
-        <SlOption value="16 / 9">16 / 9</SlOption>
-      </SlSelect>
+        <WaOption value="1 / 1">1 / 1</WaOption>
+        <WaOption value="3 / 2">3 / 2</WaOption>
+        <WaOption value="16 / 9">16 / 9</WaOption>
+      </WaSelect>
 
       <style>{css}</style>
     </>
@@ -933,83 +933,83 @@ const App = () => {
 Use the `--scroll-hint` custom property to add inline padding in horizontal carousels and block padding in vertical carousels. This will make the closest slides slightly visible, hinting that there are more items in the carousel.
 
 ```html:preview
-<sl-carousel class="scroll-hint" pagination style="--scroll-hint: 10%;">
-  <sl-carousel-item>
+<wa-carousel class="scroll-hint" pagination style="--scroll-hint: 10%;">
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 ```
 
 {% raw %}
 
 ```jsx:react
 import { useState } from 'react';
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlRange from '@shoelace-style/shoelace/dist/react/range';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaRange from '@shoelace-style/shoelace/dist/react/range';
 
 const App = () => (
   <>
-    <SlCarousel className="scroll-hint" pagination style={{ '--scroll-hint': '10%' }}>
-      <SlCarouselItem>
+    <WaCarousel className="scroll-hint" pagination style={{ '--scroll-hint': '10%' }}>
+      <WaCarouselItem>
         <img
           alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
           src="/assets/examples/carousel/mountains.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
           src="/assets/examples/carousel/waterfall.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
           src="/assets/examples/carousel/sunset.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
           src="/assets/examples/carousel/field.jpg"
         />
-      </SlCarouselItem>
-      <SlCarouselItem>
+      </WaCarouselItem>
+      <WaCarouselItem>
         <img
           alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
           src="/assets/examples/carousel/valley.jpg"
         />
-      </SlCarouselItem>
-    </SlCarousel>
+      </WaCarouselItem>
+    </WaCarousel>
   </>
 );
 ```
@@ -1021,38 +1021,38 @@ const App = () => (
 The carousel has a robust API that makes it possible to extend and customize. This example syncs the active slide with a set of thumbnails, effectively creating a gallery-style carousel.
 
 ```html:preview
-<sl-carousel class="carousel-thumbnails" navigation loop>
-  <sl-carousel-item>
+<wa-carousel class="carousel-thumbnails" navigation loop>
+  <wa-carousel-item>
     <img
       alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
       src="/assets/examples/carousel/mountains.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
       src="/assets/examples/carousel/waterfall.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
       src="/assets/examples/carousel/sunset.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
       src="/assets/examples/carousel/field.jpg"
     />
-  </sl-carousel-item>
-  <sl-carousel-item>
+  </wa-carousel-item>
+  <wa-carousel-item>
     <img
       alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
       src="/assets/examples/carousel/valley.jpg"
     />
-  </sl-carousel-item>
-</sl-carousel>
+  </wa-carousel-item>
+</wa-carousel>
 
 <div class="thumbnails">
   <div class="thumbnails__scroller">
@@ -1076,11 +1076,11 @@ The carousel has a robust API that makes it possible to extend and customize. Th
 
   .thumbnails__scroller {
     display: flex;
-    gap: var(--sl-spacing-small);
+    gap: var(--wa-space-s);
     overflow-x: auto;
     scrollbar-width: none;
     scroll-behavior: smooth;
-    scroll-padding: var(--sl-spacing-small);
+    scroll-padding: var(--wa-space-s);
   }
 
   .thumbnails__scroller::-webkit-scrollbar {
@@ -1119,7 +1119,7 @@ The carousel has a robust API that makes it possible to extend and customize. Th
       }
     });
 
-    carousel.addEventListener('sl-slide-change', e => {
+    carousel.addEventListener('wa-slide-change', e => {
       const slideIndex = e.detail.index;
 
       [...thumbnails].forEach((thumb, i) => {
@@ -1137,10 +1137,10 @@ The carousel has a robust API that makes it possible to extend and customize. Th
 
 ```jsx:react
 import { useRef } from 'react';
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlRange from '@shoelace-style/shoelace/dist/react/range';
+import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
+import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaRange from '@shoelace-style/shoelace/dist/react/range';
 
 const css = `
   .carousel-thumbnails {
@@ -1154,11 +1154,11 @@ const css = `
 
   .thumbnails__scroller {
     display: flex;
-    gap: var(--sl-spacing-small);
+    gap: var(--wa-space-s);
     overflow-x: auto;
     scrollbar-width: none;
     scroll-behavior: smooth;
-    scroll-padding: var(--sl-spacing-small);
+    scroll-padding: var(--wa-space-s);
   }
 
   .thumbnails__scroller::-webkit-scrollbar {
@@ -1229,16 +1229,16 @@ const App = () => {
 
   return (
     <>
-      <SlCarousel className="carousel-thumbnails" navigation loop onSlSlideChange={handleSlideChange}>
+      <WaCarousel className="carousel-thumbnails" navigation loop onWaSlideChange={handleSlideChange}>
         {images.map({ src, alt }) => (
-          <SlCarouselItem>
+          <WaCarouselItem>
             <img
               alt={alt}
               src={src}
             />
-          </SlCarouselItem>
+          </WaCarouselItem>
         )}
-      </SlCarousel>
+      </WaCarousel>
 
       <div class="thumbnails">
         <div class="thumbnails__scroller">

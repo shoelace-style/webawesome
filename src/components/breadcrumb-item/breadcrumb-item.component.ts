@@ -3,8 +3,8 @@ import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './breadcrumb-item.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -17,7 +17,7 @@ import type { CSSResultGroup } from 'lit';
  * @slot prefix - An optional prefix, usually an icon or icon button.
  * @slot suffix - An optional suffix, usually an icon or icon button.
  * @slot separator - The separator to use for the breadcrumb item. This will only change the separator for this item. If
- * you want to change it for all items in the group, set the separator on `<sl-breadcrumb>` instead.
+ * you want to change it for all items in the group, set the separator on `<wa-breadcrumb>` instead.
  *
  * @csspart base - The component's base wrapper.
  * @csspart label - The breadcrumb item's label.
@@ -25,7 +25,7 @@ import type { CSSResultGroup } from 'lit';
  * @csspart suffix - The container that wraps the suffix.
  * @csspart separator - The container that wraps the separator.
  */
-export default class SlBreadcrumbItem extends ShoelaceElement {
+export default class WaBreadcrumbItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private readonly hasSlotController = new HasSlotController(this, 'prefix', 'suffix');

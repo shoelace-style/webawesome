@@ -1,11 +1,11 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
-import type SlTag from './tag';
+import type WaTag from './tag';
 
-describe('<sl-tag>', () => {
+describe('<wa-tag>', () => {
   it('should render default tag', async () => {
-    const el = await fixture<SlTag>(html` <sl-tag>Test</sl-tag> `);
+    const el = await fixture<WaTag>(html` <wa-tag>Test</wa-tag> `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
@@ -14,7 +14,7 @@ describe('<sl-tag>', () => {
   });
 
   it('should set variant by attribute', async () => {
-    const el = await fixture<SlTag>(html` <sl-tag variant="danger">Test</sl-tag> `);
+    const el = await fixture<WaTag>(html` <wa-tag variant="danger">Test</wa-tag> `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
@@ -22,7 +22,7 @@ describe('<sl-tag>', () => {
   });
 
   it('should set size by attribute', async () => {
-    const el = await fixture<SlTag>(html` <sl-tag size="large">Test</sl-tag> `);
+    const el = await fixture<WaTag>(html` <wa-tag size="large">Test</wa-tag> `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
@@ -30,7 +30,7 @@ describe('<sl-tag>', () => {
   });
 
   it('should set pill-attribute by attribute', async () => {
-    const el = await fixture<SlTag>(html` <sl-tag pill>Test</sl-tag> `);
+    const el = await fixture<WaTag>(html` <wa-tag pill>Test</wa-tag> `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
@@ -38,7 +38,7 @@ describe('<sl-tag>', () => {
   });
 
   it('should set removable by attribute', async () => {
-    const el = await fixture<SlTag>(html` <sl-tag removable>Test</sl-tag> `);
+    const el = await fixture<WaTag>(html` <wa-tag removable>Test</wa-tag> `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
     const removeButton = el.shadowRoot!.querySelector('[part~="remove-button"]');
@@ -50,12 +50,12 @@ describe('<sl-tag>', () => {
 
   describe('removable', () => {
     it('should emit remove event when remove button clicked', async () => {
-      const el = await fixture<SlTag>(html` <sl-tag removable>Test</sl-tag> `);
+      const el = await fixture<WaTag>(html` <wa-tag removable>Test</wa-tag> `);
 
       const removeButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="remove-button"]')!;
       const spy = sinon.spy();
 
-      el.addEventListener('sl-remove', spy, { once: true });
+      el.addEventListener('wa-remove', spy, { once: true });
 
       removeButton.click();
 

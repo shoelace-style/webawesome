@@ -1,8 +1,8 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './badge.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -15,11 +15,11 @@ import type { CSSResultGroup } from 'lit';
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlBadge extends ShoelaceElement {
+export default class WaBadge extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   /** The badge's theme variant. */
-  @property({ reflect: true }) variant: 'primary' | 'success' | 'neutral' | 'warning' | 'danger' = 'primary';
+  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
 
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -33,7 +33,7 @@ export default class SlBadge extends ShoelaceElement {
         part="base"
         class=${classMap({
           badge: true,
-          'badge--primary': this.variant === 'primary',
+          'badge--brand': this.variant === 'brand',
           'badge--success': this.variant === 'success',
           'badge--neutral': this.variant === 'neutral',
           'badge--warning': this.variant === 'warning',

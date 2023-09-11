@@ -8,14 +8,14 @@ layout: component
 Localization is handled by the browser's [`Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). No language packs are required.
 
 ```html:preview
-<!-- Shoelace 2 release date 🎉 -->
-<sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+<!-- Web Awesome 2 release date 🎉 -->
+<wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
 ```
 
 ```jsx:react
-import SlFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
+import WaFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
 
-const App = () => <SlFormatDate date="2020-07-15T09:17:00-04:00" />;
+const App = () => <WaFormatDate date="2020-07-15T09:17:00-04:00" />;
 ```
 
 The `date` attribute determines the date/time to use when formatting. It must be a string that [`Date.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) can interpret or a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object set via JavaScript. If omitted, the current date/time will be assumed.
@@ -32,51 +32,51 @@ Formatting options are based on those found in the [`Intl.DateTimeFormat` API](h
 
 ```html:preview
 <!-- Human-readable date -->
-<sl-format-date month="long" day="numeric" year="numeric"></sl-format-date><br />
+<wa-format-date month="long" day="numeric" year="numeric"></wa-format-date><br />
 
 <!-- Time -->
-<sl-format-date hour="numeric" minute="numeric"></sl-format-date><br />
+<wa-format-date hour="numeric" minute="numeric"></wa-format-date><br />
 
 <!-- Weekday -->
-<sl-format-date weekday="long"></sl-format-date><br />
+<wa-format-date weekday="long"></wa-format-date><br />
 
 <!-- Month -->
-<sl-format-date month="long"></sl-format-date><br />
+<wa-format-date month="long"></wa-format-date><br />
 
 <!-- Year -->
-<sl-format-date year="numeric"></sl-format-date><br />
+<wa-format-date year="numeric"></wa-format-date><br />
 
 <!-- No formatting options -->
-<sl-format-date></sl-format-date>
+<wa-format-date></wa-format-date>
 ```
 
 ```jsx:react
-import SlFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
+import WaFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
 
 const App = () => (
   <>
     {/* Human-readable date */}
-    <SlFormatDate month="long" day="numeric" year="numeric" />
+    <WaFormatDate month="long" day="numeric" year="numeric" />
     <br />
 
     {/* Time */}
-    <SlFormatDate hour="numeric" minute="numeric" />
+    <WaFormatDate hour="numeric" minute="numeric" />
     <br />
 
     {/* Weekday */}
-    <SlFormatDate weekday="long" />
+    <WaFormatDate weekday="long" />
     <br />
 
     {/* Month */}
-    <SlFormatDate month="long" />
+    <WaFormatDate month="long" />
     <br />
 
     {/* Year */}
-    <SlFormatDate year="numeric" />
+    <WaFormatDate year="numeric" />
     <br />
 
     {/* No formatting options */}
-    <SlFormatDate />
+    <WaFormatDate />
   </>
 );
 ```
@@ -86,18 +86,18 @@ const App = () => (
 By default, the browser will determine whether to use 12-hour or 24-hour time. To force one or the other, set the `hour-format` attribute to `12` or `24`.
 
 ```html:preview
-<sl-format-date hour="numeric" minute="numeric" hour-format="12"></sl-format-date><br />
-<sl-format-date hour="numeric" minute="numeric" hour-format="24"></sl-format-date>
+<wa-format-date hour="numeric" minute="numeric" hour-format="12"></wa-format-date><br />
+<wa-format-date hour="numeric" minute="numeric" hour-format="24"></wa-format-date>
 ```
 
 ```jsx:react
-import SlFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
+import WaFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
 
 const App = () => (
   <>
-    <SlFormatDate hour="numeric" minute="numeric" hour-format="12" />
+    <WaFormatDate hour="numeric" minute="numeric" hour-format="12" />
     <br />
-    <SlFormatDate hour="numeric" minute="numeric" hour-format="24" />
+    <WaFormatDate hour="numeric" minute="numeric" hour-format="24" />
   </>
 );
 ```
@@ -107,21 +107,21 @@ const App = () => (
 Use the `lang` attribute to set the date/time formatting locale.
 
 ```html:preview
-English: <sl-format-date lang="en"></sl-format-date><br />
-French: <sl-format-date lang="fr"></sl-format-date><br />
-Russian: <sl-format-date lang="ru"></sl-format-date>
+English: <wa-format-date lang="en"></wa-format-date><br />
+French: <wa-format-date lang="fr"></wa-format-date><br />
+Russian: <wa-format-date lang="ru"></wa-format-date>
 ```
 
 ```jsx:react
-import SlFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
+import WaFormatDate from '@shoelace-style/shoelace/dist/react/format-date';
 
 const App = () => (
   <>
-    English: <SlFormatDate lang="en" />
+    English: <WaFormatDate lang="en" />
     <br />
-    French: <SlFormatDate lang="fr" />
+    French: <WaFormatDate lang="fr" />
     <br />
-    Russian: <SlFormatDate lang="ru" />
+    Russian: <WaFormatDate lang="ru" />
   </>
 );
 ```

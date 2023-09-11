@@ -9,33 +9,33 @@ export default css`
   }
 
   :host(:focus-visible) {
-    outline: 0px;
+    outline: none;
   }
 
   .radio {
     display: inline-flex;
     align-items: top;
-    font-family: var(--sl-input-font-family);
-    font-size: var(--sl-input-font-size-medium);
-    font-weight: var(--sl-input-font-weight);
-    color: var(--sl-input-label-color);
+    font-family: var(--wa-font-family-body);
+    font-size: var(--wa-font-size-m);
+    font-weight: var(--wa-font-weight-normal);
+    color: var(--wa-form-controls-text-color);
     vertical-align: middle;
     cursor: pointer;
   }
 
   .radio--small {
-    --toggle-size: var(--sl-toggle-size-small);
-    font-size: var(--sl-input-font-size-small);
+    --toggle-size: var(--wa-form-control-toggle-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .radio--medium {
-    --toggle-size: var(--sl-toggle-size-medium);
-    font-size: var(--sl-input-font-size-medium);
+    --toggle-size: var(--wa-form-control-toggle-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   .radio--large {
-    --toggle-size: var(--sl-toggle-size-large);
-    font-size: var(--sl-input-font-size-large);
+    --toggle-size: var(--wa-form-control-toggle-size-l);
+    font-size: var(--wa-font-size-l);
   }
 
   .radio__checked-icon {
@@ -52,12 +52,12 @@ export default css`
     justify-content: center;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    border: solid var(--sl-input-border-width) var(--sl-input-border-color);
+    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
     border-radius: 50%;
-    background-color: var(--sl-input-background-color);
+    background-color: var(--wa-form-controls-background);
     color: transparent;
-    transition: var(--sl-transition-fast) border-color, var(--sl-transition-fast) background-color,
-      var(--sl-transition-fast) color, var(--sl-transition-fast) box-shadow;
+    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) color, var(--wa-transition-fast) box-shadow;
   }
 
   .radio__input {
@@ -68,29 +68,17 @@ export default css`
     pointer-events: none;
   }
 
-  /* Hover */
-  .radio:not(.radio--checked):not(.radio--disabled) .radio__control:hover {
-    border-color: var(--sl-input-border-color-hover);
-    background-color: var(--sl-input-background-color-hover);
-  }
-
   /* Checked */
   .radio--checked .radio__control {
-    color: var(--sl-color-neutral-0);
-    border-color: var(--sl-color-primary-600);
-    background-color: var(--sl-color-primary-600);
-  }
-
-  /* Checked + hover */
-  .radio.radio--checked:not(.radio--disabled) .radio__control:hover {
-    border-color: var(--sl-color-primary-500);
-    background-color: var(--sl-color-primary-500);
+    color: var(--wa-color-brand-text-on-vivid);
+    border-color: var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-fill-vivid);
   }
 
   /* Checked + focus */
   :host(:focus-visible) .radio__control {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   /* Disabled */
@@ -106,7 +94,7 @@ export default css`
 
   .radio__label {
     display: inline-block;
-    color: var(--sl-input-label-color);
+    color: var(--wa-form-controls-text-color);
     line-height: var(--toggle-size);
     margin-inline-start: 0.5em;
     user-select: none;

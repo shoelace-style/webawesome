@@ -3,8 +3,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { offsetParent } from 'composed-offset-position';
 import { property, query } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './popup.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 export interface VirtualElement {
@@ -21,7 +21,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
  * @status stable
  * @since 2.0
  *
- * @event sl-reposition - Emitted when the popup is repositioned. This event can fire a lot, so avoid putting expensive
+ * @event wa-reposition - Emitted when the popup is repositioned. This event can fire a lot, so avoid putting expensive
  *  operations in your listener or consider debouncing it.
  *
  * @slot - The popup's content.
@@ -35,7 +35,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
  *
  * @cssproperty [--arrow-size=6px] - The size of the arrow. Note that an arrow won't be shown unless the `arrow`
  *  attribute is used.
- * @cssproperty [--arrow-color=var(--sl-color-neutral-0)] - The color of the arrow.
+ * @cssproperty [--arrow-color=var(--wa-color-black)] - The color of the arrow.
  * @cssproperty [--auto-size-available-width] - A read-only custom property that determines the amount of width the
  *  popup can be before overflowing. Useful for positioning child elements that need to overflow. This property is only
  *  available when using `auto-size`.
@@ -43,7 +43,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
  *  popup can be before overflowing. Useful for positioning child elements that need to overflow. This property is only
  *  available when using `auto-size`.
  */
-export default class SlPopup extends ShoelaceElement {
+export default class WaPopup extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private anchorEl: Element | VirtualElement | null;
@@ -449,7 +449,7 @@ export default class SlPopup extends ShoelaceElement {
       }
     });
 
-    this.emit('sl-reposition');
+    this.emit('wa-reposition');
   }
 
   render() {

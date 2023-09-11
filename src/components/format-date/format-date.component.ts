@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**
  * @summary Formats a date/time using the specified locale and options.
@@ -9,7 +9,7 @@ import ShoelaceElement from '../../internal/shoelace-element.js';
  * @status stable
  * @since 2.0
  */
-export default class SlFormatDate extends ShoelaceElement {
+export default class WaFormatDate extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /**

@@ -1,12 +1,12 @@
-import SlRadioButton from './radio-button.component.js';
+import WaRadioButton from './radio-button.component.js';
 
 export * from './radio-button.component.js';
-export default SlRadioButton;
+export default WaRadioButton;
 
-SlRadioButton.define('sl-radio-button');
+WaRadioButton.define('wa-radio-button');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-radio-button': SlRadioButton;
+    'wa-radio-button': WaRadioButton;
   }
 }

@@ -1,17 +1,17 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
-import type SlAvatar from './avatar.js';
+import type WaAvatar from './avatar.js';
 
 // The default avatar background just misses AA contrast, but the next step up is way too dark. Since avatars aren't
 // used to display text, we're going to relax this rule.
 const ignoredRules = ['color-contrast'];
 
-describe('<sl-avatar>', () => {
-  let el: SlAvatar;
+describe('<wa-avatar>', () => {
+  let el: WaAvatar;
 
   describe('when provided no parameters', () => {
     before(async () => {
-      el = await fixture<SlAvatar>(html` <sl-avatar label="Avatar"></sl-avatar> `);
+      el = await fixture<WaAvatar>(html` <wa-avatar label="Avatar"></wa-avatar> `);
     });
 
     it('should pass accessibility tests', async () => {
@@ -29,13 +29,13 @@ describe('<sl-avatar>', () => {
     const image = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     const label = 'Small transparent square';
     before(async () => {
-      el = await fixture<SlAvatar>(html`<sl-avatar image="${image}" label="${label}"></sl-avatar>`);
+      el = await fixture<WaAvatar>(html`<wa-avatar image="${image}" label="${label}"></wa-avatar>`);
     });
 
     it('should pass accessibility tests', async () => {
       /**
        * The image element itself is ancillary, because it's parent container contains the
-       * aria-label which dictates what "sl-avatar" is. This also implies that label text will
+       * aria-label which dictates what "wa-avatar" is. This also implies that label text will
        * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
        * the image element to pass accessibility.
        * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
@@ -59,7 +59,7 @@ describe('<sl-avatar>', () => {
   describe('when provided initials parameter', () => {
     const initials = 'SL';
     before(async () => {
-      el = await fixture<SlAvatar>(html`<sl-avatar initials="${initials}" label="Avatar"></sl-avatar>`);
+      el = await fixture<WaAvatar>(html`<wa-avatar initials="${initials}" label="Avatar"></wa-avatar>`);
     });
 
     it('should pass accessibility tests', async () => {
@@ -78,15 +78,15 @@ describe('<sl-avatar>', () => {
     const image = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     const label = 'Small transparent square';
     before(async () => {
-      el = await fixture<SlAvatar>(
-        html`<sl-avatar image="${image}" label="${label}" initials="${initials}"></sl-avatar>`
+      el = await fixture<WaAvatar>(
+        html`<wa-avatar image="${image}" label="${label}" initials="${initials}"></wa-avatar>`
       );
     });
 
     it('should pass accessibility tests', async () => {
       /**
        * The image element itself is ancillary, because it's parent container contains the
-       * aria-label which dictates what "sl-avatar" is. This also implies that label text will
+       * aria-label which dictates what "wa-avatar" is. This also implies that label text will
        * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
        * the image element to pass accessibility.
        * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
@@ -116,7 +116,7 @@ describe('<sl-avatar>', () => {
   ['square', 'rounded', 'circle'].forEach(shape => {
     describe(`when passed a shape attribute ${shape}`, () => {
       before(async () => {
-        el = await fixture<SlAvatar>(html`<sl-avatar shape="${shape}" label="Shaped avatar"></sl-avatar>`);
+        el = await fixture<WaAvatar>(html`<wa-avatar shape="${shape}" label="Shaped avatar"></wa-avatar>`);
       });
 
       it('should pass accessibility tests', async () => {
@@ -134,7 +134,7 @@ describe('<sl-avatar>', () => {
 
   describe('when passed a <span>, on slot "icon"', () => {
     before(async () => {
-      el = await fixture<SlAvatar>(html`<sl-avatar label="Avatar"><span slot="icon">random content</span></sl-avatar>`);
+      el = await fixture<WaAvatar>(html`<wa-avatar label="Avatar"><span slot="icon">random content</span></wa-avatar>`);
     });
 
     it('should pass accessibility tests', async () => {
@@ -153,7 +153,7 @@ describe('<sl-avatar>', () => {
   });
 
   it('should not render the image when the image fails to load', async () => {
-    el = await fixture<SlAvatar>(html`<sl-avatar></sl-avatar>`);
+    el = await fixture<WaAvatar>(html`<wa-avatar></wa-avatar>`);
     el.image = 'bad_image';
 
     await aTimeout(0);
@@ -163,7 +163,7 @@ describe('<sl-avatar>', () => {
   });
 
   it('should show a valid image after being passed an invalid image initially', async () => {
-    el = await fixture<SlAvatar>(html`<sl-avatar></sl-avatar>`);
+    el = await fixture<WaAvatar>(html`<wa-avatar></wa-avatar>`);
 
     await aTimeout(0);
     await waitUntil(() => el.shadowRoot!.querySelector('img') === null);

@@ -8,20 +8,20 @@ layout: component
 <!-- cspell:dictionaries lorem-ipsum -->
 
 ```html:preview
-<sl-details summary="Toggle Me">
+<wa-details summary="Toggle Me">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</sl-details>
+</wa-details>
 ```
 
 ```jsx:react
-import SlDetails from '@shoelace-style/shoelace/dist/react/details';
+import WaDetails from '@shoelace-style/shoelace/dist/react/details';
 
 const App = () => (
-  <SlDetails summary="Toggle Me">
+  <WaDetails summary="Toggle Me">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </SlDetails>
+  </WaDetails>
 );
 ```
 
@@ -32,20 +32,20 @@ const App = () => (
 Use the `disable` attribute to prevent the details from expanding.
 
 ```html:preview
-<sl-details summary="Disabled" disabled>
+<wa-details summary="Disabled" disabled>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</sl-details>
+</wa-details>
 ```
 
 ```jsx:react
-import SlDetails from '@shoelace-style/shoelace/dist/react/details';
+import WaDetails from '@shoelace-style/shoelace/dist/react/details';
 
 const App = () => (
-  <SlDetails summary="Disabled" disabled>
+  <WaDetails summary="Disabled" disabled>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </SlDetails>
+  </WaDetails>
 );
 ```
 
@@ -54,16 +54,16 @@ const App = () => (
 Use the `expand-icon` and `collapse-icon` slots to change the expand and collapse icons, respectively. To disable the animation, override the `rotate` property on the `summary-icon` part as shown below.
 
 ```html:preview
-<sl-details summary="Toggle Me" class="custom-icons">
-  <sl-icon name="plus-square" slot="expand-icon"></sl-icon>
-  <sl-icon name="dash-square" slot="collapse-icon"></sl-icon>
+<wa-details summary="Toggle Me" class="custom-icons">
+  <wa-icon name="plus-square" slot="expand-icon"></wa-icon>
+  <wa-icon name="dash-square" slot="collapse-icon"></wa-icon>
 
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</sl-details>
+</wa-details>
 
 <style>
-  sl-details.custom-icons::part(summary-icon) {
+  wa-details.custom-icons::part(summary-icon) {
     /* Disable the expand/collapse animation */
     rotate: none;
   }
@@ -71,11 +71,11 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 ```
 
 ```jsx:react
-import SlDetails from '@shoelace-style/shoelace/dist/react/details';
-import SlIcon from '@shoelace-style/shoelace/dist/react/icon';
+import WaDetails from '@shoelace-style/shoelace/dist/react/details';
+import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const css = `
-  sl-details.custom-icon::part(summary-icon) {
+  wa-details.custom-icon::part(summary-icon) {
     /* Disable the expand/collapse animation */
     rotate: none;
   }
@@ -83,13 +83,13 @@ const css = `
 
 const App = () => (
   <>
-    <SlDetails summary="Toggle Me" class="custom-icon">
-      <SlIcon name="plus-square" slot="expand-icon" />
-      <SlIcon name="dash-square" slot="collapse-icon" />
+    <WaDetails summary="Toggle Me" class="custom-icon">
+      <WaIcon name="plus-square" slot="expand-icon" />
+      <WaIcon name="dash-square" slot="collapse-icon" />
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat.
-    </SlDetails>
+    </WaDetails>
 
     <style>{css}</style>
   </>
@@ -98,38 +98,38 @@ const App = () => (
 
 ### Grouping Details
 
-Details are designed to function independently, but you can simulate a group or "accordion" where only one is shown at a time by listening for the `sl-show` event.
+Details are designed to function independently, but you can simulate a group or "accordion" where only one is shown at a time by listening for the `wa-show` event.
 
 ```html:preview
 <div class="details-group-example">
-  <sl-details summary="First" open>
+  <wa-details summary="First" open>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </sl-details>
+  </wa-details>
 
-  <sl-details summary="Second">
+  <wa-details summary="Second">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </sl-details>
+  </wa-details>
 
-  <sl-details summary="Third">
+  <wa-details summary="Third">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </sl-details>
+  </wa-details>
 </div>
 
 <script>
   const container = document.querySelector('.details-group-example');
 
   // Close all other details when one is shown
-  container.addEventListener('sl-show', event => {
-    [...container.querySelectorAll('sl-details')].map(details => (details.open = event.target === details));
+  container.addEventListener('wa-show', event => {
+    [...container.querySelectorAll('wa-details')].map(details => (details.open = event.target === details));
   });
 </script>
 
 <style>
-  .details-group-example sl-details:not(:last-of-type) {
-    margin-bottom: var(--sl-spacing-2x-small);
+  .details-group-example wa-details:not(:last-of-type) {
+    margin-bottom: var(--wa-space-2xs);
   }
 </style>
 ```

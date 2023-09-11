@@ -6,9 +6,9 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './rating.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -17,10 +17,10 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
- * @event sl-change - Emitted when the rating's value changes.
- * @event {{ phase: 'start' | 'move' | 'end', value: number }} sl-hover - Emitted when the user hovers over a value. The
+ * @event wa-change - Emitted when the rating's value changes.
+ * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
  *
@@ -31,9 +31,9 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --symbol-size - The size of symbols.
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
-export default class SlRating extends ShoelaceElement {
+export default class WaRating extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   private readonly localize = new LocalizeController(this);
 
@@ -66,9 +66,9 @@ export default class SlRating extends ShoelaceElement {
   /**
    * A function that customizes the symbol to be rendered. The first and only argument is the rating's current value.
    * The function should return a string containing trusted HTML of the symbol to render at the specified value. Works
-   * well with `<sl-icon>` elements.
+   * well with `<wa-icon>` elements.
    */
-  @property() getSymbol: (value: number) => string = () => '<sl-icon name="star-fill" library="system"></sl-icon>';
+  @property() getSymbol: (value: number) => string = () => '<wa-icon name="star-fill" library="system"></wa-icon>';
 
   private getValueFromMousePosition(event: MouseEvent) {
     return this.getValueFromXCoordinate(event.clientX);
@@ -94,7 +94,7 @@ export default class SlRating extends ShoelaceElement {
     }
 
     this.setValue(this.getValueFromMousePosition(event));
-    this.emit('sl-change');
+    this.emit('wa-change');
   }
 
   private setValue(newValue: number) {
@@ -138,7 +138,7 @@ export default class SlRating extends ShoelaceElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('sl-change');
+      this.emit('wa-change');
     }
   }
 
@@ -171,7 +171,7 @@ export default class SlRating extends ShoelaceElement {
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
     this.setValue(this.hoverValue);
-    this.emit('sl-change');
+    this.emit('wa-change');
 
     // Prevent click on mobile devices
     event.preventDefault();
@@ -184,7 +184,7 @@ export default class SlRating extends ShoelaceElement {
 
   @watch('hoverValue')
   handleHoverValueChange() {
-    this.emit('sl-hover', {
+    this.emit('wa-hover', {
       detail: {
         phase: 'move',
         value: this.hoverValue
@@ -194,7 +194,7 @@ export default class SlRating extends ShoelaceElement {
 
   @watch('isHovering')
   handleIsHoveringChange() {
-    this.emit('sl-hover', {
+    this.emit('wa-hover', {
       detail: {
         phase: this.isHovering ? 'start' : 'end',
         value: this.hoverValue

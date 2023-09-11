@@ -1,15 +1,15 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
-import type SlImageComparer from './image-comparer';
+import type WaImageComparer from './image-comparer';
 
-describe('<sl-image-comparer>', () => {
+describe('<wa-image-comparer>', () => {
   it('should render a basic before/after', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
@@ -26,15 +26,15 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should emit change event when position changed manually', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
     const handler = sinon.spy();
 
-    el.addEventListener('sl-change', handler, { once: true });
+    el.addEventListener('wa-change', handler, { once: true });
 
     el.position = 40;
     await el.updateComplete;
@@ -43,11 +43,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should increment position on arrow right', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -63,11 +63,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should decrement position on arrow left', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -83,11 +83,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should set position to 0 on home key', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -103,11 +103,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should set position to 100 on end key', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -123,11 +123,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should clamp to 100 on arrow right', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     el.position = 0;
@@ -146,11 +146,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should clamp to 0 on arrow left', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     el.position = 100;
@@ -169,11 +169,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should increment position by 10 on arrow right + shift', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -190,11 +190,11 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should decrement position by 10 on arrow left + shift', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -211,22 +211,22 @@ describe('<sl-image-comparer>', () => {
   });
 
   it('should set position by attribute', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer position="10">
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer position="10">
         <div slot="before"></div>
         <div slot="after"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
 
     expect(el.position).to.equal(10);
   });
 
   it('should move position on drag', async () => {
-    const el = await fixture<SlImageComparer>(html`
-      <sl-image-comparer>
+    const el = await fixture<WaImageComparer>(html`
+      <wa-image-comparer>
         <div slot="before" style="width: 50px"></div>
         <div slot="after" style="width: 50px"></div>
-      </sl-image-comparer>
+      </wa-image-comparer>
     `);
     const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;

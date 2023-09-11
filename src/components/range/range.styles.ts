@@ -8,9 +8,9 @@ export default css`
 
   :host {
     --thumb-size: 20px;
-    --tooltip-offset: 10px;
-    --track-color-active: var(--sl-color-neutral-200);
-    --track-color-inactive: var(--sl-color-neutral-200);
+    --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 2.5);
+    --track-color-active: var(--wa-color-neutral-fill-muted-alt);
+    --track-color-inactive: var(--wa-color-neutral-fill-muted-alt);
     --track-active-offset: 0%;
     --track-height: 6px;
 
@@ -28,7 +28,7 @@ export default css`
     width: 100%;
     height: var(--track-height);
     background: transparent;
-    line-height: var(--sl-input-height-medium);
+    line-height: var(--wa-form-controls-height-m);
     vertical-align: middle;
     margin: 0;
 
@@ -68,26 +68,19 @@ export default css`
     width: var(--thumb-size);
     height: var(--thumb-size);
     border-radius: 50%;
-    background-color: var(--sl-color-primary-600);
-    border: solid var(--sl-input-border-width) var(--sl-color-primary-600);
+    background-color: var(--wa-color-brand-fill-vivid);
+    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width) var(--wa-color-brand-fill-vivid);
     -webkit-appearance: none;
     margin-top: calc(var(--thumb-size) / -2 + var(--track-height) / 2);
     cursor: pointer;
   }
 
-  .range__control:enabled::-webkit-slider-thumb:hover {
-    background-color: var(--sl-color-primary-500);
-    border-color: var(--sl-color-primary-500);
-  }
-
   .range__control:enabled:focus-visible::-webkit-slider-thumb {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .range__control:enabled::-webkit-slider-thumb:active {
-    background-color: var(--sl-color-primary-500);
-    border-color: var(--sl-color-primary-500);
     cursor: grabbing;
   }
 
@@ -115,26 +108,19 @@ export default css`
     height: var(--thumb-size);
     width: var(--thumb-size);
     border-radius: 50%;
-    background-color: var(--sl-color-primary-600);
-    border-color: var(--sl-color-primary-600);
-    transition: var(--sl-transition-fast) border-color, var(--sl-transition-fast) background-color,
-      var(--sl-transition-fast) color, var(--sl-transition-fast) box-shadow;
+    background-color: var(--wa-color-brand-fill-vivid);
+    border-color: var(--wa-color-brand-fill-vivid);
+    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) color, var(--wa-transition-fast) box-shadow;
     cursor: pointer;
   }
 
-  .range__control:enabled::-moz-range-thumb:hover {
-    background-color: var(--sl-color-primary-500);
-    border-color: var(--sl-color-primary-500);
-  }
-
   .range__control:enabled:focus-visible::-moz-range-thumb {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .range__control:enabled::-moz-range-thumb:active {
-    background-color: var(--sl-color-primary-500);
-    border-color: var(--sl-color-primary-500);
     cursor: grabbing;
   }
 
@@ -158,18 +144,18 @@ export default css`
   /* Tooltip output */
   .range__tooltip {
     position: absolute;
-    z-index: var(--sl-z-index-tooltip);
+    z-index: var(--wa-z-index-tooltip);
     left: 0;
-    border-radius: var(--sl-tooltip-border-radius);
-    background-color: var(--sl-tooltip-background-color);
-    font-family: var(--sl-tooltip-font-family);
-    font-size: var(--sl-tooltip-font-size);
-    font-weight: var(--sl-tooltip-font-weight);
-    line-height: var(--sl-tooltip-line-height);
-    color: var(--sl-tooltip-color);
+    border-radius: var(--wa-corners-1x);
+    background-color: var(--wa-color-neutral-fill-vivid);
+    font-family: var(--wa-font-family-body);
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-regular);
+    line-height: var(--wa-line-height-regular);
+    color: var(--wa-color-neutral-text-on-vivid);
     opacity: 0;
-    padding: var(--sl-tooltip-padding);
-    transition: var(--sl-transition-fast) opacity;
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    transition: var(--wa-transition-fast) opacity;
     pointer-events: none;
   }
 
@@ -179,7 +165,7 @@ export default css`
     width: 0;
     height: 0;
     left: 50%;
-    translate: calc(-1 * var(--sl-tooltip-arrow-size));
+    translate: calc(-1 * var(--wa-tooltip-arrow-size));
   }
 
   .range--tooltip-visible .range__tooltip {
@@ -192,9 +178,9 @@ export default css`
   }
 
   .range--tooltip-top .range__tooltip:after {
-    border-top: var(--sl-tooltip-arrow-size) solid var(--sl-tooltip-background-color);
-    border-left: var(--sl-tooltip-arrow-size) solid transparent;
-    border-right: var(--sl-tooltip-arrow-size) solid transparent;
+    border-top: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-fill-vivid);
+    border-left: var(--wa-tooltip-arrow-size) solid transparent;
+    border-right: var(--wa-tooltip-arrow-size) solid transparent;
     top: 100%;
   }
 
@@ -204,9 +190,9 @@ export default css`
   }
 
   .range--tooltip-bottom .range__tooltip:after {
-    border-bottom: var(--sl-tooltip-arrow-size) solid var(--sl-tooltip-background-color);
-    border-left: var(--sl-tooltip-arrow-size) solid transparent;
-    border-right: var(--sl-tooltip-arrow-size) solid transparent;
+    border-bottom: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-fill-vivid);
+    border-left: var(--wa-tooltip-arrow-size) solid transparent;
+    border-right: var(--wa-tooltip-arrow-size) solid transparent;
     bottom: 100%;
   }
 

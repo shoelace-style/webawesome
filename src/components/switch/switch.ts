@@ -1,12 +1,12 @@
-import SlSwitch from './switch.component.js';
+import WaSwitch from './switch.component.js';
 
 export * from './switch.component.js';
-export default SlSwitch;
+export default WaSwitch;
 
-SlSwitch.define('sl-switch');
+WaSwitch.define('wa-switch');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-switch': SlSwitch;
+    'wa-switch': WaSwitch;
   }
 }

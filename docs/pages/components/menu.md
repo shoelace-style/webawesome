@@ -8,34 +8,34 @@ layout: component
 You can use [menu items](/components/menu-item), [menu labels](/components/menu-label), and [dividers](/components/divider) to compose a menu. Menus support keyboard interactions, including type-to-select an option.
 
 ```html:preview
-<sl-menu style="max-width: 200px;">
-  <sl-menu-item value="undo">Undo</sl-menu-item>
-  <sl-menu-item value="redo">Redo</sl-menu-item>
-  <sl-divider></sl-divider>
-  <sl-menu-item value="cut">Cut</sl-menu-item>
-  <sl-menu-item value="copy">Copy</sl-menu-item>
-  <sl-menu-item value="paste">Paste</sl-menu-item>
-  <sl-menu-item value="delete">Delete</sl-menu-item>
-</sl-menu>
+<wa-menu style="max-width: 200px;">
+  <wa-menu-item value="undo">Undo</wa-menu-item>
+  <wa-menu-item value="redo">Redo</wa-menu-item>
+  <wa-divider></wa-divider>
+  <wa-menu-item value="cut">Cut</wa-menu-item>
+  <wa-menu-item value="copy">Copy</wa-menu-item>
+  <wa-menu-item value="paste">Paste</wa-menu-item>
+  <wa-menu-item value="delete">Delete</wa-menu-item>
+</wa-menu>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlMenu style={{ maxWidth: '200px' }}>
-    <SlMenuItem value="undo">Undo</SlMenuItem>
-    <SlMenuItem value="redo">Redo</SlMenuItem>
-    <SlDivider />
-    <SlMenuItem value="cut">Cut</SlMenuItem>
-    <SlMenuItem value="copy">Copy</SlMenuItem>
-    <SlMenuItem value="paste">Paste</SlMenuItem>
-    <SlMenuItem value="delete">Delete</SlMenuItem>
-  </SlMenu>
+  <WaMenu style={{ maxWidth: '200px' }}>
+    <WaMenuItem value="undo">Undo</WaMenuItem>
+    <WaMenuItem value="redo">Redo</WaMenuItem>
+    <WaDivider />
+    <WaMenuItem value="cut">Cut</WaMenuItem>
+    <WaMenuItem value="copy">Copy</WaMenuItem>
+    <WaMenuItem value="paste">Paste</WaMenuItem>
+    <WaMenuItem value="delete">Delete</WaMenuItem>
+  </WaMenu>
 );
 ```
 
@@ -52,99 +52,99 @@ Menus are intended for system menus (dropdown menus, select menus, context menus
 Menus work really well when used inside [dropdowns](/components/dropdown).
 
 ```html:preview
-<sl-dropdown>
-  <sl-button slot="trigger" caret>Edit</sl-button>
-  <sl-menu>
-    <sl-menu-item value="cut">Cut</sl-menu-item>
-    <sl-menu-item value="copy">Copy</sl-menu-item>
-    <sl-menu-item value="paste">Paste</sl-menu-item>
-  </sl-menu>
-</sl-dropdown>
+<wa-dropdown>
+  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-menu>
+    <wa-menu-item value="cut">Cut</wa-menu-item>
+    <wa-menu-item value="copy">Copy</wa-menu-item>
+    <wa-menu-item value="paste">Paste</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaDropdown from '@shoelace-style/shoelace/dist/react/dropdown';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlDropdown>
-    <SlButton slot="trigger" caret>Edit</SlButton>
-    <SlMenu>
-      <SlMenuItem value="cut">Cut</SlMenuItem>
-      <SlMenuItem value="copy">Copy</SlMenuItem>
-      <SlMenuItem value="paste">Paste</SlMenuItem>
-    </SlMenu>
-  </SlDropdown>
+  <WaDropdown>
+    <WaButton slot="trigger" caret>Edit</WaButton>
+    <WaMenu>
+      <WaMenuItem value="cut">Cut</WaMenuItem>
+      <WaMenuItem value="copy">Copy</WaMenuItem>
+      <WaMenuItem value="paste">Paste</WaMenuItem>
+    </WaMenu>
+  </WaDropdown>
 );
 ```
 
 ### Submenus
 
-To create a submenu, nest an `<sl-menu slot="submenu">` in any [menu item](/components/menu-item).
+To create a submenu, nest an `<wa-menu slot="submenu">` in any [menu item](/components/menu-item).
 
 ```html:preview
-<sl-menu style="max-width: 200px;">
-  <sl-menu-item value="undo">Undo</sl-menu-item>
-  <sl-menu-item value="redo">Redo</sl-menu-item>
-  <sl-divider></sl-divider>
-  <sl-menu-item value="cut">Cut</sl-menu-item>
-  <sl-menu-item value="copy">Copy</sl-menu-item>
-  <sl-menu-item value="paste">Paste</sl-menu-item>
-  <sl-divider></sl-divider>
-  <sl-menu-item>
+<wa-menu style="max-width: 200px;">
+  <wa-menu-item value="undo">Undo</wa-menu-item>
+  <wa-menu-item value="redo">Redo</wa-menu-item>
+  <wa-divider></wa-divider>
+  <wa-menu-item value="cut">Cut</wa-menu-item>
+  <wa-menu-item value="copy">Copy</wa-menu-item>
+  <wa-menu-item value="paste">Paste</wa-menu-item>
+  <wa-divider></wa-divider>
+  <wa-menu-item>
     Find
-    <sl-menu slot="submenu">
-      <sl-menu-item value="find">Find…</sl-menu-item>
-      <sl-menu-item value="find-previous">Find Next</sl-menu-item>
-      <sl-menu-item value="find-next">Find Previous</sl-menu-item>
-    </sl-menu>
-  </sl-menu-item>
-  <sl-menu-item>
+    <wa-menu slot="submenu">
+      <wa-menu-item value="find">Find…</wa-menu-item>
+      <wa-menu-item value="find-previous">Find Next</wa-menu-item>
+      <wa-menu-item value="find-next">Find Previous</wa-menu-item>
+    </wa-menu>
+  </wa-menu-item>
+  <wa-menu-item>
     Transformations
-    <sl-menu slot="submenu">
-      <sl-menu-item value="uppercase">Make uppercase</sl-menu-item>
-      <sl-menu-item value="lowercase">Make lowercase</sl-menu-item>
-      <sl-menu-item value="capitalize">Capitalize</sl-menu-item>
-    </sl-menu>
-  </sl-menu-item>
-</sl-menu>
+    <wa-menu slot="submenu">
+      <wa-menu-item value="uppercase">Make uppercase</wa-menu-item>
+      <wa-menu-item value="lowercase">Make lowercase</wa-menu-item>
+      <wa-menu-item value="capitalize">Capitalize</wa-menu-item>
+    </wa-menu>
+  </wa-menu-item>
+</wa-menu>
 ```
 
 {% raw %}
 
 ```jsx:react
-import SlDivider from '@shoelace-style/shoelace/dist/react/divider';
-import SlMenu from '@shoelace-style/shoelace/dist/react/menu';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const App = () => (
-  <SlMenu style={{ maxWidth: '200px' }}>
-    <SlMenuItem value="undo">Undo</SlMenuItem>
-    <SlMenuItem value="redo">Redo</SlMenuItem>
-    <SlDivider />
-    <SlMenuItem value="cut">Cut</SlMenuItem>
-    <SlMenuItem value="copy">Copy</SlMenuItem>
-    <SlMenuItem value="paste">Paste</SlMenuItem>
-    <SlDivider />
-    <SlMenuItem>
+  <WaMenu style={{ maxWidth: '200px' }}>
+    <WaMenuItem value="undo">Undo</WaMenuItem>
+    <WaMenuItem value="redo">Redo</WaMenuItem>
+    <WaDivider />
+    <WaMenuItem value="cut">Cut</WaMenuItem>
+    <WaMenuItem value="copy">Copy</WaMenuItem>
+    <WaMenuItem value="paste">Paste</WaMenuItem>
+    <WaDivider />
+    <WaMenuItem>
       Find
-      <SlMenu slot="submenu">
-        <SlMenuItem value="find">Find…</SlMenuItem>
-        <SlMenuItem value="find-previous">Find Next</SlMenuItem>
-        <SlMenuItem value="find-next">Find Previous</SlMenuItem>
-      </SlMenu>
-    </SlMenuItem>
-    <SlMenuItem>
+      <WaMenu slot="submenu">
+        <WaMenuItem value="find">Find…</WaMenuItem>
+        <WaMenuItem value="find-previous">Find Next</WaMenuItem>
+        <WaMenuItem value="find-next">Find Previous</WaMenuItem>
+      </WaMenu>
+    </WaMenuItem>
+    <WaMenuItem>
       Transformations
-      <SlMenu slot="submenu">
-        <SlMenuItem value="uppercase">Make uppercase</SlMenuItem>
-        <SlMenuItem value="lowercase">Make lowercase</SlMenuItem>
-        <SlMenuItem value="capitalize">Capitalize</SlMenuItem>
-      </SlMenu>
-    </SlMenuItem>
-  </SlMenu>
+      <WaMenu slot="submenu">
+        <WaMenuItem value="uppercase">Make uppercase</WaMenuItem>
+        <WaMenuItem value="lowercase">Make lowercase</WaMenuItem>
+        <WaMenuItem value="capitalize">Capitalize</WaMenuItem>
+      </WaMenu>
+    </WaMenuItem>
+  </WaMenu>
 );
 ```
 

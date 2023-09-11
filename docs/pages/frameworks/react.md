@@ -1,16 +1,16 @@
 ---
 meta:
   title: React
-  description: Tips for using Shoelace in your React app.
+  description: Tips for using Web Awesome in your React app.
 ---
 
 # React
 
-Shoelace offers a React version of every component to provide an idiomatic experience for React users. You can easily toggle between HTML and React examples throughout the documentation.
+Web Awesome offers a React version of every component to provide an idiomatic experience for React users. You can easily toggle between HTML and React examples throughout the documentation.
 
 ## Installation
 
-To add Shoelace to your React app, install the package from npm.
+To add Web Awesome to your React app, install the package from npm.
 
 ```bash
 npm install @shoelace-style/shoelace
@@ -20,7 +20,7 @@ Next, [include a theme](/getting-started/themes) and set the [base path](/gettin
 
 ```jsx
 // App.jsx
-import '@shoelace-style/shoelace/%NPMDIR%/themes/light.css';
+import '@shoelace-style/shoelace/%NPMDIR%/themes/default.css';
 import { setBasePath } from '@shoelace-style/shoelace/%NPMDIR%/utilities/base-path';
 
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/');
@@ -36,12 +36,12 @@ Now you can start using components!
 
 ### Importing Components
 
-Every Shoelace component is available to import as a React component. Note that we're importing the `<SlButton>` _React component_ instead of the `<sl-button>` _custom element_ in the example below.
+Every Web Awesome component is available to import as a React component. Note that we're importing the `<WaButton>` _React component_ instead of the `<wa-button>` _custom element_ in the example below.
 
 ```jsx
-import SlButton from '@shoelace-style/shoelace/%NPMDIR%/react/button';
+import WaButton from '@shoelace-style/shoelace/%NPMDIR%/react/button';
 
-const MyComponent = () => <SlButton variant="primary">Click me</SlButton>;
+const MyComponent = () => <WaButton variant="brand">Click me</WaButton>;
 
 export default MyComponent;
 ```
@@ -51,32 +51,32 @@ export default MyComponent;
 Previously, it was recommended to import from a single entrypoint like so:
 
 ```jsx
-import { SlButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
+import { WaButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
 ```
 
-However, tree-shaking extra Shoelace components proved to be a challenge. As a result, we now recommend cherry-picking components you want to use, rather than importing from a single entrypoint.
+However, tree-shaking extra Web Awesome components proved to be a challenge. As a result, we now recommend cherry-picking components you want to use, rather than importing from a single entrypoint.
 
 ```diff
-- import { SlButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
-+ import SlButton from '@shoelace-style/shoelace/%NPMDIR%/react/button';
+- import { WaButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
++ import WaButton from '@shoelace-style/shoelace/%NPMDIR%/react/button';
 ```
 
 You can find a copy + paste import for each component in the "importing" section of its documentation.
 
 ### Event Handling
 
-Many Shoelace components emit [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent). For example, the [input component](/components/input) emits the `sl-input` event when it receives input. In React, you can listen for the event using `onSlInput`.
+Many Web Awesome components emit [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent). For example, the [input component](/components/input) emits the `wa-input` event when it receives input. In React, you can listen for the event using `onWaInput`.
 
 Here's how you can bind the input's value to a state variable.
 
 ```jsx
 import { useState } from 'react';
-import SlInput from '@shoelace-style/shoelace/%NPMDIR%/react/input';
+import WaInput from '@shoelace-style/shoelace/%NPMDIR%/react/input';
 
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <SlInput value={value} onSlInput={event => setValue(event.target.value)} />;
+  return <WaInput value={value} onWaInput={event => setValue(event.target.value)} />;
 }
 
 export default MyComponent;
@@ -86,13 +86,13 @@ If you're using TypeScript, it's important to note that `event.target` will be a
 
 ```tsx
 import { useState } from 'react';
-import SlInput from '@shoelace-style/shoelace/%NPMDIR%/react/input';
-import type SlInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input';
+import WaInput from '@shoelace-style/shoelace/%NPMDIR%/react/input';
+import type WaInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input';
 
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <SlInput value={value} onSlInput={event => setValue((event.target as SlInputElement).value)} />;
+  return <WaInput value={value} onWaInput={event => setValue((event.target as WaInputElement).value)} />;
 }
 
 export default MyComponent;
@@ -102,16 +102,16 @@ You can also import the event type for use in your callbacks, shown below.
 
 ```tsx
 import { useCallback, useState } from 'react';
-import SlInput, { type SlInputEvent } from '@shoelace-style/shoelace/%NPMDIR%/react/input';
-import type SlInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input';
+import WaInput, { type WaInputEvent } from '@shoelace-style/shoelace/%NPMDIR%/react/input';
+import type WaInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input';
 
 function MyComponent() {
   const [value, setValue] = useState('');
-  const onInput = useCallback((event: SlInputEvent) => {
+  const onInput = useCallback((event: WaInputEvent) => {
     setValue(event.detail);
   }, []);
 
-  return <SlInput value={value} onSlInput={event => setValue((event.target as SlInputElement).value)} />;
+  return <WaInput value={value} onWaInput={event => setValue((event.target as WaInputElement).value)} />;
 }
 
 export default MyComponent;
@@ -121,7 +121,7 @@ export default MyComponent;
 
 Testing with web components can be challenging if your test environment runs in a Node environment (i.e. it doesn't run in a real browser). Fortunately, [Jest](https://jestjs.io/) has made a number of strides to support web components and provide additional browser APIs. However, it's still not a complete replication of a browser environment.
 
-Here are some tips that will help smooth things over if you're having trouble with Jest + Shoelace.
+Here are some tips that will help smooth things over if you're having trouble with Jest + Web Awesome.
 
 :::tip
 If you're looking for a fast, modern testing alternative, consider [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/).
@@ -163,13 +163,13 @@ For more details, refer to Jest's [manual mocking](https://jestjs.io/docs/manual
 
 ### Transform ES Modules
 
-ES Modules are a [well-supported browser standard](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/). This is how Shoelace is distributed, but most React apps expect CommonJS. As a result, you'll probably run into the following error.
+ES Modules are a [well-supported browser standard](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/). This is how Web Awesome is distributed, but most React apps expect CommonJS. As a result, you'll probably run into the following error.
 
 ```
 Error: Unable to import outside of a module
 ```
 
-To fix this, add the following to your `package.json` which tells the transpiler to process Shoelace modules.
+To fix this, add the following to your `package.json` which tells the transpiler to process Web Awesome modules.
 
 ```js
 {
@@ -184,5 +184,5 @@ These instructions are for apps created via Create React App. If you're using Je
 For more details, refer to Jest's [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization) documentation.
 
 :::tip
-Are you using Shoelace with React? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/react.md)
+Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/react.md)
 :::

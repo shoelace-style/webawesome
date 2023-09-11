@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './resize-observer.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -13,9 +13,9 @@ import type { CSSResultGroup } from 'lit';
  *
  * @slot - One or more elements to watch for resizing.
  *
- * @event {{ entries: ResizeObserverEntry[] }} sl-resize - Emitted when the element is resized.
+ * @event {{ entries: ResizeObserverEntry[] }} wa-resize - Emitted when the element is resized.
  */
-export default class SlResizeObserver extends ShoelaceElement {
+export default class WaResizeObserver extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private resizeObserver: ResizeObserver;
@@ -27,7 +27,7 @@ export default class SlResizeObserver extends ShoelaceElement {
   connectedCallback() {
     super.connectedCallback();
     this.resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-      this.emit('sl-resize', { detail: { entries } });
+      this.emit('wa-resize', { detail: { entries } });
     });
 
     if (!this.disabled) {
@@ -84,6 +84,6 @@ export default class SlResizeObserver extends ShoelaceElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-resize-observer': SlResizeObserver;
+    'wa-resize-observer': WaResizeObserver;
   }
 }

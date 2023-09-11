@@ -1,12 +1,12 @@
-import SlMenuLabel from './menu-label.component.js';
+import WaMenuLabel from './menu-label.component.js';
 
 export * from './menu-label.component.js';
-export default SlMenuLabel;
+export default WaMenuLabel;
 
-SlMenuLabel.define('sl-menu-label');
+WaMenuLabel.define('wa-menu-label');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-menu-label': SlMenuLabel;
+    'wa-menu-label': WaMenuLabel;
   }
 }

@@ -5,11 +5,11 @@ export default css`
   ${componentStyles}
 
   :host {
-    --size: 128px;
-    --track-width: 4px;
-    --track-color: var(--sl-color-neutral-200);
+    --size: 8rem;
+    --track-width: 0.25rem;
+    --track-color: var(--wa-color-neutral-fill-muted);
     --indicator-width: var(--track-width);
-    --indicator-color: var(--sl-color-primary-600);
+    --indicator-color: var(--wa-color-brand-fill-vivid);
     --indicator-transition-duration: 0.35s;
 
     display: inline-flex;

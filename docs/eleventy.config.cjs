@@ -5,7 +5,7 @@ const lunr = require('lunr');
 const { capitalCase } = require('change-case');
 const { JSDOM } = require('jsdom');
 const { customElementsManifest, getAllComponents } = require('./_utilities/cem.cjs');
-const shoelaceFlavoredMarkdown = require('./_utilities/markdown.cjs');
+const webAwesomeFlavoredMarkdown = require('./_utilities/markdown.cjs');
 const activeLinks = require('./_utilities/active-links.cjs');
 const anchorHeadings = require('./_utilities/anchor-headings.cjs');
 const codePreviews = require('./_utilities/code-previews.cjs');
@@ -41,7 +41,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData('layout', 'default'); // make 'default' the default layout
   eleventyConfig.addGlobalData('toc', true); // enable the table of contents
   eleventyConfig.addGlobalData('meta', {
-    title: 'Shoelace',
+    title: 'Web Awesome',
     description: 'A forward-thinking library of web components.',
     image: 'images/og-image.png',
     version: customElementsManifest.package.version,
@@ -83,7 +83,7 @@ module.exports = function (eleventyConfig) {
     if (!component) {
       throw new Error(
         `Unable to find a component called "${tagName}". Make sure the file name is the same as the component's tag ` +
-          `name (minus the sl- prefix).`
+          `name (minus the wa- prefix).`
       );
     }
     return component;
@@ -92,27 +92,27 @@ module.exports = function (eleventyConfig) {
   //
   // Custom markdown syntaxes
   //
-  eleventyConfig.setLibrary('md', shoelaceFlavoredMarkdown);
+  eleventyConfig.setLibrary('md', webAwesomeFlavoredMarkdown);
 
   //
   // Filters
   //
   eleventyConfig.addFilter('markdown', content => {
-    return shoelaceFlavoredMarkdown.render(content);
+    return webAwesomeFlavoredMarkdown.render(content);
   });
 
   eleventyConfig.addFilter('markdownInline', content => {
-    return shoelaceFlavoredMarkdown.renderInline(content);
+    return webAwesomeFlavoredMarkdown.renderInline(content);
   });
 
   eleventyConfig.addFilter('classNameToComponentName', className => {
-    let name = capitalCase(className.replace(/^Sl/, ''));
+    let name = capitalCase(className.replace(/^Wa/, ''));
     if (name === 'Qr Code') name = 'QR Code'; // manual override
     return name;
   });
 
-  eleventyConfig.addFilter('removeSlPrefix', tagName => {
-    return tagName.replace(/^sl-/, '');
+  eleventyConfig.addFilter('removeWaPrefix', tagName => {
+    return tagName.replace(/^wa-/, '');
   });
 
   //

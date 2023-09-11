@@ -1,5 +1,5 @@
 export default function (plop) {
-  plop.setHelper('tagWithoutPrefix', tag => tag.replace(/^sl-/, ''));
+  plop.setHelper('tagWithoutPrefix', tag => tag.replace(/^wa-/, ''));
 
   plop.setHelper('tagToTitle', tag => {
     const withoutPrefix = plop.getHelper('tagWithoutPrefix');
@@ -13,10 +13,10 @@ export default function (plop) {
       {
         type: 'input',
         name: 'tag',
-        message: 'Tag name? (e.g. sl-button)',
+        message: 'Tag name? (e.g. wa-button)',
         validate: value => {
-          // Start with sl- and include only a-z + dashes
-          if (!/^sl-[a-z-+]+/.test(value)) {
+          // Start with wa- and include only a-z + dashes
+          if (!/^wa-[a-z-+]+/.test(value)) {
             return false;
           }
 
@@ -54,12 +54,6 @@ export default function (plop) {
         type: 'add',
         path: '../../docs/pages/components/{{ tagWithoutPrefix tag }}.md',
         templateFile: 'templates/component/docs.hbs'
-      },
-      {
-        type: 'modify',
-        path: '../../src/shoelace.ts',
-        pattern: /\/\* plop:component \*\//,
-        template: `export { default as {{ properCase tag }} } from './components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.js';\n/* plop:component */`
       }
     ]
   });

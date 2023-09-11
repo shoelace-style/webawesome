@@ -1,16 +1,16 @@
 ---
 meta:
   title: Angular
-  description: Tips for using Shoelace in your Angular app.
+  description: Tips for using Web Awesome in your Angular app.
 ---
 
 # Angular
 
-Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Shoelace in your Angular apps with ease.
+Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
 
 ## Installation
 
-To add Shoelace to your Angular app, install the package from npm.
+To add Web Awesome to your Angular app, install the package from npm.
 
 ```bash
 npm install @shoelace-style/shoelace
@@ -19,7 +19,7 @@ npm install @shoelace-style/shoelace
 Next, [include a theme](/getting-started/themes) and set the [base path](/getting-started/installation#setting-the-base-path) for icons and other assets. In this example, we'll import the light theme and use the CDN as a base path.
 
 ```jsx
-import '@shoelace-style/shoelace/%NPMDIR%/themes/light.css';
+import '@shoelace-style/shoelace/%NPMDIR%/themes/default.css';
 import { setBasePath } from '@shoelace-style/shoelace/%NPMDIR%/utilities/base-path';
 
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/');
@@ -49,20 +49,20 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-## Reference Shoelace components in your Angular component code
+## Reference Web Awesome components in your Angular component code
 
 ```js
-import { SlDrawer } from '@shoelace-style/shoelace';
+import { WaDrawer } from '@shoelace-style/shoelace';
 
 @Component({
   selector: 'app-drawer-example',
-  template: '<div id="page"><button (click)="showDrawer()">Show drawer</button><sl-drawer #drawer label="Drawer" class="drawer-focus" style="--size: 50vw"><p>Drawer content</p></sl-drawer></div>'
+  template: '<div id="page"><button (click)="showDrawer()">Show drawer</button><wa-drawer #drawer label="Drawer" class="drawer-focus" style="--size: 50vw"><p>Drawer content</p></wa-drawer></div>'
 })
 export class DrawerExampleComponent implements OnInit {
 
   // use @ViewChild to get a reference to the #drawer element within component template
   @ViewChild('drawer')
-  drawer?: ElementRef<SlDrawer>;
+  drawer?: ElementRef<WaDrawer>;
 
   ...
 
@@ -75,14 +75,14 @@ export class DrawerExampleComponent implements OnInit {
   ...
 
   showDrawer() {
-    // use nativeElement to access Shoelace components
+    // use nativeElement to access Web Awesome components
     this.drawer?.nativeElement.show();
   }
 }
 ```
 
-Now you can start using Shoelace components in your app!
+Now you can start using Web Awesome components in your app!
 
 :::tip
-Are you using Shoelace with Angular? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/angular.md)
+Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/angular.md)
 :::

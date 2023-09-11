@@ -1,12 +1,12 @@
-import SlTabPanel from './tab-panel.component.js';
+import WaTabPanel from './tab-panel.component.js';
 
 export * from './tab-panel.component.js';
-export default SlTabPanel;
+export default WaTabPanel;
 
-SlTabPanel.define('sl-tab-panel');
+WaTabPanel.define('wa-tab-panel');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tab-panel': SlTabPanel;
+    'wa-tab-panel': WaTabPanel;
   }
 }

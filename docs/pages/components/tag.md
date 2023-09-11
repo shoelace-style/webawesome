@@ -6,23 +6,23 @@ layout: component
 ---
 
 ```html:preview
-<sl-tag variant="primary">Primary</sl-tag>
-<sl-tag variant="success">Success</sl-tag>
-<sl-tag variant="neutral">Neutral</sl-tag>
-<sl-tag variant="warning">Warning</sl-tag>
-<sl-tag variant="danger">Danger</sl-tag>
+<wa-tag variant="brand">Brand</wa-tag>
+<wa-tag variant="success">Success</wa-tag>
+<wa-tag variant="neutral">Neutral</wa-tag>
+<wa-tag variant="warning">Warning</wa-tag>
+<wa-tag variant="danger">Danger</wa-tag>
 ```
 
 ```jsx:react
-import SlTag from '@shoelace-style/shoelace/dist/react/tag';
+import WaTag from '@shoelace-style/shoelace/dist/react/tag';
 
 const App = () => (
   <>
-    <SlTag variant="primary">Primary</SlTag>
-    <SlTag variant="success">Success</SlTag>
-    <SlTag variant="neutral">Neutral</SlTag>
-    <SlTag variant="warning">Warning</SlTag>
-    <SlTag variant="danger">Danger</SlTag>
+    <WaTag variant="brand">Brand</WaTag>
+    <WaTag variant="success">Success</WaTag>
+    <WaTag variant="neutral">Neutral</WaTag>
+    <WaTag variant="warning">Warning</WaTag>
+    <WaTag variant="danger">Danger</WaTag>
   </>
 );
 ```
@@ -34,19 +34,19 @@ const App = () => (
 Use the `size` attribute to change a tab's size.
 
 ```html:preview
-<sl-tag size="small">Small</sl-tag>
-<sl-tag size="medium">Medium</sl-tag>
-<sl-tag size="large">Large</sl-tag>
+<wa-tag size="small">Small</wa-tag>
+<wa-tag size="medium">Medium</wa-tag>
+<wa-tag size="large">Large</wa-tag>
 ```
 
 ```jsx:react
-import SlTag from '@shoelace-style/shoelace/dist/react/tag';
+import WaTag from '@shoelace-style/shoelace/dist/react/tag';
 
 const App = () => (
   <>
-    <SlTag size="small">Small</SlTag>
-    <SlTag size="medium">Medium</SlTag>
-    <SlTag size="large">Large</SlTag>
+    <WaTag size="small">Small</WaTag>
+    <WaTag size="medium">Medium</WaTag>
+    <WaTag size="large">Large</WaTag>
   </>
 );
 ```
@@ -56,25 +56,25 @@ const App = () => (
 Use the `pill` attribute to give tabs rounded edges.
 
 ```html:preview
-<sl-tag size="small" pill>Small</sl-tag>
-<sl-tag size="medium" pill>Medium</sl-tag>
-<sl-tag size="large" pill>Large</sl-tag>
+<wa-tag size="small" pill>Small</wa-tag>
+<wa-tag size="medium" pill>Medium</wa-tag>
+<wa-tag size="large" pill>Large</wa-tag>
 ```
 
 ```jsx:react
-import SlTag from '@shoelace-style/shoelace/dist/react/tag';
+import WaTag from '@shoelace-style/shoelace/dist/react/tag';
 
 const App = () => (
   <>
-    <SlTag size="small" pill>
+    <WaTag size="small" pill>
       Small
-    </SlTag>
-    <SlTag size="medium" pill>
+    </WaTag>
+    <WaTag size="medium" pill>
       Medium
-    </SlTag>
-    <SlTag size="large" pill>
+    </WaTag>
+    <WaTag size="large" pill>
       Large
-    </SlTag>
+    </WaTag>
   </>
 );
 ```
@@ -85,15 +85,15 @@ Use the `removable` attribute to add a remove button to the tag.
 
 ```html:preview
 <div class="tags-removable">
-  <sl-tag size="small" removable>Small</sl-tag>
-  <sl-tag size="medium" removable>Medium</sl-tag>
-  <sl-tag size="large" removable>Large</sl-tag>
+  <wa-tag size="small" removable>Small</wa-tag>
+  <wa-tag size="medium" removable>Medium</wa-tag>
+  <wa-tag size="large" removable>Large</wa-tag>
 </div>
 
 <script>
   const div = document.querySelector('.tags-removable');
 
-  div.addEventListener('sl-remove', event => {
+  div.addEventListener('wa-remove', event => {
     const tag = event.target;
     tag.style.opacity = '0';
     setTimeout(() => (tag.style.opacity = '1'), 2000);
@@ -101,18 +101,18 @@ Use the `removable` attribute to add a remove button to the tag.
 </script>
 
 <style>
-  .tags-removable sl-tag {
-    transition: var(--sl-transition-medium) opacity;
+  .tags-removable wa-tag {
+    transition: var(--wa-transition-fast) opacity;
   }
 </style>
 ```
 
 ```jsx:react
-import SlTag from '@shoelace-style/shoelace/dist/react/tag';
+import WaTag from '@shoelace-style/shoelace/dist/react/tag';
 
 const css = `
-  .tags-removable sl-tag {
-    transition: var(--sl-transition-medium) opacity;
+  .tags-removable wa-tag {
+    transition: var(--wa-transition-fast) opacity;
   }
 `;
 
@@ -126,17 +126,17 @@ const App = () => {
   return (
     <>
       <div className="tags-removable">
-        <SlTag size="small" removable onSlRemove={handleRemove}>
+        <WaTag size="small" removable onWaRemove={handleRemove}>
           Small
-        </SlTag>
+        </WaTag>
 
-        <SlTag size="medium" removable onSlRemove={handleRemove}>
+        <WaTag size="medium" removable onWaRemove={handleRemove}>
           Medium
-        </SlTag>
+        </WaTag>
 
-        <SlTag size="large" removable onSlRemove={handleRemove}>
+        <WaTag size="large" removable onWaRemove={handleRemove}>
           Large
-        </SlTag>
+        </WaTag>
       </div>
 
       <style>{css}</style>

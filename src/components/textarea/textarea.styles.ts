@@ -15,75 +15,46 @@ export default css`
     align-items: center;
     position: relative;
     width: 100%;
-    font-family: var(--sl-input-font-family);
-    font-weight: var(--sl-input-font-weight);
-    line-height: var(--sl-line-height-normal);
-    letter-spacing: var(--sl-input-letter-spacing);
+    font-family: var(--wa-font-family-body);
+    font-weight: var(--wa-font-weight-normal);
+    color: var(--wa-form-controls-text-color);
+    line-height: var(--wa-form-controls-value-line-height);
     vertical-align: middle;
-    transition: var(--sl-transition-fast) color, var(--sl-transition-fast) border, var(--sl-transition-fast) box-shadow,
-      var(--sl-transition-fast) background-color;
+    transition: var(--wa-transition-fast) border, var(--wa-transition-fast) background-color;
     cursor: text;
   }
 
   /* Standard textareas */
   .textarea--standard {
-    background-color: var(--sl-input-background-color);
-    border: solid var(--sl-input-border-width) var(--sl-input-border-color);
-  }
-
-  .textarea--standard:hover:not(.textarea--disabled) {
-    background-color: var(--sl-input-background-color-hover);
-    border-color: var(--sl-input-border-color-hover);
-  }
-  .textarea--standard:hover:not(.textarea--disabled) .textarea__control {
-    color: var(--sl-input-color-hover);
+    background-color: var(--wa-form-controls-background);
+    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
+      var(--wa-form-controls-border-color-resting);
   }
 
   .textarea--standard.textarea--focused:not(.textarea--disabled) {
-    background-color: var(--sl-input-background-color-focus);
-    border-color: var(--sl-input-border-color-focus);
-    color: var(--sl-input-color-focus);
-    box-shadow: 0 0 0 var(--sl-focus-ring-width) var(--sl-input-focus-ring-color);
-  }
-
-  .textarea--standard.textarea--focused:not(.textarea--disabled) .textarea__control {
-    color: var(--sl-input-color-focus);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+    border-color: var(--wa-form-controls-border-color-activated);
   }
 
   .textarea--standard.textarea--disabled {
-    background-color: var(--sl-input-background-color-disabled);
-    border-color: var(--sl-input-border-color-disabled);
     opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  .textarea--standard.textarea--disabled .textarea__control {
-    color: var(--sl-input-color-disabled);
-  }
-
-  .textarea--standard.textarea--disabled .textarea__control::placeholder {
-    color: var(--sl-input-placeholder-color-disabled);
   }
 
   /* Filled textareas */
   .textarea--filled {
     border: none;
-    background-color: var(--sl-input-filled-background-color);
-    color: var(--sl-input-color);
-  }
-
-  .textarea--filled:hover:not(.textarea--disabled) {
-    background-color: var(--sl-input-filled-background-color-hover);
+    background-color: var(--wa-color-neutral-fill-muted);
+    color: var(--wa-color-neutral-text-on-muted);
   }
 
   .textarea--filled.textarea--focused:not(.textarea--disabled) {
-    background-color: var(--sl-input-filled-background-color-focus);
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: 0;
   }
 
   .textarea--filled.textarea--disabled {
-    background-color: var(--sl-input-filled-background-color-disabled);
     opacity: 0.5;
     cursor: not-allowed;
   }
@@ -94,7 +65,7 @@ export default css`
     font-size: inherit;
     font-weight: inherit;
     line-height: 1.4;
-    color: var(--sl-input-color);
+    color: var(--wa-form-controls-text-color);
     border: none;
     background: none;
     box-shadow: none;
@@ -110,7 +81,7 @@ export default css`
   }
 
   .textarea__control::placeholder {
-    color: var(--sl-input-placeholder-color);
+    color: var(--wa-form-controls-placeholder-color);
     user-select: none;
   }
 
@@ -123,30 +94,30 @@ export default css`
    */
 
   .textarea--small {
-    border-radius: var(--sl-input-border-radius-small);
-    font-size: var(--sl-input-font-size-small);
+    border-radius: var(--wa-form-controls-corners);
+    font-size: var(--wa-font-size-s);
   }
 
   .textarea--small .textarea__control {
-    padding: 0.5em var(--sl-input-spacing-small);
+    padding: 0.5em var(--wa-space-s);
   }
 
   .textarea--medium {
-    border-radius: var(--sl-input-border-radius-medium);
-    font-size: var(--sl-input-font-size-medium);
+    border-radius: var(--wa-form-controls-corners);
+    font-size: var(--wa-font-size-m);
   }
 
   .textarea--medium .textarea__control {
-    padding: 0.5em var(--sl-input-spacing-medium);
+    padding: 0.5em var(--wa-space-m);
   }
 
   .textarea--large {
-    border-radius: var(--sl-input-border-radius-large);
-    font-size: var(--sl-input-font-size-large);
+    border-radius: var(--wa-form-controls-corners);
+    font-size: var(--wa-font-size-l);
   }
 
   .textarea--large .textarea__control {
-    padding: 0.5em var(--sl-input-spacing-large);
+    padding: 0.5em var(--wa-space-l);
   }
 
   /*

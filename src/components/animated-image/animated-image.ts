@@ -1,12 +1,12 @@
-import SlAnimatedImage from './animated-image.component.js';
+import WaAnimatedImage from './animated-image.component.js';
 
 export * from './animated-image.component.js';
-export default SlAnimatedImage;
+export default WaAnimatedImage;
 
-SlAnimatedImage.define('sl-animated-image');
+WaAnimatedImage.define('wa-animated-image');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-animated-image': SlAnimatedImage;
+    'wa-animated-image': WaAnimatedImage;
   }
 }

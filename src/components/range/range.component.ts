@@ -8,10 +8,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './range.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
  * @summary Ranges allow the user to select a single value within a given range using a slider.
@@ -22,11 +22,11 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @slot label - The range's label. Alternatively, you can use the `label` attribute.
  * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
  *
- * @event sl-blur - Emitted when the control loses focus.
- * @event sl-change - Emitted when an alteration to the control's value is committed by the user.
- * @event sl-focus - Emitted when the control gains focus.
- * @event sl-input - Emitted when the control receives input.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the control loses focus.
+ * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
+ * @event wa-focus - Emitted when the control gains focus.
+ * @event wa-input - Emitted when the control receives input.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and help text.
  * @csspart form-control-label - The label's wrapper.
@@ -43,7 +43,7 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @cssproperty --track-height - The height of the track.
  * @cssproperty --track-active-offset - The point of origin of the active track.
  */
-export default class SlRange extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaRange extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
 
   private readonly formControlController = new FormControlController(this);
@@ -134,25 +134,25 @@ export default class SlRange extends ShoelaceElement implements ShoelaceFormCont
   }
 
   private handleChange() {
-    this.emit('sl-change');
+    this.emit('wa-change');
   }
 
   private handleInput() {
     this.value = parseFloat(this.input.value);
-    this.emit('sl-input');
+    this.emit('wa-input');
     this.syncRange();
   }
 
   private handleBlur() {
     this.hasFocus = false;
     this.hasTooltip = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleFocus() {
     this.hasFocus = true;
     this.hasTooltip = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   @eventOptions({ passive: true })

@@ -6,13 +6,13 @@ layout: component
 ---
 
 ```html:preview
-<sl-checkbox>Checkbox</sl-checkbox>
+<wa-checkbox>Checkbox</wa-checkbox>
 ```
 
 ```jsx:react
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
-const App = () => <SlCheckbox>Checkbox</SlCheckbox>;
+const App = () => <WaCheckbox>Checkbox</WaCheckbox>;
 ```
 
 :::tip
@@ -26,13 +26,13 @@ This component works with standard `<form>` elements. Please refer to the sectio
 Use the `checked` attribute to activate the checkbox.
 
 ```html:preview
-<sl-checkbox checked>Checked</sl-checkbox>
+<wa-checkbox checked>Checked</wa-checkbox>
 ```
 
 ```jsx:react
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
-const App = () => <SlCheckbox checked>Checked</SlCheckbox>;
+const App = () => <WaCheckbox checked>Checked</WaCheckbox>;
 ```
 
 ### Indeterminate
@@ -40,13 +40,13 @@ const App = () => <SlCheckbox checked>Checked</SlCheckbox>;
 Use the `indeterminate` attribute to make the checkbox indeterminate.
 
 ```html:preview
-<sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+<wa-checkbox indeterminate>Indeterminate</wa-checkbox>
 ```
 
 ```jsx:react
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
-const App = () => <SlCheckbox indeterminate>Indeterminate</SlCheckbox>;
+const App = () => <WaCheckbox indeterminate>Indeterminate</WaCheckbox>;
 ```
 
 ### Disabled
@@ -54,13 +54,13 @@ const App = () => <SlCheckbox indeterminate>Indeterminate</SlCheckbox>;
 Use the `disabled` attribute to disable the checkbox.
 
 ```html:preview
-<sl-checkbox disabled>Disabled</sl-checkbox>
+<wa-checkbox disabled>Disabled</wa-checkbox>
 ```
 
 ```jsx:react
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
-const App = () => <SlCheckbox disabled>Disabled</SlCheckbox>;
+const App = () => <WaCheckbox disabled>Disabled</WaCheckbox>;
 ```
 
 ### Sizes
@@ -68,23 +68,23 @@ const App = () => <SlCheckbox disabled>Disabled</SlCheckbox>;
 Use the `size` attribute to change a checkbox's size.
 
 ```html:preview
-<sl-checkbox size="small">Small</sl-checkbox>
+<wa-checkbox size="small">Small</wa-checkbox>
 <br />
-<sl-checkbox size="medium">Medium</sl-checkbox>
+<wa-checkbox size="medium">Medium</wa-checkbox>
 <br />
-<sl-checkbox size="large">Large</sl-checkbox>
+<wa-checkbox size="large">Large</wa-checkbox>
 ```
 
 ```jsx:react
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
 const App = () => (
   <>
-    <SlCheckbox size="small">Small</SlCheckbox>
+    <WaCheckbox size="small">Small</WaCheckbox>
     <br />
-    <SlCheckbox size="medium">Medium</SlCheckbox>
+    <WaCheckbox size="medium">Medium</WaCheckbox>
     <br />
-    <SlCheckbox size="large">Large</SlCheckbox>
+    <WaCheckbox size="large">Large</WaCheckbox>
   </>
 );
 ```
@@ -95,30 +95,32 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 
 ```html:preview
 <form class="custom-validity">
-  <sl-checkbox>Check me</sl-checkbox>
+  <wa-checkbox>Check me</wa-checkbox>
   <br />
-  <sl-button type="submit" variant="primary" style="margin-top: 1rem;">Submit</sl-button>
+  <wa-button type="submit" variant="brand" style="margin-top: 1rem;">Submit</wa-button>
 </form>
 <script>
   const form = document.querySelector('.custom-validity');
-  const checkbox = form.querySelector('sl-checkbox');
+  const checkbox = form.querySelector('wa-checkbox');
   const errorMessage = `Don't forget to check me!`;
 
   // Set initial validity as soon as the element is defined
-  customElements.whenDefined('sl-checkbox').then(async () => {
+  customElements.whenDefined('wa-checkbox').then(async () => {
     await checkbox.updateComplete;
     checkbox.setCustomValidity(errorMessage);
   });
 
   // Update validity on change
-  checkbox.addEventListener('sl-change', () => {
+  checkbox.addEventListener('wa-change', () => {
     checkbox.setCustomValidity(checkbox.checked ? '' : errorMessage);
   });
 
   // Handle submit
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    alert('All fields are valid!');
+  customElements.whenDefined('wa-checkbox').then(() => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      alert('All fields are valid!');
+    });
   });
 </script>
 ```
@@ -127,8 +129,8 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 
 ```jsx:react
 import { useEffect, useRef } from 'react';
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
 
 const App = () => {
   const checkbox = useRef(null);
@@ -149,13 +151,13 @@ const App = () => {
 
   return (
     <form class="custom-validity" onSubmit={handleSubmit}>
-      <SlCheckbox ref={checkbox} onSlChange={handleChange}>
+      <WaCheckbox ref={checkbox} onWaChange={handleChange}>
         Check me
-      </SlCheckbox>
+      </WaCheckbox>
       <br />
-      <SlButton type="submit" variant="primary" style={{ marginTop: '1rem' }}>
+      <WaButton type="submit" variant="brand" style={{ marginTop: '1rem' }}>
         Submit
-      </SlButton>
+      </WaButton>
     </form>
   );
 };

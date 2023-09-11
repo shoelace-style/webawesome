@@ -1,8 +1,8 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './skeleton.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -18,7 +18,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --color - The color of the skeleton.
  * @cssproperty --sheen-color - The sheen color when the skeleton is in its loading state.
  */
-export default class SlSkeleton extends ShoelaceElement {
+export default class WaSkeleton extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   /** Determines which effect the skeleton will use. */

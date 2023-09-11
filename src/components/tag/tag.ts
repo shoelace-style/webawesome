@@ -1,12 +1,12 @@
-import SlTag from './tag.component.js';
+import WaTag from './tag.component.js';
 
 export * from './tag.component.js';
-export default SlTag;
+export default WaTag;
 
-SlTag.define('sl-tag');
+WaTag.define('wa-tag');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tag': SlTag;
+    'wa-tag': WaTag;
   }
 }

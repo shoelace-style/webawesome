@@ -1,12 +1,12 @@
-import SlImageComparer from './image-comparer.component.js';
+import WaImageComparer from './image-comparer.component.js';
 
 export * from './image-comparer.component.js';
-export default SlImageComparer;
+export default WaImageComparer;
 
-SlImageComparer.define('sl-image-comparer');
+WaImageComparer.define('wa-image-comparer');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-image-comparer': SlImageComparer;
+    'wa-image-comparer': WaImageComparer;
   }
 }

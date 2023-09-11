@@ -10,7 +10,7 @@
       <div class="search__content">
         <div class="search__header">
           <div id="search-combobox" class="search__input-wrapper">
-            <sl-icon name="search"></sl-icon>
+            <wa-icon name="search"></wa-icon>
             <input
               id="search-input"
               class="search__input"
@@ -30,7 +30,7 @@
               aria-activedescendant
             >
             <button type="button" class="search__clear-button" aria-label="Clear entry" tabindex="-1" hidden>
-              <sl-icon name="x-circle-fill"></sl-icon>
+              <wa-icon name="x-circle-fill"></wa-icon>
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@
   const input = siteSearch.querySelector('.search__input');
   const clearButton = siteSearch.querySelector('.search__clear-button');
   const results = siteSearch.querySelector('.search__results');
-  const version = document.documentElement.getAttribute('data-shoelace-version');
+  const version = document.documentElement.getAttribute('data-wa-version');
   const key = `search_${version}`;
   const searchDebounce = 50;
   const animationDuration = 150;
@@ -317,7 +317,7 @@
         a.href = page.url;
         a.innerHTML = `
           <div class="search__result-icon" aria-hidden="true">
-            <sl-icon name="${icon}"></sl-icon>
+            <wa-icon name="${icon}"></wa-icon>
           </div>
           <div class="search__result__details">
             <div class="search__result-title"></div>

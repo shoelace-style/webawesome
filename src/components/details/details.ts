@@ -1,12 +1,12 @@
-import SlDetails from './details.component.js';
+import WaDetails from './details.component.js';
 
 export * from './details.component.js';
-export default SlDetails;
+export default WaDetails;
 
-SlDetails.define('sl-details');
+WaDetails.define('wa-details');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-details': SlDetails;
+    'wa-details': WaDetails;
   }
 }

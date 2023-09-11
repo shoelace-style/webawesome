@@ -7,11 +7,11 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import { when } from 'lit/directives/when.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlCheckbox from '../checkbox/checkbox.component.js';
-import SlIcon from '../icon/icon.component.js';
-import SlSpinner from '../spinner/spinner.component.js';
 import styles from './tree-item.styles.js';
+import WaCheckbox from '../checkbox/checkbox.component.js';
+import WaIcon from '../icon/icon.component.js';
+import WaSpinner from '../spinner/spinner.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
 
 /**
@@ -20,16 +20,16 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-checkbox
- * @dependency sl-icon
- * @dependency sl-spinner
+ * @dependency wa-checkbox
+ * @dependency wa-icon
+ * @dependency wa-spinner
  *
- * @event sl-expand - Emitted when the tree item expands.
- * @event sl-after-expand - Emitted after the tree item expands and all animations are complete.
- * @event sl-collapse - Emitted when the tree item collapses.
- * @event sl-after-collapse - Emitted after the tree item collapses and all animations are complete.
- * @event sl-lazy-change - Emitted when the tree item's lazy state changes.
- * @event sl-lazy-load - Emitted when a lazy item is selected. Use this event to asynchronously load data and append
+ * @event wa-expand - Emitted when the tree item expands.
+ * @event wa-after-expand - Emitted after the tree item expands and all animations are complete.
+ * @event wa-collapse - Emitted when the tree item collapses.
+ * @event wa-after-collapse - Emitted after the tree item collapses and all animations are complete.
+ * @event wa-lazy-change - Emitted when the tree item's lazy state changes.
+ * @event wa-lazy-load - Emitted when a lazy item is selected. Use this event to asynchronously load data and append
  *  items to the tree before expanding. After appending new items, remove the `lazy` attribute to remove the loading
  *  state and update the tree.
  *
@@ -56,12 +56,12 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
  * @csspart checkbox__label - The checkbox's exported `label` part.
  */
-export default class SlTreeItem extends ShoelaceElement {
+export default class WaTreeItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
-    'sl-checkbox': SlCheckbox,
-    'sl-icon': SlIcon,
-    'sl-spinner': SlSpinner
+    'wa-checkbox': WaCheckbox,
+    'wa-icon': WaIcon,
+    'wa-spinner': WaSpinner
   };
 
   static isTreeItem(node: Node) {
@@ -113,7 +113,7 @@ export default class SlTreeItem extends ShoelaceElement {
   }
 
   private async animateCollapse() {
-    this.emit('sl-collapse');
+    this.emit('wa-collapse');
 
     await stopAnimations(this.childrenContainer);
 
@@ -125,13 +125,13 @@ export default class SlTreeItem extends ShoelaceElement {
     );
     this.childrenContainer.hidden = true;
 
-    this.emit('sl-after-collapse');
+    this.emit('wa-after-collapse');
   }
 
   // Checks whether the item is nested into an item
   private isNestedItem(): boolean {
     const parent = this.parentElement;
-    return !!parent && SlTreeItem.isTreeItem(parent);
+    return !!parent && WaTreeItem.isTreeItem(parent);
   }
 
   private handleChildrenSlotChange() {
@@ -139,14 +139,14 @@ export default class SlTreeItem extends ShoelaceElement {
     this.isLeaf = !this.lazy && this.getChildrenItems().length === 0;
   }
 
-  protected willUpdate(changedProperties: PropertyValueMap<SlTreeItem> | Map<PropertyKey, unknown>) {
+  protected willUpdate(changedProperties: PropertyValueMap<WaTreeItem> | Map<PropertyKey, unknown>) {
     if (changedProperties.has('selected') && !changedProperties.has('indeterminate')) {
       this.indeterminate = false;
     }
   }
 
   private async animateExpand() {
-    this.emit('sl-expand');
+    this.emit('wa-expand');
 
     await stopAnimations(this.childrenContainer);
     this.childrenContainer.hidden = false;
@@ -159,7 +159,7 @@ export default class SlTreeItem extends ShoelaceElement {
     );
     this.childrenContainer.style.height = 'auto';
 
-    this.emit('sl-after-expand');
+    this.emit('wa-after-expand');
   }
 
   @watch('loading', { waitUntilFirstUpdate: true })
@@ -196,7 +196,7 @@ export default class SlTreeItem extends ShoelaceElement {
       if (this.lazy) {
         this.loading = true;
 
-        this.emit('sl-lazy-load');
+        this.emit('wa-lazy-load');
       } else {
         this.animateExpand();
       }
@@ -207,15 +207,15 @@ export default class SlTreeItem extends ShoelaceElement {
 
   @watch('lazy', { waitUntilFirstUpdate: true })
   handleLazyChange() {
-    this.emit('sl-lazy-change');
+    this.emit('wa-lazy-change');
   }
 
   /** Gets all the nested tree items in this node. */
-  getChildrenItems({ includeDisabled = true }: { includeDisabled?: boolean } = {}): SlTreeItem[] {
+  getChildrenItems({ includeDisabled = true }: { includeDisabled?: boolean } = {}): WaTreeItem[] {
     return this.childrenSlot
       ? ([...this.childrenSlot.assignedElements({ flatten: true })].filter(
-          (item: SlTreeItem) => SlTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled)
-        ) as SlTreeItem[])
+          (item: WaTreeItem) => WaTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled)
+        ) as WaTreeItem[])
       : [];
   }
 
@@ -256,12 +256,12 @@ export default class SlTreeItem extends ShoelaceElement {
             })}
             aria-hidden="true"
           >
-            ${when(this.loading, () => html` <sl-spinner></sl-spinner> `)}
+            ${when(this.loading, () => html` <wa-spinner></wa-spinner> `)}
             <slot class="tree-item__expand-icon-slot" name="expand-icon">
-              <sl-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></sl-icon>
+              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
             </slot>
             <slot class="tree-item__expand-icon-slot" name="collapse-icon">
-              <sl-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></sl-icon>
+              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
             </slot>
           </div>
 
@@ -269,7 +269,7 @@ export default class SlTreeItem extends ShoelaceElement {
             this.selectable,
             () =>
               html`
-                <sl-checkbox
+                <wa-checkbox
                   part="checkbox"
                   exportparts="
                     base:checkbox__base,
@@ -285,7 +285,7 @@ export default class SlTreeItem extends ShoelaceElement {
                   ?checked="${live(this.selected)}"
                   ?indeterminate="${this.indeterminate}"
                   tabindex="-1"
-                ></sl-checkbox>
+                ></wa-checkbox>
               `
           )}
 

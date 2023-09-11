@@ -11,11 +11,11 @@ export default css`
   .breadcrumb-item {
     display: inline-flex;
     align-items: center;
-    font-family: var(--sl-font-sans);
-    font-size: var(--sl-font-size-small);
-    font-weight: var(--sl-font-weight-semibold);
-    color: var(--sl-color-neutral-600);
-    line-height: var(--sl-line-height-normal);
+    font-family: var(--wa-font-family-body);
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-medium);
+    color: var(--wa-color-neutral-text-on-surface);
+    line-height: var(--wa-line-height-regular);
     white-space: nowrap;
   }
 
@@ -29,23 +29,23 @@ export default css`
     color: inherit;
     background: none;
     border: none;
-    border-radius: var(--sl-border-radius-medium);
+    border-radius: var(--wa-corners-1x);
     padding: 0;
     margin: 0;
     cursor: pointer;
-    transition: var(--sl-transition-fast) --color;
+    transition: var(--wa-transition-fast) --color;
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label {
-    color: var(--sl-color-primary-600);
+    color: var(--wa-color-brand-text-on-surface);
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:hover {
-    color: var(--sl-color-primary-500);
+    color: color-mix(in oklch, var(--wa-color-brand-text-on-surface), black 8%);
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:active {
-    color: var(--sl-color-primary-600);
+    color: var(--wa-color-brand-text-on-surface);
   }
 
   .breadcrumb-item__label:focus {
@@ -53,8 +53,8 @@ export default css`
   }
 
   .breadcrumb-item__label:focus-visible {
-    outline: var(--sl-focus-ring);
-    outline-offset: var(--sl-focus-ring-offset);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .breadcrumb-item__prefix,
@@ -67,12 +67,12 @@ export default css`
 
   .breadcrumb-item--has-prefix .breadcrumb-item__prefix {
     display: inline-flex;
-    margin-inline-end: var(--sl-spacing-x-small);
+    margin-inline-end: var(--wa-space-xs);
   }
 
   .breadcrumb-item--has-suffix .breadcrumb-item__suffix {
     display: inline-flex;
-    margin-inline-start: var(--sl-spacing-x-small);
+    margin-inline-start: var(--wa-space-xs);
   }
 
   :host(:last-of-type) .breadcrumb-item__separator {
@@ -82,7 +82,7 @@ export default css`
   .breadcrumb-item__separator {
     display: inline-flex;
     align-items: center;
-    margin: 0 var(--sl-spacing-x-small);
+    margin: 0 var(--wa-space-xs);
     user-select: none;
   }
 `;

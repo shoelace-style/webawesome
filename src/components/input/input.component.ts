@@ -8,11 +8,11 @@ import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './input.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
+import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
  * @summary Inputs collect data from the user.
@@ -20,7 +20,7 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @status stable
  * @since 2.0
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
  * @slot label - The input's label. Alternatively, you can use the `label` attribute.
  * @slot prefix - Used to prepend a presentational icon or similar element to the input.
@@ -30,12 +30,12 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
  * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
  *
- * @event sl-blur - Emitted when the control loses focus.
- * @event sl-change - Emitted when an alteration to the control's value is committed by the user.
- * @event sl-clear - Emitted when the clear button is activated.
- * @event sl-focus - Emitted when the control gains focus.
- * @event sl-input - Emitted when the control receives input.
- * @event sl-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
+ * @event wa-blur - Emitted when the control loses focus.
+ * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
+ * @event wa-clear - Emitted when the clear button is activated.
+ * @event wa-focus - Emitted when the control gains focus.
+ * @event wa-input - Emitted when the control receives input.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and help text.
  * @csspart form-control-label - The label's wrapper.
@@ -48,12 +48,12 @@ import type { ShoelaceFormControl } from '../../internal/shoelace-element.js';
  * @csspart password-toggle-button - The password toggle button.
  * @csspart suffix - The container that wraps the suffix.
  */
-export default class SlInput extends ShoelaceElement implements ShoelaceFormControl {
+export default class WaInput extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   private readonly formControlController = new FormControlController(this, {
-    assumeInteractionOn: ['sl-blur', 'sl-input']
+    assumeInteractionOn: ['wa-blur', 'wa-input']
   });
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
   private readonly localize = new LocalizeController(this);
@@ -240,19 +240,19 @@ export default class SlInput extends ShoelaceElement implements ShoelaceFormCont
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('sl-blur');
+    this.emit('wa-blur');
   }
 
   private handleChange() {
     this.value = this.input.value;
-    this.emit('sl-change');
+    this.emit('wa-change');
   }
 
   private handleClearClick(event: MouseEvent) {
     this.value = '';
-    this.emit('sl-clear');
-    this.emit('sl-input');
-    this.emit('sl-change');
+    this.emit('wa-clear');
+    this.emit('wa-input');
+    this.emit('wa-change');
     this.input.focus();
 
     event.stopPropagation();
@@ -260,13 +260,13 @@ export default class SlInput extends ShoelaceElement implements ShoelaceFormCont
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('sl-focus');
+    this.emit('wa-focus');
   }
 
   private handleInput() {
     this.value = this.input.value;
     this.formControlController.updateValidity();
-    this.emit('sl-input');
+    this.emit('wa-input');
   }
 
   private handleInvalid(event: Event) {
@@ -503,7 +503,7 @@ export default class SlInput extends ShoelaceElement implements ShoelaceFormCont
                     tabindex="-1"
                   >
                     <slot name="clear-icon">
-                      <sl-icon name="x-circle-fill" library="system"></sl-icon>
+                      <wa-icon name="x-circle-fill" library="system"></wa-icon>
                     </slot>
                   </button>
                 `
@@ -521,12 +521,12 @@ export default class SlInput extends ShoelaceElement implements ShoelaceFormCont
                     ${this.passwordVisible
                       ? html`
                           <slot name="show-password-icon">
-                            <sl-icon name="eye-slash" library="system"></sl-icon>
+                            <wa-icon name="eye-slash" library="system"></wa-icon>
                           </slot>
                         `
                       : html`
                           <slot name="hide-password-icon">
-                            <sl-icon name="eye" library="system"></sl-icon>
+                            <wa-icon name="eye" library="system"></wa-icon>
                           </slot>
                         `}
                   </button>

@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlIcon from '../icon/icon.component.js';
 import styles from './breadcrumb.styles.js';
+import WaIcon from '../icon/icon.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type SlBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
+import type WaBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
 
 /**
  * @summary Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
@@ -14,15 +14,15 @@ import type SlBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
  * @since 2.0
  *
  * @slot - One or more breadcrumb items to display.
- * @slot separator - The separator to use between breadcrumb items. Works best with `<sl-icon>`.
+ * @slot separator - The separator to use between breadcrumb items. Works best with `<wa-icon>`.
  *
- * @dependency sl-icon
+ * @dependency wa-icon
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlBreadcrumb extends ShoelaceElement {
+export default class WaBreadcrumb extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
-  static dependencies = { 'sl-icon': SlIcon };
+  static dependencies = { 'wa-icon': WaIcon };
 
   private readonly localize = new LocalizeController(this);
   private separatorDir = this.localize.dir();
@@ -51,8 +51,8 @@ export default class SlBreadcrumb extends ShoelaceElement {
 
   private handleSlotChange() {
     const items = [...this.defaultSlot.assignedElements({ flatten: true })].filter(
-      item => item.tagName.toLowerCase() === 'sl-breadcrumb-item'
-    ) as SlBreadcrumbItem[];
+      item => item.tagName.toLowerCase() === 'wa-breadcrumb-item'
+    ) as WaBreadcrumbItem[];
 
     items.forEach((item, index) => {
       // Append separators to each item if they don't already have one
@@ -92,7 +92,7 @@ export default class SlBreadcrumb extends ShoelaceElement {
 
       <span hidden aria-hidden="true">
         <slot name="separator">
-          <sl-icon name=${this.localize.dir() === 'rtl' ? 'chevron-left' : 'chevron-right'} library="system"></sl-icon>
+          <wa-icon name=${this.localize.dir() === 'rtl' ? 'chevron-left' : 'chevron-right'} library="system"></wa-icon>
         </slot>
       </span>
     `;

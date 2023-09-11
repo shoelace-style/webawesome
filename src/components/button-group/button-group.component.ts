@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './button-group.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -10,11 +10,11 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @slot - One or more `<sl-button>` elements to display in the button group.
+ * @slot - One or more `<wa-button>` elements to display in the button group.
  *
  * @csspart base - The component's base wrapper.
  */
-export default class SlButtonGroup extends ShoelaceElement {
+export default class WaButtonGroup extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   @query('slot') defaultSlot: HTMLSlotElement;
@@ -29,22 +29,22 @@ export default class SlButtonGroup extends ShoelaceElement {
 
   private handleFocus(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('sl-button-group__button--focus');
+    button?.classList.add('wa-button-group__button--focus');
   }
 
   private handleBlur(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('sl-button-group__button--focus');
+    button?.classList.remove('wa-button-group__button--focus');
   }
 
   private handleMouseOver(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('sl-button-group__button--hover');
+    button?.classList.add('wa-button-group__button--hover');
   }
 
   private handleMouseOut(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('sl-button-group__button--hover');
+    button?.classList.remove('wa-button-group__button--hover');
   }
 
   private handleSlotChange() {
@@ -55,11 +55,11 @@ export default class SlButtonGroup extends ShoelaceElement {
       const button = findButton(el);
 
       if (button) {
-        button.classList.add('sl-button-group__button');
-        button.classList.toggle('sl-button-group__button--first', index === 0);
-        button.classList.toggle('sl-button-group__button--inner', index > 0 && index < slottedElements.length - 1);
-        button.classList.toggle('sl-button-group__button--last', index === slottedElements.length - 1);
-        button.classList.toggle('sl-button-group__button--radio', button.tagName.toLowerCase() === 'sl-radio-button');
+        button.classList.add('wa-button-group__button');
+        button.classList.toggle('wa-button-group__button--first', index === 0);
+        button.classList.toggle('wa-button-group__button--inner', index > 0 && index < slottedElements.length - 1);
+        button.classList.toggle('wa-button-group__button--last', index === slottedElements.length - 1);
+        button.classList.toggle('wa-button-group__button--radio', button.tagName.toLowerCase() === 'wa-radio-button');
       }
     });
   }
@@ -84,7 +84,7 @@ export default class SlButtonGroup extends ShoelaceElement {
 }
 
 function findButton(el: HTMLElement) {
-  const selector = 'sl-button, sl-radio-button';
+  const selector = 'wa-button, wa-radio-button';
 
   // The button could be the target element or a child of it (e.g. a dropdown or tooltip anchor)
   return el.closest(selector) ?? el.querySelector(selector);

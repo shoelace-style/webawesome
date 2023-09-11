@@ -1,12 +1,12 @@
-import SlRating from './rating.component.js';
+import WaRating from './rating.component.js';
 
 export * from './rating.component.js';
-export default SlRating;
+export default WaRating;
 
-SlRating.define('sl-rating');
+WaRating.define('wa-rating');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-rating': SlRating;
+    'wa-rating': WaRating;
   }
 }

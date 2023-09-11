@@ -2,7 +2,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './{{ tagWithoutPrefix tag }}.styles.js';
 import type { CSSResultGroup } from 'lit';
 
@@ -12,9 +12,9 @@ import type { CSSResultGroup } from 'lit';
  * @status experimental
  * @since 2.0
  *
- * @dependency sl-example
+ * @dependency wa-example
  *
- * @event sl-event-name - Emitted as an example.
+ * @event wa-event-name - Emitted as an example.
  *
  * @slot - The default slot.
  * @slot example - An example slot.
@@ -23,7 +23,7 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --example - An example CSS custom property.
  */
-export default class {{ properCase tag }} extends ShoelaceElement {
+export default class {{ properCase tag }} extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   private readonly localize = new LocalizeController(this);

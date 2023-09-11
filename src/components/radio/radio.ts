@@ -1,12 +1,12 @@
-import SlRadio from './radio.component.js';
+import WaRadio from './radio.component.js';
 
 export * from './radio.component.js';
-export default SlRadio;
+export default WaRadio;
 
-SlRadio.define('sl-radio');
+WaRadio.define('wa-radio');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-radio': SlRadio;
+    'wa-radio': WaRadio;
   }
 }

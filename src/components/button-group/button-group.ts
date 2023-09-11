@@ -1,12 +1,12 @@
-import SlButtonGroup from './button-group.component.js';
+import WaButtonGroup from './button-group.component.js';
 
 export * from './button-group.component.js';
-export default SlButtonGroup;
+export default WaButtonGroup;
 
-SlButtonGroup.define('sl-button-group');
+WaButtonGroup.define('wa-button-group');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-button-group': SlButtonGroup;
+    'wa-button-group': WaButtonGroup;
   }
 }

@@ -1,17 +1,17 @@
 ---
 meta:
   title: Form Controls
-  description: Some things to note about Shoelace and forms.
+  description: Some things to note about Web Awesome and forms.
 ---
 
 # Form Controls
 
-Every Shoelace component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles, and behavior. One caveat of this approach is that native `<form>` elements do not recognize form controls located inside a shadow root.
+Every Web Awesome component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles, and behavior. One caveat of this approach is that native `<form>` elements do not recognize form controls located inside a shadow root.
 
-Shoelace solves this problem by using the [`formdata`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is [available in all modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event). This means, when a form is submitted, Shoelace form controls will automatically append their values to the `FormData` object that's used to submit the form. In most cases, things will "just work." However, if you're using a form serialization library, it might need to be adapted to recognize Shoelace form controls.
+Web Awesome solves this problem by using the [`formdata`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is [available in all modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event). This means, when a form is submitted, Web Awesome form controls will automatically append their values to the `FormData` object that's used to submit the form. In most cases, things will "just work." However, if you're using a form serialization library, it might need to be adapted to recognize Web Awesome form controls.
 
 :::tip
-Shoelace uses event listeners to intercept the form's `formdata` and `submit` events. This allows it to inject data and trigger validation as necessary. If you're also attaching an event listener to the form, _you must attach it after Shoelace form controls are connected to the DOM_, otherwise your logic will run before Shoelace has a chance to inject form data and validate form controls.
+Web Awesome uses event listeners to intercept the form's `formdata` and `submit` events. This allows it to inject data and trigger validation as necessary. If you're also attaching an event listener to the form, _you must attach it after Web Awesome form controls are connected to the DOM_, otherwise your logic will run before Web Awesome has a chance to inject form data and validate form controls.
 :::
 
 ## Data Serialization
@@ -27,7 +27,7 @@ const data = new FormData(form);
 // All form control data is available in a FormData object
 ```
 
-However, some folks find `FormData` tricky to work with or they need to pass a JSON payload to their server. To accommodate this, Shoelace offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
+However, some folks find `FormData` tricky to work with or they need to pass a JSON payload to their server. To accommodate this, Web Awesome offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
 
 ```js
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
@@ -42,7 +42,7 @@ This results in an object with name/value pairs that map to each form control. I
 
 ## Constraint Validation
 
-Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) for Shoelace form controls. You can activate it using attributes such as `required`, `pattern`, `minlength`, `maxlength`, etc. Shoelace implements many of the same attributes as native form controls, but check the documentation for a list of supported properties for each component.
+Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) for Web Awesome form controls. You can activate it using attributes such as `required`, `pattern`, `minlength`, `maxlength`, etc. Web Awesome implements many of the same attributes as native form controls, but check the documentation for a list of supported properties for each component.
 
 If you don't want to use client-side validation, you can suppress this behavior by adding `novalidate` to the surrounding `<form>` element.
 
@@ -56,26 +56,26 @@ Client-side validation can be used to improve the UX of forms, but it is not a r
 
 ### Required Fields
 
-To make a field required, use the `required` attribute. Required fields will automatically receive a `*` after their labels. This is configurable through the `--sl-input-required-content` custom property.
+To make a field required, use the `required` attribute. Required fields will automatically receive a `*` after their labels. This is configurable through the `--wa-input-required-content` custom property.
 
 The form will not be submitted if a required field is incomplete.
 
 ```html:preview
 <form class="input-validation-required">
-  <sl-input name="name" label="Name" required></sl-input>
+  <wa-input name="name" label="Name" required></wa-input>
   <br />
-  <sl-select label="Favorite Animal" clearable required>
-    <sl-option value="birds">Birds</sl-option>
-    <sl-option value="cats">Cats</sl-option>
-    <sl-option value="dogs">Dogs</sl-option>
-    <sl-option value="other">Other</sl-option>
-  </sl-select>
+  <wa-select label="Favorite Animal" clearable required>
+    <wa-option value="birds">Birds</wa-option>
+    <wa-option value="cats">Cats</wa-option>
+    <wa-option value="dogs">Dogs</wa-option>
+    <wa-option value="other">Other</wa-option>
+  </wa-select>
   <br />
-  <sl-textarea name="comment" label="Comment" required></sl-textarea>
+  <wa-textarea name="comment" label="Comment" required></wa-textarea>
   <br />
-  <sl-checkbox required>Check me before submitting</sl-checkbox>
+  <wa-checkbox required>Check me before submitting</wa-checkbox>
   <br /><br />
-  <sl-button type="submit" variant="primary">Submit</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
 </form>
 
 <script type="module">
@@ -83,12 +83,12 @@ The form will not be submitted if a required field is incomplete.
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-checkbox'),
-    customElements.whenDefined('sl-input'),
-    customElements.whenDefined('sl-option'),
-    customElements.whenDefined('sl-select'),
-    customElements.whenDefined('sl-textarea')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-checkbox'),
+    customElements.whenDefined('wa-input'),
+    customElements.whenDefined('wa-option'),
+    customElements.whenDefined('wa-select'),
+    customElements.whenDefined('wa-textarea')
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -99,12 +99,12 @@ The form will not be submitted if a required field is incomplete.
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
-import SlMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
-import SlSelect from '@shoelace-style/shoelace/dist/react/select';
-import SlTextarea from '@shoelace-style/shoelace/dist/react/textarea';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+import WaSelect from '@shoelace-style/shoelace/dist/react/select';
+import WaTextarea from '@shoelace-style/shoelace/dist/react/textarea';
 
 const App = () => {
   function handleSubmit(event) {
@@ -114,23 +114,23 @@ const App = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SlInput name="name" label="Name" required />
+      <WaInput name="name" label="Name" required />
       <br />
-      <SlSelect label="Favorite Animal" clearable required>
-        <SlMenuItem value="birds">Birds</SlMenuItem>
-        <SlMenuItem value="cats">Cats</SlMenuItem>
-        <SlMenuItem value="dogs">Dogs</SlMenuItem>
-        <SlMenuItem value="other">Other</SlMenuItem>
-      </SlSelect>
+      <WaSelect label="Favorite Animal" clearable required>
+        <WaMenuItem value="birds">Birds</WaMenuItem>
+        <WaMenuItem value="cats">Cats</WaMenuItem>
+        <WaMenuItem value="dogs">Dogs</WaMenuItem>
+        <WaMenuItem value="other">Other</WaMenuItem>
+      </WaSelect>
       <br />
-      <SlTextarea name="comment" label="Comment" required></SlTextarea>
+      <WaTextarea name="comment" label="Comment" required></WaTextarea>
       <br />
-      <SlCheckbox required>Check me before submitting</SlCheckbox>
+      <WaCheckbox required>Check me before submitting</WaCheckbox>
       <br />
       <br />
-      <SlButton type="submit" variant="primary">
+      <WaButton type="submit" variant="brand">
         Submit
-      </SlButton>
+      </WaButton>
     </form>
   );
 };
@@ -138,14 +138,14 @@ const App = () => {
 
 ### Input Patterns
 
-To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern), use the `pattern` attribute. This example only allows the letters A-Z, so the form will not submit if a number or symbol is entered. This only works with `<sl-input>` elements.
+To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern), use the `pattern` attribute. This example only allows the letters A-Z, so the form will not submit if a number or symbol is entered. This only works with `<wa-input>` elements.
 
 ```html:preview
 <form class="input-validation-pattern">
-  <sl-input name="letters" required label="Letters" pattern="[A-Za-z]+"></sl-input>
+  <wa-input name="letters" required label="Letters" pattern="[A-Za-z]+"></wa-input>
   <br />
-  <sl-button type="submit" variant="primary">Submit</sl-button>
-  <sl-button type="reset" variant="default">Reset</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button type="reset" variant="default">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -153,8 +153,8 @@ To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-input')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-input')
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -165,8 +165,8 @@ To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => {
   function handleSubmit(event) {
@@ -176,11 +176,11 @@ const App = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SlInput name="letters" required label="Letters" pattern="[A-Za-z]+" />
+      <WaInput name="letters" required label="Letters" pattern="[A-Za-z]+" />
       <br />
-      <SlButton type="submit" variant="primary">
+      <WaButton type="submit" variant="brand">
         Submit
-      </SlButton>
+      </WaButton>
     </form>
   );
 };
@@ -192,12 +192,12 @@ Some input types will automatically trigger constraints, such as `email` and `ur
 
 ```html:preview
 <form class="input-validation-type">
-  <sl-input type="email" label="Email" placeholder="you@example.com" required></sl-input>
+  <wa-input type="email" label="Email" placeholder="you@example.com" required></wa-input>
   <br />
-  <sl-input type="url" label="URL" placeholder="https://example.com/" required></sl-input>
+  <wa-input type="url" label="URL" placeholder="https://example.com/" required></wa-input>
   <br />
-  <sl-button type="submit" variant="primary">Submit</sl-button>
-  <sl-button type="reset" variant="default">Reset</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button type="reset" variant="default">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -205,8 +205,8 @@ Some input types will automatically trigger constraints, such as `email` and `ur
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-input')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-input')
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -217,8 +217,8 @@ Some input types will automatically trigger constraints, such as `email` and `ur
 ```
 
 ```jsx:react
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => {
   function handleSubmit(event) {
@@ -228,13 +228,13 @@ const App = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SlInput type="email" label="Email" placeholder="you@example.com" required />
+      <WaInput type="email" label="Email" placeholder="you@example.com" required />
       <br />
-      <SlInput type="url" label="URL" placeholder="https://example.com/" required />
+      <WaInput type="url" label="URL" placeholder="https://example.com/" required />
       <br />
-      <SlButton type="submit" variant="primary">
+      <WaButton type="submit" variant="brand">
         Submit
-      </SlButton>
+      </WaButton>
     </form>
   );
 };
@@ -246,31 +246,31 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
 
 ```html:preview
 <form class="input-validation-custom">
-  <sl-input label="Type “shoelace”" required></sl-input>
+  <wa-input label="Type awesome" required></wa-input>
   <br />
-  <sl-button type="submit" variant="primary">Submit</sl-button>
-  <sl-button type="reset" variant="default">Reset</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button type="reset" variant="default">Reset</wa-button>
 </form>
 
 <script type="module">
   const form = document.querySelector('.input-validation-custom');
-  const input = form.querySelector('sl-input');
+  const input = form.querySelector('wa-input');
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-input')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-input')
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');
     });
 
-    input.addEventListener('sl-input', () => {
-      if (input.value === 'shoelace') {
+    input.addEventListener('wa-input', () => {
+      if (input.value === 'awesome') {
         input.setCustomValidity('');
       } else {
-        input.setCustomValidity("Hey, you're supposed to type 'shoelace' before submitting this!");
+        input.setCustomValidity("Hey, you're supposed to type 'awesome' before submitting this!");
       }
     });
   });
@@ -279,8 +279,8 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
 
 ```jsx:react
 import { useRef, useState } from 'react';
-import SlButton from '@shoelace-style/shoelace/dist/react/button';
-import SlInput from '@shoelace-style/shoelace/dist/react/input';
+import WaButton from '@shoelace-style/shoelace/dist/react/button';
+import WaInput from '@shoelace-style/shoelace/dist/react/input';
 
 const App = () => {
   const input = useRef(null);
@@ -289,10 +289,10 @@ const App = () => {
   function handleInput(event) {
     setValue(event.target.value);
 
-    if (event.target.value === 'shoelace') {
+    if (event.target.value === 'awesome') {
       input.current.setCustomValidity('');
     } else {
-      input.current.setCustomValidity("Hey, you're supposed to type 'shoelace' before submitting this!");
+      input.current.setCustomValidity("Hey, you're supposed to type 'awesome' before submitting this!");
     }
   }
 
@@ -303,11 +303,11 @@ const App = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SlInput ref={input} label="Type 'shoelace'" required value={value} onSlInput={handleInput} />
+      <WaInput ref={input} label="Type 'awesome'" required value={value} onWaInput={handleInput} />
       <br />
-      <SlButton type="submit" variant="primary">
+      <WaButton type="submit" variant="brand">
         Submit
-      </SlButton>
+      </WaButton>
     </form>
   );
 };
@@ -319,7 +319,7 @@ Custom validation can be applied to any form control that supports the `setCusto
 
 ## Custom Validation Styles
 
-Due to the many ways form controls are used, Shoelace doesn't provide out of the box validation styles for form controls as part of its default theme. Instead, the following attributes will be applied to reflect a control's validity as users interact with it. You can use them to create custom styles for any of the validation states you're interested in.
+Due to the many ways form controls are used, Web Awesome doesn't provide out of the box validation styles for form controls as part of its default theme. Instead, the following attributes will be applied to reflect a control's validity as users interact with it. You can use them to create custom styles for any of the validation states you're interested in.
 
 - `data-required` - the form control is required
 - `data-optional` - the form control is optional
@@ -331,7 +331,7 @@ Due to the many ways form controls are used, Shoelace doesn't provide out of the
 These attributes map to the browser's built-in pseudo classes for validation: [`:required`](https://developer.mozilla.org/en-US/docs/Web/CSS/:required), [`:optional`](https://developer.mozilla.org/en-US/docs/Web/CSS/:optional), [`:invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid), [`:valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:valid), and the proposed [`:user-invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid) and [`:user-valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid).
 
 :::tip
-In the future, data attributes will be replaced with custom pseudo classes such as `:--valid` and `:--invalid`. Shoelace is using data attributes as a workaround until browsers support custom states through [`ElementInternals.states`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states).
+In the future, data attributes will be replaced with custom pseudo classes such as `:--valid` and `:--invalid`. Web Awesome is using data attributes as a workaround until browsers support custom states through [`ElementInternals.states`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states).
 :::
 
 ### Styling Invalid Form Controls
@@ -342,25 +342,25 @@ This example demonstrates custom validation styles using `data-user-invalid` and
 
 ```html:preview
 <form class="validity-styles">
-  <sl-input
+  <wa-input
     name="name"
     label="Name"
     help-text="What would you like people to call you?"
     autocomplete="off"
     required
-  ></sl-input>
+  ></wa-input>
 
-  <sl-select name="animal" label="Favorite Animal" help-text="Select the best option." clearable required>
-    <sl-option value="birds">Birds</sl-option>
-    <sl-option value="cats">Cats</sl-option>
-    <sl-option value="dogs">Dogs</sl-option>
-    <sl-option value="other">Other</sl-option>
-  </sl-select>
+  <wa-select name="animal" label="Favorite Animal" help-text="Select the best option." clearable required>
+    <wa-option value="birds">Birds</wa-option>
+    <wa-option value="cats">Cats</wa-option>
+    <wa-option value="dogs">Dogs</wa-option>
+    <wa-option value="other">Other</wa-option>
+  </wa-select>
 
-  <sl-checkbox value="accept" required>Accept terms and conditions</sl-checkbox>
+  <wa-checkbox value="accept" required>Accept terms and conditions</wa-checkbox>
 
-  <sl-button type="submit" variant="primary">Submit</sl-button>
-  <sl-button type="reset" variant="default">Reset</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button type="reset" variant="default">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -368,11 +368,11 @@ This example demonstrates custom validation styles using `data-user-invalid` and
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-checkbox'),
-    customElements.whenDefined('sl-input'),
-    customElements.whenDefined('sl-option'),
-    customElements.whenDefined('sl-select')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-checkbox'),
+    customElements.whenDefined('wa-input'),
+    customElements.whenDefined('wa-option'),
+    customElements.whenDefined('wa-select')
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -382,84 +382,84 @@ This example demonstrates custom validation styles using `data-user-invalid` and
 </script>
 
 <style>
-  .validity-styles sl-input,
-  .validity-styles sl-select,
-  .validity-styles sl-checkbox {
+  .validity-styles wa-input,
+  .validity-styles wa-select,
+  .validity-styles wa-checkbox {
     display: block;
-    margin-bottom: var(--sl-spacing-medium);
+    margin-bottom: var(--wa-space-m);
   }
 
   /* user invalid styles */
-  .validity-styles sl-input[data-user-invalid]::part(base),
-  .validity-styles sl-select[data-user-invalid]::part(combobox),
-  .validity-styles sl-checkbox[data-user-invalid]::part(control) {
+  .validity-styles wa-input[data-user-invalid]::part(base),
+  .validity-styles wa-select[data-user-invalid]::part(combobox),
+  .validity-styles wa-checkbox[data-user-invalid]::part(control) {
     border-color: var(--sl-color-danger-600);
   }
 
   .validity-styles [data-user-invalid]::part(form-control-label),
   .validity-styles [data-user-invalid]::part(form-control-help-text),
-  .validity-styles sl-checkbox[data-user-invalid]::part(label) {
+  .validity-styles wa-checkbox[data-user-invalid]::part(label) {
     color: var(--sl-color-danger-700);
   }
 
-  .validity-styles sl-checkbox[data-user-invalid]::part(control) {
+  .validity-styles wa-checkbox[data-user-invalid]::part(control) {
     outline: none;
   }
 
-  .validity-styles sl-input:focus-within[data-user-invalid]::part(base),
-  .validity-styles sl-select:focus-within[data-user-invalid]::part(combobox),
-  .validity-styles sl-checkbox:focus-within[data-user-invalid]::part(control) {
+  .validity-styles wa-input:focus-within[data-user-invalid]::part(base),
+  .validity-styles wa-select:focus-within[data-user-invalid]::part(combobox),
+  .validity-styles wa-checkbox:focus-within[data-user-invalid]::part(control) {
     border-color: var(--sl-color-danger-600);
-    box-shadow: 0 0 0 var(--sl-focus-ring-width) var(--sl-color-danger-300);
+    box-shadow: 0 0 0 var(--wa-focus-ring-width) var(--sl-color-danger-300);
   }
 
   /* User valid styles */
-  .validity-styles sl-input[data-user-valid]::part(base),
-  .validity-styles sl-select[data-user-valid]::part(combobox),
-  .validity-styles sl-checkbox[data-user-valid]::part(control) {
+  .validity-styles wa-input[data-user-valid]::part(base),
+  .validity-styles wa-select[data-user-valid]::part(combobox),
+  .validity-styles wa-checkbox[data-user-valid]::part(control) {
     border-color: var(--sl-color-success-600);
   }
 
   .validity-styles [data-user-valid]::part(form-control-label),
   .validity-styles [data-user-valid]::part(form-control-help-text),
-  .validity-styles sl-checkbox[data-user-valid]::part(label) {
+  .validity-styles wa-checkbox[data-user-valid]::part(label) {
     color: var(--sl-color-success-700);
   }
 
-  .validity-styles sl-checkbox[data-user-valid]::part(control) {
+  .validity-styles wa-checkbox[data-user-valid]::part(control) {
     background-color: var(--sl-color-success-600);
     outline: none;
   }
 
-  .validity-styles sl-input:focus-within[data-user-valid]::part(base),
-  .validity-styles sl-select:focus-within[data-user-valid]::part(combobox),
-  .validity-styles sl-checkbox:focus-within[data-user-valid]::part(control) {
+  .validity-styles wa-input:focus-within[data-user-valid]::part(base),
+  .validity-styles wa-select:focus-within[data-user-valid]::part(combobox),
+  .validity-styles wa-checkbox:focus-within[data-user-valid]::part(control) {
     border-color: var(--sl-color-success-600);
-    box-shadow: 0 0 0 var(--sl-focus-ring-width) var(--sl-color-success-300);
+    box-shadow: 0 0 0 var(--wa-focus-ring-width) var(--sl-color-success-300);
   }
 </style>
 ```
 
 ## Inline Form Validation
 
-By default, Shoelace form controls use the browser's tooltip-style error messages. No mechanism is provided to show errors inline, as there are too many opinions on how that would work when combined with native form controls and other custom elements. You can, however, implement your own solution using the following technique.
+By default, Web Awesome form controls use the browser's tooltip-style error messages. No mechanism is provided to show errors inline, as there are too many opinions on how that would work when combined with native form controls and other custom elements. You can, however, implement your own solution using the following technique.
 
-To disable the browser's error messages, you need to cancel the `sl-invalid` event. Then you can apply your own inline validation errors. This example demonstrates a primitive way to do this.
+To disable the browser's error messages, you need to cancel the `wa-invalid` event. Then you can apply your own inline validation errors. This example demonstrates a primitive way to do this.
 
 ```html:preview
 <form class="inline-validation">
-  <sl-input
+  <wa-input
     name="name"
     label="Name"
     help-text="What would you like people to call you?"
     autocomplete="off"
     required
-  ></sl-input>
+  ></wa-input>
 
   <div id="name-error" aria-live="polite" hidden></div>
 
-  <sl-button type="submit" variant="primary">Submit</sl-button>
-  <sl-button type="reset" variant="default">Reset</sl-button>
+  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button type="reset" variant="default">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -468,12 +468,12 @@ To disable the browser's error messages, you need to cancel the `sl-invalid` eve
 
   // Wait for controls to be defined before attaching form listeners
   await Promise.all([
-    customElements.whenDefined('sl-button'),
-    customElements.whenDefined('sl-input')
+    customElements.whenDefined('wa-button'),
+    customElements.whenDefined('wa-input')
   ]).then(() => {
     // A form control is invalid
     form.addEventListener(
-      'sl-invalid',
+      'wa-invalid',
       event => {
         // Suppress the browser's constraint validation message
         event.preventDefault();
@@ -483,7 +483,7 @@ To disable the browser's error messages, you need to cancel the `sl-invalid` eve
 
         event.target.focus();
       },
-      { capture: true } // you must use capture since sl-invalid doesn't bubble!
+      { capture: true } // you must use capture since wa-invalid doesn't bubble!
     );
 
     // Handle form submit
@@ -504,20 +504,20 @@ To disable the browser's error messages, you need to cancel the `sl-invalid` eve
 
 <style>
   #name-error {
-    font-size: var(--sl-input-help-text-font-size-medium);
+    font-size: var(--wa-input-help-text-font-size-medium);
     color: var(--sl-color-danger-700);
   }
 
-  #name-error ~ sl-button {
-    margin-top: var(--sl-spacing-medium);
+  #name-error ~ wa-button {
+    margin-top: var(--wa-space-m);
   }
 
-  .inline-validation sl-input {
+  .inline-validation wa-input {
     display: block;
   }
 
   /* user invalid styles */
-  .inline-validation sl-input[data-user-invalid]::part(base) {
+  .inline-validation wa-input[data-user-invalid]::part(base) {
     border-color: var(--sl-color-danger-600);
   }
 
@@ -526,13 +526,13 @@ To disable the browser's error messages, you need to cancel the `sl-invalid` eve
     color: var(--sl-color-danger-700);
   }
 
-  .inline-validation sl-input:focus-within[data-user-invalid]::part(base) {
+  .inline-validation wa-input:focus-within[data-user-invalid]::part(base) {
     border-color: var(--sl-color-danger-600);
-    box-shadow: 0 0 0 var(--sl-focus-ring-width) var(--sl-color-danger-300);
+    box-shadow: 0 0 0 var(--wa-focus-ring-width) var(--sl-color-danger-300);
   }
 
   /* User valid styles */
-  .inline-validation sl-input[data-user-valid]::part(base) {
+  .inline-validation wa-input[data-user-valid]::part(base) {
     border-color: var(--sl-color-success-600);
   }
 
@@ -541,9 +541,9 @@ To disable the browser's error messages, you need to cancel the `sl-invalid` eve
     color: var(--sl-color-success-700);
   }
 
-  .inline-validation sl-input:focus-within[data-user-valid]::part(base) {
+  .inline-validation wa-input:focus-within[data-user-valid]::part(base) {
     border-color: var(--sl-color-success-600);
-    box-shadow: 0 0 0 var(--sl-focus-ring-width) var(--sl-color-success-300);
+    box-shadow: 0 0 0 var(--wa-focus-ring-width) var(--sl-color-success-300);
   }
 </style>
 ```
@@ -554,7 +554,7 @@ This example is meant to demonstrate the concept of providing your own error mes
 
 ## Getting Associated Form Controls
 
-At this time, using [`HTMLFormElement.elements`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) will not return Shoelace form controls because the browser is unaware of their status as custom element form controls. Fortunately, Shoelace provides an `elements()` function that does something very similar. However, instead of returning an [`HTMLFormControlsCollection`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormControlsCollection), it returns an array of HTML and Shoelace form controls in the order they appear in the DOM.
+At this time, using [`HTMLFormElement.elements`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) will not return Web Awesome form controls because the browser is unaware of their status as custom element form controls. Fortunately, Web Awesome provides an `elements()` function that does something very similar. However, instead of returning an [`HTMLFormControlsCollection`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormControlsCollection), it returns an array of HTML and Web Awesome form controls in the order they appear in the DOM.
 
 ```js
 import { getFormControls } from '@shoelace-style/shoelace/dist/utilities/form.js';
@@ -562,7 +562,7 @@ import { getFormControls } from '@shoelace-style/shoelace/dist/utilities/form.js
 const form = document.querySelector('#my-form');
 const formControls = getFormControls(form);
 
-console.log(formControls); // e.g. [input, sl-input, ...]
+console.log(formControls); // e.g. [input, wa-input, ...]
 ```
 
 :::tip

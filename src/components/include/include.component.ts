@@ -2,8 +2,8 @@ import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { requestInclude } from './request.js';
 import { watch } from '../../internal/watch.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './include.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
@@ -12,10 +12,10 @@ import type { CSSResultGroup } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @event sl-load - Emitted when the included file is loaded.
- * @event {{ status: number }} sl-error - Emitted when the included file fails to load due to an error.
+ * @event wa-load - Emitted when the included file is loaded.
+ * @event {{ status: number }} wa-error - Emitted when the included file fails to load due to an error.
  */
-export default class SlInclude extends ShoelaceElement {
+export default class WaInclude extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
   /**
@@ -53,7 +53,7 @@ export default class SlInclude extends ShoelaceElement {
       }
 
       if (!file.ok) {
-        this.emit('sl-error', { detail: { status: file.status } });
+        this.emit('wa-error', { detail: { status: file.status } });
         return;
       }
 
@@ -63,9 +63,9 @@ export default class SlInclude extends ShoelaceElement {
         [...this.querySelectorAll('script')].forEach(script => this.executeScript(script));
       }
 
-      this.emit('sl-load');
+      this.emit('wa-load');
     } catch {
-      this.emit('sl-error', { detail: { status: -1 } });
+      this.emit('wa-error', { detail: { status: -1 } });
     }
   }
 
