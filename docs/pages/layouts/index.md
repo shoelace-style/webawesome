@@ -1,3 +1,7 @@
+<script type="module">
+window.Turbo.session.drive = false
+</script>
+
 - [Documentation Layout](/layouts/documentation/index.html)
 - [Documentation Playground](/layouts/documentation-playground/index.html)
 
