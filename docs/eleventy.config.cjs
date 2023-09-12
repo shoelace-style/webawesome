@@ -136,7 +136,7 @@ module.exports = function (eleventyConfig) {
     typography(doc, '#content');
 
     replacer(doc, [
-      { pattern: "%VERSION%", replacement: customElementsManifest.package.version },
+      { pattern: '%VERSION%', replacement: customElementsManifest.package.version },
       { pattern: '%CDNDIR%', replacement: cdndir },
       { pattern: '%NPMDIR%', replacement: npmdir }
     ]);

@@ -13,10 +13,10 @@
  * @param {Replacements} replacements
  */
 module.exports = function (content, replacements) {
-  let html = content.body.innerHTML
+  let html = content.body.innerHTML;
   replacements.forEach(replacement => {
     html = html.replaceAll(replacement.pattern, replacement.replacement);
   });
 
-  content.body.innerHTML = html
+  content.body.innerHTML = html;
 };
