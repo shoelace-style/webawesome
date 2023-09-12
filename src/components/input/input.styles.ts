@@ -239,7 +239,7 @@ export default css`
 
   .input__clear:active,
   .input__password-toggle:active {
-    color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 12%);
+    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
   }
 
   .input__clear:focus,

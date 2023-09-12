@@ -98,8 +98,32 @@ export default css`
     padding: var(--wa-space-2xs) var(--wa-space-xs);
   }
 
+  .tag--small {
+    font-size: var(--wa-font-size-s);
+    height: calc(var(--wa-form-controls-height-s) * 0.8);
+    line-height: calc(var(--wa-form-controls-height-s) - var(--wa-form-controls-border-width) * 2);
+    border-radius: var(--wa-corners-1x);
+    padding: 0 var(--wa-space-xs);
+  }
+
+  .tag--medium {
+    font-size: var(--wa-font-size-m);
+    height: calc(var(--wa-form-controls-height-m) * 0.8);
+    line-height: calc(var(--wa-form-controls-height-m) - var(--wa-form-controls-border-width) * 2);
+    border-radius: var(--wa-corners-1x);
+    padding: 0 var(--wa-space-s);
+  }
+
+  .tag--large {
+    font-size: var(--wa-font-size-l);
+    height: calc(var(--wa-form-controls-height-l) * 0.8);
+    line-height: calc(var(--wa-form-controls-height-l) - var(--wa-form-controls-border-width) * 2);
+    border-radius: var(--wa-corners-1x);
+    padding: 0 var(--wa-space-m);
+  }
+
   .tag__remove {
-    margin-inline-start: var(--wa-space-2xs);
+    margin-inline-start: var(--wa-space-xs);
   }
 
   /*

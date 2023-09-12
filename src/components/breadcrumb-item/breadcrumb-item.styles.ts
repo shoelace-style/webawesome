@@ -41,7 +41,7 @@ export default css`
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:hover {
-    color: color-mix(in oklch, var(--wa-color-brand-text-on-surface), black 8%);
+    color: color-mix(in oklab, var(--wa-color-brand-text-on-surface), var(--wa-color-tint-hover));
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:active {

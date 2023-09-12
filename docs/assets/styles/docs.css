@@ -175,7 +175,7 @@ a {
 }
 
 a:hover {
-  color: color-mix(in oklch, var(--wa-color-text-link) 100%, black 12%);
+  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-tint-hover));
 }
 
 abbr[title] {
@@ -310,7 +310,7 @@ svg.wordmark {
 
 .anchor-heading a::after {
   content: '#';
-  color: color-mix(in oklch, var(--wa-color-text-link) 100%, black 12%);
+  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-tint-hover));
   margin-inline: 0.5rem;
   opacity: 0;
   transition: 100ms opacity;
@@ -492,11 +492,11 @@ pre .token.italic {
 }
 
 .copy-code-button::part(button):hover {
-  background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 4%);
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
 }
 
 .copy-code-button::part(button):active {
-  background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 8%);
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
 }
 
 pre .copy-code-button {

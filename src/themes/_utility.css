@@ -25,5 +25,5 @@
 }
 
 .wa-toast-stack wa-alert::part(base) {
-  box-shadow: var(--wa-shadow-level-3);
+  box-shadow: var(--wa-shadow-level-2);
 }

@@ -180,17 +180,13 @@ export default class WaButton extends WebAwesomeElement implements WebAwesomeFor
     this.emit('wa-focus');
   }
 
-  private handleClick(event: MouseEvent) {
+  private handleClick() {
     if (this.type === 'submit') {
       this.formControlController.submit(this);
     }
 
     if (this.type === 'reset') {
       this.formControlController.reset(this);
-    }
-
-    if (this.href) {
-      event.preventDefault();
     }
   }
 

@@ -7,7 +7,7 @@ export default css`
   :host {
     --border-radius: var(--wa-corners-pill);
     --color: var(--wa-color-neutral-fill-muted);
-    --sheen-color: color-mix(in oklch, var(--wa-color-neutral-fill-muted), white 50%);
+    --sheen-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), white 50%);
 
     display: block;
     position: relative;

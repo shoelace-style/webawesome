@@ -26,11 +26,11 @@ export default css`
 
   .icon-button:hover:not(.icon-button--disabled),
   .icon-button:focus-visible:not(.icon-button--disabled) {
-    color: var(--wa-color-brand-text-on-surface);
+    color: var(--wa-color-brand-fill-vivid);
   }
 
   .icon-button:active:not(.icon-button--disabled) {
-    color: color-mix(in oklch, var(--wa-color-brand-text-on-surface), black 8%);
+    color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
   }
 
   .icon-button:focus {

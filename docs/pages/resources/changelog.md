@@ -12,8 +12,9 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 
 New versions of Web Awesome are released as-needed and generally occur when a critical mass of changes have accumulated. At any time, you can see what's coming in the next release by visiting [next.shoelace.style](https://next.shoelace.style).
 
-## Theme API
+## 3.0 Changes (BREAKING)
 
+- Changed the `sl` prefix to `wa` for Web Awesome, including tags, events, etc.
 - Changed `primary` variants to `brand` in all components
 - Removed `default` from `<wa-button>` and made `neutral` the new default
 - Removed the `circle` modifier from `<wa-button>` because button's no longer have a set height
@@ -22,6 +23,7 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 - Fixed a bug in `<wa-switch>` that resulted in improper spacing between the label and the required asterisk [#1540]
 - Updated `@ctrl/tinycolor` to 4.0.1 [#1542]
+- Updated Bootstrap Icons to 1.11.0
 
 ## 2.8.0
 

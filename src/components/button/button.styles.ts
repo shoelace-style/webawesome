@@ -99,11 +99,11 @@ export default css`
   }
 
   .button--standard.button--brand:hover:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
   }
 
   .button--standard.button--brand:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Success */
@@ -113,11 +113,11 @@ export default css`
   }
 
   .button--standard.button--success:hover:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
   }
 
   .button--standard.button--success:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Neutral */
@@ -127,11 +127,11 @@ export default css`
   }
 
   .button--standard.button--neutral:hover:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
   }
 
   .button--standard.button--neutral:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Warning */
@@ -140,11 +140,11 @@ export default css`
     color: var(--wa-color-warning-text-on-vivid);
   }
   .button--standard.button--warning:hover:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
   }
 
   .button--standard.button--warning:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Danger */
@@ -154,11 +154,11 @@ export default css`
   }
 
   .button--standard.button--danger:hover:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
   }
 
   .button--standard.button--danger:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
   }
 
   /*
@@ -178,14 +178,14 @@ export default css`
 
   .button--outline.button--brand:hover:not(.button--disabled),
   .button--outline.button--brand.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), white 6%);
-    border-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
+    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-brand-text-on-vivid);
   }
 
   .button--outline.button--brand:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), black 6%);
-    border-color: color-mix(in oklch, var(--wa-color-brand-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
+    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Success */
@@ -196,14 +196,14 @@ export default css`
 
   .button--outline.button--success:hover:not(.button--disabled),
   .button--outline.button--success.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), white 6%);
-    border-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
+    border-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-success-text-on-vivid);
   }
 
   .button--outline.button--success:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), black 6%);
-    border-color: color-mix(in oklch, var(--wa-color-success-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
+    border-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
   }
 
   .button--outline.button--small {
@@ -226,14 +226,14 @@ export default css`
 
   .button--outline.button--neutral:hover:not(.button--disabled),
   .button--outline.button--neutral.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), white 6%);
-    border-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
+    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-neutral-text-on-vivid);
   }
 
   .button--outline.button--neutral:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 6%);
-    border-color: color-mix(in oklch, var(--wa-color-neutral-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Warning */
@@ -244,14 +244,14 @@ export default css`
 
   .button--outline.button--warning:hover:not(.button--disabled),
   .button--outline.button--warning.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), white 6%);
-    border-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
+    border-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-warning-text-on-vivid);
   }
 
   .button--outline.button--warning:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), black 6%);
-    border-color: color-mix(in oklch, var(--wa-color-warning-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
+    border-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
   }
 
   /* Danger */
@@ -262,14 +262,14 @@ export default css`
 
   .button--outline.button--danger:hover:not(.button--disabled),
   .button--outline.button--danger.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), white 6%);
-    border-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), white 6%);
+    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
+    border-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-danger-text-on-vivid);
   }
 
   .button--outline.button--danger:active:not(.button--disabled) {
-    background-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), black 6%);
-    border-color: color-mix(in oklch, var(--wa-color-danger-fill-vivid), black 6%);
+    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
+    border-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
   }
 
   @media (forced-colors: active) {
@@ -289,7 +289,7 @@ export default css`
   }
 
   .button--text:hover:not(.button--disabled) {
-    color: color-mix(in oklch, var(--wa-color-text-link), white 6%);
+    color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
   }
 
   .button--text:focus-visible:not(.button--disabled),
@@ -368,7 +368,7 @@ export default css`
 
   .button--loading wa-spinner {
     --indicator-color: currentColor;
-    --track-color: color-mix(in oklch, currentColor, transparent 90%);
+    --track-color: color-mix(in oklab, currentColor, transparent 90%);
     position: absolute;
     font-size: 1em;
     height: 1em;
