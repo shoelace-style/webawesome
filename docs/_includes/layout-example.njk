@@ -12,7 +12,8 @@
     <title>{{ meta.title }}</title>
 
     {# Opt out of Turbo caching #}
-    <meta name="turbo-cache-control">
+    <meta name="turbo-cache-control" content="no-cache">
+    <meta name="turbo-cache-control" content="no-preview">
 
     {# Favicons #}
     <link rel="icon" href="{{ assetUrl('images/logo.svg') }}" type="image/x-icon" />
@@ -38,6 +39,10 @@
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = localStorage.getItem('theme') || 'auto';
         document.documentElement.classList.toggle('wa-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+
+        if (window.Turbo) {
+          window.Turbo.session.drive = false
+        }
       })();
     </script>
 
