@@ -134,8 +134,9 @@ module.exports = function (eleventyConfig) {
     scrollingTables(doc);
     copyCodeButtons(doc); // must be after codePreviews + highlightCodeBlocks
     typography(doc, '#content');
+
     replacer(doc, [
-      { pattern: '%VERSION%', replacement: customElementsManifest.package.version },
+      { pattern: "%VERSION%", replacement: customElementsManifest.package.version },
       { pattern: '%CDNDIR%', replacement: cdndir },
       { pattern: '%NPMDIR%', replacement: npmdir }
     ]);
