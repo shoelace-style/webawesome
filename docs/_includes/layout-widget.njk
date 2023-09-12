@@ -13,17 +13,17 @@
   }
 </style>
 
-<sl-dropdown id="js-layout-widget" class="layout-widget" stay-open-on-select>
-  <sl-button slot="trigger" caret>Dropdown</sl-button>
-  <sl-menu></sl-menu>
-</sl-dropdown>
+<wa-dropdown id="js-layout-widget" class="layout-widget" stay-open-on-select>
+  <wa-button slot="trigger" caret>Dropdown</wa-button>
+  <wa-menu></wa-menu>
+</wa-dropdown>
 
 <script type="module">
   const layoutWidget = document.querySelector("#js-layout-widget")
   const docFrag = new DocumentFragment()
 
   function makeMenuItem (type, slot) {
-    const menuItem = Object.assign(document.createElement("sl-menu-item"), {
+    const menuItem = Object.assign(document.createElement("wa-menu-item"), {
       type: "checkbox",
       textContent: `${type} ${slot}`
     })
@@ -32,13 +32,13 @@
     return menuItem
   }
 
-  document.querySelectorAll("sl-layout > [slot]").forEach((el) => {
+  document.querySelectorAll("wa-layout > [slot]").forEach((el) => {
     const slot = el.getAttribute("slot");
-    docFrag.append(makeMenuItem("toggle", slot), makeMenuItem("overflow", slot), document.createElement("sl-divider"))
+    docFrag.append(makeMenuItem("toggle", slot), makeMenuItem("overflow", slot), document.createElement("wa-divider"))
   })
 
   docFrag.append(makeMenuItem("toggle", "main"), makeMenuItem("overflow", "main"))
-  layoutWidget.querySelector("sl-menu").append(docFrag)
+  layoutWidget.querySelector("wa-menu").append(docFrag)
 
   function capitalize(string) {
     return string.split(/\s+/).map((str) => str[0].toUppercase() + str.slice(1)).join(" ")
@@ -59,7 +59,7 @@
     if (slot === "main") {
       el = document.querySelector(`main`)
     } else {
-      el = document.querySelector(`sl-layout > [slot='${slot}']`)
+      el = document.querySelector(`wa-layout > [slot='${slot}']`)
     }
 
     if (val.startsWith("overflow")) {
@@ -83,7 +83,7 @@
     }
   }
 
-  layoutWidget.addEventListener("sl-select", handleSelect);
+  layoutWidget.addEventListener("wa-select", handleSelect);
 {% if in_playground %}
   &lt;/script>
 {% else %}

@@ -134,7 +134,7 @@ export default css`
     padding: 0.25rem;
 
     /* This looks silly, but without this our skip links get flagged by a11y checkers. */
-    background-color: var(--sl-color-neutral-0);
+    background-color: var(--wa-color-neutral-0);
   }
 
   [part~='menu'],

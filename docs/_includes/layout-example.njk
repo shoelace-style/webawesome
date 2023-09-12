@@ -28,17 +28,16 @@
     <meta property="og:description" content="{{ meta.description }}" />
     <meta property="og:image" content="{{ assetUrl(meta.image, true) }}" />
 
-    {# Shoelace #}
-    <link rel="stylesheet" href="/dist/themes/light.css" />
-    <link rel="stylesheet" href="/dist/themes/dark.css" />
-    <script type="module" src="/dist/shoelace-autoloader.js"></script>
+    {# WebAwesome #}
+    <link rel="stylesheet" href="/dist/themes/default.css" />
+    <script type="module" src="/dist/webawesome.js"></script>
 
     {# Set the initial theme and menu states here to prevent flashing #}
     <script>
       (() => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = localStorage.getItem('theme') || 'auto';
-        document.documentElement.classList.toggle('sl-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+        document.documentElement.classList.toggle('wa-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
       })();
     </script>
 

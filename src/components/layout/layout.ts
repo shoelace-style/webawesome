@@ -1,10 +1,10 @@
-import SlLayout from './layout.component.js';
+import WaLayout from './layout.component.js';
 export * from './layout.component.js';
-export default SlLayout;
-SlLayout.define('sl-layout');
+export default WaLayout;
+WaLayout.define('wa-layout');
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-layout': SlLayout;
+    'wa-layout': WaLayout;
   }
 }

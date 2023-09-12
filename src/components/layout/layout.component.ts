@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
-import ShoelaceElement from '../../internal/shoelace-element.js';
-import SlButton from '../button/button.component.js';
-import SlDrawer from '../drawer/drawer.component.js';
-import SlVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import WaButton from '../button/button.component.js';
+import WaDrawer from '../drawer/drawer.component.js';
+import WaVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
 import styles from './layout.styles.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
 
@@ -17,12 +17,12 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart base - The component's base wrapper.
  * @cssproperty --example - An example CSS custom property.
  */
-export default class SlLayout extends ShoelaceElement {
+export default class SlLayout extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
-    'sl-button': SlButton,
-    'sl-visually-hidden': SlVisuallyHidden,
-    'sl-drawer': SlDrawer
+    'wa-button': WaButton,
+    'wa-visually-hidden': WaVisuallyHidden,
+    'wa-drawer': WaDrawer
   };
 
   @property({ attribute: 'main-id' }) mainId: string = '';
@@ -80,7 +80,7 @@ export default class SlLayout extends ShoelaceElement {
   @query("[part~='sub-header']") subHeader: HTMLElement;
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
-  @query("[part~='navigation-drawer']") navigationDrawer: SlDrawer;
+  @query("[part~='navigation-drawer']") navigationDrawer: WaDrawer;
 
   connectedCallback() {
     super.connectedCallback();
@@ -120,18 +120,18 @@ export default class SlLayout extends ShoelaceElement {
 
   render() {
     return html`
-      <sl-visually-hidden class="skip-links" part="skip-links">
+      <wa-visually-hidden class="skip-links" part="skip-links">
         <slot name="skip-links">
           ${when(
             this.mainId,
             () => html`
-              <sl-button variant="primary" href=${`#${this.mainId}`} part="skip-link" class="skip-link">
+              <wa-button variant="primary" href=${`#${this.mainId}`} part="skip-link" class="skip-link">
                 Skip to main
-              </sl-button>
+              </wa-button>
             `
           )}
         </slot>
-      </sl-visually-hidden>
+      </wa-visually-hidden>
 
       <div class="base" part="base">
         <div class="banner" part="banner">
@@ -140,14 +140,14 @@ export default class SlLayout extends ShoelaceElement {
 
         <div class="header" part="header">
           <slot name="nav-button">
-            <sl-icon-button
+            <wa-icon-button
               name="list"
               variant="text"
               size="large"
               @click=${this.showNavigation}
               part="nav-button-icon"
             >
-            </sl-icon-button>
+            </wa-icon-button>
           </slot>
           <slot name="header"></slot>
         </div>
@@ -193,11 +193,11 @@ export default class SlLayout extends ShoelaceElement {
         </div>
       </div>
 
-      <sl-drawer placement=${this.navigationPlacement} part="navigation-drawer" class="navigation-drawer">
+      <wa-drawer placement=${this.navigationPlacement} part="navigation-drawer" class="navigation-drawer">
         <slot slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
         <slot slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
-      </sl-drawer>
+      </wa-drawer>
 
       <div part="dialog" class="dialog">
         <slot name="dialog"></slot>

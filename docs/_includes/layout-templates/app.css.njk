@@ -6,56 +6,56 @@ main {
 }
 
 /* Layout */
-sl-layout {
-  background-color: var(--sl-color-neutral-50);
-  color: var(--sl-color-neutral-800);
+wa-layout {
+  background-color: var(--wa-color-neutral-95);
+  color: var(--wa-color-neutral-20);
 }
 
 
-sl-layout::part(header) {
+wa-layout::part(header) {
   /** Because headers are sticky, this keeps text from leaking through. */
-  background-color: var(--sl-color-neutral-0);
+  background-color: var(--wa-color-white);
 }
 
-sl-layout[view="mobile"] {
-  background-color: var(--sl-color-neutral-0);
+wa-layout[view="mobile"] {
+  background-color: var(--wa-color-white);
   --menu-width: 0px;
 }
 
-sl-layout[view="mobile"]::part(header) {
+wa-layout[view="mobile"]::part(header) {
   padding: 0.25rem;
-  border-bottom: 1px solid var(--sl-color-neutral-300);
+  border-bottom: 1px solid var(--wa-color-neutral-70);
 }
 
-sl-layout[view="mobile"]::part(navigation) {
+wa-layout[view="mobile"]::part(navigation) {
   display: none;
 }
 
-sl-layout[view="desktop"]::part(main) {
+wa-layout[view="desktop"]::part(main) {
   padding-top: 1rem;
 }
 
-sl-layout[view="desktop"] {
+wa-layout[view="desktop"] {
   --menu-width: 250px;
 }
 
 
-sl-layout[view="desktop"]::part(navigation) {
+wa-layout[view="desktop"]::part(navigation) {
   padding-top: 1.9rem;
 }
 
-sl-layout[view="desktop"] > [slot="header"] {
+wa-layout[view="desktop"] > [slot="header"] {
   display: none;
 }
 
-sl-layout[view="desktop"]::part(header) {
+wa-layout[view="desktop"]::part(header) {
   display: none;
 }
 
-sl-layout[view="desktop"] main {
-  background-color: var(--sl-color-neutral-0);
+wa-layout[view="desktop"] main {
+  background-color: var(--wa-color-white);
   box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.05);
-  border: 1px solid var(--sl-color-neutral-200);
+  border: 1px solid var(--wa-color-neutral-80);
   border-top-left-radius: 8px;
 }
 
@@ -90,15 +90,15 @@ sl-layout[view="desktop"] main {
   content: "";
 }
 
-.app-navigation__list li.is-active sl-button {
-  --background-color: var(--sl-color-primary-600);
-  --background-color-active: var(--sl-color-primary-700);
-  --text-color: var(--sl-color-neutral-0);
-  --text-color-active: var(--sl-color-neutral-0);
+.app-navigation__list li.is-active wa-button {
+  --background-color: var(--wa-color-blue-40);
+  --background-color-active: var(--wa-color-blue-30);
+  --text-color: var(--wa-color-white);
+  --text-color-active: var(--wa-color-white);
 }
 
-.app-navigation__list li sl-button {
-  --text-color: var(--sl-color-neutral-600);
+.app-navigation__list li wa-button {
+  --text-color: var(--wa-color-neutral-40);
 }
 
 /* Highlights */
@@ -110,22 +110,22 @@ sl-layout[view="desktop"] main {
 }
 
 .highlight--success {
-  background-color: var(--sl-color-success-50);
-  color: var(--sl-color-success-700);
+  background-color: var(--wa-color-green-90);
+  color: var(--wa-color-green-30);
 }
 
 .highlight--danger {
-  background-color: var(--sl-color-danger-50);
-  color: var(--sl-color-danger-700);
+  background-color: var(--wa-color-red-90);
+  color: var(--wa-color-red-30);
 }
 
 /* Text */
 .text--light {
-  color: var(--sl-color-neutral-600);
+  color: var(--wa-color-neutral-40);
 }
 
 /* Cards */
-.sl-card--muted::part(base) {
+.wa-card--muted::part(base) {
   --border-color: transparent;
   background-color: transparent;
   display: grid;
@@ -133,83 +133,84 @@ sl-layout[view="desktop"] main {
   box-shadow: none;
 }
 
-.sl-card--muted::part(body) {
+.wa-card--muted::part(body) {
   display: grid;
   align-content: flex-end;
   gap: var(--padding);
 }
 
 /* Buttons */
-.sl-button--card {
+.wa-button--card {
   --border-radius: 8px;
   --padding: 1rem 0px;
 }
 
-.sl-button--card.sl-button--muted {
-  --background-color: var(--sl-color-neutral-100);
+.wa-button--card.wa-button--muted {
+  --background-color: var(--wa-color-neutral-95);
 }
 
-.sl-button--card::part(base) {
+.wa-button--card::part(base) {
+  height: 100%;
   border-radius: var(--border-radius);
   padding: var(--padding);
 }
 
-.sl-button--card::part(label) {
+.wa-button--card::part(label) {
   width: 100%;
 }
 
-.sl-button--muted {
-  --text-color: var(--sl-color-neutral-700);
-  --text-color-active: var(--sl-color-neutral-700);
+.wa-button--muted {
+  --text-color: var(--wa-color-neutral-30);
+  --text-color-active: var(--wa-color-neutral-30);
   --background-color: transparent;
-  --background-color-active: var(--sl-color-neutral-200);
+  --background-color-active: var(--wa-color-neutral-90);
   --border-color: transparent;
-  --border-color-active: var(--sl-color-neutral-200);
+  --border-color-active: var(--wa-color-neutral-80);
 }
 
-.sl-button--muted::part(base) {
+.wa-button--muted::part(base) {
   background-color: var(--background-color);
   color: var(--text-color);
   border-color: var(--border-color);
 }
 
-.sl-button--muted:is(:focus-within)::part(base) {
+.wa-button--muted:is(:focus-within)::part(base) {
   background-color: var(--background-color);
   color: var(--text-color-active);
   border-color: var(--border-color-active);
 }
 
-.sl-button--muted:is(:hover)::part(base) {
+.wa-button--muted:is(:hover)::part(base) {
   background-color: var(--background-color-active);
   color: var(--text-color-active);
   border-color: var(--border-color-active);
 }
 
-.sl-button--logo::part(base) {
+.wa-button--logo::part(base) {
   font-size: 1.5rem;
-  color: var(--sl-color-neutral-700);
+  color: var(--wa-color-neutral-30);
 }
 
-.sl-button--square::part(base) {
+.wa-button--square::part(base) {
   border-radius: 0px;
 }
 
-.sl-button--stretch {
+.wa-button--stretch {
   width: 100%;
 }
 
-.sl-button--stretch::part(label) {
+.wa-button--stretch::part(label) {
   flex: 1 1 auto;
 }
 
-.sl-button--nav-footer {
-  --border-color: var(--sl-color-neutral-300);
-  --sl-spacing-large: 8px;
+.wa-button--nav-footer {
+  --border-color: var(--wa-color-neutral-70);
+  --wa-spacing-large: 8px;
 }
 
-sl-layout[view="desktop"] .sl-button--nav-footer::part(base) {
+wa-layout[view="desktop"] .wa-button--nav-footer::part(base) {
   --border-color: transparent;
-  border-top-color: var(--sl-color-neutral-300);
+  border-top-color: var(--wa-color-neutral-70);
 }
 
 /* Tables */
@@ -221,17 +222,17 @@ table {
 }
 
 table tr {
-  border-bottom: 1px solid var(--sl-color-neutral-300);
+  border-bottom: 1px solid var(--wa-color-neutral-70);
 }
 
 table th {
-  font-weight: var(--sl-font-weight-semibold);
+  font-weight: var(--wa-font-weight-semibold);
   text-align: left;
   padding: 0.75rem 1rem;
 }
 
 table td {
-  line-height: var(--sl-line-height-normal);
+  line-height: var(--wa-line-height-normal);
   padding: 1rem;
 }
 

@@ -1,72 +1,72 @@
-<sl-layout main-id="main-content" class="sl-theme-light">
-  <sl-button href="#" variant="text" style="padding: 0 0.4rem" class="sl-button--logo sl-button--stretch sl-button--muted" size="large" slot="navigation-header">
-    <sl-icon name="music-note" slot="prefix" style="font-size: 2rem;"></sl-icon>
+<wa-layout main-id="main-content" class="wa-theme-light">
+  <wa-button href="#" variant="text" style="padding: 0 0.4rem" class="wa-button--logo wa-button--stretch wa-button--muted" size="large" slot="navigation-header">
+    <wa-icon name="music-note" slot="prefix" style="font-size: 2rem;"></wa-icon>
     Musicify
-  </sl-button>
+  </wa-button>
 
   <nav class="app-navigation" slot="navigation">
     <ul class="app-navigation__list">
       <li>
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="search" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="search" slot="prefix"></wa-icon>
           Search
-        </sl-button>
+        </wa-button>
       </li>
 
      <li>
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="bell" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="bell" slot="prefix"></wa-icon>
           Notifications
-        </sl-button>
+        </wa-button>
       </li>
 
-      <li><sl-divider></sl-divider></li>
+      <li><wa-divider></wa-divider></li>
 
       <li class="is-active">
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="house-door" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="house-door" slot="prefix"></wa-icon>
           Home
-        </sl-button>
+        </wa-button>
       </li>
       <li>
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="music-note-list" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="music-note-list" slot="prefix"></wa-icon>
           Playlists
-        </sl-button>
+        </wa-button>
       </li>
 
       <li>
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="file-earmark-music" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
           Tracks
-        </sl-button>
+        </wa-button>
       </li>
 
       <li>
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="gear" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="gear" slot="prefix"></wa-icon>
           Settings
-        </sl-button>
+        </wa-button>
       </li>
 
 
       <li style="margin-top: auto;">
-        <sl-button class="sl-button--muted sl-button--stretch" href="#" variant="text">
-          <sl-icon name="question-circle" slot="prefix"></sl-icon>
+        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
+          <wa-icon name="question-circle" slot="prefix"></wa-icon>
           Help
-        </sl-button>
+        </wa-button>
       </li>
     </ul>
   </nav>
 
   <!-- Hacky override to make padding 8px -->
-  <sl-button slot="navigation-footer" outline class="sl-button--square sl-button--stretch sl-button--muted sl-button--nav-footer" size="large" href="#">
+  <wa-button slot="navigation-footer" outline class="wa-button--square wa-button--stretch wa-button--muted wa-button--nav-footer" size="large" href="#">
     <div style="display: grid; align-items: center; max-width: 100%; gap: 8px; grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);">
-      <sl-avatar shape="rounded" style="--size: 36px;"></sl-avatar>
-      <div style="text-overflow: ellipsis; max-width: 100%; overflow: hidden; text-align: start;">Really really really long name</div>
-      <sl-icon name="chevron-right"></sl-icon>
+      <wa-avatar shape="rounded" style="--size: 36px;"></wa-avatar>
+      <div style="text-overflow: ellipsis; max-width: 100%; overflow: hidden; text-align: start; font-size: 1rem;">Really really really long name</div>
+      <wa-icon name="chevron-right"></wa-icon>
     </div>
-  </sl-button>
+  </wa-button>
 
 
   <main id="main-content" class="main">
@@ -76,23 +76,23 @@
       <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: flex-end; gap: 8px;">
         <h2 style="">Overview</h2>
 
-        <sl-select value="monthly">
-          <sl-option value="daily">Daily</sl-option>
-          <sl-option value="weekly">Weekly</sl-option>
-          <sl-option value="monthly">Monthly</sl-option>
-          <sl-option value="yearly">Yearly</sl-option>
-        </sl-select>
+        <wa-select value="monthly">
+          <wa-option value="daily">Daily</wa-option>
+          <wa-option value="weekly">Weekly</wa-option>
+          <wa-option value="monthly">Monthly</wa-option>
+          <wa-option value="yearly">Yearly</wa-option>
+        </wa-select>
       </div>
 
-    <sl-divider></sl-divider>
+    <wa-divider></wa-divider>
 
 
-      <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); grid-auto-rows: 1fr; gap: var(--sl-spacing-large); text-align: center;">
-        <sl-card class="sl-card--muted" style="--padding: 8px;">
+      <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); grid-auto-rows: 1fr; gap: var(--wa-spacing-large); text-align: center;">
+        <wa-card class="wa-card--muted" style="--padding: 8px;">
           <h3 slot="header">Total listening time</h3>
 
           <p>
-            <strong><sl-format-number value="35000"></sl-format-number></strong> minutes
+            <strong><wa-format-number value="35000"></wa-format-number></strong> minutes
           </p>
           <p>
             <mark class="highlight highlight--success">
@@ -101,13 +101,13 @@
 
             <small class="text--light">from last month</small>
           </p>
-        </sl-card>
+        </wa-card>
 
-        <sl-card class="sl-card--muted" style="--padding: 8px;">
+        <wa-card class="wa-card--muted" style="--padding: 8px;">
           <h3 slot="header">Total songs played</h3>
 
           <p>
-            <strong><sl-format-number value="302"></sl-format-number></strong> songs
+            <strong><wa-format-number value="302"></wa-format-number></strong> songs
           </p>
 
           <p>
@@ -117,13 +117,13 @@
 
             <small class="text--light">from last month</small>
           </p>
-        </sl-card>
+        </wa-card>
 
-        <sl-card class="sl-card--muted" style="--padding: 8px;">
+        <wa-card class="wa-card--muted" style="--padding: 8px;">
           <h3 slot="header">Average listening session</h3>
 
           <p>
-            <strong><sl-format-number value="36"></sl-format-number></strong> minutes
+            <strong><wa-format-number value="36"></wa-format-number></strong> minutes
           </p>
 
           <p>
@@ -133,14 +133,14 @@
 
             <small class="text--light">from last month</small>
           </p>
-        </sl-card>
+        </wa-card>
 
-        <sl-card class="sl-card--muted" style="--padding: 8px;">
+        <wa-card class="wa-card--muted" style="--padding: 8px;">
           <h3 slot="header">Average track listening time</h3>
 
           <p>
-            <strong><sl-format-number value="2"></sl-format-number></strong> minutes,
-            <strong><sl-format-number value="42"></sl-format-number></strong> seconds
+            <strong><wa-format-number value="2"></wa-format-number></strong> minutes,
+            <strong><wa-format-number value="42"></wa-format-number></strong> seconds
           </p>
           <p>
             <mark class="highlight highlight--success">
@@ -149,7 +149,7 @@
 
             <small class="text--light">from last month</small>
           </p>
-        </sl-card>
+        </wa-card>
       </div>
     </section>
 
@@ -158,11 +158,11 @@
 
       <div style="margin-top: 1rem; --card-width: clamp(200px, 100%, 350px); display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr)); gap: 16px;">
 
-        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+        <wa-button variant="neutral" class="wa-button--card wa-button--muted" href="#">
           <div style="display: flex; gap: 1rem;">
             <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%; flex: 0 1 auto;">
 
-            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+            <article style="display: grid; align-content: center; color: var(--wa-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
               <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
                 Punk Rock Anthems
               </h2>
@@ -171,17 +171,17 @@
                 For when you just wanna rock out, have a good time, and feel angsty.
               </p>
 
-              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+              <wa-icon name="chevron-right" style="justify-self: flex-end;"></wa-icon>
             </article>
           </div>
-        </sl-button>
+        </wa-button>
 
 
-        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+        <wa-button variant="neutral" class="wa-button--card wa-button--muted" href="#">
           <div style="display: flex; gap: 1rem;">
             <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%;">
 
-            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+            <article style="display: grid; align-content: center; color: var(--wa-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
               <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
                 Random
               </h2>
@@ -190,16 +190,16 @@
                 Throw it on shuffle, and embrace the chaos.
               </p>
 
-              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+              <wa-icon name="chevron-right" style="justify-self: flex-end;"></wa-icon>
             </article>
           </div>
-        </sl-button>
+        </wa-button>
 
-        <sl-button variant="neutral" class="sl-button--card sl-button--muted" href="#">
+        <wa-button variant="neutral" class="wa-button--card wa-button--muted" href="#">
           <div style="display: flex; gap: 1rem;">
             <img src="https://via.placeholder.com/100x100" height="100" width="100" style="align-self: center; border-radius: 8px; display: inline-block;">
 
-            <article style="display: grid; align-content: center; color: var(--sl-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
+            <article style="display: grid; align-content: center; color: var(--wa-color-neutral-700); grid-template-columns: minmax(0, 1fr); max-width: 100%; overflow: hidden; width: 100%;">
               <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden;">
                 Classics
               </h2>
@@ -208,10 +208,10 @@
                 Timeless songs that you love to relive.
               </p>
 
-              <sl-icon name="chevron-right" style="justify-self: flex-end;"></sl-icon>
+              <wa-icon name="chevron-right" style="justify-self: flex-end;"></wa-icon>
             </article>
           </div>
-        </sl-button>
+        </wa-button>
       </div>
     </section>
 
@@ -243,7 +243,7 @@
           <tbody>
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -261,7 +261,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -279,7 +279,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -297,7 +297,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -315,7 +315,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -333,7 +333,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -351,7 +351,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -369,7 +369,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -387,7 +387,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -405,7 +405,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -423,7 +423,7 @@
 
             <tr>
               <td>
-                <sl-format-date date="2020-07-15T09:17:00-04:00"></sl-format-date>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
               </td>
 
               <td>
@@ -446,4 +446,4 @@
 
   </main>
 
-</sl-layout>
+</wa-layout>

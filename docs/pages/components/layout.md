@@ -6,7 +6,7 @@ layout: component
 ---
 
 ```html preview
-<sl-layout></sl-layout>
+<wa-layout></wa-layout>
 ```
 
 ## Examples
@@ -19,4 +19,4 @@ TODO
 
 TODO
 
-[component-metadata:sl-layout]
+[component-metadata:wa-layout]
