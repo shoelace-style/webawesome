@@ -12,11 +12,17 @@ export default css`
   }
 
   .button {
+    background: var(--button-background);
+    border-color: var(--button-border-color, var(--button-background));
+    border-style: var(--button-border-style, var(--wa-border-style));
+    border-width: var(--button-border-width, var(--wa-form-controls-border-width));
+    color: var(--button-label-color);
+
     display: inline-flex;
     align-items: stretch;
     justify-content: center;
     width: 100%;
-    border: none;
+    /* border: none; */
     font: inherit;
     font-weight: var(--wa-font-weight-action);
     text-decoration: none;
@@ -62,6 +68,18 @@ export default css`
     outline-color: var(--wa-color-danger-fill-vivid);
   }
 
+  .button:hover:not(.button--disabled) {
+    background: var(--button-background-hover, var(--button-background));
+    border-color: var(--button-border-color-hover, var(--button-border-color, var(--button-background-hover)));
+    color: var(--button-label-color-hover, var(--button-label-color));
+  }
+
+  .button:active:not(.button--disabled) {
+    background: var(--button-background-active, var(--button-background));
+    border-color: var(--button-border-color-active, var(--button-border-color, var(--button-background-active)));
+    color: var(--button-label-color-active, var(--button-label-color));
+  }
+
   .button--disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -91,74 +109,42 @@ export default css`
   /*
    * Standard buttons
    */
+  .button--standard:hover:not(.button--disabled) {
+    --button-background-hover: color-mix(in oklab, var(--button-background), var(--wa-color-tint-hover));
+  }
+
+  .button--standard:active:not(.button--disabled) {
+    --button-background-active: color-mix(in oklab, var(--button-background), var(--wa-color-tint-active));
+  }
 
   /* Brand */
   .button--standard.button--brand {
-    background-color: var(--wa-color-brand-fill-vivid);
-    color: var(--wa-color-brand-text-on-vivid);
-  }
-
-  .button--standard.button--brand:hover:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
-  }
-
-  .button--standard.button--brand:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
+    --button-background: var(--wa-color-brand-fill-vivid);
+    --button-label-color: var(--wa-color-brand-text-on-vivid);
   }
 
   /* Success */
   .button--standard.button--success {
-    background-color: var(--wa-color-success-fill-vivid);
-    color: var(--wa-color-success-text-on-vivid);
-  }
-
-  .button--standard.button--success:hover:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
-  }
-
-  .button--standard.button--success:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
+    --button-background: var(--wa-color-success-fill-vivid);
+    --button-label-color: var(--wa-color-success-text-on-vivid);
   }
 
   /* Neutral */
   .button--standard.button--neutral {
-    background-color: var(--wa-color-neutral-fill-vivid);
-    color: var(--wa-color-neutral-text-on-vivid);
-  }
-
-  .button--standard.button--neutral:hover:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-  }
-
-  .button--standard.button--neutral:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    --button-background: var(--wa-color-neutral-fill-vivid);
+    --button-label-color: var(--wa-color-neutral-text-on-vivid);
   }
 
   /* Warning */
   .button--standard.button--warning {
-    background-color: var(--wa-color-warning-fill-vivid);
-    color: var(--wa-color-warning-text-on-vivid);
-  }
-  .button--standard.button--warning:hover:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
-  }
-
-  .button--standard.button--warning:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
+    --button-background: var(--wa-color-warning-fill-vivid);
+    --button-label-color: var(--wa-color-warning-text-on-vivid);
   }
 
   /* Danger */
   .button--standard.button--danger {
-    background-color: var(--wa-color-danger-fill-vivid);
-    color: var(--wa-color-danger-text-on-vivid);
-  }
-
-  .button--standard.button--danger:hover:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
-  }
-
-  .button--standard.button--danger:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
+    --button-background: var(--wa-color-danger-fill-vivid);
+    --button-label-color: var(--wa-color-danger-text-on-vivid);
   }
 
   /*
@@ -166,110 +152,52 @@ export default css`
    */
 
   .button--outline {
-    background: none;
-    border: solid max(1px, var(--wa-form-controls-border-width));
+    --button-background: none;
+    --button-border-style: var(--wa-border-style);
+    --button-border-width: max(1px, var(--wa-form-controls-border-width));
+  }
+
+  .button--outline:hover:not(.button--disabled),
+  .button--outline.button--checked:not(.button--disabled) {
+    --button-background-hover: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-hover));
+    --button-border-color-hover: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-hover));
+    --button-label-color-hover: var(--wa-color-brand-text-on-vivid);
+  }
+
+  .button--outline:active:not(.button--disabled) {
+    --button-background-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
+    --button-border-color-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
+    --button-label-color-active: var(--wa-color-brand-text-on-vivid);
   }
 
   /* Brand */
   .button--outline.button--brand {
-    border-color: var(--wa-color-brand-outline-vivid);
-    color: var(--wa-color-brand-text-on-surface);
-  }
-
-  .button--outline.button--brand:hover:not(.button--disabled),
-  .button--outline.button--brand.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-brand-text-on-vivid);
-  }
-
-  .button--outline.button--brand:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
+    --button-border-color: var(--wa-color-brand-outline-vivid);
+    --button-label-color: var(--wa-color-brand-text-on-surface);
   }
 
   /* Success */
   .button--outline.button--success {
-    border-color: var(--wa-color-success-outline-vivid);
-    color: var(--wa-color-success-text-on-surface);
-  }
-
-  .button--outline.button--success:hover:not(.button--disabled),
-  .button--outline.button--success.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-success-text-on-vivid);
-  }
-
-  .button--outline.button--success:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active));
-  }
-
-  .button--outline.button--small {
-    line-height: calc(var(--wa-form-controls-height-s) - max(1px, var(--wa-form-controls-border-width)) * 2);
-  }
-
-  .button--outline.button--medium {
-    line-height: calc(var(--wa-form-controls-height-m) - max(1px, var(--wa-form-controls-border-width)) * 2);
-  }
-
-  .button--outline.button--large {
-    line-height: calc(var(--wa-form-controls-height-l) - max(1px, var(--wa-form-controls-border-width)) * 2);
+    --button-border-color: var(--wa-color-success-outline-vivid);
+    --button-label-color: var(--wa-color-success-text-on-surface);
   }
 
   /* Neutral */
   .button--outline.button--neutral {
-    border-color: var(--wa-color-neutral-outline-vivid);
-    color: var(--wa-color-neutral-text-on-surface);
-  }
-
-  .button--outline.button--neutral:hover:not(.button--disabled),
-  .button--outline.button--neutral.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-neutral-text-on-vivid);
-  }
-
-  .button--outline.button--neutral:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    --button-border-color: var(--wa-color-neutral-outline-vivid);
+    --button-label-color: var(--wa-color-neutral-text-on-surface);
   }
 
   /* Warning */
   .button--outline.button--warning {
-    border-color: var(--wa-color-warning-outline-vivid);
-    color: var(--wa-color-warning-text-on-surface);
-  }
-
-  .button--outline.button--warning:hover:not(.button--disabled),
-  .button--outline.button--warning.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-warning-text-on-vivid);
-  }
-
-  .button--outline.button--warning:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active));
+    --button-border-color: var(--wa-color-warning-outline-vivid);
+    --button-label-color: var(--wa-color-warning-text-on-surface);
   }
 
   /* Danger */
   .button--outline.button--danger {
-    border-color: var(--wa-color-danger-outline-vivid);
-    color: var(--wa-color-danger-text-on-surface);
-  }
-
-  .button--outline.button--danger:hover:not(.button--disabled),
-  .button--outline.button--danger.button--checked:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-danger-text-on-vivid);
-  }
-
-  .button--outline.button--danger:active:not(.button--disabled) {
-    background-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active));
+    --button-border-color: var(--wa-color-danger-outline-vivid);
+    --button-label-color: var(--wa-color-danger-text-on-surface);
   }
 
   @media (forced-colors: active) {
@@ -283,18 +211,18 @@ export default css`
    */
 
   .button--text {
-    background-color: transparent;
-    border-color: transparent;
-    color: var(--wa-color-text-link);
+    --button-background: none;
+    --button-border-color: transparent;
+    --button-label-color: var(--wa-color-text-link);
   }
 
   .button--text:hover:not(.button--disabled) {
-    color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
+    --button-label-color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
   }
 
   .button--text:focus-visible:not(.button--disabled),
   .button--text:active:not(.button--disabled) {
-    color: var(--wa-color-text-link);
+    --button-label-color: var(--wa-color-text-link);
   }
 
   /*
@@ -320,6 +248,18 @@ export default css`
     font-size: var(--wa-font-size-l);
     line-height: var(--wa-form-controls-height-l);
     border-radius: var(--wa-form-controls-corners);
+  }
+
+  .button--outline.button--small {
+    line-height: calc(var(--wa-form-controls-height-s) - var(--button-border-width) * 2);
+  }
+
+  .button--outline.button--medium {
+    line-height: calc(var(--wa-form-controls-height-m) - var(--button-border-width) * 2);
+  }
+
+  .button--outline.button--large {
+    line-height: calc(var(--wa-form-controls-height-l) - var(--button-border-width) * 2);
   }
 
   /*
@@ -499,7 +439,7 @@ export default css`
     top: 0;
     inset-inline-start: 0;
     bottom: 0;
-    border-left: solid 1px rgb(128 128 128 / 33%);
+    border-left: solid 1px var(--wa-color-tint-black);
     mix-blend-mode: multiply;
   }
 
