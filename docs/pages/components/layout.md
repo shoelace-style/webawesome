@@ -1,7 +1,7 @@
 ---
 meta:
   title: Layout
-  description:
+  description: The layout component is a way to quickly scaffold up pages in a consistent way designed to reduce boilerplate and help get you from 0 to full page as fast as possible.
 layout: component
 ---
 
@@ -18,5 +18,3 @@ TODO
 ### Second Example
 
 TODO
-
-[component-metadata:wa-layout]
