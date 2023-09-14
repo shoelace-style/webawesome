@@ -6,7 +6,7 @@ export default css`
 
   :host {
     --track-width: 2px;
-    --track-color: var(--wa-color-neutral-fill-muted);
+    --track-color: var(--wa-color-neutral-fill-muted-alt);
     --indicator-color: var(--wa-color-brand-fill-vivid);
     --speed: 2s;
 

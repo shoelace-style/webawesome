@@ -21,6 +21,7 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## Next
 
+- Fixed a bug in the autoloader causing it to register non-Shoelace elements [#1563]
 - Fixed a bug in `<wa-switch>` that resulted in improper spacing between the label and the required asterisk [#1540]
 - Updated `@ctrl/tinycolor` to 4.0.1 [#1542]
 - Updated Bootstrap Icons to 1.11.0

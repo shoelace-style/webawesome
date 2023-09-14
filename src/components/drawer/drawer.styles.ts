@@ -143,7 +143,7 @@ export default css`
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--wa-overlay-color);
+    background-color: var(--wa-color-overlay);
     pointer-events: all;
   }
 

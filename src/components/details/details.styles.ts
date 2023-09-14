@@ -10,7 +10,7 @@ export default css`
 
   .details {
     border: solid 1px var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-panel-corners);
     background-color: var(--wa-color-surface-default);
     overflow-anchor: none;
   }

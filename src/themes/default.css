@@ -75,7 +75,6 @@
   --wa-color-text-normal: var(--wa-color-neutral-10);
   --wa-color-text-quiet: var(--wa-color-neutral-40);
   --wa-color-text-inverse: var(--wa-color-white);
-
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-80);
@@ -88,6 +87,10 @@
 
   --wa-color-tint-hover: black 8%;
   --wa-color-tint-active: black 16%;
+
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
+
+  --wa-color-shadow: rgb(0 0 0 / 0.06);
 
   /**
    * Semantic color variants
@@ -242,10 +245,11 @@
   /**
    * Shadows
    */
+  --wa-shadow-inset: inset 0 0.0625rem 0 var(--wa-color-shadow);
   --wa-shadow-level-0: none;
-  --wa-shadow-level-1: 0 0.0625rem 0.125rem rgb(0 0 0 / 0.08);
-  --wa-shadow-level-2: 0 0.125rem 0.25rem rgb(0 0 0 / 0.06);
-  --wa-shadow-level-3: 0 0.25rem 0.5rem rgb(0 0 0 / 0.04);
+  --wa-shadow-level-1: 0 0.0625rem 0.125rem var(--wa-color-shadow);
+  --wa-shadow-level-2: 0 0.125rem 0.25rem var(--wa-color-shadow);
+  --wa-shadow-level-3: 0 0.25rem 0.5rem var(--wa-color-shadow);
 
   /**
    * Z-index
@@ -266,7 +270,7 @@
   /**
    * Form controls
    */
-  --wa-form-controls-background: var(--wa-color-surface-raised);
+  --wa-form-controls-background: var(--wa-color-surface-default);
   --wa-form-controls-border-style: var(--wa-border-style);
   --wa-form-controls-border-width: var(--wa-border-width-thin);
   --wa-form-controls-corners: var(--wa-corners-1x);
@@ -276,6 +280,12 @@
   --wa-form-controls-value-line-height: var(--wa-font-height-compact);
   --wa-form-controls-padding: var(--wa-space-square-s);
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
+
+  /**
+   * Panels
+   */
+  --wa-panel-border-width: var(--wa-border-width-thin);
+  --wa-panel-corners: var(--wa-corners-2x);
 
   /**
   * From 2.x
@@ -290,9 +300,102 @@
   --wa-form-controls-required-content-color: inherit;
   --wa-form-controls-required-content-offset: -0.1em;
 
-  --wa-overlay-color: hsl(240 3.8% 46.1% / 33%);
-
   --wa-tooltip-arrow-size: 0.375rem;
+}
+
+:root.wa-theme-default-dark {
+  color-scheme: dark;
+
+  /**
+   * App
+   */
+  --wa-color-surface-raised: var(--wa-color-neutral-10);
+  --wa-color-surface-default: var(--wa-color-neutral-10);
+  --wa-color-surface-lowered: var(--wa-color-black);
+  --wa-color-surface-outline: var(--wa-color-neutral-20);
+
+  --wa-color-text-normal: var(--wa-color-neutral-95);
+  --wa-color-text-quiet: var(--wa-color-neutral-60);
+  --wa-color-text-inverse: var(--wa-color-neutral-10);
+  --wa-color-text-link: var(--wa-color-brand-text-on-surface);
+
+  --wa-color-selection-background: var(--wa-color-blue-40);
+  --wa-color-selection-text: var(--wa-color-white);
+
+  --wa-color-focus: var(--wa-color-blue-50);
+
+  --wa-color-tint-white: rgb(255 255 255 / 0.2);
+  --wa-color-tint-black: rgb(0 0 0 / 0.2);
+
+  --wa-color-tint-hover: black 8%;
+  --wa-color-tint-active: black 16%;
+
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
+
+  --wa-color-shadow: rgb(0 0 0 / 0.25);
+
+  /**
+    * Semantic color variants
+    */
+  --wa-color-brand-fill-vivid: var(--wa-color-blue-50);
+  --wa-color-brand-fill-vivid-alt: var(--wa-color-blue-30);
+  --wa-color-brand-fill-muted: var(--wa-color-blue-10);
+  --wa-color-brand-fill-muted-alt: var(--wa-color-blue-20);
+  --wa-color-brand-outline-vivid: var(--wa-color-blue-50);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-blue-40);
+  --wa-color-brand-outline-muted: var(--wa-color-blue-20);
+  --wa-color-brand-outline-muted-alt: var(--wa-color-blue-30);
+  --wa-color-brand-text-on-vivid: var(--wa-color-white);
+  --wa-color-brand-text-on-muted: var(--wa-color-blue-70);
+  --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
+
+  --wa-color-success-fill-vivid: var(--wa-color-green-50);
+  --wa-color-success-fill-vivid-alt: var(--wa-color-green-30);
+  --wa-color-success-fill-muted: var(--wa-color-green-10);
+  --wa-color-success-fill-muted-alt: var(--wa-color-green-20);
+  --wa-color-success-outline-vivid: var(--wa-color-green-50);
+  --wa-color-success-outline-vivid-alt: var(--wa-color-green-40);
+  --wa-color-success-outline-muted: var(--wa-color-green-20);
+  --wa-color-success-outline-muted-alt: var(--wa-color-green-30);
+  --wa-color-success-text-on-vivid: var(--wa-color-white);
+  --wa-color-success-text-on-muted: var(--wa-color-green-70);
+  --wa-color-success-text-on-surface: var(--wa-color-green-60);
+
+  --wa-color-warning-fill-vivid: var(--wa-color-yellow-50);
+  --wa-color-warning-fill-vivid-alt: var(--wa-color-yellow-30);
+  --wa-color-warning-fill-muted: var(--wa-color-yellow-10);
+  --wa-color-warning-fill-muted-alt: var(--wa-color-yellow-20);
+  --wa-color-warning-outline-vivid: var(--wa-color-yellow-50);
+  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-40);
+  --wa-color-warning-outline-muted: var(--wa-color-yellow-20);
+  --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-30);
+  --wa-color-warning-text-on-vivid: var(--wa-color-white);
+  --wa-color-warning-text-on-muted: var(--wa-color-yellow-70);
+  --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
+
+  --wa-color-danger-fill-vivid: var(--wa-color-red-50);
+  --wa-color-danger-fill-vivid-alt: var(--wa-color-red-30);
+  --wa-color-danger-fill-muted: var(--wa-color-red-10);
+  --wa-color-danger-fill-muted-alt: var(--wa-color-red-20);
+  --wa-color-danger-outline-vivid: var(--wa-color-red-50);
+  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-40);
+  --wa-color-danger-outline-muted: var(--wa-color-red-20);
+  --wa-color-danger-outline-muted-alt: var(--wa-color-red-30);
+  --wa-color-danger-text-on-vivid: var(--wa-color-white);
+  --wa-color-danger-text-on-muted: var(--wa-color-red-70);
+  --wa-color-danger-text-on-surface: var(--wa-color-red-60);
+
+  --wa-color-neutral-fill-vivid: var(--wa-color-neutral-50);
+  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-30);
+  --wa-color-neutral-fill-muted: var(--wa-color-neutral-10);
+  --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-20);
+  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-40);
+  --wa-color-neutral-outline-muted: var(--wa-color-neutral-20);
+  --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-30);
+  --wa-color-neutral-text-on-vivid: var(--wa-color-white);
+  --wa-color-neutral-text-on-muted: var(--wa-color-neutral-70);
+  --wa-color-neutral-text-on-surface: var(--wa-color-neutral-60);
 }
 
 /* _utility.css */

@@ -1,5 +1,5 @@
 :root {
-  --docs-background-color: var(--wa-color-surface-raised);
+  --docs-background-color: var(--wa-color-surface-default);
   --docs-content-max-width: 860px;
   --docs-sidebar-width: 320px;
   --docs-sidebar-transition-speed: 250ms;

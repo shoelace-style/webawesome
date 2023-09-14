@@ -42,7 +42,7 @@ export default css`
     width: var(--toggle-size);
     height: var(--toggle-size);
     border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
-    border-radius: 2px;
+    border-radius: var(--wa-corners-half);
     background-color: var(--wa-form-controls-background);
     color: var(--wa-form-controls-text-color);
     transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,

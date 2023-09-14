@@ -33,7 +33,7 @@ export default css`
     max-width: calc(100% - var(--wa-space-2xl));
     max-height: calc(100% - var(--wa-space-2xl));
     background-color: var(--wa-color-surface-raised);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-panel-corners);
     box-shadow: var(--wa-shadow-level-3);
   }
 
@@ -112,7 +112,7 @@ export default css`
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--wa-overlay-color);
+    background-color: var(--wa-color-overlay);
   }
 
   @media (forced-colors: active) {

@@ -15,7 +15,7 @@ export default css`
     position: relative;
     display: flex;
     align-items: stretch;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-panel-corners);
     font: inherit;
     margin: inherit;
   }
@@ -35,31 +35,31 @@ export default css`
 
   .alert--brand {
     background-color: var(--wa-color-brand-fill-muted);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-brand-outline-muted);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-brand-outline-muted);
     color: var(--wa-color-brand-text-on-muted);
   }
 
   .alert--success {
     background-color: var(--wa-color-success-fill-muted);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-success-outline-muted);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-success-outline-muted);
     color: var(--wa-color-success-text-on-muted);
   }
 
   .alert--neutral {
     background-color: var(--wa-color-neutral-fill-muted);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-neutral-outline-muted);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-outline-muted);
     color: var(--wa-color-neutral-text-on-muted);
   }
 
   .alert--warning {
     background-color: var(--wa-color-warning-fill-muted);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-warning-outline-muted);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-warning-outline-muted);
     color: var(--wa-color-warning-text-on-muted);
   }
 
   .alert--danger {
     background-color: var(--wa-color-danger-fill-muted);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-danger-outline-muted);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-danger-outline-muted);
     color: var(--wa-color-danger-text-on-muted);
   }
 

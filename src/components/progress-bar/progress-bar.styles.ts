@@ -6,7 +6,7 @@ export default css`
 
   :host {
     --height: 1rem;
-    --track-color: var(--wa-color-neutral-fill-muted);
+    --track-color: var(--wa-color-neutral-fill-muted-alt);
     --indicator-color: var(--wa-color-brand-fill-vivid);
     --label-color: var(--wa-color-brand-text-on-vivid);
 
@@ -18,7 +18,7 @@ export default css`
     background-color: var(--track-color);
     height: var(--height);
     border-radius: var(--wa-corners-pill);
-    box-shadow: inset var(--wa-shadow-level-1);
+    box-shadow: var(--wa-shadow-inset);
     overflow: hidden;
   }
 
