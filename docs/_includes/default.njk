@@ -37,6 +37,15 @@
     <link rel="stylesheet" href="/dist/themes/default.css" />
     <script type="module" src="/dist/autoloader.js"></script>
 
+    {# Set the initial theme and menu states here to prevent flashing #}
+    <script>
+      (() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = localStorage.getItem('theme') || 'auto';
+        document.documentElement.classList.toggle('wa-theme-default-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+      })();
+    </script>
+
     {# Web Fonts #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

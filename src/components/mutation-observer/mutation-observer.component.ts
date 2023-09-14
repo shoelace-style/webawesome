@@ -52,6 +52,7 @@ export default class WaMutationObserver extends WebAwesomeElement {
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.stopObserver();
   }
 

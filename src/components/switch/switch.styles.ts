@@ -77,7 +77,7 @@ export default css`
   }
 
   /* Focus */
-  .switch:not(.switch--checked):not(.switch--disabled) .switch__input:focus-visible ~ .switch__control .switch__thumb {
+  .switch:not(.switch--disabled) .switch__input:focus-visible ~ .switch__control .switch__thumb {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }

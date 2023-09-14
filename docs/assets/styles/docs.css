@@ -23,11 +23,6 @@
 }
 
 /* Utils */
-html.wa-theme-dark .only-light,
-html:not(.wa-theme-dark) .only-dark {
-  display: none !important;
-}
-
 .visually-hidden:not(:focus-within) {
   position: absolute !important;
   width: 1px !important;

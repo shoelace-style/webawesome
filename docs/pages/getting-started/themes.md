@@ -16,7 +16,7 @@ For component developers, built-in themes are also available as JavaScript modul
 
 ## Theme Basics
 
-All themes are scoped to classes using the `sl-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `wa-theme-light` and `wa-theme-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `sl-theme-purple-power`
+All themes are scoped to classes using the `sl-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `wa-theme-default-light` and `wa-theme-default-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `sl-theme-purple-power`
 
 All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to `:host` so they can be imported and applied to custom element shadow roots.
 
@@ -32,7 +32,7 @@ All selectors must be scoped to the theme's class to ensure interoperability wit
 To activate a theme, import it and apply the theme's class to the `<html>` element. This example imports and activates the built-in dark theme.
 
 ```html
-<html class="wa-theme-dark">
+<html class="wa-theme-default-dark">
   <head>
     <link rel="stylesheet" href="path/to/shoelace/%NPMDIR%/themes/dark.css" />
   </head>
@@ -59,7 +59,7 @@ You can activate themes on various containers throughout the page. This example 
   </head>
 
   <body>
-    <nav class="wa-theme-dark">
+    <nav class="wa-theme-default-dark">
       <!-- dark-themed sidebar -->
     </nav>
 
@@ -83,7 +83,7 @@ If you're customizing the light theme, you should scope your styles to the follo
 ```css
 :root,
 :host,
-.wa-theme-light {
+.wa-theme-default-light {
   /* your custom styles here */
 }
 ```
@@ -92,7 +92,7 @@ If you're customizing the dark theme, you should scope your styles to the follow
 
 ```css
 :host,
-.wa-theme-dark {
+.wa-theme-default-dark {
   /* your custom styles here */
 }
 ```
@@ -133,10 +133,10 @@ To install the dark theme, add the following to the `<head>` section of your pag
 />
 ```
 
-To activate the theme, apply the `wa-theme-dark` class to the `<html>` element.
+To activate the theme, apply the `wa-theme-default-dark` class to the `<html>` element.
 
 ```html
-<html class="wa-theme-dark">
+<html class="wa-theme-default-dark">
   ...
 </html>
 ```
