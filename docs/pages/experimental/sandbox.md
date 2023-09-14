@@ -95,3 +95,10 @@ meta:
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 ```
+
+#### Progress
+```html:preview
+<wa-progress-ring value="25" style="--indicator-width: 4px;"></wa-progress-ring>
+<wa-progress-bar value="60"></wa-progress-bar>
+<wa-spinner></wa-spinner>
+```
