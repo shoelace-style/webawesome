@@ -11,12 +11,76 @@ export default css`
     cursor: pointer;
   }
 
+  /*
+   * Standard buttons
+   */
+
+  :host([variant='brand']) {
+    --background: var(--wa-color-brand-fill-vivid);
+    --label-color: var(--wa-color-brand-text-on-vivid);
+  }
+
+  :host([variant='success']) {
+    --background: var(--wa-color-success-fill-vivid);
+    --label-color: var(--wa-color-success-text-on-vivid);
+  }
+
+  :host([variant='warning']) {
+    --background: var(--wa-color-warning-fill-vivid);
+    --label-color: var(--wa-color-warning-text-on-vivid);
+  }
+
+  :host([variant='neutral']) {
+    --background: var(--wa-color-neutral-fill-vivid);
+    --label-color: var(--wa-color-neutral-text-on-vivid);
+  }
+
+  :host([variant='danger']) {
+    --background: var(--wa-color-danger-fill-vivid);
+    --label-color: var(--wa-color-danger-text-on-vivid);
+  }
+
+  /*
+   * Outline buttons
+   */
+
+  :host([outline]) {
+    --background: none;
+    --border-style: var(--wa-border-style);
+    --border-width: max(1px, var(--wa-form-controls-border-width));
+  }
+
+  :host([variant='brand'][outline]) {
+    --border-color: var(--wa-color-brand-outline-vivid);
+    --label-color: var(--wa-color-brand-text-on-surface);
+  }
+
+  :host([variant='success'][outline]) {
+    --border-color: var(--wa-color-success-outline-vivid);
+    --label-color: var(--wa-color-success-text-on-surface);
+  }
+
+  :host([variant='neutral'][outline]) {
+    --border-color: var(--wa-color-neutral-outline-vivid);
+    --label-color: var(--wa-color-neutral-text-on-surface);
+  }
+
+  :host([variant='warning'][outline]) {
+    --border-color: var(--wa-color-warning-outline-vivid);
+    --label-color: var(--wa-color-warning-text-on-surface);
+  }
+
+  :host([variant='danger'][outline]) {
+    --border-color: var(--wa-color-danger-outline-vivid);
+    --label-color: var(--wa-color-danger-text-on-surface);
+  }
+
   .button {
-    background: var(--button-background);
-    border-color: var(--button-border-color, var(--button-background));
-    border-style: var(--button-border-style, var(--wa-border-style));
-    border-width: var(--button-border-width, var(--wa-form-controls-border-width));
-    color: var(--button-label-color);
+    background: var(--background);
+    border-color: var(--border-color, var(--background));
+    border-style: var(--border-style, var(--wa-border-style));
+    border-width: var(--border-width, var(--wa-form-controls-border-width));
+    color: var(--label-color);
 
     display: inline-flex;
     align-items: stretch;
@@ -117,45 +181,9 @@ export default css`
     --button-background-active: color-mix(in oklab, var(--button-background), var(--wa-color-tint-active));
   }
 
-  /* Brand */
-  .button--standard.button--brand {
-    --button-background: var(--wa-color-brand-fill-vivid);
-    --button-label-color: var(--wa-color-brand-text-on-vivid);
-  }
-
-  /* Success */
-  .button--standard.button--success {
-    --button-background: var(--wa-color-success-fill-vivid);
-    --button-label-color: var(--wa-color-success-text-on-vivid);
-  }
-
-  /* Neutral */
-  .button--standard.button--neutral {
-    --button-background: var(--wa-color-neutral-fill-vivid);
-    --button-label-color: var(--wa-color-neutral-text-on-vivid);
-  }
-
-  /* Warning */
-  .button--standard.button--warning {
-    --button-background: var(--wa-color-warning-fill-vivid);
-    --button-label-color: var(--wa-color-warning-text-on-vivid);
-  }
-
-  /* Danger */
-  .button--standard.button--danger {
-    --button-background: var(--wa-color-danger-fill-vivid);
-    --button-label-color: var(--wa-color-danger-text-on-vivid);
-  }
-
   /*
    * Outline buttons
    */
-
-  .button--outline {
-    --button-background: none;
-    --button-border-style: var(--wa-border-style);
-    --button-border-width: max(1px, var(--wa-form-controls-border-width));
-  }
 
   .button--outline:hover:not(.button--disabled),
   .button--outline.button--checked:not(.button--disabled) {
@@ -168,36 +196,6 @@ export default css`
     --button-background-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
     --button-border-color-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
     --button-label-color-active: var(--wa-color-brand-text-on-vivid);
-  }
-
-  /* Brand */
-  .button--outline.button--brand {
-    --button-border-color: var(--wa-color-brand-outline-vivid);
-    --button-label-color: var(--wa-color-brand-text-on-surface);
-  }
-
-  /* Success */
-  .button--outline.button--success {
-    --button-border-color: var(--wa-color-success-outline-vivid);
-    --button-label-color: var(--wa-color-success-text-on-surface);
-  }
-
-  /* Neutral */
-  .button--outline.button--neutral {
-    --button-border-color: var(--wa-color-neutral-outline-vivid);
-    --button-label-color: var(--wa-color-neutral-text-on-surface);
-  }
-
-  /* Warning */
-  .button--outline.button--warning {
-    --button-border-color: var(--wa-color-warning-outline-vivid);
-    --button-label-color: var(--wa-color-warning-text-on-surface);
-  }
-
-  /* Danger */
-  .button--outline.button--danger {
-    --button-border-color: var(--wa-color-danger-outline-vivid);
-    --button-label-color: var(--wa-color-danger-text-on-surface);
   }
 
   @media (forced-colors: active) {
@@ -251,15 +249,15 @@ export default css`
   }
 
   .button--outline.button--small {
-    line-height: calc(var(--wa-form-controls-height-s) - var(--button-border-width) * 2);
+    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
   }
 
   .button--outline.button--medium {
-    line-height: calc(var(--wa-form-controls-height-m) - var(--button-border-width) * 2);
+    line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
   }
 
   .button--outline.button--large {
-    line-height: calc(var(--wa-form-controls-height-l) - var(--button-border-width) * 2);
+    line-height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
   }
 
   /*

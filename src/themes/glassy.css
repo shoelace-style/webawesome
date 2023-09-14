@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Quicksand:wght@100..900&display=swap');
+@import 'depth.css';
 
 :root,
 :host,
@@ -278,6 +279,12 @@
   --wa-form-controls-value-line-height: var(--wa-font-height-compact);
   --wa-form-controls-padding: var(--wa-space-square-s);
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
+
+  /**
+   * Panels
+   */
+   --wa-panel-border-width: var(--wa-border-width-thin);
+   --wa-panel-corners: var(--wa-corners-2x);
 
   /**
   * From 2.x
