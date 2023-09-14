@@ -52,7 +52,7 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @cssproperty [--header-height=0px] - This gets auto-calculated when the layout connects. If you know the height of your header, you can optionally set this to the proper value to prevent shifting.
  * @cssproperty [--sub-header-height=0px] - This gets auto-calculated when the layout connects. If you know the height of your sub-header, you can optionally set this to the proper value to prevent shifting.
  */
-export default class SlLayout extends WebAwesomeElement {
+export default class WaLayout extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
     'wa-button': WaButton,
