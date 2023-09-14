@@ -204,7 +204,7 @@ export default class WaLayout extends WebAwesomeElement {
           ${when(
             this.mainId,
             () => html`
-              <wa-button variant="primary" href=${`#${this.mainId}`} part="skip-link" class="skip-link">
+              <wa-button variant="brand" href=${`#${this.mainId}`} part="skip-link" class="skip-link">
                 Skip to main
               </wa-button>
             `
