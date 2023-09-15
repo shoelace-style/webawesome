@@ -19,9 +19,12 @@ Layouts are best in the dedicate [layouts section](/layouts/index.html)
   }
 
   /* Override global styles */
-  wa-layout main {
+  wa-layout :is(main, [slot="aside"]) {
     margin: 0;
+    padding: 1rem;
   }
+
+
 </style>
 <wa-layout main-id="content" style="max-height: 500px; overflow: auto;">
   <header slot="header">
@@ -30,7 +33,7 @@ Layouts are best in the dedicate [layouts section](/layouts/index.html)
 
   <nav aria-label="Main Navigation" slot="navigation">
     <ul style="list-style-type: ' '";>
-      <li><wa-button variant="link" href="#">Home</wa-button></li>
+      <li><wa-button variant="text" href="#">Home</wa-button></li>
     </ul>
   </nav>
 
