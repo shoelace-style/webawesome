@@ -9,6 +9,8 @@ export default css`
     position: relative;
     width: auto;
     cursor: pointer;
+
+    --shadow: var(--wa-shadow-level-0);
   }
 
   /*
@@ -38,6 +40,10 @@ export default css`
   :host([variant='danger']) {
     --background: var(--wa-color-danger-fill-vivid);
     --label-color: var(--wa-color-danger-text-on-vivid);
+  }
+
+  :host(:not([outline])) {
+    --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
   }
 
   /*
@@ -80,6 +86,7 @@ export default css`
     border-color: var(--border-color, var(--background));
     border-style: var(--border-style, var(--wa-border-style));
     border-width: var(--border-width, var(--wa-form-controls-border-width));
+    box-shadow: var(--shadow);
     color: var(--label-color);
 
     display: inline-flex;
@@ -133,15 +140,15 @@ export default css`
   }
 
   .button:hover:not(.button--disabled) {
-    background: var(--button-background-hover, var(--button-background));
-    border-color: var(--button-border-color-hover, var(--button-border-color, var(--button-background-hover)));
-    color: var(--button-label-color-hover, var(--button-label-color));
+    background: var(--background-hover, var(--background));
+    border-color: var(--border-color-hover, var(--border-color, var(--background-hover)));
+    color: var(--label-color-hover, var(--label-color));
   }
 
   .button:active:not(.button--disabled) {
-    background: var(--button-background-active, var(--button-background));
-    border-color: var(--button-border-color-active, var(--button-border-color, var(--button-background-active)));
-    color: var(--button-label-color-active, var(--button-label-color));
+    background: var(--background-active, var(--background));
+    border-color: var(--border-color-active, var(--border-color, var(--background-active)));
+    color: var(--label-color-active, var(--label-color));
   }
 
   .button--disabled {
@@ -173,12 +180,12 @@ export default css`
   /*
    * Standard buttons
    */
-  .button--standard:hover:not(.button--disabled) {
-    --button-background-hover: color-mix(in oklab, var(--button-background), var(--wa-color-tint-hover));
-  }
+  /*.button--standard:hover:not(.button--disabled) {
+    --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
+  }*/
 
   .button--standard:active:not(.button--disabled) {
-    --button-background-active: color-mix(in oklab, var(--button-background), var(--wa-color-tint-active));
+    --background-active: color-mix(in oklab, var(--background), var(--wa-color-tint-active));
   }
 
   /*

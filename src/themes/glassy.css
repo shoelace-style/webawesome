@@ -78,7 +78,6 @@
   --wa-color-text-normal: var(--wa-color-neutral-10);
   --wa-color-text-quiet: var(--wa-color-neutral-40);
   --wa-color-text-inverse: var(--wa-color-white);
-
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-orchid-80);
@@ -91,6 +90,10 @@
 
   --wa-color-tint-hover: black 8%;
   --wa-color-tint-active: black 16%;
+
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
+
+  --wa-color-shadow: rgb(0 0 0 / 0.06);
 
   /**
    * Semantic color variants
@@ -245,10 +248,11 @@
   /**
    * Shadows
    */
+  --wa-shadow-inset: inset 0 0.0625rem 0 var(--wa-color-shadow);
   --wa-shadow-level-0: none;
-  --wa-shadow-level-1: 0 0.125rem 0.25rem rgb(0 0 0 / 0.08);
-  --wa-shadow-level-2: 0 0.25rem 0.5rem rgb(0 0 0 / 0.06);
-  --wa-shadow-level-3: 0 0.5rem 1rem rgb(0 0 0 / 0.04);
+  --wa-shadow-level-1: 0 0.125rem 0.25rem var(--wa-color-shadow);
+  --wa-shadow-level-2: 0 0.25rem 0.5rem var(--wa-color-shadow);
+  --wa-shadow-level-3: 0 0.5rem 1rem var(--wa-color-shadow);
 
   /**
    * Z-index
@@ -283,8 +287,8 @@
   /**
    * Panels
    */
-   --wa-panel-border-width: var(--wa-border-width-thin);
-   --wa-panel-corners: var(--wa-corners-2x);
+  --wa-panel-border-width: var(--wa-border-width-thin);
+  --wa-panel-corners: var(--wa-corners-2x);
 
   /**
   * From 2.x

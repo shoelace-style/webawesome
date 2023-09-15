@@ -1,3 +1,8 @@
+wa-button {
+  --background-hover: var(--background);
+  --shadow: inset 0 0.0625rem 0 0 white, var(--wa-shadow-level-1);
+}
+
 wa-button[variant='brand']:not([outline]) {
   --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
   --border-color: rgb(255 255 255 / 0.5) var(--wa-color-brand-fill-vivid) var(--wa-color-brand-fill-vivid-alt);
@@ -9,16 +14,16 @@ wa-button[variant='success']:not([outline]) {
 }
 
 wa-button[variant='neutral']:not([outline]) {
-    --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
-    --border-color: rgb(255 255 255 / 0.5) var(--wa-color-neutral-fill-vivid) var(--wa-color-neutral-fill-vivid-alt);
-  }
+  --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
+  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-neutral-fill-vivid) var(--wa-color-neutral-fill-vivid-alt);
+}
 
-  wa-button[variant='warning']:not([outline]) {
-    --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
-    --border-color: rgb(255 255 255 / 0.5) var(--wa-color-warning-fill-vivid) var(--wa-color-warning-fill-vivid-alt);
-  }
+wa-button[variant='warning']:not([outline]) {
+  --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
+  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-warning-fill-vivid) var(--wa-color-warning-fill-vivid-alt);
+}
 
-  wa-button[variant='danger']:not([outline]) {
-    --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
-    --border-color: rgb(255 255 255 / 0.5) var(--wa-color-danger-fill-vivid) var(--wa-color-danger-fill-vivid-alt);
-  }
+wa-button[variant='danger']:not([outline]) {
+  --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
+  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-danger-fill-vivid) var(--wa-color-danger-fill-vivid-alt);
+}
