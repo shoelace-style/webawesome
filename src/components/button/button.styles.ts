@@ -42,8 +42,9 @@ export default css`
     --label-color: var(--wa-color-danger-text-on-vivid);
   }
 
-  :host(:not([outline])) {
+  :host(:not([variant='text'])) {
     --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
+    --background-active: color-mix(in oklab, var(--background), var(--wa-color-tint-active));
   }
 
   /*
@@ -51,49 +52,93 @@ export default css`
    */
 
   :host([outline]) {
-    --background: none;
     --border-style: var(--wa-border-style);
     --border-width: max(1px, var(--wa-form-controls-border-width));
+    --background-hover: color-mix(in oklab, var(--border-color), var(--wa-color-tint-hover));
+    --border-color-hover: var(--background-hover);
+    --background-active: color-mix(in oklab, var(--border-color), var(--wa-color-tint-active));
+    --border-color-active: var(--background-hover);
+    --label-color-active: var(--label-color-hover);
   }
 
   :host([variant='brand'][outline]) {
     --border-color: var(--wa-color-brand-outline-vivid);
     --label-color: var(--wa-color-brand-text-on-surface);
+    --label-color-hover: var(--wa-color-brand-text-on-vivid);
   }
 
   :host([variant='success'][outline]) {
     --border-color: var(--wa-color-success-outline-vivid);
     --label-color: var(--wa-color-success-text-on-surface);
+    --label-color-hover: var(--wa-color-success-text-on-vivid);
   }
 
   :host([variant='neutral'][outline]) {
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
+    --label-color-hover: var(--wa-color-neutral-text-on-vivid);
   }
 
   :host([variant='warning'][outline]) {
     --border-color: var(--wa-color-warning-outline-vivid);
     --label-color: var(--wa-color-warning-text-on-surface);
+    --label-color-hover: var(--wa-color-warning-text-on-vivid);
   }
 
   :host([variant='danger'][outline]) {
     --border-color: var(--wa-color-danger-outline-vivid);
     --label-color: var(--wa-color-danger-text-on-surface);
+    --label-color-hover: var(--wa-color-danger-text-on-vivid);
+  }
+
+  :host([variant='text']) {
+    --label-color: var(--wa-color-text-link);
+    --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
+    --label-color-active: var(--wa-color-text-link);
+  }
+
+  .button--standard {
+    background: var(--background);
+    border-color: var(--border-color, var(--background));
+    box-shadow: var(--shadow);
+  }
+
+  .button--outline {
+    background: none;
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+  }
+
+  .button--text {
+    background: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .button--standard:hover:not(.button--disabled) {
+    background: var(--background-hover, var(--background));
+  }
+
+  .button:hover:not(.button--disabled) {
+    background: var(--background-hover, var(--background));
+    border-color: var(--border-color-hover, var(--border-color, var(--background-hover)));
+    color: var(--label-color-hover, var(--label-color));
+  }
+
+  .button:active:not(.button--disabled) {
+    background: var(--background-active, var(--background));
+    border-color: var(--border-color-active, var(--border-color, var(--background-active)));
+    color: var(--label-color-active, var(--label-color));
   }
 
   .button {
-    background: var(--background);
-    border-color: var(--border-color, var(--background));
     border-style: var(--border-style, var(--wa-border-style));
     border-width: var(--border-width, var(--wa-form-controls-border-width));
-    box-shadow: var(--shadow);
     color: var(--label-color);
-
     display: inline-flex;
     align-items: stretch;
     justify-content: center;
     width: 100%;
-    /* border: none; */
     font: inherit;
     font-weight: var(--wa-font-weight-action);
     text-decoration: none;
@@ -101,8 +146,8 @@ export default css`
     white-space: nowrap;
     vertical-align: middle;
     padding: 0;
-    transition: var(--wa-transition-faster) background-color, var(--wa-transition-faster) color,
-      var(--wa-transition-faster) border, var(--wa-transition-faster) box-shadow;
+    transition: background var(--wa-transition-faster), color var(--wa-transition-faster),
+      border var(--wa-transition-faster), box-shadow var(--wa-transition-faster);
     cursor: inherit;
   }
 
@@ -139,18 +184,6 @@ export default css`
     outline-color: var(--wa-color-danger-fill-vivid);
   }
 
-  .button:hover:not(.button--disabled) {
-    background: var(--background-hover, var(--background));
-    border-color: var(--border-color-hover, var(--border-color, var(--background-hover)));
-    color: var(--label-color-hover, var(--label-color));
-  }
-
-  .button:active:not(.button--disabled) {
-    background: var(--background-active, var(--background));
-    border-color: var(--border-color-active, var(--border-color, var(--background-active)));
-    color: var(--label-color-active, var(--label-color));
-  }
-
   .button--disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -177,34 +210,6 @@ export default css`
     vertical-align: -2px;
   }
 
-  /*
-   * Standard buttons
-   */
-  /*.button--standard:hover:not(.button--disabled) {
-    --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
-  }*/
-
-  .button--standard:active:not(.button--disabled) {
-    --background-active: color-mix(in oklab, var(--background), var(--wa-color-tint-active));
-  }
-
-  /*
-   * Outline buttons
-   */
-
-  .button--outline:hover:not(.button--disabled),
-  .button--outline.button--checked:not(.button--disabled) {
-    --button-background-hover: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-hover));
-    --button-border-color-hover: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-hover));
-    --button-label-color-hover: var(--wa-color-brand-text-on-vivid);
-  }
-
-  .button--outline:active:not(.button--disabled) {
-    --button-background-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
-    --button-border-color-active: color-mix(in oklab, var(--button-border-color), var(--wa-color-tint-active));
-    --button-label-color-active: var(--wa-color-brand-text-on-vivid);
-  }
-
   @media (forced-colors: active) {
     .button.button--outline.button--checked:not(.button--disabled) {
       outline: solid 2px transparent;
@@ -215,19 +220,8 @@ export default css`
    * Text buttons
    */
 
-  .button--text {
-    --button-background: none;
-    --button-border-color: transparent;
-    --button-label-color: var(--wa-color-text-link);
-  }
-
-  .button--text:hover:not(.button--disabled) {
-    --button-label-color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
-  }
-
-  .button--text:focus-visible:not(.button--disabled),
-  .button--text:active:not(.button--disabled) {
-    --button-label-color: var(--wa-color-text-link);
+  .button--text:focus-visible:not(.button--disabled) {
+    --label-color: var(--wa-color-text-link);
   }
 
   /*

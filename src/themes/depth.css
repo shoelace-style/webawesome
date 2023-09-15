@@ -1,29 +1,94 @@
-wa-button {
-  --background-hover: var(--background);
-  --shadow: inset 0 0.0625rem 0 0 white, var(--wa-shadow-level-1);
+:root {
+  --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
 }
 
-wa-button[variant='brand']:not([outline]) {
+wa-button:not([outline]) {
+  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-1);
+}
+wa-button:hover {
+  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-2);
+}
+wa-button:active {
+  --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.3);
+  --shadow: var(--wa-shadow-inset-highlight), inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.1);
+}
+
+wa-button[variant='brand'] {
   --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
-  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-brand-fill-vivid) var(--wa-color-brand-fill-vivid-alt);
+  --background-hover: linear-gradient(
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover)) 25%,
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
+  );
+  --background-active: linear-gradient(
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active))
+  );
+  --border-color: var(--wa-color-brand-fill-vivid) var(--wa-color-brand-fill-vivid-alt)
+    var(--wa-color-brand-fill-vivid-alt);
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--wa-color-brand-fill-vivid-alt);
 }
 
-wa-button[variant='success']:not([outline]) {
+wa-button[variant='success'] {
   --background: linear-gradient(var(--wa-color-success-fill-vivid) 25%, var(--wa-color-success-fill-vivid-alt));
-  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-success-fill-vivid) var(--wa-color-success-fill-vivid-alt);
+  --background-hover: linear-gradient(
+    color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover)) 25%,
+    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
+  );
+  --background-active: linear-gradient(
+    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
+    color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active))
+  );
+  --border-color: var(--wa-color-success-fill-vivid) var(--wa-color-success-fill-vivid-alt)
+    var(--wa-color-success-fill-vivid-alt);
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--wa-color-success-fill-vivid-alt);
 }
 
-wa-button[variant='neutral']:not([outline]) {
+wa-button[variant='neutral'] {
   --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
-  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-neutral-fill-vivid) var(--wa-color-neutral-fill-vivid-alt);
+  --background-hover: linear-gradient(
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover)) 25%,
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
+  );
+  --background-active: linear-gradient(
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active))
+  );
+  --border-color: var(--wa-color-neutral-fill-vivid) var(--wa-color-neutral-fill-vivid-alt)
+    var(--wa-color-neutral-fill-vivid-alt);
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--wa-color-neutral-fill-vivid-alt);
 }
 
-wa-button[variant='warning']:not([outline]) {
+wa-button[variant='warning'] {
   --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
-  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-warning-fill-vivid) var(--wa-color-warning-fill-vivid-alt);
+  --background-hover: linear-gradient(
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover)) 25%,
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
+  );
+  --background-active: linear-gradient(
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active))
+  );
+  --border-color: var(--wa-color-warning-fill-vivid) var(--wa-color-warning-fill-vivid-alt)
+    var(--wa-color-warning-fill-vivid-alt);
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--wa-color-warning-fill-vivid-alt);
 }
 
-wa-button[variant='danger']:not([outline]) {
+wa-button[variant='danger'] {
   --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
-  --border-color: rgb(255 255 255 / 0.5) var(--wa-color-danger-fill-vivid) var(--wa-color-danger-fill-vivid-alt);
+  --background-hover: linear-gradient(
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover)) 25%,
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
+  );
+  --background-active: linear-gradient(
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active))
+  );
+  --border-color: var(--wa-color-danger-fill-vivid) var(--wa-color-danger-fill-vivid-alt)
+    var(--wa-color-danger-fill-vivid-alt);
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--wa-color-danger-fill-vivid-alt);
 }

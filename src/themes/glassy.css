@@ -88,12 +88,12 @@
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
 
-  --wa-color-tint-hover: black 8%;
+  --wa-color-tint-hover: white 4%;
   --wa-color-tint-active: black 16%;
 
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
 
-  --wa-color-shadow: rgb(0 0 0 / 0.06);
+  --wa-color-shadow: rgb(0 0 0 / 0.2);
 
   /**
    * Semantic color variants
