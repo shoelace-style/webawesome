@@ -6,8 +6,8 @@ export default css`
 
   :host {
     --border-radius: var(--wa-corners-pill);
-    --color: var(--wa-color-neutral-fill-muted);
-    --sheen-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), white 50%);
+    --color: var(--wa-color-neutral-fill-muted-alt);
+    --sheen-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted-alt), var(--wa-color-surface-raised) 30%);
 
     display: block;
     position: relative;

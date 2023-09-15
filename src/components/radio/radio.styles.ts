@@ -15,9 +15,7 @@ export default css`
   .radio {
     display: inline-flex;
     align-items: top;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     color: var(--wa-form-controls-text-color);
     vertical-align: middle;
     cursor: pointer;

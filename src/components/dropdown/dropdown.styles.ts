@@ -33,9 +33,7 @@ export default css`
   }
 
   .dropdown__panel {
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     box-shadow: var(--wa-shadow-level-2);
     border-radius: var(--wa-corners-1x);
     pointer-events: none;

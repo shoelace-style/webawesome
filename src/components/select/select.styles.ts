@@ -40,8 +40,7 @@ export default css`
     position: relative;
     align-items: center;
     justify-content: start;
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     vertical-align: middle;
     overflow: hidden;
     cursor: pointer;
@@ -282,9 +281,7 @@ export default css`
   .select__listbox {
     display: block;
     position: relative;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     box-shadow: var(--wa-shadow-level-2);
     background: var(--wa-color-surface-raised);
     border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);

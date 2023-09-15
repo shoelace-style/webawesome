@@ -18,10 +18,7 @@ export default css`
     position: relative;
     display: flex;
     align-items: stretch;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-normal);
-    line-height: var(--wa-line-height-regular);
+    font: inherit;
     color: var(--wa-color-text-normal);
     padding: var(--wa-space-2xs) var(--wa-space-2xs);
     transition: var(--wa-transition-fast) fill;

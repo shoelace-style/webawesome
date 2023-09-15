@@ -10,10 +10,7 @@ export default css`
 
   .menu-label {
     display: inline-block;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-heavy);
-    line-height: var(--wa-line-height-regular);
+    font: inherit;
     color: var(--wa-color-neutral-text-on-surface);
     padding: var(--wa-space-2xs) var(--wa-space-xl);
     user-select: none;

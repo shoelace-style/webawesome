@@ -6,8 +6,8 @@ export default css`
 
   :host {
     --border-color: var(--wa-color-surface-outline);
-    --border-radius: var(--wa-corners-1x);
-    --border-width: var(--wa-border-width-thin);
+    --border-radius: var(--wa-panel-corners);
+    --border-width: var(--wa-panel-border-width);
     --padding: var(--wa-space-l);
 
     display: inline-block;

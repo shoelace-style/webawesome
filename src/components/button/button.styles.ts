@@ -17,7 +17,7 @@ export default css`
     justify-content: center;
     width: 100%;
     border: none;
-    font-family: var(--wa-font-family-body);
+    font: inherit;
     font-weight: var(--wa-font-weight-action);
     text-decoration: none;
     user-select: none;

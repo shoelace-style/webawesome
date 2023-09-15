@@ -37,6 +37,15 @@
     <link rel="stylesheet" href="/dist/themes/default.css" />
     <script type="module" src="/dist/autoloader.js"></script>
 
+    {# Set the initial theme and menu states here to prevent flashing #}
+    <script>
+      (() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = localStorage.getItem('theme') || 'auto';
+        document.documentElement.classList.toggle('wa-theme-default-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+      })();
+    </script>
+
     {# Web Fonts #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,13 +83,13 @@
       </header>
 
       <div class="sidebar-buttons">
-        <wa-button size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
+        <wa-button outline size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
           <wa-icon slot="prefix" name="github"></wa-icon> Code
         </wa-button>
-        <wa-button size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
+        <wa-button outline size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
           <wa-icon slot="prefix" name="star-fill"></wa-icon> Star
         </wa-button>
-        <wa-button size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
+        <wa-button outline size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
           <wa-icon slot="prefix" name="twitter"></wa-icon> Follow
         </wa-button>
       </div>

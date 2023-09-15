@@ -17,10 +17,7 @@ export default css`
     position: relative;
     display: flex;
     align-items: center;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-normal);
-    line-height: var(--wa-line-height-regular);
+    font: inherit;
     color: var(--wa-color-neutral-text-on-surface);
     padding: var(--wa-space-xs) var(--wa-space-m) var(--wa-space-xs) var(--wa-space-xs);
     transition: var(--wa-transition-fast) fill;

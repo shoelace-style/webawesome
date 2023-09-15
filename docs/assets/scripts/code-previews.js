@@ -166,9 +166,6 @@
       const htmlExample = codeBlock.querySelector('.code-preview__source--html > pre > code')?.textContent;
       const reactExample = codeBlock.querySelector('.code-preview__source--react > pre > code')?.textContent;
       const isReact = flavor === 'react' && typeof reactExample === 'string';
-      const theme = document.documentElement.classList.contains('wa-theme-dark') ? 'dark' : 'light';
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = theme === 'dark' || (theme === 'auto' && prefersDark);
       const editors = isReact ? '0010' : '1000';
       let htmlTemplate = '';
       let jsTemplate = '';
@@ -204,9 +201,7 @@
 
       // CSS templates
       cssTemplate =
-        `@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${waVersion}/${cdndir}/themes/${
-          isDark ? 'dark' : 'light'
-        }.css';\n` +
+        `@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${waVersion}/${cdndir}/themes/default.css';\n` +
         '\n' +
         'body {\n' +
         '  font: var(--wa-font-size-root) sans-serif;\n' +
@@ -222,7 +217,6 @@
         tags: ['web awesome', 'web components'],
         editors,
         head: `<meta name="viewport" content="width=device-width">`,
-        html_classes: `wa-theme-${isDark ? 'dark' : 'light'}`,
         css_external: ``,
         js_external: ``,
         js_module: true,

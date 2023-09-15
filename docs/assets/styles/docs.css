@@ -1,5 +1,5 @@
 :root {
-  --docs-background-color: var(--wa-color-surface-raised);
+  --docs-background-color: var(--wa-color-surface-default);
   --docs-content-max-width: 860px;
   --docs-sidebar-width: 320px;
   --docs-sidebar-transition-speed: 250ms;
@@ -23,11 +23,6 @@
 }
 
 /* Utils */
-html.wa-theme-dark .only-light,
-html:not(.wa-theme-dark) .only-dark {
-  display: none !important;
-}
-
 .visually-hidden:not(:focus-within) {
   position: absolute !important;
   width: 1px !important;
@@ -1095,14 +1090,26 @@ html.sidebar-open #menu-toggle {
 }
 
 .repo-button--github wa-icon {
-  color: var(--wa-color-white);
+  color: var(--wa-color-text-normal);
+}
+
+.repo-button--github:hover wa-icon {
+  color: var(--wa-color-text-inverse);
 }
 
 .repo-button--star wa-icon {
+  color: var(--wa-color-yellow-70);
+}
+
+.repo-button--star:hover wa-icon {
   color: var(--wa-color-yellow-80);
 }
 
 .repo-button--twitter wa-icon {
+  color: var(--wa-color-blue-60);
+}
+
+.repo-button--twitter:hover wa-icon {
   color: var(--wa-color-blue-70);
 }
 

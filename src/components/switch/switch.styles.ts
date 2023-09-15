@@ -36,9 +36,7 @@ export default css`
     position: relative;
     display: inline-flex;
     align-items: center;
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
-    font-size: inherit;
+    font: inherit;
     color: var(--wa-form-controls-text-color);
     vertical-align: middle;
     cursor: pointer;
@@ -79,7 +77,7 @@ export default css`
   }
 
   /* Focus */
-  .switch:not(.switch--checked):not(.switch--disabled) .switch__input:focus-visible ~ .switch__control .switch__thumb {
+  .switch:not(.switch--disabled) .switch__input:focus-visible ~ .switch__control .switch__thumb {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }

@@ -35,10 +35,8 @@ export default css`
   .tree-item__expand-button,
   .tree-item__checkbox,
   .tree-item__label {
-    font-family: var(--wa-font-family-body);
+    font: inherit;
     font-size: var(--wa-font-size-m);
-    font-weight: var(--wa-font-weight-regular);
-    line-height: var(--wa-line-height-regular);
   }
 
   .tree-item__checkbox::part(base) {

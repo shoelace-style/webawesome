@@ -18,9 +18,8 @@ export default css`
     width: var(--size);
     height: var(--size);
     background-color: var(--wa-color-neutral-fill-vivid);
-    font-family: var(--wa-font-family-body);
+    font: inherit;
     font-size: calc(var(--size) * 0.5);
-    font-weight: var(--wa-font-weight-normal);
     color: var(--wa-color-neutral-text-on-vivid);
     user-select: none;
     vertical-align: middle;

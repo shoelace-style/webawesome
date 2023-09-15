@@ -43,7 +43,7 @@ The traditional CDN loader registers all Web Awesome elements up front. Note tha
 
 ### Dark Theme
 
-The code above will load the light theme. If you want to use the [dark theme](/getting-started/themes#dark-theme) instead, update the stylesheet as shown below and add `<html class="wa-theme-dark">` to your page.
+The code above will load the light theme. If you want to use the [dark theme](/getting-started/themes#dark-theme) instead, update the stylesheet as shown below and add `<html class="wa-theme-default-dark">` to your page.
 
 <!-- prettier-ignore -->
 ```html
@@ -64,7 +64,7 @@ If you want to load the light or dark theme based on the user's `prefers-color-s
   rel="stylesheet"
   media="(prefers-color-scheme:dark)"
   href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/themes/dark.css"
-  onload="document.documentElement.classList.add('wa-theme-dark');"
+  onload="document.documentElement.classList.add('wa-theme-default-dark');"
 />
 ```
 

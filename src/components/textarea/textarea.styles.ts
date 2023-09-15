@@ -15,8 +15,7 @@ export default css`
     align-items: center;
     position: relative;
     width: 100%;
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     color: var(--wa-form-controls-text-color);
     line-height: var(--wa-form-controls-value-line-height);
     vertical-align: middle;
@@ -61,10 +60,8 @@ export default css`
 
   .textarea__control {
     flex: 1 1 auto;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: 1.4;
+    font: inherit;
+    line-height: var(--wa-form-controls-value-line-height);
     color: var(--wa-form-controls-text-color);
     border: none;
     background: none;

@@ -44,9 +44,7 @@ export default css`
     max-width: var(--max-width);
     border-radius: var(--wa-corners-1x);
     background-color: var(--wa-color-neutral-fill-vivid-alt);
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-regular);
+    font: inherit;
     line-height: var(--wa-line-height-regular);
     color: var(--wa-color-neutral-text-on-vivid);
     padding: var(--wa-space-2xs) var(--wa-space-xs);

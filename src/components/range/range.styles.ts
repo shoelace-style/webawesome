@@ -148,9 +148,7 @@ export default css`
     left: 0;
     border-radius: var(--wa-corners-1x);
     background-color: var(--wa-color-neutral-fill-vivid);
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-regular);
+    font: inherit;
     line-height: var(--wa-line-height-regular);
     color: var(--wa-color-neutral-text-on-vivid);
     opacity: 0;

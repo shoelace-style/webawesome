@@ -11,9 +11,8 @@ export default css`
   .breadcrumb-item {
     display: inline-flex;
     align-items: center;
-    font-family: var(--wa-font-family-body);
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-medium);
+    font: inherit;
+    font-weight: var(--wa-font-weight-action);
     color: var(--wa-color-neutral-text-on-surface);
     line-height: var(--wa-line-height-regular);
     white-space: nowrap;
@@ -21,10 +20,7 @@ export default css`
 
   .breadcrumb-item__label {
     display: inline-block;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
+    font: inherit;
     text-decoration: none;
     color: inherit;
     background: none;

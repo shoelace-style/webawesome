@@ -17,8 +17,7 @@ export default css`
     justify-content: start;
     position: relative;
     width: 100%;
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     vertical-align: middle;
     overflow: hidden;
     cursor: text;
@@ -64,9 +63,7 @@ export default css`
     flex: 1 1 auto;
     min-width: 0;
     height: 100%;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
+    font: inherit;
     line-height: var(--wa-form-controls-value-line-height);
     color: var(--wa-form-controls-text-color);
     border: none;

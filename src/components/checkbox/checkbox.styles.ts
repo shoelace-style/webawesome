@@ -12,8 +12,7 @@ export default css`
     position: relative;
     display: inline-flex;
     align-items: flex-start;
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
+    font: inherit;
     color: var(--wa-form-controls-text-color);
     vertical-align: middle;
     cursor: pointer;
@@ -43,7 +42,7 @@ export default css`
     width: var(--toggle-size);
     height: var(--toggle-size);
     border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
-    border-radius: 2px;
+    border-radius: var(--wa-corners-half);
     background-color: var(--wa-form-controls-background);
     color: var(--wa-form-controls-text-color);
     transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,

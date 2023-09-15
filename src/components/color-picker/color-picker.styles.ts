@@ -17,9 +17,7 @@ export default css`
 
   .color-picker {
     width: var(--grid-width);
-    font-family: var(--wa-font-family-body);
-    font-weight: var(--wa-font-weight-normal);
-    font-size: var(--wa-font-size-m);
+    font: inherit;
     color: var(--color);
     background-color: var(--wa-color-surface-raised);
     border-radius: var(--wa-corners-1x);

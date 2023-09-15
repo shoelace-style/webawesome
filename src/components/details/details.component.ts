@@ -87,6 +87,7 @@ export default class WaDetails extends WebAwesomeElement {
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.detailsObserver.disconnect();
   }
 
