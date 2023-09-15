@@ -2,11 +2,11 @@
 window.Turbo.session.drive = false
 </script>
 
-- [Documentation Layout](/layouts/documentation/index.html)
-- [Documentation Playground](/layouts/documentation-playground/index.html)
+- [Example Layout](/layouts/example/index.html)
+- [Example Playground](/layouts/example-playground/index.html)
 
-- [Advanced Documentation Layout](/layouts/advanced-documentation/index.html)
-- [Advanced Documentation Playground](/layouts/advanced-documentation-playground/index.html)
+- [Advanced Example Layout](/layouts/advanced-example/index.html)
+- [Advanced Example Playground](/layouts/advanced-example-playground/index.html)
 
 - [App Layout](/layouts/app/index.html)
 - [App Playground](/layouts/app-playground/index.html)
