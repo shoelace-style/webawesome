@@ -11,6 +11,9 @@ The layout component does not implement any internal semantic elements because w
 
 Layouts are best in the dedicate [layouts section](/layouts/index.html)
 
+It's important to not if you add or omit any `header`, `footer`, `banner`, `sub-header`, `menu`, `aside`, the
+page will automatically expand or collapse based on the presence of these slotted items.
+
 ```html:preview
 <style>
   wa-layout::part(header) {

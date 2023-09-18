@@ -18,7 +18,7 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @slot banner - A banner to display above the header. Will collapse if the content size is 0px.
  * @slot header - A header to display at the top of the page or below a banner. Will collapse if the content size is 0px.
  * @slot sub-header - A sub-header to display below the `header`. Generally this is where breadcrumbs would go.
- * @slot menu - The left hand side of the page. This will override the default "navigation" behavior. This is sticky.
+ * @slot menu - The left hand side of the page. If you slot an element in here, you will override the default "navigation" slot and will be handling navigation on your own. This also will not disable the fallback behavior of the navigation button. This is a sticky element.
  * @slot navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`
  * @slot navigation - The main content to display in the navigation area.
  * @slot navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`
@@ -27,7 +27,7 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @slot aside - Content to be shown on the right side of the page. Generally this may be table of contents, ads, etc. This is sticky.
  * @slot skip-links - If you would like to override the `Skip to main` button and add additional "Skip to X", they can be inserted here.
  * @slot nav-button - For overriding the default `<wa-icon-button>` displayed as the fallback on mobile viewports
- * @slot footer - The content to display in the footer. This is always displayed underneath the viewport.
+ * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
  *
  * @csspart base - The component's base wrapper.
  * @csspart banner - The banner to show above header
