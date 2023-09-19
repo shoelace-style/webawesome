@@ -1,4 +1,4 @@
-wa-button {
+wa-button:not([outline]) {
   --border-color-hover: var(--border-color);
   --border-color-active: var(--border-color);
   --background-active: var(--border-color);

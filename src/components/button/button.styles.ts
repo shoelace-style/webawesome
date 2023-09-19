@@ -58,39 +58,45 @@ export default css`
    */
 
   :host([outline]) {
-    --border-color-hover: var(--background-hover);
-    --border-color-active: var(--background-hover);
+    --background-active: color-mix(in oklab, var(--background-hover), var(--border-color) 10%);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
     --label-color-active: var(--label-color-hover);
   }
 
   :host([variant='brand'][outline]) {
+    --background-hover: var(--wa-color-brand-fill-muted);
     --border-color: var(--wa-color-brand-outline-vivid);
     --label-color: var(--wa-color-brand-text-on-surface);
-    --label-color-hover: var(--wa-color-brand-text-on-vivid);
+    --label-color-hover: var(--wa-color-brand-text-on-muted);
   }
 
   :host([variant='success'][outline]) {
+    --background-hover: var(--wa-color-success-fill-muted);
     --border-color: var(--wa-color-success-outline-vivid);
     --label-color: var(--wa-color-success-text-on-surface);
-    --label-color-hover: var(--wa-color-success-text-on-vivid);
+    --label-color-hover: var(--wa-color-success-text-on-muted);
   }
 
   :host([variant='neutral'][outline]) {
+    --background-hover: var(--wa-color-neutral-fill-muted);
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
-    --label-color-hover: var(--wa-color-neutral-text-on-vivid);
+    --label-color-hover: var(--wa-color-neutral-text-on-muted);
   }
 
   :host([variant='warning'][outline]) {
+    --background-hover: var(--wa-color-warning-fill-muted);
     --border-color: var(--wa-color-warning-outline-vivid);
     --label-color: var(--wa-color-warning-text-on-surface);
-    --label-color-hover: var(--wa-color-warning-text-on-vivid);
+    --label-color-hover: var(--wa-color-warning-text-on-muted);
   }
 
   :host([variant='danger'][outline]) {
+    --background-hover: var(--wa-color-danger-fill-muted);
     --border-color: var(--wa-color-danger-outline-vivid);
     --label-color: var(--wa-color-danger-text-on-surface);
-    --label-color-hover: var(--wa-color-danger-text-on-vivid);
+    --label-color-hover: var(--wa-color-danger-text-on-muted);
   }
 
   :host([variant='text']) {
