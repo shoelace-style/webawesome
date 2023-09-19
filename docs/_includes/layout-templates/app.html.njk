@@ -5,58 +5,44 @@
   </wa-button>
 
   <nav class="app-navigation" slot="navigation">
-    <ul class="app-navigation__list">
-      <li>
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="search" slot="prefix"></wa-icon>
-          Search
-        </wa-button>
-      </li>
+    <wa-nav-group>
+      <wa-nav-item href="#">
+        <wa-icon name="search" slot="prefix"></wa-icon>
+        Search
+      </wa-nav-item>
 
-     <li>
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="bell" slot="prefix"></wa-icon>
-          Notifications
-        </wa-button>
-      </li>
+      <wa-nav-item href="#">
+        <wa-icon name="bell" slot="prefix"></wa-icon>
+        Notifications
+      </wa-nav-item>
 
-      <li><wa-divider></wa-divider></li>
+      <wa-divider></wa-divider>
 
-      <li class="is-active">
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="house-door" slot="prefix"></wa-icon>
-          Home
-        </wa-button>
-      </li>
-      <li>
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="music-note-list" slot="prefix"></wa-icon>
-          Playlists
-        </wa-button>
-      </li>
+      <wa-nav-item href="#" active>
+        <wa-icon name="house-door" slot="prefix"></wa-icon>
+        Home
+      </wa-nav-item>
 
-      <li>
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
-          Tracks
-        </wa-button>
-      </li>
+      <wa-nav-item href="#">
+        <wa-icon name="music-note-list" slot="prefix"></wa-icon>
+        Playlists
+      </wa-nav-item>
 
-      <li>
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="gear" slot="prefix"></wa-icon>
-          Settings
-        </wa-button>
-      </li>
+      <wa-nav-item href="#">
+        <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
+        Tracks
+      </wa-nav-item>
 
+      <wa-nav-item href="#">
+        <wa-icon name="gear" slot="prefix"></wa-icon>
+        Settings
+      </wa-nav-item>
 
-      <li style="margin-top: auto;">
-        <wa-button class="wa-button--muted wa-button--stretch" href="#" variant="text">
-          <wa-icon name="question-circle" slot="prefix"></wa-icon>
-          Help
-        </wa-button>
-      </li>
-    </ul>
+      <wa-nav-item href="#">
+        <wa-icon name="question-circle" slot="prefix"></wa-icon>
+        Help
+      </wa-nav-item>
+    </wa-nav-group>
   </nav>
 
   <!-- Hacky override to make padding 8px -->
