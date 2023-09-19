@@ -4,13 +4,16 @@ import componentStyles from '../../styles/component.styles.js';
 export default css`
   ${componentStyles}
 
+  /* Declare relevant custom properties, separating by attribute if necessary */
   :host {
     display: inline-block;
     position: relative;
     width: auto;
     cursor: pointer;
 
-    --shadow: var(--wa-shadow-level-0);
+    --border-style: var(--wa-border-style);
+    --border-width: max(1px, var(--wa-form-controls-border-width));
+    --shadow: var(--wa-shadow-resting);
   }
 
   /*
@@ -45,6 +48,9 @@ export default css`
   :host(:not([variant='text'])) {
     --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
     --background-active: color-mix(in oklab, var(--background), var(--wa-color-tint-active));
+    --border-color: var(--background);
+    --border-color-hover: var(--background-hover);
+    --border-color-active: var(--background-active);
   }
 
   /*
@@ -52,11 +58,7 @@ export default css`
    */
 
   :host([outline]) {
-    --border-style: var(--wa-border-style);
-    --border-width: max(1px, var(--wa-form-controls-border-width));
-    --background-hover: color-mix(in oklab, var(--border-color), var(--wa-color-tint-hover));
     --border-color-hover: var(--background-hover);
-    --background-active: color-mix(in oklab, var(--border-color), var(--wa-color-tint-active));
     --border-color-active: var(--background-hover);
     --label-color-active: var(--label-color-hover);
   }
@@ -97,37 +99,15 @@ export default css`
     --label-color-active: var(--wa-color-text-link);
   }
 
-  .button--standard {
-    background: var(--background);
-    border-color: var(--border-color, var(--background));
-    box-shadow: var(--shadow);
-  }
-
-  .button--outline {
-    background: none;
-    border-color: var(--border-color);
-    box-shadow: var(--shadow);
-  }
-
-  .button--text {
-    background: none;
-    border-color: transparent;
-    box-shadow: none;
-  }
-
-  .button--standard:hover:not(.button--disabled) {
-    background: var(--background-hover, var(--background));
-  }
-
   .button:hover:not(.button--disabled) {
     background: var(--background-hover, var(--background));
-    border-color: var(--border-color-hover, var(--border-color, var(--background-hover)));
+    border-color: var(--border-color-hover, var(--border-color, transparent));
     color: var(--label-color-hover, var(--label-color));
   }
 
   .button:active:not(.button--disabled) {
     background: var(--background-active, var(--background));
-    border-color: var(--border-color-active, var(--border-color, var(--background-active)));
+    border-color: var(--border-color-active, var(--border-color, transparent));
     color: var(--label-color-active, var(--label-color));
   }
 
@@ -151,6 +131,24 @@ export default css`
     cursor: inherit;
   }
 
+  .button--standard {
+    background: var(--background);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+  }
+
+  .button--outline {
+    background: none;
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+  }
+
+  .button--text {
+    background: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
   .button::-moz-focus-inner {
     border: 0;
   }
@@ -165,23 +163,23 @@ export default css`
   }
 
   .button--brand:focus-visible {
-    outline-color: var(--wa-color-brand-fill-vivid);
+    outline-color: var(--wa-color-brand-outline-vivid);
   }
 
   .button--success:focus-visible {
-    outline-color: var(--wa-color-success-fill-vivid);
+    outline-color: var(--wa-color-success-outline-vivid);
   }
 
   .button--neutral:focus-visible {
-    outline-color: var(--wa-color-neutral-fill-vivid);
+    outline-color: var(--wa-color-neutral-outline-vivid);
   }
 
   .button--warning:focus-visible {
-    outline-color: var(--wa-color-warning-fill-vivid);
+    outline-color: var(--wa-color-warning-outline-vivid);
   }
 
   .button--danger:focus-visible {
-    outline-color: var(--wa-color-danger-fill-vivid);
+    outline-color: var(--wa-color-danger-outline-vivid);
   }
 
   .button--disabled {
@@ -231,34 +229,22 @@ export default css`
   .button--small {
     height: var(--wa-form-controls-height-s);
     font-size: var(--wa-font-size-s);
-    line-height: var(--wa-form-controls-height-s);
+    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
     border-radius: var(--wa-form-controls-corners);
   }
 
   .button--medium {
     height: var(--wa-form-controls-height-m);
     font-size: var(--wa-font-size-m);
-    line-height: var(--wa-form-controls-height-m);
+    line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
     border-radius: var(--wa-form-controls-corners);
   }
 
   .button--large {
     height: var(--wa-form-controls-height-l);
     font-size: var(--wa-font-size-l);
-    line-height: var(--wa-form-controls-height-l);
-    border-radius: var(--wa-form-controls-corners);
-  }
-
-  .button--outline.button--small {
-    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
-  }
-
-  .button--outline.button--medium {
-    line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
-  }
-
-  .button--outline.button--large {
     line-height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
+    border-radius: var(--wa-form-controls-corners);
   }
 
   /*

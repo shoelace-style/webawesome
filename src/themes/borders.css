@@ -1,0 +1,20 @@
+wa-button {
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--border-color);
+  --background-active: var(--border-color);
+}
+wa-button[variant='brand'] {
+  --border-color: var(--wa-color-brand-outline-vivid);
+}
+wa-button[variant='success'] {
+  --border-color: var(--wa-color-success-outline-vivid);
+}
+wa-button[variant='neutral'] {
+  --border-color: var(--wa-color-neutral-outline-vivid);
+}
+wa-button[variant='warning'] {
+  --border-color: var(--wa-color-warning-outline-vivid);
+}
+wa-button[variant='danger'] {
+  --border-color: var(--wa-color-danger-outline-vivid);
+}

@@ -40,7 +40,7 @@ export default css`
     max-width: 100%;
     max-height: 100%;
     background-color: var(--wa-color-surface-raised);
-    box-shadow: var(--wa-shadow-level-3);
+    box-shadow: var(--wa-shadow-raised-highest);
     overflow: auto;
     pointer-events: all;
   }

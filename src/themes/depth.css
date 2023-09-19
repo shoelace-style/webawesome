@@ -3,14 +3,20 @@
 }
 
 wa-button:not([outline]) {
-  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-1);
+  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-raised);
 }
 wa-button:hover {
-  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-2);
+  --shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-raised-higher);
 }
 wa-button:active {
-  --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.3);
-  --shadow: var(--wa-shadow-inset-highlight), inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.1);
+  --wa-shadow-inset-highlight: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
+  --shadow: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.2), var(--wa-shadow-inset-highlight);
+}
+wa-button:not([variant='text']) {
+  transition: transform var(--wa-transition-faster);
+}
+wa-button:active:not([variant='text']) {
+  transform: translateY(calc(var(--wa-shadow-offset-x-raised-higher) - var(--wa-shadow-offset-x-raised)));
 }
 
 wa-button[variant='brand'] {
@@ -20,8 +26,8 @@ wa-button[variant='brand'] {
     color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active))
+    var(--wa-color-brand-fill-vivid-alt),
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active))
   );
   --border-color: var(--wa-color-brand-fill-vivid) var(--wa-color-brand-fill-vivid-alt)
     var(--wa-color-brand-fill-vivid-alt);
@@ -36,8 +42,8 @@ wa-button[variant='success'] {
     color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
-    color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-active))
+    var(--wa-color-success-fill-vivid-alt),
+    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active))
   );
   --border-color: var(--wa-color-success-fill-vivid) var(--wa-color-success-fill-vivid-alt)
     var(--wa-color-success-fill-vivid-alt);
@@ -52,8 +58,8 @@ wa-button[variant='neutral'] {
     color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active))
+    var(--wa-color-neutral-fill-vivid-alt),
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active))
   );
   --border-color: var(--wa-color-neutral-fill-vivid) var(--wa-color-neutral-fill-vivid-alt)
     var(--wa-color-neutral-fill-vivid-alt);
@@ -68,8 +74,8 @@ wa-button[variant='warning'] {
     color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-active))
+    var(--wa-color-warning-fill-vivid-alt),
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active))
   );
   --border-color: var(--wa-color-warning-fill-vivid) var(--wa-color-warning-fill-vivid-alt)
     var(--wa-color-warning-fill-vivid-alt);
@@ -84,8 +90,8 @@ wa-button[variant='danger'] {
     color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)) 25%,
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-active))
+    var(--wa-color-danger-fill-vivid-alt),
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active))
   );
   --border-color: var(--wa-color-danger-fill-vivid) var(--wa-color-danger-fill-vivid-alt)
     var(--wa-color-danger-fill-vivid-alt);

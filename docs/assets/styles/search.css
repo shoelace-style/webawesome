@@ -17,7 +17,7 @@
   --docs-search-accent-color: var(--wa-color-brand-text-on-surface);
   --docs-search-icon-color: var(--wa-color-neutral-fill-vivid);
   --docs-search-icon-color-active: color-mix(in lch, var(--wa-color-neutral-fill-vivid), 8% black);
-  --docs-search-shadow: var(--wa-shadow-level-3);
+  --docs-search-shadow: var(--wa-shadow-raised-highest);
   --docs-search-result-background-hover: var(--wa-color-neutral-fill-muted-alt);
   --docs-search-result-color-hover: var(--wa-color-neutral-text-on-muted);
   --docs-search-result-background-active: var(--wa-color-brand-fill-vivid);
