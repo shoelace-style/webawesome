@@ -63,10 +63,10 @@ export default class WaNavItem extends WebAwesomeElement {
       >
         <a
           class=${classMap({
-            "link": true,
-            "link--active": this.active
+            "control": true,
+            "control--active": this.active
           })}
-          part="link"
+          part="control"
           href=${ifDefined(this.href)}
           target=${ifDefined(this.target)}
           download=${ifDefined(this.download)}

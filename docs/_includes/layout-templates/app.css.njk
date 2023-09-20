@@ -60,46 +60,11 @@ wa-layout[view="desktop"] main {
 }
 
 /* Navigation / Lists */
-.app-navigation {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+/** Not sure why, but when within the app-navigation, wa-nav-item is misaligned  */
+.app-navigation wa-nav-item::part(control) {
+  align-items: stretch;
 }
 
-.app-navigation__list {
-  margin: 0;
-  padding: 0;
-  list-style-type: "";
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-height: 100%;
-  overflow-y: auto;
-  height: 100%;
-  padding-bottom: 4px;
-}
-
-.app-navigation__list li {
-  position: relative;
-  padding: 0px 8px;
-}
-
-/* We use a blank marker to work around a safari bug with "list-style-type: none;" */
-.app-navigation__list li::marker {
-  content: "";
-}
-
-.app-navigation__list li.is-active wa-button {
-  --background-color: var(--wa-color-blue-40);
-  --background-color-active: var(--wa-color-blue-30);
-  --text-color: var(--wa-color-white);
-  --text-color-active: var(--wa-color-white);
-}
-
-.app-navigation__list li wa-button {
-  --text-color: var(--wa-color-neutral-40);
-}
 
 /* Highlights */
 .highlight {
