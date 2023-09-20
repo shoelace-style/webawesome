@@ -300,6 +300,7 @@
   --wa-form-controls-required-content-color: inherit;
   --wa-form-controls-required-content-offset: -0.1em;
 
+  --wa-flow-spacing: 1.5rem;
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
@@ -397,5 +398,3 @@
   --wa-color-neutral-text-on-muted: var(--wa-color-neutral-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-neutral-60);
 }
-
-/* _utility.css */

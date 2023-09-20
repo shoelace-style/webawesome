@@ -1,0 +1,453 @@
+/**
+ * Applied styles are used to "reset" a page and provide defaults for typography and native HTML elements based on
+ * Web Awesome's design tokens.
+ */
+html {
+  box-sizing: border-box;
+  background-color: var(--wa-color-surface-default);
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--wa-font-family-body);
+  font-size: var(--wa-font-size-root);
+  font-weight: var(--wa-font-weight-normal);
+  line-height: var(--wa-font-line-height-regular);
+  text-size-adjust: none;
+  color: var(--wa-color-text-normal);
+  padding: var(--wa-space-m);
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+/* Text selection */
+::selection {
+  background-color: var(--wa-color-selection-background);
+  color: var(--wa-color-selection-text);
+}
+
+/* Show custom elements only after they're registered */
+:not(:defined),
+:not(:defined) * {
+  opacity: 0;
+}
+
+:defined {
+  opacity: 1;
+  transition: 0.1s opacity;
+}
+
+/* Content flow */
+address,
+audio,
+blockquote,
+dd,
+details,
+dl,
+fieldset,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+iframe,
+ol,
+p,
+pre,
+table,
+ul,
+video {
+  margin: 0 0 var(--wa-flow-spacing) 0;
+}
+
+/* Headings & text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--wa-font-family-heading);
+  font-weight: var(--wa-font-weight-medium);
+  line-height: var(--wa-font-line-height-compact);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--wa-font-size-2xl);
+}
+
+h2 {
+  font-size: var(--wa-font-size-xl);
+}
+
+h3 {
+  font-size: var(--wa-font-size-l);
+}
+
+h4 {
+  font-size: var(--wa-font-size-m);
+}
+
+h5 {
+  font-size: var(--wa-font-size-s);
+}
+
+h6 {
+  font-size: var(--wa-font-size-xs);
+}
+
+hr {
+  border: none;
+  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  margin: var(--wa-flow-spacing) 0;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: var(--wa-font-weight-heavy);
+}
+
+s {
+  text-decoration: line-through;
+}
+
+del,
+ins,
+mark {
+  padding: 0.125em 0.25em;
+}
+
+ins {
+  background-color: var(--wa-color-success-fill-muted);
+  color: var(--wa-color-success-text-on-muted);
+  border-radius: var(--wa-corners-1x);
+  text-decoration: none;
+}
+
+del {
+  background-color: var(--wa-color-danger-fill-muted);
+  color: var(--wa-color-danger-text-on-muted);
+  border-radius: var(--wa-corners-1x);
+  text-decoration: none;
+  padding: 0.125em 0.25em;
+}
+
+mark {
+  background-color: var(--wa-color-warning-fill-muted);
+  color: inherit;
+  border-radius: var(--wa-corners-1x);
+  padding: 0.125em 0.25em;
+}
+
+small {
+  font-size: 0.875em; /* relative */
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 0.875em; /* relative */
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+abbr[title] {
+  text-decoration: none;
+  border-bottom: dashed 1px currentColor;
+  cursor: help;
+}
+
+kbd {
+  background: var(--wa-color-neutral-fill-muted);
+  border: solid 1px var(--wa-color-neutral-outline-muted);
+  box-shadow: inset 0 1px 0 1px var(--wa-color-tint-white), 0 1px 0 0 var(--wa-color-tint-black);
+  font-family: var(--wa-font-family-code);
+  border-radius: var(--wa-corners-1x);
+  color: var(--wa-color-neutral-text-on-muted);
+  padding: 0.125em 0.4em;
+}
+
+/* Code and similar */
+code,
+pre,
+kbd,
+samp,
+var {
+  font-family: var(--wa-font-family-code);
+  font-size: 0.975em;
+  background-color: var(--wa-color-surface-lowered);
+  border-radius: var(--wa-corners-1x);
+  padding-block: var(--wa-space-3xs);
+  padding-inline: var(--wa-space-2xs);
+}
+
+pre {
+  color: var(--wa-color-text-normal);
+  background-color: var(--wa-color-surface-lowered);
+  border-radius: var(--wa-corners-1x);
+  padding: var(--wa-space-m);
+  white-space: pre;
+}
+
+/* Block quotes */
+blockquote {
+  position: relative;
+  font-family: var(--wa-font-family-longform);
+  font-size: var(--wa-font-size-l);
+  font-style: italic;
+  background-color: var(--wa-color-surface-lowered);
+  border-radius: var(--wa-corners-1x);
+  padding: var(--wa-space-xl);
+  margin: 0 0 var(--wa-space-xl) 0;
+}
+
+blockquote > :first-child {
+  margin-block-start: 0;
+}
+
+blockquote > :last-child {
+  margin-block-end: 0;
+}
+
+/* Lists */
+ul,
+ol {
+  padding: 0;
+  margin: 0 0 var(--wa-flow-spacing) var(--wa-space-xl);
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  padding: 0;
+}
+
+li > ul,
+li > ol {
+  margin-block-end: 0;
+}
+
+/* Details */
+details {
+  background-color: var(--wa-color-surface-lowered);
+  border-radius: var(--wa-corners-1x);
+  padding: 0;
+  margin: 0;
+  padding-inline: var(--wa-space-m);
+  margin-block-end: var(--wa-flow-spacing);
+}
+
+details :last-child {
+  margin-block-end: 0;
+}
+
+summary {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  text-indent: calc(0.4em + 1em);
+  padding: 0;
+  padding-block: var(--wa-space-m);
+  margin: 0;
+  user-select: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: '';
+  border-width: 0.4em;
+  border-style: solid;
+  border-color: transparent transparent transparent currentColor;
+  position: absolute;
+  top: calc(50% - 0.4em);
+  left: calc(0.4em / 2);
+  rotate: 0;
+  transform-origin: calc(0.4em / 2) 50%;
+}
+
+details[open] {
+  padding-block-end: var(--wa-space-m);
+}
+
+details[open] > summary::before {
+  rotate: 90deg;
+}
+
+details + details {
+  margin-top: calc(-1 * var(--wa-flow-spacing) + var(--wa-border-width-thin));
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+}
+
+caption {
+  color: var(--wa-color-text-quiet);
+}
+
+tbody tr {
+  border-top: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+}
+
+tbody tr:nth-child(2n + 1) {
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), transparent 50%);
+}
+
+tbody tr:hover {
+  background-color: color-mix(in oklab, var(--wa-color-brand-fill-muted), transparent 50%);
+  border-top-color: var(--wa-color-brand-outline-muted);
+}
+
+tbody tr:hover + tr {
+  border-top-color: var(--wa-color-brand-outline-muted);
+}
+
+th {
+  font-weight: var(--wa-font-weight-medium);
+}
+
+td,
+th {
+  text-align: start;
+  padding: var(--wa-space-s);
+}
+
+/* Definition lists */
+dt {
+  font-weight: var(--wa-font-weight-medium);
+}
+
+dd {
+  margin-inline-start: var(--wa-space-m);
+}
+
+/* Fieldsets */
+fieldset {
+  border: solid 1px var(--wa-color-surface-outline);
+  border-radius: var(--wa-corners-1x);
+  padding: var(--wa-space-m);
+  padding-block-end: var(--wa-space-xl);
+}
+
+legend {
+  padding: 0;
+  padding-inline: var(--wa-space-2xs);
+}
+
+/* Images, videos, iframes, etc. */
+img,
+picture,
+svg,
+video {
+  border-radius: var(--wa-corners-1x);
+  max-width: 100%;
+  height: auto;
+}
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+iframe {
+  border: none;
+}
+
+/* Links */
+a {
+  color: var(--wa-color-text-link);
+}
+
+a:hover {
+  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-tint-hover));
+}
+
+a:focus,
+button:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+/* Native form controls */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Utilities */
+.wa-visually-hidden:not(:focus-within) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: none !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  padding: 0 !important;
+}
+
+/* Print styles */
+@media print {
+  /* Show URLs for printed links */
+  a:not(.anchor-heading)[href]::after {
+    content: ' (' attr(href) ')';
+  }
+
+  details,
+  pre {
+    background: none;
+    border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  summary::marker,
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
