@@ -4,16 +4,15 @@ import componentStyles from '../../styles/component.styles.js';
 export default css`
   ${componentStyles}
 
-  /* Declare relevant custom properties, separating by attribute if necessary */
   :host {
+    --border-style: var(--wa-border-style);
+    --border-width: max(1px, var(--wa-form-controls-border-width));
+    --shadow: var(--wa-shadow-resting);
+
     display: inline-block;
     position: relative;
     width: auto;
     cursor: pointer;
-
-    --border-style: var(--wa-border-style);
-    --border-width: max(1px, var(--wa-form-controls-border-width));
-    --shadow: var(--wa-shadow-resting);
   }
 
   /*
@@ -57,47 +56,52 @@ export default css`
    * Outline buttons
    */
 
-  :host([outline]) {
-    --background-active: color-mix(in oklab, var(--background-hover), var(--border-color) 10%);
-    --border-color-hover: var(--border-color);
-    --border-color-active: var(--border-color);
-    --label-color-active: var(--label-color-hover);
-  }
-
   :host([variant='brand'][outline]) {
-    --background-hover: var(--wa-color-brand-fill-muted);
+    --background-hover: var(--wa-color-brand-fill-muted-alt);
     --border-color: var(--wa-color-brand-outline-vivid);
     --label-color: var(--wa-color-brand-text-on-surface);
     --label-color-hover: var(--wa-color-brand-text-on-muted);
   }
 
   :host([variant='success'][outline]) {
-    --background-hover: var(--wa-color-success-fill-muted);
+    --background-hover: var(--wa-color-success-fill-muted-alt);
     --border-color: var(--wa-color-success-outline-vivid);
     --label-color: var(--wa-color-success-text-on-surface);
     --label-color-hover: var(--wa-color-success-text-on-muted);
   }
 
   :host([variant='neutral'][outline]) {
-    --background-hover: var(--wa-color-neutral-fill-muted);
+    --background-hover: var(--wa-color-neutral-fill-muted-alt);
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
     --label-color-hover: var(--wa-color-neutral-text-on-muted);
   }
 
   :host([variant='warning'][outline]) {
-    --background-hover: var(--wa-color-warning-fill-muted);
+    --background-hover: var(--wa-color-warning-fill-muted-alt);
     --border-color: var(--wa-color-warning-outline-vivid);
     --label-color: var(--wa-color-warning-text-on-surface);
     --label-color-hover: var(--wa-color-warning-text-on-muted);
   }
 
   :host([variant='danger'][outline]) {
-    --background-hover: var(--wa-color-danger-fill-muted);
+    --background-hover: var(--wa-color-danger-fill-muted-alt);
     --border-color: var(--wa-color-danger-outline-vivid);
     --label-color: var(--wa-color-danger-text-on-surface);
     --label-color-hover: var(--wa-color-danger-text-on-muted);
   }
+
+  :host([outline]) {
+    /* prettier-ignore */
+    --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%); /* mix background hover and surface colors for a pressed effect */
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    --label-color-active: var(--label-color-hover);
+  }
+
+  /*
+   * Text buttons
+   */
 
   :host([variant='text']) {
     --label-color: var(--wa-color-text-link);
@@ -105,21 +109,14 @@ export default css`
     --label-color-active: var(--wa-color-text-link);
   }
 
-  .button:hover:not(.button--disabled) {
-    background: var(--background-hover, var(--background));
-    border-color: var(--border-color-hover, var(--border-color, transparent));
-    color: var(--label-color-hover, var(--label-color));
-  }
-
-  .button:active:not(.button--disabled) {
-    background: var(--background-active, var(--background));
-    border-color: var(--border-color-active, var(--border-color, transparent));
-    color: var(--label-color-active, var(--label-color));
-  }
+  /*
+   * Internal styles
+   */
 
   .button {
     border-style: var(--border-style, var(--wa-border-style));
-    border-width: var(--border-width, var(--wa-form-controls-border-width));
+    /* prettier-ignore */
+    border-width: var(--border-width, var(--wa-form-controls-border-width)); /* necessary for all button styles to ensure same width and height */
     color: var(--label-color);
     display: inline-flex;
     align-items: stretch;
@@ -132,8 +129,8 @@ export default css`
     white-space: nowrap;
     vertical-align: middle;
     padding: 0;
-    transition: background var(--wa-transition-faster), color var(--wa-transition-faster),
-      border var(--wa-transition-faster), box-shadow var(--wa-transition-faster);
+    transition: background var(--wa-transition-faster), border var(--wa-transition-faster),
+      box-shadow var(--wa-transition-faster), color var(--wa-transition-faster);
     cursor: inherit;
   }
 
@@ -154,6 +151,10 @@ export default css`
     border-color: transparent;
     box-shadow: none;
   }
+
+  /*
+   * States
+   */
 
   .button::-moz-focus-inner {
     border: 0;
@@ -198,6 +199,20 @@ export default css`
     pointer-events: none;
   }
 
+  .button:hover:not(.button--disabled) {
+    background: var(--background-hover, var(--background));
+    /* prettier-ignore */
+    border-color: var(--border-color-hover, var(--border-color, transparent)); /* 'transparent' fallback keeps borders hidden for text buttons */
+    color: var(--label-color-hover, var(--label-color));
+  }
+
+  .button:active:not(.button--disabled) {
+    background: var(--background-active, var(--background));
+    /* prettier-ignore */
+    border-color: var(--border-color-active, var(--border-color, transparent)); /* 'transparent' fallback keeps borders hidden for text buttons */
+    color: var(--label-color-active, var(--label-color));
+  }
+
   .button__prefix,
   .button__suffix {
     flex: 0 0 auto;
@@ -218,14 +233,6 @@ export default css`
     .button.button--outline.button--checked:not(.button--disabled) {
       outline: solid 2px transparent;
     }
-  }
-
-  /*
-   * Text buttons
-   */
-
-  .button--text:focus-visible:not(.button--disabled) {
-    --label-color: var(--wa-color-text-link);
   }
 
   /*
