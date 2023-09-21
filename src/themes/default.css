@@ -246,20 +246,18 @@
    * Shadows
    */
   --wa-shadow-offset-x-inset: 0.0625rem;
-  --wa-shadow-offset-x-raised: 0.0625rem;
-  --wa-shadow-offset-x-raised-higher: 0.125rem;
-  --wa-shadow-offset-x-raised-highest: 0.25rem;
+  --wa-shadow-offset-x-level-1: 0.0625rem;
+  --wa-shadow-offset-x-level-2: 0.125rem;
+  --wa-shadow-offset-x-level-3: 0.25rem;
 
   --wa-shadow-blur-base: 0.125rem;
 
   --wa-shadow-inset: inset 0 var(--wa-shadow-offset-x-inset) calc(var(--wa-shadow-blur-base) * 0.5)
     var(--wa-color-shadow);
-  --wa-shadow-resting: none;
-  --wa-shadow-raised: 0 var(--wa-shadow-offset-x-raised) var(--wa-shadow-blur-base) var(--wa-color-shadow);
-  --wa-shadow-raised-higher: 0 var(--wa-shadow-offset-x-raised-higher) calc(var(--wa-shadow-blur-base) * 2)
-    var(--wa-color-shadow);
-  --wa-shadow-raised-highest: 0 var(--wa-shadow-offset-x-raised-highest) calc(var(--wa-shadow-blur-base) * 4)
-    var(--wa-color-shadow);
+  --wa-shadow-level-0: none;
+  --wa-shadow-level-1: 0 var(--wa-shadow-offset-x-level-1) var(--wa-shadow-blur-base) var(--wa-color-shadow);
+  --wa-shadow-level-2: 0 var(--wa-shadow-offset-x-level-2) calc(var(--wa-shadow-blur-base) * 2) var(--wa-color-shadow);
+  --wa-shadow-level-3: 0 var(--wa-shadow-offset-x-level-3) calc(var(--wa-shadow-blur-base) * 4) var(--wa-color-shadow);
 
   /**
    * Z-index

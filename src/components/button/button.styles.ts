@@ -9,7 +9,7 @@ export default css`
   :host {
     --border-style: var(--wa-border-style);
     --border-width: max(1px, var(--wa-form-controls-border-width));
-    --shadow: var(--wa-shadow-resting);
+    --shadow: var(--wa-shadow-level-0);
 
     display: inline-block;
     position: relative;

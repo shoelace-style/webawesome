@@ -34,7 +34,7 @@ export default css`
     max-height: calc(100% - var(--wa-space-2xl));
     background-color: var(--wa-color-surface-raised);
     border-radius: var(--wa-panel-corners);
-    box-shadow: var(--wa-shadow-raised-highest);
+    box-shadow: var(--wa-shadow-level-3);
   }
 
   .dialog__panel:focus {

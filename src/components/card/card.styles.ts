@@ -17,7 +17,7 @@ export default css`
     display: flex;
     flex-direction: column;
     background-color: var(--wa-color-surface-raised);
-    box-shadow: var(--wa-shadow-raised);
+    box-shadow: var(--wa-shadow-level-1);
     border: solid var(--border-width) var(--border-color);
     border-radius: var(--border-radius);
   }

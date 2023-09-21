@@ -282,7 +282,7 @@ export default css`
     display: block;
     position: relative;
     font: inherit;
-    box-shadow: var(--wa-shadow-raised-higher);
+    box-shadow: var(--wa-shadow-level-2);
     background: var(--wa-color-surface-raised);
     border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
     border-radius: var(--wa-corners-1x);

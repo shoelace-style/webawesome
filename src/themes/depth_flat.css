@@ -1,7 +1,7 @@
 wa-button:not([variant='text']) {
-  --shadow: var(--wa-shadow-raised);
+  --shadow: var(--wa-shadow-level-1);
 }
 wa-button:active:not([variant='text']) {
   --shadow: none;
-  transform: translateY(var(--wa-shadow-offset-x-raised));
+  transform: translateY(var(--wa-shadow-offset-x-level-1));
 }

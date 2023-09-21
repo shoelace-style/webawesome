@@ -94,7 +94,7 @@ export default css`
 
   /* Add elevation and z-index to submenus */
   wa-popup::part(popup) {
-    box-shadow: var(--wa-shadow-raised-higher);
+    box-shadow: var(--wa-shadow-level-2);
     z-index: var(--wa-z-index-dropdown);
     margin-left: var(--submenu-offset);
   }
