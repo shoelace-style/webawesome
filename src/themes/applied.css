@@ -403,7 +403,8 @@ button:focus {
   outline: none;
 }
 
-:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
