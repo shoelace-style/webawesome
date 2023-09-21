@@ -72,7 +72,8 @@ export default css`
     --label-color-hover: var(--wa-color-success-text-on-muted);
   }
 
-  :host([variant='neutral'][outline]) {
+  :host([variant='neutral'][outline]),
+  :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
     --background-hover: var(--wa-color-neutral-fill-muted-alt);
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
@@ -93,7 +94,8 @@ export default css`
     --label-color-hover: var(--wa-color-danger-text-on-muted);
   }
 
-  :host([outline]) {
+  :host([outline]),
+  :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
     /* prettier-ignore */
     --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%); /* mix background hover and surface colors to simulate pressing into the surface */
     --border-color-hover: var(--border-color);
@@ -109,6 +111,15 @@ export default css`
     --label-color: var(--wa-color-text-link);
     --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
     --label-color-active: var(--wa-color-text-link);
+  }
+
+  /*
+   * Checked buttons
+   */
+
+  :host([checked]) /* for wa-radio-button */ {
+    --background: var(--wa-color-brand-fill-vivid);
+    --label-color: var(--wa-color-brand-text-on-vivid);
   }
 
   /*
@@ -137,13 +148,14 @@ export default css`
     cursor: inherit;
   }
 
-  .button--standard {
+  .button--standard,
+  .button--checked /* for wa-radio-button */ {
     background: var(--background);
     border-color: var(--border-color);
     box-shadow: var(--shadow);
   }
 
-  .button--outline {
+  .button--outline:not(.button--checked) {
     background: none;
     border-color: var(--border-color);
     box-shadow: var(--shadow);
