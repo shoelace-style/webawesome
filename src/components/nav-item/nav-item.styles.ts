@@ -10,6 +10,12 @@ export default css`
     width: auto;
     cursor: pointer;
     list-style-type: none;
+
+  }
+
+  .base {
+    /* when we change to "display: list-item" apparently it sets box-sizing to content-box... */
+    box-sizing: border-box;
   }
 
   .control {
@@ -32,6 +38,7 @@ export default css`
     line-height: var(--wa-font-height-compact);
     padding: var(--wa-space-square-s);
     border-radius: var(--wa-corners-1x);
+
   }
 
   .control::-moz-focus-inner {
