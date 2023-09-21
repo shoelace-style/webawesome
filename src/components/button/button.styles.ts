@@ -4,6 +4,8 @@ import componentStyles from '../../styles/component.styles.js';
 export default css`
   ${componentStyles}
 
+  /* Declare relevant custom properties */
+
   :host {
     --border-style: var(--wa-border-style);
     --border-width: max(1px, var(--wa-form-controls-border-width));
@@ -93,7 +95,7 @@ export default css`
 
   :host([outline]) {
     /* prettier-ignore */
-    --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%); /* mix background hover and surface colors for a pressed effect */
+    --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%); /* mix background hover and surface colors to simulate pressing into the surface */
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
     --label-color-active: var(--label-color-hover);
@@ -110,8 +112,9 @@ export default css`
   }
 
   /*
-   * Internal styles
+   * Internal
    */
+  /* Define how each button style uses custom properties */
 
   .button {
     border-style: var(--border-style, var(--wa-border-style));
@@ -200,18 +203,26 @@ export default css`
   }
 
   .button:hover:not(.button--disabled) {
-    background: var(--background-hover, var(--background));
-    /* prettier-ignore */
-    border-color: var(--border-color-hover, var(--border-color, transparent)); /* 'transparent' fallback keeps borders hidden for text buttons */
+    background: var(--background-hover, var(--background, none));
+    border-color: var(--border-color-hover, var(--border-color, transparent));
     color: var(--label-color-hover, var(--label-color));
   }
 
   .button:active:not(.button--disabled) {
-    background: var(--background-active, var(--background));
-    /* prettier-ignore */
-    border-color: var(--border-color-active, var(--border-color, transparent)); /* 'transparent' fallback keeps borders hidden for text buttons */
+    background: var(--background-active, var(--background, none));
+    border-color: var(--border-color-active, var(--border-color, transparent));
     color: var(--label-color-active, var(--label-color));
   }
+
+  @media (forced-colors: active) {
+    .button.button--outline.button--checked:not(.button--disabled) {
+      outline: solid 2px transparent;
+    }
+  }
+
+  /*
+   * Label
+   */
 
   .button__prefix,
   .button__suffix {
@@ -229,12 +240,6 @@ export default css`
     vertical-align: -2px;
   }
 
-  @media (forced-colors: active) {
-    .button.button--outline.button--checked:not(.button--disabled) {
-      outline: solid 2px transparent;
-    }
-  }
-
   /*
    * Size modifiers
    */
@@ -242,7 +247,8 @@ export default css`
   .button--small {
     height: var(--wa-form-controls-height-s);
     font-size: var(--wa-font-size-s);
-    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
+    /* prettier-ignore */
+    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2); /* this calc only works if --border-width is a single value - could be solved by using padding instead of height for the button size */
     border-radius: var(--wa-form-controls-corners);
   }
 
