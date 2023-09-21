@@ -1,0 +1,49 @@
+.wa-invalid {
+  --wa-form-controls-border-color-resting: var(--wa-color-danger-outline-vivid);
+  --wa-form-controls-border-color-activated: var(--wa-color-danger-outline-vivid);
+  --wa-form-controls-text-color: var(--wa-color-danger-text-on-muted);
+  --wa-form-controls-placeholder-color: var(--wa-form-controls-placeholder-color-invalid);
+
+  --wa-color-brand-fill-vivid: var(--wa-color-danger-fill-vivid);
+  --wa-color-brand-fill-vivid-alt: var(--wa-color-danger-fill-vivid-alt);
+  --wa-color-brand-fill-muted: var(--wa-color-danger-fill-muted);
+  --wa-color-brand-fill-muted-alt: var(--wa-color-danger-fill-muted-alt);
+  --wa-color-brand-outline-vivid: var(--wa-color-danger-outline-vivid);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-danger-outline-vivid-alt);
+  --wa-color-brand-outline-muted: var(--wa-color-danger-outline-muted);
+  --wa-color-brand-outline-muted-alt: var(--wa-color-danger-outline-muted-alt);
+  --wa-color-brand-text-on-vivid: var(--wa-color-danger-text-on-vivid);
+  --wa-color-brand-text-on-muted: var(--wa-color-danger-text-on-muted);
+  --wa-color-brand-text-on-surface: var(--wa-color-danger-text-on-surface);
+
+  /* Focus ring */
+  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-danger-outline-vivid);
+
+  /* Help text */
+  --wa-color-text-quiet: var(--wa-color-danger-text-on-muted);
+}
+
+.wa-valid {
+  --wa-form-controls-border-color-resting: var(--wa-color-success-outline-vivid);
+  --wa-form-controls-border-color-activated: var(--wa-color-success-outline-vivid);
+  --wa-form-controls-text-color: var(--wa-color-success-text-on-muted);
+  --wa-form-controls-placeholder-color: var(--wa-form-controls-placeholder-color-valid);
+
+  --wa-color-brand-fill-vivid: var(--wa-color-success-fill-vivid);
+  --wa-color-brand-fill-vivid-alt: var(--wa-color-success-fill-vivid-alt);
+  --wa-color-brand-fill-muted: var(--wa-color-success-fill-muted);
+  --wa-color-brand-fill-muted-alt: var(--wa-color-success-fill-muted-alt);
+  --wa-color-brand-outline-vivid: var(--wa-color-success-outline-vivid);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-success-outline-vivid-alt);
+  --wa-color-brand-outline-muted: var(--wa-color-success-outline-muted);
+  --wa-color-brand-outline-muted-alt: var(--wa-color-success-outline-muted-alt);
+  --wa-color-brand-text-on-vivid: var(--wa-color-success-text-on-vivid);
+  --wa-color-brand-text-on-muted: var(--wa-color-success-text-on-muted);
+  --wa-color-brand-text-on-surface: var(--wa-color-success-text-on-surface);
+
+  /* Focus ring */
+  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-success-outline-vivid);
+
+  /* Help text */
+  --wa-color-text-quiet: var(--wa-color-success-text-on-muted);
+}

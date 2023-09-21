@@ -160,12 +160,3 @@ export function thing() {
   <dt>Definition 3</dt>
   <dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</dd>
 </dl>
-
-## Forms
-
-<fieldset>
-  <legend>Fieldset</legend>
-  <label><input type="radio" name="gender" value="Male"> Option 1</label><br>
-  <label><input type="radio" name="gender" value="Female"> Option 2</label><br>
-  <label><input type="radio" name="gender" value="other-none-na"> Option 3</label>
-</fieldset>

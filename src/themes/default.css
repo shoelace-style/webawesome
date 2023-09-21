@@ -280,6 +280,8 @@
   --wa-form-controls-value-line-height: var(--wa-font-height-compact);
   --wa-form-controls-padding: var(--wa-space-square-s);
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
+  --wa-form-controls-placeholder-color-valid: var(--wa-color-green-60);
+  --wa-form-controls-placeholder-color-invalid: var(--wa-color-red-60);
 
   /**
    * Panels
