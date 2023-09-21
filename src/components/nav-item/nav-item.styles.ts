@@ -5,17 +5,16 @@ export default css`
   ${componentStyles}
 
   :host {
-    display: list-item;
-    position: relative;
     width: auto;
     cursor: pointer;
     list-style-type: none;
-
   }
 
   .base {
     /* when we change to "display: list-item" apparently it sets box-sizing to content-box... */
     box-sizing: border-box;
+    display: grid;
+    height: 100%;
   }
 
   .control {
