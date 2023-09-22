@@ -7,6 +7,7 @@ export default css`
   /* Declare relevant custom properties */
 
   :host {
+    --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-border-style);
     --border-width: max(1px, var(--wa-form-controls-border-width));
     --shadow: var(--wa-shadow-level-0);
@@ -128,6 +129,7 @@ export default css`
   /* Define how each button style uses custom properties */
 
   .button {
+    border-radius: var(--border-radius, var(--wa-form-controls-corners));
     border-style: var(--border-style, var(--wa-border-style));
     /* prettier-ignore */
     border-width: var(--border-width, var(--wa-form-controls-border-width)); /* necessary for all button styles to ensure same width and height */
@@ -261,21 +263,18 @@ export default css`
     font-size: var(--wa-font-size-s);
     /* prettier-ignore */
     line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2); /* this calc only works if --border-width is a single value - could be solved by using padding instead of height for the button size */
-    border-radius: var(--wa-form-controls-corners);
   }
 
   .button--medium {
     height: var(--wa-form-controls-height-m);
     font-size: var(--wa-font-size-m);
     line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
-    border-radius: var(--wa-form-controls-corners);
   }
 
   .button--large {
     height: var(--wa-form-controls-height-l);
     font-size: var(--wa-font-size-l);
     line-height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
-    border-radius: var(--wa-form-controls-corners);
   }
 
   /*
@@ -384,11 +383,11 @@ export default css`
   }
 
   .button--has-prefix.button--large {
-    padding-inline-start: var(--wa-space-s);
+    padding-inline-start: var(--wa-space-m);
   }
 
   .button--has-prefix.button--large .button__label {
-    padding-inline-start: var(--wa-space-s);
+    padding-inline-start: var(--wa-space-m);
   }
 
   .button--has-suffix.button--small,
@@ -413,12 +412,12 @@ export default css`
 
   .button--has-suffix.button--large,
   .button--caret.button--large {
-    padding-inline-end: var(--wa-space-s);
+    padding-inline-end: var(--wa-space-m);
   }
 
   .button--has-suffix.button--large .button__label,
   .button--caret.button--large .button__label {
-    padding-inline-end: var(--wa-space-s);
+    padding-inline-end: var(--wa-space-m);
   }
 
   /*

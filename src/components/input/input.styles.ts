@@ -7,10 +7,24 @@ export default css`
   ${formControlStyles}
 
   :host {
+    --background: var(--wa-form-controls-background);
+    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-radius: var(--wa-form-controls-corners);
+    --border-style: var(--wa-form-controls-border-style);
+    --border-width: var(--wa-form-controls-border-width);
     display: block;
   }
 
+  :host([filled]) {
+    --background: var(--wa-color-neutral-fill-muted);
+    --border-color: var(--background);
+  }
+
   .input {
+    background: var(--background, var(--wa-form-controls-background));
+    border-color: var(--border-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
     flex: 1 1 auto;
     display: inline-flex;
     align-items: stretch;
@@ -25,11 +39,11 @@ export default css`
   }
 
   /* Standard inputs */
-  .input--standard {
-    background-color: var(--wa-form-controls-background);
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
-      var(--wa-form-controls-border-color-resting);
-  }
+  /*.input--standard {
+    border-color: var(--border-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+  }*/
 
   .input--standard.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
@@ -44,8 +58,6 @@ export default css`
 
   /* Filled inputs */
   .input--filled {
-    border: none;
-    background-color: var(--wa-color-neutral-fill-muted);
     color: var(--wa-color-neutral-text-on-muted);
   }
 
@@ -131,7 +143,7 @@ export default css`
   }
 
   .input--small .input__control {
-    height: calc(var(--wa-form-controls-height-s) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
     padding: 0 var(--wa-space-s);
   }
 
@@ -155,7 +167,7 @@ export default css`
   }
 
   .input--medium .input__control {
-    height: calc(var(--wa-form-controls-height-m) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
     padding: 0 var(--wa-space-m);
   }
 
@@ -179,7 +191,7 @@ export default css`
   }
 
   .input--large .input__control {
-    height: calc(var(--wa-form-controls-height-l) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
     padding: 0 var(--wa-space-l);
   }
 

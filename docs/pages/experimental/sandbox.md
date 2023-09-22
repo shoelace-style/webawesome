@@ -6,7 +6,45 @@ meta:
 
 # Theming Sandbox
 
+#### Card
+
+```html:preview
+<wa-card class="card-overview">
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
+
+  <strong>Mittens</strong><br />
+  This kitten is as cute as he is playful. Bring him home today!<br />
+  <small>6 weeks old</small>
+
+  <div slot="footer">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </div>
+</wa-card>
+
+<style>
+  .card-overview {
+    max-width: 300px;
+  }
+
+  .card-overview small {
+    color: var(--wa-color-text-quiet);
+  }
+
+  .card-overview [slot='footer'] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+```
+
 #### Alerts
+
 ```html:preview
 <wa-alert variant="brand" open>
   <wa-icon slot="icon" name="info-circle"></wa-icon>
@@ -40,6 +78,7 @@ meta:
 ```
 
 #### Badges and Tags
+
 ```html:preview
 <wa-badge variant="brand">Brand</wa-badge>
 <wa-badge variant="success">Success</wa-badge>
@@ -55,6 +94,7 @@ meta:
 ```
 
 #### Buttons
+
 ```html:preview
 <wa-button variant="brand">Brand</wa-button>
 <wa-button variant="success">Success</wa-button>
@@ -72,6 +112,7 @@ meta:
 ```
 
 #### Form controls
+
 ```html:preview
 <wa-checkbox>Unchecked</wa-checkbox>
 <br />
@@ -97,6 +138,7 @@ meta:
 ```
 
 #### Progress
+
 ```html:preview
 <wa-progress-ring value="25" style="--indicator-width: 4px;"></wa-progress-ring>
 <wa-progress-bar value="60"></wa-progress-bar>
