@@ -181,7 +181,6 @@ import WaNavGroup from '@shoelace-style/shoelace/dist/react/nav-group';
 
 {% endraw %}
 
-
 ### Nav group with nested nav items
 
 Use the `expandable` attribute to mark a nav item as expandable. In addition,

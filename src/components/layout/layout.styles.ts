@@ -84,10 +84,9 @@ export default css`
     align-items: center;
   }
 
-  :host([navigation-placement="end"]) [part~="header"] {
+  :host([navigation-placement='end']) [part~='header'] {
     grid-template-columns: minmax(0, 1fr) minmax(0, auto);
   }
-
 
   :host([hide-nav-button]) [part~='nav-button'] {
     display: none;

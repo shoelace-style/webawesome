@@ -154,7 +154,6 @@ export default () => {
 
 {% endraw %}
 
-
 ### Nav items with prefix + suffix
 
 ```html:preview

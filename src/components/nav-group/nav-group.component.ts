@@ -1,11 +1,11 @@
 import { html } from 'lit';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './nav-group.styles.js';
-import type { CSSResultGroup } from 'lit';
-import { when } from 'lit/directives/when.js';
-import { property } from 'lit/decorators.js';
 import { LocalizeController } from '../../utilities/localize.js';
+import { property } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
+import styles from './nav-group.styles.js';
 import WaDetails from '../details/details.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import type { CSSResultGroup } from 'lit';
 
 /**
  * @summary A nav group is a way of grouping `<wa-nav-item>`s together.
@@ -34,84 +34,69 @@ export default class WaNavGroup extends WebAwesomeElement {
 
   static dependencies = {
     'wa-details': WaDetails
-  }
+  };
 
-  private readonly localize = new LocalizeController(this)
+  private readonly localize = new LocalizeController(this);
 
   /**
    * The text to display in the summary of the `<wa-details>` element when the nav group is expandable.
    */
-  @property({ reflect: true }) summary = ""
+  @property({ reflect: true }) summary = '';
 
   /**
    * The label to display above the nav items slotted in.
    */
-  @property({ reflect: true }) heading = ""
+  @property({ reflect: true }) heading = '';
 
   /**
    * If true, will add a `<wa-details>` element into the shadowRoot that you can slot `<wa-nav-items>` into.
    */
-  @property({ reflect: true, type: Boolean }) expandable: boolean = false
+  @property({ reflect: true, type: Boolean }) expandable: boolean = false;
 
   render() {
     const isRtl = this.localize.dir() === 'rtl';
 
-    return html`
-      <div
-        part="base"
-        class="base"
-      >
-        <p id="heading" part="heading" class="heading">
-          <slot name="heading">${this.heading}</slot>
-        </p>
+    return html` <div part="base" class="base">
+      <p id="heading" part="heading" class="heading">
+        <slot name="heading">${this.heading}</slot>
+      </p>
 
-        ${when(this.expandable,
-          () => html`
-            <wa-details
-              class="details"
-              part="details"
-              exportparts="
+      ${when(
+        this.expandable,
+        () => html`
+          <wa-details
+            class="details"
+            part="details"
+            exportparts="
                 base:details__base,
                 header:details__header,
                 summary:details__summary,
                 summary-icon:details__summary-icon,
                 content:details__content
               "
-            >
-              <div slot="summary">
-                <slot name="summary">
-                  ${this.summary}
-                </slot>
-              </div>
+          >
+            <div slot="summary">
+              <slot name="summary"> ${this.summary} </slot>
+            </div>
 
-              <slot slot="expand-icon" name="expand-icon">
-                <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
-              </slot>
-              <slot slot="collapse-icon" name="collapse-icon">
-                <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
-              </slot>
+            <slot slot="expand-icon" name="expand-icon">
+              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+            </slot>
+            <slot slot="collapse-icon" name="collapse-icon">
+              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+            </slot>
 
-              <div
-                class="nav-items"
-                part="nav-items"
-                aria-labelledby="heading"
-                role="list"
-              >
-                <slot></slot>
-              </div>
-            </wa-details>
-          `,
-          () => html`
-            <div
-              class="nav-items"
-              part="nav-items"
-              aria-labelledby="heading"
-              role="list"
-            >
+            <div class="nav-items" part="nav-items" aria-labelledby="heading" role="list">
               <slot></slot>
             </div>
-          `
-        )}
-      </div>`;
+          </wa-details>
+        `,
+        () => html`
+          <div class="nav-items" part="nav-items" aria-labelledby="heading" role="list">
+            <slot></slot>
+          </div>
+        `
+      )}
+    </div>`;
   }
 }

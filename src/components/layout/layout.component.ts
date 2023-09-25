@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './layout.styles.js';
 import WaButton from '../button/button.component.js';
 import WaDrawer from '../drawer/drawer.component.js';
 import WaVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
-import styles from './layout.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
 
 /**
@@ -85,7 +85,7 @@ export default class WaLayout extends WebAwesomeElement {
   /**
    * Where to place the navigation when in the mobile viewport.
    */
-   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
+  @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
 
   layoutResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
@@ -182,19 +182,13 @@ export default class WaLayout extends WebAwesomeElement {
     }
   }
 
-  private renderNavButton () {
+  private renderNavButton() {
     return html`
       <slot name="nav-button">
-        <wa-icon-button
-          name="list"
-          variant="text"
-          size="large"
-          @click=${this.showNavigation}
-          part="nav-button"
-        >
+        <wa-icon-button name="list" variant="text" size="large" @click=${this.showNavigation} part="nav-button">
         </wa-icon-button>
       </slot>
-    `
+    `;
   }
 
   render() {
@@ -218,11 +212,11 @@ export default class WaLayout extends WebAwesomeElement {
         </div>
 
         <div class="header" part="header">
-          ${when(this.navigationPlacement === "start", () => this.renderNavButton())}
+          ${when(this.navigationPlacement === 'start', () => this.renderNavButton())}
 
           <slot name="header"></slot>
 
-          ${when(this.navigationPlacement === "end", () => this.renderNavButton())}
+          ${when(this.navigationPlacement === 'end', () => this.renderNavButton())}
         </div>
 
         <div class="sub-header" part="sub-header">

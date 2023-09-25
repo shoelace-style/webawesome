@@ -1,10 +1,10 @@
-import { property, state } from 'lit/decorators.js';
-import { html } from 'lit';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './nav-item.styles.js';
-import type { CSSResultGroup } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { property, state } from 'lit/decorators.js';
+import styles from './nav-item.styles.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import type { CSSResultGroup } from 'lit';
 
 /**
  * @summary A nav item is intended to be used in a navigation area such as within a nav element in a sidebar or inside of a drawer. A nav item is meant to drive page navigations.
@@ -26,7 +26,7 @@ export default class WaNavItem extends WebAwesomeElement {
   @property() href = '';
 
   /** maps to aria-current="page" */
-  @property({ type: Boolean }) active: boolean = false
+  @property({ type: Boolean }) active: boolean = false;
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property() target: '_blank' | '_parent' | '_self' | '_top';
@@ -42,7 +42,7 @@ export default class WaNavItem extends WebAwesomeElement {
   /** Tells the browser to download the linked file as this filename. Only used when `href` is present. */
   @property() download?: string;
 
-  @state() hasFocus: boolean = false
+  @state() hasFocus: boolean = false;
 
   private handleBlur() {
     this.hasFocus = false;
@@ -56,15 +56,11 @@ export default class WaNavItem extends WebAwesomeElement {
 
   render() {
     return html`
-      <div
-        class="base"
-        role="listitem"
-        aria-current=${this.active ? "page" : "false"}
-      >
+      <div class="base" role="listitem" aria-current=${this.active ? 'page' : 'false'}>
         <a
           class=${classMap({
-            "control": true,
-            "control--active": this.active
+            control: true,
+            'control--active': this.active
           })}
           part="control"
           href=${ifDefined(this.href)}
