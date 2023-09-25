@@ -63,6 +63,81 @@ layout: component
 </nav>
 ```
 
+{% raw %}
+
+```jsx:react
+import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
+import WaNavGroup from '@shoelace-style/shoelace/dist/react/nav-group';
+
+export default () => {
+  return (
+  <nav style={{
+    border: "var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-surface-outline)",
+    borderRadius: "var(--wa-panel-corners)",
+    padding: "var(--wa-space-square-m)"
+  }}>
+    <WaNavGroup>
+      <WaNavItem href="#">
+        <WaIcon name="search" slot="prefix" />
+        Search
+      </WaNavItem>
+
+      <WaNavItem href="#">
+        <WaIcon name="bell" slot="prefix" />
+        Notifications
+      </WaNavItem>
+
+      <WaNavGroup heading="Workspace" expandable style="margin-top: 1rem;">
+        <div
+          slot="summary"
+          style={{
+            display: "flex",
+            align-items: "center",
+            gap: "8px"
+          }}
+        >
+          <WaIcon name="credit-card" />
+          Payments
+        </div>
+
+        <WaNavItem href="#" active>
+          Transactions
+        </WaNavItem>
+
+        <WaNavItem href="#">
+          Invoices
+        </WaNavItem>
+
+        <WaNavItem href="#">
+          Disputed Charges
+        </WaNavItem>
+      </WaNavGroup>
+
+      <WaNavItem href="#">
+        <WaIcon name="question-circle" slot="prefix" />
+        Help
+      </WaNavItem>
+    </WaNavGroup>
+
+    <WaNavGroup heading="Reports" style={{marginTop: "1rem"}}>
+      <WaNavItem href="#">
+        Sales
+      </WaNavItem>
+
+      <WaNavItem href="#">
+        Expenses
+      </WaNavItem>
+
+      <WaNavItem href="#">
+        Payroll
+      </WaNavItem>
+    </WaNavGroup>
+  </nav>
+)
+```
+
+{% endraw %}
+
 ## Examples
 
 ### Nav Group with heading
@@ -82,6 +157,29 @@ layout: component
   </wa-nav-item>
 </wa-nav-group>
 ```
+
+{% raw %}
+
+```jsx:react
+import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
+import WaNavGroup from '@shoelace-style/shoelace/dist/react/nav-group';
+
+<WaNavGroup heading="Workspace">
+  <WaNavItem href="#" active>
+    Transactions
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Invoices
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Disputed Charges
+  </WaNavItem>
+</WaNavGroup>
+```
+
+{% endraw %}
 
 
 ### Nav group with nested nav items
@@ -105,3 +203,26 @@ to expanding the nav group.
   </wa-nav-item>
 </wa-nav-group>
 ```
+
+{% raw %}
+
+```jsx:react
+import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
+import WaNavGroup from '@shoelace-style/shoelace/dist/react/nav-group';
+
+<WaNavGroup expandable summary="Payments">
+  <WaNavItem href="#" active>
+    Transactions
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Invoices
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Disputed Charges
+  </WaNavItem>
+</WaNavGroup>
+```
+
+{% endraw %}

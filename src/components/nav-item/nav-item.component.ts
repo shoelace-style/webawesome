@@ -7,7 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 /**
- * @summary Short summary of the component's intended use.
+ * @summary A nav item is intended to be used in a navigation area such as within a nav element in a sidebar or inside of a drawer. A nav item is meant to drive page navigations.
  * @documentation https://shoelace.style/components/nav-item
  * @status experimental
  * @since 3.0
