@@ -33,11 +33,10 @@ export default css`
     transition: var(--wa-transition-faster) background-color, var(--wa-transition-faster) color,
       var(--wa-transition-faster) border, var(--wa-transition-faster) box-shadow;
     cursor: inherit;
-    color: var(--wa-color-neutral-text-on-surface);
+    color: var(--wa-color-text-normal);
     line-height: var(--wa-font-height-compact);
     padding: var(--wa-space-square-s);
     border-radius: var(--wa-corners-1x);
-
   }
 
   .control::-moz-focus-inner {

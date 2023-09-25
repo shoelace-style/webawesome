@@ -22,7 +22,7 @@ import { classMap } from 'lit/directives/class-map.js';
 export default class WaNavItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
-  /** maps to the underlying <a>'s href */
+  /** maps to the underlying `<a>`'s href */
   @property() href = '';
 
   /** maps to aria-current="page" */

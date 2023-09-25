@@ -8,29 +8,38 @@ export default css`
     display: block;
   }
 
+  p {
+    margin: 0;
+    margin-bottom: 0.25rem;
+  }
+
   .base {
+    color: var(--wa-color-text-normal);
+  }
+
+  .heading {
     color: var(--wa-color-neutral-text-on-surface);
   }
 
   .nav-items {
-    display: grid;
-    align-content: start;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 6px;
+    height: 100%;
   }
 
   .details::part(base) {
-    border: none;
+    border-color: transparent;
   }
 
   .details::part(content) {
     padding-top: 6px;
+    padding-inline-start: 2em;
   }
 
   .details::part(header) {
     padding: var(--wa-space-square-s);
-    border-radius: var(--wa-panel-corners);
+    border-radius: var(--wa-corners-1x);
   }
 
   .details::part(header):hover {
