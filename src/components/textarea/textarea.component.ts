@@ -33,6 +33,13 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart form-control-help-text - The help text's wrapper.
  * @csspart base - The component's base wrapper.
  * @csspart textarea - The internal `<textarea>` control.
+ *
+ * @cssproperty --background - All qualities of the textarea's background.
+ * @cssproperty --border-color - The color of the textarea's borders.
+ * @cssproperty --border-radius - The radius of the textarea's corners.
+ * @cssproperty --border-style - The style of the textarea's borders.
+ * @cssproperty --border-width - The width of the textarea's borders.
+ * @cssproperty --box-shadow - All qualities of the textarea's shadow.
  */
 export default class WaTextarea extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

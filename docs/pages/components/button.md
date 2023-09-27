@@ -459,7 +459,7 @@ This example demonstrates how to style buttons using a custom class. This is the
   wa-button.pink::part(base) {
     border-radius: 6px;
     border: solid 2px;
-    background-color: #ff1493;
+    background: #ff1493;
     border-top-color: #ff7ac1;
     border-left-color: #ff7ac1;
     border-bottom-color: #ad005c;

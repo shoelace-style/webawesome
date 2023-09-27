@@ -37,7 +37,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart caret - The button's caret icon, an `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
- * @cssproperty --background - The color of the button's background.
+ * @cssproperty --background - All qualities of the button's background.
  * @cssproperty --background-active - The color of the button's background when active.
  * @cssproperty --background-hover - The color of the button's background on hover.
  * @cssproperty --border-color - The color of the button's border.
@@ -46,10 +46,11 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --border-radius - The radius of the button's corners.
  * @cssproperty --border-style - The style of the button's border.
  * @cssproperty --border-width - The width of the button's border.
+ * @cssproperty --box-shadow - All qualities of the button's shadow.
+ * @cssproperty --box-shadow-color - The color of the button's shadow, if used by --box-shadow.
  * @cssproperty --label-color - The color of the button's label.
  * @cssproperty --label-color-active - The color of the button's label when active.
  * @cssproperty --label-color-hover - The color of the button's label on hover.
- * @cssproperty --shadow - The button's shadow.
  */
 export default class WaButton extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

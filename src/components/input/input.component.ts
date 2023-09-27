@@ -47,6 +47,13 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart clear-button - The clear button.
  * @csspart password-toggle-button - The password toggle button.
  * @csspart suffix - The container that wraps the suffix.
+ *
+ * @cssproperty --background - All qualities of the input's background.
+ * @cssproperty --border-color - The color of the input's borders.
+ * @cssproperty --border-radius - The radius of the input's corners.
+ * @cssproperty --border-style - The style of the input's borders.
+ * @cssproperty --border-width - The width of the input's borders.
+ * @cssproperty --box-shadow - All qualities of the input's shadow.
  */
 export default class WaInput extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

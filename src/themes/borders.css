@@ -1,6 +1,9 @@
-wa-button:not([outline]) {
+wa-button {
   --border-color-hover: var(--border-color);
   --border-color-active: var(--border-color);
+  --box-shadow-color: var(--border-color);
+}
+wa-button:not([outline]) {
   --background-active: var(--border-color);
 }
 wa-button[variant='brand'] {

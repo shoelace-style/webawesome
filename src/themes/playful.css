@@ -73,13 +73,7 @@
    */
   --wa-color-surface-raised: var(--wa-color-white);
   --wa-color-surface-default: var(--wa-color-white);
-  --wa-color-surface-lowered: repeating-linear-gradient(
-    45deg,
-    var(--wa-color-neutral-95),
-    var(--wa-color-neutral-95) 0.5rem,
-    color-mix(in oklab, var(--wa-color-neutral-95), var(--wa-color-white) 40%) 0.5rem,
-    color-mix(in oklab, var(--wa-color-neutral-95), var(--wa-color-white) 40%) 1rem
-  );
+  --wa-color-surface-lowered: var(--wa-color-neutral-95);
   --wa-color-surface-outline: var(--wa-color-neutral-90);
 
   --wa-color-text-normal: var(--wa-color-neutral-10);
@@ -302,6 +296,19 @@
    */
   --wa-panel-border-width: var(--wa-border-width-thin);
   --wa-panel-corners: var(--wa-corners-2x);
+
+  /**
+   * Patterns and Filters
+   */
+  --wa-pattern-surface: repeating-linear-gradient(
+    135deg,
+    var(--wa-color-neutral-95),
+    var(--wa-color-neutral-95) 0.5rem,
+    var(--wa-color-neutral-90) 0.5rem,
+    var(--wa-color-neutral-90) 1rem
+  );
+
+  --wa-filter-surface: none;
 
   /**
   * From 2.x

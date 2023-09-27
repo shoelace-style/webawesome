@@ -10,7 +10,8 @@ export default css`
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-border-style);
     --border-width: max(1px, var(--wa-form-controls-border-width));
-    --shadow: var(--wa-shadow-level-0);
+    --box-shadow: var(--wa-shadow-level-0);
+    --box-shadow-color: var(--wa-color-shadow);
 
     display: inline-block;
     position: relative;
@@ -154,13 +155,13 @@ export default css`
   .button--checked /* for wa-radio-button */ {
     background: var(--background);
     border-color: var(--border-color);
-    box-shadow: var(--shadow);
+    box-shadow: var(--box-shadow);
   }
 
   .button--outline:not(.button--checked) {
     background: none;
     border-color: var(--border-color);
-    box-shadow: var(--shadow);
+    box-shadow: var(--box-shadow);
   }
 
   .button--text {
