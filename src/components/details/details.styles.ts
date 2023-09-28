@@ -75,7 +75,7 @@ export default css`
     display: none;
   }
 
-  .details__body {
+  :not(.details--open) .details__body {
     overflow: hidden;
   }
 

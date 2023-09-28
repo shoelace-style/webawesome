@@ -5,6 +5,9 @@ import { property, state } from 'lit/decorators.js';
 import styles from './nav-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
+import { when } from 'lit/directives/when.js';
+import { LocalizeController } from '@shoelace-style/localize';
+import WaDetails from '../details/details.component.js';
 
 /**
  * @summary A nav item is intended to be used in a navigation area such as within a nav element in a sidebar or inside of a drawer. A nav item is meant to drive page navigations.
@@ -22,11 +25,17 @@ import type { CSSResultGroup } from 'lit';
 export default class WaNavItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
+  static dependencies = {
+    'wa-details': WaDetails
+  };
+
+  private readonly localize = new LocalizeController(this);
+
   /** maps to the underlying `<a>`'s href */
   @property() href = '';
 
   /** maps to aria-current="page" */
-  @property({ type: Boolean }) active: boolean = false;
+  @property({ type: Boolean, reflect: true }) active: boolean = false;
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property() target: '_blank' | '_parent' | '_self' | '_top';
@@ -42,6 +51,17 @@ export default class WaNavItem extends WebAwesomeElement {
   /** Tells the browser to download the linked file as this filename. Only used when `href` is present. */
   @property() download?: string;
 
+  /**
+   * The text to display in the summary of the `<wa-details>` element when the nav item is expandable.
+   */
+  @property({ reflect: true }) label = '';
+
+  /**
+   * If true, will add a `<wa-details>` element into the shadowRoot that you can slot `<wa-nav-items>` into.
+   */
+  @property({ reflect: true, type: Boolean }) expandable: boolean = false;
+
+
   @state() hasFocus: boolean = false;
 
   private handleBlur() {
@@ -55,25 +75,63 @@ export default class WaNavItem extends WebAwesomeElement {
   }
 
   render() {
+    const isRtl = this.localize.dir() === 'rtl';
     return html`
-      <div class="base" role="listitem" aria-current=${this.active ? 'page' : 'false'}>
-        <a
-          class=${classMap({
-            control: true,
-            'control--active': this.active
-          })}
-          part="control"
-          href=${ifDefined(this.href)}
-          target=${ifDefined(this.target)}
-          download=${ifDefined(this.download)}
-          rel=${ifDefined(this.rel)}
-          @blur=${this.handleBlur}
-          @focus=${this.handleFocus}
-        >
-          <slot name="prefix"></slot>
-          <slot></slot>
-          <slot name="suffix"></slot>
-        </a>
+      <div
+        class=${classMap({
+          base: true,
+          "base--active": this.active,
+        })}
+        role="listitem"
+        aria-current=${this.active && !this.expandable ? 'page' : 'false'}
+      >
+        ${when(
+          this.expandable,
+          () => html`
+            <wa-details
+              class="details"
+              part="details"
+              exportparts="
+                  base:details__base,
+                  header:details__header,
+                  summary:details__summary,
+                  summary-icon:details__summary-icon,
+                  content:details__content
+                "
+            >
+              <div slot="summary" part="label">
+                <slot name="label">${this.label}</slot>
+              </div>
+
+              <slot slot="expand-icon" name="expand-icon">
+                <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              </slot>
+              <slot slot="collapse-icon" name="collapse-icon">
+                <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              </slot>
+
+              <div class="nav-items" part="nav-items" aria-labelledby="heading" role="list">
+                <slot></slot>
+              </div>
+            </wa-details>
+          `,
+          () => html`
+            <a
+              class="control"
+              part="control"
+              href=${ifDefined(this.href)}
+              target=${ifDefined(this.target)}
+              download=${ifDefined(this.download)}
+              rel=${ifDefined(this.rel)}
+              @blur=${this.handleBlur}
+              @focus=${this.handleFocus}
+            >
+              <slot name="prefix"></slot>
+              <slot></slot>
+              <slot name="suffix"></slot>
+            </a>
+          `
+        )}
       </div>
     `;
   }

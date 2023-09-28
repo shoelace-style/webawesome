@@ -17,14 +17,10 @@ export default css`
     height: 100%;
   }
 
-  .control {
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    justify-content: start;
-    gap: 8px;
-    width: 100%;
-    border: none;
+  .control,
+  .details::part(header) {
+    padding: var(--wa-space-square-xs);
+    border-radius: var(--wa-corners-1x);
     font: inherit;
     font-weight: var(--wa-font-weight-action);
     text-decoration: none;
@@ -35,8 +31,16 @@ export default css`
     cursor: inherit;
     color: var(--wa-color-text-normal);
     line-height: var(--wa-font-height-compact);
-    padding: var(--wa-space-square-s);
-    border-radius: var(--wa-corners-1x);
+  }
+
+  .control {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    width: 100%;
+    border: none;
   }
 
   .control::-moz-focus-inner {
@@ -47,40 +51,59 @@ export default css`
     outline: transparent;
   }
 
-  .control:hover {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
+  .details::part(header):is(:active, :hover),
+  .control:is(:active, :hover) {
+    background-color: var(--wa-color-neutral-fill-muted-alt);
+    color: var(--wa-color-text-normal);
     border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-neutral-text-on-vivid);
   }
 
-  .control:active {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
-  }
-
+  .details::part(header):focus-visible,
   .control:focus-visible {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
     outline-color: var(--wa-color-neutral-fill-vivid);
   }
 
-  .control.control--active {
+  .base--active .details::part(header),
+  .base--active .control {
     background-color: var(--wa-color-brand-fill-vivid);
     color: var(--wa-color-brand-text-on-vivid);
   }
 
-  .control--active:focus-visible {
+  .base--active .details::part(header):focus-visible,
+  .base--active .control:focus-visible {
     outline-color: var(--wa-color-brand-fill-vivid);
   }
 
-  .control--active:active {
+  .base--active .details::part(header):active,
+  .base--active .control:active {
     background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
     border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
   }
 
-  .control--active:hover {
+  .base--active .details::part(header):hover,
+  .base--active .control:hover {
     background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
     border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
     color: var(--wa-color-brand-text-on-vivid);
+  }
+
+  .details::part(base) {
+    border-color: transparent;
+  }
+
+  .details::part(content) {
+    padding-top: 6px;
+    padding-inline-end: 0px;
+    padding-inline-start: 2em;
+  }
+
+
+  .nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
   }
 `;

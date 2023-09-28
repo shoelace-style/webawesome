@@ -1,9 +1,6 @@
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
 import { property } from 'lit/decorators.js';
-import { when } from 'lit/directives/when.js';
 import styles from './nav-group.styles.js';
-import WaDetails from '../details/details.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
@@ -32,71 +29,22 @@ import type { CSSResultGroup } from 'lit';
 export default class WaNavGroup extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
 
-  static dependencies = {
-    'wa-details': WaDetails
-  };
-
-  private readonly localize = new LocalizeController(this);
-
-  /**
-   * The text to display in the summary of the `<wa-details>` element when the nav group is expandable.
-   */
-  @property({ reflect: true }) summary = '';
-
   /**
    * The label to display above the nav items slotted in.
    */
-  @property({ reflect: true }) heading = '';
-
-  /**
-   * If true, will add a `<wa-details>` element into the shadowRoot that you can slot `<wa-nav-items>` into.
-   */
-  @property({ reflect: true, type: Boolean }) expandable: boolean = false;
+  @property({ reflect: true }) label = '';
 
   render() {
-    const isRtl = this.localize.dir() === 'rtl';
+    return html`
+      <div part="base" class="base">
+        <p id="label" part="label" class="label">
+          <slot name="label">${this.label}</slot>
+        </p>
 
-    return html` <div part="base" class="base">
-      <p id="heading" part="heading" class="heading">
-        <slot name="heading">${this.heading}</slot>
-      </p>
-
-      ${when(
-        this.expandable,
-        () => html`
-          <wa-details
-            class="details"
-            part="details"
-            exportparts="
-                base:details__base,
-                header:details__header,
-                summary:details__summary,
-                summary-icon:details__summary-icon,
-                content:details__content
-              "
-          >
-            <div slot="summary">
-              <slot name="summary"> ${this.summary} </slot>
-            </div>
-
-            <slot slot="expand-icon" name="expand-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
-            </slot>
-            <slot slot="collapse-icon" name="collapse-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
-            </slot>
-
-            <div class="nav-items" part="nav-items" aria-labelledby="heading" role="list">
-              <slot></slot>
-            </div>
-          </wa-details>
-        `,
-        () => html`
-          <div class="nav-items" part="nav-items" aria-labelledby="heading" role="list">
-            <slot></slot>
-          </div>
-        `
-      )}
-    </div>`;
+        <div class="nav-items" part="nav-items" aria-labelledby="label" role="list">
+          <slot></slot>
+        </div>
+      </div>
+    `;
   }
 }

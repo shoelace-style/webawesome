@@ -6,45 +6,29 @@ export default css`
 
   :host {
     display: block;
+    --gap: 6px;
   }
 
   p {
     margin: 0;
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--wa-space-xs);
   }
 
   .base {
     color: var(--wa-color-text-normal);
+    height: 100%;
   }
 
-  .heading {
+  .label {
+    font-weight: var(--wa-font-weight-heading);
     color: var(--wa-color-neutral-text-on-surface);
+    padding-inline-start: var(--wa-space-xs);
   }
 
   .nav-items {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--gap);
     height: 100%;
-  }
-
-  .details::part(base) {
-    border-color: transparent;
-  }
-
-  .details::part(content) {
-    padding-top: 6px;
-    padding-inline-start: 2em;
-  }
-
-  .details::part(header) {
-    padding: var(--wa-space-square-s);
-    border-radius: var(--wa-corners-1x);
-  }
-
-  .details::part(header):hover {
-    background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-neutral-text-on-vivid);
   }
 `;

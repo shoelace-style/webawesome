@@ -182,3 +182,47 @@ export default () => {
 ```
 
 {% endraw %}
+
+### Nav group with nested nav items
+
+Use the `expandable` attribute to mark a nav item as expandable. In addition,
+you can add a `label` slot or attribute to display in the `<wa-details>` element prior
+to expanding the nav group.
+
+```html:preview
+<wa-nav-item expandable label="Payments">
+  <wa-nav-item href="#" active>
+    Transactions
+  </wa-nav-item>
+
+  <wa-nav-item href="#">
+    Invoices
+  </wa-nav-item>
+
+  <wa-nav-item href="#">
+    Disputed Charges
+  </wa-nav-item>
+</wa-nav-group>
+```
+
+{% raw %}
+
+```jsx:react
+import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
+
+<WaNavItem expandable label="Payments">
+  <WaNavItem href="#" active>
+    Transactions
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Invoices
+  </WaNavItem>
+
+  <WaNavItem href="#">
+    Disputed Charges
+  </WaNavItem>
+</WaNavGroup>
+```
+
+{% endraw %}
