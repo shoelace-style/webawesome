@@ -35,6 +35,7 @@ export default css`
 
   .control {
     display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
     grid-auto-flow: column;
     align-items: center;
     justify-content: start;
