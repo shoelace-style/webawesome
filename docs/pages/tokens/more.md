@@ -28,5 +28,4 @@ Form control tokens control the appearance of form controls such as [input](/com
 | `--wa-form-controls-border-color-resting`   | `var(--wa-color-neutral-outline-muted-alt)` |
 | `--wa-form-controls-border-color-activated` | `var(--wa-color-brand-action-vivid)`        |
 | `--wa-form-controls-value-line-height`      | `var(--wa-font-height-compact)`             |
-| `--wa-form-controls-padding`                | `var(--wa-space-square-s)`                  |
 | `--wa-form-controls-placeholder-color`      | `var(--wa-color-neutral-60)`                |

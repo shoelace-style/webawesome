@@ -4,7 +4,12 @@
   color-scheme: light;
 
   /**
-   * Primitives
+   * Primitive colors
+   * Each color is identified by a number that corresponds to its lightness value, where 100 is lightest (white) and 0 is darkest (black).
+   * Lightness on this scale is directly related to relative luminance, so each lightness value has uniform WCAG 2.1 contrast across hues.
+   * A difference of 40 between lightness values guarantees a minimum 3:1 contrast ratio.
+   * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
+   * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
   --wa-color-red-95: #fdeef3;
   --wa-color-red-90: #fcdee7;
@@ -65,44 +70,68 @@
   --wa-color-black: black;
 
   /**
-   * App
+   * Base theme colors
    */
+
+  /* Surfaces are background layers that UI components and other content rest on.
+   * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
   --wa-color-surface-raised: var(--wa-color-white);
   --wa-color-surface-default: var(--wa-color-white);
   --wa-color-surface-lowered: var(--wa-color-neutral-95);
   --wa-color-surface-outline: var(--wa-color-neutral-90);
 
+  /* Text colors are used for standard text elements.
+   * Text should have a minimum 4.5:1 contrast ratio against surfaces.
+   * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-neutral-10);
   --wa-color-text-quiet: var(--wa-color-neutral-40);
   --wa-color-text-inverse: var(--wa-color-white);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
+  /* Selection colors apply on content that is highlighted by the user.
+   * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
   --wa-color-selection-background: var(--wa-color-blue-80);
   --wa-color-selection-text: var(--wa-color-black);
 
-  --wa-color-focus: var(--wa-color-blue-60); /* semantic variants? */
+  /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
+   * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 96%, transparent);
 
+  /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
+
+  /* Shadow specifies the default color for box shadows that indicate elevation. */
+  --wa-color-shadow: rgb(0 0 0 / 0.06);
+
+  /* Base tints can be mixed with or overlay other colors to make them lighter or darker. */
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
 
-  --wa-color-tint-hover: black 8%;
-  --wa-color-tint-active: black 16%;
+  /* State tints are mixed with component colors to achieve consistent effects on interaction. */
+  --wa-color-tint-hover: black 12%;
+  --wa-color-tint-active: black 20%;
 
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
-
-  --wa-color-shadow: rgb(0 0 0 / 0.06);
-
-  /**
-   * Semantic color variants
-   */
-  /* TODO: Add comments for semantic color tokens and usage expectations */
-  /* CONSIDER: Change -alt naming to -tint or -shade? */
+  /** 
+   * Semantic theme colors
+   * Five semantic groups reinforce a component's message, intended usage, or expected results through meaningful hues -
+   *  *  Brand to reinforce product branding
+   *  *  Success to express validity or confirmation
+   *  *  Warning to express caution or uncertainty
+   *  *  Danger to express errors or risk
+   *  *  Neutral for elements that are innocuous or inert 
+   * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
+   * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
+   * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
+   * Muted colors have no contrast requirements.
+   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
+  */
+  /* TODO: Change -alt naming? */
   --wa-color-brand-fill-vivid: var(--wa-color-blue-50);
   --wa-color-brand-fill-vivid-alt: var(--wa-color-blue-40);
   --wa-color-brand-fill-muted: var(--wa-color-blue-95);
   --wa-color-brand-fill-muted-alt: var(--wa-color-blue-90);
   --wa-color-brand-outline-vivid: var(--wa-color-blue-50);
-  --wa-color-brand-outline-vivid-alt: var(--wa-color-blue-30);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-blue-40);
   --wa-color-brand-outline-muted: var(--wa-color-blue-90);
   --wa-color-brand-outline-muted-alt: var(--wa-color-blue-80);
   --wa-color-brand-text-on-vivid: var(--wa-color-text-inverse);
@@ -114,7 +143,7 @@
   --wa-color-success-fill-muted: var(--wa-color-green-95);
   --wa-color-success-fill-muted-alt: var(--wa-color-green-90);
   --wa-color-success-outline-vivid: var(--wa-color-green-50);
-  --wa-color-success-outline-vivid-alt: var(--wa-color-green-30);
+  --wa-color-success-outline-vivid-alt: var(--wa-color-green-40);
   --wa-color-success-outline-muted: var(--wa-color-green-90);
   --wa-color-success-outline-muted-alt: var(--wa-color-green-80);
   --wa-color-success-text-on-vivid: var(--wa-color-text-inverse);
@@ -126,7 +155,7 @@
   --wa-color-warning-fill-muted: var(--wa-color-yellow-95);
   --wa-color-warning-fill-muted-alt: var(--wa-color-yellow-90);
   --wa-color-warning-outline-vivid: var(--wa-color-yellow-50);
-  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-30);
+  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-40);
   --wa-color-warning-outline-muted: var(--wa-color-yellow-90);
   --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-80);
   --wa-color-warning-text-on-vivid: var(--wa-color-text-inverse);
@@ -138,7 +167,7 @@
   --wa-color-danger-fill-muted: var(--wa-color-red-95);
   --wa-color-danger-fill-muted-alt: var(--wa-color-red-90);
   --wa-color-danger-outline-vivid: var(--wa-color-red-50);
-  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-30);
+  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-40);
   --wa-color-danger-outline-muted: var(--wa-color-red-90);
   --wa-color-danger-outline-muted-alt: var(--wa-color-red-80);
   --wa-color-danger-text-on-vivid: var(--wa-color-text-inverse);
@@ -150,7 +179,7 @@
   --wa-color-neutral-fill-muted: var(--wa-color-neutral-95);
   --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-90);
   --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-30);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-40);
   --wa-color-neutral-outline-muted: var(--wa-color-neutral-90);
   --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-80);
   --wa-color-neutral-text-on-vivid: var(--wa-color-text-inverse);
@@ -179,9 +208,9 @@
   --wa-font-size-xs: 0.75rem; /* 12 */
   --wa-font-size-s: 0.875rem; /* 14 */
   --wa-font-size-m: 1rem; /* 16 */
-  --wa-font-size-l: 1.375rem; /* 22 */
-  --wa-font-size-xl: 1.875rem; /* 30 */
-  --wa-font-size-2xl: 2.625rem; /* 42 */
+  --wa-font-size-l: 1.25rem; /* 20 */
+  --wa-font-size-xl: 1.75rem; /* 28 */
+  --wa-font-size-2xl: 2.5rem; /* 40 */
 
   --wa-font-line-height-compact: 1.25;
   --wa-font-line-height-regular: 1.625;
@@ -189,16 +218,27 @@
 
   /**
    * Spacing
+   * Used intentionally, space properties yield a predictable rhythm and support effective implementation of the proximity principle.
+   * Space can be organized into three groups with distinct usage -
+   *  *  Small-scale space (3xs, 2xs, and xs) is used for gaps between closely related elements, such as a dropdown button and its menu,
+   *     and padding within small components, such as badges and tooltips
+   *  *  Normal space (s, m, and l) is used for gaps between related elements with distinct purposes or touch targets and padding within
+   *     typical interface elements, such as buttons and inputs
+   *  *  Large-scale space (xl, 2xl, and 3xl) is used for gaps between unrelated elements and padding within larger components,
+   *     such as cards and dialogs
    */
-  --wa-space-3xs: 0.125rem; /* 2 */
-  --wa-space-2xs: 0.25rem; /* 4 */
-  --wa-space-xs: 0.5rem; /* 8 */
-  --wa-space-s: 0.75rem; /* 12 */
-  --wa-space-m: 1rem; /* 16 */
-  --wa-space-l: 1.25rem; /* 20 */
-  --wa-space-xl: 1.5rem; /* 24 */
-  --wa-space-2xl: 2rem; /* 32 */
-  --wa-space-3xl: 3rem; /* 48 */
+  /* Space is designed to scale according to a single base value.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-space-base: 1rem;
+  --wa-space-3xs: calc(var(--wa-space-base) * 0.125); /* 2 */
+  --wa-space-2xs: calc(var(--wa-space-base) * 0.25); /* 4 */
+  --wa-space-xs: calc(var(--wa-space-base) * 0.5); /* 8 */
+  --wa-space-s: calc(var(--wa-space-base) * 0.75); /* 12 */
+  --wa-space-m: var(--wa-space-base); /* 16 */
+  --wa-space-l: calc(var(--wa-space-base) * 1.25); /* 20 */
+  --wa-space-xl: calc(var(--wa-space-base) * 1.5); /* 24 */
+  --wa-space-2xl: calc(var(--wa-space-base) * 2); /* 32 */
+  --wa-space-3xl: calc(var(--wa-space-base) * 3); /* 48 */
 
   --wa-space-square-xs: var(--wa-space-xs);
   --wa-space-square-s: var(--wa-space-s);
@@ -221,17 +261,24 @@
   /**
    * Borders & corners
    */
-  --wa-border-width-thin: 0.0625rem; /* 1px */
-  --wa-border-width-medium: calc(var(--wa-border-width-thin) * 2);
-  --wa-border-width-thick: calc(var(--wa-border-width-thin) * 3);
-
   --wa-border-style: solid;
 
-  --wa-corners-half: calc(var(--wa-corners-1x) * 0.5);
-  --wa-corners-1x: 0.25rem;
-  --wa-corners-2x: calc(var(--wa-corners-1x) * 2);
-  --wa-corners-3x: calc(var(--wa-corners-1x) * 3);
+  /* Border widths are designed to scale according to a single base value.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.0625rem; /* 1px */
+  --wa-border-width-thin: var(--wa-border-width-base);
+  --wa-border-width-medium: calc(var(--wa-border-width-base) * 2);
+  --wa-border-width-thick: calc(var(--wa-border-width-base) * 3);
 
+  /* Corners are designed to scale according to a single base value.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-corners-base: 0.25rem;
+  --wa-corners-half: calc(var(--wa-corners-base) * 0.5);
+  --wa-corners-1x: var(--wa-corners-base);
+  --wa-corners-2x: calc(var(--wa-corners-base) * 2);
+  --wa-corners-3x: calc(var(--wa-corners-base) * 3);
+
+  /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
   --wa-corners-pill: 9999px;
   --wa-corners-circle: 50%;
   --wa-corners-sharp: 0;
@@ -239,17 +286,36 @@
   /**
    * Focus
    */
-  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-focus);
+  --wa-focus-ring: solid 0.1875rem var(--wa-color-focus);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
 
   /**
    * Shadows
+   * Shadow effects indicate elevation and, at times, interactivity. 
+   * Elevation is defined by levels relative to the surface where the element rests -
+   *  *  Inset sits below the surface for a punched-in effect
+   *  *  Level 0 is the surface level
+   *  *  Level 1 is slightly raised above the surface and often signifies that an element is interactive, such as a card
+   *  *  Level 2 is raised above all other elements on the same surface, such as dropdown menus
+   *  *  Level 3 is raised above all elements on all surfaces, such as dialogs and drawers
    */
-  --wa-shadow-inset: inset 0 0.0625rem 0 var(--wa-color-shadow);
+  /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-shadow-blur-base: 0.125rem;
+
+  /* Offset values on the y-axis are used in pre-constructed shadows and may be used when constructing custom shadows
+   * or transforming elements with shadows. */
+  --wa-shadow-offset-y-inset: 0.0625rem;
+  --wa-shadow-offset-y-level-1: 0.0625rem;
+  --wa-shadow-offset-y-level-2: 0.125rem;
+  --wa-shadow-offset-y-level-3: 0.25rem;
+
+  --wa-shadow-inset: inset 0 var(--wa-shadow-offset-y-inset) calc(var(--wa-shadow-blur-base) * 0.5)
+    var(--wa-color-shadow);
   --wa-shadow-level-0: none;
-  --wa-shadow-level-1: 0 0.0625rem 0.125rem var(--wa-color-shadow);
-  --wa-shadow-level-2: 0 0.125rem 0.25rem var(--wa-color-shadow);
-  --wa-shadow-level-3: 0 0.25rem 0.5rem var(--wa-color-shadow);
+  --wa-shadow-level-1: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--wa-color-shadow);
+  --wa-shadow-level-2: 0 var(--wa-shadow-offset-y-level-2) calc(var(--wa-shadow-blur-base) * 2) var(--wa-color-shadow);
+  --wa-shadow-level-3: 0 var(--wa-shadow-offset-y-level-3) calc(var(--wa-shadow-blur-base) * 4) var(--wa-color-shadow);
 
   /**
    * Z-index
@@ -271,30 +337,42 @@
    * Form controls
    */
   --wa-form-controls-background: var(--wa-color-surface-default);
-  --wa-form-controls-border-style: var(--wa-border-style);
-  --wa-form-controls-border-width: var(--wa-border-width-thin);
-  --wa-form-controls-corners: var(--wa-corners-1x);
+
   --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
   --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-vivid);
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-thin);
+
+  --wa-form-controls-corners: var(--wa-corners-1x);
+
   --wa-form-controls-text-color: var(--wa-color-text-normal);
-  --wa-form-controls-value-line-height: var(--wa-font-height-compact);
-  --wa-form-controls-padding: var(--wa-space-square-s);
+  --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
+
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
   --wa-form-controls-placeholder-color-valid: var(--wa-color-green-60);
   --wa-form-controls-placeholder-color-invalid: var(--wa-color-red-60);
 
+  --wa-form-controls-height-s: calc(
+    var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height)
+  );
+  --wa-form-controls-height-m: calc(
+    var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-controls-value-line-height)
+  );
+  --wa-form-controls-height-l: calc(
+    var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height)
+  );
+
   /**
    * Panels
    */
+  --wa-panel-border-style: var(--wa-border-style);
   --wa-panel-border-width: var(--wa-border-width-thin);
+
   --wa-panel-corners: var(--wa-corners-2x);
 
   /**
   * From 2.x
   */
-  --wa-form-controls-height-s: 2rem;
-  --wa-form-controls-height-m: 2.75rem;
-  --wa-form-controls-height-l: 3.5rem;
   --wa-form-control-toggle-size-s: 0.875rem;
   --wa-form-control-toggle-size-m: 1.125rem;
   --wa-form-control-toggle-size-l: 1.375rem;
@@ -306,11 +384,12 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-:root.wa-theme-default-dark {
+.wa-theme-default-dark,
+.wa-theme-default-dark :host {
   color-scheme: dark;
 
   /**
-   * App
+   * Base theme colors
    */
   --wa-color-surface-raised: var(--wa-color-neutral-10);
   --wa-color-surface-default: var(--wa-color-neutral-10);
@@ -325,7 +404,11 @@
   --wa-color-selection-background: var(--wa-color-blue-40);
   --wa-color-selection-text: var(--wa-color-white);
 
-  --wa-color-focus: var(--wa-color-blue-50);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
+
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
+
+  --wa-color-shadow: rgb(0 0 0 / 0.25);
 
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
@@ -333,12 +416,8 @@
   --wa-color-tint-hover: black 8%;
   --wa-color-tint-active: black 16%;
 
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
-
-  --wa-color-shadow: rgb(0 0 0 / 0.25);
-
   /**
-    * Semantic color variants
+    * Semantic theme colors
     */
   --wa-color-brand-fill-vivid: var(--wa-color-blue-50);
   --wa-color-brand-fill-vivid-alt: var(--wa-color-blue-30);
@@ -400,3 +479,5 @@
   --wa-color-neutral-text-on-muted: var(--wa-color-neutral-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-neutral-60);
 }
+
+/* _utility.css */
