@@ -9,7 +9,7 @@ export default css`
   :host {
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-border-style);
-    --border-width: max(1px, var(--wa-form-controls-border-width));
+    --border-width: var(--wa-form-controls-border-width);
     --box-shadow: var(--wa-shadow-level-0);
     --box-shadow-color: var(--wa-color-shadow);
 
@@ -61,14 +61,14 @@ export default css`
    */
 
   :host([variant='brand'][outline]) {
-    --background-hover: var(--wa-color-brand-fill-muted-alt);
+    --background-hover: var(--wa-color-brand-fill-muted);
     --border-color: var(--wa-color-brand-outline-vivid);
     --label-color: var(--wa-color-brand-text-on-surface);
     --label-color-hover: var(--wa-color-brand-text-on-muted);
   }
 
   :host([variant='success'][outline]) {
-    --background-hover: var(--wa-color-success-fill-muted-alt);
+    --background-hover: var(--wa-color-success-fill-muted);
     --border-color: var(--wa-color-success-outline-vivid);
     --label-color: var(--wa-color-success-text-on-surface);
     --label-color-hover: var(--wa-color-success-text-on-muted);
@@ -76,21 +76,21 @@ export default css`
 
   :host([variant='neutral'][outline]),
   :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
-    --background-hover: var(--wa-color-neutral-fill-muted-alt);
+    --background-hover: var(--wa-color-neutral-fill-muted);
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
     --label-color-hover: var(--wa-color-neutral-text-on-muted);
   }
 
   :host([variant='warning'][outline]) {
-    --background-hover: var(--wa-color-warning-fill-muted-alt);
+    --background-hover: var(--wa-color-warning-fill-muted);
     --border-color: var(--wa-color-warning-outline-vivid);
     --label-color: var(--wa-color-warning-text-on-surface);
     --label-color-hover: var(--wa-color-warning-text-on-muted);
   }
 
   :host([variant='danger'][outline]) {
-    --background-hover: var(--wa-color-danger-fill-muted-alt);
+    --background-hover: var(--wa-color-danger-fill-muted);
     --border-color: var(--wa-color-danger-outline-vivid);
     --label-color: var(--wa-color-danger-text-on-surface);
     --label-color-hover: var(--wa-color-danger-text-on-muted);
@@ -98,8 +98,7 @@ export default css`
 
   :host([outline]),
   :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
-    /* prettier-ignore */
-    --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%); /* mix background hover and surface colors to simulate pressing into the surface */
+    --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
     --label-color-active: var(--label-color-hover);
@@ -127,13 +126,11 @@ export default css`
   /*
    * Internal
    */
-  /* Define how each button style uses custom properties */
 
   .button {
-    border-radius: var(--border-radius, var(--wa-form-controls-corners));
-    border-style: var(--border-style, var(--wa-border-style));
-    /* prettier-ignore */
-    border-width: var(--border-width, var(--wa-form-controls-border-width)); /* necessary for all button styles to ensure same width and height */
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: max(1px, var(--border-width));
     color: var(--label-color);
     display: inline-flex;
     align-items: stretch;
@@ -262,8 +259,7 @@ export default css`
   .button--small {
     height: var(--wa-form-controls-height-s);
     font-size: var(--wa-font-size-s);
-    /* prettier-ignore */
-    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2); /* this calc only works if --border-width is a single value - could be solved by using padding instead of height for the button size */
+    line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
   }
 
   .button--medium {

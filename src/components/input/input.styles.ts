@@ -85,7 +85,7 @@ export default css`
     color: var(--wa-form-controls-text-color);
     border: none;
     /* prettier-ignore */
-    background: none; /* TODO: setting to 'none' is needed for inset box shadows but breaks the styling of webkit's date input */
+    background: rgb(255 255 255 / 0); /* workaround to avoid breaking placeholder styles of webkit's date input */
     box-shadow: none;
     padding: 0;
     margin: 0;
