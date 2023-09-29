@@ -1,11 +1,12 @@
 wa-button:not([variant='text']) {
-  --box-shadow: 0 var(--wa-shadow-offset-x-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
+  --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
 }
 wa-button:active:not([variant='text']):not([disabled]) {
   --box-shadow: none;
-  transform: translateY(var(--wa-shadow-offset-x-level-1));
+  transform: translateY(var(--wa-shadow-offset-y-level-1));
 }
-wa-input,
-wa-textarea {
+wa-input:not([filled]):not([disabled]),
+wa-select:not([filled]):not([disabled]),
+wa-textarea:not([filled]):not([disabled]) {
   --box-shadow: var(--wa-shadow-inset);
 }

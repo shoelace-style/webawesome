@@ -2,8 +2,10 @@
   --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
 }
 
-wa-button:not([outline]) {
+wa-button {
   --box-shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-1);
+}
+wa-button:hover {
   --box-shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-2);
 }
 wa-button:active:not([disabled]) {
@@ -23,7 +25,7 @@ wa-button:not([variant='text']) {
   transition: transform var(--wa-transition-faster);
 }
 wa-button:active:not([variant='text']):not([disabled]) {
-  transform: translateY(var(--wa-shadow-offset-x-level-2));
+  transform: translateY(var(--wa-shadow-offset-y-level-2));
 }
 
 wa-button[variant='brand'] {
@@ -166,7 +168,8 @@ wa-button[variant='danger'][outline] {
   --border-color-active: var(--border-color);
 }
 
-wa-input,
-wa-textarea {
+wa-input:not([filled]):not([disabled]),
+wa-select:not([filled]):not([disabled]),
+wa-textarea:not([filled]):not([disabled]) {
   --box-shadow: var(--wa-shadow-inset);
 }
