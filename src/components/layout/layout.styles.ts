@@ -79,21 +79,6 @@ export default css`
 
   [part~='header'] {
     top: var(--banner-height);
-    display: grid;
-    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
-    align-items: center;
-  }
-
-  :host([navigation-placement='end']) [part~='header'] {
-    grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-  }
-
-  :host([hide-nav-button]) [part~='nav-button'] {
-    display: none;
-  }
-
-  :host([hide-nav-button]) [part~='header'] {
-    grid-template-columns: minmax(0, 1fr);
   }
 
   [part~='sub-header'] {
@@ -160,9 +145,5 @@ export default css`
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
-  }
-
-  [part~='nav-button'] {
-    font-size: 1.5rem;
   }
 `;

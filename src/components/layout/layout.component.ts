@@ -26,7 +26,6 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @slot main-footer - Footer to display inline below the main content
  * @slot aside - Content to be shown on the right side of the page. Generally this may be table of contents, ads, etc. This is sticky.
  * @slot skip-links - If you would like to override the `Skip to main` button and add additional "Skip to X", they can be inserted here.
- * @slot nav-button - For overriding the default `<wa-icon-button>` displayed as the fallback on mobile viewports
  * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
  *
  * @csspart base - The component's base wrapper.
@@ -73,19 +72,9 @@ export default class WaLayout extends WebAwesomeElement {
   @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'mobile';
 
   /**
-   * Hides the default navigation button fallback allowing you to create your own mobile navigation experience.
-   */
-  @property({ attribute: 'hide-nav-button', reflect: true, type: Boolean }) hideNavButton = false;
-
-  /**
    * At what "px" to hide the "menu" slot and collapse into a hamburger button
    */
   @property({ attribute: 'mobile-breakpoint' }) mobileBreakpoint = 768;
-
-  /**
-   * Where to place the navigation when in the mobile viewport.
-   */
-  @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
 
   layoutResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
@@ -182,15 +171,6 @@ export default class WaLayout extends WebAwesomeElement {
     }
   }
 
-  private renderNavButton() {
-    return html`
-      <slot name="nav-button">
-        <wa-icon-button name="list" variant="text" size="large" @click=${this.showNavigation} part="nav-button">
-        </wa-icon-button>
-      </slot>
-    `;
-  }
-
   render() {
     return html`
       <wa-visually-hidden class="skip-links" part="skip-links">
@@ -212,11 +192,7 @@ export default class WaLayout extends WebAwesomeElement {
         </div>
 
         <div class="header" part="header">
-          ${when(this.navigationPlacement === 'start', () => this.renderNavButton())}
-
           <slot name="header"></slot>
-
-          ${when(this.navigationPlacement === 'end', () => this.renderNavButton())}
         </div>
 
         <div class="sub-header" part="sub-header">

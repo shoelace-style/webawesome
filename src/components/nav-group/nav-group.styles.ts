@@ -9,11 +9,6 @@ export default css`
     --gap: 6px;
   }
 
-  p {
-    margin: 0;
-    margin-bottom: var(--wa-space-xs);
-  }
-
   .base {
     color: var(--wa-color-text-normal);
     height: 100%;
@@ -23,6 +18,9 @@ export default css`
     font-weight: var(--wa-font-weight-heading);
     color: var(--wa-color-neutral-text-on-surface);
     padding-inline-start: var(--wa-space-xs);
+    margin: 0;
+    /** This is a cheap way to have labels have a bottom margin withot needing slot test controllers. */
+    line-height: calc(1em + 32px);
   }
 
   .nav-items {
