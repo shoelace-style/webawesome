@@ -76,6 +76,11 @@ export default class WaLayout extends WebAwesomeElement {
    */
   @property({ attribute: 'mobile-breakpoint' }) mobileBreakpoint = 768;
 
+  /**
+   * Where to place the navigation when in the mobile viewport.
+   */
+  @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
+
   layoutResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
       if (entry.contentBoxSize) {
@@ -236,7 +241,7 @@ export default class WaLayout extends WebAwesomeElement {
         </div>
       </div>
 
-      <wa-drawer placement=${this.navigationPlacement} part="navigation-drawer" class="navigation-drawer">
+      <wa-drawer placement=${this.navigationPlacement} part="navigation-drawer" exportparts="panel:drawer__panel" class="navigation-drawer">
         <slot slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
         <slot slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>

@@ -1,4 +1,7 @@
 <wa-layout main-id="main-content" class="wa-theme-light">
+  <header slot="header">
+    <wa-icon-button name="list" style="font-size: 1.5rem" onclick="this.closest('wa-layout').showNavigation()"></wa-icon>
+  </header>
   <wa-button href="#" variant="text" style="padding: 0 0.4rem" class="wa-button--logo wa-button--stretch wa-button--muted" size="large" slot="navigation-header">
     <wa-icon name="music-note" slot="prefix" style="font-size: 2rem;"></wa-icon>
     Musicify
