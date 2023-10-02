@@ -22,6 +22,7 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 ## Next
 
 - Fixed a bug [in the localize dependency](https://github.com/shoelace-style/localize/issues/20) that caused underscores in language codes to throw a `RangeError`
+- Fixed a bug in `<sl-copy-button>` that prevented exported tooltip parts from being styled [#1586]
 - Updated `@shoelace-style/localize` to 3.1.0
 
 ## 2.9.0
