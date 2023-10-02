@@ -131,6 +131,22 @@ export default class WaLayout extends WebAwesomeElement {
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='navigation-drawer']") navigationDrawer: WaDrawer;
 
+
+  handleNavigationToggle = (e: Event) => {
+    e.preventDefault()
+
+    if (e.composedPath().find((el: Element) => el?.hasAttribute("data-wa-layout-toggle-navigation"))) {
+      this.toggleNavigation()
+    }
+  }
+
+  constructor () {
+    super()
+
+    this.addEventListener("click", this.handleNavigationToggle)
+  }
+
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -241,7 +257,24 @@ export default class WaLayout extends WebAwesomeElement {
         </div>
       </div>
 
-      <wa-drawer placement=${this.navigationPlacement} part="navigation-drawer" exportparts="panel:drawer__panel" class="navigation-drawer">
+      <wa-drawer
+        placement=${this.navigationPlacement}
+        part="drawer"
+        exportparts="
+          panel:drawer__panel
+          base:drawer__base
+          overlay:drawer__overlay
+          panel:drawer__panel
+          header:drawer__header
+          header-actions:drawer__header-actions
+          title:drawer__title
+          close-button:drawer__close-button
+          close-button__base:drawer__close-button__base
+          body:drawer__body
+          footer:drawer__footer
+        "
+        class="navigation-drawer"
+      >
         <slot slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
         <slot slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
