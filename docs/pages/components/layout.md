@@ -14,6 +14,21 @@ Layouts are best in the dedicate [layouts section](/layouts/index.html)
 It's important to not if you add or omit any `header`, `footer`, `banner`, `sub-header`, `menu`, `aside`, the
 page will automatically expand or collapse based on the presence of these slotted items.
 
+`banner`, `header`, `sub-header`, `aside`, and `menu` are all sticky by default.
+If you want to opt-out of this behavior you can do the following:
+
+`disable-sticky="banner header sub-header aside menu"`
+
+This tells the layout component to do two things:
+
+1. Don't track the height of these elements.
+1. Remove `position: sticky;`.
+
+Reasons why you may want to disable sticky:
+
+1. For `aside` / `menu` or blog sites sometimes this space is used for ads based on how far down a user scrolls.
+1. For `banner`, `header`, `sub-header` it can cause a lot of clutter on the screen and you may only want to show certain elements are the user scrolls.
+
 ```html:preview
 <style>
   wa-layout::part(header) {
@@ -26,8 +41,6 @@ page will automatically expand or collapse based on the presence of these slotte
     margin: 0;
     padding: 1rem;
   }
-
-
 </style>
 <wa-layout main-id="content" style="max-height: 500px; overflow: auto;">
   <header slot="header">
