@@ -33,7 +33,7 @@ layout: component
         Payments
       </div>
 
-      <wa-nav-item href="#" active>
+      <wa-nav-item href="#" current="page">
         Transactions
       </wa-nav-item>
 
@@ -74,7 +74,7 @@ layout: component
 
 ```html:preview
 <wa-nav-group label="Workspace">
-  <wa-nav-item href="#" active>
+  <wa-nav-item href="#" current="page">
     Transactions
   </wa-nav-item>
 

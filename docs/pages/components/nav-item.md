@@ -23,7 +23,7 @@ of a `<wa-nav-group>` for accessibility purposes.
 
   <wa-divider></wa-divider>
 
-  <wa-nav-item href="#" active>
+  <wa-nav-item href="#" current="page">
     <wa-icon name="house-door" slot="prefix"></wa-icon>
     Home
   </wa-nav-item>
@@ -71,7 +71,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
   <WaDivider></WaDivider>
 
-  <WaNavItem href="#" active>
+  <WaNavItem href="#" current="page">
     <WaIcon name="house-door" slot="prefix" />
     Home
   </WaNavItem>
@@ -104,8 +104,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 ### Active nav item
 
-Set a `<wa-nav-item>` to active using the `current` string attribute. Doing so will
-map to `current="page"` under the hood.
+Set a `<wa-nav-item>` to active using the `current` string attribute. Doing so will map to `aria-current="<string>"` under the hood. If your nav-items are intended for full page navigations, it is recommended to use `current="page"`. If your nav-items are, for example, just the active item within a list, but do not perform full page navigation (such as with table of contents) then use `current="true"`.
 
 ```html:preview
 <wa-nav-item href="#" current="page">
@@ -191,7 +190,7 @@ to expanding the nav group.
 
 ```html:preview
 <wa-nav-item expandable label="Payments">
-  <wa-nav-item href="#" active>
+  <wa-nav-item href="#" current="page">
     Transactions
   </wa-nav-item>
 
@@ -211,7 +210,7 @@ to expanding the nav group.
 import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
 
 <WaNavItem expandable label="Payments">
-  <WaNavItem href="#" active>
+  <WaNavItem href="#" current="page">
     Transactions
   </WaNavItem>
 
