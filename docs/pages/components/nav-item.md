@@ -104,11 +104,11 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 ### Active nav item
 
-Set a `<wa-nav-item>` to active using the `active` boolean attribute. Doing so will
-map to `aria-current="page"` under the hood.
+Set a `<wa-nav-item>` to active using the `current` string attribute. Doing so will
+map to `current="page"` under the hood.
 
 ```html:preview
-<wa-nav-item href="#" active>
+<wa-nav-item href="#" current="page">
   Active Nav Item
 </wa-nav-item>
 ```
@@ -120,7 +120,7 @@ import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
 
 export default () => {
   return (
-    <WaNavItem href="#" active>
+    <WaNavItem href="#" current="page">
       Active Nav Item
     </WaNavItem>
   )

@@ -32,13 +32,13 @@ export default class WaNavItem extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /** maps to the underlying `<a>`'s href */
-  @property() href = '';
+  @property({ reflect: true }) href = '';
 
-  /** maps to aria-current="page" */
-  @property({ type: Boolean, reflect: true }) active: boolean = false;
+  /** maps to aria-current="<current>". Generally this value will either be "page", "true", or "false" */
+  @property({ reflect: true }) current:  "page" | "step" | "location" | "date" | "time" | "true" | "false" = "false"
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
-  @property() target: '_blank' | '_parent' | '_self' | '_top';
+  @property({ reflect: true }) target: '_blank' | '_parent' | '_self' | '_top';
 
   /**
    * When using `href`, this attribute will map to the underlying link's `rel` attribute. Unlike regular links, the
@@ -46,10 +46,10 @@ export default class WaNavItem extends WebAwesomeElement {
    * specific tab/window, this will prevent that from working correctly. You can remove or change the default value by
    * setting the attribute to an empty string or a value of your choice, respectively.
    */
-  @property() rel = 'noreferrer noopener';
+   @property({ reflect: true }) rel = 'noreferrer noopener';
 
   /** Tells the browser to download the linked file as this filename. Only used when `href` is present. */
-  @property() download?: string;
+  @property({ reflect: true }) download?: string;
 
   /**
    * The text to display in the summary of the `<wa-details>` element when the nav item is expandable.
@@ -76,14 +76,15 @@ export default class WaNavItem extends WebAwesomeElement {
 
   render() {
     const isRtl = this.localize.dir() === 'rtl';
+    const isActive = this.current && this.current !== "false"
     return html`
       <div
         class=${classMap({
           base: true,
-          "base--active": this.active,
+          "base--active": isActive,
         })}
         role="listitem"
-        aria-current=${this.active && !this.expandable ? 'page' : 'false'}
+        aria-current=${this.expandable ? "false" : this.current}
       >
         ${when(
           this.expandable,
