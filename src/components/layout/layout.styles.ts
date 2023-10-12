@@ -18,6 +18,21 @@ export default css`
     --sub-header-height: 0px;
   }
 
+  :host([disable-sticky~="banner"]) [part~="banner"],
+  :host([disable-sticky~="header"]) [part~="header"],
+  :host([disable-sticky~="sub-header"]) [part~="sub-header"],
+  :host([disable-sticky~="aside"]) [part~="aside"],
+  :host([disable-sticky~="menu"]) [part~="menu"] {
+    position: static;
+    overflow: unset;
+  }
+
+  :host([disable-sticky~="aside"]) [part~="aside"],
+  :host([disable-sticky~="menu"]) [part~="menu"] {
+    height: auto;
+    max-height: auto;
+  }
+
   [part~='base'] {
     min-height: 100%;
     display: grid;
@@ -134,10 +149,6 @@ export default css`
     height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--sub-header-height));
     max-height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--sub-header-height));
     overflow: auto;
-  }
-
-  [part~='menu'] {
-    height: 100%;
   }
 
   [part~='navigation'] {

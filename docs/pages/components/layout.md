@@ -48,9 +48,9 @@ Reasons why you may want to disable sticky:
   </header>
 
   <nav aria-label="Main Navigation" slot="navigation">
-    <ul style="list-style-type: ' '";>
-      <li><wa-button variant="text" href="#">Home</wa-button></li>
-    </ul>
+    <wa-nav-group>
+      <wa-nav-item href="#">Home</wa-nav-item>
+    </wa-nav-group>
   </nav>
 
   <main id="content">
