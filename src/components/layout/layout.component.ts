@@ -129,13 +129,12 @@ export default class WaLayout extends WebAwesomeElement {
   @query("[part~='sub-header']") subHeader: HTMLElement;
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
-  @query("[part~='navigation-drawer']") navigationDrawer: WaDrawer;
+  @query("[part~='drawer']") navigationDrawer: WaDrawer;
 
 
   handleNavigationToggle = (e: Event) => {
-    e.preventDefault()
-
-    if (e.composedPath().find((el: Element) => el?.hasAttribute("data-wa-layout-toggle-navigation"))) {
+    if (e.composedPath().find((el: Element) => el?.hasAttribute?.("data-toggle-navigation"))) {
+      e.preventDefault()
       this.toggleNavigation()
     }
   }
