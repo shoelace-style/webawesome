@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ assetUrl('styles/search.css') }}" />
 
     {# Favicons #}
-    <link rel="icon" href="{{ assetUrl('images/logo.svg') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ assetUrl('images/favicon.svg') }}" type="image/x-icon" />
 
     {# Twitter Cards #}
     <meta name="twitter:card" content="summary" />
@@ -36,7 +36,7 @@
     {# Web Awesome #}
     <link rel="stylesheet" href="/dist/themes/applied.css" />
     <link rel="stylesheet" href="/dist/themes/forms.css" />
-    <link rel="stylesheet" href="/dist/themes/default.css" />
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/themes/default.css" />
     <script type="module" src="/dist/autoloader.js"></script>
 
     {# Set the initial theme and menu states here to prevent flashing #}
@@ -77,7 +77,7 @@
     <aside id="sidebar" data-preserve-scroll>
       <header>
         <a href="/">
-          {% include 'workmark.njk' %}
+          {% include 'logo.njk' %}
         </a>
         <div class="sidebar-version">
           {{ meta.version }}
@@ -85,13 +85,13 @@
       </header>
 
       <div class="sidebar-buttons">
-        <wa-button outline size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
+        <wa-button size="small" class="repo-button repo-button--github" href="https://github.com/shoelace-style/shoelace" target="_blank">
           <wa-icon slot="prefix" name="github"></wa-icon> Code
         </wa-button>
-        <wa-button outline size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
+        <wa-button size="small" class="repo-button repo-button--star" href="https://github.com/shoelace-style/shoelace/stargazers" target="_blank">
           <wa-icon slot="prefix" name="star-fill"></wa-icon> Star
         </wa-button>
-        <wa-button outline size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
+        <wa-button size="small" class="repo-button repo-button--twitter" href="https://twitter.com/shoelace_style" target="_blank">
           <wa-icon slot="prefix" name="twitter"></wa-icon> Follow
         </wa-button>
       </div>

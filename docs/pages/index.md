@@ -7,9 +7,9 @@ toc: false
 
 <div class="splash">
 <div class="splash-start">
-{% include 'workmark.njk' %}
+{% include 'logo.njk' %}
 
-# <wa-visually-hidden>Web Awesome:</wa-visually-hidden> A forward-thinking library of web components.
+# <wa-visually-hidden>Web Awesome:</wa-visually-hidden>
 
 - Works with all frameworks 🧩
 - Works with CDNs 🚛

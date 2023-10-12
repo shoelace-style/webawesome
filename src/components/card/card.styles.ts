@@ -7,6 +7,7 @@ export default css`
   :host {
     --border-color: var(--wa-color-surface-outline);
     --border-radius: var(--wa-panel-corners);
+    --border-style: var(--wa-border-style);
     --border-width: var(--wa-panel-border-width);
     --padding: var(--wa-space-l);
 
@@ -18,7 +19,7 @@ export default css`
     flex-direction: column;
     background-color: var(--wa-color-surface-raised);
     box-shadow: var(--wa-shadow-level-1);
-    border: solid var(--border-width) var(--border-color);
+    border: var(--border-style) var(--border-width) var(--border-color);
     border-radius: var(--border-radius);
   }
 
@@ -41,7 +42,7 @@ export default css`
 
   .card__header {
     display: block;
-    border-bottom: solid var(--border-width) var(--border-color);
+    border-bottom: var(--border-style) var(--border-width) var(--border-color);
     padding: calc(var(--padding) / 2) var(--padding);
   }
 
@@ -61,7 +62,7 @@ export default css`
 
   .card--has-footer .card__footer {
     display: block;
-    border-top: solid var(--border-width) var(--border-color);
+    border-top: var(--border-style) var(--border-width) var(--border-color);
     padding: var(--padding);
   }
 

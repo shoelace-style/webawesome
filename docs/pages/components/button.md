@@ -164,7 +164,7 @@ It's often helpful to have a button that works like a link. This is possible by 
 ```html:preview
 <wa-button href="https://example.com/">Link</wa-button>
 <wa-button href="https://example.com/" target="_blank">New Window</wa-button>
-<wa-button href="/assets/images/wordmark.svg" download="shoelace.svg">Download</wa-button>
+<wa-button href="/assets/images/logo.svg" download="shoelace.svg">Download</wa-button>
 <wa-button href="https://example.com/" disabled>Disabled</wa-button>
 ```
 
@@ -177,7 +177,7 @@ const App = () => (
     <WaButton href="https://example.com/" target="_blank">
       New Window
     </WaButton>
-    <WaButton href="/assets/images/wordmark.svg" download="shoelace.svg">
+    <WaButton href="/assets/images/logo.svg" download="shoelace.svg">
       Download
     </WaButton>
     <WaButton href="https://example.com/" disabled>

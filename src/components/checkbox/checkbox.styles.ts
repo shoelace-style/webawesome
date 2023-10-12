@@ -42,7 +42,7 @@ export default css`
     width: var(--toggle-size);
     height: var(--toggle-size);
     border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
-    border-radius: var(--wa-corners-half);
+    border-radius: min(0.375rem, var(--wa-corners-half)); /* min so it doesn't look like a circle/checkbox */
     background-color: var(--wa-form-controls-background);
     color: var(--wa-form-controls-text-color);
     transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,

@@ -173,8 +173,7 @@
     "WCAG",
     "webawesome",
     "WEBP",
-    "Webpacker",
-    "wordmark"
+    "Webpacker"
   ],
   "ignorePaths": [
     "package.json",

@@ -113,14 +113,14 @@
   --wa-color-tint-hover: black 12%;
   --wa-color-tint-active: black 20%;
 
-  /** 
+  /**
    * Semantic theme colors
    * Five semantic groups reinforce a component's message, intended usage, or expected results through meaningful hues -
    *  *  Brand to reinforce product branding
    *  *  Success to express validity or confirmation
    *  *  Warning to express caution or uncertainty
    *  *  Danger to express errors or risk
-   *  *  Neutral for elements that are innocuous or inert 
+   *  *  Neutral for elements that are innocuous or inert
    * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
    * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
    * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
@@ -293,7 +293,7 @@
 
   /**
    * Shadows
-   * Shadow effects indicate elevation and, at times, interactivity. 
+   * Shadow effects indicate elevation and, at times, interactivity.
    * Elevation is defined by levels relative to the surface where the element rests -
    *  *  Inset sits below the surface for a punched-in effect
    *  *  Level 0 is the surface level

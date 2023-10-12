@@ -92,7 +92,7 @@ h1:first-of-type {
 }
 
 /* Color matching logos */
-svg.wordmark {
+svg.logo {
   color: var(--wa-color-brand-text-on-surface);
 }
 
@@ -164,6 +164,10 @@ th.table-description {
 
 pre:not(:last-child) {
   margin-bottom: 1.5rem;
+}
+
+pre {
+  position: relative;
 }
 
 pre > code {
@@ -249,22 +253,22 @@ pre .token.italic {
   top: 0;
   right: 0;
   white-space: normal;
-  color: var(--wa-color-neutral-text-on-vivid);
+  color: var(--wa-color-neutral-text-on-muted-alt);
   transition: 150ms opacity, 150ms scale;
 }
 
 .copy-code-button::part(button) {
-  background-color: var(--wa-color-neutral-fill-vivid);
+  background-color: var(--wa-color-neutral-fill-muted);
   border-radius: 0 var(--wa-corners-1x) 0 var(--wa-corners-1x);
   padding: 0.75rem;
 }
 
 .copy-code-button::part(button):hover {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-tint-hover));
 }
 
 .copy-code-button::part(button):active {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-tint-active));
 }
 
 pre .copy-code-button {
@@ -371,6 +375,10 @@ pre:hover .copy-code-button,
   margin: 0;
 }
 
+#sidebar > header svg {
+  margin-bottom: var(--wa-space-s);
+}
+
 #sidebar > header a {
   display: block;
 }
@@ -438,9 +446,8 @@ pre:hover .copy-code-button,
   font-size: var(--wa-font-size-s);
   color: var(--wa-color-text-quiet);
   text-align: right;
-  margin-top: -0.5rem;
-  margin-right: 1rem;
-  margin-bottom: -0.5rem;
+  margin-top: calc(-1 * var(--wa-space-s));
+  margin-bottom: calc(-1 * var(--wa-space-s));
 }
 
 .sidebar-buttons {
@@ -733,6 +740,10 @@ html.sidebar-open #menu-toggle {
   vertical-align: -2px;
 }
 
+.splash svg {
+  margin-block-end: var(--wa-space-m);
+}
+
 .splash-end {
   display: flex;
   align-items: flex-end;
@@ -743,10 +754,6 @@ html.sidebar-open #menu-toggle {
 .splash-image {
   width: 100%;
   height: auto;
-}
-
-.splash .wordmark {
-  max-width: 22rem;
 }
 
 .splash-start h1:first-of-type {
@@ -819,28 +826,8 @@ html.sidebar-open #menu-toggle {
   flex: 1 1 auto;
 }
 
-.repo-button--github wa-icon {
-  color: var(--wa-color-text-normal);
-}
-
-.repo-button--github:hover wa-icon {
+.repo-button wa-icon {
   color: var(--wa-color-text-inverse);
-}
-
-.repo-button--star wa-icon {
-  color: var(--wa-color-yellow-70);
-}
-
-.repo-button--star:hover wa-icon {
-  color: var(--wa-color-yellow-80);
-}
-
-.repo-button--twitter wa-icon {
-  color: var(--wa-color-blue-60);
-}
-
-.repo-button--twitter:hover wa-icon {
-  color: var(--wa-color-blue-70);
 }
 
 @media screen and (max-width: 400px) {
