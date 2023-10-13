@@ -7,6 +7,7 @@ import WaDrawer from '../drawer/drawer.component.js';
 import WaVisuallyHidden from '../visually-hidden/visually-hidden.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
+import { live } from 'lit/directives/live.js';
 
 /**
  * @summary
@@ -70,6 +71,11 @@ export default class WaLayout extends WebAwesomeElement {
    *   it is considered to be a "desktop" view. The view is merely a way to distinguish when to show / hide the navigation.
    */
   @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'mobile';
+
+  /**
+   * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
+   */
+  @property({ attribute: 'nav-open', reflect: true, type: Boolean  }) navOpen = false;
 
   /**
    * At what "px" to hide the "menu" slot and collapse into a hamburger button
@@ -172,23 +178,21 @@ export default class WaLayout extends WebAwesomeElement {
    * Shows the mobile navigation drawer
    */
   showNavigation() {
-    this.navigationDrawer?.show();
+    this.navOpen = true
   }
 
   /**
    * Hides the mobile navigation drawer
    */
   hideNavigation() {
-    this.navigationDrawer?.hide();
+    this.navOpen = false
   }
 
   /**
    * Toggles the mobile navigation drawer
    */
   toggleNavigation() {
-    if (this.navigationDrawer) {
-      this.navigationDrawer.open = !this.navigationDrawer.open;
-    }
+    this.navOpen = !this.navOpen
   }
 
   render() {
@@ -259,6 +263,9 @@ export default class WaLayout extends WebAwesomeElement {
       <wa-drawer
         placement=${this.navigationPlacement}
         part="drawer"
+        ?open=${live(this.navOpen)}
+        @wa-after-show=${() => this.navOpen = this.navigationDrawer.open}
+        @wa-after-hide=${() => this.navOpen = this.navigationDrawer.open}
         exportparts="
           panel:drawer__panel
           base:drawer__base

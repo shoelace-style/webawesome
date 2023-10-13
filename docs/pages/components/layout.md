@@ -29,6 +29,14 @@ Reasons why you may want to disable sticky:
 1. For `aside` / `menu` or blog sites sometimes this space is used for ads based on how far down a user scrolls.
 1. For `banner`, `header`, `sub-header` it can cause a lot of clutter on the screen and you may only want to show certain elements are the user scrolls.
 
+## Toggle navigation
+
+Toggling navigation can be done in a number of ways.
+
+1. `<wa-layout><button data-navigation-toggle></button></wa-layout>` - The button with `data-navigation-toggle` must be inside the `<wa-layout>` component.
+1. `<wa-layout nav-state="open"></wa-layout>` -
+1. `document.querySelector("button").addEventListener("click", () => document.querySelector("wa-layout").toggleNavigation())`
+
 ```html:preview
 <style>
   wa-layout::part(header) {
