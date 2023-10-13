@@ -73,12 +73,10 @@ describe('<wa-progress-bar>', () => {
 
   describe('when provided a ariaLabelledBy, and value parameter', () => {
     before(async () => {
-      el = await fixture<WaProgressBar>(
-        html`
-          <label id="labelledby">Progress Ring Label</label>
-          <wa-progress-bar ariaLabelledBy="labelledby" value="25"></wa-progress-bar>
-        `
-      );
+      el = await fixture<WaProgressBar>(html`
+        <label id="labelledby">Progress Ring Label</label>
+        <wa-progress-bar ariaLabelledBy="labelledby" value="25"></wa-progress-bar>
+      `);
     });
 
     it('should pass accessibility tests', async () => {

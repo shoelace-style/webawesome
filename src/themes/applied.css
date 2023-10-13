@@ -187,7 +187,9 @@ abbr[title] {
 kbd {
   background: var(--wa-color-neutral-fill-muted);
   border: solid 1px var(--wa-color-neutral-outline-muted);
-  box-shadow: inset 0 1px 0 1px var(--wa-color-tint-white), 0 1px 0 0 var(--wa-color-tint-black);
+  box-shadow:
+    inset 0 1px 0 1px var(--wa-color-tint-white),
+    0 1px 0 0 var(--wa-color-tint-black);
   font-family: var(--wa-font-family-code);
   border-radius: var(--wa-corners-1x);
   color: var(--wa-color-neutral-text-on-muted);

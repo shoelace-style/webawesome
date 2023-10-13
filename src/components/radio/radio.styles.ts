@@ -54,8 +54,11 @@ export default css`
     border-radius: 50%;
     background-color: var(--wa-form-controls-background);
     color: transparent;
-    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,
-      var(--wa-transition-fast) color, var(--wa-transition-fast) box-shadow;
+    transition:
+      var(--wa-transition-fast) border-color,
+      var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) color,
+      var(--wa-transition-fast) box-shadow;
   }
 
   .radio__input {

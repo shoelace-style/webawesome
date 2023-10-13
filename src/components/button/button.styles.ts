@@ -143,8 +143,11 @@ export default css`
     white-space: nowrap;
     vertical-align: middle;
     padding: 0;
-    transition: background var(--wa-transition-faster), border var(--wa-transition-faster),
-      box-shadow var(--wa-transition-faster), color var(--wa-transition-faster);
+    transition: 
+      var(--wa-transition-faster) background, 
+      var(--wa-transition-faster) border, 
+      var(--wa-transition-faster) box-shadow,
+      var(--wa-transition-faster) color;
     cursor: inherit;
   }
 

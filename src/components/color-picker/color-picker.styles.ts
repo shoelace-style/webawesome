@@ -243,7 +243,11 @@ export default css`
       linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-muted-alt) 75%),
       linear-gradient(45deg, var(--wa-color-neutral-fill-muted-alt) 25%, transparent 25%);
     background-size: 10px 10px;
-    background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+    background-position:
+      0 0,
+      0 0,
+      -5px -5px,
+      5px 5px;
   }
 
   .color-picker--disabled {
@@ -309,7 +313,9 @@ export default css`
     height: 100%;
     border-radius: inherit;
     background-color: currentColor;
-    box-shadow: inset 0 0 0 2px var(--wa-form-controls-border-color-resting), inset 0 0 0 4px var(--wa-color-white);
+    box-shadow:
+      inset 0 0 0 2px var(--wa-form-controls-border-color-resting),
+      inset 0 0 0 4px var(--wa-color-white);
   }
 
   .color-dropdown__trigger--empty:before {

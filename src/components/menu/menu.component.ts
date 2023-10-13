@@ -1,9 +1,9 @@
 import { html } from 'lit';
 import { query } from 'lit/decorators.js';
 import styles from './menu.styles.js';
-import WaMenuItem from '../menu-item/menu-item.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
+import type WaMenuItem from '../menu-item/menu-item.component.js';
 export interface MenuSelectEventDetail {
   item: WaMenuItem;
 }
@@ -29,11 +29,14 @@ export default class WaMenu extends WebAwesomeElement {
   }
 
   private handleClick(event: MouseEvent) {
-    if (!(event.target instanceof WaMenuItem)) {
-      return;
-    }
+    const menuItemTypes = ['menuitem', 'menuitemcheckbox'];
 
-    const item: WaMenuItem = event.target;
+    const target = event.composedPath().find((el: Element) => menuItemTypes.includes(el?.getAttribute?.('role') || ''));
+
+    if (!target) return;
+
+    // This isn't true. But we use it for TypeScript checks below.
+    const item = target as WaMenuItem;
 
     if (item.type === 'checkbox') {
       item.checked = !item.checked;

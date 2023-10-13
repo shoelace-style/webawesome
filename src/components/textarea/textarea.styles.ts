@@ -37,8 +37,10 @@ export default css`
     /*color: var(--wa-form-controls-text-color);*/
     line-height: var(--wa-form-controls-value-line-height);
     vertical-align: middle;
-    transition: background var(--wa-transition-fast), border var(--wa-transition-fast),
-      outline var(--wa-transition-faster);
+    transition: 
+      var(--wa-transition-fast) background, 
+      var(--wa-transition-fast) border,
+      var(--wa-transition-faster) outline;
     cursor: text;
   }
 

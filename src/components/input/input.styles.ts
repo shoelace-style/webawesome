@@ -39,8 +39,10 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: text;
-    transition: background var(--wa-transition-fast), border var(--wa-transition-fast),
-      outline var(--wa-transition-faster);
+    transition: 
+      var(--wa-transition-fast) background, 
+      var(--wa-transition-fast) border,
+      var(--wa-transition-faster) outline;
   }
 
   /* Standard inputs */

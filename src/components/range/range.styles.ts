@@ -110,8 +110,11 @@ export default css`
     border-radius: 50%;
     background-color: var(--wa-color-brand-fill-vivid);
     border-color: var(--wa-color-brand-fill-vivid);
-    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color,
-      var(--wa-transition-fast) color, var(--wa-transition-fast) box-shadow;
+    transition:
+      var(--wa-transition-fast) border-color,
+      var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) color,
+      var(--wa-transition-fast) box-shadow;
     cursor: pointer;
   }
 

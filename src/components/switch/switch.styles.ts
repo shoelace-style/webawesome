@@ -53,7 +53,9 @@ export default css`
     background-color: var(--wa-color-neutral-fill-vivid);
     border: solid var(--wa-border-width-thin) var(--wa-color-neutral-fill-muted);
     border-radius: var(--height);
-    transition: var(--wa-transition-fast) border-color, var(--wa-transition-fast) background-color;
+    transition:
+      var(--wa-transition-fast) border-color,
+      var(--wa-transition-fast) background-color;
   }
 
   .switch__control .switch__thumb {
@@ -64,8 +66,11 @@ export default css`
     border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
       var(--wa-color-neutral-outline-vivid);
     translate: calc((var(--width) - var(--height)) / -2);
-    transition: var(--wa-transition-fast) translate ease, var(--wa-transition-fast) background-color,
-      var(--wa-transition-fast) border-color, var(--wa-transition-fast) box-shadow;
+    transition:
+      var(--wa-transition-fast) translate ease,
+      var(--wa-transition-fast) background-color,
+      var(--wa-transition-fast) border-color,
+      var(--wa-transition-fast) box-shadow;
   }
 
   .switch__input {

@@ -62,12 +62,12 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: pointer;
-    transition: background var(--wa-transition-fast), border var(--wa-transition-fast),
-      box-shadow var(--wa-transition-fast), color var(--wa-transition-fast), outline var(--wa-transition-faster);
-  }
-
-  .select--standard.select--open:not(.select--filled):not(.select--disabled) .select__combobox {
-    border-color: var(--wa-form-controls-border-color-activated);
+    transition: 
+      var(--wa-transition-fast) background, 
+      var(--wa-transition-fast) border, 
+      var(--wa-transition-fast) box-shadow,
+      var(--wa-transition-fast) color,
+      var(--wa-transition-faster) outline;
   }
 
   .select__display-input {

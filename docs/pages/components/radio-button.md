@@ -87,26 +87,26 @@ const App = () => (
 Use the `size` attribute to change a radio button's size.
 
 ```html:preview
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button size="small" value="1">Option 1</wa-radio-button>
-  <wa-radio-button size="small" value="2">Option 2</wa-radio-button>
-  <wa-radio-button size="small" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="small" label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2">Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 
 <br />
 
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button size="medium" value="1">Option 1</wa-radio-button>
-  <wa-radio-button size="medium" value="2">Option 2</wa-radio-button>
-  <wa-radio-button size="medium" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="medium" label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2">Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 
 <br />
 
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button size="large" value="1">Option 1</wa-radio-button>
-  <wa-radio-button size="large" value="2">Option 2</wa-radio-button>
-  <wa-radio-button size="large" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="large" label="Select an option" name="a" value="1">
+  <wa-radio-button value="1">Option 1</wa-radio-button>
+  <wa-radio-button value="2">Option 2</wa-radio-button>
+  <wa-radio-button value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 ```
 
@@ -115,26 +115,26 @@ import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
 import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton size="small" value="1">Option 1</WaRadioButton>
-    <WaRadioButton size="small" value="2">Option 2</WaRadioButton>
-    <WaRadioButton size="small" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="small" label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2">Option 2</WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 
   <br />
 
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton size="medium" value="1">Option 1</WaRadioButton>
-    <WaRadioButton size="medium" value="2">Option 2</WaRadioButton>
-    <WaRadioButton size="medium" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="medium" label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2">Option 2</WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 
   <br />
 
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton size="large" value="1">Option 1</WaRadioButton>
-    <WaRadioButton size="large" value="2">Option 2</WaRadioButton>
-    <WaRadioButton size="large" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="large" label="Select an option" name="a" value="1">
+    <WaRadioButton value="1">Option 1</WaRadioButton>
+    <WaRadioButton value="2">Option 2</WaRadioButton>
+    <WaRadioButton value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 );
 ```
@@ -144,26 +144,26 @@ const App = () => (
 Use the `pill` attribute to give radio buttons rounded edges.
 
 ```html:preview
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button pill size="small" value="1">Option 1</wa-radio-button>
-  <wa-radio-button pill size="small" value="2">Option 2</wa-radio-button>
-  <wa-radio-button pill size="small" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="small" label="Select an option" name="a" value="1">
+  <wa-radio-button pill value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 
 <br />
 
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button pill size="medium" value="1">Option 1</wa-radio-button>
-  <wa-radio-button pill size="medium" value="2">Option 2</wa-radio-button>
-  <wa-radio-button pill size="medium" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="medium" label="Select an option" name="a" value="1">
+  <wa-radio-button pill value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 
 <br />
 
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio-button pill size="large" value="1">Option 1</wa-radio-button>
-  <wa-radio-button pill size="large" value="2">Option 2</wa-radio-button>
-  <wa-radio-button pill size="large" value="3">Option 3</wa-radio-button>
+<wa-radio-group size="large" label="Select an option" name="a" value="1">
+  <wa-radio-button pill value="1">Option 1</wa-radio-button>
+  <wa-radio-button pill value="2">Option 2</wa-radio-button>
+  <wa-radio-button pill value="3">Option 3</wa-radio-button>
 </wa-radio-group>
 ```
 
@@ -172,26 +172,26 @@ import WaRadioButton from '@shoelace-style/shoelace/dist/react/radio-button';
 import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 
 const App = () => (
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton pill size="small" value="1">Option 1</WaRadioButton>
-    <WaRadioButton pill size="small" value="2">Option 2</WaRadioButton>
-    <WaRadioButton pill size="small" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="small" label="Select an option" name="a" value="1">
+    <WaRadioButton pill value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 
   <br />
 
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton pill size="medium" value="1">Option 1</WaRadioButton>
-    <WaRadioButton pill size="medium" value="2">Option 2</WaRadioButton>
-    <WaRadioButton pill size="medium" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="medium" label="Select an option" name="a" value="1">
+    <WaRadioButton pill value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 
   <br />
 
-  <WaRadioGroup label="Select an option" name="a" value="1">
-    <WaRadioButton pill size="large" value="1">Option 1</WaRadioButton>
-    <WaRadioButton pill size="large" value="2">Option 2</WaRadioButton>
-    <WaRadioButton pill size="large" value="3">Option 3</WaRadioButton>
+  <WaRadioGroup size="large" label="Select an option" name="a" value="1">
+    <WaRadioButton pill value="1">Option 1</WaRadioButton>
+    <WaRadioButton pill value="2">Option 2</WaRadioButton>
+    <WaRadioButton pill value="3">Option 3</WaRadioButton>
   </WaRadioGroup>
 );
 ```

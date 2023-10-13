@@ -16,9 +16,9 @@ describe('<wa-drawer>', () => {
   });
 
   it('should not be visible without the open attribute', async () => {
-    const el = await fixture<WaDrawer>(
-      html` <wa-drawer>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer> `
-    );
+    const el = await fixture<WaDrawer>(html`
+      <wa-drawer>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+    `);
     const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
     expect(base.hidden).to.be.true;

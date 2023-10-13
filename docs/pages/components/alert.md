@@ -54,7 +54,7 @@ Set the `variant` attribute to change the alert's variant.
 <wa-alert variant="neutral" open>
   <wa-icon slot="icon" name="gear"></wa-icon>
   <strong>Your settings have been updated</strong><br />
-  Settings will take affect on next login.
+  Settings will take effect on next login.
 </wa-alert>
 
 <br />
@@ -102,7 +102,7 @@ const App = () => (
       <WaIcon slot="icon" name="gear" />
       <strong>Your settings have been updated</strong>
       <br />
-      Settings will take affect on next login.
+      Settings will take effect on next login.
     </WaAlert>
 
     <br />
@@ -276,7 +276,7 @@ You should always use the `closable` attribute so users can dismiss the notifica
   <wa-alert variant="neutral" duration="3000" closable>
     <wa-icon slot="icon" name="gear"></wa-icon>
     <strong>Your settings have been updated</strong><br />
-    Settings will take affect on next login.
+    Settings will take effect on next login.
   </wa-alert>
 
   <wa-alert variant="warning" duration="3000" closable>
@@ -361,7 +361,7 @@ const App = () => {
         <WaIcon slot="icon" name="gear" />
         <strong>Your settings have been updated</strong>
         <br />
-        Settings will take affect on next login.
+        Settings will take effect on next login.
       </WaAlert>
 
       <WaAlert ref={warning} variant="warning" duration="3000" closable>

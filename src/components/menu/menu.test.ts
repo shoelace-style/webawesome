@@ -100,4 +100,24 @@ describe('<wa-menu>', () => {
 
     expect(selectHandler).to.not.have.been.called;
   });
+
+  // @see https://github.com/shoelace-style/shoelace/issues/1596
+  it('Should fire "wa-select" when clicking an element within a menu-item', async () => {
+    // eslint-disable-next-line
+    const selectHandler = sinon.spy(() => {});
+
+    const menu: WaMenu = await fixture(html`
+      <wa-menu>
+        <wa-menu-item>
+          <span>Menu item</span>
+        </wa-menu-item>
+      </wa-menu>
+    `);
+
+    menu.addEventListener('wa-select', selectHandler);
+    const span = menu.querySelector('span')!;
+    await clickOnElement(span);
+
+    expect(selectHandler).to.have.been.calledOnce;
+  });
 });

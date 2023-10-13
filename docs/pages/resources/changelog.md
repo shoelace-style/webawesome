@@ -16,20 +16,30 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 - Changed the `sl` prefix to `wa` for Web Awesome, including tags, events, etc.
 - Changed `primary` variants to `brand` in all components
+- Improved submenu selection by implementing the [safe triangle](https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles/) method [#1550]
 - Removed `default` from `<wa-button>` and made `neutral` the new default
 - Removed the `circle` modifier from `<wa-button>` because button's no longer have a set height
 
 ## Next
 
+- Added the Simplified Chinese translation [#1604]
 - Fixed a bug [in the localize dependency](https://github.com/shoelace-style/localize/issues/20) that caused underscores in language codes to throw a `RangeError`
+- Fixed a bug in the focus trapping utility used by modals that caused unexpected focus behavior [#1583]
+- Fixed a bug in `<sl-copy-button>` that prevented exported tooltip parts from being styled [#1586]
+- Fixed a bug in `<sl-menu>` that caused it not to fire the `sl-select` event if you clicked an element inside of a `<sl-menu-item>` [#1599]
 - Updated `@shoelace-style/localize` to 3.1.0
+- Updated `@lib-labs/react` to stable `@lit/react`
+- Updated Bootstrap Icons to 1.11.1
+- Updated Lit to 3.0.0
+- Updated TypeScript to 5.2.2
+- Updated all other dependencies to latest versions
 
 ## 2.9.0
 
 - Added the `modal` property to `<sl-dialog>` and `<sl-drawer>` to support third-party modals [#1571]
 - Fixed a bug in the autoloader causing it to register non-Shoelace elements [#1563]
 - Fixed a bug in `<sl-switch>` that resulted in improper spacing between the label and the required asterisk [#1540]
-- Fixed a bug in `<sl-icon>` that caused icons to not load when the default library used a sprite [#1572]
+- Fixed a bug in `<sl-icon>` that caused icons to not load when the default library used a sprite sheet [#1572]
 - Removed error when a missing popup anchor is provided [#1548]
 - Updated `@ctrl/tinycolor` to 4.0.1 [#1542]
 - Updated Bootstrap Icons to 1.11.0
