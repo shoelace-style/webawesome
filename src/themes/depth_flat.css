@@ -1,5 +1,6 @@
 wa-button:not([variant='text']) {
   --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
+  margin-bottom: var(--wa-shadow-offset-y-level-1);
 }
 wa-button:active:not([variant='text']):not([disabled]) {
   --box-shadow: none;

@@ -1,6 +1,17 @@
 :root {
   --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
+  --wa-background-transparency-percent: 18%;
+  --wa-filter-blur: blur(0.3125rem);
+  /* --wa-pattern-striped: repeating-linear-gradient(
+    135deg,
+    var(--wa-color-neutral-95),
+    var(--wa-color-neutral-95) 0.5rem,
+    var(--wa-color-neutral-90) 0.5rem,
+    var(--wa-color-neutral-90) 1rem
+  ); temp */
 }
+
+/* #region Buttons */
 
 wa-button {
   --box-shadow: var(--wa-shadow-inset-highlight), var(--wa-shadow-level-1);
@@ -23,6 +34,7 @@ wa-button[outline]:active:not([disabled]) {
 }
 wa-button:not([variant='text']) {
   transition: transform var(--wa-transition-faster);
+  margin-bottom: var(--wa-shadow-offset-y-level-2);
 }
 wa-button:active:not([variant='text']):not([disabled]) {
   transform: translateY(var(--wa-shadow-offset-y-level-2));
@@ -35,8 +47,8 @@ wa-button[variant='brand'] {
     color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    var(--wa-color-brand-fill-vivid-alt),
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active))
+    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)),
+    var(--wa-color-brand-fill-vivid-alt)
   );
   --border-color: var(--wa-color-brand-fill-vivid)
     color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-brand-fill-vivid))
@@ -52,8 +64,8 @@ wa-button[variant='success'] {
     color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    var(--wa-color-success-fill-vivid-alt),
-    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active))
+    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)),
+    var(--wa-color-success-fill-vivid-alt)
   );
   --border-color: var(--wa-color-success-fill-vivid)
     color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-success-fill-vivid))
@@ -69,8 +81,8 @@ wa-button[variant='neutral'] {
     color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    var(--wa-color-neutral-fill-vivid-alt),
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active))
+    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)),
+    var(--wa-color-neutral-fill-vivid-alt)
   );
   --border-color: var(--wa-color-neutral-fill-vivid)
     color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-neutral-fill-vivid))
@@ -86,8 +98,8 @@ wa-button[variant='warning'] {
     color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    var(--wa-color-warning-fill-vivid-alt),
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active))
+    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)),
+    var(--wa-color-warning-fill-vivid-alt)
   );
   --border-color: var(--wa-color-warning-fill-vivid)
     color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-warning-fill-vivid))
@@ -103,8 +115,8 @@ wa-button[variant='danger'] {
     color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
   );
   --background-active: linear-gradient(
-    var(--wa-color-danger-fill-vivid-alt),
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active))
+    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)),
+    var(--wa-color-danger-fill-vivid-alt)
   );
   --border-color: var(--wa-color-danger-fill-vivid)
     color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-danger-fill-vivid))
@@ -168,8 +180,115 @@ wa-button[variant='danger'][outline] {
   --border-color-active: var(--border-color);
 }
 
+/* #endregion */
+
+/* #region Inputs */
+
 wa-input:not([filled]):not([disabled]),
 wa-select:not([filled]):not([disabled]),
 wa-textarea:not([filled]):not([disabled]) {
   --box-shadow: var(--wa-shadow-inset);
 }
+
+/* #endregion */
+
+/* #region Alerts */
+
+wa-alert[variant='brand'] {
+  --background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--wa-color-brand-fill-muted-alt), transparent var(--wa-background-transparency-percent)) 50%,
+    color-mix(
+      in oklab,
+      var(--wa-color-brand-fill-muted),
+      transparent calc(var(--wa-background-transparency-percent) - 5%)
+    )
+  );
+}
+
+wa-alert[variant='success'] {
+  --background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--wa-color-success-fill-muted-alt), transparent var(--wa-background-transparency-percent))
+      50%,
+    color-mix(
+      in oklab,
+      var(--wa-color-success-fill-muted),
+      transparent calc(var(--wa-background-transparency-percent) - 5%)
+    )
+  );
+}
+
+wa-alert[variant='neutral'] {
+  --background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--wa-color-neutral-fill-muted-alt), transparent var(--wa-background-transparency-percent))
+      50%,
+    color-mix(
+      in oklab,
+      var(--wa-color-neutral-fill-muted),
+      transparent calc(var(--wa-background-transparency-percent) - 5%)
+    )
+  );
+}
+
+wa-alert[variant='warning'] {
+  --background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--wa-color-warning-fill-muted-alt), transparent var(--wa-background-transparency-percent))
+      50%,
+    color-mix(
+      in oklab,
+      var(--wa-color-warning-fill-muted),
+      transparent calc(var(--wa-background-transparency-percent) - 5%)
+    )
+  );
+}
+
+wa-alert[variant='danger'] {
+  --background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--wa-color-danger-fill-muted-alt), transparent var(--wa-background-transparency-percent))
+      50%,
+    color-mix(
+      in oklab,
+      var(--wa-color-danger-fill-muted),
+      transparent calc(var(--wa-background-transparency-percent) - 5%)
+    )
+  );
+}
+
+wa-alert::part(base) {
+  backdrop-filter: var(--wa-filter-blur);
+}
+
+/* #endregion */
+
+/* #region Cards */
+
+wa-card {
+  --background: color-mix(
+    in oklab,
+    var(--wa-color-surface-raised),
+    transparent var(--wa-background-transparency-percent)
+  );
+}
+wa-card::part(base) {
+  backdrop-filter: var(--wa-filter-blur);
+}
+
+/* #endregion */
+
+/* #region Selects */
+
+wa-select::part(listbox) {
+  background: color-mix(
+    in oklab,
+    var(--wa-color-surface-raised),
+    transparent var(--wa-background-transparency-percent)
+  );
+  backdrop-filter: var(--wa-filter-blur);
+  border-color: var(--wa-color-neutral-outline-muted);
+}
+
+/* #endregion */

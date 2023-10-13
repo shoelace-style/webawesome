@@ -109,7 +109,7 @@
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
-  --wa-color-shadow: color-mix(in oklab, var(--wa-color-neutral-10) 20%, transparent);
+  --wa-color-shadow: color-mix(in oklab, var(--wa-color-neutral-10) 10%, transparent);
 
   /* Base tints can be mixed with or overlay other colors to make them lighter or darker. */
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
@@ -135,7 +135,7 @@
   */
   /* TODO: Change -alt naming? */
   --wa-color-brand-fill-vivid: var(--wa-color-orchid-50);
-  --wa-color-brand-fill-vivid-alt: var(--wa-color-orchid-40);
+  --wa-color-brand-fill-vivid-alt: var(--wa-color-orchid-30);
   --wa-color-brand-fill-muted: var(--wa-color-orchid-95);
   --wa-color-brand-fill-muted-alt: var(--wa-color-orchid-90);
   --wa-color-brand-outline-vivid: var(--wa-color-orchid-50);
@@ -147,7 +147,7 @@
   --wa-color-brand-text-on-surface: var(--wa-color-orchid-50);
 
   --wa-color-success-fill-vivid: var(--wa-color-green-50);
-  --wa-color-success-fill-vivid-alt: var(--wa-color-green-40);
+  --wa-color-success-fill-vivid-alt: var(--wa-color-green-30);
   --wa-color-success-fill-muted: var(--wa-color-green-95);
   --wa-color-success-fill-muted-alt: var(--wa-color-green-90);
   --wa-color-success-outline-vivid: var(--wa-color-green-50);
@@ -159,7 +159,7 @@
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
 
   --wa-color-warning-fill-vivid: var(--wa-color-yellow-50);
-  --wa-color-warning-fill-vivid-alt: var(--wa-color-yellow-40);
+  --wa-color-warning-fill-vivid-alt: var(--wa-color-yellow-30);
   --wa-color-warning-fill-muted: var(--wa-color-yellow-95);
   --wa-color-warning-fill-muted-alt: var(--wa-color-yellow-90);
   --wa-color-warning-outline-vivid: var(--wa-color-yellow-50);
@@ -171,7 +171,7 @@
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
 
   --wa-color-danger-fill-vivid: var(--wa-color-red-50);
-  --wa-color-danger-fill-vivid-alt: var(--wa-color-red-40);
+  --wa-color-danger-fill-vivid-alt: var(--wa-color-red-30);
   --wa-color-danger-fill-muted: var(--wa-color-red-95);
   --wa-color-danger-fill-muted-alt: var(--wa-color-red-90);
   --wa-color-danger-outline-vivid: var(--wa-color-red-50);
@@ -183,7 +183,7 @@
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
   --wa-color-neutral-fill-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-40);
+  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-30);
   --wa-color-neutral-fill-muted: var(--wa-color-neutral-95);
   --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-90);
   --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
@@ -313,19 +313,19 @@
 
   /* Offset values on the y-axis are used in pre-constructed shadows and may be used when constructing custom shadows
    * or transforming elements with shadows. */
-  --wa-shadow-offset-y-inset: 0.0625rem;
+  --wa-shadow-offset-y-inset: 0.125rem;
   --wa-shadow-offset-y-level-1: 0.125rem;
   --wa-shadow-offset-y-level-2: 0.25rem;
   --wa-shadow-offset-y-level-3: 0.5rem;
 
   --wa-shadow-inset: inset 0 var(--wa-shadow-offset-y-inset) calc(var(--wa-shadow-blur-base) * 0.5)
-    color-mix(in oklab, var(--wa-color-shadow), transparent 50%);
+    color-mix(in oklab, var(--wa-color-shadow), transparent 40%);
   --wa-shadow-level-0: none;
   --wa-shadow-level-1: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--wa-color-shadow);
   --wa-shadow-level-2: 0 var(--wa-shadow-offset-y-level-2) calc(var(--wa-shadow-blur-base) * 2)
-    color-mix(in oklab, var(--wa-color-shadow), transparent 20%);
+    color-mix(in oklab, var(--wa-color-shadow), transparent 10%);
   --wa-shadow-level-3: 0 var(--wa-shadow-offset-y-level-3) calc(var(--wa-shadow-blur-base) * 4)
-    color-mix(in oklab, var(--wa-color-shadow), transparent 40%);
+    color-mix(in oklab, var(--wa-color-shadow), transparent 20%);
 
   /**
    * Z-index
@@ -357,6 +357,7 @@
 
   --wa-form-controls-text-color: var(--wa-color-text-normal);
   --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
+  --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
 
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
   --wa-form-controls-placeholder-color-valid: var(--wa-color-green-60);
