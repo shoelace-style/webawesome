@@ -2,13 +2,6 @@
   --wa-shadow-inset-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
   --wa-background-transparency-percent: 18%;
   --wa-filter-blur: blur(0.3125rem);
-  /* --wa-pattern-striped: repeating-linear-gradient(
-    135deg,
-    var(--wa-color-neutral-95),
-    var(--wa-color-neutral-95) 0.5rem,
-    var(--wa-color-neutral-90) 0.5rem,
-    var(--wa-color-neutral-90) 1rem
-  ); temp */
 }
 
 /* #region Buttons */
