@@ -1,4 +1,3 @@
-import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property, state } from 'lit/decorators.js';
@@ -21,6 +20,7 @@ import WaDetails from '../details/details.component.js';
  * @slot - The link's label.
  * @slot prefix - A presentational prefix icon or similar element.
  * @slot suffix - A presentational suffix icon or similar element.
+ *
  */
 export default class WaNavItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
@@ -76,13 +76,10 @@ export default class WaNavItem extends WebAwesomeElement {
 
   render() {
     const isRtl = this.localize.dir() === 'rtl';
-    const isActive = this.current && this.current !== "false"
     return html`
       <div
-        class=${classMap({
-          base: true,
-          "base--active": isActive,
-        })}
+        class="base"
+        part="base"
         role="listitem"
         aria-current=${this.expandable ? "false" : this.current}
       >
@@ -95,6 +92,7 @@ export default class WaNavItem extends WebAwesomeElement {
               exportparts="
                   base:details__base,
                   header:details__header,
+                  header:control,
                   summary:details__summary,
                   summary-icon:details__summary-icon,
                   content:details__content

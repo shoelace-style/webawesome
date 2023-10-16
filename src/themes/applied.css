@@ -15,8 +15,12 @@ html {
   box-sizing: inherit;
 }
 
+html,body {
+  height: auto;
+  min-height: 100%;
+}
+
 body {
-  min-height: 100vh;
   font-family: var(--wa-font-family-body);
   font-size: var(--wa-font-size-root);
   font-weight: var(--wa-font-weight-normal);
@@ -428,6 +432,10 @@ textarea {
   overflow: hidden !important;
   white-space: nowrap !important;
   padding: 0 !important;
+}
+
+.flow > * + * {
+  margin-block-start: var(--wa-flow-spacing);
 }
 
 /* Print styles */

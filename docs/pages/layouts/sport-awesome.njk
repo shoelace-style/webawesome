@@ -3,7 +3,10 @@ layout: layout-example.njk
 ---
 
 <style>
-  {% include "layout-templates/reset.css.njk" %}
+  body {
+    padding: 0;
+    height: auto;
+  }
 
   img {
     display: inline-block;
@@ -27,7 +30,13 @@ layout: layout-example.njk
   .navigation--top wa-nav-item::part(content) {
     text-align: center;
     justify-content: center;
-    color: var(--wa-color-brand-text-on-vivid);
+  }
+
+  .navigation--top wa-nav-item {
+    --text-color: var(--wa-color-brand-text-on-vivid);
+    --text-color-hover: var(--wa-color-text-normal);
+    --background-color: transparent;
+    --background-color-hover: var(--wa-color-neutral-fill-muted-alt);
   }
 
   .header {
@@ -51,9 +60,10 @@ layout: layout-example.njk
     flex-shrink: 0;
     font-size: 1.4rem;
     font-weight: bold;
-    color: black;
+    color: var(--wa-color-text-normal);
     text-decoration: none;
     margin: auto;
+
   }
 
   a.logo:is(:hover, :focus) {
@@ -128,11 +138,11 @@ layout: layout-example.njk
     <wa-nav-item href="#">Videos</wa-nav-item>
   </wa-nav-group>
 
-  <main id="main-content">
-    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); padding-top: 1rem; gap: 16px; padding: 1rem;">
-      <img src="https://via.placeholder.com/512x512" height="512" width="300" style="aspect-ratio: 16/9; width: 100%;">
-      <aside style="display: flex; flex-direction: column;">
-        <header style="font-size: 1.4rem; font-weight: bold; color: var(--wa-color-brand-text-on-vivid); background-color: var(--wa-color-blue-20); padding: 1rem; text-align: center;">
+  <main id="main-content" class="flow" style="padding: 1rem;">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); gap: 16px;">
+      <img src="https://via.placeholder.com/1600x900" height="512" width="300" style="aspect-ratio: 16/9; width: 100%;">
+      <aside style="display: flex; flex-direction: column; border-radius: var(--wa-corners-1x);">
+        <header style="font-size: 1.4rem; font-weight: bold; color: var(--wa-color-brand-text-on-vivid); background-color: var(--wa-color-blue-20); padding: 1rem; text-align: center; border-top-left-radius: inherit; border-top-right-radius: inherit;">
           Upcoming
         </header>
 
@@ -140,7 +150,7 @@ layout: layout-example.njk
           Tryouts!
         </div>
 
-        <div style="background-color: var(--wa-color-neutral-90); padding: 1rem;">
+        <div style="background-color: var(--wa-color-neutral-90); padding: 1rem; border-bottom-left-radius: inherit; border-bottom-right-radius: inherit;">
           <span style="font-weight: bold; font-size: 1.2rem;">Barclay's Center</span>
 
           <br><br>
@@ -149,5 +159,14 @@ layout: layout-example.njk
         </div>
       </aside>
     </div>
+
+    <section>
+      <h1>Welcome to Sport <span class="logo__accent">Awesome</span></h1>
+
+      <p>
+        Dolor quam voluptate nostrum neque eius. Quo nemo corporis repellat quia sunt molestiae! Dolorem labore laudantium nobis numquam reprehenderit? Voluptatibus odio animi nemo maiores accusamus eaque Assumenda perferendis omnis quae.
+        Adipisicing beatae lorem nisi aliquid similique Voluptas doloremque pariatur tempore omnis maiores explicabo. Provident iste vel explicabo corporis quaerat! Necessitatibus minus quas iusto ducimus consequatur illo Cum eos adipisci ut!
+      </p>
+    </section>
   </main>
 </wa-layout>

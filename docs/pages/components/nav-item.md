@@ -189,7 +189,12 @@ you can add a `label` slot or attribute to display in the `<wa-details>` element
 to expanding the nav group.
 
 ```html:preview
-<wa-nav-item expandable label="Payments">
+<wa-nav-item expandable>
+  <div slot="label" style="display: flex; align-items: center; gap: 8px;">
+    <wa-icon name="credit-card"></wa-icon>
+    Payments
+  </div>
+
   <wa-nav-item href="#" current="page">
     Transactions
   </wa-nav-item>

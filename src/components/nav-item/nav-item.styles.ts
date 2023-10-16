@@ -8,6 +8,26 @@ export default css`
     width: auto;
     cursor: pointer;
     list-style-type: none;
+
+    --background-color: transparent;
+    --background-color-hover: var(--wa-color-neutral-fill-muted-alt);
+    --background-color-active: transparent;
+
+    --text-color: var(--wa-color-text-normal);
+    --text-color-hover: var(--wa-color-text-normal);
+    --text-color-active: var(--wa-color-text-normal);
+
+    --border-color: transparent;
+    --border-color-active: transparent;
+    --border-color-hover: color-mix(in oklab, var(--background-color-hover), var(--wa-color-tint-hover));
+  }
+
+  :host(:is([current="page"], [current="true"])) {
+    --background-color: var(--wa-color-brand-fill-vivid);
+    --text-color: var(--wa-color-brand-text-on-vivid);
+    --background-color-hover: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
+    --border-color-hover: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
+    --text-color-hover: var(--wa-color-brand-text-on-vivid);
   }
 
   .base {
@@ -29,15 +49,19 @@ export default css`
     transition: var(--wa-transition-faster) background-color, var(--wa-transition-faster) color,
       var(--wa-transition-faster) border, var(--wa-transition-faster) box-shadow;
     cursor: inherit;
-    color: var(--wa-color-text-normal);
     line-height: var(--wa-font-height-compact);
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+
   }
 
   .control {
     display: flex;
     align-items: center;
     width: 100%;
-    border: none;
+    border: 1px solid var(--border-color);
     gap: 8px;
   }
 
@@ -59,42 +83,18 @@ export default css`
     outline: transparent;
   }
 
-  .details::part(header):is(:active, :hover),
-  .control:is(:active, :hover) {
-    background-color: var(--wa-color-neutral-fill-muted-alt);
-    color: var(--wa-color-text-normal);
-    border-color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover));
+  .details::part(header):is(:hover),
+  .control:is(:hover) {
+    background-color: var(--background-color-hover);
+    color: var(--text-color-hover);
+    border-color: var(--border-color-hover);
   }
 
   .details::part(header):focus-visible,
   .control:focus-visible {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
-    outline-color: var(--wa-color-neutral-fill-vivid);
-  }
-
-  .base--active .details::part(header),
-  .base--active .control {
-    background-color: var(--wa-color-brand-fill-vivid);
-    color: var(--wa-color-brand-text-on-vivid);
-  }
-
-  .base--active .details::part(header):focus-visible,
-  .base--active .control:focus-visible {
-    outline-color: var(--wa-color-brand-fill-vivid);
-  }
-
-  .base--active .details::part(header):active,
-  .base--active .control:active {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
-    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
-  }
-
-  .base--active .details::part(header):hover,
-  .base--active .control:hover {
-    background-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
-    border-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
-    color: var(--wa-color-brand-text-on-vivid);
+    outline-color: var(--background-color-hover);
   }
 
   .details::part(base) {
