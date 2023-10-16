@@ -34,14 +34,21 @@ export default css`
   }
 
   .control {
-    display: grid;
-    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
-    grid-auto-flow: column;
+    display: flex;
     align-items: center;
-    justify-content: start;
-    gap: 8px;
     width: 100%;
     border: none;
+    gap: 8px;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .suffix {
+    align-self: end;
   }
 
   .control::-moz-focus-inner {

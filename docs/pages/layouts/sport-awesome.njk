@@ -1,0 +1,153 @@
+---
+layout: layout-example.njk
+---
+
+<style>
+  {% include "layout-templates/reset.css.njk" %}
+
+  img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .navigation--desktop::part(nav-items) {
+    gap: 2rem;
+  }
+
+  .navigation--top::part(nav-items) {
+    flex-direction: row;
+  }
+
+  .navigation--top wa-nav-item {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  .navigation--top wa-nav-item::part(content) {
+    text-align: center;
+    justify-content: center;
+    color: var(--wa-color-brand-text-on-vivid);
+  }
+
+  .header {
+    display: flex;
+    border-bottom: 1px solid var(--wa-color-blue-20);
+  }
+
+  .header > * {
+    padding: 1rem;
+  }
+
+  .header__navigation {
+    display: flex;
+    clip-path: polygon(2rem 0,100% 0,100% 100%,0 100%);
+    padding-inline-start: 2.5rem;
+    background-color: var(--wa-color-blue-20);
+    width: 100%;
+  }
+
+  a.logo {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    margin: auto;
+  }
+
+  a.logo:is(:hover, :focus) {
+    text-decoration: underline;
+  }
+
+  .logo__accent {
+    color: var(--wa-color-yellow-70);
+  }
+
+  .navigation--desktop {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navigation--desktop wa-nav-item[current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 4px;
+    text-decoration-color: var(--wa-color-red-50);
+  }
+
+  .navigation--extra {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-inline-start: auto;
+  }
+
+  wa-layout[view="desktop"] [data-toggle-nav],
+  wa-layout[view="desktop"]::part(navigation) {
+    display: none;
+  }
+
+  wa-layout[view="mobile"] .navigation--desktop {
+    display: none;
+  }
+
+</style>
+
+<wa-layout main-id="main-content" class="wa-theme-light" mobile-breakpoint="925">
+  <header class="header" slot="header">
+    <a href="#" class="logo">
+      Sport <span class="logo__accent">Awesome</span>
+    </a>
+
+    <div class="header__navigation">
+      <wa-nav-group class="navigation navigation--top navigation--desktop">
+        <wa-nav-item href="#" current="page">Home</wa-nav-item>
+        <wa-nav-item href="#">Schedule</wa-nav-item>
+        <wa-nav-item href="#">Roster</wa-nav-item>
+        <wa-nav-item href="#">Stats</wa-nav-item>
+        <wa-nav-item href="#">Videos</wa-nav-item>
+
+      </wa-nav-group>
+
+      <wa-nav-group class="navigation navigation--top navigation--extra">
+        <wa-nav-item href="#"><wa-icon name="instagram"></wa-icon></wa-nav-item>
+        <wa-nav-item href="#"><wa-icon name="facebook"></wa-icon></wa-nav-item>
+        <wa-nav-item data-toggle-nav href="#"><wa-icon name="list"></wa-icon></wa-nav-item>
+      </wa-nav-group>
+    </div>
+  </header>
+
+  <wa-nav-group slot="navigation">
+    <wa-nav-item href="#" current="page">Home</wa-nav-item>
+    <wa-nav-item href="#">Schedule</wa-nav-item>
+    <wa-nav-item href="#">Roster</wa-nav-item>
+    <wa-nav-item href="#">Stats</wa-nav-item>
+    <wa-nav-item href="#">Videos</wa-nav-item>
+  </wa-nav-group>
+
+  <main id="main-content">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); padding-top: 1rem; gap: 16px; padding: 1rem;">
+      <img src="https://via.placeholder.com/512x512" height="512" width="300" style="aspect-ratio: 16/9; width: 100%;">
+      <aside style="display: flex; flex-direction: column;">
+        <header style="font-size: 1.4rem; font-weight: bold; color: var(--wa-color-brand-text-on-vivid); background-color: var(--wa-color-blue-20); padding: 1rem; text-align: center;">
+          Upcoming
+        </header>
+
+        <div style="color: var(--wa-color-brand-text-on-vivid); background-color: var(--wa-color-red-40); padding: 0.5rem; text-align: center; font-weight: bold;">
+          Tryouts!
+        </div>
+
+        <div style="background-color: var(--wa-color-neutral-90); padding: 1rem;">
+          <span style="font-weight: bold; font-size: 1.2rem;">Barclay's Center</span>
+
+          <br><br>
+
+          <time>Sat, Jul 3rd • 11:30am</time>
+        </div>
+      </aside>
+    </div>
+  </main>
+</wa-layout>

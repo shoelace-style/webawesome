@@ -12,6 +12,7 @@ export default css`
   .base {
     color: var(--wa-color-text-normal);
     height: 100%;
+    width: 100%;
   }
 
   .label {
@@ -28,5 +29,6 @@ export default css`
     flex-direction: column;
     gap: var(--gap);
     height: 100%;
+    width: 100%;
   }
 `;

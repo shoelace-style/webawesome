@@ -127,9 +127,9 @@ export default class WaNavItem extends WebAwesomeElement {
               @blur=${this.handleBlur}
               @focus=${this.handleFocus}
             >
-              <slot name="prefix"></slot>
-              <slot></slot>
-              <slot name="suffix"></slot>
+              <slot part="prefix" name="prefix"></slot>
+              <div class="content" part="content"><slot></slot></div>
+              <slot part="suffix" name="suffix"></slot>
             </a>
           `
         )}

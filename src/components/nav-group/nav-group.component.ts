@@ -36,7 +36,7 @@ export default class WaNavGroup extends WebAwesomeElement {
 
   render() {
     return html`
-      <div part="base" class="base">
+      <div part="base" class="base" role="navigation" aria-labelledby="label">
         <p id="label" part="label" class="label">
           <slot name="label">${this.label}</slot>
         </p>
