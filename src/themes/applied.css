@@ -281,6 +281,7 @@ summary {
   padding-block: var(--wa-space-m);
   margin: 0;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 summary::-webkit-details-marker {

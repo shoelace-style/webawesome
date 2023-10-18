@@ -14,5 +14,6 @@ export default css`
     color: var(--wa-color-neutral-text-on-surface);
     padding: var(--wa-space-2xs) var(--wa-space-xl);
     user-select: none;
+    -webkit-user-select: none;
   }
 `;

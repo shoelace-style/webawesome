@@ -100,6 +100,7 @@ export default css`
     line-height: var(--toggle-size);
     margin-inline-start: var(--wa-space-xs);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   :host([required]) .checkbox__label::after {

@@ -22,6 +22,7 @@ export default css`
     font-size: calc(var(--size) * 0.5);
     color: var(--wa-color-neutral-text-on-vivid);
     user-select: none;
+    -webkit-user-select: none;
     vertical-align: middle;
   }
 

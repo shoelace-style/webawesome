@@ -1,7 +1,6 @@
 import commandLineArgs from 'command-line-args';
 import fs from 'fs';
 import path from 'path';
-import chalk from 'chalk';
 import { deleteSync } from 'del';
 import prettier from 'prettier';
 import { default as prettierConfig } from '../prettier.config.js';
@@ -43,7 +42,7 @@ components.forEach(async component => {
   const source = await prettier.format(
     `
       import * as React from 'react';
-      import { createComponent } from '@lit-labs/react';
+      import { createComponent } from '@lit/react';
       import Component from '../../${importPath}';
 
       ${eventNameImport}

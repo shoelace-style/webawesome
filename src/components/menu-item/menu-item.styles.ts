@@ -31,6 +31,7 @@ export default css`
     padding: var(--wa-space-2xs) var(--wa-space-2xs);
     transition: var(--wa-transition-fast) fill;
     user-select: none;
+    -webkit-user-select: none;
     white-space: nowrap;
     cursor: pointer;
   }

@@ -36,6 +36,7 @@ I realize that one cannot reasonably enforce this any more than one can enforce 
 The [issue tracker](https://github.com/shoelace-style/shoelace/issues) is for bug reports, feature requests, and pull requests.
 
 - Please **do not** use the issue tracker for personal support requests. Use [the discussion forum](https://github.com/shoelace-style/shoelace/discussions/categories/help) instead.
+- Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/shoelace/discussions/categories/ideas) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
 - Please **do** use the issue tracker for feature requests, bug reports, and pull requests.
@@ -44,10 +45,10 @@ Issues that do not follow these guidelines are subject to closure. There simply 
 
 ### Feature Requests
 
-Feature requests can be added using the issue tracker.
+Feature requests can be added using [the discussion forum](https://github.com/shoelace-style/shoelace/discussions/categories/ideas).
 
 - Please **do** search for an existing request before suggesting a new feature.
-- Please **do** use the "👍" reaction to vote for a feature.
+- Please **do** use the voting buttons to vote for a feature.
 - Please **do** share substantial use cases and perspective that support new features if they haven't already been mentioned.
 - Please **do not** bump, spam, or ping contributors to prioritize your own feature.
 

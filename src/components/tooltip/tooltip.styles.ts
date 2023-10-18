@@ -50,5 +50,6 @@ export default css`
     padding: var(--wa-space-2xs) var(--wa-space-xs);
     pointer-events: none;
     user-select: none;
+    -webkit-user-select: none;
   }
 `;

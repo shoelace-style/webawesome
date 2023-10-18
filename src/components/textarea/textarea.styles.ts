@@ -101,6 +101,7 @@ export default css`
   .textarea__control::placeholder {
     color: var(--wa-form-controls-placeholder-color);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   .textarea__control:focus {

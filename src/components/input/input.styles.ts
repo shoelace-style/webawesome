@@ -121,6 +121,7 @@ export default css`
   .input__control::placeholder {
     color: var(--wa-form-controls-placeholder-color);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   .input__control:focus {

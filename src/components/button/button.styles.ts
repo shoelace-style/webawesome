@@ -140,6 +140,7 @@ export default css`
     font-weight: var(--wa-font-weight-action);
     text-decoration: none;
     user-select: none;
+    -webkit-user-select: none;
     white-space: nowrap;
     vertical-align: middle;
     padding: 0;

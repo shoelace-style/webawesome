@@ -22,6 +22,7 @@ export default css`
     background-color: var(--wa-color-surface-raised);
     border-radius: var(--wa-corners-1x);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   .color-picker--inline {
