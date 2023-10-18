@@ -3,14 +3,19 @@ layout: layout-example.njk
 ---
 
 <style>
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
   html {
     min-height: 100%;
     height: auto;
   }
+
   body {
     padding: 0;
     height: auto;
     --wa-color-brand-fill-vivid: var(--wa-color-blue-20);
+    margin: 0 auto;
   }
 
   img {
@@ -138,10 +143,26 @@ layout: layout-example.njk
     text-align: end;
   }
 
+  .layout-banner {
+    padding: var(--wa-space-base);
+    text-align: center;
+    background-color: var(--wa-color-yellow-80);
+  }
+
+  .layout-header::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: var(--banner-height);
+    z-index: -1;
+    background-color: var(--wa-color-yellow-80);
+  }
 </style>
 
 <wa-layout main-id="main-content" class="wa-theme-light" mobile-breakpoint="925" disable-sticky="banner">
-  <header style="padding: var(--wa-space-base); background-color: var(--wa-color-yellow-80);" slot="banner">
+  <header class="layout-banner" slot="banner">
     Reminder! Get your insurance paperwork in by Oct 12!
   </header>
 

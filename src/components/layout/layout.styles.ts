@@ -18,15 +18,21 @@ export default css`
     --sub-header-height: 0px;
   }
 
-  :host([disable-sticky~="banner"]) {
+  :host([disable-sticky~="banner"]) :is([part~="header"], [part~="sub-header"]) {
     --banner-height: 0px !important;
   }
 
-  :host([disable-sticky~="header"]) {
+  :host([disable-sticky~="header"]) [part~="sub-header"] {
     --header-height: 0px !important;
   }
-  :host([disable-sticky~="sub-header"]) {
-    --sub-header-height: 0px !important;
+
+  /* Nothing else depends on sub-header-height. */
+  :host([disable-sticky~="sub-header"]) {}
+
+  :host([disable-sticky~="aside"]) [part~="aside"],
+  :host([disable-sticky~="menu"]) [part~="menu"] {
+    height: unset;
+    max-height: unset;
   }
 
   :host([disable-sticky~="banner"]) [part~="banner"],
