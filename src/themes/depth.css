@@ -253,6 +253,7 @@ wa-alert[variant='danger'] {
 
 wa-alert::part(base) {
   backdrop-filter: var(--wa-filter-blur);
+  -webkit-backdrop-filter: var(--wa-filter-blur);
 }
 
 /* #endregion */
@@ -268,6 +269,7 @@ wa-card {
 }
 wa-card::part(base) {
   backdrop-filter: var(--wa-filter-blur);
+  -webkit-backdrop-filter: var(--wa-filter-blur);
 }
 
 /* #endregion */
@@ -281,6 +283,7 @@ wa-select::part(listbox) {
     transparent var(--wa-background-transparency-percent)
   );
   backdrop-filter: var(--wa-filter-blur);
+  -webkit-backdrop-filter: var(--wa-filter-blur);
   border-color: var(--wa-color-neutral-outline-muted);
 }
 
