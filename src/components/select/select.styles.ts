@@ -44,7 +44,10 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: pointer;
-    transition: var(--wa-transition-fast) color, var(--wa-transition-fast) border, var(--wa-transition-fast) box-shadow,
+    transition:
+      var(--wa-transition-fast) color,
+      var(--wa-transition-fast) border,
+      var(--wa-transition-fast) box-shadow,
       var(--wa-transition-fast) background-color;
   }
 

@@ -24,6 +24,7 @@ export default css`
     align-items: center;
     padding: var(--wa-space-m);
     user-select: none;
+    -webkit-user-select: none;
     cursor: pointer;
   }
 

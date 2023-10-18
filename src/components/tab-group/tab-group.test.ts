@@ -187,8 +187,10 @@ describe('<wa-tab-group>', () => {
     const generateTabs = (n: number): HTMLTemplateResult[] => {
       const result: HTMLTemplateResult[] = [];
       for (let i = 0; i < n; i++) {
-        result.push(html`<wa-tab slot="nav" panel="tab-${i}">Tab ${i}</wa-tab>
-          <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `);
+        result.push(
+          html`<wa-tab slot="nav" panel="tab-${i}">Tab ${i}</wa-tab>
+            <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `
+        );
       }
       return result;
     };

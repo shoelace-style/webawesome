@@ -80,5 +80,6 @@ export default css`
     align-items: center;
     margin: 0 var(--wa-space-xs);
     user-select: none;
+    -webkit-user-select: none;
   }
 `;

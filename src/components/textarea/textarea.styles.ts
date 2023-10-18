@@ -19,7 +19,9 @@ export default css`
     color: var(--wa-form-controls-text-color);
     line-height: var(--wa-form-controls-value-line-height);
     vertical-align: middle;
-    transition: var(--wa-transition-fast) border, var(--wa-transition-fast) background-color;
+    transition:
+      var(--wa-transition-fast) border,
+      var(--wa-transition-fast) background-color;
     cursor: text;
   }
 
@@ -80,6 +82,7 @@ export default css`
   .textarea__control::placeholder {
     color: var(--wa-form-controls-placeholder-color);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   .textarea__control:focus {

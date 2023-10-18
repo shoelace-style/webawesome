@@ -1,7 +1,7 @@
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 
 import '../../dist/webawesome.js';
-import { activeElements } from './active-elements.js';
+import { activeElements, getDeepestActiveElement } from './active-elements.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 
@@ -17,10 +17,6 @@ const tabKey =
 // Simple helper to turn the activeElements generator into an array
 function activeElementsArray() {
   return [...activeElements()];
-}
-
-function getDeepestActiveElement() {
-  return activeElementsArray().pop();
 }
 
 window.customElements.define(
@@ -144,4 +140,37 @@ it('Should allow tabbing to slotted elements', async () => {
 
   await holdShiftKey(async () => await sendKeys({ press: tabKey }));
   expect(activeElementsArray()).to.include(focusSix);
+});
+
+it('Should account for when focus is changed from outside sources (like clicking)', async () => {
+  const dialog = await fixture(html`
+    <wa-dialog open="" label="Dialog" class="dialog-overview">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <wa-input placeholder="tab to me"></wa-input>
+      <wa-button slot="footer" variant="primary">Close</wa-button>
+    </wa-dialog>
+  `);
+
+  const inputEl = dialog.querySelector('wa-input')!;
+  const closeButton = dialog.shadowRoot!.querySelector('wa-icon-button')!;
+  const footerButton = dialog.querySelector('wa-button')!;
+
+  expect(activeElementsArray()).to.not.include(inputEl);
+
+  // Sets focus to the input element
+  inputEl.focus();
+
+  expect(activeElementsArray()).to.include(inputEl);
+
+  await sendKeys({ press: tabKey });
+
+  expect(activeElementsArray()).not.to.include(inputEl);
+  expect(activeElementsArray()).to.include(footerButton);
+
+  // Reset focus back to input el
+  inputEl.focus();
+  expect(activeElementsArray()).to.include(inputEl);
+
+  await holdShiftKey(async () => await sendKeys({ press: tabKey }));
+  expect(activeElementsArray()).to.include(closeButton);
 });

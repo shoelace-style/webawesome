@@ -254,7 +254,9 @@ pre .token.italic {
   right: 0;
   white-space: normal;
   color: var(--wa-color-neutral-text-on-muted-alt);
-  transition: 150ms opacity, 150ms scale;
+  transition:
+    150ms opacity,
+    150ms scale;
 }
 
 .copy-code-button::part(button) {

@@ -267,11 +267,10 @@ export default class WaTreeItem extends WebAwesomeElement {
 
           ${when(
             this.selectable,
-            () =>
-              html`
-                <wa-checkbox
-                  part="checkbox"
-                  exportparts="
+            () => html`
+              <wa-checkbox
+                part="checkbox"
+                exportparts="
                     base:checkbox__base,
                     control:checkbox__control,
                     control--checked:checkbox__control--checked,
@@ -280,13 +279,13 @@ export default class WaTreeItem extends WebAwesomeElement {
                     indeterminate-icon:checkbox__indeterminate-icon,
                     label:checkbox__label
                   "
-                  class="tree-item__checkbox"
-                  ?disabled="${this.disabled}"
-                  ?checked="${live(this.selected)}"
-                  ?indeterminate="${this.indeterminate}"
-                  tabindex="-1"
-                ></wa-checkbox>
-              `
+                class="tree-item__checkbox"
+                ?disabled="${this.disabled}"
+                ?checked="${live(this.selected)}"
+                ?indeterminate="${this.indeterminate}"
+                tabindex="-1"
+              ></wa-checkbox>
+            `
           )}
 
           <slot class="tree-item__label" part="label"></slot>

@@ -210,10 +210,12 @@ describe('<wa-alert>', () => {
     };
 
     it('deletes the toast stack after the last alert is done', async () => {
-      const container = await fixture<HTMLElement>(html`<div>
-        <wa-alert data-testid="alert1" closable>alert 1</wa-alert>
-        <wa-alert data-testid="alert2" closable>alert 2</wa-alert>
-      </div>`);
+      const container = await fixture<HTMLElement>(
+        html`<div>
+          <wa-alert data-testid="alert1" closable>alert 1</wa-alert>
+          <wa-alert data-testid="alert2" closable>alert 2</wa-alert>
+        </div>`
+      );
 
       const alert1 = queryByTestId<WaAlert>(container, 'alert1');
       const alert2 = queryByTestId<WaAlert>(container, 'alert2');

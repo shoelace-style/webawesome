@@ -7,9 +7,9 @@ describe('<wa-card>', () => {
 
   describe('when provided no parameters', () => {
     before(async () => {
-      el = await fixture<WaCard>(
-        html` <wa-card>This is just a basic card. No image, no header, and no footer. Just your content.</wa-card> `
-      );
+      el = await fixture<WaCard>(html`
+        <wa-card>This is just a basic card. No image, no header, and no footer. Just your content.</wa-card>
+      `);
     });
 
     it('should pass accessibility tests', async () => {

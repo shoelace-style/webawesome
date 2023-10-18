@@ -21,7 +21,9 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: text;
-    transition: var(--wa-transition-fast) border, var(--wa-transition-fast) background-color;
+    transition:
+      var(--wa-transition-fast) border,
+      var(--wa-transition-fast) background-color;
   }
 
   /* Standard inputs */
@@ -101,6 +103,7 @@ export default css`
   .input__control::placeholder {
     color: var(--wa-form-controls-placeholder-color);
     user-select: none;
+    -webkit-user-select: none;
   }
 
   .input__control:focus {
