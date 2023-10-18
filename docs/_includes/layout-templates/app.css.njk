@@ -14,6 +14,9 @@ wa-layout {
   color: var(--wa-color-neutral-20);
 }
 
+wa-card :is(p, h3) {
+  margin: 0;
+}
 
 wa-layout::part(header) {
   /** Because headers are sticky, this keeps text from leaking through. */

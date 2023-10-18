@@ -18,6 +18,17 @@ export default css`
     --sub-header-height: 0px;
   }
 
+  :host([disable-sticky~="banner"]) {
+    --banner-height: 0px !important;
+  }
+
+  :host([disable-sticky~="header"]) {
+    --header-height: 0px !important;
+  }
+  :host([disable-sticky~="sub-header"]) {
+    --sub-header-height: 0px !important;
+  }
+
   :host([disable-sticky~="banner"]) [part~="banner"],
   :host([disable-sticky~="header"]) [part~="header"],
   :host([disable-sticky~="sub-header"]) [part~="sub-header"],
