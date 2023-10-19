@@ -70,6 +70,10 @@ export default css`
     outline: none;
   }
 
+  .select__display-input::placeholder {
+    color: var(--sl-input-placeholder-color);
+  }
+
   /* Visually hide the display input when multiple is enabled */
   .select--multiple:not(.select--placeholder-visible) .select__display-input {
     position: absolute;
