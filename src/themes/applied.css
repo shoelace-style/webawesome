@@ -437,10 +437,6 @@ textarea {
   padding: 0 !important;
 }
 
-.flow > * + * {
-  margin-block-start: var(--wa-flow-spacing);
-}
-
 /* Print styles */
 @media print {
   /* Show URLs for printed links */

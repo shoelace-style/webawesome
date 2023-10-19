@@ -18,6 +18,12 @@ layout: layout-example.njk
     margin: 0 auto;
   }
 
+  /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
+  .flow > * + * {
+    margin-block-start: var(--wa-flow-spacing);
+  }
+
+
   img {
     display: inline-block;
     max-width: 100%;
