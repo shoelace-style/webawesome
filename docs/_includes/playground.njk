@@ -1,12 +1,9 @@
 <script type="module">
-  import 'https://cdn.jsdelivr.net/npm/light-pen@1.1.2/+esm'
+  import "https://cdn.jsdelivr.net/npm/light-pen@1.0.1/+esm"
 </script>
 
 <light-pen style="height: 100%; padding: 8px;" resize-position="30">
   <script type="text/plain" slot="html">
-
-<script src="/dist/autoloader.js" data-shoelace="/dist" type="module">&lt;/script>
-
 {% include html_file %}
   </script>
 
@@ -18,5 +15,8 @@
   </script>
 
   <script type="text/plain" slot="js">
+import { setBasePath } from "/dist/utilities/base-path.js";
+setBasePath("/dist");
+import("/dist/autoloader.js");
   </script>
 </light-pen>
