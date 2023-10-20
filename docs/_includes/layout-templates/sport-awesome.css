@@ -1,0 +1,181 @@
+html {
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  padding: 0;
+  height: auto;
+  --wa-color-brand-fill-vivid: var(--wa-color-blue-20);
+  margin: 0 auto;
+}
+
+/** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
+.flow > * + * {
+  margin-block-start: var(--wa-flow-spacing);
+}
+
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.navigation--desktop::part(nav-items) {
+  gap: 2rem;
+}
+
+.navigation--top::part(nav-items) {
+  flex-direction: row;
+}
+
+.navigation--top wa-nav-item {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.navigation--top wa-nav-item::part(content) {
+  text-align: center;
+  justify-content: center;
+}
+
+.navigation--top wa-nav-item {
+  --text-color: var(--wa-color-brand-text-on-vivid);
+  --text-color-hover: var(--wa-color-text-normal);
+  --background-color: transparent;
+  --background-color-hover: var(--wa-color-neutral-fill-muted-alt);
+}
+
+.header {
+  display: flex;
+  border-bottom: 1px solid var(--wa-color-brand-fill-vivid);
+  background-color: var(--wa-color-white);
+}
+
+.header > * {
+  padding-top: var(--wa-space-base);
+  padding-bottom: var(--wa-space-base);
+}
+
+.header__navigation {
+  display: flex;
+  clip-path: polygon(2rem 0,100% 0,100% 100%,0 100%);
+  padding-inline-start: 2.5rem;
+  padding-inline-end: var(--wa-space-base);
+  background-color: var(--wa-color-brand-fill-vivid);
+  width: 100%;
+}
+
+.header > .logo {
+  padding-inline-start: var(--wa-space-base);
+  /** Responsive font size for the top header to make it flow nicer */
+  font-size: clamp(1rem, 4vw, 1.4rem);
+}
+
+a.logo {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--wa-color-text-normal);
+  text-decoration: none;
+  margin: auto;
+
+}
+
+a.logo:is(:hover, :focus) {
+  text-decoration: underline;
+}
+
+.logo__accent {
+  color: var(--wa-color-yellow-70);
+}
+
+.navigation--desktop {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation--desktop wa-nav-item[current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 4px;
+  text-decoration-color: var(--wa-color-red-50);
+}
+
+.navigation--extra {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+
+wa-layout[view="desktop"] [data-toggle-nav],
+wa-layout[view="desktop"]::part(navigation) {
+  display: none;
+}
+
+wa-layout[view="mobile"] .navigation--desktop {
+  display: none;
+}
+
+.layout-banner {
+  padding: var(--wa-space-base);
+  text-align: center;
+  background-color: var(--wa-color-yellow-80);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(175px, 100%, 400px), 1fr));
+  gap: var(--wa-space-base);
+  grid-template-rows: 1fr;
+  align-items: start;
+  max-width: 100%;
+}
+
+.stats-grid table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  border: 1px solid var(--wa-color-surface-outline);
+}
+
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.stats-grid table * {
+  font-variant-numeric: tabular-nums;
+}
+
+.stats-grid table th {
+  font-weight: bold;
+  text-align: center;
+}
+
+.stats-grid table td:nth-child(2) {
+  text-align: end;
+}
+
+.navigation--top.navigation--social::part(nav-items) {
+  justify-content: flex-end;
+}
+
+.navigation--social {
+  flex-grow: 1;
+}
+
+.navigation--top .social-link {
+  display: none;
+}
+
+@media screen and (min-width: 415px) {
+  .navigation--top .social-link {
+    display: flex;
+  }
+}

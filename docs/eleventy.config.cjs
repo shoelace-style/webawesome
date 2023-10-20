@@ -62,6 +62,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setServerPassthroughCopyBehavior('passthrough'); // emulates passthrough copy during --serve
 
   //
+  // Add additional extensions. This allows things like {% include "layout.css" %}
+  //
+  eleventyConfig.setTemplateFormats([
+    "html",
+    "md",
+    "njk",
+    "css",
+  ])
+
+  //
   // Functions
   //
 

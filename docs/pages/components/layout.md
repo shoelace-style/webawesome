@@ -33,9 +33,11 @@ Reasons why you may want to disable sticky:
 
 Toggling navigation can be done in a number of ways.
 
-1. `<wa-layout><button data-navigation-toggle></button></wa-layout>` - The button with `data-navigation-toggle` must be inside the `<wa-layout>` component.
-1. `<wa-layout nav-state="open"></wa-layout>` -
-1. `document.querySelector("button").addEventListener("click", () => document.querySelector("wa-layout").toggleNavigation())`
+`<wa-layout><button data-navigation-toggle></button></wa-layout>` - The button with `data-navigation-toggle` must be inside the `<wa-layout>` component.
+
+`<wa-layout nav-state="open"></wa-layout>` -
+
+`document.querySelector("button").addEventListener("click", () => document.querySelector("wa-layout").toggleNavigation())`
 
 ```html:preview
 <style>
