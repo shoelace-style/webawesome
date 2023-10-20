@@ -4,19 +4,19 @@
 
 <light-pen style="height: 100%; padding: 8px;" resize-position="30">
   <script type="text/plain" slot="html">
-    {% include html_file %}
+
+<script src="/dist/autoloader.js" data-shoelace="/dist" type="module">&lt;/script>
+
+{% include html_file %}
   </script>
 
   <script type="text/plain" slot="css">
-    @import "/dist/themes/default.css";
-    @import "/dist/themes/applied.css";
+@import "/dist/themes/default.css";
+@import "/dist/themes/applied.css";
 
-    {% include css_file %}
+{% include css_file %}
   </script>
 
   <script type="text/plain" slot="js">
-    import { setBasePath } from "/dist/utilities/base-path.js";
-    setBasePath("/dist");
-    import("/dist/autoloader.js");
   </script>
 </light-pen>
