@@ -15,4 +15,4 @@ window.Turbo.session.drive = false
 - [Hero Playground](/layouts/hero-playground/index.html)
 
 - [Sport Awesome Layout](/layouts/sport-awesome/index.html)
-- [Sport Awesome Playgroud](/layouts/sport-awesome-playground/index.html)
+- [Sport Awesome Playground](/layouts/sport-awesome-playground/index.html)
