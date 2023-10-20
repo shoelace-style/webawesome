@@ -1,3 +1,9 @@
+:root {
+  --wa-shadow-blur-base: 0rem;
+  --wa-shadow-offset-y-base: 0.25rem;
+  --wa-shadow-offset-x-base: 0rem;
+}
+
 wa-button:not([variant='text']) {
   --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
   margin-bottom: var(--wa-shadow-offset-y-level-1);
@@ -5,6 +11,11 @@ wa-button:not([variant='text']) {
 wa-button:active:not([variant='text']):not([disabled]) {
   --box-shadow: none;
   transform: translateY(var(--wa-shadow-offset-y-level-1));
+}
+wa-button {
+  --wa-transition-normal: 0ms;
+  --wa-transition-fast: 0ms;
+  --wa-transition-faster: 0ms;
 }
 wa-input:not([filled]):not([disabled]),
 wa-select:not([filled]):not([disabled]),

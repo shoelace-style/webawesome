@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Lora:wght@400..700&display=swap');
+@import 'depth_0_flat.css';
+@import 'borders_1_faint.css';
 
 :root,
 :host,
@@ -103,7 +105,7 @@
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
-  --wa-color-shadow: color-mix(in oklab, var(--wa-color-neutral-10) 6%, transparent);
+  --wa-color-shadow: color-mix(in oklab, var(--wa-color-neutral-10) 5%, transparent);
 
   /* Base tints can be mixed with or overlay other colors to make them lighter or darker. */
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
@@ -132,8 +134,8 @@
   --wa-color-brand-fill-vivid-alt: var(--wa-color-green-40);
   --wa-color-brand-fill-muted: var(--wa-color-green-95);
   --wa-color-brand-fill-muted-alt: var(--wa-color-green-90);
-  --wa-color-brand-outline-vivid: var(--wa-color-green-60);
-  --wa-color-brand-outline-vivid-alt: var(--wa-color-green-50);
+  --wa-color-brand-outline-vivid: var(--wa-color-green-50);
+  --wa-color-brand-outline-vivid-alt: var(--wa-color-green-40);
   --wa-color-brand-outline-muted: var(--wa-color-green-90);
   --wa-color-brand-outline-muted-alt: var(--wa-color-green-80);
   --wa-color-brand-text-on-vivid: var(--wa-color-text-inverse);
@@ -144,8 +146,8 @@
   --wa-color-success-fill-vivid-alt: var(--wa-color-green-40);
   --wa-color-success-fill-muted: var(--wa-color-green-95);
   --wa-color-success-fill-muted-alt: var(--wa-color-green-90);
-  --wa-color-success-outline-vivid: var(--wa-color-green-60);
-  --wa-color-success-outline-vivid-alt: var(--wa-color-green-50);
+  --wa-color-success-outline-vivid: var(--wa-color-green-50);
+  --wa-color-success-outline-vivid-alt: var(--wa-color-green-40);
   --wa-color-success-outline-muted: var(--wa-color-green-90);
   --wa-color-success-outline-muted-alt: var(--wa-color-green-80);
   --wa-color-success-text-on-vivid: var(--wa-color-text-inverse);
@@ -156,8 +158,8 @@
   --wa-color-warning-fill-vivid-alt: var(--wa-color-yellow-40);
   --wa-color-warning-fill-muted: var(--wa-color-yellow-95);
   --wa-color-warning-fill-muted-alt: var(--wa-color-yellow-90);
-  --wa-color-warning-outline-vivid: var(--wa-color-yellow-60);
-  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-50);
+  --wa-color-warning-outline-vivid: var(--wa-color-yellow-50);
+  --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-40);
   --wa-color-warning-outline-muted: var(--wa-color-yellow-90);
   --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-80);
   --wa-color-warning-text-on-vivid: var(--wa-color-text-inverse);
@@ -168,8 +170,8 @@
   --wa-color-danger-fill-vivid-alt: var(--wa-color-red-40);
   --wa-color-danger-fill-muted: var(--wa-color-red-95);
   --wa-color-danger-fill-muted-alt: var(--wa-color-red-90);
-  --wa-color-danger-outline-vivid: var(--wa-color-red-60);
-  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-50);
+  --wa-color-danger-outline-vivid: var(--wa-color-red-50);
+  --wa-color-danger-outline-vivid-alt: var(--wa-color-red-40);
   --wa-color-danger-outline-muted: var(--wa-color-red-90);
   --wa-color-danger-outline-muted-alt: var(--wa-color-red-80);
   --wa-color-danger-text-on-vivid: var(--wa-color-text-inverse);
@@ -180,8 +182,8 @@
   --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-40);
   --wa-color-neutral-fill-muted: var(--wa-color-neutral-95);
   --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-90);
-  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-60);
-  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-50);
+  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-40);
   --wa-color-neutral-outline-muted: var(--wa-color-neutral-90);
   --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-80);
   --wa-color-neutral-text-on-vivid: var(--wa-color-text-inverse);
@@ -263,11 +265,11 @@
   /**
    * Borders & corners
    */
-  --wa-border-style: solid;
+  /* --wa-border-style: solid; */
 
   /* Border widths are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.0625rem; /* 1px */
+  /* --wa-border-width-base: 0.0625rem; */
   --wa-border-width-thin: var(--wa-border-width-base);
   --wa-border-width-medium: calc(var(--wa-border-width-base) * 2);
   --wa-border-width-thick: calc(var(--wa-border-width-base) * 3);
@@ -303,20 +305,29 @@
    */
   /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-shadow-blur-base: 0.0625rem;
+  /* --wa-shadow-blur-base: 0.0625rem; */
 
   /* Offset values on the y-axis are used in pre-constructed shadows and may be used when constructing custom shadows
    * or transforming elements with shadows. */
-  --wa-shadow-offset-y-inset: 0.0625rem;
-  --wa-shadow-offset-y-level-1: 0.0625rem;
-  --wa-shadow-offset-y-level-2: 0.125rem;
-  --wa-shadow-offset-y-level-3: 0.25rem;
+  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.5);
+  --wa-shadow-offset-y-level-1: var(--wa-shadow-offset-y-base);
+  --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5);
+  --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2);
 
-  --wa-shadow-inset: none;
+  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.5);
+  --wa-shadow-offset-x-level-1: var(--wa-shadow-offset-x-base);
+  --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5);
+  --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2);
+
+  --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset)
+    calc(var(--wa-shadow-blur-base) * 0.5) var(--wa-color-shadow);
   --wa-shadow-level-0: none;
-  --wa-shadow-level-1: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--wa-color-shadow);
-  --wa-shadow-level-2: 0 var(--wa-shadow-offset-y-level-2) calc(var(--wa-shadow-blur-base) * 2) var(--wa-color-shadow);
-  --wa-shadow-level-3: 0 var(--wa-shadow-offset-y-level-3) calc(var(--wa-shadow-blur-base) * 4) var(--wa-color-shadow);
+  --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base)
+    var(--wa-color-shadow);
+  --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2)
+    calc(var(--wa-shadow-blur-base) * 2) var(--wa-color-shadow);
+  --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3)
+    calc(var(--wa-shadow-blur-base) * 4) var(--wa-color-shadow);
 
   /**
    * Z-index
@@ -341,7 +352,7 @@
 
   --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
   --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-vivid);
-  --wa-form-controls-border-style: var(--wa-border-style);
+  /* --wa-form-controls-border-style: var(--wa-border-style); */
   --wa-form-controls-border-width: var(--wa-border-width-thin);
 
   --wa-form-controls-corners: var(--wa-corners-1x);
@@ -367,8 +378,8 @@
   /**
    * Panels
    */
-  --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-thin);
+  /* --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-thin); */
 
   --wa-panel-corners: var(--wa-corners-2x);
 

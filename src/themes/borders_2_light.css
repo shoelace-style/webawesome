@@ -1,0 +1,12 @@
+:root {
+  --wa-border-style: solid;
+  --wa-border-width-base: 0.0625rem;
+
+  --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
+  --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-vivid);
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-thin);
+
+  --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-thin);
+}
