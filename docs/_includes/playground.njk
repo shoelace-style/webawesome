@@ -1,8 +1,24 @@
 <script type="module">
-  import "https://cdn.jsdelivr.net/npm/light-pen@1.0.1/+esm"
+  import "https://cdn.jsdelivr.net/npm/light-pen@1.1.2/+esm"
 </script>
 
-<light-pen style="height: 100%; padding: 8px;" resize-position="30">
+<light-pen style="height: 100%; padding: 8px;" resize-position="30" sandbox-settings="
+    allow-downloads
+    allow-downloads-without-user-activation
+    allow-forms
+    allow-modals
+    allow-orientation-lock
+    allow-pointer-lock
+    allow-popups
+    allow-popups-to-escape-sandbox
+    allow-presentation
+    allow-same-origin
+    allow-scripts
+    allow-storage-access-by-user-activation
+    allow-top-navigation
+    allow-top-navigation-by-user-activation
+    allow-top-navigation-to-custom-protocols
+">
   <script type="text/plain" slot="html">
 {% include html_file %}
   </script>
