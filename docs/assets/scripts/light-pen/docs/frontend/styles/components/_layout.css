@@ -1,0 +1,103 @@
+:is(.index, .doc, .page, .post) kr-layout {
+  background-color: var(--sl-color-neutral-50);
+}
+
+/* .documentation-content {} */
+
+body:is(.index, .doc, .page, .post) kr-layout::part(main-content) {
+	background: var(--body-color);
+}
+
+kr-layout > [slot='aside'] {
+  display: none;
+}
+
+/* Janky hack for iOS mobile */
+.fixed-body {
+  position: fixed;
+  height: var(--viewport-height, 100%);
+  width: 100%;
+  /* Allow the main content to be scrolled,
+  so we can adjust the scroll position with JS. */
+  overflow: auto;
+}
+
+body:is(.default, .home) kr-layout {
+  --menu-width: 0px;
+  --main-width: 1fr;
+  --aside-width: 0px;
+}
+
+kr-layout {
+  --menu-width: auto;
+  --main-width: 105ch;
+  --aside-width: auto;
+}
+
+kr-layout,
+kr-layout::part(skip-links) {
+  background-color: var(--body-color);
+}
+
+kr-layout::part(body) {
+  max-width: 100%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+kr-layout::part(main) {
+  background-color: var(--body-color);
+}
+
+main {
+	max-width: 100%;
+	padding: 0 var(--main-padding-x) 2rem;
+	width: 100%;
+	margin: 0 auto;
+	background-color: var(--body-color);
+	color: var(--text-color);
+}
+
+:is(.default, .home) main {
+  max-width: var(--main-width);
+}
+
+:is(.default, .home) .footer {
+  width: 100vw;
+}
+
+:is(.doc, .index, .page, .post) main {
+	background-color: var(--body-color);
+}
+
+
+@media screen and (min-width: 1360px) {
+  kr-layout > [slot='aside'] {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body:is(.index, .doc, .page, .post) kr-layout::part(main),
+  body:is(.index, .doc, .page, .post) kr-layout::part(menu),
+  body:is(.index, .doc, .page, .post) kr-layout::part(aside) {
+    padding-top: 2rem;
+  }
+
+  .documentation-content {
+    border-radius: 32px;
+  }
+
+	body:is(.index, .doc, .page, .post) kr-layout::part(main) {
+	  background-color: transparent;
+	  margin-inline-end: 16px;
+	  margin-inline-start: 16px;
+
+	}
+
+	body:is(.index, .doc, .page, .post) kr-layout::part(main-content) {
+		box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
+		background: var(--body-color);
+		border-radius: 32px;
+	}
+}

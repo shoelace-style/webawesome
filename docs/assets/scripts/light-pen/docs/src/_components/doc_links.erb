@@ -1,0 +1,5 @@
+<% indexed_docs_by_category(@category).each do |doc| %>
+  <li class="<%= @list_classes %> <%= 'is-active' if doc == @resource %>">
+    <a class="<%= @link_classes %>" href="<%= doc.relative_url %>"><%= doc.data.title %></a>
+  </li>
+<% end %>

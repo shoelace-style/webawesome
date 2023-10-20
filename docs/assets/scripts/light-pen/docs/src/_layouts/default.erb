@@ -1,0 +1,19 @@
+<!doctype html>
+<html class="sl-theme-light" lang="<%= site.locale %>">
+  <head>
+    <%= render "head", metadata: site.metadata, title: resource.data.title %>
+  </head>
+  <body class='<%= "#{resource.data.layout} #{resource.data.page_class}" %>' data-controller="search">
+    <kr-layout main-id="main">
+      <%= render "top_nav", metadata: site.metadata %>
+
+      <%= yield %>
+
+      <%= render "footer", metadata: site.metadata %>
+
+    </kr-layout>
+
+    <%= render "side_nav_mobile" %>
+    <bridgetown-ninja-keys endpoint="<%= site.base_path %>/bridgetown_quick_search/index.json"></bridgetown-ninja-keys>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.metadata.title }}, {{ site.metadata.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.metadata.myvariable }}.
+
+title: Lightweight Components for doing complex things.
+logo: "Light Pen"
+slogan: Lightweight components for doing complex things.
+email: konnor5456@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  A collection of components that don't generally fit a design system, but that I wanted to build.
+github_url: https://github.com/konnorrogers/light-pen
+default_branch: main
+doc_location: docs/src

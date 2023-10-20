@@ -1,0 +1,52 @@
+/** Button */
+.button {
+  padding: 0.4em 0.6em;
+  display: block;
+  position: relative;
+  width: auto;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  border-style: solid;
+  border-width: var(--sl-input-border-width);
+  font-family: var(--sl-input-font-family);
+  font-weight: var(--sl-font-weight-semibold);
+  user-select: none;
+  white-space: nowrap;
+  transition: var(--sl-transition-x-fast) background-color, var(--sl-transition-x-fast) color,
+    var(--sl-transition-x-fast) border, var(--sl-transition-x-fast) box-shadow;
+  background-color: var(--sl-color-neutral-0);
+  border-color: var(--sl-color-neutral-300);
+  color: var(--sl-color-neutral-700);
+  font-size: var(--sl-button-font-size-medium);
+  border-radius: var(--sl-input-border-radius-medium);
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+.button:focus {
+  outline: transparent;
+}
+
+.button:focus-visible {
+  outline: var(--sl-focus-ring);
+  outline-offset: var(--sl-focus-ring-offset);
+
+}
+
+.button:hover {
+  background-color: var(--sl-color-primary-50);
+  border-color: var(--sl-color-primary-300);
+  color: var(--sl-color-primary-700);
+}
+
+.button:active {
+  background-color: var(--sl-color-primary-100);
+  border-color: var(--sl-color-primary-400);
+  color: var(--sl-color-primary-700);
+}
+

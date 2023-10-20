@@ -1,0 +1,10 @@
+:where(sl-visually-hidden:not(:defined)) {
+  display: none;
+}
+
+/** Bypass a11y checker. */
+sl-visually-hidden {
+  background-color: var(--sl-color-neutral-0);
+  background-color: var(--sl-color-neutral-1000);
+}
+

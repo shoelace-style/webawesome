@@ -1,0 +1,195 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 100%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+  scrollbar-gutter: stable;
+  font-family: var(--sl-font-sans);
+	background-color: var(--body-color);
+	color: var(--text-color);
+	display: grid;
+	grid-template-rows: minmax(0, 1fr);
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+body {
+  font-family: var(--sl-font-sans);
+  min-height: 100%;
+}
+
+button {
+  appearance: none;
+  border: none;
+  background: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  scroll-margin-top: calc(80px + 2em);
+  margin: 0;
+  padding: 0;
+  margin-top: var(--sl-spacing-large);
+  margin-bottom: var(--sl-spacing-small);
+}
+
+main p {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+h3, h4 {
+  font-size: 1.1rem;
+}
+
+h5, h6 {
+  font-size: 1.05rem;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0;
+  font-size: 1rem;
+}
+
+p, li {
+  line-height: 1.5;
+}
+
+li {
+  font-size: 1rem;
+}
+
+ul {
+  line-height: 1.8;
+  list-style: disc outside;
+}
+
+ul ul {
+  list-style: circle outside;
+}
+
+ul ul ul {
+  list-style: square outside;
+}
+
+ul ul ul ul {
+  list-style: disc outside;
+}
+
+[tabindex="-1"] {
+  outline: transparent;
+}
+
+a,
+kr-layout::part(skip-link) {
+  word-wrap: anywhere;
+  /* outline: transparent; */
+  /* Unable to distinguish identifier, this makes links obvious */
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: var(--link-color);
+  text-underline-offset: 0.25em;
+  color: var(--link-color);
+  border-radius: 2px;
+  display: inline;
+  padding: 0.25em;
+  margin: -0.25em;
+  line-height: 1.2;
+  transition: all 0.2s;
+}
+
+kr-layout::part(skip-link):is(:hover),
+a:is(:hover) {
+  color: var(--link-color-focus);
+}
+
+
+kr-layout::part(skip-link):is(:focus-visible),
+a:is(:focus-visible) {
+  box-shadow: 0px 0px 3px 3px var(--sl-color-primary-600);
+  outline: transparent;
+  /* for when Safari supports border-radius */
+  /* outline: 3px solid var(--sl-color-primary-600); */
+  /* outline-offset: 4px; */
+}
+
+@supports not selector(:focus-visible) {
+  kr-layout::part(skip-link):is(:focus),
+  a:is(:focus) {
+    box-shadow: 0px 0px 3px 3px var(--sl-color-primary-600);
+    outline: transparent;
+    /* for when Safari supports border-radius */
+    /* outline: 3px solid var(--sl-color-primary-600); */
+    /* outline-offset: 4px; */
+  }
+}
+
+code > span {
+  line-height: var(--sl-line-height-dense);
+}
+
+kbd {
+  font-family: var(--sl-font-mono);
+  font-size: 87.5%;
+  background-color: var(--sl-color-neutral-50);
+  border-radius: 4px;
+  border: solid 1px var(--sl-color-neutral-200);
+  box-shadow: inset 0 1px 0 var(--sl-color-neutral-0);
+  padding: 2px 5px;
+  line-height: 1;
+}
+
+a external-icon {
+  padding-top: 0.25em;
+  font-size: 0.75em;
+  margin-inline-start: -0.15em;
+}
+
+blockquote {
+  border-inline-start: 4px solid var(--divider-color);
+  margin-inline-start: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--sl-color-neutral-50);
+}

@@ -1,0 +1,5 @@
+<% if version_number %>
+  <div style="font-size: var(--sl-font-large); margin-left: 0.5rem;">
+    <%= version_number == "main" ? "main" : "v#{version_number}" %>
+  </div>
+<% end %>

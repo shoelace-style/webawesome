@@ -1,0 +1,48 @@
+baseurl: "" # OPTIONAL: the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. https://example.com
+destination: output
+
+development:
+  url: "localhost:4000"
+# production:
+#   url: "https://konnorrogers.github.io"
+#   base_path: "/light-pen"
+
+template_engine: erb
+permalink: pretty
+
+collections:
+  documentation:
+    output: true
+
+defaults:
+  - scope:
+      path: "images"
+    values:
+      image: true
+
+  - scope:
+      path: "_documentation"
+    values:
+      layout: doc
+      permalink: /:categories/:slug
+      category_order: 0
+      doc_order: 0
+
+  - scope:
+      path: "_documentation/guides"
+    values:
+      category: guides
+      category_order: 10
+
+  - scope:
+      path: "_documentation/components"
+    values:
+      category: components
+      category_order: 20
+
+  - scope:
+      path: "_documentation/references"
+    values:
+      category: references
+      category_order: 30

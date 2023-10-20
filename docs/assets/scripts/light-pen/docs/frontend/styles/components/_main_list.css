@@ -1,0 +1,21 @@
+.main-list {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.main-list__item {
+  padding: 8px;
+  max-width: 100%;
+  line-height: 1.3;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 400px) {
+  .main-list {
+    grid-auto-flow: column;
+  }
+}
+

@@ -1,0 +1,25 @@
+:root,
+html.sl-theme-light,
+html.sl-theme-dark {
+  /* Layout related tokens (anything that affects layout shift) */
+  --z-header: 2;
+  --z-search: 3;
+
+  --top-nav-max-width: 1650px;
+  --body-max-width: 1800px;
+  --side-nav-width: 300px;
+  --main-width: clamp(75ch, 70vw, 100ch);
+  --main-padding-x: 2rem;
+  --input-focus-ring-width: 3px;
+  --input-font-size: var(--sl-font-size-size-medium);
+
+  --input-sm-padding: var(--sl-spacing-2x-small) var(--sl-spacing-x-small);
+  --input-padding: var(--sl-spacing-medium) var(--sl-spacing-large);
+
+  --input-border-width: 1px;
+  --input-border-style: solid;
+  --input-border-radius: 4px;
+
+  --header-height: 58px;
+}
+

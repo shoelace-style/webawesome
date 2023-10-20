@@ -1,0 +1,33 @@
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+  height: auto;
+}
+
+th {
+  text-align: start;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+tr {
+  border-bottom: 1px solid var(--divider-color);
+}
+
+tbody > tr:nth-of-type(2n) {
+  background-color: rgba(0,0,0,0.02);
+}
+
+tbody > tr code {
+  border: 1px solid rgba(0,0,0,0.2);
+}

@@ -1,0 +1,13 @@
+sl-alert {
+  margin: 1rem 0;
+}
+
+sl-alert p {
+  margin: 0;
+  padding: 0;
+}
+
+sl-alert::part(base) {
+  box-shadow: 3px 3px 6px 1px var(--sl-color-neutral-100);
+}
+

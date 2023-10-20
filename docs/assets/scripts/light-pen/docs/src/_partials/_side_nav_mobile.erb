@@ -1,0 +1,21 @@
+<sl-drawer
+  id="side-nav-drawer"
+  hidden
+  no-header
+  placement="start"
+  class="drawer-placement-start side-nav__drawer"
+  style="--size: clamp(400px, 75%, 1536px);"
+  data-controller="side-nav"
+  slot="dialog"
+>
+  <div class="side-nav__drawer__header">
+    <div style="display: flex; align-items: center;">
+      <%= render "logo" %>
+      <%= render "version_number" %>
+    </div>
+    <sl-icon-button name="x-lg" label="Close" data-action="click->side-nav#close"></sl-icon-button>
+  </div>
+
+  <%= render "side_nav_items", id: "side-nav--mobile", classes: "side-nav side-nav--mobile", tabindex: "-1" %>
+  <sl-button slot="footer" type="primary" data-action="click->side-nav#close">Close</sl-button>
+</sl-drawer>

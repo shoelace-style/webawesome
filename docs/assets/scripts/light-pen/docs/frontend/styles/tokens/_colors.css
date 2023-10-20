@@ -1,0 +1,35 @@
+:root,
+html.sl-theme-light,
+html.sl-theme-dark {
+  /** Colors */
+  --text-color: var(--sl-color-neutral-1000);
+  --light-text-color: var(--sl-color-neutral-700);
+  --body-color: var(--sl-color-neutral-0);
+
+  --logo-color: var(--sl-color-neutral-1000);
+
+  --input-border-color: var(--divider-color);
+  --input-bg-color: var(--sl-color-neutral-0);
+  --input-transition: 100ms box-shadow ease-in-out;
+
+  --color-primary: var(--sl-color-primary-600);
+  --text-color-primary: var(--sl-color-primary-700);
+  --link-color: var(--sl-color-primary-700);
+  --link-color-focus: var(--sl-color-primary-500);
+  --divider-color: var(--sl-color-neutral-300);
+  --code-color: hsl(209, 27%, 26%);
+  --code-background-color: hsl(210, 29%, 97%);
+
+  /** Shoelace overrides */
+  /* --sl-color-primary-50: var(--sl-color-emerald-50); */
+  /* --sl-color-primary-100: var(--sl-color-emerald-100); */
+  /* --sl-color-primary-200: var(--sl-color-emerald-200); */
+  /* --sl-color-primary-300: var(--sl-color-emerald-300); */
+  /* --sl-color-primary-400: var(--sl-color-emerald-400); */
+  /* --sl-color-primary-500: var(--sl-color-emerald-500); */
+  /* --sl-color-primary-600: var(--sl-color-emerald-600); */
+  /* --sl-color-primary-700: var(--sl-color-emerald-700); */
+  /* --sl-color-primary-800: var(--sl-color-emerald-800); */
+  /* --sl-color-primary-900: var(--sl-color-emerald-900); */
+  /* --sl-color-primary-950: var(--sl-color-emerald-950); */
+}

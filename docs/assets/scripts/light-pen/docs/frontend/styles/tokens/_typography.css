@@ -1,0 +1,8 @@
+:root,
+html.sl-theme-dark,
+html.sl-theme-light {
+  --sl-font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --sl-font-serif: Georgia, 'Times New Roman', serif;
+  --sl-font-mono:  SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+}

@@ -1,0 +1,42 @@
+/** For for prose sections, blogging concerns, Markdown, etc. */
+
+/** Pretty syntax blocks */
+pre.highlight {
+  padding: 0.85rem 1rem;
+  margin: 0;
+  overflow-x: auto;
+}
+
+code
+.highlighter-rouge,
+.highlight {
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-family: var(--sl-font-mono);
+}
+
+code,
+.highlight,
+.highlighter-rouge {
+  position: relative;
+}
+
+/* Inline code blocks */
+code,
+code.highlight,
+code.highlighter-rouge {
+  /** Layout */
+  display: inline-block;
+  font-size: 0.85em;
+  padding: 0.1em 0.4em;
+  margin: 4px 0;
+  border-radius: 6px;
+  white-space: break-spaces;
+  vertical-align: middle;
+
+  /* Decoration */
+  background-color: var(--code-background-color);
+  color: var(--code-color);
+}
+

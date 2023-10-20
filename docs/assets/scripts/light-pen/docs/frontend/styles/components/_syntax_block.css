@@ -1,0 +1,38 @@
+.syntax-block {
+  position: relative;
+  margin-block-end: 1rem;
+  margin-block-start: 1rem;
+}
+
+.syntax-block {
+  border: 1px solid var(--divider-color);
+  border-radius: var(--sl-border-radius-large);
+}
+
+.syntax-block pre {
+  margin: 0;
+}
+
+.syntax-block__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+}
+
+.syntax-block .highlight {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.syntax-block__badge {
+  font-size: 0.85em;
+  color: var(--sl-color-neutral-700);
+}
+
+:is(.language-bash, .language-shell, .language-zsh, .language-sh).highlighter-rouge pre.highlight::before {
+  content: "$";
+  user-select: none;
+  padding-inline-end: 0.45em;
+  color: gray;
+}

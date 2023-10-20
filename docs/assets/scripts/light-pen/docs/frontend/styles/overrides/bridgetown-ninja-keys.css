@@ -1,0 +1,30 @@
+bridgetown-ninja-keys {
+  /* This is a hacky media query. We do this so that we can guess for mobile devices we should
+  be full height / width so we don't need to deal with dialog scrolling bullshit. */
+  --ninja-top: 0px;
+  --ninja-width: clamp(200px, 100vw, 100ch);
+  --ninja-accent-color: var(--sl-color-primary-600);
+  z-index: 9999;
+}
+
+bridgetown-ninja-keys::part(modal-content) {
+  height: 100%;
+  --ninja-actions-height: 100%;
+  border-radius: 0px;
+}
+
+@media screen and (min-width: 768px) {
+  bridgetown-ninja-keys::part(modal-content) {
+    height: unset;
+
+    --ninja-top: 10vh;
+    --ninja-actions-height: 60vh;
+    --ninja-width: clamp(200px, 90vw, 100ch);
+    border-radius: 8px;
+  }
+}
+
+bridgetown-ninja-keys.dark {
+  --ninja-modal-background: rgba(35, 35, 35, 1);
+  --ninja-text-color: gray;
+}

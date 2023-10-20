@@ -1,0 +1,31 @@
+.blog-link:focus {
+  box-shadow: none;
+}
+
+.blog-link:focus .blog-link__card::part(base) {
+  box-shadow: 0px 0px 4px 1px var(--sl-color-primary-700);
+}
+
+.blog-link__card::part(base) {
+  transform: translateY(0px);
+  transition: transform 0.5s ease-in-out;
+}
+
+.blog-link:is(:focus, :hover) .blog-link__card::part(base) {
+  transform: translateY(-3px);
+}
+
+.blog-link,
+.blog-link:focus {
+  color: var(--sl-color-neutral-700);
+}
+
+.blog-link:is(:hover) {
+  color: var(--sl-color-primary-900);
+}
+
+.blog-link:is(:hover) .blog-link__card::part(base) {
+  border: 1px solid var(--sl-color-primary-700);
+  background-color: var(--sl-color-primary-50);
+}
+

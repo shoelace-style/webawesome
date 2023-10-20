@@ -1,0 +1,39 @@
+.table-of-contents {
+  margin-inline-start: 1rem;
+  min-width: 275px;
+  max-width: 275px;
+}
+
+.table-of-contents * {
+  max-width: 100%;
+}
+
+.table-of-contents__header {
+  margin: 0;
+  padding: 0;
+  padding-top: 1rem;
+  font-weight: normal;
+  color: var(--sl-color-neutral-800);
+  font-size: 1.05rem;
+}
+
+.table-of-contents__list {
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.table-of-contents__list a {
+  text-decoration: none;
+}
+
+.table-of-contents__list li {
+  border-inline-start: 4px solid var(--sl-color-neutral-400);
+  padding-inline-start: 1rem;
+}
+
+.table-of-contents__list li {
+  padding: 0.5rem;
+}
+

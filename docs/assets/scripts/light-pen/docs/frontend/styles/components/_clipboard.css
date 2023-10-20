@@ -1,0 +1,33 @@
+/** Clipboard **/
+.clipboard.clipboard--success:is(:hover, :focus, :active),
+.clipboard.clipboard--success {
+  background-color: var(--sl-color-success-100);
+  border-color: var(--sl-color-success-600);
+  color: var(--sl-color-success-800);
+}
+
+.clipboard {
+  align-items: center;
+}
+
+.clipboard sl-icon {
+  font-size: 1rem;
+}
+
+.clipboard__icon--success, .clipboard__icon--idle {
+  transition: transform .2s ease-in-out;
+}
+
+.clipboard .clipboard__icon--idle,
+.clipboard.clipboard--success .clipboard__icon--success {
+  transform: scale(1);
+}
+
+.clipboard.clipboard--success .clipboard__icon--idle,
+.clipboard.clipboard--idle .clipboard__icon--success {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  transform: scale(0);
+}
+

@@ -1,0 +1,10 @@
+/*
+ * Anything that can be deferred and not cause layout shift.
+ * IE: colors, fonts, syntax highlighting, etc.
+ */
+
+@import "@shoelace-style/shoelace/dist/themes/light.css";
+@import "@shoelace-style/shoelace/dist/themes/dark.css";
+@import "./tokens/_colors.css";
+@import "./defer/_syntax.css";
+@import "./defer/_fonts.css";

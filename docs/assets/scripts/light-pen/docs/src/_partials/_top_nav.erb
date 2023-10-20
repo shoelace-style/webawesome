@@ -1,0 +1,82 @@
+<header class="nav-header" slot="header">
+  <nav class="top-nav" aria-labelledby="top-nav-label">
+    <sl-visually-hidden id="top-nav-label">
+      Main Navigation
+    </sl-visually-hidden>
+
+    <sl-icon-button data-controller="side-nav" data-action="click->side-nav#open" class="top-nav__hamburger__button" name="list" label="Navigation"></sl-icon-button>
+
+    <div class="top-nav__go-home">
+      <%= render "logo" %>
+
+      <%= render "version_number" %>
+    </div>
+
+    <div class="top-nav__search">
+      <sl-icon-button
+         class="top-nav__search__button"
+         name="search"
+         label="Search"
+         data-action="click->search#show">
+      </sl-icon-button>
+
+      <sl-button
+        class="top-nav__command-palette-button"
+        data-action="click->search#show"
+        style="min-width: 100px;"
+        size="medium"
+      >
+        <sl-icon slot="prefix" name="search"></sl-icon>
+        <span>Search...</span>
+        <kbd slot="suffix" style="color: var(--sl-color-neutral-600); padding: 8px">
+          Ctrl+K
+        </kbd>
+      </sl-button>
+    </div>
+
+    <div class="top-nav__links">
+      <div class="top-nav__categories">
+        <%= render "categories" %>
+      </div>
+      <a target="_blank" rel="noreferrer noopener" aria-label="Link to GitHub" href="<%= site.metadata.github_url %>" class="nav-link top-nav__github" no-external-icon>
+        <sl-icon name="github"></sl-icon>
+      </a>
+      <sl-dropdown style="margin-inline-start: 8px;" data-controller="theme-switcher" aria-label="Change site theme">
+        <sl-button slot="trigger" caret>
+          <sl-icon id="light-theme__icon" name="sun"></sl-icon>
+          <sl-icon hidden id="dark-theme__icon" name="moon-stars"></sl-icon>
+          <sl-icon hidden id="auto-theme__icon" name="display"></sl-icon>
+        </sl-button>
+        <sl-menu>
+          <sl-menu-label>
+            Toggle <kbd>\</kbd>
+          </sl-menu-label>
+
+          <sl-divider></sl-divider>
+
+          <sl-menu-item type="checkbox" id="light-theme__menu-item" checked value="light">
+            <span class="theme-item">
+              <sl-icon name="sun"></sl-icon>
+              <span>Light</span>
+            </span>
+          </sl-menu-item>
+
+          <sl-menu-item type="checkbox" id="dark-theme__menu-item" value="dark">
+            <span class="theme-item">
+              <sl-icon name="moon-stars"></sl-icon>
+              <span>Dark</span>
+            </span>
+          </sl-menu-item>
+
+          <sl-menu-item type="checkbox" id="auto-theme__menu-item" value="system">
+            <span class="theme-item">
+              <sl-icon name="display"></sl-icon>
+              <span>System</span>
+            </span>
+          </sl-menu-item>
+        </sl-menu>
+      </sl-dropdown>
+    </div>
+
+  </nav>
+</header>

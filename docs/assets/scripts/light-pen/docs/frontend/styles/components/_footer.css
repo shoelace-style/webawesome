@@ -1,0 +1,7 @@
+.footer {
+  width: 100%;
+  margin-top: auto;
+  padding: var(--sl-spacing-large) var(--sl-spacing-2x-small);
+  text-align: center;
+  background-color: var(--sl-color-neutral-50);
+}

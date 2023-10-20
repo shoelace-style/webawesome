@@ -1,0 +1,21 @@
+.logo__text {
+  color: var(--text-color-primary);
+  font-size: var(--sl-font-size-x-large);
+  padding-bottom: var(--sl-spacing-x-small);
+  margin-bottom: calc(var(--sl-spacing-x-small) - (var(--sl-spacing-x-small) * 2));
+  margin-inline-start: var(--sl-spacing-2x-small);
+}
+
+.site-title,
+.slogan {
+  text-align: center;
+}
+
+.slogan {
+  max-width: max(75%, 600px);
+  margin: 0 auto;
+}
+
+.site-title {
+  margin-top: 0;
+}

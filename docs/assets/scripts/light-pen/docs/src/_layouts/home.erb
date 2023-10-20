@@ -1,0 +1,40 @@
+---
+layout: default
+---
+
+<main id="main" style="margin: 0 auto; --main-width: 100ch;">
+  <div class="hero--mobile">
+    <%= render "logo" %>
+  </div>
+
+  <h1 class="slogan">
+    <%= site.metadata.slogan %>
+  </h1>
+
+  <ul class="call-to-action__items" style="list-style: none;">
+    <% resource.data.call_to_action_items.each do |item| %>
+      <li>
+        <sl-button variant="<%= item[:type] %>" href="<%= item[:href] %>" class="call-to-action" pill>
+          <%= item[:text].to_s.html_safe %>
+        </sl-button>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 class="reason__header" style="margin-top: 2rem;"><%= resource.data.reason_header %></h2>
+
+  <section class="reason__grid">
+    <% resource.data&.reasons&.each do |reason| %>
+      <article>
+        <h3><%= reason[:header] %></h3>
+        <p style="margin: 0; padding: 0.25em var(--sl-spacing-x-small);">
+          <%= reason[:text] %>
+        </p>
+      </article>
+    <% end %>
+  </section>
+
+  <%= yield %>
+</main>
+
+

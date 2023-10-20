@@ -1,0 +1,11 @@
+.nav-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0.5rem;
+  padding-inline-end: 1.5rem;
+  font-size: 1.05em;
+  justify-items: space-between;
+  border-bottom: 1px solid var(--sl-color-neutral-200);
+	background-color: var(--body-color);
+  min-height: var(--header-height);
+}

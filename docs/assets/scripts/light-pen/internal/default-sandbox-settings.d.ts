@@ -1,0 +1,1 @@
+export const defaultSandboxSettings: "\n  allow-forms\n  allow-modals\n  allow-pointer-lock\n  allow-popups\n  allow-scripts\n  allow-downloads\n  allow-orientation-lock\n  allow-pointer-lock\n  allow-popups\n  allow-presentation\n  allow-same-origin\n";

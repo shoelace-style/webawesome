@@ -1,0 +1,24 @@
+.call-to-action__items {
+  margin-top: 1.75rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.reason__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.reason__grid > * {
+  height: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .reason__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

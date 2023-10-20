@@ -1,0 +1,43 @@
+<% if resource.data.layout != "home" %>
+  <div class="pagination-footer">
+    <% previous_page = previous_page_in_category(resource) %>
+    <% next_page = next_page_in_category(resource) %>
+
+    <% if previous_page %>
+      <sl-button class="previous-page" href="<%= previous_page.relative_url %>">
+        <span slot="prefix">
+          <sl-icon name="arrow-left" style="font-size: 1.5rem; display: block;"></sl-icon>
+        </span>
+
+        <span style="text-align: end; display: block;">
+          <span style="display: block; color: var(--sl-color-neutral-500); font-size: 0.85rem;">
+            Previous Page
+          </span>
+          <pagination-title><%= previous_page.data.title %></pagination-title>
+        </span>
+
+      </sl-button>
+    <% else %>
+      <div></div>
+    <% end %>
+
+    <% if next_page %>
+      <sl-button class="next-page" href="<%= next_page.relative_url %>">
+        <span style="text-align: start; display: block;">
+          <span style="display: block; color: var(--sl-color-neutral-500); font-size: 0.85rem;">Next Page</span>
+          <pagination-title>
+            <%= next_page.data.title %>
+          </pagination-title>
+        </span>
+
+        <span slot="suffix">
+          <sl-icon name="arrow-right" style="font-size: 1.5rem; display: block;"></sl-icon>
+        </span>
+
+      </sl-button>
+    <% else %>
+      <div></div>
+    <% end %>
+  </div>
+<% end %>
+

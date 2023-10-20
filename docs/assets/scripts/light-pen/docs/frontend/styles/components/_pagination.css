@@ -1,0 +1,44 @@
+/** Pagination */
+sl-button:is(.previous-page, .next-page) {
+  transition: transform 0.15s;
+}
+
+sl-button:is(.previous-page, .next-page)::part(label) {
+  max-width: calc(100% - 24px);
+  width: 100%;
+  overflow: hidden;
+}
+
+sl-button:is(.next-page)::part(base) {
+  justify-content: start;
+  justify-content: flex-start;
+}
+
+sl-button:is(.previous-page)::part(base) {
+  justify-content: end;
+  justify-content: flex-end;
+}
+
+sl-button:is(.next-page, .previous-page):is(:hover, :focus) {
+  box-shadow: var(--sl-color-neutral-50) 0px 12px 13px;
+  transform: translateY(-2px);
+}
+
+.pagination-footer {
+  padding-top: 2rem;
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+pagination-title {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 1.15rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

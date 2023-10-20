@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<%= render "side_nav" %>
+
+<main id="main" class="documentation-content">
+  <% title_id = resource.data.title.downcase.split(" ").join("-").gsub(/[\?!]/, "") %>
+  <h1 id="<%= title_id %>">
+    <a href="<%= "##{title_id}" %>">
+      <%= resource.data.title.titleize %>
+    </a>
+  </h1>
+
+  <%= yield %>
+
+  <%= render "pagination" %>
+</main>
+
+<%= render "table_of_contents" %>

@@ -1,0 +1,2 @@
+bridgetown: bin/bridgetown start --skip-frontend
+esbuild: pnpm run esbuild-dev

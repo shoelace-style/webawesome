@@ -1,0 +1,1984 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "exports/base-styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "baseStyles",
+          "default": "css`\n*, *:after, *:before {\n  box-sizing: border-box;\n}\n\n.visually-hidden:not(:focus-within) {\n  position: absolute;\n  overflow: hidden;\n  clip: rect(0 0 0 0);\n  clip-path: inset(50%);\n  width: 1px;\n  height: 1px;\n  white-space: nowrap;\n}\n\n[hidden] {\n  display: none !important;\n}\n\n:host {\n  display: block;\n}\n`"
+        },
+        {
+          "kind": "variable",
+          "name": "buttonStyles",
+          "default": "css`\nbutton {\n  appearance: none;\n  -webkit-appearance: none;\n  border: 1px solid transparent;\n  background-color: inherit;\n  padding: 0.4em 0.6em;\n  color: inherit;\n  border-radius: 4px;\n}\n\nbutton:focus-visible {\n  outline: 2px solid hsl(203, 77%, 43%);\n}\n\n@supports not selector(:focus-visible) {\n  button:focus-within {\n    outline: 2px solid hsl(203, 77%, 43%);\n  }\n}\n\nbutton:is(:active, :hover, .is-active) {\n  cursor: pointer;\n  color: hsla(203, 77%, 43%);\n  background-color: hsla(203, 77%, 93%);\n}\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "baseStyles",
+          "declaration": {
+            "name": "baseStyles",
+            "module": "exports/base-styles.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "buttonStyles",
+          "declaration": {
+            "name": "buttonStyles",
+            "module": "exports/base-styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/default-theme.styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "theme",
+          "default": "css`\n/*\nAtom One Light by Daniel Gamage\nOriginal One Light Syntax theme from https://github.com/atom/one-light-syntax\n\nbase:    #fafafa\nmono-1:  #383a42\nmono-2:  #686b77\nmono-3:  #a0a1a7\nhue-1:   #0184bb\nhue-2:   #4078f2\nhue-3:   #a626a4\nhue-4:   #50a14f\nhue-5:   #e45649\nhue-5-2: #c91243\nhue-6:   #986801\nhue-6-2: #c18401\n\n*/\n\n.hljs {\n  color: #383a42;\n  background: #fafafa;\n}\n\n.hljs-comment,\n.hljs-quote {\n  color: #a0a1a7;\n  font-style: italic;\n}\n\n.hljs-doctag,\n.hljs-keyword,\n.hljs-formula {\n  color: #a626a4;\n}\n\n.hljs-section,\n.hljs-name,\n.hljs-selector-tag,\n.hljs-deletion,\n.hljs-subst {\n  color: #e45649;\n}\n\n.hljs-literal {\n  color: #0184bb;\n}\n\n.hljs-string,\n.hljs-regexp,\n.hljs-addition,\n.hljs-attribute,\n.hljs-meta .hljs-string {\n  color: #50a14f;\n}\n\n.hljs-attr,\n.hljs-variable,\n.hljs-template-variable,\n.hljs-type,\n.hljs-selector-class,\n.hljs-selector-attr,\n.hljs-selector-pseudo,\n.hljs-number {\n  color: #986801;\n}\n\n.hljs-symbol,\n.hljs-bullet,\n.hljs-link,\n.hljs-meta,\n.hljs-selector-id,\n.hljs-title {\n  color: #4078f2;\n}\n\n.hljs-built_in,\n.hljs-title.class_,\n.hljs-class .hljs-title {\n  color: #c18401;\n}\n\n.hljs-emphasis {\n  font-style: italic;\n}\n\n.hljs-strong {\n  font-weight: bold;\n}\n\n.hljs-link {\n  text-decoration: underline;\n}\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "theme",
+          "declaration": {
+            "name": "theme",
+            "module": "exports/default-theme.styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/index.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPen",
+            "module": "exports/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-pen-register.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPen",
+            "module": "exports/light-pen-register.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-pen.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LightPen",
+          "cssParts": [
+            {
+              "description": "The base wrapper",
+              "name": "base"
+            },
+            {
+              "description": "The wrapper around the editor and the iframe",
+              "name": "sandbox"
+            },
+            {
+              "description": "The wrapper around the header area",
+              "name": "sandbox-header"
+            }
+          ],
+          "slots": [
+            {
+              "description": "HTML to insert",
+              "name": "html"
+            },
+            {
+              "description": "CSS to insert",
+              "name": "css"
+            },
+            {
+              "description": "JavaScript to insert",
+              "name": "js"
+            },
+            {
+              "description": "The title to appear at the top of the editor",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "baseName",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "\"light-pen\""
+            },
+            {
+              "kind": "field",
+              "name": "languageMap",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{\n    html: \"xml\",\n    css: \"css\",\n    js: \"javascript\"\n  }"
+            },
+            {
+              "kind": "method",
+              "name": "handleTextAreaResize",
+              "parameters": [
+                {
+                  "name": "entries",
+                  "type": {
+                    "text": "ResizeObserverEntry[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateCachedWidth",
+              "description": "Sets an initial width so we dont need to keep computing getBoundingClientRect"
+            },
+            {
+              "kind": "method",
+              "name": "handleResize",
+              "parameters": [
+                {
+                  "name": "entries",
+                  "type": {
+                    "text": "ResizeObserverEntry[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "iframeElem",
+              "description": "Getters / Setters",
+              "return": {
+                "type": {
+                  "text": "null | undefined | HTMLIFrameElement"
+                }
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "highlightCode",
+              "parameters": [
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "{code: string, language: SupportedLanguages}"
+                  }
+                }
+              ],
+              "description": "Override this to use a highlighter of your choice."
+            },
+            {
+              "kind": "method",
+              "name": "unescapeCharacters",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "injectNewLine",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Highlighters strip newlines. But you can see new lines in <textarea>, this fixes that."
+            },
+            {
+              "kind": "method",
+              "name": "updateIframeContent"
+            },
+            {
+              "kind": "method",
+              "name": "inputHandler"
+            },
+            {
+              "kind": "method",
+              "name": "htmlTextAreaChanged",
+              "parameters": [
+                {
+                  "name": "textarea",
+                  "type": {
+                    "text": "HTMLTextAreaElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "cssTextAreaChanged",
+              "parameters": [
+                {
+                  "name": "textarea",
+                  "type": {
+                    "text": "HTMLTextAreaElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "jsTextAreaChanged",
+              "parameters": [
+                {
+                  "name": "textarea",
+                  "type": {
+                    "text": "HTMLTextAreaElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleResizerKeydown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateResizePosition",
+              "parameters": [
+                {
+                  "name": "resizePosition",
+                  "default": "this.resizePosition"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateCode",
+              "description": "Lovely helper to scoop up our html, css, and js code"
+            },
+            {
+              "kind": "method",
+              "name": "resetValues"
+            },
+            {
+              "kind": "method",
+              "name": "keydownHandler",
+              "parameters": [
+                {
+                  "name": "evt",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleTemplate",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderConsole"
+            },
+            {
+              "kind": "method",
+              "name": "handleDrag",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "pixelsToPercentage",
+              "parameters": [
+                {
+                  "name": "pixels",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderDetails",
+              "parameters": [
+                {
+                  "name": "language",
+                  "type": {
+                    "text": "SupportedLanguages"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "resizeObserver",
+              "type": {
+                "text": "ResizeObserver"
+              },
+              "default": "new ResizeObserver((entries) => this.handleResize(entries))"
+            },
+            {
+              "kind": "field",
+              "name": "htmlResizeObserver",
+              "privacy": "public",
+              "type": {
+                "text": "ResizeObserver"
+              },
+              "default": "new ResizeObserver((entries) => this.handleTextAreaResize(entries))"
+            },
+            {
+              "kind": "field",
+              "name": "jsResizeObserver",
+              "privacy": "public",
+              "type": {
+                "text": "ResizeObserver"
+              },
+              "default": "new ResizeObserver((entries) => this.handleTextAreaResize(entries))"
+            },
+            {
+              "kind": "field",
+              "name": "cssResizeObserver",
+              "privacy": "public",
+              "type": {
+                "text": "ResizeObserver"
+              },
+              "default": "new ResizeObserver((entries) => this.handleTextAreaResize(entries))"
+            },
+            {
+              "kind": "field",
+              "name": "resizePosition",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "reflects": true,
+              "default": "50",
+              "attribute": "resize-position"
+            },
+            {
+              "kind": "field",
+              "name": "openLanguages",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Languages to have open on initial render\nComma separated list of elements to open on initial render \"html,css,js\" to open all.",
+              "reflects": true,
+              "default": "\"\"",
+              "attribute": "open-languages"
+            },
+            {
+              "kind": "field",
+              "name": "languages",
+              "privacy": "public",
+              "type": {
+                "text": "Array<SupportedLanguages>"
+              },
+              "default": "[\"html\", \"css\", \"js\"]"
+            },
+            {
+              "kind": "field",
+              "name": "console",
+              "privacy": "public",
+              "type": {
+                "text": "\"enabled\" | \"disabled\""
+              },
+              "description": "Not implemented.",
+              "default": "\"disabled\"",
+              "attribute": "console",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "consoleText",
+              "type": {
+                "text": "string"
+              },
+              "description": "Not implemented.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "htmlReset",
+              "type": {
+                "text": "string"
+              },
+              "description": "What to reset the HTML to.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "cssReset",
+              "type": {
+                "text": "string"
+              },
+              "description": "What to reset the CSS to.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "jsReset",
+              "type": {
+                "text": "string"
+              },
+              "description": "What to reset the JS to.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "sandboxSettings",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "sandbox-settings",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iframeSrcDoc",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "cssCode",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "htmlCode",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "jsCode",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "resizing",
+              "privacy": "public",
+              "ignore": true,
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open-languages",
+              "type": {
+                "text": "string"
+              },
+              "description": "Languages to have open on initial render\nComma separated list of elements to open on initial render \"html,css,js\" to open all.",
+              "default": "\"\"",
+              "fieldName": "openLanguages"
+            },
+            {
+              "name": "resize-position",
+              "type": {
+                "text": "number"
+              },
+              "default": "50",
+              "fieldName": "resizePosition"
+            },
+            {
+              "name": "console",
+              "type": {
+                "text": "\"enabled\" | \"disabled\""
+              },
+              "description": "Not implemented.",
+              "default": "\"disabled\"",
+              "fieldName": "console"
+            },
+            {
+              "name": "sandbox-settings",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "sandboxSettings"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "DefineableMixin",
+              "package": "web-component-define"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "light-pen",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPen",
+            "module": "exports/light-pen.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-pen.styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css`\n[part~=\"sandbox-iframe\"] {\n  width: 100%;\n  height: 100%;\n  border: 1px solid darkgray;\n}\n\n[part~=\"sandbox\"] {\n  color:#272727;\n  display: grid;\n  grid-template-columns: minmax(0, 1fr);\n  grid-template-rows: minmax(0, auto) minmax(0, 1fr);\n}\n\n[part~=\"summary\"] {\n  font-size: .8125rem;\n  font-weight: bold;\n  padding: 0.4rem 0.6rem;\n}\n\n[part~=\"summary\"]:focus {\n  outline: 2px solid blue;\n}\n\n[part~=\"sandbox-editor\"] {\n  display:grid;\n  grid-template-columns: minmax(0, 1fr);\n  grid-template-rows: minmax(0, 1fr);\n  column-gap: 0;\n  row-gap: 0;\n  position: relative;\n  padding-top: 3px;\n  max-height: var(--textarea-height, 33vh);\n}\n\n[part~=\"textarea\"] {\n  position: relative;\n  color: transparent;\n  background-color: transparent;\n  caret-color: black;\n  z-index: 1;\n  resize: vertical;\n}\n\n[part~=\"pre\"] {\n  height: var(--textarea-height, auto);\n  width: var(--textarea-width, auto);\n}\n\n[part~=\"pre\"],\n[part~=\"textarea\"] {\n  grid-area:1/1/2/2;\n  margin-bottom:0;\n  min-height:15em;\n  margin: 0;\n  padding: 0;\n\tdisplay: block;\n\tline-height: 1.5;\n  padding: 8px;\n  border: none;\n  overflow: auto;\n  position: relative;\n\n  /* this creates line-wrapping. */\n\tword-break: break-word;\n  white-space: pre-wrap;\n\n  /* No wrapping */\n\t/* word-break: break-all; */\n  /* white-space: pre; */\n  tab-size: 2;\n}\n\n[part~=\"details\"]:not(:first-child) {\n  margin-top: 6px;\n}\n\n[part~=\"pre\"],\n[part~=\"code\"] {\n\tcolor: #272727;\n\tbackground-color: #f7f7f7;\n}\n\n[part~=\"base\"] {\n\tword-wrap: break-word;\n\tcolor: inherit;\n\tfont-size: 1em;\n}\n\n\n[part~=\"sandbox\"],\n[part~=\"base\"] {\n  height: 100%;\n}\n\n[part~=\"pre\"],\n[part~=\"code\"],\n[part~=\"textarea\"] {\n\tfont-family: Menlo, Monaco, \"Courier New\", monospace;\n\tfont-size: 0.875rem;\n}\n\n[part~=\"sandbox-iframe\"] {\n  aspect-ratio:auto;\n  background-color: #fff;\n  margin-bottom: 0;\n}\n\n[part~=\"base\"],\n[part~=\"pre\"],\n[part~=\"code\"],\n[part~=\"sandbox-iframe\"] {\n  border-radius:.25em;\n}\n\n[part~='sandbox-header'],\n[part~=\"sandbox-console\"],\n[part~=\"sandbox-console-result\"] {\n  background-color:#343d4d;\n  color: #fff;\n}\n\n[part~=\"sandbox-header\"] {\n  display: grid;\n  grid-auto-flow: column;\n  align-items: center;\n  justify-content: space-between;\n  font-size: 0.8125em;\n  border-top-right-radius: 0.25rem;\n  border-top-left-radius: 0.25rem;\n}\n\n[part~=\"sandbox-console\"],\n[part~=\"sandbox-content\"] {\n  border-bottom-right-radius: 0.25rem;\n  border-bottom-left-radius: 0.25rem;\n  background-color: #e5e5e5;\n}\n\n\n[part~='sandbox-controls'] button {\n  margin-bottom: 0;\n}\n\n[part~=\"sandbox-console-log\"] {\n  font-family: Menlo,Monaco,\"Courier New\",monospace;\n  font-size: 0.875em;\n  min-height: 1.2em;\n}\n\n.log-warn {\n  color:#f9d767\n}\n\n.log-error {\n  color:#f9c8c8\n}\n\n[part~=\"sandbox-header\"],\n[part~=\"sandbox-code\"],\n[part~=\"sandbox-iframe-wrapper\"],\n[part~=\"sandbox-console\"],\n[part~=\"sandbox-console-result\"] {\n  padding: 0.5em;\n}\n\n[part~=\"sandbox-code\"] {\n  max-height: 100%;\n  overflow-y: auto;\n}\n\nbutton:where([part~=\"panel-resizer\"]) {\n  height: calc(100% - 0.5em);\n  cursor: col-resize;\n  background-color: white;\n}\n\nbutton[part~=\"panel-resizer\"]:is(:active, :hover, .is-active) {\n  cursor: col-resize;\n}\n\n[resizing],\n[part~=\"panel-resizer\"].is-active {\n  cursor: col-resize;\n}\n\n[part~=\"sandbox-content\"] {\n  display:grid;\n  grid-template-columns: minmax(0,var(--start-panel-width, 1fr)) minmax(0, auto) minmax(0, var(--end-panel-width, 1fr));\n  grid-template-rows: minmax(0, 1fr);\n}\n\n[part~=\"sandbox-iframe-wrapper\"] {\n}\n\n[part~=\"sandbox-console-result\"] {\n  border-top:1px solid #1f252f;\n  border-bottom-left-radius:0;\n}\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "exports/light-pen.styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-preview-base.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "LightPreviewBase is not meant to be used directly, rather its the base implementation of\n  previewing. It comes without a highlight theme or a highlighter. Go to LightPreview for how to\n  implement your own theme and highlighter.",
+          "name": "LightPreviewBase",
+          "cssParts": [
+            {
+              "description": "The base wrapping element",
+              "name": "base"
+            },
+            {
+              "description": "The wrapper around the iframe / div preview showing your code being run in the browser.",
+              "name": "preview"
+            },
+            {
+              "description": "The iframe or preview-div",
+              "name": "start-panel"
+            },
+            {
+              "description": "used for inline previews",
+              "name": "preview-div"
+            },
+            {
+              "description": "used for iframe based previews (default)",
+              "name": "iframe"
+            },
+            {
+              "description": "The button that resizes the panel",
+              "name": "panel-resizer"
+            },
+            {
+              "description": "The white space when dragging the resizer",
+              "name": "end-panel"
+            },
+            {
+              "description": "The details element that shows the source code",
+              "name": "source-details"
+            },
+            {
+              "description": "The div that wraps the <pre> + <code> elements containing your highlighted code",
+              "name": "code-wrapper"
+            },
+            {
+              "description": "The <pre> element wrapping the source code",
+              "name": "pre"
+            },
+            {
+              "description": "The <code>  element wrapping the source code",
+              "name": "code"
+            },
+            {
+              "description": "The buttons at the bottom of the code previewer",
+              "name": "actions"
+            },
+            {
+              "description": "The button to show the source code",
+              "name": "source-code-toggle"
+            },
+            {
+              "description": "The caret icon in the source code toggle",
+              "name": "source-code-toggle-icon"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The icon to display in the resizer button. Override this to provide your own icon.",
+              "name": "resize-icon"
+            },
+            {
+              "description": "What to display in source code expander",
+              "name": "summary"
+            },
+            {
+              "description": "Slot in your own icon to override the default caret.",
+              "name": "source-code-toggle-icon"
+            },
+            {
+              "description": "Slot in buttons / links to allow for additional actions in the bottom bar.",
+              "name": "actions"
+            },
+            {
+              "description": "If you want to run code that is slightly different from the source code you want to display, slot it into \"preview-code\"",
+              "name": "preview-code"
+            },
+            {
+              "description": "Used to display both source code and to power your preview in the iframe. If you slot in \"preview-code\", then it will only be used to show / highlight your source code.",
+              "name": "code"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "baseName",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "\"light-preview-base\""
+            },
+            {
+              "kind": "method",
+              "name": "resetIframeCodeMutationObserver",
+              "description": "Reinstalls the mutation on slotted preview-code"
+            },
+            {
+              "kind": "method",
+              "name": "resetCodeMutationObserver",
+              "description": "Reinstalls the mutation observer on slotted code"
+            },
+            {
+              "kind": "method",
+              "name": "handleMutation",
+              "parameters": [
+                {
+                  "name": "variable",
+                  "type": {
+                    "text": "\"preview-code\" | \"code\""
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "findSlot",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "return": {
+                "type": {
+                  "text": "HTMLSlotElement | null | undefined"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleTemplate",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event | { target?: undefined | null | HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "unescapePreviewCode"
+            },
+            {
+              "kind": "method",
+              "name": "updateIframeContent"
+            },
+            {
+              "kind": "method",
+              "name": "escapeCharacters",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "unescapeCharacters",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateCachedWidth",
+              "description": "Sets an initial width so we dont need to keep computing getBoundingClientRect"
+            },
+            {
+              "kind": "method",
+              "name": "handleResize",
+              "parameters": [
+                {
+                  "name": "entries",
+                  "type": {
+                    "text": "ResizeObserverEntry[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "highlight",
+              "parameters": [
+                {
+                  "name": "code",
+                  "default": "this.code"
+                }
+              ],
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "panelResizer",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "handleDrag",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ],
+              "description": "Drag stuff"
+            },
+            {
+              "kind": "method",
+              "name": "updateResizePosition",
+              "parameters": [
+                {
+                  "name": "resizePosition",
+                  "default": "this.resizePosition"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleResizerKeydown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "pixelsToPercentage",
+              "parameters": [
+                {
+                  "name": "pixels",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sandboxSettings",
+              "privacy": "public",
+              "description": "The sandbox settings to provide to the <iframe>",
+              "default": "defaultSandboxSettings",
+              "attribute": "sandbox-settings",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "privacy": "public",
+              "description": "The text to provide in the <details> toggle button",
+              "default": "\"Show source code\"",
+              "attribute": "summary",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "highlightLanguage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "The language to highlight for.",
+              "default": "\"html\"",
+              "attribute": "highlight-language",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "inlinePreview",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Set to true to not use an <iframe> for previewing",
+              "default": "false",
+              "attribute": "inline-preview"
+            },
+            {
+              "kind": "field",
+              "name": "resizing",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When the resizer is being dragged, this will be true.",
+              "default": "false",
+              "attribute": "resizing",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disableHighlight",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If disabled, its on you to provide `<pre><code></code></pre>`",
+              "default": "false",
+              "attribute": "disable-highlight"
+            },
+            {
+              "kind": "field",
+              "name": "code",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "We will take the code, wrap it in `<pre><code></code></pre>` and run it through\nHighlight.js.\nIf the element has `disableHighlight`, we will not touch their code. Instead they must pass in escapedHTML.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "baseUrl",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "The baseUrl to use for fetching assets. This maps to a `<base href=${this.baseUrl}>` inside of the `<iframe>`",
+              "default": "\"\"",
+              "attribute": "base-url",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "previewCode",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "If `disableHighlight` is true, then you must pass in an element into `previewCode` to be able to get\n  the code to run in the previewer.",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether or not the source code is being shown",
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "resizePosition",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "The current position of the resizer. 100 means all the way to right. 0 means all the way to left.",
+              "default": "100",
+              "attribute": "resize-position",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iframeSrcDoc",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "iframe-src-doc",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "summary",
+              "description": "The text to provide in the <details> toggle button",
+              "default": "sourceCodeFallback",
+              "resolveInitializer": {
+                "module": "exports/light-preview-base.js"
+              },
+              "fieldName": "summary"
+            },
+            {
+              "name": "sandbox-settings",
+              "description": "The sandbox settings to provide to the <iframe>",
+              "default": "defaultSandboxSettings",
+              "resolveInitializer": {
+                "module": "/internal/default-sandbox-settings.js"
+              },
+              "fieldName": "sandboxSettings"
+            },
+            {
+              "name": "highlight-language",
+              "type": {
+                "text": "string"
+              },
+              "description": "The language to highlight for.",
+              "default": "\"html\"",
+              "fieldName": "highlightLanguage"
+            },
+            {
+              "name": "inline-preview",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Set to true to not use an <iframe> for previewing",
+              "default": "false",
+              "fieldName": "inlinePreview"
+            },
+            {
+              "name": "disable-highlight",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If disabled, its on you to provide `<pre><code></code></pre>`",
+              "default": "false",
+              "fieldName": "disableHighlight"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether or not the source code is being shown",
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "base-url",
+              "type": {
+                "text": "string"
+              },
+              "description": "The baseUrl to use for fetching assets. This maps to a `<base href=${this.baseUrl}>` inside of the `<iframe>`",
+              "default": "\"\"",
+              "fieldName": "baseUrl"
+            },
+            {
+              "name": "resize-position",
+              "type": {
+                "text": "number"
+              },
+              "description": "The current position of the resizer. 100 means all the way to right. 0 means all the way to left.",
+              "default": "100",
+              "fieldName": "resizePosition"
+            },
+            {
+              "name": "resizing",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When the resizer is being dragged, this will be true.",
+              "default": "false",
+              "fieldName": "resizing"
+            },
+            {
+              "name": "iframe-src-doc",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "iframeSrcDoc"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "DefineableMixin",
+              "package": "web-component-define"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "light-preview-base",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPreviewBase",
+            "module": "exports/light-preview-base.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-preview-register.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPreview",
+            "module": "exports/light-preview-register.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-preview.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "LightPreview is a very lightweight code previewer designed to load your code sample\n  inside of an iFrame for encapsulated viewing. `<light-preview>` uses HighlightJS as it's\n  default highlighter, but has a base class intended for extending.",
+          "name": "LightPreview",
+          "members": [
+            {
+              "kind": "field",
+              "name": "baseName",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "\"light-preview\"",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "highlight",
+              "parameters": [
+                {
+                  "name": "code",
+                  "default": "this.code"
+                }
+              ],
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetIframeCodeMutationObserver",
+              "description": "Reinstalls the mutation on slotted preview-code",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetCodeMutationObserver",
+              "description": "Reinstalls the mutation observer on slotted code",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleMutation",
+              "parameters": [
+                {
+                  "name": "variable",
+                  "type": {
+                    "text": "\"preview-code\" | \"code\""
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "findSlot",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "return": {
+                "type": {
+                  "text": "HTMLSlotElement | null | undefined"
+                }
+              },
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleTemplate",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event | { target?: undefined | null | HTMLSlotElement }"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unescapePreviewCode",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateIframeContent",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "escapeCharacters",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unescapeCharacters",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateCachedWidth",
+              "description": "Sets an initial width so we dont need to keep computing getBoundingClientRect",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleResize",
+              "parameters": [
+                {
+                  "name": "entries",
+                  "type": {
+                    "text": "ResizeObserverEntry[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "panelResizer",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleDrag",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ],
+              "description": "Drag stuff",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateResizePosition",
+              "parameters": [
+                {
+                  "name": "resizePosition",
+                  "default": "this.resizePosition"
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleResizerKeydown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "pixelsToPercentage",
+              "parameters": [
+                {
+                  "name": "pixels",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sandboxSettings",
+              "privacy": "public",
+              "description": "The sandbox settings to provide to the <iframe>",
+              "default": "defaultSandboxSettings",
+              "attribute": "sandbox-settings",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "privacy": "public",
+              "description": "The text to provide in the <details> toggle button",
+              "default": "\"Show source code\"",
+              "attribute": "summary",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "highlightLanguage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "The language to highlight for.",
+              "default": "\"html\"",
+              "attribute": "highlight-language",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "inlinePreview",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Set to true to not use an <iframe> for previewing",
+              "default": "false",
+              "attribute": "inline-preview",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "resizing",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When the resizer is being dragged, this will be true.",
+              "default": "false",
+              "attribute": "resizing",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableHighlight",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If disabled, its on you to provide `<pre><code></code></pre>`",
+              "default": "false",
+              "attribute": "disable-highlight",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "code",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "We will take the code, wrap it in `<pre><code></code></pre>` and run it through\nHighlight.js.\nIf the element has `disableHighlight`, we will not touch their code. Instead they must pass in escapedHTML.",
+              "default": "\"\"",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "baseUrl",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "The baseUrl to use for fetching assets. This maps to a `<base href=${this.baseUrl}>` inside of the `<iframe>`",
+              "default": "\"\"",
+              "attribute": "base-url",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "previewCode",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "If `disableHighlight` is true, then you must pass in an element into `previewCode` to be able to get\n  the code to run in the previewer.",
+              "default": "\"\"",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether or not the source code is being shown",
+              "default": "false",
+              "attribute": "open",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "resizePosition",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "The current position of the resizer. 100 means all the way to right. 0 means all the way to left.",
+              "default": "100",
+              "attribute": "resize-position",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "iframeSrcDoc",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "iframe-src-doc",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LightPreviewBase",
+            "module": "/exports/light-preview-base.js"
+          },
+          "tagName": "light-preview",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "summary",
+              "description": "The text to provide in the <details> toggle button",
+              "default": "sourceCodeFallback",
+              "resolveInitializer": {
+                "module": "exports/light-preview-base.js"
+              },
+              "fieldName": "summary",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "sandbox-settings",
+              "description": "The sandbox settings to provide to the <iframe>",
+              "default": "defaultSandboxSettings",
+              "resolveInitializer": {
+                "module": "/internal/default-sandbox-settings.js"
+              },
+              "fieldName": "sandboxSettings",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "highlight-language",
+              "type": {
+                "text": "string"
+              },
+              "description": "The language to highlight for.",
+              "default": "\"html\"",
+              "fieldName": "highlightLanguage",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "inline-preview",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Set to true to not use an <iframe> for previewing",
+              "default": "false",
+              "fieldName": "inlinePreview",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "disable-highlight",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If disabled, its on you to provide `<pre><code></code></pre>`",
+              "default": "false",
+              "fieldName": "disableHighlight",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether or not the source code is being shown",
+              "default": "false",
+              "fieldName": "open",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "base-url",
+              "type": {
+                "text": "string"
+              },
+              "description": "The baseUrl to use for fetching assets. This maps to a `<base href=${this.baseUrl}>` inside of the `<iframe>`",
+              "default": "\"\"",
+              "fieldName": "baseUrl",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "resize-position",
+              "type": {
+                "text": "number"
+              },
+              "description": "The current position of the resizer. 100 means all the way to right. 0 means all the way to left.",
+              "default": "100",
+              "fieldName": "resizePosition",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "resizing",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When the resizer is being dragged, this will be true.",
+              "default": "false",
+              "fieldName": "resizing",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            },
+            {
+              "name": "iframe-src-doc",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "iframeSrcDoc",
+              "inheritedFrom": {
+                "name": "LightPreviewBase",
+                "module": "exports/light-preview-base.js"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "LightPreview",
+            "module": "exports/light-preview.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "exports/light-preview.styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "previewStyles",
+          "default": "css`\n:host {\n  --border-color: lightgray;\n}\n:host,\n[part~=\"base\"] {\n  max-width: 100%;\n}\n\n:host([resizing]) [part=~\"base\"] {\n  cursor: col-resize;\n}\n\n[part~=\"base\"] {\n  border: 1px solid var(--border-color);\n  border-radius: 3px;\n  display: grid;\n  grid-template-columns: minmax(0, 1fr);\n  grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);\n  height: 100%;\n}\n\n[part~=\"panel-resizer\"] {\n  border-radius: 0;\n  border-inline-start: 1px solid var(--border-color);\n}\n\n:host(:not([resize-position=\"100\"])) [part~=\"panel-resizer\"] {\n  border-inline-end: 1px solid var(--border-color);\n}\n\n[part~=\"preview\"] {\n  display: grid;\n  grid-template-columns: minmax(0, var(--start-panel-width, 1fr)) minmax(0, auto) minmax(0, var(--end-panel-width, auto));\n  overflow: auto;\n  max-height: 100%;\n  resize: vertical;\n}\n\n[part~=\"start-panel\"] {\n  padding: 1rem;\n}\n\niframe {\n  height: 100%;\n  width: 100%;\n}\n\n[part~=\"pre\"] {\n  padding: 1rem;\n  margin: 0;\n  overflow: auto;\n}\n\n[part~=\"pre\"],\n[part~=\"code\"] {\n  line-height: 1.6;\n}\n\n[part~=\"end-panel\"] {\n  background-color: rgba(0,0,0,0.025);\n}\n\n[part~=\"code-wrapper\"] {\n  border-top: 1px solid var(--border-color);\n}\n\n[part~=\"pre\"],\n[part~=\"code\"] {\n\tcolor: #272727;\n\tbackground-color: #f7f7f7;\n}\n\n[part~=\"actions\"] {\n  display: grid;\n  align-items: center;\n  grid-auto-flow: column;\n  grid-template-columns: minmax(0, 1fr) repeat(auto-fill, minmax(0, auto));\n}\n\nbutton[part~=\"source-code-toggle\"] {\n  display: grid;\n  grid-auto-flow: column;\n  align-items: center;\n  justify-content: center;\n  border-top-left-radius: 0px;\n  border-top-right-radius: 0px;\n  border-top: 1px solid var(--border-color);\n  min-height: 100%;\n  font-size: 1rem;\n  padding: 0.75rem;\n}\n\n[part~=\"source-code-toggle\"][aria-expanded=\"true\"] svg {\n  transform: rotate(180deg);\n}\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "previewStyles",
+          "declaration": {
+            "name": "previewStyles",
+            "module": "exports/light-preview.styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/clamp.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "clamp",
+          "parameters": [
+            {
+              "name": "min",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "curr",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "clamp",
+          "declaration": {
+            "name": "clamp",
+            "module": "internal/clamp.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/debounce.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "debounce",
+          "parameters": [
+            {
+              "name": "callback",
+              "type": {
+                "text": "T"
+              }
+            },
+            {
+              "name": "wait",
+              "default": "0",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "debounce",
+          "declaration": {
+            "name": "debounce",
+            "module": "internal/debounce.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/dedent.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "dedent",
+          "parameters": [
+            {
+              "name": "templateStrings",
+              "type": {
+                "text": "TemplateStringsArray|string"
+              }
+            },
+            {
+              "name": "values",
+              "type": {
+                "text": "any[]"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "dedent",
+          "declaration": {
+            "name": "dedent",
+            "module": "internal/dedent.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/default-sandbox-settings.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "defaultSandboxSettings",
+          "default": "`\n  allow-forms\n  allow-modals\n  allow-pointer-lock\n  allow-popups\n  allow-scripts\n  allow-downloads\n  allow-orientation-lock\n  allow-pointer-lock\n  allow-popups\n  allow-presentation\n  allow-same-origin\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "defaultSandboxSettings",
+          "declaration": {
+            "name": "defaultSandboxSettings",
+            "module": "internal/default-sandbox-settings.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/drag.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drag",
+          "parameters": [
+            {
+              "name": "container",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "Partial<DragOptions>"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "drag",
+          "declaration": {
+            "name": "drag",
+            "module": "internal/drag.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/resize-icon.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "resizeIcon",
+          "default": "html`<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-grip-vertical\" viewBox=\"0 0 16 16\" part=\"svg\"><path d=\"M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z\"></path></svg>`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "resizeIcon",
+          "declaration": {
+            "name": "resizeIcon",
+            "module": "internal/resize-icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "internal/string-map.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "stringMap",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "text": "Record<string, unknown>"
+              }
+            },
+            {
+              "name": "spacer",
+              "default": "\" \""
+            }
+          ],
+          "return": {
+            "type": {
+              "text": "Record<string, boolean>"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "stringMap",
+          "declaration": {
+            "name": "stringMap",
+            "module": "internal/string-map.js"
+          }
+        }
+      ]
+    }
+  ]
+}

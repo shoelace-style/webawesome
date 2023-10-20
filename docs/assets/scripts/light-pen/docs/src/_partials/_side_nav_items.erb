@@ -1,0 +1,10 @@
+<nav id="<%= locals[:id] %>" slot="<%= locals[:slot] %>" aria-label="Side Nav" tabindex="-1" class="<%= locals[:classes] %>" data-preserve-scroll>
+  <ul class="side-nav__menu">
+    <% ordered_categories_hash_map.each do |hash| %>
+      <ul class="side-nav__category-menu">
+        <li class="side-nav__category-header"><a class="side-nav__category-link" href="<%= hash[:url] %>"><%= hash[:text] %></a></li>
+        <%= render(DocLinks.new(category: hash[:category], resource: resource, list_classes: "side-nav__item", link_classes: "side-nav__link")) %>
+      </ul>
+    <% end %>
+  </ul>
+</nav>

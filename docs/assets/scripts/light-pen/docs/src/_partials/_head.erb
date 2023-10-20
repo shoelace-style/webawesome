@@ -1,0 +1,85 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<% resource_title = strip_html(strip_newlines(title)) || site.metadata.title %>
+<title><%= resource_title %></title>
+
+<!-- <base href="<%= site.config.base_path %>/"> -->
+
+<meta name="description" content="<%= metadata.description %>" />
+<link rel="modulepreload" href="<%= find_asset "frontend/javascript/index.js" %>">
+<link rel="modulepreload" href="<%= find_asset "frontend/javascript/defer.js" %>">
+<link rel="preload" href="<%= find_asset "frontend/javascript/defer.css" %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<!-- Critical CSS -->
+<link rel="stylesheet" data-turbo-track="reload" href="<%= find_asset "frontend/javascript/index.css" %>" />
+<!-- Deferred CSS -->
+<noscript><link rel="stylesheet" href="<%= find_asset "frontend/javascript/defer.css" %>"></noscript>
+
+<!-- Entrypoints -->
+<script data-turbo-track="reload" src="<%= find_asset "frontend/javascript/index.js" %>" type="module"></script>
+<script data-turbo-track="reload" src="<%= find_asset "frontend/javascript/defer.js" %>" type="module"></script>
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="<%= site.config.base_url %>/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<%= site.config.base_url %>/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="<%= site.config.base_url %>/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ec4899">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="turbo-cache-control" content="no-preview" />
+
+<!-- Social stuff -->
+<%# <meta property="og:image" content="https://mrujs.com/images/mugshot.jpeg"> %>
+<%# <meta property="twitter:card" content="summary_large_image"> %>
+<%# <meta property="twitter:title" content="<%= resource_title %1>"> %>
+
+<script>
+  function getTheme () {
+    return localStorage.getItem('theme') || 'system';
+  }
+
+  function setTheme (theme) {
+    localStorage.setItem('theme', theme);
+  }
+
+  function themeIsDark() {
+    const theme = getTheme()
+    if (theme === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return theme === 'dark';
+  }
+
+  function applyTheme(newTheme) {
+    const noTransitions = Object.assign(document.createElement('style'), {
+      textContent: '* { transition: none !important; }'
+    });
+
+    this.setTheme(newTheme)
+
+    setTimeout(() => {
+      ;[...document.querySelectorAll("[data-controller='theme-switcher'] sl-menu-item")].forEach((el) => {
+        el.toggleAttribute("checked", el.getAttribute("value") === newTheme)
+      })
+    })
+
+
+    // Toggle the dark mode class without transitions
+    document.documentElement.append(noTransitions);
+    requestAnimationFrame(() => {
+      const darkMode = themeIsDark()
+      document.documentElement.classList.toggle("sl-theme-light", !darkMode)
+      document.documentElement.classList.toggle("sl-theme-dark", darkMode)
+      const ninjaKeys = document.querySelector("bridgetown-ninja-keys")
+      if (ninjaKeys) {
+        ninjaKeys.classList.toggle("dark", darkMode)
+      }
+      requestAnimationFrame(() => noTransitions.remove());
+    });
+  }
+
+  applyTheme(getTheme())
+</script>
+
+
+<%= live_reload_dev_js %>
