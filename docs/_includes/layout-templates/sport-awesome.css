@@ -129,7 +129,8 @@ wa-layout[view="mobile"] .navigation--desktop {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(175px, 100%, 400px), 1fr));
+  /** 30vw ensures we never show more than 3 tables in the viewport at any given time. */
+  grid-template-columns: repeat(auto-fit, minmax(clamp(225px, 30vw, 100%), 1fr));
   gap: var(--wa-space-base);
   grid-template-rows: 1fr;
   align-items: start;
