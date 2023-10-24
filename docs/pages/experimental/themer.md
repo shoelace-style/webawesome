@@ -49,7 +49,7 @@ toc: false
   container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
     themeStylesheet.href = `/dist/themes/${event.target.value}.css`;
   });
-  
+
   // Heading text
   container.querySelector('[name="heading-text"]').addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
@@ -167,7 +167,7 @@ toc: false
           <wa-alert variant="warning" open>
             <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
             It's a trap!
-          </wa-alert> 
+          </wa-alert>
           <wa-radio-group label="Faction" value="2">
             <wa-radio value="1">Galactic Empire</wa-radio>
             <wa-radio value="2">Rebel Alliance</wa-radio>
@@ -226,7 +226,7 @@ toc: false
     padding: 0 var(--wa-space-m);
     z-index: 1;
   }
-  
+
   .overlap::after {
     content: '';
     position: absolute;
@@ -264,7 +264,7 @@ toc: false
   }
 
   .overlap .image #fighters {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), black 30%); 
+    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), black 30%);
   }
 
   .overlap .image #upper_clouds {
@@ -295,6 +295,7 @@ toc: false
     margin-block-start: var(--wa-space-m);
   }
 
+  .cards wa-card::part(body),
   .cards wa-card::part(base) {
     height: 100%;
   }
@@ -303,6 +304,11 @@ toc: false
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    height: 100%;
+  }
+
+  .space-vertically > *:last-child {
+    margin-top: auto;
   }
 
   wa-select[label="Signet"]::part(form-control-help-text) {
