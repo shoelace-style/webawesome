@@ -15,19 +15,19 @@ export default css`
 
     --banner-height: 0px;
     --header-height: 0px;
-    --sub-header-height: 0px;
+    --subheader-height: 0px;
   }
 
-  :host([disable-sticky~='banner']) :is([part~='header'], [part~='sub-header']) {
+  :host([disable-sticky~='banner']) :is([part~='header'], [part~='subheader']) {
     --banner-height: 0px !important;
   }
 
-  :host([disable-sticky~='header']) [part~='sub-header'] {
+  :host([disable-sticky~='header']) [part~='subheader'] {
     --header-height: 0px !important;
   }
 
-  /* Nothing else depends on sub-header-height. */
-  :host([disable-sticky~='sub-header']) {
+  /* Nothing else depends on subheader-height. */
+  :host([disable-sticky~='subheader']) {
   }
 
   :host([disable-sticky~='aside']) [part~='aside'],
@@ -38,7 +38,7 @@ export default css`
 
   :host([disable-sticky~='banner']) [part~='banner'],
   :host([disable-sticky~='header']) [part~='header'],
-  :host([disable-sticky~='sub-header']) [part~='sub-header'],
+  :host([disable-sticky~='subheader']) [part~='subheader'],
   :host([disable-sticky~='aside']) [part~='aside'],
   :host([disable-sticky~='menu']) [part~='menu'] {
     position: static;
@@ -51,6 +51,11 @@ export default css`
     max-height: auto;
   }
 
+  /* Hide nav toggles in desktop view */
+  :host([view='desktop']) ::slotted([data-toggle-nav]) {
+    display: none !important;
+  }
+
   [part~='base'] {
     min-height: 100%;
     display: grid;
@@ -60,7 +65,7 @@ export default css`
     grid-template-areas:
       'banner'
       'header'
-      'sub-header'
+      'subheader'
       'body'
       'footer';
   }
@@ -74,8 +79,8 @@ export default css`
     grid-area: header;
   }
 
-  [part~='sub-header'] {
-    grid-area: sub-header;
+  [part~='subheader'] {
+    grid-area: subheader;
   }
 
   [part~='menu'] {
@@ -101,7 +106,7 @@ export default css`
   /* Z-indexes */
   [part~='banner'],
   [part~='header'],
-  [part~='sub-header'] {
+  [part~='subheader'] {
     position: sticky;
     z-index: 5;
   }
@@ -114,7 +119,7 @@ export default css`
     top: var(--banner-height);
   }
 
-  [part~='sub-header'] {
+  [part~='subheader'] {
     top: calc(var(--header-height) + var(--banner-height));
   }
 
@@ -150,22 +155,41 @@ export default css`
     grid-area: main-footer;
   }
 
-  .skip-links {
-    position: absolute;
-    z-index: 6;
-    padding: 0.25rem;
+  /* Visually hidden */
+  .skip-to-content:not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
+  }
 
-    /* This looks silly, but without this our skip links get flagged by a11y checkers. */
-    background-color: var(--wa-color-neutral-0);
+  .skip-to-content {
+    position: absolute;
+    top: var(--wa-space-m);
+    left: var(--wa-space-m);
+    z-index: 6;
+    border-radius: var(--wa-corners-1x);
+    background-color: var(--wa-color-surface-default);
+    color: var(--wa-color-text-link);
+    text-decoration: none;
+    padding: var(--wa-space-s) var(--wa-space-m);
+    box-shadow: var(--wa-shadow-level-3);
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   [part~='menu'],
   [part~='aside'] {
     position: sticky;
-    top: calc(var(--banner-height) + var(--header-height) + var(--sub-header-height));
+    top: calc(var(--banner-height) + var(--header-height) + var(--subheader-height));
     z-index: 4;
-    height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--sub-header-height));
-    max-height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--sub-header-height));
+    height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--subheader-height));
+    max-height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--subheader-height));
     overflow: auto;
   }
 

@@ -7,7 +7,6 @@
   --docs-content-padding: 2rem;
   --docs-content-vertical-spacing: 2rem;
   --docs-search-overlay-background: rgb(0 0 0 / 0.2);
-  --docs-skip-to-main-width: 200px;
 }
 
 /* Light theme */
@@ -650,18 +649,17 @@ html.sidebar-open #menu-toggle {
 }
 
 /* Skip to main content */
-#skip-to-main {
+#skip-to-content {
   position: fixed;
-  top: 0.25rem;
-  left: calc(50% - var(--docs-skip-to-main-width) / 2);
+  top: var(--wa-space-m);
+  left: var(--wa-space-m);
   z-index: 100;
-  width: var(--docs-skip-to-main-width);
   text-align: center;
   text-decoration: none;
   border-radius: 9999px;
   background: var(--wa-color-surface-default);
   color: var(--wa-color-text-normal);
-  padding: 0.5rem;
+  padding: var(--wa-space-s);
 }
 
 /* Print styles */
