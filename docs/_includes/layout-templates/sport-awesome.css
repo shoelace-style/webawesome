@@ -4,10 +4,9 @@ html {
 }
 
 body {
-  padding: 0;
+  padding: 0 !important;
   height: auto;
-  --wa-color-brand-fill-vivid: var(--wa-color-blue-20);
-  margin: 0 auto;
+  margin: 0;
 }
 
 /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
@@ -49,26 +48,26 @@ img {
 
 .header {
   display: flex;
-  border-bottom: 1px solid var(--wa-color-brand-fill-vivid);
+  border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-fill-vivid-alt);
   background-color: var(--wa-color-white);
 }
 
 .header > * {
-  padding-top: var(--wa-space-base);
-  padding-bottom: var(--wa-space-base);
+  padding-top: var(--wa-space-m);
+  padding-bottom: var(--wa-space-m);
 }
 
 .header__navigation {
   display: flex;
-  clip-path: polygon(2rem 0,100% 0,100% 100%,0 100%);
-  padding-inline-start: 2.5rem;
-  padding-inline-end: var(--wa-space-base);
-  background-color: var(--wa-color-brand-fill-vivid);
+  clip-path: polygon(var(--wa-space-2xl) 0,100% 0,100% 100%,0 100%);
+  padding-inline-start: calc(var(--wa-space-2xl) + var(--wa-space-xs));
+  padding-inline-end: var(--wa-space-m);
+  background-color: var(--wa-color-brand-fill-vivid-alt);
   width: 100%;
 }
 
 .header > .logo {
-  padding-inline-start: var(--wa-space-base);
+  padding-inline-start: var(--wa-space-m);
   /** Responsive font size for the top header to make it flow nicer */
   font-size: clamp(1rem, 4vw, 1.4rem);
 }
@@ -101,7 +100,11 @@ a.logo:is(:hover, :focus) {
   text-decoration: underline;
   text-underline-offset: 8px;
   text-decoration-thickness: 4px;
-  text-decoration-color: var(--wa-color-red-50);
+  text-decoration-color: var(--wa-color-brand-outline-muted-alt);
+}
+
+.navigation--desktop wa-nav-item[current="page"]:hover {
+  text-decoration-color: var(--wa-color-brand-outline-vivid);
 }
 
 .navigation--extra {
@@ -122,7 +125,7 @@ wa-layout[view="mobile"] .navigation--desktop {
 }
 
 .layout-banner {
-  padding: var(--wa-space-base);
+  padding: var(--wa-space-m);
   text-align: center;
   background-color: var(--wa-color-yellow-80);
 }
@@ -131,7 +134,7 @@ wa-layout[view="mobile"] .navigation--desktop {
   display: grid;
   /** 30vw ensures we never show more than 3 tables in the viewport at any given time. */
   grid-template-columns: repeat(auto-fit, minmax(clamp(225px, 30vw, 100%), 1fr));
-  gap: var(--wa-space-base);
+  gap: var(--wa-space-m);
   grid-template-rows: 1fr;
   align-items: start;
   max-width: 100%;
@@ -140,8 +143,8 @@ wa-layout[view="mobile"] .navigation--desktop {
 .stats-grid table {
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 8px;
-  border: 1px solid var(--wa-color-surface-outline);
+  border-radius: var(--wa-panel-corners);
+  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-outline);
 }
 
 
