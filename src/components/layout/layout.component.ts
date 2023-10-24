@@ -75,7 +75,7 @@ export default class WaLayout extends WebAwesomeElement {
   /**
    * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
    */
-  @property({ attribute: 'nav-open', reflect: true, type: Boolean  }) navOpen = false;
+  @property({ attribute: 'nav-open', reflect: true, type: Boolean }) navOpen = false;
 
   /**
    * At what "px" to hide the "menu" slot and collapse into a hamburger button
@@ -137,20 +137,18 @@ export default class WaLayout extends WebAwesomeElement {
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
 
-
   handleNavigationToggle = (e: Event) => {
-    if (e.composedPath().find((el: Element) => el?.hasAttribute?.("data-toggle-nav"))) {
-      e.preventDefault()
-      this.toggleNavigation()
+    if (e.composedPath().find((el: Element) => el?.hasAttribute?.('data-toggle-nav'))) {
+      e.preventDefault();
+      this.toggleNavigation();
     }
+  };
+
+  constructor() {
+    super();
+
+    this.addEventListener('click', this.handleNavigationToggle);
   }
-
-  constructor () {
-    super()
-
-    this.addEventListener("click", this.handleNavigationToggle)
-  }
-
 
   connectedCallback() {
     super.connectedCallback();
@@ -178,21 +176,21 @@ export default class WaLayout extends WebAwesomeElement {
    * Shows the mobile navigation drawer
    */
   showNavigation() {
-    this.navOpen = true
+    this.navOpen = true;
   }
 
   /**
    * Hides the mobile navigation drawer
    */
   hideNavigation() {
-    this.navOpen = false
+    this.navOpen = false;
   }
 
   /**
    * Toggles the mobile navigation drawer
    */
   toggleNavigation() {
-    this.navOpen = !this.navOpen
+    this.navOpen = !this.navOpen;
   }
 
   render() {
@@ -264,8 +262,8 @@ export default class WaLayout extends WebAwesomeElement {
         placement=${this.navigationPlacement}
         part="drawer"
         ?open=${live(this.navOpen)}
-        @wa-after-show=${() => this.navOpen = this.navigationDrawer.open}
-        @wa-after-hide=${() => this.navOpen = this.navigationDrawer.open}
+        @wa-after-show=${() => (this.navOpen = this.navigationDrawer.open)}
+        @wa-after-hide=${() => (this.navOpen = this.navigationDrawer.open)}
         exportparts="
           panel:drawer__panel
           base:drawer__base

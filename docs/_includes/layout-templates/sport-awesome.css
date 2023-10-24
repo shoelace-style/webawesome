@@ -15,7 +15,6 @@ body {
   margin-block-start: var(--wa-flow-spacing);
 }
 
-
 img {
   display: inline-block;
   max-width: 100%;
@@ -60,7 +59,7 @@ img {
 
 .header__navigation {
   display: flex;
-  clip-path: polygon(2rem 0,100% 0,100% 100%,0 100%);
+  clip-path: polygon(2rem 0, 100% 0, 100% 100%, 0 100%);
   padding-inline-start: 2.5rem;
   padding-inline-end: var(--wa-space-base);
   background-color: var(--wa-color-brand-fill-vivid);
@@ -80,7 +79,6 @@ a.logo {
   color: var(--wa-color-text-normal);
   text-decoration: none;
   margin: auto;
-
 }
 
 a.logo:is(:hover, :focus) {
@@ -97,7 +95,7 @@ a.logo:is(:hover, :focus) {
   width: 100%;
 }
 
-.navigation--desktop wa-nav-item[current="page"] {
+.navigation--desktop wa-nav-item[current='page'] {
   text-decoration: underline;
   text-underline-offset: 8px;
   text-decoration-thickness: 4px;
@@ -112,12 +110,12 @@ a.logo:is(:hover, :focus) {
   margin-inline-start: auto;
 }
 
-wa-layout[view="desktop"] [data-toggle-nav],
-wa-layout[view="desktop"]::part(navigation) {
+wa-layout[view='desktop'] [data-toggle-nav],
+wa-layout[view='desktop']::part(navigation) {
   display: none;
 }
 
-wa-layout[view="mobile"] .navigation--desktop {
+wa-layout[view='mobile'] .navigation--desktop {
   display: none;
 }
 
@@ -143,7 +141,6 @@ wa-layout[view="mobile"] .navigation--desktop {
   border-radius: 8px;
   border: 1px solid var(--wa-color-surface-outline);
 }
-
 
 .table-scroll {
   max-width: 100%;

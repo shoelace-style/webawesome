@@ -15,7 +15,8 @@ html {
   box-sizing: inherit;
 }
 
-html,body {
+html,
+body {
   height: auto;
   min-height: 100%;
 }

@@ -35,7 +35,7 @@ export default class WaNavItem extends WebAwesomeElement {
   @property({ reflect: true }) href = '';
 
   /** maps to aria-current="<current>". Generally this value will either be "page", "true", or "false" */
-  @property({ reflect: true }) current:  "page" | "step" | "location" | "date" | "time" | "true" | "false" = "false"
+  @property({ reflect: true }) current: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' = 'false';
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property({ reflect: true }) target: '_blank' | '_parent' | '_self' | '_top';
@@ -46,7 +46,7 @@ export default class WaNavItem extends WebAwesomeElement {
    * specific tab/window, this will prevent that from working correctly. You can remove or change the default value by
    * setting the attribute to an empty string or a value of your choice, respectively.
    */
-   @property({ reflect: true }) rel = 'noreferrer noopener';
+  @property({ reflect: true }) rel = 'noreferrer noopener';
 
   /** Tells the browser to download the linked file as this filename. Only used when `href` is present. */
   @property({ reflect: true }) download?: string;
@@ -60,7 +60,6 @@ export default class WaNavItem extends WebAwesomeElement {
    * If true, will add a `<wa-details>` element into the shadowRoot that you can slot `<wa-nav-items>` into.
    */
   @property({ reflect: true, type: Boolean }) expandable: boolean = false;
-
 
   @state() hasFocus: boolean = false;
 
@@ -77,12 +76,7 @@ export default class WaNavItem extends WebAwesomeElement {
   render() {
     const isRtl = this.localize.dir() === 'rtl';
     return html`
-      <div
-        class="base"
-        part="base"
-        role="listitem"
-        aria-current=${this.expandable ? "false" : this.current}
-      >
+      <div class="base" part="base" role="listitem" aria-current=${this.expandable ? 'false' : this.current}>
         ${when(
           this.expandable,
           () => html`
