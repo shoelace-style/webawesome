@@ -18,34 +18,35 @@ export default css`
     --sub-header-height: 0px;
   }
 
-  :host([disable-sticky~="banner"]) :is([part~="header"], [part~="sub-header"]) {
+  :host([disable-sticky~='banner']) :is([part~='header'], [part~='sub-header']) {
     --banner-height: 0px !important;
   }
 
-  :host([disable-sticky~="header"]) [part~="sub-header"] {
+  :host([disable-sticky~='header']) [part~='sub-header'] {
     --header-height: 0px !important;
   }
 
   /* Nothing else depends on sub-header-height. */
-  :host([disable-sticky~="sub-header"]) {}
+  :host([disable-sticky~='sub-header']) {
+  }
 
-  :host([disable-sticky~="aside"]) [part~="aside"],
-  :host([disable-sticky~="menu"]) [part~="menu"] {
+  :host([disable-sticky~='aside']) [part~='aside'],
+  :host([disable-sticky~='menu']) [part~='menu'] {
     height: unset;
     max-height: unset;
   }
 
-  :host([disable-sticky~="banner"]) [part~="banner"],
-  :host([disable-sticky~="header"]) [part~="header"],
-  :host([disable-sticky~="sub-header"]) [part~="sub-header"],
-  :host([disable-sticky~="aside"]) [part~="aside"],
-  :host([disable-sticky~="menu"]) [part~="menu"] {
+  :host([disable-sticky~='banner']) [part~='banner'],
+  :host([disable-sticky~='header']) [part~='header'],
+  :host([disable-sticky~='sub-header']) [part~='sub-header'],
+  :host([disable-sticky~='aside']) [part~='aside'],
+  :host([disable-sticky~='menu']) [part~='menu'] {
     position: static;
     overflow: unset;
   }
 
-  :host([disable-sticky~="aside"]) [part~="aside"],
-  :host([disable-sticky~="menu"]) [part~="menu"] {
+  :host([disable-sticky~='aside']) [part~='aside'],
+  :host([disable-sticky~='menu']) [part~='menu'] {
     height: auto;
     max-height: auto;
   }

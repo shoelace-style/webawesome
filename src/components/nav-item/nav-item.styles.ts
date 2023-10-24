@@ -22,7 +22,7 @@ export default css`
     --border-color-hover: color-mix(in oklab, var(--background-color-hover), var(--wa-color-tint-hover));
   }
 
-  :host(:is([current="page"], [current="true"])) {
+  :host(:is([current='page'], [current='true'])) {
     --background-color: var(--wa-color-brand-fill-vivid);
     --text-color: var(--wa-color-brand-text-on-vivid);
     --background-color-hover: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover));
@@ -46,15 +46,16 @@ export default css`
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
-    transition: var(--wa-transition-faster) background-color, var(--wa-transition-faster) color,
-      var(--wa-transition-faster) border, var(--wa-transition-faster) box-shadow;
+    transition:
+      var(--wa-transition-faster) background-color,
+      var(--wa-transition-faster) color,
+      var(--wa-transition-faster) border,
+      var(--wa-transition-faster) box-shadow;
     cursor: inherit;
     line-height: var(--wa-font-height-compact);
 
     background-color: var(--background-color);
     color: var(--text-color);
-
-
   }
 
   .control {
@@ -106,7 +107,6 @@ export default css`
     padding-inline-end: 0px;
     padding-inline-start: 2em;
   }
-
 
   .nav-items {
     display: flex;

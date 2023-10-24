@@ -64,12 +64,7 @@ module.exports = function (eleventyConfig) {
   //
   // Add additional extensions. This allows things like {% include "layout.css" %}
   //
-  eleventyConfig.setTemplateFormats([
-    "html",
-    "md",
-    "njk",
-    "css",
-  ])
+  eleventyConfig.setTemplateFormats(['html', 'md', 'njk', 'css']);
 
   //
   // Functions
