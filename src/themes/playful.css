@@ -110,15 +110,19 @@
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
-  --wa-color-shadow: color-mix(in oklab, var(--wa-color-neutral-10) 5%, transparent);
+  --wa-color-shadow: color-mix(
+    in oklab,
+    var(--wa-color-neutral-05) calc(var(--wa-shadow-blur-base) * 16% + 5%),
+    transparent
+  );
 
   /* Base tints can be mixed with or overlay other colors to make them lighter or darker. */
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
 
   /* State tints are mixed with component colors to achieve consistent effects on interaction. */
-  --wa-color-tint-hover: black 12%;
-  --wa-color-tint-active: black 20%;
+  --wa-color-tint-hover: white 6%;
+  --wa-color-tint-active: black 12%;
 
   /**
    * Semantic theme colors
@@ -268,20 +272,11 @@
   --wa-space-squish-xl: var(--wa-space-xl) var(--wa-space-m);
 
   /**
-   * Borders & corners
+   * Corners
    */
-  /* --wa-border-style: solid; */
-
-  /* Border widths are designed to scale according to a single base value.
-   * The base value is intended for calculations and is not used by components directly. */
-  /* --wa-border-width-base: 0.125rem; */
-  --wa-border-width-thin: var(--wa-border-width-base);
-  --wa-border-width-medium: calc(var(--wa-border-width-base) * 2);
-  --wa-border-width-thick: calc(var(--wa-border-width-base) * 3);
-
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.375rem;
+  --wa-corners-base: 0.5rem;
   --wa-corners-half: calc(var(--wa-corners-base) * 0.5);
   --wa-corners-1x: var(--wa-corners-base);
   --wa-corners-2x: calc(var(--wa-corners-base) * 2);
@@ -299,42 +294,6 @@
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
 
   /**
-   * Shadows
-   * Shadow effects indicate elevation and, at times, interactivity.
-   * Elevation is defined by levels relative to the surface where the element rests -
-   *  *  Inset sits below the surface for a punched-in effect
-   *  *  Level 0 is the surface level
-   *  *  Level 1 is slightly raised above the surface and often signifies that an element is interactive, such as a card
-   *  *  Level 2 is raised above all other elements on the same surface, such as dropdown menus
-   *  *  Level 3 is raised above all elements on all surfaces, such as dialogs and drawers
-   */
-  /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
-   * The base value is intended for calculations and is not used by components directly. */
-  /* --wa-shadow-blur-base: 0rem; */
-
-  /* Offset values on the y-axis are used in pre-constructed shadows and may be used when constructing custom shadows
-   * or transforming elements with shadows. */
-  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.5);
-  --wa-shadow-offset-y-level-1: var(--wa-shadow-offset-y-base);
-  --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5);
-  --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2);
-
-  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.5);
-  --wa-shadow-offset-x-level-1: var(--wa-shadow-offset-x-base);
-  --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5);
-  --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2);
-
-  --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset)
-    calc(var(--wa-shadow-blur-base) * 0.5) var(--wa-color-shadow);
-  --wa-shadow-level-0: none;
-  --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base)
-    var(--wa-color-shadow);
-  --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2)
-    calc(var(--wa-shadow-blur-base) * 2) var(--wa-color-shadow);
-  --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3)
-    calc(var(--wa-shadow-blur-base) * 4) var(--wa-color-shadow);
-
-  /**
    * Z-index
    */
   --wa-z-index-drawer: 700;
@@ -348,17 +307,12 @@
    */
   --wa-transition-normal: 200ms;
   --wa-transition-fast: 100ms;
-  --wa-transition-faster: 0ms;
+  --wa-transition-faster: 50ms;
 
   /**
-   * Form controls
+   * Component groups
    */
   --wa-form-controls-background: var(--wa-color-surface-default);
-
-  --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
-  --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-vivid);
-  /* --wa-form-controls-border-style: var(--wa-border-style); */
-  --wa-form-controls-border-width: var(--wa-border-width-thin);
 
   --wa-form-controls-corners: var(--wa-corners-1x);
 
@@ -379,12 +333,6 @@
   --wa-form-controls-height-l: calc(
     var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height)
   );
-
-  /**
-   * Panels
-   */
-  /* --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-thin); */
 
   --wa-panel-corners: var(--wa-corners-2x);
 

@@ -1,8 +1,17 @@
 :root {
+  /**
+   * Borders
+   */
   --wa-border-style: solid;
-  --wa-border-width-base: 0.0625rem;
 
-  --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted);
+  /* Border widths are designed to scale according to a single base value.
+    * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.0625rem;
+  --wa-border-width-thin: var(--wa-border-width-base);
+  --wa-border-width-medium: calc(var(--wa-border-width-base) * 2);
+  --wa-border-width-thick: calc(var(--wa-border-width-base) * 3);
+
+  --wa-form-controls-border-color-resting: var(--wa-color-neutral-outline-muted-alt);
   --wa-form-controls-border-color-activated: var(--wa-color-brand-outline-muted-alt);
   --wa-form-controls-border-style: var(--wa-border-style);
   --wa-form-controls-border-width: var(--wa-border-width-thin);
