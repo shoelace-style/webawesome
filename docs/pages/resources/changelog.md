@@ -22,8 +22,14 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## Next
 
+- Improved the experimental `<sl-carousel>` component [#1605]
+
+## 2.11.0
+
 - Added the Croatian translation [#1656]
 - Fixed a bug that caused the [[Escape]] key to stop propagating when tooltips are disabled [#1607]
+- Fixed a bug that made it impossible to style placeholders in `<sl-select>` [#1667]
+- Fixed a bug that caused `dist/react/index.js` to be blank [#1659]
 
 ## 2.10.0
 
