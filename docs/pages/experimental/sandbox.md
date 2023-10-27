@@ -147,3 +147,22 @@ meta:
 <wa-progress-bar value="60"></wa-progress-bar>
 <wa-spinner></wa-spinner>
 ```
+
+#### Shadows
+
+```html:preview
+<style>
+  div.shadow {
+    border: 1px solid var(--wa-color-surface-outline);
+    border-radius: var(--wa-corners-1x);
+    display: inline-block;
+    height: 4rem;
+    margin-right: 2rem;
+    width: 4rem;
+  }
+  </style>
+<div class="shadow" style="box-shadow: var(--wa-shadow-inset);"></div>
+<div class="shadow" style="box-shadow: var(--wa-shadow-level-1);"></div>
+<div class="shadow" style="box-shadow: var(--wa-shadow-level-2);"></div>
+<div class="shadow" style="box-shadow: var(--wa-shadow-level-3);"></div>
+```

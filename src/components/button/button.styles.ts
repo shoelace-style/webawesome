@@ -4,8 +4,6 @@ import componentStyles from '../../styles/component.styles.js';
 export default css`
   ${componentStyles}
 
-  /* Declare relevant custom properties */
-
   :host {
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-border-style);
@@ -54,6 +52,8 @@ export default css`
     --border-color: var(--background);
     --border-color-hover: var(--background-hover);
     --border-color-active: var(--background-active);
+    --label-color-hover: var(--label-color);
+    --label-color-active: var(--label-color);
   }
 
   /*
@@ -75,7 +75,7 @@ export default css`
   }
 
   :host([variant='neutral'][outline]),
-  :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
+  :host(.wa-button-group__button--radio:not([checked])) {
     --background-hover: var(--wa-color-neutral-fill-muted);
     --border-color: var(--wa-color-neutral-outline-vivid);
     --label-color: var(--wa-color-neutral-text-on-surface);
@@ -97,7 +97,8 @@ export default css`
   }
 
   :host([outline]),
-  :host(.wa-button-group__button--radio:not([checked])) /* for wa-radio-button */ {
+  :host(.wa-button-group__button--radio:not([checked])) {
+    --background: none;
     --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
@@ -109,16 +110,22 @@ export default css`
    */
 
   :host([variant='text']) {
+    --background: none;
+    --background-active: none;
+    --background-hover: none;
+    --border-color: transparent;
+    --border-color-active: transparent;
+    --border-color-hover: transparent;
     --label-color: var(--wa-color-text-link);
-    --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
     --label-color-active: var(--wa-color-text-link);
+    --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
   }
 
   /*
    * Checked buttons
    */
 
-  :host([checked]) /* for wa-radio-button */ {
+  :host([checked]) {
     --background: var(--wa-color-brand-fill-vivid);
     --label-color: var(--wa-color-brand-text-on-vivid);
   }
@@ -144,16 +151,16 @@ export default css`
     white-space: nowrap;
     vertical-align: middle;
     padding: 0;
-    transition: 
-      var(--wa-transition-faster) background, 
-      var(--wa-transition-faster) border, 
+    transition:
+      var(--wa-transition-faster) background,
+      var(--wa-transition-faster) border,
       var(--wa-transition-faster) box-shadow,
       var(--wa-transition-faster) color;
     cursor: inherit;
   }
 
   .button--standard,
-  .button--checked /* for wa-radio-button */ {
+  .button--checked {
     background: var(--background);
     border-color: var(--border-color);
     box-shadow: var(--box-shadow);
@@ -186,26 +193,6 @@ export default css`
   .button:focus-visible {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
-  }
-
-  .button--brand:focus-visible {
-    outline-color: var(--wa-color-brand-outline-vivid);
-  }
-
-  .button--success:focus-visible {
-    outline-color: var(--wa-color-success-outline-vivid);
-  }
-
-  .button--neutral:focus-visible {
-    outline-color: var(--wa-color-neutral-outline-vivid);
-  }
-
-  .button--warning:focus-visible {
-    outline-color: var(--wa-color-warning-outline-vivid);
-  }
-
-  .button--danger:focus-visible {
-    outline-color: var(--wa-color-danger-outline-vivid);
   }
 
   .button--disabled {

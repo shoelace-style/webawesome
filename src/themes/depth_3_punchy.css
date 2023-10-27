@@ -42,29 +42,41 @@
     var(--wa-color-shadow);
 }
 
-wa-button {
+/* #region Buttons */
+wa-button:not([variant='text']) {
   --wa-transition-normal: 0ms;
   --wa-transition-fast: 0ms;
   --wa-transition-faster: 0ms;
-}
-wa-button:not([variant='text']) {
+
   --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
     var(--box-shadow-color);
+
   margin-bottom: var(--wa-shadow-offset-y-level-1);
   margin-right: var(--wa-shadow-offset-x-level-1);
+
+  &:not([disabled]) {
+    &:hover {
+      --box-shadow: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
+        var(--box-shadow-color);
+
+      transform: translateY(calc((var(--wa-shadow-offset-y-level-2) - var(--wa-shadow-offset-y-level-1)) * -1))
+        translateX(calc((var(--wa-shadow-offset-x-level-2) - var(--wa-shadow-offset-x-level-1)) * -1));
+    }
+    &:active {
+      --box-shadow: none;
+
+      transform: translateY(var(--wa-shadow-offset-y-level-1)) translateX(var(--wa-shadow-offset-x-level-1));
+    }
+  }
 }
-wa-button:hover:not([variant='text']):not([disabled]) {
-  --box-shadow: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
-    var(--box-shadow-color);
-  transform: translateY(calc((var(--wa-shadow-offset-y-level-2) - var(--wa-shadow-offset-y-level-1)) * -1))
-    translateX(calc((var(--wa-shadow-offset-x-level-2) - var(--wa-shadow-offset-x-level-1)) * -1));
+/* #endregion */
+
+/* #region Inputs */
+wa-input,
+wa-select,
+wa-textarea {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset);
+  }
 }
-wa-button:active:not([variant='text']):not([disabled]) {
-  --box-shadow: var(--wa-shadow-inset);
-  transform: translateY(var(--wa-shadow-offset-y-level-1)) translateX(var(--wa-shadow-offset-x-level-1));
-}
-wa-input:not([filled]):not([disabled]),
-wa-select:not([filled]):not([disabled]),
-wa-textarea:not([filled]):not([disabled]) {
-  --box-shadow: var(--wa-shadow-inset);
-}
+/* #endregion */

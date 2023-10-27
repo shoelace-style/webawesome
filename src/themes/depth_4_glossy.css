@@ -48,217 +48,214 @@
   --wa-filter-blur: blur(0.3125rem);
 }
 
+/* #region Alerts */
+
+@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+  wa-alert {
+    &::part(base) {
+      backdrop-filter: var(--wa-filter-blur);
+      -webkit-backdrop-filter: var(--wa-filter-blur);
+    }
+
+    &[variant='brand'] {
+      --background: linear-gradient(
+        170deg,
+        color-mix(in oklab, var(--wa-color-brand-fill-muted-alt), transparent var(--wa-background-transparency-percent))
+          50%,
+        color-mix(
+          in oklab,
+          var(--wa-color-brand-fill-muted),
+          transparent calc(var(--wa-background-transparency-percent) - 5%)
+        )
+      );
+    }
+
+    &[variant='success'] {
+      --background: linear-gradient(
+        170deg,
+        color-mix(
+            in oklab,
+            var(--wa-color-success-fill-muted-alt),
+            transparent var(--wa-background-transparency-percent)
+          )
+          50%,
+        color-mix(
+          in oklab,
+          var(--wa-color-success-fill-muted),
+          transparent calc(var(--wa-background-transparency-percent) - 5%)
+        )
+      );
+    }
+
+    &[variant='neutral'] {
+      --background: linear-gradient(
+        170deg,
+        color-mix(
+            in oklab,
+            var(--wa-color-neutral-fill-muted-alt),
+            transparent var(--wa-background-transparency-percent)
+          )
+          50%,
+        color-mix(
+          in oklab,
+          var(--wa-color-neutral-fill-muted),
+          transparent calc(var(--wa-background-transparency-percent) - 5%)
+        )
+      );
+    }
+
+    &[variant='warning'] {
+      --background: linear-gradient(
+        170deg,
+        color-mix(
+            in oklab,
+            var(--wa-color-warning-fill-muted-alt),
+            transparent var(--wa-background-transparency-percent)
+          )
+          50%,
+        color-mix(
+          in oklab,
+          var(--wa-color-warning-fill-muted),
+          transparent calc(var(--wa-background-transparency-percent) - 5%)
+        )
+      );
+    }
+
+    &[variant='danger'] {
+      --background: linear-gradient(
+        170deg,
+        color-mix(
+            in oklab,
+            var(--wa-color-danger-fill-muted-alt),
+            transparent var(--wa-background-transparency-percent)
+          )
+          50%,
+        color-mix(
+          in oklab,
+          var(--wa-color-danger-fill-muted),
+          transparent calc(var(--wa-background-transparency-percent) - 5%)
+        )
+      );
+    }
+  }
+}
+
+/* #endregion */
+
 /* #region Buttons */
 
-wa-button {
+wa-button:not([variant='text']) {
   --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
     inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */, inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
     inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
-}
-wa-button:hover {
-  --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
-    inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */, inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-2) /* outer shadow */;
-}
-wa-button:active:not([disabled]) {
-  --box-shadow: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
-    inset 0 0.125rem 0 0 rgb(0 0 0 / 0.1) /* top highlight */,
-    inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
-    inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-    inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */, 0 0 0 0 transparent /* outer shadow */;
-}
-wa-button:not([variant='text']) {
+
+  margin-bottom: var(--wa-shadow-offset-y-inset);
   transition: transform var(--wa-transition-faster);
-  margin-bottom: var(--wa-shadow-offset-y-level-1);
-}
-wa-button:active:not([variant='text']):not([disabled]) {
-  transform: translateY(var(--wa-shadow-offset-y-level-1));
-}
 
-wa-button[variant='brand']:not([outline]) {
-  --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
-  --background-hover: linear-gradient(
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover)) 25%,
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
-  );
-  --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)),
-    var(--wa-color-brand-fill-vivid-alt)
-  );
-  --border-color: var(--wa-color-brand-fill-vivid)
-    color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-brand-fill-vivid))
-    var(--wa-color-brand-fill-vivid-alt);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--wa-color-brand-fill-vivid-alt);
-}
+  &:not([disabled]) {
+    &:hover {
+      --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+        inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
+        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+        inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-2) /* outer shadow */;
+    }
+    &:active {
+      --box-shadow: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
+        inset 0 0.125rem 0 0 rgb(0 0 0 / 0.08) /* top highlight */,
+        inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
+        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+        inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */, 0 0 0 0 transparent /* outer shadow */;
 
-wa-button[variant='success']:not([outline]) {
-  --background: linear-gradient(var(--wa-color-success-fill-vivid) 25%, var(--wa-color-success-fill-vivid-alt));
-  --background-hover: linear-gradient(
-    color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover)) 25%,
-    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
-  );
-  --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)),
-    var(--wa-color-success-fill-vivid-alt)
-  );
-  --border-color: var(--wa-color-success-fill-vivid)
-    color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-success-fill-vivid))
-    var(--wa-color-success-fill-vivid-alt);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--wa-color-success-fill-vivid-alt);
-}
-
-wa-button[variant='neutral']:not([outline]) {
-  --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
-  --background-hover: linear-gradient(
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover)) 25%,
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
-  );
-  --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)),
-    var(--wa-color-neutral-fill-vivid-alt)
-  );
-  --border-color: var(--wa-color-neutral-fill-vivid)
-    color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-neutral-fill-vivid))
-    var(--wa-color-neutral-fill-vivid-alt);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--wa-color-neutral-fill-vivid-alt);
-}
-
-wa-button[variant='warning']:not([outline]) {
-  --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
-  --background-hover: linear-gradient(
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover)) 25%,
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
-  );
-  --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)),
-    var(--wa-color-warning-fill-vivid-alt)
-  );
-  --border-color: var(--wa-color-warning-fill-vivid)
-    color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-warning-fill-vivid))
-    var(--wa-color-warning-fill-vivid-alt);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--wa-color-warning-fill-vivid-alt);
-}
-
-wa-button[variant='danger']:not([outline]) {
-  --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
-  --background-hover: linear-gradient(
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover)) 25%,
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
-  );
-  --background-active: linear-gradient(
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)),
-    var(--wa-color-danger-fill-vivid-alt)
-  );
-  --border-color: var(--wa-color-danger-fill-vivid)
-    color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-danger-fill-vivid))
-    var(--wa-color-danger-fill-vivid-alt);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--wa-color-danger-fill-vivid-alt);
-}
-
-/* #endregion */
-
-/* #region Inputs */
-
-wa-input:not([filled]):not([disabled]):not(:focus),
-wa-select:not([filled]):not([disabled]) {
-  --box-shadow: var(--wa-shadow-inset), inset 0 1.25em 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
-    inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */;
-}
-wa-textarea:not([filled]):not([disabled]):not(:focus) {
-  --box-shadow: var(--wa-shadow-inset);
-}
-@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
-  wa-select::part(listbox) {
-    background: color-mix(
-      in oklab,
-      var(--wa-color-surface-raised),
-      transparent var(--wa-background-transparency-percent)
-    );
-    backdrop-filter: var(--wa-filter-blur);
-    -webkit-backdrop-filter: var(--wa-filter-blur);
+      transform: translateY(var(--wa-shadow-offset-y-inset));
+    }
   }
 }
 
-/* #endregion */
-
-/* #region Alerts */
-
-@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
-  wa-alert[variant='brand'] {
-    --background: linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--wa-color-brand-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-        50%,
-      color-mix(
-        in oklab,
-        var(--wa-color-brand-fill-muted),
-        transparent calc(var(--wa-background-transparency-percent) - 5%)
-      )
+wa-button:not([outline]) {
+  &[variant='brand'] {
+    --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
     );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-brand-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-brand-fill-vivid)
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-brand-fill-vivid))
+      var(--wa-color-brand-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-brand-fill-vivid-alt);
   }
 
-  wa-alert[variant='success'] {
-    --background: linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--wa-color-success-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-        50%,
-      color-mix(
-        in oklab,
-        var(--wa-color-success-fill-muted),
-        transparent calc(var(--wa-background-transparency-percent) - 5%)
-      )
+  &[variant='success'] {
+    --background: linear-gradient(var(--wa-color-success-fill-vivid) 25%, var(--wa-color-success-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
     );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-success-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-success-fill-vivid)
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-success-fill-vivid))
+      var(--wa-color-success-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-success-fill-vivid-alt);
+  }
+  &[variant='neutral'] {
+    --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-neutral-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-neutral-fill-vivid)
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-neutral-fill-vivid))
+      var(--wa-color-neutral-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-neutral-fill-vivid-alt);
   }
 
-  wa-alert[variant='neutral'] {
-    --background: linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--wa-color-neutral-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-        50%,
-      color-mix(
-        in oklab,
-        var(--wa-color-neutral-fill-muted),
-        transparent calc(var(--wa-background-transparency-percent) - 5%)
-      )
+  &[variant='warning'] {
+    --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
     );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-warning-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-warning-fill-vivid)
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-warning-fill-vivid))
+      var(--wa-color-warning-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-warning-fill-vivid-alt);
   }
 
-  wa-alert[variant='warning'] {
-    --background: linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--wa-color-warning-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-        50%,
-      color-mix(
-        in oklab,
-        var(--wa-color-warning-fill-muted),
-        transparent calc(var(--wa-background-transparency-percent) - 5%)
-      )
+  &[variant='danger'] {
+    --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
     );
-  }
-
-  wa-alert[variant='danger'] {
-    --background: linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--wa-color-danger-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-        50%,
-      color-mix(
-        in oklab,
-        var(--wa-color-danger-fill-muted),
-        transparent calc(var(--wa-background-transparency-percent) - 5%)
-      )
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-danger-fill-vivid-alt)
     );
-  }
-
-  wa-alert::part(base) {
-    backdrop-filter: var(--wa-filter-blur);
-    -webkit-backdrop-filter: var(--wa-filter-blur);
+    --border-color: var(--wa-color-danger-fill-vivid)
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-danger-fill-vivid))
+      var(--wa-color-danger-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-danger-fill-vivid-alt);
   }
 }
 
@@ -273,8 +270,37 @@ wa-textarea:not([filled]):not([disabled]):not(:focus) {
       var(--wa-color-surface-raised),
       transparent var(--wa-background-transparency-percent)
     );
+
+    &::part(base) {
+      backdrop-filter: var(--wa-filter-blur);
+      -webkit-backdrop-filter: var(--wa-filter-blur);
+    }
   }
-  wa-card::part(base) {
+}
+
+/* #endregion */
+
+/* #region Inputs */
+
+wa-input:not(:focus),
+wa-select {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset), inset 0 1.25em 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */;
+  }
+}
+wa-textarea:not(:focus) {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset);
+  }
+}
+@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+  wa-select::part(listbox) {
+    background: color-mix(
+      in oklab,
+      var(--wa-color-surface-raised),
+      transparent var(--wa-background-transparency-percent)
+    );
     backdrop-filter: var(--wa-filter-blur);
     -webkit-backdrop-filter: var(--wa-filter-blur);
   }

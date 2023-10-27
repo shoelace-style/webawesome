@@ -42,21 +42,30 @@
     var(--wa-color-shadow);
 }
 
-wa-button:not([variant='text']) {
-  --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
-  margin-bottom: var(--wa-shadow-offset-y-level-1);
-}
-wa-button:active:not([variant='text']):not([disabled]) {
-  --box-shadow: none;
-  transform: translateY(var(--wa-shadow-offset-y-level-1));
-}
+/* #region Buttons */
 wa-button {
   --wa-transition-normal: 0ms;
   --wa-transition-fast: 0ms;
   --wa-transition-faster: 0ms;
+
+  &:not([variant='text']) {
+    --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
+    margin-bottom: var(--wa-shadow-offset-y-level-1);
+
+    &:active {
+      --box-shadow: none;
+      transform: translateY(var(--wa-shadow-offset-y-level-1));
+    }
+  }
 }
-wa-input:not([filled]):not([disabled]),
-wa-select:not([filled]):not([disabled]),
-wa-textarea:not([filled]):not([disabled]) {
-  --box-shadow: var(--wa-shadow-inset);
+/* #endregion */
+
+/* #region Inputs */
+wa-input,
+wa-select,
+wa-textarea {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset);
+  }
 }
+/* #endregion */

@@ -62,9 +62,9 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: pointer;
-    transition: 
-      var(--wa-transition-fast) background, 
-      var(--wa-transition-fast) border, 
+    transition:
+      var(--wa-transition-fast) background,
+      var(--wa-transition-fast) border,
       var(--wa-transition-fast) box-shadow,
       var(--wa-transition-fast) color,
       var(--wa-transition-faster) outline;
@@ -134,13 +134,6 @@ export default css`
   }
 
   /* Standard selects */
-  /*.select--standard .select__combobox {
-    background: var(--background);
-    border-color: var(--border-color);
-    border-style: var(--border-style);
-    border-width: var(--border-width);
-  }*/
-
   .select--standard.select--disabled .select__combobox {
     opacity: 0.5;
     cursor: not-allowed;
@@ -154,26 +147,13 @@ export default css`
   }
 
   /* Filled selects */
-  /*.select--filled .select__combobox {
-    border: none;
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }*/
-
   .select--filled.select--disabled .select__combobox {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  /*.select--filled:not(.select--disabled).select--open .select__combobox,
-  .select--filled:not(.select--disabled).select--focused .select__combobox {
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }*/
-
   /* Sizes */
   .select--small .select__combobox {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-s);
     min-height: var(--wa-form-controls-height-s);
     padding-block: 0;
@@ -198,7 +178,6 @@ export default css`
   }
 
   .select--medium .select__combobox {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-m);
     min-height: var(--wa-form-controls-height-m);
     padding-block: 0;
@@ -223,7 +202,6 @@ export default css`
   }
 
   .select--large .select__combobox {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-l);
     min-height: var(--wa-form-controls-height-l);
     padding-block: 0;

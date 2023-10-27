@@ -39,19 +39,13 @@ export default css`
     vertical-align: middle;
     overflow: hidden;
     cursor: text;
-    transition: 
-      var(--wa-transition-fast) background, 
+    transition:
+      var(--wa-transition-fast) background,
       var(--wa-transition-fast) border,
       var(--wa-transition-faster) outline;
   }
 
   /* Standard inputs */
-  /*.input--standard {
-    border-color: var(--border-color);
-    border-style: var(--border-style);
-    border-width: var(--border-width);
-  }*/
-
   .input--standard.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
@@ -64,13 +58,9 @@ export default css`
   }
 
   /* Filled inputs */
-  /*.input--filled {
-    color: var(--wa-color-neutral-text-on-muted);
-  }*/
-
   .input--filled.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
-    outline-offset: 0;
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .input--filled.input--disabled {
@@ -87,7 +77,7 @@ export default css`
     color: var(--wa-form-controls-text-color);
     border: none;
     /* prettier-ignore */
-    background: rgb(255 255 255 / 0); /* workaround to avoid breaking placeholder styles of webkit's date input */
+    background: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
     box-shadow: none;
     padding: 0;
     margin: 0;
@@ -146,7 +136,6 @@ export default css`
    */
 
   .input--small {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-s);
     height: var(--wa-form-controls-height-s);
   }
@@ -170,7 +159,6 @@ export default css`
   }
 
   .input--medium {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-m);
     height: var(--wa-form-controls-height-m);
   }
@@ -194,7 +182,6 @@ export default css`
   }
 
   .input--large {
-    /*border-radius: var(--wa-form-controls-corners);*/
     font-size: var(--wa-font-size-l);
     height: var(--wa-form-controls-height-l);
   }

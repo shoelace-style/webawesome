@@ -372,7 +372,7 @@
 
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, var(--wa-color-black) 90%, transparent);
+  --wa-color-shadow: color-mix(in oklab, var(--wa-color-black) 95%, transparent);
 
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
