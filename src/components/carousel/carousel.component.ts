@@ -235,8 +235,8 @@ export default class WaCarousel extends WebAwesomeElement {
     }
   }
 
-  private isCarouselItem(node: HTMLElement): node is WaCarouselItem {
-    return node.tagName.toLowerCase() === 'wa-carousel-item';
+  private isCarouselItem(node: Node): node is WaCarouselItem {
+    return node instanceof Element && node.tagName.toLowerCase() === 'wa-carousel-item';
   }
 
   private handleSlotChange = (mutations: MutationRecord[]) => {

@@ -20,7 +20,11 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 - Removed `default` from `<wa-button>` and made `neutral` the new default
 - Removed the `circle` modifier from `<wa-button>` because button's no longer have a set height
 
-## Next
+## 2.11.2
+
+- Fixed a bug in `<sl-carousel>` component that caused an error to be thrown when rendered with Lit [#1684]
+
+## 2.11.1
 
 - Improved the experimental `<sl-carousel>` component [#1605]
 
