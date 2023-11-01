@@ -11,7 +11,7 @@ export default css`
     --border-style: var(--wa-panel-border-style);
     --border-width: var(--wa-panel-border-width);
     --box-shadow: var(--wa-shadow-level-1);
-    --padding: var(--wa-space-l);
+    --padding: var(--wa-space-xl);
 
     display: inline-block;
   }

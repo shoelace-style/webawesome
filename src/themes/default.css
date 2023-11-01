@@ -111,7 +111,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-neutral-05) calc(var(--wa-shadow-blur-base) * 16% + 5%),
+    var(--wa-color-neutral-05) calc(var(--wa-shadow-blur-base) * 16% + 6%),
     transparent
   );
 
@@ -372,7 +372,11 @@
 
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, var(--wa-color-black) 95%, transparent);
+  --wa-color-shadow: color-mix(
+    in oklab,
+    var(--wa-color-black) calc(var(--wa-shadow-blur-base) * 32% + 40%),
+    transparent
+  );
 
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);

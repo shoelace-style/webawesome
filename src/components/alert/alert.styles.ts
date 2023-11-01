@@ -8,6 +8,8 @@ export default css`
     --border-radius: var(--wa-panel-corners);
     --border-style: var(--wa-panel-border-style);
     --border-width: var(--wa-panel-border-width);
+    --icon-size: var(--wa-font-size-l);
+    --padding: var(--wa-space-m);
 
     display: contents;
 
@@ -68,14 +70,14 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    font-size: var(--wa-font-size-l);
-    padding-inline-start: var(--wa-space-l);
+    font-size: var(--icon-size);
+    padding-inline-start: var(--padding);
   }
 
   .alert__message {
     flex: 1 1 auto;
     display: block;
-    padding: var(--wa-space-m);
+    padding: var(--padding);
     overflow: hidden;
   }
 
@@ -85,7 +87,7 @@ export default css`
     align-items: center;
     color: currentColor;
     font-size: var(--wa-font-size-m);
-    padding-inline-end: var(--wa-space-m);
+    padding-inline-end: var(--padding);
   }
 
   .alert__close-button:hover::part(base) {

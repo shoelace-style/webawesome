@@ -52,7 +52,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --border-color - The color of the input's borders.
  * @cssproperty --border-radius - The border radius of the input's corners.
  * @cssproperty --border-style - The style of the input's borders.
- * @cssproperty --border-width - The width of the input's borders.
+ * @cssproperty --border-width - The width of the input's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
  */
 export default class WaInput extends WebAwesomeElement implements WebAwesomeFormControl {

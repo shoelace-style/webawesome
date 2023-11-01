@@ -24,11 +24,11 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --background - The card's background styles.
  * @cssproperty --border-color - The card's border color, including borders that occur inside the card.
- * @cssproperty --border-radius - The border radius for the card's corners. A single value is recommended.
+ * @cssproperty --border-radius - The border radius for the card's corners. Expects a single value.
  * @cssproperty --border-style - The style of the card's borders.
- * @cssproperty --border-width - The width of the card's borders. A single value is recommended.
+ * @cssproperty --border-width - The width of the card's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the card.
- * @cssproperty --padding - The padding to use for the card's sections. A single value is recommended.
+ * @cssproperty --padding - The padding for each section in the card. Expects a single value.
  */
 export default class WaCard extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;

@@ -5,30 +5,32 @@ export default css`
   ${componentStyles}
 
   :host {
+    --background: var(--wa-color-neutral-fill-vivid);
+    --background-checked: var(--wa-color-brand-fill-vivid);
+    --border-color: var(--background);
+    --border-color-checked: var(--background-checked);
+    --border-style: var(--wa-form-controls-border-style);
+    --border-width: var(--wa-form-controls-border-width);
+    --box-shadow: none;
+    --height: calc(1em * var(--wa-font-line-height-compact));
+    --thumb-color: var(--wa-form-controls-background);
+    --thumb-color-checked: var(--wa-form-controls-background);
+    --thumb-shadow: none;
+    --thumb-size: calc(var(--height) - var(--border-width) * 2);
+    --width: calc(var(--height) * 2);
+
     display: inline-block;
   }
 
   :host([size='small']) {
-    --height: var(--wa-form-control-toggle-size-s);
-    --thumb-size: calc(var(--wa-form-control-toggle-size-s) + 4px);
-    --width: calc(var(--height) * 2);
-
     font-size: var(--wa-font-size-s);
   }
 
   :host([size='medium']) {
-    --height: var(--wa-form-control-toggle-size-m);
-    --thumb-size: calc(var(--wa-form-control-toggle-size-m) + 4px);
-    --width: calc(var(--height) * 2);
-
     font-size: var(--wa-font-size-m);
   }
 
   :host([size='large']) {
-    --height: var(--wa-form-control-toggle-size-l);
-    --thumb-size: calc(var(--wa-form-control-toggle-size-l) + 4px);
-    --width: calc(var(--height) * 2);
-
     font-size: var(--wa-font-size-l);
   }
 
@@ -50,21 +52,24 @@ export default css`
     justify-content: center;
     width: var(--width);
     height: var(--height);
-    background-color: var(--wa-color-neutral-fill-vivid);
-    border: solid var(--wa-border-width-thin) var(--wa-color-neutral-fill-muted);
+    background: var(--background);
+    border-color: var(--border-color);
     border-radius: var(--height);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
     transition:
-      var(--wa-transition-fast) border-color,
-      var(--wa-transition-fast) background-color;
+      var(--wa-transition-fast) background,
+      var(--wa-transition-fast) border-color;
   }
 
   .switch__control .switch__thumb {
     width: var(--thumb-size);
     height: var(--thumb-size);
-    background-color: var(--wa-form-controls-background);
+    background-color: var(--thumb-color);
     border-radius: 50%;
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
-      var(--wa-color-neutral-outline-vivid);
+    border: solid var(--border-width) var(--thumb-color);
+    box-shadow: var(--thumb-shadow);
     translate: calc((var(--width) - var(--height)) / -2);
     transition:
       var(--wa-transition-fast) translate ease,
@@ -89,12 +94,13 @@ export default css`
 
   /* Checked */
   .switch--checked .switch__control {
-    background-color: var(--wa-color-brand-fill-vivid);
-    border-color: var(--wa-color-brand-fill-vivid);
+    background: var(--background-checked);
+    border-color: var(--border-color-checked);
   }
 
   .switch--checked .switch__control .switch__thumb {
-    border-color: var(--wa-color-brand-outline-vivid);
+    background: var(--thumb-color-checked);
+    border-color: var(--thumb-color-checked);
     translate: calc((var(--width) - var(--height)) / 2);
   }
 

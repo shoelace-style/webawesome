@@ -348,7 +348,7 @@ When change events are emitted by Web Awesome components, they should be named `
 
 ### CSS Custom Properties
 
-Custom properties allow users to further customize Web Awesome components by exposing specific styles across a component's shadow boundary. Use custom properties to expose default design choices for key characteristics of a component. Avoid using custom properties for styles that may interfere with proper rendering. 
+Custom properties allow users to customize Web Awesome components by exposing specific styles across a component's shadow boundary. Use custom properties to expose key characteristics of a component for low-level theming. Avoid using custom properties for styles that may interfere with proper rendering.
 
 To expose custom properties as part of a component's API, scope them to the `:host` block.
 

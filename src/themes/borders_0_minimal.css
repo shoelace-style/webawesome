@@ -6,7 +6,7 @@
 
   /* Border widths are designed to scale according to a single base value.
     * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.05;
+  --wa-border-width-base: 0.0625;
   --wa-border-width-thin: calc(var(--wa-border-width-base) * 1rem);
   --wa-border-width-medium: calc(var(--wa-border-width-base) * 2rem);
   --wa-border-width-thick: calc(var(--wa-border-width-base) * 3rem);

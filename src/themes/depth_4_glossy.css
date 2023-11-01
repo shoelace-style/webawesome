@@ -44,7 +44,7 @@
   /**
    * Background effects
    */
-  --wa-background-transparency-percent: 18%;
+  --wa-background-transparency-percent: 12%;
   --wa-filter-blur: blur(0.3125rem);
 }
 
@@ -53,88 +53,47 @@
 @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
   wa-alert {
     &::part(base) {
-      backdrop-filter: var(--wa-filter-blur);
       -webkit-backdrop-filter: var(--wa-filter-blur);
+      backdrop-filter: var(--wa-filter-blur);
     }
 
     &[variant='brand'] {
-      --background: linear-gradient(
-        170deg,
-        color-mix(in oklab, var(--wa-color-brand-fill-muted-alt), transparent var(--wa-background-transparency-percent))
-          50%,
-        color-mix(
-          in oklab,
-          var(--wa-color-brand-fill-muted),
-          transparent calc(var(--wa-background-transparency-percent) - 5%)
-        )
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-brand-fill-muted),
+        transparent var(--wa-background-transparency-percent)
       );
     }
 
     &[variant='success'] {
-      --background: linear-gradient(
-        170deg,
-        color-mix(
-            in oklab,
-            var(--wa-color-success-fill-muted-alt),
-            transparent var(--wa-background-transparency-percent)
-          )
-          50%,
-        color-mix(
-          in oklab,
-          var(--wa-color-success-fill-muted),
-          transparent calc(var(--wa-background-transparency-percent) - 5%)
-        )
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-success-fill-muted),
+        transparent var(--wa-background-transparency-percent)
       );
     }
 
     &[variant='neutral'] {
-      --background: linear-gradient(
-        170deg,
-        color-mix(
-            in oklab,
-            var(--wa-color-neutral-fill-muted-alt),
-            transparent var(--wa-background-transparency-percent)
-          )
-          50%,
-        color-mix(
-          in oklab,
-          var(--wa-color-neutral-fill-muted),
-          transparent calc(var(--wa-background-transparency-percent) - 5%)
-        )
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-neutral-fill-muted),
+        transparent var(--wa-background-transparency-percent)
       );
     }
 
     &[variant='warning'] {
-      --background: linear-gradient(
-        170deg,
-        color-mix(
-            in oklab,
-            var(--wa-color-warning-fill-muted-alt),
-            transparent var(--wa-background-transparency-percent)
-          )
-          50%,
-        color-mix(
-          in oklab,
-          var(--wa-color-warning-fill-muted),
-          transparent calc(var(--wa-background-transparency-percent) - 5%)
-        )
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-warning-fill-muted),
+        transparent var(--wa-background-transparency-percent)
       );
     }
 
     &[variant='danger'] {
-      --background: linear-gradient(
-        170deg,
-        color-mix(
-            in oklab,
-            var(--wa-color-danger-fill-muted-alt),
-            transparent var(--wa-background-transparency-percent)
-          )
-          50%,
-        color-mix(
-          in oklab,
-          var(--wa-color-danger-fill-muted),
-          transparent calc(var(--wa-background-transparency-percent) - 5%)
-        )
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-danger-fill-muted),
+        transparent var(--wa-background-transparency-percent)
       );
     }
   }
@@ -272,8 +231,8 @@ wa-button:not([outline]) {
     );
 
     &::part(base) {
-      backdrop-filter: var(--wa-filter-blur);
       -webkit-backdrop-filter: var(--wa-filter-blur);
+      backdrop-filter: var(--wa-filter-blur);
     }
   }
 }
@@ -289,6 +248,7 @@ wa-select {
       inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */;
   }
 }
+
 wa-textarea:not(:focus) {
   &:not([filled]):not([disabled]) {
     --box-shadow: var(--wa-shadow-inset);
@@ -301,9 +261,17 @@ wa-textarea:not(:focus) {
       var(--wa-color-surface-raised),
       transparent var(--wa-background-transparency-percent)
     );
-    backdrop-filter: var(--wa-filter-blur);
     -webkit-backdrop-filter: var(--wa-filter-blur);
+    backdrop-filter: var(--wa-filter-blur);
   }
+}
+
+wa-switch {
+  --box-shadow: var(--wa-shadow-inset);
+  --thumb-shadow: var(--wa-shadow-level-1), inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04),
+    inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04), inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */;
 }
 
 /* #endregion */
