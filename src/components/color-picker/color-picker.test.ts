@@ -31,7 +31,7 @@ describe('<wa-color-picker>', () => {
 
       await clickOnElement(trigger); // open the dropdown
       await aTimeout(200); // wait for the dropdown to open
-      await el.updateComplete
+      await el.updateComplete;
 
       // Simulate a drag event. "sl-change" should not fire until we stop dragging.
       await dragElement(grid, 2, 0, {
