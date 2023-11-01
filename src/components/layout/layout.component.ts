@@ -7,7 +7,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
 
 /**
- * @summary
+ * @summary Layouts offer an easy way to scaffold pages using minimal markup.
  * @documentation https://shoelace.style/components/layout
  * @status experimental
  * @since 3.0
