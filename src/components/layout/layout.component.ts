@@ -23,7 +23,7 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @slot main-header - Header to display inline above the main content.
  * @slot main-footer - Footer to display inline below the main content.
  * @slot aside - Content to be shown on the right side of the page. Typically contains a table of contents, ads, etc. This section "sticks" to the top as the page scrolls.
- * @slot skip-to-content - The "skip to content" slot. You can override this If you would like to override the `Skip to main` button and add additional "Skip to X", they can be inserted here.
+ * @slot skip-to-content - The "skip to content" slot. You can override this If you would like to override the `Skip to content` button and add additional "Skip to X", they can be inserted here.
  * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
  *
  * @csspart base - The component's base wrapper.
