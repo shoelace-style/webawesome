@@ -96,13 +96,7 @@ Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the 
 
 ### Hero Layout
 
-```html:preview
-<wa-layout>
-  <header slot="header" class="grid header">header</header>
-  <main class="grid" id="main-content">main</main>
-  <footer class="grid" slot="footer">footer</footer>
-</wa-layout>
-```
+- TODO - Sticky header + main + footer
 
 ### Blog Layout
 
