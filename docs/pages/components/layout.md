@@ -1,80 +1,117 @@
 ---
 meta:
   title: Layout
-  description: The layout component is a way to quickly scaffold up pages in a consistent way designed to reduce boilerplate and help get you from 0 to full page as fast as possible.
+  description: Layouts offer an easy way to scaffold pages using minimal markup.
 layout: component
 ---
 
-The layout component is intended for full page usage, but is shown here in a smaller format for easier previewing.
+The layout component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
 
-The layout component does not implement any internal semantic elements because we don't want to assume what content you will be using.
+A number of sections are available as part of the layout, most of which are optional. Content is added by [slotting elements](/getting-started/usage/#slots) into various locations.
 
-Layouts are best in the dedicate [layouts section](/layouts/index.html)
+This component _does not_ implement any [content sectioning](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning) or "semantic elements" internally (such as `<main>`, `<header>`, `<footer>`, etc.). Instead, it is recommended that you slot in content sectioning elements wherever you feel they're appropriate.
 
-It's important to not if you add or omit any `header`, `footer`, `banner`, `sub-header`, `menu`, `aside`, the
-page will automatically expand or collapse based on the presence of these slotted items.
+## Layout Anatomy
 
-`banner`, `header`, `sub-header`, `aside`, and `menu` are all sticky by default.
-If you want to opt-out of this behavior you can do the following:
+This image depicts the layout's anatomy, including the default positions of each section. The labels represent the [named slots](#slots) you can use to populate them.
 
-`disable-sticky="banner header sub-header aside menu"`
+Most slots are optional. Slots that have no content will not be shown, allowing you to opt-in to just the sections of the layout you actually need.
 
-This tells the layout component to do two things:
+[![Screenshot of Layout Anatomy showing various slots](/assets/images/layout.png)](/assets/images/layout.png)
 
-1. Don't track the height of these elements.
-1. Remove `position: sticky;`.
+:::tip
+If you're not familiar with how slots work in HTML, you might want to [learn more about slots](/getting-started/usage/#slots) before using this component.
+:::
 
-Reasons why you may want to disable sticky:
+## Sticky Sections
 
-1. For `aside` / `menu` or blog sites sometimes this space is used for ads based on how far down a user scrolls.
-1. For `banner`, `header`, `sub-header` it can cause a lot of clutter on the screen and you may only want to show certain elements are the user scrolls.
+The following sections of the layout are "sticky" by default, meaning they remain in position as the user scrolls.
 
-## Toggle navigation
+- `banner`
+- `header`
+- `sub-header`
+- `aside`
+- `menu`
 
-Toggling navigation can be done in a number of ways.
+This is often desirable, but you can change this behavior using the `disable-sticky` attribute. Use a space-delimited list of names to tell the layout which sections should not be sticky.
 
-`<wa-layout><button data-navigation-toggle></button></wa-layout>` - The button with `data-navigation-toggle` must be inside the `<wa-layout>` component.
+```html
+<wa-layout disable-sticky="header aside"> ... </wa-layout>
+```
 
-`<wa-layout nav-state="open"></wa-layout>` -
+## How to Apply Spacing to Your Layout
 
-`document.querySelector("button").addEventListener("click", () => document.querySelector("wa-layout").toggleNavigation())`
+The layout component _does not_ apply spacing for you. You can apply the appropriate paddings or margins directly to the elements you slot in to fine tune your spacing needs.
 
-```html:preview
-<style>
-  wa-layout::part(header) {
-    border-bottom: 1px solid var(--wa-color-neutral-outline-muted-alt);
-    background-color: var(--wa-color-white);
-  }
+TODO - add example here
 
-  /* Override global styles */
-  wa-layout :is(main, [slot="aside"]) {
-    margin: 0;
-    padding: 1rem;
-  }
-</style>
-<wa-layout main-id="content" style="max-height: 500px; overflow: auto;">
-  <header slot="header">
-    Header
-  </header>
+:::warning
+When using `<wa-layout>`, make sure to zero out all paddings and margins on `<html>` and `<body>`, otherwise you may see unexpected gaps.
+:::
 
-  <nav aria-label="Main Navigation" slot="navigation">
-    <wa-nav-group>
-      <wa-nav-item href="#">Home</wa-nav-item>
-    </wa-nav-group>
-  </nav>
+## Skip To Content
 
-  <main id="content">
-    Main Content
-  </main>
+The layout provides a "skip to content" link that's visually hidden until the user tabs into it. You don't have to do anything to configure this, unless you want to change the text displayed in the link. In that case, you can slot in your own text using the `skip-to-content` slot.
 
-  <div slot="aside">
-    Aside
-  </div>
+This example localizes the "skip to content" link for German users.
 
-  <footer slot="footer">
-    Footer
-  </footer>
+```html
+<wa-layout>
+  ...
+  <span slot="skip-to-content">Zum Inhalt springen</span>
+  ...
 </wa-layout>
 ```
 
+## Responsiveness
+
+The layout component tries not to have too many opinions in terms of responsive behaviors — you get to decide with your own CSS and media queries how your content responds! However, the navigation menu _does_ respond by collapsing on smaller screens. The breakpoint at which this occurs is 768px by default, but you can change it using the `mobile-breakpoint` attribute.
+
+```html
+<wa-layout mobile-breakpoint="600"> ... </wa-layout>
+```
+
+You can provide a button to toggle the navigation menu anywhere inside the layout by adding the `data-toggle-nav` attribute. (This _does not_ have to be a Web Awesome button.)
+
+```html
+<wa-layout mobile-breakpoint="600">
+  ...
+  <wa-button data-toggle-nav>Menu</wa-button>
+  ...
+</wa-layout>
+```
+
+Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the layout component to show and hide the navigation, respectively.
+
+```html
+<wa-layout nav-state="open"> ... </wa-layout>
+```
+
+## Providing Navigation Items
+
+- TODO - example with navigation items
+- TODO - example with`<h2>` and `<a>` as navigation items
+
 ## Examples
+
+### Hero Layout
+
+```html:preview
+<wa-layout>
+  <header slot="header" class="grid header">header</header>
+  <main class="grid" id="main-content">main</main>
+  <footer class="grid" slot="footer">footer</footer>
+</wa-layout>
+```
+
+### Blog Layout
+
+- TODO - Sticky header + main + aside + footer (blog)
+
+### App Layout
+
+- TODO - Menu + main, plus maybe headers and footers in each (app)
+
+### Docs Layout
+
+- TODO - Menu + main + aside + footer (docs)
