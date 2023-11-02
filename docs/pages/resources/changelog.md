@@ -20,6 +20,11 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 - Removed `default` from `<wa-button>` and made `neutral` the new default
 - Removed the `circle` modifier from `<wa-button>` because button's no longer have a set height
 
+## Next
+
+- Fixed a bug with bundled components using CDN builds not having translations on initial connect [#1696]
+- Fixed a bug where the `"sl-change"` event would always fire simultaneously with `"sl-input"` event in `<sl-color-picker>`. The `<sl-change>` event now only fires when a user stops dragging a slider or stops dragging on the color canvas. [#1689]
+
 ## 2.11.2
 
 - Fixed a bug in `<sl-carousel>` component that caused an error to be thrown when rendered with Lit [#1684]
