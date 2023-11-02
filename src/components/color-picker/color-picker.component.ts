@@ -243,7 +243,8 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__slider.color-picker__alpha')!;
     const handle = container.querySelector<HTMLElement>('.color-picker__slider-handle')!;
     const { width } = container.getBoundingClientRect();
-    let oldValue = this.value;
+    let initialValue = this.value;
+    let currentValue = this.value;
 
     handle.focus();
     event.preventDefault();
@@ -253,10 +254,15 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
         this.alpha = clamp((x / width) * 100, 0, 100);
         this.syncValues();
 
-        if (this.value !== oldValue) {
-          oldValue = this.value;
-          this.emit('wa-change');
+        if (this.value !== currentValue) {
+          currentValue = this.value;
           this.emit('wa-input');
+        }
+      },
+      onStop: () => {
+        if (this.value !== initialValue) {
+          initialValue = this.value;
+          this.emit('wa-change');
         }
       },
       initialEvent: event
@@ -267,7 +273,8 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__slider.color-picker__hue')!;
     const handle = container.querySelector<HTMLElement>('.color-picker__slider-handle')!;
     const { width } = container.getBoundingClientRect();
-    let oldValue = this.value;
+    let initialValue = this.value;
+    let currentValue = this.value;
 
     handle.focus();
     event.preventDefault();
@@ -277,10 +284,15 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
         this.hue = clamp((x / width) * 360, 0, 360);
         this.syncValues();
 
-        if (this.value !== oldValue) {
-          oldValue = this.value;
-          this.emit('wa-change');
+        if (this.value !== currentValue) {
+          currentValue = this.value;
           this.emit('wa-input');
+        }
+      },
+      onStop: () => {
+        if (this.value !== initialValue) {
+          initialValue = this.value;
+          this.emit('wa-change');
         }
       },
       initialEvent: event
@@ -291,7 +303,8 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__grid')!;
     const handle = grid.querySelector<HTMLElement>('.color-picker__grid-handle')!;
     const { width, height } = grid.getBoundingClientRect();
-    let oldValue = this.value;
+    let initialValue = this.value;
+    let currentValue = this.value;
 
     handle.focus();
     event.preventDefault();
@@ -304,13 +317,18 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
         this.brightness = clamp(100 - (y / height) * 100, 0, 100);
         this.syncValues();
 
-        if (this.value !== oldValue) {
-          oldValue = this.value;
-          this.emit('wa-change');
+        if (this.value !== currentValue) {
+          currentValue = this.value;
           this.emit('wa-input');
         }
       },
-      onStop: () => (this.isDraggingGridHandle = false),
+      onStop: () => {
+        this.isDraggingGridHandle = false;
+        if (this.value !== initialValue) {
+          initialValue = this.value;
+          this.emit('wa-change');
+        }
+      },
       initialEvent: event
     });
   }
