@@ -45,9 +45,16 @@ The layout component _does not_ apply spacing for you. You can apply the appropr
 
 TODO - add example here
 
-:::warning
-When using `<wa-layout>`, make sure to zero out all paddings and margins on `<html>` and `<body>`, otherwise you may see unexpected gaps.
-:::
+When using `<wa-layout>`, make sure to zero out all paddings and margins on `<html>` and `<body>`, otherwise you may see unexpected gaps. The following styles are highly recommended when using `<wa-layout>`.
+
+```css
+html,
+body {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+}
+```
 
 ## Skip To Content
 
