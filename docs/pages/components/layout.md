@@ -35,7 +35,7 @@ Toggling navigation can be done in a number of ways.
 
 `<wa-layout><button data-navigation-toggle></button></wa-layout>` - The button with `data-navigation-toggle` must be inside the `<wa-layout>` component.
 
-`<wa-layout nav-state="open"></wa-layout>` -
+`<wa-layout nav-open></wa-layout>` -
 
 `document.querySelector("button").addEventListener("click", () => document.querySelector("wa-layout").toggleNavigation())`
 

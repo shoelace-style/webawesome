@@ -169,6 +169,10 @@ export default css`
     overflow: auto;
   }
 
+  :host([view="mobile"]) [part~='navigation'] {
+    display: none;
+  }
+
   [part~='navigation'] {
     height: 100%;
     display: grid;

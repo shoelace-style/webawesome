@@ -1,11 +1,5 @@
-html {
-  min-height: 100%;
-  height: auto;
-}
-
 body {
   padding: 0;
-  height: auto;
 }
 
 .grid {

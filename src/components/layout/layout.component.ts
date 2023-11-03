@@ -41,7 +41,6 @@ import { live } from 'lit/directives/live.js';
  * @csspart aside - The right hand side of the page. Used for things like table of contents, ads, etc.
  * @csspart skip-links - Wrapper around skip-link
  * @csspart skip-link - The "skip to main content" link
- * @csspart nav-button - The default mobile `<sl-icon-button>` displayed on mobile viewports.
  * @csspart footer - The footer of the page. This is always below the initial viewport size.
  * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *

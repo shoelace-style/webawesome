@@ -42,10 +42,6 @@ wa-layout[view='mobile']::part(header) {
   border-bottom: 1px solid var(--wa-color-neutral-70);
 }
 
-wa-layout[view='mobile']::part(navigation) {
-  display: none;
-}
-
 wa-layout[view='desktop']::part(main) {
   padding-top: 1rem;
 }
