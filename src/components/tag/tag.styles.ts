@@ -11,7 +11,7 @@ export default css`
   .tag {
     display: flex;
     align-items: center;
-    border: solid 1px;
+    border: solid var(--wa-border-width-thin);
     line-height: 1;
     white-space: nowrap;
     user-select: none;

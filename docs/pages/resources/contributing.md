@@ -348,16 +348,18 @@ When change events are emitted by Web Awesome components, they should be named `
 
 ### CSS Custom Properties
 
+Custom properties allow users to customize Web Awesome components by exposing specific styles across a component's shadow boundary. Use custom properties to expose key characteristics of a component for low-level theming. Avoid using custom properties for styles that may interfere with proper rendering.
+
 To expose custom properties as part of a component's API, scope them to the `:host` block.
 
 ```css
 :host {
-  --color: var(--sl-color-primary-500);
-  --background-color: var(--sl-color-neutral-100);
+  --color: var(--wa-color-brand-text-on-vivid);
+  --background-color: var(--wa-color-brand-fill-vivid);
 }
 ```
 
-Then use the following syntax for comments so they appear in the generated docs. Do not use the `--sl-` prefix, as that is reserved for design tokens that live in the global scope.
+Then use the following syntax for comments so they appear in the generated docs. Do not use the `--wa-` prefix, as that is reserved for design tokens that live in the global scope.
 
 ```js
 /**

@@ -7,10 +7,28 @@ export default css`
   ${formControlStyles}
 
   :host {
+    --background: var(--wa-form-controls-background);
+    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-radius: var(--wa-form-controls-corners);
+    --border-style: var(--wa-form-controls-border-style);
+    --border-width: var(--wa-form-controls-border-width);
+    --box-shadow: var(--wa-shadow-level-0);
+
     display: block;
   }
 
+  :host([filled]) {
+    --background: var(--wa-color-neutral-fill-muted);
+    --border-color: var(--background);
+  }
+
   .input {
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
     flex: 1 1 auto;
     display: inline-flex;
     align-items: stretch;
@@ -22,17 +40,12 @@ export default css`
     overflow: hidden;
     cursor: text;
     transition:
+      var(--wa-transition-fast) background,
       var(--wa-transition-fast) border,
-      var(--wa-transition-fast) background-color;
+      var(--wa-transition-faster) outline;
   }
 
   /* Standard inputs */
-  .input--standard {
-    background-color: var(--wa-form-controls-background);
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
-      var(--wa-form-controls-border-color-resting);
-  }
-
   .input--standard.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
@@ -45,15 +58,9 @@ export default css`
   }
 
   /* Filled inputs */
-  .input--filled {
-    border: none;
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }
-
   .input--filled.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
-    outline-offset: 0;
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .input--filled.input--disabled {
@@ -69,7 +76,8 @@ export default css`
     line-height: var(--wa-form-controls-value-line-height);
     color: var(--wa-form-controls-text-color);
     border: none;
-    background: inherit;
+    /* prettier-ignore */
+    background: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
     box-shadow: none;
     padding: 0;
     margin: 0;
@@ -120,7 +128,7 @@ export default css`
 
   .input__prefix ::slotted(wa-icon),
   .input__suffix ::slotted(wa-icon) {
-    color: var(--wa-color-neutral-text-on-surface);
+    color: var(--wa-color-neutral-fill-vivid);
   }
 
   /*
@@ -128,13 +136,12 @@ export default css`
    */
 
   .input--small {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-s);
     height: var(--wa-form-controls-height-s);
   }
 
   .input--small .input__control {
-    height: calc(var(--wa-form-controls-height-s) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
     padding: 0 var(--wa-space-s);
   }
 
@@ -152,13 +159,12 @@ export default css`
   }
 
   .input--medium {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-m);
     height: var(--wa-form-controls-height-m);
   }
 
   .input--medium .input__control {
-    height: calc(var(--wa-form-controls-height-m) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
     padding: 0 var(--wa-space-m);
   }
 
@@ -176,13 +182,12 @@ export default css`
   }
 
   .input--large {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-l);
     height: var(--wa-form-controls-height-l);
   }
 
   .input--large .input__control {
-    height: calc(var(--wa-form-controls-height-l) - var(--wa-form-controls-border-width) * 2);
+    height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
     padding: 0 var(--wa-space-l);
   }
 

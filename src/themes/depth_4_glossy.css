@@ -1,0 +1,273 @@
+:root {
+  /**
+   * Shadows
+   * Shadow effects indicate elevation and, at times, interactivity.
+   * Elevation is defined by levels relative to the surface where the element rests -
+   *  *  Inset sits below the surface for a punched-in effect
+   *  *  Level 0 is the surface level
+   *  *  Level 1 is slightly raised above the surface and often signifies that an element is interactive, such as a card
+   *  *  Level 2 is raised above all other elements on the same surface, such as dropdown menus
+   *  *  Level 3 is raised above all elements on all surfaces, such as dialogs and drawers
+   */
+  /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-shadow-blur-base: 0.375;
+  --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.5rem);
+  --wa-shadow-blur-level-1: calc(var(--wa-shadow-blur-base) * 1rem);
+  --wa-shadow-blur-level-2: calc(var(--wa-shadow-blur-base) * 1.5rem);
+  --wa-shadow-blur-level-3: calc(var(--wa-shadow-blur-base) * 2rem);
+
+  /* Offset values are used in pre-constructed shadows and may be used when creating custom shadows
+   * or transforming elements with shadows. */
+  --wa-shadow-offset-y-base: 0.25;
+  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.5rem);
+  --wa-shadow-offset-y-level-1: calc(var(--wa-shadow-offset-y-base) * 1rem);
+  --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
+  --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
+
+  --wa-shadow-offset-x-base: 0;
+  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.5rem);
+  --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
+  --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
+  --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2rem);
+
+  --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset) var(--wa-shadow-blur-inset)
+    var(--wa-color-shadow);
+  --wa-shadow-level-0: none;
+  --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+    var(--wa-color-shadow);
+  --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
+    var(--wa-color-shadow);
+  --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3) var(--wa-shadow-blur-level-3)
+    var(--wa-color-shadow);
+
+  /**
+   * Background effects
+   */
+  --wa-background-transparency-percent: 12%;
+  --wa-filter-blur: blur(0.3125rem);
+}
+
+/* #region Alerts */
+@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+  wa-alert {
+    &::part(base) {
+      -webkit-backdrop-filter: var(--wa-filter-blur);
+      backdrop-filter: var(--wa-filter-blur);
+    }
+
+    &[variant='brand'] {
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-brand-fill-muted),
+        transparent var(--wa-background-transparency-percent)
+      );
+    }
+
+    &[variant='success'] {
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-success-fill-muted),
+        transparent var(--wa-background-transparency-percent)
+      );
+    }
+
+    &[variant='neutral'] {
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-neutral-fill-muted),
+        transparent var(--wa-background-transparency-percent)
+      );
+    }
+
+    &[variant='warning'] {
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-warning-fill-muted),
+        transparent var(--wa-background-transparency-percent)
+      );
+    }
+
+    &[variant='danger'] {
+      --background: color-mix(
+        in oklab,
+        var(--wa-color-danger-fill-muted),
+        transparent var(--wa-background-transparency-percent)
+      );
+    }
+  }
+}
+/* #endregion */
+
+/* #region Buttons */
+wa-button:not([variant='text']) {
+  --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+    inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */, inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
+
+  margin-bottom: var(--wa-shadow-offset-y-inset);
+  transition: transform var(--wa-transition-faster);
+
+  &:not([disabled]) {
+    &:hover {
+      --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+        inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
+        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+        inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-2) /* outer shadow */;
+    }
+
+    &:active {
+      --box-shadow: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
+        inset 0 0.125rem 0 0 rgb(0 0 0 / 0.08) /* top highlight */,
+        inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
+        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+        inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */, 0 0 0 0 transparent /* outer shadow */;
+
+      transform: translateY(var(--wa-shadow-offset-y-inset));
+    }
+  }
+}
+
+wa-button:not([outline]) {
+  &[variant='brand'] {
+    --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-brand-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-brand-fill-vivid)
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-brand-fill-vivid))
+      var(--wa-color-brand-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-brand-fill-vivid-alt);
+  }
+
+  &[variant='success'] {
+    --background: linear-gradient(var(--wa-color-success-fill-vivid) 25%, var(--wa-color-success-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-success-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-success-fill-vivid)
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-success-fill-vivid))
+      var(--wa-color-success-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-success-fill-vivid-alt);
+  }
+
+  &[variant='neutral'] {
+    --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-neutral-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-neutral-fill-vivid)
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-neutral-fill-vivid))
+      var(--wa-color-neutral-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-neutral-fill-vivid-alt);
+  }
+
+  &[variant='warning'] {
+    --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-warning-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-warning-fill-vivid)
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-warning-fill-vivid))
+      var(--wa-color-warning-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-warning-fill-vivid-alt);
+  }
+
+  &[variant='danger'] {
+    --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
+    --background-hover: linear-gradient(
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
+    );
+    --background-active: linear-gradient(
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)),
+      var(--wa-color-danger-fill-vivid-alt)
+    );
+    --border-color: var(--wa-color-danger-fill-vivid)
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-danger-fill-vivid))
+      var(--wa-color-danger-fill-vivid-alt);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--wa-color-danger-fill-vivid-alt);
+  }
+}
+/* #endregion */
+
+/* #region Cards */
+@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+  wa-card {
+    --background: color-mix(
+      in oklab,
+      var(--wa-color-surface-raised),
+      transparent var(--wa-background-transparency-percent)
+    );
+
+    &::part(base) {
+      -webkit-backdrop-filter: var(--wa-filter-blur);
+      backdrop-filter: var(--wa-filter-blur);
+    }
+  }
+}
+/* #endregion */
+
+/* #region Inputs */
+wa-input:not(:focus),
+wa-select {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset), inset 0 1.25em 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */;
+  }
+}
+
+wa-textarea:not(:focus) {
+  &:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-inset);
+  }
+}
+
+@supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+  wa-select::part(listbox) {
+    background: color-mix(
+      in oklab,
+      var(--wa-color-surface-raised),
+      transparent var(--wa-background-transparency-percent)
+    );
+    -webkit-backdrop-filter: var(--wa-filter-blur);
+    backdrop-filter: var(--wa-filter-blur);
+  }
+}
+
+wa-switch {
+  --box-shadow: var(--wa-shadow-inset);
+  --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+    inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+    inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
+}
+/* #endregion */

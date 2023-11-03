@@ -30,9 +30,19 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart thumb - The switch's thumb.
  * @csspart label - The switch's label.
  *
- * @cssproperty --width - The width of the switch.
+ * @cssproperty --background - The switch's background styles.
+ * @cssproperty --background-checked - The switch's background styles when checked.
+ * @cssproperty --border-color - The color of the switch's borders.
+ * @cssproperty --border-color-checked - The color of the switch's borders when checked.
+ * @cssproperty --border-style - The style of the switch's borders.
+ * @cssproperty --border-width - The width of the switch's borders. Expects a single value.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the switch.
  * @cssproperty --height - The height of the switch.
+ * @cssproperty --thumb-color - The color of the thumb.
+ * @cssproperty --thumb-color-checked - The color of the thumb when checked.
+ * @cssproperty --thumb-shadow - The shadow effects around the edges of the thumb.
  * @cssproperty --thumb-size - The size of the thumb.
+ * @cssproperty --width - The width of the switch.
  */
 export default class WaSwitch extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

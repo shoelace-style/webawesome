@@ -67,7 +67,7 @@ toc: false
 
   // Border width
   container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}rem`);
+    document.documentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}`);
   });
 
   // Border style

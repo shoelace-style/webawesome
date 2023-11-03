@@ -1,0 +1,43 @@
+:root {
+  /**
+   * Shadows
+   * Shadow effects indicate elevation and, at times, interactivity.
+   * Elevation is defined by levels relative to the surface where the element rests -
+   *  *  Inset sits below the surface for a punched-in effect
+   *  *  Level 0 is the surface level
+   *  *  Level 1 is slightly raised above the surface and often signifies that an element is interactive, such as a card
+   *  *  Level 2 is raised above all other elements on the same surface, such as dropdown menus
+   *  *  Level 3 is raised above all elements on all surfaces, such as dialogs and drawers
+   */
+  /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
+   * The base value is intended for calculations and is not used by components directly. */
+  --wa-shadow-blur-base: 0;
+  --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.5rem);
+  --wa-shadow-blur-level-1: calc(var(--wa-shadow-blur-base) * 1rem);
+  --wa-shadow-blur-level-2: calc(var(--wa-shadow-blur-base) * 1.5rem);
+  --wa-shadow-blur-level-3: calc(var(--wa-shadow-blur-base) * 2rem);
+
+  /* Offset values are used in pre-constructed shadows and may be used when creating custom shadows
+   * or transforming elements with shadows. */
+  --wa-shadow-offset-y-base: 0;
+  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.5rem);
+  --wa-shadow-offset-y-level-1: calc(var(--wa-shadow-offset-y-base) * 1rem);
+  --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
+  --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
+
+  --wa-shadow-offset-x-base: 0;
+  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.5rem);
+  --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
+  --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
+  --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2rem);
+
+  --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset) var(--wa-shadow-blur-inset)
+    var(--wa-color-shadow);
+  --wa-shadow-level-0: none;
+  --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+    var(--wa-color-shadow);
+  --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
+    var(--wa-color-shadow);
+  --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3) var(--wa-shadow-blur-level-3)
+    var(--wa-color-shadow);
+}

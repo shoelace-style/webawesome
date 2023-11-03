@@ -7,31 +7,43 @@ export default css`
   ${formControlStyles}
 
   :host {
+    --background: var(--wa-form-controls-background);
+    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-radius: var(--wa-form-controls-corners);
+    --border-style: var(--wa-form-controls-border-style);
+    --border-width: var(--wa-form-controls-border-width);
+    --box-shadow: var(--wa-shadow-level-0);
+
     display: block;
   }
 
+  :host([filled]) {
+    --background: var(--wa-color-neutral-fill-muted);
+    --border-color: var(--background);
+  }
+
   .textarea {
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
     display: flex;
     align-items: center;
     position: relative;
     width: 100%;
     font: inherit;
-    color: var(--wa-form-controls-text-color);
     line-height: var(--wa-form-controls-value-line-height);
     vertical-align: middle;
     transition:
+      var(--wa-transition-fast) background,
       var(--wa-transition-fast) border,
-      var(--wa-transition-fast) background-color;
+      var(--wa-transition-faster) outline;
     cursor: text;
   }
 
   /* Standard textareas */
-  .textarea--standard {
-    background-color: var(--wa-form-controls-background);
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
-      var(--wa-form-controls-border-color-resting);
-  }
-
   .textarea--standard.textarea--focused:not(.textarea--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
@@ -44,12 +56,6 @@ export default css`
   }
 
   /* Filled textareas */
-  .textarea--filled {
-    border: none;
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }
-
   .textarea--filled.textarea--focused:not(.textarea--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: 0;
@@ -63,7 +69,7 @@ export default css`
   .textarea__control {
     flex: 1 1 auto;
     font: inherit;
-    line-height: var(--wa-form-controls-value-line-height);
+    line-height: var(--wa-font-line-height-comfortable);
     color: var(--wa-form-controls-text-color);
     border: none;
     background: none;
@@ -94,7 +100,6 @@ export default css`
    */
 
   .textarea--small {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-s);
   }
 
@@ -103,7 +108,6 @@ export default css`
   }
 
   .textarea--medium {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-m);
   }
 
@@ -112,7 +116,6 @@ export default css`
   }
 
   .textarea--large {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-l);
   }
 

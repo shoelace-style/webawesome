@@ -7,7 +7,19 @@ export default css`
   ${formControlStyles}
 
   :host {
+    --background: var(--wa-form-controls-background);
+    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-radius: var(--wa-form-controls-corners);
+    --border-style: var(--wa-form-controls-border-style);
+    --border-width: var(--wa-form-controls-border-width);
+    --box-shadow: var(--wa-shadow-level-0);
+
     display: block;
+  }
+
+  :host([filled]) {
+    --background: var(--wa-color-neutral-fill-muted);
+    --border-color: var(--background);
   }
 
   /** The popup */
@@ -33,6 +45,12 @@ export default css`
 
   /* Combobox */
   .select__combobox {
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
     flex: 1;
     display: flex;
     width: 100%;
@@ -45,10 +63,11 @@ export default css`
     overflow: hidden;
     cursor: pointer;
     transition:
-      var(--wa-transition-fast) color,
+      var(--wa-transition-fast) background,
       var(--wa-transition-fast) border,
       var(--wa-transition-fast) box-shadow,
-      var(--wa-transition-fast) background-color;
+      var(--wa-transition-fast) color,
+      var(--wa-transition-faster) outline;
   }
 
   .select__display-input {
@@ -115,12 +134,6 @@ export default css`
   }
 
   /* Standard selects */
-  .select--standard .select__combobox {
-    background-color: var(--wa-form-controls-background);
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width)
-      var(--wa-form-controls-border-color-resting);
-  }
-
   .select--standard.select--disabled .select__combobox {
     opacity: 0.5;
     cursor: not-allowed;
@@ -134,26 +147,13 @@ export default css`
   }
 
   /* Filled selects */
-  .select--filled .select__combobox {
-    border: none;
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }
-
   .select--filled.select--disabled .select__combobox {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .select--filled:not(.select--disabled).select--open .select__combobox,
-  .select--filled:not(.select--disabled).select--focused .select__combobox {
-    background-color: var(--wa-color-neutral-fill-muted);
-    color: var(--wa-color-neutral-text-on-muted);
-  }
-
   /* Sizes */
   .select--small .select__combobox {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-s);
     min-height: var(--wa-form-controls-height-s);
     padding-block: 0;
@@ -178,7 +178,6 @@ export default css`
   }
 
   .select--medium .select__combobox {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-m);
     min-height: var(--wa-form-controls-height-m);
     padding-block: 0;
@@ -203,7 +202,6 @@ export default css`
   }
 
   .select--large .select__combobox {
-    border-radius: var(--wa-form-controls-corners);
     font-size: var(--wa-font-size-l);
     min-height: var(--wa-form-controls-height-l);
     padding-block: 0;
@@ -229,15 +227,15 @@ export default css`
 
   /* Pills */
   .select--pill.select--small .select__combobox {
-    border-radius: var(--wa-form-controls-height-s);
+    border-radius: var(--wa-corners-pill);
   }
 
   .select--pill.select--medium .select__combobox {
-    border-radius: var(--wa-form-controls-height-m);
+    border-radius: var(--wa-corners-pill);
   }
 
   .select--pill.select--large .select__combobox {
-    border-radius: var(--wa-form-controls-height-l);
+    border-radius: var(--wa-corners-pill);
   }
 
   /* Prefix */
@@ -245,7 +243,7 @@ export default css`
     flex: 0;
     display: inline-flex;
     align-items: center;
-    color: var(--wa-form-controls-border-color-activated);
+    color: var(--wa-color-neutral-fill-vivid);
   }
 
   /* Clear button */
@@ -258,7 +256,7 @@ export default css`
     border: none;
     background: none;
     padding: 0;
-    transition: var(--wa-transition-fast) color;
+    transition: color var(--wa-transition-fast);
     cursor: pointer;
   }
 
@@ -275,7 +273,7 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    transition: var(--wa-transition-normal) rotate ease;
+    transition: rotate var(--wa-transition-normal) ease;
     rotate: 0;
     margin-inline-start: var(--wa-space-s);
   }
@@ -291,8 +289,10 @@ export default css`
     font: inherit;
     box-shadow: var(--wa-shadow-level-2);
     background: var(--wa-color-surface-raised);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border-color: var(--border-color);
     border-radius: var(--wa-corners-1x);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
     padding-block: var(--wa-space-xs);
     padding-inline: 0;
     overflow: auto;

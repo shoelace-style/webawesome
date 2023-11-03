@@ -65,6 +65,13 @@ import type WaOption from '../option/option.component.js';
  * @csspart tag__remove-button__base - The tag's remove button base part.
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
+ *
+ * @cssproperty --background - The background styles of the select's combobox.
+ * @cssproperty --border-color - The color of the select's borders, including the listbox.
+ * @cssproperty --border-radius - The border radius of the select's combobox.
+ * @cssproperty --border-style - The style of the select's borders, including the listbox.
+ * @cssproperty --border-width - The width of the select's borders, including the listbox.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
 export default class WaSelect extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

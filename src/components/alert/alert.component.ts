@@ -36,6 +36,15 @@ const toastStack = Object.assign(document.createElement('div'), { className: 'wa
  * @csspart close-button - The close button, an `<wa-icon-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  *
+ * @cssproperty --background - The alert's background styles.
+ * @cssproperty --border-color - The color of the alert's border.
+ * @cssproperty --border-radius - The border radius of the alert's corners.
+ * @cssproperty --border-style - The style of the alert's borders.
+ * @cssproperty --border-width - The width of the alert's borders.
+ * @cssproperty --content-color - The color of the alert's content.
+ * @cssproperty --icon-size - The size of the icon.
+ * @cssproperty --padding - The padding within the alert. Expects a single value.
+ *
  * @animation alert.show - The animation to use when showing the alert.
  * @animation alert.hide - The animation to use when hiding the alert.
  */
