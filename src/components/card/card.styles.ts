@@ -25,6 +25,8 @@ export default css`
     border-style: var(--border-style);
     border-width: var(--border-width);
     box-shadow: var(--box-shadow);
+    color: var(--wa-color-text-normal);
+    font: inherit;
   }
 
   .card__image {

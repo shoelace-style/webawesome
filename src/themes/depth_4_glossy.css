@@ -49,7 +49,6 @@
 }
 
 /* #region Alerts */
-
 @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
   wa-alert {
     &::part(base) {
@@ -98,11 +97,9 @@
     }
   }
 }
-
 /* #endregion */
 
 /* #region Buttons */
-
 wa-button:not([variant='text']) {
   --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
@@ -120,6 +117,7 @@ wa-button:not([variant='text']) {
         inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
         inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-2) /* outer shadow */;
     }
+
     &:active {
       --box-shadow: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
         inset 0 0.125rem 0 0 rgb(0 0 0 / 0.08) /* top highlight */,
@@ -166,6 +164,7 @@ wa-button:not([outline]) {
     --border-color-hover: var(--border-color);
     --border-color-active: var(--wa-color-success-fill-vivid-alt);
   }
+
   &[variant='neutral'] {
     --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
     --background-hover: linear-gradient(
@@ -217,11 +216,9 @@ wa-button:not([outline]) {
     --border-color-active: var(--wa-color-danger-fill-vivid-alt);
   }
 }
-
 /* #endregion */
 
 /* #region Cards */
-
 @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
   wa-card {
     --background: color-mix(
@@ -236,11 +233,9 @@ wa-button:not([outline]) {
     }
   }
 }
-
 /* #endregion */
 
 /* #region Inputs */
-
 wa-input:not(:focus),
 wa-select {
   &:not([filled]):not([disabled]) {
@@ -254,6 +249,7 @@ wa-textarea:not(:focus) {
     --box-shadow: var(--wa-shadow-inset);
   }
 }
+
 @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
   wa-select::part(listbox) {
     background: color-mix(
@@ -268,10 +264,10 @@ wa-textarea:not(:focus) {
 
 wa-switch {
   --box-shadow: var(--wa-shadow-inset);
-  --thumb-shadow: var(--wa-shadow-level-1), inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04),
-    inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04), inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+  --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */;
+    inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+    inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
 }
-
 /* #endregion */

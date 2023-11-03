@@ -62,6 +62,7 @@ wa-button:not([variant='text']) {
       transform: translateY(calc((var(--wa-shadow-offset-y-level-2) - var(--wa-shadow-offset-y-level-1)) * -1))
         translateX(calc((var(--wa-shadow-offset-x-level-2) - var(--wa-shadow-offset-x-level-1)) * -1));
     }
+
     &:active {
       --box-shadow: none;
 

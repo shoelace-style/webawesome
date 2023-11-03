@@ -45,7 +45,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --border-color-hover - The color of the button's border on hover.
  * @cssproperty --border-radius - The radius of the button's corners.
  * @cssproperty --border-style - The style of the button's border.
- * @cssproperty --border-width - The width of the button's border. A single value is recommended.
+ * @cssproperty --border-width - The width of the button's border. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the button.
  * @cssproperty --box-shadow-color - A bespoke shadow color for the button.
  * @cssproperty --label-color - The color of the button's label.

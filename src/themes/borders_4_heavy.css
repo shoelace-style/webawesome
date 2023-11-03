@@ -25,15 +25,19 @@ wa-alert {
   &[variant='neutral'] {
     --border-color: var(--wa-color-neutral-outline-muted-alt);
   }
+
   &[variant='success'] {
     --border-color: var(--wa-color-success-outline-muted-alt);
   }
+
   &[variant='warning'] {
     --border-color: var(--wa-color-warning-outline-muted-alt);
   }
+
   &[variant='brand'] {
     --border-color: var(--wa-color-brand-outline-muted-alt);
   }
+
   &[variant='danger'] {
     --border-color: var(--wa-color-danger-outline-muted-alt);
   }
@@ -49,15 +53,19 @@ wa-button {
   &[variant='brand'] {
     --border-color: var(--wa-color-brand-outline-vivid-alt);
   }
+
   &[variant='success'] {
     --border-color: var(--wa-color-success-outline-vivid-alt);
   }
+
   &[variant='neutral'] {
     --border-color: var(--wa-color-neutral-outline-vivid-alt);
   }
+
   &[variant='warning'] {
     --border-color: var(--wa-color-warning-outline-vivid-alt);
   }
+
   &[variant='danger'] {
     --border-color: var(--wa-color-danger-outline-vivid-alt);
   }

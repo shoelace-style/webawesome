@@ -25,15 +25,19 @@ wa-button[outline] {
   &[variant='brand'] {
     --border-color: var(--wa-color-brand-outline-muted-alt);
   }
+
   &[variant='success'] {
     --border-color: var(--wa-color-success-outline-muted-alt);
   }
+
   &[variant='neutral'] {
     --border-color: var(--wa-color-neutral-outline-muted-alt);
   }
+
   &[variant='warning'] {
     --border-color: var(--wa-color-warning-outline-muted-alt);
   }
+
   &[variant='danger'] {
     --border-color: var(--wa-color-danger-outline-muted-alt);
   }

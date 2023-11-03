@@ -26,17 +26,17 @@
   --wa-color-red-10: #3c0c09;
   --wa-color-red-05: #290601;
 
-  --wa-color-yellow-95: #faf3c9;
-  --wa-color-yellow-90: #fde592;
-  --wa-color-yellow-80: #f6c240;
-  --wa-color-yellow-70: #dfa43b;
-  --wa-color-yellow-60: #c68836;
-  --wa-color-yellow-50: #a3692e;
-  --wa-color-yellow-40: #7e4c26;
-  --wa-color-yellow-30: #663a20;
-  --wa-color-yellow-20: #4d2919;
-  --wa-color-yellow-10: #2d1810;
-  --wa-color-yellow-05: #1b0f09;
+  --wa-color-yellow-95: #fbf3c9;
+  --wa-color-yellow-90: #ffe492;
+  --wa-color-yellow-80: #fcc041;
+  --wa-color-yellow-70: #e5a23d;
+  --wa-color-yellow-60: #cc853a;
+  --wa-color-yellow-50: #a86633;
+  --wa-color-yellow-40: #824a2a;
+  --wa-color-yellow-30: #6a3825;
+  --wa-color-yellow-20: #4f281d;
+  --wa-color-yellow-10: #2e1813;
+  --wa-color-yellow-05: #1a0e0a;
 
   --wa-color-green-95: #e8f6ea;
   --wa-color-green-90: #d0edd8;
@@ -317,6 +317,7 @@
 
   --wa-form-controls-text-color: var(--wa-color-text-normal);
   --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
+  --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
 
   --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
   --wa-form-controls-placeholder-color-valid: var(--wa-color-green-60);

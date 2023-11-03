@@ -98,7 +98,6 @@ export default css`
 
   :host([outline]),
   :host(.wa-button-group__button--radio:not([checked])) {
-    --background: none;
     --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
