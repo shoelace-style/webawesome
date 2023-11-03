@@ -335,12 +335,12 @@ if (!serve) {
 
   await nextTask('Building the docs', async () => {
     result = await buildTheDocs();
-  });
 
-  // Log deferred output
-  if (result.output.length > 0) {
-    console.log('\n' + result.output.join('\n'));
-  }
+    // Log deferred output
+    if (result.output.length > 0) {
+      console.log('\n' + result.output.join('\n'));
+    }
+  });
 }
 
 // Cleanup on exit

@@ -58,7 +58,7 @@ img {
 
 .header__navigation {
   display: flex;
-  clip-path: polygon(var(--wa-space-2xl) 0,100% 0,100% 100%,0 100%);
+  clip-path: polygon(var(--wa-space-2xl) 0, 100% 0, 100% 100%, 0 100%);
   padding-inline-start: calc(var(--wa-space-2xl) + var(--wa-space-xs));
   padding-inline-end: var(--wa-space-m);
   background-color: var(--wa-color-brand-fill-vivid-alt);
@@ -101,7 +101,7 @@ a.logo:is(:hover, :focus) {
   text-decoration-color: var(--wa-color-brand-outline-muted-alt);
 }
 
-.navigation--desktop wa-nav-item[current="page"]:hover {
+.navigation--desktop wa-nav-item[current='page']:hover {
   text-decoration-color: var(--wa-color-brand-outline-vivid);
 }
 

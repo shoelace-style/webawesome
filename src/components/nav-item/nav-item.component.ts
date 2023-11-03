@@ -1,12 +1,12 @@
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { LocalizeController } from '@shoelace-style/localize';
 import { property, state } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
 import styles from './nav-item.styles.js';
+import WaDetails from '../details/details.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import { when } from 'lit/directives/when.js';
-import { LocalizeController } from '@shoelace-style/localize';
-import WaDetails from '../details/details.component.js';
 
 /**
  * @summary A nav item is intended to be used in a navigation area such as within a nav element in a sidebar or inside of a drawer. A nav item is meant to drive page navigations.
