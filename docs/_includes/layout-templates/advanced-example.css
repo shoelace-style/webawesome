@@ -1,12 +1,4 @@
-html {
-  min-height: 100%;
-  height: auto;
-}
-
-body {
-  padding: 0;
-  height: auto;
-}
+{% include "layout-templates/reset.css" %}
 
 .grid {
   font-size: 1.35rem;

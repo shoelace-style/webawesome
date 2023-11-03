@@ -1,9 +1,2 @@
-html {
-  min-height: 100%;
-  height: auto;
-}
+{% include "layout-templates/reset.css" %}
 
-body {
-  padding: 0;
-  height: auto;
-}

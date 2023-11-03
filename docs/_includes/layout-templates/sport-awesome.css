@@ -1,13 +1,4 @@
-html {
-  min-height: 100%;
-  height: auto;
-}
-
-body {
-  padding: 0 !important;
-  height: auto;
-  margin: 0;
-}
+{% include "layout-templates/reset.css" %}
 
 /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
 .flow > * + * {

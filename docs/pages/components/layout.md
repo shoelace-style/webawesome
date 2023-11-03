@@ -51,6 +51,7 @@ When using `<wa-layout>`, make sure to zero out all paddings and margins on `<ht
 html,
 body {
   min-height: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
 }
