@@ -272,7 +272,9 @@
   /**
    * Focus
    */
-  --wa-focus-ring: solid 0.1875rem var(--wa-color-focus);
+  --wa-focus-ring-style: solid;
+  --wa-focus-ring-width: 0.1875rem; /* 3px */
+  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
 
   /**
