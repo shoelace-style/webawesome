@@ -253,24 +253,6 @@
   --wa-space-2xl: calc(var(--wa-space-base) * 2); /* 32 */
   --wa-space-3xl: calc(var(--wa-space-base) * 3); /* 48 */
 
-  --wa-space-square-xs: var(--wa-space-xs);
-  --wa-space-square-s: var(--wa-space-s);
-  --wa-space-square-m: var(--wa-space-m);
-  --wa-space-square-l: var(--wa-space-l);
-  --wa-space-square-xl: var(--wa-space-xl);
-
-  --wa-space-stretch-xs: var(--wa-space-xs) var(--wa-space-m);
-  --wa-space-stretch-s: var(--wa-space-s) var(--wa-space-l);
-  --wa-space-stretch-m: var(--wa-space-m) var(--wa-space-xl);
-  --wa-space-stretch-l: var(--wa-space-l) var(--wa-space-2xl);
-  --wa-space-stretch-xl: var(--wa-space-xl) var(--wa-space-3xl);
-
-  --wa-space-squish-xs: var(--wa-space-xs) var(--wa-space-3xs);
-  --wa-space-squish-s: var(--wa-space-s) var(--wa-space-2xs);
-  --wa-space-squish-m: var(--wa-space-m) var(--wa-space-xs);
-  --wa-space-squish-l: var(--wa-space-l) var(--wa-space-s);
-  --wa-space-squish-xl: var(--wa-space-xl) var(--wa-space-m);
-
   /**
    * Corners
    */
