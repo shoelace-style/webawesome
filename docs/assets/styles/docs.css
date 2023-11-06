@@ -183,7 +183,7 @@ pre > code {
 }
 
 pre .token.comment {
-  color: var(--wa-color-neutral-40);
+  color: var(--wa-color-base-40);
 }
 
 pre .token.prolog,
@@ -191,7 +191,7 @@ pre .token.doctype,
 pre .token.cdata,
 pre .token.operator,
 pre .token.punctuation {
-  color: var(--wa-color-neutral-40);
+  color: var(--wa-color-base-40);
 }
 
 .namespace {
@@ -362,11 +362,11 @@ pre:hover .copy-code-button,
 }
 
 #sidebar:hover::-webkit-scrollbar-thumb {
-  background: var(--wa-color-neutral-60);
+  background: var(--wa-color-base-60);
 }
 
 #sidebar:hover::-webkit-scrollbar-track {
-  background: var(--wa-color-neutral-95);
+  background: var(--wa-color-base-95);
 }
 
 #sidebar > header {

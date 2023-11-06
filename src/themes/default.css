@@ -62,17 +62,17 @@
   --wa-color-blue-10: #001f3f;
   --wa-color-blue-05: #001427;
 
-  --wa-color-neutral-95: #f2f2f4;
-  --wa-color-neutral-90: #e5e5e9;
-  --wa-color-neutral-80: #c8c9d1;
-  --wa-color-neutral-70: #acaebb;
-  --wa-color-neutral-60: #9194a4;
-  --wa-color-neutral-50: #70758a;
-  --wa-color-neutral-40: #545868;
-  --wa-color-neutral-30: #424551;
-  --wa-color-neutral-20: #30323b;
-  --wa-color-neutral-10: #1c1d23;
-  --wa-color-neutral-05: #111215;
+  --wa-color-base-95: #f2f2f4;
+  --wa-color-base-90: #e5e5e9;
+  --wa-color-base-80: #c8c9d1;
+  --wa-color-base-70: #acaebb;
+  --wa-color-base-60: #9194a4;
+  --wa-color-base-50: #70758a;
+  --wa-color-base-40: #545868;
+  --wa-color-base-30: #424551;
+  --wa-color-base-20: #30323b;
+  --wa-color-base-10: #1c1d23;
+  --wa-color-base-05: #111215;
 
   --wa-color-white: white;
   --wa-color-black: black;
@@ -85,14 +85,14 @@
    * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
   --wa-color-surface-raised: var(--wa-color-white);
   --wa-color-surface-default: var(--wa-color-white);
-  --wa-color-surface-lowered: var(--wa-color-neutral-95);
-  --wa-color-surface-outline: var(--wa-color-neutral-90);
+  --wa-color-surface-lowered: var(--wa-color-base-95);
+  --wa-color-surface-outline: var(--wa-color-base-90);
 
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-neutral-10);
-  --wa-color-text-quiet: var(--wa-color-neutral-40);
+  --wa-color-text-normal: var(--wa-color-base-10);
+  --wa-color-text-quiet: var(--wa-color-base-40);
   --wa-color-text-inverse: var(--wa-color-white);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
@@ -106,12 +106,12 @@
   --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 96%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-neutral-10) 25%, transparent);
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-neutral-05) calc(var(--wa-shadow-blur-base) * 16% + 6%),
+    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 16% + 6%),
     transparent
   );
 
@@ -186,17 +186,17 @@
   --wa-color-danger-text-on-muted: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-fill-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-40);
-  --wa-color-neutral-fill-muted: var(--wa-color-neutral-95);
-  --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-90);
-  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-40);
-  --wa-color-neutral-outline-muted: var(--wa-color-neutral-90);
-  --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-80);
+  --wa-color-neutral-fill-vivid: var(--wa-color-base-50);
+  --wa-color-neutral-fill-vivid-alt: var(--wa-color-base-40);
+  --wa-color-neutral-fill-muted: var(--wa-color-base-95);
+  --wa-color-neutral-fill-muted-alt: var(--wa-color-base-90);
+  --wa-color-neutral-outline-vivid: var(--wa-color-base-50);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-base-40);
+  --wa-color-neutral-outline-muted: var(--wa-color-base-90);
+  --wa-color-neutral-outline-muted-alt: var(--wa-color-base-80);
   --wa-color-neutral-text-on-vivid: var(--wa-color-text-inverse);
-  --wa-color-neutral-text-on-muted: var(--wa-color-neutral-40);
-  --wa-color-neutral-text-on-surface: var(--wa-color-neutral-50);
+  --wa-color-neutral-text-on-muted: var(--wa-color-base-40);
+  --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
 
   /**
    * Typography
@@ -304,7 +304,7 @@
   --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
   --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
 
-  --wa-form-controls-placeholder-color: var(--wa-color-neutral-60);
+  --wa-form-controls-placeholder-color: var(--wa-color-base-60);
   --wa-form-controls-placeholder-color-valid: var(--wa-color-green-60);
   --wa-form-controls-placeholder-color-invalid: var(--wa-color-red-60);
 
@@ -341,14 +341,14 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-neutral-10);
-  --wa-color-surface-default: var(--wa-color-neutral-05);
+  --wa-color-surface-raised: var(--wa-color-base-10);
+  --wa-color-surface-default: var(--wa-color-base-05);
   --wa-color-surface-lowered: var(--wa-color-black);
-  --wa-color-surface-outline: var(--wa-color-neutral-20);
+  --wa-color-surface-outline: var(--wa-color-base-20);
 
-  --wa-color-text-normal: var(--wa-color-neutral-95);
-  --wa-color-text-quiet: var(--wa-color-neutral-60);
-  --wa-color-text-inverse: var(--wa-color-neutral-10);
+  --wa-color-text-normal: var(--wa-color-base-95);
+  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-inverse: var(--wa-color-base-10);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-40);
@@ -421,17 +421,17 @@
   --wa-color-danger-text-on-muted: var(--wa-color-red-70);
   --wa-color-danger-text-on-surface: var(--wa-color-red-60);
 
-  --wa-color-neutral-fill-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-fill-vivid-alt: var(--wa-color-neutral-30);
-  --wa-color-neutral-fill-muted: var(--wa-color-neutral-10);
-  --wa-color-neutral-fill-muted-alt: var(--wa-color-neutral-20);
-  --wa-color-neutral-outline-vivid: var(--wa-color-neutral-50);
-  --wa-color-neutral-outline-vivid-alt: var(--wa-color-neutral-40);
-  --wa-color-neutral-outline-muted: var(--wa-color-neutral-20);
-  --wa-color-neutral-outline-muted-alt: var(--wa-color-neutral-30);
+  --wa-color-neutral-fill-vivid: var(--wa-color-base-50);
+  --wa-color-neutral-fill-vivid-alt: var(--wa-color-base-30);
+  --wa-color-neutral-fill-muted: var(--wa-color-base-10);
+  --wa-color-neutral-fill-muted-alt: var(--wa-color-base-20);
+  --wa-color-neutral-outline-vivid: var(--wa-color-base-50);
+  --wa-color-neutral-outline-vivid-alt: var(--wa-color-base-40);
+  --wa-color-neutral-outline-muted: var(--wa-color-base-20);
+  --wa-color-neutral-outline-muted-alt: var(--wa-color-base-30);
   --wa-color-neutral-text-on-vivid: var(--wa-color-white);
-  --wa-color-neutral-text-on-muted: var(--wa-color-neutral-70);
-  --wa-color-neutral-text-on-surface: var(--wa-color-neutral-60);
+  --wa-color-neutral-text-on-muted: var(--wa-color-base-70);
+  --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 
 /* _utility.css */
