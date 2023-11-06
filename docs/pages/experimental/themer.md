@@ -62,7 +62,7 @@ toc: false
 
   // Corners
   container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-corners-base', `${event.target.value}rem`);
+    document.documentElement.style.setProperty('--wa-corners-base', `${event.target.value}`);
   });
 
   // Border width
@@ -77,7 +77,7 @@ toc: false
 
   // Spacing style
   container.querySelector('[name="spacing"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}rem`);
+    document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
 
 </script>

@@ -241,27 +241,27 @@
    */
   /* Space is designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-space-base: 1rem;
-  --wa-space-3xs: calc(var(--wa-space-base) * 0.125); /* 2 */
-  --wa-space-2xs: calc(var(--wa-space-base) * 0.25); /* 4 */
-  --wa-space-xs: calc(var(--wa-space-base) * 0.5); /* 8 */
-  --wa-space-s: calc(var(--wa-space-base) * 0.75); /* 12 */
-  --wa-space-m: var(--wa-space-base); /* 16 */
-  --wa-space-l: calc(var(--wa-space-base) * 1.25); /* 20 */
-  --wa-space-xl: calc(var(--wa-space-base) * 1.5); /* 24 */
-  --wa-space-2xl: calc(var(--wa-space-base) * 2); /* 32 */
-  --wa-space-3xl: calc(var(--wa-space-base) * 3); /* 48 */
+  --wa-space-base: 1;
+  --wa-space-3xs: calc(var(--wa-space-base) * 0.125rem); /* 2px */
+  --wa-space-2xs: calc(var(--wa-space-base) * 0.25rem); /* 4px */
+  --wa-space-xs: calc(var(--wa-space-base) * 0.5rem); /* 8px */
+  --wa-space-s: calc(var(--wa-space-base) * 0.75rem); /* 12px */
+  --wa-space-m: calc(var(--wa-space-base) * 1rem); /* 16px */
+  --wa-space-l: calc(var(--wa-space-base) * 1.25rem); /* 20px */
+  --wa-space-xl: calc(var(--wa-space-base) * 1.5rem); /* 24px */
+  --wa-space-2xl: calc(var(--wa-space-base) * 2rem); /* 32px */
+  --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
 
   /**
    * Corners
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.25rem;
-  --wa-corners-half: calc(var(--wa-corners-base) * 0.5);
-  --wa-corners-1x: var(--wa-corners-base);
-  --wa-corners-2x: calc(var(--wa-corners-base) * 2);
-  --wa-corners-3x: calc(var(--wa-corners-base) * 3);
+  --wa-corners-base: 0.25;
+  --wa-corners-half: calc(var(--wa-corners-base) * 0.5rem);
+  --wa-corners-1x: calc(var(--wa-corners-base) * 1rem);
+  --wa-corners-2x: calc(var(--wa-corners-base) * 2rem);
+  --wa-corners-3x: calc(var(--wa-corners-base) * 3rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
   --wa-corners-pill: 9999px;
