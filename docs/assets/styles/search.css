@@ -2,7 +2,7 @@
 :root {
   --docs-search-box-background: var(--wa-form-controls-background);
   --docs-search-box-border-width: var(--wa-form-controls-border-width);
-  --docs-search-box-border-color: var(--wa-form-controls-border-color-resting);
+  --docs-search-box-border-color: var(--wa-form-controls-resting-color);
   --docs-search-box-color: var(--wa-form-controls-placeholder-color);
 
   --docs-search-dialog-background: var(--wa-color-surface-raised);

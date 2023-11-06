@@ -12,8 +12,9 @@ export default css`
   /* Label */
   .form-control--has-label .form-control__label {
     display: inline-block;
-    color: inherit;
+    color: var(--wa-form-controls-label-color);
     font-weight: var(--wa-form-controls-label-font-weight);
+    line-height: var(--wa-form-controls-label-line-height);
     margin-bottom: var(--wa-space-3xs);
   }
 

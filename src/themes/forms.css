@@ -1,8 +1,7 @@
 .wa-invalid {
-  --wa-form-controls-border-color-resting: var(--wa-color-danger-outline-vivid);
-  --wa-form-controls-border-color-activated: var(--wa-color-danger-outline-vivid);
-  --wa-form-controls-text-color: var(--wa-color-danger-text-on-muted);
-  --wa-form-controls-placeholder-color: var(--wa-form-controls-placeholder-color-invalid);
+  --wa-form-controls-resting-color: var(--wa-color-danger-outline-vivid);
+  --wa-form-controls-activated-color: var(--wa-color-danger-outline-vivid);
+  --wa-form-controls-value-color: var(--wa-color-danger-text-on-muted);
 
   --wa-color-brand-fill-vivid: var(--wa-color-danger-fill-vivid);
   --wa-color-brand-fill-vivid-alt: var(--wa-color-danger-fill-vivid-alt);
@@ -24,10 +23,9 @@
 }
 
 .wa-valid {
-  --wa-form-controls-border-color-resting: var(--wa-color-success-outline-vivid);
-  --wa-form-controls-border-color-activated: var(--wa-color-success-outline-vivid);
-  --wa-form-controls-text-color: var(--wa-color-success-text-on-muted);
-  --wa-form-controls-placeholder-color: var(--wa-form-controls-placeholder-color-valid);
+  --wa-form-controls-resting-color: var(--wa-color-success-outline-vivid);
+  --wa-form-controls-activated-color: var(--wa-color-success-outline-vivid);
+  --wa-form-controls-value-color: var(--wa-color-success-text-on-muted);
 
   --wa-color-brand-fill-vivid: var(--wa-color-success-fill-vivid);
   --wa-color-brand-fill-vivid-alt: var(--wa-color-success-fill-vivid-alt);
