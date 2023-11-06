@@ -390,7 +390,7 @@ pre:hover .copy-code-button,
 }
 
 #sidebar nav h2 {
-  font-size: var(--wa-font-size-m);
+  font-size: var(--wa-size-m);
   font-weight: var(--wa-font-weight-medium);
   border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
   margin: var(--wa-space-xl) 0 var(--wa-space-xs) 0;
@@ -445,7 +445,7 @@ pre:hover .copy-code-button,
 }
 
 .sidebar-version {
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-size-s);
   color: var(--wa-color-text-quiet);
   text-align: right;
   margin-top: calc(-1 * var(--wa-space-s));
@@ -515,7 +515,7 @@ main {
   position: sticky;
   top: 5rem;
   max-height: calc(100vh - 6rem);
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-size-s);
   line-height: 1.33;
   border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
   list-style: none;
@@ -759,7 +759,7 @@ html.sidebar-open #menu-toggle {
 }
 
 .splash-start h1:first-of-type {
-  font-size: var(--wa-font-size-l);
+  font-size: var(--wa-size-l);
   font-weight: var(--wa-font-weight-normal);
   margin: 0 0 0.5rem 0;
 }
@@ -802,7 +802,7 @@ html.sidebar-open #menu-toggle {
 .component-header__tag code {
   background: none;
   color: var(--wa-color-text-quiet);
-  font-size: var(--wa-font-size-l);
+  font-size: var(--wa-size-l);
   padding: 0;
   margin: 0;
 }
@@ -812,7 +812,7 @@ html.sidebar-open #menu-toggle {
 }
 
 .component-summary {
-  font-size: var(--wa-font-size-l);
+  font-size: var(--wa-size-l);
   line-height: 1.6;
   margin: 2rem 0;
 }
@@ -909,11 +909,11 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 
 .color-palette__name code {
   background: none;
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-size-s);
 }
 
 .color-palette__example {
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-size-s);
   text-align: center;
 }
 

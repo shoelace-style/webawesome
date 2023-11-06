@@ -52,7 +52,7 @@ export default css`
   }
 
   .tab__close-button {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
     margin-inline-start: var(--wa-space-s);
   }
 

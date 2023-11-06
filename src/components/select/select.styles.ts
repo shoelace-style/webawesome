@@ -154,7 +154,7 @@ export default css`
 
   /* Sizes */
   .select--small .select__combobox {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
     min-height: var(--wa-form-controls-height-s);
     padding-block: 0;
     padding-inline: var(--wa-space-s);
@@ -178,7 +178,7 @@ export default css`
   }
 
   .select--medium .select__combobox {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
     min-height: var(--wa-form-controls-height-m);
     padding-block: 0;
     padding-inline: var(--wa-space-m);
@@ -202,7 +202,7 @@ export default css`
   }
 
   .select--large .select__combobox {
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
     min-height: var(--wa-form-controls-height-l);
     padding-block: 0;
     padding-inline: var(--wa-space-l);
@@ -308,7 +308,7 @@ export default css`
   }
 
   .select__listbox ::slotted(small) {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
     font-weight: var(--wa-font-weight-medium);
     color: var(--wa-color-text-quiet);
     padding-block: var(--wa-space-xs);

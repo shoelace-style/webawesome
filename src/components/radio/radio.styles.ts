@@ -23,17 +23,17 @@ export default css`
 
   .radio--small {
     --toggle-size: var(--wa-form-control-toggle-size-s);
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
   }
 
   .radio--medium {
     --toggle-size: var(--wa-form-control-toggle-size-m);
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
   }
 
   .radio--large {
     --toggle-size: var(--wa-form-control-toggle-size-l);
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
   }
 
   .radio__checked-icon {

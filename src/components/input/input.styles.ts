@@ -136,7 +136,7 @@ export default css`
    */
 
   .input--small {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
     height: var(--wa-form-controls-height-s);
   }
 
@@ -159,7 +159,7 @@ export default css`
   }
 
   .input--medium {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
     height: var(--wa-form-controls-height-m);
   }
 
@@ -182,7 +182,7 @@ export default css`
   }
 
   .input--large {
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
     height: var(--wa-form-controls-height-l);
   }
 

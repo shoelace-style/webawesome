@@ -88,7 +88,7 @@
   border-radius: 0;
   background: var(--wa-color-surface-default);
   font: inherit;
-  font-size: var(--wa-font-size-xs);
+  font-size: var(--wa-size-xs);
   font-weight: var(--wa-font-weight-normal);
   text-transform: uppercase;
   color: var(--wa-color-text-quiet);

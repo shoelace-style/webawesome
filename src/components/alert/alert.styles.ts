@@ -8,7 +8,7 @@ export default css`
     --border-radius: var(--wa-panel-corners);
     --border-style: var(--wa-panel-border-style);
     --border-width: var(--wa-panel-border-width);
-    --icon-size: var(--wa-font-size-l);
+    --icon-size: var(--wa-size-l);
     --padding: var(--wa-space-m);
 
     display: contents;
@@ -86,7 +86,7 @@ export default css`
     display: flex;
     align-items: center;
     color: currentColor;
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
     padding-inline-end: var(--padding);
   }
 

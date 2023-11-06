@@ -20,17 +20,17 @@ export default css`
 
   .checkbox--small {
     --toggle-size: var(--wa-form-control-toggle-size-s);
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
   }
 
   .checkbox--medium {
     --toggle-size: var(--wa-form-control-toggle-size-m);
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
   }
 
   .checkbox--large {
     --toggle-size: var(--wa-form-control-toggle-size-l);
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
   }
 
   .checkbox__control {

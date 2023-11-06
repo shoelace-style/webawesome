@@ -23,16 +23,16 @@ The default font stack is designed to be simple and highly available on as many 
 
 Font sizes use `rem` units so they scale with the base font size. The pixel values displayed are based on a 16px font size.
 
-| Token                 | Value           | Example                                                     |
-| --------------------- | --------------- | ----------------------------------------------------------- |
-| `--wa-font-size-root` | 16px            | <span style="font-size: var(--wa-font-size-root)">Aa</span> |
-| `--wa-font-size-2xs`  | 0.625rem (10px) | <span style="font-size: var(--wa-font-size-2xs)">Aa</span>  |
-| `--wa-font-size-xs`   | 0.75rem (12px)  | <span style="font-size: var(--wa-font-size-xs)">Aa</span>   |
-| `--wa-font-size-s`    | 0.875rem (14px) | <span style="font-size: var(--wa-font-size-s)">Aa</span>    |
-| `--wa-font-size-m`    | 1rem (16px)     | <span style="font-size: var(--wa-font-size-m)">Aa</span>    |
-| `--wa-font-size-l`    | 1.375rem (22px) | <span style="font-size: var(--wa-font-size-l)">Aa</span>    |
-| `--wa-font-size-xl`   | 1.875rem (30px) | <span style="font-size: var(--wa-font-size-xl)">Aa</span>   |
-| `--wa-font-size-2xl`  | 2.625rem (42px) | <span style="font-size: var(--wa-font-size-2xl)">Aa</span>  |
+| Token            | Value           | Example                                                |
+| ---------------- | --------------- | ------------------------------------------------------ |
+| `--wa-size-root` | 16px            | <span style="font-size: var(--wa-size-root)">Aa</span> |
+| `--wa-size-2xs`  | 0.625rem (10px) | <span style="font-size: var(--wa-size-2xs)">Aa</span>  |
+| `--wa-size-xs`   | 0.75rem (12px)  | <span style="font-size: var(--wa-size-xs)">Aa</span>   |
+| `--wa-size-s`    | 0.875rem (14px) | <span style="font-size: var(--wa-size-s)">Aa</span>    |
+| `--wa-size-m`    | 1rem (16px)     | <span style="font-size: var(--wa-size-m)">Aa</span>    |
+| `--wa-size-l`    | 1.375rem (22px) | <span style="font-size: var(--wa-size-l)">Aa</span>    |
+| `--wa-size-xl`   | 1.875rem (30px) | <span style="font-size: var(--wa-size-xl)">Aa</span>   |
+| `--wa-size-2xl`  | 2.625rem (42px) | <span style="font-size: var(--wa-size-2xl)">Aa</span>  |
 
 ## Font Weight
 

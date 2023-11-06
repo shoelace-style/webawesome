@@ -248,19 +248,19 @@ export default css`
 
   .button--small {
     height: var(--wa-form-controls-height-s);
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
     line-height: calc(var(--wa-form-controls-height-s) - var(--border-width) * 2);
   }
 
   .button--medium {
     height: var(--wa-form-controls-height-m);
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
     line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
   }
 
   .button--large {
     height: var(--wa-form-controls-height-l);
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
     line-height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
   }
 

@@ -18,15 +18,15 @@ export default css`
   }
 
   .form-control--has-label.form-control--small .form-control__label {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
   }
 
   .form-control--has-label.form-control--medium .form-control__label {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
   }
 
   .form-control--has-label.form-control--large .form-control__label {
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-size-l);
   }
 
   :host([required]) .form-control--has-label .form-control__label::after {
@@ -43,15 +43,15 @@ export default css`
   }
 
   .form-control--has-help-text.form-control--small .form-control__help-text {
-    font-size: var(--wa-font-size-xs);
+    font-size: var(--wa-size-xs);
   }
 
   .form-control--has-help-text.form-control--medium .form-control__help-text {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-size-s);
   }
 
   .form-control--has-help-text.form-control--large .form-control__help-text {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-size-m);
   }
 
   .form-control--has-help-text.form-control--radio-group .form-control__help-text {
