@@ -16,7 +16,7 @@ export default css`
   .rating {
     position: relative;
     display: inline-flex;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     vertical-align: middle;
   }
 

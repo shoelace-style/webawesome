@@ -254,10 +254,10 @@
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-corners-base: 0.06125;
-  --wa-corners-half: calc(var(--wa-corners-base) * 0.5rem);
-  --wa-corners-1x: calc(var(--wa-corners-base) * 1rem);
-  --wa-corners-2x: calc(var(--wa-corners-base) * 2rem);
-  --wa-corners-3x: calc(var(--wa-corners-base) * 3rem);
+  --wa-corners-xs: calc(var(--wa-corners-base) * 0.5rem);
+  --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
+  --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
+  --wa-corners-l: calc(var(--wa-corners-base) * 3rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
   --wa-corners-pill: 9999px;
@@ -291,7 +291,7 @@
    */
   --wa-form-controls-background: var(--wa-color-surface-default);
 
-  --wa-form-controls-corners: var(--wa-corners-1x);
+  --wa-form-controls-corners: var(--wa-corners-s);
 
   --wa-form-controls-text-color: var(--wa-color-text-normal);
   --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
@@ -311,7 +311,7 @@
     var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height)
   );
 
-  --wa-panel-corners: var(--wa-corners-2x);
+  --wa-panel-corners: var(--wa-corners-m);
 
   /**
   * From 2.x

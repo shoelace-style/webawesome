@@ -259,7 +259,7 @@ Set a matching width and height to make a circle, square, or rounded avatar skel
   }
 
   .skeleton-avatars wa-skeleton:nth-child(2) {
-    --border-radius: var(--wa-corners-1x);
+    --border-radius: var(--wa-corners-s);
   }
 </style>
 ```
@@ -280,7 +280,7 @@ const css = `
   }
 
   .skeleton-avatars wa-skeleton:nth-child(2) {
-    --border-radius: var(--wa-corners-1x);
+    --border-radius: var(--wa-corners-s);
   }
 `;
 
@@ -318,7 +318,7 @@ Use the `--border-radius` custom property to make circles, squares, and rectangl
   }
 
   .skeleton-shapes .square::part(indicator) {
-    --border-radius: var(--wa-corners-1x);
+    --border-radius: var(--wa-corners-s);
   }
 
   .skeleton-shapes .circle::part(indicator) {
@@ -370,7 +370,7 @@ const css = `
   }
 
   .skeleton-shapes .square::part(indicator) {
-    --border-radius: var(--wa-corners-1x);
+    --border-radius: var(--wa-corners-s);
   }
 
   .skeleton-shapes .circle::part(indicator) {
@@ -438,7 +438,7 @@ const css = `
   }
 
   .skeleton-avatars wa-skeleton:nth-child(2) {
-    --border-radius: var(--wa-corners-1x);
+    --border-radius: var(--wa-corners-s);
   }
 `;
 

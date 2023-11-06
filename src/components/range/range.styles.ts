@@ -149,7 +149,7 @@ export default css`
     position: absolute;
     z-index: var(--wa-z-index-tooltip);
     left: 0;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     background-color: var(--wa-color-neutral-fill-vivid);
     font: inherit;
     line-height: var(--wa-line-height-regular);

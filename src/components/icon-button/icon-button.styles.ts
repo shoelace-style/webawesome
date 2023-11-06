@@ -15,7 +15,7 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     font-size: inherit;
     color: inherit;
     padding: var(--wa-space-xs);

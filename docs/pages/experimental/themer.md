@@ -94,7 +94,7 @@ toc: false
     left: 2rem;
     background: var(--wa-color-surface-default);
     border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-2x);
+    border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-2);
     width: var(--knobs-width);
     padding: 2rem;
@@ -254,7 +254,7 @@ toc: false
     display: block;
     width: 100%;
     aspect-ratio: 1;
-    border-radius: var(--wa-corners-2x);
+    border-radius: var(--wa-corners-m);
     align-self: start;
   }
 

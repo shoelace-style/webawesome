@@ -82,7 +82,7 @@ h1:first-of-type {
 }
 
 .badges img {
-  border-radius: var(--wa-corners-1x);
+  border-radius: var(--wa-corners-s);
 }
 
 .callout img {
@@ -261,7 +261,7 @@ pre .token.italic {
 
 .copy-code-button::part(button) {
   background-color: var(--wa-color-neutral-fill-muted);
-  border-radius: 0 var(--wa-corners-1x) 0 var(--wa-corners-1x);
+  border-radius: 0 var(--wa-corners-s) 0 var(--wa-corners-s);
   padding: 0.75rem;
 }
 
@@ -311,7 +311,7 @@ pre:hover .copy-code-button,
   min-width: 300px;
   max-width: 50%;
   background: var(--wa-color-surface-lowered);
-  border-radius: var(--wa-corners-1x);
+  border-radius: var(--wa-corners-s);
   padding: var(--wa-space-m);
   margin-left: var(--wa-space-m);
 }
@@ -707,8 +707,8 @@ html.sidebar-open #menu-toggle {
 
   .code-preview__source-group {
     border-bottom: solid 1px var(--wa-border-width-thin);
-    border-bottom-left-radius: var(--wa-corners-1x);
-    border-bottom-right-radius: var(--wa-corners-1x);
+    border-bottom-left-radius: var(--wa-corners-s);
+    border-bottom-right-radius: var(--wa-corners-s);
   }
 
   #sidebar {
@@ -919,7 +919,7 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 
 .color-palette__swatch {
   height: 3rem;
-  border-radius: var(--wa-corners-half);
+  border-radius: var(--wa-corners-xs);
 }
 
 .color-palette__swatch--border {

@@ -290,7 +290,7 @@ export default css`
     box-shadow: var(--wa-shadow-level-2);
     background: var(--wa-color-surface-raised);
     border-color: var(--border-color);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     border-style: var(--border-style);
     border-width: var(--border-width);
     padding-block: var(--wa-space-xs);

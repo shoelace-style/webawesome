@@ -12,7 +12,7 @@
   --docs-search-text-color-muted: var(--wa-color-text-quiet);
   --docs-search-font-weight-normal: var(--wa-font-weight-normal);
   --docs-search-font-weight-semibold: var(--wa-font-weight-medium);
-  --docs-search-border-radius: calc(2 * var(--wa-corners-1x));
+  --docs-search-border-radius: calc(2 * var(--wa-corners-s));
 
   --docs-search-accent-color: var(--wa-color-brand-text-on-surface);
   --docs-search-icon-color: var(--wa-color-neutral-fill-vivid);

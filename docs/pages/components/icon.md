@@ -769,7 +769,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
 <style>
   .icon-search {
     border: solid 1px var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     padding: var(--wa-space-m);
   }
 
@@ -814,7 +814,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     font-size: 24px;
     width: 2em;
     height: 2em;

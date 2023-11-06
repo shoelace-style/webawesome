@@ -20,7 +20,7 @@ export default css`
     font: inherit;
     color: var(--color);
     background-color: var(--wa-color-surface-raised);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     user-select: none;
     -webkit-user-select: none;
   }
@@ -39,8 +39,8 @@ export default css`
     height: var(--grid-height);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
       linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    border-top-left-radius: var(--wa-corners-1x);
-    border-top-right-radius: var(--wa-corners-1x);
+    border-top-left-radius: var(--wa-corners-s);
+    border-top-right-radius: var(--wa-corners-s);
     cursor: crosshair;
     forced-color-adjust: none;
   }
@@ -219,7 +219,7 @@ export default css`
     position: relative;
     width: var(--swatch-size);
     height: var(--swatch-size);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
   }
 
   .color-picker__swatch .color-picker__swatch-color {
@@ -274,7 +274,7 @@ export default css`
     max-height: none;
     background-color: var(--wa-color-surface-raised);
     border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     overflow: visible;
   }
 

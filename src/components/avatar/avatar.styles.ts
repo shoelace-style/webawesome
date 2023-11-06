@@ -33,7 +33,7 @@ export default css`
 
   .avatar--rounded,
   .avatar--rounded .avatar__image {
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
   }
 
   .avatar--square {
