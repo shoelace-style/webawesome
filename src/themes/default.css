@@ -74,17 +74,14 @@
   --wa-color-base-10: #1c1d23;
   --wa-color-base-05: #111215;
 
-  --wa-color-white: white;
-  --wa-color-black: black;
-
   /**
    * Base theme colors
    */
 
   /* Surfaces are background layers that UI components and other content rest on.
    * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
-  --wa-color-surface-raised: var(--wa-color-white);
-  --wa-color-surface-default: var(--wa-color-white);
+  --wa-color-surface-raised: white;
+  --wa-color-surface-default: white;
   --wa-color-surface-lowered: var(--wa-color-base-95);
   --wa-color-surface-outline: var(--wa-color-base-90);
 
@@ -93,13 +90,13 @@
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
   --wa-color-text-quiet: var(--wa-color-base-40);
-  --wa-color-text-inverse: var(--wa-color-white);
+  --wa-color-text-inverse: white;
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
   --wa-color-selection-background: var(--wa-color-blue-80);
-  --wa-color-selection-text: var(--wa-color-black);
+  --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
@@ -343,7 +340,7 @@
    */
   --wa-color-surface-raised: var(--wa-color-base-10);
   --wa-color-surface-default: var(--wa-color-base-05);
-  --wa-color-surface-lowered: var(--wa-color-black);
+  --wa-color-surface-lowered: black;
   --wa-color-surface-outline: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
@@ -352,17 +349,13 @@
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-40);
-  --wa-color-selection-text: var(--wa-color-white);
+  --wa-color-selection-text: white;
 
   --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
 
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-black) 50%, transparent);
+  --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-black) calc(var(--wa-shadow-blur-base) * 32% + 40%),
-    transparent
-  );
+  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
 
   --wa-color-tint-white: rgb(255 255 255 / 0.2);
   --wa-color-tint-black: rgb(0 0 0 / 0.2);
@@ -381,7 +374,7 @@
   --wa-color-brand-outline-vivid-alt: var(--wa-color-blue-40);
   --wa-color-brand-outline-muted: var(--wa-color-blue-20);
   --wa-color-brand-outline-muted-alt: var(--wa-color-blue-30);
-  --wa-color-brand-text-on-vivid: var(--wa-color-white);
+  --wa-color-brand-text-on-vivid: white;
   --wa-color-brand-text-on-muted: var(--wa-color-blue-70);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
@@ -393,7 +386,7 @@
   --wa-color-success-outline-vivid-alt: var(--wa-color-green-40);
   --wa-color-success-outline-muted: var(--wa-color-green-20);
   --wa-color-success-outline-muted-alt: var(--wa-color-green-30);
-  --wa-color-success-text-on-vivid: var(--wa-color-white);
+  --wa-color-success-text-on-vivid: white;
   --wa-color-success-text-on-muted: var(--wa-color-green-70);
   --wa-color-success-text-on-surface: var(--wa-color-green-60);
 
@@ -405,7 +398,7 @@
   --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-40);
   --wa-color-warning-outline-muted: var(--wa-color-yellow-20);
   --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-30);
-  --wa-color-warning-text-on-vivid: var(--wa-color-white);
+  --wa-color-warning-text-on-vivid: white;
   --wa-color-warning-text-on-muted: var(--wa-color-yellow-70);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
 
@@ -417,7 +410,7 @@
   --wa-color-danger-outline-vivid-alt: var(--wa-color-red-40);
   --wa-color-danger-outline-muted: var(--wa-color-red-20);
   --wa-color-danger-outline-muted-alt: var(--wa-color-red-30);
-  --wa-color-danger-text-on-vivid: var(--wa-color-white);
+  --wa-color-danger-text-on-vivid: white;
   --wa-color-danger-text-on-muted: var(--wa-color-red-70);
   --wa-color-danger-text-on-surface: var(--wa-color-red-60);
 
@@ -429,7 +422,7 @@
   --wa-color-neutral-outline-vivid-alt: var(--wa-color-base-40);
   --wa-color-neutral-outline-muted: var(--wa-color-base-20);
   --wa-color-neutral-outline-muted-alt: var(--wa-color-base-30);
-  --wa-color-neutral-text-on-vivid: var(--wa-color-white);
+  --wa-color-neutral-text-on-vivid: white;
   --wa-color-neutral-text-on-muted: var(--wa-color-base-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }

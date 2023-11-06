@@ -106,12 +106,3 @@ Additional color palettes are provided in the form of color primitives. Use thes
   <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-90);"></div>90</div>
   <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-95);"></div>95</div>
 </div>
-
-<div class="color-palette">
-  <div class="color-palette__name">
-    Black & White<br>
-    <code>--wa-color-<em>{n}</em></code>
-  </div>
-  <div class="color-palette__example"><div class="color-palette__swatch " style="background-color: var(--wa-color-black);"></div>black</div>
-  <div class="color-palette__example"><div class="color-palette__swatch color-palette__swatch--border" style="background-color: var(--wa-color-white);"></div>white</div>
-</div>
