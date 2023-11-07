@@ -48,7 +48,7 @@ export interface FormControlControllerOptions {
    * A function that maps to the form control's `checkValidity()` function. When the control is invalid, this will return false.
    *   this is helpful is you want to check validation without triggering the native browser constraint violation warning.
    */
-  checkValidity: (input: ShoelaceFormControl) => boolean;
+  checkValidity: (input: WebAwesomeFormControl) => boolean;
   /** A function that sets the form control's value */
   setValue: (input: WebAwesomeFormControl, value: unknown) => void;
   /**
@@ -159,7 +159,7 @@ export class FormControlController implements ReactiveController {
         this.form.reportValidity = () => this.reportFormValidity();
       }
 
-      // Overload the form's checkValidity() method so it looks at Shoelace form controls
+      // Overload the form's checkValidity() method so it looks at Web Awesome form controls
       if (!checkValidityOverloads.has(this.form)) {
         checkValidityOverloads.set(this.form, this.form.checkValidity);
         this.form.checkValidity = () => this.checkFormValidity();
@@ -276,7 +276,7 @@ export class FormControlController implements ReactiveController {
     // Note that we're also honoring the form's novalidate attribute.
     //
     if (this.form && !this.form.noValidate) {
-      // This seems sloppy, but checking all elements will cover native inputs, Shoelace inputs, and other custom
+      // This seems sloppy, but checking all elements will cover native inputs, Web Awesome inputs, and other custom
       // elements that support the constraint validation API.
       const elements = this.form.querySelectorAll<HTMLInputElement>('*');
 
