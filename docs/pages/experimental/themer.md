@@ -215,7 +215,7 @@ toc: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    padding-inline: var(--wa-space-xl);
+    padding-inline: var(--wa-space-2xl);
     padding-block-end: var(--wa-space-2xl);
     translate: calc((var(--knobs-width) + 2rem) / 2);
   }
@@ -230,9 +230,9 @@ toc: false
   .overlap::after {
     content: '';
     position: absolute;
-    top: calc(-1 * var(--wa-space-xl));
-    left: calc(-1 * var(--wa-space-xl));
-    width: calc(100% + var(--wa-space-xl) * 2);
+    top: calc(-1 * var(--wa-space-2xl));
+    left: calc(-1 * var(--wa-space-2xl));
+    width: calc(100% + var(--wa-space-2xl) * 2);
     height: 300px;
     background: var(--wa-color-brand-fill-vivid);
     z-index: -1;

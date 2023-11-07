@@ -19,7 +19,7 @@ body {
   min-height: 100vh;
   font-family: var(--wa-font-family-body);
   font-size: var(--wa-size-root);
-  font-weight: var(--wa-font-weight-normal);
+  font-weight: var(--wa-font-weight-body);
   line-height: var(--wa-font-line-height-regular);
   text-size-adjust: none;
   color: var(--wa-color-text-normal);
@@ -81,7 +81,7 @@ h4,
 h5,
 h6 {
   font-family: var(--wa-font-family-heading);
-  font-weight: var(--wa-font-weight-medium);
+  font-weight: var(--wa-font-weight-heading);
   line-height: var(--wa-font-line-height-compact);
   text-wrap: balance;
 }
