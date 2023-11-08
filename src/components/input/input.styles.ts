@@ -244,7 +244,7 @@ export default css`
 
   .input__clear:active,
   .input__password-toggle:active {
-    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-mix-active));
   }
 
   .input__clear:focus,

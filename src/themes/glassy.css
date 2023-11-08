@@ -91,7 +91,6 @@
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
   --wa-color-text-quiet: var(--wa-color-base-40);
-  --wa-color-text-inverse: white;
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -113,13 +112,9 @@
     transparent
   );
 
-  /* Base tints can be mixed with or overlay other colors to make them lighter or darker. */
-  --wa-color-tint-white: rgb(255 255 255 / 0.2);
-  --wa-color-tint-black: rgb(0 0 0 / 0.2);
-
-  /* State tints are mixed with component colors to achieve consistent effects on interaction. */
-  --wa-color-tint-hover: white 6%;
-  --wa-color-tint-active: black 12%;
+  /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
+  --wa-color-mix-hover: white 6%;
+  --wa-color-mix-active: black 12%;
 
   /**
    * Semantic theme colors
@@ -144,7 +139,7 @@
   --wa-color-brand-outline-vivid-alt: var(--wa-color-orchid-40);
   --wa-color-brand-outline-muted: var(--wa-color-orchid-90);
   --wa-color-brand-outline-muted-alt: var(--wa-color-orchid-80);
-  --wa-color-brand-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-brand-text-on-vivid: white;
   --wa-color-brand-text-on-muted: var(--wa-color-orchid-40);
   --wa-color-brand-text-on-surface: var(--wa-color-orchid-50);
 
@@ -156,7 +151,7 @@
   --wa-color-success-outline-vivid-alt: var(--wa-color-green-40);
   --wa-color-success-outline-muted: var(--wa-color-green-90);
   --wa-color-success-outline-muted-alt: var(--wa-color-green-80);
-  --wa-color-success-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-success-text-on-vivid: white;
   --wa-color-success-text-on-muted: var(--wa-color-green-40);
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
 
@@ -168,7 +163,7 @@
   --wa-color-warning-outline-vivid-alt: var(--wa-color-yellow-40);
   --wa-color-warning-outline-muted: var(--wa-color-yellow-90);
   --wa-color-warning-outline-muted-alt: var(--wa-color-yellow-80);
-  --wa-color-warning-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-warning-text-on-vivid: white;
   --wa-color-warning-text-on-muted: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
 
@@ -180,7 +175,7 @@
   --wa-color-danger-outline-vivid-alt: var(--wa-color-red-40);
   --wa-color-danger-outline-muted: var(--wa-color-red-90);
   --wa-color-danger-outline-muted-alt: var(--wa-color-red-80);
-  --wa-color-danger-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-danger-text-on-vivid: white;
   --wa-color-danger-text-on-muted: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
@@ -192,7 +187,7 @@
   --wa-color-neutral-outline-vivid-alt: var(--wa-color-base-40);
   --wa-color-neutral-outline-muted: var(--wa-color-base-90);
   --wa-color-neutral-outline-muted-alt: var(--wa-color-base-80);
-  --wa-color-neutral-text-on-vivid: var(--wa-color-text-inverse);
+  --wa-color-neutral-text-on-vivid: white;
   --wa-color-neutral-text-on-muted: var(--wa-color-base-40);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
 
@@ -355,7 +350,6 @@
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-inverse: var(--wa-color-base-10);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-orchid-40);
@@ -367,11 +361,8 @@
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
 
-  --wa-color-tint-white: rgb(255 255 255 / 0.2);
-  --wa-color-tint-black: rgb(0 0 0 / 0.2);
-
-  --wa-color-tint-hover: white 6%;
-  --wa-color-tint-active: black 12%;
+  --wa-color-mix-hover: white 6%;
+  --wa-color-mix-active: black 12%;
 
   /**
     * Semantic theme colors

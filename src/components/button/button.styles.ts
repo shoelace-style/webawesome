@@ -47,8 +47,8 @@ export default css`
   }
 
   :host(:not([variant='text'])) {
-    --background-hover: color-mix(in oklab, var(--background), var(--wa-color-tint-hover));
-    --background-active: color-mix(in oklab, var(--background), var(--wa-color-tint-active));
+    --background-hover: color-mix(in oklab, var(--background), var(--wa-color-mix-hover));
+    --background-active: color-mix(in oklab, var(--background), var(--wa-color-mix-active));
     --border-color: var(--background);
     --border-color-hover: var(--background-hover);
     --border-color-active: var(--background-active);
@@ -117,7 +117,7 @@ export default css`
     --border-color-hover: transparent;
     --label-color: var(--wa-color-text-link);
     --label-color-active: var(--wa-color-text-link);
-    --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-tint-hover));
+    --label-color-hover: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-mix-hover));
   }
 
   /*
@@ -441,7 +441,7 @@ export default css`
     top: 0;
     inset-inline-start: 0;
     bottom: 0;
-    border-left: solid 1px var(--wa-color-tint-black);
+    border-left: solid 1px rgb(0 0 0 / 0.2);
     mix-blend-mode: multiply;
   }
 

@@ -134,11 +134,11 @@ wa-button:not([outline]) {
   &[variant='brand'] {
     --background: linear-gradient(var(--wa-color-brand-fill-vivid) 25%, var(--wa-color-brand-fill-vivid-alt));
     --background-hover: linear-gradient(
-      color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-hover)) 25%,
-      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-hover))
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-mix-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-mix-hover))
     );
     --background-active: linear-gradient(
-      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-tint-active)),
+      color-mix(in oklab, var(--wa-color-brand-fill-vivid-alt), var(--wa-color-mix-active)),
       var(--wa-color-brand-fill-vivid-alt)
     );
     --border-color: var(--wa-color-brand-fill-vivid)
@@ -151,11 +151,11 @@ wa-button:not([outline]) {
   &[variant='success'] {
     --background: linear-gradient(var(--wa-color-success-fill-vivid) 25%, var(--wa-color-success-fill-vivid-alt));
     --background-hover: linear-gradient(
-      color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-tint-hover)) 25%,
-      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-hover))
+      color-mix(in oklab, var(--wa-color-success-fill-vivid), var(--wa-color-mix-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-mix-hover))
     );
     --background-active: linear-gradient(
-      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-tint-active)),
+      color-mix(in oklab, var(--wa-color-success-fill-vivid-alt), var(--wa-color-mix-active)),
       var(--wa-color-success-fill-vivid-alt)
     );
     --border-color: var(--wa-color-success-fill-vivid)
@@ -168,11 +168,11 @@ wa-button:not([outline]) {
   &[variant='neutral'] {
     --background: linear-gradient(var(--wa-color-neutral-fill-vivid) 25%, var(--wa-color-neutral-fill-vivid-alt));
     --background-hover: linear-gradient(
-      color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-hover)) 25%,
-      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-hover))
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-mix-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-mix-hover))
     );
     --background-active: linear-gradient(
-      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-tint-active)),
+      color-mix(in oklab, var(--wa-color-neutral-fill-vivid-alt), var(--wa-color-mix-active)),
       var(--wa-color-neutral-fill-vivid-alt)
     );
     --border-color: var(--wa-color-neutral-fill-vivid)
@@ -185,11 +185,11 @@ wa-button:not([outline]) {
   &[variant='warning'] {
     --background: linear-gradient(var(--wa-color-warning-fill-vivid) 25%, var(--wa-color-warning-fill-vivid-alt));
     --background-hover: linear-gradient(
-      color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-tint-hover)) 25%,
-      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-hover))
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid), var(--wa-color-mix-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-mix-hover))
     );
     --background-active: linear-gradient(
-      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-tint-active)),
+      color-mix(in oklab, var(--wa-color-warning-fill-vivid-alt), var(--wa-color-mix-active)),
       var(--wa-color-warning-fill-vivid-alt)
     );
     --border-color: var(--wa-color-warning-fill-vivid)
@@ -202,11 +202,11 @@ wa-button:not([outline]) {
   &[variant='danger'] {
     --background: linear-gradient(var(--wa-color-danger-fill-vivid) 25%, var(--wa-color-danger-fill-vivid-alt));
     --background-hover: linear-gradient(
-      color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-tint-hover)) 25%,
-      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-hover))
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid), var(--wa-color-mix-hover)) 25%,
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-mix-hover))
     );
     --background-active: linear-gradient(
-      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-tint-active)),
+      color-mix(in oklab, var(--wa-color-danger-fill-vivid-alt), var(--wa-color-mix-active)),
       var(--wa-color-danger-fill-vivid-alt)
     );
     --border-color: var(--wa-color-danger-fill-vivid)

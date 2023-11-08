@@ -30,7 +30,7 @@ export default css`
   }
 
   .icon-button:active:not(.icon-button--disabled) {
-    color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
+    color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-mix-active));
   }
 
   .icon-button:focus {

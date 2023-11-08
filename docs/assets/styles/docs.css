@@ -110,7 +110,7 @@ svg.logo {
 
 .anchor-heading a::after {
   content: '#';
-  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-tint-hover));
+  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
   margin-inline: 0.5rem;
   opacity: 0;
   transition: 100ms opacity;
@@ -266,11 +266,11 @@ pre .token.italic {
 }
 
 .copy-code-button::part(button):hover {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-tint-hover));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-mix-hover));
 }
 
 .copy-code-button::part(button):active {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-tint-active));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-mix-active));
 }
 
 pre .copy-code-button {
@@ -829,7 +829,7 @@ html.sidebar-open #menu-toggle {
 }
 
 .repo-button wa-icon {
-  color: var(--wa-color-text-inverse);
+  color: white;
 }
 
 @media screen and (max-width: 400px) {

@@ -188,8 +188,8 @@ kbd {
   background: var(--wa-color-neutral-fill-muted);
   border: solid 1px var(--wa-color-neutral-outline-muted);
   box-shadow:
-    inset 0 1px 0 1px var(--wa-color-tint-white),
-    0 1px 0 0 var(--wa-color-tint-black);
+    inset 0 1px 0 1px rgb(255 255 255 / 0.2),
+    0 1px 0 0 rgb(0 0 0 / 0.2);
   font-family: var(--wa-font-family-code);
   border-radius: var(--wa-corners-s);
   color: var(--wa-color-neutral-text-on-muted);
@@ -398,7 +398,7 @@ a {
 }
 
 a:hover {
-  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-tint-hover));
+  color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
 }
 
 a:focus,
