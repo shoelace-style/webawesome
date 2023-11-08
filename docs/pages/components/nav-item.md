@@ -100,6 +100,83 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 {% endraw %}
 
+## HTML Example
+
+```html:preview
+<style>
+  .nav-group {
+    margin: 0;
+    padding: 0;
+  }
+  .nav-group wa-button {
+    width: 100%;
+
+    &[aria-current]::part(base) {
+      background-color: var(--wa-color-brand-fill-vivid);
+      color: var(--wa-color-brand-text-on-vivid);
+    }
+
+    &::part(base) {
+      justify-content: start;
+      border-color: transparent;
+    }
+  }
+</style>
+
+<ul class="nav-group" role="list">
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="search" slot="prefix"></wa-icon>
+      Search
+    </wa-button>
+  </li>
+
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="bell" slot="prefix"></wa-icon>
+      Notifications
+    </wa-button>
+  </li>
+
+  <wa-divider></wa-divider>
+
+  <li>
+    <wa-button href="#" outline aria-current="page">
+      <wa-icon name="house-door" slot="prefix"></wa-icon>
+      Home
+    </wa-button>
+  </li>
+
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="music-note-list" slot="prefix"></wa-icon>
+      Playlists
+    </wa-button>
+  </li>
+
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
+      Tracks
+    </wa-button>
+  </li>
+
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="gear" slot="prefix"></wa-icon>
+      Settings
+    </wa-button>
+  </li>
+
+  <li>
+    <wa-button href="#" outline>
+      <wa-icon name="question-circle" slot="prefix"></wa-icon>
+      Help
+    </wa-button>
+  </li>
+</ul>
+```
+
 ## Examples
 
 ### Active nav item
@@ -206,7 +283,7 @@ to expanding the nav group.
   <wa-nav-item href="#">
     Disputed Charges
   </wa-nav-item>
-</wa-nav-group>
+</wa-nav-item>
 ```
 
 {% raw %}
@@ -230,3 +307,53 @@ import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
 ```
 
 {% endraw %}
+
+### HTML Expandable Equivalent
+
+```html:preview
+<style>
+  ul.nav-group {
+    list-style-type: '';
+    display: grid;
+    align-items: start;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-group wa-button {
+    width: 100%;
+
+    &[aria-current]::part(base) {
+      background-color: var(--wa-color-brand-fill-vivid);
+      color: var(--wa-color-brand-text-on-vivid);
+    }
+
+    &::part(base) {
+      justify-content: start;
+      border-color: transparent;
+    }
+  }
+
+</style>
+<wa-details class="nav-group">
+  <div slot="summary" style="display: flex; align-items: center; gap: 8px;">
+    <wa-icon name="credit-card"></wa-icon>
+    Payments
+  </div>
+
+  <ul role="list" style="list-style-type: ''; display: grid; align-items: start; gap: 8px; margin-inline-start: 1rem;">
+    <li>
+      <wa-button href="#" aria-current="page" outline>Transactions</a>
+    </li>
+
+    <li>
+      <wa-button href="#" outline>Invoices</a>
+    </li>
+
+    <li>
+      <wa-button href="#" outline>Disputed Charges</a>
+    </li>
+  </ul>
+</wa-details>
+```
