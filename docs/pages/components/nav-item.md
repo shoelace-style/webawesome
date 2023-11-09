@@ -108,6 +108,20 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
     margin: 0;
     padding: 0;
   }
+
+  ul.nav-group {
+    list-style-type: '';
+    display: grid;
+    align-items: start;
+    gap: 8px;
+  }
+
+  wa-details.nav-group {
+    &::part(base) {
+      border-color: transparent;
+    }
+  }
+
   .nav-group wa-button {
     width: 100%;
 
@@ -312,13 +326,22 @@ import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
 
 ```html:preview
 <style>
+  .nav-group {
+    margin: 0;
+    padding: 0;
+  }
+
   ul.nav-group {
     list-style-type: '';
     display: grid;
     align-items: start;
     gap: 8px;
-    margin: 0;
-    padding: 0;
+  }
+
+  wa-details.nav-group {
+    &::part(base) {
+      border-color: transparent;
+    }
   }
 
   .nav-group wa-button {
@@ -342,7 +365,7 @@ import WaNavItem from '@shoelace-style/shoelace/dist/react/nav-item';
     Payments
   </div>
 
-  <ul role="list" style="list-style-type: ''; display: grid; align-items: start; gap: 8px; margin-inline-start: 1rem;">
+  <ul role="list" class="nav-group">
     <li>
       <wa-button href="#" aria-current="page" outline>Transactions</a>
     </li>
