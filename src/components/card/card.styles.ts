@@ -6,7 +6,7 @@ export default css`
 
   :host {
     --background: var(--wa-color-surface-raised);
-    --border-color: var(--wa-color-surface-outline);
+    --border-color: var(--wa-color-surface-border);
     --border-radius: var(--wa-panel-corners);
     --border-style: var(--wa-panel-border-style);
     --border-width: var(--wa-panel-border-width);

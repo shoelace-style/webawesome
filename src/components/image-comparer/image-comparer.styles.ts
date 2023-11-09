@@ -49,7 +49,7 @@ export default css`
     top: 0;
     width: var(--divider-width);
     height: 100%;
-    background-color: var(--wa-color-neutral-fill-muted);
+    background-color: var(--wa-color-neutral-fill-subtle);
     translate: calc(var(--divider-width) / -2);
     cursor: ew-resize;
   }
@@ -62,10 +62,10 @@ export default css`
     top: calc(50% - (var(--handle-size) / 2));
     width: var(--handle-size);
     height: var(--handle-size);
-    background-color: var(--wa-color-neutral-fill-muted);
+    background-color: var(--wa-color-neutral-fill-subtle);
     border-radius: var(--wa-corners-circle);
     font-size: calc(var(--handle-size) * 0.5);
-    color: var(--wa-color-neutral-text-on-muted);
+    color: var(--wa-color-neutral-text-on-fill);
     cursor: inherit;
     z-index: 10;
   }

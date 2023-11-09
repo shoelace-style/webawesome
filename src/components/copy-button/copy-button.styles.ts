@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --error-color: var(--wa-color-danger-fill-vivid-alt);
-    --success-color: var(--wa-color-success-fill-vivid-alt);
+    --error-color: var(--wa-color-danger-spot);
+    --success-color: var(--wa-color-success-spot);
 
     display: inline-block;
   }

@@ -18,7 +18,7 @@ export default css`
   }
 
   :host([filled]) {
-    --background: var(--wa-color-neutral-fill-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
     --border-color: var(--background);
   }
 
@@ -244,7 +244,7 @@ export default css`
     flex: 0;
     display: inline-flex;
     align-items: center;
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
   }
 
   /* Clear button */
@@ -253,7 +253,7 @@ export default css`
     align-items: center;
     justify-content: center;
     font-size: inherit;
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
     border: none;
     background: none;
     padding: 0;
@@ -266,7 +266,7 @@ export default css`
   }
 
   .select__clear:active {
-    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-mix-active));
+    color: color-mix(in oklab, var(--wa-color-neutral-spot), var(--wa-color-mix-active));
   }
 
   /* Expand icon */

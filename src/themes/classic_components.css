@@ -1,0 +1,62 @@
+/* #region Alert */
+wa-alert {
+  --background: var(--wa-color-surface-default);
+  --border-width: var(--wa-border-width-thick) var(--wa-border-width-thin) var(--wa-border-width-thin)
+    var(--wa-border-width-thin);
+  --content-color: var(--wa-color-text-normal);
+
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-brand-spot);
+  }
+
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-success-spot);
+  }
+
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-neutral-spot);
+  }
+
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-warning-spot);
+  }
+
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-danger-spot);
+  }
+}
+
+/* #endregion */
+
+/* #region Inputs */
+wa-switch {
+  &::part(thumb) {
+    border-color: var(--background);
+  }
+  &[checked]::part(thumb) {
+    border-color: var(--background-checked);
+  }
+  &[size='small'] {
+    --height: var(--wa-form-control-toggle-size-s);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-s) + 4px);
+  }
+  &[size='medium'] {
+    --height: var(--wa-form-control-toggle-size-m);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-m) + 4px);
+  }
+  &[size='large'] {
+    --height: var(--wa-form-control-toggle-size-l);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-l) + 4px);
+  }
+}
+/* #endregion */

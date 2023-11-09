@@ -22,28 +22,28 @@ export default css`
    */
 
   :host([variant='brand']) {
-    --background: var(--wa-color-brand-fill-vivid);
-    --label-color: var(--wa-color-brand-text-on-vivid);
+    --background: var(--wa-color-brand-spot);
+    --label-color: var(--wa-color-brand-text-on-spot);
   }
 
   :host([variant='success']) {
-    --background: var(--wa-color-success-fill-vivid);
-    --label-color: var(--wa-color-success-text-on-vivid);
+    --background: var(--wa-color-success-spot);
+    --label-color: var(--wa-color-success-text-on-spot);
   }
 
   :host([variant='warning']) {
-    --background: var(--wa-color-warning-fill-vivid);
-    --label-color: var(--wa-color-warning-text-on-vivid);
+    --background: var(--wa-color-warning-spot);
+    --label-color: var(--wa-color-warning-text-on-spot);
   }
 
   :host([variant='neutral']) {
-    --background: var(--wa-color-neutral-fill-vivid);
-    --label-color: var(--wa-color-neutral-text-on-vivid);
+    --background: var(--wa-color-neutral-spot);
+    --label-color: var(--wa-color-neutral-text-on-spot);
   }
 
   :host([variant='danger']) {
-    --background: var(--wa-color-danger-fill-vivid);
-    --label-color: var(--wa-color-danger-text-on-vivid);
+    --background: var(--wa-color-danger-spot);
+    --label-color: var(--wa-color-danger-text-on-spot);
   }
 
   :host(:not([variant='text'])) {
@@ -61,44 +61,40 @@ export default css`
    */
 
   :host([variant='brand'][outline]) {
-    --background-hover: var(--wa-color-brand-fill-muted);
-    --border-color: var(--wa-color-brand-outline-vivid);
+    --background-hover: var(--wa-color-brand-fill-subtle);
     --label-color: var(--wa-color-brand-text-on-surface);
-    --label-color-hover: var(--wa-color-brand-text-on-muted);
+    --label-color-hover: var(--wa-color-brand-text-on-fill);
   }
 
   :host([variant='success'][outline]) {
-    --background-hover: var(--wa-color-success-fill-muted);
-    --border-color: var(--wa-color-success-outline-vivid);
+    --background-hover: var(--wa-color-success-fill-subtle);
     --label-color: var(--wa-color-success-text-on-surface);
-    --label-color-hover: var(--wa-color-success-text-on-muted);
+    --label-color-hover: var(--wa-color-success-text-on-fill);
   }
 
   :host([variant='neutral'][outline]),
   :host(.wa-button-group__button--radio:not([checked])) {
-    --background-hover: var(--wa-color-neutral-fill-muted);
-    --border-color: var(--wa-color-neutral-outline-vivid);
+    --background-hover: var(--wa-color-neutral-fill-subtle);
     --label-color: var(--wa-color-neutral-text-on-surface);
-    --label-color-hover: var(--wa-color-neutral-text-on-muted);
+    --label-color-hover: var(--wa-color-neutral-text-on-fill);
   }
 
   :host([variant='warning'][outline]) {
-    --background-hover: var(--wa-color-warning-fill-muted);
-    --border-color: var(--wa-color-warning-outline-vivid);
+    --background-hover: var(--wa-color-warning-fill-subtle);
     --label-color: var(--wa-color-warning-text-on-surface);
-    --label-color-hover: var(--wa-color-warning-text-on-muted);
+    --label-color-hover: var(--wa-color-warning-text-on-fill);
   }
 
   :host([variant='danger'][outline]) {
-    --background-hover: var(--wa-color-danger-fill-muted);
-    --border-color: var(--wa-color-danger-outline-vivid);
+    --background-hover: var(--wa-color-danger-fill-subtle);
     --label-color: var(--wa-color-danger-text-on-surface);
-    --label-color-hover: var(--wa-color-danger-text-on-muted);
+    --label-color-hover: var(--wa-color-danger-text-on-fill);
   }
 
   :host([outline]),
   :host(.wa-button-group__button--radio:not([checked])) {
     --background-active: color-mix(in oklab, var(--background-hover), var(--wa-color-surface-default) 30%);
+    --border-color: var(--label-color);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
     --label-color-active: var(--label-color-hover);
@@ -125,8 +121,8 @@ export default css`
    */
 
   :host([checked]) {
-    --background: var(--wa-color-brand-fill-vivid);
-    --label-color: var(--wa-color-brand-text-on-vivid);
+    --background: var(--wa-color-brand-spot);
+    --label-color: var(--wa-color-brand-text-on-spot);
   }
 
   /*

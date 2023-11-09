@@ -76,7 +76,7 @@ export default css`
   /* Checked/indeterminate */
   .checkbox--checked .checkbox__control,
   .checkbox--indeterminate .checkbox__control {
-    color: var(--wa-color-brand-text-on-vivid);
+    color: var(--wa-color-brand-text-on-spot);
     border-color: var(--wa-form-controls-activated-color);
     background-color: var(--wa-form-controls-activated-color);
   }

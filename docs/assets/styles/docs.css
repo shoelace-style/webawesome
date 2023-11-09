@@ -202,12 +202,12 @@ pre .token.property,
 pre .token.keyword,
 pre .token.tag,
 pre .token.url {
-  color: var(--wa-color-blue-40);
+  color: var(--wa-color-brand-text-on-fill);
 }
 
 pre .token.symbol,
 pre .token.deleted {
-  color: var(--wa-color-red-40);
+  color: var(--wa-color-danger-text-on-fill);
 }
 
 pre .token.boolean,
@@ -218,24 +218,24 @@ pre .token.string,
 pre .token.char,
 pre .token.builtin,
 pre .token.inserted {
-  color: var(--wa-color-green-40);
+  color: var(--wa-color-success-text-on-fill);
 }
 
 pre .token.atrule,
 pre .token.attr-value,
 pre .token.number,
 pre .token.variable {
-  color: #5c47ae; /* purple-40 */
+  color: var(--wa-color-warning-text-on-fill);
 }
 
 pre .token.function,
 pre .token.class-name,
 pre .token.regex {
-  color: #c86d2c; /* orange-40 */
+  color: var(--wa-color-danger-text-on-fill);
 }
 
 pre .token.important {
-  color: var(--wa-color-red-40);
+  color: var(--wa-color-danger-text-on-fill);
 }
 
 pre .token.important,
@@ -253,24 +253,24 @@ pre .token.italic {
   top: 0;
   right: 0;
   white-space: normal;
-  color: var(--wa-color-neutral-text-on-muted-alt);
+  color: var(--wa-color-neutral-text-on-fill-alt);
   transition:
     150ms opacity,
     150ms scale;
 }
 
 .copy-code-button::part(button) {
-  background-color: var(--wa-color-neutral-fill-muted);
+  background-color: var(--wa-color-neutral-fill-subtle);
   border-radius: 0 var(--wa-corners-s) 0 var(--wa-corners-s);
   padding: 0.75rem;
 }
 
 .copy-code-button::part(button):hover {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-mix-hover));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-subtle), var(--wa-color-mix-hover));
 }
 
 .copy-code-button::part(button):active {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), var(--wa-color-mix-active));
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-subtle), var(--wa-color-mix-active));
 }
 
 pre .copy-code-button {
@@ -343,7 +343,7 @@ pre:hover .copy-code-button,
   z-index: 20;
   width: var(--docs-sidebar-width);
   background-color: var(--docs-background-color);
-  border-right: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  border-right: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
   border-radius: 0;
   padding: 2rem;
   margin: 0;
@@ -392,7 +392,7 @@ pre:hover .copy-code-button,
 #sidebar nav h2 {
   font-size: var(--wa-size-m);
   font-weight: var(--wa-font-weight-medium);
-  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
   margin: var(--wa-space-xl) 0 var(--wa-space-xs) 0;
 }
 
@@ -517,7 +517,7 @@ main {
   max-height: calc(100vh - 6rem);
   font-size: var(--wa-size-s);
   line-height: 1.33;
-  border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
   list-style: none;
   padding: 1rem 0;
   margin: 0;
@@ -581,7 +581,7 @@ main {
     gap: 1rem 1.5rem;
     position: static;
     border: none;
-    border-bottom: solid 1px var(--wa-color-surface-outline);
+    border-bottom: solid 1px var(--wa-color-surface-border);
     border-radius: 0;
     padding: 1rem 1.5rem 1rem 0.5rem; /* extra right padding to hide the fade effect */
     margin-top: 1rem;
@@ -624,7 +624,7 @@ main {
   left: 0.25rem;
   height: auto;
   width: auto;
-  color: var(--wa-color-neutral-fill-vivid-alt);
+  color: var(--wa-color-neutral-spot);
   border: none;
   border-radius: 50%;
   background: var(--wa-color-surface-default);
@@ -672,7 +672,7 @@ html.sidebar-open #menu-toggle {
 
   details,
   pre {
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
   }
 
   details summary {
@@ -829,7 +829,7 @@ html.sidebar-open #menu-toggle {
 }
 
 .repo-button wa-icon {
-  color: white;
+  color: var(--wa-color-neutral-text-on-spot);
 }
 
 @media screen and (max-width: 400px) {
@@ -847,19 +847,19 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 /* Border demos */
 .border-demo {
   height: 60px;
-  border-left: solid 1px var(--wa-color-brand-fill-vivid);
+  border-left: solid 1px var(--wa-color-brand-spot);
 }
 
 .corner-demo {
   width: 3rem;
   height: 3rem;
-  background: var(--wa-color-brand-fill-vivid);
+  background: var(--wa-color-brand-spot);
 }
 
 /* Transition demo */
 .transition-demo {
   position: relative;
-  background: var(--wa-color-neutral-fill-muted);
+  background: var(--wa-color-neutral-fill-subtle);
   width: 8rem;
   height: 2rem;
 }
@@ -867,7 +867,7 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 .transition-demo:after {
   content: '';
   position: absolute;
-  background-color: var(--wa-color-brand-fill-vivid);
+  background-color: var(--wa-color-brand-spot);
   top: 0;
   left: 0;
   width: 0;
@@ -882,7 +882,7 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 
 /* Spacing demo */
 .spacing-demo {
-  background: var(--wa-color-brand-fill-vivid);
+  background: var(--wa-color-brand-spot);
 }
 
 /* Shadow demo */
@@ -923,7 +923,7 @@ body[data-page^='/tokens/'] .table-wrapper td:first-child code {
 }
 
 .color-palette__swatch--border {
-  box-shadow: inset 0 0 0 1px var(--wa-color-surface-outline);
+  box-shadow: inset 0 0 0 1px var(--wa-color-surface-border);
 }
 
 @media screen and (max-width: 1200px) {

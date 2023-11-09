@@ -26,7 +26,7 @@ export default css`
   }
 
   .color-picker--inline {
-    border: var(--wa-form-controls-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: var(--wa-form-controls-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
   }
 
   .color-picker--inline:focus-visible {
@@ -175,7 +175,7 @@ export default css`
 
   @keyframes pulse {
     0% {
-      box-shadow: 0 0 0 0 var(--wa-color-brand-fill-vivid-alt);
+      box-shadow: 0 0 0 0 var(--wa-color-brand-spot);
     }
     70% {
       box-shadow: 0 0 0 0.5rem transparent;
@@ -210,7 +210,7 @@ export default css`
     grid-template-columns: repeat(8, 1fr);
     grid-gap: 0.5rem;
     justify-items: center;
-    border-top: solid 1px var(--wa-color-surface-outline);
+    border-top: solid 1px var(--wa-color-surface-border);
     padding: var(--wa-space-s);
     forced-color-adjust: none;
   }
@@ -239,10 +239,10 @@ export default css`
   }
 
   .color-picker__transparent-bg {
-    background-image: linear-gradient(45deg, var(--wa-color-neutral-fill-muted-alt) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-muted-alt) 75%),
-      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-muted-alt) 75%),
-      linear-gradient(45deg, var(--wa-color-neutral-fill-muted-alt) 25%, transparent 25%);
+    background-image: linear-gradient(45deg, var(--wa-color-neutral-fill-highlight) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-highlight) 75%),
+      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-highlight) 75%),
+      linear-gradient(45deg, var(--wa-color-neutral-fill-highlight) 25%, transparent 25%);
     background-size: 10px 10px;
     background-position:
       0 0,
@@ -273,7 +273,7 @@ export default css`
   .color-dropdown::part(panel) {
     max-height: none;
     background-color: var(--wa-color-surface-raised);
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
     border-radius: var(--wa-corners-s);
     overflow: visible;
   }

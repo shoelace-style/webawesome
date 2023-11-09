@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Quicksand:wght@300..700&display=swap');
-@import 'depth_4_glossy.css';
-@import 'borders_0_minimal.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap');
+@import 'depth_1_semiflat.css'; /* depth_0_flat.css, depth_1_semiflat.css, depth_2_chunky.css, depth_3_punchy.css, depth_4_glossy.css */
+@import 'borders_2_light.css'; /* borders_0_minimal.css, borders_1_feather.css, borders_2_light.css, borders_3_medium.css, borders_4_heavy.css */
 
 :root,
 :host,
-.wa-theme-glassy-light {
+.wa-theme-chic-light {
   color-scheme: light;
 
   /**
@@ -15,68 +15,68 @@
    * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
    * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
-  --wa-color-red-95: #fbeff3;
-  --wa-color-red-90: #f6e0e7;
-  --wa-color-red-80: #ecbdcc;
-  --wa-color-red-70: #e39bb2;
-  --wa-color-red-60: #d87797;
-  --wa-color-red-50: #ca4570;
-  --wa-color-red-40: #b2003b;
-  --wa-color-red-30: #8e002f;
-  --wa-color-red-20: #6b0023;
-  --wa-color-red-10: #430016;
-  --wa-color-red-05: #2d000f;
+  --wa-color-red-95: #ffeef1;
+  --wa-color-red-90: #ffdde3;
+  --wa-color-red-80: #ffb6c1;
+  --wa-color-red-70: #ff8d9e;
+  --wa-color-red-60: #ff5b74;
+  --wa-color-red-50: #da354e;
+  --wa-color-red-40: #a5283b;
+  --wa-color-red-30: #82202f;
+  --wa-color-red-20: #601722;
+  --wa-color-red-10: #3a0e15;
+  --wa-color-red-05: #25090d;
 
-  --wa-color-yellow-95: #f5f2e5;
-  --wa-color-yellow-90: #ece6cc;
-  --wa-color-yellow-80: #dac992;
-  --wa-color-yellow-70: #c9ac5c;
-  --wa-color-yellow-60: #b98f27;
-  --wa-color-yellow-50: #9b6d09;
-  --wa-color-yellow-40: #785007;
-  --wa-color-yellow-30: #613e06;
-  --wa-color-yellow-20: #492c05;
-  --wa-color-yellow-10: #2b1a02;
-  --wa-color-yellow-05: #191008;
+  --wa-color-yellow-95: #f7f5ba;
+  --wa-color-yellow-90: #fbe76e;
+  --wa-color-yellow-80: #f0c600;
+  --wa-color-yellow-70: #dfa600;
+  --wa-color-yellow-60: #ca8707;
+  --wa-color-yellow-50: #a96611;
+  --wa-color-yellow-40: #864812;
+  --wa-color-yellow-30: #6f3513;
+  --wa-color-yellow-20: #542512;
+  --wa-color-yellow-10: #31160a;
+  --wa-color-yellow-05: #1e0e04;
 
-  --wa-color-green-95: #ecf4f1;
-  --wa-color-green-90: #dae9e3;
-  --wa-color-green-80: #b0d1c4;
-  --wa-color-green-70: #88b9a6;
-  --wa-color-green-60: #5fa288;
-  --wa-color-green-50: #2d8462;
-  --wa-color-green-40: #00663e;
-  --wa-color-green-30: #005031;
-  --wa-color-green-20: #003b24;
-  --wa-color-green-10: #002316;
-  --wa-color-green-05: #00160d;
+  --wa-color-green-95: #cdfed9;
+  --wa-color-green-90: #8afdaf;
+  --wa-color-green-80: #00e873;
+  --wa-color-green-70: #00ca69;
+  --wa-color-green-60: #00ac5d;
+  --wa-color-green-50: #00894d;
+  --wa-color-green-40: #00673c;
+  --wa-color-green-30: #005131;
+  --wa-color-green-20: #003c25;
+  --wa-color-green-10: #002318;
+  --wa-color-green-05: #01160f;
 
-  --wa-color-orchid-95: #f8eff8;
-  --wa-color-orchid-90: #f2e1f1;
-  --wa-color-orchid-80: #e2bee1;
-  --wa-color-orchid-70: #d49dd2;
-  --wa-color-orchid-60: #c57bc3;
-  --wa-color-orchid-50: #b14fae;
-  --wa-color-orchid-40: #9a1a96;
-  --wa-color-orchid-30: #7c0e79;
-  --wa-color-orchid-20: #5c0a5a;
-  --wa-color-orchid-10: #380637;
-  --wa-color-orchid-05: #250424;
+  --wa-color-lime-95: #ddfcc5;
+  --wa-color-lime-90: #b2f987;
+  --wa-color-lime-80: #77e24b;
+  --wa-color-lime-70: #61c545;
+  --wa-color-lime-60: #4ca83e;
+  --wa-color-lime-50: #378634;
+  --wa-color-lime-40: #266529;
+  --wa-color-lime-30: #1b4f22;
+  --wa-color-lime-20: #113a1a;
+  --wa-color-lime-10: #0a2212;
+  --wa-color-lime-05: #06150b;
 
-  --wa-color-base-95: #f2f2f3;
-  --wa-color-base-90: #e6e5e8;
-  --wa-color-base-80: #cbc8ce;
-  --wa-color-base-70: #b1adb6;
-  --wa-color-base-60: #98939f;
-  --wa-color-base-50: #7a7382;
-  --wa-color-base-40: #5d5568;
-  --wa-color-base-30: #494352;
-  --wa-color-base-20: #35313c;
-  --wa-color-base-10: #1f1c23;
-  --wa-color-base-05: #131115;
+  --wa-color-base-95: #f2f2f4;
+  --wa-color-base-90: #e5e5e9;
+  --wa-color-base-80: #c8c9d1;
+  --wa-color-base-70: #acaebb;
+  --wa-color-base-60: #9194a4;
+  --wa-color-base-50: #70758a;
+  --wa-color-base-40: #545868;
+  --wa-color-base-30: #424551;
+  --wa-color-base-20: #30323b;
+  --wa-color-base-10: #1c1d23;
+  --wa-color-base-05: #111215;
 
   /**
-   * Base theme colors
+   * Foundational theme colors
    */
 
   /* Surfaces are background layers that UI components and other content rest on.
@@ -89,18 +89,18 @@
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-10);
+  --wa-color-text-normal: var(--wa-color-base-05);
   --wa-color-text-quiet: var(--wa-color-base-40);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
-  --wa-color-selection-background: var(--wa-color-orchid-80);
+  --wa-color-selection-background: var(--wa-color-lime-80);
   --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-orchid-60) 96%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-lime-60) 96%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -111,10 +111,9 @@
     var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 16% + 3%),
     transparent
   );
-
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: black 12%;
+  --wa-color-mix-hover: white 10%;
+  --wa-color-mix-active: black 5%;
 
   /**
    * Semantic theme colors
@@ -124,67 +123,67 @@
    *  *  Warning to express caution or uncertainty
    *  *  Danger to express errors or risk
    *  *  Neutral for elements that are innocuous or inert
-   * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
-   * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
-   * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
-   * Muted colors have no contrast requirements.
-   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
+   * Each semantic group specifies colors to use as surfaces, fills, borders, and text with varying degrees of emphasis.
+   * Accent colors are the most noticeable against surfaces, whereas subtle colors draw less attention.
+   * Accent colors should have a minimum 3:1 contrast ratio against surfaces when possible.
+   * Subtle colors have no contrast requirements.
+   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - surface, subtle, or accent.
   */
-  --wa-color-brand-spot: var(--wa-color-orchid-50);
-  --wa-color-brand-spot-darker: var(--wa-color-orchid-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-orchid-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-orchid-90);
-  --wa-color-brand-border-subtle: var(--wa-color-orchid-90);
-  --wa-color-brand-border-highlight: var(--wa-color-orchid-80);
-  --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-orchid-40);
-  --wa-color-brand-text-on-surface: var(--wa-color-orchid-50);
+  --wa-color-brand-spot: var(--wa-color-lime-70);
+  --wa-color-brand-spot-darker: var(--wa-color-lime-60);
+  --wa-color-brand-fill-subtle: var(--wa-color-lime-95);
+  --wa-color-brand-fill-highlight: var(--wa-color-lime-90);
+  --wa-color-brand-border-subtle: var(--wa-color-lime-90);
+  --wa-color-brand-border-highlight: var(--wa-color-lime-80);
+  --wa-color-brand-text-on-spot: black;
+  --wa-color-brand-text-on-fill: var(--wa-color-lime-40);
+  --wa-color-brand-text-on-surface: var(--wa-color-lime-50);
 
-  --wa-color-success-spot: var(--wa-color-green-50);
-  --wa-color-success-spot-darker: var(--wa-color-green-40);
+  --wa-color-success-spot: var(--wa-color-green-70);
+  --wa-color-success-spot-darker: var(--wa-color-green-60);
   --wa-color-success-fill-subtle: var(--wa-color-green-95);
   --wa-color-success-fill-highlight: var(--wa-color-green-90);
   --wa-color-success-border-subtle: var(--wa-color-green-90);
   --wa-color-success-border-highlight: var(--wa-color-green-80);
-  --wa-color-success-text-on-spot: white;
+  --wa-color-success-text-on-spot: black;
   --wa-color-success-text-on-fill: var(--wa-color-green-40);
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
 
-  --wa-color-warning-spot: var(--wa-color-yellow-50);
-  --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
+  --wa-color-warning-spot: var(--wa-color-yellow-70);
+  --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-95);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-90);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-90);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-80);
-  --wa-color-warning-text-on-spot: white;
+  --wa-color-warning-text-on-spot: black;
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
 
-  --wa-color-danger-spot: var(--wa-color-red-50);
-  --wa-color-danger-spot-darker: var(--wa-color-red-40);
+  --wa-color-danger-spot: var(--wa-color-red-70);
+  --wa-color-danger-spot-darker: var(--wa-color-red-60);
   --wa-color-danger-fill-subtle: var(--wa-color-red-95);
   --wa-color-danger-fill-highlight: var(--wa-color-red-90);
   --wa-color-danger-border-subtle: var(--wa-color-red-90);
   --wa-color-danger-border-highlight: var(--wa-color-red-80);
-  --wa-color-danger-text-on-spot: white;
+  --wa-color-danger-text-on-spot: black;
   --wa-color-danger-text-on-fill: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
+  --wa-color-neutral-spot: var(--wa-color-base-70);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-60);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
   --wa-color-neutral-border-subtle: var(--wa-color-base-90);
   --wa-color-neutral-border-highlight: var(--wa-color-base-80);
-  --wa-color-neutral-text-on-spot: white;
+  --wa-color-neutral-text-on-spot: black;
   --wa-color-neutral-text-on-fill: var(--wa-color-base-40);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
 
   /**
    * Typography
    */
-  --wa-font-family-heading: 'Quicksand', sans-serif;
-  --wa-font-family-body: 'Inter', sans-serif;
+  --wa-font-family-heading: Inter, sans-serif;
+  --wa-font-family-body: Inter, sans-serif;
   --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --wa-font-family-longform: 'Lora', serif;
 
@@ -193,9 +192,9 @@
   --wa-font-weight-medium: 500;
   --wa-font-weight-heavy: 600;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-action: var(--wa-font-weight-medium);
+  --wa-font-weight-action: var(--wa-font-weight-heavy);
 
   --wa-font-line-height-compact: 1.25;
   --wa-font-line-height-regular: 1.625;
@@ -242,7 +241,7 @@
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.375;
+  --wa-corners-base: 0.5;
   --wa-corners-xs: calc(var(--wa-corners-base) * 0.5rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
@@ -275,7 +274,7 @@
    */
   --wa-transition-normal: 250ms;
   --wa-transition-fast: 150ms;
-  --wa-transition-faster: 100ms;
+  --wa-transition-faster: 50ms;
 
   /**
    * Component groups
@@ -325,8 +324,8 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-.wa-theme-glassy-dark,
-.wa-theme-glassy-dark :host {
+.wa-theme-chic-dark,
+.wa-theme-chic-dark :host {
   color-scheme: dark;
 
   /**
@@ -339,72 +338,76 @@
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-inverse: var(--wa-color-base-10);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
-  --wa-color-selection-background: var(--wa-color-orchid-40);
+  --wa-color-selection-background: var(--wa-color-lime-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-orchid-60) 90%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-lime-60) 90%, transparent);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
 
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: black 12%;
+  --wa-color-tint-white: rgb(255 255 255 / 0.2);
+  --wa-color-tint-black: rgb(0 0 0 / 0.2);
+
+  --wa-color-mix-hover: black 8%;
+  --wa-color-mix-active: black 16%;
 
   /**
     * Semantic theme colors
     */
-  --wa-color-brand-spot: var(--wa-color-orchid-50);
-  --wa-color-brand-spot-darker: var(--wa-color-orchid-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-orchid-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-orchid-20);
-  --wa-color-brand-border-subtle: var(--wa-color-orchid-20);
-  --wa-color-brand-border-highlight: var(--wa-color-orchid-30);
-  --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-orchid-70);
-  --wa-color-brand-text-on-surface: var(--wa-color-orchid-60);
+  --wa-color-brand-spot: var(--wa-color-lime-80);
+  --wa-color-brand-spot-darker: var(--wa-color-lime-70);
+  --wa-color-brand-fill-subtle: var(--wa-color-lime-10);
+  --wa-color-brand-fill-highlight: var(--wa-color-lime-20);
+  --wa-color-brand-border-subtle: var(--wa-color-lime-20);
+  --wa-color-brand-border-highlight: var(--wa-color-lime-30);
+  --wa-color-brand-text-on-spot: black;
+  --wa-color-brand-text-on-fill: var(--wa-color-lime-90);
+  --wa-color-brand-text-on-surface: var(--wa-color-lime-80);
 
-  --wa-color-success-spot: var(--wa-color-green-50);
-  --wa-color-success-spot-darker: var(--wa-color-green-40);
+  --wa-color-success-spot: var(--wa-color-green-80);
+  --wa-color-success-spot-darker: var(--wa-color-green-70);
   --wa-color-success-fill-subtle: var(--wa-color-green-10);
   --wa-color-success-fill-highlight: var(--wa-color-green-20);
   --wa-color-success-border-subtle: var(--wa-color-green-20);
   --wa-color-success-border-highlight: var(--wa-color-green-30);
-  --wa-color-success-text-on-spot: white;
-  --wa-color-success-text-on-fill: var(--wa-color-green-70);
-  --wa-color-success-text-on-surface: var(--wa-color-green-60);
+  --wa-color-success-text-on-spot: black;
+  --wa-color-success-text-on-fill: var(--wa-color-green-90);
+  --wa-color-success-text-on-surface: var(--wa-color-green-80);
 
-  --wa-color-warning-spot: var(--wa-color-yellow-50);
-  --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
+  --wa-color-warning-spot: var(--wa-color-yellow-80);
+  --wa-color-warning-spot-darker: var(--wa-color-yellow-70);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-10);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-20);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
-  --wa-color-warning-text-on-spot: white;
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
-  --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
+  --wa-color-warning-text-on-spot: black;
+  --wa-color-warning-text-on-fill: var(--wa-color-yellow-90);
+  --wa-color-warning-text-on-surface: var(--wa-color-yellow-80);
 
-  --wa-color-danger-spot: var(--wa-color-red-50);
-  --wa-color-danger-spot-darker: var(--wa-color-red-40);
+  --wa-color-danger-spot: var(--wa-color-red-70);
+  --wa-color-danger-spot-darker: var(--wa-color-red-60);
   --wa-color-danger-fill-subtle: var(--wa-color-red-10);
   --wa-color-danger-fill-highlight: var(--wa-color-red-20);
   --wa-color-danger-border-subtle: var(--wa-color-red-20);
   --wa-color-danger-border-highlight: var(--wa-color-red-30);
-  --wa-color-danger-text-on-spot: white;
-  --wa-color-danger-text-on-fill: var(--wa-color-red-70);
-  --wa-color-danger-text-on-surface: var(--wa-color-red-60);
+  --wa-color-danger-text-on-spot: black;
+  --wa-color-danger-text-on-fill: var(--wa-color-red-80);
+  --wa-color-danger-text-on-surface: var(--wa-color-red-70);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
+  --wa-color-neutral-spot: var(--wa-color-base-80);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-70);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
   --wa-color-neutral-border-subtle: var(--wa-color-base-20);
   --wa-color-neutral-border-highlight: var(--wa-color-base-30);
-  --wa-color-neutral-text-on-spot: white;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
-  --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
+  --wa-color-neutral-text-on-spot: black;
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-80);
+  --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
 }
 
 /* _utility.css */

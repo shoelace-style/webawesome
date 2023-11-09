@@ -140,13 +140,13 @@ export default css`
     border-radius: var(--wa-corners-circle);
     width: var(--wa-space-s);
     height: var(--wa-space-s);
-    background-color: var(--wa-color-neutral-fill-muted-alt);
+    background-color: var(--wa-color-neutral-fill-highlight);
     padding: 0;
     margin: 0;
   }
 
   .carousel__pagination-item--active {
-    background-color: var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-spot);
     transform: scale(1.2);
   }
 

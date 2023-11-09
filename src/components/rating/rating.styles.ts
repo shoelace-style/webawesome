@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --symbol-color: var(--wa-color-neutral-fill-muted-alt);
+    --symbol-color: var(--wa-color-neutral-fill-highlight);
     --symbol-color-active: var(--wa-color-yellow-70);
     --symbol-size: var(--wa-size-l);
     --symbol-spacing: var(--wa-space-3xs);

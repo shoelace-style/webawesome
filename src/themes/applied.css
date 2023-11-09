@@ -112,7 +112,7 @@ h6 {
 
 hr {
   border: none;
-  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
   margin: var(--wa-flow-spacing) 0;
 }
 
@@ -137,22 +137,22 @@ mark {
 }
 
 ins {
-  background-color: var(--wa-color-success-fill-muted);
-  color: var(--wa-color-success-text-on-muted);
+  background-color: var(--wa-color-success-fill-subtle);
+  color: var(--wa-color-success-text-on-fill);
   border-radius: var(--wa-corners-s);
   text-decoration: none;
 }
 
 del {
-  background-color: var(--wa-color-danger-fill-muted);
-  color: var(--wa-color-danger-text-on-muted);
+  background-color: var(--wa-color-danger-fill-subtle);
+  color: var(--wa-color-danger-text-on-fill);
   border-radius: var(--wa-corners-s);
   text-decoration: none;
   padding: 0.125em 0.25em;
 }
 
 mark {
-  background-color: var(--wa-color-warning-fill-muted);
+  background-color: var(--wa-color-warning-fill-subtle);
   color: inherit;
   border-radius: var(--wa-corners-s);
   padding: 0.125em 0.25em;
@@ -185,14 +185,14 @@ abbr[title] {
 }
 
 kbd {
-  background: var(--wa-color-neutral-fill-muted);
-  border: solid 1px var(--wa-color-neutral-outline-muted);
+  background: var(--wa-color-neutral-fill-subtle);
+  border: solid 1px var(--wa-color-neutral-border-subtle);
   box-shadow:
     inset 0 1px 0 1px rgb(255 255 255 / 0.2),
     0 1px 0 0 rgb(0 0 0 / 0.2);
   font-family: var(--wa-font-family-code);
   border-radius: var(--wa-corners-s);
-  color: var(--wa-color-neutral-text-on-muted);
+  color: var(--wa-color-neutral-text-on-fill);
   padding: 0.125em 0.4em;
 }
 
@@ -204,7 +204,7 @@ samp,
 var {
   font-family: var(--wa-font-family-code);
   font-size: 0.975em;
-  background-color: var(--wa-color-surface-lowered);
+  background-color: var(--wa-color-neutral-fill-subtle);
   border-radius: var(--wa-corners-s);
   padding-block: var(--wa-space-3xs);
   padding-inline: var(--wa-space-2xs);
@@ -212,7 +212,6 @@ var {
 
 pre {
   color: var(--wa-color-text-normal);
-  background-color: var(--wa-color-surface-lowered);
   border-radius: var(--wa-corners-s);
   padding: var(--wa-space-m);
   white-space: pre;
@@ -224,7 +223,7 @@ blockquote {
   font-family: var(--wa-font-family-longform);
   font-size: var(--wa-size-l);
   font-style: italic;
-  background-color: var(--wa-color-surface-lowered);
+  background-color: var(--wa-color-neutral-fill-subtle);
   border-radius: var(--wa-corners-s);
   padding: var(--wa-space-xl);
   margin: 0 0 var(--wa-space-xl) 0;
@@ -260,8 +259,8 @@ li > ol {
 
 /* Details */
 details {
-  background-color: var(--wa-color-surface-lowered);
-  border-radius: var(--wa-corners-s);
+  background-color: var(--wa-color-neutral-fill-subtle);
+  border-radius: var(--wa-panel-corners);
   padding: 0;
   margin: 0;
   padding-inline: var(--wa-space-m);
@@ -324,24 +323,25 @@ caption {
 }
 
 tbody tr {
-  border-top: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+  border-top: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
 }
 
 tbody tr:nth-child(2n + 1) {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted), transparent 50%);
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-subtle), transparent 60%);
 }
 
 tbody tr:hover {
-  background-color: color-mix(in oklab, var(--wa-color-brand-fill-muted), transparent 50%);
-  border-top-color: var(--wa-color-brand-outline-muted);
+  background-color: color-mix(in oklab, var(--wa-color-brand-fill-subtle), transparent 50%);
+  border-top-color: var(--wa-color-brand-border-subtle);
 }
 
 tbody tr:hover + tr {
-  border-top-color: var(--wa-color-brand-outline-muted);
+  border-top-color: var(--wa-color-brand-border-subtle);
 }
 
 th {
-  font-weight: var(--wa-font-weight-medium);
+  font-size: var(--wa-size-s);
+  font-weight: var(--wa-font-weight-heavy);
 }
 
 td,
@@ -361,7 +361,7 @@ dd {
 
 /* Fieldsets */
 fieldset {
-  border: solid 1px var(--wa-color-surface-outline);
+  border: solid 1px var(--wa-color-surface-border);
   border-radius: var(--wa-corners-s);
   padding: var(--wa-space-m);
   padding-block-end: var(--wa-space-xl);
@@ -443,7 +443,7 @@ textarea {
   details,
   pre {
     background: none;
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
   }
 
   summary {

@@ -2,7 +2,7 @@
   /**
    * Borders
    */
-  --wa-border-style: dotted;
+  --wa-border-style: solid;
 
   /* Border widths are designed to scale according to a single base value.
     * The base value is intended for calculations and is not used by components directly. */
@@ -17,27 +17,3 @@
   --wa-panel-border-style: var(--wa-border-style);
   --wa-panel-border-width: var(--wa-border-width-thin);
 }
-
-/* #region Buttons */
-wa-button[outline] {
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
-  }
-
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
-  }
-}
-/* #endregion */

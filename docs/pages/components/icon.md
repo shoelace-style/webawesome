@@ -768,7 +768,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
 
 <style>
   .icon-search {
-    border: solid 1px var(--wa-color-surface-outline);
+    border: solid 1px var(--wa-color-surface-border);
     border-radius: var(--wa-corners-s);
     padding: var(--wa-space-m);
   }
@@ -824,8 +824,8 @@ If you want to change the icons Web Awesome uses internally, you can register an
   }
 
   .icon-list-item:hover {
-    background-color: var(--wa-color-brand-fill-muted);
-    color: var(--wa-color-brand-text-on-muted);
+    background-color: var(--wa-color-brand-fill-subtle);
+    color: var(--wa-color-brand-text-on-fill);
   }
 
   .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {

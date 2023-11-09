@@ -21,23 +21,23 @@
 /* #region Buttons */
 wa-button[outline] {
   &[variant='brand'] {
-    --border-color: var(--wa-color-brand-outline-muted-alt);
+    --border-color: var(--wa-color-brand-border-highlight);
   }
 
   &[variant='success'] {
-    --border-color: var(--wa-color-success-outline-muted-alt);
+    --border-color: var(--wa-color-success-border-highlight);
   }
 
   &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-outline-muted-alt);
+    --border-color: var(--wa-color-neutral-border-highlight);
   }
 
   &[variant='warning'] {
-    --border-color: var(--wa-color-warning-outline-muted-alt);
+    --border-color: var(--wa-color-warning-border-highlight);
   }
 
   &[variant='danger'] {
-    --border-color: var(--wa-color-danger-outline-muted-alt);
+    --border-color: var(--wa-color-danger-border-highlight);
   }
 }
 /* #endregion */

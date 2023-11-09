@@ -28,53 +28,53 @@ export default css`
    */
 
   .tag--brand {
-    background-color: var(--wa-color-brand-fill-muted);
-    border-color: var(--wa-color-brand-outline-muted-alt);
-    color: var(--wa-color-brand-text-on-muted);
+    background-color: var(--wa-color-brand-fill-subtle);
+    border-color: var(--wa-color-brand-border-highlight);
+    color: var(--wa-color-brand-text-on-fill);
   }
 
   .tag--brand:active > wa-icon-button {
-    color: var(--wa-color-brand-text-on-muted);
+    color: var(--wa-color-brand-text-on-fill);
   }
 
   .tag--success {
-    background-color: var(--wa-color-success-fill-muted);
-    border-color: var(--wa-color-success-outline-muted-alt);
-    color: var(--wa-color-success-text-on-muted);
+    background-color: var(--wa-color-success-fill-subtle);
+    border-color: var(--wa-color-success-border-highlight);
+    color: var(--wa-color-success-text-on-fill);
   }
 
   .tag--success:active > wa-icon-button {
-    color: var(--wa-color-success-text-on-muted);
+    color: var(--wa-color-success-text-on-fill);
   }
 
   .tag--neutral {
-    background-color: var(--wa-color-neutral-fill-muted);
-    border-color: var(--wa-color-neutral-outline-muted-alt);
-    color: var(--wa-color-neutral-text-on-muted);
+    background-color: var(--wa-color-neutral-fill-subtle);
+    border-color: var(--wa-color-neutral-border-highlight);
+    color: var(--wa-color-neutral-text-on-fill);
   }
 
   .tag--neutral:active > wa-icon-button {
-    color: var(--wa-color-neutral-text-on-muted);
+    color: var(--wa-color-neutral-text-on-fill);
   }
 
   .tag--warning {
-    background-color: var(--wa-color-warning-fill-muted);
-    border-color: var(--wa-color-warning-outline-muted-alt);
-    color: var(--wa-color-warning-text-on-muted);
+    background-color: var(--wa-color-warning-fill-subtle);
+    border-color: var(--wa-color-warning-border-highlight);
+    color: var(--wa-color-warning-text-on-fill);
   }
 
   .tag--warning:active > wa-icon-button {
-    color: var(--wa-color-warning-text-on-muted);
+    color: var(--wa-color-warning-text-on-fill);
   }
 
   .tag--danger {
-    background-color: var(--wa-color-danger-fill-muted);
-    border-color: var(--wa-color-danger-outline-muted-alt);
-    color: var(--wa-color-danger-text-on-muted);
+    background-color: var(--wa-color-danger-fill-subtle);
+    border-color: var(--wa-color-danger-border-highlight);
+    color: var(--wa-color-danger-text-on-fill);
   }
 
   .tag--danger:active > wa-icon-button {
-    color: var(--wa-color-danger-text-on-muted);
+    color: var(--wa-color-danger-text-on-fill);
   }
 
   /*

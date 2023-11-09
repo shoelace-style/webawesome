@@ -355,7 +355,7 @@ import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const css = `
   .dropdown-hoist {
-    border: solid 2px var(--wa-color-surface-outline);
+    border: solid 2px var(--wa-color-surface-border);
     padding: var(--wa-space-m);
     overflow: hidden;
   }
@@ -428,7 +428,7 @@ Dropdown panels will be clipped if they're inside a container that has `overflow
 <style>
   .dropdown-hoist {
     position: relative;
-    border: solid 2px var(--wa-color-surface-outline);
+    border: solid 2px var(--wa-color-surface-border);
     padding: var(--wa-space-m);
     overflow: hidden;
   }
@@ -444,7 +444,7 @@ import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 
 const css = `
   .dropdown-hoist {
-    border: solid 2px var(--wa-color-surface-outline);
+    border: solid 2px var(--wa-color-surface-border);
     padding: var(--wa-space-m);
     overflow: hidden;
   }

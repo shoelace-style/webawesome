@@ -18,7 +18,7 @@ export default css`
   }
 
   :host([filled]) {
-    --background: var(--wa-color-neutral-fill-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
     --border-color: var(--background);
   }
 

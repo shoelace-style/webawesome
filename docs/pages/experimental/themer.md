@@ -11,9 +11,11 @@ toc: false
     <a href="/">{% include 'logo.njk' %}</a>
     <wa-select name="theme" label="Theme" value="default">
       <wa-option value="default">Default</wa-option>
+      <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
       <wa-option value="playful">Playful</wa-option>
+      <wa-option value="chic">Chic</wa-option>
     </wa-select>
     <wa-select name="heading-text" label="Heading" value="">
       <wa-option value="">Theme default</wa-option>
@@ -93,7 +95,7 @@ toc: false
     top: 2rem;
     left: 2rem;
     background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-2);
     width: var(--knobs-width);
@@ -234,12 +236,12 @@ toc: false
     left: calc(-1 * var(--wa-space-2xl));
     width: calc(100% + var(--wa-space-2xl) * 2);
     height: 300px;
-    background: var(--wa-color-brand-fill-vivid);
+    background: var(--wa-color-brand-spot);
     z-index: -1;
   }
 
   .overlap h1 {
-    color: var(--wa-color-brand-text-on-vivid);
+    color: var(--wa-color-brand-text-on-spot);
   }
 
   .overlap .grid {
@@ -260,31 +262,31 @@ toc: false
 
   .overlap .image #city,
   .overlap .image #falcon {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), black 50%);
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 50%);
   }
 
   .overlap .image #fighters {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), black 30%); 
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 30%); 
   }
 
   .overlap .image #upper_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), white 80%);
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
   }
 
   .overlap .image #background_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), white 90%);
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 90%);
   }
 
   .overlap .image #forefront_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-fill-vivid), white 70%);
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 70%);
   }
 
   .overlap .image .gradient-start {
-    stop-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), white 80%);
+    stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
   }
 
   .overlap .image .gradient-stop {
-    stop-color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), white 0%);
+    stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 0%);
   }
 
   .cards {

@@ -6,9 +6,9 @@ export default css`
 
   :host {
     --height: 1rem;
-    --track-color: var(--wa-color-neutral-fill-muted-alt);
-    --indicator-color: var(--wa-color-brand-fill-vivid);
-    --label-color: var(--wa-color-brand-text-on-vivid);
+    --track-color: var(--wa-color-neutral-fill-highlight);
+    --indicator-color: var(--wa-color-brand-spot);
+    --label-color: var(--wa-color-brand-text-on-spot);
 
     display: block;
   }

@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --background: var(--wa-color-neutral-fill-vivid);
+    --background: var(--wa-form-controls-resting-color);
     --background-checked: var(--wa-form-controls-activated-color);
     --border-color: var(--background);
     --border-color-checked: var(--background-checked);
