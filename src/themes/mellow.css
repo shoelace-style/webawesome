@@ -243,7 +243,7 @@
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-corners-base: 0.06125;
-  --wa-corners-xs: calc(var(--wa-corners-base) * 0.5rem);
+  --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
   --wa-corners-l: calc(var(--wa-corners-base) * 3rem);

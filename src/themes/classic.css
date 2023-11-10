@@ -100,7 +100,7 @@
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 96%, transparent);
+  --wa-color-focus: var(--wa-color-blue-60);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -245,7 +245,7 @@
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-corners-base: 0.25;
-  --wa-corners-xs: calc(var(--wa-corners-base) * 0.5rem);
+  --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
   --wa-corners-l: calc(var(--wa-corners-base) * 3rem);
@@ -260,7 +260,8 @@
    */
   --wa-focus-ring-style: solid;
   --wa-focus-ring-width: 0.1875rem; /* 3px */
-  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
+  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
+    color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
 
   /**
@@ -341,7 +342,7 @@
   --wa-color-selection-background: var(--wa-color-blue-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
+  --wa-color-focus: var(--wa-color-blue-70);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 

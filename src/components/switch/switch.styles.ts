@@ -7,7 +7,7 @@ export default css`
   :host {
     --background: var(--wa-form-controls-resting-color);
     --background-checked: var(--wa-form-controls-activated-color);
-    --border-color: var(--background);
+    --border-color: var(--wa-form-controls-resting-color);
     --border-color-checked: var(--background-checked);
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);

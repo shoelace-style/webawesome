@@ -15,7 +15,7 @@ export default css`
     font-size: max(12px, 0.75em);
     font-weight: var(--wa-font-weight-medium);
     line-height: 1;
-    border-radius: var(--wa-corners-s);
+    border-radius: var(--wa-corners-xs);
     border: solid 1px var(--wa-color-surface-default);
     white-space: nowrap;
     padding: 0.35em 0.6em;

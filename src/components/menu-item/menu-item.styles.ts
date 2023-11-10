@@ -108,7 +108,7 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5em;
+    width: var(--wa-space-xl);
     visibility: hidden;
   }
 
