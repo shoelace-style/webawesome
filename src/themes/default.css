@@ -234,10 +234,8 @@
   --wa-space-m: calc(var(--wa-space-base) * 1rem); /* 16px */
   --wa-space-l: calc(var(--wa-space-base) * 1.25rem); /* 20px */
   --wa-space-xl: calc(var(--wa-space-base) * 1.5rem); /* 24px */
-  --wa-space-2xl: calc(var(--wa-space-base) * 1.75rem); /* 28px */
-  --wa-space-3xl: calc(var(--wa-space-base) * 2rem); /* 32px */
-  --wa-space-4xl: calc(var(--wa-space-base) * 3rem); /* 48px */
-
+  --wa-space-2xl: calc(var(--wa-space-base) * 2rem); /* 32px */
+  --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
   /**
    * Corners
    */
