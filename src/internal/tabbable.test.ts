@@ -54,7 +54,7 @@ it('Should allow tabbing to slotted elements', async () => {
         <!-- Focus 2 lives as the close-button from <wa-drawer> -->
         <wa-button id="focus-3">Focus 3</wa-button>
         <button id="focus-4">Focus 4</button>
-        <input id="focus-5" value="Focus 5">
+        <input id="focus-5" value="Focus 5" />
       </div>
 
       <div slot="footer">

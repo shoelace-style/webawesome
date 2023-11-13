@@ -29,7 +29,8 @@ for await (const component of components) {
     .join('\n');
   const eventExports = (component.events || [])
     .map(event => `export type { ${event.eventName} } from '../../events/events';`)
-    .join('\n');  const eventNameImport = (component.events || []).length > 0 ? `import { type EventName } from '@lit/react';` : ``;
+    .join('\n');
+  const eventNameImport = (component.events || []).length > 0 ? `import { type EventName } from '@lit/react';` : ``;
   const events = (component.events || [])
     .map(event => `${event.reactName}: '${event.name}' as EventName<${event.eventName}>`)
     .join(',\n');
