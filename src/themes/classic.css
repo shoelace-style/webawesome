@@ -336,7 +336,6 @@
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-inverse: var(--wa-color-base-10);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-40);
@@ -347,9 +346,6 @@
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
-
-  --wa-color-tint-white: rgb(255 255 255 / 0.2);
-  --wa-color-tint-black: rgb(0 0 0 / 0.2);
 
   --wa-color-mix-hover: black 8%;
   --wa-color-mix-active: black 16%;
