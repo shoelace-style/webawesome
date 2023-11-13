@@ -107,6 +107,19 @@ When binding complex data such as objects and arrays, use the `.prop` modifier t
 <wa-color-picker :swatches.prop="mySwatches" />
 ```
 
+### Two-way Binding
+
+One caveat is there's currently [no support for v-model on custom elements](https://github.com/vuejs/vue/issues/7830), but you can still achieve two-way binding manually.
+
+```html
+<!-- This doesn't work -->
+<wa-input v-model="name"></wa-input>
+<!-- This works, but it's a bit longer -->
+<wa-input :value="name" @input="name = $event.target.value"></wa-input>
+```
+
+If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-sl-model) adds a custom directive that will work just like `v-model` but for Web Awesome components.
+
 :::tip
 Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/vue.md)
 :::
