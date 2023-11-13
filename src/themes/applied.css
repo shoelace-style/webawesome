@@ -327,11 +327,11 @@ tbody tr {
 }
 
 tbody tr:nth-child(2n + 1) {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-subtle), transparent 60%);
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 80%);
 }
 
 tbody tr:hover {
-  background-color: color-mix(in oklab, var(--wa-color-brand-fill-subtle), transparent 50%);
+  background-color: color-mix(in oklab, var(--wa-color-brand-fill-highlight), transparent 50%);
   border-top-color: var(--wa-color-brand-border-subtle);
 }
 
