@@ -117,4 +117,3 @@ Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the 
 ### Docs Layout
 
 - TODO - Menu + main + aside + footer (docs)
->>>>>>> 1329d4475a603780cc43925b71f08260f116f359
