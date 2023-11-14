@@ -15,44 +15,58 @@
   </wa-button>
 
   <nav style="padding: 1rem" slot="navigation">
-    <wa-nav-group style="height: 100%">
-      <wa-nav-item href="#">
-        <wa-icon name="search" slot="prefix"></wa-icon>
-        Search
-      </wa-nav-item>
+    <ul role="list" style="height: 100%; list-style-type: '';">
+      <li>
+        <wa-button href="#" outline>
+          <wa-icon name="search" slot="prefix"></wa-icon>
+          Search
+        </wa-button>
+      </li>
 
-      <wa-nav-item href="#">
-        <wa-icon name="bell" slot="prefix"></wa-icon>
-        Notifications
-      </wa-nav-item>
+      <li>
+        <wa-button href="#" outline>
+          <wa-icon name="bell" slot="prefix"></wa-icon>
+          Notifications
+        </wa-button>
+      </li>
 
       <wa-divider></wa-divider>
 
-      <wa-nav-item href="#" current="page">
-        <wa-icon name="house-door" slot="prefix"></wa-icon>
-        Home
-      </wa-nav-item>
+      <li>
+        <wa-button href="#" aria-current="page" outline>
+          <wa-icon name="house-door" slot="prefix"></wa-icon>
+          Home
+        </wa-button>
+      </li>
 
-      <wa-nav-item href="#">
-        <wa-icon name="music-note-list" slot="prefix"></wa-icon>
-        Playlists
-      </wa-nav-item>
+      <li>
+        <wa-button href="#" outline>
+          <wa-icon name="music-note-list" slot="prefix"></wa-icon>
+          Playlists
+        </wa-button>
+      </li>
 
-      <wa-nav-item href="#">
-        <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
-        Tracks
-      </wa-nav-item>
+      <li>
+        <wa-button href="#" outline>
+          <wa-icon name="file-earmark-music" slot="prefix"></wa-icon>
+          Tracks
+        </wa-button>
+      </li>
 
-      <wa-nav-item href="#">
-        <wa-icon name="gear" slot="prefix"></wa-icon>
-        Settings
-      </wa-nav-item>
+      <li>
+        <wa-button href="#" outline>
+          <wa-icon name="gear" slot="prefix"></wa-icon>
+          Settings
+        </wa-button>
+      </li>
 
-      <wa-nav-item href="#" style="margin-top: auto">
-        <wa-icon name="question-circle" slot="prefix"></wa-icon>
-        Help
-      </wa-nav-item>
-    </wa-nav-group>
+      <li>
+        <wa-button href="#" outline style="margin-top: auto">
+          <wa-icon name="question-circle" slot="prefix"></wa-icon>
+          Help
+        </wa-button>
+      </li>
+    </ul>
   </nav>
 
   <!-- Hacky override to make padding 8px -->
