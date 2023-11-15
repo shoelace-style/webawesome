@@ -6,7 +6,7 @@ export default css`
 
   :host {
     display: block;
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .menu-label {

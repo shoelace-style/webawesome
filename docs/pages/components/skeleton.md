@@ -129,7 +129,7 @@ There are two built-in effects, `sheen` and `pulse`. Effects are intentionally s
 
 <style>
   .skeleton-effects {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .skeleton-effects wa-skeleton:not(:first-child) {
@@ -143,7 +143,7 @@ import WaSkeleton from '@shoelace-style/shoelace/dist/react/skeleton';
 
 const css = `
   .skeleton-effects {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .skeleton-effects wa-skeleton:not(:first-child) {

@@ -23,15 +23,15 @@ export default css`
   }
 
   :host([size='small']) {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   :host([size='medium']) {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   :host([size='large']) {
-    font-size: var(--wa-size-l);
+    font-size: var(--wa-font-size-l);
   }
 
   .switch {

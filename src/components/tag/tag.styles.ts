@@ -82,25 +82,25 @@ export default css`
    */
 
   .tag--small {
-    font-size: var(--wa-size-xs);
+    font-size: var(--wa-font-size-xs);
     border-radius: var(--wa-corners-s);
     padding: var(--wa-space-3xs) var(--wa-space-2xs);
   }
 
   .tag--medium {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
     border-radius: var(--wa-corners-s);
     padding: var(--wa-space-2xs) var(--wa-space-xs);
   }
 
   .tag--large {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
     border-radius: var(--wa-corners-s);
     padding: var(--wa-space-2xs) var(--wa-space-xs);
   }
 
   .tag--small {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
     height: calc(var(--wa-form-controls-height-s) * 0.8);
     line-height: calc(var(--wa-form-controls-height-s) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);
@@ -108,7 +108,7 @@ export default css`
   }
 
   .tag--medium {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
     height: calc(var(--wa-form-controls-height-m) * 0.8);
     line-height: calc(var(--wa-form-controls-height-m) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);
@@ -116,7 +116,7 @@ export default css`
   }
 
   .tag--large {
-    font-size: var(--wa-size-l);
+    font-size: var(--wa-font-size-l);
     height: calc(var(--wa-form-controls-height-l) * 0.8);
     line-height: calc(var(--wa-form-controls-height-l) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);

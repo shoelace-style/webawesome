@@ -61,7 +61,7 @@ export default css`
   .dialog__title {
     flex: 1 1 auto;
     font: inherit;
-    font-size: var(--wa-size-l);
+    font-size: var(--wa-font-size-l);
     line-height: var(--wa-line-height-compact);
     padding: var(--header-spacing);
     margin: 0;
@@ -81,7 +81,7 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   .dialog__body {

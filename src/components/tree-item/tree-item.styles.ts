@@ -37,7 +37,7 @@ export default css`
   .tree-item__checkbox,
   .tree-item__label {
     font: inherit;
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   .tree-item__checkbox::part(base) {

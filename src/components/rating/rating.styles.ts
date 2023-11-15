@@ -7,7 +7,7 @@ export default css`
   :host {
     --symbol-color: var(--wa-color-neutral-fill-highlight);
     --symbol-color-active: var(--wa-color-yellow-70);
-    --symbol-size: var(--wa-size-l);
+    --symbol-size: var(--wa-font-size-l);
     --symbol-spacing: var(--wa-space-3xs);
 
     display: inline-flex;

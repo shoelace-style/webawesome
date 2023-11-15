@@ -6,7 +6,7 @@ wa-alert {
   --content-color: var(--wa-color-text-normal);
   --padding: var(--wa-space-l);
 
-  font-size: var(--wa-size-s);
+  font-size: var(--wa-font-size-s);
 
   &[variant='brand'] {
     --border-color: var(--wa-color-brand-spot) var(--wa-color-neutral-border-subtle)
@@ -42,21 +42,21 @@ wa-alert {
 
 /* #region Breadcrumbs */
 wa-breadcrumb {
-  font-size: var(--wa-size-s);
+  font-size: var(--wa-font-size-s);
 }
 
 /* #region Buttons */
 wa-button {
   &[size='small'] {
-    font-size: var(--wa-size-xs);
+    font-size: var(--wa-font-size-xs);
   }
 
   &[size='medium'] {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   &[size='large'] {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 }
 /* #endregion */

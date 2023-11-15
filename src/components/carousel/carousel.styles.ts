@@ -95,7 +95,7 @@ export default css`
   .carousel__navigation {
     grid-area: navigation;
     display: contents;
-    font-size: var(--wa-size-xl);
+    font-size: var(--wa-font-size-xl);
   }
 
   .carousel__navigation-button {

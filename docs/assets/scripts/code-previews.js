@@ -204,7 +204,7 @@
         `@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${waVersion}/${cdndir}/themes/default.css';\n` +
         '\n' +
         'body {\n' +
-        '  font: var(--wa-size-root) sans-serif;\n' +
+        '  font: var(--wa-font-size-root) sans-serif;\n' +
         '  background-color: var(--wa-color-surface-default);\n' +
         '  color: var(--wa-color-text-normal);\n' +
         '  padding: var(--wa-space-m);\n' +

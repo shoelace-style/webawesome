@@ -155,7 +155,7 @@ Headers can be used to display titles and more.
   }
 
   .card-header wa-icon-button {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 </style>
 ```
@@ -180,7 +180,7 @@ const css = `
   }
 
   .card-header wa-icon-button {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 `;
 

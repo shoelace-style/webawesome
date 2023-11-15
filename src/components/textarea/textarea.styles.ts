@@ -100,7 +100,7 @@ export default css`
    */
 
   .textarea--small {
-    font-size: var(--wa-size-s);
+    font-size: var(--wa-font-size-s);
   }
 
   .textarea--small .textarea__control {
@@ -108,7 +108,7 @@ export default css`
   }
 
   .textarea--medium {
-    font-size: var(--wa-size-m);
+    font-size: var(--wa-font-size-m);
   }
 
   .textarea--medium .textarea__control {
@@ -116,7 +116,7 @@ export default css`
   }
 
   .textarea--large {
-    font-size: var(--wa-size-l);
+    font-size: var(--wa-font-size-l);
   }
 
   .textarea--large .textarea__control {
