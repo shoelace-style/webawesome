@@ -1,9 +1,12 @@
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect, fixture } from '@open-wc/testing';
 
-import '../../dist/webawesome.js';
 import { activeElements, getDeepestActiveElement } from './active-elements.js';
+import { clickOnElement } from './test.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
+import type { WaDialog } from '../webawesome.js';
+
+import '../../../dist/webawesome.js';
 
 async function holdShiftKey(callback: () => Promise<void>) {
   await sendKeys({ down: 'Shift' });
@@ -50,8 +53,8 @@ it('Should allow tabbing to slotted elements', async () => {
       <div>
         <!-- Focus 2 lives as the close-button from <wa-drawer> -->
         <wa-button id="focus-3">Focus 3</wa-button>
-        <button id="focus-4">Focus 4</wa-button>
-        <input id="focus-5" value="Focus 5">
+        <button id="focus-4">Focus 4</button>
+        <input id="focus-5" value="Focus 5" />
       </div>
 
       <div slot="footer">
@@ -173,4 +176,44 @@ it('Should account for when focus is changed from outside sources (like clicking
 
   await holdShiftKey(async () => await sendKeys({ press: tabKey }));
   expect(activeElementsArray()).to.include(closeButton);
+});
+
+// https://github.com/shoelace-style/shoelace/issues/1710
+it('Should respect nested modal instances', async () => {
+  const dialogOne = (): WaDialog => document.querySelector('#dialog-1')!;
+  const dialogTwo = (): WaDialog => document.querySelector('#dialog-2')!;
+
+  // lit-a11y doesn't like the "autofocus" attribute.
+  /* eslint-disable */
+  await fixture(html`
+    <div>
+      <wa-button id="open-dialog-1" @click=${() => dialogOne().show()}></wa-button>
+      <wa-dialog id="dialog-1" label="Dialog 1">
+        <wa-button @click=${() => dialogTwo().show()} id="open-dialog-2">Open Dialog 2</wa-button>
+        <wa-button slot="footer" variant="primary">Close</wa-button>
+      </wa-dialog>
+
+      <wa-dialog id="dialog-2" label="Dialog 2">
+        <wa-input id="focus-1" autofocus="" placeholder="I will have focus when the dialog is opened"></wa-input>
+        <wa-input id="focus-2" placeholder="Second input"></wa-input>
+        <wa-button slot="footer" variant="primary" class="close-2">Close</wa-button>
+      </wa-dialog>
+    </div>
+  `);
+  /* eslint-enable */
+
+  const firstFocusedEl = document.querySelector('#focus-1');
+  const secondFocusedEl = document.querySelector('#focus-2');
+
+  // So we can trigger auto-focus stuff
+  await clickOnElement(document.querySelector('#open-dialog-1')!);
+  // These clicks need a ~100ms timeout. I'm assuming for animation reasons?
+  await aTimeout(100);
+  await clickOnElement(document.querySelector('#open-dialog-2')!);
+  await aTimeout(100);
+
+  expect(activeElementsArray()).to.include(firstFocusedEl);
+
+  await sendKeys({ press: tabKey });
+  expect(activeElementsArray()).to.include(secondFocusedEl);
 });
