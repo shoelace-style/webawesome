@@ -6,8 +6,8 @@ export default css`
 
   :host {
     --border-radius: var(--wa-corners-pill);
-    --color: var(--wa-color-neutral-fill-muted-alt);
-    --sheen-color: color-mix(in oklab, var(--wa-color-neutral-fill-muted-alt), var(--wa-color-surface-raised) 30%);
+    --color: var(--wa-color-neutral-fill-highlight);
+    --sheen-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), var(--wa-color-surface-raised) 30%);
 
     display: block;
     position: relative;
@@ -28,7 +28,6 @@ export default css`
 
   .skeleton--sheen .skeleton__indicator {
     background: linear-gradient(270deg, var(--sheen-color), var(--color), var(--color), var(--sheen-color));
-    background-size: 400% 100%;
     background-size: 400% 100%;
     animation: sheen 8s ease-in-out infinite;
   }

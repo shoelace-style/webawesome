@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --arrow-color: var(--wa-color-black);
+    --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
 
     /*

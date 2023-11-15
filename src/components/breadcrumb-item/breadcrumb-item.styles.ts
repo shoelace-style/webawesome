@@ -25,7 +25,7 @@ export default css`
     color: inherit;
     background: none;
     border: none;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     padding: 0;
     margin: 0;
     cursor: pointer;
@@ -37,7 +37,7 @@ export default css`
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:hover {
-    color: color-mix(in oklab, var(--wa-color-brand-text-on-surface), var(--wa-color-tint-hover));
+    color: color-mix(in oklab, var(--wa-color-brand-text-on-surface), var(--wa-color-mix-hover));
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:active {

@@ -2,26 +2,26 @@
 :root {
   --docs-search-box-background: var(--wa-form-controls-background);
   --docs-search-box-border-width: var(--wa-form-controls-border-width);
-  --docs-search-box-border-color: var(--wa-form-controls-border-color-resting);
+  --docs-search-box-border-color: var(--wa-form-controls-resting-color);
   --docs-search-box-color: var(--wa-form-controls-placeholder-color);
 
   --docs-search-dialog-background: var(--wa-color-surface-raised);
   --docs-search-border-width: var(--wa-border-width-thin);
-  --docs-search-border-color: var(--wa-color-surface-outline);
+  --docs-search-border-color: var(--wa-color-surface-border);
   --docs-search-text-color: var(--wa-color-text-normal);
   --docs-search-text-color-muted: var(--wa-color-text-quiet);
   --docs-search-font-weight-normal: var(--wa-font-weight-normal);
   --docs-search-font-weight-semibold: var(--wa-font-weight-medium);
-  --docs-search-border-radius: calc(2 * var(--wa-corners-1x));
+  --docs-search-border-radius: calc(2 * var(--wa-corners-s));
 
   --docs-search-accent-color: var(--wa-color-brand-text-on-surface);
-  --docs-search-icon-color: var(--wa-color-neutral-fill-vivid);
-  --docs-search-icon-color-active: color-mix(in lch, var(--wa-color-neutral-fill-vivid), 8% black);
+  --docs-search-icon-color: var(--wa-color-neutral-spot);
+  --docs-search-icon-color-active: color-mix(in lch, var(--wa-color-neutral-spot), 8% black);
   --docs-search-shadow: var(--wa-shadow-level-3);
-  --docs-search-result-background-hover: var(--wa-color-neutral-fill-muted-alt);
-  --docs-search-result-color-hover: var(--wa-color-neutral-text-on-muted);
-  --docs-search-result-background-active: var(--wa-color-brand-fill-vivid);
-  --docs-search-result-color-active: var(--wa-color-brand-text-on-vivid);
+  --docs-search-result-background-hover: var(--wa-color-neutral-fill-highlight);
+  --docs-search-result-color-hover: var(--wa-color-neutral-text-on-fill);
+  --docs-search-result-background-active: var(--wa-color-brand-spot);
+  --docs-search-result-color-active: var(--wa-color-brand-text-on-spot);
   --docs-search-focus-ring: var(--wa-focus-ring);
   --docs-search-overlay-background: rgb(0 0 0 / 0.33);
 }

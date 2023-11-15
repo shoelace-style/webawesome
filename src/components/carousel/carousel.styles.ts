@@ -46,7 +46,7 @@ export default css`
     overscroll-behavior-x: contain;
     scrollbar-width: none;
     aspect-ratio: calc(var(--aspect-ratio) * var(--slides-per-page));
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
 
     --slide-size: calc((100% - (var(--slides-per-page) - 1) * var(--slide-gap)) / var(--slides-per-page));
   }
@@ -104,7 +104,7 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     font-size: inherit;
     color: var(--wa-color-text-quiet);
     padding: var(--wa-space-xs);
@@ -140,13 +140,13 @@ export default css`
     border-radius: var(--wa-corners-circle);
     width: var(--wa-space-s);
     height: var(--wa-space-s);
-    background-color: var(--wa-color-neutral-fill-muted-alt);
+    background-color: var(--wa-color-neutral-fill-highlight);
     padding: 0;
     margin: 0;
   }
 
   .carousel__pagination-item--active {
-    background-color: var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-spot);
     transform: scale(1.2);
   }
 

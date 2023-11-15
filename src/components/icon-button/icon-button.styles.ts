@@ -15,7 +15,7 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     font-size: inherit;
     color: inherit;
     padding: var(--wa-space-xs);
@@ -26,11 +26,11 @@ export default css`
 
   .icon-button:hover:not(.icon-button--disabled),
   .icon-button:focus-visible:not(.icon-button--disabled) {
-    color: var(--wa-color-brand-fill-vivid);
+    color: var(--wa-color-brand-spot);
   }
 
   .icon-button:active:not(.icon-button--disabled) {
-    color: color-mix(in oklab, var(--wa-color-brand-fill-vivid), var(--wa-color-tint-active));
+    color: color-mix(in oklab, var(--wa-color-brand-spot), var(--wa-color-mix-active));
   }
 
   .icon-button:focus {

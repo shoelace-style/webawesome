@@ -8,7 +8,7 @@ export default css`
 
   :host {
     --background: var(--wa-form-controls-background);
-    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-color: var(--wa-form-controls-resting-color);
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);
@@ -18,7 +18,7 @@ export default css`
   }
 
   :host([filled]) {
-    --background: var(--wa-color-neutral-fill-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
     --border-color: var(--background);
   }
 
@@ -49,7 +49,7 @@ export default css`
   .input--standard.input--focused:not(.input--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
-    border-color: var(--wa-form-controls-border-color-activated);
+    border-color: var(--wa-form-controls-activated-color);
   }
 
   .input--standard.input--disabled {
@@ -74,7 +74,7 @@ export default css`
     height: 100%;
     font: inherit;
     line-height: var(--wa-form-controls-value-line-height);
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     border: none;
     /* prettier-ignore */
     background: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
@@ -97,8 +97,8 @@ export default css`
   .input__control:-webkit-autofill:focus,
   .input__control:-webkit-autofill:active {
     box-shadow: none;
-    -webkit-text-fill-color: var(--wa-color-brand-text-on-muted);
-    caret-color: var(--wa-form-controls-text-color);
+    -webkit-text-fill-color: var(--wa-color-brand-text-on-fill);
+    caret-color: var(--wa-form-controls-value-color);
   }
 
   .input--filled .input__control:-webkit-autofill,
@@ -128,7 +128,7 @@ export default css`
 
   .input__prefix ::slotted(wa-icon),
   .input__suffix ::slotted(wa-icon) {
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
   }
 
   /*
@@ -234,7 +234,7 @@ export default css`
     align-items: center;
     justify-content: center;
     font-size: inherit;
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
     border: none;
     background: none;
     padding: 0;
@@ -244,7 +244,7 @@ export default css`
 
   .input__clear:active,
   .input__password-toggle:active {
-    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    color: color-mix(in oklab, var(--wa-color-neutral-spot), var(--wa-color-mix-active));
   }
 
   .input__clear:focus,

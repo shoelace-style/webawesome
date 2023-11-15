@@ -92,26 +92,17 @@ Additional color palettes are provided in the form of color primitives. Use thes
 
 <div class="color-palette">
   <div class="color-palette__name">
-    Neutral<br>
+    Base<br>
     <code>--wa-color-neutral-<em>{n}</em></code>
   </div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-10);"></div>10</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-20);"></div>20</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-30);"></div>30</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-40);"></div>40</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-50);"></div>50</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-60);"></div>60</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-70);"></div>70</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-80);"></div>80</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-90);"></div>90</div>
-  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-neutral-95);"></div>95</div>
-</div>
-
-<div class="color-palette">
-  <div class="color-palette__name">
-    Black & White<br>
-    <code>--wa-color-<em>{n}</em></code>
-  </div>
-  <div class="color-palette__example"><div class="color-palette__swatch " style="background-color: var(--wa-color-black);"></div>black</div>
-  <div class="color-palette__example"><div class="color-palette__swatch color-palette__swatch--border" style="background-color: var(--wa-color-white);"></div>white</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-10);"></div>10</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-20);"></div>20</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-30);"></div>30</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-40);"></div>40</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-50);"></div>50</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-60);"></div>60</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-70);"></div>70</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-80);"></div>80</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-90);"></div>90</div>
+  <div class="color-palette__example"><div class="color-palette__swatch" style="background-color: var(--wa-color-base-95);"></div>95</div>
 </div>

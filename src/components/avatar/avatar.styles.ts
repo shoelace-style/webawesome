@@ -17,10 +17,10 @@ export default css`
     position: relative;
     width: var(--size);
     height: var(--size);
-    background-color: var(--wa-color-neutral-fill-vivid);
+    background-color: var(--wa-color-neutral-spot);
     font: inherit;
     font-size: calc(var(--size) * 0.5);
-    color: var(--wa-color-neutral-text-on-vivid);
+    color: var(--wa-color-neutral-text-on-spot);
     user-select: none;
     -webkit-user-select: none;
     vertical-align: middle;
@@ -33,7 +33,7 @@ export default css`
 
   .avatar--rounded,
   .avatar--rounded .avatar__image {
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
   }
 
   .avatar--square {

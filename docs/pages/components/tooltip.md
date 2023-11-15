@@ -402,7 +402,7 @@ Tooltips will be clipped if they're inside a container that has `overflow: auto|
 <style>
   .tooltip-hoist {
     position: relative;
-    border: solid 2px var(--wa-color-surface-outline);
+    border: solid 2px var(--wa-color-surface-border);
     overflow: hidden;
     padding: var(--wa-space-m);
   }
@@ -415,7 +415,7 @@ import WaTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
 
 const css = `
   .tooltip-hoist {
-    border: solid 2px var(--wa-color-surface-outline);
+    border: solid 2px var(--wa-color-surface-border);
     overflow: hidden;
     padding: var(--wa-space-m);
     position: relative;

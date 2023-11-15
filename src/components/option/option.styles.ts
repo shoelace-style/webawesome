@@ -26,14 +26,14 @@ export default css`
   }
 
   .option--hover:not(.option--current):not(.option--disabled) {
-    background-color: var(--wa-color-neutral-fill-muted-alt);
-    color: var(--wa-color-neutral-text-on-muted);
+    background-color: var(--wa-color-neutral-fill-highlight);
+    color: var(--wa-color-neutral-text-on-fill);
   }
 
   .option--current,
   .option--current.option--disabled {
-    background-color: var(--wa-color-brand-fill-vivid);
-    color: var(--wa-color-brand-text-on-vivid);
+    background-color: var(--wa-color-brand-spot);
+    color: var(--wa-color-brand-text-on-spot);
     opacity: 1;
   }
 

@@ -249,7 +249,7 @@ To snap panels at specific positions while dragging, add the `snap` attribute wi
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--wa-color-neutral-fill-vivid-alt);
+    background: var(--wa-color-neutral-spot);
     transform: translateX(-3px);
   }
 
@@ -281,7 +281,7 @@ const css = `
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--wa-color-neutral-fill-vivid-alt);
+    background: var(--wa-color-neutral-spot);
     transform: translateX(-3px);
   }
 
@@ -753,9 +753,9 @@ Here's a more elaborate example that changes the divider's color and width and a
 
   .split-panel-divider wa-icon {
     position: absolute;
-    border-radius: var(--wa-corners-3x);
+    border-radius: var(--wa-corners-l);
     background: var(--wa-color-red-50);
-    color: var(--wa-color-white);
+    color: white;
     padding: 0.5rem 0.125rem;
   }
 
@@ -765,7 +765,7 @@ Here's a more elaborate example that changes the divider's color and width and a
 
   .split-panel-divider wa-split-panel:focus-within wa-icon {
     background-color: var(--wa-color-blue-50);
-    color: var(--wa-color-white);
+    color: white;
   }
 </style>
 ```
@@ -787,9 +787,9 @@ const css = `
 
   .split-panel-divider wa-icon {
     position: absolute;
-    border-radius: var(--wa-corners-half);
+    border-radius: var(--wa-corners-xs);
     background: var(--wa-color-red-50);
-    color: var(--wa-color-white);
+    color: white;
     padding: .5rem .125rem;
   }
 
@@ -799,7 +799,7 @@ const css = `
 
   .split-panel-divider wa-split-panel:focus-within wa-icon {
     background-color: var(--wa-color-blue-50);
-    color: var(--wa-color-white);
+    color: white;
   }
 `;
 

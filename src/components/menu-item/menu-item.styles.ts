@@ -91,14 +91,14 @@ export default css`
 
   :host(:hover:not([aria-disabled='true'], :focus-visible)) .menu-item,
   .menu-item--submenu-expanded {
-    background-color: var(--wa-color-neutral-fill-muted);
+    background-color: var(--wa-color-neutral-fill-subtle);
     color: var(--wa-color-text-normal);
   }
 
   :host(:focus-visible) .menu-item {
     outline: none;
-    background-color: var(--wa-color-brand-fill-vivid);
-    color: var(--wa-color-brand-text-on-vivid);
+    background-color: var(--wa-color-brand-spot);
+    color: var(--wa-color-brand-text-on-spot);
     opacity: 1;
   }
 
@@ -108,7 +108,7 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5em;
+    width: var(--wa-space-xl);
     visibility: hidden;
   }
 

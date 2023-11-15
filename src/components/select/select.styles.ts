@@ -8,7 +8,7 @@ export default css`
 
   :host {
     --background: var(--wa-form-controls-background);
-    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-color: var(--wa-form-controls-resting-color);
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);
@@ -18,7 +18,7 @@ export default css`
   }
 
   :host([filled]) {
-    --background: var(--wa-color-neutral-fill-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
     --border-color: var(--background);
   }
 
@@ -77,7 +77,7 @@ export default css`
     border: none;
     background: none;
     line-height: var(--wa-form-controls-value-line-height);
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     cursor: inherit;
     overflow: hidden;
     padding: 0;
@@ -142,6 +142,7 @@ export default css`
 
   .select--standard:not(.select--disabled).select--open .select__combobox,
   .select--standard:not(.select--disabled).select--focused .select__combobox {
+    border-color: var(--wa-form-controls-activated-color);
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }
@@ -243,7 +244,7 @@ export default css`
     flex: 0;
     display: inline-flex;
     align-items: center;
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
   }
 
   /* Clear button */
@@ -252,7 +253,7 @@ export default css`
     align-items: center;
     justify-content: center;
     font-size: inherit;
-    color: var(--wa-color-neutral-fill-vivid);
+    color: var(--wa-color-neutral-spot);
     border: none;
     background: none;
     padding: 0;
@@ -265,7 +266,7 @@ export default css`
   }
 
   .select__clear:active {
-    color: color-mix(in oklab, var(--wa-color-neutral-fill-vivid), var(--wa-color-tint-active));
+    color: color-mix(in oklab, var(--wa-color-neutral-spot), var(--wa-color-mix-active));
   }
 
   /* Expand icon */
@@ -290,7 +291,7 @@ export default css`
     box-shadow: var(--wa-shadow-level-2);
     background: var(--wa-color-surface-raised);
     border-color: var(--border-color);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     border-style: var(--border-style);
     border-width: var(--border-width);
     padding-block: var(--wa-space-xs);

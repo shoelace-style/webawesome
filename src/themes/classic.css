@@ -1,5 +1,6 @@
 @import 'depth_1_semiflat.css'; /* depth_0_flat.css, depth_1_semiflat.css, depth_2_chunky.css, depth_3_punchy.css, depth_4_glossy.css */
 @import 'borders_2_light.css'; /* borders_0_minimal.css, borders_1_feather.css, borders_2_light.css, borders_3_medium.css, borders_4_heavy.css */
+@import 'classic_components.css';
 
 :root,
 :host,
@@ -14,65 +15,65 @@
    * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
    * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
-  --wa-color-red-95: #fdeef3;
-  --wa-color-red-90: #fcdee7;
-  --wa-color-red-80: #f8b8c8;
-  --wa-color-red-70: #f492a8;
-  --wa-color-red-60: #ef6982;
-  --wa-color-red-50: #df2e45;
-  --wa-color-red-40: #a82431;
-  --wa-color-red-30: #851d23;
-  --wa-color-red-20: #621617;
-  --wa-color-red-10: #3c0c09;
-  --wa-color-red-05: #290601;
+  --wa-color-red-95: #feefef;
+  --wa-color-red-90: #fcdfdf;
+  --wa-color-red-80: #f9baba;
+  --wa-color-red-70: #f69395;
+  --wa-color-red-60: #f2686a;
+  --wa-color-red-50: #d73c3f;
+  --wa-color-red-40: #a22d30;
+  --wa-color-red-30: #802426;
+  --wa-color-red-20: #5f1a1c;
+  --wa-color-red-10: #391011;
+  --wa-color-red-05: #240a0b;
 
-  --wa-color-yellow-95: #fbf3c9;
-  --wa-color-yellow-90: #ffe492;
-  --wa-color-yellow-80: #fcc041;
-  --wa-color-yellow-70: #e5a23d;
-  --wa-color-yellow-60: #cc853a;
-  --wa-color-yellow-50: #a86633;
-  --wa-color-yellow-40: #824a2a;
-  --wa-color-yellow-30: #6a3825;
-  --wa-color-yellow-20: #4f281d;
-  --wa-color-yellow-10: #2e1813;
-  --wa-color-yellow-05: #1a0e0a;
+  --wa-color-yellow-95: #fff2c8;
+  --wa-color-yellow-90: #ffe091;
+  --wa-color-yellow-80: #ffbb50;
+  --wa-color-yellow-70: #ed9e4b;
+  --wa-color-yellow-60: #d18245;
+  --wa-color-yellow-50: #ab643c;
+  --wa-color-yellow-40: #844931;
+  --wa-color-yellow-30: #6a372a;
+  --wa-color-yellow-20: #4f2722;
+  --wa-color-yellow-10: #2d1816;
+  --wa-color-yellow-05: #1b0f0d;
 
-  --wa-color-green-95: #e8f6ea;
-  --wa-color-green-90: #d0edd8;
-  --wa-color-green-80: #94d8ad;
-  --wa-color-green-70: #4ec486;
-  --wa-color-green-60: #00ae5f;
-  --wa-color-green-50: #008b4d;
-  --wa-color-green-40: #00693e;
-  --wa-color-green-30: #005334;
-  --wa-color-green-20: #003d28;
-  --wa-color-green-10: #00241b;
-  --wa-color-green-05: #001611;
+  --wa-color-green-95: #ddf9e8;
+  --wa-color-green-90: #b8f3d0;
+  --wa-color-green-80: #54e294;
+  --wa-color-green-70: #2ec77a;
+  --wa-color-green-60: #22aa69;
+  --wa-color-green-50: #188654;
+  --wa-color-green-40: #106541;
+  --wa-color-green-30: #0b5033;
+  --wa-color-green-20: #083a26;
+  --wa-color-green-10: #062217;
+  --wa-color-green-05: #05150e;
 
-  --wa-color-blue-95: #e9f3fe;
-  --wa-color-blue-90: #d4e8fc;
-  --wa-color-blue-80: #a2cef9;
-  --wa-color-blue-70: #6eb4f6;
-  --wa-color-blue-60: #259af4;
-  --wa-color-blue-50: #0076f2;
-  --wa-color-blue-40: #005ab7;
-  --wa-color-blue-30: #004790;
-  --wa-color-blue-20: #00346a;
-  --wa-color-blue-10: #001f3f;
-  --wa-color-blue-05: #001427;
+  --wa-color-blue-95: #e8f4fb;
+  --wa-color-blue-90: #d2e9f6;
+  --wa-color-blue-80: #9ed0ec;
+  --wa-color-blue-70: #6bb8e2;
+  --wa-color-blue-60: #359ed7;
+  --wa-color-blue-50: #007bbf;
+  --wa-color-blue-40: #005d90;
+  --wa-color-blue-30: #004972;
+  --wa-color-blue-20: #003653;
+  --wa-color-blue-10: #002032;
+  --wa-color-blue-05: #00141f;
 
-  --wa-color-base-95: #f2f2f4;
-  --wa-color-base-90: #e5e5e9;
-  --wa-color-base-80: #c8c9d1;
-  --wa-color-base-70: #acaebb;
-  --wa-color-base-60: #9194a4;
-  --wa-color-base-50: #70758a;
-  --wa-color-base-40: #545868;
-  --wa-color-base-30: #424551;
-  --wa-color-base-20: #30323b;
-  --wa-color-base-10: #1c1d23;
-  --wa-color-base-05: #111215;
+  --wa-color-base-95: #f2f2f3;
+  --wa-color-base-90: #e5e5e7;
+  --wa-color-base-80: #c9c9cd;
+  --wa-color-base-70: #aeaeb4;
+  --wa-color-base-60: #94949b;
+  --wa-color-base-50: #75757e;
+  --wa-color-base-40: #58585f;
+  --wa-color-base-30: #45454a;
+  --wa-color-base-20: #323236;
+  --wa-color-base-10: #1d1d20;
+  --wa-color-base-05: #121213;
 
   /**
    * Foundational theme colors
@@ -123,13 +124,12 @@
    *  *  Warning to express caution or uncertainty
    *  *  Danger to express errors or risk
    *  *  Neutral for elements that are innocuous or inert
-   * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
-   * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
-   * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
-   * Muted colors have no contrast requirements.
-   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
+   * Each semantic group specifies colors to use as surfaces, fills, borders, and text with varying degrees of emphasis.
+   * Accent colors are the most noticeable against surfaces, whereas subtle colors draw less attention.
+   * Accent colors should have a minimum 3:1 contrast ratio against surfaces when possible.
+   * Subtle colors have no contrast requirements.
+   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - surface, subtle, or accent.
   */
-
   --wa-color-brand-spot: var(--wa-color-blue-50);
   --wa-color-brand-spot-darker: var(--wa-color-blue-40);
   --wa-color-brand-fill-subtle: var(--wa-color-blue-95);
@@ -170,8 +170,8 @@
   --wa-color-danger-text-on-fill: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
+  --wa-color-neutral-spot: var(--wa-color-base-40);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-30);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
   --wa-color-neutral-border-subtle: var(--wa-color-base-90);
@@ -183,17 +183,19 @@
   /**
    * Typography
    */
-  --wa-font-family-heading: system-ui;
-  --wa-font-family-body: system-ui;
-  --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --wa-font-family-longform: 'Lora', serif;
+  --wa-font-family-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --wa-font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --wa-font-family-code: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  --wa-font-family-longform: Georgia, 'Times New Roman', serif;
 
   --wa-font-weight-light: 300;
   --wa-font-weight-normal: 400;
   --wa-font-weight-medium: 500;
   --wa-font-weight-heavy: 600;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-medium);
 
@@ -207,7 +209,7 @@
   --wa-font-size-2xl: 2.5rem; /* 40px */
 
   --wa-font-line-height-compact: 1.25;
-  --wa-font-line-height-regular: 1.75;
+  --wa-font-line-height-regular: 1.625;
   --wa-font-line-height-comfortable: 2;
 
   /**
@@ -233,6 +235,7 @@
   --wa-space-xl: calc(var(--wa-space-base) * 1.5rem); /* 24px */
   --wa-space-2xl: calc(var(--wa-space-base) * 2rem); /* 32px */
   --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
+
   /**
    * Corners
    */
@@ -255,7 +258,7 @@
   --wa-focus-ring-style: solid;
   --wa-focus-ring-width: 0.1875rem; /* 3px */
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-    color-mix(in oklab, var(--wa-color-focus) 98%, transparent);
+    color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
 
   /**
@@ -294,21 +297,15 @@
 
   --wa-form-controls-placeholder-color: var(--wa-color-base-60);
 
-  --wa-form-controls-height-s: calc(
-    var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height)
-  );
-  --wa-form-controls-height-m: calc(
-    var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-controls-value-line-height)
-  );
-  --wa-form-controls-height-l: calc(
-    var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height)
-  );
+  --wa-form-controls-height-s: 1.875rem;
+  --wa-form-controls-height-m: 2.5rem;
+  --wa-form-controls-height-l: 3.125rem;
 
   --wa-form-controls-required-content: '*';
   --wa-form-controls-required-content-color: inherit;
   --wa-form-controls-required-content-offset: -0.1em;
 
-  --wa-panel-corners: var(--wa-corners-m);
+  --wa-panel-corners: var(--wa-corners-s);
 
   --wa-flow-spacing: 1.5rem;
 
@@ -341,7 +338,7 @@
   --wa-color-selection-background: var(--wa-color-blue-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: var(--wa-color-blue-60);
+  --wa-color-focus: var(--wa-color-blue-70);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
@@ -353,54 +350,64 @@
   /**
     * Semantic theme colors
     */
-  --wa-color-brand-spot: var(--wa-color-blue-50);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
+  --wa-color-brand-fill-accent: var(--wa-color-blue-50);
+  --wa-color-brand-fill-accent: var(--wa-color-blue-30);
+  --wa-color-brand-surface: var(--wa-color-blue-10);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-20);
+  --wa-color-brand-border-accent: var(--wa-color-blue-50);
+  --wa-color-brand-border-accent: var(--wa-color-blue-40);
   --wa-color-brand-border-subtle: var(--wa-color-blue-20);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-30);
-  --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
+  --wa-color-brand-border-subtle: var(--wa-color-blue-30);
+  --wa-color-brand-text-on-accent: white;
+  --wa-color-brand-text-on-subtle: var(--wa-color-blue-70);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
-  --wa-color-success-spot: var(--wa-color-green-50);
-  --wa-color-success-spot-darker: var(--wa-color-green-40);
-  --wa-color-success-fill-subtle: var(--wa-color-green-10);
-  --wa-color-success-fill-highlight: var(--wa-color-green-20);
+  --wa-color-success-fill-accent: var(--wa-color-green-50);
+  --wa-color-success-fill-accent: var(--wa-color-green-30);
+  --wa-color-success-surface: var(--wa-color-green-10);
+  --wa-color-success-fill-subtle: var(--wa-color-green-20);
+  --wa-color-success-border-accent: var(--wa-color-green-50);
+  --wa-color-success-border-accent: var(--wa-color-green-40);
   --wa-color-success-border-subtle: var(--wa-color-green-20);
-  --wa-color-success-border-highlight: var(--wa-color-green-30);
-  --wa-color-success-text-on-spot: white;
-  --wa-color-success-text-on-fill: var(--wa-color-green-70);
+  --wa-color-success-border-subtle: var(--wa-color-green-30);
+  --wa-color-success-text-on-accent: white;
+  --wa-color-success-text-on-subtle: var(--wa-color-green-70);
   --wa-color-success-text-on-surface: var(--wa-color-green-60);
 
-  --wa-color-warning-spot: var(--wa-color-yellow-50);
-  --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
-  --wa-color-warning-fill-subtle: var(--wa-color-yellow-10);
-  --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
+  --wa-color-warning-fill-accent: var(--wa-color-yellow-50);
+  --wa-color-warning-fill-accent: var(--wa-color-yellow-30);
+  --wa-color-warning-surface: var(--wa-color-yellow-10);
+  --wa-color-warning-fill-subtle: var(--wa-color-yellow-20);
+  --wa-color-warning-border-accent: var(--wa-color-yellow-50);
+  --wa-color-warning-border-accent: var(--wa-color-yellow-40);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-20);
-  --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
-  --wa-color-warning-text-on-spot: white;
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
+  --wa-color-warning-border-subtle: var(--wa-color-yellow-30);
+  --wa-color-warning-text-on-accent: white;
+  --wa-color-warning-text-on-subtle: var(--wa-color-yellow-70);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
 
-  --wa-color-danger-spot: var(--wa-color-red-50);
-  --wa-color-danger-spot-darker: var(--wa-color-red-40);
-  --wa-color-danger-fill-subtle: var(--wa-color-red-10);
-  --wa-color-danger-fill-highlight: var(--wa-color-red-20);
+  --wa-color-danger-fill-accent: var(--wa-color-red-50);
+  --wa-color-danger-fill-accent: var(--wa-color-red-30);
+  --wa-color-danger-surface: var(--wa-color-red-10);
+  --wa-color-danger-fill-subtle: var(--wa-color-red-20);
+  --wa-color-danger-border-accent: var(--wa-color-red-50);
+  --wa-color-danger-border-accent: var(--wa-color-red-40);
   --wa-color-danger-border-subtle: var(--wa-color-red-20);
-  --wa-color-danger-border-highlight: var(--wa-color-red-30);
-  --wa-color-danger-text-on-spot: white;
-  --wa-color-danger-text-on-fill: var(--wa-color-red-70);
+  --wa-color-danger-border-subtle: var(--wa-color-red-30);
+  --wa-color-danger-text-on-accent: white;
+  --wa-color-danger-text-on-subtle: var(--wa-color-red-70);
   --wa-color-danger-text-on-surface: var(--wa-color-red-60);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
+  --wa-color-neutral-fill-accent: var(--wa-color-base-50);
+  --wa-color-neutral-fill-accent: var(--wa-color-base-30);
+  --wa-color-neutral-surface: var(--wa-color-base-10);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
+  --wa-color-neutral-border-accent: var(--wa-color-base-50);
+  --wa-color-neutral-border-accent: var(--wa-color-base-40);
   --wa-color-neutral-border-subtle: var(--wa-color-base-20);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-30);
-  --wa-color-neutral-text-on-spot: white;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
+  --wa-color-neutral-border-subtle: var(--wa-color-base-30);
+  --wa-color-neutral-text-on-accent: white;
+  --wa-color-neutral-text-on-subtle: var(--wa-color-base-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 

@@ -63,7 +63,7 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  * @csspart base - The component's base wrapper.
  *
  * @cssproperty [--indent-size=var(--wa-spacing-m)] - The size of the indentation for nested items.
- * @cssproperty [--indent-guide-color=var(--wa-color-surface-outline)] - The color of the indentation line.
+ * @cssproperty [--indent-guide-color=var(--wa-color-surface-border)] - The color of the indentation line.
  * @cssproperty [--indent-guide-offset=0] - The amount of vertical spacing to leave between the top and bottom of the
  *  indentation line's starting position.
  * @cssproperty [--indent-guide-style=solid] - The style of the indentation line, e.g. solid, dotted, dashed.

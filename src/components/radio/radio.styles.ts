@@ -16,7 +16,7 @@ export default css`
     display: inline-flex;
     align-items: top;
     font: inherit;
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     vertical-align: middle;
     cursor: pointer;
   }
@@ -50,7 +50,7 @@ export default css`
     justify-content: center;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
+    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-resting-color);
     border-radius: 50%;
     background-color: var(--wa-form-controls-background);
     color: transparent;
@@ -71,9 +71,9 @@ export default css`
 
   /* Checked */
   .radio--checked .radio__control {
-    color: var(--wa-color-brand-text-on-vivid);
-    border-color: var(--wa-color-brand-fill-vivid);
-    background-color: var(--wa-color-brand-fill-vivid);
+    color: var(--wa-color-brand-text-on-spot);
+    border-color: var(--wa-form-controls-activated-color);
+    background-color: var(--wa-form-controls-activated-color);
   }
 
   /* Checked + focus */
@@ -95,7 +95,7 @@ export default css`
 
   .radio__label {
     display: inline-block;
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     line-height: var(--toggle-size);
     margin-inline-start: 0.5em;
     user-select: none;

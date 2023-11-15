@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --color: var(--wa-color-surface-outline);
+    --color: var(--wa-color-surface-border);
     --width: var(--wa-border-width-thin);
     --spacing: var(--wa-space-m);
   }

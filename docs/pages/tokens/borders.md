@@ -19,12 +19,12 @@ Border radius tokens are used to give sharp edges a more subtle, rounded effect.
 
 TODO
 
-| Token               | Value                              | Example                                                                        |
-| ------------------- | ---------------------------------- | ------------------------------------------------------------------------------ |
-| `--wa-corners-half` | `calc(var(--wa-corners-1x) * 0.5)` | <div class="corner-demo" style="border-radius: var(--wa-corners-half);"></div> |
-| `--wa-corners-1x`   | `0.25rem`                          | <div class="corner-demo" style="border-radius: var(--wa-corners-1x);"></div>   |
-| `--wa-corners-2x`   | `calc(var(--wa-corners-1x) * 2)`   | <div class="corner-demo" style="border-radius: var(--wa-corners-2x);"></div>   |
-| `--wa-corners-3x`   | `calc(var(--wa-corners-1x) * 3)`   | <div class="corner-demo" style="border-radius: var(--wa-corners-3x);"></div>   |
+| Token             | Value                             | Example                                                                      |
+| ----------------- | --------------------------------- | ---------------------------------------------------------------------------- |
+| `--wa-corners-xs` | `calc(var(--wa-corners-s) * 0.5)` | <div class="corner-demo" style="border-radius: var(--wa-corners-xs);"></div> |
+| `--wa-corners-s`  | `0.25rem`                         | <div class="corner-demo" style="border-radius: var(--wa-corners-s);"></div>  |
+| `--wa-corners-m`  | `calc(var(--wa-corners-s) * 2)`   | <div class="corner-demo" style="border-radius: var(--wa-corners-m);"></div>  |
+| `--wa-corners-l`  | `calc(var(--wa-corners-s) * 3)`   | <div class="corner-demo" style="border-radius: var(--wa-corners-l);"></div>  |
 
 ## Special Corners
 

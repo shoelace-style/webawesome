@@ -8,6 +8,7 @@ export default css`
     --border-radius: var(--wa-panel-corners);
     --border-style: var(--wa-panel-border-style);
     --border-width: var(--wa-panel-border-width);
+    --icon-color: currentColor;
     --icon-size: var(--wa-font-size-l);
     --padding: var(--wa-space-m);
 
@@ -18,33 +19,33 @@ export default css`
   }
 
   :host([variant='brand']) {
-    --background: var(--wa-color-brand-fill-muted);
-    --border-color: var(--wa-color-brand-outline-muted);
-    --content-color: var(--wa-color-brand-text-on-muted);
+    --background: var(--wa-color-brand-fill-subtle);
+    --border-color: var(--wa-color-brand-border-subtle);
+    --content-color: var(--wa-color-brand-text-on-fill);
   }
 
   :host([variant='success']) {
-    --background: var(--wa-color-success-fill-muted);
-    --border-color: var(--wa-color-success-outline-muted);
-    --content-color: var(--wa-color-success-text-on-muted);
+    --background: var(--wa-color-success-fill-subtle);
+    --border-color: var(--wa-color-success-border-subtle);
+    --content-color: var(--wa-color-success-text-on-fill);
   }
 
   :host([variant='neutral']) {
-    --background: var(--wa-color-neutral-fill-muted);
-    --border-color: var(--wa-color-neutral-outline-muted);
-    --content-color: var(--wa-color-neutral-text-on-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
+    --border-color: var(--wa-color-neutral-border-subtle);
+    --content-color: var(--wa-color-neutral-text-on-fill);
   }
 
   :host([variant='warning']) {
-    --background: var(--wa-color-warning-fill-muted);
-    --border-color: var(--wa-color-warning-outline-muted);
-    --content-color: var(--wa-color-warning-text-on-muted);
+    --background: var(--wa-color-warning-fill-subtle);
+    --border-color: var(--wa-color-warning-border-subtle);
+    --content-color: var(--wa-color-warning-text-on-fill);
   }
 
   :host([variant='danger']) {
-    --background: var(--wa-color-danger-fill-muted);
-    --border-color: var(--wa-color-danger-outline-muted);
-    --content-color: var(--wa-color-danger-text-on-muted);
+    --background: var(--wa-color-danger-fill-subtle);
+    --border-color: var(--wa-color-danger-border-subtle);
+    --content-color: var(--wa-color-danger-text-on-fill);
   }
 
   .alert {
@@ -70,6 +71,7 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+    color: var(--icon-color);
     font-size: var(--icon-size);
     padding-inline-start: var(--padding);
   }

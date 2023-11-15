@@ -13,7 +13,7 @@ export default css`
     display: inline-flex;
     align-items: flex-start;
     font: inherit;
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     vertical-align: middle;
     cursor: pointer;
   }
@@ -41,10 +41,10 @@ export default css`
     justify-content: center;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-border-color-resting);
-    border-radius: min(0.375rem, var(--wa-corners-half)); /* min so it doesn't look like a circle/checkbox */
+    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-resting-color);
+    border-radius: min(0.375rem, var(--wa-corners-xs)); /* min so it doesn't look like a circle/checkbox */
     background-color: var(--wa-form-controls-background);
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     transition:
       var(--wa-transition-fast) border-color,
       var(--wa-transition-fast) background-color,
@@ -69,7 +69,6 @@ export default css`
 
   /* Focus */
   .checkbox:not(.checkbox--checked):not(.checkbox--disabled) .checkbox__input:focus-visible ~ .checkbox__control {
-    border-color: var(--wa-form-controls-border-color-activated);
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }
@@ -77,9 +76,9 @@ export default css`
   /* Checked/indeterminate */
   .checkbox--checked .checkbox__control,
   .checkbox--indeterminate .checkbox__control {
-    color: var(--wa-color-brand-text-on-vivid);
-    border-color: var(--wa-color-brand-fill-vivid);
-    background-color: var(--wa-color-brand-fill-vivid);
+    color: var(--wa-color-brand-text-on-spot);
+    border-color: var(--wa-form-controls-activated-color);
+    background-color: var(--wa-form-controls-activated-color);
   }
 
   /* Checked/indeterminate + focus */

@@ -20,13 +20,13 @@ export default css`
     font: inherit;
     color: var(--color);
     background-color: var(--wa-color-surface-raised);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     user-select: none;
     -webkit-user-select: none;
   }
 
   .color-picker--inline {
-    border: var(--wa-form-controls-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
+    border: var(--wa-form-controls-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
   }
 
   .color-picker--inline:focus-visible {
@@ -39,8 +39,8 @@ export default css`
     height: var(--grid-height);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
       linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    border-top-left-radius: var(--wa-corners-1x);
-    border-top-right-radius: var(--wa-corners-1x);
+    border-top-left-radius: var(--wa-corners-s);
+    border-top-right-radius: var(--wa-corners-s);
     cursor: crosshair;
     forced-color-adjust: none;
   }
@@ -175,7 +175,7 @@ export default css`
 
   @keyframes pulse {
     0% {
-      box-shadow: 0 0 0 0 var(--wa-color-brand-fill-vivid-alt);
+      box-shadow: 0 0 0 0 var(--wa-color-brand-spot);
     }
     70% {
       box-shadow: 0 0 0 0.5rem transparent;
@@ -210,7 +210,7 @@ export default css`
     grid-template-columns: repeat(8, 1fr);
     grid-gap: 0.5rem;
     justify-items: center;
-    border-top: solid 1px var(--wa-color-surface-outline);
+    border-top: solid 1px var(--wa-color-surface-border);
     padding: var(--wa-space-s);
     forced-color-adjust: none;
   }
@@ -219,7 +219,7 @@ export default css`
     position: relative;
     width: var(--swatch-size);
     height: var(--swatch-size);
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
   }
 
   .color-picker__swatch .color-picker__swatch-color {
@@ -239,10 +239,10 @@ export default css`
   }
 
   .color-picker__transparent-bg {
-    background-image: linear-gradient(45deg, var(--wa-color-neutral-fill-muted-alt) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-muted-alt) 75%),
-      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-muted-alt) 75%),
-      linear-gradient(45deg, var(--wa-color-neutral-fill-muted-alt) 25%, transparent 25%);
+    background-image: linear-gradient(45deg, var(--wa-color-neutral-fill-highlight) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-highlight) 75%),
+      linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-highlight) 75%),
+      linear-gradient(45deg, var(--wa-color-neutral-fill-highlight) 25%, transparent 25%);
     background-size: 10px 10px;
     background-position:
       0 0,
@@ -273,8 +273,8 @@ export default css`
   .color-dropdown::part(panel) {
     max-height: none;
     background-color: var(--wa-color-surface-raised);
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-1x);
+    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border-radius: var(--wa-corners-s);
     overflow: visible;
   }
 
@@ -315,8 +315,8 @@ export default css`
     border-radius: inherit;
     background-color: currentColor;
     box-shadow:
-      inset 0 0 0 2px var(--wa-form-controls-border-color-resting),
-      inset 0 0 0 4px var(--wa-color-white);
+      inset 0 0 0 2px var(--wa-form-controls-resting-color),
+      inset 0 0 0 4px white;
   }
 
   .color-dropdown__trigger--empty:before {

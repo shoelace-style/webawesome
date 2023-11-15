@@ -153,8 +153,8 @@ meta:
 ```html:preview
 <style>
   div.shadow {
-    border: 1px solid var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-1x);
+    border: 1px solid var(--wa-color-surface-border);
+    border-radius: var(--wa-corners-s);
     display: inline-block;
     height: 4rem;
     margin-right: 2rem;

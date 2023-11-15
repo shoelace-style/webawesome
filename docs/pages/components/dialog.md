@@ -105,7 +105,7 @@ By design, a dialog's height will never exceed that of the viewport. As such, di
 
 ```html:preview
 <wa-dialog label="Dialog" class="dialog-scrolling">
-  <div style="height: 150vh; border: dashed 2px var(--wa-color-surface-outline); padding: 0 1rem;">
+  <div style="height: 150vh; border: dashed 2px var(--wa-color-surface-border); padding: 0 1rem;">
     <p>Scroll down and give it a try! 👇</p>
   </div>
   <wa-button slot="footer" variant="brand">Close</wa-button>
@@ -139,7 +139,7 @@ const App = () => {
         <div
           style={{
             height: '150vh',
-            border: 'dashed 2px var(--wa-color-surface-outline)',
+            border: 'dashed 2px var(--wa-color-surface-border)',
             padding: '0 1rem'
           }}
         >

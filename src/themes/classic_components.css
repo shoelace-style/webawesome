@@ -1,0 +1,91 @@
+/* #region Alerts */
+wa-alert {
+  --background: var(--wa-color-surface-default);
+  --border-width: var(--wa-border-width-thick) var(--wa-border-width-thin) var(--wa-border-width-thin)
+    var(--wa-border-width-thin);
+  --content-color: var(--wa-color-text-normal);
+  --padding: var(--wa-space-l);
+
+  font-size: var(--wa-font-size-s);
+
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-brand-spot);
+  }
+
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-success-spot);
+  }
+
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-neutral-spot);
+  }
+
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-warning-spot);
+  }
+
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-spot) var(--wa-color-neutral-border-subtle)
+      var(--wa-color-neutral-border-subtle) var(--wa-color-neutral-border-subtle);
+    --icon-color: var(--wa-color-danger-spot);
+  }
+}
+/* #endregion */
+
+/* #region Breadcrumbs */
+wa-breadcrumb {
+  font-size: var(--wa-font-size-s);
+}
+
+/* #region Buttons */
+wa-button {
+  &[size='small'] {
+    font-size: var(--wa-font-size-xs);
+  }
+
+  &[size='medium'] {
+    font-size: var(--wa-font-size-s);
+  }
+
+  &[size='large'] {
+    font-size: var(--wa-font-size-m);
+  }
+}
+/* #endregion */
+
+/* #region Inputs */
+wa-input:not([filled]) {
+  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
+    color-mix(in oklab, var(--wa-color-focus), transparent 50%);
+  --wa-focus-ring-offset: 0;
+}
+
+wa-switch {
+  &::part(thumb) {
+    border-color: var(--background);
+  }
+  &[checked]::part(thumb) {
+    border-color: var(--background-checked);
+  }
+  &[size='small'] {
+    --height: var(--wa-form-control-toggle-size-s);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-s) + 4px);
+  }
+  &[size='medium'] {
+    --height: var(--wa-form-control-toggle-size-m);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-m) + 4px);
+  }
+  &[size='large'] {
+    --height: var(--wa-form-control-toggle-size-l);
+    --thumb-size: calc(var(--wa-form-control-toggle-size-l) + 4px);
+  }
+}
+/* #endregion */

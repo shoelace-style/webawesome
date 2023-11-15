@@ -9,8 +9,8 @@ export default css`
   :host {
     --thumb-size: 20px;
     --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 2.5);
-    --track-color-active: var(--wa-color-neutral-fill-muted-alt);
-    --track-color-inactive: var(--wa-color-neutral-fill-muted-alt);
+    --track-color-active: var(--wa-color-neutral-fill-highlight);
+    --track-color-inactive: var(--wa-color-neutral-fill-highlight);
     --track-active-offset: 0%;
     --track-height: 6px;
 
@@ -68,8 +68,8 @@ export default css`
     width: var(--thumb-size);
     height: var(--thumb-size);
     border-radius: 50%;
-    background-color: var(--wa-color-brand-fill-vivid);
-    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width) var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-spot);
+    border: var(--wa-form-controls-border-style) var(--wa-form-controls-border-width) var(--wa-color-brand-spot);
     -webkit-appearance: none;
     margin-top: calc(var(--thumb-size) / -2 + var(--track-height) / 2);
     cursor: pointer;
@@ -108,8 +108,8 @@ export default css`
     height: var(--thumb-size);
     width: var(--thumb-size);
     border-radius: 50%;
-    background-color: var(--wa-color-brand-fill-vivid);
-    border-color: var(--wa-color-brand-fill-vivid);
+    background-color: var(--wa-color-brand-spot);
+    border-color: var(--wa-color-brand-spot);
     transition:
       var(--wa-transition-fast) border-color,
       var(--wa-transition-fast) background-color,
@@ -149,11 +149,11 @@ export default css`
     position: absolute;
     z-index: var(--wa-z-index-tooltip);
     left: 0;
-    border-radius: var(--wa-corners-1x);
-    background-color: var(--wa-color-neutral-fill-vivid);
+    border-radius: var(--wa-corners-s);
+    background-color: var(--wa-color-neutral-spot);
     font: inherit;
     line-height: var(--wa-line-height-regular);
-    color: var(--wa-color-neutral-text-on-vivid);
+    color: var(--wa-color-neutral-text-on-spot);
     opacity: 0;
     padding: var(--wa-space-2xs) var(--wa-space-xs);
     transition: var(--wa-transition-fast) opacity;
@@ -179,7 +179,7 @@ export default css`
   }
 
   .range--tooltip-top .range__tooltip:after {
-    border-top: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-fill-vivid);
+    border-top: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-spot);
     border-left: var(--wa-tooltip-arrow-size) solid transparent;
     border-right: var(--wa-tooltip-arrow-size) solid transparent;
     top: 100%;
@@ -191,7 +191,7 @@ export default css`
   }
 
   .range--tooltip-bottom .range__tooltip:after {
-    border-bottom: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-fill-vivid);
+    border-bottom: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-spot);
     border-left: var(--wa-tooltip-arrow-size) solid transparent;
     border-right: var(--wa-tooltip-arrow-size) solid transparent;
     bottom: 100%;

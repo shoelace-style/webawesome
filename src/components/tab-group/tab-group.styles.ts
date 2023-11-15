@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --indicator-color: var(--wa-color-brand-fill-vivid);
-    --track-color: var(--wa-color-neutral-fill-muted-alt);
+    --indicator-color: var(--wa-color-brand-spot);
+    --track-color: var(--wa-color-neutral-fill-highlight);
     --track-width: 2px;
 
     display: block;

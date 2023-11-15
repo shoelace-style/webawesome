@@ -8,7 +8,7 @@ export default css`
 
   :host {
     --background: var(--wa-form-controls-background);
-    --border-color: var(--wa-form-controls-border-color-resting);
+    --border-color: var(--wa-form-controls-resting-color);
     --border-radius: var(--wa-form-controls-corners);
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);
@@ -18,7 +18,7 @@ export default css`
   }
 
   :host([filled]) {
-    --background: var(--wa-color-neutral-fill-muted);
+    --background: var(--wa-color-neutral-fill-subtle);
     --border-color: var(--background);
   }
 
@@ -47,7 +47,7 @@ export default css`
   .textarea--standard.textarea--focused:not(.textarea--disabled) {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
-    border-color: var(--wa-form-controls-border-color-activated);
+    border-color: var(--wa-form-controls-activated-color);
   }
 
   .textarea--standard.textarea--disabled {
@@ -70,7 +70,7 @@ export default css`
     flex: 1 1 auto;
     font: inherit;
     line-height: var(--wa-font-line-height-comfortable);
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     border: none;
     background: none;
     box-shadow: none;

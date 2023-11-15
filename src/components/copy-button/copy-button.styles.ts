@@ -5,8 +5,8 @@ export default css`
   ${componentStyles}
 
   :host {
-    --error-color: var(--wa-color-danger-fill-vivid-alt);
-    --success-color: var(--wa-color-success-fill-vivid-alt);
+    --error-color: var(--wa-color-danger-spot);
+    --success-color: var(--wa-color-success-spot);
 
     display: inline-block;
   }
@@ -17,7 +17,7 @@ export default css`
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-s);
     font-size: inherit;
     color: inherit;
     padding: var(--wa-space-xs);

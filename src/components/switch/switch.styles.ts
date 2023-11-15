@@ -5,9 +5,9 @@ export default css`
   ${componentStyles}
 
   :host {
-    --background: var(--wa-color-neutral-fill-vivid);
-    --background-checked: var(--wa-color-brand-fill-vivid);
-    --border-color: var(--background);
+    --background: var(--wa-form-controls-resting-color);
+    --background-checked: var(--wa-form-controls-activated-color);
+    --border-color: var(--wa-form-controls-resting-color);
     --border-color-checked: var(--background-checked);
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);
@@ -39,7 +39,7 @@ export default css`
     display: inline-flex;
     align-items: center;
     font: inherit;
-    color: var(--wa-form-controls-text-color);
+    color: var(--wa-form-controls-value-color);
     vertical-align: middle;
     cursor: pointer;
   }

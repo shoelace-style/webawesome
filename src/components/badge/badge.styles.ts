@@ -15,7 +15,7 @@ export default css`
     font-size: max(12px, 0.75em);
     font-weight: var(--wa-font-weight-medium);
     line-height: 1;
-    border-radius: var(--wa-corners-1x);
+    border-radius: var(--wa-corners-xs);
     border: solid 1px var(--wa-color-surface-default);
     white-space: nowrap;
     padding: 0.35em 0.6em;
@@ -26,28 +26,28 @@ export default css`
 
   /* Variant modifiers */
   .badge--brand {
-    background-color: var(--wa-color-brand-fill-vivid);
-    color: var(--wa-color-brand-text-on-vivid);
+    background-color: var(--wa-color-brand-spot);
+    color: var(--wa-color-brand-text-on-spot);
   }
 
   .badge--success {
-    background-color: var(--wa-color-success-fill-vivid);
-    color: var(--wa-color-success-text-on-vivid);
+    background-color: var(--wa-color-success-spot);
+    color: var(--wa-color-success-text-on-spot);
   }
 
   .badge--neutral {
-    background-color: var(--wa-color-neutral-fill-vivid);
-    color: var(--wa-color-neutral-text-on-vivid);
+    background-color: var(--wa-color-neutral-spot);
+    color: var(--wa-color-neutral-text-on-spot);
   }
 
   .badge--warning {
-    background-color: var(--wa-color-warning-fill-vivid);
-    color: var(--wa-color-warning-text-on-vivid);
+    background-color: var(--wa-color-warning-spot);
+    color: var(--wa-color-warning-text-on-spot);
   }
 
   .badge--danger {
-    background-color: var(--wa-color-danger-fill-vivid);
-    color: var(--wa-color-danger-text-on-vivid);
+    background-color: var(--wa-color-danger-spot);
+    color: var(--wa-color-danger-text-on-spot);
   }
 
   /* Pill modifier */
@@ -61,23 +61,23 @@ export default css`
   }
 
   .badge--pulse.badge--brand {
-    --pulse-color: var(--wa-color-brand-outline-vivid-alt);
+    --pulse-color: var(--wa-color-brand-spot);
   }
 
   .badge--pulse.badge--success {
-    --pulse-color: var(--wa-color-success-outline-vivid-alt);
+    --pulse-color: var(--wa-color-success-spot);
   }
 
   .badge--pulse.badge--neutral {
-    --pulse-color: var(--wa-color-neutral-outline-vivid-alt);
+    --pulse-color: var(--wa-color-neutral-spot);
   }
 
   .badge--pulse.badge--warning {
-    --pulse-color: var(--wa-color-warning-outline-vivid-alt);
+    --pulse-color: var(--wa-color-warning-spot);
   }
 
   .badge--pulse.badge--danger {
-    --pulse-color: var(--wa-color-danger-outline-vivid-alt);
+    --pulse-color: var(--wa-color-danger-spot);
   }
 
   @keyframes pulse {

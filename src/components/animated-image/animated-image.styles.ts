@@ -37,7 +37,7 @@ export default css`
     border: solid 2px currentColor;
     background-color: rgb(0 0 0 /50%);
     border-radius: var(--wa-corners-circle);
-    color: var(--wa-color-white);
+    color: white;
     pointer-events: none;
     transition: var(--wa-transition-fast) opacity;
   }
