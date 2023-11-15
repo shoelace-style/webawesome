@@ -5,59 +5,74 @@
     <a href="#" class="logo"> <span>Sport</span> <span class="logo__accent">Awesome</span> </a>
 
     <div class="header__navigation">
-      <wa-nav-group class="navigation navigation--top navigation--desktop">
-        <wa-nav-item href="#" current="page">Home</wa-nav-item>
-        <wa-nav-item href="#">Schedule</wa-nav-item>
-        <wa-nav-item href="#">Roster</wa-nav-item>
-        <wa-nav-item href="#">Stats</wa-nav-item>
-        <wa-nav-item href="#">Videos</wa-nav-item>
-      </wa-nav-group>
+      <nav class="navigation navigation--top navigation--desktop">
+        <wa-button class="wa-button--muted" outline href="#" aria-current="page">Home</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Schedule</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Roster</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Stats</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Videos</wa-button>
+      </nav>
 
-      <wa-nav-group class="navigation navigation--top navigation--social">
-        <wa-nav-item class="social-link" href="#"><wa-icon name="instagram"></wa-icon></wa-nav-item>
-        <wa-nav-item class="social-link" href="#"><wa-icon name="facebook"></wa-icon></wa-nav-item>
-        <wa-nav-item data-toggle-nav href="#"><wa-icon name="list"></wa-icon></wa-nav-item>
-      </wa-nav-group>
+      <nav class="navigation navigation--top navigation--social">
+        <wa-button outline class="wa-button--muted social-link" href="#"><wa-icon name="instagram"></wa-icon></wa-button>
+        <wa-button outline class="wa-button--muted social-link" href="#"><wa-icon name="facebook"></wa-icon></wa-button>
+        <wa-button outline class="wa-button--muted" data-toggle-nav href="#"><wa-icon name="list"></wa-icon></wa-button>
+      </nav>
     </div>
   </header>
 
   <a href="#" class="logo" slot="navigation-header"> Sport <span class="logo__accent">Awesome</span> </a>
 
-  <wa-nav-group slot="navigation">
-    <wa-nav-item href="#" current="page">
-      <wa-icon name="house-door" slot="prefix"></wa-icon>
-      Home
-    </wa-nav-item>
-    <wa-nav-item href="#">
-      <wa-icon name="calendar" slot="prefix"></wa-icon>
-      Schedule
-    </wa-nav-item>
-    <wa-nav-item href="#">
-      <wa-icon name="people" slot="prefix"></wa-icon>
-      Roster
-    </wa-nav-item>
-    <wa-nav-item href="#">
-      <wa-icon name="graph-up-arrow" slot="prefix"></wa-icon>
-      Stats
-    </wa-nav-item>
-    <wa-nav-item href="#">
-      <wa-icon name="camera-video" slot="prefix"></wa-icon>
-      Videos
-    </wa-nav-item>
+  <nav slot="navigation">
+    <ul role="list" style="list-style-type: ''; display: flex; flex-direction: column; gap: 8px; align-items: center;">
+      <li>
+        <wa-button class="wa-button--muted" outline href="#" aria-current="page">
+          <wa-icon name="house-door" slot="prefix"></wa-icon>
+          Home
+        </wa-button>
+      </li>
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
+        <wa-icon name="calendar" slot="prefix"></wa-icon>
+        Schedule
+      </wa-button>
+    </li>
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
+        <wa-icon name="people" slot="prefix"></wa-icon>
+        Roster
+      </wa-button>
+    </li>
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
+        <wa-icon name="graph-up-arrow" slot="prefix"></wa-icon>
+        Stats
+      </wa-button>
+    </li>
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
+        <wa-icon name="camera-video" slot="prefix"></wa-icon>
+        Videos
+      </wa-button>
+    </li>
 
-    <wa-divider></wa-divider>
+    <wa-divider style="width: 100%;"></wa-divider>
 
-    <wa-nav-group>
-      <wa-nav-item href="#">
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
         <wa-icon name="instagram" slot="prefix"></wa-icon>
         Instagram
-      </wa-nav-item>
-      <wa-nav-item href="#">
+      </wa-button>
+    </li>
+
+    <li>
+      <wa-button class="wa-button--muted" outline href="#">
         <wa-icon name="facebook" slot="prefix"></wa-icon>
         Facebook
-      </wa-nav-item>
-    </wa-nav-group>
-  </wa-nav-group>
+      </wa-button>
+    </li>
+    </ul>
+  </nav>
 
   <main id="main-content" class="flow" style="padding: var(--wa-space-m)">
     <div style="display: flex; flex-wrap: wrap; gap: var(--wa-space-m)">

@@ -1,5 +1,12 @@
 {% include "layout-templates/reset.css" %}
 
+.wa-button--muted {
+  --border-color: transparent;
+  --background: transparent;
+  --background-hover: var(--wa-color-neutral-fill-muted-alt);
+  --border-color-hover: var(--wa-color-neutral-outline-vivid-alt);
+}
+
 /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
 .flow > * + * {
   margin-block-start: var(--wa-flow-spacing);
@@ -11,29 +18,40 @@ img {
   height: auto;
 }
 
-.navigation--desktop::part(nav-items) {
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation--desktop {
   gap: 2rem;
 }
 
-.navigation--top::part(nav-items) {
+.navigation--top {
   flex-direction: row;
 }
 
-.navigation--top wa-nav-item {
+.navigation--top wa-button {
   font-size: 1.4rem;
   font-weight: bold;
+  --border-color: transparent;
+
+  &::part(base) {
+    color: var(--wa-color-brand-text-on-vivid);
+  }
+
+  &:hover::part(base) { color: var(--wa-color-text-normal) }
+  --background: transparent;
+  --background-hover: var(--wa-color-neutral-fill-muted-alt);
 }
 
-.navigation--top wa-nav-item::part(content) {
-  text-align: center;
-  justify-content: center;
-}
-
-.navigation--top wa-nav-item {
-  --text-color: var(--wa-color-brand-text-on-vivid);
-  --text-color-hover: var(--wa-color-text-normal);
-  --background-color: transparent;
-  --background-color-hover: var(--wa-color-neutral-fill-muted-alt);
+.navigation--top [aria-current="page"] {
+  &::part(base) {
+    text-decoration: underline;
+    text-decoration-color: var(--wa-color-danger-outline-vivid);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 8px;
+  }
 }
 
 .header {
@@ -85,7 +103,7 @@ a.logo:is(:hover, :focus) {
   width: 100%;
 }
 
-.navigation--desktop wa-nav-item[current='page'] {
+.navigation--desktop [aria-current='page'] {
   text-decoration: underline;
   text-underline-offset: 8px;
   text-decoration-thickness: 4px;
@@ -154,7 +172,7 @@ wa-layout[view='mobile'] .navigation--desktop {
   text-align: end;
 }
 
-.navigation--top.navigation--social::part(nav-items) {
+.navigation--top.navigation--social {
   justify-content: flex-end;
 }
 

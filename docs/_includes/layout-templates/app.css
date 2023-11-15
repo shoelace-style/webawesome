@@ -61,7 +61,22 @@ wa-layout[view='desktop'] main {
   border-top-left-radius: 8px;
 }
 
-/* Navigation / Lists */
+/* Navigation */
+.nav-list {
+  height: 100%;
+  list-style-type: '';
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-list wa-button {
+  width: 100%;
+
+  &::part(base) {
+    justify-content: start;
+  }
+}
 
 /* Highlights */
 .highlight {
@@ -108,7 +123,7 @@ wa-layout[view='desktop'] main {
 }
 
 .wa-button--card.wa-button--muted {
-  --background-color: var(--wa-color-neutral-95);
+  --background: var(--wa-color-neutral-fill-muted);
 }
 
 .wa-button--card::part(base) {
@@ -122,30 +137,10 @@ wa-layout[view='desktop'] main {
 }
 
 .wa-button--muted {
-  --text-color: var(--wa-color-neutral-30);
-  --text-color-active: var(--wa-color-neutral-30);
-  --background-color: transparent;
-  --background-color-active: var(--wa-color-neutral-90);
   --border-color: transparent;
-  --border-color-active: var(--wa-color-neutral-80);
-}
-
-.wa-button--muted::part(base) {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border-color: var(--border-color);
-}
-
-.wa-button--muted:is(:focus-within)::part(base) {
-  background-color: var(--background-color);
-  color: var(--text-color-active);
-  border-color: var(--border-color-active);
-}
-
-.wa-button--muted:is(:hover)::part(base) {
-  background-color: var(--background-color-active);
-  color: var(--text-color-active);
-  border-color: var(--border-color-active);
+  --background: transparent;
+  --background-hover: var(--wa-color-neutral-fill-muted-alt);
+  --border-color-hover: var(--wa-color-neutral-outline-vivid-alt);
 }
 
 .wa-button--logo::part(base) {
