@@ -3,8 +3,8 @@
 .wa-button--muted {
   --border-color: transparent;
   --background: transparent;
-  --background-hover: var(--wa-color-neutral-fill-muted-alt);
-  --border-color-hover: var(--wa-color-neutral-outline-vivid-alt);
+  --background-hover: var(--wa-color-neutral-fill-subtle);
+  --border-color-hover: var(--wa-color-neutral-border-subtle);
 }
 
 /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
@@ -37,18 +37,18 @@ img {
   --border-color: transparent;
 
   &::part(base) {
-    color: var(--wa-color-brand-text-on-vivid);
+    color: var(--wa-color-brand-text-on-spot);
   }
 
-  &:hover::part(base) { color: var(--wa-color-text-normal) }
-  --background: transparent;
-  --background-hover: var(--wa-color-neutral-fill-muted-alt);
+  &:hover::part(base) {
+    color: var(--wa-color-text-normal)
+  }
 }
 
 .navigation--top [aria-current="page"] {
   &::part(base) {
     text-decoration: underline;
-    text-decoration-color: var(--wa-color-danger-outline-vivid);
+    text-decoration-color: var(--wa-color-danger-spot);
     text-decoration-thickness: 4px;
     text-underline-offset: 8px;
   }
@@ -56,8 +56,8 @@ img {
 
 .header {
   display: flex;
-  border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-fill-vivid-alt);
-  background-color: var(--wa-color-white);
+  border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-fill-highlight);
+  background-color: var(--wa-color-surface-default);
 }
 
 .header > * {
@@ -70,7 +70,7 @@ img {
   clip-path: polygon(var(--wa-space-2xl) 0, 100% 0, 100% 100%, 0 100%);
   padding-inline-start: calc(var(--wa-space-2xl) + var(--wa-space-xs));
   padding-inline-end: var(--wa-space-m);
-  background-color: var(--wa-color-brand-fill-vivid-alt);
+  background-color: var(--wa-color-brand-spot-darker);
   width: 100%;
 }
 
@@ -111,7 +111,7 @@ a.logo:is(:hover, :focus) {
 }
 
 .navigation--desktop wa-nav-item[current='page']:hover {
-  text-decoration-color: var(--wa-color-brand-outline-vivid);
+  text-decoration-color: var(--wa-color-brand-border-highlight);
 }
 
 .navigation--extra {
@@ -151,7 +151,7 @@ wa-layout[view='mobile'] .navigation--desktop {
   border-collapse: separate;
   border-spacing: 0;
   border-radius: var(--wa-panel-corners);
-  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-outline);
+  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
 }
 
 .table-scroll {

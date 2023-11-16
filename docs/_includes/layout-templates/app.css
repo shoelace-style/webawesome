@@ -7,8 +7,8 @@ main {
 
 /* Layout */
 wa-layout {
-  background-color: var(--wa-color-neutral-95);
-  color: var(--wa-color-neutral-20);
+  background-color: var(--wa-color-surface-lowered);
+  color: var(--wa-color-text-normal);
 }
 
 wa-card :is(p, h3) {
@@ -17,7 +17,7 @@ wa-card :is(p, h3) {
 
 wa-layout::part(header) {
   /** Because headers are sticky, this keeps text from leaking through. */
-  background-color: var(--wa-color-white);
+  background-color: var(--wa-color-surface-default);
 }
 
 wa-layout::part(drawer__panel) {
@@ -25,7 +25,7 @@ wa-layout::part(drawer__panel) {
 }
 
 wa-layout[view='mobile'] {
-  background-color: var(--wa-color-white);
+  background-color: var(--wa-color-surface-default);
   --menu-width: 0px;
 }
 
@@ -55,9 +55,9 @@ wa-layout[view='desktop']::part(header) {
 }
 
 wa-layout[view='desktop'] main {
-  background-color: var(--wa-color-white);
+  background-color: var(--wa-color-surface-default);
   box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--wa-color-neutral-80);
+  border: 1px solid var(--wa-color-neutral-border-highlight);
   border-top-left-radius: 8px;
 }
 
@@ -87,18 +87,18 @@ wa-layout[view='desktop'] main {
 }
 
 .highlight--success {
-  background-color: var(--wa-color-success-fill-muted);
-  color: var(--wa-color-success-text-on-muted);
+  background-color: var(--wa-color-success-fill-subtle);
+  color: var(--wa-color-success-text-on-fill);
 }
 
 .highlight--danger {
-  background-color: var(--wa-color-red-90);
-  color: var(--wa-color-red-30);
+  background-color: var(--wa-color-danger-fill-subtle);
+  color: var(--wa-color-danger-text-on-fill);
 }
 
 /* Text */
 .text--light {
-  color: var(--wa-color-neutral-40);
+  color: var(--wa-color-text-quiet);
 }
 
 /* Cards */
@@ -120,10 +120,15 @@ wa-layout[view='desktop'] main {
 .wa-button--card {
   --border-radius: 8px;
   --padding: 1rem 0px;
+
+  &::part(base) {
+    /** by default, the `background` of outline buttons is "none" */
+    background: var(--background);
+  }
 }
 
 .wa-button--card.wa-button--muted {
-  --background: var(--wa-color-neutral-fill-muted);
+  --background: var(--wa-color-neutral-fill-subtle);
 }
 
 .wa-button--card::part(base) {
@@ -139,13 +144,14 @@ wa-layout[view='desktop'] main {
 .wa-button--muted {
   --border-color: transparent;
   --background: transparent;
-  --background-hover: var(--wa-color-neutral-fill-muted-alt);
-  --border-color-hover: var(--wa-color-neutral-outline-vivid-alt);
+  --background-hover: var(--wa-color-neutral-fill-highlight);
+  --border-color-hover: var(--wa-color-neutral-border-highlight);
 }
+
 
 .wa-button--logo::part(base) {
   font-size: 1.5rem;
-  color: var(--wa-color-neutral-30);
+  color: var(--wa-color-text-on-fill);
 }
 
 .wa-button--square::part(base) {
@@ -161,13 +167,13 @@ wa-layout[view='desktop'] main {
 }
 
 .wa-button--nav-footer {
-  --border-color: var(--wa-color-neutral-70);
+  --border-color: var(--wa-color-border-highlight);
   --wa-spacing-large: 8px;
 }
 
 wa-layout[view='desktop'] .wa-button--nav-footer::part(base) {
   --border-color: transparent;
-  border-top-color: var(--wa-color-neutral-70);
+  border-top-color: var(--wa-color-border-highlight);
 }
 
 /* Tables */
@@ -179,17 +185,17 @@ table {
 }
 
 table tr {
-  border-bottom: 1px solid var(--wa-color-neutral-70);
+  border-bottom: 1px solid var(--wa-color-border-highlight);
 }
 
 table th {
-  font-weight: var(--wa-font-weight-semibold);
+  font-weight: var(--wa-font-weight-heading);
   text-align: left;
   padding: 0.75rem 1rem;
 }
 
 table td {
-  line-height: var(--wa-line-height-normal);
+  line-height: var(--wa-line-height-regular);
   padding: 1rem;
 }
 

@@ -1,5 +1,17 @@
 <wa-layout main-id="main-content" class="wa-theme-light">
-  <header slot="header">
+  <header slot="header" style="display: flex; align-items: center; justify-content: space-between;">
+    <wa-button
+      href="#"
+      variant="text"
+      style="padding: 0 0.4rem;"
+      class="wa-button--logo wa-button--muted"
+      size="large"
+      slot="navigation-header"
+    >
+      <wa-icon name="music-note" slot="prefix" style="font-size: 2rem"></wa-icon>
+      Musicify
+    </wa-button>
+
     <wa-icon-button name="list" style="font-size: 1.5rem" data-toggle-nav></wa-icon-button>
   </header>
   <wa-button
