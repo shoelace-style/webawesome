@@ -8,8 +8,8 @@ window.Turbo.session.drive = false
 - [Advanced Example Layout](/layouts/advanced-example/index.html)
 - [Advanced Example Playground](/layouts/advanced-example-playground/index.html)
 
-- [App Layout](/layouts/app/index.html)
-- [App Playground](/layouts/app-playground/index.html)
+- [Music Awesome Layout](/layouts/music-awesome/index.html)
+- [Music Awesome Playground](/layouts/music-awesome-playground/index.html)
 
 - [Hero Layout](/layouts/hero/index.html)
 - [Hero Playground](/layouts/hero-playground/index.html)

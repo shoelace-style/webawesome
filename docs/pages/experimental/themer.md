@@ -309,10 +309,6 @@ toc: false
     height: 100%;
   }
 
-  .space-vertically > *:last-child {
-    margin-top: auto;
-  }
-
   wa-select[label="Signet"]::part(form-control-help-text) {
     line-height: 1.5;
   }

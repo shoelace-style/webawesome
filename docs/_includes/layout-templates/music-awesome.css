@@ -38,10 +38,6 @@ wa-layout[view='desktop']::part(main) {
   padding-top: 1rem;
 }
 
-wa-layout[view='desktop'] {
-  --menu-width: 250px;
-}
-
 wa-layout[view='desktop']::part(navigation) {
   padding-top: 1.9rem;
 }
