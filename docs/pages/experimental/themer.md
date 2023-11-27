@@ -5,11 +5,71 @@ meta:
 toc: false
 ---
 
+<style>
+.file-uploader {
+  position: relative;
+  border: 1px dashed gray;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+.file-uploader:is(:hover) {
+  background-color: var(--wa-color-neutral-fill-subtle);
+}
+
+/**
+  <wa-visually-hidden>, but without the :not(:focus-within),
+  the reason is that it shows the default browser file uploader.
+*/
+.file-uploader input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: none !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  padding: 0 !important;
+}
+
+.file-uploader:is(:focus-within) {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+</style>
+
+<script type="module">
+</script>
+
 <!-- Knobs -->
 <div id="knobs">
   <div class="space-vertically">
     <a href="/">{% include 'logo.njk' %}</a>
-    <wa-select name="theme" label="Theme" value="default">
+    <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
+    <div style="margin-top: 1rem;">
+      <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
+        <input name="project-logo" type="file">
+        Add Logo
+      </label>
+      <small id="file-uploader-description" style="margin-top: 0.5em; display: block; line-height: 1; font-size: 0.75em; color: var(--wa-color-text-quiet);">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
+    </div>
+    <div>
+      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p" style="margin: 0 auto;">
+        <wa-radio-button value="p">P</wa-radio-button>
+        <wa-radio-button value="code-slash"><wa-icon name="code-slash"></wa-icon></wa-radio-button>
+        <wa-radio-button value="incognito"><wa-icon name="incognito"></wa-icon></wa-radio-button>
+        <wa-radio-button value="bug-fill"><wa-icon name="bug-fill"></wa-icon></wa-radio-button>
+        <small slot="help-text">It's dangerous to go alone. Take these!</small>
+      </wa-radio-group>
+      <wa-button id="icon-chooser-trigger" outline style="margin-top: 0.5rem">
+        Choose Additional Icons
+      </wa-button>
+    </div>
+    <wa-select name="theme" label="Theme" value="default" style="margin-top: 0.5rem;">
       <wa-option value="default">Default</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
@@ -43,15 +103,192 @@ toc: false
   </div>
 </div>
 
-<script>
+<wa-dialog id="icon-chooser">
+  <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
+    <div class="space-vertically" style="margin-top: 4px;">
+      <wa-input name="icon-search" placeholder="Search Icons" clearable>
+        <wa-icon slot="prefix" name="search"></wa-icon>
+      </wa-input>
+      <wa-radio-group label="Choose icon family" name="icon-family" value="all">
+        <wa-radio-button value="outline">Outline</wa-radio-button>
+        <wa-radio-button value="filled">Filled</wa-radio-button>
+        <wa-radio-button value="all">All Icons</wa-radio-button>
+      </wa-radio-group>
+    </div>
+    <div class="icon-list" style="overflow: auto; padding: 4px 8px;"></div>
+  </div>
+</wa-dialog>
+
+<style>
+  #icon-chooser::part(panel) {
+    height: 80%;
+    width: 80%;
+  }
+
+  #icon-chooser::part(body) {
+    padding-top: 0;
+  }
+
+  .icon-search {
+    border: solid 1px var(--wa-color-surface-border);
+    border-radius: var(--wa-corners-s);
+    padding: var(--wa-space-m);
+  }
+
+  .icon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 4px 0;
+  }
+
+  .icon-list wa-button::part(base) {
+    justify-content: flex-start;
+  }
+
+  .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {
+    display: none;
+  }
+
+  .icon-list[data-type="filled"] .icon-list-item:not([data-name$="-fill"]) {
+    display: none;
+  }
+</style>
+
+<!-- Icon chooser -->
+<script type="module">
+  fetch('/dist/assets/icons/icons.json')
+    .then(res => res.json())
+    .then(icons => {
+      const container = document.querySelector('#icon-chooser');
+      const input = container.querySelector("[name='icon-search']");
+      const radioGroup = container.querySelector("[name='icon-family']");
+      const iconList = container.querySelector('.icon-list');
+      const queue = [];
+      let inputTimeout;
+
+      // append icons
+      iconList.append(...icons.map(i => {
+        const button = document.createElement('wa-button');
+        button.style.margin = "2px"
+        button.classList.add("icon-list-item")
+        button.setAttribute("outline", "")
+        button.setAttribute('data-name', i.name);
+        button.setAttribute('data-terms', [i.name, i.title, ...(i.tags || []), ...(i.categories || [])].join(' '));
+        button.innerHTML = `
+          <svg slot="prefix" width="1em" height="1em" fill="currentColor">
+            <use href="/assets/images/sprite.svg#${i.name}"></use>
+          </svg>
+
+          ${i.name}
+        `;
+
+        return button
+      }))
+
+      // Filter as the user types
+      input.addEventListener('wa-input', () => {
+        clearTimeout(inputTimeout);
+        inputTimeout = setTimeout(() => {
+          [...iconList.children].map(item => {
+            const filter = input.value.toLowerCase();
+            if (filter === '') {
+              item.removeAttribute("hidden");
+            } else {
+              const terms = item.getAttribute('data-terms').toLowerCase();
+              if (terms.indexOf(filter) < 0) {
+                item.setAttribute("hidden", "")
+              } else {
+                item.removeAttribute("hidden")
+              }
+            }
+          });
+        }, 250);
+      });
+
+      // Sort by type and remember preference
+      const iconType = sessionStorage.getItem('wa-icon:type') || 'all';
+      radioGroup.value = iconType;
+      iconList.setAttribute('data-type', iconType)
+      radioGroup.addEventListener('wa-change', () => {
+        iconList.setAttribute('data-type', radioGroup.value);
+        sessionStorage.setItem('wa-icon:type', radioGroup.value);
+      });
+    });
+
+    document.querySelector("#icon-chooser-trigger").addEventListener("click", () => {
+      document.querySelector("#icon-chooser").show()
+    })
+</script>
+
+<script type="module">
   const container = document.getElementById('knobs');
+  const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
 
   // Theme
   container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
     themeStylesheet.href = `/dist/themes/${event.target.value}.css`;
   });
-  
+
+  // Project Logo
+  container.querySelector('[name="project-logo"]').addEventListener('change', event => {
+    const img = document.createElement("img")
+    img.id = "project-logo"
+    img.setAttribute("height", "36")
+    img.setAttribute("width", "36")
+    const file = event.target.files[0]
+    const src = URL.createObjectURL(file);
+
+    img.setAttribute("src", src)
+    previewContainer.querySelector("#project-logo").replaceWith(img)
+    setTimeout(() => URL.revokeObjectURL(src))
+  })
+
+  fetch('/dist/assets/icons/icons.json')
+    .then(res => res.json())
+    .then(icons => {
+      icons.map((i) => {
+        const option = `<wa-option value='${i.name}'></wa-option>`
+
+
+
+      })
+    })
+
+
+  // Pre-generated logos
+  container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
+    const value = event.currentTarget.value
+    const projectLogo = previewContainer.querySelector("#project-logo");
+
+    let src
+    let element
+
+    if (value === "p") {
+      element = document.createElement("span")
+      element.style.fontSize = "1.75rem"
+      element.style.lineHeight = "1"
+      element.innerText = "P"
+    } else {
+      element = document.createElement("wa-icon")
+      element.name = value
+    }
+
+    element.id = "project-logo"
+
+    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+    projectLogo.replaceWith(element)
+
+    if (src) {
+      setTimeout(() => URL.revokeObjectURL(src))
+    }
+  })
+
+  // Project Name
+  container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+    previewContainer.querySelector("#project-name").innerText = event.target.value
+  })
+
   // Heading text
   container.querySelector('[name="heading-text"]').addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
@@ -85,6 +322,9 @@ toc: false
 </script>
 
 <style>
+  [hidden] {
+    display: none !important;
+  }
   :root {
     --knobs-width: 300px;
   }
@@ -112,6 +352,16 @@ toc: false
 <!-- Preview -->
 <div class="preview-container">
   <section class="overlap">
+    <header class="project-header">
+      <div style="display: flex; align-items: center;">
+        <span id="project-logo" style="font-size: 1.75rem; line-height: 1;">P</span>
+        <span id="project-name" style="margin-inline-start: 1rem;">Project Name</span>
+      </div>
+      <div>
+        <wa-button variant="brand"><wa-icon name="gear"></wa-icon></wa-button>
+        <wa-button variant="brand"><wa-icon name="bell"></wa-icon></wa-button>
+      </div>
+    </header>
     <h1>Make it Awesome</h1>
     <wa-card>
       <div class="grid">
@@ -152,7 +402,7 @@ toc: false
     </wa-card>
     <div class="cards">
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="success" open>
             <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
             This is the way.
@@ -161,25 +411,25 @@ toc: false
             <wa-option>Mudhorn</wa-option>
           </wa-select>
           <wa-checkbox checked>I swear on my name and the names of the ancestors</wa-checkbox>
-          <wa-button variant="success">Forge</wa-button>
+          <wa-button variant="success" style="margin-top: auto;">Forge</wa-button>
         </div>
       </wa-card>
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="warning" open>
             <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
             It's a trap!
-          </wa-alert> 
+          </wa-alert>
           <wa-radio-group label="Faction" value="2">
             <wa-radio value="1">Galactic Empire</wa-radio>
             <wa-radio value="2">Rebel Alliance</wa-radio>
           </wa-radio-group>
           <wa-input label="Mission" value="Destroy the Death Star"></wa-input>
-          <wa-button variant="warning">Proceed</wa-button>
+          <wa-button variant="warning" style="margin-top: auto;">Proceed</wa-button>
         </div>
       </wa-card>
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="danger" open>
             <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
             That's no moon.
@@ -187,7 +437,7 @@ toc: false
           <wa-input label="Destination" value="Alderaan"></wa-input>
           <wa-switch checked>Jam fighter transmission</wa-switch>
           <wa-switch disabled>Lock in artillery power</wa-switch>
-          <wa-button variant="danger">Turn around</wa-button>
+          <wa-button variant="danger" style="margin-top: auto;">Turn around</wa-button>
         </div>
       </wa-card>
     </div>
@@ -228,7 +478,7 @@ toc: false
     padding: 0 var(--wa-space-m);
     z-index: 1;
   }
-  
+
   .overlap::after {
     content: '';
     position: absolute;
@@ -266,7 +516,7 @@ toc: false
   }
 
   .overlap .image #fighters {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 30%); 
+    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 30%);
   }
 
   .overlap .image #upper_clouds {
@@ -297,6 +547,7 @@ toc: false
     margin-block-start: var(--wa-space-m);
   }
 
+  .cards wa-card::part(body),
   .cards wa-card::part(base) {
     height: 100%;
   }
@@ -305,6 +556,17 @@ toc: false
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    color: var(--wa-color-brand-text-on-spot);
+    border-bottom: 1px solid var(--wa-color-brand-text-on-spot);
+    padding-bottom: var(--wa-space-xs);
   }
 
   wa-select[label="Signet"]::part(form-control-help-text) {
