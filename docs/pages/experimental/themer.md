@@ -13,7 +13,6 @@ toc: false
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
-
 }
 
 .file-uploader:is(:hover) {
@@ -40,10 +39,14 @@ toc: false
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
-</style>
 
-<script type="module">
-</script>
+#file-uploader-description {
+  display: block;
+  line-height: 1;
+  font-size: 0.75em;
+  color: var(--wa-color-text-quiet);
+}
+</style>
 
 <!-- Knobs -->
 <div id="knobs">
@@ -55,7 +58,7 @@ toc: false
         <input name="project-logo" type="file">
         Add Logo
       </label>
-      <small id="file-uploader-description" style="margin-top: 0.5em; display: block; line-height: 1; font-size: 0.75em; color: var(--wa-color-text-quiet);">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
+      <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
     </div>
     <div>
       <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p" style="margin: 0 auto;">
@@ -230,7 +233,7 @@ toc: false
     themeStylesheet.href = `/dist/themes/${event.target.value}.css`;
   });
 
-  // Project Logo
+  // User provided project logo
   container.querySelector('[name="project-logo"]').addEventListener('change', event => {
     const img = document.createElement("img")
     img.id = "project-logo"
@@ -241,27 +244,48 @@ toc: false
 
     img.setAttribute("src", src)
     previewContainer.querySelector("#project-logo").replaceWith(img)
+
+    // Clean up to prevent memory leaks
     setTimeout(() => URL.revokeObjectURL(src))
   })
 
-  fetch('/dist/assets/icons/icons.json')
-    .then(res => res.json())
-    .then(icons => {
-      icons.map((i) => {
-        const option = `<wa-option value='${i.name}'></wa-option>`
+  // Pre-selected logos
+  document.querySelector('.icon-list').addEventListener('click', event => {
+    const button = event.target.closest("wa-button")
 
+    if (!button) return
 
+    const iconName = button.dataset.name
 
-      })
+    if (!iconName) return
+
+    // Undo selected
+    event.currentTarget.querySelectorAll(".icon-list-item").forEach((el) => {
+      el.setAttribute("aria-selected", "false")
+      el.setAttribute("variant", "neutral")
+      el.setAttribute("outline", "")
     })
 
+    // Set selected
+    button.setAttribute("aria-selected", "true")
+    button.setAttribute("variant", "brand")
+    button.removeAttribute("outline")
+    const projectLogo = previewContainer.querySelector("#project-logo");
+    const element = document.createElement("wa-icon")
+    element.name = iconName
+    element.id = "project-logo"
+
+    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+    projectLogo.replaceWith(element)
+    event.currentTarget.closest("wa-dialog").hide()
+  })
 
   // Pre-generated logos
   container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
     const value = event.currentTarget.value
+
     const projectLogo = previewContainer.querySelector("#project-logo");
 
-    let src
     let element
 
     if (value === "p") {
@@ -278,10 +302,6 @@ toc: false
 
     // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
     projectLogo.replaceWith(element)
-
-    if (src) {
-      setTimeout(() => URL.revokeObjectURL(src))
-    }
   })
 
   // Project Name
