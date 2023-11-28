@@ -8,7 +8,6 @@
 // up a lot of CPU cycles and made focus traps unusable in Chrome / Edge.
 //
 
-
 // Cached compute style calls. This is specifically for browsers that dont support `checkVisibility()`
 const computedStyleMap = new WeakMap()
 
@@ -22,7 +21,7 @@ function isVisible(el: HTMLElement): boolean {
   let computedStyle = computedStyleMap.get(el)
 
   if (!computedStyle) {
-    computedStyle = window.getComputedStyle(el)
+    computedStyle = window.getComputedStyle(el, null)
     computedStyleMap.set(el, computedStyle)
   }
 
