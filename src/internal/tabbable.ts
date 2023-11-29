@@ -9,23 +9,24 @@
 //
 
 // Cached compute style calls. This is specifically for browsers that dont support `checkVisibility()`
-const computedStyleMap = new WeakMap()
+
+const computedStyleMap = new WeakMap<Element, CSSStyleDeclaration>();
 
 function isVisible(el: HTMLElement): boolean {
   // This is the fastest check.
-  if (typeof el.checkVisibility === "function") {
-    return el.checkVisibility({ checkOpacity: false })
+  if (typeof el.checkVisibility === 'function') {
+    return el.checkVisibility({ checkOpacity: false });
   }
 
   // Fallback "polyfill"
-  let computedStyle = computedStyleMap.get(el)
+  let computedStyle: undefined | CSSStyleDeclaration = computedStyleMap.get(el);
 
   if (!computedStyle) {
-    computedStyle = window.getComputedStyle(el, null)
-    computedStyleMap.set(el, computedStyle)
+    computedStyle = window.getComputedStyle(el, null);
+    computedStyleMap.set(el, computedStyle);
   }
 
-  return computedStyle.visibility !== "hidden" && computedStyle.display !== "none"
+  return computedStyle.visibility !== 'hidden' && computedStyle.display !== 'none';
 }
 
 /** Determines if the specified element is tabbable using heuristics inspired by https://github.com/focus-trap/tabbable */
@@ -48,7 +49,7 @@ function isTabbable(el: HTMLElement) {
   }
 
   if (!isVisible(el)) {
-    return false
+    return false;
   }
 
   // Audio and video elements with the controls attribute are tabbable
@@ -89,13 +90,12 @@ export function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
  * However, there is an edge case when, if the `root` is wrapped by another shadow DOM, it won't grab the children.
  * This fixes that fun edge case.
  */
-function slotChildrenOutsideRootElement (slotElement: HTMLSlotElement, root: HTMLElement | ShadowRoot) {
- return (slotElement.getRootNode({ composed: true }) as ShadowRoot | null)?.host !== root;
+function slotChildrenOutsideRootElement(slotElement: HTMLSlotElement, root: HTMLElement | ShadowRoot) {
+  return (slotElement.getRootNode({ composed: true }) as ShadowRoot | null)?.host !== root;
 }
 
-
 export function getTabbableElements(root: HTMLElement | ShadowRoot) {
-  const walkedEls = new WeakMap()
+  const walkedEls = new WeakMap();
   const tabbableElements: HTMLElement[] = [];
 
   function walk(el: HTMLElement | ShadowRoot) {
@@ -106,9 +106,9 @@ export function getTabbableElements(root: HTMLElement | ShadowRoot) {
       }
 
       if (walkedEls.has(el)) {
-        return
+        return;
       }
-      walkedEls.set(el, true)
+      walkedEls.set(el, true);
 
       if (!tabbableElements.includes(el) && isTabbable(el)) {
         tabbableElements.push(el);
@@ -125,7 +125,9 @@ export function getTabbableElements(root: HTMLElement | ShadowRoot) {
       }
     }
 
-    for (const e of el.children) { walk(e as HTMLElement) }
+    for (const e of el.children) {
+      walk(e as HTMLElement);
+    }
   }
 
   // Collect all elements including the root

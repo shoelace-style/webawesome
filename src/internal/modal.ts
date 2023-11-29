@@ -9,7 +9,7 @@ export default class Modal {
   tabDirection: 'forward' | 'backward' = 'forward';
   currentFocus: HTMLElement | null;
 
-  private tabbableElements: HTMLElement[] | null = null
+  private tabbableElements: HTMLElement[] | null = null;
 
   constructor(element: HTMLElement) {
     this.element = element;
@@ -50,7 +50,7 @@ export default class Modal {
 
   private checkFocus() {
     if (this.isActive() && !this.isExternalActivated) {
-      let tabbableElements = this.tabbableElements
+      let tabbableElements = this.tabbableElements;
 
       if (!tabbableElements) {
         tabbableElements = getTabbableElements(this.element);
@@ -86,7 +86,7 @@ export default class Modal {
     event.preventDefault();
 
     const tabbableElements = getTabbableElements(this.element);
-    this.tabbableElements = tabbableElements
+    this.tabbableElements = tabbableElements;
 
     // Because sometimes focus can actually be taken over from outside sources,
     // we don't want to rely on `this.currentFocus`. Instead we check the actual `activeElement` and
@@ -96,7 +96,7 @@ export default class Modal {
 
     if (currentFocusIndex === -1) {
       this.currentFocus = tabbableElements[0];
-    // We want this to scroll the element into view.
+      // We want this to scroll the element into view.
       this.currentFocus?.focus();
       return;
     }
@@ -116,10 +116,10 @@ export default class Modal {
     this.currentFocus?.focus({ preventScroll: true });
 
     setTimeout(() => {
-      this.checkFocus()
+      this.checkFocus();
 
       // Make sure to clean up!
-      setTimeout(() => this.tabbableElements = null)
+      setTimeout(() => (this.tabbableElements = null));
     });
   };
 
