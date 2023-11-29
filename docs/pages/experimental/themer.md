@@ -23,6 +23,7 @@ toc: false
   <wa-visually-hidden>, but without the :not(:focus-within),
   the reason is that it shows the default browser file uploader.
 */
+.hidden-label::part(form-control-label),
 .file-uploader input {
   position: absolute !important;
   width: 1px !important;
@@ -55,7 +56,7 @@ toc: false
     <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
     <div style="margin-top: 1rem;">
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
-        <input name="project-logo" type="file">
+        <input name="project-logo" type="file" accept="image/*">
         Add Logo
       </label>
       <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
@@ -66,7 +67,7 @@ toc: false
         <wa-radio-button value="code-slash"><wa-icon name="code-slash"></wa-icon></wa-radio-button>
         <wa-radio-button value="incognito"><wa-icon name="incognito"></wa-icon></wa-radio-button>
         <wa-radio-button value="bug-fill"><wa-icon name="bug-fill"></wa-icon></wa-radio-button>
-        <small slot="help-text">It's dangerous to go alone. Take these!</small>
+        <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
       <wa-button id="icon-chooser-trigger" outline style="margin-top: 0.5rem">
         Choose Additional Icons
@@ -80,20 +81,54 @@ toc: false
       <wa-option value="playful">Playful</wa-option>
       <wa-option value="chic">Chic</wa-option>
     </wa-select>
-    <wa-select name="heading-text" label="Heading" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
-    <wa-select name="body-text" label="Body" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Heading Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-heading" value="" label="Heading Typography Font Family">
+          <wa-option value="">Theme default</wa-option>
+          <wa-option value="serif">Serif</wa-option>
+          <wa-option value="sans-serif">Sans-serif</wa-option>
+          <wa-option value="monospace">Monospace</wa-option>
+          <wa-option value="cursive">Cursive</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-heading"
+          value=""
+          label="Heading Typography Font Weight"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          style="width: 33%;"
+        >
+        </wa-input>
+      </div>
+    </div>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Body Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-body" value="" label="Body Typography Font Family">
+          <wa-option value="">Theme default</wa-option>
+          <wa-option value="serif">Serif</wa-option>
+          <wa-option value="sans-serif">Sans-serif</wa-option>
+          <wa-option value="monospace">Monospace</wa-option>
+          <wa-option value="cursive">Cursive</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-body"
+          value=""
+          style="width: 33%;"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          label="Body Typography Font Weight"
+        >
+        </wa-input>
+      </div>
+    </div>
     <wa-select name="border-style" label="Border Style" value="solid">
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -228,25 +263,65 @@ toc: false
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
 
-  // Theme
+  // Theme Switcher
   container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
-    themeStylesheet.href = `/dist/themes/${event.target.value}.css`;
+    const newStylesheet = Object.assign(document.createElement("link"), {
+      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+      id: "theme-stylesheet",
+      media: "print",
+      rel: "stylesheet",
+      type: "text/css",
+      href: `/dist/themes/${event.target.value}.css`,
+    })
+
+    // This prevents the typical flash and reflow you see if you replace the old stylesheet
+    // with the new stylesheet, before the new stylesheet has loaded
+    newStylesheet.addEventListener("load", (e) => {
+      // Removing the media attribute causes styles to apply to the page
+      newStylesheet.removeAttribute("media")
+      setTimeout(() => {
+        document.querySelectorAll("#theme-stylesheet").forEach((el, index) => {
+          if (index === 0) return
+
+          // 100 seems to provide the "smoothest" transition
+          setTimeout(() => el.remove(), 100)
+        })
+      })
+    })
+
+    document.head.prepend(newStylesheet)
   });
 
   // User provided project logo
   container.querySelector('[name="project-logo"]').addEventListener('change', event => {
-    const img = document.createElement("img")
+    const file = event.target.files[0]
+    const isSvg = file.type.startsWith("image/svg")
+
+    let img
+
+    if (isSvg) {
+      img = document.createElement("wa-icon")
+    } else {
+      img = document.createElement("img")
+    }
+
+    const src = URL.createObjectURL(file);
+    img.setAttribute("src", src)
+
     img.id = "project-logo"
     img.setAttribute("height", "36")
     img.setAttribute("width", "36")
-    const file = event.target.files[0]
-    const src = URL.createObjectURL(file);
 
-    img.setAttribute("src", src)
     previewContainer.querySelector("#project-logo").replaceWith(img)
 
     // Clean up to prevent memory leaks
-    setTimeout(() => URL.revokeObjectURL(src))
+    img.addEventListener("load", () => {
+      URL.revokeObjectURL(src)
+    })
+
+    img.addEventListener("wa-load", () => {
+      URL.revokeObjectURL(src)
+    })
   })
 
   // Pre-selected logos
@@ -306,17 +381,27 @@ toc: false
 
   // Project Name
   container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
-    previewContainer.querySelector("#project-name").innerText = event.target.value
+    previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
   })
 
-  // Heading text
-  container.querySelector('[name="heading-text"]').addEventListener('wa-input', event => {
+  // Heading font family
+  container.querySelector('[name="font-family-heading"]').addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
   });
 
-  // Body text
-  container.querySelector('[name="body-text"]').addEventListener('wa-input', event => {
+  // Heading font weight
+  container.querySelector('[name="font-weight-heading"]').addEventListener('wa-input', event => {
+    document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
+  });
+
+  // Body font family
+  container.querySelector('[name="font-family-body"]').addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-body', event.target.value);
+  });
+
+  // Body font weight
+  container.querySelector('[name="font-weight-body"]').addEventListener('wa-input', event => {
+    document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
   // Corners
@@ -359,12 +444,14 @@ toc: false
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-2);
     width: var(--knobs-width);
-    padding: 2rem;
+    padding: .75rem;
+    max-height: calc(100% - 3rem);
+    overflow: auto;
     margin-inline: auto;
     margin-block: 0 4rem;
   }
 
-  #knobs p {
+  #knobs p.75{
     margin: 0;
   }
 </style>
@@ -575,7 +662,7 @@ toc: false
   .space-vertically {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: var(--gap, 1.25rem);
   }
 
   .project-header {
