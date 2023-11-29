@@ -138,6 +138,7 @@ toc: false
     <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
+    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1"></wa-range>
   </div>
 </div>
 
@@ -262,6 +263,111 @@ toc: false
   const container = document.getElementById('knobs');
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
+  const depthSlider = container.querySelector('[name="depth"]')
+  const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
+  const fontWeightBody = container.querySelector('[name="font-weight-body"]')
+
+  function updateHeadingFontWeightValue () {
+    fontWeightHeading.value = getComputedStyle(previewContainer.querySelector("h1")).fontWeight
+  }
+
+  function updateBodyFontWeightValue () {
+    fontWeightBody.value = getComputedStyle(previewContainer.querySelector("p")).fontWeight
+  }
+
+  const depthNames = {
+    0: "depth_0_flat.css",
+    1: "depth_1_semiflat.css",
+    2: "depth_2_chunky.css",
+    3: "depth_3_punchy.css",
+    4: "depth_4_glossy.css",
+  }
+
+  function updateDepthValue () {
+    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+    const importRules = []
+    let depth = null
+    const matchRegex = /depth_(\d+)_.*\.css$/
+
+    ;[...themeSheet.cssRules].forEach((rule) => {
+      if (rule instanceof CSSImportRule) {
+        const match = rule.href.match(matchRegex)
+        if (match) {
+          depth = Number(match[1])
+        }
+      }
+    })
+
+    if (depth != null) {
+      depthSlider.value = depth
+    }
+  }
+
+  // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
+  function deleteDepthFromBaseStylesheet () {
+    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+    const importRules = []
+    let depth = null
+    let ruleIndex = null
+    const matchRegex = /depth_(\d+)_.*\.css$/
+
+    ;[...themeSheet.cssRules].forEach((rule, index) => {
+      if (rule instanceof CSSImportRule) {
+        const match = rule.href.match(matchRegex)
+        if (match) {
+          ruleIndex = index
+          depth = Number(match[1])
+        }
+      }
+    })
+
+    if (ruleIndex != null && depth != null) {
+      themeSheet.deleteRule(ruleIndex)
+    }
+  }
+
+  depthSlider.addEventListener("wa-input", (e) => {
+    const depth = e.target.value
+
+    if (depth == null) return
+
+    // Load depth stylesheet
+    const depthName = depthNames[depth]
+
+    const depthStylesheet = Object.assign(document.createElement("link"), {
+      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+      id: "depth-stylesheet",
+      media: "print",
+      rel: "stylesheet",
+      type: "text/css",
+      href: `/dist/themes/${depthName}`,
+    })
+
+    // This prevents the typical flash and reflow you see if you replace the old stylesheet
+    // with the new stylesheet, before the new stylesheet has loaded
+    depthStylesheet.addEventListener("load", (e) => {
+      // Removing the media attribute causes styles to apply to the page
+      depthStylesheet.removeAttribute("media")
+      setTimeout(() => {
+        deleteDepthFromBaseStylesheet()
+        const oldDepthStylesheet = document.querySelectorAll("#depth-stylesheet").forEach((element, index) => {
+          if (index === 0) {
+            return
+          }
+
+          element.remove()
+        })
+      })
+    })
+
+    document.head.prepend(depthStylesheet)
+
+  })
+
+  updateDepthValue()
+
 
   // Theme Switcher
   container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
@@ -284,7 +390,12 @@ toc: false
           if (index === 0) return
 
           // 100 seems to provide the "smoothest" transition
-          setTimeout(() => el.remove(), 100)
+          setTimeout(() => {
+            el.remove();
+            updateBodyFontWeightValue()
+            updateHeadingFontWeightValue()
+            updateDepthValue()
+          }, 100)
         })
       })
     })
@@ -385,12 +496,14 @@ toc: false
   })
 
   // Heading font family
+
   container.querySelector('[name="font-family-heading"]').addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
   });
 
   // Heading font weight
-  container.querySelector('[name="font-weight-heading"]').addEventListener('wa-input', event => {
+  updateHeadingFontWeightValue()
+  fontWeightHeading.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
@@ -400,7 +513,20 @@ toc: false
   });
 
   // Body font weight
-  container.querySelector('[name="font-weight-body"]').addEventListener('wa-input', event => {
+  updateBodyFontWeightValue()
+  fontWeightBody.addEventListener('wa-input', event => {
+    // if (event.target.value > event.target.max) {
+    //   setTimeout(() => {
+    //     event.target.value = event.target.max
+    //   }, 1000)
+    // }
+
+    // if (event.target.value < event.target.min) {
+    //   setTimeout(() => {
+    //     event.target.value = event.target.min
+    //   }, 1000)
+    // }
+
     document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
