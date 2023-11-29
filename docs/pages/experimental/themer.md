@@ -138,7 +138,7 @@ toc: false
     <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
-    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1"></wa-range>
+    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
   </div>
 </div>
 
@@ -266,13 +266,27 @@ toc: false
   const depthSlider = container.querySelector('[name="depth"]')
   const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
   const fontWeightBody = container.querySelector('[name="font-weight-body"]')
+  const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
+  const fontFamilyBody = container.querySelector('[name="font-family-body"]')
 
-  function updateHeadingFontWeightValue () {
-    fontWeightHeading.value = getComputedStyle(previewContainer.querySelector("h1")).fontWeight
+  function resetHeadingFontWeightValue () {
+    document.documentElement.style.removeProperty('--wa-font-weight-heading')
+    fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
   }
 
-  function updateBodyFontWeightValue () {
-    fontWeightBody.value = getComputedStyle(previewContainer.querySelector("p")).fontWeight
+  function resetHeadingFontFamilyValue () {
+    document.documentElement.style.removeProperty('--wa-font-family-heading')
+    fontFamilyHeading.value = ""
+  }
+
+  function resetBodyFontWeightValue () {
+    document.documentElement.style.removeProperty('--wa-font-weight-body')
+    fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
+  }
+
+  function resetBodyFontFamilyValue () {
+    document.documentElement.style.removeProperty('--wa-font-family-body')
+    fontFamilyBody.value = ""
   }
 
   const depthNames = {
@@ -283,7 +297,7 @@ toc: false
     4: "depth_4_glossy.css",
   }
 
-  function updateDepthValue () {
+  function resetDepthValue () {
     const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
 
     const importRules = []
@@ -366,7 +380,7 @@ toc: false
 
   })
 
-  updateDepthValue()
+  resetDepthValue()
 
 
   // Theme Switcher
@@ -392,9 +406,12 @@ toc: false
           // 100 seems to provide the "smoothest" transition
           setTimeout(() => {
             el.remove();
-            updateBodyFontWeightValue()
-            updateHeadingFontWeightValue()
-            updateDepthValue()
+
+            resetBodyFontWeightValue()
+            resetBodyFontFamilyValue()
+            resetHeadingFontWeightValue()
+            resetHeadingFontFamilyValue()
+            resetDepthValue()
           }, 100)
         })
       })
@@ -496,37 +513,24 @@ toc: false
   })
 
   // Heading font family
-
-  container.querySelector('[name="font-family-heading"]').addEventListener('wa-input', event => {
+  fontFamilyHeading.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
   });
 
   // Heading font weight
-  updateHeadingFontWeightValue()
+  resetHeadingFontWeightValue()
   fontWeightHeading.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
   // Body font family
-  container.querySelector('[name="font-family-body"]').addEventListener('wa-input', event => {
+  fontFamilyBody.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-family-body', event.target.value);
   });
 
   // Body font weight
-  updateBodyFontWeightValue()
+  resetBodyFontWeightValue()
   fontWeightBody.addEventListener('wa-input', event => {
-    // if (event.target.value > event.target.max) {
-    //   setTimeout(() => {
-    //     event.target.value = event.target.max
-    //   }, 1000)
-    // }
-
-    // if (event.target.value < event.target.min) {
-    //   setTimeout(() => {
-    //     event.target.value = event.target.min
-    //   }, 1000)
-    // }
-
     document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
