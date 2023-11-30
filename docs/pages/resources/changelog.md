@@ -22,7 +22,8 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## Next
 
-- Focus trapping now scrolls elements into view.
+- Focus trapping now scrolls elements into view. [#1750]
+- Further improvements to focus trapping performance. [#1750]
 - Added the ability to call `form.checkValidity()` and it will use Shoelace's custom `checkValidity()` handler. [#1708]
 - Fixed a bug where nested dialogs were not properly trapping focus. [#1711]
 - Fixed a bug with form controls removing the custom validity handlers from the form. [#1708]

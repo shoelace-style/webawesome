@@ -8,7 +8,7 @@ function isVisible(el: HTMLElement): boolean {
     return el.checkVisibility({ checkOpacity: false });
   }
 
-  // Fallback "polyfill"
+  // Fallback "polyfill" for "checkVisibility"
   let computedStyle: undefined | CSSStyleDeclaration = computedStyleMap.get(el);
 
   if (!computedStyle) {
