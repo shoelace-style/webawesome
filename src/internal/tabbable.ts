@@ -1,19 +1,9 @@
-//
-// This doesn't technically check visibility, it checks if the element has been rendered and can maybe possibly be tabbed
-// to. This is a workaround for shadow roots not having an `offsetParent`.
-//
-// See https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
-//
-// Previously, we used https://www.npmjs.com/package/composed-offset-position, but recursing up an entire node tree took
-// up a lot of CPU cycles and made focus traps unusable in Chrome / Edge.
-//
-
-// Cached compute style calls. This is specifically for browsers that dont support `checkVisibility()`
-
+// Cached compute style calls. This is specifically for browsers that dont support `checkVisibility()`.
+// computedStyle calls are "live" so they only need to be retrieved once for an element.
 const computedStyleMap = new WeakMap<Element, CSSStyleDeclaration>();
 
 function isVisible(el: HTMLElement): boolean {
-  // This is the fastest check.
+  // This is the fastest check, but isn't supported in Safari.
   if (typeof el.checkVisibility === 'function') {
     return el.checkVisibility({ checkOpacity: false });
   }
