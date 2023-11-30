@@ -8,9 +8,10 @@ toc: false
 <style>
 .file-uploader {
   position: relative;
-  border: 1px dashed gray;
-  padding: 8px;
-  border-radius: 4px;
+  border: var(--wa-form-controls-border-width) dashed var(--wa-color-neutral-text-on-surface);
+  border-radius: var(--wa-form-controls-corners);
+  background: var(--wa-form-controls-background);
+  padding: var(--wa-space-xs);
   cursor: pointer;
   text-align: center;
 }
@@ -329,6 +330,7 @@ toc: false
     let depth = null
     const matchRegex = /depth_(\d+)_.*\.css$/
 
+    // Find all import rules in the stylesheet, then find one that matches the naming convention.
     ;[...themeSheet.cssRules].forEach((rule) => {
       if (rule instanceof CSSImportRule) {
         const match = rule.href.match(matchRegex)
@@ -610,7 +612,7 @@ toc: false
     margin-block: 0 4rem;
   }
 
-  #knobs p.75{
+  #knobs p {
     margin: 0;
   }
 </style>
