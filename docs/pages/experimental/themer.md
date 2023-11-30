@@ -268,6 +268,10 @@ toc: false
   const fontWeightBody = container.querySelector('[name="font-weight-body"]')
   const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
   const fontFamilyBody = container.querySelector('[name="font-family-body"]')
+  const spacing = container.querySelector("[name='spacing']")
+  const corners = container.querySelector("[name='corners']")
+  const borderStyle = container.querySelector('[name="border-style"]')
+  const borderWidth = container.querySelector('[name="border-width"]')
 
   function resetHeadingFontWeightValue () {
     document.documentElement.style.removeProperty('--wa-font-weight-heading')
@@ -287,6 +291,27 @@ toc: false
   function resetBodyFontFamilyValue () {
     document.documentElement.style.removeProperty('--wa-font-family-body')
     fontFamilyBody.value = ""
+  }
+
+  function resetBorderWidthValue () {
+    document.documentElement.style.removeProperty('--wa-border-width-base')
+    console.log(getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base"))
+    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
+  }
+
+  function resetBorderStyleValue () {
+    document.documentElement.style.removeProperty('--wa-border-style')
+    borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
+  }
+
+  function resetSpacingValue () {
+    document.documentElement.style.removeProperty('--wa-space-base')
+    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
+  }
+
+  function resetCornersValue () {
+    document.documentElement.style.removeProperty('--wa-corners-base')
+    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
   }
 
   const depthNames = {
@@ -412,6 +437,10 @@ toc: false
             resetHeadingFontWeightValue()
             resetHeadingFontFamilyValue()
             resetDepthValue()
+            resetSpacingValue()
+            resetBorderWidthValue()
+            resetBorderStyleValue()
+            resetCornersValue()
           }, 100)
         })
       })
@@ -545,12 +574,12 @@ toc: false
   });
 
   // Border style
-  container.querySelector('[name="border-style"]').addEventListener('wa-input', event => {
+  borderStyle.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-border-style', event.target.value);
   });
 
   // Spacing style
-  container.querySelector('[name="spacing"]').addEventListener('wa-input', event => {
+  spacing.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
 
