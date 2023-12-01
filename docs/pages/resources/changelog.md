@@ -22,6 +22,13 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## Next
 
+- Added the `hover-bridge` feature to `<sl-popup>` to support better tooltip accessibility [#1734]
+- Fixed a bug in `<sl-input>` and `<sl-textarea>` that made it work differently from `<input>` and `<textarea>` when using defaults [#1746]
+- Improved the accessibility of `<sl-tooltip>` so they persist when hovering over the tooltip and dismiss when pressing [[Esc]] [#1734]
+
+## 2.12.0
+
+- Added the Italian translation [#1727]
 - Added the ability to call `form.checkValidity()` and it will use Shoelace's custom `checkValidity()` handler. [#1708]
 - Fixed a bug where nested dialogs were not properly trapping focus. [#1711]
 - Fixed a bug with form controls removing the custom validity handlers from the form. [#1708]
@@ -1324,7 +1331,7 @@ The component API remains the same except for the changes noted below. Thanks fo
 - 🚨 BREAKING: moved the base stylesheet from `dist/shoelace.css` to `dist/themes/base.css`
 - 🚨 BREAKING: moved `icons` into `assets/icons` to make future assets easier to colocate
 - 🚨 BREAKING: changed `getSymbol` property in `<wa-rating>` to `symbol` (it now accepts a string or a function that returns an icon name)
-- 🚨 BREAKING: renamed `setAssetPath()` to `setBasePath()` and added the ability to set the library's base path with a `data-webawesome` attribute (`setBasePath()` is exported from `utilities/base-path.js`)
+- 🚨 BREAKING: renamed `setAssetPath()` to `setBasePath()` and added the ability to set the library's base path with a `data-web-awesome` attribute (`setBasePath()` is exported from `utilities/base-path.js`)
 - Fixed `min` and `max` types in `<wa-input>` to allow numbers and strings [#330]
 - Fixed a bug where `<wa-checkbox>`, `<wa-radio>`, and `<wa-switch>` controls would shrink with long labels [#325]
 - Fixed a bug in `<wa-select>` where the dropdown menu wouldn't reposition when the box resized [#340]

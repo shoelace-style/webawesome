@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@300..700&family=Roboto+Slab:wght@300..700&display=swap');
-@import 'depth_3_punchy.css';
+@import 'depth_2_chunky.css';
 @import 'borders_4_heavy.css';
 
 :root,
@@ -108,7 +108,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 4%),
+    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
     transparent
   );
 

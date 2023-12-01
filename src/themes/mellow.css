@@ -89,7 +89,7 @@
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-30);
+  --wa-color-text-normal: var(--wa-color-base-40);
   --wa-color-text-quiet: var(--wa-color-base-50);
   --wa-color-text-link: var(--wa-color-blue-50);
 
@@ -108,7 +108,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 4%),
+    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
     transparent
   );
 
@@ -193,7 +193,7 @@
   --wa-font-weight-medium: 500;
   --wa-font-weight-heavy: 600;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-medium);
 

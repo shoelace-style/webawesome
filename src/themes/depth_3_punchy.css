@@ -11,7 +11,7 @@
    */
   /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-shadow-blur-base: 0;
+  --wa-shadow-blur-base: 0.125;
   --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.75rem);
   --wa-shadow-blur-level-1: calc(var(--wa-shadow-blur-base) * 1rem);
   --wa-shadow-blur-level-2: calc(var(--wa-shadow-blur-base) * 1.5rem);
@@ -19,13 +19,13 @@
 
   /* Offset values are used in pre-constructed shadows and may be used when creating custom shadows
    * or transforming elements with shadows. */
-  --wa-shadow-offset-y-base: 0.25;
+  --wa-shadow-offset-y-base: 0.125;
   --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.75rem);
   --wa-shadow-offset-y-level-1: calc(var(--wa-shadow-offset-y-base) * 1rem);
   --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
   --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
 
-  --wa-shadow-offset-x-base: 0.25;
+  --wa-shadow-offset-x-base: 0;
   --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.75rem);
   --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
   --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
@@ -44,29 +44,17 @@
 
 /* #region Buttons */
 wa-button:not([variant='text']) {
-  --wa-transition-normal: 0ms;
-  --wa-transition-fast: 0ms;
-  --wa-transition-faster: 0ms;
-
-  --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
-    var(--box-shadow-color);
+  --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
+    inset 0 -0.0625rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */, var(--wa-shadow-level-1) /* outer shadow */;
 
   margin-bottom: var(--wa-shadow-offset-y-level-1);
-  margin-right: var(--wa-shadow-offset-x-level-1);
 
   &:not([disabled]) {
-    &:hover {
-      --box-shadow: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
-        var(--box-shadow-color);
-
-      transform: translateY(calc((var(--wa-shadow-offset-y-level-2) - var(--wa-shadow-offset-y-level-1)) * -1))
-        translateX(calc((var(--wa-shadow-offset-x-level-2) - var(--wa-shadow-offset-x-level-1)) * -1));
-    }
-
     &:active {
-      --box-shadow: none;
-
-      transform: translateY(var(--wa-shadow-offset-y-level-1)) translateX(var(--wa-shadow-offset-x-level-1));
+      --box-shadow: inset 0 0 0 0 transparent /* shine */,
+        inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.1) /* inner highlight */,
+        inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.1) /* inner shadow */, 0 0 0 0 transparent /* outer shadow */;
     }
   }
 }
@@ -79,5 +67,11 @@ wa-textarea {
   &:not([filled]):not([disabled]) {
     --box-shadow: var(--wa-shadow-inset);
   }
+}
+
+wa-switch {
+  --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.1) /* inner highlight */,
+    inset 0 -0.0625rem 0.0625rem 0 rgb(0 0 0 / 0.1) /* inner shadow */, var(--wa-shadow-level-1) /* outer shadow */;
 }
 /* #endregion */

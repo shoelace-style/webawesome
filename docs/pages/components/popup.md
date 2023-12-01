@@ -1530,6 +1530,131 @@ const App = () => {
 };
 ```
 
+### Hover Bridge
+
+When a gap exists between the anchor and the popup element, this option will add a "hover bridge" that fills the gap using an invisible element. This makes listening for events such as `mouseover` and `mouseout` more sane because the pointer never technically leaves the element. The hover bridge will only be drawn when the popover is active. For demonstration purposes, the bridge in this example is shown in orange.
+
+```html:preview
+<div class="popup-hover-bridge">
+  <wa-popup placement="top" hover-bridge distance="10" skidding="0" active>
+    <span slot="anchor"></span>
+    <div class="box"></div>
+  </wa-popup>
+  <br>
+  <wa-switch checked>Hover Bridge</wa-switch><br>
+  <wa-range min="0" max="50" step="1" value="10" label="Distance"></wa-range>
+  <wa-range min="-50" max="50" step="1" value="0" label="Skidding"></wa-range>
+</div>
+<style>
+  .popup-hover-bridge span[slot='anchor'] {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border: dashed 2px var(--wa-color-neutral-spot);
+    margin: 50px;
+  }
+
+  .popup-hover-bridge .box {
+    width: 100px;
+    height: 50px;
+    background: var(--wa-color-brand-spot);
+    border-radius: var(--wa-corners-s);
+  }
+
+  .popup-hover-bridge wa-range {
+    max-width: 260px;
+    margin-top: .5rem;
+  }
+
+  .popup-hover-bridge wa-popup::part(hover-bridge) {
+    background: tomato;
+    opacity: .5;
+  }
+</style>
+<script>
+  const container = document.querySelector('.popup-hover-bridge');
+  const popup = container.querySelector('wa-popup');
+  const hoverBridge = container.querySelector('wa-switch');
+  const distance = container.querySelector('wa-range[label="Distance"]');
+  const skidding = container.querySelector('wa-range[label="Skidding"]');
+  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
+  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
+  hoverBridge.addEventListener('wa-change', () => (popup.hoverBridge = hoverBridge.checked));
+</script>
+```
+
+```jsx:react
+import { useState } from 'react';
+import WaPopup from '@shoelace-style/shoelace/dist/react/popup';
+import WaRange from '@shoelace-style/shoelace/dist/react/range';
+import WaSwitch from '@shoelace-style/shoelace/dist/react/switch';
+const css = `
+  .popup-hover-bridge span[slot='anchor'] {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border: dashed 2px var(--wa-color-neutral-spot);
+    margin: 50px;
+  }
+
+  .popup-hover-bridge .box {
+    width: 100px;
+    height: 50px;
+    background: var(--wa-color-brand-spot);
+    border-radius: var(--wa-corners-s);
+  }
+
+  .popup-hover-bridge wa-range {
+    max-width: 260px;
+    margin-top: .5rem;
+  }
+
+  .popup-hover-bridge wa-popup::part(hover-bridge) {
+    background: tomato;
+    opacity: .5;
+  }
+`;
+const App = () => {
+  const [hoverBridge, setHoverBridge] = useState(true);
+  const [distance, setDistance] = useState(10);
+  const [skidding, setSkidding] = useState(0);
+  return (
+    <>
+      <div class="popup-hover-bridge">
+        <WaPopup placement="top" hover-bridge={hoverBridge} distance={distance} skidding={skidding} active>
+          <span slot="anchor" />
+          <div class="box" />
+        </WaPopup>
+        <br />
+        <WaSwitch
+          checked={hoverBridge}
+          onWaChange={event => setHoverBridge(event.target.checked)}
+         >
+          Hover Bridge
+        </WaSwitch><br />
+        <WaRange
+          min="0"
+          max="50"
+          step="1"
+          value={distance}
+          label="Distance"
+          onWaInput={event => setDistance(event.target.value)}
+        />
+        <WaRange
+          min="-50"
+          max="50"
+          step="1"
+          value={skidding}
+          label="Skidding"
+          onWaInput={event => setSkidding(event.target.value)}
+        />
+      </div>
+      <style>{css}</style>
+    </>
+  );
+};
+```
+
 ### Virtual Elements
 
 In most cases, popups are anchored to an actual element. Sometimes, it can be useful to anchor them to a non-element. To do this, you can pass a `VirtualElement` to the anchor property. A virtual element must contain a function called `getBoundingClientRect()` that returns a [`DOMRect`](https://developer.mozilla.org/en-US/docs/Web/API/DOMRect) object as shown below.

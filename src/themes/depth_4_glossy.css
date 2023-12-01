@@ -102,9 +102,9 @@
 /* #region Buttons */
 wa-button:not([variant='text']) {
   --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
     inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */, inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-level-1) /* outer shadow */;
 
   margin-bottom: var(--wa-shadow-offset-y-inset);
   transition: transform var(--wa-transition-faster);
@@ -112,7 +112,7 @@ wa-button:not([variant='text']) {
   &:not([disabled]) {
     &:hover {
       --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
         inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
         inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
         inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */, var(--wa-shadow-level-2) /* outer shadow */;
@@ -120,7 +120,7 @@ wa-button:not([variant='text']) {
 
     &:active {
       --box-shadow: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
-        inset 0 0.125rem 0 0 rgb(0 0 0 / 0.08) /* top highlight */,
+        inset 0 0.125rem 0 0 rgb(0 0 0 / 0.1) /* top highlight */,
         inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
         inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
         inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */, 0 0 0 0 transparent /* outer shadow */;
@@ -234,8 +234,8 @@ wa-button:not([outline]) {
 wa-input:not(:focus),
 wa-select {
   &:not([filled]):not([disabled]) {
-    --box-shadow: var(--wa-shadow-inset), inset 0 1.25em 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
-      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */;
+    --box-shadow: var(--wa-shadow-inset), inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
   }
 }
 

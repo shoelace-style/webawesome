@@ -25,7 +25,7 @@
   --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
   --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
 
-  --wa-shadow-offset-x-base: 0;
+  --wa-shadow-offset-x-base: 0.25;
   --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.75rem);
   --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
   --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
@@ -49,13 +49,34 @@ wa-button {
   --wa-transition-faster: 0ms;
 
   &:not([variant='text']) {
-    --box-shadow: 0 var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-base) var(--box-shadow-color);
+    --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+      var(--box-shadow-color);
     margin-bottom: var(--wa-shadow-offset-y-level-1);
+    margin-right: var(--wa-shadow-offset-x-level-1);
 
     &:active {
       --box-shadow: none;
-      transform: translateY(var(--wa-shadow-offset-y-level-1));
+      transform: translateX(var(--wa-shadow-offset-x-level-1)) translateY(var(--wa-shadow-offset-y-level-1));
     }
+  }
+  &[variant='brand'] {
+    --box-shadow-color: var(--wa-color-brand-spot-darker);
+  }
+
+  &[variant='success'] {
+    --box-shadow-color: var(--wa-color-success-spot-darker);
+  }
+
+  &[variant='neutral'] {
+    --box-shadow-color: var(--wa-color-neutral-spot-darker);
+  }
+
+  &[variant='warning'] {
+    --box-shadow-color: var(--wa-color-warning-spot-darker);
+  }
+
+  &[variant='danger'] {
+    --box-shadow-color: var(--wa-color-danger-spot-darker);
   }
 }
 /* #endregion */
