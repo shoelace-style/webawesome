@@ -193,7 +193,7 @@ export default css`
     overflow: auto;
   }
 
-  :host([view="mobile"]) [part~='navigation'] {
+  :host([view='mobile']) [part~='navigation'] {
     display: none;
   }
 
