@@ -18,7 +18,6 @@ export default css`
   }
 
   .tooltip::part(popup) {
-    pointer-events: none;
     z-index: var(--wa-z-index-tooltip);
   }
 
@@ -48,7 +47,6 @@ export default css`
     line-height: var(--wa-line-height-regular);
     color: var(--wa-color-neutral-text-on-spot);
     padding: var(--wa-space-2xs) var(--wa-space-xs);
-    pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
   }

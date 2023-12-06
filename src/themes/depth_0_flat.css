@@ -12,7 +12,7 @@
   /* Shadow blur is designed to scale according to a single base value to ensure consistent and realistic effects.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-shadow-blur-base: 0;
-  --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.5rem);
+  --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.75rem);
   --wa-shadow-blur-level-1: calc(var(--wa-shadow-blur-base) * 1rem);
   --wa-shadow-blur-level-2: calc(var(--wa-shadow-blur-base) * 1.5rem);
   --wa-shadow-blur-level-3: calc(var(--wa-shadow-blur-base) * 2rem);
@@ -20,13 +20,13 @@
   /* Offset values are used in pre-constructed shadows and may be used when creating custom shadows
    * or transforming elements with shadows. */
   --wa-shadow-offset-y-base: 0;
-  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.5rem);
+  --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.75rem);
   --wa-shadow-offset-y-level-1: calc(var(--wa-shadow-offset-y-base) * 1rem);
   --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
   --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
 
   --wa-shadow-offset-x-base: 0;
-  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.5rem);
+  --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.75rem);
   --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
   --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
   --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2rem);

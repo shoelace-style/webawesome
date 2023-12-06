@@ -100,8 +100,8 @@ Some components rely on assets (icons, images, etc.) and Web Awesome needs to kn
 However, if you're [cherry picking](#cherry-picking) or [bundling](#bundling) Web Awesome, you'll need to set the base path. You can do this one of two ways.
 
 ```html
-<!-- Option 1: the data-webawesome attribute -->
-<script src="bundle.js" data-webawesome="/path/to/shoelace/%NPMDIR%"></script>
+<!-- Option 1: the data-web-awesome attribute -->
+<script src="bundle.js" data-web-awesome="/path/to/shoelace/%NPMDIR%"></script>
 
 <!-- Option 2: the setBasePath() method -->
 <script src="bundle.js"></script>
@@ -144,7 +144,7 @@ Here's an example that loads only the button component. Again, if you're not usi
 ```html
 <link rel="stylesheet" href="/path/to/shoelace/%NPMDIR%/themes/default.css" />
 
-<script type="module" data-webawesome="/path/to/shoelace/%NPMDIR%">
+<script type="module" data-web-awesome="/path/to/shoelace/%NPMDIR%">
   import '@shoelace-style/shoelace/%NPMDIR%/components/button/button.js';
 
   // <wa-button> is ready to use!

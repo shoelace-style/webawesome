@@ -18,30 +18,6 @@
   --wa-panel-border-width: var(--wa-border-width-thin);
 }
 
-/* #region Alerts */
-wa-alert {
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
-  }
-
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
-  }
-}
-/* #endregion */
-
 /* #region Buttons */
 wa-button {
   --border-color-hover: var(--border-color);

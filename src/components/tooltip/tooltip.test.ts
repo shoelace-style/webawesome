@@ -1,7 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaPopup from '../popup/popup';
 import type WaTooltip from './tooltip';
 
 describe('<wa-tooltip>', () => {
@@ -149,14 +148,16 @@ describe('<wa-tooltip>', () => {
     expect(body.hidden).to.be.false;
   });
 
-  it('should not accept pointer events on the tooltip', async () => {
+  it('should not accept user selection on the tooltip', async () => {
     const el = await fixture<WaTooltip>(html`
       <wa-tooltip content="This is a tooltip" open>
         <wa-button>Hover Me</wa-button>
       </wa-tooltip>
     `);
-    const popup = el.shadowRoot!.querySelector<WaPopup>('wa-popup')!;
 
-    expect(getComputedStyle(popup.popup).pointerEvents).to.equal('none');
+    const tooltipBody = el.shadowRoot!.querySelector('.tooltip__body')!;
+    const userSelect = getComputedStyle(tooltipBody).userSelect || getComputedStyle(tooltipBody).webkitUserSelect;
+
+    expect(userSelect).to.equal('none');
   });
 });
