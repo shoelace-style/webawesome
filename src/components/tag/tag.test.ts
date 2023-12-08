@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaTag from './tag';
+import type WaTag from './tag.js';
 
 describe('<wa-tag>', () => {
   it('should render default tag', async () => {

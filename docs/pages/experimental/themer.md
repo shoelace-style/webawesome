@@ -236,7 +236,7 @@ toc: false
     left: calc(-1 * var(--wa-space-2xl));
     width: calc(100% + var(--wa-space-2xl) * 2);
     height: 300px;
-    background: var(--wa-color-brand-spot);
+    background: var(--wa-color-brand-spot-darker);
     z-index: -1;
   }
 

@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaTooltip from './tooltip';
+import type WaTooltip from './tooltip.js';
 
 describe('<wa-tooltip>', () => {
   it('should be visible with the open attribute', async () => {

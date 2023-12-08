@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { aTimeout, expect, fixture, html } from '@open-wc/testing';
-import type WaTabPanel from './tab-panel';
+import type WaTabPanel from './tab-panel.js';
 
 describe('<wa-tab-panel>', () => {
   it('passes accessibility test', async () => {

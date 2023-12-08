@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaImageComparer from './image-comparer';
+import type WaImageComparer from './image-comparer.js';
 
 describe('<wa-image-comparer>', () => {
   it('should render a basic before/after', async () => {

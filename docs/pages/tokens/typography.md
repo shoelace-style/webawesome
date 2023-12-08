@@ -23,16 +23,18 @@ The default font stack is designed to be simple and highly available on as many 
 
 Font sizes use `rem` units so they scale with the base font size. The pixel values displayed are based on a 16px font size.
 
-| Token                 | Value           | Example                                                     |
-| --------------------- | --------------- | ----------------------------------------------------------- |
-| `--wa-font-size-root` | 16px            | <span style="font-size: var(--wa-font-size-root)">Aa</span> |
-| `--wa-font-size-2xs`  | 0.625rem (10px) | <span style="font-size: var(--wa-font-size-2xs)">Aa</span>  |
-| `--wa-font-size-xs`   | 0.75rem (12px)  | <span style="font-size: var(--wa-font-size-xs)">Aa</span>   |
-| `--wa-font-size-s`    | 0.875rem (14px) | <span style="font-size: var(--wa-font-size-s)">Aa</span>    |
-| `--wa-font-size-m`    | 1rem (16px)     | <span style="font-size: var(--wa-font-size-m)">Aa</span>    |
-| `--wa-font-size-l`    | 1.375rem (22px) | <span style="font-size: var(--wa-font-size-l)">Aa</span>    |
-| `--wa-font-size-xl`   | 1.875rem (30px) | <span style="font-size: var(--wa-font-size-xl)">Aa</span>   |
-| `--wa-font-size-2xl`  | 2.625rem (42px) | <span style="font-size: var(--wa-font-size-2xl)">Aa</span>  |
+| Token                 | Value            | Example                                                       |
+| --------------------- | ---------------- | ------------------------------------------------------------- |
+| `--wa-font-size-root` | 16px             | <span style="font-size: var(--wa-font-size-root)">AaBb</span> |
+| `--wa-font-size-2xs`  | 0.6875rem (11px) | <span style="font-size: var(--wa-font-size-xs)">AaBb</span>   |
+| `--wa-font-size-xs`   | 0.75rem (12px)   | <span style="font-size: var(--wa-font-size-xs)">AaBb</span>   |
+| `--wa-font-size-s`    | 0.875rem (14px)  | <span style="font-size: var(--wa-font-size-s)">AaBb</span>    |
+| `--wa-font-size-m`    | 1rem (16px)      | <span style="font-size: var(--wa-font-size-m)">AaBb</span>    |
+| `--wa-font-size-l`    | 1.25rem (20px)   | <span style="font-size: var(--wa-font-size-l)">AaBb</span>    |
+| `--wa-font-size-xl`   | 1.625rem (26px)  | <span style="font-size: var(--wa-font-size-xl)">AaBb</span>   |
+| `--wa-font-size-2xl`  | 2rem (32px)      | <span style="font-size: var(--wa-font-size-2xl)">AaBb</span>  |
+| `--wa-font-size-3xl`  | 2.5625rem (41px) | <span style="font-size: var(--wa-font-size-3xl)">AaBb</span>  |
+| `--wa-font-size-4xl`  | 3.25rem (52px)   | <span style="font-size: var(--wa-font-size-4xl)">AaBb</span>  |
 
 ## Font Weight
 
@@ -47,8 +49,8 @@ Font sizes use `rem` units so they scale with the base font size. The pixel valu
 
 ## Line Height
 
-| Token                          | Value | Example                                                                                                                                                                                                            |
-| ------------------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--wa-line-height-compact`     | 1.25  | <div style="line-height: var(--wa-line-height-compact);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div>     |
-| `--wa-line-height-regular`     | 1.625 | <div style="line-height: var(--wa-line-height-regular);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div>     |
-| `--wa-line-height-comfortable` | 2     | <div style="line-height: var(--wa-line-height-comfortable);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div> |
+| Token                          | Value | Example                                                                                                                                                                                                                 |
+| ------------------------------ | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--wa-line-height-compact`     | 1.25  | <div style="line-height: var(--wa-font-line-height-compact);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div>     |
+| `--wa-line-height-regular`     | 1.6   | <div style="line-height: var(--wa-font-line-height-regular);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div>     |
+| `--wa-line-height-comfortable` | 2     | <div style="line-height: var(--wa-font-line-height-comfortable);">The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.<br>The quick brown fox jumped over the lazy dog.</div> |

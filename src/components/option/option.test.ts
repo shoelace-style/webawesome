@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaOption from './option';
+import type WaOption from './option.js';
 
 describe('<wa-option>', () => {
   it('passes accessibility test', async () => {

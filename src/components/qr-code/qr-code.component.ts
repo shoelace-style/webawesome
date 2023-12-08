@@ -51,7 +51,7 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
-    QrCreator.render(
+    (QrCreator as unknown as typeof QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,

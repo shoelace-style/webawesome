@@ -4,8 +4,8 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type { WaSelectEvent } from '../../events/wa-select';
-import type WaMenu from './menu';
+import type { WaSelectEvent } from '../../events/wa-select.js';
+import type WaMenu from './menu.js';
 
 describe('<wa-menu>', () => {
   it('emits wa-select with the correct event detail when clicking an item', async () => {

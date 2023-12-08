@@ -1,5 +1,6 @@
 import '../../../dist/webawesome.js';
-import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { aTimeout, expect, fixture, oneEvent } from '@open-wc/testing';
+import { html } from 'lit';
 import type WaAnimation from './animation.js';
 
 describe('<wa-animation>', () => {
