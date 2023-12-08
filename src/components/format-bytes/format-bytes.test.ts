@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
-import type WaFormatBytes from './format-bytes';
+import type WaFormatBytes from './format-bytes.js';
 
 describe('<wa-format-bytes>', () => {
   describe('defaults ', () => {

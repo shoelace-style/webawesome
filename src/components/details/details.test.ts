@@ -2,9 +2,9 @@ import '../../../dist/webawesome.js';
 // cspell:dictionaries lorem-ipsum
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type { WaHideEvent } from '../../events/wa-hide';
-import type { WaShowEvent } from '../../events/wa-show';
-import type WaDetails from './details';
+import type { WaHideEvent } from '../../events/wa-hide.js';
+import type { WaShowEvent } from '../../events/wa-show.js';
+import type WaDetails from './details.js';
 
 describe('<wa-details>', () => {
   describe('accessibility', () => {

@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaRadio from './radio';
-import type WaRadioGroup from '../radio-group/radio-group';
+import type WaRadio from './radio.js';
+import type WaRadioGroup from '../radio-group/radio-group.js';
 
 describe('<wa-radio>', () => {
   it('should not get checked when disabled', async () => {

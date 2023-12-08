@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaMenuLabel from './menu-label';
+import type WaMenuLabel from './menu-label.js';
 
 describe('<wa-menu-label>', () => {
   it('passes accessibility test', async () => {

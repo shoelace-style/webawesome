@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaFormatNumber from './format-number';
+import type WaFormatNumber from './format-number.js';
 
 describe('<wa-format-number>', () => {
   describe('defaults ', () => {

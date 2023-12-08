@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaProgressRing from './progress-ring';
+import type WaProgressRing from './progress-ring.js';
 
 describe('<wa-progress-ring>', () => {
   let el: WaProgressRing;

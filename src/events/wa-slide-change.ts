@@ -1,4 +1,4 @@
-import type WaCarouselItem from '../components/carousel-item/carousel-item';
+import type WaCarouselItem from '../components/carousel-item/carousel-item.js';
 
 export type WaSlideChangeEvent = CustomEvent<{ index: number; slide: WaCarouselItem }>;
 

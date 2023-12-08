@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaIconButton from './icon-button';
+import type WaIconButton from './icon-button.js';
 
 type LinkTarget = '_self' | '_blank' | '_parent' | '_top';
 
