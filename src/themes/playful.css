@@ -197,17 +197,21 @@
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-heavy);
 
+  /* The default typescale is based on the Major Second scale (x1.125). 
+   * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
   --wa-font-size-root: 16px;
-  --wa-font-size-2xs: 0.625rem; /* 10px */
+  --wa-font-size-2xs: 0.6875rem; /* 11px */
   --wa-font-size-xs: 0.75rem; /* 12px */
   --wa-font-size-s: 0.875rem; /* 14px */
   --wa-font-size-m: 1rem; /* 16px */
   --wa-font-size-l: 1.25rem; /* 20px */
-  --wa-font-size-xl: 1.75rem; /* 28px */
-  --wa-font-size-2xl: 2.5rem; /* 40px */
+  --wa-font-size-xl: 1.625rem; /* 26px */
+  --wa-font-size-2xl: 2rem; /* 32px */
+  --wa-font-size-3xl: 2.5625rem; /* 41px */
+  --wa-font-size-4xl: 3.25rem; /* 52px */
 
   --wa-font-line-height-compact: 1.25;
-  --wa-font-line-height-regular: 1.625;
+  --wa-font-line-height-regular: 1.6;
   --wa-font-line-height-comfortable: 2;
 
   /**

@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaProgressBar from './progress-bar';
+import type WaProgressBar from './progress-bar.js';
 
 describe('<wa-progress-bar>', () => {
   let el: WaProgressBar;

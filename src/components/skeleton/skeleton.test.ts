@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaSkeleton from './skeleton';
+import type WaSkeleton from './skeleton.js';
 
 describe('<wa-skeleton>', () => {
   it('should render default skeleton', async () => {

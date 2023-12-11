@@ -4,7 +4,7 @@ import { getFormControls, serialize } from '../../../dist/webawesome.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
 import sinon from 'sinon';
-import type WaInput from './input';
+import type WaInput from './input.js';
 
 describe('<wa-input>', () => {
   it('should pass accessibility tests', async () => {

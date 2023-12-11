@@ -100,7 +100,7 @@ export default css`
   }
 
   .tag--small {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-font-size-xs);
     height: calc(var(--wa-form-controls-height-s) * 0.8);
     line-height: calc(var(--wa-form-controls-height-s) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);
@@ -108,7 +108,7 @@ export default css`
   }
 
   .tag--medium {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-font-size-s);
     height: calc(var(--wa-form-controls-height-m) * 0.8);
     line-height: calc(var(--wa-form-controls-height-m) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);
@@ -116,7 +116,7 @@ export default css`
   }
 
   .tag--large {
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-font-size-m);
     height: calc(var(--wa-form-controls-height-l) * 0.8);
     line-height: calc(var(--wa-form-controls-height-l) - var(--wa-form-controls-border-width) * 2);
     border-radius: var(--wa-corners-s);

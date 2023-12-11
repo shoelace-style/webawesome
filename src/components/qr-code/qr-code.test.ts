@@ -1,6 +1,6 @@
 import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import type WaQrCode from './qr-code';
+import type WaQrCode from './qr-code.js';
 
 const getCanvas = (qrCode: WaQrCode): HTMLCanvasElement => {
   const possibleCanvas = qrCode.shadowRoot?.querySelector<HTMLCanvasElement>('.qr-code');

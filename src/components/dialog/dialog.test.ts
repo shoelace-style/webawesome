@@ -1,10 +1,10 @@
 import '../../../dist/webawesome.js';
 // cspell:dictionaries lorem-ipsum
-import { aTimeout, elementUpdated, expect, fixture, html, waitUntil } from '@open-wc/testing';
-import { LitElement } from 'lit';
+import { aTimeout, elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
+import { html, LitElement } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type WaDialog from './dialog';
+import type WaDialog from './dialog.js';
 
 describe('<wa-dialog>', () => {
   it('should be visible with the open attribute', async () => {

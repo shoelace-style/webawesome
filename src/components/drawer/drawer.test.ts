@@ -3,7 +3,7 @@ import '../../../dist/webawesome.js';
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type WaDrawer from './drawer';
+import type WaDrawer from './drawer.js';
 
 describe('<wa-drawer>', () => {
   it('should be visible with the open attribute', async () => {

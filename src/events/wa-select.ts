@@ -1,4 +1,4 @@
-import type WaMenuItem from '../components/menu-item/menu-item';
+import type WaMenuItem from '../components/menu-item/menu-item.js';
 
 export type WaSelectEvent = CustomEvent<{ item: WaMenuItem }>;
 

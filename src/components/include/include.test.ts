@@ -1,7 +1,7 @@
 import '../../../dist/webawesome.js';
 import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type WaInclude from './include';
+import type WaInclude from './include.js';
 
 const stubbedFetchResponse: Response = {
   headers: new Headers(),

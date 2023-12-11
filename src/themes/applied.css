@@ -5,6 +5,7 @@
 html {
   box-sizing: border-box;
   background-color: var(--wa-color-surface-default);
+  font-size: var(--wa-font-size-root);
   padding: 0;
   margin: 0;
 }
@@ -18,7 +19,7 @@ html {
 body {
   min-height: 100vh;
   font-family: var(--wa-font-family-body);
-  font-size: var(--wa-font-size-root);
+  font-size: var(--wa-font-size-m);
   font-weight: var(--wa-font-weight-body);
   line-height: var(--wa-font-line-height-regular);
   text-size-adjust: none;
@@ -87,27 +88,27 @@ h6 {
 }
 
 h1 {
-  font-size: var(--wa-font-size-2xl);
+  font-size: var(--wa-font-size-3xl);
 }
 
 h2 {
-  font-size: var(--wa-font-size-xl);
+  font-size: var(--wa-font-size-2xl);
 }
 
 h3 {
-  font-size: var(--wa-font-size-l);
+  font-size: var(--wa-font-size-xl);
 }
 
 h4 {
-  font-size: var(--wa-font-size-m);
+  font-size: var(--wa-font-size-l);
 }
 
 h5 {
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-font-size-m);
 }
 
 h6 {
-  font-size: var(--wa-font-size-xs);
+  font-size: var(--wa-font-size-s);
 }
 
 hr {

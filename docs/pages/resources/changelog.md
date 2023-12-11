@@ -22,6 +22,8 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## Next
 
+- Fixed files that did not have `.js` extensions. [#1770]
+- Fixed `<sl-dialog>` not accounting for elements with hidden dialog controls like `<video>` [#1755]
 - Added the `hover-bridge` feature to `<sl-popup>` to support better tooltip accessibility [#1734]
 - Fixed a bug in `<sl-input>` and `<sl-textarea>` that made it work differently from `<input>` and `<textarea>` when using defaults [#1746]
 - Fixed a bug in `<sl-select>` that prevented it from closing when tabbing to another select inside a shadow root [#1763]

@@ -8,11 +8,15 @@ export default class Modal {
   isExternalActivated: boolean;
   tabDirection: 'forward' | 'backward' = 'forward';
   currentFocus: HTMLElement | null;
+  previousFocus: HTMLElement | null;
+  elementsWithTabbableControls: string[];
 
   private tabbableElements: HTMLElement[] | null = null;
 
   constructor(element: HTMLElement) {
     this.element = element;
+
+    this.elementsWithTabbableControls = ['iframe'];
   }
 
   /** Activates focus trapping. */
@@ -63,19 +67,37 @@ export default class Modal {
 
         if (typeof target?.focus === 'function') {
           this.currentFocus = target;
-          target.focus({ preventScroll: true });
+          target.focus({ preventScroll: false });
         }
       }
     }
   }
+
   private handleFocusIn = () => {
     if (!this.isActive()) return;
     this.checkFocus();
   };
 
+  private possiblyHasTabbableChildren(element: HTMLElement) {
+    return (
+      this.elementsWithTabbableControls.includes(element.tagName.toLowerCase()) || element.hasAttribute('controls')
+      // Should we add a data-attribute for people to set just in case they have an element where we don't know if it has possibly tabbable elements?
+    );
+  }
+
   private handleKeyDown = (event: KeyboardEvent) => {
     if (event.key !== 'Tab' || this.isExternalActivated) return;
     if (!this.isActive()) return;
+
+    // Because sometimes focus can actually be taken over from outside sources,
+    // we don't want to rely on `this.currentFocus`. Instead we check the actual `activeElement` and
+    // recurse through shadowRoots.
+    const currentActiveElement = getDeepestActiveElement();
+    this.previousFocus = currentActiveElement as HTMLElement | null;
+
+    if (this.previousFocus && this.possiblyHasTabbableChildren(this.previousFocus)) {
+      return;
+    }
 
     if (event.shiftKey) {
       this.tabDirection = 'backward';
@@ -83,21 +105,24 @@ export default class Modal {
       this.tabDirection = 'forward';
     }
 
-    event.preventDefault();
-
     const tabbableElements = getTabbableElements(this.element);
     this.tabbableElements = tabbableElements;
 
-    // Because sometimes focus can actually be taken over from outside sources,
-    // we don't want to rely on `this.currentFocus`. Instead we check the actual `activeElement` and
-    // recurse through shadowRoots.
-    const currentActiveElement = getDeepestActiveElement();
     let currentFocusIndex = tabbableElements.findIndex(el => el === currentActiveElement);
+
+    this.previousFocus = this.currentFocus;
 
     if (currentFocusIndex === -1) {
       this.currentFocus = tabbableElements[0];
-      // We want this to scroll the element into view.
-      this.currentFocus?.focus();
+
+      // We don't call event.preventDefault() here because it messes with tabbing to the <iframe> controls.
+      // We just wait until the current focus is no longer an element with possible hidden controls.
+      if (Boolean(this.previousFocus) && this.possiblyHasTabbableChildren(this.previousFocus!)) {
+        return;
+      }
+
+      event.preventDefault();
+      this.currentFocus?.focus({ preventScroll: false });
       return;
     }
 
@@ -111,8 +136,23 @@ export default class Modal {
       currentFocusIndex += addition;
     }
 
-    this.currentFocus = tabbableElements[currentFocusIndex];
-    // We want this to scroll the element into view.
+    this.previousFocus = this.currentFocus;
+    const nextFocus = /** @type {HTMLElement} */ tabbableElements[currentFocusIndex];
+
+    // This is a special case. We need to make sure we're not calling .focus() if we're already focused on an element
+    // that possibly has "controls"
+    if (this.tabDirection === 'backward') {
+      if (this.previousFocus && this.possiblyHasTabbableChildren(this.previousFocus)) {
+        return;
+      }
+    }
+
+    if (nextFocus && this.possiblyHasTabbableChildren(nextFocus)) {
+      return;
+    }
+
+    event.preventDefault();
+    this.currentFocus = nextFocus;
     this.currentFocus?.focus({ preventScroll: true });
 
     setTimeout(() => {
