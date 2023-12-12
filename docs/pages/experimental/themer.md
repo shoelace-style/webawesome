@@ -63,16 +63,17 @@ toc: false
       <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
     </div>
     <div>
-      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p" style="margin: 0 auto;">
+      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p">
         <wa-radio-button value="p">P</wa-radio-button>
-        <wa-radio-button value="fas-dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
-        <wa-radio-button value="fas-code"><wa-icon name="code"></wa-icon></wa-radio-button>
-        <wa-radio-button value="fas-fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
+        <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
+        <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
+        <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
+        <wa-button value="[choose]" outline id="icon-chooser-trigger">
+          <wa-icon name="ellipsis"></wa-icon>
+          <wa-visually-hidden>Browse icons</wa-visually-hidden>
+        </wa-button>
         <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
-      <wa-button id="icon-chooser-trigger" outline style="margin-top: 0.5rem">
-        Choose Additional Icons
-      </wa-button>
     </div>
     <wa-select name="theme" label="Theme" value="default" style="margin-top: 0.5rem;">
       <wa-option value="default">Default</wa-option>
@@ -143,30 +144,40 @@ toc: false
   </div>
 </div>
 
-<wa-dialog id="icon-chooser">
+<wa-dialog id="icon-chooser" label="Browse Icons">
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
-    <div class="space-vertically" style="margin-top: 4px;">
-      <wa-input name="icon-search" placeholder="Search Icons" clearable>
+    <div style="display: flex; gap: 1.25rem;">
+      <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
         <wa-icon slot="prefix" name="search"></wa-icon>
       </wa-input>
-      <wa-radio-group label="Choose icon family" name="icon-family" value="all">
-        <wa-radio-button value="outline">Outline</wa-radio-button>
-        <wa-radio-button value="filled">Filled</wa-radio-button>
-        <wa-radio-button value="all">All Icons</wa-radio-button>
-      </wa-radio-group>
+      <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
+        <wa-option value="solid">Solid</wa-option>
+        <wa-option value="regular">Regular</wa-option>
+      </wa-select>
     </div>
-    <div class="icon-list" style="overflow: auto; padding: 4px 8px;"></div>
+    <div class="icon-list" data-variant="solid"></div>
   </div>
 </wa-dialog>
 
 <style>
-  #icon-chooser::part(panel) {
-    height: 80%;
-    width: 80%;
+  wa-radio-group[name="project-logo-selector"]::part(button-group) {
+    width: 100%;
   }
 
-  #icon-chooser::part(body) {
-    padding-top: 0;
+  wa-radio-group[name="project-logo-selector"] wa-radio-button,
+  wa-radio-group[name="project-logo-selector"] wa-button {
+    flex: 1 1 auto;
+  }
+
+  #icon-chooser::part(panel) {
+    width: 100%;
+    height: 80%;
+    max-width: 700px;
+  }
+
+  wa-input[name="icon-search"] {
+    position: sticky;
+    top: 0;
   }
 
   .icon-search {
@@ -177,12 +188,40 @@ toc: false
 
   .icon-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    padding: 4px 0;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fill, 84px);
+    gap: 1rem;
+    overflow: auto;
+    padding: .5rem;
+    margin: -.5rem;
+  }
+
+  .icon-list[data-variant="regular"] wa-button:not([data-variant="regular"]),
+  .icon-list[data-variant="solid"] wa-button:not([data-variant="solid"]) {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #icon-chooser::part(panel) {
+      width: 100%;
+      max-height: 80%;
+      max-width: 90vw;
+    }
+
+    .icon-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .icon-list wa-button {
+    font-size: 1.75rem;
   }
 
   .icon-list wa-button::part(base) {
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
   }
 
   .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {
@@ -196,68 +235,133 @@ toc: false
 
 <!-- Icon chooser -->
 <script type="module">
-  fetch('/dist/assets/icons/icons.json')
-    .then(res => res.json())
-    .then(icons => {
-      const container = document.querySelector('#icon-chooser');
-      const input = container.querySelector("[name='icon-search']");
-      const radioGroup = container.querySelector("[name='icon-family']");
-      const iconList = container.querySelector('.icon-list');
-      const queue = [];
-      let inputTimeout;
+  const icons = [
+    // Solid
+    { name: 'asterisk', variant: 'solid' },
+    { name: 'atom', variant: 'solid' },
+    { name: 'bed', variant: 'solid' },
+    { name: 'bread-slice', variant: 'solid' },
+    { name: 'bolt', variant: 'solid' },
+    { name: 'car', variant: 'solid' },
+    { name: 'carrot', variant: 'solid' },
+    { name: 'cat', variant: 'solid' },
+    { name: 'cheese', variant: 'solid' },
+    { name: 'circle', variant: 'solid' },
+    { name: 'diamond', variant: 'solid' },
+    { name: 'dog', variant: 'solid' },
+    { name: 'eye', variant: 'solid' },
+    { name: 'feather', variant: 'solid' },
+    { name: 'fish', variant: 'solid' },
+    { name: 'frog', variant: 'solid' },
+    { name: 'gauge-simple', variant: 'solid' },
+    { name: 'guitar', variant: 'solid' },
+    { name: 'hat-cowboy', variant: 'solid' },
+    { name: 'hat-wizard', variant: 'solid' },
+    { name: 'heart', variant: 'solid' },
+    { name: 'helicopter', variant: 'solid' },
+    { name: 'house', variant: 'solid' },
+    { name: 'ice-cream', variant: 'solid' },
+    { name: 'igloo', variant: 'solid' },
+    { name: 'mask', variant: 'solid' },
+    { name: 'message', variant: 'solid' },
+    { name: 'paw', variant: 'solid' },
+    { name: 'pencil', variant: 'solid' },
+    { name: 'phone', variant: 'solid' },
+    { name: 'plane', variant: 'solid' },
+    { name: 'poop', variant: 'solid' },
+    { name: 'sack-dollar', variant: 'solid' },
+    { name: 'sailboat', variant: 'solid' },
+    { name: 'shoe-prints', variant: 'solid' },
+    { name: 'sink', variant: 'solid' },
+    { name: 'snowflake', variant: 'solid' },
+    { name: 'snowman', variant: 'solid' },
+    { name: 'square', variant: 'solid' },
+    { name: 'stairs', variant: 'solid' },
+    { name: 'stamp', variant: 'solid' },
+    { name: 'tape', variant: 'solid' },
+    { name: 'truck', variant: 'solid' },
+    { name: 'umbrella', variant: 'solid' },
+    { name: 'user', variant: 'solid'  },
+    // Regular
+    { name: 'bell', variant: 'regular' },
+    { name: 'bookmark', variant: 'regular' },
+    { name: 'circle', variant: 'regular' },
+    { name: 'clock', variant: 'regular' },
+    { name: 'envelope', variant: 'regular' },
+    { name: 'face-smile', variant: 'regular' },
+    { name: 'flag', variant: 'regular' },
+    { name: 'gem', variant: 'regular' },
+    { name: 'hand', variant: 'regular' },
+    { name: 'handshake', variant: 'regular' },
+    { name: 'heart', variant: 'regular' },
+    { name: 'hourglass', variant: 'regular' },
+    { name: 'image', variant: 'regular' },
+    { name: 'keyboard', variant: 'regular' },
+    { name: 'lemon', variant: 'regular' },
+    { name: 'life-ring', variant: 'regular' },
+    { name: 'lightbulb', variant: 'regular' },
+    { name: 'map', variant: 'regular' },
+    { name: 'moon', variant: 'regular' },
+    { name: 'newspaper', variant: 'regular' },
+    { name: 'snowflake', variant: 'regular' },
+    { name: 'square', variant: 'regular' },
+    { name: 'star', variant: 'regular' },
+    { name: 'sun', variant: 'regular' },
+    { name: 'trash-can', variant: 'regular' },
+  ];
+  const chooser = document.querySelector('#icon-chooser');
+  const variantInput = document.querySelector('[name="icon-variant"]');
+  const input = chooser.querySelector("[name='icon-search']");
+  const iconList = chooser.querySelector('.icon-list');
+  const queue = [];
+  let inputTimeout;
 
-      // append icons
-      iconList.append(...icons.map(i => {
-        const button = document.createElement('wa-button');
-        button.style.margin = "2px"
-        button.classList.add("icon-list-item")
-        button.setAttribute("outline", "")
-        button.setAttribute('data-name', i.name);
-        button.setAttribute('data-terms', [i.name, i.title, ...(i.tags || []), ...(i.categories || [])].join(' '));
-        button.innerHTML = `
-          <svg slot="prefix" width="1em" height="1em" fill="currentColor">
-            <use href="/assets/images/sprite.svg#${i.name}"></use>
-          </svg>
+  chooser.addEventListener('wa-initial-focus', () => {
+    requestAnimationFrame(() => input.focus());
+  });
 
-          ${i.name}
-        `;
+  variantInput.addEventListener('wa-change', () => {
+    iconList.dataset.variant = variantInput.value;
+  });
 
-        return button
-      }))
+  icons.forEach(icon => {
+    const button = document.createElement('wa-button');
+    button.style.margin = "2px"
+    button.classList.add("icon-list-item")
+    button.setAttribute("outline", "")
+    button.setAttribute('data-name', icon.name);
+    button.setAttribute('data-variant', icon.variant);
+    button.setAttribute('data-terms', [icon.name, ...(icon.tags || []), ...(icon.categories || [])].join(' '));
+    button.innerHTML = `
+      <wa-icon name="${icon.name}" label="${icon.name}" variant="${icon.variant}"></wa-icon>
+    `;
 
-      // Filter as the user types
-      input.addEventListener('wa-input', () => {
-        clearTimeout(inputTimeout);
-        inputTimeout = setTimeout(() => {
-          [...iconList.children].map(item => {
-            const filter = input.value.toLowerCase();
-            if (filter === '') {
-              item.removeAttribute("hidden");
-            } else {
-              const terms = item.getAttribute('data-terms').toLowerCase();
-              if (terms.indexOf(filter) < 0) {
-                item.setAttribute("hidden", "")
-              } else {
-                item.removeAttribute("hidden")
-              }
-            }
-          });
-        }, 250);
+    iconList.append(button);
+  });
+
+  // Filter as the user types
+  input.addEventListener('wa-input', () => {
+    clearTimeout(inputTimeout);
+    inputTimeout = setTimeout(() => {
+      [...iconList.children].map(item => {
+        const filter = input.value.toLowerCase();
+        if (filter === '') {
+          item.removeAttribute("hidden");
+        } else {
+          const terms = item.getAttribute('data-terms').toLowerCase();
+          if (terms.indexOf(filter) < 0) {
+            item.setAttribute("hidden", "")
+          } else {
+            item.removeAttribute("hidden")
+          }
+        }
       });
+    }, 250);
+  });
 
-      // Sort by type and remember preference
-      const iconType = sessionStorage.getItem('wa-icon:type') || 'all';
-      radioGroup.value = iconType;
-      iconList.setAttribute('data-type', iconType)
-      radioGroup.addEventListener('wa-change', () => {
-        iconList.setAttribute('data-type', radioGroup.value);
-        sessionStorage.setItem('wa-icon:type', radioGroup.value);
-      });
-    });
-
-    document.querySelector("#icon-chooser-trigger").addEventListener("click", () => {
-      document.querySelector("#icon-chooser").show()
-    })
+  document.querySelector("#icon-chooser-trigger").addEventListener("click", () => {
+    document.querySelector("#icon-chooser").show()
+  })
 </script>
 
 <script type="module">
@@ -490,6 +594,7 @@ toc: false
     if (!button) return
 
     const iconName = button.dataset.name
+    const iconVariant = button.dataset.variant;
 
     if (!iconName) return
 
@@ -504,9 +609,11 @@ toc: false
     button.setAttribute("aria-selected", "true")
     button.setAttribute("variant", "brand")
     button.removeAttribute("outline")
+
     const projectLogo = previewContainer.querySelector("#project-logo");
     const element = document.createElement("wa-icon")
     element.name = iconName
+    element.variant = iconVariant;
     element.id = "project-logo"
 
     // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
@@ -614,6 +721,10 @@ toc: false
 
   #knobs p {
     margin: 0;
+  }
+
+  #knobs wa-select + wa-input {
+    margin-inline-start: .5rem;
   }
 </style>
 
@@ -731,6 +842,14 @@ toc: false
   .content {
     max-width: 1024px;
     gap: 0;
+  }
+
+  #project-logo {
+    font-size: 2rem;
+  }
+
+  #project-name {
+    font-size: 1.5rem;
   }
 
   .preview-container {
