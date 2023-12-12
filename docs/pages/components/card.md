@@ -133,7 +133,7 @@ Headers can be used to display titles and more.
 <wa-card class="card-header">
   <div slot="header">
     Header Title
-    <wa-icon-button name="gear" label="Settings"></wa-icon-button>
+    <wa-icon-button name="gear" variant="solid" label="Settings"></wa-icon-button>
   </div>
 
   This card has a header. You can put all sorts of things in it!
@@ -189,7 +189,7 @@ const App = () => (
     <WaCard className="card-header">
       <div slot="header">
         Header Title
-        <WaIconButton name="gear"></WaIconButton>
+        <WaIconButton name="gear" variant="solid"></WaIconButton>
       </div>
       This card has a header. You can put all sorts of things in it!
     </WaCard>

@@ -2,7 +2,7 @@ import defaultLibrary from './library.default.js';
 import systemLibrary from './library.system.js';
 import type WaIcon from '../icon/icon.js';
 
-export type IconLibraryResolver = (name: string) => string;
+export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
 export interface IconLibrary {
   name: string;

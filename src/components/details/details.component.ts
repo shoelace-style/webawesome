@@ -214,10 +214,10 @@ export default class WaDetails extends WebAwesomeElement {
 
           <span part="summary-icon" class="details__summary-icon">
             <slot name="expand-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              <wa-icon library="system" variant="solid" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
             </slot>
             <slot name="collapse-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              <wa-icon library="system" variant="solid" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
             </slot>
           </span>
         </summary>

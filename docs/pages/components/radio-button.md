@@ -203,18 +203,18 @@ Use the `prefix` and `suffix` slots to add icons.
 ```html:preview
 <wa-radio-group label="Select an option" name="a" value="1">
   <wa-radio-button value="1">
-    <wa-icon slot="prefix" name="archive"></wa-icon>
+    <wa-icon slot="prefix" name="archive" variant="solid"></wa-icon>
     Option 1
   </wa-radio-button>
 
   <wa-radio-button value="2">
-    <wa-icon slot="suffix" name="bag"></wa-icon>
+    <wa-icon slot="suffix" name="bag-shopping" variant="solid"></wa-icon>
     Option 2
   </wa-radio-button>
 
   <wa-radio-button value="3">
-    <wa-icon slot="prefix" name="gift"></wa-icon>
-    <wa-icon slot="suffix" name="cart"></wa-icon>
+    <wa-icon slot="prefix" name="gift" variant="solid"></wa-icon>
+    <wa-icon slot="suffix" name="shopping-cart" variant="solid"></wa-icon>
     Option 3
   </wa-radio-button>
 </wa-radio-group>
@@ -228,18 +228,18 @@ import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 const App = () => (
   <WaRadioGroup label="Select an option" name="a" value="1">
     <WaRadioButton value="1">
-      <WaIcon slot="prefix" name="archive" />
+      <WaIcon slot="prefix" name="archive" variant="solid" />
       Option 1
     </WaRadioButton>
 
     <WaRadioButton value="2">
-      <WaIcon slot="suffix" name="bag" />
+      <WaIcon slot="suffix" name="bag" variant="solid" />
       Option 2
     </WaRadioButton>
 
     <WaRadioButton value="3">
-      <WaIcon slot="prefix" name="gift" />
-      <WaIcon slot="suffix" name="cart" />
+      <WaIcon slot="prefix" name="gift" variant="solid" />
+      <WaIcon slot="suffix" name="cart" variant="solid" />
       Option 3
     </WaRadioButton>
   </WaRadioGroup>
@@ -253,23 +253,23 @@ You can omit button labels and use icons instead. Make sure to set a `label` att
 ```html:preview
 <wa-radio-group label="Select an option" name="a" value="neutral">
   <wa-radio-button value="angry">
-    <wa-icon name="emoji-angry" label="Angry"></wa-icon>
+    <wa-icon name="face-angry" variant="solid" label="Angry"></wa-icon>
   </wa-radio-button>
 
   <wa-radio-button value="sad">
-    <wa-icon name="emoji-frown" label="Sad"></wa-icon>
+    <wa-icon name="face-frown" variant="solid" label="Sad"></wa-icon>
   </wa-radio-button>
 
   <wa-radio-button value="neutral">
-    <wa-icon name="emoji-neutral" label="Neutral"></wa-icon>
+    <wa-icon name="face-meh" variant="solid" label="Neutral"></wa-icon>
   </wa-radio-button>
 
   <wa-radio-button value="happy">
-    <wa-icon name="emoji-smile" label="Happy"></wa-icon>
+    <wa-icon name="face-smile" variant="solid" label="Happy"></wa-icon>
   </wa-radio-button>
 
   <wa-radio-button value="laughing">
-    <wa-icon name="emoji-laughing" label="Laughing"></wa-icon>
+    <wa-icon name="face-laugh" variant="solid" label="Laughing"></wa-icon>
   </wa-radio-button>
 </wa-radio-group>
 ```
@@ -282,23 +282,23 @@ import WaRadioGroup from '@shoelace-style/shoelace/dist/react/radio-group';
 const App = () => (
   <WaRadioGroup label="Select an option" name="a" value="neutral">
     <WaRadioButton value="angry">
-      <WaIcon name="emoji-angry" label="Angry" />
+      <WaIcon name="face-angry" label="Angry" />
     </WaRadioButton>
 
     <WaRadioButton value="sad">
-      <WaIcon name="emoji-frown" label="Sad" />
+      <WaIcon name="face-frown" label="Sad" />
     </WaRadioButton>
 
     <WaRadioButton value="neutral">
-      <WaIcon name="emoji-neutral" label="Neutral" />
+      <WaIcon name="face-neutral" label="Neutral" />
     </WaRadioButton>
 
     <WaRadioButton value="happy">
-      <WaIcon name="emoji-smile" label="Happy" />
+      <WaIcon name="face-smile" label="Happy" />
     </WaRadioButton>
 
     <WaRadioButton value="laughing">
-      <WaIcon name="emoji-laughing" label="Laughing" />
+      <WaIcon name="face-laughing" label="Laughing" />
     </WaRadioButton>
   </WaRadioGroup>
 );

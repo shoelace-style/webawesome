@@ -197,6 +197,10 @@ kbd {
   padding: 0.125em 0.4em;
 }
 
+kbd wa-icon {
+  vertical-align: -2px;
+}
+
 /* Code and similar */
 code,
 pre,
@@ -205,7 +209,7 @@ samp,
 var {
   font-family: var(--wa-font-family-code);
   font-size: 0.975em;
-  background-color: var(--wa-color-neutral-fill-subtle);
+  background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 92%);
   border-radius: var(--wa-corners-s);
   padding-block: var(--wa-space-3xs);
   padding-inline: var(--wa-space-2xs);

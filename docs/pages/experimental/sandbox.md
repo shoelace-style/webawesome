@@ -47,31 +47,31 @@ meta:
 
 ```html:preview
 <wa-alert variant="brand" open>
-  <wa-icon slot="icon" name="info-circle"></wa-icon>
+  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
   <strong>This is super informative</strong><br />
   You can tell by how pretty the alert is.
 </wa-alert>
 <br />
 <wa-alert variant="success" open>
-  <wa-icon slot="icon" name="check2-circle"></wa-icon>
+  <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
   <strong>Your changes have been saved</strong><br />
   You can safely exit the app now.
 </wa-alert>
 <br />
 <wa-alert variant="neutral" open>
-  <wa-icon slot="icon" name="gear"></wa-icon>
+  <wa-icon slot="icon" name="gear" variant="regular"></wa-icon>
   <strong>Your settings have been updated</strong><br />
   Settings will take affect on next login.
 </wa-alert>
 <br />
 <wa-alert variant="warning" open>
-  <wa-icon slot="icon" name="exclamation-triangle"></wa-icon>
+  <wa-icon slot="icon" name="circle-exclamation" variant="solid"></wa-icon>
   <strong>Your session has ended</strong><br />
   Please login again to continue.
 </wa-alert>
 <br />
 <wa-alert variant="danger" open>
-  <wa-icon slot="icon" name="exclamation-octagon"></wa-icon>
+  <wa-icon slot="icon" name="triangle-exclamation" variant="solid"></wa-icon>
   <strong>Your account has been deleted</strong><br />
   We're very sorry to see you go!
 </wa-alert>

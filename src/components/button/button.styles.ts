@@ -125,7 +125,7 @@ export default css`
     --label-color: var(--wa-color-brand-text-on-spot);
   }
 
-  /* 
+  /*
    * Sizes
    */
 
@@ -298,7 +298,14 @@ export default css`
   }
 
   .button--caret .button__caret {
-    height: auto;
+    display: flex;
+    align-self: center;
+    align-items: center;
+  }
+
+  .button--caret .button__caret::part(svg) {
+    width: 0.75em;
+    height: 0.75em;
   }
 
   /*

@@ -672,7 +672,7 @@ toc: false
       <wa-card>
         <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="success" open>
-            <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
+            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
             This is the way.
           </wa-alert>
           <wa-select label="Signet" help-text="This identifies your clan. You can change this later.">
@@ -685,7 +685,7 @@ toc: false
       <wa-card>
         <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="warning" open>
-            <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
+            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
             It's a trap!
           </wa-alert>
           <wa-radio-group label="Faction" value="2">
@@ -699,7 +699,7 @@ toc: false
       <wa-card>
         <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="danger" open>
-            <wa-icon slot="icon" name="check-circle-fill"></wa-icon>
+            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
             That's no moon.
           </wa-alert>
           <wa-input label="Destination" value="Alderaan"></wa-input>

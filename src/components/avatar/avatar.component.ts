@@ -73,7 +73,7 @@ export default class WaAvatar extends WebAwesomeElement {
       avatarWithoutImage = html`
         <div part="icon" class="avatar__icon" aria-hidden="true">
           <slot name="icon">
-            <wa-icon name="person-fill" library="system"></wa-icon>
+            <wa-icon name="user" library="system" variant="solid"></wa-icon>
           </slot>
         </div>
       `;

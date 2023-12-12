@@ -401,21 +401,21 @@ Use the `prefix` slot to prepend an icon to the control.
 
 ```html:preview
 <wa-select placeholder="Small" size="small" clearable>
-  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
 <wa-select placeholder="Medium" size="medium" clearable>
-  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
 <wa-select placeholder="Large" size="large" clearable>
-  <wa-icon name="house" slot="prefix"></wa-icon>
+  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -430,21 +430,21 @@ import WaSelect from '@shoelace-style/shoelace/dist/react/select';
 const App = () => (
   <>
     <WaSelect placeholder="Small" size="small">
-      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon slot="prefix" name="house" variant="solid"></WaIcon>
       <WaOption value="option-1">Option 1</WaOption>
       <WaOption value="option-2">Option 2</WaOption>
       <WaOption value="option-3">Option 3</WaOption>
     </WaSelect>
     <br />
     <WaSelect placeholder="Medium" size="medium">
-      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon slot="prefix" name="house" variant="solid"></WaIcon>
       <WaOption value="option-1">Option 1</WaOption>
       <WaOption value="option-2">Option 2</WaOption>
       <WaOption value="option-3">Option 3</WaOption>
     </WaSelect>
     <br />
     <WaSelect placeholder="Large" size="large">
-      <WaIcon name="house" slot="prefix"></WaIcon>
+      <WaIcon slot="prefix" name="house" variant="solid"></WaIcon>
       <WaOption value="option-1">Option 1</WaOption>
       <WaOption value="option-2">Option 2</WaOption>
       <WaOption value="option-3">Option 3</WaOption>
@@ -468,15 +468,15 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
   class="custom-tag"
 >
   <wa-option value="email">
-    <wa-icon slot="prefix" name="envelope"></wa-icon>
+    <wa-icon slot="prefix" name="envelope" variant="solid"></wa-icon>
     Email
   </wa-option>
   <wa-option value="phone">
-    <wa-icon slot="prefix" name="telephone"></wa-icon>
+    <wa-icon slot="prefix" name="phone" variant="solid"></wa-icon>
     Phone
   </wa-option>
   <wa-option value="chat">
-    <wa-icon slot="prefix" name="chat-dots"></wa-icon>
+    <wa-icon slot="prefix" name="comment" variant="solid"></wa-icon>
     Chat
   </wa-option>
 </wa-select>

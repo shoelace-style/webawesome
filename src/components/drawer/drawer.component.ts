@@ -46,7 +46,7 @@ import type { CSSResultGroup } from 'lit';
  * @csspart header - The drawer's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
  * @csspart title - The drawer's title.
- * @csspart close-button - The close button, an `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-icon-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
@@ -342,9 +342,10 @@ export default class WaDrawer extends WebAwesomeElement {
                       part="close-button"
                       exportparts="base:close-button__base"
                       class="drawer__close"
-                      name="x-lg"
+                      name="xmark"
                       label=${this.localize.term('close')}
                       library="system"
+                      variant="solid"
                       @click=${() => this.requestClose('close-button')}
                     ></wa-icon-button>
                   </div>

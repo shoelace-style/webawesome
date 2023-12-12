@@ -205,18 +205,18 @@ Use the `prefix` and `suffix` slots to add icons.
 
 ```html:preview
 <wa-input placeholder="Small" size="small">
-  <wa-icon name="house" slot="prefix"></wa-icon>
-  <wa-icon name="chat" slot="suffix"></wa-icon>
+  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
+  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
 </wa-input>
 <br />
 <wa-input placeholder="Medium" size="medium">
-  <wa-icon name="house" slot="prefix"></wa-icon>
-  <wa-icon name="chat" slot="suffix"></wa-icon>
+  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
+  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
 </wa-input>
 <br />
 <wa-input placeholder="Large" size="large">
-  <wa-icon name="house" slot="prefix"></wa-icon>
-  <wa-icon name="chat" slot="suffix"></wa-icon>
+  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
+  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
 </wa-input>
 ```
 
@@ -227,18 +227,18 @@ import WaInput from '@shoelace-style/shoelace/dist/react/input';
 const App = () => (
   <>
     <WaInput placeholder="Small" size="small">
-      <WaIcon name="house" slot="prefix"></WaIcon>
-      <WaIcon name="chat" slot="suffix"></WaIcon>
+      <WaIcon name="house" variant="solid" slot="prefix"></WaIcon>
+      <WaIcon name="comment" variant="solid" slot="suffix"></WaIcon>
     </WaInput>
     <br />
     <WaInput placeholder="Medium" size="medium">
-      <WaIcon name="house" slot="prefix"></WaIcon>
-      <WaIcon name="chat" slot="suffix"></WaIcon>
+      <WaIcon name="house" variant="solid" slot="prefix"></WaIcon>
+      <WaIcon name="comment" variant="solid" slot="suffix"></WaIcon>
     </WaInput>
     <br />
     <WaInput placeholder="Large" size="large">
-      <WaIcon name="house" slot="prefix"></WaIcon>
-      <WaIcon name="chat" slot="suffix"></WaIcon>
+      <WaIcon name="house" variant="solid" slot="prefix"></WaIcon>
+      <WaIcon name="comment" variant="solid" slot="suffix"></WaIcon>
     </WaInput>
   </>
 );

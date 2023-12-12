@@ -51,9 +51,9 @@ Use the `copy-icon`, `success-icon`, and `error-icon` slots to customize the ico
 
 ```html:preview
 <wa-copy-button value="Copied from a custom button">
-  <wa-icon slot="copy-icon" name="clipboard"></wa-icon>
-  <wa-icon slot="success-icon" name="clipboard-check"></wa-icon>
-  <wa-icon slot="error-icon" name="clipboard-x"></wa-icon>
+  <wa-icon slot="copy-icon" name="clipboard" variant="regular"></wa-icon>
+  <wa-icon slot="success-icon" name="thumbs-up" variant="solid"></wa-icon>
+  <wa-icon slot="error-icon" name="xmark" variant="solid"></wa-icon>
 </wa-copy-button>
 ```
 
@@ -64,9 +64,9 @@ import { WaIcon } from '@shoelace-style/shoelace/dist/react/icon';
 const App = () => (
   <>
     <WaCopyButton value="Copied from a custom button">
-      <WaIcon slot="copy-icon" name="clipboard" />
-      <WaIcon slot="success-icon" name="clipboard-check" />
-      <WaIcon slot="error-icon" name="clipboard-x" />
+      <WaIcon slot="copy-icon" name="clipboard" variant="regular" />
+      <WaIcon slot="success-icon" name="check" variant="solid" />
+      <WaIcon slot="error-icon" name="xmark" variant="solid" />
     </WaCopyButton>
   </>
 );
@@ -179,9 +179,9 @@ You can customize the button to your liking with CSS.
 
 ```html:preview
 <wa-copy-button value="I'm so stylish" class="custom-styles">
-  <wa-icon slot="copy-icon" name="asterisk"></wa-icon>
-  <wa-icon slot="success-icon" name="check-lg"></wa-icon>
-  <wa-icon slot="error-icon" name="x-lg"></wa-icon>
+  <wa-icon slot="copy-icon" name="clipboard"></wa-icon>
+  <wa-icon slot="success-icon" name="thumbs-up"></wa-icon>
+  <wa-icon slot="error-icon" name="thumbs-down"></wa-icon>
 </wa-copy-button>
 
 <style>

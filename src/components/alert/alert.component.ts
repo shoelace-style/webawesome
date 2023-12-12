@@ -33,7 +33,7 @@ const toastStack = Object.assign(document.createElement('div'), { className: 'wa
  * @csspart base - The component's base wrapper.
  * @csspart icon - The container that wraps the optional icon.
  * @csspart message - The container that wraps the alert's main content.
- * @csspart close-button - The close button, an `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-icon-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  *
  * @cssproperty --background - The alert's background styles.
@@ -222,8 +222,9 @@ export default class WaAlert extends WebAwesomeElement {
                 part="close-button"
                 exportparts="base:close-button__base"
                 class="alert__close-button"
-                name="x-lg"
+                name="xmark"
                 library="system"
+                variant="solid"
                 label=${this.localize.term('close')}
                 @click=${this.handleCloseClick}
               ></wa-icon-button>

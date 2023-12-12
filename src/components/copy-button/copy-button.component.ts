@@ -220,13 +220,13 @@ export default class WaCopyButton extends WebAwesomeElement {
           @click=${this.handleCopy}
         >
           <slot part="copy-icon" name="copy-icon">
-            <wa-icon library="system" name="copy"></wa-icon>
+            <wa-icon library="system" name="copy" variant="regular"></wa-icon>
           </slot>
-          <slot part="success-icon" name="success-icon" hidden>
+          <slot part="success-icon" name="success-icon" variant="solid" hidden>
             <wa-icon library="system" name="check"></wa-icon>
           </slot>
-          <slot part="error-icon" name="error-icon" hidden>
-            <wa-icon library="system" name="x-lg"></wa-icon>
+          <slot part="error-icon" name="error-icon" variant="solid" hidden>
+            <wa-icon library="system" name="xmark"></wa-icon>
           </slot>
         </button>
       </wa-tooltip>

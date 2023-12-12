@@ -57,13 +57,13 @@ const App = () => (
 When you don't have an image to use, you can set the `initials` attribute to show something more personalized than an icon.
 
 ```html:preview
-<wa-avatar initials="SL" label="Avatar with initials: SL"></wa-avatar>
+<wa-avatar initials="WA" label="Avatar with initials: SL"></wa-avatar>
 ```
 
 ```jsx:react
 import WaAvatar from '@shoelace-style/shoelace/dist/react/avatar';
 
-const App = () => <WaAvatar initials="SL" label="Avatar with initials: SL" />;
+const App = () => <WaAvatar initials="WA" label="Avatar with initials: SL" />;
 ```
 
 ### Custom Icons
@@ -72,15 +72,15 @@ When no image or initials are set, an icon will be shown. The default avatar sho
 
 ```html:preview
 <wa-avatar label="Avatar with an image icon">
-  <wa-icon slot="icon" name="image"></wa-icon>
+  <wa-icon slot="icon" name="image" variant="solid"></wa-icon>
 </wa-avatar>
 
 <wa-avatar label="Avatar with an archive icon">
-  <wa-icon slot="icon" name="archive"></wa-icon>
+  <wa-icon slot="icon" name="archive" variant="solid"></wa-icon>
 </wa-avatar>
 
 <wa-avatar label="Avatar with a briefcase icon">
-  <wa-icon slot="icon" name="briefcase"></wa-icon>
+  <wa-icon slot="icon" name="briefcase" variant="solid"></wa-icon>
 </wa-avatar>
 ```
 

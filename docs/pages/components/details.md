@@ -55,8 +55,8 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 
 ```html:preview
 <wa-details summary="Toggle Me" class="custom-icons">
-  <wa-icon name="plus-square" slot="expand-icon"></wa-icon>
-  <wa-icon name="dash-square" slot="collapse-icon"></wa-icon>
+  <wa-icon name="square-plus" slot="expand-icon" variant="regular"></wa-icon>
+  <wa-icon name="square-minus" slot="collapse-icon" variant="regular"></wa-icon>
 
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -84,8 +84,8 @@ const css = `
 const App = () => (
   <>
     <WaDetails summary="Toggle Me" class="custom-icon">
-      <WaIcon name="plus-square" slot="expand-icon" />
-      <WaIcon name="dash-square" slot="collapse-icon" />
+      <WaIcon name="square-plus" slot="expand-icon" />
+      <WaIcon name="square-minus" slot="collapse-icon" />
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat.
@@ -122,9 +122,9 @@ Details are designed to function independently, but you can simulate a group or 
   const container = document.querySelector('.details-group-example');
 
   // Close all other details when one is shown
-  container.addEventListener('sl-show', event => {
-    if (event.target.localName === 'sl-details') {
-      [...container.querySelectorAll('sl-details')].map(details => (details.open = event.target === details));
+  container.addEventListener('wa-show', event => {
+    if (event.target.localName === 'wa-details') {
+      [...container.querySelectorAll('wa-details')].map(details => (details.open = event.target === details));
     }
   });
 </script>

@@ -258,10 +258,10 @@ export default class WaTreeItem extends WebAwesomeElement {
           >
             ${when(this.loading, () => html` <wa-spinner></wa-spinner> `)}
             <slot class="tree-item__expand-icon-slot" name="expand-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
             <slot class="tree-item__expand-icon-slot" name="collapse-icon">
-              <wa-icon library="system" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
+              <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
           </div>
 

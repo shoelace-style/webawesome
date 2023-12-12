@@ -6,7 +6,7 @@ export default css`
 
   :host {
     display: inline-block;
-    width: 1em;
+    width: auto;
     height: 1em;
     box-sizing: content-box !important;
   }
@@ -14,6 +14,7 @@ export default css`
   svg {
     display: block;
     height: 100%;
-    width: 100%;
+    width: auto;
+    fill: currentColor;
   }
 `;

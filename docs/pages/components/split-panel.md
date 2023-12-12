@@ -638,7 +638,7 @@ You can target the `divider` part to apply CSS properties to the divider. To add
 
 ```html:preview
 <wa-split-panel style="--divider-width: 20px;">
-  <wa-icon slot="divider" name="grip-vertical"></wa-icon>
+  <wa-icon slot="divider" name="grip-vertical" variant="solid"></wa-icon>
   <div
     slot="start"
     style="
@@ -676,7 +676,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const App = () => (
   <WaSplitPanel style={{ '--divider-width': '20px' }}>
-    <WaIcon slot="divider" name="grip-vertical" />
+    <WaIcon slot="divider" name="grip-vertical" variant="solid" />
     <div
       slot="start"
       style={{
@@ -712,7 +712,7 @@ Here's a more elaborate example that changes the divider's color and width and a
 ```html:preview
 <div class="split-panel-divider">
   <wa-split-panel>
-    <wa-icon slot="divider" name="grip-vertical"></wa-icon>
+    <wa-icon slot="divider" name="grip-vertical" variant="solid"></wa-icon>
     <div
       slot="start"
       style="
@@ -744,7 +744,7 @@ Here's a more elaborate example that changes the divider's color and width and a
 
 <style>
   .split-panel-divider wa-split-panel {
-    --divider-width: 2px;
+    --divider-width: 4px;
   }
 
   .split-panel-divider wa-split-panel::part(divider) {
@@ -756,7 +756,7 @@ Here's a more elaborate example that changes the divider's color and width and a
     border-radius: var(--wa-corners-l);
     background: var(--wa-color-red-50);
     color: white;
-    padding: 0.5rem 0.125rem;
+    padding: 0.5rem 0.25rem;
   }
 
   .split-panel-divider wa-split-panel::part(divider):focus-visible {
@@ -778,8 +778,8 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const css = `
   .split-panel-divider wa-split-panel {
-    --divider-width: 2px;
-  }
+    --divider-width: 4px;
+    }
 
   .split-panel-divider wa-split-panel::part(divider) {
     background-color: var(--wa-color-red-50);
@@ -790,7 +790,7 @@ const css = `
     border-radius: var(--wa-corners-xs);
     background: var(--wa-color-red-50);
     color: white;
-    padding: .5rem .125rem;
+    padding: .5rem .25rem;
   }
 
   .split-panel-divider wa-split-panel::part(divider):focus-visible {
@@ -807,7 +807,7 @@ const App = () => (
   <>
     <div className="split-panel-divider">
       <WaSplitPanel>
-        <WaIcon slot="divider" name="grip-vertical" />
+        <WaIcon slot="divider" name="grip-vertical" variant="solid" />
         <div
           slot="start"
           style={{

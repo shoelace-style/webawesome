@@ -34,7 +34,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart prefix - The container that wraps the prefix.
  * @csspart label - The button's label.
  * @csspart suffix - The container that wraps the suffix.
- * @csspart caret - The button's caret icon, an `<wa-icon>` element.
+ * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
  * @cssproperty --background - The button's background styles.
@@ -313,7 +313,17 @@ export default class WaButton extends WebAwesomeElement implements WebAwesomeFor
         <slot part="label" class="button__label"></slot>
         <slot name="suffix" part="suffix" class="button__suffix"></slot>
         ${
-          this.caret ? html` <wa-icon part="caret" class="button__caret" library="system" name="caret"></wa-icon> ` : ''
+          this.caret
+            ? html`
+                <wa-icon
+                  part="caret"
+                  class="button__caret"
+                  library="system"
+                  name="chevron-down"
+                  variant="solid"
+                ></wa-icon>
+              `
+            : ''
         }
         ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
       </${tag}>

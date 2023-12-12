@@ -453,7 +453,11 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${prevEnabled ? () => this.previous() : null}
                 >
                   <slot name="previous-icon">
-                    <wa-icon library="system" name="${isLtr ? 'chevron-left' : 'chevron-right'}"></wa-icon>
+                    <wa-icon
+                      library="system"
+                      variant="solid"
+                      name="${isLtr ? 'chevron-left' : 'chevron-right'}"
+                    ></wa-icon>
                   </slot>
                 </button>
 
@@ -470,7 +474,11 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${nextEnabled ? () => this.next() : null}
                 >
                   <slot name="next-icon">
-                    <wa-icon library="system" name="${isLtr ? 'chevron-right' : 'chevron-left'}"></wa-icon>
+                    <wa-icon
+                      library="system"
+                      variant="solid"
+                      name="${isLtr ? 'chevron-right' : 'chevron-left'}"
+                    ></wa-icon>
                   </slot>
                 </button>
               </div>

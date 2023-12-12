@@ -20,7 +20,7 @@ import type { CSSResultGroup } from 'lit';
  * @slot prefix - Used to prepend an icon or similar element to the menu item.
  * @slot suffix - Used to append an icon or similar element to the menu item.
  *
- * @csspart checked-icon - The checked icon, an `<wa-icon>` element.
+ * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart base - The component's base wrapper.
  * @csspart label - The option's label.
  * @csspart prefix - The container that wraps the prefix.
@@ -123,7 +123,14 @@ export default class WaOption extends WebAwesomeElement {
         @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}
       >
-        <wa-icon part="checked-icon" class="option__check" name="check" library="system" aria-hidden="true"></wa-icon>
+        <wa-icon
+          part="checked-icon"
+          class="option__check"
+          name="check"
+          library="system"
+          variant="solid"
+          aria-hidden="true"
+        ></wa-icon>
         <slot part="prefix" name="prefix" class="option__prefix"></slot>
         <slot part="label" class="option__label" @slotchange=${this.handleDefaultSlotChange}></slot>
         <slot part="suffix" name="suffix" class="option__suffix"></slot>

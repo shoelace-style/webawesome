@@ -106,7 +106,15 @@ export default class WaRadio extends WebAwesomeElement {
       >
         <span part="${`control${this.checked ? ' control--checked' : ''}`}" class="radio__control">
           ${this.checked
-            ? html` <wa-icon part="checked-icon" class="radio__checked-icon" library="system" name="radio"></wa-icon> `
+            ? html`
+                <wa-icon
+                  part="checked-icon"
+                  class="radio__checked-icon"
+                  name="circle"
+                  library="system"
+                  variant="solid"
+                ></wa-icon>
+              `
             : ''}
         </span>
 

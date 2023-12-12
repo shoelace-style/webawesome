@@ -100,8 +100,9 @@ export default class WaTab extends WebAwesomeElement {
               <wa-icon-button
                 part="close-button"
                 exportparts="base:close-button__base"
-                name="x-lg"
+                name="xmark"
                 library="system"
+                variant="solid"
                 label=${this.localize.term('close')}
                 class="tab__close-button"
                 @click=${this.handleCloseClick}

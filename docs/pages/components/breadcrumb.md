@@ -73,7 +73,7 @@ Use the `separator` slot to change the separator that goes between breadcrumb it
 
 ```html:preview
 <wa-breadcrumb>
-  <wa-icon name="dot" slot="separator"></wa-icon>
+  <wa-icon slot="separator" name="angles-right" variant="solid"></wa-icon>
   <wa-breadcrumb-item>First</wa-breadcrumb-item>
   <wa-breadcrumb-item>Second</wa-breadcrumb-item>
   <wa-breadcrumb-item>Third</wa-breadcrumb-item>
@@ -82,7 +82,7 @@ Use the `separator` slot to change the separator that goes between breadcrumb it
 <br />
 
 <wa-breadcrumb>
-  <wa-icon name="arrow-right" slot="separator"></wa-icon>
+  <wa-icon slot="separator" name="arrow-right" variant="solid"></wa-icon>
   <wa-breadcrumb-item>First</wa-breadcrumb-item>
   <wa-breadcrumb-item>Second</wa-breadcrumb-item>
   <wa-breadcrumb-item>Third</wa-breadcrumb-item>
@@ -106,7 +106,7 @@ import WaBreadcrumbItem from '@shoelace-style/shoelace/dist/react/breadcrumb-ite
 const App = () => (
   <>
     <WaBreadcrumb>
-      <wa-icon name="dot" slot="separator" />
+      <wa-icon slot="separator" name="angles-right" variant="solid" />
       <WaBreadcrumbItem>First</WaBreadcrumbItem>
       <WaBreadcrumbItem>Second</WaBreadcrumbItem>
       <WaBreadcrumbItem>Third</WaBreadcrumbItem>
@@ -115,7 +115,7 @@ const App = () => (
     <br />
 
     <WaBreadcrumb>
-      <wa-icon name="arrow-right" slot="separator" />
+      <wa-icon slot="separator" name="arrow-right" variant="solid" />
       <WaBreadcrumbItem>First</WaBreadcrumbItem>
       <WaBreadcrumbItem>Second</WaBreadcrumbItem>
       <WaBreadcrumbItem>Third</WaBreadcrumbItem>
@@ -140,7 +140,7 @@ Use the `prefix` slot to add content before any breadcrumb item.
 ```html:preview
 <wa-breadcrumb>
   <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house"></wa-icon>
+    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
     Home
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
@@ -156,7 +156,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 const App = () => (
   <WaBreadcrumb>
     <WaBreadcrumbItem>
-      <WaIcon slot="prefix" name="house" />
+      <WaIcon slot="prefix" name="house" variant="solid" />
       Home
     </WaBreadcrumbItem>
     <WaBreadcrumbItem>Articles</WaBreadcrumbItem>
@@ -175,7 +175,7 @@ Use the `suffix` slot to add content after any breadcrumb item.
   <wa-breadcrumb-item>Policies</wa-breadcrumb-item>
   <wa-breadcrumb-item>
     Security
-    <wa-icon slot="suffix" name="shield-lock"></wa-icon>
+    <wa-icon slot="suffix" name="shield" variant="solid"></wa-icon>
   </wa-breadcrumb-item>
 </wa-breadcrumb>
 ```
@@ -191,7 +191,7 @@ const App = () => (
     <WaBreadcrumbItem>Policies</WaBreadcrumbItem>
     <WaBreadcrumbItem>
       Security
-      <WaIcon slot="suffix" name="shield-lock"></WaIcon>
+      <WaIcon slot="suffix" name="shield" variant="solid"></WaIcon>
     </WaBreadcrumbItem>
   </WaBreadcrumb>
 );
@@ -209,8 +209,8 @@ Dropdown menus can be placed in a prefix or suffix slot to provide additional op
   <wa-breadcrumb-item>
     Web Design
     <wa-dropdown slot="suffix">
-      <wa-button slot="trigger" size="small" circle>
-        <wa-icon label="More options" name="three-dots"></wa-icon>
+      <wa-button slot="trigger" size="small" pill>
+        <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
       <wa-menu>
         <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
@@ -241,8 +241,8 @@ const App = () => (
     <WaBreadcrumbItem>
       Web Design
       <WaDropdown slot="suffix">
-        <WaButton slot="trigger" size="small" circle>
-          <WaIcon label="More options" name="three-dots"></WaIcon>
+        <WaButton slot="trigger" size="small" pill>
+          <WaIcon label="More options" name="ellipsis"></WaIcon>
         </WaButton>
         <WaMenu>
           <WaMenuItem type="checkbox" checked>

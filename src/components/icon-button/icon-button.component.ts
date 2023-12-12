@@ -31,6 +31,18 @@ export default class WaIconButton extends WebAwesomeElement {
   /** The name of the icon to draw. Available names depend on the icon library being used. */
   @property() name?: string;
 
+  /**
+   * The family of icons to choose from. For Font Awesome, valid options include `classic`, `sharp`, `duotone`, and
+   * `brands`. Custom icon libraries may or may not use this property.
+   */
+  @property({ reflect: true }) family: string;
+
+  /**
+   * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
+   * the _classic_ and _sharp_ families. Custom icon libraries may or may not use this property.
+   */
+  @property({ reflect: true }) variant: string;
+
   /** The name of a registered custom icon library. */
   @property() library?: string;
 
@@ -120,6 +132,8 @@ export default class WaIconButton extends WebAwesomeElement {
         <wa-icon
           class="icon-button__icon"
           name=${ifDefined(this.name)}
+          family=${ifDefined(this.family)}
+          variant=${ifDefined(this.variant)}
           library=${ifDefined(this.library)}
           src=${ifDefined(this.src)}
           aria-hidden="true"
