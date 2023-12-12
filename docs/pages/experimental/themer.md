@@ -65,9 +65,9 @@ toc: false
     <div>
       <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p" style="margin: 0 auto;">
         <wa-radio-button value="p">P</wa-radio-button>
-        <wa-radio-button value="code-slash"><wa-icon name="code-slash"></wa-icon></wa-radio-button>
-        <wa-radio-button value="incognito"><wa-icon name="incognito"></wa-icon></wa-radio-button>
-        <wa-radio-button value="bug-fill"><wa-icon name="bug-fill"></wa-icon></wa-radio-button>
+        <wa-radio-button value="fas-dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
+        <wa-radio-button value="fas-code"><wa-icon name="code"></wa-icon></wa-radio-button>
+        <wa-radio-button value="fas-fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
         <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
       <wa-button id="icon-chooser-trigger" outline style="margin-top: 0.5rem">
