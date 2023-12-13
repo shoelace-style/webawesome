@@ -304,8 +304,8 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 
 ```html:preview
 <wa-tree class="custom-icons">
-  <wa-icon name="plus-square" slot="expand-icon"></wa-icon>
-  <wa-icon name="dash-square" slot="collapse-icon"></wa-icon>
+  <wa-icon name="square-plus" variant="solid" slot="expand-icon"></wa-icon>
+  <wa-icon name="square-minus" variant="solid" slot="collapse-icon"></wa-icon>
 
   <wa-tree-item>
     Deciduous
@@ -349,8 +349,8 @@ import WaTreeItem from '@shoelace-style/shoelace/dist/react/tree-item';
 
 const App = () => (
   <WaTree>
-    <WaIcon name="plus-square" slot="expand-icon"></WaIcon>
-    <WaIcon name="dash-square" slot="collapse-icon"></WaIcon>
+    <WaIcon name="square-plus" variant="solid" slot="expand-icon"></WaIcon>
+    <WaIcon name="square-minus" variant="solid" slot="collapse-icon"></WaIcon>
 
     <WaTreeItem>
       Deciduous
@@ -388,39 +388,39 @@ Decorative icons can be used before labels to provide hints for each node.
 ```html:preview
 <wa-tree class="tree-with-icons">
   <wa-tree-item expanded>
-    <wa-icon name="folder"></wa-icon>
+    <wa-icon name="folder" variant="regular"></wa-icon>
     Documents
 
     <wa-tree-item>
-      <wa-icon name="folder"> </wa-icon>
+      <wa-icon name="folder" variant="regular"> </wa-icon>
       Photos
       <wa-tree-item>
-        <wa-icon name="image"></wa-icon>
+        <wa-icon name="image" variant="regular"></wa-icon>
         birds.jpg
       </wa-tree-item>
       <wa-tree-item>
-        <wa-icon name="image"></wa-icon>
+        <wa-icon name="image" variant="regular"></wa-icon>
         kitten.jpg
       </wa-tree-item>
       <wa-tree-item>
-        <wa-icon name="image"></wa-icon>
+        <wa-icon name="image" variant="regular"></wa-icon>
         puppy.jpg
       </wa-tree-item>
     </wa-tree-item>
 
     <wa-tree-item>
-      <wa-icon name="folder"></wa-icon>
+      <wa-icon name="folder" variant="regular"></wa-icon>
       Writing
       <wa-tree-item>
-        <wa-icon name="file"></wa-icon>
+        <wa-icon name="file" variant="regular"></wa-icon>
         draft.txt
       </wa-tree-item>
       <wa-tree-item>
-        <wa-icon name="file-pdf"></wa-icon>
+        <wa-icon name="file-pdf" variant="regular"></wa-icon>
         final.pdf
       </wa-tree-item>
       <wa-tree-item>
-        <wa-icon name="file-bar-graph"></wa-icon>
+        <wa-icon name="file-lines" variant="regular"></wa-icon>
         sales.xls
       </wa-tree-item>
     </wa-tree-item>

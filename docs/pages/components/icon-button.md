@@ -24,9 +24,9 @@ const App = () => <WaIconButton name="gear" label="Settings" />;
 Icon buttons inherit their parent element's `font-size`.
 
 ```html:preview
-<wa-icon-button name="pencil" label="Edit" style="font-size: 1.5rem;"></wa-icon-button>
-<wa-icon-button name="pencil" label="Edit" style="font-size: 2rem;"></wa-icon-button>
-<wa-icon-button name="pencil" label="Edit" style="font-size: 2.5rem;"></wa-icon-button>
+<wa-icon-button name="pen-to-square" variant="solid" label="Edit" style="font-size: 1.5rem;"></wa-icon-button>
+<wa-icon-button name="pen-to-square" variant="solid" label="Edit" style="font-size: 2rem;"></wa-icon-button>
+<wa-icon-button name="pen-to-square" variant="solid" label="Edit" style="font-size: 2.5rem;"></wa-icon-button>
 ```
 
 {% raw %}
@@ -36,9 +36,9 @@ import WaIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
 
 const App = () => (
   <>
-    <WaIconButton name="pencil" label="Edit" style={{ fontSize: '1.5rem' }} />
-    <WaIconButton name="pencil" label="Edit" style={{ fontSize: '2rem' }} />
-    <WaIconButton name="pencil" label="Edit" style={{ fontSize: '2.5rem' }} />
+    <WaIconButton name="pen-to-square" variant="solid" label="Edit" style={{ fontSize: '1.5rem' }} />
+    <WaIconButton name="pen-to-square" variant="solid" label="Edit" style={{ fontSize: '2rem' }} />
+    <WaIconButton name="pen-to-square" variant="solid" label="Edit" style={{ fontSize: '2.5rem' }} />
   </>
 );
 ```
@@ -51,9 +51,9 @@ Icon buttons are designed to have a uniform appearance, so their color is not in
 
 ```html:preview
 <div class="icon-button-color">
-  <wa-icon-button name="type-bold" label="Bold"></wa-icon-button>
-  <wa-icon-button name="type-italic" label="Italic"></wa-icon-button>
-  <wa-icon-button name="type-underline" label="Underline"></wa-icon-button>
+  <wa-icon-button name="bold" variant="solid" label="Bold"></wa-icon-button>
+  <wa-icon-button name="italic" variant="solid" label="Italic"></wa-icon-button>
+  <wa-icon-button name="underline" variant="solid" label="Underline"></wa-icon-button>
 </div>
 
 <style>
@@ -93,9 +93,9 @@ const css = `
 const App = () => (
   <>
     <div className="icon-button-color">
-      <WaIconButton name="type-bold" label="Bold" />
-      <WaIconButton name="type-italic" label="Italic" />
-      <WaIconButton name="type-underline" label="Underline" />
+      <WaIconButton name="type-bold" variant="solid" label="Bold" />
+      <WaIconButton name="type-italic" variant="solid" label="Italic" />
+      <WaIconButton name="type-underline" variant="solid" label="Underline" />
     </div>
 
     <style>{css}</style>
@@ -108,13 +108,13 @@ const App = () => (
 Use the `href` attribute to convert the button to a link.
 
 ```html:preview
-<wa-icon-button name="gear" label="Settings" href="https://example.com" target="_blank"></wa-icon-button>
+<wa-icon-button name="gear" variant="solid" label="Settings" href="https://example.com" target="_blank"></wa-icon-button>
 ```
 
 ```jsx:react
 import WaIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
 
-const App = () => <WaIconButton name="gear" label="Settings" href="https://example.com" target="_blank" />;
+const App = () => <WaIconButton name="gear" variant="solid" label="Settings" href="https://example.com" target="_blank" />;
 ```
 
 ### Icon Button with Tooltip
@@ -123,7 +123,7 @@ Wrap a tooltip around an icon button to provide contextual information to the us
 
 ```html:preview
 <wa-tooltip content="Settings">
-  <wa-icon-button name="gear" label="Settings"></wa-icon-button>
+  <wa-icon-button name="gear" variant="solid" label="Settings"></wa-icon-button>
 </wa-tooltip>
 ```
 
@@ -133,7 +133,7 @@ import WaTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
 
 const App = () => (
   <WaTooltip content="Settings">
-    <WaIconButton name="gear" label="Settings" />
+    <WaIconButton name="gear" variant="solid" label="Settings" />
   </WaTooltip>
 );
 ```
@@ -143,11 +143,11 @@ const App = () => (
 Use the `disabled` attribute to disable the icon button.
 
 ```html:preview
-<wa-icon-button name="gear" label="Settings" disabled></wa-icon-button>
+<wa-icon-button name="gear" variant="solid" label="Settings" disabled></wa-icon-button>
 ```
 
 ```jsx:react
 import WaIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
 
-const App = () => <WaIconButton name="gear" label="Settings" disabled />;
+const App = () => <WaIconButton name="gear" variant="solid" label="Settings" disabled />;
 ```

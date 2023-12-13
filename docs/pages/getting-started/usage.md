@@ -85,7 +85,7 @@ Some components also have _named_ slots. A named slot can be populated by adding
 
 ```html
 <wa-button>
-  <wa-icon slot="prefix" name="gear"></wa-icon>
+  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
 ```

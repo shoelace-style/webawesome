@@ -143,7 +143,7 @@ export default class WaImageComparer extends WebAwesomeElement {
             tabindex="0"
           >
             <slot name="handle">
-              <wa-icon library="system" name="grip-vertical"></wa-icon>
+              <wa-icon library="system" name="grip-vertical" variant="solid"></wa-icon>
             </slot>
           </div>
         </div>

@@ -40,6 +40,7 @@ export default css`
     display: inline-flex;
     width: var(--toggle-size);
     height: var(--toggle-size);
+    scale: 0.4;
   }
 
   .radio__control {

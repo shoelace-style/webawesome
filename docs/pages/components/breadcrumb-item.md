@@ -8,7 +8,7 @@ layout: component
 ```html:preview
 <wa-breadcrumb>
   <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house"></wa-icon>
+    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
     Home
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>

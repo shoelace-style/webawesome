@@ -80,6 +80,18 @@ export default class WaIcon extends WebAwesomeElement {
   @property({ reflect: true }) name?: string;
 
   /**
+   * The family of icons to choose from. For Font Awesome, valid options include `classic`, `sharp`, `duotone`, and
+   * `brands`. Custom icon libraries may or may not use this property.
+   */
+  @property({ reflect: true }) family: string;
+
+  /**
+   * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
+   * the _classic_ and _sharp_ families. Custom icon libraries may or may not use this property.
+   */
+  @property({ reflect: true }) variant: string;
+
+  /**
    * An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and
    * can result in XSS attacks.
    */
@@ -113,7 +125,7 @@ export default class WaIcon extends WebAwesomeElement {
     const library = getIconLibrary(this.library);
     if (this.name && library) {
       return {
-        url: library.resolver(this.name),
+        url: library.resolver(this.name, this.family, this.variant),
         fromLibrary: true
       };
     }

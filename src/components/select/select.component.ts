@@ -836,14 +836,14 @@ export default class WaSelect extends WebAwesomeElement implements WebAwesomeFor
                       tabindex="-1"
                     >
                       <slot name="clear-icon">
-                        <wa-icon name="x-circle-fill" library="system"></wa-icon>
+                        <wa-icon name="circle-xmark" library="system" variant="regular"></wa-icon>
                       </slot>
                     </button>
                   `
                 : ''}
 
               <slot name="expand-icon" part="expand-icon" class="select__expand-icon">
-                <wa-icon library="system" name="chevron-down"></wa-icon>
+                <wa-icon library="system" name="chevron-down" variant="solid"></wa-icon>
               </slot>
             </div>
 

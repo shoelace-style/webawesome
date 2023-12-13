@@ -439,7 +439,7 @@ Form controls should support submission and validation through the following con
 Avoid inlining SVG icons inside of templates. If a component requires an icon, make sure `<wa-icon>` is a dependency of the component and use the [system library](/components/icon#customizing-the-system-library):
 
 ```html
-<wa-icon library="system" name="..."></wa-icon>
+<wa-icon library="system" name="..." variant="..."></wa-icon>
 ```
 
 This will render the icons instantly whereas the default library will fetch them from a remote source. If an icon isn't available in the system library, you will need to add it to `library.system.ts`. Using the system library ensures that all icons load instantly and are customizable by users who wish to provide a custom resolver for the system library.

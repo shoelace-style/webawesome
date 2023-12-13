@@ -32,8 +32,8 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart control - The square container that wraps the checkbox's checked state.
  * @csspart control--checked - Matches the control part when the checkbox is checked.
  * @csspart control--indeterminate - Matches the control part when the checkbox is indeterminate.
- * @csspart checked-icon - The checked icon, an `<wa-icon>` element.
- * @csspart indeterminate-icon - The indeterminate icon, an `<wa-icon>` element.
+ * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
+ * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
  * @csspart label - The container that wraps the checkbox's label.
  */
 export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeFormControl {
@@ -221,7 +221,13 @@ export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeF
         >
           ${this.checked
             ? html`
-                <wa-icon part="checked-icon" class="checkbox__checked-icon" library="system" name="check"></wa-icon>
+                <wa-icon
+                  part="checked-icon"
+                  class="checkbox__checked-icon"
+                  library="system"
+                  name="check"
+                  variant="solid"
+                ></wa-icon>
               `
             : ''}
           ${!this.checked && this.indeterminate
@@ -230,7 +236,8 @@ export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeF
                   part="indeterminate-icon"
                   class="checkbox__indeterminate-icon"
                   library="system"
-                  name="indeterminate"
+                  name="minus"
+                  variant="solid"
                 ></wa-icon>
               `
             : ''}

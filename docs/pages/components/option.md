@@ -62,21 +62,21 @@ Add icons to the start and end of menu items using the `prefix` and `suffix` slo
 ```html:preview
 <wa-select label="Select one">
   <wa-option value="option-1">
-    <wa-icon slot="prefix" name="envelope"></wa-icon>
+    <wa-icon slot="prefix" name="envelope" variant="solid"></wa-icon>
     Email
-    <wa-icon slot="suffix" name="patch-check"></wa-icon>
+    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
   </wa-option>
 
   <wa-option value="option-2">
-    <wa-icon slot="prefix" name="telephone"></wa-icon>
+    <wa-icon slot="prefix" name="phone" variant="solid"></wa-icon>
     Phone
-    <wa-icon slot="suffix" name="patch-check"></wa-icon>
+    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
   </wa-option>
 
   <wa-option value="option-3">
-    <wa-icon slot="prefix" name="chat-dots"></wa-icon>
+    <wa-icon slot="prefix" name="comment" variant="solid"></wa-icon>
     Chat
-    <wa-icon slot="suffix" name="patch-check"></wa-icon>
+    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
   </wa-option>
 </wa-select>
 ```

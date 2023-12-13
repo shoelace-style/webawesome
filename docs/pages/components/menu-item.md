@@ -16,11 +16,11 @@ layout: component
   <wa-divider></wa-divider>
   <wa-menu-item>
     Prefix Icon
-    <wa-icon slot="prefix" name="gift"></wa-icon>
+    <wa-icon slot="prefix" name="gift" variant="solid"></wa-icon>
   </wa-menu-item>
   <wa-menu-item>
     Suffix Icon
-    <wa-icon slot="suffix" name="heart"></wa-icon>
+    <wa-icon slot="suffix" name="heart" variant="solid"></wa-icon>
   </wa-menu-item>
 </wa-menu>
 ```
@@ -46,11 +46,11 @@ const App = () => (
     <WaDivider />
     <WaMenuItem>
       Prefix Icon
-      <WaIcon slot="prefix" name="gift" />
+      <WaIcon slot="prefix" name="gift" variant="solid" />
     </WaMenuItem>
     <WaMenuItem>
       Suffix Icon
-      <WaIcon slot="suffix" name="heart" />
+      <WaIcon slot="suffix" name="heart" variant="solid" />
     </WaMenuItem>
   </WaMenu>
 );
@@ -96,12 +96,12 @@ Add content to the start and end of menu items using the `prefix` and `suffix` s
 ```html:preview
 <wa-menu style="max-width: 200px;">
   <wa-menu-item>
-    <wa-icon slot="prefix" name="house"></wa-icon>
+    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
     Home
   </wa-menu-item>
 
   <wa-menu-item>
-    <wa-icon slot="prefix" name="envelope"></wa-icon>
+    <wa-icon slot="prefix" name="envelope" variant="solid"></wa-icon>
     Messages
     <wa-badge slot="suffix" variant="brand" pill>12</wa-badge>
   </wa-menu-item>
@@ -109,7 +109,7 @@ Add content to the start and end of menu items using the `prefix` and `suffix` s
   <wa-divider></wa-divider>
 
   <wa-menu-item>
-    <wa-icon slot="prefix" name="gear"></wa-icon>
+    <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
     Settings
   </wa-menu-item>
 </wa-menu>
@@ -127,12 +127,12 @@ import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
 const App = () => (
   <WaMenu style={{ maxWidth: '200px' }}>
     <WaMenuItem>
-      <WaIcon slot="prefix" name="house" />
+      <WaIcon slot="prefix" name="house" variant="solid" />
       Home
     </WaMenuItem>
 
     <WaMenuItem>
-      <WaIcon slot="prefix" name="envelope" />
+      <WaIcon slot="prefix" name="envelope" variant="solid" />
       Messages
       <WaBadge slot="suffix" variant="brand" pill>
         12
@@ -142,7 +142,7 @@ const App = () => (
     <WaDivider />
 
     <WaMenuItem>
-      <WaIcon slot="prefix" name="gear" />
+      <WaIcon slot="prefix" name="gear" variant="solid" />
       Settings
     </WaMenuItem>
   </WaMenu>

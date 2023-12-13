@@ -996,7 +996,8 @@ export default class WaColorPicker extends WebAwesomeElement implements WebAweso
                   >
                     <wa-icon
                       library="system"
-                      name="eyedropper"
+                      name="eye-dropper"
+                      variant="solid"
                       label=${this.localize.term('selectAColorFromTheScreen')}
                     ></wa-icon>
                   </wa-button>

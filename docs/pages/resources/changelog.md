@@ -14,6 +14,10 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 
 ## 3.0 Changes (BREAKING)
 
+- Added `setKitCode()` and `getKitCode()` functions as well as support for setting kit codes declaratively with `data-webawesome-kit`
+- Added `family` and `variant` attributes to `<wa-icon>` and `<wa-icon-button>`
+- Changed the attribute for setting the base path declaratively to `data-webawesome` instead of `data-shoelace`; additionally, you can place it on any element now instead of just the associated `<script>` tag
+- `<wa-icon>` icons are no longer fixed width by default to accommodate variable width icons
 - Changed the `sl` prefix to `wa` for Web Awesome, including tags, events, etc.
 - Changed `primary` variants to `brand` in all components
 - Improved submenu selection by implementing the [safe triangle](https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles/) method [#1550]
@@ -27,6 +31,7 @@ New versions of Web Awesome are released as-needed and generally occur when a cr
 - Added the `hover-bridge` feature to `<sl-popup>` to support better tooltip accessibility [#1734]
 - Fixed a bug in `<sl-input>` and `<sl-textarea>` that made it work differently from `<input>` and `<textarea>` when using defaults [#1746]
 - Fixed a bug in `<sl-select>` that prevented it from closing when tabbing to another select inside a shadow root [#1763]
+- Fixed a bug in `<sl-spinner>` that caused the animation to appear strange in certain circumstances [#1787]
 - Improved the accessibility of `<sl-tooltip>` so they persist when hovering over the tooltip and dismiss when pressing [[Esc]] [#1734]
 
 ## 2.12.0

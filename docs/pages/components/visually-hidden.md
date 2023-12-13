@@ -26,7 +26,7 @@ In this example, the link will open a new window. Screen readers will announce "
 ```html:preview
 <a href="https://example.com/" target="_blank">
   Visit External Page
-  <wa-icon name="box-arrow-up-right"></wa-icon>
+  <wa-icon name="arrow-up-right-from-square" variant="regular"></wa-icon>
   <wa-visually-hidden>opens in a new window</wa-visually-hidden>
 </a>
 ```

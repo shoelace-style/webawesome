@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --height: 1rem;
+    --height: 1.25rem;
     --track-color: var(--wa-color-neutral-fill-highlight);
     --indicator-color: var(--wa-color-brand-spot);
     --label-color: var(--wa-color-brand-text-on-spot);

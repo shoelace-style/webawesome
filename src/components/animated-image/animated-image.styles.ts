@@ -32,10 +32,10 @@ export default css`
     right: calc(50% - var(--control-box-size) / 2);
     width: var(--control-box-size);
     height: var(--control-box-size);
-    font-size: var(--icon-size);
+    font-size: calc(var(--icon-size) * 0.75);
     background: none;
     border: solid 2px currentColor;
-    background-color: rgb(0 0 0 /50%);
+    background-color: rgb(0 0 0 / 50%);
     border-radius: var(--wa-corners-circle);
     color: white;
     pointer-events: none;

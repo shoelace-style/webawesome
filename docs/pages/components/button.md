@@ -229,54 +229,54 @@ Use the `prefix` and `suffix` slots to add icons.
 
 ```html:preview
 <wa-button size="small">
-  <wa-icon slot="prefix" name="gear"></wa-icon>
+  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button size="small">
-  <wa-icon slot="suffix" name="arrow-counterclockwise"></wa-icon>
+  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button size="small">
-  <wa-icon slot="prefix" name="link-45deg"></wa-icon>
-  <wa-icon slot="suffix" name="box-arrow-up-right"></wa-icon>
+  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
+  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
   Open
 </wa-button>
 
 <br /><br />
 
 <wa-button>
-  <wa-icon slot="prefix" name="gear"></wa-icon>
+  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button>
-  <wa-icon slot="suffix" name="arrow-counterclockwise"></wa-icon>
+  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button>
-  <wa-icon slot="prefix" name="link-45deg"></wa-icon>
-  <wa-icon slot="suffix" name="box-arrow-up-right"></wa-icon>
+  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
+  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
   Open
 </wa-button>
 
 <br /><br />
 
 <wa-button size="large">
-  <wa-icon slot="prefix" name="gear"></wa-icon>
+  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button size="large">
-  <wa-icon slot="suffix" name="arrow-counterclockwise"></wa-icon>
+  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button size="large">
-  <wa-icon slot="prefix" name="link-45deg"></wa-icon>
-  <wa-icon slot="suffix" name="box-arrow-up-right"></wa-icon>
+  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
+  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
   Open
 </wa-button>
 ```
@@ -288,18 +288,18 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 const App = () => (
   <>
     <WaButton size="small">
-      <WaIcon slot="prefix" name="gear"></WaIcon>
+      <WaIcon slot="prefix" name="gear" variant="solid"></WaIcon>
       Settings
     </WaButton>
 
     <WaButton size="small">
-      <WaIcon slot="suffix" name="arrow-counterclockwise"></WaIcon>
+      <WaIcon slot="suffix" name="undo" variant="solid"></WaIcon>
       Refresh
     </WaButton>
 
     <WaButton size="small">
-      <WaIcon slot="prefix" name="link-45deg"></WaIcon>
-      <WaIcon slot="suffix" name="box-arrow-up-right"></WaIcon>
+      <WaIcon slot="prefix" name="link" variant="solid"></WaIcon>
+      <WaIcon slot="suffix" name="arrow-up-right-from-square" variant="solid"></WaIcon>
       Open
     </WaButton>
 
@@ -307,18 +307,18 @@ const App = () => (
     <br />
 
     <WaButton>
-      <WaIcon slot="prefix" name="gear"></WaIcon>
+      <WaIcon slot="prefix" name="gear" variant="solid"></WaIcon>
       Settings
     </WaButton>
 
     <WaButton>
-      <WaIcon slot="suffix" name="arrow-counterclockwise"></WaIcon>
+      <WaIcon slot="suffix" name="undo" variant="solid"></WaIcon>
       Refresh
     </WaButton>
 
     <WaButton>
-      <WaIcon slot="prefix" name="link-45deg"></WaIcon>
-      <WaIcon slot="suffix" name="box-arrow-up-right"></WaIcon>
+      <WaIcon slot="prefix" name="link" variant="solid"></WaIcon>
+      <WaIcon slot="suffix" name="arrow-up-right-from-square" variant="solid"></WaIcon>
       Open
     </WaButton>
 
@@ -326,18 +326,18 @@ const App = () => (
     <br />
 
     <WaButton size="large">
-      <WaIcon slot="prefix" name="gear"></WaIcon>
+      <WaIcon slot="prefix" name="gear" variant="solid"></WaIcon>
       Settings
     </WaButton>
 
     <WaButton size="large">
-      <WaIcon slot="suffix" name="arrow-counterclockwise"></WaIcon>
+      <WaIcon slot="suffix" name="undo" variant="solid"></WaIcon>
       Refresh
     </WaButton>
 
     <WaButton size="large">
-      <WaIcon slot="prefix" name="link-45deg"></WaIcon>
-      <WaIcon slot="suffix" name="box-arrow-up-right"></WaIcon>
+      <WaIcon slot="prefix" name="link" variant="solid"></WaIcon>
+      <WaIcon slot="suffix" name="arrow-up-right-from-square" variant="solid"></WaIcon>
       Open
     </WaButton>
   </>

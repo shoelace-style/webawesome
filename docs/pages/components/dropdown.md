@@ -22,11 +22,11 @@ Dropdowns are designed to work well with [menus](/components/menu) to provide a 
     <wa-divider></wa-divider>
     <wa-menu-item>
       Prefix
-      <wa-icon slot="prefix" name="gift"></wa-icon>
+      <wa-icon slot="prefix" name="gift" variant="solid"></wa-icon>
     </wa-menu-item>
     <wa-menu-item>
       Suffix Icon
-      <wa-icon slot="suffix" name="heart"></wa-icon>
+      <wa-icon slot="suffix" name="heart" variant="solid"></wa-icon>
     </wa-menu-item>
   </wa-menu>
 </wa-dropdown>

@@ -78,8 +78,9 @@ export default class WaTag extends WebAwesomeElement {
               <wa-icon-button
                 part="remove-button"
                 exportparts="base:remove-button__base"
-                name="x-lg"
+                name="xmark"
                 library="system"
+                variant="regular"
                 label=${this.localize.term('remove')}
                 class="tag__remove"
                 @click=${this.handleRemoveClick}

@@ -19,22 +19,10 @@ All available icons in the `default` icon library are shown below. Click or tap 
 <wa-icon name="icon-name-here"></wa-icon>
 ```
 
-<div class="icon-search">
-  <div class="icon-search-controls">
-    <wa-input placeholder="Search Icons" clearable>
-      <wa-icon slot="prefix" name="search"></wa-icon>
-    </wa-input>
-    <wa-select value="outline">
-      <wa-option value="outline">Outlined</wa-option>
-      <wa-option value="fill">Filled</wa-option>
-      <wa-option value="all">All icons</wa-option>
-    </wa-select>
-  </div>
-  <div class="icon-list"></div>
-  <input type="text" class="icon-copy-input" aria-hidden="true" tabindex="-1">
-</div>
-
 ## Examples
+
+TODO - show how to use `family` and `variant` attributes.
+TODO - show how to use FA pro via `data-webawesome-kit="..."`
 
 ### Colors
 
@@ -44,23 +32,23 @@ Icons inherit their color from the current text color. Thus, you can set the `co
 <div style="color: #4a90e2;">
   <wa-icon name="exclamation-triangle"></wa-icon>
   <wa-icon name="archive"></wa-icon>
-  <wa-icon name="battery-charging"></wa-icon>
+  <wa-icon name="battery-three-quarters"></wa-icon>
   <wa-icon name="bell"></wa-icon>
 </div>
 <div style="color: #9013fe;">
   <wa-icon name="clock"></wa-icon>
   <wa-icon name="cloud"></wa-icon>
   <wa-icon name="download"></wa-icon>
-  <wa-icon name="file-earmark"></wa-icon>
+  <wa-icon name="file"></wa-icon>
 </div>
 <div style="color: #417505;">
   <wa-icon name="flag"></wa-icon>
   <wa-icon name="heart"></wa-icon>
   <wa-icon name="image"></wa-icon>
-  <wa-icon name="lightning"></wa-icon>
+  <wa-icon name="bolt-lightning"></wa-icon>
 </div>
 <div style="color: #f5a623;">
-  <wa-icon name="mic"></wa-icon>
+  <wa-icon name="microphone"></wa-icon>
   <wa-icon name="search"></wa-icon>
   <wa-icon name="star"></wa-icon>
   <wa-icon name="trash"></wa-icon>
@@ -77,23 +65,23 @@ const App = () => (
     <div style={{ color: '#4a90e2' }}>
       <WaIcon name="exclamation-triangle"></WaIcon>
       <WaIcon name="archive"></WaIcon>
-      <WaIcon name="battery-charging"></WaIcon>
+      <WaIcon name="battery-three-quarters"></WaIcon>
       <WaIcon name="bell"></WaIcon>
     </div>
     <div style={{ color: '#9013fe' }}>
       <WaIcon name="clock"></WaIcon>
       <WaIcon name="cloud"></WaIcon>
       <WaIcon name="download"></WaIcon>
-      <WaIcon name="file-earmark"></WaIcon>
+      <WaIcon name="file"></WaIcon>
     </div>
     <div style={{ color: '#417505' }}>
       <WaIcon name="flag"></WaIcon>
       <WaIcon name="heart"></WaIcon>
       <WaIcon name="image"></WaIcon>
-      <WaIcon name="lightning"></WaIcon>
+      <WaIcon name="bolt-lightning"></WaIcon>
     </div>
     <div style={{ color: '#f5a623' }}>
-      <WaIcon name="mic"></WaIcon>
+      <WaIcon name="microphone"></WaIcon>
       <WaIcon name="search"></WaIcon>
       <WaIcon name="star"></WaIcon>
       <WaIcon name="trash"></WaIcon>
@@ -112,17 +100,17 @@ Icons are sized relative to the current font size. To change their size, set the
 <div style="font-size: 32px;">
   <wa-icon name="exclamation-triangle"></wa-icon>
   <wa-icon name="archive"></wa-icon>
-  <wa-icon name="battery-charging"></wa-icon>
+  <wa-icon name="battery-three-quarters"></wa-icon>
   <wa-icon name="bell"></wa-icon>
   <wa-icon name="clock"></wa-icon>
   <wa-icon name="cloud"></wa-icon>
   <wa-icon name="download"></wa-icon>
-  <wa-icon name="file-earmark"></wa-icon>
+  <wa-icon name="file"></wa-icon>
   <wa-icon name="flag"></wa-icon>
   <wa-icon name="heart"></wa-icon>
   <wa-icon name="image"></wa-icon>
-  <wa-icon name="lightning"></wa-icon>
-  <wa-icon name="mic"></wa-icon>
+  <wa-icon name="bolt-lightning"></wa-icon>
+  <wa-icon name="microphone"></wa-icon>
   <wa-icon name="search"></wa-icon>
   <wa-icon name="star"></wa-icon>
   <wa-icon name="trash"></wa-icon>
@@ -138,17 +126,17 @@ const App = () => (
   <div style={{ fontSize: '32px' }}>
     <WaIcon name="exclamation-triangle" />
     <WaIcon name="archive" />
-    <WaIcon name="battery-charging" />
+    <WaIcon name="battery-three-quarters" />
     <WaIcon name="bell" />
     <WaIcon name="clock" />
     <WaIcon name="cloud" />
     <WaIcon name="download" />
-    <WaIcon name="file-earmark" />
+    <WaIcon name="file" />
     <WaIcon name="flag" />
     <WaIcon name="heart" />
     <WaIcon name="image" />
-    <WaIcon name="lightning" />
-    <WaIcon name="mic" />
+    <WaIcon name="bolt-lightning" />
+    <WaIcon name="microphone" />
     <WaIcon name="search" />
     <WaIcon name="star" />
     <WaIcon name="trash" />
@@ -163,13 +151,13 @@ const App = () => (
 For non-decorative icons, use the `label` attribute to announce it to assistive devices.
 
 ```html:preview
-<wa-icon name="star-fill" label="Add to favorites"></wa-icon>
+<wa-icon name="star" label="Add to favorites"></wa-icon>
 ```
 
 ```jsx:react
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
-const App = () => <WaIcon name="star-fill" label="Add to favorites" />;
+const App = () => <WaIcon name="star" label="Add to favorites" />;
 ```
 
 ### Custom Icons
@@ -680,190 +668,3 @@ If you want to change the icons Web Awesome uses internally, you can register an
   });
 </script>
 ```
-
-<!-- Supporting scripts and styles for the search utility -->
-<script>
-  function wrapWithTooltip(item) {
-    const tooltip = document.createElement('wa-tooltip');
-    tooltip.content = item.getAttribute('data-name');
-
-    // Close open tooltips
-    document.querySelectorAll('.icon-list wa-tooltip[open]').forEach(tooltip => tooltip.hide());
-
-    // Wrap it with a tooltip and trick it into showing up
-    item.parentNode.insertBefore(tooltip, item);
-    tooltip.appendChild(item);
-    requestAnimationFrame(() => tooltip.dispatchEvent(new MouseEvent('mouseover')));
-  }
-
-  fetch('/dist/assets/icons/icons.json')
-    .then(res => res.json())
-    .then(icons => {
-      const container = document.querySelector('.icon-search');
-      const input = container.querySelector('wa-input');
-      const select = container.querySelector('wa-select');
-      const copyInput = container.querySelector('.icon-copy-input');
-      const loader = container.querySelector('.icon-loader');
-      const list = container.querySelector('.icon-list');
-      const queue = [];
-      let inputTimeout;
-
-      // Generate icons
-      icons.map(i => {
-        const item = document.createElement('div');
-        item.classList.add('icon-list-item');
-        item.setAttribute('data-name', i.name);
-        item.setAttribute('data-terms', [i.name, i.title, ...(i.tags || []), ...(i.categories || [])].join(' '));
-        item.innerHTML = `
-          <svg width="1em" height="1em" fill="currentColor">
-            <use href="/assets/images/sprite.svg#${i.name}"></use>
-          </svg>
-        `;
-        list.appendChild(item);
-
-        // Wrap it with a tooltip the first time the mouse lands on it. We do this instead of baking them into the DOM
-        // to improve this page's performance. See: https://github.com/shoelace-style/shoelace/issues/1122
-        item.addEventListener('mouseover', () => wrapWithTooltip(item), { once: true });
-
-        // Copy on click
-        item.addEventListener('click', () => {
-          const tooltip = item.closest('wa-tooltip');
-          copyInput.value = i.name;
-          copyInput.select();
-          document.execCommand('copy');
-
-          if (tooltip) {
-            tooltip.content = 'Copied!';
-            setTimeout(() => tooltip.content = i.name, 1000);
-          }
-        });
-      });
-
-      // Filter as the user types
-      input.addEventListener('wa-input', () => {
-        clearTimeout(inputTimeout);
-        inputTimeout = setTimeout(() => {
-          [...list.querySelectorAll('.icon-list-item')].map(item => {
-            const filter = input.value.toLowerCase();
-            if (filter === '') {
-              item.hidden = false;
-            } else {
-              const terms = item.getAttribute('data-terms').toLowerCase();
-              item.hidden = terms.indexOf(filter) < 0;
-            }
-          });
-        }, 250);
-      });
-
-      // Sort by type and remember preference
-      const iconType = sessionStorage.getItem('wa-icon:type') || 'outline';
-      select.value = iconType;
-      list.setAttribute('data-type', select.value);
-      select.addEventListener('wa-change', () => {
-        list.setAttribute('data-type', select.value);
-        sessionStorage.setItem('wa-icon:type', select.value);
-      });
-    });
-</script>
-
-<style>
-  .icon-search {
-    border: solid 1px var(--wa-color-surface-border);
-    border-radius: var(--wa-corners-s);
-    padding: var(--wa-space-m);
-  }
-
-  .icon-search [hidden] {
-    display: none;
-  }
-
-  .icon-search-controls {
-    display: flex;
-  }
-
-  .icon-search-controls wa-input {
-    flex: 1 1 auto;
-  }
-
-  .icon-search-controls wa-select {
-    width: 10rem;
-    flex: 0 0 auto;
-    margin-left: 1rem;
-  }
-
-  .icon-loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 30vh;
-  }
-
-  .icon-list {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    position: relative;
-    margin-top: 1rem;
-  }
-
-  .icon-loader[hidden],
-  .icon-list[hidden] {
-    display: none;
-  }
-
-  .icon-list-item {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--wa-corners-s);
-    font-size: 24px;
-    width: 2em;
-    height: 2em;
-    margin: 0 auto;
-    cursor: copy;
-    transition: var(--wa-transition-fast) all;
-  }
-
-  .icon-list-item:hover {
-    background-color: var(--wa-color-brand-fill-subtle);
-    color: var(--wa-color-brand-text-on-fill);
-  }
-
-  .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {
-    display: none;
-  }
-
-  .icon-list[data-type="fill"] .icon-list-item:not([data-name$="-fill"]) {
-    display: none;
-  }
-
-  .icon-copy-input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  @media screen and (max-width: 1000px) {
-    .icon-list {
-      grid-template-columns: repeat(8, 1fr);
-    }
-
-    .icon-list-item {
-      font-size: 20px;
-    }
-
-    .icon-search-controls {
-      display: block;
-    }
-
-    .icon-search-controls wa-select {
-      width: auto;
-      margin: 1rem 0 0 0;
-    }
-  }
-
-  @media screen and (max-width: 500px) {
-    .icon-list {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-</style>

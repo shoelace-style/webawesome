@@ -207,7 +207,7 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 
 <script>
   const rating = document.querySelector('.rating-hearts');
-  rating.getSymbol = () => '<wa-icon name="heart-fill"></wa-icon>';
+  rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 </script>
 ```
 
@@ -219,7 +219,7 @@ import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 const App = () => (
   <WaRating
     label="Rating"
-    getSymbol={() => '<wa-icon name="heart-fill"></wa-icon>'}
+    getSymbol={() => '<wa-icon name="heart" variant="solid"></wa-icon>'}
     style={{ '--symbol-color-active': '#ff4136' }}
   />
 );
@@ -238,7 +238,7 @@ You can also use the `getSymbol` property to render different icons based on val
   const rating = document.querySelector('.rating-emojis');
 
   rating.getSymbol = value => {
-    const icons = ['emoji-angry', 'emoji-frown', 'emoji-expressionless', 'emoji-smile', 'emoji-laughing'];
+    const icons = ['face-angry', 'face-frown', 'face-meh', 'face-smile', 'face-laugh'];
     return `<wa-icon name="${icons[value - 1]}"></wa-icon>`;
   };
 </script>
@@ -248,7 +248,7 @@ You can also use the `getSymbol` property to render different icons based on val
 import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 
 function getSymbol(value) {
-  const icons = ['emoji-angry', 'emoji-frown', 'emoji-expressionless', 'emoji-smile', 'emoji-laughing'];
+  const icons = ['face-angry', 'face-frown', 'face-meh', 'face-smile', 'face-laugh'];
   return `<wa-icon name="${icons[value - 1]}"></wa-icon>`;
 }
 

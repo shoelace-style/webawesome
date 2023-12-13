@@ -1,6 +1,7 @@
 let basePath = '';
+let kitCode = '';
 
-/** Sets the library's base path to the specified directory. */
+/** Sets the library's base path to the specified directory or URL. */
 export function setBasePath(path: string) {
   basePath = path;
 }
@@ -10,11 +11,10 @@ export function setBasePath(path: string) {
  *
  * The base path is used to load assets such as icons and images, so it needs to be set for components to work properly.
  * By default, this script will look for a script ending in webawesome.js or autoloader.js and set the base path to the
- * directory that contains that file. To override this behavior, you can add the data-web-awesome attribute to any script
- * on the page (it probably makes the most sense to attach it to the Web Awesome script, but it could also be on a
- * bundle). The value can be a local folder or it can point to a CORS-enabled endpoint such as a CDN.
+ * directory that contains that file. To override this behavior, you can add the data-webawesome attribute to any
+ * element on the page to point to a local path or a CORS-enabled endpoint, such as a CDN.
  *
- *   <script src="bundle.js" data-web-awesome="/custom/base/path"></script>
+ *   <script src="bundle.js" data-webawesome="/custom/base/path"></script>
  *
  * Alternatively, you can set the base path manually using the exported setBasePath() function.
  *
@@ -22,15 +22,17 @@ export function setBasePath(path: string) {
  */
 export function getBasePath(subpath = '') {
   if (!basePath) {
-    const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];
-    const configScript = scripts.find(script => script.hasAttribute('data-web-awesome'));
+    // If we haven't set the base path yet, let's set it now
+    const el = document.querySelector('[data-webawesome]');
 
-    if (configScript) {
-      // Use the data-web-awesome attribute
-      setBasePath(configScript.getAttribute('data-web-awesome')!);
+    if (el) {
+      // Use the data-webawesome attribute
+      setBasePath(el.getAttribute('data-webawesome') || '');
     } else {
+      // Look for webawesome.js or autoloader.js
+      const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];
       const fallbackScript = scripts.find(s => {
-        return /webawesome(\.min)?\.js($|\?)/.test(s.src) || /autoloader(\.min)?\.js($|\?)/.test(s.src);
+        return /webawesome\.js($|\?)/.test(s.src) || /autoloader\.js($|\?)/.test(s.src);
       });
       let path = '';
 
@@ -44,4 +46,33 @@ export function getBasePath(subpath = '') {
 
   // Return the base path without a trailing slash. If one exists, append the subpath separated by a slash.
   return basePath.replace(/\/$/, '') + (subpath ? `/${subpath.replace(/^\//, '')}` : ``);
+}
+
+/** Sets the library's Web Awesome kit code. */
+export function setKitCode(code: string) {
+  kitCode = code;
+}
+
+/**
+ * Gets the library's Web Awesome kit code.
+ *
+ * The kit code is used to fetch premium assets, so it needs to be set for certain components to work correctly. This
+ * isn't something we can infer, so the user will need to provide it using the `data-webawesome-kit` attribute. This can
+ * be on any element, but ideally it should exist on the script that imports Web Awesome.
+ *
+ *   <script src="bundle.js" data-webawesome-kit="abc123"></script>
+ *
+ * Alternatively, you can set the kit code manually using the exported `setKitCode()` function.
+ *
+ */
+export function getKitCode() {
+  if (!kitCode) {
+    const el = document.querySelector('[data-webawesome-kit]');
+
+    if (el) {
+      setKitCode(el.getAttribute('data-webawesome-kit') || '');
+    }
+  }
+
+  return kitCode;
 }

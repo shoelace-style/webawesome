@@ -165,7 +165,7 @@ The header shows a functional close button by default. You can use the `header-a
 
 ```html:preview
 <wa-dialog label="Dialog" class="dialog-header-actions">
-  <wa-icon-button class="new-window" slot="header-actions" name="box-arrow-up-right"></wa-icon-button>
+  <wa-icon-button class="new-window" slot="header-actions" name="arrow-up-right-from-square" variant="solid"></wa-icon-button>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand">Close</wa-button>
 </wa-dialog>
@@ -199,7 +199,7 @@ const App = () => {
         <WaIconButton
           class="new-window"
           slot="header-actions"
-          name="box-arrow-up-right"
+          name="arrow-up-right-from-square"
           onClick={() => window.open(location.href)}
         />
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

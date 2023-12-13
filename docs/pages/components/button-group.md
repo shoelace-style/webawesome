@@ -401,34 +401,34 @@ Create interactive toolbars with button groups.
 <div class="button-group-toolbar">
   <wa-button-group label="History">
     <wa-tooltip content="Undo">
-      <wa-button><wa-icon name="arrow-counterclockwise" label="Undo"></wa-icon></wa-button>
+      <wa-button><wa-icon name="undo" variant="solid" label="Undo"></wa-icon></wa-button>
     </wa-tooltip>
     <wa-tooltip content="Redo">
-      <wa-button><wa-icon name="arrow-clockwise" label="Redo"></wa-icon></wa-button>
+      <wa-button><wa-icon name="redo" variant="solid" label="Redo"></wa-icon></wa-button>
     </wa-tooltip>
   </wa-button-group>
 
   <wa-button-group label="Formatting">
     <wa-tooltip content="Bold">
-      <wa-button><wa-icon name="type-bold" label="Bold"></wa-icon></wa-button>
+      <wa-button><wa-icon name="bold" variant="solid" label="Bold"></wa-icon></wa-button>
     </wa-tooltip>
     <wa-tooltip content="Italic">
-      <wa-button><wa-icon name="type-italic" label="Italic"></wa-icon></wa-button>
+      <wa-button><wa-icon name="italic" variant="solid" label="Italic"></wa-icon></wa-button>
     </wa-tooltip>
     <wa-tooltip content="Underline">
-      <wa-button><wa-icon name="type-underline" label="Underline"></wa-icon></wa-button>
+      <wa-button><wa-icon name="underline" variant="solid" label="Underline"></wa-icon></wa-button>
     </wa-tooltip>
   </wa-button-group>
 
   <wa-button-group label="Alignment">
     <wa-tooltip content="Align Left">
-      <wa-button><wa-icon name="justify-left" label="Align Left"></wa-icon></wa-button>
+      <wa-button><wa-icon name="align-left" variant="solid" label="Align Left"></wa-icon></wa-button>
     </wa-tooltip>
     <wa-tooltip content="Align Center">
-      <wa-button><wa-icon name="justify" label="Align Center"></wa-icon></wa-button>
+      <wa-button><wa-icon name="align-center" variant="solid" label="Align Center"></wa-icon></wa-button>
     </wa-tooltip>
     <wa-tooltip content="Align Right">
-      <wa-button><wa-icon name="justify-right" label="Align Right"></wa-icon></wa-button>
+      <wa-button><wa-icon name="align-right" variant="solid" label="Align Right"></wa-icon></wa-button>
     </wa-tooltip>
   </wa-button-group>
 </div>
@@ -458,12 +458,12 @@ const App = () => (
       <WaButtonGroup label="History">
         <WaTooltip content="Undo">
           <WaButton>
-            <WaIcon name="arrow-counterclockwise"></WaIcon>
+            <WaIcon name="undo" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
         <WaTooltip content="Redo">
           <WaButton>
-            <WaIcon name="arrow-clockwise"></WaIcon>
+            <WaIcon name="redo" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
       </WaButtonGroup>
@@ -471,17 +471,17 @@ const App = () => (
       <WaButtonGroup label="Formatting">
         <WaTooltip content="Bold">
           <WaButton>
-            <WaIcon name="type-bold"></WaIcon>
+            <WaIcon name="bold" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
         <WaTooltip content="Italic">
           <WaButton>
-            <WaIcon name="type-italic"></WaIcon>
+            <WaIcon name="italic" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
         <WaTooltip content="Underline">
           <WaButton>
-            <WaIcon name="type-underline"></WaIcon>
+            <WaIcon name="underline" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
       </WaButtonGroup>
@@ -489,17 +489,17 @@ const App = () => (
       <WaButtonGroup label="Alignment">
         <WaTooltip content="Align Left">
           <WaButton>
-            <WaIcon name="justify-left"></WaIcon>
+            <WaIcon name="align-left" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
         <WaTooltip content="Align Center">
           <WaButton>
-            <WaIcon name="justify"></WaIcon>
+            <WaIcon name="align-center" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
         <WaTooltip content="Align Right">
           <WaButton>
-            <WaIcon name="justify-right"></WaIcon>
+            <WaIcon name="align-right" variant="solid"></WaIcon>
           </WaButton>
         </WaTooltip>
       </WaButtonGroup>

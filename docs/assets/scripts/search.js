@@ -30,7 +30,7 @@
               aria-activedescendant
             >
             <button type="button" class="search__clear-button" aria-label="Clear entry" tabindex="-1" hidden>
-              <wa-icon name="x-circle-fill"></wa-icon>
+              <wa-icon name="circle-xmark" variant="regular"></wa-icon>
             </button>
           </div>
         </div>
@@ -44,8 +44,8 @@
           <div class="search__empty">No matching pages</div>
         </div>
         <footer class="search__footer">
-          <small><kbd>↑</kbd> <kbd>↓</kbd> Navigate</small>
-          <small><kbd>↲</kbd> Select</small>
+          <small><kbd><wa-icon label="Up" name="arrow-up"></wa-icon></kbd> <kbd><wa-icon label="Down" name="arrow-down"></wa-icon></kbd> Navigate</small>
+          <small><kbd><wa-icon label="Enter" name="arrow-turn-down-left"></wa-icon></kbd> Select</small>
           <small><kbd>Esc</kbd> Close</small>
         </footer>
       </div>
@@ -297,16 +297,16 @@
           icon = 'book';
         }
         if (page.url.includes('components/')) {
-          icon = 'puzzle';
+          icon = 'puzzle-piece';
         }
         if (page.url.includes('tokens/')) {
-          icon = 'palette2';
+          icon = 'swatchbook';
         }
         if (page.url.includes('utilities/')) {
           icon = 'wrench';
         }
         if (page.url.includes('tutorials/')) {
-          icon = 'joystick';
+          icon = 'gamepad';
         }
 
         li.classList.add('search__result');
