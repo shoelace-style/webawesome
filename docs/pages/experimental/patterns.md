@@ -111,7 +111,7 @@ toc: false
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
                   <div class="wa:flex-align">
-                    <strong>Cory L.</strong> <wa-tag variant="success" size="small"><wa-icon name="check-lg" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
+                    <strong>Cory L.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date></small>
                 </div>
@@ -124,7 +124,7 @@ toc: false
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
                   <div class="wa:flex-align">
-                    <strong>Konnor R.</strong> <wa-tag variant="success" size="small"><wa-icon name="check-lg" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
+                    <strong>Konnor R.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date date="2023-11-16T09:17:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></small>
                 </div>
@@ -137,7 +137,7 @@ toc: false
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
                   <div class="wa:flex-align">
-                    <strong>Kelsey J.</strong> <wa-tag variant="success" size="small"><wa-icon name="check-lg" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
+                    <strong>Kelsey J.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-right:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date date="2023-10-31T09:17:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></small>
                 </div>
