@@ -304,8 +304,8 @@ export default css`
   }
 
   .button--caret .button__caret::part(svg) {
-    width: 0.75em;
-    height: 0.75em;
+    width: 0.875em;
+    height: 0.875em;
   }
 
   /*

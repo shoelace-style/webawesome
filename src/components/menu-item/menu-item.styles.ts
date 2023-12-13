@@ -100,6 +100,7 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.875em;
     width: var(--wa-space-xl);
     visibility: hidden;
   }

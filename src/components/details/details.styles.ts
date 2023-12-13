@@ -60,6 +60,7 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+    color: var(--wa-color-text-quiet);
     transition: var(--wa-transition-fast) rotate ease;
   }
 

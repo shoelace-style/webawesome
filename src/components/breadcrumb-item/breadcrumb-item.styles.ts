@@ -63,12 +63,12 @@ export default css`
 
   .breadcrumb-item--has-prefix .breadcrumb-item__prefix {
     display: inline-flex;
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: var(--wa-space-s);
   }
 
   .breadcrumb-item--has-suffix .breadcrumb-item__suffix {
     display: inline-flex;
-    margin-inline-start: var(--wa-space-xs);
+    margin-inline-start: var(--wa-space-s);
   }
 
   :host(:last-of-type) .breadcrumb-item__separator {
@@ -78,7 +78,7 @@ export default css`
   .breadcrumb-item__separator {
     display: inline-flex;
     align-items: center;
-    margin: 0 var(--wa-space-xs);
+    margin: 0 var(--wa-space-s);
     user-select: none;
     -webkit-user-select: none;
   }

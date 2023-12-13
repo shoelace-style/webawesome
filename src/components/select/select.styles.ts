@@ -274,6 +274,8 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+    color: var(--wa-color-text-quiet);
+    font-size: 0.875em;
     transition: rotate var(--wa-transition-normal) ease;
     rotate: 0;
     margin-inline-start: var(--wa-space-s);
