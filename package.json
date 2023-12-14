@@ -43,7 +43,9 @@
   },
   "scripts": {
     "start": "node scripts/build.js --serve",
+    "docs:start": "cd starlight-docs && npm run dev -- --silent",
     "build": "node scripts/build.js",
+    "docs:build": "cd starlight-docs && npm run build -- --silent",
     "verify": "npm run prettier:check && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run verify",
     "prettier": "prettier --write --log-level warn .",
@@ -64,6 +66,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
     "@floating-ui/dom": "^1.5.3",
+    "@hotwired/turbo": "^8.0.0-beta.1",
     "@shoelace-style/animations": "^1.1.0",
     "@shoelace-style/localize": "^3.1.2",
     "composed-offset-position": "^0.0.4",

@@ -30,16 +30,14 @@ const shoelaceVersion = JSON.stringify(packageData.version.toString());
 //
 async function buildTheDocs(watch = false) {
   return new Promise(async (resolve, reject) => {
-    const afterSignal = '[eleventy.after]';
-    const errorSignal = 'Original error stack trace:';
-    const args = ['@11ty/eleventy', '--quiet'];
+    const afterSignal = 'watching for file changes...';
+    const errorSignal = '[ERROR]';
+    let args = ['run', 'docs:build']
 
     if (watch) {
-      args.push('--watch');
-      args.push('--incremental');
+      args = ['run', 'docs:start']
     }
-
-    const child = spawn('npx', args, {
+    const child = spawn('npm', args, {
       stdio: 'pipe',
       cwd: 'docs',
       shell: true // for Windows
@@ -223,71 +221,71 @@ if (serve) {
   // Kick off the Eleventy dev server with --watch and --incremental
   await nextTask('Building docs', async () => await buildTheDocs(true));
 
-  const bs = browserSync.create();
-  const port = await getPort({ port: portNumbers(4000, 4999) });
-  const browserSyncConfig = {
-    startPath: '/',
-    port,
-    logLevel: 'silent',
-    logPrefix: '[webawesome]',
-    logFileChanges: true,
-    notify: false,
-    single: false,
-    ghostMode: false,
-    server: {
-      baseDir: sitedir,
-      routes: {
-        '/dist': './cdn'
-      }
-    }
-  };
-
-  // Launch browser sync
-  bs.init(browserSyncConfig, () => {
-    const url = `http://localhost:${port}`;
-    console.log(chalk.cyan(`\n🏀 The dev server is available at ${url}\n`));
-  });
-
-  // Rebuild and reload when source files change
-  bs.watch('src/**/!(*.test).*').on('change', async filename => {
-    console.log('[build] File changed: ', filename);
-
-    try {
-      const isTheme = /^src\/themes/.test(filename);
-      const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
-
-      // Rebuild the source
-      const rebuildResults = buildResults.map(result => result.rebuild());
-      await Promise.all(rebuildResults);
-
-      // Rebuild stylesheets when a theme file changes
-      if (isTheme) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      // Rebuild metadata (but not when styles are changed)
-      if (!isStylesheet) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      bs.reload();
-    } catch (err) {
-      console.error(chalk.red(err), '\n');
-    }
-  });
-
-  // Reload without rebuilding when the docs change
-  bs.watch([`${sitedir}/**/*.*`]).on('change', filename => {
-    bs.reload();
-  });
+  // const bs = browserSync.create();
+  // const port = await getPort({ port: portNumbers(4000, 4999) });
+  // const browserSyncConfig = {
+  //   startPath: '/',
+  //   port,
+  //   logLevel: 'silent',
+  //   logPrefix: '[webawesome]',
+  //   logFileChanges: true,
+  //   notify: false,
+  //   single: false,
+  //   ghostMode: false,
+  //   server: {
+  //     baseDir: sitedir,
+  //     routes: {
+  //       '/dist': './cdn'
+  //     }
+  //   }
+  // };
+  //
+  // // Launch browser sync
+  // bs.init(browserSyncConfig, () => {
+  //   const url = `http://localhost:${port}`;
+  //   console.log(chalk.cyan(`\n🏀 The dev server is available at ${url}\n`));
+  // });
+  //
+  // // Rebuild and reload when source files change
+  // bs.watch('src/**/!(*.test).*').on('change', async filename => {
+  //   console.log('[build] File changed: ', filename);
+  //
+  //   try {
+  //     const isTheme = /^src\/themes/.test(filename);
+  //     const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
+  //
+  //     // Rebuild the source
+  //     const rebuildResults = buildResults.map(result => result.rebuild());
+  //     await Promise.all(rebuildResults);
+  //
+  //     // Rebuild stylesheets when a theme file changes
+  //     if (isTheme) {
+  //       await Promise.all(
+  //         bundleDirectories.map(dir => {
+  //           execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
+  //         })
+  //       );
+  //     }
+  //
+  //     // Rebuild metadata (but not when styles are changed)
+  //     if (!isStylesheet) {
+  //       await Promise.all(
+  //         bundleDirectories.map(dir => {
+  //           return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
+  //         })
+  //       );
+  //     }
+  //
+  //     bs.reload();
+  //   } catch (err) {
+  //     console.error(chalk.red(err), '\n');
+  //   }
+  // });
+  //
+  // // Reload without rebuilding when the docs change
+  // bs.watch([`${sitedir}/**/*.*`]).on('change', filename => {
+  //   bs.reload();
+  // });
 }
 
 // Build for production

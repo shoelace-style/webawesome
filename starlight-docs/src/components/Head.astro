@@ -1,0 +1,10 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Head from '@astrojs/starlight/components/Head.astro';
+---
+
+<script>
+import "@shoelace-style/shoelace"
+</script>
+
+<Head {...Astro.props}><slot /></Head>
