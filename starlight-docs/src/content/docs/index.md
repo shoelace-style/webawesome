@@ -1,7 +1,6 @@
 ---
 title: 'Web Awesome: A forward-thinking library of web components.'
 description: Hand-crafted custom elements for any occasion.
-template: splash
 ---
 
 {% include "logo.njk" %}

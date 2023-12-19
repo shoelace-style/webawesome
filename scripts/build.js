@@ -13,6 +13,7 @@ import * as path from 'path';
 import { readFileSync } from 'fs';
 import { replace } from 'esbuild-plugin-replace';
 import { dev, build } from "astro"
+import chokidar from "chokidar"
 
 const { serve } = commandLineArgs([{ name: 'serve', type: Boolean }]);
 const outdir = 'dist';
@@ -122,7 +123,7 @@ function exit() {
     }
   });
 
-  process.exit();
+  process.exit(1);
 }
 
 //
@@ -148,7 +149,7 @@ async function nextTask(label, action) {
     process.stdout.write(`${chalk.red('✘')} ${label}\n\n`);
     if (err.stdout) process.stdout.write(`${chalk.red(err.stdout)}\n`);
     if (err.stderr) process.stderr.write(`${chalk.red(err.stderr)}\n`);
-    exit(1);
+    exit();
   }
 }
 
@@ -187,6 +188,16 @@ await nextTask('Building source files', async () => {
   buildResults = await buildTheSource();
 });
 
+// Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
+await nextTask(`Copying the build to "${sitedir}"`, async () => {
+  const siteDistDir = path.join(sitedir, 'dist')
+  await deleteAsync(siteDistDir);
+
+  // We copy the CDN build because that has everything bundled. Yes this looks weird.
+  // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
+  await copy(cdndir, siteDistDir);
+});
+
 // Launch the dev server
 if (serve) {
   // Spin up Eleventy and Wait for the search index to appear before proceeding. The search index is generated during
@@ -194,83 +205,45 @@ if (serve) {
   // Kick off the Eleventy dev server with --watch and --incremental
   await nextTask('Building docs', async () => await buildTheDocs(true));
 
-  // const bs = browserSync.create();
-  // const port = await getPort({ port: portNumbers(4000, 4999) });
-  // const browserSyncConfig = {
-  //   startPath: '/',
-  //   port,
-  //   logLevel: 'silent',
-  //   logPrefix: '[webawesome]',
-  //   logFileChanges: true,
-  //   notify: false,
-  //   single: false,
-  //   ghostMode: false,
-  //   server: {
-  //     baseDir: sitedir,
-  //     routes: {
-  //       '/dist': './cdn'
-  //     }
-  //   }
-  // };
-  //
-  // // Launch browser sync
-  // bs.init(browserSyncConfig, () => {
-  //   const url = `http://localhost:${port}`;
-  //   console.log(chalk.cyan(`\n🏀 The dev server is available at ${url}\n`));
-  // });
-  //
-  // // Rebuild and reload when source files change
-  // bs.watch('src/**/!(*.test).*').on('change', async filename => {
-  //   console.log('[build] File changed: ', filename);
-  //
-  //   try {
-  //     const isTheme = /^src\/themes/.test(filename);
-  //     const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
-  //
-  //     // Rebuild the source
-  //     const rebuildResults = buildResults.map(result => result.rebuild());
-  //     await Promise.all(rebuildResults);
-  //
-  //     // Rebuild stylesheets when a theme file changes
-  //     if (isTheme) {
-  //       await Promise.all(
-  //         bundleDirectories.map(dir => {
-  //           execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
-  //         })
-  //       );
-  //     }
-  //
-  //     // Rebuild metadata (but not when styles are changed)
-  //     if (!isStylesheet) {
-  //       await Promise.all(
-  //         bundleDirectories.map(dir => {
-  //           return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
-  //         })
-  //       );
-  //     }
-  //
-  //     bs.reload();
-  //   } catch (err) {
-  //     console.error(chalk.red(err), '\n');
-  //   }
-  // });
-  //
-  // // Reload without rebuilding when the docs change
-  // bs.watch([`${sitedir}/**/*.*`]).on('change', filename => {
-  //   bs.reload();
-  // });
+  // Rebuild and reload when source files change
+  chokidar.watch('src/**/!(*.test).*').on('change', async filename => {
+    console.log('[build] File changed: ', filename);
+
+    try {
+      const isTheme = /^src\/themes/.test(filename);
+      const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
+
+      // Rebuild the source
+      const rebuildResults = buildResults.map(result => result.rebuild());
+      await Promise.all(rebuildResults);
+
+      // Rebuild stylesheets when a theme file changes
+      if (isTheme) {
+        await Promise.all(
+          bundleDirectories.map(dir => {
+            execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
+          })
+        );
+      }
+
+      // Rebuild metadata (but not when styles are changed)
+      if (!isStylesheet) {
+        await Promise.all(
+          bundleDirectories.map(dir => {
+            return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
+          })
+        );
+      }
+
+      bs.reload();
+    } catch (err) {
+      console.error(chalk.red(err), '\n');
+    }
+  });
 }
 
 // Build for production
 if (!serve) {
-  // Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
-  await nextTask(`Copying the build to "${sitedir}"`, async () => {
-    await deleteAsync(sitedir);
-
-    // We copy the CDN build because that has everything bundled. Yes this looks weird.
-    // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
-    await copy(cdndir, path.join(sitedir, 'dist'));
-  });
   await nextTask('Building the docs', async () => {
     await buildTheDocs();
   });
@@ -281,5 +254,5 @@ process.on('SIGINT', exit);
 process.on('SIGTERM', exit);
 process.on('uncaughtException', function(err) {
   console.error(err);
-  exit
+  exit()
 });

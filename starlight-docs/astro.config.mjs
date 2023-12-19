@@ -1,20 +1,25 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import FullReload from 'vite-plugin-full-reload'
+import * as url from 'node:url';
+import * as path from 'node:path';
+// const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
   server: {
     open: true
   },
-  vite: {
-    plugins: [
-      FullReload([
-        "../custom-elements.json",
-      ])
-    ]
-  },
 	integrations: [
+	  {
+	    name: "shoelace-build",
+	    hooks: {
+	      'astro:config:setup': ({ addWatchFile }) => {
+	        // Listen for when custom-elements.json changes.
+	        addWatchFile(path.relative(__dirname, "../dist/custom-elements.json"))
+	      }
+	    }
+    },
 		starlight({
 			title: 'Web Awesome',
 			social: {
