@@ -1,8 +1,7 @@
 ---
-meta:
-  title: 'Web Awesome: A forward-thinking library of web components.'
-  description: Hand-crafted custom elements for any occasion.
-toc: false
+title: 'Web Awesome: A forward-thinking library of web components.'
+description: Hand-crafted custom elements for any occasion.
+
 ---
 
 <div class="splash">

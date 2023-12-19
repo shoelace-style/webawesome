@@ -14,7 +14,7 @@ import type { CSSResultGroup } from 'lit';
 import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
 
 /**
- * @summary Buttons represent actions that are available to the user.
+ * @summary Buttons represent actions that are available to the user. kjwfjkwffjkjkw
  * @documentation https://shoelace.style/components/button
  * @status stable
  * @since 2.0

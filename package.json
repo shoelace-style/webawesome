@@ -75,6 +75,8 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "@astrojs/check": "^0.3.2",
+    "@astrojs/starlight": "^0.15.0",
     "@custom-elements-manifest/analyzer": "^0.8.4",
     "@lit/react": "^1.0.0",
     "@open-wc/testing": "^3.2.0",
@@ -86,6 +88,7 @@
     "@web/test-runner": "^0.15.3",
     "@web/test-runner-commands": "^0.6.6",
     "@web/test-runner-playwright": "^0.9.0",
+    "astro": "^4.0.1",
     "bootstrap-icons": "^1.11.1",
     "browser-sync": "^2.29.3",
     "chalk": "^5.3.0",
@@ -128,13 +131,16 @@
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "recursive-copy": "^2.0.14",
+    "sharp": "^0.32.5",
     "sinon": "^16.1.0",
     "smartquotes": "^2.3.2",
     "source-map": "^0.7.4",
     "strip-css-comments": "^5.0.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
-    "user-agent-data-types": "^0.3.1"
+    "user-agent-data-types": "^0.3.1",
+    "vite": "^5.0.10",
+    "vite-plugin-full-reload": "^1.1.0"
   },
   "lint-staged": {
     "*.{ts,js}": [

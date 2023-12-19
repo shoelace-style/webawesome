@@ -12,6 +12,7 @@ import util from 'util';
 import * as path from 'path';
 import { readFileSync } from 'fs';
 import { replace } from 'esbuild-plugin-replace';
+import { dev, build } from "astro"
 
 const { serve } = commandLineArgs([{ name: 'serve', type: Boolean }]);
 const outdir = 'dist';
@@ -29,45 +30,17 @@ const shoelaceVersion = JSON.stringify(packageData.version.toString());
 // process and an array of strings containing any output are included in the resolved promise.
 //
 async function buildTheDocs(watch = false) {
-  return new Promise(async (resolve, reject) => {
-    const afterSignal = 'watching for file changes...';
-    const errorSignal = '[ERROR]';
-    let args = ['run', 'docs:build']
-
-    if (watch) {
-      args = ['run', 'docs:start']
-    }
-    const child = spawn('npm', args, {
-      stdio: 'pipe',
-      cwd: 'docs',
-      shell: true // for Windows
-    });
-
-    child.stdout.setEncoding('utf8');
-    child.stderr.setEncoding('utf8');
-    child.stdout.on('data', data => {
-      console.log(data);
-
-      // The process doesn't terminate in watch mode so, before resolving, we listen for a known signal in stdout that
-      // tells us when the first build completes so we can start up Browser Sync. The 11ty dev server will keep running
-      // after this.
-      if (watch && data.includes(afterSignal)) {
-        resolve();
-        return;
-      }
-    });
-    child.stderr.on('data', data => {
-      console.log(data);
-
-      // Look for a known error signal
-      if (data.includes(errorSignal)) {
-        reject({ stderr: data });
-        return;
-      }
-    });
-    child.on('error', error => reject(error));
-    child.on('close', () => resolve());
-  });
+  /** @type {import("astro").AstroInlineConfig} */
+  const config = {
+    root: path.join(process.cwd(), "starlight-docs"),
+    outDir: path.join(process.cwd(), sitedir),
+    site: "https://shoelace.style"
+  }
+  if (watch) {
+    await dev(config)
+  } else {
+    await build(config)
+  }
 }
 
 //
@@ -174,8 +147,8 @@ async function nextTask(label, action) {
     clearLine();
     process.stdout.write(`${chalk.red('✘')} ${label}\n\n`);
     if (err.stdout) process.stdout.write(`${chalk.red(err.stdout)}\n`);
-    if (err.stderr) process.stdout.write(`${chalk.red(err.stderr)}\n`);
-    exit();
+    if (err.stderr) process.stderr.write(`${chalk.red(err.stderr)}\n`);
+    exit(1);
   }
 }
 
@@ -306,3 +279,7 @@ if (!serve) {
 // Cleanup on exit
 process.on('SIGINT', exit);
 process.on('SIGTERM', exit);
+process.on('uncaughtException', function(err) {
+  console.error(err);
+  exit
+});

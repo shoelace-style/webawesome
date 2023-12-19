@@ -1,14 +1,22 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import FullReload from 'vite-plugin-full-reload'
 
 // https://astro.build/config
 export default defineConfig({
   server: {
     open: true
   },
+  vite: {
+    plugins: [
+      FullReload([
+        "../custom-elements.json",
+      ])
+    ]
+  },
 	integrations: [
 		starlight({
-			title: 'WebAwesome',
+			title: 'Web Awesome',
 			social: {
 				github: 'https://github.com/shoelace-style/shoelace',
 			},
@@ -43,7 +51,7 @@ export default defineConfig({
         },
 			],
 			// Global CSS
-      customCss: ['@shoelace-style/shoelace/dist/themes/default.css'],
+      customCss: ['../dist/themes/default.css'],
       // Component overrides
       components: {
         // Override the default `Head` component.
