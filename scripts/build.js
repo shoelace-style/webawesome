@@ -35,12 +35,18 @@ async function buildTheDocs(watch = false) {
   const config = {
     root: path.join(process.cwd(), "starlight-docs"),
     outDir: path.join(process.cwd(), sitedir),
-    site: "https://shoelace.style"
+    site: "https://shoelace.style",
   }
   if (watch) {
-    await dev(config)
+    await dev({
+      ...config,
+      mode: "development"
+    })
   } else {
-    await build(config)
+    await build({
+      ...config,
+      mode: "production"
+    })
   }
 }
 

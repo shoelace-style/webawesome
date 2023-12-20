@@ -52,7 +52,7 @@ export default defineConfig({
         },
         {
           label: "Tutorials",
-          autogenerate: { directory: "tokens" }
+          autogenerate: { directory: "tutorials" }
         },
 			],
 			// Global CSS
