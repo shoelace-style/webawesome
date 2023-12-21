@@ -43,6 +43,8 @@ async function buildTheDocs(watch = false) {
       mode: "development"
     })
   } else {
+    // For some reason `mode: "production"` doesn't work as expected.
+    process.env.NODE_ENV = "production"
     await build({
       ...config,
       mode: "production"

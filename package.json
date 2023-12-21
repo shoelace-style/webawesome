@@ -125,6 +125,7 @@
     "markdown-it-kbd": "^2.2.2",
     "markdown-it-mark": "^3.0.1",
     "markdown-it-replace-it": "^1.0.0",
+    "marked": "^11.1.0",
     "npm-check-updates": "^16.14.6",
     "pascal-case": "^3.1.2",
     "plop": "^4.0.0",

@@ -7,6 +7,23 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 import FullReload from "vite-plugin-full-reload"
 
+import {customElementsManifest} from "./src/js/cem.js"
+
+const version = customElementsManifest.package.version
+const cdndir = "cdn"
+const npmdir = "dist"
+
+export function remarkFrontmatterPlugin() {
+  // All remark and rehype plugins return a separate function
+  return function (tree, file) {
+    const frontmatter = file.data.astro.frontmatter
+
+    frontmatter.npmdir = npmdir
+    frontmatter.cdndir = cdndir
+    frontmatter.version = version;
+  }
+}
+
 // https://astro.build/config
 export default defineConfig({
   server: {

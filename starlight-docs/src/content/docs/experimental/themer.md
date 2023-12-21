@@ -1,8 +1,12 @@
 ---
 title: Themer
 description: TODO
-toc: false
+template: 'splash'
 ---
+
+<style>
+  .header { display: none; }
+</style>
 
 <!-- Knobs -->
 <div id="knobs">
