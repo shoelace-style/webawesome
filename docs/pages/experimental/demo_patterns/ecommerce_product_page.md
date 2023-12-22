@@ -202,6 +202,6 @@ toc: false
   }
   main {
     padding: initial;
-    margin: var(--wa-space-3xl);
+    margin: var(--wa-space-xl);
   }
 </style>
