@@ -1,59 +1,51 @@
 ---
 meta:
-  title: Patterns
-  description: TBD
+  title: Ecommerce Product Page
+  description: TODO
+toc: false
 ---
 
-# Patterns
-
-## Full demos
-
-- [Ecommerce: Product Page](/experimental/demo_patterns/ecommerce_product_page)
-
-## Sections
-
-### Product Overview
-
-```html:preview
-<div class="wa:container wa:product-overview">
-  <div class="wa:grid:1-2">
-    <div class="wa:product-overview:hero">
-      <img src="https://images.pexels.com/photos/1021386/pexels-photo-1021386.jpeg" alt="">
-    </div>
-    <div class="wa:product-overview:description wa:block-flow:2xl">
-      <div class="wa:product-overview:summary wa:block-flow:s">
-        <wa-badge>20% Off</wa-badge>
-        <h1>Jupiter Moth Orchid</h1>
-        <p class="wa:product-overview:price"><s>$35</s> $28</p>
-        <div class="wa:product-overview:rating wa:inline-flow:s">
-          <wa-rating label="average stars" readonly precision="0.1" value="4.7"></wa-rating>
-          <a href="#product-reviews"><small>419 reviews</small></a>
+<div class="wa:block-flow:3xl">
+  <wa-breadcrumb>
+    <wa-breadcrumb-item>Plants</wa-breadcrumb-item>
+    <wa-breadcrumb-item>Indoor Plants</wa-breadcrumb-item>
+    <wa-breadcrumb-item>Orchids</wa-breadcrumb-item>
+    <wa-breadcrumb-item>Jupiter Moth Orchid</wa-breadcrumb-item>
+  </wa-breadcrumb>
+  <div class="wa:container wa:product-overview">
+    <div class="wa:grid:1-2">
+      <div class="wa:product-overview:hero">
+        <img src="https://images.pexels.com/photos/1021386/pexels-photo-1021386.jpeg" alt="">
+      </div>
+      <div class="wa:product-overview:description wa:block-flow:2xl">
+        <div class="wa:product-overview:summary wa:block-flow:s">
+          <wa-badge>20% Off</wa-badge>
+          <h1>Jupiter Moth Orchid</h1>
+          <p class="wa:product-overview:price"><s>$35</s> $28</p>
+          <div class="wa:product-overview:rating wa:inline-flow:s">
+            <wa-rating label="average stars" readonly precision="0.1" value="4.7"></wa-rating>
+            <a href="#product-reviews"><small>419 reviews</small></a>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <div class="wa:product-overview:actions wa:inline-flow:s">
-        <wa-input type="number" value="1" min="1" max="10" style="max-inline-size: 5rem;"></wa-input>
-        <wa-button variant="brand">Add to cart</wa-button>
-      </div>
-      <div class="wa:product-overview:details wa:block-flow:s">
-        <wa-details summary="Details">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-          aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </wa-details>
-        <wa-details summary="Care instructions">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-          aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </wa-details>
+        <div class="wa:product-overview:actions wa:inline-flow:s">
+          <wa-input type="number" value="1" min="1" max="10" style="max-inline-size: 5rem;"></wa-input>
+          <wa-button variant="brand">Add to cart</wa-button>
+        </div>
+        <div class="wa:product-overview:details wa:block-flow:s">
+          <wa-details summary="Details">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </wa-details>
+          <wa-details summary="Care instructions">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </wa-details>
+        </div>
       </div>
     </div>
   </div>
-</div>
-```
-
-### Reviews
-
-```html:preview
-<div class="wa:container wa:product-reviews" id="product-reviews">
+  <div class="wa:container wa:product-reviews" id="product-reviews">
     <wa-tab-group>
       <wa-tab slot="nav" panel="reviews">Reviews</wa-tab>
       <wa-tab slot="nav" panel="questions">Questions</wa-tab>
@@ -173,11 +165,6 @@ meta:
       </wa-tab-panel>
     </wa-tab-group>
   </div>
-```
-
-### Similar Products
-
-```html:preview
   <div class="wa:container wa:product-list-simple">
     <h2>You may also like</h2>
     <div class="wa:product-list-simple:items wa:grid:items-s wa:grid:min2">
@@ -204,4 +191,17 @@ meta:
     </div>
   </div>
 </div>
-```
+
+<style>
+  :root {
+    --docs-content-max-width: 72rem;
+  }
+  #menu-toggle,
+  #sidebar {
+    display: none;
+  }
+  main {
+    padding: initial;
+    margin: var(--wa-space-3xl);
+  }
+</style>

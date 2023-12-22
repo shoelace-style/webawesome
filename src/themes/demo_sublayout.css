@@ -1,0 +1,72 @@
+.wa\:container {
+  container-type: inline-size;
+}
+[class*='wa\:grid'] {
+  --wa-grid-gap: var(--wa-space-3xl);
+  --wa-grid-size: 30ch;
+  display: grid;
+  gap: var(--wa-grid-gap);
+
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--wa-grid-size), 100%), 1fr));
+}
+
+.wa\:grid\:items-s {
+  --wa-grid-size: 15ch;
+}
+.wa\:grid\:items-l {
+  --wa-grid-size: 60ch;
+}
+
+.wa\:grid\:min2 {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--wa-grid-size), calc(50% - (var(--wa-grid-gap) / 2))), 1fr)
+      minmax(min(var(--wa-grid-size), calc(50% - (var(--wa-grid-gap) / 2))), 1fr)
+  );
+}
+
+.wa\:grid\:aside-start {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    flex-grow: 1;
+    flex-basis: calc(((var(--wa-grid-size) * 2 + var(--wa-grid-gap)) - 100%) * 999);
+  }
+  & > * + * {
+    flex-grow: 2;
+  }
+}
+
+.wa\:inline-flow\:s {
+  --wa-flex-gap: var(--wa-space-s);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--wa-flex-gap);
+
+  & > * {
+    margin: 0;
+  }
+}
+[class*='wa\:block-flow'] > * {
+  margin-block: 0;
+}
+.wa\:block-flow\:3xl > * + * {
+  margin-block-start: var(--wa-space-3xl);
+}
+.wa\:block-flow\:2xl > * + * {
+  margin-block-start: var(--wa-space-2xl);
+}
+.wa\:block-flow\:xl > * + * {
+  margin-block-start: var(--wa-space-xl);
+}
+.wa\:block-flow\:l > * + * {
+  margin-block-start: var(--wa-space-l);
+}
+.wa\:block-flow\:m > * + * {
+  margin-block-start: var(--wa-space-m);
+}
+.wa\:block-flow\:s > * + * {
+  margin-block-start: var(--wa-space-s);
+}
