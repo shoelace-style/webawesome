@@ -2,14 +2,17 @@
 title: 'Web Awesome: A forward-thinking library of web components.'
 description: Hand-crafted custom elements for any occasion.
 ---
+import Logo from "../../components/Logo.astro"
 
-{% include "logo.njk" %}
 
 <div class="splash">
-<div class="splash-start">
+  <div class="splash-start">
+    <Logo />
+  </div>
+  <div class="splash-end">
 
+<div>
 # <wa-visually-hidden>Web Awesome:</wa-visually-hidden>
-
 - Works with all frameworks 🧩
 - Works with CDNs 🚛
 - Fully customizable with CSS 🎨
@@ -19,28 +22,24 @@ description: Hand-crafted custom elements for any occasion.
 - Built-in localization 💬
 - Open source 😸
 - [More awesome than ever](https://blog.fontawesome.com/shoelace-joins-font-awesome/) ![Awesome emoji](/assets/images/awesome.svg)
-
 </div>
-<div class="splash-end">
-<img class="splash-image" src="/assets/images/undraw-content-team.svg" alt="Cartoon of people assembling components while standing on a giant laptop.">
-</div>
+    <img class="splash-image" src="/assets/images/undraw-content-team.svg" alt="Cartoon of people assembling components while standing on a giant laptop." />
+  </div>
 </div>
 
 <div class="badges">
-
 [![jsDelivr](https://data.jsdelivr.com/v1/package/npm/@shoelace-style/shoelace/badge)](https://www.jsdelivr.com/package/npm/@shoelace-style/shoelace)
 [![npm](https://img.shields.io/npm/dw/@shoelace-style/shoelace?label=npm&style=flat-square)](https://www.npmjs.com/package/@shoelace-style/shoelace)
-[![License](https://img.shields.io/badge/license-MIT-232323.svg?style=flat-square)](https://github.com/shoelace-style/shoelace/blob/next/LICENSE.md)<br>
+[![License](https://img.shields.io/badge/license-MIT-232323.svg?style=flat-square)](https://github.com/shoelace-style/shoelace/blob/next/LICENSE.md)
+<br />
 [![Discord](https://img.shields.io/badge/Discord-Join%20the%20chat-5965f2.svg?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/mg8f26C)
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-00acee.svg?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/shoelace_style)
-
 </div>
 
 ## Quick Start
 
 Add the following code to your page.
 
-<!-- prettier-ignore -->
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/themes/default.css" />
 <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/autoloader.js"></script>
@@ -92,11 +91,11 @@ Whether you use Web Awesome as a starting point for your organization's design s
 
 Web Awesome is tested in the latest two versions of the following browsers.
 
-<img src="/assets/images/chrome.png" alt="Chrome" width="64" height="64">
-<img src="/assets/images/edge.png" alt="Edge" width="64" height="64">
-<img src="/assets/images/firefox.png" alt="Firefox" width="64" height="64">
-<img src="/assets/images/opera.png" alt="Opera" width="64" height="64">
-<img src="/assets/images/safari.png" alt="Safari" width="64" height="64">
+<img src="/assets/images/chrome.png" alt="Chrome" width="64" height="64" />
+<img src="/assets/images/edge.png" alt="Edge" width="64" height="64" />
+<img src="/assets/images/firefox.png" alt="Firefox" width="64" height="64" />
+<img src="/assets/images/opera.png" alt="Opera" width="64" height="64" />
+<img src="/assets/images/safari.png" alt="Safari" width="64" height="64" />
 
 Critical bug fixes in earlier versions will be addressed based on their severity and impact.
 
