@@ -13,7 +13,7 @@ const version = customElementsManifest.package.version
 const cdndir = "cdn"
 const npmdir = "dist"
 
-export function remarkFrontmatterPlugin() {
+function remarkFrontmatterPlugin() {
   // All remark and rehype plugins return a separate function
   return function (tree, file) {
     const frontmatter = file.data.astro.frontmatter
@@ -34,6 +34,11 @@ export default defineConfig({
       FullReload([
         path.relative(__dirname, "../dist/custom-elements.json")
       ])
+    ]
+  },
+  markdown: {
+    remarkPlugins: [
+      remarkFrontmatterPlugin
     ]
   },
 	integrations: [
@@ -77,7 +82,7 @@ export default defineConfig({
       // Component overrides
       components: {
         // Override the default `Head` component.
-        Head: './src/components/Head.astro',
+        Head: './src/components/overrides/Head.astro',
       },
 		}),
 

@@ -45,10 +45,7 @@ function classNameToComponentName (className: string) {
 const componentSummary = marked.parse(component.summary);
 ---
 
-
 <header class="component-header">
-  <h1>{classNameToComponentName(component.name)}</h1>
-
   <div class="component-header__tag">
     <code>&lt;{ component.tagName }&gt; | { component.name }</code>
   </div>
@@ -112,7 +109,7 @@ const componentSummary = marked.parse(component.summary);
 </wa-tab-group>
 
 {/* Slots */}
-{!component.slots?.length ? "" :
+{!component?.slots?.length ? "" :
   <>
     <h2>Slots</h2>
 
@@ -160,7 +157,7 @@ const componentSummary = marked.parse(component.summary);
             <tr>
               <td>
                 <code class="nowrap">{ prop.name }</code>
-                {prop.attribute.length <= 0 ? "" :
+                {prop.attribute?.length <= 0 ? "" :
                   { prop.attribute == prop.name ? "" :
                     <br>
                     <wa-tooltip content="This attribute is different from its property">
@@ -263,7 +260,7 @@ const componentSummary = marked.parse(component.summary);
                   <code>
                     {method.parameters?.map((param, index) => {
                       return <>
-                        { param.name }: { param.type.text }{ index === method.parameters.length - 1 ? "," : "" }
+                        { param.name }: { param.type?.text }{ index === method.parameters.length - 1 ? "," : "" }
                       </>
                     })}
                   </code>

@@ -1,0 +1,20 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import { default as AstroHead } from '@astrojs/starlight/components/Head.astro';
+import Turbo from "../Turbo.astro"
+import Docs from "../Docs.astro"
+import Search from "../Search.astro"
+---
+
+<script>
+  import "../../../../dist/webawesome.js"
+  // import "../../js/code-previews.js"
+</script>
+
+<>
+  <Turbo />
+  {/* <Docs /> */}
+  {/* <Search /> */}
+
+  <AstroHead {...Astro.props}><slot /></AstroHead>
+</>
