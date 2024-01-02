@@ -8,10 +8,50 @@
   gap: var(--wa-grid-gap);
 
   grid-template-columns: repeat(auto-fit, minmax(min(var(--wa-grid-size), 100%), 1fr));
+  align-content: start;
+
+  &[class*='\:gap-s'] {
+    --wa-grid-gap: var(--wa-space-s);
+  }
+  &[class*='\:gap-m'] {
+    --wa-grid-gap: var(--wa-space-m);
+  }
+  &[class*='\:gap-l'] {
+    --wa-grid-gap: var(--wa-space-l);
+  }
+  &[class*='\:gap-xl'] {
+    --wa-grid-gap: var(--wa-space-xl);
+  }
+  &[class*='\:gap-2xl'] {
+    --wa-grid-gap: var(--wa-space-2xl);
+  }
+  &[class*='\:gap-3xl'] {
+    --wa-grid-gap: var(--wa-space-3xl);
+  }
+
+  &[class*='\:size-s'] {
+    --wa-grid-size: 15ch;
+  }
+  &[class*='\:size-m'] {
+    --wa-grid-size: 30ch;
+  }
+  &[class*='\:size-l'] {
+    --wa-grid-size: 45ch;
+  }
+  &[class*='\:size-xl'] {
+    --wa-grid-size: 60ch;
+  }
+
+  &[class*='\:side-by-side'] {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .wa\:grid\:items-s {
   --wa-grid-size: 15ch;
+}
+.wa\:grid\:items-m {
+  --wa-grid-size: 30ch;
 }
 .wa\:grid\:items-l {
   --wa-grid-size: 60ch;
@@ -36,6 +76,35 @@
   & > * + * {
     flex-grow: 2;
   }
+}
+
+.wa\:grid\:aside-end {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    flex-grow: 2;
+    flex-basis: calc(((var(--wa-grid-size) * 2 + var(--wa-grid-gap)) - 100%) * 999);
+  }
+  & > * + * {
+    flex-grow: 1;
+  }
+}
+
+[class*='wa\:flex'] {
+  --wa-flex-gap: var(--wa-space-s);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--wa-flex-gap);
+}
+
+.wa\:flex\:cluster-start {
+  justify-content: flex-start;
+}
+
+.wa\:flex\:fill {
+  justify-content: space-between;
 }
 
 .wa\:inline-flow\:s {
@@ -69,4 +138,18 @@
 }
 .wa\:block-flow\:s > * + * {
   margin-block-start: var(--wa-space-s);
+}
+.wa\:block-flow\:xs > * + * {
+  margin-block-start: var(--wa-space-xs);
+}
+
+.wa\:frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  & > img {
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+  }
 }

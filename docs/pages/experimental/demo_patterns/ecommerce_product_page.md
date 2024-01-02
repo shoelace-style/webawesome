@@ -5,6 +5,8 @@ meta:
 toc: false
 ---
 
+<!-- cSpell:dictionaries lorem-ipsum -->
+
 <div class="wa:block-flow:3xl">
   <wa-breadcrumb>
     <wa-breadcrumb-item>Plants</wa-breadcrumb-item>
