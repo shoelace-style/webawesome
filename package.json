@@ -133,6 +133,7 @@
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "recursive-copy": "^2.0.14",
+    "remark-plugin-find-and-replace": "^1.0.0",
     "sharp": "^0.32.5",
     "sinon": "^16.1.0",
     "smartquotes": "^2.3.2",

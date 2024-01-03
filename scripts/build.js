@@ -26,30 +26,38 @@ const bundleDirectories = [cdndir, outdir];
 let packageData = JSON.parse(readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'));
 const shoelaceVersion = JSON.stringify(packageData.version.toString());
 
+const verbose = process.argv.includes("--verbose")
+
 //
 // Runs 11ty and builds the docs. The returned promise resolves after the initial publish has completed. The child
 // process and an array of strings containing any output are included in the resolved promise.
 //
 async function buildTheDocs(watch = false) {
-  /** @type {import("astro").AstroInlineConfig} */
-  const config = {
-    root: path.join(process.cwd(), "starlight-docs"),
-    outDir: path.join(process.cwd(), sitedir),
-    site: "https://shoelace.style",
+  // /** @type {import("astro").AstroInlineConfig} */
+  // const config = {
+  //   root: path.join(process.cwd(), "starlight-docs"),
+  //   outDir: path.join(process.cwd(), sitedir),
+  //   site: "https://shoelace.style",
+  // }
+  // if (watch) {
+  //   await dev({
+  //     ...config,
+  //     mode: "development"
+  //   })
+  // } else {
+  //   // For some reason `mode: "production"` doesn't work as expected.
+  //   process.env.NODE_ENV = "production"
+  //   await build({
+  //     ...config,
+  //     mode: "production"
+  //   })
+  // }
+  const output = await execPromise(`cd ./starlight-docs && npx astro build`, { stdio: "pipe", shell: true });
+
+  if (verbose) {
+    console.log(output.stdout.toString())
   }
-  if (watch) {
-    await dev({
-      ...config,
-      mode: "development"
-    })
-  } else {
-    // For some reason `mode: "production"` doesn't work as expected.
-    process.env.NODE_ENV = "production"
-    await build({
-      ...config,
-      mode: "production"
-    })
-  }
+  return output
 }
 
 //

@@ -38,6 +38,8 @@ export default defineConfig({
       ])
     ]
   },
+  outDir: "../_site",
+  site: 'https://shoelace.style',
   markdown: {
     remarkPlugins: [
       remarkFrontmatterPlugin,
