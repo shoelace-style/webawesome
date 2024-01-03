@@ -6,7 +6,7 @@ import * as fs from "node:fs"
 import * as url from "node:url"
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export const customElementsManifest = JSON.parse(fs.readFileSync('./dist/custom-elements.json', { encoding: "utf-8" }))
+export const customElementsManifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../../dist/custom-elements.json')), { encoding: "utf-8" })
 
 
 //

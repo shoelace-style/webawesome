@@ -8,6 +8,8 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import FullReload from "vite-plugin-full-reload"
 
 import {customElementsManifest} from "./src/js/cem.js"
+// import { RemarkPluginFindAndReplace } from './remark-plugin-find-and-replace.mjs';
+import { RemarkPluginFindAndReplace } from 'remark-plugin-find-and-replace';
 
 const version = customElementsManifest.package.version
 const cdndir = "cdn"
@@ -38,7 +40,14 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [
-      remarkFrontmatterPlugin
+      remarkFrontmatterPlugin,
+      RemarkPluginFindAndReplace({
+        replacements: [
+          { pattern: '%VERSION%', replacement: version },
+          { pattern: '%CDNDIR%', replacement: cdndir },
+          { pattern: '%NPMDIR%', replacement: npmdir }
+        ]
+      })
     ]
   },
 	integrations: [
