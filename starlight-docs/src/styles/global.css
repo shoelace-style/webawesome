@@ -90,7 +90,11 @@ h1:first-of-type {
 
 /** Overriding default <img> stuff */
 img,
-main .sl-markdown-content img {
+main .sl-markdown-content img,
+/* Super hacky selector to get around some CSS that's too specific in Astro. */
+[data-theme] main .sl-markdown-content ul > li img {
+  margin: 0;
+  padding: 0;
   display: inline-block;
 }
 

@@ -1,17 +1,21 @@
 ---
 title: Themer
 description: TODO
+toc: false
 template: 'splash'
 ---
 
-<style>
-  .header { display: none; }
+<style is:global>
+  header.header { display: none; }
+  .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
+  body, main { padding: 20px; }
+  .content-panel:first-of-type { display: none; }
 </style>
 
 <!-- Knobs -->
 <div id="knobs">
   <div class="space-vertically">
-    <a href="/">{% include 'logo.njk' %}</a>
+    <a href="/"><wa-icon style="font-size: 2rem;" src="/public/assets/images/logo.svg"></wa-icon></a>
     <wa-select name="theme" label="Theme" value="default">
       <wa-option value="default">Default</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -195,7 +199,7 @@ template: 'splash'
       </wa-card>
     </div>
 
-<style>
+<style is:global>
   html {
     background: white;
     background-image: radial-gradient(rgb(0 0 0 / .1) 1.5px, transparent 0);
@@ -532,6 +536,7 @@ export function thing() {
     <wa-button variant="brand">Submit Form</wa-button>
   </div>
 </div>
+</wa-card>
 
   </div>
   </section>
