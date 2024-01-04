@@ -10,6 +10,10 @@
   grid-template-columns: repeat(auto-fit, minmax(min(var(--wa-grid-size), 100%), 1fr));
   align-content: start;
 
+  &[class*='\:align-center'] {
+    align-items: center;
+  }
+
   &[class*='\:gap-s'] {
     --wa-grid-gap: var(--wa-space-s);
   }
@@ -97,14 +101,40 @@
   align-items: center;
   flex-wrap: wrap;
   gap: var(--wa-flex-gap);
-}
 
-.wa\:flex\:cluster-start {
-  justify-content: flex-start;
-}
+  & > * {
+    margin: 0;
+    max-width: 100%;
+  }
 
-.wa\:flex\:fill {
-  justify-content: space-between;
+  &[class*='\:fill'] {
+    justify-content: space-between;
+  }
+  &[class*='\:cluster-start'] {
+    justify-content: flex-start;
+  }
+
+  &[class*='\:gap-xs'] {
+    --wa-flex-gap: var(--wa-space-xs);
+  }
+  &[class*='\:gap-s'] {
+    --wa-flex-gap: var(--wa-space-s);
+  }
+  &[class*='\:gap-m'] {
+    --wa-flex-gap: var(--wa-space-m);
+  }
+  &[class*='\:gap-l'] {
+    --wa-flex-gap: var(--wa-space-l);
+  }
+  &[class*='\:gap-xl'] {
+    --wa-flex-gap: var(--wa-space-xl);
+  }
+  &[class*='\:gap-2xl'] {
+    --wa-flex-gap: var(--wa-space-2xl);
+  }
+  &[class*='\:gap-3xl'] {
+    --wa-flex-gap: var(--wa-space-3xl);
+  }
 }
 
 .wa\:inline-flow\:s {
@@ -143,9 +173,26 @@
   margin-block-start: var(--wa-space-xs);
 }
 
-.wa\:frame {
-  aspect-ratio: 16 / 9;
+[class*='wa\:frame'] {
+  --wa-aspect-width: 16;
+  --wa-aspect-height: 9;
+  aspect-ratio: var(--wa-aspect-width) / var(--wa-aspect-height);
   overflow: hidden;
+
+  &[class*='\:portrait'] {
+    --wa-aspect-width: 9;
+    --wa-aspect-height: 16;
+  }
+
+  &[class*='\:landscape'] {
+    --wa-aspect-width: 16;
+    --wa-aspect-height: 9;
+  }
+
+  &[class*='\:square'] {
+    --wa-aspect-width: 1;
+    --wa-aspect-height: 1;
+  }
 
   & > img {
     block-size: 100%;
@@ -153,3 +200,52 @@
     object-fit: cover;
   }
 }
+
+/* #region Background Patterns */
+
+.wa\:background\:brand_spot_gradient {
+  background-image: linear-gradient(160deg, var(--wa-color-brand-spot), var(--wa-color-brand-spot-darker));
+}
+
+.wa\:background\:dot_grid {
+  background-image: radial-gradient(rgb(0 0 0 / 0.05) 0.125rem, transparent 0);
+  background-size: 1.5rem 1.5rem;
+  background-position: -1.25rem -1.25rem;
+}
+
+.wa\:background\:stripes_diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgb(0 0 0 / 0.05),
+    rgb(0 0 0 / 0.05) 0.5rem,
+    transparent 0.5rem,
+    transparent 1rem
+  );
+}
+
+.wa\:background\:gingham {
+  background-image: linear-gradient(to right, transparent 50%, rgba(255, 255, 255, 0.05) 50%),
+    linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.05) 50%);
+  background-size: 1rem 1rem;
+}
+
+.wa\:background\:geometric {
+  background-image: linear-gradient(to right, transparent 50%, rgba(255, 255, 255, 0.025) 50%),
+    linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.025) 50%),
+    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.05) 2rem, transparent 2rem, transparent 4rem);
+  background-size: 4rem 4rem;
+}
+
+.wa\:background\:college_ruled {
+  background-image: linear-gradient(
+      90deg,
+      transparent 4.5rem,
+      rgb(0 0 0 / 0.12) 4.5rem,
+      rgb(0 0 0 / 0.12) 4.625rem,
+      transparent 4.625rem
+    ),
+    linear-gradient(rgb(0 0 0 / 0.08) 0.0625rem, transparent 0.0625rem);
+  background-size: 100% 1rem;
+}
+
+/* #endregion */

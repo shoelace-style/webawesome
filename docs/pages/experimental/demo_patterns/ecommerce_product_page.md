@@ -171,22 +171,30 @@ toc: false
     <h2>You may also like</h2>
     <div class="wa:product-list-simple:items wa:grid:items-s wa:grid:min2">
       <wa-card>
-        <img src="https://images.pexels.com/photos/4076594/pexels-photo-4076594.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" slot="image">
+        <div class="wa:frame:square" slot="image">
+          <img src="https://images.pexels.com/photos/4076594/pexels-photo-4076594.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+        </div>
         Triumph Tulip<br>
         <strong>$14</strong><br>
       </wa-card>
       <wa-card>
-        <img src="https://images.pexels.com/photos/4994350/pexels-photo-4994350.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" slot="image">
+        <div class="wa:frame:square" slot="image">
+          <img src="https://images.pexels.com/photos/4994350/pexels-photo-4994350.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+        </div>
         White Doll's Daisy<br>
         <strong>$18</strong>
       </wa-card>
       <wa-card>
-        <img src="https://images.pexels.com/photos/2223890/pexels-photo-2223890.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" slot="image">
+        <div class="wa:frame:square" slot="image">
+          <img src="https://images.pexels.com/photos/2223890/pexels-photo-2223890.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+        </div>
         Common Poppy<br>
         <strong>$32</strong>
       </wa-card>
       <wa-card>
-        <img src="https://images.pexels.com/photos/1179026/pexels-photo-1179026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" slot="image">
+        <div class="wa:frame:square" slot="image">
+          <img src="https://images.pexels.com/photos/1179026/pexels-photo-1179026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+        </div>
         Stargazer Lily<br>
         <strong>$39</strong>
       </wa-card>

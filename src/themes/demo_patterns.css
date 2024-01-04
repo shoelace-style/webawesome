@@ -86,10 +86,24 @@
     &::part(base) {
       height: 100%;
     }
-
-    & [slot='image'] {
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
   }
+}
+
+.wa\:collection {
+  position: relative;
+
+  & > wa-card::part(base) {
+    height: 100%;
+  }
+}
+.wa\:collection::before {
+  content: '';
+  background-color: var(--wa-color-neutral-fill-subtle);
+  position: absolute;
+  height: calc(100% - var(--wa-space-xl) * 2);
+  width: 200vw;
+  left: -100vw;
+  margin: 0;
+  z-index: -2;
+  overflow: hidden;
 }
