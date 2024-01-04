@@ -26,38 +26,81 @@ const bundleDirectories = [cdndir, outdir];
 let packageData = JSON.parse(readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'));
 const shoelaceVersion = JSON.stringify(packageData.version.toString());
 
-const verbose = process.argv.includes("--verbose")
-
 //
 // Runs 11ty and builds the docs. The returned promise resolves after the initial publish has completed. The child
 // process and an array of strings containing any output are included in the resolved promise.
 //
 async function buildTheDocs(watch = false) {
-  // /** @type {import("astro").AstroInlineConfig} */
-  // const config = {
-  //   root: path.join(process.cwd(), "starlight-docs"),
-  //   outDir: path.join(process.cwd(), sitedir),
-  //   site: "https://shoelace.style",
-  // }
-  // if (watch) {
-  //   await dev({
-  //     ...config,
-  //     mode: "development"
-  //   })
-  // } else {
-  //   // For some reason `mode: "production"` doesn't work as expected.
-  //   process.env.NODE_ENV = "production"
-  //   await build({
-  //     ...config,
-  //     mode: "production"
-  //   })
-  // }
-  const output = await execPromise(`cd ./starlight-docs && npx astro build`, { stdio: "pipe", shell: true });
+  let args = ["astro", "build"]
 
-  if (verbose) {
-    console.log(output.stdout.toString())
+  if (watch) {
+    args.pop()
+    args.push("dev")
+
+    console.log(process.cwd())
+
+    // Rebuild and reload when source files change
+    chokidar.watch('src/**/!(*.test).*').on('change', async filename => {
+      console.log('[build] File changed: ', filename);
+
+      try {
+        const isTheme = /^src\/themes/.test(filename);
+        const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
+
+        // Rebuild the source
+        const rebuildResults = buildResults.map(result => result.rebuild());
+        await Promise.all(rebuildResults);
+
+        // Rebuild stylesheets when a theme file changes
+        if (isTheme) {
+          await Promise.all(
+            bundleDirectories.map(dir => {
+              return execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
+            })
+          );
+        }
+
+        // Rebuild metadata (but not when styles are changed)
+        if (!isStylesheet) {
+          await Promise.all(
+            bundleDirectories.map(dir => {
+              return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
+            })
+          );
+        }
+
+        // const siteDistDir = path.join(process.cwd(), "starlight-docs", "public", 'dist')
+        const siteDistDir = path.join(process.cwd(), "starlight-docs", "public", 'dist')
+        // await deleteAsync(siteDistDir);
+
+        // We copy the CDN build because that has everything bundled. Yes this looks weird.
+        // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
+        console.log(`COPYING ${cdndir} to ${siteDistDir}`)
+        await copy(cdndir, siteDistDir, { overwrite: true });
+      } catch (err) {
+        console.error(chalk.red(err), '\n');
+      }
+    });
   }
-  return output
+
+  return new Promise(async (resolve, reject) => {
+    const child = spawn('npx', args, {
+      stdio: 'pipe',
+      cwd: 'starlight-docs',
+      shell: true // for Windows
+    });
+
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
+    child.stdout.on('data', data => {
+      console.log(data);
+    });
+    child.stderr.on('data', data => {
+      console.error(data);
+    });
+    child.on('error', error => reject(error));
+    child.on('close', () => resolve());
+  });
 }
 
 //
@@ -206,7 +249,7 @@ await nextTask('Building source files', async () => {
 
 // Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
 await nextTask(`Copying the build to "${sitedir}"`, async () => {
-  const siteDistDir = path.join(sitedir, 'dist')
+  const siteDistDir = path.join("starlight-docs", "public", 'dist')
   await deleteAsync(siteDistDir);
 
   // We copy the CDN build because that has everything bundled. Yes this looks weird.
@@ -220,42 +263,6 @@ if (serve) {
   // eleventy.after, so it appears after the docs are fully published. This is kinda hacky, but here we are.
   // Kick off the Eleventy dev server with --watch and --incremental
   await nextTask('Building docs', async () => await buildTheDocs(true));
-
-  // Rebuild and reload when source files change
-  chokidar.watch('src/**/!(*.test).*').on('change', async filename => {
-    console.log('[build] File changed: ', filename);
-
-    try {
-      const isTheme = /^src\/themes/.test(filename);
-      const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
-
-      // Rebuild the source
-      const rebuildResults = buildResults.map(result => result.rebuild());
-      await Promise.all(rebuildResults);
-
-      // Rebuild stylesheets when a theme file changes
-      if (isTheme) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      // Rebuild metadata (but not when styles are changed)
-      if (!isStylesheet) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      bs.reload();
-    } catch (err) {
-      console.error(chalk.red(err), '\n');
-    }
-  });
 }
 
 // Build for production

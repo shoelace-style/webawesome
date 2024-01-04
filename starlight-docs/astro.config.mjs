@@ -8,8 +8,8 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import FullReload from "vite-plugin-full-reload"
 
 import {customElementsManifest} from "./src/js/cem.js"
-// import { RemarkPluginFindAndReplace } from './remark-plugin-find-and-replace.mjs';
 import { RemarkPluginFindAndReplace } from 'remark-plugin-find-and-replace';
+import rehypeExternalLinks from 'rehype-external-links'
 
 const version = customElementsManifest.package.version
 const cdndir = "cdn"
@@ -34,8 +34,9 @@ export default defineConfig({
   vite: {
     plugins: [
       FullReload([
-        path.relative(__dirname, "../dist/custom-elements.json")
-      ])
+        path.relative(__dirname, "../dist/custom-elements.json"),
+        path.relative(__dirname, "./public/**/*.*"),
+      ]),
     ]
   },
   outDir: "../_site",
@@ -49,6 +50,15 @@ export default defineConfig({
           { pattern: '%CDNDIR%', replacement: cdndir },
           { pattern: '%NPMDIR%', replacement: npmdir }
         ]
+      })
+    ],
+    rehypePlugins: [
+      () => rehypeExternalLinks({
+        rel: ["nofollow", "noopener", "noreferrer"],
+        target: ["_blank"],
+        properties: {
+          class: "external-link"
+        }
       })
     ]
   },
@@ -89,13 +99,13 @@ export default defineConfig({
         },
 			],
 			// Global CSS
-      customCss: ['../dist/themes/default.css'],
+      customCss: [
+      ],
       // Component overrides
       components: {
         // Override the default `Head` component.
         Head: './src/components/overrides/Head.astro',
       },
 		}),
-
 	],
 });

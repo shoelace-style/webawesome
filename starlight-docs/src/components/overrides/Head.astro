@@ -4,6 +4,8 @@ import { default as AstroHead } from '@astrojs/starlight/components/Head.astro';
 import Turbo from "../Turbo.astro"
 import Docs from "../Docs.astro"
 import Search from "../Search.astro"
+
+import '../../styles/global.css'
 ---
 
 <script>
@@ -16,5 +18,11 @@ import Search from "../Search.astro"
   {/* <Docs /> */}
   {/* <Search /> */}
 
-  <AstroHead {...Astro.props}><slot /></AstroHead>
+  <link id="theme-stylesheet" rel="stylesheet" href="/dist/themes/default.css" />
+  <link rel="stylesheet" href="/dist/themes/applied.css" />
+  <link rel="stylesheet" href="/dist/themes/forms.css" />
+
+  <AstroHead {...Astro.props}>
+    <slot />
+  </AstroHead>
 </>
