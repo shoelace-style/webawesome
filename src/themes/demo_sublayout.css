@@ -1,6 +1,7 @@
 .wa\:container {
   container-type: inline-size;
 }
+
 [class*='wa\:grid'] {
   --wa-grid-gap: var(--wa-space-3xl);
   --wa-grid-size: 30ch;
@@ -9,10 +10,6 @@
 
   grid-template-columns: repeat(auto-fit, minmax(min(var(--wa-grid-size), 100%), 1fr));
   align-content: start;
-
-  &[class*='\:align-center'] {
-    align-items: center;
-  }
 
   &[class*='\:gap-s'] {
     --wa-grid-gap: var(--wa-space-s);

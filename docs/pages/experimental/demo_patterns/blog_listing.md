@@ -222,9 +222,9 @@ toc: false
       </div>
     </div>
   </div>
-  <div class="wa:grid:size-s:align-center wa:collection">
+  <div class="wa:grid:size-s wa:collection">
     <div>
-      <h2>So Fetch <wa-icon name="arrow-trend-up" style="color: var(--wa-color-brand-spot);"></wa-icon></h2>
+      <h2>So Fetch&nbsp;<wa-icon name="arrow-trend-up" style="color: var(--wa-color-brand-spot);"></wa-icon></h2>
       <p style="margin-block-end:0;">Other readers have been into these trending posts recently.</p>
     </div>
     <wa-card class="wa:block-flow:xs">

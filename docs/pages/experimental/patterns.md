@@ -12,6 +12,7 @@ meta:
 
 - [Ecommerce: Product Page](/experimental/demo_patterns/ecommerce_product_page)
 - [Blog: Listing Page](/experimental/demo_patterns/blog_listing)
+- [Blog: Post Page](/experimental/demo_patterns/blog_post)
 
 ## Sections
 

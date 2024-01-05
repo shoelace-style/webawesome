@@ -92,8 +92,12 @@
 .wa\:collection {
   position: relative;
 
-  & > wa-card::part(base) {
+  & wa-card::part(base) {
     height: 100%;
+  }
+
+  & :first-child {
+    align-self: center;
   }
 }
 .wa\:collection::before {
@@ -103,7 +107,45 @@
   height: calc(100% - var(--wa-space-xl) * 2);
   width: 200vw;
   left: -100vw;
-  margin: 0;
+  margin-block: var(--wa-space-xl);
   z-index: -2;
-  overflow: hidden;
+}
+
+.wa\:overflowing_hero {
+  overflow: auto;
+
+  & [class*='wa\:grid'] {
+    margin-block-end: var(--wa-grid-gap);
+
+    & > *:first-child {
+      align-self: center;
+    }
+
+    & > *:last-child {
+      margin-block-end: calc((var(--wa-grid-gap) * 2 * -1));
+    }
+  }
+}
+
+.wa\:chat_bubble {
+  background-color: var(--wa-color-neutral-fill-subtle);
+  border-radius: var(--wa-form-controls-corners);
+  border-start-start-radius: 0;
+  padding: var(--wa-space-m);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 1rem solid transparent;
+    border-right-color: var(--wa-color-neutral-fill-subtle);
+    border-left: 0;
+    border-top: 0;
+    margin-top: 0;
+    margin-left: -0.5rem;
+  }
 }
