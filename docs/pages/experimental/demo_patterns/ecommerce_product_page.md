@@ -15,7 +15,7 @@ toc: false
     <wa-breadcrumb-item>Jupiter Moth Orchid</wa-breadcrumb-item>
   </wa-breadcrumb>
   <div class="wa:container wa:product-overview">
-    <div class="wa:grid:1-2">
+    <div class="wa:arrange">
       <div class="wa:product-overview:hero">
         <img src="https://images.pexels.com/photos/1021386/pexels-photo-1021386.jpeg" alt="">
       </div>
@@ -24,15 +24,15 @@ toc: false
           <wa-badge>20% Off</wa-badge>
           <h1>Jupiter Moth Orchid</h1>
           <p class="wa:product-overview:price"><s>$35</s> $28</p>
-          <div class="wa:product-overview:rating wa:inline-flow:s">
+          <div class="wa:product-overview:rating wa:arrange:flex:gap-s">
             <wa-rating label="average stars" readonly precision="0.1" value="4.7"></wa-rating>
             <a href="#product-reviews"><small>419 reviews</small></a>
           </div>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
-        <div class="wa:product-overview:actions wa:inline-flow:s">
-          <wa-input type="number" value="1" min="1" max="10" style="max-inline-size: 5rem;"></wa-input>
-          <wa-button variant="brand">Add to cart</wa-button>
+        <div class="wa:product-overview:actions wa:arrange:flex:gap-s">
+          <wa-input type="number" value="1" min="1" max="10"></wa-input>
+          <wa-button class="wa:fill_space" variant="brand">Add to cart</wa-button>
         </div>
         <div class="wa:product-overview:details wa:block-flow:s">
           <wa-details summary="Details">
@@ -52,12 +52,12 @@ toc: false
       <wa-tab slot="nav" panel="reviews">Reviews</wa-tab>
       <wa-tab slot="nav" panel="questions">Questions</wa-tab>
       <wa-tab-panel name="reviews" style="margin-top:var(--wa-space-s);">
-        <div class="wa:grid:aside-start">
+        <div class="wa:arrange:aside-start">
           <div class="wa:product-reviews:overview wa:block-flow:2xl">
             <h2>Ratings and reviews</h2>
             <div class="wa:block-flow:s">
-              <div class="wa:product-reviews:summary wa:inline-flow:s">
-                <h3 class="wa:inline-flow:s">
+              <div class="wa:product-reviews:summary wa:arrange:flex:gap-s">
+                <h3 class="wa:arrange:flex:gap-s">
                   4.7
                   <wa-rating label="average stars" readonly precision="0.1" value="4.7"></wa-rating>
                 </h3>
@@ -65,34 +65,34 @@ toc: false
               </div>
               <div class="wa:product-reviews:breakdown">
                 <ol>
-                  <li class="wa:inline-flow:s">
+                  <li class="wa:arrange:flex:gap-s">
                     <span>5</span>
                     <wa-icon name="star"></wa-icon>
-                    <wa-progress-bar value="82"></wa-progress-bar>
+                    <wa-progress-bar class="wa:fill_space" value="82"></wa-progress-bar>
                     <span>340</span>
                   </li>
-                  <li class="wa:inline-flow:s">
+                  <li class="wa:arrange:flex:gap-s">
                     <span>4</span>
                     <wa-icon name="star"></wa-icon>
-                    <wa-progress-bar value="12"></wa-progress-bar>
+                    <wa-progress-bar class="wa:fill_space" value="12"></wa-progress-bar>
                     <span>53</span>
                   </li>
-                  <li class="wa:inline-flow:s">
+                  <li class="wa:arrange:flex:gap-s">
                     <span>3</span>
                     <wa-icon name="star"></wa-icon>
-                    <wa-progress-bar value="6"></wa-progress-bar>
+                    <wa-progress-bar class="wa:fill_space" value="6"></wa-progress-bar>
                     <span>24</span>
                   </li>
-                  <li class="wa:inline-flow:s">
+                  <li class="wa:arrange:flex:gap-s">
                     <span>2</span>
                     <wa-icon name="star"></wa-icon>
-                    <wa-progress-bar value="0"></wa-progress-bar>
+                    <wa-progress-bar class="wa:fill_space" value="0"></wa-progress-bar>
                     <span>0</span>
                   </li>
-                  <li class="wa:inline-flow:s">
+                  <li class="wa:arrange:flex:gap-s">
                     <span>1</span>
                     <wa-icon name="star"></wa-icon>
-                    <wa-progress-bar value="1"></wa-progress-bar>
+                    <wa-progress-bar class="wa:fill_space" value="1"></wa-progress-bar>
                     <span>2</span>
                   </li>
                 </ol>
@@ -107,10 +107,10 @@ toc: false
           </div>
           <div class="wa:product-reviews:list wa:block-flow:2xl">
             <div class="wa:product-reviews:review wa:block-flow:s">
-              <div class="wa:inline-flow:s">
+              <div class="wa:arrange:flex:gap-s">
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
-                  <div class="wa:inline-flow:s">
+                  <div class="wa:arrange:flex:gap-s">
                     <strong>Cory L.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-inline-end:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date></small>
@@ -120,10 +120,10 @@ toc: false
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
             <div class="wa:product-reviews:review wa:block-flow:s">
-              <div class="wa:inline-flow:s">
+              <div class="wa:arrange:flex:gap-s">
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
-                  <div class="wa:inline-flow:s">
+                  <div class="wa:arrange:flex:gap-s">
                     <strong>Konnor R.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-inline-end:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date date="2023-11-16T09:17:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></small>
@@ -133,10 +133,10 @@ toc: false
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
             <div class="wa:product-reviews:review wa:block-flow:s">
-              <div class="wa:inline-flow:s">
+              <div class="wa:arrange:flex:gap-s">
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
-                  <div class="wa:inline-flow:s">
+                  <div class="wa:arrange:flex:gap-s">
                     <strong>Kelsey J.</strong> <wa-tag variant="success" size="small"><wa-icon name="check" style="margin-inline-end:var(--wa-space-2xs);"></wa-icon>Verified</wa-tag>
                   </div>
                   <small><wa-format-date date="2023-10-31T09:17:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></small>
@@ -146,10 +146,10 @@ toc: false
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
             <div class="wa:product-reviews:review wa:block-flow:s">
-              <div class="wa:inline-flow:s">
+              <div class="wa:arrange:flex:gap-s">
                 <wa-avatar label="User avatar"></wa-avatar>
                 <div class="wa:product-reviews:attribution">
-                  <div class="wa:inline-flow:s">
+                  <div class="wa:arrange:flex:gap-s">
                     <strong>Lindsay M.</strong>
                   </div>
                   <small><wa-format-date date="2023-07-03T09:17:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></small>
@@ -169,7 +169,7 @@ toc: false
   </div>
   <div class="wa:container wa:product-list-simple">
     <h2>You may also like</h2>
-    <div class="wa:product-list-simple:items wa:grid:items-s wa:grid:min2">
+    <div class="wa:product-list-simple:items wa:arrange:by-two:size-s">
       <wa-card>
         <div class="wa:frame:square" slot="image">
           <img src="https://images.pexels.com/photos/4076594/pexels-photo-4076594.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">

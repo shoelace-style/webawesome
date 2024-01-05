@@ -10,12 +10,6 @@
     }
   }
 
-  & .wa\:product-overview\:actions {
-    & > * {
-      flex: 1 1 auto;
-    }
-  }
-
   & .wa\:product-overview\:price {
     font-size: var(--wa-font-size-xl);
     font-weight: var(--wa-font-weight-medium);
@@ -25,20 +19,9 @@
       font-weight: var(--wa-font-weight-light);
     }
   }
-
-  & .wa\:product-overview\:rating {
-    & > * {
-      flex: 0 1 auto;
-    }
-  }
 }
 
 .wa\:product-reviews {
-  & .wa\:product-reviews\:summary {
-    & > * {
-      flex: 0 1 auto;
-    }
-  }
   & .wa\:product-reviews\:breakdown {
     & ol {
       font-size: var(--wa-font-size-s);
@@ -63,7 +46,6 @@
     & wa-progress-bar {
       --height: 1em;
       --indicator-color: var(--wa-color-yellow-70);
-      flex: 1 1 auto;
     }
   }
 
@@ -114,7 +96,7 @@
 .wa\:overflowing_hero {
   overflow: auto;
 
-  & [class*='wa\:grid'] {
+  & > [class*='wa\:arrange'] {
     margin-block-end: var(--wa-grid-gap);
 
     & > *:first-child {

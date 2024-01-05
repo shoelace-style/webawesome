@@ -2,15 +2,24 @@
   container-type: inline-size;
 }
 
-[class*='wa\:grid'] {
+[class*='wa\:arrange'] {
   --wa-grid-gap: var(--wa-space-3xl);
   --wa-grid-size: 30ch;
   display: grid;
   gap: var(--wa-grid-gap);
 
   grid-template-columns: repeat(auto-fit, minmax(min(var(--wa-grid-size), 100%), 1fr));
-  align-content: start;
 
+  /* Gap */
+  &[class*='\:gap-3xs'] {
+    --wa-grid-gap: var(--wa-space-3xs);
+  }
+  &[class*='\:gap-2xs'] {
+    --wa-grid-gap: var(--wa-space-2xs);
+  }
+  &[class*='\:gap-xs'] {
+    --wa-grid-gap: var(--wa-space-xs);
+  }
   &[class*='\:gap-s'] {
     --wa-grid-gap: var(--wa-space-s);
   }
@@ -30,6 +39,7 @@
     --wa-grid-gap: var(--wa-space-3xl);
   }
 
+  /* Size */
   &[class*='\:size-s'] {
     --wa-grid-size: 15ch;
   }
@@ -37,139 +47,137 @@
     --wa-grid-size: 30ch;
   }
   &[class*='\:size-l'] {
-    --wa-grid-size: 45ch;
-  }
-  &[class*='\:size-xl'] {
     --wa-grid-size: 60ch;
   }
 
+  /* Arrangement */
   &[class*='\:side-by-side'] {
     grid-template-columns: 1fr 1fr;
   }
-}
 
-.wa\:grid\:items-s {
-  --wa-grid-size: 15ch;
-}
-.wa\:grid\:items-m {
-  --wa-grid-size: 30ch;
-}
-.wa\:grid\:items-l {
-  --wa-grid-size: 60ch;
-}
-
-.wa\:grid\:min2 {
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(var(--wa-grid-size), calc(50% - (var(--wa-grid-gap) / 2))), 1fr)
+  &[class*='\:by-two'] {
+    grid-template-columns: repeat(
+      auto-fit,
       minmax(min(var(--wa-grid-size), calc(50% - (var(--wa-grid-gap) / 2))), 1fr)
-  );
+        minmax(min(var(--wa-grid-size), calc(50% - (var(--wa-grid-gap) / 2))), 1fr)
+    );
+  }
+
+  &[class*='\:aside'] {
+    display: flex;
+    flex-wrap: wrap;
+    & > * {
+      flex-basis: calc(((var(--wa-grid-size) * 2 + var(--wa-grid-gap)) - 100%) * 999);
+    }
+    &[class*='\:aside-start'] {
+      & > * {
+        flex-grow: 1;
+      }
+      & > * + * {
+        flex-grow: 2;
+      }
+    }
+    &[class*='\:aside-end'] {
+      & > * {
+        flex-grow: 2;
+      }
+      & > * + * {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &[class*='\:flex'] {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > * {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    &[class*='\:nowrap'] {
+      flex-wrap: nowrap;
+    }
+
+    &[class*='\:justify-start'] {
+      justify-content: flex-start;
+    }
+    &[class*='\:justify-end'] {
+      justify-content: flex-end;
+    }
+    &[class*='\:justify-center'] {
+      justify-content: center;
+    }
+    &[class*='\:justify-space_between'] {
+      justify-content: space-between;
+    }
+    &[class*='\:justify-space_around'] {
+      justify-content: space-around;
+    }
+    &[class*='\:justify-space_evenly'] {
+      justify-content: space-evenly;
+    }
+
+    &[class*='\:align-start'] {
+      align-items: flex-start;
+    }
+    &[class*='\:align-end'] {
+      align-items: flex-end;
+    }
+    &[class*='\:align-center'] {
+      align-items: center;
+    }
+    &[class*='\:align-stretch'] {
+      align-items: stretch;
+    }
+    &[class*='\:align-baseline'] {
+      align-items: baseline;
+    }
+
+    & > .wa\:fill_space {
+      flex: 1 1 auto;
+    }
+  }
 }
 
-.wa\:grid\:aside-start {
-  display: flex;
-  flex-wrap: wrap;
-
+/* #region Block Flow */
+[class*='wa\:block-flow'] {
   & > * {
-    flex-grow: 1;
-    flex-basis: calc(((var(--wa-grid-size) * 2 + var(--wa-grid-gap)) - 100%) * 999);
-  }
-  & > * + * {
-    flex-grow: 2;
+    margin-block: 0;
   }
 }
-
-.wa\:grid\:aside-end {
-  display: flex;
-  flex-wrap: wrap;
-
-  & > * {
-    flex-grow: 2;
-    flex-basis: calc(((var(--wa-grid-size) * 2 + var(--wa-grid-gap)) - 100%) * 999);
-  }
-  & > * + * {
-    flex-grow: 1;
-  }
+.wa\:block-flow\:3xs > * + * {
+  margin-block-start: var(--wa-space-3xs);
 }
-
-[class*='wa\:flex'] {
-  --wa-flex-gap: var(--wa-space-s);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--wa-flex-gap);
-
-  & > * {
-    margin: 0;
-    max-width: 100%;
-  }
-
-  &[class*='\:fill'] {
-    justify-content: space-between;
-  }
-  &[class*='\:cluster-start'] {
-    justify-content: flex-start;
-  }
-
-  &[class*='\:gap-xs'] {
-    --wa-flex-gap: var(--wa-space-xs);
-  }
-  &[class*='\:gap-s'] {
-    --wa-flex-gap: var(--wa-space-s);
-  }
-  &[class*='\:gap-m'] {
-    --wa-flex-gap: var(--wa-space-m);
-  }
-  &[class*='\:gap-l'] {
-    --wa-flex-gap: var(--wa-space-l);
-  }
-  &[class*='\:gap-xl'] {
-    --wa-flex-gap: var(--wa-space-xl);
-  }
-  &[class*='\:gap-2xl'] {
-    --wa-flex-gap: var(--wa-space-2xl);
-  }
-  &[class*='\:gap-3xl'] {
-    --wa-flex-gap: var(--wa-space-3xl);
-  }
-}
-
-.wa\:inline-flow\:s {
-  --wa-flex-gap: var(--wa-space-s);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--wa-flex-gap);
-
-  & > * {
-    margin: 0;
-  }
-}
-[class*='wa\:block-flow'] > * {
-  margin-block: 0;
-}
-.wa\:block-flow\:3xl > * + * {
-  margin-block-start: var(--wa-space-3xl);
-}
-.wa\:block-flow\:2xl > * + * {
-  margin-block-start: var(--wa-space-2xl);
-}
-.wa\:block-flow\:xl > * + * {
-  margin-block-start: var(--wa-space-xl);
-}
-.wa\:block-flow\:l > * + * {
-  margin-block-start: var(--wa-space-l);
-}
-.wa\:block-flow\:m > * + * {
-  margin-block-start: var(--wa-space-m);
-}
-.wa\:block-flow\:s > * + * {
-  margin-block-start: var(--wa-space-s);
+.wa\:block-flow\:2xs > * + * {
+  margin-block-start: var(--wa-space-2xs);
 }
 .wa\:block-flow\:xs > * + * {
   margin-block-start: var(--wa-space-xs);
 }
+.wa\:block-flow\:s > * + * {
+  margin-block-start: var(--wa-space-s);
+}
+.wa\:block-flow\:m > * + * {
+  margin-block-start: var(--wa-space-m);
+}
+.wa\:block-flow\:l > * + * {
+  margin-block-start: var(--wa-space-l);
+}
+.wa\:block-flow\:xl > * + * {
+  margin-block-start: var(--wa-space-xl);
+}
+.wa\:block-flow\:2xl > * + * {
+  margin-block-start: var(--wa-space-2xl);
+}
+.wa\:block-flow\:3xl > * + * {
+  margin-block-start: var(--wa-space-3xl);
+}
+/* #endregion */
 
+/* #region Frames */
 [class*='wa\:frame'] {
   --wa-aspect-width: 16;
   --wa-aspect-height: 9;
@@ -197,6 +205,7 @@
     object-fit: cover;
   }
 }
+/* #endregion */
 
 /* #region Background Patterns */
 
