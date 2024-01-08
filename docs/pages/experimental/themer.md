@@ -161,6 +161,7 @@ toc: false
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
     <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-switch name="appearance">Toggle Dark Mode</wa-switch>
   </div>
 </form>
 
@@ -338,7 +339,7 @@ toc: false
 
   chooser.addEventListener('wa-initial-focus', () => {
     requestAnimationFrame(() => input.focus());
-  });
+  })
 
   variantInput.addEventListener('wa-change', () => {
     iconList.dataset.variant = variantInput.value;
@@ -397,6 +398,8 @@ toc: false
   const corners = container.querySelector("[name='corners']")
   const borderStyle = container.querySelector('[name="border-style"]')
   const borderWidth = container.querySelector('[name="border-width"]')
+  const themeSelect = container.querySelector('[name="theme"]');
+  const darkModeSelect = container.querySelector('[name="appearance"]');
 
   function resetHeadingFontWeightValue () {
     document.documentElement.style.removeProperty('--wa-font-weight-heading')
@@ -535,7 +538,7 @@ toc: false
 
 
   // Theme Switcher
-  container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
+  themeSelect.addEventListener('wa-change', event => {
     const newStylesheet = Object.assign(document.createElement("link"), {
       // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
       id: "theme-stylesheet",
@@ -544,6 +547,11 @@ toc: false
       type: "text/css",
       href: `/dist/themes/${event.target.value}.css`,
     })
+
+    if (darkModeSelect.checked === true) {
+      darkModeSelect.checked = false
+      el.className = 'flavor-html'
+    }
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
     // with the new stylesheet, before the new stylesheet has loaded
@@ -804,6 +812,7 @@ toc: false
     document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
 
+  // Form validation
   // Mostly useful for the number ranges. Very simple validation on blurs.
   function reportValidity (event) {
     const element = event.target
@@ -816,6 +825,18 @@ toc: false
 
   knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
   knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
+
+  // Light & Dark Mode
+  darkModeSelect.addEventListener('wa-change', event => {
+    const el = document.documentElement
+    const theme = themeSelect.value
+    if(theme === 'chic') {
+      el.classList.toggle(`wa-theme-${theme}-light`);
+    } else {
+      el.classList.toggle(`wa-theme-${theme}-dark`);
+    }
+
+  });
 </script>
 
 <style>

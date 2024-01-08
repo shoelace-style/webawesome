@@ -323,8 +323,8 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-.wa-theme-default-dark,
-.wa-theme-default-dark :host {
+.wa-theme-classic-dark,
+.wa-theme-classic-dark :host {
   color-scheme: dark;
 
   /**
