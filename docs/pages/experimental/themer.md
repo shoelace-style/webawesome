@@ -51,7 +51,7 @@ toc: false
 </style>
 
 <!-- Knobs -->
-<div id="knobs">
+<form id="knobs">
   <div class="space-vertically">
     <a href="/">{% include 'logo.njk' %}</a>
     <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
@@ -162,7 +162,7 @@ toc: false
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
     <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
   </div>
-</div>
+</form>
 
 <wa-dialog id="icon-chooser" label="Browse Icons">
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
@@ -803,6 +803,19 @@ toc: false
   spacing.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
+
+  // Mostly useful for the number ranges. Very simple validation on blurs.
+  function reportValidity (event) {
+    const element = event.target
+    if (typeof element?.reportValidity === "function") {
+      const isValid = element.reportValidity()
+
+      element.classList.toggle("wa-invalid", !isValid)
+    }
+  }
+
+  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
+  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
 </script>
 
 <style>
