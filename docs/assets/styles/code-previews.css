@@ -39,7 +39,7 @@
   right: 0;
   bottom: 0;
   width: 1.75rem;
-  font-size: 20px;
+  font-size: var(--wa-font-size-xs);
   color: var(--wa-color-text-quiet);
   background-color: var(--wa-color-surface-default);
   border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);

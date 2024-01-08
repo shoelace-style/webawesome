@@ -86,12 +86,23 @@ toc: false
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
       <div aria-hidden="true">Heading Typography</div>
       <div style="display: flex; --wa-space-m: 0.5rem;">
-        <wa-select class="hidden-label" name="font-family-heading" value="" label="Heading Typography Font Family">
-          <wa-option value="">Theme default</wa-option>
-          <wa-option value="serif">Serif</wa-option>
-          <wa-option value="sans-serif">Sans-serif</wa-option>
-          <wa-option value="monospace">Monospace</wa-option>
-          <wa-option value="cursive">Cursive</wa-option>
+        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Heading Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-display">Noto Sans Display</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="playfair-display">Playfair Display</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
         <wa-input
           class="hidden-label"
@@ -110,12 +121,21 @@ toc: false
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
       <div aria-hidden="true">Body Typography</div>
       <div style="display: flex; --wa-space-m: 0.5rem;">
-        <wa-select class="hidden-label" name="font-family-body" value="" label="Body Typography Font Family">
-          <wa-option value="">Theme default</wa-option>
-          <wa-option value="serif">Serif</wa-option>
-          <wa-option value="sans-serif">Sans-serif</wa-option>
-          <wa-option value="monospace">Monospace</wa-option>
-          <wa-option value="cursive">Cursive</wa-option>
+        <wa-select class="hidden-label" name="font-family-body" value="default" label="Body Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
         <wa-input
           class="hidden-label"
@@ -385,7 +405,7 @@ toc: false
 
   function resetHeadingFontFamilyValue () {
     document.documentElement.style.removeProperty('--wa-font-family-heading')
-    fontFamilyHeading.value = ""
+    fontFamilyHeading.value = "default"
   }
 
   function resetBodyFontWeightValue () {
@@ -395,7 +415,7 @@ toc: false
 
   function resetBodyFontFamilyValue () {
     document.documentElement.style.removeProperty('--wa-font-family-body')
-    fontFamilyBody.value = ""
+    fontFamilyBody.value = "default"
   }
 
   function resetBorderWidthValue () {
@@ -650,20 +670,112 @@ toc: false
     previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
   })
 
-  // Heading font family
-  fontFamilyHeading.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
-  });
-
   // Heading font weight
   resetHeadingFontWeightValue()
   fontWeightHeading.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
-  // Body font family
-  fontFamilyBody.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-family-body', event.target.value);
+  // Heading text
+  fontFamilyHeading.addEventListener('wa-change', event => {
+    let fontFamily;
+    switch(event.target.value) {
+      case 'assistant':
+        fontFamily = `'Assistant', sans-serif`;
+        break;
+      case 'inter':
+        fontFamily = `'inter', sans-serif`;
+        break;
+      case 'lora':
+        fontFamily = `'Lora', serif`
+      case 'noto-sans':
+          fontFamily = `'Noto Sans', sans-serif`;
+          break;
+      case 'noto-sans-display':
+          fontFamily = `'Noto Sans Display', sans-serif`;
+          break;
+      case 'noto-sans-mono':
+          fontFamily = `'Noto Sans Mono', monospace`;
+          break;
+      case 'noto-serif':
+          fontFamily = `'Noto Serif', serif`;
+          break;
+      case 'open-sans':
+          fontFamily = `'Open Sans', sans-serif`;
+          break;
+      case 'playfair':
+          fontFamily = `'Playfair', serif`;
+          break;
+      case 'playfair-display':
+          fontFamily = `'Playfair Display', serif`;
+          break;
+      case 'quicksand':
+          fontFamily = `'Quicksand', sans-serif`;
+          break;
+      case 'roboto-flex':
+          fontFamily = `'Roboto Flex', sans-serif`;
+          break;
+      case 'roboto-mono':
+          fontFamily = `'Roboto Mono', monospace`;
+          break;
+      case 'roboto-serif':
+          fontFamily = `'Roboto Serif', serif`;
+          break;
+      case 'roboto-slab':
+          fontFamily = `'Roboto Slab', serif`;
+          break;
+      default:
+        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    }
+    document.documentElement.style.setProperty('--wa-font-family-heading', fontFamily);
+  })
+
+  // Body text
+  fontFamilyBody.addEventListener('wa-change', event => {
+    let fontFamily;
+    switch(event.target.value) {
+      case 'assistant':
+        fontFamily = `'Assistant', sans-serif`;
+        break;
+      case 'inter':
+        fontFamily = `'inter', sans-serif`;
+        break;
+      case 'lora':
+        fontFamily = `'Lora', serif`
+      case 'noto-sans':
+          fontFamily = `'Noto Sans', sans-serif`;
+          break;
+      case 'noto-sans-mono':
+          fontFamily = `'Noto Sans Mono', monospace`;
+          break;
+      case 'noto-serif':
+          fontFamily = `'Noto Serif', serif`;
+          break;
+      case 'open-sans':
+          fontFamily = `'Open Sans', sans-serif`;
+          break;
+      case 'playfair':
+          fontFamily = `'Playfair', serif`;
+          break;
+      case 'quicksand':
+          fontFamily = `'Quicksand', sans-serif`;
+          break;
+      case 'roboto-flex':
+          fontFamily = `'Roboto Flex', sans-serif`;
+          break;
+      case 'roboto-mono':
+          fontFamily = `'Roboto Mono', monospace`;
+          break;
+      case 'roboto-serif':
+          fontFamily = `'Roboto Serif', serif`;
+          break;
+      case 'roboto-slab':
+          fontFamily = `'Roboto Slab', serif`;
+          break;
+      default:
+        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    }
+    document.documentElement.style.setProperty('--wa-font-family-body', fontFamily);
   });
 
   // Body font weight
@@ -691,7 +803,6 @@ toc: false
   spacing.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
-
 </script>
 
 <style>

@@ -20,7 +20,7 @@ export default css`
     align-items: center;
     font: inherit;
     color: var(--wa-color-neutral-text-on-surface);
-    padding: var(--wa-space-xs) var(--wa-space-m) var(--wa-space-xs) var(--wa-space-xs);
+    padding: var(--wa-space-xs) var(--wa-space-m) var(--wa-space-xs) var(--wa-space-2xs);
     transition: var(--wa-transition-fast) fill;
     cursor: pointer;
   }
@@ -54,8 +54,9 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.875em;
     visibility: hidden;
-    padding-inline-end: var(--wa-space-2xs);
+    width: var(--wa-space-xl);
   }
 
   .option--selected .option__check {

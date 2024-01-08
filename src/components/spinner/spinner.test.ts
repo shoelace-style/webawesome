@@ -27,5 +27,12 @@ describe('<wa-spinner>', () => {
       //
       expect(getComputedStyle(indicator).transform).to.equal('matrix(1, 0, 0, 1, 0, 0)');
     });
+
+    it('should have flex:none to prevent flex re-sizing', async () => {
+      const spinner = await fixture<WaSpinner>(html` <wa-spinner></wa-spinner> `);
+
+      // 0 0 auto is a compiled value for `none`
+      expect(getComputedStyle(spinner).flex).to.equal('0 0 auto');
+    });
   });
 });

@@ -25,8 +25,8 @@ markdown.use(markdownItReplaceIt);
 ['tip', 'warning', 'danger'].forEach(type => {
   const variant = type === 'tip' ? 'brand' : type;
   let icon = 'circle-info';
-  if (type === 'warning') icon = 'circle-exclamation';
-  if (type === 'danger') icon = 'triangle-exclamation';
+  if (type === 'warning') icon = 'triangle-exclamation';
+  if (type === 'danger') icon = 'circle-exclamation';
 
   markdown.use(markdownItContainer, type, {
     render: function (tokens, idx) {

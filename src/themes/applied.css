@@ -185,8 +185,32 @@ abbr[title] {
   cursor: help;
 }
 
+/* Code and similar */
+code,
+pre,
+kbd,
+samp,
+var {
+  font-family: var(--wa-font-family-code);
+  font-size: 0.975em;
+  background-color: var(--wa-color-neutral-fill-subtle);
+  border-radius: var(--wa-corners-s);
+  padding-block: var(--wa-space-3xs);
+  padding-inline: var(--wa-space-2xs);
+}
+
+code {
+  background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
+}
+
+pre {
+  color: var(--wa-color-text-normal);
+  border-radius: var(--wa-corners-s);
+  padding: var(--wa-space-m);
+  white-space: pre;
+}
+
 kbd {
-  background: var(--wa-color-neutral-fill-subtle);
   border: solid 1px var(--wa-color-neutral-border-subtle);
   box-shadow:
     inset 0 1px 0 1px rgb(255 255 255 / 0.2),
@@ -199,27 +223,6 @@ kbd {
 
 kbd wa-icon {
   vertical-align: -2px;
-}
-
-/* Code and similar */
-code,
-pre,
-kbd,
-samp,
-var {
-  font-family: var(--wa-font-family-code);
-  font-size: 0.975em;
-  background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 92%);
-  border-radius: var(--wa-corners-s);
-  padding-block: var(--wa-space-3xs);
-  padding-inline: var(--wa-space-2xs);
-}
-
-pre {
-  color: var(--wa-color-text-normal);
-  border-radius: var(--wa-corners-s);
-  padding: var(--wa-space-m);
-  white-space: pre;
 }
 
 /* Block quotes */

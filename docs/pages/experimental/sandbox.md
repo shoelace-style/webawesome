@@ -65,13 +65,13 @@ meta:
 </wa-alert>
 <br />
 <wa-alert variant="warning" open>
-  <wa-icon slot="icon" name="circle-exclamation" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
   <strong>Your session has ended</strong><br />
   Please login again to continue.
 </wa-alert>
 <br />
 <wa-alert variant="danger" open>
-  <wa-icon slot="icon" name="triangle-exclamation" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
   <strong>Your account has been deleted</strong><br />
   We're very sorry to see you go!
 </wa-alert>

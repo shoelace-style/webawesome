@@ -7,7 +7,7 @@ layout: component
 
 ```html:preview
 <wa-alert open>
-  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
   This is a standard alert. You can customize its content and even the icon.
 </wa-alert>
 ```
@@ -18,7 +18,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const App = () => (
   <WaAlert open>
-    <WaIcon slot="icon" name="info-circle" variant="regular" />
+    <WaIcon slot="icon" name="circle-info" variant="regular" />
     This is a standard alert. You can customize its content and even the icon.
   </WaAlert>
 );
@@ -60,7 +60,7 @@ Set the `variant` attribute to change the alert's variant.
 <br />
 
 <wa-alert variant="warning" open>
-  <wa-icon slot="icon" name="exclamation-circle" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
   <strong>Your session has ended</strong><br />
   Please login again to continue.
 </wa-alert>
@@ -68,7 +68,7 @@ Set the `variant` attribute to change the alert's variant.
 <br />
 
 <wa-alert variant="danger" open>
-  <wa-icon slot="icon" name="exclamation-triangle" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
   <strong>Your account has been deleted</strong><br />
   We're very sorry to see you go!
 </wa-alert>
@@ -81,7 +81,7 @@ import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 const App = () => (
   <>
     <WaAlert variant="brand" open>
-      <WaIcon slot="icon" name="info-circle" variant="regular" />
+      <WaIcon slot="icon" name="circle-info" variant="regular" />
       <strong>This is super informative</strong>
       <br />
       You can tell by how pretty the alert is.
@@ -90,7 +90,7 @@ const App = () => (
     <br />
 
     <WaAlert variant="success" open>
-      <WaIcon slot="icon" name="check2-circle" variant="regular" />
+      <WaIcon slot="icon" name="circle-check" variant="regular" />
       <strong>Your changes have been saved</strong>
       <br />
       You can safely exit the app now.
@@ -108,7 +108,7 @@ const App = () => (
     <br />
 
     <WaAlert variant="warning" open>
-      <WaIcon slot="icon" name="exclamation-circle" variant="regular" />
+      <WaIcon slot="icon" name="triangle-exclamation" variant="regular" />
       <strong>Your session has ended</strong>
       <br />
       Please login again to continue.
@@ -117,7 +117,7 @@ const App = () => (
     <br />
 
     <WaAlert variant="danger" open>
-      <WaIcon slot="icon" name="exclamation-triangle" variant="regular" />
+      <WaIcon slot="icon" name="circle-exclamation" variant="regular" />
       <strong>Your account has been deleted</strong>
       <br />
       We're very sorry to see you go!
@@ -132,7 +132,7 @@ Add the `closable` attribute to show a close button that will hide the alert.
 
 ```html:preview
 <wa-alert variant="brand" open closable class="alert-closable">
-  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
   You can close this alert any time!
 </wa-alert>
 
@@ -159,7 +159,7 @@ const App = () => {
 
   return (
     <WaAlert open={open} closable onWaAfterHide={handleHide}>
-      <WaIcon slot="icon" name="info-circle" variant="regular" />
+      <WaIcon slot="icon" name="circle-info" variant="regular" />
       You can close this alert any time!
     </WaAlert>
   );
@@ -193,7 +193,7 @@ Set the `duration` attribute to automatically hide an alert after a period of ti
   <wa-button variant="brand">Show Alert</wa-button>
 
   <wa-alert variant="brand" duration="3000" closable>
-    <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+    <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
     This alert will automatically hide itself after three seconds, unless you interact with it.
   </wa-alert>
 </div>
@@ -236,7 +236,7 @@ const App = () => {
         </WaButton>
 
         <WaAlert variant="brand" duration="3000" open={open} closable onWaAfterHide={() => setOpen(false)}>
-          <WaIcon slot="icon" name="info-circle" variant="regular" />
+          <WaIcon slot="icon" name="circle-info" variant="regular" />
           This alert will automatically hide itself after three seconds, unless you interact with it.
         </WaAlert>
       </div>
@@ -280,13 +280,13 @@ You should always use the `closable` attribute so users can dismiss the notifica
   </wa-alert>
 
   <wa-alert variant="warning" duration="3000" closable>
-    <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
+    <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
     <strong>Your session has ended</strong><br />
     Please login again to continue.
   </wa-alert>
 
   <wa-alert variant="danger" duration="3000" closable>
-    <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+    <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
     <strong>Your account has been deleted</strong><br />
     We're very sorry to see you go!
   </wa-alert>
@@ -365,14 +365,14 @@ const App = () => {
       </WaAlert>
 
       <WaAlert ref={warning} variant="warning" duration="3000" closable>
-        <WaIcon slot="icon" name="circle-exclamation" variant="regular" />
+        <WaIcon slot="icon" name="triangle-exclamation" variant="regular" />
         <strong>Your session has ended</strong>
         <br />
         Please login again to continue.
       </WaAlert>
 
       <WaAlert ref={danger} variant="danger" duration="3000" closable>
-        <WaIcon slot="icon" name="triangle-exclamation" variant="regular" />
+        <WaIcon slot="icon" name="circle-exclamation" variant="regular" />
         <strong>Your account has been deleted</strong>
         <br />
         We're very sorry to see you go!
