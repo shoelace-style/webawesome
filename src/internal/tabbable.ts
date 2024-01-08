@@ -5,6 +5,7 @@ const computedStyleMap = new WeakMap<Element, CSSStyleDeclaration>();
 function isVisible(el: HTMLElement): boolean {
   // This is the fastest check, but isn't supported in Safari.
   if (typeof el.checkVisibility === 'function') {
+    // Opacity is focusable, visibility is not.
     return el.checkVisibility({ checkOpacity: false, checkVisibilityCSS: true });
   }
 

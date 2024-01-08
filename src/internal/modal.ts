@@ -11,8 +11,6 @@ export default class Modal {
   previousFocus: HTMLElement | null;
   elementsWithTabbableControls: string[];
 
-  private tabbableElements: HTMLElement[] | null = null;
-
   constructor(element: HTMLElement) {
     this.element = element;
 
@@ -54,12 +52,7 @@ export default class Modal {
 
   private checkFocus() {
     if (this.isActive() && !this.isExternalActivated) {
-      let tabbableElements = this.tabbableElements;
-
-      if (!tabbableElements) {
-        tabbableElements = getTabbableElements(this.element);
-      }
-
+      const tabbableElements = getTabbableElements(this.element);
       if (!this.element.matches(':focus-within')) {
         const start = tabbableElements[0];
         const end = tabbableElements[tabbableElements.length - 1];
@@ -106,7 +99,6 @@ export default class Modal {
     }
 
     const tabbableElements = getTabbableElements(this.element);
-    this.tabbableElements = tabbableElements;
 
     let currentFocusIndex = tabbableElements.findIndex(el => el === currentActiveElement);
 
@@ -155,15 +147,11 @@ export default class Modal {
     this.currentFocus = nextFocus;
     this.currentFocus?.focus({ preventScroll: true });
 
-    setTimeout(() => {
-      this.checkFocus();
-
-      // Make sure to clean up!
-      setTimeout(() => (this.tabbableElements = null));
-    });
+    setTimeout(() => this.checkFocus());
   };
 
   private handleKeyUp = () => {
     this.tabDirection = 'forward';
   };
 }
+
