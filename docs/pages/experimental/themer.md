@@ -423,7 +423,6 @@ toc: false
 
   function resetBorderWidthValue () {
     document.documentElement.style.removeProperty('--wa-border-width-base')
-    console.log(getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base"))
     borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
   }
 
@@ -539,19 +538,15 @@ toc: false
 
   // Theme Switcher
   themeSelect.addEventListener('wa-change', event => {
+    const theme = event.target.value
     const newStylesheet = Object.assign(document.createElement("link"), {
       // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
       id: "theme-stylesheet",
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${event.target.value}.css`,
+      href: `/dist/themes/${theme}.css`,
     })
-
-    if (darkModeSelect.checked === true) {
-      darkModeSelect.checked = false
-      el.className = 'flavor-html'
-    }
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
     // with the new stylesheet, before the new stylesheet has loaded
@@ -575,6 +570,17 @@ toc: false
             resetBorderWidthValue()
             resetBorderStyleValue()
             resetCornersValue()
+
+            if (darkModeSelect.checked === true) {
+              // darkModeSelect.checked = false
+              document.documentElement.className = "flavor-html"
+
+              if(theme === 'chic') {
+                document.documentElement.classList.toggle(`wa-theme-${theme}-light`);
+              } else {
+                document.documentElement.classList.toggle(`wa-theme-${theme}-dark`);
+              }
+            }
           }, 100)
         })
       })

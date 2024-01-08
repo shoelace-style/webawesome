@@ -154,4 +154,3 @@ export default class Modal {
     this.tabDirection = 'forward';
   };
 }
-
