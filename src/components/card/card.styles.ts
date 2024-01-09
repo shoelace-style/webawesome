@@ -5,7 +5,7 @@ export default css`
   ${componentStyles}
 
   :host {
-    --background: var(--wa-color-surface-raised);
+    --background: var(--wa-color-surface-default);
     --border-color: var(--wa-color-surface-border);
     --border-radius: var(--wa-panel-corners);
     --border-style: var(--wa-panel-border-style);

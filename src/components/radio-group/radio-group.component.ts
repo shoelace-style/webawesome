@@ -130,7 +130,7 @@ export default class WaRadioGroup extends WebAwesomeElement implements WebAwesom
     const radios = this.getAllRadios();
     const oldValue = this.value;
 
-    if (target.disabled) {
+    if (!target || target.disabled) {
       return;
     }
 

@@ -336,7 +336,7 @@
   --wa-color-surface-raised: var(--wa-color-base-10);
   --wa-color-surface-default: var(--wa-color-base-05);
   --wa-color-surface-lowered: black;
-  --wa-color-surface-border: var(--wa-color-base-20);
+  --wa-color-surface-border: var(--wa-color-base-10);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
