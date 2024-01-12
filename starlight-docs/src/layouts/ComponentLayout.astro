@@ -1,5 +1,4 @@
 ---
-
 import { getComponentFromFileName } from "../js/cem.js"
 import { marked } from 'marked';
 
@@ -43,6 +42,15 @@ function classNameToComponentName (className: string) {
 }
 
 const componentSummary = marked.parse(component.summary);
+
+const hasSlots = Boolean(component.slots?.length)
+const hasProperties = Boolean(component.properties?.length)
+const hasEvents = Boolean(component.events?.length)
+const hasMethods = Boolean(component.methods?.length)
+const hasCssProperties = Boolean(component.cssProperties?.length)
+const hasCssParts = Boolean(component.cssParts?.length)
+const hasAnimations = Boolean(component.animations?.length)
+const hasDependencies = Boolean(component.dependencies?.length)
 ---
 
 <header class="component-header">
@@ -109,9 +117,9 @@ const componentSummary = marked.parse(component.summary);
 </wa-tab-group>
 
 {/* Slots */}
-{!component?.slots?.length ? "" :
+{!hasSlots ? "" :
   <>
-    <h2>Slots</h2>
+    <h2 id="slots">Slots</h2>
 
     <table>
       <thead>
@@ -122,12 +130,14 @@ const componentSummary = marked.parse(component.summary);
       </thead>
       <tbody>
         {component.slots.map((slot) => {
-          <tr>
-            <td class="nowrap">
-              {slot.name ? <code>{ slot.name }</code> : "(default)"}
-            </td>
-            <td>{slot.description}</td>
-          </tr>
+          return (
+            <tr>
+              <td class="nowrap">
+                {slot.name ? <code>{ slot.name }</code> : "(default)"}
+              </td>
+              <td>{slot.description}</td>
+            </tr>
+          )
         })}
       </tbody>
     </table>
@@ -137,9 +147,9 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/* Properties */}
-{!component.properties?.length ? "" :
+{!hasProperties ? "" :
   <>
-    <h2>Properties</h2>
+    <h2 id="properties">Properties</h2>
 
     <table>
       <thead>
@@ -203,9 +213,9 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/** Events */}
-{!component.events?.length ? "" :
+{!hasEvents ? "" :
   <>
-    <h2>Events</h2>
+    <h2 id="events">Events</h2>
 
     <table>
       <thead>
@@ -237,9 +247,9 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/* Methods */}
-{!component.methods?.length ? "" :
+{!hasMethods ? "" :
   <>
-    <h2>Methods</h2>
+    <h2 id="methods">Methods</h2>
 
     <table>
       <thead>
@@ -276,9 +286,9 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/** Custom Properties */}
-{!component.cssProperties?.length ? "" :
+{!hasCssProperties ? "" :
   <>
-    <h2>Custom Properties</h2>
+    <h2 id="custom-properties">Custom Properties</h2>
 
     <table>
       <thead>
@@ -306,7 +316,7 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/* CSS Parts */}
-{!component.cssParts?.length ? "" :
+{!hasCssParts ? "" :
   <>
     <h2>Parts</h2>
 
@@ -319,10 +329,12 @@ const componentSummary = marked.parse(component.summary);
       </thead>
       <tbody>
         {component.cssParts.map((cssPart) => {
-          <tr>
-            <td class="nowrap"><code>{ cssPart.name }</code></td>
-            <td>{ cssPart.description }</td>
-          </tr>
+          return (
+            <tr>
+              <td class="nowrap"><code>{ cssPart.name }</code></td>
+              <td>{ cssPart.description }</td>
+            </tr>
+          )
         })}
       </tbody>
     </table>
@@ -332,7 +344,7 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/* Animations */}
-{!component.animations?.length ? "" :
+{!hasAnimations ? "" :
   <>
     <h2>Animations</h2>
 
@@ -360,7 +372,7 @@ const componentSummary = marked.parse(component.summary);
 }
 
 {/* Dependencies */}
-{!component.dependencies?.length ? "" :
+{!hasDependencies ? "" :
   <>
     <h2>Dependencies</h2>
 
