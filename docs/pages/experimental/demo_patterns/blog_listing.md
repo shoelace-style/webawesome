@@ -26,7 +26,7 @@ toc: false
         <small>Author</small>
       </div>
     </div>
-    <div class="wa:arrange">
+    <div class="wa:arrange" style="align-content: start;">
       <div class="wa:arrange:side-by-side:gap-s">
         <div class="wa:block-flow:xs">
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
