@@ -84,10 +84,21 @@ export function getComponent (tagName) {
           `name (minus the wa- prefix). ${allComponents}`
       );
     }
+
+    component.hasSlots = Boolean(component.slots?.length)
+    component.hasProperties = Boolean(component.properties?.length)
+    component.hasEvents = Boolean(component.events?.length)
+    component.hasMethods = Boolean(component.methods?.length)
+    component.hasCssProperties = Boolean(component.cssProperties?.length)
+    component.hasCssParts = Boolean(component.cssParts?.length)
+    component.hasAnimations = Boolean(component.animations?.length)
+    component.hasDependencies = Boolean(component.dependencies?.length)
     return component;
 }
+
 export function getComponentFromFileName (filename) {
   const {name} = path.parse(filename)
   const tagName = "wa-" + name
   return getComponent(tagName)
 }
+

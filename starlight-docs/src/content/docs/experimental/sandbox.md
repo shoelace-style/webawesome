@@ -3,7 +3,7 @@ title: Theming Sandbox
 description: TODO
 ---
 
-#### Card
+## Card
 
 ```html:preview
 <wa-card class="card-overview">
@@ -40,7 +40,7 @@ description: TODO
 </style>
 ```
 
-#### Alerts
+## Alerts
 
 ```html:preview
 <wa-alert variant="brand" open>
@@ -74,7 +74,7 @@ description: TODO
 </wa-alert>
 ```
 
-#### Badges and Tags
+## Badges and Tags
 
 ```html:preview
 <wa-badge variant="brand">Brand</wa-badge>
@@ -90,7 +90,7 @@ description: TODO
 <wa-tag variant="danger">Danger</wa-tag>
 ```
 
-#### Buttons
+## Buttons
 
 ```html:preview
 <wa-button variant="brand">Brand</wa-button>
@@ -108,7 +108,7 @@ description: TODO
 <wa-button variant="text">Brand</wa-button>
 ```
 
-#### Form controls
+## Form controls
 
 ```html:preview
 <wa-checkbox>Unchecked</wa-checkbox>
@@ -137,7 +137,7 @@ description: TODO
 </wa-select>
 ```
 
-#### Progress
+## Progress
 
 ```html:preview
 <wa-progress-ring value="25" style="--indicator-width: 4px;"></wa-progress-ring>
@@ -145,7 +145,7 @@ description: TODO
 <wa-spinner></wa-spinner>
 ```
 
-#### Shadows
+## Shadows
 
 ```html:preview
 <style>

@@ -6,6 +6,7 @@ const { file, frontmatter } = Astro.props
 const { version, npmdir, cdndir } = frontmatter
 
 const component = getComponentFromFileName(file)
+
 function rootUrl(url) {
   return "/" + url
 }
@@ -43,14 +44,16 @@ function classNameToComponentName (className: string) {
 
 const componentSummary = marked.parse(component.summary);
 
-const hasSlots = Boolean(component.slots?.length)
-const hasProperties = Boolean(component.properties?.length)
-const hasEvents = Boolean(component.events?.length)
-const hasMethods = Boolean(component.methods?.length)
-const hasCssProperties = Boolean(component.cssProperties?.length)
-const hasCssParts = Boolean(component.cssParts?.length)
-const hasAnimations = Boolean(component.animations?.length)
-const hasDependencies = Boolean(component.dependencies?.length)
+const {
+  hasSlots,
+  hasProperties,
+  hasEvents,
+  hasMethods,
+  hasCssProperties,
+  hasCssParts,
+  hasAnimations,
+  hasDependencies,
+} = component
 ---
 
 <header class="component-header">
@@ -318,7 +321,7 @@ const hasDependencies = Boolean(component.dependencies?.length)
 {/* CSS Parts */}
 {!hasCssParts ? "" :
   <>
-    <h2>Parts</h2>
+    <h2 id="parts">Parts</h2>
 
     <table>
       <thead>
@@ -346,7 +349,7 @@ const hasDependencies = Boolean(component.dependencies?.length)
 {/* Animations */}
 {!hasAnimations ? "" :
   <>
-    <h2>Animations</h2>
+    <h2 id="animations">Animations</h2>
 
     <table>
       <thead>
@@ -374,7 +377,7 @@ const hasDependencies = Boolean(component.dependencies?.length)
 {/* Dependencies */}
 {!hasDependencies ? "" :
   <>
-    <h2>Dependencies</h2>
+    <h2 id="dependencies">Dependencies</h2>
 
     <p>This component automatically imports the following dependencies.</p>
 

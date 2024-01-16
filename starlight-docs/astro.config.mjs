@@ -148,6 +148,7 @@ export default defineConfig({
       components: {
         // Override the default `Head` component.
         Head: './src/components/overrides/Head.astro',
+        TableOfContents: './src/components/overrides/TableOfContents.astro',
       },
 		}),
 	],
