@@ -10,6 +10,7 @@ import FullReload from "vite-plugin-full-reload"
 import {customElementsManifest} from "./src/js/cem.js"
 import { RemarkPluginFindAndReplace } from 'remark-plugin-find-and-replace';
 import rehypeExternalLinks from 'rehype-external-links'
+import remarkCodeHighlighter from './src/plugins/prism';
 
 const version = customElementsManifest.package.version
 const cdndir = "cdn"
@@ -24,48 +25,6 @@ function remarkFrontmatterPlugin() {
     frontmatter.cdndir = cdndir
     frontmatter.version = version;
 
-  }
-}
-
-/**
- * Finds all HTML heading nodes (`<h1>` through `<h6>`)
- */
-export function findHeadings(node) {
-  let headingNodes = [];
-  findHeadingsRecursive(node, headingNodes);
-  return headingNodes;
-}
-
-/**
- * Determines whether the given node is an HTML element.
- */
-export function isHtmlElementNode(node) {
-  return typeof node === "object" &&
-    node.type === "element" &&
-    typeof node.tagName === "string" &&
-    "properties" in node &&
-    typeof node.properties === "object";
-}
-/**
- * Determines whether the given node is an HTML heading node, according to the specified options
- */
-export function isHeadingNode(node) {
-  return isHtmlElementNode(node) && ["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName);
-}
-
-/**
- * Recursively crawls the HAST tree and adds all HTML heading nodes to the given array.
- */
-function findHeadingsRecursive(node, headingNodes) {
-  if (isHeadingNode(node)) {
-    headingNodes.push(node);
-  }
-
-  if (node.children) {
-    let parent = node;
-    for (let child of parent.children) {
-      findHeadingsRecursive(child, headingNodes);
-    }
   }
 }
 
@@ -85,6 +44,7 @@ export default defineConfig({
   outDir: "../_site",
   site: 'https://shoelace.style',
   markdown: {
+    syntaxHighlight: 'prism',
     remarkPlugins: [
       remarkFrontmatterPlugin,
       RemarkPluginFindAndReplace({
@@ -93,7 +53,8 @@ export default defineConfig({
           { pattern: '%CDNDIR%', replacement: cdndir },
           { pattern: '%NPMDIR%', replacement: npmdir },
         ]
-      })
+      }),
+      remarkCodeHighlighter,
     ],
     rehypePlugins: [
       () => rehypeExternalLinks({
@@ -107,6 +68,7 @@ export default defineConfig({
   },
 	integrations: [
 		starlight({
+		  expressiveCode: false,
 			title: 'Web Awesome',
 			social: {
 				github: 'https://github.com/shoelace-style/shoelace',

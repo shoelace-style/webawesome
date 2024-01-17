@@ -79,7 +79,8 @@ This example demonstrates all of the baked-in animations and easings. Animations
   <div class="controls">
     <wa-select label="Animation" value="bounce"></wa-select>
     <wa-select label="Easing" value="linear"></wa-select>
-    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"></wa-input>
+    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1">
+    </wa-input>
   </div>
 </div>
 
@@ -131,6 +132,9 @@ This example demonstrates all of the baked-in animations and easings. Animations
     margin-bottom: 1rem;
   }
 </style>
+```
+
+```jsx:react
 ```
 
 ### Using Intersection Observer

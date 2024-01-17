@@ -1,4 +1,4 @@
-;(() => {
+(() => {
   function convertModuleLinks(html) {
     html = html
       .replace(/@shoelace-style\/shoelace/g, `https://esm.sh/@shoelace-style/shoelace@${waVersion}`)
@@ -6,33 +6,6 @@
       .replace(/from "react"/g, `from "https://esm.sh/react@${reactVersion}"`);
 
     return html;
-  }
-
-  function getAdjacentExample(name, pre) {
-    let currentPre = pre.nextElementSibling;
-
-    while (currentPre?.tagName.toLowerCase() === 'pre') {
-      if (currentPre?.getAttribute('data-lang').split(' ').includes(name)) {
-        return currentPre;
-      }
-
-      currentPre = currentPre.nextElementSibling;
-    }
-
-    return null;
-  }
-
-  function runScript(script) {
-    const newScript = document.createElement('script');
-
-    if (script.type === 'module') {
-      newScript.type = 'module';
-      newScript.textContent = script.innerHTML;
-    } else {
-      newScript.appendChild(document.createTextNode(`(() => { ${script.innerHTML} })();`));
-    }
-
-    script.parentNode.replaceChild(newScript, script);
   }
 
   function getFlavor() {
@@ -64,7 +37,7 @@
     });
   }
 
-  const waVersion = document.documentElement.getAttribute('data-wa-version');
+  const waVersion = document.querySelector("meta[name='wa-version']").getAttribute("content")
   const reactVersion = '18.2.0';
   const cdndir = 'cdn';
   const npmdir = 'dist';
@@ -240,4 +213,6 @@
 
   // Set the initial flavor
   window.addEventListener('turbo:load', syncFlavor);
+  syncFlavor()
 })();
+

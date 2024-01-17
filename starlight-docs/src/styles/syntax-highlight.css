@@ -1,0 +1,128 @@
+:root {
+  --sl-content-width: 50rem;
+}
+
+/* Code highlighter */
+pre,
+.sl-markdown-content pre:not(:where(.not-content *)) {
+  background-color: var(--sl-color-gray-6);
+  border: solid 1px var(--sl-color-gray-6);
+  border-radius: var(--wa-corners-s);
+}
+
+[data-theme='light'] pre,
+[data-theme='light'] .sl-markdown-content pre:not(:where(.not-content *)) {
+  background-color: var(--sl-color-gray-7);
+  border-color: var(--sl-color-gray-7);
+}
+
+pre > code {
+  display: block;
+  hyphens: none;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+  max-width: 100%;
+}
+
+pre .namespace {
+  opacity: 0.7;
+}
+
+pre .token.important,
+pre .token.bold {
+  font-weight: bold;
+}
+
+pre .token.italic {
+  font-style: italic;
+}
+
+pre .token.comment,
+pre .token.prolog,
+pre .token.doctype,
+pre .token.cdata,
+pre .token.operator,
+pre .token.punctuation {
+  color: #64748b; /* TW slate 500 */
+}
+
+[data-theme='light'] pre .token.comment,
+[data-theme='light'] pre .token.prolog,
+[data-theme='light'] pre .token.doctype,
+[data-theme='light'] pre .token.cdata,
+[data-theme='light'] pre .token.operator,
+[data-theme='light'] pre .token.punctuation {
+  color: #475569; /* TW slate 600 */
+}
+
+pre .token.atrule,
+pre .token.attr-value,
+pre .token.keyword,
+pre .token.number,
+pre .token.property,
+pre .token.tag,
+pre .token.url,
+pre .token.variable {
+  color: #8b5cf6; /* TW violet 500 */
+}
+
+[data-theme='light'] pre .token.atrule,
+[data-theme='light'] pre .token.attr-value,
+[data-theme='light'] pre .token.keyword,
+[data-theme='light'] pre .token.number,
+[data-theme='light'] pre .token.property,
+[data-theme='light'] pre .token.tag,
+[data-theme='light'] pre .token.url,
+[data-theme='light'] pre .token.variable {
+  color: #7c3aed; /* TW violet 600 */
+}
+
+pre .token.symbol,
+pre .token.deleted,
+pre .token.important,
+pre .token.symbol,
+pre .token.deleted,
+pre .token.important {
+  color: #f43f5e; /* TW rose 500 */
+}
+
+[data-theme='light'] pre .token.symbol,
+[data-theme='light'] pre .token.deleted,
+[data-theme='light'] pre .token.important {
+  color: #e11d48; /* TW rose 600 */
+}
+
+pre .token.boolean,
+pre .token.constant,
+pre .token.selector,
+pre .token.attr-name,
+pre .token.string,
+pre .token.char,
+pre .token.builtin,
+pre .token.inserted {
+  color: #10b981; /* TW emerald 500 */
+}
+
+[data-theme='light'] pre .token.boolean,
+[data-theme='light'] pre .token.constant,
+[data-theme='light'] pre .token.selector,
+[data-theme='light'] pre .token.attr-name,
+[data-theme='light'] pre .token.string,
+[data-theme='light'] pre .token.char,
+[data-theme='light'] pre .token.builtin,
+[data-theme='light'] pre .token.inserted {
+  color: #059669; /* TW emerald 600 */
+}
+
+pre .token.function,
+pre .token.class-name,
+pre .token.regex {
+  color: #d97706; /* TW amber 600 */
+}
+
+[data-theme='light'] pre .token.function,
+[data-theme='light'] pre .token.class-name,
+[data-theme='light'] pre .token.regex {
+  color: #b45309; /* TW amber 700 */
+}

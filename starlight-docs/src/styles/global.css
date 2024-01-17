@@ -175,6 +175,7 @@ pre:not(:last-child) {
 
 pre {
   position: relative;
+  overflow: auto;
 }
 
 pre > code {
@@ -186,7 +187,6 @@ pre > code {
   white-space: pre;
   padding: 1rem;
   margin: -1rem;
-  overflow: auto;
 }
 
 pre .token.comment {
