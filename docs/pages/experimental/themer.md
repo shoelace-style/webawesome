@@ -691,6 +691,9 @@ toc: false
       case 'lora':
         fontFamily = `'Lora', serif`;
         break;
+      case 'mulish':
+        fontFamily = `'Mulish', sans-serif`;
+        break;
       case 'noto-sans':
           fontFamily = `'Noto Sans', sans-serif`;
           break;
@@ -745,6 +748,9 @@ toc: false
         break;
       case 'lora':
         fontFamily = `'Lora', serif`;
+        break;
+      case 'mulish':
+        fontFamily = `'Mulish', sans-serif`;
         break;
       case 'noto-sans':
           fontFamily = `'Noto Sans', sans-serif`;
@@ -846,7 +852,7 @@ toc: false
     top: 2rem;
     left: 2rem;
     background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-2);
     width: var(--knobs-width);

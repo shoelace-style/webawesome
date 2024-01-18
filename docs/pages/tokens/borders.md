@@ -8,12 +8,12 @@ meta:
 
 Border radius tokens are used to give sharp edges a more subtle, rounded effect. They use rem units so they scale with the base font size. The pixel values displayed are based on a 16px font size.
 
-| Token                      | Value                                         | Example                                                                              |
-| -------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `--wa-border-style`        | `solid`                                       |                                                                                      |
-| `--wa-border-width-thin`   | `0.0625rem` (1px)                             | <div class="border-demo" style="border-width: var(--wa-border-width-thin);"></div>   |
-| `--wa-border-width-medium` | `calc(var(--wa-border-width-thin) * 2)` (2px) | <div class="border-demo" style="border-width: var(--wa-border-width-medium);"></div> |
-| `--wa-border-width-thick`  | `calc(var(--wa-border-width-thin) * 3)` (3px) | <div class="border-demo" style="border-width: var(--wa-border-width-thick);"></div>  |
+| Token                 | Value                                      | Example                                                                         |
+| --------------------- | ------------------------------------------ | ------------------------------------------------------------------------------- |
+| `--wa-border-style`   | `solid`                                    |                                                                                 |
+| `--wa-border-width-s` | `0.0625rem` (1px)                          | <div class="border-demo" style="border-width: var(--wa-border-width-s);"></div> |
+| `--wa-border-width-m` | `calc(var(--wa-border-width-s) * 2)` (2px) | <div class="border-demo" style="border-width: var(--wa-border-width-m);"></div> |
+| `--wa-border-width-l` | `calc(var(--wa-border-width-s) * 3)` (3px) | <div class="border-demo" style="border-width: var(--wa-border-width-l);"></div> |
 
 ## Corners
 

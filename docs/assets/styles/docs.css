@@ -343,7 +343,7 @@ pre:hover .copy-code-button,
   z-index: 20;
   width: var(--docs-sidebar-width);
   background-color: var(--docs-background-color);
-  border-right: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-right: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   border-radius: 0;
   padding: 2rem;
   margin: 0;
@@ -392,7 +392,7 @@ pre:hover .copy-code-button,
 #sidebar nav h2 {
   font-size: var(--wa-font-size-m);
   font-weight: var(--wa-font-weight-medium);
-  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-bottom: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   margin: var(--wa-space-xl) 0 var(--wa-space-xs) 0;
 }
 
@@ -517,7 +517,7 @@ main {
   max-height: calc(100vh - 6rem);
   font-size: var(--wa-font-size-s);
   line-height: 1.33;
-  border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-left: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   list-style: none;
   padding: 1rem 0;
   margin: 0;
@@ -672,7 +672,7 @@ html.sidebar-open #menu-toggle {
 
   details,
   pre {
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   }
 
   details summary {
@@ -706,7 +706,7 @@ html.sidebar-open #menu-toggle {
   }
 
   .code-preview__source-group {
-    border-bottom: solid 1px var(--wa-border-width-thin);
+    border-bottom: solid 1px var(--wa-border-width-s);
     border-bottom-left-radius: var(--wa-corners-s);
     border-bottom-right-radius: var(--wa-corners-s);
   }

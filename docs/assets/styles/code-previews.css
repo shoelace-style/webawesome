@@ -8,7 +8,7 @@
 
 .code-preview__preview {
   position: relative;
-  border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-bottom: none;
   border-top-left-radius: var(--wa-corners-s);
   border-top-right-radius: var(--wa-corners-s);
@@ -42,7 +42,7 @@
   font-size: var(--wa-font-size-xs);
   color: var(--wa-color-text-quiet);
   background-color: var(--wa-color-surface-default);
-  border-left: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-left: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-top-right-radius: var(--wa-corners-s);
   cursor: ew-resize;
 }
@@ -58,7 +58,7 @@
 }
 
 .code-preview__source {
-  border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-bottom: none;
   border-radius: 0 !important;
   display: none;
@@ -74,7 +74,7 @@
 
 .code-preview__buttons {
   position: relative;
-  border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-bottom-left-radius: var(--wa-corners-s);
   border-bottom-right-radius: var(--wa-corners-s);
   display: flex;
@@ -97,7 +97,7 @@
 }
 
 .code-preview__button:not(:last-of-type) {
-  border-right: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-right: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
 }
 
 .code-preview__button--html,
@@ -129,7 +129,7 @@
 
 .code-preview__button:hover,
 .code-preview__button:active {
-  box-shadow: 0 0 0 var(--wa-border-width-thin) var(--wa-color-brand-border-subtle);
+  box-shadow: 0 0 0 var(--wa-border-width-s) var(--wa-color-brand-border-subtle);
   border-right-color: transparent;
   background-color: var(--wa-color-brand-fill-subtle);
   color: var(--wa-color-brand-text-on-surface);

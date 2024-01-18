@@ -90,3 +90,9 @@ wa-textarea {
   }
 }
 /* #endregion */
+
+/* #region Progress bar */
+wa-progress-bar {
+  --box-shadow: var(--wa-shadow-inset);
+}
+/* #endregion */

@@ -6,7 +6,7 @@ export default css`
 
   :host {
     --color: var(--wa-color-surface-border);
-    --width: var(--wa-border-width-thin);
+    --width: var(--wa-border-width-s);
     --spacing: var(--wa-space-m);
   }
 

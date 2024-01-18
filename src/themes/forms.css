@@ -4,7 +4,7 @@
   --wa-form-controls-value-color: var(--wa-color-danger-text-on-surface);
 
   /* Focus ring */
-  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-danger-spot);
+  --wa-focus-ring: solid var(--wa-border-width-l) var(--wa-color-danger-spot);
 
   /* Help text */
   --wa-color-text-quiet: var(--wa-color-danger-text-on-fill);
@@ -16,7 +16,7 @@
   --wa-form-controls-value-color: var(--wa-color-success-text-on-surface);
 
   /* Focus ring */
-  --wa-focus-ring: solid var(--wa-border-width-thick) var(--wa-color-success-spot);
+  --wa-focus-ring: solid var(--wa-border-width-l) var(--wa-color-success-spot);
 
   /* Help text */
   --wa-color-text-quiet: var(--wa-color-success-text-on-fill);

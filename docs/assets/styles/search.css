@@ -6,7 +6,7 @@
   --docs-search-box-color: var(--wa-form-controls-placeholder-color);
 
   --docs-search-dialog-background: var(--wa-color-surface-raised);
-  --docs-search-border-width: var(--wa-border-width-thin);
+  --docs-search-border-width: var(--wa-border-width-s);
   --docs-search-border-color: var(--wa-color-surface-border);
   --docs-search-text-color: var(--wa-color-text-normal);
   --docs-search-text-color-muted: var(--wa-color-text-quiet);

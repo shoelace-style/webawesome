@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap');
 @import 'depth_3_punchy.css'; /* depth_0_flat.css, depth_1_semiflat.css, depth_2_chunky.css, depth_3_punchy.css, depth_4_glossy.css */
-@import 'borders_2_light.css'; /* borders_0_minimal.css, borders_1_feather.css, borders_2_light.css, borders_3_medium.css, borders_4_heavy.css */
 
 :root,
 :host,
@@ -130,8 +128,8 @@
    * Subtle colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - surface, subtle, or accent.
   */
-  --wa-color-brand-spot: var(--wa-color-lime-70);
-  --wa-color-brand-spot-darker: var(--wa-color-lime-60);
+  --wa-color-brand-spot: var(--wa-color-lime-80);
+  --wa-color-brand-spot-darker: var(--wa-color-lime-70);
   --wa-color-brand-fill-subtle: var(--wa-color-lime-95);
   --wa-color-brand-fill-highlight: var(--wa-color-lime-90);
   --wa-color-brand-border-subtle: var(--wa-color-lime-90);
@@ -140,8 +138,8 @@
   --wa-color-brand-text-on-fill: var(--wa-color-lime-40);
   --wa-color-brand-text-on-surface: var(--wa-color-lime-50);
 
-  --wa-color-success-spot: var(--wa-color-green-70);
-  --wa-color-success-spot-darker: var(--wa-color-green-60);
+  --wa-color-success-spot: var(--wa-color-green-80);
+  --wa-color-success-spot-darker: var(--wa-color-green-70);
   --wa-color-success-fill-subtle: var(--wa-color-green-95);
   --wa-color-success-fill-highlight: var(--wa-color-green-90);
   --wa-color-success-border-subtle: var(--wa-color-green-90);
@@ -150,8 +148,8 @@
   --wa-color-success-text-on-fill: var(--wa-color-green-40);
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
 
-  --wa-color-warning-spot: var(--wa-color-yellow-70);
-  --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
+  --wa-color-warning-spot: var(--wa-color-yellow-80);
+  --wa-color-warning-spot-darker: var(--wa-color-yellow-70);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-95);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-90);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-90);
@@ -160,8 +158,8 @@
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
 
-  --wa-color-danger-spot: var(--wa-color-red-70);
-  --wa-color-danger-spot-darker: var(--wa-color-red-60);
+  --wa-color-danger-spot: var(--wa-color-red-80);
+  --wa-color-danger-spot-darker: var(--wa-color-red-70);
   --wa-color-danger-fill-subtle: var(--wa-color-red-95);
   --wa-color-danger-fill-highlight: var(--wa-color-red-90);
   --wa-color-danger-border-subtle: var(--wa-color-red-90);
@@ -170,8 +168,8 @@
   --wa-color-danger-text-on-fill: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-spot: var(--wa-color-base-70);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-60);
+  --wa-color-neutral-spot: var(--wa-color-base-80);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-70);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
   --wa-color-neutral-border-subtle: var(--wa-color-base-90);
@@ -190,12 +188,12 @@
 
   --wa-font-weight-light: 300;
   --wa-font-weight-normal: 400;
-  --wa-font-weight-medium: 500;
-  --wa-font-weight-heavy: 600;
+  --wa-font-weight-medium: 550;
+  --wa-font-weight-heavy: 650;
 
-  --wa-font-weight-heading: var(--wa-font-weight-medium);
+  --wa-font-weight-heading: var(--wa-font-weight-heavy);
   --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-action: var(--wa-font-weight-heavy);
+  --wa-font-weight-action: var(--wa-font-weight-medium);
 
   /* The default typescale is based on the Major Second scale (x1.125). 
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
@@ -239,11 +237,29 @@
   --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
 
   /**
+   * Borders
+   */
+  --wa-border-style: solid;
+
+  /* Border widths are designed to scale according to a single base value.
+     * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.0625;
+  --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-s);
+
+  --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-s);
+
+  /**
    * Corners
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.5;
+  --wa-corners-base: 0.75;
   --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
@@ -261,6 +277,12 @@
   --wa-focus-ring-width: 0.1875rem; /* 3px */
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
+
+  /**
+   * Links
+   */
+  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
+  --wa-link-decoration-hover: underline;
 
   /**
    * Z-index
@@ -317,8 +339,8 @@
   --wa-flow-spacing: 1.5rem;
 
   /**
-  * From 2.x
-  */
+   * From 2.x
+   */
   --wa-form-control-toggle-size-s: 0.875rem;
   --wa-form-control-toggle-size-m: 1.125rem;
   --wa-form-control-toggle-size-l: 1.375rem;
@@ -336,7 +358,7 @@
   --wa-color-surface-raised: var(--wa-color-base-10);
   --wa-color-surface-default: var(--wa-color-base-05);
   --wa-color-surface-lowered: black;
-  --wa-color-surface-border: var(--wa-color-base-10);
+  --wa-color-surface-border: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
@@ -355,8 +377,8 @@
   --wa-color-mix-active: black 16%;
 
   /**
-    * Semantic theme colors
-    */
+   * Semantic theme colors
+   */
   --wa-color-brand-spot: var(--wa-color-lime-80);
   --wa-color-brand-spot-darker: var(--wa-color-lime-70);
   --wa-color-brand-fill-subtle: var(--wa-color-lime-10);

@@ -26,7 +26,7 @@ export default css`
   }
 
   .color-picker--inline {
-    border: var(--wa-form-controls-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: var(--wa-form-controls-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   }
 
   .color-picker--inline:focus-visible {
@@ -273,7 +273,7 @@ export default css`
   .color-dropdown::part(panel) {
     max-height: none;
     background-color: var(--wa-color-surface-raised);
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
     border-radius: var(--wa-corners-s);
     overflow: visible;
   }

@@ -24,6 +24,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --track-color - The color of the track.
  * @cssproperty --indicator-color - The color of the indicator.
  * @cssproperty --label-color - The color of the label.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the progress bar.
  */
 export default class WaProgressBar extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;

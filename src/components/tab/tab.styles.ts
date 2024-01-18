@@ -35,7 +35,7 @@ export default css`
 
   .tab:focus-visible {
     outline: var(--wa-focus-ring);
-    outline-offset: calc(-1 * var(--wa-border-width-thick) - var(--wa-focus-ring-offset));
+    outline-offset: calc(-1 * var(--wa-border-width-l) - var(--wa-focus-ring-offset));
   }
 
   .tab.tab--active:not(.tab--disabled) {

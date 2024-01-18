@@ -35,6 +35,15 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
  * @csspart label - The container that wraps the checkbox's label.
+ *
+ * @cssproperty --background - The checkbox's background styles.
+ * @cssproperty --background-checked - The checkbox's background styles when checked.
+ * @cssproperty --border-color - The color of the checkbox's borders.
+ * @cssproperty --border-color-checked - The color of the checkbox's borders when checked.
+ * @cssproperty --border-radius - The border radius of the checkbox's corners.
+ * @cssproperty --border-style - The style of the checkbox's borders.
+ * @cssproperty --border-width - The width of the checkbox's borders. Expects a single value.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the checkbox.
  */
 export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;

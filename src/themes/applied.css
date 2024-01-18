@@ -113,7 +113,7 @@ h6 {
 
 hr {
   border: none;
-  border-bottom: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-bottom: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   margin: var(--wa-flow-spacing) 0;
 }
 
@@ -316,7 +316,7 @@ details[open] > summary::before {
 }
 
 details + details {
-  margin-top: calc(-1 * var(--wa-flow-spacing) + var(--wa-border-width-thin));
+  margin-top: calc(-1 * var(--wa-flow-spacing) + var(--wa-border-width-s));
 }
 
 /* Tables */
@@ -331,7 +331,7 @@ caption {
 }
 
 tbody tr {
-  border-top: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+  border-top: solid var(--wa-border-width-s) var(--wa-color-surface-border);
 }
 
 tbody tr:nth-child(2n + 1) {
@@ -403,10 +403,14 @@ iframe {
 /* Links */
 a {
   color: var(--wa-color-text-link);
+  text-decoration: var(--wa-link-decoration-default);
+  -webkit-text-decoration: var(--wa-link-decoration-default);
 }
 
 a:hover {
   color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
+  text-decoration: var(--wa-link-decoration-hover);
+  -webkit-text-decoration: var(--wa-link-decoration-hover);
 }
 
 a:focus,
@@ -451,7 +455,7 @@ textarea {
   details,
   pre {
     background: none;
-    border: solid var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   }
 
   summary {

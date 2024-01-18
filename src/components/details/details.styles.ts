@@ -5,13 +5,23 @@ export default css`
   ${componentStyles}
 
   :host {
+    --background: var(--wa-color-surface-default);
+    --border-color: var(--wa-color-surface-border);
+    --border-radius: var(--wa-panel-corners);
+    --border-style: var(--wa-panel-border-style);
+    --border-width: var(--wa-panel-border-width);
+    --icon-color: var(--wa-color-text-quiet);
+    --padding: var(--wa-space-m);
+
     display: block;
   }
 
   .details {
-    border: solid 1px var(--wa-color-surface-border);
-    border-radius: var(--wa-panel-corners);
-    background-color: var(--wa-color-surface-default);
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
     overflow-anchor: none;
   }
 
@@ -22,7 +32,7 @@ export default css`
   .details__header {
     display: flex;
     align-items: center;
-    padding: var(--wa-space-m);
+    padding: var(--padding);
     user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
@@ -60,7 +70,7 @@ export default css`
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    color: var(--wa-color-text-quiet);
+    color: var(--icon-color);
     transition: var(--wa-transition-fast) rotate ease;
   }
 
@@ -83,6 +93,6 @@ export default css`
 
   .details__content {
     display: block;
-    padding: var(--wa-space-m);
+    padding: var(--padding);
   }
 `;
