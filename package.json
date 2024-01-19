@@ -42,9 +42,9 @@
     "url": "https://github.com/shoelace-style/shoelace/issues"
   },
   "scripts": {
-    "start": "node scripts/build.js --serve",
+    "start": "patch-package && node scripts/build.js --serve",
     "docs:start": "cd starlight-docs && npm run dev -- --silent",
-    "build": "node scripts/build.js",
+    "build": "patch-package && node scripts/build.js",
     "docs:build": "cd starlight-docs && npm run build -- --silent",
     "verify": "npm run prettier:check && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run verify",
