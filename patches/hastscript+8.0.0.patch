@@ -1,0 +1,15 @@
+diff --git a/node_modules/hastscript/lib/create-h.js b/node_modules/hastscript/lib/create-h.js
+index 928676f..569e30d 100644
+--- a/node_modules/hastscript/lib/create-h.js
++++ b/node_modules/hastscript/lib/create-h.js
+@@ -154,7 +154,9 @@ function isProperties(value, name) {
+     return false
+   }
+ 
+-  if (name === 'input' || !value.type || typeof value.type !== 'string') {
++  // Temporary fix.
++  // Issue: https://github.com/withastro/astro/issues/9717#issuecomment-1900540623
++  if (name === 'input' || name.split(/-/)[1] || !value.type || typeof value.type !== 'string') {
+     return true
+   }
+ 

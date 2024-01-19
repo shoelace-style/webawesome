@@ -58,7 +58,8 @@
     "test:watch": "web-test-runner --watch --group default",
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
     "list-outdated-dependencies": "npm-check-updates --format repo --peer",
-    "update-dependencies": "npm-check-updates --peer -u && npm install"
+    "update-dependencies": "npm-check-updates --peer -u && npm install",
+    "postinstall": "patch-package"
   },
   "engines": {
     "node": ">=14.17.0"
