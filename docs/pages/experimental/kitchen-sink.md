@@ -6,6 +6,11 @@ toc: false
 ---
 
 <style>
+  /* turn off eleventy header anchors */
+  .anchor-heading a {
+    display: none;
+  }
+
   /* hide Web Awesome docs nav */
   main {
     margin-left: 0;
@@ -52,7 +57,7 @@ toc: false
 
   /* set up  Kitchen Sink preview area */
   .content {
-    max-width: 1200px;
+    max-width: 1160px;
     gap: 0;
   }
 
@@ -1047,7 +1052,7 @@ toc: false
     <section class="strata products">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
           <wa-rating label="Rating" value="4"></wa-rating>
@@ -1057,18 +1062,18 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
           <wa-rating label="Rating" value="5"></wa-rating>
@@ -1078,17 +1083,17 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Keymaker II</h3>
           <wa-rating label="Rating" value="3"></wa-rating>
@@ -1098,11 +1103,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
