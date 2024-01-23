@@ -52,7 +52,7 @@ toc: false
 
   /* set up  Kitchen Sink preview area */
   .content {
-    max-width: 1024px;
+    max-width: 1200px;
     gap: 0;
   }
 
@@ -203,6 +203,7 @@ toc: false
     <wa-select name="theme" label="Theme" value="default">
       <wa-option value="default">Default</wa-option>
       <wa-option value="fa">Font Awesome</wa-option>
+      <wa-option value="premium">Premium</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
@@ -907,6 +908,7 @@ toc: false
     font-size: 1.25rem;
   }
 
+  /* page layout */
   .preview-container {
     background: var(--wa-color-surface-lowered);
     padding-inline: var(--wa-space-2xl);
@@ -932,6 +934,67 @@ toc: false
     z-index: -1;
   }
 
+  /* general and utility */
+  .space-vertically {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap, 1.25rem);
+  }
+
+  .strata {
+    border-bottom: var(--wa-border-width-base) var(--wa-color-neutral-border-highlight) var(--wa-border-style);
+  }
+
+
+  /* strata - hero/header */
+
+  /* strata product cards */
+
+  /* grid layout */
+  .strata.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .products wa-card::part(base) {
+    height: 100%;
+  }
+
+  .products wa-card::part(body) {
+    flex-grow: 1;
+  }
+
+  .product-card {
+    position: relative;
+  }
+
+
+  .product-card .badge-stock {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .product-card .title-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+
+  .product-card .title {
+    font-size: var(--wa-font-size-2xl);
+    margin: 0;
+  }
+
+  .product-card wa-rating {
+    --symbol-size: .8rem;
+  }
+
+
+  /* other */
 
   .cards {
     display: grid;
@@ -946,11 +1009,6 @@ toc: false
     height: 100%;
   }
 
-  .space-vertically {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap, 1.25rem);
-  }
 
 
   @media screen and (max-width: 670px) {
@@ -986,47 +1044,114 @@ toc: false
       </div>
     </header>
 
-    <div class="cards">
-      <wa-card>
-        <div class="space-vertically" style="height: 100%;">
-          <wa-alert variant="success" open>
-            <wa-icon slot="icon" name="circle-check"></wa-icon>
-            This is the Way.
-          </wa-alert>
-          <wa-select label="Signet" help-text="This identifies your clan. You can change this later.">
-            <wa-option>Mudhorn</wa-option>
-          </wa-select>
-          <wa-checkbox checked>I swear on my name and the names of the ancestors</wa-checkbox>
-          <wa-button variant="success" style="margin-top: auto;">Forge</wa-button>
+    <section class="strata products">
+      <wa-card class="card-image product-card">
+        <wa-badge variant="brand" class="badge-stock">New</wa-badge>
+        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Morpheus</h3>
+          <wa-rating label="Rating" value="4"></wa-rating>
+        </div>
+        <div class="description">
+          <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            Save
+          </wa-button>
         </div>
       </wa-card>
-      <wa-card>
-        <div class="space-vertically" style="height: 100%;">
-          <wa-alert variant="warning" open>
-            <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
-            It's a trap!
-          </wa-alert>
-          <wa-radio-group label="Faction" value="2">
-            <wa-radio value="1">Galactic Empire</wa-radio>
-            <wa-radio value="2">Rebel Alliance</wa-radio>
-          </wa-radio-group>
-          <wa-input label="Mission" value="Destroy the Death Star"></wa-input>
-          <wa-button variant="warning" style="margin-top: auto;">Proceed</wa-button>
+      <wa-card class="card-image product-card">
+        <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
+        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Seraph</h3>
+          <wa-rating label="Rating" value="5"></wa-rating>
+        </div>
+        <div class="description">
+          <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            Save
+          </wa-button>
         </div>
       </wa-card>
-      <wa-card>
-        <div class="space-vertically" style="height: 100%;">
-          <wa-alert variant="danger" open>
-            <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
-            That's no moon.
-          </wa-alert>
-          <wa-input label="Destination" value="Alderaan"></wa-input>
-          <wa-switch checked>Jam fighter transmission</wa-switch>
-          <wa-switch disabled>Lock in artillery power</wa-switch>
-          <wa-button variant="danger" style="margin-top: auto;">Turn around</wa-button>
+      <wa-card class="card-image product-card">
+        <img slot="image" src="https://picsum.photos/300/200" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Keymaker II</h3>
+          <wa-rating label="Rating" value="3"></wa-rating>
+        </div>
+        <div class="description">
+          <p>Only the One can open the door. And only during that window can that door be opened.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" variant="light"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" variant="light"></wa-icon>
+            Save
+          </wa-button>
         </div>
       </wa-card>
-    </div>
+    </section>
+
+    <section class="strata form-examples">
+      <div class="cards">
+        <wa-card>
+          <div class="space-vertically" style="height: 100%;">
+            <wa-alert variant="success" open>
+              <wa-icon slot="icon" name="circle-check"></wa-icon>
+              This is the Way.
+            </wa-alert>
+            <wa-select label="Signet" help-text="This identifies your clan. You can change this later.">
+              <wa-option>Mudhorn</wa-option>
+            </wa-select>
+            <wa-checkbox checked>I swear on my name and the names of the ancestors</wa-checkbox>
+            <wa-button variant="success" style="margin-top: auto;">Forge</wa-button>
+          </div>
+        </wa-card>
+        <wa-card>
+          <div class="space-vertically" style="height: 100%;">
+            <wa-alert variant="warning" open>
+              <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+              It's a trap!
+            </wa-alert>
+            <wa-radio-group label="Faction" value="2">
+              <wa-radio value="1">Galactic Empire</wa-radio>
+              <wa-radio value="2">Rebel Alliance</wa-radio>
+            </wa-radio-group>
+            <wa-input label="Mission" value="Destroy the Death Star"></wa-input>
+            <wa-button variant="warning" style="margin-top: auto;">Proceed</wa-button>
+          </div>
+        </wa-card>
+        <wa-card>
+          <div class="space-vertically" style="height: 100%;">
+            <wa-alert variant="danger" open>
+              <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
+              That's no moon.
+            </wa-alert>
+            <wa-input label="Destination" value="Alderaan"></wa-input>
+            <wa-switch checked>Jam fighter transmission</wa-switch>
+            <wa-switch disabled>Lock in artillery power</wa-switch>
+            <wa-button variant="danger" style="margin-top: auto;">Turn around</wa-button>
+          </div>
+        </wa-card>
+      </div>
+    </section>
 
   </section>
 </div>
