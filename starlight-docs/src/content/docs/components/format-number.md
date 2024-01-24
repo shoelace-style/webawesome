@@ -22,8 +22,6 @@ Localization is handled by the browser's [`Intl.NumberFormat` API](https://devel
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaFormatNumber from '@shoelace-style/shoelace/dist/react/format-number';
@@ -48,8 +46,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ## Examples
 

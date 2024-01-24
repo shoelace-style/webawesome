@@ -82,8 +82,6 @@ Use the available custom properties to change how the switch is styled.
 <wa-switch style="--width: 80px; --height: 40px; --thumb-size: 36px;">Really big</wa-switch>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaSwitch from '@shoelace-style/shoelace/dist/react/switch';
 
@@ -97,5 +95,3 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}

@@ -60,8 +60,6 @@ To set a custom size, apply a width and/or height to the host element.
 </wa-animated-image>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaAnimatedImage from '@shoelace-style/shoelace/dist/react/animated-image';
 
@@ -73,8 +71,6 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}
 
 ### Customizing the Control Box
 

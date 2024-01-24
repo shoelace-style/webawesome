@@ -201,8 +201,6 @@ As expected, buttons can be given a custom width by setting the `width` attribut
 <wa-button size="large" style="width: 100%;">Large</wa-button>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
 
@@ -220,8 +218,6 @@ const App = () => (
   </>
 );
 ```
-
-{% endraw %}
 
 ### Prefix and Suffix Icons
 

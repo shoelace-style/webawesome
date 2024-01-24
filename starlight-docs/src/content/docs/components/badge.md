@@ -153,8 +153,6 @@ One of the most common use cases for badges is attaching them to buttons. To mak
 </wa-button>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -183,8 +181,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### With Menu Items
 
 When including badges in menu items, use the `suffix` slot to make sure they're aligned correctly.
@@ -196,8 +192,6 @@ When including badges in menu items, use the `suffix` slot to make sure they're 
   <wa-menu-item>Replies <wa-badge slot="suffix" variant="neutral" pill>12</wa-badge></wa-menu-item>
 </wa-menu>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
@@ -226,5 +220,3 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}

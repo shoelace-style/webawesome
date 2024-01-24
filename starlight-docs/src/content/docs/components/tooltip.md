@@ -265,8 +265,6 @@ Tooltips can be controller programmatically by setting the `trigger` attribute t
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaAvatar from '@shoelace-style/shoelace/dist/react/avatar';
@@ -290,8 +288,6 @@ const App = () => {
 };
 ```
 
-{% endraw %}
-
 ### Removing Arrows
 
 You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow-size` design token. To remove them, set the value to `0` as shown below.
@@ -301,8 +297,6 @@ You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow
   <wa-button>No Arrow</wa-button>
 </wa-tooltip>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -320,8 +314,6 @@ const App = () => (
   </div>
 );
 ```
-
-{% endraw %}
 
 To override it globally, set it in a root block in your stylesheet after the Web Awesome stylesheet is loaded.
 
@@ -368,8 +360,6 @@ Use the `--max-width` custom property to change the width the tooltip can grow t
 </wa-tooltip>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
 import WaTooltip from '@shoelace-style/shoelace/dist/react/tooltip';
@@ -380,8 +370,6 @@ const App = () => (
   </WaTooltip>
 );
 ```
-
-{% endraw %}
 
 ### Hoisting
 

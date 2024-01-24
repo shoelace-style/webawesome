@@ -28,8 +28,6 @@ Icon buttons inherit their parent element's `font-size`.
 <wa-icon-button name="pen-to-square" variant="solid" label="Edit" style="font-size: 2.5rem;"></wa-icon-button>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaIconButton from '@shoelace-style/shoelace/dist/react/icon-button';
 
@@ -41,8 +39,6 @@ const App = () => (
   </>
 );
 ```
-
-{% endraw %}
 
 ### Colors
 

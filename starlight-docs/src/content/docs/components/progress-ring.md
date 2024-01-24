@@ -24,15 +24,11 @@ Use the `--size` custom property to set the diameter of the progress ring.
 <wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaProgressRing from '@shoelace-style/shoelace/dist/react/progress-ring';
 
 const App = () => <WaProgressRing value="50" style={{ '--size': '200px' }} />;
 ```
-
-{% endraw %}
 
 ### Track and Indicator Width
 
@@ -42,15 +38,11 @@ Use the `--track-width` and `--indicator-width` custom properties to set the wid
 <wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaProgressRing from '@shoelace-style/shoelace/dist/react/progress-ring';
 
 const App = () => <WaProgressRing value="50" style={{ '--track-width': '6px', '--indicator-width': '12px' }} />;
 ```
-
-{% endraw %}
 
 ### Colors
 
@@ -66,8 +58,6 @@ To change the color, use the `--track-color` and `--indicator-color` custom prop
 ></wa-progress-ring>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaProgressRing from '@shoelace-style/shoelace/dist/react/progress-ring';
 
@@ -81,8 +71,6 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}
 
 ### Labels
 
@@ -129,8 +117,6 @@ Use the default slot to show a label inside the progress ring.
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -166,5 +152,3 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}

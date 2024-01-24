@@ -194,8 +194,6 @@ Indent guides can be drawn by setting `--indent-guide-width`. You can also chang
 </style>
 ```
 
-{% raw %}
-
 <!-- prettier-ignore -->
 ```jsx:react
 import WaTree from '@shoelace-style/shoelace/dist/react/tree';
@@ -231,8 +229,6 @@ const App = () => (
   </WaTree>
 );
 ```
-
-{% endraw %}
 
 ### Lazy Loading
 

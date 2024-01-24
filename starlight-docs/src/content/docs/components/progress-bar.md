@@ -38,15 +38,11 @@ Use the `--height` custom property to set the progress bar's height.
 <wa-progress-bar value="50" style="--height: 6px;"></wa-progress-bar>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaProgressBar from '@shoelace-style/shoelace/dist/react/progress-bar';
 
 const App = () => <WaProgressBar value={50} style={{ '--height': '6px' }} />;
 ```
-
-{% endraw %}
 
 ### Showing Values
 

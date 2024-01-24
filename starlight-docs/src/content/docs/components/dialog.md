@@ -71,8 +71,6 @@ Use the `--width` custom property to set the dialog's width.
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -95,8 +93,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ### Scrolling
 
@@ -121,8 +117,6 @@ By design, a dialog's height will never exceed that of the viewport. As such, di
   closeButton.addEventListener('click', () => dialog.hide());
 </script>
 ```
-
-{% raw %}
 
 ```jsx:react
 import { useState } from 'react';
@@ -155,8 +149,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ### Header Actions
 

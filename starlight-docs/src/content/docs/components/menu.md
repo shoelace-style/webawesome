@@ -18,8 +18,6 @@ You can use [menu items](/components/menu-item), [menu labels](/components/menu-
 </wa-menu>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
@@ -37,8 +35,6 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}
 
 :::tip
 Menus are intended for system menus (dropdown menus, select menus, context menus, etc.). They should not be mistaken for navigation menus which serve a different purpose and have a different semantic meaning. If you're building navigation, use `<nav>` and `<a>` elements instead.
@@ -111,8 +107,6 @@ To create a submenu, nest an `<wa-menu slot="submenu">` in any [menu item](/comp
 </wa-menu>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
@@ -150,5 +144,3 @@ const App = () => (
 :::warning
 As a UX best practice, avoid using more than one level of submenus when possible.
 :::
-
-{% endraw %}

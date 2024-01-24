@@ -18,8 +18,6 @@ layout: ../../../layouts/ComponentLayout.astro
 </wa-menu>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
@@ -40,5 +38,3 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}

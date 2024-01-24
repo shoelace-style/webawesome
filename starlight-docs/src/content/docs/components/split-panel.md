@@ -21,8 +21,6 @@ layout: ../../../layouts/ComponentLayout.astro
 </wa-split-panel>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
 
@@ -55,8 +53,6 @@ const App = () => (
   </WaSplitPanel>
 );
 ```
-
-{% endraw %}
 
 ## Examples
 
@@ -116,8 +112,6 @@ To set the initial position in pixels instead of a percentage, use the `position
 </wa-split-panel>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
 
@@ -151,8 +145,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Vertical
 
 Add the `vertical` attribute to render the split panel in a vertical orientation where the start and end panels are stacked. You also need to set a height when using the vertical orientation.
@@ -173,8 +165,6 @@ Add the `vertical` attribute to render the split panel in a vertical orientation
   </div>
 </wa-split-panel>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -208,8 +198,6 @@ const App = () => (
   </WaSplitPanel>
 );
 ```
-
-{% endraw %}
 
 ### Snapping
 
@@ -261,8 +249,6 @@ To snap panels at specific positions while dragging, add the `snap` attribute wi
   }
 </style>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -331,8 +317,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Disabled
 
 Add the `disabled` attribute to prevent the divider from being repositioned.
@@ -353,8 +337,6 @@ Add the `disabled` attribute to prevent the divider from being repositioned.
   </div>
 </wa-split-panel>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -388,8 +370,6 @@ const App = () => (
   </WaSplitPanel>
 );
 ```
-
-{% endraw %}
 
 ### Setting the Primary Panel
 
@@ -429,8 +409,6 @@ Try resizing the example below with each option and notice how the panels respon
   select.addEventListener('wa-change', () => (splitPanel.primary = select.value));
 </script>
 ```
-
-{% raw %}
 
 ```jsx:react
 import { useState } from 'react';
@@ -485,8 +463,6 @@ const App = () => {
 };
 ```
 
-{% endraw %}
-
 ### Min & Max
 
 To set a minimum or maximum size of the primary panel, use the `--min` and `--max` custom properties. Since the secondary panel is flexible, size constraints can only be applied to the primary panel. If no primary panel is designated, these constraints will be applied to the `start` panel.
@@ -509,8 +485,6 @@ This examples demonstrates how you can ensure both panels are at least 150px usi
   </div>
 </wa-split-panel>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -545,8 +519,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Nested Split Panels
 
 Create complex layouts that can be repositioned independently by nesting split panels.
@@ -577,8 +549,6 @@ Create complex layouts that can be repositioned independently by nesting split p
   </div>
 </wa-split-panel>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -629,8 +599,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Customizing the Divider
 
 You can target the `divider` part to apply CSS properties to the divider. To add a custom handle, slot an icon into the `divider` slot. When customizing the divider, make sure to think about focus styles for keyboard users.
@@ -667,8 +635,6 @@ You can target the `divider` part to apply CSS properties to the divider. To add
 </wa-split-panel>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
@@ -703,8 +669,6 @@ const App = () => (
   </WaSplitPanel>
 );
 ```
-
-{% endraw %}
 
 Here's a more elaborate example that changes the divider's color and width and adds a styled handle.
 
@@ -768,8 +732,6 @@ Here's a more elaborate example that changes the divider's color and width and a
   }
 </style>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaSplitPanel from '@shoelace-style/shoelace/dist/react/split-panel';
@@ -838,5 +800,3 @@ const App = () => (
   </>
 );
 ```
-
-{% endraw %}

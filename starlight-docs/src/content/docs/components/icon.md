@@ -54,8 +54,6 @@ Icons inherit their color from the current text color. Thus, you can set the `co
 </div>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
@@ -89,8 +87,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Sizing
 
 Icons are sized relative to the current font size. To change their size, set the `font-size` property on the icon itself or on a parent element as shown below.
@@ -115,8 +111,6 @@ Icons are sized relative to the current font size. To change their size, set the
   <wa-icon name="trash"></wa-icon>
 </div>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
@@ -143,8 +137,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Labels
 
 For non-decorative icons, use the `label` attribute to announce it to assistive devices.
@@ -167,15 +159,11 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 <wa-icon src="https://shoelace.style/assets/images/shoe.svg" style="font-size: 8rem;"></wa-icon>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
 
 const App = () => <WaIcon src="https://shoelace.style/assets/images/shoe.svg" style={{ fontSize: '8rem' }}></WaIcon>;
 ```
-
-{% endraw %}
 
 ## Icon Libraries
 

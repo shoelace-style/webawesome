@@ -66,15 +66,11 @@ Set the `--symbol-size` custom property to adjust the size.
 <wa-rating label="Rating" style="--symbol-size: 2rem;"></wa-rating>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 
 const App = () => <WaRating label="Rating" style={{ '--symbol-size': '2rem' }} />;
 ```
-
-{% endraw %}
 
 ### Readonly
 
@@ -210,8 +206,6 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaRating from '@shoelace-style/shoelace/dist/react/rating';
 
@@ -223,8 +217,6 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}
 
 ### Value-based Icons
 

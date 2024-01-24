@@ -117,8 +117,6 @@ You can customize the active and inactive portions of the track using the `--tra
 ></wa-range>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaRange from '@shoelace-style/shoelace/dist/react/range';
 
@@ -131,8 +129,6 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}
 
 ### Custom Track Offset
 
@@ -150,8 +146,6 @@ You can customize the initial offset of the active track using the `--track-acti
 ></wa-range>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaRange from '@shoelace-style/shoelace/dist/react/range';
 
@@ -167,8 +161,6 @@ const App = () => (
   />
 );
 ```
-
-{% endraw %}
 
 ### Custom Tooltip Formatter
 

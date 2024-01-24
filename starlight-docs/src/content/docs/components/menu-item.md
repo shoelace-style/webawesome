@@ -24,8 +24,6 @@ layout: ../../../layouts/ComponentLayout.astro
 </wa-menu>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 import WaIcon from '@shoelace-style/shoelace/dist/react/icon';
@@ -55,8 +53,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ## Examples
 
 ### Disabled
@@ -71,8 +67,6 @@ Add the `disabled` attribute to disable the menu item so it cannot be selected.
 </wa-menu>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
 import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
@@ -85,8 +79,6 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}
 
 ### Prefix & Suffix
 
@@ -113,8 +105,6 @@ Add content to the start and end of menu items using the `prefix` and `suffix` s
   </wa-menu-item>
 </wa-menu>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaBadge from '@shoelace-style/shoelace/dist/react/badge';
@@ -148,8 +138,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Checkbox Menu Items
 
 Set the `type` attribute to `checkbox` to create a menu item that will toggle on and off when selected. You can use the `checked` attribute to set the initial state.
@@ -163,8 +151,6 @@ Checkbox menu items are visually indistinguishable from regular menu items. Thei
   <wa-menu-item type="checkbox">Word Wrap</wa-menu-item>
 </wa-menu>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
@@ -180,8 +166,6 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}
 
 ### Value & Selection
 
@@ -214,8 +198,6 @@ The `value` attribute can be used to assign a hidden value, such as a unique ide
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
 import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
@@ -240,5 +222,3 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}

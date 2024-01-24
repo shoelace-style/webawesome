@@ -19,8 +19,6 @@ layout: ../../../layouts/ComponentLayout.astro
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -46,8 +44,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ## Examples
 

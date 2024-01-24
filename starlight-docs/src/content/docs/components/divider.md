@@ -24,15 +24,11 @@ Use the `--width` custom property to change the width of the divider.
 <wa-divider style="--width: 4px;"></wa-divider>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 
 const App = () => <WaDivider style={{ '--width': '4px' }} />;
 ```
-
-{% endraw %}
 
 ### Color
 
@@ -42,15 +38,11 @@ Use the `--color` custom property to change the color of the divider.
 <wa-divider style="--color: tomato;"></wa-divider>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
 
 const App = () => <WaDivider style={{ '--color': 'tomato' }} />;
 ```
-
-{% endraw %}
 
 ### Spacing
 
@@ -63,22 +55,6 @@ Use the `--spacing` custom property to change the amount of space between the di
   Below
 </div>
 ```
-
-{% raw %}
-
-```jsx:react
-import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
-
-const App = () => (
-  <>
-    Above
-    <WaDivider style={{ '--spacing': '2rem' }} />
-    Below
-  </>
-);
-```
-
-{% endraw %}
 
 ### Vertical
 
@@ -93,8 +69,6 @@ Add the `vertical` attribute to draw the divider in a vertical orientation. The 
   Last
 </div>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
@@ -116,8 +90,6 @@ const App = () => (
 );
 ```
 
-{% endraw %}
-
 ### Menu Dividers
 
 Use dividers in [menus](/components/menu) to visually group menu items.
@@ -133,8 +105,6 @@ Use dividers in [menus](/components/menu) to visually group menu items.
   <wa-menu-item value="6">Option 6</wa-menu-item>
 </wa-menu>
 ```
-
-{% raw %}
 
 ```jsx:react
 import WaDivider from '@shoelace-style/shoelace/dist/react/divider';
@@ -153,5 +123,3 @@ const App = () => (
   </WaMenu>
 );
 ```
-
-{% endraw %}

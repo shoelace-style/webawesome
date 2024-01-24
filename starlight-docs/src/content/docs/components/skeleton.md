@@ -419,8 +419,6 @@ Set the `--color` and `--sheen-color` custom properties to adjust the skeleton's
 <wa-skeleton effect="sheen" style="--color: tomato; --sheen-color: #ffb094;"></wa-skeleton>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaSkeleton from '@shoelace-style/shoelace/dist/react/skeleton';
 
@@ -443,5 +441,3 @@ const css = `
 
 const App = () => <WaSkeleton effect="sheen" style={{ '--color': 'tomato', '--sheen-color': '#ffb094' }} />;
 ```
-
-{% endraw %}

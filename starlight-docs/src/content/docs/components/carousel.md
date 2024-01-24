@@ -526,8 +526,6 @@ The `slides-per-page` attribute makes it possible to display multiple slides at 
 </wa-carousel>
 ```
 
-{% raw %}
-
 ```jsx:react
 import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
 import WaCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item';
@@ -543,8 +541,6 @@ const App = () => (
   </WaCarousel>
 );
 ```
-
-{% endraw %}
 
 ### Adding and Removing Slides
 
@@ -618,8 +614,6 @@ The content of the carousel can be changed by adding or removing carousel items.
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
@@ -678,8 +672,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ### Vertical Scrolling
 
@@ -858,8 +850,6 @@ Use the `--aspect-ratio` custom property to customize the size of the carousel's
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaCarousel from '@shoelace-style/shoelace/dist/react/carousel';
@@ -925,8 +915,6 @@ const App = () => {
 };
 ```
 
-{% endraw %}
-
 ### Scroll Hint
 
 Use the `--scroll-hint` custom property to add inline padding in horizontal carousels and block padding in vertical carousels. This will make the closest slides slightly visible, hinting that there are more items in the carousel.
@@ -965,8 +953,6 @@ Use the `--scroll-hint` custom property to add inline padding in horizontal caro
   </wa-carousel-item>
 </wa-carousel>
 ```
-
-{% raw %}
 
 ```jsx:react
 import { useState } from 'react';
@@ -1012,8 +998,6 @@ const App = () => (
   </>
 );
 ```
-
-{% endraw %}
 
 ### Gallery Example
 

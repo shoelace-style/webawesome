@@ -124,8 +124,6 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useEffect, useRef } from 'react';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -161,5 +159,3 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}

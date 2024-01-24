@@ -214,8 +214,6 @@ Unlike normal drawers, contained drawers are not modal. This means they do not s
 </script>
 ```
 
-{% raw %}
-
 ```jsx:react
 import { useState } from 'react';
 import WaButton from '@shoelace-style/shoelace/dist/react/button';
@@ -258,8 +256,6 @@ const App = () => {
 };
 ```
 
-{% endraw %}
-
 ### Custom Size
 
 Use the `--size` custom property to set the drawer's size. This will be applied to the drawer's width or height depending on its `placement`.
@@ -281,8 +277,6 @@ Use the `--size` custom property to set the drawer's size. This will be applied 
   closeButton.addEventListener('click', () => drawer.hide());
 </script>
 ```
-
-{% raw %}
 
 ```jsx:react
 import { useState } from 'react';
@@ -307,8 +301,6 @@ const App = () => {
 };
 ```
 
-{% endraw %}
-
 ### Scrolling
 
 By design, a drawer's height will never exceed 100% of its container. As such, drawers will not scroll with the page to ensure the header and footer are always accessible to the user.
@@ -332,8 +324,6 @@ By design, a drawer's height will never exceed 100% of its container. As such, d
   closeButton.addEventListener('click', () => drawer.hide());
 </script>
 ```
-
-{% raw %}
 
 ```jsx:react
 import { useState } from 'react';
@@ -365,8 +355,6 @@ const App = () => {
   );
 };
 ```
-
-{% endraw %}
 
 ### Header Actions
 
