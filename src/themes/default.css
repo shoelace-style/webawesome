@@ -1,5 +1,4 @@
 @import 'depth_1_semiflat.css'; /* depth_0_flat.css, depth_1_semiflat.css, depth_2_chunky.css, depth_3_punchy.css, depth_4_glossy.css */
-@import 'borders_2_light.css'; /* borders_0_minimal.css, borders_1_feather.css, borders_2_light.css, borders_3_medium.css, borders_4_heavy.css */
 
 :root,
 :host,
@@ -237,6 +236,25 @@
   --wa-space-xl: calc(var(--wa-space-base) * 1.5rem); /* 24px */
   --wa-space-2xl: calc(var(--wa-space-base) * 2rem); /* 32px */
   --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
+
+  /**
+   * Borders
+   */
+  --wa-border-style: solid;
+
+  /* Border widths are designed to scale according to a single base value.
+     * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.0625;
+  --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-s);
+
+  --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-s);
+
   /**
    * Corners
    */
@@ -261,6 +279,12 @@
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
     color-mix(in oklab, var(--wa-color-focus) 98%, transparent);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
+
+  /**
+   * Links
+   */
+  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
+  --wa-link-decoration-hover: underline;
 
   /**
    * Z-index
@@ -317,8 +341,8 @@
   --wa-flow-spacing: 1.5rem;
 
   /**
-  * From 2.x
-  */
+   * From 2.x
+   */
   --wa-form-control-toggle-size-s: 0.875rem;
   --wa-form-control-toggle-size-m: 1.125rem;
   --wa-form-control-toggle-size-l: 1.375rem;
@@ -355,8 +379,8 @@
   --wa-color-mix-active: black 16%;
 
   /**
-    * Semantic theme colors
-    */
+   * Semantic theme colors
+   */
   --wa-color-brand-spot: var(--wa-color-blue-50);
   --wa-color-brand-spot-darker: var(--wa-color-blue-40);
   --wa-color-brand-fill-subtle: var(--wa-color-blue-10);

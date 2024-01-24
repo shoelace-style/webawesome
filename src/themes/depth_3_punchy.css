@@ -69,9 +69,27 @@ wa-textarea {
   }
 }
 
+wa-checkbox {
+  --background-checked: linear-gradient(
+    to bottom,
+    var(--wa-form-controls-activated-color),
+    var(--wa-color-brand-spot-darker)
+  );
+
+  &:not([checked]):not([indeterminate]) {
+    --box-shadow: var(--wa-shadow-inset);
+  }
+}
+
 wa-switch {
   --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.1) /* inner highlight */,
     inset 0 -0.0625rem 0.0625rem 0 rgb(0 0 0 / 0.1) /* inner shadow */, var(--wa-shadow-level-1) /* outer shadow */;
+}
+/* #endregion */
+
+/* #region Progress bar */
+wa-progress-bar {
+  --box-shadow: var(--wa-shadow-inset);
 }
 /* #endregion */

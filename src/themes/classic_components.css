@@ -1,8 +1,7 @@
 /* #region Alerts */
 wa-alert {
   --background: var(--wa-color-surface-default);
-  --border-width: var(--wa-border-width-thick) var(--wa-border-width-thin) var(--wa-border-width-thin)
-    var(--wa-border-width-thin);
+  --border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
   --content-color: var(--wa-color-text-normal);
   --padding: var(--wa-space-l);
 

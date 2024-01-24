@@ -32,7 +32,7 @@ export default css`
     width: var(--width);
     max-width: calc(100% - var(--wa-space-2xl));
     max-height: calc(100% - var(--wa-space-2xl));
-    background-color: var(--wa-color-surface-raised);
+    background-color: var(--wa-color-surface-default);
     border-radius: var(--wa-panel-corners);
     box-shadow: var(--wa-shadow-level-3);
   }

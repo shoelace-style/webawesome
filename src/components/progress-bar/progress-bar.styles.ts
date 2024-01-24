@@ -9,6 +9,7 @@ export default css`
     --track-color: var(--wa-color-neutral-fill-highlight);
     --indicator-color: var(--wa-color-brand-spot);
     --label-color: var(--wa-color-brand-text-on-spot);
+    --box-shadow: none;
 
     display: block;
   }
@@ -18,7 +19,7 @@ export default css`
     background-color: var(--track-color);
     height: var(--height);
     border-radius: var(--wa-corners-pill);
-    box-shadow: var(--wa-shadow-inset);
+    box-shadow: var(--box-shadow);
     overflow: hidden;
   }
 

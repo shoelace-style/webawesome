@@ -446,7 +446,7 @@ export default css`
 
   /* All except the first */
   :host(.wa-button-group__button:not(.wa-button-group__button--first)) {
-    margin-inline-start: calc(-1 * var(--wa-border-width-thin));
+    margin-inline-start: calc(-1 * var(--wa-border-width-s));
   }
 
   /* Add a visual separator between solid buttons */

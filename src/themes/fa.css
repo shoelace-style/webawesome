@@ -1,5 +1,4 @@
 @import 'depth_2_chunky.css';
-@import 'borders_4_heavy.css';
 @import 'cera_typeface.css';
 
 :root,
@@ -234,6 +233,25 @@
   --wa-space-xl: calc(var(--wa-space-base) * 1.5rem); /* 24px */
   --wa-space-2xl: calc(var(--wa-space-base) * 2rem); /* 32px */
   --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
+
+  /**
+   * Borders
+   */
+  --wa-border-style: solid;
+
+  /* Border widths are designed to scale according to a single base value.
+     * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.125;
+  --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-s);
+
+  --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-s);
+
   /**
    * Corners
    */
@@ -405,9 +423,33 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 
-/* _utility.css */
+/* #region Custom styles */
+wa-button {
+  --border-color-hover: var(--border-color);
+  --border-color-active: var(--border-color);
+  --box-shadow-color: var(--border-color);
 
-/* To be (re)moved */
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-spot-darker);
+  }
+
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-spot-darker);
+  }
+
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-spot-darker);
+  }
+
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-spot-darker);
+  }
+
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-spot-darker);
+  }
+}
+
 wa-button:not([variant='text']) {
   --border-color: var(--label-color);
   --border-color-hover: var(--border-color);
@@ -440,3 +482,6 @@ wa-alert {
     --icon-color: var(--wa-color-neutral-spot-darker);
   }
 }
+/* #endregion */
+
+/* _utility.css */

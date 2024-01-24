@@ -28,6 +28,7 @@ import type WaRadioButton from '../radio-button/radio-button.js';
  * @slot - The default slot where `<wa-radio>` or `<wa-radio-button>` elements are placed.
  * @slot label - The radio group's label. Required for proper accessibility. Alternatively, you can use the `label`
  *  attribute.
+ * @slot help-text - Text that describes how to use the radio group. Alternatively, you can use the `help-text` attribute.
  *
  * @event wa-change - Emitted when the radio group's selected value changes.
  * @event wa-input - Emitted when the radio group receives user input.
@@ -130,7 +131,7 @@ export default class WaRadioGroup extends WebAwesomeElement implements WebAwesom
     const radios = this.getAllRadios();
     const oldValue = this.value;
 
-    if (target.disabled) {
+    if (!target || target.disabled) {
       return;
     }
 
@@ -218,7 +219,7 @@ export default class WaRadioGroup extends WebAwesomeElement implements WebAwesom
 
     this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
 
-    if (!radios.some(radio => radio.checked)) {
+    if (radios.length > 0 && !radios.some(radio => radio.checked)) {
       if (this.hasButtonGroup) {
         const buttonRadio = radios[0].shadowRoot?.querySelector('button');
 

@@ -5,17 +5,84 @@ toc: false
 template: 'splash'
 ---
 
-<style is:global>
-  header.header { display: none; }
-  .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
-  body, main { padding: 20px; }
-  .content-panel:first-of-type { display: none; }
+<style>
+/* Reset for themer blank canvas */
+header.header { display: none; }
+.content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
+body, main { padding: 20px; }
+.content-panel:first-of-type { display: none; }
+
+.file-uploader {
+  position: relative;
+  border: var(--wa-form-controls-border-width) dashed var(--wa-form-controls-resting-color);
+  border-radius: var(--wa-form-controls-corners);
+  background: var(--wa-form-controls-background);
+  padding: var(--wa-space-xs);
+  cursor: pointer;
+  text-align: center;
+}
+
+.file-uploader:is(:hover) {
+  background-color: var(--wa-color-neutral-fill-subtle);
+}
+
+/**
+  <wa-visually-hidden>, but without the :not(:focus-within),
+  the reason is that it shows the default browser file uploader.
+*/
+.hidden-label::part(form-control-label),
+.file-uploader input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: none !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  padding: 0 !important;
+}
+
+.file-uploader:is(:focus-within) {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+#file-uploader-description {
+  display: block;
+  line-height: 1;
+  font-size: 0.75em;
+  color: var(--wa-color-text-quiet);
+}
+>>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
 </style>
 
 <!-- Knobs -->
-<div id="knobs">
+<form id="knobs">
   <div class="space-vertically">
     <a href="/"><wa-icon style="font-size: 2rem;" src="/public/assets/images/logo.svg"></wa-icon></a>
+    <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
+    <div>
+      <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
+        <input name="project-logo" type="file" accept="image/*">
+        Add Logo
+      </label>
+      <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
+    </div>
+    <div>
+      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p">
+        <wa-radio-button value="p"><wa-icon name="p"></wa-icon></wa-radio-button>
+        <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
+        <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
+        <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
+        <wa-button value="[choose]" outline id="icon-chooser-trigger">
+          <wa-icon name="ellipsis"></wa-icon>
+          <wa-visually-hidden>Browse icons</wa-visually-hidden>
+        </wa-button>
+        <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
+      </wa-radio-group>
+    </div>
+>>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
     <wa-select name="theme" label="Theme" value="default">
       <wa-option value="default">Default</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -24,20 +91,74 @@ template: 'splash'
       <wa-option value="playful">Playful</wa-option>
       <wa-option value="chic">Chic</wa-option>
     </wa-select>
-    <wa-select name="heading-text" label="Heading" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
-    <wa-select name="body-text" label="Body" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Heading Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Heading Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-display">Noto Sans Display</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="playfair-display">Playfair Display</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-heading"
+          value=""
+          label="Heading Typography Font Weight"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          style="width: 33%;"
+        >
+        </wa-input>
+      </div>
+    </div>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Body Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-body" value="default" label="Body Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-body"
+          value=""
+          style="width: 33%;"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          label="Body Typography Font Weight"
+        >
+        </wa-input>
+      </div>
+    </div>
     <wa-select name="border-style" label="Border Style" value="solid">
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -47,26 +168,639 @@ template: 'splash'
     <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
+    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-switch name="appearance">Toggle Dark Mode</wa-switch>
   </div>
-</div>
+</form>
 
-<script>
+<wa-dialog id="icon-chooser" label="Browse Icons">
+  <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
+    <div style="display: flex; gap: 1.25rem;">
+      <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
+        <wa-icon slot="prefix" name="search"></wa-icon>
+      </wa-input>
+      <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
+        <wa-option value="solid">Solid</wa-option>
+        <wa-option value="regular">Regular</wa-option>
+      </wa-select>
+    </div>
+    <div class="icon-list" data-variant="solid"></div>
+  </div>
+</wa-dialog>
+
+<style>
+  wa-radio-group[name="project-logo-selector"]::part(button-group) {
+    width: 100%;
+  }
+
+  wa-radio-group[name="project-logo-selector"] wa-radio-button,
+  wa-radio-group[name="project-logo-selector"] wa-button {
+    flex: 1 1 auto;
+  }
+
+  #icon-chooser::part(panel) {
+    width: 100%;
+    height: 80%;
+    max-width: 700px;
+  }
+
+  wa-input[name="icon-search"] {
+    position: sticky;
+    top: 0;
+  }
+
+  .icon-search {
+    border: solid 1px var(--wa-color-surface-border);
+    border-radius: var(--wa-corners-s);
+    padding: var(--wa-space-m);
+  }
+
+  .icon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fill, 84px);
+    gap: 1rem;
+    overflow: auto;
+    padding: .5rem;
+    margin: -.5rem;
+  }
+
+  .icon-list[data-variant="regular"] wa-button:not([data-variant="regular"]),
+  .icon-list[data-variant="solid"] wa-button:not([data-variant="solid"]) {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #icon-chooser::part(panel) {
+      width: 100%;
+      max-height: 80%;
+      max-width: 90vw;
+    }
+
+    .icon-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .icon-list wa-button {
+    font-size: 1.75rem;
+  }
+
+  .icon-list wa-button::part(base) {
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+  }
+
+  .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {
+    display: none;
+  }
+
+  .icon-list[data-type="filled"] .icon-list-item:not([data-name$="-fill"]) {
+    display: none;
+  }
+</style>
+
+<!-- Icon chooser -->
+<script type="module">
+  const icons = [
+    // Solid
+    { name: 'asterisk', variant: 'solid' },
+    { name: 'atom', variant: 'solid' },
+    { name: 'bed', variant: 'solid' },
+    { name: 'bread-slice', variant: 'solid' },
+    { name: 'bolt', variant: 'solid' },
+    { name: 'car', variant: 'solid' },
+    { name: 'carrot', variant: 'solid' },
+    { name: 'cat', variant: 'solid' },
+    { name: 'cheese', variant: 'solid' },
+    { name: 'circle', variant: 'solid' },
+    { name: 'diamond', variant: 'solid' },
+    { name: 'dog', variant: 'solid' },
+    { name: 'eye', variant: 'solid' },
+    { name: 'feather', variant: 'solid' },
+    { name: 'fish', variant: 'solid' },
+    { name: 'frog', variant: 'solid' },
+    { name: 'gauge-simple', variant: 'solid' },
+    { name: 'guitar', variant: 'solid' },
+    { name: 'hat-cowboy', variant: 'solid' },
+    { name: 'hat-wizard', variant: 'solid' },
+    { name: 'heart', variant: 'solid' },
+    { name: 'helicopter', variant: 'solid' },
+    { name: 'house', variant: 'solid' },
+    { name: 'ice-cream', variant: 'solid' },
+    { name: 'igloo', variant: 'solid' },
+    { name: 'mask', variant: 'solid' },
+    { name: 'message', variant: 'solid' },
+    { name: 'paw', variant: 'solid' },
+    { name: 'pencil', variant: 'solid' },
+    { name: 'phone', variant: 'solid' },
+    { name: 'plane', variant: 'solid' },
+    { name: 'poop', variant: 'solid' },
+    { name: 'sack-dollar', variant: 'solid' },
+    { name: 'sailboat', variant: 'solid' },
+    { name: 'shoe-prints', variant: 'solid' },
+    { name: 'sink', variant: 'solid' },
+    { name: 'snowflake', variant: 'solid' },
+    { name: 'snowman', variant: 'solid' },
+    { name: 'square', variant: 'solid' },
+    { name: 'stairs', variant: 'solid' },
+    { name: 'stamp', variant: 'solid' },
+    { name: 'tape', variant: 'solid' },
+    { name: 'truck', variant: 'solid' },
+    { name: 'umbrella', variant: 'solid' },
+    { name: 'user', variant: 'solid'  },
+    // Regular
+    { name: 'bell', variant: 'regular' },
+    { name: 'bookmark', variant: 'regular' },
+    { name: 'circle', variant: 'regular' },
+    { name: 'clock', variant: 'regular' },
+    { name: 'envelope', variant: 'regular' },
+    { name: 'face-smile', variant: 'regular' },
+    { name: 'flag', variant: 'regular' },
+    { name: 'gem', variant: 'regular' },
+    { name: 'hand', variant: 'regular' },
+    { name: 'handshake', variant: 'regular' },
+    { name: 'heart', variant: 'regular' },
+    { name: 'hourglass', variant: 'regular' },
+    { name: 'image', variant: 'regular' },
+    { name: 'keyboard', variant: 'regular' },
+    { name: 'lemon', variant: 'regular' },
+    { name: 'life-ring', variant: 'regular' },
+    { name: 'lightbulb', variant: 'regular' },
+    { name: 'map', variant: 'regular' },
+    { name: 'moon', variant: 'regular' },
+    { name: 'newspaper', variant: 'regular' },
+    { name: 'snowflake', variant: 'regular' },
+    { name: 'square', variant: 'regular' },
+    { name: 'star', variant: 'regular' },
+    { name: 'sun', variant: 'regular' },
+    { name: 'trash-can', variant: 'regular' },
+  ];
+  const chooser = document.querySelector('#icon-chooser');
+  const variantInput = document.querySelector('[name="icon-variant"]');
+  const input = chooser.querySelector("[name='icon-search']");
+  const iconList = chooser.querySelector('.icon-list');
+  const queue = [];
+  let inputTimeout;
+
+  chooser.addEventListener('wa-initial-focus', () => {
+    requestAnimationFrame(() => input.focus());
+  })
+
+  variantInput.addEventListener('wa-change', () => {
+    iconList.dataset.variant = variantInput.value;
+  });
+
+  icons.forEach(icon => {
+    const button = document.createElement('wa-button');
+    button.style.margin = "2px"
+    button.classList.add("icon-list-item")
+    button.setAttribute("outline", "")
+    button.setAttribute('data-name', icon.name);
+    button.setAttribute('data-variant', icon.variant);
+    button.setAttribute('data-terms', [icon.name, ...(icon.tags || []), ...(icon.categories || [])].join(' '));
+    button.innerHTML = `
+      <wa-icon name="${icon.name}" label="${icon.name}" variant="${icon.variant}"></wa-icon>
+    `;
+
+    iconList.append(button);
+  });
+
+  // Filter as the user types
+  input.addEventListener('wa-input', () => {
+    clearTimeout(inputTimeout);
+    inputTimeout = setTimeout(() => {
+      [...iconList.children].map(item => {
+        const filter = input.value.toLowerCase();
+        if (filter === '') {
+          item.removeAttribute("hidden");
+        } else {
+          const terms = item.getAttribute('data-terms').toLowerCase();
+          if (terms.indexOf(filter) < 0) {
+            item.setAttribute("hidden", "")
+          } else {
+            item.removeAttribute("hidden")
+          }
+        }
+      });
+    }, 250);
+  });
+
+  document.querySelector("#icon-chooser-trigger").addEventListener("click", () => {
+    document.querySelector("#icon-chooser").show()
+  })
+</script>
+
+<script type="module">
   const container = document.getElementById('knobs');
+  const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
+  const depthSlider = container.querySelector('[name="depth"]')
+  const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
+  const fontWeightBody = container.querySelector('[name="font-weight-body"]')
+  const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
+  const fontFamilyBody = container.querySelector('[name="font-family-body"]')
+  const spacing = container.querySelector("[name='spacing']")
+  const corners = container.querySelector("[name='corners']")
+  const borderStyle = container.querySelector('[name="border-style"]')
+  const borderWidth = container.querySelector('[name="border-width"]')
+  const themeSelect = container.querySelector('[name="theme"]');
+  const darkModeSelect = container.querySelector('[name="appearance"]');
 
-  // Theme
-  container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
-    themeStylesheet.href = `/dist/themes/${event.target.value}.css`;
+  function resetHeadingFontWeightValue () {
+    document.documentElement.style.removeProperty('--wa-font-weight-heading')
+    fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
+  }
+
+  function resetHeadingFontFamilyValue () {
+    document.documentElement.style.removeProperty('--wa-font-family-heading')
+    fontFamilyHeading.value = "default"
+  }
+
+  function resetBodyFontWeightValue () {
+    document.documentElement.style.removeProperty('--wa-font-weight-body')
+    fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
+  }
+
+  function resetBodyFontFamilyValue () {
+    document.documentElement.style.removeProperty('--wa-font-family-body')
+    fontFamilyBody.value = "default"
+  }
+
+  function resetBorderWidthValue () {
+    document.documentElement.style.removeProperty('--wa-border-width-base')
+    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
+  }
+
+  function resetBorderStyleValue () {
+    document.documentElement.style.removeProperty('--wa-border-style')
+    borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
+  }
+
+  function resetSpacingValue () {
+    document.documentElement.style.removeProperty('--wa-space-base')
+    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
+  }
+
+  function resetCornersValue () {
+    document.documentElement.style.removeProperty('--wa-corners-base')
+    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
+  }
+
+  const depthNames = {
+    0: "depth_0_flat.css",
+    1: "depth_1_semiflat.css",
+    2: "depth_2_chunky.css",
+    3: "depth_3_punchy.css",
+    4: "depth_4_glossy.css",
+  }
+
+  function resetDepthValue () {
+    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+    const importRules = []
+    let depth = null
+    const matchRegex = /depth_(\d+)_.*\.css$/
+
+    // Find all import rules in the stylesheet, then find one that matches the naming convention.
+    ;[...themeSheet.cssRules].forEach((rule) => {
+      if (rule instanceof CSSImportRule) {
+        const match = rule.href.match(matchRegex)
+        if (match) {
+          depth = Number(match[1])
+        }
+      }
+    })
+
+    if (depth != null) {
+      depthSlider.value = depth
+    }
+  }
+
+  // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
+  function deleteDepthFromBaseStylesheet () {
+    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+    const importRules = []
+    let depth = null
+    let ruleIndex = null
+    const matchRegex = /depth_(\d+)_.*\.css$/
+
+    ;[...themeSheet.cssRules].forEach((rule, index) => {
+      if (rule instanceof CSSImportRule) {
+        const match = rule.href.match(matchRegex)
+        if (match) {
+          ruleIndex = index
+          depth = Number(match[1])
+        }
+      }
+    })
+
+    if (ruleIndex != null && depth != null) {
+      themeSheet.deleteRule(ruleIndex)
+    }
+  }
+
+  depthSlider.addEventListener("wa-input", (e) => {
+    const depth = e.target.value
+
+    if (depth == null) return
+
+    // Load depth stylesheet
+    const depthName = depthNames[depth]
+
+    const depthStylesheet = Object.assign(document.createElement("link"), {
+      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+      id: "depth-stylesheet",
+      media: "print",
+      rel: "stylesheet",
+      type: "text/css",
+      href: `/dist/themes/${depthName}`,
+    })
+
+    // This prevents the typical flash and reflow you see if you replace the old stylesheet
+    // with the new stylesheet, before the new stylesheet has loaded
+    depthStylesheet.addEventListener("load", (e) => {
+      // Removing the media attribute causes styles to apply to the page
+      depthStylesheet.removeAttribute("media")
+      setTimeout(() => {
+        deleteDepthFromBaseStylesheet()
+        const oldDepthStylesheet = document.querySelectorAll("#depth-stylesheet").forEach((element, index) => {
+          if (index === 0) {
+            return
+          }
+
+          element.remove()
+        })
+      })
+    })
+
+    document.head.prepend(depthStylesheet)
+
+  })
+
+  resetDepthValue()
+
+
+  // Theme Switcher
+  themeSelect.addEventListener('wa-change', event => {
+    const theme = event.target.value
+    const newStylesheet = Object.assign(document.createElement("link"), {
+      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+      id: "theme-stylesheet",
+      media: "print",
+      rel: "stylesheet",
+      type: "text/css",
+      href: `/dist/themes/${theme}.css`,
+    })
+
+    // This prevents the typical flash and reflow you see if you replace the old stylesheet
+    // with the new stylesheet, before the new stylesheet has loaded
+    newStylesheet.addEventListener("load", (e) => {
+      // Removing the media attribute causes styles to apply to the page
+      newStylesheet.removeAttribute("media")
+      setTimeout(() => {
+        document.querySelectorAll("#theme-stylesheet").forEach((el, index) => {
+          if (index === 0) return
+
+          // 100 seems to provide the "smoothest" transition
+          setTimeout(() => {
+            el.remove();
+
+            resetBodyFontWeightValue()
+            resetBodyFontFamilyValue()
+            resetHeadingFontWeightValue()
+            resetHeadingFontFamilyValue()
+            resetDepthValue()
+            resetSpacingValue()
+            resetBorderWidthValue()
+            resetBorderStyleValue()
+            resetCornersValue()
+
+            if (darkModeSelect.checked === true) {
+              // darkModeSelect.checked = false
+              document.documentElement.className = "flavor-html"
+              document.documentElement.classList.toggle(`wa-theme-${theme}-dark`);
+            }
+          }, 100)
+        })
+      })
+    })
+
+    document.head.prepend(newStylesheet)
   });
 
+  // User provided project logo
+  container.querySelector('[name="project-logo"]').addEventListener('change', event => {
+    const file = event.target.files[0]
+    const isSvg = file.type.startsWith("image/svg")
+
+    let img
+
+    if (isSvg) {
+      img = document.createElement("wa-icon")
+    } else {
+      img = document.createElement("img")
+    }
+
+    const src = URL.createObjectURL(file);
+    img.setAttribute("src", src)
+
+    img.id = "project-logo"
+    img.setAttribute("height", "36")
+    img.setAttribute("width", "36")
+
+    previewContainer.querySelector("#project-logo").replaceWith(img)
+
+    // Clean up to prevent memory leaks
+    img.addEventListener("load", () => {
+      URL.revokeObjectURL(src)
+    })
+
+    img.addEventListener("wa-load", () => {
+      URL.revokeObjectURL(src)
+    })
+  })
+
+  // Pre-selected logos
+  document.querySelector('.icon-list').addEventListener('click', event => {
+    const button = event.target.closest("wa-button")
+
+    if (!button) return
+
+    const iconName = button.dataset.name
+    const iconVariant = button.dataset.variant;
+
+    if (!iconName) return
+
+    // Undo selected
+    event.currentTarget.querySelectorAll(".icon-list-item").forEach((el) => {
+      el.setAttribute("aria-selected", "false")
+      el.setAttribute("variant", "neutral")
+      el.setAttribute("outline", "")
+    })
+
+    // Set selected
+    button.setAttribute("aria-selected", "true")
+    button.setAttribute("variant", "brand")
+    button.removeAttribute("outline")
+
+    const projectLogo = previewContainer.querySelector("#project-logo");
+    const element = document.createElement("wa-icon")
+    element.name = iconName
+    element.variant = iconVariant;
+    element.id = "project-logo"
+
+    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+    projectLogo.replaceWith(element)
+    event.currentTarget.closest("wa-dialog").hide()
+  })
+
+  // Pre-generated logos
+  container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
+    const value = event.currentTarget.value
+
+    const projectLogo = previewContainer.querySelector("#project-logo");
+
+    let element
+
+    element = document.createElement("wa-icon")
+    element.name = value
+
+    element.id = "project-logo"
+
+    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+    projectLogo.replaceWith(element)
+  })
+
+  // Project Name
+  container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+    previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
+  })
+
+  // Heading font weight
+  resetHeadingFontWeightValue()
+  fontWeightHeading.addEventListener('wa-input', event => {
+    document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
+  });
+
+>>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
   // Heading text
-  container.querySelector('[name="heading-text"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
-  });
+  fontFamilyHeading.addEventListener('wa-change', event => {
+    let fontFamily;
+    switch(event.target.value) {
+      case 'assistant':
+        fontFamily = `'Assistant', sans-serif`;
+        break;
+      case 'inter':
+        fontFamily = `'inter', sans-serif`;
+        break;
+      case 'lora':
+        fontFamily = `'Lora', serif`;
+        break;
+      case 'mulish':
+        fontFamily = `'Mulish', sans-serif`;
+        break;
+      case 'noto-sans':
+          fontFamily = `'Noto Sans', sans-serif`;
+          break;
+      case 'noto-sans-display':
+          fontFamily = `'Noto Sans Display', sans-serif`;
+          break;
+      case 'noto-sans-mono':
+          fontFamily = `'Noto Sans Mono', monospace`;
+          break;
+      case 'noto-serif':
+          fontFamily = `'Noto Serif', serif`;
+          break;
+      case 'open-sans':
+          fontFamily = `'Open Sans', sans-serif`;
+          break;
+      case 'playfair':
+          fontFamily = `'Playfair', serif`;
+          break;
+      case 'playfair-display':
+          fontFamily = `'Playfair Display', serif`;
+          break;
+      case 'quicksand':
+          fontFamily = `'Quicksand', sans-serif`;
+          break;
+      case 'roboto-flex':
+          fontFamily = `'Roboto Flex', sans-serif`;
+          break;
+      case 'roboto-mono':
+          fontFamily = `'Roboto Mono', monospace`;
+          break;
+      case 'roboto-serif':
+          fontFamily = `'Roboto Serif', serif`;
+          break;
+      case 'roboto-slab':
+          fontFamily = `'Roboto Slab', serif`;
+          break;
+      default:
+        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    }
+    document.documentElement.style.setProperty('--wa-font-family-heading', fontFamily);
+  })
 
   // Body text
-  container.querySelector('[name="body-text"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-family-body', event.target.value);
+  fontFamilyBody.addEventListener('wa-change', event => {
+    let fontFamily;
+    switch(event.target.value) {
+      case 'assistant':
+        fontFamily = `'Assistant', sans-serif`;
+        break;
+      case 'inter':
+        fontFamily = `'inter', sans-serif`;
+        break;
+      case 'lora':
+        fontFamily = `'Lora', serif`;
+        break;
+      case 'mulish':
+        fontFamily = `'Mulish', sans-serif`;
+        break;
+      case 'noto-sans':
+          fontFamily = `'Noto Sans', sans-serif`;
+          break;
+      case 'noto-sans-mono':
+          fontFamily = `'Noto Sans Mono', monospace`;
+          break;
+      case 'noto-serif':
+          fontFamily = `'Noto Serif', serif`;
+          break;
+      case 'open-sans':
+          fontFamily = `'Open Sans', sans-serif`;
+          break;
+      case 'playfair':
+          fontFamily = `'Playfair', serif`;
+          break;
+      case 'quicksand':
+          fontFamily = `'Quicksand', sans-serif`;
+          break;
+      case 'roboto-flex':
+          fontFamily = `'Roboto Flex', sans-serif`;
+          break;
+      case 'roboto-mono':
+          fontFamily = `'Roboto Mono', monospace`;
+          break;
+      case 'roboto-serif':
+          fontFamily = `'Roboto Serif', serif`;
+          break;
+      case 'roboto-slab':
+          fontFamily = `'Roboto Slab', serif`;
+          break;
+      default:
+        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    }
+    document.documentElement.style.setProperty('--wa-font-family-body', fontFamily);
+  });
+
+  // Body font weight
+  resetBodyFontWeightValue()
+  fontWeightBody.addEventListener('wa-input', event => {
+    document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
   // Corners
@@ -80,18 +814,43 @@ template: 'splash'
   });
 
   // Border style
-  container.querySelector('[name="border-style"]').addEventListener('wa-input', event => {
+  borderStyle.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-border-style', event.target.value);
   });
 
   // Spacing style
-  container.querySelector('[name="spacing"]').addEventListener('wa-input', event => {
+  spacing.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
   });
 
+  // Form validation
+  // Mostly useful for the number ranges. Very simple validation on blurs.
+  function reportValidity (event) {
+    const element = event.target
+    if (typeof element?.reportValidity === "function") {
+      const isValid = element.reportValidity()
+
+      element.classList.toggle("wa-invalid", !isValid)
+    }
+  }
+
+  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
+  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
+
+  // Light & Dark Mode
+  darkModeSelect.addEventListener('wa-change', event => {
+    const el = document.documentElement
+    const theme = themeSelect.value
+
+    el.classList.toggle(`wa-theme-${theme}-dark`);
+
+  });
 </script>
 
 <style>
+  [hidden] {
+    display: none !important;
+  }
   :root {
     --knobs-width: 300px;
   }
@@ -102,11 +861,13 @@ template: 'splash'
     top: 2rem;
     left: 2rem;
     background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-border);
+    border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-2);
     width: var(--knobs-width);
-    padding: 2rem;
+    padding: 1.5rem;
+    max-height: calc(100% - 3rem);
+    overflow: auto;
     margin-inline: auto;
     margin-block: 0 4rem;
   }
@@ -114,11 +875,25 @@ template: 'splash'
   #knobs p {
     margin: 0;
   }
+
+  #knobs wa-select + wa-input {
+    margin-inline-start: .5rem;
+  }
 </style>
 
 <!-- Preview -->
 <div class="preview-container">
   <section class="overlap">
+    <header class="project-header">
+      <div style="display: flex; align-items: center;">
+        <wa-icon id="project-logo" name="p"></wa-icon>
+        <span id="project-name" style="margin-inline-start: var(--wa-space-m);">Project Name</span>
+      </div>
+      <div>
+        <wa-icon-button name="gear" label="Settings"></wa-icon-button>
+        <wa-icon-button name="bell" label="Notifications"></wa-icon-button>
+      </div>
+    </header>
     <h1>Make it Awesome</h1>
     <wa-card>
       <div class="grid">
@@ -159,22 +934,22 @@ template: 'splash'
     </wa-card>
     <div class="cards">
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="success" open>
-            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
-            This is the way.
+            <wa-icon slot="icon" name="circle-check"></wa-icon>
+            This is the Way.
           </wa-alert>
           <wa-select label="Signet" help-text="This identifies your clan. You can change this later.">
             <wa-option>Mudhorn</wa-option>
           </wa-select>
           <wa-checkbox checked>I swear on my name and the names of the ancestors</wa-checkbox>
-          <wa-button variant="success">Forge</wa-button>
+          <wa-button variant="success" style="margin-top: auto;">Forge</wa-button>
         </div>
       </wa-card>
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="warning" open>
-            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
+            <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
             It's a trap!
           </wa-alert>
           <wa-radio-group label="Faction" value="2">
@@ -182,27 +957,28 @@ template: 'splash'
             <wa-radio value="2">Rebel Alliance</wa-radio>
           </wa-radio-group>
           <wa-input label="Mission" value="Destroy the Death Star"></wa-input>
-          <wa-button variant="warning">Proceed</wa-button>
+          <wa-button variant="warning" style="margin-top: auto;">Proceed</wa-button>
         </div>
       </wa-card>
       <wa-card>
-        <div class="space-vertically">
+        <div class="space-vertically" style="height: 100%;">
           <wa-alert variant="danger" open>
-            <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
+            <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
             That's no moon.
           </wa-alert>
           <wa-input label="Destination" value="Alderaan"></wa-input>
           <wa-switch checked>Jam fighter transmission</wa-switch>
           <wa-switch disabled>Lock in artillery power</wa-switch>
-          <wa-button variant="danger">Turn around</wa-button>
+          <wa-button variant="danger" style="margin-top: auto;">Turn around</wa-button>
         </div>
       </wa-card>
     </div>
 
 <style is:global>
   html {
-    background: white;
-    background-image: radial-gradient(rgb(0 0 0 / .1) 1.5px, transparent 0);
+    background: var(--wa-color-surface-default);
+    background-attachment: fixed;
+    background-image: radial-gradient(var(--wa-color-surface-lowered) 1.5px, transparent 0);
     background-size: 28px 28px;
     background-position: -19px -19px;
     min-height: 100vh;
@@ -220,6 +996,10 @@ template: 'splash'
   .content {
     max-width: 1024px;
     gap: 0;
+  }
+
+  #project-logo {
+    font-size: 1.25rem;
   }
 
   .preview-container {
@@ -304,6 +1084,7 @@ template: 'splash'
     margin-block-start: var(--wa-space-m);
   }
 
+  .cards wa-card::part(body),
   .cards wa-card::part(base) {
     height: 100%;
   }
@@ -311,7 +1092,28 @@ template: 'splash'
   .space-vertically {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: var(--gap, 1.25rem);
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    color: var(--wa-color-brand-text-on-spot);
+    border-bottom: 1px solid color-mix(in oklab, var(--wa-color-brand-text-on-spot), transparent 50%);
+    padding-bottom: var(--wa-space-m);
+  }
+
+  .project-header wa-icon-button {
+    & + * {
+      margin-inline-start: var(--wa-space-m);
+    }
+
+    &::part(base) {
+      color: var(--wa-color-brand-text-on-spot);
+    }
   }
 
   wa-select[label="Signet"]::part(form-control-help-text) {

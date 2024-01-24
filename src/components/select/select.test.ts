@@ -547,8 +547,10 @@ describe('<wa-select>', () => {
     el.addEventListener('wa-change', changeHandler);
     el.addEventListener('wa-input', inputHandler);
 
-    await clickOnElement(removeButton);
+    // The offsets are a funky hack for Firefox.
+    await clickOnElement(removeButton, 'center', 1, 1);
     await el.updateComplete;
+    await aTimeout(1);
 
     expect(changeHandler).to.have.been.calledOnce;
     expect(inputHandler).to.have.been.calledOnce;

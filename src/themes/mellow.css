@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Lora:wght@400..700&display=swap');
 @import 'depth_0_flat.css';
-@import 'borders_1_feather.css';
 
 :root,
 :host,
@@ -184,7 +182,7 @@
    * Typography
    */
   --wa-font-family-heading: 'Lora', serif;
-  --wa-font-family-body: 'Inter', serif;
+  --wa-font-family-body: 'Mulish', sans-serif;
   --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --wa-font-family-longform: 'Lora', serif;
 
@@ -239,6 +237,24 @@
   --wa-space-3xl: calc(var(--wa-space-base) * 3rem); /* 48px */
 
   /**
+   * Borders
+   */
+  --wa-border-style: dotted;
+
+  /* Border widths are designed to scale according to a single base value.
+     * The base value is intended for calculations and is not used by components directly. */
+  --wa-border-width-base: 0.0625;
+  --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+
+  --wa-form-controls-border-style: var(--wa-border-style);
+  --wa-form-controls-border-width: var(--wa-border-width-s);
+
+  --wa-panel-border-style: var(--wa-border-style);
+  --wa-panel-border-width: var(--wa-border-width-s);
+
+  /**
    * Corners
    */
   /* Corners are designed to scale according to a single base value.
@@ -261,6 +277,12 @@
   --wa-focus-ring-width: 0.1875rem; /* 3px */
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
   --wa-focus-ring-offset: 0.0625rem; /* 1px */
+
+  /**
+   * Links
+   */
+  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
+  --wa-link-decoration-hover: underline;
 
   /**
    * Z-index
@@ -317,8 +339,8 @@
   --wa-flow-spacing: 1.5rem;
 
   /**
-  * From 2.x
-  */
+   * From 2.x
+   */
   --wa-form-control-toggle-size-s: 0.875rem;
   --wa-form-control-toggle-size-m: 1.125rem;
   --wa-form-control-toggle-size-l: 1.375rem;
@@ -355,8 +377,8 @@
   --wa-color-mix-active: black 16%;
 
   /**
-    * Semantic theme colors
-    */
+   * Semantic theme colors
+   */
   --wa-color-brand-spot: var(--wa-color-green-50);
   --wa-color-brand-spot-darker: var(--wa-color-green-40);
   --wa-color-brand-fill-subtle: var(--wa-color-green-10);
@@ -407,5 +429,29 @@
   --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
+
+/* #region Custom styles */
+wa-button[outline] {
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-border-highlight);
+  }
+
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-border-highlight);
+  }
+
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-border-highlight);
+  }
+
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-border-highlight);
+  }
+
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-border-highlight);
+  }
+}
+/* #endregion */
 
 /* _utility.css */

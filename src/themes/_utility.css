@@ -4,9 +4,18 @@
  * to reduce the possibility of collisions.
  */
 
-.wa-scroll-lock {
-  padding-right: var(--wa-scroll-lock-size) !important;
-  overflow: hidden !important;
+@supports (scrollbar-gutter: stable) {
+  .wa-scroll-lock {
+    scrollbar-gutter: stable !important;
+    overflow: hidden !important;
+  }
+}
+
+@supports not (scrollbar-gutter: stable) {
+  .wa-scroll-lock {
+    padding-right: var(--wa-scroll-lock-size) !important;
+    overflow: hidden !important;
+  }
 }
 
 .wa-toast-stack {
