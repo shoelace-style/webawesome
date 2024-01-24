@@ -128,13 +128,13 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-spot: var(--wa-color-blue-80);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-60);
+  --wa-color-brand-spot: var(--wa-color-blue-50);
+  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
   --wa-color-brand-fill-subtle: var(--wa-color-blue-95);
   --wa-color-brand-fill-highlight: var(--wa-color-blue-90);
   --wa-color-brand-border-subtle: var(--wa-color-blue-90);
   --wa-color-brand-border-highlight: var(--wa-color-blue-80);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
+  --wa-color-brand-text-on-spot: var(--wa-color-blue-95);
   --wa-color-brand-text-on-fill: var(--wa-color-blue-40);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
 
@@ -259,7 +259,7 @@
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.2;
+  --wa-corners-base: 0.25;
   --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
@@ -348,6 +348,9 @@
   --wa-tooltip-arrow-size: 0.375rem;
 
   /* premium custom settings - general and light */
+  --strata-background-even: var(--wa-color-surface-lowered);
+  --strata-background-odd: var(--wa-color-surface-lowered);
+
   wa-rating {
     --symbol-color-active: var(--wa-color-base-50);
   }
@@ -379,6 +382,32 @@
 
   wa-badge {
     --border-width: 0;
+    text-transform: uppercase;
+  }
+
+  .message-composer wa-card::part(header) {
+    border-width: 0;
+    background-color: var(--wa-color-surface-lowered);
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-width: 0;
+    --padding: var(--wa-space-s) var(--wa-space-xl);
+  }
+
+  .message-composer .grouped-buttons wa-button {
+    --border-color: transparent;
+    --background: transparent;
+    --label-color: var(--wa-color-text-normal);
+    --box-shadow: none;
+    --wa-form-controls-height-m: var(--wa-form-controls-height-s);
+  }
+
+  .message-composer .grouped-buttons wa-button::part(label) {
+    padding: 0 var(--wa-space-xs);
+  }
+
+  .message-composer .send wa-button::part(label) {
     text-transform: uppercase;
   }
 }
@@ -418,9 +447,9 @@
   --wa-color-brand-spot-darker: var(--wa-color-blue-40);
   --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
   --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-20);
+  --wa-color-brand-border-subtle: var(--wa-color-blue-10);
   --wa-color-brand-border-highlight: var(--wa-color-blue-30);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
+  --wa-color-brand-text-on-spot: var(--wa-color-blue-70);
   --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
@@ -428,7 +457,7 @@
   --wa-color-success-spot-darker: var(--wa-color-green-40);
   --wa-color-success-fill-subtle: var(--wa-color-green-10);
   --wa-color-success-fill-highlight: var(--wa-color-green-20);
-  --wa-color-success-border-subtle: var(--wa-color-green-20);
+  --wa-color-success-border-subtle: var(--wa-color-green-10);
   --wa-color-success-border-highlight: var(--wa-color-green-30);
   --wa-color-success-text-on-spot: white;
   --wa-color-success-text-on-fill: var(--wa-color-green-70);
@@ -438,7 +467,7 @@
   --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-10);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
-  --wa-color-warning-border-subtle: var(--wa-color-yellow-20);
+  --wa-color-warning-border-subtle: var(--wa-color-yellow-10);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
   --wa-color-warning-text-on-spot: var(--wa-color-yellow-20);
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
@@ -448,7 +477,7 @@
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
   --wa-color-danger-fill-subtle: var(--wa-color-red-10);
   --wa-color-danger-fill-highlight: var(--wa-color-red-20);
-  --wa-color-danger-border-subtle: var(--wa-color-red-20);
+  --wa-color-danger-border-subtle: var(--wa-color-red-10);
   --wa-color-danger-border-highlight: var(--wa-color-red-30);
   --wa-color-danger-text-on-spot: white;
   --wa-color-danger-text-on-fill: var(--wa-color-red-70);
@@ -458,7 +487,7 @@
   --wa-color-neutral-spot-darker: var(--wa-color-base-40);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
-  --wa-color-neutral-border-subtle: var(--wa-color-base-20);
+  --wa-color-neutral-border-subtle: var(--wa-color-base-10);
   --wa-color-neutral-border-highlight: var(--wa-color-base-60);
   --wa-color-neutral-text-on-spot: white;
   --wa-color-neutral-text-on-fill: var(--wa-color-base-70);

@@ -916,19 +916,19 @@ toc: false
   /* page layout */
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    padding-inline: var(--wa-space-2xl);
-    padding-block-end: var(--wa-space-2xl);
+    padding: 0;
+    margin: 0;
     translate: calc((var(--knobs-width) + 2rem) / 2);
+    border: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style);
   }
 
   .overlap {
     position: relative;
     color: var(--wa-color-text-normal);
-    padding: 0 var(--wa-space-m);
     z-index: 1;
   }
 
-  .overlap::after {
+  /* .overlap::after {
     content: '';
     position: absolute;
     top: calc(-1 * var(--wa-space-2xl));
@@ -937,7 +937,7 @@ toc: false
     height: 300px;
     background: var(--wa-color-brand-spot-darker);
     z-index: -1;
-  }
+  } */
 
   /* general and utility */
   .space-vertically {
@@ -947,11 +947,23 @@ toc: false
   }
 
   .strata {
-    border-bottom: var(--wa-border-width-base) var(--wa-color-neutral-border-highlight) var(--wa-border-style);
+    padding: var(--wa-space-2xl);
+    /* border-bottom: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style); */
+    background: var(--strata-background-even);
+  }
+
+  .strata:nth-child(odd) {
+    background: var(--strata-background-odd);
   }
 
 
   /* strata - hero/header */
+  .project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
 
   /* strata product cards */
 
@@ -998,6 +1010,37 @@ toc: false
     --symbol-size: .8rem;
   }
 
+  /* message composer */
+
+  .message-composer .card-header [slot='header'] {
+    display: flex;
+    align-items: center;
+  }
+
+  .message-composer .card-footer [slot='footer'] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .message-composer wa-card p {
+    margin-bottom: 0;
+  }
+
+  .message-composer .card-footer [slot='footer'] .tools {
+    display: flex;
+    align-items: center;
+  }
+
+  .message-composer .grouped-buttons:not(:first-of-type) {
+    padding-inline-start: var(--wa-space-m);
+  }
+
+  .message-composer .grouped-buttons:not(:last-of-type) {
+    padding-inline-end: var(--wa-space-m);
+    border-right: var(--wa-border-width-m) var(--wa-border-style) var(--wa-color-surface-border);
+  }
+
 
   /* other */
 
@@ -1037,9 +1080,8 @@ toc: false
 <!-- Kitchen Sink Preview -->
 <div class="preview-container">
   <section class="overlap">
-
-    <header class="project-header" style="display: flex; align-items: center; justify-content: space-between; color: var(--wa-color-brand-text-on-spot);">
-      <div>
+    <header class="strata project-header">
+      <div style="display: flex; align-items: center">
         <wa-icon id="project-logo" name="p"></wa-icon>
         <span id="project-name" style="margin-inline-start: var(--wa-space-m);">Project Name</span>
       </div>
@@ -1048,7 +1090,6 @@ toc: false
         <wa-icon-button name="bell" label="Notifications"></wa-icon-button>
       </div>
     </header>
-
     <section class="strata products">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
@@ -1113,7 +1154,92 @@ toc: false
         </div>
       </wa-card>
     </section>
+    <section class="strata">
 
+    </section>
+    <section class="strata message-composer">
+      <wa-card class="card-header card-footer">
+        <div slot="header">
+          <div class="grouped-buttons">
+            <wa-tooltip content="Bold">
+              <wa-button><wa-icon name="bold" family="sharp" variant="regular" label="Bold"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Italic">
+              <wa-button><wa-icon name="italic" family="sharp" variant="regular" label="Italic"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Strikethrough">
+              <wa-button><wa-icon name="strikethrough" family="sharp" variant="regular" label="strikethrough"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Link">
+              <wa-button><wa-icon name="link" family="sharp" variant="regular" label="Link"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Unordered List">
+              <wa-button><wa-icon name="list" family="sharp" variant="regular" label="Unordered List"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Ordered List">
+              <wa-button><wa-icon name="list-ol" family="sharp" variant="regular" label="Ordered List"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Block Quote">
+              <wa-button><wa-icon name="block-quote" family="sharp" variant="regular" label="Block Quote"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Code">
+              <wa-button><wa-icon name="code" family="sharp" variant="regular" label="Code"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Inline Code">
+              <wa-button><wa-icon name="terminal" family="sharp" variant="regular" label="Inline Code"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+        </div>
+        <div>
+          <p>You can see it when you look out your window or when you turn on your television. You can feel it when you go to work... when you go to church... when you pay your taxes.</p>
+        </div>
+        <div slot="footer">
+          <div class="tools">
+          <div class="grouped-buttons">
+            <wa-tooltip content="Add File">
+              <wa-button><wa-icon name="circle-plus" family="sharp" variant="regular" label="Add File"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Formatting">
+              <wa-button><wa-icon name="font-case" family="sharp" variant="regular" label="Open Formatting"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Emojis">
+              <wa-button><wa-icon name="face-smile" family="sharp" variant="regular" label="Emoji"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Mention">
+              <wa-button><wa-icon name="at" family="sharp" variant="regular" label="Mention"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Record Video">
+              <wa-button><wa-icon name="video" family="sharp" variant="regular" label="Video"></wa-icon></wa-button>
+            </wa-tooltip>
+            <wa-tooltip content="Record Audio Clip">
+              <wa-button><wa-icon name="microphone" family="sharp" variant="regular" label="Microphone"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Add File">
+              <wa-button><wa-icon name="circle-plus" family="sharp" variant="regular" label="Add File"></wa-icon></wa-button>
+            </wa-tooltip>
+          </div>
+          </div>
+          <div class="send">
+            <wa-button variant="brand" size="small">
+              <wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
+              Send
+            </wa-button>
+          </div>
+        </div>
+      </wa-card>
+    </section>
     <section class="strata form-examples">
       <div class="cards">
         <wa-card>
