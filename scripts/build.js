@@ -69,8 +69,7 @@ async function buildTheDocs(watch = false) {
           );
         }
 
-        // const siteDistDir = path.join(process.cwd(), "starlight-docs", "public", 'dist')
-        const siteDistDir = path.join(process.cwd(), "starlight-docs", "public", 'dist')
+        const siteDistDir = path.join(process.cwd(), "docs", "public", 'dist')
         // await deleteAsync(siteDistDir);
 
         // We copy the CDN build because that has everything bundled. Yes this looks weird.
@@ -86,7 +85,7 @@ async function buildTheDocs(watch = false) {
   return new Promise(async (resolve, reject) => {
     const child = spawn('npx', args, {
       stdio: 'pipe',
-      cwd: 'starlight-docs',
+      cwd: 'docs',
       shell: true // for Windows
     });
 
@@ -249,7 +248,7 @@ await nextTask('Building source files', async () => {
 
 // Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
 await nextTask(`Copying the build to "${sitedir}"`, async () => {
-  const siteDistDir = path.join("starlight-docs", "public", 'dist')
+  const siteDistDir = path.join("docs", "public", 'dist')
   await deleteAsync(siteDistDir);
 
   // We copy the CDN build because that has everything bundled. Yes this looks weird.
