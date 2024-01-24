@@ -444,12 +444,12 @@
    * Semantic theme colors
    */
   --wa-color-brand-spot: var(--wa-color-blue-80);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
+  --wa-color-brand-spot-darker: var(--wa-color-blue-60);
   --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
   --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
   --wa-color-brand-border-subtle: var(--wa-color-blue-10);
   --wa-color-brand-border-highlight: var(--wa-color-blue-30);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-70);
+  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
   --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
@@ -496,6 +496,18 @@
   /* premium custom settings - dark specific */
   .product-card .title {
     color: var(--wa-color-base-95);
+  }
+
+  .message-composer wa-card {
+    --background: var(--wa-color-base-30);
+  }
+
+  .message-composer wa-card::part(header) {
+    background-color: var(--wa-color-base-20);
+  }
+
+  .message-composer .grouped-buttons wa-button {
+    --label-color: var(--wa-color-base-70);
   }
 }
 
