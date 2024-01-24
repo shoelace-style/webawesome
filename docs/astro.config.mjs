@@ -30,7 +30,9 @@ function remarkFrontmatterPlugin() {
 // https://astro.build/config
 export default defineConfig({
   server: {
-    open: true
+    open: true,
+    port: 4000,
+    host: true,
   },
   vite: {
     plugins: [
