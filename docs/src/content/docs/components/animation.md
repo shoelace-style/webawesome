@@ -135,6 +135,7 @@ This example demonstrates all of the baked-in animations and easings. Animations
 ```
 
 ```jsx:react
+
 ```
 
 ### Using Intersection Observer

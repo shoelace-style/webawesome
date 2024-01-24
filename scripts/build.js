@@ -12,8 +12,8 @@ import util from 'util';
 import * as path from 'path';
 import { readFileSync } from 'fs';
 import { replace } from 'esbuild-plugin-replace';
-import { dev, build } from "astro"
-import chokidar from "chokidar"
+import { dev, build } from 'astro';
+import chokidar from 'chokidar';
 
 const { serve } = commandLineArgs([{ name: 'serve', type: Boolean }]);
 const outdir = 'dist';
@@ -31,13 +31,13 @@ const shoelaceVersion = JSON.stringify(packageData.version.toString());
 // process and an array of strings containing any output are included in the resolved promise.
 //
 async function buildTheDocs(watch = false) {
-  let args = ["astro", "build"]
+  let args = ['astro', 'build'];
 
   if (watch) {
-    args.pop()
-    args.push("dev")
+    args.pop();
+    args.push('dev');
 
-    console.log(process.cwd())
+    console.log(process.cwd());
 
     // Rebuild and reload when source files change
     chokidar.watch('src/**/!(*.test).*').on('change', async filename => {
@@ -69,12 +69,12 @@ async function buildTheDocs(watch = false) {
           );
         }
 
-        const siteDistDir = path.join(process.cwd(), "docs", "public", 'dist')
+        const siteDistDir = path.join(process.cwd(), 'docs', 'public', 'dist');
         // await deleteAsync(siteDistDir);
 
         // We copy the CDN build because that has everything bundled. Yes this looks weird.
         // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
-        console.log(`COPYING ${cdndir} to ${siteDistDir}`)
+        console.log(`COPYING ${cdndir} to ${siteDistDir}`);
         await copy(cdndir, siteDistDir, { overwrite: true });
       } catch (err) {
         console.error(chalk.red(err), '\n');
@@ -248,7 +248,7 @@ await nextTask('Building source files', async () => {
 
 // Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
 await nextTask(`Copying the build to "${sitedir}"`, async () => {
-  const siteDistDir = path.join("docs", "public", 'dist')
+  const siteDistDir = path.join('docs', 'public', 'dist');
   await deleteAsync(siteDistDir);
 
   // We copy the CDN build because that has everything bundled. Yes this looks weird.
@@ -274,7 +274,7 @@ if (!serve) {
 // Cleanup on exit
 process.on('SIGINT', exit);
 process.on('SIGTERM', exit);
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
   console.error(err);
-  exit()
+  exit();
 });

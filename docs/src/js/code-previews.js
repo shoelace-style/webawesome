@@ -37,7 +37,7 @@
     });
   }
 
-  const waVersion = document.querySelector("meta[name='wa-version']").getAttribute("content")
+  const waVersion = document.querySelector("meta[name='wa-version']").getAttribute('content');
   const reactVersion = '18.2.0';
   const cdndir = 'cdn';
   const npmdir = 'dist';
@@ -213,6 +213,5 @@
 
   // Set the initial flavor
   window.addEventListener('turbo:load', syncFlavor);
-  syncFlavor()
+  syncFlavor();
 })();
-

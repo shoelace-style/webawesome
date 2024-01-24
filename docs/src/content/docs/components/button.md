@@ -4,7 +4,6 @@ description: Buttons represent actions that are available to the user.
 layout: ../../../layouts/ComponentLayout.astro
 ---
 
-
 ```html:preview
 <wa-button>Button</wa-button>
 ```

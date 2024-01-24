@@ -295,7 +295,7 @@ describe('<wa-select>', () => {
           <wa-option value="option-3">Option 3</wa-option>
         </wa-select>
       `);
-      const secondOption = el.querySelectorAll('wa-option')[1]!;
+      const secondOption = el.querySelectorAll('wa-option')[1];
 
       expect(el.checkValidity()).to.be.true;
       expect(el.hasAttribute('data-required')).to.be.true;
@@ -324,7 +324,7 @@ describe('<wa-select>', () => {
           <wa-option value="option-3">Option 3</wa-option>
         </wa-select>
       `);
-      const secondOption = el.querySelectorAll('wa-option')[1]!;
+      const secondOption = el.querySelectorAll('wa-option')[1];
 
       expect(el.hasAttribute('data-required')).to.be.true;
       expect(el.hasAttribute('data-optional')).to.be.false;

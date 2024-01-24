@@ -2,27 +2,25 @@
 title: 'Web Awesome: A forward-thinking library of web components.'
 description: Hand-crafted custom elements for any occasion.
 ---
-import Logo from "../../components/Logo.astro"
 
+import Logo from '../../components/Logo.astro';
 
 <div class="splash">
   <div class="splash-start">
     <Logo />
   </div>
   <div class="splash-end">
-<div>
-# <wa-visually-hidden>Web Awesome:</wa-visually-hidden>
-- Works with all frameworks 🧩
-- Works with CDNs 🚛
-- Fully customizable with CSS 🎨
-- Includes a dark theme 🌛
-- Built with accessibility in mind ♿️
-- First-class [React support](/frameworks/react) ⚛️
-- Built-in localization 💬
-- Open source 😸
-- [More awesome than ever](https://blog.fontawesome.com/shoelace-joins-font-awesome/) ![Awesome emoji](/assets/images/awesome.svg)
-</div>
-    <img class="splash-image" src="/assets/images/undraw-content-team.svg" alt="Cartoon of people assembling components while standing on a giant laptop." />
+    <div>
+      # <wa-visually-hidden>Web Awesome:</wa-visually-hidden>- Works with all frameworks 🧩 - Works with CDNs 🚛 - Fully
+      customizable with CSS 🎨 - Includes a dark theme 🌛 - Built with accessibility in mind ♿️ - First-class [React support](/frameworks/react)
+      ⚛️ - Built-in localization 💬 - Open source 😸 - [More awesome than ever](https://blog.fontawesome.com/shoelace-joins-font-awesome/)
+      ![Awesome emoji](/assets/images/awesome.svg)
+    </div>
+    <img
+      class="splash-image"
+      src="/assets/images/undraw-content-team.svg"
+      alt="Cartoon of people assembling components while standing on a giant laptop."
+    />
   </div>
 </div>
 
@@ -33,6 +31,7 @@ import Logo from "../../components/Logo.astro"
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20the%20chat-5965f2.svg?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/mg8f26C)
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-00acee.svg?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/shoelace_style)
+
 </div>
 
 ## Quick Start
@@ -40,8 +39,14 @@ import Logo from "../../components/Logo.astro"
 Add the following code to your page.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/themes/default.css" />
-<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/autoloader.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/themes/default.css"
+/>
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/autoloader.js"
+></script>
 ```
 
 Now you have access to all of Web Awesome's components! Try adding a button:

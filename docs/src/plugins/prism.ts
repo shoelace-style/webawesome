@@ -6,8 +6,8 @@ type Node = {
   lang: string;
   type: string;
   value: string;
-  parent?: Node
-  children?: Node[]
+  parent?: Node;
+  children?: Node[];
   // position: { start?: number, end?: number };
 };
 
@@ -20,34 +20,31 @@ export default function remarkCodeHighlighter(): Transformer {
         return;
       }
 
-      lang = lang.split(":")[0]
-
+      lang = lang.split(':')[0];
 
       // We don't process JSX nodes.
-      if (lang === "jsx") {
-        node.value = ""
+      if (lang === 'jsx') {
+        node.value = '';
         node.type = 'html';
-        return
+        return;
       }
 
-      const options = node.lang.split(":").slice(1)
+      const options = node.lang.split(':').slice(1);
 
-      if (!options.includes("preview")) {
-        return
+      if (!options.includes('preview')) {
+        return;
       }
 
-      let reactCode = ""
+      let reactCode = '';
 
       node.type = 'html';
 
-
       // Need to look ahead at the next node and if its also code, check if it's React.
       if (parent.children?.length) {
-        const nextNode = parent.children[index + 1]
+        const nextNode = parent.children[index + 1];
 
-
-        if (nextNode && nextNode.lang && nextNode.lang.split(":")[0] === "jsx") {
-          reactCode = nextNode.value
+        if (nextNode && nextNode.lang && nextNode.lang.split(':')[0] === 'jsx') {
+          reactCode = nextNode.value;
         }
       }
 
@@ -62,18 +59,18 @@ function escapeHtml(str: string) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function generateHTML (node: Node, reactCode: string) {
-    const options = node.lang.split(":").slice(1)
-    const sourceGroupId = `code-preview-source-group-${count}`;
+function generateHTML(node: Node, reactCode: string) {
+  const options = node.lang.split(':').slice(1);
+  const sourceGroupId = `code-preview-source-group-${count}`;
 
-    // const lang = node.lang.split(":")[0]
+  // const lang = node.lang.split(":")[0]
 
-    const isExpanded = options.includes('expanded');
-    const noCodePen = options.includes('no-codepen');
+  const isExpanded = options.includes('expanded');
+  const noCodePen = options.includes('no-codepen');
 
-    count++;
+  count++;
 
-    const htmlButton = `
+  const htmlButton = `
       <button type="button"
         title="Show HTML code"
         class="code-preview__button code-preview__button--html"
@@ -82,13 +79,13 @@ function generateHTML (node: Node, reactCode: string) {
       </button>
     `;
 
-    const reactButton = `
+  const reactButton = `
       <button type="button" title="Show React code" class="code-preview__button code-preview__button--react">
         React
       </button>
     `;
 
-    const codePenButton = `
+  const codePenButton = `
       <button type="button" class="code-preview__button code-preview__button--codepen" title="Edit on CodePen">
         <svg
           width="138"
@@ -105,7 +102,7 @@ function generateHTML (node: Node, reactCode: string) {
       </button>
     `;
 
-    const codePreview = `
+  const codePreview = `
       <div class="code-preview ${isExpanded ? 'code-preview--expanded' : ''}">
         <div class="code-preview__preview">
           ${node.value.replaceAll(/<script>/g, "<script type='module'>")}
@@ -116,14 +113,16 @@ function generateHTML (node: Node, reactCode: string) {
 
         <div class="code-preview__source-group" id="${sourceGroupId}">
           <div class="code-preview__source code-preview__source--html" data-flavor="html">
-            <pre><code class="source language-html">${highlight("html", node.value)}</code></pre>
+            <pre><code class="source language-html">${highlight('html', node.value)}</code></pre>
           </div>
 
-          ${reactCode
+          ${
+            reactCode
               ? `<div class="code-preview__source code-preview__source--react" data-flavor="react">
-                  <pre><code class="source language-jsx">${highlight("jsx", reactCode)}</code></pre>
+                  <pre><code class="source language-jsx">${highlight('jsx', reactCode)}</code></pre>
                 </div>`
-              : ''}
+              : ''
+          }
         </div>
 
         <div class="code-preview__buttons">
@@ -148,14 +147,12 @@ function generateHTML (node: Node, reactCode: string) {
 
           ${htmlButton}
 
-          ${reactCode ? reactButton : ""}
+          ${reactCode ? reactButton : ''}
 
           ${noCodePen ? '' : codePenButton}
         </div>
       </div>
   `;
 
-  return codePreview
+  return codePreview;
 }
-
-

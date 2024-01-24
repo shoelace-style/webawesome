@@ -297,7 +297,7 @@ describe('<wa-carousel>', () => {
           <wa-carousel-item>Node 6</wa-carousel-item>
         </wa-carousel>
       `);
-      const expectedSlides = el.querySelectorAll('.expected')!;
+      const expectedSlides = el.querySelectorAll('.expected');
       const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--next')!;
 
       // Act
@@ -325,7 +325,7 @@ describe('<wa-carousel>', () => {
           <wa-carousel-item class="expected">Node 6</wa-carousel-item>
         </wa-carousel>
       `);
-      const expectedSlides = el.querySelectorAll('.expected')!;
+      const expectedSlides = el.querySelectorAll('.expected');
       const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--next')!;
 
       // Act

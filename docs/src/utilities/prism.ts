@@ -18,4 +18,3 @@ export function highlight(language: string, code: string) {
   }
   return Prism.highlight(code, Prism.languages[language], language);
 }
-

@@ -1,17 +1,17 @@
 //
 // Export it here so we can import it elsewhere and use the same version
 //
-import * as path from "node:path";
-import * as fs from "node:fs"
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 // We make it a function to lazy evaluate for re-renders
-export const customElementsManifest = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), '/../dist/custom-elements.json')), { encoding: "utf-8" })
-
+export const customElementsManifest = () =>
+  JSON.parse(fs.readFileSync(path.join(process.cwd(), '/../dist/custom-elements.json')), { encoding: 'utf-8' });
 
 //
 // Gets all components from custom-elements.json and returns them in a more documentation-friendly format.
 //
-export function getAllComponents () {
+export function getAllComponents() {
   const allComponents = [];
 
   customElementsManifest().modules?.forEach(module => {
@@ -71,32 +71,31 @@ export function getAllComponents () {
     if (a.name > b.name) return 1;
     return 0;
   });
-};
-
-export function getComponent (tagName) {
-    const allComponents = getAllComponents()
-    const component = allComponents.find(c => c.tagName === tagName);
-    if (!component) {
-      throw new Error(
-        `Unable to find a component called "${tagName}". Make sure the file name is the same as the component's tag ` +
-          `name (minus the wa- prefix). ${allComponents}`
-      );
-    }
-
-    component.hasSlots = Boolean(component.slots?.length)
-    component.hasProperties = Boolean(component.properties?.length)
-    component.hasEvents = Boolean(component.events?.length)
-    component.hasMethods = Boolean(component.methods?.length)
-    component.hasCssProperties = Boolean(component.cssProperties?.length)
-    component.hasCssParts = Boolean(component.cssParts?.length)
-    component.hasAnimations = Boolean(component.animations?.length)
-    component.hasDependencies = Boolean(component.dependencies?.length)
-    return component;
 }
 
-export function getComponentFromFileName (filename) {
-  const {name} = path.parse(filename)
-  const tagName = "wa-" + name
-  return getComponent(tagName)
+export function getComponent(tagName) {
+  const allComponents = getAllComponents();
+  const component = allComponents.find(c => c.tagName === tagName);
+  if (!component) {
+    throw new Error(
+      `Unable to find a component called "${tagName}". Make sure the file name is the same as the component's tag ` +
+        `name (minus the wa- prefix). ${allComponents}`
+    );
+  }
+
+  component.hasSlots = Boolean(component.slots?.length);
+  component.hasProperties = Boolean(component.properties?.length);
+  component.hasEvents = Boolean(component.events?.length);
+  component.hasMethods = Boolean(component.methods?.length);
+  component.hasCssProperties = Boolean(component.cssProperties?.length);
+  component.hasCssParts = Boolean(component.cssParts?.length);
+  component.hasAnimations = Boolean(component.animations?.length);
+  component.hasDependencies = Boolean(component.dependencies?.length);
+  return component;
 }
 
+export function getComponentFromFileName(filename) {
+  const { name } = path.parse(filename);
+  const tagName = 'wa-' + name;
+  return getComponent(tagName);
+}
