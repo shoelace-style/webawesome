@@ -336,7 +336,7 @@
   --wa-form-controls-required-content-color: inherit;
   --wa-form-controls-required-content-offset: -0.1em;
 
-  --wa-panel-corners: var(--wa-corners-m);
+  --wa-panel-corners: var(--wa-corners-s);
 
   --wa-flow-spacing: 1.5rem;
 
@@ -364,18 +364,37 @@
 
   wa-card {
     --box-shadow: var(--wa-shadow-level-3);
+    --border-radius: var(--wa-corners-m);
   }
 
   wa-alert {
     font-size: var(--wa-font-size-s);
-    --icon-size: 
-  ;
+    --border-color: transparent;
   }
 
   wa-alert[variant='brand'] {
-    --background: var(--wa-color-blue-90);
-    --border-color: transparent;
-    --content-color: var(--wa-color-blue-10);
+    --background: var(--wa-color-brand-fill-highlight);
+    --content-color: var(--wa-color-brand-text-on-fill);
+  }
+
+  wa-alert[variant='success'] {
+    --background: var(--wa-color-success-fill-highlight);
+    --content-color: var(--wa-color-success-text-on-fill);
+  }
+
+  wa-alert[variant='warning'] {
+    --background: var(--wa-color-warning-fill-highlight);
+    --content-color: var(--wa-color-warning-text-on-fill);
+  }
+
+  wa-alert[variant='danger'] {
+    --background: var(--wa-color-danger-fill-highlight);
+    --content-color: var(--wa-color-danger-text-on-fill);
+  }
+
+  wa-alert[variant='neutral'] {
+    --background: var(--wa-color-neutral-fill-highlight);
+    --content-color: var(--wa-color-neutral-text-on-fill);
   }
 
   wa-badge {
@@ -473,12 +492,12 @@
    */
   --wa-color-brand-spot: var(--wa-color-blue-80);
   --wa-color-brand-spot-darker: var(--wa-color-blue-60);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-30);
+  --wa-color-brand-fill-highlight: var(--wa-color-blue-40);
   --wa-color-brand-border-subtle: var(--wa-color-blue-10);
   --wa-color-brand-border-highlight: var(--wa-color-blue-30);
   --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
+  --wa-color-brand-text-on-fill: var(--wa-color-blue-90);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
   --wa-color-success-spot: var(--wa-color-green-50);
@@ -525,11 +544,6 @@
   wa-badge[variant='neutral'] {
     --background: var(--wa-color-base-30);
     --content-color: var(--wa-color-base-90);
-  }
-
-  wa-alert[variant='brand'] {
-    --background: var(--wa-color-blue-40);
-    --content-color: var(--wa-color-blue-90);
   }
 
   .product-card .title {

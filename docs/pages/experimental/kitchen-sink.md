@@ -989,8 +989,6 @@ toc: false
   }
 
   /* strata product cards */
-
-  /* grid layout */
   .strata.products {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1032,8 +1030,7 @@ toc: false
     --symbol-size: .8rem;
   }
 
-  /* message composer */
-
+  /* strata - message composer */
   .message-composer .card-header [slot='header'] {
     display: flex;
     align-items: center;
@@ -1063,9 +1060,24 @@ toc: false
     border-right: var(--wa-border-width-m) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
   }
 
+  /* strata - product detail */
+  .product-detail {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+
+  .product-detail .product-detail-images {
+    grid-column: 1 / 7;
+  }
+
+  .product-detail .product-detail-info {
+    grid-column: 7 / 13;
+  }
+
+
 
   /* other */
-
   .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1312,7 +1324,84 @@ toc: false
         </div>
       </wa-card>
     </section>
-    <section class="strata product-details">
+    <section class="strata product-detail">
+      <div class="product-detail-images">
+        <wa-carousel pagination>
+          <wa-carousel-item>
+            <img
+              alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
+              src="/assets/examples/carousel/mountains.jpg"
+            />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
+              src="/assets/examples/carousel/waterfall.jpg"
+            />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
+              src="/assets/examples/carousel/sunset.jpg"
+            />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
+              src="/assets/examples/carousel/field.jpg"
+            />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
+              src="/assets/examples/carousel/valley.jpg"
+            />
+          </wa-carousel-item>
+        </wa-carousel>
+      </div>
+      <div class="product-detail-info">
+        <div class="title-rating">
+          <h3 class="title">Keymaker II</h3>
+          <wa-rating label="Rating" value="3"></wa-rating>
+        </div>
+        <div class="price">
+          <span style="text-decoration: line-through;">$120</span>
+          <span>$65</span>
+        </div>
+        <div>
+          <p>It is a pickle, no doubt about it. Bad news is there's no way you can really know if I'm here to help you or not, so it's really up to you. Just have to make up your own damn mind to either accept what I'm going to tell you, or reject it. Candy?</p>
+          <p>We're all here to do what we're all here to do. I'm interested in one thing, Neo, the future. And believe me, I know: the only way to get there is together.</p>
+        </div>
+        <wa-alert variant="warning" open>
+          <wa-icon slot="icon" name="clock" variant="regular"></wa-icon>
+          This item will soon be discontinued
+        </wa-alert>
+        <div>
+          <div style="margin: var(--wa-space-2xl) 0">
+            <wa-radio-group label="Choose an finish" name="finish" value="Matte">
+              <wa-radio-button value="Matte">Matte</wa-radio-button>
+              <wa-radio-button value="Glossy">Glossy</wa-radio-button>
+              <wa-radio-button value="Pebbled">Pebbled</wa-radio-button>
+              <wa-radio-button value="Holo">Holo</wa-radio-button>
+            </wa-radio-group>
+          </div>
+          <div style="display: flex; align-items: end; gap: 1rem;">
+            <wa-select label="How many?">
+              <wa-option value="1">1</wa-option>
+              <wa-option value="2">2</wa-option>
+              <wa-option value="3">3</wa-option>
+            </wa-select>
+            <wa-button variant="brand">
+              <wa-icon slot="prefix" name="basket-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
+              Add to Basket
+            </wa-button>
+            <wa-button variant="neutral">
+              <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+              Save
+            </wa-button>
+          </div>
+        </div>
+      </div>
 
     </section>
     <section class="strata form-examples">
