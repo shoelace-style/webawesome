@@ -26,11 +26,20 @@ const version = customElementsManifest().package.version
     margin-top: 0;
   }
 
+  /** Applied styles overrides for docs. */
+  body details {
+    background-color: transparent;
+    margin-block-end: 0;
+  }
+
+  body details summary::before {
+    display: none;
+  }
 </style>
 
 <>
   <Turbo />
-  {/* <Docs /> */}
+  <Docs />
   {/* <Search /> */}
 
   <meta name="wa-version" content={version} />

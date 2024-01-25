@@ -1,6 +1,7 @@
 ---
 import { getComponentFromFileName } from "../js/cem.js"
 import { marked } from 'marked';
+import { highlight } from "../utilities/prism";
 
 const { file, frontmatter } = Astro.props
 const { version, npmdir, cdndir } = frontmatter
@@ -93,7 +94,7 @@ const {
       To import this component from <a href="https://www.jsdelivr.com/package/npm/@shoelace-style/shoelace">the CDN</a>
       using a script tag:
     </p>
-    <pre><code class="language-html">&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@{ version }/{ cdndir }/{ component.path }&quot;&gt;&lt;/script&gt;</code></pre>
+    <pre><code class="language-html" set:html={highlight("html", `<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${version}/${cdndir}/${component.path}"></script>`)}></code></pre>
   </wa-tab-panel>
 
   <wa-tab-panel name="import">
@@ -101,21 +102,23 @@ const {
       To import this component from <a href="https://www.jsdelivr.com/package/npm/@shoelace-style/shoelace">the CDN</a>
       using a JavaScript import:
     </p>
-    <pre><code class="language-js">import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@{ version }/{ cdndir }/{ component.path }';</code></pre>
+    <pre><code class="language-js" set:html={
+      highlight("js", `import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@${version}/${cdndir}/${component.path}';`)
+    }></code></pre>
   </wa-tab-panel>
 
   <wa-tab-panel name="bundler">
     <p>
       To import this component using <a href={ rootUrl('/getting-started/installation#bundling') }>a bundler</a>:
     </p>
-    <pre><code class="language-js">import '@shoelace-style/shoelace/{ npmdir }/{ component.path }';</code></pre>
+    <pre><code class="language-js" set:html={highlight("js", `import '@shoelace-style/shoelace/${npmdir}/${component.path}';`)}></code></pre>
   </wa-tab-panel>
 
   <wa-tab-panel name="react">
     <p>
       To import this component as a <a href="/frameworks/react">React component</a>:
     </p>
-    <pre><code class="language-js">import { component.name } from '@shoelace-style/shoelace/{ npmdir }/react/{ component.tagNameWithoutPrefix }';</code></pre>
+    <pre><code class="language-js" set:html={highlight("js", `import ${component.name} from '@shoelace-style/shoelace/${npmdir}/react/${component.tagNameWithoutPrefix}';`)}></code></pre>
   </wa-tab-panel>
 </wa-tab-group>
 

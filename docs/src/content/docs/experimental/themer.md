@@ -9,7 +9,9 @@ template: 'splash'
 /* Reset for themer blank canvas */
 header.header { display: none; }
 .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
-body, main { padding: 20px; }
+body { padding: 0px; }
+main { padding: 65px; }
+.sl-container > footer { display: none; }
 .content-panel:first-of-type { display: none; }
 
 .file-uploader {
@@ -54,7 +56,6 @@ body, main { padding: 20px; }
   font-size: 0.75em;
   color: var(--wa-color-text-quiet);
 }
->>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
 </style>
 
 <!-- Knobs -->
@@ -82,7 +83,6 @@ body, main { padding: 20px; }
         <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
->>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
     <wa-select name="theme" label="Theme" value="default">
       <wa-option value="default">Default</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -686,7 +686,6 @@ body, main { padding: 20px; }
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
->>>>>>> ec613f8d32a71caf54312083d48c2287a9ae6a54:docs/pages/experimental/themer.md
   // Heading text
   fontFamilyHeading.addEventListener('wa-change', event => {
     let fontFamily;
