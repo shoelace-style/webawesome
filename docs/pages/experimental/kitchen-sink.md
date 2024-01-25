@@ -928,17 +928,6 @@ toc: false
     z-index: 1;
   }
 
-  /* .overlap::after {
-    content: '';
-    position: absolute;
-    top: calc(-1 * var(--wa-space-2xl));
-    left: calc(-1 * var(--wa-space-2xl));
-    width: calc(100% + var(--wa-space-2xl) * 2);
-    height: 300px;
-    background: var(--wa-color-brand-spot-darker);
-    z-index: -1;
-  } */
-
   /* general and utility */
   .space-vertically {
     display: flex;
@@ -947,7 +936,7 @@ toc: false
   }
 
   .strata {
-    padding: var(--wa-space-2xl);
+    padding: var(--wa-space-3xl) var(--wa-space-2xl);
     /* border-bottom: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style); */
     background: var(--strata-background-even);
   }
@@ -956,7 +945,6 @@ toc: false
     background: var(--strata-background-odd);
   }
 
-
   /* strata - hero/header */
   .project-header {
     display: flex;
@@ -964,6 +952,41 @@ toc: false
     justify-content: space-between;
   }
 
+  /* strata - blog post */
+  .blog {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+
+  .blog .column-post-header {
+    grid-column: 1 / 5;
+    position: relative;
+  }
+
+  .blog .post-header {
+    position: sticky;
+    top: 1rem;
+  }
+
+  .blog .post-title {
+    margin-top: 0;
+    line-height: 1.2;
+  }
+
+  .blog .authors {
+    margin: var(--wa-space-2xl) 0;
+  }
+
+  .blog .authors a {
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-s);
+  }
+
+  .blog .post-body {
+    grid-column: 5 / 13;
+  }
 
   /* strata product cards */
 
@@ -986,7 +1009,6 @@ toc: false
   .product-card {
     position: relative;
   }
-
 
   .product-card .badge-stock {
     position: absolute;
@@ -1038,7 +1060,7 @@ toc: false
 
   .message-composer .grouped-buttons:not(:last-of-type) {
     padding-inline-end: var(--wa-space-m);
-    border-right: var(--wa-border-width-m) var(--wa-border-style) var(--wa-color-surface-border);
+    border-right: var(--wa-border-width-m) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
   }
 
 
@@ -1090,6 +1112,58 @@ toc: false
         <wa-icon-button name="bell" label="Notifications"></wa-icon-button>
       </div>
     </header>
+    <section class="strata blog">
+      <div class="column-post-header">
+        <div class="post-header">
+          <h1 class="post-title">Web Awesome Themes</h1>
+          <div class="post-meta">
+            <div class="authors">
+              <a href="">
+                <img class="author-image" src="/assets/images/kitchen-sink/avatar.png" alt="Lindsay Miller" />
+                Lindsay Miller
+              </a>
+            </div>
+            <div class="categories">
+              <a href=""><wa-badge variant="neutral">CSS</wa-badge></a>
+              <a href=""><wa-badge variant="neutral">Theming</wa-badge></a>
+              <a href=""><wa-badge variant="neutral">Resources</wa-badge></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="post-body">
+        <p>Web Awesome is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.</p>
+        <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
+        <h2>Theme Basics</h2>
+        <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
+        <img src="/assets/images/kitchen-sink/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
+        <pre class="codeblock">
+<code>:host,
+.wa-theme-purple-power {
+  /* ... */
+}</code>
+        </pre>
+        <h3>Activating Themes</h3>
+        <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
+        <pre class="codeblock">
+<code>
+  &lt;html class="wa-theme-default-dark"&gt;
+    &lt;head&gt;
+      &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      ...
+    &lt;/body&gt;
+  &lt;/html&gt;
+</code>
+        </pre>
+        <wa-alert open>
+          <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+          There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
+        </wa-alert>
+      </div>
+    </section>
     <section class="strata products">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
@@ -1154,14 +1228,12 @@ toc: false
         </div>
       </wa-card>
     </section>
-    <section class="strata">
-
-    </section>
     <section class="strata message-composer">
       <wa-card class="card-header card-footer">
         <div slot="header">
           <div class="grouped-buttons">
             <wa-tooltip content="Bold">
+              <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
               <wa-button><wa-icon name="bold" family="sharp" variant="regular" label="Bold"></wa-icon></wa-button>
             </wa-tooltip>
             <wa-tooltip content="Italic">
@@ -1226,8 +1298,8 @@ toc: false
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
-            <wa-tooltip content="Add File">
-              <wa-button><wa-icon name="circle-plus" family="sharp" variant="regular" label="Add File"></wa-icon></wa-button>
+            <wa-tooltip content="Add Magic">
+              <wa-button><wa-icon name="sparkles" family="sharp" variant="regular" label="Magic"></wa-icon></wa-button>
             </wa-tooltip>
           </div>
           </div>
@@ -1239,6 +1311,9 @@ toc: false
           </div>
         </div>
       </wa-card>
+    </section>
+    <section class="strata product-details">
+
     </section>
     <section class="strata form-examples">
       <div class="cards">

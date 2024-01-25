@@ -1,4 +1,5 @@
 @import 'depth_1_semiflat.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 
 :root,
 :host,
@@ -87,8 +88,8 @@
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-40);
-  --wa-color-text-quiet: var(--wa-color-base-50);
+  --wa-color-text-normal: var(--wa-color-base-10);
+  --wa-color-text-quiet: var(--wa-color-base-40);
   --wa-color-text-link: var(--wa-color-blue-50);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -181,9 +182,10 @@
   /**
    * Typography
    */
-  --wa-font-family-heading: 'Playfair', serif;
+  --wa-font-family-heading: 'Playfair Display', serif;
   --wa-font-family-body: 'Inter', sans-serif;
-  --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --wa-font-family-code: 'IBM Plex Mono', 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+    monospace;
   --wa-font-family-longform: 'Lora', serif;
 
   --wa-font-weight-light: 300;
@@ -364,8 +366,39 @@
     --box-shadow: var(--wa-shadow-level-3);
   }
 
-  .product-card .title {
-    color: var(--wa-color-base-10);
+  wa-alert {
+    font-size: var(--wa-font-size-s);
+    --icon-size: 
+  ;
+  }
+
+  wa-alert[variant='brand'] {
+    --background: var(--wa-color-blue-90);
+    --border-color: transparent;
+    --content-color: var(--wa-color-blue-10);
+  }
+
+  wa-badge {
+    --border-width: 0;
+    text-transform: uppercase;
+  }
+
+  wa-badge[variant='neutral'] {
+    --background: var(--wa-color-base-80);
+    --content-color: var(--wa-color-base-20);
+  }
+
+  pre.codeblock {
+    background-color: var(--wa-color-neutral-fill-highlight);
+  }
+
+  .blog .authors a {
+    --wa-color-text-link: var(--wa-color-text-quiet);
+    --wa-link-decoration-default: none;
+  }
+
+  .product-card .description {
+    color: var(--wa-color-text-quiet);
   }
 
   .product-card::part(footer) {
@@ -378,11 +411,6 @@
 
   .product-card wa-button:not(:last-child) {
     margin-right: 0.5rem;
-  }
-
-  wa-badge {
-    --border-width: 0;
-    text-transform: uppercase;
   }
 
   .message-composer wa-card::part(header) {
@@ -424,9 +452,9 @@
   --wa-color-surface-lowered: var(--wa-color-base-10);
   --wa-color-surface-border: var(--wa-color-base-30);
 
-  --wa-color-text-normal: var(--wa-color-base-80);
-  --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-link: var(--wa-color-blue-60);
+  --wa-color-text-normal: var(--wa-color-base-95);
+  --wa-color-text-quiet: var(--wa-color-base-80);
+  --wa-color-text-link: var(--wa-color-blue-80);
 
   --wa-color-selection-background: var(--wa-color-green-40);
   --wa-color-selection-text: white;
@@ -494,6 +522,16 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 
   /* premium custom settings - dark specific */
+  wa-badge[variant='neutral'] {
+    --background: var(--wa-color-base-30);
+    --content-color: var(--wa-color-base-90);
+  }
+
+  wa-alert[variant='brand'] {
+    --background: var(--wa-color-blue-40);
+    --content-color: var(--wa-color-blue-90);
+  }
+
   .product-card .title {
     color: var(--wa-color-base-95);
   }
@@ -508,6 +546,14 @@
 
   .message-composer .grouped-buttons wa-button {
     --label-color: var(--wa-color-base-70);
+  }
+
+  .message-composer .grouped-buttons:not(:last-of-type) {
+    --wa-color-neutral-border-subtle: var(--wa-color-base-30);
+  }
+
+  .message-composer .tools .grouped-buttons:not(:last-of-type) {
+    --wa-color-neutral-border-subtle: var(--wa-color-base-40);
   }
 }
 
