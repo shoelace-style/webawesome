@@ -617,9 +617,7 @@ As always, make sure to benchmark these changes. When using HTTP/2, it may in fa
 
 :::danger
 When using sprite sheets, the `wa-load` and `wa-error` events will not fire.
-:::
 
-:::danger
 For security reasons, browsers may apply the same-origin policy on `<use>` elements located in the `<wa-icon>` shadow DOM and may refuse to load a cross-origin URL. There is currently no defined way to set a cross-origin policy for `<use>` elements. For this reason, sprite sheets should only be used if you're self-hosting them.
 :::
 

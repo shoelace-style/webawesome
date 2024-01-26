@@ -498,6 +498,6 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 </script>
 ```
 
-:::warning
+:::caution
 Be sure you trust the content you are outputting! Passing unsanitized user input to `getTag()` can result in XSS vulnerabilities.
 :::

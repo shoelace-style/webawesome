@@ -47,7 +47,7 @@ If you don't want to use client-side validation, you can suppress this behavior 
 If this syntax looks unfamiliar, don't worry! Most of what you're learning on this page is platform knowledge that applies to regular form controls, too.
 :::
 
-:::warning
+:::caution
 Client-side validation can be used to improve the UX of forms, but it is not a replacement for server-side validation. **You should always validate and sanitize user input on the server!**
 :::
 
@@ -545,7 +545,7 @@ To disable the browser's error messages, you need to cancel the `wa-invalid` eve
 </style>
 ```
 
-:::warning
+:::caution
 This example is meant to demonstrate the concept of providing your own error messages inline. It is not intended to scale to more complex forms. Users who want this functionality are encouraged to build a more appropriate validation solution using the techniques shown below. Depending on how you implement this feature, custom error messages may affect the accessibility of your form controls.
 :::
 

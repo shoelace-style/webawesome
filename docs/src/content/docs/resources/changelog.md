@@ -157,7 +157,7 @@ This release [unbundles Lit](https://github.com/shoelace-style/shoelace/issues/5
 1. `cdn/` – a bundled, CDN-ready distribution
 2. `dist/` – an unbundled, npm-ready distribution
 
-:::warning
+:::caution
 If you're a CDN user, you must update your path to point to `cdn/` instead of `dist/`. You can copy and paste the latest paths from the [installation page](/getting-started/installation).
 :::
 
@@ -1329,7 +1329,7 @@ From now on, importing a component will register it automatically. The caveat is
 
 This change in tooling addresses a number of longstanding bugs and limitations. It also gives us more control over the library and build process while streamlining development and maintenance. Instead of two different distributions, Web Awesome now offers a single, standards-compliant collection of ES modules. This may affect how you install and use the library, so please refer to the [installation page](/getting-started/installation) for details.
 
-:::warning
+:::caution
 Due to the large number of internal changes, I would consider this update to be less stable than previous ones. If you're using Web Awesome in a production app, consider holding off until the next beta to allow for more exhaustive testing from the community. Please report any bugs you find on the [issue tracker](https://github.com/shoelace-style/shoelace/issues).
 :::
 

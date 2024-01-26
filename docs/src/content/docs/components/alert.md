@@ -23,7 +23,7 @@ const App = () => (
 );
 ```
 
-:::warning
+:::caution
 Alerts will not be visible if the `open` attribute is not present.
 :::
 

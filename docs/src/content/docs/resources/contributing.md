@@ -197,32 +197,12 @@ Special callouts can be added using the following syntax.
 This is a tip/informational callout
 :::
 
-:::warning
-This is a warning callout
+:::caution
+This is a caution callout
 :::
 
 :::danger
 This is a danger callout
-:::
-```
-
-#### Asides
-
-To place content that's indirectly related, use the following syntax.
-
-```
-:::aside
-This content is indirectly related and will appear in an `<aside>` element.
-:::
-```
-
-#### Details
-
-To provide additional details that can be expanded/collapses, use the following syntax.
-
-```
-:::details Title Here
-The details here are expandable.
 :::
 ```
 

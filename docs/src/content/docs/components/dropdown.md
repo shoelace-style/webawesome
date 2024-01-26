@@ -395,7 +395,7 @@ const App = () => (
 );
 ```
 
-:::warning
+:::caution
 As a UX best practice, avoid using more than one level of submenu when possible.
 :::
 

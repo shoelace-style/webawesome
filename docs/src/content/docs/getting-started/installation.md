@@ -150,7 +150,7 @@ Here's an example that loads only the button component. Again, if you're not usi
 
 You can copy and paste the code to import a component from the "Importing" section of the component's documentation. Note that some components have dependencies that are automatically imported when you cherry pick. If a component has dependencies, they will be listed in the "Dependencies" section of its docs.
 
-:::warning
+:::caution
 You will see files named `chunk.[hash].js` in the `chunks` directory. Never import these files directly, as they are generated and change from version to version.
 :::
 
@@ -185,7 +185,7 @@ setBasePath('/path/to/shoelace/%NPMDIR%');
 // <wa-button>, <wa-icon>, <wa-input>, and <wa-rating> are ready to use!
 ```
 
-:::warning
+:::caution
 Component modules include side effects for registration purposes. Because of this, importing directly from `@shoelace-style/shoelace` may result in a larger bundle size than necessary. For optimal tree shaking, always cherry pick, i.e. import components and utilities from their respective files, as shown above.
 :::
 
