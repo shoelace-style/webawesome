@@ -14,6 +14,13 @@ import type { CSSResultGroup } from 'lit';
  * @slot - The badge's content.
  *
  * @csspart base - The component's base wrapper.
+ *
+ * @cssproperty --background - The badge's background styles.
+ * @cssproperty --border-color - The color of the badge's border.
+ * @cssproperty --border-radius - The radius of the badge's corners.
+ * @cssproperty --border-style - The style of the badge's border.
+ * @cssproperty --border-width - The width of the badge's border.
+ * @cssproperty --content-color - The color of the badge's content.
  */
 export default class WaBadge extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;

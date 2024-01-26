@@ -374,7 +374,7 @@ const App = () => (
 
 ### Loading
 
-Use the `loading` attribute to make a button busy. The width will remain the same as before, preventing adjacent elements from moving around. Clicks will be suppressed until the loading state is removed.
+Use the `loading` attribute to make a button busy. The width will remain the same as before, preventing adjacent elements from moving around.
 
 ```html:preview
 <wa-button variant="brand" loading>Brand</wa-button>

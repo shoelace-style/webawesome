@@ -5,7 +5,37 @@ export default css`
   ${componentStyles}
 
   :host {
+    --border-color: var(--wa-color-surface-default);
+    --border-radius: var(--wa-corners-xs);
+    --border-style: var(--wa-border-style);
+    --border-width: var(--wa-border-width-s);
+
     display: inline-flex;
+  }
+
+  :host([variant='brand']) {
+    --background: var(--wa-color-brand-spot);
+    --content-color: var(--wa-color-brand-text-on-spot);
+  }
+
+  :host([variant='success']) {
+    --background: var(--wa-color-success-spot);
+    --content-color: var(--wa-color-success-text-on-spot);
+  }
+
+  :host([variant='warning']) {
+    --background: var(--wa-color-warning-spot);
+    --content-color: var(--wa-color-warning-text-on-spot);
+  }
+
+  :host([variant='neutral']) {
+    --background: var(--wa-color-neutral-spot);
+    --content-color: var(--wa-color-neutral-text-on-spot);
+  }
+
+  :host([variant='danger']) {
+    --background: var(--wa-color-danger-spot);
+    --content-color: var(--wa-color-danger-text-on-spot);
   }
 
   .badge {
@@ -15,39 +45,17 @@ export default css`
     font-size: max(12px, 0.75em);
     font-weight: var(--wa-font-weight-medium);
     line-height: 1;
-    border-radius: var(--wa-corners-xs);
-    border: solid 1px var(--wa-color-surface-default);
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    color: var(--content-color);
     white-space: nowrap;
     padding: 0.35em 0.6em;
     user-select: none;
     -webkit-user-select: none;
     cursor: inherit;
-  }
-
-  /* Variant modifiers */
-  .badge--brand {
-    background-color: var(--wa-color-brand-spot);
-    color: var(--wa-color-brand-text-on-spot);
-  }
-
-  .badge--success {
-    background-color: var(--wa-color-success-spot);
-    color: var(--wa-color-success-text-on-spot);
-  }
-
-  .badge--neutral {
-    background-color: var(--wa-color-neutral-spot);
-    color: var(--wa-color-neutral-text-on-spot);
-  }
-
-  .badge--warning {
-    background-color: var(--wa-color-warning-spot);
-    color: var(--wa-color-warning-text-on-spot);
-  }
-
-  .badge--danger {
-    background-color: var(--wa-color-danger-spot);
-    color: var(--wa-color-danger-text-on-spot);
   }
 
   /* Pill modifier */

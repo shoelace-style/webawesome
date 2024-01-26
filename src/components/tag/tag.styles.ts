@@ -5,13 +5,52 @@ export default css`
   ${componentStyles}
 
   :host {
+    --border-radius: var(--wa-corners-xs);
+    --border-style: var(--wa-border-style);
+    --border-width: var(--wa-border-width-s);
+
     display: inline-block;
+  }
+
+  :host([variant='brand']) {
+    --background: var(--wa-color-brand-fill-subtle);
+    --border-color: var(--wa-color-brand-border-highlight);
+    --content-color: var(--wa-color-brand-text-on-fill);
+  }
+
+  :host([variant='success']) {
+    --background: var(--wa-color-success-fill-subtle);
+    --border-color: var(--wa-color-success-border-highlight);
+    --content-color: var(--wa-color-success-text-on-fill);
+  }
+
+  :host([variant='warning']) {
+    --background: var(--wa-color-warning-fill-subtle);
+    --border-color: var(--wa-color-warning-border-highlight);
+    --content-color: var(--wa-color-warning-text-on-fill);
+  }
+
+  :host([variant='neutral']) {
+    --background: var(--wa-color-neutral-fill-subtle);
+    --border-color: var(--wa-color-neutral-border-highlight);
+    --content-color: var(--wa-color-neutral-text-on-fill);
+  }
+
+  :host([variant='danger']) {
+    --background: var(--wa-color-danger-fill-subtle);
+    --border-color: var(--wa-color-danger-border-highlight);
+    --content-color: var(--wa-color-danger-text-on-fill);
   }
 
   .tag {
     display: flex;
     align-items: center;
-    border: solid var(--wa-border-width-s);
+    background: var(--background);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    color: var(--content-color);
     line-height: 1;
     white-space: nowrap;
     user-select: none;
@@ -23,81 +62,13 @@ export default css`
     padding: 0;
   }
 
-  /*
-   * Variant modifiers
-   */
-
-  .tag--brand {
-    background-color: var(--wa-color-brand-fill-subtle);
-    border-color: var(--wa-color-brand-border-highlight);
-    color: var(--wa-color-brand-text-on-fill);
-  }
-
-  .tag--brand:active > wa-icon-button {
-    color: var(--wa-color-brand-text-on-fill);
-  }
-
-  .tag--success {
-    background-color: var(--wa-color-success-fill-subtle);
-    border-color: var(--wa-color-success-border-highlight);
-    color: var(--wa-color-success-text-on-fill);
-  }
-
-  .tag--success:active > wa-icon-button {
-    color: var(--wa-color-success-text-on-fill);
-  }
-
-  .tag--neutral {
-    background-color: var(--wa-color-neutral-fill-subtle);
-    border-color: var(--wa-color-neutral-border-highlight);
-    color: var(--wa-color-neutral-text-on-fill);
-  }
-
-  .tag--neutral:active > wa-icon-button {
-    color: var(--wa-color-neutral-text-on-fill);
-  }
-
-  .tag--warning {
-    background-color: var(--wa-color-warning-fill-subtle);
-    border-color: var(--wa-color-warning-border-highlight);
-    color: var(--wa-color-warning-text-on-fill);
-  }
-
-  .tag--warning:active > wa-icon-button {
-    color: var(--wa-color-warning-text-on-fill);
-  }
-
-  .tag--danger {
-    background-color: var(--wa-color-danger-fill-subtle);
-    border-color: var(--wa-color-danger-border-highlight);
-    color: var(--wa-color-danger-text-on-fill);
-  }
-
-  .tag--danger:active > wa-icon-button {
-    color: var(--wa-color-danger-text-on-fill);
+  .tag:active > wa-icon-button {
+    color: var(--content-color);
   }
 
   /*
    * Size modifiers
    */
-
-  .tag--small {
-    font-size: var(--wa-font-size-xs);
-    border-radius: var(--wa-corners-s);
-    padding: var(--wa-space-3xs) var(--wa-space-2xs);
-  }
-
-  .tag--medium {
-    font-size: var(--wa-font-size-s);
-    border-radius: var(--wa-corners-s);
-    padding: var(--wa-space-2xs) var(--wa-space-xs);
-  }
-
-  .tag--large {
-    font-size: var(--wa-font-size-m);
-    border-radius: var(--wa-corners-s);
-    padding: var(--wa-space-2xs) var(--wa-space-xs);
-  }
 
   .tag--small {
     font-size: var(--wa-font-size-xs);
