@@ -23,6 +23,13 @@ import type { CSSResultGroup } from 'lit';
  * @csspart content - The tag's content.
  * @csspart remove-button - The tag's remove button, an `<wa-icon-button>`.
  * @csspart remove-button__base - The remove button's exported `base` part.
+ *
+ * @cssproperty --background - The tag's background styles.
+ * @cssproperty --border-color - The color of the tag's border.
+ * @cssproperty --border-radius - The radius of the tag's corners.
+ * @cssproperty --border-style - The style of the tag's border.
+ * @cssproperty --border-width - The width of the tag's border.
+ * @cssproperty --content-color - The color of the tag's content.
  */
 export default class WaTag extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;

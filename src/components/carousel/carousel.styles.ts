@@ -5,9 +5,12 @@ export default css`
   ${componentStyles}
 
   :host {
-    --slide-gap: var(--wa-space-m, 1rem);
     --aspect-ratio: 16 / 9;
+    --navigation-color: var(--wa-color-text-quiet);
+    --pagination-color-activated: var(--wa-form-controls-activated-color);
+    --pagination-color-resting: var(--wa-form-controls-resting-color);
     --scroll-hint: 0px;
+    --slide-gap: var(--wa-space-m, 1rem);
 
     display: flex;
   }
@@ -95,7 +98,7 @@ export default css`
   .carousel__navigation {
     grid-area: navigation;
     display: contents;
-    font-size: var(--wa-font-size-xl);
+    font-size: var(--wa-font-size-l);
   }
 
   .carousel__navigation-button {
@@ -106,7 +109,7 @@ export default css`
     border: none;
     border-radius: var(--wa-corners-s);
     font-size: inherit;
-    color: var(--wa-color-text-quiet);
+    color: var(--navigation-color);
     padding: var(--wa-space-xs);
     cursor: pointer;
     transition: var(--wa-transition-fast) color;
@@ -140,14 +143,15 @@ export default css`
     border-radius: var(--wa-corners-circle);
     width: var(--wa-space-s);
     height: var(--wa-space-s);
-    background-color: var(--wa-color-neutral-fill-highlight);
+    background-color: var(--pagination-color-resting);
     padding: 0;
     margin: 0;
+    transition: transform var(--wa-transition-normal);
   }
 
   .carousel__pagination-item--active {
-    background-color: var(--wa-color-brand-spot);
-    transform: scale(1.2);
+    background-color: var(--pagination-color-activated);
+    transform: scale(1.25);
   }
 
   /* Focus styles */
