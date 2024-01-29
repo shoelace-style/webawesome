@@ -1057,7 +1057,7 @@ toc: false
 
   .message-composer .grouped-buttons:not(:last-of-type) {
     padding-inline-end: var(--wa-space-m);
-    border-right: var(--wa-border-width-m) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
+    border-right: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
   }
 
   /* strata - product detail */
@@ -1136,9 +1136,9 @@ toc: false
               </a>
             </div>
             <div class="categories">
-              <a href=""><wa-badge variant="neutral">CSS</wa-badge></a>
-              <a href=""><wa-badge variant="neutral">Theming</wa-badge></a>
-              <a href=""><wa-badge variant="neutral">Resources</wa-badge></a>
+              <a href=""><wa-tag size="small" variant="neutral">CSS</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="neutral">Theming</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="neutral">Resources</wa-tag></a>
             </div>
           </div>
         </div>
@@ -1159,16 +1159,14 @@ toc: false
         <h3>Activating Themes</h3>
         <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
         <pre class="codeblock">
-<code>
-  &lt;html class="wa-theme-default-dark"&gt;
-    &lt;head&gt;
-      &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      ...
-    &lt;/body&gt;
-  &lt;/html&gt;
-</code>
+<code>&lt;html class="wa-theme-default-dark"&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+  &lt;/body&gt;
+&lt;/html&gt;</code>
         </pre>
         <wa-alert open>
           <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
@@ -1246,39 +1244,39 @@ toc: false
           <div class="grouped-buttons">
             <wa-tooltip content="Bold">
               <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
-              <wa-button><wa-icon name="bold" family="sharp" variant="regular" label="Bold"></wa-icon></wa-button>
+              <wa-icon-button name="bold" label="Bold"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Italic">
-              <wa-button><wa-icon name="italic" family="sharp" variant="regular" label="Italic"></wa-icon></wa-button>
+              <wa-icon-button name="italic" label="Italic"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Strikethrough">
-              <wa-button><wa-icon name="strikethrough" family="sharp" variant="regular" label="strikethrough"></wa-icon></wa-button>
+              <wa-icon-button name="strikethrough" label="strikethrough"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Link">
-              <wa-button><wa-icon name="link" family="sharp" variant="regular" label="Link"></wa-icon></wa-button>
+              <wa-icon-button name="link" label="Link"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Unordered List">
-              <wa-button><wa-icon name="list" family="sharp" variant="regular" label="Unordered List"></wa-icon></wa-button>
+              <wa-icon-button name="list" label="Unordered List"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Ordered List">
-              <wa-button><wa-icon name="list-ol" family="sharp" variant="regular" label="Ordered List"></wa-icon></wa-button>
+              <wa-icon-button name="list-ol" label="Ordered List"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Block Quote">
-              <wa-button><wa-icon name="block-quote" family="sharp" variant="regular" label="Block Quote"></wa-icon></wa-button>
+              <wa-icon-button name="block-quote" label="Block Quote"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Code">
-              <wa-button><wa-icon name="code" family="sharp" variant="regular" label="Code"></wa-icon></wa-button>
+              <wa-icon-button name="code" label="Code"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Inline Code">
-              <wa-button><wa-icon name="terminal" family="sharp" variant="regular" label="Inline Code"></wa-icon></wa-button>
+              <wa-icon-button name="terminal" label="Inline Code"></wa-icon-button>
             </wa-tooltip>
           </div>
         </div>
@@ -1289,29 +1287,29 @@ toc: false
           <div class="tools">
           <div class="grouped-buttons">
             <wa-tooltip content="Add File">
-              <wa-button><wa-icon name="circle-plus" family="sharp" variant="regular" label="Add File"></wa-icon></wa-button>
+              <wa-icon-button name="circle-plus" label="Add File"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Formatting">
-              <wa-button><wa-icon name="font-case" family="sharp" variant="regular" label="Open Formatting"></wa-icon></wa-button>
+              <wa-icon-button name="font-case" label="Open Formatting"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Emojis">
-              <wa-button><wa-icon name="face-smile" family="sharp" variant="regular" label="Emoji"></wa-icon></wa-button>
+              <wa-icon-button name="face-smile" label="Emoji"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Mention">
-              <wa-button><wa-icon name="at" family="sharp" variant="regular" label="Mention"></wa-icon></wa-button>
+              <wa-icon-button name="at" label="Mention"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Record Video">
-              <wa-button><wa-icon name="video" family="sharp" variant="regular" label="Video"></wa-icon></wa-button>
+              <wa-icon-button name="video" label="Video"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Record Audio Clip">
-              <wa-button><wa-icon name="microphone" family="sharp" variant="regular" label="Microphone"></wa-icon></wa-button>
+              <wa-icon-button name="microphone" label="Microphone"></wa-icon-button>
             </wa-tooltip>
           </div>
           <div class="grouped-buttons">
             <wa-tooltip content="Add Magic">
-              <wa-button><wa-icon name="sparkles" family="sharp" variant="regular" label="Magic"></wa-icon></wa-button>
+              <wa-icon-button name="sparkles" label="Magic"></wa-icon-button>
             </wa-tooltip>
           </div>
           </div>
@@ -1378,7 +1376,7 @@ toc: false
         </wa-alert>
         <div>
           <div style="margin: var(--wa-space-2xl) 0">
-            <wa-radio-group label="Choose an finish" name="finish" value="Matte">
+            <wa-radio-group label="Choose a finish" name="finish" value="Matte">
               <wa-radio-button value="Matte">Matte</wa-radio-button>
               <wa-radio-button value="Glossy">Glossy</wa-radio-button>
               <wa-radio-button value="Pebbled">Pebbled</wa-radio-button>
@@ -1386,11 +1384,7 @@ toc: false
             </wa-radio-group>
           </div>
           <div style="display: flex; align-items: end; gap: 1rem;">
-            <wa-select label="How many?">
-              <wa-option value="1">1</wa-option>
-              <wa-option value="2">2</wa-option>
-              <wa-option value="3">3</wa-option>
-            </wa-select>
+            <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
               <wa-icon slot="prefix" name="basket-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
