@@ -1,15 +1,11 @@
 import { highlight } from '../utilities/prism.ts';
 import { visit } from 'unist-util-visit';
 import type { Transformer } from 'unified';
+import type { Node } from "./types.js"
 
-type Node = {
-  lang: string;
-  type: string;
-  value: string;
-  parent?: Node;
-  children?: Node[];
-  // position: { start?: number, end?: number };
-};
+const html = String.raw
+
+let count = 0
 
 export default function remarkCodeHighlighter(): Transformer {
   return tree => {
@@ -31,13 +27,16 @@ export default function remarkCodeHighlighter(): Transformer {
 
       const options = node.lang.split(':').slice(1);
 
+      node.type = 'html';
+
       if (!options.includes('preview')) {
-        return;
+        // we still want to generate code blocks for non-previews, just...different html.
+        generateCodeBlock(node);
+        return
       }
 
       let reactCode = '';
 
-      node.type = 'html';
 
       // Need to look ahead at the next node and if its also code, check if it's React.
       if (parent.children?.length) {
@@ -48,20 +47,33 @@ export default function remarkCodeHighlighter(): Transformer {
         }
       }
 
-      node.value = generateHTML(node, reactCode);
+      node.value = generatePreviewCodeBlock(node, reactCode);
     });
   };
 }
-
-let count = 1;
 
 function escapeHtml(str: string) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function generateHTML(node: Node, reactCode: string) {
+
+function copyButton (id: string) {
+  return html`<wa-copy-button from='${id}' class="copy-code-button"></wa-copy-button>`
+}
+
+function generateCodeBlock(node: Node) {
+  let language = node.lang?.split(':')[0]
+
+  if (!language) {
+    language = "plaintext"
+  }
+
+  node.value = html`<pre><code id='code-block-${++count}' class="language-${language}">${highlight(language, node.value)}</code>${copyButton(`code-block-${count}`)}</pre>`
+}
+
+function generatePreviewCodeBlock(node: Node, reactCode: string) {
   const options = node.lang.split(':').slice(1);
-  const sourceGroupId = `code-preview-source-group-${count}`;
+  const sourceGroupId = `code-preview-source-group-${++count}`;
 
   // const lang = node.lang.split(":")[0]
 
@@ -70,7 +82,7 @@ function generateHTML(node: Node, reactCode: string) {
 
   count++;
 
-  const htmlButton = `
+  const htmlButton = html`
       <button type="button"
         title="Show HTML code"
         class="code-preview__button code-preview__button--html"
@@ -79,13 +91,13 @@ function generateHTML(node: Node, reactCode: string) {
       </button>
     `;
 
-  const reactButton = `
+  const reactButton = html`
       <button type="button" title="Show React code" class="code-preview__button code-preview__button--react">
         React
       </button>
     `;
 
-  const codePenButton = `
+  const codePenButton = html`
       <button type="button" class="code-preview__button code-preview__button--codepen" title="Edit on CodePen">
         <svg
           width="138"
@@ -102,7 +114,7 @@ function generateHTML(node: Node, reactCode: string) {
       </button>
     `;
 
-  const codePreview = `
+  const codePreview = html`
       <div class="code-preview ${isExpanded ? 'code-preview--expanded' : ''}">
         <div class="code-preview__preview">
           ${node.value.replaceAll(/<script>/g, "<script type='module'>")}
@@ -113,13 +125,15 @@ function generateHTML(node: Node, reactCode: string) {
 
         <div class="code-preview__source-group" id="${sourceGroupId}">
           <div class="code-preview__source code-preview__source--html" data-flavor="html">
-            <pre><code class="source language-html">${highlight('html', node.value)}</code></pre>
+            <pre><code id='code-block-${++count}' class="source language-html">${highlight('html', node.value)}</code></pre>
+            ${copyButton(`code-block-${count}`)}
           </div>
 
           ${
             reactCode
               ? `<div class="code-preview__source code-preview__source--react" data-flavor="react">
-                  <pre><code class="source language-jsx">${highlight('jsx', reactCode)}</code></pre>
+                  <pre><code id='code-block-${++count}' class="source language-jsx">${highlight('jsx', reactCode)}</code></pre>
+                  ${copyButton(`code-block-${count}`)}
                 </div>`
               : ''
           }

@@ -11,6 +11,7 @@ import { customElementsManifest } from './src/js/cem.js';
 import { RemarkPluginFindAndReplace } from 'remark-plugin-find-and-replace';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkCodeHighlighter from './src/plugins/prism';
+import GithubAutolink from './src/plugins/github-autolink.ts';
 
 const version = customElementsManifest().package.version;
 const cdndir = 'cdn';
@@ -52,9 +53,10 @@ export default defineConfig({
         replacements: [
           { pattern: '%VERSION%', replacement: version },
           { pattern: '%CDNDIR%', replacement: cdndir },
-          { pattern: '%NPMDIR%', replacement: npmdir }
+          { pattern: '%NPMDIR%', replacement: npmdir },
         ]
       }),
+      GithubAutolink,
       remarkCodeHighlighter
     ],
     rehypePlugins: [
@@ -90,7 +92,8 @@ export default defineConfig({
         },
         {
           label: 'Resources',
-          autogenerate: { directory: 'resources' }
+          autogenerate: { directory: 'resources' },
+          // TODO: add help & support
         },
         {
           label: 'Components',
@@ -111,7 +114,8 @@ export default defineConfig({
       components: {
         // Override the default `Head` component.
         Head: './src/components/overrides/Head.astro',
-        TableOfContents: './src/components/overrides/TableOfContents.astro'
+        TableOfContents: './src/components/overrides/TableOfContents.astro',
+        Search: './src/components/overrides/Search.astro',
       }
     })
   ]

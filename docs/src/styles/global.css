@@ -185,8 +185,10 @@ pre > code {
   hyphens: none;
   tab-size: 2;
   white-space: pre;
-  padding: 1rem;
-  margin: -1rem;
+}
+
+.code-preview__source {
+  position: relative;
 }
 
 pre .token.comment {
@@ -280,12 +282,12 @@ pre .token.italic {
   background-color: color-mix(in oklab, var(--wa-color-neutral-fill-subtle), var(--wa-color-mix-active));
 }
 
-pre .copy-code-button {
+:is(.code-preview__source, pre) .copy-code-button {
   opacity: 0;
   scale: 0.75;
 }
 
-pre:hover .copy-code-button,
+:is(.code-preview__source, pre):hover .copy-code-button,
 .copy-code-button:focus-within {
   opacity: 1;
   scale: 1;

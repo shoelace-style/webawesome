@@ -1,0 +1,24 @@
+---
+import '@pagefind/default-ui/css/ui.css';
+// import Icon from '../user-components/Icon.astro';
+import type { Props } from '@astrojs/starlight/props';
+
+import { default as AstroSearch } from '@astrojs/starlight/components/Search.astro';
+
+const props = Astro.props
+
+// const pagefindTranslations = {
+// 	placeholder: labels['search.label'],
+// 	...Object.fromEntries(
+// 		Object.entries(labels)
+// 			.filter(([key]) => key.startsWith('pagefind.'))
+// 			.map(([key, value]) => [key.replace('pagefind.', ''), value])
+// 	),
+// };
+
+// entr
+---
+
+<template id='data' type='text/plain'>{JSON.stringify(props, null, 2)}</template>
+
+<AstroSearch {...props} />

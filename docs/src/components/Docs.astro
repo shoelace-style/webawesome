@@ -2,9 +2,32 @@
 ---
 
 <script>
+  // Add anchor headings
+  ;(() => {
+    // This should probably be a proper plugin, but it requires adding the anchor heading directly in "ComponentLayout.astro" and
+    // writing a RemarkPlugin.
+    function updateAnchorHeadings () {
+      document.querySelectorAll(":is(h1,h2,h3,h4,h5,h6)[id]").forEach((headingEl) => {
+        if (headingEl.querySelector("a")) return
+
+        headingEl.classList.add("anchor-heading")
+
+        const anchor = document.createElement("a")
+        const visuallyHidden = document.createElement("wa-visually-hidden")
+        visuallyHidden.innerText = `Direct link to ${headingEl.textContent}`
+
+        anchor.setAttribute("href", `#${encodeURIComponent(headingEl.id)}`)
+        anchor.append(visuallyHidden)
+
+        headingEl.append(anchor)
+      })
+    }
+
+    document.addEventListener("turbo:load", updateAnchorHeadings)
+  })()
+
   ;(() => {
     function setTurboFalse () {
-      console.log("setting to false")
       // We don't control this markup, but we can programmatically add turbo false. The reason is it borks layouts otherwise.
       document.querySelectorAll("a[href*='/experimental/themer']").forEach((el) => {
         el.setAttribute("data-turbo", "false")

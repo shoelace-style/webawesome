@@ -8,7 +8,7 @@ Web Awesome is designed to be highly customizable through pure CSS. Out of the b
 A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and the [`::part` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
 
 :::tip
-For component developers, built-in themes are also available as JavaScript modules that export [Lit CSSResult](https://lit.dev/docs/api/styles/#CSSResult) objects. You can find them in `%NPMDIR%/themes/*.styles.js`.
+For component developers, built-in themes are also available as JavaScript modules that export [Lit CSSResult](https://lit.dev/docs/api/styles/#CSSResult) objects. You can find them in `/%NPMDIR%/themes/*.styles.js`.
 :::
 
 ## Theme Basics
