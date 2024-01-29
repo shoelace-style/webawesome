@@ -7,4 +7,3 @@ export type Node = {
   url?: string;
   // position: { start?: number, end?: number };
 };
-

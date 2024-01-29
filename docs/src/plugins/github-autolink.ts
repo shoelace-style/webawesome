@@ -1,18 +1,21 @@
-import type { Node } from "./types.js"
+import type { Node } from './types.js';
 
-function transformNode (node: Node) {
-  if (!node.value) return
+function transformNode(node: Node) {
+  if (!node.value) return;
 
-  const regex = /\B\[(#\d+)\]\B/g
+  const regex = /\B\[(#\d+)\]\B/g;
 
   if (!node.value.match(regex)) {
-    return
+    return;
   }
 
-  node.type = "html"
-  node.value = node.value.replace(regex, `<a href="https://github.com/shoelace-style/shoelace/issues/$1)">
+  node.type = 'html';
+  node.value = node.value.replace(
+    regex,
+    `<a href="https://github.com/shoelace-style/shoelace/issues/$1)">
     $1
-  </a>`)
+  </a>`
+  );
 }
 
 /**
@@ -20,18 +23,18 @@ function transformNode (node: Node) {
  */
 export default function GithubAutolink() {
   return function visit(node: Node) {
-    if (!node) return
+    if (!node) return;
 
-    transformNode(node)
+    transformNode(node);
 
-    if (!node.children?.length) return
+    if (!node.children?.length) return;
 
     for (const childNode of node.children) {
-      transformNode(childNode)
+      transformNode(childNode);
 
       if (childNode.children?.length) {
-        visit(childNode)
+        visit(childNode);
       }
     }
-  }
+  };
 }

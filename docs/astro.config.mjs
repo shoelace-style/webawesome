@@ -53,7 +53,7 @@ export default defineConfig({
         replacements: [
           { pattern: '%VERSION%', replacement: version },
           { pattern: '%CDNDIR%', replacement: cdndir },
-          { pattern: '%NPMDIR%', replacement: npmdir },
+          { pattern: '%NPMDIR%', replacement: npmdir }
         ]
       }),
       GithubAutolink,
@@ -92,7 +92,7 @@ export default defineConfig({
         },
         {
           label: 'Resources',
-          autogenerate: { directory: 'resources' },
+          autogenerate: { directory: 'resources' }
           // TODO: add help & support
         },
         {
@@ -115,7 +115,7 @@ export default defineConfig({
         // Override the default `Head` component.
         Head: './src/components/overrides/Head.astro',
         TableOfContents: './src/components/overrides/TableOfContents.astro',
-        Search: './src/components/overrides/Search.astro',
+        Search: './src/components/overrides/Search.astro'
       }
     })
   ]
