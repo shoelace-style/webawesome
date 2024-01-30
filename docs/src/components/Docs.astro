@@ -2,6 +2,18 @@
 ---
 
 <script>
+  // double check we're marking links external
+  ;(() => {
+    document.querySelectorAll("a[href^='http']").forEach((el) => {
+      const anchor = el as HTMLAnchorElement
+
+      if (anchor.hostname !== window.location.hostname) {
+        anchor.setAttribute("rel", "nofollow noreferrer noopener")
+        anchor.setAttribute("target", "_blank")
+        anchor.classList.add("external-link")
+      }
+    })
+  })()
   // Add anchor headings
   ;(() => {
     // This should probably be a proper plugin, but it requires adding the anchor heading directly in "ComponentLayout.astro" and

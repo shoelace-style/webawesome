@@ -92,8 +92,29 @@ export default defineConfig({
         },
         {
           label: 'Resources',
-          autogenerate: { directory: 'resources' }
-          // TODO: add help & support
+          autogenerate: { directory: 'resources' },
+          items: [
+            {
+              label: 'Community',
+              link: '/resources/community'
+            },
+            {
+              label: 'Help & Support',
+              link: 'https://github.com/shoelace-style/shoelace/discussions'
+            },
+            {
+              label: 'Accessibility',
+              link: '/resources/accessibility'
+            },
+            {
+              label: 'Contributing',
+              link: '/resources/contributing'
+            },
+            {
+              label: 'Changelog',
+              link: '/resources/changelog'
+            }
+          ]
         },
         {
           label: 'Components',
