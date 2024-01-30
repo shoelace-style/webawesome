@@ -1,5 +1,6 @@
 @import 'depth_1_semiflat.css';
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 :root,
 :host,
@@ -398,13 +399,29 @@
     --content-color: var(--wa-color-blue-20);
   }
 
-  .blog .authors a {
-    --wa-color-text-link: var(--wa-color-text-quiet);
-    --wa-link-decoration-default: none;
+  .project-header {
+    background-color: var(--wa-color-warning-fill-highlight);
   }
 
-  pre.codeblock {
-    background-color: var(--wa-color-base-90);
+  .hero {
+    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat;
+  }
+
+  .hero {
+    height: 60rem;
+    padding-top: 15rem;
+    text-align: right;
+  }
+
+  .hero .hero-title {
+    color: var(--wa-color-warning-text-on-fill);
+    font-style: italic;
+  }
+
+  .products {
+    margin-top: -25rem;
+    padding-top: 10rem;
+    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
   }
 
   .product-card .description {
@@ -417,6 +434,15 @@
 
   .product-card wa-button:not(:last-child) {
     margin-inline-end: var(--wa-space-xs);
+  }
+
+  .blog .authors a {
+    --wa-color-text-link: var(--wa-color-text-quiet);
+    --wa-link-decoration-default: none;
+  }
+
+  pre.codeblock {
+    background-color: var(--wa-color-base-90);
   }
 
   .message-composer wa-card {

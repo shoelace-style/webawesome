@@ -57,7 +57,7 @@ toc: false
 
   /* set up  Kitchen Sink preview area */
   .content {
-    max-width: 1160px;
+    max-width: 1260px;
     gap: 0;
   }
 
@@ -891,7 +891,7 @@ toc: false
   }
 
   #project-logo {
-    font-size: 1.25rem;
+    /* font-size: 1.25rem; */
   }
 
   /* page layout */
@@ -917,8 +917,7 @@ toc: false
   }
 
   .strata {
-    padding: var(--wa-space-3xl) var(--wa-space-2xl);
-    /* border-bottom: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style); */
+    padding: var(--wa-space-3xl) 10%;
   }
 
   /* strata - hero/header */
@@ -926,6 +925,50 @@ toc: false
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+
+  /* strata product cards */
+  .strata.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .products wa-card::part(base) {
+    height: 100%;
+  }
+
+  .products wa-card::part(body) {
+    flex-grow: 1;
+  }
+
+  .product-card {
+    position: relative;
+  }
+
+  .product-card .badge-stock {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .product-card .title-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+  }
+
+  .product-card .title {
+    font-size: var(--wa-font-size-2xl);
+    margin: 0;
+  }
+
+  .product-card wa-rating {
+    --symbol-size: .8rem;
   }
 
   /* strata - blog post */
@@ -962,48 +1005,6 @@ toc: false
 
   .blog .post-body {
     grid-column: 5 / 13;
-  }
-
-  /* strata product cards */
-  .strata.products {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 1rem;
-  }
-
-  .products wa-card::part(base) {
-    height: 100%;
-  }
-
-  .products wa-card::part(body) {
-    flex-grow: 1;
-  }
-
-  .product-card {
-    position: relative;
-  }
-
-  .product-card .badge-stock {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-  }
-
-  .product-card .title-rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: .5rem;
-  }
-
-  .product-card .title {
-    font-size: var(--wa-font-size-2xl);
-    margin: 0;
-  }
-
-  .product-card wa-rating {
-    --symbol-size: .8rem;
   }
 
   /* strata - message composer */
@@ -1115,19 +1116,29 @@ toc: false
 <div class="preview-container">
   <section class="overlap">
     <header class="strata project-header">
-      <div style="display: flex; align-items: center">
+      <h1 style="display: flex; align-items: center; margin: 0;">
         <wa-icon id="project-logo" name="p"></wa-icon>
-        <span id="project-name" style="margin-inline-start: var(--wa-space-m);">Project Name</span>
-      </div>
+        <span id="project-name" style="margin-inline-start: var(--wa-space-l);">Project Name</span>
+      </h1>
       <div>
-        <wa-icon-button name="gear" label="Settings"></wa-icon-button>
-        <wa-icon-button name="bell" label="Notifications"></wa-icon-button>
+        <wa-icon-button name="magnifying-glass" label="Search" style="font-size: 1.25rem; color: var(--wa-color-text-normal);"></wa-icon-button>
+        <wa-icon-button name="user" label="Account" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
+        <wa-icon-button name="bag-shopping" label="Your Basket" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
       </div>
     </header>
+    <section class="strata hero">
+      <div class="">
+        <h1 class="hero-title">What you know you can't<br /> explain, but you feel it.</h1>
+        <wa-button variant="brand" class="hero-cta">
+          <wa-icon slot="prefix" name="arrow-down"></wa-icon>
+          Free Your Mind
+        </wa-button>
+      </div>
+    </section>
     <section class="strata products">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
           <wa-rating label="Rating" value="4"></wa-rating>
@@ -1148,7 +1159,7 @@ toc: false
       </wa-card>
       <wa-card class="card-image product-card">
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
           <wa-rating label="Rating" value="5"></wa-rating>
@@ -1168,7 +1179,7 @@ toc: false
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/premium/keymasterII.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Keymaker II</h3>
           <wa-rating label="Rating" value="3"></wa-rating>
@@ -1212,7 +1223,7 @@ toc: false
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
         <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
-        <img src="/assets/images/kitchen-sink/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        <img src="/assets/images/kitchen-sink/premium/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
         <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
 <code>:host,
@@ -1326,13 +1337,13 @@ toc: false
       <div class="product-detail-images">
         <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
-            <img alt="See it for yourself" src="/assets/images/kitchen-sink/carousel1.png" />
+            <img alt="See it for yourself" src="/assets/images/kitchen-sink/premium/carousel1.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Look through the code" src="/assets/images/kitchen-sink/carousel2.png" />
+            <img alt="Look through the code" src="/assets/images/kitchen-sink/premium/carousel2.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Free your mind" src="/assets/images/kitchen-sink/carousel3.png" />
+            <img alt="Free your mind" src="/assets/images/kitchen-sink/premium/carousel3.png" />
           </wa-carousel-item>
         </wa-carousel>
       </div>
