@@ -1,7 +1,7 @@
 ---
 meta:
-  title: Kitchen Sink
-  description: TODO
+title: Kitchen Sink
+description: TODO
 toc: false
 ---
 
@@ -51,7 +51,7 @@ toc: false
     margin: 0;
   }
 
-  #knobs wa-select + wa-input {
+  #knobs wa-select+wa-input {
     margin-inline-start: .5rem;
   }
 
@@ -63,50 +63,50 @@ toc: false
 
 
   /* file uploader styles */
-.file-uploader {
-  position: relative;
-  border: var(--wa-form-controls-border-width) dashed var(--wa-form-controls-resting-color);
-  border-radius: var(--wa-form-controls-corners);
-  background: var(--wa-form-controls-background);
-  padding: var(--wa-space-xs);
-  cursor: pointer;
-  text-align: center;
-}
+  .file-uploader {
+    position: relative;
+    border: var(--wa-form-controls-border-width) dashed var(--wa-form-controls-resting-color);
+    border-radius: var(--wa-form-controls-corners);
+    background: var(--wa-form-controls-background);
+    padding: var(--wa-space-xs);
+    cursor: pointer;
+    text-align: center;
+  }
 
-.file-uploader:is(:hover) {
-  background-color: var(--wa-color-neutral-fill-subtle);
-}
+  .file-uploader:is(:hover) {
+    background-color: var(--wa-color-neutral-fill-subtle);
+  }
 
-/**
+  /**
   <wa-visually-hidden>, but without the :not(:focus-within),
   the reason is that it shows the default browser file uploader.
 */
-.hidden-label::part(form-control-label),
-.file-uploader input {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  clip: rect(0 0 0 0) !important;
-  clip-path: inset(50%) !important;
-  border: none !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  padding: 0 !important;
-}
+  .hidden-label::part(form-control-label),
+  .file-uploader input {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
+  }
 
-.file-uploader:is(:focus-within) {
-  outline: var(--wa-focus-ring);
-  outline-offset: var(--wa-focus-ring-offset);
-}
+  .file-uploader:is(:focus-within) {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
 
-#file-uploader-description {
-  display: block;
-  line-height: 1;
-  font-size: 0.75em;
-  color: var(--wa-color-text-quiet);
-}
+  #file-uploader-description {
+    display: block;
+    line-height: 1;
+    font-size: 0.75em;
+    color: var(--wa-color-text-quiet);
+  }
 
-/* project logo icon select styles */
+  /* project logo icon select styles */
   wa-radio-group[name="project-logo-selector"]::part(button-group) {
     width: 100%;
   }
@@ -178,6 +178,7 @@ toc: false
   .icon-list[data-type="filled"] .icon-list-item:not([data-name$="-fill"]) {
     display: none;
   }
+
 </style>
 
 <!-- Knobs -->
@@ -198,7 +199,7 @@ toc: false
         <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
         <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
         <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
-        <wa-button value="[choose]" outline id="icon-chooser-trigger"  class="logo-chooser">
+        <wa-button value="[choose]" outline id="icon-chooser-trigger" class="logo-chooser">
           <wa-icon name="ellipsis"></wa-icon>
           <wa-visually-hidden>Browse icons</wa-visually-hidden>
         </wa-button>
@@ -236,17 +237,7 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input
-          class="hidden-label"
-          name="font-weight-heading"
-          value=""
-          label="Heading Typography Font Weight"
-          type="number"
-          step="50"
-          max="900"
-          min="50"
-          style="width: 33%;"
-        >
+        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Heading Typography Font Weight" type="number" step="50" max="900" min="50" style="width: 33%;">
         </wa-input>
       </div>
     </div>
@@ -269,17 +260,7 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input
-          class="hidden-label"
-          name="font-weight-body"
-          value=""
-          style="width: 33%;"
-          type="number"
-          step="50"
-          max="900"
-          min="50"
-          label="Body Typography Font Weight"
-        >
+        <wa-input class="hidden-label" name="font-weight-body" value="" style="width: 33%;" type="number" step="50" max="900" min="50" label="Body Typography Font Weight">
         </wa-input>
       </div>
     </div>
@@ -360,7 +341,7 @@ toc: false
     { name: 'tape', variant: 'solid' },
     { name: 'truck', variant: 'solid' },
     { name: 'umbrella', variant: 'solid' },
-    { name: 'user', variant: 'solid'  },
+    { name: 'user', variant: 'solid' },
     // Regular
     { name: 'bell', variant: 'regular' },
     { name: 'bookmark', variant: 'regular' },
@@ -459,42 +440,42 @@ toc: false
   const themeSelect = container.querySelector('[name="theme"]');
   const darkModeSelect = container.querySelector('[name="appearance"]');
 
-  function resetHeadingFontWeightValue () {
+  function resetHeadingFontWeightValue() {
     document.documentElement.style.removeProperty('--wa-font-weight-heading')
     fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
   }
 
-  function resetHeadingFontFamilyValue () {
+  function resetHeadingFontFamilyValue() {
     document.documentElement.style.removeProperty('--wa-font-family-heading')
     fontFamilyHeading.value = "default"
   }
 
-  function resetBodyFontWeightValue () {
+  function resetBodyFontWeightValue() {
     document.documentElement.style.removeProperty('--wa-font-weight-body')
     fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
   }
 
-  function resetBodyFontFamilyValue () {
+  function resetBodyFontFamilyValue() {
     document.documentElement.style.removeProperty('--wa-font-family-body')
     fontFamilyBody.value = "default"
   }
 
-  function resetBorderWidthValue () {
+  function resetBorderWidthValue() {
     document.documentElement.style.removeProperty('--wa-border-width-base')
     borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
   }
 
-  function resetBorderStyleValue () {
+  function resetBorderStyleValue() {
     document.documentElement.style.removeProperty('--wa-border-style')
     borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
   }
 
-  function resetSpacingValue () {
+  function resetSpacingValue() {
     document.documentElement.style.removeProperty('--wa-space-base')
     spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
   }
 
-  function resetCornersValue () {
+  function resetCornersValue() {
     document.documentElement.style.removeProperty('--wa-corners-base')
     corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
   }
@@ -508,22 +489,22 @@ toc: false
     4: "depth_4_glossy.css",
   }
 
-  function resetDepthValue () {
+  function resetDepthValue() {
     const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
 
     const importRules = []
     let depth = null
     const matchRegex = /depth_(\d+)_.*\.css$/
 
-    // Find all import rules in the stylesheet, then find one that matches the naming convention.
-    ;[...themeSheet.cssRules].forEach((rule) => {
-      if (rule instanceof CSSImportRule) {
-        const match = rule.href.match(matchRegex)
-        if (match) {
-          depth = Number(match[1])
+      // Find all import rules in the stylesheet, then find one that matches the naming convention.
+      ;[...themeSheet.cssRules].forEach((rule) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            depth = Number(match[1])
+          }
         }
-      }
-    })
+      })
 
     if (depth != null) {
       depthSlider.value = depth
@@ -531,7 +512,7 @@ toc: false
   }
 
   // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
-  function deleteDepthFromBaseStylesheet () {
+  function deleteDepthFromBaseStylesheet() {
     const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
 
     const importRules = []
@@ -539,15 +520,15 @@ toc: false
     let ruleIndex = null
     const matchRegex = /depth_(\d+)_.*\.css$/
 
-    ;[...themeSheet.cssRules].forEach((rule, index) => {
-      if (rule instanceof CSSImportRule) {
-        const match = rule.href.match(matchRegex)
-        if (match) {
-          ruleIndex = index
-          depth = Number(match[1])
+      ;[...themeSheet.cssRules].forEach((rule, index) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            ruleIndex = index
+            depth = Number(match[1])
+          }
         }
-      }
-    })
+      })
 
     if (ruleIndex != null && depth != null) {
       themeSheet.deleteRule(ruleIndex)
@@ -740,7 +721,7 @@ toc: false
   // Heading text
   fontFamilyHeading.addEventListener('wa-change', event => {
     let fontFamily;
-    switch(event.target.value) {
+    switch (event.target.value) {
       case 'assistant':
         fontFamily = `'Assistant', sans-serif`;
         break;
@@ -754,41 +735,41 @@ toc: false
         fontFamily = `'Mulish', sans-serif`;
         break;
       case 'noto-sans':
-          fontFamily = `'Noto Sans', sans-serif`;
-          break;
+        fontFamily = `'Noto Sans', sans-serif`;
+        break;
       case 'noto-sans-display':
-          fontFamily = `'Noto Sans Display', sans-serif`;
-          break;
+        fontFamily = `'Noto Sans Display', sans-serif`;
+        break;
       case 'noto-sans-mono':
-          fontFamily = `'Noto Sans Mono', monospace`;
-          break;
+        fontFamily = `'Noto Sans Mono', monospace`;
+        break;
       case 'noto-serif':
-          fontFamily = `'Noto Serif', serif`;
-          break;
+        fontFamily = `'Noto Serif', serif`;
+        break;
       case 'open-sans':
-          fontFamily = `'Open Sans', sans-serif`;
-          break;
+        fontFamily = `'Open Sans', sans-serif`;
+        break;
       case 'playfair':
-          fontFamily = `'Playfair', serif`;
-          break;
+        fontFamily = `'Playfair', serif`;
+        break;
       case 'playfair-display':
-          fontFamily = `'Playfair Display', serif`;
-          break;
+        fontFamily = `'Playfair Display', serif`;
+        break;
       case 'quicksand':
-          fontFamily = `'Quicksand', sans-serif`;
-          break;
+        fontFamily = `'Quicksand', sans-serif`;
+        break;
       case 'roboto-flex':
-          fontFamily = `'Roboto Flex', sans-serif`;
-          break;
+        fontFamily = `'Roboto Flex', sans-serif`;
+        break;
       case 'roboto-mono':
-          fontFamily = `'Roboto Mono', monospace`;
-          break;
+        fontFamily = `'Roboto Mono', monospace`;
+        break;
       case 'roboto-serif':
-          fontFamily = `'Roboto Serif', serif`;
-          break;
+        fontFamily = `'Roboto Serif', serif`;
+        break;
       case 'roboto-slab':
-          fontFamily = `'Roboto Slab', serif`;
-          break;
+        fontFamily = `'Roboto Slab', serif`;
+        break;
       default:
         fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
     }
@@ -798,7 +779,7 @@ toc: false
   // Body text
   fontFamilyBody.addEventListener('wa-change', event => {
     let fontFamily;
-    switch(event.target.value) {
+    switch (event.target.value) {
       case 'assistant':
         fontFamily = `'Assistant', sans-serif`;
         break;
@@ -812,35 +793,35 @@ toc: false
         fontFamily = `'Mulish', sans-serif`;
         break;
       case 'noto-sans':
-          fontFamily = `'Noto Sans', sans-serif`;
-          break;
+        fontFamily = `'Noto Sans', sans-serif`;
+        break;
       case 'noto-sans-mono':
-          fontFamily = `'Noto Sans Mono', monospace`;
-          break;
+        fontFamily = `'Noto Sans Mono', monospace`;
+        break;
       case 'noto-serif':
-          fontFamily = `'Noto Serif', serif`;
-          break;
+        fontFamily = `'Noto Serif', serif`;
+        break;
       case 'open-sans':
-          fontFamily = `'Open Sans', sans-serif`;
-          break;
+        fontFamily = `'Open Sans', sans-serif`;
+        break;
       case 'playfair':
-          fontFamily = `'Playfair', serif`;
-          break;
+        fontFamily = `'Playfair', serif`;
+        break;
       case 'quicksand':
-          fontFamily = `'Quicksand', sans-serif`;
-          break;
+        fontFamily = `'Quicksand', sans-serif`;
+        break;
       case 'roboto-flex':
-          fontFamily = `'Roboto Flex', sans-serif`;
-          break;
+        fontFamily = `'Roboto Flex', sans-serif`;
+        break;
       case 'roboto-mono':
-          fontFamily = `'Roboto Mono', monospace`;
-          break;
+        fontFamily = `'Roboto Mono', monospace`;
+        break;
       case 'roboto-serif':
-          fontFamily = `'Roboto Serif', serif`;
-          break;
+        fontFamily = `'Roboto Serif', serif`;
+        break;
       case 'roboto-slab':
-          fontFamily = `'Roboto Slab', serif`;
-          break;
+        fontFamily = `'Roboto Slab', serif`;
+        break;
       default:
         fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
     }
@@ -875,7 +856,7 @@ toc: false
 
   // Form validation
   // Mostly useful for the number ranges. Very simple validation on blurs.
-  function reportValidity (event) {
+  function reportValidity(event) {
     const element = event.target
     if (typeof element?.reportValidity === "function") {
       const isValid = element.reportValidity()
@@ -1070,7 +1051,7 @@ toc: false
     grid-column: 7 / 13;
   }
 
-  .product-detail  .title-rating {
+  .product-detail .title-rating {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1088,7 +1069,7 @@ toc: false
   }
 
   .product-detail wa-radio-button {
-    --background: var(--wa-color-neutral-spot);
+    --background: var(--wa-color-neutral-spot-darker);
   }
 
   .product-detail wa-input {
@@ -1113,9 +1094,7 @@ toc: false
 
 
 
-  @media screen and (max-width: 670px) {
-
-  }
+  @media screen and (max-width: 670px) {}
 
   @media screen and (max-width: 1040px) {
     .cards {
@@ -1129,6 +1108,7 @@ toc: false
       grid-template-columns: 1fr 1fr;
     }
   }
+
 </style>
 
 <!-- Kitchen Sink Preview -->
@@ -1144,6 +1124,70 @@ toc: false
         <wa-icon-button name="bell" label="Notifications"></wa-icon-button>
       </div>
     </header>
+    <section class="strata products">
+      <wa-card class="card-image product-card">
+        <wa-badge variant="brand" class="badge-stock">New</wa-badge>
+        <img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Morpheus</h3>
+          <wa-rating label="Rating" value="4"></wa-rating>
+        </div>
+        <div class="description">
+          <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            Save
+          </wa-button>
+        </div>
+      </wa-card>
+      <wa-card class="card-image product-card">
+        <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
+        <img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Seraph</h3>
+          <wa-rating label="Rating" value="5"></wa-rating>
+        </div>
+        <div class="description">
+          <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            Save
+          </wa-button>
+        </div>
+      </wa-card>
+      <wa-card class="card-image product-card">
+        <img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
+        <div class="title-rating">
+          <h3 class="title">Keymaker II</h3>
+          <wa-rating label="Rating" value="3"></wa-rating>
+        </div>
+        <div class="description">
+          <p>Only the One can open the door. And only during that window can that door be opened.</p>
+        </div>
+        <div slot="footer">
+          <wa-button size="small">
+            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            Add to Cart
+          </wa-button>
+          <wa-button size="small" outline>
+            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            Save
+          </wa-button>
+        </div>
+      </wa-card>
+    </section>
     <section class="strata blog">
       <div class="column-post-header">
         <div class="post-header">
@@ -1152,6 +1196,7 @@ toc: false
             <div class="authors">
               <a href="">
                 <wa-avatar image="/assets/images/kitchen-sink/lindsay.png" label="Lindsay Miller"> </wa-avatar>
+                Lindsay Miller
               </a>
             </div>
             <div class="categories">
@@ -1169,181 +1214,115 @@ toc: false
         <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
         <img src="/assets/images/kitchen-sink/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
         <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
-        <pre class="codeblock">
-
+<pre class="codeblock">
 <code>:host,
 .wa-theme-purple-power {
-/_ ... _/
+  /* ... */
 }</code>
-
 </pre>
-<h3>Activating Themes</h3>
-<p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
+        <h3>Activating Themes</h3>
+        <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
 <pre class="codeblock">
 <code>&lt;html class="wa-theme-default-dark"&gt;
-&lt;head&gt;
-&lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-...
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+  &lt;/body&gt;
 &lt;/html&gt;</code>
 </pre>
-<wa-alert open>
-<wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
-</wa-alert>
-</div>
-</section>
-<section class="strata products">
-<wa-card class="card-image product-card">
-<wa-badge variant="brand" class="badge-stock">New</wa-badge>
-<img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
-<div class="title-rating">
-<h3 class="title">Morpheus</h3>
-<wa-rating label="Rating" value="4"></wa-rating>
-</div>
-<div class="description">
-<p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
-</div>
-<div slot="footer">
-<wa-button size="small">
-<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-Add to Cart
-</wa-button>
-<wa-button size="small" outline>
-<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-Save
-</wa-button>
-</div>
-</wa-card>
-<wa-card class="card-image product-card">
-<wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-<img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
-<div class="title-rating">
-<h3 class="title">Seraph</h3>
-<wa-rating label="Rating" value="5"></wa-rating>
-</div>
-<div class="description">
-<p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
-</div>
-<div slot="footer">
-<wa-button size="small">
-<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-Add to Cart
-</wa-button>
-<wa-button size="small" outline>
-<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-Save
-</wa-button>
-</div>
-</wa-card>
-<wa-card class="card-image product-card">
-<img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
-<div class="title-rating">
-<h3 class="title">Keymaker II</h3>
-<wa-rating label="Rating" value="3"></wa-rating>
-</div>
-<div class="description">
-<p>Only the One can open the door. And only during that window can that door be opened.</p>
-</div>
-<div slot="footer">
-<wa-button size="small">
-<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-Add to Cart
-</wa-button>
-<wa-button size="small" outline>
-<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-Save
-</wa-button>
-</div>
-</wa-card>
-</section>
-<section class="strata message-composer">
-<wa-card class="card-header card-footer">
-<div slot="header">
-<div class="grouped-buttons">
-<wa-tooltip content="Bold">
-<!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
-<wa-icon-button name="bold" label="Bold"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Italic">
-<wa-icon-button name="italic" label="Italic"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Strikethrough">
-<wa-icon-button name="strikethrough" label="strikethrough"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Link">
-<wa-icon-button name="link" label="Link"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Unordered List">
-<wa-icon-button name="list" label="Unordered List"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Ordered List">
-<wa-icon-button name="list-ol" label="Ordered List"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Block Quote">
-<wa-icon-button name="block-quote" label="Block Quote"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Code">
-<wa-icon-button name="code" label="Code"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Inline Code">
-<wa-icon-button name="terminal" label="Inline Code"></wa-icon-button>
-</wa-tooltip>
-</div>
-</div>
-<div>
-<p>You can see it when you look out your window or when you turn on your television. You can feel it when you go to work... when you go to church... when you pay your taxes.</p>
-</div>
-<div slot="footer">
-<div class="tools">
-<div class="grouped-buttons">
-<wa-tooltip content="Add File">
-<wa-icon-button name="circle-plus" label="Add File"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Formatting">
-<wa-icon-button name="font-case" label="Open Formatting"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Emojis">
-<wa-icon-button name="face-smile" label="Emoji"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Mention">
-<wa-icon-button name="at" label="Mention"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Record Video">
-<wa-icon-button name="video" label="Video"></wa-icon-button>
-</wa-tooltip>
-<wa-tooltip content="Record Audio Clip">
-<wa-icon-button name="microphone" label="Microphone"></wa-icon-button>
-</wa-tooltip>
-</div>
-<div class="grouped-buttons">
-<wa-tooltip content="Add Magic">
-<wa-icon-button name="sparkles" label="Magic"></wa-icon-button>
-</wa-tooltip>
-</div>
-</div>
-<div class="send">
-<wa-button variant="brand" size="small">
-<wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
-Send
-</wa-button>
-</div>
-</div>
-</wa-card>
-</section>
-<section class="strata product-detail">
+        <wa-alert open>
+          <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+          There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
+        </wa-alert>
+      </div>
+    </section>
+    <section class="strata message-composer">
+      <wa-card class="card-header card-footer">
+        <div slot="header">
+          <div class="grouped-buttons">
+            <wa-tooltip content="Bold">
+              <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
+              <wa-icon-button name="bold" label="Bold"></wa-icon-button>
+            </wa-tooltip>
+            <wa-tooltip content="Italic">
+              <wa-icon-button name="italic" label="Italic"></wa-icon-button>
+            </wa-tooltip>
+            <wa-tooltip content="Strikethrough">
+              <wa-icon-button name="strikethrough" label="strikethrough"></wa-icon-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Link">
+              <wa-icon-button name="link" label="Link"></wa-icon-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Unordered List">
+              <wa-icon-button name="list" label="Unordered List"></wa-icon-button>
+            </wa-tooltip>
+            <wa-tooltip content="Ordered List">
+              <wa-icon-button name="list-ol" label="Ordered List"></wa-icon-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Block Quote">
+              <wa-icon-button name="block-quote" label="Block Quote"></wa-icon-button>
+            </wa-tooltip>
+          </div>
+          <div class="grouped-buttons">
+            <wa-tooltip content="Code">
+              <wa-icon-button name="code" label="Code"></wa-icon-button>
+            </wa-tooltip>
+            <wa-tooltip content="Inline Code">
+              <wa-icon-button name="terminal" label="Inline Code"></wa-icon-button>
+            </wa-tooltip>
+          </div>
+        </div>
+        <div>
+          <p>You can see it when you look out your window or when you turn on your television. You can feel it when you go to work... when you go to church... when you pay your taxes.</p>
+        </div>
+        <div slot="footer">
+          <div class="tools">
+            <div class="grouped-buttons">
+              <wa-tooltip content="Add File">
+                <wa-icon-button name="circle-plus" label="Add File"></wa-icon-button>
+              </wa-tooltip>
+              <wa-tooltip content="Formatting">
+                <wa-icon-button name="font-case" label="Open Formatting"></wa-icon-button>
+              </wa-tooltip>
+              <wa-tooltip content="Emojis">
+                <wa-icon-button name="face-smile" label="Emoji"></wa-icon-button>
+              </wa-tooltip>
+              <wa-tooltip content="Mention">
+                <wa-icon-button name="at" label="Mention"></wa-icon-button>
+              </wa-tooltip>
+            </div>
+            <div class="grouped-buttons">
+              <wa-tooltip content="Record Video">
+                <wa-icon-button name="video" label="Video"></wa-icon-button>
+              </wa-tooltip>
+              <wa-tooltip content="Record Audio Clip">
+                <wa-icon-button name="microphone" label="Microphone"></wa-icon-button>
+              </wa-tooltip>
+            </div>
+            <div class="grouped-buttons">
+              <wa-tooltip content="Add Magic">
+                <wa-icon-button name="sparkles" label="Magic"></wa-icon-button>
+              </wa-tooltip>
+            </div>
+          </div>
+          <div class="send">
+            <wa-button variant="brand" size="small">
+              <wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
+              Send
+            </wa-button>
+          </div>
+        </div>
+      </wa-card>
+    </section>
+    <section class="strata product-detail">
       <div class="product-detail-images">
         <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
@@ -1396,8 +1375,8 @@ Send
           </div>
         </div>
       </div>
-
     </section>
+
     <section class="strata form-examples">
       <div class="cards">
         <wa-card>
