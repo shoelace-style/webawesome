@@ -264,6 +264,17 @@ toc: false
         </wa-input>
       </div>
     </div>
+    <wa-select name="icon-family" label="Icon Family" value="fa-classic">
+      <wa-option value="fa-classic">Font Awesome Classic</wa-option>
+      <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
+    </wa-select>
+    <wa-radio-group name="icon-style" label="Icon Style" value="solid">
+      <wa-radio value="solid">Solid <wa-badge hidden>PRO</wa-badge></wa-radio>
+      <wa-radio value="regular">Regular <wa-badge>PRO</wa-badge></wa-radio>
+      <wa-radio value="light">Light <wa-badge>PRO</wa-badge></wa-radio>
+      <wa-radio value="thin">Thin <wa-badge>PRO</wa-badge></wa-radio>
+      <wa-radio value="duotone">Duotone <wa-badge>PRO</wa-badge></wa-radio>
+    </wa-radio-group>
     <wa-select name="border-style" label="Border Style" value="solid">
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -428,15 +439,17 @@ toc: false
   const container = document.getElementById('knobs');
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
-  const depthSlider = container.querySelector('[name="depth"]')
-  const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
-  const fontWeightBody = container.querySelector('[name="font-weight-body"]')
-  const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
-  const fontFamilyBody = container.querySelector('[name="font-family-body"]')
-  const spacing = container.querySelector("[name='spacing']")
-  const corners = container.querySelector("[name='corners']")
-  const borderStyle = container.querySelector('[name="border-style"]')
-  const borderWidth = container.querySelector('[name="border-width"]')
+  const depthSlider = container.querySelector('[name="depth"]');
+  const fontWeightHeading = container.querySelector('[name="font-weight-heading"]');
+  const fontWeightBody = container.querySelector('[name="font-weight-body"]');
+  const fontFamilyHeading = container.querySelector('[name="font-family-heading"]');
+  const fontFamilyBody = container.querySelector('[name="font-family-body"]');
+  const iconFamily = container.querySelector('[name="icon-family"]');
+  const iconStyle = container.querySelector('[name="icon-style"]');
+  const spacing = container.querySelector("[name='spacing']");
+  const corners = container.querySelector("[name='corners']");
+  const borderStyle = container.querySelector('[name="border-style"]');
+  const borderWidth = container.querySelector('[name="border-width"]');
   const themeSelect = container.querySelector('[name="theme"]');
   const darkModeSelect = container.querySelector('[name="appearance"]');
 
@@ -833,6 +846,123 @@ toc: false
   fontWeightBody.addEventListener('wa-input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
+
+  // Icons
+    import { registerIconLibrary } from '/dist/utilities/icon-library.js';
+
+    function solidifyRatingStars() {
+      const ratings = document.querySelectorAll('wa-rating');
+      ratings.forEach(rating => rating.getSymbol = () => '<wa-icon name="star" library="always-solid"></wa-icon>');
+    }
+
+    function swapFaIcons() {
+      let iconLibrary;
+      if(iconFamily.value === 'fa-sharp') {
+        switch(iconStyle.value) {
+          case 'solid':
+            iconLibrary = 'sharp-solid';
+            break;
+          case 'regular':
+            iconLibrary = 'sharp-regular';
+            break;
+          case 'light':
+            iconLibrary = 'sharp-light';
+            break;
+          case 'thin':
+            iconLibrary = 'sharp-thin';
+            break;
+          default:
+            iconLibrary = 'sharp-solid';
+        }
+        // Ensures sharp-solid variations are available for ratings, etc.
+        registerIconLibrary('always-solid', {
+          resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/sharp-solid/${name}.svg`
+        });
+        solidifyRatingStars();
+      }
+      else {
+        switch(iconStyle.value) {
+          case 'solid':
+            iconLibrary = 'solid';
+            break;
+          case 'regular':
+            iconLibrary = 'regular';
+            break;
+          case 'light':
+            iconLibrary = 'light';
+            break;
+          case 'thin':
+            iconLibrary = 'thin';
+            break;
+          case 'duotone':
+            iconLibrary = 'duotone';
+            break;
+          default:
+            iconLibrary = 'solid';
+        }
+        // Ensures solid variations are available for radios, ratings, etc.
+        registerIconLibrary('always-solid', {
+          resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/solid/${name}.svg`
+        });
+        solidifyRatingStars();
+      }
+      registerIconLibrary('default', {
+        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
+      });
+      registerIconLibrary('system', {
+        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
+      });
+  };
+
+  // Swaps icons to the preferred set for the selected theme
+  themeSelect.addEventListener('wa-change', event => {
+    switch(event.target.value) {
+      case 'fa':
+        iconFamily.value = 'fa-classic';
+        iconStyle.value = 'solid';
+        break;
+      case 'premium':
+        iconFamily.value = 'fa-sharp';
+        iconStyle.value = 'regular';
+        break;
+      case 'classic':
+        iconFamily.value = 'bootstrap';
+        break;
+      default:
+        iconFamily.value = 'fa-classic';
+        iconStyle.value = 'solid';
+    }
+    swapFaIcons();
+  });
+
+  // Changes available Icon Styles and swaps icons based on the selected Icon Family
+  iconFamily.addEventListener('wa-change', event => {
+    function hide(elem) {
+      elem.setAttribute('hidden', true);
+    }
+    function show(elem) {
+      elem.removeAttribute('hidden');
+    }
+    switch(event.target.value) {
+      case 'fa-classic':
+        show(iconStyle);
+        show(iconStyle.querySelector('[value="duotone"]'));
+        hide(iconStyle.querySelector('[value="solid"] > wa-badge'));
+        break;
+      case 'fa-sharp':
+        show(iconStyle);
+        hide(iconStyle.querySelector('[value="duotone"]'));
+        show(iconStyle.querySelector('[value="solid"] > wa-badge'));
+        break;
+      default:
+        hide(iconStyle);
+    }
+    swapFaIcons();
+  });
+
+  // Swaps icons based on the selected Icon Style
+  iconStyle.addEventListener('wa-change', swapFaIcons);
+
 
   // Corners
   container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
