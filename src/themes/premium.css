@@ -89,7 +89,7 @@
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-40);
+  --wa-color-text-quiet: var(--wa-color-base-60);
   --wa-color-text-link: var(--wa-color-blue-50);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -131,18 +131,17 @@
   */
   --wa-color-brand-spot: var(--wa-color-blue-50);
   --wa-color-brand-spot-darker: var(--wa-color-blue-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-90);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-95);
   --wa-color-brand-fill-highlight: var(--wa-color-blue-80);
   --wa-color-brand-border-subtle: var(--wa-color-blue-80);
   --wa-color-brand-border-highlight: var(--wa-color-blue-50);
   --wa-color-brand-text-on-spot: var(--wa-color-blue-95);
   --wa-color-brand-text-on-fill: var(--wa-color-blue-20);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
-  /* ^LM: punched up our semantic colors so that we have to do less overrides later on */
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
-  --wa-color-success-fill-subtle: var(--wa-color-green-90);
+  --wa-color-success-fill-subtle: var(--wa-color-green-95);
   --wa-color-success-fill-highlight: var(--wa-color-green-80);
   --wa-color-success-border-subtle: var(--wa-color-green-80);
   --wa-color-success-border-highlight: var(--wa-color-green-50);
@@ -152,7 +151,7 @@
 
   --wa-color-warning-spot: var(--wa-color-yellow-80);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
-  --wa-color-warning-fill-subtle: var(--wa-color-yellow-90);
+  --wa-color-warning-fill-subtle: var(--wa-color-yellow-95);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-80);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-80);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-50);
@@ -162,7 +161,7 @@
 
   --wa-color-danger-spot: var(--wa-color-red-50);
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
-  --wa-color-danger-fill-subtle: var(--wa-color-red-90);
+  --wa-color-danger-fill-subtle: var(--wa-color-red-95);
   --wa-color-danger-fill-highlight: var(--wa-color-red-80);
   --wa-color-danger-border-subtle: var(--wa-color-red-80);
   --wa-color-danger-border-highlight: var(--wa-color-red-50);
@@ -172,7 +171,7 @@
 
   --wa-color-neutral-spot: var(--wa-color-base-50);
   --wa-color-neutral-spot-darker: var(--wa-color-base-40);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-80);
   --wa-color-neutral-border-subtle: var(--wa-color-base-80);
   --wa-color-neutral-border-highlight: var(--wa-color-base-50);
@@ -354,11 +353,6 @@
   /* premium custom settings - general and light */
   --wa-shadow-blur-base: 0.375;
   --wa-shadow-offset-y-base: 0.1875;
-  /* ^LM: looks like Noah has the same shadows on buttons and cards in Figma
-   * rather than setting cards to wa-shadow-level-3 below, let's bump up these properties across the board */
-
-  --strata-background-even: var(--wa-color-surface-lowered);
-  --strata-background-odd: var(--wa-color-surface-lowered);
 
   wa-rating {
     --symbol-color-active: var(--wa-color-base-50);
@@ -371,64 +365,29 @@
   /* ^LM: wonder if there's more we could do to mimic the linear gradient borders in Figma? */
 
   wa-card {
-    /* --box-shadow: var(--wa-shadow-level-3); */
     --border-radius: var(--wa-corners-m);
   }
 
   wa-alert {
     font-size: var(--wa-font-size-s);
-    --border-color: transparent;
+    --border-color: var(--background);
   }
 
-  /* wa-alert[variant='brand'] {
-    --background: var(--wa-color-brand-fill-highlight);
-    --content-color: var(--wa-color-brand-text-on-fill);
+  wa-carousel {
+    --pagination-color-activated: var(--wa-color-brand-fill-highlight);
+    --pagination-color-resting: var(--wa-color-neutral-border-subtle);
   }
-
-  wa-alert[variant='success'] {
-    --background: var(--wa-color-success-fill-highlight);
-    --content-color: var(--wa-color-success-text-on-fill);
-  }
-
-  wa-alert[variant='warning'] {
-    --background: var(--wa-color-warning-fill-highlight);
-    --content-color: var(--wa-color-warning-text-on-fill);
-  }
-
-  wa-alert[variant='danger'] {
-    --background: var(--wa-color-danger-fill-highlight);
-    --content-color: var(--wa-color-danger-text-on-fill);
-  }
-
-  wa-alert[variant='neutral'] {
-    --background: var(--wa-color-neutral-fill-highlight);
-    --content-color: var(--wa-color-neutral-text-on-fill);
-  } */
-  /* ^LM: because we punched up the fill colors above and wa-alert uses *-text-on-fill for content by default, we can omit this rule */
 
   wa-badge,
   wa-button::part(label),
   wa-tag {
     text-transform: uppercase;
   }
-  /* ^LM: added to ensure consistency as we add more patterns */
 
   wa-badge,
   wa-tag {
     --border-width: 0;
-    /* text-transform: uppercase; */
   }
-
-  /* wa-badge[variant='neutral'] {
-    --background: var(--wa-color-base-80);
-    --content-color: var(--wa-color-base-20);
-  } */
-  /* ^LM: since we're using tags instead of badges for the blog strata, we can omit this rule */
-
-  /* pre.codeblock {
-    background-color: var(--wa-color-neutral-fill-highlight);
-  } */
-  /* ^LM: since we punched up the colors above, we can omit this rule */
 
   .blog .authors a {
     --wa-color-text-link: var(--wa-color-text-quiet);
@@ -443,47 +402,23 @@
     border-width: 0;
   }
 
-  /* .product-card wa-button::part(label) {
-    text-transform: uppercase;
-  } */
-
   .product-card wa-button:not(:last-child) {
     margin-inline-end: var(--wa-space-xs);
   }
-  /* ^LM: assuming we want this to scale with any spacing adjustments? */
 
   .message-composer wa-card {
     --background: var(--wa-color-surface-raised);
   }
-  /* ^LM: adding so that we don't have to define specific colors for light/dark mode */
 
   .message-composer wa-card::part(header) {
     border-width: 0;
     background-color: var(--wa-color-neutral-fill-subtle);
-    /* ^LM: changed so that we may not need separate rules for light/dark - however, since we punched up the fill colors, this comes at the expense of darkening this header in light mode. we may want to keep this as-is */
   }
 
   .message-composer wa-card::part(footer) {
     border-width: 0;
     --padding: var(--wa-space-s) var(--wa-space-xl);
   }
-
-  /* .message-composer .grouped-buttons wa-button {
-    --border-color: transparent;
-    --background: transparent;
-    --label-color: var(--wa-color-text-normal);
-    --box-shadow: none;
-    --wa-form-controls-height-m: var(--wa-form-controls-height-s);
-  } 
-  
-  .message-composer .grouped-buttons wa-button::part(label) {
-    padding: 0 var(--wa-space-xs);
-  }
-  
-  .message-composer .send wa-button::part(label) {
-    text-transform: uppercase;
-  }*/
-  /* ^LM: by using icon buttons, we can omit these declarations */
 
   .message-composer .grouped-buttons wa-icon-button::part(base) {
     block-size: var(--wa-form-controls-height-s);
@@ -494,7 +429,6 @@
     background-color: var(--wa-color-neutral-fill-highlight);
     color: var(--wa-color-text-normal);
   }
-  /* ^LM: ...but we will need something like these */
 }
 
 .wa-theme-premium-dark,
@@ -525,7 +459,6 @@
     var(--wa-color-base-10) calc(var(--wa-shadow-blur-base) * 16% + 40%),
     transparent
   );
-  /* ^LM: some adjustments because the shadows were feeling heavy */
 
   --wa-color-mix-hover: black 8%;
   --wa-color-mix-active: black 16%;
@@ -584,36 +517,6 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
 
   /* premium custom settings - dark specific */
-  /* wa-badge[variant='neutral'] {
-    --background: var(--wa-color-base-30);
-    --content-color: var(--wa-color-base-90);
-  } */
-  /* ^LM: by using wa-tag, we can omit this rule */
-
-  /* .product-card .title {
-    color: var(--wa-color-base-95);
-  } */
-  /* ^LM: wa-card content already uses wa-color-text-normal, so we can omit this rule */
-
-  /* .message-composer wa-card {
-    --background: var(--wa-color-base-30);
-  } */
-  /* ^LM: added a rule that references a semantic var in previous override section, so we can omit this rule */
-
-  /* .message-composer wa-card::part(header) {
-    background-color: var(--wa-color-base-20);
-  } */
-  /* ^LM: swapped this with wa-color-neutral-fill-subtle in the previous override section at the expense of darkening the header in light mode - we might want to keep this rule as-is */
-
-  /* .message-composer .grouped-buttons wa-button {
-    --label-color: var(--wa-color-base-70);
-  } */
-  /* ^LM: by using outline buttons in the HTML, we can omit this rule */
-
-  /* .message-composer .grouped-buttons:not(:last-of-type) {
-    --wa-color-neutral-border-subtle: var(--wa-color-base-30);
-  } */
-  /* ^LM: by punching up the semantic variables above, we can omit this rule */
 
   .message-composer .tools .grouped-buttons:not(:last-of-type) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-40);
@@ -623,26 +526,6 @@
 /* #region Custom styles */
 wa-button[outline] {
   --box-shadow: none;
-
-  /* &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
-  }
-
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
-  } */
 }
 /* #endregion */
 

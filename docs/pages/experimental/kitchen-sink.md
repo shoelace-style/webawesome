@@ -938,11 +938,6 @@ toc: false
   .strata {
     padding: var(--wa-space-3xl) var(--wa-space-2xl);
     /* border-bottom: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style); */
-    background: var(--strata-background-even);
-  }
-
-  .strata:nth-child(odd) {
-    background: var(--strata-background-odd);
   }
 
   /* strata - hero/header */
@@ -1068,11 +1063,36 @@ toc: false
   }
 
   .product-detail .product-detail-images {
-    grid-column: 1 / 7;
+    grid-column: 1 / 6;
   }
 
   .product-detail .product-detail-info {
     grid-column: 7 / 13;
+  }
+
+  .product-detail  .title-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+
+  .product-detail .price {
+    font-size: var(--wa-font-size-xl);
+  }
+
+  .product-detail .price-discounted {
+    text-decoration: line-through;
+    color: var(--wa-color-text-quiet);
+    margin-inline-end: var(--wa-space-m);
+  }
+
+  .product-detail wa-radio-button {
+    --background: var(--wa-color-neutral-spot);
+  }
+
+  .product-detail wa-input {
+    --background: transparent;
   }
 
 
@@ -1131,8 +1151,7 @@ toc: false
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <img class="author-image" src="/assets/images/kitchen-sink/avatar.png" alt="Lindsay Miller" />
-                Lindsay Miller
+                <wa-avatar image="/assets/images/kitchen-sink/lindsay.png" label="Lindsay Miller"> </wa-avatar>
               </a>
             </div>
             <div class="categories">
@@ -1151,222 +1170,203 @@ toc: false
         <img src="/assets/images/kitchen-sink/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
         <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
         <pre class="codeblock">
+
 <code>:host,
 .wa-theme-purple-power {
-  /* ... */
+/_ ... _/
 }</code>
-        </pre>
-        <h3>Activating Themes</h3>
-        <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
-        <pre class="codeblock">
+
+</pre>
+<h3>Activating Themes</h3>
+<p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
+<pre class="codeblock">
 <code>&lt;html class="wa-theme-default-dark"&gt;
-  &lt;head&gt;
-    &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    ...
-  &lt;/body&gt;
+&lt;head&gt;
+&lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+...
+&lt;/body&gt;
 &lt;/html&gt;</code>
-        </pre>
-        <wa-alert open>
-          <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-          There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
-        </wa-alert>
-      </div>
-    </section>
-    <section class="strata products">
-      <wa-card class="card-image product-card">
-        <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
-        <div class="title-rating">
-          <h3 class="title">Morpheus</h3>
-          <wa-rating label="Rating" value="4"></wa-rating>
-        </div>
-        <div class="description">
-          <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
-        </div>
-        <div slot="footer">
-          <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-            Add to Cart
-          </wa-button>
-          <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-            Save
-          </wa-button>
-        </div>
-      </wa-card>
-      <wa-card class="card-image product-card">
-        <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
-        <div class="title-rating">
-          <h3 class="title">Seraph</h3>
-          <wa-rating label="Rating" value="5"></wa-rating>
-        </div>
-        <div class="description">
-          <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
-        </div>
-        <div slot="footer">
-          <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-            Add to Cart
-          </wa-button>
-          <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-            Save
-          </wa-button>
-        </div>
-      </wa-card>
-      <wa-card class="card-image product-card">
-        <img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
-        <div class="title-rating">
-          <h3 class="title">Keymaker II</h3>
-          <wa-rating label="Rating" value="3"></wa-rating>
-        </div>
-        <div class="description">
-          <p>Only the One can open the door. And only during that window can that door be opened.</p>
-        </div>
-        <div slot="footer">
-          <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
-            Add to Cart
-          </wa-button>
-          <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
-            Save
-          </wa-button>
-        </div>
-      </wa-card>
-    </section>
-    <section class="strata message-composer">
-      <wa-card class="card-header card-footer">
-        <div slot="header">
-          <div class="grouped-buttons">
-            <wa-tooltip content="Bold">
-              <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
-              <wa-icon-button name="bold" label="Bold"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Italic">
-              <wa-icon-button name="italic" label="Italic"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Strikethrough">
-              <wa-icon-button name="strikethrough" label="strikethrough"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Link">
-              <wa-icon-button name="link" label="Link"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Unordered List">
-              <wa-icon-button name="list" label="Unordered List"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Ordered List">
-              <wa-icon-button name="list-ol" label="Ordered List"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Block Quote">
-              <wa-icon-button name="block-quote" label="Block Quote"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Code">
-              <wa-icon-button name="code" label="Code"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Inline Code">
-              <wa-icon-button name="terminal" label="Inline Code"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-        </div>
-        <div>
-          <p>You can see it when you look out your window or when you turn on your television. You can feel it when you go to work... when you go to church... when you pay your taxes.</p>
-        </div>
-        <div slot="footer">
-          <div class="tools">
-          <div class="grouped-buttons">
-            <wa-tooltip content="Add File">
-              <wa-icon-button name="circle-plus" label="Add File"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Formatting">
-              <wa-icon-button name="font-case" label="Open Formatting"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Emojis">
-              <wa-icon-button name="face-smile" label="Emoji"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Mention">
-              <wa-icon-button name="at" label="Mention"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Record Video">
-              <wa-icon-button name="video" label="Video"></wa-icon-button>
-            </wa-tooltip>
-            <wa-tooltip content="Record Audio Clip">
-              <wa-icon-button name="microphone" label="Microphone"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          <div class="grouped-buttons">
-            <wa-tooltip content="Add Magic">
-              <wa-icon-button name="sparkles" label="Magic"></wa-icon-button>
-            </wa-tooltip>
-          </div>
-          </div>
-          <div class="send">
-            <wa-button variant="brand" size="small">
-              <wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
-              Send
-            </wa-button>
-          </div>
-        </div>
-      </wa-card>
-    </section>
-    <section class="strata product-detail">
+</pre>
+<wa-alert open>
+<wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
+</wa-alert>
+</div>
+</section>
+<section class="strata products">
+<wa-card class="card-image product-card">
+<wa-badge variant="brand" class="badge-stock">New</wa-badge>
+<img slot="image" src="/assets/images/kitchen-sink/morpheus.png" alt="" />
+<div class="title-rating">
+<h3 class="title">Morpheus</h3>
+<wa-rating label="Rating" value="4"></wa-rating>
+</div>
+<div class="description">
+<p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
+</div>
+<div slot="footer">
+<wa-button size="small">
+<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+Add to Cart
+</wa-button>
+<wa-button size="small" outline>
+<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+Save
+</wa-button>
+</div>
+</wa-card>
+<wa-card class="card-image product-card">
+<wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
+<img slot="image" src="/assets/images/kitchen-sink/seraph.png" alt="" />
+<div class="title-rating">
+<h3 class="title">Seraph</h3>
+<wa-rating label="Rating" value="5"></wa-rating>
+</div>
+<div class="description">
+<p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
+</div>
+<div slot="footer">
+<wa-button size="small">
+<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+Add to Cart
+</wa-button>
+<wa-button size="small" outline>
+<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+Save
+</wa-button>
+</div>
+</wa-card>
+<wa-card class="card-image product-card">
+<img slot="image" src="/assets/images/kitchen-sink/keymasterII.png" alt="" />
+<div class="title-rating">
+<h3 class="title">Keymaker II</h3>
+<wa-rating label="Rating" value="3"></wa-rating>
+</div>
+<div class="description">
+<p>Only the One can open the door. And only during that window can that door be opened.</p>
+</div>
+<div slot="footer">
+<wa-button size="small">
+<wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+Add to Cart
+</wa-button>
+<wa-button size="small" outline>
+<wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+Save
+</wa-button>
+</div>
+</wa-card>
+</section>
+<section class="strata message-composer">
+<wa-card class="card-header card-footer">
+<div slot="header">
+<div class="grouped-buttons">
+<wa-tooltip content="Bold">
+<!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
+<wa-icon-button name="bold" label="Bold"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Italic">
+<wa-icon-button name="italic" label="Italic"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Strikethrough">
+<wa-icon-button name="strikethrough" label="strikethrough"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Link">
+<wa-icon-button name="link" label="Link"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Unordered List">
+<wa-icon-button name="list" label="Unordered List"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Ordered List">
+<wa-icon-button name="list-ol" label="Ordered List"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Block Quote">
+<wa-icon-button name="block-quote" label="Block Quote"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Code">
+<wa-icon-button name="code" label="Code"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Inline Code">
+<wa-icon-button name="terminal" label="Inline Code"></wa-icon-button>
+</wa-tooltip>
+</div>
+</div>
+<div>
+<p>You can see it when you look out your window or when you turn on your television. You can feel it when you go to work... when you go to church... when you pay your taxes.</p>
+</div>
+<div slot="footer">
+<div class="tools">
+<div class="grouped-buttons">
+<wa-tooltip content="Add File">
+<wa-icon-button name="circle-plus" label="Add File"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Formatting">
+<wa-icon-button name="font-case" label="Open Formatting"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Emojis">
+<wa-icon-button name="face-smile" label="Emoji"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Mention">
+<wa-icon-button name="at" label="Mention"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Record Video">
+<wa-icon-button name="video" label="Video"></wa-icon-button>
+</wa-tooltip>
+<wa-tooltip content="Record Audio Clip">
+<wa-icon-button name="microphone" label="Microphone"></wa-icon-button>
+</wa-tooltip>
+</div>
+<div class="grouped-buttons">
+<wa-tooltip content="Add Magic">
+<wa-icon-button name="sparkles" label="Magic"></wa-icon-button>
+</wa-tooltip>
+</div>
+</div>
+<div class="send">
+<wa-button variant="brand" size="small">
+<wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
+Send
+</wa-button>
+</div>
+</div>
+</wa-card>
+</section>
+<section class="strata product-detail">
       <div class="product-detail-images">
-        <wa-carousel pagination>
+        <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
-            <img
-              alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
-              src="/assets/examples/carousel/mountains.jpg"
-            />
+            <img alt="See it for yourself" src="/assets/images/kitchen-sink/carousel1.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img
-              alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-              src="/assets/examples/carousel/waterfall.jpg"
-            />
+            <img alt="Look through the code" src="/assets/images/kitchen-sink/carousel2.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img
-              alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
-              src="/assets/examples/carousel/sunset.jpg"
-            />
-          </wa-carousel-item>
-          <wa-carousel-item>
-            <img
-              alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
-              src="/assets/examples/carousel/field.jpg"
-            />
-          </wa-carousel-item>
-          <wa-carousel-item>
-            <img
-              alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
-              src="/assets/examples/carousel/valley.jpg"
-            />
+            <img alt="Free your mind" src="/assets/images/kitchen-sink/carousel3.png" />
           </wa-carousel-item>
         </wa-carousel>
       </div>
       <div class="product-detail-info">
         <div class="title-rating">
-          <h3 class="title">Keymaker II</h3>
-          <wa-rating label="Rating" value="3"></wa-rating>
+          <h1 class="title">The Oracle</h1>
+          <wa-rating label="Rating" value="4" style="--symbol-size: 1rem;--symbol-color-active: var(--wa-color-text-quiet)"></wa-rating>
         </div>
         <div class="price">
-          <span style="text-decoration: line-through;">$120</span>
+          <span class="price-discounted">$120</span>
           <span>$65</span>
         </div>
-        <div>
+        <div style="margin: var(--wa-space-3xl) 0">
           <p>It is a pickle, no doubt about it. Bad news is there's no way you can really know if I'm here to help you or not, so it's really up to you. Just have to make up your own damn mind to either accept what I'm going to tell you, or reject it. Candy?</p>
           <p>We're all here to do what we're all here to do. I'm interested in one thing, Neo, the future. And believe me, I know: the only way to get there is together.</p>
         </div>
@@ -1375,16 +1375,16 @@ toc: false
           This item will soon be discontinued
         </wa-alert>
         <div>
-          <div style="margin: var(--wa-space-2xl) 0">
-            <wa-radio-group label="Choose a finish" name="finish" value="Matte">
+          <div style="margin: var(--wa-space-3xl) 0">
+            <wa-radio-group label="Choose a finish" name="finish" value="Matte" class="product-finish">
               <wa-radio-button value="Matte">Matte</wa-radio-button>
               <wa-radio-button value="Glossy">Glossy</wa-radio-button>
-              <wa-radio-button value="Pebbled">Pebbled</wa-radio-button>
+              <wa-radio-button value="Pebbled" disabled>Pebbled</wa-radio-button>
               <wa-radio-button value="Holo">Holo</wa-radio-button>
             </wa-radio-group>
           </div>
           <div style="display: flex; align-items: end; gap: 1rem;">
-            <wa-input type="number" label="How many?"></wa-input>
+            <wa-input type="number" label="How many?" style="max-width: 8rem;"></wa-input>
             <wa-button variant="brand">
               <wa-icon slot="prefix" name="basket-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
