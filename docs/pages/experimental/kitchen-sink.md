@@ -267,6 +267,7 @@ toc: false
     <wa-select name="icon-family" label="Icon Family" value="fa-classic">
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
+      <wa-option value="custom" hidden>* Custom</wa-option>
     </wa-select>
     <wa-radio-group name="icon-style" label="Icon Style" value="solid">
       <wa-radio value="solid">Solid <wa-badge hidden>PRO</wa-badge></wa-radio>
@@ -293,7 +294,7 @@ toc: false
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
-        <wa-icon slot="prefix" name="search"></wa-icon>
+        <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
       </wa-input>
       <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
         <wa-option value="solid">Solid</wa-option>
@@ -720,6 +721,33 @@ toc: false
     projectLogo.replaceWith(element)
   })
 
+  // Set pre-generated logos by theme
+  const logoSelector = document.querySelector('[name="project-logo-selector"]');
+  const presetLogoOptions = logoSelector.querySelectorAll('wa-radio-button');
+
+  function setLogoIcons() {
+    let presetLogoIcons;
+
+    switch(themeSelect.value) {
+      case 'premium':
+        presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
+        break;
+      case 'fa':
+        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+        break;
+      default:
+        presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
+    }
+
+    presetLogoOptions.forEach((option, index) => {
+      const logo = presetLogoIcons[index] ?? 'question';
+      option.setAttribute('value', logo);
+      option.querySelector('wa-icon').setAttribute('name', logo);
+    })
+  }
+
+  themeSelect.addEventListener('wa-change', setLogoIcons);
+
   // Project Name
   container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
     previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
@@ -855,7 +883,55 @@ toc: false
       ratings.forEach(rating => rating.getSymbol = () => '<wa-icon name="star" library="always-solid"></wa-icon>');
     }
 
-    function swapFaIcons() {
+    function showIconStyleOptions() {
+      function hide(elem) {
+        elem.setAttribute('hidden', true);
+      }
+      function show(elem) {
+        elem.removeAttribute('hidden');
+      }
+      switch(iconFamily.value) {
+        case 'fa-classic':
+          show(iconStyle);
+          show(iconStyle.querySelector('[value="duotone"]'));
+          hide(iconStyle.querySelector('[value="solid"] > wa-badge'));
+          break;
+        case 'fa-sharp':
+          show(iconStyle);
+          hide(iconStyle.querySelector('[value="duotone"]'));
+          show(iconStyle.querySelector('[value="solid"] > wa-badge'));
+          break;
+        default:
+          hide(iconStyle);
+      }
+    }
+
+    function setPreferredIcons() {
+      switch(themeSelect.value) {
+        case 'fa':
+          iconFamily.value = 'fa-classic';
+          iconStyle.value = 'solid';
+          useFaIcons();
+          break;
+        case 'premium':
+          iconFamily.value = 'custom';
+          registerIconLibrary('default', {
+            resolver: name => `/assets/icons/chunk/${name}.svg`,
+            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+          });
+          registerIconLibrary('system', {
+            resolver: name => `/assets/icons/chunk/${name}.svg`,
+            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+          });
+          break;
+        default:
+          iconFamily.value = 'fa-classic';
+          iconStyle.value = 'solid';
+          useFaIcons();
+      }
+    }
+
+    function useFaIcons() {
       let iconLibrary;
       if(iconFamily.value === 'fa-sharp') {
         switch(iconStyle.value) {
@@ -916,52 +992,18 @@ toc: false
 
   // Swaps icons to the preferred set for the selected theme
   themeSelect.addEventListener('wa-change', event => {
-    switch(event.target.value) {
-      case 'fa':
-        iconFamily.value = 'fa-classic';
-        iconStyle.value = 'solid';
-        break;
-      case 'premium':
-        iconFamily.value = 'fa-sharp';
-        iconStyle.value = 'regular';
-        break;
-      case 'classic':
-        iconFamily.value = 'bootstrap';
-        break;
-      default:
-        iconFamily.value = 'fa-classic';
-        iconStyle.value = 'solid';
-    }
-    swapFaIcons();
+    setPreferredIcons();
+    showIconStyleOptions();
   });
 
   // Changes available Icon Styles and swaps icons based on the selected Icon Family
   iconFamily.addEventListener('wa-change', event => {
-    function hide(elem) {
-      elem.setAttribute('hidden', true);
-    }
-    function show(elem) {
-      elem.removeAttribute('hidden');
-    }
-    switch(event.target.value) {
-      case 'fa-classic':
-        show(iconStyle);
-        show(iconStyle.querySelector('[value="duotone"]'));
-        hide(iconStyle.querySelector('[value="solid"] > wa-badge'));
-        break;
-      case 'fa-sharp':
-        show(iconStyle);
-        hide(iconStyle.querySelector('[value="duotone"]'));
-        show(iconStyle.querySelector('[value="solid"] > wa-badge'));
-        break;
-      default:
-        hide(iconStyle);
-    }
-    swapFaIcons();
+    useFaIcons();
+    showIconStyleOptions();
   });
 
   // Swaps icons based on the selected Icon Style
-  iconStyle.addEventListener('wa-change', swapFaIcons);
+  iconStyle.addEventListener('wa-change', useFaIcons);
 
 
   // Corners
