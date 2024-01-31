@@ -127,26 +127,28 @@ const {
   <>
     <h2 id="slots">Slots</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.slots.map((slot) => {
-          return (
-            <tr>
-              <td class="nowrap">
-                {slot.name ? <code>{ slot.name }</code> : "(default)"}
-              </td>
-              <td>{slot.description}</td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.slots.map((slot) => {
+            return (
+              <tr>
+                <td class="nowrap">
+                  {slot.name ? <code>{ slot.name }</code> : "(default)"}
+                </td>
+                <td>{slot.description}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href="{ rootUrl('/getting-started/usage#slots') }">using slots</a>.</em></p>
   </>
@@ -157,62 +159,64 @@ const {
   <>
     <h2 id="properties">Properties</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-          <th class="table-reflects">Reflects</th>
-          <th class="table-type">Type</th>
-          <th class="table-default">Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.properties.map((prop) => {
-          return (
-            <tr>
-              <td>
-                <code class="nowrap">{ prop.name }</code>
-                {prop.attribute?.length <= 0 ? "" :
-                  { prop.attribute == prop.name ? "" :
-                    <br>
-                    <wa-tooltip content="This attribute is different from its property">
-                      <small>
-                        <code class="nowrap">
-                          { prop.attribute }
-                        </code>
-                      </small>
-                    </wa-tooltip>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-reflects">Reflects</th>
+            <th class="table-type">Type</th>
+            <th class="table-default">Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.properties.map((prop) => {
+            return (
+              <tr>
+                <td>
+                  <code class="nowrap">{ prop.name }</code>
+                  {prop.attribute?.length <= 0 ? "" :
+                    { prop.attribute == prop.name ? "" :
+                      <br>
+                      <wa-tooltip content="This attribute is different from its property">
+                        <small>
+                          <code class="nowrap">
+                            { prop.attribute }
+                          </code>
+                        </small>
+                      </wa-tooltip>
+                    }
                   }
-                }
-              </td>
-              <td>
-                { prop.description }
-              </td>
-              <td style="text-align: center;">
-                {prop.reflects ? <wa-icon label="yes" name="check" variant="solid"></wa-icon> : ""}
-              </td>
-              <td>
-                {prop.type?.text ? <code>{prop.type.text}</code> : "-"}
-              </td>
-              <td>
-                {prop.default ? <code>{ prop.default }</code> : "-"}
-              </td>
-            </tr>
-          )
-        })}
-        <tr>
-          <td class="nowrap"><code>updateComplete</code></td>
-          <td>
-            A read-only promise that resolves when the component has
-            <a href="/getting-started/usage?#component-rendering-and-updating">finished updating</a>.
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+                </td>
+                <td>
+                  { prop.description }
+                </td>
+                <td style="text-align: center;">
+                  {prop.reflects ? <wa-icon label="yes" name="check" variant="solid"></wa-icon> : ""}
+                </td>
+                <td>
+                  {prop.type?.text ? <code>{prop.type.text}</code> : "-"}
+                </td>
+                <td>
+                  {prop.default ? <code>{ prop.default }</code> : "-"}
+                </td>
+              </tr>
+            )
+          })}
+          <tr>
+            <td class="nowrap"><code>updateComplete</code></td>
+            <td>
+              A read-only promise that resolves when the component has
+              <a href="/getting-started/usage?#component-rendering-and-updating">finished updating</a>.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href={ rootUrl('/getting-started/usage#attributes-and-properties') }>attributes and properties</a>.</em></p>
   </>
@@ -223,30 +227,32 @@ const {
   <>
     <h2 id="events">Events</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name" data-flavor="html">Name</th>
-          <th class="table-name" data-flavor="react">React Event</th>
-          <th class="table-description">Description</th>
-          <th class="table-event-detail">Event Detail</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.events.map((event) => {
-          return (
-            <tr>
-              <td data-flavor="html"><code class="nowrap">{ event.name }</code></td>
-              <td data-flavor="react"><code class="nowrap">{ event.reactName }</code></td>
-              <td>{ event.description }</td>
-              <td>
-                {event.type?.text ? <code>{ event.type.text }</code> : "-"}
-              </td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name" data-flavor="html">Name</th>
+            <th class="table-name" data-flavor="react">React Event</th>
+            <th class="table-description">Description</th>
+            <th class="table-event-detail">Event Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.events.map((event) => {
+            return (
+              <tr>
+                <td data-flavor="html"><code class="nowrap">{ event.name }</code></td>
+                <td data-flavor="react"><code class="nowrap">{ event.reactName }</code></td>
+                <td>{ event.description }</td>
+                <td>
+                  {event.type?.text ? <code>{ event.type.text }</code> : "-"}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href={ rootUrl('/getting-started/usage#events') }>events</a>.</em></p>
   </>
@@ -257,36 +263,38 @@ const {
   <>
     <h2 id="methods">Methods</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-          <th class="table-arguments">Arguments</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.methods.map((method) => {
-          return (
-            <tr>
-              <td class="nowrap"><code>{ method.name }()</code></td>
-              <td>{ method.description }</td>
-              <td>
-                {!method.parameters?.length ? "-" :
-                  <code>
-                    {method.parameters?.map((param, index) => {
-                      return <>
-                        { param.name }: { param.type?.text }{ index === method.parameters.length - 1 ? "," : "" }
-                      </>
-                    })}
-                  </code>
-                }
-              </td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-arguments">Arguments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.methods.map((method) => {
+            return (
+              <tr>
+                <td class="nowrap"><code>{ method.name }()</code></td>
+                <td>{ method.description }</td>
+                <td>
+                  {!method.parameters?.length ? "-" :
+                    <code>
+                      {method.parameters?.map((param, index) => {
+                        return <>
+                          { param.name }: { param.type?.text }{ index === method.parameters.length - 1 ? "," : "" }
+                        </>
+                      })}
+                    </code>
+                  }
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   </>
   <p><em>Learn more about <a href={ rootUrl('/getting-started/usage#methods') }>methods</a>.</em></p>
 }
@@ -296,26 +304,28 @@ const {
   <>
     <h2 id="custom-properties">Custom Properties</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-          <th class="table-default">Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.cssProperties.map((cssProperty) => {
-          return (
-            <tr>
-              <td class="nowrap"><code>{ cssProperty.name }</code></td>
-              <td>{ cssProperty.description }</td>
-              <td>{ cssProperty.default }</td>
-            </tr>
-            )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-default">Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.cssProperties.map((cssProperty) => {
+            return (
+              <tr>
+                <td class="nowrap"><code>{ cssProperty.name }</code></td>
+                <td>{ cssProperty.description }</td>
+                <td>{ cssProperty.default }</td>
+              </tr>
+              )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href={ rootUrl('/getting-started/usage#custom-properties') }>customizing CSS custom properties</a>.</em></p>
   </>
@@ -326,24 +336,26 @@ const {
   <>
     <h2 id="parts">Parts</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.cssParts.map((cssPart) => {
-          return (
-            <tr>
-              <td class="nowrap"><code>{ cssPart.name }</code></td>
-              <td>{ cssPart.description }</td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.cssParts.map((cssPart) => {
+            return (
+              <tr>
+                <td class="nowrap"><code>{ cssPart.name }</code></td>
+                <td>{ cssPart.description }</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href={ rootUrl('/getting-started/customizing/#css-parts') }>customizing CSS parts</a>.</em></p>
   </>
@@ -354,24 +366,26 @@ const {
   <>
     <h2 id="animations">Animations</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th class="table-name">Name</th>
-          <th class="table-description">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {component.animations.map((animation) => {
-          return (
-            <tr>
-              <td class="nowrap"><code>{ animation.name }</code></td>
-              <td>{ animation.description }</td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {component.animations.map((animation) => {
+            return (
+              <tr>
+                <td class="nowrap"><code>{ animation.name }</code></td>
+                <td>{ animation.description }</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <p><em>Learn more about <a href={ rootUrl('/getting-started/customizing#animations') }>customizing animations</a>.</em></p>
   </>
