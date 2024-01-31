@@ -90,7 +90,7 @@
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-quiet: var(--wa-color-base-50);
   --wa-color-text-link: var(--wa-color-blue-50);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -469,13 +469,48 @@
     color: var(--wa-color-text-normal);
   }
 
-  .support-table th {
-    background-color: var(--wa-color-neutral-fill-highlight);
+  .support-table {
+    --wa-color-surface-border: var(--wa-color-base-90);
   }
 
-  .support-table tbody tr {
-    background-color: inherit;
+  .support-table wa-card {
+    --border-color: var(--wa-color-neutral-border-subtle);
   }
+
+  .support-table th {
+    text-transform: uppercase;
+    font-weight: var(--wa-font-weight-normal);
+    color: var(--wa-color-text-quiet);
+    background-color: var(--wa-color-neutral-fill-subtle);
+  }
+
+  .support-table th:first-child {
+    border-radius: var(--wa-corners-m) 0 0 0;
+  }
+
+  .support-table th:last-child {
+    border-radius: 0 var(--wa-corners-m) 0 0;
+  }
+
+  .support-table tr {
+    --wa-color-surface-border: var(--wa-color-neutral-border-subtle);
+  }
+
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
+  }
+
+  /* .support-table th {
+    background-color: var(--wa-color-base-95);
+  }
+
+  .support-table tr {
+    background-color: var(--wa-color-surface-raised);
+  }
+
+  .support-table tr:hover {
+    background-color: var(--wa-color-brand-fill-subtle);
+  } */
 }
 
 .wa-theme-premium-dark,
@@ -515,8 +550,8 @@
    */
   --wa-color-brand-spot: var(--wa-color-blue-80);
   --wa-color-brand-spot-darker: var(--wa-color-blue-60);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-20);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-30);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-30);
+  --wa-color-brand-fill-highlight: var(--wa-color-blue-40);
   --wa-color-brand-border-subtle: var(--wa-color-blue-30);
   --wa-color-brand-border-highlight: var(--wa-color-blue-40);
   --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
@@ -525,8 +560,8 @@
 
   --wa-color-success-spot: var(--wa-color-green-80);
   --wa-color-success-spot-darker: var(--wa-color-green-60);
-  --wa-color-success-fill-subtle: var(--wa-color-green-20);
-  --wa-color-success-fill-highlight: var(--wa-color-green-30);
+  --wa-color-success-fill-subtle: var(--wa-color-green-30);
+  --wa-color-success-fill-highlight: var(--wa-color-green-40);
   --wa-color-success-border-subtle: var(--wa-color-green-30);
   --wa-color-success-border-highlight: var(--wa-color-green-40);
   --wa-color-success-text-on-spot: var(--wa-color-green-20);
@@ -535,8 +570,8 @@
 
   --wa-color-warning-spot: var(--wa-color-yellow-80);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
-  --wa-color-warning-fill-subtle: var(--wa-color-yellow-20);
-  --wa-color-warning-fill-highlight: var(--wa-color-yellow-30);
+  --wa-color-warning-fill-subtle: var(--wa-color-yellow-30);
+  --wa-color-warning-fill-highlight: var(--wa-color-yellow-40);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-30);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-spot: var(--wa-color-yellow-20);
@@ -545,8 +580,8 @@
 
   --wa-color-danger-spot: var(--wa-color-red-60);
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
-  --wa-color-danger-fill-subtle: var(--wa-color-red-20);
-  --wa-color-danger-fill-highlight: var(--wa-color-red-30);
+  --wa-color-danger-fill-subtle: var(--wa-color-red-30);
+  --wa-color-danger-fill-highlight: var(--wa-color-red-40);
   --wa-color-danger-border-subtle: var(--wa-color-red-30);
   --wa-color-danger-border-highlight: var(--wa-color-red-40);
   --wa-color-danger-text-on-spot: var(--wa-color-red-20);
@@ -558,7 +593,7 @@
   --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
   --wa-color-neutral-border-subtle: var(--wa-color-base-30);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-40);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-70);
   --wa-color-neutral-text-on-spot: var(--wa-color-base-95);
   --wa-color-neutral-text-on-fill: var(--wa-color-base-90);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
@@ -571,27 +606,7 @@
 
   pre.codeblock,
   code {
-    background-color: var(--wa-color-base-20);
-  }
-
-  wa-alert[variant='brand'] {
-    --background: var(--wa-color-brand-fill-highlight);
-  }
-
-  wa-alert[variant='success'] {
-    --background: var(--wa-color-success-fill-highlight);
-  }
-
-  wa-alert[variant='neutral'] {
-    --background: var(--wa-color-neutral-fill-highlight);
-  }
-
-  wa-alert[variant='warning'] {
-    --background: var(--wa-color-warning-fill-highlight);
-  }
-
-  wa-alert[variant='danger'] {
-    --background: var(--wa-color-danger-fill-highlight);
+    background-color: var(--wa-color-neutral-fill-subtle);
   }
 }
 

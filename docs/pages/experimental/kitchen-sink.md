@@ -1213,14 +1213,11 @@ toc: false
   }
 
   .support-table th {
-    text-transform: uppercase;
-    /* background-color: var(--wa-color-neutral-fill-subtle); */
-    padding: var(--wa-space-s);
+    padding: var(--wa-space-l);
   }
 
   .support-table td {
-    /* background-color: var(--wa-color-surface-raised); */
-    padding: var(--wa-space-s);
+    padding: var(--wa-space-l);
   }
 
   .support-table .desc {
@@ -1231,7 +1228,7 @@ toc: false
   }
 
   .support-table wa-avatar {
-    --size: var(--wa-font-size-xl);
+    --size: var(--wa-font-size-2xl);
   }
 
 
@@ -1547,14 +1544,14 @@ toc: false
     </section>
     <section class="strata support-table">
       <wa-card style="--padding: 0; width: 100%;">
-      <table>
+      <table style="margin-bottom: 0; border-radius: var(--wa-corners-m);">
         <thead>
           <tr>
-            <th><wa-visually-hidden>Complete?</wa-visually-hidden></th>
+            <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
             <th>Customer</th>
             <th>Conversation</th>
             <th>Assigned To</th>
-            <th>Status</th>
+            <th style="text-align: center;">Status</th>
             <th><wa-visually-hidden>Actions</wa-visually-hidden></th>
           </tr>
         </thead>
@@ -1562,9 +1559,9 @@ toc: false
           <tr>
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Keanu Reeves</td>
-            <td class="desc"><span style="font-weight: bold">Am I dead?</span><br>Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...<br></td>
-            <td><wa-avatar label="User avatar"></wa-avatar> Chad Stahelski</td>
-            <td><wa-tag variant="warning" size="small">Pending</wa-tag></td>
+            <td class="desc"><span style="font-weight: bold">Am I dead?</span><br><span class="excerpt">Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...</span></td>
+            <td><wa-avatar initials="CS" label="Avatar with initials: CS" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
+            <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
@@ -1577,6 +1574,14 @@ toc: false
                     <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
                     Pending
                   </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                    Re-open
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                    Delete
+                  </wa-menu-item>
                 </wa-menu>
               </wa-dropdown>
             </td>
@@ -1584,9 +1589,9 @@ toc: false
           <tr>
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Lawrence Fishburne</td>
-            <td class="desc"><span style="font-weight: bold">We have a rule</span><br>We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</td>
-            <td><wa-avatar label="User avatar"></wa-avatar> Char McCoy</td>
-            <td><wa-tag variant="success" size="small">Resolved</wa-tag></td>
+            <td class="desc"><span style="font-weight: bold">We have a rule</span><br><span class="excerpt">We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</span></td>
+            <td><wa-avatar initials="CM" label="Avatar with initials: CM" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
+            <td style="text-align: center;"><wa-tag variant="success" size="small">Resolved</wa-tag></td>
             <td>
              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
@@ -1598,6 +1603,14 @@ toc: false
                   <wa-menu-item>
                     <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
                     Pending
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                    Re-open
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                    Delete
                   </wa-menu-item>
                 </wa-menu>
               </wa-dropdown>
@@ -1606,9 +1619,9 @@ toc: false
           <tr>
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Carrie-Ann Moss</td>
-            <td class="desc"><span style="font-weight: bold">Was it the same cat?</span><br>A déjà vu is usually a glitch in the Matrix. It happens when they change something.</td>
-            <td><wa-avatar label="User avatar"></wa-avatar> Debbie Evans</td>
-            <td><wa-tag variant="warning" size="small">Pending</wa-tag></td>
+            <td class="desc"><span style="font-weight: bold">Was it the same cat?</span><br><span class="excerpt">A déjà vu is usually a glitch in the Matrix. It happens when they change something.</span></td>
+            <td><wa-avatar initials="DE" label="Avatar with initials: DE" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Debbie Evans</td>
+            <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
@@ -1620,6 +1633,14 @@ toc: false
                   <wa-menu-item>
                     <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
                     Pending
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                    Re-open
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                    Delete
                   </wa-menu-item>
                 </wa-menu>
               </wa-dropdown>
@@ -1628,9 +1649,9 @@ toc: false
           <tr>
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Joe Pantoliano</td>
-            <td class="desc"><span style="font-weight: bold">Ignorance is bliss</span><br>Why oh why didn't I take the blue pill?</td>
+            <td class="desc"><span style="font-weight: bold">Ignorance is bliss</span><br><span class="excerpt">Why oh why didn't I take the blue pill?</span></td>
             <td></td>
-            <td><wa-tag variant="danger" size="small">Bounced</wa-tag></td>
+            <td style="text-align: center;"><wa-tag variant="danger" size="small">Bounced</wa-tag></td>
             <td>
              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
@@ -1642,6 +1663,14 @@ toc: false
                   <wa-menu-item>
                     <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
                     Pending
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                    Re-open
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                    Delete
                   </wa-menu-item>
                 </wa-menu>
               </wa-dropdown>
@@ -1650,9 +1679,9 @@ toc: false
           <tr>
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Hugo Weaving</td>
-            <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br>I need the codes, I have to get inside Zion and you have to tell me how.</td>
-            <td><wa-avatar label="User avatar"></wa-avatar> Dara Prescott</td>
-            <td><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
+            <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br><span class="excerpt">I need the codes, I have to get inside Zion and you have to tell me how.</span></td>
+            <td><wa-avatar initials="DP" label="Avatar with initials: DP" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
+            <td style="text-align: center;"><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
             <td>
              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
@@ -1664,6 +1693,14 @@ toc: false
                   <wa-menu-item>
                     <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
                     Pending
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                    Re-open
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                    Delete
                   </wa-menu-item>
                 </wa-menu>
               </wa-dropdown>
