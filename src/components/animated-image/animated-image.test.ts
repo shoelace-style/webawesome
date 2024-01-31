@@ -16,7 +16,7 @@ describe('<wa-animated-image>', () => {
     await expect(animatedImage).to.be.accessible();
   });
 
-  const files = ['docs/assets/images/walk.gif', 'docs/assets/images/tie.webp'];
+  const files = ['docs/public/assets/images/walk.gif', 'docs/public/assets/images/tie.webp'];
 
   files.forEach((file: string) => {
     it(`should load a ${file} without errors`, async () => {
