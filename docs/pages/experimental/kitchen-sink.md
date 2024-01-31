@@ -1265,6 +1265,7 @@ toc: false
 
   .order-item wa-input {
     grid-column: span 2;
+    margin: 0;
   }
 
   .order-item .price {
