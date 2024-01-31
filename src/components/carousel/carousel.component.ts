@@ -41,10 +41,13 @@ import type WaCarouselItem from '../carousel-item/carousel-item.component.js';
  * @csspart navigation-button--previous - Applied to the previous button.
  * @csspart navigation-button--next - Applied to the next button.
  *
- * @cssproperty --slide-gap - The space between each slide.
  * @cssproperty [--aspect-ratio=16/9] - The aspect ratio of each slide.
+ * @cssproperty --navigation-color - The color of the navigation buttons.
+ * @cssproperty --pagination-color-activated - The color of the pagination dot for the current item.
+ * @cssproperty --pagination-color-resting - The color of the pagination dots for inactive items.
  * @cssproperty --scroll-hint - The amount of padding to apply to the scroll area, allowing adjacent slides to become
  *  partially visible as a scroll hint.
+ * @cssproperty --slide-gap - The space between each slide.
  */
 export default class WaCarousel extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;

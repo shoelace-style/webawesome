@@ -23,8 +23,19 @@ import type { CSSResultGroup } from 'lit';
  * @csspart base - The component's base wrapper.
  * @csspart control - The circular container that wraps the radio's checked state.
  * @csspart control--checked - The radio control when the radio is checked.
- * @csspart checked-icon - The checked icon, an `<wa-icon>` element.
+ * @csspart checked-icon - The checked icon.
  * @csspart label - The container that wraps the radio's label.
+ *
+ * @cssproperty --background - The radio's background styles.
+ * @cssproperty --background-checked - The radio's background styles when checked.
+ * @cssproperty --border-color - The color of the radio's borders.
+ * @cssproperty --border-color-checked - The color of the radio's borders when checked.
+ * @cssproperty --border-style - The style of the radio's borders.
+ * @cssproperty --border-width - The width of the radio's borders. Expects a single value.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the radio.
+ * @cssproperty --checked-icon-color - The color of the radio's checked icon.
+ * @cssproperty --checked-icon-scale - The size of the checked icon relative to the radio.
+ * @cssproperty --toggle-size - The size of the radio.
  */
 export default class WaRadio extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
@@ -107,13 +118,14 @@ export default class WaRadio extends WebAwesomeElement {
         <span part="${`control${this.checked ? ' control--checked' : ''}`}" class="radio__control">
           ${this.checked
             ? html`
-                <wa-icon
+                <svg
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
                   part="checked-icon"
                   class="radio__checked-icon"
-                  name="circle"
-                  library="system"
-                  variant="solid"
-                ></wa-icon>
+                >
+                  <circle cx="8" cy="8" r="8" />
+                </svg>
               `
             : ''}
         </span>

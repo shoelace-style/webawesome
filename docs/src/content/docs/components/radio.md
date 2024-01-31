@@ -89,7 +89,7 @@ const App = () => (
 
 Add the `size` attribute to the [Radio Group](/components/radio-group) to change the radios' size.
 
-```html preview
+```html:preview
 <wa-radio-group size="small" value="1">
   <wa-radio value="1">Small 1</wa-radio>
   <wa-radio value="2">Small 2</wa-radio>

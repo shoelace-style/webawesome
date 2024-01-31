@@ -9,10 +9,14 @@ export default css`
     --background-checked: var(--wa-form-controls-activated-color);
     --border-color: var(--wa-form-controls-resting-color);
     --border-color-checked: var(--wa-form-controls-activated-color);
-    --border-radius: min(0.375rem, var(--wa-corners-xs)); /* min so it doesn't look like a circle/radio */
+    --border-radius: min(
+      calc(var(--toggle-size) * 0.375),
+      var(--wa-corners-xs)
+    ); /* min so it doesn't look like a circle/radio */
     --border-style: var(--wa-border-style);
     --border-width: var(--wa-form-controls-border-width);
     --box-shadow: none;
+    --toggle-size: calc(1em * var(--wa-font-line-height-compact) - 0.125rem);
 
     display: inline-block;
   }
@@ -28,17 +32,14 @@ export default css`
   }
 
   .checkbox--small {
-    --toggle-size: var(--wa-form-control-toggle-size-s);
     font-size: var(--wa-font-size-s);
   }
 
   .checkbox--medium {
-    --toggle-size: var(--wa-form-control-toggle-size-m);
     font-size: var(--wa-font-size-m);
   }
 
   .checkbox--large {
-    --toggle-size: var(--wa-form-control-toggle-size-l);
     font-size: var(--wa-font-size-l);
   }
 

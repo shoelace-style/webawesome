@@ -12,7 +12,7 @@ export default css`
     --border-style: var(--wa-form-controls-border-style);
     --border-width: var(--wa-form-controls-border-width);
     --box-shadow: none;
-    --height: calc(1em * var(--wa-font-line-height-compact));
+    --height: calc(1em * var(--wa-font-line-height-compact) - 0.125rem);
     --thumb-color: var(--wa-form-controls-background);
     --thumb-color-checked: var(--wa-form-controls-background);
     --thumb-shadow: none;

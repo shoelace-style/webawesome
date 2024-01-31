@@ -5,6 +5,17 @@ export default css`
   ${componentStyles}
 
   :host {
+    --background: var(--wa-form-controls-background);
+    --background-checked: var(--wa-form-controls-activated-color);
+    --border-color: var(--wa-form-controls-resting-color);
+    --border-color-checked: var(--wa-form-controls-activated-color);
+    --border-style: var(--wa-border-style);
+    --border-width: var(--wa-form-controls-border-width);
+    --box-shadow: none;
+    --checked-icon-color: var(--wa-color-brand-text-on-spot);
+    --checked-icon-scale: 0.4;
+    --toggle-size: calc(1em * var(--wa-font-line-height-compact) - 0.125rem);
+
     display: block;
   }
 
@@ -22,25 +33,23 @@ export default css`
   }
 
   .radio--small {
-    --toggle-size: var(--wa-form-control-toggle-size-s);
     font-size: var(--wa-font-size-s);
   }
 
   .radio--medium {
-    --toggle-size: var(--wa-form-control-toggle-size-m);
     font-size: var(--wa-font-size-m);
   }
 
   .radio--large {
-    --toggle-size: var(--wa-form-control-toggle-size-l);
     font-size: var(--wa-font-size-l);
   }
 
   .radio__checked-icon {
     display: inline-flex;
+    fill: currentColor;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    scale: 0.4;
+    scale: var(--checked-icon-scale);
   }
 
   .radio__control {
@@ -51,9 +60,12 @@ export default css`
     justify-content: center;
     width: var(--toggle-size);
     height: var(--toggle-size);
-    border: var(--wa-border-style) var(--wa-form-controls-border-width) var(--wa-form-controls-resting-color);
+    border-color: var(--border-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
     border-radius: 50%;
-    background-color: var(--wa-form-controls-background);
+    background: var(--background);
+    box-shadow: var(--box-shadow);
     color: transparent;
     transition:
       var(--wa-transition-fast) border-color,
@@ -72,9 +84,9 @@ export default css`
 
   /* Checked */
   .radio--checked .radio__control {
-    color: var(--wa-color-brand-text-on-spot);
-    border-color: var(--wa-form-controls-activated-color);
-    background-color: var(--wa-form-controls-activated-color);
+    color: var(--checked-icon-color);
+    border-color: var(--border-color-checked);
+    background: var(--background-checked);
   }
 
   /* Checked + focus */
