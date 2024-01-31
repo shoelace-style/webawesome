@@ -501,24 +501,12 @@
   }
 
   .support-table tr {
-    --wa-color-surface-border: var(--wa-color-neutral-border-subtle);
+    --wa-color-surface-border: var(--wa-color-base-95);
   }
 
   .support-table .excerpt {
     color: var(--wa-color-text-quiet);
   }
-
-  /* .support-table th {
-    background-color: var(--wa-color-base-95);
-  }
-
-  .support-table tr {
-    background-color: var(--wa-color-surface-raised);
-  }
-
-  .support-table tr:hover {
-    background-color: var(--wa-color-brand-fill-subtle);
-  } */
 
   .checkout-form wa-input,
   .checkout-form wa-switch {
@@ -632,6 +620,10 @@
   pre.codeblock,
   code {
     background-color: var(--wa-color-neutral-fill-subtle);
+  }
+
+  .support-table tr {
+    --wa-color-surface-border: var(--wa-color-base-10);
   }
 }
 

@@ -1215,7 +1215,7 @@ toc: false
   }
 
   .support-table td {
-    padding: var(--wa-space-l);
+    padding: var(--wa-space-m) var(--wa-space-l);
   }
 
   .support-table .desc {
@@ -1399,7 +1399,7 @@ toc: false
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <wa-avatar image="/assets/images/kitchen-sink/lindsay.png" label="Lindsay Miller"> </wa-avatar>
+                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller"> </wa-avatar>
                 Lindsay Miller
               </a>
             </div>
@@ -1598,7 +1598,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Keanu Reeves</td>
             <td class="desc"><span style="font-weight: bold">Am I dead?</span><br><span class="excerpt">Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...</span></td>
-            <td><wa-avatar initials="CS" label="Avatar with initials: CS" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
+            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-chad.png"  label="Chad" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
             <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
               <wa-dropdown>
@@ -1628,7 +1628,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Lawrence Fishburne</td>
             <td class="desc"><span style="font-weight: bold">We have a rule</span><br><span class="excerpt">We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</span></td>
-            <td><wa-avatar initials="CM" label="Avatar with initials: CM" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
+            <td><wa-avatar image="/assets/images/kitchen-sink/avatar-char.png"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
             <td style="text-align: center;"><wa-tag variant="success" size="small">Resolved</wa-tag></td>
             <td>
              <wa-dropdown>
@@ -1718,7 +1718,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Hugo Weaving</td>
             <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br><span class="excerpt">I need the codes, I have to get inside Zion and you have to tell me how.</span></td>
-            <td><wa-avatar initials="DP" label="Avatar with initials: DP" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
+            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-Dara.png"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
             <td style="text-align: center;"><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
             <td>
              <wa-dropdown>
@@ -1817,22 +1817,19 @@ toc: false
             <wa-button variant="neutral">Apply</wa-button>
           </div>
           <div class="totals">
-            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-xs);">
               <div>Subtotal</div>
               <div><b>$530.00</b></div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-xs);">
               <div>Shipping</div>
               <div>$8.00</div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-xs);">
               <div><b>Total</b></div>
               <div><b>$538.00</b></div>
             </div>
-
-
           </div>
-
         </div>
     </section>
 
