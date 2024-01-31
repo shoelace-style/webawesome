@@ -76,7 +76,7 @@ export default defineConfig({
       title: 'Web Awesome',
       social: {
         github: 'https://github.com/shoelace-style/shoelace',
-        twitter: 'https://twitter.com/shoelace_style',
+        twitter: 'https://twitter.com/shoelace_style'
       },
       sidebar: [
         {
@@ -135,7 +135,7 @@ export default defineConfig({
         // Override the default `Head` component.
         Head: './src/components/overrides/Head.astro',
         TableOfContents: './src/components/overrides/TableOfContents.astro',
-        Search: './src/components/overrides/Search.astro',
+        Search: './src/components/overrides/Search.astro'
       }
     })
   ]

@@ -8,7 +8,7 @@ export const collections = {
         // Add a new field to the schema.
         category: z
           .enum(['components', 'experimental', 'frameworks', 'getting-started', 'resources', 'tokens', 'tutorials'])
-          .optional(),
+          .optional()
       })
     })
   }),
