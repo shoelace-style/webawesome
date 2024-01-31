@@ -468,6 +468,14 @@
     background-color: var(--wa-color-neutral-fill-highlight);
     color: var(--wa-color-text-normal);
   }
+
+  .support-table th {
+    background-color: var(--wa-color-neutral-fill-highlight);
+  }
+
+  .support-table tbody tr {
+    background-color: inherit;
+  }
 }
 
 .wa-theme-premium-dark,

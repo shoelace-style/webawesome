@@ -1207,6 +1207,34 @@ toc: false
     --background: transparent;
   }
 
+  /* strata - support table */
+  .support-table {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .support-table th {
+    text-transform: uppercase;
+    /* background-color: var(--wa-color-neutral-fill-subtle); */
+    padding: var(--wa-space-s);
+  }
+
+  .support-table td {
+    /* background-color: var(--wa-color-surface-raised); */
+    padding: var(--wa-space-s);
+  }
+
+  .support-table .desc {
+    max-width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .support-table wa-avatar {
+    --size: var(--wa-font-size-xl);
+  }
+
+
 
 
   /* other */
@@ -1516,6 +1544,134 @@ toc: false
           </div>
         </div>
       </div>
+    </section>
+    <section class="strata support-table">
+      <wa-card style="--padding: 0; width: 100%;">
+      <table>
+        <thead>
+          <tr>
+            <th><wa-visually-hidden>Complete?</wa-visually-hidden></th>
+            <th>Customer</th>
+            <th>Conversation</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th><wa-visually-hidden>Actions</wa-visually-hidden></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td>Keanu Reeves</td>
+            <td class="desc"><span style="font-weight: bold">Am I dead?</span><br>Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...<br></td>
+            <td><wa-avatar label="User avatar"></wa-avatar> Chad Stahelski</td>
+            <td><wa-tag variant="warning" size="small">Pending</wa-tag></td>
+            <td>
+              <wa-dropdown>
+                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-menu>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                    Resolved
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                    Pending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </td>
+          </tr>
+          <tr>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td>Lawrence Fishburne</td>
+            <td class="desc"><span style="font-weight: bold">We have a rule</span><br>We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</td>
+            <td><wa-avatar label="User avatar"></wa-avatar> Char McCoy</td>
+            <td><wa-tag variant="success" size="small">Resolved</wa-tag></td>
+            <td>
+             <wa-dropdown>
+                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-menu>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                    Resolved
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                    Pending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </td>
+          </tr>
+          <tr>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td>Carrie-Ann Moss</td>
+            <td class="desc"><span style="font-weight: bold">Was it the same cat?</span><br>A déjà vu is usually a glitch in the Matrix. It happens when they change something.</td>
+            <td><wa-avatar label="User avatar"></wa-avatar> Debbie Evans</td>
+            <td><wa-tag variant="warning" size="small">Pending</wa-tag></td>
+            <td>
+             <wa-dropdown>
+                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-menu>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                    Resolved
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                    Pending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </td>
+          </tr>
+          <tr>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td>Joe Pantoliano</td>
+            <td class="desc"><span style="font-weight: bold">Ignorance is bliss</span><br>Why oh why didn't I take the blue pill?</td>
+            <td></td>
+            <td><wa-tag variant="danger" size="small">Bounced</wa-tag></td>
+            <td>
+             <wa-dropdown>
+                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-menu>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                    Resolved
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                    Pending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </td>
+          </tr>
+          <tr>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td>Hugo Weaving</td>
+            <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br>I need the codes, I have to get inside Zion and you have to tell me how.</td>
+            <td><wa-avatar label="User avatar"></wa-avatar> Dara Prescott</td>
+            <td><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
+            <td>
+             <wa-dropdown>
+                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-menu>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                    Resolved
+                  </wa-menu-item>
+                  <wa-menu-item>
+                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                    Pending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     </wa-card>
     </section>
 
     <section class="strata form-examples">
