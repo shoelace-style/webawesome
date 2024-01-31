@@ -1039,6 +1039,12 @@ toc: false
     z-index: 1;
   }
 
+  .grid-12-col {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--wa-space-m);
+  }
+
   /* general and utility */
   .space-vertically {
     display: flex;
@@ -1050,6 +1056,10 @@ toc: false
     padding: var(--wa-space-3xl) 10%;
   }
 
+  wa-input::part(input) {
+    width: 100%;
+  }
+
   /* strata - hero/header */
   .project-header {
     display: flex;
@@ -1057,14 +1067,11 @@ toc: false
     justify-content: space-between;
   }
 
+  .project-header .title {
+    grid-column-end: col-end;
+  }
 
   /* strata product cards */
-  .strata.products {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 1rem;
-  }
 
   .products wa-card::part(base) {
     height: 100%;
@@ -1075,6 +1082,7 @@ toc: false
   }
 
   .product-card {
+    grid-column: span 4;
     position: relative;
   }
 
@@ -1102,11 +1110,6 @@ toc: false
   }
 
   /* strata - blog post */
-  .blog {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1rem;
-  }
 
   .blog .column-post-header {
     grid-column: 1 / 5;
@@ -1168,11 +1171,6 @@ toc: false
   }
 
   /* strata - product detail */
-  .product-detail {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1rem;
-  }
 
   .product-detail .product-detail-images {
     grid-column: 1 / 6;
@@ -1231,7 +1229,47 @@ toc: false
     --size: var(--wa-font-size-2xl);
   }
 
+  /* strata - Checkout Form */
+  .checkout-form .payment {
+    grid-column: 1 / 6;
+  }
 
+  .checkout-form .order {
+    grid-column: 7 / 13;
+  }
+
+  .checkout-form .payment wa-input,
+  .checkout-form .payment wa-switch {
+    margin-bottom: var(--wa-space-l);
+  }
+
+  .checkout-form .order-item {
+    display: grid;
+    gap: var(--wa-space-xl);
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--wa-space-xl);
+  }
+
+  .order-item img {
+    grid-column: span 2;
+  }
+
+  .order-item .name {
+    grid-column: span 6;
+  }
+
+  .order-item .finish {
+    display: block;
+  }
+
+  .order-item wa-input {
+    grid-column: span 2;
+  }
+
+  .order-item .price {
+    grid-column: span 2;
+  }
 
 
   /* other */
@@ -1282,7 +1320,7 @@ toc: false
       </div>
     </header>
     <section class="strata hero">
-      <div class="">
+      <div class="title">
         <h1 class="hero-title">What you know you can't<br /> explain, but you feel it.</h1>
         <wa-button variant="brand" class="hero-cta">
           <wa-icon slot="prefix" name="arrow-down"></wa-icon>
@@ -1290,7 +1328,7 @@ toc: false
         </wa-button>
       </div>
     </section>
-    <section class="strata products">
+    <section class="strata products grid-12-col">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
         <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
@@ -1354,7 +1392,7 @@ toc: false
         </div>
       </wa-card>
     </section>
-    <section class="strata blog">
+    <section class="strata blog grid-12-col">
       <div class="column-post-header">
         <div class="post-header">
           <h1 class="post-title">Web Awesome Themes</h1>
@@ -1488,7 +1526,7 @@ toc: false
         </div>
       </wa-card>
     </section>
-    <section class="strata product-detail">
+    <section class="strata product-detail grid-12-col">
       <div class="product-detail-images">
         <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
@@ -1529,7 +1567,7 @@ toc: false
             </wa-radio-group>
           </div>
           <div style="display: flex; align-items: end; gap: 1rem;">
-            <wa-input type="number" label="How many?" style="max-width: 8rem;"></wa-input>
+            <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
               <wa-icon slot="prefix" name="basket-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
@@ -1709,6 +1747,93 @@ toc: false
         </tbody>
       </table>
      </wa-card>
+    </section>
+
+    <section class="strata checkout-form grid-12-col">
+        <div class="payment">
+          <h2 style="margin-bottom: var(--wa-space-3xl);">Payment</h2>
+          <form>
+            <wa-input type="email" placeholder="ex. tanderson@metacortex.com" label="Email">
+              <wa-icon name="envelope" variant="regular" slot="prefix"></wa-icon>
+            </wa-input>
+            <wa-input placeholder="1234 1234 1234 1234" label="Card Number">
+              <wa-icon name="credit-card" variant="regular" slot="prefix"></wa-icon>
+            </wa-input>
+            <div style="display: flex; gap: 1rem;">
+              <wa-input placeholder="MM / YY" label="Expiration">
+                <wa-icon name="calendar" variant="regular" slot="prefix"></wa-icon>
+              </wa-input>
+              <wa-input placeholder="CVC" label="CVC">
+                <wa-icon name="lock" variant="regular" slot="prefix"></wa-icon>
+              </wa-input>
+            </div>
+            <wa-input placeholder="Thomas Anderson" label="Cardholder Name">
+              <wa-icon name="user" variant="regular" slot="prefix"></wa-icon>
+            </wa-input>
+            <div style="display: flex; gap: 1rem;">
+              <wa-select label="Country">
+              <wa-icon slot="prefix" name="globe" variant="regular"></wa-icon>
+                <wa-option value="USA">United States</wa-option>
+                <wa-option value="CAN">Canada</wa-option>
+              </wa-select>
+              <wa-input placeholder="12345" label="Zip">
+                <wa-icon name="mailbox-flag-up" variant="regular" slot="prefix"></wa-icon>
+              </wa-input>
+            </div>
+            <wa-switch checked style="margin: var(--wa-space-2xl) 0 var(--wa-space-3xl) 0;">Sign me up for more offers from this store</wa-switch>
+            <wa-button variant="brand" style="width: 100%;">Pay Now</wa-button>
+          </form>
+        </div>
+        <div class="order">
+          <h2 style="margin-bottom: var(--wa-space-3xl);">Order Summary</h2>
+          <div class="order-item grid-12-col">
+            <img src="/assets/images/kitchen-sink/premium/morpheus-thumb.png" alt="Morpheus" />
+            <span class="name">
+              <b>Morpheus</b>
+            </span>
+            <wa-input type="number" value="1"></wa-input>
+            <span class="price">$120.00</span>
+          </div>
+          <div class="order-item grid-12-col">
+            <img src="/assets/images/kitchen-sink/premium/seraph-thumb.png" alt="Seraph" />
+            <span class="name">
+              <b>Seraph</b>
+              <span class="finish">Tinted</span>
+            </span>
+            <wa-input type="number" value="2"></wa-input>
+            <span class="price">$180.00</span>
+          </div>
+          <div class="order-item grid-12-col">
+            <img src="/assets/images/kitchen-sink/premium/keymakerii-thumb.png" alt="Keymaker II" />
+            <span class="name">
+              <b>Keymaker II</b>
+              <span class="finish">Glossy</span>
+            </span>
+            <wa-input type="number" value="1"></wa-input>
+            <span class="price">$50.00</span>
+          </div>
+          <div style="display: flex; gap: var(--wa-space-m); margin: var(--wa-space-3xl) 0;">
+            <wa-input placeholder="Discount code or gift card" style="flex: 1 1 auto;"></wa-input>
+            <wa-button variant="neutral">Apply</wa-button>
+          </div>
+          <div class="totals">
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+              <div>Subtotal</div>
+              <div><b>$530.00</b></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+              <div>Shipping</div>
+              <div>$8.00</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--wa-space-m);">
+              <div><b>Total</b></div>
+              <div><b>$538.00</b></div>
+            </div>
+
+
+          </div>
+
+        </div>
     </section>
 
     <section class="strata form-examples">
