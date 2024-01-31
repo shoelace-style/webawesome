@@ -44,6 +44,8 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --border-style - The style of the checkbox's borders.
  * @cssproperty --border-width - The width of the checkbox's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the checkbox.
+ * @cssproperty --toggle-size - The size of the checkbox.
+
  */
 export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
