@@ -1876,49 +1876,5 @@ toc: false
         </div>
     </section>
 
-    <section class="strata form-examples">
-      <div class="cards">
-        <wa-card>
-          <div class="space-vertically" style="height: 100%;">
-            <wa-alert variant="success" open>
-              <wa-icon slot="icon" name="circle-check"></wa-icon>
-              This is the Way.
-            </wa-alert>
-            <wa-select label="Signet" help-text="This identifies your clan. You can change this later.">
-              <wa-option>Mudhorn</wa-option>
-            </wa-select>
-            <wa-checkbox checked>I swear on my name and the names of the ancestors</wa-checkbox>
-            <wa-button variant="success" style="margin-top: auto;">Forge</wa-button>
-          </div>
-        </wa-card>
-        <wa-card>
-          <div class="space-vertically" style="height: 100%;">
-            <wa-alert variant="warning" open>
-              <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
-              It's a trap!
-            </wa-alert>
-            <wa-radio-group label="Faction" value="2">
-              <wa-radio value="1">Galactic Empire</wa-radio>
-              <wa-radio value="2">Rebel Alliance</wa-radio>
-            </wa-radio-group>
-            <wa-input label="Mission" value="Destroy the Death Star"></wa-input>
-            <wa-button variant="warning" style="margin-top: auto;">Proceed</wa-button>
-          </div>
-        </wa-card>
-        <wa-card>
-          <div class="space-vertically" style="height: 100%;">
-            <wa-alert variant="danger" open>
-              <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
-              That's no moon.
-            </wa-alert>
-            <wa-input label="Destination" value="Alderaan"></wa-input>
-            <wa-switch checked>Jam fighter transmission</wa-switch>
-            <wa-switch disabled>Lock in artillery power</wa-switch>
-            <wa-button variant="danger" style="margin-top: auto;">Turn around</wa-button>
-          </div>
-        </wa-card>
-      </div>
-    </section>
-
   </section>
 </div>
