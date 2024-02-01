@@ -1148,10 +1148,6 @@ toc: false
     margin: 0;
   }
 
-  .product-card wa-rating {
-    --symbol-size: .8rem;
-  }
-
   /* strata - blog post */
 
   .blog .column-post-header {

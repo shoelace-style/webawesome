@@ -457,6 +457,10 @@
     background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
   }
 
+  .product-card wa-rating {
+    --symbol-size: 0.8rem;
+  }
+
   .product-card .description {
     color: var(--wa-color-text-quiet);
   }
