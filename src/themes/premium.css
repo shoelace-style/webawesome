@@ -508,11 +508,6 @@
     color: var(--wa-color-text-quiet);
   }
 
-  .checkout-form wa-input,
-  .checkout-form wa-switch {
-    margin-bottom: var(--wa-space-l);
-  }
-
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);
