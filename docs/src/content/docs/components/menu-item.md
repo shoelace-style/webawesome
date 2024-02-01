@@ -55,31 +55,6 @@ const App = () => (
 
 ## Examples
 
-### Disabled
-
-Add the `disabled` attribute to disable the menu item so it cannot be selected.
-
-```html:preview
-<wa-menu style="max-width: 200px;">
-  <wa-menu-item>Option 1</wa-menu-item>
-  <wa-menu-item disabled>Option 2</wa-menu-item>
-  <wa-menu-item>Option 3</wa-menu-item>
-</wa-menu>
-```
-
-```jsx:react
-import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
-import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
-
-const App = () => (
-  <WaMenu style={{ maxWidth: '200px' }}>
-    <WaMenuItem>Option 1</WaMenuItem>
-    <WaMenuItem disabled>Option 2</WaMenuItem>
-    <WaMenuItem>Option 3</WaMenuItem>
-  </WaMenu>
-);
-```
-
 ### Prefix & Suffix
 
 Add content to the start and end of menu items using the `prefix` and `suffix` slots.
@@ -134,6 +109,56 @@ const App = () => (
       <WaIcon slot="prefix" name="gear" variant="solid" />
       Settings
     </WaMenuItem>
+  </WaMenu>
+);
+```
+
+### Disabled
+
+Add the `disabled` attribute to disable the menu item so it cannot be selected.
+
+```html:preview
+<wa-menu style="max-width: 200px;">
+  <wa-menu-item>Option 1</wa-menu-item>
+  <wa-menu-item disabled>Option 2</wa-menu-item>
+  <wa-menu-item>Option 3</wa-menu-item>
+</wa-menu>
+```
+
+```jsx:react
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+
+const App = () => (
+  <WaMenu style={{ maxWidth: '200px' }}>
+    <WaMenuItem>Option 1</WaMenuItem>
+    <WaMenuItem disabled>Option 2</WaMenuItem>
+    <WaMenuItem>Option 3</WaMenuItem>
+  </WaMenu>
+);
+```
+
+### Loading
+
+Use the `loading` attribute to indicate that a menu item is busy. Like a disabled menu item, clicks will be suppressed until the loading state is removed.
+
+```html:preview
+<wa-menu style="max-width: 200px;">
+  <wa-menu-item>Option 1</wa-menu-item>
+  <wa-menu-item loading>Option 2</wa-menu-item>
+  <wa-menu-item>Option 3</wa-menu-item>
+</wa-menu>
+```
+
+```jsx:react
+import WaMenu from '@shoelace-style/shoelace/dist/react/menu';
+import WaMenuItem from '@shoelace-style/shoelace/dist/react/menu-item';
+
+const App = () => (
+  <WaMenu style={{ maxWidth: '200px' }}>
+    <WaMenuItem>Option 1</WaMenuItem>
+    <WaMenuItem loading>Option 2</WaMenuItem>
+    <WaMenuItem>Option 3</WaMenuItem>
   </WaMenu>
 );
 ```

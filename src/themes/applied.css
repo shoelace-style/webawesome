@@ -334,10 +334,6 @@ tbody tr {
   border-top: solid var(--wa-border-width-s) var(--wa-color-surface-border);
 }
 
-tbody tr:nth-child(2n + 1) {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 80%);
-}
-
 tbody tr:hover {
   background-color: color-mix(in oklab, var(--wa-color-brand-fill-highlight), transparent 50%);
   border-top-color: var(--wa-color-brand-border-subtle);
@@ -443,6 +439,10 @@ textarea {
   overflow: hidden !important;
   white-space: nowrap !important;
   padding: 0 !important;
+}
+
+table.wa-alternating-row-colors tbody tr:nth-child(2n + 1) {
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 80%);
 }
 
 /* Print styles */

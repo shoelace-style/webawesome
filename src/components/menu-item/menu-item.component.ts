@@ -8,6 +8,7 @@ import { watch } from '../../internal/watch.js';
 import styles from './menu-item.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WaPopup from '../popup/popup.component.js';
+import WaSpinner from '../spinner/spinner.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
@@ -30,6 +31,8 @@ import type { CSSResultGroup } from 'lit';
  * @csspart prefix - The prefix container.
  * @csspart label - The menu item label.
  * @csspart suffix - The suffix container.
+ * @csspart spinner - The spinner that shows when the menu item is in the loading state.
+ * @csspart spinner__base - The spinner's base part.
  * @csspart submenu-icon - The submenu icon, visible only when the menu item has a submenu (not yet implemented).
  *
  * @cssproperty [--submenu-offset=-2px] - The distance submenus shift to overlap the parent menu.
@@ -38,7 +41,8 @@ export default class WaMenuItem extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
     'wa-icon': WaIcon,
-    'wa-popup': WaPopup
+    'wa-popup': WaPopup,
+    'wa-spinner': WaSpinner
   };
 
   private cachedTextLabel: string;
@@ -54,6 +58,9 @@ export default class WaMenuItem extends WebAwesomeElement {
 
   /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
   @property() value = '';
+
+  /** Draws the menu item in a loading state. */
+  @property({ type: Boolean, reflect: true }) loading = false;
 
   /** Draws the menu item in a disabled state, preventing selection. */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -158,6 +165,7 @@ export default class WaMenuItem extends WebAwesomeElement {
           'menu-item--rtl': isRtl,
           'menu-item--checked': this.checked,
           'menu-item--disabled': this.disabled,
+          'menu-item--loading': this.loading,
           'menu-item--has-submenu': this.isSubmenu(),
           'menu-item--submenu-expanded': isSubmenuExpanded
         })}
@@ -183,7 +191,7 @@ export default class WaMenuItem extends WebAwesomeElement {
           ></wa-icon>
         </span>
 
-        ${this.submenuController.renderSubmenu()}
+        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<sl-spinner part="spinner"></sl-spinner>` : ''}
       </div>
     `;
   }
