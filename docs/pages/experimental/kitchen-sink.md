@@ -1239,12 +1239,9 @@ toc: false
     margin-inline-end: var(--wa-space-m);
   }
 
-  .product-detail wa-radio-button {
-    --background: var(--wa-color-neutral-spot-darker);
-  }
-
-  .product-detail wa-input {
-    --background: transparent;
+  .product-detail wa-radio-button[checked] {
+    --background: var(--wa-color-neutral-text-on-surface);
+    --label-color: var(--wa-color-surface-lowered);
   }
 
   /* strata - support table */
@@ -1377,7 +1374,7 @@ toc: false
         <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
-          <wa-rating label="Rating" value="4"></wa-rating>
+          <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="description">
           <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
@@ -1398,7 +1395,7 @@ toc: false
         <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
-          <wa-rating label="Rating" value="5"></wa-rating>
+          <wa-rating label="Rating" value="5" readonly></wa-rating>
         </div>
         <div class="description">
           <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
@@ -1418,7 +1415,7 @@ toc: false
         <img slot="image" src="/assets/images/kitchen-sink/premium/keymasterII.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Keymaker II</h3>
-          <wa-rating label="Rating" value="3"></wa-rating>
+          <wa-rating label="Rating" value="3" readonly></wa-rating>
         </div>
         <div class="description">
           <p>Only the One can open the door. And only during that window can that door be opened.</p>
@@ -1586,7 +1583,7 @@ toc: false
       <div class="product-detail-info">
         <div class="title-rating">
           <h1 class="title">The Oracle</h1>
-          <wa-rating label="Rating" value="4" style="--symbol-size: 1rem;--symbol-color-active: var(--wa-color-text-quiet)"></wa-rating>
+          <wa-rating label="Rating" value="4" style="--symbol-size: 1rem;" readonly></wa-rating>
         </div>
         <div class="price">
           <span class="price-discounted">$120</span>
