@@ -83,6 +83,7 @@ toc: false
       <wa-option value="playful">Playful</wa-option>
       <wa-option value="chic">Chic</wa-option>
       <wa-option value="premium">Premium</wa-option>
+      <wa-option value="jelly-playful">Jelly Playful</wa-option>
     </wa-select>
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
       <div aria-hidden="true">Heading Typography</div>

@@ -210,6 +210,7 @@ toc: false
       <wa-option value="default">Default</wa-option>
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
+      <wa-option value="jelly-playful">Jelly Playful</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
