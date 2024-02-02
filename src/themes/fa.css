@@ -62,17 +62,17 @@
   --wa-color-blue-10: #00175c;
   --wa-color-blue-05: #000e39;
 
-  --wa-color-base-95: #f0f2f4;
-  --wa-color-base-90: #e3e5e9;
-  --wa-color-base-80: #c4c9d1;
-  --wa-color-base-70: #a8afba;
-  --wa-color-base-60: #8d97a4;
-  --wa-color-base-50: #6a7688;
-  --wa-color-base-40: #4c5a6e;
-  --wa-color-base-30: #37465d;
-  --wa-color-base-20: #24344c;
-  --wa-color-base-10: #0e1f38;
-  --wa-color-base-05: #081221;
+  --wa-color-base-95: #f1f2f5;
+  --wa-color-base-90: #e3e6eb;
+  --wa-color-base-80: #c4cad5;
+  --wa-color-base-70: #a6afc1;
+  --wa-color-base-60: #8896ad;
+  --wa-color-base-50: #627593;
+  --wa-color-base-40: #425a7b;
+  --wa-color-base-30: #334660;
+  --wa-color-base-20: #243245;
+  --wa-color-base-10: #161e29;
+  --wa-color-base-05: #111215;
 
   /**
    * Foundational theme colors
@@ -110,6 +110,9 @@
     var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 4%),
     transparent
   );
+
+  --wa-shadow-offset-x-base: 0;
+  --wa-shadow-offset-y-base: 0.35;
 
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
   --wa-color-mix-hover: black 8%;
@@ -197,14 +200,18 @@
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-heavy);
 
+  /* The default typescale is based on the Major Second scale (x1.125).
+   * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
   --wa-font-size-root: 16px;
-  --wa-font-size-2xs: 0.625rem; /* 10px */
+  --wa-font-size-2xs: 0.6875rem; /* 11px */
   --wa-font-size-xs: 0.75rem; /* 12px */
   --wa-font-size-s: 0.875rem; /* 14px */
   --wa-font-size-m: 1rem; /* 16px */
   --wa-font-size-l: 1.25rem; /* 20px */
-  --wa-font-size-xl: 1.75rem; /* 28px */
-  --wa-font-size-2xl: 2.5rem; /* 40px */
+  --wa-font-size-xl: 1.625rem; /* 26px */
+  --wa-font-size-2xl: 2rem; /* 32px */
+  --wa-font-size-3xl: 2.5625rem; /* 41px */
+  --wa-font-size-4xl: 3.25rem; /* 52px */
 
   --wa-font-line-height-compact: 1.25;
   --wa-font-line-height-regular: 1.75;
@@ -257,7 +264,7 @@
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.5;
+  --wa-corners-base: 0.375;
   --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
   --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
   --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
@@ -300,7 +307,7 @@
 
   --wa-form-controls-corners: var(--wa-corners-s);
 
-  --wa-form-controls-activated-color: var(--wa-color-brand-spot);
+  --wa-form-controls-activated-color: var(--wa-color-base-30);
   --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
 
   --wa-form-controls-label-color: var(--wa-color-text-normal);
@@ -344,10 +351,10 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-base-10);
-  --wa-color-surface-default: var(--wa-color-base-05);
-  --wa-color-surface-lowered: black;
-  --wa-color-surface-border: var(--wa-color-base-20);
+  --wa-color-surface-raised: var(--wa-color-base-30);
+  --wa-color-surface-default: var(--wa-color-base-20);
+  --wa-color-surface-lowered: var(--wa-color-base-10);
+  --wa-color-surface-border: var(--wa-color-base-30);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
@@ -370,82 +377,56 @@
     */
   --wa-color-brand-spot: var(--wa-color-blue-70);
   --wa-color-brand-spot-darker: var(--wa-color-blue-50);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-20);
+  --wa-color-brand-fill-highlight: var(--wa-color-blue-30);
   --wa-color-brand-border-subtle: var(--wa-color-blue-20);
   --wa-color-brand-border-highlight: var(--wa-color-blue-30);
-  --wa-color-brand-text-on-spot: black;
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
+  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
+  --wa-color-brand-text-on-fill: var(--wa-color-blue-80);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
 
   --wa-color-success-spot: var(--wa-color-green-70);
   --wa-color-success-spot-darker: var(--wa-color-green-50);
-  --wa-color-success-fill-subtle: var(--wa-color-green-10);
-  --wa-color-success-fill-highlight: var(--wa-color-green-20);
+  --wa-color-success-fill-subtle: var(--wa-color-green-20);
+  --wa-color-success-fill-highlight: var(--wa-color-green-30);
   --wa-color-success-border-subtle: var(--wa-color-green-20);
   --wa-color-success-border-highlight: var(--wa-color-green-30);
-  --wa-color-success-text-on-spot: black;
-  --wa-color-success-text-on-fill: var(--wa-color-green-70);
+  --wa-color-success-text-on-spot: var(--wa-color-green-20);
+  --wa-color-success-text-on-fill: var(--wa-color-green-80);
   --wa-color-success-text-on-surface: var(--wa-color-green-60);
 
   --wa-color-warning-spot: var(--wa-color-yellow-70);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-50);
-  --wa-color-warning-fill-subtle: var(--wa-color-yellow-10);
-  --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
+  --wa-color-warning-fill-subtle: var(--wa-color-yellow-20);
+  --wa-color-warning-fill-highlight: var(--wa-color-yellow-30);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-20);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
-  --wa-color-warning-text-on-spot: black;
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
+  --wa-color-warning-text-on-spot: var(--wa-color-yellow-20);
+  --wa-color-warning-text-on-fill: var(--wa-color-yellow-80);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
 
   --wa-color-danger-spot: var(--wa-color-red-70);
   --wa-color-danger-spot-darker: var(--wa-color-red-50);
-  --wa-color-danger-fill-subtle: var(--wa-color-red-10);
-  --wa-color-danger-fill-highlight: var(--wa-color-red-20);
+  --wa-color-danger-fill-subtle: var(--wa-color-red-20);
+  --wa-color-danger-fill-highlight: var(--wa-color-red-30);
   --wa-color-danger-border-subtle: var(--wa-color-red-20);
   --wa-color-danger-border-highlight: var(--wa-color-red-30);
-  --wa-color-danger-text-on-spot: black;
-  --wa-color-danger-text-on-fill: var(--wa-color-red-70);
+  --wa-color-danger-text-on-spot: var(--wa-color-red-20);
+  --wa-color-danger-text-on-fill: var(--wa-color-red-80);
   --wa-color-danger-text-on-surface: var(--wa-color-red-60);
 
   --wa-color-neutral-spot: var(--wa-color-base-70);
   --wa-color-neutral-spot-darker: var(--wa-color-base-50);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
+  --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
   --wa-color-neutral-border-subtle: var(--wa-color-base-20);
   --wa-color-neutral-border-highlight: var(--wa-color-base-30);
-  --wa-color-neutral-text-on-spot: black;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
+  --wa-color-neutral-text-on-spot: var(--wa-color-base-20);
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-80);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 
 /* #region Custom styles */
-wa-button {
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--border-color);
-  --box-shadow-color: var(--border-color);
-
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-spot-darker);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-spot-darker);
-  }
-
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-spot-darker);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-spot-darker);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-spot-darker);
-  }
-}
-
 wa-button:not([variant='text']) {
   --border-color: var(--label-color);
   --border-color-hover: var(--border-color);
@@ -453,6 +434,47 @@ wa-button:not([variant='text']) {
   --box-shadow-color: var(--border-color);
   --background-active: var(--border-color);
   --label-color-active: var(--background);
+
+  .wa-theme-fa-dark & {
+    &[variant='brand'] {
+      --background: var(--wa-color-brand-text-on-spot);
+      --label-color: var(--wa-color-brand-spot);
+    }
+    &[variant='success'] {
+      --background: var(--wa-color-success-text-on-spot);
+      --label-color: var(--wa-color-success-spot);
+    }
+    &[variant='warning'] {
+      --background: var(--wa-color-warning-text-on-spot);
+      --label-color: var(--wa-color-warning-spot);
+    }
+    &[variant='danger'] {
+      --background: var(--wa-color-danger-text-on-spot);
+      --label-color: var(--wa-color-danger-spot);
+    }
+    &[variant='neutral'] {
+      --background: var(--wa-color-neutral-text-on-spot);
+      --label-color: var(--wa-color-neutral-spot);
+    }
+  }
+}
+
+/* not sure if i'm tying into something stable here, or if this is the right way to do this */
+wa-checkbox[checked] {
+  --wa-color-brand-text-on-spot: white;
+}
+wa-radio::part(control--checked) {
+  --wa-color-brand-text-on-spot: white;
+}
+
+wa-radio-group > wa-radio-button,
+wa-radio-group > wa-button {
+  --box-shadow: none;
+}
+
+wa-switch {
+  --background: var(--wa-color-neutral-spot);
+  --border-color: var(--wa-color-neutral-spot);
 }
 
 wa-alert {
