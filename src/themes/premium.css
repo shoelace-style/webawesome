@@ -462,6 +462,10 @@
     --symbol-size: var(--wa-font-size-m);
   }
 
+  .product-card .title {
+    font-size: var(--wa-font-size-2xl);
+  }
+
   .product-card .description {
     color: var(--wa-color-text-quiet);
   }

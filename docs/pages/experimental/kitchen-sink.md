@@ -210,11 +210,11 @@ toc: false
       <wa-option value="default">Default</wa-option>
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
-      <wa-option value="jelly-playful">Jelly Playful</wa-option>
+      <wa-option value="playful">Playful</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
-      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="playful~">Playful~</wa-option>
       <wa-option value="chic">Chic</wa-option>
     </wa-select>
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
@@ -1127,20 +1127,19 @@ toc: false
 
   .product-card .badge-stock {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top:  var(--wa-flow-spacing);
+    right:  var(--wa-flow-spacing);
   }
 
   .product-card .title-rating {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
-    margin-bottom: .5rem;
+    margin-bottom: var(--wa-flow-spacing);
   }
 
   .product-card .title {
-    font-size: var(--wa-font-size-2xl);
     margin: 0;
   }
 
@@ -1288,7 +1287,7 @@ toc: false
   }
 
   .order-item .name {
-    grid-column: span 6;
+    grid-column: span 5;
   }
 
   .order-item .finish {
@@ -1296,7 +1295,7 @@ toc: false
   }
 
   .order-item wa-input {
-    grid-column: span 2;
+    grid-column: span 3;
     margin: 0;
   }
 
@@ -1341,6 +1340,7 @@ toc: false
 <!-- Kitchen Sink Preview -->
 <div class="preview-container">
   <section class="overlap">
+    <div class="hero-background"></div>
     <header class="strata project-header">
       <h1 style="display: flex; align-items: center; margin: 0;">
         <wa-icon id="project-logo" name="p"></wa-icon>
@@ -1364,10 +1364,10 @@ toc: false
     <section class="strata products grid-12-col">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/playful/morpheus.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
-          <wa-rating label="Rating" value="4" style="margin-top: 0.5rem;" readonly></wa-rating>
+          <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="description">
           <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
@@ -1385,10 +1385,10 @@ toc: false
       </wa-card>
       <wa-card class="card-image product-card">
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/playful/seraph.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
-          <wa-rating label="Rating" value="5" style="margin-top: 0.5rem;" readonly></wa-rating>
+          <wa-rating label="Rating" value="5" readonly></wa-rating>
         </div>
         <div class="description">
           <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
@@ -1405,10 +1405,10 @@ toc: false
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <img slot="image" src="/assets/images/kitchen-sink/premium/keymaker.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/playful/keymaker.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Keymaker</h3>
-          <wa-rating label="Rating" value="3" style="margin-top: 0.5rem;" readonly></wa-rating>
+          <wa-rating label="Rating" value="3" readonly></wa-rating>
         </div>
         <div class="description">
           <p>Only the One can open the door. And only during that window can that door be opened.</p>
@@ -1432,14 +1432,14 @@ toc: false
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller"> </wa-avatar>
+                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller" shape="rounded"> </wa-avatar>
                 Lindsay Miller
               </a>
             </div>
             <div class="categories">
               <a href=""><wa-tag size="small" variant="neutral">CSS</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="neutral">Theming</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="neutral">Resources</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="success">Theming</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="warning">Resources</wa-tag></a>
             </div>
           </div>
         </div>
@@ -1448,9 +1448,9 @@ toc: false
         <p>Web Awesome is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.</p>
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
-        <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
-        <img src="/assets/images/kitchen-sink/premium/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
-        <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
+        <p>All themes are scoped to classes using the <code>sl-theme-{name}</code> convention, where <code>{name}</code> is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use <code>wa-theme-default-light</code> and <code>wa-theme-default-dark</code>, respectively. A custom theme called "Purple Power", for example, would use a class called <code>sl-theme-purple-power</code>.</p>
+        <img src="/assets/images/kitchen-sink/playful/blog-post-example-image.png" alt="blog post example image" style="width: 100%; margin: 0 0 1rem 0;" />
+        <p>All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
 <code>:host,
 .wa-theme-purple-power {
@@ -1563,13 +1563,13 @@ toc: false
       <div class="product-detail-images">
         <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
-            <img alt="See it for yourself" src="/assets/images/kitchen-sink/premium/carousel1.png" />
+            <img alt="See it for yourself" src="/assets/images/kitchen-sink/playful/carousel1.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Look through the code" src="/assets/images/kitchen-sink/premium/carousel2.png" />
+            <img alt="Look through the code" src="/assets/images/kitchen-sink/playful/carousel2.png" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Free your mind" src="/assets/images/kitchen-sink/premium/carousel3.png" />
+            <img alt="Free your mind" src="/assets/images/kitchen-sink/playful/carousel3.png" />
           </wa-carousel-item>
         </wa-carousel>
       </div>
@@ -1820,7 +1820,7 @@ toc: false
         <div class="order">
           <h2 style="margin-bottom: var(--wa-space-3xl);">Order Summary</h2>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/morpheus-thumb.png" alt="Morpheus" />
+            <img src="/assets/images/kitchen-sink/playful/morpheus-thumb.png" alt="Morpheus" />
             <span class="name">
               <b>Morpheus</b>
             </span>
@@ -1828,7 +1828,7 @@ toc: false
             <span class="price">$120.00</span>
           </div>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/seraph-thumb.png" alt="Seraph" />
+            <img src="/assets/images/kitchen-sink/playful/seraph-thumb.png" alt="Seraph" />
             <span class="name">
               <b>Seraph</b>
               <span class="finish">Tinted</span>
@@ -1837,7 +1837,7 @@ toc: false
             <span class="price">$180.00</span>
           </div>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/keymaker-thumb.png" alt="Keymaker" />
+            <img src="/assets/images/kitchen-sink/playful/keymaker-thumb.png" alt="Keymaker" />
             <span class="name">
               <b>Keymaker</b>
               <span class="finish">Glossy</span>
