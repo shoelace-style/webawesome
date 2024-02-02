@@ -1063,10 +1063,6 @@ toc: false
     min-height: 100vh;
   }
 
-  #project-logo {
-    /* font-size: 1.25rem; */
-  }
-
   /* page layout */
   .preview-container {
     background: var(--wa-color-surface-lowered);
@@ -1371,7 +1367,7 @@ toc: false
         <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
-          <wa-rating label="Rating" value="4" readonly></wa-rating>
+          <wa-rating label="Rating" value="4" style="margin-top: 0.5rem;" readonly></wa-rating>
         </div>
         <div class="description">
           <p>I see it in your eyes. You have the look of a man who accepts what he sees because he is expecting to wake up. Ironically, that's not far from the truth.</p>
@@ -1392,7 +1388,7 @@ toc: false
         <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
-          <wa-rating label="Rating" value="5" readonly></wa-rating>
+          <wa-rating label="Rating" value="5" style="margin-top: 0.5rem;" readonly></wa-rating>
         </div>
         <div class="description">
           <p>The Oracle has many enemies, I had to be sure. You do not truly know someone until you fight them.</p>
@@ -1409,10 +1405,10 @@ toc: false
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <img slot="image" src="/assets/images/kitchen-sink/premium/keymasterII.png" alt="" />
+        <img slot="image" src="/assets/images/kitchen-sink/premium/keymaker.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Keymaker II</h3>
-          <wa-rating label="Rating" value="3" readonly></wa-rating>
+          <h3 class="title">Keymaker</h3>
+          <wa-rating label="Rating" value="3" style="margin-top: 0.5rem;" readonly></wa-rating>
         </div>
         <div class="description">
           <p>Only the One can open the door. And only during that window can that door be opened.</p>
@@ -1580,7 +1576,7 @@ toc: false
       <div class="product-detail-info">
         <div class="title-rating">
           <h1 class="title">The Oracle</h1>
-          <wa-rating label="Rating" value="4" style="--symbol-size: 1rem;" readonly></wa-rating>
+          <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="price">
           <span class="price-discounted">$120</span>
@@ -1841,9 +1837,9 @@ toc: false
             <span class="price">$180.00</span>
           </div>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/keymakerii-thumb.png" alt="Keymaker II" />
+            <img src="/assets/images/kitchen-sink/premium/keymaker-thumb.png" alt="Keymaker" />
             <span class="name">
-              <b>Keymaker II</b>
+              <b>Keymaker</b>
               <span class="finish">Glossy</span>
             </span>
             <wa-input type="number" value="1"></wa-input>

@@ -201,8 +201,8 @@
 
   --wa-font-weight-light: 300;
   --wa-font-weight-normal: 400;
-  --wa-font-weight-medium: 500;
-  --wa-font-weight-heavy: 600;
+  --wa-font-weight-medium: 600;
+  --wa-font-weight-heavy: 700;
 
   --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-normal);
@@ -210,7 +210,7 @@
 
   /* The default typescale is based on the Major Second scale (x1.125).
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
-  --wa-font-size-root: 16px;
+  --wa-font-size-root: 18px;
   --wa-font-size-2xs: 0.6875rem; /* 11px */
   --wa-font-size-xs: 0.75rem; /* 12px */
   --wa-font-size-s: 0.875rem; /* 14px */
@@ -223,7 +223,7 @@
 
   --wa-font-line-height-compact: 1.25;
   --wa-font-line-height-regular: 1.6;
-  --wa-font-line-height-comfortable: 2;
+  --wa-font-line-height-comfortable: 2.2;
 
   /**
    * Spacing
@@ -383,150 +383,29 @@
   }
 
   wa-card {
-    --border-radius: var(--wa-corners-m);
-  }
-
-  wa-alert {
-    font-size: var(--wa-font-size-s);
-    --border-color: var(--background);
-  }
-
-  wa-carousel {
-    --pagination-color-activated: var(--wa-color-brand-spot);
-    --pagination-color-resting: var(--wa-color-neutral-fill-highlight);
-  }
-
-  wa-badge,
-  wa-button::part(label),
-  wa-tag {
-    text-transform: uppercase;
-  }
-
-  wa-badge,
-  wa-tag {
-    --border-width: 0;
-  }
-
-  wa-tag[variant='neutral'] {
-    --background: var(--wa-color-neutral-fill-highlight);
-  }
-
-  wa-badge[variant='brand'] {
-    --background: var(--wa-color-blue-80);
-    --content-color: var(--wa-color-blue-20);
-  }
-
-  .project-header {
-    background-color: var(--wa-color-warning-fill-highlight);
-  }
-
-  .hero {
-    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat;
-  }
-
-  .hero {
-    height: 60rem;
-    padding-top: 15rem;
-    text-align: right;
-  }
-
-  .hero .hero-title {
-    color: var(--wa-color-warning-text-on-fill);
-    font-style: italic;
-  }
-
-  .products {
-    margin-top: -25rem;
-    padding-top: 10rem;
-    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
-  }
-
-  .product-card .description {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .product-card::part(footer) {
-    border-width: 0;
-  }
-
-  .product-card wa-button:not(:last-child) {
-    margin-inline-end: var(--wa-space-xs);
-  }
-
-  .blog .authors a {
-    --wa-color-text-link: var(--wa-color-text-quiet);
-    --wa-link-decoration-default: none;
+    --border-radius: var(--wa-corners-l);
   }
 
   pre.codeblock {
     background-color: var(--wa-color-base-90);
   }
 
-  .message-composer wa-card {
-    --background: var(--wa-color-surface-raised);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: var(--wa-font-line-height-comfortable);
   }
 
-  .message-composer wa-card::part(header) {
+  .product-card::part(body) {
+    font-weight: var(--wa-font-weight-medium);
+    font-size: calc(var(--wa-font-size-m) * 1.1);
+  }
+
+  .product-card::part(footer) {
     border-width: 0;
-    background-color: var(--wa-color-neutral-fill-subtle);
-  }
-
-  .message-composer wa-card::part(footer) {
-    border-width: 0;
-    --padding: var(--wa-space-s) var(--wa-space-xl);
-  }
-
-  .message-composer .grouped-buttons wa-icon-button::part(base) {
-    block-size: var(--wa-form-controls-height-s);
-    inline-size: var(--wa-form-controls-height-s);
-    justify-content: center;
-  }
-  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
-    background-color: var(--wa-color-neutral-fill-highlight);
-    color: var(--wa-color-text-normal);
-  }
-
-  .support-table {
-    --wa-color-surface-border: var(--wa-color-base-90);
-  }
-
-  .support-table wa-card {
-    --border-color: var(--wa-color-neutral-border-subtle);
-  }
-
-  .support-table th {
-    text-transform: uppercase;
-    font-weight: var(--wa-font-weight-normal);
-    color: var(--wa-color-text-quiet);
-    background-color: var(--wa-color-neutral-fill-subtle);
-  }
-
-  .support-table th:first-child {
-    border-radius: var(--wa-corners-m) 0 0 0;
-  }
-
-  .support-table th:last-child {
-    border-radius: 0 var(--wa-corners-m) 0 0;
-  }
-
-  .support-table tr {
-    --wa-color-surface-border: var(--wa-color-base-95);
-  }
-
-  .support-table .excerpt {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .checkout-form wa-input::part(form-control-label),
-  .checkout-form wa-select::part(form-control-label) {
-    font-size: var(--wa-font-size-s);
-    margin-bottom: var(--wa-space-xs);
-  }
-
-  .order-item .finish {
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-s);
-    font-style: italic;
   }
 }
 
@@ -624,10 +503,6 @@
   pre.codeblock,
   code {
     background-color: var(--wa-color-neutral-fill-subtle);
-  }
-
-  .support-table tr {
-    --wa-color-surface-border: var(--wa-color-base-10);
   }
 }
 

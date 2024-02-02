@@ -351,7 +351,8 @@
   --wa-shadow-offset-y-base: 0.1875;
 
   wa-rating {
-    --symbol-color-active: var(--wa-color-base-50);
+    --symbol-size: var(--wa-font-size-l);
+    --symbol-color-active: var(--wa-color-text-quiet);
   }
 
   wa-switch {
@@ -458,7 +459,7 @@
   }
 
   .product-card wa-rating {
-    --symbol-size: 0.8rem;
+    --symbol-size: var(--wa-font-size-m);
   }
 
   .product-card .description {
