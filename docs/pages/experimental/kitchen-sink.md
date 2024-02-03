@@ -210,6 +210,7 @@ toc: false
       <wa-option value="default">Default</wa-option>
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
+      <wa-option value="headwind">Headwind</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
@@ -735,6 +736,9 @@ toc: false
       case 'fa':
         presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
         break;
+      case 'headwind':
+        presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
+        break;
       default:
         presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
     }
@@ -923,6 +927,11 @@ toc: false
             resolver: name => `/assets/icons/chunk/${name}.svg`,
             mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
           });
+          break;
+        case 'headwind':
+          iconFamily.value = 'fa-classic';
+          iconStyle.value = 'solid';
+          useFaIcons();
           break;
         default:
           iconFamily.value = 'fa-classic';
