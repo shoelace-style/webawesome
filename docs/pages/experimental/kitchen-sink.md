@@ -1354,7 +1354,7 @@ toc: false
     </header>
     <section class="strata hero">
       <div class="title">
-        <h1 class="hero-title">What you know you can't<br /> explain, but you feel it.</h1>
+        <h1 class="hero-title">What you know you can't explain, but you feel it.</h1>
         <wa-button variant="brand" class="hero-cta">
           <wa-icon slot="prefix" name="arrow-down"></wa-icon>
           Free Your Mind
@@ -1366,7 +1366,7 @@ toc: false
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
         <img slot="image" src="/assets/images/kitchen-sink/playful/morpheus.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Morpheus</h3>
+          <h2 class="title">Morpheus</h2>
           <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="description">
@@ -1387,7 +1387,7 @@ toc: false
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
         <img slot="image" src="/assets/images/kitchen-sink/playful/seraph.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Seraph</h3>
+          <h2 class="title">Seraph</h2>
           <wa-rating label="Rating" value="5" readonly></wa-rating>
         </div>
         <div class="description">
@@ -1407,7 +1407,7 @@ toc: false
       <wa-card class="card-image product-card">
         <img slot="image" src="/assets/images/kitchen-sink/playful/keymaker.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Keymaker</h3>
+          <h2 class="title">Keymaker</h2>
           <wa-rating label="Rating" value="3" readonly></wa-rating>
         </div>
         <div class="description">

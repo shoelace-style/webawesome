@@ -439,11 +439,9 @@
 
   .hero {
     background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat;
-  }
-
-  .hero {
     height: 60rem;
     padding-top: 15rem;
+    padding-left: 50%;
     text-align: right;
   }
 

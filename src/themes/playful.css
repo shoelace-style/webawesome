@@ -1,7 +1,7 @@
 @import 'depth_4_glossy.css';
 /* @import 'depth_3_punchy.css'; */
 /* @import 'depth_2_chunky.css'; */
-@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 :root,
 :host,
@@ -120,7 +120,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-10) calc(var(--wa-shadow-blur-base) * 8% + 16%),
+    var(--wa-color-base-40) calc(var(--wa-shadow-blur-base) * 8% + 16%),
     transparent
   );
 
@@ -207,7 +207,7 @@
   --wa-font-weight-heavy: 700;
 
   --wa-font-weight-heading: var(--wa-font-weight-medium);
-  --wa-font-weight-body: var(--wa-font-weight-normal);
+  --wa-font-weight-body: var(--wa-font-weight-medium);
   --wa-font-weight-action: var(--wa-font-weight-normal);
 
   /* The default typescale is based on the Major Second scale (x1.125).
@@ -218,9 +218,9 @@
   --wa-font-size-s: 0.875rem; /* 14px */
   --wa-font-size-m: 1rem; /* 16px */
   --wa-font-size-l: 1.25rem; /* 20px */
-  --wa-font-size-xl: 1.625rem; /* 26px */
-  --wa-font-size-2xl: 2rem; /* 32px */
-  --wa-font-size-3xl: 2.5625rem; /* 41px */
+  --wa-font-size-xl: 1.333rem; /* 24px */
+  --wa-font-size-2xl: 1.666rem; /* 30px */
+  --wa-font-size-3xl: 2.222rem; /* 41px */
   --wa-font-size-4xl: 3.1rem; /* 56px */
 
   --wa-font-line-height-compact: 1.25;
@@ -267,7 +267,7 @@
   --wa-form-controls-border-width: var(--wa-border-width-m);
 
   --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-m);
+  --wa-panel-border-width: 0;
 
   /**
    * Corners
@@ -370,6 +370,11 @@
     background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
   }
 
+  img {
+    border-radius: var(--wa-panel-corners);
+    box-shadow: var(--wa-shadow-level-1);
+  }
+
   wa-rating {
     --symbol-size: var(--wa-font-size-m);
     --symbol-color: color-mix(in oklab, var(--symbol-color-active) 50%, transparent);
@@ -377,7 +382,7 @@
 
   wa-switch {
     --background: transparent;
-    --border-color: var(--wa-color-neutral-border-highlight);
+    --border-width: 0px;
     --thumb-color: var(--border-color);
     --thumb-color-checked: var(--wa-color-brand-fill-subtle);
     --thumb-size: 1em;
@@ -385,6 +390,7 @@
     --width: calc(var(--thumb-size) * 2.5);
   }
 
+  /* preventing shadows on all form input types */
   wa-input:not(:focus),
   wa-input:not([filled]):not([disabled]),
   wa-checkbox:not([checked]):not([indeterminate]),
@@ -402,7 +408,7 @@
   }
 
   wa-card {
-    --border-radius: var(--wa-corners-l);
+    --border-radius: var(--wa-panel-corners);
   }
 
   wa-card img {
@@ -410,8 +416,14 @@
     border-bottom-left-radius: 0;
   }
 
+  wa-carousel img {
+    border-radius: var(--wa-panel-corners);
+  }
+
   wa-alert {
+    --border-radius: var(--wa-corners-m);
     --border-style: dashed;
+    --border-width: var(--wa-form-controls-border-width);
     --padding: var(--wa-space-xs);
   }
 
@@ -480,19 +492,29 @@
   .hero-background {
     position: absolute;
     z-index: -1;
-    top: -190rem;
-    left: -90rem;
+    top: -18%;
+    left: 50%;
     width: 250rem;
     height: 250rem;
+    transform: translate(-50%, -50%);
     flex-shrink: 0;
-    border-radius: 250rem;
-    background: linear-gradient(180deg, #c2f2c1 69.42%, #68e27a 100%);
+    border-radius: 50%;
     background: linear-gradient(180deg, var(--wa-color-green-90) 69.42%, var(--wa-color-green-80) 100%);
-    /* url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat     */
+  }
+
+  .hero-background::after {
+    background: url(/assets/images/kitchen-sink/playful/hero.png) 0 50% no-repeat;
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 600px;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 187rem;
   }
 
   .hero {
-    padding-top: 15rem;
+    padding-top: 19rem;
     text-align: center;
   }
 
@@ -503,6 +525,50 @@
 
   .product-card::part(footer) {
     border-width: 0;
+  }
+
+  .message-composer wa-card::part(header) {
+    background-color: var(--wa-color-base-90);
+  }
+
+  .message-composer wa-icon-button::part(base) {
+    color: var(--wa-color-text-normal);
+  }
+
+  .message-composer wa-card::part(footer) {
+    padding-top: 0;
+  }
+
+  .product-detail .price {
+    font-weight: var(--wa-font-weight-heavy);
+  }
+
+  .support-table th {
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-heavy);
+    background-color: var(--wa-color-surface-lowered);
+  }
+
+  .support-table th:first-child {
+    border-radius: var(--wa-panel-corners) 0 0 0;
+  }
+
+  .support-table th:last-child {
+    border-radius: 0 var(--wa-panel-corners) 0 0;
+  }
+
+  .order-item img {
+    border-radius: var(--wa-corners-s);
+  }
+
+  .checkout-form {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form wa-input::part(form-control-label),
+  .checkout-form wa-select::part(form-control-label) {
+    font-size: var(--wa-font-size-s);
+    padding-bottom: var(--wa-space-xs);
   }
 }
 
