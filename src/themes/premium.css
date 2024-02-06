@@ -450,6 +450,11 @@
     font-style: italic;
   }
 
+  .blog wa-avatar::part(base) {
+    border-radius: var(--wa-corners-circle);
+    overflow: hidden;
+  }
+
   .products {
     margin-top: -25rem;
     padding-top: 10rem;

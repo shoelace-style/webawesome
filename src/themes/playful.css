@@ -1,5 +1,5 @@
-@import 'depth_4_glossy.css';
-/* @import 'depth_3_punchy.css'; */
+/* @import 'depth_4_glossy.css'; */
+@import 'depth_3_punchy.css';
 /* @import 'depth_2_chunky.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
@@ -187,7 +187,7 @@
   --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-80);
   --wa-color-neutral-border-subtle: var(--wa-color-base-90);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-70);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-80);
   --wa-color-neutral-text-on-spot: var(--wa-color-base-95);
   --wa-color-neutral-text-on-fill: var(--wa-color-base-30);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
@@ -205,6 +205,7 @@
   --wa-font-weight-normal: 400;
   --wa-font-weight-medium: 600;
   --wa-font-weight-heavy: 700;
+  --wa-font-weight-black: 800;
 
   --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-medium);
@@ -367,11 +368,12 @@
   --wa-shadow-offset-y-base: 0.375;
 
   pre {
+    border-radius: var(--wa-corners-m);
     background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
   }
 
   img {
-    border-radius: var(--wa-panel-corners);
+    border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-1);
   }
 
@@ -398,13 +400,101 @@
     --box-shadow: var(--wa-shadow-level-0);
   }
 
-  wa-button {
-    /* --box-shadow: inset 0 0.03125rem 0 0 rgb(255 255 255 / 0.5), inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1),
-      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2), var(--wa-shadow-level-1); */
+  wa-checkbox[checked] {
+    --box-shadow: var(--wa-shadow-level-1);
+    --background-checked: linear-gradient(
+      180deg,
+      var(--wa-color-brand-40) 0%,
+      var(--wa-color-brand-50) 51.88%,
+      var(--wa-color-brand-60) 100%
+    );
   }
 
-  wa-button::part(label) {
-    font-weight: var(--wa-font-weight-heavy);
+  wa-button {
+    --button-gradient-a: var(--wa-color-base-40);
+    --button-gradient-b: var(--wa-color-base-50);
+    --button-gradient-c: var(--wa-color-base-60);
+    --button-shadow-a: var(--wa-color-base-60);
+    --button-shadow-b: var(--wa-color-base-30);
+    --button-shadow-c: var(--wa-color-base-80);
+    --button-text-shadow: var(--wa-color-base-40);
+
+    --background: linear-gradient(
+      180deg,
+      var(--button-gradient-a) 0%,
+      var(--button-gradient-b) 51.88%,
+      var(--button-gradient-c) 100%
+    );
+    --box-shadow: 0px 6px 16px var(--button-shadow-a), inset 0 -2px 8px var(--button-shadow-b),
+      inset 0 2px 8px var(--button-shadow-c);
+    --border-color: var(--button-gradient-b);
+    --border-width: 0px;
+
+    &[variant='brand'] {
+      --button-gradient-a: var(--wa-color-brand-40);
+      --button-gradient-b: var(--wa-color-brand-50);
+      --button-gradient-c: var(--wa-color-brand-60);
+      --button-shadow-a: var(--wa-color-brand-60);
+      --button-shadow-b: var(--wa-color-brand-30);
+      --button-shadow-c: var(--wa-color-brand-80);
+      --button-text-shadow: var(--wa-color-brand-40);
+    }
+
+    &[variant='success'] {
+      --button-gradient-a: var(--wa-color-green-40);
+      --button-gradient-b: var(--wa-color-green-50);
+      --button-gradient-c: var(--wa-color-green-60);
+      --button-shadow-a: var(--wa-color-green-60);
+      --button-shadow-b: var(--wa-color-green-30);
+      --button-shadow-c: var(--wa-color-green-80);
+      --button-text-shadow: var(--wa-color-green-40);
+    }
+
+    &[variant='warning'] {
+      --button-gradient-a: var(--wa-color-yellow-40);
+      --button-gradient-b: var(--wa-color-yellow-50);
+      --button-gradient-c: var(--wa-color-yellow-60);
+      --button-shadow-a: var(--wa-color-yellow-60);
+      --button-shadow-b: var(--wa-color-yellow-30);
+      --button-shadow-c: var(--wa-color-yellow-80);
+      --button-text-shadow: var(--wa-color-yellow-40);
+    }
+
+    &[variant='danger'] {
+      --button-gradient-a: var(--wa-color-red-40);
+      --button-gradient-b: var(--wa-color-red-50);
+      --button-gradient-c: var(--wa-color-red-60);
+      --button-shadow-a: var(--wa-color-red-60);
+      --button-shadow-b: var(--wa-color-red-30);
+      --button-shadow-c: var(--wa-color-red-80);
+      --button-text-shadow: var(--wa-color-red-40);
+    }
+
+    &[variant='neutral'] {
+      --button-gradient-a: var(--wa-color-base-40);
+      --button-gradient-b: var(--wa-color-base-50);
+      --button-gradient-c: var(--wa-color-base-60);
+      --button-shadow-a: var(--wa-color-base-60);
+      --button-shadow-b: var(--wa-color-base-30);
+      --button-shadow-c: var(--wa-color-base-80);
+      --button-text-shadow: var(--wa-color-base-40);
+    }
+  }
+
+  wa-button::part(label),
+  wa-button wa-icon {
+    font-weight: var(--wa-font-weight-black);
+    text-shadow: 0 2px 2px var(--button-text-shadow);
+  }
+
+  wa-button[outline] {
+    --box-shadow: none;
+    --border-width: var(--wa-form-controls-border-width);
+    --label-color: var(--wa-color-neutral-text-on-fill);
+
+    &::part(label) {
+      text-shadow: none;
+    }
   }
 
   wa-card {
@@ -418,13 +508,20 @@
 
   wa-carousel img {
     border-radius: var(--wa-panel-corners);
+    box-shadow: none;
   }
 
   wa-alert {
     --border-radius: var(--wa-corners-m);
     --border-style: dashed;
     --border-width: var(--wa-form-controls-border-width);
-    --padding: var(--wa-space-xs);
+    --icon-size: var(--wa-font-size-m);
+    --padding: var(--wa-space-s);
+    font-size: var(--wa-font-size-s);
+
+    &::part(message) {
+      padding-left: var(--wa-space-l);
+    }
   }
 
   wa-tag {
@@ -523,11 +620,25 @@
     font-size: var(--wa-font-size-4xl);
   }
 
+  .hero .hero-cta {
+    font-size: var(--wa-font-size-l);
+  }
+
   .product-card::part(footer) {
     border-width: 0;
   }
 
+  .blog wa-avatar {
+    --size: 2rem;
+  }
+
+  .blog img {
+    max-width: 624px;
+    max-height: 290px;
+  }
+
   .message-composer wa-card::part(header) {
+    --wa-color-neutral-border-subtle: var(--wa-color-base-70);
     background-color: var(--wa-color-base-90);
   }
 
@@ -546,7 +657,7 @@
   .support-table th {
     font-size: var(--wa-font-size-s);
     font-weight: var(--wa-font-weight-heavy);
-    background-color: var(--wa-color-surface-lowered);
+    background-color: var(--wa-color-base-90);
   }
 
   .support-table th:first-child {
@@ -563,6 +674,10 @@
 
   .checkout-form {
     font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form h2 {
+    font-size: var(--wa-font-size-3xl);
   }
 
   .checkout-form wa-input::part(form-control-label),
