@@ -1,0 +1,15 @@
+html {
+  height: auto;
+}
+
+body {
+  height: 100%;
+}
+
+html,
+body {
+  min-height: 100%;
+  /* Need to override from "applied.css" */
+  padding: 0 !important;
+  margin: 0;
+}

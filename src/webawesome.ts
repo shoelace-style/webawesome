@@ -27,6 +27,7 @@ export { default as WaIconButton } from './components/icon-button/icon-button.js
 export { default as WaImageComparer } from './components/image-comparer/image-comparer.js';
 export { default as WaInclude } from './components/include/include.js';
 export { default as WaInput } from './components/input/input.js';
+export { default as WaLayout } from './components/layout/layout.js';
 export { default as WaMenu } from './components/menu/menu.js';
 export { default as WaMenuItem } from './components/menu-item/menu-item.js';
 export { default as WaMenuLabel } from './components/menu-label/menu-label.js';
