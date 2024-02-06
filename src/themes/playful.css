@@ -418,7 +418,6 @@
     --button-shadow-b: var(--wa-color-base-30);
     --button-shadow-c: var(--wa-color-base-80);
     --button-text-shadow: var(--wa-color-base-40);
-
     --background: linear-gradient(
       180deg,
       var(--button-gradient-a) 0%,
@@ -428,7 +427,15 @@
     --box-shadow: 0px 6px 16px var(--button-shadow-a), inset 0 -2px 8px var(--button-shadow-b),
       inset 0 2px 8px var(--button-shadow-c);
     --border-color: var(--button-gradient-b);
-    --border-width: 0px;
+    --border-width: 1px;
+    --background-hover: color-mix(in oklab, var(--button-gradient-c), var(--wa-color-mix-hover));
+    --background-active: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--button-gradient-a), var(--wa-color-mix-active)) 0%,
+      color-mix(in oklab, var(--button-gradient-b), var(--wa-color-mix-active)) 51.88%,
+      color-mix(in oklab, var(--button-gradient-c), var(--wa-color-mix-active)) 100%
+    );
+    --border-color-active: var(--button-gradient-b);
 
     &[variant='brand'] {
       --button-gradient-a: var(--wa-color-brand-40);
@@ -479,6 +486,20 @@
       --button-shadow-c: var(--wa-color-base-80);
       --button-text-shadow: var(--wa-color-base-40);
     }
+
+    &::part(base) {
+      transition: all 0.05s ease-out;
+    }
+
+    &::part(base):hover {
+      transform: scale(1.03, 1.03);
+      background: var(--background-hover);
+    }
+
+    &::part(base):active {
+      --box-shadow: inset 0 -2px 8px var(--button-shadow-b), inset 0 2px 8px var(--button-shadow-c);
+      transform: scale(0.97, 0.97);
+    }
   }
 
   wa-button::part(label),
@@ -491,10 +512,14 @@
     --box-shadow: none;
     --border-width: var(--wa-form-controls-border-width);
     --label-color: var(--wa-color-neutral-text-on-fill);
+    --label-color-hover: var(--wa-color-neutral-text-on-spot);
 
     &::part(label) {
       text-shadow: none;
     }
+  }
+
+  wa-button:hover {
   }
 
   wa-card {
@@ -722,15 +747,15 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-blue-80);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-60);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-30);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-40);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-30);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-40);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-90);
-  --wa-color-brand-text-on-surface: var(--wa-color-blue-70);
+  --wa-color-brand-spot: var(--wa-color-brand-80);
+  --wa-color-brand-spot-darker: var(--wa-color-brand-60);
+  --wa-color-brand-fill-subtle: var(--wa-color-brand-30);
+  --wa-color-brand-fill-highlight: var(--wa-color-brand-40);
+  --wa-color-brand-border-subtle: var(--wa-color-brand-30);
+  --wa-color-brand-border-highlight: var(--wa-color-brand-40);
+  --wa-color-brand-text-on-spot: var(--wa-color-brand-20);
+  --wa-color-brand-text-on-fill: var(--wa-color-brand-95);
+  --wa-color-brand-text-on-surface: var(--wa-color-brand-70);
 
   --wa-color-success-spot: var(--wa-color-green-80);
   --wa-color-success-spot-darker: var(--wa-color-green-60);
@@ -739,7 +764,7 @@
   --wa-color-success-border-subtle: var(--wa-color-green-30);
   --wa-color-success-border-highlight: var(--wa-color-green-40);
   --wa-color-success-text-on-spot: var(--wa-color-green-20);
-  --wa-color-success-text-on-fill: var(--wa-color-green-90);
+  --wa-color-success-text-on-fill: var(--wa-color-green-95);
   --wa-color-success-text-on-surface: var(--wa-color-green-70);
 
   --wa-color-warning-spot: var(--wa-color-yellow-80);
@@ -749,7 +774,7 @@
   --wa-color-warning-border-subtle: var(--wa-color-yellow-30);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-spot: var(--wa-color-yellow-20);
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-90);
+  --wa-color-warning-text-on-fill: var(--wa-color-yellow-95);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-70);
 
   --wa-color-danger-spot: var(--wa-color-red-60);
@@ -759,7 +784,7 @@
   --wa-color-danger-border-subtle: var(--wa-color-red-30);
   --wa-color-danger-border-highlight: var(--wa-color-red-40);
   --wa-color-danger-text-on-spot: var(--wa-color-red-20);
-  --wa-color-danger-text-on-fill: var(--wa-color-red-90);
+  --wa-color-danger-text-on-fill: var(--wa-color-red-95);
   --wa-color-danger-text-on-surface: var(--wa-color-red-70);
 
   --wa-color-neutral-spot: var(--wa-color-base-40);
@@ -769,10 +794,14 @@
   --wa-color-neutral-border-subtle: var(--wa-color-base-30);
   --wa-color-neutral-border-highlight: var(--wa-color-base-70);
   --wa-color-neutral-text-on-spot: var(--wa-color-base-95);
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-90);
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-95);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
 
   /* premium custom settings - dark specific */
+
+  .hero-background {
+    background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
+  }
 
   .message-composer .tools .grouped-buttons:not(:last-of-type) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-40);
