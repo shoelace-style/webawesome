@@ -1071,10 +1071,6 @@ toc: false
     min-height: 100vh;
   }
 
-  #project-logo {
-    /* font-size: 1.25rem; */
-  }
-
   /* page layout */
   .preview-container {
     background: var(--wa-color-surface-lowered);
@@ -1152,12 +1148,7 @@ toc: false
   }
 
   .product-card .title {
-    font-size: var(--wa-font-size-2xl);
     margin: 0;
-  }
-
-  .product-card wa-rating {
-    --symbol-size: .8rem;
   }
 
   /* strata - blog post */
@@ -1370,7 +1361,7 @@ toc: false
     </header>
     <section class="strata hero">
       <div class="title">
-        <h1 class="hero-title">What you know you can't<br /> explain, but you feel it.</h1>
+        <h1 class="hero-title">What you know you can't explain, but you feel it.</h1>
         <wa-button variant="brand" class="hero-cta">
           <wa-icon slot="prefix" name="arrow-down"></wa-icon>
           Free Your Mind
@@ -1382,7 +1373,7 @@ toc: false
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
         <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Morpheus</h3>
+          <h2 class="title">Morpheus</h2>
           <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="description">
@@ -1403,7 +1394,7 @@ toc: false
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
         <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Seraph</h3>
+          <h2 class="title">Seraph</h2>
           <wa-rating label="Rating" value="5" readonly></wa-rating>
         </div>
         <div class="description">
@@ -1423,7 +1414,7 @@ toc: false
       <wa-card class="card-image product-card">
         <img slot="image" src="/assets/images/kitchen-sink/premium/keymasterII.png" alt="" />
         <div class="title-rating">
-          <h3 class="title">Keymaker II</h3>
+          <h2 class="title">Keymaker</h2>
           <wa-rating label="Rating" value="3" readonly></wa-rating>
         </div>
         <div class="description">
@@ -1464,9 +1455,9 @@ toc: false
         <p>Web Awesome is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.</p>
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
-        <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
+        <p>All themes are scoped to classes using the <code>sl-theme-{name}</code> convention, where <code>{name}</code> is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use <code>wa-theme-default-light</code> and <code>wa-theme-default-dark</code>, respectively. A custom theme called "Purple Power", for example, would use a class called <code>sl-theme-purple-power</code>.</p>
         <img src="/assets/images/kitchen-sink/premium/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
-        <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
+        <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
 <code>:host,
 .wa-theme-purple-power {
@@ -1592,7 +1583,7 @@ toc: false
       <div class="product-detail-info">
         <div class="title-rating">
           <h1 class="title">The Oracle</h1>
-          <wa-rating label="Rating" value="4" style="--symbol-size: 1rem;" readonly></wa-rating>
+          <wa-rating label="Rating" value="4" readonly></wa-rating>
         </div>
         <div class="price">
           <span class="price-discounted">$120</span>
@@ -1797,7 +1788,6 @@ toc: false
       </table>
      </wa-card>
     </section>
-
     <section class="strata checkout-form grid-12-col">
         <div class="payment">
           <h2 style="margin-bottom: var(--wa-space-3xl);">Payment</h2>
