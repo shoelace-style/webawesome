@@ -732,6 +732,9 @@ toc: false
       case 'premium':
         presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
         break;
+      case 'playful':
+        presetLogoIcons = ['face-smile', 'paper-plane-top', 'sparkles', 'star'];
+        break;
       case 'fa':
         presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
         break;
@@ -921,6 +924,17 @@ toc: false
           });
           registerIconLibrary('system', {
             resolver: name => `/assets/icons/chunk/${name}.svg`,
+            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+          });
+          break;
+        case 'playful':
+          iconFamily.value = 'custom';
+          registerIconLibrary('default', {
+            resolver: name => `/assets/icons/jelly/${name}.svg`,
+            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+          });
+          registerIconLibrary('system', {
+            resolver: name => `/assets/icons/jelly/${name}.svg`,
             mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
           });
           break;
@@ -1609,7 +1623,7 @@ toc: false
           <div style="display: flex; align-items: end; gap: 1rem;">
             <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
-              <wa-icon slot="prefix" name="basket-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
+              <wa-icon slot="prefix" name="bag-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
             </wa-button>
             <wa-button variant="neutral">
@@ -1817,7 +1831,7 @@ toc: false
                 <wa-option value="CAN">Canada</wa-option>
               </wa-select>
               <wa-input placeholder="12345" label="Zip">
-                <wa-icon name="mailbox-flag-up" variant="regular" slot="prefix"></wa-icon>
+                <wa-icon name="location-dot" variant="regular" slot="prefix"></wa-icon>
               </wa-input>
             </div>
             <wa-switch checked style="margin: var(--wa-space-2xl) 0 var(--wa-space-3xl) 0;">Sign me up for more offers from this store</wa-switch>
