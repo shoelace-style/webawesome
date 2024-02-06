@@ -106,7 +106,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
+    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-base) * 8% + 8%),
     transparent
   );
 
@@ -244,7 +244,7 @@
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.0625;
+  --wa-border-width-base: calc(1 / 14);
   --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
   --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
   --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
@@ -275,15 +275,15 @@
    * Focus
    */
   --wa-focus-ring-style: solid;
-  --wa-focus-ring-width: 0.1875rem; /* 3px */
+  --wa-focus-ring-width: calc((2 / 14) * 1rem);
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
     color-mix(in oklab, var(--wa-color-focus) 98%, transparent);
-  --wa-focus-ring-offset: 0.0625rem; /* 1px */
+  --wa-focus-ring-offset: 0;
 
   /**
    * Links
    */
-  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
+  --wa-link-decoration-default: none;
   --wa-link-decoration-hover: underline;
 
   /**
@@ -353,10 +353,10 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: color-mix(in oklab, var(--wa-color-gray-30) 10%, transparent);
+  --wa-color-surface-raised: color-mix(in oklab, var(--wa-color-gray-10) 60%, var(--wa-color-gray-20));
   --wa-color-surface-default: var(--wa-color-gray-10);
   --wa-color-surface-lowered: var(--wa-color-gray-05);
-  --wa-color-surface-border: var(--wa-color-gray-20);
+  --wa-color-surface-border: rgb(255 255 255 / 0.1);
 
   --wa-color-text-normal: white;
   --wa-color-text-quiet: var(--wa-color-gray-60);
@@ -369,10 +369,10 @@
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-gray) * 32% + 40%), transparent);
+  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-gray) * 16% + 40%), transparent);
 
   --wa-color-mix-hover: black 8%;
-  --wa-color-mix-active: black 16%;
+  --wa-color-mix-active: black 8%;
 
   /**
    * Semantic theme colors
@@ -385,7 +385,7 @@
   --wa-color-brand-border-highlight: var(--wa-color-indigo-30);
   --wa-color-brand-text-on-spot: white;
   --wa-color-brand-text-on-fill: var(--wa-color-indigo-70);
-  --wa-color-brand-text-on-surface: var(--wa-color-indigo-80);
+  --wa-color-brand-text-on-surface: var(--wa-color-indigo-60);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -395,7 +395,7 @@
   --wa-color-success-border-highlight: var(--wa-color-green-30);
   --wa-color-success-text-on-spot: white;
   --wa-color-success-text-on-fill: var(--wa-color-green-70);
-  --wa-color-success-text-on-surface: var(--wa-color-green-80);
+  --wa-color-success-text-on-surface: var(--wa-color-green-60);
 
   --wa-color-warning-spot: var(--wa-color-yellow-50);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
@@ -405,7 +405,7 @@
   --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
   --wa-color-warning-text-on-spot: white;
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
-  --wa-color-warning-text-on-surface: var(--wa-color-yellow-80);
+  --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
 
   --wa-color-danger-spot: var(--wa-color-rose-50);
   --wa-color-danger-spot-darker: var(--wa-color-rose-40);
@@ -415,7 +415,7 @@
   --wa-color-danger-border-highlight: var(--wa-color-rose-30);
   --wa-color-danger-text-on-spot: white;
   --wa-color-danger-text-on-fill: var(--wa-color-rose-70);
-  --wa-color-danger-text-on-surface: var(--wa-color-rose-80);
+  --wa-color-danger-text-on-surface: var(--wa-color-rose-60);
 
   --wa-color-neutral-spot: white;
   --wa-color-neutral-spot-darker: var(--wa-color-gray-40);
@@ -425,42 +425,73 @@
   --wa-color-neutral-border-highlight: color-mix(in oklab, var(--wa-color-gray-30), transparent 25%);
   --wa-color-neutral-text-on-spot: var(--wa-color-gray-10);
   --wa-color-neutral-text-on-fill: var(--wa-color-gray-70);
-  --wa-color-neutral-text-on-surface: var(--wa-color-gray-80);
+  --wa-color-neutral-text-on-surface: var(--wa-color-gray-60);
 }
 
 /* #region Custom CSS */
+:root {
+  --wa-shadow-offset-y-base: calc(1 / 14);
+}
+
+.preview-container {
+  & h1,
+  h2,
+  h3 {
+    font-weight: bolder;
+  }
+}
+h1 {
+  letter-spacing: -1.5px;
+}
+h2 {
+  letter-spacing: -1px;
+}
+h3 {
+  letter-spacing: -0.75px;
+}
+
 .project-header {
-  background: var(--wa-color-indigo-05);
-  color: white;
+  background: var(--wa-color-surface-default);
 }
 .hero {
-  background: radial-gradient(
-      circle at bottom left,
-      color-mix(in oklab, var(--wa-color-rose-50) 15%, transparent) 10%,
-      transparent 30%
+  --header-background-color: var(--wa-color-surface-default);
+  --grid-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 30%);
+  background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
+    radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-rose-50) 16%, transparent), transparent 30%),
+    radial-gradient(circle at 40% 50%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
+    radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-rose-50) 8%, transparent), transparent 20%),
+    radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
+    radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-rose-60) 8%, transparent), transparent 10%),
+    linear-gradient(176deg, var(--header-background-color), transparent 6rem),
+    linear-gradient(90deg, var(--header-background-color), transparent),
+    repeating-linear-gradient(
+      var(--grid-lines-color),
+      var(--grid-lines-color) 1px,
+      transparent 1px,
+      transparent 10rem,
+      var(--grid-lines-color) 10rem
     ),
-    radial-gradient(circle at 40% 60%, color-mix(in oklab, var(--wa-color-indigo-40) 15%, transparent), transparent 40%),
-    radial-gradient(circle at 10% 35%, color-mix(in oklab, var(--wa-color-rose-60) 10%, transparent), transparent 10%),
-    radial-gradient(
-      circle at bottom right,
-      color-mix(in oklab, var(--wa-color-indigo-60) 15%, transparent),
-      transparent 30%
+    repeating-linear-gradient(
+      90deg,
+      var(--grid-lines-color),
+      var(--grid-lines-color) 1px,
+      transparent 1px,
+      transparent 10rem,
+      var(--grid-lines-color) 10rem
     ),
-    radial-gradient(circle at 80% 40%, color-mix(in oklab, var(--wa-color-rose-50) 10%, transparent), transparent 20%),
-    var(--wa-color-indigo-05);
-  color: white;
+    var(--header-background-color);
 
   & .title {
-    padding-block: var(--wa-space-3xl) calc(var(--wa-space-3xl) * 6);
+    padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
 
     & .hero-title {
-      font-size: calc(var(--wa-font-size-3xl) * 1.4);
-      font-weight: bolder;
+      font-size: calc(var(--wa-font-size-4xl) + var(--wa-font-size-m));
+      margin-block: 0 var(--wa-space-2xl);
     }
   }
 }
 .products {
-  margin-top: calc(var(--wa-space-3xl) * -5);
+  margin-top: calc(var(--wa-space-3xl) * -8);
 }
 
 wa-badge {
@@ -499,9 +530,40 @@ wa-switch {
 }
 wa-input,
 wa-select {
+  --box-shadow: var(--wa-shadow-level-1),
+    var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1) -0.1em color-mix(in
+          oklab, var(--wa-color-shadow), transparent);
   & wa-icon {
     color: var(--wa-color-text-quiet);
   }
+}
+
+wa-avatar {
+  --wa-color-neutral-spot: var(--wa-color-gray-50);
+}
+
+a,
+wa-badge,
+wa-tag {
+  font-weight: var(--wa-font-weight-medium);
+}
+
+pre.codeblock {
+  background-color: var(--wa-color-neutral-fill-highlight);
+}
+
+.message-composer wa-card {
+  &::part(footer) {
+    border: none;
+  }
+  & wa-icon-button {
+    color: var(--wa-color-gray-50);
+  }
+}
+
+.product-detail wa-radio-button:not([checked]) {
+  --border-color: var(--wa-color-neutral-border-highlight);
+  --label-color: var(--wa-color-text-normal);
 }
 /* #endregion */
 
