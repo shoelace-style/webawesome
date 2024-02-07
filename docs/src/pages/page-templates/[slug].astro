@@ -1,0 +1,20 @@
+---
+import SportAwesome from "./sport-awesome/sport-awesome.astro"
+
+export const pages = [
+  {
+    params: {slug: "sport-awesome"},
+    Component: SportAwesome
+  },
+]
+
+export function getStaticPaths() {
+  return pages
+}
+
+const { slug } = Astro.params;
+const page = pages.find((page) => page.params.slug === slug);
+if (!page) return Astro.redirect("/404");
+---
+
+<page.Component />
