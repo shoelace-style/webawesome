@@ -197,7 +197,7 @@
    */
   --wa-font-family-heading: 'Fredoka', serif;
   --wa-font-family-body: 'Nunito', sans-serif;
-  --wa-font-family-code: 'Azaret Mono', 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+  --wa-font-family-code: 'Azeret Mono', 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
     monospace;
   --wa-font-family-longform: 'Lora', serif;
 
@@ -372,6 +372,11 @@
     background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
   }
 
+  code {
+    font-weight: var(--wa-font-weight-normal);
+    font-size: var(--wa-font-size-s);
+  }
+
   img {
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-1);
@@ -383,9 +388,9 @@
   }
 
   wa-switch {
-    --background: transparent;
-    --border-width: 0px;
-    --thumb-color: var(--border-color);
+    --background: var(--wa-surface-default);
+    --border-width: var(--wa-form-controls-border-width);
+    --thumb-color: var(--wa-form-controls-resting-color);
     --thumb-color-checked: var(--wa-color-brand-fill-subtle);
     --thumb-size: 1em;
     --height: 1.5em;
@@ -436,6 +441,10 @@
       color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
     );
     --border-color-active: var(--button-gradient-middle);
+
+    &::part(base) {
+      padding-inline-start: var(--wa-space-s);
+    }
 
     &[variant='brand'] {
       --button-gradient-top: var(--wa-color-brand-40);
@@ -655,6 +664,10 @@
     border-width: 0;
   }
 
+  .product-card wa-button {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
   .blog wa-avatar {
     --size: 2rem;
   }
@@ -666,6 +679,7 @@
 
   .message-composer wa-card {
     --background: var(--wa-color-surface-raised);
+    --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
   }
 
   .message-composer wa-card::part(header) {
@@ -703,6 +717,14 @@
 
   .support-table th:last-child {
     border-radius: 0 var(--wa-corners-l) 0 0;
+  }
+
+  .support-table tr:last-child td:first-child {
+    border-radius: 0 0 0 var(--wa-corners-l);
+  }
+
+  .support-table tr:last-child td:last-child {
+    border-radius: 0 0 var(--wa-corners-l) 0;
   }
 
   .support-table .excerpt {
