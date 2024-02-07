@@ -433,7 +433,13 @@
       inset 0 2px 8px var(--button-shadow-inner-b);
     --border-color: var(--button-gradient-middle);
     --border-width: 1px;
-    --background-hover: color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-hover));
+    --background-hover: linear-gradient(
+      180deg,
+      var(--button-gradient-bottom) 0%,
+      var(--button-gradient-middle) 51.88%,
+      var(--button-gradient-top) 100%
+    );
+    --border-color-hover: var(--button-gradient-middle);
     --background-active: linear-gradient(
       180deg,
       color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
@@ -502,13 +508,14 @@
     }
 
     &::part(base):hover {
-      transform: scale(1.03, 1.03);
+      transform: scale(1.01, 1.01);
       background: var(--background-hover);
     }
 
     &::part(base):active {
+      background: var(--background-active);
       --box-shadow: inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
-      transform: scale(0.97, 0.97);
+      transform: scale(0.99, 0.99);
     }
   }
 
