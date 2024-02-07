@@ -391,10 +391,19 @@
     --background: var(--wa-surface-default);
     --border-width: var(--wa-form-controls-border-width);
     --thumb-color: var(--wa-form-controls-resting-color);
-    --thumb-color-checked: var(--wa-color-brand-fill-subtle);
-    --thumb-size: 1em;
+    --thumb-color-checked: var(--wa-color-base-95);
+    --thumb-size: 0.8em;
     --height: 1.5em;
-    --width: calc(var(--thumb-size) * 2.5);
+    --width: calc(var(--thumb-size) * 3);
+  }
+
+  wa-switch::part(thumb) {
+    --border-width: 0;
+    box-shadow: none;
+  }
+
+  wa-switch[checked]::part(thumb) {
+    box-shadow: 0 2px 2px var(--wa-color-brand-40);
   }
 
   /* preventing shadows on all form input types */
@@ -508,14 +517,14 @@
     }
 
     &::part(base):hover {
-      transform: scale(1.01, 1.01);
+      transform: scale(1.02, 1.02);
       background: var(--background-hover);
     }
 
     &::part(base):active {
       background: var(--background-active);
       --box-shadow: inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
-      transform: scale(0.99, 0.99);
+      transform: scale(0.98, 0.98);
     }
   }
 
