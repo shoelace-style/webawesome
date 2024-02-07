@@ -672,11 +672,6 @@
     --size: 2rem;
   }
 
-  .blog img {
-    max-width: 624px;
-    max-height: 290px;
-  }
-
   .message-composer wa-card {
     --background: var(--wa-color-surface-raised);
     --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
