@@ -31,9 +31,8 @@ export default css`
 
   .card__image {
     display: flex;
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    margin: calc(-1 * var(--border-width));
+    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
     overflow: hidden;
   }
 

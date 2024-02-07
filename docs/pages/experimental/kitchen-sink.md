@@ -589,6 +589,32 @@ toc: false
 
   resetDepthValue()
 
+  // Set imagery by theme
+  function setImagery() {
+    let assetFolder;
+
+    switch(themeSelect.value) {
+      case 'premium':
+      case 'headwind':
+        assetFolder = themeSelect.value;
+        break;
+      default:
+        assetFolder = 'default';
+    }
+
+    document.querySelector('#product-1').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/morpheus.jpg`);
+    document.querySelector('#product-2').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/seraph.jpg`);
+    document.querySelector('#product-3').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/keymaker.jpg`);
+    document.querySelector('#blog_feature').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/blog_feature.jpg`);
+    document.querySelector('#carousel-1').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/carousel-1.jpg`);
+    document.querySelector('#carousel-2').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/carousel-2.jpg`);
+    document.querySelector('#carousel-3').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/carousel-3.jpg`);
+    document.querySelector('#product_thumb-1').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/morpheus.jpg`);
+    document.querySelector('#product_thumb-2').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/seraph.jpg`);
+    document.querySelector('#product_thumb-3').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/keymaker.jpg`);
+  }
+
+
 
   // Theme Switcher
   themeSelect.addEventListener('wa-change', event => {
@@ -635,7 +661,8 @@ toc: false
       })
     })
 
-    document.head.prepend(newStylesheet)
+    document.head.prepend(newStylesheet);
+    setImagery();
   });
 
   // User provided project logo
@@ -1116,6 +1143,25 @@ toc: false
     width: 100%;
   }
 
+  .square-frame,
+  .landscape-frame {
+    overflow: hidden;
+
+    & > img {
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .square-frame {
+    aspect-ratio: 1 / 1;
+  }
+
+  .landscape-frame {
+    aspect-ratio: 16 / 9;
+  }
+
   /* strata - hero/header */
   .project-header {
     display: flex;
@@ -1304,7 +1350,7 @@ toc: false
     margin-bottom: var(--wa-space-xl);
   }
 
-  .order-item img {
+  .order-item .square-frame {
     grid-column: span 2;
   }
 
@@ -1385,7 +1431,9 @@ toc: false
     <section class="strata products grid-12-col">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/premium/morpheus.png" alt="" />
+        <div slot="image" class="landscape-frame">
+          <img id="product-1" src="/assets/images/kitchen-sink/default/morpheus.jpg" alt="" />
+        </div>
         <div class="title-rating">
           <h3 class="title">Morpheus</h3>
           <wa-rating label="Rating" value="4" readonly></wa-rating>
@@ -1406,7 +1454,9 @@ toc: false
       </wa-card>
       <wa-card class="card-image product-card">
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <img slot="image" src="/assets/images/kitchen-sink/premium/seraph.png" alt="" />
+        <div slot="image" class="landscape-frame">
+          <img id="product-2" src="/assets/images/kitchen-sink/default/seraph.jpg" alt="" />
+        </div>
         <div class="title-rating">
           <h3 class="title">Seraph</h3>
           <wa-rating label="Rating" value="5" readonly></wa-rating>
@@ -1426,7 +1476,9 @@ toc: false
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <img slot="image" src="/assets/images/kitchen-sink/premium/keymasterII.png" alt="" />
+        <div slot="image" class="landscape-frame">
+          <img id="product-3" src="/assets/images/kitchen-sink/default/keymaker.jpg" alt="" />
+        </div>
         <div class="title-rating">
           <h3 class="title">Keymaker II</h3>
           <wa-rating label="Rating" value="3" readonly></wa-rating>
@@ -1470,7 +1522,9 @@ toc: false
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
         <p>All themes are scoped to classes using the sl-theme-{name} convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use wa-theme-default-light and wa-theme-default-dark, respectively. A custom theme called “Purple Power”, for example, would use a class called <code>sl-theme-purple-power</code>.</p>
-        <img src="/assets/images/kitchen-sink/premium/blog-post-example-image.png" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        <div class="landscape-frame">
+          <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        </div>
         <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to :host so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
 <code>:host,
@@ -1584,13 +1638,13 @@ toc: false
       <div class="product-detail-images">
         <wa-carousel pagination style="--aspect-ratio: 3/4;">
           <wa-carousel-item>
-            <img alt="See it for yourself" src="/assets/images/kitchen-sink/premium/carousel1.png" />
+            <img id="carousel-1" alt="See it for yourself" src="/assets/images/kitchen-sink/default/carousel-1.jpg" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Look through the code" src="/assets/images/kitchen-sink/premium/carousel2.png" />
+            <img id="carousel-2" alt="Look through the code" src="/assets/images/kitchen-sink/default/carousel-2.jpg" />
           </wa-carousel-item>
           <wa-carousel-item>
-            <img alt="Free your mind" src="/assets/images/kitchen-sink/premium/carousel3.png" />
+            <img id="carousel-3" alt="Free your mind" src="/assets/images/kitchen-sink/default/carousel-3.jpg" />
           </wa-carousel-item>
         </wa-carousel>
       </div>
@@ -1802,7 +1856,6 @@ toc: false
       </table>
      </wa-card>
     </section>
-
     <section class="strata checkout-form grid-12-col">
         <div class="payment">
           <h2 style="margin-bottom: var(--wa-space-3xl);">Payment</h2>
@@ -1841,7 +1894,9 @@ toc: false
         <div class="order">
           <h2 style="margin-bottom: var(--wa-space-3xl);">Order Summary</h2>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/morpheus-thumb.png" alt="Morpheus" />
+            <div class="square-frame">
+              <img id="product_thumb-1" src="/assets/images/kitchen-sink/default/morpheus.jpg" alt="Morpheus" />
+            </div>
             <span class="name">
               <b>Morpheus</b>
             </span>
@@ -1849,7 +1904,9 @@ toc: false
             <span class="price">$120.00</span>
           </div>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/seraph-thumb.png" alt="Seraph" />
+            <div class="square-frame">
+              <img id="product_thumb-2" src="/assets/images/kitchen-sink/default/seraph.jpg" alt="Seraph" />
+            </div>
             <span class="name">
               <b>Seraph</b>
               <span class="finish">Tinted</span>
@@ -1858,7 +1915,9 @@ toc: false
             <span class="price">$180.00</span>
           </div>
           <div class="order-item grid-12-col">
-            <img src="/assets/images/kitchen-sink/premium/keymakerii-thumb.png" alt="Keymaker II" />
+            <div class="square-frame">
+              <img id="product_thumb-3" src="/assets/images/kitchen-sink/default/keymaker.jpg" alt="Keymaker II" />
+            </div>
             <span class="name">
               <b>Keymaker II</b>
               <span class="finish">Glossy</span>

@@ -377,7 +377,7 @@ legend {
 }
 
 /* Images, videos, iframes, etc. */
-img,
+img:not(wa-card *),
 picture,
 svg,
 video {
