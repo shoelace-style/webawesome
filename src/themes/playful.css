@@ -257,10 +257,10 @@
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.125;
-  --wa-border-width-s: calc(var(--wa-border-width-base) * 1.5rem);
-  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
-  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+  --wa-border-width-base: calc(2 / 18);
+  --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 1.5rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 2rem);
 
   --wa-form-controls-border-style: var(--wa-border-style);
   --wa-form-controls-border-width: var(--wa-border-width-l);
@@ -273,11 +273,11 @@
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.75;
-  --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
-  --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
-  --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
-  --wa-corners-l: calc(var(--wa-corners-base) * 3rem);
+  --wa-corners-base: calc(8 / 18);
+  --wa-corners-xs: calc(var(--wa-corners-base) * 1rem);
+  --wa-corners-s: calc(var(--wa-corners-base) * 1.5rem);
+  --wa-corners-m: calc(var(--wa-corners-base) * 3rem);
+  --wa-corners-l: calc(var(--wa-corners-base) * 5rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
   --wa-corners-pill: 9999px;
@@ -371,7 +371,8 @@
     font-size: var(--wa-font-size-s);
   }
 
-  img {
+  .landscape-frame,
+  .square-frame {
     border-radius: var(--wa-corners-m);
     box-shadow: var(--wa-shadow-level-1);
   }
@@ -543,8 +544,6 @@
     }
   }
 
-
-
   wa-carousel img {
     border-radius: var(--wa-panel-corners);
     box-shadow: none;
@@ -563,7 +562,7 @@
   }
 
   wa-tag {
-      --border-radius: var(--wa-corners-pill);
+    --border-radius: var(--wa-corners-pill);
     --border-style: dashed;
     font-weight: var(--wa-font-weight-heavy);
 
@@ -680,7 +679,6 @@
 
   .message-composer wa-card {
     --background: var(--wa-color-surface-raised);
-    --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
   }
 
   .message-composer wa-card::part(header) {
@@ -716,7 +714,7 @@
   .support-table tr {
     border-top-color: var(--wa-color-surface-lowered);
   }
-  
+
   .support-table th:first-child {
     border-radius: calc(var(--border-radius) - var(--border-width)) 0 0 0;
   }
@@ -929,17 +927,18 @@
   wa-card {
     --box-shadow: none;
     --border-width: var(--wa-border-width-s);
-    --border-color: var(--wa-color-base-30);
   }
 
   .hero-background {
     background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
   }
 
+  .message-composer wa-card {
+    --border-color: var(--wa-color-base-30);
+  }
+
   .message-composer wa-card::part(header) {
     background: var(--wa-color-surface-default);
-    border-top-left-radius: var(--wa-corners-l);
-    border-top-right-radius: var(--wa-corners-l);
   }
 
   .message-composer wa-card::part(footer) {
