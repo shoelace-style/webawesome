@@ -1,6 +1,4 @@
-/* @import 'depth_4_glossy.css'; */
 @import 'depth_3_punchy.css';
-/* @import 'depth_2_chunky.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 :root,
@@ -265,10 +263,10 @@
   --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
 
   --wa-form-controls-border-style: var(--wa-border-style);
-  --wa-form-controls-border-width: var(--wa-border-width-m);
+  --wa-form-controls-border-width: var(--wa-border-width-l);
 
   --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: 0;
+  --wa-panel-border-width: 0rem;
 
   /**
    * Corners
@@ -321,7 +319,7 @@
    */
   --wa-form-controls-background: transparent;
 
-  --wa-form-controls-corners: var(--wa-corners-m);
+  --wa-form-controls-corners: var(--wa-corners-pill);
 
   --wa-form-controls-activated-color: var(--wa-color-brand-spot);
   --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
@@ -350,17 +348,13 @@
   --wa-form-controls-required-content-color: inherit;
   --wa-form-controls-required-content-offset: -0.1em;
 
-  --wa-panel-corners: var(--wa-corners-l);
+  --wa-panel-corners: var(--wa-corners-m);
 
   --wa-flow-spacing: 1.5rem;
 
   /**
    * From 2.x
    */
-  --wa-form-control-toggle-size-s: 0.875rem;
-  --wa-form-control-toggle-size-m: 1.125rem;
-  --wa-form-control-toggle-size-l: 1.375rem;
-
   --wa-tooltip-arrow-size: 0.375rem;
 
   /* playful custom settings - general and light */
@@ -457,8 +451,12 @@
     );
     --border-color-active: var(--button-gradient-middle);
 
-    &::part(base) {
-      padding-inline-start: var(--wa-space-s);
+    &::part(prefix) {
+      padding-inline-start: calc(0.25em - var(--border-width));
+    }
+    &::part(suffix),
+    &::part(caret) {
+      padding-inline-end: calc(0.25em - var(--border-width));
     }
 
     &[variant='brand'] {
@@ -545,14 +543,7 @@
     }
   }
 
-  wa-card {
-    --border-radius: var(--wa-panel-corners);
-  }
 
-  wa-card img {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
 
   wa-carousel img {
     border-radius: var(--wa-panel-corners);
@@ -560,7 +551,6 @@
   }
 
   wa-alert {
-    --border-radius: var(--wa-corners-m);
     --border-style: dashed;
     --border-width: var(--wa-form-controls-border-width);
     --icon-size: var(--wa-font-size-m);
@@ -573,8 +563,8 @@
   }
 
   wa-tag {
+      --border-radius: var(--wa-corners-pill);
     --border-style: dashed;
-    --border-width: var(--wa-border-width-s);
     font-weight: var(--wa-font-weight-heavy);
 
     &[variant='brand'] {
@@ -605,7 +595,7 @@
   }
 
   wa-badge {
-    --border-radius: var(--wa-corners-l);
+    --border-radius: var(--wa-corners-pill);
     --border-width: 0;
 
     &[variant='brand'] {
@@ -695,6 +685,8 @@
 
   .message-composer wa-card::part(header) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-70);
+    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
     border-width: 0;
     background-color: var(--wa-color-neutral-fill-subtle);
   }
@@ -713,7 +705,6 @@
 
   .support-table wa-card {
     --background: var(--wa-color-surface-raised);
-    --border-radius: var(--wa-panel-corners);
   }
 
   .support-table th {
@@ -722,20 +713,24 @@
     background-color: var(--wa-color-surface-lowered);
   }
 
+  .support-table tr {
+    border-top-color: var(--wa-color-surface-lowered);
+  }
+  
   .support-table th:first-child {
-    border-radius: var(--wa-corners-l) 0 0 0;
+    border-radius: calc(var(--border-radius) - var(--border-width)) 0 0 0;
   }
 
   .support-table th:last-child {
-    border-radius: 0 var(--wa-corners-l) 0 0;
+    border-radius: 0 calc(var(--border-radius) - var(--border-width)) 0 0;
   }
 
   .support-table tr:last-child td:first-child {
-    border-radius: 0 0 0 var(--wa-corners-l);
+    border-radius: 0 0 0 calc(var(--border-radius) - var(--border-width));
   }
 
   .support-table tr:last-child td:last-child {
-    border-radius: 0 0 var(--wa-corners-l) 0;
+    border-radius: 0 0 calc(var(--border-radius) - var(--border-width)) 0;
   }
 
   .support-table .excerpt {
@@ -838,10 +833,10 @@
 
   --wa-color-neutral-spot: var(--wa-color-base-40);
   --wa-color-neutral-spot-darker: var(--wa-color-base-70);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-40);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
   --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
   --wa-color-neutral-border-subtle: var(--wa-color-base-30);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-70);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-40);
   --wa-color-neutral-text-on-spot: var(--wa-color-base-20);
   --wa-color-neutral-text-on-fill: var(--wa-color-base-95);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
