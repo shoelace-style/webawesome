@@ -1180,6 +1180,15 @@ toc: false
     grid-column-end: col-end;
   }
 
+  .project-header wa-icon-button {
+    color: inherit;
+    font-size: var(--wa-font-size-l);
+
+    &:not(:last-of-type) {
+      margin-right: var(--wa-space-m);
+    }
+  }
+
   /* strata product cards */
 
   .products wa-card::part(base) {
@@ -1432,9 +1441,9 @@ toc: false
         <span id="project-name" style="margin-inline-start: var(--wa-space-l);">Project Name</span>
       </h1>
       <div>
-        <wa-icon-button name="magnifying-glass" label="Search" style="font-size: 1.25rem; color: var(--wa-color-text-normal);"></wa-icon-button>
-        <wa-icon-button name="user" label="Account" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
-        <wa-icon-button name="bag-shopping" label="Your Basket" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
+        <wa-icon-button name="magnifying-glass" label="Search"></wa-icon-button>
+        <wa-icon-button name="user" label="Account"></wa-icon-button>
+        <wa-icon-button name="bag-shopping" label="Your Basket"></wa-icon-button>
       </div>
     </header>
     <section class="strata hero">
@@ -1896,7 +1905,7 @@ toc: false
               <wa-icon name="user" variant="regular" slot="prefix"></wa-icon>
             </wa-input>
             <div style="display: flex; gap: 1rem;">
-              <wa-select label="Country">
+              <wa-select label="Country" value="USA">
               <wa-icon slot="prefix" name="globe" variant="regular"></wa-icon>
                 <wa-option value="USA">United States</wa-option>
                 <wa-option value="CAN">Canada</wa-option>
