@@ -210,11 +210,12 @@ toc: false
       <wa-option value="default">Default</wa-option>
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
+      <wa-option value="playful">Playful</wa-option>
       <wa-option value="headwind">Headwind</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
-      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="playful~">Playful~</wa-option>
       <wa-option value="chic">Chic</wa-option>
     </wa-select>
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
@@ -597,6 +598,7 @@ toc: false
     switch(themeSelect.value) {
       case 'premium':
       case 'headwind':
+      case 'playful':
         assetFolder = themeSelect.value;
         break;
       default:
@@ -1195,16 +1197,16 @@ toc: false
 
   .product-card .badge-stock {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top:  var(--wa-flow-spacing);
+    right:  var(--wa-flow-spacing);
   }
 
   .product-card .title-rating {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
-    margin-bottom: .5rem;
+    margin-bottom: var(--wa-flow-spacing);
   }
 
   .product-card .title {
@@ -1370,7 +1372,7 @@ toc: false
   }
 
   .order-item .name {
-    grid-column: span 6;
+    grid-column: span 5;
   }
 
   .order-item .finish {
@@ -1378,7 +1380,7 @@ toc: false
   }
 
   .order-item wa-input {
-    grid-column: span 2;
+    grid-column: span 3;
     margin: 0;
   }
 
@@ -1423,6 +1425,7 @@ toc: false
 <!-- Kitchen Sink Preview -->
 <div class="preview-container">
   <section class="overlap">
+    <div class="hero-background"></div>
     <header class="strata project-header">
       <h1 style="display: flex; align-items: center; margin: 0;">
         <wa-icon id="project-logo" name="p"></wa-icon>
@@ -1520,14 +1523,14 @@ toc: false
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller"> </wa-avatar>
+                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller" shape="rounded"> </wa-avatar>
                 Lindsay Miller
               </a>
             </div>
             <div class="categories">
               <a href=""><wa-tag size="small" variant="neutral">CSS</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="neutral">Theming</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="neutral">Resources</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="success">Theming</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="warning">Resources</wa-tag></a>
             </div>
           </div>
         </div>
@@ -1537,10 +1540,10 @@ toc: false
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
         <p>All themes are scoped to classes using the <code>sl-theme-{name}</code> convention, where <code>{name}</code> is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use <code>wa-theme-default-light</code> and <code>wa-theme-default-dark</code>, respectively. A custom theme called "Purple Power", for example, would use a class called <code>sl-theme-purple-power</code>.</p>
-        <div class="landscape-frame">
-          <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        <div class="landscape-frame" style="margin: 0 0 1rem 0;" >
+          <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" />
         </div>
-        <p>All selectors must be scoped to the theme’s class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
+        <p>All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
 <code>:host,
 .wa-theme-purple-power {
@@ -1934,7 +1937,7 @@ toc: false
               <img id="product_thumb-3" src="/assets/images/kitchen-sink/default/keymaker.jpg" alt="Keymaker II" />
             </div>
             <span class="name">
-              <b>Keymaker II</b>
+              <b>Keymaker</b>
               <span class="finish">Glossy</span>
             </span>
             <wa-input type="number" value="1"></wa-input>
