@@ -1516,8 +1516,8 @@ toc: false
         <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
         <h2>Theme Basics</h2>
         <p>All themes are scoped to classes using the <code>sl-theme-{name}</code> convention, where <code>{name}</code> is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use <code>wa-theme-default-light</code> and <code>wa-theme-default-dark</code>, respectively. A custom theme called "Purple Power", for example, would use a class called <code>sl-theme-purple-power</code>.</p>
-        <div class="landscape-frame">
-          <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" style="margin: 0 0 1rem 0;" />
+        <div class="landscape-frame" style="margin: 0 0 1rem 0;" >
+          <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" />
         </div>
         <p>All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">

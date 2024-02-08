@@ -101,7 +101,7 @@
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
   --wa-color-text-quiet: var(--wa-color-base-50);
-  --wa-color-text-link: var(--wa-color-brand-40);
+  --wa-color-text-link: var(--wa-color-yellow-40);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
@@ -552,7 +552,7 @@
   wa-alert {
     --border-style: dashed;
     --border-width: var(--wa-form-controls-border-width);
-    --icon-size: var(--wa-font-size-m);
+    --icon-size: var(--wa-font-size-l);
     --padding: var(--wa-space-s);
     font-size: var(--wa-font-size-s);
 
@@ -563,33 +563,24 @@
 
   wa-tag {
     --border-radius: var(--wa-corners-pill);
+    --border-width: var(--wa-border-width-m);
     --border-style: dashed;
     font-weight: var(--wa-font-weight-heavy);
 
     &[variant='brand'] {
       --border-color: var(--wa-color-brand-border-subtle);
-      --background: var(--wa-color-brand-fill-subtle);
-      --content-color: var(--wa-color-brand-text-on-fill);
     }
     &[variant='success'] {
       --border-color: var(--wa-color-success-border-subtle);
-      --background: var(--wa-color-success-fill-subtle);
-      --content-color: var(--wa-color-success-text-on-fill);
     }
     &[variant='warning'] {
       --border-color: var(--wa-color-warning-border-subtle);
-      --background: var(--wa-color-warning-fill-subtle);
-      --content-color: var(--wa-color-warning-text-on-fill);
     }
     &[variant='danger'] {
       --border-color: var(--wa-color-danger-border-subtle);
-      --background: var(--wa-color-danger-fill-subtle);
-      --content-color: var(--wa-color-danger-text-on-fill);
     }
     &[variant='neutral'] {
       --border-color: var(--wa-color-neutral-border-subtle);
-      --background: var(--wa-color-neutral-fill-subtle);
-      --content-color: var(--wa-color-neutral-text-on-fill);
     }
   }
 
@@ -693,6 +684,11 @@
     --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
   }
 
+  .message-composer wa-icon-button {
+    color: var(--wa-text-color-normal);
+    font-size: var(--wa-font-size-l);
+  }
+
   .message-composer wa-card::part(footer) {
     padding-top: 0;
   }
@@ -767,8 +763,8 @@
   --wa-color-surface-border: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
-  --wa-color-text-quiet: var(--wa-color-base-80);
-  --wa-color-text-link: var(--wa-color-brand-80);
+  --wa-color-text-quiet: var(--wa-color-base-70);
+  --wa-color-text-link: var(--wa-color-yellow-80);
 
   --wa-color-selection-background: var(--wa-color-green-40);
   --wa-color-selection-text: white;
@@ -849,24 +845,9 @@
     --button-shadow-inner-a: var(--wa-color-base-40);
     --button-shadow-inner-b: var(--wa-color-base-50);
     --button-text-shadow: var(--wa-color-base-70);
-    --border-color: var(--button-shadow-outer);
+    --border-color: var(--button-gradient-middle);
     --box-shadow: 0px -6px 16px color-mix(in oklab, var(--button-shadow-outer), transparent 50%),
       inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
-    /* --background: linear-gradient(
-      180deg,
-      var(--button-gradient-top) 0%,
-      var(--button-gradient-middle) 51.88%,
-      var(--button-gradient-bottom) 100%
-    );
-    --border-width: 1px;
-    --background-hover: color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-hover));
-    --background-active: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
-      color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
-      color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
-    );
-    --border-color-active: var(--button-gradient-middle); */
 
     &[variant='brand'] {
       --button-gradient-top: var(--wa-color-brand-40);
@@ -922,6 +903,7 @@
 
   wa-button[outline] {
     --box-shadow: none;
+    --border-color: var(--wa-color-neutral-border-highlight);
   }
 
   wa-card {
@@ -938,7 +920,7 @@
   }
 
   .message-composer wa-card::part(header) {
-    background: var(--wa-color-surface-default);
+    background: var(--wa-color-base-40);
   }
 
   .message-composer wa-card::part(footer) {
