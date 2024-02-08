@@ -371,12 +371,6 @@
     font-size: var(--wa-font-size-s);
   }
 
-  .landscape-frame,
-  .square-frame {
-    border-radius: var(--wa-corners-m);
-    box-shadow: var(--wa-shadow-level-1);
-  }
-
   wa-rating {
     --symbol-size: var(--wa-font-size-m);
     --symbol-color: color-mix(in oklab, var(--symbol-color-active) 50%, transparent);
@@ -656,6 +650,10 @@
     font-size: var(--wa-font-size-l);
   }
 
+  .product-card {
+    --wa-panel-corners: var(--wa-corners-l);
+  }
+
   .product-card::part(footer) {
     border-width: 0;
   }
@@ -666,6 +664,11 @@
 
   .blog wa-avatar {
     --size: 2rem;
+  }
+
+  .blog .landscape-frame {
+    border-radius: var(--wa-corners-l);
+    box-shadow: var(--wa-shadow-level-1);
   }
 
   .message-composer wa-card {
