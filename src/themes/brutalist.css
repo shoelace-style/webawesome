@@ -3,7 +3,7 @@
 
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-brutalist-light {
   color-scheme: light;
 
   /**
@@ -89,8 +89,8 @@
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-30);
-  --wa-color-text-link: var(--wa-color-brand-text-on-surface);
+  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-link: var(--wa-color-neutral-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
@@ -129,22 +129,22 @@
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
 
-  --wa-color-brand-spot: var(--wa-color-base-40);
-  --wa-color-brand-spot-darker: var(--wa-color-base-20);
-  --wa-color-brand-fill-subtle: var(--wa-color-base-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-base-90);
-  --wa-color-brand-border-subtle: var(--wa-color-base-90);
-  --wa-color-brand-border-highlight: var(--wa-color-base-80);
+  --wa-color-brand-spot: var(--wa-color-blue-50);
+  --wa-color-brand-spot-darker: var(--wa-color-blue-20);
+  --wa-color-brand-fill-subtle: var(--wa-color-blue-95);
+  --wa-color-brand-fill-highlight: var(--wa-color-blue-90);
+  --wa-color-brand-border-subtle: var(--wa-color-blue-80);
+  --wa-color-brand-border-highlight: var(--wa-color-blue-60);
   --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-base-40);
-  --wa-color-brand-text-on-surface: var(--wa-color-base-50);
+  --wa-color-brand-text-on-fill: var(--wa-color-blue-40);
+  --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
   --wa-color-success-fill-subtle: var(--wa-color-green-95);
   --wa-color-success-fill-highlight: var(--wa-color-green-90);
-  --wa-color-success-border-subtle: var(--wa-color-green-90);
-  --wa-color-success-border-highlight: var(--wa-color-green-80);
+  --wa-color-success-border-subtle: var(--wa-color-green-80);
+  --wa-color-success-border-highlight: var(--wa-color-green-60);
   --wa-color-success-text-on-spot: white;
   --wa-color-success-text-on-fill: var(--wa-color-green-40);
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
@@ -153,8 +153,8 @@
   --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-95);
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-90);
-  --wa-color-warning-border-subtle: var(--wa-color-yellow-90);
-  --wa-color-warning-border-highlight: var(--wa-color-yellow-80);
+  --wa-color-warning-border-subtle: var(--wa-color-yellow-80);
+  --wa-color-warning-border-highlight: var(--wa-color-yellow-60);
   --wa-color-warning-text-on-spot: white;
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-40);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
@@ -163,21 +163,21 @@
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
   --wa-color-danger-fill-subtle: var(--wa-color-red-95);
   --wa-color-danger-fill-highlight: var(--wa-color-red-90);
-  --wa-color-danger-border-subtle: var(--wa-color-red-90);
-  --wa-color-danger-border-highlight: var(--wa-color-red-80);
+  --wa-color-danger-border-subtle: var(--wa-color-red-80);
+  --wa-color-danger-border-highlight: var(--wa-color-red-60);
   --wa-color-danger-text-on-spot: white;
   --wa-color-danger-text-on-fill: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
-  --wa-color-neutral-border-subtle: var(--wa-color-base-90);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-80);
+  --wa-color-neutral-spot: var(--wa-color-base-20);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-10);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
+  --wa-color-neutral-fill-highlight: var(--wa-color-base-70);
+  --wa-color-neutral-border-subtle: var(--wa-color-base-80);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-20);
   --wa-color-neutral-text-on-spot: white;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-40);
-  --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-30);
+  --wa-color-neutral-text-on-surface: var(--wa-color-base-10);
 
   /**
    * Typography
@@ -226,7 +226,7 @@
    */
   /* Space is designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-space-base: 1;
+  --wa-space-base: 1.5;
   --wa-space-3xs: calc(var(--wa-space-base) * 0.125rem); /* 2px */
   --wa-space-2xs: calc(var(--wa-space-base) * 0.25rem); /* 4px */
   --wa-space-xs: calc(var(--wa-space-base) * 0.5rem); /* 8px */
@@ -244,16 +244,16 @@
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.125;
+  --wa-border-width-base: 0.0625;
   --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
   --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
   --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
 
   --wa-form-controls-border-style: var(--wa-border-style);
-  --wa-form-controls-border-width: var(--wa-border-width-s);
+  --wa-form-controls-border-width: 0 0 var(--wa-border-width-m) var(--wa-border-width-m);
 
   --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-s);
+  --wa-panel-border-width: var(--wa-border-width-m);
 
   /**
    * Corners
@@ -283,7 +283,7 @@
   /**
    * Links
    */
-  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
+  --wa-link-decoration-default: underline var(--wa-color-neutral-border-highlight) dotted;
   --wa-link-decoration-hover: underline;
 
   /**
@@ -347,13 +347,46 @@
 
   /* premium custom settings - general and light */
 
+  pre {
+    border-left: var(--wa-border-width-m) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
+  }
+
+  /* preventing shadows on all form input types */
+  wa-input:not(:focus),
+  wa-input:not([filled]):not([disabled]),
+  wa-checkbox:not([checked]):not([indeterminate]),
+  wa-select:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-level-0);
+  }
+
   wa-button {
     --box-shadow: none;
+    --wa-shadow-offset-x-level-1: 0;
+    --wa-shadow-offset-y-level-1: 0;
+  }
+
+  wa-button:not([outline]) {
+    &[variant='neutral'] {
+      --background-hover: color-mix(in oklab, var(--background), transparent 20%);
+    }
   }
 
   wa-rating {
     --symbol-color: color-mix(in oklab, var(--wa-color-base-20), transparent 50%);
     --symbol-color-active: var(--wa-color-base-20);
+  }
+
+  wa-alert {
+    --border-width: 0 0 0 var(--wa-panel-border-width);
+    --padding: var(--wa-space-xs);
+  }
+
+  wa-tag {
+    --border-width: 0 0 0 var(--wa-panel-border-width);
+  }
+
+  wa-badge {
+    --border-color: var(--wa-color-neutral-border-highlight);
   }
 
   .product-card::part(footer) {
@@ -366,10 +399,49 @@
   .product-card wa-button:not(:last-child) {
     margin-inline-end: var(--wa-space-xs);
   }
+
+  .blog .landscape-frame {
+    box-shadow: var(--wa-shadow-level-1);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-highlight);
+    margin-bottom: var(--wa-shadow-offset-y-level-1);
+  }
+
+  .post-meta .categories {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-composer wa-card {
+    --padding: var(--wa-space-s);
+  }
+
+  .message-composer wa-card::part(header) {
+    background-color: var(--wa-color-neutral-spot);
+  }
+
+  .message-composer .grouped-buttons {
+    --wa-color-neutral-border-subtle: color-mix(in oklab, var(--wa-color-base-30), white 40%);
+  }
+
+  .message-composer .grouped-buttons wa-icon-button::part(base) {
+    block-size: var(--wa-form-controls-height-s);
+    inline-size: var(--wa-form-controls-height-s);
+    justify-content: center;
+  }
+
+  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
+    background-color: var(--wa-color-neutral-fill-highlight);
+    color: var(--wa-color-text-normal);
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-width: 0;
+    --padding: 0 var(--wa-space-s) var(--wa-space-s) var(--wa-space-s);
+  }
 }
 
-.wa-theme-default-dark,
-.wa-theme-default-dark :host {
+.wa-theme-brutalist-dark,
+.wa-theme-brutalist-dark :host {
   color-scheme: dark;
 
   /**
@@ -381,7 +453,7 @@
   --wa-color-surface-border: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
-  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-quiet: var(--wa-color-base-30);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-40);
