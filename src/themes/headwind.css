@@ -1,4 +1,4 @@
-@import 'depth_1_semiflat.css'; /* depth_0_flat.css, depth_1_semiflat.css, depth_2_chunky.css, depth_3_punchy.css, depth_4_glossy.css */
+@import 'depth_1_semiflat.css';
 
 :root,
 :host,
@@ -106,7 +106,7 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-base) * 8% + 8%),
+    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
     transparent
   );
 
@@ -123,7 +123,7 @@
    *  *  Danger to express errors or risk
    *  *  Neutral for elements that are innocuous or inert
    * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
-   * Vivid colors are the most noticeable against gray theme colors, whereas muted colors draw less attention.
+   * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
    * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
@@ -170,7 +170,7 @@
   --wa-color-danger-text-on-surface: var(--wa-color-rose-50);
 
   --wa-color-neutral-spot: var(--wa-color-gray-10);
-  --wa-color-neutral-spot-darker: var(--wa-color-gray-05);
+  --wa-color-neutral-spot-darker: black;
   --wa-color-neutral-fill-subtle: var(--wa-color-gray-95);
   --wa-color-neutral-fill-highlight: var(--wa-color-gray-90);
   --wa-color-neutral-border-subtle: color-mix(in oklab, var(--wa-color-gray-80), transparent 50%);
@@ -191,12 +191,13 @@
   --wa-font-weight-normal: 400;
   --wa-font-weight-medium: 500;
   --wa-font-weight-heavy: 600;
+  --wa-font-weight-black: 700;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-heading: var(--wa-font-weight-black);
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-heavy);
 
-  /* The default typescale is grayd on the Major Second scale (x1.125). 
+  /* The default typescale is based on the Major Second scale (x1.125). 
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
   --wa-font-size-root: 14px;
   --wa-font-size-2xs: 0.6875rem; /* 11px */
@@ -418,7 +419,7 @@
   --wa-color-danger-text-on-surface: var(--wa-color-rose-60);
 
   --wa-color-neutral-spot: white;
-  --wa-color-neutral-spot-darker: var(--wa-color-gray-40);
+  --wa-color-neutral-spot-darker: var(--wa-color-gray-60);
   --wa-color-neutral-fill-subtle: var(--wa-color-gray-10);
   --wa-color-neutral-fill-highlight: var(--wa-color-gray-20);
   --wa-color-neutral-border-subtle: color-mix(in oklab, var(--wa-color-gray-20), transparent);
@@ -429,69 +430,80 @@
 }
 
 /* #region Custom CSS */
-:root {
-  --wa-shadow-offset-y-base: calc(1 / 14);
-}
-
-.preview-container {
-  & h1,
-  h2,
-  h3 {
-    font-weight: bolder;
-  }
-}
-h1 {
-  letter-spacing: -1.5px;
-}
-h2 {
-  letter-spacing: -1px;
-}
-h3 {
-  letter-spacing: -0.75px;
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: calc(1em * -0.03);
 }
 
 .project-header {
   background: var(--wa-color-surface-default);
 }
+
 .hero {
-  --header-background-color: var(--wa-color-surface-default);
-  --grid-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 30%);
+  --hero-background-color: var(--wa-color-surface-default);
+  --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 30%);
   background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
     radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-rose-50) 16%, transparent), transparent 30%),
     radial-gradient(circle at 40% 50%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
     radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-rose-50) 8%, transparent), transparent 20%),
     radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
     radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-rose-60) 8%, transparent), transparent 10%),
-    linear-gradient(176deg, var(--header-background-color), transparent 6rem),
-    linear-gradient(90deg, var(--header-background-color), transparent),
+    linear-gradient(176deg, var(--hero-background-color), transparent 6rem),
+    linear-gradient(90deg, var(--hero-background-color), transparent),
     repeating-linear-gradient(
-      var(--grid-lines-color),
-      var(--grid-lines-color) 1px,
+      var(--hero-lines-color),
+      var(--hero-lines-color) 1px,
       transparent 1px,
       transparent 10rem,
-      var(--grid-lines-color) 10rem
+      var(--hero-lines-color) 10rem
     ),
     repeating-linear-gradient(
       90deg,
-      var(--grid-lines-color),
-      var(--grid-lines-color) 1px,
+      var(--hero-lines-color),
+      var(--hero-lines-color) 1px,
       transparent 1px,
       transparent 10rem,
-      var(--grid-lines-color) 10rem
+      var(--hero-lines-color) 10rem
     ),
-    var(--header-background-color);
+    var(--hero-background-color);
 
   & .title {
     padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
 
     & .hero-title {
-      font-size: calc(var(--wa-font-size-4xl) + var(--wa-font-size-m));
-      margin-block: 0 var(--wa-space-2xl);
+      font-size: calc((var(--wa-font-size-4xl) * 1.125) * 1.125);
+      margin-block: 0 var(--wa-space-3xl);
     }
   }
 }
+
+.message-composer wa-card {
+  &::part(footer) {
+    border: none;
+  }
+  & wa-icon-button {
+    color: var(--wa-color-gray-50);
+  }
+}
+
 .products {
   margin-top: calc(var(--wa-space-3xl) * -8);
+}
+
+pre.codeblock {
+  background-color: var(--wa-color-neutral-fill-highlight);
+}
+
+wa-avatar {
+  --wa-color-neutral-spot: var(--wa-color-gray-50);
+}
+
+a,
+wa-badge,
+wa-tag {
+  font-weight: var(--wa-font-weight-medium);
 }
 
 wa-badge {
@@ -523,47 +535,28 @@ wa-button[outline] {
   --border-color: color-mix(in oklab, var(--label-color), transparent 75%);
 }
 
-wa-switch {
-  --height: calc(var(--thumb-size) * 1.5);
-  --thumb-size: 1em;
-  --width: calc(var(--thumb-size) * 2.5);
-}
 wa-input,
 wa-select {
-  --box-shadow: var(--wa-shadow-level-1),
-    var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1) -0.1em color-mix(in
-          oklab, var(--wa-color-shadow), transparent);
+  --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1) -0.08em
+    var(--wa-color-shadow);
   & wa-icon {
     color: var(--wa-color-text-quiet);
   }
 }
 
-wa-avatar {
-  --wa-color-neutral-spot: var(--wa-color-gray-50);
-}
-
-a,
-wa-badge,
-wa-tag {
-  font-weight: var(--wa-font-weight-medium);
-}
-
-pre.codeblock {
-  background-color: var(--wa-color-neutral-fill-highlight);
-}
-
-.message-composer wa-card {
-  &::part(footer) {
-    border: none;
-  }
-  & wa-icon-button {
-    color: var(--wa-color-gray-50);
-  }
-}
-
-.product-detail wa-radio-button:not([checked]) {
+wa-radio-button:not([checked]) {
   --border-color: var(--wa-color-neutral-border-highlight);
   --label-color: var(--wa-color-text-normal);
+}
+
+wa-switch {
+  --border-color: transparent;
+  --height: calc(var(--thumb-size) * (18 / 14));
+  --thumb-color: white;
+  --thumb-color-checked: var(--thumb-color);
+  --thumb-size: 1em;
+  --thumb-shadow: var(--wa-shadow-level-2);
+  --width: calc(var(--thumb-size) * (32 / 14));
 }
 /* #endregion */
 

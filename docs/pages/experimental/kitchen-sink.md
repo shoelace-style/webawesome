@@ -1243,6 +1243,7 @@ toc: false
   }
 
   /* strata - message composer */
+
   .message-composer .card-header [slot='header'] {
     display: flex;
     align-items: center;
@@ -1270,6 +1271,16 @@ toc: false
   .message-composer .grouped-buttons:not(:last-of-type) {
     padding-inline-end: var(--wa-space-m);
     border-right: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
+  }
+
+  .message-composer wa-card::part(header) {
+    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-end-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-end-end-radius: calc(var(--border-radius) - var(--border-width));
   }
 
   /* strata - product detail */
@@ -1326,6 +1337,10 @@ toc: false
 
   .support-table wa-avatar {
     --size: var(--wa-font-size-2xl);
+  }
+
+  .support-table wa-card > * {
+    border-radius: calc(var(--border-radius) - var(--border-width));
   }
 
   /* strata - Checkout Form */
@@ -1690,7 +1705,7 @@ toc: false
     </section>
     <section class="strata support-table">
       <wa-card style="--padding: 0; width: 100%;">
-      <table style="margin-bottom: 0; border-radius: var(--wa-corners-m);">
+      <table style="margin-bottom: 0;">
         <thead>
           <tr>
             <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
