@@ -351,7 +351,8 @@
   --wa-shadow-offset-y-base: 0.1875;
 
   wa-rating {
-    --symbol-color-active: var(--wa-color-base-50);
+    --symbol-size: var(--wa-font-size-l);
+    --symbol-color-active: var(--wa-color-text-quiet);
   }
 
   wa-switch {
@@ -438,11 +439,9 @@
 
   .hero {
     background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat;
-  }
-
-  .hero {
     height: 60rem;
     padding-top: 15rem;
+    padding-left: 50%;
     text-align: right;
   }
 
@@ -451,10 +450,23 @@
     font-style: italic;
   }
 
+  .blog wa-avatar::part(base) {
+    border-radius: var(--wa-corners-circle);
+    overflow: hidden;
+  }
+
   .products {
     margin-top: -25rem;
     padding-top: 10rem;
     background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .product-card wa-rating {
+    --symbol-size: var(--wa-font-size-m);
+  }
+
+  .product-card .title {
+    font-size: var(--wa-font-size-2xl);
   }
 
   .product-card .description {

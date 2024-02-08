@@ -1,4 +1,5 @@
-@import 'depth_2_chunky.css';
+@import 'depth_3_punchy.css';
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 :root,
 :host,
@@ -13,66 +14,77 @@
    * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
    * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
-  --wa-color-red-95: #fcf0ed;
-  --wa-color-red-90: #f8e0dc;
-  --wa-color-red-80: #f1beb4;
-  --wa-color-red-70: #ea9b8c;
-  --wa-color-red-60: #e27662;
-  --wa-color-red-50: #d63f23;
-  --wa-color-red-40: #a2301a;
-  --wa-color-red-30: #802615;
-  --wa-color-red-20: #5e1c0f;
-  --wa-color-red-10: #381109;
-  --wa-color-red-05: #230a06;
+  --wa-color-red-95: #ffeef0;
+  --wa-color-red-90: #fedee0;
+  --wa-color-red-80: #fdb8ba;
+  --wa-color-red-70: #fb9191;
+  --wa-color-red-60: #f6665e;
+  --wa-color-red-50: #d83a00;
+  --wa-color-red-40: #a42e00;
+  --wa-color-red-30: #812500;
+  --wa-color-red-20: #5e1a00;
+  --wa-color-red-10: #3e0d00;
+  --wa-color-red-05: #1d0f0b;
 
-  --wa-color-yellow-95: #fbf1da;
-  --wa-color-yellow-90: #f8e4b5;
-  --wa-color-yellow-80: #f0c45e;
-  --wa-color-yellow-70: #dfa525;
-  --wa-color-yellow-60: #bf8c20;
-  --wa-color-yellow-50: #986f19;
-  --wa-color-yellow-40: #725313;
-  --wa-color-yellow-30: #5a410f;
-  --wa-color-yellow-20: #422f0b;
-  --wa-color-yellow-10: #271c06;
-  --wa-color-yellow-05: #181104;
+  --wa-color-yellow-95: #fff28f;
+  --wa-color-yellow-90: #ffdc2b;
+  --wa-color-yellow-80: #ffba2d;
+  --wa-color-yellow-70: #f19c30;
+  --wa-color-yellow-60: #d78031;
+  --wa-color-yellow-50: #af5f2c;
+  --wa-color-yellow-40: #8a4527;
+  --wa-color-yellow-30: #703423;
+  --wa-color-yellow-20: #52241c;
+  --wa-color-yellow-10: #301613;
+  --wa-color-yellow-05: #171107;
 
-  --wa-color-green-95: #e9f5ee;
-  --wa-color-green-90: #d3ebdd;
-  --wa-color-green-80: #a1d5b5;
-  --wa-color-green-70: #70bf8e;
-  --wa-color-green-60: #3da866;
-  --wa-color-green-50: #008934;
-  --wa-color-green-40: #006727;
-  --wa-color-green-30: #00511f;
-  --wa-color-green-20: #003c17;
-  --wa-color-green-10: #00230e;
-  --wa-color-green-05: #001609;
+  --wa-color-green-95: #e2f8df;
+  --wa-color-green-90: #c2f2c1;
+  --wa-color-green-80: #68e27a;
+  --wa-color-green-70: #00cb50;
+  --wa-color-green-60: #00ae4b;
+  --wa-color-green-50: #008840;
+  --wa-color-green-40: #006834;
+  --wa-color-green-30: #00522c;
+  --wa-color-green-20: #003b22;
+  --wa-color-green-10: #002418;
+  --wa-color-green-05: #0b140e;
 
-  --wa-color-rose-95: #fdeff2;
-  --wa-color-rose-90: #fbdfe6;
-  --wa-color-rose-80: #f7b9c9;
-  --wa-color-rose-70: #f293ac;
-  --wa-color-rose-60: #ed698c;
-  --wa-color-rose-50: #e41e52;
-  --wa-color-rose-40: #ad173e;
-  --wa-color-rose-30: #891231;
-  --wa-color-rose-20: #660d25;
-  --wa-color-rose-10: #3e0816;
-  --wa-color-rose-05: #28050e;
+  --wa-color-blue-95: #e9f3ff;
+  --wa-color-blue-90: #d2e8ff;
+  --wa-color-blue-80: #9eceff;
+  --wa-color-blue-70: #64b4ff;
+  --wa-color-blue-60: #409ae7;
+  --wa-color-blue-50: #2f79b4;
+  --wa-color-blue-40: #235c89;
+  --wa-color-blue-30: #1a496b;
+  --wa-color-blue-20: #12344d;
+  --wa-color-blue-10: #0b1f2e;
+  --wa-color-blue-05: #0c131a;
 
-  --wa-color-base-95: #f2f2f4;
-  --wa-color-base-90: #e5e5e9;
-  --wa-color-base-80: #c8c9d0;
-  --wa-color-base-70: #adaeb8;
-  --wa-color-base-60: #9394a1;
-  --wa-color-base-50: #737586;
-  --wa-color-base-40: #565864;
-  --wa-color-base-30: #44454f;
-  --wa-color-base-20: #313239;
-  --wa-color-base-10: #1d1d21;
-  --wa-color-base-05: #121214;
+  --wa-color-base-95: #f2f2f2;
+  --wa-color-base-90: #e6e6e6;
+  --wa-color-base-80: #c9c9c9;
+  --wa-color-base-70: #afafaf;
+  --wa-color-base-60: #959595;
+  --wa-color-base-50: #747474;
+  --wa-color-base-40: #585858;
+  --wa-color-base-30: #454545;
+  --wa-color-base-20: #313131;
+  --wa-color-base-10: #1d1d1d;
+  --wa-color-base-05: #0f1310;
 
+  --wa-color-brand-95: #f9effc;
+  --wa-color-brand-90: #f3dffa;
+  --wa-color-brand-80: #e4bbf5;
+  --wa-color-brand-70: #d498f1;
+  --wa-color-brand-60: #c274ed;
+  --wa-color-brand-50: #9759be;
+  --wa-color-brand-40: #724592;
+  --wa-color-brand-30: #583674;
+  --wa-color-brand-20: #3e2753;
+  --wa-color-brand-10: #251832;
+  --wa-color-brand-05: #0f1310;
   /**
    * Base theme colors
    */
@@ -82,23 +94,23 @@
   --wa-color-surface-raised: white;
   --wa-color-surface-default: white;
   --wa-color-surface-lowered: var(--wa-color-base-95);
-  --wa-color-surface-border: var(--wa-color-base-90);
+  --wa-color-surface-border: var(--wa-color-base-80);
 
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-40);
-  --wa-color-text-link: var(--wa-color-brand-text-on-surface);
+  --wa-color-text-quiet: var(--wa-color-base-50);
+  --wa-color-text-link: var(--wa-color-yellow-40);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
-  --wa-color-selection-background: var(--wa-color-rose-80);
+  --wa-color-selection-background: var(--wa-color-brand-80);
   --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-rose-60) 96%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-brand-70) 76%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -106,13 +118,13 @@
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
+    var(--wa-color-base-40) calc(var(--wa-shadow-blur-base) * 8% + 16%),
     transparent
   );
 
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: black 12%;
+  --wa-color-mix-hover: black 12%;
+  --wa-color-mix-active: black 20%;
 
   /**
    * Semantic theme colors
@@ -128,89 +140,91 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-spot: var(--wa-color-rose-50);
-  --wa-color-brand-spot-darker: var(--wa-color-rose-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-rose-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-rose-90);
-  --wa-color-brand-border-subtle: var(--wa-color-rose-90);
-  --wa-color-brand-border-highlight: var(--wa-color-rose-80);
-  --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-rose-40);
-  --wa-color-brand-text-on-surface: var(--wa-color-rose-50);
+  --wa-color-brand-spot: var(--wa-color-brand-50);
+  --wa-color-brand-spot-darker: var(--wa-color-brand-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-brand-95);
+  --wa-color-brand-fill-highlight: var(--wa-color-brand-80);
+  --wa-color-brand-border-subtle: var(--wa-color-brand-90);
+  --wa-color-brand-border-highlight: var(--wa-color-brand-70);
+  --wa-color-brand-text-on-spot: var(--wa-color-brand-95);
+  --wa-color-brand-text-on-fill: var(--wa-color-brand-30);
+  --wa-color-brand-text-on-surface: var(--wa-color-brand-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
   --wa-color-success-fill-subtle: var(--wa-color-green-95);
-  --wa-color-success-fill-highlight: var(--wa-color-green-90);
+  --wa-color-success-fill-highlight: var(--wa-color-green-80);
   --wa-color-success-border-subtle: var(--wa-color-green-90);
-  --wa-color-success-border-highlight: var(--wa-color-green-80);
-  --wa-color-success-text-on-spot: white;
-  --wa-color-success-text-on-fill: var(--wa-color-green-40);
+  --wa-color-success-border-highlight: var(--wa-color-green-70);
+  --wa-color-success-text-on-spot: var(--wa-color-green-95);
+  --wa-color-success-text-on-fill: var(--wa-color-green-30);
   --wa-color-success-text-on-surface: var(--wa-color-green-50);
 
   --wa-color-warning-spot: var(--wa-color-yellow-50);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
   --wa-color-warning-fill-subtle: var(--wa-color-yellow-95);
-  --wa-color-warning-fill-highlight: var(--wa-color-yellow-90);
+  --wa-color-warning-fill-highlight: var(--wa-color-yellow-80);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-90);
-  --wa-color-warning-border-highlight: var(--wa-color-yellow-80);
-  --wa-color-warning-text-on-spot: white;
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-40);
+  --wa-color-warning-border-highlight: var(--wa-color-yellow-70);
+  --wa-color-warning-text-on-spot: var(--wa-color-yellow-95);
+  --wa-color-warning-text-on-fill: var(--wa-color-yellow-30);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-50);
 
   --wa-color-danger-spot: var(--wa-color-red-50);
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
   --wa-color-danger-fill-subtle: var(--wa-color-red-95);
-  --wa-color-danger-fill-highlight: var(--wa-color-red-90);
+  --wa-color-danger-fill-highlight: var(--wa-color-red-80);
   --wa-color-danger-border-subtle: var(--wa-color-red-90);
-  --wa-color-danger-border-highlight: var(--wa-color-red-80);
-  --wa-color-danger-text-on-spot: white;
-  --wa-color-danger-text-on-fill: var(--wa-color-red-40);
+  --wa-color-danger-border-highlight: var(--wa-color-red-70);
+  --wa-color-danger-text-on-spot: var(--wa-color-red-95);
+  --wa-color-danger-text-on-fill: var(--wa-color-red-30);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
   --wa-color-neutral-spot: var(--wa-color-base-50);
   --wa-color-neutral-spot-darker: var(--wa-color-base-40);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
+  --wa-color-neutral-fill-highlight: var(--wa-color-base-80);
   --wa-color-neutral-border-subtle: var(--wa-color-base-90);
   --wa-color-neutral-border-highlight: var(--wa-color-base-80);
-  --wa-color-neutral-text-on-spot: white;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-40);
+  --wa-color-neutral-text-on-spot: var(--wa-color-base-95);
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-30);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-50);
 
   /**
    * Typography
    */
-  --wa-font-family-heading: 'Roboto Slab', sans-serif;
-  --wa-font-family-body: 'Roboto Flex', sans-serif;
-  --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --wa-font-family-heading: 'Fredoka', serif;
+  --wa-font-family-body: 'Nunito', sans-serif;
+  --wa-font-family-code: 'Azeret Mono', 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+    monospace;
   --wa-font-family-longform: 'Lora', serif;
 
   --wa-font-weight-light: 300;
   --wa-font-weight-normal: 400;
   --wa-font-weight-medium: 600;
-  --wa-font-weight-heavy: 800;
+  --wa-font-weight-heavy: 700;
+  --wa-font-weight-black: 800;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
-  --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-action: var(--wa-font-weight-medium);
+  --wa-font-weight-heading: var(--wa-font-weight-medium);
+  --wa-font-weight-body: var(--wa-font-weight-medium);
+  --wa-font-weight-action: var(--wa-font-weight-normal);
 
-  /* The default typescale is based on the Major Second scale (x1.125). 
+  /* The default typescale is based on the Major Second scale (x1.125).
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
-  --wa-font-size-root: 16px;
+  --wa-font-size-root: 18px;
   --wa-font-size-2xs: 0.6875rem; /* 11px */
   --wa-font-size-xs: 0.75rem; /* 12px */
   --wa-font-size-s: 0.875rem; /* 14px */
   --wa-font-size-m: 1rem; /* 16px */
   --wa-font-size-l: 1.25rem; /* 20px */
-  --wa-font-size-xl: 1.625rem; /* 26px */
-  --wa-font-size-2xl: 2rem; /* 32px */
-  --wa-font-size-3xl: 2.5625rem; /* 41px */
-  --wa-font-size-4xl: 3.25rem; /* 52px */
+  --wa-font-size-xl: 1.333rem; /* 24px */
+  --wa-font-size-2xl: 1.666rem; /* 30px */
+  --wa-font-size-3xl: 2.222rem; /* 41px */
+  --wa-font-size-4xl: 3.1rem; /* 56px */
 
   --wa-font-line-height-compact: 1.25;
   --wa-font-line-height-regular: 1.6;
-  --wa-font-line-height-comfortable: 2;
+  --wa-font-line-height-comfortable: 2.2;
 
   /**
    * Spacing
@@ -225,7 +239,7 @@
    */
   /* Space is designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-space-base: 1.125;
+  --wa-space-base: 1;
   --wa-space-3xs: calc(var(--wa-space-base) * 0.125rem); /* 2px */
   --wa-space-2xs: calc(var(--wa-space-base) * 0.25rem); /* 4px */
   --wa-space-xs: calc(var(--wa-space-base) * 0.5rem); /* 8px */
@@ -243,27 +257,27 @@
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.125;
+  --wa-border-width-base: calc(2 / 18);
   --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
-  --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
-  --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
+  --wa-border-width-m: calc(var(--wa-border-width-base) * 1.5rem);
+  --wa-border-width-l: calc(var(--wa-border-width-base) * 2rem);
 
   --wa-form-controls-border-style: var(--wa-border-style);
-  --wa-form-controls-border-width: var(--wa-border-width-s);
+  --wa-form-controls-border-width: var(--wa-border-width-l);
 
   --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-s);
+  --wa-panel-border-width: 0rem;
 
   /**
    * Corners
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-corners-base: 0.5;
-  --wa-corners-xs: calc(var(--wa-corners-base) * 0.75rem);
-  --wa-corners-s: calc(var(--wa-corners-base) * 1rem);
-  --wa-corners-m: calc(var(--wa-corners-base) * 2rem);
-  --wa-corners-l: calc(var(--wa-corners-base) * 3rem);
+  --wa-corners-base: calc(8 / 18);
+  --wa-corners-xs: calc(var(--wa-corners-base) * 1rem);
+  --wa-corners-s: calc(var(--wa-corners-base) * 1.5rem);
+  --wa-corners-m: calc(var(--wa-corners-base) * 3rem);
+  --wa-corners-l: calc(var(--wa-corners-base) * 5rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
   --wa-corners-pill: 9999px;
@@ -281,7 +295,7 @@
   /**
    * Links
    */
-  --wa-link-decoration-default: underline;
+  --wa-link-decoration-default: underline var(--wa-color-brand-border-highlight) dotted;
   --wa-link-decoration-hover: underline;
 
   /**
@@ -296,16 +310,16 @@
   /**
    * Transitions
    */
-  --wa-transition-normal: 200ms;
-  --wa-transition-fast: 100ms;
+  --wa-transition-normal: 250ms;
+  --wa-transition-fast: 150ms;
   --wa-transition-faster: 50ms;
 
   /**
    * Component groups
    */
-  --wa-form-controls-background: var(--wa-color-surface-default);
+  --wa-form-controls-background: transparent;
 
-  --wa-form-controls-corners: var(--wa-corners-s);
+  --wa-form-controls-corners: var(--wa-corners-pill);
 
   --wa-form-controls-activated-color: var(--wa-color-brand-spot);
   --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
@@ -342,6 +356,401 @@
    * From 2.x
    */
   --wa-tooltip-arrow-size: 0.375rem;
+
+  /* playful custom settings - general and light */
+  --wa-shadow-blur-base: 0.5;
+  --wa-shadow-offset-y-base: 0.375;
+
+  pre {
+    border-radius: var(--wa-corners-m);
+    background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
+  }
+
+  code {
+    font-weight: var(--wa-font-weight-normal);
+    font-size: var(--wa-font-size-s);
+  }
+
+  wa-rating {
+    --symbol-size: var(--wa-font-size-m);
+    --symbol-color: color-mix(in oklab, var(--symbol-color-active) 50%, transparent);
+  }
+
+  wa-switch {
+    --background: var(--wa-surface-default);
+    --border-width: var(--wa-form-controls-border-width);
+    --thumb-color: var(--wa-form-controls-resting-color);
+    --thumb-color-checked: var(--wa-color-base-95);
+    --thumb-size: 0.8em;
+    --height: 1.5em;
+    --width: calc(var(--thumb-size) * 3);
+  }
+
+  wa-switch::part(thumb) {
+    --border-width: 0;
+    box-shadow: none;
+  }
+
+  wa-switch[checked]::part(thumb) {
+    box-shadow: 0 2px 2px var(--wa-color-brand-40);
+  }
+
+  /* preventing shadows on all form input types */
+  wa-input:not(:focus),
+  wa-input:not([filled]):not([disabled]),
+  wa-checkbox:not([checked]):not([indeterminate]),
+  wa-select:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-level-0);
+  }
+
+  wa-checkbox[checked] {
+    --box-shadow: var(--wa-shadow-level-1);
+    --background-checked: linear-gradient(
+      180deg,
+      var(--wa-color-brand-40) 0%,
+      var(--wa-color-brand-50) 51.88%,
+      var(--wa-color-brand-60) 100%
+    );
+  }
+
+  wa-button {
+    --button-gradient-top: var(--wa-color-base-40);
+    --button-gradient-middle: var(--wa-color-base-50);
+    --button-gradient-bottom: var(--wa-color-base-60);
+    --button-shadow-outer: var(--wa-color-base-60);
+    --button-shadow-inner-a: var(--wa-color-base-30);
+    --button-shadow-inner-b: var(--wa-color-base-80);
+    --button-text-shadow: var(--wa-color-base-40);
+    --background: linear-gradient(
+      180deg,
+      var(--button-gradient-top) 0%,
+      var(--button-gradient-middle) 51.88%,
+      var(--button-gradient-bottom) 100%
+    );
+    --box-shadow: 0px 6px 16px var(--button-shadow-outer), inset 0 -2px 8px var(--button-shadow-inner-a),
+      inset 0 2px 8px var(--button-shadow-inner-b);
+    --border-color: var(--button-gradient-middle);
+    --border-width: 1px;
+    --background-hover: linear-gradient(
+      180deg,
+      var(--button-gradient-bottom) 0%,
+      var(--button-gradient-middle) 51.88%,
+      var(--button-gradient-top) 100%
+    );
+    --border-color-hover: var(--button-gradient-middle);
+    --background-active: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
+      color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
+      color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
+    );
+    --border-color-active: var(--button-gradient-middle);
+
+    &::part(prefix) {
+      padding-inline-start: calc(0.25em - var(--border-width));
+    }
+    &::part(suffix),
+    &::part(caret) {
+      padding-inline-end: calc(0.25em - var(--border-width));
+    }
+
+    &[variant='brand'] {
+      --button-gradient-top: var(--wa-color-brand-40);
+      --button-gradient-middle: var(--wa-color-brand-50);
+      --button-gradient-bottom: var(--wa-color-brand-60);
+      --button-shadow-outer: var(--wa-color-brand-60);
+      --button-shadow-inner-a: var(--wa-color-brand-30);
+      --button-shadow-inner-b: var(--wa-color-brand-80);
+      --button-text-shadow: var(--wa-color-brand-40);
+      --label-color: var(--wa-color-brand-95);
+    }
+
+    &[variant='success'] {
+      --button-gradient-top: var(--wa-color-green-40);
+      --button-gradient-middle: var(--wa-color-green-50);
+      --button-gradient-bottom: var(--wa-color-green-60);
+      --button-shadow-outer: var(--wa-color-green-60);
+      --button-shadow-inner-a: var(--wa-color-green-30);
+      --button-shadow-inner-b: var(--wa-color-green-80);
+      --button-text-shadow: var(--wa-color-green-40);
+    }
+
+    &[variant='warning'] {
+      --button-gradient-top: var(--wa-color-yellow-40);
+      --button-gradient-middle: var(--wa-color-yellow-50);
+      --button-gradient-bottom: var(--wa-color-yellow-60);
+      --button-shadow-outer: var(--wa-color-yellow-60);
+      --button-shadow-inner-a: var(--wa-color-yellow-30);
+      --button-shadow-inner-b: var(--wa-color-yellow-80);
+      --button-text-shadow: var(--wa-color-yellow-40);
+    }
+
+    &[variant='danger'] {
+      --button-gradient-top: var(--wa-color-red-40);
+      --button-gradient-middle: var(--wa-color-red-50);
+      --button-gradient-bottom: var(--wa-color-red-60);
+      --button-shadow-outer: var(--wa-color-red-60);
+      --button-shadow-inner-a: var(--wa-color-red-30);
+      --button-shadow-inner-b: var(--wa-color-red-80);
+      --button-text-shadow: var(--wa-color-red-40);
+    }
+
+    &[variant='neutral'] {
+      --button-gradient-top: var(--wa-color-base-40);
+      --button-gradient-middle: var(--wa-color-base-50);
+      --button-gradient-bottom: var(--wa-color-base-60);
+      --button-shadow-outer: var(--wa-color-base-60);
+      --button-shadow-inner-a: var(--wa-color-base-30);
+      --button-shadow-inner-b: var(--wa-color-base-80);
+      --button-text-shadow: var(--wa-color-base-40);
+    }
+
+    &::part(base) {
+      transition: all 0.05s ease-out;
+    }
+
+    &::part(base):hover {
+      transform: scale(1.02, 1.02);
+      background: var(--background-hover);
+    }
+
+    &::part(base):active {
+      background: var(--background-active);
+      --box-shadow: inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
+      transform: scale(0.98, 0.98);
+    }
+  }
+
+  wa-button::part(label),
+  wa-button wa-icon {
+    font-weight: var(--wa-font-weight-black);
+    text-shadow: 0 2px 2px var(--button-text-shadow);
+  }
+
+  wa-button[outline] {
+    --box-shadow: none;
+    --border-width: var(--wa-form-controls-border-width);
+    --label-color: var(--wa-color-neutral-text-on-fill);
+    --label-color-hover: var(--wa-color-neutral-text-on-spot);
+
+    &::part(label) {
+      text-shadow: none;
+    }
+  }
+
+  wa-carousel img {
+    border-radius: var(--wa-panel-corners);
+    box-shadow: none;
+  }
+
+  wa-alert {
+    --border-style: dashed;
+    --border-width: var(--wa-form-controls-border-width);
+    --icon-size: var(--wa-font-size-l);
+    --padding: var(--wa-space-s);
+    font-size: var(--wa-font-size-s);
+
+    &::part(message) {
+      padding-left: var(--wa-space-l);
+    }
+  }
+
+  wa-tag {
+    --border-radius: var(--wa-corners-pill);
+    --border-width: var(--wa-border-width-m);
+    --border-style: dashed;
+    font-weight: var(--wa-font-weight-heavy);
+
+    &[variant='brand'] {
+      --border-color: var(--wa-color-brand-border-subtle);
+    }
+    &[variant='success'] {
+      --border-color: var(--wa-color-success-border-subtle);
+    }
+    &[variant='warning'] {
+      --border-color: var(--wa-color-warning-border-subtle);
+    }
+    &[variant='danger'] {
+      --border-color: var(--wa-color-danger-border-subtle);
+    }
+    &[variant='neutral'] {
+      --border-color: var(--wa-color-neutral-border-subtle);
+    }
+  }
+
+  wa-badge {
+    --border-radius: var(--wa-corners-pill);
+    --border-width: 0;
+
+    &[variant='brand'] {
+      --background: var(--wa-color-brand-80);
+      --content-color: var(--wa-color-brand-20);
+    }
+    &[variant='success'] {
+      --background: var(--wa-color-green-80);
+      --content-color: var(--wa-color-green-20);
+    }
+    &[variant='warning'] {
+      --background: var(--wa-color-yellow-80);
+      --content-color: var(--wa-color-yellow-20);
+    }
+    &[variant='danger'] {
+      --background: var(--wa-color-red-80);
+      --content-color: var(--wa-color-red-20);
+    }
+    &[variant='neutral'] {
+      --background: white;
+      --content-color: var(--wa-color-base-30);
+    }
+  }
+
+  .preview-container {
+    overflow: hidden;
+  }
+
+  .project-header {
+    --wa-color-text-normal: var(--wa-color-success-text-on-fill);
+  }
+
+  .hero-background {
+    position: absolute;
+    z-index: -1;
+    top: -18%;
+    left: 50%;
+    width: 250rem;
+    height: 250rem;
+    transform: translate(-50%, -50%);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--wa-color-green-90) 69.42%, var(--wa-color-green-80) 100%);
+  }
+
+  .hero-background::after {
+    background: url(/assets/images/kitchen-sink/playful/hero.png) 0 50% no-repeat;
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 600px;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 185rem;
+  }
+
+  .hero {
+    padding-top: 19rem;
+    text-align: center;
+  }
+
+  .hero .hero-title {
+    color: var(--wa-color-success-text-on-fill);
+    font-size: var(--wa-font-size-4xl);
+  }
+
+  .hero .hero-cta {
+    font-size: var(--wa-font-size-l);
+  }
+
+  .product-card {
+    --wa-panel-corners: var(--wa-corners-l);
+  }
+
+  .product-card::part(footer) {
+    border-width: 0;
+  }
+
+  .product-card wa-button {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  .blog wa-avatar {
+    --size: 2rem;
+  }
+
+  .blog .landscape-frame {
+    border-radius: var(--wa-corners-l);
+    box-shadow: var(--wa-shadow-level-1);
+  }
+
+  .message-composer wa-card {
+    --background: var(--wa-color-surface-raised);
+  }
+
+  .message-composer wa-card::part(header) {
+    --wa-color-neutral-border-subtle: var(--wa-color-base-70);
+    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
+    border-width: 0;
+    background-color: var(--wa-color-neutral-fill-subtle);
+  }
+
+  &:not(.wa-theme-premium-dark) .message-composer wa-card {
+    --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
+  }
+
+  .message-composer wa-icon-button {
+    color: var(--wa-text-color-normal);
+    font-size: var(--wa-font-size-l);
+  }
+
+  .message-composer wa-card::part(footer) {
+    padding-top: 0;
+  }
+
+  .product-detail .price {
+    font-weight: var(--wa-font-weight-heavy);
+  }
+
+  .support-table wa-card {
+    --background: var(--wa-color-surface-raised);
+  }
+
+  .support-table th {
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-heavy);
+    background-color: var(--wa-color-surface-lowered);
+  }
+
+  .support-table tr {
+    border-top-color: var(--wa-color-surface-lowered);
+  }
+
+  .support-table th:first-child {
+    border-radius: calc(var(--border-radius) - var(--border-width)) 0 0 0;
+  }
+
+  .support-table th:last-child {
+    border-radius: 0 calc(var(--border-radius) - var(--border-width)) 0 0;
+  }
+
+  .support-table tr:last-child td:first-child {
+    border-radius: 0 0 0 calc(var(--border-radius) - var(--border-width));
+  }
+
+  .support-table tr:last-child td:last-child {
+    border-radius: 0 0 calc(var(--border-radius) - var(--border-width)) 0;
+  }
+
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
+  }
+
+  .order-item img {
+    border-radius: var(--wa-corners-s);
+  }
+
+  .checkout-form {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form h2 {
+    font-size: var(--wa-font-size-3xl);
+  }
+
+  .checkout-form wa-input::part(form-control-label),
+  .checkout-form wa-select::part(form-control-label) {
+    font-size: var(--wa-font-size-s);
+    padding-bottom: var(--wa-space-xs);
+  }
 }
 
 .wa-theme-playful-dark,
@@ -351,23 +760,27 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-base-10);
-  --wa-color-surface-default: var(--wa-color-base-05);
-  --wa-color-surface-lowered: black;
+  --wa-color-surface-raised: var(--wa-color-base-20);
+  --wa-color-surface-default: var(--wa-color-base-10);
+  --wa-color-surface-lowered: var(--wa-color-base-10);
   --wa-color-surface-border: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
-  --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-link: var(--wa-color-brand-text-on-surface);
+  --wa-color-text-quiet: var(--wa-color-base-70);
+  --wa-color-text-link: var(--wa-color-yellow-80);
 
-  --wa-color-selection-background: var(--wa-color-rose-40);
+  --wa-color-selection-background: var(--wa-color-green-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-rose-60) 90%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
+  --wa-color-shadow: color-mix(
+    in oklab,
+    var(--wa-color-base-40) calc(var(--wa-shadow-blur-base) * 16% + 40%),
+    transparent
+  );
 
   --wa-color-mix-hover: black 8%;
   --wa-color-mix-active: black 16%;
@@ -375,83 +788,159 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-rose-50);
-  --wa-color-brand-spot-darker: var(--wa-color-rose-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-rose-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-rose-20);
-  --wa-color-brand-border-subtle: var(--wa-color-rose-20);
-  --wa-color-brand-border-highlight: var(--wa-color-rose-30);
-  --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-rose-70);
-  --wa-color-brand-text-on-surface: var(--wa-color-rose-60);
+  --wa-color-brand-spot: var(--wa-color-brand-50);
+  --wa-color-brand-spot-darker: var(--wa-color-brand-60);
+  --wa-color-brand-fill-subtle: var(--wa-color-brand-20);
+  --wa-color-brand-fill-highlight: var(--wa-color-brand-40);
+  --wa-color-brand-border-subtle: var(--wa-color-brand-30);
+  --wa-color-brand-border-highlight: var(--wa-color-brand-40);
+  --wa-color-brand-text-on-spot: var(--wa-color-brand-95);
+  --wa-color-brand-text-on-fill: var(--wa-color-brand-95);
+  --wa-color-brand-text-on-surface: var(--wa-color-brand-70);
 
-  --wa-color-success-spot: var(--wa-color-green-50);
-  --wa-color-success-spot-darker: var(--wa-color-green-40);
-  --wa-color-success-fill-subtle: var(--wa-color-green-10);
-  --wa-color-success-fill-highlight: var(--wa-color-green-20);
-  --wa-color-success-border-subtle: var(--wa-color-green-20);
-  --wa-color-success-border-highlight: var(--wa-color-green-30);
-  --wa-color-success-text-on-spot: white;
-  --wa-color-success-text-on-fill: var(--wa-color-green-70);
-  --wa-color-success-text-on-surface: var(--wa-color-green-60);
+  --wa-color-success-spot: var(--wa-color-green-80);
+  --wa-color-success-spot-darker: var(--wa-color-green-60);
+  --wa-color-success-fill-subtle: var(--wa-color-green-20);
+  --wa-color-success-fill-highlight: var(--wa-color-green-40);
+  --wa-color-success-border-subtle: var(--wa-color-green-30);
+  --wa-color-success-border-highlight: var(--wa-color-green-40);
+  --wa-color-success-text-on-spot: var(--wa-color-green-20);
+  --wa-color-success-text-on-fill: var(--wa-color-green-95);
+  --wa-color-success-text-on-surface: var(--wa-color-green-70);
 
-  --wa-color-warning-spot: var(--wa-color-yellow-50);
-  --wa-color-warning-spot-darker: var(--wa-color-yellow-40);
-  --wa-color-warning-fill-subtle: var(--wa-color-yellow-10);
-  --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
-  --wa-color-warning-border-subtle: var(--wa-color-yellow-20);
-  --wa-color-warning-border-highlight: var(--wa-color-yellow-30);
-  --wa-color-warning-text-on-spot: white;
-  --wa-color-warning-text-on-fill: var(--wa-color-yellow-70);
-  --wa-color-warning-text-on-surface: var(--wa-color-yellow-60);
+  --wa-color-warning-spot: var(--wa-color-yellow-80);
+  --wa-color-warning-spot-darker: var(--wa-color-yellow-60);
+  --wa-color-warning-fill-subtle: var(--wa-color-yellow-20);
+  --wa-color-warning-fill-highlight: var(--wa-color-yellow-40);
+  --wa-color-warning-border-subtle: var(--wa-color-yellow-30);
+  --wa-color-warning-border-highlight: var(--wa-color-yellow-40);
+  --wa-color-warning-text-on-spot: var(--wa-color-yellow-20);
+  --wa-color-warning-text-on-fill: var(--wa-color-yellow-95);
+  --wa-color-warning-text-on-surface: var(--wa-color-yellow-70);
 
-  --wa-color-danger-spot: var(--wa-color-red-50);
+  --wa-color-danger-spot: var(--wa-color-red-60);
   --wa-color-danger-spot-darker: var(--wa-color-red-40);
-  --wa-color-danger-fill-subtle: var(--wa-color-red-10);
-  --wa-color-danger-fill-highlight: var(--wa-color-red-20);
-  --wa-color-danger-border-subtle: var(--wa-color-red-20);
-  --wa-color-danger-border-highlight: var(--wa-color-red-30);
-  --wa-color-danger-text-on-spot: white;
-  --wa-color-danger-text-on-fill: var(--wa-color-red-70);
-  --wa-color-danger-text-on-surface: var(--wa-color-red-60);
+  --wa-color-danger-fill-subtle: var(--wa-color-red-20);
+  --wa-color-danger-fill-highlight: var(--wa-color-red-40);
+  --wa-color-danger-border-subtle: var(--wa-color-red-30);
+  --wa-color-danger-border-highlight: var(--wa-color-red-40);
+  --wa-color-danger-text-on-spot: var(--wa-color-red-20);
+  --wa-color-danger-text-on-fill: var(--wa-color-red-95);
+  --wa-color-danger-text-on-surface: var(--wa-color-red-70);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
-  --wa-color-neutral-border-subtle: var(--wa-color-base-20);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-30);
-  --wa-color-neutral-text-on-spot: white;
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
-  --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
+  --wa-color-neutral-spot: var(--wa-color-base-40);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-70);
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
+  --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
+  --wa-color-neutral-border-subtle: var(--wa-color-base-30);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-40);
+  --wa-color-neutral-text-on-spot: var(--wa-color-base-20);
+  --wa-color-neutral-text-on-fill: var(--wa-color-base-95);
+  --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
+
+  /* premium custom settings - dark specific */
+
+  wa-button {
+    --button-gradient-top: var(--wa-color-base-60);
+    --button-gradient-middle: var(--wa-color-base-80);
+    --button-gradient-bottom: var(--wa-color-base-95);
+    --button-shadow-outer: var(--wa-color-base-30);
+    --button-shadow-inner-a: var(--wa-color-base-40);
+    --button-shadow-inner-b: var(--wa-color-base-50);
+    --button-text-shadow: var(--wa-color-base-70);
+    --border-color: var(--button-gradient-middle);
+    --box-shadow: 0px -6px 16px color-mix(in oklab, var(--button-shadow-outer), transparent 50%),
+      inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
+
+    &[variant='brand'] {
+      --button-gradient-top: var(--wa-color-brand-40);
+      --button-gradient-middle: var(--wa-color-brand-50);
+      --button-gradient-bottom: var(--wa-color-brand-60);
+      --button-shadow-outer: var(--wa-color-brand-60);
+      --button-shadow-inner-a: var(--wa-color-brand-30);
+      --button-shadow-inner-b: var(--wa-color-brand-80);
+      --button-text-shadow: var(--wa-color-brand-40);
+      --label-color: var(--wa-color-brand-95);
+    }
+
+    &[variant='success'] {
+      --button-gradient-top: var(--wa-color-green-40);
+      --button-gradient-middle: var(--wa-color-green-50);
+      --button-gradient-bottom: var(--wa-color-green-60);
+      --button-shadow-outer: var(--wa-color-green-60);
+      --button-shadow-inner-a: var(--wa-color-green-30);
+      --button-shadow-inner-b: var(--wa-color-green-80);
+      --button-text-shadow: var(--wa-color-green-40);
+    }
+
+    &[variant='warning'] {
+      --button-gradient-top: var(--wa-color-yellow-40);
+      --button-gradient-middle: var(--wa-color-yellow-50);
+      --button-gradient-bottom: var(--wa-color-yellow-60);
+      --button-shadow-outer: var(--wa-color-yellow-60);
+      --button-shadow-inner-a: var(--wa-color-yellow-30);
+      --button-shadow-inner-b: var(--wa-color-yellow-80);
+      --button-text-shadow: var(--wa-color-yellow-40);
+    }
+
+    &[variant='danger'] {
+      --button-gradient-top: var(--wa-color-red-40);
+      --button-gradient-middle: var(--wa-color-red-50);
+      --button-gradient-bottom: var(--wa-color-red-60);
+      --button-shadow-outer: var(--wa-color-red-60);
+      --button-shadow-inner-a: var(--wa-color-red-30);
+      --button-shadow-inner-b: var(--wa-color-red-80);
+      --button-text-shadow: var(--wa-color-red-40);
+    }
+
+    &[variant='neutral'] {
+      --button-gradient-top: var(--wa-color-base-70);
+      --button-gradient-middle: var(--wa-color-base-80);
+      --button-gradient-bottom: var(--wa-color-base-90);
+      --button-shadow-outer: var(--wa-color-base-60);
+      --button-shadow-inner-a: var(--wa-color-base-60);
+      --button-shadow-inner-b: var(--wa-color-base-95);
+      --button-text-shadow: var(--wa-color-base-60);
+    }
+  }
+
+  wa-button[outline] {
+    --box-shadow: none;
+    --border-color: var(--wa-color-neutral-border-highlight);
+  }
+
+  wa-card {
+    --box-shadow: none;
+    --border-width: var(--wa-border-width-s);
+  }
+
+  .hero-background {
+    background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
+  }
+
+  .message-composer wa-card {
+    --border-color: var(--wa-color-base-30);
+  }
+
+  .message-composer wa-card::part(header) {
+    background: var(--wa-color-base-40);
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-top: 0;
+  }
+
+  .message-composer .tools .grouped-buttons:not(:last-of-type) {
+    --wa-color-neutral-border-subtle: var(--wa-color-base-40);
+  }
+
+  .support-table th {
+    background: var(--wa-color-surface-lowered);
+  }
 }
 
 /* #region Custom styles */
-wa-button {
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--border-color);
-  --box-shadow-color: var(--border-color);
 
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-spot-darker);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-spot-darker);
-  }
-
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-spot-darker);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-spot-darker);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-spot-darker);
-  }
-}
 /* #endregion */
 
 /* _utility.css */
