@@ -370,7 +370,7 @@
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-gray) * 16% + 40%), transparent);
+  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 16% + 40%), transparent);
 
   --wa-color-mix-hover: black 8%;
   --wa-color-mix-active: black 8%;
