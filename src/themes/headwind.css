@@ -111,8 +111,8 @@
   );
 
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: white 6%;
+  --wa-color-mix-hover: var(--wa-color-gray-80) 20%;
+  --wa-color-mix-active: var(--wa-color-gray-80) 10%;
 
   /**
    * Semantic theme colors
@@ -372,8 +372,8 @@
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 16% + 40%), transparent);
 
-  --wa-color-mix-hover: black 8%;
-  --wa-color-mix-active: black 8%;
+  --wa-color-mix-hover: var(--wa-color-gray-70) 20%;
+  --wa-color-mix-active: var(--wa-color-gray-70) 10%;
 
   /**
    * Semantic theme colors

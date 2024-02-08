@@ -1470,11 +1470,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1493,11 +1493,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1515,11 +1515,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1582,7 +1582,6 @@ toc: false
         <div slot="header">
           <div class="grouped-buttons">
             <wa-tooltip content="Bold">
-              <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
               <wa-icon-button name="bold" label="Bold"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Italic">
@@ -1654,7 +1653,7 @@ toc: false
           </div>
           <div class="send">
             <wa-button variant="brand" size="small">
-              <wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
+              <wa-icon slot="prefix" name="paper-plane-top" variant="solid" label="Add File"></wa-icon>
               Send
             </wa-button>
           </div>
@@ -1704,11 +1703,11 @@ toc: false
           <div style="display: flex; align-items: end; gap: 1rem;">
             <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
-              <wa-icon slot="prefix" name="bag-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
+              <wa-icon slot="prefix" name="bag-shopping" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
             </wa-button>
             <wa-button variant="neutral">
-              <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+              <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
               Save
             </wa-button>
           </div>

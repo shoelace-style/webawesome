@@ -16,5 +16,6 @@ export default css`
     height: 100%;
     width: auto;
     fill: currentColor;
+    overflow: visible;
   }
 `;
