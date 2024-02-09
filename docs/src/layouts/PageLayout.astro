@@ -71,11 +71,6 @@ const version = customElementsManifest().version
         display: none !important;
       }
 
-      .main-content {
-        display: grid;
-        grid-template-columns: minmax(0px, clamp(250px, 33%, 350px)) minmax(0, 1fr);
-      }
-
       #knobs {
         position: sticky;
         top: 0rem;
@@ -89,11 +84,6 @@ const version = customElementsManifest().version
     </style>
   </head>
   <body>
-    <div class="main-content">
-      <div class="themer">
-        <Themer />
-      </div>
-      <slot></slot>
-    </div>
+    <slot></slot>
   </body>
 </html>

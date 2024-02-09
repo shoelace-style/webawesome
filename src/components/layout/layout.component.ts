@@ -76,7 +76,7 @@ export default class WaLayout extends WebAwesomeElement {
       return;
     }
 
-    if (e.composedPath().find((el: Element) => el?.hasAttribute?.('data-toggle-nav'))) {
+    if (e.composedPath().find((el: Element) => el.hasAttribute?.('data-toggle-nav'))) {
       e.preventDefault();
       this.toggleNavigation();
     }

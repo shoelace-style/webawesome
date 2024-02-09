@@ -1,110 +1,26 @@
+---
+const { html, css } = Astro.props
+---
 <script type="module">
-  import "https://skypack.dev/light-pen@2.1.0"
+  import "https://cdn.skypack.dev/light-pen@2.1.0"
 </script>
 <div style="display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); min-height: 100%; grid-template-rows: minmax(0, 1fr); gap: 8px; ">
-<!-- Knobs -->
-<div id="knobs">
-  <div class="space-vertically">
-    <a href="/">{% include 'logo.njk' %}</a>
-    <wa-select name="theme" label="Theme" value="default">
-      <wa-option value="default">Default</wa-option>
-      <wa-option value="glassy">Glassy</wa-option>
-      <wa-option value="mellow">Mellow</wa-option>
-      <wa-option value="playful">Playful</wa-option>
-    </wa-select>
-    <wa-select name="heading-text" label="Heading" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
-    <wa-select name="body-text" label="Body" value="">
-      <wa-option value="">Theme default</wa-option>
-      <wa-option value="serif">Serif</wa-option>
-      <wa-option value="sans-serif">Sans-serif</wa-option>
-      <wa-option value="monospace">Monospace</wa-option>
-      <wa-option value="cursive">Cursive</wa-option>
-    </wa-select>
-    <wa-select name="border-style" label="Border Style" value="solid">
-      <wa-option value="solid">Solid</wa-option>
-      <wa-option value="dashed">Dashed</wa-option>
-      <wa-option value="dotted">Dotted</wa-option>
-      <wa-option value="double">Double</wa-option>
-    </wa-select>
-    <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
-    <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
-    <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
-  </div>
-</div>
-
-<script type="module">
-  const container = document.getElementById('knobs');
-  const iframeDocument = () => document.querySelector("light-pen").iframeElem.contentWindow.document
-  const themeStylesheet = () => iframeDocument().getElementById('theme-stylesheet');
-  // Theme
-  container.querySelector('[name="theme"]').addEventListener('wa-change', event => {
-    themeStylesheet().href = `/dist/themes/${event.target.value}.css`;
-  });
-  // Heading text
-  container.querySelector('[name="heading-text"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-font-family-heading', event.target.value);
-  });
-  // Body text
-  container.querySelector('[name="body-text"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-font-family-body', event.target.value);
-  });
-  // Corners
-  container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-corners-base', `${event.target.value}rem`);
-  });
-  // Border width
-  container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}rem`);
-  });
-  // Border style
-  container.querySelector('[name="border-style"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-border-style', event.target.value);
-  });
-  // Spacing style
-  container.querySelector('[name="spacing"]').addEventListener('wa-input', event => {
-    iframeDocument().documentElement.style.setProperty('--wa-space-base', `${event.target.value}rem`);
-  });
-</script>
-
-<style>
-  :root {
-    --knobs-width: 300px;
-  }
-  #knobs {
-    background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-thin) var(--wa-color-surface-outline);
-    border-radius: var(--wa-corners-2x);
-    box-shadow: var(--wa-shadow-level-2);
-    width: var(--knobs-width);
-    padding: 2rem;
-    margin-inline: auto;
-    margin-block: 0;
-  }
-  #knobs p {
-    margin: 0;
-  }
-</style>
-
 <light-pen style="height: 100%;" resize-position="30">
-  <script type="text/plain" slot="html">
+<script type="text/plain" slot="html" set:html={`
 <link id="theme-stylesheet" href="/dist/themes/default.css" rel="stylesheet">
 <link id="applied-stylesheet" href="/dist/themes/applied.css"" rel="stylesheet">
-{% include html_file %}
+${html}
+`}>
   </script>
-  <script type="text/plain" slot="css">
+  <script type="text/plain" slot="css" set:html={`
 @import "/dist/themes/applied.css";
-{% include css_file %}
-  </script>
-  <script type="text/plain" slot="js">
+${css}
+`} />
+  <script type="text/plain" slot="js" set:html={`
 import { setBasePath } from "/dist/utilities/base-path.js";
 setBasePath("/dist");
 import("/dist/autoloader.js");
+`}>
   </script>
 </light-pen>
 <div>

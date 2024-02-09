@@ -9,7 +9,6 @@ body {
 html,
 body {
   min-height: 100%;
-  /* Need to override from "applied.css" */
   padding: 0 !important;
   margin: 0;
 }
