@@ -599,6 +599,7 @@ toc: false
       case 'premium':
       case 'headwind':
       case 'playful':
+      case 'fa':
         assetFolder = themeSelect.value;
         break;
       default:
