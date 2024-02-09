@@ -426,8 +426,16 @@
   }
 
   wa-carousel {
-    --pagination-color-activated: var(--wa-color-brand-fill-highlight);
+    --pagination-color-activated: var(--wa-color-blue-70);
     --pagination-color-resting: var(--wa-color-neutral-fill-highlight);
+  }
+
+  wa-carousel::part(scroll-container) {
+    padding: var(--wa-shadow-offset-y-level-1) var(--wa-shadow-offset-x-level-1); /* make room for the box-shadow */
+  }
+
+  wa-carousel::part(pagination-item) {
+    border-radius: var(--wa-corners-base);
   }
 
   wa-carousel-item {
@@ -437,14 +445,26 @@
 
   wa-tag {
     --border-width: 0 0 0 var(--wa-panel-border-width);
+
+    &[variant='brand'] {
+      --border-color: var(--wa-color-brand-border-subtle);
+    }
+    &[variant='success'] {
+      --border-color: var(--wa-color-success-border-subtle);
+    }
+    &[variant='warning'] {
+      --border-color: var(--wa-color-warning-border-subtle);
+    }
+    &[variant='danger'] {
+      --border-color: var(--wa-color-danger-border-subtle);
+    }
+    &[variant='neutral'] {
+      --border-color: var(--wa-color-neutral-border-subtle);
+    }
   }
 
   wa-tag::part(base) {
     padding: var(--wa-space-m);
-  }
-
-  wa-badge {
-    --border-color: var(--wa-color-neutral-border-highlight);
   }
 
   wa-input,
@@ -477,7 +497,7 @@
 
   wa-switch::part(control),
   wa-switch::part(thumb) {
-    border-radius: 0;
+    border-radius: var(--wa-corners-base);
     --wa-font-line-height-compact: 5px;
   }
 
@@ -550,6 +570,17 @@
   .message-composer wa-card::part(footer) {
     border-width: 0;
     --padding: 0 var(--wa-space-s) var(--wa-space-s) var(--wa-space-s);
+  }
+
+  .support-table th {
+    background-color: var(--wa-color-neutral-spot);
+    color: var(--wa-color-neutral-text-on-spot);
+  }
+
+  .support-table th wa-checkbox {
+    --background: transparent;
+    --border-color: var(--wa-color-neutral-text-on-spot);
+    --border-color-checked: var(--wa-color-neutral-text-on-spot);
   }
 
   .checkout-form {
