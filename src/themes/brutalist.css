@@ -111,8 +111,8 @@
   --wa-shadow-offset-x-base: 0.5;
 
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: black 12%;
-  --wa-color-mix-active: black 20%;
+  --wa-color-mix-hover: white 12%;
+  --wa-color-mix-active: white 20%;
 
   /**
    * Semantic theme colors
@@ -192,7 +192,7 @@
   --wa-font-weight-medium: 500;
   --wa-font-weight-heavy: 700;
 
-  --wa-font-weight-heading: var(--wa-font-weight-heavy);
+  --wa-font-weight-heading: var(--wa-font-weight-medium);
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-medium);
 
@@ -309,8 +309,8 @@
 
   --wa-form-controls-corners: var(--wa-corners-s);
 
-  --wa-form-controls-activated-color: var(--wa-color-brand-spot);
-  --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
+  --wa-form-controls-activated-color: var(--wa-color-neutral-spot);
+  --wa-form-controls-resting-color: var(--wa-color-neutral-border-subtle);
 
   --wa-form-controls-label-color: var(--wa-color-text-normal);
   --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
@@ -351,13 +351,53 @@
     border-left: var(--wa-border-width-m) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
   }
 
-  /* preventing shadows on all form input types */
-  wa-input:not(:focus),
-  wa-input:not([filled]):not([disabled]),
-  wa-checkbox:not([checked]):not([indeterminate]),
-  wa-select:not([filled]):not([disabled]) {
-    --box-shadow: var(--wa-shadow-level-0);
-    --border-width: 0 0 var(--wa-form-controls-border-width) var(--wa-form-controls-border-width);
+  .textmarker-effect {
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &:before {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      background: #fbff2b;
+      height: 20px;
+      left: 0;
+      bottom: -10px;
+      width: 0%;
+      opacity: 0.7;
+      transition: all 0.5s;
+    }
+
+    &:hover:before {
+      width: 100%;
+    }
+  }
+
+  p a {
+    position: relative;
+    --wa-link-decoration-default: none;
+    --wa-link-decoration-hover: none;
+
+    &:before {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      background: var(--wa-color-yellow-80);
+      width: 100%;
+      bottom: 0;
+      height: 50%;
+      opacity: 0.7;
+      transition: all var(--wa-transition-faster) ease-in-out;
+    }
+
+    &:hover:before {
+      height: 100%;
+    }
+  }
+
+  wa-card::part(image) {
+    border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-highlight);
   }
 
   wa-button {
@@ -380,15 +420,90 @@
 
   wa-alert {
     --border-width: 0 0 0 var(--wa-panel-border-width);
-    --padding: var(--wa-space-xs);
+    --padding: var(--wa-space-s);
+    --content-color: var(--wa-color-text-normal);
+    --icon-color: var(--border-color);
+  }
+
+  wa-carousel {
+    --pagination-color-activated: var(--wa-color-brand-fill-highlight);
+    --pagination-color-resting: var(--wa-color-neutral-fill-highlight);
+  }
+
+  wa-carousel-item {
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-highlight);
+    box-shadow: var(--wa-shadow-level-1);
   }
 
   wa-tag {
     --border-width: 0 0 0 var(--wa-panel-border-width);
   }
 
+  wa-tag::part(base) {
+    padding: var(--wa-space-m);
+  }
+
   wa-badge {
     --border-color: var(--wa-color-neutral-border-highlight);
+  }
+
+  wa-input,
+  wa-select,
+  wa-checkbox {
+    --border-color: var (--wa-color-neutral-border-highlight);
+  }
+
+  /* preventing shadows on all form input types */
+  wa-input:not(:focus),
+  wa-input:not([filled]):not([disabled]),
+  wa-select:not([filled]):not([disabled]) {
+    --box-shadow: var(--wa-shadow-level-0);
+    --border-width: 0 0 var(--wa-form-controls-border-width) var(--wa-form-controls-border-width);
+  }
+
+  wa-radio-button {
+    background: var(--wa-color-surface-default);
+  }
+
+  wa-switch {
+    --thumb-color: var(--wa-form-controls-activated-color);
+    --thumb-color-checked: var(--wa-color-surface-default);
+    --background: transparent;
+    --background-checked: var(--wa-form-controls-activated-color);
+    --border-color: var(--wa-form-controls-activated-color);
+    /* --border-color-checked: var(--background-checked); */
+    --height: calc(1.2em * var(--wa-font-line-height-compact) - 0.125rem);
+  }
+
+  wa-switch::part(control),
+  wa-switch::part(thumb) {
+    border-radius: 0;
+    --wa-font-line-height-compact: 5px;
+  }
+
+  wa-switch::part(thumb) {
+    --border-width: 0;
+    box-shadow: inset 0 0 0 3px var(--wa-color-surface-default);
+  }
+  wa-switch[checked]::part(thumb) {
+    box-shadow: inset 0 0 0 3px var(--background-checked);
+  }
+
+  .hero {
+    background: transparent url('/assets/images/kitchen-sink/brutalist/hero.png') 0 0 no-repeat;
+    height: 42rem;
+    padding-top: 8rem;
+    padding-right: 50%;
+  }
+
+  .hero wa-button {
+    --background: var(--wa-color-neutral-spot);
+    margin-top: var(--wa-space-xl);
+  }
+
+  .products {
+    margin-top: -20rem;
+    padding-top: 10rem;
   }
 
   .product-card::part(footer) {
@@ -413,10 +528,6 @@
     flex-direction: column;
   }
 
-  .message-composer wa-card {
-    --padding: var(--wa-space-s);
-  }
-
   .message-composer wa-card::part(header) {
     background-color: var(--wa-color-neutral-spot);
   }
@@ -439,6 +550,21 @@
   .message-composer wa-card::part(footer) {
     border-width: 0;
     --padding: 0 var(--wa-space-s) var(--wa-space-s) var(--wa-space-s);
+  }
+
+  .checkout-form {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form .square-frame {
+    box-shadow: var(--wa-shadow-level-1);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-highlight);
+  }
+
+  .checkout-form wa-input::part(form-control-label),
+  .checkout-form wa-select::part(form-control-label) {
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-medium);
   }
 }
 
@@ -513,12 +639,12 @@
   --wa-color-danger-text-on-fill: var(--wa-color-red-70);
   --wa-color-danger-text-on-surface: var(--wa-color-red-60);
 
-  --wa-color-neutral-spot: var(--wa-color-base-50);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-40);
+  --wa-color-neutral-spot: var(--wa-color-base-90);
+  --wa-color-neutral-spot-darker: var(--wa-color-base-70);
   --wa-color-neutral-fill-subtle: var(--wa-color-base-10);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-20);
+  --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
   --wa-color-neutral-border-subtle: var(--wa-color-base-20);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-30);
+  --wa-color-neutral-border-highlight: var(--wa-color-base-80);
   --wa-color-neutral-text-on-spot: white;
   --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
