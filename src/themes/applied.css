@@ -192,7 +192,7 @@ kbd,
 samp,
 var {
   font-family: var(--wa-font-family-code);
-  font-size: 0.975em;
+  font-size: 0.90625em;
   background-color: var(--wa-color-neutral-fill-subtle);
   border-radius: var(--wa-corners-s);
   padding-block: var(--wa-space-3xs);

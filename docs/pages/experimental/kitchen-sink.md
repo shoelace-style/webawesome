@@ -211,6 +211,7 @@ toc: false
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
       <wa-option value="playful">Playful</wa-option>
+      <wa-option value="headwind">Headwind</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
@@ -767,6 +768,9 @@ toc: false
       case 'fa':
         presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
         break;
+      case 'headwind':
+        presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
+        break;
       default:
         presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
     }
@@ -966,6 +970,11 @@ toc: false
             resolver: name => `/assets/icons/jelly/${name}.svg`,
             mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
           });
+          break;
+        case 'headwind':
+          iconFamily.value = 'fa-classic';
+          iconStyle.value = 'solid';
+          useFaIcons();
           break;
         default:
           iconFamily.value = 'fa-classic';
@@ -1171,6 +1180,15 @@ toc: false
     grid-column-end: col-end;
   }
 
+  .project-header wa-icon-button {
+    color: inherit;
+    font-size: var(--wa-font-size-l);
+
+    &:not(:last-of-type) {
+      margin-right: var(--wa-space-m);
+    }
+  }
+
   /* strata product cards */
 
   .products wa-card::part(base) {
@@ -1236,6 +1254,7 @@ toc: false
   }
 
   /* strata - message composer */
+
   .message-composer .card-header [slot='header'] {
     display: flex;
     align-items: center;
@@ -1263,6 +1282,16 @@ toc: false
   .message-composer .grouped-buttons:not(:last-of-type) {
     padding-inline-end: var(--wa-space-m);
     border-right: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-neutral-border-subtle);
+  }
+
+  .message-composer wa-card::part(header) {
+    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-end-start-radius: calc(var(--border-radius) - var(--border-width));
+    border-end-end-radius: calc(var(--border-radius) - var(--border-width));
   }
 
   /* strata - product detail */
@@ -1319,6 +1348,10 @@ toc: false
 
   .support-table wa-avatar {
     --size: var(--wa-font-size-2xl);
+  }
+
+  .support-table wa-card > * {
+    border-radius: calc(var(--border-radius) - var(--border-width));
   }
 
   /* strata - Checkout Form */
@@ -1408,9 +1441,9 @@ toc: false
         <span id="project-name" style="margin-inline-start: var(--wa-space-l);">Project Name</span>
       </h1>
       <div>
-        <wa-icon-button name="magnifying-glass" label="Search" style="font-size: 1.25rem; color: var(--wa-color-text-normal);"></wa-icon-button>
-        <wa-icon-button name="user" label="Account" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
-        <wa-icon-button name="bag-shopping" label="Your Basket" style="font-size: 1.25rem; color: var(--wa-color-text-normal);margin-left: var(--wa-space-m);"></wa-icon-button>
+        <wa-icon-button name="magnifying-glass" label="Search"></wa-icon-button>
+        <wa-icon-button name="user" label="Account"></wa-icon-button>
+        <wa-icon-button name="bag-shopping" label="Your Basket"></wa-icon-button>
       </div>
     </header>
     <section class="strata hero">
@@ -1437,11 +1470,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1460,11 +1493,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1482,11 +1515,11 @@ toc: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" outline>
-            <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -1549,7 +1582,6 @@ toc: false
         <div slot="header">
           <div class="grouped-buttons">
             <wa-tooltip content="Bold">
-              <!-- <wa-icon-button name="bold" family="sharp" variant="regular" label="Bold"></wa-icon-button> -->
               <wa-icon-button name="bold" label="Bold"></wa-icon-button>
             </wa-tooltip>
             <wa-tooltip content="Italic">
@@ -1621,7 +1653,7 @@ toc: false
           </div>
           <div class="send">
             <wa-button variant="brand" size="small">
-              <wa-icon slot="prefix" name="paper-plane-top" family="sharp" variant="solid" label="Add File"></wa-icon>
+              <wa-icon slot="prefix" name="paper-plane-top" variant="solid" label="Add File"></wa-icon>
               Send
             </wa-button>
           </div>
@@ -1671,11 +1703,11 @@ toc: false
           <div style="display: flex; align-items: end; gap: 1rem;">
             <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
-              <wa-icon slot="prefix" name="bag-shopping" family="sharp" variant="solid" label="Add to Basket"></wa-icon>
+              <wa-icon slot="prefix" name="bag-shopping" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
             </wa-button>
             <wa-button variant="neutral">
-              <wa-icon slot="prefix" name="bookmark" family="sharp" variant="regular"></wa-icon>
+              <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
               Save
             </wa-button>
           </div>
@@ -1684,7 +1716,7 @@ toc: false
     </section>
     <section class="strata support-table">
       <wa-card style="--padding: 0; width: 100%;">
-      <table style="margin-bottom: 0; border-radius: var(--wa-corners-m);">
+      <table style="margin-bottom: 0;">
         <thead>
           <tr>
             <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
@@ -1872,7 +1904,7 @@ toc: false
               <wa-icon name="user" variant="regular" slot="prefix"></wa-icon>
             </wa-input>
             <div style="display: flex; gap: 1rem;">
-              <wa-select label="Country">
+              <wa-select label="Country" value="USA">
               <wa-icon slot="prefix" name="globe" variant="regular"></wa-icon>
                 <wa-option value="USA">United States</wa-option>
                 <wa-option value="CAN">Canada</wa-option>
