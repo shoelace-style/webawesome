@@ -302,9 +302,9 @@
   /**
    * Transitions
    */
-  --wa-transition-normal: 250ms;
-  --wa-transition-fast: 150ms;
-  --wa-transition-faster: 50ms;
+  --wa-transition-normal: 0ms;
+  --wa-transition-fast: 0ms;
+  --wa-transition-faster: 0ms;
 
   /**
    * Component groups
@@ -391,7 +391,7 @@
   --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
   --wa-color-brand-border-subtle: var(--wa-color-blue-60);
   --wa-color-brand-border-highlight: var(--wa-color-blue-70);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-10);
+  --wa-color-brand-text-on-spot: var(--wa-color-blue-05);
   --wa-color-brand-text-on-fill: var(--wa-color-blue-80);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-70);
 
@@ -401,7 +401,7 @@
   --wa-color-success-fill-highlight: var(--wa-color-green-20);
   --wa-color-success-border-subtle: var(--wa-color-green-60);
   --wa-color-success-border-highlight: var(--wa-color-green-70);
-  --wa-color-success-text-on-spot: var(--wa-color-green-10);
+  --wa-color-success-text-on-spot: var(--wa-color-green-05);
   --wa-color-success-text-on-fill: var(--wa-color-green-80);
   --wa-color-success-text-on-surface: var(--wa-color-green-70);
 
@@ -411,7 +411,7 @@
   --wa-color-warning-fill-highlight: var(--wa-color-yellow-20);
   --wa-color-warning-border-subtle: var(--wa-color-yellow-60);
   --wa-color-warning-border-highlight: var(--wa-color-yellow-70);
-  --wa-color-warning-text-on-spot: var(--wa-color-yellow-10);
+  --wa-color-warning-text-on-spot: var(--wa-color-yellow-05);
   --wa-color-warning-text-on-fill: var(--wa-color-yellow-80);
   --wa-color-warning-text-on-surface: var(--wa-color-yellow-70);
 
@@ -421,7 +421,7 @@
   --wa-color-danger-fill-highlight: var(--wa-color-red-20);
   --wa-color-danger-border-subtle: var(--wa-color-red-60);
   --wa-color-danger-border-highlight: var(--wa-color-red-70);
-  --wa-color-danger-text-on-spot: var(--wa-color-red-10);
+  --wa-color-danger-text-on-spot: var(--wa-color-red-05);
   --wa-color-danger-text-on-fill: var(--wa-color-red-80);
   --wa-color-danger-text-on-surface: var(--wa-color-red-70);
 
@@ -431,7 +431,7 @@
   --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
   --wa-color-neutral-border-subtle: var(--wa-color-base-60);
   --wa-color-neutral-border-highlight: var(--wa-color-base-70);
-  --wa-color-neutral-text-on-spot: var(--wa-color-base-10);
+  --wa-color-neutral-text-on-spot: var(--wa-color-base-05);
   --wa-color-neutral-text-on-fill: var(--wa-color-base-80);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
 }
@@ -445,7 +445,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: url('/assets/images/kitchen-sink/fa/hero.png') 90% 6rem / 29% no-repeat;
+  background: url('/assets/images/kitchen-sink/fa/hero.png') 87.5% 7rem / 25% no-repeat;
   width: 100%;
   height: 1000px;
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.1));
@@ -456,17 +456,56 @@
 }
 
 .hero {
-  background: var(--wa-color-warning-fill-highlight);
-  color: var(--wa-color-text-normal);
+  background: var(--wa-color-warning-spot);
+  color: var(--wa-color-warning-text-on-spot);
   width: 80%;
 }
 
 .hero .title {
-  padding-block: 6rem;
+  padding-block: 5rem;
 }
 
 h1.hero-title {
   font-size: var(--wa-font-size-4xl);
+}
+
+pre.codeblock,
+.post-body code {
+  background-color: color-mix(in oklab, var(--wa-color-base-50), transparent 90%);
+}
+
+wa-alert {
+  --content-color: var(--wa-color-text-normal);
+  --icon-color: var(--border-color);
+
+  .wa-theme-fa-dark & {
+    --background: var(--wa-color-surface-lowered);
+  }
+
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-border-highlight);
+  }
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-border-highlight);
+  }
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-border-highlight);
+  }
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-border-highlight);
+  }
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-border-highlight);
+  }
+}
+
+wa-badge {
+  --border-color: var(--background);
+  text-transform: uppercase;
+
+  &::part(base) {
+    font-weight: var(--wa-font-weight-heavy);
+  }
 }
 
 wa-button:not([variant='text']) {
@@ -501,61 +540,41 @@ wa-button:not([variant='text']) {
   }
 }
 
+wa-card {
+  --border-width: 0px;
+
+  & .title {
+    font-size: var(--wa-font-size-xl);
+  }
+
+  & wa-rating {
+    --symbol-size: var(--wa-font-size-m);
+  }
+}
+
+wa-carousel {
+  --pagination-color-activated: var(--wa-color-brand-spot);
+}
+
 wa-checkbox,
 wa-radio {
   --checked-icon-color: var(--wa-color-surface-default);
 }
 
-wa-radio-group > wa-radio-button,
-wa-radio-group > wa-button {
-  --box-shadow: none;
-}
+wa-radio-group > wa-radio-button {
+  --background-active: var(--wa-color-neutral-text-on-surface);
+  --border-color-active: var(--background-active);
+  --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+    var(--border-color);
+  --label-color-active: var(--wa-color-surface-default);
 
-wa-switch {
-  --background: var(--wa-color-neutral-spot);
-  --border-color: var(--wa-color-neutral-spot);
-}
-
-wa-alert {
-  --content-color: var(--wa-color-text-normal);
-  --icon-color: var(--border-color);
-
-  .wa-theme-fa-dark & {
-    --background: var(--wa-color-surface-lowered);
+  &:active,
+  &[checked] {
+    --background: var(--wa-color-neutral-text-on-surface);
+    --box-shadow: none;
+    --label-color: var(--wa-color-surface-default);
+    transform: translateX(var(--wa-shadow-offset-x-level-1)) translateY(var(--wa-shadow-offset-y-level-1));
   }
-
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
-  }
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
-  }
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
-  }
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
-  }
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
-  }
-}
-
-wa-card {
-  --border-width: 0px;
-}
-
-wa-badge {
-  --border-color: var(--background);
-  text-transform: uppercase;
-
-  &::part(base) {
-    font-weight: var(--wa-font-weight-heavy);
-  }
-}
-
-wa-tag {
-  font-weight: var(--wa-font-weight-heavy);
 }
 
 wa-switch {
@@ -567,6 +586,25 @@ wa-switch {
   --height: 1.5em;
   --width: calc(var(--thumb-size) * 2.5);
 }
+
+wa-tag {
+  font-weight: var(--wa-font-weight-heavy);
+}
+
+.message-composer wa-card::part(header) {
+  background-color: var(--wa-color-neutral-fill-highlight);
+  color: var(--wa-color-neutral-text-on-fill);
+
+  & wa-icon-button {
+    color: var(--wa-color-text-normal);
+  }
+}
+
+wa-input > wa-icon,
+wa-select > wa-icon {
+  color: var(--wa-color-text-quiet);
+}
+
 /* #endregion */
 
 /* _utility.css */
