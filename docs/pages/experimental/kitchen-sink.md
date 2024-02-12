@@ -760,14 +760,17 @@ toc: false
     let presetLogoIcons;
 
     switch(themeSelect.value) {
+      case 'fa':
+        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+        break;
       case 'premium':
         presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
         break;
       case 'playful':
         presetLogoIcons = ['face-smile', 'paper-plane-top', 'sparkles', 'star'];
         break;
-      case 'fa':
-        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+      case 'brutalist':
+        presetLogoIcons = ['keyboard', 'cart-shopping', 'globe', 'code'];
         break;
       case 'headwind':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
@@ -970,6 +973,23 @@ toc: false
           registerIconLibrary('system', {
             resolver: name => `/assets/icons/jelly/${name}.svg`,
             mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+          });
+          break;
+        case 'brutalist':
+          iconFamily.value = 'custom';
+          registerIconLibrary('default', {
+            resolver: name => `/assets/icons/utility/${name}.svg`,
+            mutator: svg => {
+              [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
+              [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
+            }
+          });
+          registerIconLibrary('system', {
+            resolver: name => `/assets/icons/utility/${name}.svg`,
+            mutator: svg => {
+              [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
+              [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
+            }
           });
           break;
         case 'headwind':
