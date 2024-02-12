@@ -1188,12 +1188,6 @@ toc: false
     position: relative;
   }
 
-  .product-card .badge-stock {
-    position: absolute;
-    top:  var(--wa-flow-spacing);
-    right:  var(--wa-flow-spacing);
-  }
-
   .product-card .title-rating {
     display: flex;
     justify-content: space-between;

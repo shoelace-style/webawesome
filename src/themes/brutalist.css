@@ -462,6 +462,33 @@
     box-shadow: var(--wa-shadow-level-1);
   }
 
+  wa-badge {
+    --border-width: var(--wa-panel-border-width);
+    --border-color: var(--wa-color-surface-border);
+    --content-color: var(--wa-color-text-normal);
+    text-transform: uppercase;
+
+    &::part(base) {
+      padding: var(--wa-space-xs) var(--wa-space-s);
+    }
+
+    &[variant='brand'] {
+      --background: var(--wa-color-brand-fill-subtle);
+    }
+    &[variant='success'] {
+      --background: var(--wa-color-success-fill-subtle);
+    }
+    &[variant='warning'] {
+      --background: var(--wa-color-warning-fill-subtle);
+    }
+    &[variant='danger'] {
+      --background: var(--wa-color-danger-fill-subtle);
+    }
+    &[variant='neutral'] {
+      --background: var(--wa-color-neutral-fill-subtle);
+    }
+  }
+
   wa-tag {
     --border-width: 0 0 0 var(--wa-panel-border-width);
 
@@ -543,6 +570,12 @@
   .products {
     margin-top: -20rem;
     padding-top: 10rem;
+  }
+
+  .product-card .badge-stock {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .product-card::part(footer) {
