@@ -211,13 +211,13 @@ toc: false
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
       <wa-option value="playful">Playful</wa-option>
+      <wa-option value="brutalist">Brutalist</wa-option>
       <wa-option value="headwind">Headwind</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
       <wa-option value="mellow">Mellow</wa-option>
       <wa-option value="playful~">Playful~</wa-option>
       <wa-option value="chic">Chic</wa-option>
-      <wa-option value="brutalist">Brutalist</wa-option>
     </wa-select>
     <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
       <div aria-hidden="true">Heading Typography</div>
