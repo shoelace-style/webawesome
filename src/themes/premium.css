@@ -539,10 +539,6 @@
     --wa-color-surface-border: var(--wa-color-surface-lowered);
   }
 
-  .support-table .excerpt {
-    color: var(--wa-color-text-quiet);
-  }
-
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);

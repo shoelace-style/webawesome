@@ -89,7 +89,7 @@
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-quiet: var(--wa-color-base-30);
   --wa-color-text-link: var(--wa-color-neutral-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -650,7 +650,7 @@
 
   .checkout-form .square-frame {
     box-shadow: var(--wa-shadow-level-1);
-    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-highlight);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
   }
 
   .checkout-form wa-input::part(form-control-label),
@@ -673,7 +673,7 @@
   --wa-color-surface-border: var(--wa-color-base-20);
 
   --wa-color-text-normal: var(--wa-color-base-95);
-  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-quiet: var(--wa-color-base-70);
   --wa-color-text-link: var(--wa-color-neutral-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-base-40);

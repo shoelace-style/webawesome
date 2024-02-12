@@ -1313,6 +1313,10 @@ toc: false
     white-space: nowrap;
   }
 
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
+  }
+
   .support-table wa-avatar {
     --size: var(--wa-font-size-2xl);
   }

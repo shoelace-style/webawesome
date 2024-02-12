@@ -736,10 +736,6 @@
     border-radius: 0 0 calc(var(--border-radius) - var(--border-width)) 0;
   }
 
-  .support-table .excerpt {
-    color: var(--wa-color-text-quiet);
-  }
-
   .order-item img {
     border-radius: var(--wa-corners-s);
   }
