@@ -420,9 +420,28 @@
 
   wa-alert {
     --border-width: 0 0 0 var(--wa-panel-border-width);
-    --padding: var(--wa-space-s);
     --content-color: var(--wa-color-text-normal);
-    --icon-color: var(--border-color);
+    --padding: var(--wa-space-s) var(--wa-space-m);
+
+    &::part(icon) {
+      --padding: var(--wa-space-m);
+    }
+
+    &[variant='brand'] {
+      --icon-color: var(--wa-color-brand-text-on-fill);
+    }
+    &[variant='success'] {
+      --icon-color: var(--wa-color-success-text-on-fill);
+    }
+    &[variant='warning'] {
+      --icon-color: var(--wa-color-warning-text-on-fill);
+    }
+    &[variant='danger'] {
+      --icon-color: var(--wa-color-danger-text-on-fill);
+    }
+    &[variant='neutral'] {
+      --icon-color: var(--wa-color-neutral-text-on-fill);
+    }
   }
 
   wa-carousel {
