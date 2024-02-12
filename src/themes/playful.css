@@ -609,7 +609,7 @@
   }
 
   .project-header {
-    --wa-color-text-normal: var(--wa-color-success-text-on-fill);
+    color: var(--wa-color-success-text-on-fill);
   }
 
   .hero-background {
@@ -683,8 +683,6 @@
 
   .message-composer wa-card::part(header) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-70);
-    border-start-start-radius: calc(var(--border-radius) - var(--border-width));
-    border-start-end-radius: calc(var(--border-radius) - var(--border-width));
     border-width: 0;
     background-color: var(--wa-color-neutral-fill-subtle);
   }
@@ -734,6 +732,10 @@
 
   .support-table tr:last-child td:last-child {
     border-radius: 0 0 calc(var(--border-radius) - var(--border-width)) 0;
+  }
+
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
   }
 
   .order-item img {
