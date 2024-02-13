@@ -23,7 +23,7 @@ const version = customElementsManifest().version
     <meta name="turbo-cache-control" content="no-preview">
 
     {/* Favicons */}
-    <link rel="icon" href="/images/favicon.svg" type="image/x-icon" />
+    <link rel="icon" href="/favicon.svg" type="image/x-icon" />
 
     {/* Twitter Cards */}
     <meta name="twitter:card" content="summary" />
@@ -71,7 +71,7 @@ const version = customElementsManifest().version
         display: none !important;
       }
 
-      #knobs {
+      body #knobs {
         position: sticky;
         top: 0rem;
         left: 0rem;
@@ -80,10 +80,15 @@ const version = customElementsManifest().version
         width: 100%;
         min-height: 99vh;
         max-height: 99vh;
+        margin-bottom: 0;
+      }
+
+      body #knobs .logo-controls {
+        display: none;
       }
     </style>
   </head>
   <body>
-    <slot></slot>
+    <slot />
   </body>
 </html>

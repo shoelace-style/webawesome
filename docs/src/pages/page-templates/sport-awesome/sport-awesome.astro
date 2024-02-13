@@ -5,15 +5,10 @@ import * as path from 'node:path';
 
 export const dir = path.join(process.cwd(), "src", "pages", "page-templates", "sport-awesome")
 
-export const html = fs.readFileSync(path.resolve(dir, "_sport-awesome.html"))
-export const css = fs.readFileSync(path.resolve(dir, "_sport-awesome.css"))
+export const html = fs.readFileSync(path.resolve(dir, "_sport-awesome.html"), { encoding: "utf-8" })
+export const cssReset = fs.readFileSync(path.resolve(dir, "../_reset.css"), { encoding: "utf-8" })
+export const css = cssReset + "\n" + fs.readFileSync(path.resolve(dir, "_sport-awesome.css"), { encoding: "utf-8" })
 ---
-
-<style>
-  .logo-controls {
-    display: none;
-  }
-</style>
 
 <style set:html={css}></style>
 
@@ -21,7 +16,7 @@ export const css = fs.readFileSync(path.resolve(dir, "_sport-awesome.css"))
   title: "Sport Awesome",
   description: "Sport Awesome",
 }}>
-  {html}
+  <Fragment set:html={html} />
 </PageLayout>
 
 

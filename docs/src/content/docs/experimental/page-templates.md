@@ -15,8 +15,5 @@ window.Turbo.session.drive = false
 - [Music Awesome Layout](/page-templates/music-awesome)
 - [Music Awesome Playground](/page-templates/music-awesome-playground)
 
-- [Hero Layout](/page-templates/hero)
-- [Hero Playground](/page-templates/hero-playground)
-
 - [Sport Awesome Layout](/page-templates/sport-awesome)
 - [Sport Awesome Playground](/page-templates/sport-awesome-playground)

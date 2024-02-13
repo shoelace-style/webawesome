@@ -5,24 +5,19 @@ import * as path from 'node:path';
 
 export const dir = path.join(process.cwd(), "src", "pages", "page-templates", "music-awesome")
 
-export const html = fs.readFileSync(path.resolve(dir, "_music-awesome.html"))
-export const css = fs.readFileSync(path.resolve(dir, "_music-awesome.css"))
+export const html = fs.readFileSync(path.resolve(dir, "_music-awesome.html"), { encoding: "utf-8" })
+export const cssReset = fs.readFileSync(path.resolve(dir, "../_reset.css"), { encoding: "utf-8" })
+export const css = cssReset + "\n" + fs.readFileSync(path.resolve(dir, "_music-awesome.css"), { encoding: "utf-8" })
 ---
-
-<style is:global>
-  .logo-controls {
-    display: none;
-  }
-</style>
 
 <style set:html={css}></style>
 
 
 <PageLayout frontmatter={{
-  title: "Sport Awesome",
-  description: "Sport Awesome",
+  title: "Music Awesome",
+  description: "Music Awesome",
 }}>
-  {html}
+  <Fragment set:html={html} />
 </PageLayout>
 
 

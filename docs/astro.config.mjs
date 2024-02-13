@@ -33,7 +33,10 @@ export default defineConfig({
   server: {
     open: true,
     port: 4000,
-    host: true
+    host: true,
+    fs: {
+      strict: false
+    }
   },
   vite: {
     plugins: [
@@ -45,6 +48,7 @@ export default defineConfig({
   },
   outDir: '../_site',
   site: 'https://shoelace.style',
+  compressHTML: false,
   markdown: {
     syntaxHighlight: 'prism',
     remarkPlugins: [

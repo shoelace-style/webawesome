@@ -1,26 +1,35 @@
 ---
-const { html, css } = Astro.props
+import PageLayout from "../layouts/PageLayout.astro"
+import Themer from "./Themer.astro"
+
+const { html, css, js, title, description } = Astro.props
+
 ---
-<script type="module">
-  import "https://cdn.skypack.dev/light-pen@2.1.0"
+
+<script>
+  import "light-pen"
 </script>
-<div style="display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); min-height: 100%; grid-template-rows: minmax(0, 1fr); gap: 8px; ">
-<light-pen style="height: 100%;" resize-position="30">
-<script type="text/plain" slot="html" set:html={`
-<link id="theme-stylesheet" href="/dist/themes/default.css" rel="stylesheet">
-<link id="applied-stylesheet" href="/dist/themes/applied.css"" rel="stylesheet">
-${html}
-`}>
-  </script>
-  <script type="text/plain" slot="css" set:html={`
-@import "/dist/themes/applied.css";
-${css}
-`} />
-  <script type="text/plain" slot="js" set:html={`
-import { setBasePath } from "/dist/utilities/base-path.js";
-setBasePath("/dist");
-import("/dist/autoloader.js");
-`}>
-  </script>
-</light-pen>
-<div>
+
+<PageLayout frontmatter={{
+  description,
+  title
+}}>
+  <div style="display:grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr);">
+    <Themer />
+
+    <light-pen style="height: 100%;" resize-position="30" preserve-whitespace>
+      <script type="text/plain" slot="html" set:html={
+  `<link id="theme-stylesheet" href="/dist/themes/default.css" rel="stylesheet">
+  <link id="applied-stylesheet" href="/dist/themes/applied.css"" rel="stylesheet">
+
+  ${html}`}>
+      </script>
+      <script type="text/plain" slot="css" set:html={`${css}`}>
+      </script>
+      <script type="text/plain" slot="js" set:html={
+        `import "/dist/webawesome.js"`
+      }>
+      </script>
+    </light-pen>
+  </div>
+</PageLayout>
