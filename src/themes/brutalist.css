@@ -532,8 +532,16 @@
     --border-width: 0 0 var(--wa-form-controls-border-width) var(--wa-form-controls-border-width);
   }
 
+  .wa-button-group__button:not(.wa-button-group__button--first) {
+    margin-inline-start: calc(-1 * var(--wa-form-controls-border-width));
+  }
+
   wa-radio-button {
     background: var(--wa-color-surface-default);
+  }
+
+  wa-menu {
+    border-width: var(--wa-form-controls-border-width);
   }
 
   wa-switch {
@@ -642,6 +650,10 @@
     --background: transparent;
     --border-color: var(--wa-color-neutral-text-on-spot);
     --border-color-checked: var(--wa-color-neutral-text-on-spot);
+  }
+
+  .support-table tr {
+    border-width: var(--wa-border-width-m);
   }
 
   .checkout-form {
@@ -770,6 +782,10 @@
 
   .preview-container {
     background-color: var(--wa-color-base-10);
+  }
+
+  .support-table tr {
+    border-top-color: var(--wa-color-surface-lowered);
   }
 }
 
