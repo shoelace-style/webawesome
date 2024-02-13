@@ -38,17 +38,17 @@
   --wa-color-yellow-10: #2c1a00;
   --wa-color-yellow-05: #1b0e00;
 
-  --wa-color-green-95: #cafae6;
-  --wa-color-green-90: #aaf3d7;
-  --wa-color-green-80: #46e2b7;
-  --wa-color-green-70: #00cba0;
-  --wa-color-green-60: #00b28f;
-  --wa-color-green-50: #008f76;
-  --wa-color-green-40: #00705e;
-  --wa-color-green-30: #005c4d;
-  --wa-color-green-20: #00483d;
-  --wa-color-green-10: #00312b;
-  --wa-color-green-05: #001613;
+  --wa-color-teal-95: #cafae6;
+  --wa-color-teal-90: #aaf3d7;
+  --wa-color-teal-80: #46e2b7;
+  --wa-color-teal-70: #00cba0;
+  --wa-color-teal-60: #00b28f;
+  --wa-color-teal-50: #008f76;
+  --wa-color-teal-40: #00705e;
+  --wa-color-teal-30: #005c4d;
+  --wa-color-teal-20: #00483d;
+  --wa-color-teal-10: #00312b;
+  --wa-color-teal-05: #001613;
 
   --wa-color-blue-95: #e4f1ff;
   --wa-color-blue-90: #cee6ff;
@@ -62,17 +62,41 @@
   --wa-color-blue-10: #00175c;
   --wa-color-blue-05: #000e39;
 
-  --wa-color-base-95: #f1f2f5;
-  --wa-color-base-90: #e3e6eb;
-  --wa-color-base-80: #c4cad5;
-  --wa-color-base-70: #a6afc1;
-  --wa-color-base-60: #8896ad;
-  --wa-color-base-50: #627593;
-  --wa-color-base-40: #425a7b;
-  --wa-color-base-30: #334660;
-  --wa-color-base-20: #243245;
-  --wa-color-base-10: #161e29;
-  --wa-color-base-05: #111215;
+  --wa-color-grape-95: #fbeefe;
+  --wa-color-grape-90: #f6defc;
+  --wa-color-grape-80: #ecb8f8;
+  --wa-color-grape-70: #e191f4;
+  --wa-color-grape-60: #cd70e3;
+  --wa-color-grape-50: #a84ebe;
+  --wa-color-grape-40: #892f9f;
+  --wa-color-grape-30: #6c257e;
+  --wa-color-grape-20: #4e1b5a;
+  --wa-color-grape-10: #2f1037;
+  --wa-color-grape-05: #1c0920;
+
+  --wa-color-violet-95: #f4f0fe;
+  --wa-color-violet-90: #e9e2fe;
+  --wa-color-violet-80: #d0c1fc;
+  --wa-color-violet-70: #b8a2fa;
+  --wa-color-violet-60: #9f81f9;
+  --wa-color-violet-50: #7d59ea;
+  --wa-color-violet-40: #5f3dc4;
+  --wa-color-violet-30: #4b309b;
+  --wa-color-violet-20: #36236f;
+  --wa-color-violet-10: #211543;
+  --wa-color-violet-05: #130c27;
+
+  --wa-color-gravy-95: #f1f2f5;
+  --wa-color-gravy-90: #e3e6eb;
+  --wa-color-gravy-80: #c5cad4;
+  --wa-color-gravy-70: #a8afbf;
+  --wa-color-gravy-60: #8b95aa;
+  --wa-color-gravy-50: #677490;
+  --wa-color-gravy-40: #4a5877;
+  --wa-color-gravy-30: #3a455d;
+  --wa-color-gravy-20: #2a3142;
+  --wa-color-gravy-10: #191e28;
+  --wa-color-gravy-05: #0e1117;
 
   /**
    * Foundational theme colors
@@ -82,14 +106,14 @@
    * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
   --wa-color-surface-raised: white;
   --wa-color-surface-default: white;
-  --wa-color-surface-lowered: var(--wa-color-base-95);
-  --wa-color-surface-border: var(--wa-color-base-90);
+  --wa-color-surface-lowered: var(--wa-color-gravy-95);
+  --wa-color-surface-border: var(--wa-color-gravy-90);
 
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-20);
-  --wa-color-text-quiet: var(--wa-color-base-40);
+  --wa-color-text-normal: var(--wa-color-gravy-20);
+  --wa-color-text-quiet: var(--wa-color-gravy-40);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -102,12 +126,12 @@
   --wa-color-focus: var(--wa-color-blue-60);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-gravy-10) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
+    var(--wa-color-gravy-05) calc(var(--wa-shadow-blur-base) * 8% + 6%),
     transparent
   );
 
@@ -143,15 +167,15 @@
   --wa-color-brand-text-on-fill: var(--wa-color-blue-40);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
 
-  --wa-color-success-spot: var(--wa-color-green-80);
-  --wa-color-success-spot-darker: var(--wa-color-green-50);
-  --wa-color-success-fill-subtle: var(--wa-color-green-95);
-  --wa-color-success-fill-highlight: var(--wa-color-green-90);
-  --wa-color-success-border-subtle: var(--wa-color-green-70);
-  --wa-color-success-border-highlight: var(--wa-color-green-50);
+  --wa-color-success-spot: var(--wa-color-teal-80);
+  --wa-color-success-spot-darker: var(--wa-color-teal-50);
+  --wa-color-success-fill-subtle: var(--wa-color-teal-95);
+  --wa-color-success-fill-highlight: var(--wa-color-teal-90);
+  --wa-color-success-border-subtle: var(--wa-color-teal-70);
+  --wa-color-success-border-highlight: var(--wa-color-teal-50);
   --wa-color-success-text-on-spot: var(--wa-color-text-normal);
-  --wa-color-success-text-on-fill: var(--wa-color-green-40);
-  --wa-color-success-text-on-surface: var(--wa-color-green-50);
+  --wa-color-success-text-on-fill: var(--wa-color-teal-40);
+  --wa-color-success-text-on-surface: var(--wa-color-teal-50);
 
   --wa-color-warning-spot: var(--wa-color-yellow-80);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-50);
@@ -173,14 +197,14 @@
   --wa-color-danger-text-on-fill: var(--wa-color-red-40);
   --wa-color-danger-text-on-surface: var(--wa-color-red-50);
 
-  --wa-color-neutral-spot: var(--wa-color-base-80);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-50);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-90);
-  --wa-color-neutral-border-subtle: var(--wa-color-base-60);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-40);
+  --wa-color-neutral-spot: var(--wa-color-gravy-80);
+  --wa-color-neutral-spot-darker: var(--wa-color-gravy-50);
+  --wa-color-neutral-fill-subtle: var(--wa-color-gravy-95);
+  --wa-color-neutral-fill-highlight: var(--wa-color-gravy-90);
+  --wa-color-neutral-border-subtle: var(--wa-color-gravy-60);
+  --wa-color-neutral-border-highlight: var(--wa-color-gravy-40);
   --wa-color-neutral-text-on-spot: var(--wa-color-text-normal);
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-40);
+  --wa-color-neutral-text-on-fill: var(--wa-color-gravy-40);
   --wa-color-neutral-text-on-surface: var(--wa-color-text-normal);
 
   /**
@@ -188,7 +212,7 @@
    */
   --wa-font-family-heading: 'cera-round-pro', sans-serif;
   --wa-font-family-body: 'cera-round-pro', sans-serif;
-  --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --wa-font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   --wa-font-family-longform: 'Lora', serif;
 
   --wa-font-weight-light: 300;
@@ -302,9 +326,9 @@
   /**
    * Transitions
    */
-  --wa-transition-normal: 0ms;
-  --wa-transition-fast: 0ms;
-  --wa-transition-faster: 0ms;
+  --wa-transition-normal: 250ms;
+  --wa-transition-fast: 150ms;
+  --wa-transition-faster: 50ms;
 
   /**
    * Component groups
@@ -324,7 +348,7 @@
   --wa-form-controls-value-font-weight: var(--wa-font-weight-body);
   --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
 
-  --wa-form-controls-placeholder-color: var(--wa-color-base-60);
+  --wa-form-controls-placeholder-color: var(--wa-color-gravy-60);
 
   --wa-form-controls-height-s: calc(
     var(--wa-space-s) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height)
@@ -357,13 +381,13 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-base-30);
-  --wa-color-surface-default: var(--wa-color-base-20);
-  --wa-color-surface-lowered: var(--wa-color-base-10);
-  --wa-color-surface-border: var(--wa-color-base-30);
+  --wa-color-surface-raised: var(--wa-color-gravy-30);
+  --wa-color-surface-default: var(--wa-color-gravy-20);
+  --wa-color-surface-lowered: var(--wa-color-gravy-10);
+  --wa-color-surface-border: var(--wa-color-gravy-30);
 
-  --wa-color-text-normal: var(--wa-color-base-95);
-  --wa-color-text-quiet: var(--wa-color-base-60);
+  --wa-color-text-normal: var(--wa-color-gravy-95);
+  --wa-color-text-quiet: var(--wa-color-gravy-60);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
   --wa-color-selection-background: var(--wa-color-blue-40);
@@ -375,7 +399,7 @@
 
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-base) * 16% + 40%),
+    var(--wa-color-gravy-05) calc(var(--wa-shadow-blur-base) * 16% + 40%),
     transparent
   );
 
@@ -395,15 +419,15 @@
   --wa-color-brand-text-on-fill: var(--wa-color-blue-80);
   --wa-color-brand-text-on-surface: var(--wa-color-blue-70);
 
-  --wa-color-success-spot: var(--wa-color-green-70);
-  --wa-color-success-spot-darker: var(--wa-color-green-50);
-  --wa-color-success-fill-subtle: var(--wa-color-green-10);
-  --wa-color-success-fill-highlight: var(--wa-color-green-20);
-  --wa-color-success-border-subtle: var(--wa-color-green-60);
-  --wa-color-success-border-highlight: var(--wa-color-green-70);
-  --wa-color-success-text-on-spot: var(--wa-color-green-05);
-  --wa-color-success-text-on-fill: var(--wa-color-green-80);
-  --wa-color-success-text-on-surface: var(--wa-color-green-70);
+  --wa-color-success-spot: var(--wa-color-teal-70);
+  --wa-color-success-spot-darker: var(--wa-color-teal-50);
+  --wa-color-success-fill-subtle: var(--wa-color-teal-10);
+  --wa-color-success-fill-highlight: var(--wa-color-teal-20);
+  --wa-color-success-border-subtle: var(--wa-color-teal-60);
+  --wa-color-success-border-highlight: var(--wa-color-teal-70);
+  --wa-color-success-text-on-spot: var(--wa-color-teal-05);
+  --wa-color-success-text-on-fill: var(--wa-color-teal-80);
+  --wa-color-success-text-on-surface: var(--wa-color-teal-70);
 
   --wa-color-warning-spot: var(--wa-color-yellow-70);
   --wa-color-warning-spot-darker: var(--wa-color-yellow-50);
@@ -425,15 +449,15 @@
   --wa-color-danger-text-on-fill: var(--wa-color-red-80);
   --wa-color-danger-text-on-surface: var(--wa-color-red-70);
 
-  --wa-color-neutral-spot: var(--wa-color-base-70);
-  --wa-color-neutral-spot-darker: var(--wa-color-base-50);
-  --wa-color-neutral-fill-subtle: var(--wa-color-base-20);
-  --wa-color-neutral-fill-highlight: var(--wa-color-base-30);
-  --wa-color-neutral-border-subtle: var(--wa-color-base-60);
-  --wa-color-neutral-border-highlight: var(--wa-color-base-70);
-  --wa-color-neutral-text-on-spot: var(--wa-color-base-05);
-  --wa-color-neutral-text-on-fill: var(--wa-color-base-80);
-  --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
+  --wa-color-neutral-spot: var(--wa-color-gravy-70);
+  --wa-color-neutral-spot-darker: var(--wa-color-gravy-50);
+  --wa-color-neutral-fill-subtle: var(--wa-color-gravy-20);
+  --wa-color-neutral-fill-highlight: var(--wa-color-gravy-30);
+  --wa-color-neutral-border-subtle: var(--wa-color-gravy-60);
+  --wa-color-neutral-border-highlight: var(--wa-color-gravy-70);
+  --wa-color-neutral-text-on-spot: var(--wa-color-gravy-05);
+  --wa-color-neutral-text-on-fill: var(--wa-color-gravy-80);
+  --wa-color-neutral-text-on-surface: var(--wa-color-gravy-70);
 }
 
 /* #region Custom styles */
@@ -449,16 +473,20 @@
   width: 100%;
   height: 1000px;
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.1));
-}
 
-.wa-theme-fa-dark .hero-background {
-  filter: brightness(0.85) drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.1));
+  .wa-theme-fa-dark & {
+    filter: brightness(0.85) drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.1));
+  }
 }
 
 .hero {
-  background: var(--wa-color-warning-spot);
-  color: var(--wa-color-warning-text-on-spot);
+  background: var(--wa-color-grape-70, var(--wa-color-brand-fill-highlight));
+  color: var(--wa-color-text-normal);
   width: 80%;
+
+  .wa-theme-fa-dark & {
+    background: var(--wa-color-grape-30, var(--wa-color-brand-fill-highlight));
+  }
 }
 
 .hero .title {
@@ -471,7 +499,7 @@ h1.hero-title {
 
 pre.codeblock,
 .post-body code {
-  background-color: color-mix(in oklab, var(--wa-color-base-50), transparent 90%);
+  background-color: color-mix(in oklab, var(--wa-color-gravy-50), transparent 90%);
 }
 
 wa-alert {
@@ -562,6 +590,9 @@ wa-radio {
 }
 
 wa-radio-group > wa-radio-button {
+  --wa-transition-normal: 0ms;
+  --wa-transition-fast: 0ms;
+  --wa-transition-faster: 0ms;
   --background-active: var(--wa-color-neutral-text-on-surface);
   --border-color-active: var(--background-active);
   --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
@@ -604,7 +635,6 @@ wa-input > wa-icon,
 wa-select > wa-icon {
   color: var(--wa-color-text-quiet);
 }
-
 /* #endregion */
 
 /* _utility.css */

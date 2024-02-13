@@ -761,7 +761,7 @@ toc: false
 
     switch(themeSelect.value) {
       case 'fa':
-        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+        presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
         presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
