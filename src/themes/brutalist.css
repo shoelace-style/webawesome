@@ -89,7 +89,7 @@
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-30);
+  --wa-color-text-quiet: var(--wa-color-base-50);
   --wa-color-text-link: var(--wa-color-neutral-text-on-surface);
 
   /* Selection colors apply on content that is highlighted by the user.
@@ -418,7 +418,7 @@
   }
 
   wa-rating {
-    --symbol-size: var(--wa-font-size-m);
+    --symbol-size: var(--wa-font-size-l);
     --symbol-color: color-mix(in oklab, var(--wa-color-base-20), transparent 50%);
     --symbol-color-active: var(--wa-color-neutral-spot);
   }
@@ -582,6 +582,19 @@
   .hero wa-button {
     --background: var(--wa-color-neutral-spot);
     margin-top: var(--wa-space-xl);
+    font-size: var(--wa-font-size-l);
+  }
+
+  /* imitating the large button styles */
+  .hero wa-button::part(base) {
+    height: var(--wa-form-controls-height-l);
+    line-height: calc(var(--wa-form-controls-height-l) - var(--border-width) * 2);
+    padding-inline-start: var(--wa-space-m);
+    padding-inline-end: var(--wa-space-xs);
+  }
+
+  .hero wa-button::part(label) {
+    padding: 0 var(--wa-space-l);
   }
 
   .products {
@@ -602,8 +615,31 @@
     text-align: right;
   }
 
+  .product-card wa-button::part(base) {
+    height: var(--wa-form-controls-height-m);
+    line-height: calc(var(--wa-form-controls-height-m) - var(--border-width) * 2);
+  }
+
+  .product-card wa-button::part(prefix) {
+    padding-inline-start: var(--wa-space-xs);
+  }
+
+  .product-card wa-button::part(suffix) {
+    padding-inline-end: var(--wa-space-xs);
+  }
+
   .product-card wa-button:not(:last-child) {
     margin-inline-end: var(--wa-space-xs);
+  }
+
+  /* imitating the rounded avatar */
+  .blog wa-avatar::part(base) {
+    background-color: transparent;
+  }
+
+  .blog wa-avatar::part(image) {
+    border: var(--wa-border-width-m) solid var(--wa-color-brand-spot);
+    border-radius: var(--wa-corners-circle);
   }
 
   .blog .landscape-frame {
@@ -623,6 +659,11 @@
 
   .message-composer .grouped-buttons {
     --wa-color-neutral-border-subtle: color-mix(in oklab, var(--wa-color-base-30), white 40%);
+  }
+
+  .message-composer [slot='header'] wa-icon-button::part(base) {
+    color: var(--wa-color-neutral-text-on-spot);
+    /* color: red; */
   }
 
   .message-composer .grouped-buttons wa-icon-button::part(base) {
