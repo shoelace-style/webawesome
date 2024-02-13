@@ -663,7 +663,6 @@
 
   .message-composer [slot='header'] wa-icon-button::part(base) {
     color: var(--wa-color-neutral-text-on-spot);
-    /* color: red; */
   }
 
   .message-composer .grouped-buttons wa-icon-button::part(base) {
