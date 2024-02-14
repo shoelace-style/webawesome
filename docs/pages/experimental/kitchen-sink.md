@@ -1174,6 +1174,10 @@ toc: false
     background-color: color-mix(in oklab, var(--wa-color-surface-lowered) 20%, var(--wa-color-neutral-fill-highlight));
   }
 
+  pre wa-copy-button {
+    display: none;
+  }
+
   wa-input::part(input) {
     width: 100%;
   }
