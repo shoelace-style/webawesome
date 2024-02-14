@@ -517,6 +517,10 @@
     padding: var(--wa-space-m);
   }
 
+  wa-input::part(form-control-label),
+  wa-select::part(form-control-label) {
+    font-size: var(--wa-font-size-s);
+  }
 
   /* preventing shadows on all form input types */
   wa-input:not(:focus),
@@ -533,7 +537,6 @@
   wa-radio-button {
     background: var(--wa-color-surface-default);
   }
-
 
   wa-switch {
     --thumb-color: var(--wa-form-controls-activated-color);
@@ -555,6 +558,7 @@
     --border-width: 0;
     box-shadow: inset 0 0 0 3px var(--wa-color-surface-default);
   }
+
   wa-switch[checked]::part(thumb) {
     box-shadow: inset 0 0 0 3px var(--background-checked);
   }
@@ -683,7 +687,6 @@
     --border-color-checked: var(--wa-color-neutral-text-on-spot);
   }
 
-
   .checkout-form {
     font-size: var(--wa-font-size-s);
   }
@@ -691,11 +694,6 @@
   .checkout-form .square-frame {
     box-shadow: var(--wa-shadow-level-1);
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-  }
-
-  .checkout-form wa-input::part(form-control-label),
-  .checkout-form wa-select::part(form-control-label) {
-    font-size: var(--wa-font-size-s);
   }
 }
 
@@ -806,8 +804,6 @@
       --icon-color: var(--wa-color-neutral-text-on-surface);
     }
   }
-
-
 }
 
 /* _utility.css */
