@@ -244,16 +244,16 @@
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-base: 0.0625;
+  --wa-border-width-base: 0.125;
   --wa-border-width-s: calc(var(--wa-border-width-base) * 1rem);
   --wa-border-width-m: calc(var(--wa-border-width-base) * 2rem);
   --wa-border-width-l: calc(var(--wa-border-width-base) * 3rem);
 
   --wa-form-controls-border-style: var(--wa-border-style);
-  --wa-form-controls-border-width: var(--wa-border-width-m);
+  --wa-form-controls-border-width: var(--wa-border-width-s);
 
   --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-m);
+  --wa-panel-border-width: var(--wa-border-width-s);
 
   /**
    * Corners
@@ -310,10 +310,10 @@
   --wa-form-controls-corners: var(--wa-corners-s);
 
   --wa-form-controls-activated-color: var(--wa-color-neutral-spot);
-  --wa-form-controls-resting-color: var(--wa-color-neutral-border-subtle);
+  --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
 
   --wa-form-controls-label-color: var(--wa-color-text-normal);
-  --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
+  --wa-form-controls-label-font-weight: var(--wa-font-weight-medium);
   --wa-form-controls-label-line-height: var(--wa-font-line-height-regular);
 
   --wa-form-controls-value-color: var(--wa-color-text-normal);
@@ -348,7 +348,7 @@
   /* premium custom settings - general and light */
 
   pre {
-    border-left: var(--wa-border-width-m) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
+    border-left: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
   }
 
   .textmarker-effect {
@@ -397,7 +397,7 @@
   }
 
   wa-card::part(image) {
-    border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
   }
 
   /* wa-card wa-button::part(base) {
@@ -468,7 +468,6 @@
   }
 
   wa-badge {
-    --border-width: var(--wa-panel-border-width);
     --border-color: var(--wa-color-surface-border);
     --content-color: var(--wa-color-base-10);
     text-transform: uppercase;
@@ -518,11 +517,6 @@
     padding: var(--wa-space-m);
   }
 
-  wa-input,
-  wa-select,
-  wa-checkbox {
-    --border-color: var (--wa-color-neutral-border-highlight);
-  }
 
   /* preventing shadows on all form input types */
   wa-input:not(:focus),
@@ -540,9 +534,6 @@
     background: var(--wa-color-surface-default);
   }
 
-  wa-menu {
-    border-width: var(--wa-form-controls-border-width);
-  }
 
   wa-switch {
     --thumb-color: var(--wa-form-controls-activated-color);
@@ -569,7 +560,7 @@
   }
 
   .preview-container {
-    background: var(--wa-color-base-95) url('/assets/images/kitchen-sink/brutalist/hero.png') 50% 3% no-repeat;
+    background: var(--wa-color-surface-lowered) url('/assets/images/kitchen-sink/brutalist/hero.png') 50% 3% no-repeat;
   }
 
   .hero {
@@ -638,7 +629,7 @@
   }
 
   .blog wa-avatar::part(image) {
-    border: var(--wa-border-width-m) solid var(--wa-color-brand-spot);
+    border: var(--wa-border-width-s) solid var(--wa-color-brand-spot);
     border-radius: var(--wa-corners-circle);
   }
 
@@ -692,9 +683,6 @@
     --border-color-checked: var(--wa-color-neutral-text-on-spot);
   }
 
-  .support-table tr {
-    border-width: var(--wa-border-width-m);
-  }
 
   .checkout-form {
     font-size: var(--wa-font-size-s);
@@ -708,7 +696,6 @@
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-medium);
   }
 }
 
@@ -721,8 +708,8 @@
    */
   --wa-color-surface-raised: var(--wa-color-base-10);
   --wa-color-surface-default: var(--wa-color-base-20);
-  --wa-color-surface-lowered: black;
-  --wa-color-surface-border: var(--wa-color-base-20);
+  --wa-color-surface-lowered: var(--wa-color-base-10);
+  --wa-color-surface-border: var(--wa-color-base-10);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-70);
@@ -820,13 +807,7 @@
     }
   }
 
-  .preview-container {
-    background-color: var(--wa-color-base-10);
-  }
 
-  .support-table tr {
-    border-top-color: var(--wa-color-surface-lowered);
-  }
 }
 
 /* _utility.css */
