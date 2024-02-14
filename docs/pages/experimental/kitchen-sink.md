@@ -601,6 +601,7 @@ toc: false
       case 'headwind':
       case 'playful':
       case 'brutalist':
+      case 'classic':
         assetFolder = themeSelect.value;
         break;
       default:
