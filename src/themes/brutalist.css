@@ -518,7 +518,8 @@
   }
 
   wa-input::part(form-control-label),
-  wa-select::part(form-control-label) {
+  wa-select::part(form-control-label),
+  wa-radio-group::part(form-control-label) {
     font-size: var(--wa-font-size-s);
   }
 
