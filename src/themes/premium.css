@@ -350,6 +350,35 @@
   --wa-shadow-blur-base: 0.375;
   --wa-shadow-offset-y-base: 0.1875;
 
+  pre,
+  code {
+    background-color: var(--wa-color-base-90);
+    font-size: var(--font-size-m);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-30);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-30);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-10);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-30);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-30);
+    }
+  }
+
   wa-rating {
     --symbol-size: var(--wa-font-size-l);
     --symbol-color-active: var(--wa-color-text-quiet);
@@ -642,12 +671,41 @@
   .message-composer .tools .grouped-buttons:not(:last-of-type) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-40);
   }
+
+  pre,
+  code {
+    background-color: var(--wa-color-base-20);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-80);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-80);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-95);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-80);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-80);
+    }
+  }
 }
 
 /* #region Custom styles */
 wa-button[outline] {
   --box-shadow: none;
 }
+
 /* #endregion */
 
 /* _utility.css */

@@ -351,6 +351,35 @@
     border-left: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
   }
 
+  pre,
+  code {
+    font-size: var(--wa-font-size-m);
+    background-color: var(--wa-color-neutral-fill-subtle);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-50);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-50);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-10);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-50);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-50);
+    }
+  }
+
   .textmarker-effect {
     position: relative;
     padding-left: 10px;
@@ -803,6 +832,35 @@
     }
     &[variant='neutral'] {
       --icon-color: var(--wa-color-neutral-text-on-surface);
+    }
+  }
+
+  pre,
+  code {
+    background-color: var(--wa-color-base-20);
+    font-size: var(--font-size-m);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-80);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-80);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-95);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-80);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-80);
     }
   }
 }

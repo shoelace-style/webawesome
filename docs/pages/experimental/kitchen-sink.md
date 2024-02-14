@@ -1169,6 +1169,11 @@ toc: false
     padding: var(--wa-space-3xl) 10%;
   }
 
+  pre,
+  code {
+    background-color: color-mix(in oklab, var(--wa-color-surface-lowered) 20%, var(--wa-color-neutral-fill-highlight));
+  }
+
   wa-input::part(input) {
     width: 100%;
   }
@@ -1575,7 +1580,7 @@ toc: false
         </div>
         <p>All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
 <pre class="codeblock">
-<code>:host,
+<code class="language-css">:host,
 .wa-theme-purple-power {
   /* ... */
 }</code>
@@ -1583,7 +1588,7 @@ toc: false
         <h3>Activating Themes</h3>
         <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
 <pre class="codeblock">
-<code>&lt;html class="wa-theme-default-dark"&gt;
+<code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
   &lt;head&gt;
     &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
   &lt;/head&gt;
