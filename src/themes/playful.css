@@ -718,22 +718,6 @@
     border-top-color: var(--wa-color-surface-lowered);
   }
 
-  .support-table th:first-child {
-    border-radius: calc(var(--border-radius) - var(--border-width)) 0 0 0;
-  }
-
-  .support-table th:last-child {
-    border-radius: 0 calc(var(--border-radius) - var(--border-width)) 0 0;
-  }
-
-  .support-table tr:last-child td:first-child {
-    border-radius: 0 0 0 calc(var(--border-radius) - var(--border-width));
-  }
-
-  .support-table tr:last-child td:last-child {
-    border-radius: 0 0 calc(var(--border-radius) - var(--border-width)) 0;
-  }
-
   .support-table .excerpt {
     color: var(--wa-color-text-quiet);
   }
