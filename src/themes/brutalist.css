@@ -494,6 +494,7 @@
   wa-carousel-item {
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
     box-shadow: var(--wa-shadow-level-1);
+    border-radius: calc(var(--wa-corners-s) + var(--wa-panel-border-width));
   }
 
   wa-badge {
