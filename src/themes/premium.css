@@ -461,6 +461,12 @@
     background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
   }
 
+  .product-card .badge-stock {
+    position: absolute;
+    top: var(--wa-flow-spacing);
+    right: var(--wa-flow-spacing);
+  }
+
   .product-card wa-rating {
     --symbol-size: var(--wa-font-size-m);
   }
@@ -531,10 +537,6 @@
 
   .support-table tr {
     --wa-color-surface-border: var(--wa-color-surface-lowered);
-  }
-
-  .support-table .excerpt {
-    color: var(--wa-color-text-quiet);
   }
 
   .checkout-form wa-input::part(form-control-label),

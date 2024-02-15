@@ -211,6 +211,7 @@ toc: false
       <wa-option value="fa">Font Awesome</wa-option>
       <wa-option value="premium">Premium</wa-option>
       <wa-option value="playful">Playful</wa-option>
+      <wa-option value="brutalist">Brutalist</wa-option>
       <wa-option value="headwind">Headwind</wa-option>
       <wa-option value="classic">Classic</wa-option>
       <wa-option value="glassy">Glassy</wa-option>
@@ -599,6 +600,7 @@ toc: false
       case 'premium':
       case 'headwind':
       case 'playful':
+      case 'brutalist':
       case 'fa':
         assetFolder = themeSelect.value;
         break;
@@ -1225,12 +1227,6 @@ toc: false
     position: relative;
   }
 
-  .product-card .badge-stock {
-    position: absolute;
-    top:  var(--wa-flow-spacing);
-    right:  var(--wa-flow-spacing);
-  }
-
   .product-card .title-rating {
     display: flex;
     justify-content: space-between;
@@ -1365,6 +1361,10 @@ toc: false
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
   }
 
   .support-table wa-avatar {
@@ -1553,7 +1553,7 @@ toc: false
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.png" label="Lindsay Miller" shape="rounded"> </wa-avatar>
+                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.jpg" label="Lindsay Miller" shape="rounded"> </wa-avatar>
                 Lindsay Miller
               </a>
             </div>
@@ -1753,7 +1753,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Keanu Reeves</td>
             <td class="desc"><span style="font-weight: bold">Am I dead?</span><br><span class="excerpt">Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...</span></td>
-            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-chad.png"  label="Chad" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
+            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-chad.jpg"  label="Chad" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
             <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
               <wa-dropdown>
@@ -1783,7 +1783,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Lawrence Fishburne</td>
             <td class="desc"><span style="font-weight: bold">We have a rule</span><br><span class="excerpt">We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</span></td>
-            <td><wa-avatar image="/assets/images/kitchen-sink/avatar-char.png"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
+            <td><wa-avatar image="/assets/images/kitchen-sink/avatar-char.jpg"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
             <td style="text-align: center;"><wa-tag variant="success" size="small">Resolved</wa-tag></td>
             <td>
              <wa-dropdown>
@@ -1873,7 +1873,7 @@ toc: false
             <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
             <td>Hugo Weaving</td>
             <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br><span class="excerpt">I need the codes, I have to get inside Zion and you have to tell me how.</span></td>
-            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-Dara.png"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
+            <td><wa-avatar  image="/assets/images/kitchen-sink/avatar-dara.jpg"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
             <td style="text-align: center;"><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
             <td>
              <wa-dropdown>
