@@ -1559,43 +1559,43 @@ toc: false
     <section class="strata blog grid-12-col">
       <div class="column-post-header">
         <div class="post-header">
-          <h1 class="post-title">Web Awesome Themes</h1>
+          <h1 class="post-title">Simulacra &amp; Simulation</h1>
           <div class="post-meta">
             <div class="authors">
               <a href="">
-                <wa-avatar image="/assets/images/kitchen-sink/avatar-lindsay.jpg" label="Lindsay Miller" shape="rounded"> </wa-avatar>
-                Lindsay Miller
+                <wa-avatar image="/assets/images/kitchen-sink/avatar-baudrillard.jpg" label="Jean Baudrillard" shape="rounded"> </wa-avatar>
+                Jean Baudrillard
               </a>
             </div>
             <div class="categories">
-              <a href=""><wa-tag size="small" variant="neutral">CSS</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="success">Theming</wa-tag></a>
-              <a href=""><wa-tag size="small" variant="warning">Resources</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="neutral">Action</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="success">Dystopia</wa-tag></a>
+              <a href=""><wa-tag size="small" variant="warning">Sci-fi</wa-tag></a>
             </div>
           </div>
         </div>
       </div>
       <div class="post-body">
-        <p>Web Awesome is designed to be highly customizable through pure CSS. Out of the box, you can choose from a light or dark theme. Alternatively, you can design your own theme.</p>
-        <p>A theme is nothing more than a stylesheet that uses the Web Awesome API to define design tokens and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including <a href="">CSS Custom Properties</a>.</p>
-        <h2>Theme Basics</h2>
-        <p>All themes are scoped to classes using the <code>sl-theme-{name}</code> convention, where <code>{name}</code> is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use <code>wa-theme-default-light</code> and <code>wa-theme-default-dark</code>, respectively. A custom theme called "Purple Power", for example, would use a class called <code>sl-theme-purple-power</code>.</p>
+        <p>At an abandoned hotel, a police squad corners Trinity, who overpowers them with superhuman abilities. She flees, pursued by the police and a group of suited Agents capable of similar superhuman feats. She answers a ringing public telephone and vanishes.</p>
+        <p>Fishburne stated that once he read the script, he did not understand why other people found it confusing. However, he doubted if the movie would ever be made, because it was "so smart." The Wachowskis instructed Fishburne to base his performance on the character Morpheus in Neil Gaiman's <a href=""><i>Sandman</i></a> comics.</p>
+        <h2>The New Biology of Machines</h2>
+        <p>The method used for creating these effects involved a technically expanded version of an old art photography technique known as time-slice photography, in which an array of cameras are placed around an object and triggered simultaneously. Each camera captures a still picture, contributing one frame to the video sequence, which creates the effect of "virtual camera movement"; the illusion of a viewpoint moving around an object that appears frozen in time.</p>
         <div class="landscape-frame" style="margin: 0 0 1rem 0;" >
           <img id="blog_feature" src="/assets/images/kitchen-sink/default/blog_feature.jpg" alt="blog post example image" />
         </div>
-        <p>All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to <code>:host</code> so they can be imported and applied to custom element shadow roots.</p>
+        <p>For the "real world," the actors' hair was less styled, their clothing had more textile content, and the cinematographers used longer lenses to soften the backgrounds and emphasize the actors.</p>
 <pre class="codeblock">
 <code class="language-css">:host,
 .wa-theme-purple-power {
   /* ... */
 }</code>
 </pre>
-        <h3>Activating Themes</h3>
-        <p>To activate a theme, import it and apply the theme’s class to the <html> element. This example imports and activates the built-in dark theme.</p>
+        <h3>Ontological Shock</h3>
+        <p>The allegory is related to Plato's theory of Forms, which holds that the true essence of an object is not what we perceive with our senses, but rather its quality, and that most people perceive only the shadow of the object and are thus limited to false perception.</p>
 <pre class="codeblock">
 <code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
   &lt;head&gt;
-    &lt;link rel="stylesheet" href="path/to/shoelace/dist/themes/dark.css" /&gt;
+    &lt;link rel="stylesheet" href="path/to/webawesome/dist/themes/dark.css" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
     ...
@@ -1604,7 +1604,7 @@ toc: false
 </pre>
         <wa-alert open>
           <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-          There is one exception to this rule — the light theme does not need to be activated. For convenience, the light theme is scoped to :root and will be activated by default when imported.
+          Adam Sternbergh credits The Matrix with reinventing and setting the template for modern superhero blockbusters, and inspiring the superhero renaissance in the early 21st century.
         </wa-alert>
       </div>
     </section>
