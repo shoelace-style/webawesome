@@ -366,6 +366,10 @@
     left: 0;
   }
 
+  .project-header {
+    color: var(--wa-color-brand-text-on-spot);
+  }
+
   .hero {
     height: 26rem;
   }
