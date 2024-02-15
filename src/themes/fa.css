@@ -635,7 +635,11 @@ wa-select {
   );
 
   & > wa-icon {
-    color: var(--border-color);
+    color: var(--wa-color-gravy-30);
+
+    .wa-theme-fa-dark & {
+      color: var(--wa-color-gravy-80);
+    }
   }
 }
 /* #endregion */
