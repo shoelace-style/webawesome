@@ -765,13 +765,13 @@ toc: false
         presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
         break;
       case 'premium':
-        presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
+        presetLogoIcons = ['sunglasses', 'gem', 'car', 'shirt'];
         break;
       case 'playful':
-        presetLogoIcons = ['face-smile', 'paper-plane-top', 'sparkles', 'star'];
+        presetLogoIcons = ['face-smile-solid', 'palette', 'crown', 'star'];
         break;
       case 'brutalist':
-        presetLogoIcons = ['keyboard', 'cart-shopping', 'globe', 'code'];
+        presetLogoIcons = ['leaf', 'book-open', 'landmark', 'mug-hot'];
         break;
       case 'headwind':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
