@@ -198,7 +198,7 @@
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-medium);
 
-  /* The default typescale is based on the Major Second scale (x1.125). 
+  /* The default typescale is based on the Major Second scale (x1.125).
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
   --wa-font-size-root: 16px;
   --wa-font-size-2xs: 0.6875rem; /* 11px */
@@ -340,6 +340,37 @@
    * From 2.x
    */
   --wa-tooltip-arrow-size: 0.375rem;
+
+  .hero-background {
+    height: 47rem;
+    background: linear-gradient(174deg, var(--wa-color-brand-fill-highlight) 0 70%, transparent 70% 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .hero-background::after {
+    background: url(/assets/images/kitchen-sink/classic/hero.png) 50px -170px no-repeat;
+    content: '';
+    position: absolute;
+    height: 900px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .hero {
+    height: 32rem;
+  }
+
+  .hero .title {
+    text-align: right;
+    margin-inline-start: calc(var(--wa-space-m) * 20);
+    color: var(--wa-color-brand-text-on-fill);
+  }
 }
 
 .wa-theme-classic-dark,
