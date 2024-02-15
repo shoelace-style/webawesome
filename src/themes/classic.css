@@ -368,7 +368,7 @@
 
   .hero .title {
     text-align: right;
-    margin-inline-start: calc(var(--wa-space-m) * 20);
+    margin-inline-start: 45%;
     color: var(--wa-color-brand-text-on-fill);
   }
 }

@@ -375,7 +375,7 @@
   }
 
   .hero .title {
-    margin-inline-end: calc(var(--wa-space-m) * 20);
+    margin-inline-end: 40%;
     color: var(--wa-color-brand-text-on-spot);
   }
 }
