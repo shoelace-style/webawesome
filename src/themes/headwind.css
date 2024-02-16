@@ -479,6 +479,12 @@ h4 {
   }
 }
 
+.badge-stock {
+  position: absolute;
+  top: var(--wa-space-l);
+  left: var(--wa-space-l);
+}
+
 .message-composer wa-card {
   &::part(footer) {
     border: none;

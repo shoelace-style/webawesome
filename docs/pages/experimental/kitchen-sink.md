@@ -602,6 +602,7 @@ toc: false
       case 'playful':
       case 'brutalist':
       case 'classic':
+      case 'fa':
         assetFolder = themeSelect.value;
         break;
       default:
@@ -763,19 +764,22 @@ toc: false
 
     switch(themeSelect.value) {
       case 'fa':
-        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+        presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
-        presetLogoIcons = ['sunglasses', 'gem', 'car', 'wine-glass'];
+        presetLogoIcons = ['sunglasses', 'gem', 'car', 'shirt'];
         break;
       case 'playful':
-        presetLogoIcons = ['face-smile', 'paper-plane-top', 'sparkles', 'star'];
+        presetLogoIcons = ['face-smile-solid', 'palette', 'crown', 'star'];
         break;
       case 'brutalist':
-        presetLogoIcons = ['keyboard', 'cart-shopping', 'globe', 'code'];
+        presetLogoIcons = ['leaf', 'book-open', 'landmark', 'mug-hot'];
         break;
       case 'headwind':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
+        break;
+      case 'classic':
+        presetLogoIcons = ['backpack', 'gamepad-modern', 'boombox', 'bug'];
         break;
       default:
         presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
@@ -998,6 +1002,15 @@ toc: false
           iconFamily.value = 'fa-classic';
           iconStyle.value = 'solid';
           useFaIcons();
+          break;
+        case 'classic':
+          iconFamily.value = 'custom';
+          registerIconLibrary('default', {
+            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+          });
+          registerIconLibrary('system', {
+            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+          });
           break;
         default:
           iconFamily.value = 'fa-classic';
