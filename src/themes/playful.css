@@ -363,12 +363,35 @@
 
   pre {
     border-radius: var(--wa-corners-m);
-    background-color: color-mix(in oklab, var(--wa-color-neutral-spot), transparent 90%);
+    background-color: var(--wa-color-base-90);
   }
 
   code {
     font-weight: var(--wa-font-weight-normal);
     font-size: var(--wa-font-size-s);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-50);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-50);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-10);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-50);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-50);
+    }
   }
 
   wa-rating {
@@ -904,6 +927,33 @@
 
   .hero-background {
     background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
+  }
+
+  pre {
+    background-color: var(--wa-color-base-20);
+  }
+
+  /* syntax highlighting */
+  .token {
+    &.selector {
+      color: var(--wa-color-green-80);
+    }
+
+    &.tag {
+      color: var(--wa-color-blue-80);
+    }
+
+    &.punctuation {
+      color: var(--wa-color-base-95);
+    }
+
+    &.attr-name {
+      color: var(--wa-color-green-80);
+    }
+
+    &.attr-value {
+      color: var(--wa-color-yellow-80);
+    }
   }
 
   .message-composer wa-card {
