@@ -601,6 +601,7 @@ toc: false
       case 'headwind':
       case 'playful':
       case 'brutalist':
+      case 'fa':
         assetFolder = themeSelect.value;
         break;
       default:
@@ -762,7 +763,7 @@ toc: false
 
     switch(themeSelect.value) {
       case 'fa':
-        presetLogoIcons = ['ufo', 'bomb', 'rocket-launch', 'burger-cheese'];
+        presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
         presetLogoIcons = ['sunglasses', 'gem', 'car', 'shirt'];

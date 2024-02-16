@@ -16,6 +16,7 @@ export default css`
     --border-style: var(--wa-border-style);
     --border-width: var(--wa-form-controls-border-width);
     --box-shadow: none;
+    --checked-icon-color: var(--wa-color-brand-text-on-spot);
     --toggle-size: calc(1em * var(--wa-font-line-height-compact) - 0.125rem);
 
     display: inline-block;
@@ -90,7 +91,7 @@ export default css`
   /* Checked/indeterminate */
   .checkbox--checked .checkbox__control,
   .checkbox--indeterminate .checkbox__control {
-    color: var(--wa-color-brand-text-on-spot);
+    color: var(--checked-icon-color);
     border-color: var(--border-color-checked);
     background: var(--background-checked);
   }
