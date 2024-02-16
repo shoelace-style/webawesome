@@ -1185,7 +1185,10 @@ toc: false
   .square-frame,
   .landscape-frame {
     overflow: hidden;
-    border-radius: calc(var(--wa-corners-m) - var(--wa-panel-border-width));
+
+    &:not(wa-card *) {
+      border-radius: calc(var(--wa-corners-m) - var(--wa-panel-border-width));
+    }
 
     & > img {
       block-size: 100%;
