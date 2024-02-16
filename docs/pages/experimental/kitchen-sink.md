@@ -776,6 +776,9 @@ toc: false
       case 'headwind':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
+      case 'classic':
+        presetLogoIcons = ['backpack', 'gamepad-modern', 'boombox', 'bug'];
+        break;
       default:
         presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
     }
@@ -997,6 +1000,15 @@ toc: false
           iconFamily.value = 'fa-classic';
           iconStyle.value = 'solid';
           useFaIcons();
+          break;
+        case 'classic':
+          iconFamily.value = 'custom';
+          registerIconLibrary('default', {
+            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+          });
+          registerIconLibrary('system', {
+            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+          });
           break;
         default:
           iconFamily.value = 'fa-classic';
