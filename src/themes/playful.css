@@ -574,7 +574,7 @@
     font-size: var(--wa-font-size-s);
 
     &::part(message) {
-      padding-left: var(--wa-space-l);
+      padding-inline-start: var(--wa-space-l);
     }
   }
 
@@ -760,7 +760,7 @@
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);
-    padding-bottom: var(--wa-space-xs);
+    padding-block-end: var(--wa-space-xs);
   }
 }
 

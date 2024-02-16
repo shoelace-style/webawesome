@@ -348,7 +348,7 @@
   /* premium custom settings - general and light */
 
   pre {
-    border-left: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
+    border-inline-start: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-subtle);
   }
 
   pre,
@@ -380,30 +380,8 @@
     }
   }
 
-  .textmarker-effect {
-    position: relative;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    &:before {
-      position: absolute;
-      z-index: -1;
-      content: '';
-      background: #fbff2b;
-      height: 20px;
-      left: 0;
-      bottom: -10px;
-      width: 0%;
-      opacity: 0.7;
-      transition: all 0.5s;
-    }
-
-    &:hover:before {
-      width: 100%;
-    }
-  }
-
-  p a {
+  p a,
+  a.highlite-link {
     position: relative;
     --wa-link-decoration-default: none;
     --wa-link-decoration-hover: none;
@@ -426,13 +404,8 @@
   }
 
   wa-card::part(image) {
-    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+    border-block-end: var(--border-width) var(--border-style) var(--border-color);
   }
-
-  /* wa-card wa-button::part(base) {
-    padding: var(--wa-space-2xs) 0 var(--wa-space-2xs) var(--wa-space-s);
-    height: auto;
-  } */
 
   wa-button {
     --box-shadow: none;
@@ -607,7 +580,7 @@
 
   .hero wa-button {
     --background: var(--wa-color-neutral-spot);
-    margin-top: var(--wa-space-xl);
+    margin-block-start: var(--wa-space-xl);
     font-size: var(--wa-font-size-l);
   }
 
@@ -671,7 +644,7 @@
   .blog .landscape-frame {
     box-shadow: var(--wa-shadow-level-1);
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-    margin-bottom: var(--wa-shadow-offset-y-level-1);
+    margin-block-end: var(--wa-shadow-offset-y-level-1);
   }
 
   .post-meta .categories {
