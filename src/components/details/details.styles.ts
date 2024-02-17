@@ -88,7 +88,7 @@ export default css`
   }
 
   .details__body {
-    overflow: hidden;
+    overflow: var(--content-overflow, hidden);
   }
 
   .details__content {
