@@ -699,6 +699,17 @@
     box-shadow: var(--wa-shadow-level-1);
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
   }
+
+  /* responsive */
+  @media screen and (min-width: 1324px) and (max-width: 1505px) {
+    wa-card.product-card {
+      --padding: var(--wa-space-s);
+
+      wa-button {
+        margin-inline-end: 0;
+      }
+    }
+  }
 }
 
 .wa-theme-brutalist-dark,
