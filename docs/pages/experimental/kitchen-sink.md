@@ -1159,8 +1159,8 @@ toc: false
   .preview-container {
     background: var(--wa-color-surface-lowered);
     padding: 0;
-    margin-left: calc((var(--knobs-width) - 2rem) );
-    /* translate: calc((var(--knobs-width) + 2rem) / 2); */
+    max-inline-size: 1260px;
+    margin-inline: auto;
     border: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style);
   }
 
@@ -1184,7 +1184,7 @@ toc: false
   }
 
   .strata {
-    padding: var(--wa-space-3xl) 7%;
+    padding: var(--wa-space-3xl);
   }
 
   pre,
