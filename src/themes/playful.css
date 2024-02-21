@@ -762,17 +762,6 @@
     font-size: var(--wa-font-size-s);
     padding-block-end: var(--wa-space-xs);
   }
-
-  /* responsive */
-  @media screen and (min-width: 1324px) and (max-width: 1505px) {
-    wa-card.product-card {
-      --padding: var(--wa-space-s);
-
-      wa-button {
-        margin-inline-end: 0;
-      }
-    }
-  }
 }
 
 .wa-theme-playful-dark,
