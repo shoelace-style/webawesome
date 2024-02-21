@@ -638,7 +638,7 @@
   .hero-background {
     position: absolute;
     z-index: -1;
-    top: -18%;
+    top: -60rem;
     left: 50%;
     width: 250rem;
     height: 250rem;
@@ -656,7 +656,7 @@
     height: 600px;
     transform: translateX(-50%);
     left: 50%;
-    top: 185rem;
+    bottom: 33rem;
   }
 
   .hero {
