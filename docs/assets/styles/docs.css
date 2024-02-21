@@ -362,11 +362,11 @@ pre:hover .copy-code-button,
 }
 
 #sidebar:hover::-webkit-scrollbar-thumb {
-  background: var(--wa-color-base-60);
+  background: var(--wa-color-neutral-border-highlight);
 }
 
 #sidebar:hover::-webkit-scrollbar-track {
-  background: var(--wa-color-base-95);
+  background: var(--wa-color-surface-raised);
 }
 
 #sidebar > header {

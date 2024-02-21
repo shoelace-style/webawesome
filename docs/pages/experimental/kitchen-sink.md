@@ -5,11 +5,6 @@ description: TODO
 toc: false
 ---
 
-<script type="module">
-  document.querySelectorAll('wa-details').forEach((element) => element.addEventListener("wa-after-show", () => element.style.setProperty('--content-overflow', 'visible')));
-  document.querySelectorAll('wa-details').forEach((element) => element.addEventListener("wa-hide", () => element.style.setProperty('--content-overflow', 'hidden')));
-</script>
-
 <style>
   /* turn off eleventy header anchors */
   .anchor-heading a {
@@ -32,7 +27,13 @@ toc: false
   }
 
   :root {
-    --knobs-width: 300px;
+    --knobs-width: 320px;
+    --knobs-padding: 1.5rem;
+  }
+
+  :root, 
+  #knobs {
+    scrollbar-color: var(--wa-color-neutral-border-highlight) var(--wa-color-surface-raised);
   }
 
   #knobs {
@@ -54,21 +55,21 @@ toc: false
     height: 100%;
     top: 0;
     left: 0;
+    scrollbar-width: thin;
 
     & .header {
-      padding: 1.5em;
+      padding: var(--knobs-padding);
+
+      & > * + * {
+        margin-block-start: var(--knobs-padding);
+      }
     }
     & wa-details {
-      --border-color: var(--wa-color-neutral-border-subtle) transparent;
+      --border-width: var(--wa-panel-border-width) 0;
       --border-radius: 0;
-      --content-overflow: visible;
-      --padding: 1.5em;
+      --padding: var(--knobs-padding);
       margin-block-start: calc(var(--wa-border-width-s) * -1);
       position: relative;
-      
-      &[open] {
-        z-index: 10;
-      }
 
       &::part(summary) {
         font-weight: 500;
@@ -83,24 +84,45 @@ toc: false
       &::part(content) {
         margin-block-start: calc(var(--padding) * -1);
       }
+
+      & * {
+        box-sizing: border-box;
+      }
+
+      & > *:not(wa-icon) + *:not(wa-icon) {
+        margin-block-start: var(--knobs-padding);
+      }
+
+      &[summary="Typography"] fieldset {
+        border: unset;
+        margin-inline: 0;
+        padding: 0;
+        padding-block-end: 0;
+
+        & legend {
+          color: var(--wa-form-controls-label-color);
+          font-weight: var(--wa-form-controls-label-font-weight);
+          line-height: var(--wa-form-controls-label-line-height);
+          margin-bottom: var(--wa-space-3xs);
+          padding-inline: 0;
+        }
+      }
+
+      &[summary="Typography"] wa-select::part(listbox) {
+        width: calc(var(--knobs-width) - var(--knobs-padding) * 2 - var(--wa-form-controls-border-width) * 2);
+      }
     }
+
+    &
   }
 
-  #knobs p {
-    margin: 0;
-  }
-
-  #knobs wa-select+wa-input {
-    margin-inline-start: .5rem;
-  }
-
-  wa-details::part(base) {
-
+  #knobs wa-select + wa-input {
+    margin-inline-start: var(--wa-space-3xs);
   }
 
   /* set up  Kitchen Sink preview area */
   .content {
-    max-width: 1260px;
+    max-width: 1320px;
     gap: 0;
   }
 
@@ -111,8 +133,10 @@ toc: false
     border: var(--wa-form-controls-border-width) dashed var(--wa-form-controls-resting-color);
     border-radius: var(--wa-form-controls-corners);
     background: var(--wa-form-controls-background);
-    padding: var(--wa-space-xs);
     cursor: pointer;
+    font-weight: var(--wa-font-weight-action);
+    height: calc(var(--wa-form-controls-height-m) + var(--wa-border-width-s) * 2);
+    line-height: var(--wa-form-controls-height-m);
     text-align: center;
   }
 
@@ -144,7 +168,7 @@ toc: false
 
   #file-uploader-description {
     display: block;
-    line-height: 1;
+    line-height: var(--wa-font-line-height-compact);
     font-size: 0.75em;
     color: var(--wa-color-text-quiet);
   }
@@ -261,62 +285,66 @@ toc: false
           <wa-icon name="ellipsis"></wa-icon>
           <wa-visually-hidden>Browse icons</wa-visually-hidden>
         </wa-button>
-        <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
+        <small slot="help-text" style="display: inline-block; line-height: var(--wa-font-line-height-compact);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
   </wa-details>
   <wa-details summary="Typography">
     <wa-icon name="plus" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" slot="collapse-icon"></wa-icon>
-    <div aria-hidden="true">Heading Typography</div>
-    <div style="display: flex; --wa-space-m: 0.5rem;">
-      <wa-select class="hidden-label" name="font-family-heading" value="default" label="Heading Typography Font Family">
-        <wa-option value="default">Theme default</wa-option>
-        <wa-option value="assistant">Assistant</wa-option>
-        <wa-option value="inter">Inter</wa-option>
-        <wa-option value="lora">Lora</wa-option>
-        <wa-option value="noto-sans">Noto Sans</wa-option>
-        <wa-option value="noto-sans-display">Noto Sans Display</wa-option>
-        <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
-        <wa-option value="noto-serif">Noto Serif</wa-option>
-        <wa-option value="open-sans">Open Sans</wa-option>
-        <wa-option value="playfair">Playfair</wa-option>
-        <wa-option value="playfair-display">Playfair Display</wa-option>
-        <wa-option value="quicksand">Quicksand</wa-option>
-        <wa-option value="roboto-flex">Roboto Flex</wa-option>
-        <wa-option value="roboto-mono">Roboto Mono</wa-option>
-        <wa-option value="roboto-serif">Roboto Serif</wa-option>
-        <wa-option value="roboto-slab">Roboto Slab</wa-option>
-      </wa-select>
-      <wa-input class="hidden-label" name="font-weight-heading" value="" label="Heading Typography Font Weight" type="number" step="50" max="900" min="50" style="width: 33%;">
-      </wa-input>
-    </div>
-    <div aria-hidden="true">Body Typography</div>
-    <div style="display: flex; --wa-space-m: 0.5rem;">
-      <wa-select class="hidden-label" name="font-family-body" value="default" label="Body Typography Font Family">
-        <wa-option value="default">Theme default</wa-option>
-        <wa-option value="assistant">Assistant</wa-option>
-        <wa-option value="inter">Inter</wa-option>
-        <wa-option value="lora">Lora</wa-option>
-        <wa-option value="noto-sans">Noto Sans</wa-option>
-        <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
-        <wa-option value="noto-serif">Noto Serif</wa-option>
-        <wa-option value="open-sans">Open Sans</wa-option>
-        <wa-option value="playfair">Playfair</wa-option>
-        <wa-option value="quicksand">Quicksand</wa-option>
-        <wa-option value="roboto-flex">Roboto Flex</wa-option>
-        <wa-option value="roboto-mono">Roboto Mono</wa-option>
-        <wa-option value="roboto-serif">Roboto Serif</wa-option>
-        <wa-option value="roboto-slab">Roboto Slab</wa-option>
-      </wa-select>
-      <wa-input class="hidden-label" name="font-weight-body" value="" style="width: 33%;" type="number" step="50" max="900" min="50" label="Body Typography Font Weight">
-      </wa-input>
-    </div>
+    <fieldset>
+      <legend aria-hidden="true">Headings</legend>
+      <div style="display: flex;">
+        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Font Family" hoist>
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-display">Noto Sans Display</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="playfair-display">Playfair Display</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Font Weight" type="number" step="50" max="900" min="50" style="width: 33%;">
+        </wa-input>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend aria-hidden="true">Body text</legend>
+      <div style="display: flex;">
+        <wa-select class="hidden-label" name="font-family-body" value="default" label="Font Family" hoist>
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input class="hidden-label" name="font-weight-body" value="" style="width: 33%;" type="number" step="50" max="900" min="50" label="Font Weight">
+        </wa-input>
+      </div>
+    </fieldset>
   </wa-details>
   <wa-details summary="Icons">
     <wa-icon name="plus" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" slot="collapse-icon"></wa-icon>
-    <wa-select name="icon-family" label="Icon Family" value="fa-classic">
+    <wa-select name="icon-family" label="Icon Family" value="fa-classic" hoist>
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
       <wa-option value="custom" hidden>* Custom</wa-option>
@@ -332,7 +360,7 @@ toc: false
   <wa-details summary="Look and feel">
     <wa-icon name="plus" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" slot="collapse-icon"></wa-icon>
-    <wa-select name="border-style" label="Border Style" value="solid">
+    <wa-select name="border-style" label="Border Style" value="solid" hoist>
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
       <wa-option value="dotted">Dotted</wa-option>
@@ -496,6 +524,7 @@ toc: false
   const container = document.getElementById('knobs');
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
+  const knobsSections = container.querySelectorAll('wa-details');
   const depthSlider = container.querySelector('[name="depth"]');
   const fontWeightHeading = container.querySelector('[name="font-weight-heading"]');
   const fontWeightBody = container.querySelector('[name="font-weight-body"]');
@@ -549,6 +578,8 @@ toc: false
     document.documentElement.style.removeProperty('--wa-corners-base')
     corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
   }
+
+
 
   // Depth slider and settings
   const depthNames = {
