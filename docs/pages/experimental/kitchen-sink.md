@@ -1259,7 +1259,7 @@ toc: false
   }
 
   .product-card {
-    max-width: 350px;
+    max-width: 45ch;
     margin: 0 auto;
   }
 
@@ -1399,7 +1399,7 @@ toc: false
   }
 
   .support-table .desc {
-    max-width: 250px;
+    max-width: 30ch;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -1463,11 +1463,6 @@ toc: false
 
 
   /* responsive */
-
-  @media screen and (min-width: 670px) {
-
-  }
-
   /* tablet plus knobs */
   @media screen and (min-width: 1324px) {
     .product-card {
@@ -1500,11 +1495,6 @@ toc: false
       order: 2;
     }
   }
-
-  @media screen and (min-width: 1450px) {
-
-  }
-
 </style>
 
 <!-- Kitchen Sink Preview -->
