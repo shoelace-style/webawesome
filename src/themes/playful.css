@@ -357,411 +357,9 @@
    */
   --wa-tooltip-arrow-size: 0.375rem;
 
-  /* playful custom settings - general and light */
+  /* Depth */
   --wa-shadow-blur-base: 0.5;
   --wa-shadow-offset-y-base: 0.375;
-
-  pre {
-    border-radius: var(--wa-corners-m);
-    background-color: var(--wa-color-base-90);
-  }
-
-  code {
-    font-weight: var(--wa-font-weight-normal);
-    font-size: var(--wa-font-size-s);
-  }
-
-  /* syntax highlighting */
-  .token {
-    &.selector {
-      color: var(--wa-color-green-50);
-    }
-
-    &.tag {
-      color: var(--wa-color-blue-50);
-    }
-
-    &.punctuation {
-      color: var(--wa-color-base-10);
-    }
-
-    &.attr-name {
-      color: var(--wa-color-green-50);
-    }
-
-    &.attr-value {
-      color: var(--wa-color-yellow-50);
-    }
-  }
-
-  wa-rating {
-    --symbol-size: var(--wa-font-size-m);
-    --symbol-color: color-mix(in oklab, var(--symbol-color-active) 50%, transparent);
-  }
-
-  wa-switch {
-    --background: var(--wa-surface-default);
-    --border-width: var(--wa-form-controls-border-width);
-    --thumb-color: var(--wa-form-controls-resting-color);
-    --thumb-color-checked: var(--wa-color-base-95);
-    --thumb-size: 0.8em;
-    --height: 1.5em;
-    --width: calc(var(--thumb-size) * 3);
-  }
-
-  wa-switch::part(thumb) {
-    --border-width: 0;
-    box-shadow: none;
-  }
-
-  wa-switch[checked]::part(thumb) {
-    box-shadow: 0 2px 2px var(--wa-color-brand-40);
-  }
-
-  /* preventing shadows on all form input types */
-  wa-input:not(:focus),
-  wa-input:not([filled]):not([disabled]),
-  wa-checkbox:not([checked]):not([indeterminate]),
-  wa-select:not([filled]):not([disabled]) {
-    --box-shadow: var(--wa-shadow-level-0);
-  }
-
-  wa-checkbox[checked] {
-    --box-shadow: var(--wa-shadow-level-1);
-    --background-checked: linear-gradient(
-      180deg,
-      var(--wa-color-brand-40) 0%,
-      var(--wa-color-brand-50) 51.88%,
-      var(--wa-color-brand-60) 100%
-    );
-  }
-
-  wa-button {
-    --button-gradient-top: var(--wa-color-base-40);
-    --button-gradient-middle: var(--wa-color-base-50);
-    --button-gradient-bottom: var(--wa-color-base-60);
-    --button-shadow-outer: var(--wa-color-base-60);
-    --button-shadow-inner-a: var(--wa-color-base-30);
-    --button-shadow-inner-b: var(--wa-color-base-80);
-    --button-text-shadow: var(--wa-color-base-40);
-    --background: linear-gradient(
-      180deg,
-      var(--button-gradient-top) 0%,
-      var(--button-gradient-middle) 51.88%,
-      var(--button-gradient-bottom) 100%
-    );
-    --box-shadow: 0px 6px 16px var(--button-shadow-outer), inset 0 -2px 8px var(--button-shadow-inner-a),
-      inset 0 2px 8px var(--button-shadow-inner-b);
-    --border-color: var(--button-gradient-middle);
-    --border-width: 1px;
-    --background-hover: linear-gradient(
-      180deg,
-      var(--button-gradient-bottom) 0%,
-      var(--button-gradient-middle) 51.88%,
-      var(--button-gradient-top) 100%
-    );
-    --border-color-hover: var(--button-gradient-middle);
-    --background-active: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
-      color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
-      color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
-    );
-    --border-color-active: var(--button-gradient-middle);
-
-    &::part(prefix) {
-      padding-inline-start: calc(0.25em - var(--border-width));
-    }
-    &::part(suffix),
-    &::part(caret) {
-      padding-inline-end: calc(0.25em - var(--border-width));
-    }
-
-    &[variant='brand'] {
-      --button-gradient-top: var(--wa-color-brand-40);
-      --button-gradient-middle: var(--wa-color-brand-50);
-      --button-gradient-bottom: var(--wa-color-brand-60);
-      --button-shadow-outer: var(--wa-color-brand-60);
-      --button-shadow-inner-a: var(--wa-color-brand-30);
-      --button-shadow-inner-b: var(--wa-color-brand-80);
-      --button-text-shadow: var(--wa-color-brand-40);
-      --label-color: var(--wa-color-brand-95);
-    }
-
-    &[variant='success'] {
-      --button-gradient-top: var(--wa-color-green-40);
-      --button-gradient-middle: var(--wa-color-green-50);
-      --button-gradient-bottom: var(--wa-color-green-60);
-      --button-shadow-outer: var(--wa-color-green-60);
-      --button-shadow-inner-a: var(--wa-color-green-30);
-      --button-shadow-inner-b: var(--wa-color-green-80);
-      --button-text-shadow: var(--wa-color-green-40);
-    }
-
-    &[variant='warning'] {
-      --button-gradient-top: var(--wa-color-yellow-40);
-      --button-gradient-middle: var(--wa-color-yellow-50);
-      --button-gradient-bottom: var(--wa-color-yellow-60);
-      --button-shadow-outer: var(--wa-color-yellow-60);
-      --button-shadow-inner-a: var(--wa-color-yellow-30);
-      --button-shadow-inner-b: var(--wa-color-yellow-80);
-      --button-text-shadow: var(--wa-color-yellow-40);
-    }
-
-    &[variant='danger'] {
-      --button-gradient-top: var(--wa-color-red-40);
-      --button-gradient-middle: var(--wa-color-red-50);
-      --button-gradient-bottom: var(--wa-color-red-60);
-      --button-shadow-outer: var(--wa-color-red-60);
-      --button-shadow-inner-a: var(--wa-color-red-30);
-      --button-shadow-inner-b: var(--wa-color-red-80);
-      --button-text-shadow: var(--wa-color-red-40);
-    }
-
-    &[variant='neutral'] {
-      --button-gradient-top: var(--wa-color-base-40);
-      --button-gradient-middle: var(--wa-color-base-50);
-      --button-gradient-bottom: var(--wa-color-base-60);
-      --button-shadow-outer: var(--wa-color-base-60);
-      --button-shadow-inner-a: var(--wa-color-base-30);
-      --button-shadow-inner-b: var(--wa-color-base-80);
-      --button-text-shadow: var(--wa-color-base-40);
-    }
-
-    &::part(base) {
-      transition: all 0.05s ease-out;
-    }
-
-    &::part(base):hover {
-      transform: scale(1.02, 1.02);
-      background: var(--background-hover);
-    }
-
-    &::part(base):active {
-      background: var(--background-active);
-      --box-shadow: inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
-      transform: scale(0.98, 0.98);
-    }
-  }
-
-  wa-button::part(label),
-  wa-button wa-icon {
-    font-weight: var(--wa-font-weight-black);
-    text-shadow: 0 2px 2px var(--button-text-shadow);
-  }
-
-  wa-button[outline] {
-    --box-shadow: none;
-    --border-width: var(--wa-form-controls-border-width);
-    --label-color: var(--wa-color-neutral-text-on-fill);
-    --label-color-hover: var(--wa-color-neutral-text-on-spot);
-
-    &::part(label) {
-      text-shadow: none;
-    }
-  }
-
-  wa-carousel img {
-    border-radius: var(--wa-panel-corners);
-    box-shadow: none;
-  }
-
-  wa-alert {
-    --border-style: dashed;
-    --border-width: var(--wa-form-controls-border-width);
-    --icon-size: var(--wa-font-size-l);
-    --padding: var(--wa-space-s);
-    font-size: var(--wa-font-size-s);
-
-    &::part(message) {
-      padding-inline-start: var(--wa-space-l);
-    }
-  }
-
-  wa-tag {
-    --border-radius: var(--wa-corners-pill);
-    --border-width: var(--wa-border-width-m);
-    --border-style: dashed;
-    font-weight: var(--wa-font-weight-heavy);
-
-    &[variant='brand'] {
-      --border-color: var(--wa-color-brand-border-subtle);
-    }
-    &[variant='success'] {
-      --border-color: var(--wa-color-success-border-subtle);
-    }
-    &[variant='warning'] {
-      --border-color: var(--wa-color-warning-border-subtle);
-    }
-    &[variant='danger'] {
-      --border-color: var(--wa-color-danger-border-subtle);
-    }
-    &[variant='neutral'] {
-      --border-color: var(--wa-color-neutral-border-subtle);
-    }
-  }
-
-  wa-badge {
-    --border-radius: var(--wa-corners-pill);
-    --border-width: 0;
-
-    &[variant='brand'] {
-      --background: var(--wa-color-brand-80);
-      --content-color: var(--wa-color-brand-20);
-    }
-    &[variant='success'] {
-      --background: var(--wa-color-green-80);
-      --content-color: var(--wa-color-green-20);
-    }
-    &[variant='warning'] {
-      --background: var(--wa-color-yellow-80);
-      --content-color: var(--wa-color-yellow-20);
-    }
-    &[variant='danger'] {
-      --background: var(--wa-color-red-80);
-      --content-color: var(--wa-color-red-20);
-    }
-    &[variant='neutral'] {
-      --background: white;
-      --content-color: var(--wa-color-base-30);
-    }
-  }
-
-  .preview-container {
-    overflow: hidden;
-  }
-
-  .project-header {
-    color: var(--wa-color-success-text-on-fill);
-  }
-
-  .hero-background {
-    position: absolute;
-    z-index: -1;
-    top: -60rem;
-    left: 50%;
-    width: 250rem;
-    height: 250rem;
-    transform: translate(-50%, -50%);
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: linear-gradient(180deg, var(--wa-color-green-90) 69.42%, var(--wa-color-green-80) 100%);
-  }
-
-  .hero-background::after {
-    background: url(/assets/images/kitchen-sink/playful/hero.png) 0 50% no-repeat;
-    content: '';
-    position: absolute;
-    width: 520px;
-    height: 600px;
-    transform: translateX(-50%);
-    left: 50%;
-    bottom: 33rem;
-  }
-
-  .hero {
-    padding-top: 19rem;
-    text-align: center;
-  }
-
-  .hero .hero-title {
-    color: var(--wa-color-success-text-on-fill);
-    font-size: var(--wa-font-size-4xl);
-  }
-
-  .hero .hero-cta {
-    font-size: var(--wa-font-size-l);
-  }
-
-  .product-card .badge-stock {
-    position: absolute;
-    top: var(--wa-flow-spacing);
-    right: var(--wa-flow-spacing);
-  }
-
-  .product-card {
-    --wa-panel-corners: var(--wa-corners-l);
-  }
-
-  .product-card::part(footer) {
-    border-width: 0;
-  }
-
-  .product-card wa-button {
-    margin-inline-end: var(--wa-space-xs);
-  }
-
-  .blog wa-avatar {
-    --size: 2rem;
-  }
-
-  .blog .landscape-frame {
-    border-radius: var(--wa-corners-l);
-    box-shadow: var(--wa-shadow-level-1);
-  }
-
-  .message-composer wa-card {
-    --background: var(--wa-color-surface-raised);
-  }
-
-  .message-composer wa-card::part(header) {
-    --wa-color-neutral-border-subtle: var(--wa-color-base-70);
-    border-width: 0;
-    background-color: var(--wa-color-neutral-fill-subtle);
-  }
-
-  &:not(.wa-theme-premium-dark) .message-composer wa-card {
-    --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
-  }
-
-  .message-composer wa-icon-button {
-    color: var(--wa-text-color-normal);
-    font-size: var(--wa-font-size-l);
-  }
-
-  .message-composer wa-card::part(footer) {
-    padding-top: 0;
-  }
-
-  .product-detail .price {
-    font-weight: var(--wa-font-weight-heavy);
-  }
-
-  .support-table wa-card {
-    --background: var(--wa-color-surface-raised);
-  }
-
-  .support-table th {
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-heavy);
-    background-color: var(--wa-color-surface-lowered);
-  }
-
-  .support-table tr {
-    border-top-color: var(--wa-color-surface-lowered);
-  }
-
-  .support-table .excerpt {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .order-item img {
-    border-radius: var(--wa-corners-s);
-  }
-
-  .checkout-form {
-    font-size: var(--wa-font-size-s);
-  }
-
-  .checkout-form h2 {
-    font-size: var(--wa-font-size-3xl);
-  }
-
-  .checkout-form wa-input::part(form-control-label),
-  .checkout-form wa-select::part(form-control-label) {
-    font-size: var(--wa-font-size-s);
-    padding-block-end: var(--wa-space-xs);
-  }
 }
 
 .wa-theme-playful-dark,
@@ -929,7 +527,7 @@
     background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
   }
 
-  pre {
+  .preview-container pre {
     background-color: var(--wa-color-base-20);
   }
 
@@ -978,6 +576,408 @@
 }
 
 /* #region Custom styles */
+.preview-container pre {
+  border-radius: var(--wa-corners-m);
+  background-color: var(--wa-color-base-90);
+}
+
+.preview-container code {
+  font-weight: var(--wa-font-weight-normal);
+  font-size: var(--wa-font-size-s);
+}
+
+/* syntax highlighting */
+.token {
+  &.selector {
+    color: var(--wa-color-green-50);
+  }
+
+  &.tag {
+    color: var(--wa-color-blue-50);
+  }
+
+  &.punctuation {
+    color: var(--wa-color-base-10);
+  }
+
+  &.attr-name {
+    color: var(--wa-color-green-50);
+  }
+
+  &.attr-value {
+    color: var(--wa-color-yellow-50);
+  }
+}
+
+wa-rating {
+  --symbol-size: var(--wa-font-size-m);
+  --symbol-color: color-mix(in oklab, var(--symbol-color-active) 50%, transparent);
+}
+
+wa-switch {
+  --background: var(--wa-surface-default);
+  --border-width: var(--wa-form-controls-border-width);
+  --thumb-color: var(--wa-form-controls-resting-color);
+  --thumb-color-checked: var(--wa-color-base-95);
+  --thumb-size: 0.8em;
+  --height: 1.5em;
+  --width: calc(var(--thumb-size) * 3);
+}
+
+wa-switch::part(thumb) {
+  --border-width: 0;
+  box-shadow: none;
+}
+
+wa-switch[checked]::part(thumb) {
+  box-shadow: 0 2px 2px var(--wa-color-brand-40);
+}
+
+/* preventing shadows on all form input types */
+wa-input:not(:focus),
+wa-input:not([filled]):not([disabled]),
+wa-checkbox:not([checked]):not([indeterminate]),
+wa-select:not([filled]):not([disabled]) {
+  --box-shadow: var(--wa-shadow-level-0);
+}
+
+wa-checkbox[checked] {
+  --box-shadow: var(--wa-shadow-level-1);
+  --background-checked: linear-gradient(
+    180deg,
+    var(--wa-color-brand-40) 0%,
+    var(--wa-color-brand-50) 51.88%,
+    var(--wa-color-brand-60) 100%
+  );
+}
+
+wa-button {
+  --button-gradient-top: var(--wa-color-base-40);
+  --button-gradient-middle: var(--wa-color-base-50);
+  --button-gradient-bottom: var(--wa-color-base-60);
+  --button-shadow-outer: var(--wa-color-base-60);
+  --button-shadow-inner-a: var(--wa-color-base-30);
+  --button-shadow-inner-b: var(--wa-color-base-80);
+  --button-text-shadow: var(--wa-color-base-40);
+  --background: linear-gradient(
+    180deg,
+    var(--button-gradient-top) 0%,
+    var(--button-gradient-middle) 51.88%,
+    var(--button-gradient-bottom) 100%
+  );
+  --box-shadow: 0px 6px 16px var(--button-shadow-outer), inset 0 -2px 8px var(--button-shadow-inner-a),
+    inset 0 2px 8px var(--button-shadow-inner-b);
+  --border-color: var(--button-gradient-middle);
+  --border-width: 1px;
+  --background-hover: linear-gradient(
+    180deg,
+    var(--button-gradient-bottom) 0%,
+    var(--button-gradient-middle) 51.88%,
+    var(--button-gradient-top) 100%
+  );
+  --border-color-hover: var(--button-gradient-middle);
+  --background-active: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
+    color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
+    color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
+  );
+  --border-color-active: var(--button-gradient-middle);
+  --wa-shadow-offset-y-level-1: 0;
+
+  &::part(prefix) {
+    padding-inline-start: calc(0.25em - var(--border-width));
+  }
+  &::part(suffix),
+  &::part(caret) {
+    padding-inline-end: calc(0.25em - var(--border-width));
+  }
+
+  &[variant='brand'] {
+    --button-gradient-top: var(--wa-color-brand-40);
+    --button-gradient-middle: var(--wa-color-brand-50);
+    --button-gradient-bottom: var(--wa-color-brand-60);
+    --button-shadow-outer: var(--wa-color-brand-60);
+    --button-shadow-inner-a: var(--wa-color-brand-30);
+    --button-shadow-inner-b: var(--wa-color-brand-80);
+    --button-text-shadow: var(--wa-color-brand-40);
+    --label-color: var(--wa-color-brand-95);
+  }
+
+  &[variant='success'] {
+    --button-gradient-top: var(--wa-color-green-40);
+    --button-gradient-middle: var(--wa-color-green-50);
+    --button-gradient-bottom: var(--wa-color-green-60);
+    --button-shadow-outer: var(--wa-color-green-60);
+    --button-shadow-inner-a: var(--wa-color-green-30);
+    --button-shadow-inner-b: var(--wa-color-green-80);
+    --button-text-shadow: var(--wa-color-green-40);
+  }
+
+  &[variant='warning'] {
+    --button-gradient-top: var(--wa-color-yellow-40);
+    --button-gradient-middle: var(--wa-color-yellow-50);
+    --button-gradient-bottom: var(--wa-color-yellow-60);
+    --button-shadow-outer: var(--wa-color-yellow-60);
+    --button-shadow-inner-a: var(--wa-color-yellow-30);
+    --button-shadow-inner-b: var(--wa-color-yellow-80);
+    --button-text-shadow: var(--wa-color-yellow-40);
+  }
+
+  &[variant='danger'] {
+    --button-gradient-top: var(--wa-color-red-40);
+    --button-gradient-middle: var(--wa-color-red-50);
+    --button-gradient-bottom: var(--wa-color-red-60);
+    --button-shadow-outer: var(--wa-color-red-60);
+    --button-shadow-inner-a: var(--wa-color-red-30);
+    --button-shadow-inner-b: var(--wa-color-red-80);
+    --button-text-shadow: var(--wa-color-red-40);
+  }
+
+  &[variant='neutral'] {
+    --button-gradient-top: var(--wa-color-base-40);
+    --button-gradient-middle: var(--wa-color-base-50);
+    --button-gradient-bottom: var(--wa-color-base-60);
+    --button-shadow-outer: var(--wa-color-base-60);
+    --button-shadow-inner-a: var(--wa-color-base-30);
+    --button-shadow-inner-b: var(--wa-color-base-80);
+    --button-text-shadow: var(--wa-color-base-40);
+  }
+
+  &::part(base) {
+    transition: all 0.05s ease-out;
+  }
+
+  &::part(base):hover {
+    transform: scale(1.02, 1.02);
+    background: var(--background-hover);
+  }
+
+  &::part(base):active {
+    background: var(--background-active);
+    --box-shadow: inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
+    transform: scale(0.98, 0.98);
+  }
+}
+
+wa-button::part(label),
+wa-button wa-icon {
+  font-weight: var(--wa-font-weight-black);
+  text-shadow: 0 2px 2px var(--button-text-shadow);
+}
+
+wa-button[outline] {
+  --box-shadow: none;
+  --border-width: var(--wa-form-controls-border-width);
+  --label-color: var(--wa-color-neutral-text-on-fill);
+  --label-color-hover: var(--wa-color-neutral-text-on-spot);
+
+  &::part(label) {
+    text-shadow: none;
+  }
+}
+
+wa-carousel img {
+  border-radius: var(--wa-panel-corners);
+  box-shadow: none;
+}
+
+wa-alert {
+  --border-style: dashed;
+  --border-width: var(--wa-form-controls-border-width);
+  --icon-size: var(--wa-font-size-l);
+  --padding: var(--wa-space-s);
+  font-size: var(--wa-font-size-s);
+
+  &::part(message) {
+    padding-inline-start: var(--wa-space-l);
+  }
+}
+
+wa-tag {
+  --border-radius: var(--wa-corners-pill);
+  --border-width: var(--wa-border-width-m);
+  --border-style: dashed;
+  font-weight: var(--wa-font-weight-heavy);
+
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-border-subtle);
+  }
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-border-subtle);
+  }
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-border-subtle);
+  }
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-border-subtle);
+  }
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-border-subtle);
+  }
+}
+
+wa-badge {
+  --border-radius: var(--wa-corners-pill);
+  --border-width: 0;
+
+  &[variant='brand'] {
+    --background: var(--wa-color-brand-80);
+    --content-color: var(--wa-color-brand-20);
+  }
+  &[variant='success'] {
+    --background: var(--wa-color-green-80);
+    --content-color: var(--wa-color-green-20);
+  }
+  &[variant='warning'] {
+    --background: var(--wa-color-yellow-80);
+    --content-color: var(--wa-color-yellow-20);
+  }
+  &[variant='danger'] {
+    --background: var(--wa-color-red-80);
+    --content-color: var(--wa-color-red-20);
+  }
+  &[variant='neutral'] {
+    --background: white;
+    --content-color: var(--wa-color-base-30);
+  }
+}
+
+.preview-container {
+  overflow: hidden;
+}
+
+.project-header {
+  color: var(--wa-color-success-text-on-fill);
+}
+
+.hero-background {
+  position: absolute;
+  z-index: -1;
+  top: -60rem;
+  left: 50%;
+  width: 250rem;
+  height: 250rem;
+  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--wa-color-green-90) 69.42%, var(--wa-color-green-80) 100%);
+}
+
+.hero-background::after {
+  background: url(/assets/images/kitchen-sink/playful/hero.png) 0 50% no-repeat;
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 600px;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 33rem;
+}
+
+.strata.hero {
+  padding-top: 19rem;
+  text-align: center;
+}
+
+.hero .hero-title {
+  color: var(--wa-color-success-text-on-fill);
+  font-size: var(--wa-font-size-4xl);
+}
+
+.hero .hero-cta {
+  font-size: var(--wa-font-size-l);
+}
+
+.product-card .badge-stock {
+  position: absolute;
+  top: var(--wa-flow-spacing);
+  right: var(--wa-flow-spacing);
+}
+
+.product-card {
+  --wa-panel-corners: var(--wa-corners-l);
+}
+
+.product-card::part(footer) {
+  border-width: 0;
+}
+
+.product-card wa-button {
+  margin-inline-end: var(--wa-space-xs);
+}
+
+.blog wa-avatar {
+  --size: 2rem;
+}
+
+.blog .landscape-frame {
+  border-radius: var(--wa-corners-l);
+  box-shadow: var(--wa-shadow-level-1);
+}
+
+.message-composer wa-card {
+  --background: var(--wa-color-surface-raised);
+}
+
+.message-composer wa-card::part(header) {
+  --wa-color-neutral-border-subtle: var(--wa-color-base-70);
+  border-width: 0;
+  background-color: var(--wa-color-neutral-fill-subtle);
+}
+
+&:not(.wa-theme-premium-dark) .message-composer wa-card {
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-90);
+}
+
+.message-composer wa-icon-button {
+  color: var(--wa-text-color-normal);
+  font-size: var(--wa-font-size-l);
+}
+
+.message-composer wa-card::part(footer) {
+  padding-top: 0;
+}
+
+.product-detail .price {
+  font-weight: var(--wa-font-weight-heavy);
+}
+
+.support-table wa-card {
+  --background: var(--wa-color-surface-raised);
+}
+
+.support-table th {
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-heavy);
+  background-color: var(--wa-color-surface-lowered);
+}
+
+.support-table tr {
+  border-top-color: var(--wa-color-surface-lowered);
+}
+
+.support-table .excerpt {
+  color: var(--wa-color-text-quiet);
+}
+
+.order-item img {
+  border-radius: var(--wa-corners-s);
+}
+
+.checkout-form {
+  font-size: var(--wa-font-size-s);
+}
+
+.checkout-form h2 {
+  font-size: var(--wa-font-size-3xl);
+}
+
+.checkout-form wa-input::part(form-control-label),
+.checkout-form wa-select::part(form-control-label) {
+  font-size: var(--wa-font-size-s);
+  padding-block-end: var(--wa-space-xs);
+}
 
 /* #endregion */
 

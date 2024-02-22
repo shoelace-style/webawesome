@@ -346,255 +346,9 @@
    */
   --wa-tooltip-arrow-size: 0.375rem;
 
-  /* premium custom settings - general and light */
+  /* Depth */
   --wa-shadow-blur-base: 0.375;
   --wa-shadow-offset-y-base: 0.1875;
-
-  pre,
-  code {
-    background-color: var(--wa-color-base-90);
-    font-size: var(--font-size-m);
-  }
-
-  /* syntax highlighting */
-  .token {
-    &.selector {
-      color: var(--wa-color-green-30);
-    }
-
-    &.tag {
-      color: var(--wa-color-blue-30);
-    }
-
-    &.punctuation {
-      color: var(--wa-color-base-10);
-    }
-
-    &.attr-name {
-      color: var(--wa-color-green-30);
-    }
-
-    &.attr-value {
-      color: var(--wa-color-yellow-30);
-    }
-  }
-
-  wa-rating {
-    --symbol-size: var(--wa-font-size-l);
-    --symbol-color-active: var(--wa-color-text-quiet);
-  }
-
-  wa-switch {
-    --background: transparent;
-    --border-color: var(--wa-color-neutral-border-highlight);
-    --thumb-color: var(--border-color);
-    --thumb-color-checked: var(--wa-color-brand-fill-subtle);
-    --thumb-size: 1em;
-    --height: 1.5em;
-    --width: calc(var(--thumb-size) * 2.5);
-  }
-
-  wa-button {
-    --box-shadow: inset 0 0.03125rem 0 0 rgb(255 255 255 / 0.5), inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1),
-      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2), var(--wa-shadow-level-1);
-  }
-
-  wa-card {
-    --border-radius: var(--wa-corners-m);
-  }
-
-  wa-alert {
-    font-size: var(--wa-font-size-s);
-    --border-color: var(--background);
-  }
-
-  wa-carousel {
-    --pagination-color-activated: var(--wa-color-brand-spot);
-    --pagination-color-resting: var(--wa-color-neutral-fill-highlight);
-  }
-
-  wa-badge,
-  wa-button::part(label),
-  wa-tag {
-    text-transform: uppercase;
-  }
-
-  wa-badge,
-  wa-tag {
-    --border-width: 0;
-  }
-
-  &:not(.wa-theme-premium-dark) wa-alert {
-    &[variant='brand'] {
-      --background: var(--wa-color-blue-95);
-    }
-    &[variant='success'] {
-      --background: var(--wa-color-green-95);
-    }
-    &[variant='warning'] {
-      --background: var(--wa-color-yellow-95);
-    }
-    &[variant='danger'] {
-      --background: var(--wa-color-red-95);
-    }
-  }
-
-  wa-badge {
-    &[variant='brand'] {
-      --background: var(--wa-color-blue-80);
-      --content-color: var(--wa-color-blue-20);
-    }
-    &[variant='success'] {
-      --background: var(--wa-color-green-80);
-      --content-color: var(--wa-color-green-20);
-    }
-    &[variant='warning'] {
-      --background: var(--wa-color-yellow-80);
-      --content-color: var(--wa-color-yellow-20);
-    }
-    &[variant='danger'] {
-      --background: var(--wa-color-red-80);
-      --content-color: var(--wa-color-red-20);
-    }
-    &[variant='neutral'] {
-      --background: white;
-      --content-color: var(--wa-color-base-30);
-    }
-  }
-
-  .project-header {
-    background-color: var(--wa-color-warning-fill-highlight);
-  }
-
-  .hero {
-    height: 60rem;
-    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 12rem no-repeat;
-    background-size: cover;
-    padding-top: var(--wa-space-2xl);
-    padding-left: var(--wa-space-s);
-    text-align: right;
-  }
-
-  .hero .hero-title {
-    color: var(--wa-color-warning-text-on-fill);
-    font-style: italic;
-  }
-
-  .blog wa-avatar::part(base) {
-    border-radius: var(--wa-corners-circle);
-    overflow: hidden;
-  }
-
-  .products {
-    margin-top: -25rem;
-    padding-top: 10rem;
-    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 80%, rgba(255, 255, 255, 0) 100%);
-  }
-
-  .product-card .badge-stock {
-    position: absolute;
-    top: var(--wa-flow-spacing);
-    right: var(--wa-flow-spacing);
-  }
-
-  .product-card wa-rating {
-    --symbol-size: var(--wa-font-size-m);
-  }
-
-  .product-card .title {
-    font-size: var(--wa-font-size-2xl);
-  }
-
-  .product-card .description {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .product-card::part(footer) {
-    border-width: 0;
-  }
-
-  .product-card wa-button:not(:last-child) {
-    margin-inline-end: var(--wa-space-xs);
-  }
-
-  .blog .authors a {
-    --wa-color-text-link: var(--wa-color-text-quiet);
-    --wa-link-decoration-default: none;
-  }
-
-  .message-composer wa-card {
-    --background: var(--wa-color-surface-raised);
-  }
-
-  .message-composer wa-card::part(header) {
-    border-width: 0;
-    background-color: var(--wa-color-neutral-fill-subtle);
-  }
-
-  &:not(.wa-theme-premium-dark) .message-composer wa-card {
-    --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
-  }
-
-  .message-composer wa-card::part(footer) {
-    border-width: 0;
-    --padding: var(--wa-space-s) var(--wa-space-xl);
-  }
-
-  .message-composer .grouped-buttons wa-icon-button::part(base) {
-    block-size: var(--wa-form-controls-height-s);
-    inline-size: var(--wa-form-controls-height-s);
-    justify-content: center;
-  }
-  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
-    background-color: var(--wa-color-neutral-fill-highlight);
-    color: var(--wa-color-text-normal);
-  }
-
-  .support-table th {
-    text-transform: uppercase;
-    font-weight: var(--wa-font-weight-normal);
-    color: var(--wa-color-text-quiet);
-    background-color: var(--wa-color-surface-lowered);
-  }
-
-  .support-table th:first-child {
-    border-radius: var(--wa-corners-m) 0 0 0;
-  }
-
-  .support-table th:last-child {
-    border-radius: 0 var(--wa-corners-m) 0 0;
-  }
-
-  .support-table tr {
-    --wa-color-surface-border: var(--wa-color-surface-lowered);
-  }
-
-  .checkout-form wa-input::part(form-control-label),
-  .checkout-form wa-select::part(form-control-label) {
-    font-size: var(--wa-font-size-s);
-    margin-block-end: var(--wa-space-xs);
-  }
-
-  .order-item .finish {
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-s);
-    font-style: italic;
-  }
-
-  /* responsive */
-  @media screen and (min-width: 1324px) {
-    .hero {
-      background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 35% no-repeat;
-      padding-top: 15rem;
-      padding-left: 50%;
-    }
-
-    .products {
-      margin-top: -25rem;
-      padding-top: 10rem;
-      background: linear-gradient(0deg, var(--wa-color-surface-lowered) 60%, rgba(255, 255, 255, 0) 100%);
-    }
-  }
 }
 
 .wa-theme-premium-dark,
@@ -683,13 +437,12 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-70);
 
   /* premium custom settings - dark specific */
-
   .message-composer .tools .grouped-buttons:not(:last-of-type) {
     --wa-color-neutral-border-subtle: var(--wa-color-base-40);
   }
 
-  pre,
-  code {
+  .preview-container pre,
+  .preview-container code {
     background-color: var(--wa-color-base-20);
   }
 
@@ -718,8 +471,255 @@
 }
 
 /* #region Custom styles */
+
+.preview-container pre,
+.preview-container code {
+  background-color: var(--wa-color-base-90);
+  font-size: var(--font-size-m);
+}
+
+/* syntax highlighting */
+.token {
+  &.selector {
+    color: var(--wa-color-green-30);
+  }
+
+  &.tag {
+    color: var(--wa-color-blue-30);
+  }
+
+  &.punctuation {
+    color: var(--wa-color-base-10);
+  }
+
+  &.attr-name {
+    color: var(--wa-color-green-30);
+  }
+
+  &.attr-value {
+    color: var(--wa-color-yellow-30);
+  }
+}
+
+wa-rating {
+  --symbol-size: var(--wa-font-size-l);
+  --symbol-color-active: var(--wa-color-text-quiet);
+}
+
+wa-switch {
+  --background: transparent;
+  --border-color: var(--wa-color-neutral-border-highlight);
+  --thumb-color: var(--border-color);
+  --thumb-color-checked: var(--wa-color-brand-fill-subtle);
+  --thumb-size: 1em;
+  --height: 1.5em;
+  --width: calc(var(--thumb-size) * 2.5);
+}
+
+wa-button {
+  --box-shadow: inset 0 0.03125rem 0 0 rgb(255 255 255 / 0.5), inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1),
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2), var(--wa-shadow-level-1);
+}
+
 wa-button[outline] {
   --box-shadow: none;
+}
+
+wa-card {
+  --border-radius: var(--wa-corners-m);
+}
+
+wa-alert {
+  font-size: var(--wa-font-size-s);
+  --border-color: var(--background);
+}
+
+wa-carousel {
+  --pagination-color-activated: var(--wa-color-brand-spot);
+  --pagination-color-resting: var(--wa-color-neutral-fill-highlight);
+}
+
+wa-badge,
+wa-button::part(label),
+wa-tag {
+  text-transform: uppercase;
+}
+
+wa-badge,
+wa-tag {
+  --border-width: 0;
+}
+
+&:not(.wa-theme-premium-dark) wa-alert {
+  &[variant='brand'] {
+    --background: var(--wa-color-blue-95);
+  }
+  &[variant='success'] {
+    --background: var(--wa-color-green-95);
+  }
+  &[variant='warning'] {
+    --background: var(--wa-color-yellow-95);
+  }
+  &[variant='danger'] {
+    --background: var(--wa-color-red-95);
+  }
+}
+
+wa-badge {
+  &[variant='brand'] {
+    --background: var(--wa-color-blue-80);
+    --content-color: var(--wa-color-blue-20);
+  }
+  &[variant='success'] {
+    --background: var(--wa-color-green-80);
+    --content-color: var(--wa-color-green-20);
+  }
+  &[variant='warning'] {
+    --background: var(--wa-color-yellow-80);
+    --content-color: var(--wa-color-yellow-20);
+  }
+  &[variant='danger'] {
+    --background: var(--wa-color-red-80);
+    --content-color: var(--wa-color-red-20);
+  }
+  &[variant='neutral'] {
+    --background: white;
+    --content-color: var(--wa-color-base-30);
+  }
+}
+
+.project-header {
+  background-color: var(--wa-color-warning-fill-highlight);
+}
+
+.strata.hero {
+  height: 60rem;
+  background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 12rem no-repeat;
+  background-size: cover;
+  padding-top: var(--wa-space-2xl);
+  padding-left: var(--wa-space-s);
+  text-align: right;
+}
+
+.hero .hero-title {
+  color: var(--wa-color-warning-text-on-fill);
+  font-style: italic;
+}
+
+.blog wa-avatar::part(base) {
+  border-radius: var(--wa-corners-circle);
+  overflow: hidden;
+}
+
+.strata.products {
+  margin-top: -25rem;
+  padding-top: 10rem;
+  background: linear-gradient(0deg, var(--wa-color-surface-lowered) 80%, rgba(255, 255, 255, 0) 100%);
+}
+
+.product-card .badge-stock {
+  position: absolute;
+  top: var(--wa-flow-spacing);
+  right: var(--wa-flow-spacing);
+}
+
+.product-card wa-rating {
+  --symbol-size: var(--wa-font-size-m);
+}
+
+.product-card .title {
+  font-size: var(--wa-font-size-2xl);
+}
+
+.product-card .description {
+  color: var(--wa-color-text-quiet);
+}
+
+.product-card::part(footer) {
+  border-width: 0;
+}
+
+.product-card wa-button:not(:last-child) {
+  margin-inline-end: var(--wa-space-xs);
+}
+
+.blog .authors a {
+  --wa-color-text-link: var(--wa-color-text-quiet);
+  --wa-link-decoration-default: none;
+}
+
+.message-composer wa-card {
+  --background: var(--wa-color-surface-raised);
+}
+
+.message-composer wa-card::part(header) {
+  border-width: 0;
+  background-color: var(--wa-color-neutral-fill-subtle);
+}
+
+&:not(.wa-theme-premium-dark) .message-composer wa-card {
+  --wa-color-neutral-fill-subtle: var(--wa-color-base-95);
+}
+
+.message-composer wa-card::part(footer) {
+  border-width: 0;
+  --padding: var(--wa-space-s) var(--wa-space-xl);
+}
+
+.message-composer .grouped-buttons wa-icon-button::part(base) {
+  block-size: var(--wa-form-controls-height-s);
+  inline-size: var(--wa-form-controls-height-s);
+  justify-content: center;
+}
+.message-composer .grouped-buttons wa-icon-button::part(base):hover {
+  background-color: var(--wa-color-neutral-fill-highlight);
+  color: var(--wa-color-text-normal);
+}
+
+.support-table th {
+  text-transform: uppercase;
+  font-weight: var(--wa-font-weight-normal);
+  color: var(--wa-color-text-quiet);
+  background-color: var(--wa-color-surface-lowered);
+}
+
+.support-table th:first-child {
+  border-radius: var(--wa-corners-m) 0 0 0;
+}
+
+.support-table th:last-child {
+  border-radius: 0 var(--wa-corners-m) 0 0;
+}
+
+.support-table tr {
+  --wa-color-surface-border: var(--wa-color-surface-lowered);
+}
+
+.checkout-form wa-input::part(form-control-label),
+.checkout-form wa-select::part(form-control-label) {
+  font-size: var(--wa-font-size-s);
+  margin-block-end: var(--wa-space-xs);
+}
+
+.order-item .finish {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-s);
+  font-style: italic;
+}
+
+/* responsive */
+@media screen and (min-width: 1324px) {
+  .strata.hero {
+    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 35% no-repeat;
+    padding-top: 15rem;
+    padding-left: 50%;
+  }
+
+  .strata.products {
+    margin-top: -25rem;
+    padding-top: 10rem;
+    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 60%, rgba(255, 255, 255, 0) 100%);
+  }
 }
 
 /* #endregion */
