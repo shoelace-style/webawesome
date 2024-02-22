@@ -428,47 +428,50 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 
-/* #region Custom styles */
-.hero-background {
-  height: 47rem;
-  background-color: var(--wa-color-brand-spot-darker);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-}
+/* #region Custom Styles */
+@container preview (min-width: 0) {
+  .hero-background {
+    height: 47rem;
+    background-color: var(--wa-color-brand-spot-darker);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
 
-.hero-background::after {
-  background: url(/assets/images/kitchen-sink/default/hero.png) 10rem bottom no-repeat;
-  background-size: 95%;
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+  .hero-background::after {
+    background: url(/assets/images/kitchen-sink/default/hero.png) 10rem bottom no-repeat;
+    background-size: 95%;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 
-.project-header {
-  color: var(--wa-color-brand-text-on-spot);
-}
+  .project-header {
+    color: var(--wa-color-brand-text-on-spot);
+  }
 
-.strata.hero {
-  height: 26rem;
-}
+  .strata.hero {
+    height: 26rem;
+  }
 
-.hero .title {
-  margin-inline-end: 40%;
-  color: var(--wa-color-brand-text-on-spot);
+  .hero .title {
+    margin-inline-end: 40%;
+    color: var(--wa-color-brand-text-on-spot);
+  }
 }
 
 /* responsive */
-@media screen and (min-width: 1324px) {
+@container preview (min-width: 1100px) {
   .hero-background::after {
-    background-size: 80%;
     background-position: right bottom;
+    background-size: 90%;
   }
 }
+/* #endregion */
 
 /* _utility.css */

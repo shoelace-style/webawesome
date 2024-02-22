@@ -424,39 +424,41 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
 }
 
-/* #region Custom styles */
-.hero-background {
-  height: 70rem;
-  background: linear-gradient(174deg, var(--wa-color-brand-fill-highlight) 0 70%, transparent 70% 100%);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-}
+/* #region Custom Styles */
+@container preview (min-width: 0) {
+  .hero-background {
+    height: 70rem;
+    background: linear-gradient(174deg, var(--wa-color-brand-fill-highlight) 0 70%, transparent 70% 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
 
-.hero-background::after {
-  background: url(/assets/images/kitchen-sink/classic/hero.png) 0px 0px no-repeat;
-  content: '';
-  position: absolute;
-  height: 1200px;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+  .hero-background::after {
+    background: url(/assets/images/kitchen-sink/classic/hero.png) 0px 0px no-repeat;
+    content: '';
+    position: absolute;
+    height: 1200px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 
-.strata.hero {
-  height: 45rem;
-}
+  .strata.hero {
+    height: 45rem;
+  }
 
-.hero .title {
-  text-align: right;
-  color: var(--wa-color-brand-text-on-fill);
+  .hero .title {
+    text-align: right;
+    color: var(--wa-color-brand-text-on-fill);
+  }
 }
 
 /* responsive */
-@media screen and (min-width: 1324px) {
+@container preview (min-width: 1100px) {
   .hero-background {
     height: 47rem;
   }
@@ -474,4 +476,6 @@
     margin-inline-start: 55%;
   }
 }
+/* #endregion */
+
 /* _utility.css */

@@ -457,7 +457,7 @@ export default css`
     top: 0;
     inset-inline-start: 0;
     bottom: 0;
-    border-left: solid 1px rgb(0 0 0 / 0.2);
+    border-left: var(--button-group-separator-border, solid 1px rgb(0 0 0 / 0.2));
     mix-blend-mode: multiply;
   }
 

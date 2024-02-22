@@ -460,185 +460,187 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-gravy-70);
 }
 
-/* #region Custom styles */
-.project-header h1 {
-  font-size: var(--wa-font-size-xl);
-}
-
-.hero {
-  color: var(--wa-color-brand-text-on-fill);
-  text-align: center;
-}
-
-.hero .title {
-  background:
-    url('/assets/images/kitchen-sink/fa/hero.png') center center / cover no-repeat,
-    var(--wa-color-brand-fill-highlight);
-  padding: calc(var(--wa-space-3xl) * 5) calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 4);
-  margin: calc(var(--wa-space-3xl) * -1) 0;
-  border-radius: var(--wa-panel-corners);
-}
-
-h1.hero-title {
-  font-size: var(--wa-font-size-4xl);
-}
-
-.badge-stock {
-  position: absolute;
-  top: -0.75rem;
-  right: var(--wa-space-l);
-}
-
-pre.codeblock,
-.post-body code {
-  background-color: color-mix(in oklab, var(--wa-color-gravy-50), transparent 90%);
-}
-
-.message-composer wa-card::part(header) {
-  background-color: var(--wa-color-neutral-fill-highlight);
-  color: var(--wa-color-neutral-text-on-fill);
-
-  & wa-icon-button {
-    color: var(--wa-color-text-normal);
-  }
-}
-
-wa-alert {
-  --content-color: var(--wa-color-text-normal);
-  --icon-color: var(--border-color);
-
-  .wa-theme-fa-dark & {
-    --background: var(--wa-color-surface-lowered);
-  }
-
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
-  }
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
-  }
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
-  }
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
-  }
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
-  }
-}
-
-wa-badge {
-  --border-color: var(--background);
-  text-transform: uppercase;
-
-  &::part(base) {
-    font-weight: var(--wa-font-weight-heavy);
-  }
-}
-
-wa-button:not([variant='text']) {
-  --border-color: var(--label-color);
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--border-color);
-  --box-shadow-color: var(--border-color);
-  --background-active: var(--border-color);
-  --label-color-active: var(--background);
-
-  .wa-theme-fa-dark & {
-    &[variant='brand'] {
-      --border-color: var(--wa-color-brand-spot-darker);
-    }
-    &[variant='success'] {
-      --border-color: var(--wa-color-success-spot-darker);
-    }
-    &[variant='warning'] {
-      --border-color: var(--wa-color-warning-spot-darker);
-    }
-    &[variant='danger'] {
-      --border-color: var(--wa-color-danger-spot-darker);
-    }
-    &[variant='neutral'] {
-      --border-color: var(--wa-color-neutral-spot-darker);
-    }
-  }
-}
-
-wa-card {
-  --border-width: 0px;
-
-  & .title {
+/* #region Custom Styles */
+@container preview (min-width: 0) {
+  .project-header h1 {
     font-size: var(--wa-font-size-xl);
   }
 
-  & wa-rating {
-    --symbol-size: var(--wa-font-size-m);
+  .hero {
+    color: var(--wa-color-brand-text-on-fill);
+    text-align: center;
   }
-}
 
-wa-carousel {
-  --pagination-color-activated: var(--wa-color-brand-spot);
-  --pagination-color-resting: var(--wa-color-neutral-spot);
-}
-
-wa-checkbox,
-wa-radio {
-  --checked-icon-color: var(--wa-color-surface-default);
-}
-
-wa-radio-group > wa-radio-button {
-  --wa-transition-normal: 0ms;
-  --wa-transition-fast: 0ms;
-  --wa-transition-faster: 0ms;
-  --background-active: var(--wa-color-neutral-text-on-surface);
-  --border-color-active: var(--background-active);
-  --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
-    var(--border-color);
-  --label-color-active: var(--wa-color-surface-default);
-
-  &:active,
-  &[checked] {
-    --background: var(--wa-color-neutral-text-on-surface);
-    --box-shadow: none;
-    --label-color: var(--wa-color-surface-default);
-    transform: translateX(var(--wa-shadow-offset-x-level-1)) translateY(var(--wa-shadow-offset-y-level-1));
+  .hero .title {
+    background:
+      url('/assets/images/kitchen-sink/fa/hero.png') center center / cover no-repeat,
+      var(--wa-color-brand-fill-highlight);
+    padding: calc(var(--wa-space-3xl) * 5) calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 4);
+    margin: calc(var(--wa-space-3xl) * -1) 0;
+    border-radius: var(--wa-panel-corners);
   }
-}
 
-wa-switch {
-  --background: transparent;
-  --border-color: var(--wa-form-controls-activated-color);
-  --thumb-color: var(--border-color);
-  --thumb-color-checked: var(--wa-color-neutral-fill-subtle);
-  --thumb-size: 1em;
-  --height: 1.5em;
-  --width: calc(var(--thumb-size) * 2.5);
-}
+  h1.hero-title {
+    font-size: var(--wa-font-size-4xl);
+  }
 
-wa-tag {
-  font-weight: var(--wa-font-weight-heavy);
-}
+  .badge-stock {
+    position: absolute;
+    top: -0.75rem;
+    right: var(--wa-space-l);
+  }
 
-wa-input,
-wa-select {
-  --wa-form-controls-height-s: calc(
-    var(--wa-space-s) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height) +
-      var(--wa-shadow-offset-y-level-1)
-  );
-  --wa-form-controls-height-m: calc(
-    var(--wa-space-m) * 2 + var(--wa-font-size-m) * var(--wa-form-controls-value-line-height) +
-      var(--wa-shadow-offset-y-level-1)
-  );
-  --wa-form-controls-height-l: calc(
-    var(--wa-space-l) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height) +
-      var(--wa-shadow-offset-y-level-1)
-  );
+  pre.codeblock,
+  .post-body code {
+    background-color: color-mix(in oklab, var(--wa-color-gravy-50), transparent 90%);
+  }
 
-  & > wa-icon {
-    color: var(--wa-color-gravy-30);
+  .message-composer wa-card::part(header) {
+    background-color: var(--wa-color-neutral-fill-highlight);
+    color: var(--wa-color-neutral-text-on-fill);
+
+    & wa-icon-button {
+      color: var(--wa-color-text-normal);
+    }
+  }
+
+  wa-alert {
+    --content-color: var(--wa-color-text-normal);
+    --icon-color: var(--border-color);
 
     .wa-theme-fa-dark & {
-      color: var(--wa-color-gravy-80);
+      --background: var(--wa-color-surface-lowered);
+    }
+
+    &[variant='brand'] {
+      --border-color: var(--wa-color-brand-border-highlight);
+    }
+    &[variant='success'] {
+      --border-color: var(--wa-color-success-border-highlight);
+    }
+    &[variant='warning'] {
+      --border-color: var(--wa-color-warning-border-highlight);
+    }
+    &[variant='danger'] {
+      --border-color: var(--wa-color-danger-border-highlight);
+    }
+    &[variant='neutral'] {
+      --border-color: var(--wa-color-neutral-border-highlight);
+    }
+  }
+
+  wa-badge {
+    --border-color: var(--background);
+    text-transform: uppercase;
+
+    &::part(base) {
+      font-weight: var(--wa-font-weight-heavy);
+    }
+  }
+
+  wa-button:not([variant='text']) {
+    --border-color: var(--label-color);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    --box-shadow-color: var(--border-color);
+    --background-active: var(--border-color);
+    --label-color-active: var(--background);
+
+    .wa-theme-fa-dark & {
+      &[variant='brand'] {
+        --border-color: var(--wa-color-brand-spot-darker);
+      }
+      &[variant='success'] {
+        --border-color: var(--wa-color-success-spot-darker);
+      }
+      &[variant='warning'] {
+        --border-color: var(--wa-color-warning-spot-darker);
+      }
+      &[variant='danger'] {
+        --border-color: var(--wa-color-danger-spot-darker);
+      }
+      &[variant='neutral'] {
+        --border-color: var(--wa-color-neutral-spot-darker);
+      }
+    }
+  }
+
+  wa-card {
+    --border-width: 0px;
+
+    & .title {
+      font-size: var(--wa-font-size-xl);
+    }
+
+    & wa-rating {
+      --symbol-size: var(--wa-font-size-m);
+    }
+  }
+
+  wa-carousel {
+    --pagination-color-activated: var(--wa-color-brand-spot);
+    --pagination-color-resting: var(--wa-color-neutral-spot);
+  }
+
+  wa-checkbox,
+  wa-radio {
+    --checked-icon-color: var(--wa-color-surface-default);
+  }
+
+  wa-radio-group > wa-radio-button {
+    --wa-transition-normal: 0ms;
+    --wa-transition-fast: 0ms;
+    --wa-transition-faster: 0ms;
+    --background-active: var(--wa-color-neutral-text-on-surface);
+    --border-color-active: var(--background-active);
+    --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+      var(--border-color);
+    --label-color-active: var(--wa-color-surface-default);
+
+    &:active,
+    &[checked] {
+      --background: var(--wa-color-neutral-text-on-surface);
+      --box-shadow: none;
+      --label-color: var(--wa-color-surface-default);
+      transform: translateX(var(--wa-shadow-offset-x-level-1)) translateY(var(--wa-shadow-offset-y-level-1));
+    }
+  }
+
+  wa-switch {
+    --background: transparent;
+    --border-color: var(--wa-form-controls-activated-color);
+    --thumb-color: var(--border-color);
+    --thumb-color-checked: var(--wa-color-neutral-fill-subtle);
+    --thumb-size: 1em;
+    --height: 1.5em;
+    --width: calc(var(--thumb-size) * 2.5);
+  }
+
+  wa-tag {
+    font-weight: var(--wa-font-weight-heavy);
+  }
+
+  wa-input,
+  wa-select {
+    --wa-form-controls-height-s: calc(
+      var(--wa-space-s) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height) +
+        var(--wa-shadow-offset-y-level-1)
+    );
+    --wa-form-controls-height-m: calc(
+      var(--wa-space-m) * 2 + var(--wa-font-size-m) * var(--wa-form-controls-value-line-height) +
+        var(--wa-shadow-offset-y-level-1)
+    );
+    --wa-form-controls-height-l: calc(
+      var(--wa-space-l) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height) +
+        var(--wa-shadow-offset-y-level-1)
+    );
+
+    & > wa-icon {
+      color: var(--wa-color-gravy-30);
+
+      .wa-theme-fa-dark & {
+        color: var(--wa-color-gravy-80);
+      }
     }
   }
 }

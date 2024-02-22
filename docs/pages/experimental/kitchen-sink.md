@@ -21,7 +21,7 @@ toc: false
     display: none;
   }
 
-  /* floating themer bar styles */
+  /* themer control knobs styles */
   [hidden] {
     display: none !important;
   }
@@ -39,6 +39,16 @@ toc: false
   #knobs,
   #knobs :host {
     /* #region Lock theme styles */
+    --wa-color-brand-spot: var(--wa-color-neutral-spot);
+    --wa-color-brand-spot-darker: var(--wa-color-neutral-spot-darker);
+    --wa-color-brand-fill-subtle: var(--wa-color-neutral-fill-subtle);
+    --wa-color-brand-fill-highlight: var(--wa-color-neutral-fill-highlight);
+    --wa-color-brand-border-subtle: var(--wa-color-neutral-border-subtle);
+    --wa-color-brand-border-highlight: var(--wa-color-neutral-border-highlight);
+    --wa-color-brand-text-on-spot: var(--wa-color-neutral-text-on-spot);
+    --wa-color-brand-text-on-fill: var(--wa-color-neutral-text-on-fill);
+    --wa-color-brand-text-on-surface: var(--wa-color-neutral-text-on-surface);
+
     --wa-font-family-heading: Inconsolata, monospace;
     --wa-font-family-body: Inconsolata, monospace;
     --wa-font-family-code: Inconsolata, monospace;
@@ -148,22 +158,16 @@ toc: false
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-root);
     font-weight: var(--wa-font-weight-normal);
+    line-height: var(--wa-font-line-height-regular);
     /* #endregion Lock theme styles */
 
     position: fixed;
     z-index: 10;
-    /* top: 2rem; */
-    /* left: 2rem; */
     background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
-    /* border-radius: var(--wa-corners-m); */
-    /* box-shadow: var(--wa-shadow-level-2); */
+    border-inline-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
     width: var(--knobs-width);
-    /* padding: 1.5rem; */
-    /* max-height: calc(100% - 3rem); */
     overflow: auto;
     margin-inline: auto;
-    /* margin-block: 0 4rem; */
 
     height: 100%;
     top: 0;
@@ -319,6 +323,17 @@ toc: false
     flex: 1 1 auto;
   }
 
+  wa-radio-group[name="project-logo-selector"] wa-radio-button:last-of-type::part(button) {
+    border-radius: 0 var(--wa-corners-s) var(--wa-corners-s) 0;
+  }
+
+  #icon-chooser-trigger {
+    --button-group-separator-border: none;
+    --label-color: var(--wa-color-neutral-text-on-surface);
+    --label-color-hover: color-mix(in oklab, var(--wa-color-neutral-text-on-surface), var(--wa-color-mix-hover));
+    --label-color-active: var(--label-color-hover);
+  }
+
   #icon-chooser::part(panel) {
     width: 100%;
     height: 80%;
@@ -396,7 +411,9 @@ toc: false
       <wa-option value="premium">Premium</wa-option>
       <wa-option value="playful">Playful</wa-option>
       <wa-option value="brutalist">Brutalist</wa-option>
-      <wa-option value="headwind">Headwind</wa-option>
+      <wa-option value="migration">Migration</wa-option>
+      <wa-option value="glassy">Glassy</wa-option>
+      <wa-option value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
     </wa-select>
   </div>
@@ -412,15 +429,17 @@ toc: false
       <small id="file-uploader-description">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
     </div>
     <div>
-      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p">
-        <wa-radio-button value="crown"><wa-icon name="crown"></wa-icon></wa-radio-button>
-        <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
-        <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
-        <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
-        <wa-button value="[choose]" outline id="icon-chooser-trigger" class="logo-chooser">
-          <wa-icon name="ellipsis"></wa-icon>
-          <wa-visually-hidden>Browse icons</wa-visually-hidden>
-        </wa-button>
+      <wa-radio-group label="Need a logo?" name="project-logo-selector" value="shapes">
+        <wa-radio-button value="shapes"><wa-icon name="shapes"></wa-icon></wa-radio-button>
+        <wa-radio-button value="meteor"><wa-icon name="meteor"></wa-icon></wa-radio-button>
+        <wa-radio-button value="cat-space"><wa-icon name="cat-space"></wa-icon></wa-radio-button>
+        <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
+        <wa-tooltip content="Browse icons" distance="-3">
+          <wa-button value="[choose]" variant="text" id="icon-chooser-trigger" class="logo-chooser">
+            <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
+            <wa-visually-hidden>Browse icons</wa-visually-hidden>
+          </wa-button>
+        </wa-tooltip>
         <small slot="help-text" style="display: inline-block; line-height: var(--wa-font-line-height-compact);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
@@ -661,6 +680,8 @@ toc: false
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
   const knobsSections = container.querySelectorAll('wa-details');
+  const logoSelector = document.querySelector('[name="project-logo-selector"]');
+  const presetLogoOptions = logoSelector.querySelectorAll('wa-radio-button');
   const depthSlider = container.querySelector('[name="depth"]');
   const fontWeightHeading = container.querySelector('[name="font-weight-heading"]');
   const fontWeightBody = container.querySelector('[name="font-weight-body"]');
@@ -818,7 +839,7 @@ toc: false
 
     switch(themeSelect.value) {
       case 'premium':
-      case 'headwind':
+      case 'migration':
       case 'playful':
       case 'brutalist':
       case 'classic':
@@ -912,7 +933,8 @@ toc: false
     img.setAttribute("height", "36")
     img.setAttribute("width", "36")
 
-    previewContainer.querySelector("#project-logo").replaceWith(img)
+    previewContainer.querySelector("#project-logo").replaceWith(img);
+    logoSelector.value = "";
 
     // Clean up to prevent memory leaks
     img.addEventListener("load", () => {
@@ -954,12 +976,13 @@ toc: false
     element.id = "project-logo"
 
     // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
-    projectLogo.replaceWith(element)
-    event.currentTarget.closest("wa-dialog").hide()
+    projectLogo.replaceWith(element);
+    logoSelector.value = "";
+    event.currentTarget.closest("wa-dialog").hide();
   })
 
   // Pre-generated logos
-  container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
+  logoSelector.addEventListener('wa-change', event => {
     const value = event.currentTarget.value
 
     const projectLogo = previewContainer.querySelector("#project-logo");
@@ -976,33 +999,36 @@ toc: false
   })
 
   // Set pre-generated logos by theme
-  const logoSelector = document.querySelector('[name="project-logo-selector"]');
-  const presetLogoOptions = logoSelector.querySelectorAll('wa-radio-button');
-
   function setLogoIcons() {
     let presetLogoIcons;
 
     switch(themeSelect.value) {
       case 'fa':
-        presetLogoIcons = ['crown', 'cupcake', 'rocket-launch', 'camera-retro'];
+        presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
-        presetLogoIcons = ['crown', 'sunglasses', 'car', 'shirt'];
+        presetLogoIcons = ['sunglasses', 'crown', 'car', 'shirt'];
         break;
       case 'playful':
-        presetLogoIcons = ['crown', 'palette', 'face-smile-solid', 'star'];
+        presetLogoIcons = ['face-smile-solid', 'palette', 'crown', 'star'];
         break;
       case 'brutalist':
-        presetLogoIcons = ['crown', 'leaf', 'book-open', 'landmark'];
+        presetLogoIcons = ['leaf', 'mug-hot', 'book-open', 'landmark'];
         break;
-      case 'headwind':
-        presetLogoIcons = ['crown', 'feather', 'lemon', 'wind'];
+      case 'migration':
+        presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
+        break;
+      case 'glassy':
+        presetLogoIcons = ['lighthouse', 'citrus-slice', 'raindrops', 'kiwi-bird'];
+        break;
+      case 'active':
+        presetLogoIcons = ['bicycle', 'bolt', 'pickleball', 'joystick'];
         break;
       case 'classic':
         presetLogoIcons = ['backpack', 'gamepad-modern', 'boombox', 'bug'];
         break;
       default:
-        presetLogoIcons = ['crown', 'dragon', 'pizza-slice', 'fire'];
+        presetLogoIcons = ['shapes', 'meteor', 'cat-space', 'puzzle-piece'];
     }
 
     presetLogoOptions.forEach((option, index) => {
@@ -1223,7 +1249,7 @@ toc: false
           }
         });
         break;
-      case 'headwind':
+      case 'migration':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1303,10 +1329,20 @@ toc: false
     });
   };
 
+  function syncLogoIcon() {
+    if (logoSelector.value) {
+      logoSelector.value = logoSelector.querySelector('[checked]').value;
+      document.querySelector('#project-logo').setAttribute('name', `${logoSelector.querySelector('[checked]').value}`);
+    } else {
+      return;
+    }
+  }
+
   // Swaps icons to the preferred set for the selected theme
   themeSelect.addEventListener('wa-change', event => {
     setPreferredIcons();
     showIconStyleOptions();
+    syncLogoIcon();
   });
 
   // Changes available Icon Styles and swaps icons based on the selected Icon Family
@@ -1383,10 +1419,12 @@ toc: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
+    container: preview / inline-size;
     padding: 0;
-    max-inline-size: 1260px;
+    max-inline-size: 1400px;
     margin-inline: auto;
-    border: var(--wa-border-width-m) var(--wa-color-neutral-border-subtle) var(--wa-border-style);
+    border: var(--wa-border-width-s) var(--wa-color-neutral-border-subtle) var(--wa-border-style);
+    overflow: clip;
   }
 
   .overlap {
@@ -1402,14 +1440,8 @@ toc: false
   }
 
   /* general and utility */
-  .space-vertically {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap, 1.25rem);
-  }
-
   .strata {
-    padding: var(--wa-space-3xl);
+    padding: var(--wa-space-3xl) 8%;
   }
 
   pre,
@@ -1427,6 +1459,7 @@ toc: false
 
   .square-frame,
   .landscape-frame {
+    flex: 1 1 auto;
     overflow: hidden;
 
     &:not(wa-card *) {
@@ -1498,6 +1531,10 @@ toc: false
 
   .product-card .title {
     margin: 0;
+  }
+
+  .product-card p:last-of-type {
+    margin-bottom: 0;
   }
 
   /* strata - blog post */
@@ -1688,8 +1725,7 @@ toc: false
 
 
   /* responsive */
-  /* tablet plus knobs */
-  @media screen and (min-width: 1324px) {
+  @container preview (min-width: 1100px) {
     .product-card {
         grid-column: span 4;
     }
@@ -1728,7 +1764,7 @@ toc: false
     <div class="hero-background"></div>
     <header class="strata project-header">
       <h1 style="display: flex; align-items: center; margin: 0;">
-        <wa-icon id="project-logo" name="p"></wa-icon>
+        <wa-icon id="project-logo" name="shapes"></wa-icon>
         <span id="project-name" style="margin-inline-start: var(--wa-space-l);">Project Name</span>
       </h1>
       <div>
