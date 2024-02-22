@@ -574,7 +574,7 @@
     font-size: var(--wa-font-size-s);
 
     &::part(message) {
-      padding-left: var(--wa-space-l);
+      padding-inline-start: var(--wa-space-l);
     }
   }
 
@@ -638,7 +638,7 @@
   .hero-background {
     position: absolute;
     z-index: -1;
-    top: -18%;
+    top: -60rem;
     left: 50%;
     width: 250rem;
     height: 250rem;
@@ -656,7 +656,7 @@
     height: 600px;
     transform: translateX(-50%);
     left: 50%;
-    top: 185rem;
+    bottom: 33rem;
   }
 
   .hero {
@@ -760,7 +760,7 @@
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);
-    padding-bottom: var(--wa-space-xs);
+    padding-block-end: var(--wa-space-xs);
   }
 }
 

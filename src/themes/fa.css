@@ -472,7 +472,7 @@
 
 .hero .title {
   background:
-    url('/assets/images/kitchen-sink/fa/hero.png') center / cover no-repeat,
+    url('/assets/images/kitchen-sink/fa/hero.png') center center / cover no-repeat,
     var(--wa-color-brand-fill-highlight);
   padding: calc(var(--wa-space-3xl) * 5) calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 4);
   margin: calc(var(--wa-space-3xl) * -1) 0;

@@ -467,10 +467,11 @@
   }
 
   .hero {
-    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -25% 35% no-repeat;
     height: 60rem;
-    padding-top: 15rem;
-    padding-left: 50%;
+    background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 12rem no-repeat;
+    background-size: cover;
+    padding-top: var(--wa-space-2xl);
+    padding-left: var(--wa-space-s);
     text-align: right;
   }
 
@@ -487,7 +488,7 @@
   .products {
     margin-top: -25rem;
     padding-top: 10rem;
-    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(0deg, var(--wa-color-surface-lowered) 80%, rgba(255, 255, 255, 0) 100%);
   }
 
   .product-card .badge-stock {
@@ -571,13 +572,28 @@
   .checkout-form wa-input::part(form-control-label),
   .checkout-form wa-select::part(form-control-label) {
     font-size: var(--wa-font-size-s);
-    margin-bottom: var(--wa-space-xs);
+    margin-block-end: var(--wa-space-xs);
   }
 
   .order-item .finish {
     color: var(--wa-color-text-quiet);
     font-size: var(--wa-font-size-s);
     font-style: italic;
+  }
+
+  /* responsive */
+  @media screen and (min-width: 1324px) {
+    .hero {
+      background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 35% no-repeat;
+      padding-top: 15rem;
+      padding-left: 50%;
+    }
+
+    .products {
+      margin-top: -25rem;
+      padding-top: 10rem;
+      background: linear-gradient(0deg, var(--wa-color-surface-lowered) 60%, rgba(255, 255, 255, 0) 100%);
+    }
   }
 }
 

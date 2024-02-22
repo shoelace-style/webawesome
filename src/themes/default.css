@@ -356,8 +356,8 @@
   }
 
   .hero-background::after {
-    background: url(/assets/images/kitchen-sink/default/hero.png) right bottom no-repeat;
-    background-size: 80%;
+    background: url(/assets/images/kitchen-sink/default/hero.png) 10rem bottom no-repeat;
+    background-size: 95%;
     content: '';
     position: absolute;
     top: 0;
@@ -377,6 +377,14 @@
   .hero .title {
     margin-inline-end: 40%;
     color: var(--wa-color-brand-text-on-spot);
+  }
+
+  /* responsive */
+  @media screen and (min-width: 1324px) {
+    .hero-background::after {
+      background-size: 80%;
+      background-position: right bottom;
+    }
   }
 }
 
