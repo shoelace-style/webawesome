@@ -222,10 +222,11 @@ wa-button:not([outline]) {
       transparent var(--wa-background-transparency-percent)
     );
 
-    &::part(base) {
+    /* &::part(base) {
       -webkit-backdrop-filter: var(--wa-filter-blur);
       backdrop-filter: var(--wa-filter-blur);
-    }
+    } */
+    /* causes popups descendants (e.g. tooltips and dropdowns) to be mispositioned */
   }
 }
 /* #endregion */
