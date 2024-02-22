@@ -5,7 +5,10 @@ import * as path from 'node:path';
 
 export const dir = path.join(process.cwd(), "src", "pages", "page-templates", "advanced-example")
 
-export const html = fs.readFileSync(path.resolve(dir, "_advanced-example.html"), { encoding: "utf-8" })
+export const title = "Advanced Example"
+export const description = "Advanced Example"
+
+export const html = fs.readFileSync(path.resolve(dir, "_advanced-example.html"), { encoding: "utf-8" }).replaceAll(/<\/script>/g, "&lt;/script>")
 export const cssReset = fs.readFileSync(path.resolve(dir, "../_reset.css"), { encoding: "utf-8" })
 export const css = cssReset + "\n" + fs.readFileSync(path.resolve(dir, "_advanced-example.css"), { encoding: "utf-8" })
 ---
@@ -13,8 +16,8 @@ export const css = cssReset + "\n" + fs.readFileSync(path.resolve(dir, "_advance
 <style set:html={css}></style>
 
 <PageLayout frontmatter={{
-  title: "Advanced Example",
-  description: "Advanced Example",
+  title,
+  description,
 }}>
   <Fragment set:html={html} />
 </PageLayout>

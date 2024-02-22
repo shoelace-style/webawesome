@@ -549,456 +549,477 @@ wa-select[label="Signet"]::part(form-control-help-text) {
 </script>
 
 <script type="module">
-  const container = document.getElementById('knobs');
-  const previewContainer = document.querySelector('.preview-container');
-  const themeStylesheet = document.getElementById('theme-stylesheet');
-  const depthSlider = container.querySelector('[name="depth"]')
-  const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
-  const fontWeightBody = container.querySelector('[name="font-weight-body"]')
-  const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
-  const fontFamilyBody = container.querySelector('[name="font-family-body"]')
-  const spacing = container.querySelector("[name='spacing']")
-  const corners = container.querySelector("[name='corners']")
-  const borderStyle = container.querySelector('[name="border-style"]')
-  const borderWidth = container.querySelector('[name="border-width"]')
-  const themeSelect = container.querySelector('[name="theme"]');
-  const darkModeSelect = container.querySelector('[name="appearance"]');
+  function setup () {
+    const container = document.getElementById('knobs');
+    let previewContainer = document.querySelector('.preview-container');
 
-  function resetHeadingFontWeightValue () {
-    document.documentElement.style.removeProperty('--wa-font-weight-heading')
-    fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
-  }
+    const rootDocument = document.querySelector("light-pen")?.iframeElem?.contentDocument || document
+    const rootDocumentElement = rootDocument.documentElement || document.documentElement
 
-  function resetHeadingFontFamilyValue () {
-    document.documentElement.style.removeProperty('--wa-font-family-heading')
-    fontFamilyHeading.value = "default"
-  }
+    // We know we're on a "playground" page.
+    if (document.querySelector("light-pen")) {
+      previewContainer = document.querySelector("light-pen")?.iframeElem?.contentDocument?.body
 
-  function resetBodyFontWeightValue () {
-    document.documentElement.style.removeProperty('--wa-font-weight-body')
-    fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
-  }
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
 
-  function resetBodyFontFamilyValue () {
-    document.documentElement.style.removeProperty('--wa-font-family-body')
-    fontFamilyBody.value = "default"
-  }
-
-  function resetBorderWidthValue () {
-    document.documentElement.style.removeProperty('--wa-border-width-base')
-    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
-  }
-
-  function resetBorderStyleValue () {
-    document.documentElement.style.removeProperty('--wa-border-style')
-    borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
-  }
-
-  function resetSpacingValue () {
-    document.documentElement.style.removeProperty('--wa-space-base')
-    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
-  }
-
-  function resetCornersValue () {
-    document.documentElement.style.removeProperty('--wa-corners-base')
-    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
-  }
-
-  const depthNames = {
-    0: "depth_0_flat.css",
-    1: "depth_1_semiflat.css",
-    2: "depth_2_chunky.css",
-    3: "depth_3_punchy.css",
-    4: "depth_4_glossy.css",
-  }
-
-  function resetDepthValue () {
-    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
-
-    const importRules = []
-    let depth = null
-    const matchRegex = /depth_(\d+)_.*\.css$/
-
-    // Find all import rules in the stylesheet, then find one that matches the naming convention.
-    ;[...themeSheet.cssRules].forEach((rule) => {
-      if (rule instanceof CSSImportRule) {
-        const match = rule.href.match(matchRegex)
-        if (match) {
-          depth = Number(match[1])
-        }
+      if (!previewContainer || !themeSheet) {
+        setTimeout(() => {
+          setup()
+        }, 100)
+        return
       }
-    })
-
-    if (depth != null) {
-      depthSlider.value = depth
     }
-  }
 
-  // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
-  function deleteDepthFromBaseStylesheet () {
-    const themeSheet = [...document.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+    const themeStylesheet = document.getElementById('theme-stylesheet');
+    const depthSlider = container.querySelector('[name="depth"]')
+    const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
+    const fontWeightBody = container.querySelector('[name="font-weight-body"]')
+    const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
+    const fontFamilyBody = container.querySelector('[name="font-family-body"]')
+    const spacing = container.querySelector("[name='spacing']")
+    const corners = container.querySelector("[name='corners']")
+    const borderStyle = container.querySelector('[name="border-style"]')
+    const borderWidth = container.querySelector('[name="border-width"]')
+    const themeSelect = container.querySelector('[name="theme"]');
+    const darkModeSelect = container.querySelector('[name="appearance"]');
 
-    const importRules = []
-    let depth = null
-    let ruleIndex = null
-    const matchRegex = /depth_(\d+)_.*\.css$/
-
-    ;[...themeSheet.cssRules].forEach((rule, index) => {
-      if (rule instanceof CSSImportRule) {
-        const match = rule.href.match(matchRegex)
-        if (match) {
-          ruleIndex = index
-          depth = Number(match[1])
-        }
-      }
-    })
-
-    if (ruleIndex != null && depth != null) {
-      themeSheet.deleteRule(ruleIndex)
+    function resetHeadingFontWeightValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-weight-heading')
+      fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
     }
-  }
 
-  depthSlider.addEventListener("wa-input", (e) => {
-    const depth = e.target.value
+    function resetHeadingFontFamilyValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-family-heading')
+      fontFamilyHeading.value = "default"
+    }
 
-    if (depth == null) return
+    function resetBodyFontWeightValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-weight-body')
+      fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
+    }
 
-    // Load depth stylesheet
-    const depthName = depthNames[depth]
+    function resetBodyFontFamilyValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-family-body')
+      fontFamilyBody.value = "default"
+    }
 
-    const depthStylesheet = Object.assign(document.createElement("link"), {
-      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
-      id: "depth-stylesheet",
-      media: "print",
-      rel: "stylesheet",
-      type: "text/css",
-      href: `/dist/themes/${depthName}`,
-    })
+    function resetBorderWidthValue () {
+      rootDocumentElement.style.removeProperty('--wa-border-width-base')
+      borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
+    }
 
-    // This prevents the typical flash and reflow you see if you replace the old stylesheet
-    // with the new stylesheet, before the new stylesheet has loaded
-    depthStylesheet.addEventListener("load", (e) => {
-      // Removing the media attribute causes styles to apply to the page
-      depthStylesheet.removeAttribute("media")
-      setTimeout(() => {
-        deleteDepthFromBaseStylesheet()
-        const oldDepthStylesheet = document.querySelectorAll("#depth-stylesheet").forEach((element, index) => {
-          if (index === 0) {
-            return
+    function resetBorderStyleValue () {
+      rootDocumentElement.style.removeProperty('--wa-border-style')
+      borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
+    }
+
+    function resetSpacingValue () {
+      rootDocumentElement.style.removeProperty('--wa-space-base')
+      spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
+    }
+
+    function resetCornersValue () {
+      rootDocumentElement.style.removeProperty('--wa-corners-base')
+      corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
+    }
+
+    const depthNames = {
+      0: "depth_0_flat.css",
+      1: "depth_1_semiflat.css",
+      2: "depth_2_chunky.css",
+      3: "depth_3_punchy.css",
+      4: "depth_4_glossy.css",
+    }
+
+    function resetDepthValue () {
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+      const importRules = []
+      let depth = null
+      const matchRegex = /depth_(\d+)_.*\.css$/
+
+      // Find all import rules in the stylesheet, then find one that matches the naming convention.
+      ;[...themeSheet.cssRules].forEach((rule) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            depth = Number(match[1])
           }
-
-          element.remove()
-        })
+        }
       })
-    })
 
-    document.head.prepend(depthStylesheet)
+      if (depth != null) {
+        depthSlider.value = depth
+      }
+    }
 
-  })
+    // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
+    function deleteDepthFromBaseStylesheet () {
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
 
-  resetDepthValue()
+      const importRules = []
+      let depth = null
+      let ruleIndex = null
+      const matchRegex = /depth_(\d+)_.*\.css$/
 
+      ;[...themeSheet.cssRules].forEach((rule, index) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            ruleIndex = index
+            depth = Number(match[1])
+          }
+        }
+      })
 
-  // Theme Switcher
-  themeSelect.addEventListener('wa-change', event => {
-    const theme = event.target.value
-    const newStylesheet = Object.assign(document.createElement("link"), {
-      // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
-      id: "theme-stylesheet",
-      media: "print",
-      rel: "stylesheet",
-      type: "text/css",
-      href: `/dist/themes/${theme}.css`,
-    })
+      if (ruleIndex != null && depth != null) {
+        themeSheet.deleteRule(ruleIndex)
+      }
+    }
 
-    // This prevents the typical flash and reflow you see if you replace the old stylesheet
-    // with the new stylesheet, before the new stylesheet has loaded
-    newStylesheet.addEventListener("load", (e) => {
-      // Removing the media attribute causes styles to apply to the page
-      newStylesheet.removeAttribute("media")
-      setTimeout(() => {
-        document.querySelectorAll("#theme-stylesheet").forEach((el, index) => {
-          if (index === 0) return
+    depthSlider.addEventListener("wa-input", (e) => {
+      const depth = e.target.value
 
-          // 100 seems to provide the "smoothest" transition
-          setTimeout(() => {
-            el.remove();
+      if (depth == null) return
 
-            resetBodyFontWeightValue()
-            resetBodyFontFamilyValue()
-            resetHeadingFontWeightValue()
-            resetHeadingFontFamilyValue()
-            resetDepthValue()
-            resetSpacingValue()
-            resetBorderWidthValue()
-            resetBorderStyleValue()
-            resetCornersValue()
+      // Load depth stylesheet
+      const depthName = depthNames[depth]
 
-            if (darkModeSelect.checked === true) {
-              // darkModeSelect.checked = false
-              document.documentElement.className = "flavor-html"
-              document.documentElement.classList.toggle(`wa-theme-${theme}-dark`);
+      const depthStylesheet = Object.assign(document.createElement("link"), {
+        // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+        id: "depth-stylesheet",
+        media: "print",
+        rel: "stylesheet",
+        type: "text/css",
+        href: `/dist/themes/${depthName}`,
+      })
+
+      // This prevents the typical flash and reflow you see if you replace the old stylesheet
+      // with the new stylesheet, before the new stylesheet has loaded
+      depthStylesheet.addEventListener("load", (e) => {
+        // Removing the media attribute causes styles to apply to the page
+        depthStylesheet.removeAttribute("media")
+        setTimeout(() => {
+          deleteDepthFromBaseStylesheet()
+          const oldDepthStylesheet = rootDocument.querySelectorAll("#depth-stylesheet").forEach((element, index) => {
+            if (index === 0) {
+              return
             }
-          }, 100)
+
+            element.remove()
+          })
         })
+      })
+
+      rootDocument.head.prepend(depthStylesheet)
+    })
+
+    resetDepthValue()
+
+
+    // Theme Switcher
+    themeSelect.addEventListener('wa-change', event => {
+      const theme = event.target.value
+      const newStylesheet = Object.assign(document.createElement("link"), {
+        // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+        id: "theme-stylesheet",
+        media: "print",
+        rel: "stylesheet",
+        type: "text/css",
+        href: `/dist/themes/${theme}.css`,
+      })
+
+      // This prevents the typical flash and reflow you see if you replace the old stylesheet
+      // with the new stylesheet, before the new stylesheet has loaded
+      newStylesheet.addEventListener("load", (e) => {
+        // Removing the media attribute causes styles to apply to the page
+        newStylesheet.removeAttribute("media")
+        setTimeout(() => {
+          rootDocument.querySelectorAll("#theme-stylesheet").forEach((el, index) => {
+            if (index === 0) return
+
+            // 100 seems to provide the "smoothest" transition
+            setTimeout(() => {
+              el.remove();
+
+              resetBodyFontWeightValue()
+              resetBodyFontFamilyValue()
+              resetHeadingFontWeightValue()
+              resetHeadingFontFamilyValue()
+              resetDepthValue()
+              resetSpacingValue()
+              resetBorderWidthValue()
+              resetBorderStyleValue()
+              resetCornersValue()
+
+              if (darkModeSelect.checked === true) {
+                // darkModeSelect.checked = false
+                rootDocumentElement.className = "flavor-html"
+                rootDocumentElement.classList.toggle(`wa-theme-${theme}-dark`);
+              }
+            }, 100)
+          })
+        })
+      })
+
+      rootDocument.head.prepend(newStylesheet)
+    });
+
+    // User provided project logo
+    container.querySelector('[name="project-logo"]').addEventListener('change', event => {
+      const file = event.target.files[0]
+      const isSvg = file.type.startsWith("image/svg")
+
+      let img
+
+      if (isSvg) {
+        img = document.createElement("wa-icon")
+      } else {
+        img = document.createElement("img")
+      }
+
+      const src = URL.createObjectURL(file);
+      img.setAttribute("src", src)
+
+      img.id = "project-logo"
+      img.setAttribute("height", "36")
+      img.setAttribute("width", "36")
+
+      previewContainer.querySelector("#project-logo").replaceWith(img)
+
+      // Clean up to prevent memory leaks
+      img.addEventListener("load", () => {
+        URL.revokeObjectURL(src)
+      })
+
+      img.addEventListener("wa-load", () => {
+        URL.revokeObjectURL(src)
       })
     })
 
-    document.head.prepend(newStylesheet)
-  });
+    // Pre-selected logos
+    document.querySelector('.icon-list').addEventListener('click', event => {
+      const button = event.target.closest("wa-button")
 
-  // User provided project logo
-  container.querySelector('[name="project-logo"]').addEventListener('change', event => {
-    const file = event.target.files[0]
-    const isSvg = file.type.startsWith("image/svg")
+      if (!button) return
 
-    let img
+      const iconName = button.dataset.name
+      const iconVariant = button.dataset.variant;
 
-    if (isSvg) {
-      img = document.createElement("wa-icon")
-    } else {
-      img = document.createElement("img")
-    }
+      if (!iconName) return
 
-    const src = URL.createObjectURL(file);
-    img.setAttribute("src", src)
+      // Undo selected
+      event.currentTarget.querySelectorAll(".icon-list-item").forEach((el) => {
+        el.setAttribute("aria-selected", "false")
+        el.setAttribute("variant", "neutral")
+        el.setAttribute("outline", "")
+      })
 
-    img.id = "project-logo"
-    img.setAttribute("height", "36")
-    img.setAttribute("width", "36")
+      // Set selected
+      button.setAttribute("aria-selected", "true")
+      button.setAttribute("variant", "brand")
+      button.removeAttribute("outline")
 
-    previewContainer.querySelector("#project-logo").replaceWith(img)
+      const projectLogo = previewContainer.querySelector("#project-logo");
+      const element = document.createElement("wa-icon")
+      element.name = iconName
+      element.variant = iconVariant;
+      element.id = "project-logo"
 
-    // Clean up to prevent memory leaks
-    img.addEventListener("load", () => {
-      URL.revokeObjectURL(src)
+      // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+      projectLogo.replaceWith(element)
+      event.currentTarget.closest("wa-dialog").hide()
     })
 
-    img.addEventListener("wa-load", () => {
-      URL.revokeObjectURL(src)
-    })
-  })
+    // Pre-generated logos
+    container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
+      const value = event.currentTarget.value
 
-  // Pre-selected logos
-  document.querySelector('.icon-list').addEventListener('click', event => {
-    const button = event.target.closest("wa-button")
+      const projectLogo = previewContainer.querySelector("#project-logo");
 
-    if (!button) return
+      let element
 
-    const iconName = button.dataset.name
-    const iconVariant = button.dataset.variant;
+      element = document.createElement("wa-icon")
+      element.name = value
 
-    if (!iconName) return
+      element.id = "project-logo"
 
-    // Undo selected
-    event.currentTarget.querySelectorAll(".icon-list-item").forEach((el) => {
-      el.setAttribute("aria-selected", "false")
-      el.setAttribute("variant", "neutral")
-      el.setAttribute("outline", "")
+      // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+      projectLogo.replaceWith(element)
     })
 
-    // Set selected
-    button.setAttribute("aria-selected", "true")
-    button.setAttribute("variant", "brand")
-    button.removeAttribute("outline")
+    // Project Name
+    container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+      previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
+    })
 
-    const projectLogo = previewContainer.querySelector("#project-logo");
-    const element = document.createElement("wa-icon")
-    element.name = iconName
-    element.variant = iconVariant;
-    element.id = "project-logo"
+    // Heading font weight
+    resetHeadingFontWeightValue()
+    fontWeightHeading.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
+    });
 
-    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
-    projectLogo.replaceWith(element)
-    event.currentTarget.closest("wa-dialog").hide()
-  })
+    // Heading text
+    fontFamilyHeading.addEventListener('wa-change', event => {
+      let fontFamily;
+      switch(event.target.value) {
+        case 'assistant':
+          fontFamily = `'Assistant', sans-serif`;
+          break;
+        case 'inter':
+          fontFamily = `'inter', sans-serif`;
+          break;
+        case 'lora':
+          fontFamily = `'Lora', serif`;
+          break;
+        case 'mulish':
+          fontFamily = `'Mulish', sans-serif`;
+          break;
+        case 'noto-sans':
+            fontFamily = `'Noto Sans', sans-serif`;
+            break;
+        case 'noto-sans-display':
+            fontFamily = `'Noto Sans Display', sans-serif`;
+            break;
+        case 'noto-sans-mono':
+            fontFamily = `'Noto Sans Mono', monospace`;
+            break;
+        case 'noto-serif':
+            fontFamily = `'Noto Serif', serif`;
+            break;
+        case 'open-sans':
+            fontFamily = `'Open Sans', sans-serif`;
+            break;
+        case 'playfair':
+            fontFamily = `'Playfair', serif`;
+            break;
+        case 'playfair-display':
+            fontFamily = `'Playfair Display', serif`;
+            break;
+        case 'quicksand':
+            fontFamily = `'Quicksand', sans-serif`;
+            break;
+        case 'roboto-flex':
+            fontFamily = `'Roboto Flex', sans-serif`;
+            break;
+        case 'roboto-mono':
+            fontFamily = `'Roboto Mono', monospace`;
+            break;
+        case 'roboto-serif':
+            fontFamily = `'Roboto Serif', serif`;
+            break;
+        case 'roboto-slab':
+            fontFamily = `'Roboto Slab', serif`;
+            break;
+        default:
+          fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      }
+      rootDocumentElement.style.setProperty('--wa-font-family-heading', fontFamily);
+    })
 
-  // Pre-generated logos
-  container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
-    const value = event.currentTarget.value
+    // Body text
+    fontFamilyBody.addEventListener('wa-change', event => {
+      let fontFamily;
+      switch(event.target.value) {
+        case 'assistant':
+          fontFamily = `'Assistant', sans-serif`;
+          break;
+        case 'inter':
+          fontFamily = `'inter', sans-serif`;
+          break;
+        case 'lora':
+          fontFamily = `'Lora', serif`;
+          break;
+        case 'mulish':
+          fontFamily = `'Mulish', sans-serif`;
+          break;
+        case 'noto-sans':
+            fontFamily = `'Noto Sans', sans-serif`;
+            break;
+        case 'noto-sans-mono':
+            fontFamily = `'Noto Sans Mono', monospace`;
+            break;
+        case 'noto-serif':
+            fontFamily = `'Noto Serif', serif`;
+            break;
+        case 'open-sans':
+            fontFamily = `'Open Sans', sans-serif`;
+            break;
+        case 'playfair':
+            fontFamily = `'Playfair', serif`;
+            break;
+        case 'quicksand':
+            fontFamily = `'Quicksand', sans-serif`;
+            break;
+        case 'roboto-flex':
+            fontFamily = `'Roboto Flex', sans-serif`;
+            break;
+        case 'roboto-mono':
+            fontFamily = `'Roboto Mono', monospace`;
+            break;
+        case 'roboto-serif':
+            fontFamily = `'Roboto Serif', serif`;
+            break;
+        case 'roboto-slab':
+            fontFamily = `'Roboto Slab', serif`;
+            break;
+        default:
+          fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      }
+      rootDocumentElement.style.setProperty('--wa-font-family-body', fontFamily);
+    });
 
-    const projectLogo = previewContainer.querySelector("#project-logo");
+    // Body font weight
+    resetBodyFontWeightValue()
+    fontWeightBody.addEventListener('wa-input', event => {
+    rootDocumentElement.style.setProperty('--wa-font-weight-body', event.target.value);
+    });
 
-    let element
+    // Corners
+    container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-corners-base', `${event.target.value}`);
+    });
 
-    element = document.createElement("wa-icon")
-    element.name = value
+    // Border width
+    container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}`);
+    });
 
-    element.id = "project-logo"
+    // Border style
+    borderStyle.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-border-style', event.target.value);
+    });
 
-    // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
-    projectLogo.replaceWith(element)
-  })
+    // Spacing style
+    spacing.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
+    });
 
-  // Project Name
-  container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
-    previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
-  })
+    // Form validation
+    // Mostly useful for the number ranges. Very simple validation on blurs.
+    function reportValidity (event) {
+      const element = event.target
+      if (typeof element?.reportValidity === "function") {
+        const isValid = element.reportValidity()
 
-  // Heading font weight
-  resetHeadingFontWeightValue()
-  fontWeightHeading.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
-  });
-
-  // Heading text
-  fontFamilyHeading.addEventListener('wa-change', event => {
-    let fontFamily;
-    switch(event.target.value) {
-      case 'assistant':
-        fontFamily = `'Assistant', sans-serif`;
-        break;
-      case 'inter':
-        fontFamily = `'inter', sans-serif`;
-        break;
-      case 'lora':
-        fontFamily = `'Lora', serif`;
-        break;
-      case 'mulish':
-        fontFamily = `'Mulish', sans-serif`;
-        break;
-      case 'noto-sans':
-          fontFamily = `'Noto Sans', sans-serif`;
-          break;
-      case 'noto-sans-display':
-          fontFamily = `'Noto Sans Display', sans-serif`;
-          break;
-      case 'noto-sans-mono':
-          fontFamily = `'Noto Sans Mono', monospace`;
-          break;
-      case 'noto-serif':
-          fontFamily = `'Noto Serif', serif`;
-          break;
-      case 'open-sans':
-          fontFamily = `'Open Sans', sans-serif`;
-          break;
-      case 'playfair':
-          fontFamily = `'Playfair', serif`;
-          break;
-      case 'playfair-display':
-          fontFamily = `'Playfair Display', serif`;
-          break;
-      case 'quicksand':
-          fontFamily = `'Quicksand', sans-serif`;
-          break;
-      case 'roboto-flex':
-          fontFamily = `'Roboto Flex', sans-serif`;
-          break;
-      case 'roboto-mono':
-          fontFamily = `'Roboto Mono', monospace`;
-          break;
-      case 'roboto-serif':
-          fontFamily = `'Roboto Serif', serif`;
-          break;
-      case 'roboto-slab':
-          fontFamily = `'Roboto Slab', serif`;
-          break;
-      default:
-        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+        element.classList.toggle("wa-invalid", !isValid)
+      }
     }
-    document.documentElement.style.setProperty('--wa-font-family-heading', fontFamily);
-  })
 
-  // Body text
-  fontFamilyBody.addEventListener('wa-change', event => {
-    let fontFamily;
-    switch(event.target.value) {
-      case 'assistant':
-        fontFamily = `'Assistant', sans-serif`;
-        break;
-      case 'inter':
-        fontFamily = `'inter', sans-serif`;
-        break;
-      case 'lora':
-        fontFamily = `'Lora', serif`;
-        break;
-      case 'mulish':
-        fontFamily = `'Mulish', sans-serif`;
-        break;
-      case 'noto-sans':
-          fontFamily = `'Noto Sans', sans-serif`;
-          break;
-      case 'noto-sans-mono':
-          fontFamily = `'Noto Sans Mono', monospace`;
-          break;
-      case 'noto-serif':
-          fontFamily = `'Noto Serif', serif`;
-          break;
-      case 'open-sans':
-          fontFamily = `'Open Sans', sans-serif`;
-          break;
-      case 'playfair':
-          fontFamily = `'Playfair', serif`;
-          break;
-      case 'quicksand':
-          fontFamily = `'Quicksand', sans-serif`;
-          break;
-      case 'roboto-flex':
-          fontFamily = `'Roboto Flex', sans-serif`;
-          break;
-      case 'roboto-mono':
-          fontFamily = `'Roboto Mono', monospace`;
-          break;
-      case 'roboto-serif':
-          fontFamily = `'Roboto Serif', serif`;
-          break;
-      case 'roboto-slab':
-          fontFamily = `'Roboto Slab', serif`;
-          break;
-      default:
-        fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-    }
-    document.documentElement.style.setProperty('--wa-font-family-body', fontFamily);
-  });
+    knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
+    knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
 
-  // Body font weight
-  resetBodyFontWeightValue()
-  fontWeightBody.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
-  });
+    // Light & Dark Mode
+    darkModeSelect.addEventListener('wa-change', event => {
+      const el = rootDocument
+      const theme = themeSelect.value
 
-  // Corners
-  container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-corners-base', `${event.target.value}`);
-  });
+      el.classList.toggle(`wa-theme-${theme}-dark`);
 
-  // Border width
-  container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}`);
-  });
-
-  // Border style
-  borderStyle.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-style', event.target.value);
-  });
-
-  // Spacing style
-  spacing.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
-  });
-
-  // Form validation
-  // Mostly useful for the number ranges. Very simple validation on blurs.
-  function reportValidity (event) {
-    const element = event.target
-    if (typeof element?.reportValidity === "function") {
-      const isValid = element.reportValidity()
-
-      element.classList.toggle("wa-invalid", !isValid)
-    }
+    });
   }
 
-  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
-  knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
-
-  // Light & Dark Mode
-  darkModeSelect.addEventListener('wa-change', event => {
-    const el = document.documentElement
-    const theme = themeSelect.value
-
-    el.classList.toggle(`wa-theme-${theme}-dark`);
-
-  });
+  setup()
 </script>
 
 <slot />

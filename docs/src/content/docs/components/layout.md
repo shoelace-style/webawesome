@@ -35,7 +35,7 @@ The following sections of the layout are "sticky" by default, meaning they remai
 This is often desirable, but you can change this behavior using the `disable-sticky` attribute. Use a space-delimited list of names to tell the layout which sections should not be sticky.
 
 ```html
-<wa-layout disable-sticky="header aside"> ... </wa-layout>
+<wa-page disable-sticky="header aside"> ... </wa-page>
 ```
 
 ## How to Apply Spacing to Your Layout
@@ -44,7 +44,7 @@ The layout component _does not_ apply spacing for you. You can apply the appropr
 
 TODO - add example here
 
-When using `<wa-layout>`, make sure to zero out all paddings and margins on `<html>` and `<body>`, otherwise you may see unexpected gaps. The following styles are highly recommended when using `<wa-layout>`.
+When using `<wa-page>`, make sure to zero out all paddings and margins on `<html>` and `<body>`, otherwise you may see unexpected gaps. The following styles are highly recommended when using `<wa-page>`.
 
 ```css
 html,
@@ -63,11 +63,11 @@ The layout provides a "skip to content" link that's visually hidden until the us
 This example localizes the "skip to content" link for German users.
 
 ```html
-<wa-layout>
+<wa-page>
   ...
   <span slot="skip-to-content">Zum Inhalt springen</span>
   ...
-</wa-layout>
+</wa-page>
 ```
 
 ## Responsiveness
@@ -75,23 +75,23 @@ This example localizes the "skip to content" link for German users.
 The layout component tries not to have too many opinions in terms of responsive behaviors — you get to decide with your own CSS and media queries how your content responds! However, the navigation menu _does_ respond by collapsing on smaller screens. The breakpoint at which this occurs is 768px by default, but you can change it using the `mobile-breakpoint` attribute.
 
 ```html
-<wa-layout mobile-breakpoint="600"> ... </wa-layout>
+<wa-page mobile-breakpoint="600"> ... </wa-page>
 ```
 
 You can provide a button to toggle the navigation menu anywhere inside the layout by adding the `data-toggle-nav` attribute. (This _does not_ have to be a Web Awesome button.)
 
 ```html
-<wa-layout mobile-breakpoint="600">
+<wa-page mobile-breakpoint="600">
   ...
   <wa-button data-toggle-nav>Menu</wa-button>
   ...
-</wa-layout>
+</wa-page>
 ```
 
 Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the layout component to show and hide the navigation, respectively.
 
 ```html
-<wa-layout nav-state="open"> ... </wa-layout>
+<wa-page nav-state="open"> ... </wa-page>
 ```
 
 ## Providing Navigation Items

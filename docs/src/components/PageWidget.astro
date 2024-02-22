@@ -27,7 +27,7 @@
     menuItem.setAttribute("value", `${type}-${slot}`)
     return menuItem
   }
-  document.querySelectorAll("wa-layout > [slot]").forEach((el) => {
+  document.querySelectorAll("wa-page > [slot]").forEach((el) => {
     const slot = el.getAttribute("slot");
     docFrag.append(makeMenuItem("toggle", slot), makeMenuItem("overflow", slot), document.createElement("wa-divider"))
   })
@@ -46,7 +46,7 @@
     if (slot === "main") {
       el = document.querySelector(`main`)
     } else {
-      el = document.querySelector(`wa-layout > [slot='${slot}']`)
+      el = document.querySelector(`wa-page > [slot='${slot}']`)
     }
     if (val.startsWith("overflow")) {
       if (item.checked) {

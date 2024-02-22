@@ -1,16 +1,47 @@
-<wa-layout main-id="main-content" class="wa-theme-light">
-  <header slot="banner" class="grid banner">banner</header>
+<wa-page>
+  <div slot="navigation">
+    <div style="padding: 2rem">
+      <a href="#">Option 1</a><br />
+      <a href="#">Option 2</a><br />
+      <a href="#">Option 3</a>
+    </div>
+  </div>
 
-  <header slot="header" class="grid header">header</header>
+  <button data-toggle-nav>Menu</button>
 
-  <aside class="grid" slot="menu">menu</aside>
+  <p>I'm just a lowly page.</p>
+  <p>
+    I think I'll put a <a href="#">link right here</a> for you to click. And maybe <a href="#">another one here</a> for
+    fun.
+  </p>
 
-  <header class="grid" slot="main-header">main-header</header>
+  <wa-dialog id="dialog"> I'm just a lowly dialog. </wa-dialog>
 
-  <main class="grid" id="main-content">main</main>
+  <wa-button>Open Dialog</wa-button>
+</wa-page>
 
-  <footer class="grid" slot="main-footer">main-footer</footer>
+<style>
+  wa-page {
+    --menu-width: 260px;
 
-  <aside class="grid" slot="aside">aside</aside>
-  <footer class="grid" slot="footer">footer</footer>
-</wa-layout>
+    outline: dashed 1px dodgerblue;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  wa-page::part(menu) {
+    border-right: solid 1px #ececec;
+  }
+
+  wa-page::part(main-content) {
+    padding: 2rem;
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById('dialog');
+
+  dialog.nextElementSibling.addEventListener('click', () => {
+    dialog.open = true;
+  });
+</script>

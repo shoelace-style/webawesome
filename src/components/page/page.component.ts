@@ -1,14 +1,14 @@
 import { html } from 'lit';
 import { live } from 'lit/directives/live.js';
 import { property, query } from 'lit/decorators.js';
-import styles from './layout.styles.js';
+import styles from './page.styles.js';
 import WaDrawer from '../drawer/drawer.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValueMap } from 'lit';
 
 /**
- * @summary Layouts offer an easy way to scaffold pages using minimal markup.
- * @documentation https://shoelace.style/components/layout
+ * @summary Pages offer an easy way to scaffold pages using minimal markup.
+ * @documentation https://shoelace.style/components/page
  * @status experimental
  * @since 3.0
  *
@@ -41,14 +41,14 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart footer - The footer of the page. This is always below the initial viewport size.
  * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *
- * @cssproperty [--menu-width=auto] - The width of the layout's "menu" section.
- * @cssproperty [--main-width=1fr] - The width of the layout's "main" section.
- * @cssproperty [--aside-width=auto] - The wide of the layout's "aside" section.
- * @cssproperty [--banner-height=0px] - The height of the banner. This gets calculated when the layout initializes. If the height is known, you can set it here to prevent shifting when the page loads.
- * @cssproperty [--header-height=0px] - The height of the header. This gets calculated when the layout initializes. If the height is known, you can set it here to prevent shifting when the page loads.
- * @cssproperty [--subheader-height=0px] - The height of the subheader. This gets calculated when the layout initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ * @cssproperty [--menu-width=auto] - The width of the page's "menu" section.
+ * @cssproperty [--main-width=1fr] - The width of the page's "main" section.
+ * @cssproperty [--aside-width=auto] - The wide of the page's "aside" section.
+ * @cssproperty [--banner-height=0px] - The height of the banner. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ * @cssproperty [--header-height=0px] - The height of the header. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ * @cssproperty [--subheader-height=0px] - The height of the subheader. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
  */
-export default class WaLayout extends WebAwesomeElement {
+export default class WaPage extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = {
     'wa-drawer': WaDrawer
@@ -89,7 +89,7 @@ export default class WaLayout extends WebAwesomeElement {
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
 
   /**
-   * The view is a reflection of the "mobileBreakpoint", when the layout is larger than the `mobile-breakpoint` (768 by
+   * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768 by
    * default), it is considered to be a "desktop" view. The view is merely a way to distinguish when to show/hide the
    * navigation. You can use additional media queries to make other adjustments to content as necessary.
    */
@@ -110,15 +110,15 @@ export default class WaLayout extends WebAwesomeElement {
    */
   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
 
-  layoutResizeObserver = new ResizeObserver(entries => {
+  pageResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
       if (entry.contentBoxSize) {
         const contentBoxSize = entry.borderBoxSize[0];
-        const layoutWidth = contentBoxSize.inlineSize;
+        const pageWidth = contentBoxSize.inlineSize;
 
         const oldView = this.view;
 
-        if (layoutWidth >= this.mobileBreakpoint) {
+        if (pageWidth >= this.mobileBreakpoint) {
           this.view = 'desktop';
         } else {
           this.view = 'mobile';
@@ -126,7 +126,7 @@ export default class WaLayout extends WebAwesomeElement {
 
         this.requestUpdate('view', oldView);
 
-        this.style.setProperty(`--layout-width`, `${layoutWidth}px`);
+        this.style.setProperty(`--page-width`, `${pageWidth}px`);
       }
     }
   });
@@ -146,7 +146,7 @@ export default class WaLayout extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.layoutResizeObserver.observe(this);
+    this.pageResizeObserver.observe(this);
 
     setTimeout(() => {
       this.headerResizeObserver.observe(this.header);
@@ -169,7 +169,7 @@ export default class WaLayout extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.layoutResizeObserver.unobserve(this);
+    this.pageResizeObserver.unobserve(this);
     this.headerResizeObserver.unobserve(this.header);
     this.subheaderResizeObserver.unobserve(this.subheader);
     this.footerResizeObserver.unobserve(this.footer);
