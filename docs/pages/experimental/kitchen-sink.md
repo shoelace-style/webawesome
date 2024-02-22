@@ -28,7 +28,7 @@ toc: false
 
   :root {
     --knobs-width: 320px;
-    --knobs-padding: 1.5rem;
+    --knobs-padding: 1.5em;
   }
 
   :root, 
@@ -36,7 +36,120 @@ toc: false
     scrollbar-color: var(--wa-color-neutral-border-highlight) var(--wa-color-surface-raised);
   }
 
-  #knobs {
+  #knobs,
+  #knobs :host {
+    /* #region Lock theme styles */
+    --wa-font-family-heading: Inconsolata, monospace;
+    --wa-font-family-body: Inconsolata, monospace;
+    --wa-font-family-code: Inconsolata, monospace;
+    --wa-font-family-longform: 'Lora', serif;
+
+    --wa-font-weight-light: 300;
+    --wa-font-weight-normal: 400;
+    --wa-font-weight-medium: 600;
+    --wa-font-weight-heavy: 800;
+
+    --wa-font-weight-heading: var(--wa-font-weight-heavy);
+    --wa-font-weight-body: var(--wa-font-weight-normal);
+    --wa-font-weight-action: var(--wa-font-weight-medium);
+
+    --wa-font-size-root: 16px;
+    --wa-font-size-2xs: var(--wa-font-size-root) * 0.6875;
+    --wa-font-size-xs: var(--wa-font-size-root) * 0.75;
+    --wa-font-size-s: var(--wa-font-size-root) * 0.875;
+    --wa-font-size-m: var(--wa-font-size-root) * 1;
+    --wa-font-size-l: var(--wa-font-size-root) * 1.25;
+    --wa-font-size-xl: var(--wa-font-size-root) * 1.625;
+    --wa-font-size-2xl: var(--wa-font-size-root) * 2;
+    --wa-font-size-3xl: var(--wa-font-size-root) * 2.5625;
+    --wa-font-size-4xl: var(--wa-font-size-root) * 3.25;
+
+    --wa-font-line-height-compact: 1.25;
+    --wa-font-line-height-regular: 1.6;
+    --wa-font-line-height-comfortable: 2;
+
+    --wa-space-base: 1;
+    --wa-space-3xs: calc(var(--wa-space-base) * var(--wa-font-size-root) * 0.125);
+    --wa-space-2xs: calc(var(--wa-space-base) * var(--wa-font-size-root) * 0.25);
+    --wa-space-xs: calc(var(--wa-space-base) * var(--wa-font-size-root) * 0.5);
+    --wa-space-s: calc(var(--wa-space-base) * var(--wa-font-size-root) * 0.75);
+    --wa-space-m: calc(var(--wa-space-base) * var(--wa-font-size-root) * 1);
+    --wa-space-l: calc(var(--wa-space-base) * var(--wa-font-size-root) * 1.25);
+    --wa-space-xl: calc(var(--wa-space-base) * var(--wa-font-size-root) * 1.5);
+    --wa-space-2xl: calc(var(--wa-space-base) * var(--wa-font-size-root) * 2);
+    --wa-space-3xl: calc(var(--wa-space-base) * var(--wa-font-size-root) * 3);
+
+    --wa-border-style: solid;
+
+    --wa-border-width-base: 0.0625;
+    --wa-border-width-s: calc(var(--wa-border-width-base) * var(--wa-font-size-root) * 1);
+    --wa-border-width-m: calc(var(--wa-border-width-base) * var(--wa-font-size-root) * 2);
+    --wa-border-width-l: calc(var(--wa-border-width-base) * var(--wa-font-size-root) * 3);
+
+    --wa-form-controls-border-style: var(--wa-border-style);
+    --wa-form-controls-border-width: var(--wa-border-width-s);
+
+    --wa-panel-border-style: var(--wa-border-style);
+    --wa-panel-border-width: var(--wa-border-width-s);
+
+    --wa-corners-base: 0.375;
+    --wa-corners-xs: calc(var(--wa-corners-base) * var(--wa-font-size-root) * 0.75);
+    --wa-corners-s: calc(var(--wa-corners-base) * var(--wa-font-size-root) * 1);
+    --wa-corners-m: calc(var(--wa-corners-base) * var(--wa-font-size-root) * 2);
+    --wa-corners-l: calc(var(--wa-corners-base) * var(--wa-font-size-root) * 3);
+
+    --wa-shadow-blur-base: 0.125;
+    --wa-shadow-offset-y-base: 0.1;
+    --wa-shadow-offset-x-base: 0;
+
+    --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset) var(--wa-shadow-blur-inset)
+    var(--wa-color-shadow);
+    --wa-shadow-level-0: none;
+    --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
+      var(--wa-color-shadow);
+    --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
+      var(--wa-color-shadow);
+    --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3) var(--wa-shadow-blur-level-3)
+      var(--wa-color-shadow);
+
+    --wa-form-controls-background: var(--wa-color-surface-default);
+
+    --wa-form-controls-corners: var(--wa-corners-s);
+
+    --wa-form-controls-activated-color: var(--wa-color-brand-spot);
+    --wa-form-controls-resting-color: var(--wa-color-neutral-border-highlight);
+
+    --wa-form-controls-label-color: var(--wa-color-text-normal);
+    --wa-form-controls-label-font-weight: var(--wa-font-weight-normal);
+    --wa-form-controls-label-line-height: var(--wa-font-line-height-regular);
+
+    --wa-form-controls-value-color: var(--wa-color-text-normal);
+    --wa-form-controls-value-font-weight: var(--wa-font-weight-body);
+    --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
+
+    --wa-form-controls-placeholder-color: var(--wa-color-base-60);
+
+    --wa-form-controls-height-s: calc(
+      var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height)
+    );
+    --wa-form-controls-height-m: calc(
+      var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-controls-value-line-height)
+    );
+    --wa-form-controls-height-l: calc(
+      var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-controls-value-line-height)
+    );
+
+    --wa-form-controls-required-content: '*';
+    --wa-form-controls-required-content-color: inherit;
+    --wa-form-controls-required-content-offset: -0.1em;
+
+    --wa-panel-corners: var(--wa-corners-m);
+
+    font-family: var(--wa-font-family-code);
+    font-size: var(--wa-font-size-root);
+    font-weight: var(--wa-font-weight-normal);
+    /* #endregion Lock theme styles */
+
     position: fixed;
     z-index: 10;
     /* top: 2rem; */
@@ -57,6 +170,19 @@ toc: false
     left: 0;
     scrollbar-width: thin;
 
+    & wa-button,
+    & wa-input,
+    & wa-radio,
+    & wa-radio-button,
+    & wa-select {
+      --box-shadow: none;
+    }
+
+    & wa-switch {
+      --box-shadow: none;
+      --thumb-shadow: none;
+    }
+
     & .header {
       padding: var(--knobs-padding);
 
@@ -72,7 +198,7 @@ toc: false
       position: relative;
 
       &::part(summary) {
-        font-weight: 500;
+        font-weight: var(--wa-font-weight-medium);
       }
       &::part(summary-icon) {
         rotate: 0deg;
@@ -105,6 +231,16 @@ toc: false
           line-height: var(--wa-form-controls-label-line-height);
           margin-bottom: var(--wa-space-3xs);
           padding-inline: 0;
+        }
+
+        & wa-select {
+          flex: 1 1 auto;
+          max-width: 100%;
+        }
+
+        & wa-input {
+          max-width: 100%;
+          min-width: 10ch;
         }
       }
 
@@ -169,8 +305,8 @@ toc: false
   #file-uploader-description {
     display: block;
     line-height: var(--wa-font-line-height-compact);
-    font-size: 0.75em;
     color: var(--wa-color-text-quiet);
+    margin-top: var(--wa-space-2xs);
   }
 
   /* project logo icon select styles */
@@ -265,19 +401,19 @@ toc: false
     </wa-select>
   </div>
   <wa-details summary="Branding">
-    <wa-icon name="plus" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-input name="project-name" value="" placeholder="Project Name" label="What are you working on?"></wa-input>
     <div>
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
         <input name="project-logo" type="file" accept="image/*">
         Add Logo
       </label>
-      <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
+      <small id="file-uploader-description">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
     </div>
     <div>
       <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p">
-        <wa-radio-button value="p"><wa-icon name="p"></wa-icon></wa-radio-button>
+        <wa-radio-button value="crown"><wa-icon name="crown"></wa-icon></wa-radio-button>
         <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
         <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
         <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
@@ -290,8 +426,8 @@ toc: false
     </div>
   </wa-details>
   <wa-details summary="Typography">
-    <wa-icon name="plus" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <fieldset>
       <legend aria-hidden="true">Headings</legend>
       <div style="display: flex;">
@@ -313,7 +449,7 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Font Weight" type="number" step="50" max="900" min="50" style="width: 33%;">
+        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Font Weight" type="number" step="50" max="900" min="50">
         </wa-input>
       </div>
     </fieldset>
@@ -336,14 +472,14 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input class="hidden-label" name="font-weight-body" value="" style="width: 33%;" type="number" step="50" max="900" min="50" label="Font Weight">
+        <wa-input class="hidden-label" name="font-weight-body" value="" type="number" step="50" max="900" min="50" label="Font Weight">
         </wa-input>
       </div>
     </fieldset>
   </wa-details>
   <wa-details summary="Icons">
-    <wa-icon name="plus" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-select name="icon-family" label="Icon Family" value="fa-classic" hoist>
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
@@ -358,8 +494,8 @@ toc: false
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Look and feel">
-    <wa-icon name="plus" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-select name="border-style" label="Border Style" value="solid" hoist>
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -848,25 +984,25 @@ toc: false
 
     switch(themeSelect.value) {
       case 'fa':
-        presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
+        presetLogoIcons = ['crown', 'cupcake', 'rocket-launch', 'camera-retro'];
         break;
       case 'premium':
-        presetLogoIcons = ['sunglasses', 'gem', 'car', 'shirt'];
+        presetLogoIcons = ['crown', 'sunglasses', 'car', 'shirt'];
         break;
       case 'playful':
-        presetLogoIcons = ['face-smile-solid', 'palette', 'crown', 'star'];
+        presetLogoIcons = ['crown', 'palette', 'face-smile-solid', 'star'];
         break;
       case 'brutalist':
-        presetLogoIcons = ['leaf', 'book-open', 'landmark', 'mug-hot'];
+        presetLogoIcons = ['crown', 'leaf', 'book-open', 'landmark'];
         break;
       case 'headwind':
-        presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
+        presetLogoIcons = ['crown', 'feather', 'lemon', 'wind'];
         break;
       case 'classic':
         presetLogoIcons = ['backpack', 'gamepad-modern', 'boombox', 'bug'];
         break;
       default:
-        presetLogoIcons = ['p', 'dragon', 'pizza-slice', 'fire'];
+        presetLogoIcons = ['crown', 'dragon', 'pizza-slice', 'fire'];
     }
 
     presetLogoOptions.forEach((option, index) => {
@@ -1006,160 +1142,165 @@ toc: false
   });
 
   // Icons
-    import { registerIconLibrary } from '/dist/utilities/icon-library.js';
+  import { registerIconLibrary } from '/dist/utilities/icon-library.js';
 
-    function solidifyRatingStars() {
-      const ratings = document.querySelectorAll('wa-rating');
-      ratings.forEach(rating => rating.getSymbol = () => '<wa-icon name="star" library="always-solid"></wa-icon>');
+  // Ensure regular icons are always available for the knobs
+  registerIconLibrary('fa-classic-regular', {
+    resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/regular/${name}.svg`
+  });
+
+  function solidifyRatingStars() {
+    const ratings = document.querySelectorAll('wa-rating');
+    ratings.forEach(rating => rating.getSymbol = () => '<wa-icon name="star" library="always-solid"></wa-icon>');
+  }
+
+  function showIconStyleOptions() {
+    function hide(elem) {
+      elem.setAttribute('hidden', true);
     }
+    function show(elem) {
+      elem.removeAttribute('hidden');
+    }
+    switch(iconFamily.value) {
+      case 'fa-classic':
+        show(iconStyle);
+        show(iconStyle.querySelector('[value="duotone"]'));
+        hide(iconStyle.querySelector('[value="solid"] > wa-badge'));
+        break;
+      case 'fa-sharp':
+        show(iconStyle);
+        hide(iconStyle.querySelector('[value="duotone"]'));
+        show(iconStyle.querySelector('[value="solid"] > wa-badge'));
+        break;
+      default:
+        hide(iconStyle);
+    }
+  }
 
-    function showIconStyleOptions() {
-      function hide(elem) {
-        elem.setAttribute('hidden', true);
-      }
-      function show(elem) {
-        elem.removeAttribute('hidden');
-      }
-      switch(iconFamily.value) {
-        case 'fa-classic':
-          show(iconStyle);
-          show(iconStyle.querySelector('[value="duotone"]'));
-          hide(iconStyle.querySelector('[value="solid"] > wa-badge'));
+  function setPreferredIcons() {
+    switch(themeSelect.value) {
+      case 'fa':
+        iconFamily.value = 'fa-classic';
+        iconStyle.value = 'solid';
+        useFaIcons();
+        break;
+      case 'premium':
+        iconFamily.value = 'custom';
+        registerIconLibrary('default', {
+          resolver: name => `/assets/icons/chunk/${name}.svg`,
+          mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+        });
+        registerIconLibrary('system', {
+          resolver: name => `/assets/icons/chunk/${name}.svg`,
+          mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+        });
+        break;
+      case 'playful':
+        iconFamily.value = 'custom';
+        registerIconLibrary('default', {
+          resolver: name => `/assets/icons/jelly/${name}.svg`,
+          mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+        });
+        registerIconLibrary('system', {
+          resolver: name => `/assets/icons/jelly/${name}.svg`,
+          mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
+        });
+        break;
+      case 'brutalist':
+        iconFamily.value = 'custom';
+        registerIconLibrary('default', {
+          resolver: name => `/assets/icons/utility/${name}.svg`,
+          mutator: svg => {
+            [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
+            [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
+          }
+        });
+        registerIconLibrary('system', {
+          resolver: name => `/assets/icons/utility/${name}.svg`,
+          mutator: svg => {
+            [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
+            [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
+          }
+        });
+        break;
+      case 'headwind':
+        iconFamily.value = 'fa-classic';
+        iconStyle.value = 'solid';
+        useFaIcons();
+        break;
+      case 'classic':
+        iconFamily.value = 'custom';
+        registerIconLibrary('default', {
+          resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+        });
+        registerIconLibrary('system', {
+          resolver: name => `/assets/icons/bootstrap/${name}.svg`,
+        });
+        break;
+      default:
+        iconFamily.value = 'fa-classic';
+        iconStyle.value = 'solid';
+        useFaIcons();
+    }
+  }
+
+  function useFaIcons() {
+    let iconLibrary;
+    if(iconFamily.value === 'fa-sharp') {
+      switch(iconStyle.value) {
+        case 'solid':
+          iconLibrary = 'sharp-solid';
           break;
-        case 'fa-sharp':
-          show(iconStyle);
-          hide(iconStyle.querySelector('[value="duotone"]'));
-          show(iconStyle.querySelector('[value="solid"] > wa-badge'));
+        case 'regular':
+          iconLibrary = 'sharp-regular';
+          break;
+        case 'light':
+          iconLibrary = 'sharp-light';
+          break;
+        case 'thin':
+          iconLibrary = 'sharp-thin';
           break;
         default:
-          hide(iconStyle);
+          iconLibrary = 'sharp-solid';
       }
+      // Ensures sharp-solid variations are available for ratings, etc.
+      registerIconLibrary('always-solid', {
+        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/sharp-solid/${name}.svg`
+      });
+      solidifyRatingStars();
     }
-
-    function setPreferredIcons() {
-      switch(themeSelect.value) {
-        case 'fa':
-          iconFamily.value = 'fa-classic';
-          iconStyle.value = 'solid';
-          useFaIcons();
+    else {
+      switch(iconStyle.value) {
+        case 'solid':
+          iconLibrary = 'solid';
           break;
-        case 'premium':
-          iconFamily.value = 'custom';
-          registerIconLibrary('default', {
-            resolver: name => `/assets/icons/chunk/${name}.svg`,
-            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
-          });
-          registerIconLibrary('system', {
-            resolver: name => `/assets/icons/chunk/${name}.svg`,
-            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
-          });
+        case 'regular':
+          iconLibrary = 'regular';
           break;
-        case 'playful':
-          iconFamily.value = 'custom';
-          registerIconLibrary('default', {
-            resolver: name => `/assets/icons/jelly/${name}.svg`,
-            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
-          });
-          registerIconLibrary('system', {
-            resolver: name => `/assets/icons/jelly/${name}.svg`,
-            mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
-          });
+        case 'light':
+          iconLibrary = 'light';
           break;
-        case 'brutalist':
-          iconFamily.value = 'custom';
-          registerIconLibrary('default', {
-            resolver: name => `/assets/icons/utility/${name}.svg`,
-            mutator: svg => {
-              [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
-              [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
-            }
-          });
-          registerIconLibrary('system', {
-            resolver: name => `/assets/icons/utility/${name}.svg`,
-            mutator: svg => {
-              [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
-              [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
-            }
-          });
+        case 'thin':
+          iconLibrary = 'thin';
           break;
-        case 'headwind':
-          iconFamily.value = 'fa-classic';
-          iconStyle.value = 'solid';
-          useFaIcons();
-          break;
-        case 'classic':
-          iconFamily.value = 'custom';
-          registerIconLibrary('default', {
-            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
-          });
-          registerIconLibrary('system', {
-            resolver: name => `/assets/icons/bootstrap/${name}.svg`,
-          });
+        case 'duotone':
+          iconLibrary = 'duotone';
           break;
         default:
-          iconFamily.value = 'fa-classic';
-          iconStyle.value = 'solid';
-          useFaIcons();
+          iconLibrary = 'solid';
       }
+      // Ensures solid variations are available for radios, ratings, etc.
+      registerIconLibrary('always-solid', {
+        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/solid/${name}.svg`
+      });
+      solidifyRatingStars();
     }
-
-    function useFaIcons() {
-      let iconLibrary;
-      if(iconFamily.value === 'fa-sharp') {
-        switch(iconStyle.value) {
-          case 'solid':
-            iconLibrary = 'sharp-solid';
-            break;
-          case 'regular':
-            iconLibrary = 'sharp-regular';
-            break;
-          case 'light':
-            iconLibrary = 'sharp-light';
-            break;
-          case 'thin':
-            iconLibrary = 'sharp-thin';
-            break;
-          default:
-            iconLibrary = 'sharp-solid';
-        }
-        // Ensures sharp-solid variations are available for ratings, etc.
-        registerIconLibrary('always-solid', {
-          resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/sharp-solid/${name}.svg`
-        });
-        solidifyRatingStars();
-      }
-      else {
-        switch(iconStyle.value) {
-          case 'solid':
-            iconLibrary = 'solid';
-            break;
-          case 'regular':
-            iconLibrary = 'regular';
-            break;
-          case 'light':
-            iconLibrary = 'light';
-            break;
-          case 'thin':
-            iconLibrary = 'thin';
-            break;
-          case 'duotone':
-            iconLibrary = 'duotone';
-            break;
-          default:
-            iconLibrary = 'solid';
-        }
-        // Ensures solid variations are available for radios, ratings, etc.
-        registerIconLibrary('always-solid', {
-          resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/solid/${name}.svg`
-        });
-        solidifyRatingStars();
-      }
-      registerIconLibrary('default', {
-        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
-      });
-      registerIconLibrary('system', {
-        resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
-      });
+    registerIconLibrary('default', {
+      resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
+    });
+    registerIconLibrary('system', {
+      resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
+    });
   };
 
   // Swaps icons to the preferred set for the selected theme
