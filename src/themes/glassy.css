@@ -49,17 +49,17 @@
   --wa-color-green-10: #002316;
   --wa-color-green-05: #00160d;
 
-  --wa-color-orchid-95: #f8eff8;
-  --wa-color-orchid-90: #f2e1f1;
-  --wa-color-orchid-80: #e2bee1;
-  --wa-color-orchid-70: #d49dd2;
-  --wa-color-orchid-60: #c57bc3;
-  --wa-color-orchid-50: #b14fae;
-  --wa-color-orchid-40: #9a1a96;
-  --wa-color-orchid-30: #7c0e79;
-  --wa-color-orchid-20: #5c0a5a;
-  --wa-color-orchid-10: #380637;
-  --wa-color-orchid-05: #250424;
+  --wa-color-teal-95: #ebf4f4;
+  --wa-color-teal-90: #d9e9e9;
+  --wa-color-teal-80: #add0d1;
+  --wa-color-teal-70: #84b8ba;
+  --wa-color-teal-60: #5aa0a3;
+  --wa-color-teal-50: #268285;
+  --wa-color-teal-40: #006366;
+  --wa-color-teal-30: #004e51;
+  --wa-color-teal-20: #00393b;
+  --wa-color-teal-10: #002223;
+  --wa-color-teal-05: #000e0e;
 
   --wa-color-base-95: #f2f2f3;
   --wa-color-base-90: #e6e5e8;
@@ -81,8 +81,8 @@
    * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
   --wa-color-surface-raised: white;
   --wa-color-surface-default: white;
-  --wa-color-surface-lowered: var(--wa-color-base-95);
-  --wa-color-surface-border: var(--wa-color-base-90);
+  --wa-color-surface-lowered: var(--wa-color-teal-95);
+  --wa-color-surface-border: var(--wa-color-teal-90);
 
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
@@ -93,15 +93,15 @@
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
-  --wa-color-selection-background: var(--wa-color-orchid-80);
+  --wa-color-selection-background: var(--wa-color-teal-80);
   --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-orchid-60) 96%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-teal-60) 96%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
-  --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-30) 25%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
   --wa-color-shadow: color-mix(
@@ -128,15 +128,15 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-spot: var(--wa-color-orchid-50);
-  --wa-color-brand-spot-darker: var(--wa-color-orchid-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-orchid-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-orchid-90);
-  --wa-color-brand-border-subtle: var(--wa-color-orchid-90);
-  --wa-color-brand-border-highlight: var(--wa-color-orchid-80);
+  --wa-color-brand-spot: var(--wa-color-teal-50);
+  --wa-color-brand-spot-darker: var(--wa-color-teal-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-teal-90);
+  --wa-color-brand-fill-highlight: var(--wa-color-teal-90);
+  --wa-color-brand-border-subtle: var(--wa-color-teal-90);
+  --wa-color-brand-border-highlight: var(--wa-color-teal-80);
   --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-orchid-40);
-  --wa-color-brand-text-on-surface: var(--wa-color-orchid-50);
+  --wa-color-brand-text-on-fill: var(--wa-color-teal-40);
+  --wa-color-brand-text-on-surface: var(--wa-color-teal-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -195,7 +195,7 @@
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-medium);
 
-  /* The default typescale is based on the Major Second scale (x1.125). 
+  /* The default typescale is based on the Major Second scale (x1.125).
    * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
   --wa-font-size-root: 16px;
   --wa-font-size-2xs: 0.6875rem; /* 11px */
@@ -351,21 +351,21 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-base-10);
-  --wa-color-surface-default: var(--wa-color-base-05);
-  --wa-color-surface-lowered: black;
-  --wa-color-surface-border: var(--wa-color-base-20);
+  --wa-color-surface-raised: var(--wa-color-teal-20);
+  --wa-color-surface-default: var(--wa-color-teal-10);
+  --wa-color-surface-lowered: var(--wa-color-teal-05);
+  --wa-color-surface-border: var(--wa-color-teal-30);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
-  --wa-color-selection-background: var(--wa-color-orchid-40);
+  --wa-color-selection-background: var(--wa-color-teal-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-orchid-60) 90%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-teal-60) 90%, transparent);
 
-  --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
+  --wa-color-overlay: color-mix(in oklab, var(--wa-color-teal-05) 30%, transparent);
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-base) * 32% + 40%), transparent);
 
@@ -375,15 +375,15 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-orchid-50);
-  --wa-color-brand-spot-darker: var(--wa-color-orchid-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-orchid-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-orchid-20);
-  --wa-color-brand-border-subtle: var(--wa-color-orchid-20);
-  --wa-color-brand-border-highlight: var(--wa-color-orchid-30);
+  --wa-color-brand-spot: var(--wa-color-teal-50);
+  --wa-color-brand-spot-darker: var(--wa-color-teal-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-teal-20);
+  --wa-color-brand-fill-highlight: var(--wa-color-teal-30);
+  --wa-color-brand-border-subtle: var(--wa-color-teal-20);
+  --wa-color-brand-border-highlight: var(--wa-color-teal-30);
   --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-orchid-70);
-  --wa-color-brand-text-on-surface: var(--wa-color-orchid-60);
+  --wa-color-brand-text-on-fill: var(--wa-color-teal-70);
+  --wa-color-brand-text-on-surface: var(--wa-color-teal-60);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -424,6 +424,17 @@
   --wa-color-neutral-text-on-spot: white;
   --wa-color-neutral-text-on-fill: var(--wa-color-base-70);
   --wa-color-neutral-text-on-surface: var(--wa-color-base-60);
+
+  .hero-background::after {
+    height: 50rem;
+    -webkit-backdrop-filter: brightness(0.5);
+    backdrop-filter: brightness(0.5);
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 /* #region Custom styles */
@@ -448,6 +459,40 @@ wa-button[outline] {
     --border-color: var(--wa-color-danger-border-highlight);
   }
 }
+
+wa-rating {
+  --symbol-size: var(--wa-font-size-m);
+  --symbol-color-active: var(--wa-color-neutral-text-on-surface);
+}
+
+.hero-background {
+  height: 50rem;
+  background: url(/assets/images/kitchen-sink/glassy/hero.jpg) 0px 0px / cover no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.strata.hero {
+  height: 25rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  margin: 8rem;
+}
+
+.hero .title {
+  text-align: right;
+  color: var(--wa-color-brand-text-on-fill);
+}
+
+@media screen and (min-width: 1024px) {
+  .strata.hero {
+    padding-left: 25%;
+  }
+}
+
 /* #endregion */
 
 /* _utility.css */
