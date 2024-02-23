@@ -37,7 +37,8 @@ toc: false
   }
 
   #knobs,
-  #knobs :host {
+  #knobs :host,
+  #color-mode-selector {
     /* #region Lock theme styles */
     --wa-color-brand-spot: var(--wa-color-neutral-spot);
     --wa-color-brand-spot-darker: var(--wa-color-neutral-spot-darker);
@@ -160,7 +161,9 @@ toc: false
     font-weight: var(--wa-font-weight-normal);
     line-height: var(--wa-font-line-height-regular);
     /* #endregion Lock theme styles */
+  }
 
+  #knobs {
     position: fixed;
     z-index: 10;
     background: var(--wa-color-surface-default);
@@ -180,11 +183,6 @@ toc: false
     & wa-radio-button,
     & wa-select {
       --box-shadow: none;
-    }
-
-    & wa-switch {
-      --box-shadow: none;
-      --thumb-shadow: none;
     }
 
     & .header {
@@ -525,7 +523,6 @@ toc: false
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
     <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
-    <wa-switch name="appearance">Toggle Dark Mode</wa-switch>
   </wa-details>
 </form>
 
@@ -543,6 +540,53 @@ toc: false
     <div class="icon-list" data-variant="solid"></div>
   </div>
 </wa-dialog>
+
+<div id="color-mode-selector">
+  <wa-radio-group label="Color mode" name="color-mode" value="light">
+    <wa-radio-button value="light">
+      <wa-icon name="sun" library="fa-classic-regular"></wa-icon>
+    </wa-radio-button>
+    <wa-radio-button value="dark">
+      <wa-icon name="moon" library="fa-classic-regular"></wa-icon>
+    </wa-radio-button>
+  </wa-radio-group>
+</div>
+
+<style>
+  #color-mode-selector {
+    position: fixed;
+    top: var(--knobs-padding);
+    right: var(--knobs-padding);
+    z-index: 10;
+
+    & wa-radio-group {
+      &::part(form-control-label) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+      }
+      &::part(button-group) {
+        background: var(--wa-color-surface-raised);
+        border-radius: var(--wa-corners-pill);
+        box-shadow: 0 4px 4px -4px black;
+        padding: 4px;
+      }
+      & wa-radio-button {
+        &::part(button) {
+          border: none;
+          border-radius: var(--wa-corners-circle);
+        } 
+        &::part(button--checked) {
+          background: var(--wa-color-brand-spot);
+        }
+      }
+    }
+  }
+</style>
 
 <!-- Icon chooser -->
 <script type="module">
@@ -694,7 +738,7 @@ toc: false
   const borderStyle = container.querySelector('[name="border-style"]');
   const borderWidth = container.querySelector('[name="border-width"]');
   const themeSelect = container.querySelector('[name="theme"]');
-  const darkModeSelect = container.querySelector('[name="appearance"]');
+  const colorModeSelect = document.querySelector('[name="color-mode"]');
 
   function resetHeadingFontWeightValue() {
     document.documentElement.style.removeProperty('--wa-font-weight-heading')
@@ -862,7 +906,22 @@ toc: false
     document.querySelector('#product_thumb-3').setAttribute('src', `/assets/images/kitchen-sink/${assetFolder}/keymaker.jpg`);
   }
 
+  // Light & Dark Mode
+  function setColorMode() {
+    const el = document.documentElement;
+    const theme = themeSelect.value;
+    const colorMode = colorModeSelect.value;
 
+    for (let i = el.classList.length - 1; i >= 0; i--) {
+      const className = el.classList[i];
+      if (className.startsWith('wa-theme-')) {
+        el.classList.remove(className);
+      }
+    }
+    el.classList.add(`wa-theme-${theme}-${colorMode}`);
+  }
+
+  colorModeSelect.addEventListener('wa-change', setColorMode);
 
   // Theme Switcher
   themeSelect.addEventListener('wa-change', event => {
@@ -899,11 +958,7 @@ toc: false
             resetBorderStyleValue()
             resetCornersValue()
 
-            if (darkModeSelect.checked === true) {
-              // darkModeSelect.checked = false
-              document.documentElement.className = "flavor-html"
-              document.documentElement.classList.toggle(`wa-theme-${theme}-dark`);
-            }
+            setColorMode();
           }, 100)
         })
       })
@@ -1388,15 +1443,6 @@ toc: false
 
   knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
   knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
-
-  // Light & Dark Mode
-  darkModeSelect.addEventListener('wa-change', event => {
-    const el = document.documentElement
-    const theme = themeSelect.value
-
-    el.classList.toggle(`wa-theme-${theme}-dark`);
-
-  });
 </script>
 
 <style>

@@ -2,7 +2,7 @@
 
 :root,
 :host,
-.wa-theme-chic-light {
+.wa-theme-active-light {
   color-scheme: light;
 
   /**
@@ -344,8 +344,8 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-.wa-theme-chic-dark,
-.wa-theme-chic-dark :host {
+.wa-theme-active-dark,
+.wa-theme-active-dark :host {
   color-scheme: dark;
 
   /**
