@@ -438,56 +438,58 @@
 }
 
 /* #region Custom styles */
-wa-button[outline] {
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-border-highlight);
+@container preview (min-width: 0) {
+  wa-button[outline] {
+    &[variant='brand'] {
+      --border-color: var(--wa-color-brand-border-highlight);
+    }
+
+    &[variant='success'] {
+      --border-color: var(--wa-color-success-border-highlight);
+    }
+
+    &[variant='neutral'] {
+      --border-color: var(--wa-color-neutral-border-highlight);
+    }
+
+    &[variant='warning'] {
+      --border-color: var(--wa-color-warning-border-highlight);
+    }
+
+    &[variant='danger'] {
+      --border-color: var(--wa-color-danger-border-highlight);
+    }
   }
 
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-border-highlight);
+  wa-rating {
+    --symbol-size: var(--wa-font-size-m);
+    --symbol-color-active: var(--wa-color-neutral-text-on-surface);
   }
 
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-border-highlight);
+  .hero-background {
+    height: 50rem;
+    background: url(/assets/images/kitchen-sink/glassy/hero.jpg) 0px 0px / cover no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
   }
 
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-border-highlight);
+  .strata.hero {
+    height: 25rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    margin: 8rem;
   }
 
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-border-highlight);
+  .hero .title {
+    text-align: right;
+    color: var(--wa-color-brand-text-on-fill);
   }
 }
 
-wa-rating {
-  --symbol-size: var(--wa-font-size-m);
-  --symbol-color-active: var(--wa-color-neutral-text-on-surface);
-}
-
-.hero-background {
-  height: 50rem;
-  background: url(/assets/images/kitchen-sink/glassy/hero.jpg) 0px 0px / cover no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-}
-
-.strata.hero {
-  height: 25rem;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  margin: 8rem;
-}
-
-.hero .title {
-  text-align: right;
-  color: var(--wa-color-brand-text-on-fill);
-}
-
-@media screen and (min-width: 1024px) {
+@container preview (min-width: 720px) {
   .strata.hero {
     padding-left: 25%;
   }
