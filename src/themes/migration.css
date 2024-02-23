@@ -2,7 +2,7 @@
 
 :root,
 :host,
-.wa-theme-headwind-light {
+.wa-theme-migration-light {
   color-scheme: light;
 
   /**
@@ -347,8 +347,8 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-.wa-theme-headwind-dark,
-.wa-theme-headwind-dark :host {
+.wa-theme-migration-dark,
+.wa-theme-migration-dark :host {
   color-scheme: dark;
 
   /**
@@ -429,140 +429,150 @@
   --wa-color-neutral-text-on-surface: var(--wa-color-gray-60);
 }
 
-/* #region Custom CSS */
-h1,
-h2,
-h3,
-h4 {
-  letter-spacing: calc(1em * -0.03);
-}
+/* #region Custom Styles */
+@container preview (min-width: 0) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: calc(1em * -0.03);
+  }
 
-.project-header {
-  background: var(--wa-color-surface-default);
-}
+  .project-header {
+    background: var(--wa-color-surface-default);
+  }
 
-.hero {
-  --hero-background-color: var(--wa-color-surface-default);
-  --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 30%);
-  background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
-    radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-rose-50) 16%, transparent), transparent 30%),
-    radial-gradient(circle at 40% 50%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
-    radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-rose-50) 8%, transparent), transparent 20%),
-    radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent), transparent 40%),
-    radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-rose-60) 8%, transparent), transparent 10%),
-    linear-gradient(176deg, var(--hero-background-color), transparent 6rem),
-    linear-gradient(90deg, var(--hero-background-color), transparent),
-    repeating-linear-gradient(
-      var(--hero-lines-color),
-      var(--hero-lines-color) 1px,
-      transparent 1px,
-      transparent 10rem,
-      var(--hero-lines-color) 10rem
-    ),
-    repeating-linear-gradient(
-      90deg,
-      var(--hero-lines-color),
-      var(--hero-lines-color) 1px,
-      transparent 1px,
-      transparent 10rem,
-      var(--hero-lines-color) 10rem
-    ),
-    var(--hero-background-color);
+  .hero {
+    --hero-background-color: var(--wa-color-surface-default);
+    --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-highlight), transparent 30%);
+    background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
+      radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-rose-50) 16%, transparent), transparent 30%),
+      radial-gradient(
+        circle at 40% 50%,
+        color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-rose-50) 8%, transparent), transparent 20%),
+      radial-gradient(
+        circle at 80% 80%,
+        color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-rose-60) 8%, transparent), transparent 10%),
+      linear-gradient(176deg, var(--hero-background-color), transparent 6rem),
+      linear-gradient(90deg, var(--hero-background-color), transparent),
+      repeating-linear-gradient(
+        var(--hero-lines-color),
+        var(--hero-lines-color) 1px,
+        transparent 1px,
+        transparent 10rem,
+        var(--hero-lines-color) 10rem
+      ),
+      repeating-linear-gradient(
+        90deg,
+        var(--hero-lines-color),
+        var(--hero-lines-color) 1px,
+        transparent 1px,
+        transparent 10rem,
+        var(--hero-lines-color) 10rem
+      ),
+      var(--hero-background-color);
 
-  & .title {
-    padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
+    & .title {
+      padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
 
-    & .hero-title {
-      font-size: calc((var(--wa-font-size-4xl) * 1.125) * 1.125);
-      margin-block: 0 var(--wa-space-3xl);
+      & .hero-title {
+        font-size: calc((var(--wa-font-size-4xl) * 1.125) * 1.125);
+        margin-block: 0 var(--wa-space-3xl);
+      }
     }
   }
-}
 
-.badge-stock {
-  position: absolute;
-  top: var(--wa-space-l);
-  left: var(--wa-space-l);
-}
-
-.message-composer wa-card {
-  &::part(footer) {
-    border: none;
+  .badge-stock {
+    position: absolute;
+    top: var(--wa-space-l);
+    left: var(--wa-space-l);
   }
-  & wa-icon-button {
-    color: var(--wa-color-gray-50);
+
+  .message-composer wa-card {
+    &::part(footer) {
+      border: none;
+    }
+    & wa-icon-button {
+      color: var(--wa-color-gray-50);
+    }
   }
-}
 
-.products {
-  margin-top: calc(var(--wa-space-3xl) * -8);
-}
-
-pre.codeblock {
-  background-color: var(--wa-color-neutral-fill-highlight);
-}
-
-wa-avatar {
-  --wa-color-neutral-spot: var(--wa-color-gray-50);
-}
-
-a,
-wa-badge,
-wa-tag {
-  font-weight: var(--wa-font-weight-medium);
-}
-
-wa-badge {
-  --border-color: transparent;
-
-  &[variant='brand'] {
-    --background: var(--wa-color-brand-fill-highlight);
-    --content-color: var(--wa-color-brand-text-on-fill);
+  .products {
+    margin-top: calc(var(--wa-space-3xl) * -8);
   }
-  &[variant='success'] {
-    --background: var(--wa-color-success-fill-highlight);
-    --content-color: var(--wa-color-success-text-on-fill);
-  }
-  &[variant='warning'] {
-    --background: var(--wa-color-warning-fill-highlight);
-    --content-color: var(--wa-color-warning-text-on-fill);
-  }
-  &[variant='danger'] {
-    --background: var(--wa-color-danger-fill-highlight);
-    --content-color: var(--wa-color-danger-text-on-fill);
-  }
-  &[variant='neutral'] {
-    --background: var(--wa-color-neutral-fill-highlight);
-    --content-color: var(--wa-color-neutral-text-on-fill);
-  }
-}
 
-wa-button[outline] {
-  --border-color: color-mix(in oklab, var(--label-color), transparent 75%);
-}
-
-wa-input,
-wa-select {
-  --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1) -0.08em
-    var(--wa-color-shadow);
-  & wa-icon {
-    color: var(--wa-color-text-quiet);
+  pre.codeblock {
+    background-color: var(--wa-color-neutral-fill-highlight);
   }
-}
 
-wa-radio-button:not([checked]) {
-  --border-color: var(--wa-color-neutral-border-highlight);
-  --label-color: var(--wa-color-text-normal);
-}
+  wa-avatar {
+    --wa-color-neutral-spot: var(--wa-color-gray-50);
+  }
 
-wa-switch {
-  --border-color: transparent;
-  --height: calc(var(--thumb-size) * (18 / 14));
-  --thumb-color: white;
-  --thumb-color-checked: var(--thumb-color);
-  --thumb-size: 1em;
-  --thumb-shadow: var(--wa-shadow-level-2);
-  --width: calc(var(--thumb-size) * (32 / 14));
+  a,
+  wa-badge,
+  wa-tag {
+    font-weight: var(--wa-font-weight-medium);
+  }
+
+  wa-badge {
+    --border-color: transparent;
+
+    &[variant='brand'] {
+      --background: var(--wa-color-brand-fill-highlight);
+      --content-color: var(--wa-color-brand-text-on-fill);
+    }
+    &[variant='success'] {
+      --background: var(--wa-color-success-fill-highlight);
+      --content-color: var(--wa-color-success-text-on-fill);
+    }
+    &[variant='warning'] {
+      --background: var(--wa-color-warning-fill-highlight);
+      --content-color: var(--wa-color-warning-text-on-fill);
+    }
+    &[variant='danger'] {
+      --background: var(--wa-color-danger-fill-highlight);
+      --content-color: var(--wa-color-danger-text-on-fill);
+    }
+    &[variant='neutral'] {
+      --background: var(--wa-color-neutral-fill-highlight);
+      --content-color: var(--wa-color-neutral-text-on-fill);
+    }
+  }
+
+  wa-button[outline] {
+    --border-color: color-mix(in oklab, var(--label-color), transparent 75%);
+  }
+
+  wa-input,
+  wa-select {
+    --box-shadow: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1) -0.08em
+      var(--wa-color-shadow);
+    & wa-icon {
+      color: var(--wa-color-text-quiet);
+    }
+  }
+
+  wa-radio-button:not([checked]) {
+    --border-color: var(--wa-color-neutral-border-highlight);
+    --label-color: var(--wa-color-text-normal);
+  }
+
+  wa-switch {
+    --border-color: transparent;
+    --height: calc(var(--thumb-size) * (18 / 14));
+    --thumb-color: white;
+    --thumb-color-checked: var(--thumb-color);
+    --thumb-size: 1em;
+    --thumb-shadow: var(--wa-shadow-level-2);
+    --width: calc(var(--thumb-size) * (32 / 14));
+  }
 }
 /* #endregion */
 
