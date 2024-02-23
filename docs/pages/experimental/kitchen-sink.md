@@ -603,6 +603,7 @@ toc: false
       case 'brutalist':
       case 'classic':
       case 'fa':
+      case 'glassy':
         assetFolder = themeSelect.value;
         break;
       default:
