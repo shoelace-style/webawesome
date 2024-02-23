@@ -757,6 +757,15 @@
     color: var(--wa-color-text-normal);
   }
 
+  .message-composer wa-tooltip::part(body) {
+    background-color: var(--wa-color-brand-spot);
+    color: var(--wa-color-brand-text-on-spot);
+  }
+
+  .message-composer wa-tooltip::part(base__arrow) {
+    --arrow-color: var(--wa-color-brand-spot);
+  }
+
   .message-composer wa-card::part(footer) {
     border-width: 0;
     --padding: 0 var(--wa-space-s) var(--wa-space-s) var(--wa-space-s);
