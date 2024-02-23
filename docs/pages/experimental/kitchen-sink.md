@@ -31,7 +31,7 @@ toc: false
     --knobs-padding: 1.5em;
   }
 
-  :root, 
+  :root,
   #knobs {
     scrollbar-color: var(--wa-color-neutral-border-highlight) var(--wa-color-surface-raised);
   }
@@ -250,8 +250,6 @@ toc: false
         width: calc(var(--knobs-width) - var(--knobs-padding) * 2 - var(--wa-form-controls-border-width) * 2);
       }
     }
-
-    &
   }
 
   #knobs wa-select + wa-input {
@@ -579,7 +577,7 @@ toc: false
         &::part(button) {
           border: none;
           border-radius: var(--wa-corners-circle);
-        } 
+        }
         &::part(button--checked) {
           background: var(--wa-color-brand-spot);
         }
@@ -888,6 +886,8 @@ toc: false
       case 'brutalist':
       case 'classic':
       case 'fa':
+      case 'glassy':
+      case 'active':
         assetFolder = themeSelect.value;
         break;
       default:
