@@ -458,7 +458,7 @@
 }
 
 /* responsive */
-@container preview (min-width: 1100px) {
+@container preview (min-width: 1040px) {
   .hero-background {
     height: 47rem;
   }

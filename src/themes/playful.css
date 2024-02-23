@@ -976,6 +976,13 @@
     }
   }
 }
+/* responsive */
+@container preview (min-width: 1040px) and (max-width: 1140px) {
+  .product-card wa-button {
+    font-size: 80%;
+    margin-inline-end: 0;
+  }
+}
 /* #endregion */
 
 /* _utility.css */

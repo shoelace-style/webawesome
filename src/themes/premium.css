@@ -710,7 +710,7 @@
 }
 
 /* responsive */
-@container preview (min-width: 1100px) {
+@container preview (min-width: 1040px) {
   .strata.hero {
     background: var(--wa-color-warning-fill-highlight) url('/assets/images/kitchen-sink/premium/hero.png') -4rem 35% no-repeat;
     padding-top: 15rem;

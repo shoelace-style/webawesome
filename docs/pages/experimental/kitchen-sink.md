@@ -27,7 +27,9 @@ toc: false
   }
 
   :root {
-    --knobs-width: 320px;
+    --docs-content-padding: 20px;
+    --docs-content-vertical-spacing: 20px;
+    --knobs-width: 300px;
     --knobs-padding: 1.5em;
   }
 
@@ -36,10 +38,26 @@ toc: false
     scrollbar-color: var(--wa-color-neutral-border-highlight) var(--wa-color-surface-raised);
   }
 
+  /* #region Lock theme styles */  
   #knobs,
   #knobs :host,
-  #color-mode-selector {
-    /* #region Lock theme styles */
+  #knobs :host *,
+  #color-mode-selector,
+  #icon-chooser { 
+    --wa-color-surface-border: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
+
+    --wa-color-shadow: rgb(0 0 0 / 0.1);
+
+    --wa-color-neutral-spot: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-text-normal) 75%);
+    --wa-color-neutral-spot-darker: color-mix(in oklab, var(--wa-color-neutral-spot), black 5%);
+    --wa-color-neutral-fill-subtle: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-text-normal) 10%);
+    --wa-color-neutral-fill-highlight: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-text-normal) 20%);
+    --wa-color-neutral-border-subtle: color-mix(in oklab, var(--wa-color-text-normal), var(--wa-color-surface-default) 90%);
+    --wa-color-neutral-border-highlight: color-mix(in oklab, var(--wa-color-text-normal), var(--wa-color-surface-default) 70%);
+    --wa-color-neutral-text-on-spot: color-mix(in oklab, var(--wa-color-surface-default) 90%, var(--wa-color-text-normal));
+    --wa-color-neutral-text-on-fill: color-mix(in oklab, var(--wa-color-surface-raised) 10%, var(--wa-color-text-normal));
+    --wa-color-neutral-text-on-surface: var(--wa-color-neutral-spot);
+
     --wa-color-brand-spot: var(--wa-color-neutral-spot);
     --wa-color-brand-spot-darker: var(--wa-color-neutral-spot-darker);
     --wa-color-brand-fill-subtle: var(--wa-color-neutral-fill-subtle);
@@ -110,18 +128,32 @@ toc: false
     --wa-corners-l: calc(var(--wa-corners-base) * var(--wa-font-size-root) * 3);
 
     --wa-shadow-blur-base: 0.125;
+    --wa-shadow-blur-inset: calc(var(--wa-shadow-blur-base) * 0.75rem);
+    --wa-shadow-blur-level-1: calc(var(--wa-shadow-blur-base) * 1rem);
+    --wa-shadow-blur-level-2: calc(var(--wa-shadow-blur-base) * 1.5rem);
+    --wa-shadow-blur-level-3: calc(var(--wa-shadow-blur-base) * 2rem);
+
     --wa-shadow-offset-y-base: 0.1;
+    --wa-shadow-offset-y-inset: calc(var(--wa-shadow-offset-y-base) * 0.75rem);
+    --wa-shadow-offset-y-level-1: calc(var(--wa-shadow-offset-y-base) * 1rem);
+    --wa-shadow-offset-y-level-2: calc(var(--wa-shadow-offset-y-base) * 1.5rem);
+    --wa-shadow-offset-y-level-3: calc(var(--wa-shadow-offset-y-base) * 2rem);
+
     --wa-shadow-offset-x-base: 0;
+    --wa-shadow-offset-x-inset: calc(var(--wa-shadow-offset-x-base) * 0.75rem);
+    --wa-shadow-offset-x-level-1: calc(var(--wa-shadow-offset-x-base) * 1rem);
+    --wa-shadow-offset-x-level-2: calc(var(--wa-shadow-offset-x-base) * 1.5rem);
+    --wa-shadow-offset-x-level-3: calc(var(--wa-shadow-offset-x-base) * 2rem);
 
     --wa-shadow-inset: inset var(--wa-shadow-offset-x-inset) var(--wa-shadow-offset-y-inset) var(--wa-shadow-blur-inset)
-    var(--wa-color-shadow);
+      calc(var(--wa-shadow-offset-x-inset) * -1) var(--wa-color-shadow);
     --wa-shadow-level-0: none;
     --wa-shadow-level-1: var(--wa-shadow-offset-x-level-1) var(--wa-shadow-offset-y-level-1) var(--wa-shadow-blur-level-1)
-      var(--wa-color-shadow);
+      calc(var(--wa-shadow-offset-x-level-1) * -1) var(--wa-color-shadow);
     --wa-shadow-level-2: var(--wa-shadow-offset-x-level-2) var(--wa-shadow-offset-y-level-2) var(--wa-shadow-blur-level-2)
-      var(--wa-color-shadow);
+      calc(var(--wa-shadow-offset-x-level-2) * -1) var(--wa-color-shadow);
     --wa-shadow-level-3: var(--wa-shadow-offset-x-level-3) var(--wa-shadow-offset-y-level-3) var(--wa-shadow-blur-level-3)
-      var(--wa-color-shadow);
+      calc(var(--wa-shadow-offset-x-level-3) * -1) var(--wa-color-shadow);
 
     --wa-form-controls-background: var(--wa-color-surface-default);
 
@@ -138,7 +170,7 @@ toc: false
     --wa-form-controls-value-font-weight: var(--wa-font-weight-body);
     --wa-form-controls-value-line-height: var(--wa-font-line-height-compact);
 
-    --wa-form-controls-placeholder-color: var(--wa-color-base-60);
+    --wa-form-controls-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
 
     --wa-form-controls-height-s: calc(
       var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-controls-value-line-height)
@@ -160,8 +192,16 @@ toc: false
     font-size: var(--wa-font-size-root);
     font-weight: var(--wa-font-weight-normal);
     line-height: var(--wa-font-line-height-regular);
-    /* #endregion Lock theme styles */
+
+    & wa-button,
+    & wa-input,
+    & wa-radio,
+    & wa-radio-button,
+    & wa-select {
+      --box-shadow: none;
+    }
   }
+  /* #endregion Lock theme styles */
 
   #knobs {
     position: fixed;
@@ -176,14 +216,6 @@ toc: false
     top: 0;
     left: 0;
     scrollbar-width: thin;
-
-    & wa-button,
-    & wa-input,
-    & wa-radio,
-    & wa-radio-button,
-    & wa-select {
-      --box-shadow: none;
-    }
 
     & .header {
       padding: var(--knobs-padding);
@@ -247,7 +279,7 @@ toc: false
       }
 
       &[summary="Typography"] wa-select::part(listbox) {
-        width: calc(var(--knobs-width) - var(--knobs-padding) * 2 - var(--wa-form-controls-border-width) * 2);
+        width: calc(var(--knobs-width) - var(--knobs-padding) * 2 - var(--wa-border-width-s));
       }
     }
 
@@ -418,11 +450,11 @@ toc: false
   <wa-details summary="Branding">
     <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
-    <wa-input name="project-name" value="" placeholder="Project Name" label="What are you working on?"></wa-input>
+    <wa-input name="project-name" value="" placeholder="Project name" label="What are you working on?"></wa-input>
     <div>
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
         <input name="project-logo" type="file" accept="image/*">
-        Add Logo
+        Add logo
       </label>
       <small id="file-uploader-description">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
     </div>
@@ -448,7 +480,7 @@ toc: false
     <fieldset>
       <legend aria-hidden="true">Headings</legend>
       <div style="display: flex;">
-        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Font Family" hoist>
+        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Font family" hoist>
           <wa-option value="default">Theme default</wa-option>
           <wa-option value="assistant">Assistant</wa-option>
           <wa-option value="inter">Inter</wa-option>
@@ -466,14 +498,14 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Font Weight" type="number" step="50" max="900" min="50">
+        <wa-input class="hidden-label" name="font-weight-heading" value="" label="Font weight" type="number" step="50" max="900" min="50">
         </wa-input>
       </div>
     </fieldset>
     <fieldset>
       <legend aria-hidden="true">Body text</legend>
       <div style="display: flex;">
-        <wa-select class="hidden-label" name="font-family-body" value="default" label="Font Family" hoist>
+        <wa-select class="hidden-label" name="font-family-body" value="default" label="Font family" hoist>
           <wa-option value="default">Theme default</wa-option>
           <wa-option value="assistant">Assistant</wa-option>
           <wa-option value="inter">Inter</wa-option>
@@ -489,7 +521,7 @@ toc: false
           <wa-option value="roboto-serif">Roboto Serif</wa-option>
           <wa-option value="roboto-slab">Roboto Slab</wa-option>
         </wa-select>
-        <wa-input class="hidden-label" name="font-weight-body" value="" type="number" step="50" max="900" min="50" label="Font Weight">
+        <wa-input class="hidden-label" name="font-weight-body" value="" type="number" step="50" max="900" min="50" label="Font weight">
         </wa-input>
       </div>
     </fieldset>
@@ -497,12 +529,12 @@ toc: false
   <wa-details summary="Icons">
     <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
-    <wa-select name="icon-family" label="Icon Family" value="fa-classic" hoist>
+    <wa-select name="icon-family" label="Icon family" value="fa-classic" hoist>
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
       <wa-option value="custom" hidden>* Custom</wa-option>
     </wa-select>
-    <wa-radio-group name="icon-style" label="Icon Style" value="solid">
+    <wa-radio-group name="icon-style" label="Icon style" value="solid">
       <wa-radio value="solid">Solid <wa-badge hidden>PRO</wa-badge></wa-radio>
       <wa-radio value="regular">Regular <wa-badge>PRO</wa-badge></wa-radio>
       <wa-radio value="light">Light <wa-badge>PRO</wa-badge></wa-radio>
@@ -513,13 +545,13 @@ toc: false
   <wa-details summary="Look and feel">
     <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
-    <wa-select name="border-style" label="Border Style" value="solid" hoist>
+    <wa-select name="border-style" label="Border style" value="solid" hoist>
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
       <wa-option value="dotted">Dotted</wa-option>
       <wa-option value="double">Double</wa-option>
     </wa-select>
-    <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
+    <wa-range name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
     <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
     <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
     <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
@@ -542,7 +574,7 @@ toc: false
 </wa-dialog>
 
 <div id="color-mode-selector">
-  <wa-radio-group label="Color mode" name="color-mode" value="light">
+  <wa-radio-group class="hidden-label" label="Color mode" name="color-mode" value="light">
     <wa-radio-button value="light">
       <wa-icon name="sun" library="fa-classic-regular"></wa-icon>
     </wa-radio-button>
@@ -555,24 +587,15 @@ toc: false
 <style>
   #color-mode-selector {
     position: fixed;
-    top: var(--knobs-padding);
-    right: var(--knobs-padding);
+    top: calc(var(--docs-content-padding) / 2);
+    right: calc(var(--docs-content-padding) / 2);
     z-index: 10;
 
     & wa-radio-group {
-      &::part(form-control-label) {
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      height: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-      }
       &::part(button-group) {
         background: var(--wa-color-surface-raised);
         border-radius: var(--wa-corners-pill);
-        box-shadow: 0 4px 4px -4px black;
+        box-shadow: 0 0.25em 0.25em -0.25em rgb(0 0 0 / 0.8);
         padding: 4px;
       }
       & wa-radio-button {
@@ -1487,7 +1510,7 @@ toc: false
 
   /* general and utility */
   .strata {
-    padding: var(--wa-space-3xl) 8%;
+    padding: var(--wa-space-3xl) 7%;
   }
 
   pre,
@@ -1771,7 +1794,7 @@ toc: false
 
 
   /* responsive */
-  @container preview (min-width: 1100px) {
+  @container preview (min-width: 1040px) {
     .product-card {
         grid-column: span 4;
     }

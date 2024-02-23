@@ -466,7 +466,7 @@
 }
 
 /* responsive */
-@container preview (min-width: 1100px) {
+@container preview (min-width: 1040px) {
   .hero-background::after {
     background-position: right bottom;
     background-size: 90%;
