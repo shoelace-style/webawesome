@@ -1074,7 +1074,7 @@ toc: false
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
       case 'glassy':
-        presetLogoIcons = ['lighthouse', 'citrus-slice', 'raindrops', 'kiwi-bird'];
+        presetLogoIcons = ['raindrops', 'citrus-slice', 'lighthouse', 'kiwi-bird'];
         break;
       case 'active':
         presetLogoIcons = ['bicycle', 'bolt', 'pickleball', 'joystick'];
