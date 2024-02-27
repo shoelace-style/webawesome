@@ -15,7 +15,7 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "ALLOW"
+          "value": "SAMEORIGIN"
         },
         {
           "key": "x-authorized",
