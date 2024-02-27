@@ -61,6 +61,3 @@ footer {
 [slot='main-footer'] {
   background-color: var(--wa-color-red-70);
 }
-18 changes: 18 additions & 0 deletions
-18
-docs/_includes/layout-templates/advanced-example.html

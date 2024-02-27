@@ -3,7 +3,7 @@ title: Themer
 description: TODO
 toc: false
 template: 'splash'
-layout: "../../../components/Themer.astro"
+layout: '../../../components/Themer.astro'
 ---
 
 <style>

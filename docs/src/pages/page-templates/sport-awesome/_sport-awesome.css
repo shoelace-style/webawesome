@@ -5,7 +5,6 @@
   --border-color-hover: var(--wa-color-neutral-border-subtle);
 }
 
-
 /** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
 .flow > * + * {
   margin-block-start: var(--wa-flow-spacing);
@@ -40,11 +39,11 @@ img {
   }
 
   &:hover::part(base) {
-    color: var(--wa-color-text-normal)
+    color: var(--wa-color-text-normal);
   }
 }
 
-.navigation--top [aria-current="page"] {
+.navigation--top [aria-current='page'] {
   &::part(base) {
     text-decoration: underline;
     text-decoration-color: var(--wa-color-danger-spot);
@@ -114,10 +113,8 @@ a.logo:is(:hover, :focus) {
   grid-template-columns: auto;
   place-content: center;
   margin: 0;
-  list-style-type: "";
-
+  list-style-type: '';
 }
-
 
 .navigation--desktop wa-nav-item[current='page']:hover {
   text-decoration-color: var(--wa-color-brand-border-highlight);

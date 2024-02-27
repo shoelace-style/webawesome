@@ -142,7 +142,6 @@ wa-page[view='desktop'] main {
   --border-color-hover: var(--wa-color-neutral-border-highlight);
 }
 
-
 .wa-button--logo::part(base) {
   font-size: 1.5rem;
   color: var(--wa-color-text-on-fill);

@@ -1,7 +1,8 @@
 ---
 title: Page Templates
-description: "A collection of page templates"
+description: 'A collection of page templates'
 ---
+
 <script type="module">
 window.Turbo.session.drive = false
 </script>
