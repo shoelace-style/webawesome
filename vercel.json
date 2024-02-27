@@ -1,15 +1,25 @@
 {
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/assets/(.*).js",
+      "has": [
+        {
+          "type": "query",
+          "key": "authorized"
+        }
+      ],
       "headers": [
         {
           "key": "X-Content-Type-Options",
-          "value": ""
+          "value": "script"
         },
         {
           "key": "X-Frame-Options",
           "value": "ALLOW"
+        },
+        {
+          "key": "x-authorized",
+          "value": "true"
         }
       ]
     }
