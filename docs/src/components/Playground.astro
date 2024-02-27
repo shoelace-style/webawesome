@@ -17,7 +17,7 @@ const { html, css, js, title, description } = Astro.props
   <div style="display:grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr);">
     <Themer />
 
-    <light-pen style="height: 100%;" resize-position="30" preserve-whitespace>
+    <light-pen style="height: 100%;" resize-position="30" preserve-whitespace sandbox-settings="allow-same-origin allow-scripts allow-forms allow-downloads">
       <script type="text/plain" slot="html" set:html={
   `<link id="theme-stylesheet" href="/dist/themes/default.css" rel="stylesheet">
   <link id="applied-stylesheet" href="/dist/themes/applied.css"" rel="stylesheet">
