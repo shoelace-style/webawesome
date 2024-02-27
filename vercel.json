@@ -1,11 +1,11 @@
 {
   "headers": [
     {
-      "source": "/(.*.js)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "X-Content-Type-Options",
-          "value": "script"
+          "value": ""
         },
         {
           "key": "X-Frame-Options",
