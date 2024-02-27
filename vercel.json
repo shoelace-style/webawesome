@@ -1,0 +1,38 @@
+{
+  "headers": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "query",
+          "key": "authorized"
+        }
+      ],
+      "headers": [
+        {
+          "key": "x-authorized",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "source": "/:path*.js",
+      "has": [
+        {
+          "type": "query",
+          "key": "authorized"
+        }
+      ],
+      "headers": [
+        {
+          "key": "x-authorized",
+          "value": "true"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "script"
+        }
+      ]
+    }
+  ]
+}
