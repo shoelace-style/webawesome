@@ -51,17 +51,17 @@
   --wa-color-green-10: #00241e;
   --wa-color-green-05: #0b140e;
 
-  --wa-color-blue-95: #d1faf9;
-  --wa-color-blue-90: #9ff4f3;
-  --wa-color-blue-80: #1de0dc;
-  --wa-color-blue-70: #1cc3bd;
-  --wa-color-blue-60: #1aa6a0;
-  --wa-color-blue-50: #15827c;
-  --wa-color-blue-40: #10635e;
-  --wa-color-blue-30: #0d4e49;
-  --wa-color-blue-20: #083834;
-  --wa-color-blue-10: #04221f;
-  --wa-color-blue-05: #0c131a;
+  --wa-color-primary-95: #d1faf9;
+  --wa-color-primary-90: #9ff4f3;
+  --wa-color-primary-80: #1de0dc;
+  --wa-color-primary-70: #1cc3bd;
+  --wa-color-primary-60: #1aa6a0;
+  --wa-color-primary-50: #15827c;
+  --wa-color-primary-40: #10635e;
+  --wa-color-primary-30: #0d4e49;
+  --wa-color-primary-20: #083834;
+  --wa-color-primary-10: #04221f;
+  --wa-color-primary-05: #0c131a;
 
   --wa-color-base-95: #f1f2f4;
   --wa-color-base-90: #e3e6e9;
@@ -91,7 +91,7 @@
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
   --wa-color-text-normal: var(--wa-color-base-10);
   --wa-color-text-quiet: var(--wa-color-base-50);
-  --wa-color-text-link: var(--wa-color-blue-50);
+  --wa-color-text-link: var(--wa-color-primary-50);
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
@@ -100,7 +100,7 @@
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-70) 76%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-primary-70) 76%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -130,15 +130,15 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-spot: var(--wa-color-blue-50);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-90);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-80);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-80);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-50);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-95);
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-20);
-  --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
+  --wa-color-brand-spot: var(--wa-color-primary-50);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-90);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-80);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-80);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-50);
+  --wa-color-brand-text-on-spot: var(--wa-color-primary-95);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-20);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -365,12 +365,12 @@
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-80);
-  --wa-color-text-link: var(--wa-color-blue-80);
+  --wa-color-text-link: var(--wa-color-primary-80);
 
   --wa-color-selection-background: var(--wa-color-green-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-primary-60) 90%, transparent);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
@@ -386,15 +386,15 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-blue-80);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-60);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-30);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-40);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-30);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-40);
-  --wa-color-brand-text-on-spot: var(--wa-color-blue-20);
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-90);
-  --wa-color-brand-text-on-surface: var(--wa-color-blue-70);
+  --wa-color-brand-spot: var(--wa-color-primary-80);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-60);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-30);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-40);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-30);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-40);
+  --wa-color-brand-text-on-spot: var(--wa-color-primary-20);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-90);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-70);
 
   --wa-color-success-spot: var(--wa-color-green-80);
   --wa-color-success-spot-darker: var(--wa-color-green-60);
@@ -452,7 +452,7 @@
     }
 
     &.tag {
-      color: var(--wa-color-blue-30);
+      color: var(--wa-color-primary-30);
     }
 
     &.punctuation {
@@ -519,7 +519,7 @@
 
   &:not(.wa-theme-premium-dark) wa-alert {
     &[variant='brand'] {
-      --background: var(--wa-color-blue-95);
+      --background: var(--wa-color-primary-95);
     }
     &[variant='success'] {
       --background: var(--wa-color-green-95);
@@ -534,8 +534,8 @@
 
   wa-badge {
     &[variant='brand'] {
-      --background: var(--wa-color-blue-80);
-      --content-color: var(--wa-color-blue-20);
+      --background: var(--wa-color-primary-80);
+      --content-color: var(--wa-color-primary-20);
     }
     &[variant='success'] {
       --background: var(--wa-color-green-80);
@@ -691,7 +691,7 @@
       }
 
       &.tag {
-        color: var(--wa-color-blue-80);
+        color: var(--wa-color-primary-80);
       }
 
       &.punctuation {

@@ -1,0 +1,122 @@
+:root,
+:host {
+  --wa-color-rose-95: #f9f0f4;
+  --wa-color-rose-90: #f4e1ea;
+  --wa-color-rose-80: #e7bed3;
+  --wa-color-rose-70: #db9dbc;
+  --wa-color-rose-60: #ce7ba5;
+  --wa-color-rose-50: #a95e84;
+  --wa-color-rose-40: #7f4663;
+  --wa-color-rose-30: #64374e;
+  --wa-color-rose-20: #492839;
+  --wa-color-rose-10: #2b1821;
+  --wa-color-rose-05: #190e13;
+
+  --wa-color-red-95: #fbf0ed;
+  --wa-color-red-90: #f7e1db;
+  --wa-color-red-80: #eebfb3;
+  --wa-color-red-70: #e69d8b;
+  --wa-color-red-60: #dd7961;
+  --wa-color-red-50: #b55c47;
+  --wa-color-red-40: #884535;
+  --wa-color-red-30: #6b372a;
+  --wa-color-red-20: #4e281f;
+  --wa-color-red-10: #2e1812;
+  --wa-color-red-05: #1d0f0b;
+
+  --wa-color-yellow-95: #f6f2e8;
+  --wa-color-yellow-90: #ede5d2;
+  --wa-color-yellow-80: #dac89f;
+  --wa-color-yellow-70: #c9ab6f;
+  --wa-color-yellow-60: #b78f40;
+  --wa-color-yellow-50: #94702b;
+  --wa-color-yellow-40: #705320;
+  --wa-color-yellow-30: #59411a;
+  --wa-color-yellow-20: #412f13;
+  --wa-color-yellow-10: #261c0b;
+  --wa-color-yellow-05: #171107;
+
+  --wa-color-lime-95: #f1f3eb;
+  --wa-color-lime-90: #e3e8d9;
+  --wa-color-lime-80: #c4cdae;
+  --wa-color-lime-70: #a6b585;
+  --wa-color-lime-60: #899c5d;
+  --wa-color-lime-50: #6b7c45;
+  --wa-color-lime-40: #505d34;
+  --wa-color-lime-30: #3f4928;
+  --wa-color-lime-20: #2e351e;
+  --wa-color-lime-10: #1b1f11;
+  --wa-color-lime-05: #0f120a;
+
+  --wa-color-green-95: #ecf4ef;
+  --wa-color-green-90: #d9eae0;
+  --wa-color-green-80: #afd2bd;
+  --wa-color-green-70: #87ba9b;
+  --wa-color-green-60: #5ea379;
+  --wa-color-green-50: #45825d;
+  --wa-color-green-40: #346246;
+  --wa-color-green-30: #294d37;
+  --wa-color-green-20: #1e3828;
+  --wa-color-green-10: #112117;
+  --wa-color-green-05: #0b140e;
+
+  --wa-color-teal-95: #e9f5f3;
+  --wa-color-teal-90: #d3eae8;
+  --wa-color-teal-80: #a1d3ce;
+  --wa-color-teal-70: #70bcb4;
+  --wa-color-teal-60: #3da499;
+  --wa-color-teal-50: #2a8379;
+  --wa-color-teal-40: #1f625b;
+  --wa-color-teal-30: #194d47;
+  --wa-color-teal-20: #123834;
+  --wa-color-teal-10: #0b211f;
+  --wa-color-teal-05: #061312;
+
+  --wa-color-blue-95: #edf3f9;
+  --wa-color-blue-90: #dbe7f3;
+  --wa-color-blue-80: #b3cce6;
+  --wa-color-blue-70: #8cb3da;
+  --wa-color-blue-60: #6599cd;
+  --wa-color-blue-50: #4c79a6;
+  --wa-color-blue-40: #395b7d;
+  --wa-color-blue-30: #2d4762;
+  --wa-color-blue-20: #213448;
+  --wa-color-blue-10: #131f2a;
+  --wa-color-blue-05: #0c131a;
+
+  --wa-color-indigo-95: #f1f2f9;
+  --wa-color-indigo-90: #e4e5f3;
+  --wa-color-indigo-80: #c6c7e5;
+  --wa-color-indigo-70: #a9acd8;
+  --wa-color-indigo-60: #8c90cb;
+  --wa-color-indigo-50: #6e72a4;
+  --wa-color-indigo-40: #53557b;
+  --wa-color-indigo-30: #414361;
+  --wa-color-indigo-20: #2f3147;
+  --wa-color-indigo-10: #1c1d29;
+  --wa-color-indigo-05: #101018;
+
+  --wa-color-violet-95: #f5f0f9;
+  --wa-color-violet-90: #ebe3f3;
+  --wa-color-violet-80: #d4c3e5;
+  --wa-color-violet-70: #bfa5d8;
+  --wa-color-violet-60: #a987cc;
+  --wa-color-violet-50: #8769a6;
+  --wa-color-violet-40: #664f7d;
+  --wa-color-violet-30: #503e62;
+  --wa-color-violet-20: #3a2d47;
+  --wa-color-violet-10: #221a2a;
+  --wa-color-violet-05: #140f18;
+
+  --wa-color-gray-95: #f0f3f1;
+  --wa-color-gray-90: #e2e7e3;
+  --wa-color-gray-80: #c2ccc5;
+  --wa-color-gray-70: #a4b3a8;
+  --wa-color-gray-60: #869a8c;
+  --wa-color-gray-50: #697a6e;
+  --wa-color-gray-40: #4e5c52;
+  --wa-color-gray-30: #3e4840;
+  --wa-color-gray-20: #2d342f;
+  --wa-color-gray-10: #1a1f1b;
+  --wa-color-gray-05: #0f1310;
+}

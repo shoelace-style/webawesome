@@ -62,6 +62,18 @@
   --wa-color-blue-10: #0b1f2e;
   --wa-color-blue-05: #0c131a;
 
+  --wa-color-primary-95: #f9effc;
+  --wa-color-primary-90: #f3dffa;
+  --wa-color-primary-80: #e4bbf5;
+  --wa-color-primary-70: #d498f1;
+  --wa-color-primary-60: #c274ed;
+  --wa-color-primary-50: #9759be;
+  --wa-color-primary-40: #724592;
+  --wa-color-primary-30: #583674;
+  --wa-color-primary-20: #3e2753;
+  --wa-color-primary-10: #251832;
+  --wa-color-primary-05: #0f1310;
+
   --wa-color-base-95: #f2f2f2;
   --wa-color-base-90: #e6e6e6;
   --wa-color-base-80: #c9c9c9;
@@ -74,17 +86,6 @@
   --wa-color-base-10: #1d1d1d;
   --wa-color-base-05: #0f1310;
 
-  --wa-color-brand-95: #f9effc;
-  --wa-color-brand-90: #f3dffa;
-  --wa-color-brand-80: #e4bbf5;
-  --wa-color-brand-70: #d498f1;
-  --wa-color-brand-60: #c274ed;
-  --wa-color-brand-50: #9759be;
-  --wa-color-brand-40: #724592;
-  --wa-color-brand-30: #583674;
-  --wa-color-brand-20: #3e2753;
-  --wa-color-brand-10: #251832;
-  --wa-color-brand-05: #0f1310;
   /**
    * Base theme colors
    */
@@ -105,12 +106,12 @@
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
-  --wa-color-selection-background: var(--wa-color-brand-80);
+  --wa-color-selection-background: var(--wa-color-primary-80);
   --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-brand-70) 76%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-primary-70) 76%, transparent);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -140,15 +141,15 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-spot: var(--wa-color-brand-50);
-  --wa-color-brand-spot-darker: var(--wa-color-brand-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-brand-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-brand-80);
-  --wa-color-brand-border-subtle: var(--wa-color-brand-90);
-  --wa-color-brand-border-highlight: var(--wa-color-brand-70);
-  --wa-color-brand-text-on-spot: var(--wa-color-brand-95);
-  --wa-color-brand-text-on-fill: var(--wa-color-brand-30);
-  --wa-color-brand-text-on-surface: var(--wa-color-brand-50);
+  --wa-color-brand-spot: var(--wa-color-primary-50);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-95);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-80);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-90);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-70);
+  --wa-color-brand-text-on-spot: var(--wa-color-primary-95);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-30);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -397,15 +398,15 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-brand-50);
-  --wa-color-brand-spot-darker: var(--wa-color-brand-60);
-  --wa-color-brand-fill-subtle: var(--wa-color-brand-20);
-  --wa-color-brand-fill-highlight: var(--wa-color-brand-40);
-  --wa-color-brand-border-subtle: var(--wa-color-brand-30);
-  --wa-color-brand-border-highlight: var(--wa-color-brand-40);
-  --wa-color-brand-text-on-spot: var(--wa-color-brand-95);
-  --wa-color-brand-text-on-fill: var(--wa-color-brand-95);
-  --wa-color-brand-text-on-surface: var(--wa-color-brand-70);
+  --wa-color-brand-spot: var(--wa-color-primary-50);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-60);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-20);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-40);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-30);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-40);
+  --wa-color-brand-text-on-spot: var(--wa-color-primary-95);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-95);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-70);
 
   --wa-color-success-spot: var(--wa-color-green-80);
   --wa-color-success-spot-darker: var(--wa-color-green-60);
@@ -504,7 +505,7 @@
   }
 
   wa-switch[checked]::part(thumb) {
-    box-shadow: 0 2px 2px var(--wa-color-brand-40);
+    box-shadow: 0 2px 2px var(--wa-color-primary-40);
   }
 
   /* preventing shadows on all form input types */
@@ -519,9 +520,9 @@
     --box-shadow: var(--wa-shadow-level-1);
     --background-checked: linear-gradient(
       180deg,
-      var(--wa-color-brand-40) 0%,
-      var(--wa-color-brand-50) 51.88%,
-      var(--wa-color-brand-60) 100%
+      var(--wa-color-primary-40) 0%,
+      var(--wa-color-primary-50) 51.88%,
+      var(--wa-color-primary-60) 100%
     );
   }
 
@@ -568,14 +569,14 @@
     }
 
     &[variant='brand'] {
-      --button-gradient-top: var(--wa-color-brand-40);
-      --button-gradient-middle: var(--wa-color-brand-50);
-      --button-gradient-bottom: var(--wa-color-brand-60);
-      --button-shadow-outer: var(--wa-color-brand-60);
-      --button-shadow-inner-a: var(--wa-color-brand-30);
-      --button-shadow-inner-b: var(--wa-color-brand-80);
-      --button-text-shadow: var(--wa-color-brand-40);
-      --label-color: var(--wa-color-brand-95);
+      --button-gradient-top: var(--wa-color-primary-40);
+      --button-gradient-middle: var(--wa-color-primary-50);
+      --button-gradient-bottom: var(--wa-color-primary-60);
+      --button-shadow-outer: var(--wa-color-primary-60);
+      --button-shadow-inner-a: var(--wa-color-primary-30);
+      --button-shadow-inner-b: var(--wa-color-primary-80);
+      --button-text-shadow: var(--wa-color-primary-40);
+      --label-color: var(--wa-color-primary-95);
     }
 
     &[variant='success'] {
@@ -696,8 +697,8 @@
     --border-width: 0;
 
     &[variant='brand'] {
-      --background: var(--wa-color-brand-80);
-      --content-color: var(--wa-color-brand-20);
+      --background: var(--wa-color-primary-80);
+      --content-color: var(--wa-color-primary-20);
     }
     &[variant='success'] {
       --background: var(--wa-color-green-80);
@@ -863,14 +864,14 @@
         inset 0 -2px 8px var(--button-shadow-inner-a), inset 0 2px 8px var(--button-shadow-inner-b);
 
       &[variant='brand'] {
-        --button-gradient-top: var(--wa-color-brand-40);
-        --button-gradient-middle: var(--wa-color-brand-50);
-        --button-gradient-bottom: var(--wa-color-brand-60);
-        --button-shadow-outer: var(--wa-color-brand-60);
-        --button-shadow-inner-a: var(--wa-color-brand-30);
-        --button-shadow-inner-b: var(--wa-color-brand-80);
-        --button-text-shadow: var(--wa-color-brand-40);
-        --label-color: var(--wa-color-brand-95);
+        --button-gradient-top: var(--wa-color-primary-40);
+        --button-gradient-middle: var(--wa-color-primary-50);
+        --button-gradient-bottom: var(--wa-color-primary-60);
+        --button-shadow-outer: var(--wa-color-primary-60);
+        --button-shadow-inner-a: var(--wa-color-primary-30);
+        --button-shadow-inner-b: var(--wa-color-primary-80);
+        --button-text-shadow: var(--wa-color-primary-40);
+        --label-color: var(--wa-color-primary-95);
       }
 
       &[variant='success'] {

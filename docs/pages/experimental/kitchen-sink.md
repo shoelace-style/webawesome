@@ -288,6 +288,76 @@ toc: false
     margin-inline-start: var(--wa-space-3xs);
   }
 
+
+  #knobs wa-radio-group[name="color"] wa-radio {
+    border: 0.0625em solid var(--wa-color-neutral-border-subtle);
+    border-radius: var(--wa-corners-m);
+    box-shadow: inset 0 0 0 0 transparent;
+    padding: 1em;
+    transition: box-shadow var(--wa-transition-fast);
+
+    &[aria-checked="true"] {
+      border-color: transparent;
+      box-shadow: inset 0 0 0 0.125em var(--wa-form-controls-activated-color);
+    }
+
+    & + * {
+      margin-block-start: 0.5em;
+    }
+
+    &::part(label) {
+      margin-inline-start: 1em;
+    }
+
+    & span {
+      display: inline-block;
+      block-size: 1em;
+      inline-size: 1em;
+      margin-block-start: 0.5em;
+      margin-inline-end: 0.125em;
+
+      &:first-of-type {
+        border-radius: 0.25em 0 0 0.25em;
+      }
+
+      &:last-of-type {
+        border-radius: 0 0.25em 0.25em 0;
+      }
+    }
+  }
+
+  #knobs wa-radio-group[name="brand-color"] wa-radio {
+    display: inline-block;
+    border: 0.125em solid transparent;
+    border-radius: var(--wa-corners-circle);
+    block-size: 2.375em;
+    inline-size: 2.375em;
+    padding: 0.0625em;
+
+    &[aria-checked="true"] {
+      border: 0.125em solid var(--wa-form-controls-activated-color);
+    }
+
+    &::part(base) {
+      font-size: inherit;
+    }
+
+    &::part(control) {
+      display: none;
+    }
+
+    &::part(label) {
+      margin-inline-start: 0;
+    }
+
+    & span {
+      display: inline-block;
+      block-size: 2em;
+      inline-size: 2em;
+      border-radius: var(--wa-corners-circle);
+    }
+  }
+
   /* set up  Kitchen Sink preview area */
   .content {
     max-width: 1320px;
@@ -471,6 +541,50 @@ toc: false
         <small slot="help-text" style="display: inline-block; line-height: var(--wa-font-line-height-compact);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
+  </wa-details>
+  <wa-details summary="Color">
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-radio-group name="color" label="Color palette" value="default">
+      <wa-radio value="default">
+        Default<br>
+        <span style="background-color: #545868;"></span><span style="background-color: #ef6982;"></span><span style="background-color: #fcc041;"></span><span style="background-color: #98bb4a;"></span><span style="background-color: #00ae5f;"></span><span style="background-color: #259af4;"></span><span style="background-color: #c07ad6;"></span>
+      </wa-radio>
+      <wa-radio value="active">
+        Active<br>
+        <span style="background-color: #545868;"></span><span style="background-color: #ff5b74;"></span><span style="background-color: #f0c600;"></span><span style="background-color: #61c545;"></span><span style="background-color: #00ac5d;"></span><span style="background-color: #009ee1;"></span><span style="background-color: #d06af1;"></span>
+      </wa-radio>
+      <wa-radio value="glassy">
+        Glassy<br>
+        <span style="background-color: #5d5568;"></span><span style="background-color: #d87797;"></span><span style="background-color: #dac992;"></span><span style="background-color: #a6b48b;"></span><span style="background-color: #5fa288;"></span><span style="background-color: #559bd2;"></span><span style="background-color: #b781c9;"></span>
+      </wa-radio>
+      <wa-radio value="mellow">
+        Mellow<br>
+        <span style="background-color: #4e5c52;"></span><span style="background-color: #dd7961;"></span><span style="background-color: #dac89f;"></span><span style="background-color: #a6b585;"></span><span style="background-color: #5ea379;"></span><span style="background-color: #6599cd;"></span><span style="background-color: #a987cc;"></span>
+      </wa-radio>
+      <wa-radio value="fa">
+        Font Awesome<br>
+        <span style="background-color: #4a5877;"></span><span style="background-color: #ff5c5c;"></span><span style="background-color: #eec637;"></span><span style="background-color: #7dc11d;"></span><span style="background-color: #35aa4a;"></span><span style="background-color: #349bf1;"></span><span style="background-color: #cd70e3;"></span>
+      </wa-radio>
+      <wa-radio value="classic">
+        Classic<br>
+        <span style="background-color: #4f5967;"></span><span style="background-color: #ee6c6c;"></span><span style="background-color: #fbc129;"></span><span style="background-color: #7dc115;"></span><span style="background-color: #38a961;"></span><span style="background-color: #0d9ee0;"></span><span style="background-color: #b976f9;"></span>
+      </wa-radio>
+      <wa-radio value="playful">Playful</wa-radio>
+      <wa-radio value="premium">Premium</wa-radio>
+    </wa-radio-group>
+    <wa-radio-group name="brand-color" label="Brand color" value="">
+      <wa-radio value="rose"><span style="background-color:var(--wa-color-rose-60);"></span></wa-radio>
+      <wa-radio value="red"><span style="background-color:var(--wa-color-red-60);"></span></wa-radio>
+      <wa-radio value="yellow"><span style="background-color:var(--wa-color-yellow-60);"></span></wa-radio>
+      <wa-radio value="lime"><span style="background-color:var(--wa-color-lime-60);"></span></wa-radio>
+      <wa-radio value="green"><span style="background-color:var(--wa-color-green-60);"></span></wa-radio>
+      <wa-radio value="teal"><span style="background-color:var(--wa-color-teal-60);"></span></wa-radio>
+      <wa-radio value="blue"><span style="background-color:var(--wa-color-blue-60);"></span></wa-radio>
+      <wa-radio value="indigo"><span style="background-color:var(--wa-color-indigo-60);"></span></wa-radio>
+      <wa-radio value="violet"><span style="background-color:var(--wa-color-violet-60);"></span></wa-radio>
+      <wa-radio value="gray"><span style="background-color:var(--wa-color-gray-60);"></span></wa-radio>
+    </wa-radio-group>
   </wa-details>
   <wa-details summary="Typography">
     <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
@@ -744,8 +858,11 @@ toc: false
   const container = document.getElementById('knobs');
   const previewContainer = document.querySelector('.preview-container');
   const themeStylesheet = document.getElementById('theme-stylesheet');
+  const colorStylesheet = document.getElementById('color-stylesheet');
   const knobsSections = container.querySelectorAll('wa-details');
   const logoSelector = document.querySelector('[name="project-logo-selector"]');
+  const colorSelect = container.querySelector('[name="color"]');
+  const brandColor = container.querySelector('[name="brand-color"]');
   const presetLogoOptions = logoSelector.querySelectorAll('wa-radio-button');
   const depthSlider = container.querySelector('[name="depth"]');
   const fontWeightHeading = container.querySelector('[name="font-weight-heading"]');
@@ -761,6 +878,24 @@ toc: false
   const themeSelect = container.querySelector('[name="theme"]');
   const colorModeSelect = document.querySelector('[name="color-mode"]');
 
+  function resetColorPaletteValue() {
+    let colorPalette;
+
+    switch(themeSelect.value) {
+      case 'classic':
+      case 'migration':
+        colorPalette = 'classic';
+        break;
+      case 'default':
+      case 'brutalist':
+        colorPalette = 'default';
+      default:
+        colorPalette = themeSelect.value;
+    }
+    colorStylesheet.href = '';
+    colorSelect.value = colorPalette;
+  }
+  
   function resetHeadingFontWeightValue() {
     document.documentElement.style.removeProperty('--wa-font-weight-heading')
     fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
@@ -971,6 +1106,7 @@ toc: false
           setTimeout(() => {
             el.remove();
 
+            resetColorPaletteValue()
             resetBodyFontWeightValue()
             resetBodyFontFamilyValue()
             resetHeadingFontWeightValue()
@@ -980,16 +1116,38 @@ toc: false
             resetBorderWidthValue()
             resetBorderStyleValue()
             resetCornersValue()
-
             setColorMode();
+            setImagery();
           }, 100)
         })
       })
     })
 
     document.head.prepend(newStylesheet);
-    setImagery();
   });
+
+  // Color Palette 
+  colorSelect.addEventListener('wa-change', event => {
+    const colorPalette = event.target.value;
+
+    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+  });
+
+  // Brand Color
+  brandColor.addEventListener('wa-change', event => {
+    const documentStyles = document.documentElement.style
+    documentStyles.setProperty('--wa-color-primary-95', `var(--wa-color-${event.target.value}-95)`);
+    documentStyles.setProperty('--wa-color-primary-90', `var(--wa-color-${event.target.value}-90)`);
+    documentStyles.setProperty('--wa-color-primary-80', `var(--wa-color-${event.target.value}-80)`);
+    documentStyles.setProperty('--wa-color-primary-70', `var(--wa-color-${event.target.value}-70)`);
+    documentStyles.setProperty('--wa-color-primary-60', `var(--wa-color-${event.target.value}-60)`);
+    documentStyles.setProperty('--wa-color-primary-50', `var(--wa-color-${event.target.value}-50)`);
+    documentStyles.setProperty('--wa-color-primary-40', `var(--wa-color-${event.target.value}-40)`);
+    documentStyles.setProperty('--wa-color-primary-30', `var(--wa-color-${event.target.value}-30)`);
+    documentStyles.setProperty('--wa-color-primary-20', `var(--wa-color-${event.target.value}-20)`);
+    documentStyles.setProperty('--wa-color-primary-10', `var(--wa-color-${event.target.value}-10)`);
+    documentStyles.setProperty('--wa-color-primary-05', `var(--wa-color-${event.target.value}-05)`);
+  })
 
   // User provided project logo
   container.querySelector('[name="project-logo"]').addEventListener('change', event => {

@@ -61,17 +61,41 @@
   --wa-color-blue-10: #001f3f;
   --wa-color-blue-05: #001427;
 
-  --wa-color-base-95: #f2f2f4;
-  --wa-color-base-90: #e5e5e9;
-  --wa-color-base-80: #c8c9d1;
-  --wa-color-base-70: #acaebb;
-  --wa-color-base-60: #9194a4;
-  --wa-color-base-50: #70758a;
-  --wa-color-base-40: #545868;
-  --wa-color-base-30: #424551;
-  --wa-color-base-20: #30323b;
-  --wa-color-base-10: #1c1d23;
-  --wa-color-base-05: #111215;
+  --wa-color-gray-95: #f2f2f4;
+  --wa-color-gray-90: #e5e5e9;
+  --wa-color-gray-80: #c8c9d1;
+  --wa-color-gray-70: #acaebb;
+  --wa-color-gray-60: #9194a4;
+  --wa-color-gray-50: #70758a;
+  --wa-color-gray-40: #545868;
+  --wa-color-gray-30: #424551;
+  --wa-color-gray-20: #30323b;
+  --wa-color-gray-10: #1c1d23;
+  --wa-color-gray-05: #111215;
+
+  --wa-color-primary-95: var(--wa-color-blue-95);
+  --wa-color-primary-90: var(--wa-color-blue-90);
+  --wa-color-primary-80: var(--wa-color-blue-80);
+  --wa-color-primary-70: var(--wa-color-blue-70);
+  --wa-color-primary-60: var(--wa-color-blue-60);
+  --wa-color-primary-50: var(--wa-color-blue-50);
+  --wa-color-primary-40: var(--wa-color-blue-40);
+  --wa-color-primary-30: var(--wa-color-blue-30);
+  --wa-color-primary-20: var(--wa-color-blue-20);
+  --wa-color-primary-10: var(--wa-color-blue-10);
+  --wa-color-primary-05: var(--wa-color-blue-05);
+
+  --wa-color-base-95: var(--wa-color-gray-95);
+  --wa-color-base-90: var(--wa-color-gray-90);
+  --wa-color-base-80: var(--wa-color-gray-80);
+  --wa-color-base-70: var(--wa-color-gray-70);
+  --wa-color-base-60: var(--wa-color-gray-60);
+  --wa-color-base-50: var(--wa-color-gray-50);
+  --wa-color-base-40: var(--wa-color-gray-40);
+  --wa-color-base-30: var(--wa-color-gray-30);
+  --wa-color-base-20: var(--wa-color-gray-20);
+  --wa-color-base-10: var(--wa-color-gray-10);
+  --wa-color-base-05: var(--wa-color-gray-05);
 
   /**
    * Foundational theme colors
@@ -93,12 +117,12 @@
 
   /* Selection colors apply on content that is highlighted by the user.
    * Selection text should have a minimum 4.5:1 contrast ratio against the selection background. */
-  --wa-color-selection-background: var(--wa-color-blue-80);
+  --wa-color-selection-background: var(--wa-color-primary-80);
   --wa-color-selection-text: black;
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: var(--wa-color-blue-60);
+  --wa-color-focus: var(--wa-color-primary-60);
 
   /* Overlays dim background elements to focus attention on modal content, such as drawers or dialogs. */
   --wa-color-overlay: color-mix(in oklab, var(--wa-color-base-10) 25%, transparent);
@@ -129,15 +153,15 @@
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
 
-  --wa-color-brand-spot: var(--wa-color-blue-50);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-95);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-90);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-90);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-80);
+  --wa-color-brand-spot: var(--wa-color-primary-50);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-95);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-90);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-90);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-80);
   --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-40);
-  --wa-color-brand-text-on-surface: var(--wa-color-blue-50);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-40);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-50);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -362,10 +386,10 @@
   --wa-color-text-quiet: var(--wa-color-base-60);
   --wa-color-text-link: var(--wa-color-brand-text-on-surface);
 
-  --wa-color-selection-background: var(--wa-color-blue-40);
+  --wa-color-selection-background: var(--wa-color-primary-40);
   --wa-color-selection-text: white;
 
-  --wa-color-focus: var(--wa-color-blue-60);
+  --wa-color-focus: var(--wa-color-primary-60);
 
   --wa-color-overlay: color-mix(in oklab, black 50%, transparent);
 
@@ -377,15 +401,15 @@
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-spot: var(--wa-color-blue-50);
-  --wa-color-brand-spot-darker: var(--wa-color-blue-40);
-  --wa-color-brand-fill-subtle: var(--wa-color-blue-10);
-  --wa-color-brand-fill-highlight: var(--wa-color-blue-20);
-  --wa-color-brand-border-subtle: var(--wa-color-blue-20);
-  --wa-color-brand-border-highlight: var(--wa-color-blue-30);
+  --wa-color-brand-spot: var(--wa-color-primary-50);
+  --wa-color-brand-spot-darker: var(--wa-color-primary-40);
+  --wa-color-brand-fill-subtle: var(--wa-color-primary-10);
+  --wa-color-brand-fill-highlight: var(--wa-color-primary-20);
+  --wa-color-brand-border-subtle: var(--wa-color-primary-20);
+  --wa-color-brand-border-highlight: var(--wa-color-primary-30);
   --wa-color-brand-text-on-spot: white;
-  --wa-color-brand-text-on-fill: var(--wa-color-blue-70);
-  --wa-color-brand-text-on-surface: var(--wa-color-blue-60);
+  --wa-color-brand-text-on-fill: var(--wa-color-primary-70);
+  --wa-color-brand-text-on-surface: var(--wa-color-primary-60);
 
   --wa-color-success-spot: var(--wa-color-green-50);
   --wa-color-success-spot-darker: var(--wa-color-green-40);
@@ -449,6 +473,11 @@
     right: 0;
     bottom: 0;
     left: 0;
+  }
+
+  .hero wa-button[variant='brand'] {
+    --background: var(--wa-color-neutral-fill-subtle);
+    --label-color: var(--wa-color-neutral-text-on-fill);
   }
 
   .project-header {

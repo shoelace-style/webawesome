@@ -61,17 +61,41 @@
   --wa-color-blue-10: #131f2a;
   --wa-color-blue-05: #0c131a;
 
-  --wa-color-base-95: #f0f3f1;
-  --wa-color-base-90: #e2e7e3;
-  --wa-color-base-80: #c2ccc5;
-  --wa-color-base-70: #a4b3a8;
-  --wa-color-base-60: #869a8c;
-  --wa-color-base-50: #697a6e;
-  --wa-color-base-40: #4e5c52;
-  --wa-color-base-30: #3e4840;
-  --wa-color-base-20: #2d342f;
-  --wa-color-base-10: #1a1f1b;
-  --wa-color-base-05: #0f1310;
+  --wa-color-gray-95: #f0f3f1;
+  --wa-color-gray-90: #e2e7e3;
+  --wa-color-gray-80: #c2ccc5;
+  --wa-color-gray-70: #a4b3a8;
+  --wa-color-gray-60: #869a8c;
+  --wa-color-gray-50: #697a6e;
+  --wa-color-gray-40: #4e5c52;
+  --wa-color-gray-30: #3e4840;
+  --wa-color-gray-20: #2d342f;
+  --wa-color-gray-10: #1a1f1b;
+  --wa-color-gray-05: #0f1310;
+
+  --wa-color-primary-95: var(--wa-color-green-95);
+  --wa-color-primary-90: var(--wa-color-green-90);
+  --wa-color-primary-80: var(--wa-color-green-80);
+  --wa-color-primary-70: var(--wa-color-green-70);
+  --wa-color-primary-60: var(--wa-color-green-60);
+  --wa-color-primary-50: var(--wa-color-green-50);
+  --wa-color-primary-40: var(--wa-color-green-40);
+  --wa-color-primary-30: var(--wa-color-green-30);
+  --wa-color-primary-20: var(--wa-color-green-20);
+  --wa-color-primary-10: var(--wa-color-green-10);
+  --wa-color-primary-05: var(--wa-color-green-05);
+
+  --wa-color-base-95: var(--wa-color-gray-95);
+  --wa-color-base-90: var(--wa-color-gray-90);
+  --wa-color-base-80: var(--wa-color-gray-80);
+  --wa-color-base-70: var(--wa-color-gray-70);
+  --wa-color-base-60: var(--wa-color-gray-60);
+  --wa-color-base-50: var(--wa-color-gray-50);
+  --wa-color-base-40: var(--wa-color-gray-40);
+  --wa-color-base-30: var(--wa-color-gray-30);
+  --wa-color-base-20: var(--wa-color-gray-20);
+  --wa-color-base-10: var(--wa-color-gray-10);
+  --wa-color-base-05: var(--wa-color-gray-05);
 
   /**
    * Base theme colors
