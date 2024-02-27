@@ -1,21 +1,6 @@
 {
   "headers": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "query",
-          "key": "authorized"
-        }
-      ],
-      "headers": [
-        {
-          "key": "x-authorized",
-          "value": "true"
-        }
-      ]
-    },
-    {
       "source": "/:path*.js",
       "has": [
         {
@@ -58,6 +43,21 @@
         {
           "key": "X-Frame-Options",
           "value": "sameorigin"
+        }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "query",
+          "key": "authorized"
+        }
+      ],
+      "headers": [
+        {
+          "key": "x-authorized",
+          "value": "true"
         }
       ]
     }
