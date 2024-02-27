@@ -31,6 +31,33 @@
         {
           "key": "X-Content-Type-Options",
           "value": "script"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "sameorigin"
+        }
+      ]
+    },
+    {
+      "source": "/:path*.css",
+      "has": [
+        {
+          "type": "query",
+          "key": "authorized"
+        }
+      ],
+      "headers": [
+        {
+          "key": "x-authorized",
+          "value": "true"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "style"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "sameorigin"
         }
       ]
     }
