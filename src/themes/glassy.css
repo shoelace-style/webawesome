@@ -13,17 +13,17 @@
    * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
    * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
-  --wa-color-red-95: #fbeff3;
-  --wa-color-red-90: #f6e0e7;
-  --wa-color-red-80: #ecbdcc;
-  --wa-color-red-70: #e39bb2;
-  --wa-color-red-60: #d87797;
-  --wa-color-red-50: #ca4570;
-  --wa-color-red-40: #b2003b;
-  --wa-color-red-30: #8e002f;
-  --wa-color-red-20: #6b0023;
-  --wa-color-red-10: #430016;
-  --wa-color-red-05: #2d000f;
+  --wa-color-red-95: #fdeeef;
+  --wa-color-red-90: #fcdfe0;
+  --wa-color-red-80: #f8b9bc;
+  --wa-color-red-70: #f0969c;
+  --wa-color-red-60: #e3727d;
+  --wa-color-red-50: #cc465a;
+  --wa-color-red-40: #ac1d3d;
+  --wa-color-red-30: #8f012c;
+  --wa-color-red-20: #6b001c;
+  --wa-color-red-10: #44000d;
+  --wa-color-red-05: #2e0006;
 
   --wa-color-yellow-95: #f5f2e5;
   --wa-color-yellow-90: #ece6cc;
@@ -105,8 +105,8 @@
    * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
   --wa-color-surface-raised: white;
   --wa-color-surface-default: white;
-  --wa-color-surface-lowered: var(--wa-color-primary-95);
-  --wa-color-surface-border: var(--wa-color-primary-90);
+  --wa-color-surface-lowered: var(--wa-color-base-95);
+  --wa-color-surface-border: var(--wa-color-base-90);
 
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
@@ -375,10 +375,10 @@
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-primary-20);
-  --wa-color-surface-default: var(--wa-color-primary-10);
-  --wa-color-surface-lowered: var(--wa-color-primary-05);
-  --wa-color-surface-border: var(--wa-color-primary-30);
+  --wa-color-surface-raised: var(--wa-color-base-20);
+  --wa-color-surface-default: var(--wa-color-base-10);
+  --wa-color-surface-lowered: var(--wa-color-base-05);
+  --wa-color-surface-border: var(--wa-color-base-30);
 
   --wa-color-text-normal: var(--wa-color-base-95);
   --wa-color-text-quiet: var(--wa-color-base-60);
@@ -509,7 +509,7 @@
 
   .hero .title {
     text-align: right;
-    color: var(--wa-color-brand-text-on-fill);
+    color: var(--wa-color-text-normal);
   }
 }
 

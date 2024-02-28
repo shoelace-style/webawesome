@@ -545,33 +545,35 @@ toc: false
   <wa-details summary="Color">
     <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
-    <wa-radio-group name="color" label="Color palette" value="default">
-      <wa-radio value="default">
-        Default<br>
-        <span style="background-color: #545868;"></span><span style="background-color: #ef6982;"></span><span style="background-color: #fcc041;"></span><span style="background-color: #98bb4a;"></span><span style="background-color: #00ae5f;"></span><span style="background-color: #259af4;"></span><span style="background-color: #c07ad6;"></span>
-      </wa-radio>
-      <wa-radio value="active">
-        Active<br>
-        <span style="background-color: #545868;"></span><span style="background-color: #ff5b74;"></span><span style="background-color: #f0c600;"></span><span style="background-color: #61c545;"></span><span style="background-color: #00ac5d;"></span><span style="background-color: #009ee1;"></span><span style="background-color: #d06af1;"></span>
-      </wa-radio>
-      <wa-radio value="glassy">
-        Glassy<br>
-        <span style="background-color: #5d5568;"></span><span style="background-color: #d87797;"></span><span style="background-color: #dac992;"></span><span style="background-color: #a6b48b;"></span><span style="background-color: #5fa288;"></span><span style="background-color: #559bd2;"></span><span style="background-color: #b781c9;"></span>
-      </wa-radio>
-      <wa-radio value="mellow">
-        Mellow<br>
-        <span style="background-color: #4e5c52;"></span><span style="background-color: #dd7961;"></span><span style="background-color: #dac89f;"></span><span style="background-color: #a6b585;"></span><span style="background-color: #5ea379;"></span><span style="background-color: #6599cd;"></span><span style="background-color: #a987cc;"></span>
-      </wa-radio>
-      <wa-radio value="fa">
-        Font Awesome<br>
-        <span style="background-color: #4a5877;"></span><span style="background-color: #ff5c5c;"></span><span style="background-color: #eec637;"></span><span style="background-color: #7dc11d;"></span><span style="background-color: #35aa4a;"></span><span style="background-color: #349bf1;"></span><span style="background-color: #cd70e3;"></span>
+    <wa-radio-group name="color" label="Color palette" value="standard">
+      <wa-radio value="standard">
+        Standard<br>
+        <span style="background-color: #545868;"></span><span style="background-color: #ef6982;"></span><span style="background-color: #fcc041;"></span><span style="background-color: #98bb4a;"></span><span style="background-color: #00ae5f;"></span><span style="background-color: #259af4;"></span><span style="background-color: #8f8aea;"></span><span style="background-color: #c07ad6;"></span>
       </wa-radio>
       <wa-radio value="classic">
         Classic<br>
-        <span style="background-color: #4f5967;"></span><span style="background-color: #ee6c6c;"></span><span style="background-color: #fbc129;"></span><span style="background-color: #7dc115;"></span><span style="background-color: #38a961;"></span><span style="background-color: #0d9ee0;"></span><span style="background-color: #b976f9;"></span>
+        <span style="background-color: #4f5967;"></span><span style="background-color: #ee6c6c;"></span><span style="background-color: #fbc129;"></span><span style="background-color: #7dc115;"></span><span style="background-color: #38a961;"></span><span style="background-color: #0d9ee0;"></span><span style="background-color: #818cf7;"></span><span style="background-color: #b976f9;"></span>
       </wa-radio>
-      <wa-radio value="playful">Playful</wa-radio>
-      <wa-radio value="premium">Premium</wa-radio>
+      <wa-radio value="bright">
+        Bright<br>
+        <span style="background-color: #4a5877;"></span><span style="background-color: #ff5c5c;"></span><span style="background-color: #eec637;"></span><span style="background-color: #7dc11d;"></span><span style="background-color: #35aa4a;"></span><span style="background-color: #349bf1;"></span><span style="background-color: #9f81f9;"></span><span style="background-color: #cd70e3;"></span>
+      </wa-radio>
+      <wa-radio value="elegant">
+        Elegant<br>
+        <span style="background-color: #5d5568;"></span><span style="background-color: #e3727d;"></span><span style="background-color: #dac992;"></span><span style="background-color: #a6b48b;"></span><span style="background-color: #5fa288;"></span><span style="background-color: #559bd2;"></span><span style="background-color: #8d8ed7;"></span><span style="background-color: #b781c9;"></span>
+      </wa-radio>
+      <wa-radio value="natural">
+        Natural<br>
+        <span style="background-color: #5c594f;"></span><span style="background-color: #c98373;"></span><span style="background-color: #dac6a4;"></span><span style="background-color: #8a9b68;"></span><span style="background-color: #779e7f;"></span><span style="background-color: #8196b8;"></span><span style="background-color: #9490bd;"></span><span style="background-color: #a48cb6;"></span>
+      </wa-radio>
+      <wa-radio value="rudimentary">
+        Rudimentary<br>
+        <span style="background-color: #585858;"></span><span style="background-color: #f16b5e;"></span><span style="background-color: #ffbd31;"></span><span style="background-color: #7ec200;"></span><span style="background-color: #00ac4a;"></span><span style="background-color: #0099ff;"></span><span style="background-color: #9b81ff;"></span><span style="background-color: #c76ff2;"></span>
+      </wa-radio>
+      <wa-radio value="anodized">
+        Anodized<br>
+        <span style="background-color: #435c6f;"></span><span style="background-color: #d1806b;"></span><span style="background-color: #eac46c;"></span><span style="background-color: #95bc54;"></span><span style="background-color: #00aa66;"></span><span style="background-color: #5593fe;"></span><span style="background-color: #a280fa;"></span><span style="background-color: #d56ae2;"></span>
+      </wa-radio>
     </wa-radio-group>
     <wa-radio-group name="brand-color" label="Brand color" value="">
       <wa-radio value="rose"><span style="background-color:var(--wa-color-rose-60);"></span></wa-radio>
@@ -593,7 +595,7 @@ toc: false
       <legend aria-hidden="true">Headings</legend>
       <div style="display: flex;">
         <wa-select class="hidden-label" name="font-family-heading" value="default" label="Font family" hoist>
-          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="default">* Default</wa-option>
           <wa-option value="assistant">Assistant</wa-option>
           <wa-option value="inter">Inter</wa-option>
           <wa-option value="lora">Lora</wa-option>
@@ -618,7 +620,7 @@ toc: false
       <legend aria-hidden="true">Body text</legend>
       <div style="display: flex;">
         <wa-select class="hidden-label" name="font-family-body" value="default" label="Font family" hoist>
-          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="default">* Default</wa-option>
           <wa-option value="assistant">Assistant</wa-option>
           <wa-option value="inter">Inter</wa-option>
           <wa-option value="lora">Lora</wa-option>
@@ -886,13 +888,25 @@ toc: false
       case 'migration':
         colorPalette = 'classic';
         break;
+      case 'fa':
+        colorPalette = 'bright';
+        break;
+      case 'playful':
+      case 'active':
+        colorPalette = 'rudimentary';
+        break;
+      case 'glassy':
+        colorPalette = 'elegant';
+        break;
+      case 'premium':
+        colorPalette = 'anodized';
+        break;
       case 'default':
       case 'brutalist':
-        colorPalette = 'default';
       default:
-        colorPalette = themeSelect.value;
+        colorPalette = 'standard';
     }
-    colorStylesheet.href = '';
+    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
     colorSelect.value = colorPalette;
   }
   
