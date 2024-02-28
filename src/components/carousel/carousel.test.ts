@@ -1,12 +1,23 @@
-import '../../../dist/webawesome.js';
-import { clickOnElement } from '../../internal/test.js';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import '../../../dist/shoelace.js';
+import { clickOnElement, dragElement, moveMouseOnElement } from '../../internal/test.js';
+import { expect, fixture, html, nextFrame, oneEvent } from '@open-wc/testing';
 import { map } from 'lit/directives/map.js';
 import { range } from 'lit/directives/range.js';
+import { resetMouse } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaCarousel from './carousel.js';
 
 describe('<wa-carousel>', () => {
+  const sandbox = sinon.createSandbox();
+
+  afterEach(async () => {
+    await resetMouse();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('should render a carousel with default configuration', async () => {
     // Arrange
     const el = await fixture(html`
@@ -29,13 +40,9 @@ describe('<wa-carousel>', () => {
     let clock: sinon.SinonFakeTimers;
 
     beforeEach(() => {
-      clock = sinon.useFakeTimers({
+      clock = sandbox.useFakeTimers({
         now: new Date()
       });
-    });
-
-    afterEach(() => {
-      clock.restore();
     });
 
     it('should scroll forwards every `autoplay-interval` milliseconds', async () => {
@@ -47,7 +54,7 @@ describe('<wa-carousel>', () => {
           <wa-carousel-item>Node 3</wa-carousel-item>
         </wa-carousel>
       `);
-      sinon.stub(el, 'next');
+      sandbox.stub(el, 'next');
 
       await el.updateComplete;
 
@@ -68,7 +75,7 @@ describe('<wa-carousel>', () => {
           <wa-carousel-item>Node 3</wa-carousel-item>
         </wa-carousel>
       `);
-      sinon.stub(el, 'next');
+      sandbox.stub(el, 'next');
 
       await el.updateComplete;
 
@@ -91,7 +98,7 @@ describe('<wa-carousel>', () => {
           <wa-carousel-item>Node 3</wa-carousel-item>
         </wa-carousel>
       `);
-      sinon.stub(el, 'next');
+      sandbox.stub(el, 'next');
 
       await el.updateComplete;
 
@@ -178,7 +185,7 @@ describe('<wa-carousel>', () => {
             <wa-carousel-item>Node 3</wa-carousel-item>
           </wa-carousel>
         `);
-        sinon.stub(el, 'goToSlide');
+        sandbox.stub(el, 'goToSlide');
         await el.updateComplete;
 
         // Act
@@ -409,6 +416,53 @@ describe('<wa-carousel>', () => {
     });
   });
 
+  describe('when `mouse-dragging` attribute is provided', () => {
+    // TODO(alenaksu): skipping because failing in webkit, PointerEvent.movementX and PointerEvent.movementY seem to return incorrect values
+    it.skip('should be possible to drag the carousel using the mouse', async () => {
+      // Arrange
+      const el = await fixture<WaCarousel>(html`
+        <wa-carousel mouse-dragging>
+          <wa-carousel-item>Node 1</wa-carousel-item>
+          <wa-carousel-item>Node 2</wa-carousel-item>
+          <wa-carousel-item>Node 3</wa-carousel-item>
+        </wa-carousel>
+      `);
+
+      // Act
+      await dragElement(el, -Math.round(el.offsetWidth * 0.75));
+      await oneEvent(el.scrollContainer, 'scrollend');
+      await dragElement(el, -Math.round(el.offsetWidth * 0.75));
+      await oneEvent(el.scrollContainer, 'scrollend');
+
+      await el.updateComplete;
+
+      // Assert
+      expect(el.activeSlide).to.be.equal(2);
+    });
+
+    it('should be possible to interact with clickable elements', async () => {
+      // Arrange
+      const el = await fixture<WaCarousel>(html`
+        <wa-carousel mouse-dragging>
+          <wa-carousel-item><button>click me</button></wa-carousel-item>
+          <wa-carousel-item>Node 2</wa-carousel-item>
+          <wa-carousel-item>Node 3</wa-carousel-item>
+        </wa-carousel>
+      `);
+      const button = el.querySelector('button')!;
+
+      const clickSpy = sinon.spy();
+      button.addEventListener('click', clickSpy);
+
+      // Act
+      await moveMouseOnElement(button);
+      await clickOnElement(button);
+
+      // Assert
+      expect(clickSpy).to.have.been.called;
+    });
+  });
+
   describe('Navigation controls', () => {
     describe('when the user clicks the next button', () => {
       it('should scroll to the next slide', async () => {
@@ -421,7 +475,7 @@ describe('<wa-carousel>', () => {
           </wa-carousel>
         `);
         const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--next')!;
-        sinon.stub(el, 'next');
+        sandbox.stub(el, 'next');
 
         await el.updateComplete;
 
@@ -444,7 +498,7 @@ describe('<wa-carousel>', () => {
             </wa-carousel>
           `);
           const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--next')!;
-          sinon.stub(el, 'next');
+          sandbox.stub(el, 'next');
 
           el.goToSlide(2, 'auto');
           await oneEvent(el.scrollContainer, 'scrollend');
@@ -508,7 +562,7 @@ describe('<wa-carousel>', () => {
         await el.updateComplete;
 
         const previousButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--previous')!;
-        sinon.stub(el, 'previous');
+        sandbox.stub(el, 'previous');
 
         await el.updateComplete;
 
@@ -532,7 +586,7 @@ describe('<wa-carousel>', () => {
           `);
 
           const previousButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--previous')!;
-          sinon.stub(el, 'previous');
+          sandbox.stub(el, 'previous');
           await el.updateComplete;
 
           // Act
@@ -580,19 +634,27 @@ describe('<wa-carousel>', () => {
       it('should scroll the carousel to the next slide', async () => {
         // Arrange
         const el = await fixture<WaCarousel>(html`
-          <wa-carousel slides-per-page="2" slides-per-move="2">
+          <wa-carousel>
             <wa-carousel-item>Node 1</wa-carousel-item>
             <wa-carousel-item>Node 2</wa-carousel-item>
             <wa-carousel-item>Node 3</wa-carousel-item>
           </wa-carousel>
         `);
-        sinon.stub(el, 'goToSlide');
-        await el.updateComplete;
+        sandbox.spy(el, 'goToSlide');
+        const expectedCarouselItem: HTMLElement = el.querySelector('sl-carousel-item:nth-child(2)')!;
 
         // Act
         el.next();
+        await oneEvent(el.scrollContainer, 'scrollend');
+        await el.updateComplete;
 
-        expect(el.goToSlide).to.have.been.calledWith(2);
+        const containerRect = el.scrollContainer.getBoundingClientRect();
+        const itemRect = expectedCarouselItem.getBoundingClientRect();
+
+        // Assert
+        expect(el.goToSlide).to.have.been.calledWith(1);
+        expect(itemRect.top).to.be.equal(containerRect.top);
+        expect(itemRect.left).to.be.equal(containerRect.left);
       });
     });
 
@@ -600,19 +662,32 @@ describe('<wa-carousel>', () => {
       it('should scroll the carousel to the previous slide', async () => {
         // Arrange
         const el = await fixture<WaCarousel>(html`
-          <wa-carousel slides-per-page="2" slides-per-move="2">
+          <wa-carousel>
             <wa-carousel-item>Node 1</wa-carousel-item>
             <wa-carousel-item>Node 2</wa-carousel-item>
             <wa-carousel-item>Node 3</wa-carousel-item>
           </wa-carousel>
         `);
-        sinon.stub(el, 'goToSlide');
-        await el.updateComplete;
+        const expectedCarouselItem: HTMLElement = el.querySelector('sl-carousel-item:nth-child(1)')!;
+
+        el.goToSlide(1);
+
+        await oneEvent(el.scrollContainer, 'scrollend');
+        await nextFrame();
+
+        sandbox.spy(el, 'goToSlide');
 
         // Act
         el.previous();
+        await oneEvent(el.scrollContainer, 'scrollend');
 
-        expect(el.goToSlide).to.have.been.calledWith(-2);
+        const containerRect = el.scrollContainer.getBoundingClientRect();
+        const itemRect = expectedCarouselItem.getBoundingClientRect();
+
+        // Assert
+        expect(el.goToSlide).to.have.been.calledWith(0);
+        expect(itemRect.top).to.be.equal(containerRect.top);
+        expect(itemRect.left).to.be.equal(containerRect.left);
       });
     });
 

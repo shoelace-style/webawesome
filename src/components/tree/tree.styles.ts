@@ -16,7 +16,6 @@ export default css`
     --indent-size: var(--wa-space-l);
 
     display: block;
-    isolation: isolate;
 
     /*
      * Tree item indentation uses the "em" unit to increment its width on each level, so setting the font size to zero

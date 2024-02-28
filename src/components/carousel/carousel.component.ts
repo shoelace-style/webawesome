@@ -3,13 +3,13 @@ import '../../internal/scrollend-polyfill.js';
 import { AutoplayController } from './autoplay-controller.js';
 import { clamp } from '../../internal/math.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { eventOptions, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { map } from 'lit/directives/map.js';
 import { prefersReducedMotion } from '../../internal/animate.js';
-import { property, query, state } from 'lit/decorators.js';
 import { range } from 'lit/directives/range.js';
-import { ScrollController } from './scroll-controller.js';
+import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import styles from './carousel.styles.js';
 import WaIcon from '../icon/icon.component.js';
@@ -41,15 +41,12 @@ import type WaCarouselItem from '../carousel-item/carousel-item.component.js';
  * @csspart navigation-button--previous - Applied to the previous button.
  * @csspart navigation-button--next - Applied to the next button.
  *
+ * @cssproperty --slide-gap - The space between each slide.
  * @cssproperty [--aspect-ratio=16/9] - The aspect ratio of each slide.
- * @cssproperty --navigation-color - The color of the navigation buttons.
- * @cssproperty --pagination-color-activated - The color of the pagination dot for the current item.
- * @cssproperty --pagination-color-resting - The color of the pagination dots for inactive items.
  * @cssproperty --scroll-hint - The amount of padding to apply to the scroll area, allowing adjacent slides to become
  *  partially visible as a scroll hint.
- * @cssproperty --slide-gap - The space between each slide.
  */
-export default class WaCarousel extends WebAwesomeElement {
+export default class SlCarousel extends WebAwesomeElement {
   static styles: CSSResultGroup = styles;
   static dependencies = { 'wa-icon': WaIcon };
 
@@ -89,8 +86,11 @@ export default class WaCarousel extends WebAwesomeElement {
   // The index of the active slide
   @state() activeSlide = 0;
 
+  @state() scrolling = false;
+
+  @state() dragging = false;
+
   private autoplayController = new AutoplayController(this, () => this.next());
-  private scrollController = new ScrollController(this);
   private intersectionObserver: IntersectionObserver; // determines which slide is displayed
   // A map containing the state of all the slides
   private readonly intersectionObserverEntries = new Map<Element, IntersectionObserverEntry>();
@@ -142,7 +142,7 @@ export default class WaCarousel extends WebAwesomeElement {
     });
   }
 
-  protected willUpdate(changedProperties: PropertyValueMap<WaCarousel> | Map<PropertyKey, unknown>): void {
+  protected willUpdate(changedProperties: PropertyValueMap<SlCarousel> | Map<PropertyKey, unknown>): void {
     // Ensure the slidesPerMove is never higher than the slidesPerPage
     if (changedProperties.has('slidesPerMove') || changedProperties.has('slidesPerPage')) {
       this.slidesPerMove = Math.min(this.slidesPerMove, this.slidesPerPage);
@@ -219,8 +219,80 @@ export default class WaCarousel extends WebAwesomeElement {
     }
   }
 
+  private handleMouseDragStart(event: PointerEvent) {
+    const canDrag = this.mouseDragging && event.button === 0;
+    if (canDrag) {
+      event.preventDefault();
+
+      document.addEventListener('pointermove', this.handleMouseDrag, { capture: true, passive: true });
+      document.addEventListener('pointerup', this.handleMouseDragEnd, { capture: true, once: true });
+    }
+  }
+
+  private handleMouseDrag = (event: PointerEvent) => {
+    if (!this.dragging) {
+      // Start dragging if it hasn't yet
+      this.scrollContainer.style.setProperty('scroll-snap-type', 'none');
+      this.dragging = true;
+    }
+
+    this.scrollContainer.scrollBy({
+      left: -event.movementX,
+      top: -event.movementY,
+      behavior: 'instant'
+    });
+  };
+
+  private handleMouseDragEnd = () => {
+    const scrollContainer = this.scrollContainer;
+
+    document.removeEventListener('pointermove', this.handleMouseDrag, { capture: true });
+
+    // get the current scroll position
+    const startLeft = scrollContainer.scrollLeft;
+    const startTop = scrollContainer.scrollTop;
+
+    // remove the scroll-snap-type property so that the browser will snap the slide to the correct position
+    scrollContainer.style.removeProperty('scroll-snap-type');
+
+    // fix(safari): forcing a style recalculation doesn't seem to immediately update the scroll
+    // position in Safari. Setting "overflow" to "hidden" should force this behavior.
+    scrollContainer.style.setProperty('overflow', 'hidden');
+
+    // get the final scroll position to the slide snapped by the browser
+    const finalLeft = scrollContainer.scrollLeft;
+    const finalTop = scrollContainer.scrollTop;
+
+    // restore the scroll position to the original one, so that it can be smoothly animated if needed
+    scrollContainer.style.removeProperty('overflow');
+    scrollContainer.style.setProperty('scroll-snap-type', 'none');
+    scrollContainer.scrollTo({ left: startLeft, top: startTop, behavior: 'instant' });
+
+    requestAnimationFrame(async () => {
+      if (startLeft !== finalLeft || startTop !== finalTop) {
+        scrollContainer.scrollTo({
+          left: finalLeft,
+          top: finalTop,
+          behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+        });
+        await waitForEvent(scrollContainer, 'scrollend');
+      }
+
+      scrollContainer.style.removeProperty('scroll-snap-type');
+
+      this.dragging = false;
+      this.handleScrollEnd();
+    });
+  };
+
+  @eventOptions({ passive: true })
+  private handleScroll() {
+    this.scrolling = true;
+  }
+
   private handleScrollEnd() {
-    const slides = this.getSlides();
+    if (!this.scrolling || this.dragging) return;
+
     const entries = [...this.intersectionObserverEntries.values()];
 
     const firstIntersecting: IntersectionObserverEntry | undefined = entries.find(entry => entry.isIntersecting);
@@ -229,13 +301,17 @@ export default class WaCarousel extends WebAwesomeElement {
       const clonePosition = Number(firstIntersecting.target.getAttribute('data-clone'));
 
       // Scrolls to the original slide without animating, so the user won't notice that the position has changed
-      this.goToSlide(clonePosition, 'auto');
+      this.goToSlide(clonePosition, 'instant');
     } else if (firstIntersecting) {
+      const slides = this.getSlides();
+
       // Update the current index based on the first visible slide
       const slideIndex = slides.indexOf(firstIntersecting.target as WaCarouselItem);
       // Set the index to the first "snappable" slide
       this.activeSlide = Math.ceil(slideIndex / this.slidesPerMove) * this.slidesPerMove;
     }
+
+    this.scrolling = false;
   }
 
   private isCarouselItem(node: Node): node is WaCarouselItem {
@@ -353,11 +429,6 @@ export default class WaCarousel extends WebAwesomeElement {
     }
   }
 
-  @watch('mouseDragging')
-  handleMouseDraggingChange() {
-    this.scrollController.mouseDragging = this.mouseDragging;
-  }
-
   /**
    * Move the carousel backward by `slides-per-move` slides.
    *
@@ -383,7 +454,7 @@ export default class WaCarousel extends WebAwesomeElement {
    * @param behavior - The behavior used for scrolling.
    */
   goToSlide(index: number, behavior: ScrollBehavior = 'smooth') {
-    const { slidesPerPage, loop, scrollContainer } = this;
+    const { slidesPerPage, loop } = this;
 
     const slides = this.getSlides();
     const slidesWithClones = this.getSlides({ excludeClones: false });
@@ -402,18 +473,26 @@ export default class WaCarousel extends WebAwesomeElement {
     const nextSlideIndex = clamp(index + (loop ? slidesPerPage : 0), 0, slidesWithClones.length - 1);
     const nextSlide = slidesWithClones[nextSlideIndex];
 
+    this.scrollToSlide(nextSlide, prefersReducedMotion() ? 'auto' : behavior);
+  }
+
+  private scrollToSlide(slide: HTMLElement, behavior: ScrollBehavior = 'smooth') {
+    const scrollContainer = this.scrollContainer;
     const scrollContainerRect = scrollContainer.getBoundingClientRect();
-    const nextSlideRect = nextSlide.getBoundingClientRect();
+    const nextSlideRect = slide.getBoundingClientRect();
+
+    const nextLeft = nextSlideRect.left - scrollContainerRect.left;
+    const nextTop = nextSlideRect.top - scrollContainerRect.top;
 
     scrollContainer.scrollTo({
-      left: nextSlideRect.left - scrollContainerRect.left + scrollContainer.scrollLeft,
-      top: nextSlideRect.top - scrollContainerRect.top + scrollContainer.scrollTop,
-      behavior: prefersReducedMotion() ? 'auto' : behavior
+      left: nextLeft + scrollContainer.scrollLeft,
+      top: nextTop + scrollContainer.scrollTop,
+      behavior
     });
   }
 
   render() {
-    const { scrollController, slidesPerMove } = this;
+    const { slidesPerMove, scrolling } = this;
     const pagesCount = this.getPageCount();
     const currentPage = this.getCurrentPage();
     const prevEnabled = this.canScrollPrev();
@@ -428,13 +507,16 @@ export default class WaCarousel extends WebAwesomeElement {
           class="${classMap({
             carousel__slides: true,
             'carousel__slides--horizontal': this.orientation === 'horizontal',
-            'carousel__slides--vertical': this.orientation === 'vertical'
+            'carousel__slides--vertical': this.orientation === 'vertical',
+            'carousel__slides--dragging': this.dragging
           })}"
           style="--slides-per-page: ${this.slidesPerPage};"
-          aria-busy="${scrollController.scrolling ? 'true' : 'false'}"
+          aria-busy="${scrolling ? 'true' : 'false'}"
           aria-atomic="true"
           tabindex="0"
           @keydown=${this.handleKeyDown}
+          @mousedown="${this.handleMouseDragStart}"
+          @scroll="${this.handleScroll}"
           @scrollend=${this.handleScrollEnd}
         >
           <slot></slot>
@@ -456,11 +538,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${prevEnabled ? () => this.previous() : null}
                 >
                   <slot name="previous-icon">
-                    <wa-icon
-                      library="system"
-                      variant="solid"
-                      name="${isLtr ? 'chevron-left' : 'chevron-right'}"
-                    ></wa-icon>
+                    <wa-icon library="system" name="${isLtr ? 'chevron-left' : 'chevron-right'}"></wa-icon>
                   </slot>
                 </button>
 
@@ -477,11 +555,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${nextEnabled ? () => this.next() : null}
                 >
                   <slot name="next-icon">
-                    <wa-icon
-                      library="system"
-                      variant="solid"
-                      name="${isLtr ? 'chevron-right' : 'chevron-left'}"
-                    ></wa-icon>
+                    <wa-icon library="system" name="${isLtr ? 'chevron-right' : 'chevron-left'}"></wa-icon>
                   </slot>
                 </button>
               </div>

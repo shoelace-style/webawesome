@@ -88,6 +88,18 @@ const App = () => (
 );
 ```
 
+### Help Text
+
+Add descriptive help text to a switch with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+
+```html:preview
+<wa-checkbox help-text="What should the user know about the checkbox?">Label</wa-checkbox>
+```
+
+````jsx:react
+import WaCheckbox from '@shoelace-style/shoelace/dist/react/checkbox';
+const App = () => <WaCheckbox help-text="What should the user know about the switch?">Label</WaCheckbox>;
+
 ### Custom Validity
 
 Use the `setCustomValidity()` method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.
@@ -122,7 +134,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
     });
   });
 </script>
-```
+````
 
 ```jsx:react
 import { useEffect, useRef } from 'react';
