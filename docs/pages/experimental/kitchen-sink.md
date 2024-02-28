@@ -425,6 +425,11 @@ toc: false
     border-radius: 0 var(--wa-corners-s) var(--wa-corners-s) 0;
   }
 
+  wa-radio-group[name="project-logo-selector"] wa-tooltip {
+    --max-width: calc(var(--knobs-width) - var(--knobs-padding) * 2);
+    text-align: center;
+  }
+
   #icon-chooser-trigger {
     --button-group-separator-border: none;
     --label-color: var(--wa-color-neutral-text-on-surface);
@@ -532,7 +537,7 @@ toc: false
         <wa-radio-button value="meteor"><wa-icon name="meteor"></wa-icon></wa-radio-button>
         <wa-radio-button value="cat-space"><wa-icon name="cat-space"></wa-icon></wa-radio-button>
         <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
-        <wa-tooltip content="Browse icons" distance="-3">
+        <wa-tooltip content="Browse icons" distance="-3" hoist>
           <wa-button value="[choose]" variant="text" id="icon-chooser-trigger" class="logo-chooser">
             <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
             <wa-visually-hidden>Browse icons</wa-visually-hidden>
@@ -1593,6 +1598,18 @@ toc: false
     setPreferredIcons();
     showIconStyleOptions();
     syncLogoIcon();
+
+    const iconChooserTrigger = document.getElementById('icon-chooser-trigger');
+    const iconChooserTriggerTooltip = document.querySelector('[name="project-logo-selector"] wa-tooltip');
+
+    if (iconFamily.value === 'custom') {
+      iconChooserTrigger.setAttribute('disabled', 'true');
+      iconChooserTriggerTooltip.setAttribute('content', 'Choose a Font Awesome icon family to browse more icons');
+    }
+    else {
+      iconChooserTrigger.removeAttribute('disabled');
+      iconChooserTriggerTooltip.setAttribute('content', 'Browse icons');
+    }
   });
 
   // Changes available Icon Styles and swaps icons based on the selected Icon Family
