@@ -49,7 +49,9 @@ export default class WaTextarea extends LitTextareaMixin(WebAwesomeElement) impl
   static styles: CSSResultGroup = styles;
 
   static shadowRootOptions = {...LitElement.shadowRootOptions, delegatesFocus: true};
-  // static get validators () { return [MirrorValidator] }
+
+  // MirrorValidator uses the internal native `<textarea>`, however, it does have some issues when used with programmatic validation.
+  static get validators () { return [MirrorValidator] }
 
   static get properties () {
     return {
