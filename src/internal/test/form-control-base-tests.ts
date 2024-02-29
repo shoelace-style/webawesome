@@ -44,7 +44,7 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
 //   - `.checkValidity()`
 //   - `.reportValidity()`
 //   - `.setCustomValidity(msg)`
-//   - `.getForm()`
+//   - `.form`
 //
 function runAllValidityTests(
   tagName: string, //
@@ -130,21 +130,21 @@ function runAllValidityTests(
         const formId = 'test-form';
         const form = await fixture(`<form id='${formId}'></form>`);
         const control = await createControl();
-        expect(control.getForm()).to.equal(null);
-        control.form = 'test-form';
+        expect(control.form).to.equal(null);
+        control.setAttribute("form", 'test-form');
         await control.updateComplete;
-        expect(control.getForm()).to.equal(form);
+        expect(control.form).to.equal(form);
       });
 
       it('Should find the correct form when given a form attribute', async () => {
         const formId = 'test-form';
         const form = await fixture(`<form id='${formId}'></form>`);
         const control = await createControl();
-        expect(control.getForm()).to.equal(null);
+        expect(control.form).to.equal(null);
         control.setAttribute('form', 'test-form');
 
         await control.updateComplete;
-        expect(control.getForm()).to.equal(form);
+        expect(control.form).to.equal(form);
       });
     }
 
@@ -244,6 +244,8 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
   it('should make sure that `.validity.valid` is `false` in custom error case', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
+
+    await control.updateComplete
     expect(control.validity.valid).to.equal(false);
   });
 
@@ -273,8 +275,10 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
+    const emittedEvents = checkEventEmissions(control, 'invalid', () => control.reportValidity());
+    const waEmittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
     expect(emittedEvents.length).to.equal(1);
+    expect(waEmittedEvents.length).to.equal(1)
   });
 }
 

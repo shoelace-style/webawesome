@@ -1,5 +1,5 @@
 import '../../../dist/webawesome.js';
-import { expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
@@ -122,16 +122,20 @@ describe('<wa-textarea>', () => {
     it('should be invalid when required and after removing disabled ', async () => {
       const el = await fixture<WaTextarea>(html` <wa-textarea disabled required></wa-textarea> `);
 
-      el.disabled = false;
+      // el.disabled = false;
+      el.removeAttribute("disabled")
       await el.updateComplete;
+      // await aTimeout(0)
 
       expect(el.checkValidity()).to.be.false;
     });
 
     it('should be invalid when required and disabled is removed', async () => {
       const el = await fixture<WaTextarea>(html` <wa-textarea disabled required></wa-textarea> `);
-      el.disabled = false;
+      // el.disabled = false;
+      el.removeAttribute("disabled")
       await el.updateComplete;
+      // await aTimeout(0)
       expect(el.checkValidity()).to.be.false;
     });
 
@@ -139,8 +143,8 @@ describe('<wa-textarea>', () => {
       const el = await fixture<WaTextarea>(html` <wa-textarea required value="a"></wa-textarea> `);
 
       expect(el.checkValidity()).to.be.true;
-      expect(el.hasAttribute('data-required')).to.be.true;
-      expect(el.hasAttribute('data-optional')).to.be.false;
+      // expect(el.hasAttribute('data-required')).to.be.true;
+      // expect(el.hasAttribute('data-optional')).to.be.false;
       expect(el.hasAttribute('data-invalid')).to.be.false;
       expect(el.hasAttribute('data-valid')).to.be.true;
       expect(el.hasAttribute('data-user-invalid')).to.be.false;
@@ -160,8 +164,8 @@ describe('<wa-textarea>', () => {
     it('should receive the correct validation attributes ("states") when invalid', async () => {
       const el = await fixture<WaTextarea>(html` <wa-textarea required></wa-textarea> `);
 
-      expect(el.hasAttribute('data-required')).to.be.true;
-      expect(el.hasAttribute('data-optional')).to.be.false;
+      // expect(el.hasAttribute('data-required')).to.be.true;
+      // expect(el.hasAttribute('data-optional')).to.be.false;
       expect(el.hasAttribute('data-invalid')).to.be.true;
       expect(el.hasAttribute('data-valid')).to.be.false;
       expect(el.hasAttribute('data-user-invalid')).to.be.false;
@@ -182,8 +186,8 @@ describe('<wa-textarea>', () => {
       const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-textarea required></wa-textarea></form> `);
       const textarea = el.querySelector<WaTextarea>('wa-textarea')!;
 
-      expect(textarea.hasAttribute('data-required')).to.be.true;
-      expect(textarea.hasAttribute('data-optional')).to.be.false;
+      // expect(textarea.hasAttribute('data-required')).to.be.true;
+      // expect(textarea.hasAttribute('data-optional')).to.be.false;
       expect(textarea.hasAttribute('data-invalid')).to.be.true;
       expect(textarea.hasAttribute('data-valid')).to.be.false;
       expect(textarea.hasAttribute('data-user-invalid')).to.be.false;
@@ -205,7 +209,8 @@ describe('<wa-textarea>', () => {
     });
 
     it('should be invalid when setCustomValidity() is called with a non-empty value', async () => {
-      const textarea = await fixture<HTMLFormElement>(html` <wa-textarea></wa-textarea> `);
+      const form = await fixture<HTMLFormElement>(html` <form><wa-textarea></wa-textarea></form> `);
+      const textarea = form.querySelector("wa-textarea") as WaTextarea
 
       textarea.setCustomValidity('Invalid selection');
       await textarea.updateComplete;

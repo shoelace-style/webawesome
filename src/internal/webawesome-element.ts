@@ -164,7 +164,7 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
 
   // Form validation methods
   checkValidity: () => boolean;
-  getForm: () => HTMLFormElement | null;
+  getForm?: () => HTMLFormElement | null;
   reportValidity: () => boolean;
   setCustomValidity: (message: string) => void;
 }

@@ -1,8 +1,8 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { defaultValue } from '../../internal/default-value.js';
-import { FormControlController } from '../../internal/form.js';
+// import { FormControlController } from '../../internal/form.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, LitElement } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { property, query, state } from 'lit/decorators.js';
@@ -11,6 +11,10 @@ import styles from './textarea.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js';
+
+import { LitTextareaMixin } from 'form-associated-helpers/exports/mixins/lit-textarea-mixin.js';
+import { ref } from 'lit/directives/ref.js';
+import { MirrorValidator } from 'form-associated-helpers/exports/validators/mirror-validator.js';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -41,16 +45,29 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --border-width - The width of the textarea's borders.
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
  */
-export default class WaTextarea extends WebAwesomeElement implements WebAwesomeFormControl {
+export default class WaTextarea extends LitTextareaMixin(WebAwesomeElement) implements WebAwesomeFormControl {
   static styles: CSSResultGroup = styles;
 
-  private readonly formControlController = new FormControlController(this, {
-    assumeInteractionOn: ['wa-blur', 'wa-input']
-  });
+  static shadowRootOptions = {...LitElement.shadowRootOptions, delegatesFocus: true};
+  // static get validators () { return [MirrorValidator] }
+
+  static get properties () {
+    return {
+      ...super.properties,
+      ...LitTextareaMixin.formProperties,
+    }
+  }
+
+  // private readonly formControlController = new FormControlController(this, {
+  //   assumeInteractionOn: ['wa-blur', 'wa-input']
+  // });
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
   private resizeObserver: ResizeObserver;
 
   @query('.textarea__control') input: HTMLTextAreaElement;
+
+  // Required to be public.
+  @state() formControl: HTMLTextAreaElement | null;
 
   @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
@@ -82,7 +99,7 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
   /** Controls how the textarea can be resized. */
   @property() resize: 'none' | 'vertical' | 'auto' = 'vertical';
 
-  /** Disables the textarea. */
+  /** Disables the textarea. We don't want to reflect here. It breaks callbacks. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Makes the textarea readonly. */
@@ -93,7 +110,7 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
    * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
    * the same document or shadow root for this to work.
    */
-  @property({ reflect: true }) form = '';
+  // @property({ reflect: true }) form = '';
 
   /** Makes the textarea a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -114,7 +131,9 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
    * Specifies what permission the browser has to provide assistance in filling out form field values. Refer to
    * [this page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for available values.
    */
-  @property() autocomplete: string;
+  // @ts-expect-error
+  // The base LitTextareaMixin expects this as a "Autofill" type.
+  @property() autocomplete: string = undefined;
 
   /** Indicates that the input should receive focus on page load. */
   @property({ type: Boolean }) autofocus: boolean;
@@ -142,14 +161,14 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
   /** The default value of the form control. Primarily used for resetting the form control. */
   @defaultValue() defaultValue = '';
 
-  /** Gets the validity state object */
-  get validity() {
-    return this.input.validity;
-  }
+  constructor () {
+    super()
 
-  /** Gets the validation message */
-  get validationMessage() {
-    return this.input.validationMessage;
+    // @ts-expect-error
+    this._boundEmitInvalidEvent = this.emitInvalidEvent.bind(this)
+
+    // @ts-expect-error
+    this.addEventListener("invalid", this._boundEmitInvalidEvent)
   }
 
   connectedCallback() {
@@ -162,9 +181,9 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
     });
   }
 
-  firstUpdated() {
-    this.formControlController.updateValidity();
-  }
+  // firstUpdated() {
+  //   this.formControlController.updateValidity();
+  // }
 
   disconnectedCallback() {
     super.disconnectedCallback();
@@ -192,10 +211,36 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
     this.emit('wa-input');
   }
 
-  private handleInvalid(event: Event) {
-    this.formControlController.setValidity(false);
-    this.formControlController.emitInvalidEvent(event);
-  }
+    /**
+    * Dispatches a non-bubbling, cancelable custom event of type `wa-invalid`.
+    * If the `wa-invalid` event will be cancelled then the original `invalid`
+    * event (which may have been passed as argument) will also be cancelled.
+    * If no original `invalid` event has been passed then the `wa-invalid`
+    * event will be cancelled before being dispatched.
+    */
+    emitInvalidEvent(originalInvalidEvent?: Event) {
+      const slInvalidEvent = new CustomEvent<Record<PropertyKey, never>>('wa-invalid', {
+        bubbles: false,
+        composed: false,
+        cancelable: true,
+        detail: {}
+      });
+
+      if (!originalInvalidEvent) {
+        slInvalidEvent.preventDefault();
+      }
+
+      if (!this.dispatchEvent(slInvalidEvent)) {
+        originalInvalidEvent?.preventDefault();
+      }
+    }
+
+
+  // `form-associated-helpers` also has a `handleInvalid` event.
+  // handleInvalid = (event: Event) => {
+  //   super.handleInvalid(event)
+  //   this.emitInvalidEvent(event)
+  // }
 
   private setTextareaHeight() {
     if (this.resize === 'auto') {
@@ -209,7 +254,9 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
     // Disabled form controls are always valid
-    this.formControlController.setValidity(this.disabled);
+    // this.formControlController.setValidity(this.disabled);
+    // this.formControl?.setCustomValidity('')
+    // this.setValidity()
   }
 
   @watch('rows', { waitUntilFirstUpdate: true })
@@ -220,7 +267,7 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
   @watch('value', { waitUntilFirstUpdate: true })
   async handleValueChange() {
     await this.updateComplete;
-    this.formControlController.updateValidity();
+    // this.formControlController.updateValidity();
     this.setTextareaHeight();
   }
 
@@ -280,25 +327,8 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
     }
   }
 
-  /** Checks for validity but does not show a validation message. Returns `true` when valid and `false` when invalid. */
-  checkValidity() {
-    return this.input.checkValidity();
-  }
-
-  /** Gets the associated form, if one exists. */
-  getForm(): HTMLFormElement | null {
-    return this.formControlController.getForm();
-  }
-
-  /** Checks for validity and shows the browser's validation message if the control is invalid. */
-  reportValidity() {
-    return this.input.reportValidity();
-  }
-
-  /** Sets a custom validation message. Pass an empty string to restore validity. */
-  setCustomValidity(message: string) {
-    this.input.setCustomValidity(message);
-    this.formControlController.updateValidity();
+  private formControlChanged (el?: HTMLTextAreaElement) {
+    this.formControl = el || null
   }
 
   render() {
@@ -372,6 +402,7 @@ export default class WaTextarea extends WebAwesomeElement implements WebAwesomeF
               @invalid=${this.handleInvalid}
               @focus=${this.handleFocus}
               @blur=${this.handleBlur}
+              ${ref(this.formControlChanged)}
             ></textarea>
           </div>
         </div>

@@ -70,6 +70,7 @@
     "@shoelace-style/animations": "^1.1.0",
     "@shoelace-style/localize": "^3.1.2",
     "composed-offset-position": "^0.0.4",
+    "form-associated-helpers": "^0.0.5",
     "lit": "^3.0.0",
     "qr-creator": "^1.0.0"
   },
@@ -100,8 +101,8 @@
     "cspell": "^6.18.1",
     "custom-element-jet-brains-integration": "^1.4.0",
     "custom-element-vs-code-integration": "^1.2.1",
-    "dedent": "^1.5.1",
     "custom-element-vuejs-integration": "^1.0.0",
+    "dedent": "^1.5.1",
     "del": "^7.1.0",
     "download": "^8.0.0",
     "esbuild": "^0.19.4",
