@@ -5,7 +5,24 @@ meta:
 toc: false
 ---
 
-<div class="wa:block-flow:3xl">
+<style>
+  :root {
+    --docs-content-max-width: 72rem;
+  }
+  #menu-toggle,
+  #sidebar {
+    display: none;
+  }
+  main {
+    padding: var(--docs-content-vertical-spacing) var(--docs-content-padding);
+    margin: 0;
+  }
+  .preview-container {
+    container: preview / inline-size;
+  }
+</style>
+
+<div class="preview-container wa:block-flow:3xl">
   <div class="wa:overflowing_hero">
     <div class="wa:arrange wa:background:brand_spot_gradient" style="border-radius:var(--wa-panel-corners); padding:var(--wa-space-3xl); color:var(--wa-color-brand-text-on-spot);">
       <div>
@@ -162,17 +179,3 @@ toc: false
     </div>
   </div>
 </div>
-
-<style>
-  :root {
-    --docs-content-max-width: 72rem;
-  }
-  #menu-toggle,
-  #sidebar {
-    display: none;
-  }
-  main {
-    padding: var(--docs-content-vertical-spacing) var(--docs-content-padding);
-    margin: 0;
-  }
-</style>

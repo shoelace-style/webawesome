@@ -5,7 +5,24 @@ meta:
 toc: false
 ---
 
-<div class="wa:block-flow:3xl">
+<style>
+  :root {
+    --docs-content-max-width: 72rem;
+  }
+  #menu-toggle,
+  #sidebar {
+    display: none;
+  }
+  main {
+    padding: var(--docs-content-vertical-spacing) var(--docs-content-padding);
+    margin: 0;
+  }
+  .preview-container {
+    container: preview / inline-size;
+  }
+</style>
+
+<div class="preview-container wa:block-flow:3xl">
   <div class="wa:background:college_ruled" style="border-radius:var(--wa-panel-corners); padding: var(--wa-space-3xl); background-color:var(--wa-color-brand-spot-darker); color:var(--wa-color-brand-text-on-spot); text-align: center;">
     <h1 style="margin-block-start: 0;">Latest from the Blog</h1>
     <p style="margin-block-end: 0;">Lorem ipsum dolor sit amet</p>
@@ -260,17 +277,3 @@ toc: false
     </div>
   </div>
 </div>
-
-<style>
-  :root {
-    --docs-content-max-width: 72rem;
-  }
-  #menu-toggle,
-  #sidebar {
-    display: none;
-  }
-  main {
-    padding: var(--docs-content-vertical-spacing) var(--docs-content-padding);
-    margin: 0;
-  }
-</style>

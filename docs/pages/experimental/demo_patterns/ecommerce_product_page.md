@@ -5,9 +5,26 @@ meta:
 toc: false
 ---
 
+<style>
+  :root {
+    --docs-content-max-width: 72rem;
+  }
+  #menu-toggle,
+  #sidebar {
+    display: none;
+  }
+  main {
+    padding: initial;
+    margin: var(--wa-space-xl);
+  }
+  .preview-container {
+    container: preview / inline-size;
+  }
+</style>
+
 <!-- cSpell:dictionaries lorem-ipsum -->
 
-<div class="wa:block-flow:3xl">
+<div class="preview-container wa:block-flow:3xl">
   <wa-breadcrumb>
     <wa-breadcrumb-item>Plants</wa-breadcrumb-item>
     <wa-breadcrumb-item>Indoor Plants</wa-breadcrumb-item>
@@ -201,17 +218,3 @@ toc: false
     </div>
   </div>
 </div>
-
-<style>
-  :root {
-    --docs-content-max-width: 72rem;
-  }
-  #menu-toggle,
-  #sidebar {
-    display: none;
-  }
-  main {
-    padding: initial;
-    margin: var(--wa-space-xl);
-  }
-</style>
