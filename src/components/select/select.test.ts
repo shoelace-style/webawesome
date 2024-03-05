@@ -462,8 +462,9 @@ describe('<wa-select>', () => {
       await select.updateComplete;
       expect(select.value).to.equal('option-3');
 
-      setTimeout(() => clickOnElement(resetButton));
-      await oneEvent(form, 'reset');
+      const resetEventPromise = oneEvent(form, 'reset');
+      await clickOnElement(resetButton)
+      await resetEventPromise
       await select.updateComplete;
       expect(select.value).to.equal('option-1');
     });

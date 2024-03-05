@@ -191,7 +191,7 @@ export default class WaMenuItem extends WebAwesomeElement {
           ></wa-icon>
         </span>
 
-        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<sl-spinner part="spinner"></sl-spinner>` : ''}
+        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
       </div>
     `;
   }
