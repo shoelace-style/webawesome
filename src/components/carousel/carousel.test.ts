@@ -11,6 +11,7 @@ describe('<wa-carousel>', () => {
   const sandbox = sinon.createSandbox();
 
   afterEach(async () => {
+    // eslint-disable-next-line
     await resetMouse().catch(() => {});
   });
 

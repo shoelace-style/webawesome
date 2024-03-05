@@ -61,9 +61,9 @@ const getCloseButton = (alert: WaAlert): WaIconButton | null | undefined =>
 describe('<wa-alert>', () => {
   let clock: sinon.SinonFakeTimers | null = null;
 
-
   afterEach(async () => {
     clock?.restore();
+    // eslint-disable-next-line
     await resetMouse().catch(() => {});
   });
 
@@ -111,7 +111,7 @@ describe('<wa-alert>', () => {
 
       await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, async () => {
         alert.open = true;
-        await alert.updateComplete
+        await alert.updateComplete;
       });
     });
 
@@ -120,7 +120,7 @@ describe('<wa-alert>', () => {
 
       await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, async () => {
         alert.open = false;
-        await alert.updateComplete
+        await alert.updateComplete;
       });
     });
   });
@@ -295,10 +295,9 @@ describe('<wa-alert>', () => {
       });
     });
   });
-
 });
 
-it("Should properly render alert variants", async () => {
+it('Should properly render alert variants', async () => {
   const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
   for (const variant of variants) {
@@ -307,4 +306,4 @@ it("Should properly render alert variants", async () => {
     const alertContainer = getAlertContainer(alert);
     expect(alertContainer).to.have.class(`alert--${variant}`);
   }
-})
+});
