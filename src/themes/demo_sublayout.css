@@ -51,6 +51,10 @@
   }
 
   /* Arrangement */
+  &[class*='\:column'] {
+    grid-template-columns: none;
+  }
+
   &[class*='\:side-by-side'] {
     grid-template-columns: 1fr 1fr;
   }

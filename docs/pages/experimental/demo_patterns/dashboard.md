@@ -12,6 +12,11 @@ toc: false
   html {
     background-color: var(--wa-color-surface-lowered);
   }
+
+  .anchor-heading a {
+    display: none;
+  }
+
   #menu-toggle,
   #sidebar {
     display: none;
@@ -56,8 +61,50 @@ toc: false
     border-radius: calc(var(--border-radius) - var(--border-width));
   }
 
-  wa-card h2 {
+  .wa\:card-title {
     font-size: var(--wa-font-size-l);
+    margin-block-end: 0;
+  }
+
+  .wa\:statistic {
+    & .wa\:card-title {
+      color: var(--wa-color-text-quiet);
+      font-size: var(--wa-font-size-s);
+    }
+
+    & .wa\:value {
+      font-size: var(--wa-font-size-2xl);
+      font-weight: var(--wa-font-weight-heavy);
+      line-height: var(--wa-font-line-height-compact);
+
+      & + wa-badge > wa-icon {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  wa-card#glitches::part(body) {
+    padding-block-end: 0;
+  }
+
+  wa-card.wa\:statistic::part(base) {
+    justify-content: center;
+  }
+
+  .wa\:box-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wa-color-brand-spot);
+    color: var(--wa-color-brand-text-on-spot);
+    border-radius: var(--wa-corners-s);
+    width: 2.5em;
+    height: 2.5em;
+    font-size: var(--wa-font-size-l);
+  }
+
+  .wa\:contact {
+    font-size: var(--wa-font-size-s);
   }
 
   wa-card::part(base) {
@@ -68,138 +115,155 @@ toc: false
     --wa-form-controls-value-color: var(--wa-color-text-quiet);
   }
 
-figure {
-  margin: 0;
-  margin-inline-start: calc(var(--padding) * -1);
-}
-.sparkline { 
-  height: 1em;
-  margin: 0 0.5em;
-  transition: all .5s ease;
-}
+  caption {
+    color: var(--wa-color-text-normal);
+    text-align: left;
+    margin: var(--wa-space-xl) var(--wa-space-xl) var(--wa-space-l) var(--wa-space-xl);
 
-.sparkline .index { 
-  position: relative;
-  float: left; 
-  width: 0.5em; 
-  height: 5em; 
-}
+    & h2 {
+      margin: 0;
+    }
+  }
 
-.sparkline .index .count { 
-  display: block; 
-  position: absolute; 
-  bottom: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 0; 
-  background: var(--wa-color-brand-spot);
-  font: 0/0 a;
-  text-shadow: none;
-  color: transparent;
-}
-figcaption {
-  display: block;
-}
+  figure {
+    margin: 0;
+    margin-inline: calc(var(--padding) * -1);
+  }
+  .sparkline { 
+    height: 1em;
+    transition: all .5s ease;
+  }
+
+  .sparkline .index { 
+    position: relative;
+    float: left; 
+    width: 1%; 
+    height: 6.25em; 
+  }
+
+  .sparkline .index .count { 
+    display: block; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 0; 
+    background: var(--wa-color-brand-spot);
+    font: 0/0 a;
+    text-shadow: none;
+    color: transparent;
+  }
+  figcaption {
+    display: block;
+  }
 </style>
 
 <!-- cSpell:dictionaries lorem-ipsum -->
 
-<div class="preview-container wa:arrange:flex:align-start">
-  <div class="wa:block-flow:l" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height:calc(100vh - var(--docs-content-padding) * 2);">
-    <div class="wa:block-flow:l" style="display: flex; flex-direction: column;">
-      <wa-icon-button name="shapes" style="color: var(--wa-color-brand-spot);"></wa-icon-button>
-      <wa-divider style="width: 100%;"></wa-divider>
-      <wa-icon-button name="home"></wa-icon-button>
-      <wa-icon-button name="calendar"></wa-icon-button>
-      <wa-icon-button name="envelope"></wa-icon-button>
-      <wa-icon-button name="chart-simple"></wa-icon-button>
-      <wa-icon-button name="archive"></wa-icon-button>
-    </div>
-    <div class="wa:block-flow:l" style="display: flex; flex-direction: column;">
-      <wa-divider style="width: 100%;"></wa-divider>
-      <wa-icon-button name="gear"></wa-icon-button>
-      <wa-icon-button name="right-from-bracket"></wa-icon-button>
-    </div>
+<div class="preview-container wa:arrange:flex:align-start:nowrap">
+  <div class="wa:block-flow:l" style="display: flex; flex-direction: column; align-items: center;">
+    <wa-icon-button name="crown" href="/" style="color: var(--wa-color-brand-spot);"></wa-icon-button>
+    <wa-divider style="width: 100%;"></wa-divider>
+    <wa-icon-button name="home"></wa-icon-button>
+    <wa-icon-button name="calendar"></wa-icon-button>
+    <wa-icon-button name="envelope"></wa-icon-button>
+    <wa-icon-button name="chart-simple"></wa-icon-button>
+    <wa-icon-button name="archive"></wa-icon-button>
+    <wa-divider style="width: 100%;"></wa-divider>
+    <wa-icon-button name="gear"></wa-icon-button>
+    <wa-icon-button name="right-from-bracket"></wa-icon-button>
   </div>
   <div class="wa:fill_space wa:block-flow:l">
     <div class="wa:arrange:aside-end:gap-l">
-      <wa-card>
-        <h2>Glitch Tracker</h2>
-        <figure>
-          <span class="sparkline">
-            <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
-            <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
-            <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
-            <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
-            <span class="index"><span class="count" style="height: 100%;">225,</span> </span>
-            <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
-            <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
-            <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
-            <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
-            <span class="index"><span class="count" style="height: 100%;">225,</span> </span>
-            <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
-            <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
-            <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
-            <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
-            <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
-            <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
-            <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
-            <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
-            <span class="index"><span class="count" style="height: 56%;">125)</span> </span>
-          </span>
-        </figure>
-        <div slot="footer">
-          <a href="#">View more</a>
-        </div>
-      </wa-card>
+      <div class="wa:arrange:size-m:gap-l">
+        <wa-card class="wa:block-flow:l wa:statistic">
+          <div class="wa:arrange:flex:align-start:gap-m:nowrap">
+            <span class="wa:box-icon">
+              <wa-icon name="globe"></wa-icon>
+            </span>
+            <div>
+              <h2 class="wa:fill_space wa:card-title">
+                Population (Zion)
+              </h2>
+              <div class="wa:arrange:flex:gap-s">
+                <span class="wa:value">251,999</span>
+                <wa-badge variant="danger">-3%&nbsp;<wa-icon name="arrow-trend-down"></wa-icon></wa-badge>
+              </div>
+            </div>
+          </div>
+        </wa-card>
+        <wa-card class="wa:block-flow:l wa:statistic">
+          <div class="wa:arrange:flex:align-start:gap-m:nowrap">
+            <span class="wa:box-icon">
+              <wa-icon name="brain-circuit"></wa-icon>
+            </span>
+            <div>
+              <h2 class="wa:fill_space wa:card-title">
+                Minds Freed
+              </h2>
+              <div class="wa:arrange:flex:gap-s">
+                <span class="wa:value">0.36%</span>
+                <wa-badge variant="success">+0.02%&nbsp;<wa-icon name="arrow-trend-up"></wa-icon></wa-badge>
+              </div>
+            </div>
+          </div>
+        </wa-card>
+        <wa-card class="wa:block-flow:l wa:statistic">
+          <div class="wa:arrange:flex:align-start:gap-m:nowrap">
+            <span class="wa:box-icon">
+              <wa-icon name="robot"></wa-icon>
+            </span>
+            <div>
+              <h2 class="wa:fill_space wa:card-title">
+                Agents Discovered
+              </h2>
+              <div class="wa:arrange:flex:gap-s">
+                <span class="wa:value">3</span>
+                <wa-badge variant="neutral">&plusmn;0%&nbsp;<wa-icon name="wave-triangle"></wa-icon></wa-badge>
+              </div>
+            </div>
+          </div>
+        </wa-card>
+        <wa-card class="wa:block-flow:l wa:statistic">
+          <div class="wa:arrange:flex:align-start:gap-m:nowrap">
+            <span class="wa:box-icon">
+              <wa-icon name="spaghetti-monster-flying"></wa-icon>
+            </span>
+            <div>
+              <h2 class="wa:fill_space wa:card-title">
+                Sentinels Controlled
+              </h2>
+              <div class="wa:arrange:flex:gap-s">
+                <span class="wa:value">208</span>
+                <wa-badge variant="success">+1%&nbsp;<wa-icon name="arrow-trend-up"></wa-icon></wa-badge>
+              </div>
+            </div>
+          </div>
+        </wa-card>
+      </div>
       <wa-card>
         <div class="wa:block-flow:l">
-          <div class="wa:arrange:flex">
-            <h2>Daily Tasks</h2>
+          <div class="wa:arrange:flex:gap-xl">
+            <h2 class="wa:card-title">Daily Tasks</h2>
             <wa-progress-bar value="40" class="wa:fill_space" style="--height: 0.5em;"></wa-progress-bar>
           </div>
-          <wa-checkbox style="display:block;">Lorem ipsum dolor sit amet</wa-checkbox>
-          <wa-checkbox style="display:block;">Lorem ipsum dolor sit amet</wa-checkbox>
-          <wa-checkbox style="display:block;">Lorem ipsum dolor sit amet</wa-checkbox>
-          <wa-checkbox style="display:block;" checked>Lorem ipsum dolor sit amet</wa-checkbox>
+          <div class="wa:block-flow:s">
+            <wa-checkbox style="display:block;">Let go fear, doubt, and disbelief</wa-checkbox>
+            <wa-checkbox style="display:block;">Walk through the door</wa-checkbox>
+            <wa-checkbox style="display:block;">Train with Morpheus</wa-checkbox>
+          </div>
         </div>
         <div slot="footer">
-          <a href="#">View 3 more tasks</a>
+          <a href="#">View completed tasks</a>
         </div>
       </wa-card>
     </div>
     <section class="strata support-table">
       <wa-card style="--padding: 0; width: 100%;">
       <table style="margin-bottom: 0;">
+        <caption>
+          <h2 class="wa:card-title">Conversations</h2>
+        </caption>
         <thead>
           <tr>
             <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
@@ -365,5 +429,158 @@ figcaption {
       </table>
       </wa-card>
     </section>
+    <div class="wa:arrange:gap-l">
+      <wa-card id="glitches">
+        <div class="wa:block-flow:l">
+          <div class="wa:arrange:flex:justify-space_between">
+            <h2 class="wa:card-title">Glitches</h2>
+            <small style="color: var(--wa-color-text-quiet);">March 31, 1999</small>
+          </div>
+          <figure>
+            <span class="sparkline">
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
+              <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 21%;">225,</span> </span>
+              <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 12%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 21%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 56%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
+              <span class="index"><span class="count" style="height: 69%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 99%;">225,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 77%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
+              <span class="index"><span class="count" style="height: 38%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 85%;">225,</span> </span>
+              <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 92%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 46%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
+              <span class="index"><span class="count" style="height: 60%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 100%;">225,</span> </span>
+              <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+              <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 60%;">180,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 8%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 56%;">125)</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 56%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 78%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+              <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+              <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+              <span class="index"><span class="count" style="height: 25%;">220,</span> </span>
+              <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+            </span>
+          </figure>
+        </div>
+        <div slot="footer">
+          <a href="#">View all data</a>
+        </div>
+      </wa-card>
+      <wa-card>
+        <div class="wa:block-flow:l">
+          <h2 class="wa:card-title">Recent Contacts</h2>
+          <div class="wa:arrange:gap-l" style="--wa-grid-size: 20ch;">
+            <wa-card style="--padding: var(--wa-space-s);">
+              <div class="wa:arrange:flex:gap-s">
+                <wa-avatar label="User avatar">
+                  <wa-icon slot="icon" name="user-secret"></wa-icon>
+                </wa-avatar>
+                <div class="wa:contact">
+                  <div class="wa:arrange:flex:gap-s">
+                    <strong>Trinity</strong>
+                  </div>
+                  <small><em>Nebuchadnezzar</em></small>
+                </div>
+              </div>
+            </wa-card>
+            <wa-card style="--padding: var(--wa-space-s);">
+              <div class="wa:arrange:flex:gap-s">
+                <wa-avatar label="User avatar">
+                  <wa-icon slot="icon" name="user-tie"></wa-icon>
+                </wa-avatar>
+                <div class="wa:contact">
+                  <div class="wa:arrange:flex:gap-s">
+                    <strong>Mr. Rhineheart</strong>
+                  </div>
+                  <small><em>MetaCortex</em></small>
+                </div>
+              </div>
+            </wa-card>
+          </div>
+        </div>
+        <div slot="footer">
+          <a href="#">View all contacts</a>
+        </div>
+      </wa-card>
+    </div>
   </div>
 </div>
