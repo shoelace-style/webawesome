@@ -89,37 +89,37 @@ div.ec-line {
   vertical-align: middle;
 }
 
-table,
-tr,
-td,
-th {
-  border: none !important;
-}
-
-table thead {
-  text-align: left;
-  font-weight: bold;
-  color: rgb(24, 49, 83);
-  border-bottom: 2px solid rgb(195, 198, 209);
-}
-
-table tr {
-  vertical-align: top;
-}
-
-td {
-  border-bottom: 1px solid rgb(224, 226, 232);
-}
-
-table tr:nth-child(odd) td {
-  background: #fff;
-  border-bottom: 1px solid rgb(224, 226, 232) !important;
-}
-
-table tr:nth-child(even) td {
-  background: #fff;
-  border-bottom: 1px solid rgb(224, 226, 232) !important;
-}
+/* table, */
+/* tr, */
+/* td, */
+/* th { */
+/*   border: none !important; */
+/* } */
+/**/
+/* table thead { */
+/*   text-align: left; */
+/*   font-weight: bold; */
+/*   color: rgb(24, 49, 83); */
+/*   border-bottom: 2px solid rgb(195, 198, 209); */
+/* } */
+/**/
+/* table tr { */
+/*   vertical-align: top; */
+/* } */
+/**/
+/* td { */
+/*   border-bottom: 1px solid rgb(224, 226, 232); */
+/* } */
+/**/
+/* table tr:nth-child(odd) td { */
+/*   background: #fff; */
+/*   border-bottom: 1px solid rgb(224, 226, 232) !important; */
+/* } */
+/**/
+/* table tr:nth-child(even) td { */
+/*   background: #fff; */
+/*   border-bottom: 1px solid rgb(224, 226, 232) !important; */
+/* } */
 
 .frame.is-terminal pre {
   margin: 0px !important;
@@ -235,7 +235,7 @@ h1 h2 h3 {
 }
 
 img {
-  border: 2px solid rgb(24, 49, 83);
+  /* border: 2px solid rgb(24, 49, 83); */
 }
 
 .card {
