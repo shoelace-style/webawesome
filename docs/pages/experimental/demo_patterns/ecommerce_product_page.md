@@ -17,6 +17,9 @@ toc: false
     padding: initial;
     margin: var(--wa-space-xl);
   }
+  .anchor-heading a {
+    display: none;
+  }
   .preview-container {
     container: preview / inline-size;
   }

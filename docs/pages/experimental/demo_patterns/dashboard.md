@@ -13,10 +13,6 @@ toc: false
     background-color: var(--wa-color-surface-lowered);
   }
 
-  .anchor-heading a {
-    display: none;
-  }
-
   #menu-toggle,
   #sidebar {
     display: none;
@@ -24,6 +20,9 @@ toc: false
   main {
     padding: initial;
     margin: var(--wa-space-xl);
+  }
+  .anchor-heading a {
+    display: none;
   }
   .preview-container {
     container: preview / inline-size;

@@ -98,6 +98,9 @@
 
   & > [class*='wa\:arrange'] {
     margin-block-end: var(--wa-grid-gap);
+    border-radius: var(--wa-panel-corners);
+    color: var(--wa-color-brand-text-on-spot);
+    padding: var(--wa-space-3xl);
 
     & > *:first-child {
       align-self: center;
@@ -107,6 +110,28 @@
       margin-block-end: calc((var(--wa-grid-gap) * 2 * -1));
     }
   }
+}
+
+.wa\:blog_post {
+  font-size: var(--wa-font-size-l);
+  margin-inline: auto;
+  max-inline-size: 60ch;
+}
+
+.wa\:blog_post\:footer {
+  font-size: var(--wa-font-size-m);
+}
+
+.wa\:reaction_group .wa\:count {
+  margin-inline-start: var(--wa-space-xs);
+}
+
+.wa\:blog_post\:comments {
+  font-size: var(--wa-font-size-m);
+}
+
+.wa\:reaction_single wa-icon-button {
+  color: var(--wa-color-neutral-text-on-surface);
 }
 
 .wa\:chat_bubble {
@@ -130,4 +155,27 @@
     margin-top: 0;
     margin-left: -0.5rem;
   }
+}
+
+.wa\:blog\:cta {
+  background-color: var(--wa-color-brand-fill-subtle);
+  padding: var(--wa-space-3xl);
+  border-radius: var(--wa-panel-corners);
+  box-shadow: var(--wa-shadow-level-1);
+  margin-top: calc(var(--wa-space-3xl) * 2);
+
+  & h2 {
+    color: var(--wa-color-brand-text-on-fill);
+  }
+
+  & p {
+    color: var(--wa-color-neutral-text-on-fill);
+  }
+}
+
+.wa\:blog\:recommended {
+  background-color: var(--wa-color-neutral-fill-subtle);
+  padding: var(--wa-space-3xl);
+  border-radius: var(--wa-panel-corners);
+  box-shadow: var(--wa-shadow-level-1);
 }

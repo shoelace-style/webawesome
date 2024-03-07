@@ -17,6 +17,9 @@ toc: false
     padding: var(--docs-content-vertical-spacing) var(--docs-content-padding);
     margin: 0;
   }
+  .anchor-heading a {
+    display: none;
+  }
   .preview-container {
     container: preview / inline-size;
   }
@@ -30,7 +33,7 @@ toc: false
   <div class="wa:arrange:aside-end" style="--wa-grid-size: 45ch;">
     <div class="wa:block-flow:m">
       <div class="wa:frame:landscape">
-        <img src="https://images.pexels.com/photos/6550721/pexels-photo-6550721.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+        <img src="https://bit.ly/3Irq42Q" alt="">
       </div>
       <div class="wa:arrange:flex:justify-space_between">
         <small><wa-format-date month="long" year="numeric"></wa-format-date></small>
