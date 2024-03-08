@@ -19,6 +19,7 @@ toc: false
   }
   main {
     padding: initial;
+    padding-bottom: var(--wa-space-3xl);
     margin: var(--wa-space-xl);
   }
   .anchor-heading a {

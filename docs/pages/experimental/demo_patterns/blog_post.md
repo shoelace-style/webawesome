@@ -137,18 +137,6 @@ toc: false
       </div>
     </div>
   </div>
-  <div class="wa:blog:cta wa:arrange:gap-m">
-    <div class="wa:block-flow:s">
-      <h2><strong>Don't miss a thing.</strong></h2>
-      <p>Subscribe to receive the latest posts in your inbox.</p>
-    </div>
-    <div class="wa:arrange:flex:gap-s">
-      <wa-input class="wa:fill_space" type="email" placeholder="your@email.com">
-        <wa-icon name="envelope" variant="regular" label="email" slot="prefix"></wa-icon>
-      </wa-input>
-      <wa-button variant="brand">Subscribe</wa-button>
-    </div>
-  </div>
   <div class="wa:blog:recommended">
     <div class="wa:block-flow:xl">
       <h2>You may also like</h2>

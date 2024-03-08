@@ -1,6 +1,6 @@
 ---
 meta:
-  title: Blog patterns
+  title: Patterns List
   description: TBD
 toc: false
 ---
@@ -21,7 +21,7 @@ toc: false
   }
 </style>
 
-# Blog Post Patterns
+# Blog Patterns
 
 ## Overflowing Hero
 
