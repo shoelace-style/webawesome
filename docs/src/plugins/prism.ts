@@ -67,11 +67,8 @@ function generateCodeBlock(node: Node) {
   }
 
   node.value = html`<div class="code-preview">
-  <pre><code id='code-block-${++count}' class="language-${language}">${highlight(
-    language,
-    node.value
-  )}</code></pre>
-  ${copyButton(`code-block-${count}`)}
+    <pre><code id='code-block-${++count}' class="language-${language}">${highlight(language, node.value)}</code></pre>
+    ${copyButton(`code-block-${count}`)}
   </div>`;
 }
 

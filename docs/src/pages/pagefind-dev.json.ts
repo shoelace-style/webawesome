@@ -9,7 +9,7 @@ export async function generateSearch() {
   const { index } = await pagefind.createIndex({});
   if (!index) return;
 
-  let json: Array<{ url: string, content: string }> = []
+  let json: Array<{ url: string; content: string }> = [];
 
   // Get all `src/content/docs/` entries
   let allContent = await getCollection('docs');
@@ -21,16 +21,16 @@ export async function generateSearch() {
   await Promise.allSettled(
     allContent.map(async entry => {
       const { category, title, description } = entry.data;
-      const resp = await fetch("http://localhost:4000/" + entry.slug)
-      const html = await resp.text()
+      const resp = await fetch('http://localhost:4000/' + entry.slug);
+      const html = await resp.text();
 
       json.push({
         content: html,
         url: entry.slug
-      })
+      });
       return await index?.addHTMLFile({
         content: html,
-        url: entry.slug,
+        url: entry.slug
       });
     })
   );
@@ -39,11 +39,10 @@ export async function generateSearch() {
   //   outputPath: path.join(process.cwd(), 'public', 'pagefind')
   // });
 
-  return json
+  return json;
 }
 
-
-let json: Record<string, unknown> = {}
+let json: Record<string, unknown> = {};
 
 // if (process.env.DEV_SEARCH !== 'generated') {
 //   await generateSearch();
