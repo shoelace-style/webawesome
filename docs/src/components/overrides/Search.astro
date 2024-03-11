@@ -149,126 +149,124 @@ const pagefindTranslations = {
 				});
 			});
 
-  let links: (HTMLAnchorElement | HTMLButtonElement)[] = []
+      let links: (HTMLAnchorElement | HTMLButtonElement)[] = []
 
-	function findSelectionIndex () {
-	  let index = links.findIndex((link) => link.getAttribute("aria-selected") === "true")
+	    function findSelectionIndex () {
+	      let index = links.findIndex((link) => link.getAttribute("aria-selected") === "true")
 
-	  return index
-	}
-
-  function selectPrevious () {
-    selectInDirection("backward")
-  }
-
-  function selectInDirection (direction: "forward" | "backward") {
-    const index = findSelectionIndex()
-    const step = direction === "forward" ? 1 : -1
-    const isOutOfRange = !(index + step < links.length && index + step >= 0)
-
-    if (isOutOfRange) {
-      return
-    }
-
-    const prevLink = links[index]
-    if (prevLink) {
-      prevLink.removeAttribute("aria-selected")
-      let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
-      if (!prevResult) {
-        prevResult = prevLink.closest(".pagefind-ui__result-title")
-      }
-      if (prevResult) {
-        prevResult.classList.remove("is-active")
-      }
-    }
-
-    const nextLink = links[index + step]
-    nextLink.setAttribute("aria-selected", "true")
-    nextLink.scrollIntoView({ block: "center" })
-
-    let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
-    if (!nextResult) {
-      nextResult = nextLink.closest(".pagefind-ui__result-title")
-    }
-    if (nextResult) {
-      nextResult.classList.add("is-active")
-    }
-  }
-
-	function selectNext () {
-	  selectInDirection("forward")
-	}
-
-	function handleKeyDown(e) {
-	  if (e.key === "Enter") {
-	    e.preventDefault()
-
-	    const currentItem = links[findSelectionIndex()]
-
-      // When we're on the page find UI button, we want to jump to the previous result before showing more results.
-      if (currentItem.tagName === "BUTTON") {
-        selectPrevious()
-      }
-
-      currentItem.click()
-	  }
-	  if (e.key === "ArrowUp") {
-	    e.preventDefault()
-	    selectPrevious()
-	    return
-	  }
-	  if (e.key === "ArrowDown") {
-	    e.preventDefault()
-	    selectNext()
-	    return
-	  }
-	}
-
-  const observerOptions = {
-    childList: true,
-    subtree: true,
-  };
-
-  const search = document.querySelector("#starlight__search")?.closest("dialog")
-
-  function debounce(this: any, func: (...args: any[]) => unknown, timeout = 300){
-    let timer: ReturnType<typeof setTimeout>;
-    return (...args: any[]) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
-    };
-  }
-  const setFirstSelection = debounce(() => {
-    if (links.length > 0 && links[0].tagName !== "BUTTON" && findSelectionIndex() === -1) {
-      selectNext()
-    }
-  }, 30)
-
-  if (search) {
-    search.addEventListener("keydown", handleKeyDown)
-
-	  const resultObserver = new MutationObserver(() => {
-	    links = Array.from(document.querySelectorAll(".pagefind-ui__result-link"))
-	      .concat(Array.from(document.querySelectorAll(".pagefind-ui__button")))
-	    for (const link of links) {
-	      if (!link.hasAttribute("aria-selected")) {
-	        link.removeAttribute("aria-selected")
-	      }
-	      link.setAttribute("tabindex", "-1")
+	      return index
 	    }
 
-      setFirstSelection()
-	  })
+      function selectPrevious () {
+        selectInDirection("backward")
+      }
 
-    resultObserver.observe(search, observerOptions)
-  }
+      function selectInDirection (direction: "forward" | "backward") {
+        const index = findSelectionIndex()
+        const step = direction === "forward" ? 1 : -1
+        const isOutOfRange = !(index + step < links.length && index + step >= 0)
 
+        if (isOutOfRange) {
+          return
+        }
+
+        const prevLink = links[index]
+        if (prevLink) {
+          prevLink.removeAttribute("aria-selected")
+          let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+          if (!prevResult) {
+            prevResult = prevLink.closest(".pagefind-ui__result-title")
+          }
+          if (prevResult) {
+            prevResult.classList.remove("is-active")
+          }
+        }
+
+        const nextLink = links[index + step]
+        nextLink.setAttribute("aria-selected", "true")
+        nextLink.scrollIntoView({ block: "center" })
+
+        let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+        if (!nextResult) {
+          nextResult = nextLink.closest(".pagefind-ui__result-title")
+        }
+        if (nextResult) {
+          nextResult.classList.add("is-active")
+        }
+      }
+
+	    function selectNext () {
+	      selectInDirection("forward")
+	    }
+
+	    function handleKeyDown(e) {
+	      if (e.key === "Enter") {
+	        e.preventDefault()
+
+	        const currentItem = links[findSelectionIndex()]
+
+          // When we're on the page find UI button, we want to jump to the previous result before showing more results.
+          if (currentItem.tagName === "BUTTON") {
+            selectPrevious()
+          }
+
+          currentItem.click()
+	      }
+	      if (e.key === "ArrowUp") {
+	        e.preventDefault()
+	        selectPrevious()
+	        return
+	      }
+	      if (e.key === "ArrowDown") {
+	        e.preventDefault()
+	        selectNext()
+	        return
+	      }
+	    }
+
+      const observerOptions = {
+        childList: true,
+        subtree: true,
+      };
+
+      const search = document.querySelector("#starlight__search")?.closest("dialog")
+
+      function debounce(this: any, func: (...args: any[]) => unknown, timeout = 300){
+        let timer: ReturnType<typeof setTimeout>;
+        return (...args: any[]) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+      }
+      const setFirstSelection = debounce(() => {
+        if (links.length > 0 && links[0].tagName !== "BUTTON" && findSelectionIndex() === -1) {
+          selectNext()
+        }
+      }, 30)
+
+      if (search) {
+        search.addEventListener("keydown", handleKeyDown)
+
+	      const resultObserver = new MutationObserver(() => {
+	        links = Array.from(document.querySelectorAll(".pagefind-ui__result-link"))
+	          .concat(Array.from(document.querySelectorAll(".pagefind-ui__button")))
+	        for (const link of links) {
+	          if (!link.hasAttribute("aria-selected")) {
+	            link.removeAttribute("aria-selected")
+	          }
+	          link.setAttribute("tabindex", "-1")
+	        }
+
+          setFirstSelection()
+	      })
+
+        resultObserver.observe(search, observerOptions)
+      }
 		}
 	}
 	customElements.define('site-search', SiteSearch);
 
 	// :is(.pagefind-ui__result-title, .pagefind-ui__result-nested) .pagefind-ui__result-link {}
-
 </script>
 
 <style>
