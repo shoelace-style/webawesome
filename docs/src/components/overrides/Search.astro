@@ -143,6 +143,123 @@ const pagefindTranslations = {
 		}
 	}
 	customElements.define('site-search', SiteSearch);
+
+	// :is(.pagefind-ui__result-title, .pagefind-ui__result-nested) .pagefind-ui__result-link {}
+
+  let input: HTMLInputElement | null = null
+  let links: (HTMLAnchorElement | HTMLButtonElement)[] = []
+
+	function findSelectionIndex () {
+	  let index = links.findIndex((link) => link.getAttribute("aria-selected") === "true")
+
+	  return index
+	}
+
+  function selectPrevious () {
+    const index = findSelectionIndex()
+    if (index - 1 >= 0) {
+      const prevLink = links[index]
+      if (prevLink) {
+        prevLink.removeAttribute("aria-selected")
+        let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+        if (!prevResult) {
+          prevResult = prevLink.closest(".pagefind-ui__result-title")
+        }
+        if (prevResult) {
+          prevResult.classList.remove("is-active")
+        }
+      }
+
+      const nextLink = links[index - 1]
+      nextLink.setAttribute("aria-selected", "true")
+      nextLink.scrollIntoView({ block: "center" })
+
+      let nextResult = nextLink.closest(".pagefind-ui__result-nested, pagefind-ui__button")
+      if (!nextResult) {
+        nextResult = nextLink.closest(".pagefind-ui__result-title")
+      }
+      if (nextResult) {
+        nextResult.classList.add("is-active")
+      }
+    }
+  }
+
+	function selectNext () {
+    const index = findSelectionIndex()
+    if (index + 1 < links.length) {
+      const prevLink = links[index]
+      if (prevLink) {
+        prevLink.removeAttribute("aria-selected")
+        let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+        if (!prevResult) {
+          prevResult = prevLink.closest(".pagefind-ui__result-title")
+        }
+        if (prevResult) {
+          prevResult.classList.remove("is-active")
+        }
+      }
+
+      const nextLink = links[index + 1]
+      nextLink.setAttribute("aria-selected", "true")
+      nextLink.scrollIntoView({ block: "center" })
+
+      let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+      if (!nextResult) {
+        nextResult = nextLink.closest(".pagefind-ui__result-title")
+      }
+      if (nextResult) {
+        nextResult.classList.add("is-active")
+      }
+    }
+	}
+
+	function handleKeyDown(e) {
+	  if (e.key === "Enter") {
+	    e.preventDefault()
+
+	    const currentItem = links[findSelectionIndex()]
+
+      if (currentItem.tagName === "BUTTON") {
+        selectPrevious()
+      }
+
+      currentItem.click()
+	  }
+	  if (e.key === "ArrowUp") {
+	    e.preventDefault()
+	    selectPrevious()
+	    return
+	  }
+	  if (e.key === "ArrowDown") {
+	    e.preventDefault()
+	    selectNext()
+	    return
+	  }
+	}
+
+  const observerOptions = {
+    childList: true,
+    subtree: true,
+  };
+
+  const search = document.querySelector("#starlight__search")?.closest("dialog")
+
+  if (search) {
+    search.addEventListener("keydown", handleKeyDown)
+
+	  const resultObserver = new MutationObserver(() => {
+	    links = Array.from(document.querySelectorAll(".pagefind-ui__result-link"))
+	      .concat(Array.from(document.querySelectorAll(".pagefind-ui__button")))
+	    for (const link of links) {
+	      if (!link.hasAttribute("aria-selected")) {
+	        link.removeAttribute("aria-selected")
+	      }
+	      link.setAttribute("tabindex", "-1")
+	    }
+	  })
+
+    resultObserver.observe(search, observerOptions)
+  }
 </script>
 
 <style>
@@ -312,6 +429,12 @@ const pagefindTranslations = {
 		height: 100%;
 	}
 
+  #starlight__search .pagefind-ui__results-area {
+    overflow: auto;
+    max-height: 70vh;
+    padding: 8px;
+  }
+
 	#starlight__search .pagefind-ui__results > * + * {
 		margin-top: var(--sl-search-result-spacing);
 	}
@@ -334,15 +457,17 @@ const pagefindTranslations = {
 
 	#starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):hover,
 	#starlight__search
-		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
+		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):is(.is-active, :focus-within),
 	#starlight__search .pagefind-ui__result-nested:hover,
-	#starlight__search .pagefind-ui__result-nested:focus-within {
+	#starlight__search .pagefind-ui__result-nested:is(.is-active, :focus-within),
+  #starlight__search .pagefind-ui__button.is-active {
 		outline: 1px solid var(--sl-color-accent-high);
 	}
 
 	#starlight__search
-		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
-	#starlight__search .pagefind-ui__result-nested:focus-within {
+		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):is(.is-active, :focus-within),
+	#starlight__search .pagefind-ui__result-nested:is(.is-active, :focus-within),
+	#starlight__search .pagefind-ui__button.is-active {
 		background-color: var(--sl-color-accent-low);
 	}
 
@@ -433,4 +558,6 @@ const pagefindTranslations = {
 		background-color: transparent;
 		font-weight: 600;
 	}
+
 </style>
+
