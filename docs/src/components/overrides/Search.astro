@@ -127,6 +127,7 @@ const pagefindTranslations = {
 						element: '#starlight__search',
 						baseUrl: import.meta.env.BASE_URL,
 						bundlePath: import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind/',
+            highlightParam: "highlight",
 						showImages: false,
 						translations,
 						showSubResults: true,
@@ -146,7 +147,6 @@ const pagefindTranslations = {
 
 	// :is(.pagefind-ui__result-title, .pagefind-ui__result-nested) .pagefind-ui__result-link {}
 
-  let input: HTMLInputElement | null = null
   let links: (HTMLAnchorElement | HTMLButtonElement)[] = []
 
 	function findSelectionIndex () {
@@ -156,61 +156,45 @@ const pagefindTranslations = {
 	}
 
   function selectPrevious () {
+    selectInDirection("backward")
+  }
+
+  function selectInDirection (direction: "forward" | "backward") {
     const index = findSelectionIndex()
-    if (index - 1 >= 0) {
-      const prevLink = links[index]
-      if (prevLink) {
-        prevLink.removeAttribute("aria-selected")
-        let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
-        if (!prevResult) {
-          prevResult = prevLink.closest(".pagefind-ui__result-title")
-        }
-        if (prevResult) {
-          prevResult.classList.remove("is-active")
-        }
-      }
+    const step = direction === "forward" ? 1 : -1
+    const isOutOfRange = !(index + step < links.length && index + step >= 0)
 
-      const nextLink = links[index - 1]
-      nextLink.setAttribute("aria-selected", "true")
-      nextLink.scrollIntoView({ block: "center" })
+    if (isOutOfRange) {
+      return
+    }
 
-      let nextResult = nextLink.closest(".pagefind-ui__result-nested, pagefind-ui__button")
-      if (!nextResult) {
-        nextResult = nextLink.closest(".pagefind-ui__result-title")
+    const prevLink = links[index]
+    if (prevLink) {
+      prevLink.removeAttribute("aria-selected")
+      let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+      if (!prevResult) {
+        prevResult = prevLink.closest(".pagefind-ui__result-title")
       }
-      if (nextResult) {
-        nextResult.classList.add("is-active")
+      if (prevResult) {
+        prevResult.classList.remove("is-active")
       }
+    }
+
+    const nextLink = links[index + step]
+    nextLink.setAttribute("aria-selected", "true")
+    nextLink.scrollIntoView({ block: "center" })
+
+    let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+    if (!nextResult) {
+      nextResult = nextLink.closest(".pagefind-ui__result-title")
+    }
+    if (nextResult) {
+      nextResult.classList.add("is-active")
     }
   }
 
 	function selectNext () {
-    const index = findSelectionIndex()
-    if (index + 1 < links.length) {
-      const prevLink = links[index]
-      if (prevLink) {
-        prevLink.removeAttribute("aria-selected")
-        let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
-        if (!prevResult) {
-          prevResult = prevLink.closest(".pagefind-ui__result-title")
-        }
-        if (prevResult) {
-          prevResult.classList.remove("is-active")
-        }
-      }
-
-      const nextLink = links[index + 1]
-      nextLink.setAttribute("aria-selected", "true")
-      nextLink.scrollIntoView({ block: "center" })
-
-      let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
-      if (!nextResult) {
-        nextResult = nextLink.closest(".pagefind-ui__result-title")
-      }
-      if (nextResult) {
-        nextResult.classList.add("is-active")
-      }
-    }
+	  selectInDirection("forward")
 	}
 
 	function handleKeyDown(e) {
@@ -219,6 +203,7 @@ const pagefindTranslations = {
 
 	    const currentItem = links[findSelectionIndex()]
 
+      // When we're on the page find UI button, we want to jump to the previous result before showing more results.
       if (currentItem.tagName === "BUTTON") {
         selectPrevious()
       }
@@ -244,6 +229,19 @@ const pagefindTranslations = {
 
   const search = document.querySelector("#starlight__search")?.closest("dialog")
 
+  function debounce(this: any, func: (...args: any[]) => unknown, timeout = 300){
+    let timer: ReturnType<typeof setTimeout>;
+    return (...args: any[]) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+  const setFirstSelection = debounce(() => {
+    if (links.length > 0 && links[0].tagName !== "BUTTON" && findSelectionIndex() === -1) {
+      selectNext()
+    }
+  }, 0)
+
   if (search) {
     search.addEventListener("keydown", handleKeyDown)
 
@@ -256,6 +254,8 @@ const pagefindTranslations = {
 	      }
 	      link.setAttribute("tabindex", "-1")
 	    }
+
+      setFirstSelection()
 	  })
 
     resultObserver.observe(search, observerOptions)
