@@ -114,13 +114,15 @@ const pagefindTranslations = {
 			const stripTrailingSlash = (path: string) => path.replace(/(.)\/(#.*)?$/, '$1$2');
 			const formatURL = shouldStrip ? stripTrailingSlash : (path: string) => path;
 
-			window.addEventListener('DOMContentLoaded', () => {
+			window.addEventListener('turbo:load', () => {
 				const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
 				onIdle(async () => {
 				  if (import.meta.env.DEV) {
 				    // Generate a fake search in dev by calling a JSON endpoint that generates the search.
             await fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind-dev.json')
 				  }
+				  document.querySelector("#starlight__search").innerHTML = ""
+
 					// @ts-expect-error — Missing types for @pagefind/default-ui package.
 					const { PagefindUI } = await import('@pagefind/default-ui');
 					new PagefindUI({
