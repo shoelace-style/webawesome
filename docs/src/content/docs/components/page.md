@@ -1,5 +1,5 @@
 ---
-title: Layout
+title: Page
 description: Layouts offer an easy way to scaffold pages using minimal markup.
 layout: '../../../layouts/ComponentLayout.astro'
 ---
