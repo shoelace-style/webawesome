@@ -83,6 +83,7 @@ export default css`
   [part~='footer'] {
     grid-area: footer;
   }
+
   /* Z-indexes */
   [part~='banner'],
   [part~='header'],

@@ -32,6 +32,8 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart subheader - Shown below the header, usually intended for things like breadcrumbs and other page level navigation.
  * @csspart body - The wrapper around menu, main, and aside.
  * @csspart menu - The left hand side of the page. Generally intended for navigation.
+ * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
+ * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
  * @csspart main-header - The header above main content.
  * @csspart main-content - The main content.
  * @csspart main-footer - The footer below main content.
@@ -216,9 +218,10 @@ export default class WaPage extends WebAwesomeElement {
           <div class="menu" part="menu">
             <slot name="menu">
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
-                <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}></slot>
+                <!-- Add fallback divs so that CSS grid works properly. -->
+                <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
                 <slot name=${this.view === 'desktop' ? 'navigation' : '____'}></slot>
-                <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}></slot>
+                <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
               </nav>
             </slot>
           </div>
@@ -263,9 +266,9 @@ export default class WaPage extends WebAwesomeElement {
         "
         class="navigation-drawer"
       >
-        <slot slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+        <slot part="navigation-header" slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
-        <slot slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+        <slot part="navigation-footer" slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
       </wa-drawer>
     `;
   }
