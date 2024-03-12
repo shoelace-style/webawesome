@@ -1,6 +1,6 @@
 // import { APIContext } from "astro";
 import * as pagefind from 'pagefind';
-// import * as path from 'node:path';
+import * as path from 'node:path';
 
 // clean up once complete
 import { getCollection } from 'astro:content';
@@ -24,10 +24,10 @@ export async function generateSearch() {
       const resp = await fetch('http://localhost:4000/' + entry.slug);
       const html = await resp.text();
 
-      json.push({
-        content: html,
-        url: entry.slug
-      });
+      // json.push({
+      //   content: html,
+      //   url: entry.slug
+      // });
       return await index?.addHTMLFile({
         content: html,
         url: entry.slug
@@ -35,27 +35,17 @@ export async function generateSearch() {
     })
   );
 
-  // const { errors } = await index.writeFiles({
-  //   outputPath: path.join(process.cwd(), 'public', 'pagefind')
-  // });
+  const { errors } = await index.writeFiles({
+    outputPath: path.join(process.cwd(), 'public', 'pagefind')
+  });
 
   return json;
 }
 
-let json: Record<string, unknown> = {};
-
-// if (process.env.DEV_SEARCH !== 'generated') {
-//   await generateSearch();
-//
-//   process.env.DEV_SEARCH = 'generated';
-//
-//   setTimeout(() => {
-//     process.env.DEV_SEARCH = ""
-//   }, 30_000_000)
-// }
-
 export async function GET() {
-  return new Response(JSON.stringify(json), {
+  await generateSearch();
+
+  return new Response(JSON.stringify({}), {
     status: 200,
     headers: {
       'Content-Type': 'application/json'
