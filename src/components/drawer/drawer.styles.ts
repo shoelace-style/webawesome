@@ -9,6 +9,7 @@ export default css`
     --header-spacing: var(--wa-space-l);
     --body-spacing: var(--wa-space-l);
     --footer-spacing: var(--wa-space-l);
+    --panel-background: var(--wa-color-surface-raised);
 
     display: contents;
   }
@@ -39,7 +40,7 @@ export default css`
     z-index: 2;
     max-width: 100%;
     max-height: 100%;
-    background-color: var(--wa-color-surface-raised);
+    background-color: var(--panel-background);
     box-shadow: var(--wa-shadow-level-3);
     overflow: auto;
     pointer-events: all;

@@ -78,3 +78,8 @@ main {
 [slot='footer'] {
   background-color: var(--wa-color-blue-80);
 }
+
+wa-page::part(drawer) {
+  --size: 300px;
+  --panel-background: var(--wa-color-red-80);
+}
