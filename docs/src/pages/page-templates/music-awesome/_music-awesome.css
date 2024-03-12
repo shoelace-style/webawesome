@@ -196,3 +196,7 @@ table td {
   max-width: 100%;
   overflow-x: auto;
 }
+
+astro-dev-toolbar {
+  display: none;
+}

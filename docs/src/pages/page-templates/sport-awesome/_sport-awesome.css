@@ -195,3 +195,7 @@ wa-page[view='mobile'] .navigation--desktop {
     display: flex;
   }
 }
+
+astro-dev-toolbar {
+  display: none;
+}
