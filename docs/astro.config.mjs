@@ -38,7 +38,7 @@ export default defineConfig({
   vite: {
     server: {
       watch: {
-        ignored: ["./public/pagefind/**/*.*"], // HERE
+        ignored: ['./public/pagefind/**/*.*'] // HERE
       }
     },
     plugins: [
