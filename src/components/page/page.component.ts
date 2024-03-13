@@ -268,7 +268,11 @@ export default class WaPage extends WebAwesomeElement {
       >
         <slot part="navigation-header" slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
-        <slot part="navigation-footer" slot="footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+        <slot
+          part="navigation-footer"
+          slot="footer"
+          name=${this.view === 'mobile' ? 'navigation-footer' : '___'}
+        ></slot>
       </wa-drawer>
     `;
   }
