@@ -1,7 +1,3 @@
-:root {
-  --sl-content-width: 50rem;
-}
-
 /* Code highlighter */
 pre,
 .sl-markdown-content pre:not(:where(.not-content *)) {

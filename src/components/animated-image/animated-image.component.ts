@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './animated-image.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -26,7 +27,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --icon-size - The size of the play/pause icons.
  */
 export default class WaAnimatedImage extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   @query('.animated-image__animated') animatedImage: HTMLImageElement;

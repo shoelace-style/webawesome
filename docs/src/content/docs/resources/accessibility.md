@@ -17,5 +17,4 @@ I’m fully aware that I may not get it right every time for every user, so I in
 
 This is the path forward. Together, we will continue to make Web Awesome accessible to as many users as possible.
 
-— Cory LaViska<br>
-_Creator of Web Awesome_
+— The Web Awesome team

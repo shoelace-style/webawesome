@@ -9,6 +9,8 @@ import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './radio-group.styles.js';
 import WaButtonGroup from '../button-group/button-group.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -42,7 +44,7 @@ import type WaRadioButton from '../radio-button/radio-button.js';
  * @csspart button-group__base - The button group's `base` part.
  */
 export default class WaRadioGroup extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
   static dependencies = { 'wa-button-group': WaButtonGroup };
 
   protected readonly formControlController = new FormControlController(this);

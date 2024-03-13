@@ -52,15 +52,62 @@ const pagefindTranslations = {
 
 <script>
 	class SiteSearch extends HTMLElement {
-    translations = {}
-		stripTrailingSlash = (path: string) => path.replace(/(.)\/(#.*)?$/, '$1$2');
+		connectedCallback() {
+			// super.connectedCallback();
+			const openBtn = () => this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
+			const closeBtn = () => this.querySelector<HTMLButtonElement>('button[data-close-modal]')!;
+			const dialog = () => this.querySelector('dialog')!;
+			const dialogFrame = () => this.querySelector('.dialog-frame')!;
 
-		connectedCallback () {
-			this.translations = {};
+			/** Close the modal if a user clicks on a link or outside of the modal. */
+			const onClick = (event: MouseEvent) => {
+				const isLink = 'href' in (event.target || {});
+				if (
+					isLink ||
+					(document.body.contains(event.target as Node) &&
+						!dialogFrame().contains(event.target as Node))
+				) {
+					closeModal();
+				}
+			};
+
+			const openModal = (event?: MouseEvent) => {
+				dialog().showModal();
+				document.body.toggleAttribute('data-search-modal-open', true);
+				this.querySelector('input')?.focus();
+				event?.stopPropagation();
+				window.addEventListener('click', onClick);
+			};
+
+			const closeModal = () => dialog().close();
+
+			openBtn().addEventListener('click', openModal);
+			openBtn().disabled = false;
+			closeBtn().addEventListener('click', closeModal);
+
+			dialog().addEventListener('close', () => {
+				document.body.toggleAttribute('data-search-modal-open', false);
+				window.removeEventListener('click', onClick);
+			});
+
+			// Listen for `/` and `cmd + k` keyboard shortcuts.
+			window.addEventListener('keydown', (e) => {
+				const isInput =
+					document.activeElement instanceof HTMLElement &&
+					(['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase()) ||
+						document.activeElement.isContentEditable);
+				if (e.metaKey === true && e.key === 'k') {
+					dialog().open ? closeModal() : openModal();
+					e.preventDefault();
+				} else if (e.key === '/' && !dialog().open && !isInput) {
+					openModal();
+					e.preventDefault();
+				}
+			});
+
 			try {
 				this.translations = JSON.parse(this.dataset.translations || '{}');
 			} catch {}
-
 
 			this.openBtn.addEventListener('click', this.openModal);
 			this.openBtn.disabled = false;
@@ -146,37 +193,153 @@ const pagefindTranslations = {
 
     loadPageFind = () => {
 			const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-			onIdle(async () => {
-				if (import.meta.env.DEV) {
-				  // Generate a fake search in dev by calling a JSON endpoint that generates the search.
-          await fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind-dev.json')
-				}
+			document.querySelector("#starlight__search").innerHTML = ""
 
-				const search = document.querySelector("#starlight__search")
+			window.addEventListener('turbo:load', () => {
+				document.querySelector("#starlight__search").innerHTML = ""
 
-        // Clear out search between page loads.
-        if (search) {
-				  search.firstElementChild?.remove()
-				}
+				const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+				onIdle(async () => {
+				  if (import.meta.env.DEV) {
+				    // Generate a fake search in dev by calling a JSON endpoint that generates the search.
+            await fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind-dev.json')
+				  }
 
-				// @ts-expect-error — Missing types for @pagefind/default-ui package.
-				const { PagefindUI } = await import('@pagefind/default-ui');
-				new PagefindUI({
-					element: '#starlight__search',
-					baseUrl: import.meta.env.BASE_URL,
-					bundlePath: import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind/',
-					showImages: false,
-					translations: this.translations,
-					showSubResults: true,
-					processResult: (result: { url: string; sub_results: Array<{ url: string }> }) => {
-						result.url = this.formatURL(result.url);
-						result.sub_results = result.sub_results.map((sub_result) => {
-							sub_result.url = this.formatURL(sub_result.url);
-							return sub_result;
-						});
-					},
+					// @ts-expect-error — Missing types for @pagefind/default-ui package.
+					const { PagefindUI } = await import('@pagefind/default-ui');
+
+			    document.querySelector("#starlight__search").innerHTML = ""
+					new PagefindUI({
+						element: '#starlight__search',
+						baseUrl: import.meta.env.BASE_URL,
+						bundlePath: import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind/',
+						showImages: false,
+						translations,
+						showSubResults: true,
+						processResult: (result: { url: string; sub_results: Array<{ url: string }> }) => {
+							result.url = formatURL(result.url);
+							result.sub_results = result.sub_results.map((sub_result) => {
+								sub_result.url = formatURL(sub_result.url);
+								return sub_result;
+							});
+						},
+					});
 				});
 			});
+
+      let links: (HTMLAnchorElement | HTMLButtonElement)[] = []
+
+	    function findSelectionIndex () {
+	      let index = links.findIndex((link) => link.getAttribute("aria-selected") === "true")
+
+	      return index
+	    }
+
+      function selectPrevious () {
+        selectInDirection("backward")
+      }
+
+      function selectInDirection (direction: "forward" | "backward") {
+        const index = findSelectionIndex()
+        const step = direction === "forward" ? 1 : -1
+        const isOutOfRange = !(index + step < links.length && index + step >= 0)
+
+        if (isOutOfRange) {
+          return
+        }
+
+        const prevLink = links[index]
+        if (prevLink) {
+          prevLink.removeAttribute("aria-selected")
+          let prevResult = prevLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+          if (!prevResult) {
+            prevResult = prevLink.closest(".pagefind-ui__result-title")
+          }
+          if (prevResult) {
+            prevResult.classList.remove("is-active")
+          }
+        }
+
+        const nextLink = links[index + step]
+        nextLink.setAttribute("aria-selected", "true")
+        nextLink.scrollIntoView({ block: "center" })
+
+        let nextResult = nextLink.closest(".pagefind-ui__result-nested, .pagefind-ui__button")
+        if (!nextResult) {
+          nextResult = nextLink.closest(".pagefind-ui__result-title")
+        }
+        if (nextResult) {
+          nextResult.classList.add("is-active")
+        }
+      }
+
+	    function selectNext () {
+	      selectInDirection("forward")
+	    }
+
+	    function handleKeyDown(e) {
+	      if (e.key === "Enter") {
+	        e.preventDefault()
+
+	        const currentItem = links[findSelectionIndex()]
+
+          // When we're on the page find UI button, we want to jump to the previous result before showing more results.
+          if (currentItem.tagName === "BUTTON") {
+            selectPrevious()
+          }
+
+          currentItem.click()
+	      }
+	      if (e.key === "ArrowUp") {
+	        e.preventDefault()
+	        selectPrevious()
+	        return
+	      }
+	      if (e.key === "ArrowDown") {
+	        e.preventDefault()
+	        selectNext()
+	        return
+	      }
+	    }
+
+      const observerOptions = {
+        childList: true,
+        subtree: true,
+      };
+
+      const search = document.querySelector("#starlight__search")?.closest("dialog")
+
+      function debounce(this: any, func: (...args: any[]) => unknown, timeout = 300){
+        let timer: ReturnType<typeof setTimeout>;
+        return (...args: any[]) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+      }
+      const setFirstSelection = debounce(() => {
+        if (links.length > 0 && links[0].tagName !== "BUTTON" && findSelectionIndex() === -1) {
+          selectNext()
+        }
+      }, 30)
+
+      if (search) {
+        search.addEventListener("keydown", handleKeyDown)
+
+	      const resultObserver = new MutationObserver(() => {
+	        links = Array.from(document.querySelectorAll(".pagefind-ui__result-link"))
+	          .concat(Array.from(document.querySelectorAll(".pagefind-ui__button")))
+	        for (const link of links) {
+	          if (!link.hasAttribute("aria-selected")) {
+	            link.removeAttribute("aria-selected")
+	          }
+	          link.setAttribute("tabindex", "-1")
+	        }
+
+          setFirstSelection()
+	      })
+
+        resultObserver.observe(search, observerOptions)
+      }
 		}
 
 		get formatURL () {
@@ -189,6 +352,8 @@ const pagefindTranslations = {
 	}
 
 	customElements.define('site-search', SiteSearch);
+
+	// :is(.pagefind-ui__result-title, .pagefind-ui__result-nested) .pagefind-ui__result-link {}
 </script>
 
 <style>
@@ -358,6 +523,12 @@ const pagefindTranslations = {
 		height: 100%;
 	}
 
+  #starlight__search .pagefind-ui__results-area {
+    overflow: auto;
+    max-height: 70vh;
+    padding: 8px;
+  }
+
 	#starlight__search .pagefind-ui__results > * + * {
 		margin-top: var(--sl-search-result-spacing);
 	}
@@ -380,15 +551,17 @@ const pagefindTranslations = {
 
 	#starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):hover,
 	#starlight__search
-		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
+		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):is(.is-active, :focus-within),
 	#starlight__search .pagefind-ui__result-nested:hover,
-	#starlight__search .pagefind-ui__result-nested:focus-within {
+	#starlight__search .pagefind-ui__result-nested:is(.is-active, :focus-within),
+  #starlight__search .pagefind-ui__button.is-active {
 		outline: 1px solid var(--sl-color-accent-high);
 	}
 
 	#starlight__search
-		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):focus-within,
-	#starlight__search .pagefind-ui__result-nested:focus-within {
+		.pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)):is(.is-active, :focus-within),
+	#starlight__search .pagefind-ui__result-nested:is(.is-active, :focus-within),
+	#starlight__search .pagefind-ui__button.is-active {
 		background-color: var(--sl-color-accent-low);
 	}
 
@@ -479,4 +652,6 @@ const pagefindTranslations = {
 		background-color: transparent;
 		font-weight: 600;
 	}
+
 </style>
+

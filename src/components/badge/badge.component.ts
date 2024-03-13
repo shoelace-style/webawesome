@@ -1,6 +1,7 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './badge.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
@@ -23,7 +24,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --content-color - The color of the badge's content.
  */
 export default class WaBadge extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   /** The badge's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';

@@ -6,6 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './button.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WaSpinner from '../spinner/spinner.component.js';
@@ -53,7 +54,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --label-color-hover - The color of the button's label on hover.
  */
 export default class WaButton extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = {
     'wa-icon': WaIcon,
     'wa-spinner': WaSpinner

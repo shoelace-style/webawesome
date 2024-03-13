@@ -7,6 +7,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './dropdown.styles.js';
 import WaPopup from '../popup/popup.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -40,7 +41,7 @@ import type WaMenu from '../menu/menu.js';
  * @animation dropdown.hide - The animation to use when hiding the dropdown.
  */
 export default class WaDropdown extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-popup': WaPopup };
 
   @query('.dropdown') popup: WaPopup;

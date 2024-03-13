@@ -1,4 +1,4 @@
-import '../../../dist/shoelace.js';
+import '../../../dist/webawesome.js';
 import { clickOnElement, dragElement, moveMouseOnElement } from '../../internal/test.js';
 import { expect, fixture, html, nextFrame, oneEvent } from '@open-wc/testing';
 import { map } from 'lit/directives/map.js';
@@ -11,7 +11,8 @@ describe('<wa-carousel>', () => {
   const sandbox = sinon.createSandbox();
 
   afterEach(async () => {
-    await resetMouse();
+    // eslint-disable-next-line
+    await resetMouse().catch(() => {});
   });
 
   afterEach(() => {
@@ -641,7 +642,7 @@ describe('<wa-carousel>', () => {
           </wa-carousel>
         `);
         sandbox.spy(el, 'goToSlide');
-        const expectedCarouselItem: HTMLElement = el.querySelector('sl-carousel-item:nth-child(2)')!;
+        const expectedCarouselItem: HTMLElement = el.querySelector('wa-carousel-item:nth-child(2)')!;
 
         // Act
         el.next();
@@ -668,7 +669,7 @@ describe('<wa-carousel>', () => {
             <wa-carousel-item>Node 3</wa-carousel-item>
           </wa-carousel>
         `);
-        const expectedCarouselItem: HTMLElement = el.querySelector('sl-carousel-item:nth-child(1)')!;
+        const expectedCarouselItem: HTMLElement = el.querySelector('wa-carousel-item:nth-child(1)')!;
 
         el.goToSlide(1);
 

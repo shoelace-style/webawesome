@@ -8,6 +8,8 @@ import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './input.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -56,7 +58,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
  */
 export default class WaInput extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   private readonly formControlController = new FormControlController(this, {

@@ -1,9 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
-
   :host {
     --height: 1.25rem;
     --track-color: var(--wa-color-neutral-fill-highlight);

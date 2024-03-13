@@ -1,11 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
 
 export default css`
-  ${componentStyles}
-  ${formControlStyles}
-
   :host {
     --thumb-size: 20px;
     --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 2.5);

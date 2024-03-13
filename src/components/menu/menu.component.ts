@@ -1,9 +1,11 @@
 import { html } from 'lit';
 import { query } from 'lit/decorators.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './menu.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 import type WaMenuItem from '../menu-item/menu-item.component.js';
+
 export interface MenuSelectEventDetail {
   item: WaMenuItem;
 }
@@ -19,7 +21,7 @@ export interface MenuSelectEventDetail {
  * @event {{ item: WaMenuItem }} wa-select - Emitted when a menu item is selected.
  */
 export default class WaMenu extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 

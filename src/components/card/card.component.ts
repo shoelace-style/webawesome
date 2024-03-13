@@ -1,6 +1,7 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './card.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
@@ -31,7 +32,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --padding - The padding for each section in the card. Expects a single value.
  */
 export default class WaCard extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
 

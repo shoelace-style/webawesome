@@ -11,6 +11,7 @@ import { prefersReducedMotion } from '../../internal/animate.js';
 import { range } from 'lit/directives/range.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './carousel.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -47,7 +48,7 @@ import type WaCarouselItem from '../carousel-item/carousel-item.component.js';
  *  partially visible as a scroll hint.
  */
 export default class SlCarousel extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   /** When set, allows the user to navigate the carousel in the same direction indefinitely. */

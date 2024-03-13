@@ -2,6 +2,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './avatar.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -25,7 +26,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --size - The size of the avatar.
  */
 export default class WaAvatar extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = {
     'wa-icon': WaIcon
   };

@@ -7,6 +7,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './textarea.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
@@ -42,7 +44,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
  */
 export default class WaTextarea extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   private readonly formControlController = new FormControlController(this, {
     assumeInteractionOn: ['wa-blur', 'wa-input']

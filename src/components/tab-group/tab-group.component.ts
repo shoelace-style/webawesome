@@ -4,6 +4,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './tab-group.styles.js';
 import WaIconButton from '../icon-button/icon-button.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -40,7 +41,7 @@ import type WaTabPanel from '../tab-panel/tab-panel.js';
  * @cssproperty --track-width - The width of the indicator's track (the line that separates tabs from panels).
  */
 export default class WaTabGroup extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon-button': WaIconButton };
 
   private readonly localize = new LocalizeController(this);

@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './resize-observer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
@@ -16,7 +17,7 @@ import type { CSSResultGroup } from 'lit';
  * @event {{ entries: ResizeObserverEntry[] }} wa-resize - Emitted when the element is resized.
  */
 export default class WaResizeObserver extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   private resizeObserver: ResizeObserver;
   private observedElements: HTMLElement[] = [];

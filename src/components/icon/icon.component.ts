@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { isTemplateResult } from 'lit/directive-helpers.js';
 import { property, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './icon.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
@@ -33,7 +34,7 @@ interface IconSource {
  * @csspart use - The <use> element generated when using `spriteSheet: true`
  */
 export default class WaIcon extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   private initialRender = false;
 

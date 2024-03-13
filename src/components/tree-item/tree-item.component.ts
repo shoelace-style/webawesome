@@ -7,6 +7,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import { when } from 'lit/directives/when.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './tree-item.styles.js';
 import WaCheckbox from '../checkbox/checkbox.component.js';
 import WaIcon from '../icon/icon.component.js';
@@ -57,7 +58,7 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart checkbox__label - The checkbox's exported `label` part.
  */
 export default class WaTreeItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = {
     'wa-checkbox': WaCheckbox,
     'wa-icon': WaIcon,

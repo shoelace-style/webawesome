@@ -33,7 +33,8 @@ const getDivider = (splitPanel: WaSplitPanel): Element => {
 
 describe('<wa-split-panel>', () => {
   afterEach(async () => {
-    await resetMouse();
+    // eslint-disable-next-line
+    await resetMouse().catch(() => {});
   });
 
   it('should render a component', async () => {

@@ -11,6 +11,8 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './select.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WaPopup from '../popup/popup.component.js';
@@ -74,7 +76,7 @@ import type WaOption from '../option/option.component.js';
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
 export default class WaSelect extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
   static dependencies = {
     'wa-icon': WaIcon,
     'wa-popup': WaPopup,

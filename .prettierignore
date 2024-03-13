@@ -1,4 +1,5 @@
 *.hbs
+*.mdx
 .cache
 .github
 cspell.json

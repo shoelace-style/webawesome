@@ -6,6 +6,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './rating.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -32,7 +33,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
 export default class WaRating extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   private readonly localize = new LocalizeController(this);

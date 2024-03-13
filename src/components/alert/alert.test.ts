@@ -63,7 +63,8 @@ describe('<wa-alert>', () => {
 
   afterEach(async () => {
     clock?.restore();
-    await resetMouse();
+    // eslint-disable-next-line
+    await resetMouse().catch(() => {});
   });
 
   it('renders', async () => {
@@ -96,28 +97,30 @@ describe('<wa-alert>', () => {
 
       expectAlertToBeInvisible(alert);
 
-      await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, () => alert.show());
+      await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, async () => await alert.show());
     });
 
     it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
       const alert = await fixture<WaAlert>(html` <wa-alert open>I am an alert</wa-alert>`);
 
-      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, () => alert.hide());
+      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, async () => await alert.hide());
     });
 
     it('should emit wa-show and wa-after-show when setting open = true', async () => {
       const alert = await fixture<WaAlert>(html` <wa-alert>I am an alert</wa-alert> `);
 
-      await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, () => {
+      await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, async () => {
         alert.open = true;
+        await alert.updateComplete;
       });
     });
 
     it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
       const alert = await fixture<WaAlert>(html` <wa-alert open>I am an alert</wa-alert> `);
 
-      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, () => {
+      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, async () => {
         alert.open = false;
+        await alert.updateComplete;
       });
     });
   });
@@ -134,8 +137,8 @@ describe('<wa-alert>', () => {
       const alert = await fixture<WaAlert>(html` <wa-alert open closable>I am an alert</wa-alert> `);
       const closeButton = getCloseButton(alert);
 
-      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, () => {
-        clickOnElement(closeButton!);
+      await expectHideAndAfterHideToBeEmittedInCorrectOrder(alert, async () => {
+        await clickOnElement(closeButton!);
       });
     });
   });
@@ -159,7 +162,7 @@ describe('<wa-alert>', () => {
     it('can be rendered as a toast', async () => {
       const alert = await fixture<WaAlert>(html`<wa-alert>I am an alert</wa-alert>`);
 
-      expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, () => alert.toast());
+      await expectShowAndAfterShowToBeEmittedInCorrectOrder(alert, async () => await alert.toast());
       const toastStack = getToastStack();
       expect(toastStack).to.be.visible;
       expect(toastStack?.firstChild).to.be.equal(alert);
@@ -292,17 +295,15 @@ describe('<wa-alert>', () => {
       });
     });
   });
+});
 
-  describe('alert variants', () => {
-    const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
+it('Should properly render alert variants', async () => {
+  const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
-    variants.forEach(variant => {
-      it(`adapts to the variant: ${variant}`, async () => {
-        const alert = await fixture<WaAlert>(html`<wa-alert variant="${variant}" open>I am an alert</wa-alert>`);
+  for (const variant of variants) {
+    const alert = await fixture<WaAlert>(html`<wa-alert variant="${variant}" open>I am an alert</wa-alert>`);
 
-        const alertContainer = getAlertContainer(alert);
-        expect(alertContainer).to.have.class(`alert--${variant}`);
-      });
-    });
-  });
+    const alertContainer = getAlertContainer(alert);
+    expect(alertContainer).to.have.class(`alert--${variant}`);
+  }
 });

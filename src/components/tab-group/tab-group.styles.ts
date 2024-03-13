@@ -1,9 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
-
   :host {
     --indicator-color: var(--wa-color-brand-spot);
     --track-color: var(--wa-color-neutral-fill-highlight);

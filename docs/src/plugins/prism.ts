@@ -66,10 +66,10 @@ function generateCodeBlock(node: Node) {
     language = 'plaintext';
   }
 
-  node.value = html`<pre><code id='code-block-${++count}' class="language-${language}">${highlight(
-    language,
-    node.value
-  )}</code>${copyButton(`code-block-${count}`)}</pre>`;
+  node.value = html`<div class="code-preview">
+    <pre><code id='code-block-${++count}' class="language-${language}">${highlight(language, node.value)}</code></pre>
+    ${copyButton(`code-block-${count}`)}
+  </div>`;
 }
 
 function generatePreviewCodeBlock(node: Node, reactCode: string) {

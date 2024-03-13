@@ -452,9 +452,10 @@ describe('<wa-select>', () => {
             <wa-option value="option-2">Option 2</wa-option>
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
-          <wa-button type="reset">Reset</wa-button>
+          <wa-button type="reset">Reset</button>
         </form>
       `);
+
       const resetButton = form.querySelector('wa-button')!;
       const select = form.querySelector('wa-select')!;
 
@@ -462,9 +463,17 @@ describe('<wa-select>', () => {
       await select.updateComplete;
       expect(select.value).to.equal('option-3');
 
-      setTimeout(() => clickOnElement(resetButton));
-      await oneEvent(form, 'reset');
+      const resetSpy = sinon.spy();
+      form.addEventListener('reset', () => {
+        resetSpy();
+      });
+      // clickOnElement causes some weird behavior where the `reset` event never fires.
+      // Maybe one day in the future this can go back to using the `clickOnElement`.
+      // await clickOnElement(resetButton);
+      resetButton.click();
       await select.updateComplete;
+
+      expect(resetSpy).to.have.been.calledOnce;
       expect(select.value).to.equal('option-1');
     });
   });

@@ -1,9 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
-
   :host {
     --border-color: var(--wa-color-surface-default);
     --border-radius: var(--wa-corners-xs);
