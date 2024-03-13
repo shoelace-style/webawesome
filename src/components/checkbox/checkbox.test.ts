@@ -23,6 +23,7 @@ describe('<wa-checkbox>', () => {
     expect(el.checked).to.be.false;
     expect(el.indeterminate).to.be.false;
     expect(el.defaultChecked).to.be.false;
+    expect(el.helpText).to.equal('');
   });
 
   it('should have title if title attribute is set', async () => {
@@ -62,6 +63,7 @@ describe('<wa-checkbox>', () => {
     el.addEventListener('wa-change', changeHandler);
     el.addEventListener('wa-input', inputHandler);
     el.click();
+    await aTimeout(0);
     await el.updateComplete;
 
     expect(changeHandler).to.have.been.calledOnce;
@@ -92,8 +94,10 @@ describe('<wa-checkbox>', () => {
     el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
     el.checked = true;
     await el.updateComplete;
+    await aTimeout(0);
     el.checked = false;
     await el.updateComplete;
+    await aTimeout(0);
   });
 
   it('should hide the native input with the correct positioning to scroll correctly when contained in an overflow', async () => {

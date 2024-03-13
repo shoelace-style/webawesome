@@ -6,6 +6,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './tooltip.styles.js';
 import WaPopup from '../popup/popup.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -40,11 +41,12 @@ import type { CSSResultGroup } from 'lit';
  * @animation tooltip.hide - The animation to use when hiding the tooltip.
  */
 export default class WaTooltip extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-popup': WaPopup };
 
   private hoverTimeout: number;
   private readonly localize = new LocalizeController(this);
+  private closeWatcher: CloseWatcher | null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('.tooltip__body') body: HTMLElement;
@@ -108,6 +110,7 @@ export default class WaTooltip extends WebAwesomeElement {
 
   disconnectedCallback() {
     // Cleanup this event in case the tooltip is removed while open
+    this.closeWatcher?.destroy();
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
   }
 
@@ -181,7 +184,15 @@ export default class WaTooltip extends WebAwesomeElement {
 
       // Show
       this.emit('wa-show');
-      document.addEventListener('keydown', this.handleDocumentKeyDown);
+      if ('CloseWatcher' in window) {
+        this.closeWatcher?.destroy();
+        this.closeWatcher = new CloseWatcher();
+        this.closeWatcher.onclose = () => {
+          this.hide();
+        };
+      } else {
+        document.addEventListener('keydown', this.handleDocumentKeyDown);
+      }
 
       await stopAnimations(this.body);
       this.body.hidden = false;
@@ -194,6 +205,7 @@ export default class WaTooltip extends WebAwesomeElement {
     } else {
       // Hide
       this.emit('wa-hide');
+      this.closeWatcher?.destroy();
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
 
       await stopAnimations(this.body);

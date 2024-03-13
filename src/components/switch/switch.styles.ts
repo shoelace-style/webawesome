@@ -1,9 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
-
   :host {
     --background: var(--wa-form-controls-resting-color);
     --background-checked: var(--wa-form-controls-activated-color);

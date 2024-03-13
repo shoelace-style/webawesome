@@ -6,6 +6,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './details.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -47,7 +48,7 @@ import type { CSSResultGroup } from 'lit';
  * @animation details.hide - The animation to use when hiding details. You can use `height: auto` with this animation.
  */
 export default class WaDetails extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   static dependencies = {
     'wa-icon': WaIcon

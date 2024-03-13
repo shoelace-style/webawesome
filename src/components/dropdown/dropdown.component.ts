@@ -7,6 +7,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './dropdown.styles.js';
 import WaPopup from '../popup/popup.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -40,7 +41,7 @@ import type WaMenu from '../menu/menu.js';
  * @animation dropdown.hide - The animation to use when hiding the dropdown.
  */
 export default class WaDropdown extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-popup': WaPopup };
 
   @query('.dropdown') popup: WaPopup;
@@ -48,6 +49,7 @@ export default class WaDropdown extends WebAwesomeElement {
   @query('.dropdown__panel') panel: HTMLSlotElement;
 
   private readonly localize = new LocalizeController(this);
+  private closeWatcher: CloseWatcher | null;
 
   /**
    * Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you
@@ -140,7 +142,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open dropdown. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape') {
+    if (this.open && event.key === 'Escape' && !this.closeWatcher) {
       event.stopPropagation();
       this.hide();
       this.focusOnTrigger();
@@ -334,7 +336,16 @@ export default class WaDropdown extends WebAwesomeElement {
 
   addOpenListeners() {
     this.panel.addEventListener('wa-select', this.handlePanelSelect);
-    this.panel.addEventListener('keydown', this.handleKeyDown);
+    if ('CloseWatcher' in window) {
+      this.closeWatcher?.destroy();
+      this.closeWatcher = new CloseWatcher();
+      this.closeWatcher.onclose = () => {
+        this.hide();
+        this.focusOnTrigger();
+      };
+    } else {
+      this.panel.addEventListener('keydown', this.handleKeyDown);
+    }
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
   }
@@ -346,6 +357,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    this.closeWatcher?.destroy();
   }
 
   @watch('open', { waitUntilFirstUpdate: true })

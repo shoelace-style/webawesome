@@ -1,0 +1,125 @@
+---
+---
+
+<script>
+  // double check we're marking links external
+  ;(() => {
+    document.querySelectorAll("a[href^='http']").forEach((el) => {
+      const anchor = el as HTMLAnchorElement
+
+      if (anchor.hostname !== window.location.hostname) {
+        anchor.setAttribute("rel", "nofollow noreferrer noopener")
+        anchor.setAttribute("target", "_blank")
+        anchor.classList.add("external-link")
+      }
+    })
+  })()
+  // Add anchor headings
+  ;(() => {
+    // This should probably be a proper plugin, but it requires adding the anchor heading directly in "ComponentLayout.astro" and
+    // writing a RemarkPlugin.
+    function updateAnchorHeadings () {
+      document.querySelectorAll(":is(h1,h2,h3,h4,h5,h6)[id]").forEach((headingEl) => {
+        if (headingEl.querySelector("a")) return
+
+        headingEl.classList.add("anchor-heading")
+
+        const anchor = document.createElement("a")
+        const visuallyHidden = document.createElement("wa-visually-hidden")
+        visuallyHidden.innerText = `Direct link to ${headingEl.textContent}`
+
+        anchor.setAttribute("href", `#${encodeURIComponent(headingEl.id)}`)
+        anchor.append(visuallyHidden)
+
+        headingEl.append(anchor)
+      })
+    }
+
+    document.addEventListener("turbo:load", updateAnchorHeadings)
+  })()
+
+  ;(() => {
+    function setTurboFalse () {
+      // We don't control this markup, but we can programmatically add turbo false. The reason is it borks layouts otherwise.
+      document.querySelectorAll("a[href*='/experimental/themer']").forEach((el) => {
+        el.setAttribute("data-turbo", "false")
+      })
+    }
+
+    setTurboFalse()
+    document.addEventListener("turbo:load", setTurboFalse)
+  })()
+  //
+  // Open details when printing
+  //
+  ;(() => {
+    const detailsOpenOnPrint = new Set();
+
+    window.addEventListener('beforeprint', () => {
+      detailsOpenOnPrint.clear();
+      document.querySelectorAll('details').forEach(details => {
+        if (details.open) {
+          detailsOpenOnPrint.add(details);
+        }
+        details.open = true;
+      });
+    });
+
+    window.addEventListener('afterprint', () => {
+      document.querySelectorAll('details').forEach(details => {
+        details.open = detailsOpenOnPrint.has(details);
+      });
+      detailsOpenOnPrint.clear();
+    });
+  })();
+
+  //
+  // Smooth links
+  //
+  ;(() => {
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a');
+      const id = (link?.hash ?? '').substr(1);
+      const isFragment = link?.hasAttribute('href') && link?.getAttribute('href').startsWith('#');
+
+      if (!link || !isFragment || link.getAttribute('data-smooth-link') === 'false') {
+        return;
+      }
+
+      // Scroll to the top
+      if (link.hash === '') {
+        event.preventDefault();
+        window.scroll({ top: 0, behavior: 'smooth' });
+        history.pushState(undefined, undefined, location.pathname);
+      }
+
+      // Scroll to an id
+      if (id) {
+        const target = document.getElementById(id);
+
+        if (target) {
+          event.preventDefault();
+          window.scroll({ top: target.offsetTop, behavior: 'smooth' });
+          history.pushState(undefined, undefined, `#${id}`);
+        }
+      }
+    });
+  })();
+
+  //
+  // Show custom versions in the sidebar
+  //
+  ;(() => {
+    function updateVersion() {
+      const el = document.querySelector('.sidebar-version');
+      if (!el) return;
+
+      if (location.hostname === 'next.shoelace.style') el.textContent = 'Next';
+      if (location.hostname === 'localhost') el.textContent = 'Development';
+    }
+
+    updateVersion();
+
+    document.addEventListener('turbo:load', updateVersion);
+  })();
+</script>

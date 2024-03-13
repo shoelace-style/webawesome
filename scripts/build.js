@@ -12,6 +12,8 @@ import util from 'util';
 import * as path from 'path';
 import { readFileSync } from 'fs';
 import { replace } from 'esbuild-plugin-replace';
+import { dev, build } from 'astro';
+import chokidar from 'chokidar';
 
 const { serve } = commandLineArgs([{ name: 'serve', type: Boolean }]);
 const outdir = 'dist';
@@ -29,16 +31,58 @@ const shoelaceVersion = JSON.stringify(packageData.version.toString());
 // process and an array of strings containing any output are included in the resolved promise.
 //
 async function buildTheDocs(watch = false) {
+  let args = ['astro', 'build'];
+
+  if (watch) {
+    args.pop();
+    args.push('dev');
+
+    console.log(process.cwd());
+
+    // Rebuild and reload when source files change
+    chokidar.watch('src/**/!(*.test).*').on('change', async filename => {
+      console.log('[build] File changed: ', filename);
+
+      try {
+        const isTheme = /^src\/themes/.test(filename);
+        const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
+
+        // Rebuild the source
+        const rebuildResults = buildResults.map(result => result.rebuild());
+        await Promise.all(rebuildResults);
+
+        // Rebuild stylesheets when a theme file changes
+        if (isTheme) {
+          await Promise.all(
+            bundleDirectories.map(dir => {
+              return execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
+            })
+          );
+        }
+
+        // Rebuild metadata (but not when styles are changed)
+        if (!isStylesheet) {
+          await Promise.all(
+            bundleDirectories.map(dir => {
+              return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
+            })
+          );
+        }
+
+        const siteDistDir = path.join(process.cwd(), 'docs', 'public', 'dist');
+        // await deleteAsync(siteDistDir);
+
+        // We copy the CDN build because that has everything bundled. Yes this looks weird.
+        // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
+        console.log(`COPYING ${cdndir} to ${siteDistDir}`);
+        await copy(cdndir, siteDistDir, { overwrite: true });
+      } catch (err) {
+        console.error(chalk.red(err), '\n');
+      }
+    });
+  }
+
   return new Promise(async (resolve, reject) => {
-    const afterSignal = '[eleventy.after]';
-    const errorSignal = 'Original error stack trace:';
-    const args = ['@11ty/eleventy', '--quiet'];
-
-    if (watch) {
-      args.push('--watch');
-      args.push('--incremental');
-    }
-
     const child = spawn('npx', args, {
       stdio: 'pipe',
       cwd: 'docs',
@@ -49,23 +93,9 @@ async function buildTheDocs(watch = false) {
     child.stderr.setEncoding('utf8');
     child.stdout.on('data', data => {
       console.log(data);
-
-      // The process doesn't terminate in watch mode so, before resolving, we listen for a known signal in stdout that
-      // tells us when the first build completes so we can start up Browser Sync. The 11ty dev server will keep running
-      // after this.
-      if (watch && data.includes(afterSignal)) {
-        resolve();
-        return;
-      }
     });
     child.stderr.on('data', data => {
-      console.log(data);
-
-      // Look for a known error signal
-      if (data.includes(errorSignal)) {
-        reject({ stderr: data });
-        return;
-      }
+      console.error(data);
     });
     child.on('error', error => reject(error));
     child.on('close', () => resolve());
@@ -151,7 +181,7 @@ function exit() {
     }
   });
 
-  process.exit();
+  process.exit(1);
 }
 
 //
@@ -176,7 +206,7 @@ async function nextTask(label, action) {
     clearLine();
     process.stdout.write(`${chalk.red('✘')} ${label}\n\n`);
     if (err.stdout) process.stdout.write(`${chalk.red(err.stdout)}\n`);
-    if (err.stderr) process.stdout.write(`${chalk.red(err.stderr)}\n`);
+    if (err.stderr) process.stderr.write(`${chalk.red(err.stderr)}\n`);
     exit();
   }
 }
@@ -216,90 +246,26 @@ await nextTask('Building source files', async () => {
   buildResults = await buildTheSource();
 });
 
+// Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
+await nextTask(`Copying the build to "${sitedir}"`, async () => {
+  const siteDistDir = path.join('docs', 'public', 'dist');
+  await deleteAsync(siteDistDir);
+
+  // We copy the CDN build because that has everything bundled. Yes this looks weird.
+  // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
+  await copy(cdndir, siteDistDir);
+});
+
 // Launch the dev server
 if (serve) {
   // Spin up Eleventy and Wait for the search index to appear before proceeding. The search index is generated during
   // eleventy.after, so it appears after the docs are fully published. This is kinda hacky, but here we are.
   // Kick off the Eleventy dev server with --watch and --incremental
   await nextTask('Building docs', async () => await buildTheDocs(true));
-
-  const bs = browserSync.create();
-  const port = await getPort({ port: portNumbers(4000, 4999) });
-  const browserSyncConfig = {
-    startPath: '/',
-    port,
-    logLevel: 'silent',
-    logPrefix: '[webawesome]',
-    logFileChanges: true,
-    notify: false,
-    single: false,
-    ghostMode: false,
-    server: {
-      baseDir: sitedir,
-      routes: {
-        '/dist': './cdn'
-      }
-    }
-  };
-
-  // Launch browser sync
-  bs.init(browserSyncConfig, () => {
-    const url = `http://localhost:${port}`;
-    console.log(chalk.cyan(`\n🏀 The dev server is available at ${url}\n`));
-  });
-
-  // Rebuild and reload when source files change
-  bs.watch('src/**/!(*.test).*').on('change', async filename => {
-    console.log('[build] File changed: ', filename);
-
-    try {
-      const isTheme = /^src\/themes/.test(filename);
-      const isStylesheet = /(\.css|\.styles\.ts)$/.test(filename);
-
-      // Rebuild the source
-      const rebuildResults = buildResults.map(result => result.rebuild());
-      await Promise.all(rebuildResults);
-
-      // Rebuild stylesheets when a theme file changes
-      if (isTheme) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            execPromise(`node scripts/make-themes.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      // Rebuild metadata (but not when styles are changed)
-      if (!isStylesheet) {
-        await Promise.all(
-          bundleDirectories.map(dir => {
-            return execPromise(`node scripts/make-metadata.js --outdir "${dir}"`, { stdio: 'inherit' });
-          })
-        );
-      }
-
-      bs.reload();
-    } catch (err) {
-      console.error(chalk.red(err), '\n');
-    }
-  });
-
-  // Reload without rebuilding when the docs change
-  bs.watch([`${sitedir}/**/*.*`]).on('change', filename => {
-    bs.reload();
-  });
 }
 
 // Build for production
 if (!serve) {
-  // Copy the CDN build to the docs (prod only; we use a virtual directory in dev)
-  await nextTask(`Copying the build to "${sitedir}"`, async () => {
-    await deleteAsync(sitedir);
-
-    // We copy the CDN build because that has everything bundled. Yes this looks weird.
-    // But if we do "/cdn" it requires changes all the docs to do /cdn instead of /dist.
-    await copy(cdndir, path.join(sitedir, 'dist'));
-  });
   await nextTask('Building the docs', async () => {
     await buildTheDocs();
   });
@@ -308,3 +274,7 @@ if (!serve) {
 // Cleanup on exit
 process.on('SIGINT', exit);
 process.on('SIGTERM', exit);
+process.on('uncaughtException', function (err) {
+  console.error(err);
+  exit();
+});

@@ -5,6 +5,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { SubmenuController } from './submenu-controller.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './menu-item.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WaPopup from '../popup/popup.component.js';
@@ -38,7 +39,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty [--submenu-offset=-2px] - The distance submenus shift to overlap the parent menu.
  */
 export default class WaMenuItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = {
     'wa-icon': WaIcon,
     'wa-popup': WaPopup,
@@ -191,7 +192,7 @@ export default class WaMenuItem extends WebAwesomeElement {
           ></wa-icon>
         </span>
 
-        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<sl-spinner part="spinner"></sl-spinner>` : ''}
+        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
       </div>
     `;
   }

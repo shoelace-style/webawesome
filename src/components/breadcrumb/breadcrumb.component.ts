@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './breadcrumb.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -21,7 +22,7 @@ import type WaBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
  * @csspart base - The component's base wrapper.
  */
 export default class WaBreadcrumb extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   private readonly localize = new LocalizeController(this);

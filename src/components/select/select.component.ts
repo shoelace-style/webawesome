@@ -11,6 +11,8 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './select.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WaPopup from '../popup/popup.component.js';
@@ -74,7 +76,7 @@ import type WaOption from '../option/option.component.js';
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
 export default class WaSelect extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
   static dependencies = {
     'wa-icon': WaIcon,
     'wa-popup': WaPopup,
@@ -88,6 +90,7 @@ export default class WaSelect extends WebAwesomeElement implements WebAwesomeFor
   private readonly localize = new LocalizeController(this);
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
+  private closeWatcher: CloseWatcher | null;
 
   @query('.select') popup: WaPopup;
   @query('.select__combobox') combobox: HTMLSlotElement;
@@ -228,17 +231,37 @@ export default class WaSelect extends WebAwesomeElement implements WebAwesomeFor
     //
     // https://github.com/shoelace-style/shoelace/issues/1763
     //
-    const root = this.getRootNode();
-    root.addEventListener('focusin', this.handleDocumentFocusIn);
-    root.addEventListener('keydown', this.handleDocumentKeyDown);
-    root.addEventListener('mousedown', this.handleDocumentMouseDown);
+    document.addEventListener('focusin', this.handleDocumentFocusIn);
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('mousedown', this.handleDocumentMouseDown);
+
+    // If the component is rendered in a shadow root, we need to attach the focusin listener there too
+    if (this.getRootNode() !== document) {
+      this.getRootNode().addEventListener('focusin', this.handleDocumentFocusIn);
+    }
+
+    if ('CloseWatcher' in window) {
+      this.closeWatcher?.destroy();
+      this.closeWatcher = new CloseWatcher();
+      this.closeWatcher.onclose = () => {
+        if (this.open) {
+          this.hide();
+          this.displayInput.focus({ preventScroll: true });
+        }
+      };
+    }
   }
 
   private removeOpenListeners() {
-    const root = this.getRootNode();
-    root.removeEventListener('focusin', this.handleDocumentFocusIn);
-    root.removeEventListener('keydown', this.handleDocumentKeyDown);
-    root.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    document.removeEventListener('focusin', this.handleDocumentFocusIn);
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+
+    if (this.getRootNode() !== document) {
+      this.getRootNode().removeEventListener('focusin', this.handleDocumentFocusIn);
+    }
+
+    this.closeWatcher?.destroy();
   }
 
   private handleFocus() {

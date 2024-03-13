@@ -52,4 +52,9 @@ describe('<wa-option>', () => {
 
     expect(el.value).to.equal('10');
   });
+
+  it('should escape HTML when calling getTextLabel()', async () => {
+    const el = await fixture<WaOption>(html` <wa-option><strong>Option</strong></wa-option> `);
+    expect(el.getTextLabel()).to.equal('Option');
+  });
 });

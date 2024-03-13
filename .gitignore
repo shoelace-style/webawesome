@@ -5,6 +5,8 @@ package.json
 package-lock.json
 dist
 docs/assets/images/sprite.svg
+docs/public/pagefind
 node_modules
 src/react
 cdn
+.astro

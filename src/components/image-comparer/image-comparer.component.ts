@@ -6,6 +6,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './image-comparer.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -35,7 +36,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --handle-size - The size of the compare handle.
  */
 export default class WaImageComparer extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static scopedElement = { 'wa-icon': WaIcon };
 
   private readonly localize = new LocalizeController(this);

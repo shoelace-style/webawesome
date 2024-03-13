@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import QrCreator from 'qr-creator';
 import styles from './qr-code.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -16,7 +17,7 @@ import type { CSSResultGroup } from 'lit';
  * @csspart base - The component's base wrapper.
  */
 export default class WaQrCode extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   @query('canvas') canvas: HTMLElement;
 

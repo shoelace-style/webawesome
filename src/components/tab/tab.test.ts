@@ -101,7 +101,7 @@ describe('<wa-tab>', () => {
         </wa-tab-group>
       `);
       const closeButton = tabGroup
-        .querySelectorAll('wa-tab')[0]!
+        .querySelectorAll('wa-tab')[0]
         .shadowRoot!.querySelector<WaIconButton>('[part~="close-button"]')!;
 
       const handleClose = sinon.spy();

@@ -1,0 +1,36 @@
+---
+---
+
+<script>
+  import * as Turbo from '@hotwired/turbo';
+
+  ;(() => {
+    if (!window.scrollPositions) {
+      window.scrollPositions = {};
+    }
+
+    const preservedScrollQuery = '[id][data-preserve-scroll], [id="starlight__sidebar"]'
+
+    function preserveScroll() {
+      document.querySelectorAll(preservedScrollQuery).forEach(element => {
+        scrollPositions[element.id] = element.scrollTop;
+      });
+    }
+
+    function restoreScroll(event) {
+      document.querySelectorAll(preservedScrollQuery).forEach(element => {
+        element.scrollTop = scrollPositions[element.id];
+      });
+
+      if (event.detail && event.detail.newBody) {
+        event.detail.newBody.querySelectorAll(preservedScrollQuery).forEach(element => {
+          element.scrollTop = scrollPositions[element.id];
+        });
+      }
+    }
+
+    window.addEventListener('turbo:before-cache', preserveScroll);
+    window.addEventListener('turbo:before-render', restoreScroll);
+    window.addEventListener('turbo:render', restoreScroll);
+  })();
+</script>

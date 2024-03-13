@@ -10,6 +10,7 @@ import { property, query } from 'lit/decorators.js';
 import { uppercaseFirstLetter } from '../../internal/string.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import Modal from '../../internal/modal.js';
 import styles from './drawer.styles.js';
 import WaIconButton from '../icon-button/icon-button.component.js';
@@ -74,13 +75,14 @@ import type { CSSResultGroup } from 'lit';
  *   the third-party modal opens. Upon closing, call `modal.deactivateExternal()` to restore Shoelace's focus trapping.
  */
 export default class WaDrawer extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon-button': WaIconButton };
 
   private readonly hasSlotController = new HasSlotController(this, 'footer');
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
   public modal = new Modal(this);
+  private closeWatcher: CloseWatcher | null;
 
   @query('.drawer') drawer: HTMLElement;
   @query('.drawer__panel') panel: HTMLElement;
@@ -129,6 +131,7 @@ export default class WaDrawer extends WebAwesomeElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     unlockBodyScrolling(this);
+    this.closeWatcher?.destroy();
   }
 
   private requestClose(source: 'close-button' | 'keyboard' | 'overlay') {
@@ -147,7 +150,16 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private addOpenListeners() {
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    if ('CloseWatcher' in window) {
+      this.closeWatcher?.destroy();
+      if (!this.contained) {
+        this.closeWatcher = new CloseWatcher();
+        this.closeWatcher.onclose = () => this.requestClose('keyboard');
+      }
+    } else {
+      document.addEventListener('keydown', this.handleDocumentKeyDown);
+      this.closeWatcher?.destroy();
+    }
   }
 
   private removeOpenListeners() {

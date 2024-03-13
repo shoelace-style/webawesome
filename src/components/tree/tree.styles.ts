@@ -1,9 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
-
   :host {
     /*
      * These are actually used by tree item, but we define them here so they can more easily be set and all tree items
@@ -16,7 +13,6 @@ export default css`
     --indent-size: var(--wa-space-l);
 
     display: block;
-    isolation: isolate;
 
     /*
      * Tree item indentation uses the "em" unit to increment its width on each level, so setting the font size to zero

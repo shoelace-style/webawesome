@@ -7,6 +7,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { property, query } from 'lit/decorators.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './alert.styles.js';
 import WaIconButton from '../icon-button/icon-button.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -50,7 +51,7 @@ const toastStack = Object.assign(document.createElement('div'), { className: 'wa
  * @animation alert.hide - The animation to use when hiding the alert.
  */
 export default class WaAlert extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon-button': WaIconButton };
 
   private autoHideTimeout: number;

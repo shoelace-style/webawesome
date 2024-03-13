@@ -1,0 +1,63 @@
+---
+import { default as StarlightTOC } from '@astrojs/starlight/components/TableOfContents.astro';
+import type { Props } from "@astrojs/starlight/props"
+const { labels, toc, slug, entry, id } = Astro.props;
+
+import { getComponentFromFileName } from "../../js/cem.js"
+
+if (slug.includes("components/")) {
+  const component = getComponentFromFileName(slug + ".md")
+
+  const {
+    hasSlots,
+    hasProperties,
+    hasEvents,
+    hasMethods,
+    hasCssProperties,
+    hasCssParts,
+    hasAnimations,
+    hasDependencies,
+  } = component
+
+  toc.items.push({
+    text: "Importing",
+    slug: "importing",
+    depth: 0,
+    children: []
+  })
+
+  const strToText = {
+    CssProperties: "Custom Properties",
+    CssParts: "Parts",
+  }
+
+  const strToId = {
+    CssProperties: "custom-properties",
+    CssParts: "parts",
+  }
+
+  ;[
+    "Slots",
+    "Properties",
+    "Events",
+    "Methods",
+    "CssProperties",
+    "CssParts",
+    "Animations",
+    "Dependencies",
+  ].forEach((str) => {
+    if (component[`has${str}`]) {
+      toc.items.push({
+        text: strToText[str] || str,
+        slug: strToId[str] || str.toLowerCase(),
+        depth: 0,
+        children: []
+      })
+    }
+  })
+
+}
+---
+
+<StarlightTOC {...Astro.props} />
+

@@ -1,11 +1,13 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { defaultValue } from '../../internal/default-value.js';
 import { FormControlController } from '../../internal/form.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { property, query, state } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
 import styles from './checkbox.styles.js';
 import WaIcon from '../icon/icon.component.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -21,6 +23,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @dependency wa-icon
  *
  * @slot - The checkbox's label.
+ * @slot help-text - Text that describes how to use the checkbox. Alternatively, you can use the `help-text` attribute.
  *
  * @event wa-blur - Emitted when the checkbox loses focus.
  * @event wa-change - Emitted when the checked state changes.
@@ -35,6 +38,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
  * @csspart label - The container that wraps the checkbox's label.
+ * @csspart form-control-help-text - The help text's wrapper.
  *
  * @cssproperty --background - The checkbox's background styles.
  * @cssproperty --background-checked - The checkbox's background styles when checked.
@@ -49,7 +53,7 @@ import type { WebAwesomeFormControl } from '../../internal/webawesome-element.js
 
  */
 export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeFormControl {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
   static dependencies = { 'wa-icon': WaIcon };
 
   private readonly formControlController = new FormControlController(this, {
@@ -57,6 +61,7 @@ export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeF
     defaultValue: (control: WaCheckbox) => control.defaultChecked,
     setValue: (control: WaCheckbox, checked: boolean) => (control.checked = checked)
   });
+  private readonly hasSlotController = new HasSlotController(this, 'help-text');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
@@ -97,6 +102,9 @@ export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeF
 
   /** Makes the checkbox a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
+
+  /** The checkbox's help text. If you need to display HTML, use the `help-text` slot instead. */
+  @property({ attribute: 'help-text' }) helpText = '';
 
   /** Gets the validity state object */
   get validity() {
@@ -190,75 +198,93 @@ export default class WaCheckbox extends WebAwesomeElement implements WebAwesomeF
   }
 
   render() {
+    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+
     //
     // NOTE: we use a <div> around the label slot because of this Chrome bug.
     //
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
     return html`
-      <label
-        part="base"
+      <div
         class=${classMap({
-          checkbox: true,
-          'checkbox--checked': this.checked,
-          'checkbox--disabled': this.disabled,
-          'checkbox--focused': this.hasFocus,
-          'checkbox--indeterminate': this.indeterminate,
-          'checkbox--small': this.size === 'small',
-          'checkbox--medium': this.size === 'medium',
-          'checkbox--large': this.size === 'large'
+          'form-control': true,
+          'form-control--small': this.size === 'small',
+          'form-control--medium': this.size === 'medium',
+          'form-control--large': this.size === 'large',
+          'form-control--has-help-text': hasHelpText
         })}
       >
-        <input
-          class="checkbox__input"
-          type="checkbox"
-          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-          name=${this.name}
-          value=${ifDefined(this.value)}
-          .indeterminate=${live(this.indeterminate)}
-          .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          .required=${this.required}
-          aria-checked=${this.checked ? 'true' : 'false'}
-          @click=${this.handleClick}
-          @input=${this.handleInput}
-          @invalid=${this.handleInvalid}
-          @blur=${this.handleBlur}
-          @focus=${this.handleFocus}
-        />
-
-        <span
-          part="control${this.checked ? ' control--checked' : ''}${this.indeterminate ? ' control--indeterminate' : ''}"
-          class="checkbox__control"
+        <label
+          part="base"
+          class=${classMap({
+            checkbox: true,
+            'checkbox--checked': this.checked,
+            'checkbox--disabled': this.disabled,
+            'checkbox--focused': this.hasFocus,
+            'checkbox--indeterminate': this.indeterminate,
+            'checkbox--small': this.size === 'small',
+            'checkbox--medium': this.size === 'medium',
+            'checkbox--large': this.size === 'large'
+          })}
         >
-          ${this.checked
-            ? html`
-                <wa-icon
-                  part="checked-icon"
-                  class="checkbox__checked-icon"
-                  library="system"
-                  name="check"
-                  variant="solid"
-                ></wa-icon>
-              `
-            : ''}
-          ${!this.checked && this.indeterminate
-            ? html`
-                <wa-icon
-                  part="indeterminate-icon"
-                  class="checkbox__indeterminate-icon"
-                  library="system"
-                  name="minus"
-                  variant="solid"
-                ></wa-icon>
-              `
-            : ''}
-        </span>
+          <input
+            class="checkbox__input"
+            type="checkbox"
+            title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+            name=${this.name}
+            value=${ifDefined(this.value)}
+            .indeterminate=${live(this.indeterminate)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
+            .required=${this.required}
+            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-describedby="help-text"
+            @click=${this.handleClick}
+            @input=${this.handleInput}
+            @invalid=${this.handleInvalid}
+            @blur=${this.handleBlur}
+            @focus=${this.handleFocus}
+          />
 
-        <div part="label" class="checkbox__label">
-          <slot></slot>
+          <span
+            part="control${this.checked ? ' control--checked' : ''}${this.indeterminate
+              ? ' control--indeterminate'
+              : ''}"
+            class="checkbox__control"
+          >
+            ${this.checked
+              ? html`
+                  <wa-icon part="checked-icon" class="checkbox__checked-icon" library="system" name="check"></wa-icon>
+                `
+              : ''}
+            ${!this.checked && this.indeterminate
+              ? html`
+                  <wa-icon
+                    part="indeterminate-icon"
+                    class="checkbox__indeterminate-icon"
+                    library="system"
+                    name="indeterminate"
+                  ></wa-icon>
+                `
+              : ''}
+          </span>
+
+          <div part="label" class="checkbox__label">
+            <slot></slot>
+          </div>
+        </label>
+
+        <div
+          aria-hidden=${hasHelpText ? 'false' : 'true'}
+          class="form-control__help-text"
+          id="help-text"
+          part="form-control-help-text"
+        >
+          <slot name="help-text">${this.helpText}</slot>
         </div>
-      </label>
+      </div>
     `;
   }
 }
