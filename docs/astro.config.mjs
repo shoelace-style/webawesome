@@ -33,7 +33,7 @@ export default defineConfig({
   server: {
     open: true,
     port: 4000,
-    host: true,
+    host: true
   },
   vite: {
     server: {
