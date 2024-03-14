@@ -1,0 +1,47 @@
+---
+import * as SportAwesome from "./sport-awesome/sport-awesome.astro"
+import * as MusicAwesome from "./music-awesome/music-awesome.astro"
+import * as AdvancedExample from "./advanced-example/advanced-example.astro"
+import * as Example from "./example/example.astro"
+
+import Playground from "../../components/Playground.astro"
+
+export const templates = [
+  {
+    params: {slug: "sport-awesome"},
+    exports: SportAwesome
+  },
+  {
+    params: {slug: "music-awesome"},
+    exports: MusicAwesome
+  },
+  {
+    params: {slug: "advanced-example"},
+    exports: AdvancedExample
+  },
+  {
+    params: {slug: "example"},
+    exports: Example
+  },
+]
+
+export const playgrounds = templates.map((template) => {
+  const newTemplate = {
+    ...template,
+    params: { slug: template.params.slug + "-playground" },
+  }
+  return newTemplate
+})
+
+export function getStaticPaths() {
+  return [...templates, ...playgrounds]
+}
+
+const { slug } = Astro.params;
+const template = templates.find((page) => page.params.slug === slug);
+const playground = playgrounds.find((page) => page.params.slug === slug);
+if (!template && !playground) return Astro.redirect("/404");
+---
+
+{template && <template.exports.default />}
+{playground && <Playground html={playground.exports.html} css={playground.exports.css} />}

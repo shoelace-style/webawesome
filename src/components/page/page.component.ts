@@ -1,0 +1,279 @@
+import { html } from 'lit';
+import { live } from 'lit/directives/live.js';
+import { property, query } from 'lit/decorators.js';
+import styles from './page.styles.js';
+import WaDrawer from '../drawer/drawer.component.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import type { CSSResultGroup, PropertyValueMap } from 'lit';
+
+/**
+ * @summary Pages offer an easy way to scaffold pages using minimal markup.
+ * @documentation https://shoelace.style/components/page
+ * @status experimental
+ * @since 3.0
+ *
+ * @slot - The page's main content.
+ * @slot banner - The banner that gets display above the header. The banner will not be shown if no content is provided.
+ * @slot header - The header to display at the top of the page. If a banner is present, the header will appear below the banner. The header will not be shown if there is no content.
+ * @slot subheader - A subheader to display below the `header`. This is a good place to put things like breadcrumbs.
+ * @slot menu - The left side of the page. If you slot an element in here, you will override the default "navigation" slot and will be handling navigation on your own. This also will not disable the fallback behavior of the navigation button. This section "sticks" to the top as the page scrolls.
+ * @slot navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
+ * @slot navigation - The main content to display in the navigation area.
+ * @slot navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
+ * @slot main-header - Header to display inline above the main content.
+ * @slot main-footer - Footer to display inline below the main content.
+ * @slot aside - Content to be shown on the right side of the page. Typically contains a table of contents, ads, etc. This section "sticks" to the top as the page scrolls.
+ * @slot skip-to-content - The "skip to content" slot. You can override this If you would like to override the `Skip to content` button and add additional "Skip to X", they can be inserted here.
+ * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
+ *
+ * @csspart base - The component's base wrapper.
+ * @csspart banner - The banner to show above header.
+ * @csspart header - The header, usually for top level navigation / branding.
+ * @csspart subheader - Shown below the header, usually intended for things like breadcrumbs and other page level navigation.
+ * @csspart body - The wrapper around menu, main, and aside.
+ * @csspart menu - The left hand side of the page. Generally intended for navigation.
+ * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
+ * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
+ * @csspart main-header - The header above main content.
+ * @csspart main-content - The main content.
+ * @csspart main-footer - The footer below main content.
+ * @csspart aside - The right hand side of the page. Used for things like table of contents, ads, etc.
+ * @csspart skip-links - Wrapper around skip-link
+ * @csspart skip-link - The "skip to main content" link
+ * @csspart footer - The footer of the page. This is always below the initial viewport size.
+ * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
+ *
+ * @cssproperty [--menu-width=auto] - The width of the page's "menu" section.
+ * @cssproperty [--main-width=1fr] - The width of the page's "main" section.
+ * @cssproperty [--aside-width=auto] - The wide of the page's "aside" section.
+ * @cssproperty [--banner-height=0px] - The height of the banner. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ * @cssproperty [--header-height=0px] - The height of the header. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ * @cssproperty [--subheader-height=0px] - The height of the subheader. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
+ */
+export default class WaPage extends WebAwesomeElement {
+  static styles: CSSResultGroup = styles;
+  static dependencies = {
+    'wa-drawer': WaDrawer
+  };
+
+  private headerResizeObserver = this.slotResizeObserver('header');
+  private subheaderResizeObserver = this.slotResizeObserver('subheader');
+  private bannerResizeObserver = this.slotResizeObserver('banner');
+  private footerResizeObserver = this.slotResizeObserver('footer');
+
+  private slotResizeObserver(slot: string) {
+    return new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (entry.contentBoxSize) {
+          const contentBoxSize = entry.borderBoxSize[0];
+          this.style.setProperty(`--${slot}-height`, `${contentBoxSize.blockSize}px`);
+        }
+      }
+    });
+  }
+
+  private handleNavigationToggle = (e: Event) => {
+    // Don't toggle the nav when we're in desktop mode
+    if (this.view === 'desktop') {
+      return;
+    }
+
+    if (e.composedPath().find((el: Element) => el.hasAttribute?.('data-toggle-nav'))) {
+      e.preventDefault();
+      this.toggleNavigation();
+    }
+  };
+
+  @query("[part~='header']") header: HTMLElement;
+  @query("[part~='subheader']") subheader: HTMLElement;
+  @query("[part~='footer']") footer: HTMLElement;
+  @query("[part~='banner']") banner: HTMLElement;
+  @query("[part~='drawer']") navigationDrawer: WaDrawer;
+
+  /**
+   * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768 by
+   * default), it is considered to be a "desktop" view. The view is merely a way to distinguish when to show/hide the
+   * navigation. You can use additional media queries to make other adjustments to content as necessary.
+   */
+  @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'mobile';
+
+  /**
+   * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
+   */
+  @property({ attribute: 'nav-open', reflect: true, type: Boolean }) navOpen = false;
+
+  /**
+   * At what "px" to hide the "menu" slot and collapse into a hamburger button
+   */
+  @property({ attribute: 'mobile-breakpoint' }) mobileBreakpoint = 768;
+
+  /**
+   * Where to place the navigation when in the mobile viewport.
+   */
+  @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
+
+  pageResizeObserver = new ResizeObserver(entries => {
+    for (const entry of entries) {
+      if (entry.contentBoxSize) {
+        const contentBoxSize = entry.borderBoxSize[0];
+        const pageWidth = contentBoxSize.inlineSize;
+
+        const oldView = this.view;
+
+        if (pageWidth >= this.mobileBreakpoint) {
+          this.view = 'desktop';
+        } else {
+          this.view = 'mobile';
+        }
+
+        this.requestUpdate('view', oldView);
+
+        this.style.setProperty(`--page-width`, `${pageWidth}px`);
+      }
+    }
+  });
+
+  protected update(changedProperties: PropertyValueMap<this> | Map<PropertyKey, unknown>): void {
+    if (changedProperties.has('view')) {
+      this.hideNavigation();
+    }
+    super.update(changedProperties);
+  }
+
+  constructor() {
+    super();
+    this.addEventListener('click', this.handleNavigationToggle);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.pageResizeObserver.observe(this);
+
+    setTimeout(() => {
+      this.headerResizeObserver.observe(this.header);
+      this.subheaderResizeObserver.observe(this.subheader);
+      this.bannerResizeObserver.observe(this.banner);
+      this.footerResizeObserver.observe(this.footer);
+    });
+  }
+
+  firstUpdated() {
+    // If the user provides a #main-content id, it should be present in the default slot and the "skip to
+    // content" link will point to it. If not, we'll prepend an empty element for them so things just work.
+    if (!document.getElementById('main-content')) {
+      const div = document.createElement('div');
+      div.id = 'main-content';
+      div.slot = 'skip-to-content-target';
+      this.prepend(div);
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.pageResizeObserver.unobserve(this);
+    this.headerResizeObserver.unobserve(this.header);
+    this.subheaderResizeObserver.unobserve(this.subheader);
+    this.footerResizeObserver.unobserve(this.footer);
+    this.bannerResizeObserver.unobserve(this.banner);
+  }
+
+  /**
+   * Shows the mobile navigation drawer
+   */
+  showNavigation() {
+    this.navOpen = true;
+  }
+
+  /**
+   * Hides the mobile navigation drawer
+   */
+  hideNavigation() {
+    this.navOpen = false;
+  }
+
+  /**
+   * Toggles the mobile navigation drawer
+   */
+  toggleNavigation() {
+    this.navOpen = !this.navOpen;
+  }
+
+  render() {
+    return html`
+      <a href="#main-content" part="skip-to-content" class="skip-to-content">
+        <slot name="skip-to-content">Skip to content</slot>
+      </a>
+      <div class="base" part="base">
+        <div class="banner" part="banner">
+          <slot name="banner"></slot>
+        </div>
+        <div class="header" part="header">
+          <slot name="header"></slot>
+        </div>
+        <div class="subheader" part="subheader">
+          <slot name="subheader"></slot>
+        </div>
+        <div class="body" part="body">
+          <div class="menu" part="menu">
+            <slot name="menu">
+              <nav name="navigation" class="navigation" part="navigation navigation-desktop">
+                <!-- Add fallback divs so that CSS grid works properly. -->
+                <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
+                <slot name=${this.view === 'desktop' ? 'navigation' : '____'}></slot>
+                <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+              </nav>
+            </slot>
+          </div>
+          <div class="main" part="main">
+            <div class="main-header" part="main-header">
+              <slot name="main-header"></slot>
+            </div>
+            <div class="main-content" part="main-content">
+              <slot name="skip-to-content-target"></slot>
+              <slot></slot>
+            </div>
+            <div class="main-footer" part="main-footer">
+              <slot name="main-footer"></slot>
+            </div>
+          </div>
+          <div class="aside" part="aside">
+            <slot name="aside"></slot>
+          </div>
+        </div>
+        <div class="footer" part="footer">
+          <slot name="footer"></slot>
+        </div>
+      </div>
+      <wa-drawer
+        placement=${this.navigationPlacement}
+        part="drawer"
+        ?open=${live(this.navOpen)}
+        @wa-after-show=${() => (this.navOpen = this.navigationDrawer.open)}
+        @wa-after-hide=${() => (this.navOpen = this.navigationDrawer.open)}
+        exportparts="
+          panel:drawer__panel
+          base:drawer__base
+          overlay:drawer__overlay
+          panel:drawer__panel
+          header:drawer__header
+          header-actions:drawer__header-actions
+          title:drawer__title
+          close-button:drawer__close-button
+          close-button__base:drawer__close-button__base
+          body:drawer__body
+          footer:drawer__footer
+        "
+        class="navigation-drawer"
+      >
+        <slot part="navigation-header" slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+        <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
+        <slot
+          part="navigation-footer"
+          slot="footer"
+          name=${this.view === 'mobile' ? 'navigation-footer' : '___'}
+        ></slot>
+      </wa-drawer>
+    `;
+  }
+}

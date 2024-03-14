@@ -1,0 +1,94 @@
+---
+import Themer from '../components/Themer.astro';
+import { customElementsManifest } from '../js/cem.js';
+const { frontmatter } = Astro.props
+
+const version = customElementsManifest().version
+---
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-shoelace-version={version}
+>
+  <head>
+    {/* Metadata */}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={ frontmatter.description } />
+
+    <title>{ frontmatter.title }</title>
+
+    {/* Opt out of Turbo caching */}
+    <meta name="turbo-cache-control" content="no-cache">
+    <meta name="turbo-cache-control" content="no-preview">
+
+    {/* Favicons */}
+    <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+
+    {/* Twitter Cards */}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="shoelace_style" />
+    <meta name="twitter:image" content={frontmatter.image} />
+
+    {/* OpenGraph */}
+    <meta property="og:url" content={frontmatter.url} />
+    <meta property="og:title" content={frontmatter.title} />
+    <meta property="og:description" content={frontmatter.description} />
+
+    <!-- TODO: frontmatter.image should have a fallback -->
+    <meta property="og:image" content={frontmatter.image} />
+
+    {/* WebAwesome */}
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/themes/default.css" />
+    <link rel="stylesheet" href="/dist/themes/applied.css" />
+    <script type="module" src="/dist/webawesome.js"></script>
+
+    {/* Set the initial theme and menu states here to prevent flashing */}
+    <script>
+      ;(() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = localStorage.getItem('theme') || 'auto';
+        document.documentElement.classList.toggle('wa-theme-dark', theme === 'dark' || (theme === 'auto' && prefersDark));
+        if (window.Turbo) {
+          window.Turbo.session.drive = false
+        }
+      })();
+    </script>
+
+    <style is:global>
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+      html, body {
+        min-height: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        padding: 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+
+      body #knobs {
+        position: sticky;
+        top: 0rem;
+        left: 0rem;
+        border-radius: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 99vh;
+        max-height: 99vh;
+        margin-bottom: 0;
+      }
+
+      body #knobs .logo-controls {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

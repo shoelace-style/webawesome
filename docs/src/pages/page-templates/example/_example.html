@@ -1,0 +1,47 @@
+<wa-page>
+  <div slot="navigation">
+    <div style="padding: 2rem">
+      <a href="#">Option 1</a><br />
+      <a href="#">Option 2</a><br />
+      <a href="#">Option 3</a>
+    </div>
+  </div>
+
+  <button data-toggle-nav>Menu</button>
+
+  <p>I'm just a lowly page.</p>
+  <p>
+    I think I'll put a <a href="#">link right here</a> for you to click. And maybe <a href="#">another one here</a> for
+    fun.
+  </p>
+
+  <wa-dialog id="dialog"> I'm just a lowly dialog. </wa-dialog>
+
+  <wa-button>Open Dialog</wa-button>
+</wa-page>
+
+<style>
+  wa-page {
+    --menu-width: 260px;
+
+    outline: dashed 1px dodgerblue;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  wa-page::part(menu) {
+    border-right: solid 1px #ececec;
+  }
+
+  wa-page::part(main-content) {
+    padding: 2rem;
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById('dialog');
+
+  dialog.nextElementSibling.addEventListener('click', () => {
+    dialog.open = true;
+  });
+</script>

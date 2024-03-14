@@ -84,7 +84,8 @@ export default css`
     display: none;
   }
 
-  .details__body {
+  /* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
+  :not(.details--open) .details__body {
     overflow: hidden;
   }
 

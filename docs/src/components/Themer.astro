@@ -1,0 +1,1025 @@
+---
+---
+
+<style is:global>
+.overlap {
+  position: relative;
+  color: var(--wa-color-text-normal);
+  padding: 0 var(--wa-space-m);
+  z-index: 1;
+}
+
+.overlap::after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--wa-space-2xl));
+  left: calc(-1 * var(--wa-space-2xl));
+  width: calc(100% + var(--wa-space-2xl) * 2);
+  height: 300px;
+  background: var(--wa-color-brand-spot-darker);
+  z-index: -1;
+}
+
+.overlap h1 {
+  color: var(--wa-color-brand-text-on-spot);
+}
+
+.overlap .grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  align-items: center;
+  gap: var(--wa-space-xl);
+  padding: var(--wa-space-m);
+}
+
+.overlap .image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--wa-corners-m);
+  align-self: start;
+}
+
+.overlap .image #city,
+.overlap .image #falcon {
+  fill: color-mix(in oklab, var(--wa-color-brand-spot), black 50%);
+}
+
+.overlap .image #fighters {
+  fill: color-mix(in oklab, var(--wa-color-brand-spot), black 30%);
+}
+
+.overlap .image #upper_clouds {
+  fill: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
+}
+
+.overlap .image #background_clouds {
+  fill: color-mix(in oklab, var(--wa-color-brand-spot), white 90%);
+}
+
+.overlap .image #forefront_clouds {
+  fill: color-mix(in oklab, var(--wa-color-brand-spot), white 70%);
+}
+
+.overlap .image .gradient-start {
+  stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
+}
+
+.overlap .image .gradient-stop {
+  stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 0%);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+  margin-block-start: var(--wa-space-m);
+}
+
+.cards wa-card::part(body),
+.cards wa-card::part(base) {
+  height: 100%;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+  color: var(--wa-color-brand-text-on-spot);
+  border-bottom: 1px solid color-mix(in oklab, var(--wa-color-brand-text-on-spot), transparent 50%);
+  padding-bottom: var(--wa-space-m);
+}
+
+.project-header wa-icon-button {
+  & + * {
+    margin-inline-start: var(--wa-space-m);
+  }
+
+  &::part(base) {
+    color: var(--wa-color-brand-text-on-spot);
+  }
+}
+
+wa-select[label="Signet"]::part(form-control-help-text) {
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 670px) {
+  .overlap .grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .cards {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1450px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.space-vertically {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, 1.25rem);
+}
+
+.file-uploader {
+  position: relative;
+  border: var(--wa-form-controls-border-width) dashed var(--wa-form-controls-resting-color);
+  border-radius: var(--wa-form-controls-corners);
+  background: var(--wa-form-controls-background);
+  padding: var(--wa-space-xs);
+  cursor: pointer;
+  text-align: center;
+}
+
+.file-uploader:is(:hover) {
+  background-color: var(--wa-color-neutral-fill-subtle);
+}
+
+/**
+  <wa-visually-hidden>, but without the :not(:focus-within),
+  the reason is that it shows the default browser file uploader.
+*/
+.hidden-label::part(form-control-label),
+.file-uploader input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: none !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  padding: 0 !important;
+}
+
+.file-uploader:is(:focus-within) {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+#file-uploader-description {
+  display: block;
+  line-height: 1;
+  font-size: 0.75em;
+  color: var(--wa-color-text-quiet);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:root {
+  --knobs-width: 300px;
+}
+
+#knobs {
+  position: fixed;
+  z-index: 10;
+  top: 2rem;
+  left: 2rem;
+  background: var(--wa-color-surface-default);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
+  border-radius: var(--wa-corners-m);
+  box-shadow: var(--wa-shadow-level-2);
+  width: var(--knobs-width);
+  padding: 1.5rem;
+  max-height: calc(100% - 3rem);
+  overflow: auto;
+  margin-inline: auto;
+  margin-block: 0 4rem;
+}
+
+#knobs p {
+  margin: 0;
+}
+
+#knobs wa-select + wa-input {
+  margin-inline-start: .5rem;
+}
+
+</style>
+
+<!-- Knobs -->
+<form id="knobs">
+  <div class="space-vertically">
+    <div class="space-vertically logo-controls">
+      <a href="/"><wa-icon style="font-size: 2rem;" src="/public/assets/images/logo.svg"></wa-icon></a>
+      <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
+      <div>
+        <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
+          <input name="project-logo" type="file" accept="image/*">
+          Add Logo
+        </label>
+        <small id="file-uploader-description" style="margin-top: 0.5em;">Give us an SVG of the iconic part of your logo, and we’ll give you favicons, app icons, and branded navigation.</small>
+      </div>
+      <div>
+        <wa-radio-group label="Need a logo?" name="project-logo-selector" value="p">
+          <wa-radio-button value="p"><wa-icon name="p"></wa-icon></wa-radio-button>
+          <wa-radio-button value="dragon"><wa-icon name="dragon"></wa-icon></wa-radio-button>
+          <wa-radio-button value="pizza-slice"><wa-icon name="pizza-slice"></wa-icon></wa-radio-button>
+          <wa-radio-button value="fire"><wa-icon name="fire"></wa-icon></wa-radio-button>
+          <wa-button value="[choose]" outline id="icon-chooser-trigger">
+            <wa-icon name="ellipsis"></wa-icon>
+            <wa-visually-hidden>Browse icons</wa-visually-hidden>
+          </wa-button>
+          <small slot="help-text" style="display: inline-block; line-height: 1;">It's dangerous to go alone. Take these!</small>
+        </wa-radio-group>
+      </div>
+    </div>
+    <wa-select name="theme" label="Theme" value="default">
+      <wa-option value="default">Default</wa-option>
+      <wa-option value="classic">Classic</wa-option>
+      <wa-option value="glassy">Glassy</wa-option>
+      <wa-option value="mellow">Mellow</wa-option>
+      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="chic">Chic</wa-option>
+    </wa-select>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Heading Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-heading" value="default" label="Heading Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-display">Noto Sans Display</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="playfair-display">Playfair Display</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-heading"
+          value=""
+          label="Heading Typography Font Weight"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          style="width: 33%;"
+        >
+        </wa-input>
+      </div>
+    </div>
+    <div class="space-vertically" style="--gap: var(--wa-space-2xs);">
+      <div aria-hidden="true">Body Typography</div>
+      <div style="display: flex; --wa-space-m: 0.5rem;">
+        <wa-select class="hidden-label" name="font-family-body" value="default" label="Body Typography Font Family">
+          <wa-option value="default">Theme default</wa-option>
+          <wa-option value="assistant">Assistant</wa-option>
+          <wa-option value="inter">Inter</wa-option>
+          <wa-option value="lora">Lora</wa-option>
+          <wa-option value="noto-sans">Noto Sans</wa-option>
+          <wa-option value="noto-sans-mono">Noto Sans Mono</wa-option>
+          <wa-option value="noto-serif">Noto Serif</wa-option>
+          <wa-option value="open-sans">Open Sans</wa-option>
+          <wa-option value="playfair">Playfair</wa-option>
+          <wa-option value="quicksand">Quicksand</wa-option>
+          <wa-option value="roboto-flex">Roboto Flex</wa-option>
+          <wa-option value="roboto-mono">Roboto Mono</wa-option>
+          <wa-option value="roboto-serif">Roboto Serif</wa-option>
+          <wa-option value="roboto-slab">Roboto Slab</wa-option>
+        </wa-select>
+        <wa-input
+          class="hidden-label"
+          name="font-weight-body"
+          value=""
+          style="width: 33%;"
+          type="number"
+          step="50"
+          max="900"
+          min="50"
+          label="Body Typography Font Weight"
+        >
+        </wa-input>
+      </div>
+    </div>
+    <wa-select name="border-style" label="Border Style" value="solid">
+      <wa-option value="solid">Solid</wa-option>
+      <wa-option value="dashed">Dashed</wa-option>
+      <wa-option value="dotted">Dotted</wa-option>
+      <wa-option value="double">Double</wa-option>
+    </wa-select>
+    <wa-range name="border-width" label="Border Width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
+    <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
+    <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
+    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-switch name="appearance">Toggle Dark Mode</wa-switch>
+  </div>
+</form>
+
+<wa-dialog id="icon-chooser" label="Browse Icons">
+  <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
+    <div style="display: flex; gap: 1.25rem;">
+      <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
+        <wa-icon slot="prefix" name="search"></wa-icon>
+      </wa-input>
+      <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
+        <wa-option value="solid">Solid</wa-option>
+        <wa-option value="regular">Regular</wa-option>
+      </wa-select>
+    </div>
+    <div class="icon-list" data-variant="solid"></div>
+  </div>
+</wa-dialog>
+
+<style>
+  wa-radio-group[name="project-logo-selector"]::part(button-group) {
+    width: 100%;
+  }
+
+  wa-radio-group[name="project-logo-selector"] wa-radio-button,
+  wa-radio-group[name="project-logo-selector"] wa-button {
+    flex: 1 1 auto;
+  }
+
+  #icon-chooser::part(panel) {
+    width: 100%;
+    height: 80%;
+    max-width: 700px;
+  }
+
+  wa-input[name="icon-search"] {
+    position: sticky;
+    top: 0;
+  }
+
+  .icon-search {
+    border: solid 1px var(--wa-color-surface-border);
+    border-radius: var(--wa-corners-s);
+    padding: var(--wa-space-m);
+  }
+
+  .icon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fill, 84px);
+    gap: 1rem;
+    overflow: auto;
+    padding: .5rem;
+    margin: -.5rem;
+  }
+
+  .icon-list[data-variant="regular"] wa-button:not([data-variant="regular"]),
+  .icon-list[data-variant="solid"] wa-button:not([data-variant="solid"]) {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #icon-chooser::part(panel) {
+      width: 100%;
+      max-height: 80%;
+      max-width: 90vw;
+    }
+
+    .icon-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .icon-list wa-button {
+    font-size: 1.75rem;
+  }
+
+  .icon-list wa-button::part(base) {
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+  }
+
+  .icon-list[data-type="outline"] .icon-list-item[data-name$="-fill"] {
+    display: none;
+  }
+
+  .icon-list[data-type="filled"] .icon-list-item:not([data-name$="-fill"]) {
+    display: none;
+  }
+</style>
+
+<!-- Icon chooser -->
+<script type="module">
+  const icons = [
+    // Solid
+    { name: 'asterisk', variant: 'solid' },
+    { name: 'atom', variant: 'solid' },
+    { name: 'bed', variant: 'solid' },
+    { name: 'bread-slice', variant: 'solid' },
+    { name: 'bolt', variant: 'solid' },
+    { name: 'car', variant: 'solid' },
+    { name: 'carrot', variant: 'solid' },
+    { name: 'cat', variant: 'solid' },
+    { name: 'cheese', variant: 'solid' },
+    { name: 'circle', variant: 'solid' },
+    { name: 'diamond', variant: 'solid' },
+    { name: 'dog', variant: 'solid' },
+    { name: 'eye', variant: 'solid' },
+    { name: 'feather', variant: 'solid' },
+    { name: 'fish', variant: 'solid' },
+    { name: 'frog', variant: 'solid' },
+    { name: 'gauge-simple', variant: 'solid' },
+    { name: 'guitar', variant: 'solid' },
+    { name: 'hat-cowboy', variant: 'solid' },
+    { name: 'hat-wizard', variant: 'solid' },
+    { name: 'heart', variant: 'solid' },
+    { name: 'helicopter', variant: 'solid' },
+    { name: 'house', variant: 'solid' },
+    { name: 'ice-cream', variant: 'solid' },
+    { name: 'igloo', variant: 'solid' },
+    { name: 'mask', variant: 'solid' },
+    { name: 'message', variant: 'solid' },
+    { name: 'paw', variant: 'solid' },
+    { name: 'pencil', variant: 'solid' },
+    { name: 'phone', variant: 'solid' },
+    { name: 'plane', variant: 'solid' },
+    { name: 'poop', variant: 'solid' },
+    { name: 'sack-dollar', variant: 'solid' },
+    { name: 'sailboat', variant: 'solid' },
+    { name: 'shoe-prints', variant: 'solid' },
+    { name: 'sink', variant: 'solid' },
+    { name: 'snowflake', variant: 'solid' },
+    { name: 'snowman', variant: 'solid' },
+    { name: 'square', variant: 'solid' },
+    { name: 'stairs', variant: 'solid' },
+    { name: 'stamp', variant: 'solid' },
+    { name: 'tape', variant: 'solid' },
+    { name: 'truck', variant: 'solid' },
+    { name: 'umbrella', variant: 'solid' },
+    { name: 'user', variant: 'solid'  },
+    // Regular
+    { name: 'bell', variant: 'regular' },
+    { name: 'bookmark', variant: 'regular' },
+    { name: 'circle', variant: 'regular' },
+    { name: 'clock', variant: 'regular' },
+    { name: 'envelope', variant: 'regular' },
+    { name: 'face-smile', variant: 'regular' },
+    { name: 'flag', variant: 'regular' },
+    { name: 'gem', variant: 'regular' },
+    { name: 'hand', variant: 'regular' },
+    { name: 'handshake', variant: 'regular' },
+    { name: 'heart', variant: 'regular' },
+    { name: 'hourglass', variant: 'regular' },
+    { name: 'image', variant: 'regular' },
+    { name: 'keyboard', variant: 'regular' },
+    { name: 'lemon', variant: 'regular' },
+    { name: 'life-ring', variant: 'regular' },
+    { name: 'lightbulb', variant: 'regular' },
+    { name: 'map', variant: 'regular' },
+    { name: 'moon', variant: 'regular' },
+    { name: 'newspaper', variant: 'regular' },
+    { name: 'snowflake', variant: 'regular' },
+    { name: 'square', variant: 'regular' },
+    { name: 'star', variant: 'regular' },
+    { name: 'sun', variant: 'regular' },
+    { name: 'trash-can', variant: 'regular' },
+  ];
+  const chooser = document.querySelector('#icon-chooser');
+  const variantInput = document.querySelector('[name="icon-variant"]');
+  const input = chooser.querySelector("[name='icon-search']");
+  const iconList = chooser.querySelector('.icon-list');
+  const queue = [];
+  let inputTimeout;
+
+  chooser.addEventListener('wa-initial-focus', () => {
+    requestAnimationFrame(() => input.focus());
+  })
+
+  variantInput.addEventListener('wa-change', () => {
+    iconList.dataset.variant = variantInput.value;
+  });
+
+  icons.forEach(icon => {
+    const button = document.createElement('wa-button');
+    button.style.margin = "2px"
+    button.classList.add("icon-list-item")
+    button.setAttribute("outline", "")
+    button.setAttribute('data-name', icon.name);
+    button.setAttribute('data-variant', icon.variant);
+    button.setAttribute('data-terms', [icon.name, ...(icon.tags || []), ...(icon.categories || [])].join(' '));
+    button.innerHTML = `
+      <wa-icon name="${icon.name}" label="${icon.name}" variant="${icon.variant}"></wa-icon>
+    `;
+
+    iconList.append(button);
+  });
+
+  // Filter as the user types
+  input.addEventListener('wa-input', () => {
+    clearTimeout(inputTimeout);
+    inputTimeout = setTimeout(() => {
+      [...iconList.children].map(item => {
+        const filter = input.value.toLowerCase();
+        if (filter === '') {
+          item.removeAttribute("hidden");
+        } else {
+          const terms = item.getAttribute('data-terms').toLowerCase();
+          if (terms.indexOf(filter) < 0) {
+            item.setAttribute("hidden", "")
+          } else {
+            item.removeAttribute("hidden")
+          }
+        }
+      });
+    }, 250);
+  });
+
+  document.querySelector("#icon-chooser-trigger").addEventListener("click", () => {
+    document.querySelector("#icon-chooser").show()
+  })
+</script>
+
+<script type="module">
+  function setup () {
+    const container = document.getElementById('knobs');
+    let previewContainer = document.querySelector('.preview-container');
+
+    const rootDocument = document.querySelector("light-pen")?.iframeElem?.contentDocument || document
+    const rootDocumentElement = rootDocument.documentElement || document.documentElement
+
+    // We know we're on a "playground" page.
+    if (document.querySelector("light-pen")) {
+      previewContainer = document.querySelector("light-pen")?.iframeElem?.contentDocument?.body
+
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+      if (!previewContainer || !themeSheet) {
+        setTimeout(() => {
+          setup()
+        }, 100)
+        return
+      }
+    }
+
+    const themeStylesheet = document.getElementById('theme-stylesheet');
+    const depthSlider = container.querySelector('[name="depth"]')
+    const fontWeightHeading = container.querySelector('[name="font-weight-heading"]')
+    const fontWeightBody = container.querySelector('[name="font-weight-body"]')
+    const fontFamilyHeading = container.querySelector('[name="font-family-heading"]')
+    const fontFamilyBody = container.querySelector('[name="font-family-body"]')
+    const spacing = container.querySelector("[name='spacing']")
+    const corners = container.querySelector("[name='corners']")
+    const borderStyle = container.querySelector('[name="border-style"]')
+    const borderWidth = container.querySelector('[name="border-width"]')
+    const themeSelect = container.querySelector('[name="theme"]');
+    const darkModeSelect = container.querySelector('[name="appearance"]');
+
+    function resetHeadingFontWeightValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-weight-heading')
+      fontWeightHeading.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-heading')
+    }
+
+    function resetHeadingFontFamilyValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-family-heading')
+      fontFamilyHeading.value = "default"
+    }
+
+    function resetBodyFontWeightValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-weight-body')
+      fontWeightBody.value = getComputedStyle(previewContainer).getPropertyValue('--wa-font-weight-body')
+    }
+
+    function resetBodyFontFamilyValue () {
+      rootDocumentElement.style.removeProperty('--wa-font-family-body')
+      fontFamilyBody.value = "default"
+    }
+
+    function resetBorderWidthValue () {
+      rootDocumentElement.style.removeProperty('--wa-border-width-base')
+      borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-base")
+    }
+
+    function resetBorderStyleValue () {
+      rootDocumentElement.style.removeProperty('--wa-border-style')
+      borderStyle.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-style")
+    }
+
+    function resetSpacingValue () {
+      rootDocumentElement.style.removeProperty('--wa-space-base')
+      spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-base")
+    }
+
+    function resetCornersValue () {
+      rootDocumentElement.style.removeProperty('--wa-corners-base')
+      corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-corners-base")
+    }
+
+    const depthNames = {
+      0: "depth_0_flat.css",
+      1: "depth_1_semiflat.css",
+      2: "depth_2_chunky.css",
+      3: "depth_3_punchy.css",
+      4: "depth_4_glossy.css",
+    }
+
+    function resetDepthValue () {
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+      const importRules = []
+      let depth = null
+      const matchRegex = /depth_(\d+)_.*\.css$/
+
+      // Find all import rules in the stylesheet, then find one that matches the naming convention.
+      ;[...themeSheet.cssRules].forEach((rule) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            depth = Number(match[1])
+          }
+        }
+      })
+
+      if (depth != null) {
+        depthSlider.value = depth
+      }
+    }
+
+    // Some depth stylesheets have additional CSS Properties. Let's delete them and make sure we get fresh stylesheets.
+    function deleteDepthFromBaseStylesheet () {
+      const themeSheet = [...rootDocument.styleSheets].find((sheet) => sheet.ownerNode?.id === "theme-stylesheet")
+
+      const importRules = []
+      let depth = null
+      let ruleIndex = null
+      const matchRegex = /depth_(\d+)_.*\.css$/
+
+      ;[...themeSheet.cssRules].forEach((rule, index) => {
+        if (rule instanceof CSSImportRule) {
+          const match = rule.href.match(matchRegex)
+          if (match) {
+            ruleIndex = index
+            depth = Number(match[1])
+          }
+        }
+      })
+
+      if (ruleIndex != null && depth != null) {
+        themeSheet.deleteRule(ruleIndex)
+      }
+    }
+
+    depthSlider.addEventListener("wa-input", (e) => {
+      const depth = e.target.value
+
+      if (depth == null) return
+
+      // Load depth stylesheet
+      const depthName = depthNames[depth]
+
+      const depthStylesheet = Object.assign(document.createElement("link"), {
+        // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+        id: "depth-stylesheet",
+        media: "print",
+        rel: "stylesheet",
+        type: "text/css",
+        href: `/dist/themes/${depthName}`,
+      })
+
+      // This prevents the typical flash and reflow you see if you replace the old stylesheet
+      // with the new stylesheet, before the new stylesheet has loaded
+      depthStylesheet.addEventListener("load", (e) => {
+        // Removing the media attribute causes styles to apply to the page
+        depthStylesheet.removeAttribute("media")
+        setTimeout(() => {
+          deleteDepthFromBaseStylesheet()
+          const oldDepthStylesheet = rootDocument.querySelectorAll("#depth-stylesheet").forEach((element, index) => {
+            if (index === 0) {
+              return
+            }
+
+            element.remove()
+          })
+        })
+      })
+
+      rootDocument.head.prepend(depthStylesheet)
+    })
+
+    resetDepthValue()
+
+
+    // Theme Switcher
+    themeSelect.addEventListener('wa-change', event => {
+      const theme = event.target.value
+      const newStylesheet = Object.assign(document.createElement("link"), {
+        // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
+        id: "theme-stylesheet",
+        media: "print",
+        rel: "stylesheet",
+        type: "text/css",
+        href: `/dist/themes/${theme}.css`,
+      })
+
+      // This prevents the typical flash and reflow you see if you replace the old stylesheet
+      // with the new stylesheet, before the new stylesheet has loaded
+      newStylesheet.addEventListener("load", (e) => {
+        // Removing the media attribute causes styles to apply to the page
+        newStylesheet.removeAttribute("media")
+        setTimeout(() => {
+          rootDocument.querySelectorAll("#theme-stylesheet").forEach((el, index) => {
+            if (index === 0) return
+
+            // 100 seems to provide the "smoothest" transition
+            setTimeout(() => {
+              el.remove();
+
+              resetBodyFontWeightValue()
+              resetBodyFontFamilyValue()
+              resetHeadingFontWeightValue()
+              resetHeadingFontFamilyValue()
+              resetDepthValue()
+              resetSpacingValue()
+              resetBorderWidthValue()
+              resetBorderStyleValue()
+              resetCornersValue()
+
+              if (darkModeSelect.checked === true) {
+                // darkModeSelect.checked = false
+                rootDocumentElement.className = "flavor-html"
+                rootDocumentElement.classList.toggle(`wa-theme-${theme}-dark`);
+              }
+            }, 100)
+          })
+        })
+      })
+
+      rootDocument.head.prepend(newStylesheet)
+    });
+
+    // User provided project logo
+    container.querySelector('[name="project-logo"]').addEventListener('change', event => {
+      const file = event.target.files[0]
+      const isSvg = file.type.startsWith("image/svg")
+
+      let img
+
+      if (isSvg) {
+        img = document.createElement("wa-icon")
+      } else {
+        img = document.createElement("img")
+      }
+
+      const src = URL.createObjectURL(file);
+      img.setAttribute("src", src)
+
+      img.id = "project-logo"
+      img.setAttribute("height", "36")
+      img.setAttribute("width", "36")
+
+      previewContainer.querySelector("#project-logo").replaceWith(img)
+
+      // Clean up to prevent memory leaks
+      img.addEventListener("load", () => {
+        URL.revokeObjectURL(src)
+      })
+
+      img.addEventListener("wa-load", () => {
+        URL.revokeObjectURL(src)
+      })
+    })
+
+    // Pre-selected logos
+    document.querySelector('.icon-list').addEventListener('click', event => {
+      const button = event.target.closest("wa-button")
+
+      if (!button) return
+
+      const iconName = button.dataset.name
+      const iconVariant = button.dataset.variant;
+
+      if (!iconName) return
+
+      // Undo selected
+      event.currentTarget.querySelectorAll(".icon-list-item").forEach((el) => {
+        el.setAttribute("aria-selected", "false")
+        el.setAttribute("variant", "neutral")
+        el.setAttribute("outline", "")
+      })
+
+      // Set selected
+      button.setAttribute("aria-selected", "true")
+      button.setAttribute("variant", "brand")
+      button.removeAttribute("outline")
+
+      const projectLogo = previewContainer.querySelector("#project-logo");
+      const element = document.createElement("wa-icon")
+      element.name = iconName
+      element.variant = iconVariant;
+      element.id = "project-logo"
+
+      // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+      projectLogo.replaceWith(element)
+      event.currentTarget.closest("wa-dialog").hide()
+    })
+
+    // Pre-generated logos
+    container.querySelector('[name=project-logo-selector]').addEventListener('wa-change', event => {
+      const value = event.currentTarget.value
+
+      const projectLogo = previewContainer.querySelector("#project-logo");
+
+      let element
+
+      element = document.createElement("wa-icon")
+      element.name = value
+
+      element.id = "project-logo"
+
+      // Depending on how we plan to store the logos, we can also do <img src="" height="36" width="36">
+      projectLogo.replaceWith(element)
+    })
+
+    // Project Name
+    container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+      previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
+    })
+
+    // Heading font weight
+    resetHeadingFontWeightValue()
+    fontWeightHeading.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
+    });
+
+    // Heading text
+    fontFamilyHeading.addEventListener('wa-change', event => {
+      let fontFamily;
+      switch(event.target.value) {
+        case 'assistant':
+          fontFamily = `'Assistant', sans-serif`;
+          break;
+        case 'inter':
+          fontFamily = `'inter', sans-serif`;
+          break;
+        case 'lora':
+          fontFamily = `'Lora', serif`;
+          break;
+        case 'mulish':
+          fontFamily = `'Mulish', sans-serif`;
+          break;
+        case 'noto-sans':
+            fontFamily = `'Noto Sans', sans-serif`;
+            break;
+        case 'noto-sans-display':
+            fontFamily = `'Noto Sans Display', sans-serif`;
+            break;
+        case 'noto-sans-mono':
+            fontFamily = `'Noto Sans Mono', monospace`;
+            break;
+        case 'noto-serif':
+            fontFamily = `'Noto Serif', serif`;
+            break;
+        case 'open-sans':
+            fontFamily = `'Open Sans', sans-serif`;
+            break;
+        case 'playfair':
+            fontFamily = `'Playfair', serif`;
+            break;
+        case 'playfair-display':
+            fontFamily = `'Playfair Display', serif`;
+            break;
+        case 'quicksand':
+            fontFamily = `'Quicksand', sans-serif`;
+            break;
+        case 'roboto-flex':
+            fontFamily = `'Roboto Flex', sans-serif`;
+            break;
+        case 'roboto-mono':
+            fontFamily = `'Roboto Mono', monospace`;
+            break;
+        case 'roboto-serif':
+            fontFamily = `'Roboto Serif', serif`;
+            break;
+        case 'roboto-slab':
+            fontFamily = `'Roboto Slab', serif`;
+            break;
+        default:
+          fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      }
+      rootDocumentElement.style.setProperty('--wa-font-family-heading', fontFamily);
+    })
+
+    // Body text
+    fontFamilyBody.addEventListener('wa-change', event => {
+      let fontFamily;
+      switch(event.target.value) {
+        case 'assistant':
+          fontFamily = `'Assistant', sans-serif`;
+          break;
+        case 'inter':
+          fontFamily = `'inter', sans-serif`;
+          break;
+        case 'lora':
+          fontFamily = `'Lora', serif`;
+          break;
+        case 'mulish':
+          fontFamily = `'Mulish', sans-serif`;
+          break;
+        case 'noto-sans':
+            fontFamily = `'Noto Sans', sans-serif`;
+            break;
+        case 'noto-sans-mono':
+            fontFamily = `'Noto Sans Mono', monospace`;
+            break;
+        case 'noto-serif':
+            fontFamily = `'Noto Serif', serif`;
+            break;
+        case 'open-sans':
+            fontFamily = `'Open Sans', sans-serif`;
+            break;
+        case 'playfair':
+            fontFamily = `'Playfair', serif`;
+            break;
+        case 'quicksand':
+            fontFamily = `'Quicksand', sans-serif`;
+            break;
+        case 'roboto-flex':
+            fontFamily = `'Roboto Flex', sans-serif`;
+            break;
+        case 'roboto-mono':
+            fontFamily = `'Roboto Mono', monospace`;
+            break;
+        case 'roboto-serif':
+            fontFamily = `'Roboto Serif', serif`;
+            break;
+        case 'roboto-slab':
+            fontFamily = `'Roboto Slab', serif`;
+            break;
+        default:
+          fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      }
+      rootDocumentElement.style.setProperty('--wa-font-family-body', fontFamily);
+    });
+
+    // Body font weight
+    resetBodyFontWeightValue()
+    fontWeightBody.addEventListener('wa-input', event => {
+    rootDocumentElement.style.setProperty('--wa-font-weight-body', event.target.value);
+    });
+
+    // Corners
+    container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-corners-base', `${event.target.value}`);
+    });
+
+    // Border width
+    container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-border-width-base', `${event.target.value / 16}`);
+    });
+
+    // Border style
+    borderStyle.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-border-style', event.target.value);
+    });
+
+    // Spacing style
+    spacing.addEventListener('wa-input', event => {
+      rootDocumentElement.style.setProperty('--wa-space-base', `${event.target.value}`);
+    });
+
+    // Form validation
+    // Mostly useful for the number ranges. Very simple validation on blurs.
+    function reportValidity (event) {
+      const element = event.target
+      if (typeof element?.reportValidity === "function") {
+        const isValid = element.reportValidity()
+
+        element.classList.toggle("wa-invalid", !isValid)
+      }
+    }
+
+    knobs.querySelectorAll("*").forEach((el) => el.addEventListener("blur", reportValidity))
+    knobs.querySelectorAll("*").forEach((el) => el.addEventListener("wa-blur", reportValidity))
+
+    // Light & Dark Mode
+    darkModeSelect.addEventListener('wa-change', event => {
+      const el = rootDocument
+      const theme = themeSelect.value
+
+      el.classList.toggle(`wa-theme-${theme}-dark`);
+
+    });
+  }
+
+  setup()
+</script>
+
+<slot />

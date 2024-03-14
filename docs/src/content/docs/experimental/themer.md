@@ -3,6 +3,7 @@ title: Themer
 description: TODO
 toc: false
 template: 'splash'
+layout: '../../../components/Themer.astro'
 ---
 
 <style>
@@ -862,23 +863,36 @@ main { padding: 65px; }
     top: 2rem;
     left: 2rem;
     background: var(--wa-color-surface-default);
-    border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
-    border-radius: var(--wa-corners-m);
-    box-shadow: var(--wa-shadow-level-2);
-    width: var(--knobs-width);
-    padding: 1.5rem;
-    max-height: calc(100% - 3rem);
-    overflow: auto;
-    margin-inline: auto;
-    margin-block: 0 4rem;
+    background-attachment: fixed;
+    background-image: radial-gradient(var(--wa-color-surface-lowered) 1.5px, transparent 0);
+    background-size: 28px 28px;
+    background-position: -19px -19px;
+    min-height: 100vh;
   }
 
-  #knobs p {
-    margin: 0;
+  main {
+    margin-left: 0;
   }
 
-  #knobs wa-select + wa-input {
-    margin-inline-start: .5rem;
+#menu-toggle,
+#sidebar {
+    display: none;
+  }
+
+  .content {
+    max-width: 1024px;
+    gap: 0;
+  }
+
+#project-logo {
+    font-size: 1.25rem;
+  }
+
+  .preview-container {
+    background: var(--wa-color-surface-lowered);
+    padding-inline: var(--wa-space-2xl);
+    padding-block-end: var(--wa-space-2xl);
+    translate: calc((var(--knobs-width) + 2rem) / 2);
   }
 </style>
 
@@ -974,173 +988,6 @@ main { padding: 65px; }
         </div>
       </wa-card>
     </div>
-
-<style is:global>
-  html {
-    background: var(--wa-color-surface-default);
-    background-attachment: fixed;
-    background-image: radial-gradient(var(--wa-color-surface-lowered) 1.5px, transparent 0);
-    background-size: 28px 28px;
-    background-position: -19px -19px;
-    min-height: 100vh;
-  }
-
-  main {
-    margin-left: 0;
-  }
-
-  #menu-toggle,
-  #sidebar {
-    display: none;
-  }
-
-  .content {
-    max-width: 1024px;
-    gap: 0;
-  }
-
-  #project-logo {
-    font-size: 1.25rem;
-  }
-
-  .preview-container {
-    background: var(--wa-color-surface-lowered);
-    padding-inline: var(--wa-space-2xl);
-    padding-block-end: var(--wa-space-2xl);
-    translate: calc((var(--knobs-width) + 2rem) / 2);
-  }
-
-  .overlap {
-    position: relative;
-    color: var(--wa-color-text-normal);
-    padding: 0 var(--wa-space-m);
-    z-index: 1;
-  }
-
-  .overlap::after {
-    content: '';
-    position: absolute;
-    top: calc(-1 * var(--wa-space-2xl));
-    left: calc(-1 * var(--wa-space-2xl));
-    width: calc(100% + var(--wa-space-2xl) * 2);
-    height: 300px;
-    background: var(--wa-color-brand-spot-darker);
-    z-index: -1;
-  }
-
-  .overlap h1 {
-    color: var(--wa-color-brand-text-on-spot);
-  }
-
-  .overlap .grid {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    align-items: center;
-    gap: var(--wa-space-xl);
-    padding: var(--wa-space-m);
-  }
-
-  .overlap .image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--wa-corners-m);
-    align-self: start;
-  }
-
-  .overlap .image #city,
-  .overlap .image #falcon {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 50%);
-  }
-
-  .overlap .image #fighters {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), black 30%);
-  }
-
-  .overlap .image #upper_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
-  }
-
-  .overlap .image #background_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 90%);
-  }
-
-  .overlap .image #forefront_clouds {
-    fill: color-mix(in oklab, var(--wa-color-brand-spot), white 70%);
-  }
-
-  .overlap .image .gradient-start {
-    stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 80%);
-  }
-
-  .overlap .image .gradient-stop {
-    stop-color: color-mix(in oklab, var(--wa-color-brand-spot), white 0%);
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 1rem;
-    margin-block-start: var(--wa-space-m);
-  }
-
-  .cards wa-card::part(body),
-  .cards wa-card::part(base) {
-    height: 100%;
-  }
-
-  .space-vertically {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap, 1.25rem);
-  }
-
-  .project-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid white;
-    color: var(--wa-color-brand-text-on-spot);
-    border-bottom: 1px solid color-mix(in oklab, var(--wa-color-brand-text-on-spot), transparent 50%);
-    padding-bottom: var(--wa-space-m);
-  }
-
-  .project-header wa-icon-button {
-    & + * {
-      margin-inline-start: var(--wa-space-m);
-    }
-
-    &::part(base) {
-      color: var(--wa-color-brand-text-on-spot);
-    }
-  }
-
-  wa-select[label="Signet"]::part(form-control-help-text) {
-    line-height: 1.5;
-  }
-
-  @media screen and (max-width: 670px) {
-    .overlap .grid {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  @media screen and (max-width: 1040px) {
-    .cards {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  @media screen and (max-width: 1450px) {
-    .cards {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-</style>
 
 <!-- Style Guide -->
 <wa-card id="style-guide">

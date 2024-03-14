@@ -1,0 +1,25 @@
+---
+import PageLayout from "../../../layouts/PageLayout.astro"
+import * as fs from "node:fs"
+import * as path from 'node:path';
+
+export const title = "Example"
+export const description = "Example"
+
+export const dir = path.join(process.cwd(), "src", "pages", "page-templates", "example")
+
+export const html = fs.readFileSync(path.resolve(dir, "_example.html"), { encoding: "utf-8" }).replaceAll(/<\/script>/g, "&lt;/script>")
+export const cssReset = fs.readFileSync(path.resolve(dir, "../_reset.css"), { encoding: "utf-8" })
+export const css = cssReset + "\n" + fs.readFileSync(path.resolve(dir, "_example.css"), { encoding: "utf-8" })
+---
+
+<style set:html={css}></style>
+
+<PageLayout frontmatter={{
+  title,
+  description,
+}}>
+  <Fragment set:html={html} />
+</PageLayout>
+
+

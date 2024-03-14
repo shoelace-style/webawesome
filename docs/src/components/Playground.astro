@@ -1,0 +1,35 @@
+---
+import PageLayout from "../layouts/PageLayout.astro"
+import Themer from "./Themer.astro"
+
+const { html, css, js, title, description } = Astro.props
+
+---
+
+<script>
+  import "light-pen"
+</script>
+
+<PageLayout frontmatter={{
+  description,
+  title
+}}>
+  <div style="display:grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr);">
+    <Themer />
+
+    <light-pen style="height: 100%;" resize-position="30" preserve-whitespace>
+      <script type="text/plain" slot="html" set:html={
+  `<link id="theme-stylesheet" type="text/css" href="/dist/themes/default.css" rel="stylesheet">
+  <link id="applied-stylesheet" type="text/css" href="/dist/themes/applied.css" rel="stylesheet">
+
+  <script type="module" defer>import "/dist/webawesome.js"&lt;/script>
+
+  ${html}`}>
+      </script>
+      <script type="text/plain" slot="css" set:html={`${css}`}>
+      </script>
+      <script type="text/plain" slot="js" set:html={''}>
+      </script>
+    </light-pen>
+  </div>
+</PageLayout>

@@ -1,0 +1,197 @@
+.wa-button--muted {
+  --border-color: transparent;
+  --background: transparent;
+  --background-hover: var(--wa-color-neutral-fill-subtle);
+  --border-color-hover: var(--wa-color-neutral-border-subtle);
+}
+
+/** https://andy-bell.co.uk/my-favourite-3-lines-of-css/ */
+.flow > * + * {
+  margin-block-start: var(--wa-flow-spacing);
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation--desktop {
+  gap: 2rem;
+}
+
+.navigation--top {
+  flex-direction: row;
+}
+
+.navigation--top wa-button {
+  font-size: 1.4rem;
+  font-weight: bold;
+  --border-color: transparent;
+
+  &::part(base) {
+    color: var(--wa-color-brand-text-on-spot);
+  }
+
+  &:hover::part(base) {
+    color: var(--wa-color-text-normal);
+  }
+}
+
+.navigation--top [aria-current='page'] {
+  &::part(base) {
+    text-decoration: underline;
+    text-decoration-color: var(--wa-color-danger-spot);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 8px;
+  }
+}
+
+.header {
+  display: flex;
+  border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-fill-highlight);
+  background-color: var(--wa-color-surface-default);
+}
+
+.header > * {
+  padding-top: var(--wa-space-m);
+  padding-bottom: var(--wa-space-m);
+}
+
+.header__navigation {
+  display: flex;
+  clip-path: polygon(var(--wa-space-2xl) 0, 100% 0, 100% 100%, 0 100%);
+  padding-inline-start: calc(var(--wa-space-2xl) + var(--wa-space-xs));
+  padding-inline-end: var(--wa-space-m);
+  background-color: var(--wa-color-brand-spot-darker);
+  width: 100%;
+}
+
+.header > .logo {
+  padding-inline-start: var(--wa-space-m);
+  /** Responsive font size for the top header to make it flow nicer */
+  font-size: clamp(1rem, 4vw, 1.4rem);
+}
+
+a.logo {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--wa-color-text-normal);
+  text-decoration: none;
+  margin: auto;
+}
+
+a.logo:is(:hover, :focus) {
+  text-decoration: underline;
+}
+
+.logo__accent {
+  color: var(--wa-color-yellow-70);
+}
+
+.navigation--desktop {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation--desktop [aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 4px;
+  text-decoration-color: var(--wa-color-brand-outline-muted-alt);
+}
+
+.navigation-list {
+  display: grid;
+  grid-template-columns: auto;
+  place-content: center;
+  margin: 0;
+  list-style-type: '';
+}
+
+.navigation--desktop wa-nav-item[current='page']:hover {
+  text-decoration-color: var(--wa-color-brand-border-highlight);
+}
+
+.navigation--extra {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+
+wa-page[view='desktop'] [data-toggle-nav],
+wa-page[view='desktop']::part(navigation) {
+  display: none;
+}
+
+wa-page[view='mobile'] .navigation--desktop {
+  display: none;
+}
+
+.layout-banner {
+  padding: var(--wa-space-m);
+  text-align: center;
+  background-color: var(--wa-color-yellow-80);
+}
+
+.stats-grid {
+  display: grid;
+  /** 30vw ensures we never show more than 3 tables in the viewport at any given time. */
+  grid-template-columns: repeat(auto-fit, minmax(clamp(225px, 30vw, 100%), 1fr));
+  gap: var(--wa-space-m);
+  grid-template-rows: 1fr;
+  align-items: start;
+  max-width: 100%;
+}
+
+.stats-grid table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--wa-panel-corners);
+  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.stats-grid table * {
+  font-variant-numeric: tabular-nums;
+}
+
+.stats-grid table th {
+  font-weight: bold;
+  text-align: center;
+}
+
+.stats-grid table td:nth-child(2) {
+  text-align: end;
+}
+
+.navigation--top.navigation--social {
+  justify-content: flex-end;
+}
+
+.navigation--social {
+  flex-grow: 1;
+}
+
+.navigation--top .social-link {
+  display: none;
+}
+
+@media screen and (min-width: 415px) {
+  .navigation--top .social-link {
+    display: flex;
+  }
+}

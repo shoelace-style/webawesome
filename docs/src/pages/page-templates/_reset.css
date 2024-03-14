@@ -1,0 +1,14 @@
+html {
+  height: auto;
+}
+
+body {
+  height: 100%;
+}
+
+html,
+body {
+  min-height: 100%;
+  padding: 0 !important;
+  margin: 0;
+}

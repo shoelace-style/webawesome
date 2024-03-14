@@ -1,0 +1,370 @@
+<wa-page
+  main-id="main-content"
+  class="wa-theme-light preview-container"
+  mobile-breakpoint="1000"
+  disable-sticky="banner"
+>
+  <header class="layout-banner" slot="banner">Reminder! Get your insurance paperwork in by Oct 12!</header>
+
+  <header class="header" slot="header">
+    <a href="#" class="logo"> <span>Sport</span> <span class="logo__accent">Awesome</span> </a>
+
+    <div class="header__navigation">
+      <nav class="navigation navigation--top navigation--desktop">
+        <wa-button class="wa-button--muted" outline href="#" aria-current="page">Home</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Schedule</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Roster</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Stats</wa-button>
+        <wa-button class="wa-button--muted" outline href="#">Videos</wa-button>
+      </nav>
+
+      <nav class="navigation navigation--top navigation--social">
+        <wa-button outline class="wa-button--muted social-link" href="#">
+          <wa-icon name="instagram" family="brands"></wa-icon>
+        </wa-button>
+        <wa-button outline class="wa-button--muted social-link" href="#"
+          ><wa-icon name="facebook" family="brands"></wa-icon
+        ></wa-button>
+        <wa-button outline class="wa-button--muted" data-toggle-nav href="#"><wa-icon name="list"></wa-icon></wa-button>
+      </nav>
+    </div>
+  </header>
+
+  <a href="#" class="logo" slot="navigation-header"> Sport <span class="logo__accent">Awesome</span> </a>
+
+  <nav slot="navigation">
+    <ul role="list" class="navigation-list">
+      <li>
+        <wa-button class="wa-button--muted" outline href="#" aria-current="page">
+          <wa-icon name="house" slot="prefix"></wa-icon>
+          Home
+        </wa-button>
+      </li>
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="calendar" slot="prefix"></wa-icon>
+          Schedule
+        </wa-button>
+      </li>
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="people" slot="prefix"></wa-icon>
+          Roster
+        </wa-button>
+      </li>
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="chart-simple" slot="prefix"></wa-icon>
+          Stats
+        </wa-button>
+      </li>
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="video" slot="prefix"></wa-icon>
+          Videos
+        </wa-button>
+      </li>
+    </ul>
+
+    <wa-divider></wa-divider>
+
+    <ul role="list" class="navigation-list">
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="instagram" family="brands" slot="prefix"></wa-icon>
+          Instagram
+        </wa-button>
+      </li>
+
+      <li>
+        <wa-button class="wa-button--muted" outline href="#">
+          <wa-icon name="facebook" family="brands" slot="prefix"></wa-icon>
+          Facebook
+        </wa-button>
+      </li>
+    </ul>
+  </nav>
+
+  <main id="main-content" class="flow" style="padding: var(--wa-space-m)">
+    <div style="display: flex; flex-wrap: wrap; gap: var(--wa-space-m)">
+      <figure style="min-width: 75%; display: flex; flex-direction: column; margin: 0 auto">
+        <img
+          src="https://images.unsplash.com/photo-1562552052-c72ceddf93dc?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          loading="lazy"
+          alt="Picture of people playing volleyball"
+          height="512"
+          width="300"
+          style="aspect-ratio: 16/9; min-width: 100%"
+        />
+        <figcaption>
+          Photo by
+          <cite><a href="https://unsplash.com/@stevenabraham">Steven Abraham</a></cite>
+          courtesy of
+          <cite><a href="https://unsplash.com/">Unsplash</a></cite>
+        </figcaption>
+      </figure>
+      <aside
+        style="
+          display: flex;
+          flex-direction: column;
+          border-radius: var(--wa-panel-corners);
+          flex-grow: 1;
+          flex-shrink: 1;
+          max-width: 75vw;
+          margin: 0 auto;
+        "
+      >
+        <header
+          style="
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--wa-color-brand-text-on-spot);
+            background-color: var(--wa-color-brand-spot-darker);
+            padding: var(--wa-space-m);
+            text-align: center;
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+          "
+        >
+          Upcoming
+        </header>
+
+        <div
+          style="
+            color: var(--wa-color-danger-text-on-spot);
+            background-color: var(--wa-color-danger-spot-darker);
+            padding: var(--wa-space-s);
+            text-align: center;
+            font-weight: bold;
+          "
+        >
+          Tryouts!
+        </div>
+
+        <div
+          style="
+            background-color: var(--wa-color-neutral-fill-highlight);
+            color: var(--wa-color-neutral-text-on-fill);
+            padding: var(--wa-space-m);
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            text-align: center;
+          "
+        >
+          <span style="font-weight: bold; font-size: 1.2rem">Barclay's Center</span>
+
+          <br />
+
+          <time>Sat, Jul 3rd • 11:30am</time>
+        </div>
+      </aside>
+    </div>
+
+    <section>
+      <h1>Welcome to Sport <span class="logo__accent">Awesome</span></h1>
+
+      <p>
+        Dolor quam voluptate nostrum neque eius. Quo nemo corporis repellat quia sunt molestiae! Dolorem labore
+        laudantium nobis numquam reprehenderit? Voluptatibus odio animi nemo maiores accusamus eaque Assumenda
+        perferendis omnis quae. Adipisicing beatae lorem nisi aliquid similique Voluptas doloremque pariatur tempore
+        omnis maiores explicabo. Provident iste vel explicabo corporis quaerat! Necessitatibus minus quas iusto ducimus
+        consequatur illo Cum eos adipisci ut!
+      </p>
+    </section>
+
+    <section>
+      <h2 style="text-align: center; font-weight: bold; font-size: 1.5em">Stats</h2>
+      <div class="stats-grid">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Serve</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Attempts</td>
+                <td>2936</td>
+              </tr>
+              <tr>
+                <td>Serve %</td>
+                <td>93.6%</td>
+              </tr>
+              <tr>
+                <td>Aces</td>
+                <td>268</td>
+              </tr>
+              <tr>
+                <td>Errors</td>
+                <td>189</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Serve Receive</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Attempts</td>
+                <td>2428</td>
+              </tr>
+              <tr>
+                <td>Pass Rating</td>
+                <td>1.72</td>
+              </tr>
+              <tr>
+                <td>Pass Error %</td>
+                <td>13.3%</td>
+              </tr>
+              <tr>
+                <td>3-pass %</td>
+                <td>28.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Attack</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Attempts</td>
+                <td>3624</td>
+              </tr>
+              <tr>
+                <td>Kills</td>
+                <td>1431</td>
+              </tr>
+              <tr>
+                <td>Errors</td>
+                <td>268</td>
+              </tr>
+              <tr>
+                <td>Hitting Efficiency</td>
+                <td>0.254</td>
+              </tr>
+
+              <tr>
+                <td>Kill %</td>
+                <td>39.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Dig</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Attempts</td>
+                <td>3124</td>
+              </tr>
+
+              <tr>
+                <td>Digs</td>
+                <td>2235</td>
+              </tr>
+
+              <tr>
+                <td>Errors</td>
+                <td>889</td>
+              </tr>
+
+              <tr>
+                <td>Dig %</td>
+                <td>71.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Block</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Blocks</td>
+                <td>348</td>
+              </tr>
+
+              <tr>
+                <td>Errors</td>
+                <td>414</td>
+              </tr>
+
+              <tr>
+                <td>Block %</td>
+                <td>31.6%</td>
+              </tr>
+
+              <tr>
+                <td>Error %</td>
+                <td>24.6%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Set</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Assists</td>
+                <td>1364</td>
+              </tr>
+
+              <tr>
+                <td>Errors</td>
+                <td>81</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer
+    slot="main-footer"
+    style="
+      background-color: var(--wa-color-brand-fill-vivid);
+      color: var(--wa-color-text-inverse);
+      padding: var(--wa-space-m);
+      text-align: center;
+    "
+  >
+    © 2023 - Sport Awesome
+  </footer>
+</wa-page>

@@ -32,6 +32,7 @@ export { default as WaMenuItem } from './components/menu-item/menu-item.js';
 export { default as WaMenuLabel } from './components/menu-label/menu-label.js';
 export { default as WaMutationObserver } from './components/mutation-observer/mutation-observer.js';
 export { default as WaOption } from './components/option/option.js';
+export { default as WaPage } from './components/page/page.js';
 export { default as WaPopup } from './components/popup/popup.js';
 export { default as WaProgressBar } from './components/progress-bar/progress-bar.js';
 export { default as WaProgressRing } from './components/progress-ring/progress-ring.js';

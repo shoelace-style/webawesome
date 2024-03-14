@@ -1,0 +1,454 @@
+<wa-page main-id="main-content" class="wa-theme-light">
+  <header slot="header" style="display: flex; align-items: center; justify-content: space-between">
+    <wa-button
+      href="#"
+      variant="text"
+      style="padding: 0 0.4rem"
+      class="wa-button--logo wa-button--muted"
+      size="large"
+      slot="navigation-header"
+    >
+      <wa-icon name="music" slot="prefix" style="font-size: 2rem"></wa-icon>
+      Music Awesome
+    </wa-button>
+
+    <wa-icon-button name="list" style="font-size: 1.5rem" data-toggle-nav></wa-icon-button>
+  </header>
+  <wa-button
+    href="#"
+    variant="text"
+    style="padding: 0 0.4rem"
+    class="wa-button--logo wa-button--stretch wa-button--muted"
+    size="large"
+    slot="navigation-header"
+  >
+    <wa-icon name="music" slot="prefix" style="font-size: 2rem"></wa-icon>
+    Music Awesome
+  </wa-button>
+
+  <nav style="padding: 1rem" slot="navigation">
+    <ul class="nav-list" role="list" style="">
+      <li>
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="search" slot="prefix"></wa-icon>
+          Search
+        </wa-button>
+      </li>
+
+      <li>
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="bell" slot="prefix"></wa-icon>
+          Notifications
+        </wa-button>
+      </li>
+
+      <wa-divider></wa-divider>
+
+      <li>
+        <wa-button href="#" variant="brand" aria-current="page">
+          <wa-icon name="house" slot="prefix"></wa-icon>
+          Home
+        </wa-button>
+      </li>
+
+      <li>
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="play" slot="prefix"></wa-icon>
+          Playlists
+        </wa-button>
+      </li>
+
+      <li>
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="compact-disc" slot="prefix"></wa-icon>
+          Tracks
+        </wa-button>
+      </li>
+
+      <li>
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="gear" slot="prefix"></wa-icon>
+          Settings
+        </wa-button>
+      </li>
+
+      <li style="margin-top: auto">
+        <wa-button class="wa-button--muted" href="#" outline>
+          <wa-icon name="question-circle" slot="prefix"></wa-icon>
+          Help
+        </wa-button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hacky override to make padding 8px -->
+  <wa-button
+    slot="navigation-footer"
+    outline
+    class="wa-button--square wa-button--stretch wa-button--muted wa-button--nav-footer"
+    size="large"
+    href="#"
+  >
+    <div
+      style="
+        display: grid;
+        align-items: center;
+        max-width: 100%;
+        gap: 8px;
+        grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+      "
+    >
+      <wa-avatar shape="rounded" style="--size: 36px"></wa-avatar>
+      <div style="text-overflow: ellipsis; max-width: 100%; overflow: hidden; text-align: start; font-size: 1rem">
+        Really really really long name
+      </div>
+      <wa-icon name="chevron-right"></wa-icon>
+    </div>
+  </wa-button>
+
+  <main id="main-content" class="main">
+    <h1 style="margin: 0.5rem 0 2rem 0">Good Evening, Konnor Rogers</h1>
+
+    <section>
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 8px">
+        <h2 style="margin: 0">Overview</h2>
+
+        <wa-select value="monthly">
+          <wa-option value="daily">Daily</wa-option>
+          <wa-option value="weekly">Weekly</wa-option>
+          <wa-option value="monthly">Monthly</wa-option>
+          <wa-option value="yearly">Yearly</wa-option>
+        </wa-select>
+      </div>
+
+      <wa-divider></wa-divider>
+
+      <div
+        style="
+          margin-top: 1rem;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-auto-rows: 1fr;
+          gap: var(--wa-spacing-large);
+          text-align: center;
+        "
+      >
+        <wa-card class="wa-card--muted" style="--padding: 8px">
+          <h3 slot="header">Total listening time</h3>
+
+          <p>
+            <strong><wa-format-number value="35000"></wa-format-number></strong> minutes
+          </p>
+          <p>
+            <mark class="highlight highlight--success"> +16% </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </wa-card>
+
+        <wa-card class="wa-card--muted" style="--padding: 8px">
+          <h3 slot="header">Total songs played</h3>
+
+          <p>
+            <strong><wa-format-number value="302"></wa-format-number></strong> songs
+          </p>
+
+          <p>
+            <mark class="highlight highlight--danger"> -0.3% </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </wa-card>
+
+        <wa-card class="wa-card--muted" style="--padding: 8px">
+          <h3 slot="header">Average listening session</h3>
+
+          <p>
+            <strong><wa-format-number value="36"></wa-format-number></strong> minutes
+          </p>
+
+          <p>
+            <mark class="highlight highlight--success"> +11.4% </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </wa-card>
+
+        <wa-card class="wa-card--muted" style="--padding: 8px">
+          <h3 slot="header">Average track listening time</h3>
+
+          <p>
+            <strong><wa-format-number value="2"></wa-format-number></strong> minutes,
+            <strong><wa-format-number value="42"></wa-format-number></strong> seconds
+          </p>
+          <p>
+            <mark class="highlight highlight--success"> -6.2% </mark>
+
+            <small class="text--light">from last month</small>
+          </p>
+        </wa-card>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem">
+      <h2>Recent playlists</h2>
+
+      <div
+        style="
+          margin-top: 1rem;
+          --card-width: clamp(200px, 100%, 350px);
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
+          gap: 16px;
+        "
+      >
+        <wa-button class="wa-button--card wa-button--muted" href="#" outline>
+          <div style="display: flex; gap: 1rem">
+            <img
+              src="https://via.placeholder.com/100x100"
+              height="100"
+              width="100"
+              style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%; flex: 0 1 auto"
+            />
+
+            <article
+              style="
+                display: grid;
+                align-content: center;
+                color: var(--wa-color-neutral-700);
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 100%;
+                overflow: hidden;
+                width: 100%;
+              "
+            >
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">Punk Rock Anthems</h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">
+                For when you just wanna rock out, have a good time, and feel angsty.
+              </p>
+
+              <wa-icon name="chevron-right" style="justify-self: flex-end"></wa-icon>
+            </article>
+          </div>
+        </wa-button>
+
+        <wa-button class="wa-button--card wa-button--muted" outline href="#">
+          <div style="display: flex; gap: 1rem">
+            <img
+              src="https://via.placeholder.com/100x100"
+              height="100"
+              width="100"
+              style="align-self: center; border-radius: 8px; display: inline-block; max-width: 100%"
+            />
+
+            <article
+              style="
+                display: grid;
+                align-content: center;
+                color: var(--wa-color-neutral-700);
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 100%;
+                overflow: hidden;
+                width: 100%;
+              "
+            >
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">Random</h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">
+                Throw it on shuffle, and embrace the chaos.
+              </p>
+
+              <wa-icon name="chevron-right" style="justify-self: flex-end"></wa-icon>
+            </article>
+          </div>
+        </wa-button>
+
+        <wa-button class="wa-button--card wa-button--muted" outline href="#">
+          <div style="display: flex; gap: 1rem">
+            <img
+              src="https://via.placeholder.com/100x100"
+              height="100"
+              width="100"
+              style="align-self: center; border-radius: 8px; display: inline-block"
+            />
+
+            <article
+              style="
+                display: grid;
+                align-content: center;
+                color: var(--wa-color-neutral-700);
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 100%;
+                overflow: hidden;
+                width: 100%;
+              "
+            >
+              <h2 style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">Classics</h2>
+
+              <p style="max-width: 100%; text-overflow: ellipsis; overflow: hidden">
+                Timeless songs that you love to relive.
+              </p>
+
+              <wa-icon name="chevron-right" style="justify-self: flex-end"></wa-icon>
+            </article>
+          </div>
+        </wa-button>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem">
+      <h2>Recent tracks</h2>
+
+      <div style="margin-top: 1rem; max-width: 100%; overflow: auto">
+        <table style="width: 100%; min-width: 500px; border-spacing: 2px">
+          <thead>
+            <tr>
+              <th>Release Date</th>
+
+              <th>Name</th>
+
+              <th>Album</th>
+
+              <th>Artist</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+
+            <tr>
+              <td>
+                <wa-format-date date="2020-07-15T09:17:00-04:00"></wa-format-date>
+              </td>
+
+              <td>No Strangers to Love</td>
+
+              <td>You Know the Rules</td>
+
+              <td>Rick Barry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</wa-page>
