@@ -1,33 +1,9 @@
 ---
 title: Kitchen Sink
 description: TODO
-template: 'splash'
 ---
 
 <style is:inline>
-  /* Reset for themer blank canvas */
-  header.header { display: none; }
-  .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
-  body { padding: 0px; }
-  main { padding: 65px; }
-  .sl-container > footer { display: none; }
-  .content-panel:first-of-type { display: none; }
-  .sl-markdown-content :not(a, strong, em, del, span, input, code) + :not(a, strong, em, del, span, input, code, :where(.not-content *)) {
-    margin-top: revert;
-  }
-  body .main-frame main h1 {
-    margin: revert;
-  }
-
-  .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
-    color: revert;
-  }
-
-  #knobs {
-    color: var(--wa-color-text-normal);
-  }
-
-
   /* turn off eleventy header anchors */
   .anchor-heading a {
     display: none;
@@ -527,8 +503,8 @@ template: 'splash'
 <!-- Knobs -->
 <form id="knobs">
   <div class="header">
-    <div style="width: 2em; height: auto; margin: auto;">
-      <a href="/"><wa-icon src="/assets/images/logo.svg"></wa-icon></a>
+    <div style="width: 2em; font-size: 1.75em; height: auto; margin: auto;">
+      <a href="/"><wa-icon src="/assets/images/logo-simple.svg"></wa-icon></a>
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>

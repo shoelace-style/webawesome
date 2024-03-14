@@ -6,6 +6,25 @@ const { html, css, js, title, description } = Astro.props
 
 ---
 
+
+<style is:inline>
+  body #knobs {
+    position: sticky;
+    top: 0rem;
+    left: 0rem;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    min-height: 99vh;
+    max-height: 99vh;
+    margin-bottom: 0;
+  }
+
+  body #knobs .logo-controls {
+    display: none;
+  }
+</style>
+
 <script>
   import "light-pen"
 </script>

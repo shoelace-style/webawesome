@@ -3,6 +3,11 @@ import Themer from '../components/Themer.astro';
 import { customElementsManifest } from '../js/cem.js';
 const { frontmatter } = Astro.props
 
+import '../styles/global.css'
+// import '../../styles/syntax-highlight.css'
+// import '../../styles/code-previews.css'
+// import '../../styles/font-awesome.css'
+
 const version = customElementsManifest().version
 ---
 <!DOCTYPE html>
@@ -17,6 +22,11 @@ const version = customElementsManifest().version
     <meta name="description" content={ frontmatter.description } />
 
     <title>{ frontmatter.title }</title>
+
+    {/* Web Fonts */}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Inter:wght@100..900&family=Lora:wght@400..700&family=Mulish:wght@200..1000&family=Noto+Sans+Display:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:wght@100..900&family=Noto+Serif:wght@100..900&family=Open+Sans:wght@300..800&family=Playfair+Display:wght@400..900&family=Playfair:opsz,wght@5..1200,300;5..1200,400;5..1200,500;5..1200,600&family=Quicksand:wght@300..700&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600&family=Roboto+Mono:wght@300..700&family=Roboto+Serif:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600&family=Roboto+Slab:wght@300..700&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
 
     {/* Opt out of Turbo caching */}
     <meta name="turbo-cache-control" content="no-cache">
@@ -40,7 +50,10 @@ const version = customElementsManifest().version
 
     {/* WebAwesome */}
     <link id="theme-stylesheet" rel="stylesheet" href="/dist/themes/default.css" />
+    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/color_standard.css" />
+    <link rel="stylesheet" href="/dist/themes/forms.css" />
     <link rel="stylesheet" href="/dist/themes/applied.css" />
+
     <script type="module" src="/dist/webawesome.js"></script>
 
     {/* Set the initial theme and menu states here to prevent flashing */}
@@ -71,21 +84,6 @@ const version = customElementsManifest().version
         display: none !important;
       }
 
-      body #knobs {
-        position: sticky;
-        top: 0rem;
-        left: 0rem;
-        border-radius: 0;
-        box-shadow: none;
-        width: 100%;
-        min-height: 99vh;
-        max-height: 99vh;
-        margin-bottom: 0;
-      }
-
-      body #knobs .logo-controls {
-        display: none;
-      }
     </style>
   </head>
   <body>

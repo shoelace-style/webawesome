@@ -1,0 +1,17 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro"
+import { Content, frontmatter } from "./kitchen-sink.md"
+---
+
+<PageLayout
+  frontmatter={frontmatter}
+>
+  <main>
+    <a id="main-content"></a>
+    <article id="content" class="content" style="padding: 2rem;">
+      <div class="content__body">
+        <Content />
+      </div>
+    </article>
+  </main>
+</PageLayout>
