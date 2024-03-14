@@ -6,7 +6,6 @@ template: 'splash'
 
 <style is:inline>
   /* Reset for themer blank canvas */
-  /*
   header.header { display: none; }
   .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
   body { padding: 0px; }
@@ -23,7 +22,6 @@ template: 'splash'
   .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
     color: revert;
   }
-  */
 
   #knobs {
     color: var(--wa-color-text-normal);
