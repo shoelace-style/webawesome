@@ -62,7 +62,7 @@ main { padding: 65px; }
 <!-- Knobs -->
 <form id="knobs">
   <div class="space-vertically">
-    <a href="/"><wa-icon style="font-size: 2rem;" src="/public/assets/images/logo.svg"></wa-icon></a>
+    <a href="/"><wa-icon style="font-size: 2rem;" src="/assets/images/logo.svg"></wa-icon></a>
     <wa-input name="project-name" value="" placeholder="Project Name" label="Give us your project's name!"></wa-input>
     <div>
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
