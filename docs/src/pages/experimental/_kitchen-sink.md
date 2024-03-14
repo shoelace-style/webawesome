@@ -519,8 +519,8 @@ description: TODO
     </wa-select>
   </div>
   <wa-details summary="Branding">
-    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-input name="project-name" value="" placeholder="Project name" label="What are you working on?"></wa-input>
     <div>
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
@@ -537,7 +537,7 @@ description: TODO
         <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
         <wa-tooltip content="Browse icons" distance="-3" hoist>
           <wa-button value="[choose]" variant="text" id="icon-chooser-trigger" class="logo-chooser">
-            <wa-icon name="ellipsis" variant="regular"></wa-icon>
+            <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
             <wa-visually-hidden>Browse icons</wa-visually-hidden>
           </wa-button>
         </wa-tooltip>
@@ -546,8 +546,8 @@ description: TODO
     </div>
   </wa-details>
   <wa-details summary="Color">
-    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-radio-group name="color" label="Color palette" value="standard">
       <wa-radio value="standard">
         Standard<br>
@@ -592,8 +592,8 @@ description: TODO
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Typography">
-    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <fieldset>
       <legend aria-hidden="true">Headings</legend>
       <div style="display: flex;">
@@ -644,8 +644,8 @@ description: TODO
     </fieldset>
   </wa-details>
   <wa-details summary="Icons">
-    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-select name="icon-family" label="Icon family" value="fa-classic" hoist>
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
@@ -660,8 +660,8 @@ description: TODO
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Look and feel">
-    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-select name="border-style" label="Border style" value="solid" hoist>
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -679,7 +679,7 @@ description: TODO
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
-        <wa-icon slot="prefix" name="magnifying-glass" style="margin-inline-start: 1em;"></wa-icon>
+        <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
       </wa-input>
       <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
         <wa-option value="solid">Solid</wa-option>
@@ -693,10 +693,10 @@ description: TODO
 <div id="color-mode-selector">
   <wa-radio-group class="hidden-label" label="Color mode" name="color-mode" value="light">
     <wa-radio-button value="light">
-      <wa-icon name="sun" variant="regular"></wa-icon>
+      <wa-icon name="sun" library="fa-classic-regular"></wa-icon>
     </wa-radio-button>
     <wa-radio-button value="dark">
-      <wa-icon name="moon" variant="regular"></wa-icon>
+      <wa-icon name="moon" library="fa-classic-regular"></wa-icon>
     </wa-radio-button>
   </wa-radio-group>
 </div>
