@@ -9,6 +9,7 @@ import '../../styles/global.css'
 import '../../styles/syntax-highlight.css'
 import '../../styles/code-previews.css'
 import '../../styles/font-awesome.css'
+
 import { customElementsManifest } from '../../js/cem';
 
 const version = customElementsManifest().package.version
@@ -25,6 +26,10 @@ const version = customElementsManifest().package.version
   /* Override starlight selector for auto injecting margin since it causes a lot of issues. */
   body .sl-markdown-content :not(a, strong, em, del, span, input, code, h1, h2, h3, h4, h5, h6) + :not(a, strong, em, del, span, input, code, h1, h2, h3, h4, h5, h6, :where(.not-content *)) {
     margin-top: 0;
+  }
+
+  :root body {
+    font-family: var(--wa-font-family-body)
   }
 
   /** Applied styles overrides for docs. */
@@ -46,6 +51,7 @@ const version = customElementsManifest().package.version
   <meta name="wa-version" content={version} />
 
   <link id="theme-stylesheet" rel="stylesheet" href="/dist/themes/default.css" />
+  <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/color_standard.css" />
 
   <link rel="stylesheet" href="/dist/themes/applied.css" />
   <link rel="stylesheet" href="/dist/themes/forms.css" />

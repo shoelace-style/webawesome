@@ -1,10 +1,35 @@
 ---
 title: Kitchen Sink
 description: TODO
-toc: false
+template: 'splash'
 ---
 
-<style>
+<style is:inline>
+  /* Reset for themer blank canvas */
+  /*
+  header.header { display: none; }
+  .content-panel, .main-frame, main, body { padding: 0; margin: 0; background: none; border: none !important; }
+  body { padding: 0px; }
+  main { padding: 65px; }
+  .sl-container > footer { display: none; }
+  .content-panel:first-of-type { display: none; }
+  .sl-markdown-content :not(a, strong, em, del, span, input, code) + :not(a, strong, em, del, span, input, code, :where(.not-content *)) {
+    margin-top: revert;
+  }
+  body .main-frame main h1 {
+    margin: revert;
+  }
+
+  .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+    color: revert;
+  }
+  */
+
+  #knobs {
+    color: var(--wa-color-text-normal);
+  }
+
+
   /* turn off eleventy header anchors */
   .anchor-heading a {
     display: none;
@@ -17,7 +42,7 @@ toc: false
 
   #menu-toggle,
   #sidebar {
-    display: none;
+    display: none;kitchen-sink.
   }
 
   /* themer control knobs styles */
@@ -505,7 +530,7 @@ toc: false
 <form id="knobs">
   <div class="header">
     <div style="width: 2em; height: auto; margin: auto;">
-      <a href="/">{% include 'logo-simple.njk' %}</a>
+      <a href="/"><wa-icon src="/assets/images/logo.svg"></wa-icon></a>
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
@@ -520,8 +545,8 @@ toc: false
     </wa-select>
   </div>
   <wa-details summary="Branding">
-    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
     <wa-input name="project-name" value="" placeholder="Project name" label="What are you working on?"></wa-input>
     <div>
       <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
@@ -538,7 +563,7 @@ toc: false
         <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
         <wa-tooltip content="Browse icons" distance="-3" hoist>
           <wa-button value="[choose]" variant="text" id="icon-chooser-trigger" class="logo-chooser">
-            <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
+            <wa-icon name="ellipsis" variant="regular"></wa-icon>
             <wa-visually-hidden>Browse icons</wa-visually-hidden>
           </wa-button>
         </wa-tooltip>
@@ -547,8 +572,8 @@ toc: false
     </div>
   </wa-details>
   <wa-details summary="Color">
-    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
     <wa-radio-group name="color" label="Color palette" value="standard">
       <wa-radio value="standard">
         Standard<br>
@@ -593,8 +618,8 @@ toc: false
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Typography">
-    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
     <fieldset>
       <legend aria-hidden="true">Headings</legend>
       <div style="display: flex;">
@@ -645,8 +670,8 @@ toc: false
     </fieldset>
   </wa-details>
   <wa-details summary="Icons">
-    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
     <wa-select name="icon-family" label="Icon family" value="fa-classic" hoist>
       <wa-option value="fa-classic">Font Awesome Classic</wa-option>
       <wa-option value="fa-sharp">Font Awesome Sharp</wa-option>
@@ -661,8 +686,8 @@ toc: false
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Look and feel">
-    <wa-icon name="plus" library="fa-classic-regular" slot="expand-icon"></wa-icon>
-    <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
+    <wa-icon name="plus" variant="regular" slot="expand-icon"></wa-icon>
+    <wa-icon name="minus" variant="regular" slot="collapse-icon"></wa-icon>
     <wa-select name="border-style" label="Border style" value="solid" hoist>
       <wa-option value="solid">Solid</wa-option>
       <wa-option value="dashed">Dashed</wa-option>
@@ -680,7 +705,7 @@ toc: false
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" placeholder="Search Icons" clearable style="flex: 1 1 auto;">
-        <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
+        <wa-icon slot="prefix" name="magnifying-glass" style="margin-inline-start: 1em;"></wa-icon>
       </wa-input>
       <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
         <wa-option value="solid">Solid</wa-option>
@@ -694,10 +719,10 @@ toc: false
 <div id="color-mode-selector">
   <wa-radio-group class="hidden-label" label="Color mode" name="color-mode" value="light">
     <wa-radio-button value="light">
-      <wa-icon name="sun" library="fa-classic-regular"></wa-icon>
+      <wa-icon name="sun" variant="regular"></wa-icon>
     </wa-radio-button>
     <wa-radio-button value="dark">
-      <wa-icon name="moon" library="fa-classic-regular"></wa-icon>
+      <wa-icon name="moon" variant="regular"></wa-icon>
     </wa-radio-button>
   </wa-radio-group>
 </div>
