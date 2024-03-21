@@ -147,7 +147,7 @@ it('Should allow tabbing to slotted elements', async () => {
 
 it('Should account for when focus is changed from outside sources (like clicking)', async () => {
   const dialog = await fixture(html`
-    <wa-dialog open="" label="Dialog" class="dialog-overview">
+    <wa-dialog open="" label="Dialog" with-header with-footer class="dialog-overview">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       <wa-input placeholder="tab to me"></wa-input>
       <wa-button slot="footer" variant="primary">Close</wa-button>
@@ -188,12 +188,12 @@ it('Should respect nested modal instances', async () => {
   await fixture(html`
     <div>
       <wa-button id="open-dialog-1" @click=${() => dialogOne().show()}></wa-button>
-      <wa-dialog id="dialog-1" label="Dialog 1">
+      <wa-dialog id="dialog-1" label="Dialog 1" with-header with-footer>
         <wa-button @click=${() => dialogTwo().show()} id="open-dialog-2">Open Dialog 2</wa-button>
         <wa-button slot="footer" variant="primary">Close</wa-button>
       </wa-dialog>
 
-      <wa-dialog id="dialog-2" label="Dialog 2">
+      <wa-dialog id="dialog-2" label="Dialog 2" with-header with-footer>
         <wa-input id="focus-1" autofocus="" placeholder="I will have focus when the dialog is opened"></wa-input>
         <wa-input id="focus-2" placeholder="Second input"></wa-input>
         <wa-button slot="footer" variant="primary" class="close-2">Close</wa-button>

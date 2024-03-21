@@ -99,10 +99,6 @@ export default css`
     margin-inline-start: var(--wa-spacing-xs);
   }
 
-  .dialog:not(.dialog--has-footer) .dialog__footer {
-    display: none;
-  }
-
   .dialog__overlay {
     position: fixed;
     top: 0;

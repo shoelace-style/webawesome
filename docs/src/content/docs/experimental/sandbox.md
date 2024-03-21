@@ -6,7 +6,7 @@ description: TODO
 ## Card
 
 ```html:preview
-<wa-card class="card-overview">
+<wa-card with-image class="card-overview">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"

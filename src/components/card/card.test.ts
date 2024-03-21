@@ -29,7 +29,7 @@ describe('<wa-card>', () => {
   describe('when provided an element in the slot "header" to render a header', () => {
     before(async () => {
       el = await fixture<WaCard>(
-        html`<wa-card>
+        html`<wa-card with-header>
           <div slot="header">Header Title</div>
           This card has a header. You can put all sorts of things in it!
         </wa-card>`
@@ -65,7 +65,7 @@ describe('<wa-card>', () => {
   describe('when provided an element in the slot "footer" to render a footer', () => {
     before(async () => {
       el = await fixture<WaCard>(
-        html`<wa-card>
+        html`<wa-card with-footer>
           This card has a footer. You can put all sorts of things in it!
 
           <div slot="footer">Footer Content</div>
@@ -102,7 +102,7 @@ describe('<wa-card>', () => {
   describe('when provided an element in the slot "image" to render a image', () => {
     before(async () => {
       el = await fixture<WaCard>(
-        html`<wa-card>
+        html`<wa-card with-image>
           <img
             slot="image"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"

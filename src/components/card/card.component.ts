@@ -1,6 +1,6 @@
 import { classMap } from 'lit/directives/class-map.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './card.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -34,7 +34,14 @@ import type { CSSResultGroup } from 'lit';
 export default class WaCard extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
-  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+  /** Renders the card with a header */
+  @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
+
+  /** Renders the card with an image */
+  @property({ attribute: 'with-image', type: Boolean }) withImage = false;
+
+  /** Renders the card with a footer */
+  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
 
   render() {
     return html`
@@ -42,9 +49,9 @@ export default class WaCard extends WebAwesomeElement {
         part="base"
         class=${classMap({
           card: true,
-          'card--has-footer': this.hasSlotController.test('footer'),
-          'card--has-image': this.hasSlotController.test('image'),
-          'card--has-header': this.hasSlotController.test('header')
+          'card--has-footer': this.withFooter,
+          'card--has-image': this.withImage,
+          'card--has-header': this.withHeader
         })}
       >
         <slot name="image" part="image" class="card__image"></slot>

@@ -11,22 +11,14 @@ export default css`
   }
 
   .drawer {
+    position: fixed;
+    z-index: var(--wa-z-index-drawer);
     top: 0;
     inset-inline-start: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-  }
-
-  .drawer--contained {
-    position: absolute;
-    z-index: initial;
-  }
-
-  .drawer--fixed {
-    position: fixed;
-    z-index: var(--wa-z-index-drawer);
   }
 
   .drawer__panel {
@@ -129,10 +121,6 @@ export default css`
     margin-inline-end: var(--wa-spacing-xs);
   }
 
-  .drawer:not(.drawer--has-footer) .drawer__footer {
-    display: none;
-  }
-
   .drawer__overlay {
     display: block;
     position: fixed;
@@ -142,10 +130,6 @@ export default css`
     left: 0;
     background-color: var(--wa-color-overlay);
     pointer-events: all;
-  }
-
-  .drawer--contained .drawer__overlay {
-    display: none;
   }
 
   @media (forced-colors: active) {

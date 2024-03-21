@@ -37,6 +37,8 @@ export default css`
   .card__image::slotted(img) {
     display: block;
     width: 100%;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   .card:not(.card--has-image) .card__image {

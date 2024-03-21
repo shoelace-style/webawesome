@@ -5,7 +5,7 @@ layout: ../../../layouts/ComponentLayout.astro
 ---
 
 ```html:preview
-<wa-card class="card-overview">
+<wa-card with-image with-footer class="card-overview">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -62,7 +62,7 @@ const css = `
 
 const App = () => (
   <>
-    <WaCard className="card-overview">
+    <WaCard with-image with-footer className="card-overview">
       <img
         slot="image"
         src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -129,7 +129,7 @@ const App = () => (
 Headers can be used to display titles and more.
 
 ```html:preview
-<wa-card class="card-header">
+<wa-card with-header class="card-header">
   <div slot="header">
     Header Title
     <wa-icon-button name="gear" variant="solid" label="Settings"></wa-icon-button>
@@ -185,7 +185,7 @@ const css = `
 
 const App = () => (
   <>
-    <WaCard className="card-header">
+    <WaCard with-header className="card-header">
       <div slot="header">
         Header Title
         <WaIconButton name="gear" variant="solid"></WaIconButton>
@@ -203,7 +203,7 @@ const App = () => (
 Footers can be used to display actions, summaries, or other relevant content.
 
 ```html:preview
-<wa-card class="card-footer">
+<wa-card with-footer class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
   <div slot="footer">
@@ -244,7 +244,7 @@ const css = `
 
 const App = () => (
   <>
-    <WaCard className="card-footer">
+    <WaCard with-footer className="card-footer">
       This card has a footer. You can put all sorts of things in it!
       <div slot="footer">
         <WaRating></WaRating>
@@ -264,7 +264,7 @@ const App = () => (
 Cards accept an `image` slot. The image is displayed atop the card and stretches to fit.
 
 ```html:preview
-<wa-card class="card-image">
+<wa-card with-image class="card-image">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
@@ -291,7 +291,7 @@ const css = `
 
 const App = () => (
   <>
-    <WaCard className="card-image">
+    <WaCard with-image className="card-image">
       <img
         slot="image"
         src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"

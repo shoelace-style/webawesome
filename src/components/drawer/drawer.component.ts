@@ -95,36 +95,27 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /**
-   * The drawer's label as displayed in the header. You should always include a relevant label even when using
-   * `no-header`, as it is required for proper accessibility. If you need to display HTML, use the `label` slot instead.
+   * The drawer's label as displayed in the header. You should always include a relevant label, as it is required for
+   * proper accessibility. If you need to display HTML, use the `label` slot instead.
    */
   @property({ reflect: true }) label = '';
 
   /** The direction from which the drawer will open. */
   @property({ reflect: true }) placement: 'top' | 'end' | 'bottom' | 'start' = 'end';
 
-  /**
-   * By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of
-   * its parent element, set this attribute and add `position: relative` to the parent.
-   */
-  @property({ type: Boolean, reflect: true }) contained = false;
+  /** Renders the drawer with a header. */
+  @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
-  /**
-   * Removes the header. This will also remove the default close button, so please ensure you provide an easy,
-   * accessible way for users to dismiss the drawer.
-   */
-  @property({ attribute: 'no-header', type: Boolean, reflect: true }) noHeader = false;
+  /** Renders the drawer with a footer. */
+  @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
   firstUpdated() {
     this.drawer.hidden = !this.open;
 
     if (this.open) {
       this.addOpenListeners();
-
-      if (!this.contained) {
-        this.modal.activate();
-        lockBodyScrolling(this);
-      }
+      this.modal.activate();
+      lockBodyScrolling(this);
     }
   }
 
@@ -152,10 +143,8 @@ export default class WaDrawer extends WebAwesomeElement {
   private addOpenListeners() {
     if ('CloseWatcher' in window) {
       this.closeWatcher?.destroy();
-      if (!this.contained) {
-        this.closeWatcher = new CloseWatcher();
-        this.closeWatcher.onclose = () => this.requestClose('keyboard');
-      }
+      this.closeWatcher = new CloseWatcher();
+      this.closeWatcher.onclose = () => this.requestClose('keyboard');
     } else {
       document.addEventListener('keydown', this.handleDocumentKeyDown);
       this.closeWatcher?.destroy();
@@ -167,11 +156,6 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
-    // Contained drawers aren't modal and don't response to the escape key
-    if (this.contained) {
-      return;
-    }
-
     if (event.key === 'Escape' && this.modal.isActive() && this.open) {
       event.stopImmediatePropagation();
       this.requestClose('keyboard');
@@ -185,12 +169,8 @@ export default class WaDrawer extends WebAwesomeElement {
       this.emit('wa-show');
       this.addOpenListeners();
       this.originalTrigger = document.activeElement as HTMLElement;
-
-      // Lock body scrolling only if the drawer isn't contained
-      if (!this.contained) {
-        this.modal.activate();
-        lockBodyScrolling(this);
-      }
+      this.modal.activate();
+      lockBodyScrolling(this);
 
       // When the drawer is shown, Safari will attempt to set focus on whatever element has autofocus. This causes the
       // drawer's animation to jitter, so we'll temporarily remove the attribute, call `focus({ preventScroll: true })`
@@ -239,11 +219,8 @@ export default class WaDrawer extends WebAwesomeElement {
       // Hide
       this.emit('wa-hide');
       this.removeOpenListeners();
-
-      if (!this.contained) {
-        this.modal.deactivate();
-        unlockBodyScrolling(this);
-      }
+      this.modal.deactivate();
+      unlockBodyScrolling(this);
 
       await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
       const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`, {
@@ -279,19 +256,6 @@ export default class WaDrawer extends WebAwesomeElement {
     }
   }
 
-  @watch('contained', { waitUntilFirstUpdate: true })
-  handleNoModalChange() {
-    if (this.open && !this.contained) {
-      this.modal.activate();
-      lockBodyScrolling(this);
-    }
-
-    if (this.open && this.contained) {
-      this.modal.deactivate();
-      unlockBodyScrolling(this);
-    }
-  }
-
   /** Shows the drawer. */
   async show() {
     if (this.open) {
@@ -323,10 +287,9 @@ export default class WaDrawer extends WebAwesomeElement {
           'drawer--end': this.placement === 'end',
           'drawer--bottom': this.placement === 'bottom',
           'drawer--start': this.placement === 'start',
-          'drawer--contained': this.contained,
-          'drawer--fixed': !this.contained,
           'drawer--rtl': this.localize.dir() === 'rtl',
-          'drawer--has-footer': this.hasSlotController.test('footer')
+          'drawer--with-header': this.withHeader,
+          'drawer--with-footer': this.withFooter
         })}
       >
         <div part="overlay" class="drawer__overlay" @click=${() => this.requestClose('overlay')} tabindex="-1"></div>
@@ -337,11 +300,11 @@ export default class WaDrawer extends WebAwesomeElement {
           role="dialog"
           aria-modal="true"
           aria-hidden=${this.open ? 'false' : 'true'}
-          aria-label=${ifDefined(this.noHeader ? this.label : undefined)}
-          aria-labelledby=${ifDefined(!this.noHeader ? 'title' : undefined)}
+          aria-label=${ifDefined(this.withHeader ? undefined : this.label)}
+          aria-labelledby=${ifDefined(this.withHeader ? 'title' : undefined)}
           tabindex="0"
         >
-          ${!this.noHeader
+          ${this.withHeader
             ? html`
                 <header part="header" class="drawer__header">
                   <h2 part="title" class="drawer__title" id="title">
@@ -367,9 +330,13 @@ export default class WaDrawer extends WebAwesomeElement {
 
           <slot part="body" class="drawer__body"></slot>
 
-          <footer part="footer" class="drawer__footer">
-            <slot name="footer"></slot>
-          </footer>
+          ${this.withFooter
+            ? html`
+                <footer part="footer" class="drawer__footer">
+                  <slot name="footer"></slot>
+                </footer>
+              `
+            : ''}
         </div>
       </div>
     `;
