@@ -213,13 +213,13 @@ export default css`
     pointer-events: none;
   }
 
-  .button:hover:not(.button--disabled) {
+  .button:hover:not(.button--disabled, .button--loading) {
     background: var(--background-hover, var(--background, none));
     border-color: var(--border-color-hover, var(--border-color, transparent));
     color: var(--label-color-hover, var(--label-color));
   }
 
-  .button:active:not(.button--disabled) {
+  .button:active:not(.button--disabled, .button--loading) {
     background: var(--background-active, var(--background, none));
     border-color: var(--border-color-active, var(--border-color, transparent));
     color: var(--label-color-active, var(--label-color));
@@ -300,6 +300,21 @@ export default css`
     align-items: center;
   }
 
+  .button--small .button__caret {
+    margin-inline-start: calc(-0.5 * var(--wa-space-xs));
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  .button--medium .button__caret {
+    margin-inline-start: calc(-0.5 * var(--wa-space-s));
+    margin-inline-end: var(--wa-space-s);
+  }
+
+  .button--large .button__caret {
+    margin-inline-start: calc(-0.5 * var(--wa-space-m));
+    margin-inline-end: var(--wa-space-m);
+  }
+
   .button--caret .button__caret::part(svg) {
     width: 0.875em;
     height: 0.875em;
@@ -354,70 +369,46 @@ export default css`
    * Button spacing
    */
 
-  .button--has-label.button--small .button__label {
-    padding: 0 var(--wa-space-s);
+  .button--small {
+    ::slotted([slot='prefix']) {
+      margin-inline-start: var(--wa-space-xs) !important;
+    }
+
+    ::slotted([slot='suffix']) {
+      margin-inline-end: var(--wa-space-xs) !important;
+    }
+
+    .button__label {
+      padding: 0 var(--wa-space-s);
+    }
   }
 
-  .button--has-label.button--medium .button__label {
-    padding: 0 var(--wa-space-m);
+  .button--medium {
+    ::slotted([slot='prefix']) {
+      margin-inline-start: var(--wa-space-s) !important;
+    }
+
+    ::slotted([slot='suffix']) {
+      margin-inline-end: var(--wa-space-s) !important;
+    }
+
+    .button__label {
+      padding: 0 var(--wa-space-m);
+    }
   }
 
-  .button--has-label.button--large .button__label {
-    padding: 0 var(--wa-space-l);
-  }
+  .button--large {
+    ::slotted([slot='prefix']) {
+      margin-inline-start: var(--wa-space-m) !important;
+    }
 
-  .button--has-prefix.button--small {
-    padding-inline-start: var(--wa-space-xs);
-  }
+    ::slotted([slot='suffix']) {
+      margin-inline-end: var(--wa-space-m) !important;
+    }
 
-  .button--has-prefix.button--small .button__label {
-    padding-inline-start: var(--wa-space-xs);
-  }
-
-  .button--has-prefix.button--medium {
-    padding-inline-start: var(--wa-space-s);
-  }
-
-  .button--has-prefix.button--medium .button__label {
-    padding-inline-start: var(--wa-space-s);
-  }
-
-  .button--has-prefix.button--large {
-    padding-inline-start: var(--wa-space-m);
-  }
-
-  .button--has-prefix.button--large .button__label {
-    padding-inline-start: var(--wa-space-m);
-  }
-
-  .button--has-suffix.button--small,
-  .button--caret.button--small {
-    padding-inline-end: var(--wa-space-xs);
-  }
-
-  .button--has-suffix.button--small .button__label,
-  .button--caret.button--small .button__label {
-    padding-inline-end: var(--wa-space-xs);
-  }
-
-  .button--has-suffix.button--medium,
-  .button--caret.button--medium {
-    padding-inline-end: var(--wa-space-s);
-  }
-
-  .button--has-suffix.button--medium .button__label,
-  .button--caret.button--medium .button__label {
-    padding-inline-end: var(--wa-space-s);
-  }
-
-  .button--has-suffix.button--large,
-  .button--caret.button--large {
-    padding-inline-end: var(--wa-space-m);
-  }
-
-  .button--has-suffix.button--large .button__label,
-  .button--caret.button--large .button__label {
-    padding-inline-end: var(--wa-space-m);
+    .button__label {
+      padding: 0 var(--wa-space-l);
+    }
   }
 
   /*
