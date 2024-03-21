@@ -56,10 +56,10 @@ export default css`
     border-width: var(--border-width);
     color: var(--content-color);
     font: inherit;
+    padding: var(--padding);
     margin: inherit;
   }
 
-  .alert:not(.alert--has-icon) .alert__icon,
   .alert:not(.alert--closable) .alert__close-button {
     display: none;
   }
@@ -70,13 +70,15 @@ export default css`
     align-items: center;
     color: var(--icon-color);
     font-size: var(--icon-size);
-    padding-inline-start: var(--padding);
+  }
+
+  .alert__icon ::slotted(*) {
+    margin-inline-end: var(--padding) !important;
   }
 
   .alert__message {
     flex: 1 1 auto;
     display: block;
-    padding: var(--padding);
     overflow: hidden;
   }
 
@@ -86,7 +88,7 @@ export default css`
     align-items: center;
     color: currentColor;
     font-size: var(--wa-font-size-m);
-    padding-inline-end: var(--padding);
+    padding-inline-start: var(--padding);
   }
 
   .alert__close-button:hover::part(base) {

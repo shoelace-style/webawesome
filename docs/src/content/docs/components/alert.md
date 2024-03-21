@@ -9,6 +9,15 @@ layout: ../../../layouts/ComponentLayout.astro
   <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
   This is a standard alert. You can customize its content and even the icon.
 </wa-alert>
+
+<wa-alert open>
+  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+  <div style="border: solid 2px tomato; height: 2rem;"></div>
+</wa-alert>
+
+<wa-alert open>
+  <div style="border: solid 2px tomato; height: 2rem;"></div>
+</wa-alert>
 ```
 
 ```jsx:react
