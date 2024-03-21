@@ -1,5 +1,3 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property } from 'lit/decorators.js';
@@ -29,8 +27,6 @@ import type { CSSResultGroup } from 'lit';
 export default class WaBreadcrumbItem extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
-  private readonly hasSlotController = new HasSlotController(this, 'prefix', 'suffix');
-
   /**
    * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered
    * internally. When unset, a button will be rendered instead.
@@ -47,14 +43,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
     const isLink = this.href ? true : false;
 
     return html`
-      <div
-        part="base"
-        class=${classMap({
-          'breadcrumb-item': true,
-          'breadcrumb-item--has-prefix': this.hasSlotController.test('prefix'),
-          'breadcrumb-item--has-suffix': this.hasSlotController.test('suffix')
-        })}
-      >
+      <div part="base" class="breadcrumb-item">
         <span part="prefix" class="breadcrumb-item__prefix">
           <slot name="prefix"></slot>
         </span>

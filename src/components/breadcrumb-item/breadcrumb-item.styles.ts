@@ -58,14 +58,13 @@ export default css`
     align-items: center;
   }
 
-  .breadcrumb-item--has-prefix .breadcrumb-item__prefix {
+  .breadcrumb-item__prefix,
+  .breadcrumb-item__suffix {
     display: inline-flex;
-    margin-inline-end: var(--wa-space-s);
-  }
 
-  .breadcrumb-item--has-suffix .breadcrumb-item__suffix {
-    display: inline-flex;
-    margin-inline-start: var(--wa-space-s);
+    ::slotted(*) {
+      margin-inline-end: var(--wa-space-s) !important;
+    }
   }
 
   :host(:last-of-type) .breadcrumb-item__separator {
