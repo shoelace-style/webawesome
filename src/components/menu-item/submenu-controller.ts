@@ -1,5 +1,4 @@
 import { createRef, ref, type Ref } from 'lit/directives/ref.js';
-import { type HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { type LocalizeController } from '../../utilities/localize.js';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
@@ -14,22 +13,20 @@ export class SubmenuController implements ReactiveController {
   private isConnected = false;
   private isPopupConnected = false;
   private skidding = 0;
-  private readonly hasSlotController: HasSlotController;
   private readonly localize: LocalizeController;
   private readonly submenuOpenDelay = 100;
 
-  constructor(
-    host: ReactiveControllerHost & WaMenuItem,
-    hasSlotController: HasSlotController,
-    localize: LocalizeController
-  ) {
+  constructor(host: ReactiveControllerHost & WaMenuItem, localize: LocalizeController) {
     (this.host = host).addController(this);
-    this.hasSlotController = hasSlotController;
     this.localize = localize;
   }
 
+  private hasSubmenu() {
+    return this.host.querySelector(`:scope > [slot="submenu"]`) !== null;
+  }
+
   hostConnected() {
-    if (this.hasSlotController.test('submenu') && !this.host.disabled) {
+    if (this.hasSubmenu() && !this.host.disabled) {
       this.addListeners();
     }
   }
@@ -39,7 +36,7 @@ export class SubmenuController implements ReactiveController {
   }
 
   hostUpdated() {
-    if (this.hasSlotController.test('submenu') && !this.host.disabled) {
+    if (this.hasSubmenu() && !this.host.disabled) {
       this.addListeners();
       this.updateSkidding();
     } else {
@@ -93,7 +90,7 @@ export class SubmenuController implements ReactiveController {
   };
 
   private handleMouseOver = () => {
-    if (this.hasSlotController.test('submenu')) {
+    if (this.hasSubmenu()) {
       this.enableSubmenu();
     }
   };
