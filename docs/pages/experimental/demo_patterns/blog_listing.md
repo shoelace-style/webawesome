@@ -28,7 +28,7 @@ toc: false
 <div class="preview-container wa:block-flow:3xl">
   <div class="wa:blog_header wa:background:college_ruled">
     <h1>Latest from the Blog</h1>
-    <p>Lorem ipsum dolor sit amet</p>
+    <p>Don't miss the hottest takes on art and design from respected industry experts.</p>
   </div>
   <div class="wa:arrange:aside-end" style="--wa-grid-size: 45ch;">
     <div class="wa:block-flow:m">
@@ -37,13 +37,13 @@ toc: false
       </div>
       <div class="wa:arrange:flex:justify-space_between">
         <small><wa-format-date month="long" year="numeric"></wa-format-date></small>
-        <wa-badge variant="neutral">Design</wa-badge>
+        <wa-tag size="small">Design</wa-tag>
       </div>
       <h1>Pantone's Color of the Year 2024</h1>
       <p>PANTONE 13-1023 Peach Fuzz has our new year starting off with lots of warm and fuzzies.</p>
       <div class="wa:arrange:flex:gap-s">
         <wa-avatar label="User avatar" style="--size: 2rem;"></wa-avatar>
-        <small>Author</small>
+        <small>Jane Doe</small>
       </div>
     </div>
     <div class="wa:arrange" style="align-content: start;">
@@ -113,7 +113,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Dolore eu Fugiat Nulla</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -122,7 +122,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Sed Tincidunt Nibh Felis</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -131,7 +131,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Curabitur Cursus Eleifend</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -140,7 +140,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Ante Est Non Ligula</h4>
       </div>
     </div>
   </div>
@@ -160,7 +160,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Maecenas ut Metus</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -169,7 +169,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Morbi Vitae Sapien Non Velit</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -178,7 +178,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Vestibulum Ante Ipsum Primis</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -187,7 +187,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Viverra Eros Vitae</h4>
       </div>
     </div>
   </div>
@@ -207,7 +207,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Ante Est Non Ligula Imperdiet</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -216,7 +216,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Viverra Eros Vitae</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -225,7 +225,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Maecenas ut Metus</h4>
       </div>
       <div class="wa:block-flow:xs">
         <div class="wa:frame:landscape">
@@ -234,7 +234,7 @@ toc: false
         <div>
           <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
         </div>
-        <h4>Headline Dolor Sit Amet</h4>
+        <h4>Dolore eu Fugiat Nulla</h4>
       </div>
     </div>
   </div>
@@ -248,8 +248,8 @@ toc: false
         <img src="https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
       </div>
       <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
-      <h4>Headline Dolor Sit Amet</h4>
-      <wa-badge variant="neutral">Design</wa-badge>
+      <h4>Vestibulum Ante Ipsum Primis</h4>
+      <wa-tag size="small">Design</wa-tag>
     </wa-card>
     <wa-card class="wa:block-flow:xs">
       <div class="wa:frame:landscape" slot="image">
@@ -257,15 +257,15 @@ toc: false
       </div>
       <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
       <h4>Consectetur Adipiscing Elit</h4>
-      <wa-badge variant="neutral">Arts & Culture</wa-badge>
+      <wa-tag size="small">Arts & Culture</wa-tag>
     </wa-card>
     <wa-card class="wa:block-flow:xs">
       <div class="wa:frame:landscape" slot="image">
         <img src="https://images.pexels.com/photos/6321244/pexels-photo-6321244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
       </div>
       <small><wa-format-date date="2023-12-16T09:17:00-04:00" month="long" year="numeric"></wa-format-date></small>
-      <h4>Headline Dolor Sit Amet</h4>
-      <wa-badge variant="neutral">Web Development</wa-badge>
+      <h4>Ante Est Non Ligula Imperdiet</h4>
+      <wa-tag size="small">Web Development</wa-tag>
     </wa-card>
   </div>
   <div>
