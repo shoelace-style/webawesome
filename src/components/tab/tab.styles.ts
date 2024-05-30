@@ -29,7 +29,7 @@ export default css`
     outline: transparent;
   }
 
-  :host(:focus-visible) {
+  :host(:focus-visible) .tab {
     outline: var(--wa-focus-ring);
     outline-offset: calc(-1 * var(--wa-border-width-l) - var(--wa-focus-ring-offset));
   }
