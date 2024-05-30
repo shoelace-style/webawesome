@@ -5,7 +5,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tab.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import type { CSSResultGroup } from 'lit';
 
 let id = 0;
 
@@ -54,7 +54,7 @@ export default class WaTab extends WebAwesomeElement {
   @watch('disabled')
   handleDisabledChange() {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-    this.tabIndex = -1
+    this.tabIndex = -1;
   }
 
   render() {

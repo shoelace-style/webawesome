@@ -267,7 +267,7 @@ export default class WaTabGroup extends WebAwesomeElement {
 
       // Sync active tab and panel
       this.tabs.forEach(el => {
-        el.active = el === this.activeTab
+        el.active = el === this.activeTab;
         el.tabIndex = el === this.activeTab ? 0 : -1;
       });
 
