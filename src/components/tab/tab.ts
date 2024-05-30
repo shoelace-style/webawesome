@@ -39,6 +39,8 @@ export default class WaTab extends WebAwesomeElement {
   /** Disables the tab and prevents selection. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  tabIndex = -1;
+
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'tab');
@@ -52,11 +54,7 @@ export default class WaTab extends WebAwesomeElement {
   @watch('disabled')
   handleDisabledChange() {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-  }
-
-  protected willUpdate(changedProperties: PropertyValues<this>): void {
-    this.tabIndex = this.active && !this.disabled ? 0 : -1;
-    super.willUpdate(changedProperties);
+    this.tabIndex = -1
   }
 
   render() {
