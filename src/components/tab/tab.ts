@@ -5,7 +5,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tab.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 let id = 0;
 
@@ -54,14 +54,9 @@ export default class WaTab extends WebAwesomeElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  /** Sets focus to the tab. */
-  focus(options?: FocusOptions) {
-    this.tab.focus(options);
-  }
-
-  /** Removes focus from the tab. */
-  blur() {
-    this.tab.blur();
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
+    this.tabIndex = this.active && !this.disabled ? 0 : -1
+    super.willUpdate(changedProperties)
   }
 
   render() {
@@ -76,17 +71,10 @@ export default class WaTab extends WebAwesomeElement {
           'tab--active': this.active,
           'tab--disabled': this.disabled
         })}
-        tabindex=${this.active && !this.disabled ? '0' : '-1'}
       >
         <slot></slot>
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'wa-tab': WaTab;
   }
 }
 

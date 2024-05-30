@@ -21,43 +21,30 @@ export default css`
       var(--transition-speed) color;
   }
 
-  .tab:hover:not(.tab--disabled) {
+  :host(:hover:not([disabled])) .tab {
     color: var(--wa-color-neutral-text-on-surface);
   }
 
-  .tab:focus {
-    outline: none;
+  :host(:focus) {
+    outline: transparent;
   }
 
-  .tab:focus-visible {
+  :host(:focus-visible) {
     outline: var(--wa-focus-ring);
     outline-offset: calc(-1 * var(--wa-border-width-l) - var(--wa-focus-ring-offset));
   }
 
-  .tab.tab--active:not(.tab--disabled) {
+  :host([active]:not([disabled])) .tab {
     color: var(--wa-color-brand-text-on-surface);
   }
 
-  .tab.tab--closable {
-    padding-inline-end: var(--wa-space-s);
-  }
-
-  .tab.tab--disabled {
+  :host([disabled]) .tab {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .tab__close-button {
-    font-size: var(--wa-font-size-m);
-    margin-inline-start: var(--wa-space-s);
-  }
-
-  .tab__close-button::part(base) {
-    padding: var(--wa-space-3xs);
-  }
-
   @media (forced-colors: active) {
-    .tab.tab--active:not(.tab--disabled) {
+    :host([active]:not([disabled])) {
       outline: solid 1px transparent;
       outline-offset: -3px;
     }
