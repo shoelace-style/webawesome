@@ -55,8 +55,8 @@ export default class WaTab extends WebAwesomeElement {
   }
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
-    this.tabIndex = this.active && !this.disabled ? 0 : -1
-    super.willUpdate(changedProperties)
+    this.tabIndex = this.active && !this.disabled ? 0 : -1;
+    super.willUpdate(changedProperties);
   }
 
   render() {
