@@ -1,5 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaResizeEvent } from '../../events/resize.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './resize-observer.styles.js';
@@ -29,7 +30,7 @@ export default class WaResizeObserver extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
     this.resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-      this.emit('wa-resize', { detail: { entries } });
+      this.dispatchEvent(new WaResizeEvent({ entries }));
     });
 
     if (!this.disabled) {

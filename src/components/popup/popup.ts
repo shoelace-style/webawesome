@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { offsetParent } from 'composed-offset-position';
+import { WaRepositionEvent } from '../../events/reposition.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './popup.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -470,7 +471,7 @@ export default class WaPopup extends WebAwesomeElement {
     // Wait until the new position is drawn before updating the hover bridge, otherwise it can get out of sync
     requestAnimationFrame(() => this.updateHoverBridge());
 
-    this.emit('wa-reposition');
+    this.dispatchEvent(new WaRepositionEvent());
   }
 
   private updateHoverBridge = () => {

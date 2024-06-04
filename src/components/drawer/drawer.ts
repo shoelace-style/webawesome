@@ -5,6 +5,10 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { WaAfterHideEvent } from '../../events/after-hide.js';
+import { WaAfterShowEvent } from '../../events/after-show.js';
+import { WaHideEvent } from '../../events/hide.js';
+import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './drawer.styles.js';
@@ -28,10 +32,10 @@ import type { CSSResultGroup } from 'lit';
  * @event wa-after-show - Emitted after the drawer opens and all animations are complete.
  * @event wa-hide - Emitted when the drawer closes.
  * @event wa-after-hide - Emitted after the drawer closes and all animations are complete.
- * @event {{ source: Element }} wa-request-close - Emitted when the user attempts to close the drawer. Calling
- *  `event.preventDefault()` will keep the drawer open. You can inspect `event.detail.source` to see which element
- *  caused the drawer to close. If the source is the drawer element itself, the user has pressed [[Escape]] or the
- *  drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
+ * @event {{ source: Element }} wa-hide - Emitted when the drawer is requesting to close. Calling
+ *  `event.preventDefault()` will prevent the dialog from closing. You can inspect `event.detail.source` to see which
+ *  element caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or
+ *  the dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
  *  behavior such as data loss.
  *
  * @csspart header - The drawer's header. This element wraps the title and header actions.
@@ -103,33 +107,31 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private async requestClose(source: Element) {
-    const waRequestClose = this.emit('wa-request-close', {
-      cancelable: true,
-      detail: { source }
-    });
+    // Hide
+    const waHideEvent = new WaHideEvent({ source });
+    this.dispatchEvent(waHideEvent);
 
-    if (waRequestClose.defaultPrevented) {
+    if (waHideEvent.defaultPrevented) {
       this.open = true;
       animateWithClass(this.drawer, 'pulse');
-    } else {
-      // Hide
-      this.emit('wa-hide');
-      this.removeOpenListeners();
-
-      await animateWithClass(this.drawer, 'hide');
-
-      this.open = false;
-      this.drawer.close();
-      unlockBodyScrolling(this);
-
-      // Restore focus to the original trigger
-      const trigger = this.originalTrigger;
-      if (typeof trigger?.focus === 'function') {
-        setTimeout(() => trigger.focus());
-      }
-
-      this.emit('wa-after-hide');
+      return;
     }
+
+    this.removeOpenListeners();
+
+    await animateWithClass(this.drawer, 'hide');
+
+    this.open = false;
+    this.drawer.close();
+    unlockBodyScrolling(this);
+
+    // Restore focus to the original trigger
+    const trigger = this.originalTrigger;
+    if (typeof trigger?.focus === 'function') {
+      setTimeout(() => trigger.focus());
+    }
+
+    this.dispatchEvent(new WaAfterHideEvent());
   }
 
   private addOpenListeners() {
@@ -201,7 +203,14 @@ export default class WaDrawer extends WebAwesomeElement {
   /** Shows the drawer. */
   private async show() {
     // Show
-    this.emit('wa-show');
+    const waShowEvent = new WaShowEvent();
+    this.dispatchEvent(waShowEvent);
+    if (waShowEvent.defaultPrevented) {
+      this.open = false;
+      return;
+    }
+
+    // Show
     this.addOpenListeners();
     this.originalTrigger = document.activeElement as HTMLElement;
     this.open = true;
@@ -219,7 +228,7 @@ export default class WaDrawer extends WebAwesomeElement {
 
     await animateWithClass(this.drawer, 'show');
 
-    this.emit('wa-after-show');
+    this.dispatchEvent(new WaAfterShowEvent());
   }
 
   render() {

@@ -1,5 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaMutationEvent } from '../../events/mutation.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './mutation-observer.styles.js';
@@ -59,9 +60,7 @@ export default class WaMutationObserver extends WebAwesomeElement {
   }
 
   private handleMutation = (mutationList: MutationRecord[]) => {
-    this.emit('wa-mutation', {
-      detail: { mutationList }
-    });
+    this.dispatchEvent(new WaMutationEvent({ mutationList }));
   };
 
   private startObserver() {

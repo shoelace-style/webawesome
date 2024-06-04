@@ -138,6 +138,7 @@ export default css`
 
   .drawer__header {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .drawer__title {
@@ -176,6 +177,7 @@ export default css`
 
   .drawer__footer {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--wa-space-xs);
     justify-content: end;
     padding: var(--footer-spacing);

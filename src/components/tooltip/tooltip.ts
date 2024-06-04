@@ -2,7 +2,11 @@ import { animateWithClass, stopAnimations } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaAfterHideEvent } from '../../events/after-hide.js';
+import { WaAfterShowEvent } from '../../events/after-show.js';
+import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
+import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tooltip.styles.js';
@@ -182,7 +186,13 @@ export default class WaTooltip extends WebAwesomeElement {
       }
 
       // Show
-      this.emit('wa-show');
+      const waShowEvent = new WaShowEvent();
+      this.dispatchEvent(waShowEvent);
+      if (waShowEvent.defaultPrevented) {
+        this.open = false;
+        return;
+      }
+
       if ('CloseWatcher' in window) {
         this.closeWatcher?.destroy();
         this.closeWatcher = new CloseWatcher();
@@ -199,10 +209,16 @@ export default class WaTooltip extends WebAwesomeElement {
       await animateWithClass(this.popup.popup, 'show-with-scale');
       this.popup.reposition();
 
-      this.emit('wa-after-show');
+      this.dispatchEvent(new WaAfterShowEvent());
     } else {
       // Hide
-      this.emit('wa-hide');
+      const waHideEvent = new WaHideEvent();
+      this.dispatchEvent(waHideEvent);
+      if (waHideEvent.defaultPrevented) {
+        this.open = false;
+        return;
+      }
+
       this.closeWatcher?.destroy();
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
 
@@ -211,7 +227,7 @@ export default class WaTooltip extends WebAwesomeElement {
       this.popup.active = false;
       this.body.hidden = true;
 
-      this.emit('wa-after-hide');
+      this.dispatchEvent(new WaAfterHideEvent());
     }
   }
 

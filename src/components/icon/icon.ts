@@ -2,6 +2,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { getIconLibrary, type IconLibrary, unwatchIcon, watchIcon } from './library.js';
 import { html } from 'lit';
 import { isTemplateResult } from 'lit/directive-helpers.js';
+import { WaErrorEvent } from '../../events/error.js';
+import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './icon.styles.js';
@@ -206,12 +208,12 @@ export default class WaIcon extends WebAwesomeElement {
       case RETRYABLE_ERROR:
       case CACHEABLE_ERROR:
         this.svg = null;
-        this.emit('wa-error');
+        this.dispatchEvent(new WaErrorEvent());
         break;
       default:
         this.svg = svg.cloneNode(true) as SVGElement;
         library?.mutator?.(this.svg);
-        this.emit('wa-load');
+        this.dispatchEvent(new WaLoadEvent());
     }
   }
 

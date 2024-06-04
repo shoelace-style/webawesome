@@ -130,7 +130,7 @@ const App = () => (
 
 ### Card with Header
 
-Headers can be used to display titles and more.
+Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the card.
 
 ```html {.example}
 <wa-card with-header class="card-header">
@@ -206,7 +206,7 @@ const App = () => (
 
 ### Card with Footer
 
-Footers can be used to display actions, summaries, or other relevant content.
+Footers can be used to display actions, summaries, or other relevant content. Use the `with-footer` attribute to add a footer to the card.
 
 ```html {.example}
 <wa-card with-footer class="card-footer">
@@ -269,7 +269,7 @@ const App = () => (
 
 ### Images
 
-Cards accept an `image` slot. The image is displayed atop the card and stretches to fit.
+Card images are displayed atop the card and will stretch to fit. Use the `with-image` attribute to add an image to the card.
 
 ```html {.example}
 <wa-card with-image class="card-image">

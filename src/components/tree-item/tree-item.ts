@@ -1,12 +1,18 @@
 import '../checkbox/checkbox.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
+import { animate, parseDuration, stopAnimations } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import { parseDuration, stopAnimations } from '../../internal/animate.js';
+import { WaAfterCollapseEvent } from '../../events/after-collapse.js';
+import { WaAfterExpandEvent } from '../../events/after-expand.js';
+import { WaCollapseEvent } from '../../events/collapse.js';
+import { WaExpandEvent } from '../../events/expand.js';
+import { WaLazyChangeEvent } from '../../events/lazy-change.js';
+import { WaLazyLoadEvent } from '../../events/lazy-load.js';
 import { watch } from '../../internal/watch.js';
 import { when } from 'lit/directives/when.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -114,21 +120,23 @@ export default class WaTreeItem extends WebAwesomeElement {
   }
 
   private async animateCollapse() {
-    this.emit('wa-collapse');
+    this.dispatchEvent(new WaCollapseEvent());
 
     await stopAnimations(this.childrenContainer);
-    // We can't animate from 'auto', so use the scroll height for now
+
     const duration = parseDuration(getComputedStyle(this.childrenContainer).getPropertyValue('--hide-duration'));
-    await this.childrenContainer.animate(
+    await animate(
+      this.childrenContainer,
       [
+        // We can't animate from 'auto', so use the scroll height for now
         { height: `${this.childrenContainer.scrollHeight}px`, opacity: '1', overflow: 'hidden' },
         { height: '0', opacity: '0', overflow: 'hidden' }
       ],
       { duration, easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }
-    ).finished;
+    );
     this.childrenContainer.hidden = true;
 
-    this.emit('wa-after-collapse');
+    this.dispatchEvent(new WaAfterCollapseEvent());
   }
 
   // Checks whether the item is nested into an item
@@ -149,13 +157,14 @@ export default class WaTreeItem extends WebAwesomeElement {
   }
 
   private async animateExpand() {
-    this.emit('wa-expand');
+    this.dispatchEvent(new WaExpandEvent());
 
     await stopAnimations(this.childrenContainer);
     this.childrenContainer.hidden = false;
     // We can't animate to 'auto', so use the scroll height for now
     const duration = parseDuration(getComputedStyle(this.childrenContainer).getPropertyValue('--show-duration'));
-    await this.childrenContainer.animate(
+    await animate(
+      this.childrenContainer,
       [
         { height: '0', opacity: '0', overflow: 'hidden' },
         { height: `${this.childrenContainer.scrollHeight}px`, opacity: '1', overflow: 'hidden' }
@@ -164,10 +173,10 @@ export default class WaTreeItem extends WebAwesomeElement {
         duration,
         easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)'
       }
-    ).finished;
+    );
     this.childrenContainer.style.height = 'auto';
 
-    this.emit('wa-after-expand');
+    this.dispatchEvent(new WaAfterExpandEvent());
   }
 
   @watch('loading', { waitUntilFirstUpdate: true })
@@ -203,8 +212,7 @@ export default class WaTreeItem extends WebAwesomeElement {
     if (this.expanded) {
       if (this.lazy) {
         this.loading = true;
-
-        this.emit('wa-lazy-load');
+        this.dispatchEvent(new WaLazyLoadEvent());
       } else {
         this.animateExpand();
       }
@@ -215,7 +223,7 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   @watch('lazy', { waitUntilFirstUpdate: true })
   handleLazyChange() {
-    this.emit('wa-lazy-change');
+    this.dispatchEvent(new WaLazyChangeEvent());
   }
 
   /** Gets all the nested tree items in this node. */

@@ -1,6 +1,8 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { requestInclude } from './request.js';
+import { WaIncludeErrorEvent } from '../../events/include-error.js';
+import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './include.styles.js';
@@ -55,7 +57,7 @@ export default class WaInclude extends WebAwesomeElement {
       }
 
       if (!file.ok) {
-        this.emit('wa-error', { detail: { status: file.status } });
+        this.dispatchEvent(new WaIncludeErrorEvent({ status: file.status }));
         return;
       }
 
@@ -65,9 +67,9 @@ export default class WaInclude extends WebAwesomeElement {
         [...this.querySelectorAll('script')].forEach(script => this.executeScript(script));
       }
 
-      this.emit('wa-load');
+      this.dispatchEvent(new WaLoadEvent());
     } catch {
-      this.emit('wa-error', { detail: { status: -1 } });
+      this.dispatchEvent(new WaIncludeErrorEvent({ status: -1 }));
     }
   }
 

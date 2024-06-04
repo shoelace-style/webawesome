@@ -314,9 +314,9 @@ When providing fallback content inside of `<slot>` elements, avoid adding parts,
 
 This creates confusion because the part will be documented, but it won't work when the user slots in their own content. The recommended way to customize this example is for the user to slot in their own content and target its styles with CSS as needed.
 
-### Custom Events
+### Emitting Events
 
-Components must only emit custom events, and all custom events must start with `sl-` as a namespace. For compatibility with frameworks that utilize DOM templates, custom events must have lowercase, kebab-style names. For example, use `wa-change` instead of `slChange`.
+Components must only emit events that start with `wa-` as a namespace. For compatibility with frameworks that utilize DOM templates, events must have lowercase, kebab-style names. For example, use `wa-change` instead of `waChange`.
 
 This convention avoids the problem of browsers lowercasing attributes, causing some frameworks to be unable to listen to them. This problem isn't specific to one framework, but [Vue's documentation](https://vuejs.org/v2/guide/components-custom-events.html#Event-Names) provides a good explanation of the problem.
 

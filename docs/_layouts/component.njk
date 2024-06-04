@@ -184,10 +184,12 @@
         </thead>
         <tbody>
           {% for event in component.events %}
-            <tr>
-              <td class="table-name"><code>{{ event.name }}</code></td>
-              <td class="table-description">{{ event.description | inlineMarkdown | safe }}</td>
-            </tr>
+            {% if event.name %}
+              <tr>
+                <td class="table-name"><code>{{ event.name }}</code></td>
+                <td class="table-description">{{ event.description | inlineMarkdown | safe }}</td>
+              </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>

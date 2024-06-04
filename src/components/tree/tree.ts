@@ -1,6 +1,7 @@
 import { clamp } from '../../internal/math.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaSelectionChangeEvent } from '../../events/selection-change.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tree.styles.js';
@@ -199,7 +200,7 @@ export default class WaTree extends WebAwesomeElement {
     ) {
       // Wait for the tree items' DOM to update before emitting
       Promise.all(nextSelection.map(el => el.updateComplete)).then(() => {
-        this.emit('wa-selection-change', { detail: { selection: nextSelection } });
+        this.dispatchEvent(new WaSelectionChangeEvent({ selection: nextSelection }));
       });
     }
   }

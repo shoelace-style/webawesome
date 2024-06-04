@@ -6,6 +6,8 @@ import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { uniqueId } from '../../internal/math.js';
+import { WaChangeEvent } from '../../events/change.js';
+import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -123,8 +125,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
   };
 
@@ -259,8 +261,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
 
     event.preventDefault();

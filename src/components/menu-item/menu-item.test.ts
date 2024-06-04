@@ -1,7 +1,7 @@
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type { WaSelectEvent } from '../../events/wa-select.js';
+import type { WaSelectEvent } from '../../events/select.js';
 import type WaMenuItem from './menu-item.js';
 
 describe('<wa-menu-item>', () => {

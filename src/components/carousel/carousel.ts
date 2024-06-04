@@ -11,6 +11,7 @@ import { map } from 'lit/directives/map.js';
 import { prefersReducedMotion } from '../../internal/animate.js';
 import { range } from 'lit/directives/range.js';
 import { waitForEvent } from '../../internal/event.js';
+import { WaSlideChangeEvent } from '../../events/slide-change.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './carousel.styles.js';
@@ -387,12 +388,12 @@ export default class WaCarousel extends WebAwesomeElement {
 
     // Do not emit an event on first render
     if (this.hasUpdated) {
-      this.emit('wa-slide-change', {
-        detail: {
+      this.dispatchEvent(
+        new WaSlideChangeEvent({
           index: this.activeSlide,
           slide: slides[this.activeSlide]
-        }
-      });
+        })
+      );
     }
   }
 

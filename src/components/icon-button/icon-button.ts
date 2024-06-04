@@ -3,6 +3,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html, literal } from 'lit/static-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { WaBlurEvent } from '../../events/blur.js';
+import { WaFocusEvent } from '../../events/focus.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './icon-button.styles.js';
@@ -73,12 +75,12 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('wa-blur');
+    this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('wa-focus');
+    this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleClick(event: MouseEvent) {

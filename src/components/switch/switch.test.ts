@@ -183,11 +183,11 @@ describe('<wa-switch>', async () => {
         </form>
       `);
       const button = form.querySelector('wa-button')!;
-      const slSwitch = form.querySelector('wa-switch')!;
+      const waSwitch = form.querySelector('wa-switch')!;
       const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
 
       // Submitting the form after setting custom validity should not trigger the handler
-      slSwitch.setCustomValidity('Invalid selection');
+      waSwitch.setCustomValidity('Invalid selection');
       form.addEventListener('submit', submitHandler);
       button.click();
       await aTimeout(100);
@@ -196,13 +196,13 @@ describe('<wa-switch>', async () => {
     });
 
     it('should be invalid when required and unchecked', async () => {
-      const slSwitch = await fixture<HTMLFormElement>(html` <wa-switch required></wa-switch> `);
-      expect(slSwitch.checkValidity()).to.be.false;
+      const waSwitch = await fixture<HTMLFormElement>(html` <wa-switch required></wa-switch> `);
+      expect(waSwitch.checkValidity()).to.be.false;
     });
 
     it('should be valid when required and checked', async () => {
-      const slSwitch = await fixture<HTMLFormElement>(html` <wa-switch required checked></wa-switch> `);
-      expect(slSwitch.checkValidity()).to.be.true;
+      const waSwitch = await fixture<HTMLFormElement>(html` <wa-switch required checked></wa-switch> `);
+      expect(waSwitch.checkValidity()).to.be.true;
     });
 
     it('should be present in form data when using the form attribute and located outside of a <form>', async () => {
@@ -222,14 +222,14 @@ describe('<wa-switch>', async () => {
 
     it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
       const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-switch required></wa-switch></form> `);
-      const slSwitch = el.querySelector<WaSwitch>('wa-switch')!;
+      const waSwitch = el.querySelector<WaSwitch>('wa-switch')!;
 
-      expect(slSwitch.hasAttribute('data-wa-required')).to.be.true;
-      expect(slSwitch.hasAttribute('data-wa-optional')).to.be.false;
-      expect(slSwitch.hasAttribute('data-wa-invalid')).to.be.true;
-      expect(slSwitch.hasAttribute('data-wa-valid')).to.be.false;
-      expect(slSwitch.hasAttribute('data-wa-user-invalid')).to.be.false;
-      expect(slSwitch.hasAttribute('data-wa-user-valid')).to.be.false;
+      expect(waSwitch.hasAttribute('data-wa-required')).to.be.true;
+      expect(waSwitch.hasAttribute('data-wa-optional')).to.be.false;
+      expect(waSwitch.hasAttribute('data-wa-invalid')).to.be.true;
+      expect(waSwitch.hasAttribute('data-wa-valid')).to.be.false;
+      expect(waSwitch.hasAttribute('data-wa-user-invalid')).to.be.false;
+      expect(waSwitch.hasAttribute('data-wa-user-valid')).to.be.false;
     });
   });
 

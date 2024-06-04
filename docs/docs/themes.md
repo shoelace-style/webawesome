@@ -14,7 +14,7 @@ For component developers, built-in themes are also available as JavaScript modul
 
 ## Theme Basics
 
-All themes are scoped to classes using the `sl-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `wa-theme-default-light` and `wa-theme-default-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `sl-theme-purple-power`
+All themes are scoped to classes using the `wa-theme-{name}` convention, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included light and dark themes use `wa-theme-default-light` and `wa-theme-default-dark`, respectively. A custom theme called "Purple Power", for example, would use a class called `wa-theme-purple-power`
 
 All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to `:host` so they can be imported and applied to custom element shadow roots.
 

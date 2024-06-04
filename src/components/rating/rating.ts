@@ -5,6 +5,8 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { WaChangeEvent } from '../../events/change.js';
+import { WaHoverEvent } from '../../events/hover.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './rating.styles.js';
@@ -93,7 +95,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     this.setValue(this.getValueFromMousePosition(event));
-    this.emit('wa-change');
+    this.dispatchEvent(new WaChangeEvent());
   }
 
   private setValue(newValue: number) {
@@ -137,7 +139,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
+      this.dispatchEvent(new WaChangeEvent());
     }
   }
 
@@ -170,7 +172,7 @@ export default class WaRating extends WebAwesomeElement {
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
     this.setValue(this.hoverValue);
-    this.emit('wa-change');
+    this.dispatchEvent(new WaChangeEvent());
 
     // Prevent click on mobile devices
     event.preventDefault();
@@ -183,22 +185,22 @@ export default class WaRating extends WebAwesomeElement {
 
   @watch('hoverValue')
   handleHoverValueChange() {
-    this.emit('wa-hover', {
-      detail: {
+    this.dispatchEvent(
+      new WaHoverEvent({
         phase: 'move',
         value: this.hoverValue
-      }
-    });
+      })
+    );
   }
 
   @watch('isHovering')
   handleIsHoveringChange() {
-    this.emit('wa-hover', {
-      detail: {
+    this.dispatchEvent(
+      new WaHoverEvent({
         phase: this.isHovering ? 'start' : 'end',
         value: this.hoverValue
-      }
-    });
+      })
+    );
   }
 
   /** Sets focus on the rating. */

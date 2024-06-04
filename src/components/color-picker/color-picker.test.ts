@@ -32,7 +32,7 @@ describe('<wa-color-picker>', async () => {
       await aTimeout(200); // wait for the dropdown to open
       await el.updateComplete;
 
-      // Simulate a drag event. "sl-change" should not fire until we stop dragging.
+      // Simulate a drag event. "wa-change" should not fire until we stop dragging.
       await dragElement(grid, 2, 0, {
         afterMouseDown: () => {
           expect(changeHandler).to.have.not.been.called;

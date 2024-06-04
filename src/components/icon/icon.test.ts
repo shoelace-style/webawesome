@@ -1,7 +1,7 @@
 import { aTimeout, elementUpdated, expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { registerIconLibrary } from '../../../dist/webawesome.js';
-import type { WaErrorEvent } from '../../events/wa-error.js';
-import type { WaLoadEvent } from '../../events/wa-load.js';
+import type { WaErrorEvent } from '../../events/error.js';
+import type { WaLoadEvent } from '../../events/load.js';
 import type WaIcon from './icon.js';
 
 const testLibraryIcons = {

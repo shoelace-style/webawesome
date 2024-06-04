@@ -1,6 +1,7 @@
 import '../menu-item/menu-item.js';
 import { customElement, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaSelectEvent } from '../../events/select.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './menu.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -48,7 +49,7 @@ export default class WaMenu extends WebAwesomeElement {
       item.checked = !item.checked;
     }
 
-    this.emit('wa-select', { detail: { item } });
+    this.dispatchEvent(new WaSelectEvent({ item }));
   }
 
   private handleKeyDown(event: KeyboardEvent) {

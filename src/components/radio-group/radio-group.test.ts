@@ -3,7 +3,7 @@ import { clickOnElement } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type { WaChangeEvent } from '../../events/wa-change.js';
+import type { WaChangeEvent } from '../../events/change.js';
 import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
