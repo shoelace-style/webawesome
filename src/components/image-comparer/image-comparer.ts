@@ -5,6 +5,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { drag } from '../../internal/drag.js';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { WaChangeEvent } from '../../events/change.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './image-comparer.styles.js';
@@ -89,7 +90,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   @watch('position', { waitUntilFirstUpdate: true })
   handlePositionChange() {
-    this.emit('wa-change');
+    this.dispatchEvent(new WaChangeEvent());
   }
 
   render() {

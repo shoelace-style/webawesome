@@ -1,3 +1,10 @@
+/** Same as `el.animate()`, except returns a promise that doesn't throw an error when the animation is canceled. */
+export async function animate(el: Element, keyframes: Keyframe[], options?: KeyframeAnimationOptions) {
+  return el.animate(keyframes, options).finished.catch(() => {
+    /* suppress errors in Safari */
+  });
+}
+
 /**
  * Applies a class to the specified element to animate it. The class is removed after the animation finishes and then
  * the promise resolves. If a timeout is provided, the class will be removed and the animation will

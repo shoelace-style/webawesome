@@ -48,7 +48,7 @@ export default css`
 
   .popup-hover-bridge {
     position: fixed;
-    z-index: calc(var(--sl-z-index-dropdown) - 1);
+    z-index: calc(var(--wa-z-index-dropdown) - 1);
     top: 0;
     right: 0;
     bottom: 0;

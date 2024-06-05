@@ -73,6 +73,7 @@ export default css`
   .dialog__header {
     flex: 0 0 auto;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .dialog__title {
@@ -112,6 +113,7 @@ export default css`
   .dialog__footer {
     flex: 0 0 auto;
     display: flex;
+    flex-wrap: wrap;
     gap: var(--wa-space-xs);
     justify-content: end;
     padding: var(--footer-spacing);

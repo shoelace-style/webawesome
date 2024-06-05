@@ -3,6 +3,8 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit/static-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { WaBlurEvent } from '../../events/blur.js';
+import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -76,7 +78,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('wa-blur');
+    this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleClick(e: MouseEvent) {
@@ -91,7 +93,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('wa-focus');
+    this.dispatchEvent(new WaFocusEvent());
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })

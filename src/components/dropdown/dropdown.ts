@@ -4,13 +4,17 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { WaAfterHideEvent } from '../../events/after-hide.js';
+import { WaAfterShowEvent } from '../../events/after-show.js';
+import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
+import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './dropdown.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
-import type { WaSelectEvent } from '../../events/wa-select.js';
+import type { WaSelectEvent } from '../../events/select.js';
 import type WaButton from '../button/button.js';
 import type WaIconButton from '../icon-button/icon-button.js';
 import type WaMenu from '../menu/menu.js';
@@ -361,24 +365,32 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (this.open) {
       // Show
-      this.emit('wa-show');
-      this.addOpenListeners();
+      const waShowEvent = new WaShowEvent();
+      this.dispatchEvent(waShowEvent);
+      if (waShowEvent.defaultPrevented) {
+        this.open = false;
+        return;
+      }
 
+      this.addOpenListeners();
       this.panel.hidden = false;
       this.popup.active = true;
       await animateWithClass(this.popup.popup, 'show-with-scale');
-
-      this.emit('wa-after-show');
+      this.dispatchEvent(new WaAfterShowEvent());
     } else {
       // Hide
-      this.emit('wa-hide');
-      this.removeOpenListeners();
+      const waHideEvent = new WaHideEvent();
+      this.dispatchEvent(waHideEvent);
+      if (waHideEvent.defaultPrevented) {
+        this.open = true;
+        return;
+      }
 
+      this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide-with-scale');
       this.panel.hidden = true;
       this.popup.active = false;
-
-      this.emit('wa-after-hide');
+      this.dispatchEvent(new WaAfterHideEvent());
     }
   }
 

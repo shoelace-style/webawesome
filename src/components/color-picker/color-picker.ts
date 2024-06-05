@@ -14,13 +14,16 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { TinyColor } from '@ctrl/tinycolor';
+import { WaBlurEvent } from '../../events/blur.js';
+import { WaChangeEvent } from '../../events/change.js';
+import { WaFocusEvent } from '../../events/focus.js';
+import { WaInputEvent } from '../../events/input.js';
+import { WaInvalidEvent } from '../../events/invalid.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './color-picker.styles.js';
 import type { CSSResultGroup } from 'lit';
-import type { WaChangeEvent } from '../../events/wa-change.js';
-import type { WaInputEvent } from '../../events/wa-input.js';
 import type WaDropdown from '../dropdown/dropdown.js';
 import type WaInput from '../input/input.js';
 
@@ -218,12 +221,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private handleFocusIn = () => {
     this.hasFocus = true;
-    this.emit('wa-focus');
+    this.dispatchEvent(new WaFocusEvent());
   };
 
   private handleFocusOut = () => {
     this.hasFocus = false;
-    this.emit('wa-blur');
+    this.dispatchEvent(new WaBlurEvent());
   };
 
   private handleFormatToggle() {
@@ -231,8 +234,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this.setColor(this.value);
-    this.emit('wa-change');
-    this.emit('wa-input');
+    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new WaInputEvent());
   }
 
   private handleAlphaDrag(event: PointerEvent) {
@@ -252,13 +255,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.emit('wa-input');
+          this.dispatchEvent(new WaInputEvent());
         }
       },
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.emit('wa-change');
+          this.dispatchEvent(new WaChangeEvent());
         }
       },
       initialEvent: event
@@ -282,13 +285,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.emit('wa-input');
+          this.dispatchEvent(new WaInputEvent());
         }
       },
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.emit('wa-change');
+          this.dispatchEvent(new WaChangeEvent());
         }
       },
       initialEvent: event
@@ -315,14 +318,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.emit('wa-input');
+          this.dispatchEvent(new WaInputEvent());
         }
       },
       onStop: () => {
         this.isDraggingGridHandle = false;
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.emit('wa-change');
+          this.dispatchEvent(new WaChangeEvent());
         }
       },
       initialEvent: event
@@ -358,8 +361,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
   }
 
@@ -392,8 +395,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
   }
 
@@ -426,8 +429,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
   }
 
@@ -446,8 +449,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.emit('wa-change');
-      this.emit('wa-input');
+      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new WaInputEvent());
     }
   }
 
@@ -467,8 +470,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.input.value = this.value;
 
         if (this.value !== oldValue) {
-          this.emit('wa-change');
-          this.emit('wa-input');
+          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new WaInputEvent());
         }
 
         setTimeout(() => this.input.select());
@@ -643,8 +646,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.setColor(colorSelectionResult.sRGBHex);
 
         if (this.value !== oldValue) {
-          this.emit('wa-change');
-          this.emit('wa-input');
+          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new WaInputEvent());
         }
       })
       .catch(() => {
@@ -659,8 +662,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.setColor(color);
 
       if (this.value !== oldValue) {
-        this.emit('wa-change');
-        this.emit('wa-input');
+        this.dispatchEvent(new WaChangeEvent());
+        this.dispatchEvent(new WaInputEvent());
       }
     }
   }
@@ -785,7 +788,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       if (!this.disabled) {
         // By standards we have to emit a `wa-invalid` event here synchronously.
-        this.emit('wa-invalid');
+        this.dispatchEvent(new WaInvalidEvent());
       }
 
       return false;

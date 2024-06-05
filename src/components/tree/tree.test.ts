@@ -758,7 +758,7 @@ describe('<wa-tree>', () => {
       <wa-tree>
         <wa-tree-item>
           Item 1
-          <sl-icon name="1-circle" slot="expand-icon"></sl-icon>
+          <wa-icon name="1-circle" slot="expand-icon"></wa-icon>
           <wa-tree-item> Item A </wa-tree-item>
         </wa-tree-item>
         <wa-tree-item>

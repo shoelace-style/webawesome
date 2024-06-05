@@ -1,6 +1,8 @@
 import '../icon/icon.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaErrorEvent } from '../../events/error.js';
+import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './animated-image.styles.js';
@@ -57,13 +59,13 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     this.frozenFrame = canvas.toDataURL('image/gif');
 
     if (!this.isLoaded) {
-      this.emit('wa-load');
+      this.dispatchEvent(new WaLoadEvent());
       this.isLoaded = true;
     }
   }
 
   private handleError() {
-    this.emit('wa-error');
+    this.dispatchEvent(new WaErrorEvent());
   }
 
   @watch('play', { waitUntilFirstUpdate: true })

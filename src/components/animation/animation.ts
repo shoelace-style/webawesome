@@ -1,6 +1,9 @@
 import { animations } from './animations.js';
 import { customElement, property, queryAsync } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaCancelEvent } from '../../events/cancel.js';
+import { WaFinishEvent } from '../../events/finish.js';
+import { WaStartEvent } from '../../events/start.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './animation.styles.js';
@@ -102,13 +105,13 @@ export default class WaAnimation extends WebAwesomeElement {
   private handleAnimationFinish = () => {
     this.play = false;
     this.hasStarted = false;
-    this.emit('wa-finish');
+    this.dispatchEvent(new WaFinishEvent());
   };
 
   private handleAnimationCancel = () => {
     this.play = false;
     this.hasStarted = false;
-    this.emit('wa-cancel');
+    this.dispatchEvent(new WaCancelEvent());
   };
 
   private handleSlotChange() {
@@ -143,7 +146,7 @@ export default class WaAnimation extends WebAwesomeElement {
 
     if (this.play) {
       this.hasStarted = true;
-      this.emit('wa-start');
+      this.dispatchEvent(new WaStartEvent());
     } else {
       this.animation.pause();
     }
@@ -185,7 +188,7 @@ export default class WaAnimation extends WebAwesomeElement {
     if (this.animation) {
       if (this.play && !this.hasStarted) {
         this.hasStarted = true;
-        this.emit('wa-start');
+        this.dispatchEvent(new WaStartEvent());
       }
 
       if (this.play) {

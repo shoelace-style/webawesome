@@ -9,10 +9,6 @@ const packageData = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
 const outdir = 'dist';
 
-function noDash(string) {
-  return string.replace(/^\s?-/, '').trim();
-}
-
 function replace(string, terms) {
   terms.forEach(({ from, to }) => {
     string = string?.replace(from, to);
@@ -106,6 +102,7 @@ export default {
 
             if (classDoc?.events) {
               classDoc.events.forEach(event => {
+                if (!event.name) return;
                 event.reactName = `on${pascalCase(event.name)}`;
                 event.eventName = `${pascalCase(event.name)}Event`;
               });
@@ -174,12 +171,15 @@ export default {
           url: `https://shoelace.style/components/${tag.replace('wa-', '')}`
         };
       }
-    }),
-
-    customElementVuejsPlugin({
-      outdir: './dist/types/vue',
-      fileName: 'index.d.ts',
-      componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`
     })
+
+    //
+    // TODO - figure out why this broke when events were updated
+    //
+    // customElementVuejsPlugin({
+    //   outdir: './dist/types/vue',
+    //   fileName: 'index.d.ts',
+    //   componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`
+    // })
   ]
 };

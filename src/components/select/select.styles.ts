@@ -85,7 +85,7 @@ export default css`
   }
 
   .select__display-input::placeholder {
-    color: var(--sl-input-placeholder-color);
+    color: var(--wa-form-controls-placeholder-color);
   }
 
   /* Visually hide the display input when multiple is enabled */
@@ -306,6 +306,7 @@ export default css`
   }
 
   .select__listbox ::slotted(small) {
+    display: block;
     font-size: var(--wa-font-size-s);
     font-weight: var(--wa-font-weight-medium);
     color: var(--wa-color-text-quiet);

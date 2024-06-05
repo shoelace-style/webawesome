@@ -98,12 +98,12 @@ describe('<wa-dialog>', () => {
     expect(getComputedStyle(el).display).to.equal('none');
   });
 
-  it('should not close when wa-request-close is prevented', async () => {
+  it('should not close when wa-hide is prevented', async () => {
     const el = await fixture<WaDialog>(html`
       <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
     `);
 
-    el.addEventListener('wa-request-close', event => {
+    el.addEventListener('wa-hide', event => {
       event.preventDefault();
     });
     await sendKeys({ press: 'Escape' });

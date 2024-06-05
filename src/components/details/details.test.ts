@@ -1,8 +1,8 @@
 // cspell:dictionaries lorem-ipsum
 import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
-import type { WaHideEvent } from '../../events/wa-hide.js';
-import type { WaShowEvent } from '../../events/wa-show.js';
+import type { WaHideEvent } from '../../events/hide.js';
+import type { WaShowEvent } from '../../events/show.js';
 import type WaDetails from './details.js';
 
 describe('<wa-details>', () => {

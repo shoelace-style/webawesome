@@ -10,14 +10,23 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { WaAfterHideEvent } from '../../events/after-hide.js';
+import { WaAfterShowEvent } from '../../events/after-show.js';
+import { WaBlurEvent } from '../../events/blur.js';
+import { WaChangeEvent } from '../../events/change.js';
+import { WaClearEvent } from '../../events/clear.js';
+import { WaFocusEvent } from '../../events/focus.js';
+import { WaHideEvent } from '../../events/hide.js';
+import { WaInputEvent } from '../../events/input.js';
 import { waitForEvent } from '../../internal/event.js';
+import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './select.styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { WaRemoveEvent } from '../../events/wa-remove.js';
+import type { WaRemoveEvent } from '../../events/remove.js';
 import type WaOption from '../option/option.js';
 import type WaPopup from '../popup/popup.js';
 
@@ -290,12 +299,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleFocus() {
     this.hasFocus = true;
     this.displayInput.setSelectionRange(0, 0);
-    this.emit('wa-focus');
+    this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('wa-blur');
+    this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleDocumentFocusIn = (event: KeyboardEvent) => {
@@ -346,8 +355,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
         // Emit after updating
         this.updateComplete.then(() => {
-          this.emit('wa-input');
-          this.emit('wa-change');
+          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new WaChangeEvent());
         });
 
         if (!this.multiple) {
@@ -475,9 +484,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
       // Emit after update
       this.updateComplete.then(() => {
-        this.emit('wa-clear');
-        this.emit('wa-input');
-        this.emit('wa-change');
+        this.dispatchEvent(new WaClearEvent());
+        this.dispatchEvent(new WaInputEvent());
+        this.dispatchEvent(new WaChangeEvent());
       });
     }
   }
@@ -506,8 +515,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       if (this.value !== oldValue) {
         // Emit after updating
         this.updateComplete.then(() => {
-          this.emit('wa-input');
-          this.emit('wa-change');
+          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new WaChangeEvent());
         });
       }
 
@@ -543,8 +552,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
       // Emit after updating
       this.updateComplete.then(() => {
-        this.emit('wa-input');
-        this.emit('wa-change');
+        this.dispatchEvent(new WaInputEvent());
+        this.dispatchEvent(new WaChangeEvent());
       });
     }
   }
@@ -675,9 +684,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.setCurrentOption(this.selectedOptions[0] || this.getFirstOption());
 
       // Show
-      this.emit('wa-show');
-      this.addOpenListeners();
+      const waShowEvent = new WaShowEvent();
+      this.dispatchEvent(waShowEvent);
+      if (waShowEvent.defaultPrevented) {
+        this.open = false;
+        return;
+      }
 
+      this.addOpenListeners();
       this.listbox.hidden = false;
       this.popup.active = true;
 
@@ -693,17 +707,22 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         scrollIntoView(this.currentOption, this.listbox, 'vertical', 'auto');
       }
 
-      this.emit('wa-after-show');
+      this.dispatchEvent(new WaAfterShowEvent());
     } else {
       // Hide
-      this.emit('wa-hide');
-      this.removeOpenListeners();
+      const waHideEvent = new WaHideEvent();
+      this.dispatchEvent(waHideEvent);
+      if (waHideEvent.defaultPrevented) {
+        this.open = false;
+        return;
+      }
 
+      this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide');
       this.listbox.hidden = true;
       this.popup.active = false;
 
-      this.emit('wa-after-hide');
+      this.dispatchEvent(new WaAfterHideEvent());
     }
   }
 

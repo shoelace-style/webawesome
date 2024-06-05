@@ -6,6 +6,8 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { scrollIntoView } from '../../internal/scroll.js';
+import { WaTabHideEvent } from '../../events/tab-hide.js';
+import { WaTabShowEvent } from '../../events/tab-show.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tab-group.styles.js';
@@ -302,10 +304,10 @@ export default class WaTabGroup extends WebAwesomeElement {
       // Emit events
       if (options.emitEvents) {
         if (previousTab) {
-          this.emit('wa-tab-hide', { detail: { name: previousTab.panel } });
+          this.dispatchEvent(new WaTabHideEvent({ name: previousTab.panel }));
         }
 
-        this.emit('wa-tab-show', { detail: { name: this.activeTab.panel } });
+        this.dispatchEvent(new WaTabShowEvent({ name: this.activeTab.panel }));
       }
     }
   }

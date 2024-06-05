@@ -48,7 +48,7 @@ describe('<wa-include>', () => {
     expect(loadHandler).to.have.been.calledOnce;
   });
 
-  it('should emit wa-error when content cannot be loaded', async () => {
+  it('should emit wa-include-error when content cannot be loaded', async () => {
     sinon.stub(window, 'fetch').resolves({
       ...stubbedFetchResponse,
       ok: false,
@@ -58,7 +58,7 @@ describe('<wa-include>', () => {
     const el = await fixture<WaInclude>(html` <wa-include src="/not-found"></wa-include> `);
     const loadHandler = sinon.spy();
 
-    el.addEventListener('wa-error', loadHandler);
+    el.addEventListener('wa-include-error', loadHandler);
     await waitUntil(() => loadHandler.calledOnce);
 
     expect(loadHandler).to.have.been.calledOnce;

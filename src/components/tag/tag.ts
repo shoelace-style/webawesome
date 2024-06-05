@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
+import { WaRemoveEvent } from '../../events/remove.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tag.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -51,7 +52,7 @@ export default class WaTag extends WebAwesomeElement {
   @property({ type: Boolean }) removable = false;
 
   private handleRemoveClick() {
-    this.emit('wa-remove');
+    this.dispatchEvent(new WaRemoveEvent());
   }
 
   render() {

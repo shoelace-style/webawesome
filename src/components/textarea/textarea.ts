@@ -5,6 +5,10 @@ import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
+import { WaBlurEvent } from '../../events/blur.js';
+import { WaChangeEvent } from '../../events/change.js';
+import { WaFocusEvent } from '../../events/focus.js';
+import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -165,25 +169,25 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('wa-blur');
+    this.dispatchEvent(new WaBlurEvent());
     this.checkValidity();
   }
 
   private handleChange() {
     this.value = this.input.value;
     this.setTextareaHeight();
-    this.emit('wa-change');
+    this.dispatchEvent(new WaChangeEvent());
     this.checkValidity();
   }
 
   private handleFocus() {
     this.hasFocus = true;
-    this.emit('wa-focus');
+    this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleInput() {
     this.value = this.input.value;
-    this.emit('wa-input');
+    this.dispatchEvent(new WaInputEvent());
   }
 
   private setTextareaHeight() {

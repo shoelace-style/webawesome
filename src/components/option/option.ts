@@ -69,7 +69,8 @@ export default class WaOption extends WebAwesomeElement {
     // When the label changes, emit a slotchange event so parent controls see it
     if (textLabel !== this.cachedTextLabel) {
       this.cachedTextLabel = textLabel;
-      this.emit('slotchange', { bubbles: true, composed: false, cancelable: false });
+      /** @internal - prevent the CEM from recording this event */
+      this.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
     }
   }
 

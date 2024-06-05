@@ -5,6 +5,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
+import { WaCopyEvent } from '../../events/copy.js';
+import { WaErrorEvent } from '../../events/error.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './copy-button.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -132,27 +134,23 @@ export default class WaCopyButton extends WebAwesomeElement {
       } else {
         // No target
         this.showStatus('error');
-        this.emit('wa-error');
+        this.dispatchEvent(new WaErrorEvent());
       }
     }
 
     // No value
     if (!valueToCopy) {
       this.showStatus('error');
-      this.emit('wa-error');
+      this.dispatchEvent(new WaErrorEvent());
     } else {
       try {
         await navigator.clipboard.writeText(valueToCopy);
         this.showStatus('success');
-        this.emit('wa-copy', {
-          detail: {
-            value: valueToCopy
-          }
-        });
+        this.dispatchEvent(new WaCopyEvent({ value: valueToCopy }));
       } catch (error) {
         // Rejected by browser
         this.showStatus('error');
-        this.emit('wa-error');
+        this.dispatchEvent(new WaErrorEvent());
       }
     }
   }

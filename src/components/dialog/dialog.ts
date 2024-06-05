@@ -5,6 +5,10 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { WaAfterHideEvent } from '../../events/after-hide.js';
+import { WaAfterShowEvent } from '../../events/after-show.js';
+import { WaHideEvent } from '../../events/hide.js';
+import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './dialog.styles.js';
@@ -26,13 +30,12 @@ import type { CSSResultGroup } from 'lit';
  *
  * @event wa-show - Emitted when the dialog opens.
  * @event wa-after-show - Emitted after the dialog opens and all animations are complete.
- * @event wa-hide - Emitted when the dialog closes.
- * @event wa-after-hide - Emitted after the dialog closes and all animations are complete.
- * @event {{ source: Element }} wa-request-close - Emitted when the user attempts to close the dialog. Calling
- *  `event.preventDefault()` will keep the dialog open. You can inspect `event.detail.source` to see which element
- *  caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or the
- *  dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
+ * @event {{ source: Element }} wa-hide - Emitted when the dialog is requested to close. Calling
+ *  `event.preventDefault()` will prevent the dialog from closing. You can inspect `event.detail.source` to see which
+ *  element caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or
+ *  the dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
  *  behavior such as data loss.
+ * @event wa-after-hide - Emitted after the dialog closes and all animations are complete.
  *
  * @csspart header - The dialog's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
@@ -95,33 +98,31 @@ export default class WaDialog extends WebAwesomeElement {
   }
 
   private async requestClose(source: Element) {
-    const waRequestClose = this.emit('wa-request-close', {
-      cancelable: true,
-      detail: { source }
-    });
+    // Hide
+    const waHideEvent = new WaHideEvent({ source });
+    this.dispatchEvent(waHideEvent);
 
-    if (waRequestClose.defaultPrevented) {
+    if (waHideEvent.defaultPrevented) {
       this.open = true;
       animateWithClass(this.dialog, 'pulse');
-    } else {
-      // Hide
-      this.emit('wa-hide');
-      this.removeOpenListeners();
-
-      await animateWithClass(this.dialog, 'hide');
-
-      this.open = false;
-      this.dialog.close();
-      unlockBodyScrolling(this);
-
-      // Restore focus to the original trigger
-      const trigger = this.originalTrigger;
-      if (typeof trigger?.focus === 'function') {
-        setTimeout(() => trigger.focus());
-      }
-
-      this.emit('wa-after-hide');
+      return;
     }
+
+    this.removeOpenListeners();
+
+    await animateWithClass(this.dialog, 'hide');
+
+    this.open = false;
+    this.dialog.close();
+    unlockBodyScrolling(this);
+
+    // Restore focus to the original trigger
+    const trigger = this.originalTrigger;
+    if (typeof trigger?.focus === 'function') {
+      setTimeout(() => trigger.focus());
+    }
+
+    this.dispatchEvent(new WaAfterHideEvent());
   }
 
   private addOpenListeners() {
@@ -193,7 +194,13 @@ export default class WaDialog extends WebAwesomeElement {
   /** Shows the dialog. */
   private async show() {
     // Show
-    this.emit('wa-show');
+    const waShowEvent = new WaShowEvent();
+    this.dispatchEvent(waShowEvent);
+    if (waShowEvent.defaultPrevented) {
+      this.open = false;
+      return;
+    }
+
     this.addOpenListeners();
     this.originalTrigger = document.activeElement as HTMLElement;
     this.open = true;
@@ -211,7 +218,7 @@ export default class WaDialog extends WebAwesomeElement {
 
     await animateWithClass(this.dialog, 'show');
 
-    this.emit('wa-after-show');
+    this.dispatchEvent(new WaAfterShowEvent());
   }
 
   render() {

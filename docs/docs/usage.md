@@ -39,7 +39,7 @@ Refer to a component's documentation for a complete list of its properties.
 
 You can listen for standard events such as `click`, `mouseover`, etc. as you normally would. However, it's important to note that many events emitted within a component's shadow root will be [retargeted](https://dom.spec.whatwg.org/#retarget) to the host element. This may result in, for example, multiple `click` handlers executing even if the user clicks just once. Furthermore, `event.target` will point to the host element, making things even more confusing.
 
-As a result, you should almost always listen for custom events instead. For example, instead of listening to `click` to determine when an `<wa-checkbox>` gets toggled, listen to `wa-change`.
+As a result, you should almost always listen for Web Awesome events instead. For example, instead of listening to `click` to determine when an `<wa-checkbox>` gets toggled, listen to `wa-change`.
 
 ```html
 <wa-checkbox>Check me</wa-checkbox>
@@ -52,7 +52,7 @@ As a result, you should almost always listen for custom events instead. For exam
 </script>
 ```
 
-All custom events are prefixed with `sl-` to prevent collisions with standard events and other libraries. Refer to a component's documentation for a complete list of its custom events.
+All Web Awesome events are prefixed with `wa-` to prevent collisions with standard events and other libraries. Refer to a component's documentation for a complete list of its events.
 
 ## Methods
 
