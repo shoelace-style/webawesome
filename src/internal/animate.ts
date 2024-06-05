@@ -24,18 +24,18 @@ export function animateWithClass(el: Element, className: string) {
 }
 
 /** Parses a CSS duration and returns the number of milliseconds. */
-export function parseDuration(delay: number | string) {
-  delay = delay.toString().toLowerCase();
+export function parseDuration(duration: number | string) {
+  duration = duration.toString().toLowerCase();
 
-  if (delay.indexOf('ms') > -1) {
-    return parseFloat(delay);
+  if (duration.indexOf('ms') > -1) {
+    return parseFloat(duration) || 0;
   }
 
-  if (delay.indexOf('s') > -1) {
-    return parseFloat(delay) * 1000;
+  if (duration.indexOf('s') > -1) {
+    return (parseFloat(duration) || 0) * 1000;
   }
 
-  return parseFloat(delay);
+  return parseFloat(duration) || 0;
 }
 
 /** Tells if the user has enabled the "reduced motion" setting in their browser or OS. */
