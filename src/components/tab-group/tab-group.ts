@@ -136,7 +136,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     const slot = this.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="nav"]')!;
 
     return [...(slot.assignedElements() as WaTab[])].filter(el => {
-      return el.tagName.toLowerCase() === 'wa-tab'
+      return el.tagName.toLowerCase() === 'wa-tab';
     });
   }
 
@@ -179,35 +179,37 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.setActiveTab(tab, { scrollBehavior: 'smooth' });
         event.preventDefault();
       }
-      return
+      return;
     }
 
     // Move focus left or right
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
       const activeEl = this.tabs.find(t => t.matches(':focus'));
       const isRtl = this.matches(':dir(rtl)');
-      let nextTab: null | WaTab = null
+      let nextTab: null | WaTab = null;
 
       if (activeEl?.tagName.toLowerCase() === 'wa-tab') {
         if (event.key === 'Home') {
-          nextTab = this.focusableTabs[0]
+          nextTab = this.focusableTabs[0];
         } else if (event.key === 'End') {
-          nextTab = this.focusableTabs[this.focusableTabs.length - 1]
+          nextTab = this.focusableTabs[this.focusableTabs.length - 1];
         } else if (
           (['top', 'bottom'].includes(this.placement) && event.key === (isRtl ? 'ArrowRight' : 'ArrowLeft')) ||
           (['start', 'end'].includes(this.placement) && event.key === 'ArrowUp')
         ) {
-          const currentIndex = this.tabs.findIndex((el) => el === activeEl)
-          nextTab = this.findNextFocusableTab(currentIndex, "backward")
+          const currentIndex = this.tabs.findIndex(el => el === activeEl);
+          nextTab = this.findNextFocusableTab(currentIndex, 'backward');
         } else if (
           (['top', 'bottom'].includes(this.placement) && event.key === (isRtl ? 'ArrowLeft' : 'ArrowRight')) ||
           (['start', 'end'].includes(this.placement) && event.key === 'ArrowDown')
         ) {
-          const currentIndex = this.tabs.findIndex((el) => el === activeEl)
-          nextTab = this.findNextFocusableTab(currentIndex, "forward")
+          const currentIndex = this.tabs.findIndex(el => el === activeEl);
+          nextTab = this.findNextFocusableTab(currentIndex, 'forward');
         }
 
-        if (!nextTab) { return }
+        if (!nextTab) {
+          return;
+        }
 
         nextTab.tabIndex = 0;
         nextTab.focus({ preventScroll: true });
@@ -229,20 +231,20 @@ export default class WaTabGroup extends WebAwesomeElement {
     }
   }
 
-  private findNextFocusableTab (currentIndex: number, direction: "forward" | "backward") {
-    let nextTab = null
-    const iterator = direction === "forward" ? 1 : -1
-    let nextIndex = currentIndex + iterator
+  private findNextFocusableTab(currentIndex: number, direction: 'forward' | 'backward') {
+    let nextTab = null;
+    const iterator = direction === 'forward' ? 1 : -1;
+    let nextIndex = currentIndex + iterator;
 
     while (currentIndex < this.tabs.length) {
-      nextTab = this.tabs[nextIndex] || null
+      nextTab = this.tabs[nextIndex] || null;
 
       if (nextTab === null) {
         // This is where wrapping happens. If we're moving forward and get to the end, then we jump to the beginning. If we're moving backward and get to the start, then we jump to the end.
-        if (direction === "forward") {
-          nextTab = this.focusableTabs[0]
+        if (direction === 'forward') {
+          nextTab = this.focusableTabs[0];
         } else {
-          nextTab = this.focusableTabs[this.focusableTabs.length - 1]
+          nextTab = this.focusableTabs[this.focusableTabs.length - 1];
         }
         break;
       }
@@ -254,7 +256,7 @@ export default class WaTabGroup extends WebAwesomeElement {
       nextIndex += iterator;
     }
 
-    return nextTab
+    return nextTab;
   }
 
   private handleScrollToStart() {
@@ -326,7 +328,7 @@ export default class WaTabGroup extends WebAwesomeElement {
   // This stores tabs and panels so we can refer to a cache instead of calling querySelectorAll() multiple times.
   private syncTabsAndPanels() {
     this.tabs = this.getAllTabs();
-    this.focusableTabs = this.tabs.filter((el) => !el.disabled)
+    this.focusableTabs = this.tabs.filter(el => !el.disabled);
     this.panels = this.getAllPanels();
 
     // After updating, show or hide scroll controls as needed
