@@ -21,10 +21,6 @@ export default {
   testFramework: {
     config: {
       timeout: 3000,
-      allowUncaught: false,
-      asyncOnly: false,
-      bail: true,
-      checkLeaks: false,
       retries: 1
     }
   },
