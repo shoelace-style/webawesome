@@ -1,5 +1,5 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-import { aTimeout, elementUpdated, expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
 import { isSafari } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
@@ -47,8 +47,6 @@ describe('<wa-input>', async () => {
     expect(el.enterkeyhint).to.be.undefined;
     expect(el.spellcheck).to.be.true;
     expect(el.inputmode).to.be.undefined;
-    expect(el.valueAsDate).to.be.null;
-    expect(isNaN(el.valueAsNumber)).to.be.true;
   });
 
   it('should have title if title attribute is set', async () => {
@@ -63,74 +61,6 @@ describe('<wa-input>', async () => {
     const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part~="input"]')!;
 
     expect(input.disabled).to.be.true;
-  });
-
-  describe('value methods', () => {
-    it('should set the value as a date when using valueAsDate', async () => {
-      const el = document.createElement(`wa-input`);
-      el.type = 'date';
-      const today = new Date();
-
-      el.valueAsDate = today;
-
-      // Test before we render in the dom
-      expect(el.value).to.equal(today.toISOString().split('T')[0]);
-      expect(el.valueAsDate.toISOString().split('T')[0]).to.equal(today.toISOString().split('T')[0]);
-
-      document.body.appendChild(el);
-
-      await elementUpdated(el);
-
-      // Update valueAsDate after we render to make sure it reflects properly
-      el.valueAsDate = null;
-
-      await elementUpdated(el);
-
-      expect(el.value).to.equal('');
-      expect(el.valueAsDate).to.equal(null);
-
-      // Update again with a real date to make sure it works
-      el.valueAsDate = today;
-
-      await elementUpdated(el);
-
-      expect(el.value).to.equal(today.toISOString().split('T')[0]);
-      expect(el.valueAsDate.toISOString().split('T')[0]).to.equal(today.toISOString().split('T')[0]);
-
-      el.remove();
-    });
-
-    it('should set the value as a number when using valueAsNumber', async () => {
-      const el = document.createElement(`wa-input`);
-      el.type = 'number';
-      const num = 12345;
-
-      el.valueAsNumber = num;
-
-      expect(el.value).to.equal(num.toString());
-      expect(el.valueAsNumber).to.equal(num);
-
-      document.body.appendChild(el);
-
-      await elementUpdated(el);
-
-      // Wait for render, then update the value
-      const otherNum = 4567;
-      el.valueAsNumber = otherNum;
-
-      await elementUpdated(el);
-
-      expect(el.value).to.equal(otherNum.toString());
-      expect(el.valueAsNumber).to.equal(otherNum);
-
-      // Re-set valueAsNumber and make sure it updates.
-      el.valueAsNumber = num;
-      await elementUpdated(el);
-      expect(el.value).to.equal(num.toString());
-      expect(el.valueAsNumber).to.equal(num);
-
-      el.remove();
-    });
   });
 
   it('should focus the input when clicking on the label', async () => {

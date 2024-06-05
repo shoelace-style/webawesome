@@ -201,47 +201,11 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   })
   spellcheck = true;
 
-  // @TODO: remove these.
-  private __numberInput = Object.assign(document.createElement('input'), { type: 'number' });
-  private __dateInput = Object.assign(document.createElement('input'), { type: 'date' });
-
   /**
    * Tells the browser what type of data will be entered by the user, allowing it to display the appropriate virtual
    * keyboard on supportive devices.
    */
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
-
-  //
-  // NOTE: We use an in-memory input for these getters/setters instead of the one in the template because the properties
-  // can be set before the component is rendered.
-  //
-
-  /**
-   * Gets or sets the current value as a `Date` object. Returns `null` if the value can't be converted. This will use
-   * the native `<input type="type">` implementation and may result in an error.
-   */
-  get valueAsDate() {
-    this.__dateInput.type = this.type;
-    this.__dateInput.value = this.value;
-    return this.input?.valueAsDate || this.__dateInput.valueAsDate;
-  }
-
-  set valueAsDate(newValue: Date | null) {
-    this.__dateInput.type = this.type;
-    this.__dateInput.valueAsDate = newValue;
-    this.value = this.__dateInput.value;
-  }
-
-  /** Gets or sets the current value as a number. Returns `NaN` if the value can't be converted. */
-  get valueAsNumber() {
-    this.__numberInput.value = this.value;
-    return this.input?.valueAsNumber || this.__numberInput.valueAsNumber;
-  }
-
-  set valueAsNumber(newValue: number) {
-    this.__numberInput.valueAsNumber = newValue;
-    this.value = this.__numberInput.value;
-  }
 
   private handleBlur() {
     this.hasFocus = false;
