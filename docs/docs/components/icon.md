@@ -440,7 +440,11 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
   import { registerIconLibrary } from '/dist/webawesome.js';
 
   registerIconLibrary('tabler', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`
+    resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
+    mutator: svg => {
+      svg.style.fill = 'none';
+      svg.setAttribute('stroke', 'currentColor');
+    }
   });
 </script>
 

@@ -31,7 +31,7 @@ The autoloader is the easiest way to use Web Awesome. A lightweight script watch
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
 ```
 
-Now you can [start using Web Awesome!](/getting-started/usage)
+Now you can [start using Web Awesome!](/docs/usage)
 
 :::info
 While convenient, autoloading may lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/). The linked article describes some ways to alleviate it.

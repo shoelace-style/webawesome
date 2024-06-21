@@ -76,7 +76,7 @@ import type WaPopup from '../popup/popup.js';
  * @csspart expand-icon - The container that wraps the expand icon.
  *
  * @cssproperty --background-color - The background color of the select's combobox.
- * @cssproperty --border-color - The color of the select's borders, including the listbox.
+ * @cssproperty --border-color - The border color of the select's combobox.
  * @cssproperty --border-radius - The border radius of the select's combobox.
  * @cssproperty --border-style - The style of the select's borders, including the listbox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.

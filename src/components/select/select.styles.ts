@@ -290,7 +290,7 @@ export default css`
     font: inherit;
     box-shadow: var(--wa-shadow-m);
     background: var(--wa-color-surface-raised);
-    border-color: var(--border-color);
+    border-color: var(--wa-color-surface-border);
     border-radius: var(--wa-border-radius-s);
     border-style: var(--border-style);
     border-width: var(--border-width);

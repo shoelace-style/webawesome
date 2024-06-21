@@ -130,8 +130,8 @@ You can provide your own translations if you have specific needs or if you don't
 Let's create a Spanish translation as an example. The following assumes you're using TypeScript, but you can also create translations with regular JavaScript.
 
 ```ts
-import { registerTranslation } from 'path/to/webawesome/dist/utilities/localize';
-import type { Translation } from 'path/to/webawesome/dist/utilities/localize';
+import { registerTranslation } from 'path/to/webawesome.js';
+import type { Translation } from 'path/to/webawesome.js';
 
 const translation: Translation = {
   $code: 'es',

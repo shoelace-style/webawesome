@@ -54,15 +54,7 @@ const systemLibrary: IconLibrary = {
 
         case 'indeterminate':
           return dataUri(`
-            <svg part="indeterminate-icon" class="checkbox__icon" viewBox="0 0 16 16">
-              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
-                <g stroke="currentColor" stroke-width="2">
-                  <g transform="translate(2.285714, 6.857143)">
-                    <path d="M10.2857143,1.14285714 L1.14285714,1.14285714"></path>
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <svg part="indeterminate-icon" class="checkbox__icon" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><g stroke="currentColor" stroke-width="2"><g transform="translate(2.285714, 6.857143)"><path d="M10.2857143,1.14285714 L1.14285714,1.14285714"></path></g></g></g></svg>
           `);
 
         case 'minus':

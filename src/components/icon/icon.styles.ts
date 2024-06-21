@@ -15,6 +15,7 @@ export default css`
 
   svg {
     display: inline-block;
+    width: auto;
     height: 1em;
     fill: currentColor;
 

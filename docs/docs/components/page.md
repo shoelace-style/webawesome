@@ -6,7 +6,7 @@ layout: component
 
 The layout component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
 
-A number of sections are available as part of the layout, most of which are optional. Content is added by [slotting elements](/getting-started/usage/#slots) into various locations.
+A number of sections are available as part of the layout, most of which are optional. Content is added by [slotting elements](/docs/usage/#slots) into various locations.
 
 This component _does not_ implement any [content sectioning](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning) or "semantic elements" internally (such as `<main>`, `<header>`, `<footer>`, etc.). Instead, it is recommended that you slot in content sectioning elements wherever you feel they're appropriate.
 
@@ -19,7 +19,7 @@ Most slots are optional. Slots that have no content will not be shown, allowing 
 ![Screenshot of Layout Anatomy showing various slots](/assets/images/layout-anatomy.svg)
 
 :::info
-If you're not familiar with how slots work in HTML, you might want to [learn more about slots](/getting-started/usage/#slots) before using this component.
+If you're not familiar with how slots work in HTML, you might want to [learn more about slots](/docs/usage/#slots) before using this component.
 :::
 
 ## Sticky Sections

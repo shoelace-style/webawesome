@@ -53,7 +53,7 @@ There are two ways to create themes. The easiest way is to customize the default
 
 ### Customizing a Built-in Theme
 
-Overriding the default theme is the easiest way to customize Web Awesome. You can do this by importing the default theme as-is, then creating a separate stylesheet that overrides [the theming API](/getting-started/customizing#design-tokens) and adds [component styles](/getting-started/customizing#component-parts) to your liking. You must import your theme _after_ the default theme.
+Overriding the default theme is the easiest way to customize Web Awesome. You can do this by importing the default theme as-is, then creating a separate stylesheet that overrides [the theming API](/docs/customizing#design-tokens) and adds [component styles](/docs/customizing#css-parts) to your liking. You must import your theme _after_ the default theme.
 
 If you're customizing the default light styles, scope your styles to the following selectors.
 
