@@ -1,16 +1,17 @@
-import { property } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+import styles from './test-element.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './{{ tagWithoutPrefix tag }}.styles.js';
 import type { CSSResultGroup } from 'lit';
 
 /**
  * @summary Short summary of the component's intended use.
  * @documentation https://backers.webawesome.com/docs/components/{{ tagWithoutPrefix tag }}
  * @status experimental
- * @since 2.0
+ * @since 3.0
  *
  * @dependency wa-example
  *
@@ -23,6 +24,7 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --example - An example CSS custom property.
  */
+ @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
