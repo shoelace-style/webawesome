@@ -10,7 +10,7 @@ function saveScrollPosition() {
       positions[element.id] = {
         top: element.scrollTop,
         left: element.scrollLeft
-      }
+      };
     } else {
       console.warn(`Can't save scroll position for elements without an id.`, el);
     }
@@ -20,19 +20,23 @@ function saveScrollPosition() {
 function restoreScrollPosition(event) {
   if (event.detail && event.detail.newBody) {
     event.detail.newBody.querySelectorAll('[data-remember-scroll]').forEach(element => {
-      if (!positions[element.id]) { return }
+      if (!positions[element.id]) {
+        return;
+      }
 
-      const { top, left } = positions[element.id]
+      const { top, left } = positions[element.id];
 
-      element.scrollTop = top
-      element.scrollLeft = left
+      element.scrollTop = top;
+      element.scrollLeft = left;
     });
   }
 
   document.querySelectorAll('[data-remember-scroll]').forEach(element => {
-    if (!positions[element.id]) { return }
+    if (!positions[element.id]) {
+      return;
+    }
 
-    const { top, left } = positions[element.id]
+    const { top, left } = positions[element.id];
 
     element.scrollTop = top;
     element.scrollLeft = left;
