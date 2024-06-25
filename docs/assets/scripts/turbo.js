@@ -29,7 +29,8 @@ function restoreScrollPosition(event) {
     });
   }
 
-  requestAnimationFrame(() => {
+  // Not sure what's going on, but for some reason this needs to be wrapped in a requestAnimationFrame. [Konnor]
+  // requestAnimationFrame(() => {
     document.querySelectorAll('[data-remember-scroll]').forEach(element => {
       if (!positions[element.id]) { return }
 
@@ -38,7 +39,7 @@ function restoreScrollPosition(event) {
       element.scrollTop = top;
       element.scrollLeft = left;
     });
-  })
+  // })
 }
 
 window.addEventListener('turbo:before-cache', saveScrollPosition);
