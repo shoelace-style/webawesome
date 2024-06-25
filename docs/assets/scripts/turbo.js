@@ -25,27 +25,21 @@
 
         const { top, left } = positions[element.id]
 
-        console.log(event.type)
-        console.log({ top, left })
-        console.log("")
-
         element.scrollTop = top
         element.scrollLeft = left
       });
     }
 
-    document.querySelectorAll('[data-remember-scroll]').forEach(element => {
-      if (!positions[element.id]) { return }
+    requestAnimationFrame(() => {
+      document.querySelectorAll('[data-remember-scroll]').forEach(element => {
+        if (!positions[element.id]) { return }
 
-      const { top, left } = positions[element.id]
+        const { top, left } = positions[element.id]
 
-      console.log(event.type)
-      console.log({ top, left })
-      console.log("")
-
-      element.scrollTop = top;
-      element.scrollLeft = left;
-    });
+        element.scrollTop = top;
+        element.scrollLeft = left;
+      });
+    })
   }
 
   window.addEventListener('turbo:before-cache', saveScrollPosition);
