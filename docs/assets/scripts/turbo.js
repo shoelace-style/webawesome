@@ -25,6 +25,10 @@
 
         const { top, left } = positions[element.id]
 
+        console.log(event.type)
+        console.log({ top, left })
+        console.log("")
+
         element.scrollTop = top
         element.scrollLeft = left
       });
@@ -34,6 +38,10 @@
       if (!positions[element.id]) { return }
 
       const { top, left } = positions[element.id]
+
+      console.log(event.type)
+      console.log({ top, left })
+      console.log("")
 
       element.scrollTop = top;
       element.scrollLeft = left;
