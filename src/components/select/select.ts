@@ -836,10 +836,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 placeholder=${this.placeholder}
                 .disabled=${this.disabled}
                 .value=${this.displayLabel}
+                ?required=${this.required}
                 autocomplete="off"
                 spellcheck="false"
                 autocapitalize="off"
                 readonly
+                aria-invalid=${!this.validity.valid}
                 aria-controls="listbox"
                 aria-expanded=${this.open ? 'true' : 'false'}
                 aria-haspopup="listbox"
