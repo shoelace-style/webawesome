@@ -270,7 +270,7 @@ export class WebAwesomeFormAssociatedElement
     }
 
     this.internals.setValidity(flags, message, anchor || undefined);
-    this.requestUpdate("validity")
+    this.requestUpdate('validity');
     this.setCustomStates();
   }
 
