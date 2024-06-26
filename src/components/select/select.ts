@@ -842,8 +842,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 autocapitalize="off"
                 readonly
                 aria-invalid=${
-                  !this.validity
-                    .valid /** aria-invalid is required because readonly inputs are technically always valid so it never reads 'invalid data' for screen readers. */
+                  !this.validity.valid
+                  /** aria-invalid is required because readonly inputs are technically always valid so it never reads 'invalid data' for screen readers. */
                 }
                 aria-controls="listbox"
                 aria-expanded=${this.open ? 'true' : 'false'}
