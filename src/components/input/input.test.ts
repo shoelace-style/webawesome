@@ -498,7 +498,7 @@ describe('<wa-input>', async () => {
     expect(el.checkValidity()).to.be.true;
   });
 
-  it("Should be invalid if minlength is not met", async () => {
+  it('Should be invalid if minlength is not met', async () => {
     const el = await fixture<WaInput>(html` <wa-input required minlength="3"></wa-input> `);
 
     el.input.focus();
@@ -511,9 +511,9 @@ describe('<wa-input>', async () => {
 
     expect(el.checkValidity()).to.be.false;
     expect(el.validity.tooShort).to.be.true;
-  })
+  });
 
-  it("Should be invalid if maxlength is not met", async () => {
+  it('Should be invalid if maxlength is not met', async () => {
     const el = await fixture<WaInput>(html` <wa-input required maxlength="3" value="Hello World"></wa-input> `);
 
     await el.updateComplete;
@@ -530,7 +530,7 @@ describe('<wa-input>', async () => {
 
     expect(el.checkValidity()).to.be.false;
     expect(el.validity.tooLong).to.be.true;
-  })
+  });
 
   await runFormControlBaseTests('wa-input');
 });
