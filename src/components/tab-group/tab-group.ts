@@ -393,7 +393,8 @@ export default class WaTabGroup extends WebAwesomeElement {
               `
             : ''}
 
-          <div class="tab-group__nav">
+          <!-- We have a focus listener because in Firefox (and soon to be Chrome) overflow containers are focusable. -->
+          <div class="tab-group__nav" @focus=${() => this.activeTab?.focus({ preventScroll: true })}>
             <div part="tabs" class="tab-group__tabs" role="tablist">
               <slot name="nav" @slotchange=${this.syncTabsAndPanels}></slot>
             </div>
