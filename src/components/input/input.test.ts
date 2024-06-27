@@ -498,5 +498,39 @@ describe('<wa-input>', async () => {
     expect(el.checkValidity()).to.be.true;
   });
 
+  it("Should be invalid if minlength is not met", async () => {
+    const el = await fixture<WaInput>(html` <wa-input required minlength="3"></wa-input> `);
+
+    el.input.focus();
+    await el.updateComplete;
+    expect(el.checkValidity()).to.be.false;
+
+    await sendKeys({ type: '12' });
+    await el.updateComplete;
+    await aTimeout(10);
+
+    expect(el.checkValidity()).to.be.false;
+    expect(el.validity.tooShort).to.be.true;
+  })
+
+  it("Should be invalid if maxlength is not met", async () => {
+    const el = await fixture<WaInput>(html` <wa-input required maxlength="3" value="Hello World"></wa-input> `);
+
+    await el.updateComplete;
+
+    // There's a fun problem around programmaticly setting values and default values from attributes.
+    // The TLDR is this input is valid, until the user starts typing.
+    expect(el.checkValidity()).to.be.true;
+
+    el.input.focus();
+    await sendKeys({ press: 'ArrowRight' });
+    await sendKeys({ press: 'Backspace' });
+    await el.updateComplete;
+    await aTimeout(10);
+
+    expect(el.checkValidity()).to.be.false;
+    expect(el.validity.tooLong).to.be.true;
+  })
+
   await runFormControlBaseTests('wa-input');
 });

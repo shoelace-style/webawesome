@@ -175,10 +175,6 @@ export class WebAwesomeFormAssociatedElement
         this.valueHasChanged = true;
       }
 
-      if (this.input) {
-        this.input.value = this.value;
-      }
-
       const value = this.value;
 
       // Accounts for the snowflake case on `<wa-select>`

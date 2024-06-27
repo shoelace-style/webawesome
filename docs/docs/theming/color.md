@@ -30,17 +30,17 @@ layout: page-outline
     border-color: transparent;
   }
   .color-mix-example {
-    background-image: 
-      linear-gradient(to right, 
-      color-mix(in oklab, transparent, var(--mix-color)) 25%, 
-      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 25%, 
-      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 75%, 
-      var(--wa-color-brand-fill-loud) 75%, 
+    background-image:
+      linear-gradient(to right,
+      color-mix(in oklab, transparent, var(--mix-color)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 75%,
+      var(--wa-color-brand-fill-loud) 75%,
       var(--wa-color-brand-fill-loud))
     ;
     border: none;
     color: var(--wa-color-brand-on-loud);
-    text-align: center; 
+    text-align: center;
   }
 </style>
 
@@ -428,7 +428,7 @@ Text colors are used for standard text elements. We recommend a minimum 4.5:1 co
 
 ### Overlays
 
-Overlays provide a backdrop to isolate content, often allowing background context to show through. 
+Overlays provide a backdrop to isolate content, often allowing background context to show through.
 
 | Custom Property             | Preview                                                                             |
 | --------------------------- | ----------------------------------------------------------------------------------- |
@@ -493,3 +493,60 @@ Finally, each color is named according to how much attention it draws. Here, we 
 | `--wa-color-*-on-quiet`      | <div class="swatch" style="background-color: var(--wa-color-brand-fill-quiet); color: var(--wa-color-brand-on-quiet)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-success-fill-quiet); color: var(--wa-color-success-on-quiet)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-neutral-fill-quiet); color: var(--wa-color-neutral-on-quiet)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-warning-fill-quiet); color: var(--wa-color-warning-on-quiet)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-danger-fill-quiet); color: var(--wa-color-danger-on-quiet)">AaBb</div> |
 | `--wa-color-*-on-normal`     | <div class="swatch" style="background-color: var(--wa-color-brand-fill-normal); color: var(--wa-color-brand-on-normal)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-success-fill-normal); color: var(--wa-color-success-on-normal)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-neutral-fill-normal); color: var(--wa-color-neutral-on-normal)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-warning-fill-normal); color: var(--wa-color-warning-on-normal)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-danger-fill-normal); color: var(--wa-color-danger-on-normal)">AaBb</div> |
 | `--wa-color-*-on-loud`       | <div class="swatch" style="background-color: var(--wa-color-brand-fill-loud); color: var(--wa-color-brand-on-loud)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-success-fill-loud); color: var(--wa-color-success-on-loud)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-neutral-fill-loud); color: var(--wa-color-neutral-on-loud)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-warning-fill-loud); color: var(--wa-color-warning-on-loud)">AaBb</div> | <div class="swatch" style="background-color: var(--wa-color-danger-fill-loud); color: var(--wa-color-danger-on-loud)">AaBb</div> |
+
+<style>
+.color-preview {
+  position: relative;
+}
+.color-preview wa-copy-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.color-preview wa-copy-button::part(button) {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.color-preview wa-copy-button {
+  --background-color-hover: transparent;
+  font-family: var(--wa-font-family-code);
+}
+
+.color-preview wa-copy-button::part(button):hover {
+  cursor: copy;
+}
+
+.color-preview wa-copy-button::part(copy-icon),
+.color-preview wa-copy-button::part(success-icon),
+.color-preview wa-copy-button::part(error-icon) {
+  opacity: 0 !important;
+}
+</style>
+
+<script type="module">
+  const computedStyle = getComputedStyle(document.body)
+  document.querySelectorAll(".color-preview").forEach((el) => {
+    const swatch = el.querySelector(".swatch")
+    const bgColor = swatch.style.backgroundColor
+    // const varName = bgColor.replace(/^var\((--.*)\)$/, "$1")
+    const varName = bgColor.replace(/^var\((--.*)\)$/, "$1")
+    // const propValue = computedStyle.getPropertyValue(varName)
+    const small = el.querySelector("small")
+    // small.textContent = small.textContent + "\n" + propValue
+
+    const copyButton = Object.assign(document.createElement("wa-copy-button"), {
+      value: varName,
+      copyLabel: varName,
+      // successLabel: "You did it!",
+      errorLabel: "Whoops, your browser doesn't support this!",
+    })
+
+    el.appendChild(copyButton)
+  })
+</script>
