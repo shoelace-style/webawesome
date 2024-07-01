@@ -302,7 +302,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           <slot name="label">${this.label}</slot>
         </label>
 
-        <div part="form-control-input" class="form-control-input">
+        <div part="form-control-input" class="form-control-input" role="presentation">
           ${this.hasButtonGroup
             ? html`
                 <wa-button-group part="button-group" exportparts="base:button-group__base" role="presentation">
