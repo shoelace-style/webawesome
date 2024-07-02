@@ -1,5 +1,6 @@
 import '../icon/icon.js';
 import '../tooltip/tooltip.js';
+import '../visually-hidden/visually-hidden.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -201,6 +202,8 @@ export default class WaCopyButton extends WebAwesomeElement {
         ?disabled=${this.disabled}
         @click=${this.handleCopy}
       >
+        <!-- Render a visually hidden label to appease the accessibility checking gods -->
+        <wa-visually-hidden>${this.currentLabel}</wa-visually-hidden>
         <slot part="copy-icon" name="copy-icon">
           <wa-icon library="system" name="copy" variant="regular" fixed-width></wa-icon>
         </slot>
