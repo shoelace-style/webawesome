@@ -273,12 +273,7 @@ export default class WaTooltip extends WebAwesomeElement {
        */
       const currentLabel = newAnchor.getAttribute('aria-labelledby') || '';
       if (!currentLabel.match(labelRegex)) {
-
-        if (!currentLabel) {
-          newAnchor.setAttribute('aria-labelledby', this.id);
-        } else {
-          newAnchor.setAttribute('aria-labelledby', currentLabel + ' ' + this.id);
-        }
+        newAnchor.setAttribute('aria-labelledby', currentLabel + ' ' + this.id);
       }
 
       newAnchor.addEventListener('blur', this.handleBlur, { capture: true, signal });
