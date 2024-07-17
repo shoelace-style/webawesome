@@ -1,45 +1,43 @@
-import {diffLines} from 'https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm'
-import { getDiffableHTML } from 'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm'
+import { diffLines } from 'https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm';
+import { getDiffableHTML } from 'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm';
 
 (() => {
-
-function wrap(el, wrapper) {
+  function wrap(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
-}
+  }
 
-function handleLitHydrationError (e) {
-  const element = e.target
-  const scratch = document.createElement("div")
-  const node = element.cloneNode(true)
-  scratch.append(node)
-  document.body.append(scratch)
-  customElements.upgrade(node)
-  node.updateComplete.then(() => {
-    // Render styles.
-    const elementStyles = element.constructor.elementStyles;
-    const finalStyles = []
-    if (elementStyles !== undefined && elementStyles.length > 0) {
-      for (const style of elementStyles) {
-        finalStyles.push(style.cssText);
+  function handleLitHydrationError(e) {
+    const element = e.target;
+    const scratch = document.createElement('div');
+    const node = element.cloneNode(true);
+    scratch.append(node);
+    document.body.append(scratch);
+    customElements.upgrade(node);
+    node.updateComplete.then(() => {
+      // Render styles.
+      const elementStyles = element.constructor.elementStyles;
+      const finalStyles = [];
+      if (elementStyles !== undefined && elementStyles.length > 0) {
+        for (const style of elementStyles) {
+          finalStyles.push(style.cssText);
+        }
       }
-    }
 
-    let innerHTML = scratch.firstElementChild?.shadowRoot.innerHTML
+      let innerHTML = scratch.firstElementChild?.shadowRoot.innerHTML;
 
-    if (finalStyles?.length) {
-      const styleTag = `<style>${finalStyles.join("\n")}</style>`
-      innerHTML = styleTag + "\n" + innerHTML
-    }
+      if (finalStyles?.length) {
+        const styleTag = `<style>${finalStyles.join('\n')}</style>`;
+        innerHTML = styleTag + '\n' + innerHTML;
+      }
 
+      const serverHTML = getDiffableHTML(innerHTML);
+      const clientHTML = getDiffableHTML(element.shadowRoot?.innerHTML);
 
-    const serverHTML = getDiffableHTML(innerHTML)
-    const clientHTML = getDiffableHTML(element.shadowRoot?.innerHTML)
+      const diffDebugger = document.createElement('div');
+      diffDebugger.className = 'diff-debugger';
 
-    const diffDebugger = document.createElement("div")
-    diffDebugger.className = "diff-debugger"
-
-    diffDebugger.innerHTML = `
+      diffDebugger.innerHTML = `
       <button class="diff-dialog-toggle">
         Show Hydration Mismatch
       </button>
@@ -59,60 +57,61 @@ function handleLitHydrationError (e) {
           </div>
         </div>
       </wa-dialog>
-    `
+    `;
 
-    wrap(element, diffDebugger)
+      wrap(element, diffDebugger);
 
-    diffDebugger.querySelector(".diff-server > code").textContent = serverHTML
-    diffDebugger.querySelector(".diff-client > code").textContent = clientHTML
-    const diffViewer = diffDebugger.querySelector(".diff-viewer > code")
-    diffViewer.innerHTML = ""
-    diffViewer.appendChild(createDiff({
-      serverHTML,
-      clientHTML
-    }))
-  })
-}
-
-function createDiff ({ serverHTML, clientHTML }) {
-  const diff = diffLines(serverHTML, clientHTML, {
-    ignoreWhitespace: false,
-    newLineIsToken: true,
-  })
-  const fragment = document.createDocumentFragment();
-	for (var i=0; i < diff.length; i++) {
-		if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {
-			var swap = diff[i];
-			diff[i] = diff[i + 1];
-			diff[i + 1] = swap;
-		}
-
-		var node;
-		if (diff[i].removed) {
-			node = document.createElement('del');
-			node.appendChild(document.createTextNode(diff[i].value));
-		} else if (diff[i].added) {
-			node = document.createElement('ins');
-			node.appendChild(document.createTextNode(diff[i].value));
-		} else {
-			node = document.createTextNode(diff[i].value);
-		}
-		fragment.appendChild(node);
-	}
-
-	return fragment
-}
-
-
-function handleDialogToggle (e) {
-  const button = e.composedPath().find((el) => {
-    return el.classList && el.classList.contains("diff-dialog-toggle")
-  })
-
-  if (button) {
-    button.parentElement.querySelector(".diff-dialog").open = true
+      diffDebugger.querySelector('.diff-server > code').textContent = serverHTML;
+      diffDebugger.querySelector('.diff-client > code').textContent = clientHTML;
+      const diffViewer = diffDebugger.querySelector('.diff-viewer > code');
+      diffViewer.innerHTML = '';
+      diffViewer.appendChild(
+        createDiff({
+          serverHTML,
+          clientHTML
+        })
+      );
+    });
   }
-}
-document.addEventListener("lit-hydration-error", handleLitHydrationError)
-document.addEventListener("click", handleDialogToggle)
-})()
+
+  function createDiff({ serverHTML, clientHTML }) {
+    const diff = diffLines(serverHTML, clientHTML, {
+      ignoreWhitespace: false,
+      newLineIsToken: true
+    });
+    const fragment = document.createDocumentFragment();
+    for (var i = 0; i < diff.length; i++) {
+      if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {
+        var swap = diff[i];
+        diff[i] = diff[i + 1];
+        diff[i + 1] = swap;
+      }
+
+      var node;
+      if (diff[i].removed) {
+        node = document.createElement('del');
+        node.appendChild(document.createTextNode(diff[i].value));
+      } else if (diff[i].added) {
+        node = document.createElement('ins');
+        node.appendChild(document.createTextNode(diff[i].value));
+      } else {
+        node = document.createTextNode(diff[i].value);
+      }
+      fragment.appendChild(node);
+    }
+
+    return fragment;
+  }
+
+  function handleDialogToggle(e) {
+    const button = e.composedPath().find(el => {
+      return el.classList && el.classList.contains('diff-dialog-toggle');
+    });
+
+    if (button) {
+      button.parentElement.querySelector('.diff-dialog').open = true;
+    }
+  }
+  document.addEventListener('lit-hydration-error', handleLitHydrationError);
+  document.addEventListener('click', handleDialogToggle);
+})();

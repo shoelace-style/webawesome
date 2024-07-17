@@ -109,46 +109,46 @@ export default function (eleventyConfig) {
   );
 
   const componentModules = [
-    "animated-image",
+    'animated-image',
     // "animation", @TODO: Find out why animation breaks when SSRed and navigated via Turbo.
-    "avatar",
-    "badge",
-    "breadcrumb-item",
-    "breadcrumb",
-    "button-group",
-    "button",
-    "callout",
-    "card",
-    "carousel-item",
-    "carousel",
-    "checkbox",
-    "color-picker",
-    "copy-button",
-    "details",
-    "dialog",
-    "divider",
-    "drawer",
-    "dropdown",
-    "format-bytes",
-    "format-date",
-    "format-number",
-    "icon-button",
-    "icon",
-    "image-comparer",
-    "include",
-    "input",
-    "menu-item",
-    "menu-label",
-    "menu",
-    "mutation-observer", // Poor candidate
-    "option",
-    "page",
-    "popup",
-    "progress-bar",
-    "progress-ring",
+    'avatar',
+    'badge',
+    'breadcrumb-item',
+    'breadcrumb',
+    'button-group',
+    'button',
+    'callout',
+    'card',
+    'carousel-item',
+    'carousel',
+    'checkbox',
+    'color-picker',
+    'copy-button',
+    'details',
+    'dialog',
+    'divider',
+    'drawer',
+    'dropdown',
+    'format-bytes',
+    'format-date',
+    'format-number',
+    'icon-button',
+    'icon',
+    'image-comparer',
+    'include',
+    'input',
+    'menu-item',
+    'menu-label',
+    'menu',
+    'mutation-observer', // Poor candidate
+    'option',
+    'page',
+    'popup',
+    'progress-bar',
+    'progress-ring',
     // "qr-code", // @TODO: incompatible with SSR. Should probably replace this with something that can generate an SVG or a data URI on the server.
-    "radio-button",
-    "radio-group",
+    'radio-button',
+    'radio-group'
     // "radio",
     // "range",
     // "rating",
@@ -168,16 +168,12 @@ export default function (eleventyConfig) {
     // "tree-item",
     // "tree",
     // "visually-hidden",
-  ].map((str) => `./unbundled-dist/components/${str}/${str}.js`)
+  ].map(str => `./unbundled-dist/components/${str}/${str}.js`);
 
-
-
-  eleventyConfig.addPlugin(
-    litPlugin, {
-      mode: 'worker',
-      componentModules
-    }
-  )
+  eleventyConfig.addPlugin(litPlugin, {
+    mode: 'worker',
+    componentModules
+  });
 
   // Build the search index
   eleventyConfig.addPlugin(

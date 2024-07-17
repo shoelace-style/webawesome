@@ -46,22 +46,19 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
-
-    const validators = isServer ? [] :
-      [
-        RequiredValidator({
-          validationElement: Object.assign(document.createElement('input'), {
-            required: true,
-            type: 'radio',
-            // we need an id that's guaranteed to be unique; users will never see this
-            name: uniqueId('__wa-radio')
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            validationElement: Object.assign(document.createElement('input'), {
+              required: true,
+              type: 'radio',
+              // we need an id that's guaranteed to be unique; users will never see this
+              name: uniqueId('__wa-radio')
+            })
           })
-        })
-      ]
-    return [
-      ...super.validators,
-      ...validators
-    ];
+        ];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
@@ -94,12 +91,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. if true, will show slotted label on initial render.
    */
-  @property({ type: Boolean, attribute: "with-label" }) withLabel = false
+  @property({ type: Boolean, attribute: 'with-label' }) withLabel = false;
 
   /**
    * Used for SSR. if true, will show slotted help text on initial render.
    */
-  @property({ type: Boolean, attribute: "with-help-text" }) withHelpText = false
+  @property({ type: Boolean, attribute: 'with-help-text' }) withHelpText = false;
 
   //
   // We need this because if we don't have it, FormValidation yells at us that it's "not focusable".
@@ -207,7 +204,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
    * the first radio element.
    */
   get validationTarget() {
-    return isServer ? undefined : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
+    return isServer
+      ? undefined
+      : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
   }
 
   @watch('value')

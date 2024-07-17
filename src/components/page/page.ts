@@ -9,19 +9,18 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';
 
-if (typeof ResizeObserver === "undefined") {
+if (typeof ResizeObserver === 'undefined') {
   globalThis.ResizeObserver = class {
     // eslint-disable-next-line
-    constructor (..._args: ConstructorParameters<typeof ResizeObserver>) {}
+    constructor(..._args: ConstructorParameters<typeof ResizeObserver>) {}
     // eslint-disable-next-line
-    observe (..._args: Parameters<ResizeObserver["observe"]>) {}
+    observe(..._args: Parameters<ResizeObserver['observe']>) {}
     // eslint-disable-next-line
-    unobserve (..._args: Parameters<ResizeObserver["unobserve"]>) {}
+    unobserve(..._args: Parameters<ResizeObserver['unobserve']>) {}
     // eslint-disable-next-line
-    disconnect (..._args: Parameters<ResizeObserver["disconnect"]>) {}
-  }
+    disconnect(..._args: Parameters<ResizeObserver['disconnect']>) {}
+  };
 }
-
 
 /**
  * @summary Pages offer an easy way to scaffold pages using minimal markup.
@@ -231,9 +230,7 @@ export default class WaPage extends WebAwesomeElement {
         </style>
       `)}
 
-
       <div class="base" part="base">
-
         <div class="banner" part="banner">
           <slot name="banner"></slot>
         </div>
@@ -317,7 +314,6 @@ export default class WaPage extends WebAwesomeElement {
           ></slot>
         </slot>
       </wa-drawer>
-
     `;
   }
 }

@@ -57,22 +57,21 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
-  static shadowRootOptions = {...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true }
+  static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
   static get validators() {
-    const validators = isServer ? [] : [
-      RequiredValidator({
-        // Use a checkbox so we get "free" translation strings.
-        validationElement: Object.assign(document.createElement('input'), {
-          type: 'checkbox',
-          required: true
-        })
-      })
-    ]
-    return [
-      ...super.validators,
-      ...validators
-    ];
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            // Use a checkbox so we get "free" translation strings.
+            validationElement: Object.assign(document.createElement('input'), {
+              type: 'checkbox',
+              required: true
+            })
+          })
+        ];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text');
@@ -167,13 +166,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (
-      changedProperties.has("defaultChecked") ||
-      changedProperties.has('value') ||
-      changedProperties.has('checked')
-    ) {
+    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
       if (!this.hasInteracted) {
-        this.checked = this.defaultChecked
+        this.checked = this.defaultChecked;
       }
       this.handleValueOrCheckedChange();
     }

@@ -10,8 +10,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 
 // Prevents QrCreator from erroring when attempting to render on the server (not that you should)
 // @TODO: Should probably use a dependency that can generate an SVG??
-(globalThis as {self: typeof globalThis}).self = globalThis
-
+(globalThis as { self: typeof globalThis }).self = globalThis;
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -49,7 +48,7 @@ export default class WaQrCode extends WebAwesomeElement {
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
   firstUpdated(changedProperties: PropertyValues<this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
 
     if (this.hasUpdated) {
       this.generate();

@@ -497,10 +497,10 @@ export default class WaCarousel extends WebAwesomeElement {
   render() {
     const { slidesPerMove, scrolling } = this;
 
-    let pagesCount = 0
-    let currentPage = 0
-    let prevEnabled = false
-    let nextEnabled = false
+    let pagesCount = 0;
+    let currentPage = 0;
+    let prevEnabled = false;
+    let nextEnabled = false;
 
     // @TODO: This is a super hacky way to get rid of hydration mismatch errors. The ideal solution is users being able to pass in `pagesCount` and `currentPage` and then on firstUpdated to we update the value for them.
     if (this.hasUpdated) {
@@ -511,7 +511,7 @@ export default class WaCarousel extends WebAwesomeElement {
     }
 
     // We can't rely on `this.matches()` on the server.
-    const isLtr = isServer ? this.dir === "ltr" : this.matches(':dir(ltr)');
+    const isLtr = isServer ? this.dir === 'ltr' : this.matches(':dir(ltr)');
 
     return html`
       <div part="base" class="carousel">

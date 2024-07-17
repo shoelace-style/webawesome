@@ -47,7 +47,7 @@ export default class WaMutationObserver extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    if (typeof MutationObserver !== "undefined") {
+    if (typeof MutationObserver !== 'undefined') {
       this.mutationObserver = new MutationObserver(this.handleMutation);
 
       if (!this.disabled) {

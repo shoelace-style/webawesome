@@ -111,11 +111,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
   static get validators() {
-    const validators = isServer ? [] : [RequiredValidator()]
-    return [
-      ...super.validators,
-      ...validators
-    ];
+    const validators = isServer ? [] : [RequiredValidator()];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
@@ -164,10 +161,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue = this.getAttribute('value') || '';
 
-  @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false
-  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false
+  @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
+  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
 
-  @state () private hasEyeDropper: boolean = false
+  @state() private hasEyeDropper: boolean = false;
 
   /**
    * The color picker's label. This will not be displayed, but it will be announced by assistive devices. If you need to
@@ -719,15 +716,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   @watch('opacity')
   handleOpacityChange() {
-    this.alpha = 100
+    this.alpha = 100;
   }
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
 
     // Its kind of bizarre, but this is required to get SSR to play nicely.
-    if (changedProperties.has("value")) {
-      this.handleValueChange(changedProperties.get("value"), this.value)
+    if (changedProperties.has('value')) {
+      this.handleValueChange(changedProperties.get('value'), this.value);
     }
   }
 
@@ -757,7 +754,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       }
     }
 
-    this.requestUpdate()
+    this.requestUpdate();
   }
 
   /** Sets focus on the color picker. */
@@ -840,14 +837,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
 
-    this.hasEyeDropper = "EyeDropper" in window
+    this.hasEyeDropper = 'EyeDropper' in window;
   }
 
   render() {
     const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
-    const hasHelpTextSlot = !this.hasUpdated ? this.withHelpText : this.withHelpText || this.hasSlotController.test('help-text');
+    const hasHelpTextSlot = !this.hasUpdated
+      ? this.withHelpText
+      : this.withHelpText || this.hasSlotController.test('help-text');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 
@@ -1103,7 +1102,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             const composedPath = e.composedPath();
             const triggerButton = this.triggerButton;
             const triggerLabel = this.triggerLabel;
-            const buttonOrLabelClicked = composedPath.find(el => el === triggerButton || el === triggerLabel)
+            const buttonOrLabelClicked = composedPath.find(el => el === triggerButton || el === triggerLabel);
 
             if (buttonOrLabelClicked) {
               return;
@@ -1111,7 +1110,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
             // Stop clicks from bubbling on anything except the button and the label. This is a hacky work around i may come to regret, but this "fixes" the issue of `<wa-dropdown>` expecting all children in the "trigger slot" to open the trigger. [Konnor]
             e.stopImmediatePropagation();
-            e.stopPropagation()
+            e.stopPropagation();
 
             if (this.dropdown.open) {
               this.dropdown.hide();

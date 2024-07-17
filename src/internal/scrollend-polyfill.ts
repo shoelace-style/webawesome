@@ -1,4 +1,4 @@
-import { isServer } from "lit";
+import { isServer } from 'lit';
 
 type GenericCallback = (this: unknown, ...args: unknown[]) => unknown;
 
@@ -6,7 +6,9 @@ type MethodOf<T, K extends keyof T> = T[K] extends GenericCallback ? T[K] : neve
 
 (() => {
   // Don't need polyfills on the server
-  if (isServer) { return }
+  if (isServer) {
+    return;
+  }
 
   const debounce = <T extends GenericCallback>(fn: T, delay: number) => {
     let timerId = 0;
@@ -76,7 +78,6 @@ type MethodOf<T, K extends keyof T> = T[K] extends GenericCallback ? T[K] : neve
     });
   }
 })();
-
 
 // Without an import or export, TypeScript sees vars in this file as global
 export {};

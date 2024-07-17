@@ -236,7 +236,7 @@ export default class WaIcon extends WebAwesomeElement {
     // const library = fromLibrary ? getIconLibrary(this.library) : undefined;
 
     // if (!url) {
-      return html``
+    return html``;
     // }
 
     // let iconResolver = iconCache.get(url);

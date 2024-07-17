@@ -93,7 +93,9 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
   firstUpdated() {
-    if (isServer) { return }
+    if (isServer) {
+      return;
+    }
     if (this.open) {
       this.addOpenListeners();
       this.drawer.showModal();

@@ -26,9 +26,9 @@ const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const packageData = JSON.parse(await readFile(join(rootDir, 'package.json'), 'utf-8'));
 const version = JSON.stringify(packageData.version.toString());
 let buildContexts = {
-  "bundledContext": {},
-  "unbundledContext": {}
-}
+  bundledContext: {},
+  unbundledContext: {}
+};
 
 /**
  * Runs the full build.
@@ -44,7 +44,7 @@ async function buildAll() {
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
-    await copy(distDir, unbundledDir)
+    await copy(distDir, unbundledDir);
 
     await generateBundle();
     await generateDocs();
@@ -182,24 +182,24 @@ async function generateBundle() {
     splitting: true,
     treeShaking: true,
     // Don't inline libraries like Lit etc.
-    packages: "external",
-    outdir: unbundledDir,
+    packages: 'external',
+    outdir: unbundledDir
 
     // inject: [
     // ]
-  }
+  };
 
   try {
     if (isDeveloping) {
-      buildContexts.bundledContext = await esbuild.context(config)
-      buildContexts.unbundledContext = await esbuild.context(unbundledConfig)
+      buildContexts.bundledContext = await esbuild.context(config);
+      buildContexts.unbundledContext = await esbuild.context(unbundledConfig);
 
-      await buildContexts.bundledContext.rebuild()
-      await buildContexts.unbundledContext.rebuild()
+      await buildContexts.bundledContext.rebuild();
+      await buildContexts.unbundledContext.rebuild();
     } else {
       // One-time build for production
-      await esbuild.build(config)
-      await esbuild.build(unbundledConfig)
+      await esbuild.build(config);
+      await esbuild.build(unbundledConfig);
     }
   } catch (error) {
     spinner.fail();
@@ -215,8 +215,8 @@ async function generateBundle() {
 async function regenerateBundle() {
   try {
     spinner.start('Re-bundling with esbuild');
-    await buildContexts.bundledContext.rebuild()
-    await buildContexts.unbundledContext.rebuild()
+    await buildContexts.bundledContext.rebuild();
+    await buildContexts.unbundledContext.rebuild();
   } catch (error) {
     spinner.fail();
     console.log(chalk.red(`\n${error}`));
@@ -364,7 +364,7 @@ if (isDeveloping) {
 //
 function terminate() {
   // dispose of contexts.
-  Object.values(buildContexts).forEach((context) => context?.dispose?.())
+  Object.values(buildContexts).forEach(context => context?.dispose?.());
 
   if (spinner) {
     spinner.stop();

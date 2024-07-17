@@ -66,7 +66,7 @@ export default class WaMenuItem extends WebAwesomeElement {
   /**
    * Used for SSR purposes. If true, will render a ">" caret icon for showing that it has a submenu, but will be non-interactive.
    */
-  @property({ attribute: "with-submenu", type: Boolean }) withSubmenu = false
+  @property({ attribute: 'with-submenu', type: Boolean }) withSubmenu = false;
 
   private submenuController: SubmenuController = new SubmenuController(this);
 
@@ -85,10 +85,10 @@ export default class WaMenuItem extends WebAwesomeElement {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     // Kick it so that it renders the "submenu" properly.
     if (this.isSubmenu()) {
-      this.requestUpdate()
+      this.requestUpdate();
     }
 
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
   }
 
   private handleDefaultSlotChange() {
@@ -158,12 +158,12 @@ export default class WaMenuItem extends WebAwesomeElement {
     return getTextContent(this.defaultSlot);
   }
 
-  isSubmenu () {
+  isSubmenu() {
     return this.hasUpdated ? this.querySelector(`:scope > [slot="submenu"]`) !== null : this.withSubmenu;
   }
 
   render() {
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === "rtl";
+    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
     const isSubmenuExpanded = this.submenuController.isExpanded();
 
     return html`

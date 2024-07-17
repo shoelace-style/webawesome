@@ -2,7 +2,7 @@ import { getOffset } from './offset.js';
 import { isServer } from 'lit';
 
 const locks = new Set();
-const lockStyles = isServer ? null : document.createElement('style')
+const lockStyles = isServer ? null : document.createElement('style');
 
 if (lockStyles) {
   lockStyles.textContent = `
