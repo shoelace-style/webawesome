@@ -1,7 +1,7 @@
 import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
@@ -66,9 +66,11 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
 
   constructor() {
     super();
-    this.addEventListener('click', this.handleClick);
-    this.addEventListener('blur', this.handleBlur);
-    this.addEventListener('focus', this.handleFocus);
+    if (!isServer) {
+      this.addEventListener('click', this.handleClick);
+      this.addEventListener('blur', this.handleBlur);
+      this.addEventListener('focus', this.handleFocus);
+    }
   }
 
   connectedCallback() {

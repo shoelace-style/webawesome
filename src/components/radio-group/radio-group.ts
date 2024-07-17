@@ -3,7 +3,7 @@ import '../radio/radio.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { uniqueId } from '../../internal/math.js';
 import { WaChangeEvent } from '../../events/change.js';
@@ -46,16 +46,21 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
+
+    const validators = isServer ? [] :
+      [
+        RequiredValidator({
+          validationElement: Object.assign(document.createElement('input'), {
+            required: true,
+            type: 'radio',
+            // we need an id that's guaranteed to be unique; users will never see this
+            name: uniqueId('__wa-radio')
+          })
+        })
+      ]
     return [
       ...super.validators,
-      RequiredValidator({
-        validationElement: Object.assign(document.createElement('input'), {
-          required: true,
-          type: 'radio',
-          // we need an id that's guaranteed to be unique; users will never see this
-          name: uniqueId('__wa-radio')
-        })
-      })
+      ...validators
     ];
   }
 
@@ -86,6 +91,16 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** Ensures a child radio is checked before allowing the containing form to submit. */
   @property({ type: Boolean, reflect: true }) required = false;
 
+  /**
+   * Used for SSR. if true, will show slotted label on initial render.
+   */
+  @property({ type: Boolean, attribute: "with-label" }) withLabel = false
+
+  /**
+   * Used for SSR. if true, will show slotted help text on initial render.
+   */
+  @property({ type: Boolean, attribute: "with-help-text" }) withHelpText = false
+
   //
   // We need this because if we don't have it, FormValidation yells at us that it's "not focusable".
   //   If we use `this.tabIndex = -1` we can't focus the radio inside.
@@ -95,8 +110,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   constructor() {
     super();
 
-    this.addEventListener('keydown', this.handleKeyDown);
-    this.addEventListener('click', this.handleRadioClick);
+    if (!isServer) {
+      this.addEventListener('keydown', this.handleKeyDown);
+      this.addEventListener('click', this.handleRadioClick);
+    }
   }
 
   private handleRadioClick = (e: Event) => {
@@ -190,7 +207,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
    * the first radio element.
    */
   get validationTarget() {
-    return this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
+    return isServer ? undefined : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
   }
 
   @watch('value')
@@ -269,8 +286,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const defaultSlot = html` <slot @slotchange=${this.syncRadioElements}></slot> `;

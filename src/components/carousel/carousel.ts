@@ -5,7 +5,7 @@ import { AutoplayController } from './autoplay-controller.js';
 import { clamp } from '../../internal/math.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { map } from 'lit/directives/map.js';
 import { prefersReducedMotion } from '../../internal/animate.js';
@@ -58,6 +58,9 @@ export default class WaCarousel extends WebAwesomeElement {
   /** When set, allows the user to navigate the carousel in the same direction indefinitely. */
   @property({ type: Boolean, reflect: true }) loop = false;
 
+  @property({ type: Number, reflect: true }) slides = 0;
+  @property({ type: Number, reflect: true }) currentSlide = 0;
+
   /** When set, show the carousel's navigation. */
   @property({ type: Boolean, reflect: true }) navigation = false;
 
@@ -95,6 +98,11 @@ export default class WaCarousel extends WebAwesomeElement {
 
   @state() dragging = false;
 
+  // /**
+  //  * A boolean for when `firstUpdated` has been called to prevent hydration mismatch errors from Lit.
+  //  */
+  // @state() firstUpdatedHasBeenCalled = false
+
   private autoplayController = new AutoplayController(this, () => this.next());
   private readonly localize = new LocalizeController(this);
   private mutationObserver: MutationObserver;
@@ -111,6 +119,7 @@ export default class WaCarousel extends WebAwesomeElement {
   }
 
   protected firstUpdated(): void {
+    // this.firstUpdatedHasBeenCalled = true
     this.initializeSlides();
     this.mutationObserver = new MutationObserver(this.handleSlotChange);
     this.mutationObserver.observe(this, {
@@ -487,11 +496,22 @@ export default class WaCarousel extends WebAwesomeElement {
 
   render() {
     const { slidesPerMove, scrolling } = this;
-    const pagesCount = this.getPageCount();
-    const currentPage = this.getCurrentPage();
-    const prevEnabled = this.canScrollPrev();
-    const nextEnabled = this.canScrollNext();
-    const isLtr = this.matches(':dir(ltr)');
+
+    let pagesCount = 0
+    let currentPage = 0
+    let prevEnabled = false
+    let nextEnabled = false
+
+    // @TODO: This is a super hacky way to get rid of hydration mismatch errors. The ideal solution is users being able to pass in `pagesCount` and `currentPage` and then on firstUpdated to we update the value for them.
+    if (this.hasUpdated) {
+      pagesCount = this.getPageCount();
+      currentPage = this.getCurrentPage();
+      prevEnabled = this.canScrollPrev();
+      nextEnabled = this.canScrollNext();
+    }
+
+    // We can't rely on `this.matches()` on the server.
+    const isLtr = isServer ? this.dir === "ltr" : this.matches(':dir(ltr)');
 
     return html`
       <div part="base" class="carousel">
@@ -578,7 +598,7 @@ export default class WaCarousel extends WebAwesomeElement {
                 })}
               </div>
             `
-          : ''}
+          : html``}
       </div>
     `;
   }

@@ -74,7 +74,10 @@
   "devDependencies": {
     "@11ty/eleventy": "3.0.0-alpha.5",
     "@custom-elements-manifest/analyzer": "^0.9.4",
+    "@lit-labs/eleventy-plugin-lit": "^1.0.3",
+    "@lit-labs/testing": "^0.2.4",
     "@lit/react": "^1.0.0",
+    "@open-wc/semantic-dom-diff": "^0.20.1",
     "@open-wc/testing": "^3.2.0",
     "@types/mocha": "^10.0.2",
     "@types/react": "^18.2.28",

@@ -12,9 +12,59 @@
     <link rel="icon" href="/assets/images/webawesome-logo.svg" />
     <link rel="apple-touch-icon" href="/assets/images/app-icon.png">
 
+    <script type="module" src="/assets/scripts/hydration-errors.js">
+    </script>
+
+    <style>
+      .diff-dialog-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .diff-debugger {
+        position: relative;
+        border: 4px solid red;
+      }
+      .diff-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: minmax(0, 1fr);
+        max-height: 80vh;
+        gap: 16px;
+      }
+
+      .diff-grid > * {
+        height: 100%;
+      }
+
+      .diff-dialog::part(dialog) {
+        max-width: 90vw;
+        width: 90vw;
+      }
+
+      .diff-dialog ins {
+	      text-decoration: none;
+      }
+
+      .diff-dialog pre {
+	      border: 1px solid transparent;
+	      height: 100%;
+	      max-height: calc(100% - 2em);
+      }
+
+      .diff-dialog code {
+        height: 100%;
+      }
+
+      .diff-dialog del {
+	      text-decoration: none;
+      }
+    </style>
+
     {# Scripts #}
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm"></script>
+
 
     <script type="module" src="/assets/scripts/code-examples.js"></script>
     <script type="module" src="/assets/scripts/color-scheme.js"></script>
@@ -44,8 +94,7 @@
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
-    <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop">
+    <wa-page>
       <header slot="header">
         {# Logo #}
         <div id="docs-branding">

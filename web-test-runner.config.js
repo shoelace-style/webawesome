@@ -1,6 +1,7 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { getAllComponents } from './scripts/shared.js';
 import { globbySync } from 'globby';
+import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
 
@@ -28,7 +29,8 @@ export default {
     esbuildPlugin({
       ts: true,
       target: 'es2020'
-    })
+    }),
+    litSsrPlugin()
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium' }),

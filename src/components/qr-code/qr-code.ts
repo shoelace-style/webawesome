@@ -6,7 +6,12 @@ import componentStyles from '../../styles/component.styles.js';
 import QrCreator from 'qr-creator';
 import styles from './qr-code.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
+
+// Prevents QrCreator from erroring when attempting to render on the server (not that you should)
+// @TODO: Should probably use a dependency that can generate an SVG??
+(globalThis as {self: typeof globalThis}).self = globalThis
+
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -43,8 +48,12 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
-  firstUpdated() {
-    this.generate();
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties)
+
+    if (this.hasUpdated) {
+      this.generate();
+    }
   }
 
   @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'])

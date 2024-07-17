@@ -1,12 +1,48 @@
+import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
+
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
-import { LitElement, type PropertyValues } from 'lit';
+import { isServer, LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
+
+
 
 export default class WebAwesomeElement extends LitElement {
   // Make localization attributes reactive
   @property() dir: string;
   @property() lang: string;
+
+  // @property({ reflect: true, attribute: "did-ssr" }) didSSR = false
+  didSSR = false
+
+  constructor () {
+    super()
+    if (this.shadowRoot) {
+      this.didSSR = true
+    }
+  }
+
+  protected firstUpdated(changedProperties: Parameters<LitElement["firstUpdated"]>[0]): void {
+    super.firstUpdated(changedProperties)
+    if (this.didSSR) {
+      this.shadowRoot?.querySelectorAll("slot").forEach((slotElement) => {
+        slotElement.dispatchEvent(new Event("slotchange", { bubbles: true, composed: false, cancelable: false }))
+      })
+    }
+  }
+
+  protected update(changedProperties: PropertyValues<this>): void {
+    try {
+      super.update(changedProperties)
+    } catch (e) {
+      // Emit a hydration error so we can catch it and do cool shit.
+      const event = new Event("lit-hydration-error", { bubbles: true, composed: true, cancelable: false })
+      // @ts-expect-error leave me alone TS.
+      event.error = e
+      this.dispatchEvent(event)
+      throw e
+    }
+  }
 }
 
 export interface Validator<T extends WebAwesomeFormAssociatedElement = WebAwesomeFormAssociatedElement> {
@@ -128,8 +164,10 @@ export class WebAwesomeFormAssociatedElement
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
     }
 
-    // eslint-disable-next-line
-    this.addEventListener('invalid', this.emitInvalid);
+    if (!isServer) {
+      // eslint-disable-next-line
+      this.addEventListener('invalid', this.emitInvalid);
+    }
   }
 
   connectedCallback() {
@@ -155,8 +193,8 @@ export class WebAwesomeFormAssociatedElement
     this.dispatchEvent(new WaInvalidEvent());
   };
 
-  protected willUpdate(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('customError')) {
+  protected willUpdate(changedProperties: Parameters<LitElement["willUpdate"]>[0]) {
+    if (!isServer && changedProperties.has('customError')) {
       // We use null because it we really don't want it to show up in the attributes because `custom-error` does reflect
       if (!this.customError) {
         this.customError = null;
@@ -194,7 +232,7 @@ export class WebAwesomeFormAssociatedElement
     if (changedProperties.has('disabled')) {
       this.toggleCustomState('disabled', this.disabled);
 
-      if (this.hasAttribute('disabled') || !this.matches(':disabled')) {
+      if (this.hasAttribute('disabled') || (!isServer && !this.matches(':disabled'))) {
         this.toggleAttribute('disabled', this.disabled);
       }
     }

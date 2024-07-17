@@ -1,11 +1,22 @@
-import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, fixture, waitUntil } from '@open-wc/testing';
+import {html} from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import {ssrFixture} from '@lit-labs/testing/fixtures.js';
 import sinon from 'sinon';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
 describe('<wa-button>', async () => {
+  describe('ssr tests', () => {
+    it("Should render with SSR", async () => {
+      const el = await ssrFixture(html`<wa-button>Hello World</wa-button>`, {
+        modules: ['/dist/node/components/button/button.js'],
+        hydrate: false,
+      });
+      expect(el.shadowRoot.querySelector('button').textContent).to.equal('Hello World');
+    })
+  })
   describe('accessibility tests', () => {
     variants.forEach(variant => {
       it(`should be accessible when variant is "${variant}"`, async () => {

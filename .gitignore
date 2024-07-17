@@ -4,6 +4,7 @@ _site
 package.json
 package-lock.json
 dist
+unbundled-dist
 docs/public/pagefind
 node_modules
 src/react

@@ -1,6 +1,6 @@
 import { deleteAsync } from 'del';
 import { dirname, join, relative } from 'path';
-import { distDir, docsDir, rootDir, runScript, siteDir } from './utils.js';
+import { distDir, docsDir, unbundledDir, rootDir, runScript, siteDir } from './utils.js';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { globby } from 'globby';
@@ -13,6 +13,7 @@ import esbuild from 'esbuild';
 import getPort, { portNumbers } from 'get-port';
 import ora from 'ora';
 import process from 'process';
+import { copyFileSync } from 'fs';
 
 //
 // TODO - CDN dist and unbundled dist
@@ -24,7 +25,10 @@ const isAlpha = process.argv.includes('--alpha');
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const packageData = JSON.parse(await readFile(join(rootDir, 'package.json'), 'utf-8'));
 const version = JSON.stringify(packageData.version.toString());
-let buildContext;
+let buildContexts = {
+  "bundledContext": {},
+  "unbundledContext": {}
+}
 
 /**
  * Runs the full build.
@@ -38,6 +42,10 @@ async function buildAll() {
     await generateReactWrappers();
     await generateTypes();
     await generateStyles();
+
+    // copy everything to unbundled before we generate bundles.
+    await copy(distDir, unbundledDir)
+
     await generateBundle();
     await generateDocs();
 
@@ -54,7 +62,9 @@ async function cleanup() {
   spinner.start('Cleaning up dist');
 
   await deleteAsync(distDir);
+  await deleteAsync(unbundledDir);
   await mkdir(distDir, { recursive: true });
+  await mkdir(unbundledDir, { recursive: true });
 
   spinner.succeed();
 }
@@ -137,6 +147,7 @@ async function generateTypes() {
 async function generateBundle() {
   spinner.start('Bundling with esbuild');
 
+  // Bundled config
   const config = {
     format: 'esm',
     target: 'es2020',
@@ -162,16 +173,37 @@ async function generateBundle() {
     },
     bundle: true,
     splitting: true,
+    minify: false,
     plugins: [replace({ __WEBAWESOME_VERSION__: version })]
   };
 
-  if (isDeveloping) {
-    // Incremental builds for dev
-    buildContext = await esbuild.context(config);
-    await buildContext.rebuild();
-  } else {
-    // One-time build for production
-    await esbuild.build(config);
+  const unbundledConfig = {
+    ...config,
+    splitting: true,
+    treeShaking: true,
+    // Don't inline libraries like Lit etc.
+    packages: "external",
+    outdir: unbundledDir,
+
+    // inject: [
+    // ]
+  }
+
+  try {
+    if (isDeveloping) {
+      buildContexts.bundledContext = await esbuild.context(config)
+      buildContexts.unbundledContext = await esbuild.context(unbundledConfig)
+
+      await buildContexts.bundledContext.rebuild()
+      await buildContexts.unbundledContext.rebuild()
+    } else {
+      // One-time build for production
+      await esbuild.build(config)
+      await esbuild.build(unbundledConfig)
+    }
+  } catch (error) {
+    spinner.fail();
+    console.log(chalk.red(`\n${error}`));
   }
 
   spinner.succeed();
@@ -183,7 +215,8 @@ async function generateBundle() {
 async function regenerateBundle() {
   try {
     spinner.start('Re-bundling with esbuild');
-    await buildContext.rebuild();
+    await buildContexts.bundledContext.rebuild()
+    await buildContexts.unbundledContext.rebuild()
   } catch (error) {
     spinner.fail();
     console.log(chalk.red(`\n${error}`));
@@ -330,9 +363,8 @@ if (isDeveloping) {
 // Cleanup everything when the process terminates
 //
 function terminate() {
-  if (buildContext) {
-    buildContext.dispose();
-  }
+  // dispose of contexts.
+  Object.values(buildContexts).forEach((context) => context?.dispose?.())
 
   if (spinner) {
     spinner.stop();

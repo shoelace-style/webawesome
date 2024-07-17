@@ -207,6 +207,16 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    */
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
 
+  /**
+   * Used for SSR. Will determine if the SSRed component will have the label slot rendered on initial paint.
+   */
+  @property({ attribute: "with-label", type: Boolean }) withLabel = false
+
+  /**
+   * Used for SSR. Will determine if the SSRed component will have the help text slot rendered on initial paint.
+   */
+  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
+
   private handleBlur() {
     this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
@@ -370,9 +380,22 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     super.formResetCallback();
   }
 
+  connectedCallback () {
+    super.connectedCallback()
+
+    if (this.didSSR && this.input && this.value !== this.input.value) {
+      const value = this.input.value
+      // For some reason this.value is being wiped out on first connect.
+      this.updateComplete.then(() => {
+        this.input.value = value
+        this.value = value
+      })
+    }
+  }
+
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;

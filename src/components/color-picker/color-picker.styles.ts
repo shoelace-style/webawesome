@@ -346,7 +346,7 @@ export default css`
   }
 
   .color-dropdown__container {
-    margin: 0 1em;
+    padding: 0 1em;
     padding-bottom: 0.5em;
   }
 `;

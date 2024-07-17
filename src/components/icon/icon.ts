@@ -228,7 +228,24 @@ export default class WaIcon extends WebAwesomeElement {
   }
 
   render() {
-    return this.svg;
+    if (this.hasUpdated) {
+      return this.svg;
+    }
+
+    // const { url } = this.getIconSource();
+    // const library = fromLibrary ? getIconLibrary(this.library) : undefined;
+
+    // if (!url) {
+      return html``
+    // }
+
+    // let iconResolver = iconCache.get(url);
+    // if (!iconResolver) {
+    //   iconResolver = this.resolveIcon(url, library);
+    //   iconCache.set(url, iconResolver);
+    // }
+
+    // return html`<object href=${url}></object>`
   }
 }
 
