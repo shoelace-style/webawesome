@@ -110,8 +110,12 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 ```html {.example}
 <wa-rating label="Rating" class="rating-hearts" style="--symbol-color-active: #ff4136;"></wa-rating>
 
-<script>
+<script type="module">
   const rating = document.querySelector('.rating-hearts');
+
+  await customElements.whenDefined('wa-rating')
+  await rating.updateComplete
+
   rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 </script>
 ```
@@ -123,8 +127,11 @@ You can also use the `getSymbol` property to render different icons based on val
 ```html {.example}
 <wa-rating label="Rating" class="rating-emojis"></wa-rating>
 
-<script>
+<script type="module">
   const rating = document.querySelector('.rating-emojis');
+
+  await customElements.whenDefined("wa-rating")
+  await rating.updateComplete
 
   rating.getSymbol = value => {
     const icons = ['face-angry', 'face-frown', 'face-meh', 'face-smile', 'face-laugh'];

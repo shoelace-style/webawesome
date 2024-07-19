@@ -108,67 +108,22 @@ export default function (eleventyConfig) {
     ])
   );
 
-  const componentModules = [
-    'animated-image',
-    // "animation", @TODO: Find out why animation breaks when SSRed and navigated via Turbo.
-    'avatar',
-    'badge',
-    'breadcrumb-item',
-    'breadcrumb',
-    'button-group',
-    'button',
-    'callout',
-    'card',
-    'carousel-item',
-    'carousel',
-    'checkbox',
-    'color-picker',
-    'copy-button',
-    'details',
-    'dialog',
-    'divider',
-    'drawer',
-    'dropdown',
-    'format-bytes',
-    'format-date',
-    'format-number',
-    'icon-button',
-    'icon',
-    'image-comparer',
-    'include',
-    'input',
-    'menu-item',
-    'menu-label',
-    'menu',
-    'mutation-observer', // Poor candidate
-    'option',
-    'page',
-    'popup',
-    'progress-bar',
-    'progress-ring',
-    // "qr-code", // @TODO: incompatible with SSR. Should probably replace this with something that can generate an SVG or a data URI on the server.
-    'radio-button',
-    'radio-group'
-    // "radio",
-    // "range",
-    // "rating",
-    // "relative-time",
-    // "resize-observer",
-    // "select",
-    // "skeleton",
-    // "spinner",
-    // "split-panel",
-    // "switch",
-    // "tab-group",
-    // "tab-panel",
-    // "tab",
-    // "tag",
-    // "textarea",
-    // "tooltip",
-    // "tree-item",
-    // "tree",
-    // "visually-hidden",
-  ].map(str => `./unbundled-dist/components/${str}/${str}.js`);
+  const omittedModules = [
+    "qr-code"
+  ]
+
+  // problematic components:
+  // animation (breaks on navigation + ssr with Turbo)
+  // mutation-observer (why SSR this?)
+  // resize-observer (why SSR this?)
+  // tooltip (why SSR this?)
+
+  const componentModules = getComponents()
+    .filter((component) => !(omittedModules.includes(component.tagName.split(/wa-/)[1])))
+    .map(component => {
+      const name = component.tagName.split(/wa-/)[1]
+      return `./unbundled-dist/components/${name}/${name}.js`
+    });
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',

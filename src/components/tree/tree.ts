@@ -1,6 +1,6 @@
 import { clamp } from '../../internal/math.js';
 import { customElement, property, query } from 'lit/decorators.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -96,9 +96,11 @@ export default class WaTree extends WebAwesomeElement {
 
   constructor() {
     super();
-    this.addEventListener('focusin', this.handleFocusIn);
-    this.addEventListener('focusout', this.handleFocusOut);
-    this.addEventListener('wa-lazy-change', this.handleSlotChange);
+    if (!isServer) {
+      this.addEventListener('focusin', this.handleFocusIn);
+      this.addEventListener('focusout', this.handleFocusOut);
+      this.addEventListener('wa-lazy-change', this.handleSlotChange);
+    }
   }
 
   async connectedCallback() {

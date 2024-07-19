@@ -112,6 +112,16 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
    */
   @property({ reflect: true }) form: null | string = null;
 
+  /**
+   * Used for SSR to render slotted labels. If true, will render slotted label content on first paint.
+   */
+  @property({ attribute: "with-label", reflect: true, type: Boolean }) withLabel = false
+
+  /**
+   * Used for SSR to render slotted labels. If true, will render slotted help-text content on first paint.
+   */
+  @property({ attribute: "with-help-text", reflect: true, type: Boolean }) withHelpText = false
+
   connectedCallback() {
     super.connectedCallback();
     this.resizeObserver = new ResizeObserver(() => this.syncRange());
@@ -246,8 +256,8 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 

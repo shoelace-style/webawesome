@@ -31,8 +31,8 @@ import { getDiffableHTML } from 'https://cdn.jsdelivr.net/npm/@open-wc/semantic-
         innerHTML = styleTag + '\n' + innerHTML;
       }
 
-      const serverHTML = getDiffableHTML(innerHTML);
-      const clientHTML = getDiffableHTML(element.shadowRoot?.innerHTML);
+      const clientHTML = getDiffableHTML(innerHTML);
+      const serverHTML = getDiffableHTML(element.shadowRoot?.innerHTML);
 
       const diffDebugger = document.createElement('div');
       diffDebugger.className = 'diff-debugger';

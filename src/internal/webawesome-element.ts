@@ -10,14 +10,11 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
-  // @property({ reflect: true, attribute: "did-ssr" }) didSSR = false
   didSSR = false;
 
   constructor() {
     super();
-    if (this.shadowRoot) {
-      this.didSSR = true;
-    }
+    this.didSSR = Boolean(this.shadowRoot)
   }
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
@@ -33,11 +30,14 @@ export default class WebAwesomeElement extends LitElement {
     try {
       super.update(changedProperties);
     } catch (e) {
-      // Emit a hydration error so we can catch it and do cool shit.
-      const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });
-      // @ts-expect-error leave me alone TS.
-      event.error = e;
-      this.dispatchEvent(event);
+      if (this.didSSR && !this.hasUpdated) {
+        // Emit a hydration error so we can catch it and do cool shit.
+        // This may accidentally grab non-hydration related errors, but its the best I've found without directly reading error strings.
+        const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });
+        // @ts-expect-error leave me alone TS.
+        event.error = e;
+        this.dispatchEvent(event);
+      }
       throw e;
     }
   }

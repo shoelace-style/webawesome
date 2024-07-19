@@ -148,6 +148,16 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
    */
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
 
+  /**
+   * Used for SSR. If you're slotting in a `label` element, make sure to set this to `true`.
+   */
+  @property({ attribute: "with-label", type: Boolean }) withLabel = false
+
+  /**
+   * Used for SSR. If you're slotting in a `help-text` element, make sure to set this to `true`.
+   */
+  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -274,8 +284,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 

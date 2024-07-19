@@ -5,7 +5,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { scrollIntoView } from '../../internal/scroll.js';
@@ -87,11 +87,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
-    return [
-      ...super.validators,
+    const validators = isServer ? [] : [
       RequiredValidator({
         validationElement: Object.assign(document.createElement('select'), { required: true })
       })
+    ]
+    return [
+      ...super.validators,
+      ...validators
     ];
   }
 
@@ -209,6 +212,16 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   /** The select's help text. If you need to display HTML, use the `help-text` slot instead. */
   @property({ attribute: 'help-text' }) helpText = '';
+
+  /**
+   * Used for SSR purposes when a label is slotted in. Will show the label on first render.
+   */
+  @property({ attribute: "with-label", type: Boolean }) withLabel = false
+
+  /**
+   * Used for SSR purposes when help-text is slotted in. Will show the help-text on first render.
+   */
+  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -765,8 +778,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && this.value.length > 0;
