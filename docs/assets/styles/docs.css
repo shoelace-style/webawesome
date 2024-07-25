@@ -160,7 +160,7 @@ wa-page::part(menu) {
 
 /* Main content */
 wa-page > main {
-  max-width: 90ch;
+  max-width: 80ch;
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }

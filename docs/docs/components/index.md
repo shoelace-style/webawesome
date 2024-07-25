@@ -5,10 +5,15 @@ layout: page
 ---
 
 <style>
+  wa-page > main {
+    max-width: 120ch;
+    padding: var(--wa-space-xl);
+    margin-inline: auto;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-    gap: 1rem;
+    gap: 2rem;
   }
   .grid wa-card {
     --box-shadow: none;
@@ -112,6 +117,118 @@ Browse the entire library of standards-based, framework-friendly web components 
         <img src="/assets/images/components/carousel.svg">
       </div>
       <span class="component-name">Carousel</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/checkbox">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/checkbox.svg">
+      </div>
+      <span class="component-name">Checkbox</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/color-picker">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/color-picker.svg">
+      </div>
+      <span class="component-name">Color Picker</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/copy-button">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/copy-button.svg">
+      </div>
+      <span class="component-name">Copy Button</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/details">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/details.svg">
+      </div>
+      <span class="component-name">Details</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/dialog">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/dialog.svg">
+      </div>
+      <span class="component-name">Dialog</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/divider">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/divider.svg">
+      </div>
+      <span class="component-name">Divider</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/drawer">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/drawer.svg">
+      </div>
+      <span class="component-name">Drawer</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/dropdown">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/dropdown.svg">
+      </div>
+      <span class="component-name">Dropdown</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/format-bytes">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/format-bytes.svg">
+      </div>
+      <span class="component-name">Format Bytes</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/format-date">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/format-date.svg">
+      </div>
+      <span class="component-name">Format Date</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/format-number">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/format-number.svg">
+      </div>
+      <span class="component-name">Format Number</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/icon">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/icon.svg">
+      </div>
+      <span class="component-name">Icon</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/icon-button">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/icon-button.svg">
+      </div>
+      <span class="component-name">Icon Button</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/image-comparer">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/image-comparer.svg">
+      </div>
+      <span class="component-name">Image Comparer</span>
     </wa-card>
   </a>
 </div>
