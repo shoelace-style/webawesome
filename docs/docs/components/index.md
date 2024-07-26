@@ -231,4 +231,196 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Image Comparer</span>
     </wa-card>
   </a>
+  <a href="/docs/components/include">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/include.svg">
+      </div>
+      <span class="component-name">Include</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/input">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/input.svg">
+      </div>
+      <span class="component-name">Input</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/menu">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/menu.svg">
+      </div>
+      <span class="component-name">Menu</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/mutation-observer">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/mutation-observer.svg">
+      </div>
+      <span class="component-name">Mutation Observer</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/popup">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/popup.svg">
+      </div>
+      <span class="component-name">Popup</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/progress-bar">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/progress-bar.svg">
+      </div>
+      <span class="component-name">Progress Bar</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/progress-ring">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/progress-ring.svg">
+      </div>
+      <span class="component-name">Progress Ring</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/qr-code">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/qr-code.svg">
+      </div>
+      <span class="component-name">QR Code</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/radio-group">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/radio-group.svg">
+      </div>
+      <span class="component-name">Radio Group</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/range">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/range.svg">
+      </div>
+      <span class="component-name">Range</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/rating">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/rating.svg">
+      </div>
+      <span class="component-name">Rating</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/relative-time">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/relative-time.svg">
+      </div>
+      <span class="component-name">Relative Time</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/resize-observer">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/resize-observer.svg">
+      </div>
+      <span class="component-name">Resize Observer</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/select">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/select.svg">
+      </div>
+      <span class="component-name">Select</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/skeleton">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/skeleton.svg">
+      </div>
+      <span class="component-name">Skeleton</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/spinner">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/spinner.svg">
+      </div>
+      <span class="component-name">Spinner</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/split-panel">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/split-panel.svg">
+      </div>
+      <span class="component-name">Split Panel</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/switch">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/switch.svg">
+      </div>
+      <span class="component-name">Switch</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tab-group">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/tab-group.svg">
+      </div>
+      <span class="component-name">Tab Group</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tag">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/tag.svg">
+      </div>
+      <span class="component-name">Tag</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/textarea">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/textarea.svg">
+      </div>
+      <span class="component-name">Textarea</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tooltip">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/tooltip.svg">
+      </div>
+      <span class="component-name">Tooltip</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tree">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/tree.svg">
+      </div>
+      <span class="component-name">Tree</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/visually-hidden">
+    <wa-card>
+      <div slot="header">
+        <img src="/assets/images/components/visually-hidden.svg">
+      </div>
+      <span class="component-name">Visually Hidden</span>
+    </wa-card>
+  </a>
 </div>
