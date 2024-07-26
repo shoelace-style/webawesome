@@ -1,0 +1,83 @@
+/**
+ * This is the intended way of using fixtures since it has some nice ways of catching hydration errors.
+ * These fixtures will also auto-load all of our components.
+ */
+
+import { cleanupFixtures, ssrFixture as LitSSRFixture } from "@lit-labs/testing/fixtures.js"
+import { fixture } from "@open-wc/testing"
+import type { LitElement, TemplateResult } from "lit"
+
+declare global {
+  interface Window {
+    clientComponents: string[];
+    serverComponents: string[];
+  }
+}
+
+/**
+ * This will hopefully move to a library or be built into Lit. Right now this does nothing.
+ */
+function handleHydrationError () {
+  console.error("LIT HYDRATION ERROR")
+}
+
+// This is a non-standard event I have added to the WebAwesomeElement base class.
+// https://github.com/lit/lit/discussions/4703
+document.addEventListener("lit-hydration-error", handleHydrationError)
+
+/**
+ * Loads up a fixture and loads all client components
+ */
+export async function clientFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult | string) {
+  // Load all component definitions "customElements.define()"
+  await Promise.allSettled(window.clientComponents.map((str) => import(str)))
+  return fixture<T>(template)
+}
+
+// Make it easy to register describe blocks and tell what type of test failed.
+clientFixture.type = "Client Only"
+
+
+/**
+ * Loads up a fixture with SSR, using all unbundled modules, then when it finishes, calls hydration scripts, and then when hydration completes, returns the element.
+ */
+export async function ssrFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult) {
+  const hydratedElement = await LitSSRFixture<T>(template, {
+    base: import.meta.url,
+    modules: window.serverComponents,
+    hydrate: true
+  })
+
+  // Load all component definitions "customElements.define()"
+  await Promise.allSettled(window.clientComponents.map((str) => import(str)))
+
+  // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
+  // This forces every element to "hydrate" and then wait for an update to complete (hydration)
+  await Promise.allSettled([...hydratedElement.querySelectorAll<LitElement>("[defer-hydration]")].map((el) => {
+    el.removeAttribute("defer-hydration")
+    return el.updateComplete
+  }))
+
+  return hydratedElement
+}
+
+ssrFixture.type = "SSR"
+
+/**
+ * This registers the fixture cleanup as a side effect
+ */
+try {
+  // We load Mocha globally, so this just makes it so every test file doesn't need to call beforeEach and afterEach to cleanup fixtures.
+  if (typeof beforeEach !== "undefined") {
+    beforeEach(() => {
+      cleanupFixtures()
+    });
+  }
+  if (typeof afterEach !== "undefined") {
+    afterEach(() => {
+      cleanupFixtures()
+    });
+  }
+} catch (error) {
+  // We really don't care if there's an error in these.
+}

@@ -7,9 +7,16 @@ import { readFileSync } from 'fs';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
+const serverComponents = []
 const componentImports = getAllComponents(metadata).map(component => {
   const name = component.tagName.replace(/^wa-/, '');
-  return `./dist/components/${name}/${name}.js`;
+
+  // "qr-code" is the only component currently not supported by SSR.
+  if (name !== "qr-code") {
+    serverComponents.push(`/unbundled-dist/components/${name}/${name}.js`)
+  }
+
+  return `/dist/components/${name}/${name}.js`;
 });
 
 export default {
@@ -22,7 +29,7 @@ export default {
   testFramework: {
     config: {
       timeout: 3000,
-      retries: 1
+      retries: 1,
     }
   },
   plugins: [
@@ -38,15 +45,26 @@ export default {
     playwrightLauncher({ product: 'webkit' })
   ],
   testRunnerHtml: testFramework => `
+    <!DOCTYPE html>
     <html lang="en-US">
       <head>
         <base href="/dist">
+        <link rel="stylesheet" href="dist/themes/default.css">
+        <script>
+          window.process = {env: { NODE_ENV: "production" }}
+        </script>
+        <script>
+          window.serverComponents = [
+            ${serverComponents.map((str) => `"${str}"`).join(",\n")}
+          ]
+
+          window.clientComponents = [
+            ${componentImports.map((str) => `"${str}"`).join(",\n")}
+          ]
+        </script>
+        <script type="module" src="${testFramework}"></script>
       </head>
       <body>
-        <link rel="stylesheet" href="dist/themes/default.css">
-        <script>window.process = {env: { NODE_ENV: "production" }}</script>
-        ${componentImports.map(url => `<script type="module" src="${url}"></script>`)};
-        <script type="module" src="${testFramework}"></script>
       </body>
     </html>
   `,

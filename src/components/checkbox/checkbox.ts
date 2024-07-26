@@ -64,6 +64,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
       ? []
       : [
           RequiredValidator({
+            validationProperty: "checked",
             // Use a checkbox so we get "free" translation strings.
             validationElement: Object.assign(document.createElement('input'), {
               type: 'checkbox',
@@ -120,6 +121,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'help-text' }) helpText = '';
 
   private handleClick() {
+    this.hasInteracted = true
     this.checked = !this.checked;
     this.indeterminate = false;
     this.dispatchEvent(new WaChangeEvent());
@@ -147,12 +149,20 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  get formValue () {
+    return this.checked ? this.value ?? "on" : null
+  }
+
   handleValueOrCheckedChange() {
     this.toggleCustomState('checked', this.checked);
-    this.value = this.checked ? this.value || 'on' : null;
+
+    if (this.value === null || this.value === undefined) {
+      // We always set a value, but what actually gets submitted is the `formValue`
+      this.value = "on"
+    }
 
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
-    this.setValue(this.value, this.value);
+    this.setValue(this.formValue, this.value);
     this.updateValidity();
   }
 
@@ -166,10 +176,13 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('defaultChecked')) {
       if (!this.hasInteracted) {
         this.checked = this.defaultChecked;
       }
+    }
+
+    if (changedProperties.has('value') || changedProperties.has('checked')) {
       this.handleValueOrCheckedChange();
     }
   }
