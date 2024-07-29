@@ -1,4 +1,4 @@
-import { clientFixture, ssrFixture } from './fixture.js';
+import { clientFixture, hydratedFixture } from './fixture.js';
 import { expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
@@ -30,7 +30,7 @@ export async function runFormControlBaseTests<T extends WebAwesomeFormControl = 
     ? tagName
     : `${tagName} (${tagNameOrConfig.variantName})`;
 
-  for (const fixture of [clientFixture, ssrFixture]) {
+  for (const fixture of [clientFixture, hydratedFixture]) {
     // creates a testable form control instance
     const createControl = async () => {
       const controlFn = createFormControl<T>(fixture)
@@ -63,7 +63,7 @@ async function runAllValidityTests(
   const mode = getMode(await createControl());
 
   await new Promise<void>(resolve => {
-    for (const fixture of [clientFixture, ssrFixture]) {
+    for (const fixture of [clientFixture, hydratedFixture]) {
       // will be used later to retrieve meta information about the control
       describe(`Form validity base test for ${displayName} with ${fixture.type} rendering`, () => {
         // Run special tests depending on component type

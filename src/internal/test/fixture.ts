@@ -35,13 +35,13 @@ export async function clientFixture<T extends HTMLElement = HTMLElement>(templat
 }
 
 // Make it easy to register describe blocks and tell what type of test failed.
-clientFixture.type = "Client Only"
+clientFixture.type = "client-only" as const
 
 
 /**
  * Loads up a fixture with SSR, using all unbundled modules, then when it finishes, calls hydration scripts, and then when hydration completes, returns the element.
  */
-export async function ssrFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult) {
+export async function hydratedFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult) {
   const hydratedElement = await LitSSRFixture<T>(template, {
     base: import.meta.url,
     modules: window.serverComponents,
@@ -61,7 +61,7 @@ export async function ssrFixture<T extends HTMLElement = HTMLElement>(template: 
   return hydratedElement
 }
 
-ssrFixture.type = "SSR"
+hydratedFixture.type = "ssr-client-hydrated" as const
 
 /**
  * This registers the fixture cleanup as a side effect

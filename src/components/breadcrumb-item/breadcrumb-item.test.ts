@@ -1,148 +1,155 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { clientFixture, hydratedFixture } from "../../internal/test/fixture.js"
+import { expect } from '@open-wc/testing';
+import { html } from "lit"
 import type WaBreadcrumbItem from './breadcrumb-item.js';
 
 describe('<wa-breadcrumb-item>', () => {
   let el: WaBreadcrumbItem;
 
-  describe('when not provided a href attribute', () => {
-    before(async () => {
-      el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
-    });
+  for (const fixture of [clientFixture, hydratedFixture]) {
+    describe(`with "${fixture.type}" rendering`, () => {
 
-    it('should pass accessibility tests', async () => {
-      await expect(el).to.be.accessible();
-    });
-
-    it('should hide the separator from screen readers', () => {
-      const separator = el.shadowRoot!.querySelector<HTMLSpanElement>('[part~="separator"]');
-      expect(separator).attribute('aria-hidden', 'true');
-    });
-
-    it('should render a HTMLButtonElement as the part "label", with a set type "button"', () => {
-      const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="label"]');
-      expect(button).to.exist;
-      expect(button).attribute('type', 'button');
-    });
-  });
-
-  describe('when provided a href attribute', () => {
-    describe('and no target', () => {
-      before(async () => {
-        el = await fixture<WaBreadcrumbItem>(html`
-          <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/">Home</wa-breadcrumb-item>
-        `);
-      });
-
-      it('should pass accessibility tests', async () => {
-        await expect(el).to.be.accessible();
-      });
-
-      it('should render a HTMLAnchorElement as the part "label", with the supplied href value', () => {
-        const hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
-        expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
-      });
-    });
-
-    describe('and target, without rel', () => {
-      before(async () => {
-        el = await fixture<WaBreadcrumbItem>(html`
-          <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank">Help</wa-breadcrumb-item>
-        `);
-      });
-
-      it('should pass accessibility tests', async () => {
-        await expect(el).to.be.accessible();
-      });
-
-      describe('should render a HTMLAnchorElement as the part "label"', () => {
-        let hyperlink: HTMLAnchorElement | null;
-
-        before(() => {
-          hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+      describe('when not provided a href attribute', () => {
+        beforeEach(async () => {
+          el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
         });
 
-        it('should use the supplied href value, as the href attribute value', () => {
-          expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
+        it('should pass accessibility tests', async () => {
+          await expect(el).to.be.accessible();
         });
 
-        it('should default rel attribute to "noreferrer noopener"', () => {
-          expect(hyperlink).attribute('rel', 'noreferrer noopener');
-        });
-      });
-    });
-
-    describe('and target, with rel', () => {
-      before(async () => {
-        el = await fixture<WaBreadcrumbItem>(html`
-          <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
-            >Help</wa-breadcrumb-item
-          >
-        `);
-      });
-
-      it('should pass accessibility tests', async () => {
-        await expect(el).to.be.accessible();
-      });
-
-      describe('should render a HTMLAnchorElement', () => {
-        let hyperlink: HTMLAnchorElement | null;
-
-        before(() => {
-          hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('a');
+        it('should hide the separator from screen readers', () => {
+          const separator = el.shadowRoot!.querySelector<HTMLSpanElement>('[part~="separator"]');
+          expect(separator).attribute('aria-hidden', 'true');
         });
 
-        it('should use the supplied href value, as the href attribute value', () => {
-          expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
-        });
-
-        it('should use the supplied rel value, as the rel attribute value', () => {
-          expect(hyperlink).attribute('rel', 'alternate');
+        it('should render a HTMLButtonElement as the part "label", with a set type "button"', () => {
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="label"]');
+          expect(button).to.exist;
+          expect(button).attribute('type', 'button');
         });
       });
-    });
-  });
 
-  describe('when provided an element in the slot "prefix" to support prefix icons', () => {
-    before(async () => {
-      el = await fixture<WaBreadcrumbItem>(html`
-        <wa-breadcrumb-item>
-          <span class="prefix-example" slot="prefix">/</span>
-          Home
-        </wa-breadcrumb-item>
-      `);
-    });
+      describe('when provided a href attribute', () => {
+        describe('and no target', () => {
+          beforeEach(async () => {
+            el = await fixture<WaBreadcrumbItem>(html`
+              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/">Home</wa-breadcrumb-item>
+            `);
+          });
 
-    it('should pass accessibility tests', async () => {
-      await expect(el).to.be.accessible();
-    });
+          it('should pass accessibility tests', async () => {
+            await expect(el).to.be.accessible();
+          });
 
-    it('should accept as an assigned child in the shadow root', () => {
-      const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=prefix]')!;
-      const childNodes = slot.assignedNodes({ flatten: true });
+          it('should render a HTMLAnchorElement as the part "label", with the supplied href value', () => {
+            const hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+            expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
+          });
+        });
 
-      expect(childNodes.length).to.eq(1);
-    });
-  });
+        describe('and target, without rel', () => {
+          beforeEach(async () => {
+            el = await fixture<WaBreadcrumbItem>(html`
+              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank">Help</wa-breadcrumb-item>
+            `);
+          });
 
-  describe('when provided an element in the slot "suffix" to support suffix icons', () => {
-    before(async () => {
-      el = await fixture<WaBreadcrumbItem>(html`
-        <wa-breadcrumb-item>
-          <span class="prefix-example" slot="suffix">/</span>
-          Security
-        </wa-breadcrumb-item>
-      `);
-    });
+          it('should pass accessibility tests', async () => {
+            await expect(el).to.be.accessible();
+          });
 
-    it('should pass accessibility tests', async () => {
-      await expect(el).to.be.accessible();
-    });
+          describe('should render a HTMLAnchorElement as the part "label"', () => {
+            let hyperlink: HTMLAnchorElement | null;
 
-    it('should accept as an assigned child in the shadow root', () => {
-      const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=suffix]')!;
-      const childNodes = slot.assignedNodes({ flatten: true });
+            beforeEach(() => {
+              hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+            });
 
-      expect(childNodes.length).to.eq(1);
-    });
-  });
+            it('should use the supplied href value, as the href attribute value', () => {
+              expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
+            });
+
+            it('should default rel attribute to "noreferrer noopener"', () => {
+              expect(hyperlink).attribute('rel', 'noreferrer noopener');
+            });
+          });
+        });
+
+        describe('and target, with rel', () => {
+          beforeEach(async () => {
+            el = await fixture<WaBreadcrumbItem>(html`
+              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
+                >Help</wa-breadcrumb-item
+              >
+            `);
+          });
+
+          it('should pass accessibility tests', async () => {
+            await expect(el).to.be.accessible();
+          });
+
+          describe('should render a HTMLAnchorElement', () => {
+            let hyperlink: HTMLAnchorElement | null;
+
+            beforeEach(() => {
+              hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('a');
+            });
+
+            it('should use the supplied href value, as the href attribute value', () => {
+              expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
+            });
+
+            it('should use the supplied rel value, as the rel attribute value', () => {
+              expect(hyperlink).attribute('rel', 'alternate');
+            });
+          });
+        });
+      });
+
+      describe('when provided an element in the slot "prefix" to support prefix icons', () => {
+        beforeEach(async () => {
+          el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="prefix">/</span>
+              Home
+            </wa-breadcrumb-item>
+          `);
+        });
+
+        it('should pass accessibility tests', async () => {
+          await expect(el).to.be.accessible();
+        });
+
+        it('should accept as an assigned child in the shadow root', () => {
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=prefix]')!;
+          const childNodes = slot.assignedNodes({ flatten: true });
+
+          expect(childNodes.length).to.eq(1);
+        });
+      });
+
+      describe('when provided an element in the slot "suffix" to support suffix icons', () => {
+        beforeEach(async () => {
+          el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="suffix">/</span>
+              Security
+            </wa-breadcrumb-item>
+          `);
+        });
+
+        it('should pass accessibility tests', async () => {
+          await expect(el).to.be.accessible();
+        });
+
+        it('should accept as an assigned child in the shadow root', () => {
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=suffix]')!;
+          const childNodes = slot.assignedNodes({ flatten: true });
+
+          expect(childNodes.length).to.eq(1);
+        });
+      });
+    })
+  }
 });

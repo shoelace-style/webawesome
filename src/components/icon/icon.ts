@@ -232,20 +232,8 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    // const { url } = this.getIconSource();
-    // const library = fromLibrary ? getIconLibrary(this.library) : undefined;
-
-    // if (!url) {
-    return html``;
-    // }
-
-    // let iconResolver = iconCache.get(url);
-    // if (!iconResolver) {
-    //   iconResolver = this.resolveIcon(url, library);
-    //   iconCache.set(url, iconResolver);
-    // }
-
-    // return html`<object href=${url}></object>`
+    // @TODO: 16x16 is generally a safe bet. Perhaps be user setable?? `size="16x16"`, size="20x16". We just want to avoid "blowouts" with SSR.
+    return html`<svg height="16" width="16"></svg>`;
   }
 }
 
