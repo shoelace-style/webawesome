@@ -27,6 +27,14 @@ layout: page
     justify-content: center;
     min-height: calc(4rem + var(--spacing));
   }
+  wa-card#drawer-card::part(header) {
+    --spacing: 0;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  wa-card#drawer-card [slot='header'] img {
+    margin: -2px;
+  }
   .grid wa-card [slot='header'] img {
     display: block;
   }
@@ -168,7 +176,7 @@ Browse the entire library of standards-based, framework-friendly web components 
     </wa-card>
   </a>
   <a href="/docs/components/drawer">
-    <wa-card>
+    <wa-card id="drawer-card">
       <div slot="header">
         <img src="/assets/images/components/drawer.svg">
       </div>
