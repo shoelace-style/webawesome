@@ -94,12 +94,13 @@ export default class WaAnimation extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
+    console.log("connecteD")
     this.createAnimation();
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
     this.destroyAnimation();
+    super.disconnectedCallback();
   }
 
   private handleAnimationFinish = () => {
@@ -125,9 +126,7 @@ export default class WaAnimation extends WebAwesomeElement {
     const slot = await this.defaultSlot;
     const element = slot.assignedElements()[0] as HTMLElement | undefined;
 
-    if (!element || !keyframes) {
-      return false;
-    }
+    if (!element || !keyframes) { return false; }
 
     this.destroyAnimation();
     this.animation = element.animate(keyframes, {
@@ -159,6 +158,7 @@ export default class WaAnimation extends WebAwesomeElement {
       this.animation.cancel();
       this.animation.removeEventListener('cancel', this.handleAnimationCancel);
       this.animation.removeEventListener('finish', this.handleAnimationFinish);
+      this.animation = undefined
       this.hasStarted = false;
     }
   }

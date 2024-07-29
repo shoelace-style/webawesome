@@ -2,7 +2,6 @@ import { clientFixture, ssrFixture } from './fixture.js';
 import { expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
