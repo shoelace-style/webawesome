@@ -1,14 +1,14 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import sinon from 'sinon';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
 describe('<wa-button>', () => {
-  before (async () => {
+  before(async () => {
     await Promise.allSettled([
       runFormControlBaseTests({
         tagName: 'wa-button',
@@ -35,7 +35,7 @@ describe('<wa-button>', () => {
         }
       })
     ]);
-  })
+  });
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility tests', () => {
@@ -308,7 +308,6 @@ describe('<wa-button>', () => {
           expect(clickHandler).to.have.been.calledOnce;
         });
       });
-
-    })
+    });
   }
 });

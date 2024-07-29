@@ -7,13 +7,13 @@ import { readFileSync } from 'fs';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
-const serverComponents = []
+const serverComponents = [];
 const componentImports = getAllComponents(metadata).map(component => {
   const name = component.tagName.replace(/^wa-/, '');
 
   // "qr-code" is the only component currently not supported by SSR.
-  if (name !== "qr-code") {
-    serverComponents.push(`/unbundled-dist/components/${name}/${name}.js`)
+  if (name !== 'qr-code') {
+    serverComponents.push(`/unbundled-dist/components/${name}/${name}.js`);
   }
 
   return `/dist/components/${name}/${name}.js`;
@@ -29,7 +29,7 @@ export default {
   testFramework: {
     config: {
       timeout: 3000,
-      retries: 1,
+      retries: 1
     }
   },
   plugins: [
@@ -55,11 +55,11 @@ export default {
         </script>
         <script>
           window.serverComponents = [
-            ${serverComponents.map((str) => `"${str}"`).join(",\n")}
+            ${serverComponents.map(str => `"${str}"`).join(',\n')}
           ]
 
           window.clientComponents = [
-            ${componentImports.map((str) => `"${str}"`).join(",\n")}
+            ${componentImports.map(str => `"${str}"`).join(',\n')}
           ]
         </script>
         <script type="module" src="${testFramework}"></script>

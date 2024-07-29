@@ -100,7 +100,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. If you slot in help-text, make sure to add `with-help-text` to your component to get it to properly render with SSR.
    */
-  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -118,7 +118,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleClick() {
-    this.hasInteracted = true
+    this.hasInteracted = true;
     this.checked = !this.checked;
     this.dispatchEvent(new WaChangeEvent());
   }
@@ -153,7 +153,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
-    this.handleDefaultCheckedChange()
+    this.handleDefaultCheckedChange();
     this.value = this.checked ? this.value || 'on' : null;
 
     if (this.input) {
@@ -213,7 +213,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 
     return html`

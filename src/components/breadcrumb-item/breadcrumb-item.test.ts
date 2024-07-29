@@ -1,6 +1,6 @@
-import { clientFixture, hydratedFixture } from "../../internal/test/fixture.js"
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaBreadcrumbItem from './breadcrumb-item.js';
 
 describe('<wa-breadcrumb-item>', () => {
@@ -8,7 +8,6 @@ describe('<wa-breadcrumb-item>', () => {
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       describe('when not provided a href attribute', () => {
         beforeEach(async () => {
           el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
@@ -150,6 +149,6 @@ describe('<wa-breadcrumb-item>', () => {
           expect(childNodes.length).to.eq(1);
         });
       });
-    })
+    });
   }
 });

@@ -1,16 +1,16 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaCheckbox from './checkbox.js';
 
 describe('<wa-checkbox>', () => {
-  before (async () => {
+  before(async () => {
     await runFormControlBaseTests('wa-checkbox');
-  })
+  });
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
@@ -122,28 +122,30 @@ describe('<wa-checkbox>', () => {
         expect(inputPosition).to.equal('absolute');
       });
 
-      it("Should keep its form value when going from checked -> unchecked -> checked", async () => {
-          const form = await fixture<HTMLFormElement>(html`<form><wa-checkbox name="test" value="myvalue" checked >Checked</wa-checkbox></form>`);
-          const checkbox = form.querySelector('wa-checkbox')!;
+      it('Should keep its form value when going from checked -> unchecked -> checked', async () => {
+        const form = await fixture<HTMLFormElement>(
+          html`<form><wa-checkbox name="test" value="myvalue" checked>Checked</wa-checkbox></form>`
+        );
+        const checkbox = form.querySelector('wa-checkbox')!;
 
-          expect(checkbox.checked).to.equal(true)
-          expect(checkbox.value).to.equal("myvalue")
-          expect(new FormData(form).get("test")).to.equal("myvalue")
+        expect(checkbox.checked).to.equal(true);
+        expect(checkbox.value).to.equal('myvalue');
+        expect(new FormData(form).get('test')).to.equal('myvalue');
 
-          checkbox.checked = false
-          await checkbox.updateComplete
+        checkbox.checked = false;
+        await checkbox.updateComplete;
 
-          expect(checkbox.checked).to.equal(false)
-          expect(checkbox.value).to.equal("myvalue")
-          expect(new FormData(form).get("test")).to.equal(null)
+        expect(checkbox.checked).to.equal(false);
+        expect(checkbox.value).to.equal('myvalue');
+        expect(new FormData(form).get('test')).to.equal(null);
 
-          checkbox.checked = true
-          await checkbox.updateComplete
+        checkbox.checked = true;
+        await checkbox.updateComplete;
 
-          expect(checkbox.checked).to.equal(true)
-          expect(checkbox.value).to.equal("myvalue")
-          expect(new FormData(form).get("test")).to.equal("myvalue")
-      })
+        expect(checkbox.checked).to.equal(true);
+        expect(checkbox.value).to.equal('myvalue');
+        expect(new FormData(form).get('test')).to.equal('myvalue');
+      });
 
       describe('when submitting a form', () => {
         it('should submit the correct value when a value is provided', async () => {
@@ -239,7 +241,9 @@ describe('<wa-checkbox>', () => {
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-checkbox required></wa-checkbox></form> `);
+          const el = await fixture<HTMLFormElement>(html`
+            <form novalidate><wa-checkbox required></wa-checkbox></form>
+          `);
           const checkbox = el.querySelector<WaCheckbox>('wa-checkbox')!;
 
           expect(checkbox.hasAttribute('data-wa-required')).to.be.true;
@@ -399,6 +403,6 @@ describe('<wa-checkbox>', () => {
           expect(indeterminateIcon).to.be.null;
         });
       });
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaBreadcrumb from './breadcrumb.js';
 
 // The default link color just misses AA contrast, but the next step up is way too dark. Maybe we can solve this in the
@@ -107,6 +107,6 @@ describe('<wa-breadcrumb>', () => {
           await expect(el).to.be.accessible({ ignoredRules });
         });
       });
-    })
+    });
   }
 });

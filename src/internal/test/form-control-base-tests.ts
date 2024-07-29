@@ -33,7 +33,7 @@ export async function runFormControlBaseTests<T extends WebAwesomeFormControl = 
   for (const fixture of [clientFixture, hydratedFixture]) {
     // creates a testable form control instance
     const createControl = async () => {
-      const controlFn = createFormControl<T>(fixture)
+      const controlFn = createFormControl<T>(fixture);
       const control = await controlFn(tagName);
       init?.(control);
       return control;
@@ -150,7 +150,7 @@ async function runAllValidityTests(
 
           it('Should find the correct form when given a form property', async () => {
             const formId = 'test-form';
-            const form = await fixture(html`<form id='${formId}'></form>`);
+            const form = await fixture(html`<form id="${formId}"></form>`);
             const control = await createControl();
             expect(control.getForm()).to.equal(null);
             control.form = 'test-form';
@@ -160,7 +160,7 @@ async function runAllValidityTests(
 
           it('Should find the correct form when given a form attribute', async () => {
             const formId = 'test-form';
-            const form = await fixture(html`<form id='${formId}'></form>`);
+            const form = await fixture(html`<form id="${formId}"></form>`);
             const control = await createControl();
             expect(control.getForm()).to.equal(null);
             control.setAttribute('form', 'test-form');
@@ -252,7 +252,7 @@ async function runAllValidityTests(
 
       resolve();
     }
-  })
+  });
 }
 
 //
@@ -376,15 +376,15 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
 // Local helper functions
 //
 
-type FixtureFunction<T extends HTMLElement = HTMLElement> = (template: TemplateResult) => Promise<T>
+type FixtureFunction<T extends HTMLElement = HTMLElement> = (template: TemplateResult) => Promise<T>;
 
 // Creates a testable Web Awesome form control instance. Takes in a fixture function for SSR vs Client rendering
-function createFormControl<T extends WebAwesomeFormControl = WebAwesomeFormControl> (fixtureFn: FixtureFunction<T>) {
+function createFormControl<T extends WebAwesomeFormControl = WebAwesomeFormControl>(fixtureFn: FixtureFunction<T>) {
   return async (tagName: string) => {
     // https://github.com/lit/lit/issues/2246#issuecomment-1400035813
     const tag = unsafeStatic(`${tagName}`);
     return await fixtureFn(staticHTML`<${tag}></${tag}>`);
-  }
+  };
 }
 
 // Runs an action while listening for emitted events of a given type. Returns an array of all events of the given type

@@ -115,12 +115,12 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR to render slotted labels. If true, will render slotted label content on first paint.
    */
-  @property({ attribute: "with-label", reflect: true, type: Boolean }) withLabel = false
+  @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
 
   /**
    * Used for SSR to render slotted labels. If true, will render slotted help-text content on first paint.
    */
-  @property({ attribute: "with-help-text", reflect: true, type: Boolean }) withHelpText = false
+  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
 
   connectedCallback() {
     super.connectedCallback();

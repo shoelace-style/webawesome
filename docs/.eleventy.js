@@ -108,9 +108,7 @@ export default function (eleventyConfig) {
     ])
   );
 
-  const omittedModules = [
-    "qr-code"
-  ]
+  const omittedModules = ['qr-code'];
 
   // problematic components:
   // animation (breaks on navigation + ssr with Turbo)
@@ -119,10 +117,10 @@ export default function (eleventyConfig) {
   // tooltip (why SSR this?)
 
   const componentModules = getComponents()
-    .filter((component) => !(omittedModules.includes(component.tagName.split(/wa-/)[1])))
+    .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
     .map(component => {
-      const name = component.tagName.split(/wa-/)[1]
-      return `./unbundled-dist/components/${name}/${name}.js`
+      const name = component.tagName.split(/wa-/)[1];
+      return `./unbundled-dist/components/${name}/${name}.js`;
     });
 
   eleventyConfig.addPlugin(litPlugin, {

@@ -19,7 +19,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
   }
 
   if (!validationProperty) {
-    validationProperty = "value"
+    validationProperty = 'value';
   }
 
   const obj: Validator = {
@@ -39,7 +39,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
         return validity;
       }
 
-      const value = element[validationProperty as keyof typeof element]
+      const value = element[validationProperty as keyof typeof element];
 
       const isEmpty = !value;
 

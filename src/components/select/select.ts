@@ -87,15 +87,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
-    const validators = isServer ? [] : [
-      RequiredValidator({
-        validationElement: Object.assign(document.createElement('select'), { required: true })
-      })
-    ]
-    return [
-      ...super.validators,
-      ...validators
-    ];
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            validationElement: Object.assign(document.createElement('select'), { required: true })
+          })
+        ];
+    return [...super.validators, ...validators];
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
@@ -216,12 +215,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR purposes when a label is slotted in. Will show the label on first render.
    */
-  @property({ attribute: "with-label", type: Boolean }) withLabel = false
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
    * Used for SSR purposes when help-text is slotted in. Will show the help-text on first render.
    */
-  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you

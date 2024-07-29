@@ -64,7 +64,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
       ? []
       : [
           RequiredValidator({
-            validationProperty: "checked",
+            validationProperty: 'checked',
             // Use a checkbox so we get "free" translation strings.
             validationElement: Object.assign(document.createElement('input'), {
               type: 'checkbox',
@@ -121,7 +121,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'help-text' }) helpText = '';
 
   private handleClick() {
-    this.hasInteracted = true
+    this.hasInteracted = true;
     this.checked = !this.checked;
     this.indeterminate = false;
     this.dispatchEvent(new WaChangeEvent());
@@ -149,8 +149,8 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  get formValue () {
-    return this.checked ? this.value ?? "on" : null
+  get formValue() {
+    return this.checked ? this.value ?? 'on' : null;
   }
 
   handleValueOrCheckedChange() {
@@ -158,7 +158,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
     if (this.value === null || this.value === undefined) {
       // We always set a value, but what actually gets submitted is the `formValue`
-      this.value = "on"
+      this.value = 'on';
     }
 
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()

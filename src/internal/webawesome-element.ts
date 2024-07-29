@@ -14,7 +14,7 @@ export default class WebAwesomeElement extends LitElement {
 
   constructor() {
     super();
-    this.didSSR = Boolean(this.shadowRoot)
+    this.didSSR = Boolean(this.shadowRoot);
   }
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {

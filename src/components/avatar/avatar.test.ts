@@ -1,6 +1,6 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from "../../internal/test/fixture.js"
-import { html } from "lit"
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { html } from 'lit';
 import type WaAvatar from './avatar.js';
 
 // The default avatar background just misses AA contrast, but the next step up is way too dark. Since avatars aren't
@@ -37,12 +37,12 @@ describe('<wa-avatar>', () => {
 
         it('should pass accessibility tests', async () => {
           /**
-          * The image element itself is ancillary, because it's parent container contains the
-          * aria-label which dictates what "wa-avatar" is. This also implies that label text will
-          * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
-          * the image element to pass accessibility.
-          * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
-          */
+           * The image element itself is ancillary, because it's parent container contains the
+           * aria-label which dictates what "wa-avatar" is. This also implies that label text will
+           * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
+           * the image element to pass accessibility.
+           * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
+           */
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
@@ -88,12 +88,12 @@ describe('<wa-avatar>', () => {
 
         it('should pass accessibility tests', async () => {
           /**
-          * The image element itself is ancillary, because it's parent container contains the
-          * aria-label which dictates what "wa-avatar" is. This also implies that label text will
-          * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
-          * the image element to pass accessibility.
-          * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
-          */
+           * The image element itself is ancillary, because it's parent container contains the
+           * aria-label which dictates what "wa-avatar" is. This also implies that label text will
+           * resolve to "" when not provided and ignored by readers. This is why we use alt="" on
+           * the image element to pass accessibility.
+           * https://html.spec.whatwg.org/multipage/images.html#ancillary-images
+           */
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
@@ -137,13 +137,12 @@ describe('<wa-avatar>', () => {
 
       describe('when passed a <span>, on slot "icon"', () => {
         beforeEach(async () => {
-          el = await fixture<WaAvatar>(html`<wa-avatar label="Avatar"><span slot="icon">random content</span></wa-avatar>`);
+          el = await fixture<WaAvatar>(
+            html`<wa-avatar label="Avatar"><span slot="icon">random content</span></wa-avatar>`
+          );
         });
 
         it('should pass accessibility tests', async () => {
-          if (fixture.type === "ssr-client-hydrated") {
-            debugger
-          }
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
@@ -179,6 +178,6 @@ describe('<wa-avatar>', () => {
 
         expect(el.shadowRoot?.querySelector('img')).to.exist;
       });
-    })
+    });
   }
 });

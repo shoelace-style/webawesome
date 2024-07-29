@@ -151,12 +151,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. If you're slotting in a `label` element, make sure to set this to `true`.
    */
-  @property({ attribute: "with-label", type: Boolean }) withLabel = false
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
    * Used for SSR. If you're slotting in a `help-text` element, make sure to set this to `true`.
    */
-  @property({ attribute: "with-help-text", type: Boolean }) withHelpText = false
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
   connectedCallback() {
     super.connectedCallback();

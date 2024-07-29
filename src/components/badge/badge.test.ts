@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaBadge from './badge.js';
 
 // The default badge background just misses AA contrast, but the next step up is way too dark. We're going to relax this
@@ -80,6 +80,6 @@ describe('<wa-badge>', () => {
           });
         });
       });
-    })
+    });
   }
 });
