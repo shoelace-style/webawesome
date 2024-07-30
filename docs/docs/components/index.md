@@ -17,7 +17,7 @@ layout: page
   }
   .grid wa-card {
     --box-shadow: none;
-    --spacing: var(--wa-space-l);
+    --spacing: var(--wa-space-m);
     width: 100%;
   }
   .grid wa-card::part(header) {
@@ -25,15 +25,12 @@ layout: page
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(4rem + var(--spacing));
+    min-height: calc(6rem + var(--spacing));
   }
   wa-card#drawer-card::part(header) {
     --spacing: 0;
     justify-content: flex-end;
     overflow: hidden;
-  }
-  wa-card#drawer-card [slot='header'] img {
-    margin: -2px;
   }
   .grid wa-card [slot='header'] img {
     display: block;
