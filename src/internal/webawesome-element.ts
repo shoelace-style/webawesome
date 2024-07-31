@@ -10,20 +10,22 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
-  didSSR = false;
+  @property() didSSR = isServer;
 
   constructor() {
     super();
-    this.didSSR = Boolean(this.shadowRoot);
+
+    // In unsupported browsers of DSD and in cases where the element is already registered, this may return false.
+    this.didSSR = Boolean(this.shadowRoot)
   }
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);
-    if (this.didSSR) {
+    // if (this.didSSR) {
       this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
         slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
       });
-    }
+    // }
   }
 
   protected update(changedProperties: PropertyValues<this>): void {
@@ -31,7 +33,7 @@ export default class WebAwesomeElement extends LitElement {
       super.update(changedProperties);
     } catch (e) {
       if (this.didSSR && !this.hasUpdated) {
-        // Emit a hydration error so we can catch it and do cool shit.
+        // Emit a hydration error so we can catch it and do cool things.
         // This may accidentally grab non-hydration related errors, but its the best I've found without directly reading error strings.
         const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });
         // @ts-expect-error leave me alone TS.
@@ -201,7 +203,7 @@ export class WebAwesomeFormAssociatedElement
     }
 
     if (changedProperties.has('defaultValue')) {
-      if (!this.hasInteracted) {
+      if (!this.hasInteracted && !this.value) {
         this.value = this.defaultValue;
       }
     }

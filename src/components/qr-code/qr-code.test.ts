@@ -1,4 +1,6 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { expect } from '@open-wc/testing';
+import { html } from "lit"
 import type WaQrCode from './qr-code.js';
 
 const getCanvas = (qrCode: WaQrCode): HTMLCanvasElement => {
@@ -94,50 +96,55 @@ const expectQrCodeColorsToBe = (qrCode: WaQrCode, expectedColors: QrCodeColors):
 };
 
 describe('<wa-qr-code>', () => {
-  it('should render a component', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
+  for (const fixture of [clientFixture, hydratedFixture]) {
 
-    expect(qrCode).to.exist;
-  });
+    describe(`with "${fixture.type}" rendering`, () => {
+      it('should render a component', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
-  it('should be accessible', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
+        expect(qrCode).to.exist;
+      });
 
-    await expect(qrCode).to.be.accessible();
-  });
+      it('should be accessible', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
-  it('uses the value as label if none given', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
+        await expect(qrCode).to.be.accessible();
+      });
 
-    expectCanvasToHaveAriaLabel(qrCode, 'test data');
-  });
+      it('uses the value as label if none given', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data"></wa-qr-code>`);
 
-  it('uses the label if given', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" label="test label"></wa-qr-code>`);
+        expectCanvasToHaveAriaLabel(qrCode, 'test data');
+      });
 
-    expectCanvasToHaveAriaLabel(qrCode, 'test label');
-  });
+      it('uses the label if given', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" label="test label"></wa-qr-code>`);
 
-  it('sets the correct color for the qr code', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" fill="red"></wa-qr-code>`);
+        expectCanvasToHaveAriaLabel(qrCode, 'test label');
+      });
 
-    expectQrCodeColorsToBe(qrCode, { foreground: red, background: white });
-  });
+      it('sets the correct color for the qr code', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" fill="red"></wa-qr-code>`);
 
-  it('sets the correct background for the qr code', async () => {
-    const qrCode = await fixture<WaQrCode>(
-      html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`
-    );
+        expectQrCodeColorsToBe(qrCode, { foreground: red, background: white });
+      });
 
-    expectQrCodeColorsToBe(qrCode, { foreground: red, background: blue });
-  });
+      it('sets the correct background for the qr code', async () => {
+        const qrCode = await fixture<WaQrCode>(
+          html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`
+        );
 
-  it('has the expected size', async () => {
-    const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100"></wa-qr-code>`);
+        expectQrCodeColorsToBe(qrCode, { foreground: red, background: blue });
+      });
 
-    const height = qrCode.getBoundingClientRect().height;
-    const width = qrCode.getBoundingClientRect().width;
-    expect(height).to.equal(100);
-    expect(width).to.equal(100);
-  });
+      it('has the expected size', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100"></wa-qr-code>`);
+
+        const height = qrCode.getBoundingClientRect().height;
+        const width = qrCode.getBoundingClientRect().width;
+        expect(height).to.equal(100);
+        expect(width).to.equal(100);
+      });
+    })
+  }
 });

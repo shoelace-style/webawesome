@@ -65,10 +65,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** The current value of the textarea, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value: null | string = '';
+  @property({ attribute: false }) value: null | string = null;
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ reflect: true, attribute: 'value' }) defaultValue: null | string = '';
+  @property({ reflect: true, attribute: 'value' }) defaultValue: null | string = null;
 
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -161,7 +161,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.value = this.defaultValue;
     this.resizeObserver = new ResizeObserver(() => this.setTextareaHeight());
 
     this.updateComplete.then(() => {

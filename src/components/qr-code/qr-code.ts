@@ -61,7 +61,9 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
-    (QrCreator as unknown as typeof QrCreator.default).render(
+    this.style.setProperty("--size", `${this.size}px`)
+
+    ;(QrCreator as unknown as typeof QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,
@@ -82,10 +84,6 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
-        style=${styleMap({
-          width: `${this.size}px`,
-          height: `${this.size}px`
-        })}
       ></canvas>
     `;
   }

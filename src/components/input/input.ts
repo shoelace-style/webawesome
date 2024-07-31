@@ -100,10 +100,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** The current value of the input, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value = '';
+  @property({ attribute: false }) value: string | null = '';
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue = '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = '';
 
   /** The input's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -399,7 +399,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
-    const isClearIconVisible = hasClearIcon && (typeof this.value === 'number' || this.value.length > 0);
+    const isClearIconVisible = hasClearIcon && (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
       <div

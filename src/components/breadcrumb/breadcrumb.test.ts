@@ -1,5 +1,5 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
 import type WaBreadcrumb from './breadcrumb.js';
 
@@ -32,7 +32,7 @@ describe('<wa-breadcrumb>', () => {
           expect(el.querySelectorAll('wa-icon').length).to.eq(4);
         });
 
-        it('should attach aria-current "page" on the last breadcrumb item.', () => {
+        it('should attach aria-current "page" on the last breadcrumb item.', async () => {
           const breadcrumbItems = el.querySelectorAll('wa-breadcrumb-item');
           const lastNode = breadcrumbItems[3];
           expect(lastNode).attribute('aria-current', 'page');

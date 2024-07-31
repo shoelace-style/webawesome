@@ -533,7 +533,7 @@ export default class WaCarousel extends WebAwesomeElement {
           @scroll="${this.handleScroll}"
           @scrollend=${this.handleScrollEnd}
         >
-          <slot></slot>
+          <slot @slotchange=${() => this.requestUpdate()}></slot>
         </div>
 
         ${this.navigation
