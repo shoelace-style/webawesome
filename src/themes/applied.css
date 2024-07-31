@@ -384,7 +384,6 @@ legend {
 /* Images, videos, iframes, etc. */
 img:not(wa-card *),
 picture,
-svg,
 video {
   border-radius: var(--wa-border-radius-s);
   max-width: 100%;
