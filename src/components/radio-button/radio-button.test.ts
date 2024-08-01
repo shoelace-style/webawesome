@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaRadioButton from './radio-button.js';
 import type WaRadioGroup from '../radio-group/radio-group.js';
 
@@ -36,7 +36,12 @@ describe('<wa-radio-button>', () => {
         const radio2 = radioGroup.querySelector<WaRadioButton>('#radio-2')!;
         const radio3 = radioGroup.querySelector<WaRadioButton>('#radio-3')!;
 
-        await Promise.all([radioGroup.updateComplete, radio1.updateComplete, radio2.updateComplete, radio3.updateComplete]);
+        await Promise.all([
+          radioGroup.updateComplete,
+          radio1.updateComplete,
+          radio2.updateComplete,
+          radio3.updateComplete
+        ]);
 
         expect(radio1.classList.contains('wa-button-group__button')).to.be.true;
         expect(radio1.classList.contains('wa-button-group__button--first')).to.be.true;
@@ -45,6 +50,6 @@ describe('<wa-radio-button>', () => {
         expect(radio3.classList.contains('wa-button-group__button')).to.be.true;
         expect(radio3.classList.contains('wa-button-group__button--last')).to.be.true;
       });
-    })
+    });
   }
 });

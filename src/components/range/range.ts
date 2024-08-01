@@ -73,10 +73,10 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   @property() name = '';
 
   /** The current value of the range, submitted as a name/value pair with form data. */
-  @property({ attribute: false, type: Number }) value = Number(this.getAttribute("value")) || 0;
+  @property({ attribute: false, type: Number }) value = Number(this.getAttribute('value')) || 0;
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue = Number(this.getAttribute("value")) || 0;
+  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue = Number(this.getAttribute('value')) || 0;
 
   /** The range's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';

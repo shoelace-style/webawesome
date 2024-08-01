@@ -1,7 +1,7 @@
 import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testing';
 import { clickOnElement, dragElement, moveMouseOnElement } from '../../internal/test.js';
 import { clientFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { map } from 'lit/directives/map.js';
 import { range } from 'lit/directives/range.js';
 import { resetMouse } from '@web/test-runner-commands';
@@ -262,28 +262,30 @@ describe('<wa-carousel>', () => {
           [7, 2, 1, true, 7],
           [5, 3, 3, true, 2],
           [10, 2, 2, true, 5]
-        ].forEach(([slides, slidesPerPage, slidesPerMove, loop, expected]: [number, number, number, boolean, number]) => {
-          it(`should display ${expected} pages for ${slides} slides grouped by ${slidesPerPage} and scrolled by ${slidesPerMove}${
-            loop ? ' (loop)' : ''
-          }`, async () => {
-            // Arrange
-            const el = await fixture<WaCarousel>(html`
-              <wa-carousel
-                pagination
-                navigation
-                slides-per-page="${slidesPerPage}"
-                slides-per-move="${slidesPerMove}"
-                ?loop=${loop}
-              >
-                ${map(range(slides), i => html`<wa-carousel-item>${i}</wa-carousel-item>`)}
-              </wa-carousel>
-            `);
+        ].forEach(
+          ([slides, slidesPerPage, slidesPerMove, loop, expected]: [number, number, number, boolean, number]) => {
+            it(`should display ${expected} pages for ${slides} slides grouped by ${slidesPerPage} and scrolled by ${slidesPerMove}${
+              loop ? ' (loop)' : ''
+            }`, async () => {
+              // Arrange
+              const el = await fixture<WaCarousel>(html`
+                <wa-carousel
+                  pagination
+                  navigation
+                  slides-per-page="${slidesPerPage}"
+                  slides-per-move="${slidesPerMove}"
+                  ?loop=${loop}
+                >
+                  ${map(range(slides), i => html`<wa-carousel-item>${i}</wa-carousel-item>`)}
+                </wa-carousel>
+              `);
 
-            // Assert
-            const paginationItems = el.shadowRoot!.querySelectorAll('.carousel__pagination-item');
-            expect(paginationItems.length).to.equal(expected);
-          });
-        });
+              // Assert
+              const paginationItems = el.shadowRoot!.querySelectorAll('.carousel__pagination-item');
+              expect(paginationItems.length).to.equal(expected);
+            });
+          }
+        );
       });
 
       describe('when `slides-per-move` attribute is provided', () => {
@@ -618,7 +620,9 @@ describe('<wa-carousel>', () => {
                 </wa-carousel>
               `);
 
-              const previousButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--previous')!;
+              const previousButton: HTMLElement = el.shadowRoot!.querySelector(
+                '.carousel__navigation-button--previous'
+              )!;
               sandbox.stub(el, 'previous');
               await el.updateComplete;
 
@@ -642,7 +646,9 @@ describe('<wa-carousel>', () => {
                   </wa-carousel>
                 `);
 
-                const previousButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button--previous')!;
+                const previousButton: HTMLElement = el.shadowRoot!.querySelector(
+                  '.carousel__navigation-button--previous'
+                )!;
                 await el.updateComplete;
 
                 // Act
@@ -814,6 +820,6 @@ describe('<wa-carousel>', () => {
           });
         });
       });
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaCopyButton from './copy-button.js';
 
 // We use aria-live to announce labels via tooltips
@@ -20,6 +20,6 @@ describe('<wa-copy-button>', () => {
           await expect(el).to.be.accessible({ ignoredRules });
         });
       });
-    })
+    });
   }
 });

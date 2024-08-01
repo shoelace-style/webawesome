@@ -1,7 +1,7 @@
 import { aTimeout, expect, triggerBlurFor, triggerFocusFor } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaTree from './tree.js';
@@ -780,6 +780,6 @@ describe('<wa-tree>', () => {
 
         expect(tree.textContent).to.not.includes('null');
       });
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaTab from './tab.js';
 
 describe('<wa-tab>', () => {
@@ -50,6 +50,6 @@ describe('<wa-tab>', () => {
         expect(base.getAttribute('class')).to.equal(' tab tab--active ');
         expect(el.getAttribute('tabindex')).to.equal('0');
       });
-    })
+    });
   }
 });

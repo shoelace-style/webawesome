@@ -1,6 +1,6 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaTabPanel from './tab-panel.js';
 
 describe('<wa-tab-panel>', () => {
@@ -14,7 +14,7 @@ describe('<wa-tab-panel>', () => {
       it('default properties', async () => {
         const el = await fixture<WaTabPanel>(html` <wa-tab-panel>Test</wa-tab-panel> `);
 
-        expect(el.id).to.not.be.empty
+        expect(el.id).to.not.be.empty;
         expect(el.name).to.equal('');
         expect(el.active).to.equal(false);
         expect(el.getAttribute('role')).to.equal('tabpanel');
@@ -44,6 +44,6 @@ describe('<wa-tab-panel>', () => {
 
         expect(el.id).to.equal('test-id');
       });
-    })
+    });
   }
 });

@@ -1,7 +1,7 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { isSafari } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
@@ -12,7 +12,7 @@ import type WaInput from './input.js';
 describe('<wa-input>', () => {
   before(async () => {
     await runFormControlBaseTests('wa-input');
-  })
+  });
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
@@ -376,8 +376,8 @@ describe('<wa-input>', () => {
           const el = await fixture<WaInput>(html` <wa-input type="number" step=".5" value="1.25"></wa-input> `);
 
           // @TODO: Figure out why this fails in SSR.
-          if (fixture.type === "ssr-client-hydrated") {
-            return
+          if (fixture.type === 'ssr-client-hydrated') {
+            return;
           }
 
           expect(el.checkValidity()).to.be.false;
@@ -391,8 +391,8 @@ describe('<wa-input>', () => {
           await el.updateComplete;
 
           // @TODO: Figure out why this fails in SSR.
-          if (fixture.type === "ssr-client-hydrated") {
-            return
+          if (fixture.type === 'ssr-client-hydrated') {
+            return;
           }
 
           expect(el.checkValidity()).to.be.false;
@@ -550,7 +550,6 @@ describe('<wa-input>', () => {
         expect(el.checkValidity()).to.be.false;
         expect(el.validity.tooLong).to.be.true;
       });
-
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaProgressBar from './progress-bar.js';
 
 describe('<wa-progress-bar>', () => {
@@ -8,7 +8,6 @@ describe('<wa-progress-bar>', () => {
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       describe('when provided just a value parameter', () => {
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(html`<wa-progress-bar value="25"></wa-progress-bar>`);
@@ -87,6 +86,6 @@ describe('<wa-progress-bar>', () => {
           await expect(el).to.be.accessible();
         });
       });
-    })
+    });
   }
 });

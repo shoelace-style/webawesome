@@ -1,6 +1,6 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaInclude from './include.js';
 
@@ -29,14 +29,12 @@ async function delayResolve(resolveValue: string) {
 }
 
 describe('<wa-include>', () => {
-
   afterEach(() => {
     sinon.verifyAndRestore();
   });
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       it('should load content and emit wa-load', async () => {
         sinon.stub(window, 'fetch').resolves({
           ...stubbedFetchResponse,
@@ -72,6 +70,6 @@ describe('<wa-include>', () => {
 
         expect(loadHandler).to.have.been.calledOnce;
       });
-    })
+    });
   }
 });

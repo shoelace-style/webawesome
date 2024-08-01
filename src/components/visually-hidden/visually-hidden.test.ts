@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 
 describe('<wa-visually-hidden>', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
@@ -38,6 +38,6 @@ describe('<wa-visually-hidden>', () => {
         expect(overflow).not.to.equal('hidden');
         expect(clipPath).not.to.equal('inset(50%)');
       });
-    })
+    });
   }
 });

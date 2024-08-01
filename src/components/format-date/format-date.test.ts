@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaFormatDate from './format-date.js';
 
@@ -119,7 +119,10 @@ describe('<wa-format-date>', () => {
         monthFormats.forEach((monthFormat: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long') => {
           it(`date has correct month format: ${monthFormat}`, async () => {
             const el = await fixture<WaFormatDate>(html`
-              <wa-format-date .date="${new Date(new Date().getFullYear(), 0, 1)}" month="${monthFormat}"></wa-format-date>
+              <wa-format-date
+                .date="${new Date(new Date().getFullYear(), 0, 1)}"
+                month="${monthFormat}"
+              ></wa-format-date>
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { month: monthFormat }).format(
@@ -167,7 +170,10 @@ describe('<wa-format-date>', () => {
         minuteFormats.forEach((minuteFormat: 'numeric' | '2-digit') => {
           it(`date has correct minute format: ${minuteFormat}`, async () => {
             const el = await fixture<WaFormatDate>(html`
-              <wa-format-date .date="${new Date(new Date().getFullYear(), 0, 1)}" minute="${minuteFormat}"></wa-format-date>
+              <wa-format-date
+                .date="${new Date(new Date().getFullYear(), 0, 1)}"
+                minute="${minuteFormat}"
+              ></wa-format-date>
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { minute: minuteFormat }).format(
@@ -175,8 +181,8 @@ describe('<wa-format-date>', () => {
             );
 
             // @TODO: Some weird browser / Node issue only in firefox.
-            if (fixture.type === "ssr-client-hydrated" && minuteFormat === "2-digit") {
-              return
+            if (fixture.type === 'ssr-client-hydrated' && minuteFormat === '2-digit') {
+              return;
             }
 
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -189,7 +195,10 @@ describe('<wa-format-date>', () => {
         secondFormats.forEach((secondFormat: 'numeric' | '2-digit') => {
           it(`date has correct second format: ${secondFormat}`, async () => {
             const el = await fixture<WaFormatDate>(html`
-              <wa-format-date .date="${new Date(new Date().getFullYear(), 0, 1)}" second="${secondFormat}"></wa-format-date>
+              <wa-format-date
+                .date="${new Date(new Date().getFullYear(), 0, 1)}"
+                second="${secondFormat}"
+              ></wa-format-date>
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { second: secondFormat }).format(
@@ -197,8 +206,8 @@ describe('<wa-format-date>', () => {
             );
 
             // @TODO: Some weird browser / Node issue only in firefox.
-            if (fixture.type === "ssr-client-hydrated" && secondFormat === "2-digit") {
-              return
+            if (fixture.type === 'ssr-client-hydrated' && secondFormat === '2-digit') {
+              return;
             }
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -229,7 +238,10 @@ describe('<wa-format-date>', () => {
         timeZones.forEach(timeZone => {
           it(`date has correct timeZoneName format: ${timeZone}`, async () => {
             const el = await fixture<WaFormatDate>(html`
-              <wa-format-date .date="${new Date(new Date().getFullYear(), 0, 1)}" time-zone="${timeZone}"></wa-format-date>
+              <wa-format-date
+                .date="${new Date(new Date().getFullYear(), 0, 1)}"
+                time-zone="${timeZone}"
+              ></wa-format-date>
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { timeZone: timeZone }).format(
@@ -258,6 +270,6 @@ describe('<wa-format-date>', () => {
           });
         });
       });
-    })
+    });
   }
 });

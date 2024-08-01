@@ -1,6 +1,6 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaOption from './option.js';
 
@@ -60,6 +60,6 @@ describe('<wa-option>', () => {
         const el = await fixture<WaOption>(html` <wa-option><strong>Option</strong></wa-option> `);
         expect(el.getTextLabel()).to.equal('Option');
       });
-    })
+    });
   }
 });

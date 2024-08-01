@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaMenuLabel from './menu-label.js';
 
 describe('<wa-menu-label>', () => {
@@ -10,6 +10,6 @@ describe('<wa-menu-label>', () => {
         const el = await fixture<WaMenuLabel>(html` <wa-menu-label>Test</wa-menu-label> `);
         await expect(el).to.be.accessible();
       });
-    })
+    });
   }
 });

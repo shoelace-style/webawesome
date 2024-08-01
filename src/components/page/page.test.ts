@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 
 describe('<wa-page>', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
@@ -10,6 +10,6 @@ describe('<wa-page>', () => {
 
         expect(el).to.exist;
       });
-    })
+    });
   }
 });

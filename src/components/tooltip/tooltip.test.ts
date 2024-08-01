@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaTooltip from './tooltip.js';
 
@@ -60,7 +60,7 @@ describe('<wa-tooltip>', () => {
         el.addEventListener('wa-hide', hideHandler);
         el.addEventListener('wa-after-hide', afterHideHandler);
 
-        await el.updateComplete
+        await el.updateComplete;
         el.hide();
 
         await waitUntil(() => hideHandler.calledOnce);
@@ -125,7 +125,7 @@ describe('<wa-tooltip>', () => {
         el.addEventListener('wa-hide', hideHandler);
         el.addEventListener('wa-after-hide', afterHideHandler);
 
-        await el.updateComplete
+        await el.updateComplete;
         el.disabled = true;
 
         await waitUntil(() => hideHandler.calledOnce);
@@ -158,6 +158,6 @@ describe('<wa-tooltip>', () => {
 
         expect(userSelect).to.equal('none');
       });
-    })
+    });
   }
 });

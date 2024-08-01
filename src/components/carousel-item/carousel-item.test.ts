@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 
 describe('<wa-carousel-item>', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
@@ -18,6 +18,6 @@ describe('<wa-carousel-item>', () => {
         // Assert
         await expect(el).to.be.accessible();
       });
-    })
+    });
   }
 });

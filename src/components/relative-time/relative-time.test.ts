@@ -1,7 +1,8 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { clientFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
+import type { hydratedFixture } from '../../internal/test/fixture.js';
 import type WaRelativeTime from './relative-time.js';
 
 interface WaRelativeTimeTestCase {
@@ -19,7 +20,10 @@ const expectFormattedRelativeTimeToBe = async (relativeTime: WaRelativeTime, exp
   expect(textContent).to.equal(expectedOutput);
 };
 
-const createRelativeTimeWithDate = async (relativeDate: Date, fixture: typeof hydratedFixture | typeof clientFixture): Promise<WaRelativeTime> => {
+const createRelativeTimeWithDate = async (
+  relativeDate: Date,
+  fixture: typeof hydratedFixture | typeof clientFixture
+): Promise<WaRelativeTime> => {
   const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
     <wa-relative-time lang="en-US"></wa-relative-time>
   `);
@@ -187,6 +191,6 @@ describe('wa-relative-time', () => {
         await relativeTime.updateComplete;
         expect(extractTimeElement(relativeTime)).to.be.null;
       });
-    })
+    });
   }
 });

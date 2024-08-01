@@ -1,7 +1,7 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { clickOnElement, dragElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
@@ -11,7 +11,7 @@ import type WaColorPicker from './color-picker.js';
 describe('<wa-color-picker>', () => {
   before(async () => {
     await runFormControlBaseTests('wa-color-picker');
-  })
+  });
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when the value changes', () => {
@@ -162,7 +162,9 @@ describe('<wa-color-picker>', () => {
         });
 
         it('should emit wa-change and wa-input when clicking on a swatch', async () => {
-          const el = await fixture<WaColorPicker>(html` <wa-color-picker swatches="red; green; blue;"></wa-color-picker> `);
+          const el = await fixture<WaColorPicker>(html`
+            <wa-color-picker swatches="red; green; blue;"></wa-color-picker>
+          `);
           const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
           const swatch = el.shadowRoot!.querySelector<HTMLElement>('[part~="swatch"]')!;
           const changeHandler = sinon.spy();
@@ -539,6 +541,6 @@ describe('<wa-color-picker>', () => {
           expect(el.hasAttribute('data-wa-user-valid')).to.be.true;
         });
       });
-    })
+    });
   }
 });

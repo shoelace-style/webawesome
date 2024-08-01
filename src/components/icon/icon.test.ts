@@ -1,6 +1,6 @@
 import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { registerIconLibrary } from '../../../dist/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
 import type { WaLoadEvent } from '../../events/load.js';
@@ -40,7 +40,6 @@ describe('<wa-icon>', () => {
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       describe('defaults ', () => {
         it('default properties', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
@@ -80,7 +79,9 @@ describe('<wa-icon>', () => {
       describe('when a label is provided', () => {
         it('the icon has the correct default aria attributes', async () => {
           const fakeLabel = 'a label';
-          const el = await fixture<WaIcon>(html` <wa-icon label="${fakeLabel}" library="system" name="check"></wa-icon> `);
+          const el = await fixture<WaIcon>(html`
+            <wa-icon label="${fakeLabel}" library="system" name="check"></wa-icon>
+          `);
 
           expect(el.getAttribute('role')).to.equal('img');
           expect(el.getAttribute('aria-label')).to.equal(fakeLabel);
@@ -206,7 +207,9 @@ describe('<wa-icon>', () => {
           const use = svg?.querySelector('use');
 
           // TODO: this isn't how the test was originally written. Revisit SSR.
-          if (!use) { return }
+          if (!use) {
+            return;
+          }
 
           // TODO: Theres no way to really test that the icon rendered properly. We just gotta trust the browser to do it's thing :)
           // However, we can check the <use> size. If it never loaded, it should be 0x0. Ideally, we could have error tracking...
@@ -242,6 +245,6 @@ describe('<wa-icon>', () => {
         });
       });
       /* eslint-enable */
-    })
+    });
   }
 });

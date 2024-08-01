@@ -1,6 +1,6 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
@@ -8,8 +8,8 @@ import type WaSwitch from './switch.js';
 
 describe('<wa-switch>', () => {
   before(async () => {
-    await runFormControlBaseTests("wa-switch")
-  })
+    await runFormControlBaseTests('wa-switch');
+  });
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
@@ -330,6 +330,6 @@ describe('<wa-switch>', () => {
         await aTimeout(10);
         expect(window.scrollY).to.equal(0);
       });
-    })
+    });
   }
 });

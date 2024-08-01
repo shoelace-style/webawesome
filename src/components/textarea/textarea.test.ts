@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
@@ -10,7 +10,7 @@ import type WaTextarea from './textarea.js';
 describe('<wa-textarea>', () => {
   before(async () => {
     await runFormControlBaseTests('wa-textarea');
-  })
+  });
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
@@ -185,7 +185,9 @@ describe('<wa-textarea>', () => {
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-textarea required></wa-textarea></form> `);
+          const el = await fixture<HTMLFormElement>(html`
+            <form novalidate><wa-textarea required></wa-textarea></form>
+          `);
           const textarea = el.querySelector<WaTextarea>('wa-textarea')!;
 
           expect(textarea.hasAttribute('data-wa-required')).to.be.true;
@@ -199,13 +201,17 @@ describe('<wa-textarea>', () => {
 
       describe('when submitting a form', () => {
         it('should serialize its name and value with FormData', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-textarea name="a" value="1"></wa-textarea></form> `);
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-textarea name="a" value="1"></wa-textarea></form>
+          `);
           const formData = new FormData(form);
           expect(formData.get('a')).to.equal('1');
         });
 
         it('should serialize its name and value with JSON', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-textarea name="a" value="1"></wa-textarea></form> `);
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-textarea name="a" value="1"></wa-textarea></form>
+          `);
           const json = serialize(form);
           expect(json.a).to.equal('1');
         });
@@ -312,6 +318,6 @@ describe('<wa-textarea>', () => {
           expect(el.value).to.equal('tboomt'); // cspell:disable-line
         });
       });
-    })
+    });
   }
 });

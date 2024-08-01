@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { elementUpdated, expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaFormatBytes from './format-bytes.js';
 
 describe('<wa-format-bytes>', () => {
@@ -118,6 +118,6 @@ describe('<wa-format-bytes>', () => {
           });
         });
       });
-    })
+    });
   }
 });

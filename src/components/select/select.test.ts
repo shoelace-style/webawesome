@@ -1,7 +1,7 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
-import { html } from "lit"
+import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
@@ -11,8 +11,8 @@ import type WaSelect from './select.js';
 
 describe('<wa-select>', () => {
   before(async () => {
-    await runFormControlBaseTests("wa-select")
-  })
+    await runFormControlBaseTests('wa-select');
+  });
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
@@ -617,6 +617,6 @@ describe('<wa-select>', () => {
 
         expect(tag.hasAttribute('pill')).to.be.true;
       });
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaFormatNumber from './format-number.js';
 
 describe('<wa-format-number>', () => {
@@ -50,7 +50,9 @@ describe('<wa-format-number>', () => {
 
       describe('noGrouping property', () => {
         it(`number has correct grouping format: no grouping`, async () => {
-          const el = await fixture<WaFormatNumber>(html` <wa-format-number value="1000" no-grouping></wa-format-number> `);
+          const el = await fixture<WaFormatNumber>(html`
+            <wa-format-number value="1000" no-grouping></wa-format-number>
+          `);
           const expected = new Intl.NumberFormat('en-US', { useGrouping: false }).format(1000);
           expect(el.shadowRoot?.textContent).to.equal(expected);
         });
@@ -80,9 +82,10 @@ describe('<wa-format-number>', () => {
             const el = await fixture<WaFormatNumber>(html`
               <wa-format-number value="1000" currency-display="${currencyDisplay}"></wa-format-number>
             `);
-            const expected = new Intl.NumberFormat('en-US', { style: 'decimal', currencyDisplay: currencyDisplay }).format(
-              1000
-            );
+            const expected = new Intl.NumberFormat('en-US', {
+              style: 'decimal',
+              currencyDisplay: currencyDisplay
+            }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
         });
@@ -167,6 +170,6 @@ describe('<wa-format-number>', () => {
           });
         });
       });
-    })
+    });
   }
 });

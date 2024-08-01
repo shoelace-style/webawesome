@@ -307,7 +307,10 @@ describe('<wa-tab-group>', () => {
       });
 
       describe('tab selection', () => {
-        const expectCustomTabToBeActiveAfter = async (tabGroup: WaTabGroup, action: () => Promise<void>): Promise<void> => {
+        const expectCustomTabToBeActiveAfter = async (
+          tabGroup: WaTabGroup,
+          action: () => Promise<void>
+        ): Promise<void> => {
           const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
           generalHeader.focus();
 
@@ -360,7 +363,9 @@ describe('<wa-tab-group>', () => {
             <wa-tab-group>
               <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
               <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content">This is the general tab panel.</wa-tab-panel>
+              <wa-tab-panel name="general" data-testid="general-tab-content"
+                >This is the general tab panel.</wa-tab-panel
+              >
               <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -374,7 +379,9 @@ describe('<wa-tab-group>', () => {
             <wa-tab-group>
               <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
               <wa-tab slot="nav" panel="disabled" data-testid="disabled-header" disabled>disabled</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content">This is the general tab panel.</wa-tab-panel>
+              <wa-tab-panel name="general" data-testid="general-tab-content"
+                >This is the general tab panel.</wa-tab-panel
+              >
               <wa-tab-panel name="disabled">This is the disabled tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -430,7 +437,9 @@ describe('<wa-tab-group>', () => {
             <wa-tab-group>
               <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
               <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content">This is the general tab panel.</wa-tab-panel>
+              <wa-tab-panel name="general" data-testid="general-tab-content"
+                >This is the general tab panel.</wa-tab-panel
+              >
               <wa-tab-panel name="disabled">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -454,6 +463,6 @@ describe('<wa-tab-group>', () => {
           });
         });
       });
-    })
+    });
   }
 });

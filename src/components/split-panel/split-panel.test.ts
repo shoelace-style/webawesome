@@ -1,7 +1,7 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { dragElement } from '../../internal/test.js';
 import { expect, oneEvent } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
 import { resetMouse } from '@web/test-runner-commands';
 import type WaSplitPanel from './split-panel.js';
@@ -38,10 +38,8 @@ describe('<wa-split-panel>', () => {
     await resetMouse().catch(() => {});
   });
 
-
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       it('should render a component', async () => {
         const splitPanel = await fixture(html` <wa-split-panel></wa-split-panel> `);
 
@@ -296,6 +294,6 @@ describe('<wa-split-panel>', () => {
           expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels - 40);
         });
       });
-    })
+    });
   }
 });

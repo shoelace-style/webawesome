@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaTag from './tag.js';
 
@@ -65,6 +65,6 @@ describe('<wa-tag>', () => {
           expect(spy.called).to.equal(true);
         });
       });
-    })
+    });
   }
 });

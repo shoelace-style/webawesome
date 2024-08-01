@@ -16,15 +16,15 @@ export default class WebAwesomeElement extends LitElement {
     super();
 
     // In unsupported browsers of DSD and in cases where the element is already registered, this may return false.
-    this.didSSR = Boolean(this.shadowRoot)
+    this.didSSR = Boolean(this.shadowRoot);
   }
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);
     // if (this.didSSR) {
-      this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
-        slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
-      });
+    this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
+      slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
+    });
     // }
   }
 

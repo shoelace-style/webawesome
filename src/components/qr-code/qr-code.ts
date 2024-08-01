@@ -1,6 +1,5 @@
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import QrCreator from 'qr-creator';
@@ -61,9 +60,8 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
-    this.style.setProperty("--size", `${this.size}px`)
-
-    ;(QrCreator as unknown as typeof QrCreator.default).render(
+    this.style.setProperty('--size', `${this.size}px`);
+    (QrCreator as unknown as typeof QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,

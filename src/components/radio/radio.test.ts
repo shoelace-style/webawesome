@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaRadio from './radio.js';
 import type WaRadioGroup from '../radio-group/radio-group.js';
 
@@ -23,6 +23,6 @@ describe('<wa-radio>', () => {
         expect(radio1.checked).to.be.true;
         expect(radio2.checked).to.be.false;
       });
-    })
+    });
   }
 });

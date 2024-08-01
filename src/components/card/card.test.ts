@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaCard from './card.js';
 
 describe('<wa-card>', () => {
@@ -20,7 +20,9 @@ describe('<wa-card>', () => {
         });
 
         it('should render the child content provided.', () => {
-          expect(el.innerText).to.eq('This is just a basic card. No image, no header, and no footer. Just your content.');
+          expect(el.innerText).to.eq(
+            'This is just a basic card. No image, no header, and no footer. Just your content.'
+          );
         });
 
         it('should contain the class card.', () => {
@@ -138,6 +140,6 @@ describe('<wa-card>', () => {
           expect(card.classList.value.trim()).to.eq('card card--has-image');
         });
       });
-    })
+    });
   }
 });

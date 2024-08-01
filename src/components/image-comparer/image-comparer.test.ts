@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaImageComparer from './image-comparer.js';
 
@@ -252,6 +252,6 @@ describe('<wa-image-comparer>', () => {
 
         expect(el.position).to.equal(40);
       });
-    })
+    });
   }
 });

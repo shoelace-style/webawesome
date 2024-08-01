@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaSpinner from './spinner.js';
 
 describe('<wa-spinner>', () => {
@@ -25,6 +25,6 @@ describe('<wa-spinner>', () => {
           expect(getComputedStyle(spinner).flex).to.equal('0 0 auto');
         });
       });
-    })
+    });
   }
 });

@@ -6,7 +6,8 @@ export default css`
     display: inline-block;
   }
 
-  :host, canvas {
+  :host,
+  canvas {
     max-width: var(--size);
     max-height: var(--size);
     width: var(--size);

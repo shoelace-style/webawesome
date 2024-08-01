@@ -134,6 +134,6 @@ describe('<wa-dialog>', () => {
 
         expect(el.open).to.be.false;
       });
-    })
+    });
   }
 });

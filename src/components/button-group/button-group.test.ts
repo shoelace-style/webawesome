@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { elementUpdated, expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaButtonGroup from './button-group.js';
 
 describe('<wa-button-group>', () => {
@@ -95,6 +95,6 @@ describe('<wa-button-group>', () => {
           expect(allButtons[0].classList.contains('wa-button-group__button--hover')).not.to.be.true;
         });
       });
-    })
+    });
   }
 });

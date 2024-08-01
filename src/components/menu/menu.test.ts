@@ -122,6 +122,6 @@ describe('<wa-menu>', () => {
 
         expect(selectHandler).to.have.been.calledOnce;
       });
-    })
+    });
   }
 });

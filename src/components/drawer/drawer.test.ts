@@ -135,6 +135,6 @@ describe('<wa-drawer>', () => {
 
         expect(el.open).to.be.false;
       });
-    })
+    });
   }
 });

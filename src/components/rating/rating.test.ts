@@ -1,7 +1,7 @@
 import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaRating from './rating.js';
@@ -130,6 +130,6 @@ describe('<wa-rating>', () => {
           expect(el.shadowRoot!.activeElement).to.equal(null);
         });
       });
-    })
+    });
   }
 });

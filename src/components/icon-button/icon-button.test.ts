@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaIconButton from './icon-button.js';
 
@@ -50,7 +50,9 @@ describe('<wa-icon-button>', () => {
 
       describe('when icon attributes are present', () => {
         it('renders an wa-icon from a library', async () => {
-          const el = await fixture<WaIconButton>(html` <wa-icon-button library="system" name="check"></wa-icon-button> `);
+          const el = await fixture<WaIconButton>(html`
+            <wa-icon-button library="system" name="check"></wa-icon-button>
+          `);
           expect(el.shadowRoot?.querySelector('wa-icon')).to.exist;
         });
 
@@ -60,7 +62,7 @@ describe('<wa-icon-button>', () => {
 
           el.src = `data:image/svg+xml,${encodeURIComponent(`<svg id="${fakeId}"></svg>`)}`;
 
-          await el.updateComplete
+          await el.updateComplete;
 
           const internalWaIcon = el.shadowRoot?.querySelector('wa-icon');
 
@@ -173,6 +175,6 @@ describe('<wa-icon-button>', () => {
           expect(clickHandler).to.have.been.calledOnce;
         });
       });
-    })
+    });
   }
 });

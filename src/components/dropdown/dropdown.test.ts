@@ -1,7 +1,7 @@
 import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaDropdown from './dropdown.js';
@@ -70,8 +70,8 @@ describe('<wa-dropdown>', () => {
 
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
         // @TODO: Fix this [Konnor]
-        if (fixture.type === "ssr-client-hydrated") {
-          return
+        if (fixture.type === 'ssr-client-hydrated') {
+          return;
         }
 
         const el = await fixture<WaDropdown>(html`
@@ -129,8 +129,8 @@ describe('<wa-dropdown>', () => {
 
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
         // @TODO: Fix this [Konnor]
-        if (fixture.type === "ssr-client-hydrated") {
-          return
+        if (fixture.type === 'ssr-client-hydrated') {
+          return;
         }
 
         const el = await fixture<WaDropdown>(html`
@@ -390,12 +390,12 @@ describe('<wa-dropdown>', () => {
         expect(el.open).to.be.false;
 
         // @TODO: Fix this [Konnor]
-        if (fixture.type === "ssr-client-hydrated") {
-          return
+        if (fixture.type === 'ssr-client-hydrated') {
+          return;
         }
 
         expect(hideHandler).to.not.have.been.called;
       });
-    })
+    });
   }
 });

@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import type WaProgressRing from './progress-ring.js';
 
 describe('<wa-progress-ring>', () => {
@@ -65,6 +65,6 @@ describe('<wa-progress-ring>', () => {
           await expect(el).to.be.accessible();
         });
       });
-    })
+    });
   }
 });

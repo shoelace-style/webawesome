@@ -1,6 +1,6 @@
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaTreeItem from './tree-item.js';
 
@@ -10,7 +10,6 @@ describe('<wa-tree-item>', () => {
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       beforeEach(async () => {
         leafItem = await fixture(html` <wa-tree-item>Node 1</wa-tree-item> `);
         parentItem = await fixture(html`
@@ -181,6 +180,6 @@ describe('<wa-tree-item>', () => {
           expect(lazyChangeSpy).to.have.been.calledTwice;
         });
       });
-    })
+    });
   }
 });
