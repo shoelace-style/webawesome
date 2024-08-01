@@ -53,10 +53,12 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
   // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
   // This forces every element to "hydrate" and then wait for an update to complete (hydration)
   await Promise.allSettled(
-    [...hydratedElement.querySelectorAll<LitElement>('[defer-hydration]')].map(el => {
+    [...hydratedElement.querySelectorAll<LitElement>('*')].map(el => {
       el.removeAttribute('defer-hydration');
       return el.updateComplete;
-    })
+    }),
+    // @ts-expect-error Assume its a lit element.
+    hydratedElement.updateComplete
   );
 
   return hydratedElement;

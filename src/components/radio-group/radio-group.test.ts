@@ -1,6 +1,6 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test.js';
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { html } from "lit"
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';

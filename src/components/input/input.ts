@@ -100,10 +100,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** The current value of the input, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value: string | null = '';
+  @property({ attribute: false }) value: string = this.getAttribute("value") || "";
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute("value") || "";
 
   /** The input's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -384,12 +384,12 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     super.connectedCallback();
 
     if (this.didSSR && this.input && this.value !== this.input.value) {
-      const value = this.input.value;
+      // const value = this.input.value;
       // For some reason this.value is being wiped out on first connect.
-      this.updateComplete.then(() => {
-        this.input.value = value;
-        this.value = value;
-      });
+      // this.updateComplete.then(() => {
+      //   this.input.value = value;
+      //   this.value = value;
+      // });
     }
   }
 

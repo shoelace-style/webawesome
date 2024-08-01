@@ -151,10 +151,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       val = val.join(' ');
     }
     this._defaultValue = val;
-
-    if (!this.hasInteracted) {
-      this.value = this.defaultValue;
-    }
   }
 
   get defaultValue() {

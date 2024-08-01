@@ -202,8 +202,9 @@ export class WebAwesomeFormAssociatedElement
       this.setCustomValidity(this.customError || '');
     }
 
-    if (changedProperties.has('defaultValue')) {
-      if (!this.hasInteracted && !this.value) {
+    // Check for `this.hasUpdated` because otherwise it'll auto-reset the value on first connect.
+    if (this.hasUpdated && changedProperties.has('defaultValue')) {
+      if (!this.hasInteracted && this.value !== this.defaultValue) {
         this.value = this.defaultValue;
       }
     }

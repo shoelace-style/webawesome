@@ -65,10 +65,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** The current value of the textarea, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value: null | string = null;
+  @property({ attribute: false }) value = this.getAttribute("value") || "";
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ reflect: true, attribute: 'value' }) defaultValue: null | string = null;
+  @property({ reflect: true, attribute: 'value' }) defaultValue = this.getAttribute("value") || "";
 
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -166,7 +166,15 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.updateComplete.then(() => {
       this.setTextareaHeight();
       this.resizeObserver.observe(this.input);
+
+      if (this.didSSR && this.input && this.value !== this.input.value) {
+        const value = this.input.value;
+        // For some reason this.value is being wiped out on first connect.
+        this.input.value = value;
+        this.value = value;
+      }
     });
+
   }
 
   disconnectedCallback() {

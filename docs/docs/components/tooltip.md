@@ -8,7 +8,7 @@ layout: component
 A tooltip's target is based on the `for` attribute which points to an element id.
 
 ```html {.example}
-<wa-tooltip for="my-button">This is a tooltip</wa-tooltip>
+<wa-tooltip for="my-button" open>This is a tooltip</wa-tooltip>
 <wa-button id="my-button">Hover Me</wa-button>
 ```
 
