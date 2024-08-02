@@ -1,7 +1,7 @@
 ---
 title: Components
 description: Web Awesome recognizes the need for all users to have undeterred access to the websites and applications that are created with it.
-layout: page
+layout: page-outline
 ---
 
 <style>
@@ -10,18 +10,32 @@ layout: page
     padding: var(--wa-space-xl);
     margin-inline: auto;
   }
-  .grid {
+  .index-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
     gap: 2rem;
   }
-  .grid wa-card {
+  .index-category {
+    margin-top: var(--wa-space-3xl);
+  }
+  .index-grid wa-card {
     --box-shadow: none;
     --spacing: var(--wa-space-m);
     width: 100%;
   }
-  .grid wa-card::part(header) {
+  .index-grid wa-card:hover {
+    --border-color: var(--wa-color-brand-border-loud);
+    --box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+    & .component-name {
+      color: var(--wa-color-brand-on-quiet);
+    }
+  }
+  .index-grid a {
+    border-radius: var(--wa-border-radius-m);
+  }
+  .index-grid wa-card::part(header) {
     background-color: var(--wa-color-neutral-fill-quiet);
+    border-bottom: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,7 +46,7 @@ layout: page
     justify-content: flex-end;
     overflow: hidden;
   }
-  .grid wa-card [slot='header'] {
+  .index-grid wa-card [slot='header'] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,49 +57,10 @@ layout: page
   }
 </style>
 
-Browse the entire library of standards-based, framework-friendly web components included in Web Awesome.
+Browse the library of standards-based, framework-friendly web components included in Web Awesome.
 
-<div class="grid">
-  <a href="/docs/components/animated-image">
-    <wa-card with-header>
-      <div slot="header">
-        {% include "svgs/animated-image.njk" %}
-      </div>
-      <span class="component-name">Animated Image</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/animation">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/animation.njk" %}
-      </div>
-      <span class="component-name">Animation</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/avatar">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/avatar.njk" %}
-      </div>
-      <span class="component-name">Avatar</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/badge">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/badge.njk" %}
-      </div>
-      <span class="component-name">Badge</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/breadcrumb">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/breadcrumb.njk" %}
-      </div>
-      <span class="component-name">Breadcrumb</span>
-    </wa-card>
-  </a>
+<h2 class="index-category">Actions</h2>
+<div class="index-grid">
   <a href="/docs/components/button">
     <wa-card>
       <div slot="header">
@@ -102,6 +77,58 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Button Group</span>
     </wa-card>
   </a>
+  <a href="/docs/components/copy-button">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/copy-button.njk" %}
+      </div>
+      <span class="component-name">Copy Button</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/dropdown">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/dropdown.njk" %}
+      </div>
+      <span class="component-name">Dropdown</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/icon-button">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/icon-button.njk" %}
+      </div>
+      <span class="component-name">Icon Button</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/menu">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/menu.njk" %}
+      </div>
+      <span class="component-name">Menu</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/qr-code">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/qr-code.njk" %}
+      </div>
+      <span class="component-name">QR Code</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Communication</h2>
+<div class="index-grid">
+  <a href="/docs/components/badge">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/badge.njk" %}
+      </div>
+      <span class="component-name">Badge</span>
+    </wa-card>
+  </a>
   <a href="/docs/components/callout">
     <wa-card>
       <div slot="header">
@@ -110,22 +137,58 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Callout</span>
     </wa-card>
   </a>
-  <a href="/docs/components/card">
+  <a href="/docs/components/progress-bar">
     <wa-card>
       <div slot="header">
-        {% include "svgs/card.njk" %}
+        {% include "svgs/progress-bar.njk" %}
       </div>
-      <span class="component-name">Card</span>
+      <span class="component-name">Progress Bar</span>
     </wa-card>
   </a>
-  <a href="/docs/components/carousel">
+  <a href="/docs/components/progress-ring">
     <wa-card>
       <div slot="header">
-        {% include "svgs/carousel.njk" %}
+        {% include "svgs/progress-ring.njk" %}
       </div>
-      <span class="component-name">Carousel</span>
+      <span class="component-name">Progress Ring</span>
     </wa-card>
   </a>
+  <a href="/docs/components/skeleton">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/skeleton.njk" %}
+      </div>
+      <span class="component-name">Skeleton</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/spinner">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/spinner.njk" %}
+      </div>
+      <span class="component-name">Spinner</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tag">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/tag.njk" %}
+      </div>
+      <span class="component-name">Tag</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tooltip">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/tooltip.njk" %}
+      </div>
+      <span class="component-name">Tooltip</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Inputs</h2>
+<div class="index-grid">
   <a href="/docs/components/checkbox">
     <wa-card>
       <div slot="header">
@@ -142,12 +205,100 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Color Picker</span>
     </wa-card>
   </a>
-  <a href="/docs/components/copy-button">
+  <a href="/docs/components/input">
     <wa-card>
       <div slot="header">
-        {% include "svgs/copy-button.njk" %}
+        {% include "svgs/input.njk" %}
       </div>
-      <span class="component-name">Copy Button</span>
+      <span class="component-name">Input</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/radio-group">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/radio-group.njk" %}
+      </div>
+      <span class="component-name">Radio Group</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/range">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/range.njk" %}
+      </div>
+      <span class="component-name">Range</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/rating">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/rating.njk" %}
+      </div>
+      <span class="component-name">Rating</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/select">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/select.njk" %}
+      </div>
+      <span class="component-name">Select</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/switch">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/switch.njk" %}
+      </div>
+      <span class="component-name">Switch</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/textarea">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/textarea.njk" %}
+      </div>
+      <span class="component-name">Textarea</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Navigation</h2>
+<div class="index-grid">
+  <a href="/docs/components/breadcrumb">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/breadcrumb.njk" %}
+      </div>
+      <span class="component-name">Breadcrumb</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tab-group">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/tab-group.njk" %}
+      </div>
+      <span class="component-name">Tab Group</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/tree">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/tree.njk" %}
+      </div>
+      <span class="component-name">Tree</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Organization</h2>
+<div class="index-grid">
+  <a href="/docs/components/card">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/card.njk" %}
+      </div>
+      <span class="component-name">Card</span>
     </wa-card>
   </a>
   <a href="/docs/components/details">
@@ -182,12 +333,68 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Drawer</span>
     </wa-card>
   </a>
-  <a href="/docs/components/dropdown">
+  <a href="/docs/components/split-panel">
     <wa-card>
       <div slot="header">
-        {% include "svgs/dropdown.njk" %}
+        {% include "svgs/split-panel.njk" %}
       </div>
-      <span class="component-name">Dropdown</span>
+      <span class="component-name">Split Panel</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Presentation</h2>
+<div class="index-grid">
+  <a href="/docs/components/animated-image">
+    <wa-card with-header>
+      <div slot="header">
+        {% include "svgs/animated-image.njk" %}
+      </div>
+      <span class="component-name">Animated Image</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/avatar">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/avatar.njk" %}
+      </div>
+      <span class="component-name">Avatar</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/carousel">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/carousel.njk" %}
+      </div>
+      <span class="component-name">Carousel</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/icon">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/icon.njk" %}
+      </div>
+      <span class="component-name">Icon</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/image-comparer">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/image-comparer.njk" %}
+      </div>
+      <span class="component-name">Image Comparer</span>
+    </wa-card>
+  </a>
+</div>
+
+<h2 class="index-category">Utilities</h2>
+<div class="index-grid">
+  <a href="/docs/components/animation">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/animation.njk" %}
+      </div>
+      <span class="component-name">Animation</span>
     </wa-card>
   </a>
   <a href="/docs/components/format-bytes">
@@ -214,52 +421,12 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Format Number</span>
     </wa-card>
   </a>
-  <a href="/docs/components/icon">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/icon.njk" %}
-      </div>
-      <span class="component-name">Icon</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/icon-button">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/icon-button.njk" %}
-      </div>
-      <span class="component-name">Icon Button</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/image-comparer">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/image-comparer.njk" %}
-      </div>
-      <span class="component-name">Image Comparer</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/include">
+    <a href="/docs/components/include">
     <wa-card>
       <div slot="header">
         {% include "svgs/include.njk" %}
       </div>
       <span class="component-name">Include</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/input">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/input.njk" %}
-      </div>
-      <span class="component-name">Input</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/menu">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/menu.njk" %}
-      </div>
-      <span class="component-name">Menu</span>
     </wa-card>
   </a>
   <a href="/docs/components/mutation-observer">
@@ -278,54 +445,6 @@ Browse the entire library of standards-based, framework-friendly web components 
       <span class="component-name">Popup</span>
     </wa-card>
   </a>
-  <a href="/docs/components/progress-bar">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/progress-bar.njk" %}
-      </div>
-      <span class="component-name">Progress Bar</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/progress-ring">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/progress-ring.njk" %}
-      </div>
-      <span class="component-name">Progress Ring</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/qr-code">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/qr-code.njk" %}
-      </div>
-      <span class="component-name">QR Code</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/radio-group">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/radio-group.njk" %}
-      </div>
-      <span class="component-name">Radio Group</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/range">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/range.njk" %}
-      </div>
-      <span class="component-name">Range</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/rating">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/rating.njk" %}
-      </div>
-      <span class="component-name">Rating</span>
-    </wa-card>
-  </a>
   <a href="/docs/components/relative-time">
     <wa-card>
       <div slot="header">
@@ -340,86 +459,6 @@ Browse the entire library of standards-based, framework-friendly web components 
         {% include "svgs/resize-observer.njk" %}
       </div>
       <span class="component-name">Resize Observer</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/select">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/select.njk" %}
-      </div>
-      <span class="component-name">Select</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/skeleton">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/skeleton.njk" %}
-      </div>
-      <span class="component-name">Skeleton</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/spinner">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/spinner.njk" %}
-      </div>
-      <span class="component-name">Spinner</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/split-panel">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/split-panel.njk" %}
-      </div>
-      <span class="component-name">Split Panel</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/switch">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/switch.njk" %}
-      </div>
-      <span class="component-name">Switch</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/tab-group">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/tab-group.njk" %}
-      </div>
-      <span class="component-name">Tab Group</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/tag">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/tag.njk" %}
-      </div>
-      <span class="component-name">Tag</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/textarea">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/textarea.njk" %}
-      </div>
-      <span class="component-name">Textarea</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/tooltip">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/tooltip.njk" %}
-      </div>
-      <span class="component-name">Tooltip</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/tree">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/tree.njk" %}
-      </div>
-      <span class="component-name">Tree</span>
     </wa-card>
   </a>
   <a href="/docs/components/visually-hidden">
