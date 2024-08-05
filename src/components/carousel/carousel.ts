@@ -107,7 +107,7 @@ export default class WaCarousel extends WebAwesomeElement {
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.mutationObserver.disconnect();
+    this.mutationObserver?.disconnect();
   }
 
   protected firstUpdated(): void {

@@ -88,7 +88,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.resizeObserver.unobserve(this);
+    this.resizeObserver?.unobserve(this);
   }
 
   private detectSize() {

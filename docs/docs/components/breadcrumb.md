@@ -98,7 +98,29 @@ Use the `suffix` slot to add content after any breadcrumb item.
 
 ### With Dropdowns
 
-Dropdown menus can be placed in a prefix or suffix slot to provide additional options.
+Dropdown menus can be placed in the default slot to provide additional options.
+
+```html {.example}
+<wa-breadcrumb>
+  <wa-breadcrumb-item>Homepage</wa-breadcrumb-item>
+  <wa-breadcrumb-item>
+    <wa-dropdown>
+      <wa-button slot="trigger" size="small" appearance="tinted" pill>
+        <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
+      </wa-button>
+      <wa-menu>
+        <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
+        <wa-menu-item type="checkbox">Web Development</wa-menu-item>
+        <wa-menu-item type="checkbox">Marketing</wa-menu-item>
+      </wa-menu>
+    </wa-dropdown>
+  </wa-breadcrumb-item>
+  <wa-breadcrumb-item>Our Services</wa-breadcrumb-item>
+  <wa-breadcrumb-item>Digital Media</wa-breadcrumb-item>
+</wa-breadcrumb>
+```
+
+Alternatively, you can place dropdown menus in a prefix or suffix slot.
 
 ```html {.example}
 <wa-breadcrumb>

@@ -268,6 +268,10 @@ export default css`
    * Color dropdown
    */
 
+  .color-dropdown {
+    display: flex;
+  }
+
   .color-dropdown::part(panel) {
     max-height: none;
     background-color: var(--background-color);
@@ -277,7 +281,7 @@ export default css`
   }
 
   .color-dropdown__trigger {
-    display: inline-block;
+    display: block;
     position: relative;
     background-color: transparent;
     border: none;
@@ -337,16 +341,6 @@ export default css`
 
   .form-control.form-control--has-label .form-control__label {
     cursor: pointer;
-    padding-bottom: 0.5em;
-    display: block;
-  }
-
-  .form-control__input {
     display: inline-block;
-  }
-
-  .color-dropdown__container {
-    margin: 0 1em;
-    padding-bottom: 0.5em;
   }
 `;

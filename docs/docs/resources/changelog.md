@@ -35,7 +35,7 @@ Here's a list of some of the things that have changed since Shoelace v2. For que
 - Added the `active` attribute to `<wa-tab-group>`
 - Added an easier way to close dialogs by applying `data-dialog="close"` to any button in the dialog
 - Added an easier way to close drawers by applying `data-dialog="close"` to any button in the drawer
-- Added the `--show-duration` and `--hide-duration` custom properties to `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<sl-tree-item>`, and `<wa-popup>`
+- Added the `--show-duration` and `--hide-duration` custom properties to `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-popup>`
 - Added visible labels to `<wa-color-picker>`
 - Changed the attribute for setting the base path declaratively to `data-webawesome` instead of `data-shoelace`; additionally, you can place it on any element now instead of just the associated `<script>` tag
 - Changed the `sl` prefix to `wa` for Web Awesome, including tags, events, etc.

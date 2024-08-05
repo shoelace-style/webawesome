@@ -128,8 +128,8 @@ export default class WaTabGroup extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.mutationObserver.disconnect();
-    this.resizeObserver.unobserve(this.nav);
+    this.mutationObserver?.disconnect();
+    this.resizeObserver?.unobserve(this.nav);
   }
 
   private getAllTabs() {

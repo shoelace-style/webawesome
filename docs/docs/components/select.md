@@ -224,6 +224,33 @@ Use the `prefix` slot to prepend an icon to the control.
 </wa-select>
 ```
 
+### Suffix Icons
+
+Use the `suffix` slot to append an icon to the control.
+
+```html {.example}
+<wa-select placeholder="Small" size="small" clearable>
+  <wa-icon name="house" slot="suffix"></wa-icon>
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+<br />
+<wa-select placeholder="Medium" size="medium" clearable>
+  <wa-icon name="house" slot="suffix"></wa-icon>
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+<br />
+<wa-select placeholder="Large" size="large" clearable>
+  <wa-icon name="house" slot="suffix"></wa-icon>
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+```
+
 ### Custom Tags
 
 When multiple options can be selected, you can provide custom tags by passing a function to the `getTag` property. Your function can return a string of HTML, a <a href="https://lit.dev/docs/templates/overview/">Lit Template</a>, or an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The `getTag()` function will be called for each option. The first argument is an `<wa-option>` element and the second argument is the tag's index (its position in the tag list).

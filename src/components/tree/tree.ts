@@ -116,7 +116,7 @@ export default class WaTree extends WebAwesomeElement {
   disconnectedCallback() {
     super.disconnectedCallback();
 
-    this.mutationObserver.disconnect();
+    this.mutationObserver?.disconnect();
   }
 
   // Generates a clone of the expand icon element to use for each tree item

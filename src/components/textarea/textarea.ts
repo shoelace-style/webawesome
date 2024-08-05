@@ -163,7 +163,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this.input) {
-      this.resizeObserver.unobserve(this.input);
+      this.resizeObserver?.unobserve(this.input);
     }
   }
 

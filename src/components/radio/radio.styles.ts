@@ -21,7 +21,7 @@ export default css`
   }
 
   .radio {
-    display: inline-flex;
+    display: flex;
     align-items: top;
     font: inherit;
     color: var(--wa-form-control-value-color);
@@ -42,7 +42,7 @@ export default css`
   }
 
   .radio__checked-icon {
-    display: inline-flex;
+    display: flex;
     fill: currentColor;
     width: var(--toggle-size);
     height: var(--toggle-size);
@@ -52,7 +52,7 @@ export default css`
   .radio__control {
     flex: 0 0 auto;
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: var(--toggle-size);
