@@ -1,22 +1,26 @@
 ---
 title: Components
-description: Web Awesome recognizes the need for all users to have undeterred access to the websites and applications that are created with it.
+description: Browse the library of customizable, framework-friendly web components included in Web Awesome.
 layout: page-outline
 ---
 
 <style>
   wa-page > main {
     max-width: 120ch;
-    padding: var(--wa-space-xl);
     margin-inline: auto;
   }
   .index-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-    gap: 2rem;
+    gap: var(--wa-space-2xl);
   }
   .index-category {
-    margin-top: var(--wa-space-3xl);
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    margin-top: var(--wa-space-2xl);
+  }
+  .index-grid a {
+    border-radius: var(--wa-border-radius-m);
   }
   .index-grid wa-card {
     --box-shadow: none;
@@ -30,8 +34,8 @@ layout: page-outline
       color: var(--wa-color-brand-on-quiet);
     }
   }
-  .index-grid a {
-    border-radius: var(--wa-border-radius-m);
+  .index-grid wa-card [slot='header'] {
+    display: flex;
   }
   .index-grid wa-card::part(header) {
     background-color: var(--wa-color-neutral-fill-quiet);
@@ -46,21 +50,16 @@ layout: page-outline
     justify-content: flex-end;
     overflow: hidden;
   }
-  .index-grid wa-card [slot='header'] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .component-name {
+  wa-card .component-name {
     font-size: var(--wa-font-size-s);
     font-weight: var(--wa-font-weight-action);
   }
 </style>
 
-Browse the library of standards-based, framework-friendly web components included in Web Awesome.
+<p style="max-width: 80ch">Components are the essential building blocks to create intuitive, cohesive experiences. Browse the library of customizable, framework-friendly web components included in Web Awesome.</p>
 
-<h2 class="index-category">Actions</h2>
 <div class="index-grid">
+  <h2 class="index-category">Actions</h2>
   <a href="/docs/components/button">
     <wa-card>
       <div slot="header">
@@ -117,10 +116,8 @@ Browse the library of standards-based, framework-friendly web components include
       <span class="component-name">QR Code</span>
     </wa-card>
   </a>
-</div>
 
-<h2 class="index-category">Communication</h2>
-<div class="index-grid">
+  <h2 class="index-category" style="grid-column: 1 / -1">Feedback and Status</h2>
   <a href="/docs/components/badge">
     <wa-card>
       <div slot="header">
@@ -185,10 +182,50 @@ Browse the library of standards-based, framework-friendly web components include
       <span class="component-name">Tooltip</span>
     </wa-card>
   </a>
-</div>
 
-<h2 class="index-category">Inputs</h2>
-<div class="index-grid">
+  <h2 class="index-category">Imagery</h2>
+  <a href="/docs/components/animated-image">
+    <wa-card with-header>
+      <div slot="header">
+        {% include "svgs/animated-image.njk" %}
+      </div>
+      <span class="component-name">Animated Image</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/avatar">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/avatar.njk" %}
+      </div>
+      <span class="component-name">Avatar</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/carousel">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/carousel.njk" %}
+      </div>
+      <span class="component-name">Carousel</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/icon">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/icon.njk" %}
+      </div>
+      <span class="component-name">Icon</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/image-comparer">
+    <wa-card>
+      <div slot="header">
+        {% include "svgs/image-comparer.njk" %}
+      </div>
+      <span class="component-name">Image Comparer</span>
+    </wa-card>
+  </a>
+
+  <h2 class="index-category">Inputs</h2>
   <a href="/docs/components/checkbox">
     <wa-card>
       <div slot="header">
@@ -261,10 +298,8 @@ Browse the library of standards-based, framework-friendly web components include
       <span class="component-name">Textarea</span>
     </wa-card>
   </a>
-</div>
 
-<h2 class="index-category">Navigation</h2>
-<div class="index-grid">
+  <h2 class="index-category">Navigation</h2>
   <a href="/docs/components/breadcrumb">
     <wa-card>
       <div slot="header">
@@ -289,10 +324,8 @@ Browse the library of standards-based, framework-friendly web components include
       <span class="component-name">Tree</span>
     </wa-card>
   </a>
-</div>
 
-<h2 class="index-category">Organization</h2>
-<div class="index-grid">
+  <h2 class="index-category">Organization</h2>
   <a href="/docs/components/card">
     <wa-card>
       <div slot="header">
@@ -341,54 +374,8 @@ Browse the library of standards-based, framework-friendly web components include
       <span class="component-name">Split Panel</span>
     </wa-card>
   </a>
-</div>
 
-<h2 class="index-category">Presentation</h2>
-<div class="index-grid">
-  <a href="/docs/components/animated-image">
-    <wa-card with-header>
-      <div slot="header">
-        {% include "svgs/animated-image.njk" %}
-      </div>
-      <span class="component-name">Animated Image</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/avatar">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/avatar.njk" %}
-      </div>
-      <span class="component-name">Avatar</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/carousel">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/carousel.njk" %}
-      </div>
-      <span class="component-name">Carousel</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/icon">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/icon.njk" %}
-      </div>
-      <span class="component-name">Icon</span>
-    </wa-card>
-  </a>
-  <a href="/docs/components/image-comparer">
-    <wa-card>
-      <div slot="header">
-        {% include "svgs/image-comparer.njk" %}
-      </div>
-      <span class="component-name">Image Comparer</span>
-    </wa-card>
-  </a>
-</div>
-
-<h2 class="index-category">Utilities</h2>
-<div class="index-grid">
+  <h2 class="index-category">Utilities</h2>
   <a href="/docs/components/animation">
     <wa-card>
       <div slot="header">
