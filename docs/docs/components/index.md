@@ -61,7 +61,7 @@ layout: page-outline
 <div class="index-grid">
   <h2 class="index-category">Actions</h2>
   <a href="/docs/components/button">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/button.njk" %}
       </div>
@@ -69,7 +69,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/button-group">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/button-group.njk" %}
       </div>
@@ -77,7 +77,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/copy-button">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/copy-button.njk" %}
       </div>
@@ -85,7 +85,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/dropdown">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/dropdown.njk" %}
       </div>
@@ -93,7 +93,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/icon-button">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/icon-button.njk" %}
       </div>
@@ -101,7 +101,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/menu">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/menu.njk" %}
       </div>
@@ -109,7 +109,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/qr-code">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/qr-code.njk" %}
       </div>
@@ -119,7 +119,7 @@ layout: page-outline
 
   <h2 class="index-category" style="grid-column: 1 / -1">Feedback and Status</h2>
   <a href="/docs/components/badge">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/badge.njk" %}
       </div>
@@ -127,7 +127,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/callout">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/callout.njk" %}
       </div>
@@ -135,7 +135,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/progress-bar">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/progress-bar.njk" %}
       </div>
@@ -143,7 +143,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/progress-ring">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/progress-ring.njk" %}
       </div>
@@ -151,7 +151,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/skeleton">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/skeleton.njk" %}
       </div>
@@ -159,7 +159,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/spinner">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/spinner.njk" %}
       </div>
@@ -167,7 +167,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/tag">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/tag.njk" %}
       </div>
@@ -175,7 +175,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/tooltip">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/tooltip.njk" %}
       </div>
@@ -193,7 +193,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/avatar">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/avatar.njk" %}
       </div>
@@ -201,7 +201,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/carousel">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/carousel.njk" %}
       </div>
@@ -209,7 +209,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/icon">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/icon.njk" %}
       </div>
@@ -217,7 +217,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/image-comparer">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/image-comparer.njk" %}
       </div>
@@ -227,7 +227,7 @@ layout: page-outline
 
   <h2 class="index-category">Inputs</h2>
   <a href="/docs/components/checkbox">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/checkbox.njk" %}
       </div>
@@ -235,7 +235,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/color-picker">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/color-picker.njk" %}
       </div>
@@ -243,7 +243,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/input">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/input.njk" %}
       </div>
@@ -251,7 +251,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/radio-group">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/radio-group.njk" %}
       </div>
@@ -259,7 +259,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/range">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/range.njk" %}
       </div>
@@ -267,7 +267,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/rating">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/rating.njk" %}
       </div>
@@ -275,7 +275,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/select">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/select.njk" %}
       </div>
@@ -283,7 +283,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/switch">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/switch.njk" %}
       </div>
@@ -291,7 +291,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/textarea">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/textarea.njk" %}
       </div>
@@ -301,7 +301,7 @@ layout: page-outline
 
   <h2 class="index-category">Navigation</h2>
   <a href="/docs/components/breadcrumb">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/breadcrumb.njk" %}
       </div>
@@ -309,7 +309,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/tab-group">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/tab-group.njk" %}
       </div>
@@ -317,7 +317,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/tree">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/tree.njk" %}
       </div>
@@ -327,7 +327,7 @@ layout: page-outline
 
   <h2 class="index-category">Organization</h2>
   <a href="/docs/components/card">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/card.njk" %}
       </div>
@@ -335,7 +335,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/details">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/details.njk" %}
       </div>
@@ -343,7 +343,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/dialog">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/dialog.njk" %}
       </div>
@@ -351,7 +351,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/divider">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/divider.njk" %}
       </div>
@@ -367,7 +367,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/split-panel">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/split-panel.njk" %}
       </div>
@@ -377,7 +377,7 @@ layout: page-outline
 
   <h2 class="index-category">Utilities</h2>
   <a href="/docs/components/animation">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/animation.njk" %}
       </div>
@@ -385,7 +385,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/format-bytes">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/format-bytes.njk" %}
       </div>
@@ -393,7 +393,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/format-date">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/format-date.njk" %}
       </div>
@@ -401,7 +401,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/format-number">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/format-number.njk" %}
       </div>
@@ -409,7 +409,7 @@ layout: page-outline
     </wa-card>
   </a>
     <a href="/docs/components/include">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/include.njk" %}
       </div>
@@ -417,7 +417,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/mutation-observer">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/mutation-observer.njk" %}
       </div>
@@ -425,7 +425,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/popup">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/popup.njk" %}
       </div>
@@ -433,7 +433,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/relative-time">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/relative-time.njk" %}
       </div>
@@ -441,7 +441,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/resize-observer">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/resize-observer.njk" %}
       </div>
@@ -449,7 +449,7 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/visually-hidden">
-    <wa-card>
+    <wa-card with-header>
       <div slot="header">
         {% include "svgs/visually-hidden.njk" %}
       </div>
