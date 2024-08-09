@@ -1,0 +1,119 @@
+/* #region Stack */
+.wa-stack {
+  --align: initial;
+  --gap: initial;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, var(--wa-space-m));
+  justify-content: flex-start;
+  align-items: var(--align, stretch);
+}
+
+.wa-stack > * {
+  margin-block: 0;
+}
+/* #endregion */
+
+/* #region Grid */
+.wa-grid {
+  --gap: initial;
+  --min-width: initial;
+
+  display: grid;
+  gap: var(--gap, var(--wa-space-m));
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-width, 20ch), 100%), 1fr));
+}
+/* #endregion */
+
+/* #region Frame */
+.wa-frame {
+  --aspect-ratio: initial;
+
+  aspect-ratio: var(--aspect-ratio, 1 / 1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wa-frame > img,
+.wa-frame > video {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.wa-frame[data-aspect-ratio='square'] {
+  --aspect-ratio: 1 / 1;
+}
+
+.wa-frame[data-aspect-ratio='landscape'] {
+  --aspect-ratio: 16 / 9;
+}
+
+.wa-frame[data-aspect-ratio='portrait'] {
+  --aspect-ratio: 9 / 16;
+}
+/* #endregion */
+
+/* #region Split */
+.wa-split {
+  --gap: initial;
+  --direction: initial;
+  --align: initial;
+
+  display: flex;
+  gap: var(--gap, var(--wa-space-m));
+  flex-direction: var(--direction, row);
+  justify-content: space-between;
+  align-items: var(--align, center);
+}
+/* #endregion */
+
+/* #region Flank */
+.wa-flank {
+  --gap: initial;
+  --min-inline-size: initial;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap, var(--wa-space-m));
+}
+
+.wa-flank:not([data-position]) > :first-child,
+.wa-flank[data-position='start'] > :first-child {
+  flex-grow: 1;
+}
+
+.wa-flank:not([data-position]) > :last-child,
+.wa-flank[data-position='start'] > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--min-inline-size, 66.67%);
+}
+
+.wa-flank[data-position='end'] > :last-child {
+  flex-grow: 1;
+}
+
+.wa-flank[data-position='end'] > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--min-inline-size, 66.67%);
+}
+/* #endregion */
+
+/* #region Flow */
+.wa-flow {
+  --gap: initial;
+  --justify: initial;
+  --align: initial;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap, var(--wa-space-m));
+  justify-content: var(--justify, flex-start);
+  align-items: var(--align, center);
+}
+/* #endregion */
