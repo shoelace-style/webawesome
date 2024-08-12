@@ -96,6 +96,36 @@ Use the `suffix` slot to add content after any breadcrumb item.
 </wa-breadcrumb>
 ```
 
+### Custom Colors
+
+Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Prefixes, suffixes, and separators can be styled using CSS parts.
+
+```html {.example}
+<style>
+  .grayscale wa-breadcrumb-item {
+    color: slategrey;
+  }
+  .grayscale wa-breadcrumb-item:last-of-type {
+    color: darkslategrey;
+  }
+  .grayscale wa-breadcrumb-item::part(separator) {
+    color: lightgray;
+  }
+  .grayscale wa-breadcrumb-item::part(prefix),
+  .grayscale wa-breadcrumb-item::part(suffix) {
+    color: currentColor;
+  }
+</style>
+<wa-breadcrumb class="grayscale">
+  <wa-breadcrumb-item>
+    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+    Home
+  </wa-breadcrumb-item>
+  <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
+  <wa-breadcrumb-item>Traveling</wa-breadcrumb-item>
+</wa-breadcrumb>
+```
+
 ### With Dropdowns
 
 Dropdown menus can be placed in the default slot to provide additional options.

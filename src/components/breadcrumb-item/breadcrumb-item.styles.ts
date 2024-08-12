@@ -2,7 +2,12 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    color: var(--wa-color-text-link);
     display: inline-flex;
+  }
+
+  :host(:last-of-type) {
+    color: var(--wa-color-text-quiet);
   }
 
   .breadcrumb-item {
@@ -10,7 +15,6 @@ export default css`
     align-items: center;
     font: inherit;
     font-weight: var(--wa-font-weight-action);
-    color: var(--wa-color-neutral-on-quiet);
     line-height: var(--wa-line-height-normal);
     white-space: nowrap;
   }
@@ -19,7 +23,7 @@ export default css`
     display: inline-block;
     font: inherit;
     text-decoration: none;
-    color: inherit;
+    color: currentColor;
     background: none;
     border: none;
     border-radius: var(--wa-border-radius-s);
@@ -29,16 +33,12 @@ export default css`
     transition: color var(--wa-transition-normal) var(--wa-transition-easing);
   }
 
-  :host(:not(:last-of-type)) .breadcrumb-item__label {
-    color: var(--wa-color-text-link);
-  }
-
   :host(:not(:last-of-type)) .breadcrumb-item__label:hover {
-    color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-mix-hover));
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
   }
 
   :host(:not(:last-of-type)) .breadcrumb-item__label:active {
-    color: var(--wa-color-text-link);
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
   }
 
   .breadcrumb-item__label:focus {
@@ -61,6 +61,7 @@ export default css`
   .breadcrumb-item__prefix,
   .breadcrumb-item__suffix {
     display: inline-flex;
+    color: var(--wa-color-text-quiet);
   }
 
   ::slotted([slot='prefix']) {
@@ -76,6 +77,7 @@ export default css`
   }
 
   .breadcrumb-item__separator {
+    color: var(--wa-color-text-quiet);
     display: inline-flex;
     align-items: center;
     margin: 0 var(--wa-space-s);
