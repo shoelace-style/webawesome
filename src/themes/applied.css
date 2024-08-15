@@ -43,7 +43,7 @@ body {
 }
 
 /* Content flow */
-address,
+/* address,
 audio,
 blockquote,
 dd,
@@ -64,7 +64,7 @@ table,
 ul,
 video {
   margin: 0 0 var(--wa-space-xl) 0;
-}
+} */
 
 /* Headings & text */
 h1,
