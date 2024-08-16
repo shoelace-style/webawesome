@@ -14,6 +14,9 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Added `scroll-margin-top` to children of `wa-page` [#]
+- Added `--scroll-margin-top` css variable `wa-page` [#]
+- Added SSR support to all components [#]
 - Fixed a bug in `<wa-checkbox>` where unchecking and then checking would "clear" its value. [#157]
 - Fixed a bug where `<wa-relative-time>` would announce the full time instead of the relative time in screen readers [#22](https://github.com/shoelace-style/webawesome-alpha/issues/22)
 - Fixed a bug in `<wa-tab-group>` in Firefox where the overflow container would keep focus. [#14](https://github.com/shoelace-style/webawesome-alpha/issues/14)
