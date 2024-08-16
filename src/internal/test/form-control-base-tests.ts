@@ -1,5 +1,5 @@
 import { clientFixture, hydratedFixture } from './fixture.js';
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
@@ -62,11 +62,8 @@ function runAllValidityTests(
   // https://github.com/mochajs/mocha/issues/2116
   describe(`Form validity base test for ${displayName}`, () => {
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
-    beforeEach(async () => {
-      await resetMouse()
-    })
     afterEach(async () => {
-      await resetMouse()
+      await aTimeout(0)
     })
 
     for (const fixture of [clientFixture, hydratedFixture]) {

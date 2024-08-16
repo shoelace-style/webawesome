@@ -11,7 +11,9 @@ export default css`
     --banner-height: 0px;
     --header-height: 0px;
     --subheader-height: 0px;
+    --scroll-margin-top: calc(var(--header-height, 0px) + var(--subheader-height, 0px));
   }
+
   :host([disable-sticky~='banner']) :is([part~='header'], [part~='subheader']) {
     --banner-height: 0px !important;
   }
