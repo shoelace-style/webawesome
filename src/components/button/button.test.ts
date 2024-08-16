@@ -8,7 +8,7 @@ import type WaButton from './button.js';
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
 describe('<wa-button>', () => {
-  before(async () => {
+  it("form control base tests", async () => {
     await Promise.allSettled([
       runFormControlBaseTests({
         tagName: 'wa-button',
@@ -36,6 +36,7 @@ describe('<wa-button>', () => {
       })
     ]);
   });
+
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility tests', () => {

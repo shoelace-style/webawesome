@@ -21,11 +21,11 @@ export default class WebAwesomeElement extends LitElement {
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);
-    // if (this.didSSR) {
-    this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
-      slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
-    });
-    // }
+    if (this.didSSR) {
+      this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
+        slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
+      });
+    }
   }
 
   protected update(changedProperties: PropertyValues<this>): void {

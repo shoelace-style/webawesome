@@ -126,7 +126,7 @@
     "node-html-parser": "^6.1.13",
     "ora": "^8.0.1",
     "pascal-case": "^3.1.2",
-    "playwright": "^1.42.0",
+    "playwright": "^1.47.0-alpha-2024-08-15",
     "plop": "^4.0.0",
     "prettier": "^3.0.3",
     "prismjs": "^1.29.0",
@@ -138,6 +138,9 @@
     "typescript": "^5.2.2",
     "user-agent-data-types": "^0.3.1",
     "uuid": "^9.0.1"
+  },
+  "overrides": {
+    "playwright": "^1.47.0-alpha-2024-08-15"
   },
   "lint-staged": {
     "*.{ts,js}": [

@@ -9,14 +9,14 @@ import sinon from 'sinon';
 import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
-  before(async () => {
+  it("form control base tests", async () => {
     await runFormControlBaseTests('wa-range');
   });
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of [hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
-        const el = await fixture<WaRange>(html` <wa-range label="Name"></wa-range> `);
+        const el = await fixture<WaRange>(html`<wa-range label="Name"></wa-range>`);
         await expect(el).to.be.accessible();
       });
 

@@ -108,7 +108,7 @@ export default function (eleventyConfig) {
     ])
   );
 
-  const omittedModules = ['qr-code', 'tooltip', 'popup'];
+  const omittedModules = ['qr-code'];
 
   // problematic components:
   // animation (breaks on navigation + ssr with Turbo)

@@ -1,5 +1,6 @@
 // cspell:dictionaries lorem-ipsum
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
@@ -130,6 +131,7 @@ describe('<wa-drawer>', () => {
 
         el.addEventListener('wa-after-hide', hideHandler);
 
+        await clickOnElement(el) // Chromium wants the page to be clicked
         await sendKeys({ press: 'Escape' });
         await waitUntil(() => hideHandler.calledOnce);
 

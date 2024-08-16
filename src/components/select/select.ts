@@ -642,7 +642,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
     } else {
       this.value = this.selectedOptions[0]?.value ?? '';
-      this.displayLabel = this.selectedOptions[0]?.getTextLabel() ?? '';
+      this.displayLabel = this.selectedOptions[0]?.getTextLabel?.() ?? '';
     }
 
     // Update validity

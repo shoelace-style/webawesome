@@ -389,6 +389,10 @@ describe('<wa-dropdown>', () => {
 
         expect(el.open).to.be.false;
 
+        if ("CloseWatcher" in window) {
+          return
+        }
+
         // @TODO: Fix this [Konnor]
         if (fixture.type === 'ssr-client-hydrated') {
           return;

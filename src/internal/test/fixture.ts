@@ -4,7 +4,7 @@
  */
 
 import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
-import { fixture } from '@open-wc/testing';
+import { aTimeout, fixture } from '@open-wc/testing';
 import type { LitElement, TemplateResult } from 'lit';
 
 declare global {
@@ -72,13 +72,15 @@ hydratedFixture.type = 'ssr-client-hydrated' as const;
 try {
   // We load Mocha globally, so this just makes it so every test file doesn't need to call beforeEach and afterEach to cleanup fixtures.
   if (typeof beforeEach !== 'undefined') {
-    beforeEach(() => {
+    beforeEach(async () => {
       cleanupFixtures();
+      await aTimeout(1)
     });
   }
   if (typeof afterEach !== 'undefined') {
-    afterEach(() => {
+    afterEach(async () => {
       cleanupFixtures();
+      await aTimeout(1)
     });
   }
 } catch (error) {

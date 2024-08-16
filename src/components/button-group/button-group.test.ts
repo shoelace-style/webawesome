@@ -6,18 +6,8 @@ import type WaButtonGroup from './button-group.js';
 describe('<wa-button-group>', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('defaults ', () => {
-        it('passes accessibility test', async () => {
-          const group = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
-            </wa-button-group>
-          `);
-          await expect(group).to.be.accessible();
-        });
 
+      describe('defaults ', () => {
         it('default label empty', async () => {
           const group = await fixture<WaButtonGroup>(html`
             <wa-button-group>
@@ -28,8 +18,18 @@ describe('<wa-button-group>', () => {
           `);
           expect(group.label).to.equal('');
         });
-      });
 
+        it('passes accessibility test', async () => {
+          const group = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1 Label</wa-button>
+              <wa-button>Button 2 Label</wa-button>
+              <wa-button>Button 3 Label</wa-button>
+            </wa-button-group>
+          `);
+          await expect(group).to.be.accessible()
+        });
+      });
       describe('slotted button classes', () => {
         it('slotted buttons have the right classes applied based on their order', async () => {
           const group = await fixture<WaButtonGroup>(html`

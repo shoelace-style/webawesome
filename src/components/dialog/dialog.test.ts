@@ -1,5 +1,6 @@
 // cspell:dictionaries lorem-ipsum
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { clickOnElement } from '../../internal/test.js';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
@@ -106,10 +107,14 @@ describe('<wa-dialog>', () => {
           <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
 
+        const spy = sinon.spy()
         el.addEventListener('wa-hide', event => {
           event.preventDefault();
+          spy()
         });
+        await clickOnElement(el) // Chromium wants the page to have been clicked prior to closing the dialog.
         await sendKeys({ press: 'Escape' });
+        await waitUntil(() => spy.calledOnce)
 
         expect(el.open).to.be.true;
       });
@@ -124,11 +129,12 @@ describe('<wa-dialog>', () => {
       });
 
       it('should close when pressing Escape', async () => {
-        const el = await fixture<WaDialog>(html` <wa-dialog with-header open></wa-dialog> `);
         const hideHandler = sinon.spy();
 
+        const el = await fixture<WaDialog>(html` <wa-dialog with-header open></wa-dialog> `);
         el.addEventListener('wa-after-hide', hideHandler);
 
+        await clickOnElement(el) // Chromium wants the page to have been clicked prior to closing the dialog.
         await sendKeys({ press: 'Escape' });
         await waitUntil(() => hideHandler.calledOnce);
 

@@ -3,11 +3,12 @@ import { expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
+import { resetMouse } from '@web/test-runner-commands';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
 /** Runs a set of generic tests for Web Awesome form controls */
-export async function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwesomeFormControl>(
+export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwesomeFormControl>(
   tagNameOrConfig:
     | string
     | {
@@ -30,17 +31,15 @@ export async function runFormControlBaseTests<T extends WebAwesomeFormControl = 
     ? tagName
     : `${tagName} (${tagNameOrConfig.variantName})`;
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
-    // creates a testable form control instance
-    const createControl = async () => {
-      const controlFn = createFormControl<T>(fixture);
-      const control = await controlFn(tagName);
-      init?.(control);
-      return control;
-    };
+  // creates a testable form control instance
+  const renderControl = (fixtureType: typeof clientFixture | typeof hydratedFixture) => async () => {
+    const controlFn = createFormControl<T>(fixtureType);
+    const control = await controlFn(tagName);
+    init?.(control);
+    return control;
+  };
 
-    await runAllValidityTests(tagName, displayName, createControl);
-  }
+  runAllValidityTests(tagName, displayName, renderControl);
 }
 
 //
@@ -53,19 +52,33 @@ export async function runFormControlBaseTests<T extends WebAwesomeFormControl = 
 //   - `.getForm()`
 //   - `:disabled`
 //
-async function runAllValidityTests(
+function runAllValidityTests(
   tagName: string, //
   displayName: string,
-  createControl: () => Promise<WebAwesomeFormControl>
+  renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>
 ) {
+
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116
-  const mode = getMode(await createControl());
+  describe(`Form validity base test for ${displayName}`, () => {
+    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+    beforeEach(async () => {
+      await resetMouse()
+    })
+    afterEach(async () => {
+      await resetMouse()
+    })
 
-  await new Promise<void>(resolve => {
     for (const fixture of [clientFixture, hydratedFixture]) {
-      // will be used later to retrieve meta information about the control
-      describe(`Form validity base test for ${displayName} with ${fixture.type} rendering`, () => {
+      describe(`with ${fixture.type} rendering`, () => {
+        const createControl = renderControl(fixture)
+        let mode = "standard" as ReturnType<typeof getMode>
+
+        before(async () => {
+          // will be used later to retrieve meta information about the control
+          mode = getMode(await createControl());
+        })
+
         // Run special tests depending on component type
         if (mode === 'slButtonOfTypeButton') {
           runSpecialTests_slButtonOfTypeButton(createControl);
@@ -248,11 +261,9 @@ async function runAllValidityTests(
             expect(control.hasAttribute('data-wa-disabled')).to.equal(false);
           });
         }
-      });
-
-      resolve();
+      })
     }
-  });
+  })
 }
 
 //

@@ -7,16 +7,11 @@ import type WaCopyButton from './copy-button.js';
 const ignoredRules = ['button-name'];
 
 describe('<wa-copy-button>', () => {
-  let el: WaCopyButton;
-
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when provided no parameters', () => {
-        beforeEach(async () => {
-          el = await fixture(html`<wa-copy-button value="something"></wa-copy-button> `);
-        });
-
         it('should pass accessibility tests', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="something"></wa-copy-button> `);
           await expect(el).to.be.accessible({ ignoredRules });
         });
       });

@@ -10,7 +10,7 @@ import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
 describe('<wa-radio-group>', () => {
-  before(async () => {
+  it("form control base tests", async () => {
     await runFormControlBaseTests('wa-radio-group');
   });
 
