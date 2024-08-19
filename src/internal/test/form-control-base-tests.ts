@@ -1,9 +1,8 @@
-import { clientFixture, hydratedFixture } from './fixture.js';
 import { aTimeout, expect } from '@open-wc/testing';
+import { clientFixture, hydratedFixture } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
-import { resetMouse } from '@web/test-runner-commands';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
