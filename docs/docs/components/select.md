@@ -283,7 +283,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
   const select = document.querySelector('.custom-tag');
 
   select.getTag = (option, index) => {
-    // Use the same icon used in the <wa-option>
+    // Use the same icon used in wa-option
     const name = option.querySelector('wa-icon[slot="prefix"]').name;
 
     // You can return a string, a Lit Template, or an HTMLElement here
