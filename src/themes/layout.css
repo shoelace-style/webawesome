@@ -44,15 +44,15 @@
   object-fit: cover;
 }
 
-.wa-frame[data-aspect-ratio='square'] {
+.wa-frame\:square {
   --aspect-ratio: 1 / 1;
 }
 
-.wa-frame[data-aspect-ratio='landscape'] {
+.wa-frame\:landscape {
   --aspect-ratio: 16 / 9;
 }
 
-.wa-frame[data-aspect-ratio='portrait'] {
+.wa-frame\:portrait {
   --aspect-ratio: 9 / 16;
 }
 /* #endregion */
@@ -87,7 +87,7 @@
 /* #endregion */
 
 /* #region Flank */
-.wa-flank {
+[class*='wa-flank'] {
   --gap: initial;
   --align: initial;
   --min-inline-size: initial;
@@ -100,24 +100,24 @@
 }
 
 .wa-flank:not([data-position]) > :first-child,
-.wa-flank[data-position='start'] > :first-child {
+.wa-flank\:start > :first-child {
   flex-grow: 1;
   flex-basis: var(--aside-size, auto);
 }
 
 .wa-flank:not([data-position]) > :last-child,
-.wa-flank[data-position='start'] > :last-child {
+.wa-flank\:start > :last-child {
   flex-basis: 0;
   flex-grow: 999;
   min-inline-size: var(--min-inline-size, 50%);
 }
 
-.wa-flank[data-position='end'] > :last-child {
+.wa-flank\:end > :last-child {
   flex-grow: 1;
   flex-basis: var(--aside-size, auto);
 }
 
-.wa-flank[data-position='end'] > :first-child {
+.wa-flank\:end > :first-child {
   flex-basis: 0;
   flex-grow: 999;
   min-inline-size: var(--min-inline-size, 50%);
@@ -153,41 +153,35 @@
 /* #endregion */
 
 /* #region Utilities */
-.wa-zero-margin {
-  margin: zero;
+.wa-margin\:0 {
+  margin: 0;
 }
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  font-family: var(--wa-font-family-heading);
-  font-weight: var(--wa-font-weight-heading);
-  line-height: var(--wa-line-height-condensed);
-  text-wrap: balance;
-}
-.h1 {
+
+.wa-font-size\:3xl {
   font-size: var(--wa-font-size-3xl);
 }
 
-.h2 {
+.wa-font-size\:2xl {
   font-size: var(--wa-font-size-2xl);
 }
 
-.h3 {
+.wa-font-size\:xl {
   font-size: var(--wa-font-size-xl);
 }
 
-.h4 {
+.wa-font-size\:l {
   font-size: var(--wa-font-size-l);
 }
 
-.h5 {
+.wa-font-size\:m {
   font-size: var(--wa-font-size-m);
 }
 
-.h6 {
+.wa-font-size\:s {
   font-size: var(--wa-font-size-s);
+}
+
+.wa-font-size\:xs {
+  font-size: var(--wa-font-size-xs);
 }
 /* #endregion */
