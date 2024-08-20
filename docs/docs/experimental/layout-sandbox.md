@@ -9,7 +9,55 @@ hasOutline: false
   wa-page > main {
     max-width: 100%;
   }
+  .block {
+    border-radius: 2rem;
+    background-color: indianred;
+    min-height: 4rem;
+    min-width: 4rem;
+  }
 </style>
+
+<div class="wa-flank">
+  <div class="wa-split:column">
+    <div class="block"></div>
+    <div class="block"></div>
+  </div>
+  <div class="wa-stack">
+    <div class="block"></div>
+    <div class="wa-split">
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <div class="wa-flank:start">
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <div class="wa-flank:end">
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <div class="wa-grid">
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <div class="wa-cluster">
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+  </div>
+</div>
+
+<wa-divider></wa-divider>
 
 <div class="wa-stack" style="--gap: var(--wa-space-3xl); --align: center;">
   <wa-breadcrumb class="wa-font-size:s">

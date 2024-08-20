@@ -27,7 +27,7 @@
 /* #endregion */
 
 /* #region Frame */
-.wa-frame {
+[class*='wa-frame'] {
   --aspect-ratio: initial;
 
   aspect-ratio: var(--aspect-ratio, 1 / 1);
@@ -58,7 +58,7 @@
 /* #endregion */
 
 /* #region Split */
-.wa-split {
+[class*='wa-split'] {
   --gap: initial;
   --direction: initial;
   --align: initial;
@@ -66,11 +66,24 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap, var(--wa-space-m));
-  flex-direction: var(--direction, row);
   justify-content: space-between;
   align-items: var(--align, center);
-  width: 100%;
+  align-self: stretch;
 }
+
+.wa-split,
+.wa-split\:row {
+  flex-direction: row;
+  block-size: auto;
+  inline-size: 100%;
+}
+
+.wa-split\:column {
+  flex-direction: column;
+  block-size: auto;
+  inline-size: auto;
+}
+
 /* #endregion */
 
 /* #region Stretch */
@@ -82,7 +95,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  width: 100%;
+  inline-size: 100%;
 }
 /* #endregion */
 
@@ -99,13 +112,13 @@
   align-items: var(--align, center);
 }
 
-.wa-flank:not([data-position]) > :first-child,
+.wa-flank > :first-child,
 .wa-flank\:start > :first-child {
   flex-grow: 1;
   flex-basis: var(--aside-size, auto);
 }
 
-.wa-flank:not([data-position]) > :last-child,
+.wa-flank > :last-child,
 .wa-flank\:start > :last-child {
   flex-basis: 0;
   flex-grow: 999;
