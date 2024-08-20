@@ -242,6 +242,14 @@ export default css`
     color: var(--wa-color-neutral-on-quiet);
   }
 
+  /* Suffix */
+  .select__suffix {
+    flex: 0;
+    display: inline-flex;
+    align-items: center;
+    color: var(--wa-form-control-placeholder-color);
+  }
+
   /* Clear button */
   .select__clear {
     display: inline-flex;

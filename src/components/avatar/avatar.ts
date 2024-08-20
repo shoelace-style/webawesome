@@ -2,6 +2,7 @@ import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { WaErrorEvent } from '../../events/error.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './avatar.styles.js';
@@ -17,6 +18,9 @@ import type { CSSResultGroup } from 'lit';
  * @dependency wa-icon
  *
  * @slot icon - The default icon to use when no image or initials are present. Works best with `<wa-icon>`.
+ *
+ * @event wa-error - The image could not be loaded. This may because of an invalid URL, a temporary network condition, or some
+ * unknown cause.
  *
  * @csspart base - The component's base wrapper.
  * @csspart icon - The container that wraps the avatar's icon.
@@ -54,6 +58,11 @@ export default class WaAvatar extends WebAwesomeElement {
     this.hasError = false;
   }
 
+  private handleImageLoadError() {
+    this.hasError = true;
+    this.dispatchEvent(new WaErrorEvent());
+  }
+
   render() {
     const avatarWithImage = html`
       <img
@@ -62,7 +71,7 @@ export default class WaAvatar extends WebAwesomeElement {
         src="${this.image}"
         loading="${this.loading}"
         alt=""
-        @error="${() => (this.hasError = true)}"
+        @error="${this.handleImageLoadError}"
       />
     `;
 

@@ -20,7 +20,7 @@ export default css`
 
   .checkbox {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: flex-start;
     font: inherit;
     color: var(--wa-form-control-value-color);
@@ -43,7 +43,7 @@ export default css`
   .checkbox__control {
     flex: 0 0 auto;
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: var(--toggle-size);

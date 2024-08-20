@@ -68,6 +68,8 @@ export default css`
   .card--has-footer .card__footer {
     display: block;
     border-top: inherit;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
     padding: var(--spacing);
   }
 

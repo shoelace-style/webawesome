@@ -176,79 +176,81 @@ layout: page
 ## Tests
 
 ```html {.example}
-<wa-button size="medium" style="width: 100%;" caret>Medium</wa-button>
-<br /><br />
-<wa-select>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-</wa-select>
-<br /><br />
-<wa-input placeholder="Small" size="small">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
-</wa-input>
-<wa-button size="small">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
-  Settings
-</wa-button>
-<br /><br />
-<wa-input placeholder="Medium" size="medium">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
-</wa-input>
-<wa-button size="medium">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
-  Settings
-</wa-button>
-<br /><br />
-<wa-input placeholder="Large" size="large">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
-</wa-input>
-<wa-button size="large">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
-  Settings
-</wa-button>
-<br /><br />
-<wa-button size="medium">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
-</wa-button>
-<br /><br />
-<wa-button-group label="Alignment">
-  <wa-button appearance="outlined" variant="brand">Left</wa-button>
-  <wa-button appearance="outlined" variant="brand">Center</wa-button>
-  <wa-button appearance="outlined" variant="brand">Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment">
-  <wa-button appearance="outlined" variant="success">Left</wa-button>
-  <wa-button appearance="outlined" variant="success">Center</wa-button>
-  <wa-button appearance="outlined" variant="success">Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment">
-  <wa-button appearance="outlined">Left</wa-button>
-  <wa-button appearance="outlined">Center</wa-button>
-  <wa-button appearance="outlined">Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment">
-  <wa-button appearance="outlined" variant="warning">Left</wa-button>
-  <wa-button appearance="outlined" variant="warning">Center</wa-button>
-  <wa-button appearance="outlined" variant="warning">Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment">
-  <wa-button appearance="outlined" variant="danger">Left</wa-button>
-  <wa-button appearance="outlined" variant="danger">Center</wa-button>
-  <wa-button appearance="outlined" variant="danger">Right</wa-button>
-</wa-button-group>
+<style>
+  div.test-cases > * + * {
+    margin-top: 1rem;
+  }
+  div.alignment {
+    background: linear-gradient(to bottom, lightblue, lightblue 1px, transparent 1px, transparent), linear-gradient(to top, lightblue, lightblue 1px, transparent 1px, transparent);
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  div.alignment::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 0.5px);
+    width: 100%;
+    height: 1px;
+    background-color: red;
+  }
+</style>
+<div class="test-cases">
+  <div class="alignment">
+    <wa-switch size="small">OCBS</wa-switch>
+    <wa-checkbox size="small">OCBS</wa-checkbox>
+    <wa-radio value="1" size="small">OCBS</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-switch>OCBS</wa-switch>
+    <wa-checkbox>OCBS</wa-checkbox>
+    <wa-radio value="1">OCBS</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-switch size="large">OCBS</wa-switch>
+    <wa-checkbox size="large">OCBS</wa-checkbox>
+    <wa-radio value="1" size="large">OCBS</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-input size="small"></wa-input>
+    <wa-select size="small" value="ocbs" multiple>
+      <wa-option value="ocbs">OCBS</wa-option>
+    </wa-select>
+    <wa-color-picker size="small"></wa-color-picker>
+    <wa-button size="small">OCBS</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-input size="medium"></wa-input>
+    <wa-select size="medium" value="ocbs" multiple>
+      <wa-option value="ocbs">OCBS</wa-option>
+    </wa-select>
+    <wa-color-picker size="medium"></wa-color-picker>
+    <wa-button size="medium">OCBS</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-input size="large"></wa-input>
+    <wa-select size="large" value="ocbs" multiple>
+      <wa-option value="ocbs">OCBS</wa-option>
+    </wa-select>
+    <wa-color-picker size="large"></wa-color-picker>
+    <wa-button size="large">OCBS</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-badge>OCBS</wa-badge>
+    <wa-avatar></wa-avatar>
+    <wa-rating></wa-rating>
+    <wa-range></wa-range>
+    <wa-icon-button name="gear" label="Settings"></wa-icon-button>
+    <wa-progress-bar value="50" style="width: 8rem;"></wa-progress-bar>
+    <wa-spinner></wa-spinner>
+  </div>
+  <div class="alignment">
+    <wa-input label="AaBbCc" help-text="Lorem ipsum dolor"></wa-input>
+    <wa-select label="AaBbCc" value="ocbs" multiple help-text="Lorem ipsum dolor">
+      <wa-option value="ocbs">OCBS</wa-option>
+    </wa-select>
+    <wa-color-picker label="AaBbCc" help-text="Lorem ipsum dolor"></wa-color-picker>
+  </div>
+</div>
 ```

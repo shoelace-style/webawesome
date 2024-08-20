@@ -166,6 +166,109 @@ describe('<wa-breadcrumb-item>', () => {
           expect(childNodes.length).to.eq(1);
         });
       });
-    });
+      describe('and target, with rel', () => {
+        before(async () => {
+          el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
+              >Help</wa-breadcrumb-item
+            >
+          `);
+        });
+
+        it('should pass accessibility tests', async () => {
+          await expect(el).to.be.accessible();
+        });
+
+        describe('should render a HTMLAnchorElement', () => {
+          let hyperlink: HTMLAnchorElement | null;
+
+          before(() => {
+            hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('a');
+          });
+
+          it('should use the supplied href value, as the href attribute value', () => {
+            expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
+          });
+
+          it('should use the supplied rel value, as the rel attribute value', () => {
+            expect(hyperlink).attribute('rel', 'alternate');
+          });
+        });
+      });
+
+      describe('when provided an element in the slot "prefix" to support prefix icons', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="prefix">/</span>
+              Home
+            </wa-breadcrumb-item>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should accept as an assigned child in the shadow root', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="prefix">/</span>
+              Home
+            </wa-breadcrumb-item>
+          `);
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=prefix]')!;
+          const childNodes = slot.assignedNodes({ flatten: true });
+
+          expect(childNodes.length).to.eq(1);
+        });
+      });
+
+      describe('when provided an element in the slot "suffix" to support suffix icons', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="suffix">/</span>
+              Security
+            </wa-breadcrumb-item>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should accept as an assigned child in the shadow root', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <span class="prefix-example" slot="suffix">/</span>
+              Security
+            </wa-breadcrumb-item>
+          `);
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=suffix]')!;
+          const childNodes = slot.assignedNodes({ flatten: true });
+
+          expect(childNodes.length).to.eq(1);
+        });
+      });
+
+      describe('when rendering a wa-dropdown in the default slot', () => {
+        it('should not render a link or button tag, but a div wrapper', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              <wa-dropdown>
+                <wa-button slot="trigger" size="small" circle>
+                  <wa-icon label="More options" name="ellipsis"></wa-icon>
+                </wa-button>
+                <wa-menu>
+                  <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
+                  <wa-menu-item type="checkbox">Web Development</wa-menu-item>
+                  <wa-menu-item type="checkbox">Marketing</wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+            </wa-breadcrumb-item>
+          `);
+
+          await expect(el).to.be.accessible();
+          expect(el.shadowRoot!.querySelector('a')).to.be.null;
+          expect(el.shadowRoot!.querySelector('button')).to.be.null;
+          expect(el.shadowRoot!.querySelector('.breadcrumb-item__label--dropdown')).not.to.be.null;
+        });
+      })
+    })
   }
 });

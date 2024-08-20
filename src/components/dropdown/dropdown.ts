@@ -38,7 +38,8 @@ import type WaPopup from '../popup/popup.js';
  *
  * @cssproperty --box-shadow - The shadow effects around the dropdown's edges.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - The component's base wrapper, a `<wa-popup>` element.
+ * @csspart base__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
  * @csspart trigger - The container that wraps the trigger.
  * @csspart panel - The panel that gets shown when the dropdown is open.
  */
@@ -412,6 +413,7 @@ export default class WaDropdown extends WebAwesomeElement {
     return html`
       <wa-popup
         part="base"
+        exportparts="popup:base__popup"
         id="dropdown"
         placement=${this.placement}
         distance=${this.distance}

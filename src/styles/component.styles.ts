@@ -2,13 +2,13 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
   }
 
   :host *,
   :host *::before,
   :host *::after {
-    box-sizing: inherit;
+    box-sizing: inherit !important;
   }
 
   [hidden] {

@@ -77,7 +77,7 @@ The color picker can be rendered as disabled.
 
 ### Help Text
 
-The color picker can be rendered as disabled.
+Add descriptive help text to a color picker with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
 
 ```html {.example}
 <wa-color-picker label="Select a color" help-text="Choose a color with appropate contrast!"></wa-color-picker>

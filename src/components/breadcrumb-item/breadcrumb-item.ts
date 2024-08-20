@@ -1,6 +1,7 @@
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './breadcrumb-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -28,6 +29,10 @@ import type { CSSResultGroup } from 'lit';
 export default class WaBreadcrumbItem extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
+  @query('slot:not([name])') defaultSlot: HTMLSlotElement;
+
+  @state() private renderType: 'button' | 'link' | 'dropdown' = 'button';
+
   /**
    * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered
    * internally. When unset, a button will be rendered instead.
@@ -40,16 +45,41 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
   /** The `rel` attribute to use on the link. Only used when `href` is set. */
   @property() rel = 'noreferrer noopener';
 
-  render() {
-    const isLink = this.href ? true : false;
+  private setRenderType() {
+    const hasDropdown =
+      this.defaultSlot.assignedElements({ flatten: true }).filter(i => i.tagName.toLowerCase() === 'wa-dropdown')
+        .length > 0;
 
+    if (this.href) {
+      this.renderType = 'link';
+      return;
+    }
+
+    if (hasDropdown) {
+      this.renderType = 'dropdown';
+      return;
+    }
+
+    this.renderType = 'button';
+  }
+
+  @watch('href', { waitUntilFirstUpdate: true })
+  hrefChanged() {
+    this.setRenderType();
+  }
+
+  handleSlotChange() {
+    this.setRenderType();
+  }
+
+  render() {
     return html`
       <div part="base" class="breadcrumb-item">
         <span part="prefix" class="breadcrumb-item__prefix">
           <slot name="prefix"></slot>
         </span>
 
-        ${isLink
+        ${this.renderType === 'link'
           ? html`
               <a
                 part="label"
@@ -61,11 +91,21 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
                 <slot></slot>
               </a>
             `
-          : html`
+          : ''}
+        ${this.renderType === 'button'
+          ? html`
               <button part="label" type="button" class="breadcrumb-item__label breadcrumb-item__label--button">
-                <slot></slot>
+                <slot @slotchange=${this.handleSlotChange}></slot>
               </button>
-            `}
+            `
+          : ''}
+        ${this.renderType === 'dropdown'
+          ? html`
+              <div part="label" class="breadcrumb-item__label breadcrumb-item__label--dropdown">
+                <slot @slotchange=${this.handleSlotChange}></slot>
+              </div>
+            `
+          : ''}
 
         <span part="suffix" class="breadcrumb-item__suffix">
           <slot name="suffix"></slot>

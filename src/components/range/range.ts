@@ -44,7 +44,7 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --thumb-gap - The visual gap between the edges of the thumb and the track.
  * @cssproperty --thumb-shadow - The shadow effects around the edges of the thumb.
  * @cssproperty --thumb-size - The size of the thumb.
- * @cssproperty --tooltip-offset - The vertical distance the tooltip is offset from the track.
+ * @cssproperty --tooltip-offset - The vertical distance the tooltip is offset from the thumb.
  * @cssproperty --track-color-active - The color of the portion of the track that represents the current value.
  * @cssproperty --track-color-inactive - The of the portion of the track that represents the remaining value.
  * @cssproperty --track-height - The height of the track.
@@ -141,7 +141,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.resizeObserver.unobserve(this.input);
+    this.resizeObserver?.unobserve(this.input);
   }
 
   private handleChange() {

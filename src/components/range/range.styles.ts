@@ -6,7 +6,7 @@ export default css`
     --thumb-gap: calc(var(--thumb-size) * 0.125);
     --thumb-shadow: initial;
     --thumb-size: calc(1rem * var(--wa-form-control-value-line-height));
-    --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 2.5);
+    --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 1.375);
     --track-color-active: var(--wa-color-neutral-fill-normal);
     --track-color-inactive: var(--wa-color-neutral-fill-normal);
     --track-active-offset: 0%;
@@ -17,6 +17,9 @@ export default css`
 
   .range {
     position: relative;
+    display: flex;
+    align-items: center;
+    height: max(var(--thumb-size), var(--track-height));
   }
 
   .range__control {
@@ -176,7 +179,7 @@ export default css`
 
   /* Tooltip on top */
   .range--tooltip-top .range__tooltip {
-    top: calc(-1 * var(--thumb-size) - var(--tooltip-offset));
+    bottom: calc(50% + (var(--thumb-size) / 2) + var(--tooltip-offset));
   }
 
   .range--tooltip-top .range__tooltip:after {
@@ -188,7 +191,7 @@ export default css`
 
   /* Tooltip on bottom */
   .range--tooltip-bottom .range__tooltip {
-    bottom: calc(-1 * var(--thumb-size) - var(--tooltip-offset));
+    top: calc(50% + (var(--thumb-size) / 2) + var(--tooltip-offset));
   }
 
   .range--tooltip-bottom .range__tooltip:after {
