@@ -131,7 +131,7 @@ describe('<wa-drawer>', () => {
 
         el.addEventListener('wa-after-hide', hideHandler);
 
-        await clickOnElement(el) // Chromium wants the page to be clicked
+        await clickOnElement(el); // Chromium wants the page to be clicked
         await sendKeys({ press: 'Escape' });
         await waitUntil(() => hideHandler.calledOnce);
 

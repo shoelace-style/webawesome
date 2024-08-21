@@ -107,14 +107,14 @@ describe('<wa-dialog>', () => {
           <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
 
-        const spy = sinon.spy()
+        const spy = sinon.spy();
         el.addEventListener('wa-hide', event => {
           event.preventDefault();
-          spy()
+          spy();
         });
-        await clickOnElement(el) // Chromium wants the page to have been clicked prior to closing the dialog.
+        await clickOnElement(el); // Chromium wants the page to have been clicked prior to closing the dialog.
         await sendKeys({ press: 'Escape' });
-        await waitUntil(() => spy.calledOnce)
+        await waitUntil(() => spy.calledOnce);
 
         expect(el.open).to.be.true;
       });
@@ -134,7 +134,7 @@ describe('<wa-dialog>', () => {
         const el = await fixture<WaDialog>(html` <wa-dialog with-header open></wa-dialog> `);
         el.addEventListener('wa-after-hide', hideHandler);
 
-        await clickOnElement(el) // Chromium wants the page to have been clicked prior to closing the dialog.
+        await clickOnElement(el); // Chromium wants the page to have been clicked prior to closing the dialog.
         await sendKeys({ press: 'Escape' });
         await waitUntil(() => hideHandler.calledOnce);
 

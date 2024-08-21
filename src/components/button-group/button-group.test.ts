@@ -6,7 +6,6 @@ import type WaButtonGroup from './button-group.js';
 describe('<wa-button-group>', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-
       describe('defaults ', () => {
         it('default label empty', async () => {
           const group = await fixture<WaButtonGroup>(html`
@@ -27,7 +26,7 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 3 Label</wa-button>
             </wa-button-group>
           `);
-          await expect(group).to.be.accessible()
+          await expect(group).to.be.accessible();
         });
       });
       describe('slotted button classes', () => {

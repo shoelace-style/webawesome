@@ -38,8 +38,8 @@ describe('<wa-animation>', () => {
 
           const startPromise = oneEvent(animationContainer, 'wa-start');
           animationContainer.play = true;
-          const isSettled = (await Promise.allSettled([startPromise]))[0].status === "fulfilled";
-          expect(isSettled).to.equal(true)
+          const isSettled = (await Promise.allSettled([startPromise]))[0].status === 'fulfilled';
+          expect(isSettled).to.equal(true);
         });
       });
 

@@ -3,8 +3,8 @@
  * These fixtures will also auto-load all of our components.
  */
 
-import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
 import { aTimeout, fixture } from '@open-wc/testing';
+import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
 import type { LitElement, TemplateResult } from 'lit';
 
 declare global {
@@ -74,13 +74,13 @@ try {
   if (typeof beforeEach !== 'undefined') {
     beforeEach(async () => {
       cleanupFixtures();
-      await aTimeout(1)
+      await aTimeout(1);
     });
   }
   if (typeof afterEach !== 'undefined') {
     afterEach(async () => {
       cleanupFixtures();
-      await aTimeout(1)
+      await aTimeout(1);
     });
   }
 } catch (error) {

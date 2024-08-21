@@ -1,5 +1,5 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { aTimeout, expect } from '@open-wc/testing';
+import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaBadge from './badge.js';
 
@@ -47,7 +47,7 @@ describe('<wa-badge>', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBadge>(html` <wa-badge pulse>Badge</wa-badge> `);
           await expect(el).to.be.accessible({ ignoredRules });
-          await aTimeout(1)
+          await aTimeout(1);
         });
 
         it('should append the pulse class to the classlist to render a pulse', async () => {
@@ -62,7 +62,7 @@ describe('<wa-badge>', () => {
           it('should pass accessibility tests', async () => {
             const el = await fixture<WaBadge>(html`<wa-badge variant="${variant}">Badge</wa-badge>`);
             await expect(el).to.be.accessible({ ignoredRules });
-            await aTimeout(1)
+            await aTimeout(1);
           });
 
           it('should default to square styling, with the correct color', async () => {

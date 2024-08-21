@@ -56,24 +56,23 @@ function runAllValidityTests(
   displayName: string,
   renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>
 ) {
-
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116
   describe(`Form validity base test for ${displayName}`, () => {
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
     afterEach(async () => {
-      await aTimeout(0)
-    })
+      await aTimeout(0);
+    });
 
     for (const fixture of [clientFixture, hydratedFixture]) {
       describe(`with ${fixture.type} rendering`, () => {
-        const createControl = renderControl(fixture)
-        let mode = "standard" as ReturnType<typeof getMode>
+        const createControl = renderControl(fixture);
+        let mode = 'standard' as ReturnType<typeof getMode>;
 
         before(async () => {
           // will be used later to retrieve meta information about the control
           mode = getMode(await createControl());
-        })
+        });
 
         // Run special tests depending on component type
         if (mode === 'slButtonOfTypeButton') {
@@ -257,9 +256,9 @@ function runAllValidityTests(
             expect(control.hasAttribute('data-wa-disabled')).to.equal(false);
           });
         }
-      })
+      });
     }
-  })
+  });
 }
 
 //

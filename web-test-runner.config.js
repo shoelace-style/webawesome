@@ -4,7 +4,7 @@ import { globbySync } from 'globby';
 import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
-import * as os from "os"
+import * as os from 'os';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
@@ -21,8 +21,8 @@ const componentImports = getAllComponents(metadata).map(component => {
 });
 
 // os.availableParallelism only available as of Node 18.14.0 , maybe dont need the fallback?
-const cores = os.availableParallelism?.() ?? os.cpus.length
-const concurrency = Math.max(Math.floor(cores / 3), 1)
+const cores = os.availableParallelism?.() ?? os.cpus.length;
+const concurrency = Math.max(Math.floor(cores / 3), 1);
 
 export default {
   rootDir: '.',

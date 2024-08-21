@@ -36,7 +36,6 @@ describe('<wa-breadcrumb>', () => {
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
-
         it('should attach aria-current "page" on the last breadcrumb item.', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>

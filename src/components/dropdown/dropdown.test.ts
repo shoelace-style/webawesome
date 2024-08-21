@@ -389,8 +389,8 @@ describe('<wa-dropdown>', () => {
 
         expect(el.open).to.be.false;
 
-        if ("CloseWatcher" in window) {
-          return
+        if ('CloseWatcher' in window) {
+          return;
         }
 
         // @TODO: Fix this [Konnor]

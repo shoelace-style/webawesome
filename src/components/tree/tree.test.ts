@@ -687,7 +687,7 @@ describe('<wa-tree>', () => {
 
               // Assert
               // @TODO: Figure out why this fails in hydration
-              if (fixture.type !== "ssr-client-hydrated") {
+              if (fixture.type !== 'ssr-client-hydrated') {
                 treeItems.forEach(treeItem => {
                   expect(treeItem).to.have.attribute('selected');
                 });
@@ -719,7 +719,7 @@ describe('<wa-tree>', () => {
 
                 // Assert
                 // @TODO: Figure out why this fails in hydration
-                if (fixture.type !== "ssr-client-hydrated") {
+                if (fixture.type !== 'ssr-client-hydrated') {
                   treeItems.forEach(treeItem => {
                     expect(treeItem).to.have.attribute('selected');
                   });
@@ -753,7 +753,7 @@ describe('<wa-tree>', () => {
                 expect(treeItems[0]).not.to.have.attribute('selected');
 
                 // @TODO: figure out why this fails with SSR.
-                if (fixture.type !== "ssr-client-hydrated") {
+                if (fixture.type !== 'ssr-client-hydrated') {
                   expect(treeItems[0].indeterminate).to.be.true;
                 }
 

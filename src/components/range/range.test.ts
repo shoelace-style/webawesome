@@ -9,7 +9,7 @@ import sinon from 'sinon';
 import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
-  it("form control base tests", async () => {
+  it('form control base tests', async () => {
     await runFormControlBaseTests('wa-range');
   });
 

@@ -162,7 +162,7 @@ describe('<wa-avatar>', () => {
         el.image = 'bad_image';
 
         await aTimeout(0);
-        await el.updateComplete
+        await el.updateComplete;
 
         await waitUntil(() => el.shadowRoot!.querySelector('img') === null);
         expect(el.shadowRoot!.querySelector('img')).to.be.null;
@@ -172,7 +172,7 @@ describe('<wa-avatar>', () => {
         el = await fixture<WaAvatar>(html`<wa-avatar></wa-avatar>`);
 
         await aTimeout(0);
-        await el.updateComplete
+        await el.updateComplete;
         // await waitUntil(() => el.shadowRoot!.querySelector('img') === null);
         expect(el.shadowRoot!.querySelector('img')).to.be.null;
 

@@ -8,7 +8,7 @@ import type WaButton from './button.js';
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
 describe('<wa-button>', () => {
-  it("form control base tests", async () => {
+  it('form control base tests', async () => {
     await Promise.allSettled([
       runFormControlBaseTests({
         tagName: 'wa-button',

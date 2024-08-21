@@ -90,7 +90,6 @@ describe('<wa-card>', () => {
       });
 
       describe('when provided an element in the slot "footer" to render a footer', () => {
-
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(
             html`<wa-card with-footer>
@@ -180,7 +179,6 @@ describe('<wa-card>', () => {
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
             </wa-card>`
           );
-
 
           expect(el.innerText).to.contain(
             'This is a kitten, but not just any kitten. This kitten likes walking along pallets.'

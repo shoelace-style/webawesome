@@ -7,7 +7,6 @@ import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaCheckbox from './checkbox.js';
 
-
 describe('<wa-checkbox>', () => {
   runFormControlBaseTests('wa-checkbox');
 
@@ -405,4 +404,3 @@ describe('<wa-checkbox>', () => {
   //  });
   //}
 });
-

@@ -222,6 +222,7 @@ describe('<wa-tab-group>', () => {
 
         it('shows scroll buttons on too many tabs', async () => {
           // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
+          // https://github.com/lit/lit/issues/4739
           const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(30)} </wa-tab-group>`);
 
           await waitForScrollButtonsToBeRendered(tabGroup);
@@ -234,6 +235,7 @@ describe('<wa-tab-group>', () => {
 
         it('does not show scroll buttons on too many tabs if deactivated', async () => {
           // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
+          // https://github.com/lit/lit/issues/4739
           const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(30)} </wa-tab-group>`);
           tabGroup.noScrollControls = true;
 
@@ -245,6 +247,7 @@ describe('<wa-tab-group>', () => {
 
         it('does not show scroll buttons if all tabs fit on the screen', async () => {
           // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
+          // https://github.com/lit/lit/issues/4739
           const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(2)} </wa-tab-group>`);
 
           await aTimeout(0);

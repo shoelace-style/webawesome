@@ -63,18 +63,24 @@ describe('<wa-breadcrumb-item>', () => {
           describe('should render a HTMLAnchorElement as the part "label"', () => {
             it('should use the supplied href value, as the href attribute value', async () => {
               const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank">Help</wa-breadcrumb-item>
+                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank"
+                  >Help</wa-breadcrumb-item
+                >
               `);
-              const hyperlink: HTMLAnchorElement | null = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+              const hyperlink: HTMLAnchorElement | null =
+                el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
 
               expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
             });
 
             it('should default rel attribute to "noreferrer noopener"', async () => {
               const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank">Help</wa-breadcrumb-item>
+                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank"
+                  >Help</wa-breadcrumb-item
+                >
               `);
-              const hyperlink: HTMLAnchorElement | null = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+              const hyperlink: HTMLAnchorElement | null =
+                el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
               expect(hyperlink).attribute('rel', 'noreferrer noopener');
             });
           });
@@ -189,7 +195,7 @@ describe('<wa-breadcrumb-item>', () => {
           expect(el.shadowRoot!.querySelector('button')).to.be.null;
           expect(el.shadowRoot!.querySelector('.breadcrumb-item__label--dropdown')).not.to.be.null;
         });
-      })
-    })
+      });
+    });
   }
 });

@@ -1,9 +1,9 @@
 import { clientFixture, hydratedFixture } from './test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
-import { html } from "lit"
+import { html } from 'lit';
 import sinon from 'sinon';
 
-describe("Form tests", () => {
+describe('Form tests', () => {
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       // Reproduction of this issue: https://github.com/shoelace-style/shoelace/issues/1703
@@ -79,6 +79,6 @@ describe("Form tests", () => {
         expect(formData!.get('b')).to.equal(null);
         expect(formData!.get('c')).to.equal('3');
       });
-    })
+    });
   }
-})
+});
