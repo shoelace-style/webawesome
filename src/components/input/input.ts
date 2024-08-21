@@ -2,7 +2,7 @@ import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -380,19 +380,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     super.formResetCallback();
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-
-    if (this.didSSR && this.input && this.value !== this.input.value) {
-      // const value = this.input.value;
-      // For some reason this.value is being wiped out on first connect.
-      // this.updateComplete.then(() => {
-      //   this.input.value = value;
-      //   this.value = value;
-      // });
-    }
-  }
-
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
     const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
@@ -400,7 +387,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
     const isClearIconVisible =
-      hasClearIcon && (typeof this.value === 'number' || (this.value && this.value.length > 0));
+      // prevents hydration mismatch errors.
+      (isServer || this.hasUpdated)
+      && hasClearIcon && (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
       <div

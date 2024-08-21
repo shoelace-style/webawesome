@@ -2,14 +2,12 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import QrCreator from 'qr-creator';
 import styles from './qr-code.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
+import type _QrCreator from "qr-creator"
 
-// Prevents QrCreator from erroring when attempting to render on the server (not that you should)
-// @TODO: Should probably use a dependency that can generate an SVG??
-(globalThis as { self: typeof globalThis }).self = globalThis;
+let QrCreator: _QrCreator.default
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -56,12 +54,23 @@ export default class WaQrCode extends WebAwesomeElement {
 
   @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'])
   generate() {
+    this.style.setProperty('--size', `${this.size}px`);
+
     if (!this.hasUpdated) {
       return;
     }
 
-    this.style.setProperty('--size', `${this.size}px`);
-    (QrCreator as unknown as typeof QrCreator.default).render(
+    // We lazy load because the QR generator will cause the server to crash, but we want to reduce layout shift.
+    if (!QrCreator) {
+      import("qr-creator").then((mod) => {
+        QrCreator = mod.default
+        this.generate()
+      })
+      return
+    }
+
+
+    (QrCreator as unknown as typeof _QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,
