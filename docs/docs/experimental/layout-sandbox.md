@@ -10,51 +10,129 @@ hasOutline: false
     max-width: 100%;
   }
   .block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 2rem;
-    background-color: indianred;
+    background-color: powderblue;
     min-height: 4rem;
     min-width: 4rem;
+  }
+  .wa-split\:column > .block {
+    background-color: lightpink;
+  }
+  .wa-split > .block {
+    background-color: pink;
+  }
+  .wa-flank\:start > .block {
+    background-color: khaki;
+  }
+  .wa-flank\:end > .block {
+    background-color: palegoldenrod;
+  }
+  .wa-grid > .block {
+    background-color: plum;
+  }
+  .wa-cluster > .block {
+    background-color: thistle;
   }
 </style>
 
 <div class="wa-flank">
   <div class="wa-split:column">
-    <div class="block"></div>
-    <div class="block"></div>
+    <div class="block">A1</div>
+    <div class="block">A2</div>
   </div>
   <div class="wa-stack">
-    <div class="block"></div>
+    <div class="block">B</div>
     <div class="wa-split">
-      <div class="block"></div>
-      <div class="block"></div>
+      <div class="block">C1</div>
+      <div class="block">C2</div>
     </div>
     <div class="wa-flank:start">
-      <div class="block"></div>
-      <div class="block"></div>
+      <div class="block">D1</div>
+      <div class="block">D2</div>
     </div>
     <div class="wa-flank:end">
-      <div class="block"></div>
-      <div class="block"></div>
+      <div class="block">E1</div>
+      <div class="block">E2</div>
     </div>
     <div class="wa-grid">
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
+      <div class="block">F1</div>
+      <div class="block">F2</div>
+      <div class="block">F3</div>
+      <div class="block">F4</div>
+      <div class="block">F5</div>
+      <div class="block">F6</div>
+      <div class="block">F7</div>
     </div>
     <div class="wa-cluster">
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
-      <div class="block"></div>
+      <div class="block">G1</div>
+      <div class="block">G2</div>
+      <div class="block">G3</div>
+      <div class="block">G4</div>
+      <div class="block">G5</div>
+      <div class="block">G6</div>
+      <div class="block">G7</div>
+      <div class="block">G8</div>
+      <div class="block">G9</div>
+      <div class="block">G10</div>
+      <div class="block">G11</div>
     </div>
   </div>
+</div>
+
+<wa-divider></wa-divider>
+
+<div class="wa-container">
+  <div class="wa-col-12 block"></div>
+
+  <div class="wa-col-11 block"></div>
+  <div class="wa-col-1 block"></div>
+
+  <div class="wa-col-10 block"></div>
+  <div class="wa-col-2 block"></div>
+
+  <div class="wa-col-9 block"></div>
+  <div class="wa-col-3 block"></div>
+
+  <div class="wa-col-8 block"></div>
+  <div class="wa-col-4 block"></div>
+  
+  <div class="wa-col-6 block"></div>
+  <div class="wa-col-6 block"></div>
+
+  <div class="wa-col-5 block"></div>
+  <div class="wa-col-7 block"></div>
+
+  <div class="wa-col-4 block"></div>
+  <div class="wa-col-4 block"></div>
+  <div class="wa-col-4 block"></div>
+
+  <div class="wa-col-3 block"></div>
+  <div class="wa-col-3 block"></div>
+  <div class="wa-col-3 block"></div>
+  <div class="wa-col-3 block"></div>
+
+  <div class="wa-col-2 block"></div>
+  <div class="wa-col-2 block"></div>
+  <div class="wa-col-2 block"></div>
+  <div class="wa-col-2 block"></div>
+  <div class="wa-col-2 block"></div>
+  <div class="wa-col-2 block"></div>
+
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
+  <div class="wa-col-1 block"></div>
 </div>
 
 <wa-divider></wa-divider>

@@ -1,3 +1,50 @@
+/* #region 12 Column Grid */
+.wa-container {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--wa-space-m);
+}
+
+.wa-col-12 {
+  grid-column: span 12;
+}
+.wa-col-11 {
+  grid-column: span 11;
+}
+.wa-col-10 {
+  grid-column: span 10;
+}
+.wa-col-9 {
+  grid-column: span 9;
+}
+.wa-col-8 {
+  grid-column: span 8;
+}
+.wa-col-7 {
+  grid-column: span 7;
+}
+.wa-col-6 {
+  grid-column: span 6;
+}
+.wa-col-5 {
+  grid-column: span 5;
+}
+.wa-col-4 {
+  grid-column: span 4;
+}
+.wa-col-3 {
+  grid-column: span 3;
+}
+.wa-col-2 {
+  grid-column: span 2;
+}
+.wa-col-1 {
+  grid-column: span 1;
+}
+
+/* #endregion */
+
 /* #region Stack */
 .wa-stack {
   --align: initial;
