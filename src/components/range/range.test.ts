@@ -9,11 +9,9 @@ import sinon from 'sinon';
 import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
-  it('form control base tests', async () => {
-    await runFormControlBaseTests('wa-range');
-  });
+  runFormControlBaseTests('wa-range');
 
-  for (const fixture of [hydratedFixture]) {
+  for (const fixture of [hydratedFixture, clientFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaRange>(html`<wa-range label="Name"></wa-range>`);

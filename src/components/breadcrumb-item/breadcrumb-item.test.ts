@@ -1,5 +1,5 @@
-import { aTimeout, expect } from '@open-wc/testing';
 import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 import type WaBreadcrumbItem from './breadcrumb-item.js';
 

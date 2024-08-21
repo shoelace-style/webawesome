@@ -9,9 +9,8 @@ import sinon from 'sinon';
 import type WaColorPicker from './color-picker.js';
 
 describe('<wa-color-picker>', () => {
-  it('form control base tests', async () => {
-    await runFormControlBaseTests('wa-color-picker');
-  });
+  runFormControlBaseTests('wa-color-picker');
+
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when the value changes', () => {

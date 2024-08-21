@@ -5,9 +5,9 @@ import componentStyles from '../../styles/component.styles.js';
 import styles from './qr-code.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
-import type _QrCreator from "qr-creator"
+import type _QrCreator from 'qr-creator';
 
-let QrCreator: _QrCreator.default
+let QrCreator: _QrCreator.default;
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -62,13 +62,12 @@ export default class WaQrCode extends WebAwesomeElement {
 
     // We lazy load because the QR generator will cause the server to crash, but we want to reduce layout shift.
     if (!QrCreator) {
-      import("qr-creator").then((mod) => {
-        QrCreator = mod.default
-        this.generate()
-      })
-      return
+      import('qr-creator').then(mod => {
+        QrCreator = mod.default;
+        this.generate();
+      });
+      return;
     }
-
 
     (QrCreator as unknown as typeof _QrCreator.default).render(
       {

@@ -10,9 +10,7 @@ import sinon from 'sinon';
 import type WaInput from './input.js';
 
 describe('<wa-input>', () => {
-  before(async () => {
-    await runFormControlBaseTests('wa-input');
-  });
+  runFormControlBaseTests('wa-input');
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {

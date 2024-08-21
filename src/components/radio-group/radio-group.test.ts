@@ -10,9 +10,7 @@ import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
 describe('<wa-radio-group>', () => {
-  it('form control base tests', async () => {
-    await runFormControlBaseTests('wa-radio-group');
-  });
+  runFormControlBaseTests('wa-radio-group');
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {

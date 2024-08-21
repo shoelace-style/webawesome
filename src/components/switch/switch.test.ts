@@ -7,9 +7,7 @@ import sinon from 'sinon';
 import type WaSwitch from './switch.js';
 
 describe('<wa-switch>', () => {
-  before(async () => {
-    await runFormControlBaseTests('wa-switch');
-  });
+  runFormControlBaseTests('wa-switch');
 
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {

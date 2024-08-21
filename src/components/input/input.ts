@@ -388,8 +388,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
-      (isServer || this.hasUpdated)
-      && hasClearIcon && (typeof this.value === 'number' || (this.value && this.value.length > 0));
+      (isServer || this.hasUpdated) &&
+      hasClearIcon &&
+      (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
       <div

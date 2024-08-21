@@ -8,9 +8,7 @@ import sinon from 'sinon';
 import type WaTextarea from './textarea.js';
 
 describe('<wa-textarea>', () => {
-  before(async () => {
-    await runFormControlBaseTests('wa-textarea');
-  });
+  runFormControlBaseTests('wa-textarea');
   for (const fixture of [clientFixture, hydratedFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
