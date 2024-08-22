@@ -23,16 +23,16 @@
   width: 90vw;
 }
 .diff-dialog ins {
-	text-decoration: none;
+  text-decoration: none;
 }
 .diff-dialog pre {
-	border: 1px solid transparent;
-	height: 100%;
-	max-height: calc(100% - 2em);
+  border: 1px solid transparent;
+  height: 100%;
+  max-height: calc(100% - 2em);
 }
 .diff-dialog code {
   height: 100%;
 }
 .diff-dialog del {
-	text-decoration: none;
+  text-decoration: none;
 }
