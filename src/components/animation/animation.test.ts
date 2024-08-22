@@ -1,6 +1,6 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import {
-  clientFixture,
+  clientFixture
   // hydratedFixture
 } from '../../internal/test/fixture.js';
 import { html } from 'lit';

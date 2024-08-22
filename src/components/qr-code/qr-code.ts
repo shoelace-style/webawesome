@@ -1,4 +1,4 @@
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -44,6 +44,12 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
+  /**
+   * Whether or not the qr-code generated.
+   */
+  // @ts-expect-error Don't know why it marks it as unused.
+  @state() private generated = false;
+
   firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
 
@@ -81,6 +87,8 @@ export default class WaQrCode extends WebAwesomeElement {
       },
       this.canvas
     );
+
+    this.generated = true;
   }
 
   render() {
