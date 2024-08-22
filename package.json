@@ -77,7 +77,6 @@
     "@lit-labs/eleventy-plugin-lit": "^1.0.3",
     "@lit-labs/testing": "^0.2.4",
     "@lit/react": "^1.0.0",
-    "@open-wc/semantic-dom-diff": "^0.20.1",
     "@open-wc/testing": "^3.2.0",
     "@types/mocha": "^10.0.2",
     "@types/react": "^18.2.28",
@@ -126,7 +125,7 @@
     "node-html-parser": "^6.1.13",
     "ora": "^8.0.1",
     "pascal-case": "^3.1.2",
-    "playwright": "^1.47.0-alpha-2024-08-15",
+    "playwright": "^1.46.0",
     "plop": "^4.0.0",
     "prettier": "^3.0.3",
     "prismjs": "^1.29.0",
@@ -140,7 +139,7 @@
     "uuid": "^9.0.1"
   },
   "overrides": {
-    "playwright": "^1.47.0-alpha-2024-08-15"
+    "playwright": "^1.46.0"
   },
   "lint-staged": {
     "*.{ts,js}": [

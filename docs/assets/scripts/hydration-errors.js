@@ -1,7 +1,16 @@
-import { diffLines } from 'https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm';
-import { getDiffableHTML } from 'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm';
+/** TODO: This should probably get abstracted into an actual package. */
+(async () => {
 
-(() => {
+  const hostname = new URL(document.baseURI).hostname
+
+  // Only diff on localhost. We dont need to show hydration errors on main site. Only locally.
+  if (hostname !== "localhost") {
+    return
+  }
+
+  const { diffLines } = await import('https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm')
+  const { getDiffableHTML } = await import('https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm')
+
   function wrap(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
@@ -59,6 +68,7 @@ import { getDiffableHTML } from 'https://cdn.jsdelivr.net/npm/@open-wc/semantic-
       </wa-dialog>
     `;
 
+      element.focus()
       wrap(element, diffDebugger);
 
       diffDebugger.querySelector('.diff-server > code').textContent = serverHTML;
