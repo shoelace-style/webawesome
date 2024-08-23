@@ -343,9 +343,4 @@ export default css`
     cursor: pointer;
     display: inline-block;
   }
-
-  .color-dropdown__container {
-    padding: 0 1em;
-    padding-bottom: 0.5em;
-  }
 `;

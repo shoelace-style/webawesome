@@ -1,3 +1,4 @@
+// @TODO: I'm not sure we need to pollute our components with this. This is for the user to do. I'll move this into 11ty's base.njk.
 import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
 
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
