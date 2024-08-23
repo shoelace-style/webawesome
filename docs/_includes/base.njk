@@ -31,7 +31,21 @@
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
     {# Web Awesome #}
+    <script type="module">
+      await import("https://cdn.jsdelivr.net/npm/@lit-labs/ssr-client@1.1.7/+esm")
+    </script>
     <script type="module" src="/dist/webawesome.loader.js"></script>
+    {# The above should work without load order issues *i think*, but not fully ideal.
+       Ideally we do the following:
+
+        <script type="module">
+          await import("https://cdn.jsdelivr.net/npm/@lit-labs/ssr-client@1.1.7/+esm")
+          import("/dist/webawesome.loader.js")
+        </script>
+
+        but there's some bug in the loader code that doesn't let it work this way.
+    #}
+
     <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
     <link rel="stylesheet" href="/dist/themes/applied.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/color_standard.css" />

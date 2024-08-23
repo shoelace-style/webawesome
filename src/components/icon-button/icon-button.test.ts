@@ -1,5 +1,5 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type WaIconButton from './icon-button.js';
@@ -7,7 +7,7 @@ import type WaIconButton from './icon-button.js';
 type LinkTarget = '_self' | '_blank' | '_parent' | '_top';
 
 describe('<wa-icon-button>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('defaults ', () => {
         it('default properties', async () => {

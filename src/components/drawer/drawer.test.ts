@@ -1,14 +1,14 @@
 // cspell:dictionaries lorem-ipsum
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaDrawer from './drawer.js';
 
 describe('<wa-drawer>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should be visible with the open attribute', async () => {
         const el = await fixture<WaDrawer>(html`

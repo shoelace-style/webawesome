@@ -1,10 +1,11 @@
+import * as os from 'os';
+import * as process from "process"
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { getAllComponents } from './scripts/shared.js';
 import { globbySync } from 'globby';
 import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
-import * as os from 'os';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
@@ -20,7 +21,9 @@ const componentImports = getAllComponents(metadata).map(component => {
   return `/dist/components/${name}/${name}.js`;
 });
 
+
 // os.availableParallelism only available as of Node 18.14.0 , maybe dont need the fallback?
+// I've found the browser is more stable if you give it concurrency up front.
 const cores = os.availableParallelism?.() ?? os.cpus.length;
 const concurrency = Math.max(Math.floor(cores / 3), 1);
 
@@ -66,6 +69,9 @@ export default {
           window.clientComponents = [
             ${componentImports.map(str => `"${str}"`).join(',\n')}
           ]
+
+          window.SSR_ONLY = ${process.env["SSR_ONLY"] === "true"}
+          window.CSR_ONLY = ${process.env["CSR_ONLY"] === "true"}
         </script>
         <script type="module" src="${testFramework}"></script>
       </head>

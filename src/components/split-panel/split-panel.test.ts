@@ -1,6 +1,6 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { dragElement } from '../../internal/test.js';
 import { expect, oneEvent } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
 import { resetMouse } from '@web/test-runner-commands';
@@ -38,7 +38,7 @@ describe('<wa-split-panel>', () => {
     await resetMouse().catch(() => {});
   });
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render a component', async () => {
         const splitPanel = await fixture(html` <wa-split-panel></wa-split-panel> `);

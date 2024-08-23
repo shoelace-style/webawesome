@@ -1,5 +1,5 @@
 import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { registerIconLibrary } from '../../../dist/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
@@ -38,7 +38,7 @@ describe('<wa-icon>', () => {
     });
   });
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('defaults ', () => {
         it('default properties', async () => {

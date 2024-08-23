@@ -1,13 +1,13 @@
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaRating from './rating.js';
 
 describe('<wa-rating>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test"></wa-rating> `);

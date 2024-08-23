@@ -11,6 +11,8 @@ declare global {
   interface Window {
     clientComponents: string[];
     serverComponents: string[];
+    SSR_ONLY: boolean;
+    CSR_ONLY: boolean;
   }
 }
 
@@ -65,6 +67,18 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
 }
 
 hydratedFixture.type = 'ssr-client-hydrated' as const;
+
+export const fixtures = [clientFixture, hydratedFixture].filter((fix) => {
+  if (window.SSR_ONLY && fix.type === "client-only") {
+    return false
+  }
+
+  if (window.CSR_ONLY && fix.type === "ssr-client-hydrated") {
+    return false
+  }
+
+  return true
+})
 
 /**
  * This registers the fixture cleanup as a side effect

@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaTabPanel from './tab-panel.js';
 
 describe('<wa-tab-panel>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('passes accessibility test', async () => {
         const el = await fixture<WaTabPanel>(html` <wa-tab-panel>Test</wa-tab-panel> `);

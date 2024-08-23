@@ -1,6 +1,6 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { clickOnElement, dragElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -11,7 +11,7 @@ import type WaColorPicker from './color-picker.js';
 describe('<wa-color-picker>', () => {
   runFormControlBaseTests('wa-color-picker');
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when the value changes', () => {
         it('should not emit wa-change or wa-input when the value is changed programmatically', async () => {

@@ -1,5 +1,5 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -9,7 +9,7 @@ import type WaTextarea from './textarea.js';
 
 describe('<wa-textarea>', () => {
   runFormControlBaseTests('wa-textarea');
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaTextarea>(html` <wa-textarea label="Name"></wa-textarea> `);

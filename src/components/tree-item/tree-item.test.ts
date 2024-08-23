@@ -1,5 +1,5 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type WaTreeItem from './tree-item.js';
@@ -8,7 +8,7 @@ describe('<wa-tree-item>', () => {
   let leafItem: WaTreeItem;
   let parentItem: WaTreeItem;
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       beforeEach(async () => {
         leafItem = await fixture(html` <wa-tree-item>Node 1</wa-tree-item> `);

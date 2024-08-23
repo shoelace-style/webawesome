@@ -1,10 +1,10 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { elementUpdated, expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaDivider from './divider.js';
 
 describe('<wa-divider>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('defaults ', () => {
         it('default properties', async () => {
