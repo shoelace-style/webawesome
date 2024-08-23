@@ -98,6 +98,9 @@ hasOutline: false
 
   <div class="wa-col-8 block"></div>
   <div class="wa-col-4 block"></div>
+
+  <div class="wa-col-7 block"></div>
+  <div class="wa-col-5 block"></div>
   
   <div class="wa-col-6 block"></div>
   <div class="wa-col-6 block"></div>
