@@ -122,6 +122,10 @@
   gap: var(--gap, var(--wa-space-m));
   grid-template-columns: repeat(auto-fit, minmax(min(var(--min-width, 20ch), 100%), 1fr));
 }
+
+[class*='wa-grid'] > * {
+  margin-block: 0;
+}
 /* #endregion */
 
 /* #region Frame */
@@ -161,7 +165,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-self: stretch;
 
   align-items: center;
   gap: var(--wa-space-m);
@@ -178,6 +181,7 @@
   flex-direction: column;
   block-size: auto;
   inline-size: auto;
+  align-self: stretch;
 }
 
 /* #endregion */

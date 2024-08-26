@@ -8,7 +8,7 @@ Stack arranges elements in the block direction with even spacing.
 
 <style>
   .example-block {
-    background-color: var(--wa-color-brand-fill-normal);
+    background-color: var(--wa-color-indigo-60);
     border-radius: var(--wa-border-radius-s);
     min-block-size: 4rem;
     min-inline-size: 4rem;
@@ -53,7 +53,7 @@ By default, items in a stack use `align-items: stretch;` to fill the available s
 
 ## Gap
 
-By default, the gap between items in a stack uses your theme's medium space value with `gap: var(--wa-space-m);`. You can append any of the following modifiers to the `wa-stack` class in your markup to specify the gap between items:
+By default, the gap between stack items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-stack` class in your markup to specify the gap between items:
 - `:gap-3xs`
 - `:gap-2xs`
 - `:gap-xs`
