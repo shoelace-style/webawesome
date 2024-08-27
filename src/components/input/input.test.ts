@@ -1,6 +1,6 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { isSafari } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
@@ -11,7 +11,8 @@ import type WaInput from './input.js';
 
 describe('<wa-input>', () => {
   runFormControlBaseTests('wa-input');
-  for (const fixture of [clientFixture, hydratedFixture]) {
+
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaInput>(html` <wa-input label="Name"></wa-input> `);

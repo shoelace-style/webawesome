@@ -1,6 +1,6 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -10,7 +10,7 @@ import type WaCheckbox from './checkbox.js';
 describe('<wa-checkbox>', () => {
   runFormControlBaseTests('wa-checkbox');
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox>Checkbox</wa-checkbox> `);

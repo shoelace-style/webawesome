@@ -1,5 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaAvatar from './avatar.js';
 
@@ -10,7 +10,7 @@ const ignoredRules = ['color-contrast'];
 describe('<wa-avatar>', () => {
   let el: WaAvatar;
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when provided no parameters', () => {
         beforeEach(async () => {

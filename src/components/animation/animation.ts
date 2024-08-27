@@ -98,8 +98,8 @@ export default class WaAnimation extends WebAwesomeElement {
   }
 
   disconnectedCallback() {
-    this.destroyAnimation();
     super.disconnectedCallback();
+    this.destroyAnimation()
   }
 
   private handleAnimationFinish = () => {
@@ -159,7 +159,6 @@ export default class WaAnimation extends WebAwesomeElement {
       this.animation.cancel();
       this.animation.removeEventListener('cancel', this.handleAnimationCancel);
       this.animation.removeEventListener('finish', this.handleAnimationFinish);
-      this.animation = undefined;
       this.hasStarted = false;
     }
   }

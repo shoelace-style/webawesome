@@ -1,10 +1,10 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaBreadcrumbItem from './breadcrumb-item.js';
 
 describe('<wa-breadcrumb-item>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when not provided a href attribute', () => {
         it('should hide the separator from screen readers', async () => {

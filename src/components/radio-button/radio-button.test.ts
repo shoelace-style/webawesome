@@ -1,11 +1,11 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaRadioButton from './radio-button.js';
 import type WaRadioGroup from '../radio-group/radio-group.js';
 
 describe('<wa-radio-button>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should not get checked when disabled', async () => {
         const radioGroup = await fixture<WaRadioGroup>(html`

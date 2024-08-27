@@ -1,5 +1,3 @@
-import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
-
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
 import { isServer, LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';

@@ -1,6 +1,6 @@
 import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { isElementVisibleFromOverflow } from '../../internal/test/element-visible-overflow.js';
 import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
@@ -73,7 +73,7 @@ const waitForHeaderToBeActive = async (container: HTMLElement, headerTestId: str
 };
 
 describe('<wa-tab-group>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('renders', async () => {
         const tabGroup = await fixture<WaTabGroup>(html`

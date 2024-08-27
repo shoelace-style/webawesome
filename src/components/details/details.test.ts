@@ -1,6 +1,6 @@
 // cspell:dictionaries lorem-ipsum
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaHideEvent } from '../../events/hide.js';
@@ -8,7 +8,7 @@ import type { WaShowEvent } from '../../events/show.js';
 import type WaDetails from './details.js';
 
 describe('<wa-details>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility', () => {
         it('should be accessible when closed', async () => {

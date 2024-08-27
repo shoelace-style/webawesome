@@ -1,11 +1,11 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type WaTag from './tag.js';
 
 describe('<wa-tag>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render default tag', async () => {
         const el = await fixture<WaTag>(html` <wa-tag>Test</wa-tag> `);

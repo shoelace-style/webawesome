@@ -1,5 +1,5 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaBadge from './badge.js';
 
@@ -8,7 +8,7 @@ import type WaBadge from './badge.js';
 const ignoredRules = ['color-contrast'];
 
 describe('<wa-badge>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('when provided no parameters', () => {
         it('should render the child content provided', async () => {

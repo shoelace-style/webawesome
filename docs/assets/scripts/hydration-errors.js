@@ -1,4 +1,4 @@
-/** TODO: This should probably get abstracted into an actual package. */
+/** TODO: This should probably get abstracted into an actual package. This is listens to the "lit-hydration-error" and then will add a button to show a dialog of the diff. */
 (async () => {
   const hostname = new URL(document.baseURI).hostname;
 

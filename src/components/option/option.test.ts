@@ -1,11 +1,11 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type WaOption from './option.js';
 
 describe('<wa-option>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('passes accessibility test', async () => {
         const el = await fixture<WaOption>(html`

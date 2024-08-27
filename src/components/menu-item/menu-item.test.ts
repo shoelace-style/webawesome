@@ -1,5 +1,5 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
@@ -7,7 +7,7 @@ import type { WaSelectEvent } from '../../events/select.js';
 import type WaMenuItem from './menu-item.js';
 
 describe('<wa-menu-item>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
         const el = await fixture<WaMenuItem>(html`

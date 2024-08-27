@@ -1,6 +1,6 @@
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
@@ -8,7 +8,7 @@ import type { WaSelectEvent } from '../../events/select.js';
 import type WaMenu from './menu.js';
 
 describe('<wa-menu>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('emits wa-select with the correct event detail when clicking an item', async () => {
         const menu = await fixture<WaMenu>(html`

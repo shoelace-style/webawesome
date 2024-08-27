@@ -1,10 +1,10 @@
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaCallout from './callout.js';
 
 describe('<wa-callout>', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('Should properly render callout variants', async () => {
         const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];

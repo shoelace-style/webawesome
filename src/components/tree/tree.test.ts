@@ -1,6 +1,6 @@
 import { aTimeout, expect, triggerBlurFor, triggerFocusFor } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, hydratedFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
@@ -10,7 +10,7 @@ import type WaTreeItem from '../tree-item/tree-item.js';
 describe('<wa-tree>', () => {
   let el: WaTree;
 
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       beforeEach(async () => {
         el = await fixture(html`
