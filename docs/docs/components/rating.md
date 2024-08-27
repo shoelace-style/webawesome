@@ -115,6 +115,7 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 
   await customElements.whenDefined("wa-rating")
   await rating.updateComplete
+
   rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 </script>
 ```
