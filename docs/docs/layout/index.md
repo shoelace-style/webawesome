@@ -60,7 +60,7 @@ layout: page-outline
 
 <div class="index-grid">
   <h2 class="index-category">Implicit Sizing</h2>
-  <a href="/docs/components/button">
+  <a href="/docs/layout/cluster">
     <wa-card with-header>
       <div slot="header">
         {% include "svgs/layout/cluster.njk" %}

@@ -114,17 +114,20 @@
 /* #endregion */
 
 /* #region Grid */
-.wa-grid {
-  --gap: initial;
-  --min-width: initial;
+[class*='wa-grid'] {
+  --min-inline-size: initial;
 
   display: grid;
-  gap: var(--gap, var(--wa-space-m));
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-width, 20ch), 100%), 1fr));
+  gap: var(--wa-space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-inline-size, 20ch), 100%), 1fr));
 }
 
 [class*='wa-grid'] > * {
   margin-block: 0;
+}
+
+[class*='wa-grid'] > [class*='span-grid'] {
+  grid-column: 1 / -1;
 }
 /* #endregion */
 
@@ -188,36 +191,34 @@
 
 /* #region Flank */
 [class*='wa-flank'] {
-  --gap: initial;
-  --align: initial;
   --min-inline-size: initial;
   --aside-size: initial;
 
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap, var(--wa-space-m));
-  align-items: var(--align, center);
+  gap: var(--wa-space-m);
+  align-items: center;
 }
 
-.wa-flank > :first-child,
-.wa-flank\:start > :first-child {
+[class*='wa-flank'] > :first-child,
+[class*='wa-flank'][class*='\:start'] > :first-child {
   flex-grow: 1;
   flex-basis: var(--aside-size, auto);
 }
 
-.wa-flank > :last-child,
-.wa-flank\:start > :last-child {
+[class*='wa-flank'] > :last-child,
+[class*='wa-flank'][class*='\:start'] > :last-child {
   flex-basis: 0;
   flex-grow: 999;
   min-inline-size: var(--min-inline-size, 50%);
 }
 
-.wa-flank\:end > :last-child {
+[class*='wa-flank'][class*='\:end'] > :last-child {
   flex-grow: 1;
   flex-basis: var(--aside-size, auto);
 }
 
-.wa-flank\:end > :first-child {
+[class*='wa-flank'][class*='\:end'] > :first-child {
   flex-basis: 0;
   flex-grow: 999;
   min-inline-size: var(--min-inline-size, 50%);
@@ -225,15 +226,12 @@
 /* #endregion */
 
 /* #region Cluster */
-.wa-cluster {
-  --gap: initial;
-  --align: initial;
-
+[class*='wa-cluster'] {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap, var(--wa-space-m));
+  gap: var(--wa-space-m);
   justify-content: flex-start;
-  align-items: var(--align, center);
+  align-items: center;
 }
 /* #endregion */
 
@@ -283,5 +281,17 @@
 
 .wa-font-size\:xs {
   font-size: var(--wa-font-size-xs);
+}
+
+.wa-line-height\:condensed {
+  line-height: var(--wa-line-height-condensed);
+}
+
+.wa-line-height\:normal {
+  line-height: var(--wa-line-height-normal);
+}
+
+.wa-line-height\:expanded {
+  line-height: var(--wa-line-height-expanded);
 }
 /* #endregion */

@@ -32,7 +32,7 @@ Split distributes two or more items evenly across available space, either in a r
 Items can be split across a row or down a column by appending `:row` or `:column` to the `wa-split` class.
 
 ```html {.example}
-<div class="wa-flank" style="block-size: 16rem; --align: flex-start;">
+<div class="wa-flank:align-start" style="block-size: 16rem;">
   <div class="example-set wa-split:column">
     <div class="example-block"></div>
     <div class="example-block"></div>
@@ -105,67 +105,54 @@ Each modifier uses the corresponding space variable from your theme.
 
 ## Examples
 
-Splits are well suited for navigation, headers, and footers.
+Splits are especially helpful for navigation, header, and footer layouts.
 
 ```html {.example}
 <div class="wa-flank">
   <div class="wa-split:column">
     <div class="wa-stack">
-      <wa-icon-button name="house"></wa-icon-button>
-      <wa-icon-button name="calendar"></wa-icon-button>
-      <wa-icon-button name="envelope"></wa-icon-button>
+      <wa-icon-button name="house" label="Home"></wa-icon-button>
+      <wa-icon-button name="calendar" label="Calendar"></wa-icon-button>
+      <wa-icon-button name="envelope" label="Mail"></wa-icon-button>
     </div>
     <div class="wa-stack">
       <wa-divider></wa-divider>
       <wa-icon-button name="right-from-bracket"></wa-icon-button>
     </div>
   </div>
-  <div class="wa-grid">
-    <h3 style="grid-column: 1 / -1">Contacts</h3>
-    <wa-card>
-      <div class="wa-flank">
-        <wa-avatar shape="rounded">
-          <wa-icon slot="icon" name="user-secret"></wa-icon>
-        </wa-avatar>
-        <div>
-          <strong>Trinity</strong><br>
-          <small>Nebuchadnezzar</small>
-        </div>
-      </div>
-    </wa-card>
-    <wa-card>
-      <div class="wa-flank">
-        <wa-avatar shape="rounded">
-          <wa-icon slot="icon" name="user-tie"></wa-icon>
-        </wa-avatar>
-        <div>
-          <strong>Mr. Rhineheart</strong><br>
-          <small>MetaCortex</small>
-        </div>
-      </div>
-    </wa-card>
-    <wa-card>
-      <div class="wa-flank">
-        <wa-avatar shape="rounded">
-          <wa-icon slot="icon" name="web-awesome"></wa-icon>
-        </wa-avatar>
-        <div>
-          <strong>Web Awesome</strong><br>
-          <small>hello@webawesome.com</small>
-        </div>
-      </div>
-    </wa-card>
-    <wa-card>
-      <div class="wa-flank">
-        <wa-avatar shape="rounded">
-          <wa-icon slot="icon" name="web-awesome"></wa-icon>
-        </wa-avatar>
-        <div>
-          <strong>Web Awesome</strong><br>
-          <small>hello@webawesome.com</small>
-        </div>
-      </div>
-    </wa-card>
+  <div class="placeholder">
   </div>
 </div>
+
+<style>
+  .placeholder {
+    min-block-size: 300px;
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+  }
+</style>
+```
+
+```html {.example}
+<div class="wa-stack">
+  <div class="wa-split">
+    <wa-icon name="web-awesome" label="Web Awesome" style="font-size: var(--wa-font-size-xl);"></wa-icon>
+    <div class="wa-cluster">
+      <wa-button>Sign Up</wa-button>
+      <wa-button appearance="outlined">Log In</wa-button>
+    </div>
+  </div>
+  <div class="placeholder">
+  </div>
+</div>
+
+<style>
+  .placeholder {
+    min-block-size: 300px;
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+  }
+</style>
 ```
