@@ -13,7 +13,6 @@ import esbuild from 'esbuild';
 import getPort, { portNumbers } from 'get-port';
 import ora from 'ora';
 import process from 'process';
-import { copyFileSync } from 'fs';
 
 //
 // TODO - CDN dist and unbundled dist
@@ -44,7 +43,7 @@ async function buildAll() {
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
-    await copy(distDir, unbundledDir);
+    await copy(distDir, unbundledDir, { overwrite: true });
 
     await generateBundle();
     await generateDocs();

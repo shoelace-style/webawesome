@@ -113,9 +113,8 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 <script type="module">
   const rating = document.querySelector('.rating-hearts');
 
-  await customElements.whenDefined('wa-rating')
+  await customElements.whenDefined("wa-rating")
   await rating.updateComplete
-
   rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 </script>
 ```
