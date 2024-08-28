@@ -136,7 +136,6 @@
   --aspect-ratio: initial;
 
   aspect-ratio: var(--aspect-ratio, 1 / 1);
-  border-radius: var(--wa-border-radius-m);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -150,17 +149,46 @@
   object-fit: cover;
 }
 
-.wa-frame\:square {
+[class*='wa-frame'][class*='\:square'] {
   --aspect-ratio: 1 / 1;
 }
 
-.wa-frame\:landscape {
+[class*='wa-frame'][class*='\:landscape'] {
   --aspect-ratio: 16 / 9;
 }
 
-.wa-frame\:portrait {
+[class*='wa-frame'][class*='\:portrait'] {
   --aspect-ratio: 9 / 16;
 }
+
+[class*='wa-frame'][class*='\:border-radius-xs'] {
+  border-radius: var(--wa-border-radius-xs);
+}
+
+[class*='wa-frame'][class*='\:border-radius-s'] {
+  border-radius: var(--wa-border-radius-s);
+}
+
+[class*='wa-frame'][class*='\:border-radius-m'] {
+  border-radius: var(--wa-border-radius-m);
+}
+
+[class*='wa-frame'][class*='\:border-radius-l'] {
+  border-radius: var(--wa-border-radius-l);
+}
+
+[class*='wa-frame'][class*='\:border-radius-pill'] {
+  border-radius: var(--wa-border-radius-pill);
+}
+
+[class*='wa-frame'][class*='\:border-radius-circle'] {
+  border-radius: var(--wa-border-radius-circle);
+}
+
+[class*='wa-frame'][class*='\:border-radius-square'] {
+  border-radius: var(--wa-border-radius-square);
+}
+
 /* #endregion */
 
 /* #region Split */
@@ -191,8 +219,8 @@
 
 /* #region Flank */
 [class*='wa-flank'] {
-  --min-inline-size: initial;
-  --aside-size: initial;
+  --flank-size: initial;
+  --content-percentage: initial;
 
   display: flex;
   flex-wrap: wrap;
@@ -200,28 +228,28 @@
   align-items: center;
 }
 
-[class*='wa-flank'] > :first-child,
+[class*='wa-flank']:not([class*='\:end']) > :first-child,
 [class*='wa-flank'][class*='\:start'] > :first-child {
   flex-grow: 1;
-  flex-basis: var(--aside-size, auto);
+  flex-basis: var(--flank-size, auto);
 }
 
-[class*='wa-flank'] > :last-child,
+[class*='wa-flank']:not([class*='\:end']) > :last-child,
 [class*='wa-flank'][class*='\:start'] > :last-child {
   flex-basis: 0;
   flex-grow: 999;
-  min-inline-size: var(--min-inline-size, 50%);
+  min-inline-size: var(--content-percentage, 50%);
 }
 
 [class*='wa-flank'][class*='\:end'] > :last-child {
   flex-grow: 1;
-  flex-basis: var(--aside-size, auto);
+  flex-basis: var(--flank-size, auto);
 }
 
 [class*='wa-flank'][class*='\:end'] > :first-child {
   flex-basis: 0;
   flex-grow: 999;
-  min-inline-size: var(--min-inline-size, 50%);
+  min-inline-size: var(--content-percentage, 50%);
 }
 /* #endregion */
 

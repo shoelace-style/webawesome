@@ -23,7 +23,7 @@ Stack arranges elements in the block direction with even spacing.
 </div>
 ```
 
-## Align Items
+## Alignment
 
 By default, items in a stack use `align-items: stretch;` to fill the available space. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
 - `:align-start`

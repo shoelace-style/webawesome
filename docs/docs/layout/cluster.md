@@ -43,7 +43,7 @@ Cluster arranges elements in the inline direction with even spacing, allowing it
 </style>
 ```
 
-## Align Items
+## Alignment
 
 By default, items in a cluster use `align-items: center;`. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how items are aligned in the block direction:
 - `:align-start`
@@ -124,8 +124,8 @@ Clusters are great for aligning groups of items of different sizes.
 <div class="wa-stack">
   <strong class="wa-font-size:2xl wa-line-height:condensed">Stone's Throw Pub & Eatery</strong>
   <div class="wa-cluster:gap-xs">
-    <wa-rating value="4.5" read-only></wa-rating>
-    <strong>4.5</strong>
+    <wa-rating value="4.6" read-only></wa-rating>
+    <strong>4.6</strong>
     <span>(419 reviews)</span>
   </div>
   <div class="wa-cluster:gap-xs">
@@ -134,8 +134,10 @@ Clusters are great for aligning groups of items of different sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
+    <span style="color: var(--wa-color-text-quiet)">&bull;</span>
     <wa-tag size="small">New American</wa-tag>
     <wa-tag size="small">Gastropub</wa-tag>
+    <wa-tag size="small">Cocktail Bar</wa-tag>
     <wa-tag size="small">Vegetarian</wa-tag>
     <wa-tag size="small">Gluten Free</wa-tag>
   </div>

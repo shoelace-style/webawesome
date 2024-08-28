@@ -68,7 +68,7 @@ layout: page-outline
       <span class="component-name">Cluster</span>
     </wa-card>
   </a>
-  <a href="/docs/components/button-group">
+  <a href="/docs/layout/flank">
     <wa-card with-header>
       <div slot="header">
         {% include "svgs/layout/flank.njk" %}
@@ -76,7 +76,7 @@ layout: page-outline
       <span class="component-name">Flank</span>
     </wa-card>
   </a>
-  <a href="/docs/components/copy-button">
+  <a href="/docs/layout/frame">
     <wa-card with-header>
       <div slot="header">
         {% include "svgs/layout/frame.njk" %}

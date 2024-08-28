@@ -44,7 +44,7 @@ Items can be split across a row or down a column by appending `:row` or `:column
 </div>
 ```
 
-## Align Items
+## Alignment
 
 By default, items in a split use `align-items: center;` to stay centered in the available space. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
 - `:align-start`
