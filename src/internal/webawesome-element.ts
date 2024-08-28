@@ -8,7 +8,7 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
-  @property() didSSR = isServer;
+  @property({ reflect: true, attribute: "did-ssr" }) didSSR = isServer;
 
   constructor() {
     super();
@@ -19,6 +19,9 @@ export default class WebAwesomeElement extends LitElement {
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);
+
+    // This is a fix to workaround SSR not being able to catch slotchange events.
+    // https://github.com/lit/lit/discussions/4697
     if (this.didSSR) {
       this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
         slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));

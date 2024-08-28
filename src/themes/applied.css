@@ -36,6 +36,17 @@ body {
   -webkit-text-size-adjust: none;
 }
 
+/* Show custom elements only after they're registered */
+:where(:not(:defined, [did-ssr])),
+:where(:not(:defined, [did-ssr])) * {
+  opacity: 0;
+}
+
+:where(:defined) {
+  opacity: 1;
+  transition: 0.1s opacity;
+}
+
 /* Content flow */
 address,
 audio,
