@@ -1,5 +1,5 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { fixtures } from './fixture.js';
+import { clientFixture, fixtures, hydratedFixture } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';

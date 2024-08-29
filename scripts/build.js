@@ -158,6 +158,7 @@ async function generateBundle() {
       './src/webawesome.ts',
       // Autoloader + utilities
       './src/webawesome.loader.ts',
+      './src/webawesome.ssr-loader.ts',
       // Individual components
       ...(await globby('./src/components/**/!(*.(style|test)).ts')),
       // Translations
