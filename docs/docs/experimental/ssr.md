@@ -57,7 +57,7 @@ All Web Awesome components that get SSR'ed will have `did-ssr=""` on them.
 
 For example: `<wa-button did-ssr="">`
 
-`did-ssr` is a rough "community protocol" which you can read more about here:
+This can help if you need some styling prior to the element connecting.
 
 ## Timing issues
 
