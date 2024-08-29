@@ -1,5 +1,5 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { clientFixture, hydratedFixture } from './fixture.js';
+import { fixtures } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
@@ -64,7 +64,7 @@ function runAllValidityTests(
       await aTimeout(0);
     });
 
-    for (const fixture of [clientFixture, hydratedFixture]) {
+    for (const fixture of fixtures) {
       describe(`with ${fixture.type} rendering`, () => {
         const createControl = renderControl(fixture);
         let mode = 'standard' as ReturnType<typeof getMode>;
