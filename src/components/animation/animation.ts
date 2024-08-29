@@ -99,7 +99,7 @@ export default class WaAnimation extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.destroyAnimation()
+    this.destroyAnimation();
   }
 
   private handleAnimationFinish = () => {

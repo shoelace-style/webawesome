@@ -8,7 +8,7 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
-  @property({ reflect: true, attribute: "did-ssr" }) didSSR = isServer;
+  @property({ reflect: true, attribute: 'did-ssr' }) didSSR = isServer;
 
   constructor() {
     super();
