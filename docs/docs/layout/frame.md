@@ -19,7 +19,7 @@ Frame creates a responsive container with consistent proportions to enclose cont
 </style>
 
 ```html {.example}
-<div class="example-set wa-frame">
+<div class="example-set wa-frame" style="max-inline-size: 20rem;">
   <div class="example-block"></div>
 </div>
 ```
@@ -72,18 +72,36 @@ You can append any of the following modifiers to the `wa-frame` class in your ma
 Frames are well-suited for images and image placeholders.
 
 ```html {.example}
-<div class="wa-grid">
+<div class="wa-flank" style="--flank-size: 8rem;">
+  <div class="wa-frame:border-radius-m">
+    <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" />
+  </div>
+  <div class="wa-flank:end" style="--content-percentage: 70%">
+    <div class="wa-stack:gap-xs">
+      <h3>The Lord of the Rings: The Fellowship of the Ring</h3>
+      <span>J.R.R. Tolkien</span>
+    </div>
+    <wa-icon-button id="options-menu" name="ellipsis"></wa-icon-button>
+    <wa-tooltip for="options-menu">Options</wa-tooltip>
+  </div>
+</div>
+```
+
+```html {.example}
+<div class="wa-grid" style="--min-inline-size: 25ch;">
   <wa-card with-image>
     <div class="wa-frame:landscape" slot="image">
       <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" />
     </div>
-    White-socks
-  </wa-card>
-  <wa-card with-image>
-    <div class="wa-frame:landscape" slot="image">
-      <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" />
+    <div class="wa-stack:gap-xs">
+      <h3 class="wa-font-size:m">White-socks</h3>
+      <small>Kitten &bull; Male</small>
+      <div class="wa-flank:end:gap-xs">
+        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-icon-button id="fav-whitesocks" name="heart" variant="regular"></wa-icon-button>
+        <wa-tooltip for="fav-whitesocks">Favorite</wa-tooltip>
+      </div>
     </div>
-    Swish-tail
   </wa-card>
   <wa-card with-header>
     <div class="wa-frame:landscape" slot="header">
@@ -92,33 +110,43 @@ Frames are well-suited for images and image placeholders.
         <small>Photo coming soon</small>
       </div>
     </div>
-    Bumpkin
+    <div class="wa-stack:gap-xs">
+      <h3 class="wa-font-size:m">Bumpkin</h3>
+      <small>Adult &bull; Male</small>
+      <div class="wa-flank:end:gap-xs">
+        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-icon-button id="fav-bumpkin" name="heart" variant="regular"></wa-icon-button>
+        <wa-tooltip for="fav-bumpkin">Favorite</wa-tooltip>
+      </div>
+    </div>
   </wa-card>
-</div>
-```
-
-```html {.example}
-<div class="wa-stack:gap-xl">
-  <div class="wa-flank:align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
-    <div class="wa-stack:gap-3xs">
-      <strong>Gandalf</strong>
-      <small>All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</small>
+  <wa-card with-image>
+    <div class="wa-frame:landscape" slot="image">
+      <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" />
     </div>
-  </div>
-  <div class="wa-flank:align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
-    <div class="wa-stack:gap-3xs">
-      <strong>Boromir</strong>
-      <small>One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</small>
+    <div class="wa-stack:gap-xs">
+      <h3 class="wa-font-size:m">Swish-tail</h3>
+      <small>Kitten &bull; Female</small>
+      <div class="wa-flank:end:gap-xs">
+        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-icon-button id="fav-swishtail" name="heart" variant="regular"></wa-icon-button>
+        <wa-tooltip for="fav-swishtail">Favorite</wa-tooltip>
+      </div>
     </div>
-  </div>
-  <div class="wa-flank:align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
-    <div class="wa-stack:gap-3xs">
-      <strong>Galadriel</strong>
-      <small>The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</small>
+  </wa-card>
+  <wa-card with-image>
+    <div class="wa-frame:landscape" slot="image">
+      <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" />
     </div>
-  </div>
+    <div class="wa-stack:gap-xs">
+      <h3 class="wa-font-size:m">Sharp-ears</h3>
+      <small>Adult &bull; Female</small>
+      <div class="wa-flank:end:gap-xs">
+        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-icon-button id="fav-sharpears" name="heart" variant="regular"></wa-icon-button>
+        <wa-tooltip for="fav-sharpears">Favorite</wa-tooltip>
+      </div>
+    </div>
+  </wa-card>
 </div>
 ```

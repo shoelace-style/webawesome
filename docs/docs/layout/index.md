@@ -84,7 +84,7 @@ layout: page-outline
       <span class="component-name">Frame</span>
     </wa-card>
   </a>
-  <a href="/docs/components/dropdown">
+  <a href="/docs/layout/grid">
     <wa-card with-header>
       <div slot="header">
         {% include "svgs/layout/grid.njk" %}
