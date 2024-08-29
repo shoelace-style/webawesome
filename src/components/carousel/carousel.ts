@@ -511,7 +511,7 @@ export default class WaCarousel extends WebAwesomeElement {
     }
 
     // We can't rely on `this.matches()` on the server.
-    const isLtr = isServer ? this.dir === 'ltr' : this.matches(':dir(ltr)');
+    const isRTL = isServer ? this.dir === 'rtl' : this.matches(':dir(rtl)');
 
     return html`
       <div part="base" class="carousel">
@@ -552,7 +552,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${prevEnabled ? () => this.previous() : null}
                 >
                   <slot name="previous-icon">
-                    <wa-icon library="system" name="${isLtr ? 'chevron-left' : 'chevron-right'}"></wa-icon>
+                    <wa-icon library="system" name="${isRTL ? 'chevron-right' : 'chevron-left'}"></wa-icon>
                   </slot>
                 </button>
 
@@ -569,7 +569,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   @click=${nextEnabled ? () => this.next() : null}
                 >
                   <slot name="next-icon">
-                    <wa-icon library="system" name="${isLtr ? 'chevron-right' : 'chevron-left'}"></wa-icon>
+                    <wa-icon library="system" name="${isRTL ? 'chevron-left' : 'chevron-right'}"></wa-icon>
                   </slot>
                 </button>
               </div>

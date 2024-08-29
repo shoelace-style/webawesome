@@ -1,6 +1,6 @@
 import { deleteAsync } from 'del';
 import { dirname, join, relative } from 'path';
-import { distDir, docsDir, unbundledDir, rootDir, runScript, siteDir } from './utils.js';
+import { distDir, docsDir, cdnDir, rootDir, runScript, siteDir } from './utils.js';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { globby } from 'globby';
@@ -13,10 +13,6 @@ import esbuild from 'esbuild';
 import getPort, { portNumbers } from 'get-port';
 import ora from 'ora';
 import process from 'process';
-
-//
-// TODO - CDN dist and unbundled dist
-//
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -43,7 +39,7 @@ async function buildAll() {
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
-    await copy(distDir, unbundledDir, { overwrite: true });
+    await copy(distDir, cdnDir, { overwrite: true });
 
     await generateBundle();
     await generateDocs();
@@ -61,9 +57,9 @@ async function cleanup() {
   spinner.start('Cleaning up dist');
 
   await deleteAsync(distDir);
-  await deleteAsync(unbundledDir);
+  await deleteAsync(cdnDir);
   await mkdir(distDir, { recursive: true });
-  await mkdir(unbundledDir, { recursive: true });
+  await mkdir(cdnDir, { recursive: true });
 
   spinner.succeed();
 }
@@ -183,7 +179,7 @@ async function generateBundle() {
     treeShaking: true,
     // Don't inline libraries like Lit etc.
     packages: 'external',
-    outdir: unbundledDir
+    outdir: distDir
 
     // inject: [
     // ]
@@ -289,7 +285,7 @@ if (isDeveloping) {
       server: {
         baseDir: siteDir,
         routes: {
-          '/dist': './dist'
+          '/dist': './dist-cdn'
         }
       },
       callbacks: {

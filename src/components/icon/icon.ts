@@ -232,7 +232,7 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    this.svg = html`<svg part="svg" fill="currentColor" height="16" width="16"></svg>`;
+    this.svg = html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
 
     // @TODO: 16x16 is generally a safe bet. Perhaps be user setable?? `size="16x16"`, size="20x16". We just want to avoid "blowouts" with SSR.
     return this.svg;

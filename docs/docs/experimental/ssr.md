@@ -73,9 +73,39 @@ await rating.updateComplete
 rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 ```
 
+## Usage with Turbo
+
+Turbo, the Hotwire library, has an issue with SSR + declarative shadow dom. To fix this, you can add the following.
+
+```js
+function fixDeclarativeShadowDOM(e) {
+  const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
+  if (!newElement) {
+    return;
+  }
+
+  // https://developer.chrome.com/docs/css-ui/declarative-shadow-dom#polyfill
+  (function attachShadowRoots(root) {
+    root.querySelectorAll('template[shadowrootmode]').forEach(template => {
+      const mode = template.getAttribute('shadowrootmode');
+      const shadowRoot = template.parentNode.attachShadow({ mode });
+      shadowRoot.appendChild(template.content);
+      template.remove();
+      attachShadowRoots(shadowRoot);
+    });
+  })(newElement);
+}
+
+// Fixes an issue with DSD keeping the `<template>` elements hanging around in the lightdom.
+// https://github.com/hotwired/turbo/issues/1292
+['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
+  document.addEventListener(eventName, fixDeclarativeShadowDOM);
+});
+```
+
 ## Additional TODOs
 
 - [ ] - `@shoelace-style/localize` (our localization library) has no way to set a language currently so it always falls back to `en`.
-- [ ] - `<wa-icon>` has no fallback if there's no JS. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set height / widths.
+- [ ] - `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set height / widths, but we dont want to increase pain for SSR users.
 - [ ] - `<wa-qr-code>` QR Code will not error on the backend and will render a blank canvas at the appropriate size, but will not render the canvas until the client component connects.
-- [ ] -
+- [ ] - `setBasePath` and `kit codes` may need reconfiguring to work with SSR.
