@@ -248,7 +248,7 @@ wa-page[view='desktop'] > main {
   }
 }
 
-/* Swatches */
+/* Theming Swatches */
 .swatch {
   background-color: transparent;
   border-color: var(--wa-color-neutral-border-normal);
@@ -259,6 +259,27 @@ wa-page[view='desktop'] > main {
   line-height: 2.5;
   height: 2.5em;
   padding-inline: var(--wa-space-xs);
+}
+
+/* Layout Examples */
+.layout-example-boundary {
+  border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+  border-radius: var(--wa-border-radius-m);
+  padding: var(--wa-space-s);
+}
+
+.layout-example-block {
+  background-color: var(--wa-color-indigo-60);
+  border-radius: var(--wa-border-radius-s);
+  min-block-size: 4rem;
+  min-inline-size: 4rem;
+}
+
+.layout-example-mixed-sizing .layout-example-block:nth-child(3n) {
+  min-inline-size: 6rem;
+}
+.layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
+  min-inline-size: 8rem;
 }
 
 /* Utilities */

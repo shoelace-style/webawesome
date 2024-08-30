@@ -50,6 +50,9 @@
 
 /* #region Gap Modifiers */
 
+[class*='wa-'][class*='\:gap-0'] {
+  gap: 0px;
+}
 [class*='wa-'][class*='\:gap-3xs'] {
   gap: var(--wa-space-3xs);
 }
@@ -126,7 +129,7 @@
   margin-block: 0;
 }
 
-[class*='wa-grid'] > [class*='span-grid'] {
+[class*='wa-span-grid'] {
   grid-column: 1 / -1;
 }
 /* #endregion */

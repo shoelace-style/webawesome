@@ -4,40 +4,35 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Frame creates a responsive container with consistent proportions to enclose content.
-
 <style>
-  .example-block {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-  }
-  .example-set {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+  .layout-example-boundary {
+    padding: 0;
+    border-radius: 0;
   }
 </style>
 
+Use the `wa-frame` class to create a responsive container with consistent proportions to enclose content.
+
 ```html {.example}
-<div class="example-set wa-frame" style="max-inline-size: 20rem;">
-  <div class="example-block"></div>
+<div class="layout-example-boundary wa-frame" style="max-inline-size: 20rem;">
+  <div class="layout-example-block"></div>
 </div>
 ```
 
 ## Aspect Ratio
 
-You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can use the `--aspect-ratio` property to set a custom proportion. Frames have a square aspect ratio by default.
+Frames have a square aspect ratio by default. You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can use the `--aspect-ratio` property to set a custom proportion.
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="example-set wa-frame:landscape">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame:landscape">
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-frame:portrait">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame:portrait">
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-frame" style="--aspect-ratio: 4 / 3;">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame" style="--aspect-ratio: 4 / 3;">
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
@@ -55,14 +50,14 @@ You can append any of the following modifiers to the `wa-frame` class in your ma
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="example-set wa-frame:border-radius-square">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame:border-radius-square">
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-frame:border-radius-circle">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame:border-radius-circle">
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-frame:border-radius-l">
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-frame:border-radius-l">
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```

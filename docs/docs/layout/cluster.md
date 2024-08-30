@@ -4,74 +4,51 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Cluster arranges elements in the inline direction with even spacing, allowing items to wrap when space is limited.
-
-<style>
-  .example-block {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-  }
-  .example-set {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
-    padding: var(--wa-space-s);
-  }
-</style>
+Use the `wa-cluster` class to arrange elements inline with even spacing, allowing items to wrap when space is limited.
 
 ```html {.example}
-<div class="wa-cluster mixed-sizing">
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
+<div class="layout-example-mixed-sizing wa-cluster">
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
 </div>
-
-<style>
-  .mixed-sizing .example-block:nth-child(3n) {
-    min-inline-size: 6rem;
-  }
-  .mixed-sizing .example-block:nth-child(3n + 2) {
-    min-inline-size: 8rem;
-  }
-</style>
 ```
 
 ## Alignment
 
-By default, items in a cluster use `align-items: center;`. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how items are aligned in the block direction:
+By default, items in a cluster are centered in the block direction of the container. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how to align items in the block direction:
 - `:align-start`
 - `:align-end`
 - `:align-center`
 - `:align-stretch`
 
 ```html {.example}
-<div class="wa-stack mixed-sizing">
-  <div class="example-set wa-cluster:align-start" style="min-height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+<div class="layout-example-mixed-sizing wa-stack">
+  <div class="layout-example-boundary wa-cluster:align-start" style="min-height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-cluster:align-end" style="min-height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-cluster:align-end" style="min-height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-cluster:align-center" style="min-height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-cluster:align-center" style="min-height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-cluster:align-stretch" style="min-height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-cluster:align-stretch" style="min-height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
@@ -79,6 +56,7 @@ By default, items in a cluster use `align-items: center;`. You can append any of
 ## Gap
 
 By default, the gap between cluster items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify the gap between items:
+- `:gap-0`
 - `:gap-3xs`
 - `:gap-2xs`
 - `:gap-xs`
@@ -92,23 +70,23 @@ By default, the gap between cluster items uses `--wa-space-m` from your theme. Y
 Each modifier uses the corresponding space variable from your theme.
 
 ```html {.example}
-<div class="wa-stack mixed-sizing">
-  <div class="example-set wa-cluster:gap-2xs">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+<div class="layout-example-mixed-sizing wa-stack">
+  <div class="layout-example-boundary wa-cluster:gap-2xs">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-cluster:gap-2xl">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-cluster:gap-2xl">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
 
 ## Examples
 
-Clusters are great for aligning groups of items of different sizes.
+Clusters are great for inline lists and aligning items of varying sizes.
 
 ```html {.example}
 <div class="wa-cluster">

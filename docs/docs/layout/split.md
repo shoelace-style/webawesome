@@ -4,49 +4,35 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Split distributes two or more items evenly across available space, either in a row or a column.
-
-<style>
-  .example-block {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-  }
-  .example-set {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
-    padding: var(--wa-space-s);
-  }
-</style>
+Use the `wa-split` class to distribute two or more items evenly across available space, either in a row or a column.
 
 ```html {.example}
 <div class="wa-split">
-  <div class="example-block"></div>
-  <div class="example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
 </div>
 ```
 
 ## Direction
 
-Items can be split across a row or down a column by appending `:row` or `:column` to the `wa-split` class.
+Items can be split across a row or a column by appending `:row` or `:column` to the `wa-split` class.
 
 ```html {.example}
 <div class="wa-flank:align-start" style="block-size: 16rem;">
-  <div class="example-set wa-split:column">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:column">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-split:row">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:row">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
 
 ## Alignment
 
-By default, items in a split use `align-items: center;` to stay centered in the available space. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
+By default, items in a split are centered in the available space. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
 - `:align-start`
 - `:align-end`
 - `:align-center`
@@ -56,21 +42,21 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="example-set wa-split:align-start" style="height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:align-start" style="height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-split:align-end" style="height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:align-end" style="height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-split:align-center" style="height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:align-center" style="height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-split:align-stretch" style="height: 8rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:align-stretch" style="height: 8rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
@@ -78,6 +64,7 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 ## Gap
 
 A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-split` class in your markup to specify the gap between items:
+- `:gap-0`
 - `:gap-3xs`
 - `:gap-2xs`
 - `:gap-xs`
@@ -92,13 +79,13 @@ Each modifier uses the corresponding space variable from your theme.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="example-set wa-split:gap-3xs">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:gap-3xs">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-split:gap-3xl">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-split:gap-3xl">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```

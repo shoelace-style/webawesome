@@ -4,61 +4,48 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Grid distributes elements into rows and columns that automatically adapt to the available space.
-
-<style>
-  .example-block {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-  }
-  .example-set {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
-    padding: var(--wa-space-s);
-  }
-</style>
+Use the `wa-grid` class to arrange elements into rows and columns that automatically adapt to the available space.
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
 </div>
 ```
 
 ## Sizing
 
-By default, grid items will wrap when their inline size is less that `20ch`, but you can set a new inline size using the `--min-inline-size` property.
+By default, grid items will wrap when their inline size is less than `20ch`, but you can set a custom minimum inline size using the `--min-inline-size` property.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="example-set wa-grid" style="--min-inline-size: 200px;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 200px;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-grid" style="--min-inline-size: 6rem;">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 6rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
 
 ## Gap
 
-By default, the gap between cluster items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify the gap between items:
+By default, the gap between grid items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-grid` class in your markup to specify the gap between items:
+- `:gap-0`
 - `:gap-3xs`
 - `:gap-2xs`
 - `:gap-xs`
@@ -73,28 +60,28 @@ Each modifier uses the corresponding space variable from your theme.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="example-set wa-grid:gap-2xs">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-grid:gap-2xs">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="example-set wa-grid:gap-2xl">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-grid:gap-2xl">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
 
 ## Examples
 
-Frames are well-suited for images and image placeholders.
+Grids work especially well for card lists and content designed for browsing.
 
 ```html {.example}
 <div class="wa-grid">
@@ -137,7 +124,7 @@ Frames are well-suited for images and image placeholders.
 ```
 
 ```html {.example}
-<div class="wa-grid">
+<div class="wa-grid" style="--min-inline-size: 30ch;">
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="rounded">
@@ -166,5 +153,39 @@ Frames are well-suited for images and image placeholders.
       </div>
     </div>
   </wa-card>
+  <wa-card>
+    <div class="wa-flank">
+      <wa-avatar shape="rounded">
+        <wa-icon slot="icon" name="robot"></wa-icon>
+      </wa-avatar>
+      <div class="wa-stack:gap-3xs">
+        <small>Agents Discovered</small>
+        <span class="wa-cluster:gap-xs">
+          <strong class="wa-font-size:2xl wa-line-height:condensed">3</strong>
+          <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="wave-triangle"></wa-icon></wa-badge>
+        </span>
+      </div>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-flank">
+      <wa-avatar shape="rounded">
+        <wa-icon slot="icon" name="spaghetti-monster-flying"></wa-icon>
+      </wa-avatar>
+      <div class="wa-stack:gap-3xs">
+        <small>Sentinels Controlled</small>
+        <span class="wa-cluster:gap-xs">
+          <strong class="wa-font-size:2xl wa-line-height:condensed">208</strong>
+          <wa-badge variant="success">+1%&nbsp;<wa-icon name="arrow-trend-up"></wa-icon></wa-badge>
+        </span>
+      </div>
+    </div>
+  </wa-card>
 </div>
+
+<style>
+  wa-badge > wa-icon {
+    color: color-mix(in oklab, currentColor, transparent 40%);
+  }
+</style>
 ```

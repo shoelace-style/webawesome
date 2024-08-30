@@ -4,49 +4,40 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Stack arranges elements in the block direction with even spacing.
-
-<style>
-  .example-block {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-  }
-</style>
+Use `wa-stack` to arrange elements in the block direction with even spacing.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="example-block"></div>
-  <div class="example-block"></div>
-  <div class="example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
 </div>
 ```
 
 ## Alignment
 
-By default, items in a stack use `align-items: stretch;` to fill the available space. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
+By default, items in a stack stretch to fill the inline size of the container. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
 - `:align-start`
 - `:align-end`
 - `:align-center`
 - `:align-stretch`
 
 ```html {.example}
-<div class="wa-grid">
-  <div class="wa-stack:align-start">
-    <div class="example-block" style="inline-size: 6rem;"></div>
-    <div class="example-block" style="inline-size: 12rem;"></div>
-    <div class="example-block" style="inline-size: 8rem;"></div>
+<div class="wa-grid layout-example-mixed-sizing">
+  <div class="layout-example-boundary wa-stack:align-start">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="wa-stack:align-center">
-    <div class="example-block" style="inline-size: 6rem;"></div>
-    <div class="example-block" style="inline-size: 12rem;"></div>
-    <div class="example-block" style="inline-size: 8rem;"></div>
+  <div class="layout-example-boundary wa-stack:align-center">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="wa-stack:align-end">
-    <div class="example-block" style="inline-size: 6rem;"></div>
-    <div class="example-block" style="inline-size: 12rem;"></div>
-    <div class="example-block" style="inline-size: 8rem;"></div>
+  <div class="layout-example-boundary wa-stack:align-end">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
@@ -54,6 +45,7 @@ By default, items in a stack use `align-items: stretch;` to fill the available s
 ## Gap
 
 By default, the gap between stack items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-stack` class in your markup to specify the gap between items:
+- `gap:0`
 - `:gap-3xs`
 - `:gap-2xs`
 - `:gap-xs`
@@ -68,15 +60,15 @@ Each modifier uses the corresponding space variable from your theme.
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="wa-stack:gap-2xs">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-stack:gap-2xs">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
-  <div class="wa-stack:gap-2xl">
-    <div class="example-block"></div>
-    <div class="example-block"></div>
-    <div class="example-block"></div>
+  <div class="layout-example-boundary wa-stack:gap-2xl">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
   </div>
 </div>
 ```
