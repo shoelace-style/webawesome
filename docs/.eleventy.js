@@ -117,7 +117,7 @@ export default function (eleventyConfig) {
   // tooltip (why SSR this?)
 
   const componentModules = getComponents()
-    .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+    // .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
     .map(component => {
       const name = component.tagName.split(/wa-/)[1];
       return `./dist/components/${name}/${name}.js`;

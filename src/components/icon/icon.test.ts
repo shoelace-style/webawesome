@@ -1,7 +1,9 @@
 import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
 import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-import { registerIconLibrary } from '../../../dist/webawesome.js';
+
+// Make sure this is `dist-cdn/` otherwise you will get an error.
+import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
 import type { WaLoadEvent } from '../../events/load.js';
 import type WaIcon from './icon.js';
@@ -122,6 +124,8 @@ describe('<wa-icon>', () => {
         it('runs mutator from new library', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="test-icon1"></wa-icon> `);
           await elementUpdated(el);
+          await elementUpdated(el);
+          await aTimeout(1);
 
           const svg = el.shadowRoot?.querySelector('svg');
           expect(svg?.getAttribute('fill')).to.equal('currentColor');

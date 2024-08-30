@@ -8,14 +8,7 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
-  @property({ reflect: true, attribute: 'did-ssr' }) didSSR = isServer;
-
-  constructor() {
-    super();
-
-    // In unsupported browsers of DSD and in cases where the element is already registered, this may return false.
-    this.didSSR = Boolean(this.shadowRoot);
-  }
+  @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);

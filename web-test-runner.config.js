@@ -10,7 +10,7 @@ import { readFileSync } from 'fs';
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
 const serverComponents = [];
-const componentImports = []
+const componentImports = [];
 getAllComponents(metadata).forEach(component => {
   const name = component.tagName.replace(/^wa-/, '');
 
