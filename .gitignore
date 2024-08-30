@@ -9,3 +9,4 @@ docs/public/pagefind
 node_modules
 src/react
 .astro
+cdn/
