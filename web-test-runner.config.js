@@ -10,15 +10,12 @@ import { readFileSync } from 'fs';
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
 const serverComponents = [];
-const componentImports = getAllComponents(metadata).map(component => {
+const componentImports = []
+getAllComponents(metadata).forEach(component => {
   const name = component.tagName.replace(/^wa-/, '');
 
-  // "qr-code" is the only component currently not supported by SSR.
-  if (name !== 'qr-code') {
-    serverComponents.push(`/unbundled-dist/components/${name}/${name}.js`);
-  }
-
-  return `/dist/components/${name}/${name}.js`;
+  serverComponents.push(`/dist/components/${name}/${name}.js`);
+  componentImports.push(`/dist-cdn/components/${name}/${name}.js`);
 });
 
 // os.availableParallelism only available as of Node 18.14.0 , maybe dont need the fallback?

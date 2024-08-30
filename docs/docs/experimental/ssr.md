@@ -23,8 +23,8 @@ If you're using a bundler:
 // Make sure this import is first.
 import "@lit-labs/ssr-client/lit-element-hydrate-support.js"
 
-import "webawesome/unbundled-dist/components/button/button.js"
-import "webawesome/unbundled-dist/components/input/input.js"
+import "webawesome/dist/components/button/button.js"
+import "webawesome/dist/components/input/input.js"
 ```
 
 ## Server rendering
@@ -45,8 +45,8 @@ import litPlugin from '@lit-labs/eleventy-plugin-lit';
  eleventyConfig.addPlugin(litPlugin, {
   mode: 'worker',
   componentModules: [
-    "webawesome/unbundled-dist/components/button/button.js",
-    "webawesome/unbundled-dist/components/input/input.js"
+    "webawesome/dist/components/button/button.js",
+    "webawesome/dist/components/input/input.js"
   ]
 });
 ```

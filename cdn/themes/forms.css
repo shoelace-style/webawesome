@@ -1,0 +1,23 @@
+.wa-invalid {
+  --wa-form-control-resting-color: var(--wa-color-danger-border-loud);
+  --wa-form-control-activated-color: var(--wa-color-danger-fill-loud);
+  --wa-form-control-value-color: var(--wa-color-danger-on-quiet);
+
+  /* Focus ring */
+  --wa-color-focus: var(--wa-color-danger-border-loud);
+
+  /* Help text */
+  --wa-color-text-quiet: var(--wa-color-danger-on-quiet);
+}
+
+.wa-valid {
+  --wa-form-control-resting-color: var(--wa-color-success-border-loud);
+  --wa-form-control-activated-color: var(--wa-color-success-fill-loud);
+  --wa-form-control-value-color: var(--wa-color-success-on-quiet);
+
+  /* Focus ring */
+  --wa-color-focus: var(--wa-color-success-border-loud);
+
+  /* Help text */
+  --wa-color-text-quiet: var(--wa-color-success-on-quiet);
+}

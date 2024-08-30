@@ -120,7 +120,7 @@ export default function (eleventyConfig) {
     .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
     .map(component => {
       const name = component.tagName.split(/wa-/)[1];
-      return `./unbundled-dist/components/${name}/${name}.js`;
+      return `./dist/components/${name}/${name}.js`;
     });
 
   eleventyConfig.addPlugin(litPlugin, {
