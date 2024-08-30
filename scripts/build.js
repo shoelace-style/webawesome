@@ -105,13 +105,13 @@ async function generateStyles() {
 
   // NOTE - alpha setting omits all stylesheets except for these because we use them in the docs
   if (isAlpha) {
-    await copy(join(rootDir, 'src/themes/applied.css'), join(distDir, 'themes/applied.css'), { overwrite: true });
-    await copy(join(rootDir, 'src/themes/color_standard.css'), join(distDir, 'themes/color_standard.css'), {
+    await copy(join(rootDir, 'src/themes/applied.css'), join(cdnDir, 'themes/applied.css'), { overwrite: true });
+    await copy(join(rootDir, 'src/themes/color_standard.css'), join(cdnDir, 'themes/color_standard.css'), {
       overwrite: true
     });
-    await copy(join(rootDir, 'src/themes/default.css'), join(distDir, 'themes/default.css'), { overwrite: true });
+    await copy(join(rootDir, 'src/themes/default.css'), join(cdnDir, 'themes/default.css'), { overwrite: true });
   } else {
-    await copy(join(rootDir, 'src/themes'), join(distDir, 'themes'), { overwrite: true });
+    await copy(join(rootDir, 'src/themes'), join(cdnDir, 'themes'), { overwrite: true });
   }
 
   spinner.succeed();
@@ -162,7 +162,7 @@ async function generateBundle() {
       // React wrappers
       ...(await globby('./src/react/**/*.ts'))
     ],
-    outdir: distDir,
+    outdir: cdnDir,
     chunkNames: 'chunks/[name].[hash]',
     define: {
       'process.env.NODE_ENV': '"production"' // required by Floating UI
@@ -180,9 +180,6 @@ async function generateBundle() {
     // Don't inline libraries like Lit etc.
     packages: 'external',
     outdir: distDir
-
-    // inject: [
-    // ]
   };
 
   try {
@@ -245,7 +242,7 @@ async function generateDocs() {
 
   // Copy dist (production only)
   if (!isDeveloping) {
-    await copy(distDir, join(siteDir, 'dist'));
+    await copy(cdnDir, join(siteDir, 'dist'));
   }
 
   spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
@@ -285,7 +282,7 @@ if (isDeveloping) {
       server: {
         baseDir: siteDir,
         routes: {
-          '/dist': './dist-cdn'
+          '/dist/': './dist-cdn/'
         }
       },
       callbacks: {

@@ -5,7 +5,7 @@ import { html } from 'lit';
 import { isSafari } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
-import { serialize } from '../../../dist/webawesome.js';
+import { serialize } from '../../../dist-cdn/webawesome.js';
 import sinon from 'sinon';
 import type WaInput from './input.js';
 
