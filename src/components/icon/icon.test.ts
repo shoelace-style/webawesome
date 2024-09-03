@@ -137,7 +137,11 @@ describe('<wa-icon>', () => {
         it("svg not rendered with an icon that doesn't exist in the library", async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="does-not-exist"></wa-icon> `);
 
-          expect(el.shadowRoot?.querySelector('svg')).to.be.null;
+          // Still renders svgs for empty icons.
+          expect(el.shadowRoot?.querySelector('svg')).to.be.instanceof(SVGElement);
+
+          expect(el.getBoundingClientRect().height).to.equal(16);
+          expect(el.getBoundingClientRect().width).to.equal(16);
         });
 
         it('emits wa-error when the file cant be retrieved', async () => {
@@ -209,11 +213,6 @@ describe('<wa-icon>', () => {
 
           const svg = el.shadowRoot?.querySelector("svg[part='svg']");
           const use = svg?.querySelector('use');
-
-          // TODO: this isn't how the test was originally written. Revisit SSR.
-          if (!use) {
-            return;
-          }
 
           // TODO: Theres no way to really test that the icon rendered properly. We just gotta trust the browser to do it's thing :)
           // However, we can check the <use> size. If it never loaded, it should be 0x0. Ideally, we could have error tracking...

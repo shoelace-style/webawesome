@@ -39,7 +39,7 @@ async function buildAll() {
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
-    await copy(distDir, cdnDir, { overwrite: true });
+    await copy(cdnDir, distDir, { overwrite: true });
 
     await generateBundle();
     await generateDocs();

@@ -9,7 +9,7 @@ import componentStyles from '../../styles/component.styles.js';
 import styles from './icon.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
-import type { CSSResultGroup, HTMLTemplateResult } from 'lit';
+import type { CSSResultGroup, HTMLTemplateResult, PropertyValues } from 'lit';
 
 const CACHEABLE_ERROR = Symbol();
 const RETRYABLE_ERROR = Symbol();
@@ -224,6 +224,18 @@ export default class WaIcon extends WebAwesomeElement {
         this.svg = svg.cloneNode(true) as SVGElement;
         library?.mutator?.(this.svg);
         this.dispatchEvent(new WaLoadEvent());
+    }
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
+    const library = getIconLibrary(this.library);
+
+    const svg = this.shadowRoot?.querySelector('svg');
+    if (svg) {
+      library?.mutator?.(svg);
     }
   }
 
