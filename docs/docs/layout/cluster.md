@@ -22,7 +22,7 @@ Use the `wa-cluster` class to arrange elements inline with even spacing, allowin
 
 ## Alignment
 
-By default, items in a cluster are centered in the block direction of the container. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how to align items in the block direction:
+By default, items are centered in the block direction of the `wa-cluster` container. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how to align items in the block direction:
 - `:align-start`
 - `:align-end`
 - `:align-center`
@@ -67,7 +67,7 @@ By default, the gap between cluster items uses `--wa-space-m` from your theme. Y
 - `:gap-2xl`
 - `:gap-3xl`
 
-Each modifier uses the corresponding space variable from your theme.
+These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="layout-example-mixed-sizing wa-stack">
@@ -100,7 +100,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ```html {.example}
 <div class="wa-stack">
-  <strong class="wa-font-size:2xl wa-line-height:condensed">Stone's Throw Pub & Eatery</strong>
+  <strong class="wa-font-size:2xl wa-line-height:condensed">Withywindle Pub and Eatery</strong>
   <div class="wa-cluster:gap-xs">
     <wa-rating value="4.6" read-only></wa-rating>
     <strong>4.6</strong>
@@ -113,7 +113,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
     <span style="color: var(--wa-color-text-quiet)">&bull;</span>
-    <wa-tag size="small">New American</wa-tag>
+    <wa-tag size="small">Comfort Food</wa-tag>
     <wa-tag size="small">Gastropub</wa-tag>
     <wa-tag size="small">Cocktail Bar</wa-tag>
     <wa-tag size="small">Vegetarian</wa-tag>

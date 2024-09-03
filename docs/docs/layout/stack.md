@@ -16,7 +16,7 @@ Use `wa-stack` to arrange elements in the block direction with even spacing.
 
 ## Alignment
 
-By default, items in a stack stretch to fill the inline size of the container. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
+By default, items stretch to fill the inline size of the `wa-stack` container. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
 - `:align-start`
 - `:align-end`
 - `:align-center`
@@ -56,7 +56,7 @@ By default, the gap between stack items uses `--wa-space-m` from your theme. You
 - `:gap-2xl`
 - `:gap-3xl`
 
-Each modifier uses the corresponding space variable from your theme.
+These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-grid">
@@ -75,7 +75,7 @@ Each modifier uses the corresponding space variable from your theme.
 
 ## Examples
 
-Stacks are well suited for forms, text, and organizing most elements in the document flow.
+Stacks are well suited for forms, text, and ensuring consistent spacing between elements in the document flow.
 
 ```html {.example}
 <div class="wa-stack">

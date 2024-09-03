@@ -1,0 +1,43 @@
+.wa-margin\:0 {
+  margin: 0;
+}
+
+.wa-font-size\:3xl {
+  font-size: var(--wa-font-size-3xl);
+}
+
+.wa-font-size\:2xl {
+  font-size: var(--wa-font-size-2xl);
+}
+
+.wa-font-size\:xl {
+  font-size: var(--wa-font-size-xl);
+}
+
+.wa-font-size\:l {
+  font-size: var(--wa-font-size-l);
+}
+
+.wa-font-size\:m {
+  font-size: var(--wa-font-size-m);
+}
+
+.wa-font-size\:s {
+  font-size: var(--wa-font-size-s);
+}
+
+.wa-font-size\:xs {
+  font-size: var(--wa-font-size-xs);
+}
+
+.wa-line-height\:condensed {
+  line-height: var(--wa-line-height-condensed);
+}
+
+.wa-line-height\:normal {
+  line-height: var(--wa-line-height-normal);
+}
+
+.wa-line-height\:expanded {
+  line-height: var(--wa-line-height-expanded);
+}

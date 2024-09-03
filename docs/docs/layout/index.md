@@ -40,7 +40,7 @@ layout: page-outline
 <p style="max-width: 80ch">Layout components and utility classes help you organize content that can adapt to any device or screen size. Browse the collection of responsive layout tools included in Web Awesome Pro.</p>
 
 <div class="index-grid wa-grid:gap-2xl">
-  <h2 class="index-category wa-span-grid">Implicit Sizing</h2>
+  <h2 class="index-category wa-span-grid">CSS Classes</h2>
   <a href="/docs/layout/cluster">
     <wa-card with-header>
       <div slot="header" class="wa-frame:landscape">

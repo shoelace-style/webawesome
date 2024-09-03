@@ -4,7 +4,7 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
-Use the `wa-flank` class to position two items side-by-side, with one "flanking" content that stretches to fill the available space. When space is limited, the items wrap.
+Use the `wa-flank` class to position two items side-by-side, with one item positioned alongside, or _flanking_, content that stretches to fill the available space. When space is limited, the items wrap.
 
 ```html {.example}
 <div class="wa-flank">
@@ -15,7 +15,7 @@ Use the `wa-flank` class to position two items side-by-side, with one "flanking"
 
 ## Position
 
-An item can flank either the start or end of the content by appending `:start` or `:end` to the `wa-flank` class.
+By default, the first item in the `wa-flank` container will flank the other content. You can specify whether the first or last item will flank the remaining content by appending `:start` or `:end` to the `wa-flank` class.
 
 ```html {.example}
 <div class="wa-stack">
@@ -47,7 +47,7 @@ The flank's inline size is determined by the size of its content, but you can se
 </div>
 ```
 
-The main content fills the remaining inline space of the container. By default, the flank and main content wrap when the main content is less than 50% of the container. You can change the minimum size of the main content with the `--content-percentage` property.
+The main content fills the remaining inline space of the container. By default, the items wrap when the main content is less than 50% of the container. You can change the minimum size of the main content with the `--content-percentage` property.
 
 ```html {.example}
 <div class="wa-stack">
@@ -64,7 +64,7 @@ The main content fills the remaining inline space of the container. By default, 
 
 ## Alignment
 
-By default, items in a flank are centered in the block direction of the container. You can append any of the following modifiers to the `wa-flank` class in your markup to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-flank` container. You can append any of the following modifiers to the `wa-flank` class in your markup to specify how items are aligned in the block direction:
 - `:align-start`
 - `:align-end`
 - `:align-center`
@@ -105,7 +105,7 @@ By default, the gap between flank items uses `--wa-space-m` from your theme. You
 - `:gap-2xl`
 - `:gap-3xl`
 
-Each modifier uses the corresponding space variable from your theme.
+These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">

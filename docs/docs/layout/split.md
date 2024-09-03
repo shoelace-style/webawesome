@@ -32,7 +32,7 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 
 ## Alignment
 
-By default, items in a split are centered in the available space. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
+By default, items are centered in the cross direction of the `wa-split` container. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
 - `:align-start`
 - `:align-end`
 - `:align-center`
@@ -75,7 +75,7 @@ A split's gap determines how close items can be before they wrap. By default, th
 - `:gap-2xl`
 - `:gap-3xl`
 
-Each modifier uses the corresponding space variable from your theme.
+These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">

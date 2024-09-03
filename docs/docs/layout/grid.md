@@ -56,7 +56,7 @@ By default, the gap between grid items uses `--wa-space-m` from your theme. You 
 - `:gap-2xl`
 - `:gap-3xl`
 
-Each modifier uses the corresponding space variable from your theme.
+These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">
@@ -76,6 +76,20 @@ Each modifier uses the corresponding space variable from your theme.
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
+</div>
+```
+
+## Span Grid
+
+You can add `wa-span-grid` to any grid item to allow it to span all grid columns. With this, the grid item occupies its own grid row.
+
+```html {.example}
+<div class="layout-example-boundary wa-grid">
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block wa-span-grid"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
 </div>
 ```
 
