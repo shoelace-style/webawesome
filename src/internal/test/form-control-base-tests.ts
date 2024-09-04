@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { fixtures } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
+import { resetMouse } from '@web/test-runner-commands';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { clientFixture, hydratedFixture } from './fixture.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
-import { resetMouse } from '@web/test-runner-commands';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
@@ -63,7 +63,7 @@ function runAllValidityTests(
   describe(`Form validity base test for ${displayName}`, () => {
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
     afterEach(async () => {
-      await resetMouse()
+      await resetMouse();
       await aTimeout(10);
     });
 
