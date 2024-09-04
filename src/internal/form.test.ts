@@ -1,5 +1,5 @@
-import { expect, waitUntil } from '@open-wc/testing';
 import { clientFixture } from './test/fixture.js';
+import { expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
 
