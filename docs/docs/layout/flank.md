@@ -139,21 +139,21 @@ Flanks work especially well for asides, inputs with adjacent buttons, and rich d
     <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
     <div class="wa-stack:gap-3xs">
       <strong>Gandalf</strong>
-      <small>All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</small>
+      <p class="wa-body-text-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
     </div>
   </div>
   <div class="wa-flank:align-start">
     <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
     <div class="wa-stack:gap-3xs">
       <strong>Boromir</strong>
-      <small>One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</small>
+      <p class="wa-body-text-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
     </div>
   </div>
   <div class="wa-flank:align-start">
     <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
     <div class="wa-stack:gap-3xs">
       <strong>Galadriel</strong>
-      <small>The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</small>
+      <p class="wa-body-text-s">The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</p>
     </div>
   </div>
 </div>

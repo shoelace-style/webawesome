@@ -89,8 +89,8 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" />
     </div>
     <div class="wa-stack:gap-xs">
-      <h3 class="wa-font-size:m">White-socks</h3>
-      <small>Kitten &bull; Male</small>
+      <h3 class="wa-heading-s">White-socks</h3>
+      <span class="wa-body-text-s">Kitten &bull; Male</span>
       <div class="wa-flank:end:gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-whitesocks" name="heart" variant="regular"></wa-icon-button>
@@ -100,14 +100,14 @@ Frames are well-suited for images and image placeholders.
   </wa-card>
   <wa-card with-header>
     <div class="wa-frame:landscape" slot="header">
-      <div class="wa-stack:align-center:gap-xs" style="color: var(--wa-color-text-quiet)">
-        <wa-icon name="paw" class="wa-font-size:xl"></wa-icon>
-        <small>Photo coming soon</small>
+      <div class="wa-stack:align-center:gap-xs wa-caption-m">
+        <wa-icon name="paw"></wa-icon>
+        <span>Photo coming soon</span>
       </div>
     </div>
     <div class="wa-stack:gap-xs">
-      <h3 class="wa-font-size:m">Bumpkin</h3>
-      <small>Adult &bull; Male</small>
+      <h3 class="wa-heading-s">Bumpkin</h3>
+      <span class="wa-body-text-s">Adult &bull; Male</span>
       <div class="wa-flank:end:gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-bumpkin" name="heart" variant="regular"></wa-icon-button>
@@ -120,8 +120,8 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" />
     </div>
     <div class="wa-stack:gap-xs">
-      <h3 class="wa-font-size:m">Swish-tail</h3>
-      <small>Kitten &bull; Female</small>
+      <h3 class="wa-heading-s">Swish-tail</h3>
+      <span class="wa-body-text-s">Kitten &bull; Female</span>
       <div class="wa-flank:end:gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-swishtail" name="heart" variant="regular"></wa-icon-button>
@@ -134,8 +134,8 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" />
     </div>
     <div class="wa-stack:gap-xs">
-      <h3 class="wa-font-size:m">Sharp-ears</h3>
-      <small>Adult &bull; Female</small>
+      <h3 class="wa-heading-s">Sharp-ears</h3>
+      <span class="wa-body-text-s">Adult &bull; Female</span>
       <div class="wa-flank:end:gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-sharpears" name="heart" variant="regular"></wa-icon-button>

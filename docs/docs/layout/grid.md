@@ -103,35 +103,35 @@ Grids work especially well for card lists and content designed for browsing.
     <div class="wa-frame:border-radius-m">
       <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?q=20" />
     </div>
-    <h3 class="wa-font-size:l">Tulip</h3>
+    <h3 class="wa-heading-s">Tulip</h3>
     <em>Tulipa gesneriana</em>
   </div>
   <div class="wa-stack:gap-s">
     <div class="wa-frame:border-radius-m">
       <img src="https://images.unsplash.com/photo-1591767134492-338e62f7b5a2?q=20" />
     </div>
-    <h3 class="wa-font-size:l">Peony</h3>
+    <h3 class="wa-heading-s">Peony</h3>
     <em>Paeonia officinalis</em>
   </div>
   <div class="wa-stack:gap-s">
     <div class="wa-frame:border-radius-m">
       <img src="https://images.unsplash.com/photo-1590872000386-4348c6393115?q=20" />
     </div>
-    <h3 class="wa-font-size:l">Poppy</h3>
+    <h3 class="wa-heading-s">Poppy</h3>
     <em>Papaver rhoeas</em>
   </div>
   <div class="wa-stack:gap-s">
     <div class="wa-frame:border-radius-m">
       <img src="https://images.unsplash.com/photo-1516723338795-324c7c33f700?q=20" />
     </div>
-    <h3 class="wa-font-size:l">Sunflower</h3>
+    <h3 class="wa-heading-s">Sunflower</h3>
     <em>Helianthus annuus</em>
   </div>
   <div class="wa-stack:gap-s">
     <div class="wa-frame:border-radius-m">
       <img src="https://images.unsplash.com/photo-1563601841845-74a0a8ab7c8a?q=20" />
     </div>
-    <h3 class="wa-font-size:l">Daisy</h3>
+    <h3 class="wa-heading-s">Daisy</h3>
     <em>Bellis perennis</em>
   </div>
 </div>
@@ -145,9 +145,9 @@ Grids work especially well for card lists and content designed for browsing.
         <wa-icon slot="icon" name="globe"></wa-icon>
       </wa-avatar>
       <div class="wa-stack:gap-3xs">
-        <small>Population (Zion)</small>
+        <span class="wa-caption-s">Population (Zion)</span>
         <span class="wa-cluster:gap-xs">
-          <strong class="wa-font-size:2xl wa-line-height:condensed">251,999</strong>
+          <span class="wa-heading-xl">251,999</span>
           <wa-badge variant="danger">-3%&nbsp;<wa-icon name="arrow-trend-down"></wa-icon></wa-badge>
         </span>
       </div>
@@ -159,9 +159,9 @@ Grids work especially well for card lists and content designed for browsing.
         <wa-icon slot="icon" name="brain-circuit"></wa-icon>
       </wa-avatar>
       <div class="wa-stack:gap-3xs">
-        <small>Minds Freed</small>
+        <span class="wa-caption-s">Minds Freed</span>
         <span class="wa-cluster:gap-xs">
-          <strong class="wa-font-size:2xl wa-line-height:condensed">0.36%</strong>
+          <span class="wa-heading-xl">0.36%</span>
           <wa-badge variant="success">+0.03%&nbsp;<wa-icon name="arrow-trend-up"></wa-icon></wa-badge>
         </span>
       </div>
@@ -173,9 +173,9 @@ Grids work especially well for card lists and content designed for browsing.
         <wa-icon slot="icon" name="robot"></wa-icon>
       </wa-avatar>
       <div class="wa-stack:gap-3xs">
-        <small>Agents Discovered</small>
+        <span class="wa-caption-s">Agents Discovered</span>
         <span class="wa-cluster:gap-xs">
-          <strong class="wa-font-size:2xl wa-line-height:condensed">3</strong>
+          <span class="wa-heading-xl">3</span>
           <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="wave-triangle"></wa-icon></wa-badge>
         </span>
       </div>
@@ -187,9 +187,9 @@ Grids work especially well for card lists and content designed for browsing.
         <wa-icon slot="icon" name="spaghetti-monster-flying"></wa-icon>
       </wa-avatar>
       <div class="wa-stack:gap-3xs">
-        <small>Sentinels Controlled</small>
+        <span class="wa-caption-s">Sentinels Controlled</span>
         <span class="wa-cluster:gap-xs">
-          <strong class="wa-font-size:2xl wa-line-height:condensed">208</strong>
+          <span class="wa-heading-xl">208</span>
           <wa-badge variant="success">+1%&nbsp;<wa-icon name="arrow-trend-up"></wa-icon></wa-badge>
         </span>
       </div>
