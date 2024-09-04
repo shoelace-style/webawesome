@@ -72,13 +72,12 @@ function runAllValidityTests(
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
     afterEach(async () => {
       try {
-      await aTimeout(10);
-      await resetMouse();
+        await aTimeout(10);
+        await resetMouse();
       } catch (_e) {
         // leave me alone eslint.
       }
     });
-
 
     for (const fixture of fixtures) {
       describe(`with ${fixture.type} rendering`, () => {
