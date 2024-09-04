@@ -20,7 +20,7 @@ describe('Form tests', () => {
 
         form.querySelector('wa-input')!.remove();
 
-        await aTimeout(1)
+        await aTimeout(1);
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);

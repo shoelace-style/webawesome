@@ -1,5 +1,5 @@
-import { fixtures } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import type WaQrCode from './qr-code.js';
 
