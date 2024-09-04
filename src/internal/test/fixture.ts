@@ -33,7 +33,7 @@ document.addEventListener('lit-hydration-error', handleHydrationError);
 export async function clientFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult | string) {
   // Load all component definitions "customElements.define()"
   await Promise.allSettled(window.clientComponents.map(str => import(str)));
-  return fixture<T>(template);
+  return await fixture<T>(template);
 }
 
 // Make it easy to register describe blocks and tell what type of test failed.

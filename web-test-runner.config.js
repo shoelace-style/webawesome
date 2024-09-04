@@ -53,6 +53,8 @@ export default {
     <html lang="en-US">
       <head>
         <link rel="stylesheet" href="/dist/themes/default.css">
+        <script type="module" src="/dist-cdn/webawesome.ssr-loader.js"></script>
+
         <script>
           window.process = {env: { NODE_ENV: "production" }}
         </script>
