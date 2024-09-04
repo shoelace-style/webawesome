@@ -98,11 +98,6 @@ export default class WaCarousel extends WebAwesomeElement {
 
   @state() dragging = false;
 
-  // /**
-  //  * A boolean for when `firstUpdated` has been called to prevent hydration mismatch errors from Lit.
-  //  */
-  // @state() firstUpdatedHasBeenCalled = false
-
   private autoplayController = new AutoplayController(this, () => this.next());
   private readonly localize = new LocalizeController(this);
   private mutationObserver: MutationObserver;
@@ -119,7 +114,6 @@ export default class WaCarousel extends WebAwesomeElement {
   }
 
   protected firstUpdated(): void {
-    // this.firstUpdatedHasBeenCalled = true
     this.initializeSlides();
     this.mutationObserver = new MutationObserver(this.handleSlotChange);
     this.mutationObserver.observe(this, {
