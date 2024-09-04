@@ -2,7 +2,7 @@ import { clickOnElement } from '../../internal/test.js';
 import { expect, oneEvent } from '@open-wc/testing';
 import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-// import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
 import sinon from 'sinon';
@@ -10,7 +10,7 @@ import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
   // TODO: This crashes playwright for some reason.
-  // runFormControlBaseTests('wa-range');
+  runFormControlBaseTests('wa-range');
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {

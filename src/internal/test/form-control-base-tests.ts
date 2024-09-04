@@ -61,11 +61,24 @@ function runAllValidityTests(
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116
   describe(`Form validity base test for ${displayName}`, () => {
+    beforeEach(async () => {
+      try {
+        await aTimeout(10);
+        await resetMouse();
+      } catch (_e) {
+        // leave me alone eslint.
+      }
+    });
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
     afterEach(async () => {
-      await resetMouse();
+      try {
       await aTimeout(10);
+      await resetMouse();
+      } catch (_e) {
+        // leave me alone eslint.
+      }
     });
+
 
     for (const fixture of fixtures) {
       describe(`with ${fixture.type} rendering`, () => {
