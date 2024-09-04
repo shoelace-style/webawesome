@@ -1,4 +1,4 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { expect, waitUntil } from '@open-wc/testing';
 import { clientFixture } from './test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -21,7 +21,7 @@ describe('Form tests', () => {
         form.querySelector('wa-input')!.remove();
 
         // Sometimes this fails in CI. This helps things wait a second
-        await waitUntil(() => form.checkValidity())
+        await waitUntil(() => form.checkValidity());
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);
