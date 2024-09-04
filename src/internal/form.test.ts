@@ -1,10 +1,10 @@
-import { clientFixture, hydratedFixture } from './test/fixture.js';
-import { expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from './test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 
 describe('Form tests', () => {
-  for (const fixture of [clientFixture, hydratedFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       // Reproduction of this issue: https://github.com/shoelace-style/shoelace/issues/1703
       it('Should still run form validations if an element is removed', async () => {
@@ -19,6 +19,8 @@ describe('Form tests', () => {
         expect(form.reportValidity()).to.equal(false);
 
         form.querySelector('wa-input')!.remove();
+
+        await aTimeout(1)
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);
