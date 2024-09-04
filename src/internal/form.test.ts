@@ -20,7 +20,8 @@ describe('Form tests', () => {
 
         form.querySelector('wa-input')!.remove();
 
-        await aTimeout(1);
+        // Sometimes this fails in CI. This helps things wait a second
+        await waitUntil(() => form.checkValidity())
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);
