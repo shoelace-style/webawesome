@@ -57,7 +57,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run prettier && npm run lint
+      - run: npm run prettier && npm run eslint
 
   test_client:
     runs-on: ubuntu-latest
@@ -77,7 +77,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install-deps
       - run: npm run build
-      - run: CSR_ONLY="true" npm run test
+      # --bail to fail on first failing test.
+      - run: CSR_ONLY="true" npm run test -- --bail
 
   test_ssr:
     runs-on: ubuntu-latest
@@ -97,4 +98,4 @@ jobs:
       - run: npm ci
       - run: npx playwright install-deps
       - run: npm run build
-      - run: 'SSR_ONLY="true" npm run test'
+      - run: SSR_ONLY="true" npm run test -- --bail
