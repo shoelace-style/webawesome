@@ -88,7 +88,7 @@ function generateReactWrappers() {
   spinner.start('Generating React wrappers');
 
   try {
-    execSync(`node scripts/make-react.js --outdir "${distDir}"`, { stdio: 'inherit' });
+    execSync(`node scripts/make-react.js --outdir "${cdnDir}"`, { stdio: 'inherit' });
   } catch (error) {
     console.error(`\n\n${error.message}`);
   }
@@ -126,7 +126,7 @@ async function generateTypes() {
   spinner.start('Running the TypeScript compiler');
 
   try {
-    execSync(`tsc --project ./tsconfig.prod.json --outdir "${distDir}"`);
+    execSync(`tsc --project ./tsconfig.prod.json --outdir "${cdnDir}"`);
   } catch (error) {
     return Promise.reject(error.stdout);
   }

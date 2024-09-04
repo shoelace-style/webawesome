@@ -7,7 +7,7 @@ import fs from 'fs';
 
 const packageData = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
-const outdir = 'dist';
+const outdir = 'dist-cdn';
 
 function replace(string, terms) {
   terms.forEach(({ from, to }) => {
@@ -162,7 +162,7 @@ export default {
     }),
 
     customElementJetBrainsPlugin({
-      outdir: './dist',
+      outdir: './dist-cdn',
       excludeCss: true,
       packageJson: false,
       referencesTemplate: (_, tag) => {
