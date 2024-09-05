@@ -1,10 +1,10 @@
-import { clientFixture } from './test/fixture.js';
 import { expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from './test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 
 describe('Form tests', () => {
-  for (const fixture of [clientFixture]) {
+  for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       // Reproduction of this issue: https://github.com/shoelace-style/shoelace/issues/1703
       it('Should still run form validations if an element is removed', async () => {
@@ -21,7 +21,7 @@ describe('Form tests', () => {
         form.querySelector('wa-input')!.remove();
 
         // Sometimes this fails in CI. This helps things wait a second
-        await waitUntil(() => form.checkValidity());
+        await waitUntil(() => !form.checkValidity());
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);

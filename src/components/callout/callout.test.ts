@@ -14,7 +14,7 @@ describe('<wa-callout>', () => {
           const base = callout.shadowRoot!.querySelector<HTMLElement>('[part="base"]')!;
 
           expect(base).to.have.class(`callout--${variant}`);
-          // await expect(callout).to.be.accessible();
+          await expect(callout).to.be.accessible();
         }
       });
     });
