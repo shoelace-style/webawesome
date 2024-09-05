@@ -53,7 +53,6 @@ export default {
     <html lang="en-US">
       <head>
         <link rel="stylesheet" href="/dist/themes/default.css">
-        <script type="module" src="/dist-cdn/webawesome.ssr-loader.js"></script>
 
         <script>
           window.process = {env: { NODE_ENV: "production" }}
@@ -69,6 +68,12 @@ export default {
 
           window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
+        </script>
+        <script type="module">
+          ;(async () => {
+            await import('@lit-labs/ssr-client/lit-element-hydrate-support.js')
+            await Promise.allSettled(window.clientComponents.map(str => import(str)));
+          })()
         </script>
         <script type="module" src="${testFramework}"></script>
       </head>

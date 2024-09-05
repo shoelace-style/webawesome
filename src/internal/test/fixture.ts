@@ -32,7 +32,7 @@ document.addEventListener('lit-hydration-error', handleHydrationError);
  */
 export async function clientFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult | string) {
   // Load all component definitions "customElements.define()"
-  await Promise.allSettled(window.clientComponents.map(str => import(str)));
+  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
   return await fixture<T>(template);
 }
 
@@ -50,7 +50,7 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
   });
 
   // Load all component definitions "customElements.define()"
-  await Promise.allSettled(window.clientComponents.map(str => import(str)));
+  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
 
   // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
   // This forces every element to "hydrate" and then wait for an update to complete (hydration)
