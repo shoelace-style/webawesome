@@ -382,11 +382,10 @@ legend {
 }
 
 /* Images, videos, iframes, etc. */
-img:not(wa-card *),
-picture,
+img,
 svg,
+picture,
 video {
-  border-radius: var(--wa-border-radius-s);
   max-width: 100%;
   height: auto;
 }

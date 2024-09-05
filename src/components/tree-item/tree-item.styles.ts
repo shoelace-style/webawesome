@@ -58,11 +58,9 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: content-box;
     color: var(--expand-button-color);
-    padding: var(--wa-space-xs);
-    width: 1rem;
-    height: 1rem;
+    width: 2em;
+    height: 2em;
     flex-shrink: 0;
     cursor: pointer;
   }
