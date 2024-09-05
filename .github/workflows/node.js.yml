@@ -75,7 +75,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npx playwright install-deps
+      - run: npx playwright uninstall --all && npx playwright install --force chrome firefox webkit --with-deps
       - run: npm run build
       # --bail to fail on first failing test.
       - run: CSR_ONLY="true" npm run test -- --bail
@@ -96,6 +96,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npx playwright install-deps
+      - run: npx playwright uninstall --all && npx playwright install --force chrome firefox webkit --with-deps
       - run: npm run build
       - run: SSR_ONLY="true" npm run test -- --bail

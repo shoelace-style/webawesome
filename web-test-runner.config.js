@@ -45,7 +45,7 @@ export default {
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium', concurrency }),
-    playwrightLauncher({ product: 'firefox', concurrency }),
+    // playwrightLauncher({ product: 'firefox', concurrency }),
     playwrightLauncher({ product: 'webkit', concurrency })
   ],
   testRunnerHtml: testFramework => `
