@@ -52,7 +52,7 @@ Use the `readonly` attribute to display a rating that users can't change.
 
 ### Disabled
 
-Use the `disable` attribute to disable the rating.
+Use the `disabled` attribute to disable the rating.
 
 ```html {.example}
 <wa-rating label="Rating" disabled value="3"></wa-rating>
