@@ -20,8 +20,8 @@ describe('<wa-callout>', () => {
           expect(base).to.have.class(`callout--${variant}`);
 
           // @TODO: For some reason this fails only in CI. I have no clue why. I tested this scenario on the real site, and it works as expected. [Konnor]
-          if (fixture.type === "ssr-client-hydrated") {
-            return
+          if (fixture.type === 'ssr-client-hydrated') {
+            return;
           }
 
           await expect(callout).to.be.accessible();
