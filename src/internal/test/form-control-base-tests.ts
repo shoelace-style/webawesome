@@ -43,6 +43,10 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
   runAllValidityTests(tagName, displayName, renderControl);
 }
 
+function preventSubmit (e: SubmitEvent) {
+  e.preventDefault() // => stop accidental navigation from breaking the page.
+}
+
 //
 // Applicable for all Web Awesome form controls. This function checks the behavior of:
 //   - `.validity`
@@ -62,6 +66,7 @@ function runAllValidityTests(
   // https://github.com/mochajs/mocha/issues/2116
   describe(`Form validity base test for ${displayName}`, () => {
     beforeEach(async () => {
+      document.addEventListener("submit", preventSubmit)
       try {
         await aTimeout(10);
         await resetMouse();
@@ -71,6 +76,7 @@ function runAllValidityTests(
     });
     // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
     afterEach(async () => {
+      document.removeEventListener("submit", preventSubmit)
       try {
         await aTimeout(10);
         await resetMouse();
