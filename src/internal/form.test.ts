@@ -15,6 +15,8 @@ describe('Form tests', () => {
           </form>
         `);
 
+        await waitUntil(() => !form.checkValidity());
+
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);
 
