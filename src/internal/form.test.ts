@@ -15,10 +15,10 @@ describe('Form tests', () => {
           </form>
         `);
 
-        await customElements.whenDefined("wa-input")
-        await customElements.whenDefined("wa-textarea")
-        await form.querySelector("wa-input")?.updateComplete
-        await form.querySelector("wa-textarea")?.updateComplete
+        await customElements.whenDefined('wa-input');
+        await customElements.whenDefined('wa-textarea');
+        await form.querySelector('wa-input')?.updateComplete;
+        await form.querySelector('wa-textarea')?.updateComplete;
 
         await waitUntil(() => !form.checkValidity());
 
