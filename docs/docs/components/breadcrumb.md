@@ -35,6 +35,36 @@ For websites, you'll probably want to use links instead. You can make any breadc
 </wa-breadcrumb>
 ```
 
+### Prefixes
+
+Use the `prefix` slot to add content before any breadcrumb item.
+
+```html {.example}
+<wa-breadcrumb>
+  <wa-breadcrumb-item>
+    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+    Home
+  </wa-breadcrumb-item>
+  <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
+  <wa-breadcrumb-item>Traveling</wa-breadcrumb-item>
+</wa-breadcrumb>
+```
+
+### Suffixes
+
+Use the `suffix` slot to add content after any breadcrumb item.
+
+```html {.example}
+<wa-breadcrumb>
+  <wa-breadcrumb-item>Documents</wa-breadcrumb-item>
+  <wa-breadcrumb-item>Policies</wa-breadcrumb-item>
+  <wa-breadcrumb-item>
+    Security
+    <wa-icon slot="suffix" name="shield" variant="solid"></wa-icon>
+  </wa-breadcrumb-item>
+</wa-breadcrumb>
+```
+
 ### Custom Separators
 
 Use the `separator` slot to change the separator that goes between breadcrumb items. Icons work well, but you can also use text or an image.
@@ -66,57 +96,27 @@ Use the `separator` slot to change the separator that goes between breadcrumb it
 </wa-breadcrumb>
 ```
 
-### Prefixes
-
-Use the `prefix` slot to add content before any breadcrumb item.
-
-```html {.example}
-<wa-breadcrumb>
-  <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
-    Home
-  </wa-breadcrumb-item>
-  <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Traveling</wa-breadcrumb-item>
-</wa-breadcrumb>
-```
-
-### Suffixes
-
-Use the `suffix` slot to add content after any breadcrumb item.
-
-```html {.example}
-<wa-breadcrumb>
-  <wa-breadcrumb-item>Documents</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Policies</wa-breadcrumb-item>
-  <wa-breadcrumb-item>
-    Security
-    <wa-icon slot="suffix" name="shield" variant="solid"></wa-icon>
-  </wa-breadcrumb-item>
-</wa-breadcrumb>
-```
-
 ### Custom Colors
 
 Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Prefixes, suffixes, and separators can be styled using CSS parts.
 
 ```html {.example}
 <style>
-  .grayscale wa-breadcrumb-item {
-    color: slategrey;
+  .redcrumbs wa-breadcrumb-item {
+    color: firebrick;
   }
-  .grayscale wa-breadcrumb-item:last-of-type {
-    color: darkslategrey;
+  .redcrumbs wa-breadcrumb-item:last-of-type {
+    color: crimson;
   }
-  .grayscale wa-breadcrumb-item::part(separator) {
-    color: lightgray;
+  .redcrumbs wa-breadcrumb-item::part(separator) {
+    color: pink;
   }
-  .grayscale wa-breadcrumb-item::part(prefix),
-  .grayscale wa-breadcrumb-item::part(suffix) {
+  .redcrumbs wa-breadcrumb-item::part(prefix),
+  .redcrumbs wa-breadcrumb-item::part(suffix) {
     color: currentColor;
   }
 </style>
-<wa-breadcrumb class="grayscale">
+<wa-breadcrumb class="redcrumbs">
   <wa-breadcrumb-item>
     <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
     Home
