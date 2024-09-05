@@ -11,6 +11,10 @@ describe('<wa-callout>', () => {
 
         for (const variant of variants) {
           const callout = await fixture<WaCallout>(html`<wa-callout variant="${variant}">I am a callout</wa-callout>`);
+
+          await customElements.whenDefined("wa-callout")
+          await callout.updateComplete
+
           const base = callout.shadowRoot!.querySelector<HTMLElement>('[part="base"]')!;
 
           expect(base).to.have.class(`callout--${variant}`);
