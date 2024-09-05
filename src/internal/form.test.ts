@@ -8,7 +8,7 @@ describe('Form tests', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       // Reproduction of this issue: https://github.com/shoelace-style/shoelace/issues/1703
       it('Should still run form validations if an element is removed', async () => {
-        await aTimeout(500)
+        await aTimeout(500);
         const form = await fixture<HTMLFormElement>(html`
           <form>
             <wa-input name="name" label="Name" required></wa-input>
