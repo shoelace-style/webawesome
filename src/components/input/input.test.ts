@@ -25,8 +25,8 @@ describe('<wa-input>', () => {
         expect(el.type).to.equal('text');
         expect(el.size).to.equal('medium');
         expect(el.name).to.equal(null);
-        expect(el.value).to.equal('');
-        expect(el.defaultValue).to.equal('');
+        expect(el.value).to.equal(null);
+        expect(el.defaultValue).to.equal(null);
         expect(el.title).to.equal('');
         expect(el.filled).to.be.false;
         expect(el.pill).to.be.false;

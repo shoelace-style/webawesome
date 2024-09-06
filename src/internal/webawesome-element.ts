@@ -52,7 +52,6 @@ export interface Validator<T extends WebAwesomeFormAssociatedElement = WebAwesom
 export interface WebAwesomeFormControl extends WebAwesomeElement {
   // Form attributes
   name: null | string;
-  value: unknown;
   disabled?: boolean;
   defaultValue?: unknown;
   defaultChecked?: boolean;
@@ -60,6 +59,10 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
   defaultSelected?: boolean;
   selected?: boolean;
   form?: string | null;
+
+  get value(): unknown;
+  set value(val: unknown);
+
 
   // Constraint validation attributes
   pattern?: string;
@@ -123,7 +126,6 @@ export class WebAwesomeFormAssociatedElement
   // Form attributes
   // These should properly just use `@property` accessors.
   name: null | string = null;
-  value: unknown = null;
   defaultValue: unknown = null;
   disabled: boolean = false;
   required: boolean = false;
@@ -196,18 +198,7 @@ export class WebAwesomeFormAssociatedElement
       this.setCustomValidity(this.customError || '');
     }
 
-    // Check for `this.hasUpdated` because otherwise it'll auto-reset the value on first connect.
-    if (this.hasUpdated && changedProperties.has('defaultValue')) {
-      if (!this.hasInteracted && this.value !== this.defaultValue) {
-        this.value = this.defaultValue;
-      }
-    }
-
     if (changedProperties.has('value') || changedProperties.has('disabled')) {
-      if (this.hasInteracted && this.value !== this.defaultValue) {
-        this.valueHasChanged = true;
-      }
-
       const value = this.value;
 
       // Accounts for the snowflake case on `<wa-select>`
