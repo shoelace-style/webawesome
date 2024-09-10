@@ -126,7 +126,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /** The name of the select, submitted as a name/value pair with form data. */
   @property() name = '';
 
-
   private _defaultValue: string | string[] = '';
 
   @property({
@@ -143,7 +142,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   get defaultValue() {
     if (!this.hasUpdated) {
-      this._defaultValue = this.convertDefaultValue(this._defaultValue)
+      this._defaultValue = this.convertDefaultValue(this._defaultValue);
     }
     return this._defaultValue;
   }
@@ -152,7 +151,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    * @private
    * A converter for defaultValue from array to string if its multiple. Also fixes some hydration issues.
    */
-  private convertDefaultValue (val: typeof this.defaultValue) {
+  private convertDefaultValue(val: typeof this.defaultValue) {
     // For some reason this can go off before we've fully updated. So check the attribute too.
     const isMultiple = this.multiple || this.hasAttribute('multiple');
 
@@ -160,7 +159,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       val = val.join(' ');
     }
 
-    return val
+    return val;
   }
 
   private _value: string | string[] | null = this.defaultValue;
@@ -808,7 +807,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
-    const hasClearIcon = (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
+    const hasClearIcon =
+      (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
     const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
 
     return html`

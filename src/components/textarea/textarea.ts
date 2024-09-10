@@ -64,7 +64,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The name of the textarea, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  private _value: string = "";
+  private _value: string = '';
 
   /** The current value of the input, submitted as a name/value pair with form data. */
   get value() {
