@@ -14,6 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Fixed form controls to behave like their native counterparts for value and defaultValue properties / attributes respectively. [#157]
 - Fixed a bug in `<wa-input>` around value attributes and properties to behave like native `<input>`. [#157]
 - Added `scroll-margin-top` to children of `wa-page` [#157]
 - Added `--scroll-margin-top` css variable `wa-page` [#157]
