@@ -78,12 +78,12 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   private _value: number | null = null;
 
   /** The current value of the range, submitted as a name/value pair with form data. */
-  get value() {
+  get value(): number {
     if (this.valueHasChanged) {
-      return this._value;
+      return this._value || 0;
     }
 
-    return this._value ?? this.defaultValue;
+    return this._value ?? (this.defaultValue || 0);
   }
 
   @state()
