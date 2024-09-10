@@ -60,9 +60,7 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
   selected?: boolean;
   form?: string | null;
 
-  get value(): unknown;
-  set value(val: unknown);
-
+  value?: unknown;
 
   // Constraint validation attributes
   pattern?: string;
@@ -124,10 +122,12 @@ export class WebAwesomeFormAssociatedElement
   }
 
   // Form attributes
-  // These should properly just use `@property` accessors.
-  name: null | string = null;
-  defaultValue: unknown = null;
-  disabled: boolean = false;
+  /** The name of the input, submitted as a name/value pair with form data. */
+  @property({ reflect: true }) name: string | null = null;
+
+  /** Disables the form control. */
+  @property({ type: Boolean }) disabled = false;
+
   required: boolean = false;
 
   // Form validation methods
@@ -199,7 +199,8 @@ export class WebAwesomeFormAssociatedElement
     }
 
     if (changedProperties.has('value') || changedProperties.has('disabled')) {
-      const value = this.value;
+      // @ts-expect-error Some components will use an accessors, other use a property, so we dont want to limit them.
+      const value = this.value as unknown;
 
       // Accounts for the snowflake case on `<wa-select>`
       if (Array.isArray(value)) {
@@ -344,6 +345,7 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
+    // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
     this.value = state;
 
     if (reason === 'restore') {

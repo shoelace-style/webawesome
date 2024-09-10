@@ -96,26 +96,25 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     | 'time'
     | 'url' = 'text';
 
-  /** The name of the input, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
-
-
   private _value: string | null = null;
 
   /** The current value of the input, submitted as a name/value pair with form data. */
   get value() {
-    if (this.valueHasChanged) { return this._value }
+    if (this.valueHasChanged) {
+      return this._value;
+    }
 
     return this._value ?? this.defaultValue;
   }
 
-  @state() set value(val: string | null) {
+  @state()
+  set value(val: string | null) {
     if (this._value === val) {
-      return
+      return;
     }
 
-    this.valueHasChanged = true
-    this._value = val
+    this.valueHasChanged = true;
+    this._value = val;
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
@@ -138,9 +137,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   /** Adds a clear button when the input is not empty. */
   @property({ type: Boolean }) clearable = false;
-
-  /** Disables the input. */
-  @property({ type: Boolean }) disabled = false;
 
   /** Placeholder text to show as a hint when the input is empty. */
   @property() placeholder = '';
@@ -470,7 +466,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               min=${ifDefined(this.min)}
               max=${ifDefined(this.max)}
               step=${ifDefined(this.step as number)}
-              .value=${live(this.value || "")}
+              .value=${live(this.value || '')}
               autocapitalize=${ifDefined(this.autocapitalize)}
               autocomplete=${ifDefined(this.autocomplete)}
               autocorrect=${ifDefined(this.autocorrect)}

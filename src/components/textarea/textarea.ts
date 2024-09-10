@@ -64,11 +64,29 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The name of the textarea, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  /** The current value of the textarea, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value = this.getAttribute('value') || '';
+  private _value: string = "";
+
+  /** The current value of the input, submitted as a name/value pair with form data. */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value || this.defaultValue;
+  }
+
+  @state()
+  set value(val: string) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ reflect: true, attribute: 'value' }) defaultValue = this.getAttribute('value') || '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -169,8 +187,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
       if (this.didSSR && this.input && this.value !== this.input.value) {
         const value = this.input.value;
-        // For some reason this.value is being wiped out on first connect.
-        this.input.value = value;
+
         this.value = value;
       }
     });

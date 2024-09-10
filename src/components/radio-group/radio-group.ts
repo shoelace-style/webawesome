@@ -79,8 +79,29 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The name of the radio group, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  @property({ attribute: false }) value = this.getAttribute('value') || '';
-  @property({ attribute: 'value', reflect: true }) defaultValue = this.getAttribute('value') || '';
+  private _value: string | null = null;
+
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  /** The current value of the radio group, submitted as a name/value pair with form data. */
+  @state()
+  set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
+
+  /** The default value of the form control. Primarily used for resetting the form control. */
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   /** The radio group's size. This size will be applied to all child radios and radio buttons. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';

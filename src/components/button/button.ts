@@ -108,7 +108,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
    * The value of the button, submitted as a pair with the button's name as part of the form data, but only when this
    * button is the submitter. This attribute is ignored when `href` is present.
    */
-  @property({ reflect: true }) value = '';
+  @property({ reflect: true }) value: string | null = null;
 
   /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property() href = '';

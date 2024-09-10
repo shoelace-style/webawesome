@@ -151,15 +151,34 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @state() private brightness = 100;
   @state() private alpha = 100;
 
+  private _value: string | null = null;
+
+  /** The current value of the input, submitted as a name/value pair with form data. */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
   /**
    * The current value of the color picker. The value's format will vary based the `format` attribute. To get the value
    * in a specific format, use the `getFormattedValue()` method. The value is submitted as a name/value pair with form
    * data.
    */
-  @property({ attribute: false }) value = this.getAttribute('value') || '';
+
+  @state() set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue = this.getAttribute('value') || '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
   @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
@@ -259,7 +278,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const formats = ['hex', 'rgb', 'hsl', 'hsv'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
-    this.setColor(this.value);
+    this.setColor(this.value || '');
     this.dispatchEvent(new WaChangeEvent());
     this.dispatchEvent(new WaInputEvent());
   }
@@ -469,7 +488,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.input.value) {
       this.setColor(target.value);
-      target.value = this.value;
+      target.value = this.value || '';
     } else {
       this.value = '';
     }
@@ -724,7 +743,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     // Its kind of bizarre, but this is required to get SSR to play nicely.
     if (changedProperties.has('value')) {
-      this.handleValueChange(changedProperties.get('value'), this.value);
+      this.handleValueChange(changedProperties.get('value') || '', this.value || '');
     }
   }
 
@@ -743,7 +762,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       const newColor = this.parseColor(newValue);
 
       if (newColor !== null) {
-        this.inputValue = this.value;
+        this.inputValue = this.value || '';
         this.hue = newColor.hsva.h;
         this.saturation = newColor.hsva.s;
         this.brightness = newColor.hsva.v;

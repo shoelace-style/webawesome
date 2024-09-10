@@ -9,7 +9,6 @@ import sinon from 'sinon';
 import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
-  // TODO: This crashes playwright for some reason.
   runFormControlBaseTests('wa-range');
 
   for (const fixture of fixtures) {

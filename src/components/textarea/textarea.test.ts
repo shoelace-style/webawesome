@@ -9,6 +9,7 @@ import type WaTextarea from './textarea.js';
 
 describe('<wa-textarea>', () => {
   runFormControlBaseTests('wa-textarea');
+
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {

@@ -86,8 +86,17 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   /** The name of the checkbox, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name = '';
 
-  /** The current value of the checkbox, submitted as a name/value pair with form data. */
-  @property() value: null | string;
+  private _value: string | null = this.getAttribute("value") ?? null
+
+  /** The value of the checkbox, submitted as a name/value pair with form data. */
+  get value () {
+    return this._value ?? "on"
+  }
+
+  @property({ reflect: true })
+  set value(val: string | null) {
+    this._value = val
+  }
 
   /** The checkbox's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -149,20 +158,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  get formValue() {
-    return this.checked ? this.value ?? 'on' : null;
-  }
-
   handleValueOrCheckedChange() {
     this.toggleCustomState('checked', this.checked);
 
-    if (this.value === null || this.value === undefined) {
-      // We always set a value, but what actually gets submitted is the `formValue`
-      this.value = 'on';
-    }
-
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
-    this.setValue(this.formValue, this.value);
+    this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
@@ -252,7 +252,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               type="checkbox"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${this.name}
-              value=${ifDefined(this.value)}
+              value=${ifDefined(this._value)}
               .indeterminate=${live(this.indeterminate)}
               .checked=${live(this.checked)}
               .disabled=${this.disabled}
