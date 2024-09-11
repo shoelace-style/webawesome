@@ -10,6 +10,36 @@ export default class WebAwesomeElement extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
 
+  // Store the constructor value of all `static properties = {}`
+  constructorProperties: Map<string, unknown> = new Map()
+
+  constructor () {
+    super()
+
+    // queueMicrotask(() => {
+      ;(this.constructor as typeof WebAwesomeElement).elementProperties.forEach((obj, prop) => {
+        // @ts-expect-error Leave me alone.
+        // eslint-disable-next-line
+        if (obj.reflect && this[prop] != null) {
+          // @ts-expect-error Leave me alone.
+          this.constructorProperties.set(prop, this[prop])
+        }
+      })
+    // })
+  }
+  willUpdate (changedProperties: PropertyValues<this>) {
+     super.willUpdate(changedProperties)
+     this.constructorProperties.forEach((value, prop) => {
+       // If a prop changes to `null`, we assume this happens via an attribute changing to `null`.
+       // @ts-expect-error leave me alone
+      // eslint-disable-next-line
+       if (changedProperties.has(prop) && this[prop] == null) {
+        // @ts-expect-error leave me alone
+         this[prop] = value
+       }
+     })
+  }
+
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
     super.firstUpdated(changedProperties);
 
