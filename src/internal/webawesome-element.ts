@@ -16,8 +16,9 @@ export default class WebAwesomeElement extends LitElement {
   constructor () {
     super()
 
-    // queueMicrotask(() => {
-      ;(this.constructor as typeof WebAwesomeElement).elementProperties.forEach((obj, prop) => {
+    // queueMicrotask so that we wait until any subclasses finish their constructors and *then* we record the initial properties.
+    queueMicrotask(() => {
+      (this.constructor as typeof WebAwesomeElement).elementProperties.forEach((obj, prop) => {
         // @ts-expect-error Leave me alone.
         // eslint-disable-next-line
         if (obj.reflect && this[prop] != null) {
@@ -25,7 +26,7 @@ export default class WebAwesomeElement extends LitElement {
           this.constructorProperties.set(prop, this[prop])
         }
       })
-    // })
+    })
   }
   willUpdate (changedProperties: PropertyValues<this>) {
      super.willUpdate(changedProperties)
