@@ -64,11 +64,29 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The name of the textarea, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  /** The current value of the textarea, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value: null | string = '';
+  private _value: string = '';
+
+  /** The current value of the input, submitted as a name/value pair with form data. */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value || this.defaultValue;
+  }
+
+  @state()
+  set value(val: string) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ reflect: true, attribute: 'value' }) defaultValue: null | string = '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -148,15 +166,30 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
    */
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
 
+  /**
+   * Used for SSR. If you're slotting in a `label` element, make sure to set this to `true`.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+  /**
+   * Used for SSR. If you're slotting in a `help-text` element, make sure to set this to `true`.
+   */
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+
   connectedCallback() {
     super.connectedCallback();
 
-    this.value = this.defaultValue;
     this.resizeObserver = new ResizeObserver(() => this.setTextareaHeight());
 
     this.updateComplete.then(() => {
       this.setTextareaHeight();
       this.resizeObserver.observe(this.input);
+
+      if (this.didSSR && this.input && this.value !== this.input.value) {
+        const value = this.input.value;
+
+        this.value = value;
+      }
     });
   }
 
@@ -274,8 +307,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 

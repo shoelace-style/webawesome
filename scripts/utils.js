@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Helpful directories
 export const rootDir = dirname(__dirname);
 export const distDir = join(rootDir, 'dist');
+export const cdnDir = join(rootDir, 'dist-cdn');
 export const docsDir = join(rootDir, 'docs');
 export const siteDir = join(rootDir, '_site');
 

@@ -1,5 +1,5 @@
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
-import { LitElement, type PropertyValues } from 'lit';
+import { isServer, LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
 
@@ -7,6 +7,36 @@ export default class WebAwesomeElement extends LitElement {
   // Make localization attributes reactive
   @property() dir: string;
   @property() lang: string;
+
+  @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
+
+  protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
+    super.firstUpdated(changedProperties);
+
+    // This is a fix to workaround SSR not being able to catch slotchange events.
+    // https://github.com/lit/lit/discussions/4697
+    if (this.didSSR) {
+      this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
+        slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
+      });
+    }
+  }
+
+  protected update(changedProperties: PropertyValues<this>): void {
+    try {
+      super.update(changedProperties);
+    } catch (e) {
+      if (this.didSSR && !this.hasUpdated) {
+        // Emit a hydration error so we can catch it and do cool things.
+        // This may accidentally grab non-hydration related errors, but its the best I've found without directly reading error strings.
+        const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });
+        // @ts-expect-error leave me alone TS.
+        event.error = e;
+        this.dispatchEvent(event);
+      }
+      throw e;
+    }
+  }
 }
 
 export interface Validator<T extends WebAwesomeFormAssociatedElement = WebAwesomeFormAssociatedElement> {
@@ -22,7 +52,6 @@ export interface Validator<T extends WebAwesomeFormAssociatedElement = WebAwesom
 export interface WebAwesomeFormControl extends WebAwesomeElement {
   // Form attributes
   name: null | string;
-  value: unknown;
   disabled?: boolean;
   defaultValue?: unknown;
   defaultChecked?: boolean;
@@ -30,6 +59,8 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
   defaultSelected?: boolean;
   selected?: boolean;
   form?: string | null;
+
+  value?: unknown;
 
   // Constraint validation attributes
   pattern?: string;
@@ -91,11 +122,12 @@ export class WebAwesomeFormAssociatedElement
   }
 
   // Form attributes
-  // These should properly just use `@property` accessors.
-  name: null | string = null;
-  value: unknown = null;
-  defaultValue: unknown = null;
-  disabled: boolean = false;
+  /** The name of the input, submitted as a name/value pair with form data. */
+  @property({ reflect: true }) name: string | null = null;
+
+  /** Disables the form control. */
+  @property({ type: Boolean }) disabled = false;
+
   required: boolean = false;
 
   // Form validation methods
@@ -128,8 +160,10 @@ export class WebAwesomeFormAssociatedElement
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
     }
 
-    // eslint-disable-next-line
-    this.addEventListener('invalid', this.emitInvalid);
+    if (!isServer) {
+      // eslint-disable-next-line
+      this.addEventListener('invalid', this.emitInvalid);
+    }
   }
 
   connectedCallback() {
@@ -155,8 +189,8 @@ export class WebAwesomeFormAssociatedElement
     this.dispatchEvent(new WaInvalidEvent());
   };
 
-  protected willUpdate(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('customError')) {
+  protected willUpdate(changedProperties: Parameters<LitElement['willUpdate']>[0]) {
+    if (!isServer && changedProperties.has('customError')) {
       // We use null because it we really don't want it to show up in the attributes because `custom-error` does reflect
       if (!this.customError) {
         this.customError = null;
@@ -164,18 +198,9 @@ export class WebAwesomeFormAssociatedElement
       this.setCustomValidity(this.customError || '');
     }
 
-    if (changedProperties.has('defaultValue')) {
-      if (!this.hasInteracted) {
-        this.value = this.defaultValue;
-      }
-    }
-
     if (changedProperties.has('value') || changedProperties.has('disabled')) {
-      if (this.hasInteracted && this.value !== this.defaultValue) {
-        this.valueHasChanged = true;
-      }
-
-      const value = this.value;
+      // @ts-expect-error Some components will use an accessors, other use a property, so we dont want to limit them.
+      const value = this.value as unknown;
 
       // Accounts for the snowflake case on `<wa-select>`
       if (Array.isArray(value)) {
@@ -194,7 +219,7 @@ export class WebAwesomeFormAssociatedElement
     if (changedProperties.has('disabled')) {
       this.toggleCustomState('disabled', this.disabled);
 
-      if (this.hasAttribute('disabled') || !this.matches(':disabled')) {
+      if (this.hasAttribute('disabled') || (!isServer && !this.matches(':disabled'))) {
         this.toggleAttribute('disabled', this.disabled);
       }
     }
@@ -320,6 +345,7 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
+    // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
     this.value = state;
 
     if (reason === 'restore') {

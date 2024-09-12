@@ -72,11 +72,29 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   /** The name of the range, submitted as a name/value pair with form data. */
   @property() name = '';
 
-  /** The current value of the range, submitted as a name/value pair with form data. */
-  @property({ attribute: false, type: Number }) value = 0;
-
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue = 0;
+  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue = Number(this.getAttribute('value')) || 0;
+
+  private _value: number | null = null;
+
+  /** The current value of the range, submitted as a name/value pair with form data. */
+  get value(): number {
+    if (this.valueHasChanged) {
+      return this._value || 0;
+    }
+
+    return this._value ?? (this.defaultValue || 0);
+  }
+
+  @state()
+  set value(val: number | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The range's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
@@ -111,6 +129,16 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
    * the same document or shadow root for this to work.
    */
   @property({ reflect: true }) form: null | string = null;
+
+  /**
+   * Used for SSR to render slotted labels. If true, will render slotted label content on first paint.
+   */
+  @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
+
+  /**
+   * Used for SSR to render slotted labels. If true, will render slotted help-text content on first paint.
+   */
+  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -246,8 +274,8 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 

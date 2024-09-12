@@ -1,19 +1,20 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
+import { html } from 'lit';
 import type WaCopyButton from './copy-button.js';
 
 // We use aria-live to announce labels via tooltips
 const ignoredRules = ['button-name'];
 
 describe('<wa-copy-button>', () => {
-  let el: WaCopyButton;
-
-  describe('when provided no parameters', () => {
-    before(async () => {
-      el = await fixture(html`<wa-copy-button value="something"></wa-copy-button> `);
+  for (const fixture of fixtures) {
+    describe(`with "${fixture.type}" rendering`, () => {
+      describe('when provided no parameters', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="something"></wa-copy-button> `);
+          await expect(el).to.be.accessible({ ignoredRules });
+        });
+      });
     });
-
-    it('should pass accessibility tests', async () => {
-      await expect(el).to.be.accessible({ ignoredRules });
-    });
-  });
+  }
 });

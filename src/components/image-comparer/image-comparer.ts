@@ -96,7 +96,7 @@ export default class WaImageComparer extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
 
     return html`
       <div

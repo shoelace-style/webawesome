@@ -373,3 +373,17 @@ Guidelines for writing tests:
 - Try keeping the main test readable: Extract more complicated sets of selectors/commands/assertions into separate functions.
 - Try to aim testing the user facing features of the component instead of the internal workings of the component.
 - Group multiple tests for one feature into describe blocks.
+
+### Running tests
+
+Right now, tests run both "hydrated" (SSR -> client hydrated) and "client only". If you're debugging only one specific kind you can set an environment variable. For example, to run only the client tests, you can do:
+
+```bash
+CSR_ONLY="true" npm run test
+```
+
+or for hydrated rendering only:
+
+```bash
+SSR_ONLY="true" npm run test
+```

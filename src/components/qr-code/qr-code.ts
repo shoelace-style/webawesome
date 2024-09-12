@@ -1,12 +1,13 @@
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import QrCreator from 'qr-creator';
 import styles from './qr-code.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
+import type _QrCreator from 'qr-creator';
+
+let QrCreator: _QrCreator.default;
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -43,17 +44,38 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
-  firstUpdated() {
-    this.generate();
+  /**
+   * Whether or not the qr-code generated.
+   */
+  // @ts-expect-error Don't know why it marks it as unused.
+  @state() private generated = false;
+
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
+
+    if (this.hasUpdated) {
+      this.generate();
+    }
   }
 
   @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'])
   generate() {
+    this.style.setProperty('--size', `${this.size}px`);
+
     if (!this.hasUpdated) {
       return;
     }
 
-    (QrCreator as unknown as typeof QrCreator.default).render(
+    // We lazy load because the QR generator will cause the server to crash, but we want to reduce layout shift.
+    if (!QrCreator) {
+      import('qr-creator').then(mod => {
+        QrCreator = mod.default;
+        this.generate();
+      });
+      return;
+    }
+
+    (QrCreator as unknown as typeof _QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,
@@ -65,6 +87,8 @@ export default class WaQrCode extends WebAwesomeElement {
       },
       this.canvas
     );
+
+    this.generated = true;
   }
 
   render() {
@@ -74,10 +98,6 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
-        style=${styleMap({
-          width: `${this.size}px`,
-          height: `${this.size}px`
-        })}
       ></canvas>
     `;
   }

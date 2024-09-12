@@ -1,14 +1,17 @@
 import { getOffset } from './offset.js';
+import { isServer } from 'lit';
 
 const locks = new Set();
-const lockStyles = document.createElement('style');
+const lockStyles = isServer ? null : document.createElement('style');
 
-lockStyles.textContent = `
-  .wa-scroll-lock {
-    scrollbar-gutter: stable !important;
-    overflow: hidden !important;
-  }
-`;
+if (lockStyles) {
+  lockStyles.textContent = `
+    .wa-scroll-lock {
+      scrollbar-gutter: stable !important;
+      overflow: hidden !important;
+    }
+  `;
+}
 
 /**
  * Prevents body scrolling. Keeps track of which elements requested a lock so multiple levels of locking are possible
@@ -17,7 +20,7 @@ lockStyles.textContent = `
 export function lockBodyScrolling(lockingEl: HTMLElement) {
   locks.add(lockingEl);
 
-  if (!lockStyles.isConnected) {
+  if (lockStyles && !lockStyles.isConnected) {
     document.body.append(lockStyles);
     document.documentElement.classList.add('wa-scroll-lock');
   }
@@ -31,7 +34,7 @@ export function unlockBodyScrolling(lockingEl: HTMLElement) {
 
   if (locks.size === 0) {
     document.documentElement.classList.remove('wa-scroll-lock');
-    lockStyles.remove();
+    lockStyles?.remove();
   }
 }
 

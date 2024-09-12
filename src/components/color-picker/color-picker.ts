@@ -2,14 +2,14 @@ import '../button-group/button-group.js';
 import '../button/button.js';
 import '../dropdown/dropdown.js';
 import '../icon/icon.js';
-import '../input/input.js';
-import '../visually-hidden/visually-hidden.js';
+// import '../input/input.js';
+// import '../visually-hidden/visually-hidden.js';
 import { clamp } from '../../internal/math.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { drag } from '../../internal/drag.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
@@ -25,11 +25,9 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-eleme
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './color-picker.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaDropdown from '../dropdown/dropdown.js';
 import type WaInput from '../input/input.js';
-
-const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;
@@ -113,7 +111,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
   static get validators() {
-    return [...super.validators, RequiredValidator()];
+    const validators = isServer ? [] : [RequiredValidator()];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
@@ -152,15 +151,39 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @state() private brightness = 100;
   @state() private alpha = 100;
 
+  private _value: string | null = null;
+
+  /** The current value of the input, submitted as a name/value pair with form data. */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
   /**
    * The current value of the color picker. The value's format will vary based the `format` attribute. To get the value
    * in a specific format, use the `getFormattedValue()` method. The value is submitted as a name/value pair with form
    * data.
    */
-  @property({ attribute: false }) value = this.getAttribute('value') || '';
+
+  @state() set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue = this.getAttribute('value') || '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+
+  @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
+  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
+
+  @state() private hasEyeDropper: boolean = false;
 
   /**
    * The color picker's label. This will not be displayed, but it will be announced by assistive devices. If you need to
@@ -222,8 +245,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   constructor() {
     super();
-    this.addEventListener('focusin', this.handleFocusIn);
-    this.addEventListener('focusout', this.handleFocusOut);
+
+    if (!isServer) {
+      this.addEventListener('focusin', this.handleFocusIn);
+      this.addEventListener('focusout', this.handleFocusOut);
+    }
   }
 
   private handleCopy() {
@@ -252,7 +278,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const formats = ['hex', 'rgb', 'hsl', 'hsv'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
-    this.setColor(this.value);
+    this.setColor(this.value || '');
     this.dispatchEvent(new WaChangeEvent());
     this.dispatchEvent(new WaInputEvent());
   }
@@ -462,7 +488,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.input.value) {
       this.setColor(target.value);
-      target.value = this.value;
+      target.value = this.value || '';
     } else {
       this.value = '';
     }
@@ -651,7 +677,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private handleEyeDropper() {
-    if (!hasEyeDropper) {
+    if (!this.hasEyeDropper) {
       return;
     }
 
@@ -688,7 +714,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   /** Generates a hex string from HSV values. Hue must be 0-360. All other arguments must be 0-100. */
-  private getHexString(hue: number, saturation: number, brightness: number, alpha = 100) {
+  getHexString(hue: number, saturation: number, brightness: number, alpha = 100) {
     const color = new TinyColor(`hsva(${hue}, ${saturation}%, ${brightness}%, ${alpha / 100})`);
     if (!color.isValid) {
       return '';
@@ -707,9 +733,18 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.syncValues();
   }
 
-  @watch('opacity', { waitUntilFirstUpdate: true })
+  @watch('opacity')
   handleOpacityChange() {
     this.alpha = 100;
+  }
+
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    // Its kind of bizarre, but this is required to get SSR to play nicely.
+    if (changedProperties.has('value')) {
+      this.handleValueChange(changedProperties.get('value') || '', this.value || '');
+    }
   }
 
   @watch('value')
@@ -727,7 +762,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       const newColor = this.parseColor(newValue);
 
       if (newColor !== null) {
-        this.inputValue = this.value;
+        this.inputValue = this.value || '';
         this.hue = newColor.hsva.h;
         this.saturation = newColor.hsva.s;
         this.brightness = newColor.hsva.v;
@@ -737,6 +772,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.inputValue = oldValue ?? '';
       }
     }
+
+    this.requestUpdate();
   }
 
   /** Sets focus on the color picker. */
@@ -818,9 +855,17 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     super.formResetCallback();
   }
 
+  firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this.hasEyeDropper = 'EyeDropper' in window;
+  }
+
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
+    const hasHelpTextSlot = !this.hasUpdated
+      ? this.withHelpText
+      : this.withHelpText || this.hasSlotController.test('help-text');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 
@@ -986,7 +1031,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                   </wa-button>
                 `
               : ''}
-            ${hasEyeDropper
+            ${this.hasEyeDropper
               ? html`
                   <wa-button
                     part="eye-dropper-button"
@@ -1076,12 +1121,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             const composedPath = e.composedPath();
             const triggerButton = this.triggerButton;
             const triggerLabel = this.triggerLabel;
-            if (composedPath.find(el => el === triggerButton || el === triggerLabel)) {
+            const buttonOrLabelClicked = composedPath.find(el => el === triggerButton || el === triggerLabel);
+
+            if (buttonOrLabelClicked) {
               return;
             }
 
             // Stop clicks from bubbling on anything except the button and the label. This is a hacky work around i may come to regret, but this "fixes" the issue of `<wa-dropdown>` expecting all children in the "trigger slot" to open the trigger. [Konnor]
             e.stopImmediatePropagation();
+            e.stopPropagation();
 
             if (this.dropdown.open) {
               this.dropdown.hide();

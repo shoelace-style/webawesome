@@ -114,6 +114,14 @@ export default class WaTooltip extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // TODO: This is a hack that I need to revisit [Konnor]
+    if (this.open) {
+      this.open = false;
+      this.updateComplete.then(() => {
+        this.open = true;
+      });
+    }
+
     // If the user doesn't give us an id, generate one.
     if (!this.id) {
       this.id = uniqueId('wa-tooltip-');

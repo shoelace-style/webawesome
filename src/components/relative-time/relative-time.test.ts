@@ -1,5 +1,8 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { clientFixture } from '../../internal/test/fixture.js';
+import { expect } from '@open-wc/testing';
+import { html } from 'lit';
 import sinon from 'sinon';
+import type { hydratedFixture } from '../../internal/test/fixture.js';
 import type WaRelativeTime from './relative-time.js';
 
 interface WaRelativeTimeTestCase {
@@ -17,7 +20,10 @@ const expectFormattedRelativeTimeToBe = async (relativeTime: WaRelativeTime, exp
   expect(textContent).to.equal(expectedOutput);
 };
 
-const createRelativeTimeWithDate = async (relativeDate: Date): Promise<WaRelativeTime> => {
+const createRelativeTimeWithDate = async (
+  relativeDate: Date,
+  fixture: typeof hydratedFixture | typeof clientFixture
+): Promise<WaRelativeTime> => {
   const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
     <wa-relative-time lang="en-US"></wa-relative-time>
   `);
@@ -70,116 +76,121 @@ const testCases: WaRelativeTimeTestCase[] = [
 ];
 
 describe('wa-relative-time', () => {
-  it('should pass accessibility tests', async () => {
-    const relativeTime = await createRelativeTimeWithDate(currentTime);
+  // @TODO: figure out why hydratedFixture behaves differently from clientFixture
+  for (const fixture of [clientFixture]) {
+    describe(`with "${fixture.type}" rendering`, () => {
+      it('should pass accessibility tests', async () => {
+        const relativeTime = await createRelativeTimeWithDate(currentTime, fixture);
 
-    await expect(relativeTime).to.be.accessible();
-  });
-
-  describe('handles time correctly', () => {
-    let clock: sinon.SinonFakeTimers | null = null;
-
-    beforeEach(() => {
-      clock = sinon.useFakeTimers(currentTime);
-    });
-
-    afterEach(() => {
-      clock?.restore();
-    });
-
-    testCases.forEach(testCase => {
-      it(`shows the correct relative time given a Date object: ${testCase.expectedOutput}`, async () => {
-        const relativeTime = await createRelativeTimeWithDate(testCase.date);
-
-        await expectFormattedRelativeTimeToBe(relativeTime, testCase.expectedOutput);
+        await expect(relativeTime).to.be.accessible();
       });
 
-      it(`shows the correct relative time given a String object: ${testCase.expectedOutput}`, async () => {
-        const dateString = testCase.date.toISOString();
+      describe('handles time correctly', () => {
+        let clock: sinon.SinonFakeTimers | null = null;
+
+        beforeEach(() => {
+          clock = sinon.useFakeTimers(currentTime);
+        });
+
+        afterEach(() => {
+          clock?.restore();
+        });
+
+        testCases.forEach(testCase => {
+          it(`shows the correct relative time given a Date object: ${testCase.expectedOutput}`, async () => {
+            const relativeTime = await createRelativeTimeWithDate(testCase.date, fixture);
+
+            await expectFormattedRelativeTimeToBe(relativeTime, testCase.expectedOutput);
+          });
+
+          it(`shows the correct relative time given a String object: ${testCase.expectedOutput}`, async () => {
+            const dateString = testCase.date.toISOString();
+
+            const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+              <wa-relative-time lang="en-US" date="${dateString}"></wa-relative-time>
+            `);
+
+            await expectFormattedRelativeTimeToBe(relativeTime, testCase.expectedOutput);
+          });
+        });
+
+        it('always shows numeric if requested via numeric property', async () => {
+          const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+            <wa-relative-time lang="en-US" numeric="always"></wa-relative-time>
+          `);
+          relativeTime.date = yesterday;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, '1 day ago');
+        });
+
+        it('shows human readable form if appropriate and numeric property is auto', async () => {
+          const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+            <wa-relative-time lang="en-US" numeric="auto"></wa-relative-time>
+          `);
+          relativeTime.date = yesterday;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, 'yesterday');
+        });
+
+        it('shows the set date with the proper attributes at the time object', async () => {
+          const relativeTime = await createRelativeTimeWithDate(yesterday, fixture);
+
+          await relativeTime.updateComplete;
+          const timeElement = extractTimeElement(relativeTime);
+          expect(timeElement?.dateTime).to.equal(yesterday.toISOString());
+        });
+
+        it('allows to use a short form of the unit', async () => {
+          const twoYearsAgo = new Date(currentTime.getTime() - 2 * nonLeapYearInSeconds);
+          const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+            <wa-relative-time lang="en-US" numeric="always" format="short"></wa-relative-time>
+          `);
+          relativeTime.date = twoYearsAgo;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, '2 yr. ago');
+        });
+
+        it('allows to use a long form of the unit', async () => {
+          const twoYearsAgo = new Date(currentTime.getTime() - 2 * nonLeapYearInSeconds);
+          const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+            <wa-relative-time lang="en-US" numeric="always" format="long"></wa-relative-time>
+          `);
+          relativeTime.date = twoYearsAgo;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, '2 years ago');
+        });
+
+        it('is formatted according to the requested locale', async () => {
+          const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
+            <wa-relative-time lang="de-DE" numeric="auto"></wa-relative-time>
+          `);
+          relativeTime.date = yesterday;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, 'gestern');
+        });
+
+        it('keeps the component in sync if requested', async () => {
+          const relativeTime = await createRelativeTimeWithDate(yesterday, fixture);
+          relativeTime.sync = true;
+
+          await expectFormattedRelativeTimeToBe(relativeTime, 'yesterday');
+
+          clock?.tick(dayInSeconds);
+
+          await expectFormattedRelativeTimeToBe(relativeTime, '2 days ago');
+        });
+      });
+
+      it('does not display a time element on invalid time string', async () => {
+        const invalidDateString = 'thisIsNotATimeString';
 
         const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-          <wa-relative-time lang="en-US" date="${dateString}"></wa-relative-time>
+          <wa-relative-time lang="en-US" date="${invalidDateString}"></wa-relative-time>
         `);
 
-        await expectFormattedRelativeTimeToBe(relativeTime, testCase.expectedOutput);
+        await relativeTime.updateComplete;
+        expect(extractTimeElement(relativeTime)).to.be.null;
       });
     });
-
-    it('always shows numeric if requested via numeric property', async () => {
-      const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-        <wa-relative-time lang="en-US" numeric="always"></wa-relative-time>
-      `);
-      relativeTime.date = yesterday;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, '1 day ago');
-    });
-
-    it('shows human readable form if appropriate and numeric property is auto', async () => {
-      const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-        <wa-relative-time lang="en-US" numeric="auto"></wa-relative-time>
-      `);
-      relativeTime.date = yesterday;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, 'yesterday');
-    });
-
-    it('shows the set date with the proper attributes at the time object', async () => {
-      const relativeTime = await createRelativeTimeWithDate(yesterday);
-
-      await relativeTime.updateComplete;
-      const timeElement = extractTimeElement(relativeTime);
-      expect(timeElement?.dateTime).to.equal(yesterday.toISOString());
-    });
-
-    it('allows to use a short form of the unit', async () => {
-      const twoYearsAgo = new Date(currentTime.getTime() - 2 * nonLeapYearInSeconds);
-      const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-        <wa-relative-time lang="en-US" numeric="always" format="short"></wa-relative-time>
-      `);
-      relativeTime.date = twoYearsAgo;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, '2 yr. ago');
-    });
-
-    it('allows to use a long form of the unit', async () => {
-      const twoYearsAgo = new Date(currentTime.getTime() - 2 * nonLeapYearInSeconds);
-      const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-        <wa-relative-time lang="en-US" numeric="always" format="long"></wa-relative-time>
-      `);
-      relativeTime.date = twoYearsAgo;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, '2 years ago');
-    });
-
-    it('is formatted according to the requested locale', async () => {
-      const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-        <wa-relative-time lang="de-DE" numeric="auto"></wa-relative-time>
-      `);
-      relativeTime.date = yesterday;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, 'gestern');
-    });
-
-    it('keeps the component in sync if requested', async () => {
-      const relativeTime = await createRelativeTimeWithDate(yesterday);
-      relativeTime.sync = true;
-
-      await expectFormattedRelativeTimeToBe(relativeTime, 'yesterday');
-
-      clock?.tick(dayInSeconds);
-
-      await expectFormattedRelativeTimeToBe(relativeTime, '2 days ago');
-    });
-  });
-
-  it('does not display a time element on invalid time string', async () => {
-    const invalidDateString = 'thisIsNotATimeString';
-
-    const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
-      <wa-relative-time lang="en-US" date="${invalidDateString}"></wa-relative-time>
-    `);
-
-    await relativeTime.updateComplete;
-    expect(extractTimeElement(relativeTime)).to.be.null;
-  });
+  }
 });

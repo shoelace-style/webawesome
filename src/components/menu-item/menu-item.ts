@@ -10,7 +10,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './menu-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Menu items provide options for the user to pick from in a menu.
@@ -63,6 +63,11 @@ export default class WaMenuItem extends WebAwesomeElement {
   /** Draws the menu item in a disabled state, preventing selection. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  /**
+   * Used for SSR purposes. If true, will render a ">" caret icon for showing that it has a submenu, but will be non-interactive.
+   */
+  @property({ attribute: 'with-submenu', type: Boolean }) withSubmenu = false;
+
   private submenuController: SubmenuController = new SubmenuController(this);
 
   connectedCallback() {
@@ -75,6 +80,15 @@ export default class WaMenuItem extends WebAwesomeElement {
     super.disconnectedCallback();
     this.removeEventListener('click', this.handleHostClick);
     this.removeEventListener('mouseover', this.handleMouseOver);
+  }
+
+  protected firstUpdated(changedProperties: PropertyValues<this>): void {
+    // Kick it so that it renders the "submenu" properly.
+    if (this.isSubmenu()) {
+      this.requestUpdate();
+    }
+
+    super.firstUpdated(changedProperties);
   }
 
   private handleDefaultSlotChange() {
@@ -145,11 +159,11 @@ export default class WaMenuItem extends WebAwesomeElement {
   }
 
   isSubmenu() {
-    return this.querySelector(`:scope > [slot="submenu"]`) !== null;
+    return this.hasUpdated ? this.querySelector(`:scope > [slot="submenu"]`) !== null : this.withSubmenu;
   }
 
   render() {
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
     const isSubmenuExpanded = this.submenuController.isExpanded();
 
     return html`

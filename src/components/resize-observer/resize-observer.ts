@@ -34,7 +34,9 @@ export default class WaResizeObserver extends WebAwesomeElement {
     });
 
     if (!this.disabled) {
-      this.startObserver();
+      this.updateComplete.then(() => {
+        this.startObserver();
+      });
     }
   }
 

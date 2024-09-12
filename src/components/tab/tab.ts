@@ -70,7 +70,7 @@ export default class WaTab extends WebAwesomeElement {
 
   render() {
     // If the user didn't provide an ID, we'll set one so we can link tabs and tab panels with aria labels
-    this.id = this.id.length > 0 ? this.id : this.componentId;
+    this.id = this.id?.length > 0 ? this.id : this.componentId;
 
     return html`
       <div

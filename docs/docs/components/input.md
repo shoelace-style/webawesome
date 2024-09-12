@@ -5,7 +5,7 @@ layout: component
 ---
 
 ```html {.example}
-<form><wa-input></wa-input></form>
+<wa-input></wa-input>
 ```
 
 :::info

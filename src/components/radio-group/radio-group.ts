@@ -3,7 +3,7 @@ import '../radio/radio.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { uniqueId } from '../../internal/math.js';
 import { WaChangeEvent } from '../../events/change.js';
@@ -46,17 +46,19 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
-    return [
-      ...super.validators,
-      RequiredValidator({
-        validationElement: Object.assign(document.createElement('input'), {
-          required: true,
-          type: 'radio',
-          // we need an id that's guaranteed to be unique; users will never see this
-          name: uniqueId('__wa-radio')
-        })
-      })
-    ];
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            validationElement: Object.assign(document.createElement('input'), {
+              required: true,
+              type: 'radio',
+              // we need an id that's guaranteed to be unique; users will never see this
+              name: uniqueId('__wa-radio')
+            })
+          })
+        ];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
@@ -77,14 +79,45 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The name of the radio group, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  @property({ attribute: false }) value = '';
-  @property({ attribute: 'value', reflect: true }) defaultValue = '';
+  private _value: string | null = null;
+
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  /** The current value of the radio group, submitted as a name/value pair with form data. */
+  @state()
+  set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
+
+  /** The default value of the form control. Primarily used for resetting the form control. */
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   /** The radio group's size. This size will be applied to all child radios and radio buttons. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
   @property({ type: Boolean, reflect: true }) required = false;
+
+  /**
+   * Used for SSR. if true, will show slotted label on initial render.
+   */
+  @property({ type: Boolean, attribute: 'with-label' }) withLabel = false;
+
+  /**
+   * Used for SSR. if true, will show slotted help text on initial render.
+   */
+  @property({ type: Boolean, attribute: 'with-help-text' }) withHelpText = false;
 
   //
   // We need this because if we don't have it, FormValidation yells at us that it's "not focusable".
@@ -95,8 +128,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   constructor() {
     super();
 
-    this.addEventListener('keydown', this.handleKeyDown);
-    this.addEventListener('click', this.handleRadioClick);
+    if (!isServer) {
+      this.addEventListener('keydown', this.handleKeyDown);
+      this.addEventListener('click', this.handleRadioClick);
+    }
   }
 
   private handleRadioClick = (e: Event) => {
@@ -190,7 +225,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
    * the first radio element.
    */
   get validationTarget() {
-    return this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
+    return isServer
+      ? undefined
+      : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
   }
 
   @watch('value')
@@ -269,8 +306,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const defaultSlot = html` <slot @slotchange=${this.syncRadioElements}></slot> `;

@@ -2,7 +2,7 @@
 import { expect } from '@open-wc/testing';
 import { readFile } from '@web/test-runner-commands';
 
-import WaButton from '../../dist/components/button/button.js';
+import WaButton from '../../dist-cdn/components/button/button.js';
 
 // We don't use WebAwesomeElement directly because it shouldn't exist in the final bundle.
 /* eslint-disable */
@@ -64,7 +64,7 @@ before(async () => {
 
   relevantMetadata.forEach(({ tagName, path }) => {
     it(`Should not register any components: ${tagName}`, async () => {
-      await import('../../dist/' + path);
+      await import('../../dist-cdn/' + path);
 
       // Need to make sure we remove the current tag from the tagNames and *then* see whats been registered.
       const registeredTags = tagNames.filter(tag => tag !== tagName && Boolean(window.customElements.get(tag)));
