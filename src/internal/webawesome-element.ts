@@ -28,7 +28,7 @@ export default class WebAwesomeElement extends LitElement {
       });
     });
   }
-  willUpdate(changedProperties: PropertyValues<this>) {
+  protected willUpdate(changedProperties: Parameters<LitElement["willUpdate"]>[0]) {
     super.willUpdate(changedProperties);
     this.constructorProperties.forEach((value, prop) => {
       // If a prop changes to `null`, we assume this happens via an attribute changing to `null`.
