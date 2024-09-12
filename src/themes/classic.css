@@ -1,7 +1,8 @@
 @import 'classic_components.css';
+
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-classic-light {
   color-scheme: light;
 
   /**
@@ -378,8 +379,8 @@
   --wa-tooltip-line-height: var(--wa-line-height-normal);
 }
 
-.wa-theme-default-dark,
-.wa-theme-default-dark :host {
+.wa-theme-classic-dark,
+.wa-theme-classic-dark :host {
   color-scheme: dark;
 
   /**

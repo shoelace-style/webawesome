@@ -4,48 +4,63 @@ description: Everything you need to know about theming Web Awesome.
 layout: page-outline
 ---
 
-Web Awesome is designed to be highly customizable through pure CSS. Out of the box, the default theme includes both light and dark styles. Alternatively, you can design your own theme.
+Themes are collections of pre-defined CSS custom properties that thread through every Web Awesome component and pattern.
 
-In essence, a theme is a stylesheet that uses the Web Awesome API to define custom properties and apply custom styles to components. To create a theme, you will need a decent understanding of CSS, including [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and the [`::part` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
+Web Awesome includes two pre-made themes:
+- **Default** for a clean look that prioritizes accessibility and performance
+- **Classic** for the look and feel of Shoelace with more accessible color pairings
 
-:::info
-For component developers, built-in themes are also available as JavaScript modules that export [Lit CSSResult](https://lit.dev/docs/api/styles/#CSSResult) objects. You can find them in `/dist/themes/*.styles.js`.
-:::
+## What's a Theme?
 
-## Theme Basics
+Themes are a standard collection of [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) that cover all styles from colors to transitions. We use these custom properties throughout Web Awesome components to ensure a cohesive look and feel. Our [Theming pages](/docs/theming/) document these styles so that you can use them freely throughout your project and customize them as needed.
 
-All themes are scoped to classes using the format `wa-theme-{name}`, where `{name}` is a lowercase, hyphen-delimited value representing the name of the theme. The included theme uses `wa-theme-default-light` and `wa-theme-default-dark` for light and dark styles, respectively. A custom theme called "Purple Power", for example, would use a class called `wa-theme-purple-power`.
+Themes are scoped to unique classes for each color scheme, such as `wa-theme-default-light` and `wa-theme-default-dark`, and the `:host` selector. Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions, while scoping to `:host` ensures the styles are applied to the shadow roots of custom elements.
 
-All selectors must be scoped to the theme's class to ensure interoperability with other themes. You should also scope them to `:host` so they can be imported and applied to custom element shadow roots.
+Additionally, styles may be scoped to the `:root` selector to be activated automatically. For pre-made themes, *all* custom properties are scoped to both `:root` and the class for the light color scheme (`wa-theme-default-light` or `wa-theme-classic-light`), activating the light color scheme by default.
+
+Other themes or color schemes must be activated with the corresponding class, like the dark color scheme for pre-made themes (`wa-theme-default-dark` or `wa-theme-classic-dark`), which only defines a subset of custom properties for colors. This ensures that non-color styles only need to be defined once for the theme, regardless of whether the color scheme is light or dark.
+
+For example, the default theme is set up like this:
 
 ```css
+:root,
 :host,
-.wa-theme-purple-power {
-  /* ... */
+.wa-theme-default-light {
+  /* all CSS custom properties for color, typography, space, etc. */
+}
+
+.wa-theme-default-dark,
+.wa-theme-default-dark :host {
+  /* subset of CSS custom properties for color */
 }
 ```
 
-In the default theme, all CSS custom properties that make up Web Awesome's theming API, from colors to transitions, are scoped to both `:root` and `wa-theme-default-light`. `wa-theme-default-dark`, on the other hand, only defines a subset of custom properties for colors. This ensures that non-color styles only need to be defined once for the theme, regardless of whether the color scheme is light or dark.
+## Using Themes
 
-### Activating Themes
+You can import the default and classic themes from the Web Awesome CDN. Simply add the following code to the `<head>` of your page to import the **default** theme:
 
-To activate a theme, import it and apply the theme's class to the `<html>` element. This example imports and activates the default theme with dark styles.
+```html
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/themes/default.css" />
+```
 
+Or import the **classic** theme:
+
+```html
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/themes/classic.css" />
+```
+
+Both the default and classic themes include both light and dark color schemes. When importing either theme, the light color scheme is activated by default. To activate the dark color scheme, apply the appropriate class (`wa-theme-default-dark` or `wa-theme-classic-dark`, depending on theme) to the `<html>` element on your page, like this example for the default theme:
 ```html
 <html class="wa-theme-default-dark">
   <head>
-    <link rel="stylesheet" href="path/to/webawesome/dist/themes/default.css" />
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/themes/default.css" />
+    <!-- other links, scripts, and metadata -->
   </head>
-
   <body>
-    ...
+    <!-- page content -->
   </body>
 </html>
 ```
-
-:::info
-There is one exception to this rule — the default light styles _do not_ need to be activated. For convenience, these styles are scoped to `:root` and will be activated by default when imported.
-:::
 
 ## Creating Themes
 
