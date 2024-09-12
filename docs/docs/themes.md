@@ -47,6 +47,28 @@ To activate a theme, import it and apply the theme's class to the `<html>` eleme
 There is one exception to this rule — the default light styles _do not_ need to be activated. For convenience, these styles are scoped to `:root` and will be activated by default when imported.
 :::
 
+### Using Multiple Themes
+
+You can activate different themes on various containers throughout the page. This example uses the default theme with a dark sidebar.
+
+```html
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/shoelace/dist/themes/default.css" />
+  </head>
+
+  <body>
+    <nav class="wa-theme-default-dark">
+      <!-- dark-themed sidebar -->
+    </nav>
+
+    <!-- light-themed content -->
+  </body>
+</html>
+```
+
+It's for this reason that themes must be scoped to specific classes.
+
 ## Creating Themes
 
 There are two ways to create themes. The easiest way is to customize the default theme. The advanced way is to create a new theme from scratch. Which method you choose depends on your project's requirements and the amount of effort you're willing to invest.
