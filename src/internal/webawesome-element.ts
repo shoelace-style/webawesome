@@ -10,7 +10,7 @@ export default class WebAwesomeElement extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
 
-  #hasRecordedInitialProperties = true
+  #hasRecordedInitialProperties = false
 
   // Store the constructor value of all `static properties = {}`
   initialReflectedProperties: Map<string, unknown> = new Map();
@@ -28,6 +28,20 @@ export default class WebAwesomeElement extends LitElement {
     }
 
     super.attributeChangedCallback(name, oldValue, newValue)
+  }
+
+  protected willUpdate(changedProperties: Parameters<LitElement["willUpdate"]>[0]): void {
+    super.willUpdate(changedProperties)
+
+    // Run the morph fixing *after* willUpdate.
+    this.initialReflectedProperties.forEach((value, prop: string & keyof typeof this) => {
+      // If a prop changes to `null`, we assume this happens via an attribute changing to `null`.
+      // eslint-disable-next-line
+      if (changedProperties.has(prop) && this[prop] == null) {
+        // Silly type gymnastics to appease the compiler.
+        (this as Record<string, unknown>)[prop] = value;
+      }
+    });
   }
 
   protected firstUpdated(changedProperties: Parameters<LitElement['firstUpdated']>[0]): void {
