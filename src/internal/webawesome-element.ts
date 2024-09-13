@@ -10,28 +10,30 @@ export default class WebAwesomeElement extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
 
-  #hasRecordedInitialProperties = false
+  #hasRecordedInitialProperties = false;
 
   // Store the constructor value of all `static properties = {}`
   initialReflectedProperties: Map<string, unknown> = new Map();
 
-  attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null) {
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
-      (this.constructor as typeof WebAwesomeElement).elementProperties.forEach((obj, prop: keyof typeof this & string) => {
-        // eslint-disable-next-line
-        if (obj.reflect && this[prop] != null) {
-          this.initialReflectedProperties.set(prop, this[prop]);
+      (this.constructor as typeof WebAwesomeElement).elementProperties.forEach(
+        (obj, prop: keyof typeof this & string) => {
+          // eslint-disable-next-line
+          if (obj.reflect && this[prop] != null) {
+            this.initialReflectedProperties.set(prop, this[prop]);
+          }
         }
-      })
+      );
 
-      this.#hasRecordedInitialProperties = true
+      this.#hasRecordedInitialProperties = true;
     }
 
-    super.attributeChangedCallback(name, oldValue, newValue)
+    super.attributeChangedCallback(name, oldValue, newValue);
   }
 
-  protected willUpdate(changedProperties: Parameters<LitElement["willUpdate"]>[0]): void {
-    super.willUpdate(changedProperties)
+  protected willUpdate(changedProperties: Parameters<LitElement['willUpdate']>[0]): void {
+    super.willUpdate(changedProperties);
 
     // Run the morph fixing *after* willUpdate.
     this.initialReflectedProperties.forEach((value, prop: string & keyof typeof this) => {
