@@ -144,7 +144,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   @state() private hasFocus = false;
   @state() private isDraggingGridHandle = false;
-  @state() private isEmpty = false;
+  @state() private isEmpty = true;
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 100;
