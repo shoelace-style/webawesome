@@ -832,12 +832,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private reportValidityAfterShow = () => {
     // Remove the event so we dont emit "wa-invalid" twice
-    this.removeEventListener("invalid", this.emitInvalid)
+    this.removeEventListener('invalid', this.emitInvalid);
 
-    this.reportValidity()
+    this.reportValidity();
 
-    this.addEventListener("invalid", this.emitInvalid)
-  }
+    this.addEventListener('invalid', this.emitInvalid);
+  };
 
   /** Checks for validity and shows the browser's validation message if the control is invalid. */
   reportValidity() {

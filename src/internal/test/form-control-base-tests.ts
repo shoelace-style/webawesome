@@ -414,7 +414,7 @@ function checkEventEmissions(control: WebAwesomeFormControl, eventType: string, 
     emittedEvents.push(event);
   };
 
-  return new Promise<Event[]>((resolve) => {
+  return new Promise<Event[]>(resolve => {
     (async () => {
       try {
         control.addEventListener(eventType, eventHandler);
@@ -424,9 +424,9 @@ function checkEventEmissions(control: WebAwesomeFormControl, eventType: string, 
         control.removeEventListener(eventType, eventHandler);
       }
 
-      resolve(emittedEvents)
-    })()
-  })
+      resolve(emittedEvents);
+    })();
+  });
 }
 
 // Component `wa-button` behaves quite different to the other components. To keep things simple we use simple conditions
