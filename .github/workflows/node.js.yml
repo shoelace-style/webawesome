@@ -32,6 +32,8 @@ jobs:
         run: npm run build
       - name: Lint
         run: npm run prettier && npm run lint
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: Run CSR tests
         # FAIL_FAST to fail on first failing test.
         run: FAIL_FAST="true" CSR_ONLY="true" npm run test
@@ -52,6 +54,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: Build
         run: npm run build
       - name: Run CSR tests
