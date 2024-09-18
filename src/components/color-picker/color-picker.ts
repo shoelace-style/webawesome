@@ -2,8 +2,8 @@ import '../button-group/button-group.js';
 import '../button/button.js';
 import '../dropdown/dropdown.js';
 import '../icon/icon.js';
-// import '../input/input.js';
-// import '../visually-hidden/visually-hidden.js';
+import '../input/input.js';
+import '../visually-hidden/visually-hidden.js';
 import { clamp } from '../../internal/math.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
@@ -144,7 +144,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   @state() private hasFocus = false;
   @state() private isDraggingGridHandle = false;
-  @state() private isEmpty = false;
+  @state() private isEmpty = true;
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 100;
@@ -830,12 +830,21 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  private reportValidityAfterShow = () => {
+    // Remove the event so we dont emit "wa-invalid" twice
+    this.removeEventListener('invalid', this.emitInvalid);
+
+    this.reportValidity();
+
+    this.addEventListener('invalid', this.emitInvalid);
+  };
+
   /** Checks for validity and shows the browser's validation message if the control is invalid. */
   reportValidity() {
     // This won't get called when a form is submitted. This is only for manual calls.
     if (!this.validity.valid && !this.dropdown.open) {
       // Show the dropdown so the browser can focus on it
-      this.addEventListener('wa-after-show', () => this.reportValidity(), { once: true });
+      this.addEventListener('wa-after-show', this.reportValidityAfterShow, { once: true });
       this.dropdown.show();
 
       if (!this.disabled) {

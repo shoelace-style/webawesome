@@ -8,33 +8,29 @@ import type WaButton from './button.js';
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
 
 describe('<wa-button>', () => {
-  it('form control base tests', async () => {
-    await Promise.allSettled([
-      runFormControlBaseTests({
-        tagName: 'wa-button',
-        variantName: 'type="button"',
+  runFormControlBaseTests({
+    tagName: 'wa-button',
+    variantName: 'type="button"',
 
-        init: (control: WaButton) => {
-          control.type = 'button';
-        }
-      }),
-      runFormControlBaseTests({
-        tagName: 'wa-button',
-        variantName: 'type="submit"',
+    init: (control: WaButton) => {
+      control.type = 'button';
+    }
+  });
+  runFormControlBaseTests({
+    tagName: 'wa-button',
+    variantName: 'type="submit"',
 
-        init: (control: WaButton) => {
-          control.type = 'submit';
-        }
-      }),
-      runFormControlBaseTests({
-        tagName: 'wa-button',
-        variantName: 'href="xyz"',
+    init: (control: WaButton) => {
+      control.type = 'submit';
+    }
+  });
+  runFormControlBaseTests({
+    tagName: 'wa-button',
+    variantName: 'href="xyz"',
 
-        init: (control: WaButton) => {
-          control.href = 'some-url';
-        }
-      })
-    ]);
+    init: (control: WaButton) => {
+      control.href = 'some-url';
+    }
   });
 
   for (const fixture of fixtures) {
@@ -45,6 +41,64 @@ describe('<wa-button>', () => {
             const el = await fixture<WaButton>(html` <wa-button variant="${variant}"> Button Label </wa-button> `);
             await expect(el).to.be.accessible();
           });
+        });
+      });
+
+      describe('when an attribute is removed', () => {
+        it("should return to 'neutral' when attribute removed with no initial attribute", async () => {
+          const el = await fixture<WaButton>(html`<wa-button>Button label</wa-button>`);
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
+
+          el.removeAttribute('variant');
+          await el.updateComplete;
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
+        });
+
+        it("should return to 'neutral' when attribute removed with an initial attribute", async () => {
+          const el = await fixture<WaButton>(html`<wa-button variant="primary">Button label</wa-button>`);
+
+          expect(el.variant).to.equal('primary');
+          expect(el.getAttribute('variant')).to.equal('primary');
+
+          el.removeAttribute('variant');
+          await el.updateComplete;
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
+        });
+      });
+
+      describe('when a property is set to null', () => {
+        it("should return to 'default' when property set to null with no initial attribute", async () => {
+          const el = await fixture<WaButton>(html`<wa-button>Button label</wa-button>`);
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
+
+          // @ts-expect-error Its a test. Stop.
+          el.variant = null;
+          await el.updateComplete;
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
+        });
+
+        it("should return to 'default' when property set to null with an initial attribute", async () => {
+          const el = await fixture<WaButton>(html`<wa-button variant="primary">Button label</wa-button>`);
+
+          expect(el.variant).to.equal('primary');
+          expect(el.getAttribute('variant')).to.equal('primary');
+
+          // @ts-expect-error Its a test. Stop.
+          el.variant = null;
+          await el.updateComplete;
+
+          expect(el.variant).to.equal('neutral');
+          expect(el.getAttribute('variant')).to.equal('neutral');
         });
       });
 
