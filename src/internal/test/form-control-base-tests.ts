@@ -1,7 +1,7 @@
 import { aTimeout, expect } from '@open-wc/testing';
+import { clickOnElement } from '../test.js';
 import { fixtures } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
-import { resetMouse } from '@web/test-runner-commands';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { clientFixture, hydratedFixture } from './fixture.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
@@ -43,10 +43,6 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
   runAllValidityTests(tagName, displayName, renderControl);
 }
 
-function preventSubmit(e: SubmitEvent) {
-  e.preventDefault(); // => stop accidental navigation from breaking the page.
-}
-
 //
 // Applicable for all Web Awesome form controls. This function checks the behavior of:
 //   - `.validity`
@@ -65,26 +61,6 @@ function runAllValidityTests(
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116
   describe(`Form validity base test for ${displayName}`, () => {
-    beforeEach(async () => {
-      document.addEventListener('submit', preventSubmit);
-      try {
-        await aTimeout(10);
-        await resetMouse();
-      } catch (_e) {
-        // leave me alone eslint.
-      }
-    });
-    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
-    afterEach(async () => {
-      document.removeEventListener('submit', preventSubmit);
-      try {
-        await aTimeout(10);
-        await resetMouse();
-      } catch (_e) {
-        // leave me alone eslint.
-      }
-    });
-
     for (const fixture of fixtures) {
       describe(`with ${fixture.type} rendering`, () => {
         const createControl = renderControl(fixture);
@@ -142,17 +118,21 @@ function runAllValidityTests(
         it('should make sure that calling `.reportValidity()` will return `true` when valid', async () => {
           const control = await createControl();
           expect(control.reportValidity()).to.equal(true);
+
+          // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+          await clickOnElement(document.body);
+          await aTimeout(100);
         });
 
         it('should not emit an `wa-invalid` event when `.checkValidity()` is called while valid', async () => {
           const control = await createControl();
-          const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
+          const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
           expect(emittedEvents.length).to.equal(0);
         });
 
         it('should not emit an `wa-invalid` event when `.reportValidity()` is called while valid', async () => {
           const control = await createControl();
-          const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
+          const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
           expect(emittedEvents.length).to.equal(0);
         });
 
@@ -164,7 +144,7 @@ function runAllValidityTests(
             control.setCustomValidity('error');
             control.disabled = true;
             await control.updateComplete;
-            const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
+            const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
             expect(emittedEvents.length).to.equal(0);
           });
 
@@ -173,7 +153,7 @@ function runAllValidityTests(
             control.setCustomValidity('error');
             control.disabled = true;
             await control.updateComplete;
-            const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
+            const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
             expect(emittedEvents.length).to.equal(0);
           });
 
@@ -296,12 +276,18 @@ function runSpecialTests_slButtonOfTypeButton(createControl: CreateControlFn) {
     const control = await createControl();
     control.setCustomValidity('error');
     expect(control.checkValidity()).to.equal(false);
+    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+    await clickOnElement(document.body);
+    await aTimeout(100);
   });
 
   it('should make sure that calling `.reportValidity()` will still return `true` when custom error has been set', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     expect(control.reportValidity()).to.equal(false);
+    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+    await clickOnElement(document.body);
+    await aTimeout(100);
   });
 
   it('should emit an `wa-invalid` event when `.checkValidity()` is called in custom error case, and not disabled', async () => {
@@ -309,7 +295,7 @@ function runSpecialTests_slButtonOfTypeButton(createControl: CreateControlFn) {
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 
@@ -318,8 +304,7 @@ function runSpecialTests_slButtonOfTypeButton(createControl: CreateControlFn) {
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
-
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 }
@@ -338,13 +323,16 @@ function runSpecialTests_slButtonWithHref(createControl: CreateControlFn) {
     const control = await createControl();
     control.setCustomValidity('error');
     expect(control.reportValidity()).to.equal(false);
+    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+    await clickOnElement(document.body);
+    await aTimeout(100);
   });
 
   it('should emit an `wa-invalid` event when `.checkValidity()` is called in custom error case', async () => {
     const control = await createControl();
     control.setCustomValidity('error');
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 
@@ -352,7 +340,7 @@ function runSpecialTests_slButtonWithHref(createControl: CreateControlFn) {
     const control = await createControl();
     control.setCustomValidity('error');
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 }
@@ -377,6 +365,9 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
     const control = await createControl();
     control.setCustomValidity('error');
     expect(control.reportValidity()).to.equal(false);
+    // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+    await clickOnElement(document.body);
+    await aTimeout(100);
   });
 
   it('should emit an `wa-invalid` event when `.checkValidity()` is called in custom error case and not disabled', async () => {
@@ -384,7 +375,7 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.checkValidity());
     expect(emittedEvents.length).to.equal(1);
   });
 
@@ -393,7 +384,7 @@ function runSpecialTests_standard(createControl: CreateControlFn) {
     control.setCustomValidity('error');
     control.disabled = false;
     await control.updateComplete;
-    const emittedEvents = checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
+    const emittedEvents = await checkEventEmissions(control, 'wa-invalid', () => control.reportValidity());
 
     expect(emittedEvents.length).to.equal(1);
   });
@@ -416,21 +407,26 @@ function createFormControl<T extends WebAwesomeFormControl = WebAwesomeFormContr
 
 // Runs an action while listening for emitted events of a given type. Returns an array of all events of the given type
 // that have been been emitted while the action was running.
-function checkEventEmissions(control: WebAwesomeFormControl, eventType: string, action: () => void): Event[] {
+function checkEventEmissions(control: WebAwesomeFormControl, eventType: string, action: () => void): Promise<Event[]> {
   const emittedEvents: Event[] = [];
 
   const eventHandler = (event: Event) => {
     emittedEvents.push(event);
   };
 
-  try {
-    control.addEventListener(eventType, eventHandler);
-    action();
-  } finally {
-    control.removeEventListener(eventType, eventHandler);
-  }
+  return new Promise<Event[]>(resolve => {
+    (async () => {
+      try {
+        control.addEventListener(eventType, eventHandler);
+        action();
+        await aTimeout(300);
+      } finally {
+        control.removeEventListener(eventType, eventHandler);
+      }
 
-  return emittedEvents;
+      resolve(emittedEvents);
+    })();
+  });
 }
 
 // Component `wa-button` behaves quite different to the other components. To keep things simple we use simple conditions
