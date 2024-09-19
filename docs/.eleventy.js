@@ -11,6 +11,8 @@ import { searchPlugin } from './_utils/search.js';
 import { readFile } from 'fs/promises';
 import { outlinePlugin } from './_utils/outline.js';
 import { getComponents } from './_utils/manifest.js';
+import litPlugin from '@lit-labs/eleventy-plugin-lit';
+
 import process from 'process';
 
 const packageData = JSON.parse(await readFile('./package.json', 'utf-8'));
@@ -105,6 +107,26 @@ export default function (eleventyConfig) {
       }
     ])
   );
+
+  const omittedModules = [];
+
+  // problematic components:
+  // animation (breaks on navigation + ssr with Turbo)
+  // mutation-observer (why SSR this?)
+  // resize-observer (why SSR this?)
+  // tooltip (why SSR this?)
+
+  const componentModules = getComponents()
+    // .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+    .map(component => {
+      const name = component.tagName.split(/wa-/)[1];
+      return `./dist/components/${name}/${name}.js`;
+    });
+
+  eleventyConfig.addPlugin(litPlugin, {
+    mode: 'worker',
+    componentModules
+  });
 
   // Build the search index
   eleventyConfig.addPlugin(

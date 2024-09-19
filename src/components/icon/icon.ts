@@ -9,7 +9,7 @@ import componentStyles from '../../styles/component.styles.js';
 import styles from './icon.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
-import type { CSSResultGroup, HTMLTemplateResult } from 'lit';
+import type { CSSResultGroup, HTMLTemplateResult, PropertyValues } from 'lit';
 
 const CACHEABLE_ERROR = Symbol();
 const RETRYABLE_ERROR = Symbol();
@@ -227,8 +227,25 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
+    const library = getIconLibrary(this.library);
+
+    const svg = this.shadowRoot?.querySelector('svg');
+    if (svg) {
+      library?.mutator?.(svg);
+    }
+  }
+
   render() {
-    return this.svg;
+    if (this.hasUpdated) {
+      return this.svg;
+    }
+
+    // @TODO: 16x16 is generally a safe bet. Perhaps be user setable?? `size="16x16"`, size="20x16". We just want to avoid "blowouts" with SSR.
+    return html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
   }
 }
 

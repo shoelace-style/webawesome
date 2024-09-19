@@ -1,51 +1,13 @@
-/* #region Alerts */
-wa-alert {
-  --background: var(--wa-color-surface-default);
-  --border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
-  --content-color: var(--wa-color-text-normal);
-  --padding: var(--wa-space-l);
-
-  font-size: var(--wa-font-size-s);
-
-  &[variant='brand'] {
-    --border-color: var(--wa-color-brand-fill-loud) var(--wa-color-neutral-border-quiet)
-      var(--wa-color-neutral-border-quiet) var(--wa-color-neutral-border-quiet);
-    --icon-color: var(--wa-color-brand-fill-loud);
-  }
-
-  &[variant='success'] {
-    --border-color: var(--wa-color-success-fill-loud) var(--wa-color-neutral-border-quiet)
-      var(--wa-color-neutral-border-quiet) var(--wa-color-neutral-border-quiet);
-    --icon-color: var(--wa-color-success-fill-loud);
-  }
-
-  &[variant='neutral'] {
-    --border-color: var(--wa-color-neutral-fill-loud) var(--wa-color-neutral-border-quiet)
-      var(--wa-color-neutral-border-quiet) var(--wa-color-neutral-border-quiet);
-    --icon-color: var(--wa-color-neutral-fill-loud);
-  }
-
-  &[variant='warning'] {
-    --border-color: var(--wa-color-warning-fill-loud) var(--wa-color-neutral-border-quiet)
-      var(--wa-color-neutral-border-quiet) var(--wa-color-neutral-border-quiet);
-    --icon-color: var(--wa-color-warning-fill-loud);
-  }
-
-  &[variant='danger'] {
-    --border-color: var(--wa-color-danger-fill-loud) var(--wa-color-neutral-border-quiet)
-      var(--wa-color-neutral-border-quiet) var(--wa-color-neutral-border-quiet);
-    --icon-color: var(--wa-color-danger-fill-loud);
-  }
+/* #region Avatars */
+wa-avatar {
+  --background-color: var(--wa-color-neutral-fill-loud);
+  --content-color: var(--wa-color-neutral-on-loud);
 }
 /* #endregion */
 
-/* #region Breadcrumbs */
-wa-breadcrumb {
-  font-size: var(--wa-font-size-s);
-}
-
 /* #region Buttons */
-wa-button {
+wa-button,
+wa-radio-button {
   &[size='small'] {
     font-size: var(--wa-font-size-xs);
   }
@@ -58,23 +20,135 @@ wa-button {
     font-size: var(--wa-font-size-m);
   }
 }
+
+wa-radio-button {
+  --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
+  --background-color-hover: var(--wa-form-control-activated-color);
+  --border-color: var(--wa-form-control-resting-color);
+  --border-color-active: var(--background-color-active);
+  --border-color-hover: var(--background-color-hover);
+  --label-color-active: var(--label-color-hover);
+  --label-color-hover: var(--wa-color-brand-on-loud);
+  --indicator-color: var(--wa-background-color);
+}
+
+wa-radio-button[checked] {
+  --background-color: var(--wa-form-control-activated-color);
+  --border-color: var(--background-color);
+  --label-color: var(--wa-color-brand-on-loud);
+}
+/* #endregion */
+
+/* #region Breadcrumbs */
+wa-breadcrumb {
+  font-size: var(--wa-font-size-s);
+}
+
+/* #region Callouts */
+wa-callout {
+  --background-color: var(--wa-color-surface-raised);
+  --border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
+  --content-color: var(--wa-color-text-normal);
+  --spacing: var(--wa-space-l);
+
+  font-size: var(--wa-font-size-s);
+
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
+      var(--wa-color-surface-border);
+    --icon-color: var(--wa-color-brand-fill-loud);
+  }
+
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
+      var(--wa-color-surface-border);
+    --icon-color: var(--wa-color-success-fill-loud);
+  }
+
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
+      var(--wa-color-surface-border);
+    --icon-color: var(--wa-color-neutral-fill-loud);
+  }
+
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
+      var(--wa-color-surface-border);
+    --icon-color: var(--wa-color-warning-fill-loud);
+  }
+
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
+      var(--wa-color-surface-border);
+    --icon-color: var(--wa-color-danger-fill-loud);
+  }
+}
+/* #endregion */
+
+/* #region Cards */
+wa-card {
+  --background-color: var(--wa-color-surface-raised);
+}
+/* #endregion */
+
+/* #region Carousel */
+wa-carousel {
+  --box-shadow: var(--wa-shadow-xs);
+  --pagination-color-active: var(--wa-color-neutral-fill-loud);
+}
+/* #endregion */
+
+/* #region Modals */
+wa-dialog,
+wa-drawer {
+  --spacing: var(--wa-space-l);
+}
 /* #endregion */
 
 /* #region Inputs */
-wa-input:not([filled]) {
+wa-input:not([filled]),
+wa-select:not([filled]),
+wa-textarea:not([filled]) {
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
     color-mix(in oklab, var(--wa-color-focus), transparent 50%);
   --wa-focus-ring-offset: 0;
 }
 
+wa-radio {
+  --background-color-checked: var(--border-color-checked);
+  --checked-icon-color: var(--wa-color-surface-default);
+  --checked-icon-scale: 0.4;
+}
+
+wa-range {
+  --thumb-gap: 0;
+}
+
 wa-switch {
+  --background-color: var(--wa-color-gray-50);
+  --border-color: var(--background-color);
+  --height: calc(1em * var(--wa-form-control-value-line-height) - var(--border-width) * 2);
+  --thumb-color: var(--wa-color-surface-default);
   --thumb-size: calc(var(--height) + 4px);
+  --width: calc(var(--height) * 2);
 
   &::part(thumb) {
-    border-color: var(--background);
+    border: var(--wa-border-width-s) var(--wa-border-style) var(--background-color);
   }
   &[checked]::part(thumb) {
-    border-color: var(--background-checked);
+    border-color: var(--background-color-checked);
   }
+}
+/* #endregion */
+
+/* #region Progress Indicators */
+wa-progress-bar {
+  --height: 1rem;
+}
+/* #endregion */
+
+/* #region Tabs */
+wa-tab {
+  font-size: var(--wa-font-size-s);
 }
 /* #endregion */

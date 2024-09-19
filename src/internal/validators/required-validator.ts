@@ -3,13 +3,23 @@ import type { Validator } from '../webawesome-element.js';
 export interface RequiredValidatorOptions {
   /** This is a cheap way for us to get translation strings for the user without having proper translations. */
   validationElement?: HTMLSelectElement | HTMLInputElement;
+
+  /**
+   * The property to check if its not null-ish. For most elements this will be "value".
+   * For "checkbox" for example it will be "checked"
+   */
+  validationProperty?: string;
 }
 
 export const RequiredValidator = (options: RequiredValidatorOptions = {}): Validator => {
-  let { validationElement } = options;
+  let { validationElement, validationProperty } = options;
 
   if (!validationElement) {
     validationElement = Object.assign(document.createElement('input'), { required: true });
+  }
+
+  if (!validationProperty) {
+    validationProperty = 'value';
   }
 
   const obj: Validator = {
@@ -29,13 +39,9 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
         return validity;
       }
 
-      const value = element.value;
+      const value = element[validationProperty as keyof typeof element];
 
-      let isEmpty = !value;
-
-      if (Array.isArray(value)) {
-        isEmpty = value.length === 0;
-      }
+      const isEmpty = !value;
 
       if (isEmpty) {
         validity.message = typeof obj.message === 'function' ? obj.message(element) : obj.message || '';

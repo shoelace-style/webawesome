@@ -1,15 +1,27 @@
+import * as os from 'os';
+import * as process from 'process';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { getAllComponents } from './scripts/shared.js';
 import { globbySync } from 'globby';
+import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
-const componentImports = getAllComponents(metadata).map(component => {
+const serverComponents = [];
+const componentImports = [];
+getAllComponents(metadata).forEach(component => {
   const name = component.tagName.replace(/^wa-/, '');
-  return `./dist/components/${name}/${name}.js`;
+
+  serverComponents.push(`/dist/components/${name}/${name}.js`);
+  componentImports.push(`/dist-cdn/components/${name}/${name}.js`);
 });
+
+// os.availableParallelism only available as of Node 18.14.0 , maybe dont need the fallback?
+// I've found the browser is more stable if you give it concurrency up front.
+const cores = os.availableParallelism?.() ?? os.cpus.length;
+const concurrency = Math.max(Math.floor(cores / 3), 1);
 
 export default {
   rootDir: '.',
@@ -28,23 +40,44 @@ export default {
     esbuildPlugin({
       ts: true,
       target: 'es2020'
-    })
+    }),
+    litSsrPlugin()
   ],
   browsers: [
-    playwrightLauncher({ product: 'chromium' }),
-    playwrightLauncher({ product: 'firefox', concurrency: 1 }),
-    playwrightLauncher({ product: 'webkit' })
+    playwrightLauncher({ product: 'chromium', concurrency }),
+    playwrightLauncher({ product: 'firefox', concurrency }),
+    playwrightLauncher({ product: 'webkit', concurrency })
   ],
   testRunnerHtml: testFramework => `
+    <!DOCTYPE html>
     <html lang="en-US">
       <head>
-        <base href="/dist">
+        <link rel="stylesheet" href="/dist/themes/default.css">
+
+        <script>
+          window.process = {env: { NODE_ENV: "production" }}
+        </script>
+        <script>
+          window.serverComponents = [
+            ${serverComponents.map(str => `"${str}"`).join(',\n')}
+          ]
+
+          window.clientComponents = [
+            ${componentImports.map(str => `"${str}"`).join(',\n')}
+          ]
+
+          window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
+          window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
+        </script>
+        <script type="module">
+          ;(async () => {
+            await import('@lit-labs/ssr-client/lit-element-hydrate-support.js')
+            await Promise.allSettled(window.clientComponents.map(str => import(str)));
+          })()
+        </script>
+        <script type="module" src="${testFramework}"></script>
       </head>
       <body>
-        <link rel="stylesheet" href="dist/themes/default.css">
-        <script>window.process = {env: { NODE_ENV: "production" }}</script>
-        ${componentImports.map(url => `<script type="module" src="${url}"></script>`)};
-        <script type="module" src="${testFramework}"></script>
       </body>
     </html>
   `,

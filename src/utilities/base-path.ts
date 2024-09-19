@@ -32,7 +32,10 @@ export function getBasePath(subpath = '') {
       // Look for webawesome.js or webawesome.loader.js
       const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];
       const waScript = scripts.find(
-        script => script.src.endsWith('webawesome.js') || script.src.endsWith('webawesome.loader.js')
+        script =>
+          script.src.endsWith('webawesome.js') ||
+          script.src.endsWith('webawesome.loader.js') ||
+          script.src.endsWith('webawesome.ssr-loader.js')
       );
 
       if (waScript) {

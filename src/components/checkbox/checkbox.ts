@@ -2,7 +2,7 @@ import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
@@ -56,17 +56,23 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 @customElement('wa-checkbox')
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+
+  static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
+
   static get validators() {
-    return [
-      ...super.validators,
-      RequiredValidator({
-        // Use a checkbox so we get "free" translation strings.
-        validationElement: Object.assign(document.createElement('input'), {
-          type: 'checkbox',
-          required: true
-        })
-      })
-    ];
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            validationProperty: 'checked',
+            // Use a checkbox so we get "free" translation strings.
+            validationElement: Object.assign(document.createElement('input'), {
+              type: 'checkbox',
+              required: true
+            })
+          })
+        ];
+    return [...super.validators, ...validators];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'help-text');
@@ -80,8 +86,17 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   /** The name of the checkbox, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name = '';
 
-  /** The current value of the checkbox, submitted as a name/value pair with form data. */
-  @property() value: null | string;
+  private _value: string | null = this.getAttribute('value') ?? null;
+
+  /** The value of the checkbox, submitted as a name/value pair with form data. */
+  get value() {
+    return this._value ?? 'on';
+  }
+
+  @property({ reflect: true })
+  set value(val: string | null) {
+    this._value = val;
+  }
 
   /** The checkbox's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -115,6 +130,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'help-text' }) helpText = '';
 
   private handleClick() {
+    this.hasInteracted = true;
     this.checked = !this.checked;
     this.indeterminate = false;
     this.dispatchEvent(new WaChangeEvent());
@@ -144,10 +160,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   handleValueOrCheckedChange() {
     this.toggleCustomState('checked', this.checked);
-    this.value = this.checked ? this.value || 'on' : null;
 
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
-    this.setValue(this.value, this.value);
+    this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
@@ -160,6 +175,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('defaultChecked')) {
+      if (!this.hasInteracted) {
+        this.checked = this.defaultChecked;
+      }
+    }
 
     if (changedProperties.has('value') || changedProperties.has('checked')) {
       this.handleValueOrCheckedChange();
@@ -189,7 +210,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasHelpTextSlot = isServer ? true : this.hasSlotController.test('help-text');
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 
     //
@@ -231,7 +252,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               type="checkbox"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${this.name}
-              value=${ifDefined(this.value)}
+              value=${ifDefined(this._value)}
               .indeterminate=${live(this.indeterminate)}
               .checked=${live(this.checked)}
               .disabled=${this.disabled}
@@ -248,7 +269,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-icon part="checked-icon" class="checkbox__checked-icon" library="system" name="check"></wa-icon>
                 `
-              : ''}
+              : html``}
             ${!this.checked && this.indeterminate
               ? html`
                   <wa-icon
@@ -258,7 +279,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
                     name="indeterminate"
                   ></wa-icon>
                 `
-              : ''}
+              : html``}
           </span>
 
           <div part="label" class="checkbox__label">

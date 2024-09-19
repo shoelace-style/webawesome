@@ -15,6 +15,11 @@ html {
   box-sizing: inherit;
 }
 
+/** Because headers are sticky, this is needed to make sure page fragment anchors scroll down past the headers / subheaders and are visible. IE: `<a href="#id-for-h2">` anchors. */
+wa-page :is(*, *:after, *:before) {
+  scroll-margin-top: var(--scroll-margin-top);
+}
+
 body {
   min-height: 100vh;
   font-family: var(--wa-font-family-body);
@@ -32,12 +37,12 @@ body {
 }
 
 /* Show custom elements only after they're registered */
-:not(:defined),
-:not(:defined) * {
+:where(:not(:defined, [did-ssr])),
+:where(:not(:defined, [did-ssr])) * {
   opacity: 0;
 }
 
-:defined {
+:where(:defined) {
   opacity: 1;
   transition: 0.1s opacity;
 }

@@ -69,8 +69,29 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** The name of the switch, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
+  private _value: string | null = null;
+
   /** The current value of the switch, submitted as a name/value pair with form data. */
-  @property() value: null | string;
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  @state()
+  set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
+
+  /** The default value of the form control. Primarily used for resetting the form control. */
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   /** The switch's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -97,6 +118,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** The switch's help text. If you need to display HTML, use the `help-text` slot instead. */
   @property({ attribute: 'help-text' }) helpText = '';
 
+  /**
+   * Used for SSR. If you slot in help-text, make sure to add `with-help-text` to your component to get it to properly render with SSR.
+   */
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
 
@@ -113,6 +139,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleClick() {
+    this.hasInteracted = true;
     this.checked = !this.checked;
     this.dispatchEvent(new WaChangeEvent());
   }
@@ -138,16 +165,26 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  @watch(['value', 'checked'], { waitUntilFirstUpdate: true })
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
+      this.handleValueOrCheckedChange();
+    }
+  }
+
   handleValueOrCheckedChange() {
+    this.handleDefaultCheckedChange();
     this.value = this.checked ? this.value || 'on' : null;
-    this.input.checked = this.checked; // force a sync update
-    // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
+
+    if (this.input) {
+      this.input.checked = this.checked; // force a sync update
+    }
+
     this.setValue(this.value, this.value);
     this.updateValidity();
   }
 
-  @watch('defaultChecked')
   handleDefaultCheckedChange() {
     if (!this.hasInteracted && this.checked !== this.defaultChecked) {
       this.checked = this.defaultChecked;
@@ -197,7 +234,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
 
     return html`

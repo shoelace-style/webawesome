@@ -20,9 +20,14 @@ layout: page
       margin: 0;
     }
   }
-  wa-page:not([view="desktop"]) > main {
-    --content-flow-spacing: 3rem;
+
+  /** this technically relies on insertion order. */
+  @media screen and (max-width: 768px) {
+    wa-page > main {
+      --content-flow-spacing: 3rem !important;
+    }
   }
+
   .brand-font {
     font-family: cera-round-pro;
   }

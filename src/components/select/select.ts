@@ -5,7 +5,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { scrollIntoView } from '../../internal/scroll.js';
@@ -89,12 +89,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
 
   static get validators() {
-    return [
-      ...super.validators,
-      RequiredValidator({
-        validationElement: Object.assign(document.createElement('select'), { required: true })
-      })
-    ];
+    const validators = isServer
+      ? []
+      : [
+          RequiredValidator({
+            validationElement: Object.assign(document.createElement('select'), { required: true })
+          })
+        ];
+    return [...super.validators, ...validators];
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
@@ -124,14 +126,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /** The name of the select, submitted as a name/value pair with form data. */
   @property() name = '';
 
-  /**
-   * The current value of the select, submitted as a name/value pair with form data. When `multiple` is enabled, the
-   * value attribute will be a space-delimited list of values based on the options selected, and the value property will
-   * be an array. **For this reason, values must not contain spaces.**
-   */
-  @property({ attribute: false })
-  value: string | string[] = '';
-
   private _defaultValue: string | string[] = '';
 
   @property({
@@ -142,23 +136,55 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       toAttribute: (value: string | string[]) => (Array.isArray(value) ? value.join(' ') : value)
     }
   })
-  // @ts-expect-error defaultValue () is a property on the host, but is being used a getter / setter here.
   set defaultValue(val: string | string[]) {
+    this._defaultValue = this.convertDefaultValue(val);
+  }
+
+  get defaultValue() {
+    if (!this.hasUpdated) {
+      this._defaultValue = this.convertDefaultValue(this._defaultValue);
+    }
+    return this._defaultValue;
+  }
+
+  /**
+   * @private
+   * A converter for defaultValue from array to string if its multiple. Also fixes some hydration issues.
+   */
+  private convertDefaultValue(val: typeof this.defaultValue) {
     // For some reason this can go off before we've fully updated. So check the attribute too.
     const isMultiple = this.multiple || this.hasAttribute('multiple');
 
     if (!isMultiple && Array.isArray(val)) {
       val = val.join(' ');
     }
-    this._defaultValue = val;
 
-    if (!this.hasInteracted) {
-      this.value = this.defaultValue;
-    }
+    return val;
   }
 
-  get defaultValue() {
-    return this._defaultValue;
+  private _value: string | string[] | null = this.defaultValue;
+
+  /**
+   * The current value of the select, submitted as a name/value pair with form data. When `multiple` is enabled, the
+   * value attribute will be a space-delimited list of values based on the options selected, and the value property will
+   * be an array. **For this reason, values must not contain spaces.**
+   */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  @property({ attribute: false })
+  set value(val: string | string[] | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
   }
 
   /** The select's size. */
@@ -211,6 +237,16 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   /** The select's help text. If you need to display HTML, use the `help-text` slot instead. */
   @property({ attribute: 'help-text' }) helpText = '';
+
+  /**
+   * Used for SSR purposes when a label is slotted in. Will show the label on first render.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+  /**
+   * Used for SSR purposes when help-text is slotted in. Will show the help-text on first render.
+   */
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -636,7 +672,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
     } else {
       this.value = this.selectedOptions[0]?.value ?? '';
-      this.displayLabel = this.selectedOptions[0]?.getTextLabel() ?? '';
+      this.displayLabel = this.selectedOptions[0]?.getTextLabel?.() ?? '';
     }
 
     // Update validity
@@ -767,12 +803,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
-    const hasClearIcon = this.clearable && !this.disabled && this.value.length > 0;
-    const isPlaceholderVisible = this.placeholder && this.value.length === 0;
+    const hasClearIcon =
+      (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
+    const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
 
     return html`
       <div

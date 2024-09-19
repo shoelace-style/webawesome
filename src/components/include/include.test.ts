@@ -1,4 +1,6 @@
-import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { fixtures } from '../../internal/test/fixture.js';
+import { html } from 'lit';
 import sinon from 'sinon';
 import type WaInclude from './include.js';
 
@@ -31,36 +33,43 @@ describe('<wa-include>', () => {
     sinon.verifyAndRestore();
   });
 
-  it('should load content and emit wa-load', async () => {
-    sinon.stub(window, 'fetch').resolves({
-      ...stubbedFetchResponse,
-      ok: true,
-      status: 200,
-      text: () => delayResolve('"id": 1')
+  for (const fixture of fixtures) {
+    describe(`with "${fixture.type}" rendering`, () => {
+      it('should load content and emit wa-load', async () => {
+        sinon.stub(window, 'fetch').resolves({
+          ...stubbedFetchResponse,
+          ok: true,
+          status: 200,
+          text: () => delayResolve('"id": 1')
+        });
+        const loadHandler = sinon.spy();
+        document.addEventListener('wa-load', loadHandler);
+        const el = await fixture<WaInclude>(html` <wa-include src="/found"></wa-include> `);
+
+        await waitUntil(() => loadHandler.calledOnce);
+
+        document.removeEventListener('wa-load', loadHandler);
+
+        expect(el.innerHTML).to.contain('"id": 1');
+        expect(loadHandler).to.have.been.calledOnce;
+      });
+
+      it('should emit wa-include-error when content cannot be loaded', async () => {
+        sinon.stub(window, 'fetch').resolves({
+          ...stubbedFetchResponse,
+          ok: false,
+          status: 404,
+          text: () => delayResolve('{}')
+        });
+        const loadHandler = sinon.spy();
+        document.addEventListener('wa-include-error', loadHandler);
+
+        await fixture<WaInclude>(html` <wa-include src="/not-found"></wa-include> `);
+        await waitUntil(() => loadHandler.calledOnce);
+        document.removeEventListener('wa-include-error', loadHandler);
+
+        expect(loadHandler).to.have.been.calledOnce;
+      });
     });
-    const el = await fixture<WaInclude>(html` <wa-include src="/found"></wa-include> `);
-    const loadHandler = sinon.spy();
-
-    el.addEventListener('wa-load', loadHandler);
-    await waitUntil(() => loadHandler.calledOnce);
-
-    expect(el.innerHTML).to.contain('"id": 1');
-    expect(loadHandler).to.have.been.calledOnce;
-  });
-
-  it('should emit wa-include-error when content cannot be loaded', async () => {
-    sinon.stub(window, 'fetch').resolves({
-      ...stubbedFetchResponse,
-      ok: false,
-      status: 404,
-      text: () => delayResolve('{}')
-    });
-    const el = await fixture<WaInclude>(html` <wa-include src="/not-found"></wa-include> `);
-    const loadHandler = sinon.spy();
-
-    el.addEventListener('wa-include-error', loadHandler);
-    await waitUntil(() => loadHandler.calledOnce);
-
-    expect(loadHandler).to.have.been.calledOnce;
-  });
+  }
 });

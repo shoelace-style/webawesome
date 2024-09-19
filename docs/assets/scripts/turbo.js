@@ -43,6 +43,30 @@ function restoreScrollPosition(event) {
   });
 }
 
+function fixDSD(e) {
+  const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
+  if (!newElement) {
+    return;
+  }
+
+  // https://developer.chrome.com/docs/css-ui/declarative-shadow-dom#polyfill
+  (function attachShadowRoots(root) {
+    root.querySelectorAll('template[shadowrootmode]').forEach(template => {
+      const mode = template.getAttribute('shadowrootmode');
+      const shadowRoot = template.parentNode.attachShadow({ mode });
+      shadowRoot.appendChild(template.content);
+      template.remove();
+      attachShadowRoots(shadowRoot);
+    });
+  })(newElement);
+}
+
+// Fixes an issue with DSD keeping the `<template>` elements hanging around in the lightdom.
+// https://github.com/hotwired/turbo/issues/1292
+['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
+  document.addEventListener(eventName, fixDSD);
+});
+
 window.addEventListener('turbo:before-cache', saveScrollPosition);
 window.addEventListener('turbo:before-render', restoreScrollPosition);
 window.addEventListener('turbo:render', restoreScrollPosition);

@@ -1,11 +1,26 @@
 import '../drawer/drawer.js';
 import { customElement, property, query } from 'lit/decorators.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { live } from 'lit/directives/live.js';
-import styles from './page.styles.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import componentStyles from '../../styles/component.styles.js';
+import styles, { mobileStyles } from './page.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValueMap } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';
+
+if (typeof ResizeObserver === 'undefined') {
+  globalThis.ResizeObserver = class {
+    // eslint-disable-next-line
+    constructor(..._args: ConstructorParameters<typeof ResizeObserver>) {}
+    // eslint-disable-next-line
+    observe(..._args: Parameters<ResizeObserver['observe']>) {}
+    // eslint-disable-next-line
+    unobserve(..._args: Parameters<ResizeObserver['unobserve']>) {}
+    // eslint-disable-next-line
+    disconnect(..._args: Parameters<ResizeObserver['disconnect']>) {}
+  };
+}
 
 /**
  * @summary Pages offer an easy way to scaffold pages using minimal markup.
@@ -53,7 +68,7 @@ import type WaDrawer from '../drawer/drawer.js';
  */
 @customElement('wa-page')
 export default class WaPage extends WebAwesomeElement {
-  static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = [componentStyles, styles];
 
   private headerResizeObserver = this.slotResizeObserver('header');
   private subheaderResizeObserver = this.slotResizeObserver('subheader');
@@ -90,11 +105,12 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
 
   /**
-   * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768 by
+   * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by
    * default), it is considered to be a "desktop" view. The view is merely a way to distinguish when to show/hide the
    * navigation. You can use additional media queries to make other adjustments to content as necessary.
+   * The default is "desktop" because the "mobile navigation drawer" isn't accessible via SSR due to drawer requiring JS.
    */
-  @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'mobile';
+  @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'desktop';
 
   /**
    * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
@@ -104,7 +120,7 @@ export default class WaPage extends WebAwesomeElement {
   /**
    * At what "px" to hide the "menu" slot and collapse into a hamburger button
    */
-  @property({ attribute: 'mobile-breakpoint' }) mobileBreakpoint = 768;
+  @property({ attribute: 'mobile-breakpoint', type: Number }) mobileBreakpoint = 768;
 
   /**
    * Where to place the navigation when in the mobile viewport.
@@ -132,7 +148,7 @@ export default class WaPage extends WebAwesomeElement {
     }
   });
 
-  protected update(changedProperties: PropertyValueMap<this> | Map<PropertyKey, unknown>): void {
+  protected update(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('view')) {
       this.hideNavigation();
     }
@@ -141,7 +157,10 @@ export default class WaPage extends WebAwesomeElement {
 
   constructor() {
     super();
-    this.addEventListener('click', this.handleNavigationToggle);
+
+    if (!isServer) {
+      this.addEventListener('click', this.handleNavigationToggle);
+    }
   }
 
   connectedCallback() {
@@ -203,6 +222,14 @@ export default class WaPage extends WebAwesomeElement {
       <a href="#main-content" part="skip-to-content" class="skip-to-content">
         <slot name="skip-to-content">Skip to content</slot>
       </a>
+
+      <!-- unsafeHTML needed for SSR until this is solved: https://github.com/lit/lit/issues/4696 -->
+      ${unsafeHTML(`
+        <style id="mobile-styles">
+          ${mobileStyles(this.mobileBreakpoint)}
+        </style>
+      `)}
+
       <div class="base" part="base">
         <div class="banner" part="banner">
           <slot name="banner"></slot>
@@ -218,9 +245,15 @@ export default class WaPage extends WebAwesomeElement {
             <slot name="menu">
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
                 <!-- Add fallback divs so that CSS grid works properly. -->
-                <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
-                <slot name=${this.view === 'desktop' ? 'navigation' : '____'}></slot>
-                <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+                <slot name="desktop-navigation-header">
+                  <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
+                </slot>
+                <slot name="desktop-navigation">
+                  <slot name=${this.view === 'desktop' ? 'navigation' : '____'}><div></div></slot>
+                </slot>
+                <slot name="desktop-navigation-footer">
+                  <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+                </slot>
               </nav>
             </slot>
           </div>
@@ -266,13 +299,20 @@ export default class WaPage extends WebAwesomeElement {
         "
         class="navigation-drawer"
       >
-        <slot part="navigation-header" slot="label" name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
-        <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
-        <slot
-          part="navigation-footer"
-          slot="footer"
-          name=${this.view === 'mobile' ? 'navigation-footer' : '___'}
-        ></slot>
+        <slot slot="label" part="navigation-header" name="mobile-navigation-header">
+          <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+        </slot>
+        <slot name="mobile-navigation">
+          <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
+        </slot>
+
+        <slot name="mobile-navigation-footer">
+          <slot
+            part="navigation-footer"
+            slot="footer"
+            name=${this.view === 'mobile' ? 'navigation-footer' : '___'}
+          ></slot>
+        </slot>
       </wa-drawer>
     `;
   }

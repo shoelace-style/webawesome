@@ -208,7 +208,7 @@ export default class WaDetails extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.matches(':dir(rtl)');
 
     return html`
       <details

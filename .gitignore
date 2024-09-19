@@ -3,9 +3,10 @@ _site
 .DS_Store
 package.json
 package-lock.json
-dist
+dist/
+dist-cdn/
 docs/public/pagefind
 node_modules
 src/react
-cdn
 .astro
+cdn/

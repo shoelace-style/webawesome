@@ -13,6 +13,9 @@
     <link rel="apple-touch-icon" href="/assets/images/app-icon.png">
 
     {# Scripts #}
+    {# Hydration stuff #}
+    <script src="/assets/scripts/hydration-errors.js"></script>
+    <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm"></script>
 
@@ -26,7 +29,7 @@
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
     {# Web Awesome #}
-    <script type="module" src="/dist/webawesome.loader.js"></script>
+    <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
     <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
     <link rel="stylesheet" href="/dist/themes/applied.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/utilities.css" />
@@ -129,5 +132,6 @@
 
       {% include 'search.njk' %}
     </wa-page>
+
   </body>
 </html>

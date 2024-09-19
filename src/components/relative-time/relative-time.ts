@@ -27,7 +27,7 @@ const availableUnits: UnitConfig[] = [
 @customElement('wa-relative-time')
 export default class WaRelativeTime extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
-  private updateTimeout: number;
+  private updateTimeout: number | ReturnType<typeof setTimeout>;
 
   @state() private isoTime = '';
   @state() private relativeTime = '';
@@ -96,7 +96,7 @@ export default class WaRelativeTime extends WebAwesomeElement {
         nextInterval = getTimeUntilNextUnit('day'); // next day
       }
 
-      this.updateTimeout = window.setTimeout(() => this.requestUpdate(), nextInterval);
+      this.updateTimeout = setTimeout(() => this.requestUpdate(), nextInterval);
     }
 
     return html` <time datetime=${this.isoTime} title=${this.relativeTime}>${this.relativeTime}</time> `;

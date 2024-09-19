@@ -2,7 +2,7 @@ import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -96,14 +96,29 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     | 'time'
     | 'url' = 'text';
 
-  /** The name of the input, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
+  private _value: string | null = null;
 
   /** The current value of the input, submitted as a name/value pair with form data. */
-  @property({ attribute: false }) value = '';
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  @state()
+  set value(val: string | null) {
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue = '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   /** The input's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -122,9 +137,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   /** Adds a clear button when the input is not empty. */
   @property({ type: Boolean }) clearable = false;
-
-  /** Disables the input. */
-  @property({ type: Boolean }) disabled = false;
 
   /** Placeholder text to show as a hint when the input is empty. */
   @property() placeholder = '';
@@ -206,6 +218,16 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    * keyboard on supportive devices.
    */
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
+
+  /**
+   * Used for SSR. Will determine if the SSRed component will have the label slot rendered on initial paint.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+  /**
+   * Used for SSR. Will determine if the SSRed component will have the help text slot rendered on initial paint.
+   */
+  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
   private handleBlur() {
     this.hasFocus = false;
@@ -371,12 +393,16 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHelpTextSlot = this.hasSlotController.test('help-text');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
-    const isClearIconVisible = hasClearIcon && (typeof this.value === 'number' || this.value.length > 0);
+    const isClearIconVisible =
+      // prevents hydration mismatch errors.
+      (isServer || this.hasUpdated) &&
+      hasClearIcon &&
+      (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
       <div
@@ -440,7 +466,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               min=${ifDefined(this.min)}
               max=${ifDefined(this.max)}
               step=${ifDefined(this.step as number)}
-              .value=${live(this.value)}
+              .value=${live(this.value || '')}
               autocapitalize=${ifDefined(this.autocapitalize)}
               autocomplete=${ifDefined(this.autocomplete)}
               autocorrect=${ifDefined(this.autocorrect)}

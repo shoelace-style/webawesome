@@ -1,8 +1,6 @@
 import { css } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
 
 export default css`
-  ${componentStyles}
   :host {
     display: block;
     box-sizing: border-box;
@@ -13,7 +11,9 @@ export default css`
     --banner-height: 0px;
     --header-height: 0px;
     --subheader-height: 0px;
+    --scroll-margin-top: calc(var(--header-height, 0px) + var(--subheader-height, 0px));
   }
+
   :host([disable-sticky~='banner']) :is([part~='header'], [part~='subheader']) {
     --banner-height: 0px !important;
   }
@@ -40,10 +40,6 @@ export default css`
   :host([disable-sticky~='menu']) [part~='menu'] {
     height: auto;
     max-height: auto;
-  }
-  /* Hide nav toggles in desktop view */
-  :host([view='desktop']) ::slotted([data-toggle-nav]) {
-    display: none !important;
   }
   [part~='base'] {
     min-height: 100%;
@@ -162,13 +158,19 @@ export default css`
     max-height: calc(100dvh - var(--header-height) - var(--banner-height) - var(--subheader-height));
     overflow: auto;
   }
-  :host([view='mobile']) [part~='navigation'] {
-    display: none;
-  }
+
   [part~='navigation'] {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  }
+`;
+
+export const mobileStyles = (breakpoint: number) => `
+  @media screen and (
+    max-width: ${(Number.isSafeInteger(breakpoint) ? breakpoint.toString() : '768') + 'px'}
+  ) {
+    [part~='navigation'] { display: none; }
   }
 `;
