@@ -64,7 +64,7 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      - name: Run CSR tests
+      - name: Run SSR tests
         # FAIL_FAST to fail on first failing test.
         run: FAIL_FAST="true" SSR_ONLY="true" npm run test
 
