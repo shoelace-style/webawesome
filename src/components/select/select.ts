@@ -175,7 +175,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     if (Array.isArray(this._value) && this._value.length === 0) {
-      return this.defaultValue
+      return this.defaultValue;
     }
 
     return this._value ?? this.defaultValue;
