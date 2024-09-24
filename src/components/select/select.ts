@@ -657,9 +657,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   // This method must be called whenever the selection changes. It will update the selected options cache, the current
   // value, and the display value
   private selectionChanged() {
-    if (!customElements.get("wa-option")) {
-      customElements.whenDefined("wa-option").then(() => this.selectionChanged())
-      return
+    if (!customElements.get('wa-option')) {
+      customElements.whenDefined('wa-option').then(() => this.selectionChanged());
+      return;
     }
 
     // Update selected options cache
@@ -676,12 +676,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         this.displayLabel = this.localize.term('numOptionsSelected', this.selectedOptions.length);
       }
     } else {
-      const firstOption = this.selectedOptions[0]
-      const firstOptionValue = firstOption?.value
+      const firstOption = this.selectedOptions[0];
+      const firstOptionValue = firstOption?.value;
 
       // eslint-disable-next-line
       if (firstOptionValue == null) {
-        this.value = firstOptionValue
+        this.value = firstOptionValue;
       }
 
       this.displayLabel = firstOption?.getTextLabel?.() ?? '';
