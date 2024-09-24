@@ -174,6 +174,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       return this._value;
     }
 
+    if (Array.isArray(this._value) && this._value.length === 0) {
+      return this.defaultValue
+    }
+
     return this._value ?? this.defaultValue;
   }
 
@@ -657,10 +661,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   // This method must be called whenever the selection changes. It will update the selected options cache, the current
   // value, and the display value
   private selectionChanged() {
-    if (!customElements.get('wa-option')) {
-      customElements.whenDefined('wa-option').then(() => this.selectionChanged());
-      return;
-    }
+    // if (!customElements.get('wa-option')) {
+    //   customElements.whenDefined('wa-option').then(() => this.selectionChanged());
+    //   return;
+    // }
 
     // Update selected options cache
     this.selectedOptions = this.getAllOptions().filter(el => el.selected);
@@ -676,15 +680,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         this.displayLabel = this.localize.term('numOptionsSelected', this.selectedOptions.length);
       }
     } else {
-      const firstOption = this.selectedOptions[0];
-      const firstOptionValue = firstOption?.value;
-
-      // eslint-disable-next-line
-      if (firstOptionValue == null) {
-        this.value = firstOptionValue;
-      }
-
-      this.displayLabel = firstOption?.getTextLabel?.() ?? '';
+      this.value = this.selectedOptions[0]?.value ?? '';
+      this.displayLabel = this.selectedOptions[0]?.getTextLabel?.() ?? '';
     }
 
     // Update validity

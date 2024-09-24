@@ -123,10 +123,10 @@ export default function (eleventyConfig) {
       return `./dist/components/${name}/${name}.js`;
     });
 
-  eleventyConfig.addPlugin(litPlugin, {
-    mode: 'worker',
-    componentModules
-  });
+  // eleventyConfig.addPlugin(litPlugin, {
+  //   mode: 'worker',
+  //   componentModules
+  // });
 
   // Build the search index
   eleventyConfig.addPlugin(
