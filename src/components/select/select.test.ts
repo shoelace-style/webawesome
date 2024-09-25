@@ -614,6 +614,88 @@ describe('<wa-select>', () => {
 
         expect(tag.hasAttribute('pill')).to.be.true;
       });
+
+      describe.only("With lazily loaded options", () => {
+        describe("With no existing options", () => {
+          it("Should wait to select the option when the option exists for multiple select", async () => {
+            const form = await fixture<HTMLFormElement>(html`<form><wa-select value="option-1"></wa-select></form>`)
+            const el = form.querySelector<WaSelect>("wa-select")!
+
+            expect(el.value).to.equal("")
+
+            const option = document.createElement("wa-option")
+            option.value = "option-1"
+            option.innerText = "Option 1"
+            el.append(option)
+
+            await el.updateComplete
+            expect(el.value).to.equal("option-1")
+          })
+
+          it("Should wait to select the option when the option exists for multiple select", async () => {
+            const form = await fixture<HTMLFormElement>(html`<form><wa-select value="option-1" multiple></wa-select></form>`)
+
+            const el = form.querySelector<WaSelect>("wa-select")!
+            expect(el.value).to.equal("")
+
+            const option = document.createElement("wa-option")
+            option.value = "option-1"
+            option.innerText = "Option 1"
+            el.append(option)
+
+            await el.updateComplete
+            expect(el.value).to.equal(["option-1"])
+          })
+        })
+
+        describe("With existing options", () => {
+          it("Should not select the option if options already exist for single select", async () => {
+            const form = await fixture<HTMLFormElement>(html`
+              <form>
+                <wa-select value="option-1">
+                  <wa-option value="bar">Bar</wa-option>
+                  <wa-option value="baz">Baz</wa-option>
+                </wa-select>
+              </form>`
+            )
+
+            const el = form.querySelector<WaSelect>("wa-select")!
+            expect(el.value).to.equal("")
+
+            const option = document.createElement("wa-option")
+            option.value = "option-1"
+            option.innerText = "Option 1"
+            el.append(option)
+
+            await aTimeout(10)
+            await el.updateComplete
+            expect(el.value).to.equal("option-1")
+          })
+
+          it("Should not select the option if options already exists for multiple select", async () => {
+            const form = await fixture<HTMLFormElement>(html`
+              <form>
+                <wa-select value="option-1" multiple>
+                  <wa-option value="bar">Bar</wa-option>
+                  <wa-option value="baz">Baz</wa-option>
+                </wa-select>
+              </form>`
+            )
+
+            const el = form.querySelector<WaSelect>("wa-select")!
+            expect(el.value).to.equal("")
+
+            const option = document.createElement("wa-option")
+            option.value = "option-1"
+            option.innerText = "Option 1"
+            el.append(option)
+
+            await aTimeout(10)
+            await el.updateComplete
+            expect(el.value).to.equal([""])
+          })
+        })
+      })
     });
   }
 });

@@ -300,3 +300,15 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 :::warning
 Be sure you trust the content you are outputting! Passing unsanitized user input to `getTag()` can result in XSS vulnerabilities.
 :::
+
+## Lazy loading options
+
+Lazy loading options is very hard to get right. `<wa-select>` largely follows how a native `<select>` works.
+
+Here are the following conditions:
+
+- If a `<wa-select>` is created without any options, but is given a `value` attribute, its `value` will be `""`, and then when options are added, if any of the options have a value equal to the `<wa-select>` value, the value of the `<wa-select>` will be that of the option.
+
+- If a `<wa-select>` with an initial value has multiple values, but only some of the options are present, it will only respect the loaded options, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction, it will add the selected option.
+
+This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with `<wa-select>`

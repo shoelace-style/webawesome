@@ -183,11 +183,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   @property({ attribute: false })
   set value(val: string | string[] | null) {
-    if (this._value === val) {
-      return;
-    }
-
-    this.valueHasChanged = true;
     this._value = val;
   }
 
@@ -290,11 +285,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.updateComplete.then(() => {
-      if (!this.hasInteracted) {
-        this.value = this.defaultValue;
-      }
-    });
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
   }
@@ -545,6 +535,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const oldValue = this.value;
 
     if (option && !option.disabled) {
+      this.valueHasChanged = true
       if (this.multiple) {
         this.toggleOptionSelection(option);
       } else {
@@ -570,20 +561,21 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private handleDefaultSlotChange() {
+    if (!customElements.get("wa-option")) {
+      customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
+      return
+    }
+
     const allOptions = this.getAllOptions();
-    const value = Array.isArray(this.value) ? this.value : [this.value];
+    const val = this.valueHasChanged ? this.value : this.defaultValue
+    const value = Array.isArray(val) ? val : [val];
     const values: string[] = [];
 
     // Check for duplicate values in menu items
-    if (customElements.get('wa-option')) {
-      allOptions.forEach(option => values.push(option.value));
+    allOptions.forEach(option => values.push(option.value));
 
-      // Select only the options that match the new value
-      this.setSelectedOptions(allOptions.filter(el => value.includes(el.value)));
-    } else {
-      // Rerun this handler when `<wa-option>` is registered
-      customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
-    }
+    // Select only the options that match the new value
+    this.setSelectedOptions(allOptions.filter(el => value.includes(el.value)));
   }
 
   private handleTagRemove(event: WaRemoveEvent, option: WaOption) {
@@ -661,13 +653,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   // This method must be called whenever the selection changes. It will update the selected options cache, the current
   // value, and the display value
   private selectionChanged() {
-    // if (!customElements.get('wa-option')) {
-    //   customElements.whenDefined('wa-option').then(() => this.selectionChanged());
-    //   return;
-    // }
+    const options = this.getAllOptions()
 
     // Update selected options cache
-    this.selectedOptions = this.getAllOptions().filter(el => el.selected);
+    this.selectedOptions = options.filter(el => el.selected);
 
     // Update the value and display label
     if (this.multiple) {
@@ -680,8 +669,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         this.displayLabel = this.localize.term('numOptionsSelected', this.selectedOptions.length);
       }
     } else {
-      this.value = this.selectedOptions[0]?.value ?? '';
-      this.displayLabel = this.selectedOptions[0]?.getTextLabel?.() ?? '';
+      const selectedOption = this.selectedOptions[0]
+      this.value = selectedOption?.value ?? '';
+      this.displayLabel = selectedOption?.getTextLabel?.() ?? '';
     }
 
     // Update validity
