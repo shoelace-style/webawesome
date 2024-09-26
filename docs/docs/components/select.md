@@ -307,11 +307,13 @@ Lazy loading options is very hard to get right. `<wa-select>` largely follows ho
 
 Here are the following conditions:
 
-- If a `<wa-select>` is created without any options, but is given a `value` attribute, its `value` will be `""`, and then when options are added, if any of the options have a value equal to the `<wa-select>` value, the value of the `<wa-select>` will be that of the option.
+- If a `<wa-select>` is created without any options, but is given a `value` attribute, its `value` will be `""`, and then when options are added, if any of the options have a value equal to the `<wa-select>` value, the value of the `<wa-select>` will equal that of the option.
 
-- If a `<wa-select>` with an initial value has multiple values, but only some of the options are present, it will only respect the loaded options, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction, it will add the selected option.
+EX: `<wa-select value="foo">` will have a value of `""` until `<wa-option value="foo">Foo</wa-option>` connects, at which point its value will become `"foo"` when submitting.
 
-This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with `<wa-select>`
+- If a `<wa-select multiple>` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the `.value` of the select.
+
+This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with `<wa-select>` and `<wa-select multiple>` when given initial value attributes. Feel free to play around with it in a codepen.
 
 ```html {.example}
 <form id="lazy-options-example">
