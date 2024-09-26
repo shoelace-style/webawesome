@@ -362,7 +362,11 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
     <wa-button type="submit" variant="brand">Show FormData</wa-button>
   </div>
 
-  <pre><code id="lazy-options-example-form-data"></code></pre>
+  <br>
+
+  <pre hidden><code id="lazy-options-example-form-data"></code></pre>
+
+  <br>
 </form>
 
 <script type="module">
@@ -388,7 +392,7 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
     event.preventDefault()
 
     const formData = new FormData(event.target)
-    const outputElement = document.querySelector("#lazy-options-example-form-data")
+    const codeElement = document.querySelector("#lazy-options-example-form-data")
 
     const obj = {}
     for (const key of formData.keys()) {
@@ -396,7 +400,10 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
       obj[key] = val
     }
 
-    outputElement.textContent = JSON.stringify(obj, null, 2)
+    codeElement.textContent = JSON.stringify(obj, null, 2)
+
+    const preElement = codeElement.parentElement
+    preElement.removeAttribute("hidden")
   }
 
   const container = document.querySelector("#lazy-options-example")
