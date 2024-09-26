@@ -301,7 +301,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 Be sure you trust the content you are outputting! Passing unsanitized user input to `getTag()` can result in XSS vulnerabilities.
 :::
 
-## Lazy loading options
+### Lazy loading options
 
 Lazy loading options is very hard to get right. `<wa-select>` largely follows how a native `<select>` works.
 
