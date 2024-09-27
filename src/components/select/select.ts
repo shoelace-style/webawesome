@@ -874,7 +874,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 @blur=${this.handleBlur}
               />
 
-              ${this.multiple ? html`<div part="tags" class="select__tags">${this.tags}</div>` : ''}
+              <!-- Tags need to wait for first hydration before populating. -->
+              ${this.multiple && this.updated ? html`<div part="tags" class="select__tags">${this.tags}</div>` : ''}
 
               <input
                 class="select__value-input"

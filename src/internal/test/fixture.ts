@@ -3,9 +3,10 @@
  * These fixtures will also auto-load all of our components.
  */
 
-import { aTimeout, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
 import type { LitElement, TemplateResult } from 'lit';
+import type WebAwesomeElement from '../webawesome-element.js';
 
 declare global {
   interface Window {
@@ -19,8 +20,10 @@ declare global {
 /**
  * This will hopefully move to a library or be built into Lit. Right now this does nothing.
  */
-function handleHydrationError() {
-  // console.error('LIT HYDRATION ERROR');
+function handleHydrationError(e: Event) {
+  const element = e.target as WebAwesomeElement;
+
+  expect(false).to.equal(true, `Expected ${element.tagName} to not have hydration error.`);
 }
 
 // This is a non-standard event I have added to the WebAwesomeElement base class.
@@ -32,7 +35,6 @@ document.addEventListener('lit-hydration-error', handleHydrationError);
  */
 export async function clientFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult | string) {
   // Load all component definitions "customElements.define()"
-  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
   return await fixture<T>(template);
 }
 
@@ -48,9 +50,6 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
     modules: window.serverComponents,
     hydrate: true
   });
-
-  // Load all component definitions "customElements.define()"
-  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
 
   // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
   // This forces every element to "hydrate" and then wait for an update to complete (hydration)
