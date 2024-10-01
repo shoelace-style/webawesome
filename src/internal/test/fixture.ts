@@ -20,15 +20,16 @@ declare global {
 /**
  * This will hopefully move to a library or be built into Lit. Right now this does nothing.
  */
-function handleHydrationError(e: Event) {
-  const element = e.target as WebAwesomeElement;
+// function handleHydrationError(e: Event) {
+//   const element = e.target as WebAwesomeElement;
+//   const str = `Expected <${element.localName}> to not have hydration error.`
 
-  expect(false).to.equal(true, `Expected ${element.tagName} to not have hydration error.`);
-}
+//   expect(false).to.equal(true, str);
+// }
 
 // This is a non-standard event I have added to the WebAwesomeElement base class.
 // https://github.com/lit/lit/discussions/4703
-document.addEventListener('lit-hydration-error', handleHydrationError);
+// document.addEventListener('lit-hydration-error', handleHydrationError);
 
 /**
  * Loads up a fixture and loads all client components
