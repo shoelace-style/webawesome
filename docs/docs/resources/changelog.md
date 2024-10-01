@@ -12,6 +12,10 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## Next
+
+- Fixed a bug in `<wa-relative-time>` where the title attribute would show with redundant info
+
 ## 3.0.0-alpha.3
 
 - Added [SSR support](/docs/experimental/ssr/) to all components
