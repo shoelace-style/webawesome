@@ -359,6 +359,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
       // If it is open, update the value based on the current selection and close it
       if (this.currentOption && !this.currentOption.disabled) {
+        this.valueHasChanged = true
         if (this.multiple) {
           this.toggleOptionSelection(this.currentOption);
         } else {

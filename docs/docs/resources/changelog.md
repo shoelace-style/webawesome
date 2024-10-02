@@ -15,6 +15,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ## Next
 
 - Fixed a bug in `<wa-relative-time>` where the title attribute would show with redundant info
+- Added more resilient support for lazy loaded options in `<wa-select>`
 
 ## 3.0.0-alpha.3
 
