@@ -280,7 +280,9 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 </wa-select>
 
 <script type="module">
+  await customElements.whenDefined("wa-select")
   const select = document.querySelector('.custom-tag');
+  await select.updateComplete
 
   select.getTag = (option, index) => {
     // Use the same icon used in wa-option
