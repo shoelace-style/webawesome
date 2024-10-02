@@ -162,7 +162,7 @@ export default class WaTree extends WebAwesomeElement {
             // The user provided a custom icon, leave it alone
           }
         });
-    })
+    });
   };
 
   private handleTreeChanged = (mutations: MutationRecord[]) => {
@@ -363,7 +363,7 @@ export default class WaTree extends WebAwesomeElement {
     for (const item of items) {
       item.updateComplete.then(() => {
         item.selectable = isSelectionMultiple;
-      })
+      });
     }
 
     if (isSelectionMultiple) {
@@ -371,8 +371,8 @@ export default class WaTree extends WebAwesomeElement {
 
       [...this.querySelectorAll(':scope > wa-tree-item')].forEach((treeItem: WaTreeItem) => {
         treeItem.updateComplete.then(() => {
-          syncCheckboxes(treeItem, true)
-        })
+          syncCheckboxes(treeItem, true);
+        });
       });
     }
   }

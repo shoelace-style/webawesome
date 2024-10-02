@@ -685,7 +685,7 @@ describe('<wa-tree>', () => {
 
               // Act
               await tree.updateComplete;
-              await Promise.allSettled(treeItems.map((treeItem) => treeItem.updateComplete))
+              await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
               // Assert
               treeItems.forEach(treeItem => {
@@ -715,7 +715,7 @@ describe('<wa-tree>', () => {
 
                 // Act
                 await tree.updateComplete;
-                await Promise.allSettled(treeItems.map((treeItem) => treeItem.updateComplete))
+                await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
                 // Assert
                 treeItems.forEach(treeItem => {
@@ -745,7 +745,7 @@ describe('<wa-tree>', () => {
 
                 // Act
                 await tree.updateComplete;
-                await Promise.allSettled(treeItems.map((treeItem) => treeItem.updateComplete))
+                await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
                 // Assert
                 expect(treeItems[0]).not.to.have.attribute('selected');
