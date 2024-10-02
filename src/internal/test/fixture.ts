@@ -8,6 +8,8 @@ import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/
 import type { LitElement, TemplateResult } from 'lit';
 import type WebAwesomeElement from '../webawesome-element.js';
 
+  import { getDiffableHTML } from '@open-wc/semantic-dom-diff/get-diffable-html.js'
+
 declare global {
   interface Window {
     clientComponents: string[];
@@ -20,16 +22,16 @@ declare global {
 /**
  * This will hopefully move to a library or be built into Lit. Right now this does nothing.
  */
-// function handleHydrationError(e: Event) {
-//   const element = e.target as WebAwesomeElement;
-//   const str = `Expected <${element.localName}> to not have hydration error.`
+function handleHydrationError(e: Event) {
+  const element = e.target as WebAwesomeElement;
+  const str = `Expected <${element.localName}> to not have hydration error.`
 
-//   expect(false).to.equal(true, str);
-// }
+  expect(true).to.equal(false, str);
+}
 
 // This is a non-standard event I have added to the WebAwesomeElement base class.
 // https://github.com/lit/lit/discussions/4703
-// document.addEventListener('lit-hydration-error', handleHydrationError);
+document.addEventListener('lit-hydration-error', handleHydrationError);
 
 /**
  * Loads up a fixture and loads all client components
@@ -52,15 +54,16 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
     hydrate: true
   });
 
+  // @ts-expect-error Assume its a lit element.
+  await hydratedElement.updateComplete
+
   // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
   // This forces every element to "hydrate" and then wait for an update to complete (hydration)
   await Promise.allSettled(
-    [...hydratedElement.querySelectorAll<LitElement>('*')].map(el => {
+    [...hydratedElement.querySelectorAll<LitElement>('*')].map(async el => {
       el.removeAttribute('defer-hydration');
       return el.updateComplete;
     }),
-    // @ts-expect-error Assume its a lit element.
-    await hydratedElement.updateComplete
   );
 
   return hydratedElement;
