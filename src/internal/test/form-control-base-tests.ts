@@ -178,20 +178,20 @@ function runAllValidityTests(
             expect(control.getForm()).to.equal(form);
           });
 
-          it('Should be invalid if a `customError` property is passed.', async () => {
+          it('Should be invalid if a `clientError` property is passed.', async () => {
             const control = await createControl();
             // expect(control.validity.valid).to.equal(true)
-            control.customError = 'MyError';
+            control.clientError = 'MyError';
             await control.updateComplete;
             expect(control.validity.valid).to.equal(false);
             expect(control.hasAttribute('data-wa-invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');
           });
 
-          it('Should be invalid if a `customError` attribute is passed.', async () => {
+          it('Should be invalid if a `clientError` attribute is passed.', async () => {
             const control = await createControl();
             // expect(control.validity.valid).to.equal(true)
-            control.setAttribute('custom-error', 'MyError');
+            control.setAttribute('client-error', 'MyError');
             await control.updateComplete;
             expect(control.hasAttribute('data-wa-invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');

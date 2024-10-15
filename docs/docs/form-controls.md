@@ -177,3 +177,20 @@ These attributes map to the browser's built-in pseudo classes for validation: [`
 :::info
 In the future, data attribute selectors will be replaced with custom states such as `:state(valid)` and `:state(invalid)`. Web Awesome is using data attributes as a workaround until browsers fully support [custom states](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states).
 :::
+
+
+## Understanding Custom Validations
+
+There are 2 types of errors attached to every instance of `<wa-*>` form controls.
+
+There are `server-error`s which will not affect a form's validation and will still allow a user to submit the form. Server errors are always present until cleared, either manually by doing `element.serverError = null` or by attempting to submit a form, regardless of the if the form passes / fails client validation.
+
+The other type of error is `client-error`. Client errors *DO* affect form validation, and if a client error is present on a form control, it will prevent the form from submitting and fail validation. Client errors can be cleared either by doing `setCustomValidity("")` or by doing `el.customError = null`
+
+```html {.example}
+<form id="form-1">
+  <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
+  <wa-input name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
+  <wa-button type="submit">Submit</wa-button>
+</form>
+```

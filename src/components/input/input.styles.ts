@@ -12,6 +12,22 @@ export default css`
     display: block;
   }
 
+  :host(:is([server-error], [data-wa-user-invalid])) {
+    --background-color: var(--wa-color-danger-fill-quiet);
+    --border-color: var(--wa-color-danger-border-loud);
+  }
+
+  .form-control-error-text {
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-2xs);
+    color: var(--wa-color-danger-on-normal);
+  }
+
+  .form-control-error-text:not(.form-control-error-text--visible) {
+    visibility: hidden;
+  }
+
   :host([filled]) {
     --background-color: var(--wa-color-neutral-fill-quiet);
     --border-color: var(--background-color);

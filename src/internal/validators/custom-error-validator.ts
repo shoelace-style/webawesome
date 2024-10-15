@@ -14,8 +14,8 @@ export const CustomErrorValidator = (): Validator => {
         invalidKeys: []
       };
 
-      if (element.customError) {
-        validity.message = element.customError;
+      if (element.clientError) {
+        validity.message = element.clientError;
         validity.isValid = false;
         validity.invalidKeys = ['customError'];
       }

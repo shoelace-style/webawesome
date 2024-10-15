@@ -403,6 +403,15 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       (isServer || this.hasUpdated) &&
       hasClearIcon &&
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
+    const shouldShowValidationMessage = Boolean(
+      this.serverError || ((this.clientError || this.validationMessage) && this.hasCustomState('user-invalid'))
+    );
+
+    const validationMessage =
+      this.serverError ||
+      this.clientError ||
+      (this.hasUpdated && this.validationMessage ? this.validationMessage : '') ||
+      '';
 
     return html`
       <div
@@ -528,6 +537,23 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               <slot name="suffix"></slot>
             </span>
           </div>
+        </div>
+
+        <div
+          part="error-text"
+          class=${classMap({
+            'form-control-error-text': true,
+            'form-control-error-text--visible': shouldShowValidationMessage
+          })}
+        >
+          <slot name="error-prefix"><wa-icon name="circle-exclamation"></wa-icon></slot>
+          <span
+            >${
+              shouldShowValidationMessage
+                ? validationMessage
+                : '​' /** This is a zero width white space to take up space to reduce layout shifting. It doesn't get shown. */
+            }</span
+          >
         </div>
 
         <div
