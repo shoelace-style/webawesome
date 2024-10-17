@@ -80,11 +80,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) pill = false;
 
   /**
-   * The string pointing to a form's id.
-   */
-  @property({ reflect: true }) form: string | null = null;
-
-  /**
    * Used for SSR. if true, will show slotted prefix on initial render.
    */
   @property({ type: Boolean, attribute: 'with-prefix' }) withPrefix = false;

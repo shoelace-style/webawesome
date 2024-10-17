@@ -17,7 +17,7 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-eleme
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './input.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaButton from '../button/button.js';
 
 /**
@@ -153,13 +153,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** Hides the browser's built-in increment/decrement spin buttons for number inputs. */
   @property({ attribute: 'no-spin-buttons', type: Boolean }) noSpinButtons = false;
 
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
-
   /** Makes the input a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
@@ -234,6 +227,22 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new WaBlurEvent());
   }
 
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
+    // This is a really ridiculous hack in Safari + VoiceOver to get around dynamic describedby labels.
+    // https://a11ysupport.io/tests/tech__aria__aria-describedby#assertion-aria-aria-describedby_attribute-convey_description_change-html-input(type-text)_element-vo_macos-safari
+      if (changedProperties.has("serverError") || changedProperties.has("clientError")) {
+        const errorMessageContainer = this.shadowRoot?.querySelector<HTMLElement>("#error-message")
+        if (errorMessageContainer) {
+          errorMessageContainer.style.display = "none"
+          setTimeout(() => {
+            errorMessageContainer.style.display = ""
+          })
+        }
+      }
+
+      super.willUpdate(changedProperties)
+  }
+
   private handleChange() {
     this.value = this.input.value;
     this.dispatchEvent(new WaChangeEvent());
@@ -276,7 +285,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         // See https://github.com/shoelace-style/shoelace/pull/988
         //
         if (!event.defaultPrevented && !event.isComposing) {
-          const form = this.getForm();
+          const form = this.form;
 
           if (!form) {
             return;
@@ -403,8 +412,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       (isServer || this.hasUpdated) &&
       hasClearIcon &&
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
-    const shouldShowValidationMessage = Boolean(
-      this.serverError || ((this.clientError || this.validationMessage) && this.hasCustomState('user-invalid'))
+    const hasValidationError = Boolean(
+      this.serverError || ((this.clientError || this.validationMessage) && this.willValidate && this.showClientError)
     );
 
     const validationMessage =
@@ -433,6 +442,17 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         >
           <slot name="label">${this.label}</slot>
         </label>
+
+        <div
+          id="error-message"
+          aria-live="assertive"
+          part="form-control-error-message"
+          class="form-control__error-message"
+          ?hidden=${!hasValidationError}
+        >
+          <slot name="error-prefix"><wa-icon name="circle-exclamation"></wa-icon></slot>
+          <span part="form-control-error-text"><slot name="error-text">${hasValidationError ? validationMessage : ""}</slot></span>
+        </div>
 
         <div part="form-control-input" class="form-control-input">
           <div
@@ -484,12 +504,15 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               pattern=${ifDefined(this.pattern)}
               enterkeyhint=${ifDefined(this.enterkeyhint)}
               inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="help-text"
+              ${'' /** Eventually error-text should move to aria-errormessage once screen reader support is better. https://a11ysupport.io/tech/aria/aria-errormessage_attribute */}
+              aria-describedby="help-text error-message"
+              aria-errormessage="error-message"
               @change=${this.handleChange}
               @input=${this.handleInput}
               @keydown=${this.handleKeyDown}
               @focus=${this.handleFocus}
               @blur=${this.handleBlur}
+              aria-invalid=${ifDefined(hasValidationError ? "true" : null)}
             />
 
             ${isClearIconVisible
@@ -537,23 +560,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               <slot name="suffix"></slot>
             </span>
           </div>
-        </div>
-
-        <div
-          part="error-text"
-          class=${classMap({
-            'form-control-error-text': true,
-            'form-control-error-text--visible': shouldShowValidationMessage
-          })}
-        >
-          <slot name="error-prefix"><wa-icon name="circle-exclamation"></wa-icon></slot>
-          <span
-            >${
-              shouldShowValidationMessage
-                ? validationMessage
-                : '​' /** This is a zero width white space to take up space to reduce layout shifting. It doesn't get shown. */
-            }</span
-          >
         </div>
 
         <div

@@ -105,13 +105,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked = this.hasAttribute('checked');
 
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
-
   /** Makes the switch a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 

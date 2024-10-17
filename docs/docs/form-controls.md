@@ -183,14 +183,44 @@ In the future, data attribute selectors will be replaced with custom states such
 
 There are 2 types of errors attached to every instance of `<wa-*>` form controls.
 
-There are `server-error`s which will not affect a form's validation and will still allow a user to submit the form. Server errors are always present until cleared, either manually by doing `element.serverError = null` or by attempting to submit a form, regardless of the if the form passes / fails client validation.
+There are `server-error`s which will not affect a form's validation and will still allow a user to submit the form. Server errors are always present until cleared, either manually by doing `element.serverError = null` or by attempting to submit a form, regardless of the if the form passes / fails client validation. If you are using `requestSubmit()` to submit forms, its recommended you clear the serverErrors yourself.
+
+```js
+form.elements.forEach((el) => el.serverError = null)
+form.requestSubmit(submitter)
+```
 
 The other type of error is `client-error`. Client errors *DO* affect form validation, and if a client error is present on a form control, it will prevent the form from submitting and fail validation. Client errors can be cleared either by doing `setCustomValidity("")` or by doing `el.customError = null`
 
 ```html {.example}
+Validate form with native controls.
 <form id="form-1">
   <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
+  <br>
   <wa-input name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
+  <br>
+  <input required>
+  <br><br>
   <wa-button type="submit">Submit</wa-button>
 </form>
+```
+
+```html {.example}
+<style>
+  input:user-invalid { background: red; }
+</style>
+
+No validate form.
+
+<form id="novalidate" novalidate>
+  <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
+  <br>
+  <wa-input novalidate name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
+  <input required>
+  <br><br>
+  <wa-button type="submit">Submit</wa-button>
+</form>
+<script>
+novalidate.addEventListener("submit", (e) => e.preventDefault())
+</script>
 ```

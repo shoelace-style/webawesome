@@ -17,15 +17,11 @@ export default css`
     --border-color: var(--wa-color-danger-border-loud);
   }
 
-  .form-control-error-text {
+  .form-control__error-message {
     display: flex;
     align-items: center;
     gap: var(--wa-space-2xs);
     color: var(--wa-color-danger-on-normal);
-  }
-
-  .form-control-error-text:not(.form-control-error-text--visible) {
-    visibility: hidden;
   }
 
   :host([filled]) {

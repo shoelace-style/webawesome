@@ -47,11 +47,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   @state() checked = false;
   @state() protected hasFocus = false;
 
-  /**
-   * The string pointing to a form's id.
-   */
-  @property({ reflect: true }) form: string | null = null;
-
   /** The radio's value. When selected, the radio group will receive this value. */
   @property({ reflect: true }) value: string;
 
