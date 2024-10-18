@@ -230,17 +230,17 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     // This is a really ridiculous hack in Safari + VoiceOver to get around dynamic describedby labels.
     // https://a11ysupport.io/tests/tech__aria__aria-describedby#assertion-aria-aria-describedby_attribute-convey_description_change-html-input(type-text)_element-vo_macos-safari
-      if (changedProperties.has("serverError") || changedProperties.has("clientError")) {
-        const errorMessageContainer = this.shadowRoot?.querySelector<HTMLElement>("#error-message")
-        if (errorMessageContainer) {
-          errorMessageContainer.style.display = "none"
-          setTimeout(() => {
-            errorMessageContainer.style.display = ""
-          })
-        }
+    if (changedProperties.has('serverError') || changedProperties.has('clientError')) {
+      const errorMessageContainer = this.shadowRoot?.querySelector<HTMLElement>('#error-message');
+      if (errorMessageContainer) {
+        errorMessageContainer.style.display = 'none';
+        setTimeout(() => {
+          errorMessageContainer.style.display = '';
+        });
       }
+    }
 
-      super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   private handleChange() {
@@ -451,7 +451,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           ?hidden=${!hasValidationError}
         >
           <slot name="error-prefix"><wa-icon name="circle-exclamation"></wa-icon></slot>
-          <span part="form-control-error-text"><slot name="error-text">${hasValidationError ? validationMessage : ""}</slot></span>
+          <span part="form-control-error-text"
+            ><slot name="error-text">${hasValidationError ? validationMessage : ''}</slot></span
+          >
         </div>
 
         <div part="form-control-input" class="form-control-input">
@@ -504,7 +506,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               pattern=${ifDefined(this.pattern)}
               enterkeyhint=${ifDefined(this.enterkeyhint)}
               inputmode=${ifDefined(this.inputmode)}
-              ${'' /** Eventually error-text should move to aria-errormessage once screen reader support is better. https://a11ysupport.io/tech/aria/aria-errormessage_attribute */}
+              ${
+                '' /** Eventually error-text should move to aria-errormessage once screen reader support is better. https://a11ysupport.io/tech/aria/aria-errormessage_attribute */
+              }
               aria-describedby="help-text error-message"
               aria-errormessage="error-message"
               @change=${this.handleChange}
@@ -512,7 +516,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               @keydown=${this.handleKeyDown}
               @focus=${this.handleFocus}
               @blur=${this.handleBlur}
-              aria-invalid=${ifDefined(hasValidationError ? "true" : null)}
+              aria-invalid=${ifDefined(hasValidationError ? 'true' : null)}
             />
 
             ${isClearIconVisible
