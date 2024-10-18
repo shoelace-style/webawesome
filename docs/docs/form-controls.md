@@ -206,6 +206,20 @@ Validate form with native controls.
 ```
 
 ```html {.example}
+Validate form with native controls.
+<form>
+  <input required>
+  <br>
+  <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
+  <br>
+  <wa-input name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
+  <br>
+  <br><br>
+  <wa-button type="submit">Submit</wa-button>
+</form>
+```
+
+```html {.example}
 <style>
   input:user-invalid { background: red; }
 </style>

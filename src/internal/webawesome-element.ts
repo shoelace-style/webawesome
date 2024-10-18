@@ -177,7 +177,7 @@ function handleInvalidSubmit (e: Event) {
 
   if (!elements?.length) { return }
 
-  const firstInvalidElement = (Array.from(elements).find((el) => el.matches(":invalid"))) as HTMLElement
+  const firstInvalidElement = (Array.from(elements).find((el) => el.validity && el.validity.valid === false)) as HTMLElement
 
   if ("clientError" in firstInvalidElement && e.target === firstInvalidElement) {
     e.preventDefault()
@@ -391,16 +391,20 @@ export class WebAwesomeFormAssociatedElement
     return this.internals.validationMessage;
   }
 
+  /**
+   * Re-runs validity checks and returns a boolean if the element passes validity. Do note, this *will* fire the "invalid" event.
+   */
   checkValidity() {
     this.updateValidity();
     return this.internals.checkValidity();
   }
 
+  // reportValidity() *does not* trigger :user-invalid on native elements, so we don't either. This will also fire the "invalid" event.
+  /**
+   * Use this to trigger native constraint validation with a popup
+   */
   reportValidity() {
     this.updateValidity();
-    this.showClientError = true;
-    // This seems reasonable. `reportValidity()` is kind of like "we expect you to have interacted" and triggers `user-invalid` if applicable.
-    this.hasInteracted = true
     return this.internals.reportValidity();
   }
 

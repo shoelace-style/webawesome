@@ -201,7 +201,7 @@ describe('<wa-checkbox>', () => {
           expect(checkbox.checkValidity()).to.be.false;
           expect(checkbox.hasAttribute('data-wa-invalid')).to.be.true;
           expect(checkbox.hasAttribute('data-wa-valid')).to.be.false;
-          expect(checkbox.hasAttribute('data-wa-user-invalid')).to.be.true;
+          expect(checkbox.hasAttribute('data-wa-user-invalid')).to.be.false;
           expect(checkbox.hasAttribute('data-wa-user-valid')).to.be.false;
 
           await clickOnElement(checkbox);
