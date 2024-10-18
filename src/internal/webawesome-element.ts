@@ -177,8 +177,11 @@ function handleInvalidSubmit (e: Event) {
 
   if (!elements?.length) { return }
 
-  const firstInvalidElement = (Array.from(elements).find((el) => el.validity && el.validity.valid === false)) as HTMLElement
+  const firstInvalidElement = Array.from(elements).find((el) => {
+    return "validity" in el && !((el.validity as ValidityState).valid)
+  }) as HTMLElement
 
+  // We assume having the "clientError" property is one of our elements, or something implementing a similar interface.
   if ("clientError" in firstInvalidElement && e.target === firstInvalidElement) {
     e.preventDefault()
     firstInvalidElement.focus()
