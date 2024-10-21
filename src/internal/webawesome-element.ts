@@ -292,6 +292,11 @@ export class WebAwesomeFormAssociatedElement
     });
   }
 
+  disconnectedCallback () {
+    this.getRootNode().removeEventListener('click', handleSubmitAttempt, { capture: true });
+    super.disconnectedCallback()
+  }
+
   firstUpdated(...args: Parameters<LitElement['firstUpdated']>) {
     super.firstUpdated(...args);
     this.updateValidity();
@@ -299,9 +304,6 @@ export class WebAwesomeFormAssociatedElement
 
   emitInvalid = (e: Event) => {
     if (e.target !== this) return;
-
-    // if (!this.disableCustomErrors) {
-    // e.preventDefault();
 
     this.dispatchEvent(new WaInvalidEvent());
   };
@@ -415,6 +417,7 @@ export class WebAwesomeFormAssociatedElement
    */
   reportValidity() {
     this.updateValidity();
+    // this.showClientError = true
     return this.internals.reportValidity();
   }
 
