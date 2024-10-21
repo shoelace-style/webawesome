@@ -292,9 +292,9 @@ export class WebAwesomeFormAssociatedElement
     });
   }
 
-  disconnectedCallback () {
+  disconnectedCallback() {
     this.getRootNode().removeEventListener('click', handleSubmitAttempt, { capture: true });
-    super.disconnectedCallback()
+    super.disconnectedCallback();
   }
 
   firstUpdated(...args: Parameters<LitElement['firstUpdated']>) {

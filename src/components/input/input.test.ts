@@ -1,8 +1,8 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { clickOnElement, isSafari } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-import { clickOnElement, isSafari } from '../../internal/test.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
 import { serialize } from '../../../dist-cdn/webawesome.js';
@@ -550,107 +550,108 @@ describe('<wa-input>', () => {
         expect(el.validity.tooLong).to.be.true;
       });
 
-      describe("Validation tests", () => {
-        it("Should show a validation error and focus the element on error", async () => {
+      describe('Validation tests', () => {
+        it('Should show a validation error and focus the element on error', async () => {
           const form = await fixture(html`
             <form>
               <wa-input required></wa-input>
               <wa-button type="submit">Submit</wa-button>
             </form>
-          `)
+          `);
 
-          const input = form.querySelector("wa-input")!
-          const submitButton = form.querySelector("[type='submit']")!
-          const errorElement = input.shadowRoot!.querySelector("[part~='form-control-error-message']")!
+          const input = form.querySelector('wa-input')!;
+          const submitButton = form.querySelector("[type='submit']")!;
+          const errorElement = input.shadowRoot!.querySelector("[part~='form-control-error-message']")!;
 
-          await aTimeout(1)
-          expect(errorElement.checkVisibility()).to.be.false
-          await clickOnElement(submitButton)
-          await aTimeout(1)
-          expect(errorElement.checkVisibility()).to.be.true
-          expect(document.activeElement).to.equal(input)
-        })
+          await aTimeout(1);
+          expect(errorElement.checkVisibility()).to.be.false;
+          await clickOnElement(submitButton);
+          await aTimeout(1);
+          expect(errorElement.checkVisibility()).to.be.true;
+          expect(document.activeElement).to.equal(input);
+        });
 
-        it("Should show a validation error and focus the element on error", async () => {
+        it('Should show a validation error and focus the element on error', async () => {
           const form = await fixture(html`
             <form>
               <wa-input required></wa-input>
               <wa-button type="submit">Submit</wa-button>
             </form>
-          `)
+          `);
 
-          const input = form.querySelector("wa-input")!
-          const submitButton = form.querySelector("[type='submit']")!
-          const errorElement = input.shadowRoot!.querySelector("[part~='form-control-error-message']")!
+          const input = form.querySelector('wa-input')!;
+          const submitButton = form.querySelector("[type='submit']")!;
+          const errorElement = input.shadowRoot!.querySelector("[part~='form-control-error-message']")!;
 
-          await aTimeout(1)
-          expect(errorElement.checkVisibility()).to.be.false
-          await clickOnElement(submitButton)
-          await aTimeout(1)
-          expect(errorElement.checkVisibility()).to.be.true
-          expect(document.activeElement).to.equal(input)
-        })
+          await aTimeout(1);
+          expect(errorElement.checkVisibility()).to.be.false;
+          await clickOnElement(submitButton);
+          await aTimeout(1);
+          expect(errorElement.checkVisibility()).to.be.true;
+          expect(document.activeElement).to.equal(input);
+        });
 
-        it("Should work with native elements", async () => {
+        it('Should work with native elements', async () => {
           const form = await fixture(html`
             <form>
               <input required></wa-input>
               <wa-input required></wa-input>
               <wa-button type="submit">Submit</wa-button>
             </form>
-          `)
+          `);
 
-          const waInput = form.querySelector("wa-input")!
-          const nativeInput = form.querySelector("input")!
-          const submitButton = form.querySelector("[type='submit']")!
-          const errorElement = waInput.shadowRoot!.querySelector("[part~='form-control-error-message']")!
+          const waInput = form.querySelector('wa-input')!;
+          const nativeInput = form.querySelector('input')!;
+          const submitButton = form.querySelector("[type='submit']")!;
+          const errorElement = waInput.shadowRoot!.querySelector("[part~='form-control-error-message']")!;
 
-          await aTimeout(1)
+          await aTimeout(1);
 
-          expect(errorElement.checkVisibility()).to.be.false
-          await clickOnElement(submitButton)
-          await aTimeout(1)
-          expect(errorElement.checkVisibility()).to.be.true
+          expect(errorElement.checkVisibility()).to.be.false;
+          await clickOnElement(submitButton);
+          await aTimeout(1);
+          expect(errorElement.checkVisibility()).to.be.true;
 
           // Should focus the native input on form error
-          expect(document.activeElement).to.equal(nativeInput)
+          expect(document.activeElement).to.equal(nativeInput);
 
-          await sendKeys({ type: "Hello World" })
-          await clickOnElement(submitButton)
-          await aTimeout(1)
+          await sendKeys({ type: 'Hello World' });
+          await clickOnElement(submitButton);
+          await aTimeout(1);
 
           // Should focus the waInput now that native input is valid.
-          expect(document.activeElement).to.equal(waInput)
-        })
+          expect(document.activeElement).to.equal(waInput);
+        });
 
-
-        it("Should show all validation errors on attempted submit", async () => {
+        it('Should show all validation errors on attempted submit', async () => {
           const form = await fixture(html`
             <form>
               <wa-input required></wa-input>
               <wa-input required></wa-input>
               <wa-button type="submit">Submit</wa-button>
             </form>
-          `)
+          `);
 
-          const inputs = [...form.querySelectorAll("wa-input")]
-          const submitButton = form.querySelector("[type='submit']")!
-          const errorElements = inputs.map((input) => input.shadowRoot!.querySelector("[part~='form-control-error-message']")!)
+          const inputs = [...form.querySelectorAll('wa-input')];
+          const submitButton = form.querySelector("[type='submit']")!;
+          const errorElements = inputs.map(
+            input => input.shadowRoot!.querySelector("[part~='form-control-error-message']")!
+          );
 
-          await aTimeout(1)
+          await aTimeout(1);
 
-          errorElements.forEach((errorElement) => {
-            expect(errorElement.checkVisibility()).to.be.false
-          })
-          await clickOnElement(submitButton)
-          await aTimeout(1)
-          errorElements.forEach((errorElement) => {
-            expect(errorElement.checkVisibility()).to.be.true
-          })
+          errorElements.forEach(errorElement => {
+            expect(errorElement.checkVisibility()).to.be.false;
+          });
+          await clickOnElement(submitButton);
+          await aTimeout(1);
+          errorElements.forEach(errorElement => {
+            expect(errorElement.checkVisibility()).to.be.true;
+          });
 
-          expect(document.activeElement).to.equal(inputs[0])
-        })
-      })
+          expect(document.activeElement).to.equal(inputs[0]);
+        });
+      });
     });
   }
 });

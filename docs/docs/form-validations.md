@@ -20,12 +20,14 @@ form.elements.forEach((el) => el.serverError = null)
 form.requestSubmit(submitter)
 ```
 
-The other type of error is `client-error`. Client errors *DO* affect form validation, and if a client error is present on a form control, it will prevent the form from submitting and fail validation. Client errors can be cleared either by doing `setCustomValidity("")` or by doing `el.customError = null`
+The other type of error is `client-error`. Client errors *DO* affect form validation, and if a client error is present on a form control, it will prevent the form from submitting and fail validation. Client errors can be cleared either by doing `setCustomValidity("")` or by doing `el.customError = null`. Client errors will not prevent form submissions on both `disabled` or `readonly` elements.
 
-- Moving the validation around: `<wa-input error-placement="top | bottom">` (Not implemented)
 - Styling the error validation: `wa-input::part(form-control-error-message) {}`
 
-- Slotting in error messages? `waInput.[server|client]Error = true | <wa-input [server|client]-error="">` and then show the error?
+## Not implemented (yet) features
+
+- Moving the validation around: `<wa-input error-placement="top | bottom">` (Not implemented)
+- Slotting in error messages? `waInput.[server|client]Error = true | <wa-input [server|client]-error="">` and then show the "slotted" error?
 
 (Not Implemented)
 ```html

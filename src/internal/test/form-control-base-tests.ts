@@ -220,23 +220,23 @@ function runAllValidityTests(
 
           it.skip("This is the one edge case with ':disabled'. If you disable a fieldset, and then disable the element directly, it will not reflect the disabled attribute.", async () => {
             const control = await createControl();
-            const fieldset = await fixture<HTMLFieldSetElement>(html`<fieldset></fieldset>`)
-            expect(control.disabled).to.equal(false)
-            fieldset.append(control)
-            fieldset.disabled = true
-            await control.updateComplete
-            expect(control.disabled).to.equal(false)
+            const fieldset = await fixture<HTMLFieldSetElement>(html`<fieldset></fieldset>`);
+            expect(control.disabled).to.equal(false);
+            fieldset.append(control);
+            fieldset.disabled = true;
+            await control.updateComplete;
+            expect(control.disabled).to.equal(false);
             // expect(control.hasAttribute("disabled")).to.equal(false)
-            expect(control.matches(":disabled")).to.equal(true)
+            expect(control.matches(':disabled')).to.equal(true);
 
-            control.disabled = true // This wont set the `disabled` attribute.
-            await control.updateComplete
-            fieldset.disabled = false
-            await control.updateComplete
-            expect(control.disabled).to.equal(true)
+            control.disabled = true; // This wont set the `disabled` attribute.
+            await control.updateComplete;
+            fieldset.disabled = false;
+            await control.updateComplete;
+            expect(control.disabled).to.equal(true);
             // expect(control.hasAttribute("disabled")).to.equal(true)
-            expect(control.matches(":disabled")).to.equal(true)
-          })
+            expect(control.matches(':disabled')).to.equal(true);
+          });
 
           it('Should reflect the disabled attribute if its attribute is directly added', async () => {
             const control = await createControl();
