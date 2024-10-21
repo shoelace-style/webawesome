@@ -51,6 +51,8 @@ Adding the `wa-valid` or `wa-invalid` class to a form control will change its ap
   </div>
 </div>
 
+<br><br>
+
 ## Understanding Form Validations with Web Awesome
 
 There are 2 types of errors attached to every instance of Web Awesome form control.
