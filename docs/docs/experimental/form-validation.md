@@ -99,8 +99,14 @@ Web Awesome form controls will work seamlessly with native form controls. Do not
 ```html {.example}
 Validating form with both native controls and web awesome form controls.
 
+<br>
+
 <form id="client-error-form">
-  <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
+  <label>
+    Account #
+    <br>
+    <input name="account-number" required>
+  </label>
   <br>
   <wa-input name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
   <br>
@@ -122,7 +128,12 @@ And here's another example with the native control first showing its "popup" for
 ```html {.example}
 Validate form with native controls.
 <form>
-  <input required>
+  <br>
+  <label>
+    Account #
+    <br>
+    <input name="account-number" required>
+  </label>
   <br>
   <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
   <br>
@@ -145,10 +156,17 @@ still be run in the background and attached the `:state(user-invalid)` to the fo
 With `novalidate` on the form:
 
 <form id="novalidate" novalidate>
+  <br>
   <wa-input name="email" server-error="I'm a server error" label="Email" required></wa-input>
   <br>
   <wa-input novalidate name="name" client-error="im a client error" label="Name" help-text="I am help text" required></wa-input>
-  <input required>
+  <br>
+  <label>
+    Account #
+    <br>
+    <input name="account-number" required>
+  </label>
+
   <br><br>
   <wa-button type="submit">Submit</wa-button>
 </form>
