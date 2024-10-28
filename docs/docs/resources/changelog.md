@@ -14,17 +14,28 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- Fixed form controls to behave like their native counterparts for value and defaultValue properties / attributes respectively. [#157]
-- Fixed a bug in `<wa-input>` around value attributes and properties to behave like native `<input>`. [#157]
-- Added `scroll-margin-top` to children of `wa-page` [#157]
-- Added `--scroll-margin-top` css variable `wa-page` [#157]
-- Added SSR support to all components [#157]
-- Fixed a bug in `<wa-checkbox>` where unchecking and then checking would "clear" its value. [#157]
+- Added support for <kbd>Enter</kbd> to `<sl-split-panel>` to align with ARIA APG's [window splitter pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/)
+- Added more resilient support for lazy loaded options in `<wa-select>`
+- Fixed a bug in `<wa-relative-time>` where the title attribute would show with redundant info
+- Fixed a bug in `<wa-tooltip>` that caused a memory leak in disconnected elements
+- Fixed a bug in `<wa-select>` that prevented label changes in `<wa-option>` from updating the controller
+- Improved alignment of the play icon in `<wa-animated-image>`
+
+## 3.0.0-alpha.3
+
+- Added [SSR support](/docs/experimental/ssr/) to all components
+- Added `scroll-margin-top` to children of `wa-page`
+- Added `--scroll-margin-top` css variable `wa-page`
+- Fixed form controls to behave like their native counterparts for value and defaultValue properties / attributes respectively.
+- Fixed a bug in `<wa-input>` around value attributes and properties to behave like native `<input>`.
+- Fixed a bug in `<wa-select>` that made the suffix slot collide with the clear button
+- Fixed a bug in `<wa-checkbox>` where unchecking and then checking would "clear" its value.
 - Fixed a bug where `<wa-relative-time>` would announce the full time instead of the relative time in screen readers [#22](https://github.com/shoelace-style/webawesome-alpha/issues/22)
 - Fixed a bug in `<wa-tab-group>` in Firefox where the overflow container would keep focus. [#14](https://github.com/shoelace-style/webawesome-alpha/issues/14)
 - Fixed a bug in `<wa-input>` where `minlength` and `maxlength` were not being properly validated. [#35](https://github.com/shoelace-style/webawesome-alpha/issues/35)
+- Fixed a bug in `<wa-carousel>` that made pagination work incorrectly
 
-## 1.0.0-alpha.1
+## 3.0.0-alpha.2
 
 - This is the initial release of Web Awesome alpha!
 

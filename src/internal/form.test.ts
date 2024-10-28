@@ -1,4 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { clickOnElement } from './test.js';
 import { fixtures } from './test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -8,7 +9,6 @@ describe('Form tests', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       // Reproduction of this issue: https://github.com/shoelace-style/shoelace/issues/1703
       it('Should still run form validations if an element is removed', async () => {
-        await aTimeout(500);
         const form = await fixture<HTMLFormElement>(html`
           <form>
             <wa-input name="name" label="Name" required></wa-input>
@@ -28,6 +28,10 @@ describe('Form tests', () => {
 
         expect(form.checkValidity()).to.equal(false);
         expect(form.reportValidity()).to.equal(false);
+
+        // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+        await clickOnElement(document.body);
+        await aTimeout(100);
       });
 
       it('should submit the correct form values', async () => {

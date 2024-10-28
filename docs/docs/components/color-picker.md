@@ -5,7 +5,7 @@ layout: component
 ---
 
 ```html {.example}
-<wa-color-picker label="Select a color" required></wa-color-picker>
+<wa-color-picker label="Select a color"></wa-color-picker>
 ```
 
 :::info

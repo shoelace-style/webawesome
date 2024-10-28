@@ -108,8 +108,18 @@ export default class WaAnimatedImage extends WebAwesomeElement {
               />
 
               <div part="control-box" class="animated-image__control-box">
-                <slot name="play-icon"><wa-icon name="play" library="system" variant="solid"></wa-icon></slot>
-                <slot name="pause-icon"><wa-icon name="pause" library="system" variant="solid"></wa-icon></slot>
+                <slot name="play-icon">
+                  <wa-icon
+                    name="play"
+                    library="system"
+                    variant="solid"
+                    class="default"
+                    style="margin-inline-start: 3px;"
+                  ></wa-icon>
+                </slot>
+                <slot name="pause-icon">
+                  <wa-icon name="pause" library="system" variant="solid" class="default"></wa-icon>
+                </slot>
               </div>
             `
           : ''}

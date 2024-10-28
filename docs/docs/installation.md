@@ -76,7 +76,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ## Using Font Awesome Kit Codes
 
-Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You can provide it through the `data-fa-kit-code` attribute or by calling the `setKitCode()` method.
+Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You can provide it by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->
@@ -85,7 +85,7 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
 <!-- Option 2: the setKitCode() method -->
 <script type="module">
   import { setKitCode } from '/path/to/web-awesome/dist/webawesome.js';
-  setBasePath('/path/to/web-awesome/dist');
+  setKitCode('YOUR_KIT_CODE_HERE');
 </script>
 ```
 

@@ -33,7 +33,9 @@ export default {
   testFramework: {
     config: {
       timeout: 3000,
-      retries: 1
+      retries: 1,
+      // fails the whole test suite on first failure rather than letting the whole test suite run.
+      bail: process.env['FAIL_FAST'] === 'true'
     }
   },
   plugins: [

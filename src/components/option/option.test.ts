@@ -1,7 +1,6 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-import sinon from 'sinon';
 import type WaOption from './option.js';
 
 describe('<wa-option>', () => {
@@ -33,17 +32,6 @@ describe('<wa-option>', () => {
         el.disabled = true;
         await aTimeout(100);
         expect(el.getAttribute('aria-disabled')).to.equal('true');
-      });
-
-      it('emits the slotchange event when the label changes', async () => {
-        const el = await fixture<WaOption>(html` <wa-option>Text</wa-option> `);
-        const slotChangeHandler = sinon.spy();
-
-        el.addEventListener('slotchange', slotChangeHandler);
-        el.textContent = 'New Text';
-        await waitUntil(() => slotChangeHandler.calledOnce);
-
-        expect(slotChangeHandler).to.have.been.calledOnce;
       });
 
       it('should convert non-string values to string', async () => {

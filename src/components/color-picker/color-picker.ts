@@ -1108,7 +1108,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       <wa-dropdown
         class="color-dropdown"
         aria-disabled=${this.disabled ? 'true' : 'false'}
-        .containing-element=${this}
+        .containingElement=${this}
         ?disabled=${this.disabled}
         ?hoist=${this.hoist}
         @wa-after-show=${this.handleAfterShow}

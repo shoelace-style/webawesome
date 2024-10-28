@@ -680,18 +680,17 @@ describe('<wa-tree>', () => {
                   </wa-tree-item>
                 </wa-tree>
               `);
+
               const treeItems = Array.from<WaTreeItem>(tree.querySelectorAll('wa-tree-item'));
 
               // Act
               await tree.updateComplete;
+              await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
               // Assert
-              // @TODO: Figure out why this fails in hydration
-              if (fixture.type !== 'ssr-client-hydrated') {
-                treeItems.forEach(treeItem => {
-                  expect(treeItem).to.have.attribute('selected');
-                });
-              }
+              treeItems.forEach(treeItem => {
+                expect(treeItem).to.have.attribute('selected');
+              });
             });
           });
 
@@ -716,14 +715,12 @@ describe('<wa-tree>', () => {
 
                 // Act
                 await tree.updateComplete;
+                await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
                 // Assert
-                // @TODO: Figure out why this fails in hydration
-                if (fixture.type !== 'ssr-client-hydrated') {
-                  treeItems.forEach(treeItem => {
-                    expect(treeItem).to.have.attribute('selected');
-                  });
-                }
+                treeItems.forEach(treeItem => {
+                  expect(treeItem).to.have.attribute('selected');
+                });
                 expect(treeItems[0].indeterminate).to.be.false;
               });
             });
@@ -748,15 +745,11 @@ describe('<wa-tree>', () => {
 
                 // Act
                 await tree.updateComplete;
+                await Promise.allSettled(treeItems.map(treeItem => treeItem.updateComplete));
 
                 // Assert
                 expect(treeItems[0]).not.to.have.attribute('selected');
-
-                // @TODO: figure out why this fails with SSR.
-                if (fixture.type !== 'ssr-client-hydrated') {
-                  expect(treeItems[0].indeterminate).to.be.true;
-                }
-
+                expect(treeItems[0].indeterminate).to.be.true;
                 expect(treeItems[1]).to.have.attribute('selected');
                 expect(treeItems[2]).not.to.have.attribute('selected');
                 expect(treeItems[3]).not.to.have.attribute('selected');
@@ -767,7 +760,7 @@ describe('<wa-tree>', () => {
         });
       });
 
-      // https://github.com/shoelace-style/shoelace/issues/1916
+      // // https://github.com/shoelace-style/shoelace/issues/1916
       it("Should not render 'null' if it can't find a custom icon", async () => {
         const tree = await fixture<WaTree>(html`
           <wa-tree>

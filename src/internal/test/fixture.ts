@@ -3,9 +3,10 @@
  * These fixtures will also auto-load all of our components.
  */
 
-import { aTimeout, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
 import type { LitElement, TemplateResult } from 'lit';
+import type WebAwesomeElement from '../webawesome-element.js';
 
 declare global {
   interface Window {
@@ -19,8 +20,11 @@ declare global {
 /**
  * This will hopefully move to a library or be built into Lit. Right now this does nothing.
  */
-function handleHydrationError() {
-  // console.error('LIT HYDRATION ERROR');
+function handleHydrationError(e: Event) {
+  const element = e.target as WebAwesomeElement;
+  const str = `Expected <${element.localName}> to not have hydration error.`;
+
+  expect(true).to.equal(false, str);
 }
 
 // This is a non-standard event I have added to the WebAwesomeElement base class.
@@ -32,7 +36,6 @@ document.addEventListener('lit-hydration-error', handleHydrationError);
  */
 export async function clientFixture<T extends HTMLElement = HTMLElement>(template: TemplateResult | string) {
   // Load all component definitions "customElements.define()"
-  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
   return await fixture<T>(template);
 }
 
@@ -49,18 +52,16 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
     hydrate: true
   });
 
-  // Load all component definitions "customElements.define()"
-  // await Promise.allSettled(window.clientComponents.map(str => import(str)));
+  // @ts-expect-error Assume its a lit element.
+  await hydratedElement.updateComplete;
 
   // This can be removed when this is fixed: https://github.com/lit/lit/issues/4709
   // This forces every element to "hydrate" and then wait for an update to complete (hydration)
   await Promise.allSettled(
-    [...hydratedElement.querySelectorAll<LitElement>('*')].map(el => {
+    [...hydratedElement.querySelectorAll<LitElement>('*')].map(async el => {
       el.removeAttribute('defer-hydration');
       return el.updateComplete;
-    }),
-    // @ts-expect-error Assume its a lit element.
-    await hydratedElement.updateComplete
+    })
   );
 
   return hydratedElement;

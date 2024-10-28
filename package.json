@@ -1,7 +1,7 @@
 {
   "name": "@shoelace-style/webawesome",
   "description": "A forward-thinking library of web components.",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.4",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -47,7 +47,6 @@
     "start:alpha": "node scripts/build.js --alpha --develop",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
     "create": "plop --plopfile scripts/plop/plopfile.js",
-    "prepare": "npm i --ignore-scripts && npx playwright install",
     "test": "web-test-runner --group default",
     "test:component": "web-test-runner -- --watch --group",
     "test:watch": "web-test-runner --watch --group default",
