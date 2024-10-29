@@ -53,7 +53,7 @@ Both the default and classic themes include both light and dark color schemes. W
 ```html
 <html class="wa-theme-default-dark">
   <head>
-    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/themes/default.css" />
+    <link rel="stylesheet" href="path/to/web-awesome/dist/themes/default.css" />
     <!-- other links, scripts, and metadata -->
   </head>
   <body>
@@ -62,14 +62,12 @@ Both the default and classic themes include both light and dark color schemes. W
 </html>
 ```
 
-### Using Multiple Themes
-
-You can activate different themes on various containers throughout the page. This example uses the default theme with a dark sidebar.
+Because themes are scoped to specific classes, you can activate different color schemes or entire themes on different containers throughout the page. This example uses the default theme with a dark sidebar.
 
 ```html
 <html>
   <head>
-    <link rel="stylesheet" href="path/to/shoelace/dist/themes/default.css" />
+    <link rel="stylesheet" href="path/to/web-awesome/dist/themes/default.css" />
   </head>
 
   <body>
@@ -81,8 +79,6 @@ You can activate different themes on various containers throughout the page. Thi
   </body>
 </html>
 ```
-
-It's for this reason that themes must be scoped to specific classes.
 
 ## Creating Themes
 
