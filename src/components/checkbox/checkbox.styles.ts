@@ -72,6 +72,10 @@ export default css`
     width: 100%;
   }
 
+  .checkbox__icon--invisible {
+    visibility: hidden;
+  }
+
   .checkbox__checked-icon,
   .checkbox__indeterminate-icon {
     display: inline-flex;

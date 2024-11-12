@@ -99,6 +99,7 @@ export default class WaCarousel extends WebAwesomeElement {
   @state() dragging = false;
 
   private autoplayController = new AutoplayController(this, () => this.next());
+  private dragStartPosition: [number, number] = [-1, -1];
   private readonly localize = new LocalizeController(this);
   private mutationObserver: MutationObserver;
 
@@ -155,6 +156,20 @@ export default class WaCarousel extends WebAwesomeElement {
     return [...this.children].filter(
       (el: HTMLElement) => this.isCarouselItem(el) && (!excludeClones || !el.hasAttribute('data-clone'))
     ) as WaCarouselItem[];
+  }
+
+  private handleClick(event: MouseEvent) {
+    if (this.dragging && this.dragStartPosition[0] > 0 && this.dragStartPosition[1] > 0) {
+      const deltaX = Math.abs(this.dragStartPosition[0] - event.clientX);
+      const deltaY = Math.abs(this.dragStartPosition[1] - event.clientY);
+      const delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Prevents clicks on interactive elements while dragging if the click is within a small range. This prevents
+      // accidental drags from interfering with intentional clicks.
+      if (delta >= 10) {
+        event.preventDefault();
+      }
+    }
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -214,6 +229,7 @@ export default class WaCarousel extends WebAwesomeElement {
       // Start dragging if it hasn't yet
       this.scrollContainer.style.setProperty('scroll-snap-type', 'none');
       this.dragging = true;
+      this.dragStartPosition = [event.clientX, event.clientY];
     }
 
     this.scrollContainer.scrollBy({
@@ -261,6 +277,7 @@ export default class WaCarousel extends WebAwesomeElement {
       scrollContainer.style.removeProperty('scroll-snap-type');
 
       this.dragging = false;
+      this.dragStartPosition = [-1, -1];
       this.handleScrollEnd();
     });
   };
@@ -462,12 +479,22 @@ export default class WaCarousel extends WebAwesomeElement {
     }
 
     // Sets the next index without taking into account clones, if any.
-    const newActiveSlide = loop ? (index + slides.length) % slides.length : clamp(index, 0, slides.length - 1);
+    const newActiveSlide = loop
+      ? (index + slides.length) % slides.length
+      : clamp(index, 0, slides.length - slidesPerPage);
     this.activeSlide = newActiveSlide;
+
+    const isRtl = this.matches(':dir(rtl)');
 
     // Get the index of the next slide. For looping carousel it adds `slidesPerPage`
     // to normalize the starting index in order to ignore the first nth clones.
-    const nextSlideIndex = clamp(index + (loop ? slidesPerPage : 0), 0, slidesWithClones.length - 1);
+    // For RTL it needs to scroll to the last slide of the page.
+    const nextSlideIndex = clamp(
+      index + (loop ? slidesPerPage : 0) + (isRtl ? slidesPerPage - 1 : 0),
+      0,
+      slidesWithClones.length - 1
+    );
+
     const nextSlide = slidesWithClones[nextSlideIndex];
 
     this.scrollToSlide(nextSlide, prefersReducedMotion() ? 'auto' : behavior);
@@ -526,6 +553,7 @@ export default class WaCarousel extends WebAwesomeElement {
           @mousedown="${this.handleMouseDragStart}"
           @scroll="${this.handleScroll}"
           @scrollend=${this.handleScrollEnd}
+          @click=${this.handleClick}
         >
           <slot @slotchange=${() => this.requestUpdate()}></slot>
         </div>

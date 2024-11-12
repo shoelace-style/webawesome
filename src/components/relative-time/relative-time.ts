@@ -99,7 +99,7 @@ export default class WaRelativeTime extends WebAwesomeElement {
       this.updateTimeout = setTimeout(() => this.requestUpdate(), nextInterval);
     }
 
-    return html` <time datetime=${this.isoTime} title=${this.relativeTime}>${this.relativeTime}</time> `;
+    return html` <time datetime=${this.isoTime}>${this.relativeTime}</time> `;
   }
 }
 

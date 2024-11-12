@@ -228,7 +228,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
     } else {
-      (this.input.style.height as string | undefined) = undefined;
+      this.input.style.height = '';
     }
   }
 

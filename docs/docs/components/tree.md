@@ -5,6 +5,20 @@ layout: component
 ---
 
 ```html {.example}
+<wa-tree selection="multiple">
+  <wa-tree-item>
+    Parent Node
+    <wa-tree-item selected>Child Node 1</wa-tree-item>
+    <wa-tree-item>
+      Child Node 2
+      <wa-tree-item>Child Node 2 - 1</wa-tree-item>
+      <wa-tree-item>Child Node 2 - 2</wa-tree-item>
+    </wa-tree-item>
+  </wa-tree-item>
+</wa-tree>
+```
+
+```html {.example}
 <wa-tree>
   <wa-tree-item>
     Deciduous

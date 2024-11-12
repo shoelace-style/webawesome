@@ -81,17 +81,13 @@ Use the `pill` attribute to give buttons rounded edges.
 
 ### Link Buttons
 
-It's often helpful to have a button that works like a link. This is possible by setting the `href` attribute, which will make the component render an `<a>` under the hood. This gives you all the default link behavior the browser provides (e.g. [[CMD/CTRL/SHIFT]] + [[CLICK]]) and exposes the `target` and `download` attributes.
+It's often helpful to have a button that works like a link. This is possible by setting the `href` attribute, which will make the component render an `<a>` under the hood. This gives you all the default link behavior the browser provides (e.g. [[CMD/CTRL/SHIFT]] + [[CLICK]]) and exposes the `rel`, `target`, and `download` attributes.
 
 ```html {.example}
 <wa-button href="https://example.com/">Link</wa-button>
 <wa-button href="https://example.com/" target="_blank">New Window</wa-button>
 <wa-button href="/assets/images/logo.svg" download="shoelace.svg">Download</wa-button>
 ```
-
-:::info
-When a `target` is set, the link will receive `rel="noreferrer noopener"` for [security reasons](https://mathiasbynens.github.io/rel-noopener/).
-:::
 
 ### Setting a Custom Width
 

@@ -141,26 +141,28 @@ export default class WaTree extends WebAwesomeElement {
 
   // Initializes new items by setting the `selectable` property and the expanded/collapsed icons if any
   private initTreeItem = (item: WaTreeItem) => {
-    item.selectable = this.selection === 'multiple';
+    item.updateComplete.then(() => {
+      item.selectable = this.selection === 'multiple';
 
-    ['expand', 'collapse']
-      .filter(status => !!this.querySelector(`[slot="${status}-icon"]`))
-      .forEach((status: 'expand' | 'collapse') => {
-        const existingIcon = item.querySelector(`[slot="${status}-icon"]`);
-        const expandButtonIcon = this.getExpandButtonIcon(status);
+      ['expand', 'collapse']
+        .filter(status => !!this.querySelector(`[slot="${status}-icon"]`))
+        .forEach((status: 'expand' | 'collapse') => {
+          const existingIcon = item.querySelector(`[slot="${status}-icon"]`);
+          const expandButtonIcon = this.getExpandButtonIcon(status);
 
-        if (!expandButtonIcon) return;
+          if (!expandButtonIcon) return;
 
-        if (existingIcon === null) {
-          // No separator exists, add one
-          item.append(expandButtonIcon);
-        } else if (existingIcon.hasAttribute('data-default')) {
-          // A default separator exists, replace it
-          existingIcon.replaceWith(expandButtonIcon);
-        } else {
-          // The user provided a custom icon, leave it alone
-        }
-      });
+          if (existingIcon === null) {
+            // No separator exists, add one
+            item.append(expandButtonIcon);
+          } else if (existingIcon.hasAttribute('data-default')) {
+            // A default separator exists, replace it
+            existingIcon.replaceWith(expandButtonIcon);
+          } else {
+            // The user provided a custom icon, leave it alone
+          }
+        });
+    });
   };
 
   private handleTreeChanged = (mutations: MutationRecord[]) => {
@@ -359,15 +361,19 @@ export default class WaTree extends WebAwesomeElement {
     this.setAttribute('aria-multiselectable', isSelectionMultiple ? 'true' : 'false');
 
     for (const item of items) {
-      item.selectable = isSelectionMultiple;
+      item.updateComplete.then(() => {
+        item.selectable = isSelectionMultiple;
+      });
     }
 
     if (isSelectionMultiple) {
       await this.updateComplete;
 
-      [...this.querySelectorAll(':scope > wa-tree-item')].forEach((treeItem: WaTreeItem) =>
-        syncCheckboxes(treeItem, true)
-      );
+      [...this.querySelectorAll(':scope > wa-tree-item')].forEach((treeItem: WaTreeItem) => {
+        treeItem.updateComplete.then(() => {
+          syncCheckboxes(treeItem, true);
+        });
+      });
     }
   }
 

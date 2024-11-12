@@ -3,7 +3,7 @@ import { css } from 'lit';
 export default css`
   :host {
     --size: 8rem;
-    --track-width: 0.25rem;
+    --track-width: 0.25em; /* avoid using rems here - https://github.com/shoelace-style/webawesome-alpha/issues/89 */
     --track-color: var(--wa-color-neutral-fill-normal);
     --indicator-width: var(--track-width);
     --indicator-color: var(--wa-color-brand-fill-loud);

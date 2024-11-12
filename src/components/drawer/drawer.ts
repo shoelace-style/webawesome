@@ -105,9 +105,8 @@ export default class WaDrawer extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-
     unlockBodyScrolling(this);
-    this.closeWatcher?.destroy();
+    this.removeOpenListeners();
   }
 
   private async requestClose(source: Element) {
