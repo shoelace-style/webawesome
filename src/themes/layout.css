@@ -26,99 +26,6 @@
 }
 /* #endregion */
 
-/* #region Gap Modifiers */
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-0'] {
-  gap: 0px;
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-3xs'] {
-  gap: var(--wa-space-3xs);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-2xs'] {
-  gap: var(--wa-space-2xs);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-xs'] {
-  gap: var(--wa-space-xs);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-s'] {
-  gap: var(--wa-space-s);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-m'] {
-  gap: var(--wa-space-m);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-l'] {
-  gap: var(--wa-space-l);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-xl'] {
-  gap: var(--wa-space-xl);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-2xl'] {
-  gap: var(--wa-space-2xl);
-}
-:is(
-    [class*='wa-cluster'],
-    [class*='wa-flank'],
-    [class*='wa-grid'],
-    [class*='wa-stack'],
-    [class*='wa-split']
-  )[class*='\:gap-3xl'] {
-  gap: var(--wa-space-3xl);
-}
-/* #endregion */
-
 /* #region Cluster */
 [class*='wa-cluster'] {
   display: flex;
@@ -272,5 +179,38 @@
   /* modified by class amendments */
   align-items: stretch;
   gap: var(--wa-space-m);
+}
+/* #endregion */
+
+/* #region Gap */
+.wa-gap-0 {
+  gap: 0px;
+}
+.wa-gap-3xs {
+  gap: var(--wa-space-3xs);
+}
+.wa-gap-2xs {
+  gap: var(--wa-space-2xs);
+}
+.wa-gap-xs {
+  gap: var(--wa-space-xs);
+}
+.wa-gap-s {
+  gap: var(--wa-space-s);
+}
+.wa-gap-m {
+  gap: var(--wa-space-m);
+}
+.wa-gap-l {
+  gap: var(--wa-space-l);
+}
+.wa-gap-xl {
+  gap: var(--wa-space-xl);
+}
+.wa-gap-2xl {
+  gap: var(--wa-space-2xl);
+}
+.wa-gap-3xl {
+  gap: var(--wa-space-3xl);
 }
 /* #endregion */

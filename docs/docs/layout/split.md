@@ -63,27 +63,27 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 
 ## Gap
 
-A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can append any of the following modifiers to the `wa-split` class in your markup to specify the gap between items:
-- `:gap-0`
-- `:gap-3xs`
-- `:gap-2xs`
-- `:gap-xs`
-- `:gap-s`
-- `:gap-m`
-- `:gap-l`
-- `:gap-xl`
-- `:gap-2xl`
-- `:gap-3xl`
+A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-split` to specify the gap between items:
+- `wa-gap-0`
+- `wa-gap-3xs`
+- `wa-gap-2xs`
+- `wa-gap-xs`
+- `wa-gap-s`
+- `wa-gap-m`
+- `wa-gap-l`
+- `wa-gap-xl`
+- `wa-gap-2xl`
+- `wa-gap-3xl`
 
 These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-split:gap-3xs">
+  <div class="layout-example-boundary wa-split wa-gap-3xs">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-split:gap-3xl">
+  <div class="layout-example-boundary wa-split wa-gap-3xl">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
