@@ -100,7 +100,7 @@ Frames are well-suited for images and image placeholders.
   </wa-card>
   <wa-card with-header>
     <div class="wa-frame:landscape" slot="header">
-      <div class="wa-stack:align-center wa-gap-xs wa-caption-m">
+      <div class="wa-stack wa-align-center wa-gap-xs wa-caption-m">
         <wa-icon name="paw"></wa-icon>
         <span>Photo coming soon</span>
       </div>

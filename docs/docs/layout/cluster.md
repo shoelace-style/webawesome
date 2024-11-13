@@ -20,32 +20,33 @@ Use the `wa-cluster` class to arrange elements inline with even spacing, allowin
 </div>
 ```
 
-## Alignment
+## Align Items
 
-By default, items are centered in the block direction of the `wa-cluster` container. You can append any of the following modifiers to the `wa-cluster` class in your markup to specify how to align items in the block direction:
-- `:align-start`
-- `:align-end`
-- `:align-center`
-- `:align-stretch`
+By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
+- `wa-align-start`
+- `wa-align-end`
+- `wa-align-center`
+- `wa-align-stretch`
+- `wa-align-baseline`
 
 ```html {.example}
 <div class="layout-example-mixed-sizing wa-stack">
-  <div class="layout-example-boundary wa-cluster:align-start" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-cluster wa-align-start" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-cluster:align-end" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-cluster wa-align-end" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-cluster:align-center" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-cluster wa-align-center" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-cluster:align-stretch" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-cluster wa-align-stretch" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>

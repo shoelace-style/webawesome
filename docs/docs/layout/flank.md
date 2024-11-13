@@ -62,29 +62,30 @@ The main content fills the remaining inline space of the container. By default, 
 </div>
 ```
 
-## Alignment
+## Align Items
 
-By default, items are centered in the block direction of the `wa-flank` container. You can append any of the following modifiers to the `wa-flank` class in your markup to specify how items are aligned in the block direction:
-- `:align-start`
-- `:align-end`
-- `:align-center`
-- `:align-stretch`
+By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
+- `wa-align-start`
+- `wa-align-end`
+- `wa-align-center`
+- `wa-align-stretch`
+- `wa-align-baseline`
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank:align-start" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-flank wa-align-start" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-flank:align-end" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-flank wa-align-end" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-flank:align-center" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-flank wa-align-center" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-flank:align-stretch" style="min-height: 8rem;">
+  <div class="layout-example-boundary wa-flank wa-align-stretch" style="min-height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
@@ -133,21 +134,21 @@ Flanks work especially well for asides, inputs with adjacent buttons, and rich d
 
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
-  <div class="wa-flank:align-start">
+  <div class="wa-flank wa-align-start">
     <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Gandalf</strong>
       <p class="wa-body-text-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
     </div>
   </div>
-  <div class="wa-flank:align-start">
+  <div class="wa-flank wa-align-start">
     <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Boromir</strong>
       <p class="wa-body-text-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
     </div>
   </div>
-  <div class="wa-flank:align-start">
+  <div class="wa-flank wa-align-start">
     <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Galadriel</strong>

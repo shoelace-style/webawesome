@@ -14,27 +14,28 @@ Use `wa-stack` to arrange elements in the block direction with even spacing.
 </div>
 ```
 
-## Alignment
+## Align Items
 
-By default, items stretch to fill the inline size of the `wa-stack` container. You can append any of the following modifiers to the `wa-stack` class in your markup to specify how items are aligned in the inline direction:
-- `:align-start`
-- `:align-end`
-- `:align-center`
-- `:align-stretch`
+By default, items stretch to fill the inline size of the `wa-stack` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-stack` to specify how items are aligned in the inline direction:
+- `wa-align-start`
+- `wa-align-end`
+- `wa-align-center`
+- `wa-align-stretch`
+- `wa-align-baseline`
 
 ```html {.example}
 <div class="wa-grid layout-example-mixed-sizing">
-  <div class="layout-example-boundary wa-stack:align-start">
+  <div class="layout-example-boundary wa-stack wa-align-start">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-stack:align-center">
+  <div class="layout-example-boundary wa-stack wa-align-center">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-stack:align-end">
+  <div class="layout-example-boundary wa-stack wa-align-end">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
@@ -45,7 +46,7 @@ By default, items stretch to fill the inline size of the `wa-stack` container. Y
 ## Gap
 
 By default, the gap between stack items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-stack` to specify the gap between items:
-- `gap:0`
+- `wa-gap-0`
 - `wa-gap-3xs`
 - `wa-gap-2xs`
 - `wa-gap-xs`

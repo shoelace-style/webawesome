@@ -11,21 +11,6 @@
   margin-inline: 0;
 }
 
-/* #region Alignment Modifiers */
-:is([class*='wa-cluster'], [class*='wa-flank'], [class*='wa-stack'], [class*='wa-split'])[class*='\:align-start'] {
-  align-items: flex-start;
-}
-:is([class*='wa-cluster'], [class*='wa-flank'], [class*='wa-stack'], [class*='wa-split'])[class*='\:align-end'] {
-  align-items: flex-end;
-}
-:is([class*='wa-cluster'], [class*='wa-flank'], [class*='wa-stack'], [class*='wa-split'])[class*='\:align-center'] {
-  align-items: center;
-}
-:is([class*='wa-cluster'], [class*='wa-flank'], [class*='wa-stack'], [class*='wa-split'])[class*='\:align-stretch'] {
-  align-items: stretch;
-}
-/* #endregion */
-
 /* #region Cluster */
 [class*='wa-cluster'] {
   display: flex;
@@ -179,6 +164,24 @@
   /* modified by class amendments */
   align-items: stretch;
   gap: var(--wa-space-m);
+}
+/* #endregion */
+
+/* #region Alignment Modifiers */
+.wa-align-start {
+  align-items: flex-start;
+}
+.wa-align-end {
+  align-items: flex-end;
+}
+.wa-align-center {
+  align-items: center;
+}
+.wa-align-stretch {
+  align-items: stretch;
+}
+.wa-align-baseline {
+  align-items: baseline;
 }
 /* #endregion */
 

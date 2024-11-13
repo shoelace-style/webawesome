@@ -1,6 +1,6 @@
 ---
 title: Gap
-description: Browse the library of customizable, framework-friendly web components included in Web Awesome.
+description: Gap utility classes set the gap property of flex and grid containers, like other Web Awesome layout utilities. 
 layout: page-outline
 ---
 
@@ -13,7 +13,7 @@ layout: page-outline
   }
 </style>
 
-Gap classes set the `gap` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/layout/cluster) and [stack](/docs/layout/stack), to change the space between items. 
+Web Awesome includes classes to set the `gap` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/layout/cluster) and [stack](/docs/layout/stack), to change the space between items. 
 
 Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the `--wa-space-*` properties in your theme.
 

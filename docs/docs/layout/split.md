@@ -18,7 +18,7 @@ Use the `wa-split` class to distribute two or more items evenly across available
 Items can be split across a row or a column by appending `:row` or `:column` to the `wa-split` class.
 
 ```html {.example}
-<div class="wa-flank:align-start" style="block-size: 16rem;">
+<div class="wa-flank wa-align-start" style="block-size: 16rem;">
   <div class="layout-example-boundary wa-split:column">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
@@ -30,31 +30,32 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 </div>
 ```
 
-## Alignment
+## Align Items
 
-By default, items are centered in the cross direction of the `wa-split` container. You can append any of the following modifiers to the `wa-split` class in your markup to specify how items are aligned:
-- `:align-start`
-- `:align-end`
-- `:align-center`
-- `:align-stretch`
+By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-split` to specify how items are aligned:
+- `wa-align-start`
+- `wa-align-end`
+- `wa-align-center`
+- `wa-align-stretch`
+- `wa-align-baseline`
 
 These modifiers specify how items are aligned in the block direction for `wa-split:row` and in the inline direction for `wa-split:column`.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-split:align-start" style="height: 8rem;">
+  <div class="layout-example-boundary wa-split wa-align-start" style="height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-split:align-end" style="height: 8rem;">
+  <div class="layout-example-boundary wa-split wa-align-end" style="height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-split:align-center" style="height: 8rem;">
+  <div class="layout-example-boundary wa-split wa-align-center" style="height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
-  <div class="layout-example-boundary wa-split:align-stretch" style="height: 8rem;">
+  <div class="layout-example-boundary wa-split wa-align-stretch" style="height: 8rem;">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
   </div>
