@@ -376,10 +376,10 @@ export default class WaCarousel extends WebAwesomeElement {
       this.createClones();
     }
 
-    this.synchronizeSlides();
-
     // Because the DOM may be changed, restore the scroll position to the active slide
     this.goToSlide(this.activeSlide, 'auto');
+
+    this.synchronizeSlides();
   }
 
   private createClones() {
