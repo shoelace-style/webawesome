@@ -17,80 +17,6 @@ Use the `wa-grid` class to arrange elements into rows and columns that automatic
 </div>
 ```
 
-## Sizing
-
-By default, grid items will wrap when their inline size is less than `20ch`, but you can set a custom minimum inline size using the `--min-inline-size` property.
-
-```html {.example}
-<div class="wa-stack">
-  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 200px;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 6rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-  </div>
-</div>
-```
-
-## Gap
-
-By default, the gap between grid items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-grid` to specify the gap between items:
-- `wa-gap-0`
-- `wa-gap-3xs`
-- `wa-gap-2xs`
-- `wa-gap-xs`
-- `wa-gap-s`
-- `wa-gap-m`
-- `wa-gap-l`
-- `wa-gap-xl`
-- `wa-gap-2xl`
-- `wa-gap-3xl`
-
-```html {.example}
-<div class="wa-stack">
-  <div class="layout-example-boundary wa-grid wa-gap-2xs">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-grid wa-gap-2xl">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-  </div>
-</div>
-```
-
-## Span Grid
-
-You can add `wa-span-grid` to any grid item to allow it to span all grid columns. With this, the grid item occupies its own grid row.
-
-```html {.example}
-<div class="layout-example-boundary wa-grid">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block wa-span-grid"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-</div>
-```
-
 ## Examples
 
 Grids work especially well for card lists and content designed for browsing.
@@ -200,4 +126,78 @@ Grids work especially well for card lists and content designed for browsing.
     color: color-mix(in oklab, currentColor, transparent 40%);
   }
 </style>
+```
+
+## Sizing
+
+By default, grid items will wrap when their inline size is less than `20ch`, but you can set a custom minimum inline size using the `--min-inline-size` property.
+
+```html {.example}
+<div class="wa-stack">
+  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 200px;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 6rem;">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+  </div>
+</div>
+```
+
+## Gap
+
+By default, the gap between grid items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-grid` to specify the gap between items:
+- `wa-gap-0`
+- `wa-gap-3xs`
+- `wa-gap-2xs`
+- `wa-gap-xs`
+- `wa-gap-s`
+- `wa-gap-m`
+- `wa-gap-l`
+- `wa-gap-xl`
+- `wa-gap-2xl`
+- `wa-gap-3xl`
+
+```html {.example}
+<div class="wa-stack">
+  <div class="layout-example-boundary wa-grid wa-gap-2xs">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-grid wa-gap-2xl">
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+    <div class="layout-example-block"></div>
+  </div>
+</div>
+```
+
+## Span Grid
+
+You can add `wa-span-grid` to any grid item to allow it to span all grid columns. With this, the grid item occupies its own grid row.
+
+```html {.example}
+<div class="layout-example-boundary wa-grid">
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block wa-span-grid"></div>
+  <div class="layout-example-block"></div>
+  <div class="layout-example-block"></div>
+</div>
 ```

@@ -13,6 +13,45 @@ Use the `wa-flank` class to position two items side-by-side, with one item posit
 </div>
 ```
 
+## Examples
+
+Flanks work especially well for asides, inputs with adjacent buttons, and rich description lists.
+
+```html {.example}
+<div class="wa-flank:end wa-gap-xs">
+  <wa-input>
+    <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
+  </wa-input>
+  <wa-button>Search</wa-button>
+</div>
+```
+
+```html {.example}
+<div class="wa-stack wa-gap-xl">
+  <div class="wa-flank wa-align-start">
+    <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
+    <div class="wa-stack wa-gap-3xs">
+      <strong>Gandalf</strong>
+      <p class="wa-body-text-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
+    </div>
+  </div>
+  <div class="wa-flank wa-align-start">
+    <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
+    <div class="wa-stack wa-gap-3xs">
+      <strong>Boromir</strong>
+      <p class="wa-body-text-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
+    </div>
+  </div>
+  <div class="wa-flank wa-align-start">
+    <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
+    <div class="wa-stack wa-gap-3xs">
+      <strong>Galadriel</strong>
+      <p class="wa-body-text-s">The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</p>
+    </div>
+  </div>
+</div>
+```
+
 ## Position
 
 By default, the first item in the `wa-flank` container will flank the other content. You can specify whether the first or last item will flank the remaining content by appending `:start` or `:end` to the `wa-flank` class.
@@ -115,45 +154,6 @@ By default, the gap between flank items uses `--wa-space-m` from your theme. You
   <div class="layout-example-boundary wa-flank wa-gap-2xl">
     <div class="layout-example-block"></div>
     <div class="layout-example-block"></div>
-  </div>
-</div>
-```
-
-## Examples
-
-Flanks work especially well for asides, inputs with adjacent buttons, and rich description lists.
-
-```html {.example}
-<div class="wa-flank:end wa-gap-xs">
-  <wa-input>
-    <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
-  </wa-input>
-  <wa-button>Search</wa-button>
-</div>
-```
-
-```html {.example}
-<div class="wa-stack wa-gap-xl">
-  <div class="wa-flank wa-align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
-    <div class="wa-stack wa-gap-3xs">
-      <strong>Gandalf</strong>
-      <p class="wa-body-text-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
-    </div>
-  </div>
-  <div class="wa-flank wa-align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
-    <div class="wa-stack wa-gap-3xs">
-      <strong>Boromir</strong>
-      <p class="wa-body-text-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
-    </div>
-  </div>
-  <div class="wa-flank wa-align-start">
-    <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
-    <div class="wa-stack wa-gap-3xs">
-      <strong>Galadriel</strong>
-      <p class="wa-body-text-s">The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</p>
-    </div>
   </div>
 </div>
 ```

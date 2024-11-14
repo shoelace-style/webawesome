@@ -19,49 +19,6 @@ Use the `wa-frame` class to create a responsive container with consistent propor
 </div>
 ```
 
-## Aspect Ratio
-
-Frames have a square aspect ratio by default. You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can use the `--aspect-ratio` property to set a custom proportion.
-
-```html {.example}
-<div class="wa-grid">
-  <div class="layout-example-boundary wa-frame:landscape">
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-frame:portrait">
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-frame" style="--aspect-ratio: 4 / 3;">
-    <div class="layout-example-block"></div>
-  </div>
-</div>
-```
-
-## Border Radius
-
-You can append any of the following modifiers to the `wa-frame` class in your markup to specify the border radius for the frame:
-- `:border-radius-xs`
-- `:border-radius-s`
-- `:border-radius-m`
-- `:border-radius-l`
-- `:border-radius-pill`
-- `:border-radius-circle`
-- `:border-radius-square`
-
-```html {.example}
-<div class="wa-grid">
-  <div class="layout-example-boundary wa-frame:border-radius-square">
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-frame:border-radius-circle">
-    <div class="layout-example-block"></div>
-  </div>
-  <div class="layout-example-boundary wa-frame:border-radius-l">
-    <div class="layout-example-block"></div>
-  </div>
-</div>
-```
-
 ## Examples
 
 Frames are well-suited for images and image placeholders.
@@ -143,5 +100,48 @@ Frames are well-suited for images and image placeholders.
       </div>
     </div>
   </wa-card>
+</div>
+```
+
+## Aspect Ratio
+
+Frames have a square aspect ratio by default. You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can use the `--aspect-ratio` property to set a custom proportion.
+
+```html {.example}
+<div class="wa-grid">
+  <div class="layout-example-boundary wa-frame:landscape">
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-frame:portrait">
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-frame" style="--aspect-ratio: 4 / 3;">
+    <div class="layout-example-block"></div>
+  </div>
+</div>
+```
+
+## Border Radius
+
+You can append any of the following modifiers to the `wa-frame` class in your markup to specify the border radius for the frame:
+- `:border-radius-xs`
+- `:border-radius-s`
+- `:border-radius-m`
+- `:border-radius-l`
+- `:border-radius-pill`
+- `:border-radius-circle`
+- `:border-radius-square`
+
+```html {.example}
+<div class="wa-grid">
+  <div class="layout-example-boundary wa-frame:border-radius-square">
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-frame:border-radius-circle">
+    <div class="layout-example-block"></div>
+  </div>
+  <div class="layout-example-boundary wa-frame:border-radius-l">
+    <div class="layout-example-block"></div>
+  </div>
 </div>
 ```

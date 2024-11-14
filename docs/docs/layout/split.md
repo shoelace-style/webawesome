@@ -13,6 +13,60 @@ Use the `wa-split` class to distribute two or more items evenly across available
 </div>
 ```
 
+## Examples
+
+Splits are especially helpful for navigation, header, and footer layouts.
+
+```html {.example}
+<div class="wa-flank">
+  <div class="wa-split:column">
+    <div class="wa-stack">
+      <wa-icon-button name="house" label="Home"></wa-icon-button>
+      <wa-icon-button name="calendar" label="Calendar"></wa-icon-button>
+      <wa-icon-button name="envelope" label="Mail"></wa-icon-button>
+    </div>
+    <div class="wa-stack">
+      <wa-divider></wa-divider>
+      <wa-icon-button name="right-from-bracket"></wa-icon-button>
+    </div>
+  </div>
+  <div class="placeholder">
+  </div>
+</div>
+
+<style>
+  .placeholder {
+    min-block-size: 300px;
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+  }
+</style>
+```
+
+```html {.example}
+<div class="wa-stack">
+  <div class="wa-split">
+    <wa-icon name="web-awesome" label="Web Awesome" style="font-size: var(--wa-font-size-xl);"></wa-icon>
+    <div class="wa-cluster">
+      <wa-button>Sign Up</wa-button>
+      <wa-button appearance="outlined">Log In</wa-button>
+    </div>
+  </div>
+  <div class="placeholder">
+  </div>
+</div>
+
+<style>
+  .placeholder {
+    min-block-size: 300px;
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+  }
+</style>
+```
+
 ## Direction
 
 Items can be split across a row or a column by appending `:row` or `:column` to the `wa-split` class.
@@ -89,58 +143,4 @@ These modifiers correspond with the `--wa-space-*` properties in your theme.
     <div class="layout-example-block"></div>
   </div>
 </div>
-```
-
-## Examples
-
-Splits are especially helpful for navigation, header, and footer layouts.
-
-```html {.example}
-<div class="wa-flank">
-  <div class="wa-split:column">
-    <div class="wa-stack">
-      <wa-icon-button name="house" label="Home"></wa-icon-button>
-      <wa-icon-button name="calendar" label="Calendar"></wa-icon-button>
-      <wa-icon-button name="envelope" label="Mail"></wa-icon-button>
-    </div>
-    <div class="wa-stack">
-      <wa-divider></wa-divider>
-      <wa-icon-button name="right-from-bracket"></wa-icon-button>
-    </div>
-  </div>
-  <div class="placeholder">
-  </div>
-</div>
-
-<style>
-  .placeholder {
-    min-block-size: 300px;
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
-  }
-</style>
-```
-
-```html {.example}
-<div class="wa-stack">
-  <div class="wa-split">
-    <wa-icon name="web-awesome" label="Web Awesome" style="font-size: var(--wa-font-size-xl);"></wa-icon>
-    <div class="wa-cluster">
-      <wa-button>Sign Up</wa-button>
-      <wa-button appearance="outlined">Log In</wa-button>
-    </div>
-  </div>
-  <div class="placeholder">
-  </div>
-</div>
-
-<style>
-  .placeholder {
-    min-block-size: 300px;
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
-  }
-</style>
 ```
