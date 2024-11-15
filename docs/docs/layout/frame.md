@@ -5,17 +5,24 @@ layout: page-outline
 ---
 
 <style>
-  .layout-example-boundary {
-    padding: 0;
-    border-radius: 0;
+  [class*='wa-frame']:has(div:empty) {
+    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    padding: var(--wa-space-s);
+  }
+
+  [class*='wa-frame'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-s);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
   }
 </style>
 
 Use the `wa-frame` class to create a responsive container with consistent proportions to enclose content.
 
 ```html {.example}
-<div class="layout-example-boundary wa-frame" style="max-inline-size: 20rem;">
-  <div class="layout-example-block"></div>
+<div class="wa-frame" style="max-inline-size: 20rem;">
+  <div></div>
 </div>
 ```
 
@@ -109,14 +116,14 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="layout-example-boundary wa-frame:landscape">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame:landscape">
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-frame:portrait">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame:portrait">
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-frame" style="--aspect-ratio: 4 / 3;">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame" style="--aspect-ratio: 4 / 3;">
+    <div></div>
   </div>
 </div>
 ```
@@ -134,14 +141,14 @@ You can append any of the following modifiers to the `wa-frame` class in your ma
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="layout-example-boundary wa-frame:border-radius-square">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame:border-radius-square">
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-frame:border-radius-circle">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame:border-radius-circle">
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-frame:border-radius-l">
-    <div class="layout-example-block"></div>
+  <div class="wa-frame:border-radius-l">
+    <div></div>
   </div>
 </div>
 ```

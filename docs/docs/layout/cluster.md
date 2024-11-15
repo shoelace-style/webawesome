@@ -4,20 +4,45 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
+<style>
+  :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-cluster']:has(div:empty) {
+    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+    padding: var(--wa-space-s);
+  }
+
+  [class*='wa-cluster'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-s);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+  }
+</style>
+
 Use the `wa-cluster` class to arrange elements inline with even spacing, allowing items to wrap when space is limited.
 
 ```html {.example}
-<div class="layout-example-mixed-sizing wa-cluster">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
+<div class="wa-cluster">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
 </div>
+
+<!-- We'll vary the div sizes to show the flow of cluster elements -->
+<style>
+  .wa-cluster div:empty:nth-child(3n) {
+    min-inline-size: 6rem;
+  }
+  .wa-cluster div:empty:nth-child(3n + 2) {
+    min-inline-size: 8rem;
+  }
+</style>
 ```
 
 ## Examples
@@ -68,26 +93,26 @@ By default, items are centered in the block direction of the `wa-cluster` contai
 - `wa-align-baseline`
 
 ```html {.example}
-<div class="layout-example-mixed-sizing wa-stack">
-  <div class="layout-example-boundary wa-cluster wa-align-start" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+<div class="wa-stack">
+  <div class="wa-cluster wa-align-start" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-cluster wa-align-end" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-cluster wa-align-end" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-cluster wa-align-center" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-cluster wa-align-center" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-cluster wa-align-stretch" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-cluster wa-align-stretch" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -107,16 +132,16 @@ By default, the gap between cluster items uses `--wa-space-m` from your theme. Y
 - `wa-gap-3xl`
 
 ```html {.example}
-<div class="layout-example-mixed-sizing wa-stack">
-  <div class="layout-example-boundary wa-cluster wa-gap-2xs">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+<div class="wa-stack">
+  <div class="wa-cluster wa-gap-2xs">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-cluster wa-gap-2xl">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-cluster wa-gap-2xl">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```

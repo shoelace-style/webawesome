@@ -4,12 +4,27 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
+<style>
+  :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-split']:has(div:empty) {
+    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+    padding: var(--wa-space-s);
+  }
+
+  [class*='wa-split'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-s);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+  }
+</style>
+
 Use the `wa-split` class to distribute two or more items evenly across available space, either in a row or a column.
 
 ```html {.example}
 <div class="wa-split">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
+  <div></div>
+  <div></div>
 </div>
 ```
 
@@ -73,13 +88,13 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 
 ```html {.example}
 <div class="wa-flank wa-align-start" style="block-size: 16rem;">
-  <div class="layout-example-boundary wa-split:column">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split:column">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-split:row">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split:row">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -97,21 +112,21 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-split wa-align-start" style="height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-align-start" style="height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-split wa-align-end" style="height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-align-end" style="height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-split wa-align-center" style="height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-align-center" style="height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-split wa-align-stretch" style="height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-align-stretch" style="height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -134,13 +149,13 @@ These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-split wa-gap-3xs">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-gap-3xs">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-split wa-gap-3xl">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-split wa-gap-3xl">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```

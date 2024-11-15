@@ -4,16 +4,31 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
+<style>
+  :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-grid']:has(div:empty) {
+    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+    padding: var(--wa-space-s);
+  }
+
+  [class*='wa-grid'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-s);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+  }
+</style>
+
 Use the `wa-grid` class to arrange elements into rows and columns that automatically adapt to the available space.
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
 </div>
 ```
 
@@ -134,21 +149,21 @@ By default, grid items will wrap when their inline size is less than `20ch`, but
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 200px;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-grid" style="--min-inline-size: 200px;">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-grid" style="--min-inline-size: 6rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-grid" style="--min-inline-size: 6rem;">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -169,21 +184,21 @@ By default, the gap between grid items uses `--wa-space-m` from your theme. You 
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-grid wa-gap-2xs">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-grid wa-gap-2xs">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-grid wa-gap-2xl">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-grid wa-gap-2xl">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -193,11 +208,11 @@ By default, the gap between grid items uses `--wa-space-m` from your theme. You 
 You can add `wa-span-grid` to any grid item to allow it to span all grid columns. With this, the grid item occupies its own grid row.
 
 ```html {.example}
-<div class="layout-example-boundary wa-grid">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block wa-span-grid"></div>
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
+<div class="wa-grid">
+  <div></div>
+  <div></div>
+  <div class="wa-span-grid"></div>
+  <div></div>
+  <div></div>
 </div>
 ```

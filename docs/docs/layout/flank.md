@@ -4,12 +4,27 @@ description: Browse the library of customizable, framework-friendly web componen
 layout: page-outline
 ---
 
+<style>
+  :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-flank']:has(div:empty) {
+    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-m);
+    padding: var(--wa-space-s);
+  }
+
+  [class*='wa-flank'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-s);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+  }
+</style>
+
 Use the `wa-flank` class to position two items side-by-side, with one item positioned alongside, or _flanking_, content that stretches to fill the available space. When space is limited, the items wrap.
 
 ```html {.example}
 <div class="wa-flank">
-  <div class="layout-example-block"></div>
-  <div class="layout-example-block"></div>
+  <div></div>
+  <div></div>
 </div>
 ```
 
@@ -58,13 +73,13 @@ By default, the first item in the `wa-flank` container will flank the other cont
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank:start">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank:start">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank:end">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank:end">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -75,13 +90,13 @@ The flank's inline size is determined by the size of its content, but you can se
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank" style="--flank-size: 200px;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank" style="--flank-size: 200px;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank" style="--flank-size: 6rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank" style="--flank-size: 6rem;">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -90,13 +105,13 @@ The main content fills the remaining inline space of the container. By default, 
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank" style="--content-percentage: 70%;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank" style="--content-percentage: 70%;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank" style="--content-percentage: 85%;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank" style="--content-percentage: 85%;">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -112,21 +127,21 @@ By default, items are centered in the block direction of the `wa-flank` containe
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank wa-align-start" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-align-start" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank wa-align-end" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-align-end" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank wa-align-center" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-align-center" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank wa-align-stretch" style="min-height: 8rem;">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-align-stretch" style="min-height: 8rem;">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
@@ -147,13 +162,13 @@ By default, the gap between flank items uses `--wa-space-m` from your theme. You
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="layout-example-boundary wa-flank wa-gap-2xs">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-gap-2xs">
+    <div></div>
+    <div></div>
   </div>
-  <div class="layout-example-boundary wa-flank wa-gap-2xl">
-    <div class="layout-example-block"></div>
-    <div class="layout-example-block"></div>
+  <div class="wa-flank wa-gap-2xl">
+    <div></div>
+    <div></div>
   </div>
 </div>
 ```
