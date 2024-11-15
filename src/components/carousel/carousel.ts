@@ -12,7 +12,6 @@ import { prefersReducedMotion } from '../../internal/animate.js';
 import { range } from 'lit/directives/range.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaSlideChangeEvent } from '../../events/slide-change.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './carousel.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -83,7 +82,7 @@ export default class WaCarousel extends WebAwesomeElement {
   @property({ type: Number, attribute: 'slides-per-move' }) slidesPerMove = 1;
 
   /** Specifies the orientation in which the carousel will lay out.  */
-  @property() orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** When set, it is possible to scroll through the slides by dragging them with the mouse. */
   @property({ type: Boolean, reflect: true, attribute: 'mouse-dragging' }) mouseDragging = false;
@@ -121,6 +120,46 @@ export default class WaCarousel extends WebAwesomeElement {
       childList: true,
       subtree: true
     });
+  }
+
+  protected updated(changedProps: Map<string, unknown>) {
+    // Reinitialize when looping or slides per page change
+    if (changedProps.has('loop') || changedProps.has('slidesPerPage')) {
+      if (this.hasUpdated) {
+        this.initializeSlides();
+      }
+    }
+
+    // Handle slide changes
+    if (changedProps.has('activeSlide')) {
+      const slides = this.getSlides();
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('--is-active', i === this.activeSlide);
+      });
+
+      // Do not emit an event on first render
+      if (this.hasUpdated) {
+        this.dispatchEvent(
+          new WaSlideChangeEvent({
+            index: this.activeSlide,
+            slide: slides[this.activeSlide]
+          })
+        );
+      }
+    }
+
+    // Handle slides per move changes
+    if (changedProps.has('slidesPerMove')) {
+      this.updateSlidesSnap();
+    }
+
+    // Handle autoplay changes
+    if (changedProps.has('autoplay')) {
+      this.autoplayController.stop();
+      if (this.autoplay) {
+        this.autoplayController.start(this.autoplayInterval);
+      }
+    }
   }
 
   protected willUpdate(changedProperties: PropertyValueMap<WaCarousel> | Map<PropertyKey, unknown>): void {
@@ -355,8 +394,6 @@ export default class WaCarousel extends WebAwesomeElement {
     this.requestUpdate();
   };
 
-  @watch('loop', { waitUntilFirstUpdate: true })
-  @watch('slidesPerPage', { waitUntilFirstUpdate: true })
   initializeSlides() {
     // Removes all the cloned elements from the carousel
     this.getSlides({ excludeClones: false }).forEach((slide, index) => {
@@ -402,26 +439,7 @@ export default class WaCarousel extends WebAwesomeElement {
     });
   }
 
-  @watch('activeSlide')
-  handelSlideChange() {
-    const slides = this.getSlides();
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('--is-active', i === this.activeSlide);
-    });
-
-    // Do not emit an event on first render
-    if (this.hasUpdated) {
-      this.dispatchEvent(
-        new WaSlideChangeEvent({
-          index: this.activeSlide,
-          slide: slides[this.activeSlide]
-        })
-      );
-    }
-  }
-
-  @watch('slidesPerMove')
-  updateSlidesSnap() {
+  private updateSlidesSnap() {
     const slides = this.getSlides();
 
     const slidesPerMove = this.slidesPerMove;
@@ -433,14 +451,6 @@ export default class WaCarousel extends WebAwesomeElement {
         slide.style.setProperty('scroll-snap-align', 'none');
       }
     });
-  }
-
-  @watch('autoplay')
-  handleAutoplayChange() {
-    this.autoplayController.stop();
-    if (this.autoplay) {
-      this.autoplayController.start(this.autoplayInterval);
-    }
   }
 
   /**
