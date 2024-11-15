@@ -7,13 +7,13 @@ export default css`
     --spacing: var(--wa-space-m);
   }
 
-  :host(:not([vertical])) {
+  :host(:not([orientation='vertical'])) {
     display: block;
     border-top: solid var(--width) var(--color);
     margin: var(--spacing) 0;
   }
 
-  :host([vertical]) {
+  :host([orientation='vertical']) {
     display: inline-block;
     height: 100%;
     border-left: solid var(--width) var(--color);

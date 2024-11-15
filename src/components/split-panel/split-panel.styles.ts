@@ -40,11 +40,11 @@ export default css`
   }
 
   /* Horizontal */
-  :host(:not([vertical], [disabled])) .divider {
+  :host(:not([orientation='vertical'], [disabled])) .divider {
     cursor: col-resize;
   }
 
-  :host(:not([vertical])) .divider::after {
+  :host(:not([orientation='vertical'])) .divider::after {
     display: flex;
     content: '';
     position: absolute;
@@ -54,15 +54,15 @@ export default css`
   }
 
   /* Vertical */
-  :host([vertical]) {
+  :host([orientation='vertical']) {
     flex-direction: column;
   }
 
-  :host([vertical]:not([disabled])) .divider {
+  :host([orientation='vertical']:not([disabled])) .divider {
     cursor: row-resize;
   }
 
-  :host([vertical]) .divider::after {
+  :host([orientation='vertical']) .divider::after {
     content: '';
     position: absolute;
     width: 100%;

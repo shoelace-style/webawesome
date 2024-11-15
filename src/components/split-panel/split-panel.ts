@@ -58,7 +58,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   @property({ attribute: 'position-in-pixels', type: Number }) positionInPixels: number;
 
   /** Draws the split panel in a vertical orientation with the start and end panels stacked. */
-  @property({ type: Boolean, reflect: true }) vertical = false;
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** Disables resizing. Note that the position may still change as a result of resizing the host element. */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -95,7 +95,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   private detectSize() {
     const { width, height } = this.getBoundingClientRect();
-    this.size = this.vertical ? height : width;
+    this.size = this.orientation === 'vertical' ? height : width;
   }
 
   private percentageToPixels(value: number) {
@@ -120,7 +120,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
     drag(this, {
       onMove: (x, y) => {
-        let newPositionInPixels = this.vertical ? y : x;
+        let newPositionInPixels = this.orientation === 'vertical' ? y : x;
 
         // Flip for end panels
         if (this.primary === 'end') {
@@ -140,7 +140,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
               snapPoint = parseFloat(value);
             }
 
-            if (isRtl && !this.vertical) {
+            if (isRtl && this.orientation !== 'vertical') {
               snapPoint = this.size - snapPoint;
             }
 
@@ -170,11 +170,17 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
       event.preventDefault();
 
-      if ((event.key === 'ArrowLeft' && !this.vertical) || (event.key === 'ArrowUp' && this.vertical)) {
+      if (
+        (event.key === 'ArrowLeft' && this.orientation !== 'vertical') ||
+        (event.key === 'ArrowUp' && this.orientation === 'vertical')
+      ) {
         newPosition -= incr;
       }
 
-      if ((event.key === 'ArrowRight' && !this.vertical) || (event.key === 'ArrowDown' && this.vertical)) {
+      if (
+        (event.key === 'ArrowRight' && this.orientation !== 'vertical') ||
+        (event.key === 'ArrowDown' && this.orientation === 'vertical')
+      ) {
         newPosition += incr;
       }
 
@@ -210,7 +216,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   private handleResize(entries: ResizeObserverEntry[]) {
     const { width, height } = entries[0].contentRect;
-    this.size = this.vertical ? height : width;
+    this.size = this.orientation === 'vertical' ? height : width;
 
     // There's some weird logic that gets `this.cachedPositionInPixels = NaN` or `this.position === Infinity` when
     // a split-panel goes from `display: none;` to showing.
@@ -246,8 +252,8 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   render() {
-    const gridTemplate = this.vertical ? 'gridTemplateRows' : 'gridTemplateColumns';
-    const gridTemplateAlt = this.vertical ? 'gridTemplateColumns' : 'gridTemplateRows';
+    const gridTemplate = this.orientation === 'vertical' ? 'gridTemplateRows' : 'gridTemplateColumns';
+    const gridTemplateAlt = this.orientation === 'vertical' ? 'gridTemplateColumns' : 'gridTemplateRows';
     const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
     const primary = `
       clamp(
@@ -269,13 +275,13 @@ export default class WaSplitPanel extends WebAwesomeElement {
     }
 
     if (this.primary === 'end') {
-      if (isRtl && !this.vertical) {
+      if (isRtl && this.orientation !== 'vertical') {
         this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
       } else {
         this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
       }
     } else {
-      if (isRtl && !this.vertical) {
+      if (isRtl && this.orientation !== 'vertical') {
         this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
       } else {
         this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;

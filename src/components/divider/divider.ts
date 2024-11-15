@@ -1,5 +1,4 @@
 import { customElement, property } from 'lit/decorators.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './divider.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -20,16 +19,17 @@ export default class WaDivider extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
   /** Draws the divider in a vertical orientation. */
-  @property({ type: Boolean, reflect: true }) vertical = false;
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'separator');
   }
 
-  @watch('vertical')
-  handleVerticalChange() {
-    this.setAttribute('aria-orientation', this.vertical ? 'vertical' : 'horizontal');
+  updated(changedProps: Map<string, unknown>) {
+    if (changedProps.has('orientation')) {
+      this.setAttribute('aria-orientation', this.orientation);
+    }
   }
 }
 
