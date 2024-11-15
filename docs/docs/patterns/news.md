@@ -98,6 +98,7 @@ TODO Page Description
     </section>
   </div>
   <div class="social">
+    <span>Follow us</span>
     <a href="">
       <wa-icon family="brands" name="bluesky"></wa-icon> 
     </a>
@@ -112,6 +113,7 @@ TODO Page Description
     </a>
   </div>
   <div>
+    <span>Get the app</span>
     <img src="https://img.fortawesome.com/cfa83f3c/app_store.svg" alt="">
     <img src="https://img.fortawesome.com/cfa83f3c/google_play.svg" alt="">
   </div>
