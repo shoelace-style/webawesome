@@ -84,28 +84,6 @@
 [class*='wa-frame'][class*='\:portrait'] {
   aspect-ratio: 9 / 16;
 }
-
-[class*='wa-frame'][class*='\:border-radius-xs'] {
-  border-radius: var(--wa-border-radius-xs);
-}
-[class*='wa-frame'][class*='\:border-radius-s'] {
-  border-radius: var(--wa-border-radius-s);
-}
-[class*='wa-frame'][class*='\:border-radius-m'] {
-  border-radius: var(--wa-border-radius-m);
-}
-[class*='wa-frame'][class*='\:border-radius-l'] {
-  border-radius: var(--wa-border-radius-l);
-}
-[class*='wa-frame'][class*='\:border-radius-pill'] {
-  border-radius: var(--wa-border-radius-pill);
-}
-[class*='wa-frame'][class*='\:border-radius-circle'] {
-  border-radius: var(--wa-border-radius-circle);
-}
-[class*='wa-frame'][class*='\:border-radius-square'] {
-  border-radius: var(--wa-border-radius-square);
-}
 /* #endregion */
 
 /* #region Grid */
@@ -163,7 +141,7 @@
 }
 /* #endregion */
 
-/* #region Alignment Modifiers */
+/* #region Align Items */
 .wa-align-start {
   align-items: flex-start;
 }
@@ -178,6 +156,30 @@
 }
 .wa-align-baseline {
   align-items: baseline;
+}
+/* #endregion */
+
+/* #region Border Radius */
+.wa-border-radius-xs {
+  border-radius: var(--wa-border-radius-xs);
+}
+.wa-border-radius-s {
+  border-radius: var(--wa-border-radius-s);
+}
+.wa-border-radius-m {
+  border-radius: var(--wa-border-radius-m);
+}
+.wa-border-radius-l {
+  border-radius: var(--wa-border-radius-l);
+}
+.wa-border-radius-pill {
+  border-radius: var(--wa-border-radius-pill);
+}
+.wa-border-radius-circle {
+  border-radius: var(--wa-border-radius-circle);
+}
+.wa-border-radius-square {
+  border-radius: var(--wa-border-radius-square);
 }
 /* #endregion */
 

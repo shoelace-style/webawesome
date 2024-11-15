@@ -32,7 +32,7 @@ Frames are well-suited for images and image placeholders.
 
 ```html {.example}
 <div class="wa-flank" style="--flank-size: 8rem;">
-  <div class="wa-frame:border-radius-m">
+  <div class="wa-frame wa-border-radius-m">
     <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" />
   </div>
   <div class="wa-flank:end" style="--content-percentage: 70%">
@@ -130,24 +130,26 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-You can append any of the following modifiers to the `wa-frame` class in your markup to specify the border radius for the frame:
-- `:border-radius-xs`
-- `:border-radius-s`
-- `:border-radius-m`
-- `:border-radius-l`
-- `:border-radius-pill`
-- `:border-radius-circle`
-- `:border-radius-square`
+By default, `wa-frame` has a square border radius. You can add any of the following [`wa-border-radius-*`](/docs/layout/border-radius) classes to an element with `wa-frame` to specify the border radius:
+- `wa-border-radius-xs`
+- `wa-border-radius-s`
+- `wa-border-radius-m`
+- `wa-border-radius-l`
+- `wa-border-radius-pill`
+- `wa-border-radius-circle`
+- `wa-border-radius-square`
+
+Alternatively, you can define the `border-radius` property to set custom rounding.
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="wa-frame:border-radius-square">
+  <div class="wa-frame wa-border-radius-l">
     <div></div>
   </div>
-  <div class="wa-frame:border-radius-circle">
+  <div class="wa-frame wa-border-radius-circle">
     <div></div>
   </div>
-  <div class="wa-frame:border-radius-l">
+  <div class="wa-frame" style="border-radius: 50% 0%;">
     <div></div>
   </div>
 </div>
