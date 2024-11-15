@@ -14,22 +14,18 @@
 /* #region Cluster */
 [class*='wa-cluster'] {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-  /* modified by class amendments */
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--wa-space-m);
+  justify-content: flex-start;
 }
 /* #endregion */
 
 /* #region Flank */
 [class*='wa-flank'] {
   display: flex;
-  flex-wrap: wrap;
-
-  /* modified by class amendments */
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--wa-space-m);
 
   --content-percentage: initial;
@@ -89,10 +85,8 @@
 /* #region Grid */
 [class*='wa-grid'] {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-column-size, 20ch), 100%), 1fr));
-
-  /* modified by class amendments */
   gap: var(--wa-space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-column-size, 20ch), 100%), 1fr));
 
   --min-column-size: initial;
 }
@@ -105,12 +99,10 @@
 /* #region Split */
 [class*='wa-split'] {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  /* modified by class amendments */
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--wa-space-m);
+  justify-content: space-between;
 }
 
 [class*='wa-split'],
@@ -132,12 +124,10 @@
 /* #region Stack */
 [class*='wa-stack'] {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  /* modified by class amendments */
   align-items: stretch;
+  flex-direction: column;
   gap: var(--wa-space-m);
+  justify-content: flex-start;
 }
 /* #endregion */
 
