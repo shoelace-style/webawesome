@@ -132,19 +132,19 @@
 /* #endregion */
 
 /* #region Align Items */
-.wa-align-start {
+.wa-align-items-start {
   align-items: flex-start;
 }
-.wa-align-end {
+.wa-align-items-end {
   align-items: flex-end;
 }
-.wa-align-center {
+.wa-align-items-center {
   align-items: center;
 }
-.wa-align-stretch {
+.wa-align-items-stretch {
   align-items: stretch;
 }
-.wa-align-baseline {
+.wa-align-items-baseline {
   align-items: baseline;
 }
 /* #endregion */

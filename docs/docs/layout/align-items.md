@@ -23,11 +23,11 @@ Web Awesome includes classes to set the `align-items` property of flex and grid 
 
 | Class Name          | `align-items` Value | Preview                                                                                                                            |
 | ------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `wa-align-baseline` | `baseline`          | <div class="wa-cluster wa-align-baseline preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div> |
-| `wa-align-center`   | `center`            | <div class="wa-cluster wa-align-center preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>   |
-| `wa-align-end`      | `flex-end`          | <div class="wa-cluster wa-align-end preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>      |
-| `wa-align-start`    | `flex-start`        | <div class="wa-cluster wa-align-start preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>    |
-| `wa-align-stretch`  | `stretch`           | <div class="wa-cluster wa-align-stretch preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>  |
+| `wa-align-items-baseline` | `baseline`          | <div class="wa-cluster wa-align-items-baseline preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div> |
+| `wa-align-items-center`   | `center`            | <div class="wa-cluster wa-align-items-center preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>   |
+| `wa-align-items-end`      | `flex-end`          | <div class="wa-cluster wa-align-items-end preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>      |
+| `wa-align-items-start`    | `flex-start`        | <div class="wa-cluster wa-align-items-start preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>    |
+| `wa-align-items-stretch`  | `stretch`           | <div class="wa-cluster wa-align-items-stretch preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>  |
 
 ## What's a Cross Axis?
 

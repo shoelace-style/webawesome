@@ -85,31 +85,31 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
-- `wa-align-start`
-- `wa-align-end`
-- `wa-align-center`
-- `wa-align-stretch`
-- `wa-align-baseline`
+By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/layout/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
+- `wa-align-items-start`
+- `wa-align-items-end`
+- `wa-align-items-center`
+- `wa-align-items-stretch`
+- `wa-align-items-baseline`
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="wa-cluster wa-align-start" style="min-height: 8rem;">
+  <div class="wa-cluster wa-align-items-start" style="min-height: 8rem;">
     <div></div>
     <div></div>
     <div></div>
   </div>
-  <div class="wa-cluster wa-align-end" style="min-height: 8rem;">
+  <div class="wa-cluster wa-align-items-end" style="min-height: 8rem;">
     <div></div>
     <div></div>
     <div></div>
   </div>
-  <div class="wa-cluster wa-align-center" style="min-height: 8rem;">
+  <div class="wa-cluster wa-align-items-center" style="min-height: 8rem;">
     <div></div>
     <div></div>
     <div></div>
   </div>
-  <div class="wa-cluster wa-align-stretch" style="min-height: 8rem;">
+  <div class="wa-cluster wa-align-items-stretch" style="min-height: 8rem;">
     <div></div>
     <div></div>
     <div></div>

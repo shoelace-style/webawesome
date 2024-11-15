@@ -56,26 +56,26 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
 
 ## Align Items
 
-By default, items stretch to fill the inline size of the `wa-stack` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-stack` to specify how items are aligned in the inline direction:
-- `wa-align-start`
-- `wa-align-end`
-- `wa-align-center`
-- `wa-align-stretch`
-- `wa-align-baseline`
+By default, items stretch to fill the inline size of the `wa-stack` container. You can add any of the following [`wa-align-items-*`](/docs/layout/align-items) classes to an element with `wa-stack` to specify how items are aligned in the inline direction:
+- `wa-align-items-start`
+- `wa-align-items-end`
+- `wa-align-items-center`
+- `wa-align-items-stretch`
+- `wa-align-items-baseline`
 
 ```html {.example}
 <div class="wa-grid">
-  <div class="wa-stack wa-align-start">
+  <div class="wa-stack wa-align-items-start">
     <div style="min-inline-size: 4rem;"></div>
     <div style="min-inline-size: 8rem;"></div>
     <div style="min-inline-size: 6rem;"></div>
   </div>
-  <div class="wa-stack wa-align-center">
+  <div class="wa-stack wa-align-items-center">
     <div style="min-inline-size: 4rem;"></div>
     <div style="min-inline-size: 8rem;"></div>
     <div style="min-inline-size: 6rem;"></div>
   </div>
-  <div class="wa-stack wa-align-end">
+  <div class="wa-stack wa-align-items-end">
     <div style="min-inline-size: 4rem;"></div>
     <div style="min-inline-size: 8rem;"></div>
     <div style="min-inline-size: 6rem;"></div>

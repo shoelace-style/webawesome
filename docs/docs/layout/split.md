@@ -87,7 +87,7 @@ Splits are especially helpful for navigation, header, and footer layouts.
 Items can be split across a row or a column by appending `:row` or `:column` to the `wa-split` class.
 
 ```html {.example}
-<div class="wa-flank wa-align-start" style="block-size: 16rem;">
+<div class="wa-flank wa-align-items-start" style="block-size: 16rem;">
   <div class="wa-split:column">
     <div></div>
     <div></div>
@@ -101,30 +101,30 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 
 ## Align Items
 
-By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-*`](/docs/layout/align) classes to an element with `wa-split` to specify how items are aligned:
-- `wa-align-start`
-- `wa-align-end`
-- `wa-align-center`
-- `wa-align-stretch`
-- `wa-align-baseline`
+By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-items-*`](/docs/layout/align-items) classes to an element with `wa-split` to specify how items are aligned:
+- `wa-align-items-start`
+- `wa-align-items-end`
+- `wa-align-items-center`
+- `wa-align-items-stretch`
+- `wa-align-items-baseline`
 
 These modifiers specify how items are aligned in the block direction for `wa-split:row` and in the inline direction for `wa-split:column`.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="wa-split wa-align-start" style="height: 8rem;">
+  <div class="wa-split wa-align-items-start" style="height: 8rem;">
     <div></div>
     <div></div>
   </div>
-  <div class="wa-split wa-align-end" style="height: 8rem;">
+  <div class="wa-split wa-align-items-end" style="height: 8rem;">
     <div></div>
     <div></div>
   </div>
-  <div class="wa-split wa-align-center" style="height: 8rem;">
+  <div class="wa-split wa-align-items-center" style="height: 8rem;">
     <div></div>
     <div></div>
   </div>
-  <div class="wa-split wa-align-stretch" style="height: 8rem;">
+  <div class="wa-split wa-align-items-stretch" style="height: 8rem;">
     <div></div>
     <div></div>
   </div>
