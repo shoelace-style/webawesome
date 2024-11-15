@@ -63,13 +63,9 @@
 [class*='wa-frame'] {
   display: flex;
   align-items: center;
+  aspect-ratio: 1 / 1;
   justify-content: center;
   overflow: hidden;
-
-  /* modified by class amendments */
-  aspect-ratio: var(--aspect-ratio, 1 / 1);
-
-  --aspect-ratio: initial;
 }
 
 [class*='wa-frame'] > img,
@@ -80,13 +76,13 @@
 }
 
 [class*='wa-frame'][class*='\:square'] {
-  --aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;
 }
 [class*='wa-frame'][class*='\:landscape'] {
-  --aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 9;
 }
 [class*='wa-frame'][class*='\:portrait'] {
-  --aspect-ratio: 9 / 16;
+  aspect-ratio: 9 / 16;
 }
 
 [class*='wa-frame'][class*='\:border-radius-xs'] {

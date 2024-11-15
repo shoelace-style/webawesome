@@ -112,7 +112,7 @@ Frames are well-suited for images and image placeholders.
 
 ## Aspect Ratio
 
-Frames have a square aspect ratio by default. You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can use the `--aspect-ratio` property to set a custom proportion.
+Frames have a square aspect ratio by default. You can append `:square` (1 / 1), `:landscape` (16 / 9), or `:portrait` (9 / 16) to the `wa-frame` class in your markup to specify an aspect ratio for the frame. Alternatively, you can define the `aspect-ratio` property to set a custom proportion.
 
 ```html {.example}
 <div class="wa-grid">
@@ -122,7 +122,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
   <div class="wa-frame:portrait">
     <div></div>
   </div>
-  <div class="wa-frame" style="--aspect-ratio: 4 / 3;">
+  <div class="wa-frame" style="aspect-ratio: 4 / 3;">
     <div></div>
   </div>
 </div>
