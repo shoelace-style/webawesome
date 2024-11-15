@@ -89,6 +89,15 @@ TODO Page Description
     </ul>
     </section>
     <section>
+      <h4 style="--wa-space-xl: 0;">Contact</h4>
+      <ul>
+      <li><a href="#">Help Center</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Partners</a></li>
+    </ul>
+    </section>
+    <section>
       <h4 style="--wa-space-xl: 0;">Subscriptions</h4>
       <ul class="list">
       <li><a href="#"><wa-icon fixed-width name="game-board-simple"></wa-icon> Crossword</a></li>
@@ -97,24 +106,24 @@ TODO Page Description
     </ul>
     </section>
   </div>
-  <div class="social">
-    <span>Follow us</span>
-    <a href="">
+  <div class="social" style="margin-bottom: 1rem;">
+    <span style="display: inline-block; margin-right: 0.5rem;">Follow us</span>
+    <a style="color: var(--wa-color-text-normal);" href="">
       <wa-icon family="brands" name="bluesky"></wa-icon> 
     </a>
-    <a href="">
+    <a style="color: var(--wa-color-text-normal);" href="">
       <wa-icon family="brands" name="instagram"></wa-icon> 
     </a>
-    <a href="">
+    <a style="color: var(--wa-color-text-normal);" href="">
       <wa-icon family="brands" name="facebook"></wa-icon> 
     </a>
-    <a href="">
+    <a style="color: var(--wa-color-text-normal);" href="">
       <wa-icon family="brands" name="mastodon"></wa-icon> 
     </a>
   </div>
-  <div>
-    <span>Get the app</span>
-    <img src="https://img.fortawesome.com/cfa83f3c/app_store.svg" alt="">
+  <div style="display: flex; align-items: center;">
+    <span style="display: inline-block; margin-right: 0.5rem;">Get the app</span>
+    <img style="margin-right: .5rem;" src="https://img.fortawesome.com/cfa83f3c/app_store.svg" alt="">
     <img src="https://img.fortawesome.com/cfa83f3c/google_play.svg" alt="">
   </div>
   <div class="legal">&#169 2024 All rights reserved.</div>
@@ -133,7 +142,7 @@ TODO Page Description
     }
     .nav {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
     .nav ul {
@@ -151,11 +160,17 @@ TODO Page Description
       display: flex;
       align-items: center;
       text-decoration: none;
-      --wa-color-text-link: var(--wa-color-gray-20);
+      --wa-color-text-link: var(--wa-color-text-normal);
 
       wa-icon {
         margin-right: .5rem;
       }
+    }
+
+    .legal {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--wa-color-surface-border);
     }
   }
 </style>
