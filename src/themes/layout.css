@@ -89,12 +89,12 @@
 /* #region Grid */
 [class*='wa-grid'] {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-inline-size, 20ch), 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-column-size, 20ch), 100%), 1fr));
 
   /* modified by class amendments */
   gap: var(--wa-space-m);
 
-  --min-inline-size: initial;
+  --min-column-size: initial;
 }
 
 .wa-span-grid {

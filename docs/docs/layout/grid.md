@@ -77,7 +77,7 @@ Grids work especially well for card lists and content designed for browsing.
 ```
 
 ```html {.example}
-<div class="wa-grid" style="--min-inline-size: 30ch;">
+<div class="wa-grid" style="--min-column-size: 30ch;">
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="rounded">
@@ -145,11 +145,11 @@ Grids work especially well for card lists and content designed for browsing.
 
 ## Sizing
 
-By default, grid items will wrap when their inline size is less than `20ch`, but you can set a custom minimum inline size using the `--min-inline-size` property.
+By default, grid items will wrap when the grid's column size is less than `20ch`, but you can set a custom minimum column size using the `--min-column-size` property.
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="wa-grid" style="--min-inline-size: 200px;">
+  <div class="wa-grid" style="--min-column-size: 200px;">
     <div></div>
     <div></div>
     <div></div>
@@ -157,7 +157,7 @@ By default, grid items will wrap when their inline size is less than `20ch`, but
     <div></div>
     <div></div>
   </div>
-  <div class="wa-grid" style="--min-inline-size: 6rem;">
+  <div class="wa-grid" style="--min-column-size: 6rem;">
     <div></div>
     <div></div>
     <div></div>
