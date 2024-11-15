@@ -79,12 +79,12 @@ To set the initial position in pixels instead of a percentage, use the `position
 </wa-split-panel>
 ```
 
-### Vertical
+### Orientation
 
-Add the `vertical` attribute to render the split panel in a vertical orientation where the start and end panels are stacked. You also need to set a height when using the vertical orientation.
+Set the `orientation` attribute to `vertical` to render the split panel in a vertical orientation where the start and end panels are stacked. You also need to set a height when using the vertical orientation.
 
 ```html {.example}
-<wa-split-panel vertical style="height: 400px;">
+<wa-split-panel orientation="vertical" style="height: 400px;">
   <div
     slot="start"
     style="height: 100%; background: var(--wa-color-surface-lowered); display: flex; align-items: center; justify-content: center; overflow: hidden;"
@@ -247,7 +247,7 @@ Create complex layouts that can be repositioned independently by nesting split p
     Start
   </div>
   <div slot="end">
-    <wa-split-panel vertical style="height: 400px;">
+    <wa-split-panel orientation="vertical" style="height: 400px;">
       <div
         slot="start"
         style="height: 100%; background: var(--wa-color-surface-lowered); display: flex; align-items: center; justify-content: center; overflow: hidden"
