@@ -36,22 +36,22 @@ TODO Page Description
         <img src="https://img.fortawesome.com/cfa83f3c/article-flower.jpg" alt="">
         <h2 style="margin-bottom: var(--wa-space-s);">Title</h2>
         <p style="margin-bottom: var(--wa-space-3xs);">Well, the way they make shows is, they make one show. That show's called a pilot.</p>
-      
+
       <span style="font-size: small;font-weight: 600;font-style: italic;">sub-title</span>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
         <div>
             <img src="https://img.fortawesome.com/cfa83f3c/article-flower.jpg" alt="">
-       
+
         <p style="margin-bottom: var(--wa-space-3xs);">Normally, both your asses would be dead as fucking fried chicken.</p>
-      
+
       <span style="font-size: small;font-weight: 600;font-style: italic;">sub-title</span>
         </div>
         <div>
             <img src="https://img.fortawesome.com/cfa83f3c/article-flower.jpg" alt="">
-       
+
         <p style="margin-bottom: var(--wa-space-3xs);">Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
-      
+
       <span style="font-size: small;font-weight: 600;font-style: italic;">sub-title</span>
         </div>
       </div>
@@ -60,7 +60,7 @@ TODO Page Description
 </div>
 ```
 
-## Footer 
+## Footer
 ```html{.example}
 <div class="news-footer">
   <div class="container">
@@ -99,28 +99,28 @@ TODO Page Description
   </div>
   <div class="social">
     <a href="">
-      <wa-icon family="brands" name="bluesky"></wa-icon> 
+      <wa-icon family="brands" name="bluesky"></wa-icon>
     </a>
     <a href="">
-      <wa-icon family="brands" name="instagram"></wa-icon> 
+      <wa-icon family="brands" name="instagram"></wa-icon>
     </a>
     <a href="">
-      <wa-icon family="brands" name="facebook"></wa-icon> 
+      <wa-icon family="brands" name="facebook"></wa-icon>
     </a>
     <a href="">
-      <wa-icon family="brands" name="mastodon"></wa-icon> 
+      <wa-icon family="brands" name="mastodon"></wa-icon>
     </a>
   </div>
   <div>
     <img src="https://img.fortawesome.com/cfa83f3c/app_store.svg" alt="">
     <img src="https://img.fortawesome.com/cfa83f3c/google_play.svg" alt="">
   </div>
-  <div class="legal">&#169 2024 All rights reserved.</div>
+  <div class="legal">&#169; 2024 All rights reserved.</div>
   </div>
 </div>
 <style>
   .news-footer {
-  
+
     .container {
       max-width: 960px;
       margin: auto;
