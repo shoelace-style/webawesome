@@ -10,6 +10,20 @@ const observer = new MutationObserver(mutations => {
   }
 });
 
+/** Starts the autoloader. */
+export function startLoader() {
+  // Initial discovery
+  discover(document.body);
+
+  // Listen for new undefined elements
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+}
+
+/** Stops the autoloader */
+export function stopLoader() {
+  observer.disconnect();
+}
+
 /**
  * Checks a node for undefined elements and attempts to register them.
  */
@@ -28,7 +42,14 @@ export async function discover(root: Element | ShadowRoot) {
   // Make the list unique
   const tagsToRegister = [...new Set(tags)];
 
-  await Promise.allSettled(tagsToRegister.map(tagName => register(tagName)));
+  const imports = await Promise.allSettled(tagsToRegister.map(tagName => register(tagName)));
+
+  // When an import fails, show a warning
+  for (const imp of imports) {
+    if (imp.status === 'rejected') {
+      console.warn(imp.reason); // eslint-disable-line no-console
+    }
+  }
 }
 
 /**
@@ -48,9 +69,3 @@ function register(tagName: string): Promise<void> {
     import(path).then(() => resolve()).catch(() => reject(new Error(`Unable to autoload <${tagName}> from ${path}`)));
   });
 }
-
-// Initial discovery
-discover(document.body);
-
-// Listen for new undefined elements
-observer.observe(document.documentElement, { subtree: true, childList: true });

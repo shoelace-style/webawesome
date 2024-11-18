@@ -440,34 +440,102 @@ export default css`
    * buttons and we style them here instead.
    */
 
-  :host(.wa-button-group__button--first:not(.wa-button-group__button--last)) .button {
+  /*
+  :host([data-button-group-middle]) #button {
+    border-radius: 0;
+  }
+
+  :host([data-button-group-horizontal][data-button-group-first]) #button {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
   }
+
+  :host([data-button-group-horizontal][data-button-group-last]) #button {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  :host([data-button-group-vertical][data-button-group-first]) #button {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  :host([data-button-group-vertical][data-button-group-last]) #button {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+  */
 
   :host(.wa-button-group__button--inner) .button {
     border-radius: 0;
   }
 
-  :host(.wa-button-group__button--last:not(.wa-button-group__button--first)) .button {
+  :host(.wa-button-group-horizontal.wa-button-group__button--first:not(.wa-button-group__button--last)) .button {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  :host(.wa-button-group-horizontal.wa-button-group__button--last:not(.wa-button-group__button--first)) .button {
     border-start-start-radius: 0;
     border-end-start-radius: 0;
   }
 
+  :host(.wa-button-group-vertical.wa-button-group__button--first:not(.wa-button-group__button--last)) .button {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  :host(.wa-button-group-vertical.wa-button-group__button--last:not(.wa-button-group__button--first)) .button {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
   /* All except the first */
-  :host(.wa-button-group__button:not(.wa-button-group__button--first)) {
+  :host(
+      .wa-button-group-horizontal.wa-button-group-horizontal.wa-button-group__button:not(
+          .wa-button-group__button--first
+        )
+    ) {
     margin-inline-start: calc(-1 * var(--border-width));
+  }
+
+  :host(
+      .wa-button-group-vertical.wa-button-group-horizontal.wa-button-group__button:not(.wa-button-group__button--first)
+    ) {
+    margin-block-start: calc(-1 * var(--border-width));
   }
 
   /* Add a visual separator between filled buttons */
   :host(.wa-button-group__button:not(.wa-button-group__button--first, .wa-button-group__button--radio)) .button:after {
     content: '';
     position: absolute;
-    top: 0;
-    inset-inline-start: 0;
-    bottom: 0;
-    border-left: solid max(var(--border-width), 1px) var(--border-color, rgb(0 0 0 / 0.3));
     z-index: 2; /* Keep separators visible on hover */
+  }
+
+  :host(
+      .wa-button-group-horizontal.wa-button-group__button:not(
+          .wa-button-group__button--first,
+          .wa-button-group__button--radio
+        )
+    )
+    .button:after {
+    top: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    border-left: solid max(var(--border-width), 1px) var(--border-color, rgb(0 0 0 / 0.3));
+  }
+
+  :host(
+      .wa-button-group-vertical.wa-button-group__button:not(
+          .wa-button-group__button--first,
+          .wa-button-group__button--radio
+        )
+    )
+    .button:after {
+    left: 0;
+    right: 0;
+    inset-block-start: 0;
+    border-top: solid max(var(--border-width), 1px) var(--border-color, rgb(0 0 0 / 0.3));
   }
 
   /* Bump hovered, focused, and checked buttons up so their focus ring isn't clipped */

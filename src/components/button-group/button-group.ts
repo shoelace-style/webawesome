@@ -21,6 +21,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
+  /** @internal */
   @state() disableRole = false;
 
   /**
@@ -28,6 +29,16 @@ export default class WaButtonGroup extends WebAwesomeElement {
    * devices when interacting with the control and is strongly recommended.
    */
   @property() label = '';
+
+  /** The button group's orientation. */
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+  updated(changedProps: Map<string, unknown>) {
+    if (changedProps.has('orientation')) {
+      this.setAttribute('aria-orientation', this.orientation);
+      this.updateClassNames();
+    }
+  }
 
   private handleFocus(event: Event) {
     const button = findButton(event.target as HTMLElement);
@@ -50,6 +61,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
   }
 
   private handleSlotChange() {
+    this.updateClassNames();
+  }
+
+  private updateClassNames() {
     const slottedElements = [...this.defaultSlot.assignedElements({ flatten: true })] as HTMLElement[];
 
     slottedElements.forEach(el => {
@@ -58,6 +73,8 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
       if (button) {
         button.classList.add('wa-button-group__button');
+        button.classList.toggle('wa-button-group-horizontal', this.orientation === 'horizontal');
+        button.classList.toggle('wa-button-group-vertical', this.orientation === 'vertical');
         button.classList.toggle('wa-button-group__button--first', index === 0);
         button.classList.toggle('wa-button-group__button--inner', index > 0 && index < slottedElements.length - 1);
         button.classList.toggle('wa-button-group__button--last', index === slottedElements.length - 1);

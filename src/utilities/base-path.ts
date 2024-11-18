@@ -25,9 +25,10 @@ export function getBasePath(subpath = '') {
     // If we haven't set the base path yet, let's set it now
     const el = document.querySelector('[data-webawesome]');
 
-    if (el) {
-      // Use the data-webawesome attribute
-      setBasePath(el.getAttribute('data-webawesome') || '');
+    if (el?.hasAttribute('data-webawesome')) {
+      // Use data-webawesome
+      const rootRelativeUrl = new URL(el.getAttribute('data-webawesome') ?? '', window.location.href).pathname;
+      setBasePath(rootRelativeUrl);
     } else {
       // Look for webawesome.js or webawesome.loader.js
       const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];

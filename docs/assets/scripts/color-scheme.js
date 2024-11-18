@@ -2,35 +2,29 @@
 // Color scheme selector
 //
 (() => {
-  function getColorScheme() {
-    return localStorage.getItem('colorScheme') || 'auto';
-  }
-
-  function isDark() {
-    if (colorScheme === 'auto') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return colorScheme === 'dark';
-  }
-
   function setColorScheme(newColorScheme) {
     colorScheme = newColorScheme;
     localStorage.setItem('colorScheme', colorScheme);
+    const presetTheme = window.getPresetTheme();
 
     // Update the UI
     updateSelection();
 
     // Toggle the dark mode class
-    document.documentElement.classList.toggle('wa-theme-default-dark', isDark());
+    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
   }
 
   function updateSelection() {
     const menu = document.querySelector('#color-scheme-selector wa-menu');
     if (!menu) return;
-    [...menu.querySelectorAll('wa-menu-item')].map(item => (item.checked = item.getAttribute('value') === colorScheme));
+    [...menu.querySelectorAll('wa-menu-item')].forEach(async item => {
+      await customElements.whenDefined(item.localName);
+      await item.updateComplete;
+      item.checked = item.getAttribute('value') === colorScheme;
+    });
   }
 
-  let colorScheme = getColorScheme();
+  let colorScheme = window.getColorScheme();
 
   // Selection is not preserved when changing page, so update when opening dropdown
   document.addEventListener('wa-show', event => {
@@ -56,7 +50,7 @@
       !event.composedPath().some(el => ['input', 'textarea'].includes(el?.tagName?.toLowerCase()))
     ) {
       event.preventDefault();
-      setColorScheme(isDark() ? 'light' : 'dark');
+      setColorScheme(window.isDark() ? 'light' : 'dark');
     }
   });
 

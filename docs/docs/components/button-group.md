@@ -42,6 +42,31 @@ All button sizes are supported, but avoid mixing sizes within the same button gr
 </wa-button-group>
 ```
 
+### Vertical button groups
+
+Set the `orientation` attribute to `vertical` to make a vertical button group.
+
+```html {.example}
+<wa-button-group orientation="vertical" label="Options" style="max-width: 80px;">
+  <wa-button>
+    <wa-icon slot="prefix" name="plus"></wa-icon>
+    New
+  </wa-button>
+  <wa-button>
+    <wa-icon slot="prefix" name="folder-open"></wa-icon>
+    Open
+  </wa-button>
+  <wa-button>
+    <wa-icon slot="prefix" name="save"></wa-icon>
+    Save
+  </wa-button>
+  <wa-button>
+    <wa-icon slot="prefix" name="print"></wa-icon>
+    Print
+  </wa-button>
+</wa-button-group>
+```
+
 ### Theme Buttons
 
 Theme buttons are supported through the button's `variant` attribute.

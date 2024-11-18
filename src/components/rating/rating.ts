@@ -272,7 +272,7 @@ export default class WaRating extends WebAwesomeElement {
                         : `inset(0 0 0 ${(displayValue - index) * 100}%)`
                     })}
                   >
-                    ${this.getSymbol(index + 1)}
+                    ${unsafeHTML(this.getSymbol(index + 1))}
                   </div>
                   <div
                     class="rating__partial--filled"

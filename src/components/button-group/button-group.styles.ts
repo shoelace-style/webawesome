@@ -2,11 +2,22 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    display: inline-block;
+    display: inline-flex;
   }
 
   .button-group {
     display: flex;
-    flex-wrap: nowrap;
+    position: relative;
+    flex-wrap: wrap;
+    isolation: isolate;
+  }
+
+  :host([orientation='vertical']) .button-group {
+    flex-direction: column;
+  }
+
+  /* Show the focus indicator above other buttons */
+  ::slotted(:focus) {
+    z-index: 1 !important;
   }
 `;

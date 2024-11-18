@@ -19,8 +19,9 @@ document.addEventListener('click', event => {
     const html =
       `<script type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
       `<link rel="stylesheet" href="${cdnUrl}themes/default.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}themes/applied.css">\n\n` +
       `${code.textContent}`;
-    const css = 'body {\n  font: 16px sans-serif;\n  padding: 1rem;\n}';
+    const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 
     const form = document.createElement('form');

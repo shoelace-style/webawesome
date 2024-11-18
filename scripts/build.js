@@ -313,12 +313,10 @@ if (isDeveloping) {
 
     try {
       const isTestFile = filename.includes('.test.ts');
-      const isJsStylesheet = filename.includes('.styles.ts');
       const isCssStylesheet = filename.includes('.css');
       const isComponent =
         filename.includes('components/') &&
         filename.includes('.ts') &&
-        !isJsStylesheet &&
         !isCssStylesheet &&
         !isTestFile;
 

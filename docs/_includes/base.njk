@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-cdn-url="{% cdnUrl %}">
+<html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,7 @@
     <script type="module" src="/assets/scripts/code-examples.js"></script>
     <script type="module" src="/assets/scripts/color-scheme.js"></script>
     <script type="module" src="/assets/scripts/copy-code.js"></script>
+    <script type="module" src="/assets/scripts/preset-theme.js"></script>
     <script type="module" src="/assets/scripts/scroll.js"></script>
     <script type="module" src="/assets/scripts/turbo.js"></script>
     <script type="module" src="/assets/scripts/search.js"></script>
@@ -30,7 +31,7 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
+    <link rel="stylesheet" id="theme-stylesheet" />
     <link rel="stylesheet" href="/dist/themes/applied.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/layout.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/utilities.css" />
@@ -41,9 +42,30 @@
 
     {# Set the theme to prevent flashing #}
     <script>
+      function getColorScheme() {
+        return localStorage.getItem('colorScheme') || 'auto';
+      }
+
+      function getPresetTheme () {
+        return localStorage.getItem('presetTheme') || 'default';
+      }
+
+      function isDark() {
+        const colorScheme = getColorScheme()
+        if (colorScheme === 'auto') {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        return colorScheme === 'dark';
+      }
+
+      const stylesheet = document.getElementById("theme-stylesheet")
+      let preset = getPresetTheme()
+
+      stylesheet.href = `/dist/themes/${preset}.css`
+
       document.documentElement.classList.toggle(
-        'wa-theme-default-dark',
-        sessionStorage.getItem('colorScheme') === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches
+        `wa-theme-${preset}-dark`,
+        isDark()
       );
     </script>
   </head>
@@ -66,6 +88,25 @@
         </div>
 
         <div id="docs-toolbar">
+          {# Preset theme selector #}
+          <wa-dropdown id="preset-theme-selector">
+            <wa-button slot="trigger" appearance="tinted" size="small" pill caret>
+              <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
+              <span id="preset-theme-selector__text" class="only-desktop">Default</span>
+            </wa-button>
+            <wa-menu>
+              <wa-menu-item type="checkbox" value="default">Default</wa-menu-item>
+              <wa-menu-item type="checkbox" value="classic">Classic</wa-menu-item>
+              <wa-menu-item type="checkbox" value="fa">Font Awesome</wa-menu-item>
+
+              <wa-menu-item type="checkbox" value="active">Active</wa-menu-item>
+              <wa-menu-item type="checkbox" value="brutalist">Brutalism</wa-menu-item>
+              <wa-menu-item type="checkbox" value="glassy">Glassy</wa-menu-item>
+              <wa-menu-item type="checkbox" value="migration">Migration</wa-menu-item>
+              <wa-menu-item type="checkbox" value="playful">Playful</wa-menu-item>
+              <wa-menu-item type="checkbox" value="premium">Premium</wa-menu-item>
+            </wa-menu>
+          </wa-dropdown>
           {# Color scheme selector #}
           <wa-dropdown id="color-scheme-selector">
             <wa-button slot="trigger" appearance="tinted" size="small" pill caret title="Press \ to toggle">
