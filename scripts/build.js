@@ -315,10 +315,7 @@ if (isDeveloping) {
       const isTestFile = filename.includes('.test.ts');
       const isCssStylesheet = filename.includes('.css');
       const isComponent =
-        filename.includes('components/') &&
-        filename.includes('.ts') &&
-        !isCssStylesheet &&
-        !isTestFile;
+        filename.includes('components/') && filename.includes('.ts') && !isCssStylesheet && !isTestFile;
 
       // Re-bundle when relevant files change
       if (!isTestFile && !isCssStylesheet) {
