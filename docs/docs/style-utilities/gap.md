@@ -7,7 +7,7 @@ layout: page-outline
 <style>
   .preview-block {
     aspect-ratio: 1 / 1;
-    background-color: var(--wa-color-indigo-60);
+    background-color: var(--wa-color-neutral-fill-loud);
     border-radius: var(--wa-border-radius-xs);
     min-block-size: 1.5em;
   }

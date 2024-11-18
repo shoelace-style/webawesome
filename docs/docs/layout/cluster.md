@@ -85,7 +85,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/layout/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
 - `wa-align-items-start`
 - `wa-align-items-end`
 - `wa-align-items-center`
@@ -119,7 +119,7 @@ By default, items are centered in the block direction of the `wa-cluster` contai
 
 ## Gap
 
-By default, the gap between cluster items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-cluster` to specify the gap between items:
+By default, the gap between cluster items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-cluster` to specify the gap between items:
 - `wa-gap-0`
 - `wa-gap-3xs`
 - `wa-gap-2xs`

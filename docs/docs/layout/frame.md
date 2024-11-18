@@ -54,7 +54,7 @@ Frames are well-suited for images and image placeholders.
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">White-socks</h3>
-      <span class="wa-body-text-s">Kitten &bull; Male</span>
+      <span class="wa-body-s">Kitten &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-whitesocks" name="heart" variant="regular"></wa-icon-button>
@@ -71,7 +71,7 @@ Frames are well-suited for images and image placeholders.
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">Bumpkin</h3>
-      <span class="wa-body-text-s">Adult &bull; Male</span>
+      <span class="wa-body-s">Adult &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-bumpkin" name="heart" variant="regular"></wa-icon-button>
@@ -85,7 +85,7 @@ Frames are well-suited for images and image placeholders.
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">Swish-tail</h3>
-      <span class="wa-body-text-s">Kitten &bull; Female</span>
+      <span class="wa-body-s">Kitten &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-swishtail" name="heart" variant="regular"></wa-icon-button>
@@ -99,7 +99,7 @@ Frames are well-suited for images and image placeholders.
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">Sharp-ears</h3>
-      <span class="wa-body-text-s">Adult &bull; Female</span>
+      <span class="wa-body-s">Adult &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-sharpears" name="heart" variant="regular"></wa-icon-button>
@@ -130,7 +130,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-By default, `wa-frame` has a square border radius. You can add any of the following [`wa-border-radius-*`](/docs/layout/border-radius) classes to an element with `wa-frame` to specify the border radius:
+By default, `wa-frame` has a square border radius. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
 - `wa-border-radius-xs`
 - `wa-border-radius-s`
 - `wa-border-radius-m`

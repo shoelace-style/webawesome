@@ -47,21 +47,21 @@ Flanks work especially well for asides, inputs with adjacent buttons, and rich d
     <wa-avatar image="https://images.unsplash.com/photo-1553284966-19b8815c7817?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Gandalf</strong>
-      <p class="wa-body-text-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
+      <p class="wa-body-s">All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.</p>
     </div>
   </div>
   <div class="wa-flank wa-align-items-start">
     <wa-avatar image="https://images.unsplash.com/photo-1542403764-c26462c4697e?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Boromir</strong>
-      <p class="wa-body-text-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
+      <p class="wa-body-s">One does not simply walk into Mordor. Its Black Gates are guarded by more than just Orcs. There is evil there that does not sleep, and the Great Eye is ever watchful.</p>
     </div>
   </div>
   <div class="wa-flank wa-align-items-start">
     <wa-avatar image="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=20"></wa-avatar>
     <div class="wa-stack wa-gap-3xs">
       <strong>Galadriel</strong>
-      <p class="wa-body-text-s">The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</p>
+      <p class="wa-body-s">The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.</p>
     </div>
   </div>
 </div>
@@ -118,7 +118,7 @@ The main content fills the remaining inline space of the container. By default, 
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-items-*`](/docs/layout/align-items) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
 - `wa-align-items-start`
 - `wa-align-items-end`
 - `wa-align-items-center`
@@ -148,7 +148,7 @@ By default, items are centered in the block direction of the `wa-flank` containe
 
 ## Gap
 
-By default, the gap between flank items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/layout/gap) classes to an element with `wa-flank` to specify the gap between items:
+By default, the gap between flank items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-flank` to specify the gap between items:
 - `wa-gap-0`
 - `wa-gap-3xs`
 - `wa-gap-2xs`

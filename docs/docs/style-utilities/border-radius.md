@@ -6,14 +6,14 @@ layout: page-outline
 
 <style>
   .preview-block {
-    background-color: var(--wa-color-indigo-60);
+    background-color: var(--wa-color-neutral-fill-loud);
     min-block-size: 2em;
   }
 </style>
 
 Web Awesome includes classes to set an element's `border-radius` property. They can be used alongside Web Awesome layout utilities, like [frame](/docs/layout/frame), to round all corners of an element. 
 
-Each class corresponds to one of the [`--wa-border-radius-*`](/docs/theming/borders) properties in your theme.
+Each class corresponds to one of the [`--wa-border-radius-*`](/docs/theming/borders/#radius) properties in your theme.
 
 | Class Name                | `border-radius` Value       | Preview                                                                                 |
 | ------------------------- | --------------------------- | --------------------------------------------------------------------------------------- |
