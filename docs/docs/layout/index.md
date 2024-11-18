@@ -22,7 +22,16 @@ layout: page-outline
 <p style="max-width: 80ch">Layout components and utility classes help you organize content that can adapt to any device or screen size. Browse the collection of responsive layout tools included in Web Awesome Pro.</p>
 
 <div class="index-grid wa-grid wa-gap-2xl">
-  <h2 class="index-category wa-span-grid">CSS Classes</h2>
+  <h2 class="index-category wa-span-grid">Components</h2>
+  <a href="/docs/components/page">
+    <wa-card with-header>
+      <div slot="header">
+        {% include "svgs/thumbnail-placeholder.njk" %}
+      </div>
+      <span class="component-name">Page</span>
+    </wa-card>
+  </a>
+  <h2 class="index-category wa-span-grid">Utilities</h2>
   <a href="/docs/layout/cluster">
     <wa-card with-header>
       <div slot="header">

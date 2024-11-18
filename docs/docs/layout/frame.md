@@ -33,7 +33,7 @@ Frames are well-suited for images and image placeholders.
 ```html {.example}
 <div class="wa-flank" style="--flank-size: 8rem;">
   <div class="wa-frame wa-border-radius-m">
-    <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" />
+    <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" alt=""/>
   </div>
   <div class="wa-flank:end" style="--content-percentage: 70%">
     <div class="wa-stack wa-gap-xs">
@@ -47,10 +47,10 @@ Frames are well-suited for images and image placeholders.
 ```
 
 ```html {.example}
-<div class="wa-grid" style="--min-inline-size: 25ch;">
+<div class="wa-grid" style="--min-column-size: 25ch;">
   <wa-card with-image>
     <div class="wa-frame:landscape" slot="image">
-      <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" />
+      <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" alt="Grey and white tabby kitten" />
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">White-socks</h3>
@@ -81,7 +81,7 @@ Frames are well-suited for images and image placeholders.
   </wa-card>
   <wa-card with-image>
     <div class="wa-frame:landscape" slot="image">
-      <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" />
+      <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" alt="Diluted calico kitten" />
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">Swish-tail</h3>
@@ -95,7 +95,7 @@ Frames are well-suited for images and image placeholders.
   </wa-card>
   <wa-card with-image>
     <div class="wa-frame:landscape" slot="image">
-      <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" />
+      <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" alt="Short-haired tabby cat" />
     </div>
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-s">Sharp-ears</h3>
@@ -130,7 +130,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-By default, `wa-frame` has a square border radius. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
+Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
 - `wa-border-radius-xs`
 - `wa-border-radius-s`
 - `wa-border-radius-m`

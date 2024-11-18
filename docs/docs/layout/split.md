@@ -42,7 +42,7 @@ Splits are especially helpful for navigation, header, and footer layouts.
     </div>
     <div class="wa-stack">
       <wa-divider></wa-divider>
-      <wa-icon-button name="right-from-bracket"></wa-icon-button>
+      <wa-icon-button name="right-from-bracket" label="Sign Out"></wa-icon-button>
     </div>
   </div>
   <div class="placeholder">
@@ -144,8 +144,6 @@ A split's gap determines how close items can be before they wrap. By default, th
 - `wa-gap-xl`
 - `wa-gap-2xl`
 - `wa-gap-3xl`
-
-These modifiers correspond with the `--wa-space-*` properties in your theme.
 
 ```html {.example}
 <div class="wa-stack">
