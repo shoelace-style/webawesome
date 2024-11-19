@@ -186,19 +186,80 @@ TODO Page Description
           <img slot="image" src="https://img.fortawesome.com/cfa83f3c/scott-graham-5fnmwej4taa-unsplash2.jpg" alt="A kitten sits patiently between a terracotta pot and decorative grasses."/>
           <span style="align-items: center; display: inline-block; margin-bottom: 1rem;">
             <wa-tooltip for="avatar">This is a tooltip</wa-tooltip>
-            <wa-avatar id="avatar" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> 
+            <wa-avatar style="--size: 2rem;" id="avatar" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> 
             <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Andy Kaufman</a> in <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Design Theory</a>
           </span>
           <div><strong>How to make Twitter a real super app without breaking its UX</strong></div>
           <p style="margin-bottom: 0">The buzz around the X super app is deafening. Elon Musk wants to dominate the market with WeChat’s “everything app” strategy.</p>
-          <div slot="footer" style="display: flex;">
+          <div slot="footer" style="display: flex; align-items: center; ">
             <span style="margin-right: 1rem;">Jan 30</span>
-            <span style="margin-right: 1rem;"><wa-icon id="avatar" fixed-width name="hands-clapping"></wa-icon>394</span>
-            <span><wa-icon id="avatar" fixed-width name="comment"></wa-icon>394</span>
+            <span style="margin-right: 1rem;"><wa-icon style="margin-right: .25rem;" fixed-width name="hands-clapping"></wa-icon>394</span>
+            <span><wa-icon style="margin-right: .25rem;" fixed-width name="comment"></wa-icon>394</span>
+            <wa-icon style="margin-left: auto" fixed-width  name="bookmark"></wa-icon>
+          </div>
+        </wa-card>
+        <wa-card with-image with-footer class="related-article">
+          <img slot="image" src="https://img.fortawesome.com/cfa83f3c/scott-graham-5fnmwej4taa-unsplash2.jpg" alt="A kitten sits patiently between a terracotta pot and decorative grasses."/>
+          <span style="align-items: center; display: inline-block; margin-bottom: 1rem;">
+            <wa-tooltip for="avatar">This is a tooltip</wa-tooltip>
+            <wa-avatar style="--size: 2rem;" id="avatar" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> 
+            <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Andy Kaufman</a> in <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Design Theory</a>
+          </span>
+          <div><strong>How to make Twitter a real super app without breaking its UX</strong></div>
+          <p style="margin-bottom: 0">The buzz around the X super app is deafening. Elon Musk wants to dominate the market with WeChat’s “everything app” strategy.</p>
+          <div slot="footer" style="display: flex; align-items: center; ">
+            <span style="margin-right: 1rem;">Jan 30</span>
+            <span style="margin-right: 1rem;"><wa-icon style="margin-right: .25rem;" fixed-width name="hands-clapping"></wa-icon>394</span>
+            <span><wa-icon style="margin-right: .25rem;" fixed-width name="comment"></wa-icon>394</span>
+            <wa-icon style="margin-left: auto" fixed-width  name="bookmark"></wa-icon>
+          </div>
+        </wa-card>
+        <wa-card with-image with-footer class="related-article">
+          <img slot="image" src="https://img.fortawesome.com/cfa83f3c/scott-graham-5fnmwej4taa-unsplash2.jpg" alt="A kitten sits patiently between a terracotta pot and decorative grasses."/>
+          <span style="align-items: center; display: inline-block; margin-bottom: 1rem;">
+            <wa-tooltip for="avatar">This is a tooltip</wa-tooltip>
+            <wa-avatar style="--size: 2rem;" id="avatar" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> 
+            <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Andy Kaufman</a> in <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Design Theory</a>
+          </span>
+          <div><strong>How to make Twitter a real super app without breaking its UX</strong></div>
+          <p style="margin-bottom: 0">The buzz around the X super app is deafening. Elon Musk wants to dominate the market with WeChat’s “everything app” strategy.</p>
+          <div slot="footer" style="display: flex; align-items: center; ">
+            <span style="margin-right: 1rem;">Jan 30</span>
+            <span style="margin-right: 1rem;"><wa-icon style="margin-right: .25rem;" fixed-width name="hands-clapping"></wa-icon>394</span>
+            <span><wa-icon style="margin-right: .25rem;" fixed-width name="comment"></wa-icon>394</span>
+            <wa-icon style="margin-left: auto" fixed-width  name="bookmark"></wa-icon>
+          </div>
+        </wa-card>
+        <wa-card with-image with-footer class="related-article">
+          <img slot="image" src="https://img.fortawesome.com/cfa83f3c/scott-graham-5fnmwej4taa-unsplash2.jpg" alt="A kitten sits patiently between a terracotta pot and decorative grasses."/>
+          <span style="align-items: center; display: inline-block; margin-bottom: 1rem;">
+            <wa-tooltip for="avatar">This is a tooltip</wa-tooltip>
+            <wa-avatar style="--size: 2rem;" id="avatar" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> 
+            <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Andy Kaufman</a> in <a href="#" style="text-decoration: none; color: var(--wa-color-text-normal)">Design Theory</a>
+          </span>
+          <div><strong>How to make Twitter a real super app without breaking its UX</strong></div>
+          <p style="margin-bottom: 0">The buzz around the X super app is deafening. Elon Musk wants to dominate the market with WeChat’s “everything app” strategy.</p>
+          <div slot="footer" style="display: flex; align-items: center; ">
+            <span style="margin-right: 1rem;">Jan 30</span>
+            <span style="margin-right: 1rem;"><wa-icon style="margin-right: .25rem;" fixed-width name="hands-clapping"></wa-icon>394</span>
+            <span><wa-icon style="margin-right: .25rem;" fixed-width name="comment"></wa-icon>394</span>
             <wa-icon style="margin-left: auto" fixed-width  name="bookmark"></wa-icon>
           </div>
         </wa-card>
       </div>
     </div>
   </div>
+  <style>
+    .related-articles {
+      .article-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
+        gap: 1rem;
+      }
+      .container {
+        max-width: 960px;
+        margin: auto;
+      }
+    }
+  </style>
 ```
