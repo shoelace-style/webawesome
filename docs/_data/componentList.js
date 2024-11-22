@@ -9,35 +9,35 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const manifest = JSON.parse(readFileSync(resolve(__dirname, '../../dist/custom-elements.json'), 'utf-8'));
 
-const components = [];
-
-manifest.modules?.forEach(module => {
-  module.declarations?.forEach(declaration => {
-    if (declaration.customElement) {
+const components = manifest.modules.flatMap(module => {
+  return module.declarations
+    .filter(c => c?.customElement)
+    .map(declaration => {
       // Generate the dist path based on the src path and attach it to the component
       declaration.path = module.path.replace(/^src\//, 'dist/').replace(/\.ts$/, '.js');
 
       // Remove private members and those that lack a description
       const members = declaration.members?.filter(member => member.description && member.privacy !== 'private');
+
       const methods = members?.filter(prop => prop.kind === 'method' && prop.privacy !== 'private');
       const attributes = declaration.attributes ?? [];
       const properties = members?.filter(prop => {
         // Look for a corresponding attribute
-        const attribute = declaration.attributes?.find(attr => attr.fieldName === prop.name);
+        const attribute = attributes?.find(attr => attr.fieldName === prop.name);
         if (attribute) {
           prop.attribute = attribute.name || attribute.fieldName;
         }
 
         return prop.kind === 'field' && prop.privacy !== 'private';
       });
-      components.push({
+
+      return {
         ...declaration,
         methods,
         attributes,
         properties
-      });
-    }
-  });
+      };
+    });
 });
 
 // Build dependency graphs
