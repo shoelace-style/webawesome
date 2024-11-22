@@ -62,13 +62,14 @@
 
   {# Properties #}
   {% if component.properties.length %}
-    <h2>Properties</h2>
+    <h2>Properties & Attributes</h2>
 
     <div class="table-scroll">
       <table class="component-table">
         <thead>
           <tr>
-            <th class="table-name">Name</th>
+            <th class="table-name">Property</th>
+            <th class="table-name">Attribute</th>
             <th class="table-description">Description</th>
             <th class="table-reflects">Reflects</th>
           </tr>
@@ -78,8 +79,10 @@
             <tr>
               <td class="table-name">
                 <code>{{ prop.name }}</code><br>
+              </td>
+              <td class="table-name">
                 {% if prop.attribute %}
-                  <div><small><code>{{ prop.attribute }}</code></small></div>
+                <code>{{ prop.attribute }}</code>
                 {% endif %}
               </td>
               <td class="table-description">
