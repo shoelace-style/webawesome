@@ -4,11 +4,10 @@ import { html } from 'lit';
 import { WaCancelEvent } from '../../events/cancel.js';
 import { WaFinishEvent } from '../../events/finish.js';
 import { WaStartEvent } from '../../events/start.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './animation.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes. Powered by the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
@@ -102,6 +101,51 @@ export default class WaAnimation extends WebAwesomeElement {
     this.destroyAnimation();
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle animation changes
+    if (
+      changedProperties.has('name') ||
+      changedProperties.has('delay') ||
+      changedProperties.has('direction') ||
+      changedProperties.has('duration') ||
+      changedProperties.has('easing') ||
+      changedProperties.has('endDelay') ||
+      changedProperties.has('fill') ||
+      changedProperties.has('iterations') ||
+      changedProperties.has('iterationStart') ||
+      changedProperties.has('keyframes')
+    ) {
+      if (!this.hasUpdated) {
+        return;
+      }
+
+      this.createAnimation();
+    }
+
+    // Handle play change
+    if (changedProperties.has('play')) {
+      if (this.animation) {
+        if (this.play && !this.hasStarted) {
+          this.hasStarted = true;
+          this.dispatchEvent(new WaStartEvent());
+        }
+
+        if (this.play) {
+          this.animation.play();
+        } else {
+          this.animation.pause();
+        }
+      }
+    }
+
+    // Handle playback rate change
+    if (changedProperties.has('playbackRate')) {
+      if (this.animation) {
+        this.animation.playbackRate = this.playbackRate;
+      }
+    }
+  }
+
   private handleAnimationFinish = () => {
     this.play = false;
     this.hasStarted = false;
@@ -160,52 +204,6 @@ export default class WaAnimation extends WebAwesomeElement {
       this.animation.removeEventListener('cancel', this.handleAnimationCancel);
       this.animation.removeEventListener('finish', this.handleAnimationFinish);
       this.hasStarted = false;
-    }
-  }
-
-  @watch([
-    'name',
-    'delay',
-    'direction',
-    'duration',
-    'easing',
-    'endDelay',
-    'fill',
-    'iterations',
-    'iterationsStart',
-    'keyframes'
-  ])
-  handleAnimationChange() {
-    if (!this.hasUpdated) {
-      return;
-    }
-
-    this.createAnimation();
-  }
-
-  @watch('play')
-  handlePlayChange() {
-    if (this.animation) {
-      if (this.play && !this.hasStarted) {
-        this.hasStarted = true;
-        this.dispatchEvent(new WaStartEvent());
-      }
-
-      if (this.play) {
-        this.animation.play();
-      } else {
-        this.animation.pause();
-      }
-
-      return true;
-    }
-    return false;
-  }
-
-  @watch('playbackRate')
-  handlePlaybackRateChange() {
-    if (this.animation) {
-      this.animation.playbackRate = this.playbackRate;
     }
   }
 

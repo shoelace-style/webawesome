@@ -1,11 +1,10 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaResizeEvent } from '../../events/resize.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './resize-observer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary The Resize Observer component offers a thin, declarative interface to the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
@@ -40,6 +39,17 @@ export default class WaResizeObserver extends WebAwesomeElement {
     }
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle disabled changes
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      if (this.disabled) {
+        this.stopObserver();
+      } else {
+        this.startObserver();
+      }
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.stopObserver();
@@ -71,15 +81,6 @@ export default class WaResizeObserver extends WebAwesomeElement {
 
   private stopObserver() {
     this.resizeObserver.disconnect();
-  }
-
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    if (this.disabled) {
-      this.stopObserver();
-    } else {
-      this.startObserver();
-    }
   }
 
   render() {

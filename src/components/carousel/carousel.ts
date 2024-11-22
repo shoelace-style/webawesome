@@ -15,7 +15,7 @@ import { WaSlideChangeEvent } from '../../events/slide-change.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './carousel.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValueMap } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaCarouselItem from '../carousel-item/carousel-item.js';
 
 /**
@@ -122,16 +122,16 @@ export default class WaCarousel extends WebAwesomeElement {
     });
   }
 
-  protected updated(changedProps: Map<string, unknown>) {
+  protected updated(changedProperties: PropertyValues<this>) {
     // Reinitialize when looping or slides per page change
-    if (changedProps.has('loop') || changedProps.has('slidesPerPage')) {
+    if (changedProperties.has('loop') || changedProperties.has('slidesPerPage')) {
       if (this.hasUpdated) {
         this.initializeSlides();
       }
     }
 
     // Handle slide changes
-    if (changedProps.has('activeSlide')) {
+    if (changedProperties.has('activeSlide')) {
       const slides = this.getSlides();
       slides.forEach((slide, i) => {
         slide.classList.toggle('--is-active', i === this.activeSlide);
@@ -149,12 +149,12 @@ export default class WaCarousel extends WebAwesomeElement {
     }
 
     // Handle slides per move changes
-    if (changedProps.has('slidesPerMove')) {
+    if (changedProperties.has('slidesPerMove')) {
       this.updateSlidesSnap();
     }
 
     // Handle autoplay changes
-    if (changedProps.has('autoplay')) {
+    if (changedProperties.has('autoplay')) {
       this.autoplayController.stop();
       if (this.autoplay) {
         this.autoplayController.start(this.autoplayInterval);
@@ -162,7 +162,7 @@ export default class WaCarousel extends WebAwesomeElement {
     }
   }
 
-  protected willUpdate(changedProperties: PropertyValueMap<WaCarousel> | Map<PropertyKey, unknown>): void {
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
     // Ensure the slidesPerMove is never higher than the slidesPerPage
     if (changedProperties.has('slidesPerMove') || changedProperties.has('slidesPerPage')) {
       this.slidesPerMove = Math.min(this.slidesPerMove, this.slidesPerPage);

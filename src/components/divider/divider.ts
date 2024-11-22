@@ -2,7 +2,7 @@ import { customElement, property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './divider.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Dividers are used to visually separate or group elements.
@@ -26,8 +26,8 @@ export default class WaDivider extends WebAwesomeElement {
     this.setAttribute('role', 'separator');
   }
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('orientation')) {
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('orientation')) {
       this.setAttribute('aria-orientation', this.orientation);
     }
   }

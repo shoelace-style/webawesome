@@ -5,11 +5,10 @@ import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './split-panel.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Split panels display two adjacent panels, allowing the user to reposition them.
@@ -86,6 +85,27 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
     this.detectSize();
     this.cachedPositionInPixels = this.percentageToPixels(this.position);
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle position change
+    if (changedProperties.has('position')) {
+      this.cachedPositionInPixels = this.percentageToPixels(this.position);
+      this.positionInPixels = this.percentageToPixels(this.position);
+      this.isCollapsed = false;
+      this.positionBeforeCollapsing = 0;
+      this.dispatchEvent(new WaRepositionEvent());
+    }
+
+    // Handle positionInPixels change
+    if (changedProperties.has('positionInPixels')) {
+      this.position = this.pixelsToPercentage(this.positionInPixels);
+    }
+
+    // Handle orientation change
+    if (changedProperties.has('orientation')) {
+      this.detectSize();
+    }
   }
 
   disconnectedCallback() {
@@ -230,25 +250,6 @@ export default class WaSplitPanel extends WebAwesomeElement {
     if (this.primary) {
       this.position = this.pixelsToPercentage(this.cachedPositionInPixels);
     }
-  }
-
-  @watch('position')
-  handlePositionChange() {
-    this.cachedPositionInPixels = this.percentageToPixels(this.position);
-    this.positionInPixels = this.percentageToPixels(this.position);
-    this.isCollapsed = false;
-    this.positionBeforeCollapsing = 0;
-    this.dispatchEvent(new WaRepositionEvent());
-  }
-
-  @watch('positionInPixels')
-  handlePositionInPixelsChange() {
-    this.position = this.pixelsToPercentage(this.positionInPixels);
-  }
-
-  @watch('vertical')
-  handleVerticalChange() {
-    this.detectSize();
   }
 
   render() {

@@ -8,7 +8,7 @@ export default css`
   .button-group {
     display: flex;
     position: relative;
-    flex-wrap: wrap;
+    flex-wrap: none;
     isolation: isolate;
   }
 

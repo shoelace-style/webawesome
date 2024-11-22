@@ -12,12 +12,11 @@ import { WaChangeEvent } from '../../events/change.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './input.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaButton from '../button/button.js';
 
 /**
@@ -77,7 +76,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   @query('.input__control') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /**
@@ -229,6 +228,16 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle step changes
+    if (changedProperties.has('step') && this.hasUpdated) {
+      // If step changes, the value may become invalid so we need to recheck after the update. We set the new step
+      // imperatively so we don't have to wait for the next render to report the updated validity.
+      this.input.step = String(this.step);
+      this.updateValidity();
+    }
+  }
+
   private handleBlur() {
     this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
@@ -312,14 +321,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   private handlePasswordToggle() {
     this.passwordVisible = !this.passwordVisible;
-  }
-
-  @watch('step', { waitUntilFirstUpdate: true })
-  handleStepChange() {
-    // If step changes, the value may become invalid so we need to recheck after the update. We set the new step
-    // imperatively so we don't have to wait for the next render to report the updated validity.
-    this.input.step = String(this.step);
-    this.updateValidity();
   }
 
   /** Sets focus on the input. */

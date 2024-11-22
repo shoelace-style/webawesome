@@ -3,11 +3,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaErrorEvent } from '../../events/error.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './avatar.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Avatars are used to represent a person or object.
@@ -35,7 +34,7 @@ import type { CSSResultGroup } from 'lit';
 export default class WaAvatar extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
-  @state() private hasError = false;
+  @state() hasError = false;
 
   /** The image source to use for the avatar. */
   @property() image = '';
@@ -52,10 +51,10 @@ export default class WaAvatar extends WebAwesomeElement {
   /** The shape of the avatar. */
   @property({ reflect: true }) shape: 'circle' | 'square' | 'rounded' = 'circle';
 
-  @watch('image')
-  handleImageChange() {
-    // Reset the error when a new image is provided
-    this.hasError = false;
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('image')) {
+      this.hasError = false;
+    }
   }
 
   private handleImageLoadError() {

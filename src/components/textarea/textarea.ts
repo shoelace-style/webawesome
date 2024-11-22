@@ -9,12 +9,11 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './textarea.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -58,7 +57,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   @query('.textarea__control') input: HTMLTextAreaElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the textarea, submitted as a name/value pair with form data. */
@@ -193,6 +192,18 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     });
   }
 
+  async updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('rows') && this.hasUpdated) {
+      this.setTextareaHeight();
+    }
+
+    if (changedProperties.has('value') && this.hasUpdated) {
+      await this.updateComplete;
+      this.checkValidity();
+      this.setTextareaHeight();
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this.input) {
@@ -230,18 +241,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     } else {
       this.input.style.height = '';
     }
-  }
-
-  @watch('rows', { waitUntilFirstUpdate: true })
-  handleRowsChange() {
-    this.setTextareaHeight();
-  }
-
-  @watch('value', { waitUntilFirstUpdate: true })
-  async handleValueChange() {
-    await this.updateComplete;
-    this.checkValidity();
-    this.setTextareaHeight();
   }
 
   /** Sets focus on the textarea. */

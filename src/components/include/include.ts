@@ -3,11 +3,10 @@ import { html } from 'lit';
 import { requestInclude } from './request.js';
 import { WaIncludeErrorEvent } from '../../events/include-error.js';
 import { WaLoadEvent } from '../../events/load.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './include.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Includes give you the power to embed external HTML files into the page.
@@ -37,40 +36,42 @@ export default class WaInclude extends WebAwesomeElement {
    */
   @property({ attribute: 'allow-scripts', type: Boolean }) allowScripts = false;
 
+  async updated(changedProperties: PropertyValues<this>) {
+    // Handle src changes
+    if (changedProperties.has('src')) {
+      try {
+        const src = this.src;
+        const file = await requestInclude(src, this.mode);
+
+        // If the src changed since the request started do nothing, otherwise we risk overwriting a subsequent response
+        if (src !== this.src) {
+          return;
+        }
+
+        if (!file.ok) {
+          this.dispatchEvent(new WaIncludeErrorEvent({ status: file.status }));
+          return;
+        }
+
+        this.innerHTML = file.html;
+
+        if (this.allowScripts) {
+          [...this.querySelectorAll('script')].forEach(script => this.executeScript(script));
+        }
+
+        this.dispatchEvent(new WaLoadEvent());
+      } catch {
+        this.dispatchEvent(new WaIncludeErrorEvent({ status: -1 }));
+      }
+    }
+  }
+
   private executeScript(script: HTMLScriptElement) {
     // Create a copy of the script and swap it out so the browser executes it
     const newScript = document.createElement('script');
     [...script.attributes].forEach(attr => newScript.setAttribute(attr.name, attr.value));
     newScript.textContent = script.textContent;
     script.parentNode!.replaceChild(newScript, script);
-  }
-
-  @watch('src')
-  async handleSrcChange() {
-    try {
-      const src = this.src;
-      const file = await requestInclude(src, this.mode);
-
-      // If the src changed since the request started do nothing, otherwise we risk overwriting a subsequent response
-      if (src !== this.src) {
-        return;
-      }
-
-      if (!file.ok) {
-        this.dispatchEvent(new WaIncludeErrorEvent({ status: file.status }));
-        return;
-      }
-
-      this.innerHTML = file.html;
-
-      if (this.allowScripts) {
-        [...this.querySelectorAll('script')].forEach(script => this.executeScript(script));
-      }
-
-      this.dispatchEvent(new WaLoadEvent());
-    } catch {
-      this.dispatchEvent(new WaIncludeErrorEvent({ status: -1 }));
-    }
   }
 
   render() {

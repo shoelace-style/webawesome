@@ -1,11 +1,10 @@
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './breadcrumb-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Breadcrumb Items are used inside [breadcrumbs](/docs/components/breadcrumb) to represent different links.
@@ -31,7 +30,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  @state() private renderType: 'button' | 'link' | 'dropdown' = 'button';
+  @state() renderType: 'button' | 'link' | 'dropdown' = 'button';
 
   /**
    * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered
@@ -63,9 +62,10 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
     this.renderType = 'button';
   }
 
-  @watch('href', { waitUntilFirstUpdate: true })
-  hrefChanged() {
-    this.setRenderType();
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('href') && this.hasUpdated) {
+      this.setRenderType();
+    }
   }
 
   handleSlotChange() {

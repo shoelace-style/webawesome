@@ -1,11 +1,10 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tab.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 let id = 0;
 
@@ -52,19 +51,21 @@ export default class WaTab extends WebAwesomeElement {
     this.setAttribute('role', 'tab');
   }
 
-  @watch('active')
-  handleActiveChange() {
-    this.setAttribute('aria-selected', this.active ? 'true' : 'false');
-  }
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle active changes
+    if (changedProperties.has('active')) {
+      this.setAttribute('aria-selected', this.active ? 'true' : 'false');
+    }
 
-  @watch('disabled')
-  handleDisabledChange() {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    // Handle disabled changes
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
 
-    if (this.disabled && !this.active) {
-      this.tabIndex = -1;
-    } else {
-      this.tabIndex = 0;
+      if (this.disabled && !this.active) {
+        this.tabIndex = -1;
+      } else {
+        this.tabIndex = 0;
+      }
     }
   }
 

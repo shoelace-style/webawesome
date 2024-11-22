@@ -9,11 +9,10 @@ import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './drawer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
@@ -92,6 +91,12 @@ export default class WaDrawer extends WebAwesomeElement {
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    unlockBodyScrolling(this);
+    this.removeOpenListeners();
+  }
+
   firstUpdated() {
     if (isServer) {
       return;
@@ -103,10 +108,16 @@ export default class WaDrawer extends WebAwesomeElement {
     }
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    unlockBodyScrolling(this);
-    this.removeOpenListeners();
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('open') && this.hasUpdated) {
+      // Open or close the dialog
+      if (this.open && !this.drawer.open) {
+        this.show();
+      } else if (this.drawer.open) {
+        this.open = true;
+        this.requestClose(this.drawer);
+      }
+    }
   }
 
   private async requestClose(source: Element) {
@@ -191,17 +202,6 @@ export default class WaDrawer extends WebAwesomeElement {
       this.requestClose(this.drawer);
     }
   };
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  handleOpenChange() {
-    // Open or close the drawer
-    if (this.open && !this.drawer.open) {
-      this.show();
-    } else if (this.drawer.open) {
-      this.open = true;
-      this.requestClose(this.drawer);
-    }
-  }
 
   /** Shows the drawer. */
   private async show() {

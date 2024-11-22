@@ -188,9 +188,8 @@ When authoring components, please try to follow the same structure and conventio
 - `@query` decorators
 - `@state` decorators
 - `@property` decorators
-- Lifecycle methods (`connectedCallback()`, `disconnectedCallback()`, `firstUpdated()`, etc.)
+- Lifecycle methods (`connectedCallback()`, `disconnectedCallback()`, `firstUpdated()`, `updated()`, etc.)
 - Private methods
-- `@watch` decorators
 - Public methods
 - The `render()` method
 

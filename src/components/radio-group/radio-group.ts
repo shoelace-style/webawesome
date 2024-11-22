@@ -8,12 +8,11 @@ import { RequiredValidator } from '../../internal/validators/required-validator.
 import { uniqueId } from '../../internal/math.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './radio-group.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaRadio from '../radio/radio.js';
 import type WaRadioButton from '../radio-button/radio-button.js';
 
@@ -65,7 +64,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  @state() private hasButtonGroup = false;
+  @state() hasButtonGroup = false;
 
   /**
    * The radio group's label. Required for proper accessibility. If you need to display HTML, use the `label` slot
@@ -131,6 +130,13 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     if (!isServer) {
       this.addEventListener('keydown', this.handleKeyDown);
       this.addEventListener('click', this.handleRadioClick);
+    }
+  }
+
+  updated(changedProperties: PropertyValues) {
+    // Handle value/size changes
+    if (changedProperties.has('value') || changedProperties.has('size')) {
+      this.syncRadioElements();
     }
   }
 
@@ -228,16 +234,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     return isServer
       ? undefined
       : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
-  }
-
-  @watch('value')
-  handleValueChange() {
-    this.syncRadioElements();
-  }
-
-  @watch('size', { waitUntilFirstUpdate: true })
-  handleSizeChange() {
-    this.syncRadioElements();
   }
 
   formResetCallback(...args: Parameters<WebAwesomeFormAssociatedElement['formResetCallback']>) {

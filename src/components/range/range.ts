@@ -10,12 +10,11 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './range.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Ranges allow the user to select a single value within a given range using a slider.
@@ -65,8 +64,8 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   @query('.range__control') input: HTMLInputElement;
   @query('.range__tooltip') output: HTMLOutputElement | null;
 
-  @state() private hasFocus = false;
-  @state() private hasTooltip = false;
+  @state() hasFocus = false;
+  @state() hasTooltip = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the range, submitted as a name/value pair with form data. */
@@ -157,6 +156,22 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     });
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('value') && this.hasUpdated) {
+      // The value may have constraints, so we set the native control's value and sync it back to ensure it adhere's to
+      // min, max, and step properly
+      this.input.value = this.value.toString();
+      this.value = parseFloat(this.input.value);
+      this.updateValidity();
+
+      this.syncRange();
+    }
+
+    if (changedProperties.has('hasTooltip') && this.hasUpdated) {
+      this.syncRange();
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.resizeObserver?.unobserve(this.input);
@@ -218,19 +233,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  @watch('value', { waitUntilFirstUpdate: true })
-  handleValueChange() {
-    // The value may have constraints, so we set the native control's value and sync it back to ensure it adhere's to
-    // min, max, and step properly
-    this.input.value = this.value.toString();
-    this.value = parseFloat(this.input.value);
-    this.updateValidity();
-
-    this.syncRange();
-  }
-
-  @watch('hasTooltip', { waitUntilFirstUpdate: true })
-  syncRange() {
+  private syncRange() {
     const percent = Math.max(0, (this.value - this.min) / (this.max - this.min));
 
     this.syncProgress(percent);

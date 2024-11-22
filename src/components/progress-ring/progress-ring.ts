@@ -4,7 +4,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './progress-ring.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.
@@ -40,15 +40,15 @@ export default class WaProgressRing extends WebAwesomeElement {
   /** A custom label for assistive devices. */
   @property() label = '';
 
-  updated(changedProps: Map<string, unknown>) {
-    super.updated(changedProps);
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
 
     //
     // This block is only required for Safari because it doesn't transition the circle when the custom properties
     // change, possibly because of a mix of pixel + unit-less values in the calc() function. It seems like a Safari bug,
     // but I couldn't pinpoint it so this works around the problem.
     //
-    if (changedProps.has('value')) {
+    if (changedProperties.has('value')) {
       const radius = parseFloat(getComputedStyle(this.indicator).getPropertyValue('r'));
       const circumference = 2 * Math.PI * radius;
       const offset = circumference - (this.value / 100) * circumference;

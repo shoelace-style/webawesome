@@ -5,11 +5,10 @@ import { html } from 'lit/static-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './radio-button.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Radios buttons allow the user to select a single option from a group using a button-like control.
@@ -107,6 +106,13 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     this.setAttribute('role', 'presentation');
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle disabled changes
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
+  }
+
   private handleBlur() {
     this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
@@ -125,11 +131,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   private handleFocus() {
     this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
-  }
-
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
   /** Sets focus on the radio button. */

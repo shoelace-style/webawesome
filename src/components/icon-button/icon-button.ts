@@ -31,7 +31,7 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
 
   @query('.icon-button') button: HTMLButtonElement | HTMLLinkElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
   @property({ reflect: true }) name: string | null = null;

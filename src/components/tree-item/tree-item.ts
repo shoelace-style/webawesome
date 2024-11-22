@@ -13,12 +13,11 @@ import { WaCollapseEvent } from '../../events/collapse.js';
 import { WaExpandEvent } from '../../events/expand.js';
 import { WaLazyChangeEvent } from '../../events/lazy-change.js';
 import { WaLazyLoadEvent } from '../../events/lazy-load.js';
-import { watch } from '../../internal/watch.js';
 import { when } from 'lit/directives/when.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tree-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValueMap } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
@@ -122,6 +121,55 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.handleExpandedChange();
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle loading changes
+    if (changedProperties.has('loading') && this.hasUpdated) {
+      this.setAttribute('aria-busy', this.loading ? 'true' : 'false');
+
+      if (!this.loading) {
+        this.animateExpand();
+      }
+    }
+
+    // Handle disabled changes
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
+
+    // Handle selected changes
+    if (changedProperties.has('selected')) {
+      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    }
+
+    // Handle expanded changes
+    if (changedProperties.has('expanded') && this.hasUpdated) {
+      if (!this.isLeaf) {
+        this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+      } else {
+        this.removeAttribute('aria-expanded');
+      }
+    }
+
+    // Handle expanded changes
+    if (changedProperties.has('expanded') && this.hasUpdated) {
+      if (this.expanded) {
+        if (this.lazy) {
+          this.loading = true;
+          this.dispatchEvent(new WaLazyLoadEvent());
+        } else {
+          this.animateExpand();
+        }
+      } else {
+        this.animateCollapse();
+      }
+    }
+
+    // Handle lazy changes
+    if (changedProperties.has('lazy') && this.hasUpdated) {
+      this.dispatchEvent(new WaLazyChangeEvent());
+    }
+  }
+
   private async animateCollapse() {
     this.dispatchEvent(new WaCollapseEvent());
 
@@ -151,7 +199,7 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.isLeaf = !this.lazy && this.getChildrenItems().length === 0;
   }
 
-  protected willUpdate(changedProperties: PropertyValueMap<WaTreeItem> | Map<PropertyKey, unknown>) {
+  protected willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('selected') && !changedProperties.has('indeterminate')) {
       this.indeterminate = false;
     }
@@ -179,7 +227,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.dispatchEvent(new WaAfterExpandEvent());
   }
 
-  @watch('loading', { waitUntilFirstUpdate: true })
   handleLoadingChange() {
     this.setAttribute('aria-busy', this.loading ? 'true' : 'false');
 
@@ -188,17 +235,14 @@ export default class WaTreeItem extends WebAwesomeElement {
     }
   }
 
-  @watch('disabled')
   handleDisabledChange() {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  @watch('selected')
   handleSelectedChange() {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
   }
 
-  @watch('expanded', { waitUntilFirstUpdate: true })
   handleExpandedChange() {
     if (!this.isLeaf) {
       this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
@@ -207,7 +251,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     }
   }
 
-  @watch('expanded', { waitUntilFirstUpdate: true })
   handleExpandAnimation() {
     if (this.expanded) {
       if (this.lazy) {
@@ -221,7 +264,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     }
   }
 
-  @watch('lazy', { waitUntilFirstUpdate: true })
   handleLazyChange() {
     this.dispatchEvent(new WaLazyChangeEvent());
   }

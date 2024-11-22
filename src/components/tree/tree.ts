@@ -2,12 +2,11 @@ import { clamp } from '../../internal/math.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tree.styles.js';
 import WaTreeItem from '../tree-item/tree-item.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
   function syncParentItem(treeItem: WaTreeItem) {
@@ -119,6 +118,12 @@ export default class WaTree extends WebAwesomeElement {
     super.disconnectedCallback();
 
     this.mutationObserver?.disconnect();
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('selection')) {
+      this.handleSelectionChange();
+    }
   }
 
   // Generates a clone of the expand icon element to use for each tree item
@@ -353,7 +358,6 @@ export default class WaTree extends WebAwesomeElement {
     items.forEach(this.initTreeItem);
   }
 
-  @watch('selection')
   async handleSelectionChange() {
     const isSelectionMultiple = this.selection === 'multiple';
     const items = this.getAllTreeItems();

@@ -9,7 +9,6 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
@@ -63,7 +62,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the switch, submitted as a name/value pair with form data. */
@@ -129,6 +128,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this.handleValueOrCheckedChange();
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      // Disabled form controls are always valid
+      this.updateValidity();
+    }
+  }
+
   private handleBlur() {
     this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
@@ -190,12 +196,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       this.checked = this.defaultChecked;
       this.handleValueOrCheckedChange();
     }
-  }
-
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    // Disabled form controls are always valid
-    this.updateValidity();
   }
 
   /** Simulates a click on the switch. */

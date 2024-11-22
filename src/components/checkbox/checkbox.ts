@@ -10,7 +10,6 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
@@ -79,7 +78,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
 
   @property() title = ''; // make reactive to pass through
 
@@ -129,6 +128,25 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   /** The checkbox's help text. If you need to display HTML, use the `help-text` slot instead. */
   @property({ attribute: 'help-text' }) helpText = '';
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle checked/indeterminate changes
+    if (changedProperties.has('checked') || changedProperties.has('indeterminate')) {
+      if (this.hasUpdated) {
+        this.input.checked = this.checked; // force a sync update
+        this.input.indeterminate = this.indeterminate; // force a sync update
+        this.updateValidity();
+      }
+    }
+
+    // Handle defaultChecked changes
+    if (changedProperties.has('defaultChecked')) {
+      if (!this.hasInteracted && this.checked !== this.defaultChecked) {
+        this.checked = this.defaultChecked;
+        this.handleValueOrCheckedChange();
+      }
+    }
+  }
+
   private handleClick() {
     this.hasInteracted = true;
     this.checked = !this.checked;
@@ -150,26 +168,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new WaFocusEvent());
   }
 
-  @watch('defaultChecked')
-  handleDefaultCheckedChange() {
-    if (!this.hasInteracted && this.checked !== this.defaultChecked) {
-      this.checked = this.defaultChecked;
-      this.handleValueOrCheckedChange();
-    }
-  }
-
   handleValueOrCheckedChange() {
     this.toggleCustomState('checked', this.checked);
-
-    // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
-    this.updateValidity();
-  }
-
-  @watch(['checked', 'indeterminate'], { waitUntilFirstUpdate: true })
-  handleStateChange() {
-    this.input.checked = this.checked; // force a sync update
-    this.input.indeterminate = this.indeterminate; // force a sync update
     this.updateValidity();
   }
 

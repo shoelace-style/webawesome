@@ -8,11 +8,10 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './details.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Details show a brief summary and expand to show additional content.
@@ -91,6 +90,63 @@ export default class WaDetails extends WebAwesomeElement {
     this.detailsObserver.observe(this.details, { attributes: true });
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('open') && this.hasUpdated) {
+      if (this.open) {
+        this.details.open = true;
+        // Show
+        const waShow = new WaShowEvent();
+        this.dispatchEvent(waShow);
+        if (waShow.defaultPrevented) {
+          this.open = false;
+          this.details.open = false;
+          return;
+        }
+
+        const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
+        // We can't animate to 'auto', so use the scroll height for now
+        animate(
+          this.body,
+          [
+            { height: '0', opacity: '0' },
+            { height: `${this.body.scrollHeight}px`, opacity: '1' }
+          ],
+          {
+            duration,
+            easing: 'linear'
+          }
+        ).then(() => {
+          this.body.style.height = 'auto';
+          this.dispatchEvent(new WaAfterShowEvent());
+        });
+      } else {
+        // Hide
+        const waHide = new WaHideEvent();
+        this.dispatchEvent(waHide);
+        if (waHide.defaultPrevented) {
+          this.details.open = true;
+          this.open = true;
+          return;
+        }
+
+        const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
+        // We can't animate from 'auto', so use the scroll height for now
+        animate(
+          this.body,
+          [
+            { height: `${this.body.scrollHeight}px`, opacity: '1' },
+            { height: '0', opacity: '0' }
+          ],
+          { duration, easing: 'linear' }
+        ).then(() => {
+          this.body.style.height = 'auto';
+          this.details.open = false;
+          this.dispatchEvent(new WaAfterHideEvent());
+        });
+      }
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.detailsObserver?.disconnect();
@@ -128,62 +184,6 @@ export default class WaDetails extends WebAwesomeElement {
     if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
       event.preventDefault();
       this.show();
-    }
-  }
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
-    if (this.open) {
-      this.details.open = true;
-      // Show
-      const waShow = new WaShowEvent();
-      this.dispatchEvent(waShow);
-      if (waShow.defaultPrevented) {
-        this.open = false;
-        this.details.open = false;
-        return;
-      }
-
-      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
-      // We can't animate to 'auto', so use the scroll height for now
-      await animate(
-        this.body,
-        [
-          { height: '0', opacity: '0' },
-          { height: `${this.body.scrollHeight}px`, opacity: '1' }
-        ],
-        {
-          duration,
-          easing: 'linear'
-        }
-      );
-      this.body.style.height = 'auto';
-
-      this.dispatchEvent(new WaAfterShowEvent());
-    } else {
-      // Hide
-      const waHide = new WaHideEvent();
-      this.dispatchEvent(waHide);
-      if (waHide.defaultPrevented) {
-        this.details.open = true;
-        this.open = true;
-        return;
-      }
-
-      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
-      // We can't animate from 'auto', so use the scroll height for now
-      await animate(
-        this.body,
-        [
-          { height: `${this.body.scrollHeight}px`, opacity: '1' },
-          { height: '0', opacity: '0' }
-        ],
-        { duration, easing: 'linear' }
-      );
-      this.body.style.height = 'auto';
-
-      this.details.open = false;
-      this.dispatchEvent(new WaAfterHideEvent());
     }
   }
 

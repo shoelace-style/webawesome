@@ -9,11 +9,10 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './dropdown.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type { WaSelectEvent } from '../../events/select.js';
 import type WaButton from '../button/button.js';
 import type WaIconButton from '../icon-button/icon-button.js';
@@ -127,10 +126,52 @@ export default class WaDropdown extends WebAwesomeElement {
     }
   }
 
+  async updated(changeProperties: PropertyValues<this>) {
+    // Handle open changes
+    if (changeProperties.has('open') && this.hasUpdated) {
+      if (this.disabled) {
+        this.open = false;
+        return;
+      }
+
+      this.updateAccessibleTrigger();
+
+      if (this.open) {
+        // Show
+        const waShowEvent = new WaShowEvent();
+        this.dispatchEvent(waShowEvent);
+        if (waShowEvent.defaultPrevented) {
+          this.open = false;
+          return;
+        }
+
+        this.addOpenListeners();
+        this.panel.hidden = false;
+        this.popup.active = true;
+        await animateWithClass(this.popup.popup, 'show-with-scale');
+        this.dispatchEvent(new WaAfterShowEvent());
+      } else {
+        // Hide
+        const waHideEvent = new WaHideEvent();
+        this.dispatchEvent(waHideEvent);
+        if (waHideEvent.defaultPrevented) {
+          this.open = true;
+          return;
+        }
+
+        this.removeOpenListeners();
+        await animateWithClass(this.popup.popup, 'hide-with-scale');
+        this.panel.hidden = true;
+        this.popup.active = false;
+        this.dispatchEvent(new WaAfterHideEvent());
+      }
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeOpenListeners();
-    this.hide();
+    this.open = false;
   }
 
   focusOnTrigger() {
@@ -151,7 +192,7 @@ export default class WaDropdown extends WebAwesomeElement {
     // in case any ancestors are also listening for this key.
     if (this.open && event.key === 'Escape' && !this.closeWatcher) {
       event.stopPropagation();
-      this.hide();
+      this.open = false;
       this.focusOnTrigger();
     }
   };
@@ -161,7 +202,7 @@ export default class WaDropdown extends WebAwesomeElement {
     if (event.key === 'Escape' && this.open) {
       event.stopPropagation();
       this.focusOnTrigger();
-      this.hide();
+      this.open = false;
       return;
     }
 
@@ -170,7 +211,7 @@ export default class WaDropdown extends WebAwesomeElement {
       // Tabbing within an open menu should close the dropdown and refocus the trigger
       if (this.open && document.activeElement?.tagName.toLowerCase() === 'wa-menu-item') {
         event.preventDefault();
-        this.hide();
+        this.open = false;
         this.focusOnTrigger();
         return;
       }
@@ -189,7 +230,7 @@ export default class WaDropdown extends WebAwesomeElement {
           !this.containingElement ||
           activeElement?.closest(this.containingElement.tagName.toLowerCase()) !== this.containingElement
         ) {
-          this.hide();
+          this.open = false;
         }
       });
     }
@@ -199,7 +240,7 @@ export default class WaDropdown extends WebAwesomeElement {
     // Close when clicking outside of the containing element
     const path = event.composedPath();
     if (this.containingElement && !path.includes(this.containingElement)) {
-      this.hide();
+      this.open = false;
     }
   };
 
@@ -208,16 +249,16 @@ export default class WaDropdown extends WebAwesomeElement {
 
     // Hide the dropdown when a menu item is selected
     if (!this.stayOpenOnSelect && target.tagName.toLowerCase() === 'wa-menu') {
-      this.hide();
+      this.open = false;
       this.focusOnTrigger();
     }
   };
 
   handleTriggerClick() {
     if (this.open) {
-      this.hide();
+      this.open = false;
     } else {
-      this.show();
+      this.open = true;
       this.focusOnTrigger();
     }
   }
@@ -246,7 +287,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
         // Show the menu if it's not already open
         if (!this.open) {
-          this.show();
+          this.open = true;
 
           // Wait for the dropdown to open before focusing, but not the animation
           await this.updateComplete;
@@ -349,7 +390,7 @@ export default class WaDropdown extends WebAwesomeElement {
       this.closeWatcher?.destroy();
       this.closeWatcher = new CloseWatcher();
       this.closeWatcher.onclose = () => {
-        this.hide();
+        this.open = false;
         this.focusOnTrigger();
       };
     } else {
@@ -367,46 +408,6 @@ export default class WaDropdown extends WebAwesomeElement {
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
     this.closeWatcher?.destroy();
-  }
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
-    if (this.disabled) {
-      this.open = false;
-      return;
-    }
-
-    this.updateAccessibleTrigger();
-
-    if (this.open) {
-      // Show
-      const waShowEvent = new WaShowEvent();
-      this.dispatchEvent(waShowEvent);
-      if (waShowEvent.defaultPrevented) {
-        this.open = false;
-        return;
-      }
-
-      this.addOpenListeners();
-      this.panel.hidden = false;
-      this.popup.active = true;
-      await animateWithClass(this.popup.popup, 'show-with-scale');
-      this.dispatchEvent(new WaAfterShowEvent());
-    } else {
-      // Hide
-      const waHideEvent = new WaHideEvent();
-      this.dispatchEvent(waHideEvent);
-      if (waHideEvent.defaultPrevented) {
-        this.open = true;
-        return;
-      }
-
-      this.removeOpenListeners();
-      await animateWithClass(this.popup.popup, 'hide-with-scale');
-      this.panel.hidden = true;
-      this.popup.active = false;
-      this.dispatchEvent(new WaAfterHideEvent());
-    }
   }
 
   render() {

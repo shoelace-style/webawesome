@@ -3,11 +3,10 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './animated-image.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.
@@ -46,6 +45,21 @@ export default class WaAnimatedImage extends WebAwesomeElement {
   /** Plays the animation. When this attribute is remove, the animation will pause. */
   @property({ type: Boolean, reflect: true }) play: boolean;
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('play') && this.hasUpdated) {
+      // When the animation starts playing, reset the src so it plays from the beginning. Since the src is cached, this
+      // won't trigger another request.
+      if (this.play) {
+        this.animatedImage.src = '';
+        this.animatedImage.src = this.src;
+      }
+    }
+
+    if (changedProperties.has('src')) {
+      this.isLoaded = false;
+    }
+  }
+
   private handleClick() {
     this.play = !this.play;
   }
@@ -66,21 +80,6 @@ export default class WaAnimatedImage extends WebAwesomeElement {
 
   private handleError() {
     this.dispatchEvent(new WaErrorEvent());
-  }
-
-  @watch('play', { waitUntilFirstUpdate: true })
-  handlePlayChange() {
-    // When the animation starts playing, reset the src so it plays from the beginning. Since the src is cached, this
-    // won't trigger another request.
-    if (this.play) {
-      this.animatedImage.src = '';
-      this.animatedImage.src = this.src;
-    }
-  }
-
-  @watch('src')
-  handleSrcChange() {
-    this.isLoaded = false;
   }
 
   render() {

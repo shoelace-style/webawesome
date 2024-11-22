@@ -20,7 +20,6 @@ import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
@@ -142,14 +141,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @query('[part~="preview"]') previewButton: HTMLButtonElement;
   @query('[part~="trigger"]') trigger: HTMLButtonElement;
 
-  @state() private hasFocus = false;
-  @state() private isDraggingGridHandle = false;
-  @state() private isEmpty = true;
-  @state() private inputValue = '';
-  @state() private hue = 0;
-  @state() private saturation = 100;
-  @state() private brightness = 100;
-  @state() private alpha = 100;
+  @state() hasFocus = false;
+  @state() isDraggingGridHandle = false;
+  @state() isEmpty = true;
+  @state() inputValue = '';
+  @state() hue = 0;
+  @state() saturation = 100;
+  @state() brightness = 100;
+  @state() alpha = 100;
 
   private _value: string | null = null;
 
@@ -183,7 +182,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
   @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
 
-  @state() private hasEyeDropper: boolean = false;
+  @state() hasEyeDropper: boolean = false;
 
   /**
    * The color picker's label. This will not be displayed, but it will be announced by assistive devices. If you need to
@@ -249,6 +248,23 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     if (!isServer) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
+    }
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle format changes
+    if (changedProperties.has('format') && this.hasUpdated) {
+      this.syncValues();
+    }
+
+    // Handle opacity changes
+    if (changedProperties.has('opacity')) {
+      this.alpha = 100;
+    }
+
+    // Handle value changes
+    if (changedProperties.has('value')) {
+      this.handleValueChange(changedProperties.get('value') as string, this.value + '');
     }
   }
 
@@ -728,16 +744,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     event.stopImmediatePropagation();
   }
 
-  @watch('format', { waitUntilFirstUpdate: true })
-  handleFormatChange() {
-    this.syncValues();
-  }
-
-  @watch('opacity')
-  handleOpacityChange() {
-    this.alpha = 100;
-  }
-
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -747,7 +753,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  @watch('value')
   handleValueChange(oldValue: string | undefined, newValue: string) {
     this.isEmpty = !newValue;
 

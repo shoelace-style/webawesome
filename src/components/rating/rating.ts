@@ -7,11 +7,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaHoverEvent } from '../../events/hover.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './rating.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Ratings give users a way to quickly view and provide feedback.
@@ -39,8 +38,8 @@ export default class WaRating extends WebAwesomeElement {
 
   @query('.rating') rating: HTMLElement;
 
-  @state() private hoverValue = 0;
-  @state() private isHovering = false;
+  @state() hoverValue = 0;
+  @state() isHovering = false;
 
   /** A label that describes the rating to assistive devices. */
   @property() label = '';
@@ -70,6 +69,28 @@ export default class WaRating extends WebAwesomeElement {
    */
   @property() getSymbol: (value: number) => string = () =>
     '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
+
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle hoverValue changes
+    if (changedProperties.has('hoverValue')) {
+      this.dispatchEvent(
+        new WaHoverEvent({
+          phase: 'move',
+          value: this.hoverValue
+        })
+      );
+    }
+
+    // Handle isHovering changes
+    if (changedProperties.has('isHovering')) {
+      this.dispatchEvent(
+        new WaHoverEvent({
+          phase: this.isHovering ? 'start' : 'end',
+          value: this.hoverValue
+        })
+      );
+    }
+  }
 
   private getValueFromMousePosition(event: MouseEvent) {
     return this.getValueFromXCoordinate(event.clientX);
@@ -181,26 +202,6 @@ export default class WaRating extends WebAwesomeElement {
   private roundToPrecision(numberToRound: number, precision = 0.5) {
     const multiplier = 1 / precision;
     return Math.ceil(numberToRound * multiplier) / multiplier;
-  }
-
-  @watch('hoverValue')
-  handleHoverValueChange() {
-    this.dispatchEvent(
-      new WaHoverEvent({
-        phase: 'move',
-        value: this.hoverValue
-      })
-    );
-  }
-
-  @watch('isHovering')
-  handleIsHoveringChange() {
-    this.dispatchEvent(
-      new WaHoverEvent({
-        phase: this.isHovering ? 'start' : 'end',
-        value: this.hoverValue
-      })
-    );
   }
 
   /** Sets focus on the rating. */

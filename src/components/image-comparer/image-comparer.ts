@@ -6,11 +6,10 @@ import { drag } from '../../internal/drag.js';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './image-comparer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Compare visual differences between similar photos with a sliding panel.
@@ -46,6 +45,13 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   /** The position of the divider as a percentage. */
   @property({ type: Number, reflect: true }) position = 50;
+
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle position changes
+    if (changedProperties.has('position') && this.hasUpdated) {
+      this.dispatchEvent(new WaChangeEvent());
+    }
+  }
 
   private handleDrag(event: PointerEvent) {
     const { width } = this.base.getBoundingClientRect();
@@ -88,11 +94,6 @@ export default class WaImageComparer extends WebAwesomeElement {
 
       this.position = newPosition;
     }
-  }
-
-  @watch('position', { waitUntilFirstUpdate: true })
-  handlePositionChange() {
-    this.dispatchEvent(new WaChangeEvent());
   }
 
   render() {

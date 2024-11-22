@@ -29,8 +29,8 @@ export default class WaRelativeTime extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
   private updateTimeout: number | ReturnType<typeof setTimeout>;
 
-  @state() private isoTime = '';
-  @state() private relativeTime = '';
+  @state() isoTime = '';
+  @state() relativeTime = '';
 
   /**
    * The date from which to calculate time from. If not set, the current date and time will be used. When passing a

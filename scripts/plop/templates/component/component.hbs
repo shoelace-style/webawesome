@@ -1,7 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './test-element.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -32,11 +31,6 @@ export default class {{ properCase tag }} extends WebAwesomeElement {
 
   /** An example attribute. */
   @property() attr = 'example';
-
-  @watch('example')
-  handleExampleChange() {
-    // do something
-  }
 
   render() {
     return html` <slot></slot> `;

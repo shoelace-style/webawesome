@@ -20,12 +20,11 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaInputEvent } from '../../events/input.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import formControlStyles from '../../styles/form-control.styles.js';
 import styles from './select.styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { WaRemoveEvent } from '../../events/remove.js';
 import type WaOption from '../option/option.js';
 import type WaPopup from '../popup/popup.js';
@@ -267,6 +266,26 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    // @watch('disabled', { waitUntilFirstUpdate: true })
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      // Close the listbox when the control is disabled
+      if (this.disabled) {
+        this.open = false;
+        this.handleOpenChange();
+      }
+    }
+
+    // @watch('value', { waitUntilFirstUpdate: true })
+    if (changedProperties.has('value') && this.hasUpdated) {
+      this.handleValueChange();
+    }
+
+    if (changedProperties.has('open') && this.hasUpdated) {
+      this.handleOpenChange();
+    }
   }
 
   private addOpenListeners() {
@@ -676,17 +695,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    // Close the listbox when the control is disabled
-    if (this.disabled) {
-      this.open = false;
-      this.handleOpenChange();
-    }
-  }
-
-  @watch('value', { waitUntilFirstUpdate: true })
-  handleValueChange() {
+  private handleValueChange() {
     const allOptions = this.getAllOptions();
     const value = Array.isArray(this.value) ? this.value : [this.value];
 
@@ -695,7 +704,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.updateValidity();
   }
 
-  @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
     if (this.open && !this.disabled) {
       // Reset the current option

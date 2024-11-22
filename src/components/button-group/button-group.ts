@@ -3,7 +3,7 @@ import { html } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './button-group.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Button groups can be used to group related buttons into sections.
@@ -33,8 +33,8 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('orientation')) {
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('orientation')) {
       this.setAttribute('aria-orientation', this.orientation);
       this.updateClassNames();
     }

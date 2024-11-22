@@ -8,12 +8,11 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tooltip.styles.js';
 import WaPopup from '../popup/popup.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Tooltips display additional information based on a specific action.
@@ -152,6 +151,39 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   }
 
+  async updated(changedProperties: PropertyValues<this>) {
+    // Handle open changes
+    if (changedProperties.has('open')) {
+      this.handleOpenChange();
+    }
+
+    // Handle disabled changes
+    if (changedProperties.has('disabled')) {
+      if (this.disabled && this.open) {
+        this.hide();
+      }
+    }
+
+    // Handle for changes
+    if (changedProperties.has('for')) {
+      this.handleForChange();
+    }
+
+    // Handle other changes
+    // @watch(['distance', 'hoist', 'placement', 'skidding'])
+    if (
+      changedProperties.has('distance') ||
+      changedProperties.has('hoist') ||
+      changedProperties.has('placement') ||
+      changedProperties.has('hoist')
+    ) {
+      if (this.hasUpdated) {
+        await this.updateComplete;
+        this.popup.reposition();
+      }
+    }
+  }
+
   private handleBlur = () => {
     if (this.hasTrigger('focus')) {
       this.hide();
@@ -202,8 +234,7 @@ export default class WaTooltip extends WebAwesomeElement {
     return triggers.includes(triggerType);
   }
 
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
+  private async handleOpenChange() {
     if (this.open) {
       if (this.disabled) {
         return;
@@ -253,8 +284,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   }
 
-  @watch('for')
-  handleForChange() {
+  private handleForChange() {
     const rootNode = this.getRootNode() as Document | ShadowRoot | null;
 
     if (!rootNode) {
@@ -304,21 +334,6 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     this.anchor = newAnchor;
-  }
-
-  @watch(['distance', 'hoist', 'placement', 'skidding'])
-  async handleOptionsChange() {
-    if (this.hasUpdated) {
-      await this.updateComplete;
-      this.popup.reposition();
-    }
-  }
-
-  @watch('disabled')
-  handleDisabledChange() {
-    if (this.disabled && this.open) {
-      this.hide();
-    }
   }
 
   /** Shows the tooltip. */

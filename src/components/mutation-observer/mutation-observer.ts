@@ -1,11 +1,10 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaMutationEvent } from '../../events/mutation.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './mutation-observer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary The Mutation Observer component offers a thin, declarative interface to the [`MutationObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
@@ -56,6 +55,29 @@ export default class WaMutationObserver extends WebAwesomeElement {
     }
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle disabled changes
+    if (changedProperties.has('disabled')) {
+      if (this.disabled) {
+        this.stopObserver();
+      } else {
+        this.startObserver();
+      }
+    }
+
+    // Handle other changes
+    if (
+      changedProperties.has('attr') ||
+      changedProperties.has('attrOldValue') ||
+      changedProperties.has('charData') ||
+      changedProperties.has('charDataOldValue') ||
+      changedProperties.has('childList')
+    ) {
+      this.stopObserver();
+      this.startObserver();
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.stopObserver();
@@ -90,25 +112,6 @@ export default class WaMutationObserver extends WebAwesomeElement {
 
   private stopObserver() {
     this.mutationObserver.disconnect();
-  }
-
-  @watch('disabled')
-  handleDisabledChange() {
-    if (this.disabled) {
-      this.stopObserver();
-    } else {
-      this.startObserver();
-    }
-  }
-
-  @watch('attr', { waitUntilFirstUpdate: true })
-  @watch('attr-old-value', { waitUntilFirstUpdate: true })
-  @watch('char-data', { waitUntilFirstUpdate: true })
-  @watch('char-data-old-value', { waitUntilFirstUpdate: true })
-  @watch('childList', { waitUntilFirstUpdate: true })
-  handleChange() {
-    this.stopObserver();
-    this.startObserver();
   }
 
   render() {

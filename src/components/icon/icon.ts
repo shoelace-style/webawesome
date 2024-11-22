@@ -4,7 +4,6 @@ import { html } from 'lit';
 import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './icon.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -46,7 +45,7 @@ export default class WaIcon extends WebAwesomeElement {
 
   private initialRender = false;
 
-  @state() private svg: SVGElement | HTMLTemplateResult | null = null;
+  @state() svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
   @property({ reflect: true }) name?: string;
@@ -91,6 +90,43 @@ export default class WaIcon extends WebAwesomeElement {
   firstUpdated() {
     this.initialRender = true;
     this.setIcon();
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators
+    // get re-applied.
+    const library = getIconLibrary(this.library);
+
+    const svg = this.shadowRoot?.querySelector('svg');
+    if (svg) {
+      library?.mutator?.(svg);
+    }
+
+    // Handle label changes
+    if (changedProperties.has('label')) {
+      const hasLabel = typeof this.label === 'string' && this.label.length > 0;
+
+      if (hasLabel) {
+        this.setAttribute('role', 'img');
+        this.setAttribute('aria-label', this.label);
+        this.removeAttribute('aria-hidden');
+      } else {
+        this.removeAttribute('role');
+        this.removeAttribute('aria-label');
+        this.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    // Handle icon changes
+    if (
+      changedProperties.has('family') ||
+      changedProperties.has('name') ||
+      changedProperties.has('library') ||
+      changedProperties.has('variant') ||
+      changedProperties.has('src')
+    ) {
+      this.setIcon();
+    }
   }
 
   disconnectedCallback() {
@@ -162,22 +198,6 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
-  @watch('label')
-  handleLabelChange() {
-    const hasLabel = typeof this.label === 'string' && this.label.length > 0;
-
-    if (hasLabel) {
-      this.setAttribute('role', 'img');
-      this.setAttribute('aria-label', this.label);
-      this.removeAttribute('aria-hidden');
-    } else {
-      this.removeAttribute('role');
-      this.removeAttribute('aria-label');
-      this.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-  @watch(['family', 'name', 'library', 'variant', 'src'])
   async setIcon() {
     const { url, fromLibrary } = this.getIconSource();
     const library = fromLibrary ? getIconLibrary(this.library) : undefined;
@@ -227,24 +247,15 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
-    // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
-    const library = getIconLibrary(this.library);
-
-    const svg = this.shadowRoot?.querySelector('svg');
-    if (svg) {
-      library?.mutator?.(svg);
-    }
-  }
-
   render() {
     if (this.hasUpdated) {
       return this.svg;
     }
 
-    // @TODO: 16x16 is generally a safe bet. Perhaps be user setable?? `size="16x16"`, size="20x16". We just want to avoid "blowouts" with SSR.
+    //
+    // TODO: 16x16 is generally a safe bet. Perhaps this should be user settable, e.g. `size="16x16"`. We just want to
+    // avoid SSR "blowouts."
+    //
     return html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
   }
 }

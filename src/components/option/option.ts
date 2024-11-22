@@ -3,11 +3,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './option.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Options define the selectable items within various form controls such as [select](/docs/components/select).
@@ -61,6 +60,33 @@ export default class WaOption extends WebAwesomeElement {
     this.setAttribute('aria-selected', 'false');
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    // Handle disabled changes\
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
+
+    // Handle selected changes\
+    if (changedProperties.has('selected')) {
+      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    }
+
+    // Handle value changes\
+    if (changedProperties.has('value')) {
+      // Ensure the value is a string. This ensures the next line doesn't error and allows framework users to pass numbers
+      // instead of requiring them to cast the value to a string.
+      if (typeof this.value !== 'string') {
+        this.value = String(this.value);
+      }
+
+      if (this.value.includes(' ')) {
+        // eslint-disable-next-line no-console
+        console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
+        this.value = this.value.replace(/ /g, '_');
+      }
+    }
+  }
+
   private handleDefaultSlotChange() {
     // When the label changes, tell the controller to update
     customElements.whenDefined('wa-select').then(() => {
@@ -77,31 +103,6 @@ export default class WaOption extends WebAwesomeElement {
 
   private handleMouseLeave() {
     this.hasHover = false;
-  }
-
-  @watch('disabled')
-  handleDisabledChange() {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-  }
-
-  @watch('selected')
-  handleSelectedChange() {
-    this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-  }
-
-  @watch('value')
-  handleValueChange() {
-    // Ensure the value is a string. This ensures the next line doesn't error and allows framework users to pass numbers
-    // instead of requiring them to cast the value to a string.
-    if (typeof this.value !== 'string') {
-      this.value = String(this.value);
-    }
-
-    if (this.value.includes(' ')) {
-      // eslint-disable-next-line no-console
-      console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
-      this.value = this.value.replace(/ /g, '_');
-    }
   }
 
   /** Returns a plain text label based on the option's content. */

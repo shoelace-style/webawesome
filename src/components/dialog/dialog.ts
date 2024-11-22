@@ -9,11 +9,10 @@ import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './dialog.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
@@ -89,6 +88,18 @@ export default class WaDialog extends WebAwesomeElement {
       this.addOpenListeners();
       this.dialog.showModal();
       lockBodyScrolling(this);
+    }
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('open') && this.hasUpdated) {
+      // Open or close the dialog
+      if (this.open && !this.dialog.open) {
+        this.show();
+      } else if (this.dialog.open) {
+        this.open = true;
+        this.requestClose(this.dialog);
+      }
     }
   }
 
@@ -180,17 +191,6 @@ export default class WaDialog extends WebAwesomeElement {
       this.requestClose(this.dialog);
     }
   };
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  handleOpenChange() {
-    // Open or close the dialog
-    if (this.open && !this.dialog.open) {
-      this.show();
-    } else if (this.dialog.open) {
-      this.open = true;
-      this.requestClose(this.dialog);
-    }
-  }
 
   /** Shows the dialog. */
   private async show() {

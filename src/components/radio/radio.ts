@@ -4,11 +4,10 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './radio.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Radios allow the user to select a single option from a group.
@@ -78,6 +77,19 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     this.setInitialAttributes();
   }
 
+  updated(changedProperties: PropertyValues) {
+    // Handle checked change
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      this.tabIndex = this.checked ? 0 : -1;
+    }
+
+    // Handle disabled change
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
+  }
+
   private handleBlur = () => {
     this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
@@ -94,22 +106,11 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  @watch('checked')
-  handleCheckedChange() {
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-    this.tabIndex = this.checked ? 0 : -1;
-  }
-
   /**
    * @override
    */
   setValue(): void {
     // We override `setValue` because we don't want to set form values from here. We want to do that in "RadioGroup" itself.
-  }
-
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
   private handleClick = () => {

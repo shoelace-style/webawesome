@@ -8,11 +8,10 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
 import { WaTabShowEvent } from '../../events/tab-show.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './tab-group.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type WaTab from '../tab/tab.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
 
@@ -62,7 +61,7 @@ export default class WaTabGroup extends WebAwesomeElement {
   @query('.tab-group__body') body: HTMLSlotElement;
   @query('.tab-group__nav') nav: HTMLElement;
 
-  @state() private hasScrollControls = false;
+  @state() hasScrollControls = false;
 
   /** Sets the active tab. */
   @property({ reflect: true }) active = '';
@@ -124,6 +123,19 @@ export default class WaTabGroup extends WebAwesomeElement {
       });
       intersectionObserver.observe(this.tabGroup);
     });
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('active')) {
+      const tab = this.tabs.find(el => el.panel === this.active);
+      if (tab) {
+        this.setActiveTab(tab, { scrollBehavior: 'smooth' });
+      }
+    }
+
+    if (changedProperties.has('noScrollControls') && this.hasUpdated) {
+      this.updateScrollControls();
+    }
   }
 
   disconnectedCallback() {
@@ -335,17 +347,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     this.updateComplete.then(() => this.updateScrollControls());
   }
 
-  @watch('active')
-  updateActiveTab() {
-    const tab = this.tabs.find(el => el.panel === this.active);
-
-    if (tab) {
-      this.setActiveTab(tab, { scrollBehavior: 'smooth' });
-    }
-  }
-
-  @watch('noScrollControls', { waitUntilFirstUpdate: true })
-  updateScrollControls() {
+  private updateScrollControls() {
     if (this.noScrollControls) {
       this.hasScrollControls = false;
     } else {

@@ -9,11 +9,10 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './button.styles.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Buttons represent actions that are available to the user.
@@ -66,7 +65,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   @query('.button') button: HTMLButtonElement | HTMLLinkElement;
 
-  @state() private hasFocus = false;
+  @state() hasFocus = false;
   @state() visuallyHiddenLabel = false;
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
@@ -211,9 +210,10 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     return this.href ? true : false;
   }
 
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    this.updateValidity();
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('disabled') && this.hasUpdated) {
+      this.updateValidity();
+    }
   }
 
   // eslint-disable-next-line
