@@ -26,6 +26,7 @@ let id = 0;
 @customElement('wa-tab')
 export default class WaTab extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
+  public slot = 'nav'; // Auto-slot into nav slot
 
   private readonly attrId = ++id;
   private readonly componentId = `wa-tab-${this.attrId}`;

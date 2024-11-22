@@ -1,0 +1,132 @@
+:is(
+    [class*='wa-cluster'],
+    [class*='wa-flank'],
+    [class*='wa-frame'],
+    [class*='wa-grid'],
+    [class*='wa-stack'],
+    [class*='wa-split']
+  )
+  > * {
+  margin-block: 0;
+  margin-inline: 0;
+}
+
+/* #region Cluster */
+[class*='wa-cluster'] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--wa-space-m);
+  justify-content: flex-start;
+}
+/* #endregion */
+
+/* #region Flank */
+[class*='wa-flank'] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--wa-space-m);
+
+  --content-percentage: initial;
+  --flank-size: initial;
+}
+
+[class*='wa-flank']:not([class*='\:end']) > :first-child,
+[class*='wa-flank'][class*='\:start'] > :first-child {
+  flex-basis: var(--flank-size, auto);
+  flex-grow: 1;
+}
+[class*='wa-flank']:not([class*='\:end']) > :last-child,
+[class*='wa-flank'][class*='\:start'] > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--content-percentage, 50%);
+}
+
+[class*='wa-flank'][class*='\:end'] > :last-child {
+  flex-basis: var(--flank-size, auto);
+  flex-grow: 1;
+}
+[class*='wa-flank'][class*='\:end'] > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--content-percentage, 50%);
+}
+/* #endregion */
+
+/* #region Frame */
+[class*='wa-frame'] {
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  justify-content: center;
+  overflow: hidden;
+}
+
+[class*='wa-frame'] > img,
+[class*='wa-frame'] > video {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+[class*='wa-frame'][class*='\:square'] {
+  aspect-ratio: 1 / 1;
+}
+[class*='wa-frame'][class*='\:landscape'] {
+  aspect-ratio: 16 / 9;
+}
+[class*='wa-frame'][class*='\:portrait'] {
+  aspect-ratio: 9 / 16;
+}
+/* #endregion */
+
+/* #region Grid */
+[class*='wa-grid'] {
+  display: grid;
+  gap: var(--wa-space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min-column-size, 20ch), 100%), 1fr));
+
+  --min-column-size: initial;
+}
+
+.wa-span-grid {
+  grid-column: 1 / -1;
+}
+/* #endregion */
+
+/* #region Split */
+[class*='wa-split'] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--wa-space-m);
+  justify-content: space-between;
+}
+
+[class*='wa-split'],
+[class*='wa-split'][class*='\:row'] {
+  flex-direction: row;
+  block-size: auto;
+  inline-size: 100%;
+}
+
+[class*='wa-split'][class*='\:column'] {
+  flex-direction: column;
+  block-size: auto;
+  inline-size: auto;
+  align-self: stretch;
+}
+
+/* #endregion */
+
+/* #region Stack */
+[class*='wa-stack'] {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: var(--wa-space-m);
+  justify-content: flex-start;
+}
+/* #endregion */

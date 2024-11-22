@@ -78,7 +78,7 @@ describe('<wa-tab-group>', () => {
       it('renders', async () => {
         const tabGroup = await fixture<WaTabGroup>(html`
           <wa-tab-group>
-            <wa-tab slot="nav" panel="general">General</wa-tab>
+            <wa-tab panel="general">General</wa-tab>
             <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
           </wa-tab-group>
         `);
@@ -89,7 +89,7 @@ describe('<wa-tab-group>', () => {
       it('is accessible', async () => {
         const tabGroup = await fixture<WaTabGroup>(html`
           <wa-tab-group>
-            <wa-tab slot="nav" panel="general">General</wa-tab>
+            <wa-tab panel="general">General</wa-tab>
             <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
           </wa-tab-group>
         `);
@@ -100,8 +100,8 @@ describe('<wa-tab-group>', () => {
       it('displays all tabs', async () => {
         const tabGroup = await fixture<WaTabGroup>(html`
           <wa-tab-group>
-            <wa-tab slot="nav" panel="general" data-testid="general-tab-header">General</wa-tab>
-            <wa-tab slot="nav" panel="disabled" disabled data-testid="disabled-tab-header">Disabled</wa-tab>
+            <wa-tab panel="general" data-testid="general-tab-header">General</wa-tab>
+            <wa-tab panel="disabled" disabled data-testid="disabled-tab-header">Disabled</wa-tab>
             <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
           </wa-tab-group>
@@ -114,8 +114,8 @@ describe('<wa-tab-group>', () => {
       it('shows the first tab to be active by default', async () => {
         const tabGroup = await fixture<WaTabGroup>(html`
           <wa-tab-group>
-            <wa-tab slot="nav" panel="general">General</wa-tab>
-            <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+            <wa-tab panel="general">General</wa-tab>
+            <wa-tab panel="custom">Custom</wa-tab>
             <wa-tab-panel name="general" data-testid="general-tab-content">This is the general tab panel.</wa-tab-panel>
             <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
           </wa-tab-group>
@@ -128,7 +128,7 @@ describe('<wa-tab-group>', () => {
         it('shows the header above the tabs by default', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general">General</wa-tab>
+              <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -142,7 +142,7 @@ describe('<wa-tab-group>', () => {
         it('shows the header below the tabs by setting placement to bottom', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general">General</wa-tab>
+              <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -157,7 +157,7 @@ describe('<wa-tab-group>', () => {
         it('shows the header left of the tabs by setting placement to start', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general">General</wa-tab>
+              <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -172,7 +172,7 @@ describe('<wa-tab-group>', () => {
         it('shows the header right of the tabs by setting placement to end', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general">General</wa-tab>
+              <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
@@ -190,7 +190,7 @@ describe('<wa-tab-group>', () => {
           const result: HTMLTemplateResult[] = [];
           for (let i = 0; i < n; i++) {
             result.push(
-              html`<wa-tab slot="nav" panel="tab-${i}">Tab ${i}</wa-tab>
+              html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab>
                 <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `
             );
           }
@@ -350,8 +350,8 @@ describe('<wa-tab-group>', () => {
         it('selects a tab by clicking on it', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom" data-testid="custom-header">Custom</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
               <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>
@@ -364,8 +364,8 @@ describe('<wa-tab-group>', () => {
         it('does not change if the active tab is reselected', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
               <wa-tab-panel name="general" data-testid="general-tab-content"
                 >This is the general tab panel.</wa-tab-panel
               >
@@ -380,8 +380,8 @@ describe('<wa-tab-group>', () => {
         it('does not change if a disabled tab is clicked', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="disabled" data-testid="disabled-header" disabled>disabled</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="disabled" data-testid="disabled-header" disabled>disabled</wa-tab>
               <wa-tab-panel name="general" data-testid="general-tab-content"
                 >This is the general tab panel.</wa-tab-panel
               >
@@ -396,8 +396,8 @@ describe('<wa-tab-group>', () => {
         it('selects a tab by using the arrow keys', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom" data-testid="custom-header">Custom</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
               <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>
@@ -409,8 +409,8 @@ describe('<wa-tab-group>', () => {
         it('selects a tab by using the arrow keys and enter if activation is set to manual', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom" data-testid="custom-header">Custom</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
               <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>
@@ -438,8 +438,8 @@ describe('<wa-tab-group>', () => {
         it('does not allow selection of disabled tabs with arrow keys', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="disabled" disabled>Disabled</wa-tab>
               <wa-tab-panel name="general" data-testid="general-tab-content"
                 >This is the general tab panel.</wa-tab-panel
               >
@@ -453,8 +453,8 @@ describe('<wa-tab-group>', () => {
         it('selects a tab by using the show function', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom" data-testid="custom-header">Custom</wa-tab>
+              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
+              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
               <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
             </wa-tab-group>

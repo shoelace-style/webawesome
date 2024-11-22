@@ -6,10 +6,10 @@ layout: component
 
 ```html {.example}
 <wa-tab-group>
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>

@@ -4,14 +4,14 @@ description: Tab groups organize content into a container that shows one section
 layout: component
 ---
 
-Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each tab must be slotted into the `nav` slot and its `panel` must refer to a tab panel of the same name.
+Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.
 
 ```html {.example}
 <wa-tab-group>
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
@@ -28,9 +28,9 @@ To make a tab active, set the `active` attribute to the name of the appropriate 
 
 ```html {.example}
 <wa-tab-group active="advanced">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
@@ -44,10 +44,10 @@ Tabs can be shown on the bottom by setting `placement` to `bottom`.
 
 ```html {.example}
 <wa-tab-group placement="bottom">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
@@ -62,10 +62,10 @@ Tabs can be shown on the starting side by setting `placement` to `start`.
 
 ```html {.example}
 <wa-tab-group placement="start">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
@@ -80,10 +80,10 @@ Tabs can be shown on the ending side by setting `placement` to `end`.
 
 ```html {.example}
 <wa-tab-group placement="end">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
@@ -98,10 +98,10 @@ You can make a tab closable by adding a close button next to the tab and inside 
 
 ```html {.example}
 <wa-tab-group class="tabs-closable">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="closable">Closable</wa-tab>
-  <wa-icon-button slot="nav" tabindex="-1" name="xmark" label="Close the closable tab"></wa-icon-button>
-  <wa-tab slot="nav" panel="closable-2">Advanced</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="closable">Closable</wa-tab>
+  <wa-icon-button tabindex="-1" name="xmark" label="Close the closable tab"></wa-icon-button>
+  <wa-tab panel="closable-2">Advanced</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="closable">This is the closable tab panel.</wa-tab-panel>
@@ -148,26 +148,26 @@ When there are more tabs than horizontal space allows, the nav will be scrollabl
 
 ```html {.example}
 <wa-tab-group>
-  <wa-tab slot="nav" panel="tab-1">Tab 1</wa-tab>
-  <wa-tab slot="nav" panel="tab-2">Tab 2</wa-tab>
-  <wa-tab slot="nav" panel="tab-3">Tab 3</wa-tab>
-  <wa-tab slot="nav" panel="tab-4">Tab 4</wa-tab>
-  <wa-tab slot="nav" panel="tab-5">Tab 5</wa-tab>
-  <wa-tab slot="nav" panel="tab-6">Tab 6</wa-tab>
-  <wa-tab slot="nav" panel="tab-7">Tab 7</wa-tab>
-  <wa-tab slot="nav" panel="tab-8">Tab 8</wa-tab>
-  <wa-tab slot="nav" panel="tab-9">Tab 9</wa-tab>
-  <wa-tab slot="nav" panel="tab-10">Tab 10</wa-tab>
-  <wa-tab slot="nav" panel="tab-11">Tab 11</wa-tab>
-  <wa-tab slot="nav" panel="tab-12">Tab 12</wa-tab>
-  <wa-tab slot="nav" panel="tab-13">Tab 13</wa-tab>
-  <wa-tab slot="nav" panel="tab-14">Tab 14</wa-tab>
-  <wa-tab slot="nav" panel="tab-15">Tab 15</wa-tab>
-  <wa-tab slot="nav" panel="tab-16">Tab 16</wa-tab>
-  <wa-tab slot="nav" panel="tab-17">Tab 17</wa-tab>
-  <wa-tab slot="nav" panel="tab-18">Tab 18</wa-tab>
-  <wa-tab slot="nav" panel="tab-19">Tab 19</wa-tab>
-  <wa-tab slot="nav" panel="tab-20">Tab 20</wa-tab>
+  <wa-tab panel="tab-1">Tab 1</wa-tab>
+  <wa-tab panel="tab-2">Tab 2</wa-tab>
+  <wa-tab panel="tab-3">Tab 3</wa-tab>
+  <wa-tab panel="tab-4">Tab 4</wa-tab>
+  <wa-tab panel="tab-5">Tab 5</wa-tab>
+  <wa-tab panel="tab-6">Tab 6</wa-tab>
+  <wa-tab panel="tab-7">Tab 7</wa-tab>
+  <wa-tab panel="tab-8">Tab 8</wa-tab>
+  <wa-tab panel="tab-9">Tab 9</wa-tab>
+  <wa-tab panel="tab-10">Tab 10</wa-tab>
+  <wa-tab panel="tab-11">Tab 11</wa-tab>
+  <wa-tab panel="tab-12">Tab 12</wa-tab>
+  <wa-tab panel="tab-13">Tab 13</wa-tab>
+  <wa-tab panel="tab-14">Tab 14</wa-tab>
+  <wa-tab panel="tab-15">Tab 15</wa-tab>
+  <wa-tab panel="tab-16">Tab 16</wa-tab>
+  <wa-tab panel="tab-17">Tab 17</wa-tab>
+  <wa-tab panel="tab-18">Tab 18</wa-tab>
+  <wa-tab panel="tab-19">Tab 19</wa-tab>
+  <wa-tab panel="tab-20">Tab 20</wa-tab>
 
   <wa-tab-panel name="tab-1">Tab panel 1</wa-tab-panel>
   <wa-tab-panel name="tab-2">Tab panel 2</wa-tab-panel>
@@ -198,10 +198,10 @@ When focused, keyboard users can press [[Left]] or [[Right]] to select the desir
 
 ```html {.example}
 <wa-tab-group activation="manual">
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>

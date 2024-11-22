@@ -27,7 +27,8 @@ import type WaTabPanel from '../tab-panel/tab-panel.js';
  * @dependency wa-tab-panel
  *
  * @slot - Used for grouping tab panels in the tab group. Must be `<wa-tab-panel>` elements.
- * @slot nav - Used for grouping tabs in the tab group. Must be `<wa-tab>` elements.
+ * @slot nav - Used for grouping tabs in the tab group. Must be `<wa-tab>` elements. Note that `<wa-tab>` will set this
+ *  slot on itself automatically.
  *
  * @event {{ name: String }} wa-tab-show - Emitted when a tab is shown.
  * @event {{ name: String }} wa-tab-hide - Emitted when a tab is hidden.
