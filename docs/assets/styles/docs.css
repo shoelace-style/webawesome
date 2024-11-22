@@ -280,6 +280,64 @@ wa-page > main:has(> .index-grid) {
   font-weight: var(--wa-font-weight-action);
 }
 
+/* Index Pages */
+wa-page > main:has(> .index-grid) {
+  max-width: 120ch;
+  margin-inline: auto;
+}
+
+.index-summary {
+  max-inline-size: 80ch;
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20ch, 100%), 1fr));
+  gap: var(--wa-space-2xl);
+}
+
+.index-category {
+  grid-column: 1 / -1;
+  margin-block-end: 0;
+  margin-block-start: var(--wa-space-2xl);
+}
+
+.index-grid a {
+  border-radius: var(--wa-border-radius-m);
+}
+
+.index-grid wa-card {
+  --box-shadow: none;
+  --spacing: var(--wa-space-m);
+  inline-size: 100%;
+}
+
+.index-grid wa-card:hover {
+  --border-color: var(--wa-color-brand-border-loud);
+  --box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+  & .page-name {
+    color: var(--wa-color-brand-on-quiet);
+  }
+}
+
+.index-grid wa-card [slot='header'] {
+  display: flex;
+}
+
+.index-grid wa-card::part(header) {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: calc(6rem + var(--spacing));
+}
+
+.index-grid .page-name {
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-action);
+}
+
 /* Swatches */
 .swatch {
   background-color: transparent;
@@ -291,6 +349,27 @@ wa-page > main:has(> .index-grid) {
   line-height: 2.5;
   height: 2.5em;
   padding-inline: var(--wa-space-xs);
+}
+
+/* Layout Examples */
+.layout-example-boundary {
+  border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+  border-radius: var(--wa-border-radius-m);
+  padding: var(--wa-space-s);
+}
+
+.layout-example-block {
+  background-color: var(--wa-color-indigo-60);
+  border-radius: var(--wa-border-radius-s);
+  min-block-size: 4rem;
+  min-inline-size: 4rem;
+}
+
+.layout-example-mixed-sizing .layout-example-block:nth-child(3n) {
+  min-inline-size: 6rem;
+}
+.layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
+  min-inline-size: 8rem;
 }
 
 /* Utilities */

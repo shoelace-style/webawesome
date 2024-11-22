@@ -8,6 +8,7 @@ export default css`
     --padding: var(--wa-space-2xs) var(--wa-space-xs);
 
     display: inline-block;
+    position: absolute;
 
     /** These styles are added so we dont interfere in the DOM. */
   }
