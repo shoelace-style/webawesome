@@ -442,7 +442,7 @@ TODO Page Description
 ```html{.example}
 <div class="blog-footer">
   <div class="container">
-    <div class="newsletter">
+    <div class="newsletter" style="grid-column: 1/-1">
       <span>
         <strong>Stay Informed</strong>
         <p style="margin-bottom: 0;">sign up for our newsletter</p>
@@ -471,7 +471,7 @@ TODO Page Description
         <li><a href="#">link</a></li>
       </ul>
     </div>
-    <div class="legal">&#169 2024 All rights reserved.</div>
+    <div class="legal" style="grid-column: 1/-1">&#169 2024 All rights reserved.</div>
   </div>
 </div>
 <style>
@@ -480,6 +480,8 @@ TODO Page Description
     .container {
       max-width: 960px;
       margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr
     }
     .newsletter {
       display: flex;
