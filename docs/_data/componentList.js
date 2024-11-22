@@ -20,6 +20,7 @@ manifest.modules?.forEach(module => {
       // Remove private members and those that lack a description
       const members = declaration.members?.filter(member => member.description && member.privacy !== 'private');
       const methods = members?.filter(prop => prop.kind === 'method' && prop.privacy !== 'private');
+      const attributes = declaration.attributes ?? [];
       const properties = members?.filter(prop => {
         // Look for a corresponding attribute
         const attribute = declaration.attributes?.find(attr => attr.fieldName === prop.name);
@@ -32,6 +33,7 @@ manifest.modules?.forEach(module => {
       components.push({
         ...declaration,
         methods,
+        attributes,
         properties
       });
     }
