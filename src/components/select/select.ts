@@ -277,10 +277,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
     }
 
-    if (changedProperties.has('value') && this.hasUpdated) {
-      this.handleValueChange();
-    }
-
     if (changedProperties.has('open') && this.hasUpdated) {
       this.handleOpenChange();
     }
