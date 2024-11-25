@@ -56,7 +56,8 @@
     "prettier:fix": "prettier --write --log-level=warn .",
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
     "verify": "npm run prettier && npm run lint && npm run build && npm run test",
-    "prepublishOnly": "npm run verify"
+    "prepublishOnly": "npm run verify",
+    "check-updates": "npx npm-check-updates -i"
   },
   "engines": {
     "node": ">=14.17.0"
@@ -122,6 +123,7 @@
     "markdown-it-mark": "^3.0.1",
     "marked": "^11.1.0",
     "node-html-parser": "^6.1.13",
+    "npm-check-updates": "^17.1.11",
     "ora": "^8.0.1",
     "pascal-case": "^3.1.2",
     "playwright": "^1.46.1",
