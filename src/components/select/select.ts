@@ -268,6 +268,15 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.open = false;
   }
 
+  firstUpdated (changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties)
+    // With SSR timings, sometimes the popup animations never get a chance to end / cancel.
+    // This is a hacky workaround to "fix" those animation issues.
+    setTimeout(() => {
+      this.popup.popup.dispatchEvent(new Event("animationend"))
+    })
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('disabled') && this.hasUpdated) {
       // Close the listbox when the control is disabled

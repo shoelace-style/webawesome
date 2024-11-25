@@ -11,7 +11,13 @@ export async function animate(el: Element, keyframes: Keyframe[], options?: Keyf
  */
 export function animateWithClass(el: Element, className: string) {
   return new Promise<void>(resolve => {
+    if (!el) {
+      resolve()
+      return
+    }
+
     el.classList.remove(className);
+
     const controller = new AbortController();
     const { signal } = controller;
 
