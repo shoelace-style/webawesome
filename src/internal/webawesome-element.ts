@@ -201,6 +201,7 @@ export class WebAwesomeFormAssociatedElement
       this.addEventListener('invalid', this.emitInvalid);
     }
   }
+  states: CustomStateSet;
 
   connectedCallback() {
     super.connectedCallback();
@@ -468,7 +469,6 @@ export class WebAwesomeFormAssociatedElement
   // Custom states
   addCustomState(state: string) {
     try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
       (this.internals.states as Set<string>).add(state);
     } catch (_) {
       // Without this, test suite errors.
@@ -479,7 +479,6 @@ export class WebAwesomeFormAssociatedElement
 
   deleteCustomState(state: string) {
     try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
       (this.internals.states as Set<string>).delete(state);
     } catch (_) {
       // Without this, test suite errors.
@@ -506,7 +505,6 @@ export class WebAwesomeFormAssociatedElement
     let bool = false;
 
     try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
       bool = (this.internals.states as Set<string>).has(state);
     } catch (_) {
       // Without this, test suite errors.
