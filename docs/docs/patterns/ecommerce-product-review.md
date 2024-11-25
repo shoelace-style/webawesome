@@ -440,10 +440,10 @@ TODO Page Description
 <wa-icon family="brands" name="instagram"></wa-icon>
 <wa-icon family="brands" name="x-twitter"></wa-icon>
   <wa-tab-group>
-  <wa-tab slot="nav" panel="general">General</wa-tab>
-  <wa-tab slot="nav" panel="custom">Custom</wa-tab>
-  <wa-tab slot="nav" panel="advanced">Advanced</wa-tab>
-  <wa-tab slot="nav" panel="disabled" disabled>Disabled</wa-tab>
+  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="custom">Custom</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
+  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
   <wa-tab-panel name="general">
     <div></div>

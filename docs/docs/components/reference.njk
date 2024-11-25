@@ -1,0 +1,34 @@
+---
+title: Component Reference
+layout: docs
+---
+
+<style>
+table code {
+	white-space: nowrap;
+}
+</style>
+
+{% for type, all in componentsBy -%}
+<h2>All {{ "CSS custom properties" if type == "cssProperty" else ("CSS parts" if type == "cssPart" else (type | title) + "s") }}</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Components</th>
+		</tr>
+	</thead>
+	{% for name, thingComponents in all -%}
+	<tr>
+		<th><code>{{ name }}{{ "()" if type == "method" }}</code></th>
+		<td>
+			{% for component in thingComponents  %}
+				<a href="../{{ component.slug }}"><code>&lt;{{ component.tagName }}&gt;</code></a>
+			{%- endfor -%}
+		</td>
+	</tr>
+	{%- endfor %}
+</table>
+
+{%- endfor %}

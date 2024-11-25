@@ -9,7 +9,7 @@ describe('<wa-tab>', () => {
       it('passes accessibility test', async () => {
         const el = await fixture<WaTab>(html`
           <wa-tab-group>
-            <wa-tab slot="nav">Test</wa-tab>
+            <wa-tab>Test</wa-tab>
           </wa-tab-group>
         `);
         await expect(el).to.be.accessible();
