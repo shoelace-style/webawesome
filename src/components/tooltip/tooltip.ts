@@ -170,7 +170,6 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     // Handle other changes
-    // @watch(['distance', 'hoist', 'placement', 'skidding'])
     if (
       changedProperties.has('distance') ||
       changedProperties.has('hoist') ||

@@ -269,7 +269,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    // @watch('disabled', { waitUntilFirstUpdate: true })
     if (changedProperties.has('disabled') && this.hasUpdated) {
       // Close the listbox when the control is disabled
       if (this.disabled) {
@@ -278,7 +277,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
     }
 
-    // @watch('value', { waitUntilFirstUpdate: true })
     if (changedProperties.has('value') && this.hasUpdated) {
       this.handleValueChange();
     }
