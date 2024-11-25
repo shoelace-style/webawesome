@@ -236,7 +236,7 @@ TODO Page Description
   <div class="related-articles">
     <div class="container">
       <h4>More From...</h4>
-      <div class="article-list">
+      <div class="wa-grid" style="--min-column-size: 250px;">
         <wa-card with-image with-footer class="related-article">
           <img slot="image" src="https://img.fortawesome.com/cfa83f3c/scott-graham-5fnmwej4taa-unsplash2.jpg" alt="A kitten sits patiently between a terracotta pot and decorative grasses."/>
           <span style="align-items: center; display: inline-block; margin-bottom: 1rem;">
@@ -307,9 +307,7 @@ TODO Page Description
   <style>
     .related-articles {
       .article-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
-        gap: 1rem;
+  
       }
       .container {
         max-width: 960px;
@@ -442,7 +440,7 @@ TODO Page Description
 ```html{.example}
 <div class="blog-footer">
   <div class="container">
-    <div class="newsletter" style="grid-column: 1/-1">
+    <div class="newsletter">
       <span>
         <strong>Stay Informed</strong>
         <p style="margin-bottom: 0;">sign up for our newsletter</p>
@@ -471,7 +469,7 @@ TODO Page Description
         <li><a href="#">link</a></li>
       </ul>
     </div>
-    <div class="legal" style="grid-column: 1/-1">&#169 2024 All rights reserved.</div>
+    <div class="legal">&#169 2024 All rights reserved.</div>
   </div>
 </div>
 <style>
@@ -481,7 +479,7 @@ TODO Page Description
       max-width: 960px;
       margin: auto;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr
+      grid-template-columns: 1fr 1fr 1fr;
     }
     .newsletter {
       display: flex;
