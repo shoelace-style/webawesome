@@ -10,8 +10,6 @@ import { replaceTextPlugin } from './_utils/replace-text.js';
 import { searchPlugin } from './_utils/search.js';
 import { readFile } from 'fs/promises';
 import { outlinePlugin } from './_utils/outline.js';
-import { getComponents } from './_utils/manifest.js';
-import ssrPlugin from '@lit-labs/eleventy-plugin-lit';
 import componentList from './_data/componentList.js';
 import ssrPlugin from '@lit-labs/eleventy-plugin-lit';
 
