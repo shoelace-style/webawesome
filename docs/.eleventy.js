@@ -11,7 +11,7 @@ import { searchPlugin } from './_utils/search.js';
 import { readFile } from 'fs/promises';
 import { outlinePlugin } from './_utils/outline.js';
 import { getComponents } from './_utils/manifest.js';
-import litPlugin from '@lit-labs/eleventy-plugin-lit';
+import ssrPlugin from '@lit-labs/eleventy-plugin-lit';
 
 import process from 'process';
 
@@ -108,7 +108,14 @@ export default function (eleventyConfig) {
     ])
   );
 
-  const omittedModules = [];
+  const omittedModules = [
+    //
+    // TODO - dropdown and tooltip fail to open properly after hydration, they show briefly and then hide. It looks like
+    // the body part (of tooltip) has the hidden attribute reapplied to it.
+    //
+    'dropdown',
+    'tooltip'
+  ];
 
   // problematic components:
   // animation (breaks on navigation + ssr with Turbo)
@@ -117,13 +124,13 @@ export default function (eleventyConfig) {
   // tooltip (why SSR this?)
 
   const componentModules = getComponents()
-    // .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+    .filter(component => !omittedModules.includes(component.tagName.split(/^wa-/)[1]))
     .map(component => {
       const name = component.tagName.split(/wa-/)[1];
       return `./dist/components/${name}/${name}.js`;
     });
 
-  eleventyConfig.addPlugin(litPlugin, {
+  eleventyConfig.addPlugin(ssrPlugin, {
     mode: 'worker',
     componentModules
   });
