@@ -141,14 +141,26 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   }
 
-  firstUpdated() {
+  firstUpdated (changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties)
     this.body.hidden = !this.open;
 
+    // With SSR timings, sometimes the popup animations never get a chance to end / cancel.
+    // This is a hacky workaround to "fix" those animation issues.
+    setTimeout(() => {
+      this.popup.popup.dispatchEvent(new Event("animationend"))
+
+      if (this.open) {
+        // This makes sure the "animationend" event has finished then it will show the tooltip in the "open" state.
+        setTimeout(() => {
+          this.body.hidden = false
+          this.popup.active = true;
+          this.popup.reposition();
+        })
+      }
+    })
+
     // If the tooltip is visible on init, update its position
-    if (this.open) {
-      this.popup.active = true;
-      this.popup.reposition();
-    }
   }
 
   async updated(changedProperties: PropertyValues<this>) {
@@ -261,7 +273,6 @@ export default class WaTooltip extends WebAwesomeElement {
       this.popup.active = true;
       await animateWithClass(this.popup.popup, 'show-with-scale');
       this.popup.reposition();
-
       this.dispatchEvent(new WaAfterShowEvent());
     } else {
       // Hide
@@ -275,10 +286,12 @@ export default class WaTooltip extends WebAwesomeElement {
       this.closeWatcher?.destroy();
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
 
-      await animateWithClass(this.popup.popup, 'hide-with-scale');
+      if (this.hasUpdated) {
+        await animateWithClass(this.popup.popup, 'hide-with-scale');
+      }
+
       this.popup.active = false;
       this.body.hidden = true;
-
       this.dispatchEvent(new WaAfterHideEvent());
     }
   }

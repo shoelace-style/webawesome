@@ -116,14 +116,24 @@ export default class WaDropdown extends WebAwesomeElement {
     }
   }
 
-  firstUpdated() {
+  firstUpdated (changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties)
     this.panel.hidden = !this.open;
+    const initiallyOpen = this.open
+    this.open = false
 
-    // If the dropdown is visible on init, update its position
-    if (this.open) {
-      this.addOpenListeners();
-      this.popup.active = true;
-    }
+    // With SSR timings, sometimes the popup animations never get a chance to end / cancel.
+    // This is a hacky workaround to "fix" those animation issues.
+    setTimeout(() => {
+      this.popup.popup.dispatchEvent(new Event("animationend"))
+
+      // If the dropdown is visible on init, update its position
+      if (initiallyOpen) {
+        setTimeout(() => {
+          this.open = true
+        })
+      }
+    })
   }
 
   async updated(changeProperties: PropertyValues<this>) {
