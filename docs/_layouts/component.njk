@@ -1,6 +1,6 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
-{% set component = getComponent('wa-' + page.fileSlug) %}
+{% set component = components[page.fileSlug] %}
 {% set description = component.summary %}
 
 {% extends '../_includes/base.njk' %}

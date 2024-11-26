@@ -10,7 +10,7 @@ import { replaceTextPlugin } from './_utils/replace-text.js';
 import { searchPlugin } from './_utils/search.js';
 import { readFile } from 'fs/promises';
 import { outlinePlugin } from './_utils/outline.js';
-import { getComponents } from './_utils/manifest.js';
+import componentList from './_data/componentList.js';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 
 import process from 'process';
@@ -46,16 +46,6 @@ export default function (eleventyConfig) {
   });
 
   // Helpers
-  eleventyConfig.addNunjucksGlobal('getComponent', tagName => {
-    const component = getComponents().find(c => c.tagName === tagName);
-
-    if (!component) {
-      throw new Error(
-        `Unable to find "<${tagName}>". Make sure the file name is the same as the tag name (without prefix).`
-      );
-    }
-    return component;
-  });
 
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);
@@ -115,8 +105,7 @@ export default function (eleventyConfig) {
   // mutation-observer (why SSR this?)
   // resize-observer (why SSR this?)
   // tooltip (why SSR this?)
-
-  const componentModules = getComponents()
+  const componentModules = componentList
     // .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
     .map(component => {
       const name = component.tagName.split(/wa-/)[1];
