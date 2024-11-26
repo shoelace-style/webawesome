@@ -10,7 +10,9 @@ TODO Page Description
 
 ### Hero
 ```html{.example}
-<wa-carousel pagination>
+<div class="carousel">
+  <div class="container">
+    <wa-carousel pagination>
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #fe53a0;">
@@ -19,7 +21,7 @@ TODO Page Description
       <div style="background: gray;">
         <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/blog-carousel-5.jpg"
+      src="https://img.fortawesome.com/cfa83f3c/blog-carousel-5.jpg"
     />
       </div>
       <h2><span>Do you see any Teletubbies in here?</span></h2>
@@ -33,7 +35,7 @@ TODO Page Description
       <div style="background: gray;">
         <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/blog-carousel-1.jpg"
+      src="https://img.fortawesome.com/cfa83f3c/blog-carousel-1.jpg"
     />
       </div>
       <h2><span>The path of the righteous man is beset on all sides</span></h2>
@@ -47,7 +49,7 @@ TODO Page Description
       <div style="background: gray;">
         <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/blog-carousel-2.jpg"
+      src="https://img.fortawesome.com/cfa83f3c/blog-carousel-2.jpg"
     />
       </div>
       <h2><span>Article Title</span></h2>
@@ -61,7 +63,7 @@ TODO Page Description
       <div style="background: gray;">
         <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/blog-carousel-3.jpg"
+      src="https://img.fortawesome.com/cfa83f3c/blog-carousel-3.jpg"
     />
       </div>
       <h2><span>Article Title</span></h2>
@@ -75,7 +77,7 @@ TODO Page Description
       <div style="background: gray;">
         <img
       alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/blog-carousel-4.jpg"
+      src="https://img.fortawesome.com/cfa83f3c/blog-carousel-4.jpg"
     />
       </div>
       <h2><span>Article Title</span></h2>
@@ -83,12 +85,25 @@ TODO Page Description
   </wa-carousel-item>
   
 </wa-carousel>
+  </div>
+</div>
+
 <style>
+  .carousel {
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
   .hero-link {
     display: flex;
     width: 100%;
     height: 100%;
     position: relative;
+
+    img {
+      width: 100%;
+    }
 
     h2 {
       position: absolute;
