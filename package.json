@@ -57,7 +57,7 @@
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
     "verify": "npm run prettier && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run verify",
-    "check-updates": "npx npm-check-updates -i"
+    "check-updates": "npx npm-check-updates --interactive --format group"
   },
   "engines": {
     "node": ">=14.17.0"
