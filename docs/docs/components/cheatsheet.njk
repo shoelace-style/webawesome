@@ -27,77 +27,24 @@ table code {
 	if (url.searchParams.get("name")) {
 		name_search.value = url.searchParams.get("name");
 	}
+
+	if (url.searchParams.get("match")) {
+		let matcherId = url.searchParams.get("match");
+		let caseSensitive = !matcherId.startsWith("i");
+		let isRegexp = matcherId.endsWith("regexp");
+
+		customElements.whenDefined("wa-checkbox").then(async () => {
+			await Promise.all([
+				name_search_i.updateComplete,
+				name_search_regexp.updateComplete,
+			]);
+			name_search_i.checked = caseSensitive;
+			name_search_regexp.checked = isRegexp;
+		});
+	}
 }
 </script>
-<script type=module>
-	let url = new URL(location);
-	let pushedURL = false;
-
-	let matchers = {
-		default (textContent, query) {
-			return textContent.includes(query);
-		},
-
-		i (textContent, query) {
-			return textContent.toLowerCase().includes(query.toLowerCase());
-		},
-
-		regexp (textContent, query) {
-			query.lastIndex = 0;
-			return query.test(textContent);
-		}
-	}
-
-	function filterByName (value) {
-		let previousFilter = url.searchParams.get("name") || "";
-		url = new URL(location);
-
-		if (value) {
-			let isRegexp = name_search_regexp.checked;
-			let i = !name_search_i.checked;
-			let query = isRegexp ? new RegExp(value, "gmsv" + (i ? "i" : "")) : value;
-			let matcher = isRegexp ? matchers.regexp : i ? matchers.i : matchers.default;
-
-			for (let th of document.querySelectorAll("table tbody th:first-child")) {
-				let tr = th.parentNode;
-				let matches = matcher(th.textContent, query);
-				tr.toggleAttribute("hidden", !matches);
-			}
-			url.searchParams.set("name", value);
-		}
-		else {
-			for (let tr of document.querySelectorAll("table tbody tr[hidden]")) {
-				tr.removeAttribute("hidden");
-			}
-			url.searchParams.delete("name");
-		}
-
-		if (value !== previousFilter) {
-			history[pushedURL ? "replaceState" : "pushState"](null, "", url);
-		}
-
-		// Update heading counts
-		for (let h2 of document.querySelectorAll("h2:has(+ table)")) {
-			let count = h2.querySelector(".count");
-			if (!count) continue;
-			let table = h2.nextElementSibling;
-			let visibleRows = table.querySelectorAll("tbody tr:not([hidden])").length;
-			count.textContent = visibleRows;
-			let outlineLink = document.querySelector(`#outline-standard a[href="#${ h2.id }"]`);
-			if (outlineLink) {
-				// Why not just = h2.textContent? To skip the "Jump to heading" link
-				outlineLink.textContent = "";
-				outlineLink.append(...[...h2.childNodes].slice(0, 3).map(n => n.cloneNode(true)));
-			}
-		}
-	}
-
-	if (name_search.value) {
-		filterByName(name_search.value);
-	}
-
-	name_search_group.addEventListener("wa-input", e => filterByName(name_search.value));
-</script>
+<script type="module" src="/assets/scripts/cheatsheet.js"></script>
 
 {% for type, all in componentsBy -%}
 {% set typeTitle = "CSS custom properties" if type == "cssProperty" else ("CSS parts" if type == "cssPart" else (type | title) + "s") %}

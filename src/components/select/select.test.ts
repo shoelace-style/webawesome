@@ -1,4 +1,4 @@
-import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
@@ -502,7 +502,7 @@ describe('<wa-select>', () => {
         expect(displayInput.value).to.equal('Option 1');
 
         option.textContent = 'updated';
-        await oneEvent(option, 'slotchange');
+        await aTimeout(250);
         await el.updateComplete;
 
         expect(displayInput.value).to.equal('updated');

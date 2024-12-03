@@ -128,10 +128,13 @@ export default function (eleventyConfig) {
   );
 
   // Production-only plugins
-  if (!isDeveloping) {
-    // Run Prettier on each file (prod only because it can be slow)
-    eleventyConfig.addPlugin(formatCodePlugin());
-  }
+  //
+  // TODO - disabled because it takes about a minute to run now
+  //
+  // if (!isDeveloping) {
+  //   // Run Prettier on each file (prod only because it can be slow)
+  //   eleventyConfig.addPlugin(formatCodePlugin());
+  // }
 
   return {
     dir: {
