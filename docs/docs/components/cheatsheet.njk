@@ -1,0 +1,160 @@
+---
+title: Component Cheatsheet
+layout: docs
+---
+
+<style>
+table code {
+	white-space: nowrap;
+}
+</style>
+
+<p>
+	This page lists every bit of syntax used by every Web Awesome component and which components share it.
+	For these times when your memory is failing, or to simply explore the possibilities!
+</p>
+
+<fieldset id="name_search_group">
+	<legend>Filter by name</legend>
+	<wa-input type=search clearable id="name_search"></wa-input>
+	<wa-checkbox id="name_search_i" checked>Case sensitive</wa-checkbox>
+	<wa-checkbox id="name_search_regexp">Regular expression</wa-checkbox>
+</fieldset>
+
+<script>
+{
+	let url = new URL(location);
+	if (url.searchParams.get("name")) {
+		name_search.value = url.searchParams.get("name");
+	}
+
+	if (url.searchParams.get("match")) {
+		let matcherId = url.searchParams.get("match");
+		let caseSensitive = !matcherId.startsWith("i");
+		let isRegexp = matcherId.endsWith("regexp");
+
+		name_search_i.toggleAttribute("checked", caseSensitive);
+		name_search_regexp.toggleAttribute("checked", isRegexp);
+
+		customElements.whenDefined("wa-checkbox").then(() => {
+			name_search_i.checked = caseSensitive;
+			name_search_regexp.checked = isRegexp;
+		});
+	}
+}
+</script>
+<script type=module>
+	let url = new URL(location);
+	let pushedURL = false;
+
+	let matchers = {
+		default (textContent, query) {
+			return textContent.includes(query);
+		},
+
+		i (textContent, query) {
+			return textContent.toLowerCase().includes(query.toLowerCase());
+		},
+
+		regexp (textContent, query) {
+			query.lastIndex = 0;
+			return query.test(textContent);
+		},
+	};
+
+	matchers.iregexp = matchers.regexp; // i is baked into the query
+
+	function filterByName (value) {
+		let previousFilter = url.searchParams.get("name") || "";
+		url = new URL(location);
+
+		if (value) {
+			let isRegexp = name_search_regexp.checked;
+			let i = !name_search_i.checked;
+			let query = isRegexp ? new RegExp(value, "gmsv" + (i ? "i" : "")) : value;
+			let matcherId = (i ? "i" : "") + (isRegexp ? "regexp" : "");
+			let matcher = matchers[matcherId] ?? matchers.default;
+
+			for (let th of document.querySelectorAll("table tbody th:first-child")) {
+				let tr = th.parentNode;
+				let matches = matcher(th.textContent, query);
+				tr.toggleAttribute("hidden", !matches);
+			}
+			url.searchParams.set("name", value);
+
+			if (matcherId) {
+				url.searchParams.set("match", matcherId);
+			}
+			else {
+				url.searchParams.delete("match");
+			}
+		}
+		else {
+			for (let tr of document.querySelectorAll("table tbody tr[hidden]")) {
+				tr.removeAttribute("hidden");
+			}
+			url.searchParams.delete("name");
+			url.searchParams.delete("match");
+		}
+
+		if (value !== previousFilter) {
+			history[pushedURL ? "replaceState" : "pushState"](null, "", url);
+		}
+
+		// Update heading counts
+		for (let h2 of document.querySelectorAll("h2:has(+ table)")) {
+			let count = h2.querySelector(".count");
+			if (!count) continue;
+			let table = h2.nextElementSibling;
+			let visibleRows = table.querySelectorAll("tbody tr:not([hidden])").length;
+			count.textContent = visibleRows;
+			let outlineLink = document.querySelector(`#outline-standard a[href="#${ h2.id }"]`);
+			if (outlineLink) {
+				// Why not just = h2.textContent? To skip the "Jump to heading" link
+				outlineLink.textContent = "";
+				outlineLink.append(...[...h2.childNodes].slice(0, 3).map(n => n.cloneNode(true)));
+			}
+		}
+	}
+
+	if (name_search.value) {
+		filterByName(name_search.value);
+	}
+
+	name_search_group.addEventListener("wa-input", e => filterByName(name_search.value));
+</script>
+
+{% for type, all in componentsBy -%}
+{% set typeTitle = "CSS custom properties" if type == "cssProperty" else ("CSS parts" if type == "cssPart" else (type | title) + "s") %}
+<h2 id="{{ typeTitle | slugify }}">
+	All <span class="count">{{ (all | keys).length }}</span>
+	{{ typeTitle }}
+</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Components</th>
+		</tr>
+	</thead>
+	{% for name, thingComponents in all -%}
+	<tr>
+		<th><code>{{ name }}{{ "()" if type == "method" }}</code></th>
+		<td>
+			{% if thingComponents.length > 1 %}
+				<details open>
+					<summary><strong>{{ thingComponents.length }}</strong> components</summary>
+			{% endif %}
+			{% for component in thingComponents  %}
+				<a href="../{{ component.slug }}"><code>&lt;{{ component.tagName }}&gt;</code></a>
+			{%- endfor -%}
+			{% if thingComponents.length > 1 %}
+				</details>
+			{% endif %}
+		</td>
+	</tr>
+	{%- endfor %}
+</table>
+
+{%- endfor %}

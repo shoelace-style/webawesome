@@ -39,6 +39,7 @@ export default function (eleventyConfig) {
     // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
   });
+  eleventyConfig.addFilter('keys', obj => Object.keys(obj));
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
