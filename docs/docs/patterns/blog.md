@@ -166,7 +166,7 @@ TODO Page Description
   <div class="body">
     <div class="post-list">
       <div class="post-list-item" style="display: flex; align-items: center;">
-        <img src="/assets/images/patterns/flower-crop-1.jpg" />
+        <img src="https://img.fortawesome.com/cfa83f3c/flower-crop-1.jpg" alt="">
         <div class="post-list-item-info" style="display: flex;flex-direction: column;">
           <span style="font-size: small;"> <wa-icon fixed-width name="mug-hot"></wa-icon> Lifestyle</span>
           <span style="font-size: larger;font-weight: 600;">Your bones don't break</span>
@@ -174,7 +174,7 @@ TODO Page Description
         </div>
       </div>
       <div class="post-list-item" style="display: flex; align-items: center; flex-direction: row-reverse;justify-content: flex-end">
-        <img class="last" src="/assets/images/patterns/flower-crop-2.jpg" />
+        <img src="https://img.fortawesome.com/cfa83f3c/flower-crop-2.jpg" alt="">
         <div class="post-list-item-info" style="display: flex;flex-direction: column; margin-right: 1rem;">
           <span style="font-size: small;"><wa-icon fixed-width name="user-nurse"> </wa-icon>Health</span>
           <span style="font-size: larger;font-weight: 600;">That's clear. Your cells react to bacteria</span>
@@ -190,7 +190,7 @@ TODO Page Description
         </div>
       </div>
       <div class="post-list-item" style="display: flex; align-items: center;">
-        <img src="/assets/images/patterns/flower-crop-3.jpg" />
+        <img src="https://img.fortawesome.com/cfa83f3c/flower-crop-3.jpg" alt="">
         <div class="post-list-item-info" style="display: flex;flex-direction: column;">
           <span style="font-size: small;">Lifestyle</span>
           <span style="font-size: larger;font-weight: 600;">Your bones don't break</span>
@@ -198,7 +198,7 @@ TODO Page Description
         </div>
       </div>
       <div class="post-list-item" style="display: flex; align-items: center;">
-        <img src="/assets/images/patterns/flower-crop-1.jpg" />
+        <img src="https://img.fortawesome.com/cfa83f3c/flower-crop-1.jpg" alt="">
         <div class="post-list-item-info" style="display: flex;flex-direction: column;">
           <span style="font-size: small;">Lifestyle</span>
           <span style="font-size: larger;font-weight: 600;">Your bones don't break</span>
