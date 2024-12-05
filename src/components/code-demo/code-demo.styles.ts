@@ -26,12 +26,15 @@ export default css`
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   }
 
-  :host(:not([open])) .code-example-source {
-    display: none;
+    &:not(:host([open]) *) {
+      display: none;
+    }
   }
 
-  :host([open]) .code-example-toggle wa-icon {
-    rotate: 180deg;
+  :host([open]) {
+    .toggle wa-icon {
+      rotate: 180deg;
+    }
   }
 
   #source {
@@ -45,9 +48,11 @@ export default css`
     &:not(:has(+ #buttons)) {
       border-bottom: none;
 
-    pre {
-      border-bottom-right-radius: var(--wa-border-radius-m);
-      border-bottom-left-radius: var(--wa-border-radius-m);
+      pre {
+        /* bottom-right and bottom-left in en */
+        border-end-start-radius: var(--wa-border-radius-m);
+        border-end-end-radius: var(--wa-border-radius-m);
+      }
     }
   }
 
@@ -66,14 +71,15 @@ export default css`
       cursor: pointer;
 
       &:first-of-type {
-        border-left: none;
-        /* bottom left in horizontal ltr */
-        border-end-start-radius: var(--wa-border-radius-m);
+        /* left in en */
+        border-inline-start: none;
+        /* bottom left in en */
+        border-end-start-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
       }
 
       &:last-of-type {
-        /* bottom right in horizontal ltr */
-        border-end-end-radius: var(--wa-border-radius-m);
+        /* bottom right in en */
+        border-end-end-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
       }
 
       &:focus-visible {
@@ -89,7 +95,7 @@ export default css`
     wa-icon {
       width: 1em;
       height: 1em;
-      vertical-align: -2px;
+      vertical-align: -0.1em;
     }
   }
 `;
