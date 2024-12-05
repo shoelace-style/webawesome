@@ -12,7 +12,7 @@ export default css`
   #preview {
     display: block;
     padding: 2rem;
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
 
     > :first-child {
       margin-block-start: 0;
@@ -45,14 +45,13 @@ export default css`
       white-space: normal;
     }
 
+    &:has(+ #buttons) {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+    }
+
     &:not(:has(+ #buttons)) {
       border-bottom: none;
-
-      pre {
-        /* bottom-right and bottom-left in en */
-        border-end-start-radius: var(--wa-border-radius-m);
-        border-end-end-radius: var(--wa-border-radius-m);
-      }
     }
   }
 

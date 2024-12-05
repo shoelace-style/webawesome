@@ -13,6 +13,15 @@ layout: component
 </wa-code-demo>
 ```
 
+```html {.example .open}
+<wa-code-demo>
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+    &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
 <wa-callout variant="danger">
   <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
 
@@ -44,7 +53,7 @@ This is only a rough list and is subject to change.
 
 - [ ] Make toggle open with an animation for browsers that support height: auto transitions
 - [ ] Support CSS-only or JS-only demos
-- [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, etc.)
+- [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
 - [ ] Provide controls for zooming in/out
 - [ ] Provide a way to resize the preview horizontally
