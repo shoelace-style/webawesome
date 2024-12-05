@@ -34,7 +34,7 @@ export default css`
     rotate: 180deg;
   }
 
-  #code-example-source {
+  #source {
     &::slotted(pre) {
       position: relative;
       border-radius: 0 !important;
@@ -42,8 +42,8 @@ export default css`
       white-space: normal;
     }
 
-  &:not(:has(+ .code-example-buttons)) {
-    border-bottom: none;
+    &:not(:has(+ #buttons)) {
+      border-bottom: none;
 
     pre {
       border-bottom-right-radius: var(--wa-border-radius-m);
@@ -51,7 +51,7 @@ export default css`
     }
   }
 
-  .code-example-buttons {
+  #buttons {
     display: flex;
     align-items: stretch;
 
@@ -81,7 +81,7 @@ export default css`
       }
     }
 
-    .code-example-pen {
+    .pen {
       flex: 0 0 100px;
       white-space: nowrap;
     }
