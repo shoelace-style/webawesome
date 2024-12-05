@@ -454,8 +454,8 @@ TODO Page Description
 ## Footer 
 ```html{.example}
 <div class="blog-footer">
-  <div class="container">
-    <div class="newsletter">
+  <div class="container wa-grid">
+    <div class="newsletter wa-span-grid" style="--min-column-size: 200px;">
       <span>
         <strong>Stay Informed</strong>
         <p style="margin-bottom: 0;">sign up for our newsletter</p>
@@ -471,6 +471,9 @@ TODO Page Description
           <p>Some filler text</p>
         </li>
       </ul>
+      <div class="social">
+        add social here
+      </div>
     </div>
     <div>
       <h4>Title</h4>
@@ -484,7 +487,7 @@ TODO Page Description
         <li><a href="#">link</a></li>
       </ul>
     </div>
-    <div class="legal">&#169 2024 All rights reserved.</div>
+    <div class="legal wa-span-grid">&#169 2024 All rights reserved.</div>
   </div>
 </div>
 <style>
@@ -493,8 +496,7 @@ TODO Page Description
     .container {
       max-width: 960px;
       margin: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+   
     }
     .newsletter {
       display: flex;
