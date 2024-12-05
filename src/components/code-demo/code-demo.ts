@@ -36,16 +36,70 @@ export default class WaCodeDemo extends WebAwesomeElement {
           aria-expanded="${this.open ? 'true' : 'false'}"
           aria-controls="source"
           part="button"
+          @click=${this.toggle}
         >
           Code
           <wa-icon name="chevron-down"></wa-icon>
         </button>
-        <button class="pen" type="button" part="button">
+        <button class="pen" type="button" part="button" @click=${this.edit}>
           <wa-icon name="pen-to-square"></wa-icon>
           Edit
         </button>
       </div>
     `;
+  }
+
+  /**
+   * Toggles visibility of the code example
+   */
+  public toggle() {
+    this.open = !this.open;
+  }
+
+  /**
+   * Opens the code example in CodePen
+   */
+  public edit() {
+    let markup = this.querySelector('code')?.textContent ?? this.textContent;
+    const cdnUrl = document.documentElement.dataset.cdnUrl;
+    markup =
+      `<script type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
+      `<link rel="stylesheet" href="${cdnUrl}themes/default.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}themes/applied.css">\n\n` +
+      `${markup}`;
+    const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
+    const js = '';
+
+    const form = document.createElement('form');
+    form.action = 'https://codepen.io/pen/define';
+    form.method = 'POST';
+    form.target = '_blank';
+
+    const data = {
+      title: '',
+      description: '',
+      tags: ['webawesome'],
+      editors: '1000',
+      head: '<meta name="viewport" content="width=device-width">',
+      html_classes: '',
+      css_external: '',
+      js_external: '',
+      js_module: true,
+      js_pre_processor: 'none',
+      html: markup,
+      css,
+      js
+    };
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'data';
+    input.value = JSON.stringify(data);
+    form.append(input);
+
+    document.documentElement.append(form);
+    form.submit();
+    form.remove();
   }
 }
 
