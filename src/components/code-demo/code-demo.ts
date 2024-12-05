@@ -12,9 +12,12 @@ import type { CSSResultGroup } from 'lit';
  * @status experimental
  * @since 3.0
  *
- * @slot - The main code example (ideally a `<pre>` element).
+ * @slot - The main code example (usually a `<pre>` element).
  *
  * @csspart preview - The container of the code example preview.
+ * @csspart controls - The container of the control buttons.
+ * @csspart button - The control buttons.
+ *
  */
 @customElement('wa-code-demo')
 export default class WaCodeDemo extends WebAwesomeElement {
@@ -70,10 +73,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 
-    const form = document.createElement('form');
-    form.action = 'https://codepen.io/pen/define';
-    form.method = 'POST';
-    form.target = '_blank';
+    const form = Object.assign(document.createElement('form'), {
+      action: 'https://codepen.io/pen/define',
+      method: 'POST',
+      target: '_blank'
+    });
 
     const data = {
       title: '',
@@ -91,10 +95,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
       js
     };
 
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'data';
-    input.value = JSON.stringify(data);
+    const input = Object.assign(document.createElement('input'), {
+      type: 'hidden',
+      name: 'data',
+      value: JSON.stringify(data)
+    });
     form.append(input);
 
     document.documentElement.append(form);
