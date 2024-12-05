@@ -25,21 +25,22 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   render() {
     const code = this.textContent;
-    console.log(code);
+
     return html`
-      <div class="code-example-preview" .innerHTML=${code}></div>
-      <slot class="code-example-source" id="code-example-source"></slot>
-      <div class="code-example-buttons">
+      <div id="preview" part="preview" .innerHTML=${code}></div>
+      <slot class="source" id="source"></slot>
+      <div id="buttons" part="controls">
         <button
-          class="code-example-toggle"
+          class="toggle"
           type="button"
           aria-expanded="${this.open ? 'true' : 'false'}"
-          aria-controls="code-example-source"
+          aria-controls="source"
+          part="button"
         >
           Code
           <wa-icon name="chevron-down"></wa-icon>
         </button>
-        <button class="code-example-pen" type="button">
+        <button class="pen" type="button" part="button">
           <wa-icon name="pen-to-square"></wa-icon>
           Edit
         </button>

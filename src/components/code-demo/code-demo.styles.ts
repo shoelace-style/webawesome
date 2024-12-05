@@ -8,7 +8,7 @@ export default css`
     margin-block-end: var(--wa-flow-spacing);
   }
 
-  .code-example-preview {
+  #preview {
     display: block;
     padding: 2rem;
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
@@ -22,7 +22,7 @@ export default css`
     }
   }
 
-  .code-example-source {
+  #source {
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   }
 
