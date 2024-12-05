@@ -21,7 +21,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
   /** Opens the code example */
-  @property({ attribute: 'open', type: Boolean }) open = false;
+  @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
 
   render() {
     const code = this.textContent;
