@@ -2,17 +2,31 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    --preview-background: var(--wa-color-surface-default, canvas);
+    --preview-backdrop: var(--wa-color-surface-lowered, rgb(0 0 0 / 0.25));
+    --preview-resize: inline;
+    --preview-min-width: min-content;
+    --preview-max-width: 100%;
+
     display: block;
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
     color: var(--wa-color-text-normal);
     margin-block-end: var(--wa-flow-spacing);
+    background: var(--preview-backdrop);
   }
 
   #preview {
     display: block;
+    resize: var(--preview-resize);
+    overflow: auto;
+    min-width: var(--preview-min-width, min-content);
+    max-width: min(var(--preview-max-width), 100%);
     padding: 2rem;
     border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    background: var(--preview-background);
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
 
     > :first-child {
       margin-block-start: 0;
@@ -58,6 +72,9 @@ export default css`
   #buttons {
     display: flex;
     align-items: stretch;
+    background: var(--controls-background, var(--wa-color-surface-default, canvas));
+    border-end-start-radius: inherit;
+    border-end-end-radius: inherit;
 
     button {
       all: unset;
