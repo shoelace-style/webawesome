@@ -89,13 +89,16 @@ export default css`
       &:first-of-type {
         /* left in en */
         border-inline-start: none;
-        /* bottom left in en */
-        border-end-start-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
       }
 
-      &:last-of-type {
+      &:not(:first-of-type) {
+        /* bottom left in en */
+        border-end-start-radius: 0;
+      }
+
+      &:not(:last-of-type) {
         /* bottom right in en */
-        border-end-end-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
+        border-end-end-radius: 0;
       }
 
       &:focus-visible {
