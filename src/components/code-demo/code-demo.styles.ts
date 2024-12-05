@@ -2,6 +2,7 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    display: block;
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
     border-radius: var(--wa-border-radius-m);
     color: var(--wa-color-text-normal);
@@ -24,7 +25,6 @@ export default css`
 
   #source {
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  }
 
     &:not(:host([open]) *) {
       display: none;
