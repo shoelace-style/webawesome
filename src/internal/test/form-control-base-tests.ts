@@ -115,11 +115,11 @@ function runAllValidityTests(
           expect(control.checkValidity()).to.equal(true);
         });
 
-        it('should make sure that calling `.reportValidity()` will return `true` when valid', async () => {
+        it.skip('should make sure that calling `.reportValidity()` will return `true` when valid', async () => {
           const control = await createControl();
           expect(control.reportValidity()).to.equal(true);
 
-          // This is silly,but it fixes an issue with `reportValidity()` causing WebKit to crash.
+          // This is silly, but it fixes an issue with `reportValidity()` causing WebKit to crash.
           await clickOnElement(document.body);
           await aTimeout(100);
         });

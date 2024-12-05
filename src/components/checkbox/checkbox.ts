@@ -51,6 +51,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @cssproperty --border-style - The style of the checkbox's borders.
  * @cssproperty --border-width - The width of the checkbox's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the checkbox.
+ * @cssproperty --checked-icon-color - The color of the checkbox's icon.
  * @cssproperty --toggle-size - The size of the checkbox.
  */
 @customElement('wa-checkbox')

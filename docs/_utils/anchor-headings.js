@@ -39,22 +39,26 @@ export function anchorHeadingsPlugin(options = {}) {
       // Look for headings
       container.querySelectorAll(options.headingSelector).forEach(heading => {
         const hasAnchor = heading.querySelector('a');
+        const existingId = heading.getAttribute('id');
         const clone = parse(heading.outerHTML);
 
         // Create a clone of the heading so we can remove [data-no-anchor] elements from the text content
         clone.querySelectorAll('[data-no-anchor]').forEach(el => el.remove());
 
-        const slug = createId(clone.textContent ?? '') ?? uuid().slice(-12);
-        let id = slug;
-        let suffix = 0;
-
-        // Make sure the slug is unique in the document
-        while (doc.getElementById(id) !== null) {
-          id = `${slug}-${++suffix}`;
+        if (hasAnchor) {
+          return;
         }
 
-        if (hasAnchor || !id) {
-          return;
+        let id = existingId;
+        if (!id) {
+          const slug = createId(clone.textContent ?? '') ?? uuid().slice(-12);
+          id = slug;
+          let suffix = 1;
+
+          // Make sure the slug is unique in the document
+          while (doc.getElementById(id) !== null) {
+            id = `${slug}-${++suffix}`;
+          }
         }
 
         // Create the anchor
@@ -67,7 +71,9 @@ export function anchorHeadingsPlugin(options = {}) {
         anchor.querySelector('.wa-visually-hidden').textContent = options.anchorLabel;
 
         // Update the heading
-        heading.setAttribute('id', id);
+        if (!existingId) {
+          heading.setAttribute('id', id);
+        }
         heading.classList.add('anchor-heading');
         heading.appendChild(anchor);
       });
