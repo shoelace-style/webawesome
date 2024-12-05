@@ -24,7 +24,8 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 ## Roadmap
 
 This component is a work in progress.
-Some of the things that are not yet implemented are:
+Some of the things that are not yet implemented are below.
+This is only a rough list and is subject to change.
 
 ### Critical
 
@@ -37,6 +38,7 @@ Some of the things that are not yet implemented are:
 - [ ] Provide a way to hide the edit button
 - [ ] Provide a way to link to the resources to be included
 - [ ] Provide a way to render to the light DOM or an iframe
+- [ ] Provide a way to zoom out (hardcoded)
 
 ### Low priority
 
@@ -44,6 +46,8 @@ Some of the things that are not yet implemented are:
 - [ ] Support CSS-only or JS-only demos
 - [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, etc.)
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
+- [ ] Provide controls for zooming in/out
+- [ ] Provide a way to resize the preview horizontally
 
 ## Examples
 
