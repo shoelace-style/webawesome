@@ -7,6 +7,7 @@ export default css`
     --preview-resize: inline;
     --preview-min-width: min-content;
     --preview-max-width: 100%;
+    --divider-width: var(--wa-border-width-s, 1px);
 
     display: block;
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
@@ -23,7 +24,8 @@ export default css`
     min-width: var(--preview-min-width, min-content);
     max-width: min(var(--preview-max-width), 100%);
     padding: 2rem;
-    border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-block-end: inherit;
+    border-block-end-width: var(--divider-width);
     background: var(--preview-background);
     border-start-start-radius: inherit;
     border-start-end-radius: inherit;
@@ -38,7 +40,7 @@ export default css`
   }
 
   #source {
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-block-end: inherit;
 
     &:not(:host([open]) *) {
       display: none;
@@ -75,25 +77,30 @@ export default css`
     background: var(--controls-background, var(--wa-color-surface-default, canvas));
     border-end-start-radius: inherit;
     border-end-end-radius: inherit;
+    border: inherit;
+    /* so that we don't get a visible border
+      border-style: none would be better but it affects how the others cascade :(
+     */
+    border-width: 0;
 
     button {
       all: unset;
       flex: 1 0 auto;
       font-size: 0.875rem;
       color: var(--wa-color-text-quiet);
-      border-left: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
       text-align: center;
       padding: 0.5rem;
       cursor: pointer;
 
-      &:first-of-type {
-        /* left in en */
-        border-inline-start: none;
+      &:hover {
+        background: var(--wa-color-surface-raised, rgb(0 0 0 / 0.05));
       }
 
       &:not(:first-of-type) {
         /* bottom left in en */
         border-end-start-radius: 0;
+        border-inline-start: inherit;
+        border-inline-start-width: var(--divider-width);
       }
 
       &:not(:last-of-type) {

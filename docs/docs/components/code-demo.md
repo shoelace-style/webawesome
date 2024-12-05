@@ -51,6 +51,8 @@ This is only a rough list and is subject to change.
 
 ### Low priority
 
+- [ ] Horizontal layout
+- [ ] Tabbed layout
 - [ ] Make toggle open with an animation for browsers that support height: auto transitions
 - [ ] Support CSS-only or JS-only demos
 - [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
@@ -61,3 +63,27 @@ This is only a rough list and is subject to change.
 ## Examples
 
 TBD
+
+## Styling
+
+Just setting `border-radius` or `border` should work as expected:
+
+```html{.example}
+<wa-code-demo open style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-s)">
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+    &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+The divider width is controlled separately via `--divider-width`:
+
+```html{.example}
+<wa-code-demo open style="border: 5px dotted var(--wa-color-green-50); --divider-width: 4px; border-radius: var(--wa-border-radius-l);">
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+    &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
+  </code></pre>
+</wa-code-demo>
+```
