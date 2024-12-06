@@ -454,8 +454,8 @@ TODO Page Description
 ## Footer 
 ```html{.example}
 <div class="blog-footer">
-  <div class="container wa-grid">
-    <div class="newsletter wa-span-grid" style="--min-column-size: 200px;">
+  <div class="container wa-grid" style="--min-column-size: 120px;">
+    <div class="newsletter wa-span-grid">
       <span>
         <strong>Stay Informed</strong>
         <p style="margin-bottom: 0;">sign up for our newsletter</p>
@@ -464,13 +464,13 @@ TODO Page Description
          <div class="subscribe-input"> <wa-input></wa-input><wa-button>Subscribe</wa-button></div>
       </span>
     </div>
-    <div>
-      <ul>
-        <li>
-          <strong>Title</strong>
-          <p>Some filler text</p>
-        </li>
-      </ul>
+    <div style="grid-column: 1/3">
+      <h4>UX Blog</h4>
+      <address>
+        Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br/>
+        Visit us at: Example.com<br/>
+        Box 564, Disneyland.USA
+      </address>
       <div class="social">
         add social here
       </div>
