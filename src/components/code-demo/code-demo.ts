@@ -3,7 +3,6 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -33,9 +32,6 @@ export default class WaCodeDemo extends WebAwesomeElement {
   @query('#preview')
   private previewElement: HTMLElement;
 
-  @query('iframe')
-  private iframeElement: HTMLIFrameElement;
-
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
 
@@ -52,8 +48,8 @@ export default class WaCodeDemo extends WebAwesomeElement {
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
     const isolated = this.viewport !== undefined;
-    const previewStyles = {};
-    const previewClasses = {};
+    const previewStyles: { [key: string | number]: string | number } = {};
+    const previewClasses: { [key: string | number]: boolean } = {};
 
     if (isolated) {
       if (customPreview && this.previewSlot) {
@@ -63,11 +59,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
       if (globalThis.window) {
         const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
         previewStyles['--preview-width-inner-px'] =
-          parseInt(cs.width) -
-          parseInt(cs.paddingLeft || 0) -
-          parseInt(cs.paddingRight || 0) -
-          parseInt(cs.borderLeftWidth || 0) -
-          parseInt(cs.borderRightWidth || 0);
+          getNumber(cs.width) -
+          getNumber(cs.paddingLeft) -
+          getNumber(cs.paddingRight) -
+          getNumber(cs.borderLeftWidth) -
+          getNumber(cs.borderRightWidth);
       }
 
       if (this.viewport) {
@@ -189,4 +185,8 @@ declare global {
   interface HTMLElementTagNameMap {
     'wa-code-demo': WaCodeDemo;
   }
+}
+
+function getNumber(value: string | number): number {
+  return (typeof value === 'string' ? parseFloat(value) : value) || 0;
 }
