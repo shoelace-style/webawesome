@@ -21,6 +21,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added more resilient support for lazy loaded options in `<wa-select>`
 - Added support for vertical button groups
 - Added the `focus()` method to `<wa-radio-group>`
+- Fixed a bug in `<wa-dialog>` with scroll locking shifting viewports.
 - Fixed a bug in `<wa-dialog>` when using `.show()`
 - Fixed a bug in `<wa-rating>` when using `precision`
 - Fixed a bug in `<wa-rating>` that allowed tabbing into the rating when readonly
