@@ -6,17 +6,22 @@ layout: blank
 
 <style>
   wa-page {
-    /* max-width: 140ch; */
-    margin-inline: auto;
-    --menu-width: 30ch;
-    --aside-width: 30ch;
+    --menu-width: 25ch;
+    --aside-width: 25ch;
+  }
+  wa-page[view='desktop'] [data-toggle-nav] {
+    display: none;
   }
   [slot='banner'] {  
     --wa-color-text-link: var(--wa-color-neutral-on-loud);
     background-color: var(--wa-color-neutral-fill-loud);
   }
   [slot='header'] {
+    --wa-link-decoration-default: none;
     border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+  }
+  [slot*='header'] a {
+    font-weight: var(--wa-font-weight-action);
   }
   [slot='subheader'] {
     background-color: var(--wa-color-surface-lowered);
@@ -25,34 +30,41 @@ layout: blank
   [slot='navigation-header'] {
     border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
   }
-  [slot*='navigation'] {
+  wa-page[view='desktop'] [slot*='navigation'] {
     border-inline-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+  }
+  [slot*='navigation'] a {
+    --wa-color-text-link: var(--wa-color-text-normal);
   }
   [slot='navigation-footer'] {
     border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
   }
-  [slot='main-header'] {
-  }
-  main {
+  [slot='main-header'],
+  main,
+  [slot='main-footer'] {
+    max-inline-size: 100ch;
+    margin-inline: auto;
   }
   [slot='main-footer'] {
-  }
-  [slot='aside'] {
+    border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
   }
   [slot='footer'] {
+    --wa-color-text-link: var(--wa-color-text-quiet);
     background-color: var(--wa-color-surface-lowered);
+    font-size: var(--wa-font-size-s);
   }
 </style>
 
-<wa-page>
+<wa-page mobile-breakpoint="920">
   <div slot="banner" class="wa-body-s">
     <a href="#" class="wa-cluster wa-gap-xs">
       <wa-icon name="gift"></wa-icon>
       <span>Give a Hoot for the Holidays: Donate now and double your impact.</span>
     </div>
   </div>
-  <header slot="header" class="wa-split">
+  <header slot="header">
     <div class="wa-cluster">
+      <wa-icon-button data-toggle-nav name="bars" label="Menu"></wa-icon-button>
       <wa-icon name="feather-pointed" style="color: var(--wa-color-brand-fill-loud); font-size: 1.5em;"></wa-icon>
       <span class="wa-heading-s">Audubon Worldwide</span>
       <a href="#">Our Work</a>
@@ -61,7 +73,7 @@ layout: blank
       <a href="#">Get Involved</a>
     </div>
     <div class="wa-cluster">
-      <wa-button size="small" appearance="outlined">Find Your Local Audubon</wa-button>
+      <wa-button size="small" appearance="tinted">Find Your Local Audubon</wa-button>
       <wa-button size="small">Donate</wa-button>
     </div>
   </header>
@@ -90,9 +102,15 @@ layout: blank
     <a href="#behavior">Behavior</a>
     <a href="#conservation">Conservation</a>
   </nav>
-  <nav slot="navigation-footer">
-    <a href="#behavior">Photo Gallery</a>
-    <a href="#conservation">Interactive Range Map</a>
+  <nav slot="navigation-footer">      
+    <a href="#" class="wa-flank" style="--flank-size: 1.25em;">
+      <wa-icon name="camera"></wa-icon>
+      <span>Photo Gallery</span>
+    </a>
+    <a href="#" class="wa-flank" style="--flank-size: 1.25em;">
+      <wa-icon name="map-location-dot"></wa-icon>
+      <span>Interactive Range Map</span>
+    </a>
   </nav>
   <header slot="main-header">
     <div class="wa-flank:end wa-border-radius-m wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
@@ -124,21 +142,23 @@ layout: blank
   </header>
   <main>
     <h2 id="identification">Identification</h2>
-    <p>Found almost throughout North America and much of South America is this big owl. Aggressive and powerful in its hunting (sometimes known by nicknames such as 'tiger owl'), it takes prey as varied as rabbits, hawks, snakes, and even skunks, and will even attack porcupines, often with fatal results for both prey and predator. Great Horned Owls begin nesting very early in the north, and their deep hoots may be heard rolling across the forest on mid-winter nights.</p>
+    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Venenatis aenean ullamcorper vel cubilia volutpat natoque mus? Eget habitant scelerisque lectus ultrices nascetur aliquet sapien primis. Cursus sapien fusce semper nulla elit sociosqu lectus per sem. Sem ad porttitor dictum nisl pharetra tortor convallis. Sit molestie hendrerit porta dictum tortor posuere euismod magna. Mauris suspendisse pharetra finibus; eleifend etiam ridiculus.</p>
     <h2 id="range">Range and Habitat</h2>
-    <p>Found almost throughout North America and much of South America is this big owl. Aggressive and powerful in its hunting (sometimes known by nicknames such as 'tiger owl'), it takes prey as varied as rabbits, hawks, snakes, and even skunks, and will even attack porcupines, often with fatal results for both prey and predator. Great Horned Owls begin nesting very early in the north, and their deep hoots may be heard rolling across the forest on mid-winter nights.</p>
+    <p>Diam sed ipsum pretium porttitor class cubilia elementum? Blandit felis ligula habitant ultricies vulputate rutrum lacus commodo pulvinar. Nostra semper placerat lectus in dis eu. Sagittis ipsum placerat rhoncus lacus id eget. Erat pharetra aptent enim, augue accumsan ultricies inceptos habitasse. Senectus id maximus parturient tellus; fermentum posuere vulputate luctus. Lorem bibendum arcu, torquent congue purus rhoncus dapibus. Ac tempus dapibus vehicula ligula ullamcorper sit duis. Semper hac egestas massa nisi proin?</p>
     <h2 id="behavior">Behavior</h2>
-    <p>Found almost throughout North America and much of South America is this big owl. Aggressive and powerful in its hunting (sometimes known by nicknames such as 'tiger owl'), it takes prey as varied as rabbits, hawks, snakes, and even skunks, and will even attack porcupines, often with fatal results for both prey and predator. Great Horned Owls begin nesting very early in the north, and their deep hoots may be heard rolling across the forest on mid-winter nights.</p>
+    <p>Erat vitae luctus arcu taciti malesuada pretium arcu justo primis. Cubilia vitae maecenas congue velit id netus arcu. Dictum vel pellentesque taciti fermentum risus consectetur amet. Faucibus commodo habitasse sem maximus praesent purus, dignissim tristique porta. Platea magna justo ipsum ut metus ac facilisi. Imperdiet laoreet pharetra maximus lacus tortor suscipit. Nam quisque iaculis orci porttitor pellentesque rhoncus. Molestie sagittis tincidunt quisque nisi non urna conubia.</p>
     <h2 id="conservation">Conservation</h2>
-    <p>Found almost throughout North America and much of South America is this big owl. Aggressive and powerful in its hunting (sometimes known by nicknames such as 'tiger owl'), it takes prey as varied as rabbits, hawks, snakes, and even skunks, and will even attack porcupines, often with fatal results for both prey and predator. Great Horned Owls begin nesting very early in the north, and their deep hoots may be heard rolling across the forest on mid-winter nights.</p>
+    <p>Nullam magna quam quisque eu varius integer. Inceptos donec facilisi risus himenaeos semper mollis habitasse. Vehicula lacus vivamus euismod pharetra mollis dictum. Ante ex tortor elementum eleifend habitasse orci aliquam. Fames erat senectus fames etiam dapibus cursus. Neque suscipit at suspendisse habitant facilisis maecenas finibus.</p>
   </main>
   <footer slot="main-footer">
-    <h2 class="wa-heading-m">Sources</h2>
-    <ul class="wa-caption-m">
-      <li><cite><a href="https://www.audubon.org/field-guide/bird/great-horned-owl" target="_blank" rel="noopener">Great Horned Owl</a></cite>, National Audubon Society. Retrieved 5 December 2024.</li>
-      <li><cite><a href="https://www.allaboutbirds.org/guide/Great_Horned_Owl/" target="_blank" rel="noopener">Great Horned Owl</a></cite>, All About Birds by CornellLab. Retrieved 5 December 2024.</li>
-      <li>Armistead, G. L. (2015). <cite>Field guide to birds of Pennsylvania</cite>. Scott & Nix, Inc.</li>
-    </ul>
+    <section>
+      <h2 class="wa-heading-m">Sources</h2>
+      <ul class="wa-body-s">
+        <li><cite><a href="https://www.audubon.org/field-guide/bird/great-horned-owl" target="_blank" rel="noopener">Great Horned Owl</a></cite>, National Audubon Society. Retrieved 5 December 2024.</li>
+        <li><cite><a href="https://www.allaboutbirds.org/guide/Great_Horned_Owl/" target="_blank" rel="noopener">Great Horned Owl</a></cite>, All About Birds by CornellLab. Retrieved 5 December 2024.</li>
+        <li>Armistead, G. L. (2015). <cite>Field guide to birds of Pennsylvania</cite>. Scott & Nix, Inc.</li>
+      </ul>
+    </section>
   </footer>
   <aside slot="aside">
     <h2 class="wa-heading-m">Discover More Birds</h2>
@@ -149,6 +169,15 @@ layout: blank
       <div class="wa-stack wa-gap-3xs">
         <span class="wa-heading-s">Long-eared Owl</span>
         <span class="wa-caption-s" lang="la"><em>Asio otus</em></span>
+      </div>
+    </wa-card>
+    <wa-card with-image>
+      <div slot="image" class="wa-frame">
+        <img src="https://images.unsplash.com/photo-1661350356618-f5915c7b6a3c?q=20" alt="" />
+      </div>
+      <div class="wa-stack wa-gap-3xs">
+        <span class="wa-heading-s">Northen Hawk Owl</span>
+        <span class="wa-caption-s" lang="la"><em>Surnia ulula</em></span>
       </div>
     </wa-card>
     <wa-card with-image>
