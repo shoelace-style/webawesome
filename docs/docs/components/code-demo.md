@@ -60,7 +60,7 @@ To only render the custom preview within the shadow DOM, or to display raw text,
 </wa-code-demo>
 ```
 
-### Including resources (CSS, scripts, etc.) <wa-badge variant=danger>Not yet implemented</wa-badge>
+### Including resources (CSS, scripts, etc.)
 
 Demos are rendered in the shadow DOM of the component, so any resources (stylesheets, scripts, etc.) must be included anew.
 The same applies to isolated demos (see below), opening demos in a new tab, or editing them on CodePen.
