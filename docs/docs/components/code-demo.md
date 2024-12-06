@@ -60,9 +60,30 @@ To only render the custom preview within the shadow DOM, or to display raw text,
 </wa-code-demo>
 ```
 
-### External resources
+### Including resources (CSS, scripts, etc.) <wa-badge variant=danger>Not yet implemented</wa-badge>
 
-TBD
+Demos are rendered in the shadow DOM of the component, so any resources (stylesheets, scripts, etc.) must be included anew.
+The same applies to isolated demos (see below), opening demos in a new tab, or editing them on CodePen.
+
+While you _could_ manually include all of these on every single demo, it would get tedious to write,
+and it would add noise for the reader.
+
+Instead, you can use the `include` attribute.
+Its value is a CSS selector and the elements it matches are cloned within the demo, at the start.
+There are certain types of elements that are handled specially:
+- `<template>`: contents are cloned instead of the element itself.
+This is useful for including resources in your demo that you don't want rendered outside the demo.
+
+```html {.example .open}
+<script type="module" src="{% cdnUrl 'webawesome.loader.js' %}" class="demo-import"></script>
+<link rel="stylesheet" href="{% cdnUrl 'themes/default.css' %}" class="demo-import">
+<style class="demo-import">wa-callout { font-size: var(--wa-font-size-2xl) }</style>
+<wa-code-demo include=".demo-import">
+  <pre><code class="language-html">
+    &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
+  </code></pre>
+</wa-code-demo>
+```
 
 ### Isolated viewports
 
