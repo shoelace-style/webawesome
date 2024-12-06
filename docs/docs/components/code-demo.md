@@ -21,33 +21,6 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 
 </wa-callout>
 
-## Roadmap
-
-This component is a work in progress.
-Some of the things that are not yet implemented are listed below.
-It goes without saying that this list is a rough plan and subject to change.
-
-### High priority
-
-- [ ] Make the component dynamic so that when the code changes, the demo is updated
-- [ ] Provide a way to hide the edit button
-- [ ] Provide a way to link to the resources to be included
-- [ ] Provide a way to render to an iframe
-- [ ] Provide a way to zoom out (hardcoded)
-- [ ] Provide a way to open in a new tab
-
-### Low priority
-
-- [ ] Horizontal layout
-- [ ] Tabbed layout
-- [ ] Make toggle open with an animation for browsers that support height: auto transitions
-- [ ] Support CSS-only or JS-only demos
-- [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
-- [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
-- [ ] Provide controls for zooming in/out
-- [ ] Provide a way to render to the light DOM?
-- [ ] Automatic iframe height
-
 ## Examples
 
 ### Open by default
@@ -158,3 +131,30 @@ The divider width is controlled separately via `--divider-width`:
   </code></pre>
 </wa-code-demo>
 ```
+
+## Roadmap
+
+This component is a work in progress.
+Some of the things that are not yet implemented are listed below.
+It goes without saying that this list is a rough plan and subject to change.
+
+### High priority
+
+- [ ] Make the component dynamic so that when the code changes, the demo is updated
+- [ ] Provide a way to hide the edit button
+- [ ] Provide a way to link to the resources to be included
+- [ ] Provide a way to render to an iframe
+- [ ] Provide a way to zoom out (hardcoded)
+- [ ] Provide a way to open in a new tab
+
+### Low priority
+
+- [ ] Horizontal layout
+- [ ] Tabbed layout
+- [ ] Make toggle open with an animation for browsers that support height: auto transitions
+- [ ] Support CSS-only or JS-only demos
+- [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
+- [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
+- [ ] Provide controls for zooming in/out
+- [ ] Provide a way to render to the light DOM?
+- [ ] Automatic iframe height
