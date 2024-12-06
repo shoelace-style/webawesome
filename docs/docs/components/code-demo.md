@@ -5,15 +5,6 @@ layout: component
 ---
 
 ```html {.example .open}
-<wa-code-demo open>
-  <pre><code class="language-html">
-    &lt;button&gt;Click me!&lt;/button&gt;
-    &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
-  </code></pre>
-</wa-code-demo>
-```
-
-```html {.example .open}
 <wa-code-demo>
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
@@ -33,20 +24,15 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 ## Roadmap
 
 This component is a work in progress.
-Some of the things that are not yet implemented are below.
-This is only a rough list and is subject to change.
-
-### Critical
-
-- [ ] Figure out why `open` does not reflect properly
-- [ ] Make the Edit button work
+Some of the things that are not yet implemented are listed below.
+It goes without saying that this list is a rough plan and subject to change.
 
 ### High priority
 
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
 - [ ] Provide a way to hide the edit button
 - [ ] Provide a way to link to the resources to be included
-- [ ] Provide a way to render to the light DOM or an iframe
+- [ ] Provide a way to render to an iframe
 - [ ] Provide a way to zoom out (hardcoded)
 
 ### Low priority
@@ -58,11 +44,36 @@ This is only a rough list and is subject to change.
 - [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
 - [ ] Provide controls for zooming in/out
-- [ ] Provide a way to resize the preview horizontally
+- [ ] Provide a way to render to the light DOM?
 
 ## Examples
 
-TBD
+### Open by default
+
+```html {.example .open}
+<wa-code-demo open>
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+    &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+### Custom preview
+
+In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, or fix whitespace.
+In those cases, you can slot in a custom preview:
+
+```html {.example .open}
+<wa-code-demo open>
+  <template slot="preview">
+    <wa-button>Click me!</wa-button>
+  </template>
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
 
 ## Styling
 
@@ -80,7 +91,7 @@ Just setting `border-radius` or `border` should work as expected:
 The divider width is controlled separately via `--divider-width`:
 
 ```html{.example}
-<wa-code-demo open style="border: 5px dotted var(--wa-color-green-50); --divider-width: 4px; border-radius: var(--wa-border-radius-l);">
+<wa-code-demo open style="border-width: var(--wa-border-width-l); border-color: var(--wa-color-green-50); --divider-width: var(--wa-border-width-m);">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
     &lt;wa-button&gt;Click me!&lt;/wa-button&gt;

@@ -1,5 +1,6 @@
 // import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property } from 'lit/decorators.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
@@ -26,11 +27,18 @@ export default class WaCodeDemo extends WebAwesomeElement {
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
 
+  private readonly hasSlotController = new HasSlotController(this, 'preview');
+
   render() {
     const code = this.textContent;
+    // FIXME Ideally we don't want to render the contents of the code element anywhere if there is a custom preview
+    // as then providing a custom preview can also be used to sanitize the code.
+    const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
 
     return html`
-      <div id="preview" part="preview" .innerHTML=${code}></div>
+      <div id="preview" part="preview">
+        <slot name="preview" @slotchange=${this.handleSlotChange} .innerHTML=${customPreview ? '' : code}></slot>
+      </div>
       <slot class="source" id="source"></slot>
       <div id="buttons" part="controls">
         <button
@@ -50,6 +58,22 @@ export default class WaCodeDemo extends WebAwesomeElement {
         </button>
       </div>
     `;
+  }
+
+  private handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+
+    if (slot.name === 'preview') {
+      const assignedNodes = slot.assignedNodes();
+
+      for (const node of assignedNodes) {
+        if (node.nodeName === 'TEMPLATE') {
+          const content = (node as HTMLTemplateElement).content;
+          const clone = content.cloneNode(true);
+          slot.after(clone);
+        }
+      }
+    }
   }
 
   /**
