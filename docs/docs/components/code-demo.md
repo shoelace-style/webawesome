@@ -164,8 +164,6 @@ It goes without saying that this list is a rough plan and subject to change.
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
 - [ ] Provide a way to hide the edit button
 - [ ] Provide a way to link to the resources to be included
-- [ ] Provide a way to render to an iframe
-- [ ] Provide a way to zoom out (hardcoded)
 - [ ] Provide a way to open in a new tab
 
 ### Low priority
