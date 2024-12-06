@@ -46,7 +46,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
   private previewComputedStyle: CSSStyleDeclaration;
 
   render() {
-    let code = this.textContent;
+    const code = this.previewHTML;
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
@@ -55,10 +55,6 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const previewClasses: { [key: string | number]: boolean } = {};
 
     if (isolated) {
-      if (customPreview && this.previewSlot) {
-        code = getInnerHTML(this.previewSlot);
-      }
-
       if (globalThis.window) {
         const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
         previewStyles['--preview-width-inner-px'] =
@@ -80,11 +76,6 @@ export default class WaCodeDemo extends WebAwesomeElement {
         }
         previewClasses.zoomed = true;
       }
-    }
-
-    const includedHTML = this.includedHTML;
-    if (includedHTML !== null) {
-      code = includedHTML + '\n\n' + code;
     }
 
     return html`
@@ -129,6 +120,33 @@ export default class WaCodeDemo extends WebAwesomeElement {
     return ret.join('\n');
   }
 
+  private addIncludes(code: string | null): string | null {
+    const includedHTML = this.includedHTML;
+
+    if (includedHTML) {
+      return includedHTML + '\n\n' + code;
+    }
+
+    return code;
+  }
+
+  public get demoHTML(): string | null {
+    const code = this.querySelector?.('code')?.textContent ?? this.textContent;
+    return this.addIncludes(code);
+  }
+
+  public get previewHTML(): string | null {
+    let code;
+    const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
+
+    if (customPreview && this.previewSlot) {
+      code = getInnerHTML(this.previewSlot);
+      return this.addIncludes(code);
+    }
+
+    return this.demoHTML;
+  }
+
   private handleSlotChange(e: Event) {
     const slot = e.target as HTMLSlotElement;
 
@@ -156,13 +174,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
    * Opens the code example in CodePen
    */
   public edit() {
-    let markup = this.querySelector('code')?.textContent ?? this.textContent;
-    const cdnUrl = document.documentElement.dataset.cdnUrl;
-    markup =
-      `<script type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/default.css">\n\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/applied.css">\n\n` +
-      `${markup}`;
+    const markup = this.demoHTML;
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 

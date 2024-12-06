@@ -141,13 +141,13 @@ Including resources in isolated demos works the same way.
 Any relative URLs are still resolved relative to the host document:
 
 ```html {.example .open}
-<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import">
-<template class="demo-import">
+<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import-2">
+<template class="demo-import-2">
   <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
   <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
   <script>console.log('Hello from iframe!')</script>
 </template>
-<wa-code-demo viewport include=".demo-import, link[rel=stylesheet][href^='/dist/themes']">
+<wa-code-demo viewport include=".demo-import-2, link[rel=stylesheet][href^='/dist/themes']">
   <pre><code class="language-html">
     &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
   </code></pre>
