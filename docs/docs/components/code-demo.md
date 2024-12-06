@@ -34,6 +34,7 @@ It goes without saying that this list is a rough plan and subject to change.
 - [ ] Provide a way to link to the resources to be included
 - [ ] Provide a way to render to an iframe
 - [ ] Provide a way to zoom out (hardcoded)
+- [ ] Provide a way to open in a new tab
 
 ### Low priority
 
@@ -62,7 +63,7 @@ It goes without saying that this list is a rough plan and subject to change.
 ### Custom previews
 
 In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, or fix whitespace.
-In those cases, you can slot in a custom preview:
+For these cases, you can slot in a custom preview:
 
 ```html {.example .open}
 <wa-code-demo open>
@@ -85,6 +86,29 @@ To only render the custom preview within the shadow DOM, or to display raw text,
 </wa-code-demo>
 ```
 
+### External resources
+
+TBD
+
+### Render Isolation
+
+Often you may want to render your demo in a whole document, e.g. when it’s about a whole page.
+Or, you may want to sandbox it.
+For these cases, you can use the `isolated` attribute:
+
+```html {.example}
+<wa-code-demo isolated>
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+<wa-callout variant="danger">
+  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
+
+</wa-callout>
+
 ## Styling
 
 Just setting `border-radius` or `border` should work as expected:
@@ -101,7 +125,7 @@ Just setting `border-radius` or `border` should work as expected:
 The divider width is controlled separately via `--divider-width`:
 
 ```html{.example}
-<wa-code-demo open style="border-width: var(--wa-border-width-l); border-color: var(--wa-color-green-50); --divider-width: var(--wa-border-width-m);">
+<wa-code-demo open style="border-width: var(--wa-border-width-l); --divider-width: var(--wa-border-width-m);">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
     &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
