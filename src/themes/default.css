@@ -229,7 +229,7 @@
   --wa-line-height-normal: 1.6;
   --wa-line-height-expanded: 2;
 
-  --wa-link-decoration-default: underline color-mix(in oklab, var(--wa-color-text-link) 70%, transparent) dotted;
+  --wa-link-decoration-default: underline color-mix(in oklab, currentColor 70%, transparent) dotted;
   --wa-link-decoration-hover: underline;
 
   /**

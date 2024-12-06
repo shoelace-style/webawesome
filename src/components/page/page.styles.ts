@@ -3,6 +3,7 @@ import { css } from 'lit';
 export default css`
   :host {
     display: block;
+    background-color: var(--wa-color-surface-default);
     box-sizing: border-box;
     height: 100%;
     --menu-width: auto;
@@ -12,6 +13,92 @@ export default css`
     --header-height: 0px;
     --subheader-height: 0px;
     --scroll-margin-top: calc(var(--header-height, 0px) + var(--subheader-height, 0px));
+  }
+
+  ::slotted(
+      :is(
+          [slot='banner'],
+          [slot='header'],
+          [slot='subheader'],
+          [slot='navigation-header'],
+          [slot='navigation'],
+          [slot='navigation-footer'],
+          [slot='main-header'],
+          [slot='main-footer'],
+          [slot='aside'],
+          [slot='footer']
+        )
+    ) {
+    background-color: var(--wa-color-surface-default);
+  }
+
+  ::slotted([slot='banner']) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+  }
+  ::slotted([slot='header']) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m);
+  }
+  ::slotted([slot='subheader']) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+  }
+  ::slotted([slot='navigation-header']) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m);
+  }
+  ::slotted([slot='navigation']) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m);
+  }
+  ::slotted([slot='navigation-footer']) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m);
+  }
+  ::slotted([slot='main-header']) {
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m) var(--wa-space-3xl);
+  }
+  ::slotted(:not([slot])) {
+    padding: var(--wa-space-3xl);
+  }
+  ::slotted([slot='main-footer']) {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-3xl);
+  }
+  ::slotted([slot='aside']) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-m);
+  }
+  ::slotted([slot='footer']) {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--wa-space-m);
+    padding: var(--wa-space-3xl);
   }
 
   :host([disable-sticky~='banner']) :is([part~='header'], [part~='subheader']) {
