@@ -18,10 +18,13 @@
     "./dist/custom-elements.json": "./dist/custom-elements.json",
     "./dist/webawesome.js": "./dist/webawesome.js",
     "./dist/webawesome.loader.js": "./dist/webawesome.loader.js",
+    "./dist/themes": "./dist/themes",
     "./dist/themes/*": "./dist/themes/*",
+    "./dist/components": "./dist/components",
     "./dist/components/*": "./dist/components/*",
     "./dist/react": "./dist/react/index.js",
     "./dist/react/*": "./dist/react/*",
+    "./dist/translations": "./dist/translations",
     "./dist/translations/*": "./dist/translations/*"
   },
   "files": [

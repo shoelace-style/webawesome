@@ -417,7 +417,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     // All other "printable" keys trigger type to select
-    if (event.key.length === 1 || event.key === 'Backspace') {
+    if (event.key?.length === 1 || event.key === 'Backspace') {
       const allOptions = this.getAllOptions();
 
       // Don't block important key combos like CMD+R

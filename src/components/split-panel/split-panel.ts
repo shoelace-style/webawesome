@@ -107,7 +107,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   private handleDrag(event: PointerEvent) {
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
+    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     if (this.disabled) {
       return;
@@ -248,7 +248,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   render() {
     const gridTemplate = this.vertical ? 'gridTemplateRows' : 'gridTemplateColumns';
     const gridTemplateAlt = this.vertical ? 'gridTemplateColumns' : 'gridTemplateRows';
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
+    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
     const primary = `
       clamp(
         0%,

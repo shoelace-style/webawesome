@@ -170,14 +170,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   private handleLabelClick() {
-    const radios = this.getAllRadios();
-    const checked = radios.find(radio => radio.checked);
-    const radioToFocus = checked || radios[0];
-
-    // Move focus to the checked radio (or the first one if none are checked) when clicking the label
-    if (radioToFocus) {
-      radioToFocus.focus();
-    }
+    this.focus();
   }
 
   private async syncRadioElements() {
@@ -303,6 +296,19 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     event.preventDefault();
+  }
+
+  /** Sets focus on the radio group. */
+  public focus(options?: FocusOptions) {
+    const radios = this.getAllRadios();
+    const checked = radios.find(radio => radio.checked);
+    const firstEnabledRadio = radios.find(radio => !radio.disabled);
+    const radioToFocus = checked || firstEnabledRadio;
+
+    // Call focus for the checked radio. If no radio is checked, focus the first one that isn't disabled.
+    if (radioToFocus) {
+      radioToFocus.focus(options);
+    }
   }
 
   render() {

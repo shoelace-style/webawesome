@@ -29,6 +29,7 @@ Available translations include:
 <div style="columns: 3; gap: 1rem; margin-block-end: 1.5rem;">
 
 - ar
+- cs
 - da
 - de-ch
 - de
@@ -36,19 +37,24 @@ Available translations include:
 - en
 - es
 - fa
+- fi
 - fr
 - he
 - hr
 - hu
 - id
+- it
 - ja
+- nb
 - nl
+- nn
 - pl
 - pt
 - ru
 - sl
 - sv
 - tr
+- uk
 - zh-cn
 - zh-tw
 

@@ -14,16 +14,27 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- Added support for <kbd>Enter</kbd> to `<sl-split-panel>` to align with ARIA APG's [window splitter pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/)
+- Added the Finnish translation
+- Added the Italian translation
+- Added the Ukrainian translation
+- Added support for <kbd>Enter</kbd> to `<wa-split-panel>` to align with ARIA APG's [window splitter pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/)
 - Added more resilient support for lazy loaded options in `<wa-select>`
 - Added support for vertical button groups
+- Added the `focus()` method to `<wa-radio-group>`
 - Fixed a bug in `<wa-rating>` when using `precision`
+- Fixed a bug in `<wa-rating>` that allowed tabbing into the rating when readonly
 - Fixed a bug in `<wa-relative-time>` where the title attribute would show with redundant info
+- Fixed a bug in `<wa-select>` that caused the placeholder to display incorrectly when using placeholder and multiple
 - Fixed a bug in `<wa-tooltip>` that caused a memory leak in disconnected elements
 - Fixed a bug in `<wa-select>` that prevented label changes in `<wa-option>` from updating the controller
 - Fixed a bug in `<wa-carousel>` that caused interactive elements to be activated when dragging
+- Fixed a bug in `<wa-tab-group>` that prevented changing tabs by setting `active` on `<wa-tab>` elements
+- Fixed a bug in `<wa-tab-group>` that caused an error when removed from the DOM too quickly
+- Fixed a bug in `<wa-textarea>` causing scroll jumping when using `resize="auto"`
+- Fixed a bug with certain bundlers when using dynamic imports
 - Improved alignment of the play icon in `<wa-animated-image>`
 - Improved behavior of link buttons to not set `noreferrer noopener` by default
+- Updated all checks for directionality to use `this.localize.dir()` instead of `el.matches(:dir(rtl))` so older browsers don't error out
 
 ## 3.0.0-alpha.3
 
@@ -35,8 +46,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-select>` that made the suffix slot collide with the clear button
 - Fixed a bug in `<wa-checkbox>` where unchecking and then checking would "clear" its value.
 - Fixed a bug where `<wa-relative-time>` would announce the full time instead of the relative time in screen readers [#22](https://github.com/shoelace-style/webawesome-alpha/issues/22)
-- Fixed a bug in `<wa-tab-group>` in Firefox where the overflow container would keep focus. [#14](https://github.com/shoelace-style/webawesome-alpha/issues/14)
-- Fixed a bug in `<wa-input>` where `minlength` and `maxlength` were not being properly validated. [#35](https://github.com/shoelace-style/webawesome-alpha/issues/35)
+- Fixed a bug in `<wa-tab-group>` in Firefox where the overflow container would keep focus [#14](https://github.com/shoelace-style/webawesome-alpha/issues/14)
+- Fixed a bug in `<wa-input>` where `minlength` and `maxlength` were not being properly validated [#35](https://github.com/shoelace-style/webawesome-alpha/issues/35)
 - Fixed a bug in `<wa-carousel>` that made pagination work incorrectly
 
 ## 3.0.0-alpha.2
@@ -68,7 +79,7 @@ Here's a list of some of the things that have changed since Shoelace v2. For que
 - Changed the `data-optional`, `data-required`, `data-invalid`, `data-valid`, `data-user-invalid`, and `data-user-valid` states to `data-wa-*` prefix to avoid conflicts with user provided attributes
 - Changed `<wa-icon>` so icons are no longer fixed width by default to accommodate variable width icons
 - Changed `<wa-radio>` from `display: block;` to `display: inline-block`
-- Changed `<wa-tab-group>` to implement a "roving tabindex" and `<wa-tab>` is no longer tabbable by default. This aligns closer to the APG pattern for tabs. [#2041]
+- Changed `<wa-tab-group>` to implement a "roving tabindex" and `<wa-tab>` is no longer tabbable by default. This aligns closer to the APG pattern for tabs [#2041]
 - Changed `<wa-tooltip>` to no longer wrap content due to accessibility and styling issues. Tooltips are now associated using the `for` attribute + an `id` on the trigger [#123]
 - Improved `<wa-spinner>` so it doesn't wobble when zooming in Safari
 - Improved submenu selection by implementing the [safe triangle](https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles/) method [#1550]

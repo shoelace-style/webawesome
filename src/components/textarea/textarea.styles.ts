@@ -24,7 +24,7 @@ export default css`
     border-style: var(--border-style);
     border-width: var(--border-width);
     box-shadow: var(--box-shadow);
-    display: flex;
+    display: grid;
     align-items: center;
     position: relative;
     width: 100%;
@@ -36,6 +36,17 @@ export default css`
       border var(--wa-transition-normal) var(--wa-transition-easing),
       outline var(--wa-transition-fast) var(--wa-transition-easing);
     cursor: text;
+  }
+
+  .textarea__control,
+  .textarea__size-adjuster {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .textarea__size-adjuster {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
   }
 
   /* Standard textareas */
@@ -62,7 +73,6 @@ export default css`
   }
 
   .textarea__control {
-    flex: 1 1 auto;
     font: inherit;
     line-height: var(--wa-line-height-expanded);
     color: var(--wa-form-control-value-color);

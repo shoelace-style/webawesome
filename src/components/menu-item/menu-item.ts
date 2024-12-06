@@ -5,6 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { getTextContent } from '../../internal/slot.js';
 import { html } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
 import { SubmenuController } from './submenu-controller.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -44,6 +45,7 @@ export default class WaMenuItem extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
   private cachedTextLabel: string;
+  private readonly localize = new LocalizeController(this);
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('.menu-item') menuItem: HTMLElement;
@@ -163,7 +165,7 @@ export default class WaMenuItem extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
+    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
     const isSubmenuExpanded = this.submenuController.isExpanded();
 
     return html`

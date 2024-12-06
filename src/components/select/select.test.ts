@@ -217,6 +217,29 @@ describe('<wa-select>', () => {
         });
       });
 
+      // This can happen in on Microsoft Edge auto-filling an associated input element in the same form
+      // https://github.com/shoelace-style/shoelace/issues/2117
+      it('should not throw on incomplete events', async () => {
+        const el = await fixture<WaSelect>(html`
+          <wa-select required>
+            <sl-option value="option-1">Option 1</sl-option>
+          </wa-select>
+        `);
+
+        const event = new KeyboardEvent('keydown');
+        Object.defineProperty(event, 'target', { writable: false, value: el });
+        Object.defineProperty(event, 'key', { writable: false, value: undefined });
+
+        /**
+         * If Edge does autofill, it creates a broken KeyboardEvent
+         * which is missing the key value.
+         * Using the normal dispatch mechanism does not allow to do this
+         * Thus passing the event directly to the private method for testing
+         *
+         * @ts-expect-error - private property */
+        el.handleDocumentKeyDown(event);
+      });
+
       it('should open the listbox when any letter key is pressed with wa-select is on focus', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select>

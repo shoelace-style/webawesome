@@ -3,6 +3,7 @@ import { clamp } from '../../internal/math.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaChangeEvent } from '../../events/change.js';
@@ -36,6 +37,8 @@ import type { CSSResultGroup } from 'lit';
 @customElement('wa-rating')
 export default class WaRating extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
+
+  private readonly localize = new LocalizeController(this);
 
   @query('.rating') rating: HTMLElement;
 
@@ -80,7 +83,7 @@ export default class WaRating extends WebAwesomeElement {
   }
 
   private getValueFromXCoordinate(coordinate: number) {
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.localize.dir() === 'rtl';
     const { left, right, width } = this.rating.getBoundingClientRect();
     const value = isRtl
       ? this.roundToPrecision(((right - coordinate) / width) * this.max, this.precision)
@@ -109,7 +112,7 @@ export default class WaRating extends WebAwesomeElement {
 
   private handleKeyDown(event: KeyboardEvent) {
     const isLtr = this.matches(':dir(ltr)');
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.localize.dir() === 'rtl';
     const oldValue = this.value;
 
     if (this.disabled || this.readonly) {
@@ -214,7 +217,7 @@ export default class WaRating extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir;
+    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir;
     const counter = Array.from(Array(this.max).keys());
     let displayValue = 0;
 
@@ -240,7 +243,7 @@ export default class WaRating extends WebAwesomeElement {
         aria-valuenow=${this.value}
         aria-valuemin=${0}
         aria-valuemax=${this.max}
-        tabindex=${this.disabled ? '-1' : '0'}
+        tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
         @mouseenter=${this.handleMouseEnter}

@@ -123,7 +123,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
   const tabGroup = document.querySelector('.tabs-closable');
   const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
   const closableTab = tabGroup.querySelectorAll('wa-tab')[1];
-  const closeButton = tabGroup.querySelector('wa-icon-button[slot="nav"]');
+  const closeButton = tabGroup.querySelector('wa-icon-button');
   const restoreButton = tabGroup.nextElementSibling.nextElementSibling;
   
   // Remove the tab when the close button is clicked

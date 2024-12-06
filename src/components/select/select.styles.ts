@@ -164,7 +164,7 @@ export default css`
     margin-inline-end: var(--wa-space-s);
   }
 
-  .select--small.select--multiple .select__prefix::slotted(*) {
+  .select--small.select--multiple:not(.select--placeholder-visible) .select__prefix::slotted(*) {
     margin-inline-start: var(--wa-space-s);
   }
 
@@ -192,7 +192,7 @@ export default css`
     margin-inline-end: var(--wa-space-m);
   }
 
-  .select--medium.select--multiple .select__prefix::slotted(*) {
+  .select--medium.select--multiple:not(.select--placeholder-visible) .select__prefix::slotted(*) {
     margin-inline-start: var(--wa-space-m);
   }
 
@@ -220,7 +220,7 @@ export default css`
     margin-inline-end: var(--wa-space-l);
   }
 
-  .select--large.select--multiple .select__prefix::slotted(*) {
+  .select--large.select--multiple:not(.select--placeholder-visible) .select__prefix::slotted(*) {
     margin-inline-start: var(--wa-space-l);
   }
 

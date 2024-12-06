@@ -4,6 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { drag } from '../../internal/drag.js';
 import { html } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { watch } from '../../internal/watch.js';
@@ -41,6 +42,8 @@ import type { CSSResultGroup } from 'lit';
 export default class WaImageComparer extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
+  private readonly localize = new LocalizeController(this);
+
   @query('.image-comparer') base: HTMLElement;
   @query('.image-comparer__handle') handle: HTMLElement;
 
@@ -49,7 +52,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   private handleDrag(event: PointerEvent) {
     const { width } = this.base.getBoundingClientRect();
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.localize.dir() === 'rtl';
 
     event.preventDefault();
 
@@ -64,7 +67,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   private handleKeyDown(event: KeyboardEvent) {
     const isLtr = this.matches(':dir(ltr)');
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.localize.dir() === 'rtl';
 
     if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
       const incr = event.shiftKey ? 10 : 1;
@@ -96,7 +99,7 @@ export default class WaImageComparer extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.hasUpdated ? this.matches(':dir(rtl)') : this.dir === 'rtl';
+    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
       <div

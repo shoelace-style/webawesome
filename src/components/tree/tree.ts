@@ -1,6 +1,7 @@
 import { clamp } from '../../internal/math.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -93,6 +94,7 @@ export default class WaTree extends WebAwesomeElement {
   private lastFocusedItem: WaTreeItem | null;
   private mutationObserver: MutationObserver;
   private clickTarget: WaTreeItem | null = null;
+  private readonly localize = new LocalizeController(this);
 
   constructor() {
     super();
@@ -231,7 +233,7 @@ export default class WaTree extends WebAwesomeElement {
 
     const items = this.getFocusableItems();
     const isLtr = this.matches(':dir(ltr)');
-    const isRtl = this.matches(':dir(rtl)');
+    const isRtl = this.localize.dir() === 'rtl';
 
     if (items.length > 0) {
       event.preventDefault();

@@ -195,7 +195,7 @@ export class SubmenuController implements ReactiveController {
   private handlePopupReposition = () => {
     const submenuSlot: HTMLSlotElement | null = this.host.renderRoot.querySelector("slot[name='submenu']");
     const menu = submenuSlot?.assignedElements({ flatten: true }).filter(el => el.localName === 'wa-menu')[0];
-    const isRtl = this.host.hasUpdated ? this.host.matches(':dir(rtl)') : this.host.dir === 'rtl';
+    const isRtl = getComputedStyle(this.host).direction === 'rtl';
 
     if (!menu) {
       return;
@@ -265,7 +265,7 @@ export class SubmenuController implements ReactiveController {
       return html` <slot name="submenu" hidden></slot> `;
     }
 
-    const isRtl = this.host.matches(':dir(rtl)');
+    const isRtl = getComputedStyle(this.host).direction === 'rtl';
 
     return html`
       <wa-popup

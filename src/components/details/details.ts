@@ -3,6 +3,7 @@ import { animate, parseDuration } from '../../internal/animate.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -52,12 +53,13 @@ import type { CSSResultGroup } from 'lit';
 export default class WaDetails extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
+  private detailsObserver: MutationObserver;
+  private readonly localize = new LocalizeController(this);
+
   @query('.details') details: HTMLDetailsElement;
   @query('.details__header') header: HTMLElement;
   @query('.details__body') body: HTMLElement;
   @query('.details__expand-icon-slot') expandIconSlot: HTMLSlotElement;
-
-  detailsObserver: MutationObserver;
 
   /**
    * Indicates whether or not the details is open. You can toggle this attribute to show and hide the details, or you
@@ -208,7 +210,7 @@ export default class WaDetails extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.matches(':dir(rtl)');
+    const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
       <details
