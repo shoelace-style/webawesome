@@ -1,7 +1,8 @@
-// import { classMap } from 'lit/directives/class-map.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
@@ -30,7 +31,10 @@ export default class WaCodeDemo extends WebAwesomeElement {
   private previewSlot: HTMLSlotElement;
 
   @query('#preview')
-  private preview: HTMLElement;
+  private previewElement: HTMLElement;
+
+  @query('iframe')
+  private iframeElement: HTMLIFrameElement;
 
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
@@ -40,19 +44,47 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
+  private previewComputedStyle: CSSStyleDeclaration;
+
   render() {
     let code = this.textContent;
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
     const isolated = this.viewport !== undefined;
+    const previewStyles = {};
+    const previewClasses = {};
 
-    if (isolated && customPreview && this.previewSlot) {
-      code = getInnerHTML(this.previewSlot);
+    if (isolated) {
+      if (customPreview && this.previewSlot) {
+        code = getInnerHTML(this.previewSlot);
+      }
+
+      if (globalThis.window) {
+        const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
+        previewStyles['--preview-width-inner-px'] =
+          parseInt(cs.width) -
+          parseInt(cs.paddingLeft || 0) -
+          parseInt(cs.paddingRight || 0) -
+          parseInt(cs.borderLeftWidth || 0) -
+          parseInt(cs.borderRightWidth || 0);
+      }
+
+      if (this.viewport) {
+        // Viewport emulation
+
+        // TODO move to a converter or something, we shouldn't parse this on every render
+        const [width, height] = this.viewport.trim().split(/\s*x\s*/);
+        previewStyles['--viewport-width-px'] = width;
+        if (height) {
+          previewStyles['--viewport-height-px'] = height;
+        }
+        previewClasses.zoomed = true;
+      }
     }
 
     return html`
-      <div id="preview" part="preview">
+      <div id="preview" part="preview" style="${styleMap(previewStyles)}" class="${classMap(previewClasses)}">
         ${isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
         <slot
           name="preview"
@@ -79,13 +111,6 @@ export default class WaCodeDemo extends WebAwesomeElement {
         </button>
       </div>
     `;
-  }
-
-  @watch('viewport')
-  handleViewportChange() {
-    this.preview.style.setProperty('--viewport-width', this.viewport);
-    this.preview.style.setProperty('--natural-width', this.preview.offsetWidth);
-    this.preview.classList.toggle('zoomed', this.viewport);
   }
 
   private handleSlotChange(e: Event) {

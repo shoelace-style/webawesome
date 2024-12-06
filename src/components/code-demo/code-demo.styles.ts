@@ -9,6 +9,7 @@ export default css`
     --preview-max-width: 100%;
     --preview-padding: var(--wa-space-2xl, 2rem);
     --divider-width: var(--wa-border-width-s, 1px);
+    --viewport-initial-aspect-ratio: 16 / 9;
 
     display: block;
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
@@ -20,19 +21,23 @@ export default css`
 
   #preview {
     display: block;
-    resize: var(--preview-resize);
-    overflow: auto;
+
     min-width: var(--preview-min-width, min-content);
     max-width: min(var(--preview-max-width), 100%);
     padding: var(--preview-padding);
     border-block-end: inherit;
     border-block-end-width: var(--divider-width);
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
     background: var(--preview-background);
+    contain: inline-size;
+    container-type: inline;
+    container-name: preview;
 
-    &,
+    &:not(:has(> iframe)),
     > iframe {
-      border-start-start-radius: inherit;
-      border-start-end-radius: inherit;
+      resize: var(--preview-resize);
+      overflow: auto;
     }
 
     > :first-child {
@@ -44,13 +49,26 @@ export default css`
     }
 
     > iframe {
-      border: none;
-      /*outline: 1px solid red; outline-offset: -0.5px;*/
-      --width: calc(var(--viewport-width) * 1px);
-      width: var(--width, 100%);
-      --zoom: calc(var(--natural-width) / var(--viewport-width));
-      transform: scale(var(--zoom));
-      transform-origin: 0 0;
+      /* Convert pure numbers to lengths */
+      --viewport-width: calc(var(--viewport-width-px) * 1px);
+      --viewport-height: calc(var(--viewport-height-px) * 1px);
+
+      /* Values with fallback */
+      --_width: var(--viewport-width, 100%);
+      --_height: var(--viewport-height, calc(var(--viewport-width) / (var(--viewport-initial-aspect-ratio))));
+
+      --_zoom: calc(var(--preview-width-inner-px) / var(--viewport-width-px));
+      --zoom: var(--_zoom, 1);
+      zoom: var(--_zoom);
+
+      width: var(--_width);
+      height: var(--viewport-height);
+
+      box-sizing: border-box;
+
+      /* TODO style iframe like a window */
+      border: calc(1px / var(--zoom)) var(--wa-color-gray-80) solid;
+      border-radius: calc(var(--wa-border-radius-s) / var(--zoom));
     }
   }
 

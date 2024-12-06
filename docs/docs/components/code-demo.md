@@ -46,6 +46,7 @@ It goes without saying that this list is a rough plan and subject to change.
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
 - [ ] Provide controls for zooming in/out
 - [ ] Provide a way to render to the light DOM?
+- [ ] Automatic iframe height
 
 ## Examples
 
@@ -90,7 +91,7 @@ To only render the custom preview within the shadow DOM, or to display raw text,
 
 TBD
 
-### Viewport rendering
+### Isolated viewports
 
 Often you may want to render your demo in a separate viewport, e.g. when it’s about a whole page.
 Or, you may want to sandbox it.
@@ -109,10 +110,25 @@ For these cases, you can use the `viewport` attribute, which renders the demo in
 
 </wa-callout> -->
 
+### Viewport Emulation
+
 You can also provide a width value to emulate and it will be scaled accordingly:
 
 ```html {.example}
 <wa-code-demo viewport="300">
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+By default, the viewport will be rendered to an initial 16:9 aspect ratio,
+which can be changed via resizing.
+You can customize this via the `--viewport-initial-aspect-ratio` property.
+Or, you could add a height value:
+
+```html {.example}
+<wa-code-demo viewport="1600 x 1000">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
   </code></pre>
