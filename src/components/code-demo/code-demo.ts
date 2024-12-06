@@ -95,13 +95,13 @@ export default class WaCodeDemo extends WebAwesomeElement {
           type="button"
           aria-expanded="${this.open ? 'true' : 'false'}"
           aria-controls="source"
-          part="button"
+          part="toggle button"
           @click=${this.toggle}
         >
           Code
           <wa-icon name="chevron-down"></wa-icon>
         </button>
-        <button class="pen" type="button" part="button" @click=${this.edit}>
+        <button class="pen" type="button" part="edit button" @click=${this.edit}>
           <wa-icon name="pen-to-square"></wa-icon>
           Edit
         </button>
