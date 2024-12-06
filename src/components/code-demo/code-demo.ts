@@ -38,6 +38,9 @@ export default class WaCodeDemo extends WebAwesomeElement {
   /** Renders in an iframe */
   @property({ reflect: true }) viewport?: string;
 
+  /** Includes resources and other elements in the preview */
+  @property({ reflect: true }) include?: string;
+
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
   private previewComputedStyle: CSSStyleDeclaration;
@@ -79,6 +82,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
       }
     }
 
+    const includedHTML = this.includedHTML;
+    if (includedHTML !== null) {
+      code = includedHTML + '\n\n' + code;
+    }
+
     return html`
       <div id="preview" part="preview" style="${styleMap(previewStyles)}" class="${classMap(previewClasses)}">
         ${isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
@@ -107,6 +115,18 @@ export default class WaCodeDemo extends WebAwesomeElement {
         </button>
       </div>
     `;
+  }
+
+  public get includedHTML(): string | null {
+    if (!this.include || !this.ownerDocument) {
+      return null;
+    }
+
+    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(this.include), el => {
+      return el.nodeName === 'TEMPLATE' ? (el as HTMLTemplateElement).innerHTML : el.outerHTML;
+    });
+
+    return ret.join('\n');
   }
 
   private handleSlotChange(e: Event) {
@@ -187,6 +207,9 @@ declare global {
   }
 }
 
+/**
+ * Parse a string into a number, or return 0 if it's not a number
+ */
 function getNumber(value: string | number): number {
   return (typeof value === 'string' ? parseFloat(value) : value) || 0;
 }

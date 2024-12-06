@@ -74,16 +74,27 @@ There are certain types of elements that are handled specially:
 - `<template>`: contents are cloned instead of the element itself.
 This is useful for including resources in your demo that you don't want rendered outside the demo.
 
+The following example includes all stylesheets on this page whose URLs start with `/dist/themes/`,
+plus any other elements with the class `.demo-import`:
+
 ```html {.example .open}
-<script type="module" src="{% cdnUrl 'webawesome.loader.js' %}" class="demo-import"></script>
-<link rel="stylesheet" href="{% cdnUrl 'themes/default.css' %}" class="demo-import">
-<template class="demo-import"><style>wa-callout { font-size: var(--wa-font-size-2xl) }</style></template>
-<wa-code-demo include=".demo-import">
+<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import">
+<template class="demo-import">
+  <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+  <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
+  <script>console.log('Hello!')</script>
+</template>
+<wa-code-demo include=".demo-import, link[rel=stylesheet][href^='/dist/themes']">
   <pre><code class="language-html">
     &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
   </code></pre>
 </wa-code-demo>
 ```
+
+<wa-callout variant="danger">
+  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
+
+</wa-callout>
 
 ### Isolated viewports
 
@@ -98,11 +109,6 @@ For these cases, you can use the `viewport` attribute, which renders the demo in
   </code></pre>
 </wa-code-demo>
 ```
-<!--
-<wa-callout variant="danger">
-  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
-
-</wa-callout> -->
 
 ### Viewport Emulation
 
@@ -125,6 +131,25 @@ Or, you could add a height value:
 <wa-code-demo viewport="1600 x 1000">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+### Isolated demos with resources
+
+Including resources in isolated demos works the same way.
+Any relative URLs are still resolved relative to the host document:
+
+```html {.example .open}
+<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import">
+<template class="demo-import">
+  <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+  <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
+  <script>console.log('Hello from iframe!')</script>
+</template>
+<wa-code-demo viewport include=".demo-import, link[rel=stylesheet][href^='/dist/themes']">
+  <pre><code class="language-html">
+    &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
   </code></pre>
 </wa-code-demo>
 ```
@@ -163,7 +188,6 @@ It goes without saying that this list is a rough plan and subject to change.
 
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
 - [ ] Provide a way to hide the edit button
-- [ ] Provide a way to link to the resources to be included
 - [ ] Provide a way to open in a new tab
 
 ### Low priority
