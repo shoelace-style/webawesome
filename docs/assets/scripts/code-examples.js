@@ -20,6 +20,8 @@ document.addEventListener('click', event => {
       `<script type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
       `<link rel="stylesheet" href="${cdnUrl}themes/default.css">\n\n` +
       `<link rel="stylesheet" href="${cdnUrl}themes/applied.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}themes/layout.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}themes/utilities.css">\n\n` +
       `${code.textContent}`;
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
