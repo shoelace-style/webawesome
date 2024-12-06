@@ -14,6 +14,7 @@ import type { CSSResultGroup } from 'lit';
  * @since 3.0
  *
  * @slot - The main code example (usually a `<pre>` element).
+ * @slot preview - One or more custom elements to display as the code example preview.
  *
  * @csspart preview - The container of the code example preview.
  * @csspart controls - The container of the control buttons.
@@ -31,8 +32,8 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   render() {
     const code = this.textContent;
-    // FIXME Ideally we don't want to render the contents of the code element anywhere if there is a custom preview
-    // as then providing a custom preview can also be used to sanitize the code.
+    // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
+    // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
 
     return html`
