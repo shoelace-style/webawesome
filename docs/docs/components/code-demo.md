@@ -59,11 +59,21 @@ It goes without saying that this list is a rough plan and subject to change.
 </wa-code-demo>
 ```
 
-### Custom preview
+### Custom previews
 
 In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, or fix whitespace.
 In those cases, you can slot in a custom preview:
 
+```html {.example .open}
+<wa-code-demo open>
+  <wa-button slot="preview">Click me!</wa-button>
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
+
+To only render the custom preview within the shadow DOM, or to display raw text, you can wrap it in a `<template>` element:
 ```html {.example .open}
 <wa-code-demo open>
   <template slot="preview">
