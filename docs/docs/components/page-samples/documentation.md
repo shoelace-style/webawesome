@@ -1,15 +1,25 @@
 ---
-title: Sample Page
+title: Sample Docs Page
 description: TODO
 layout: blank
 ---
 
 <style>
   wa-page {
-    --menu-width: 25ch;
-    --aside-width: 25ch;
+    --menu-width: 15rem;
+    --aside-width: 15rem;
   }
   wa-page[view='desktop'] [data-toggle-nav] {
+    display: none;
+  }
+  wa-page[view='mobile'] {
+    --menu-width: auto;
+    --aside-width: auto;
+  }
+  wa-page[view='mobile'] [slot='aside'] {
+    display: none;
+  }
+  wa-page[view='mobile'] #brand-name {
     display: none;
   }
   [slot='banner'] {  
@@ -42,7 +52,7 @@ layout: blank
   [slot='main-header'],
   main,
   [slot='main-footer'] {
-    max-inline-size: 100ch;
+    max-inline-size: 60rem;
     margin-inline: auto;
   }
   [slot='main-footer'] {
@@ -62,28 +72,30 @@ layout: blank
       <span>Give a Hoot for the Holidays: Donate now and double your impact.</span>
     </div>
   </div>
-  <header slot="header">
+  <header slot="header" class="wa-split">
     <div class="wa-cluster">
-      <wa-icon-button data-toggle-nav name="bars" label="Menu"></wa-icon-button>
       <wa-icon name="feather-pointed" style="color: var(--wa-color-brand-fill-loud); font-size: 1.5em;"></wa-icon>
-      <span class="wa-heading-s">Audubon Worldwide</span>
+      <span id="brand-name" class="wa-heading-s">Audubon Worldwide</span>
       <a href="#">Our Work</a>
       <a href="#">About Us</a>
       <a href="#">Discover</a>
       <a href="#">Get Involved</a>
     </div>
-    <div class="wa-cluster">
-      <wa-button size="small" appearance="tinted">Find Your Local Audubon</wa-button>
-      <wa-button size="small">Donate</wa-button>
+    <div class="wa-cluster wa-gap-xs">
+      <wa-button size="small" variant="brand" appearance="outlined">Find Your Local Audubon</wa-button>
+      <wa-button size="small" variant="brand">Donate</wa-button>
     </div>
   </header>
   <nav slot="subheader">
-    <wa-breadcrumb style="font-size: var(--wa-font-size-s);">
-      <wa-breadcrumb-item>Field Guides</wa-breadcrumb-item>
-      <wa-breadcrumb-item>Owls</wa-breadcrumb-item>
-      <wa-breadcrumb-item>Great Horned Owl</wa-breadcrumb-item>
-    </wa-breadcrumb>
-    <wa-input placeholder="Search" size="small">
+    <div class="wa-cluster">
+      <wa-icon-button data-toggle-nav name="bars" label="Menu"></wa-icon-button>
+      <wa-breadcrumb style="font-size: var(--wa-font-size-s);">
+        <wa-breadcrumb-item>Field Guides</wa-breadcrumb-item>
+        <wa-breadcrumb-item>Owls</wa-breadcrumb-item>
+        <wa-breadcrumb-item>Great Horned Owl</wa-breadcrumb-item>
+      </wa-breadcrumb>
+    </div>
+    <wa-input placeholder="Search" size="small" style="max-inline-size: 12rem;">
       <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
     </wa-input>
   </nav>
@@ -140,15 +152,15 @@ layout: blank
       </div>
     </div>
   </header>
-  <main>
+  <main class="wa-body-l">
     <h2 id="identification">Identification</h2>
-    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Venenatis aenean ullamcorper vel cubilia volutpat natoque mus? Eget habitant scelerisque lectus ultrices nascetur aliquet sapien primis. Cursus sapien fusce semper nulla elit sociosqu lectus per sem. Sem ad porttitor dictum nisl pharetra tortor convallis. Sit molestie hendrerit porta dictum tortor posuere euismod magna. Mauris suspendisse pharetra finibus; eleifend etiam ridiculus.</p>
+    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Eget habitant scelerisque lectus ultrices nascetur aliquet sapien primis. Cursus sapien fusce semper nulla elit sociosqu lectus per sem. Sem ad porttitor dictum nisl pharetra tortor convallis. Sit molestie hendrerit porta dictum tortor posuere euismod magna. Mauris suspendisse pharetra finibus; eleifend etiam ridiculus.</p>
     <h2 id="range">Range and Habitat</h2>
-    <p>Diam sed ipsum pretium porttitor class cubilia elementum? Blandit felis ligula habitant ultricies vulputate rutrum lacus commodo pulvinar. Nostra semper placerat lectus in dis eu. Sagittis ipsum placerat rhoncus lacus id eget. Erat pharetra aptent enim, augue accumsan ultricies inceptos habitasse. Senectus id maximus parturient tellus; fermentum posuere vulputate luctus. Lorem bibendum arcu, torquent congue purus rhoncus dapibus. Ac tempus dapibus vehicula ligula ullamcorper sit duis. Semper hac egestas massa nisi proin?</p>
+    <p>Diam sed ipsum pretium porttitor class cubilia elementum. Blandit felis ligula habitant ultricies vulputate rutrum lacus commodo pulvinar. Nostra semper placerat lectus in dis eu. Sagittis ipsum placerat rhoncus lacus id eget. Erat pharetra aptent enim, augue accumsan ultricies inceptos habitasse. Senectus id maximus parturient tellus; fermentum posuere vulputate luctus. Ac tempus dapibus vehicula ligula ullamcorper sit duis.</p>
     <h2 id="behavior">Behavior</h2>
     <p>Erat vitae luctus arcu taciti malesuada pretium arcu justo primis. Cubilia vitae maecenas congue velit id netus arcu. Dictum vel pellentesque taciti fermentum risus consectetur amet. Faucibus commodo habitasse sem maximus praesent purus, dignissim tristique porta. Platea magna justo ipsum ut metus ac facilisi. Imperdiet laoreet pharetra maximus lacus tortor suscipit. Nam quisque iaculis orci porttitor pellentesque rhoncus. Molestie sagittis tincidunt quisque nisi non urna conubia.</p>
     <h2 id="conservation">Conservation</h2>
-    <p>Nullam magna quam quisque eu varius integer. Inceptos donec facilisi risus himenaeos semper mollis habitasse. Vehicula lacus vivamus euismod pharetra mollis dictum. Ante ex tortor elementum eleifend habitasse orci aliquam. Fames erat senectus fames etiam dapibus cursus. Neque suscipit at suspendisse habitant facilisis maecenas finibus.</p>
+    <p>Nullam magna quam quisque eu varius integer. Inceptos donec facilisi risus himenaeos semper mollis habitasse. Vehicula lacus vivamus euismod pharetra mollis dictum. Ante ex tortor elementum eleifend habitasse orci aliquam. Fames erat senectus fames etiam dapibus cursus.</p>
   </main>
   <footer slot="main-footer">
     <section>
@@ -196,25 +208,25 @@ layout: blank
       <span class="wa-heading-s">Audubon Worldwide</span>
     </div>
     <div class="wa-stack">
-      <h3 class="wa-heading-s">Our Work</h3>
+      <h3 class="wa-heading-xs">Our Work</h3>
       <a href="#">Habitat Restoration</a>
       <a href="#">Migration Science</a>
       <a href="#">Advocacy</a>
     </div>
     <div class="wa-stack">
-      <h3 class="wa-heading-s">About Us</h3>
+      <h3 class="wa-heading-xs">About Us</h3>
       <a href="#">Our History</a>
       <a href="#">Leadership</a>
       <a href="#">Fiscal Reports</a>
     </div>
     <div class="wa-stack">
-      <h3 class="wa-heading-s">Discover</h3>
+      <h3 class="wa-heading-xs">Discover</h3>
       <a href="#">Field Guides</a>
       <a href="#">Photo Search</a>
       <a href="#">Gear and Resources</a>
     </div>
     <div class="wa-stack">
-      <h3 class="wa-heading-s">Get Involved</h3>
+      <h3 class="wa-heading-xs">Get Involved</h3>
       <a href="#">Adopt a Bird</a>
       <a href="#">Your Local Audubon</a>
       <a href="#">Youth Audubon Camps</a>
