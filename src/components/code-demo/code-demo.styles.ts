@@ -7,6 +7,7 @@ export default css`
     --preview-resize: inline;
     --preview-min-width: min-content;
     --preview-max-width: 100%;
+    --preview-padding: var(--wa-space-2xl, 2rem);
     --divider-width: var(--wa-border-width-s, 1px);
 
     display: block;
@@ -23,12 +24,16 @@ export default css`
     overflow: auto;
     min-width: var(--preview-min-width, min-content);
     max-width: min(var(--preview-max-width), 100%);
-    padding: 2rem;
+    padding: var(--preview-padding);
     border-block-end: inherit;
     border-block-end-width: var(--divider-width);
     background: var(--preview-background);
-    border-start-start-radius: inherit;
-    border-start-end-radius: inherit;
+
+    &,
+    > iframe {
+      border-start-start-radius: inherit;
+      border-start-end-radius: inherit;
+    }
 
     > :first-child {
       margin-block-start: 0;
@@ -36,6 +41,16 @@ export default css`
 
     > :last-child {
       margin-block-end: 0;
+    }
+
+    > iframe {
+      border: none;
+      /*outline: 1px solid red; outline-offset: -0.5px;*/
+      --width: calc(var(--viewport-width) * 1px);
+      width: var(--width, 100%);
+      --zoom: calc(var(--natural-width) / var(--viewport-width));
+      transform: scale(var(--zoom));
+      transform-origin: 0 0;
     }
   }
 

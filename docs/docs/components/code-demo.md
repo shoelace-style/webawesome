@@ -90,24 +90,34 @@ To only render the custom preview within the shadow DOM, or to display raw text,
 
 TBD
 
-### Render Isolation
+### Viewport rendering
 
-Often you may want to render your demo in a whole document, e.g. when it’s about a whole page.
+Often you may want to render your demo in a separate viewport, e.g. when it’s about a whole page.
 Or, you may want to sandbox it.
-For these cases, you can use the `isolated` attribute:
+For these cases, you can use the `viewport` attribute, which renders the demo in an iframe:
 
 ```html {.example}
-<wa-code-demo isolated>
+<wa-code-demo viewport>
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
   </code></pre>
 </wa-code-demo>
 ```
-
+<!--
 <wa-callout variant="danger">
   <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
 
-</wa-callout>
+</wa-callout> -->
+
+You can also provide a width value to emulate and it will be scaled accordingly:
+
+```html {.example}
+<wa-code-demo viewport="300">
+  <pre><code class="language-html">
+    &lt;button&gt;Click me!&lt;/button&gt;
+  </code></pre>
+</wa-code-demo>
+```
 
 ## Styling
 

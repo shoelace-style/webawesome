@@ -1,7 +1,8 @@
 // import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -25,20 +26,39 @@ import type { CSSResultGroup } from 'lit';
 export default class WaCodeDemo extends WebAwesomeElement {
   static styles: CSSResultGroup = [componentStyles, styles];
 
+  @query('slot[name=preview]')
+  private previewSlot: HTMLSlotElement;
+
+  @query('#preview')
+  private preview: HTMLElement;
+
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
+
+  /** Renders in an iframe */
+  @property({ reflect: true }) viewport?: string;
 
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
   render() {
-    const code = this.textContent;
+    let code = this.textContent;
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
+    const isolated = this.viewport !== undefined;
+
+    if (isolated && customPreview && this.previewSlot) {
+      code = getInnerHTML(this.previewSlot);
+    }
 
     return html`
       <div id="preview" part="preview">
-        <slot name="preview" @slotchange=${this.handleSlotChange} .innerHTML=${customPreview ? '' : code}></slot>
+        ${isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
+        <slot
+          name="preview"
+          @slotchange=${this.handleSlotChange}
+          .innerHTML=${customPreview || isolated ? '' : code}
+        ></slot>
       </div>
       <slot class="source" id="source"></slot>
       <div id="buttons" part="controls">
@@ -59,6 +79,13 @@ export default class WaCodeDemo extends WebAwesomeElement {
         </button>
       </div>
     `;
+  }
+
+  @watch('viewport')
+  handleViewportChange() {
+    this.preview.style.setProperty('--viewport-width', this.viewport);
+    this.preview.style.setProperty('--natural-width', this.preview.offsetWidth);
+    this.preview.classList.toggle('zoomed', this.viewport);
   }
 
   private handleSlotChange(e: Event) {
