@@ -77,7 +77,7 @@ This is useful for including resources in your demo that you don't want rendered
 ```html {.example .open}
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}" class="demo-import"></script>
 <link rel="stylesheet" href="{% cdnUrl 'themes/default.css' %}" class="demo-import">
-<style class="demo-import">wa-callout { font-size: var(--wa-font-size-2xl) }</style>
+<template class="demo-import"><style>wa-callout { font-size: var(--wa-font-size-2xl) }</style></template>
 <wa-code-demo include=".demo-import">
   <pre><code class="language-html">
     &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
