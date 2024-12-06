@@ -22,6 +22,9 @@ layout: blank
   wa-page[view='mobile'] #brand-name {
     display: none;
   }
+  wa-page[view='mobile'] #search {
+    display: none;
+  }
   [slot='banner'] {  
     --wa-color-text-link: var(--wa-color-neutral-on-loud);
     background-color: var(--wa-color-neutral-fill-loud);
@@ -67,7 +70,7 @@ layout: blank
 
 <wa-page mobile-breakpoint="920">
   <div slot="banner" class="wa-body-s">
-    <a href="#" class="wa-cluster wa-gap-xs">
+    <a href="#" class="wa-cluster wa-align-items-baseline wa-gap-xs" style="flex-wrap: nowrap;">
       <wa-icon name="gift"></wa-icon>
       <span>Give a Hoot for the Holidays: Donate now and double your impact.</span>
     </div>
@@ -87,7 +90,7 @@ layout: blank
     </div>
   </header>
   <nav slot="subheader">
-    <div class="wa-cluster">
+    <div class="wa-cluster" style="flex-wrap: nowrap;">
       <wa-icon-button data-toggle-nav name="bars" label="Menu"></wa-icon-button>
       <wa-breadcrumb style="font-size: var(--wa-font-size-s);">
         <wa-breadcrumb-item>Field Guides</wa-breadcrumb-item>
@@ -95,7 +98,7 @@ layout: blank
         <wa-breadcrumb-item>Great Horned Owl</wa-breadcrumb-item>
       </wa-breadcrumb>
     </div>
-    <wa-input placeholder="Search" size="small" style="max-inline-size: 12rem;">
+    <wa-input id="search" placeholder="Search" size="small" style="max-inline-size: 12rem;">
       <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
     </wa-input>
   </nav>
@@ -202,8 +205,8 @@ layout: blank
       </div>
     </wa-card>
   </aside>
-  <footer slot="footer">
-    <div class="wa-cluster">
+  <footer slot="footer" class="wa-grid wa-gap-xl">
+    <div class="wa-cluster" style="flex-wrap: nowrap;">
       <wa-icon name="feather-pointed" style="font-size: 1.5em;"></wa-icon>
       <span class="wa-heading-s">Audubon Worldwide</span>
     </div>
