@@ -40,7 +40,7 @@ In some cases you may want to preprocess the code displayed, for example to sani
 For these cases, you can slot in a custom preview:
 
 ```html {.example .open}
-<wa-code-demo open>
+<wa-code-demo>
   <wa-button slot="preview">Click me!</wa-button>
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
@@ -50,7 +50,7 @@ For these cases, you can slot in a custom preview:
 
 To only render the custom preview within the shadow DOM, or to display raw text, you can wrap it in a `<template>` element:
 ```html {.example .open}
-<wa-code-demo open>
+<wa-code-demo>
   <template slot="preview">
     <wa-button>Click me!</wa-button>
   </template>
@@ -68,17 +68,24 @@ The same applies to isolated demos (see below), opening demos in a new tab, or e
 While you _could_ manually include all of these on every single demo, it would get tedious to write,
 and it would add noise for the reader.
 
-Instead, you can use the `include` attribute.
-Its value is a CSS selector and the elements it matches are cloned within the demo, at the start.
+Instead, `<wa-code-demo>` provides several better ways to include resources.
+The core idea is that rather than specifying these resources over and over on each demo,
+you would **point to elements** which would then be cloned into the demo, at the beginning.
+
+There are two ways to point to elements:
+- Add a `wa-code-demo-include` class to them
+- Specify a CSS selector for which resources to look for in the demo’s `include` attribute.
+
 There are certain types of elements that are handled specially:
 - `<template>`: contents are cloned instead of the element itself.
 This is useful for including resources in your demo that you don't want rendered outside the demo.
 
-The following example includes all stylesheets on this page whose URLs start with `/dist/themes/`,
-plus any other elements with the class `.demo-import`:
+The following example shows both methods.
+It includes all stylesheets on this page whose URLs start with `/dist/themes/`,
+plus any other elements with the class `.demo-import`, plus a CSS file with the class `wa-code-demo-include`:
 
 ```html {.example .open}
-<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import">
+<link rel="stylesheet" href="../../dist/themes/default.css" class="wa-code-demo-include">
 <template class="demo-import">
   <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
   <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
@@ -91,10 +98,10 @@ plus any other elements with the class `.demo-import`:
 </wa-code-demo>
 ```
 
-<wa-callout variant="danger">
+<!-- <wa-callout variant="danger">
   <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
 
-</wa-callout>
+</wa-callout> -->
 
 ### Isolated viewports
 
@@ -159,7 +166,7 @@ Any relative URLs are still resolved relative to the host document:
 Just setting `border-radius` or `border` should work as expected:
 
 ```html{.example}
-<wa-code-demo open style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-s)">
+<wa-code-demo style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-s)">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
     &lt;wa-button&gt;Click me!&lt;/wa-button&gt;
@@ -187,7 +194,6 @@ It goes without saying that this list is a rough plan and subject to change.
 ### High priority
 
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
-- [ ] Provide a way to hide the edit button
 - [ ] Provide a way to open in a new tab
 
 ### Low priority
@@ -201,3 +207,4 @@ It goes without saying that this list is a rough plan and subject to change.
 - [ ] Provide controls for zooming in/out
 - [ ] Provide a way to render to the light DOM?
 - [ ] Automatic iframe height
+- [ ] Provide a way to hide the edit button

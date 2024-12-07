@@ -56,6 +56,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
     if (isolated) {
       if (globalThis.window) {
+        // TODO ResizeObserver
         const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
         previewStyles['--preview-width-inner-px'] =
           getNumber(cs.width) -
@@ -113,7 +114,8 @@ export default class WaCodeDemo extends WebAwesomeElement {
       return null;
     }
 
-    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(this.include), el => {
+    const selector = this.include + ', .wa-code-demo-include';
+    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(selector), el => {
       return el.nodeName === 'TEMPLATE' ? (el as HTMLTemplateElement).innerHTML : el.outerHTML;
     });
 
