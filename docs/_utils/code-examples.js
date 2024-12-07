@@ -2,9 +2,9 @@ import { parse } from 'node-html-parser';
 import { v4 as uuid } from 'uuid';
 
 const templates = {
-  old(pre, { open, buttons, edit }) {
+  old(pre, code, { open, buttons, edit }) {
     const id = `code-example-${uuid().slice(-12)}`;
-    let preview = pre.textContent;
+    let preview = code.textContent;
 
     // Run preview scripts as modules to prevent collisions
     const root = parse(preview, { blockTextElements: { script: true } });
@@ -49,11 +49,32 @@ const templates = {
       </div>
     `;
   },
-  new(pre, { isOpen }) {
-    const preview = pre.textContent;
+  new(pre, code, { open, first }) {
+    const preview = code.textContent;
+
+    const attributes = {
+      includes: 'link[rel=stylesheet]',
+      open
+    };
+
+    if (code.hasAttribute('data-viewport')) {
+      attributes.viewport = code.getAttribute('data-viewport');
+    }
+
+    const attributesString = Object.entries(attributes)
+      .map(([key, value]) => {
+        if (value === true) {
+          return key;
+        }
+        if (value === false || value === null) {
+          return '';
+        }
+        return `${key}="${value}"`;
+      })
+      .join(' ');
 
     return `
-      <wa-code-demo${isOpen ? ' open' : ''} includes="link[rel=stylesheet]">
+      <wa-code-demo ${attributesString}>
         <div style="display:contents" slot="preview">${preview}</div>
         ${pre.outerHTML}
       </wa-code-demo>
@@ -64,47 +85,63 @@ const templates = {
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
  */
-export function codeExamplesPlugin(options = {}) {
+export function codeExamplesPlugin(eleventyConfig, options = {}) {
   options = {
     container: 'body',
+    firstOpen: true,
     ...options
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('code-examples', content => {
-      const doc = parse(content, { blockTextElements: { code: true } });
-      const container = doc.querySelector(options.container);
+  const stats = {
+    inputPaths: {},
+    outputPaths: {}
+  };
 
-      if (!container) {
-        return content;
+  eleventyConfig.addTransform('code-examples', function (content) {
+    const { inputPath, outputPath } = this.page;
+
+    const doc = parse(content, { blockTextElements: { code: true } });
+    const container = doc.querySelector(options.container);
+
+    if (!container) {
+      return content;
+    }
+
+    // Look for external links
+    container.querySelectorAll('code.example').forEach(code => {
+      stats.inputPaths[inputPath] ??= 0;
+      stats.outputPaths[outputPath] ??= 0;
+      stats.inputPaths[inputPath]++;
+      stats.outputPaths[outputPath]++;
+
+      const pre = code.closest('pre');
+      const first = stats.inputPaths[inputPath] === 1;
+
+      const localOptions = {
+        ...options,
+        first,
+
+        // Modifier defaults
+        edit: true,
+        buttons: true,
+        new: true, // comment this line to default back to the old demos
+        open: options.firstOpen ? first : false // default to first open
+      };
+
+      for (const prop of ['new', 'open', 'buttons', 'edit']) {
+        if (code.classList.contains(prop)) {
+          localOptions[prop] = true;
+        } else if (code.classList.contains(`no-${prop}`)) {
+          localOptions[prop] = false;
+        }
       }
 
-      // Look for external links
-      container.querySelectorAll('code.example').forEach(code => {
-        const pre = code.closest('pre');
-        const localOptions = {
-          ...options,
-          // Defaults
-          edit: true,
-          buttons: true,
-          new: true // comment this line to default back to the old demos
-        };
+      const template = localOptions.new ? 'new' : 'old';
+      const codeExample = parse(templates[template](pre, code, localOptions));
 
-        for (const prop of ['new', 'open', 'buttons', 'edit']) {
-          if (code.classList.contains(prop)) {
-            localOptions[prop] = true;
-          } else if (code.classList.contains(`no-${prop}`)) {
-            localOptions[prop] = false;
-          }
-        }
-
-        const template = localOptions.new ? 'new' : 'old';
-        const codeExample = parse(templates[template](pre, localOptions));
-
-        pre.replaceWith(codeExample);
-      });
-
-      return doc.toString();
+      pre.replaceWith(codeExample);
     });
-  };
+
+    return doc.toString();
+  });
 }

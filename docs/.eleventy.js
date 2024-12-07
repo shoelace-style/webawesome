@@ -70,7 +70,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(currentLink());
 
   // Add code examples for `<code class="example">` blocks
-  eleventyConfig.addPlugin(codeExamplesPlugin());
+  eleventyConfig.addPlugin(codeExamplesPlugin, {
+    firstOpen: true
+  });
 
   // Highlight code blocks with Prism
   eleventyConfig.addPlugin(highlightCodePlugin());

@@ -108,6 +108,8 @@ To render a code preview, use the standard code field syntax and add a class of 
 You can add additional modifiers as classes or attributes.
 For example, `.open` to expand the code by default.
 The order of these modifiers doesn't matter, but no spaces should exist between them.
+Class name modifiers are turned on by simply using their name as a class (e.g. `open` to expand the code by default),
+and turned off by using `no-` followed by the class name (e.g. `no-edit` to hide the edit button).
 
 ````md
 ```html {.example .open .no-edit}
@@ -115,14 +117,15 @@ The order of these modifiers doesn't matter, but no spaces should exist between 
 ```
 ````
 
-the modifiers currently supported are:
-- `.open` - expands the code by default
-- `.new` - Uses `<wa-code-demo>` (default)
-- `.old` - Uses the older code demos
-- `.no-edit` - disables the CodePen button (old only)
-- `viewport` - Render the code in an iframe (new only)
-- `viewport="300"` - Set the initial virtual width of the viewport (new only)
-- `viewport="1600x1000"` - Set the initial virtual width and height of the viewport (new only)
+the class modifiers currently supported are:
+- `open` - expands the code (default: true for the first code example in the page, false for all others)
+- `new` - Uses `<wa-code-demo>` (default: true). Disable to use the old, non-component demo code.
+- `edit` - Enable the CodePen button (default: true) (old only)
+
+Attribute modifiers are only supported on the new code demo component:
+- `data-viewport` - Render the code in an iframe (no zooming)
+- `data-viewport="300"` - Set an initial virtual viewport width, the page will be scaled to fit
+- `data-viewport="1600x1000"` - Set an initial virtual width and height of the viewport
 
 This particular syntax was chosen for a few reasons:
 
