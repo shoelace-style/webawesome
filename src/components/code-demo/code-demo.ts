@@ -3,6 +3,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -20,6 +21,18 @@ import type { CSSResultGroup } from 'lit';
  * @csspart preview - The container of the code example preview.
  * @csspart controls - The container of the control buttons.
  * @csspart button - The control buttons.
+ * @csspart toggle - The toggle button.
+ * @csspart edit - The edit button.
+ * @csspart iframe - The iframe that contains the preview (in isolated demos).
+ *
+ * @cssproperty --preview-backdrop - The color behind the preview, shown when it is resized
+ * @cssproperty --preview-background - The background color of the preview.
+ * @cssproperty --preview-padding - The padding used for the preview. Defaults to `var(--wa-space-2xl)`.
+ * @cssproperty --preview-resize - The CSS `resize` property value used for the preview. Default: `inline`, for horizontal resizing.
+ * @cssproperty --viewport-initial-aspect-ratio - The initial aspect ratio of the viewport, when the `viewport` attribute is used. Defaults to `16 / 9`.
+ * @cssproperty --preview-max-width - The maximum width of the preview. Defaults to `100%`.
+ * @cssproperty --preview-min-width - The minimum width of the preview. Defaults to `min-content`.
+ * @cssproperty --divider-width - The width of the divider. Defaults to `var(--wa-border-width-s)`.
  *
  */
 @customElement('wa-code-demo')
@@ -44,10 +57,59 @@ export default class WaCodeDemo extends WebAwesomeElement {
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
   private previewComputedStyle: CSSStyleDeclaration;
+  private resizeObserver: ResizeObserver;
 
   /** Whether the demo is rendered in an iframe */
   public get isolated() {
     return this.viewport !== undefined;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.unobserveResize();
+  }
+
+  private previewInnerWidth: number;
+
+  private observeResize() {
+    if (this.previewElement) {
+      this.resizeObserver ??= new ResizeObserver(() => this.handleResize());
+      this.updateComplete.then(() => this.resizeObserver.observe(this.previewElement));
+    }
+  }
+
+  private unobserveResize() {
+    if (this.previewElement && this.resizeObserver) {
+      this.resizeObserver.unobserve(this.previewElement);
+    }
+  }
+
+  private handleResize() {
+    if (globalThis.window) {
+      this.previewComputedStyle ??= window.getComputedStyle(this.previewElement);
+
+      const cs = this.previewComputedStyle;
+      this.previewInnerWidth =
+        getNumber(cs.width) -
+        getNumber(cs.paddingLeft) -
+        getNumber(cs.paddingRight) -
+        getNumber(cs.borderLeftWidth) -
+        getNumber(cs.borderRightWidth);
+      this.previewElement.style.setProperty('--preview-width-px', this.previewInnerWidth);
+    }
+  }
+
+  @watch('viewport')
+  handleViewportChange() {
+    if (this.viewport) {
+      this.observeResize();
+    } else {
+      this.unobserveResize();
+    }
   }
 
   render() {
@@ -59,17 +121,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const previewClasses: { [key: string | number]: boolean } = {};
 
     if (this.isolated) {
-      if (globalThis.window) {
-        // TODO ResizeObserver
-        this.previewComputedStyle ??= window.getComputedStyle(this.previewElement);
-        const cs = this.previewComputedStyle;
-        previewStyles['--preview-width-inner-px'] =
-          getNumber(cs.width) -
-          getNumber(cs.paddingLeft) -
-          getNumber(cs.paddingRight) -
-          getNumber(cs.borderLeftWidth) -
-          getNumber(cs.borderRightWidth);
-      }
+      previewStyles['--preview-width-px'] = this.previewInnerWidth;
 
       if (this.viewport) {
         // Viewport emulation

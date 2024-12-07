@@ -31,7 +31,7 @@ export default css`
     border-start-end-radius: inherit;
     background: var(--preview-background);
     contain: inline-size;
-    container-type: inline;
+    container-type: inline-size;
     container-name: preview;
 
     &:not(:has(> iframe)),
@@ -57,7 +57,7 @@ export default css`
       --_width: var(--viewport-width, 100%);
       --_height: var(--viewport-height, calc(var(--viewport-width) / (var(--viewport-initial-aspect-ratio))));
 
-      --_zoom: calc(var(--preview-width-inner-px) / var(--viewport-width-px));
+      --_zoom: calc(var(--preview-width-px) / var(--viewport-width-px));
       --zoom: var(--_zoom, 1);
       zoom: var(--_zoom);
 
