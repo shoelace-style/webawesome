@@ -154,7 +154,12 @@ i.e. the previews of demos using the `viewport` attribute, but also opening demo
 ```html {.example .open}
 <template class="wa-code-demo-include-isolated">
   <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
-  <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
+  <style>
+    body {
+      padding: var(--wa-space-l);
+    }
+    wa-callout { font-size: var(--wa-font-size-2xl) }
+  </style>
   <script>console.log('Hello from iframe!')</script>
 </template>
 <wa-code-demo viewport include="link[rel=stylesheet]">

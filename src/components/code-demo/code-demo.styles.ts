@@ -66,9 +66,38 @@ export default css`
 
       box-sizing: border-box;
 
-      /* TODO style iframe like a window */
-      border: calc(1px / var(--zoom)) var(--wa-color-gray-80) solid;
+      /* Style iframe like a window */
+
+      --em: calc(1em / var(--zoom));
+      --_bezel-width: var(--viewport-bezel-width, calc(0.25em / var(--zoom)));
+      --_button-size: 0.5em;
+      --_button-y: 0.4em;
+      --_button-size-unzoomed: calc(var(--_button-size) / var(--zoom));
+      --_button-y-unzoomed: calc(var(--_button-y) / var(--zoom));
+      --_button-params: var(--_button-y-unzoomed) / var(--_button-size-unzoomed) var(--_button-size-unzoomed) border-box;
+
+      box-sizing: border-box;
+      border: var(--_bezel-width) solid transparent;
+      border-top-width: calc(0.9 * var(--em) + var(--_bezel-width));
       border-radius: calc(var(--wa-border-radius-s) / var(--zoom));
+
+      background:
+        linear-gradient(var(--preview-background) 0 100%) 0 0 / 100% 100% padding-box,
+        radial-gradient(circle closest-side, var(--wa-color-red-60) 80%, var(--wa-color-red-50) 98%, transparent)
+          calc(0.4em / var(--zoom)) var(--_button-params),
+        radial-gradient(circle closest-side, var(--wa-color-yellow-80) 80%, var(--wa-color-yellow-70) 98%, transparent)
+          calc(1.1em / var(--zoom)) var(--_button-params),
+        radial-gradient(circle closest-side, var(--wa-color-green-70) 80%, var(--wa-color-green-60) 98%, transparent)
+          calc(1.8em / var(--zoom)) var(--_button-params);
+      background-color: var(--wa-color-gray-95);
+      background-origin: border-box;
+      background-repeat: no-repeat;
+      box-shadow:
+        0 0 0 calc(0.7px / var(--zoom)) var(--wa-color-gray-80),
+        0 0 0 calc(1px / var(--zoom)) var(--wa-color-gray-90) inset,
+        calc(var(--wa-shadow-offset-x-l) / var(--zoom)) calc(var(--wa-shadow-offset-y-l) / var(--zoom))
+          calc(var(--wa-shadow-blur-l) / var(--zoom)) calc(var(--wa-shadow-spread-l) / var(--zoom))
+          var(--wa-color-shadow);
     }
   }
 
