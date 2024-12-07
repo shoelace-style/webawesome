@@ -61,7 +61,8 @@ export default class WaCodeDemo extends WebAwesomeElement {
     if (this.isolated) {
       if (globalThis.window) {
         // TODO ResizeObserver
-        const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
+        this.previewComputedStyle ??= window.getComputedStyle(this.previewElement);
+        const cs = this.previewComputedStyle;
         previewStyles['--preview-width-inner-px'] =
           getNumber(cs.width) -
           getNumber(cs.paddingLeft) -
