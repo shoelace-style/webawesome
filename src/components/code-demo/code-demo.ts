@@ -9,6 +9,13 @@ import styles from './code-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { CSSResultGroup } from 'lit';
 
+interface DemoHTMLOptions {
+  /**
+   * If true, will only start watching after the initial update/render
+   */
+  type?: string;
+  isolated?: boolean;
+}
 /**
  * @summary Code demos can be used to render code examples as inline live demos.
  * @documentation https://backers.webawesome.com/docs/components/code-demo
@@ -113,7 +120,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
   }
 
   render() {
-    const code = this.previewHTML;
+    const code = this.getDemoHTML({ type: 'preview' });
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
@@ -169,14 +176,14 @@ export default class WaCodeDemo extends WebAwesomeElement {
   // TODO cache this and only update if:
   // - this.include changes
   //- elements have been added/removed that match the selector
-  public get includedHTML(): string | null {
+  public getIncludedHTML({ isolated = this.isolated } = {}): string | null {
     if (!this.ownerDocument) {
       return null;
     }
 
     const selectors = ['.wa-code-demo-include'];
 
-    if (this.isolated) {
+    if (isolated) {
       selectors.push('.wa-code-demo-include-isolated');
     }
 
@@ -191,31 +198,22 @@ export default class WaCodeDemo extends WebAwesomeElement {
     return ret.join('\n');
   }
 
-  private addIncludes(code: string | null): string | null {
-    const includedHTML = this.includedHTML;
+  public getDemoHTML(options: DemoHTMLOptions = {}): string | null {
+    let code;
+    const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
+    if (options.type === 'preview' && customPreview && this.previewSlot) {
+      code = getInnerHTML(this.previewSlot);
+    } else {
+      code = this.querySelector?.('code')?.textContent ?? this.textContent;
+    }
+
+    const includedHTML = this.getIncludedHTML(options);
 
     if (includedHTML) {
       return includedHTML + '\n\n' + code;
     }
 
     return code;
-  }
-
-  public get demoHTML(): string | null {
-    const code = this.querySelector?.('code')?.textContent ?? this.textContent;
-    return this.addIncludes(code);
-  }
-
-  public get previewHTML(): string | null {
-    let code;
-    const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
-
-    if (customPreview && this.previewSlot) {
-      code = getInnerHTML(this.previewSlot);
-      return this.addIncludes(code);
-    }
-
-    return this.demoHTML;
   }
 
   private handleSlotChange(e: Event) {
@@ -245,7 +243,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
    * Opens the code example in CodePen
    */
   public edit() {
-    const markup = this.demoHTML;
+    const markup = this.getDemoHTML({ isolated: true });
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 

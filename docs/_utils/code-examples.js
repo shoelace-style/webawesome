@@ -53,7 +53,7 @@ const templates = {
     const preview = code.textContent;
 
     const attributes = {
-      includes: 'link[rel=stylesheet]',
+      include: 'link[rel=stylesheet]',
       open
     };
 
@@ -73,7 +73,15 @@ const templates = {
       })
       .join(' ');
 
-    return `
+    let includes = '';
+    if (first) {
+      includes = `
+        <template class="wa-code-demo-include-isolated">
+          <script src="/dist/webawesome/loader.js" type="module"></script>
+        </template>`;
+    }
+
+    return `${includes}
       <wa-code-demo ${attributesString}>
         <div style="display:contents" slot="preview">${preview}</div>
         ${pre.outerHTML}
