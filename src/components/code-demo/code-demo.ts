@@ -99,7 +99,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
         getNumber(cs.paddingRight) -
         getNumber(cs.borderLeftWidth) -
         getNumber(cs.borderRightWidth);
-      this.previewElement.style.setProperty('--preview-width-px', this.previewInnerWidth);
+      this.previewElement.style.setProperty('--preview-width-px', this.previewInnerWidth + '');
     }
   }
 
