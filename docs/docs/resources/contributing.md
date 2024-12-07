@@ -97,7 +97,7 @@ The Web Awesome documentation uses an extended version of [markdown-it](https://
 
 #### Code Previews
 
-To render a code preview, use the standard code field syntax and append `:preview` to the language.
+To render a code preview, use the standard code field syntax and add a class of `example`:
 
 ````md
 ```html {.example}
@@ -105,7 +105,9 @@ To render a code preview, use the standard code field syntax and append `:previe
 ```
 ````
 
-You can also append `.open` to expand the code by default, and `.no-edit` to disable the CodePen button. The order of these modifiers doesn't matter, but no spaces should exist between the language and the modifiers.
+You can add additional modifiers as classes or attributes.
+For example, `.open` to expand the code by default.
+The order of these modifiers doesn't matter, but no spaces should exist between them.
 
 ````md
 ```html {.example .open .no-edit}
@@ -113,11 +115,21 @@ You can also append `.open` to expand the code by default, and `.no-edit` to dis
 ```
 ````
 
+the modifiers currently supported are:
+- `.open` - expands the code by default
+- `.new` - Uses `<wa-code-demo>` (default)
+- `.old` - Uses the older code demos
+- `.no-edit` - disables the CodePen button (old only)
+- `viewport` - Render the code in an iframe (new only)
+- `viewport="300"` - Set the initial virtual width of the viewport (new only)
+- `viewport="1600x1000"` - Set the initial virtual width and height of the viewport (new only)
+
 This particular syntax was chosen for a few reasons:
 
 1. It's easy to remember
 2. It works out of the box with markdown-it
 3. It appears to have the best support across editors and previewers (the language is usually highlighted correctly)
+
 
 #### Callouts
 
