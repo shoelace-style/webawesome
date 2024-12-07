@@ -45,16 +45,20 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   private previewComputedStyle: CSSStyleDeclaration;
 
+  /** Whether the demo is rendered in an iframe */
+  public get isolated() {
+    return this.viewport !== undefined;
+  }
+
   render() {
     const code = this.previewHTML;
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
-    const isolated = this.viewport !== undefined;
     const previewStyles: { [key: string | number]: string | number } = {};
     const previewClasses: { [key: string | number]: boolean } = {};
 
-    if (isolated) {
+    if (this.isolated) {
       if (globalThis.window) {
         // TODO ResizeObserver
         const cs = (this.previewComputedStyle ??= window.getComputedStyle(this.previewElement));
@@ -81,11 +85,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
     return html`
       <div id="preview" part="preview" style="${styleMap(previewStyles)}" class="${classMap(previewClasses)}">
-        ${isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
+        ${this.isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
         <slot
           name="preview"
           @slotchange=${this.handleSlotChange}
-          .innerHTML=${customPreview || isolated ? '' : code}
+          .innerHTML=${customPreview || this.isolated ? '' : code}
         ></slot>
       </div>
       <slot class="source" id="source"></slot>
@@ -109,13 +113,25 @@ export default class WaCodeDemo extends WebAwesomeElement {
     `;
   }
 
+  // TODO cache this and only update if:
+  // - this.include changes
+  //- elements have been added/removed that match the selector
   public get includedHTML(): string | null {
-    if (!this.include || !this.ownerDocument) {
+    if (!this.ownerDocument) {
       return null;
     }
 
-    const selector = this.include + ', .wa-code-demo-include';
-    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(selector), el => {
+    const selectors = ['.wa-code-demo-include'];
+
+    if (this.isolated) {
+      selectors.push('.wa-code-demo-include-isolated');
+    }
+
+    if (this.include) {
+      selectors.push(this.include);
+    }
+
+    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(selectors.join(', ')), el => {
       return el.nodeName === 'TEMPLATE' ? (el as HTMLTemplateElement).innerHTML : el.outerHTML;
     });
 

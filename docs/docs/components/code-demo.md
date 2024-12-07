@@ -36,7 +36,7 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 
 ### Custom previews
 
-In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, or fix whitespace.
+In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, fix whitespace, or do server-side rendering (SSR).
 For these cases, you can slot in a custom preview:
 
 ```html {.example .open}
@@ -48,7 +48,9 @@ For these cases, you can slot in a custom preview:
 </wa-code-demo>
 ```
 
-To only render the custom preview within the shadow DOM, or to display raw text, you can wrap it in a `<template>` element:
+Note that this means the preview will be in the light DOM, and can conflict with other things on the page.
+To only render the custom preview within the component’s shadow DOM, or to display raw text, you can wrap it in a `<template>` element:
+
 ```html {.example .open}
 <wa-code-demo>
   <template slot="preview">
@@ -85,13 +87,12 @@ It includes all stylesheets on this page whose URLs start with `/dist/themes/`,
 plus any other elements with the class `.demo-import`, plus a CSS file with the class `wa-code-demo-include`:
 
 ```html {.example .open}
-<link rel="stylesheet" href="../../dist/themes/default.css" class="wa-code-demo-include">
-<template class="demo-import">
-  <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+<template class="wa-code-demo-include-isolated">
+  <script type="module" src="/dist/webawesome.loader.js"></script>
   <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
   <script>console.log('Hello!')</script>
 </template>
-<wa-code-demo include=".demo-import, link[rel=stylesheet][href^='/dist/themes']">
+<wa-code-demo include="link[rel=stylesheet]">
   <pre><code class="language-html">
     &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
   </code></pre>
@@ -145,16 +146,18 @@ Or, you could add a height value:
 ### Isolated demos with resources
 
 Including resources in isolated demos works the same way.
-Any relative URLs are still resolved relative to the host document:
+Any relative URLs are still resolved relative to the host document.
+In addition to the `wa-code-demo-include` class, which specifies resources to be included in *every* demo,
+you can also use the `wa-code-demo-include-isolated` class which specifies resources to be included in every *isolated* demo,
+i.e. the previews of demos using the `viewport` attribute, but also opening demos in a new tab or editing them on CodePen.
 
 ```html {.example .open}
-<link rel="stylesheet" href="../../dist/themes/default.css" class="demo-import-2">
-<template class="demo-import-2">
+<template class="wa-code-demo-include-isolated">
   <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
   <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
   <script>console.log('Hello from iframe!')</script>
 </template>
-<wa-code-demo viewport include=".demo-import-2, link[rel=stylesheet][href^='/dist/themes']">
+<wa-code-demo viewport include="link[rel=stylesheet]">
   <pre><code class="language-html">
     &lt;wa-callout&gt;Helloooo!&lt;/wa-callout&gt;
   </code></pre>
