@@ -15,7 +15,11 @@ interface DemoHTMLOptions {
    */
   type?: string;
   isolated?: boolean;
+  absolutize?: boolean | string | URL;
 }
+
+const URL_ATTRIBUTES = ['src', 'href'];
+
 /**
  * @summary Code demos can be used to render code examples as inline live demos.
  * @documentation https://backers.webawesome.com/docs/components/code-demo
@@ -173,10 +177,10 @@ export default class WaCodeDemo extends WebAwesomeElement {
     `;
   }
 
-  // TODO cache this and only update if:
+  // TODO memoize this and only update if:
   // - this.include changes
   //- elements have been added/removed that match the selector
-  public getIncludedHTML({ isolated = this.isolated } = {}): string | null {
+  public getIncludedHTML({ isolated = this.isolated, absolutize }: DemoHTMLOptions = {}): string | null {
     if (!this.ownerDocument) {
       return null;
     }
@@ -191,8 +195,24 @@ export default class WaCodeDemo extends WebAwesomeElement {
       selectors.push(this.include);
     }
 
-    const ret: string[] = Array.from(this.ownerDocument.querySelectorAll(selectors.join(', ')), el => {
-      return el.nodeName === 'TEMPLATE' ? (el as HTMLTemplateElement).innerHTML : el.outerHTML;
+    const elements = recursiveQSA(selectors.join(', '), this);
+
+    const ret: string[] = Array.from(elements, (el: Element) => {
+      const isTemplate = el.nodeName === 'TEMPLATE';
+      let source = el;
+
+      if (absolutize) {
+        // Absolutize URLs. Useful for opening in a new tab or code playgrounds.
+        const base = absolutize ? location.href : absolutize;
+        source = source.cloneNode(true) as Element;
+        absolutizeURLs(isTemplate ? (source as HTMLTemplateElement).content : source, base);
+      }
+
+      if (isTemplate) {
+        return (source as HTMLTemplateElement).innerHTML;
+      }
+
+      return source.outerHTML;
     });
 
     return ret.join('\n');
@@ -243,7 +263,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
    * Opens the code example in CodePen
    */
   public edit() {
-    const markup = this.getDemoHTML({ isolated: true });
+    const markup = this.getDemoHTML({ isolated: true, absolutize: true });
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 
@@ -293,4 +313,43 @@ declare global {
  */
 function getNumber(value: string | number): number {
   return (typeof value === 'string' ? parseFloat(value) : value) || 0;
+}
+
+function absolutizeURLs(root: Element | DocumentFragment, base = location.href) {
+  const selector = URL_ATTRIBUTES.map(attr => `[${attr}]`).join(', ');
+  const elements = [];
+
+  if (root instanceof Element && root.matches(selector)) {
+    elements.push(root);
+  }
+  elements.push(...root.querySelectorAll(selector));
+
+  for (const element of elements) {
+    for (const attributeName of URL_ATTRIBUTES) {
+      if (element.hasAttribute(attributeName)) {
+        const url = element.getAttribute(attributeName) || '';
+        const absoluteURL = new URL(url, base).href;
+        element.setAttribute(attributeName, absoluteURL);
+      }
+    }
+  }
+}
+
+/**
+ * Get elements that match a selector within an element’s shadow tree
+ * and any parent shadow trees, all the way up to the light DOM
+ * @param selector
+ * @param element
+ */
+function recursiveQSA(selector: string, node: Node) {
+  const ret: Element[] = [];
+
+  for (let root = node; root.nodeType !== Node.DOCUMENT_NODE; ) {
+    root = root.getRootNode();
+    const elements = (root as ShadowRoot | Document).querySelectorAll(selector);
+
+    ret.push(...elements);
+  }
+
+  return ret;
 }
