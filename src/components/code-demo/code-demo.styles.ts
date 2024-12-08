@@ -98,23 +98,33 @@ export default css`
       height: var(--viewport-height);
       display: block;
       border: calc(1px / var(--zoom)) solid var(--wa-color-gray-90);
-      padding: calc(1em / var(--zoom));
+      padding: 1em;
       width: 100%;
       height: 100%;
       background: var(--preview-background);
       zoom: var(--_zoom);
     }
+  }
 
-    [part~='viewport-info'] {
-      font-size: var(--wa-font-size-xs);
-      font-weight: 600;
-      margin-top: -0.2em;
-      color: var(--wa-color-text-quiet);
+  [part~='viewport-info'] {
+    font-size: var(--wa-font-size-xs);
+    font-weight: 600;
+    margin-top: -0.2em;
+    color: var(--wa-color-text-quiet);
 
-      &::before {
-        counter-reset: zoom round(var(--zoom) * 100);
-        content: counter(zoom) '%';
-      }
+    &:is(:host([viewport='']) *) {
+      opacity: 0.5;
+    }
+
+    wa-icon {
+      vertical-align: -0.1em;
+      font-size: 85%;
+      color: var(--wa-color-gray-70);
+    }
+
+    &::after {
+      counter-reset: zoom round(var(--zoom) * 100);
+      content: counter(zoom) '%';
     }
   }
 

@@ -151,7 +151,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
       viewportHTML = html`
         <div id="viewport" part="viewport">
-          <span part="viewport-info"> </span>
+          <span part="viewport-info"><wa-icon name="magnifying-glass-plus"></wa-icon> </span>
           <iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>
         </div>
       `;
