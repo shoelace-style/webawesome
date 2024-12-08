@@ -201,13 +201,11 @@ It goes without saying that this list is a rough plan and subject to change.
 
 ### High priority
 
-- [ ] Update viewport when page is resized
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
 - [ ] Provide a way to open in a new tab
 
 ### Low priority
 
-- [ ] Toggle animation
 - [ ] Horizontal layout
 - [ ] Tabbed layout
 - [ ] Make toggle open with an animation for browsers that support height: auto transitions
