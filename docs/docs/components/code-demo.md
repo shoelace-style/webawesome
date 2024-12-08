@@ -4,7 +4,7 @@ description: Code demos can be used to render code examples as inline live demos
 layout: component
 ---
 
-```html {.example .open}
+```html {.example}
 <wa-code-demo>
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
@@ -25,7 +25,7 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 
 ### Open by default
 
-```html {.example .open}
+```html {.example}
 <wa-code-demo open>
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
@@ -39,7 +39,7 @@ This component renders the content as HTML, which introduce XSS vulnerabilities 
 In some cases you may want to preprocess the code displayed, for example to sanitize HTML, remove irrelevant elements or attributes, fix whitespace, or do server-side rendering (SSR).
 For these cases, you can slot in a custom preview:
 
-```html {.example .open}
+```html {.example}
 <wa-code-demo>
   <wa-button slot="preview">Click me!</wa-button>
   <pre><code class="language-html">
@@ -51,7 +51,7 @@ For these cases, you can slot in a custom preview:
 Note that this means the preview will be in the light DOM, and can conflict with other things on the page.
 To only render the custom preview within the component’s shadow DOM, or to display raw text, you can wrap it in a `<template>` element:
 
-```html {.example .open}
+```html {.example}
 <wa-code-demo>
   <template slot="preview">
     <wa-button>Click me!</wa-button>
@@ -86,7 +86,7 @@ The following example shows both methods.
 It includes all stylesheets on this page whose URLs start with `/dist/themes/`,
 plus any other elements with the class `.demo-import`, plus a CSS file with the class `wa-code-demo-include`:
 
-```html {.example .open}
+```html {.example}
 <template class="wa-code-demo-include-isolated">
   <script type="module" src="/dist/webawesome.loader.js"></script>
   <style>wa-callout { font-size: var(--wa-font-size-2xl) }</style>
@@ -151,7 +151,7 @@ In addition to the `wa-code-demo-include` class, which specifies resources to be
 you can also use the `wa-code-demo-include-isolated` class which specifies resources to be included in every *isolated* demo,
 i.e. the previews of demos using the `viewport` attribute, but also opening demos in a new tab or editing them on CodePen.
 
-```html {.example .open}
+```html {.example}
 <template class="wa-code-demo-include-isolated">
   <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
   <style>
