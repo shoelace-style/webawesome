@@ -45,6 +45,7 @@ const URL_ATTRIBUTES = ['src', 'href'];
  * @cssproperty --preview-max-width - The maximum width of the preview. Defaults to `100%`.
  * @cssproperty --preview-min-width - The minimum width of the preview. Defaults to `min-content`.
  * @cssproperty --divider-width - The width of the divider. Defaults to `var(--wa-border-width-s)`.
+ * @cssproperty --code-collapse-duration - The duration of the code collapse animation (for supporting browsers). Defaults to `var(--wa-transition-normal)`.
  *
  */
 @customElement('wa-code-demo')

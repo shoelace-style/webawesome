@@ -10,18 +10,21 @@ export default css`
     --preview-padding: var(--wa-space-2xl, 2rem);
     --divider-width: var(--wa-border-width-s, 1px);
     --viewport-initial-aspect-ratio: 16 / 9;
+    --code-expand-duration: var(--wa-transition-fast, 0.3s);
+    --code-collapse-duration: var(--wa-transition-normal, 0.3s);
 
-    display: block;
+    display: flex;
+    flex-flow: column;
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
     border-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
     color: var(--wa-color-text-normal);
     margin-block-end: var(--wa-flow-spacing);
     background: var(--preview-backdrop);
+    interpolate-size: allow-keywords;
   }
 
   #preview {
     display: block;
-
     min-width: var(--preview-min-width, min-content);
     max-width: min(var(--preview-max-width), 100%);
     padding: var(--preview-padding);
@@ -81,6 +84,7 @@ export default css`
       border-top-width: calc(0.9 * var(--em) + var(--_bezel-width));
       border-radius: calc(var(--wa-border-radius-s) / var(--zoom));
 
+      /* Window-like frame */
       background:
         linear-gradient(var(--preview-background) 0 100%) 0 0 / 100% 100% padding-box,
         radial-gradient(circle closest-side, var(--wa-color-red-60) 80%, var(--wa-color-red-50) 98%, transparent)
@@ -103,13 +107,24 @@ export default css`
 
   #source {
     border-block-end: inherit;
+    overflow: hidden;
 
-    &:not(:host([open]) *) {
-      display: none;
-    }
+    /* Collapsed */
+    height: 0px;
+    display: none;
+    transition-property: height, display;
+    transition-duration: var(--code-collapse-duration);
+    transition-behavior: allow-discrete;
   }
 
   :host([open]) {
+    #source {
+      /* Expanded */
+      height: auto;
+      display: block;
+      transition-duration: var(--code-expand-duration);
+    }
+
     .toggle wa-icon {
       rotate: 180deg;
     }
