@@ -16,6 +16,7 @@ interface DemoHTMLOptions {
   type?: string;
   isolated?: boolean;
   absolutize?: boolean | string | URL;
+  prettyWhitespace?: boolean;
 }
 
 const URL_ATTRIBUTES = ['src', 'href'];
@@ -180,7 +181,9 @@ export default class WaCodeDemo extends WebAwesomeElement {
   // TODO memoize this and only update if:
   // - this.include changes
   //- elements have been added/removed that match the selector
-  public getIncludedHTML({ isolated = this.isolated, absolutize }: DemoHTMLOptions = {}): string | null {
+  public getIncludedHTML({ isolated = this.isolated, absolutize, prettyWhitespace }: DemoHTMLOptions = {}):
+    | string
+    | null {
     if (!this.ownerDocument) {
       return null;
     }
@@ -197,7 +200,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
     const elements = recursiveQSA(selectors.join(', '), this);
 
-    const ret: string[] = Array.from(elements, (el: Element) => {
+    return Array.from(elements, (el: Element) => {
       const isTemplate = el.nodeName === 'TEMPLATE';
       let source = el;
 
@@ -209,13 +212,17 @@ export default class WaCodeDemo extends WebAwesomeElement {
       }
 
       if (isTemplate) {
-        return (source as HTMLTemplateElement).innerHTML;
+        let ret = (source as HTMLTemplateElement).innerHTML;
+
+        if (prettyWhitespace) {
+          ret = dedent(ret);
+        }
+
+        return ret;
       }
 
       return source.outerHTML;
-    });
-
-    return ret.join('\n');
+    }).join('\n');
   }
 
   public getDemoHTML(options: DemoHTMLOptions = {}): string | null {
@@ -263,7 +270,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
    * Opens the code example in CodePen
    */
   public edit() {
-    const markup = this.getDemoHTML({ isolated: true, absolutize: true });
+    const markup = this.getDemoHTML({ isolated: true, absolutize: true, prettyWhitespace: true });
     const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
     const js = '';
 
@@ -315,6 +322,11 @@ function getNumber(value: string | number): number {
   return (typeof value === 'string' ? parseFloat(value) : value) || 0;
 }
 
+/**
+ * Convert URLs to absolute URLs on an element and any relevant elements within it
+ * @param root - The root element to start the search from
+ * @param base
+ */
 function absolutizeURLs(root: Element | DocumentFragment, base = location.href) {
   const selector = URL_ATTRIBUTES.map(attr => `[${attr}]`).join(', ');
   const elements = [];
@@ -339,7 +351,7 @@ function absolutizeURLs(root: Element | DocumentFragment, base = location.href) 
  * Get elements that match a selector within an element’s shadow tree
  * and any parent shadow trees, all the way up to the light DOM
  * @param selector
- * @param element
+ * @param node - The node to start the search from
  */
 function recursiveQSA(selector: string, node: Node) {
   const ret: Element[] = [];
@@ -352,4 +364,29 @@ function recursiveQSA(selector: string, node: Node) {
   }
 
   return ret;
+}
+
+function dedent(code: string) {
+  // Remove blank lines at the start and end
+  code = code.replace(/^\s*\n|\n\s*$/g, '');
+
+  if (/^\S/gm.test(code)) {
+    // There are non-indented lines, so we can't dedent
+    return code;
+  }
+
+  // Find the smallest indentation
+  const lines = code.split(/\r?\n/);
+  const indents = lines.map(line => line.match(/^\s*/)?.[0]).filter(Boolean) as string[];
+  const minIndent = indents.reduce(
+    (minIndentSoFar, indent) => (minIndentSoFar.length < indent.length ? minIndentSoFar : indent),
+    indents[0]
+  );
+
+  if (!minIndent || lines.some(line => !line.startsWith(minIndent))) {
+    // Inconsistent indentation, can't dedent
+    return code;
+  }
+
+  return code.replace(new RegExp(`^${minIndent}`, 'gm'), '');
 }
