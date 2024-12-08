@@ -25,8 +25,6 @@ export default css`
 
   #preview {
     display: block;
-    min-width: var(--preview-min-width, min-content);
-    max-width: min(var(--preview-max-width), 100%);
     padding: var(--preview-padding);
     border-block-end: inherit;
     border-block-end-width: var(--divider-width);
@@ -37,10 +35,12 @@ export default css`
     container-type: inline-size;
     container-name: preview;
 
-    &:not(:has(> iframe)),
-    > iframe {
+    &:not(:has(#viewport)),
+    #viewport {
       resize: var(--preview-resize);
       overflow: auto;
+      min-width: var(--preview-min-width, min-content);
+      max-width: min(var(--preview-max-width), 100%);
     }
 
     > :first-child {
@@ -50,58 +50,71 @@ export default css`
     > :last-child {
       margin-block-end: 0;
     }
+  }
 
-    > iframe {
-      /* Convert pure numbers to lengths */
-      --viewport-width: calc(var(--viewport-width-px) * 1px);
-      --viewport-height: calc(var(--viewport-height-px) * 1px);
+  #viewport {
+    /* Convert pure numbers to lengths */
+    --viewport-width: calc(var(--viewport-width-px) * 1px);
+    --viewport-height: calc(var(--viewport-height-px) * 1px);
 
-      /* Values with fallback */
-      --_width: var(--viewport-width, 100%);
-      --_height: var(--viewport-height, calc(var(--viewport-width) / (var(--viewport-initial-aspect-ratio))));
+    /* Values with fallback */
+    --_width: var(--viewport-width, 100%);
+    --_height: var(--viewport-height, calc(var(--viewport-width) / (var(--viewport-initial-aspect-ratio))));
 
-      --_zoom: calc(var(--preview-width-px) / var(--viewport-width-px));
-      --zoom: var(--_zoom, 1);
-      zoom: var(--_zoom);
+    --_zoom: calc(var(--preview-width-px) / var(--viewport-width-px));
+    --zoom: var(--_zoom, 1);
+
+    display: flex;
+    flex-flow: column;
+    align-items: end;
+
+    /* Style iframe like a window */
+
+    --_bezel-width: var(--viewport-bezel-width, calc(0.25em));
+    box-sizing: border-box;
+    border: var(--_bezel-width) solid transparent;
+    border-radius: calc(var(--wa-border-radius-s));
+
+    /* Window-like frame styling */
+    background:
+      radial-gradient(circle closest-side, var(--wa-color-red-60) 80%, var(--wa-color-red-50) 98%, transparent) 0.4em,
+      radial-gradient(circle closest-side, var(--wa-color-yellow-80) 80%, var(--wa-color-yellow-70) 98%, transparent)
+        1.1em,
+      radial-gradient(circle closest-side, var(--wa-color-green-70) 80%, var(--wa-color-green-60) 98%, transparent)
+        1.8em;
+    background-size: 0.5em 0.5em;
+    background-position-y: 0.4em;
+    background-color: var(--wa-color-gray-95);
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    box-shadow:
+      0 0 0 1px var(--wa-color-gray-90),
+      var(--wa-shadow-l);
+
+    iframe {
+      flex: 1;
 
       width: var(--_width);
       height: var(--viewport-height);
+      display: block;
+      border: calc(1px / var(--zoom)) solid var(--wa-color-gray-90);
+      padding: calc(1em / var(--zoom));
+      width: 100%;
+      height: 100%;
+      background: var(--preview-background);
+      zoom: var(--_zoom);
+    }
 
-      box-sizing: border-box;
+    [part~='viewport-info'] {
+      font-size: var(--wa-font-size-xs);
+      font-weight: 600;
+      margin-top: -0.2em;
+      color: var(--wa-color-text-quiet);
 
-      /* Style iframe like a window */
-
-      --em: calc(1em / var(--zoom));
-      --_bezel-width: var(--viewport-bezel-width, calc(0.25em / var(--zoom)));
-      --_button-size: 0.5em;
-      --_button-y: 0.4em;
-      --_button-size-unzoomed: calc(var(--_button-size) / var(--zoom));
-      --_button-y-unzoomed: calc(var(--_button-y) / var(--zoom));
-      --_button-params: var(--_button-y-unzoomed) / var(--_button-size-unzoomed) var(--_button-size-unzoomed) border-box;
-
-      box-sizing: border-box;
-      border: var(--_bezel-width) solid transparent;
-      border-top-width: calc(0.9 * var(--em) + var(--_bezel-width));
-      border-radius: calc(var(--wa-border-radius-s) / var(--zoom));
-
-      /* Window-like frame */
-      background:
-        linear-gradient(var(--preview-background) 0 100%) 0 0 / 100% 100% padding-box,
-        radial-gradient(circle closest-side, var(--wa-color-red-60) 80%, var(--wa-color-red-50) 98%, transparent)
-          calc(0.4em / var(--zoom)) var(--_button-params),
-        radial-gradient(circle closest-side, var(--wa-color-yellow-80) 80%, var(--wa-color-yellow-70) 98%, transparent)
-          calc(1.1em / var(--zoom)) var(--_button-params),
-        radial-gradient(circle closest-side, var(--wa-color-green-70) 80%, var(--wa-color-green-60) 98%, transparent)
-          calc(1.8em / var(--zoom)) var(--_button-params);
-      background-color: var(--wa-color-gray-95);
-      background-origin: border-box;
-      background-repeat: no-repeat;
-      box-shadow:
-        0 0 0 calc(0.7px / var(--zoom)) var(--wa-color-gray-80),
-        0 0 0 calc(1px / var(--zoom)) var(--wa-color-gray-90) inset,
-        calc(var(--wa-shadow-offset-x-l) / var(--zoom)) calc(var(--wa-shadow-offset-y-l) / var(--zoom))
-          calc(var(--wa-shadow-blur-l) / var(--zoom)) calc(var(--wa-shadow-spread-l) / var(--zoom))
-          var(--wa-color-shadow);
+      &::before {
+        counter-reset: zoom round(var(--zoom) * 100);
+        content: counter(zoom) '%';
+      }
     }
   }
 

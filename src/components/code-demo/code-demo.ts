@@ -7,7 +7,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import styles from './code-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 
 interface DemoHTMLOptions {
   /**
@@ -133,6 +133,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const previewStyles: { [key: string | number]: string | number } = {};
     const previewClasses: { [key: string | number]: boolean } = {};
 
+    let viewportHTML: string | TemplateResult = '';
     if (this.isolated) {
       previewStyles['--preview-width-px'] = this.previewInnerWidth;
 
@@ -147,11 +148,18 @@ export default class WaCodeDemo extends WebAwesomeElement {
         }
         previewClasses.zoomed = true;
       }
+
+      viewportHTML = html`
+        <div id="viewport" part="viewport">
+          <span part="viewport-info"> </span>
+          <iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>
+        </div>
+      `;
     }
 
     return html`
       <div id="preview" part="preview" style="${styleMap(previewStyles)}" class="${classMap(previewClasses)}">
-        ${this.isolated ? html`<iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>` : ''}
+        ${viewportHTML}
         <slot
           name="preview"
           @slotchange=${this.handleSlotChange}
