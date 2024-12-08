@@ -121,29 +121,9 @@ export default css`
   #source {
     border-block-end: inherit;
     overflow: hidden;
-
-    /* Collapsed */
-    height: 0px;
-    display: none;
     transition-property: height, display;
-    transition-duration: var(--code-collapse-duration);
     transition-behavior: allow-discrete;
-  }
 
-  :host([open]) {
-    #source {
-      /* Expanded */
-      height: auto;
-      display: block;
-      transition-duration: var(--code-expand-duration);
-    }
-
-    .toggle wa-icon {
-      rotate: 180deg;
-    }
-  }
-
-  #source {
     &::slotted(pre) {
       position: relative;
       border-radius: 0 !important;
@@ -158,6 +138,40 @@ export default css`
 
     &:not(:has(+ #buttons)) {
       border-bottom: none;
+    }
+  }
+
+  .toggle wa-icon {
+    transition-property: rotate;
+  }
+
+  :host(:not([open])) {
+    #source,
+    .toggle wa-icon {
+      transition-duration: var(--code-collapse-duration);
+    }
+
+    #source {
+      /* Collapsed */
+      height: 0px;
+      display: none;
+    }
+  }
+
+  :host([open]) {
+    #source,
+    .toggle wa-icon {
+      transition-duration: var(--code-expand-duration);
+    }
+
+    #source {
+      /* Expanded */
+      height: auto;
+      display: block;
+    }
+
+    .toggle wa-icon {
+      rotate: 180deg;
     }
   }
 

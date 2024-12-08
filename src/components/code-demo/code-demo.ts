@@ -179,6 +179,10 @@ export default class WaCodeDemo extends WebAwesomeElement {
           Code
           <wa-icon name="chevron-down"></wa-icon>
         </button>
+        <button class="pen" type="button" part="edit button" @click=${this.openInNewTab}>
+          <wa-icon name="arrow-up-right-from-square"></wa-icon>
+          Open
+        </button>
         <button class="pen" type="button" part="edit button" @click=${this.edit}>
           <wa-icon name="pen-to-square"></wa-icon>
           Edit
@@ -273,6 +277,30 @@ export default class WaCodeDemo extends WebAwesomeElement {
    */
   public toggle() {
     this.open = !this.open;
+  }
+  /** Opens the code example in a new tab */
+  public openInNewTab() {
+    const markup = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+    </head>
+    <body>
+      ${this.getDemoHTML({ isolated: true, absolutize: true, prettyWhitespace: true })}
+    </body>
+    </html>`;
+
+    const blob = new Blob([markup], { type: 'text/html' });
+    const a = Object.assign(document.createElement('a'), {
+      href: URL.createObjectURL(blob),
+      target: '_blank'
+    });
+    document.documentElement.append(a);
+    a.click();
+    a.remove();
   }
 
   /**

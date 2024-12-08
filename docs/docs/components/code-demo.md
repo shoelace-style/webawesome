@@ -208,11 +208,8 @@ It goes without saying that this list is a rough plan and subject to change.
 
 - [ ] Horizontal layout
 - [ ] Tabbed layout
-- [ ] Make toggle open with an animation for browsers that support height: auto transitions
-- [ ] Support CSS-only or JS-only demos
-- [ ] Provide a way to transform the code displayed (e.g. remove elements or attributes, fix whitespace, sanitize HTML etc.)
+- [ ] Provide a way to display CSS and JS separately
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
 - [ ] Provide controls for zooming in/out
-- [ ] Provide a way to render to the light DOM?
 - [ ] Automatic iframe height
 - [ ] Provide a way to hide the edit button
