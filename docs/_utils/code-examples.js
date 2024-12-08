@@ -50,8 +50,6 @@ const templates = {
     `;
   },
   new(pre, code, { open, first }) {
-    const preview = code.textContent;
-
     const attributes = {
       include: 'link[rel=stylesheet]',
       open
@@ -81,9 +79,14 @@ const templates = {
         </template>`;
     }
 
+    let preview = '';
+    if (!attributes.viewport) {
+      preview = `<div style="display:contents" slot="preview">${code.textContent}</div>`;
+    }
+
     return `${includes}
       <wa-code-demo ${attributesString}>
-        <div style="display:contents" slot="preview">${preview}</div>
+        ${preview}
         ${pre.outerHTML}
       </wa-code-demo>
     `;
