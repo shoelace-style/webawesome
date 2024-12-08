@@ -155,17 +155,27 @@ export default css`
       cursor: pointer;
 
       &:hover {
-        background: var(--wa-color-surface-raised, rgb(0 0 0 / 0.05));
+        background: var(--wa-color-surface-lowered, rgb(0 0 0 / 0.05));
       }
 
-      &:not(:first-of-type) {
+      &:first-child {
+        /* bottom left in en */
+        border-end-start-radius: inherit;
+      }
+
+      &:last-child {
+        /* bottom right in en */
+        border-end-end-radius: inherit;
+      }
+
+      &:not(:first-child) {
         /* bottom left in en */
         border-end-start-radius: 0;
         border-inline-start: inherit;
         border-inline-start-width: var(--divider-width);
       }
 
-      &:not(:last-of-type) {
+      &:not(:last-child) {
         /* bottom right in en */
         border-end-end-radius: 0;
       }
