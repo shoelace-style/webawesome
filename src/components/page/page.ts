@@ -49,6 +49,7 @@ if (typeof ResizeObserver === 'undefined') {
  * @csspart body - The wrapper around menu, main, and aside.
  * @csspart menu - The left hand side of the page. Generally intended for navigation.
  * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
+ * @csspart navigation - The wrapper around the navigation section. On mobile viewports this will be a `<wa-drawer>`, on desktop viewports it will just be a `<nav>` element.
  * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
  * @csspart main-header - The header above main content.
  * @csspart main-content - The main content.
@@ -60,6 +61,7 @@ if (typeof ResizeObserver === 'undefined') {
  * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *
  * @cssproperty [--menu-width=auto] - The width of the page's "menu" section.
+ * @cssproperty [--navigation-width=auto] - The width of the page's "navigation" section. On desktop viewports this maps to a div in the "menu" area, on mobile viewports this will be set directly on the `<dialog>`
  * @cssproperty [--main-width=1fr] - The width of the page's "main" section.
  * @cssproperty [--aside-width=auto] - The wide of the page's "aside" section.
  * @cssproperty [--banner-height=0px] - The height of the banner. This gets calculated when the page initializes. If the height is known, you can set it here to prevent shifting when the page loads.
@@ -102,7 +104,7 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='subheader']") subheader: HTMLElement;
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
-  @query("[part~='drawer']") navigationDrawer: WaDrawer;
+  @query("[part~='navigation-mobile']") navigationDrawer: WaDrawer;
 
   /**
    * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by
@@ -278,7 +280,7 @@ export default class WaPage extends WebAwesomeElement {
         </div>
       </div>
       <wa-drawer
-        part="drawer"
+        part="navigation navigation-mobile"
         placement=${this.navigationPlacement}
         light-dismiss
         ?open=${live(this.navOpen)}
@@ -299,14 +301,14 @@ export default class WaPage extends WebAwesomeElement {
         "
         class="navigation-drawer"
       >
-        <slot slot="label" part="navigation-header" name="mobile-navigation-header">
+        <slot slot="label" part="navigation-header" name="navigation-mobile-header">
           <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
         </slot>
-        <slot name="mobile-navigation">
+        <slot name="navigation-mobile">
           <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
         </slot>
 
-        <slot name="mobile-navigation-footer">
+        <slot name="navigation-mobile-footer">
           <slot
             part="navigation-footer"
             slot="footer"

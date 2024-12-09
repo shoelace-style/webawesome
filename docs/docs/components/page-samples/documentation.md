@@ -6,14 +6,13 @@ layout: blank
 
 <style>
   wa-page {
-    --menu-width: 15rem;
+    --navigation-width: 900px;
     --aside-width: 15rem;
   }
   wa-page[view='desktop'] [data-toggle-nav] {
     display: none;
   }
   wa-page[view='mobile'] {
-    --menu-width: auto;
     --aside-width: auto;
   }
   wa-page[view='mobile'] [slot='aside'] {
@@ -25,7 +24,7 @@ layout: blank
   wa-page[view='mobile'] #search {
     display: none;
   }
-  [slot='banner'] {  
+  [slot='banner'] {
     --wa-color-text-link: var(--wa-color-neutral-on-loud);
     background-color: var(--wa-color-neutral-fill-loud);
   }
@@ -117,7 +116,7 @@ layout: blank
     <a href="#behavior">Behavior</a>
     <a href="#conservation">Conservation</a>
   </nav>
-  <nav slot="navigation-footer">      
+  <nav slot="navigation-footer">
     <a href="#" class="wa-flank" style="--flank-size: 1.25em;">
       <wa-icon name="camera"></wa-icon>
       <span>Photo Gallery</span>

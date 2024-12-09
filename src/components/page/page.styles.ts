@@ -9,6 +9,7 @@ export default css`
     --menu-width: auto;
     --main-width: 1fr;
     --aside-width: auto;
+    --navigation-width: auto;
     --banner-height: 0px;
     --header-height: 0px;
     --subheader-height: 0px;
@@ -236,7 +237,13 @@ export default css`
     overflow: auto;
   }
 
-  [part~='navigation'] {
+  [part~="navigation-desktop"],
+  [part~="navigation-mobile"]::part(dialog) {
+    width: var(--navigation-width);
+    max-width: 100%;
+  }
+
+  [part~='desktop-navigation'] {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -248,6 +255,6 @@ export const mobileStyles = (breakpoint: number) => `
   @media screen and (
     max-width: ${(Number.isSafeInteger(breakpoint) ? breakpoint.toString() : '768') + 'px'}
   ) {
-    [part~='navigation'] { display: none; }
+    [part~='navigation-desktop'] { display: none; }
   }
 `;
