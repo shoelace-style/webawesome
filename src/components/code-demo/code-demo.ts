@@ -1,3 +1,4 @@
+import '../icon/icon.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
@@ -26,6 +27,9 @@ const URL_ATTRIBUTES = ['src', 'href'];
  * @documentation https://backers.webawesome.com/docs/components/code-demo
  * @status experimental
  * @since 3.0
+ *
+ * @dependency wa-viewport-demo
+ * @dependency wa-icon
  *
  * @slot - The main code example (usually a `<pre>` element).
  * @slot preview - One or more custom elements to display as the code example preview.

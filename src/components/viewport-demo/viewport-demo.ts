@@ -1,4 +1,4 @@
-// import { classMap } from 'lit/directives/class-map.js';
+import '../icon-button/icon-button.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { getComputedStyle } from '../../internal/computedStyle.js';
 import { html } from 'lit';
@@ -52,6 +52,8 @@ export const viewportPropertyConverter = {
  * @documentation https://backers.webawesome.com/docs/components/viewport-demo
  * @status experimental
  * @since 3.0
+ *
+ * @dependency wa-icon-button
  *
  * @slot - The iframe (usually an `<iframe>` element).
  *

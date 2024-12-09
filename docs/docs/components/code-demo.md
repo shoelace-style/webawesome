@@ -1,6 +1,6 @@
 ---
 title: Code Demo
-description: Code demos can be used to render code examples as inline live demos. They are used right here in the docs to render code examples.
+description: Code demos can be used to render code examples as inline live demos.
 layout: component
 ---
 
@@ -12,6 +12,8 @@ layout: component
   </code></pre>
 </wa-code-demo>
 ```
+
+This component is used right here in the docs to render code examples.
 
 <wa-callout variant="danger">
   <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
