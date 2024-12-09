@@ -112,6 +112,17 @@ export default class WaViewportDemo extends WebAwesomeElement {
   zoom: number = 1;
 
   @state()
+  public defaultZoom: number = 1;
+
+  /** Number of steps zoomed in/out */
+  @state()
+  private zoomLevel: number = 0;
+
+  /** Actual final applied zoom */
+  @state()
+  public computedZoom: number = 1;
+
+  @state()
   private iframe: HTMLIFrameElement;
 
   @state()
@@ -122,6 +133,9 @@ export default class WaViewportDemo extends WebAwesomeElement {
 
   @state()
   private hostHOffset: number = 0;
+
+  @state()
+  private iframeHOffset: number = 0;
 
   @state()
   private viewportHOffset: number = 0;
@@ -145,7 +159,6 @@ export default class WaViewportDemo extends WebAwesomeElement {
   }
 
   private observeResize() {
-    // We only observe resizes when the viewport attribute is set
     if (this.viewportElement) {
       this.resizeObserver ??= new ResizeObserver(() => this.handleResize());
       this.updateComplete.then(() => this.resizeObserver.observe(this));
@@ -156,17 +169,36 @@ export default class WaViewportDemo extends WebAwesomeElement {
     this.resizeObserver?.unobserve(this);
   }
 
-  handleIframeLoad() {
+  // Called when this.iframe.contentWindow changes
+  private handleIframeLoad() {
     this.contentWindow = this.iframe.contentWindow;
     if (this.contentWindow) {
+      this.updateCS();
+      this.updateZoom();
+
       this.handleViewportResize();
-      this.contentWindow?.addEventListener('resize', e => this.handleViewportResize(e));
+      this.contentWindow.addEventListener('resize', () => this.handleViewportResize());
+      this.updateComplete.then(() => {
+        const innerWidth = this.contentWindow?.innerWidth || 0;
+        const availableWidth = Math.round(this.availableWidth);
+        const ratio = availableWidth / innerWidth;
+
+        if (Math.abs(ratio - this.computedZoom) > 0.01) {
+          // The actual iframe content is not zoomed. This is a known Safari bug.
+          // We need to zoom the iframe content manually.
+          this.iframe.contentDocument!.documentElement.style.setProperty('zoom', this.computedZoom + '');
+        }
+      });
     }
   }
 
   private updateCS() {
     // This is only needed for isolated demos
     if (this.viewport && globalThis.window) {
+      if (this.iframe) {
+        this.iframeHOffset = getHorizontalOffsets(getComputedStyle(this.iframe));
+      }
+
       if (this.viewportElement) {
         this.viewportHOffset = getHorizontalOffsets(getComputedStyle(this.viewportElement));
       }
@@ -174,7 +206,7 @@ export default class WaViewportDemo extends WebAwesomeElement {
       this.hostHOffset = getHorizontalOffsets(getComputedStyle(this));
 
       const width = this.getBoundingClientRect().width;
-      this.availableWidth = width - this.hostHOffset - this.viewportHOffset;
+      this.availableWidth = width - this.hostHOffset - this.viewportHOffset - this.iframeHOffset;
     }
   }
 
@@ -183,34 +215,57 @@ export default class WaViewportDemo extends WebAwesomeElement {
     // This is only needed for isolated demos
     if (this.viewport && globalThis.window) {
       this.updateCS();
-      this.updateZoomLevel();
+      this.updateZoom();
     }
   }
 
-  private updateZoomLevel() {
-    if (this.hasAttribute('zoom')) {
-      // Zoom attribute takes precedence
-      this.zoom = parseFloat(this.getAttribute('zoom') || '1');
-    } else if (isViewportDimensions(this.viewport)) {
+  /** Zoom in by one step */
+  public zoomIn() {
+    this.zoomLevel++;
+    this.updateZoom();
+  }
+
+  /** Zoom out by one step */
+  public zoomOut() {
+    this.zoomLevel--;
+    this.updateZoom();
+  }
+
+  private updateZoom() {
+    const usesDefaultZoom = this.zoom === this.defaultZoom && !this.hasAttribute('zoom');
+
+    if (isViewportDimensions(this.viewport)) {
       if (!this.availableWidth) {
         this.updateCS();
       }
 
       // Zoom level = available width / virtual width
-      this.zoom = this.availableWidth / this.viewport.width;
+      if (!this.availableWidth) {
+        // Abort mission
+        return;
+      }
+
+      this.defaultZoom = this.availableWidth / this.viewport.width;
       this.updateComplete.then(() => this.handleViewportResize());
     } else {
-      this.zoom = 1;
+      this.defaultZoom = 1;
+    }
+
+    if (usesDefaultZoom) {
+      this.zoom = this.defaultZoom;
+    }
+
+    if (this.zoomLevel === 0) {
+      this.computedZoom = this.zoom;
+    } else {
+      const zoom = Number(this.zoom.toPrecision(2));
+      this.computedZoom = zoom + 0.1 * this.zoomLevel;
     }
   }
 
-  private handleViewportResize(e?: Event) {
-    const win: Window | null = e ? (e.target as Window) : this.contentWindow;
-
-    if (win?.innerWidth) {
-      this.innerWidth = win.innerWidth;
-      this.innerHeight = win.innerHeight;
-    }
+  private handleViewportResize() {
+    this.innerWidth = this.iframe.clientWidth;
+    this.innerHeight = this.iframe.clientHeight;
   }
 
   @watch('viewport')
@@ -231,7 +286,7 @@ export default class WaViewportDemo extends WebAwesomeElement {
     const dimensions = width && height ? html`<span class="dimensions">${width} × ${height}</span>` : '';
 
     const viewportStyle: Record<string, string | number> = {
-      '--zoom': this.zoom
+      '--zoom': this.computedZoom
     };
     if (isViewportDimensions(this.viewport)) {
       viewportStyle['--viewport-width-px'] = this.viewport.width;
@@ -247,27 +302,13 @@ export default class WaViewportDemo extends WebAwesomeElement {
           ${dimensions}
           <span class="zoom">
             <wa-icon-button name="square-minus" variant="regular" @click=${() => this.zoomOut()}>-</wa-icon-button>
-            <span class="zoom-level"> ${Math.round(this.zoom * 100)}%</span>
+            <span class="zoom-level"> ${Math.round(this.computedZoom * 100)}%</span>
             <wa-icon-button name="square-plus" variant="regular" @click=${() => this.zoomIn()}>+</wa-icon-button>
           </span>
         </span>
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
     `;
-  }
-
-  public zoomIn() {
-    let zoom = this.zoom;
-    zoom = Number(zoom.toPrecision(2));
-    zoom += 0.1;
-    this.zoom = zoom;
-  }
-
-  public zoomOut() {
-    let zoom = this.zoom;
-    zoom = Number(zoom.toPrecision(2));
-    zoom -= 0.1;
-    this.zoom = zoom;
   }
 
   private handleSlotChange(event: Event) {
