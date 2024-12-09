@@ -153,13 +153,16 @@ export default css`
       color: var(--wa-color-text-quiet);
       text-align: center;
 
-      &:hover {
-        background: var(--wa-color-surface-lowered, rgb(0 0 0 / 0.05));
-      }
+      &:not(#preview:active ~ #buttons *) {
+        /* Interactive states should not apply while the preview is being resized */
+        &:hover {
+          background: oklab(from var(--wa-color-surface-lowered, rgb(0 0 0 / 0.05)) l a b / 50%);
+        }
 
-      &:active {
-        box-shadow: var(--wa-shadow-s) inset;
-        padding-block: calc(var(--padding-block) + 1px) calc(var(--padding-block) - 1px);
+        &:active {
+          box-shadow: var(--wa-shadow-s) inset;
+          padding-block: calc(var(--padding-block) + 1px) calc(var(--padding-block) - 1px);
+        }
       }
 
       &:first-child {
