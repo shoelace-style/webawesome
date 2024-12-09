@@ -120,6 +120,13 @@ export default css`
       display: block;
     }
 
+    @starting-style {
+      #source {
+        height: 0px;
+        display: block;
+      }
+    }
+
     [part~='toggle'] wa-icon {
       rotate: 180deg;
     }
