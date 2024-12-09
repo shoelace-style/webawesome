@@ -105,19 +105,16 @@
 
       {# Sidebar #}
       {% if hasSidebar %}
-        <aside slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
-          <wa-icon-button id="sidebar-close-button" name="xmark" label="Close" data-drawer="close"></wa-icon-button>
-
-          {# Mobile selectors #}
-          <div class="only-mobile">
+        {# Mobile selectors #}
+        <div class="only-mobile" slot="navigation-header">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
-
-          <nav>
-            {% include "sidebar.njk" %}
-          </nav>
-        </aside>
+        </div>
+        <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+          {% include "sidebar.njk" %}
+        </div>
       {% endif %}
 
       {# Outline #}
