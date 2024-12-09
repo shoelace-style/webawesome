@@ -17,7 +17,7 @@ layout: component
   <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
 
 Do not render untrusted content in a `<wa-code-demo>` element.
-This component renders the content as HTML, which introduce XSS vulnerabilities if used with untrusted content.
+This component renders the content as HTML, which introduces XSS vulnerabilities if used with untrusted content.
 
 </wa-callout>
 
@@ -205,7 +205,6 @@ It goes without saying that this list is a rough plan and subject to change.
 ### High priority
 
 - [ ] Make the component dynamic so that when the code changes, the demo is updated
-- [ ] Provide a way to open in a new tab
 
 ### Low priority
 
@@ -213,6 +212,4 @@ It goes without saying that this list is a rough plan and subject to change.
 - [ ] Tabbed layout
 - [ ] Provide a way to display CSS and JS separately
 - [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
-- [ ] Provide controls for zooming in/out
-- [ ] Automatic iframe height
-- [ ] Provide a way to hide the edit button
+- [ ] Provide a way to customize the buttons shown
