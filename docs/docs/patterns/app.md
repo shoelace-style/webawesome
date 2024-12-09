@@ -1,7 +1,7 @@
 ---
 title: App
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -285,7 +285,7 @@ TODO Page Description
       Showing 1 to 10 of 50 Results
       <span>
         <wa-button><wa-icon slot="prefix" name="gear" variant="solid"></wa-icon> Prev</wa-button>
-        <wa-button>Next <wa-icon slot="suffix" name="gear" variant="solid"></wa-icon></wa-button>  
+        <wa-button>Next <wa-icon slot="suffix" name="gear" variant="solid"></wa-icon></wa-button>
       </span>
     </div>
   </wa-card>
@@ -349,7 +349,7 @@ TODO Page Description
     wa-card {
       width: 100%;
     }
-  
+
 
     div.comment-footer {
       display: flex;
@@ -401,7 +401,7 @@ TODO Page Description
       grid-column: span 2/ span 2;
       margin: 0;
     }
-   
+
   }
 </style>
 ```
@@ -446,7 +446,7 @@ TODO Page Description
         align-items: center;
       }
 
-    
+
     }
   </style>
 ```
@@ -459,13 +459,13 @@ TODO Page Description
     <wa-icon name="database" style="font-size: 64px; margin: var(--wa-flow-spacing) 0 calc(var(--wa-flow-spacing)/ 2);"></wa-icon>
     <h4>No DBs</h4>
     <p>Get started by creating a database.</p>
-  
+
 </div>
   </a>
   <style>
     .empty-state {
       text-decoration: none;
-      
+
 
       &.dashed .border {
         margin: 0 auto;
@@ -605,10 +605,10 @@ TODO Page Description
         </div>
       </wa-card>
     </dl>
-    
-    
+
+
   </div>
-  
+
 </div>
 <style>
   .with-icon {
@@ -619,7 +619,7 @@ TODO Page Description
       margin-bottom: 0;
 
       wa-card::part(body) {
-        
+
       }
 
       wa-card::part(footer) {
@@ -701,14 +701,14 @@ TODO Page Description
     width: 100%;
     dl {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);  
+      grid-template-columns: repeat(2, 1fr);
       margin: 0;
-      
+
       dt {
         color: #8991A6;
         font-size: 14px;
       }
-     
+
 
       div {
         border-right-style: solid;
@@ -739,8 +739,8 @@ TODO Page Description
         border: none;
       }
     }
-      
-  
+
+
   }
 
    wa-card.with-shared-borders::part(body) {
@@ -758,7 +758,7 @@ TODO Page Description
 ```html{.example}
 <div class="leaderboard">
   <h3 style="grid-column: 1/-1">Collective Activity for Yesterday</h3>
-  
+
     <wa-card class="activity-card" style="--wa-color-surface-default: tomato; --wa-color-text-normal: white; grid-column: 1/5;">
       <span>
         <wa-icon name="book"></wa-icon>
@@ -780,7 +780,7 @@ TODO Page Description
       </span>
       <div class="leaderboard-number">97,303</div>
     </wa-card>
-  
+
   <wa-card class="card-header" with-header style="grid-column: 2/12">
     <div slot="header">
       <div class="leaderboard-badge">
@@ -802,7 +802,7 @@ TODO Page Description
       </li>
       <li>
         <div>
-          
+
         <span>
           <h5 style="--wa-space-xl: 0">Title</h5>
           <span style="font-size: x-large;font-weight: 700;">4,500</span>

@@ -1,7 +1,7 @@
 ---
 title: Blog
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -14,7 +14,7 @@ TODO Page Description
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #fe53a0;">
-       
+
       </div>
       <div style="background: gray;">
         <img
@@ -28,7 +28,7 @@ TODO Page Description
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #5a90f3;">
-       
+
       </div>
       <div style="background: gray;">
         <img
@@ -42,7 +42,7 @@ TODO Page Description
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #8c431e;">
-       
+
       </div>
       <div style="background: gray;">
         <img
@@ -56,7 +56,7 @@ TODO Page Description
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #37b3e6;">
-       
+
       </div>
       <div style="background: gray;">
         <img
@@ -70,7 +70,7 @@ TODO Page Description
   <wa-carousel-item>
     <a href="#" class="hero-link">
       <div style="background: #f993d6;">
-       
+
       </div>
       <div style="background: gray;">
         <img
@@ -81,7 +81,7 @@ TODO Page Description
       <h2><span>Article Title</span></h2>
     </a>
   </wa-carousel-item>
-  
+
 </wa-carousel>
 <style>
   .hero-link {
@@ -202,10 +202,10 @@ TODO Page Description
 
       img {
         margin-right: 1rem;
-        object-fit: cover; 
+        object-fit: cover;
         min-width: 50px;
-        min-height: 50px; 
-        width: 100px; 
+        min-height: 50px;
+        width: 100px;
         height: 100px;
         border-radius: var(--wa-border-radius-circle);
       }
@@ -333,7 +333,7 @@ TODO Page Description
          <wa-input value="https://fontawesome.com"></wa-input>
     <wa-button variant="brand"> <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>Copy</wa-button>
       </div>
-   
+
   </div>
 </wa-card>
 <style>
@@ -350,13 +350,13 @@ TODO Page Description
       background: var(--background);
     }
     wa-icon-button::part(base) {
-      
+
       color: var(--color);
     }
 
     .share-input {
     display: flex;
-    
+
     wa-input {
           --border-radius: var(--wa-form-control-border-radius) 0 0 var(--wa-form-control-border-radius);
     }
@@ -365,6 +365,6 @@ TODO Page Description
     }
   }
   }
-  
+
 </style>
 ```

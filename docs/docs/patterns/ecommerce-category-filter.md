@@ -1,12 +1,12 @@
 ---
 title: E-commerce - Category Filter
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
 
 ## With inline actions and expandable sidebar filters
 ```html{.example}
- 
+
 ```

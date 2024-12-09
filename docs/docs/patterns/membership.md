@@ -1,7 +1,7 @@
 ---
 title: Membership
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description

@@ -9,6 +9,13 @@ html {
   margin: 0;
 }
 
+:is(html, body):has(wa-page) {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 *,
 *::before,
 *::after {

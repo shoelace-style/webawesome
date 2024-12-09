@@ -1,7 +1,7 @@
 ---
 title: E-commerce - Order History
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -9,5 +9,5 @@ TODO Page Description
 ## Invoice panels
 
 ```html{.example}
-  
+
 ```
