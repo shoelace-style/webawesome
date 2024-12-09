@@ -20,7 +20,7 @@ wa-page {
 }
 
 /* Header */
-wa-page::part(drawer__dialog) {
+wa-page::part(header) {
   background-color: var(--wa-color-surface-default);
   border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
 }
