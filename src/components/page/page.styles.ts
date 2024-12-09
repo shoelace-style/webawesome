@@ -243,7 +243,7 @@ export default css`
     grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   }
 
-  [part~="drawer"]::part(dialog) {
+  [part~='drawer']::part(dialog) {
     background-color: var(--wa-color-surface-default);
   }
 `;
