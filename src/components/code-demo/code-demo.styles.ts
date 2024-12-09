@@ -27,8 +27,7 @@ export default css`
 
   /* Different defaults for isolated demos */
   :host([viewport]) {
-    --preview-resize: both;
-    --preview-backdrop: var(--preview-background);
+    --preview-resize: none; /* handled by wa-viewport-demo */
     --preview-padding: var(--wa-space-l, 1rem);
   }
 
@@ -40,9 +39,6 @@ export default css`
     border-start-start-radius: inherit;
     border-start-end-radius: inherit;
     background: var(--preview-background);
-    contain: inline-size;
-    container-type: inline-size;
-    container-name: preview;
 
     &:has(#viewport) {
       background: var(--preview-backdrop);
