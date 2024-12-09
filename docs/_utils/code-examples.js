@@ -147,6 +147,11 @@ export function codeExamplesPlugin(eleventyConfig, options = {}) {
         }
       }
 
+      if (code.hasAttribute('data-viewport')) {
+        // viewport attribute only works on the new syntax
+        localOptions.new = true;
+      }
+
       const template = localOptions.new ? 'new' : 'old';
       const codeExample = parse(templates[template](pre, code, localOptions));
 
