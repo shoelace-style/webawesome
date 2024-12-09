@@ -1,5 +1,5 @@
 import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -17,6 +17,15 @@ interface DemoHTMLOptions {
   isolated?: boolean;
   absolutize?: boolean | string | URL;
   prettyWhitespace?: boolean;
+}
+
+interface ViewportDimensions {
+  width: number;
+  height?: number;
+}
+
+function isViewportDimensions(viewport: boolean | ViewportDimensions | undefined): viewport is ViewportDimensions {
+  return Boolean(viewport) && typeof viewport === 'object' && 'width' in viewport;
 }
 
 const URL_ATTRIBUTES = ['src', 'href'];
@@ -58,27 +67,78 @@ export default class WaCodeDemo extends WebAwesomeElement {
   @query('#preview')
   private previewElement: HTMLElement;
 
+  @query('#viewport')
+  private viewportElement: HTMLElement;
+
+  @query('iframe')
+  private iframe: HTMLIFrameElement;
+
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
 
   /** Renders in an iframe */
-  @property({ reflect: true }) viewport?: string;
+  @property({
+    reflect: true,
+    converter: {
+      fromAttribute(value: string | null) {
+        if (value === null) {
+          return false;
+        }
+        if (value === '') {
+          return true;
+        }
+
+        const [width, height] = value.trim().split(/\s*x\s*/);
+        const ret: ViewportDimensions = { width: parseFloat(width) };
+        if (height) {
+          ret.height = parseFloat(height);
+        }
+        return ret;
+      },
+      toAttribute(value: boolean | ViewportDimensions) {
+        if (value === false) {
+          return null;
+        }
+        if (value === true) {
+          return '';
+        }
+        return `${value.width} x ${value.height}`;
+      }
+    }
+  })
+  viewport?: boolean | ViewportDimensions;
 
   /** Includes resources and other elements in the preview */
   @property({ reflect: true }) include?: string;
 
+  @state()
+  private viewportInnerWidth: number = 0;
+
+  @state()
+  private viewportInnerHeight: number = 0;
+
+  @state()
+  private previewHOffset: number = 0;
+
+  @state()
+  private viewportHOffset: number = 0;
+
+  @state()
+  private zoomLevel: number = 1;
+
+  @state()
+  private maxIframeWidth = 0;
+
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
   private previewComputedStyle: CSSStyleDeclaration;
+  private viewportComputedStyle: CSSStyleDeclaration;
+  private iframeComputedStyle: CSSStyleDeclaration;
   private resizeObserver: ResizeObserver;
 
-  /** Whether the demo is rendered in an iframe */
-  public get isolated() {
-    return this.viewport !== undefined;
-  }
-
-  connectedCallback() {
+  connectedCallback(): void {
     super.connectedCallback();
+    this.handleViewportChange();
   }
 
   disconnectedCallback() {
@@ -86,33 +146,75 @@ export default class WaCodeDemo extends WebAwesomeElement {
     this.unobserveResize();
   }
 
-  private previewInnerWidth: number;
+  handleIframeLoad() {
+    this.handleViewportResize();
+    this.iframe.contentWindow?.addEventListener('resize', e => this.handleViewportResize(e));
+  }
 
   private observeResize() {
-    if (this.previewElement) {
+    // We only observe resizes when the viewport attribute is set
+    if (this.viewportElement) {
       this.resizeObserver ??= new ResizeObserver(() => this.handleResize());
-      this.updateComplete.then(() => this.resizeObserver.observe(this.previewElement));
+      this.updateComplete.then(() => this.resizeObserver.observe(this.viewportElement));
     }
   }
 
   private unobserveResize() {
     if (this.previewElement && this.resizeObserver) {
-      this.resizeObserver.unobserve(this.previewElement);
+      this.resizeObserver.unobserve(this.viewportElement);
     }
   }
 
-  private handleResize() {
-    if (globalThis.window) {
-      this.previewComputedStyle ??= window.getComputedStyle(this.previewElement);
+  private updateCS() {
+    // This is only needed for isolated demos
+    if (this.viewport && globalThis.window) {
+      if (this.iframe) {
+        this.iframeComputedStyle ??= window.getComputedStyle(this.iframe);
+        this.iframeHOffset = getHorizontalOffsets(this.iframeComputedStyle);
+      }
 
-      const cs = this.previewComputedStyle;
-      this.previewInnerWidth =
-        getNumber(cs.width) -
-        getNumber(cs.paddingLeft) -
-        getNumber(cs.paddingRight) -
-        getNumber(cs.borderLeftWidth) -
-        getNumber(cs.borderRightWidth);
-      this.previewElement.style.setProperty('--preview-width-px', this.previewInnerWidth + '');
+      if (this.viewportElement) {
+        this.viewportComputedStyle ??= window.getComputedStyle(this.viewportElement);
+        this.viewportHOffset = getHorizontalOffsets(this.viewportComputedStyle);
+      }
+
+      if (this.previewElement) {
+        this.previewComputedStyle ??= window.getComputedStyle(this.previewElement);
+        this.previewHOffset = getHorizontalOffsets(this.previewComputedStyle);
+      }
+    }
+  }
+
+  /** Gets called when the code example gets resized */
+  private handleResize() {
+    // This is only needed for isolated demos
+    if (this.viewport && globalThis.window) {
+      this.updateCS();
+
+      // Zoom level = available width / virtual width
+      this.maxIframeWidth = getNumber(this.previewComputedStyle.width) - this.previewHOffset - this.viewportHOffset;
+      this.updateZoomLevel();
+    }
+  }
+
+  private updateZoomLevel() {
+    if (!this.viewport || this.viewport === true) {
+      this.zoomLevel = 1;
+    } else {
+      if (!this.maxIframeWidth) {
+        this.updateCS();
+      }
+
+      this.zoomLevel = this.maxIframeWidth / this.viewport.width;
+    }
+  }
+
+  private handleViewportResize(e?: Event) {
+    const win = e ? (e.target as Window) : this.iframe?.contentWindow;
+
+    if (win?.innerWidth) {
+      this.viewportInnerWidth = win.innerWidth;
+      this.viewportInnerHeight = win.innerHeight;
     }
   }
 
@@ -130,40 +232,37 @@ export default class WaCodeDemo extends WebAwesomeElement {
     // FIXME Ideally we don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
     const customPreview = this.hasUpdated ? this.hasSlotController.test('preview') : true;
-    const previewStyles: { [key: string | number]: string | number } = {};
-    const previewClasses: { [key: string | number]: boolean } = {};
+    const previewClasses: { [key: string | number]: boolean } = {
+      zoomed: Boolean(this.viewport) && this.viewport !== true
+    };
 
     let viewportHTML: string | TemplateResult = '';
-    if (this.isolated) {
-      previewStyles['--preview-width-px'] = this.previewInnerWidth;
 
-      if (this.viewport) {
-        // Viewport emulation
-
-        // TODO move to a converter or something, we shouldn't parse this on every render
-        const [width, height] = this.viewport.trim().split(/\s*x\s*/);
-        previewStyles['--viewport-width-px'] = width;
-        if (height) {
-          previewStyles['--viewport-height-px'] = height;
-        }
-        previewClasses.zoomed = true;
-      }
+    if (this.viewport) {
+      // Viewport emulation
+      const width = this.viewportInnerWidth || (isViewportDimensions(this.viewport) ? this.viewport.width : 0);
+      const height = this.viewportInnerHeight || (isViewportDimensions(this.viewport) ? this.viewport.height : 0);
+      const dimensions = width && height ? html`<span class="dimensions">${width} × ${height}</span>` : '';
 
       viewportHTML = html`
-        <div id="viewport" part="viewport">
-          <span part="viewport-info"><wa-icon name="magnifying-glass-plus"></wa-icon> </span>
-          <iframe title="Code preview" srcdoc="${code}" part="iframe"></iframe>
+        <div id="viewport" part="viewport" style=${styleMap({ '--zoom': this.zoomLevel })}>
+          <span part="viewport-info">
+            ${dimensions}
+            <wa-icon name="magnifying-glass-plus"></wa-icon>
+            <span class="zoom">${Math.round(this.zoomLevel * 100)}%</span>
+          </span>
+          <iframe title="Code preview" srcdoc="${code}" part="iframe" @load=${this.handleIframeLoad}></iframe>
         </div>
       `;
     }
 
     return html`
-      <div id="preview" part="preview" style="${styleMap(previewStyles)}" class="${classMap(previewClasses)}">
+      <div id="preview" part="preview" class="${classMap(previewClasses)}">
         ${viewportHTML}
         <slot
           name="preview"
           @slotchange=${this.handleSlotChange}
-          .innerHTML=${customPreview || this.isolated ? '' : code}
+          .innerHTML=${customPreview || this.viewport ? '' : code}
         ></slot>
       </div>
       <slot class="source" id="source"></slot>
@@ -194,7 +293,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
   // TODO memoize this and only update if:
   // - this.include changes
   //- elements have been added/removed that match the selector
-  public getIncludedHTML({ isolated = this.isolated, absolutize, prettyWhitespace }: DemoHTMLOptions = {}):
+  public getIncludedHTML({ isolated = Boolean(this.viewport), absolutize, prettyWhitespace }: DemoHTMLOptions = {}):
     | string
     | null {
     if (!this.ownerDocument) {
@@ -352,11 +451,25 @@ declare global {
   }
 }
 
+// Private helpers
+
 /**
  * Parse a string into a number, or return 0 if it's not a number
  */
 function getNumber(value: string | number): number {
   return (typeof value === 'string' ? parseFloat(value) : value) || 0;
+}
+
+/**
+ * Get the horizontal padding and border widths of an element
+ */
+function getHorizontalOffsets(cs: CSSStyleDeclaration) {
+  return (
+    getNumber(cs.paddingLeft) +
+    getNumber(cs.paddingRight) +
+    getNumber(cs.borderLeftWidth) +
+    getNumber(cs.borderRightWidth)
+  );
 }
 
 /**

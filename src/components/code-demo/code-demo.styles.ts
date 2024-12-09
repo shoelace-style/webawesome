@@ -10,6 +10,8 @@ export default css`
     --preview-padding: var(--wa-space-2xl, 2rem);
     --divider-width: var(--wa-border-width-s, 1px);
     --viewport-initial-aspect-ratio: 16 / 9;
+    --viewport-bezel-width: 0.25em;
+
     --code-expand-duration: var(--wa-transition-fast, 0.3s);
     --code-collapse-duration: var(--wa-transition-normal, 0.3s);
 
@@ -21,6 +23,13 @@ export default css`
     margin-block-end: var(--wa-flow-spacing);
     background: var(--preview-backdrop);
     interpolate-size: allow-keywords;
+  }
+
+  /* Different defaults for isolated demos */
+  :host([viewport]) {
+    --preview-resize: both;
+    --preview-backdrop: var(--preview-background);
+    --preview-padding: var(--wa-space-l, 1rem);
   }
 
   #preview {
@@ -35,12 +44,19 @@ export default css`
     container-type: inline-size;
     container-name: preview;
 
+    &:has(#viewport) {
+      background: var(--preview-backdrop);
+    }
+
+    &:not(:has(#viewport)) {
+      max-width: min(var(--preview-max-width), 100%);
+      min-width: var(--preview-min-width, min-content);
+    }
+
     &:not(:has(#viewport)),
     #viewport {
       resize: var(--preview-resize);
       overflow: auto;
-      min-width: var(--preview-min-width, min-content);
-      max-width: min(var(--preview-max-width), 100%);
     }
 
     > :first-child {
@@ -53,26 +69,19 @@ export default css`
   }
 
   #viewport {
-    /* Convert pure numbers to lengths */
-    --viewport-width: calc(var(--viewport-width-px) * 1px);
-    --viewport-height: calc(var(--viewport-height-px) * 1px);
-
-    /* Values with fallback */
-    --_width: var(--viewport-width, 100%);
-    --_height: var(--viewport-height, calc(var(--viewport-width) / (var(--viewport-initial-aspect-ratio))));
-
-    --_zoom: calc(var(--preview-width-px) / var(--viewport-width-px));
-    --zoom: var(--_zoom, 1);
+    --zoom: 1;
 
     display: flex;
     flex-flow: column;
     align-items: end;
+    width: 100%;
+    height: fit-content;
+
+    min-width: var(--preview-min-width, 2em);
+    max-width: min(var(--preview-max-width), 100%);
 
     /* Style iframe like a window */
-
-    --_bezel-width: var(--viewport-bezel-width, calc(0.25em));
-    box-sizing: border-box;
-    border: var(--_bezel-width) solid transparent;
+    border: var(--viewport-bezel-width) solid transparent;
     border-radius: calc(var(--wa-border-radius-s));
 
     /* Window-like frame styling */
@@ -82,49 +91,60 @@ export default css`
         1.1em,
       radial-gradient(circle closest-side, var(--wa-color-green-70) 80%, var(--wa-color-green-60) 98%, transparent)
         1.8em;
+    background-color: var(--wa-color-gray-95);
     background-size: 0.5em 0.5em;
     background-position-y: 0.4em;
-    background-color: var(--wa-color-gray-95);
     background-origin: border-box;
     background-repeat: no-repeat;
     box-shadow:
       0 0 0 1px var(--wa-color-gray-90),
-      var(--wa-shadow-l);
+      var(--wa-shadow-m);
+
+    /* User has not yet resized the viewport */
+    &:not([style*='height:']) {
+      aspect-ratio: var(--viewport-initial-aspect-ratio);
+    }
 
     iframe {
-      flex: 1;
-
-      width: var(--_width);
-      height: var(--viewport-height);
       display: block;
-      border: calc(1px / var(--zoom)) solid var(--wa-color-gray-90);
-      padding: 1em;
       width: 100%;
       height: 100%;
+      zoom: var(--zoom);
+
+      /* Divide with var(--zoom) to get lengths that stay constant regardless of zoom level */
+      border: calc(0px / var(--zoom)) solid var(--wa-color-gray-90);
+      padding: 0em; /* we want this to be scaled by the zoom level */
       background: var(--preview-background);
-      zoom: var(--_zoom);
     }
   }
 
   [part~='viewport-info'] {
+    margin-top: -0.15em;
     font-size: var(--wa-font-size-xs);
-    font-weight: 600;
-    margin-top: -0.2em;
-    color: var(--wa-color-text-quiet);
+    padding-block-end: 0.25em;
+    padding-inline-end: 0.15em;
 
-    &:is(:host([viewport='']) *) {
-      opacity: 0.5;
+    .dimensions {
+      word-spacing: -0.15em;
+    }
+
+    wa-icon,
+    .zoom {
+      &:is(:host([viewport='']) *) {
+        opacity: 50%;
+      }
     }
 
     wa-icon {
+      margin-inline-start: 0.5em;
       vertical-align: -0.1em;
       font-size: 85%;
       color: var(--wa-color-gray-70);
     }
 
-    &::after {
-      counter-reset: zoom round(var(--zoom) * 100);
-      content: counter(zoom) '%';
+    .zoom {
+      font-weight: 600;
+      color: var(--wa-color-text-quiet);
     }
   }
 
