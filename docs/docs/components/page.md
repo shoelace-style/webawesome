@@ -2,6 +2,7 @@
 title: Page
 description: Layouts offer an easy way to scaffold pages using minimal markup.
 layout: component
+isPro: true
 ---
 
 The layout component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.

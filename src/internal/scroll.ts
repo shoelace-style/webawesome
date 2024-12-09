@@ -1,16 +1,24 @@
 import { getOffset } from './offset.js';
-import { isServer } from 'lit';
 
 const locks = new Set();
-const lockStyles = isServer ? null : document.createElement('style');
 
-if (lockStyles) {
-  lockStyles.textContent = `
-    .wa-scroll-lock {
-      scrollbar-gutter: stable !important;
-      overflow: hidden !important;
-    }
-  `;
+/** Returns the width of the document's scrollbar */
+function getScrollbarWidth() {
+  const documentWidth = document.documentElement.clientWidth;
+  return Math.abs(window.innerWidth - documentWidth);
+}
+
+/**
+ * Used in conjunction with `scrollbarWidth` to set proper body padding in case the user has padding already on the `<body>` element.
+ */
+function getExistingBodyPadding() {
+  const padding = Number(getComputedStyle(document.body).paddingRight.replace(/px/, ''));
+
+  if (isNaN(padding) || !padding) {
+    return 0;
+  }
+
+  return padding;
 }
 
 /**
@@ -20,9 +28,27 @@ if (lockStyles) {
 export function lockBodyScrolling(lockingEl: HTMLElement) {
   locks.add(lockingEl);
 
-  if (lockStyles && !lockStyles.isConnected) {
-    document.body.append(lockStyles);
+  // When the first lock is created, set the scroll lock size to match the scrollbar's width to prevent content from
+  // shifting. We only do this on the first lock because the scrollbar width will measure zero after overflow is hidden.
+  if (!document.documentElement.classList.contains('wa-scroll-lock')) {
+    /** Scrollbar width + body padding calculation can go away once Safari has scrollbar-gutter support. */
+    const scrollbarWidth = getScrollbarWidth() + getExistingBodyPadding(); // must be measured before the `wa-scroll-lock` class is applied
+
+    let scrollbarGutterProperty = getComputedStyle(document.documentElement).scrollbarGutter;
+
+    // default is auto, unsupported browsers is "undefined"
+    if (!scrollbarGutterProperty || scrollbarGutterProperty === 'auto') {
+      scrollbarGutterProperty = 'stable';
+    }
+
+    /** Sometimes the scrollbar width is 1px, even then, we assume nothing is overflowing. */
+    if (scrollbarWidth < 2) {
+      // if there's no scrollbar, just set it to an empty string so whatever the user has set gets used. This is useful if the page is not overflowing and showing a scrollbar, or if the user has overflow: hidden, or any other reason a scrollbar may not be showing.
+      scrollbarGutterProperty = '';
+    }
+    document.documentElement.style.setProperty('--wa-scroll-lock-gutter', scrollbarGutterProperty);
     document.documentElement.classList.add('wa-scroll-lock');
+    document.documentElement.style.setProperty('--wa-scroll-lock-size', `${scrollbarWidth}px`);
   }
 }
 
@@ -34,7 +60,7 @@ export function unlockBodyScrolling(lockingEl: HTMLElement) {
 
   if (locks.size === 0) {
     document.documentElement.classList.remove('wa-scroll-lock');
-    lockStyles?.remove();
+    document.documentElement.style.removeProperty('--wa-scroll-lock-size');
   }
 }
 

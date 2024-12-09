@@ -106,10 +106,9 @@ async function generateStyles() {
   // NOTE - alpha setting omits all stylesheets except for these because we use them in the docs
   if (isAlpha) {
     await copy(join(rootDir, 'src/themes/applied.css'), join(cdnDir, 'themes/applied.css'), { overwrite: true });
-    await copy(join(rootDir, 'src/themes/color_standard.css'), join(cdnDir, 'themes/color_standard.css'), {
-      overwrite: true
-    });
     await copy(join(rootDir, 'src/themes/default.css'), join(cdnDir, 'themes/default.css'), { overwrite: true });
+    await copy(join(rootDir, 'src/themes/layout.css'), join(cdnDir, 'themes/layout.css'), { overwrite: true });
+    await copy(join(rootDir, 'src/themes/utilities.css'), join(cdnDir, 'themes/utilities.css'), { overwrite: true });
   } else {
     await copy(join(rootDir, 'src/themes'), join(cdnDir, 'themes'), { overwrite: true });
   }
@@ -288,12 +287,18 @@ if (isDeveloping) {
       callbacks: {
         ready: (_err, instance) => {
           // 404 errors
-          instance.addMiddleware('*', (req, res) => {
+          instance.addMiddleware('*', async (req, res) => {
             if (req.url.toLowerCase().endsWith('.svg')) {
               // Make sure SVGs error out in dev instead of serve the 404 page
               res.writeHead(404);
             } else {
-              res.writeHead(302, { location: '/404.html' });
+              try {
+                const notFoundTemplate = await readFile(join(siteDir, '404.html'), 'utf-8');
+                res.writeHead(404);
+                res.write(notFoundTemplate || 'Page Not Found');
+              } catch {
+                // We're probably disconnected for some reason, so fail gracefully
+              }
             }
 
             res.end();

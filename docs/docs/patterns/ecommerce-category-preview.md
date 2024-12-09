@@ -1,7 +1,7 @@
 ---
 title: E-commerce - Category Preview
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description

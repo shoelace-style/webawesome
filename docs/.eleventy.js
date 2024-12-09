@@ -22,12 +22,15 @@ const isDeveloping = process.argv.includes('--develop');
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
-    eleventyConfig.ignores.add('**/components/page.md');
     eleventyConfig.ignores.add('**/experimental/**');
+    eleventyConfig.ignores.add('**/layout/**');
+    eleventyConfig.ignores.add('**/patterns/**');
+    eleventyConfig.ignores.add('**/style-utilities/**');
   }
 
   // Add template data
   eleventyConfig.addGlobalData('package', packageData);
+  eleventyConfig.addGlobalData('isAlpha', isAlpha);
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));

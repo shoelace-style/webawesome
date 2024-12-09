@@ -1,7 +1,7 @@
 ---
 title: E-commerce - Product Lists
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -52,7 +52,7 @@ TODO Page Description
         align-items: center;
       }
       .grid-item:nth-of-type(odd) {
-       
+
         border-right: var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-neutral-border-quiet);
       }
       .grid-item:not(:nth-last-child(-n + 2)) {
@@ -156,11 +156,10 @@ TODO Page Description
         font-weight: var(--wa-font-weight-action);
       }
     }
-    
+
   </style>
 ```
 ## With color swatches (WIP)
 ```html{.example}
 
 ```
-
