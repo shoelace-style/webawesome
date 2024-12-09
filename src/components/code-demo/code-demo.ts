@@ -55,15 +55,6 @@ export default class WaCodeDemo extends WebAwesomeElement {
   @query('slot[name=preview]')
   private previewSlot: HTMLSlotElement;
 
-  // @query('#preview')
-  // private previewElement: HTMLElement;
-
-  // @query('wa-viewport-demo')
-  // private viewportElement: HTMLElement;
-
-  // @query('iframe')
-  // private iframe: HTMLIFrameElement;
-
   /** Opens the code example */
   @property({ attribute: 'open', type: Boolean, reflect: true }) open = false;
 
@@ -105,24 +96,25 @@ export default class WaCodeDemo extends WebAwesomeElement {
           .innerHTML=${customPreview || this.viewport ? '' : code}
         ></slot>
       </div>
-      <slot class="source" id="source"></slot>
+      <slot id="source"></slot>
       <div id="buttons" part="controls">
         <button
-          class="toggle"
           type="button"
+          part="toggle button"
           aria-expanded="${this.open ? 'true' : 'false'}"
           aria-controls="source"
-          part="toggle button"
           @click=${this.toggle}
         >
           Code
           <wa-icon name="chevron-down"></wa-icon>
         </button>
-        <button class="pen" type="button" part="edit button" @click=${this.openInNewTab}>
-          <wa-icon name="arrow-up-right-from-square"></wa-icon>
-          Open
-        </button>
-        <button class="pen" type="button" part="edit button" @click=${this.edit}>
+        ${this.viewport
+          ? html`<button type="button" part="open button" @click=${this.openInNewTab}>
+              <wa-icon name="arrow-up-right-from-square"></wa-icon>
+              Open
+            </button>`
+          : ''}
+        <button type="button" part="edit button" @click=${this.edit}>
           <wa-icon name="pen-to-square"></wa-icon>
           Edit
         </button>

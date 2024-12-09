@@ -1,6 +1,6 @@
 ---
 title: Code Demo
-description: Code demos can be used to render code examples as inline live demos.
+description: Code demos can be used to render code examples as inline live demos. They are used right here in the docs to render code examples.
 layout: component
 ---
 
@@ -99,10 +99,6 @@ plus any other elements with the class `.demo-import`, plus a CSS file with the 
 </wa-code-demo>
 ```
 
-<!-- <wa-callout variant="danger">
-  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
-
-</wa-callout> -->
 
 ### Isolated viewports
 
@@ -120,7 +116,8 @@ For these cases, you can use the `viewport` attribute, which renders the demo in
 
 ### Viewport Emulation
 
-You can also provide a width value to emulate and it will be scaled accordingly:
+When you use the `viewport` attribute, `<wa-code-demo>` uses [`<wa-viewport-demo>`](../viewport-demo/) internally, and passes the value of `viewport` to it.
+This allows you to also also provide a width value to emulate and it will be scaled accordingly:
 
 ```html {.example}
 <wa-code-demo viewport="300">
@@ -130,10 +127,7 @@ You can also provide a width value to emulate and it will be scaled accordingly:
 </wa-code-demo>
 ```
 
-By default, the viewport will be rendered to an initial 16:9 aspect ratio,
-which can be changed via resizing.
-You can customize this via the `--viewport-initial-aspect-ratio` property.
-Or, you could add a height value:
+Or both a width and a height value:
 
 ```html {.example}
 <wa-code-demo viewport="1600 x 1000">
@@ -145,6 +139,10 @@ Or, you could add a height value:
   </code></pre>
 </wa-code-demo>
 ```
+
+If you only provide a width value, the viewport will be rendered to an initial 16:9 aspect ratio,
+which can be changed via resizing.
+You can customize this via the `--viewport-initial-aspect-ratio` property.
 
 ### Isolated demos with resources
 
@@ -204,12 +202,12 @@ It goes without saying that this list is a rough plan and subject to change.
 
 ### High priority
 
-- [ ] Make the component dynamic so that when the code changes, the demo is updated
+- Make the component dynamic so that when the code changes, the demo is updated
 
 ### Low priority
 
-- [ ] Horizontal layout
-- [ ] Tabbed layout
-- [ ] Provide a way to display CSS and JS separately
-- [ ] Provide a way to customize the playground used (currently it is hardcoded to CodePen)
-- [ ] Provide a way to customize the buttons shown
+- Horizontal layout
+- Tabbed layout
+- Provide a way to display CSS and JS separately
+- Provide a way to customize the playground used (currently it is hardcoded to CodePen)
+- Provide a way to customize the buttons shown

@@ -4,7 +4,7 @@ export default css`
   :host {
     --viewport-background: var(--wa-color-surface-default, canvas);
     --viewport-resize: both;
-    --viewport-min-width: min-content;
+    --viewport-min-width: 2em;
     --viewport-max-width: 100%;
     --viewport-padding: var(--wa-space-2xl, 2rem);
     --viewport-initial-aspect-ratio: 16 / 9;

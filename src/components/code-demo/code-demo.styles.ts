@@ -91,13 +91,13 @@ export default css`
     }
   }
 
-  .toggle wa-icon {
+  [part~='toggle'] wa-icon {
     transition-property: rotate;
   }
 
   :host(:not([open])) {
     #source,
-    .toggle wa-icon {
+    [part~='toggle'] wa-icon {
       transition-duration: var(--code-collapse-duration);
     }
 
@@ -110,7 +110,7 @@ export default css`
 
   :host([open]) {
     #source,
-    .toggle wa-icon {
+    [part~='toggle'] wa-icon {
       transition-duration: var(--code-expand-duration);
     }
 
@@ -120,7 +120,7 @@ export default css`
       display: block;
     }
 
-    .toggle wa-icon {
+    [part~='toggle'] wa-icon {
       rotate: 180deg;
     }
   }
@@ -138,16 +138,25 @@ export default css`
     border-width: 0;
 
     button {
+      --padding-block: 0.5em;
+      --padding-inline: 1.5em;
+
       all: unset;
-      flex: 1 0 auto;
+      padding-block: var(--padding-block);
+      padding-inline: var(--padding-inline);
+      cursor: pointer;
+      white-space: nowrap;
       font-size: 0.875rem;
       color: var(--wa-color-text-quiet);
       text-align: center;
-      padding: 0.5rem;
-      cursor: pointer;
 
       &:hover {
         background: var(--wa-color-surface-lowered, rgb(0 0 0 / 0.05));
+      }
+
+      &:active {
+        box-shadow: var(--wa-shadow-s) inset;
+        padding-block: calc(var(--padding-block) + 1px) calc(var(--padding-block) - 1px);
       }
 
       &:first-child {
@@ -175,11 +184,10 @@ export default css`
       &:focus-visible {
         outline: var(--wa-focus-ring);
       }
-    }
 
-    .pen {
-      flex: 0 0 100px;
-      white-space: nowrap;
+      &[part~='toggle'] {
+        flex: 1;
+      }
     }
 
     wa-icon {

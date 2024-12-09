@@ -60,21 +60,13 @@ Or, you could add a height value:
 </wa-viewport-demo>
 ```
 
-
-## Styling
-
-TBD
-
 ## Roadmap
 
 This component is a work in progress.
 Some of the things that are not yet implemented are listed below.
 It goes without saying that this list is a rough plan and subject to change.
 
-### High priority
-
-- ?
-
-### Low priority
-
-- [ ] Automatic iframe height
+- Non-linear zoom scale
+- Extend to general content, not just iframes
+- Styles for mobile and tablet frames and an attribute to switch between them
+- Automatic iframe height
