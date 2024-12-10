@@ -260,11 +260,11 @@ export default css`
     display: none;
   }
 
-  :host(:not([disable-navigation-toggle])[view="mobile"]) slot[name~='navigation-toggle'] {
+  :host(:not([disable-navigation-toggle])[view='mobile']) slot[name~='navigation-toggle'] {
     display: contents;
   }
 
-  [part~="navigation-toggle"] {
+  [part~='navigation-toggle'] {
     /* Use only a margin-inline-start because the slotted header is expected to have default padding so it looks really awkward if this sets a margin-inline-end and the slotted header has a padding-inline-start. */
     margin-inline-start: var(--wa-space-m);
   }
