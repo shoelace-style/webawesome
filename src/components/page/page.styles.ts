@@ -48,6 +48,7 @@ export default css`
     flex-wrap: wrap;
     gap: var(--wa-space-m);
     padding: var(--wa-space-m);
+    flex: 1 1 auto;
   }
 
   ::slotted([slot='subheader']) {
@@ -174,6 +175,7 @@ export default css`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
   }
   [part~='subheader'] {
     top: calc(var(--header-height) + var(--banner-height));
@@ -252,9 +254,19 @@ export default css`
     background-color: var(--wa-color-surface-default);
   }
 
-  [part~='navigation-toggle'],
-  :host([disable-navigation-toggle]) [part~='navigation-toggle'] {
+  /* Set these on the slot because we don't always control the navigation-toggle since that may be slotted. */
+  slot[name~='navigation-toggle'],
+  :host([disable-navigation-toggle]) slot[name~='navigation-toggle'] {
     display: none;
+  }
+
+  :host(:not([disable-navigation-toggle])[view="mobile"]) slot[name~='navigation-toggle'] {
+    display: contents;
+  }
+
+  [part~="navigation-toggle"] {
+    /* Use only a margin-inline-start because the slotted header is expected to have default padding so it looks really awkward if this sets a margin-inline-end and the slotted header has a padding-inline-start. */
+    margin-inline-start: var(--wa-space-m);
   }
 `;
 
@@ -266,10 +278,8 @@ export const mobileStyles = (breakpoint: number) => `
       display: none;
     }
 
-    [part~="navigation-toggle"] {
-      display: inline-block;
-      /* Use only a margin-inline-start because the slotted header is expected to have default padding so it looks really awkward if this sets a margin-inline-end and the slotted header has a padding-inline-start. */
-      margin-inline-start: var(--wa-space-m);
+    :host(:not([disable-navigation-toggle])) slot[name~='navigation-toggle'] {
+      display: contents;
     }
   }
 `;

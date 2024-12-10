@@ -46,7 +46,7 @@ The following sections of a page are "sticky" by default, meaning they remain in
 - `banner`
 - `header`
 - `sub-header`
-- `navigation` (or `menu`)
+- `menu` (`navigation` itself is not sticky, but its parent `menu` is)
 - `aside`
 
 This is often desirable, but you can change this behavior using the `disable-sticky` attribute. Use a space-delimited list of names to tell the page which sections should not be sticky.
