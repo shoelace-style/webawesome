@@ -455,7 +455,7 @@ TODO Page Description
 ```html{.example}
 <div class="blog-footer">
   <div class="container wa-grid" style="--min-column-size: 120px;">
-    <div class="newsletter wa-span-grid">
+    <div class="newsletter wa-span-grid" style="align-items: center;">
       <span>
         <strong>Stay Informed</strong>
         <p style="margin-bottom: 0;">sign up for our newsletter</p>
@@ -472,7 +472,9 @@ TODO Page Description
         Box 564, Disneyland.USA
       </address>
       <div class="social">
-        add social here
+        <wa-avatar label="Avatar with an image icon">
+          <wa-icon slot="icon" name="facebook-f" family="brands"></wa-icon>
+        </wa-avatar>
       </div>
     </div>
     <div>
