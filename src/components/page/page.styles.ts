@@ -169,6 +169,11 @@ export default css`
   }
   [part~='header'] {
     top: var(--banner-height);
+
+    /** Make the header flex so that you don't unexpectedly have the default toggle above a slotted div. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
   [part~='subheader'] {
     top: calc(var(--header-height) + var(--banner-height));
@@ -246,12 +251,25 @@ export default css`
   [part~='drawer']::part(dialog) {
     background-color: var(--wa-color-surface-default);
   }
+
+  [part~="navigation-toggle"],
+  :host([disable-navigation-toggle]) [part~="navigation-toggle"] {
+    display: none;
+  }
 `;
 
 export const mobileStyles = (breakpoint: number) => `
   @media screen and (
     max-width: ${(Number.isSafeInteger(breakpoint) ? breakpoint.toString() : '768') + 'px'}
   ) {
-    [part~='navigation'] { display: none; }
+    [part~='navigation'] {
+      display: none;
+    }
+
+    [part~="navigation-toggle"] {
+      display: inline-block;
+      /* Use only a margin-inline-start */
+      margin-inline-start: var(--wa-space-m);
+    }
   }
 `;
