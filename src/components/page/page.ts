@@ -94,10 +94,19 @@ export default class WaPage extends WebAwesomeElement {
   private handleNavigationToggle = (e: Event) => {
     // Don't toggle the nav when we're in desktop mode
     if (this.view === 'desktop') {
+      // Just in case, try to hide the navigation.
+      this.hideNavigation()
       return;
     }
 
-    if (e.composedPath().find((el: Element) => el.hasAttribute?.('data-toggle-nav'))) {
+    const path = e.composedPath()
+
+    // Grab it once and "cache" it.
+    const navToggleSlot = this.navigationToggleSlot
+
+    if (path.find((el: Element) => {
+      return el.hasAttribute?.('data-toggle-nav') || el.assignedSlot === navToggleSlot || el === navToggleSlot
+    })) {
       e.preventDefault();
       this.toggleNavigation();
     }
@@ -108,6 +117,9 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
+
+  // Easy way to grab the navigationToggleSlot so we can trigger the drawer regardless of whats slotted.
+  @query("slot[name~='navigation-toggle']") navigationToggleSlot: HTMLSlotElement;
 
   /**
    * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by
@@ -135,7 +147,7 @@ export default class WaPage extends WebAwesomeElement {
   /**
    * Determines whether or not to hide the default hamburger button. This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM. Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
    */
-  @property({ attribute: 'disable-navigation-toggle', reflect: true }) disableNavigationToggle: boolean = false;
+  @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean = false;
 
   pageResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
@@ -254,7 +266,7 @@ export default class WaPage extends WebAwesomeElement {
         </div>
         <div class="header" part="header">
           <slot name="navigation-toggle">
-            <wa-button data-toggle-nav="" part="navigation-toggle" size="small" appearance="text" variant="neutral">
+            <wa-button part="navigation-toggle" size="small" appearance="text" variant="neutral">
               <slot name="navigation-toggle-icon">
                 <wa-icon name="bars" part="navigation-toggle-icon" label="Toggle navigation drawer"></wa-icon>
               </slot>
