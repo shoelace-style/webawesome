@@ -268,7 +268,7 @@ export const mobileStyles = (breakpoint: number) => `
 
     [part~="navigation-toggle"] {
       display: inline-block;
-      /* Use only a margin-inline-start */
+      /* Use only a margin-inline-start because the slotted header is expected to have default padding so it looks really awkward if this sets a margin-inline-end and the slotted header has a padding-inline-start. */
       margin-inline-start: var(--wa-space-m);
     }
   }
