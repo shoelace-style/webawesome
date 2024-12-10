@@ -260,6 +260,7 @@ export default css`
     display: none;
   }
 
+  /* Sometimes the media query in the viewport is stubborn in iframes. This is an extra check to make it behave properly. */
   :host(:not([disable-navigation-toggle])[view='mobile']) slot[name~='navigation-toggle'] {
     display: contents;
   }
