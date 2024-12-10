@@ -1,0 +1,22 @@
+<div id="page_slots_demo">
+<link rel="stylesheet" href="/assets/examples/page-demo/demo.css">
+{% set slots = components.page.slots %}
+
+<fieldset id="page_slots_fieldset">
+  <legend>Slots</legend>
+  <div class="options">
+  {% for slot in slots %}
+	{% if slot.name != "skip-to-content" %}
+  <wa-checkbox name="slot" value="{{ slot.name }}" {{ 'checked' if slot.name != "menu" | safe}} class="{{ 'default' if not slot.name }}"
+  data-description="{{ slot.description | inlineMarkdown }}" title="{{ slot.description | inlineMarkdown | striptags | safe }}">
+    {{ slot.name or "(default)" }}
+  </wa-checkbox>
+	{% endif %}
+  {% endfor %}
+  </div>
+</fieldset>
+<wa-viewport-demo viewport="1000">
+<iframe srcdoc="" id="page_slots_iframe"></iframe>
+</wa-viewport-demo>
+</div>
+<script type=module src="/assets/examples/page-demo/demo.js"></script>

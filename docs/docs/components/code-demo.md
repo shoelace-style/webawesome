@@ -15,13 +15,9 @@ layout: component
 
 This component is used right here in the docs to render code examples.
 
-<wa-callout variant="danger">
-  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
-
-Do not render untrusted content in a `<wa-code-demo>` element.
-This component renders the content as HTML, which introduces XSS vulnerabilities if used with untrusted content.
-
-</wa-callout>
+:::warning
+Do not render untrusted content in a `<wa-code-demo>` element. This component renders the content as HTML, which introduces XSS vulnerabilities if used with untrusted content.
+:::
 
 ## Examples
 

@@ -31,7 +31,9 @@ This image depicts a page's anatomy, including the default positions of each sec
 
 Most slots are optional. Slots that have no content will not be shown, allowing you to opt-in to just the sections you actually need.
 
-![Screenshot of Layout Anatomy showing various slots](/assets/images/layout-anatomy.svg)
+{% include "page-demo.njk" %}
+
+<!-- ![Screenshot of Layout Anatomy showing various slots](/assets/images/layout-anatomy.svg) -->
 
 :::info
 If you're not familiar with how slots work in HTML, you might want to [learn more about slots](/docs/usage/#slots) before using this component.
@@ -123,9 +125,9 @@ wa-page[view='desktop'] [data-toggle-nav] {
 }
 ```
 
-### Widths and Heights
+### Custom Widths
 
-There are a number of [CSS custom properties](#css-custom-properties) you can use to set specific widths and heights for many slots on your page. 
+You specify widths for some slots on your page with [CSS custom properties](#css-custom-properties) for `--menu-width`, `--main-width`, and `--aside-width`.
 
 If you specify `--menu-width` to apply a specific width to your `navigation` slot, space will still be reserved on the page even below the `mobile-breakpoint`. To collapse this space on smaller screens, add the following code to your styles:
 ```css
@@ -159,6 +161,8 @@ You can override the default spacing for each slot with your own CSS. In this ex
 ## Examples
 
 ### Documentation
+
+A sample documentation page using [all available slots](#slots). The navigation menu collapses into a drawer at a custom `mobile-breakpoint` of 920px. It can be opened using a button with `[data-toggle-nav]` that appears in the `subheader` slot. The `aside` slot is also hidden below 920px.
 
 ```html {.example viewport="1600"}
 <wa-page mobile-breakpoint="920">
@@ -392,6 +396,8 @@ You can override the default spacing for each slot with your own CSS. In this ex
 ```
 
 ### Media
+
+A sample media app page using `header`, `navigation-header`, `main-header`, and `main-footer` along with the default slot. The navigation menu collapses into a drawer at the default `mobile-breakpoint` and can be opened using a button with `[data-toggle-nav]` that appears in the `header` slot.
 
 ```html {.example viewport="1600"}
 <wa-page class="wa-theme-default-dark">

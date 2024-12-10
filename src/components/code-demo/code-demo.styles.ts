@@ -98,11 +98,6 @@ export default css`
     &:is(:host([open]) *) {
       height: auto;
       display: block;
-
-      @starting-style {
-        height: 0px;
-        display: block;
-      }
     }
   }
 

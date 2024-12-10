@@ -10,12 +10,9 @@ layout: component
 </wa-viewport-demo>
 ```
 
-<wa-callout variant="danger">
-  <wa-icon name="circle-exclamation" slot="icon" variant="regular"></wa-icon>
-
+:::warning
 A lot of the functionality of this component will not work on cross-origin iframes.
-
-</wa-callout>
+:::
 
 ## Examples
 
