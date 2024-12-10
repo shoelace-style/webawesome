@@ -170,7 +170,7 @@ export default css`
   [part~='header'] {
     top: var(--banner-height);
 
-    /** Make the header flex so that you don't unexpectedly have the default toggle above a slotted div. */
+    /** Make the header flex so that you don't unexpectedly have the default toggle button appearing above a slotted div because block elements are fun. */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
