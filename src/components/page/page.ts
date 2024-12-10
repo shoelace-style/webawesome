@@ -101,11 +101,15 @@ export default class WaPage extends WebAwesomeElement {
 
     const path = e.composedPath();
 
-    const navigationToggleSlot = this.navigationToggleSlot
+    const navigationToggleSlot = this.navigationToggleSlot;
 
     if (
       path.find((el: Element) => {
-        return el.hasAttribute?.('data-toggle-nav') || el.assignedSlot === navigationToggleSlot || el === navigationToggleSlot
+        return (
+          el.hasAttribute?.('data-toggle-nav') ||
+          el.assignedSlot === navigationToggleSlot ||
+          el === navigationToggleSlot
+        );
       })
     ) {
       e.preventDefault();
@@ -190,7 +194,7 @@ export default class WaPage extends WebAwesomeElement {
 
     this.pageResizeObserver.observe(this);
 
-    const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]"
+    const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]";
 
     // check once on initial connect
     // eslint-disable-next-line
