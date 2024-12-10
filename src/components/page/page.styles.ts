@@ -252,8 +252,8 @@ export default css`
     background-color: var(--wa-color-surface-default);
   }
 
-  [part~="navigation-toggle"],
-  :host([disable-navigation-toggle]) [part~="navigation-toggle"] {
+  [part~='navigation-toggle'],
+  :host([disable-navigation-toggle]) [part~='navigation-toggle'] {
     display: none;
   }
 `;

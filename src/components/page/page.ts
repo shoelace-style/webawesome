@@ -135,7 +135,7 @@ export default class WaPage extends WebAwesomeElement {
   /**
    * Determines whether or not to hide the default hamburger button. This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM. Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
    */
-  @property({ attribute: "disable-navigation-toggle", reflect: true }) disableNavigationToggle: boolean = false
+  @property({ attribute: 'disable-navigation-toggle', reflect: true }) disableNavigationToggle: boolean = false;
 
   pageResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
@@ -180,7 +180,7 @@ export default class WaPage extends WebAwesomeElement {
 
     // check once on initial connect
     // eslint-disable-next-line
-    this.disableNavigationToggle = Boolean(this.querySelector("[data-toggle-nav]"))
+    this.disableNavigationToggle = Boolean(this.querySelector('[data-toggle-nav]'));
 
     setTimeout(() => {
       this.headerResizeObserver.observe(this.header);
@@ -190,7 +190,7 @@ export default class WaPage extends WebAwesomeElement {
 
       // Check again when the element updates
       // eslint-disable-next-line
-      this.disableNavigationToggle = Boolean(this.querySelector("[data-toggle-nav]"))
+      this.disableNavigationToggle = Boolean(this.querySelector('[data-toggle-nav]'));
     });
   }
 
