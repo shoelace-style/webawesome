@@ -101,12 +101,11 @@ export default class WaPage extends WebAwesomeElement {
 
     const path = e.composedPath();
 
-    // Grab it once and "cache" it.
-    const navToggleSlot = this.navigationToggleSlot;
+    const navigationToggleSlot = this.navigationToggleSlot
 
     if (
       path.find((el: Element) => {
-        return el.hasAttribute?.('data-toggle-nav') || el.assignedSlot === navToggleSlot || el === navToggleSlot;
+        return el.hasAttribute?.('data-toggle-nav') || el.assignedSlot === navigationToggleSlot || el === navigationToggleSlot
       })
     ) {
       e.preventDefault();
@@ -119,8 +118,6 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
-
-  // Easy way to grab the navigationToggleSlot so we can trigger the drawer regardless of whats slotted.
   @query("slot[name~='navigation-toggle']") navigationToggleSlot: HTMLSlotElement;
 
   /**
@@ -193,9 +190,11 @@ export default class WaPage extends WebAwesomeElement {
 
     this.pageResizeObserver.observe(this);
 
+    const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]"
+
     // check once on initial connect
     // eslint-disable-next-line
-    this.disableNavigationToggle = Boolean(this.querySelector('[data-toggle-nav]'));
+    this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
 
     setTimeout(() => {
       this.headerResizeObserver.observe(this.header);
@@ -205,7 +204,7 @@ export default class WaPage extends WebAwesomeElement {
 
       // Check again when the element updates
       // eslint-disable-next-line
-      this.disableNavigationToggle = Boolean(this.querySelector('[data-toggle-nav]'));
+      this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
     });
   }
 
