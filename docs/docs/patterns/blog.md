@@ -458,44 +458,56 @@ TODO Page Description
     <div class="newsletter wa-span-grid" style="align-items: center;">
       <span>
         <strong>Stay Informed</strong>
-        <p style="margin-bottom: 0;">sign up for our newsletter</p>
+        <p style="margin-bottom: 0; margin-top: 0;">sign up for our newsletter</p>
       </span>
       <span>
-         <div class="subscribe-input"> <wa-input></wa-input><wa-button>Subscribe</wa-button></div>
+         <div class="subscribe-input"> <wa-input placeholder="Your Email Address"></wa-input><wa-button>Subscribe</wa-button></div>
       </span>
     </div>
     <div style="grid-column: 1/3">
       <h4>UX Blog</h4>
-      <address>
+      <address style="margin-bottom: 1rem;">
         Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br/>
         Visit us at: Example.com<br/>
         Box 564, Disneyland.USA
       </address>
       <div class="social">
-        <wa-avatar label="Avatar with an image icon">
-          <wa-icon slot="icon" name="facebook-f" family="brands"></wa-icon>
-        </wa-avatar>
-        <wa-avatar label="Avatar with an image icon">
-          <wa-icon slot="icon" name="instagram" family="brands"></wa-icon>
-        </wa-avatar>
-        <wa-avatar label="Avatar with an image icon">
-          <wa-icon slot="icon" name="youtube" family="brands"></wa-icon>
-        </wa-avatar>
-        <wa-avatar label="Avatar with an image icon">
-          <wa-icon slot="icon" name="bluesky" family="brands"></wa-icon>
-        </wa-avatar>
+        <a href="#">
+          <wa-avatar label="Avatar with an image icon">
+            <wa-icon slot="icon" name="facebook-f" family="brands"></wa-icon>
+          </wa-avatar>
+        </a>
+        <a href="#">
+          <wa-avatar label="Avatar with an image icon">
+            <wa-icon slot="icon" name="instagram" family="brands"></wa-icon>
+          </wa-avatar>
+        </a>
+        <a href="#">
+          <wa-avatar label="Avatar with an image icon">
+            <wa-icon slot="icon" name="youtube" family="brands"></wa-icon>
+          </wa-avatar>
+        </a>
+        <a href="#">
+          <wa-avatar label="Avatar with an image icon">
+            <wa-icon slot="icon" name="bluesky" family="brands"></wa-icon>
+          </wa-avatar>
+        </a>
       </div>
     </div>
     <div>
-      <h4>Title</h4>
+      <h4>About</h4>
       <ul>
-        <li><a href="#">link</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Mission Statement</a></li>
+        <li><a href="#">Contributors</a></li>
       </ul>
     </div>
     <div>
-      <h4>Title</h4>
+      <h4>Privacy & Security</h4>
       <ul>
-        <li><a href="#">link</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Social Media Policy</a></li>
+        <li><a href="#">Copyright Notice</a></li>
       </ul>
     </div>
     <div class="legal wa-span-grid">&#169 2024 All rights reserved.</div>
@@ -525,9 +537,13 @@ TODO Page Description
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
-    .nav ul {
+    ul {
       list-style-type: none;
       margin-left: 0;
+
+      a {
+        text-decoration: none;
+      }
     }
     .social a {
       text-decoration: none;
