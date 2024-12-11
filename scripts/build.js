@@ -10,6 +10,7 @@ import browserSync from 'browser-sync';
 import chalk from 'chalk';
 import copy from 'recursive-copy';
 import esbuild from 'esbuild';
+import { litCssPlugin } from 'esbuild-plugin-lit-css';
 import getPort, { portNumbers } from 'get-port';
 import ora from 'ora';
 import process from 'process';
@@ -171,7 +172,7 @@ async function generateBundle() {
     bundle: true,
     splitting: true,
     minify: false,
-    plugins: [replace({ __WEBAWESOME_VERSION__: version })]
+    plugins: [replace({ __WEBAWESOME_VERSION__: version }), litCssPlugin()]
   };
 
   const unbundledConfig = {
