@@ -65,7 +65,7 @@ Lightness values on this scale have a strong correlation to [relative luminance]
 - A difference of 50 ensures a minimum 4.5:1 contrast ratio, suitable for normal text (AA) and large text (AAA)
 - A difference of 60 ensures a minimum 7:1 contrast ratio, suitable for all text (AAA)
 
-Web Awesome defines seven literal colors each with 11 lightness values using the format `--wa-color-{name}-{#}`.
+Web Awesome defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
 <div class="color-name">Red</div>
 <ul class="color-group">

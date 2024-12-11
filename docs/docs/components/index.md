@@ -315,11 +315,19 @@ layout: page-outline
     </wa-card>
   </a>
   <a href="/docs/components/drawer">
-    <wa-card id="drawer-card">
+    <wa-card with-header id="drawer-card">
       <div slot="header">
         {% include "svgs/drawer.njk" %}
       </div>
       <span class="page-name">Drawer</span>
+    </wa-card>
+  </a>
+  <a href="/docs/components/page">
+    <wa-card with-header>
+      <div slot="header">
+        {% include "svgs/page.njk" %}
+      </div>
+      <span class="page-name">Page</span>
     </wa-card>
   </a>
   <a href="/docs/components/split-panel">

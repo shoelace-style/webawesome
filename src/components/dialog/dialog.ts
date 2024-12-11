@@ -186,7 +186,7 @@ export default class WaDialog extends WebAwesomeElement {
     // Open or close the dialog
     if (this.open && !this.dialog.open) {
       this.show();
-    } else if (this.dialog.open) {
+    } else if (!this.open && this.dialog.open) {
       this.open = true;
       this.requestClose(this.dialog);
     }

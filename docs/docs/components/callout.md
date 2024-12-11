@@ -64,3 +64,9 @@ Icons are optional. Simply omit the `icon` slot if you don't want them.
 ```html {.example}
 <wa-callout variant="brand"> Nothing fancy here, just a simple callout. </wa-callout>
 ```
+
+### Styling
+
+You can customize the callout's appearance mostly by setting regular CSS properties:
+- `background`, `border`, `border-radius`, `color`, `padding`, `margin`, etc. work as expected
+- `gap` sets the space between the icon and the content

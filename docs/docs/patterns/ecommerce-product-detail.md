@@ -1,7 +1,7 @@
 ---
 title: E-commerce - Product Detail
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -35,7 +35,7 @@ TODO Page Description
    </wa-card>
   </div>
   <style>
-    .with-inline-price { 
+    .with-inline-price {
       wa-card {
         width: 100%;
         .card-header {

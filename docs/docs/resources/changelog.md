@@ -12,7 +12,7 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
-## Next
+## 3.0.0-alpha.5
 
 - Added the Finnish translation
 - Added the Italian translation
@@ -21,6 +21,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added more resilient support for lazy loaded options in `<wa-select>`
 - Added support for vertical button groups
 - Added the `focus()` method to `<wa-radio-group>`
+- Fixed a bug in `<wa-dialog>` with scroll locking shifting viewports.
+- Fixed a bug in `<wa-dialog>` when using `.show()`
 - Fixed a bug in `<wa-rating>` when using `precision`
 - Fixed a bug in `<wa-rating>` that allowed tabbing into the rating when readonly
 - Fixed a bug in `<wa-relative-time>` where the title attribute would show with redundant info
@@ -35,24 +37,6 @@ During the alpha period, things might break! We take breaking changes very serio
 - Improved alignment of the play icon in `<wa-animated-image>`
 - Improved behavior of link buttons to not set `noreferrer noopener` by default
 - Updated all checks for directionality to use `this.localize.dir()` instead of `el.matches(:dir(rtl))` so older browsers don't error out
-
-## 3.0.0-alpha.3
-
-- Added [SSR support](/docs/experimental/ssr/) to all components
-- Added `scroll-margin-top` to children of `wa-page`
-- Added `--scroll-margin-top` css variable `wa-page`
-- Fixed form controls to behave like their native counterparts for value and defaultValue properties / attributes respectively.
-- Fixed a bug in `<wa-input>` around value attributes and properties to behave like native `<input>`.
-- Fixed a bug in `<wa-select>` that made the suffix slot collide with the clear button
-- Fixed a bug in `<wa-checkbox>` where unchecking and then checking would "clear" its value.
-- Fixed a bug where `<wa-relative-time>` would announce the full time instead of the relative time in screen readers [#22](https://github.com/shoelace-style/webawesome-alpha/issues/22)
-- Fixed a bug in `<wa-tab-group>` in Firefox where the overflow container would keep focus [#14](https://github.com/shoelace-style/webawesome-alpha/issues/14)
-- Fixed a bug in `<wa-input>` where `minlength` and `maxlength` were not being properly validated [#35](https://github.com/shoelace-style/webawesome-alpha/issues/35)
-- Fixed a bug in `<wa-carousel>` that made pagination work incorrectly
-
-## 3.0.0-alpha.2
-
-- This is the initial release of Web Awesome alpha!
 
 ---
 

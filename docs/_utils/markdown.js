@@ -59,5 +59,5 @@ markdown.use(markdownItContainer, 'details', {
 });
 
 markdown.use(markdownItAttrs, {
-  allowedAttributes: ['id', 'class', 'data']
+  allowedAttributes: []
 });

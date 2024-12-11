@@ -1,7 +1,7 @@
 ---
 title: E-commerce - Product Reviews
 description: TODO
-layout: page.njk
+layout: pattern.njk
 ---
 
 TODO Page Description
@@ -132,7 +132,7 @@ TODO Page Description
       <wa-icon family="solid" name="earth-americas"></wa-icon>
       <h3>International delivery</h3>
       <p>Get your order in 2 years</p>
-  
+
     </wa-card>
   </div>
 </div>
@@ -263,11 +263,11 @@ TODO Page Description
   wa-radio-button #shadow-root div .button--medium {
     padding: var(--wa-space-xs) var(--wa-space-xs);
   }
-  
+
   .color-circle {
     --background: #000;
     background: var(--background);
- 
+
     width: 50px;
     height: 100%;
   }
@@ -372,12 +372,12 @@ TODO Page Description
     <h2>Everyday Ruck Snack</h2>
     <span>
       <span>$220</span> |
-      <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating> 
+      <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
       <span>1624 reviews</span>
     </span>
     <p>Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.</p>
     <span><wa-icon family="solid" name="check"></wa-icon> In stock and ready to ship</span>
-   
+
 
   </div>
   <div class="div-2">
@@ -398,7 +398,7 @@ TODO Page Description
     /* height: 1000px; */
     /* gap: 1rem; */
     .div-1 {
-   
+
     }
     .div-2 {
       /* background-color: black;
@@ -406,7 +406,7 @@ TODO Page Description
       grid-row: span 2 / span 2; */
     }
     .div-3 {
-   
+
     }
   }
 </style>

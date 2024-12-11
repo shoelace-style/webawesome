@@ -17,6 +17,10 @@
     >
       {{ component.status }}
     </wa-badge>
+    {# TODO - add a pro flag for pro components #}
+    {% if component.tagName == 'wa-page' %}
+      <wa-badge class="pro">PRO</wa-badge>
+    {% endif %}
   </div>
   <p class="component-summary">
     {{ component.summary | inlineMarkdown | safe }}
@@ -62,7 +66,7 @@
 
   {# Properties #}
   {% if component.properties.length %}
-    <h2>Properties</h2>
+    <h2>Attributes & Properties</h2>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -77,9 +81,9 @@
           {% for prop in component.properties %}
             <tr>
               <td class="table-name">
-                <code>{{ prop.name }}</code><br>
+                <code title="JS property">{{ prop.name }}</code><br>
                 {% if prop.attribute %}
-                  <div><small><code>{{ prop.attribute }}</code></small></div>
+                  <div><small><code title="HTML attribute">{{ prop.attribute }}</code></small></div>
                 {% endif %}
               </td>
               <td class="table-description">

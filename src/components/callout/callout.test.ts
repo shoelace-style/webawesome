@@ -15,9 +15,7 @@ describe('<wa-callout>', () => {
           await customElements.whenDefined('wa-callout');
           await callout.updateComplete;
 
-          const base = callout.shadowRoot!.querySelector<HTMLElement>('[part="base"]')!;
-
-          expect(base).to.have.class(`callout--${variant}`);
+          expect(callout).to.have.attribute('variant', variant);
 
           // @TODO: For some reason this fails only in CI. I have no clue why. I tested this scenario on the real site, and it works as expected. [Konnor]
           if (fixture.type === 'ssr-client-hydrated') {

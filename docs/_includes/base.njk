@@ -31,7 +31,7 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
     <link rel="stylesheet" href="/dist/themes/applied.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/layout.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/utilities.css" />
@@ -58,10 +58,24 @@
         return colorScheme === 'dark';
       }
 
-      const stylesheet = document.getElementById("theme-stylesheet")
-      let preset = getPresetTheme()
+      const oldStylesheet = document.querySelector("#theme-stylesheet")
 
-      stylesheet.href = `/dist/themes/${preset}.css`
+      const newStylesheet = document.createElement("link")
+
+      let preset = getPresetTheme()
+      newStylesheet.href = `/dist/themes/${preset}.css`
+      newStylesheet.rel = "preload"
+      newStylesheet.as = "style"
+
+      document.head.append(newStylesheet)
+
+      function updateStylesheet () {
+        newStylesheet.rel = "stylesheet"
+        newStylesheet.id = "theme-stylesheet"
+        requestAnimationFrame(() => oldStylesheet.remove())
+      }
+
+      newStylesheet.addEventListener("load", updateStylesheet)
 
       document.documentElement.classList.toggle(
         `wa-theme-${preset}-dark`,
@@ -71,14 +85,15 @@
   </head>
   <body class="layout-{{ layout | stripExtension }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop">
+    <wa-page view="desktop" disable-navigation-toggle="">
       <header slot="header">
         {# Logo #}
         <div id="docs-branding">
           {# Nav toggle #}
-          <wa-button appearance="text" data-toggle-nav>
+          <wa-button appearance="text" size="small" data-toggle-nav>
             <wa-icon name="bars" label="Toggle navigation"></wa-icon>
           </wa-button>
+
           <a href="/" aria-label="Web Awesome">
             <span class="only-desktop">{% include "logo.njk" %}</span>
             <span class="only-mobile">{% include "logo-simple.njk" %}</span>
@@ -88,40 +103,11 @@
         </div>
 
         <div id="docs-toolbar">
-          {# Preset theme selector #}
-          <wa-dropdown id="preset-theme-selector">
-            <wa-button slot="trigger" appearance="tinted" size="small" pill caret>
-              <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
-              <span id="preset-theme-selector__text" class="only-desktop">Default</span>
-            </wa-button>
-            <wa-menu>
-              <wa-menu-item type="checkbox" value="default">Default</wa-menu-item>
-              <wa-menu-item type="checkbox" value="classic">Classic</wa-menu-item>
-              <wa-menu-item type="checkbox" value="fa">Font Awesome</wa-menu-item>
-
-              <wa-menu-item type="checkbox" value="active">Active</wa-menu-item>
-              <wa-menu-item type="checkbox" value="brutalist">Brutalism</wa-menu-item>
-              <wa-menu-item type="checkbox" value="glassy">Glassy</wa-menu-item>
-              <wa-menu-item type="checkbox" value="migration">Migration</wa-menu-item>
-              <wa-menu-item type="checkbox" value="playful">Playful</wa-menu-item>
-              <wa-menu-item type="checkbox" value="premium">Premium</wa-menu-item>
-            </wa-menu>
-          </wa-dropdown>
-          {# Color scheme selector #}
-          <wa-dropdown id="color-scheme-selector">
-            <wa-button slot="trigger" appearance="tinted" size="small" pill caret title="Press \ to toggle">
-              <wa-icon class="only-light" slot="prefix" name="sun" variant="regular"></wa-icon>
-              <wa-icon class="only-dark" slot="prefix" name="moon" variant="regular"></wa-icon>
-              <span class="only-light only-desktop">Light</span>
-              <span class="only-dark only-desktop">Dark</span>
-            </wa-button>
-            <wa-menu>
-              <wa-menu-item type="checkbox" value="light">Light</wa-menu-item>
-              <wa-menu-item type="checkbox" value="dark">Dark</wa-menu-item>
-              <wa-divider></wa-divider>
-              <wa-menu-item type="checkbox" value="auto">System</wa-menu-item>
-            </wa-menu>
-          </wa-dropdown>
+          {# Desktop selectors #}
+          <div class="only-desktop">
+            {% include "preset-theme-selector.njk" %}
+            {% include "color-scheme-selector.njk" %}
+          </div>
 
           {# Search #}
           <wa-button id="search-trigger" appearance="outlined" size="small" data-search>
@@ -134,12 +120,16 @@
 
       {# Sidebar #}
       {% if hasSidebar %}
-        <aside slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
-          <wa-icon-button id="sidebar-close-button" name="xmark" label="Close" data-drawer="close"></wa-icon-button>
-          <nav>
-            {% include "sidebar.njk" %}
-          </nav>
-        </aside>
+        {# Mobile selectors #}
+        <div class="only-mobile" slot="navigation-header">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
+            {% include "preset-theme-selector.njk" %}
+            {% include "color-scheme-selector.njk" %}
+          </div>
+        </div>
+        <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+          {% include "sidebar.njk" %}
+        </div>
       {% endif %}
 
       {# Outline #}

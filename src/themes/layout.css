@@ -112,6 +112,10 @@
   inline-size: 100%;
 }
 
+[class*='wa-split']:not([class*='\:column']) > :first-child {
+  flex: 1 1 auto;
+}
+
 [class*='wa-split'][class*='\:column'] {
   flex-direction: column;
   block-size: auto;

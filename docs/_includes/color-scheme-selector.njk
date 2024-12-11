@@ -1,0 +1,15 @@
+{# Color scheme selector #}
+<wa-dropdown id="color-scheme-selector">
+  <wa-button slot="trigger" appearance="tinted" size="small" pill caret title="Press \ to toggle">
+    <wa-icon class="only-light" slot="prefix" name="sun" variant="regular"></wa-icon>
+    <wa-icon class="only-dark" slot="prefix" name="moon" variant="regular"></wa-icon>
+    <span class="only-light">Light</span>
+    <span class="only-dark">Dark</span>
+  </wa-button>
+  <wa-menu>
+    <wa-menu-item type="checkbox" value="light">Light</wa-menu-item>
+    <wa-menu-item type="checkbox" value="dark">Dark</wa-menu-item>
+    <wa-divider></wa-divider>
+    <wa-menu-item type="checkbox" value="auto">System</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>

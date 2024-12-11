@@ -97,7 +97,7 @@ The Web Awesome documentation uses an extended version of [markdown-it](https://
 
 #### Code Previews
 
-To render a code preview, use the standard code field syntax and append `:preview` to the language.
+To render a code preview, use the standard code field syntax and add a class of `example`:
 
 ````md
 ```html {.example}
@@ -105,7 +105,11 @@ To render a code preview, use the standard code field syntax and append `:previe
 ```
 ````
 
-You can also append `.open` to expand the code by default, and `.no-edit` to disable the CodePen button. The order of these modifiers doesn't matter, but no spaces should exist between the language and the modifiers.
+You can add additional modifiers as classes or attributes.
+For example, `.open` to expand the code by default.
+The order of these modifiers doesn't matter, but no spaces should exist between them.
+Class name modifiers are turned on by simply using their name as a class (e.g. `open` to expand the code by default),
+and turned off by using `no-` followed by the class name (e.g. `no-edit` to hide the edit button).
 
 ````md
 ```html {.example .open .no-edit}
@@ -113,11 +117,22 @@ You can also append `.open` to expand the code by default, and `.no-edit` to dis
 ```
 ````
 
+the class modifiers currently supported are:
+- `open` - expands the code (default: true for the first code example in the page, false for all others)
+- `new` - Uses `<wa-code-demo>` (default: true). Disable to use the old, non-component demo code.
+- `edit` - Enable the CodePen button (default: true) _(old only)_
+
+The `viewport` and `include` attributes of [`<wa-code-demo>`](../components/code-demo/) can also be specified.
+By default, `include` is set to `link[rel=stylesheet]` to include all stylesheets on the page for non-isolated demos,
+and `link[rel=stylesheet][href^="/dist/"]` for isolated demos.
+Attributes are specified as described in the [`markdown-it-attrs` documentation](https://www.npmjs.com/package/markdown-it-attrs).
+
 This particular syntax was chosen for a few reasons:
 
 1. It's easy to remember
 2. It works out of the box with markdown-it
 3. It appears to have the best support across editors and previewers (the language is usually highlighted correctly)
+
 
 #### Callouts
 

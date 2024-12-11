@@ -3,9 +3,10 @@ import { markdown } from './_utils/markdown.js';
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
+import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 import { currentLink } from './_utils/current-link.js';
 import { highlightCodePlugin } from './_utils/highlight-code.js';
-import { formatCodePlugin } from './_utils/format-code.js';
+// import { formatCodePlugin } from './_utils/format-code.js';
 import { replaceTextPlugin } from './_utils/replace-text.js';
 import { searchPlugin } from './_utils/search.js';
 import { readFile } from 'fs/promises';
@@ -17,17 +18,22 @@ import process from 'process';
 
 const packageData = JSON.parse(await readFile('./package.json', 'utf-8'));
 const isAlpha = process.argv.includes('--alpha');
-const isDeveloping = process.argv.includes('--develop');
+// const isDeveloping = process.argv.includes('--develop');
 
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
-    eleventyConfig.ignores.add('**/components/page.md');
     eleventyConfig.ignores.add('**/experimental/**');
+    eleventyConfig.ignores.add('**/layout/**');
+    eleventyConfig.ignores.add('**/patterns/**');
+    eleventyConfig.ignores.add('**/style-utilities/**');
+    eleventyConfig.ignores.add('**/components/code-demo.md');
+    eleventyConfig.ignores.add('**/components/viewport-demo.md');
   }
 
   // Add template data
   eleventyConfig.addGlobalData('package', packageData);
+  eleventyConfig.addGlobalData('isAlpha', isAlpha);
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
@@ -47,6 +53,9 @@ export default function (eleventyConfig) {
   });
 
   // Helpers
+
+  // Remove elements that have [data-alpha="remove"]
+  eleventyConfig.addPlugin(removeDataAlphaElements({ isAlpha }));
 
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);
@@ -70,7 +79,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(currentLink());
 
   // Add code examples for `<code class="example">` blocks
-  eleventyConfig.addPlugin(codeExamplesPlugin());
+  eleventyConfig.addPlugin(codeExamplesPlugin);
 
   // Highlight code blocks with Prism
   eleventyConfig.addPlugin(highlightCodePlugin());
@@ -137,6 +146,7 @@ export default function (eleventyConfig) {
   // }
 
   return {
+    markdownTemplateEngine: 'njk',
     dir: {
       includes: '_includes',
       layouts: '_layouts'

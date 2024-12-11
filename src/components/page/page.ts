@@ -23,7 +23,7 @@ if (typeof ResizeObserver === 'undefined') {
 }
 
 /**
- * @summary Pages offer an easy way to scaffold pages using minimal markup.
+ * @summary Pages offer an easy way to scaffold entire page layouts using minimal markup.
  * @documentation https://backers.webawesome.com/docs/components/page
  * @status experimental
  * @since 3.0
@@ -32,10 +32,12 @@ if (typeof ResizeObserver === 'undefined') {
  * @slot banner - The banner that gets display above the header. The banner will not be shown if no content is provided.
  * @slot header - The header to display at the top of the page. If a banner is present, the header will appear below the banner. The header will not be shown if there is no content.
  * @slot subheader - A subheader to display below the `header`. This is a good place to put things like breadcrumbs.
- * @slot menu - The left side of the page. If you slot an element in here, you will override the default "navigation" slot and will be handling navigation on your own. This also will not disable the fallback behavior of the navigation button. This section "sticks" to the top as the page scrolls.
+ * @slot menu - The left side of the page. If you slot an element in here, you will override the default `navigation` slot and will be handling navigation on your own. This also will not disable the fallback behavior of the navigation button. This section "sticks" to the top as the page scrolls.
  * @slot navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
- * @slot navigation - The main content to display in the navigation area.
+ * @slot navigation - The main content to display in the navigation area. This is displayed on the left side of the page, if `menu` is not used. This section "sticks" to the top as the page scrolls.
  * @slot navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
+ * @slot navigation-toggle - Use this slot to slot in your own button + icon for toggling the navigation drawer. By default it is a `<wa-button>` + a 3 bars `<wa-icon>`
+ * @slot navigation-toggle-icon - Use this to slot in your own icon for toggling the navigation drawer. By default it is 3 bars `<wa-icon>`.
  * @slot main-header - Header to display inline above the main content.
  * @slot main-footer - Footer to display inline below the main content.
  * @slot aside - Content to be shown on the right side of the page. Typically contains a table of contents, ads, etc. This section "sticks" to the top as the page scrolls.
@@ -48,8 +50,11 @@ if (typeof ResizeObserver === 'undefined') {
  * @csspart subheader - Shown below the header, usually intended for things like breadcrumbs and other page level navigation.
  * @csspart body - The wrapper around menu, main, and aside.
  * @csspart menu - The left hand side of the page. Generally intended for navigation.
+ * @csspart navigation - The `<nav>` that wraps the navigation slots on desktop viewports.
  * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
  * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
+ * @csspart navigation-toggle - The default `<wa-button>` that will toggle the `<wa-drawer>` for mobile viewports.
+ * @csspart navigation-toggle-icon - The default `<wa-icon>` displayed inside of the navigation-toggle button.
  * @csspart main-header - The header above main content.
  * @csspart main-content - The main content.
  * @csspart main-footer - The footer below main content.
@@ -89,10 +94,24 @@ export default class WaPage extends WebAwesomeElement {
   private handleNavigationToggle = (e: Event) => {
     // Don't toggle the nav when we're in desktop mode
     if (this.view === 'desktop') {
+      // Just in case, try to hide the navigation.
+      this.hideNavigation();
       return;
     }
 
-    if (e.composedPath().find((el: Element) => el.hasAttribute?.('data-toggle-nav'))) {
+    const path = e.composedPath();
+
+    const navigationToggleSlot = this.navigationToggleSlot;
+
+    if (
+      path.find((el: Element) => {
+        return (
+          el.hasAttribute?.('data-toggle-nav') ||
+          el.assignedSlot === navigationToggleSlot ||
+          el === navigationToggleSlot
+        );
+      })
+    ) {
       e.preventDefault();
       this.toggleNavigation();
     }
@@ -103,6 +122,7 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
+  @query("slot[name~='navigation-toggle']") navigationToggleSlot: HTMLSlotElement;
 
   /**
    * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by
@@ -126,6 +146,12 @@ export default class WaPage extends WebAwesomeElement {
    * Where to place the navigation when in the mobile viewport.
    */
   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
+
+  /**
+   * Determines whether or not to hide the default hamburger button. This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM. Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
+   */
+  @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
+    false;
 
   pageResizeObserver = new ResizeObserver(entries => {
     for (const entry of entries) {
@@ -168,11 +194,21 @@ export default class WaPage extends WebAwesomeElement {
 
     this.pageResizeObserver.observe(this);
 
+    const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]";
+
+    // check once on initial connect
+    // eslint-disable-next-line
+    this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
+
     setTimeout(() => {
       this.headerResizeObserver.observe(this.header);
       this.subheaderResizeObserver.observe(this.subheader);
       this.bannerResizeObserver.observe(this.banner);
       this.footerResizeObserver.observe(this.footer);
+
+      // Check again when the element updates
+      // eslint-disable-next-line
+      this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
     });
   }
 
@@ -235,6 +271,13 @@ export default class WaPage extends WebAwesomeElement {
           <slot name="banner"></slot>
         </div>
         <div class="header" part="header">
+          <slot name="navigation-toggle">
+            <wa-button part="navigation-toggle" size="small" appearance="text" variant="neutral">
+              <slot name="navigation-toggle-icon">
+                <wa-icon name="bars" part="navigation-toggle-icon" label="Toggle navigation drawer"></wa-icon>
+              </slot>
+            </wa-button>
+          </slot>
           <slot name="header"></slot>
         </div>
         <div class="subheader" part="subheader">
@@ -285,19 +328,20 @@ export default class WaPage extends WebAwesomeElement {
         @wa-after-show=${() => (this.navOpen = this.navigationDrawer.open)}
         @wa-after-hide=${() => (this.navOpen = this.navigationDrawer.open)}
         exportparts="
-          panel:drawer__panel
-          base:drawer__base
-          overlay:drawer__overlay
-          panel:drawer__panel
-          header:drawer__header
-          header-actions:drawer__header-actions
-          title:drawer__title
-          close-button:drawer__close-button
-          close-button__base:drawer__close-button__base
-          body:drawer__body
+          dialog:drawer__dialog,
+          overlay:drawer__overlay,
+          panel:drawer__panel,
+          header:drawer__header,
+          header-actions:drawer__header-actions,
+          title:drawer__title,
+          close-button:drawer__close-button,
+          close-button__base:drawer__close-button__base,
+          body:drawer__body,
           footer:drawer__footer
         "
         class="navigation-drawer"
+        with-header
+        with-footer
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
           <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>

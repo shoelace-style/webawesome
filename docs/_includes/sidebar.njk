@@ -20,11 +20,12 @@
 </ul>
 
 {# Components #}
-<h2>Components</h2>
+<h2>
+  <a href="/docs/components/" title="Overview">Components
+    <wa-icon name="grid-2"></wa-icon>
+  </a>
+</h2>
 <ul>
-  <li>
-    <a href="/docs/components/">Components Overview</a>
-  </li>
   <li>
     <a href="/docs/components/animated-image">Animated Image</a>
   </li>
@@ -68,6 +69,11 @@
   <li>
     <a href="/docs/components/checkbox">Checkbox</a>
   </li>
+  {% if not isAlpha %}
+  <li>
+    <a href="/docs/components/code-demo">Code Demo</a>
+  </li>
+  {% endif %}
   <li>
     <a href="/docs/components/color-picker">Color Picker</a>
   </li>
@@ -126,6 +132,11 @@
   </li>
   <li>
     <a href="/docs/components/mutation-observer">Mutation Observer</a>
+  </li>
+  <li>
+    <a href="/docs/components/page">Page</a>
+    <wa-icon name="flask"></wa-icon>
+    <wa-badge class="pro">PRO</wa-badge>
   </li>
   <li>
     <a href="/docs/components/popup">Popup</a>
@@ -210,15 +221,24 @@
       </li>
     </ul>
   </li>
+  {% if not isAlpha %}
+  <li>
+    <a href="/docs/components/viewport-demo">Viewport Demo</a>
+  </li>
+  {% endif %}
   <li>
     <a href="/docs/components/visually-hidden">Visually Hidden</a>
   </li>
 </ul>
 
 {# Layout #}
-<h2>Layout</h2>
+{% if not isAlpha %}
+<h2>
+  <a href="/docs/layout" title="Overview">Layout
+    <wa-icon name="grid-2"></wa-icon>
+  </a>
+</h2>
 <ul>
-  <li><a href="/docs/layout">Layout Overview</a></li>
   <li><a href="/docs/components/page">Page</a></li>
   <li><a href="/docs/layout/cluster">Cluster</a></li>
   <li><a href="/docs/layout/flank">Flank</a></li>
@@ -227,13 +247,12 @@
   <li><a href="/docs/layout/split">Split</a></li>
   <li><a href="/docs/layout/stack">Stack</a></li>
 </ul>
+{% endif %}
 
 {# Patterns #}
+{% if not isAlpha %}
 <h2>Patterns</h2>
 <ul>
-  <li>
-    <a href="/docs/patterns/">Pattern Overview</a>
-  </li>
   <li><a href="/docs/patterns/app">Web App</a></li>
   <li><a href="/docs/patterns/ecommerce">E-commerce</a>
     <ul>
@@ -243,20 +262,22 @@
       <li><a href="/docs/patterns/ecommerce-shopping-cart">Shopping Carts</a></li>
        <li><a href="/docs/patterns/ecommerce-category-filter">Category Filters</a></li>
       <li><a href="/docs/patterns/ecommerce-product-detail">Product Detail</a></li>
-      <li><a href="/docs/patterns/ecommerce-order-summmary">Order Summaries</a></li>
+      <li><a href="/docs/patterns/ecommerce-order-summary">Order Summaries</a></li>
       <li><a href="/docs/patterns/ecommerce-order-history">Order History</a></li>
     </ul>
   </li>
   <li><a href="/docs/patterns/blog">Blog</a></li>
   <li><a href="/docs/patterns/news">News</a></li>
 </ul>
+{% endif %}
 
 {# Theming #}
-<h2>Theming</h2>
+<h2>
+  <a href="/docs/theming" title="Overview">Theming
+    <wa-icon name="grid-2"></wa-icon>
+  </a>
+</h2>
 <ul>
-  <li>
-    <a href="/docs/theming/">Theming Overview</a>
-  </li>
   <li>
     <a href="/docs/theming/color">Color</a>
   </li>
@@ -284,6 +305,7 @@
 </ul>
 
 {# Style Utilities #}
+{% if not isAlpha %}
 <h2>Style Utilities</h2>
 <ul>
   <li><a href="/docs/style-utilities/align-items">Align Items</a></li>
@@ -291,3 +313,4 @@
   <li><a href="/docs/style-utilities/gap">Gap</a></li>
   <li><a href="/docs/style-utilities/text">Text</a></li>
 </ul>
+{% endif %}

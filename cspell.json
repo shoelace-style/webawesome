@@ -45,6 +45,7 @@
     "dogfood",
     "dropdowns",
     "easings",
+    "ecommerce",
     "endraw",
     "endregion",
     "enterkeyhint",
@@ -83,6 +84,7 @@
     "jsfiddle",
     "keydown",
     "keyframes",
+    "keymaker",
     "Konnor",
     "Kool",
     "labelledby",
@@ -186,7 +188,8 @@
     "webawesomer",
     "WEBP",
     "Webpacker",
-    "xmark"
+    "xmark",
+    "zoomable"
   ],
   "ignorePaths": [
     "package.json",

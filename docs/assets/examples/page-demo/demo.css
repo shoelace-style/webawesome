@@ -1,0 +1,23 @@
+#page_slots_demo {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  margin-bottom: var(--wa-space-xl);
+
+  fieldset .options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    gap: 0.2em 1em;
+
+    wa-checkbox {
+      white-space: nowrap;
+    }
+
+    p {
+      display: contents;
+    }
+  }
+
+  wa-viewport-demo {
+  }
+}
