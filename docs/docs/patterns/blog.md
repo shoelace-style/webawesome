@@ -475,6 +475,15 @@ TODO Page Description
         <wa-avatar label="Avatar with an image icon">
           <wa-icon slot="icon" name="facebook-f" family="brands"></wa-icon>
         </wa-avatar>
+        <wa-avatar label="Avatar with an image icon">
+          <wa-icon slot="icon" name="instagram" family="brands"></wa-icon>
+        </wa-avatar>
+        <wa-avatar label="Avatar with an image icon">
+          <wa-icon slot="icon" name="youtube" family="brands"></wa-icon>
+        </wa-avatar>
+        <wa-avatar label="Avatar with an image icon">
+          <wa-icon slot="icon" name="bluesky" family="brands"></wa-icon>
+        </wa-avatar>
       </div>
     </div>
     <div>
