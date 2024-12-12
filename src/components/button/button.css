@@ -1,5 +1,3 @@
-@import url('../styles/button_base.css');
-
 :host {
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
@@ -190,7 +188,7 @@
    * Internal
    */
 
-button {
+.button {
   background-color: var(--background-color);
   border-color: var(--border-color, var(--background-color));
   border-radius: var(--border-radius);
