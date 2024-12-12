@@ -15,7 +15,7 @@ export default class WebAwesomeElement extends LitElement {
    * Shared component styles will automatically be added.
    * If that is not desirable, the subclass can define its own styles property.
    */
-  static shadowStyle?: CSSResultGroup | CSSResult | string | string[];
+  static shadowStyle?: CSSResultGroup | CSSResult | string | (CSSResult | string)[];
 
   /** The base styles property will only get called if the subclass does not define a styles property of its own */
   static get styles(): CSSResultGroup {
