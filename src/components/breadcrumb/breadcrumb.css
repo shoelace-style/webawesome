@@ -1,7 +1,5 @@
-
-  .breadcrumb {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}

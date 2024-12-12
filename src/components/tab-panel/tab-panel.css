@@ -1,16 +1,14 @@
+:host {
+  --padding: 0;
 
-  :host {
-    --padding: 0;
+  display: none;
+}
 
-    display: none;
-  }
+:host([active]) {
+  display: block;
+}
 
-  :host([active]) {
-    display: block;
-  }
-
-  .tab-panel {
-    display: block;
-    padding: var(--padding);
-  }
-
+.tab-panel {
+  display: block;
+  padding: var(--padding);
+}
