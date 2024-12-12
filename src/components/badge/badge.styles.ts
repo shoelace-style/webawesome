@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --border-color: var(--background-color);
     --border-radius: var(--wa-border-radius-xs);
@@ -78,4 +76,4 @@ export default css`
       box-shadow: 0 0 0 0 transparent;
     }
   }
-`;
+

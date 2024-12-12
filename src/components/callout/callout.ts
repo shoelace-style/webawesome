@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './callout.style.js';
+import styles from './callout.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

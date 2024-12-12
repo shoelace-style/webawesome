@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --box-shadow: var(--wa-shadow-m);
 
@@ -48,4 +46,4 @@ export default css`
     max-width: var(--auto-size-available-width) !important;
     max-height: var(--auto-size-available-height) !important;
   }
-`;
+

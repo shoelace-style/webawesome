@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --padding: 0;
 
@@ -15,4 +13,4 @@ export default css`
     display: block;
     padding: var(--padding);
   }
-`;
+

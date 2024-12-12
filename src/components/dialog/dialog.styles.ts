@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-color-surface-raised);
     --border-radius: var(--wa-panel-border-radius);
@@ -174,4 +172,4 @@ export default css`
       border: solid 1px white;
     }
   }
-`;
+

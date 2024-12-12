@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-form-control-background-color);
     --background-color-checked: var(--background-color);
@@ -111,4 +109,4 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
-`;
+

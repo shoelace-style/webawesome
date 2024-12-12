@@ -13,6 +13,7 @@ import esbuild from 'esbuild';
 import getPort, { portNumbers } from 'get-port';
 import ora from 'ora';
 import process from 'process';
+import { litCssPlugin } from '@konnorr/esbuild-plugin-lit-css';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -171,7 +172,10 @@ async function generateBundle() {
     bundle: true,
     splitting: true,
     minify: false,
-    plugins: [replace({ __WEBAWESOME_VERSION__: version })]
+    plugins: [replace({ __WEBAWESOME_VERSION__: version }), litCssPlugin()],
+    loader: {
+      '.css': 'text'
+    }
   };
 
   const unbundledConfig = {

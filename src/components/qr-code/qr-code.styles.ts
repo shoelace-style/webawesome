@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --size: 128px;
     display: inline-block;
@@ -13,4 +11,4 @@ export default css`
     width: var(--size);
     height: var(--size);
   }
-`;
+

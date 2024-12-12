@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: transparent;
     --background-color-hover: var(--wa-color-neutral-fill-quiet);
@@ -75,4 +73,4 @@ export default css`
       opacity: 1;
     }
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --thumb-color: var(--wa-form-control-activated-color);
     --thumb-gap: calc(var(--thumb-size) * 0.125);
@@ -219,4 +217,4 @@ export default css`
       display: none;
     }
   }
-`;
+

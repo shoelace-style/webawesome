@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --aspect-ratio: inherit;
 
@@ -20,4 +18,4 @@ export default css`
     height: 100% !important;
     object-fit: cover;
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     display: block;
     position: relative;
@@ -16,4 +14,4 @@ export default css`
   ::slotted(wa-divider) {
     --spacing: var(--wa-space-xs);
   }
-`;
+

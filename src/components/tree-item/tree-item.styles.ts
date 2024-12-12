@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --selection-background-color: var(--wa-color-neutral-fill-quiet);
     --selection-indicator-color: var(--wa-color-brand-fill-loud);
@@ -153,4 +151,4 @@ export default css`
       outline: dashed 1px SelectedItem;
     }
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --viewport-background-color: var(--wa-color-surface-default, canvas);
     --viewport-resize: both;
@@ -155,4 +153,4 @@ export default css`
       cursor: zoom-out;
     }
   }
-`;
+

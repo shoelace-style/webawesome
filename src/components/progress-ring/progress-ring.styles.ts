@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --size: 8rem;
     --track-width: 0.25em; /* avoid using rems here - https://github.com/shoelace-style/webawesome-alpha/issues/89 */
@@ -65,4 +63,4 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
-`;
+

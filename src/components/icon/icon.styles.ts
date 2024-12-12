@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --primary-color: currentColor;
     --primary-opacity: 1;
@@ -34,4 +32,4 @@ export default css`
     width: 1em;
     justify-content: center;
   }
-`;
+

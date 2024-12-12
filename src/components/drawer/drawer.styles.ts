@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-color-surface-raised);
     --box-shadow: var(--wa-shadow-l);
@@ -281,4 +279,4 @@ export default css`
       border: solid 1px white;
     }
   }
-`;
+

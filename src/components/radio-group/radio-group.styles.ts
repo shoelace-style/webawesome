@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     display: block;
   }
@@ -32,4 +30,4 @@ export default css`
     white-space: nowrap;
     border: 0;
   }
-`;
+

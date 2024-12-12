@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     color: var(--wa-color-text-link);
     display: inline-flex;
@@ -84,4 +82,4 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
-`;
+

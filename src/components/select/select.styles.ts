@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-form-control-background-color);
     --border-color: var(--wa-form-control-resting-color);
@@ -333,4 +331,4 @@ export default css`
     padding-block: var(--wa-space-xs);
     padding-inline: var(--wa-space-xl);
   }
-`;
+

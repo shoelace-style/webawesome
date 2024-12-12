@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --divider-color: var(--wa-color-neutral-fill-quiet);
     --divider-width: 0.125rem;
@@ -73,4 +71,4 @@ export default css`
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }
-`;
+

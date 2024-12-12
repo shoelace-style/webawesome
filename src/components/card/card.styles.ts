@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-color-surface-default);
     --border-color: var(--wa-color-surface-border);
@@ -76,4 +74,4 @@ export default css`
   .card:not(.card--has-footer) .card__footer {
     display: none;
   }
-`;
+

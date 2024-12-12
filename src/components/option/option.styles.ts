@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color-current: var(--wa-color-brand-fill-loud);
     --background-color-hover: var(--wa-color-neutral-fill-normal);
@@ -86,4 +84,4 @@ export default css`
       outline-offset: -1px;
     }
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     display: block;
     color: var(--wa-color-text-quiet);
@@ -15,4 +13,4 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
-`;
+

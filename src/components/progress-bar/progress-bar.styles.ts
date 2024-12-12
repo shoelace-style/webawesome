@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --height: 1.25rem;
     --track-color: var(--wa-color-neutral-fill-normal);
@@ -81,4 +79,4 @@ export default css`
       width: 50%;
     }
   }
-`;
+

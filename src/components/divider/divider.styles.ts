@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --color: var(--wa-color-surface-border);
     --width: var(--wa-border-width-s);
@@ -19,4 +17,4 @@ export default css`
     border-left: solid var(--width) var(--color);
     margin: 0 var(--spacing);
   }
-`;
+

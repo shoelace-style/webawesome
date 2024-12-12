@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --active-tab-color: var(--wa-color-brand-on-quiet);
     display: inline-block;
@@ -48,4 +46,4 @@ export default css`
       outline-offset: -3px;
     }
   }
-`;
+

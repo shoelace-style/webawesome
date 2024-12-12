@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     /*
      * These are actually used by tree item, but we define them here so they can more easily be set and all tree items
@@ -20,4 +18,4 @@ export default css`
      */
     font-size: 0;
   }
-`;
+

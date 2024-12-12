@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --indicator-color: var(--wa-color-brand-fill-loud);
     --track-color: var(--wa-color-neutral-fill-normal);
@@ -246,4 +244,4 @@ export default css`
   .tab-group--end ::slotted(wa-tab-panel) {
     --padding: 0 var(--wa-space-m);
   }
-`;
+

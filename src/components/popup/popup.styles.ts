@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
@@ -97,4 +95,4 @@ export default css`
       scale: 1;
     }
   }
-`;
+

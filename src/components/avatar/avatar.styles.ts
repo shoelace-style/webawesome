@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-color-neutral-fill-normal);
     --content-color: var(--wa-color-neutral-on-normal);
@@ -64,4 +62,4 @@ export default css`
     object-fit: cover;
     overflow: hidden;
   }
-`;
+

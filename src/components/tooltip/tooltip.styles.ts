@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-tooltip-background-color);
     --border-radius: var(--wa-tooltip-border-radius);
@@ -54,4 +52,4 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
-`;
+

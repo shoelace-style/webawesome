@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --symbol-color: var(--wa-color-neutral-fill-normal);
     --symbol-color-active: var(--wa-color-yellow-70);
@@ -88,4 +86,4 @@ export default css`
       color: SelectedItem;
     }
   }
-`;
+

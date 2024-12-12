@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --border-radius: var(--wa-border-radius-xs);
     --border-style: var(--wa-border-style);
@@ -106,4 +104,4 @@ export default css`
   .tag--pill {
     border-radius: var(--wa-border-radius-pill);
   }
-`;
+

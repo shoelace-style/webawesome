@@ -1,5 +1,5 @@
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
-import { isServer, LitElement } from 'lit';
+import { isServer, LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
 import componentStyles from '../styles/component.styles.js';
@@ -15,7 +15,7 @@ export default class WebAwesomeElement extends LitElement {
    * Shared component styles will automatically be added.
    * If that is not desirable, the subclass can define its own styles property.
    */
-  static shadowStyle?: CSSResultGroup | CSSResult;
+  static shadowStyle?: CSSResultGroup | CSSResult | string | string[];
 
   /** The base styles property will only get called if the subclass does not define a styles property of its own */
   static get styles(): CSSResultGroup {
@@ -24,7 +24,11 @@ export default class WebAwesomeElement extends LitElement {
         ? this.shadowStyle
         : [this.shadowStyle]
       : [];
-    return [componentStyles, ...shadowStyle];
+
+    // Convert any string styles to Lit’s CSSResult
+    const shadowStyles = shadowStyle.map(style => (typeof style === 'string' ? unsafeCSS(style) : style));
+
+    return [componentStyles, ...shadowStyles];
   }
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);

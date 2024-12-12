@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
     --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
@@ -548,4 +546,4 @@ export default css`
   :host(.wa-button-group__button[checked]) {
     z-index: 2;
   }
-`;
+

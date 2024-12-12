@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-color-surface-raised);
     --border-color: var(--wa-color-surface-border);
@@ -343,4 +341,4 @@ export default css`
     cursor: pointer;
     display: inline-block;
   }
-`;
+

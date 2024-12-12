@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host(:not(:focus-within)) {
     position: absolute !important;
     width: 1px !important;
@@ -12,4 +10,4 @@ export default css`
     white-space: nowrap !important;
     padding: 0 !important;
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color: var(--wa-form-control-background-color);
     --background-color-checked: var(--wa-form-control-activated-color);
@@ -125,4 +123,4 @@ export default css`
       background-color: ButtonText;
     }
   }
-`;
+

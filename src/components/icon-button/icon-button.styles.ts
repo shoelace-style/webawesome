@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color-hover: var(--wa-color-neutral-fill-quiet);
 
@@ -50,4 +48,4 @@ export default css`
   .icon-button__icon {
     pointer-events: none;
   }
-`;
+

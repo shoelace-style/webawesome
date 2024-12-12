@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --background-color-hover: var(--wa-color-neutral-fill-normal);
     --label-color-hover: var(--wa-color-neutral-on-normal);
@@ -153,4 +151,4 @@ export default css`
     max-width: var(--auto-size-available-width) !important;
     max-height: var(--auto-size-available-height) !important;
   }
-`;
+

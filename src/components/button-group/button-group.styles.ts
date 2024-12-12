@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     display: inline-flex;
   }
@@ -20,4 +18,4 @@ export default css`
   ::slotted(:focus) {
     z-index: 1 !important;
   }
-`;
+

@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --border-radius: var(--wa-border-radius-pill);
     --color: var(--wa-color-neutral-fill-normal);
@@ -60,4 +58,4 @@ export default css`
       opacity: 1;
     }
   }
-`;
+

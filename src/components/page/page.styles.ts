@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     display: block;
     background-color: var(--wa-color-surface-default);
@@ -259,4 +257,4 @@ export default css`
        so it looks really awkward if this sets a margin-inline-end and the slotted header has a padding-inline-start. */
     margin-inline-start: var(--wa-space-m);
   }
-`;
+

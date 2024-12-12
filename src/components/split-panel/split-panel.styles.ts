@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --divider-color: var(--wa-color-neutral-border-normal);
     --divider-width: 0.25rem;
@@ -75,4 +73,4 @@ export default css`
       outline: solid 1px transparent;
     }
   }
-`;
+

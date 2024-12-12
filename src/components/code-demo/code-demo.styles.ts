@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --preview-background: var(--wa-color-surface-default, canvas);
     --preview-backdrop: var(--wa-color-surface-lowered, rgb(0 0 0 / 0.25));
@@ -194,4 +192,4 @@ export default css`
       vertical-align: -0.1em;
     }
   }
-`;
+

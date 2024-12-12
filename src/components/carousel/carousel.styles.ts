@@ -1,6 +1,4 @@
-import { css } from 'lit';
 
-export default css`
   :host {
     --aspect-ratio: 16 / 9;
     --navigation-color: var(--wa-color-text-quiet);
@@ -158,4 +156,4 @@ export default css`
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }
-`;
+
