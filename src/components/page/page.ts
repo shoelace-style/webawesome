@@ -3,7 +3,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import mobileStyles from './page.mobilestyles.js';
+import mobileStyles from './page.mobile.styles.js';
 import styles from './page.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValues } from 'lit';
