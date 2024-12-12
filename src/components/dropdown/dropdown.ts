@@ -10,7 +10,7 @@ import { WaHideEvent } from '../../events/hide.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
-import styles from './dropdown.styles.js';
+import styles from './dropdown.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { WaSelectEvent } from '../../events/select.js';
 import type WaButton from '../button/button.js';

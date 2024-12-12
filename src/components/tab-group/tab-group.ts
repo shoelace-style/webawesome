@@ -9,7 +9,7 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
 import { WaTabShowEvent } from '../../events/tab-show.js';
 import { watch } from '../../internal/watch.js';
-import styles from './tab-group.styles.js';
+import styles from './tab-group.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type WaTab from '../tab/tab.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';

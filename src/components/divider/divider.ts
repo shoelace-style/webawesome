@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import styles from './divider.styles.js';
+import styles from './divider.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

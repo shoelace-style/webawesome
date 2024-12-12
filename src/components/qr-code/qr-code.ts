@@ -1,7 +1,7 @@
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { watch } from '../../internal/watch.js';
-import styles from './qr-code.styles.js';
+import styles from './qr-code.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValues } from 'lit';
 import type _QrCreator from 'qr-creator';

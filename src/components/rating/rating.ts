@@ -9,7 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { watch } from '../../internal/watch.js';
-import styles from './rating.styles.js';
+import styles from './rating.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

@@ -23,7 +23,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './select.styles.js';
+import styles from './select.css';
 import type { TemplateResult } from 'lit';
 import type { WaRemoveEvent } from '../../events/remove.js';
 import type WaOption from '../option/option.js';

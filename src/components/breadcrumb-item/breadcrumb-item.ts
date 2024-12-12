@@ -2,7 +2,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { watch } from '../../internal/watch.js';
-import styles from './breadcrumb-item.styles.js';
+import styles from './breadcrumb-item.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

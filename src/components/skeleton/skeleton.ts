@@ -1,7 +1,7 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './skeleton.styles.js';
+import styles from './skeleton.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

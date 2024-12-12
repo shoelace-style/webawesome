@@ -2,7 +2,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { watch } from '../../internal/watch.js';
-import styles from './tab-panel.styles.js';
+import styles from './tab-panel.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 let id = 0;

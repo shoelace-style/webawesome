@@ -13,7 +13,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './checkbox.styles.js';
+import styles from './checkbox.css';
 import type { PropertyValues } from 'lit';
 
 /**

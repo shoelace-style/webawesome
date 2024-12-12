@@ -1,6 +1,6 @@
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './button-group.styles.js';
+import styles from './button-group.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

@@ -8,7 +8,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { watch } from '../../internal/watch.js';
-import styles from './image-comparer.styles.js';
+import styles from './image-comparer.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

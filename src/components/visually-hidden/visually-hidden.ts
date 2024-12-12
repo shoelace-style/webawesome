@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './visually-hidden.styles.js';
+import styles from './visually-hidden.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

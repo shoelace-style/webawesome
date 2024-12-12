@@ -4,7 +4,7 @@ import { html, isServer } from 'lit';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import mobileStyles from './page.mobilestyles.js';
-import styles from './page.styles.js';
+import styles from './page.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';

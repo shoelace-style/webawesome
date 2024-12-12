@@ -4,7 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { watch } from '../../internal/watch.js';
-import styles from './option.styles.js';
+import styles from './option.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

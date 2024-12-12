@@ -6,7 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import styles from './icon-button.styles.js';
+import styles from './icon-button.css';
 
 /**
  * @summary Icons buttons are simple, icon-only buttons that can be used for actions and in toolbars.

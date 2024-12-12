@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaErrorEvent } from '../../events/error.js';
 import { watch } from '../../internal/watch.js';
-import styles from './avatar.styles.js';
+import styles from './avatar.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

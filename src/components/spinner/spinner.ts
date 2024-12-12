@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './spinner.styles.js';
+import styles from './spinner.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

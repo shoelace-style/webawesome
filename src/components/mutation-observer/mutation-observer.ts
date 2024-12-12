@@ -2,7 +2,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaMutationEvent } from '../../events/mutation.js';
 import { watch } from '../../internal/watch.js';
-import styles from './mutation-observer.styles.js';
+import styles from './mutation-observer.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

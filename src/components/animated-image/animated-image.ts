@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import styles from './animated-image.styles.js';
+import styles from './animated-image.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

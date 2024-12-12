@@ -10,7 +10,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { watch } from '../../internal/watch.js';
-import styles from './dialog.styles.js';
+import styles from './dialog.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

@@ -15,7 +15,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './input.styles.js';
+import styles from './input.css';
 import type WaButton from '../button/button.js';
 
 /**

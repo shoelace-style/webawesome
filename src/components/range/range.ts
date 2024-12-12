@@ -13,7 +13,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './range.styles.js';
+import styles from './range.css';
 
 /**
  * @summary Ranges allow the user to select a single value within a given range using a slider.

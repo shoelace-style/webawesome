@@ -11,7 +11,7 @@ import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import styles from './button.styles.js';
+import styles from './button.css';
 
 /**
  * @summary Buttons represent actions that are available to the user.

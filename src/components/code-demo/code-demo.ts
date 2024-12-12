@@ -4,7 +4,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
 import { viewportPropertyConverter } from '../viewport-demo/viewport-demo.js';
-import styles from './code-demo.styles.js';
+import styles from './code-demo.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 import type { TemplateResult } from 'lit';

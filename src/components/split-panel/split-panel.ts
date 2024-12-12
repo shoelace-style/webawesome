@@ -6,7 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
 import { watch } from '../../internal/watch.js';
-import styles from './split-panel.styles.js';
+import styles from './split-panel.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

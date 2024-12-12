@@ -6,7 +6,7 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import styles from './radio.styles.js';
+import styles from './radio.css';
 
 /**
  * @summary Radios allow the user to select a single option from a group.

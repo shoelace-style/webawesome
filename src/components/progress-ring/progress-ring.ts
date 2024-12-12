@@ -1,7 +1,7 @@
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './progress-ring.styles.js';
+import styles from './progress-ring.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

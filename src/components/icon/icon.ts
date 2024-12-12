@@ -5,7 +5,7 @@ import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import styles from './icon.styles.js';
+import styles from './icon.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';

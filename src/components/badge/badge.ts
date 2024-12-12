@@ -1,7 +1,7 @@
 import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './badge.styles.js';
+import styles from './badge.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

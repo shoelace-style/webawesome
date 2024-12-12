@@ -13,7 +13,7 @@ import { range } from 'lit/directives/range.js';
 import { waitForEvent } from '../../internal/event.js';
 import { WaSlideChangeEvent } from '../../events/slide-change.js';
 import { watch } from '../../internal/watch.js';
-import styles from './carousel.styles.js';
+import styles from './carousel.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValueMap } from 'lit';
 import type WaCarouselItem from '../carousel-item/carousel-item.js';

@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './carousel-item.styles.js';
+import styles from './carousel-item.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './menu-label.styles.js';
+import styles from './menu-label.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

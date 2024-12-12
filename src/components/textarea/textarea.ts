@@ -12,7 +12,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './textarea.styles.js';
+import styles from './textarea.css';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.

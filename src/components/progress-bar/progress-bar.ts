@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './progress-bar.styles.js';
+import styles from './progress-bar.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

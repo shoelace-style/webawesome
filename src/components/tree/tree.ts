@@ -4,7 +4,7 @@ import { html, isServer } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
 import { watch } from '../../internal/watch.js';
-import styles from './tree.styles.js';
+import styles from './tree.css';
 import WaTreeItem from '../tree-item/tree-item.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 

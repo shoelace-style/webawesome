@@ -23,7 +23,7 @@ import { WaInvalidEvent } from '../../events/invalid.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './color-picker.styles.js';
+import styles from './color-picker.css';
 import type { PropertyValues } from 'lit';
 import type WaDropdown from '../dropdown/dropdown.js';
 import type WaInput from '../input/input.js';

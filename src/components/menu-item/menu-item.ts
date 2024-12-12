@@ -8,7 +8,7 @@ import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { SubmenuController } from './submenu-controller.js';
 import { watch } from '../../internal/watch.js';
-import styles from './menu-item.styles.js';
+import styles from './menu-item.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValues } from 'lit';
 

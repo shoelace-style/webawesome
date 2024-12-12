@@ -15,7 +15,7 @@ import { WaLazyChangeEvent } from '../../events/lazy-change.js';
 import { WaLazyLoadEvent } from '../../events/lazy-load.js';
 import { watch } from '../../internal/watch.js';
 import { when } from 'lit/directives/when.js';
-import styles from './tree-item.styles.js';
+import styles from './tree-item.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { PropertyValueMap } from 'lit';
 

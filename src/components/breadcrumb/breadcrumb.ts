@@ -2,7 +2,7 @@ import '../icon/icon.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './breadcrumb.styles.js';
+import styles from './breadcrumb.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type WaBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
 

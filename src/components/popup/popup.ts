@@ -5,7 +5,7 @@ import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { offsetParent } from 'composed-offset-position';
 import { WaRepositionEvent } from '../../events/reposition.js';
-import styles from './popup.styles.js';
+import styles from './popup.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 export interface VirtualElement {

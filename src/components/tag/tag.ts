@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { LocalizeController } from '../../utilities/localize.js';
 import { WaRemoveEvent } from '../../events/remove.js';
-import styles from './tag.styles.js';
+import styles from './tag.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

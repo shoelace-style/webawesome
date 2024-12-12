@@ -2,7 +2,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaResizeEvent } from '../../events/resize.js';
 import { watch } from '../../internal/watch.js';
-import styles from './resize-observer.styles.js';
+import styles from './resize-observer.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**

@@ -2,7 +2,7 @@ import '../menu-item/menu-item.js';
 import { customElement, query } from 'lit/decorators.js';
 import { html } from 'lit';
 import { WaSelectEvent } from '../../events/select.js';
-import styles from './menu.styles.js';
+import styles from './menu.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type WaMenuItem from '../menu-item/menu-item.js';
 
