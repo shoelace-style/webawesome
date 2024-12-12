@@ -1,0 +1,29 @@
+@scope (:host, .wa, .wa-forms, .wa-range) to (.wa-off, .wa-forms-off, .wa-range-off) {
+  button:is(&, & *) {
+    background-color: var(--background-color);
+    border-color: var(--border-color, var(--background-color));
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: max(1px, var(--border-width));
+    box-shadow: var(--box-shadow);
+    color: var(--label-color);
+    display: inline-flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    font: inherit;
+    font-weight: var(--wa-font-weight-action);
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 0;
+    transition:
+      background var(--wa-transition-fast) var(--wa-transition-easing),
+      border var(--wa-transition-fast) var(--wa-transition-easing),
+      box-shadow var(--wa-transition-fast) var(--wa-transition-easing),
+      color var(--wa-transition-fast) var(--wa-transition-easing);
+    cursor: inherit;
+  }
+}

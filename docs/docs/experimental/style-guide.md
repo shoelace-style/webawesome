@@ -8,6 +8,99 @@ The styles shown below can be all yours by adding Web Awesome's applied styleshe
 
 ---
 
+## Forms
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="wa">
+
+<button>Button</button>
+
+<wa-button>Button</wa-button>
+
+<label for="input-text">Input (text)</label>
+<input type="text" id="input-text"></input>
+
+<wa-input label="Input (text)" type="text"></wa-input>
+
+<label for="input-number">Input (number)</label>
+<input type="number" id="input-number"></input>
+
+<wa-input label="Input (number)" type="number"></wa-input>
+
+<label for="input-password">Input (password)</label>
+<input type="password" id="input-password"></input>
+
+<wa-input label="Input (password)" type="password"></wa-input>
+
+<input type="checkbox" id="input-checkbox"></input>
+<label for="input-checkbox">Input (checkbox)</label>
+
+<wa-checkbox>Checkbox</wa-checkbox>
+
+<label for="input-color">Input (color)</label>
+<input type="color" id="input-color"></input>
+
+<wa-color-picker label="Color picker"></wa-color-picker>
+
+<label for="input-date">Input (date)</label>
+<input type="date" id="input-date"></input>
+
+<wa-input label="Input (date)" type="date"></wa-input>
+
+<label for="input-time">Input (time)</label>
+<input type="time" id="input-time"></input>
+
+<wa-input label="Input (time)" type="time"></wa-input>
+
+<fieldset>
+  <legend>Radio group:</legend>
+  <input type="radio" id="radio-1" name="radio" value="radio-1" checked />
+  <label for="radio-1">Radio 1</label>
+  <input type="radio" id="radio-2" name="radio" value="radio-2" />
+  <label for="radio-2">Radio 2</label>
+  <input type="radio" id="radio-3" name="radio" value="radio-3" />
+  <label for="radio-3">Radio 3</label>
+</fieldset>
+
+<fieldset>
+  <wa-radio-group label="Radio group:" name="wa-radio" value="radio-1">
+    <wa-radio value="radio-1">Radio</wa-radio>
+    <wa-radio value="radio-2">Radio</wa-radio>
+    <wa-radio value="radio-3">Radio</wa-radio>
+  </wa-radio-group>
+</fieldset>
+
+<label for="input-range">Input (range)</label>
+<input type="range" id="input-range"></input>
+
+<wa-range label="Range"></wa-range>
+
+<div>
+  <label for="textarea">Textarea</label>
+  <textarea id="textarea"></textarea>
+</div>
+
+<wa-textarea label="Textarea"></wa-textarea>
+
+<label for="select">Select</label>
+<select id="select">
+  <option value="option-1">Option 1</option>
+  <option value="option-2">Option 2</option>
+  <option value="option-3">Option 3</option>
+</select>
+
+<wa-select label="Select">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+
+
+</div>
+
+
+
+
+
 ## Typography
 
 Vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Amet mauris commodo quis imperdiet. Bibendum ut tristique et egestas quis ipsum suspendisse. Sit amet nulla facilisi morbi tempus iaculis urna id volutpat.

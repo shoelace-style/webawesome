@@ -1,3 +1,5 @@
+@import url('../styles/button_base.css');
+
 /**
  * Applied styles are used to "reset" a page and provide defaults for typography and native HTML elements based on
  * Web Awesome's design tokens.
