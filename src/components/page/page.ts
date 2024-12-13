@@ -140,7 +140,7 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'nav-open', reflect: true, type: Boolean }) navOpen = false;
 
   /**
-   * At what page width to hide the "menu" slot and collapse into a hamburger button.
+   * At what page width to hide the "navigation" slot and collapse into a hamburger button.
    * Accepts both numbers (interpreted as px) and CSS lengths (e.g. `50em`), which are resolved based on the root element.
    */
   @property({ attribute: 'mobile-breakpoint', type: String })
