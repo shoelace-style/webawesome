@@ -106,24 +106,22 @@ async function generateStyles() {
 
   // NOTE - alpha setting omits all stylesheets except for these because we use them in the docs
   if (isAlpha) {
-    await copy(join(rootDir, 'src/styles/applied.css'), join(cdnDir, 'styles/applied.css'), {
-      overwrite: true
-    });
-    await copy(join(rootDir, 'src/styles/themes/classic.css'), join(cdnDir, 'styles/themes/classic.css'), {
-      overwrite: true
-    });
-    await copy(join(rootDir, 'src/styles/themes/default.css'), join(cdnDir, 'styles/themes/default.css'), {
-      overwrite: true
-    });
-    await copy(join(rootDir, 'src/styles/forms.css'), join(cdnDir, 'styles/forms.css'), {
-      overwrite: true
-    });
-    await copy(join(rootDir, 'src/styles/themes/layout.css'), join(cdnDir, 'styles/themes/layout.css'), {
-      overwrite: true
-    });
-    await copy(join(rootDir, 'src/styles/utilities.css'), join(cdnDir, 'styles/utilities.css'), {
-      overwrite: true
-    });
+    const alphaStyles = [
+      'applied.css',
+      'themes/classic.css',
+      'themes/default.css',
+      'forms.css',
+      'utilities',
+      'utilities.css'
+    ];
+
+    await Promise.all(
+      alphaStyles.map(file =>
+        copy(join(rootDir, `src/styles/${file}`), join(cdnDir, `styles/${file}.css`), {
+          overwrite: true
+        })
+      )
+    );
   } else {
     await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
   }
