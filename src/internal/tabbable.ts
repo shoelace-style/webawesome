@@ -1,6 +1,4 @@
-// Cached compute style calls. This is specifically for browsers that dont support `checkVisibility()`.
-// computedStyle calls are "live" so they only need to be retrieved once for an element.
-const computedStyleMap = new WeakMap<Element, CSSStyleDeclaration>();
+import { getComputedStyle } from './computedStyle.js';
 
 function isVisible(el: HTMLElement): boolean {
   // This is the fastest check, but isn't supported in Safari.
@@ -10,14 +8,9 @@ function isVisible(el: HTMLElement): boolean {
   }
 
   // Fallback "polyfill" for "checkVisibility"
-  let computedStyle: undefined | CSSStyleDeclaration = computedStyleMap.get(el);
+  const computedStyle: CSSStyleDeclaration | null = getComputedStyle(el);
 
-  if (!computedStyle) {
-    computedStyle = window.getComputedStyle(el, null);
-    computedStyleMap.set(el, computedStyle);
-  }
-
-  return computedStyle.visibility !== 'hidden' && computedStyle.display !== 'none';
+  return computedStyle?.visibility !== 'hidden' && computedStyle?.display !== 'none';
 }
 
 /** Determines if the specified element is tabbable using heuristics inspired by https://github.com/focus-trap/tabbable */
