@@ -1,16 +1,17 @@
-import '../icon/icon.js';
-import '../spinner/spinner.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { html, literal } from 'lit/static-html.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { LocalizeController } from '../../utilities/localize.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
+import { html, literal } from 'lit/static-html.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/button.css';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import '../spinner/spinner.js';
 import styles from './button.css';
 
 /**
@@ -53,7 +54,7 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = styles;
+  static shadowStyle = [nativeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

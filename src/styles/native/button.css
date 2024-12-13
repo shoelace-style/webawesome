@@ -1,0 +1,27 @@
+button {
+  background-color: var(--background-color, var(--wa-color-neutral-fill-loud));
+  border-color: var(--border-color, var(--background-color, var(--wa-color-neutral-fill-loud)));
+  border-radius: var(--border-radius, var(--wa-form-control-border-radius));
+  border-style: var(--border-style, var(--wa-border-style));
+  border-width: max(1px, var(--border-width, var(--wa-form-control-border-width)));
+  box-shadow: var(--box-shadow, initial);
+  color: var(--label-color, var(--wa-color-neutral-on-loud));
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  font: inherit;
+  font-weight: var(--wa-font-weight-action);
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0;
+  transition:
+    background var(--wa-transition-fast) var(--wa-transition-easing),
+    border var(--wa-transition-fast) var(--wa-transition-easing),
+    box-shadow var(--wa-transition-fast) var(--wa-transition-easing),
+    color var(--wa-transition-fast) var(--wa-transition-easing);
+  cursor: inherit;
+}
