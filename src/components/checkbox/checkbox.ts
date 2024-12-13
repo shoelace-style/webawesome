@@ -1,6 +1,6 @@
 import '../icon/icon.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { html, isServer } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -79,8 +79,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
-
   @property() title = ''; // make reactive to pass through
 
   /** The name of the checkbox, submitted as a name/value pair with form data. */
@@ -137,7 +135,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -146,7 +143,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -210,13 +206,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = isServer ? true : this.hasSlotController.test('hint');
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHintSlot = isServer ? true : this.hasSlotController.test('hint');
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const isIndeterminate = !this.checked && this.indeterminate;
 
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
     const iconState = isIndeterminate ? 'indeterminate' : 'check';
-    const iconVisible = this.checked || this.indeterminate;
 
     //
     // NOTE: we use a `<div>` around the label slot because of this Chrome bug.
@@ -230,28 +225,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
           'form-control--small': this.size === 'small',
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
       >
-        <label
-          part="base"
-          class=${classMap({
-            checkbox: true,
-            'checkbox--checked': this.checked,
-            'checkbox--disabled': this.disabled,
-            'checkbox--focused': this.hasFocus,
-            'checkbox--indeterminate': this.indeterminate,
-            'checkbox--small': this.size === 'small',
-            'checkbox--medium': this.size === 'medium',
-            'checkbox--large': this.size === 'large'
-          })}
-        >
-          <span
-            part="control${this.checked ? ' control--checked' : ''}${this.indeterminate
-              ? ' control--indeterminate'
-              : ''}"
-            class="checkbox__control"
-          >
+        <label part="base">
+          <span class="checkbox__control">
             <input
               class="checkbox__input"
               type="checkbox"
@@ -270,25 +248,13 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               @focus=${this.handleFocus}
             />
 
-            <wa-icon
-              part=${`${iconState}-icon`}
-              class=${`checkbox__${iconState}-icon ${iconVisible ? '' : 'checkbox__icon--invisible'}`}
-              library="system"
-              name=${iconName}
-            ></wa-icon>
+            <wa-icon part="${iconState}-icon icon" library="system" name=${iconName}></wa-icon>
           </span>
 
-          <div part="label" class="checkbox__label">
-            <slot></slot>
-          </div>
+          <slot part="label"></slot>
         </label>
 
-        <div
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__hint"
-          id="hint"
-          part="form-control-hint"
-        >
+        <div aria-hidden=${hasHint ? 'false' : 'true'} class="form-control__hint" id="hint" part="form-control-hint">
           <slot name="hint">${this.hint}</slot>
         </div>
       </div>

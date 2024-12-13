@@ -2,10 +2,6 @@
   display: none;
 }
 
-.form-control .form-control__hint {
-  display: none;
-}
-
 /* Label */
 .form-control--has-label .form-control__label {
   display: inline-block;
@@ -13,18 +9,18 @@
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);
   margin-bottom: var(--wa-space-3xs);
-}
 
-.form-control--has-label.form-control--small .form-control__label {
-  font-size: var(--wa-font-size-s);
-}
+  &:is(.form-control--small *) {
+    font-size: var(--wa-font-size-s);
+  }
 
-.form-control--has-label.form-control--medium .form-control__label {
-  font-size: var(--wa-font-size-m);
-}
+  &:is(.form-control--medium *) {
+    font-size: var(--wa-font-size-m);
+  }
 
-.form-control--has-label.form-control--large .form-control__label {
-  font-size: var(--wa-font-size-l);
+  &:is(.form-control--large *) {
+    font-size: var(--wa-font-size-l);
+  }
 }
 
 :host([required]) .form-control--has-label .form-control__label::after {
@@ -34,24 +30,28 @@
 }
 
 /* Help text */
-.form-control--has-hint .form-control__hint {
+.form-control [part~='form-control-hint'] {
+  display: none;
+}
+
+.form-control--has-hint [part~='form-control-hint'] {
   display: block;
   color: var(--wa-color-text-quiet);
   margin-top: var(--wa-space-3xs);
-}
 
-.form-control--has-hint.form-control--small .form-control__hint {
-  font-size: var(--wa-font-size-xs);
-}
+  &:is(.form-control--small *) {
+    font-size: var(--wa-font-size-xs);
+  }
 
-.form-control--has-hint.form-control--medium .form-control__hint {
-  font-size: var(--wa-font-size-s);
-}
+  &:is(.form-control--medium *) {
+    font-size: var(--wa-font-size-s);
+  }
 
-.form-control--has-hint.form-control--large .form-control__hint {
-  font-size: var(--wa-font-size-m);
-}
+  &:is(.form-control--large *) {
+    font-size: var(--wa-font-size-m);
+  }
 
-.form-control--has-hint.form-control--radio-group .form-control__hint {
-  margin-top: var(--wa-space-2xs);
+  &:is(.form-control--radio-group *) {
+    margin-top: var(--wa-space-2xs);
+  }
 }

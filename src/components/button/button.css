@@ -252,15 +252,7 @@
    * Pill modifier
    */
 
-.button--pill.button--small {
-  border-radius: var(--wa-border-radius-pill);
-}
-
-.button--pill.button--medium {
-  border-radius: var(--wa-border-radius-pill);
-}
-
-.button--pill.button--large {
+.button--pill {
   border-radius: var(--wa-border-radius-pill);
 }
 

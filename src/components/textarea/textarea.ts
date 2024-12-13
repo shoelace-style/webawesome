@@ -173,7 +173,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. If you're slotting in a `hint` element, make sure to set this to `true`.
    */
-  @property({ attribute: 'with-hint', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -309,9 +309,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
       <div
@@ -322,7 +322,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
       >
         <label
@@ -384,12 +384,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           </div>
         </div>
 
-        <div
-          part="form-control-hint"
-          id="hint"
-          class="form-control__hint"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
+        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
           <slot name="hint">${this.hint}</slot>
         </div>
       </div>

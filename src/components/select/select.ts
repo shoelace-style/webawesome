@@ -222,7 +222,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR purposes when hint is slotted in. Will show the hint on first render.
    */
-  @property({ attribute: 'with-hint', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -783,9 +783,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
       (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
     const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
@@ -799,7 +799,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
       >
         <label
@@ -931,12 +931,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           </wa-popup>
         </div>
 
-        <div
-          part="form-control-hint"
-          id="hint"
-          class="form-control__hint"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
+        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
           <slot name="hint">${this.hint}</slot>
         </div>
       </div>

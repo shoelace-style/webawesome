@@ -180,7 +180,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
-  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHint = false;
 
   @state() private hasEyeDropper: boolean = false;
 
@@ -871,11 +871,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
-    const hasHelpTextSlot = !this.hasUpdated
-      ? this.withHelpText
-      : this.withHelpText || this.hasSlotController.test('hint');
+    const hasHintSlot = !this.hasUpdated ? this.withHint : this.withHint || this.hasSlotController.test('hint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
@@ -1121,7 +1119,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             'form-control--medium': this.size === 'medium',
             'form-control--large': this.size === 'large',
             'form-control--has-label': hasLabel,
-            'form-control--has-hint': hasHelpText
+            'form-control--has-hint': hasHint
           })}
           part="trigger-container form-control"
           slot="trigger"

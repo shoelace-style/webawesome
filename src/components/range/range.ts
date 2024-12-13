@@ -136,7 +136,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR to render slotted labels. If true, will render slotted hint content on first paint.
    */
-  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHint = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -273,9 +273,9 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     // NOTE - always bind value after min/max, otherwise it will be clamped
     return html`
@@ -285,7 +285,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control--medium': true, // range only has one size
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
       >
         <label
@@ -342,12 +342,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           </div>
         </div>
 
-        <div
-          part="form-control-hint"
-          id="hint"
-          class="form-control__hint"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
+        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
           <slot name="hint">${this.hint}</slot>
         </div>
       </div>

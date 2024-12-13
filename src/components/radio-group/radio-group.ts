@@ -115,7 +115,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. if true, will show slotted hint on initial render.
    */
-  @property({ type: Boolean, attribute: 'with-hint' }) withHelpText = false;
+  @property({ type: Boolean, attribute: 'with-hint' }) withHint = false;
 
   //
   // We need this because if we don't have it, FormValidation yells at us that it's "not focusable".
@@ -311,9 +311,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const defaultSlot = html` <slot @slotchange=${this.syncRadioElements}></slot> `;
 
     return html`
@@ -326,7 +326,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control--large': this.size === 'large',
           'form-control--radio-group': true,
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
         role="radiogroup"
         aria-labelledby="label"
@@ -353,12 +353,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
             : defaultSlot}
         </div>
 
-        <div
-          part="form-control-hint"
-          id="hint"
-          class="form-control__hint"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
+        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
           <slot name="hint">${this.hint}</slot>
         </div>
       </fieldset>

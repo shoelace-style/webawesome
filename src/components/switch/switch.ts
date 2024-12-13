@@ -120,7 +120,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /**
    * Used for SSR. If you slot in hint, make sure to add `with-hint` to your component to get it to properly render with SSR.
    */
-  @property({ attribute: 'with-hint', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -233,8 +233,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
-    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
       <div
@@ -243,7 +243,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           'form-control--small': this.size === 'small',
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
-          'form-control--has-hint': hasHelpText
+          'form-control--has-hint': hasHint
         })}
       >
         <label
@@ -286,12 +286,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           </div>
         </label>
 
-        <div
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__hint"
-          id="hint"
-          part="form-control-hint"
-        >
+        <div aria-hidden=${hasHint ? 'false' : 'true'} class="form-control__hint" id="hint" part="form-control-hint">
           <slot name="hint">${this.hint}</slot>
         </div>
       </div>
