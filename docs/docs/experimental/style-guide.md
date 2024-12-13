@@ -12,47 +12,50 @@ The styles shown below can be all yours by adding Web Awesome's applied styleshe
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="wa">
 
+<div>
 <button>Button</button>
+<input type="button" value="Input (button)"></input>
+</div>
 
-<wa-button>Button</wa-button>
+<wa-button>WA Button</wa-button>
 
 <label for="input-text">Input (text)</label>
 <input type="text" id="input-text"></input>
 
-<wa-input label="Input (text)" type="text"></wa-input>
+<wa-input label="WA Input (text)" type="text"></wa-input>
 
 <label for="input-number">Input (number)</label>
 <input type="number" id="input-number"></input>
 
-<wa-input label="Input (number)" type="number"></wa-input>
+<wa-input label="WA Input (number)" type="number"></wa-input>
 
 <label for="input-password">Input (password)</label>
 <input type="password" id="input-password"></input>
 
-<wa-input label="Input (password)" type="password"></wa-input>
+<wa-input label="WA Input (password)" type="password"></wa-input>
 
 <input type="checkbox" id="input-checkbox"></input>
 <label for="input-checkbox">Input (checkbox)</label>
 
-<wa-checkbox>Checkbox</wa-checkbox>
+<wa-checkbox>WA Checkbox</wa-checkbox>
 
 <label for="input-color">Input (color)</label>
 <input type="color" id="input-color"></input>
 
-<wa-color-picker label="Color picker"></wa-color-picker>
+<wa-color-picker label="WA Color Picker"></wa-color-picker>
 
 <label for="input-date">Input (date)</label>
 <input type="date" id="input-date"></input>
 
-<wa-input label="Input (date)" type="date"></wa-input>
+<wa-input label="WA Input (date)" type="date"></wa-input>
 
 <label for="input-time">Input (time)</label>
 <input type="time" id="input-time"></input>
 
-<wa-input label="Input (time)" type="time"></wa-input>
+<wa-input label="WA Input (time)" type="time"></wa-input>
 
 <fieldset>
-  <legend>Radio group:</legend>
+  <legend>Radio Group:</legend>
   <input type="radio" id="radio-1" name="radio" value="radio-1" checked />
   <label for="radio-1">Radio 1</label>
   <input type="radio" id="radio-2" name="radio" value="radio-2" />
@@ -62,7 +65,7 @@ The styles shown below can be all yours by adding Web Awesome's applied styleshe
 </fieldset>
 
 <fieldset>
-  <wa-radio-group label="Radio group:" name="wa-radio" value="radio-1">
+  <wa-radio-group label="WA Radio Group:" name="wa-radio" value="radio-1">
     <wa-radio value="radio-1">Radio</wa-radio>
     <wa-radio value="radio-2">Radio</wa-radio>
     <wa-radio value="radio-3">Radio</wa-radio>
@@ -72,23 +75,25 @@ The styles shown below can be all yours by adding Web Awesome's applied styleshe
 <label for="input-range">Input (range)</label>
 <input type="range" id="input-range"></input>
 
-<wa-range label="Range"></wa-range>
+<wa-range label="WA Range"></wa-range>
 
 <div>
   <label for="textarea">Textarea</label>
   <textarea id="textarea"></textarea>
 </div>
 
-<wa-textarea label="Textarea"></wa-textarea>
+<wa-textarea label="WA Textarea"></wa-textarea>
 
+<div>
 <label for="select">Select</label>
-<select id="select">
-  <option value="option-1">Option 1</option>
-  <option value="option-2">Option 2</option>
-  <option value="option-3">Option 3</option>
-</select>
+  <select id="select">
+    <option value="option-1">Option 1</option>
+    <option value="option-2">Option 2</option>
+    <option value="option-3">Option 3</option>
+  </select>
+</div>
 
-<wa-select label="Select">
+<wa-select label="WA Select">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
