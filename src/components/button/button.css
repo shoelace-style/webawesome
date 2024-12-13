@@ -1,16 +1,4 @@
 :host {
-  --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
-  --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
-  --border-color: initial;
-  --border-color-hover: var(--border-color);
-  --border-color-active: var(--border-color);
-  --border-radius: var(--wa-form-control-border-radius);
-  --border-style: var(--wa-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
-  --label-color-hover: var(--label-color);
-  --label-color-active: var(--label-color);
-
   display: inline-block;
   position: relative;
   width: auto;
@@ -172,34 +160,6 @@
    * Internal
    */
 
-/* .button {
-  background-color: var(--background-color);
-  border-color: var(--border-color, var(--background-color));
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
-  border-width: max(1px, var(--border-width));
-  box-shadow: var(--box-shadow);
-  color: var(--label-color);
-  display: inline-flex;
-  align-items: stretch;
-  justify-content: center;
-  width: 100%;
-  font: inherit;
-  font-weight: var(--wa-font-weight-action);
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  padding: 0;
-  transition:
-    background var(--wa-transition-fast) var(--wa-transition-easing),
-    border var(--wa-transition-fast) var(--wa-transition-easing),
-    box-shadow var(--wa-transition-fast) var(--wa-transition-easing),
-    color var(--wa-transition-fast) var(--wa-transition-easing);
-  cursor: inherit;
-} */
-
 .button {
   display: inline-flex;
   align-items: stretch;
@@ -239,18 +199,6 @@
 .button--disabled * {
   pointer-events: none;
 }
-
-/* .button:hover:not(.button--disabled, .button--loading) {
-  background-color: var(--background-color-hover, var(--background-color, none));
-  border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
-  color: var(--label-color-hover, var(--label-color));
-} */
-
-/* .button:active:not(.button--disabled, .button--loading) {
-  background-color: var(--background-color-active, var(--background-color, none));
-  border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));
-  color: var(--label-color-active, var(--label-color));
-} */
 
 @media (forced-colors: active) {
   .button.button--outlined.button--checked:not(.button--disabled) {
