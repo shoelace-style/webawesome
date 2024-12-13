@@ -22,12 +22,12 @@ Use the `label` attribute to give the range an accessible label. For labels that
 <wa-range label="Volume" min="0" max="100"></wa-range>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a range with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a range with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-range label="Volume" help-text="Controls the volume of the current song." min="0" max="100"></wa-range>
+<wa-range label="Volume" hint="Controls the volume of the current song." min="0" max="100"></wa-range>
 ```
 
 ### Min, Max, and Step

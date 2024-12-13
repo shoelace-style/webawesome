@@ -22,12 +22,12 @@ Use the `label` attribute to give the input an accessible label. For labels that
 <wa-input label="What is your name?"></wa-input>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to an input with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to an input with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-input label="Nickname" help-text="What would you like people to call you?"></wa-input>
+<wa-input label="Nickname" hint="What would you like people to call you?"></wa-input>
 ```
 
 ### Placeholders
@@ -132,9 +132,9 @@ Use the `prefix` and `suffix` slots to add icons.
 Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls.
 
 ```html {.example}
-<wa-input class="label-on-left" label="Name" help-text="Enter your name"></wa-input>
-<wa-input class="label-on-left" label="Email" type="email" help-text="Enter your email"></wa-input>
-<wa-textarea class="label-on-left" label="Bio" help-text="Tell us something about yourself"></wa-textarea>
+<wa-input class="label-on-left" label="Name" hint="Enter your name"></wa-input>
+<wa-input class="label-on-left" label="Email" type="email" hint="Enter your email"></wa-input>
+<wa-textarea class="label-on-left" label="Bio" hint="Tell us something about yourself"></wa-textarea>
 
 <style>
   .label-on-left {
@@ -157,7 +157,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
     text-align: right;
   }
 
-  .label-on-left::part(form-control-help-text) {
+  .label-on-left::part(form-control-hint) {
     grid-column-start: 2;
   }
 </style>

@@ -33,12 +33,12 @@ Use the `label` attribute to give the select an accessible label. For labels tha
 </wa-select>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a select with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a select with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-select label="Experience" help-text="Please tell us your skill level.">
+<wa-select label="Experience" hint="Please tell us your skill level.">
   <wa-option value="1">Novice</wa-option>
   <wa-option value="2">Intermediate</wa-option>
   <wa-option value="3">Advanced</wa-option>

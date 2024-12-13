@@ -22,7 +22,7 @@ import styles from './range.css';
  * @since 2.0
  *
  * @slot label - The range's label. Alternatively, you can use the `label` attribute.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
@@ -30,10 +30,10 @@ import styles from './range.css';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The range's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart form-control-hint - The hint's wrapper.
  * @csspart base - The component's base wrapper.
  * @csspart input - The internal `<input>` element.
  * @csspart tooltip - The range's tooltip.
@@ -56,7 +56,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     return [...super.validators, MirrorValidator()];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
   private resizeObserver: ResizeObserver;
 
@@ -97,8 +97,8 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   /** The range's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The range's help text. If you need to display HTML, use the help-text slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The range's hint. If you need to display HTML, use the hint slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** Disables the range. */
   @property({ type: Boolean }) disabled = false;
@@ -134,9 +134,9 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR to render slotted labels. If true, will render slotted help-text content on first paint.
+   * Used for SSR to render slotted labels. If true, will render slotted hint content on first paint.
    */
-  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHelpText = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -273,9 +273,9 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
 
     // NOTE - always bind value after min/max, otherwise it will be clamped
     return html`
@@ -285,7 +285,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control--medium': true, // range only has one size
           'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
+          'form-control--has-hint': hasHelpText
         })}
       >
         <label
@@ -326,7 +326,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
               max=${ifDefined(this.max)}
               step=${ifDefined(this.step)}
               .value=${live(this.value.toString())}
-              aria-describedby="help-text"
+              aria-describedby="hint"
               @change=${this.handleChange}
               @focus=${this.handleFocus}
               @input=${this.handleInput}
@@ -343,12 +343,12 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
         </div>
 
         <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
+          part="form-control-hint"
+          id="hint"
+          class="form-control__hint"
           aria-hidden=${hasHelpText ? 'false' : 'true'}
         >
-          <slot name="help-text">${this.helpText}</slot>
+          <slot name="hint">${this.hint}</slot>
         </div>
       </div>
     `;

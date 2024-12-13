@@ -28,7 +28,7 @@ describe('<wa-checkbox>', () => {
         expect(el.checked).to.be.false;
         expect(el.indeterminate).to.be.false;
         expect(el.defaultChecked).to.be.false;
-        expect(el.helpText).to.equal('');
+        expect(el.hint).to.equal('');
       });
 
       it('should have title if title attribute is set', async () => {

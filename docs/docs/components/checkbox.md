@@ -50,12 +50,12 @@ Use the `size` attribute to change a checkbox's size.
 <wa-checkbox size="large">Large</wa-checkbox>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a switch with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a switch with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-checkbox help-text="What should the user know about the checkbox?">Label</wa-checkbox>
+<wa-checkbox hint="What should the user know about the checkbox?">Label</wa-checkbox>
 ```
 
 ### Custom Validity

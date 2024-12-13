@@ -36,12 +36,12 @@ TODO Page Description
       <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
       <a href="#">117 Reviews</a>
     </div>
-    <wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
 </wa-radio-group>
-  <wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -103,12 +103,12 @@ TODO Page Description
       <img src="/assets/images/patterns/gervyn-louis-semwwyXFQho-unsplash.jpg" />
     </div>
   </div>
-  <wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
 </wa-radio-group>
-  <wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -228,7 +228,7 @@ TODO Page Description
   <span class="price-big">$140</span>
   <wa-rating class="sweater-rating" label="Rating" precision="0.5" value="2.5"></wa-rating>
   <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  <wa-radio-group label="Select Color" help-text="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-group label="Select Color" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1"></wa-radio-button>
   <wa-radio-button value="2"></wa-radio-button>
   <wa-radio-button value="3"></wa-radio-button>
@@ -384,7 +384,7 @@ TODO Page Description
     <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
   </div>
   <div class="div-3">
-     <wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+     <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>

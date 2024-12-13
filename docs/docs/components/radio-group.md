@@ -14,12 +14,12 @@ layout: component
 
 ## Examples
 
-### Help Text
+### Hint
 
-Add descriptive help text to a radio group with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a radio group with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-radio-group label="Select an option" help-text="Choose the most appropriate option." name="a" value="1">
+<wa-radio-group label="Select an option" hint="Choose the most appropriate option." name="a" value="1">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
@@ -31,7 +31,7 @@ Add descriptive help text to a radio group with the `help-text` attribute. For h
 [Radio buttons](/docs/components/radio-button) offer an alternate way to display radio controls. In this case, an internal [button group](/docs/components/button-group) is used to group the buttons into a single, cohesive control.
 
 ```html {.example}
-<wa-radio-group label="Select an option" help-text="Select an option that makes you proud." name="a" value="1">
+<wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>

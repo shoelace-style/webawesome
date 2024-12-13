@@ -1,6 +1,6 @@
-@import url('scroll-lock.css');
-@import url('align-items.css');
-@import url('border-radius.css');
-@import url('gap.css');
-@import url('text.css');
-@import url('layout.css');
+@import url('./utilities/scroll-lock.css');
+@import url('./utilities/align-items.css');
+@import url('./utilities/border-radius.css');
+@import url('./utilities/gap.css');
+@import url('./utilities/text.css');
+@import url('./utilities/layout.css');

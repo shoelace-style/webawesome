@@ -75,10 +75,10 @@ The color picker can be rendered as disabled.
 <wa-color-picker disabled label="Select a color"></wa-color-picker>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a color picker with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a color picker with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-color-picker label="Select a color" help-text="Choose a color with appropate contrast!"></wa-color-picker>
+<wa-color-picker label="Select a color" hint="Choose a color with appropate contrast!"></wa-color-picker>
 ```

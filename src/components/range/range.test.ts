@@ -25,7 +25,7 @@ describe('<wa-range>', () => {
         expect(el.value).to.equal(0);
         expect(el.title).to.equal('');
         expect(el.label).to.equal('');
-        expect(el.helpText).to.equal('');
+        expect(el.hint).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.checkValidity()).to.be.true;
         expect(el.min).to.equal(0);

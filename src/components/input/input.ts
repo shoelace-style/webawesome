@@ -32,7 +32,7 @@ import type WaButton from '../button/button.js';
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot show-password-icon - An icon to use in lieu of the default show password icon.
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
@@ -41,10 +41,10 @@ import type WaButton from '../button/button.js';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart form-control-hint - The hint's wrapper.
  * @csspart base - The component's base wrapper.
  * @csspart input - The internal `<input>` control.
  * @csspart prefix - The container that wraps the prefix.
@@ -70,7 +70,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
 
   @query('.input__control') input: HTMLInputElement;
@@ -130,8 +130,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** The input's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The input's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The input's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** Adds a clear button when the input is not empty. */
   @property({ type: Boolean }) clearable = false;
@@ -223,9 +223,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR. Will determine if the SSRed component will have the help text slot rendered on initial paint.
+   * Used for SSR. Will determine if the SSRed component will have the hint slot rendered on initial paint.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHelpText = false;
 
   private handleBlur() {
     this.hasFocus = false;
@@ -392,9 +392,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
@@ -411,7 +411,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
           'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
+          'form-control--has-hint': hasHelpText
         })}
       >
         <label
@@ -473,7 +473,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               pattern=${ifDefined(this.pattern)}
               enterkeyhint=${ifDefined(this.enterkeyhint)}
               inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="help-text"
+              aria-describedby="hint"
               @change=${this.handleChange}
               @input=${this.handleInput}
               @keydown=${this.handleKeyDown}
@@ -529,12 +529,12 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         </div>
 
         <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
+          part="form-control-hint"
+          id="hint"
+          class="form-control__hint"
           aria-hidden=${hasHelpText ? 'false' : 'true'}
         >
-          <slot name="help-text">${this.helpText}</slot>
+          <slot name="hint">${this.hint}</slot>
         </div>
       </div>
     `;

@@ -25,7 +25,7 @@ import type { PropertyValues } from 'lit';
  * @dependency wa-icon
  *
  * @slot - The checkbox's label.
- * @slot help-text - Text that describes how to use the checkbox. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the checkbox. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the checkbox loses focus.
  * @event wa-change - Emitted when the checked state changes.
@@ -33,14 +33,14 @@ import type { PropertyValues } from 'lit';
  * @event wa-input - Emitted when the checkbox receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - The component's label .
  * @csspart control - The square container that wraps the checkbox's checked state.
  * @csspart control--checked - Matches the control part when the checkbox is checked.
  * @csspart control--indeterminate - Matches the control part when the checkbox is indeterminate.
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
  * @csspart label - The container that wraps the checkbox's label.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart form-control-hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The checkbox's background color.
  * @cssproperty --background-color-checked - The checkbox's background color when checked.
@@ -75,7 +75,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text');
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
@@ -126,8 +126,8 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   /** Makes the checkbox a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
-  /** The checkbox's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The checkbox's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   private handleClick() {
     this.hasInteracted = true;
@@ -210,8 +210,8 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = isServer ? true : this.hasSlotController.test('help-text');
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHelpTextSlot = isServer ? true : this.hasSlotController.test('hint');
+    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
     const isIndeterminate = !this.checked && this.indeterminate;
 
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
@@ -220,7 +220,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
     //
     // NOTE: we use a `<div>` around the label slot because of this Chrome bug.
-    //
+    // Fixed in Chrome 119
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
     return html`
@@ -230,7 +230,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
           'form-control--small': this.size === 'small',
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
-          'form-control--has-help-text': hasHelpText
+          'form-control--has-hint': hasHelpText
         })}
       >
         <label
@@ -263,7 +263,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               .disabled=${this.disabled}
               .required=${this.required}
               aria-checked=${this.checked ? 'true' : 'false'}
-              aria-describedby="help-text"
+              aria-describedby="hint"
               @click=${this.handleClick}
               @input=${this.handleInput}
               @blur=${this.handleBlur}
@@ -285,11 +285,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
         <div
           aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__help-text"
-          id="help-text"
-          part="form-control-help-text"
+          class="form-control__hint"
+          id="hint"
+          part="form-control-hint"
         >
-          <slot name="help-text">${this.helpText}</slot>
+          <slot name="hint">${this.hint}</slot>
         </div>
       </div>
     `;

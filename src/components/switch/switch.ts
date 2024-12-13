@@ -22,7 +22,7 @@ import type { PropertyValues } from 'lit';
  * @since 2.0
  *
  * @slot - The switch's label.
- * @slot help-text - Text that describes how to use the switch. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the switch. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when the control's checked state changes.
@@ -34,7 +34,7 @@ import type { PropertyValues } from 'lit';
  * @csspart control - The control that houses the switch's thumb.
  * @csspart thumb - The switch's thumb.
  * @csspart label - The switch's label.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart form-control-hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The switch's background color.
  * @cssproperty --background-color-checked - The switch's background color when checked.
@@ -58,7 +58,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     return [...super.validators, MirrorValidator()];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text');
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
@@ -114,13 +114,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** Makes the switch a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
-  /** The switch's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The switch's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR. If you slot in help-text, make sure to add `with-help-text` to your component to get it to properly render with SSR.
+   * Used for SSR. If you slot in hint, make sure to add `with-hint` to your component to get it to properly render with SSR.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHelpText = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -233,8 +233,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHelpText;
+    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
 
     return html`
       <div
@@ -243,7 +243,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           'form-control--small': this.size === 'small',
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
-          'form-control--has-help-text': hasHelpText
+          'form-control--has-hint': hasHelpText
         })}
       >
         <label
@@ -269,7 +269,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
             .required=${this.required}
             role="switch"
             aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby="help-text"
+            aria-describedby="hint"
             @click=${this.handleClick}
             @input=${this.handleInput}
             @blur=${this.handleBlur}
@@ -288,11 +288,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
         <div
           aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__help-text"
-          id="help-text"
-          part="form-control-help-text"
+          class="form-control__hint"
+          id="hint"
+          part="form-control-hint"
         >
-          <slot name="help-text">${this.helpText}</slot>
+          <slot name="hint">${this.hint}</slot>
         </div>
       </div>
     `;

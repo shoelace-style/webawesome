@@ -19,7 +19,7 @@ TODO Page Description
       <h1 style="margin-bottom: 0;">Get 15% Off...*</h1>
       <p>...your first online order when you signup for emails.</p>
       <wa-input label="Email" style="margin-bottom: 1rem;">
-        <div slot="help-text">What would you <a href='#'>link</a> like people to call you?</div>
+        <div slot="hint">What would you <a href='#'>link</a> like people to call you?</div>
       </wa-input>
       <wa-button size="medium" style="width: 100%; margin-bottom: 1rem;" variant="danger">Email me discount</wa-button>
       <p style="font-size: xx-small;font-style: italic;">*The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
@@ -74,34 +74,34 @@ TODO Page Description
     <wa-menu-item value="banana">Pants</wa-menu-item>
     <wa-menu-item value="orange">Shoes</wa-menu-item>
   </div>
- 
+
   <div>
     <wa-menu-label>Just Arrived</wa-menu-label>
-    
-   
+
+
     <wa-menu-item>
       <a href="#">
        <img style="width: 100%; max-width: 200px;" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" />
      </a>
-      
+
     </wa-menu-item>
-    
+
 
 
   </div>
- 
- 
+
+
     <wa-menu-item style="grid-column: 1/-1;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <p style="margin:0;">footer with something cool in it</p>
         <wa-button variant="brand" size="small">Signup now</wa-button>
       </div>
-      
+
     </wa-menu-item>
 
   </wa-menu>
-    
-  
+
+
 </wa-dropdown>
 <style>
   .mm-grid {
@@ -109,7 +109,7 @@ TODO Page Description
     grid-template-columns: repeat(3, auto);
     gap: 1rem;
 
-  
+
 
   .card-overview small {
     color: var(--wa-color-text-quiet);
@@ -122,7 +122,7 @@ TODO Page Description
   }
   }
 
-    
+
 </style>
 ```
 ### Slide Over
@@ -580,7 +580,7 @@ TODO Page Description
   <span class="price-big">$140</span>
   <wa-rating class="sweater-rating" label="Rating" precision="0.5" value="2.5"></wa-rating>
   <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  <wa-radio-group label="Select Color" help-text="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-group label="Select Color" hint="Select an option that makes you proud." name="a" value="1">
   <wa-radio-button value="1">Black
   </wa-radio-button>
   <wa-radio-button value="2">White</wa-radio-button>
@@ -616,11 +616,11 @@ TODO Page Description
   wa-radio-button #shadow-root div .button--medium {
     padding: var(--wa-space-xs) var(--wa-space-xs);
   }
-  
+
   .color-circle {
     --background: #000;
     background: var(--background);
- 
+
     width: 50px;
     height: 100%;
   }
@@ -893,7 +893,7 @@ TODO Page Description
   <wa-input label="Postal Code" class="second-half" style="margin-top: 1.5rem;"></wa-input>
   <wa-input label="Phone" class=" full-row" style="margin-top: 1.5rem;"></wa-input>
   <hr class="full-row" />
-    <wa-radio-group label="Delivery Method" help-text="Select an option that makes you proud." name="a" value="1" class="full-row" style="margin-top: 1.5rem;">
+    <wa-radio-group label="Delivery Method" hint="Select an option that makes you proud." name="a" value="1" class="full-row" style="margin-top: 1.5rem;">
     <wa-radio-button value="1">Standard</wa-radio-button>
     <wa-radio-button value="2">Express</wa-radio-button>
   </wa-radio-group>

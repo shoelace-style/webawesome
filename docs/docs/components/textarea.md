@@ -22,12 +22,12 @@ Use the `label` attribute to give the textarea an accessible label. For labels t
 <wa-textarea label="Comments"></wa-textarea>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a textarea with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a textarea with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-textarea label="Feedback" help-text="Please tell us what you think."> </wa-textarea>
+<wa-textarea label="Feedback" hint="Please tell us what you think."> </wa-textarea>
 ```
 
 ### Rows

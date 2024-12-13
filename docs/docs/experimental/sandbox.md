@@ -132,9 +132,9 @@ layout: page
 <br />
 <wa-switch checked>Switch on</wa-switch>
 <br /><br />
-<wa-range label="Range" help-text="Here's a bit of handy content." min="0" max="100"></wa-range>
+<wa-range label="Range" hint="Here's a bit of handy content." min="0" max="100"></wa-range>
 <br /><br />
-<wa-input label="Label" help-text="Super helpful and/or contextual content" placeholder="Placeholder"></wa-input>
+<wa-input label="Label" hint="Super helpful and/or contextual content" placeholder="Placeholder"></wa-input>
 <br />
 <wa-select label="Select" multiple value="option-1 option-2">
   <wa-option value="option-1">Option 1</wa-option>
@@ -246,11 +246,11 @@ layout: page
     <wa-spinner></wa-spinner>
   </div>
   <div class="alignment">
-    <wa-input label="AaBbCc" help-text="Lorem ipsum dolor"></wa-input>
-    <wa-select label="AaBbCc" value="ocbs" multiple help-text="Lorem ipsum dolor">
+    <wa-input label="AaBbCc" hint="Lorem ipsum dolor"></wa-input>
+    <wa-select label="AaBbCc" value="ocbs" multiple hint="Lorem ipsum dolor">
       <wa-option value="ocbs">OCBS</wa-option>
     </wa-select>
-    <wa-color-picker label="AaBbCc" help-text="Lorem ipsum dolor"></wa-color-picker>
+    <wa-color-picker label="AaBbCc" hint="Lorem ipsum dolor"></wa-color-picker>
   </div>
 </div>
 ```

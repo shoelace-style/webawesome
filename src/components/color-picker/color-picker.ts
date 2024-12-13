@@ -51,7 +51,7 @@ declare const EyeDropper: EyeDropperConstructor;
  * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
- * @slot help-text - The color picker's form help text. Alternatively, you can use the `helpText` attribute.
+ * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the color picker loses focus.
  * @event wa-change - Emitted when the color picker's value changes.
@@ -114,7 +114,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
   private isSafeValue = false;
   private readonly localize = new LocalizeController(this);
@@ -180,7 +180,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
-  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHelpText = false;
 
   @state() private hasEyeDropper: boolean = false;
 
@@ -191,9 +191,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() label = '';
 
   /**
-   * The color picker's help text. If you need to display HTML, use the `help-text` slot instead.
+   * The color picker's hint. If you need to display HTML, use the `hint` slot instead.
    */
-  @property({ attribute: 'help-text' }) helpText = '';
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
    * The format to use. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA respectively. The color
@@ -873,9 +873,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
     const hasHelpTextSlot = !this.hasUpdated
       ? this.withHelpText
-      : this.withHelpText || this.hasSlotController.test('help-text');
+      : this.withHelpText || this.hasSlotController.test('hint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHelpText = this.hint ? true : !!hasHelpTextSlot;
 
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
@@ -1121,7 +1121,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             'form-control--medium': this.size === 'medium',
             'form-control--large': this.size === 'large',
             'form-control--has-label': hasLabel,
-            'form-control--has-help-text': hasHelpText
+            'form-control--has-hint': hasHelpText
           })}
           part="trigger-container form-control"
           slot="trigger"
@@ -1167,11 +1167,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             })}
             type="button"
             aria-labelledby="form-control-label"
-            aria-describedby="help-text"
+            aria-describedby="hint"
           ></button>
 
-          <div part="form-control-help-text" id="help-text" class="form-control__help-text">
-            <slot name="help-text">${this.helpText}</slot>
+          <div part="form-control-hint" id="hint" class="form-control__hint">
+            <slot name="hint">${this.hint}</slot>
           </div>
         </div>
         ${colorPicker}
