@@ -903,7 +903,7 @@ hasOutline: false
       default:
         colorPalette = 'standard';
     }
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/color/${colorPalette}.css`;
     colorSelect.value = colorPalette;
   }
 
@@ -951,11 +951,11 @@ hasOutline: false
 
   // Depth slider and settings
   const depthNames = {
-    0: "depth_0_flat.css",
-    1: "depth_1_semiflat.css",
-    2: "depth_2_chunky.css",
-    3: "depth_3_punchy.css",
-    4: "depth_4_glossy.css",
+    0: "depth/0_flat.css",
+    1: "depth/1_semiflat.css",
+    2: "depth/2_chunky.css",
+    3: "depth/3_punchy.css",
+    4: "depth/4_glossy.css",
   }
 
   function resetDepthValue() {
@@ -1018,7 +1018,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${depthName}`,
+      href: `/dist/styles/themes/${depthName}`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1101,7 +1101,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${theme}.css`,
+      href: `/dist/styles/themes/${theme}.css`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1141,7 +1141,7 @@ hasOutline: false
   colorSelect.addEventListener('wa-change', event => {
     const colorPalette = event.target.value;
 
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/themes/color/${colorPalette}.css`;
   });
 
   // Brand Color
@@ -2131,7 +2131,7 @@ hasOutline: false
 <pre class="codeblock">
 <code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
   &lt;head&gt;
-    &lt;link rel="stylesheet" href="path/to/webawesome/dist/themes/dark.css" /&gt;
+    &lt;link rel="stylesheet" href="path/to/webawesome/dist/styles/themes/dark.css" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
     ...

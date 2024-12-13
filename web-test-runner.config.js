@@ -54,7 +54,7 @@ export default {
     <!DOCTYPE html>
     <html lang="en-US">
       <head>
-        <link rel="stylesheet" href="/dist/themes/default.css">
+        <link rel="stylesheet" href="/dist/styles/themes/default.css">
 
         <script>
           window.process = {env: { NODE_ENV: "production" }}

@@ -53,12 +53,10 @@
     "test": "web-test-runner --group default",
     "test:component": "web-test-runner -- --watch --group",
     "test:watch": "web-test-runner --watch --group default",
-    "lint": "eslint src --max-warnings 0",
-    "lint:fix": "eslint src --max-warnings 0 --fix",
     "prettier": "prettier --check --log-level=warn .",
     "prettier:fix": "prettier --write --log-level=warn .",
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
-    "verify": "npm run prettier && npm run lint && npm run build && npm run test",
+    "verify": "npm run prettier && npm run build && npm run test",
     "prepublishOnly": "npm run verify"
   },
   "engines": {
@@ -83,8 +81,6 @@
     "@open-wc/testing": "^3.2.0",
     "@types/mocha": "^10.0.2",
     "@types/react": "^18.2.28",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
     "@web/dev-server-esbuild": "^0.3.6",
     "@web/test-runner": "^0.18.1",
     "@web/test-runner-commands": "^0.9.0",
@@ -103,15 +99,6 @@
     "download": "^8.0.0",
     "esbuild": "^0.19.4",
     "esbuild-plugin-replace": "^1.4.0",
-    "eslint": "^8.51.0",
-    "eslint-plugin-chai-expect": "^3.0.0",
-    "eslint-plugin-chai-friendly": "^0.7.2",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-lit": "^1.9.1",
-    "eslint-plugin-lit-a11y": "^4.1.0",
-    "eslint-plugin-markdown": "^3.0.1",
-    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
-    "eslint-plugin-wc": "^2.0.4",
     "front-matter": "^4.0.2",
     "get-port": "^7.0.0",
     "globby": "^13.2.2",
@@ -131,6 +118,7 @@
     "playwright": "^1.46.1",
     "plop": "^4.0.0",
     "prettier": "^3.0.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "recursive-copy": "^2.0.14",
@@ -146,7 +134,6 @@
   },
   "lint-staged": {
     "*.{ts,js}": [
-      "eslint --max-warnings 0 --cache --fix",
       "prettier --write"
     ]
   }

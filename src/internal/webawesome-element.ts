@@ -2,7 +2,7 @@ import { CustomErrorValidator } from './validators/custom-error-validator.js';
 import { isServer, LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
-import componentStyles from '../styles/component.styles.js';
+import componentStyles from '../styles/shadow/component.css';
 import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
 
 export default class WebAwesomeElement extends LitElement {
@@ -26,9 +26,11 @@ export default class WebAwesomeElement extends LitElement {
       : [];
 
     // Convert any string styles to Lit’s CSSResult
-    const shadowStyles = shadowStyle.map(style => (typeof style === 'string' ? unsafeCSS(style) : style));
+    const shadowStyles = [componentStyles, ...shadowStyle].map(style =>
+      typeof style === 'string' ? unsafeCSS(style) : style
+    );
 
-    return [componentStyles, ...shadowStyles];
+    return shadowStyles;
   }
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);

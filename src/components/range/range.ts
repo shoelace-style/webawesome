@@ -12,7 +12,7 @@ import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import formControlStyles from '../../styles/form-control.styles.js';
+import formControlStyles from '../../styles/shadow/form-control.css';
 import styles from './range.css';
 
 /**

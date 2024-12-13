@@ -227,18 +227,26 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     --menu-width: 15rem;
     --aside-width: 15rem;
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
+  wa-page[view='desktop'] {
+    [data-toggle-nav] {
+      display: none;
+    }
+
+    [slot*='navigation'] {
+      border-inline-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+    }
   }
   wa-page[view='mobile'] {
     --menu-width: auto;
     --aside-width: auto;
+
+    [slot='aside'],
+    #brand-name,
+    #search {
+      display: none;
+    }
   }
-  wa-page[view='mobile'] [slot='aside'],
-  wa-page[view='mobile'] #brand-name,
-  wa-page[view='mobile'] #search {
-    display: none;
-  }
+
   [slot='banner'] {
     --wa-color-text-link: var(--wa-color-neutral-on-loud);
     background-color: var(--wa-color-neutral-fill-loud);
@@ -257,9 +265,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
   [slot='navigation-header'] {
     border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
   }
-  wa-page[view='desktop'] [slot*='navigation'] {
-    border-inline-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
-  }
+
   [slot*='navigation'] a {
     --wa-color-text-link: var(--wa-color-text-normal);
   }
@@ -602,18 +608,22 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     --wa-tooltip-arrow-size: 0;
     background-color: var(--wa-color-surface-lowered);
   }
-  wa-page[view='desktop'] :is([data-toggle-nav], #search-nav-drawer) {
-    display: none;
+  wa-page[view='desktop'] {
+    :is([data-toggle-nav], #search-nav-drawer) {
+      display: none;
+    }
   }
   wa-page[view='mobile'] {
     --menu-width: auto;
+
+    #search-header {
+      display: none;
+    }
+    [slot*='main'], main {
+      padding: var(--wa-space-xl);
+    }
   }
-  wa-page[view='mobile'] #search-header {
-    display: none;
-  }
-  wa-page[view='mobile'] :is([slot*='main'], main) {
-    padding: var(--wa-space-xl);
-  }
+
   wa-page,
   [slot='header'],
   wa-page[view='desktop'] [slot*='navigation'] {
@@ -633,37 +643,41 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     padding-block-end: 0 !important;
     padding-block-start: var(--wa-space-3xl);
   }
-  [slot='navigation'] a {
-    --wa-color-text-link: var(--wa-color-text-normal);
-    --wa-link-decoration-default: none;
-    --wa-link-decoration-hover: none;
-    --flank-size: 2rem;
-    font-weight: var(--wa-font-weight-action);
-    gap: 0.5rem;
+  [slot='navigation'] {
+    a {
+      --wa-color-text-link: var(--wa-color-text-normal);
+      --wa-link-decoration-default: none;
+      --wa-link-decoration-hover: none;
+      --flank-size: 2rem;
+      font-weight: var(--wa-font-weight-action);
+      gap: 0.5rem;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+
+      a {
+        border-radius: var(--wa-border-radius-s);
+        padding: var(--wa-space-xs);
+
+        &:hover {
+          background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
+        }
+      }
+    }
+    wa-icon {
+      align-items: center;
+      aspect-ratio: 1;
+      color: var(--wa-color-brand-fill-loud);
+      display: flex;
+      height: var(--flank-size);
+      justify-content: center;
+    }
+    #recent wa-icon {
+      border-radius: var(--wa-border-radius-xs);
+    }
   }
-  [slot='navigation'] ul {
-    list-style: none;
-    margin: 0;
-  }
-  [slot='navigation'] ul a {
-    border-radius: var(--wa-border-radius-s);
-    padding: var(--wa-space-xs);
-  }
-  [slot='navigation'] ul a:hover,
-  main ol li:hover {
-    background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
-  }
-  [slot='navigation'] wa-icon {
-    align-items: center;
-    aspect-ratio: 1;
-    color: var(--wa-color-brand-fill-loud);
-    display: flex;
-    height: var(--flank-size);
-    justify-content: center;
-  }
-  [slot='navigation'] #recent wa-icon {
-    border-radius: var(--wa-border-radius-xs);
-  }
+
   [slot='main-header'] {
     border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
     border-inline: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
@@ -675,12 +689,18 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
   }
   main ol li {
     padding: var(--wa-space-m);
-  }
-  main ol li .wa-flank {
-    --flank-size: 2rem;
-  }
-  main ol li:not(:first-child) {
-    border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+
+    &:hover {
+      background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
+    }
+
+    &:not(:first-child) {
+      border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+    }
+
+    .wa-flank {
+      --flank-size: 2rem;
+    }
   }
   main,
   [slot='main-footer'] {
@@ -774,10 +794,28 @@ You can override the default display and flex properties for each slot with your
 #### Responsive Navigation
 
 When you use the `navigation` slot, your slotted content automatically collapses into a drawer on smaller screens.
-The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute.
+The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute,
+which takes either a number or a [CSS length](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
 
 ```html
 <wa-page mobile-breakpoint="600"> ... </wa-page>
+```
+```html {.example viewport}
+<wa-page mobile-breakpoint="50ch">
+  <div slot=navigation>Nav</div>
+  <header slot=header>
+    <div style="width: 50ch; background: gold">I’m 50ch wide</div>
+  </header>
+</wa-page>
+<style>
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+</style>
 ```
 
 By default, a "hamburger" button appears in the `header` slot to toggle the navigation menu on smaller screens.
@@ -822,9 +860,10 @@ You can use a similar approach for `--aside-width` to hide the `aside` slot on s
 ```css
 wa-page[view='mobile'] {
   --aside-width: auto;
-}
-wa-page[view='mobile'] [slot='aside'] {
-  display: none;
+
+   [slot='aside'] {
+    display: none;
+  }
 }
 ```
 

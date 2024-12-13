@@ -2,10 +2,12 @@ import '../drawer/drawer.js';
 import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
 import { live } from 'lit/directives/live.js';
+import { toLength, toPx } from '../../internal/css-values.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import mobileStyles from './page.mobile.styles.js';
 import styles from './page.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+
 import type { PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';
 
@@ -138,9 +140,11 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'nav-open', reflect: true, type: Boolean }) navOpen = false;
 
   /**
-   * At what "px" to hide the "menu" slot and collapse into a hamburger button
+   * At what page width to hide the "navigation" slot and collapse into a hamburger button.
+   * Accepts both numbers (interpreted as px) and CSS lengths (e.g. `50em`), which are resolved based on the root element.
    */
-  @property({ attribute: 'mobile-breakpoint', type: Number }) mobileBreakpoint = 768;
+  @property({ attribute: 'mobile-breakpoint', type: String })
+  mobileBreakpoint = '768px';
 
   /**
    * Where to place the navigation when in the mobile viewport.
@@ -148,7 +152,9 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
 
   /**
-   * Determines whether or not to hide the default hamburger button. This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM. Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
+   * Determines whether or not to hide the default hamburger button.
+   * This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM.
+   * Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
    */
   @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
     false;
@@ -161,15 +167,13 @@ export default class WaPage extends WebAwesomeElement {
 
         const oldView = this.view;
 
-        if (pageWidth >= this.mobileBreakpoint) {
+        if (pageWidth >= toPx(this.mobileBreakpoint)) {
           this.view = 'desktop';
         } else {
           this.view = 'mobile';
         }
 
         this.requestUpdate('view', oldView);
-
-        this.style.setProperty(`--page-width`, `${pageWidth}px`);
       }
     }
   });
@@ -262,7 +266,7 @@ export default class WaPage extends WebAwesomeElement {
       <!-- unsafeHTML needed for SSR until this is solved: https://github.com/lit/lit/issues/4696 -->
       ${unsafeHTML(`
         <style id="mobile-styles">
-          ${mobileStyles(this.mobileBreakpoint)}
+          ${mobileStyles(toLength(this.mobileBreakpoint))}
         </style>
       `)}
 

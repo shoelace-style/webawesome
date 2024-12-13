@@ -10,7 +10,7 @@ import { WaChangeEvent } from '../../events/change.js';
 import { WaInputEvent } from '../../events/input.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import formControlStyles from '../../styles/form-control.styles.js';
+import formControlStyles from '../../styles/shadow/form-control.css';
 import styles from './radio-group.css';
 import type WaRadio from '../radio/radio.js';
 import type WaRadioButton from '../radio-button/radio-button.js';
