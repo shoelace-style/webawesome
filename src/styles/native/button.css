@@ -1,4 +1,4 @@
-button:not(:host button),
+button:where(:not(:host button)),
 :host {
   --background-color: var(--wa-color-neutral-fill-loud);
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
@@ -43,14 +43,14 @@ button,
     color var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-button:not(:host button):hover,
+button:where(:not(:host button)):hover,
 :is(:host button, :host([href]) a):hover:not(.button--disabled, .button--loading) {
   background-color: var(--background-color-hover, var(--background-color));
   border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
   color: var(--label-color-hover, var(--label-color));
 }
 
-button:not(:host button):active,
+button:where(:not(:host button)):active,
 :is(:host button, :host([href]) a):active:not(.button--disabled, .button--loading) {
   background-color: var(--background-color-active, var(--background-color));
   border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));
