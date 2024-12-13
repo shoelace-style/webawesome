@@ -188,7 +188,7 @@
    * Internal
    */
 
-.button {
+/* .button {
   background-color: var(--background-color);
   border-color: var(--border-color, var(--background-color));
   border-radius: var(--border-radius);
@@ -214,7 +214,7 @@
     box-shadow var(--wa-transition-fast) var(--wa-transition-easing),
     color var(--wa-transition-fast) var(--wa-transition-easing);
   cursor: inherit;
-}
+} */
 
 .button--checked {
   box-shadow:
