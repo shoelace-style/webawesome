@@ -59,5 +59,5 @@ export function toPx(value: string | number, element: HTMLElement | SVGElement =
 }
 
 export function toLength(px: number | string): string {
-  return !Number.isNaN(Number(px)) ? `${px}px` : (px as string);
+  return Number.isNaN(Number(px)) ? (px as string) : `${px}px`;
 }
