@@ -21,10 +21,10 @@
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
     <link rel="stylesheet" id="theme-stylesheet" />
-    <link rel="stylesheet" href="/dist/themes/applied.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/layout.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/utilities/index.css" />
-    <link rel="stylesheet" href="/dist/themes/forms.css" />
+    <link rel="stylesheet" href="/dist/styles/applied.css" />
+    <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/themes/layout.css" />
+    <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
+    <link rel="stylesheet" href="/dist/styles/forms.css" />
 
     {# Set the theme to prevent flashing #}
     <script>
@@ -47,7 +47,7 @@
       const stylesheet = document.getElementById("theme-stylesheet")
       let preset = getPresetTheme()
 
-      stylesheet.href = `/dist/themes/${preset}.css`
+      stylesheet.href = `/dist/styles/themes/${preset}.css`
 
       document.documentElement.classList.toggle(
         `wa-theme-${preset}-dark`,

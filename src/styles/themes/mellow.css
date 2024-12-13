@@ -1,8 +1,8 @@
-@import 'depth_4_glossy.css';
+@import '../depth/0_flat.css';
 
 :root,
 :host,
-.wa-theme-glassy-light {
+.wa-theme-mellow-light {
   color-scheme: light;
 
   /**
@@ -13,77 +13,77 @@
    * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
    * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
    */
-  --wa-color-red-95: #fdeeef;
-  --wa-color-red-90: #fcdfe0;
-  --wa-color-red-80: #f8b9bc;
-  --wa-color-red-70: #f0969c;
-  --wa-color-red-60: #e3727d;
-  --wa-color-red-50: #cc465a;
-  --wa-color-red-40: #ac1d3d;
-  --wa-color-red-30: #8f012c;
-  --wa-color-red-20: #6b001c;
-  --wa-color-red-10: #44000d;
-  --wa-color-red-05: #2e0006;
+  --wa-color-red-95: #f9f0ee;
+  --wa-color-red-90: #f5e2dd;
+  --wa-color-red-80: #e8bfb5;
+  --wa-color-red-70: #dba294;
+  --wa-color-red-60: #c98373;
+  --wa-color-red-50: #ae6150;
+  --wa-color-red-40: #8c4434;
+  --wa-color-red-30: #713225;
+  --wa-color-red-20: #562318;
+  --wa-color-red-10: #36130b;
+  --wa-color-red-05: #240a05;
 
-  --wa-color-yellow-95: #f5f2e5;
-  --wa-color-yellow-90: #ece6cc;
-  --wa-color-yellow-80: #dac992;
-  --wa-color-yellow-70: #c9ac5c;
-  --wa-color-yellow-60: #b98f27;
-  --wa-color-yellow-50: #9b6d09;
-  --wa-color-yellow-40: #785007;
-  --wa-color-yellow-30: #613e06;
-  --wa-color-yellow-20: #492c05;
-  --wa-color-yellow-10: #2b1a02;
-  --wa-color-yellow-05: #191008;
+  --wa-color-yellow-95: #f5f0e8;
+  --wa-color-yellow-90: #ede4d5;
+  --wa-color-yellow-80: #dac6a4;
+  --wa-color-yellow-70: #c7ab7b;
+  --wa-color-yellow-60: #b29054;
+  --wa-color-yellow-50: #94702b;
+  --wa-color-yellow-40: #735310;
+  --wa-color-yellow-30: #5c4003;
+  --wa-color-yellow-20: #442f00;
+  --wa-color-yellow-10: #2a1b00;
+  --wa-color-yellow-05: #1b1000;
 
-  --wa-color-green-95: #ecf4f1;
-  --wa-color-green-90: #dae9e3;
-  --wa-color-green-80: #b0d1c4;
-  --wa-color-green-70: #88b9a6;
-  --wa-color-green-60: #5fa288;
-  --wa-color-green-50: #2d8462;
-  --wa-color-green-40: #00663e;
-  --wa-color-green-30: #005031;
-  --wa-color-green-20: #003b24;
-  --wa-color-green-10: #002316;
-  --wa-color-green-05: #00160d;
+  --wa-color-green-95: #edf2ee;
+  --wa-color-green-90: #dde8df;
+  --wa-color-green-80: #b8cebc;
+  --wa-color-green-70: #98b79e;
+  --wa-color-green-60: #779e7f;
+  --wa-color-green-50: #53805d;
+  --wa-color-green-40: #366241;
+  --wa-color-green-30: #264d31;
+  --wa-color-green-20: #193922;
+  --wa-color-green-10: #0c2212;
+  --wa-color-green-05: #051509;
 
-  --wa-color-teal-95: #ebf4f4;
-  --wa-color-teal-90: #d9e9e9;
-  --wa-color-teal-80: #add0d1;
-  --wa-color-teal-70: #84b8ba;
-  --wa-color-teal-60: #5aa0a3;
-  --wa-color-teal-50: #268285;
-  --wa-color-teal-40: #006366;
-  --wa-color-teal-30: #004e51;
-  --wa-color-teal-20: #00393b;
-  --wa-color-teal-10: #002223;
-  --wa-color-teal-05: #001415;
+  --wa-color-blue-95: #eef1f5;
+  --wa-color-blue-90: #e1e6ef;
+  --wa-color-blue-80: #bdc9dc;
+  --wa-color-blue-70: #9fb0ca;
+  --wa-color-blue-60: #8196b8;
+  --wa-color-blue-50: #5f779e;
+  --wa-color-blue-40: #415981;
+  --wa-color-blue-30: #2f466a;
+  --wa-color-blue-20: #203351;
+  --wa-color-blue-10: #101e34;
+  --wa-color-blue-05: #081223;
 
-  --wa-color-gray-95: #f2f2f3;
-  --wa-color-gray-90: #e6e5e8;
-  --wa-color-gray-80: #cbc8ce;
-  --wa-color-gray-70: #b1adb6;
-  --wa-color-gray-60: #98939f;
-  --wa-color-gray-50: #7a7382;
-  --wa-color-gray-40: #5d5568;
-  --wa-color-gray-30: #494352;
-  --wa-color-gray-20: #35313c;
-  --wa-color-gray-10: #1f1c23;
-  --wa-color-gray-05: #131115;
+  --wa-color-gray-95: #f1f1f0;
+  --wa-color-gray-90: #e7e6e4;
+  --wa-color-gray-80: #cac8c3;
+  --wa-color-gray-70: #b2afa8;
+  --wa-color-gray-60: #98958c;
+  --wa-color-gray-50: #7a766a;
+  --wa-color-gray-40: #5c594f;
+  --wa-color-gray-30: #49453e;
+  --wa-color-gray-20: #35322d;
+  --wa-color-gray-10: #1f1d1a;
+  --wa-color-gray-05: #131210;
 
-  --wa-color-primary-95: var(--wa-color-teal-95);
-  --wa-color-primary-90: var(--wa-color-teal-90);
-  --wa-color-primary-80: var(--wa-color-teal-80);
-  --wa-color-primary-70: var(--wa-color-teal-70);
-  --wa-color-primary-60: var(--wa-color-teal-60);
-  --wa-color-primary-50: var(--wa-color-teal-50);
-  --wa-color-primary-40: var(--wa-color-teal-40);
-  --wa-color-primary-30: var(--wa-color-teal-30);
-  --wa-color-primary-20: var(--wa-color-teal-20);
-  --wa-color-primary-10: var(--wa-color-teal-10);
-  --wa-color-primary-05: var(--wa-color-teal-05);
+  --wa-color-primary-95: var(--wa-color-green-95);
+  --wa-color-primary-90: var(--wa-color-green-90);
+  --wa-color-primary-80: var(--wa-color-green-80);
+  --wa-color-primary-70: var(--wa-color-green-70);
+  --wa-color-primary-60: var(--wa-color-green-60);
+  --wa-color-primary-50: var(--wa-color-green-50);
+  --wa-color-primary-40: var(--wa-color-green-40);
+  --wa-color-primary-30: var(--wa-color-green-30);
+  --wa-color-primary-20: var(--wa-color-green-20);
+  --wa-color-primary-10: var(--wa-color-green-10);
+  --wa-color-primary-05: var(--wa-color-green-05);
 
   --wa-color-base-95: var(--wa-color-gray-95);
   --wa-color-base-90: var(--wa-color-gray-90);
@@ -111,16 +111,16 @@
   /* Text colors are used for standard text elements.
    * Text should have a minimum 4.5:1 contrast ratio against surfaces.
    * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-40);
-  --wa-color-text-link: var(--wa-color-brand-on-quiet);
+  --wa-color-text-normal: var(--wa-color-base-40);
+  --wa-color-text-quiet: var(--wa-color-base-50);
+  --wa-color-text-link: var(--wa-color-blue-50);
 
   /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
    * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-primary-60) 96%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-green-60) 96%, transparent);
 
   /* Overlays provide a backdrop for isolated content, often allowing background colors or content to show through. */
-  --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-base-30) 32%, transparent);
+  --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-base-10) 32%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-base-50) 8%, transparent);
 
   /* Shadow specifies the default color for box shadows that indicate elevation. */
@@ -131,8 +131,8 @@
   );
 
   /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: black 12%;
+  --wa-color-mix-hover: black 12%;
+  --wa-color-mix-active: black 20%;
 
   /**
    * Semantic theme colors
@@ -148,14 +148,14 @@
    * Muted colors have no contrast requirements.
    * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
   */
-  --wa-color-brand-fill-loud: var(--wa-color-primary-50);
-  --wa-color-brand-fill-quiet: var(--wa-color-primary-90);
-  --wa-color-brand-fill-normal: var(--wa-color-primary-90);
-  --wa-color-brand-border-quiet: var(--wa-color-primary-90);
-  --wa-color-brand-border-normal: var(--wa-color-primary-80);
+  --wa-color-brand-fill-loud: var(--wa-color-green-50);
+  --wa-color-brand-fill-quiet: var(--wa-color-green-95);
+  --wa-color-brand-fill-normal: var(--wa-color-green-90);
+  --wa-color-brand-border-quiet: var(--wa-color-green-90);
+  --wa-color-brand-border-normal: var(--wa-color-green-80);
   --wa-color-brand-on-loud: white;
-  --wa-color-brand-on-normal: var(--wa-color-primary-40);
-  --wa-color-brand-on-quiet: var(--wa-color-primary-50);
+  --wa-color-brand-on-normal: var(--wa-color-green-40);
+  --wa-color-brand-on-quiet: var(--wa-color-green-50);
 
   --wa-color-success-fill-loud: var(--wa-color-green-50);
   --wa-color-success-fill-quiet: var(--wa-color-green-95);
@@ -196,8 +196,8 @@
   /**
    * Typography
    */
-  --wa-font-family-heading: 'Quicksand', sans-serif;
-  --wa-font-family-body: 'Inter', sans-serif;
+  --wa-font-family-heading: 'Lora', serif;
+  --wa-font-family-body: 'Mulish', sans-serif;
   --wa-font-family-code: 'Noto Sans Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --wa-font-family-longform: 'Lora', serif;
 
@@ -206,7 +206,7 @@
   --wa-font-weight-semibold: 500;
   --wa-font-weight-bold: 600;
 
-  --wa-font-weight-heading: var(--wa-font-weight-bold);
+  --wa-font-weight-heading: var(--wa-font-weight-semibold);
   --wa-font-weight-body: var(--wa-font-weight-normal);
   --wa-font-weight-action: var(--wa-font-weight-semibold);
 
@@ -254,7 +254,7 @@
   /**
    * Borders
    */
-  --wa-border-style: solid;
+  --wa-border-style: dotted;
 
   /* Border widths are designed to scale according to a single base value.
      * The base value is intended for calculations and is not used by components directly. */
@@ -266,7 +266,7 @@
   --wa-form-control-border-style: var(--wa-border-style);
   --wa-form-control-border-width: var(--wa-border-width-s);
 
-  --wa-panel-border-style: hidden;
+  --wa-panel-border-style: var(--wa-border-style);
   --wa-panel-border-width: var(--wa-border-width-s);
 
   /**
@@ -274,7 +274,7 @@
    */
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-radius-multiplier: 0.375;
+  --wa-border-radius-multiplier: 0.06125;
   --wa-border-radius-xs: calc(var(--wa-border-radius-multiplier) * 0.75rem);
   --wa-border-radius-s: calc(var(--wa-border-radius-multiplier) * 1rem);
   --wa-border-radius-m: calc(var(--wa-border-radius-multiplier) * 2rem);
@@ -304,7 +304,7 @@
    */
   --wa-transition-slow: 250ms;
   --wa-transition-normal: 150ms;
-  --wa-transition-fast: 100ms;
+  --wa-transition-fast: 50ms;
 
   /**
    * Component groups
@@ -348,42 +348,42 @@
   --wa-tooltip-arrow-size: 0.375rem;
 }
 
-.wa-theme-glassy-dark,
-.wa-theme-glassy-dark :host {
+.wa-theme-mellow-dark,
+.wa-theme-mellow-dark :host {
   color-scheme: dark;
 
   /**
    * Base theme colors
    */
-  --wa-color-surface-raised: var(--wa-color-base-20);
-  --wa-color-surface-default: var(--wa-color-base-10);
-  --wa-color-surface-lowered: var(--wa-color-base-05);
-  --wa-color-surface-border: var(--wa-color-base-30);
+  --wa-color-surface-raised: var(--wa-color-base-10);
+  --wa-color-surface-default: var(--wa-color-base-05);
+  --wa-color-surface-lowered: black;
+  --wa-color-surface-border: var(--wa-color-base-20);
 
-  --wa-color-text-normal: var(--wa-color-base-95);
+  --wa-color-text-normal: var(--wa-color-base-80);
   --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-link: var(--wa-color-brand-on-quiet);
+  --wa-color-text-link: var(--wa-color-blue-60);
 
-  --wa-color-focus: color-mix(in oklab, var(--wa-color-primary-60) 90%, transparent);
+  --wa-color-focus: color-mix(in oklab, var(--wa-color-blue-60) 90%, transparent);
 
-  --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-primary-05) 30%, transparent);
+  --wa-color-overlay-modal: color-mix(in oklab, black 50%, transparent);
 
   --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-multiplier) * 32% + 40%), transparent);
 
-  --wa-color-mix-hover: white 6%;
-  --wa-color-mix-active: black 12%;
+  --wa-color-mix-hover: black 8%;
+  --wa-color-mix-active: black 16%;
 
   /**
    * Semantic theme colors
    */
-  --wa-color-brand-fill-loud: var(--wa-color-primary-50);
-  --wa-color-brand-fill-quiet: var(--wa-color-primary-20);
-  --wa-color-brand-fill-normal: var(--wa-color-primary-30);
-  --wa-color-brand-border-quiet: var(--wa-color-primary-20);
-  --wa-color-brand-border-normal: var(--wa-color-primary-30);
+  --wa-color-brand-fill-loud: var(--wa-color-green-50);
+  --wa-color-brand-fill-quiet: var(--wa-color-green-10);
+  --wa-color-brand-fill-normal: var(--wa-color-green-20);
+  --wa-color-brand-border-quiet: var(--wa-color-green-20);
+  --wa-color-brand-border-normal: var(--wa-color-green-30);
   --wa-color-brand-on-loud: white;
-  --wa-color-brand-on-normal: var(--wa-color-primary-70);
-  --wa-color-brand-on-quiet: var(--wa-color-primary-60);
+  --wa-color-brand-on-normal: var(--wa-color-green-70);
+  --wa-color-brand-on-quiet: var(--wa-color-green-60);
 
   --wa-color-success-fill-loud: var(--wa-color-green-50);
   --wa-color-success-fill-quiet: var(--wa-color-green-10);
@@ -420,75 +420,28 @@
   --wa-color-neutral-on-loud: white;
   --wa-color-neutral-on-normal: var(--wa-color-base-70);
   --wa-color-neutral-on-quiet: var(--wa-color-base-60);
-
-  .hero-background::after {
-    height: 50rem;
-    -webkit-backdrop-filter: brightness(0.5);
-    backdrop-filter: brightness(0.5);
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-  }
 }
 
 /* #region Custom styles */
-@container preview (min-width: 0) {
-  wa-button[appearance='outlined'] {
-    &[variant='brand'] {
-      --border-color: var(--wa-color-brand-border-normal);
-    }
-
-    &[variant='success'] {
-      --border-color: var(--wa-color-success-border-normal);
-    }
-
-    &[variant='neutral'] {
-      --border-color: var(--wa-color-neutral-border-normal);
-    }
-
-    &[variant='warning'] {
-      --border-color: var(--wa-color-warning-border-normal);
-    }
-
-    &[variant='danger'] {
-      --border-color: var(--wa-color-danger-border-normal);
-    }
+wa-button[appearance='outlined'] {
+  &[variant='brand'] {
+    --border-color: var(--wa-color-brand-border-normal);
   }
 
-  wa-rating {
-    --symbol-size: var(--wa-font-size-m);
-    --symbol-color-active: var(--wa-color-neutral-on-quiet);
+  &[variant='success'] {
+    --border-color: var(--wa-color-success-border-normal);
   }
 
-  .hero-background {
-    height: 50rem;
-    background: url(/assets/images/themer/glassy/hero.jpg) 0px 0px / cover no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
+  &[variant='neutral'] {
+    --border-color: var(--wa-color-neutral-border-normal);
   }
 
-  .strata.hero {
-    height: 25rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    margin: 8rem;
+  &[variant='warning'] {
+    --border-color: var(--wa-color-warning-border-normal);
   }
 
-  .hero .title {
-    text-align: right;
-    color: var(--wa-color-text-normal);
+  &[variant='danger'] {
+    --border-color: var(--wa-color-danger-border-normal);
   }
 }
-
-@container preview (min-width: 720px) {
-  .strata.hero {
-    padding-left: 25%;
-  }
-}
-
 /* #endregion */

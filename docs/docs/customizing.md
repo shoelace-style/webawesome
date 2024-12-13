@@ -31,11 +31,11 @@ To customize a theme, simply override any of these custom properties in your own
 }
 ```
 
-For more examples and further guidance, refer to [Themes](/docs/themes) and the Theming section of this documentation. For a complete list of all custom properties used for theming, refer to `src/themes/default.css` in the project's source code.
+For more examples and further guidance, refer to [Themes](/docs/themes) and the Theming section of this documentation. For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
 ## Components
 
-Whereas a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually. 
+Whereas a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
 
 Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of custom properties and CSS parts that can be targeted to customize their appearance.
 

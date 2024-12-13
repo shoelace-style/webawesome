@@ -9,7 +9,7 @@
     const stylesheet = document.getElementById('theme-stylesheet');
 
     const newStylesheet = Object.assign(document.createElement('link'), {
-      href: `/dist/themes/${presetTheme}.css`,
+      href: `/dist/styles/themes/${presetTheme}.css`,
       rel: 'preload',
       as: 'style'
     });

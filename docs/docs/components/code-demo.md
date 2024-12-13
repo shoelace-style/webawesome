@@ -81,7 +81,7 @@ There are certain types of elements that are handled specially:
 This is useful for including resources in your demo that you don't want rendered outside the demo.
 
 The following example shows both methods.
-It includes all stylesheets on this page whose URLs start with `/dist/themes/`,
+It includes all stylesheets on this page whose URLs start with `/dist/styles/themes/`,
 plus any other elements with the class `.demo-import`, plus a CSS file with the class `wa-code-demo-include`:
 
 ```html {.example}
