@@ -1,4 +1,5 @@
-button {
+button,
+:host([href]) a {
   background-color: var(--background-color, var(--wa-color-neutral-fill-loud));
   border-color: var(--border-color, var(--background-color, var(--wa-color-neutral-fill-loud)));
   border-radius: var(--border-radius, var(--wa-form-control-border-radius));
@@ -6,22 +7,59 @@ button {
   border-width: max(1px, var(--border-width, var(--wa-form-control-border-width)));
   box-shadow: var(--box-shadow, initial);
   color: var(--label-color, var(--wa-color-neutral-on-loud));
-  display: inline-flex;
-  align-items: stretch;
-  justify-content: center;
-  width: 100%;
-  font: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--wa-font-size-m);
   font-weight: var(--wa-font-weight-action);
+  height: var(--wa-form-control-height-m);
+  line-height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
+  padding: 0 var(--wa-space-m);
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   white-space: nowrap;
   vertical-align: middle;
-  padding: 0;
   transition:
     background var(--wa-transition-fast) var(--wa-transition-easing),
     border var(--wa-transition-fast) var(--wa-transition-easing),
     box-shadow var(--wa-transition-fast) var(--wa-transition-easing),
     color var(--wa-transition-fast) var(--wa-transition-easing);
-  cursor: inherit;
+}
+
+button:hover:not(.button--disabled, .button--loading),
+:host([href]) a:hover:not(.button--disabled, .button--loading) {
+  background-color: var(
+    --background-color-hover,
+    color-mix(in oklab, var(--background-color, var(--wa-color-neutral-fill-loud)), var(--wa-color-mix-hover))
+  );
+  border-color: var(
+    --border-color-hover,
+    var(
+      --border-color,
+      var(
+        --background-color-hover,
+        color-mix(in oklab, var(--background-color, var(--wa-color-neutral-fill-loud)), var(--wa-color-mix-hover))
+      )
+    )
+  );
+  color: var(--label-color-hover, var(--label-color, var(--wa-color-neutral-on-loud)));
+}
+
+button:active:not(.button--disabled, .button--loading),
+:host([href]) a:active:not(.button--disabled, .button--loading) {
+  background-color: var(
+    --background-color-active,
+    color-mix(in oklab, var(--background-color, var(--wa-color-neutral-fill-loud)), var(--wa-color-mix-active))
+  );
+  border-color: var(
+    --border-color-active,
+    var(
+      --border-color,
+      var(
+        --background-color-active,
+        color-mix(in oklab, var(--background-color, var(--wa-color-neutral-fill-loud)), var(--wa-color-mix-active))
+      )
+    )
+  );
+  color: var(--label-color-active, var(--label-color, var(--wa-color-neutral-on-loud)));
 }

@@ -450,7 +450,6 @@ button:focus-visible {
 }
 
 /* Native form controls */
-button,
 input,
 select,
 textarea {
