@@ -1,7 +1,5 @@
-export default (breakpoint: number) => `
-  @media screen and (
-    max-width: ${(Number.isSafeInteger(breakpoint) ? breakpoint.toString() : '768') + 'px'}
-  ) {
+export default (breakpoint: string = '768px') => `
+  @media screen and (width < ${breakpoint}) {
     [part~='navigation'] {
       display: none;
     }

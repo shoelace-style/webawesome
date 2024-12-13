@@ -794,10 +794,28 @@ You can override the default display and flex properties for each slot with your
 #### Responsive Navigation
 
 When you use the `navigation` slot, your slotted content automatically collapses into a drawer on smaller screens.
-The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute.
+The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute,
+which takes either a number or a [CSS length](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
 
 ```html
 <wa-page mobile-breakpoint="600"> ... </wa-page>
+```
+```html {.example viewport}
+<wa-page mobile-breakpoint="50ch">
+  <div slot=navigation>Nav</div>
+  <header slot=header>
+    <div style="width: 50ch; background: gold">I’m 50ch wide</div>
+  </header>
+</wa-page>
+<style>
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+</style>
 ```
 
 By default, a "hamburger" button appears in the `header` slot to toggle the navigation menu on smaller screens.
