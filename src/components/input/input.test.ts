@@ -1,12 +1,12 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { isSafari } from '../../internal/test.js';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
-import { serialize } from '../../../dist-cdn/webawesome.js';
+import { html } from 'lit';
 import sinon from 'sinon';
+import { serialize } from '../../../dist-cdn/webawesome.js';
+import { isSafari } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaInput from './input.js';
 
 describe('<wa-input>', () => {
@@ -105,7 +105,7 @@ describe('<wa-input>', () => {
 
         it('should not add a value to the form if disabled', async () => {
           const form = await fixture<HTMLFormElement>(
-            html` <form><wa-input name="name" disabled required></wa-input></form>`
+            html` <form><wa-input name="name" disabled required></wa-input></form>`,
           );
           const el = form.querySelector('wa-input')!;
           el.value = 'blah';

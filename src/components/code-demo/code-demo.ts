@@ -1,11 +1,11 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
-import { getInnerHTML, HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { HasSlotController, getInnerHTML } from '../../internal/slot.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../icon/icon.js';
 import { viewportPropertyConverter } from '../viewport-demo/viewport-demo.js';
 import styles from './code-demo.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 import type { TemplateResult } from 'lit';
 import type { ViewportDimensions } from '../viewport-demo/viewport-demo.js';
@@ -68,7 +68,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
   /** Renders in an iframe */
   @property({
     reflect: true,
-    converter: viewportPropertyConverter
+    converter: viewportPropertyConverter,
   })
   viewport?: boolean | ViewportDimensions;
 
@@ -237,7 +237,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const blob = new Blob([markup], { type: 'text/html' });
     const a = Object.assign(document.createElement('a'), {
       href: URL.createObjectURL(blob),
-      target: '_blank'
+      target: '_blank',
     });
     document.documentElement.append(a);
     a.click();
@@ -255,7 +255,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
     const form = Object.assign(document.createElement('form'), {
       action: 'https://codepen.io/pen/define',
       method: 'POST',
-      target: '_blank'
+      target: '_blank',
     });
 
     const data = {
@@ -271,13 +271,13 @@ export default class WaCodeDemo extends WebAwesomeElement {
       js_pre_processor: 'none',
       html: markup,
       css,
-      js
+      js,
     };
 
     const input = Object.assign(document.createElement('input'), {
       type: 'hidden',
       name: 'data',
-      value: JSON.stringify(data)
+      value: JSON.stringify(data),
     });
     form.append(input);
 
@@ -353,7 +353,7 @@ function dedent(code: string) {
   const indents = lines.map(line => line.match(/^\s*/)?.[0]).filter(Boolean) as string[];
   const minIndent = indents.reduce(
     (minIndentSoFar, indent) => (minIndentSoFar.length < indent.length ? minIndentSoFar : indent),
-    indents[0]
+    indents[0],
   );
 
   if (!minIndent || lines.some(line => !line.startsWith(minIndent))) {

@@ -1,7 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './menu-label.css';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './menu-label.css';
 
 /**
  * @summary Menu labels are used to describe a group of menu items.

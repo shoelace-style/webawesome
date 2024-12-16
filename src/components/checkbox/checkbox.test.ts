@@ -1,10 +1,10 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
+import sinon from 'sinon';
 import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { sendKeys } from '@web/test-runner-commands';
-import sinon from 'sinon';
 import type WaCheckbox from './checkbox.js';
 
 describe('<wa-checkbox>', () => {
@@ -122,7 +122,7 @@ describe('<wa-checkbox>', () => {
 
       it('Should keep its form value when going from checked -> unchecked -> checked', async () => {
         const form = await fixture<HTMLFormElement>(
-          html`<form><wa-checkbox name="test" value="myvalue" checked>Checked</wa-checkbox></form>`
+          html`<form><wa-checkbox name="test" value="myvalue" checked>Checked</wa-checkbox></form>`,
         );
         const checkbox = form.querySelector('wa-checkbox')!;
 

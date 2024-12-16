@@ -1,11 +1,11 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { watch } from '../../internal/watch.js';
-import styles from './avatar.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../icon/icon.js';
+import styles from './avatar.css';
 
 /**
  * @summary Avatars are used to represent a person or object.
@@ -94,7 +94,7 @@ export default class WaAvatar extends WebAwesomeElement {
           avatar: true,
           'avatar--circle': this.shape === 'circle',
           'avatar--rounded': this.shape === 'rounded',
-          'avatar--square': this.shape === 'square'
+          'avatar--square': this.shape === 'square',
         })}
         role="img"
         aria-label=${this.label}

@@ -1,18 +1,18 @@
 import { parse } from 'path';
-import { markdown } from './_utils/markdown.js';
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
-import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 import { currentLink } from './_utils/current-link.js';
 import { highlightCodePlugin } from './_utils/highlight-code.js';
+import { markdown } from './_utils/markdown.js';
+import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
+import litPlugin from '@lit-labs/eleventy-plugin-lit';
+import { readFile } from 'fs/promises';
+import componentList from './_data/componentList.js';
+import { outlinePlugin } from './_utils/outline.js';
 import { replaceTextPlugin } from './_utils/replace-text.js';
 import { searchPlugin } from './_utils/search.js';
-import { readFile } from 'fs/promises';
-import { outlinePlugin } from './_utils/outline.js';
-import componentList from './_data/componentList.js';
-import litPlugin from '@lit-labs/eleventy-plugin-lit';
 
 import process from 'process';
 
@@ -46,6 +46,19 @@ export default function (eleventyConfig) {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
   });
   eleventyConfig.addFilter('keys', obj => Object.keys(obj));
+  eleventyConfig.addFilter('log', (firstArg, ...rest) => {
+    console.log(firstArg, ...rest);
+    return firstArg;
+  });
+
+  eleventyConfig.addFilter('sort', (arr, key = 'data.title') => {
+    key = key.split('.');
+    return arr.sort((a, b) => {
+      let aVal = key.reduce((obj, i) => obj?.[i], a);
+      let bVal = key.reduce((obj, i) => obj?.[i], b);
+      return aVal.localeCompare(bVal);
+    });
+  });
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
@@ -71,8 +84,8 @@ export default function (eleventyConfig) {
       selector: 'h2, h3',
       ifEmpty: doc => {
         doc.querySelector('#outline')?.remove();
-      }
-    })
+      },
+    }),
   );
 
   // Add current link classes
@@ -93,19 +106,19 @@ export default function (eleventyConfig) {
       // Replace [issue:1234] with a link to the issue on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1">#$1</a>'
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1">#$1</a>',
       },
       // Replace [pr:1234] with a link to the pull request on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1">#$1</a>'
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1">#$1</a>',
       },
       // Replace [discuss:1234] with a link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1">#$1</a>'
-      }
-    ])
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1">#$1</a>',
+      },
+    ]),
   );
 
   const omittedModules = [];
@@ -124,7 +137,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules
+    componentModules,
   });
 
   // Build the search index
@@ -132,8 +145,8 @@ export default function (eleventyConfig) {
     searchPlugin({
       filename: '',
       selectorsToIgnore: ['code.example'],
-      getContent: doc => doc.querySelector('#content')?.textContent ?? ''
-    })
+      getContent: doc => doc.querySelector('#content')?.textContent ?? '',
+    }),
   );
 
   // Production-only plugins
@@ -149,8 +162,8 @@ export default function (eleventyConfig) {
     markdownTemplateEngine: 'njk',
     dir: {
       includes: '_includes',
-      layouts: '_layouts'
+      layouts: '_layouts',
     },
-    templateFormats: ['njk', 'md']
+    templateFormats: ['njk', 'md'],
   };
 }

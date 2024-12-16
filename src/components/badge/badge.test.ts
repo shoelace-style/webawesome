@@ -1,6 +1,6 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaBadge from './badge.js';
 
 // The default badge background just misses AA contrast, but the next step up is way too dark. We're going to relax this

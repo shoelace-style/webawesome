@@ -1,9 +1,9 @@
-import { dragElement } from '../../internal/test.js';
 import { expect, oneEvent } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
 import { resetMouse } from '@web/test-runner-commands';
+import { html } from 'lit';
+import { dragElement } from '../../internal/test.js';
+import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaSplitPanel from './split-panel.js';
 
 const DIVIDER_WIDTH_IN_PX = 4;
@@ -51,7 +51,7 @@ describe('<wa-split-panel>', () => {
           html`<wa-split-panel>
             <div slot="start">Start</div>
             <div slot="end">End</div>
-          </wa-split-panel>`
+          </wa-split-panel>`,
         );
 
         await expect(splitPanel).to.be.accessible();
@@ -62,7 +62,7 @@ describe('<wa-split-panel>', () => {
           html`<wa-split-panel>
             <div slot="start">Start</div>
             <div slot="end">End</div>
-          </wa-split-panel>`
+          </wa-split-panel>`,
         );
 
         expect(splitPanel).to.contain.text('Start');
@@ -75,7 +75,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel>
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const startPanelWidth = getPanelWidth(splitPanel, 'start-panel');
@@ -89,7 +89,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel position="25">
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const startPanelWidth = getPanelWidth(splitPanel, 'start-panel');
@@ -103,7 +103,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel position="25">
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           splitPanel.position = 10;
@@ -118,7 +118,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const repositionPromise = oneEvent(splitPanel, 'wa-reposition');
@@ -131,7 +131,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);
@@ -149,7 +149,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel disabled>
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);
@@ -167,7 +167,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);
@@ -188,7 +188,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel vertical style="height: 400px;">
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const startPanelHeight = getPanelHeight(splitPanel, 'start-panel');
@@ -202,7 +202,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel position="25" vertical style="height: 400px;">
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const startPanelHeight = getPanelHeight(splitPanel, 'start-panel');
@@ -216,7 +216,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel position="25" vertical style="height: 400px;">
               <div slot="start" data-testid="start-panel">Start</div>
               <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           splitPanel.position = 10;
@@ -231,7 +231,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel vertical style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const repositionPromise = oneEvent(splitPanel, 'wa-reposition');
@@ -244,7 +244,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel vertical style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);
@@ -262,7 +262,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel disabled vertical style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);
@@ -280,7 +280,7 @@ describe('<wa-split-panel>', () => {
             html`<wa-split-panel vertical style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
-            </wa-split-panel>`
+            </wa-split-panel>`,
           );
 
           const positionInPixels = Math.round(splitPanel.positionInPixels);

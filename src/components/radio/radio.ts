@@ -1,11 +1,12 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, state } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/shadow/size.css';
+import '../icon/icon.js';
 import styles from './radio.css';
 
 /**
@@ -40,10 +41,9 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
 
   @state() checked = false;
-  @state() protected hasFocus = false;
 
   /**
    * The string pointing to a form's id.
@@ -77,12 +77,10 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur = () => {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   };
 
   private handleFocus = () => {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   };
 
@@ -124,10 +122,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
           radio: true,
           'radio--checked': this.checked,
           'radio--disabled': this.disabled,
-          'radio--focused': this.hasFocus,
-          'radio--small': this.size === 'small',
-          'radio--medium': this.size === 'medium',
-          'radio--large': this.size === 'large'
         })}
       >
         <span part="${`control${this.checked ? ' control--checked' : ''}`}" class="radio__control">

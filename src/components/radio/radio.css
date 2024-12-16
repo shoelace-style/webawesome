@@ -26,18 +26,6 @@
   cursor: pointer;
 }
 
-.radio--small {
-  font-size: var(--wa-font-size-s);
-}
-
-.radio--medium {
-  font-size: var(--wa-font-size-m);
-}
-
-.radio--large {
-  font-size: var(--wa-font-size-l);
-}
-
 .radio__checked-icon {
   display: flex;
   fill: currentColor;
@@ -90,7 +78,7 @@
 }
 
 /* Disabled */
-.radio--disabled {
+[part='radio']:has(:disabled) {
   opacity: 0.5;
   cursor: not-allowed;
 }

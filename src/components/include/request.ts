@@ -17,7 +17,7 @@ export function requestInclude(src: string, mode: 'cors' | 'no-cors' | 'same-ori
     const res = {
       ok: response.ok,
       status: response.status,
-      html: await response.text()
+      html: await response.text(),
     };
     // Replace the cached promise with its result to avoid having buggy browser Promises retain memory as mentioned in #1284 and #1249
     includeFiles.set(src, res);

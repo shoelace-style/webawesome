@@ -1,8 +1,8 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './spinner.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**
  * @summary Spinners are used to show the progress of an indeterminate operation.

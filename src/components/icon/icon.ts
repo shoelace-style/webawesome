@@ -1,12 +1,12 @@
-import { customElement, property, state } from 'lit/decorators.js';
-import { getIconLibrary, type IconLibrary, unwatchIcon, watchIcon } from './library.js';
 import { html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import styles from './icon.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './icon.css';
+import { getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';
 
@@ -102,13 +102,13 @@ export default class WaIcon extends WebAwesomeElement {
     if (this.name && library) {
       return {
         url: library.resolver(this.name, this.family, this.variant),
-        fromLibrary: true
+        fromLibrary: true,
       };
     }
 
     return {
       url: this.src,
-      fromLibrary: false
+      fromLibrary: false,
     };
   }
 

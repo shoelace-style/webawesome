@@ -36,7 +36,7 @@ export function getBasePath(subpath = '') {
         script =>
           script.src.endsWith('webawesome.js') ||
           script.src.endsWith('webawesome.loader.js') ||
-          script.src.endsWith('webawesome.ssr-loader.js')
+          script.src.endsWith('webawesome.ssr-loader.js'),
       );
 
       if (waScript) {

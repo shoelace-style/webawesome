@@ -1,0 +1,36 @@
+/* Shadow styles for elements that have a size attribute. */
+
+:host,
+.wa-size-s,
+.wa-size-m,
+.wa-size-l {
+  /* Defaults. Components are expected to override these */
+  --size-xs: var(--wa-font-size-xs, 0.75rem); /* Used for hints etc */
+  --size-s: var(--wa-font-size-s, 0.875rem); /* size=small */
+  --size-m: var(--wa-font-size-m, 1rem); /* default */
+  --size-l: var(--wa-font-size-l, 1.25rem); /* size=large */
+
+  --space-xs: var(--wa-space-xs, 0.5rem);
+  --space-s: var(--wa-space-s, 0.75rem);
+  --space-m: var(--wa-space-m, 1rem);
+  --space-l: var(--wa-space-l, 1.25rem);
+
+  /* Medium size is the default */
+  font-size: var(--size-m);
+  --size-smaller: var(--size-s);
+  --space: var(--space-m);
+}
+
+:host([size='small']),
+.wa-size-s {
+  font-size: var(--size-s);
+  --size-smaller: var(--size-xs);
+  --space: var(--space-s);
+}
+
+:host([size='large']),
+.wa-size-l {
+  font-size: var(--size-l);
+  --size-smaller: var(--size-m);
+  --space: var(--space-l);
+}

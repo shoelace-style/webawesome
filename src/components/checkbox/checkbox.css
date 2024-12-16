@@ -16,28 +16,13 @@
   display: inline-block;
 }
 
-:host([size='small']) {
-  font-size: var(--wa-font-size-s);
-}
-
-:host([size='medium']),
-:host(:not([size])) {
-  font-size: var(--wa-font-size-m);
-}
-
-:host([size='large']) {
-  font-size: var(--wa-font-size-l);
-}
-
 [part~='base'] {
   position: relative;
   display: flex;
   align-items: flex-start;
-  font: inherit;
   color: var(--wa-form-control-value-color);
   vertical-align: middle;
   cursor: pointer;
-  font-size: inherit;
 
   /* Disabled */
   &:has(input:disabled) {
@@ -90,12 +75,12 @@
 
 input {
   position: absolute;
-  opacity: 0;
   padding: 0;
   margin: 0;
-  pointer-events: none;
   height: 100%;
   width: 100%;
+  opacity: 0;
+  pointer-events: none;
 }
 
 [part~='icon'] {

@@ -5,7 +5,7 @@ const initialValues: Record<string, string> = {
   length: '0px',
   time: '0s',
   angle: '0deg',
-  color: 'transparent'
+  color: 'transparent',
 };
 
 interface ResolveOptions {
@@ -16,7 +16,7 @@ interface ResolveOptions {
 
 export function resolve(
   value: string,
-  { on = document.documentElement, as = 'length', initialValue = initialValues[as] }: ResolveOptions = {}
+  { on = document.documentElement, as = 'length', initialValue = initialValues[as] }: ResolveOptions = {},
 ) {
   const resolver = `--wa-${as}-resolver`;
 
@@ -29,7 +29,7 @@ export function resolve(
       name: resolver,
       syntax: `<${as}>`,
       inherits: false,
-      initialValue
+      initialValue,
     });
 
     definedProperties.add(resolver);

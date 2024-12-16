@@ -1,10 +1,10 @@
 // cspell:dictionaries lorem-ipsum
 import { expect, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaHideEvent } from '../../events/hide.js';
 import type { WaShowEvent } from '../../events/show.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaDetails from './details.js';
 
 describe('<wa-details>', () => {

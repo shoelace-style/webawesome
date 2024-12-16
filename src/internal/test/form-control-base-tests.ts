@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { clickOnElement } from '../test.js';
-import { fixtures } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
-import type { clientFixture, hydratedFixture } from './fixture.js';
+import { clickOnElement } from '../test.js';
 import type { WebAwesomeFormControl } from '../webawesome-element.js';
+import type { clientFixture, hydratedFixture } from './fixture.js';
+import { fixtures } from './fixture.js';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
@@ -16,7 +16,7 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
         tagName: string;
         init?: (control: T) => void;
         variantName: string;
-      }
+      },
 ) {
   const isStringArg = typeof tagNameOrConfig === 'string';
   const tagName = isStringArg ? tagNameOrConfig : tagNameOrConfig.tagName;
@@ -56,7 +56,7 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
 function runAllValidityTests(
   tagName: string, //
   displayName: string,
-  renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>
+  renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>,
 ) {
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116

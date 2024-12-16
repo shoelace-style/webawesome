@@ -1,8 +1,8 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-import type WaRadioButton from './radio-button.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaRadioGroup from '../radio-group/radio-group.js';
+import type WaRadioButton from './radio-button.js';
 
 describe('<wa-radio-button>', () => {
   for (const fixture of fixtures) {
@@ -40,7 +40,7 @@ describe('<wa-radio-button>', () => {
           radioGroup.updateComplete,
           radio1.updateComplete,
           radio2.updateComplete,
-          radio3.updateComplete
+          radio3.updateComplete,
         ]);
 
         expect(radio1.classList.contains('wa-button-group__button')).to.be.true;

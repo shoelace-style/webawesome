@@ -1,9 +1,9 @@
-import { clickOnElement } from '../../internal/test.js';
 import { expect, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { html } from 'lit';
 import sinon from 'sinon';
+import { clickOnElement } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaDropdown from './dropdown.js';
 
 describe('<wa-dropdown>', () => {

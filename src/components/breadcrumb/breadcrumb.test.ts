@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaBreadcrumb from './breadcrumb.js';
 
 // The default link color just misses AA contrast, but the next step up is way too dark. Maybe we can solve this in the

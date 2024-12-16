@@ -1,11 +1,11 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
-import styles from './option.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import styles from './option.css';
 
 /**
  * @summary Options define the selectable items within various form controls such as [select](/docs/components/select).
@@ -131,7 +131,7 @@ export default class WaOption extends WebAwesomeElement {
           'option--current': this.current,
           'option--disabled': this.disabled,
           'option--selected': this.selected,
-          'option--hover': this.hasHover
+          'option--hover': this.hasHover,
         })}
         @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}

@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'ru',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Выберите цвет на экране',
   showPassword: 'Показать пароль',
   slideNum: slide => `Слайд ${slide}`,
-  toggleColorFormat: 'Переключить цветовую модель'
+  toggleColorFormat: 'Переключить цветовую модель',
 };
 
 registerTranslation(translation);

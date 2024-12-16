@@ -1,11 +1,11 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
+import sinon from 'sinon';
 import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
-import sinon from 'sinon';
 import type WaOption from '../option/option.js';
 import type WaSelect from './select.js';
 
@@ -642,7 +642,7 @@ describe('<wa-select>', () => {
         describe('With no existing options', () => {
           it('Should wait to select the option when the option exists for single select', async () => {
             const form = await fixture<HTMLFormElement>(
-              html`<form><wa-select name="select" value="option-1"></wa-select></form>`
+              html`<form><wa-select name="select" value="option-1"></wa-select></form>`,
             );
             const el = form.querySelector<WaSelect>('wa-select')!;
 
@@ -662,7 +662,7 @@ describe('<wa-select>', () => {
 
           it('Should wait to select the option when the option exists for multiple select', async () => {
             const form = await fixture<HTMLFormElement>(
-              html`<form><wa-select name="select" value="option-1" multiple></wa-select></form>`
+              html`<form><wa-select name="select" value="option-1" multiple></wa-select></form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -690,7 +690,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -715,7 +715,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -740,7 +740,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;

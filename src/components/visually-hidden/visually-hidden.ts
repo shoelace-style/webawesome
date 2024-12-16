@@ -1,7 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './visually-hidden.css';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './visually-hidden.css';
 
 /**
  * @summary The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.

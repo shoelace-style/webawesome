@@ -1,10 +1,10 @@
-import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit/static-html.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { html } from 'lit/static-html.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import buttonStyles from '../button/button.css';
@@ -166,7 +166,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
             'button--pill': this.pill,
             'button--has-label': hasLabel,
             'button--has-prefix': hasPrefix,
-            'button--has-suffix': hasSuffix
+            'button--has-suffix': hasSuffix,
           })}
           aria-disabled=${this.disabled}
           type="button"

@@ -1,32 +1,32 @@
-import '../button-group/button-group.js';
-import '../button/button.js';
-import '../dropdown/dropdown.js';
-import '../icon/icon.js';
-import '../input/input.js';
-import '../visually-hidden/visually-hidden.js';
-import { clamp } from '../../internal/math.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
-import { drag } from '../../internal/drag.js';
-import { HasSlotController } from '../../internal/slot.js';
-import { html, isServer } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { LocalizeController } from '../../utilities/localize.js';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { TinyColor } from '@ctrl/tinycolor';
+import type { PropertyValues } from 'lit';
+import { html, isServer } from 'lit';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { drag } from '../../internal/drag.js';
+import { clamp } from '../../internal/math.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
-import styles from './color-picker.css';
-import type { PropertyValues } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../button-group/button-group.js';
+import '../button/button.js';
+import '../dropdown/dropdown.js';
 import type WaDropdown from '../dropdown/dropdown.js';
+import '../icon/icon.js';
+import '../input/input.js';
 import type WaInput from '../input/input.js';
+import '../visually-hidden/visually-hidden.js';
+import styles from './color-picker.css';
 
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;
@@ -177,7 +177,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
   @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHint = false;
@@ -308,7 +308,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -338,7 +338,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -372,7 +372,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -542,7 +542,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       h: hslColor.h,
       s: hslColor.s * 100,
       l: hslColor.l * 100,
-      a: hslColor.a
+      a: hslColor.a,
     };
 
     const rgb = color.toRgb();
@@ -556,7 +556,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       h: hsvColor.h,
       s: hsvColor.s * 100,
       v: hsvColor.v * 100,
-      a: hsvColor.a
+      a: hsvColor.a,
     };
 
     return {
@@ -564,7 +564,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         h: hsl.h,
         s: hsl.s,
         l: hsl.l,
-        string: this.setLetterCase(`hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`)
+        string: this.setLetterCase(`hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`),
       },
       hsla: {
         h: hsl.h,
@@ -572,14 +572,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         l: hsl.l,
         a: hsl.a,
         string: this.setLetterCase(
-          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%, ${hsl.a.toFixed(2).toString()})`
-        )
+          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%, ${hsl.a.toFixed(2).toString()})`,
+        ),
       },
       hsv: {
         h: hsv.h,
         s: hsv.s,
         v: hsv.v,
-        string: this.setLetterCase(`hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%)`)
+        string: this.setLetterCase(`hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%)`),
       },
       hsva: {
         h: hsv.h,
@@ -587,14 +587,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         v: hsv.v,
         a: hsv.a,
         string: this.setLetterCase(
-          `hsva(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%, ${hsv.a.toFixed(2).toString()})`
-        )
+          `hsva(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%, ${hsv.a.toFixed(2).toString()})`,
+        ),
       },
       rgb: {
         r: rgb.r,
         g: rgb.g,
         b: rgb.b,
-        string: this.setLetterCase(`rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`)
+        string: this.setLetterCase(`rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`),
       },
       rgba: {
         r: rgb.r,
@@ -602,11 +602,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         b: rgb.b,
         a: rgb.a,
         string: this.setLetterCase(
-          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`
-        )
+          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`,
+        ),
       },
       hex: this.setLetterCase(hex),
-      hexa: this.setLetterCase(hexa)
+      hexa: this.setLetterCase(hexa),
     };
   }
 
@@ -636,7 +636,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private async syncValues() {
     const currentColor = this.parseColor(
-      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`
+      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`,
     );
 
     if (currentColor === null) {
@@ -800,7 +800,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' | 'hsv' | 'hsva' = 'hex') {
     const currentColor = this.parseColor(
-      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`
+      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`,
     );
 
     if (currentColor === null) {
@@ -887,7 +887,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         class=${classMap({
           'color-picker': true,
           'color-picker--disabled': this.disabled,
-          'color-picker--focused': this.hasFocus
+          'color-picker--focused': this.hasFocus,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         tabindex="-1"
@@ -903,12 +903,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="grid-handle"
             class=${classMap({
               'color-picker__grid-handle': true,
-              'color-picker__grid-handle--dragging': this.isDraggingGridHandle
+              'color-picker__grid-handle--dragging': this.isDraggingGridHandle,
             })}
             style=${styleMap({
               top: `${gridHandleY}%`,
               left: `${gridHandleX}%`,
-              backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             role="application"
             aria-label="HSV"
@@ -930,7 +930,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                 class="color-picker__slider-handle"
                 style=${styleMap({
                   left: `${this.hue === 0 ? 0 : 100 / (360 / this.hue)}%`,
-                  backgroundColor: this.getHexString(this.hue, 100, 100)
+                  backgroundColor: this.getHexString(this.hue, 100, 100),
                 })}
                 role="slider"
                 aria-label="hue"
@@ -958,7 +958,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                           to right,
                           ${this.getHexString(this.hue, this.saturation, this.brightness, 0)} 0%,
                           ${this.getHexString(this.hue, this.saturation, this.brightness, 100)} 100%
-                        )`
+                        )`,
                       })}
                     ></div>
                     <span
@@ -966,7 +966,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       class="color-picker__slider-handle"
                       style=${styleMap({
                         left: `${this.alpha}%`,
-                        backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+                        backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
                       })}
                       role="slider"
                       aria-label="alpha"
@@ -988,7 +988,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             class="color-picker__preview color-picker__transparent-bg"
             aria-label=${this.localize.term('copy')}
             style=${styleMap({
-              '--preview-color': this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              '--preview-color': this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             @click=${this.handleCopy}
           ></button>
@@ -1119,7 +1119,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             'form-control--medium': this.size === 'medium',
             'form-control--large': this.size === 'large',
             'form-control--has-label': hasLabel,
-            'form-control--has-hint': hasHint
           })}
           part="trigger-container form-control"
           slot="trigger"
@@ -1158,19 +1157,24 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               'color-dropdown__trigger--empty': this.isEmpty,
               'color-dropdown__trigger--focused': this.hasFocus,
               'color-picker__transparent-bg': true,
-              'form-control-input': true
+              'form-control-input': true,
             })}
             style=${styleMap({
-              color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             type="button"
             aria-labelledby="form-control-label"
             aria-describedby="hint"
           ></button>
 
-          <div part="form-control-hint" id="hint" class="form-control__hint">
-            <slot name="hint">${this.hint}</slot>
-          </div>
+          <slot
+            name="hint"
+            part="hint"
+            class=${classMap({
+              'has-slotted': hasHint,
+            })}
+            >${this.hint}</slot
+          >
         </div>
         ${colorPicker}
       </wa-dropdown>

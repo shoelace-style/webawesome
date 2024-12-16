@@ -11,7 +11,7 @@ export const CustomErrorValidator = (): Validator => {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       if (element.customError) {
@@ -21,6 +21,6 @@ export const CustomErrorValidator = (): Validator => {
       }
 
       return validity;
-    }
+    },
   };
 };

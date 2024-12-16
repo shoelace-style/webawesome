@@ -1,6 +1,6 @@
 import { elementUpdated, expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaFormatBytes from './format-bytes.js';
 
 describe('<wa-format-bytes>', () => {
@@ -23,26 +23,26 @@ describe('<wa-format-bytes>', () => {
             value: 12,
             short: '12 byte',
             long: '12 bytes',
-            narrow: '12B'
+            narrow: '12B',
           },
           {
             value: 1200,
             short: '1.2 kB',
             long: '1.2 kilobytes',
-            narrow: '1.2kB'
+            narrow: '1.2kB',
           },
           {
             value: 1200000,
             short: '1.2 MB',
             long: '1.2 megabytes',
-            narrow: '1.2MB'
+            narrow: '1.2MB',
           },
           {
             value: 1200000000,
             short: '1.2 GB',
             long: '1.2 gigabytes',
-            narrow: '1.2GB'
-          }
+            narrow: '1.2GB',
+          },
         ];
 
         results.forEach(expected => {
@@ -74,26 +74,26 @@ describe('<wa-format-bytes>', () => {
             value: 12,
             short: '12 bit',
             long: '12 bits',
-            narrow: '12bit'
+            narrow: '12bit',
           },
           {
             value: 1200,
             short: '1.2 kb',
             long: '1.2 kilobits',
-            narrow: '1.2kb'
+            narrow: '1.2kb',
           },
           {
             value: 1200000,
             short: '1.2 Mb',
             long: '1.2 megabits',
-            narrow: '1.2Mb'
+            narrow: '1.2Mb',
           },
           {
             value: 1200000000,
             short: '1.2 Gb',
             long: '1.2 gigabits',
-            narrow: '1.2Gb'
-          }
+            narrow: '1.2Gb',
+          },
         ];
 
         results.forEach(expected => {

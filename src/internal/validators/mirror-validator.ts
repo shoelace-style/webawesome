@@ -12,7 +12,7 @@ export const MirrorValidator = (): Validator => {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       if (!formControl) {
@@ -54,6 +54,6 @@ export const MirrorValidator = (): Validator => {
       }
 
       return validity;
-    }
+    },
   };
 };

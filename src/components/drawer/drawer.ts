@@ -1,17 +1,17 @@
-import '../icon-button/icon-button.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import styles from './drawer.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import styles from './drawer.css';
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
@@ -245,7 +245,7 @@ export default class WaDrawer extends WebAwesomeElement {
           'drawer--start': this.placement === 'start',
           'drawer--rtl': this.localize.dir() === 'rtl',
           'drawer--with-header': this.withHeader,
-          'drawer--with-footer': this.withFooter
+          'drawer--with-footer': this.withFooter,
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}

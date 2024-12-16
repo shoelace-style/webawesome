@@ -1,11 +1,11 @@
-import '../icon-button/icon-button.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaRemoveEvent } from '../../events/remove.js';
-import styles from './tag.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import styles from './tag.css';
 
 /**
  * @summary Tags are used as labels to organize things or to indicate a selection.
@@ -75,7 +75,7 @@ export default class WaTag extends WebAwesomeElement {
 
           // Modifiers
           'tag--pill': this.pill,
-          'tag--removable': this.removable
+          'tag--removable': this.removable,
         })}
       >
         <slot part="content" class="tag__content"></slot>

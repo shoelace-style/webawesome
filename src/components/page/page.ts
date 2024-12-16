@@ -1,12 +1,12 @@
-import '../drawer/drawer.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
-import { toLength, toPx } from '../../internal/css-values.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import mobileStyles from './page.mobile.styles.js';
-import styles from './page.css';
+import { toLength, toPx } from '../../internal/css-values.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../drawer/drawer.js';
+import styles from './page.css';
+import mobileStyles from './page.mobile.styles.js';
 
 import type { PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';

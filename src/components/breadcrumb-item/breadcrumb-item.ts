@@ -1,9 +1,9 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { watch } from '../../internal/watch.js';
-import styles from './breadcrumb-item.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './breadcrumb-item.css';
 
 /**
  * @summary Breadcrumb Items are used inside [breadcrumbs](/docs/components/breadcrumb) to represent different links.

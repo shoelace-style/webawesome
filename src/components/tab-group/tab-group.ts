@@ -1,18 +1,18 @@
-import '../icon-button/icon-button.js';
-import '../tab-panel/tab-panel.js';
-import '../tab/tab.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { scrollIntoView } from '../../internal/scroll.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
 import { WaTabShowEvent } from '../../events/tab-show.js';
+import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import styles from './tab-group.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type WaTab from '../tab/tab.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import '../tab-panel/tab-panel.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
+import '../tab/tab.js';
+import type WaTab from '../tab/tab.js';
+import styles from './tab-group.css';
 
 /**
  * @summary Tab groups organize content into a container that shows one section at a time.
@@ -276,7 +276,7 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.localize.dir() === 'rtl'
           ? this.nav.scrollLeft + this.nav.clientWidth
           : this.nav.scrollLeft - this.nav.clientWidth,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -286,7 +286,7 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.localize.dir() === 'rtl'
           ? this.nav.scrollLeft - this.nav.clientWidth
           : this.nav.scrollLeft + this.nav.clientWidth,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -294,7 +294,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     options = {
       emitEvents: true,
       scrollBehavior: 'auto',
-      ...options
+      ...options,
     };
 
     if (tab !== this.activeTab && !tab.disabled) {
@@ -383,7 +383,7 @@ export default class WaTabGroup extends WebAwesomeElement {
           'tab-group--start': this.placement === 'start',
           'tab-group--end': this.placement === 'end',
           'tab-group--rtl': isRtl,
-          'tab-group--has-scroll-controls': this.hasScrollControls
+          'tab-group--has-scroll-controls': this.hasScrollControls,
         })}
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}

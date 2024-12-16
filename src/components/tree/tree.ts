@@ -1,12 +1,12 @@
-import { clamp } from '../../internal/math.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
+import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import styles from './tree.css';
-import WaTreeItem from '../tree-item/tree-item.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import WaTreeItem from '../tree-item/tree-item.js';
+import styles from './tree.css';
 
 function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
   function syncParentItem(treeItem: WaTreeItem) {

@@ -1,11 +1,11 @@
-import '../icon/icon.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import styles from './animated-image.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../icon/icon.js';
+import styles from './animated-image.css';
 
 /**
  * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.

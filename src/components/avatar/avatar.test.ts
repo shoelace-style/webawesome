@@ -1,6 +1,6 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaAvatar from './avatar.js';
 
 // The default avatar background just misses AA contrast, but the next step up is way too dark. Since avatars aren't
@@ -82,7 +82,7 @@ describe('<wa-avatar>', () => {
         const label = 'Small transparent square';
         beforeEach(async () => {
           el = await fixture<WaAvatar>(
-            html`<wa-avatar image="${image}" label="${label}" initials="${initials}"></wa-avatar>`
+            html`<wa-avatar image="${image}" label="${label}" initials="${initials}"></wa-avatar>`,
           );
         });
 
@@ -138,7 +138,7 @@ describe('<wa-avatar>', () => {
       describe('when passed a <span>, on slot "icon"', () => {
         beforeEach(async () => {
           el = await fixture<WaAvatar>(
-            html`<wa-avatar label="Avatar"><span slot="icon">random content</span></wa-avatar>`
+            html`<wa-avatar label="Avatar"><span slot="icon">random content</span></wa-avatar>`,
           );
         });
 

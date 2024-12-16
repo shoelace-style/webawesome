@@ -1,19 +1,19 @@
-import { deleteAsync } from 'del';
-import { dirname, join, relative } from 'path';
-import { distDir, docsDir, cdnDir, rootDir, runScript, siteDir } from './utils.js';
-import { execSync } from 'child_process';
-import { fileURLToPath } from 'url';
-import { globby } from 'globby';
-import { mkdir, readFile } from 'fs/promises';
-import { replace } from 'esbuild-plugin-replace';
+import { litCssPlugin } from '@konnorr/esbuild-plugin-lit-css';
 import browserSync from 'browser-sync';
 import chalk from 'chalk';
-import copy from 'recursive-copy';
+import { execSync } from 'child_process';
+import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
+import { replace } from 'esbuild-plugin-replace';
+import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
+import { globby } from 'globby';
 import ora from 'ora';
+import { dirname, join, relative } from 'path';
 import process from 'process';
-import { litCssPlugin } from '@konnorr/esbuild-plugin-lit-css';
+import copy from 'recursive-copy';
+import { fileURLToPath } from 'url';
+import { cdnDir, distDir, docsDir, rootDir, runScript, siteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -23,7 +23,7 @@ const packageData = JSON.parse(await readFile(join(rootDir, 'package.json'), 'ut
 const version = JSON.stringify(packageData.version.toString());
 let buildContexts = {
   bundledContext: {},
-  unbundledContext: {}
+  unbundledContext: {},
 };
 
 /**
@@ -112,15 +112,15 @@ async function generateStyles() {
       'themes/default.css',
       'forms.css',
       'utilities',
-      'utilities.css'
+      'utilities.css',
     ];
 
     await Promise.all(
       alphaStyles.map(file =>
         copy(join(rootDir, `src/styles/${file}`), join(cdnDir, `styles/${file}.css`), {
-          overwrite: true
-        })
-      )
+          overwrite: true,
+        }),
+      ),
     );
   } else {
     await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
@@ -172,20 +172,20 @@ async function generateBundle() {
       // Translations
       ...(await globby('./src/translations/**/*.ts')),
       // React wrappers
-      ...(await globby('./src/react/**/*.ts'))
+      ...(await globby('./src/react/**/*.ts')),
     ],
     outdir: cdnDir,
     chunkNames: 'chunks/[name].[hash]',
     define: {
-      'process.env.NODE_ENV': '"production"' // required by Floating UI
+      'process.env.NODE_ENV': '"production"', // required by Floating UI
     },
     bundle: true,
     splitting: true,
     minify: false,
     plugins: [replace({ __WEBAWESOME_VERSION__: version }), litCssPlugin()],
     loader: {
-      '.css': 'text'
-    }
+      '.css': 'text',
+    },
   };
 
   const unbundledConfig = {
@@ -194,7 +194,7 @@ async function generateBundle() {
     treeShaking: true,
     // Don't inline libraries like Lit etc.
     packages: 'external',
-    outdir: distDir
+    outdir: distDir,
   };
 
   try {
@@ -297,8 +297,8 @@ if (isDeveloping) {
       server: {
         baseDir: siteDir,
         routes: {
-          '/dist/': './dist-cdn/'
-        }
+          '/dist/': './dist-cdn/',
+        },
       },
       callbacks: {
         ready: (_err, instance) => {
@@ -319,13 +319,13 @@ if (isDeveloping) {
 
             res.end();
           });
-        }
-      }
+        },
+      },
     },
     () => {
       spinner.succeed();
       console.log(`\nThe dev server is running at ${chalk.cyan(url)}\n`);
-    }
+    },
   );
 
   // Rebuild and reload when source files change

@@ -42,7 +42,7 @@ const library: IconLibrary = {
   name: 'default',
   resolver: (name: string, family = 'classic', variant = 'solid') => {
     return getIconUrl(name, family, variant);
-  }
+  },
 };
 
 export default library;

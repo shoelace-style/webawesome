@@ -11,7 +11,7 @@
     const newStylesheet = Object.assign(document.createElement('link'), {
       href: `/dist/styles/themes/${presetTheme}.css`,
       rel: 'preload',
-      as: 'style'
+      as: 'style',
     });
 
     newStylesheet.addEventListener(
@@ -23,7 +23,7 @@
           stylesheet.remove();
         });
       },
-      { once: true }
+      { once: true },
     );
 
     document.head.append(newStylesheet);

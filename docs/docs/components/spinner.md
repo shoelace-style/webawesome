@@ -1,7 +1,7 @@
 ---
 title: Spinner
 description: Spinners are used to show the progress of an indeterminate operation.
-layout: component
+tags: component
 ---
 
 ```html {.example}

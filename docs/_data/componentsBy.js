@@ -6,7 +6,7 @@ const by = {
   event: {},
   method: {},
   cssPart: {},
-  cssProperty: {}
+  cssProperty: {},
 };
 
 function getAll(component, type) {

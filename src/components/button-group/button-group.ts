@@ -1,7 +1,7 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './button-group.css';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './button-group.css';
 
 /**
  * @summary Button groups can be used to group related buttons into sections.

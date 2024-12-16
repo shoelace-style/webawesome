@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'hu',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Szín választása a képernyőről',
   showPassword: 'Jelszó megjelenítése',
   slideNum: slide => `${slide}. dia`,
-  toggleColorFormat: 'Színformátum változtatása'
+  toggleColorFormat: 'Színformátum változtatása',
 };
 
 registerTranslation(translation);

@@ -1,16 +1,16 @@
+import type { PropertyValues } from 'lit';
+import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { getTextContent } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import '../popup/popup.js';
 import '../spinner/spinner.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
-import { getTextContent } from '../../internal/slot.js';
-import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { SubmenuController } from './submenu-controller.js';
-import { watch } from '../../internal/watch.js';
 import styles from './menu-item.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { PropertyValues } from 'lit';
+import { SubmenuController } from './submenu-controller.js';
 
 /**
  * @summary Menu items provide options for the user to pick from in a menu.
@@ -178,7 +178,7 @@ export default class WaMenuItem extends WebAwesomeElement {
           'menu-item--disabled': this.disabled,
           'menu-item--loading': this.loading,
           'menu-item--has-submenu': this.isSubmenu(),
-          'menu-item--submenu-expanded': isSubmenuExpanded
+          'menu-item--submenu-expanded': isSubmenuExpanded,
         })}
         ?aria-haspopup="${this.isSubmenu()}"
         ?aria-expanded="${isSubmenuExpanded ? true : false}"

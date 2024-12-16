@@ -1,6 +1,6 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaTabPanel from './tab-panel.js';
 
 describe('<wa-tab-panel>', () => {

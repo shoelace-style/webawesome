@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaProgressRing from './progress-ring.js';
 
 describe('<wa-progress-ring>', () => {
@@ -23,7 +23,7 @@ describe('<wa-progress-ring>', () => {
 
         beforeEach(async () => {
           el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring title="Titled Progress Ring" value="25"></wa-progress-ring>`
+            html`<wa-progress-ring title="Titled Progress Ring" value="25"></wa-progress-ring>`,
           );
           base = el.shadowRoot!.querySelector('[part~="base"]')!;
         });
@@ -44,7 +44,7 @@ describe('<wa-progress-ring>', () => {
       describe('when provided a ariaLabel, and value parameter', () => {
         beforeEach(async () => {
           el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring ariaLabel="Labelled Progress Ring" value="25"></wa-progress-ring>`
+            html`<wa-progress-ring ariaLabel="Labelled Progress Ring" value="25"></wa-progress-ring>`,
           );
         });
 

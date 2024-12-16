@@ -1,18 +1,18 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { LocalizeController } from '../../utilities/localize.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
+import { LocalizeController } from '../../utilities/localize.js';
 import styles from './range.css';
 
 /**
@@ -33,7 +33,7 @@ import styles from './range.css';
  * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The range's wrapper.
- * @csspart form-control-hint - The hint's wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart base - The component's base wrapper.
  * @csspart input - The internal `<input>` element.
  * @csspart tooltip - The range's tooltip.
@@ -68,10 +68,11 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The name of the range, submitted as a name/value pair with form data. */
-  @property() name = '';
+  @property() name: string = '';
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue = Number(this.getAttribute('value')) || 0;
+  @property({ type: Number, attribute: 'value', reflect: true }) defaultValue: number =
+    Number(this.getAttribute('value')) || 0;
 
   private _value: number | null = null;
 
@@ -126,7 +127,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
    * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
    * the same document or shadow root for this to work.
    */
-  @property({ reflect: true }) form: null | string = null;
+  @property({ reflect: true }) form: string | null = null;
 
   /**
    * Used for SSR to render slotted labels. If true, will render slotted label content on first paint.
@@ -285,7 +286,6 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control--medium': true, // range only has one size
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHint
         })}
       >
         <label
@@ -307,7 +307,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
               'range--rtl': this.localize.dir() === 'rtl',
               'range--tooltip-visible': this.hasTooltip,
               'range--tooltip-top': this.tooltip === 'top',
-              'range--tooltip-bottom': this.tooltip === 'bottom'
+              'range--tooltip-bottom': this.tooltip === 'bottom',
             })}
             @mousedown=${this.handleThumbDragStart}
             @mouseup=${this.handleThumbDragEnd}
@@ -342,9 +342,15 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           </div>
         </div>
 
-        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
-          <slot name="hint">${this.hint}</slot>
-        </div>
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          >${this.hint}</slot
+        >
       </div>
     `;
   }

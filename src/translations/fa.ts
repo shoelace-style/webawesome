@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'fa',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'انتخاب یک رنگ از صفحه نمایش',
   showPassword: 'نمایش رمز',
   slideNum: slide => `اسلاید ${slide}`,
-  toggleColorFormat: 'تغییر قالب رنگ'
+  toggleColorFormat: 'تغییر قالب رنگ',
 };
 
 registerTranslation(translation);

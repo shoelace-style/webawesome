@@ -1,22 +1,22 @@
 import '../../internal/scrollend-polyfill.js';
 
+import type { PropertyValueMap } from 'lit';
+import { html, isServer } from 'lit';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { map } from 'lit/directives/map.js';
+import { range } from 'lit/directives/range.js';
+import { WaSlideChangeEvent } from '../../events/slide-change.js';
+import { prefersReducedMotion } from '../../internal/animate.js';
+import { waitForEvent } from '../../internal/event.js';
+import { clamp } from '../../internal/math.js';
+import { watch } from '../../internal/watch.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import type WaCarouselItem from '../carousel-item/carousel-item.js';
 import '../icon/icon.js';
 import { AutoplayController } from './autoplay-controller.js';
-import { clamp } from '../../internal/math.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
-import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { map } from 'lit/directives/map.js';
-import { prefersReducedMotion } from '../../internal/animate.js';
-import { range } from 'lit/directives/range.js';
-import { waitForEvent } from '../../internal/event.js';
-import { WaSlideChangeEvent } from '../../events/slide-change.js';
-import { watch } from '../../internal/watch.js';
 import styles from './carousel.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { PropertyValueMap } from 'lit';
-import type WaCarouselItem from '../carousel-item/carousel-item.js';
 
 /**
  * @summary Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
@@ -119,7 +119,7 @@ export default class WaCarousel extends WebAwesomeElement {
     this.mutationObserver = new MutationObserver(this.handleSlotChange);
     this.mutationObserver.observe(this, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 
@@ -154,7 +154,7 @@ export default class WaCarousel extends WebAwesomeElement {
   /** @internal Gets all carousel items. */
   private getSlides({ excludeClones = true }: { excludeClones?: boolean } = {}) {
     return [...this.children].filter(
-      (el: HTMLElement) => this.isCarouselItem(el) && (!excludeClones || !el.hasAttribute('data-clone'))
+      (el: HTMLElement) => this.isCarouselItem(el) && (!excludeClones || !el.hasAttribute('data-clone')),
     ) as WaCarouselItem[];
   }
 
@@ -203,7 +203,7 @@ export default class WaCarousel extends WebAwesomeElement {
       if (isFocusInPagination) {
         this.updateComplete.then(() => {
           const activePaginationItem = this.shadowRoot?.querySelector<HTMLButtonElement>(
-            '[part~="pagination-item--active"]'
+            '[part~="pagination-item--active"]',
           );
 
           if (activePaginationItem) {
@@ -235,7 +235,7 @@ export default class WaCarousel extends WebAwesomeElement {
     this.scrollContainer.scrollBy({
       left: -event.movementX,
       top: -event.movementY,
-      behavior: 'instant'
+      behavior: 'instant',
     });
   };
 
@@ -269,7 +269,7 @@ export default class WaCarousel extends WebAwesomeElement {
         scrollContainer.scrollTo({
           left: finalLeft,
           top: finalTop,
-          behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+          behavior: prefersReducedMotion() ? 'auto' : 'smooth',
         });
         await waitForEvent(scrollContainer, 'scrollend');
       }
@@ -333,8 +333,8 @@ export default class WaCarousel extends WebAwesomeElement {
       },
       {
         root: this.scrollContainer,
-        threshold: 0.6
-      }
+        threshold: 0.6,
+      },
     );
 
     this.getSlides({ excludeClones: false }).forEach(slide => {
@@ -359,8 +359,8 @@ export default class WaCarousel extends WebAwesomeElement {
   private handleSlotChange = (mutations: MutationRecord[]) => {
     const needsInitialization = mutations.some(mutation =>
       [...mutation.addedNodes, ...mutation.removedNodes].some(
-        (el: HTMLElement) => this.isCarouselItem(el) && !el.hasAttribute('data-clone')
-      )
+        (el: HTMLElement) => this.isCarouselItem(el) && !el.hasAttribute('data-clone'),
+      ),
     );
 
     // Reinitialize the carousel if a carousel item has been added or removed
@@ -430,8 +430,8 @@ export default class WaCarousel extends WebAwesomeElement {
       this.dispatchEvent(
         new WaSlideChangeEvent({
           index: this.activeSlide,
-          slide: slides[this.activeSlide]
-        })
+          slide: slides[this.activeSlide],
+        }),
       );
     }
   }
@@ -508,7 +508,7 @@ export default class WaCarousel extends WebAwesomeElement {
     const nextSlideIndex = clamp(
       index + (loop ? slidesPerPage : 0) + (isRtl ? slidesPerPage - 1 : 0),
       0,
-      slidesWithClones.length - 1
+      slidesWithClones.length - 1,
     );
 
     const nextSlide = slidesWithClones[nextSlideIndex];
@@ -541,7 +541,7 @@ export default class WaCarousel extends WebAwesomeElement {
         scrollContainer.scrollTo({
           left: nextLeft + scrollContainer.scrollLeft,
           top: nextTop + scrollContainer.scrollTop,
-          behavior
+          behavior,
         });
       } else {
         this.pendingSlideChange = false;
@@ -577,7 +577,7 @@ export default class WaCarousel extends WebAwesomeElement {
             carousel__slides: true,
             'carousel__slides--horizontal': this.orientation === 'horizontal',
             'carousel__slides--vertical': this.orientation === 'vertical',
-            'carousel__slides--dragging': this.dragging
+            'carousel__slides--dragging': this.dragging,
           })}"
           style="--slides-per-page: ${this.slidesPerPage};"
           aria-busy="${scrolling ? 'true' : 'false'}"
@@ -600,7 +600,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   class="${classMap({
                     'carousel__navigation-button': true,
                     'carousel__navigation-button--previous': true,
-                    'carousel__navigation-button--disabled': !prevEnabled
+                    'carousel__navigation-button--disabled': !prevEnabled,
                   })}"
                   aria-label="${this.localize.term('previousSlide')}"
                   aria-controls="scroll-container"
@@ -617,7 +617,7 @@ export default class WaCarousel extends WebAwesomeElement {
                   class=${classMap({
                     'carousel__navigation-button': true,
                     'carousel__navigation-button--next': true,
-                    'carousel__navigation-button--disabled': !nextEnabled
+                    'carousel__navigation-button--disabled': !nextEnabled,
                   })}
                   aria-label="${this.localize.term('nextSlide')}"
                   aria-controls="scroll-container"
@@ -641,7 +641,7 @@ export default class WaCarousel extends WebAwesomeElement {
                       part="pagination-item ${isActive ? 'pagination-item--active' : ''}"
                       class="${classMap({
                         'carousel__pagination-item': true,
-                        'carousel__pagination-item--active': isActive
+                        'carousel__pagination-item--active': isActive,
                       })}"
                       role="tab"
                       aria-selected="${isActive ? 'true' : 'false'}"

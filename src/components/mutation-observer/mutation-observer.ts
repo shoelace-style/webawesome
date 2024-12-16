@@ -1,9 +1,9 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { WaMutationEvent } from '../../events/mutation.js';
 import { watch } from '../../internal/watch.js';
-import styles from './mutation-observer.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './mutation-observer.css';
 
 /**
  * @summary The Mutation Observer component offers a thin, declarative interface to the [`MutationObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
@@ -75,7 +75,7 @@ export default class WaMutationObserver extends WebAwesomeElement {
         attributeFilter,
         attributeOldValue: this.attrOldValue,
         characterData: this.charData,
-        characterDataOldValue: this.charDataOldValue
+        characterDataOldValue: this.charDataOldValue,
       });
     } catch {
       //

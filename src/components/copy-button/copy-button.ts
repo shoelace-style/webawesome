@@ -1,16 +1,16 @@
-import '../icon/icon.js';
-import '../tooltip/tooltip.js';
-import '../visually-hidden/visually-hidden.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
-import styles from './copy-button.css';
+import { animateWithClass } from '../../internal/animate.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
+import '../visually-hidden/visually-hidden.js';
+import styles from './copy-button.css';
 
 /**
  * @summary Copies text data to the clipboard when the user clicks the trigger.
@@ -215,7 +215,7 @@ export default class WaCopyButton extends WebAwesomeElement {
           class=${classMap({
             'copy-button': true,
             'copy-button--success': this.status === 'success',
-            'copy-button--error': this.status === 'error'
+            'copy-button--error': this.status === 'error',
           })}
           for="copy-button"
           placement=${this.tooltipPlacement}

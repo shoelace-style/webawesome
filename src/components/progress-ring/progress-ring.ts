@@ -1,8 +1,8 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-ring.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
 
 /**
  * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.

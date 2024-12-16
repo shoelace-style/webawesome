@@ -100,34 +100,25 @@
 /*
    * Size modifiers
    */
-
-.textarea--small {
-  font-size: var(--wa-font-size-s);
+:host {
+  --padding-inline: var(--wa-space-m);
 }
 
-.textarea--small .textarea__control {
-  padding: 0.5em var(--wa-space-s);
+:host([size='small']) {
+  --padding-inline: var(--wa-space-s);
 }
 
-.textarea--medium {
-  font-size: var(--wa-font-size-m);
+:host([size='large']) {
+  --padding-inline: var(--wa-space-l);
 }
 
-.textarea--medium .textarea__control {
-  padding: 0.5em var(--wa-space-m);
-}
-
-.textarea--large {
-  font-size: var(--wa-font-size-l);
-}
-
-.textarea--large .textarea__control {
-  padding: 0.5em var(--wa-space-l);
+.textarea__control {
+  padding: 0.5em var(--padding-inline);
 }
 
 /*
-   * Resize types
-   */
+ * Resize types
+ */
 
 .textarea--resize-none .textarea__control {
   resize: none;

@@ -1,19 +1,19 @@
-import '../button-group/button-group.js';
-import '../radio/radio.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html, isServer } from 'lit';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { uniqueId } from '../../internal/math.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaInputEvent } from '../../events/input.js';
+import { uniqueId } from '../../internal/math.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
-import styles from './radio-group.css';
-import type WaRadio from '../radio/radio.js';
+import '../button-group/button-group.js';
 import type WaRadioButton from '../radio-button/radio-button.js';
+import '../radio/radio.js';
+import type WaRadio from '../radio/radio.js';
+import styles from './radio-group.css';
 
 /**
  * @summary Radio groups are used to group multiple [radios](/docs/components/radio) or [radio buttons](/docs/components/radio-button) so they function as a single form control.
@@ -35,7 +35,7 @@ import type WaRadioButton from '../radio-button/radio-button.js';
  * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-hint - The hint's wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart button-group - The button group that wraps radio buttons.
  * @csspart button-group__base - The button group's `base` part.
  */
@@ -52,9 +52,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
               required: true,
               type: 'radio',
               // we need an id that's guaranteed to be unique; users will never see this
-              name: uniqueId('__wa-radio')
-            })
-          })
+              name: uniqueId('__wa-radio'),
+            }),
+          }),
         ];
     return [...super.validators, ...validators];
   }
@@ -99,7 +99,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The radio group's size. This size will be applied to all child radios and radio buttons. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -185,7 +185,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         } else {
           radio.checked = false;
         }
-      })
+      }),
     );
 
     this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
@@ -326,7 +326,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control--large': this.size === 'large',
           'form-control--radio-group': true,
           'form-control--has-label': hasLabel,
-          'form-control--has-hint': hasHint
         })}
         role="radiogroup"
         aria-labelledby="label"
@@ -353,9 +352,15 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
             : defaultSlot}
         </div>
 
-        <div part="form-control-hint" id="hint" class="form-control__hint" aria-hidden=${hasHint ? 'false' : 'true'}>
-          <slot name="hint">${this.hint}</slot>
-        </div>
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          >${this.hint}</slot
+        >
       </fieldset>
     `;
   }

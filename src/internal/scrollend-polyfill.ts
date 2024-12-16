@@ -24,7 +24,7 @@ type MethodOf<T, K extends keyof T> = T[K] extends GenericCallback ? T[K] : neve
   const decorate = <T, M extends keyof T>(
     proto: T,
     method: M,
-    decorateFn: (this: unknown, superFn: T[M], ...args: unknown[]) => unknown
+    decorateFn: (this: unknown, superFn: T[M], ...args: unknown[]) => unknown,
   ) => {
     const superFn = proto[method] as MethodOf<T, M>;
 

@@ -2,8 +2,8 @@ import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integrat
 import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
 // import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import { parse } from 'comment-parser';
-import { pascalCase } from 'pascal-case';
 import fs from 'fs';
+import { pascalCase } from 'pascal-case';
 
 const packageData = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
@@ -28,7 +28,7 @@ export default {
       name: 'wa-package-data',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest.package = { name, description, version, author, homepage, license };
-      }
+      },
     },
 
     // Parse custom jsDoc tags
@@ -83,13 +83,13 @@ export default {
                   classDoc[t.tag].push({
                     name: t.name,
                     description: t.description,
-                    type: t.type || undefined
+                    type: t.type || undefined,
                   });
               }
             });
           }
         }
-      }
+      },
     },
 
     {
@@ -109,7 +109,7 @@ export default {
             }
           }
         }
-      }
+      },
     },
 
     {
@@ -127,7 +127,7 @@ export default {
           //
           const terms = [
             { from: /^src\//, to: '' }, // Strip the src/ prefix
-            { from: /\.(t|j)sx?$/, to: '.js' } // Convert .ts to .js
+            { from: /\.(t|j)sx?$/, to: '.js' }, // Convert .ts to .js
           ];
 
           mod.path = replace(mod.path, terms);
@@ -146,7 +146,7 @@ export default {
             }
           }
         });
-      }
+      },
     },
 
     // Generate custom VS Code data
@@ -156,9 +156,9 @@ export default {
       referencesTemplate: (_, tag) => [
         {
           name: 'Documentation',
-          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`
-        }
-      ]
+          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
+        },
+      ],
     }),
 
     customElementJetBrainsPlugin({
@@ -168,10 +168,10 @@ export default {
       referencesTemplate: (_, tag) => {
         return {
           name: 'Documentation',
-          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`
+          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
         };
-      }
-    })
+      },
+    }),
 
     //
     // TODO - figure out why this broke when events were updated
@@ -181,5 +181,5 @@ export default {
     //   fileName: 'index.d.ts',
     //   componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`
     // })
-  ]
+  ],
 };

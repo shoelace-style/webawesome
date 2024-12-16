@@ -1,12 +1,12 @@
-import '../icon-button/icon-button.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { getComputedStyle } from '../../internal/computedStyle.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { getComputedStyle } from '../../internal/computedStyle.js';
 import { watch } from '../../internal/watch.js';
-import styles from './viewport-demo.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../icon-button/icon-button.js';
+import styles from './viewport-demo.css';
 
 export interface ViewportDimensions {
   width: number;
@@ -14,7 +14,7 @@ export interface ViewportDimensions {
 }
 
 export function isViewportDimensions(
-  viewport: boolean | ViewportDimensions | undefined
+  viewport: boolean | ViewportDimensions | undefined,
 ): viewport is ViewportDimensions {
   return Boolean(viewport) && typeof viewport === 'object' && 'width' in viewport;
 }
@@ -43,7 +43,7 @@ export const viewportPropertyConverter = {
       return '';
     }
     return `${value.width} x ${value.height}`;
-  }
+  },
 };
 
 /**
@@ -101,8 +101,8 @@ export default class WaViewportDemo extends WebAwesomeElement {
           return '';
         }
         return `${value.width} x ${value.height}`;
-      }
-    }
+      },
+    },
   })
   viewport?: boolean | ViewportDimensions;
 
@@ -192,7 +192,7 @@ export default class WaViewportDemo extends WebAwesomeElement {
       const offsets = {
         host: getHorizontalOffsets(getComputedStyle(this)),
         frame: getHorizontalOffsets(getComputedStyle(this.viewportElement)),
-        iframe: getHorizontalOffsets(getComputedStyle(this.iframe))
+        iframe: getHorizontalOffsets(getComputedStyle(this.iframe)),
       };
 
       this.offsetInline = offsets.host.inner + offsets.frame.all + offsets.iframe.all;
@@ -324,13 +324,13 @@ export default class WaViewportDemo extends WebAwesomeElement {
 
     const viewportStyle: Record<string, string | number> = {
       '--zoom': this.computedZoom,
-      '--offset-inline': this.offsetInline + 'px'
+      '--offset-inline': this.offsetInline + 'px',
     };
     const resized = Boolean(this.iframeManualWidth || this.iframeManualHeight);
     const viewportClasses = {
       'resized-width': Boolean(this.iframeManualWidth),
       'resized-height': Boolean(this.iframeManualHeight),
-      resized
+      resized,
     };
 
     if (this.iframeManualWidth) {

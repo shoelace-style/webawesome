@@ -1,11 +1,11 @@
-import * as os from 'os';
-import * as process from 'process';
-import { esbuildPlugin } from '@web/dev-server-esbuild';
-import { getAllComponents } from './scripts/shared.js';
-import { globbySync } from 'globby';
 import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
+import { globbySync } from 'globby';
+import * as os from 'os';
+import * as process from 'process';
+import { getAllComponents } from './scripts/shared.js';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
@@ -28,27 +28,27 @@ export default {
   files: 'src/**/*.test.ts', // "default" group
   concurrentBrowsers: 3,
   nodeResolve: {
-    exportConditions: ['production', 'default']
+    exportConditions: ['production', 'default'],
   },
   testFramework: {
     config: {
       timeout: 3000,
       retries: 1,
       // fails the whole test suite on first failure rather than letting the whole test suite run.
-      bail: process.env['FAIL_FAST'] === 'true'
-    }
+      bail: process.env['FAIL_FAST'] === 'true',
+    },
   },
   plugins: [
     esbuildPlugin({
       ts: true,
-      target: 'es2020'
+      target: 'es2020',
     }),
-    litSsrPlugin()
+    litSsrPlugin(),
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium', concurrency }),
     playwrightLauncher({ product: 'firefox', concurrency }),
-    playwrightLauncher({ product: 'webkit', concurrency })
+    playwrightLauncher({ product: 'webkit', concurrency }),
   ],
   testRunnerHtml: testFramework => `
     <!DOCTYPE html>
@@ -89,7 +89,7 @@ export default {
     const groupName = path.match(/^.*\/(?<fileName>.*)\.test\.ts/).groups.fileName;
     return {
       name: groupName,
-      files: path
+      files: path,
     };
-  })
+  }),
 };

@@ -9,7 +9,7 @@ function saveScrollPosition() {
     if (element.id) {
       positions[element.id] = {
         top: element.scrollTop,
-        left: element.scrollLeft
+        left: element.scrollLeft,
       };
     } else {
       console.warn(`Can't save scroll position for elements without an id.`, el);

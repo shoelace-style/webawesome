@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaProgressBar from './progress-bar.js';
 
 describe('<wa-progress-bar>', () => {
@@ -24,7 +24,7 @@ describe('<wa-progress-bar>', () => {
 
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar title="Titled Progress Ring" value="25"></wa-progress-bar>`
+            html`<wa-progress-bar title="Titled Progress Ring" value="25"></wa-progress-bar>`,
           );
           base = el.shadowRoot!.querySelector('[part~="base"]')!;
           indicator = el.shadowRoot!.querySelector('[part~="indicator"]')!;
@@ -48,7 +48,7 @@ describe('<wa-progress-bar>', () => {
 
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar title="Titled Progress Ring" indeterminate></wa-progress-bar>`
+            html`<wa-progress-bar title="Titled Progress Ring" indeterminate></wa-progress-bar>`,
           );
           base = el.shadowRoot!.querySelector('[part~="base"]')!;
         });
@@ -65,7 +65,7 @@ describe('<wa-progress-bar>', () => {
       describe('when provided a ariaLabel, and value parameter', () => {
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar ariaLabel="Labelled Progress Ring" value="25"></wa-progress-bar>`
+            html`<wa-progress-bar ariaLabel="Labelled Progress Ring" value="25"></wa-progress-bar>`,
           );
         });
 

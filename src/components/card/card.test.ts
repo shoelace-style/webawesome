@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaCard from './card.js';
 
 describe('<wa-card>', () => {
@@ -12,7 +12,7 @@ describe('<wa-card>', () => {
             <wa-card>This is just a basic card. No image, no header, and no footer. Just your content.</wa-card>
           `);
           expect(el.innerText).to.eq(
-            'This is just a basic card. No image, no header, and no footer. Just your content.'
+            'This is just a basic card. No image, no header, and no footer. Just your content.',
           );
         });
 
@@ -38,7 +38,7 @@ describe('<wa-card>', () => {
             html`<wa-card with-header>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
-            </wa-card>`
+            </wa-card>`,
           );
           await expect(el).to.be.accessible();
         });
@@ -48,7 +48,7 @@ describe('<wa-card>', () => {
             html`<wa-card with-header>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
-            </wa-card>`
+            </wa-card>`,
           );
           expect(el.innerText).to.contain('This card has a header. You can put all sorts of things in it!');
         });
@@ -58,7 +58,7 @@ describe('<wa-card>', () => {
             html`<wa-card with-header>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
-            </wa-card>`
+            </wa-card>`,
           );
           const header = el.querySelector<HTMLElement>('div[slot=header]')!;
           expect(header.innerText).eq('Header Title');
@@ -69,7 +69,7 @@ describe('<wa-card>', () => {
             html`<wa-card with-header>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
-            </wa-card>`
+            </wa-card>`,
           );
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=header]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
@@ -82,7 +82,7 @@ describe('<wa-card>', () => {
             html`<wa-card with-header>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
-            </wa-card>`
+            </wa-card>`,
           );
           const card = el.shadowRoot!.querySelector('.card')!;
           expect(card.classList.value.trim()).to.eq('card card--has-header');
@@ -96,7 +96,7 @@ describe('<wa-card>', () => {
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
-            </wa-card>`
+            </wa-card>`,
           );
           await expect(el).to.be.accessible();
         });
@@ -107,7 +107,7 @@ describe('<wa-card>', () => {
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
-            </wa-card>`
+            </wa-card>`,
           );
           expect(el.innerText).to.contain('This card has a footer. You can put all sorts of things in it!');
         });
@@ -118,7 +118,7 @@ describe('<wa-card>', () => {
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
-            </wa-card>`
+            </wa-card>`,
           );
           const footer = el.querySelector<HTMLElement>('div[slot=footer]')!;
           expect(footer.innerText).eq('Footer Content');
@@ -130,7 +130,7 @@ describe('<wa-card>', () => {
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
-            </wa-card>`
+            </wa-card>`,
           );
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=footer]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
@@ -144,7 +144,7 @@ describe('<wa-card>', () => {
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
-            </wa-card>`
+            </wa-card>`,
           );
 
           const card = el.shadowRoot!.querySelector('.card')!;
@@ -162,7 +162,7 @@ describe('<wa-card>', () => {
                 alt="A kitten walks towards camera on top of pallet."
               />
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`
+            </wa-card>`,
           );
 
           await expect(el).to.be.accessible();
@@ -177,11 +177,11 @@ describe('<wa-card>', () => {
                 alt="A kitten walks towards camera on top of pallet."
               />
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`
+            </wa-card>`,
           );
 
           expect(el.innerText).to.contain(
-            'This is a kitten, but not just any kitten. This kitten likes walking along pallets.'
+            'This is a kitten, but not just any kitten. This kitten likes walking along pallets.',
           );
         });
 
@@ -194,7 +194,7 @@ describe('<wa-card>', () => {
                 alt="A kitten walks towards camera on top of pallet."
               />
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`
+            </wa-card>`,
           );
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=image]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
@@ -211,7 +211,7 @@ describe('<wa-card>', () => {
                 alt="A kitten walks towards camera on top of pallet."
               />
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`
+            </wa-card>`,
           );
 
           const card = el.shadowRoot!.querySelector('.card')!;

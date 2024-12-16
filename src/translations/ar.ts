@@ -33,7 +33,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'اختر لون من الشاشة',
   showPassword: 'عرض كلمة المرور',
   slideNum: slide => `شريحة ${slide}`,
-  toggleColorFormat: 'تغيير صيغة عرض  اللون'
+  toggleColorFormat: 'تغيير صيغة عرض  اللون',
 };
 
 registerTranslation(translation);

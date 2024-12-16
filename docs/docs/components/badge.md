@@ -1,7 +1,7 @@
 ---
 title: Badge
 description: Badges are used to draw attention and display statuses or counts.
-layout: component
+tags: component
 ---
 
 ```html {.example}

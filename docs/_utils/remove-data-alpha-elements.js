@@ -6,7 +6,7 @@ import { parse } from 'node-html-parser';
 export function removeDataAlphaElements(options = {}) {
   options = {
     isAlpha: false,
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

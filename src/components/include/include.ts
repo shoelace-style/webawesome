@@ -1,11 +1,11 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import { requestInclude } from './request.js';
+import { customElement, property } from 'lit/decorators.js';
 import { WaIncludeErrorEvent } from '../../events/include-error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import styles from './include.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './include.css';
+import { requestInclude } from './request.js';
 
 /**
  * @summary Includes give you the power to embed external HTML files into the page.

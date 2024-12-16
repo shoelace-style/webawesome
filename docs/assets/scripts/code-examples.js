@@ -43,7 +43,7 @@ document.addEventListener('click', event => {
       js_pre_processor: 'none',
       html,
       css,
-      js
+      js,
     };
 
     const input = document.createElement('input');

@@ -1,7 +1,7 @@
 ---
 title: Animated Image
 description: A component for displaying animated GIFs and WEBPs that play and pause on interaction.
-layout: component
+tags: component
 ---
 
 ```html {.example}

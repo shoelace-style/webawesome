@@ -1,0 +1,20 @@
+/* Fieldsets */
+fieldset {
+  border: solid 1px var(--wa-color-surface-border);
+  border-radius: var(--wa-border-radius-s);
+  padding: var(--wa-space-m);
+  padding-block-end: var(--wa-space-xl);
+}
+
+legend {
+  padding: 0;
+  padding-inline: var(--wa-space-2xs);
+}
+
+/* Native form controls */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

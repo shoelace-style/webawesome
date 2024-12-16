@@ -15,7 +15,7 @@ document.addEventListener('click', event => {
       event.preventDefault();
       window.scroll({
         top: target.offsetTop - headerHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       history.pushState(undefined, undefined, `#${id}`);
     }

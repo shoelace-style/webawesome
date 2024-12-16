@@ -1,7 +1,7 @@
 ---
 title: Carousel
 description: Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
-layout: component
+tags: component
 ---
 
 ```html {.example}

@@ -1,11 +1,11 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
-import { clickOnElement } from '../../internal/test.js';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaChangeEvent } from '../../events/change.js';
+import { clickOnElement } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
@@ -326,7 +326,7 @@ describe('<wa-radio-group>', () => {
             const validFocusHandler = sinon.spy();
 
             Array.from(el.querySelectorAll<WaRadio>('wa-radio')).forEach(radio =>
-              radio.addEventListener('wa-focus', validFocusHandler)
+              radio.addEventListener('wa-focus', validFocusHandler),
             );
 
             expect(validFocusHandler).to.not.have.been.called;

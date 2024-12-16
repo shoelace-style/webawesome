@@ -1,7 +1,7 @@
 ---
 title: Icon
 description: Icons are symbols that can be used to represent various options within an application.
-layout: component
+tags: component
 ---
 
 Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).
@@ -146,7 +146,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
-    }  
+    }
   });
 </script>
 ```
@@ -517,7 +517,7 @@ For example, this will change the default icon library to use [Bootstrap Icons](
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
-    }  
+    }
   });
 </script>
 ```

@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'nn',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Vel ein farge frå skjermen',
   showPassword: 'Vis passord',
   slideNum: slide => `Visning ${slide}`,
-  toggleColorFormat: 'Byt fargeformat'
+  toggleColorFormat: 'Byt fargeformat',
 };
 
 registerTranslation(translation);

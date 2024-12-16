@@ -1,7 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import styles from './carousel-item.css';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './carousel-item.css';
 
 /**
  * @summary A carousel item represent a slide within a [carousel](/docs/components/carousel).

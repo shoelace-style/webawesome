@@ -1,7 +1,7 @@
 ---
 title: Details
 description: Details show a brief summary and expand to show additional content.
-layout: component
+tags: component
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->
@@ -17,7 +17,7 @@ layout: component
 
 ### Disabled
 
-Use the `disable` attribute to prevent the details from expanding.
+Use the `disabled` attribute to prevent the details from expanding.
 
 ```html {.example}
 <wa-details summary="Disabled" disabled>

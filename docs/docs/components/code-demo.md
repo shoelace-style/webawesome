@@ -1,7 +1,8 @@
 ---
 title: Code Demo
 description: Code demos can be used to render code examples as inline live demos.
-layout: component
+tags: component
+noAlpha: true
 ---
 
 ```html {.example}

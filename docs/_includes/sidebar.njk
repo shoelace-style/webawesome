@@ -25,207 +25,27 @@
     <wa-icon name="grid-2"></wa-icon>
   </a>
 </h2>
+
 <ul>
+  {% for component in collections.component | sort %}
+  {% if not component.data.parent and not (isAlpha and component.data.isAlpha) %}
   <li>
-    <a href="/docs/components/animated-image">Animated Image</a>
-  </li>
-  <li>
-    <a href="/docs/components/animation">Animation</a>
-  </li>
-  <li>
-    <a href="/docs/components/avatar">Avatar</a>
-  </li>
-  <li>
-    <a href="/docs/components/badge">Badge</a>
-  </li>
-  <li>
-    <a href="/docs/components/breadcrumb">Breadcrumb</a>
+    <a href="/docs/components/{{ component.fileSlug }}">{{ component.data.title }}</a>
+
+    {% if components[component.fileSlug].status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}
+    {% if component.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
     <ul>
-      <li>
-        <a href="/docs/components/breadcrumb-item">Breadcrumb Item</a>
-      </li>
+    {% for child in collections.component | sort %}
+      {% if child.data.parent == component.fileSlug and not (isAlpha and child.data.isAlpha) %}
+        <li>
+          <a href="/docs/components/{{ child.fileSlug }}">{{ child.data.title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
     </ul>
-  </li>
-  <li>
-    <a href="/docs/components/button">Button</a>
-  </li>
-  <li>
-    <a href="/docs/components/button-group">Button Group</a>
-  </li>
-  <li>
-    <a href="/docs/components/callout">Callout</a>
-  </li>
-  <li>
-    <a href="/docs/components/card">Card</a>
-  </li>
-  <li>
-    <a href="/docs/components/carousel">Carousel</a>
-    <ul>
-      <li>
-        <a href="/docs/components/carousel-item">Carousel Item</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/checkbox">Checkbox</a>
-  </li>
-  {% if not isAlpha %}
-  <li>
-    <a href="/docs/components/code-demo">Code Demo</a>
   </li>
   {% endif %}
-  <li>
-    <a href="/docs/components/color-picker">Color Picker</a>
-  </li>
-  <li>
-    <a href="/docs/components/copy-button">Copy Button</a>
-  </li>
-  <li>
-    <a href="/docs/components/details">Details</a>
-  </li>
-  <li>
-    <a href="/docs/components/dialog">Dialog</a>
-  </li>
-  <li>
-    <a href="/docs/components/divider">Divider</a>
-  </li>
-  <li>
-    <a href="/docs/components/drawer">Drawer</a>
-  </li>
-  <li>
-    <a href="/docs/components/dropdown">Dropdown</a>
-  </li>
-  <li>
-    <a href="/docs/components/format-bytes">Format Bytes</a>
-  </li>
-  <li>
-    <a href="/docs/components/format-date">Format Date</a>
-  </li>
-  <li>
-    <a href="/docs/components/format-number">Format Number</a>
-  </li>
-  <li>
-    <a href="/docs/components/icon">Icon</a>
-  </li>
-  <li>
-    <a href="/docs/components/icon-button">Icon Button</a>
-  </li>
-  <li>
-    <a href="/docs/components/image-comparer">Image Comparer</a>
-  </li>
-  <li>
-    <a href="/docs/components/include">Include</a>
-  </li>
-  <li>
-    <a href="/docs/components/input">Input</a>
-  </li>
-  <li>
-    <a href="/docs/components/menu">Menu</a>
-    <ul>
-      <li>
-        <a href="/docs/components/menu-item">Menu Item</a>
-      </li>
-      <li>
-        <a href="/docs/components/menu-label">Menu Label</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/mutation-observer">Mutation Observer</a>
-  </li>
-  <li>
-    <a href="/docs/components/page">Page</a>
-    <wa-icon name="flask"></wa-icon>
-    <wa-badge class="pro">PRO</wa-badge>
-  </li>
-  <li>
-    <a href="/docs/components/popup">Popup</a>
-  </li>
-  <li>
-    <a href="/docs/components/progress-bar">Progress Bar</a>
-  </li>
-  <li>
-    <a href="/docs/components/progress-ring">Progress Ring</a>
-  </li>
-  <li>
-    <a href="/docs/components/qr-code">QR Code</a>
-  </li>
-  <li>
-    <a href="/docs/components/radio-group">Radio Group</a>
-    <ul>
-      <li>
-        <a href="/docs/components/radio">Radio</a>
-      </li>
-      <li>
-        <a href="/docs/components/radio-button">Radio Button</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/range">Range</a>
-  </li>
-  <li>
-    <a href="/docs/components/rating">Rating</a>
-  </li>
-  <li>
-    <a href="/docs/components/relative-time">Relative Time</a>
-  </li>
-  <li>
-    <a href="/docs/components/resize-observer">Resize Observer</a>
-  </li>
-  <li>
-    <a href="/docs/components/select">Select</a>
-    <ul>
-      <li>
-        <a href="/docs/components/option">Option</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/skeleton">Skeleton</a>
-  </li>
-  <li>
-    <a href="/docs/components/spinner">Spinner</a>
-  </li>
-  <li>
-    <a href="/docs/components/split-panel">Split Panel</a>
-  </li>
-  <li>
-    <a href="/docs/components/switch">Switch</a>
-  </li>
-  <li>
-    <a href="/docs/components/tab-group">Tab Group</a>
-    <ul>
-      <li>
-        <a href="/docs/components/tab">Tab</a>
-      </li>
-      <li>
-        <a href="/docs/components/tab-panel">Tab Panel</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/tag">Tag</a>
-  </li>
-  <li>
-    <a href="/docs/components/textarea">Textarea</a>
-  </li>
-  <li>
-    <a href="/docs/components/tooltip">Tooltip</a>
-  </li>
-  <li>
-    <a href="/docs/components/tree">Tree</a>
-    <ul>
-      <li>
-        <a href="/docs/components/tree-item">Tree Item</a>
-      </li>
-    </ul>
-  </li>
-  {% if not isAlpha %}
-  <li>
-    <a href="/docs/components/viewport-demo">Viewport Demo</a>
-  </li>
-  {% endif %}
+  {% endfor %}
 </ul>
 
 {# Layout #}

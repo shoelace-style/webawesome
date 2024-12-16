@@ -1,22 +1,22 @@
-import '../popup/popup.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
-import { waitForEvent } from '../../internal/event.js';
-import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
-import styles from './dropdown.css';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type { WaSelectEvent } from '../../events/select.js';
+import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { waitForEvent } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type WaButton from '../button/button.js';
 import type WaIconButton from '../icon-button/icon-button.js';
 import type WaMenu from '../menu/menu.js';
+import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
+import styles from './dropdown.css';
 
 /**
  * @summary Dropdowns expose additional content that "drops down" in a panel.
@@ -424,7 +424,7 @@ export default class WaDropdown extends WebAwesomeElement {
         sync=${ifDefined(this.sync ? this.sync : undefined)}
         class=${classMap({
           dropdown: true,
-          'dropdown--open': this.open
+          'dropdown--open': this.open,
         })}
       >
         <slot

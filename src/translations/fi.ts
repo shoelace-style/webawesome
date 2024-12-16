@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Valitse väri näytöltä',
   showPassword: 'Näytä salasana',
   slideNum: slide => `Dia ${slide}`,
-  toggleColorFormat: 'Vaihda väriformaattia'
+  toggleColorFormat: 'Vaihda väriformaattia',
 };
 
 registerTranslation(translation);

@@ -1,9 +1,9 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
-import styles from './tab.css';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './tab.css';
 
 let id = 0;
 
@@ -77,7 +77,7 @@ export default class WaTab extends WebAwesomeElement {
         class=${classMap({
           tab: true,
           'tab--active': this.active,
-          'tab--disabled': this.disabled
+          'tab--disabled': this.disabled,
         })}
       >
         <slot></slot>
