@@ -1,4 +1,4 @@
-:is(button, input[type='button']):where(:not(:host button)),
+:is(button, input:is([type='button'], [type='reset'], [type='submit'])):where(:not(:host button)),
 :host {
   --background-color: var(--wa-color-neutral-fill-loud);
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
@@ -16,7 +16,7 @@
 }
 
 button,
-input[type='button'],
+input:is([type='button'], [type='reset'], [type='submit']),
 :host([href]) a {
   background-color: var(--background-color);
   border-color: var(--border-color, var(--background-color));
@@ -44,14 +44,14 @@ input[type='button'],
     color var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-:is(button, input[type='button']):where(:not(:host button)):hover,
+:is(button, input:is([type='button'], [type='reset'], [type='submit'])):where(:not(:host button)):hover,
 :is(:host button, :host([href]) a):hover:not(.button--disabled, .button--loading) {
   background-color: var(--background-color-hover, var(--background-color));
   border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
   color: var(--label-color-hover, var(--label-color));
 }
 
-:is(button, input[type='button']):where(:not(:host button)):active,
+:is(button, input:is([type='button'], [type='reset'], [type='submit'])):where(:not(:host button)):active,
 :is(:host button, :host([href]) a):active:not(.button--disabled, .button--loading) {
   background-color: var(--background-color-active, var(--background-color));
   border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));

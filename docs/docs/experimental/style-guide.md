@@ -15,6 +15,8 @@ The styles shown below can be all yours by adding Web Awesome's applied styleshe
 <div>
 <button>Button</button>
 <input type="button" value="Input (button)"></input>
+<input type="reset" value="Input (reset)"></input>
+<input type="submit" value="Input (submit)"></input>
 </div>
 
 <wa-button>WA Button</wa-button>
