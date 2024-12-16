@@ -1,70 +1,63 @@
 /* Details */
-details {
+details:not(.wa-off, .wa-off *) {
   background-color: var(--wa-color-neutral-fill-quiet);
   border-radius: var(--wa-panel-border-radius);
-  padding: 0;
-  margin: 0;
+  padding-block: 0;
   padding-inline: var(--wa-space-m);
+  margin: 0;
   margin-block-end: var(--wa-space-xl);
 
   > :last-child {
     margin-block-end: 0;
   }
-}
-
-summary {
-  position: relative;
-  display: block;
-  cursor: pointer;
-  text-indent: calc(0.4em + 1em);
-  padding: 0;
-  padding-block: var(--wa-space-m);
-  margin: 0;
-  user-select: none;
-  -webkit-user-select: none;
-
-  &::marker,
-  &::-webkit-details-marker {
-    display: none;
-  }
-
-  &::before {
-    content: '';
-    border: 0.4em solid transparent;
-    border-left-color: currentColor;
-    position: absolute;
-    top: calc(50% - 0.4em);
-    left: calc(0.4em / 2);
-    rotate: 0deg;
-    transform-origin: calc(0.4em / 2) 50%;
-  }
-}
-
-details[open] {
-  padding-block-end: var(--wa-space-m);
-
-  > summary::before {
-    rotate: 90deg;
-  }
-}
-
-details + details {
-  margin-top: calc(-1 * var(--wa-space-xl) + var(--wa-border-width-s));
-}
-
-/* Print styles */
-@media print {
-  details {
-    background: none;
-    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
-  }
 
   summary {
-    list-style: none;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    text-indent: calc(0.4em + 1em);
+    padding-inline: 0;
+    padding-block: var(--wa-space-m);
+    margin: 0;
+    user-select: none;
+    -webkit-user-select: none;
+
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: '';
+      border: 0.4em solid transparent;
+      border-left-color: currentColor;
+      position: absolute;
+      top: calc(50% - 0.4em);
+      left: calc(0.4em / 2);
+      rotate: 0deg;
+      transform-origin: calc(0.4em / 2) 50%;
+    }
   }
 
-  summary::marker,
-  summary::-webkit-details-marker {
-    display: none;
+  &[open] {
+    padding-block-end: var(--wa-space-m);
+
+    > summary::before {
+      rotate: 90deg;
+    }
+  }
+
+  + details {
+    margin-top: calc(-1 * var(--wa-space-xl) + var(--wa-border-width-s));
+  }
+
+  /* Print styles */
+  @media print {
+    background: none;
+    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+
+    summary {
+      list-style: none;
+    }
   }
 }

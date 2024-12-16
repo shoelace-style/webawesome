@@ -1,68 +1,65 @@
 :host {
-  --background-color: var(--wa-color-surface-default);
-  --border-color: var(--wa-color-surface-border);
-  --border-radius: var(--wa-panel-border-radius);
-  --border-style: var(--wa-panel-border-style);
-  --border-width: var(--wa-panel-border-width);
+  background-color: var(--wa-color-surface-default);
+  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
+  border-radius: var(--wa-panel-border-radius);
+
   --icon-color: var(--wa-color-text-quiet);
   --spacing: var(--wa-space-m);
   --show-duration: 200ms;
   --hide-duration: 200ms;
 
-  display: block;
+  display: contents !important;
 }
 
-.details {
-  background-color: var(--background-color);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
+details {
+  all: inherit;
+  display: block;
   overflow-anchor: none;
 }
 
-.details--disabled {
+:host([disabled]) details {
   opacity: 0.5;
+
+  summary {
+    cursor: not-allowed;
+  }
+
+  summary:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
-.details__header {
+summary {
   display: flex;
   align-items: center;
   padding: var(--spacing);
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: calc(1px + var(--wa-focus-ring-offset));
+  }
+
+  [part~='summary'] {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+  }
 }
 
-.details__header::-webkit-details-marker {
-  display: none;
-}
-
-.details__header:focus {
-  outline: none;
-}
-
-.details__header:focus-visible {
-  outline: var(--wa-focus-ring);
-  outline-offset: calc(1px + var(--wa-focus-ring-offset));
-}
-
-.details--disabled .details__header {
-  cursor: not-allowed;
-}
-
-.details--disabled .details__header:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-
-.details__summary {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-}
-
-.details__summary-icon {
+[part~='icon'] {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -70,25 +67,25 @@
   transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.details--open .details__summary-icon {
+:host([open]) [part~='icon'] {
   rotate: 90deg;
 }
 
-.details--open.details--rtl .details__summary-icon {
+:host([open]:dir(rtl)) [part~='icon'] {
   rotate: -90deg;
 }
 
-.details--open slot[name='expand-icon'],
-.details:not(.details--open) slot[name='collapse-icon'] {
+:host([open]) slot[name='expand-icon'],
+:host(:not([open])) slot[name='collapse-icon'] {
   display: none;
 }
 
 /* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
-:not(.details--open) .details__body {
+:host(:not([open])) .body {
   overflow: hidden;
 }
 
-.details__content {
+.content {
   display: block;
   padding: var(--spacing);
 }

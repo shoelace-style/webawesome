@@ -248,7 +248,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
 
         el.focus();
         await sendKeys({ press: 'r' });
@@ -265,7 +265,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
 
         el.focus();
         await sendKeys({ down: 'Control' });
@@ -519,7 +519,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
         const option = el.querySelector('wa-option')!;
 
         expect(displayInput.value).to.equal('Option 1');

@@ -20,7 +20,8 @@
 </ul>
 
 {# Components #}
-<h2>
+<wa-details{{ ' open' if '/components/' in page.url }}>
+<h2 slot=summary>
   <a href="/docs/components/" title="Overview">Components
     <wa-icon name="grid-2"></wa-icon>
   </a>
@@ -47,6 +48,7 @@
   {% endif %}
   {% endfor %}
 </ul>
+</wa-details>
 
 {# Layout #}
 {% if not isAlpha %}

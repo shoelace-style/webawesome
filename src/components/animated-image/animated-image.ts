@@ -21,7 +21,7 @@ import styles from './animated-image.css';
  * @slot play-icon - Optional play icon to use instead of the default. Works best with `<wa-icon>`.
  * @slot pause-icon - Optional pause icon to use instead of the default. Works best with `<wa-icon>`.
  *
- * @part control-box - The container that surrounds the pause/play icons and provides their background.
+ * @csspart control-box - The container that surrounds the pause/play icons and provides their background.
  *
  * @cssproperty --control-box-size - The size of the icon box.
  * @cssproperty --icon-size - The size of the play/pause icons.
