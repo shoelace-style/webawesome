@@ -43,12 +43,12 @@ describe('<wa-radio-button>', () => {
           radio3.updateComplete,
         ]);
 
-        expect(radio1.classList.contains('wa-button-group__button')).to.be.true;
-        expect(radio1.classList.contains('wa-button-group__button--first')).to.be.true;
-        expect(radio2.classList.contains('wa-button-group__button')).to.be.true;
-        expect(radio2.classList.contains('wa-button-group__button--inner')).to.be.true;
-        expect(radio3.classList.contains('wa-button-group__button')).to.be.true;
-        expect(radio3.classList.contains('wa-button-group__button--last')).to.be.true;
+        expect(radio1.classList.contains('button')).to.be.true;
+        expect(radio1.classList.contains('button--first')).to.be.true;
+        expect(radio2.classList.contains('button')).to.be.true;
+        expect(radio2.classList.contains('button--inner')).to.be.true;
+        expect(radio3.classList.contains('button')).to.be.true;
+        expect(radio3.classList.contains('button--last')).to.be.true;
       });
     });
   }

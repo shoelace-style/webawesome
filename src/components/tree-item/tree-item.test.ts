@@ -38,7 +38,7 @@ describe('<wa-tree-item>', () => {
 
         it('should show the expand button', () => {
           // Arrange
-          const expandButton = parentItem.shadowRoot?.querySelector('.tree-item__expand-button');
+          const expandButton = parentItem.shadowRoot?.querySelector('.expand-button');
 
           // Act
 
@@ -97,7 +97,7 @@ describe('<wa-tree-item>', () => {
           describe('and the item is disabled', () => {
             it('should not expand', async () => {
               // Arrange
-              const expandButton: HTMLElement = parentItem.shadowRoot!.querySelector('.tree-item__expand-button')!;
+              const expandButton: HTMLElement = parentItem.shadowRoot!.querySelector('.expand-button')!;
               parentItem.disabled = true;
 
               // Act
@@ -128,7 +128,7 @@ describe('<wa-tree-item>', () => {
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--selected')).to.be.true;
+          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--selected')).to.be.true;
         });
       });
 
@@ -148,7 +148,7 @@ describe('<wa-tree-item>', () => {
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--disabled')).to.be.true;
+          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--disabled')).to.be.true;
         });
       });
 
@@ -159,7 +159,7 @@ describe('<wa-tree-item>', () => {
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--expanded')).to.be.true;
+          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--expanded')).to.be.true;
         });
       });
 

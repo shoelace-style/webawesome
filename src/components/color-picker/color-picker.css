@@ -29,7 +29,7 @@
   -webkit-user-select: none;
 }
 
-.color-picker__grid {
+.grid {
   position: relative;
   height: var(--grid-height);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
@@ -40,7 +40,7 @@
   forced-color-adjust: none;
 }
 
-.color-picker__grid-handle {
+.grid-handle {
   position: absolute;
   width: var(--grid-handle-size);
   height: var(--grid-handle-size);
@@ -52,26 +52,26 @@
   transition: scale var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.color-picker__grid-handle--dragging {
+.grid-handle--dragging {
   cursor: none;
   scale: 1.5;
 }
 
-.color-picker__grid-handle:focus-visible {
+.grid-handle:focus-visible {
   outline: var(--wa-focus-ring);
 }
 
-.color-picker__controls {
+.controls {
   padding: var(--spacing);
   display: flex;
   align-items: center;
 }
 
-.color-picker__sliders {
+.sliders {
   flex: 1 1 auto;
 }
 
-.color-picker__slider {
+.slider {
   position: relative;
   height: var(--slider-height);
   border-radius: var(--wa-border-radius-xs);
@@ -79,11 +79,11 @@
   forced-color-adjust: none;
 }
 
-.color-picker__slider:not(:last-of-type) {
+.slider:not(:last-of-type) {
   margin-bottom: var(--wa-space-s);
 }
 
-.color-picker__slider-handle {
+.slider-handle {
   position: absolute;
   top: calc(50% - var(--slider-handle-size) / 2);
   width: var(--slider-handle-size);
@@ -94,11 +94,11 @@
   margin-left: calc(var(--slider-handle-size) / -2);
 }
 
-.color-picker__slider-handle:focus-visible {
+.slider-handle:focus-visible {
   outline: var(--wa-focus-ring);
 }
 
-.color-picker__hue {
+.hue {
   background-image: linear-gradient(
     to right,
     rgb(255, 0, 0) 0%,
@@ -111,7 +111,7 @@
   );
 }
 
-.color-picker__alpha .color-picker__alpha-gradient {
+.alpha .alpha-gradient {
   position: absolute;
   top: 0;
   left: 0;
@@ -120,7 +120,7 @@
   border-radius: inherit;
 }
 
-.color-picker__preview {
+.preview {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
@@ -136,7 +136,7 @@
   forced-color-adjust: none;
 }
 
-.color-picker__preview:before {
+.preview:before {
   content: '';
   position: absolute;
   top: 0;
@@ -150,12 +150,12 @@
   background-color: var(--preview-color);
 }
 
-.color-picker__preview:focus-visible {
+.preview:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.color-picker__preview-color {
+.preview-color {
   position: absolute;
   top: 0;
   left: 0;
@@ -164,7 +164,7 @@
   border: solid 0.0625rem rgba(0, 0, 0, 0.125);
 }
 
-.color-picker__preview-color--copied {
+.preview-color--copied {
   animation: pulse 850ms;
 }
 
@@ -180,26 +180,26 @@
   }
 }
 
-.color-picker__user-input {
+.user-input {
   display: flex;
   padding: 0 var(--spacing) var(--spacing) var(--spacing);
 }
 
-.color-picker__user-input wa-input {
+.user-input wa-input {
   min-width: 0; /* fix input width in Safari */
   flex: 1 1 auto;
 }
 
-.color-picker__user-input wa-button-group {
+.user-input wa-button-group {
   margin-inline-start: var(--spacing);
 }
 
-.color-picker__user-input wa-button:first-of-type {
+.user-input wa-button:first-of-type {
   min-width: 3rem;
   max-width: 3rem;
 }
 
-.color-picker__swatches {
+.swatches {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(var(--swatch-size), 100%), 1fr));
   grid-gap: var(--wa-space-xs);
@@ -210,14 +210,14 @@
   forced-color-adjust: none;
 }
 
-.color-picker__swatch {
+.swatch {
   position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
   border-radius: var(--swatch-border-radius);
 }
 
-.color-picker__swatch .color-picker__swatch-color {
+.swatch .swatch-color {
   position: absolute;
   top: 0;
   left: 0;
@@ -228,12 +228,12 @@
   cursor: pointer;
 }
 
-.color-picker__swatch:focus-visible {
+.swatch:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.color-picker__transparent-bg {
+.transparent-bg {
   background-image: linear-gradient(45deg, var(--wa-color-neutral-fill-normal) 25%, transparent 25%),
     linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-normal) 75%),
     linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-normal) 75%),
@@ -251,13 +251,13 @@
   cursor: not-allowed;
 }
 
-.color-picker--disabled .color-picker__grid,
-.color-picker--disabled .color-picker__grid-handle,
-.color-picker--disabled .color-picker__slider,
-.color-picker--disabled .color-picker__slider-handle,
-.color-picker--disabled .color-picker__preview,
-.color-picker--disabled .color-picker__swatch,
-.color-picker--disabled .color-picker__swatch-color {
+.color-picker--disabled .grid,
+.color-picker--disabled .grid-handle,
+.color-picker--disabled .slider,
+.color-picker--disabled .slider-handle,
+.color-picker--disabled .preview,
+.color-picker--disabled .swatch,
+.color-picker--disabled .swatch-color {
   pointer-events: none;
 }
 
@@ -277,7 +277,7 @@
   overflow: visible;
 }
 
-.color-dropdown__trigger {
+.trigger {
   display: block;
   position: relative;
   background-color: transparent;
@@ -286,25 +286,25 @@
   forced-color-adjust: none;
 }
 
-.color-dropdown__trigger.color-dropdown__trigger--small {
+.trigger.trigger--small {
   width: var(--wa-form-control-height-s);
   height: var(--wa-form-control-height-s);
   border-radius: var(--trigger-border-radius);
 }
 
-.color-dropdown__trigger.color-dropdown__trigger--medium {
+.trigger.trigger--medium {
   width: var(--wa-form-control-height-m);
   height: var(--wa-form-control-height-m);
   border-radius: var(--trigger-border-radius);
 }
 
-.color-dropdown__trigger.color-dropdown__trigger--large {
+.trigger.trigger--large {
   width: var(--wa-form-control-height-l);
   height: var(--wa-form-control-height-l);
   border-radius: var(--trigger-border-radius);
 }
 
-.color-dropdown__trigger:before {
+.trigger:before {
   content: '';
   position: absolute;
   top: 0;
@@ -318,25 +318,25 @@
     inset 0 0 0 0.25rem var(--wa-color-surface-default);
 }
 
-.color-dropdown__trigger--empty:before {
+.trigger--empty:before {
   background-color: transparent;
 }
 
-.color-dropdown__trigger:focus-visible {
+.trigger:focus-visible {
   outline: none;
 }
 
-.color-dropdown__trigger:focus-visible:not(.color-dropdown__trigger--disabled) {
+.trigger:focus-visible:not(.trigger--disabled) {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-:host(:disabled) :is(.color-dropdown__label, .color-dropdown__trigger) {
+:host(:disabled) :is(.label, .trigger) {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.form-control.form-control--has-label .form-control__label {
+.form-control.form-control--has-label .label {
   cursor: pointer;
   display: inline-block;
 }

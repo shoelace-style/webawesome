@@ -35,12 +35,12 @@
   cursor: text;
 }
 
-.textarea__control,
-.textarea__size-adjuster {
+.control,
+.size-adjuster {
   grid-area: 1 / 1 / 2 / 2;
 }
 
-.textarea__size-adjuster {
+.size-adjuster {
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
@@ -69,7 +69,7 @@
   cursor: not-allowed;
 }
 
-.textarea__control {
+.control {
   font: inherit;
   line-height: var(--wa-line-height-expanded);
   color: var(--wa-form-control-value-color);
@@ -80,20 +80,20 @@
   -webkit-appearance: none;
 }
 
-.textarea__control::-webkit-search-decoration,
-.textarea__control::-webkit-search-cancel-button,
-.textarea__control::-webkit-search-results-button,
-.textarea__control::-webkit-search-results-decoration {
+.control::-webkit-search-decoration,
+.control::-webkit-search-cancel-button,
+.control::-webkit-search-results-button,
+.control::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
-.textarea__control::placeholder {
+.control::placeholder {
   color: var(--wa-form-control-placeholder-color);
   user-select: none;
   -webkit-user-select: none;
 }
 
-.textarea__control:focus {
+.control:focus {
   outline: none;
 }
 
@@ -112,7 +112,7 @@
   --padding-inline: var(--wa-space-l);
 }
 
-.textarea__control {
+.control {
   padding: 0.5em var(--padding-inline);
 }
 
@@ -120,15 +120,15 @@
  * Resize types
  */
 
-.textarea--resize-none .textarea__control {
+.textarea--resize-none .control {
   resize: none;
 }
 
-.textarea--resize-vertical .textarea__control {
+.textarea--resize-vertical .control {
   resize: vertical;
 }
 
-.textarea--resize-auto .textarea__control {
+.textarea--resize-auto .control {
   height: auto;
   resize: none;
   overflow-y: hidden;

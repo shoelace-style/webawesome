@@ -49,7 +49,7 @@ export default class WaTag extends WebAwesomeElement {
 
   render() {
     return html`
-      <slot part="content" class="tag__content"></slot>
+      <slot part="content" class="content"></slot>
 
       ${this.removable
         ? html`
@@ -60,7 +60,7 @@ export default class WaTag extends WebAwesomeElement {
               library="system"
               variant="solid"
               label=${this.localize.term('remove')}
-              class="tag__remove"
+              class="remove"
               @click=${this.handleRemoveClick}
               tabindex="-1"
             ></wa-icon-button>

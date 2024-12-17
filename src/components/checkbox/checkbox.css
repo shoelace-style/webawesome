@@ -31,7 +31,7 @@
   }
 }
 
-.checkbox__control {
+.control {
   flex: 0 0 auto;
   position: relative;
   display: flex;

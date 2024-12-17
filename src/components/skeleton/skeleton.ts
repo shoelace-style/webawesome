@@ -34,7 +34,7 @@ export default class WaSkeleton extends WebAwesomeElement {
           'skeleton--sheen': this.effect === 'sheen',
         })}
       >
-        <div part="indicator" class="skeleton__indicator"></div>
+        <div part="indicator" class="indicator"></div>
       </div>
     `;
   }

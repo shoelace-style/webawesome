@@ -97,9 +97,9 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('slot[name=children]') childrenSlot: HTMLSlotElement;
-  @query('.tree-item__item') itemElement: HTMLDivElement;
-  @query('.tree-item__children') childrenContainer: HTMLDivElement;
-  @query('.tree-item__expand-button slot') expandButtonSlot: HTMLSlotElement;
+  @query('.item') itemElement: HTMLDivElement;
+  @query('.children') childrenContainer: HTMLDivElement;
+  @query('.expand-button slot') expandButtonSlot: HTMLSlotElement;
 
   connectedCallback() {
     super.connectedCallback();
@@ -262,25 +262,22 @@ export default class WaTreeItem extends WebAwesomeElement {
           'tree-item--rtl': this.localize.dir() === 'rtl',
         })}"
       >
-        <div class="tree-item__item" part="item">
-          <div class="tree-item__indentation" part="indentation"></div>
+        <div class="item" part="item">
+          <div class="indentation" part="indentation"></div>
 
           <div
             part="expand-button"
             class=${classMap({
-              'tree-item__expand-button': true,
-              'tree-item__expand-button--visible': showExpandButton,
+              'expand-button': true,
+              'expand-button--visible': showExpandButton,
             })}
             aria-hidden="true"
           >
-            ${when(
-              this.loading,
-              () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
-            )}
-            <slot class="tree-item__expand-icon-slot" name="expand-icon">
+            ${when(this.loading, () => html` <wa-spinner part="spinner" exportparts="base:base"></wa-spinner> `)}
+            <slot class="expand-icon-slot" name="expand-icon">
               <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
-            <slot class="tree-item__expand-icon-slot" name="collapse-icon">
+            <slot class="expand-icon-slot" name="collapse-icon">
               <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
           </div>
@@ -297,7 +294,7 @@ export default class WaTreeItem extends WebAwesomeElement {
                     indeterminate-icon:checkbox__indeterminate-icon,
                     label:checkbox__label
                   "
-                class="tree-item__checkbox"
+                class="checkbox"
                 ?disabled="${this.disabled}"
                 ?checked="${live(this.selected)}"
                 ?indeterminate="${this.indeterminate}"
@@ -306,10 +303,10 @@ export default class WaTreeItem extends WebAwesomeElement {
             `,
           )}
 
-          <slot class="tree-item__label" part="label"></slot>
+          <slot class="label" part="label"></slot>
         </div>
 
-        <div class="tree-item__children" part="children" role="group">
+        <div class="children" part="children" role="group">
           <slot name="children" @slotchange="${this.handleChildrenSlotChange}"></slot>
         </div>
       </div>

@@ -57,7 +57,7 @@ describe('<wa-rating>', () => {
 
       it('should emit wa-change when clicked', async () => {
         const el = await fixture<WaRating>(html` <wa-rating></wa-rating> `);
-        const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.rating__symbol:last-child')!;
+        const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.symbol:last-child')!;
         const changeHandler = sinon.spy();
 
         el.addEventListener('wa-change', changeHandler);
@@ -85,7 +85,7 @@ describe('<wa-rating>', () => {
 
       it('should not emit wa-change when disabled', async () => {
         const el = await fixture<WaRating>(html` <wa-rating value="5" disabled></wa-rating> `);
-        const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.rating__symbol:last-child')!;
+        const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.symbol:last-child')!;
         const changeHandler = sinon.spy();
 
         el.addEventListener('wa-change', changeHandler);

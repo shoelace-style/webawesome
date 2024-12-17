@@ -55,8 +55,8 @@ export default class WaProgressBar extends WebAwesomeElement {
         aria-valuemax="100"
         aria-valuenow=${this.indeterminate ? 0 : this.value}
       >
-        <div part="indicator" class="progress-bar__indicator" style=${styleMap({ width: `${this.value}%` })}>
-          ${!this.indeterminate ? html` <slot part="label" class="progress-bar__label"></slot> ` : ''}
+        <div part="indicator" class="indicator" style=${styleMap({ width: `${this.value}%` })}>
+          ${!this.indeterminate ? html` <slot part="label" class="label"></slot> ` : ''}
         </div>
       </div>
     `;

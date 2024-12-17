@@ -16,15 +16,15 @@
   position: relative;
 }
 
-.progress-ring__image {
+.image {
   width: var(--size);
   height: var(--size);
   rotate: -90deg;
   transform-origin: 50% 50%;
 }
 
-.progress-ring__track,
-.progress-ring__indicator {
+.track,
+.indicator {
   --radius: calc(var(--size) / 2 - max(var(--track-width), var(--indicator-width)) * 0.5);
   --circumference: calc(var(--radius) * 2 * 3.141592654);
 
@@ -34,12 +34,12 @@
   cy: calc(var(--size) / 2);
 }
 
-.progress-ring__track {
+.track {
   stroke: var(--track-color);
   stroke-width: var(--track-width);
 }
 
-.progress-ring__indicator {
+.indicator {
   stroke: var(--indicator-color);
   stroke-width: var(--indicator-width);
   stroke-linecap: round;
@@ -49,7 +49,7 @@
   stroke-dashoffset: calc(var(--circumference) - var(--percentage) * var(--circumference));
 }
 
-.progress-ring__label {
+.label {
   display: flex;
   align-items: center;
   justify-content: center;

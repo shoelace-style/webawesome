@@ -332,16 +332,16 @@ export default class WaPage extends WebAwesomeElement {
         @wa-after-show=${() => (this.navOpen = this.navigationDrawer.open)}
         @wa-after-hide=${() => (this.navOpen = this.navigationDrawer.open)}
         exportparts="
-          dialog:drawer__dialog,
-          overlay:drawer__overlay,
-          panel:drawer__panel,
-          header:drawer__header,
-          header-actions:drawer__header-actions,
-          title:drawer__title,
-          close-button:drawer__close-button,
-          close-button__base:drawer__close-button__base,
-          body:drawer__body,
-          footer:drawer__footer
+          dialog:dialog,
+          overlay:overlay,
+          panel:panel,
+          header:header,
+          header-actions:header-actions,
+          title:title,
+          close-button:close-button,
+          base:base,
+          body:body,
+          footer:footer
         "
         class="navigation-drawer"
         with-header

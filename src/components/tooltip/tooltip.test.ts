@@ -153,7 +153,7 @@ describe('<wa-tooltip>', () => {
           <wa-button id="wa-button">Hover Me</wa-button>
         `);
 
-        const tooltipBody = el.shadowRoot!.querySelector('.tooltip__body')!;
+        const tooltipBody = el.shadowRoot!.querySelector('.body')!;
         const userSelect = getComputedStyle(tooltipBody).userSelect || getComputedStyle(tooltipBody).webkitUserSelect;
 
         expect(userSelect).to.equal('none');

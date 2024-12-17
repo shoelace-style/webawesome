@@ -29,29 +29,29 @@ slot:not([name])::slotted(wa-icon) {
   -webkit-user-select: none;
 }
 
-.tree-item__checkbox {
+.checkbox {
   pointer-events: none;
 }
 
-.tree-item__expand-button,
-.tree-item__checkbox,
-.tree-item__label {
+.expand-button,
+.checkbox,
+.label {
   font: inherit;
   font-size: var(--wa-font-size-m);
 }
 
-.tree-item__checkbox::part(base) {
+.checkbox::part(base) {
   display: flex;
   align-items: center;
 }
 
-.tree-item__indentation {
+.indentation {
   display: block;
   width: 1em;
   flex-shrink: 0;
 }
 
-.tree-item__expand-button {
+.expand-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,15 +62,15 @@ slot:not([name])::slotted(wa-icon) {
   cursor: pointer;
 }
 
-.tree-item__expand-button {
+.expand-button {
   transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.tree-item--expanded .tree-item__expand-button {
+.tree-item--expanded .expand-button {
   rotate: 90deg;
 }
 
-.tree-item--expanded.tree-item--rtl .tree-item__expand-button {
+.tree-item--expanded.tree-item--rtl .expand-button {
   rotate: -90deg;
 }
 
@@ -79,58 +79,58 @@ slot:not([name])::slotted(wa-icon) {
   display: none;
 }
 
-.tree-item:not(.tree-item--has-expand-button) .tree-item__expand-icon-slot {
+.tree-item:not(.tree-item--has-expand-button) .expand-icon-slot {
   display: none;
 }
 
-.tree-item__expand-button--visible {
+.expand-button--visible {
   cursor: pointer;
 }
 
-.tree-item__item {
+.item {
   display: flex;
   align-items: center;
   border-inline-start: solid 3px transparent;
 }
 
-.tree-item--disabled .tree-item__item {
+.tree-item--disabled .item {
   opacity: 0.5;
   outline: none;
   cursor: not-allowed;
 }
 
-:host(:focus-visible) .tree-item__item {
+:host(:focus-visible) .item {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
   z-index: 2;
 }
 
-:host(:not([aria-disabled='true'])) .tree-item--selected .tree-item__item {
+:host(:not([aria-disabled='true'])) .tree-item--selected .item {
   background-color: var(--selection-background-color);
   border-inline-start-color: var(--selection-indicator-color);
 }
 
-:host(:not([aria-disabled='true'])) .tree-item__expand-button {
+:host(:not([aria-disabled='true'])) .expand-button {
   color: var(--expand-button-color);
 }
 
-.tree-item__label {
+.label {
   display: flex;
   align-items: center;
   transition: color var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.tree-item__children {
+.children {
   display: block;
   font-size: calc(1em + var(--indent-size, var(--wa-space-m)));
 }
 
 /* Indentation lines */
-.tree-item__children {
+.children {
   position: relative;
 }
 
-.tree-item__children::before {
+.children::before {
   content: '';
   position: absolute;
   top: var(--indent-guide-offset);
@@ -140,13 +140,13 @@ slot:not([name])::slotted(wa-icon) {
   z-index: 1;
 }
 
-.tree-item--rtl .tree-item__children::before {
+.tree-item--rtl .children::before {
   left: auto;
   right: 1em;
 }
 
 @media (forced-colors: active) {
-  :host(:not([aria-disabled='true'])) .tree-item--selected .tree-item__item {
+  :host(:not([aria-disabled='true'])) .tree-item--selected .item {
     outline: dashed 1px SelectedItem;
   }
 }

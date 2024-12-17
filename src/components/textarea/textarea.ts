@@ -56,8 +56,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private resizeObserver: ResizeObserver;
 
-  @query('.textarea__control') input: HTMLTextAreaElement;
-  @query('.textarea__size-adjuster') sizeAdjuster: HTMLTextAreaElement;
+  @query('.control') input: HTMLTextAreaElement;
+  @query('.size-adjuster') sizeAdjuster: HTMLTextAreaElement;
 
   @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
@@ -323,12 +323,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           'form-control--has-label': hasLabel,
         })}
       >
-        <label
-          part="form-control-label"
-          class="form-control__label"
-          for="input"
-          aria-hidden=${hasLabel ? 'false' : 'true'}
-        >
+        <label part="form-control-label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
           <slot name="label">${this.label}</slot>
         </label>
 
@@ -353,7 +348,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
             <textarea
               part="textarea"
               id="input"
-              class="textarea__control"
+              class="control"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${ifDefined(this.name)}
               .value=${live(this.value)}
@@ -378,7 +373,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
             ></textarea>
 
             <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
-            <div part="textarea-adjuster" class="textarea__size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
+            <div part="textarea-adjuster" class="size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
           </div>
         </div>
 

@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.input__control {
+.control {
   flex: 1 1 auto;
   min-width: 0;
   height: 100%;
@@ -25,27 +25,27 @@
   -webkit-appearance: none;
 }
 
-.input__control::-webkit-search-decoration,
-.input__control::-webkit-search-cancel-button,
-.input__control::-webkit-search-results-button,
-.input__control::-webkit-search-results-decoration {
+.control::-webkit-search-decoration,
+.control::-webkit-search-cancel-button,
+.control::-webkit-search-results-button,
+.control::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
-.input__control:focus {
+.control:focus {
   outline: none;
 }
 
-.input__prefix,
-.input__suffix {
+.prefix,
+.suffix {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
   cursor: default;
 }
 
-.input__prefix ::slotted(wa-icon),
-.input__suffix ::slotted(wa-icon) {
+.prefix ::slotted(wa-icon),
+.suffix ::slotted(wa-icon) {
   color: var(--wa-color-neutral-on-quiet);
 }
 
@@ -56,21 +56,21 @@
   font-size: var(--wa-font-size-s);
   height: var(--wa-form-control-height-s);
 
-  .input__control {
+  .control {
     height: calc(var(--wa-form-control-height-s) - var(--border-width) * 2);
     padding: 0 var(--wa-space-s);
   }
 
-  .input__clear,
-  .input__password-toggle {
+  .clear,
+  .password-toggle {
     width: calc(1em + var(--wa-space-s) * 2);
   }
 
-  .input__prefix ::slotted(*) {
+  .prefix ::slotted(*) {
     margin-inline-start: var(--wa-space-s);
   }
 
-  .input__suffix ::slotted(*) {
+  .suffix ::slotted(*) {
     margin-inline-end: var(--wa-space-s);
   }
 }
@@ -79,21 +79,21 @@
   font-size: var(--wa-font-size-m);
   height: var(--wa-form-control-height-m);
 
-  .input__control {
+  .control {
     height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
     padding: 0 var(--wa-space-m);
   }
 
-  .input__clear,
-  .input__password-toggle {
+  .clear,
+  .password-toggle {
     width: calc(1em + var(--wa-space-m) * 2);
   }
 
-  .input__prefix ::slotted(*) {
+  .prefix ::slotted(*) {
     margin-inline-start: var(--wa-space-m);
   }
 
-  .input__suffix ::slotted(*) {
+  .suffix ::slotted(*) {
     margin-inline-end: var(--wa-space-m);
   }
 }
@@ -102,21 +102,21 @@
   font-size: var(--wa-font-size-l);
   height: var(--wa-form-control-height-l);
 
-  .input__control {
+  .control {
     height: calc(var(--wa-form-control-height-l) - var(--border-width) * 2);
     padding: 0 var(--wa-space-l);
   }
 
-  .input__clear,
-  .input__password-toggle {
+  .clear,
+  .password-toggle {
     width: calc(1em + var(--wa-space-l) * 2);
   }
 
-  .input__prefix ::slotted(*) {
+  .prefix ::slotted(*) {
     margin-inline-start: var(--wa-space-l);
   }
 
-  .input__suffix ::slotted(*) {
+  .suffix ::slotted(*) {
     margin-inline-end: var(--wa-space-l);
   }
 }
@@ -125,8 +125,8 @@
    * Clearable + Password Toggle
    */
 
-.input__clear,
-.input__password-toggle {
+.clear,
+.password-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;

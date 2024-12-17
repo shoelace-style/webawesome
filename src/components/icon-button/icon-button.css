@@ -44,6 +44,6 @@
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.icon-button__icon {
+.icon {
   pointer-events: none;
 }

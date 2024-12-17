@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-.progress-bar__indicator {
+.indicator {
   height: 100%;
   font: inherit;
   background-color: var(--indicator-color);
@@ -34,12 +34,12 @@
 }
 
 /* Indeterminate */
-.progress-bar--indeterminate .progress-bar__indicator {
+.progress-bar--indeterminate .indicator {
   position: absolute;
   animation: indeterminate 2.5s infinite cubic-bezier(0.37, 0, 0.63, 1);
 }
 
-.progress-bar--indeterminate.progress-bar--rtl .progress-bar__indicator {
+.progress-bar--indeterminate.progress-bar--rtl .indicator {
   animation-name: indeterminate-rtl;
 }
 
@@ -49,7 +49,7 @@
     background-color: var(--wa-color-surface-default);
   }
 
-  .progress-bar__indicator {
+  .indicator {
     outline: solid 1px SelectedItem;
     background-color: SelectedItem;
   }

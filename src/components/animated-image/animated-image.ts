@@ -30,7 +30,7 @@ import styles from './animated-image.css';
 export default class WaAnimatedImage extends WebAwesomeElement {
   static shadowStyle = styles;
 
-  @query('.animated-image__animated') animatedImage: HTMLImageElement;
+  @query('.animated') animatedImage: HTMLImageElement;
 
   @state() frozenFrame: string;
   @state() isLoaded = false;
@@ -85,7 +85,7 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     return html`
       <div class="animated-image">
         <img
-          class="animated-image__animated"
+          class="animated"
           src=${this.src}
           alt=${this.alt}
           crossorigin="anonymous"
@@ -98,14 +98,14 @@ export default class WaAnimatedImage extends WebAwesomeElement {
         ${this.isLoaded
           ? html`
               <img
-                class="animated-image__frozen"
+                class="frozen"
                 src=${this.frozenFrame}
                 alt=${this.alt}
                 aria-hidden=${this.play ? 'true' : 'false'}
                 @click=${this.handleClick}
               />
 
-              <div part="control-box" class="animated-image__control-box">
+              <div part="control-box" class="control-box">
                 <slot name="play-icon">
                   <wa-icon
                     name="play"

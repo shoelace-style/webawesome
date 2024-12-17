@@ -259,7 +259,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           })}
         >
           <input
-            class="switch__input"
+            class="input"
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
             name=${this.name}
@@ -277,11 +277,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
             @keydown=${this.handleKeyDown}
           />
 
-          <span part="control" class="switch__control">
-            <span part="thumb" class="switch__thumb"></span>
+          <span part="control" class="control">
+            <span part="thumb" class="thumb"></span>
           </span>
 
-          <div part="label" class="switch__label">
+          <div part="label" class="label">
             <slot></slot>
           </div>
         </label>

@@ -46,8 +46,8 @@ export default class WaDropdown extends WebAwesomeElement {
   static shadowStyle = styles;
 
   @query('.dropdown') popup: WaPopup;
-  @query('.dropdown__trigger') trigger: HTMLSlotElement;
-  @query('.dropdown__panel') panel: HTMLSlotElement;
+  @query('.trigger') trigger: HTMLSlotElement;
+  @query('.panel') panel: HTMLSlotElement;
 
   private closeWatcher: CloseWatcher | null;
 
@@ -431,7 +431,7 @@ export default class WaDropdown extends WebAwesomeElement {
           name="trigger"
           slot="anchor"
           part="trigger"
-          class="dropdown__trigger"
+          class="trigger"
           @click=${this.handleTriggerClick}
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
@@ -439,7 +439,7 @@ export default class WaDropdown extends WebAwesomeElement {
         ></slot>
 
         <div aria-hidden=${this.open ? 'false' : 'true'} aria-labelledby="dropdown">
-          <slot part="panel" class="dropdown__panel"></slot>
+          <slot part="panel" class="panel"></slot>
         </div>
       </wa-popup>
     `;

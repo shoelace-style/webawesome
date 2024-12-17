@@ -193,7 +193,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   render() {
     return html`
       <button
-        class="copy-button__button"
+        class="button"
         part="button"
         type="button"
         id="copy-button"

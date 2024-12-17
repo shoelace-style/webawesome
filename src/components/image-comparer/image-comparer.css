@@ -14,22 +14,22 @@
   overflow: hidden;
 }
 
-.image-comparer__before,
-.image-comparer__after {
+.before,
+.after {
   display: block;
   pointer-events: none;
 }
 
-.image-comparer__before::slotted(img),
-.image-comparer__after::slotted(img),
-.image-comparer__before::slotted(svg),
-.image-comparer__after::slotted(svg) {
+.before::slotted(img),
+.after::slotted(img),
+.before::slotted(svg),
+.after::slotted(svg) {
   display: block;
   max-width: 100% !important;
   height: auto;
 }
 
-.image-comparer__after {
+.after {
   position: absolute;
   top: 0;
   left: 0;
@@ -37,7 +37,7 @@
   width: 100%;
 }
 
-.image-comparer__divider {
+.divider {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,7 +50,7 @@
   cursor: ew-resize;
 }
 
-.image-comparer__handle {
+.handle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@
   z-index: 10;
 }
 
-.image-comparer__handle:focus-visible {
+.handle:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }

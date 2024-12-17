@@ -53,10 +53,10 @@ export default class WaCard extends WebAwesomeElement {
           'card--has-header': this.withHeader,
         })}
       >
-        <slot name="image" part="image" class="card__image"></slot>
-        <slot name="header" part="header" class="card__header"></slot>
-        <slot part="body" class="card__body"></slot>
-        <slot name="footer" part="footer" class="card__footer"></slot>
+        <slot name="image" part="image" class="image"></slot>
+        <slot name="header" part="header" class="header"></slot>
+        <slot part="body" class="body"></slot>
+        <slot name="footer" part="footer" class="footer"></slot>
       </div>
     `;
   }

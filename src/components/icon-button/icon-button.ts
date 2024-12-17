@@ -133,7 +133,7 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
         @click=${this.handleClick}
       >
         <wa-icon
-          class="icon-button__icon"
+          class="icon"
           name=${ifDefined(this.name)}
           family=${ifDefined(this.family)}
           variant=${ifDefined(this.variant)}

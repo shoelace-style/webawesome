@@ -239,9 +239,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
         })}
       >
         <label part="base">
-          <span class="checkbox__control">
+          <span class="control">
             <input
-              class="checkbox__input"
+              class="input"
               type="checkbox"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${this.name}

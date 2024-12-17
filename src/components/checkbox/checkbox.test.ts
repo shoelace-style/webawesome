@@ -111,7 +111,7 @@ describe('<wa-checkbox>', () => {
         //
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
         const label = el.shadowRoot!.querySelector('.checkbox')!;
-        const input = el.shadowRoot!.querySelector('.checkbox__input')!;
+        const input = el.shadowRoot!.querySelector('.input')!;
 
         const labelPosition = getComputedStyle(label).position;
         const inputPosition = getComputedStyle(input).position;

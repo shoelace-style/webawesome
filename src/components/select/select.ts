@@ -803,7 +803,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <label
           id="label"
           part="form-control-label"
-          class="form-control__label"
+          class="label"
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
         >

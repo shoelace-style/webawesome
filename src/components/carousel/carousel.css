@@ -23,7 +23,7 @@
   position: relative;
 }
 
-.carousel__pagination {
+.pagination {
   grid-area: pagination;
   display: flex;
   flex-wrap: wrap;
@@ -31,7 +31,7 @@
   gap: var(--wa-space-s);
 }
 
-.carousel__slides {
+.slides {
   grid-area: slides;
 
   display: grid;
@@ -49,12 +49,12 @@
 }
 
 @media (prefers-reduced-motion) {
-  :where(.carousel__slides) {
+  :where(.slides) {
     scroll-behavior: auto;
   }
 }
 
-.carousel__slides--horizontal {
+.slides--horizontal {
   grid-auto-flow: column;
   grid-auto-columns: var(--slide-size);
   grid-auto-rows: 100%;
@@ -65,7 +65,7 @@
   overflow-y: hidden;
 }
 
-.carousel__slides--vertical {
+.slides--vertical {
   grid-auto-flow: row;
   grid-auto-columns: 100%;
   grid-auto-rows: var(--slide-size);
@@ -76,8 +76,8 @@
   overflow-x: hidden;
 }
 
-.carousel__slides--dragging,
-.carousel__slides--dropping {
+.slides--dragging,
+.slides--dropping {
   scroll-snap-type: unset;
 }
 
@@ -85,17 +85,17 @@
   height: 100%;
 }
 
-.carousel__slides::-webkit-scrollbar {
+.slides::-webkit-scrollbar {
   display: none;
 }
 
-.carousel__navigation {
+.navigation {
   grid-area: navigation;
   display: contents;
   font-size: var(--wa-font-size-l);
 }
 
-.carousel__navigation-button {
+.navigation-button {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -110,26 +110,26 @@
   appearance: none;
 }
 
-.carousel__navigation-button-disabled {
+.navigation-button-disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.carousel__navigation-button-disabled::part(base) {
+.navigation-button-disabled::part(base) {
   pointer-events: none;
 }
 
-.carousel__navigation-button-previous {
+.navigation-button-previous {
   grid-column: 1;
   grid-row: 1;
 }
 
-.carousel__navigation-button-next {
+.navigation-button-next {
   grid-column: 3;
   grid-row: 1;
 }
 
-.carousel__pagination-item {
+.pagination-item {
   display: block;
   cursor: pointer;
   background: none;
@@ -143,15 +143,15 @@
   transition: transform var(--wa-transition-slow);
 }
 
-.carousel__pagination-item--active {
+.pagination-item--active {
   background-color: var(--pagination-color-active);
   transform: scale(1.25);
 }
 
 /* Focus styles */
-.carousel__slides:focus-visible,
-.carousel__navigation-button:focus-visible,
-.carousel__pagination-item:focus-visible {
+.slides:focus-visible,
+.navigation-button:focus-visible,
+.pagination-item:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }

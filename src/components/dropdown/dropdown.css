@@ -24,18 +24,18 @@
   transform-origin: left;
 }
 
-.dropdown__trigger {
+.trigger {
   display: block;
 }
 
-.dropdown__panel {
+.panel {
   font: inherit;
   box-shadow: var(--box-shadow);
   border-radius: var(--wa-border-radius-s);
   pointer-events: none;
 }
 
-.dropdown--open .dropdown__panel {
+.dropdown--open .panel {
   display: block;
   pointer-events: all;
 }

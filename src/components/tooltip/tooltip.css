@@ -35,7 +35,7 @@
   transform-origin: left;
 }
 
-.tooltip__body {
+.body {
   display: block;
   width: max-content;
   max-width: var(--max-width);

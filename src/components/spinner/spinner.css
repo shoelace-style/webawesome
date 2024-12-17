@@ -22,11 +22,11 @@ svg {
   animation: spin var(--speed) linear infinite;
 }
 
-.spinner__track {
+.track {
   stroke: var(--track-color);
 }
 
-.spinner__indicator {
+.indicator {
   stroke: var(--indicator-color);
   stroke-dasharray: 75, 100;
   stroke-dashoffset: -5;

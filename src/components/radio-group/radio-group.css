@@ -9,11 +9,11 @@
   margin: 0;
 }
 
-.form-control__label {
+.label {
   padding: 0;
 }
 
-.radio-group--required .radio-group__label::after {
+.radio-group--required .label::after {
   content: var(--wa-form-control-required-content);
   margin-inline-start: var(--wa-form-control-required-content-offset);
 }

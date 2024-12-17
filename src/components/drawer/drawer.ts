@@ -253,17 +253,17 @@ export default class WaDrawer extends WebAwesomeElement {
       >
         ${this.withHeader
           ? html`
-              <header part="header" class="drawer__header">
-                <h2 part="title" class="drawer__title" id="title">
+              <header part="header" class="header">
+                <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
                   <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(65279)} </slot>
                 </h2>
-                <div part="header-actions" class="drawer__header-actions">
+                <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>
                   <wa-icon-button
                     part="close-button"
                     exportparts="base:close-button__base"
-                    class="drawer__close"
+                    class="close"
                     name="xmark"
                     label=${this.localize.term('close')}
                     library="system"
@@ -275,11 +275,11 @@ export default class WaDrawer extends WebAwesomeElement {
             `
           : ''}
 
-        <div part="body" class="drawer__body"><slot></slot></div>
+        <div part="body" class="body"><slot></slot></div>
 
         ${this.withFooter
           ? html`
-              <footer part="footer" class="drawer__footer">
+              <footer part="footer" class="footer">
                 <slot name="footer"></slot>
               </footer>
             `

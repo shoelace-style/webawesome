@@ -29,7 +29,7 @@
   display: none;
 }
 
-.popup__arrow {
+.arrow {
   position: absolute;
   width: calc(var(--arrow-size-diagonal) * 2);
   height: calc(var(--arrow-size-diagonal) * 2);

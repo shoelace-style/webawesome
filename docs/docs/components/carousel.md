@@ -534,12 +534,12 @@ The carousel has a robust API that makes it possible to extend and customize. Th
 </wa-carousel>
 
 <div class="thumbnails">
-  <div class="thumbnails__scroller">
-    <img alt="Thumbnail by 1" class="thumbnails__image active" src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10" />
-    <img alt="Thumbnail by 2" class="thumbnails__image" src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10" />
-    <img alt="Thumbnail by 3" class="thumbnails__image" src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10" />
-    <img alt="Thumbnail by 4" class="thumbnails__image" src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10" />
-    <img alt="Thumbnail by 5" class="thumbnails__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10" />
+  <div class="scroller">
+    <img alt="Thumbnail by 1" class="image active" src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10" />
+    <img alt="Thumbnail by 2" class="image" src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10" />
+    <img alt="Thumbnail by 3" class="image" src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10" />
+    <img alt="Thumbnail by 4" class="image" src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10" />
+    <img alt="Thumbnail by 5" class="image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10" />
   </div>
 </div>
 
@@ -553,7 +553,7 @@ The carousel has a robust API that makes it possible to extend and customize. Th
     justify-content: center;
   }
 
-  .thumbnails__scroller {
+  .scroller {
     display: flex;
     gap: var(--wa-space-s);
     overflow-x: auto;
@@ -562,11 +562,11 @@ The carousel has a robust API that makes it possible to extend and customize. Th
     scroll-padding: var(--wa-space-s);
   }
 
-  .thumbnails__scroller::-webkit-scrollbar {
+  .scroller::-webkit-scrollbar {
     display: none;
   }
 
-  .thumbnails__image {
+  .image {
     width: 64px;
     height: 64px;
     object-fit: cover;
@@ -578,7 +578,7 @@ The carousel has a robust API that makes it possible to extend and customize. Th
     cursor: pointer;
   }
 
-  .thumbnails__image.active {
+  .image.active {
     opacity: 1;
   }
 </style>
@@ -586,13 +586,13 @@ The carousel has a robust API that makes it possible to extend and customize. Th
 <script>
   {
     const carousel = document.querySelector('.carousel-thumbnails');
-    const scroller = document.querySelector('.thumbnails__scroller');
-    const thumbnails = document.querySelectorAll('.thumbnails__image');
+    const scroller = document.querySelector('.scroller');
+    const thumbnails = document.querySelectorAll('.image');
 
     scroller.addEventListener('click', e => {
       const target = e.target;
 
-      if (target.matches('.thumbnails__image')) {
+      if (target.matches('.image')) {
         const index = [...thumbnails].indexOf(target);
         carousel.goToSlide(index);
       }

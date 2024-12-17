@@ -183,17 +183,17 @@ export default class WaMenuItem extends WebAwesomeElement {
         ?aria-haspopup="${this.isSubmenu()}"
         ?aria-expanded="${isSubmenuExpanded ? true : false}"
       >
-        <span part="checked-icon" class="menu-item__check">
+        <span part="checked-icon" class="check">
           <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
         </span>
 
-        <slot name="prefix" part="prefix" class="menu-item__prefix"></slot>
+        <slot name="prefix" part="prefix" class="prefix"></slot>
 
-        <slot part="label" class="menu-item__label" @slotchange=${this.handleDefaultSlotChange}></slot>
+        <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
 
-        <slot name="suffix" part="suffix" class="menu-item__suffix"></slot>
+        <slot name="suffix" part="suffix" class="suffix"></slot>
 
-        <span part="submenu-icon" class="menu-item__chevron">
+        <span part="submenu-icon" class="chevron">
           <wa-icon
             name=${isRtl ? 'chevron-left' : 'chevron-right'}
             library="system"

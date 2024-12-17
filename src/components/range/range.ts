@@ -60,8 +60,8 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   private readonly localize = new LocalizeController(this);
   private resizeObserver: ResizeObserver;
 
-  @query('.range__control') input: HTMLInputElement;
-  @query('.range__tooltip') output: HTMLOutputElement | null;
+  @query('.control') input: HTMLInputElement;
+  @query('.tooltip') output: HTMLOutputElement | null;
 
   @state() private hasFocus = false;
   @state() private hasTooltip = false;
@@ -288,12 +288,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
           'form-control--has-label': hasLabel,
         })}
       >
-        <label
-          part="form-control-label"
-          class="form-control__label"
-          for="input"
-          aria-hidden=${hasLabel ? 'false' : 'true'}
-        >
+        <label part="form-control-label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
           <slot name="label">${this.label}</slot>
         </label>
 
@@ -317,7 +312,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
             <input
               part="input"
               id="input"
-              class="range__control"
+              class="control"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               type="range"
               name=${ifDefined(this.name)}
@@ -334,7 +329,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
             />
             ${this.tooltip !== 'none' && !this.disabled
               ? html`
-                  <output part="tooltip" class="range__tooltip">
+                  <output part="tooltip" class="tooltip">
                     ${typeof this.tooltipFormatter === 'function' ? this.tooltipFormatter(this.value) : this.value}
                   </output>
                 `

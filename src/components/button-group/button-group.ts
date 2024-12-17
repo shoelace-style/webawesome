@@ -41,22 +41,22 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   private handleFocus(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('wa-button-group__button--focus');
+    button?.classList.add('button--focus');
   }
 
   private handleBlur(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('wa-button-group__button--focus');
+    button?.classList.remove('button--focus');
   }
 
   private handleMouseOver(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('wa-button-group__button--hover');
+    button?.classList.add('button--hover');
   }
 
   private handleMouseOut(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('wa-button-group__button--hover');
+    button?.classList.remove('button--hover');
   }
 
   private handleSlotChange() {
@@ -71,13 +71,13 @@ export default class WaButtonGroup extends WebAwesomeElement {
       const button = findButton(el);
 
       if (button) {
-        button.classList.add('wa-button-group__button');
+        button.classList.add('button');
         button.classList.toggle('wa-button-group-horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group-vertical', this.orientation === 'vertical');
-        button.classList.toggle('wa-button-group__button--first', index === 0);
-        button.classList.toggle('wa-button-group__button--inner', index > 0 && index < slottedElements.length - 1);
-        button.classList.toggle('wa-button-group__button--last', index === slottedElements.length - 1);
-        button.classList.toggle('wa-button-group__button--radio', button.tagName.toLowerCase() === 'wa-radio-button');
+        button.classList.toggle('button--first', index === 0);
+        button.classList.toggle('button--inner', index > 0 && index < slottedElements.length - 1);
+        button.classList.toggle('button--last', index === slottedElements.length - 1);
+        button.classList.toggle('button--radio', button.tagName.toLowerCase() === 'wa-radio-button');
       }
     });
   }

@@ -50,7 +50,7 @@ export default class WaTooltip extends WebAwesomeElement {
   private closeWatcher: CloseWatcher | null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
-  @query('.tooltip__body') body: HTMLElement;
+  @query('.body') body: HTMLElement;
   @query('wa-popup') popup: WaPopup;
 
   /**
@@ -361,7 +361,7 @@ export default class WaTooltip extends WebAwesomeElement {
         hover-bridge
         .anchor=${this.anchor}
       >
-        <div part="body" class="tooltip__body">
+        <div part="body" class="body">
           <slot></slot>
         </div>
       </wa-popup>

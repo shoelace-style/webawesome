@@ -74,7 +74,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
 
-  @query('.input__control') input: HTMLInputElement;
+  @query('.control') input: HTMLInputElement;
 
   @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
@@ -414,12 +414,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           'form-control--has-label': hasLabel,
         })}
       >
-        <label
-          part="form-control-label"
-          class="form-control__label"
-          for="input"
-          aria-hidden=${hasLabel ? 'false' : 'true'}
-        >
+        <label part="form-control-label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
           <slot name="label">${this.label}</slot>
         </label>
 
@@ -444,14 +439,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               'input--no-spin-buttons': this.noSpinButtons,
             })}
           >
-            <span part="prefix" class="input__prefix">
+            <span part="prefix" class="prefix">
               <slot name="prefix"></slot>
             </span>
 
             <input
               part="input"
               id="input"
-              class="input__control"
+              class="control"
               type=${this.type === 'password' && this.passwordVisible ? 'text' : this.type}
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${ifDefined(this.name)}
@@ -485,7 +480,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               ? html`
                   <button
                     part="clear-button"
-                    class="input__clear"
+                    class="clear"
                     type="button"
                     aria-label=${this.localize.term('clearEntry')}
                     @click=${this.handleClearClick}
@@ -501,7 +496,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
               ? html`
                   <button
                     part="password-toggle-button"
-                    class="input__password-toggle"
+                    class="password-toggle"
                     type="button"
                     aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
                     @click=${this.handlePasswordToggle}
@@ -522,7 +517,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 `
               : ''}
 
-            <span part="suffix" class="input__suffix">
+            <span part="suffix" class="suffix">
               <slot name="suffix"></slot>
             </span>
           </div>

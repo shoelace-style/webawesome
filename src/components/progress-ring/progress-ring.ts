@@ -28,7 +28,7 @@ export default class WaProgressRing extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
 
-  @query('.progress-ring__indicator') indicator: SVGCircleElement;
+  @query('.indicator') indicator: SVGCircleElement;
 
   @state() indicatorOffset: string;
 
@@ -68,12 +68,12 @@ export default class WaProgressRing extends WebAwesomeElement {
         aria-valuenow="${this.value}"
         style="--percentage: ${this.value / 100}"
       >
-        <svg class="progress-ring__image">
-          <circle class="progress-ring__track"></circle>
-          <circle class="progress-ring__indicator" style="stroke-dashoffset: ${this.indicatorOffset}"></circle>
+        <svg class="image">
+          <circle class="track"></circle>
+          <circle class="indicator" style="stroke-dashoffset: ${this.indicatorOffset}"></circle>
         </svg>
 
-        <slot id="label" part="label" class="progress-ring__label"></slot>
+        <slot id="label" part="label" class="label"></slot>
       </div>
     `;
   }

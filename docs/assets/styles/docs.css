@@ -25,11 +25,11 @@ wa-page::part(header) {
   border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
 }
 
-wa-page::part(drawer__body) {
+wa-page::part(body) {
   padding-top: 0px;
 }
 
-wa-page::part(drawer__header-actions) {
+wa-page::part(header-actions) {
   align-self: center;
 }
 

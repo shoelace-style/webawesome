@@ -43,12 +43,12 @@
   cursor: not-allowed;
 }
 
-.option__label {
+.label {
   flex: 1 1 auto;
   display: inline-block;
 }
 
-.option .option__check {
+.option .check {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -58,22 +58,22 @@
   width: var(--wa-space-xl);
 }
 
-.option--selected .option__check {
+.option--selected .check {
   visibility: visible;
 }
 
-.option__prefix,
-.option__suffix {
+.prefix,
+.suffix {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
 
-.option__prefix::slotted(*) {
+.prefix::slotted(*) {
   margin-inline-end: var(--wa-space-xs);
 }
 
-.option__suffix::slotted(*) {
+.suffix::slotted(*) {
   margin-inline-start: var(--wa-space-xs);
 }
 

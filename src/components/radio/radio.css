@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 
-.radio__checked-icon {
+.checked-icon {
   display: flex;
   fill: currentColor;
   width: var(--toggle-size);
@@ -34,7 +34,7 @@
   scale: var(--checked-icon-scale);
 }
 
-.radio__control {
+.control {
   flex: 0 0 auto;
   position: relative;
   display: flex;
@@ -56,7 +56,7 @@
     color var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.radio__input {
+.input {
   position: absolute;
   opacity: 0;
   padding: 0;
@@ -65,14 +65,14 @@
 }
 
 /* Checked */
-.radio--checked .radio__control {
+.radio--checked .control {
   color: var(--checked-icon-color);
   border-color: var(--border-color-checked);
   background-color: var(--background-color-checked);
 }
 
 /* Checked + focus */
-:host(:focus-visible) .radio__control {
+:host(:focus-visible) .control {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
@@ -88,7 +88,7 @@
   opacity: 0;
 }
 
-.radio__label {
+.label {
   display: inline-block;
   color: var(--wa-form-control-value-color);
   line-height: var(--toggle-size);

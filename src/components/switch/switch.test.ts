@@ -127,7 +127,7 @@ describe('<wa-switch>', () => {
         //
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const label = el.shadowRoot!.querySelector('.switch')!;
-        const input = el.shadowRoot!.querySelector('.switch__input')!;
+        const input = el.shadowRoot!.querySelector('.input')!;
 
         const labelPosition = getComputedStyle(label).position;
         const inputPosition = getComputedStyle(input).position;

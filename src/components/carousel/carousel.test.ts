@@ -54,8 +54,8 @@ describe('<wa-carousel>', () => {
         expect(el).to.exist;
         expect(el).to.have.attribute('role', 'region');
         expect(el).to.have.attribute('aria-label', 'Carousel');
-        expect(el.shadowRoot!.querySelector('.carousel__navigation')).not.to.exist;
-        expect(el.shadowRoot!.querySelector('.carousel__pagination')).not.to.exist;
+        expect(el.shadowRoot!.querySelector('.navigation')).not.to.exist;
+        expect(el.shadowRoot!.querySelector('.pagination')).not.to.exist;
       });
 
       describe('when `autoplay` attribute is provided', () => {
@@ -194,8 +194,8 @@ describe('<wa-carousel>', () => {
 
           // Assert
           expect(el).to.exist;
-          expect(el.shadowRoot!.querySelector('.carousel__navigation')).not.to.exist;
-          expect(el.shadowRoot!.querySelector('.carousel__pagination')).to.exist;
+          expect(el.shadowRoot!.querySelector('.navigation')).not.to.exist;
+          expect(el.shadowRoot!.querySelector('.pagination')).to.exist;
         });
 
         describe('and user clicks on a pagination button', () => {
@@ -212,7 +212,7 @@ describe('<wa-carousel>', () => {
             await el.updateComplete;
 
             // Act
-            const paginationItem = el.shadowRoot!.querySelectorAll('.carousel__pagination-item')[2] as HTMLElement;
+            const paginationItem = el.shadowRoot!.querySelectorAll('.pagination-item')[2] as HTMLElement;
             await clickOnElement(paginationItem);
 
             expect(el.goToSlide).to.have.been.calledWith(2);
@@ -233,8 +233,8 @@ describe('<wa-carousel>', () => {
 
           // Assert
           expect(el).to.exist;
-          expect(el.shadowRoot!.querySelector('.carousel__navigation')).to.exist;
-          expect(el.shadowRoot!.querySelector('.carousel__pagination')).not.to.exist;
+          expect(el.shadowRoot!.querySelector('.navigation')).to.exist;
+          expect(el.shadowRoot!.querySelector('.pagination')).not.to.exist;
         });
       });
 
@@ -282,7 +282,7 @@ describe('<wa-carousel>', () => {
               `);
 
               // Assert
-              const paginationItems = el.shadowRoot!.querySelectorAll('.carousel__pagination-item');
+              const paginationItems = el.shadowRoot!.querySelectorAll('.pagination-item');
               expect(paginationItems.length).to.equal(expected);
             });
           },
@@ -330,7 +330,7 @@ describe('<wa-carousel>', () => {
             </wa-carousel>
           `);
           const expectedSlides = el.querySelectorAll('.expected');
-          const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-next')!;
+          const nextButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-next')!;
 
           // Act
           await clickOnElement(nextButton);
@@ -359,7 +359,7 @@ describe('<wa-carousel>', () => {
             </wa-carousel>
           `);
           const expectedSlides = el.querySelectorAll('.expected');
-          const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-next')!;
+          const nextButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-next')!;
 
           // Act
           await clickOnElement(nextButton);
@@ -506,7 +506,7 @@ describe('<wa-carousel>', () => {
                 <wa-carousel-item>Node 3</wa-carousel-item>
               </wa-carousel>
             `);
-            const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-next')!;
+            const nextButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-next')!;
             sandbox.stub(el, 'next');
 
             await el.updateComplete;
@@ -529,7 +529,7 @@ describe('<wa-carousel>', () => {
                   <wa-carousel-item>Node 3</wa-carousel-item>
                 </wa-carousel>
               `);
-              const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-next')!;
+              const nextButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-next')!;
               sandbox.stub(el, 'next');
 
               el.goToSlide(2, 'auto');
@@ -556,7 +556,7 @@ describe('<wa-carousel>', () => {
                     <wa-carousel-item>Node 3</wa-carousel-item>
                   </wa-carousel>
                 `);
-                const nextButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-next')!;
+                const nextButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-next')!;
 
                 el.goToSlide(2, 'auto');
                 await oneEvent(el.scrollContainer, 'scrollend');
@@ -597,7 +597,7 @@ describe('<wa-carousel>', () => {
             await oneEvent(el.scrollContainer, 'scrollend');
             await el.updateComplete;
 
-            const previousButton: HTMLElement = el.shadowRoot!.querySelector('.carousel__navigation-button-previous')!;
+            const previousButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-previous')!;
             sandbox.stub(el, 'previous');
 
             await el.updateComplete;
@@ -621,9 +621,7 @@ describe('<wa-carousel>', () => {
                 </wa-carousel>
               `);
 
-              const previousButton: HTMLElement = el.shadowRoot!.querySelector(
-                '.carousel__navigation-button-previous',
-              )!;
+              const previousButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-previous')!;
               sandbox.stub(el, 'previous');
               await el.updateComplete;
 
@@ -647,9 +645,7 @@ describe('<wa-carousel>', () => {
                   </wa-carousel>
                 `);
 
-                const previousButton: HTMLElement = el.shadowRoot!.querySelector(
-                  '.carousel__navigation-button-previous',
-                )!;
+                const previousButton: HTMLElement = el.shadowRoot!.querySelector('.navigation-button-previous')!;
                 await el.updateComplete;
 
                 // Act
@@ -769,8 +765,8 @@ describe('<wa-carousel>', () => {
               <wa-carousel-item>Node 3</wa-carousel-item>
             </wa-carousel>
           `);
-          const pagination = el.shadowRoot!.querySelector('.carousel__pagination')!;
-          const navigation = el.shadowRoot!.querySelector('.carousel__navigation')!;
+          const pagination = el.shadowRoot!.querySelector('.pagination')!;
+          const navigation = el.shadowRoot!.querySelector('.navigation')!;
           await el.updateComplete;
 
           // Assert
@@ -779,13 +775,13 @@ describe('<wa-carousel>', () => {
 
           expect(pagination).to.have.attribute('role', 'tablist');
           expect(pagination).to.have.attribute('aria-controls', el.scrollContainer.id);
-          for (const paginationItem of pagination.querySelectorAll('.carousel__pagination-item')) {
+          for (const paginationItem of pagination.querySelectorAll('.pagination-item')) {
             expect(paginationItem).to.have.attribute('role', 'tab');
             expect(paginationItem).to.have.attribute('aria-selected');
             expect(paginationItem).to.have.attribute('aria-label');
           }
 
-          for (const navigationItem of navigation.querySelectorAll('.carousel__navigation-item')) {
+          for (const navigationItem of navigation.querySelectorAll('.navigation-item')) {
             expect(navigationItem).to.have.attribute('aria-controls', el.scrollContainer.id);
             expect(navigationItem).to.have.attribute('aria-disabled');
             expect(navigationItem).to.have.attribute('aria-label');
