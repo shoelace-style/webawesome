@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaFormatDate from './format-date.js';
 
 describe('<wa-format-date>', () => {
@@ -13,7 +13,7 @@ describe('<wa-format-date>', () => {
         beforeEach(() => {
           // fake timer so `new Date()` can be tested
           clock = sinon.useFakeTimers({
-            now: new Date()
+            now: new Date(),
           });
         });
 
@@ -51,7 +51,7 @@ describe('<wa-format-date>', () => {
           { lang: 'nl', result: `1-1-${new Date().getFullYear()}` },
           { lang: 'pl', result: `1.01.${new Date().getFullYear()}` },
           { lang: 'pt', result: `01/01/${new Date().getFullYear()}` },
-          { lang: 'ru', result: `01.01.${new Date().getFullYear()}` }
+          { lang: 'ru', result: `01.01.${new Date().getFullYear()}` },
         ];
         results.forEach(setup => {
           it(`date has correct language format: ${setup.lang}`, async () => {
@@ -75,7 +75,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { weekday: weekdayFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -91,7 +91,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { era: eraFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -107,7 +107,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { year: yearFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -126,7 +126,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { month: monthFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -142,7 +142,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { day: dayFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -158,7 +158,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { hour: hourFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -177,7 +177,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { minute: minuteFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
 
             // @TODO: Some weird browser / Node issue only in firefox.
@@ -202,7 +202,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { second: secondFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
 
             // @TODO: Some weird browser / Node issue only in firefox.
@@ -226,7 +226,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { timeZoneName: timeZoneNameFormat }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -245,7 +245,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', { timeZone: timeZone }).format(
-              new Date(new Date().getFullYear(), 0, 1)
+              new Date(new Date().getFullYear(), 0, 1),
             );
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });
@@ -264,7 +264,7 @@ describe('<wa-format-date>', () => {
             `);
 
             const expected = new Intl.DateTimeFormat('en-US', {
-              hour12: hourFormatValue === 'auto' ? undefined : hourFormatValue === '12'
+              hour12: hourFormatValue === 'auto' ? undefined : hourFormatValue === '12',
             }).format(new Date(new Date().getFullYear(), 0, 1));
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
           });

@@ -1,8 +1,8 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { clickOnElement } from './test.js';
-import { fixtures } from './test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { clickOnElement } from './test.js';
+import { fixtures } from './test/fixture.js';
 
 describe('Form tests', () => {
   for (const fixture of fixtures) {

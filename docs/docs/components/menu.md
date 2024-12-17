@@ -1,7 +1,7 @@
 ---
 title: Menu
 description: Menus provide a list of options for the user to choose from.
-layout: component
+tags: component
 ---
 
 You can use [menu items](/docs/components/menu-item), [menu labels](/docs/components/menu-label), and [dividers](/docs/components/divider) to compose a menu. Menus support keyboard interactions, including type-to-select an option.

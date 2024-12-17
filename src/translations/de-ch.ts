@@ -1,6 +1,6 @@
+import type { Translation } from '../utilities/localize.js';
 import { registerTranslation } from '../utilities/localize.js';
 import baseTranslation from './de.js';
-import type { Translation } from '../utilities/localize.js';
 
 const translation: Translation = {
   ...baseTranslation,
@@ -8,7 +8,7 @@ const translation: Translation = {
   $name: 'Deutsch (Schweiz)',
 
   close: 'Schliessen',
-  resize: 'Grösse ändern'
+  resize: 'Grösse ändern',
 };
 
 registerTranslation(translation);

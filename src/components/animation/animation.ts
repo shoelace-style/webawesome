@@ -1,14 +1,12 @@
-import { animations } from './animations.js';
-import { customElement, property, queryAsync } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, queryAsync } from 'lit/decorators.js';
 import { WaCancelEvent } from '../../events/cancel.js';
 import { WaFinishEvent } from '../../events/finish.js';
 import { WaStartEvent } from '../../events/start.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './animation.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './animation.css';
+import { animations } from './animations.js';
 
 /**
  * @summary Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes. Powered by the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
@@ -25,7 +23,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-animation')
 export default class WaAnimation extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private animation?: Animation;
   private hasStarted = false;
@@ -66,7 +64,7 @@ export default class WaAnimation extends WebAwesomeElement {
   @property() fill: FillMode = 'auto';
 
   /** The number of iterations to run before the animation completes. Defaults to `Infinity`, which loops. */
-  @property({ type: Number }) iterations = Infinity;
+  @property({ type: Number }) iterations: number = Infinity;
 
   /** The offset at which to start the animation, usually between 0 (start) and 1 (end). */
   @property({ attribute: 'iteration-start', type: Number }) iterationStart = 0;
@@ -138,7 +136,7 @@ export default class WaAnimation extends WebAwesomeElement {
       endDelay: this.endDelay,
       fill: this.fill,
       iterationStart: this.iterationStart,
-      iterations: this.iterations
+      iterations: this.iterations,
     });
     this.animation.playbackRate = this.playbackRate;
     this.animation.addEventListener('cancel', this.handleAnimationCancel);
@@ -173,7 +171,7 @@ export default class WaAnimation extends WebAwesomeElement {
     'fill',
     'iterations',
     'iterationsStart',
-    'keyframes'
+    'keyframes',
   ])
   handleAnimationChange() {
     if (!this.hasUpdated) {

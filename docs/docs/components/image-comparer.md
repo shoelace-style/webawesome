@@ -1,7 +1,7 @@
 ---
 title: Image Comparer
 description: Compare visual differences between similar photos with a sliding panel.
-layout: component
+tags: component
 ---
 
 For best results, use images that share the same dimensions. The slider can be controlled by dragging or pressing the left and right arrow keys. (Tip: press shift + arrows to move the slider in larger intervals, or home + end to jump to the beginning or end.)

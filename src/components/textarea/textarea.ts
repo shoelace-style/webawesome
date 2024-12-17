@@ -1,20 +1,19 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './textarea.styles.js';
-import type { CSSResultGroup } from 'lit';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import styles from './textarea.css';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -23,7 +22,7 @@ import type { CSSResultGroup } from 'lit';
  * @since 2.0
  *
  * @slot label - The textarea's label. Alternatively, you can use the `label` attribute.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
@@ -31,10 +30,10 @@ import type { CSSResultGroup } from 'lit';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart base - The component's base wrapper.
  * @csspart textarea - The internal `<textarea>` control.
  *
@@ -47,13 +46,14 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
+
   static get validators() {
     return [...super.validators, MirrorValidator()];
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private resizeObserver: ResizeObserver;
 
   @query('.textarea__control') input: HTMLTextAreaElement;
@@ -98,8 +98,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The textarea's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The textarea's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** Placeholder text to show as a hint when the input is empty. */
   @property() placeholder = '';
@@ -156,8 +156,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     converter: {
       // Allow "true|false" attribute values but keep the property boolean
       fromAttribute: value => (!value || value === 'false' ? false : true),
-      toAttribute: value => (value ? 'true' : 'false')
-    }
+      toAttribute: value => (value ? 'true' : 'false'),
+    },
   })
   spellcheck = true;
 
@@ -173,9 +173,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR. If you're slotting in a `help-text` element, make sure to set this to `true`.
+   * Used for SSR. If you're slotting in a `hint` element, make sure to set this to `true`.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -272,7 +272,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     return {
       top: this.input.scrollTop,
-      left: this.input.scrollTop
+      left: this.input.scrollTop,
     };
   }
 
@@ -280,7 +280,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   setSelectionRange(
     selectionStart: number,
     selectionEnd: number,
-    selectionDirection: 'forward' | 'backward' | 'none' = 'none'
+    selectionDirection: 'forward' | 'backward' | 'none' = 'none',
   ) {
     this.input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
@@ -290,7 +290,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     replacement: string,
     start?: number,
     end?: number,
-    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve'
+    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve',
   ) {
     const selectionStart = start ?? this.input.selectionStart;
     const selectionEnd = end ?? this.input.selectionEnd;
@@ -311,20 +311,16 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
       <div
         part="form-control"
         class=${classMap({
           'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
           'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
         })}
       >
         <label
@@ -351,7 +347,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
               'textarea--empty': !this.value,
               'textarea--resize-none': this.resize === 'none',
               'textarea--resize-vertical': this.resize === 'vertical',
-              'textarea--resize-auto': this.resize === 'auto'
+              'textarea--resize-auto': this.resize === 'auto',
             })}
           >
             <textarea
@@ -374,7 +370,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
               spellcheck=${ifDefined(this.spellcheck)}
               enterkeyhint=${ifDefined(this.enterkeyhint)}
               inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="help-text"
+              aria-describedby="hint"
               @change=${this.handleChange}
               @input=${this.handleInput}
               @focus=${this.handleFocus}
@@ -386,14 +382,15 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           </div>
         </div>
 
-        <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
+        <slot
+          name="hint"
+          part="hint"
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          >${this.hint}</slot
         >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
       </div>
     `;
   }

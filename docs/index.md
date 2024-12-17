@@ -86,13 +86,13 @@ layout: page
       flex: 1 1 67%;
     }
     & wa-button {
-      --wa-form-control-height-s: 2.5rem;
       --border-color: black;
       --border-width: 0.125rem;
-      --box-shadow: 0 0.25rem 0 0 var(--border-color);
+      box-shadow: 0 0.25rem 0 0 var(--border-color);
       flex: 1 1 auto;
+      height: 2.5rem;
       &:active:not([disabled]) {
-        --box-shadow: 0 0 0 0 transparent;
+        box-shadow: 0 0 0 0 transparent;
         transform: translateY(0.25rem);
       }
     }
@@ -190,8 +190,7 @@ layout: page
         gap: 0.5rem;
       }
       & wa-button {
-        --wa-form-control-height-m: 1.5rem;
-        display: inline-flex;
+        height: 1.5rem;
         font-size: 0.75rem;
       }
     }

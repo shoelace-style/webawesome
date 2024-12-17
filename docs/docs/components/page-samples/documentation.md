@@ -9,9 +9,7 @@ layout: blank
     --menu-width: 15rem;
     --aside-width: 15rem;
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-  }
+
   wa-page[view='mobile'] {
     --menu-width: auto;
     --aside-width: auto;

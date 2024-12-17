@@ -1,0 +1,93 @@
+/**
+ * Literal Colors
+ * Each color is identified by a number that corresponds to its perceived lightness, where 100 is equal to white and 0 is equal to black.
+ * Each lightness value has nearly uniform WCAG 2.1 contrast across hues.
+ * A difference of 40 between lightness values ensures a minimum 3:1 contrast ratio.
+ * A difference of 50 between lightness values ensures a minimum 4.5:1 contrast ratio.
+ * A difference of 60 between lightness values ensures a minimum 7:1 contrast ratio.
+ */
+:where(:root, :host) {
+  --wa-color-red-95: #ffefef;
+  --wa-color-red-90: #ffdddc;
+  --wa-color-red-80: #ffb7b6;
+  --wa-color-red-70: #fc9090;
+  --wa-color-red-60: #f2676c;
+  --wa-color-red-50: #de2d44;
+  --wa-color-red-40: #b11036;
+  --wa-color-red-30: #861a2f;
+  --wa-color-red-20: #641122;
+  --wa-color-red-10: #400712;
+  --wa-color-red-05: #2a030a;
+
+  --wa-color-yellow-95: #fdf3ba;
+  --wa-color-yellow-90: #fee590;
+  --wa-color-yellow-80: #fcc041;
+  --wa-color-yellow-70: #f39b00;
+  --wa-color-yellow-60: #e07b00;
+  --wa-color-yellow-50: #bb5a00;
+  --wa-color-yellow-40: #924200;
+  --wa-color-yellow-30: #743200;
+  --wa-color-yellow-20: #572300;
+  --wa-color-yellow-10: #361300;
+  --wa-color-yellow-05: #240b00;
+
+  --wa-color-green-95: #e2f9e2;
+  --wa-color-green-90: #c2f2c1;
+  --wa-color-green-80: #92da97;
+  --wa-color-green-70: #5dc36f;
+  --wa-color-green-60: #00ac49;
+  --wa-color-green-50: #008825;
+  --wa-color-green-40: #006800;
+  --wa-color-green-30: #005300;
+  --wa-color-green-20: #003c00;
+  --wa-color-green-10: #002400;
+  --wa-color-green-05: #001700;
+
+  --wa-color-blue-95: #ebf4ff;
+  --wa-color-blue-90: #d4e7ff;
+  --wa-color-blue-80: #a6ccff;
+  --wa-color-blue-70: #77b1ff;
+  --wa-color-blue-60: #4895fd;
+  --wa-color-blue-50: #0070ef;
+  --wa-color-blue-40: #0055b8;
+  --wa-color-blue-30: #004390;
+  --wa-color-blue-20: #00306c;
+  --wa-color-blue-10: #001c45;
+  --wa-color-blue-05: #00112f;
+
+  --wa-color-indigo-95: #f0f2fe;
+  --wa-color-indigo-90: #e2e4fc;
+  --wa-color-indigo-80: #c2c6f8;
+  --wa-color-indigo-70: #a5a9f2;
+  --wa-color-indigo-60: #8a8beb;
+  --wa-color-indigo-50: #6b65e2;
+  --wa-color-indigo-40: #5246c1;
+  --wa-color-indigo-30: #412eaa;
+  --wa-color-indigo-20: #321393;
+  --wa-color-indigo-10: #1c006a;
+  --wa-color-indigo-05: #130049;
+
+  --wa-color-violet-95: #f9effd;
+  --wa-color-violet-90: #f4defb;
+  --wa-color-violet-80: #e7baf7;
+  --wa-color-violet-70: #d996ef;
+  --wa-color-violet-60: #c674e1;
+  --wa-color-violet-50: #a94dc6;
+  --wa-color-violet-40: #8732a1;
+  --wa-color-violet-30: #6d2283;
+  --wa-color-violet-20: #521564;
+  --wa-color-violet-10: #330940;
+  --wa-color-violet-05: #22042b;
+
+  --wa-color-gray-95: #f1f2f3;
+  --wa-color-gray-90: #e4e5e9;
+  --wa-color-gray-80: #c7c9d0;
+  --wa-color-gray-70: #abaeb9;
+  --wa-color-gray-60: #9194a2;
+  --wa-color-gray-50: #717584;
+  --wa-color-gray-40: #545868;
+  --wa-color-gray-30: #424554;
+  --wa-color-gray-20: #2f323f;
+  --wa-color-gray-10: #1b1d26;
+  --wa-color-gray-05: #101219;
+}

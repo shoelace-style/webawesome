@@ -1,10 +1,10 @@
-import { clickOnElement } from '../../internal/test.js';
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaSelectEvent } from '../../events/select.js';
+import { clickOnElement } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaMenu from './menu.js';
 
 describe('<wa-menu>', () => {

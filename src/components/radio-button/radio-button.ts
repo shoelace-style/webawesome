@@ -1,15 +1,17 @@
-import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
-import { html } from 'lit/static-html.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { html } from 'lit/static-html.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './radio-button.styles.js';
-import type { CSSResultGroup } from 'lit';
+import nativeStyles from '../../styles/native/button.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import variantStyles from '../../styles/utilities/variants.css';
+import buttonStyles from '../button/button.css';
+import styles from './radio-button.css';
 
 /**
  * @summary Radios buttons allow the user to select a single option from a group using a button-like control.
@@ -36,24 +38,23 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --box-shadow - The shadow effects around the edges of the button.
  * @cssproperty --indicator-color - The color of the checked button indicator.
  * @cssproperty --indicator-width - The width of the checked button indicator.
- * @cssproperty --label-color - The color of the button's label.
- * @cssproperty --label-color-active - The color of the button's label when active.
- * @cssproperty --label-color-hover - The color of the button's label on hover.
+ * @cssproperty --text-color - The color of the button's label.
+ * @cssproperty --text-color-active - The color of the button's label when active.
+ * @cssproperty --text-color-hover - The color of the button's label on hover.
  *
- * @csspart base - The component's base wrapper.
- * @csspart button - The internal `<button>` element.
- * @csspart button--checked - The internal button element when the radio button is checked.
+ * @csspart base - The internal `<button>` element.
+ * @csspart checked - The internal button element when the radio button is checked.
  * @csspart prefix - The container that wraps the prefix.
  * @csspart label - The container that wraps the radio button's label.
  * @csspart suffix - The container that wraps the suffix.
  */
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [variantStyles, sizeStyles, nativeStyles, buttonStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
 
-  @query('.button') input: HTMLInputElement;
+  @query('button') input: HTMLButtonElement;
   @query('.hidden-input') hiddenInput: HTMLInputElement;
 
   @state() protected hasFocus = false;
@@ -148,39 +149,33 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     const hasSuffix = this.hasUpdated ? this.hasSlotController.test('suffix') : this.withSuffix;
 
     return html`
-      <div part="base" role="presentation">
-        <button
-          part="${`button${this.checked ? ' button--checked' : ''}`}"
-          role="radio"
-          aria-checked="${this.checked}"
-          class=${classMap({
-            button: true,
-            'button--neutral': !this.checked,
-            'button--brand': this.checked,
-            'button--small': this.size === 'small',
-            'button--medium': this.size === 'medium',
-            'button--large': this.size === 'large',
-            'button--checked': this.checked,
-            'button--disabled': this.disabled,
-            'button--focused': this.hasFocus,
-            'button--outlined': true,
-            'button--pill': this.pill,
-            'button--has-label': hasLabel,
-            'button--has-prefix': hasPrefix,
-            'button--has-suffix': hasSuffix
-          })}
-          aria-disabled=${this.disabled}
-          type="button"
-          value=${ifDefined(this.value)}
-          @blur=${this.handleBlur}
-          @focus=${this.handleFocus}
-          @click=${this.handleClick}
-        >
-          <slot name="prefix" part="prefix" class="button__prefix"></slot>
-          <slot part="label" class="button__label"></slot>
-          <slot name="suffix" part="suffix" class="button__suffix"></slot>
-        </button>
-      </div>
+      <button
+        part="base${this.checked ? ' checked' : ''}"
+        role="radio"
+        aria-checked="${this.checked}"
+        class=${classMap({
+          'wa-neutral': !this.checked,
+          'wa-brand': this.checked,
+          disabled: this.disabled,
+          focused: this.hasFocus,
+          'wa-outlined': true,
+          'wa-tinted': this.checked,
+          'wa-pill': this.pill,
+          'has-label': hasLabel,
+          'has-prefix': hasPrefix,
+          'has-suffix': hasSuffix,
+        })}
+        aria-disabled=${this.disabled}
+        type="button"
+        value=${ifDefined(this.value)}
+        @blur=${this.handleBlur}
+        @focus=${this.handleFocus}
+        @click=${this.handleClick}
+      >
+        <slot name="prefix" part="prefix" class="prefix"></slot>
+        <slot part="label" class="label"></slot>
+        <slot name="suffix" part="suffix" class="suffix"></slot>
+      </button>
     `;
   }
 }

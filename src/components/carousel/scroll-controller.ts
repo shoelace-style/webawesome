@@ -1,6 +1,6 @@
+import type { ReactiveController, ReactiveElement } from 'lit';
 import { prefersReducedMotion } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
-import type { ReactiveController, ReactiveElement } from 'lit';
 
 interface ScrollHost extends ReactiveElement {
   scrollContainer: HTMLElement;
@@ -104,7 +104,7 @@ export class ScrollController<T extends ScrollHost> implements ReactiveControlle
   handleDrag(event: PointerEvent) {
     this.host.scrollContainer.scrollBy({
       left: -event.movementX,
-      top: -event.movementY
+      top: -event.movementY,
     });
   }
 

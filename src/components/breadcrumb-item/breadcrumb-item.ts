@@ -1,11 +1,9 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './breadcrumb-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './breadcrumb-item.css';
 
 /**
  * @summary Breadcrumb Items are used inside [breadcrumbs](/docs/components/breadcrumb) to represent different links.
@@ -27,7 +25,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-breadcrumb-item')
 export default class WaBreadcrumbItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 

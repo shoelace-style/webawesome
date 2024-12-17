@@ -14,9 +14,9 @@ Border style controls the standard line shape of borders throughout Web Awesome.
 
 ## Width
 
-Border widths use `rem` units in order to scale proportionately with the root font size. 
+Border widths use `rem` units in order to scale proportionately with the root font size.
 
-Each border width value uses a `calc()` function with `--wa-border-width-multiplier` to scale all border widths at once. By default, this multiplier is `0.0625`. The table below lists the result of the calculation.
+Each border width value uses a `calc()` function with `--wa-border-width-scale` to scale all border widths at once. By default, this multiplier is `0.0625`. The table below lists the result of the calculation.
 
 | Custom Property       | Default Value                    | Preview                                                                   |
 | --------------------- | -------------------------------- | ------------------------------------------------------------------------- |
@@ -36,9 +36,9 @@ Common border radius properties allow you to achieve specific shapes beyond your
 | `--wa-border-radius-circle` | `50%`         | <div class="swatch" style="aspect-ratio: 1 / 1; border-radius: var(--wa-border-radius-circle)"></div> |
 | `--wa-border-radius-square` | `0px`         | <div class="swatch" style="border-radius: var(--wa-border-radius-square)"></div>                      |
 
-Size-based border radius properties allow you to customize the overall roundness of Web Awesome components. These use `rem` units in order to scale proportionately with the root font size. 
+Size-based border radius properties allow you to customize the overall roundness of Web Awesome components. These use `rem` units in order to scale proportionately with the root font size.
 
-Each property uses a `calc()` function with `--wa-border-radius-multiplier` to scale all border radii at once. By default, this multiplier is `0.375`. The table below lists the result of the calculation.
+Each property uses a `calc()` function with `--wa-border-radius-scale` to scale all border radii at once. By default, this multiplier is `0.375`. The table below lists the result of the calculation.
 
 | Custom Property         | Default Value                    |  Preview                                                                     |
 | ----------------------- | -------------------------------- | ---------------------------------------------------------------------------- |

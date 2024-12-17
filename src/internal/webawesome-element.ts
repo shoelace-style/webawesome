@@ -1,12 +1,49 @@
-import { CustomErrorValidator } from './validators/custom-error-validator.js';
-import { isServer, LitElement, type PropertyValues } from 'lit';
+import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
+import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
+import componentStyles from '../styles/shadow/component.css';
+import { CustomErrorValidator } from './validators/custom-error-validator.js';
 
 export default class WebAwesomeElement extends LitElement {
+  constructor() {
+    super();
+
+    try {
+      this.internals = this.attachInternals();
+    } catch (_e) {
+      /* Need to tell people if they need a polyfill. */
+      /* eslint-disable-next-line */
+      console.error('Element internals are not supported in your browser. Consider using a polyfill');
+    }
+  }
+
   // Make localization attributes reactive
   @property() dir: string;
   @property() lang: string;
+
+  /**
+   * One or more styles for the element’s own shadow DOM.
+   * Shared component styles will automatically be added.
+   * If that is not desirable, the subclass can define its own styles property.
+   */
+  static shadowStyle?: CSSResultGroup | CSSResult | string | (CSSResult | string)[];
+
+  /** The base styles property will only get called if the subclass does not define a styles property of its own */
+  static get styles(): CSSResultGroup {
+    const shadowStyle = this.shadowStyle
+      ? Array.isArray(this.shadowStyle)
+        ? this.shadowStyle
+        : [this.shadowStyle]
+      : [];
+
+    // Convert any string styles to Lit’s CSSResult
+    const shadowStyles = [componentStyles, ...shadowStyle].map(style =>
+      typeof style === 'string' ? unsafeCSS(style) : style,
+    );
+
+    return shadowStyles;
+  }
 
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
 
@@ -14,6 +51,8 @@ export default class WebAwesomeElement extends LitElement {
 
   // Store the constructor value of all `static properties = {}`
   initialReflectedProperties: Map<string, unknown> = new Map();
+
+  internals: ElementInternals;
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
@@ -23,7 +62,7 @@ export default class WebAwesomeElement extends LitElement {
           if (obj.reflect && this[prop] != null) {
             this.initialReflectedProperties.set(prop, this[prop]);
           }
-        }
+        },
       );
 
       this.#hasRecordedInitialProperties = true;
@@ -72,6 +111,44 @@ export default class WebAwesomeElement extends LitElement {
       }
       throw e;
     }
+  }
+
+  /** Checks if states are supported by the element */
+  private hasStatesSupport(): boolean {
+    return this.internals?.states instanceof Set;
+  }
+
+  /** Adds a custom state to the element. */
+  addCustomState(state: string) {
+    if (this.hasStatesSupport()) {
+      this.internals.states.add(state);
+    }
+  }
+
+  /** Removes a custom state from the element. */
+  deleteCustomState(state: string) {
+    if (this.hasStatesSupport()) {
+      this.internals.states.delete(state);
+    }
+  }
+
+  /** Toggles a custom state on the element. */
+  toggleCustomState(state: string, force?: boolean) {
+    if (typeof force === 'boolean') {
+      if (force) {
+        this.addCustomState(state);
+      } else {
+        this.deleteCustomState(state);
+      }
+      return;
+    }
+
+    this.toggleCustomState(state, !this.hasCustomState(state));
+  }
+
+  /** Determines if the element has the specified custom state. */
+  hasCustomState(state: string): boolean {
+    return this.hasStatesSupport() ? this.internals.states.has(state) : false;
   }
 }
 
@@ -166,9 +243,6 @@ export class WebAwesomeFormAssociatedElement
 
   required: boolean = false;
 
-  // Form validation methods
-  internals: ElementInternals;
-
   assumeInteractionOn: string[] = ['wa-input'];
 
   // Additional
@@ -188,19 +262,12 @@ export class WebAwesomeFormAssociatedElement
   constructor() {
     super();
 
-    try {
-      this.internals = this.attachInternals();
-    } catch (_e) {
-      /* Need to tell people if they need a polyfill. */
-      /* eslint-disable-next-line */
-      console.error('Element internals are not supported in your browser. Consider using a polyfill');
-    }
-
     if (!isServer) {
       // eslint-disable-next-line
       this.addEventListener('invalid', this.emitInvalid);
     }
   }
+  states: CustomStateSet;
 
   connectedCallback() {
     super.connectedCallback();
@@ -434,7 +501,7 @@ export class WebAwesomeFormAssociatedElement
 
     const flags: Partial<ValidityKey> = {
       // Don't trust custom errors from the Browser. Safari breaks the spec.
-      customError: Boolean(this.customError)
+      customError: Boolean(this.customError),
     };
 
     const formControl = this.validationTarget || this.input || undefined;
@@ -463,59 +530,5 @@ export class WebAwesomeFormAssociatedElement
     }
 
     this.setValidity(flags, finalMessage, formControl);
-  }
-
-  // Custom states
-  addCustomState(state: string) {
-    try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
-      (this.internals.states as Set<string>).add(state);
-    } catch (_) {
-      // Without this, test suite errors.
-    } finally {
-      this.setAttribute(`data-wa-${state}`, '');
-    }
-  }
-
-  deleteCustomState(state: string) {
-    try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
-      (this.internals.states as Set<string>).delete(state);
-    } catch (_) {
-      // Without this, test suite errors.
-    } finally {
-      this.removeAttribute(`data-wa-${state}`);
-    }
-  }
-
-  toggleCustomState(state: string, force: boolean) {
-    if (force) {
-      this.addCustomState(state);
-      return;
-    }
-
-    if (!force) {
-      this.deleteCustomState(state);
-      return;
-    }
-
-    this.toggleCustomState(state, !this.hasCustomState(state));
-  }
-
-  hasCustomState(state: string) {
-    let bool = false;
-
-    try {
-      // @ts-expect-error CustomStateSet doesn't exist in TS yet.
-      bool = (this.internals.states as Set<string>).has(state);
-    } catch (_) {
-      // Without this, test suite errors.
-    } finally {
-      if (!bool) {
-        bool = this.hasAttribute(`data-wa-${state}`);
-      }
-    }
-
-    return bool;
   }
 }

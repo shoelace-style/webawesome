@@ -1,0 +1,104 @@
+:host {
+  background-color: var(--wa-color-surface-default);
+  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
+  border-radius: var(--wa-panel-border-radius);
+
+  --icon-color: var(--wa-color-text-quiet);
+  --spacing: var(--wa-space-m);
+  --show-duration: 200ms;
+  --hide-duration: 200ms;
+
+  display: contents !important;
+}
+
+details {
+  all: inherit;
+  display: block;
+  overflow-anchor: none;
+}
+
+:host([disabled]) details {
+  opacity: 0.5;
+
+  summary {
+    cursor: not-allowed;
+  }
+
+  summary:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: calc(1px + var(--wa-focus-ring-offset));
+  }
+
+  [part~='summary'] {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+  }
+}
+
+[part~='icon'] {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--icon-color);
+  transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+:host([open]) [part~='icon'] {
+  rotate: 90deg;
+}
+
+:host([open]:dir(rtl)) [part~='icon'] {
+  rotate: -90deg;
+}
+
+:host([open]) slot[name='expand-icon'],
+:host(:not([open])) slot[name='collapse-icon'] {
+  display: none;
+}
+
+/* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
+:host(:not([open])) .body {
+  overflow: hidden;
+}
+
+.content {
+  display: block;
+  padding: var(--spacing);
+}
+
+.show {
+}
+
+.hide {
+}
+
+@keyframes show {
+  from {
+  }
+  to {
+  }
+}

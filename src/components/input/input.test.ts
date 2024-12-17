@@ -1,12 +1,12 @@
 // eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { isSafari } from '../../internal/test.js';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands'; // must come from the same module
-import { serialize } from '../../../dist-cdn/webawesome.js';
+import { html } from 'lit';
 import sinon from 'sinon';
+import { serialize } from '../../../dist-cdn/webawesome.js';
+import { isSafari } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaInput from './input.js';
 
 describe('<wa-input>', () => {
@@ -31,7 +31,7 @@ describe('<wa-input>', () => {
         expect(el.filled).to.be.false;
         expect(el.pill).to.be.false;
         expect(el.label).to.equal('');
-        expect(el.helpText).to.equal('');
+        expect(el.hint).to.equal('');
         expect(el.clearable).to.be.false;
         expect(el.passwordToggle).to.be.false;
         expect(el.passwordVisible).to.be.false;
@@ -105,7 +105,7 @@ describe('<wa-input>', () => {
 
         it('should not add a value to the form if disabled', async () => {
           const form = await fixture<HTMLFormElement>(
-            html` <form><wa-input name="name" disabled required></wa-input></form>`
+            html` <form><wa-input name="name" disabled required></wa-input></form>`,
           );
           const el = form.querySelector('wa-input')!;
           el.value = 'blah';
@@ -122,12 +122,12 @@ describe('<wa-input>', () => {
           const el = await fixture<WaInput>(html` <wa-input required value="a"></wa-input> `);
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasAttribute('data-wa-required')).to.be.true;
-          expect(el.hasAttribute('data-wa-optional')).to.be.false;
-          expect(el.hasAttribute('data-wa-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-valid')).to.be.true;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('required')).to.be.true;
+          expect(el.hasCustomState('optional')).to.be.false;
+          expect(el.hasCustomState('invalid')).to.be.false;
+          expect(el.hasCustomState('valid')).to.be.true;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.false;
 
           el.focus();
           await el.updateComplete;
@@ -137,19 +137,19 @@ describe('<wa-input>', () => {
           await el.updateComplete;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.true;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.true;
         });
 
         it('should receive the correct validation attributes ("states") when invalid', async () => {
           const el = await fixture<WaInput>(html` <wa-input required></wa-input> `);
 
-          expect(el.hasAttribute('data-wa-required')).to.be.true;
-          expect(el.hasAttribute('data-wa-optional')).to.be.false;
-          expect(el.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(el.hasAttribute('data-wa-valid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('required')).to.be.true;
+          expect(el.hasCustomState('optional')).to.be.false;
+          expect(el.hasCustomState('invalid')).to.be.true;
+          expect(el.hasCustomState('valid')).to.be.false;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.false;
 
           el.focus();
           await el.updateComplete;
@@ -159,20 +159,20 @@ describe('<wa-input>', () => {
           el.blur();
           await el.updateComplete;
 
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.true;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('user-invalid')).to.be.true;
+          expect(el.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
           const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-input required></wa-input></form> `);
           const input = el.querySelector<WaInput>('wa-input')!;
 
-          expect(input.hasAttribute('data-wa-required')).to.be.true;
-          expect(input.hasAttribute('data-wa-optional')).to.be.false;
-          expect(input.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(input.hasAttribute('data-wa-valid')).to.be.false;
-          expect(input.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(input.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(input.hasCustomState('required')).to.be.true;
+          expect(input.hasCustomState('optional')).to.be.false;
+          expect(input.hasCustomState('invalid')).to.be.true;
+          expect(input.hasCustomState('valid')).to.be.false;
+          expect(input.hasCustomState('user-invalid')).to.be.false;
+          expect(input.hasCustomState('user-valid')).to.be.false;
         });
       });
 
@@ -229,10 +229,10 @@ describe('<wa-input>', () => {
           await input.updateComplete;
 
           expect(input.checkValidity()).to.be.false;
-          expect(input.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(input.hasAttribute('data-wa-valid')).to.be.false;
-          expect(input.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(input.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(input.hasCustomState('invalid')).to.be.true;
+          expect(input.hasCustomState('valid')).to.be.false;
+          expect(input.hasCustomState('user-invalid')).to.be.false;
+          expect(input.hasCustomState('user-valid')).to.be.false;
 
           input.focus();
           await sendKeys({ type: 'test' });
@@ -240,8 +240,8 @@ describe('<wa-input>', () => {
           input.blur();
           await input.updateComplete;
 
-          expect(input.hasAttribute('data-wa-user-invalid')).to.be.true;
-          expect(input.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(input.hasCustomState('user-invalid')).to.be.true;
+          expect(input.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should be present in form data when using the form attribute and located outside of a <form>', async () => {

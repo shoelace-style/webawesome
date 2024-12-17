@@ -1,10 +1,8 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './card.styles.js';
+import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './card.css';
 
 /**
  * @summary Cards can be used to group related subjects in a container.
@@ -33,7 +31,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   /** Renders the card with a header */
   @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
@@ -52,7 +50,7 @@ export default class WaCard extends WebAwesomeElement {
           card: true,
           'card--has-footer': this.withFooter,
           'card--has-image': this.withImage,
-          'card--has-header': this.withHeader
+          'card--has-header': this.withHeader,
         })}
       >
         <slot name="image" part="image" class="card__image"></slot>

@@ -31,7 +31,7 @@ function getLogicalAnimation(animation: ElementAnimation, dir: string) {
   if (dir.toLowerCase() === 'rtl') {
     return {
       keyframes: animation.rtlKeyframes || animation.keyframes,
-      options: animation.options
+      options: animation.options,
     };
   }
 
@@ -69,6 +69,6 @@ export function getAnimation(el: Element, animationName: string, options: GetAni
   // Fall back to an empty animation
   return {
     keyframes: [],
-    options: { duration: 0 }
+    options: { duration: 0 },
   };
 }

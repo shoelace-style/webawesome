@@ -1,0 +1,44 @@
+:host {
+  --size-s: var(--wa-font-size-xs);
+  --size-m: var(--wa-font-size-s);
+  --size-l: var(--wa-font-size-m);
+  --form-control-height: calc(var(--space-smaller) * 2 + 1em * var(--wa-form-control-value-line-height));
+
+  display: inline-flex;
+  border-radius: var(--wa-border-radius-s);
+  align-items: center;
+  background-color: var(--wa-color-fill-quiet);
+  border-color: var(--wa-color-border-normal);
+  border-style: var(--wa-border-style);
+  border-width: var(--wa-border-width-s);
+  color: var(--wa-color-on-normal);
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  height: calc(var(--form-control-height) * 0.8);
+  line-height: calc(var(--form-control-height) - var(--wa-form-control-border-width) * 2);
+  padding: 0 var(--space-smaller);
+}
+
+[part='remove-button'] {
+  color: inherit;
+  padding: 0;
+  margin-inline-start: 0.75em;
+}
+
+:host(:hover) > wa-icon-button {
+  color: color-mix(in oklab, var(--text-color), var(--wa-color-mix-hover));
+}
+
+:host(:active) > wa-icon-button {
+  color: color-mix(in oklab, var(--text-color), var(--wa-color-mix-active));
+}
+
+/*
+ * Pill modifier
+ */
+
+:host([pill]) {
+  border-radius: var(--wa-border-radius-pill);
+}

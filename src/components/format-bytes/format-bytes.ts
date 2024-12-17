@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
-import { LocalizeController } from '../../utilities/localize.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 
 /**
  * @summary Formats a number as a human readable bytes value.
@@ -10,6 +10,10 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
  */
 @customElement('wa-format-bytes')
 export default class WaFormatBytes extends WebAwesomeElement {
+  static get styles() {
+    return [];
+  }
+
   private readonly localize = new LocalizeController(this);
 
   /** The number to format in bytes. */
@@ -36,7 +40,7 @@ export default class WaFormatBytes extends WebAwesomeElement {
     return this.localize.number(valueToFormat, {
       style: 'unit',
       unit,
-      unitDisplay: this.display
+      unitDisplay: this.display,
     });
   }
 }

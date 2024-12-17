@@ -305,9 +305,7 @@ layout: blank
     --wa-tooltip-arrow-size: 0;
     background-color: var(--wa-color-surface-lowered);
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-  }
+
   wa-page[view='mobile'] {
     --menu-width: auto;
   }

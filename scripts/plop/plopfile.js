@@ -26,30 +26,30 @@ export default function (plop) {
           }
 
           return true;
-        }
-      }
+        },
+      },
     ],
     actions: [
       {
         type: 'add',
         path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.ts',
-        templateFile: 'templates/component/component.hbs'
+        templateFile: 'templates/component/component.hbs',
       },
       {
         type: 'add',
         path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.styles.ts',
-        templateFile: 'templates/component/styles.hbs'
+        templateFile: 'templates/component/styles.hbs',
       },
       {
         type: 'add',
         path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.test.ts',
-        templateFile: 'templates/component/tests.hbs'
+        templateFile: 'templates/component/tests.hbs',
       },
       {
         type: 'add',
         path: '../../docs/docs/components/{{ tagWithoutPrefix tag }}.md',
-        templateFile: 'templates/component/docs.hbs'
-      }
-    ]
+        templateFile: 'templates/component/docs.hbs',
+      },
+    ],
   });
 }

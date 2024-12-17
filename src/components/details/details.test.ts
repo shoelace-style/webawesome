@@ -1,10 +1,10 @@
 // cspell:dictionaries lorem-ipsum
 import { expect, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaHideEvent } from '../../events/hide.js';
 import type { WaShowEvent } from '../../events/show.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaDetails from './details.js';
 
 describe('<wa-details>', () => {
@@ -32,7 +32,7 @@ describe('<wa-details>', () => {
             ea commodo consequat.
           </wa-details>
         `);
-        const body = el.shadowRoot!.querySelector<HTMLElement>('.details__body')!;
+        const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
 
         expect(parseInt(getComputedStyle(body).height)).to.be.greaterThan(0);
       });
@@ -45,7 +45,7 @@ describe('<wa-details>', () => {
             ea commodo consequat.
           </wa-details>
         `);
-        const body = el.shadowRoot!.querySelector<HTMLElement>('.details__body')!;
+        const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
         expect(parseInt(getComputedStyle(body).height)).to.equal(0);
       });
 
@@ -101,7 +101,7 @@ describe('<wa-details>', () => {
             ea commodo consequat.
           </wa-details>
         `);
-        const body = el.shadowRoot!.querySelector<HTMLElement>('.details__body')!;
+        const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
 
@@ -190,8 +190,8 @@ describe('<wa-details>', () => {
         `);
         const first = el.querySelectorAll('wa-details')[0];
         const second = el.querySelectorAll('wa-details')[1];
-        const firstBody = first.shadowRoot!.querySelector('.details__body')!;
-        const secondBody = second.shadowRoot!.querySelector('.details__body')!;
+        const firstBody = first.shadowRoot!.querySelector('.body')!;
+        const secondBody = second.shadowRoot!.querySelector('.body')!;
 
         await first.show();
         await second.show();

@@ -37,6 +37,7 @@
   {# Slots #}
   {% if component.slots.length %}
     <h2>Slots</h2>
+    <p>Learn more about <a href="/docs/usage/#slots">using slots</a>.</p>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -67,6 +68,7 @@
   {# Properties #}
   {% if component.properties.length %}
     <h2>Attributes & Properties</h2>
+    <p>Learn more about <a href="/docs/usage/#attributes-and-properties">attributes and properties</a>.</p>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -113,6 +115,8 @@
   {# Methods #}
   {% if component.methods.length %}
     <h2>Methods</h2>
+    <p>Learn more about <a href="/docs/usage/#methods">methods</a>.</p>
+
     <div class="table-scroll">
       <table class="component-table">
         <thead>
@@ -143,34 +147,10 @@
     </div>
   {% endif %}
 
-  {# States #}
-  {% if component.states.length %}
-    <h2>States</h2>
-    <div class="table-scroll">
-      <table class="component-table">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-            <th class="table-selector">CSS selector</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for state in component.states %}
-            <tr>
-              <td class="table-name"><code>{{ state.name }}</code></td>
-              <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
-              <td class="table-selector"><code>[data-state-{{ state.name }}]</code></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% endif %}
-
   {# Events #}
   {% if component.events.length %}
     <h2>Events</h2>
+    <p>Learn more about <a href="/docs/usage/#events">events</a>.</p>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -197,6 +177,7 @@
   {# Custom Properties #}
   {% if component.cssProperties.length %}
     <h2>CSS custom properties</h2>
+    <p>Learn more about <a href="/docs/customizing/#custom-properties">CSS custom properties</a>.</p>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -225,9 +206,37 @@
     </div>
   {% endif %}
 
+  {# Custom States #}
+  {% if component.cssStates.length %}
+    <h2>Custom States</h2>
+    <p>Learn more about <a href="/docs/customizing/#custom-states">custom states</a>.</p>
+
+    <div class="table-scroll">
+      <table class="component-table">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-selector">CSS selector</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for state in component.cssStates %}
+            <tr>
+              <td class="table-name"><code>{{ state.name }}</code></td>
+              <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
+              <td class="table-selector"><code>:state({{ state.name }})</code></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
   {# CSS Parts #}
   {% if component.cssParts.length %}
     <h2>CSS parts</h2>
+    <p>Learn more about <a href="/docs/customizing/#css-parts">CSS parts</a>.</p>
 
     <div class="table-scroll">
       <table class="component-table">
@@ -253,7 +262,7 @@
   {% if component.dependencies.length %}
     <h2>Dependencies</h2>
     <p>
-      This component automatically imports the following elements. Subdependencies, if any exist, will also be included in this list.
+      This component automatically imports the following elements. Sub-dependencies, if any exist, will also be included in this list.
     </p>
 
     <ul class="dependency-list">

@@ -1,9 +1,8 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './callout.style.js';
+import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import variantStyles from '../../styles/utilities/variants.css';
+import styles from './callout.css';
 
 /**
  * @summary Callouts are used to display important messages inline.
@@ -23,7 +22,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [variantStyles, styles];
 
   /** The callout's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';

@@ -28,7 +28,7 @@ export function currentLink(options = {}) {
   options = {
     container: 'body',
     className: 'current',
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

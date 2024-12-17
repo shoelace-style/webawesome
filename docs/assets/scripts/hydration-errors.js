@@ -79,8 +79,8 @@
       diffViewer.appendChild(
         createDiff({
           serverHTML,
-          clientHTML
-        })
+          clientHTML,
+        }),
       );
     });
   }
@@ -88,7 +88,7 @@
   function createDiff({ serverHTML, clientHTML }) {
     const diff = diffLines(serverHTML, clientHTML, {
       ignoreWhitespace: false,
-      newLineIsToken: true
+      newLineIsToken: true,
     });
     const fragment = document.createDocumentFragment();
     for (var i = 0; i < diff.length; i++) {

@@ -1,13 +1,10 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './avatar.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import '../icon/icon.js';
+import styles from './avatar.css';
 
 /**
  * @summary Avatars are used to represent a person or object.
@@ -28,12 +25,12 @@ import type { CSSResultGroup } from 'lit';
  * @csspart image - The avatar image. Only shown when the `image` attribute is set.
  *
  * @cssproperty --background-color - The avatar's background color.
- * @cssproperty --content-color - The color of the avatar's content.
+ * @cssproperty --text-color - The color of the avatar's content.
  * @cssproperty --size - The size of the avatar.
  */
 @customElement('wa-avatar')
 export default class WaAvatar extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @state() private hasError = false;
 
@@ -67,10 +64,11 @@ export default class WaAvatar extends WebAwesomeElement {
     const avatarWithImage = html`
       <img
         part="image"
-        class="avatar__image"
+        class="image"
         src="${this.image}"
         loading="${this.loading}"
         alt=""
+        aria-label=${this.label}
         @error="${this.handleImageLoadError}"
       />
     `;
@@ -78,32 +76,18 @@ export default class WaAvatar extends WebAwesomeElement {
     let avatarWithoutImage = html``;
 
     if (this.initials) {
-      avatarWithoutImage = html`<div part="initials" class="avatar__initials">${this.initials}</div>`;
+      avatarWithoutImage = html`<div part="initials" class="initials" role="img" aria-label=${this.label}>
+        ${this.initials}
+      </div>`;
     } else {
       avatarWithoutImage = html`
-        <div part="icon" class="avatar__icon" aria-hidden="true">
-          <slot name="icon">
-            <wa-icon name="user" library="system" variant="solid"></wa-icon>
-          </slot>
-        </div>
+        <slot name="icon" part="icon" class="icon" role="img" aria-label=${this.label}>
+          <wa-icon name="user" library="system" variant="solid"></wa-icon>
+        </slot>
       `;
     }
 
-    return html`
-      <div
-        part="base"
-        class=${classMap({
-          avatar: true,
-          'avatar--circle': this.shape === 'circle',
-          'avatar--rounded': this.shape === 'rounded',
-          'avatar--square': this.shape === 'square'
-        })}
-        role="img"
-        aria-label=${this.label}
-      >
-        ${this.image && !this.hasError ? avatarWithImage : avatarWithoutImage}
-      </div>
-    `;
+    return html` ${this.image && !this.hasError ? avatarWithImage : avatarWithoutImage} `;
   }
 }
 

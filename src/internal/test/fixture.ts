@@ -3,8 +3,8 @@
  * These fixtures will also auto-load all of our components.
  */
 
+import { ssrFixture as LitSSRFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import { aTimeout, expect, fixture } from '@open-wc/testing';
-import { cleanupFixtures, ssrFixture as LitSSRFixture } from '@lit-labs/testing/fixtures.js';
 import type { LitElement, TemplateResult } from 'lit';
 import type WebAwesomeElement from '../webawesome-element.js';
 
@@ -49,7 +49,7 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
   const hydratedElement = await LitSSRFixture<T>(template, {
     base: import.meta.url,
     modules: window.serverComponents,
-    hydrate: true
+    hydrate: true,
   });
 
   // @ts-expect-error Assume its a lit element.
@@ -61,7 +61,7 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
     [...hydratedElement.querySelectorAll<LitElement>('*')].map(async el => {
       el.removeAttribute('defer-hydration');
       return el.updateComplete;
-    })
+    }),
   );
 
   return hydratedElement;

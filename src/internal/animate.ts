@@ -23,7 +23,7 @@ export function animateWithClass(el: Element, className: string) {
         resolve();
         controller.abort();
       },
-      { once: true, signal }
+      { once: true, signal },
     );
 
     el.addEventListener(
@@ -33,7 +33,7 @@ export function animateWithClass(el: Element, className: string) {
         resolve();
         controller.abort();
       },
-      { once: true, signal }
+      { once: true, signal },
     );
   });
 }

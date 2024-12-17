@@ -1,7 +1,7 @@
 ---
 title: Divider
 description: Dividers are used to visually separate or group elements.
-layout: component
+tags: component
 ---
 
 ```html {.example}

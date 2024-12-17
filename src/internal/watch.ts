@@ -30,7 +30,7 @@ interface WatchOptions {
 export function watch(propertyName: string | string[], options?: WatchOptions) {
   const resolvedOptions: Required<WatchOptions> = {
     waitUntilFirstUpdate: false,
-    ...options
+    ...options,
   };
   return <ElemClass extends LitElement>(proto: ElemClass, decoratedFnName: UpdateHandlerFunctionKeys<ElemClass>) => {
     // @ts-expect-error - update is a protected property

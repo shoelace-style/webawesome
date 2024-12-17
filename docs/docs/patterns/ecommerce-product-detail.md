@@ -91,11 +91,11 @@ TODO Page Description
         </section>
         <section>
           <form>
-            <wa-radio-group label="Color" help-text="Choose the most appropriate option." name="a" value="black" style="margin-bottom: 1rem;">
+            <wa-radio-group label="Color" hint="Choose the most appropriate option." name="a" value="black" style="margin-bottom: 1rem;">
               <wa-radio value="black">Black</wa-radio>
               <wa-radio value="gray">Gray</wa-radio>
             </wa-radio-group>
-            <wa-radio-group label="Size" help-text="Select an option that makes you proud." name="a" value="medium"  style="margin-bottom: 1rem;">
+            <wa-radio-group label="Size" hint="Select an option that makes you proud." name="a" value="medium"  style="margin-bottom: 1rem;">
               <wa-radio-button value="small">S</wa-radio-button>
               <wa-radio-button value="medium">M</wa-radio-button>
               <wa-radio-button value="large">L</wa-radio-button>

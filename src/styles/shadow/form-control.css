@@ -1,0 +1,60 @@
+.form-control .form-control__label {
+  display: none;
+}
+
+/* Label */
+.form-control--has-label .form-control__label {
+  display: inline-block;
+  color: var(--wa-form-control-label-color);
+  font-weight: var(--wa-form-control-label-font-weight);
+  line-height: var(--wa-form-control-label-line-height);
+  margin-block-end: var(--wa-space-xs);
+
+  &:is(.form-control--small *) {
+    font-size: var(--wa-font-size-s);
+  }
+
+  &:is(.form-control--medium *) {
+    font-size: var(--wa-font-size-m);
+  }
+
+  &:is(.form-control--large *) {
+    font-size: var(--wa-font-size-l);
+  }
+}
+
+:host([required]) .form-control--has-label .form-control__label::after {
+  content: var(--wa-form-control-required-content);
+  margin-inline-start: var(--wa-form-control-required-content-offset);
+  color: var(--wa-form-control-required-content-color);
+}
+
+/* Help text */
+[part~='form-control-hint'],
+[part~='hint'] {
+  display: inline-block;
+  color: var(--wa-color-text-quiet);
+  margin-block-start: var(--wa-space-xs);
+  font-size: var(--size-smaller, 85%);
+  line-height: var(--wa-form-control-label-line-height);
+
+  &:is(.form-control--small *) {
+    font-size: var(--wa-font-size-xs);
+  }
+
+  &:is(.form-control--medium *) {
+    font-size: var(--wa-font-size-s);
+  }
+
+  &:is(.form-control--large *) {
+    font-size: var(--wa-font-size-m);
+  }
+
+  &:is(.form-control--radio-group *) {
+    margin-top: var(--wa-space-2xs);
+  }
+
+  &:not(.has-slotted, .form-control--has-hint) {
+    display: none;
+  }
+}

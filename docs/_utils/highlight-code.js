@@ -1,8 +1,8 @@
 /* eslint sort-imports-es6-autofix/sort-imports-es6: 0 */
 import { parse } from 'node-html-parser';
 import Prism from 'prismjs';
-import 'prismjs/plugins/custom-class/prism-custom-class.js';
 import PrismLoader from 'prismjs/components/index.js';
+import 'prismjs/plugins/custom-class/prism-custom-class.js';
 
 PrismLoader('diff');
 PrismLoader.silent = true;
@@ -40,7 +40,7 @@ export function highlightCode(code, language = 'plain') {
 export function highlightCodePlugin(options = {}) {
   options = {
     container: 'body',
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

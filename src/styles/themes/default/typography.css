@@ -1,0 +1,40 @@
+/**
+ * Typography
+ */
+:where(:root, :host) {
+  --wa-font-family-body: ui-sans-serif, system-ui, sans-serif;
+  --wa-font-family-heading: var(--wa-font-family-body);
+  --wa-font-family-code: ui-monospace, monospace;
+  --wa-font-family-longform: ui-serif, serif;
+
+  /* The default type scale is roughly based on the Major Second scale (x1.125),
+   * with each value rounded to the nearest whole pixel based on a 16px root font size.
+   * For larger font sizes, every other step on the scale is skipped in order to maximize variation.
+   * A multiplier is provided to uniformly increase or decrease all font sizes. */
+  --wa-font-size-scale: 1;
+  --wa-font-size-2xs: calc(0.6875rem * var(--wa-font-size-scale)); /* 11px */
+  --wa-font-size-xs: calc(0.75rem * var(--wa-font-size-scale)); /* 12px */
+  --wa-font-size-s: calc(0.875rem * var(--wa-font-size-scale)); /* 14px */
+  --wa-font-size-m: calc(1rem * var(--wa-font-size-scale)); /* 16px */
+  --wa-font-size-l: calc(1.25rem * var(--wa-font-size-scale)); /* 20px */
+  --wa-font-size-xl: calc(1.625rem * var(--wa-font-size-scale)); /* 26px */
+  --wa-font-size-2xl: calc(2rem * var(--wa-font-size-scale)); /* 32px */
+  --wa-font-size-3xl: calc(2.5625rem * var(--wa-font-size-scale)); /* 41px */
+  --wa-font-size-4xl: calc(3.25rem * var(--wa-font-size-scale)); /* 52px */
+
+  --wa-font-weight-light: 300;
+  --wa-font-weight-normal: 400;
+  --wa-font-weight-semibold: 500;
+  --wa-font-weight-bold: 600;
+
+  --wa-font-weight-body: var(--wa-font-weight-normal);
+  --wa-font-weight-heading: var(--wa-font-weight-bold);
+  --wa-font-weight-action: var(--wa-font-weight-semibold);
+
+  --wa-line-height-condensed: 1.2;
+  --wa-line-height-normal: 1.6;
+  --wa-line-height-expanded: 2;
+
+  --wa-link-decoration-default: underline color-mix(in oklab, currentColor 70%, transparent) dotted;
+  --wa-link-decoration-hover: underline;
+}

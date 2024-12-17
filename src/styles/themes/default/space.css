@@ -1,0 +1,16 @@
+/**
+ * Spacing
+ */
+:where(:root, :host) {
+  /* A multiplier is provided to uniformly increase or decrease all spacing. */
+  --wa-space-scale: 1;
+  --wa-space-3xs: calc(var(--wa-space-scale) * 0.125rem); /* 2px */
+  --wa-space-2xs: calc(var(--wa-space-scale) * 0.25rem); /* 4px */
+  --wa-space-xs: calc(var(--wa-space-scale) * 0.5rem); /* 8px */
+  --wa-space-s: calc(var(--wa-space-scale) * 0.75rem); /* 12px */
+  --wa-space-m: calc(var(--wa-space-scale) * 1rem); /* 16px */
+  --wa-space-l: calc(var(--wa-space-scale) * 1.25rem); /* 20px */
+  --wa-space-xl: calc(var(--wa-space-scale) * 1.5rem); /* 24px */
+  --wa-space-2xl: calc(var(--wa-space-scale) * 2rem); /* 32px */
+  --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
+}

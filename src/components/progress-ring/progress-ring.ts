@@ -1,10 +1,8 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './progress-ring.styles.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import styles from './progress-ring.css';
 
 /**
  * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.
@@ -26,7 +24,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-progress-ring')
 export default class WaProgressRing extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 

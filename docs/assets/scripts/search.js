@@ -9,7 +9,7 @@ const icons = {
   component: 'puzzle-piece',
   document: 'file',
   home: 'house',
-  theme: 'palette'
+  theme: 'palette',
 };
 let searchTimeout;
 
@@ -18,7 +18,7 @@ function getElements() {
   return {
     dialog: document.getElementById('site-search'),
     input: document.getElementById('site-search-input'),
-    results: document.getElementById('site-search-listbox')
+    results: document.getElementById('site-search-listbox'),
   };
 }
 

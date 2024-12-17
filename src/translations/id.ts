@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Pilih warna dari layar',
   showPassword: 'Tampilkan sandi',
   slideNum: slide => `Slide ${slide}`,
-  toggleColorFormat: 'Beralih format warna'
+  toggleColorFormat: 'Beralih format warna',
 };
 
 registerTranslation(translation);

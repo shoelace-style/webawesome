@@ -1,7 +1,7 @@
-import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 
 interface UnitConfig {
   max: number;
@@ -15,7 +15,7 @@ const availableUnits: UnitConfig[] = [
   { max: 518400000, value: 86400000, unit: 'day' }, // max 6 days
   { max: 2419200000, value: 604800000, unit: 'week' }, // max 28 days
   { max: 28512000000, value: 2592000000, unit: 'month' }, // max 11 months
-  { max: Infinity, value: 31536000000, unit: 'year' }
+  { max: Infinity, value: 31536000000, unit: 'year' },
 ];
 
 /**
@@ -73,7 +73,7 @@ export default class WaRelativeTime extends WebAwesomeElement {
     this.isoTime = then.toISOString();
     this.relativeTime = this.localize.relativeTime(Math.round(diff / value), unit, {
       numeric: this.numeric,
-      style: this.format
+      style: this.format,
     });
 
     // If sync is enabled, update as time passes

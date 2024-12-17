@@ -23,7 +23,7 @@
 
   .hero wa-button[variant='brand'] {
     --background: var(--wa-color-neutral-fill-quiet);
-    --label-color: var(--wa-color-neutral-on-normal);
+    --text-color: var(--wa-color-neutral-on-normal);
   }
 
   .project-header {

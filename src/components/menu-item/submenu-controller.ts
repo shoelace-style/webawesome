@@ -1,8 +1,8 @@
-import { createRef, ref, type Ref } from 'lit/directives/ref.js';
-import { html } from 'lit';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import type WaMenuItem from './menu-item.js';
+import { html } from 'lit';
+import { createRef, ref, type Ref } from 'lit/directives/ref.js';
 import type WaPopup from '../popup/popup.js';
+import type WaMenuItem from './menu-item.js';
 
 /** A reactive controller to manage the registration of event listeners for submenus. */
 export class SubmenuController implements ReactiveController {

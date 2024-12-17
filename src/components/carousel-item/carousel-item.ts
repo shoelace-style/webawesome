@@ -1,9 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './carousel-item.styles.js';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './carousel-item.css';
 
 /**
  * @summary A carousel item represent a slide within a [carousel](/docs/components/carousel).
@@ -18,7 +16,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-carousel-item')
 export default class WaCarouselItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   connectedCallback() {
     super.connectedCallback();

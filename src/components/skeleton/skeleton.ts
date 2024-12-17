@@ -1,10 +1,8 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './skeleton.styles.js';
+import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './skeleton.css';
 
 /**
  * @summary Skeletons are used to provide a visual representation of where content will eventually be drawn.
@@ -21,7 +19,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-skeleton')
 export default class WaSkeleton extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   /** Determines which effect the skeleton will use. */
   @property() effect: 'pulse' | 'sheen' | 'none' = 'none';
@@ -33,7 +31,7 @@ export default class WaSkeleton extends WebAwesomeElement {
         class=${classMap({
           skeleton: true,
           'skeleton--pulse': this.effect === 'pulse',
-          'skeleton--sheen': this.effect === 'sheen'
+          'skeleton--sheen': this.effect === 'sheen',
         })}
       >
         <div part="indicator" class="skeleton__indicator"></div>

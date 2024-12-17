@@ -1,7 +1,7 @@
 ---
 title: Progress Ring
 description: Progress rings are used to show the progress of a determinate operation in a circular fashion.
-layout: component
+tags: component
 ---
 
 ```html {.example}

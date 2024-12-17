@@ -1,9 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './visually-hidden.styles.js';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './visually-hidden.css';
 
 /**
  * @summary The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.
@@ -15,7 +13,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-visually-hidden')
 export default class WaVisuallyHidden extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   render() {
     return html` <slot></slot> `;

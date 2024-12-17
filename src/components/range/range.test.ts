@@ -1,11 +1,11 @@
-import { clickOnElement } from '../../internal/test.js';
 import { expect, oneEvent } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { serialize } from '../../utilities/form.js';
+import { html } from 'lit';
 import sinon from 'sinon';
+import { clickOnElement } from '../../internal/test.js';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { serialize } from '../../utilities/form.js';
 import type WaRange from './range.js';
 
 describe('<wa-range>', () => {
@@ -25,7 +25,7 @@ describe('<wa-range>', () => {
         expect(el.value).to.equal(0);
         expect(el.title).to.equal('');
         expect(el.label).to.equal('');
-        expect(el.helpText).to.equal('');
+        expect(el.hint).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.checkValidity()).to.be.true;
         expect(el.min).to.equal(0);
@@ -164,18 +164,18 @@ describe('<wa-range>', () => {
           await range.updateComplete;
 
           expect(range.checkValidity()).to.be.false;
-          expect(range.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(range.hasAttribute('data-wa-valid')).to.be.false;
-          expect(range.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(range.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(range.hasCustomState('invalid')).to.be.true;
+          expect(range.hasCustomState('valid')).to.be.false;
+          expect(range.hasCustomState('user-invalid')).to.be.false;
+          expect(range.hasCustomState('user-valid')).to.be.false;
 
           await clickOnElement(range);
           await range.updateComplete;
           range.blur();
           await range.updateComplete;
 
-          expect(range.hasAttribute('data-wa-user-invalid')).to.be.true;
-          expect(range.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(range.hasCustomState('user-invalid')).to.be.true;
+          expect(range.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
@@ -185,10 +185,10 @@ describe('<wa-range>', () => {
           range.setCustomValidity('Invalid value');
           await range.updateComplete;
 
-          expect(range.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(range.hasAttribute('data-wa-valid')).to.be.false;
-          expect(range.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(range.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(range.hasCustomState('invalid')).to.be.true;
+          expect(range.hasCustomState('valid')).to.be.false;
+          expect(range.hasCustomState('user-invalid')).to.be.false;
+          expect(range.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should be present in form data when using the form attribute and located outside of a <form>', async () => {

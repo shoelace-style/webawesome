@@ -1,0 +1,40 @@
+/* Tables */
+table {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+}
+
+caption {
+  color: var(--wa-color-text-quiet);
+}
+
+tbody tr {
+  border-top: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+}
+
+tbody tr:hover {
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-quiet), transparent 50%);
+  border-top-color: var(--wa-color-neutral-border-quiet);
+}
+
+tbody tr:hover + tr {
+  border-top-color: var(--wa-color-neutral-border-quiet);
+}
+
+th {
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-bold);
+}
+
+td,
+th {
+  text-align: start;
+  padding: var(--wa-space-l) var(--wa-space-s);
+  vertical-align: top;
+}
+
+/* Utilities */
+table.wa-alternating-row-colors tbody tr:nth-child(2n + 1) {
+  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), transparent 80%);
+}

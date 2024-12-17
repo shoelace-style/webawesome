@@ -1,14 +1,13 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, state } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './radio.styles.js';
-import type { CSSResultGroup } from 'lit';
+import sizeStyles from '../../styles/utilities/size.css';
+import '../icon/icon.js';
+import styles from './radio.css';
 
 /**
  * @summary Radios allow the user to select a single option from a group.
@@ -25,7 +24,6 @@ import type { CSSResultGroup } from 'lit';
  *
  * @csspart base - The component's base wrapper.
  * @csspart control - The circular container that wraps the radio's checked state.
- * @csspart control--checked - The radio control when the radio is checked.
  * @csspart checked-icon - The checked icon.
  * @csspart label - The container that wraps the radio's label.
  *
@@ -39,13 +37,15 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --checked-icon-color - The color of the radio's checked icon.
  * @cssproperty --checked-icon-scale - The size of the checked icon relative to the radio.
  * @cssproperty --toggle-size - The size of the radio.
+ *
+ * @cssstate checked - Applied when the control is checked.
+ * @cssstate disabled - Applied when the control is disabled.
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [sizeStyles, styles];
 
   @state() checked = false;
-  @state() protected hasFocus = false;
 
   /**
    * The string pointing to a form's id.
@@ -79,12 +79,10 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur = () => {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   };
 
   private handleFocus = () => {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   };
 
@@ -96,6 +94,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
 
   @watch('checked')
   handleCheckedChange() {
+    this.toggleCustomState('checked', this.checked);
     this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
     this.tabIndex = this.checked ? 0 : -1;
   }
@@ -109,6 +108,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
 
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
+    this.toggleCustomState('disabled', this.disabled);
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
@@ -126,13 +126,9 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
           radio: true,
           'radio--checked': this.checked,
           'radio--disabled': this.disabled,
-          'radio--focused': this.hasFocus,
-          'radio--small': this.size === 'small',
-          'radio--medium': this.size === 'medium',
-          'radio--large': this.size === 'large'
         })}
       >
-        <span part="${`control${this.checked ? ' control--checked' : ''}`}" class="radio__control">
+        <span part="control" class="radio__control">
           ${this.checked
             ? html`
                 <svg

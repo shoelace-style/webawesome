@@ -1,7 +1,7 @@
 ---
 title: Button
 description: Buttons represent actions that are available to the user.
-layout: component
+tags: component
 ---
 
 ```html {.example}
@@ -91,7 +91,7 @@ It's often helpful to have a button that works like a link. This is possible by 
 
 ### Setting a Custom Width
 
-As expected, buttons can be given a custom width by setting the `width` attribute. This is useful for making buttons span the full width of their container on smaller screens.
+As expected, buttons can be given a custom width by setting the `width` CSS property. This is useful for making buttons span the full width of their container on smaller screens.
 
 ```html {.example}
 <wa-button size="small" style="width: 100%; margin-bottom: 1rem;">Small</wa-button>

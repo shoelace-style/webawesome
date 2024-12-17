@@ -1,6 +1,6 @@
 import { elementUpdated, expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaButtonGroup from './button-group.js';
 
 describe('<wa-button-group>', () => {
@@ -41,7 +41,7 @@ describe('<wa-button-group>', () => {
 
           const allButtons = group.querySelectorAll('wa-button');
           const hasGroupClass = Array.from(allButtons).every(button =>
-            button.classList.contains('wa-button-group__button')
+            button.classList.contains('wa-button-group__button'),
           );
           expect(hasGroupClass).to.be.true;
 

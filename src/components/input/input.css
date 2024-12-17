@@ -1,0 +1,168 @@
+:host {
+  display: block;
+}
+
+.input {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: start;
+  position: relative;
+}
+
+.input__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  font: inherit;
+  border: none;
+  /* prettier-ignore */
+  background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  cursor: inherit;
+  -webkit-appearance: none;
+}
+
+.input__control::-webkit-search-decoration,
+.input__control::-webkit-search-cancel-button,
+.input__control::-webkit-search-results-button,
+.input__control::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+.input__control:focus {
+  outline: none;
+}
+
+.input__prefix,
+.input__suffix {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  cursor: default;
+}
+
+.input__prefix ::slotted(wa-icon),
+.input__suffix ::slotted(wa-icon) {
+  color: var(--wa-color-neutral-on-quiet);
+}
+
+/*
+   * Size modifiers
+   */
+.input--small {
+  font-size: var(--wa-font-size-s);
+  height: var(--wa-form-control-height-s);
+
+  .input__control {
+    height: calc(var(--wa-form-control-height-s) - var(--border-width) * 2);
+    padding: 0 var(--wa-space-s);
+  }
+
+  .input__clear,
+  .input__password-toggle {
+    width: calc(1em + var(--wa-space-s) * 2);
+  }
+
+  .input__prefix ::slotted(*) {
+    margin-inline-start: var(--wa-space-s);
+  }
+
+  .input__suffix ::slotted(*) {
+    margin-inline-end: var(--wa-space-s);
+  }
+}
+
+.input--medium {
+  font-size: var(--wa-font-size-m);
+  height: var(--wa-form-control-height-m);
+
+  .input__control {
+    height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
+    padding: 0 var(--wa-space-m);
+  }
+
+  .input__clear,
+  .input__password-toggle {
+    width: calc(1em + var(--wa-space-m) * 2);
+  }
+
+  .input__prefix ::slotted(*) {
+    margin-inline-start: var(--wa-space-m);
+  }
+
+  .input__suffix ::slotted(*) {
+    margin-inline-end: var(--wa-space-m);
+  }
+}
+
+.input--large {
+  font-size: var(--wa-font-size-l);
+  height: var(--wa-form-control-height-l);
+
+  .input__control {
+    height: calc(var(--wa-form-control-height-l) - var(--border-width) * 2);
+    padding: 0 var(--wa-space-l);
+  }
+
+  .input__clear,
+  .input__password-toggle {
+    width: calc(1em + var(--wa-space-l) * 2);
+  }
+
+  .input__prefix ::slotted(*) {
+    margin-inline-start: var(--wa-space-l);
+  }
+
+  .input__suffix ::slotted(*) {
+    margin-inline-end: var(--wa-space-l);
+  }
+}
+
+/*
+   * Clearable + Password Toggle
+   */
+
+.input__clear,
+.input__password-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  color: var(--wa-color-neutral-on-quiet);
+  border: none;
+  background: none;
+  padding: 0;
+  transition: var(--wa-transition-normal) color;
+  cursor: pointer;
+
+  &:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+
+  &:active {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/* Don't show the browser's password toggle in Edge */
+::-ms-reveal {
+  display: none;
+}
+
+/* Hide the built-in number spinner */
+.input--no-spin-buttons input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+}

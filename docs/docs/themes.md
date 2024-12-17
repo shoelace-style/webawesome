@@ -40,20 +40,20 @@ For example, the default theme is set up like this:
 You can import the default and classic themes from the Web Awesome CDN. Simply add the following code to the `<head>` of your page to import the **default** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/default.css" />
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/styles/themes/default.css" />
 ```
 
 Or import the **classic** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/classic.css" />
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/styles/themes/classic.css" />
 ```
 
 Both the default and classic themes include both light and dark color schemes. When importing either theme, the light color scheme is activated by default. To activate the dark color scheme, apply the appropriate class (`wa-theme-default-dark` or `wa-theme-classic-dark`, depending on theme) to the `<html>` element on your page, like this example for the default theme:
 ```html
 <html class="wa-theme-default-dark">
   <head>
-    <link rel="stylesheet" href="path/to/web-awesome/dist/themes/default.css" />
+    <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/default.css" />
     <!-- other links, scripts, and metadata -->
   </head>
   <body>
@@ -67,7 +67,7 @@ Because themes are scoped to specific classes, you can activate different color 
 ```html
 <html>
   <head>
-    <link rel="stylesheet" href="path/to/web-awesome/dist/themes/default.css" />
+    <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/default.css" />
   </head>
 
   <body>

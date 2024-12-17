@@ -1,14 +1,12 @@
-import { clamp } from '../../internal/math.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
+import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './tree.styles.js';
-import WaTreeItem from '../tree-item/tree-item.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import WaTreeItem from '../tree-item/tree-item.js';
+import styles from './tree.css';
 
 function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
   function syncParentItem(treeItem: WaTreeItem) {
@@ -75,7 +73,7 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  */
 @customElement('wa-tree')
 export default class WaTree extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('slot[name=expand-icon]') expandedIconSlot: HTMLSlotElement;

@@ -1,16 +1,16 @@
 import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { clickOnElement } from '../../internal/test.js';
-import { clientFixture, fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { isElementVisibleFromOverflow } from '../../internal/test/element-visible-overflow.js';
-import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { waitForScrollingToEnd } from '../../internal/test/wait-for-scrolling.js';
 import type { HTMLTemplateResult } from 'lit';
+import { html } from 'lit';
 import type { WaTabShowEvent } from '../../events/tab-show.js';
+import { clickOnElement } from '../../internal/test.js';
+import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
+import { isElementVisibleFromOverflow } from '../../internal/test/element-visible-overflow.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import { waitForScrollingToEnd } from '../../internal/test/wait-for-scrolling.js';
+import type WaTabPanel from '../tab-panel/tab-panel.js';
 import type WaTab from '../tab/tab.js';
 import type WaTabGroup from './tab-group.js';
-import type WaTabPanel from '../tab-panel/tab-panel.js';
 
 interface ClientRectangles {
   body?: DOMRect;
@@ -31,7 +31,7 @@ const getClientRectangles = (tabGroup: WaTabGroup): ClientRectangles => {
     const body = shadowRoot.querySelector<HTMLElement>('[part=body]');
     return {
       body: body?.getBoundingClientRect(),
-      navigation: nav?.getBoundingClientRect()
+      navigation: nav?.getBoundingClientRect(),
     };
   }
   return {};
@@ -198,7 +198,7 @@ describe('<wa-tab-group>', () => {
           for (let i = 0; i < n; i++) {
             result.push(
               html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab>
-                <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `
+                <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `,
             );
           }
           return result;
@@ -214,7 +214,7 @@ describe('<wa-tab-group>', () => {
             source?: string | undefined,
             lineno?: number | undefined,
             colno?: number | undefined,
-            error?: Error | undefined
+            error?: Error | undefined,
           ) => {
             if ((event as string).includes('ResizeObserver') || event === 'Script error.') {
               return true;
@@ -289,7 +289,7 @@ describe('<wa-tab-group>', () => {
         it.skip('does scroll on scroll button click', async () => {
           const numberOfElements = 15;
           const tabGroup = await fixture<WaTabGroup>(
-            html`<wa-tab-group> ${generateTabs(numberOfElements)} </wa-tab-group>`
+            html`<wa-tab-group> ${generateTabs(numberOfElements)} </wa-tab-group>`,
           );
 
           await waitForScrollButtonsToBeRendered(tabGroup);
@@ -303,7 +303,7 @@ describe('<wa-tab-group>', () => {
           expect(isElementVisibleFromOverflow(tabGroup, firstTab!)).to.be.true;
           expect(isElementVisibleFromOverflow(tabGroup, lastTab!)).to.be.false;
 
-          const scrollToRightButton = tabGroup.shadowRoot?.querySelector('wa-icon-button[part*="scroll-button--end"]');
+          const scrollToRightButton = tabGroup.shadowRoot?.querySelector('wa-icon-button[part*="scroll-button-end"]');
           expect(scrollToRightButton).not.to.be.null;
           await clickOnElement(scrollToRightButton!);
 
@@ -319,7 +319,7 @@ describe('<wa-tab-group>', () => {
       describe('tab selection', () => {
         const expectCustomTabToBeActiveAfter = async (
           tabGroup: WaTabGroup,
-          action: () => Promise<void>
+          action: () => Promise<void>,
         ): Promise<void> => {
           const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
           generalHeader.focus();
@@ -337,7 +337,7 @@ describe('<wa-tab-group>', () => {
 
         const expectGeneralTabToBeStillActiveAfter = async (
           tabGroup: WaTabGroup,
-          action: () => Promise<void>
+          action: () => Promise<void>,
         ): Promise<void> => {
           const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
           generalHeader.focus();

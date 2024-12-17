@@ -1,7 +1,8 @@
 ---
 title: Radio
 description: Radios allow the user to select a single option from a group.
-layout: component
+tags: component
+parent: radio-group
 ---
 
 Radios are designed to be used with [radio groups](/docs/components/radio-group).

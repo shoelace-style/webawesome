@@ -1,21 +1,21 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './checkbox.styles.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import '../icon/icon.js';
+import styles from './checkbox.css';
 
 /**
  * @summary Checkboxes allow the user to toggle an option on or off.
@@ -26,7 +26,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @dependency wa-icon
  *
  * @slot - The checkbox's label.
- * @slot help-text - Text that describes how to use the checkbox. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the checkbox. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the checkbox loses focus.
  * @event wa-change - Emitted when the checked state changes.
@@ -34,14 +34,12 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @event wa-input - Emitted when the checkbox receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - The component's label .
  * @csspart control - The square container that wraps the checkbox's checked state.
- * @csspart control--checked - Matches the control part when the checkbox is checked.
- * @csspart control--indeterminate - Matches the control part when the checkbox is indeterminate.
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
  * @csspart label - The container that wraps the checkbox's label.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The checkbox's background color.
  * @cssproperty --background-color-checked - The checkbox's background color when checked.
@@ -53,10 +51,15 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @cssproperty --box-shadow - The shadow effects around the edges of the checkbox.
  * @cssproperty --checked-icon-color - The color of the checkbox's icon.
  * @cssproperty --toggle-size - The size of the checkbox.
+ *
+ * @cssstate checked - Applied when the checkbox is checked.
+ * @cssstate disabled - Applied when the checkbox is disabled.
+ * @cssstate indeterminate - Applied when the checkbox is in an indeterminate state.
+ *
  */
 @customElement('wa-checkbox')
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -69,18 +72,16 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             // Use a checkbox so we get "free" translation strings.
             validationElement: Object.assign(document.createElement('input'), {
               type: 'checkbox',
-              required: true
-            })
-          })
+              required: true,
+            }),
+          }),
         ];
     return [...super.validators, ...validators];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text');
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
-
-  @state() private hasFocus = false;
 
   @property() title = ''; // make reactive to pass through
 
@@ -90,7 +91,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   private _value: string | null = this.getAttribute('value') ?? null;
 
   /** The value of the checkbox, submitted as a name/value pair with form data. */
-  get value() {
+  get value(): string | null {
     return this._value ?? 'on';
   }
 
@@ -112,10 +113,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) indeterminate = false;
 
   /** Draws the checkbox in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Boolean, reflect: true, attribute: 'checked' }) defaultChecked = this.hasAttribute('checked');
+  @property({ type: Boolean, reflect: true, attribute: 'checked' }) defaultChecked: boolean =
+    this.hasAttribute('checked');
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -127,8 +129,8 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   /** Makes the checkbox a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
-  /** The checkbox's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The checkbox's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   private handleClick() {
     this.hasInteracted = true;
@@ -138,7 +140,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -147,7 +148,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -160,18 +160,26 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
-    this.toggleCustomState('checked', this.checked);
-
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
-  @watch(['checked', 'indeterminate'], { waitUntilFirstUpdate: true })
+  @watch(['checked', 'indeterminate'])
   handleStateChange() {
-    this.input.checked = this.checked; // force a sync update
-    this.input.indeterminate = this.indeterminate; // force a sync update
+    if (this.hasUpdated) {
+      this.input.checked = this.checked; // force a sync update
+      this.input.indeterminate = this.indeterminate; // force a sync update
+    }
+
+    this.toggleCustomState('checked', this.checked);
+    this.toggleCustomState('indeterminate', this.indeterminate);
     this.updateValidity();
+  }
+
+  @watch('disabled')
+  handleDisabledChange() {
+    this.toggleCustomState('disabled', this.disabled);
   }
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
@@ -211,48 +219,27 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = isServer ? true : this.hasSlotController.test('help-text');
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHintSlot = isServer ? true : this.hasSlotController.test('hint');
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const isIndeterminate = !this.checked && this.indeterminate;
 
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
     const iconState = isIndeterminate ? 'indeterminate' : 'check';
-    const iconVisible = this.checked || this.indeterminate;
 
     //
     // NOTE: we use a `<div>` around the label slot because of this Chrome bug.
-    //
+    // Fixed in Chrome 119
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
     return html`
       <div
         class=${classMap({
+          'form-control--has-hint': hasHint,
           'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
-          'form-control--has-help-text': hasHelpText
         })}
       >
-        <label
-          part="base"
-          class=${classMap({
-            checkbox: true,
-            'checkbox--checked': this.checked,
-            'checkbox--disabled': this.disabled,
-            'checkbox--focused': this.hasFocus,
-            'checkbox--indeterminate': this.indeterminate,
-            'checkbox--small': this.size === 'small',
-            'checkbox--medium': this.size === 'medium',
-            'checkbox--large': this.size === 'large'
-          })}
-        >
-          <span
-            part="control${this.checked ? ' control--checked' : ''}${this.indeterminate
-              ? ' control--indeterminate'
-              : ''}"
-            class="checkbox__control"
-          >
+        <label part="base">
+          <span class="checkbox__control">
             <input
               class="checkbox__input"
               type="checkbox"
@@ -264,34 +251,27 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
               .disabled=${this.disabled}
               .required=${this.required}
               aria-checked=${this.checked ? 'true' : 'false'}
-              aria-describedby="help-text"
+              aria-describedby="hint"
               @click=${this.handleClick}
               @input=${this.handleInput}
               @blur=${this.handleBlur}
               @focus=${this.handleFocus}
             />
 
-            <wa-icon
-              part=${`${iconState}-icon`}
-              class=${`checkbox__${iconState}-icon ${iconVisible ? '' : 'checkbox__icon--invisible'}`}
-              library="system"
-              name=${iconName}
-            ></wa-icon>
+            <wa-icon part="${iconState}-icon icon" library="system" name=${iconName}></wa-icon>
           </span>
 
-          <div part="label" class="checkbox__label">
-            <slot></slot>
-          </div>
+          <slot part="label"></slot>
         </label>
 
-        <div
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__help-text"
-          id="help-text"
-          part="form-control-help-text"
+        <slot
+          name="hint"
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          class="${classMap({ 'has-slotted': hasHint })}"
+          id="hint"
+          part="hint"
+          >${this.hint}</slot
         >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
       </div>
     `;
   }

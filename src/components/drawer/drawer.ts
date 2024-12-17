@@ -1,19 +1,17 @@
-import '../icon-button/icon-button.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './drawer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import styles from './drawer.css';
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
@@ -60,7 +58,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-drawer')
 export default class WaDrawer extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
@@ -90,7 +88,7 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
-  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
+  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
 
   firstUpdated() {
     if (isServer) {
@@ -247,7 +245,7 @@ export default class WaDrawer extends WebAwesomeElement {
           'drawer--start': this.placement === 'start',
           'drawer--rtl': this.localize.dir() === 'rtl',
           'drawer--with-header': this.withHeader,
-          'drawer--with-footer': this.withFooter
+          'drawer--with-footer': this.withFooter,
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}

@@ -6,7 +6,7 @@ layout: page-outline
 
 Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/theming/color/#shadow), these custom properties create realistic shadows for Web Awesome components.
 
-Shadows are constructed using corresponding offset-x, offset-y, blur, and spread properties, detailed in the sections below. In Web Awesome, shadows use a size-based scale where larger shadows have greater offset and blur values to indicate greater distance from the surface below. 
+Shadows are constructed using corresponding offset-x, offset-y, blur, and spread properties, detailed in the sections below. In Web Awesome, shadows use a size-based scale where larger shadows have greater offset and blur values to indicate greater distance from the surface below.
 
 | Custom Property  |  Default Value                                                      |
 | ---------------- | ------------------------------------------------------------------- |
@@ -19,7 +19,7 @@ Any shadow may be implemented as an inner box shadow using the `inset` keyword, 
 
 ## Horizontal Offset (X)
 
-Each offset-x property uses a `calc()` function with `--wa-shadow-offset-x-multiplier` to uniformly scale horizontal offset values. By default, this multiplier is `0`. The table below lists the result of the calculation.
+Each offset-x property uses a `calc()` function with `--wa-shadow-offset-x-scale` to uniformly scale horizontal offset values. By default, this multiplier is `0`. The table below lists the result of the calculation.
 
 | Custom Property           |  Default Value |
 | ------------------------- | -------------- |
@@ -30,7 +30,7 @@ Each offset-x property uses a `calc()` function with `--wa-shadow-offset-x-multi
 
 ## Vertical Offset (Y)
 
-Each offset-y property uses a `calc()` function with `--wa-shadow-offset-y-multiplier` to uniformly scale vertical offset values. By default, this multiplier is `0.125`. The table below lists the result of the calculation.
+Each offset-y property uses a `calc()` function with `--wa-shadow-offset-y-scale` to uniformly scale vertical offset values. By default, this multiplier is `0.125`. The table below lists the result of the calculation.
 
 | Custom Property           |  Default Value                   |
 | ------------------------- | -------------------------------- |
@@ -41,7 +41,7 @@ Each offset-y property uses a `calc()` function with `--wa-shadow-offset-y-multi
 
 ## Blur
 
-Each blur property uses a `calc()` function with `--wa-shadow-blur-multiplier` to uniformly scale blur values. By default, this multiplier is `0.125`. The table below lists the result of the calculation.
+Each blur property uses a `calc()` function with `--wa-shadow-blur-scale` to uniformly scale blur values. By default, this multiplier is `0.125`. The table below lists the result of the calculation.
 
 | Custom Property       |  Default Value                   |
 | --------------------- | -------------------------------- |
@@ -52,7 +52,7 @@ Each blur property uses a `calc()` function with `--wa-shadow-blur-multiplier` t
 
 ## Spread
 
-Each spread property uses a `calc()` function with `--wa-shadow-spread-multiplier` to uniformly scale spread values. By default, this multiplier is `-0.0625`. The table below lists the result of the calculation.
+Each spread property uses a `calc()` function with `--wa-shadow-spread-scale` to uniformly scale spread values. By default, this multiplier is `-0.0625`. The table below lists the result of the calculation.
 
 | Custom Property         |  Default Value                        |
 | ----------------------- | ------------------------------------- |

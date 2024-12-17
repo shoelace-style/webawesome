@@ -27,9 +27,9 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | `--wa-form-control-value-font-weight`       | `var(--wa-font-weight-body)`                                                                      |
 | `--wa-form-control-value-line-height`       | `var(--wa-line-height-condensed)`                                                                 |
 | `--wa-form-control-placeholder-color`       | `var(--wa-color-gray-60)`                                                                         |
-| `--wa-form-control-height-s`                | `calc(var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-control-value-line-height))` |
-| `--wa-form-control-height-m`                | `calc(var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-control-value-line-height))`  |
-| `--wa-form-control-height-l`                | `calc(var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-control-value-line-height))`  |
+| `--wa-form-control-height-s`                | `calc(var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height))` |
+| `--wa-form-control-height-m`                | `calc(var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height))`  |
+| `--wa-form-control-height-l`                | `calc(var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height))`  |
 | `--wa-form-control-required-content`        | `'*'`                                                                                             |
 | `--wa-form-control-required-content-color`  | `inherit`                                                                                         |
 | `--wa-form-control-required-content-offset` | `-0.1em`                                                                                          |

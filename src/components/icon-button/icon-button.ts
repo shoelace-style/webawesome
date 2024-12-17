@@ -1,14 +1,12 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { html, literal } from 'lit/static-html.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { html, literal } from 'lit/static-html.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './icon-button.styles.js';
-import type { CSSResultGroup } from 'lit';
+import '../icon/icon.js';
+import styles from './icon-button.css';
 
 /**
  * @summary Icons buttons are simple, icon-only buttons that can be used for actions and in toolbars.
@@ -27,7 +25,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-icon-button')
 export default class WaIconButton extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('.icon-button') button: HTMLButtonElement | HTMLLinkElement;
 
@@ -118,7 +116,7 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
         class=${classMap({
           'icon-button': true,
           'icon-button--disabled': !isLink && this.disabled,
-          'icon-button--focused': this.hasFocus
+          'icon-button--focused': this.hasFocus,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${ifDefined(isLink ? undefined : 'button')}

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.form-control {
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-control__label {
+  padding: 0;
+}
+
+.radio-group--required .radio-group__label::after {
+  content: var(--wa-form-control-required-content);
+  margin-inline-start: var(--wa-form-control-required-content-offset);
+}
+
+.wa-button-group {
+  display: flex;
+}

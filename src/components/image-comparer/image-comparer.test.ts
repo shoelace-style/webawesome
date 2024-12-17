@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaImageComparer from './image-comparer.js';
 
 describe('<wa-image-comparer>', () => {
@@ -57,8 +57,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'ArrowRight'
-          })
+            key: 'ArrowRight',
+          }),
         );
         await el.updateComplete;
 
@@ -77,8 +77,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'ArrowLeft'
-          })
+            key: 'ArrowLeft',
+          }),
         );
         await el.updateComplete;
 
@@ -97,8 +97,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'Home'
-          })
+            key: 'Home',
+          }),
         );
         await el.updateComplete;
 
@@ -117,8 +117,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'End'
-          })
+            key: 'End',
+          }),
         );
         await el.updateComplete;
 
@@ -140,8 +140,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'ArrowLeft'
-          })
+            key: 'ArrowLeft',
+          }),
         );
         await el.updateComplete;
 
@@ -163,8 +163,8 @@ describe('<wa-image-comparer>', () => {
 
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
-            key: 'ArrowRight'
-          })
+            key: 'ArrowRight',
+          }),
         );
         await el.updateComplete;
 
@@ -184,8 +184,8 @@ describe('<wa-image-comparer>', () => {
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowRight',
-            shiftKey: true
-          })
+            shiftKey: true,
+          }),
         );
         await el.updateComplete;
 
@@ -205,8 +205,8 @@ describe('<wa-image-comparer>', () => {
         base.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowLeft',
-            shiftKey: true
-          })
+            shiftKey: true,
+          }),
         );
         await el.updateComplete;
 
@@ -242,8 +242,8 @@ describe('<wa-image-comparer>', () => {
         document.dispatchEvent(
           new PointerEvent('pointermove', {
             clientX: offsetX + 20,
-            clientY: offsetY
-          })
+            clientY: offsetY,
+          }),
         );
 
         document.dispatchEvent(new PointerEvent('pointerup'));

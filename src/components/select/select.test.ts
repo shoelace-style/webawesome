@@ -1,11 +1,11 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
+import sinon from 'sinon';
 import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { sendKeys } from '@web/test-runner-commands';
 import { serialize } from '../../utilities/form.js';
-import sinon from 'sinon';
 import type WaOption from '../option/option.js';
 import type WaSelect from './select.js';
 
@@ -248,7 +248,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
 
         el.focus();
         await sendKeys({ press: 'r' });
@@ -265,7 +265,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
 
         el.focus();
         await sendKeys({ down: 'Control' });
@@ -330,12 +330,12 @@ describe('<wa-select>', () => {
           const secondOption = el.querySelectorAll('wa-option')[1];
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasAttribute('data-wa-required')).to.be.true;
-          expect(el.hasAttribute('data-wa-optional')).to.be.false;
-          expect(el.hasAttribute('data-wa-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-valid')).to.be.true;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('required')).to.be.true;
+          expect(el.hasCustomState('optional')).to.be.false;
+          expect(el.hasCustomState('invalid')).to.be.false;
+          expect(el.hasCustomState('valid')).to.be.true;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.false;
 
           await el.show();
           await clickOnElement(secondOption);
@@ -344,8 +344,8 @@ describe('<wa-select>', () => {
           await el.updateComplete;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.true;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.true;
         });
 
         it('should receive the correct validation attributes ("states") when invalid', async () => {
@@ -358,12 +358,12 @@ describe('<wa-select>', () => {
           `);
           const secondOption = el.querySelectorAll('wa-option')[1];
 
-          expect(el.hasAttribute('data-wa-required')).to.be.true;
-          expect(el.hasAttribute('data-wa-optional')).to.be.false;
-          expect(el.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(el.hasAttribute('data-wa-valid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('required')).to.be.true;
+          expect(el.hasCustomState('optional')).to.be.false;
+          expect(el.hasCustomState('invalid')).to.be.true;
+          expect(el.hasCustomState('valid')).to.be.false;
+          expect(el.hasCustomState('user-invalid')).to.be.false;
+          expect(el.hasCustomState('user-valid')).to.be.false;
 
           await el.show();
           await clickOnElement(secondOption);
@@ -372,8 +372,8 @@ describe('<wa-select>', () => {
           el.blur();
           await el.updateComplete;
 
-          expect(el.hasAttribute('data-wa-user-invalid')).to.be.true;
-          expect(el.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(el.hasCustomState('user-invalid')).to.be.true;
+          expect(el.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
@@ -388,12 +388,12 @@ describe('<wa-select>', () => {
           `);
           const select = el.querySelector<WaSelect>('wa-select')!;
 
-          expect(select.hasAttribute('data-wa-required')).to.be.true;
-          expect(select.hasAttribute('data-wa-optional')).to.be.false;
-          expect(select.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(select.hasAttribute('data-wa-valid')).to.be.false;
-          expect(select.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(select.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(select.hasCustomState('required')).to.be.true;
+          expect(select.hasCustomState('optional')).to.be.false;
+          expect(select.hasCustomState('invalid')).to.be.true;
+          expect(select.hasCustomState('valid')).to.be.false;
+          expect(select.hasCustomState('user-invalid')).to.be.false;
+          expect(select.hasCustomState('user-valid')).to.be.false;
         });
       });
 
@@ -519,7 +519,7 @@ describe('<wa-select>', () => {
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
-        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.select__display-input')!;
+        const displayInput = el.shadowRoot!.querySelector<HTMLSelectElement>('.display-input')!;
         const option = el.querySelector('wa-option')!;
 
         expect(displayInput.value).to.equal('Option 1');
@@ -642,7 +642,7 @@ describe('<wa-select>', () => {
         describe('With no existing options', () => {
           it('Should wait to select the option when the option exists for single select', async () => {
             const form = await fixture<HTMLFormElement>(
-              html`<form><wa-select name="select" value="option-1"></wa-select></form>`
+              html`<form><wa-select name="select" value="option-1"></wa-select></form>`,
             );
             const el = form.querySelector<WaSelect>('wa-select')!;
 
@@ -662,7 +662,7 @@ describe('<wa-select>', () => {
 
           it('Should wait to select the option when the option exists for multiple select', async () => {
             const form = await fixture<HTMLFormElement>(
-              html`<form><wa-select name="select" value="option-1" multiple></wa-select></form>`
+              html`<form><wa-select name="select" value="option-1" multiple></wa-select></form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -690,7 +690,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -715,7 +715,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
@@ -740,7 +740,7 @@ describe('<wa-select>', () => {
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
                 </wa-select>
-              </form>`
+              </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;

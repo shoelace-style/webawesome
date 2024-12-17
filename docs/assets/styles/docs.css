@@ -46,7 +46,7 @@ wa-page > header {
   }
 
   wa-button[data-toggle-nav] {
-    --label-color: currentColor;
+    --text-color: currentColor;
     font-size: 1rem;
     margin-inline-start: -0.875rem;
     margin-inline-end: 0;
@@ -76,8 +76,6 @@ wa-page > header {
     margin-block-start: var(--wa-space-2xs);
   }
   #version-number + wa-badge {
-    --background-color: var(--wa-color-warning-fill-quiet);
-    --content-color: var(--wa-color-warning-on-quiet);
     font-size: var(--wa-font-size-2xs);
     text-transform: uppercase;
   }
@@ -97,9 +95,26 @@ wa-page > header {
     font-size: var(--wa-font-size-m);
     margin: 0;
   }
-  h2:not(:first-child) {
+
+  h2:not(:first-child),
+  wa-details:not(:first-child) {
     margin-block-start: var(--wa-space-xs);
   }
+
+  wa-details {
+    border: none;
+    background: none;
+  }
+
+  wa-details::part(header) {
+    padding: 0;
+  }
+
+  wa-details::part(content) {
+    padding-inline: 0;
+    padding-block-end: 0;
+  }
+
   ul {
     border-inline-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
     font-size: var(--wa-font-size-s);
@@ -107,21 +122,30 @@ wa-page > header {
     margin: 0;
     padding-inline-start: var(--wa-space-m);
   }
+
   ul ul {
     margin-block-start: var(--wa-space-m);
   }
+
+  ul:empty {
+    display: none;
+  }
+
   li {
     list-style: none;
+
+    + li {
+      margin-block-start: var(--wa-space-m);
+    }
   }
-  li + li {
-    margin-block-start: var(--wa-space-m);
-  }
+
   li a {
     color: var(--wa-color-text-normal);
     text-decoration: none;
-  }
-  li a:hover {
-    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   li wa-badge::part(base) {
@@ -455,6 +479,7 @@ wa-page > main:has(> .index-grid) {
 
 .table-scroll {
   overflow-x: auto;
+  margin-block-end: var(--wa-flow-spacing);
 }
 
 /** mobile */

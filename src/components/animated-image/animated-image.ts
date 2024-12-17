@@ -1,13 +1,11 @@
-import '../icon/icon.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './animated-image.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import '../icon/icon.js';
+import styles from './animated-image.css';
 
 /**
  * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.
@@ -23,14 +21,14 @@ import type { CSSResultGroup } from 'lit';
  * @slot play-icon - Optional play icon to use instead of the default. Works best with `<wa-icon>`.
  * @slot pause-icon - Optional pause icon to use instead of the default. Works best with `<wa-icon>`.
  *
- * @part control-box - The container that surrounds the pause/play icons and provides their background.
+ * @csspart control-box - The container that surrounds the pause/play icons and provides their background.
  *
  * @cssproperty --control-box-size - The size of the icon box.
  * @cssproperty --icon-size - The size of the play/pause icons.
  */
 @customElement('wa-animated-image')
 export default class WaAnimatedImage extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('.animated-image__animated') animatedImage: HTMLImageElement;
 

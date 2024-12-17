@@ -1,0 +1,13 @@
+label {
+  display: inline-block;
+  color: var(--wa-form-control-label-color);
+  font-weight: var(--wa-form-control-label-font-weight);
+  line-height: var(--wa-form-control-label-line-height);
+  margin-bottom: var(--wa-space-xs);
+}
+
+label:has(+ input:required)::after {
+  content: var(--wa-form-control-required-content);
+  margin-inline-start: var(--wa-form-control-required-content-offset);
+  color: var(--wa-form-control-required-content-color);
+}

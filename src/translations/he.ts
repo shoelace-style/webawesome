@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'he',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'בחור צבע מהמסך',
   showPassword: 'הראה סיסמה',
   slideNum: slide => `שקופית ${slide}`,
-  toggleColorFormat: 'החלף פורמט צבע'
+  toggleColorFormat: 'החלף פורמט צבע',
 };
 
 registerTranslation(translation);

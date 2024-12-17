@@ -29,7 +29,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       const isRequired = element.required ?? element.hasAttribute('required');
@@ -50,7 +50,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
       }
 
       return validity;
-    }
+    },
   };
 
   return obj;

@@ -1,0 +1,20 @@
+/**
+  * Borders and outlines
+  */
+:where(:root, :host) {
+  --wa-border-style: solid;
+
+  /* A multiplier is provided to uniformly increase or decrease all border widths. */
+  --wa-border-width-scale: 0.0625;
+  --wa-border-width-s: calc(var(--wa-border-width-scale) * 1rem);
+  --wa-border-width-m: calc(var(--wa-border-width-scale) * 2rem);
+  --wa-border-width-l: calc(var(--wa-border-width-scale) * 3rem);
+
+  /**
+   * Focus
+   */
+  --wa-focus-ring-style: solid;
+  --wa-focus-ring-width: 0.1875rem; /* 3px */
+  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
+  --wa-focus-ring-offset: 0.0625rem; /* 1px */
+}

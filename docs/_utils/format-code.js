@@ -11,7 +11,7 @@ import defaultOptions from '../../prettier.config.js';
 export async function formatCode(string, options) {
   return await format(string, {
     ...defaultOptions,
-    ...options
+    ...options,
   });
 }
 
@@ -21,7 +21,7 @@ export async function formatCode(string, options) {
 export function formatCodePlugin(options = {}) {
   options = {
     parser: 'html',
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

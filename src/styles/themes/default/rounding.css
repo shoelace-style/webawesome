@@ -1,0 +1,16 @@
+/**
+* Rounding tokens
+*/
+:where(:root, :host) {
+  /* A multiplier is provided to uniformly increase or decrease all border radii. */
+  --wa-border-radius-scale: 0.375;
+  --wa-border-radius-xs: calc(var(--wa-border-radius-scale) * 0.5rem);
+  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem);
+  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 2rem);
+  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 3rem);
+
+  /* These common border radius properties can create specific shapes beyond the theme's preferred corner styles. */
+  --wa-border-radius-pill: 9999px;
+  --wa-border-radius-circle: 50%;
+  --wa-border-radius-square: 0px;
+}

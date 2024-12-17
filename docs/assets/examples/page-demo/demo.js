@@ -1,5 +1,6 @@
 await customElements.whenDefined('wa-checkbox');
 let container = document.getElementById('page_slots_demo');
+
 let fieldset = container.querySelector('fieldset');
 let iframe = container.querySelector('iframe');
 let stylesheets = Array.from(document.querySelectorAll("link[rel=stylesheet][href^='/dist/']"))
@@ -10,7 +11,7 @@ let includes = `${stylesheets}
   <link rel="stylesheet" href="/assets/examples/page-demo/page.css">`;
 
 function render() {
-  let slots = Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]:is([data-wa-checked])'));
+  let slots = Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]:state(checked)'));
   let slotsHTML = slots
     .map(slot => {
       let name = slot.getAttribute('value');
@@ -40,11 +41,3 @@ function render() {
 }
 fieldset?.addEventListener('input', render);
 render();
-
-//
-// TODO - fix Turbo caching. When this is removed, visiting the <wa-page> docs via Turbo will cause the <iframe srcdoc>
-// to not render. Even with this, there are console errors when leaving the page.
-//
-// NOTE - the iframe already has `data-turbo="false"` and `data-turbo-temporary` on it.
-//
-document.body.setAttribute('data-turbo', 'false');

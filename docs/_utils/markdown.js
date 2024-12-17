@@ -14,7 +14,7 @@ export const markdown = MarkdownIt({
   breaks: false,
   langPrefix: 'language-',
   linkify: false,
-  typographer: false
+  typographer: false,
 });
 
 markdown.use(markdownItIns);
@@ -34,7 +34,7 @@ markdown.use(markdownItMark);
         `;
       }
       return '</div></div>\n';
-    }
+    },
   });
 });
 
@@ -44,7 +44,7 @@ markdown.use(markdownItContainer, 'aside', {
       return `<aside>`;
     }
     return '</aside>\n';
-  }
+  },
 });
 
 markdown.use(markdownItContainer, 'details', {
@@ -55,9 +55,9 @@ markdown.use(markdownItContainer, 'details', {
       return `<details>\n<summary><span>${markdown.utils.escapeHtml(m[1])}</span></summary>\n`;
     }
     return '</details>\n';
-  }
+  },
 });
 
 markdown.use(markdownItAttrs, {
-  allowedAttributes: []
+  allowedAttributes: [],
 });

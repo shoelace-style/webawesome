@@ -1,10 +1,8 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './spinner.styles.js';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import styles from './spinner.css';
 
 /**
  * @summary Spinners are used to show the progress of an indeterminate operation.
@@ -21,7 +19,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-spinner')
 export default class WaSpinner extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 

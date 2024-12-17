@@ -95,23 +95,23 @@ hasOutline: false
     --wa-line-height-normal: 1.6;
     --wa-line-height-expanded: 2;
 
-    --wa-space-multiplier: 1;
-    --wa-space-3xs: calc(var(--wa-space-multiplier) * 1rem * 0.125);
-    --wa-space-2xs: calc(var(--wa-space-multiplier) * 1rem * 0.25);
-    --wa-space-xs: calc(var(--wa-space-multiplier) * 1rem * 0.5);
-    --wa-space-s: calc(var(--wa-space-multiplier) * 1rem * 0.75);
-    --wa-space-m: calc(var(--wa-space-multiplier) * 1rem * 1);
-    --wa-space-l: calc(var(--wa-space-multiplier) * 1rem * 1.25);
-    --wa-space-xl: calc(var(--wa-space-multiplier) * 1rem * 1.5);
-    --wa-space-2xl: calc(var(--wa-space-multiplier) * 1rem * 2);
-    --wa-space-3xl: calc(var(--wa-space-multiplier) * 1rem * 3);
+    --wa-space-scale: 1;
+    --wa-space-3xs: calc(var(--wa-space-scale) * 1rem * 0.125);
+    --wa-space-2xs: calc(var(--wa-space-scale) * 1rem * 0.25);
+    --wa-space-xs: calc(var(--wa-space-scale) * 1rem * 0.5);
+    --wa-space-s: calc(var(--wa-space-scale) * 1rem * 0.75);
+    --wa-space-m: calc(var(--wa-space-scale) * 1rem * 1);
+    --wa-space-l: calc(var(--wa-space-scale) * 1rem * 1.25);
+    --wa-space-xl: calc(var(--wa-space-scale) * 1rem * 1.5);
+    --wa-space-2xl: calc(var(--wa-space-scale) * 1rem * 2);
+    --wa-space-3xl: calc(var(--wa-space-scale) * 1rem * 3);
 
     --wa-border-style: solid;
 
-    --wa-border-width-multiplier: 0.0625;
-    --wa-border-width-s: calc(var(--wa-border-width-multiplier) * 1rem * 1);
-    --wa-border-width-m: calc(var(--wa-border-width-multiplier) * 1rem * 2);
-    --wa-border-width-l: calc(var(--wa-border-width-multiplier) * 1rem * 3);
+    --wa-border-width-scale: 0.0625;
+    --wa-border-width-s: calc(var(--wa-border-width-scale) * 1rem * 1);
+    --wa-border-width-m: calc(var(--wa-border-width-scale) * 1rem * 2);
+    --wa-border-width-l: calc(var(--wa-border-width-scale) * 1rem * 3);
 
     --wa-form-control-border-style: var(--wa-border-style);
     --wa-form-control-border-width: var(--wa-border-width-s);
@@ -119,29 +119,29 @@ hasOutline: false
     --wa-panel-border-style: var(--wa-border-style);
     --wa-panel-border-width: var(--wa-border-width-s);
 
-    --wa-border-radius-multiplier: 0.375;
-    --wa-border-radius-xs: calc(var(--wa-border-radius-multiplier) * 1rem * 0.75);
-    --wa-border-radius-s: calc(var(--wa-border-radius-multiplier) * 1rem * 1);
-    --wa-border-radius-m: calc(var(--wa-border-radius-multiplier) * 1rem * 2);
-    --wa-border-radius-l: calc(var(--wa-border-radius-multiplier) * 1rem * 3);
+    --wa-border-radius-scale: 0.375;
+    --wa-border-radius-xs: calc(var(--wa-border-radius-scale) * 1rem * 0.75);
+    --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem * 1);
+    --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem * 2);
+    --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 1rem * 3);
 
-    --wa-shadow-blur-multiplier: 0.125;
-    --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-multiplier) * 0.75rem);
-    --wa-shadow-blur-s: calc(var(--wa-shadow-blur-multiplier) * 1rem);
-    --wa-shadow-blur-m: calc(var(--wa-shadow-blur-multiplier) * 1.5rem);
-    --wa-shadow-blur-l: calc(var(--wa-shadow-blur-multiplier) * 2rem);
+    --wa-shadow-blur-scale: 0.125;
+    --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-scale) * 0.75rem);
+    --wa-shadow-blur-s: calc(var(--wa-shadow-blur-scale) * 1rem);
+    --wa-shadow-blur-m: calc(var(--wa-shadow-blur-scale) * 1.5rem);
+    --wa-shadow-blur-l: calc(var(--wa-shadow-blur-scale) * 2rem);
 
-    --wa-shadow-offset-y-multiplier: 0.1;
-    --wa-shadow-offset-y-xs: calc(var(--wa-shadow-offset-y-multiplier) * 0.75rem);
-    --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-multiplier) * 1rem);
-    --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-multiplier) * 1.5rem);
-    --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-multiplier) * 2rem);
+    --wa-shadow-offset-y-scale: 0.1;
+    --wa-shadow-offset-y-xs: calc(var(--wa-shadow-offset-y-scale) * 0.75rem);
+    --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-scale) * 1rem);
+    --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-scale) * 1.5rem);
+    --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-scale) * 2rem);
 
-    --wa-shadow-offset-x-multiplier: 0;
-    --wa-shadow-offset-x-xs: calc(var(--wa-shadow-offset-x-multiplier) * 0.75rem);
-    --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-multiplier) * 1rem);
-    --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-multiplier) * 1.5rem);
-    --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-multiplier) * 2rem);
+    --wa-shadow-offset-x-scale: 0;
+    --wa-shadow-offset-x-xs: calc(var(--wa-shadow-offset-x-scale) * 0.75rem);
+    --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-scale) * 1rem);
+    --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-scale) * 1.5rem);
+    --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-scale) * 2rem);
 
     --wa-shadow-xs: inset var(--wa-shadow-offset-x-xs) var(--wa-shadow-offset-y-xs) var(--wa-shadow-blur-xs)
       calc(var(--wa-shadow-offset-x-xs) * -1) var(--wa-color-shadow);
@@ -170,13 +170,13 @@ hasOutline: false
     --wa-form-control-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
 
     --wa-form-control-height-s: calc(
-      var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-control-value-line-height)
+      var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height)
     );
     --wa-form-control-height-m: calc(
-      var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-control-value-line-height)
+      var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height)
     );
     --wa-form-control-height-l: calc(
-      var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-control-value-line-height)
+      var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height)
     );
 
     --wa-form-control-required-content: '*';
@@ -429,9 +429,9 @@ hasOutline: false
 
   #icon-chooser-trigger {
     --button-group-separator-border: none;
-    --label-color: var(--wa-color-neutral-on-quiet);
-    --label-color-hover: color-mix(in oklab, var(--wa-color-neutral-on-quiet), var(--wa-color-mix-hover));
-    --label-color-active: var(--label-color-hover);
+    --text-color: var(--wa-color-neutral-on-quiet);
+    --text-color-hover: color-mix(in oklab, var(--wa-color-neutral-on-quiet), var(--wa-color-mix-hover));
+    --text-color-active: var(--text-color-hover);
   }
 
   #icon-chooser::part(dialog) {
@@ -539,7 +539,7 @@ hasOutline: false
             <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
             <wa-visually-hidden>Browse icons</wa-visually-hidden>
           </wa-button>
-          <small slot="help-text" style="display: inline-block; line-height: var(--wa-line-height-condensed);">It's dangerous to go alone. Take these!</small>
+          <small slot="hint" style="display: inline-block; line-height: var(--wa-line-height-condensed);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
   </wa-details>
@@ -903,7 +903,7 @@ hasOutline: false
       default:
         colorPalette = 'standard';
     }
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/color/${colorPalette}.css`;
     colorSelect.value = colorPalette;
   }
 
@@ -928,8 +928,8 @@ hasOutline: false
   }
 
   function resetBorderWidthValue() {
-    document.documentElement.style.removeProperty('--wa-border-width-multiplier')
-    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-multiplier")
+    document.documentElement.style.removeProperty('--wa-border-width-scale')
+    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-scale")
   }
 
   function resetBorderStyleValue() {
@@ -938,24 +938,24 @@ hasOutline: false
   }
 
   function resetSpacingValue() {
-    document.documentElement.style.removeProperty('--wa-space-multiplier')
-    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-multiplier")
+    document.documentElement.style.removeProperty('--wa-space-scale')
+    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-scale")
   }
 
   function resetCornersValue() {
-    document.documentElement.style.removeProperty('--wa-border-radius-multiplier')
-    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-radius-multiplier")
+    document.documentElement.style.removeProperty('--wa-border-radius-scale')
+    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-radius-scale")
   }
 
 
 
   // Depth slider and settings
   const depthNames = {
-    0: "depth_0_flat.css",
-    1: "depth_1_semiflat.css",
-    2: "depth_2_chunky.css",
-    3: "depth_3_punchy.css",
-    4: "depth_4_glossy.css",
+    0: "depth/0_flat.css",
+    1: "depth/1_semiflat.css",
+    2: "depth/2_chunky.css",
+    3: "depth/3_punchy.css",
+    4: "depth/4_glossy.css",
   }
 
   function resetDepthValue() {
@@ -1018,7 +1018,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${depthName}`,
+      href: `/dist/styles/themes/${depthName}`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1101,7 +1101,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${theme}.css`,
+      href: `/dist/styles/themes/${theme}.css`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1141,7 +1141,7 @@ hasOutline: false
   colorSelect.addEventListener('wa-change', event => {
     const colorPalette = event.target.value;
 
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/themes/color/${colorPalette}.css`;
   });
 
   // Brand Color
@@ -1616,12 +1616,12 @@ hasOutline: false
 
   // Corners
   container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-radius-multiplier', `${event.target.value}`);
+    document.documentElement.style.setProperty('--wa-border-radius-scale', `${event.target.value}`);
   });
 
   // Border width
   container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-width-multiplier', `${event.target.value / 16}`);
+    document.documentElement.style.setProperty('--wa-border-width-scale', `${event.target.value / 16}`);
   });
 
   // Border style
@@ -1631,7 +1631,7 @@ hasOutline: false
 
   // Spacing style
   spacing.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-space-multiplier', `${event.target.value}`);
+    document.documentElement.style.setProperty('--wa-space-scale', `${event.target.value}`);
   });
 
   // Form validation
@@ -2131,7 +2131,7 @@ hasOutline: false
 <pre class="codeblock">
 <code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
   &lt;head&gt;
-    &lt;link rel="stylesheet" href="path/to/webawesome/dist/themes/dark.css" /&gt;
+    &lt;link rel="stylesheet" href="path/to/webawesome/dist/styles/themes/dark.css" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
     ...

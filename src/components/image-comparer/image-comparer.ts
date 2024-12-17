@@ -1,17 +1,15 @@
-import '../icon/icon.js';
-import { clamp } from '../../internal/math.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
-import { drag } from '../../internal/drag.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
+import { drag } from '../../internal/drag.js';
+import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './image-comparer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import styles from './image-comparer.css';
 
 /**
  * @summary Compare visual differences between similar photos with a sliding panel.
@@ -40,7 +38,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-image-comparer')
 export default class WaImageComparer extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
@@ -61,7 +59,7 @@ export default class WaImageComparer extends WebAwesomeElement {
         this.position = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
         if (isRtl) this.position = 100 - this.position;
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -107,7 +105,7 @@ export default class WaImageComparer extends WebAwesomeElement {
         id="image-comparer"
         class=${classMap({
           'image-comparer': true,
-          'image-comparer--rtl': isRtl
+          'image-comparer--rtl': isRtl,
         })}
         @keydown=${this.handleKeyDown}
       >
@@ -120,7 +118,7 @@ export default class WaImageComparer extends WebAwesomeElement {
             part="after"
             class="image-comparer__after"
             style=${styleMap({
-              clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`
+              clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
             })}
           >
             <slot name="after"></slot>
@@ -131,7 +129,7 @@ export default class WaImageComparer extends WebAwesomeElement {
           part="divider"
           class="image-comparer__divider"
           style=${styleMap({
-            left: isRtl ? `${100 - this.position}%` : `${this.position}%`
+            left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
           })}
           @mousedown=${this.handleDrag}
           @touchstart=${this.handleDrag}

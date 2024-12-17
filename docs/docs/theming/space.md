@@ -34,9 +34,9 @@ layout: page-outline
   }
 </style>
 
-Space properties are used intentionally throughout Web Awesome to create predictable rhythm and meaningful proximity. These properties use `rem` units in order to scale proportionately with the root font size. 
+Space properties are used intentionally throughout Web Awesome to create predictable rhythm and meaningful proximity. These properties use `rem` units in order to scale proportionately with the root font size.
 
-Each space property uses a `calc()` function with `--wa-space-multiplier` to scale all spacing at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
+Each space property uses a `calc()` function with `--wa-space-scale` to scale all spacing at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
 
 | Custom Property  | Default Value                   | Preview                                                               |
 | ---------------- | ------------------------------- | --------------------------------------------------------------------- |

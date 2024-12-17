@@ -1,21 +1,20 @@
-import '../button-group/button-group.js';
-import '../radio/radio.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html, isServer } from 'lit';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { uniqueId } from '../../internal/math.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaInputEvent } from '../../events/input.js';
+import { uniqueId } from '../../internal/math.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './radio-group.styles.js';
-import type { CSSResultGroup } from 'lit';
-import type WaRadio from '../radio/radio.js';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import buttonGroupStyles from '../../styles/utilities/button-group.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import type WaRadioButton from '../radio-button/radio-button.js';
+import '../radio/radio.js';
+import type WaRadio from '../radio/radio.js';
+import styles from './radio-group.css';
 
 /**
  * @summary Radio groups are used to group multiple [radios](/docs/components/radio) or [radio buttons](/docs/components/radio-button) so they function as a single form control.
@@ -28,22 +27,22 @@ import type WaRadioButton from '../radio-button/radio-button.js';
  * @slot - The default slot where `<wa-radio>` or `<wa-radio-button>` elements are placed.
  * @slot label - The radio group's label. Required for proper accessibility. Alternatively, you can use the `label`
  *  attribute.
- * @slot help-text - Text that describes how to use the radio group. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the radio group. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-change - Emitted when the radio group's selected value changes.
  * @event wa-input - Emitted when the radio group receives user input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart button-group - The button group that wraps radio buttons.
  * @csspart button-group__base - The button group's `base` part.
  */
 @customElement('wa-radio-group')
 export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [sizeStyles, buttonGroupStyles, formControlStyles, styles];
 
   static get validators() {
     const validators = isServer
@@ -54,14 +53,14 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
               required: true,
               type: 'radio',
               // we need an id that's guaranteed to be unique; users will never see this
-              name: uniqueId('__wa-radio')
-            })
-          })
+              name: uniqueId('__wa-radio'),
+            }),
+          }),
         ];
     return [...super.validators, ...validators];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
@@ -73,8 +72,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
    */
   @property() label = '';
 
-  /** The radio groups's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The radio groups's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** The name of the radio group, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
@@ -101,7 +100,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The radio group's size. This size will be applied to all child radios and radio buttons. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -115,9 +114,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, attribute: 'with-label' }) withLabel = false;
 
   /**
-   * Used for SSR. if true, will show slotted help text on initial render.
+   * Used for SSR. if true, will show slotted hint on initial render.
    */
-  @property({ type: Boolean, attribute: 'with-help-text' }) withHelpText = false;
+  @property({ type: Boolean, attribute: 'with-hint' }) withHint = false;
 
   //
   // We need this because if we don't have it, FormValidation yells at us that it's "not focusable".
@@ -187,7 +186,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         } else {
           radio.checked = false;
         }
-      })
+      }),
     );
 
     this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
@@ -313,10 +312,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
-    const defaultSlot = html` <slot @slotchange=${this.syncRadioElements}></slot> `;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
       <fieldset
@@ -328,11 +326,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control--large': this.size === 'large',
           'form-control--radio-group': true,
           'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
         })}
         role="radiogroup"
         aria-labelledby="label"
-        aria-describedby="help-text"
+        aria-describedby="hint"
         aria-errormessage="error-message"
       >
         <label
@@ -345,24 +342,21 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           <slot name="label">${this.label}</slot>
         </label>
 
-        <div part="form-control-input" class="form-control-input" role="presentation">
-          ${this.hasButtonGroup
-            ? html`
-                <wa-button-group part="button-group" exportparts="base:button-group__base" role="presentation">
-                  ${defaultSlot}
-                </wa-button-group>
-              `
-            : defaultSlot}
-        </div>
+        <slot
+          part="form-control-input"
+          class=${classMap({ 'wa-button-group': this.hasButtonGroup })}
+          @slotchange=${this.syncRadioElements}
+        ></slot>
 
-        <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          >${this.hint}</slot
         >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
       </fieldset>
     `;
   }

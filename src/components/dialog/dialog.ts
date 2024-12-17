@@ -1,19 +1,17 @@
-import '../icon-button/icon-button.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './dialog.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import styles from './dialog.css';
 
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
@@ -55,7 +53,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-dialog')
 export default class WaDialog extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
@@ -230,7 +228,7 @@ export default class WaDialog extends WebAwesomeElement {
           dialog: true,
           'dialog--open': this.open,
           'dialog--with-header': this.withHeader,
-          'dialog--with-footer': this.withFooter
+          'dialog--with-footer': this.withFooter,
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}

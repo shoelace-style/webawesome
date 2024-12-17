@@ -1,7 +1,8 @@
 ---
 title: Viewport Demo
 description: Viewport demos can be used to display an iframe as a resizable, zoomable preview.
-layout: component
+tags: component
+noAlpha: true
 ---
 
 ```html {.example}

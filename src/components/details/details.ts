@@ -1,19 +1,16 @@
-import '../icon/icon.js';
-import { animate, parseDuration } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
-import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animate, parseDuration } from '../../internal/animate.js';
+import { getTargetElement, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './details.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import styles from './details.css';
 
 /**
  * @summary Details show a brief summary and expand to show additional content.
@@ -33,17 +30,13 @@ import type { CSSResultGroup } from 'lit';
  * @event wa-hide - Emitted when the details closes.
  * @event wa-after-hide - Emitted after the details closes and all animations are complete.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - The inner `<details>` element used to render the component.
+ *                 Styles you apply to the component are automatically applied to this part, so you usually don't need to deal with it unless you need to set the `display` property.
  * @csspart header - The header that wraps both the summary and the expand/collapse icon.
  * @csspart summary - The container that wraps the summary.
- * @csspart summary-icon - The container that wraps the expand/collapse icons.
+ * @csspart icon - The container that wraps the expand/collapse icons.
  * @csspart content - The details content.
  *
- * @cssproperty --background-color - The details' background color.
- * @cssproperty --border-color - The details' border color.
- * @cssproperty --border-radius - The radius for the details' corners. Expects a single value.
- * @cssproperty --border-style - The style of the details' borders.
- * @cssproperty --border-width - The width of the details' borders. Expects a single value.
  * @cssproperty --icon-color - The color of the details' icon.
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
  * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
@@ -51,15 +44,15 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);
 
-  @query('.details') details: HTMLDetailsElement;
-  @query('.details__header') header: HTMLElement;
-  @query('.details__body') body: HTMLElement;
-  @query('.details__expand-icon-slot') expandIconSlot: HTMLSlotElement;
+  @query('details') details: HTMLDetailsElement;
+  @query('summary') header: HTMLElement;
+  @query('.body') body: HTMLElement;
+  @query('.expand-icon-slot') expandIconSlot: HTMLSlotElement;
 
   /**
    * Indicates whether or not the details is open. You can toggle this attribute to show and hide the details, or you
@@ -99,6 +92,13 @@ export default class WaDetails extends WebAwesomeElement {
   }
 
   private handleSummaryClick(event: MouseEvent) {
+    let targetElement = getTargetElement(event);
+
+    if (targetElement?.closest('a, button, wa-button, input, wa-input, textarea, wa-textarea, select, wa-select')) {
+      // Let interactive elements handle their own clicks, fixes #309
+      return;
+    }
+
     event.preventDefault();
 
     if (!this.disabled) {
@@ -152,12 +152,12 @@ export default class WaDetails extends WebAwesomeElement {
         this.body,
         [
           { height: '0', opacity: '0' },
-          { height: `${this.body.scrollHeight}px`, opacity: '1' }
+          { height: `${this.body.scrollHeight}px`, opacity: '1' },
         ],
         {
           duration,
-          easing: 'linear'
-        }
+          easing: 'linear',
+        },
       );
       this.body.style.height = 'auto';
 
@@ -178,9 +178,9 @@ export default class WaDetails extends WebAwesomeElement {
         this.body,
         [
           { height: `${this.body.scrollHeight}px`, opacity: '1' },
-          { height: '0', opacity: '0' }
+          { height: '0', opacity: '0' },
         ],
-        { duration, easing: 'linear' }
+        { duration, easing: 'linear' },
       );
       this.body.style.height = 'auto';
 
@@ -213,19 +213,9 @@ export default class WaDetails extends WebAwesomeElement {
     const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
-      <details
-        part="base"
-        class=${classMap({
-          details: true,
-          'details--open': this.open,
-          'details--disabled': this.disabled,
-          'details--rtl': isRtl
-        })}
-      >
+      <details part="base">
         <summary
           part="header"
-          id="header"
-          class="details__header"
           role="button"
           aria-expanded=${this.open ? 'true' : 'false'}
           aria-controls="content"
@@ -234,9 +224,9 @@ export default class WaDetails extends WebAwesomeElement {
           @click=${this.handleSummaryClick}
           @keydown=${this.handleSummaryKeyDown}
         >
-          <slot name="summary" part="summary" class="details__summary">${this.summary}</slot>
+          <slot name="summary" part="summary">${this.summary}</slot>
 
-          <span part="summary-icon" class="details__summary-icon">
+          <span part="icon">
             <slot name="expand-icon">
               <wa-icon
                 library="system"
@@ -256,8 +246,8 @@ export default class WaDetails extends WebAwesomeElement {
           </span>
         </summary>
 
-        <div class="details__body" role="region" aria-labelledby="header">
-          <slot part="content" id="content" class="details__content"></slot>
+        <div class="body" role="region" aria-labelledby="header">
+          <slot part="content" id="content" class="content"></slot>
         </div>
       </details>
     `;

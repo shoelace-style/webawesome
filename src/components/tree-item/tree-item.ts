@@ -1,24 +1,23 @@
-import '../checkbox/checkbox.js';
-import '../icon/icon.js';
-import '../spinner/spinner.js';
-import { animate, parseDuration } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import type { PropertyValueMap } from 'lit';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
-import { LocalizeController } from '../../utilities/localize.js';
+import { when } from 'lit/directives/when.js';
 import { WaAfterCollapseEvent } from '../../events/after-collapse.js';
 import { WaAfterExpandEvent } from '../../events/after-expand.js';
 import { WaCollapseEvent } from '../../events/collapse.js';
 import { WaExpandEvent } from '../../events/expand.js';
 import { WaLazyChangeEvent } from '../../events/lazy-change.js';
 import { WaLazyLoadEvent } from '../../events/lazy-load.js';
+import { animate, parseDuration } from '../../internal/animate.js';
 import { watch } from '../../internal/watch.js';
-import { when } from 'lit/directives/when.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './tree-item.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValueMap } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../checkbox/checkbox.js';
+import '../icon/icon.js';
+import '../spinner/spinner.js';
+import styles from './tree-item.css';
 
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
@@ -45,10 +44,6 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  *
  * @csspart base - The component's base wrapper.
  * @csspart item - The tree item's container. This element wraps everything except slotted tree item children.
- * @csspart item--disabled - Applied when the tree item is disabled.
- * @csspart item--expanded - Applied when the tree item is expanded.
- * @csspart item--indeterminate - Applied when the selection is indeterminate.
- * @csspart item--selected - Applied when the tree item is selected.
  * @csspart indentation - The tree item's indentation container.
  * @csspart expand-button - The container that wraps the tree item's expand button and spinner.
  * @csspart spinner - The spinner that shows when a lazy tree item is in the loading state.
@@ -58,8 +53,6 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @csspart checkbox - The checkbox that shows when using multiselect.
  * @csspart checkbox__base - The checkbox's exported `base` part.
  * @csspart checkbox__control - The checkbox's exported `control` part.
- * @csspart checkbox__control--checked - The checkbox's exported `control--checked` part.
- * @csspart checkbox__control--indeterminate - The checkbox's exported `control--indeterminate` part.
  * @csspart checkbox__checked-icon - The checkbox's exported `checked-icon` part.
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
  * @csspart checkbox__label - The checkbox's exported `label` part.
@@ -69,10 +62,15 @@ import type { CSSResultGroup, PropertyValueMap } from 'lit';
  * @cssproperty --expand-button-color - The color of the expand button.
  * @cssproperty [--show-duration=200ms] - The animation duration when expanding tree items.
  * @cssproperty [--hide-duration=200ms] - The animation duration when collapsing tree items.
+ *
+ * @cssstate disabled - Applied when the tree item is disabled.
+ * @cssstate expanded - Applied when the tree item is expanded.
+ * @cssstate indeterminate - Applied when the selection is indeterminate.
+ * @cssstate selected - Applied when the tree item is selected.
  */
 @customElement('wa-tree-item')
 export default class WaTreeItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   static isTreeItem(node: Node) {
     return node instanceof Element && node.getAttribute('role') === 'treeitem';
@@ -131,9 +129,9 @@ export default class WaTreeItem extends WebAwesomeElement {
       [
         // We can't animate from 'auto', so use the scroll height for now
         { height: `${this.childrenContainer.scrollHeight}px`, opacity: '1', overflow: 'hidden' },
-        { height: '0', opacity: '0', overflow: 'hidden' }
+        { height: '0', opacity: '0', overflow: 'hidden' },
       ],
-      { duration, easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)' }
+      { duration, easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)' },
     );
     this.childrenContainer.hidden = true;
 
@@ -167,12 +165,12 @@ export default class WaTreeItem extends WebAwesomeElement {
       this.childrenContainer,
       [
         { height: '0', opacity: '0', overflow: 'hidden' },
-        { height: `${this.childrenContainer.scrollHeight}px`, opacity: '1', overflow: 'hidden' }
+        { height: `${this.childrenContainer.scrollHeight}px`, opacity: '1', overflow: 'hidden' },
       ],
       {
         duration,
-        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)'
-      }
+        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+      },
     );
     this.childrenContainer.style.height = 'auto';
 
@@ -190,11 +188,23 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   @watch('disabled')
   handleDisabledChange() {
+    this.toggleCustomState('disabled', this.disabled);
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+  }
+
+  @watch('expanded')
+  handleExpandedState() {
+    this.toggleCustomState('expanded', this.expanded);
+  }
+
+  @watch('indeterminate')
+  handleIndeterminateStateChange() {
+    this.toggleCustomState('indeterminate', this.indeterminate);
   }
 
   @watch('selected')
   handleSelectedChange() {
+    this.toggleCustomState('selected', this.selected);
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
   }
 
@@ -230,7 +240,7 @@ export default class WaTreeItem extends WebAwesomeElement {
   getChildrenItems({ includeDisabled = true }: { includeDisabled?: boolean } = {}): WaTreeItem[] {
     return this.childrenSlot
       ? ([...this.childrenSlot.assignedElements({ flatten: true })].filter(
-          (item: WaTreeItem) => WaTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled)
+          (item: WaTreeItem) => WaTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled),
         ) as WaTreeItem[])
       : [];
   }
@@ -249,32 +259,23 @@ export default class WaTreeItem extends WebAwesomeElement {
           'tree-item--disabled': this.disabled,
           'tree-item--leaf': this.isLeaf,
           'tree-item--has-expand-button': showExpandButton,
-          'tree-item--rtl': this.localize.dir() === 'rtl'
+          'tree-item--rtl': this.localize.dir() === 'rtl',
         })}"
       >
-        <div
-          class="tree-item__item"
-          part="
-            item
-            ${this.disabled ? 'item--disabled' : ''}
-            ${this.expanded ? 'item--expanded' : ''}
-            ${this.indeterminate ? 'item--indeterminate' : ''}
-            ${this.selected ? 'item--selected' : ''}
-          "
-        >
+        <div class="tree-item__item" part="item">
           <div class="tree-item__indentation" part="indentation"></div>
 
           <div
             part="expand-button"
             class=${classMap({
               'tree-item__expand-button': true,
-              'tree-item__expand-button--visible': showExpandButton
+              'tree-item__expand-button--visible': showExpandButton,
             })}
             aria-hidden="true"
           >
             ${when(
               this.loading,
-              () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `
+              () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
             )}
             <slot class="tree-item__expand-icon-slot" name="expand-icon">
               <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
@@ -292,8 +293,6 @@ export default class WaTreeItem extends WebAwesomeElement {
                 exportparts="
                     base:checkbox__base,
                     control:checkbox__control,
-                    control--checked:checkbox__control--checked,
-                    control--indeterminate:checkbox__control--indeterminate,
                     checked-icon:checkbox__checked-icon,
                     indeterminate-icon:checkbox__indeterminate-icon,
                     label:checkbox__label
@@ -304,7 +303,7 @@ export default class WaTreeItem extends WebAwesomeElement {
                 ?indeterminate="${this.indeterminate}"
                 tabindex="-1"
               ></wa-checkbox>
-            `
+            `,
           )}
 
           <slot class="tree-item__label" part="label"></slot>

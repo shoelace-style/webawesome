@@ -1,0 +1,98 @@
+/* Exclude inputs that don't accept text, referenced in subsequent rules with :where(&) */
+:not(
+    [type='button'],
+    [type='checkbox'],
+    [type='color'],
+    [type='file'],
+    [type='hidden'],
+    [type='image'],
+    [type='radio'],
+    [type='range'],
+    [type='reset'],
+    [type='submit']
+  ) {
+  /* Set custom properties for native and WA inputs */
+  input:where(:not(:host input)):where(&),
+  :host(&) {
+    --background-color: var(--wa-form-control-background-color);
+    --border-color: var(--wa-form-control-resting-color);
+    --border-radius: var(--wa-form-control-border-radius);
+    --border-style: var(--wa-form-control-border-style);
+    --border-width: var(--wa-form-control-border-width);
+    --box-shadow: initial;
+  }
+
+  /* Set custom properties for filled input variants via class="wa-filled" or <wa-input filled> */
+  input:where(:not(:host input)).wa-filled:where(&),
+  :host(.wa-filled:where(&)),
+  :host([filled]:where(&)) {
+    --background-color: var(--wa-color-neutral-fill-quiet);
+    --border-color: var(--background-color);
+  }
+
+  /* Set custom properties for pill input variants via class="wa-pill" or <wa-input pill> */
+  input:where(:not(:host input)).wa-pill:where(&),
+  :host(.wa-pill:where(&)),
+  :host([pill]:where(&)) {
+    --border-radius: var(--wa-border-radius-pill);
+  }
+
+  /* Style text controls of inputs, including within <wa-input> */
+  :is(input):where(&) {
+    color: var(--wa-form-control-value-color);
+    font-size: var(--wa-font-size-m);
+    line-height: var(--wa-form-control-value-line-height);
+    padding: 0 var(--wa-space-m);
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: none;
+      caret-color: var(--wa-form-control-value-color);
+    }
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+
+  /* Style native inputs and <wa-input>'s visible container */
+  :is(input:where(:not(:host input)), :host .input):where(&) {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
+    cursor: text;
+    font-family: inherit;
+    line-height: var(--wa-form-control-value-line-height);
+    overflow: hidden;
+    vertical-align: middle;
+    width: 100%;
+    transition:
+      background-color var(--wa-transition-normal),
+      border var(--wa-transition-normal),
+      outline var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+
+    &:not(.input--small, .input--large) {
+      height: var(--wa-form-control-height-m);
+    }
+  }
+
+  /* Style focused inputs */
+  :is(input:where(:not(:host input)):focus, :host .input--focused:not(.input--disabled)):where(&) {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+
+  /* Style disabled inputs */
+  :is(input:where(:not(:host input)):disabled, :host .input--disabled):where(&) {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

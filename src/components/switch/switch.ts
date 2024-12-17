@@ -1,20 +1,19 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './switch.styles.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import styles from './switch.css';
 
 /**
  * @summary Switches allow the user to toggle an option on or off.
@@ -23,7 +22,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @since 2.0
  *
  * @slot - The switch's label.
- * @slot help-text - Text that describes how to use the switch. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the switch. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when the control's checked state changes.
@@ -35,7 +34,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @csspart control - The control that houses the switch's thumb.
  * @csspart thumb - The switch's thumb.
  * @csspart label - The switch's label.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The switch's background color.
  * @cssproperty --background-color-checked - The switch's background color when checked.
@@ -53,13 +52,13 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [formControlStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text');
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
@@ -72,7 +71,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   private _value: string | null = null;
 
   /** The current value of the switch, submitted as a name/value pair with form data. */
-  get value() {
+  get value(): string | null {
     if (this.valueHasChanged) {
       return this._value;
     }
@@ -91,7 +90,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The switch's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -100,10 +99,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean }) disabled = false;
 
   /** Draws the switch in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked: boolean =
+    this.hasAttribute('checked');
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -115,13 +115,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** Makes the switch a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
-  /** The switch's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The switch's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR. If you slot in help-text, make sure to add `with-help-text` to your component to get it to properly render with SSR.
+   * Used for SSR. If you slot in hint, make sure to add `with-hint` to your component to get it to properly render with SSR.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -234,8 +234,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
       <div
@@ -244,7 +244,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           'form-control--small': this.size === 'small',
           'form-control--medium': this.size === 'medium',
           'form-control--large': this.size === 'large',
-          'form-control--has-help-text': hasHelpText
         })}
       >
         <label
@@ -256,7 +255,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
             'switch--focused': this.hasFocus,
             'switch--small': this.size === 'small',
             'switch--medium': this.size === 'medium',
-            'switch--large': this.size === 'large'
+            'switch--large': this.size === 'large',
           })}
         >
           <input
@@ -270,7 +269,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
             .required=${this.required}
             role="switch"
             aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby="help-text"
+            aria-describedby="hint"
             @click=${this.handleClick}
             @input=${this.handleInput}
             @blur=${this.handleBlur}
@@ -287,14 +286,15 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           </div>
         </label>
 
-        <div
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__help-text"
-          id="help-text"
-          part="form-control-help-text"
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          >${this.hint}</slot
         >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
       </div>
     `;
   }

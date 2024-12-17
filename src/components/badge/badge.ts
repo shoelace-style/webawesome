@@ -1,10 +1,9 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './badge.styles.js';
+import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import variantStyles from '../../styles/utilities/variants.css';
+import styles from './badge.css';
 
 /**
  * @summary Badges are used to draw attention and display statuses or counts.
@@ -21,14 +20,17 @@ import type { CSSResultGroup } from 'lit';
  * @cssproperty --border-radius - The radius of the badge's corners.
  * @cssproperty --border-style - The style of the badge's border.
  * @cssproperty --border-width - The width of the badge's border.
- * @cssproperty --content-color - The color of the badge's content.
+ * @cssproperty --text-color - The color of the badge's content.
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, styles];
 
   /** The badge's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+
+  /** The badge's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'tinted' | 'outlined' = 'filled';
 
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -37,24 +39,7 @@ export default class WaBadge extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) pulse = false;
 
   render() {
-    return html`
-      <span
-        part="base"
-        class=${classMap({
-          badge: true,
-          'badge--brand': this.variant === 'brand',
-          'badge--success': this.variant === 'success',
-          'badge--neutral': this.variant === 'neutral',
-          'badge--warning': this.variant === 'warning',
-          'badge--danger': this.variant === 'danger',
-          'badge--pill': this.pill,
-          'badge--pulse': this.pulse
-        })}
-        role="status"
-      >
-        <slot></slot>
-      </span>
-    `;
+    return html` <slot part="base" role="status"></slot>`;
   }
 }
 

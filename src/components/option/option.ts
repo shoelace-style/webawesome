@@ -1,13 +1,11 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './option.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import styles from './option.css';
 
 /**
  * @summary Options define the selectable items within various form controls such as [select](/docs/components/select).
@@ -23,8 +21,8 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --background-color-current - The current option's background color.
  * @cssproperty --background-color-hover - The options's background color on hover.
- * @cssproperty --label-color-current - The current option's label color.
- * @cssproperty --label-color-hover - The label color on hover.
+ * @cssproperty --text-color-current - The current option's label color.
+ * @cssproperty --text-color-hover - The label color on hover.
  *
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart base - The component's base wrapper.
@@ -34,7 +32,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-option')
 export default class WaOption extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   // @ts-expect-error - Controller is currently unused
   private readonly localize = new LocalizeController(this);
@@ -133,7 +131,7 @@ export default class WaOption extends WebAwesomeElement {
           'option--current': this.current,
           'option--disabled': this.disabled,
           'option--selected': this.selected,
-          'option--hover': this.hasHover
+          'option--hover': this.hasHover,
         })}
         @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}

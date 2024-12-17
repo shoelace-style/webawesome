@@ -53,7 +53,7 @@ const templates = {
     attributes = {
       open,
       include: `link[rel=stylesheet][href^='/dist/']`,
-      ...attributes
+      ...attributes,
     };
 
     const attributesString = Object.entries(attributes)
@@ -93,7 +93,7 @@ const templates = {
         ${pre.outerHTML}
       </wa-code-demo>
     `;
-  }
+  },
 };
 
 /**
@@ -107,13 +107,13 @@ export function codeExamplesPlugin(eleventyConfig, options = {}) {
         outputPathIndex === 1 && // is first
         code.textContent.length < 500
       ); // is short
-    }
+    },
   };
   options = { ...defaultOptions, ...options };
 
   const stats = {
     inputPaths: {},
-    outputPaths: {}
+    outputPaths: {},
   };
 
   eleventyConfig.addTransform('code-examples', function (content) {
@@ -144,7 +144,7 @@ export function codeExamplesPlugin(eleventyConfig, options = {}) {
         edit: true,
         buttons: true,
         new: true, // comment this line to default back to the old demos
-        attributes: {}
+        attributes: {},
       };
 
       for (const prop of ['new', 'open', 'buttons', 'edit']) {
@@ -174,7 +174,7 @@ export function codeExamplesPlugin(eleventyConfig, options = {}) {
           localOptions.open = localOptions.defaultOpen(code, {
             pre,
             inputPathIndex: stats.inputPaths[inputPath],
-            outputPathIndex: stats.outputPaths[outputPath]
+            outputPathIndex: stats.outputPaths[outputPath],
           });
         }
       }

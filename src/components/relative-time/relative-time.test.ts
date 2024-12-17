@@ -1,8 +1,8 @@
-import { clientFixture } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { hydratedFixture } from '../../internal/test/fixture.js';
+import { clientFixture } from '../../internal/test/fixture.js';
 import type WaRelativeTime from './relative-time.js';
 
 interface WaRelativeTimeTestCase {
@@ -22,7 +22,7 @@ const expectFormattedRelativeTimeToBe = async (relativeTime: WaRelativeTime, exp
 
 const createRelativeTimeWithDate = async (
   relativeDate: Date,
-  fixture: typeof hydratedFixture | typeof clientFixture
+  fixture: typeof hydratedFixture | typeof clientFixture,
 ): Promise<WaRelativeTime> => {
   const relativeTime: WaRelativeTime = await fixture<WaRelativeTime>(html`
     <wa-relative-time lang="en-US"></wa-relative-time>
@@ -43,36 +43,36 @@ const yesterday = new Date(currentTime.getTime() - dayInSeconds);
 const testCases: WaRelativeTimeTestCase[] = [
   {
     date: new Date(currentTime.getTime() - minuteInSeconds),
-    expectedOutput: '1 minute ago'
+    expectedOutput: '1 minute ago',
   },
   {
     date: new Date(currentTime.getTime() - hourInSeconds),
-    expectedOutput: '1 hour ago'
+    expectedOutput: '1 hour ago',
   },
   {
     date: yesterday,
-    expectedOutput: 'yesterday'
+    expectedOutput: 'yesterday',
   },
   {
     date: new Date(currentTime.getTime() - 4 * dayInSeconds),
-    expectedOutput: '4 days ago'
+    expectedOutput: '4 days ago',
   },
   {
     date: new Date(currentTime.getTime() - weekInSeconds),
-    expectedOutput: 'last week'
+    expectedOutput: 'last week',
   },
   {
     date: new Date(currentTime.getTime() - monthInSeconds),
-    expectedOutput: 'last month'
+    expectedOutput: 'last month',
   },
   {
     date: new Date(currentTime.getTime() - nonLeapYearInSeconds),
-    expectedOutput: 'last year'
+    expectedOutput: 'last year',
   },
   {
     date: new Date(currentTime.getTime() + minuteInSeconds),
-    expectedOutput: 'in 1 minute'
-  }
+    expectedOutput: 'in 1 minute',
+  },
 ];
 
 describe('wa-relative-time', () => {
