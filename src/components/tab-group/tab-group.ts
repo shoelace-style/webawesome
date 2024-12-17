@@ -415,8 +415,8 @@ export default class WaTabGroup extends WebAwesomeElement {
             ? html`
                 <wa-icon-button
                   part="scroll-button scroll-button-end"
-                  exportparts="base:base"
                   class="scroll-button scroll-button-end"
+                  exportparts="base:scroll-button__base"
                   name=${isRtl ? 'chevron-left' : 'chevron-right'}
                   library="system"
                   variant="solid"
