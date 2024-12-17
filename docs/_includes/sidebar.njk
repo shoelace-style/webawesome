@@ -20,7 +20,7 @@
 </ul>
 
 {# Components #}
-<wa-details{{ ' open' if '/components/' in page.url }}>
+<wa-details {{ 'open' if '/components/' in page.url }}>
   <h2 slot=summary>
     <a href="/docs/components/" title="Overview">Components
       <wa-icon name="grid-2"></wa-icon>
@@ -50,7 +50,7 @@
   </ul>
 </wa-details>
 
-<wa-details{{ ' open' if '/essentials/' in page.url }}>
+<wa-details {{ 'open' if '/essentials/' in page.url }}>
   <h2 slot=summary>
     <a href="/docs/essentials/" title="Overview">Essentials
       <wa-icon name="grid-2"></wa-icon>

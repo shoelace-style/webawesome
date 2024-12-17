@@ -64,15 +64,21 @@ table code {
 	<tr>
 		<th><code>{{ name }}{{ "()" if type == "method" }}</code></th>
 		<td>
+      {% set componentLinks = [] %}
+			{% for component in thingComponents  %}
+			  {%- set link -%}
+				  <a href="../{{ component.slug }}"><code>&lt;{{ component.tagName }}&gt;</code></a>
+				{%- endset -%}
+				{# https://giuliachiola.dev/posts/add-items-to-an-array-in-nunjucks/ #}
+        {% set componentLinks = (componentLinks.push(link), componentLinks) %}
+			{%- endfor -%}
 			{% if thingComponents.length > 1 %}
 				<details open>
 					<summary><strong>{{ thingComponents.length }}</strong> components</summary>
-			{% endif %}
-			{% for component in thingComponents  %}
-				<a href="../{{ component.slug }}"><code>&lt;{{ component.tagName }}&gt;</code></a>
-			{%- endfor -%}
-			{% if thingComponents.length > 1 %}
+					{{ componentLinks | safe }}
 				</details>
+			{% else %}
+				{{ componentLinks | safe }}
 			{% endif %}
 		</td>
 	</tr>
