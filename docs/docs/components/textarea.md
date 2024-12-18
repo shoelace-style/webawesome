@@ -68,7 +68,7 @@ Use the `disabled` attribute to disable a textarea.
 Use the `value` attribute to set an initial value.
 
 ```html {.example}
-<wa-textarea value="Initial Text"></wa-textarea>
+<wa-textarea value="Write something awesome!"></wa-textarea>
 ```
 
 ### Sizes
