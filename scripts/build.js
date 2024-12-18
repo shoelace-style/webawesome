@@ -338,7 +338,9 @@ if (isDeveloping) {
         filename.includes('components/') && filename.includes('.ts') && !isCssStylesheet && !isTestFile;
 
       // Re-bundle when relevant files change
-      if (isTestFile) { return }
+      if (isTestFile) {
+        return;
+      }
 
       await regenerateBundle();
 

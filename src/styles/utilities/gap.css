@@ -1,16 +1,16 @@
 /* Apply Flexbox with 0 specificity to ensure a gap util produces a visible change */
 :where(
-    .wa-gap-0,
-    .wa-gap-3xs,
-    .wa-gap-2xs,
-    .wa-gap-xs,
-    .wa-gap-s,
-    .wa-gap-m,
-    .wa-gap-l,
-    .wa-gap-xl,
-    .wa-gap-2xl,
-    .wa-gap-3xl
-  ) {
+  .wa-gap-0,
+  .wa-gap-3xs,
+  .wa-gap-2xs,
+  .wa-gap-xs,
+  .wa-gap-s,
+  .wa-gap-m,
+  .wa-gap-l,
+  .wa-gap-xl,
+  .wa-gap-2xl,
+  .wa-gap-3xl
+) {
   display: flex;
 }
 

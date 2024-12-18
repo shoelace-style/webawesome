@@ -10,12 +10,14 @@ let includes = `${stylesheets}
   <link rel="stylesheet" href="/assets/examples/page-demo/page.css">`;
 
 async function render() {
-  await customElements.whenDefined("wa-checkbox")
+  await customElements.whenDefined('wa-checkbox');
 
   // Let checkboxes update their "state"
-  await Promise.allSettled(Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]')).map((checkbox) => {
-    return checkbox.updateComplete
-  }))
+  await Promise.allSettled(
+    Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]')).map(checkbox => {
+      return checkbox.updateComplete;
+    }),
+  );
 
   let slots = Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]:state(checked)'));
   let slotsHTML = slots

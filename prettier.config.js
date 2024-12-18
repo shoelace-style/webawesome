@@ -15,19 +15,7 @@ const config = {
   tabWidth: 2,
   useTabs: false,
   organizeImportsSkipDestructiveCodeActions: true,
-  plugins: [
-    'prettier-plugin-organize-imports',
-    'prettier-plugin-jinja-template'
-  ],
-  overrides: [
-    // TODO: Need to find a way to disable jinja from running on .ts files.
-    {
-      files: ['*.njk'],
-      options: {
-        parser: 'jinja-template',
-      },
-    },
-  ],
+  plugins: ['prettier-plugin-organize-imports'],
 };
 
 export default config;

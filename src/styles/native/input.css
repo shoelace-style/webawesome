@@ -1,16 +1,16 @@
 /* Exclude inputs that don't accept text, referenced in subsequent rules with :where(&) */
 :not(
-    [type='button'],
-    [type='checkbox'],
-    [type='color'],
-    [type='file'],
-    [type='hidden'],
-    [type='image'],
-    [type='radio'],
-    [type='range'],
-    [type='reset'],
-    [type='submit']
-  ) {
+  [type='button'],
+  [type='checkbox'],
+  [type='color'],
+  [type='file'],
+  [type='hidden'],
+  [type='image'],
+  [type='radio'],
+  [type='range'],
+  [type='reset'],
+  [type='submit']
+) {
   /* Set custom properties for native and WA inputs */
   input:where(:not(:host input)):where(&),
   :host(&) {
