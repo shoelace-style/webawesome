@@ -9,7 +9,7 @@
   display: block;
 }
 
-:host([appearance=filled]) {
+:host([appearance='filled']) {
   --background-color: var(--wa-color-neutral-fill-quiet);
   --border-color: var(--background-color);
 }
