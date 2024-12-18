@@ -2,6 +2,7 @@
 title: Button
 description: Buttons represent actions that are available to the user.
 tags: component
+essentials: button
 ---
 
 ```html {.example}
@@ -28,34 +29,34 @@ Use the `appearance` attribute to change the button's visual appearance.
 
 ```html {.example}
 <div style="margin-block-end: 1rem;">
+  <wa-button appearance="accent" variant="neutral">Accent</wa-button>
   <wa-button appearance="filled" variant="neutral">Filled</wa-button>
-  <wa-button appearance="tinted" variant="neutral">Tinted</wa-button>
   <wa-button appearance="outlined" variant="neutral">Outlined</wa-button>
-  <wa-button appearance="text" variant="neutral">Text</wa-button>
+  <wa-button appearance="plain" variant="neutral">Text</wa-button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <wa-button appearance="accent" variant="brand">Accent</wa-button>
   <wa-button appearance="filled" variant="brand">Filled</wa-button>
-  <wa-button appearance="tinted" variant="brand">Tinted</wa-button>
   <wa-button appearance="outlined" variant="brand">Outlined</wa-button>
-  <wa-button appearance="text" variant="brand">Text</wa-button>
+  <wa-button appearance="plain" variant="brand">Text</wa-button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <wa-button appearance="accent" variant="success">Accent</wa-button>
   <wa-button appearance="filled" variant="success">Filled</wa-button>
-  <wa-button appearance="tinted" variant="success">Tinted</wa-button>
   <wa-button appearance="outlined" variant="success">Outlined</wa-button>
-  <wa-button appearance="text" variant="success">Text</wa-button>
+  <wa-button appearance="plain" variant="success">Text</wa-button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <wa-button appearance="accent" variant="warning">Accent</wa-button>
   <wa-button appearance="filled" variant="warning">Filled</wa-button>
-  <wa-button appearance="tinted" variant="warning">Tinted</wa-button>
   <wa-button appearance="outlined" variant="warning">Outlined</wa-button>
-  <wa-button appearance="text" variant="warning">Text</wa-button>
+  <wa-button appearance="plain" variant="warning">Text</wa-button>
 </div>
 <div>
+  <wa-button appearance="accent" variant="danger">Accent</wa-button>
   <wa-button appearance="filled" variant="danger">Filled</wa-button>
-  <wa-button appearance="tinted" variant="danger">Tinted</wa-button>
   <wa-button appearance="outlined" variant="danger">Outlined</wa-button>
-  <wa-button appearance="text" variant="danger">Text</wa-button>
+  <wa-button appearance="plain" variant="danger">Text</wa-button>
 </div>
 ```
 

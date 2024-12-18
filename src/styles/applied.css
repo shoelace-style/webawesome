@@ -7,6 +7,7 @@
 @import url('native/details.css');
 @import url('native/tables.css');
 @import url('native/blockquote.css');
+@import url('native/dialog.css');
 
 @import url('utilities/size.css');
 @import url('utilities/variants.css');
@@ -66,27 +67,30 @@ body {
 }
 
 /* Content flow */
-:is(
-    address,
-    audio,
-    blockquote,
-    dd,
-    details,
-    dl,
-    figure,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    iframe,
-    ol,
-    p,
-    pre,
-    table,
-    ul,
-    video
-  ):has(+ *) {
-  margin: 0 0 var(--wa-space-xl) 0;
+address,
+audio,
+blockquote,
+dd,
+details,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+iframe,
+ol,
+p,
+pre,
+table,
+ul,
+video,
+wa-callout,
+wa-code-demo,
+wa-viewport-demo {
+  &:has(+ *) {
+    margin: 0 0 var(--wa-space-xl) 0;
+  }
 }

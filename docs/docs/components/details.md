@@ -2,6 +2,7 @@
 title: Details
 description: Details show a brief summary and expand to show additional content.
 tags: component
+essentials: details
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

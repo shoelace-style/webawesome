@@ -92,8 +92,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
-  /** Draws a filled textarea. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The textarea's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
@@ -335,8 +335,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
               'textarea--small': this.size === 'small',
               'textarea--medium': this.size === 'medium',
               'textarea--large': this.size === 'large',
-              'textarea--standard': !this.filled,
-              'textarea--filled': this.filled,
+              'textarea--standard': this.appearance !== "filled",
+              'textarea--filled': this.appearance === "filled",
               'textarea--disabled': this.disabled,
               'textarea--focused': this.hasFocus,
               'textarea--empty': !this.value,

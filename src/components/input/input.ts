@@ -122,8 +122,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** The input's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
-  /** Draws a filled input. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The input's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** Draws a pill-style input with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -431,8 +431,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
               // States
               'input--pill': this.pill,
-              'input--standard': !this.filled,
-              'input--filled': this.filled,
               'input--disabled': this.disabled,
               'input--focused': this.hasFocus,
               'input--empty': !this.value,

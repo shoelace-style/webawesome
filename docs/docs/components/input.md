@@ -2,6 +2,7 @@
 title: Input
 description: Inputs collect data from the user.
 tags: component
+essentials: input
 ---
 
 ```html {.example}
@@ -54,12 +55,12 @@ Add the `password-toggle` attribute to add a toggle button that will show the pa
 <wa-input type="password" placeholder="Password Toggle" password-toggle></wa-input>
 ```
 
-### Filled Inputs
+### Appearance
 
-Add the `filled` attribute to draw a filled input.
+Use the `appearance` attribute to change the input's visual appearance.
 
 ```html {.example}
-<wa-input placeholder="Type something" filled></wa-input>
+<wa-input placeholder="Type something" appearance="filled"></wa-input>
 ```
 
 ### Disabled

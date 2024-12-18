@@ -1,6 +1,15 @@
 ---
 title: Form Inputs
 tags: essentials
+layout: element
+component:
+ - input
+ - select
+ - textarea
+elements:
+  "<input>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+  "<textarea>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+  "<select>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 ---
 <style>
 wa-code-demo::part(preview) {

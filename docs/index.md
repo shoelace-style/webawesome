@@ -374,12 +374,12 @@ layout: page
       <div class="attribution">
         <span>Special thanks</span>
         <div class="button-list">
-          <wa-button appearance="tinted" pill href="https://lit.dev/">Lit</wa-button>
-          <wa-button appearance="tinted" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
-          <wa-button appearance="tinted" pill href="https://www.11ty.dev/">11ty</wa-button>
-          <wa-button appearance="tinted" pill href="https://floating-ui.com/">Floating UI</wa-button>
-          <wa-button appearance="tinted" pill href="https://animate.style/">animate.css</wa-button>
-          <wa-button appearance="tinted" pill href="https://lunrjs.com/">Lunr</wa-button>
+          <wa-button appearance="filled" pill href="https://lit.dev/">Lit</wa-button>
+          <wa-button appearance="filled" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
+          <wa-button appearance="filled" pill href="https://www.11ty.dev/">11ty</wa-button>
+          <wa-button appearance="filled" pill href="https://floating-ui.com/">Floating UI</wa-button>
+          <wa-button appearance="filled" pill href="https://animate.style/">animate.css</wa-button>
+          <wa-button appearance="filled" pill href="https://lunrjs.com/">Lunr</wa-button>
         </div>
       </div>
     </div>

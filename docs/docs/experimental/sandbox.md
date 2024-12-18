@@ -106,7 +106,7 @@ layout: page
 <wa-button variant="warning" appearance="outlined">Warning</wa-button>
 <wa-button variant="danger" appearance="outlined">Danger</wa-button>
 <br /><br />
-<wa-button appearance="text">Text</wa-button>
+<wa-button appearance="plain">Text</wa-button>
 <br /><br />
 <wa-radio-group label="Radio button group" name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>

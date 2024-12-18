@@ -103,24 +103,24 @@ function generateReactWrappers() {
 async function generateStyles() {
   spinner.start('Copying stylesheets');
 
-  // NOTE - alpha setting omits all stylesheets except for these because we use them in the docs
+  //
+  // NOTE - alpha setting omits certain stylesheets that are pro-only
+  //
   if (isAlpha) {
-    const alphaStyles = [
-      'applied.css',
-      'themes/classic.css',
-      'themes/default.css',
-      'forms.css',
-      'utilities',
-      'utilities.css',
-    ];
+    // Copy all styles
+    await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
 
-    await Promise.all(
-      alphaStyles.map(file =>
-        copy(join(rootDir, `src/styles/${file}`), join(cdnDir, `styles/${file}.css`), {
-          overwrite: true,
-        }),
-      ),
-    );
+    // Remove pro themes
+    const allThemes = await globby(join(cdnDir, 'styles/themes/**/*.css'));
+    const proThemes = allThemes.filter(file => {
+      if (file.includes('themes/classic') || file.includes('themes/default')) {
+        return false;
+      }
+      return true;
+    });
+
+    // Delete pro themes that shouldn't be in alpha
+    await Promise.all(proThemes.map(file => deleteAsync(file)));
   } else {
     await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
   }

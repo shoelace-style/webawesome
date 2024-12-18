@@ -1,6 +1,7 @@
 ---
 title: Content
 tags: essentials
+layout: element
 ---
 
 

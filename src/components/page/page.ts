@@ -276,7 +276,7 @@ export default class WaPage extends WebAwesomeElement {
         </div>
         <div class="header" part="header">
           <slot name="navigation-toggle">
-            <wa-button part="navigation-toggle" size="small" appearance="text" variant="neutral">
+            <wa-button part="navigation-toggle" size="small" appearance="plain" variant="neutral">
               <slot name="navigation-toggle-icon">
                 <wa-icon name="bars" part="navigation-toggle-icon" label="Toggle navigation drawer"></wa-icon>
               </slot>

@@ -197,8 +197,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean }) hoist = false;
 
-  /** Draws a filled select. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The select's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** Draws a pill-style select with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

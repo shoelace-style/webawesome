@@ -4,7 +4,7 @@
 
 /* Label */
 .form-control--has-label .label {
-  display: inline-block;
+  display: block;
   color: var(--wa-form-control-label-color);
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);

@@ -1,6 +1,11 @@
 ---
 title: Lists
 tags: essentials
+layout: element
+elements:
+  "<ul>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
+  "<ol>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
+  "<dl>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl
 ---
 
 ## Unordered Lists

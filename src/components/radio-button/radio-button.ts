@@ -159,7 +159,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
           disabled: this.disabled,
           focused: this.hasFocus,
           'wa-outlined': true,
-          'wa-tinted': this.checked,
+          'wa-filled': this.checked,
           'wa-pill': this.pill,
           'has-label': hasLabel,
           'has-prefix': hasPrefix,

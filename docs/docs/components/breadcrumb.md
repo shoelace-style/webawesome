@@ -135,7 +135,7 @@ Dropdown menus can be placed in the default slot to provide additional options.
   <wa-breadcrumb-item>Homepage</wa-breadcrumb-item>
   <wa-breadcrumb-item>
     <wa-dropdown>
-      <wa-button slot="trigger" size="small" appearance="tinted" pill>
+      <wa-button slot="trigger" size="small" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
       <wa-menu>
@@ -160,7 +160,7 @@ Alternatively, you can place dropdown menus in a prefix or suffix slot.
   <wa-breadcrumb-item>
     Web Design
     <wa-dropdown slot="suffix">
-      <wa-button slot="trigger" size="small" appearance="tinted" pill>
+      <wa-button slot="trigger" size="small" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
       <wa-menu>

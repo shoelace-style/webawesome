@@ -1,5 +1,5 @@
 /* Details */
-details:not(.wa-off, .wa-off-deep *) {
+details {
   background-color: var(--wa-color-neutral-fill-quiet);
   border-radius: var(--wa-panel-border-radius);
   padding-block: 0;

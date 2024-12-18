@@ -1,76 +1,9 @@
-:host {
-  --background-color: var(--wa-form-control-background-color);
-  --background-color-checked: var(--wa-form-control-activated-color);
-  --border-color: var(--wa-form-control-resting-color);
-  --border-color-checked: var(--wa-form-control-activated-color);
-  --border-radius: min(
-    calc(var(--toggle-size) * 0.375),
-    var(--wa-border-radius-xs)
-  ); /* min so it doesn't look like a circle/radio */
-  --border-style: var(--wa-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: none;
-  --checked-icon-color: var(--wa-color-brand-on-loud);
-  --toggle-size: calc(1em * var(--wa-form-control-value-line-height));
-
-  display: inline-block;
-}
-
 [part~='base'] {
   position: relative;
   display: flex;
   align-items: flex-start;
   color: var(--wa-form-control-value-color);
   vertical-align: middle;
-  cursor: pointer;
-
-  /* Disabled */
-  &:has(input:disabled) {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.control {
-  flex: 0 0 auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--toggle-size);
-  height: var(--toggle-size);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
-  background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
-  color: var(--wa-form-control-value-color);
-  transition:
-    background var(--wa-transition-normal),
-    border-color var(--wa-transition-fast),
-    box-shadow var(--wa-transition-fast),
-    color var(--wa-transition-fast);
-  transition-timing-function: var(--wa-transition-easing);
-
-  /* Focus */
-  &:has(> input:focus-visible:not(:checked, :disabled)) {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
-
-  /* Checked/indeterminate */
-  &:has(:checked, :indeterminate) {
-    color: var(--checked-icon-color);
-    border-color: var(--border-color-checked);
-    background-color: var(--background-color-checked);
-  }
-
-  /* Checked/indeterminate + focus */
-  &:has(> input:focus-visible:is(:checked, :indeterminate):not(:disabled)) {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
 }
 
 input {
@@ -94,7 +27,6 @@ input {
 [part~='label'] {
   display: inline-block;
   line-height: var(--toggle-size);
-  margin-inline-start: var(--wa-space-xs);
   user-select: none;
   -webkit-user-select: none;
 }

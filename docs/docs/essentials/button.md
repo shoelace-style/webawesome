@@ -1,6 +1,8 @@
 ---
 title: Button
 tags: essentials
+layout: element
+component: button
 ---
 
 ```html {.example}
@@ -30,34 +32,34 @@ Use the appearance utility classes to change the button's visual appearance:
 
 ```html {.example}
 <div style="margin-block-end: 1rem;">
+  <button class="wa-accent wa-neutral">Accent</button>
   <button class="wa-filled wa-neutral">Filled</button>
-  <button class="wa-tinted wa-neutral">Tinted</button>
   <button class="wa-outlined wa-neutral">Outlined</button>
-  <button class="wa-text wa-neutral">Text</button>
+  <button class="wa-plain wa-neutral">Text</button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <button class="wa-accent wa-brand">Accent</button>
   <button class="wa-filled wa-brand">Filled</button>
-  <button class="wa-tinted wa-brand">Tinted</button>
   <button class="wa-outlined wa-brand">Outlined</button>
-  <button class="wa-text wa-brand">Text</button>
+  <button class="wa-plain wa-brand">Text</button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <button class="wa-accent wa-success">Accent</button>
   <button class="wa-filled wa-success">Filled</button>
-  <button class="wa-tinted wa-success">Tinted</button>
   <button class="wa-outlined wa-success">Outlined</button>
-  <button class="wa-text wa-success">Text</button>
+  <button class="wa-plain wa-success">Text</button>
 </div>
 <div style="margin-block-end: 1rem;">
+  <button class="wa-accent wa-warning">Accent</button>
   <button class="wa-filled wa-warning">Filled</button>
-  <button class="wa-tinted wa-warning">Tinted</button>
   <button class="wa-outlined wa-warning">Outlined</button>
-  <button class="wa-text wa-warning">Text</button>
+  <button class="wa-plain wa-warning">Text</button>
 </div>
 <div>
+  <button class="wa-accent wa-danger">Accent</button>
   <button class="wa-filled wa-danger">Filled</button>
-  <button class="wa-tinted wa-danger">Tinted</button>
   <button class="wa-outlined wa-danger">Outlined</button>
-  <button class="wa-text wa-danger">Text</button>
+  <button class="wa-plain wa-danger">Text</button>
 </div>
 ```
 

@@ -1,14 +1,20 @@
 ---
 title: Details
 tags: essentials
+layout: element
+component: details
+elements:
+  "<details>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 ---
 
-Individual details look like this.
+Details show a brief summary and expand to show additional content.
 
+```html {.example}
 <details>
   <summary>Tincidunt nunc pulvinar</summary>
   <p>Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.</p>
 </details>
+```
 
 ## Examples
 

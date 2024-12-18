@@ -24,14 +24,30 @@ Here’s what we have so far:
   {%- endfor -%}
 </ul>
 
-## Opting out of Essentials
+## Opting out of Essentials on a case by case basis
 
-If you don’t want to use all essentials, you can cherry pick just the parts you need.
-For instructions on how to do that, refer to the individual pages.
+So you've decided to use Essentials and now you need to style an element or a part of a page completely differently, what to do?
+You can create an opt-out with the power of [CSS Cascade Layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers)!
 
-You can also opt-out of Essentials styling by using a `wa-off` class on individual elements:
+Instead of including Essentials with a `<link>` element, you can include it like this:
 
-```html {.example}
+```html
+<style>
+@import url('{% cdnUrl 'styles/themes/applied.css' %}') layer(wa);
+
+@layer wa {
+  .wa-off,
+  .wa-off-deep,
+  .wa-off-deep * {
+    all: revert-layer;
+  }
+}
+</style>
+```
+
+Then you can opt-out of Essentials styling by using a `wa-off` class on individual elements or `wa-off-deep` for entire subtrees:
+
+```html
 <p>
   <button>I’m Awesome</button>
   <button class="wa-off">I’m not</button>
@@ -45,21 +61,23 @@ You can also opt-out of Essentials styling by using a `wa-off` class on individu
   <p>Lorem Ipsum dolor sit amet</p>
   <button >I’m also not</button>
 </blockquote>
-```
-
-You can also use `wa-off-deep` to opt-out of Essentials styling for an element **and all its descendants**:
-
-```html {.example}
 <blockquote class="wa-off-deep">
   <p>Lorem Ipsum dolor sit amet</p>
   <button>I’m also not</button>
 </blockquote>
 ```
 
-This means you could opt an entire page out of Essentials styling by adding a `wa-off-deep` class to the `<html>` element.
+You could even design opt-outs for specific elements!
+E.g. to opt-out of `<details>` styling:
 
+```css
+@layer wa {
+  details.wa-details-off,
+  .wa-details-off details,{
+    all: revert-layer;
+  }
+}
+```
 
-
-
-
-
+If you find yourself opting out of entire element types too much, you could consider only including the parts of Essentials you need instead of the whole thing.
+You can find instructions for how to do that on the individual Essentials pages.

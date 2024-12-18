@@ -22,10 +22,10 @@
     --box-shadow: initial;
   }
 
-  /* Set custom properties for filled input variants via class="wa-filled" or <wa-input filled> */
-  input:where(:not(:host input)).wa-filled:where(&),
-  :host(.wa-filled:where(&)),
-  :host([filled]:where(&)) {
+  /* Set custom properties for filled input variants via class="wa-accent" or <wa-input appearance="filled"> */
+  input:where(:not(:host input)).wa-accent:where(&),
+  :host(.wa-accent:where(&)),
+  :host([appearance='filled']:where(&)) {
     --background-color: var(--wa-color-neutral-fill-quiet);
     --border-color: var(--background-color);
   }

@@ -97,7 +97,7 @@
 /* #endregion */
 
 /* #region Buttons */
-wa-button:not([appearance='text']) {
+wa-button:not([appearance='plain']) {
   --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
     inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
@@ -237,14 +237,14 @@ wa-button:not([appearance='outlined']) {
 /* #region Inputs */
 wa-input:not(:focus),
 wa-select {
-  &:not([filled]):not([disabled]) {
+  &:not([appearance='filled']):not([disabled]) {
     --box-shadow: var(--wa-shadow-xs), inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
       inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
   }
 }
 
 wa-textarea:not(:focus) {
-  &:not([filled]):not([disabled]) {
+  &:not([appearance='filled']):not([disabled]) {
     --box-shadow: var(--wa-shadow-xs);
   }
 }

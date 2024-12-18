@@ -9,7 +9,7 @@
 {% block beforeContent %}
   <h1 class="title">{{ title }}</h1>
   <div class="component-info">
-    <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
+    <code class="tag">&lt;{{ component.tagName }}&gt;</code>
     <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
     <wa-badge
       {% if component.status == 'stable' %}variant="brand"{% endif %}
@@ -17,14 +17,19 @@
     >
       {{ component.status }}
     </wa-badge>
-    {# TODO - add a pro flag for pro components #}
-    {% if component.tagName == 'wa-page' %}
-      <wa-badge class="pro">PRO</wa-badge>
-    {% endif %}
+
+    {% if isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
   </div>
-  <p class="component-summary">
+  <p class="summary">
     {{ component.summary | inlineMarkdown | safe }}
   </p>
+  {% if essentials %}
+  <wa-callout variant="success">
+    <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
+    Just want the styles?
+    Check out <a href="/docs/essentials/{{ essentials }}/">{{ ('/docs/essentials/' + essentials + '/') | getTitleFromUrl }} essentials</a>!
+  </wa-callout>
+  {% endif %}
 {% endblock %}
 
 {# Content #}

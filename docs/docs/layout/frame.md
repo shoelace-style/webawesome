@@ -56,7 +56,7 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-s">White-socks</h3>
       <span class="wa-body-s">Kitten &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-whitesocks" name="heart" variant="regular"></wa-icon-button>
         <wa-tooltip for="fav-whitesocks">Favorite</wa-tooltip>
       </div>
@@ -73,7 +73,7 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-s">Bumpkin</h3>
       <span class="wa-body-s">Adult &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-bumpkin" name="heart" variant="regular"></wa-icon-button>
         <wa-tooltip for="fav-bumpkin">Favorite</wa-tooltip>
       </div>
@@ -87,7 +87,7 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-s">Swish-tail</h3>
       <span class="wa-body-s">Kitten &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-swishtail" name="heart" variant="regular"></wa-icon-button>
         <wa-tooltip for="fav-swishtail">Favorite</wa-tooltip>
       </div>
@@ -101,7 +101,7 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-s">Sharp-ears</h3>
       <span class="wa-body-s">Adult &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="tinted" variant="brand">Adopt this pet</wa-button>
+        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
         <wa-icon-button id="fav-sharpears" name="heart" variant="regular"></wa-icon-button>
         <wa-tooltip for="fav-sharpears">Favorite</wa-tooltip>
       </div>

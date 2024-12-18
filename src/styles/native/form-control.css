@@ -6,7 +6,13 @@ label {
   margin-bottom: var(--wa-space-xs);
 }
 
-label:has(+ input:required)::after {
+input:is([type='checkbox'], [type='radio']) + label,
+label:has(input:is([type='checkbox'], [type='radio'])) {
+  margin-bottom: 0;
+}
+
+label:has(+ input:required)::after,
+label:has(input:required)::after {
   content: var(--wa-form-control-required-content);
   margin-inline-start: var(--wa-form-control-required-content-offset);
   color: var(--wa-form-control-required-content-color);

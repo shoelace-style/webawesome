@@ -601,8 +601,8 @@
 
   /* preventing shadows on all form input types */
   wa-input:not(:focus),
-  wa-input:not([filled]):not([disabled]),
-  wa-select:not([filled]):not([disabled]) {
+  wa-input:not([appearance=filled]):not([disabled]),
+  wa-select:not([appearance=filled]):not([disabled]) {
     --box-shadow: var(--wa-shadow-level-0);
     --border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
   }

@@ -1,6 +1,5 @@
 import { html, isServer } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -9,6 +8,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import dialogStyles from '../../styles/native/dialog.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon-button/icon-button.js';
 import styles from './dialog.css';
@@ -35,6 +35,7 @@ import styles from './dialog.css';
  *  behavior such as data loss.
  * @event wa-after-hide - Emitted after the dialog closes and all animations are complete.
  *
+ * @csspart base - The inner `<dialog>` used to render this component.
  * @csspart header - The dialog's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
  * @csspart title - The dialog's title.
@@ -43,23 +44,16 @@ import styles from './dialog.css';
  * @csspart body - The dialog's body.
  * @csspart footer - The dialog's footer.
  *
- * @cssproperty --background-color - The dialog's background color.
- * @cssproperty --border-radius - The radius of the dialog's corners.
- * @cssproperty --box-shadow - The shadow effects around the edges of the dialog.
- * @cssproperty --spacing - The amount of space around and between the dialog's content.
- * @cssproperty --width - The preferred width of the dialog. Note that the dialog will shrink to accommodate smaller screens.
- * @cssproperty [--show-duration=200ms] - The animation duration when showing the dialog.
- * @cssproperty [--hide-duration=200ms] - The animation duration when hiding the dialog.
  */
 @customElement('wa-dialog')
 export default class WaDialog extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [dialogStyles, styles];
 
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
   private closeWatcher: CloseWatcher | null;
 
-  @query('.dialog') dialog: HTMLDialogElement;
+  @query('dialog') dialog: HTMLDialogElement;
 
   /**
    * Indicates whether or not the dialog is open. You can toggle this attribute to show and hide the dialog, or you can
@@ -82,6 +76,9 @@ export default class WaDialog extends WebAwesomeElement {
   /** When enabled, the dialog will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
+  @state()
+  hasOpened = this.open;
+
   firstUpdated() {
     if (this.open) {
       this.addOpenListeners();
@@ -103,13 +100,11 @@ export default class WaDialog extends WebAwesomeElement {
 
     if (waHideEvent.defaultPrevented) {
       this.open = true;
-      animateWithClass(this.dialog, 'pulse');
+      animateWithClass(this.dialog, 'wa-dialog-pulse');
       return;
     }
 
     this.removeOpenListeners();
-
-    await animateWithClass(this.dialog, 'hide');
 
     this.open = false;
     this.dialog.close();
@@ -166,7 +161,7 @@ export default class WaDialog extends WebAwesomeElement {
       if (this.lightDismiss) {
         this.requestClose(this.dialog);
       } else {
-        await animateWithClass(this.dialog, 'pulse');
+        await animateWithClass(this.dialog, 'wa-dialog-pulse');
       }
     }
   }
@@ -203,6 +198,7 @@ export default class WaDialog extends WebAwesomeElement {
     this.addOpenListeners();
     this.originalTrigger = document.activeElement as HTMLElement;
     this.open = true;
+    this.hasOpened = true;
     this.dialog.showModal();
 
     lockBodyScrolling(this);
@@ -215,28 +211,20 @@ export default class WaDialog extends WebAwesomeElement {
       }
     });
 
-    await animateWithClass(this.dialog, 'show');
-
     this.dispatchEvent(new WaAfterShowEvent());
   }
 
   render() {
     return html`
       <dialog
-        part="dialog"
-        class=${classMap({
-          dialog: true,
-          'dialog--open': this.open,
-          'dialog--with-header': this.withHeader,
-          'dialog--with-footer': this.withFooter,
-        })}
+        part="base"
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}
         @pointerdown=${this.handleDialogPointerDown}
       >
         ${this.withHeader
           ? html`
-              <header part="header" class="header">
+              <header part="header">
                 <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
                   <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(65279)} </slot>
@@ -258,11 +246,11 @@ export default class WaDialog extends WebAwesomeElement {
             `
           : ''}
 
-        <div part="body" class="body"><slot></slot></div>
+        <slot part="body" class="body"></slot>
 
         ${this.withFooter
           ? html`
-              <footer part="footer" class="footer">
+              <footer part="footer">
                 <slot name="footer"></slot>
               </footer>
             `
