@@ -4,6 +4,7 @@ label {
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);
   margin-bottom: var(--wa-space-xs);
+  position: relative;
 }
 
 input:is([type='checkbox'], [type='radio']) + label,
@@ -16,4 +17,7 @@ label:has(input:required)::after {
   content: var(--wa-form-control-required-content);
   margin-inline-start: var(--wa-form-control-required-content-offset);
   color: var(--wa-form-control-required-content-color);
+  position: absolute;
+  top: 0;
+  left: 125px;
 }
