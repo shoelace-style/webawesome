@@ -7,8 +7,9 @@ layout: pattern.njk
 TODO Page Description
 
 
-### Order History
+## Invoice
 
+### Panel
 ```html {.example}
 <div>
   <h2>Order History</h2>
@@ -103,4 +104,97 @@ TODO Page Description
     padding-bottom: 1rem;
   }
 </style>
+```
+
+### Table
+```html{.example}
+<div class="invoice-table">
+  <div class="invoice-totals" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal))">
+    <dl>
+      <div>
+        <dt>Date Placed</dt>
+        <dd>
+          <time datetime="2021-01-22">January 22, 2021</time>
+        </dd>
+      </div>
+      <div>
+        <dt>Order Number</dt>
+        <dd>
+          WU88191111
+        </dd>
+      </div>
+      <div>
+        <dt>Total Amount</dt>
+        <dd>
+          $238.00
+        </dd>
+      </div>
+    </dl>
+    <wa-button>View Invoice</wa-button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Product</th>
+        <th>Product</th>
+        <th>Product</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div>
+            <img src="#" />
+            <div>
+              <div>Machined Pen and Pencil Set</div>
+              <div>$70.00</div>
+            </div>
+          </div>
+        </td>
+        <td>$70.00</td>
+        <td>Delivered Jan 25, 2021</td>\
+        <td><a href="#">View</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<style>
+  .invoice-totals {
+   
+    dl {
+      div {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--wa-color-surface-border);
+      }
+    }
+
+    wa-button {
+      width: 100%;
+    }
+    /* dl {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 1rem;
+    } */
+  }
+
+  /* @media (min-width: 30rem) {
+    .invoice-totals {
+    display: flex;
+    justify-content: space-between;
+
+    dl {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 1rem;
+    }
+  }
+  } */
+</style>
+```
+
+### List
+```html{.example}
 ```
