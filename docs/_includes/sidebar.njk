@@ -50,16 +50,16 @@
   </ul>
 </wa-details>
 
-<wa-details{{ ' open' if '/essentials/' in page.url }}>
+<wa-details{{ ' open' if '/natives/' in page.url }}>
   <h2 slot=summary>
-    <a href="/docs/essentials/" title="Overview">Essentials
+    <a href="/docs/natives/" title="Overview">Natives
       <wa-icon name="grid-2"></wa-icon>
     </a>
   </h2>
   <ul>
-    {% for page in collections.essentials | sort %}
+    {% for page in collections.natives | sort %}
     <li>
-      <a href="/docs/essentials/{{ page.fileSlug }}">{{ page.data.title }}</a>
+      <a href="/docs/natives/{{ page.fileSlug }}">{{ page.data.title }}</a>
     </li>
     {% endfor %}
   </ul>
