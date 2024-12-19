@@ -4,6 +4,7 @@ import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './popup.css';
@@ -21,6 +22,8 @@ function isVirtualElement(e: unknown): e is VirtualElement {
     ('contextElement' in e ? e instanceof Element : true)
   );
 }
+
+const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popover');
 
 /**
  * @summary Popup is a utility that lets you declaratively anchor "popup" containers to another element.
@@ -562,6 +565,7 @@ export default class WaPopup extends WebAwesomeElement {
       ></span>
 
       <div
+        popover="manual"
         part="popup"
         class=${classMap({
           popup: true,
@@ -574,6 +578,19 @@ export default class WaPopup extends WebAwesomeElement {
         ${this.arrow ? html`<div part="arrow" class="arrow" role="presentation"></div>` : ''}
       </div>
     `;
+  }
+
+  @watch('active')
+  handleActiveChange() {
+    if (!SUPPORTS_POPOVER || !this.popup) {
+      return;
+    }
+
+    if (this.active) {
+      this.popup.showPopover();
+    } else {
+      this.popup.hidePopover();
+    }
   }
 }
 

@@ -19,6 +19,13 @@
   isolation: isolate;
   max-width: var(--auto-size-available-width, none);
   max-height: var(--auto-size-available-height, none);
+
+  /* Clear UA styles for [popover] */
+  :where(&) {
+    border-style: none;
+    inset: auto;
+    padding: 0;
+  }
 }
 
 .popup--fixed {
