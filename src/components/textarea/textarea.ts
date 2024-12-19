@@ -11,7 +11,9 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/input.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './textarea.css';
 
@@ -30,12 +32,10 @@ import styles from './textarea.css';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart label - The label
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
- * @csspart base - The component's base wrapper.
- * @csspart textarea - The internal `<textarea>` control.
+ * @csspart base - The internal `<textarea>` control.
  *
  * @cssproperty --background-color - The textarea's background color.
  * @cssproperty --border-color - The color of the textarea's borders.
@@ -46,7 +46,7 @@ import styles from './textarea.css';
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static shadowStyle = [formControlStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -59,7 +59,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @query('.control') input: HTMLTextAreaElement;
   @query('.size-adjuster') sizeAdjuster: HTMLTextAreaElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the textarea, submitted as a name/value pair with form data. */
@@ -202,12 +201,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
     this.checkValidity();
   }
 
   private handleChange() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
     this.setTextareaHeight();
     this.dispatchEvent(new WaChangeEvent());
@@ -215,18 +214,20 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleInput() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
     this.dispatchEvent(new WaInputEvent());
   }
 
   private setTextareaHeight() {
     if (this.resize === 'auto') {
-      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it. In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it.
+      // In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // Let’s switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
@@ -316,77 +317,51 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <div
-        part="form-control"
-        class=${classMap({
-          'form-control': true,
-          'form-control--has-label': hasLabel,
-        })}
-      >
-        <label part="form-control-label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
-          <slot name="label">${this.label}</slot>
-        </label>
+      <label part="label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+        <slot name="label">${this.label}</slot>
+      </label>
 
-        <div part="form-control-input" class="form-control-input">
-          <div
-            part="base"
-            class=${classMap({
-              textarea: true,
-              'textarea--small': this.size === 'small',
-              'textarea--medium': this.size === 'medium',
-              'textarea--large': this.size === 'large',
-              'textarea--standard': this.appearance !== "filled",
-              'textarea--filled': this.appearance === "filled",
-              'textarea--disabled': this.disabled,
-              'textarea--focused': this.hasFocus,
-              'textarea--empty': !this.value,
-              'textarea--resize-none': this.resize === 'none',
-              'textarea--resize-vertical': this.resize === 'vertical',
-              'textarea--resize-auto': this.resize === 'auto',
-            })}
-          >
-            <textarea
-              part="textarea"
-              id="input"
-              class="control"
-              title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-              name=${ifDefined(this.name)}
-              .value=${live(this.value)}
-              ?disabled=${this.disabled}
-              ?readonly=${this.readonly}
-              ?required=${this.required}
-              placeholder=${ifDefined(this.placeholder)}
-              rows=${ifDefined(this.rows)}
-              minlength=${ifDefined(this.minlength)}
-              maxlength=${ifDefined(this.maxlength)}
-              autocapitalize=${ifDefined(this.autocapitalize)}
-              autocorrect=${ifDefined(this.autocorrect)}
-              ?autofocus=${this.autofocus}
-              spellcheck=${ifDefined(this.spellcheck)}
-              enterkeyhint=${ifDefined(this.enterkeyhint)}
-              inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="hint"
-              @change=${this.handleChange}
-              @input=${this.handleInput}
-              @focus=${this.handleFocus}
-              @blur=${this.handleBlur}
-            ></textarea>
+      <div part="textarea" class="textarea wa-text-field">
+        <textarea
+          part="base"
+          id="input"
+          class="control"
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${ifDefined(this.name)}
+          .value=${live(this.value)}
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          ?required=${this.required}
+          placeholder=${ifDefined(this.placeholder)}
+          rows=${ifDefined(this.rows)}
+          minlength=${ifDefined(this.minlength)}
+          maxlength=${ifDefined(this.maxlength)}
+          autocapitalize=${ifDefined(this.autocapitalize)}
+          autocorrect=${ifDefined(this.autocorrect)}
+          ?autofocus=${this.autofocus}
+          spellcheck=${ifDefined(this.spellcheck)}
+          enterkeyhint=${ifDefined(this.enterkeyhint)}
+          inputmode=${ifDefined(this.inputmode)}
+          aria-describedby="hint"
+          @change=${this.handleChange}
+          @input=${this.handleInput}
+          @focus=${this.handleFocus}
+          @blur=${this.handleBlur}
+        ></textarea>
 
-            <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
-            <div part="textarea-adjuster" class="size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
-          </div>
-        </div>
-
-        <slot
-          name="hint"
-          part="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          >${this.hint}</slot
-        >
+        <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
+        <div part="textarea-adjuster" class="size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
       </div>
+
+      <slot
+        name="hint"
+        part="hint"
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        >${this.hint}</slot
+      >
     `;
   }
 }

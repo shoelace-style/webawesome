@@ -48,8 +48,9 @@
   --wa-tooltip-line-height: var(--wa-line-height-normal);
 }
 
+/** need to wrap :host-context() in an :is() selector for unsupported browsers */
 .wa-theme-default-dark,
-:host-context(.wa-theme-default-dark) {
+:is(:host-context(.wa-theme-default-dark)) {
   /* Form controls */
   --wa-form-control-background-color: var(--wa-color-surface-default);
 

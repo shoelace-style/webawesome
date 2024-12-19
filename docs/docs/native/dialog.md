@@ -1,7 +1,7 @@
 ---
 title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
-tags: essentials
+tags: native
 layout: element
 elements:
   "<dialog>":  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog

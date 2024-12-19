@@ -36,7 +36,6 @@ describe('<wa-tab>', () => {
 
         expect(el.disabled).to.equal(true);
         expect(el.getAttribute('aria-disabled')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' tab tab--disabled ');
         expect(el.getAttribute('tabindex')).to.equal('-1');
       });
 

@@ -103,3 +103,14 @@ You can change the tooltip's content by setting the `tooltipFormatter` property 
   range.tooltipFormatter = value => `Total - ${value}%`;
 </script>
 ```
+
+### Right-to-Left languages
+
+The component adapts to right-to-left (RTL) languages as you would expect.
+
+```html {.example}
+<wa-range dir="rtl"
+  label="مقدار"
+  hint="التحكم في مستوى صوت الأغنية الحالية."
+  style="--track-color-active: var(--wa-color-brand-fill-loud)" value="10"></wa-range>
+```

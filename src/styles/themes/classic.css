@@ -434,9 +434,9 @@ wa-drawer {
   --spacing: var(--wa-space-l);
 }
 
-wa-input:not([appearance=filled]),
-wa-select:not([appearance=filled]),
-wa-textarea:not([appearance=filled]) {
+wa-input:not([appearance='filled']),
+wa-select:not([appearance='filled']),
+wa-textarea:not([appearance='filled']) {
   --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
     color-mix(in oklab, var(--wa-color-focus), transparent 50%);
   --wa-focus-ring-offset: 0;

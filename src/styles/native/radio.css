@@ -1,18 +1,15 @@
-input[type='checkbox']:where(:not(:host *)),
-label:has(input[type='checkbox']):where(:not(:host *)),
+input[type='radio'],
+label:has(input[type='radio']),
 :host {
   --background-color: var(--wa-form-control-background-color);
-  --background-color-checked: var(--wa-form-control-activated-color);
+  --background-color-checked: var(--background-color);
   --border-color: var(--wa-form-control-resting-color);
   --border-color-checked: var(--wa-form-control-activated-color);
-  --border-radius: min(
-    calc(var(--toggle-size) * 0.375),
-    var(--wa-border-radius-xs)
-  ); /* min prevents entirely circular checkbox */
   --border-style: var(--wa-border-style);
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: none;
-  --checked-icon-color: var(--wa-color-brand-on-loud);
+  --checked-icon-color: var(--wa-form-control-activated-color);
+  --checked-icon-scale: 0.75;
   --toggle-size: 1lh;
 
   color: var(--wa-form-control-value-color);
@@ -22,23 +19,23 @@ label:has(input[type='checkbox']):where(:not(:host *)),
   -webkit-user-select: none;
 }
 
-/* Replace native checkbox styles */
-input[type='checkbox']:where(:not(:host *)) {
+/* Replace native radio styles */
+input[type='radio'] {
   appearance: none;
   margin: 0;
 
   &:checked::after {
-    background-color: currentColor;
+    background-color: var(--checked-icon-color);
+    border-radius: 50%;
     content: '';
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>')
-      center no-repeat;
     position: absolute;
-    height: 100%;
-    width: 100%;
+    width: calc(var(--toggle-size) - var(--border-width));
+    height: calc(var(--toggle-size) - var(--border-width));
+    scale: var(--checked-icon-scale);
   }
 }
 
-input[type='checkbox']:where(:not(:host *)),
+input[type='radio'],
 :host .control {
   flex: 0 0 auto;
   position: relative;
@@ -48,11 +45,12 @@ input[type='checkbox']:where(:not(:host *)),
   width: var(--toggle-size);
   height: var(--toggle-size);
   border-color: var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 50%;
   border-style: var(--border-style);
   border-width: var(--border-width);
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
+  color: transparent;
   transition:
     background var(--wa-transition-normal),
     border-color var(--wa-transition-fast),
@@ -64,32 +62,32 @@ input[type='checkbox']:where(:not(:host *)),
 }
 
 /* Set cursor for input and labels */
-input[type='checkbox']:where(:not(:host *)),
-label:has(input[type='checkbox']):where(:not(:host *)),
-input[type='checkbox']:where(:not(:host *)) + label,
+input[type='radio'],
+label:has(input[type='radio']),
+input[type='radio'] + label,
 :host [part~='base'] {
   cursor: pointer;
 }
 
 /* Checked */
-input[type='checkbox']:is(:checked, :indeterminate):where(:not(:host *)),
-[part~='base'] .control:has(:checked, :indeterminate) /* scoping this rule to :host breaks in Firefox */ {
+input[type='radio']:checked,
+:host .radio--checked .control {
   color: var(--checked-icon-color);
   border-color: var(--border-color-checked);
   background-color: var(--background-color-checked);
 }
 
 /* Focus */
-input[type='checkbox']:focus-visible:where(:not(:host *)),
-[part~='base'] .control:has(> input:focus-visible:not(:disabled)) /* scoping this rule to :host breaks in Firefox */ {
+input[type='radio']:focus-visible,
+:host(:focus-visible) .control {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
 /* Disabled */
-input[type='checkbox']:disabled:where(:not(:host *)),
-label:has(input[type='checkbox']:disabled):where(:not(:host *)),
-:host [part~='base']:has(input:disabled) {
+input[type='radio']:disabled,
+label:has(input[type='radio']:disabled),
+:host([disabled]) {
   opacity: 0.5;
   cursor: not-allowed;
 }

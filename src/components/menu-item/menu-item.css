@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.menu-item.menu-item--disabled {
+:host([disabled]) .menu-item {
   outline: none;
   opacity: 0.5;
   cursor: not-allowed;
@@ -134,7 +134,7 @@ wa-popup::part(popup) {
   margin-left: var(--submenu-offset);
 }
 
-.menu-item--rtl wa-popup::part(popup) {
+wa-popup:dir(rtl)::part(popup) {
   margin-left: calc(-1 * var(--submenu-offset));
 }
 

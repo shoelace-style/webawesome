@@ -485,7 +485,7 @@ describe('<wa-select>', () => {
                 <wa-option value="option-2">Option 2</wa-option>
                 <wa-option value="option-3">Option 3</wa-option>
               </wa-select>
-              <wa-button type="reset">Reset</button>
+              <wa-button type="reset">Reset</wa-button>
             </form>
           `);
 

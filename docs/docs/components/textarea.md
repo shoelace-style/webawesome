@@ -2,7 +2,7 @@
 title: Textarea
 description: Textareas collect data from the user and allow multiple lines of text.
 tags: component
-essentials: input
+native: input
 ---
 
 ```html {.example}
@@ -61,6 +61,14 @@ Use the `disabled` attribute to disable a textarea.
 
 ```html {.example}
 <wa-textarea placeholder="Textarea" disabled></wa-textarea>
+```
+
+### Value
+
+Use the `value` attribute to set an initial value.
+
+```html {.example}
+<wa-textarea value="Write something awesome!"></wa-textarea>
 ```
 
 ### Sizes

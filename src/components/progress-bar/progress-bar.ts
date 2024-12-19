@@ -46,7 +46,6 @@ export default class WaProgressBar extends WebAwesomeElement {
         class=${classMap({
           'progress-bar': true,
           'progress-bar--indeterminate': this.indeterminate,
-          'progress-bar--rtl': this.localize.dir() === 'rtl',
         })}
         role="progressbar"
         title=${ifDefined(this.title)}

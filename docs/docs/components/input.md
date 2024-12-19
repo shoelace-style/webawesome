@@ -2,7 +2,7 @@
 title: Input
 description: Inputs collect data from the user.
 tags: component
-essentials: input
+native: input
 ---
 
 ```html {.example}
@@ -133,33 +133,35 @@ Use the `prefix` and `suffix` slots to add icons.
 Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls.
 
 ```html {.example}
-<wa-input class="label-on-left" label="Name" hint="Enter your name"></wa-input>
-<wa-input class="label-on-left" label="Email" type="email" hint="Enter your email"></wa-input>
-<wa-textarea class="label-on-left" label="Bio" hint="Tell us something about yourself"></wa-textarea>
+<div class="label-on-left">
+  <wa-input label="Name" hint="Enter your name"></wa-input>
+  <wa-input label="Email" type="email" hint="Enter your email"></wa-input>
+  <wa-textarea label="Bio" hint="Tell us something about yourself"></wa-textarea>
+</div>
 
 <style>
   .label-on-left {
-    --label-width: 3.75rem;
-    --gap-width: 1rem;
-  }
-
-  .label-on-left + .label-on-left {
-    margin-top: var(--wa-space-m);
-  }
-
-  .label-on-left::part(form-control) {
     display: grid;
-    grid: auto / var(--label-width) 1fr;
-    gap: var(--wa-space-3xs) var(--gap-width);
+    grid-template-columns: auto 1fr;
+    gap: var(--wa-space-l);
     align-items: center;
-  }
 
-  .label-on-left::part(form-control-label) {
-    text-align: right;
-  }
+    wa-input, wa-textarea {
+      grid-column: 1 / -1;
+      grid-row-end: span 2;
+      display: grid;
+      grid-template-rows: subgrid;
+      gap: 0 var(--wa-space-l);
+      align-items: center;
+    }
 
-  .label-on-left::part(hint) {
-    grid-column-start: 2;
+    ::part(label) {
+      text-align: right;
+    }
+
+    ::part(hint) {
+      grid-column: 2;
+    }
   }
 </style>
 ```

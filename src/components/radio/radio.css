@@ -1,18 +1,3 @@
-:host {
-  --background-color: var(--wa-form-control-background-color);
-  --background-color-checked: var(--background-color);
-  --border-color: var(--wa-form-control-resting-color);
-  --border-color-checked: var(--wa-form-control-activated-color);
-  --border-style: var(--wa-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: none;
-  --checked-icon-color: var(--wa-form-control-activated-color);
-  --checked-icon-scale: 0.75;
-  --toggle-size: calc(1em * var(--wa-form-control-value-line-height));
-
-  display: inline-block;
-}
-
 :host(:focus-visible) {
   outline: none;
 }
@@ -21,7 +6,6 @@
   display: flex;
   align-items: top;
   font: inherit;
-  color: var(--wa-form-control-value-color);
   vertical-align: middle;
   cursor: pointer;
 }
@@ -34,65 +18,7 @@
   scale: var(--checked-icon-scale);
 }
 
-.control {
-  flex: 0 0 auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--toggle-size);
-  height: var(--toggle-size);
-  border-color: var(--border-color);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
-  border-radius: 50%;
-  background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
-  color: transparent;
-  transition:
-    background var(--wa-transition-normal) var(--wa-transition-easing),
-    border-color var(--wa-transition-normal) var(--wa-transition-easing),
-    box-shadow var(--wa-transition-normal) var(--wa-transition-easing),
-    color var(--wa-transition-normal) var(--wa-transition-easing);
-}
-
-.input {
-  position: absolute;
-  opacity: 0;
-  padding: 0;
-  margin: 0;
-  pointer-events: none;
-}
-
-/* Checked */
-.radio--checked .control {
-  color: var(--checked-icon-color);
-  border-color: var(--border-color-checked);
-  background-color: var(--background-color-checked);
-}
-
-/* Checked + focus */
-:host(:focus-visible) .control {
-  outline: var(--wa-focus-ring);
-  outline-offset: var(--wa-focus-ring-offset);
-}
-
-/* Disabled */
-[part='radio']:has(:disabled) {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* When the control isn't checked, hide the circle for Windows High Contrast mode a11y */
 .radio:not(.radio--checked) svg circle {
   opacity: 0;
-}
-
-.label {
-  display: inline-block;
-  color: var(--wa-form-control-value-color);
-  line-height: var(--toggle-size);
-  margin-inline-start: 0.5em;
-  user-select: none;
-  -webkit-user-select: none;
 }

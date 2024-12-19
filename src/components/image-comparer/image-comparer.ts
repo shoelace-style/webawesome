@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { drag } from '../../internal/drag.js';
@@ -100,15 +99,7 @@ export default class WaImageComparer extends WebAwesomeElement {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
-      <div
-        part="base"
-        id="image-comparer"
-        class=${classMap({
-          'image-comparer': true,
-          'image-comparer--rtl': isRtl,
-        })}
-        @keydown=${this.handleKeyDown}
-      >
+      <div part="base" id="image-comparer" class="image-comparer" @keydown=${this.handleKeyDown}>
         <div class="image">
           <div part="before" class="before">
             <slot name="before"></slot>

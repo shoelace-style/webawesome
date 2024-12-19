@@ -1,17 +1,24 @@
-@import url('utilities/visually-hidden.css');
-@import url('components/wa-page.css');
-@import url('./native.css');
+/* Native styles */
 @import url('native/content.css');
 @import url('native/code.css');
 @import url('native/forms.css');
+@import url('native/form-control.css');
+@import url('native/button.css');
+@import url('native/checkbox.css');
+@import url('native/input.css');
 @import url('native/details.css');
 @import url('native/tables.css');
 @import url('native/blockquote.css');
 @import url('native/dialog.css');
+@import url('native/radio.css');
+@import url('native/select.css');
+@import url('native/slider.css');
 
-@import url('utilities/size.css');
-@import url('utilities/variants.css');
-@import url('utilities/appearance.css');
+/* Web Awesome components */
+@import url('components/wa-page.css');
+
+/* CSS Utilities */
+@import url('utilities.css');
 
 /**
  * Applied styles are used to "reset" a page and provide defaults for typography and native HTML elements based on

@@ -61,21 +61,20 @@
   scale: 1.2;
 }
 
-.rating--disabled .symbols,
 .rating--readonly .symbols {
   cursor: default;
 }
 
-.rating--disabled .symbol--hover,
+:host([disabled]) .symbol--hover,
 .rating--readonly .symbol--hover {
   scale: none;
 }
 
-.rating--disabled {
+:host([disabled]) {
   opacity: 0.5;
 }
 
-.rating--disabled .symbols {
+:host([disabled]) .symbols {
   cursor: not-allowed;
 }
 

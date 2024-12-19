@@ -104,15 +104,7 @@ wa-page > header {
   wa-details {
     border: none;
     background: none;
-  }
-
-  wa-details::part(header) {
     padding: 0;
-  }
-
-  wa-details::part(content) {
-    padding-inline: 0;
-    padding-block-end: 0;
   }
 
   ul {

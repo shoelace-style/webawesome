@@ -1,4 +1,4 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html } from 'lit/static-html.js';
@@ -57,8 +57,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   @query('button') input: HTMLButtonElement;
   @query('.hidden-input') hiddenInput: HTMLInputElement;
 
-  @state() protected hasFocus = false;
-
   /**
    * @internal The radio button's checked state. This is exposed as an "internal" attribute so we can reflect it, making
    * it easier to style in button groups.
@@ -109,7 +107,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -124,7 +121,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -157,7 +153,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
           'wa-neutral': !this.checked,
           'wa-brand': this.checked,
           disabled: this.disabled,
-          focused: this.hasFocus,
           'wa-outlined': true,
           'wa-filled': this.checked,
           'wa-pill': this.pill,

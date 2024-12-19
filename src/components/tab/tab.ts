@@ -77,7 +77,6 @@ export default class WaTab extends WebAwesomeElement {
         class=${classMap({
           tab: true,
           'tab--active': this.active,
-          'tab--disabled': this.disabled,
         })}
       >
         <slot></slot>

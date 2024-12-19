@@ -64,7 +64,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   @query('.wa-button') button: HTMLButtonElement | HTMLLinkElement;
 
-  @state() private hasFocus = false;
   @state() visuallyHiddenLabel = false;
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
@@ -143,12 +142,10 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'formtarget' }) formTarget: '_self' | '_blank' | '_parent' | '_top' | string;
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -260,7 +257,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           'wa-button': true,
           caret: this.caret,
           disabled: this.disabled,
-          focused: this.hasFocus,
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
           'visually-hidden-label': this.visuallyHiddenLabel,

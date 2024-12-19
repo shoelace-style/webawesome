@@ -21,3 +21,8 @@
 .wa-button-group {
   display: flex;
 }
+
+/* Help text */
+[part~='hint'] {
+  margin-block-start: var(--wa-space-2xs);
+}

@@ -246,19 +246,19 @@
     0.25rem 0.25rem;
 }
 
-.color-picker--disabled {
+:host([disabled]) {
   opacity: 0.5;
   cursor: not-allowed;
-}
 
-.color-picker--disabled .grid,
-.color-picker--disabled .grid-handle,
-.color-picker--disabled .slider,
-.color-picker--disabled .slider-handle,
-.color-picker--disabled .preview,
-.color-picker--disabled .swatch,
-.color-picker--disabled .swatch-color {
-  pointer-events: none;
+  .grid,
+  .grid-handle,
+  .slider,
+  .slider-handle,
+  .preview,
+  .swatch,
+  .swatch-color {
+    pointer-events: none;
+  }
 }
 
 /*
@@ -284,23 +284,8 @@
   border: none;
   cursor: pointer;
   forced-color-adjust: none;
-}
-
-.trigger.trigger--small {
-  width: var(--wa-form-control-height-s);
-  height: var(--wa-form-control-height-s);
-  border-radius: var(--trigger-border-radius);
-}
-
-.trigger.trigger--medium {
-  width: var(--wa-form-control-height-m);
-  height: var(--wa-form-control-height-m);
-  border-radius: var(--trigger-border-radius);
-}
-
-.trigger.trigger--large {
-  width: var(--wa-form-control-height-l);
-  height: var(--wa-form-control-height-l);
+  width: var(--wa-form-control-height);
+  height: var(--wa-form-control-height);
   border-radius: var(--trigger-border-radius);
 }
 
@@ -326,12 +311,12 @@
   outline: none;
 }
 
-.trigger:focus-visible:not(.trigger--disabled) {
+.trigger:focus-visible:not(.trigger:disabled) {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-:host(:disabled) :is(.label, .trigger) {
+:host([disabled]) :is(.label, .trigger) {
   opacity: 0.5;
   cursor: not-allowed;
 }

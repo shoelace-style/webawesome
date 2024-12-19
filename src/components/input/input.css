@@ -1,38 +1,45 @@
 :host {
-  display: block;
+  display: flex;
+  flex-flow: column;
+  border-width: 0;
 }
 
-.input {
-  flex: 1 1 auto;
+.wa-text-field {
+  flex: auto;
   display: flex;
   align-items: stretch;
   justify-content: start;
   position: relative;
+
+  border-color: inherit;
+  border-style: inherit;
+  border-radius: inherit;
+  transition: inherit;
+
+  height: var(--wa-form-control-height);
+  padding-block: 0;
 }
 
-.control {
+input {
   flex: 1 1 auto;
   min-width: 0;
   height: 100%;
-  font: inherit;
-  border: none;
+  transition: inherit;
+
   /* prettier-ignore */
   background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
-  box-shadow: none;
-  padding: 0;
-  margin: 0;
-  cursor: inherit;
+  height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+  padding-block: 0;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
-.control::-webkit-search-decoration,
-.control::-webkit-search-cancel-button,
-.control::-webkit-search-results-button,
-.control::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-}
-
-.control:focus {
+input:focus {
   outline: none;
 }
 
@@ -42,88 +49,23 @@
   flex: 0 0 auto;
   align-items: center;
   cursor: default;
-}
 
-.prefix ::slotted(wa-icon),
-.suffix ::slotted(wa-icon) {
-  color: var(--wa-color-neutral-on-quiet);
-}
-
-/*
-   * Size modifiers
-   */
-.input--small {
-  font-size: var(--wa-font-size-s);
-  height: var(--wa-form-control-height-s);
-
-  .control {
-    height: calc(var(--wa-form-control-height-s) - var(--border-width) * 2);
-    padding: 0 var(--wa-space-s);
-  }
-
-  .clear,
-  .password-toggle {
-    width: calc(1em + var(--wa-space-s) * 2);
-  }
-
-  .prefix ::slotted(*) {
-    margin-inline-start: var(--wa-space-s);
-  }
-
-  .suffix ::slotted(*) {
-    margin-inline-end: var(--wa-space-s);
+  &::slotted(wa-icon) {
+    color: var(--wa-color-neutral-on-quiet);
   }
 }
 
-.input--medium {
-  font-size: var(--wa-font-size-m);
-  height: var(--wa-form-control-height-m);
-
-  .control {
-    height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
-    padding: 0 var(--wa-space-m);
-  }
-
-  .clear,
-  .password-toggle {
-    width: calc(1em + var(--wa-space-m) * 2);
-  }
-
-  .prefix ::slotted(*) {
-    margin-inline-start: var(--wa-space-m);
-  }
-
-  .suffix ::slotted(*) {
-    margin-inline-end: var(--wa-space-m);
-  }
+.prefix::slotted(*) {
+  margin-inline-end: var(--wa-space);
 }
 
-.input--large {
-  font-size: var(--wa-font-size-l);
-  height: var(--wa-form-control-height-l);
-
-  .control {
-    height: calc(var(--wa-form-control-height-l) - var(--border-width) * 2);
-    padding: 0 var(--wa-space-l);
-  }
-
-  .clear,
-  .password-toggle {
-    width: calc(1em + var(--wa-space-l) * 2);
-  }
-
-  .prefix ::slotted(*) {
-    margin-inline-start: var(--wa-space-l);
-  }
-
-  .suffix ::slotted(*) {
-    margin-inline-end: var(--wa-space-l);
-  }
+.suffix::slotted(*) {
+  margin-inline-start: var(--wa-space);
 }
 
 /*
-   * Clearable + Password Toggle
-   */
+ * Clearable + Password Toggle
+ */
 
 .clear,
 .password-toggle {
@@ -157,7 +99,7 @@
 }
 
 /* Hide the built-in number spinner */
-.input--no-spin-buttons input[type='number'] {
+:host([no-spin-buttons]) input[type='number'] {
   -moz-appearance: textfield;
 
   &::-webkit-outer-spin-button,

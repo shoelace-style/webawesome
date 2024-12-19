@@ -1,6 +1,6 @@
 ---
 title: Lists
-tags: essentials
+tags: native
 layout: element
 elements:
   "<ul>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul

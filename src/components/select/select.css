@@ -1,15 +1,8 @@
 :host {
-  --background-color: var(--wa-form-control-background-color);
-  --border-color: var(--wa-form-control-resting-color);
-  --border-radius: var(--wa-form-control-border-radius);
-  --border-style: var(--wa-form-control-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
-
   display: block;
 }
 
-:host([appearance=filled]) {
+:host([appearance='filled']) {
   --background-color: var(--wa-color-neutral-fill-quiet);
   --border-color: var(--background-color);
 }
@@ -37,34 +30,14 @@
 
 /* Combobox */
 .combobox {
-  background-color: var(--background-color);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
-  box-shadow: var(--box-shadow);
   flex: 1;
   display: flex;
   width: 100%;
   min-width: 0;
-  position: relative;
   align-items: center;
   justify-content: start;
-  font: inherit;
-  vertical-align: middle;
-  overflow: hidden;
-  cursor: pointer;
-  transition:
-    background var(--wa-transition-normal),
-    border var(--wa-transition-normal),
-    box-shadow var(--wa-transition-normal),
-    color var(--wa-transition-normal),
-    outline var(--wa-transition-fast);
-  transition-timing-function: var(--wa-transition-easing);
 
-  min-height: var(--wa-form-control-height-m);
-  padding-block: 0;
-  padding-inline: var(--space);
+  min-height: var(--wa-form-control-height);
 
   :host([size='small']) & {
     min-height: var(--wa-form-control-height-s);
@@ -90,18 +63,6 @@
   /* Pills */
   :host([pill]) & {
     border-radius: var(--wa-border-radius-pill);
-  }
-
-  .disabled & {
-    opacity: 0.5;
-    cursor: not-allowed;
-    outline: none;
-  }
-
-  .enabled:is(.open, .focused) & {
-    border-color: var(--wa-form-control-activated-color);
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
   }
 }
 
@@ -192,7 +153,7 @@
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--space);
+  margin-inline-end: var(--wa-space);
 }
 
 /* Clear button */
@@ -207,7 +168,7 @@
   padding: 0;
   transition: color var(--wa-transition-normal);
   cursor: pointer;
-  margin-inline-start: var(--space);
+  margin-inline-start: var(--wa-space);
 
   &:focus {
     outline: none;

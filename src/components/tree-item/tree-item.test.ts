@@ -141,15 +141,6 @@ describe('<wa-tree-item>', () => {
           // Assert
           expect(leafItem).to.have.attribute('aria-disabled', 'true');
         });
-
-        it('should set item--disabled part', async () => {
-          // Act
-          leafItem.disabled = true;
-          await leafItem.updateComplete;
-
-          // Assert
-          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--disabled')).to.be.true;
-        });
       });
 
       describe('when the item is expanded', () => {

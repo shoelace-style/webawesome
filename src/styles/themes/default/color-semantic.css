@@ -101,8 +101,9 @@
   --wa-color-neutral-on-loud: white;
 }
 
+/** need to wrap :host-context() in an :is() selector for unsupported browsers */
 .wa-theme-default-dark,
-:host-context(.wa-theme-default-dark) {
+:is(:host-context(.wa-theme-default-dark)) {
   /**
    * Foundational Colors
    */

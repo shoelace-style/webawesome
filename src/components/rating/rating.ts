@@ -232,7 +232,6 @@ export default class WaRating extends WebAwesomeElement {
           rating: true,
           'rating--readonly': this.readonly,
           'rating--disabled': this.disabled,
-          'rating--rtl': isRtl,
         })}
         role="slider"
         aria-label=${this.label}

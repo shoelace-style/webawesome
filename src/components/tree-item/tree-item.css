@@ -70,7 +70,7 @@ slot:not([name])::slotted(wa-icon) {
   rotate: 90deg;
 }
 
-.tree-item--expanded.tree-item--rtl .expand-button {
+.tree-item--expanded:dir(rtl) .expand-button {
   rotate: -90deg;
 }
 
@@ -93,7 +93,7 @@ slot:not([name])::slotted(wa-icon) {
   border-inline-start: solid 3px transparent;
 }
 
-.tree-item--disabled .item {
+:host([disabled]) .item {
   opacity: 0.5;
   outline: none;
   cursor: not-allowed;
@@ -135,14 +135,9 @@ slot:not([name])::slotted(wa-icon) {
   position: absolute;
   top: var(--indent-guide-offset);
   bottom: var(--indent-guide-offset);
-  left: calc(1em - (var(--indent-guide-width) / 2) - 1px);
+  inset-inline-start: calc(1em - (var(--indent-guide-width) / 2) - 1px);
   border-inline-end: var(--indent-guide-width) var(--indent-guide-style) var(--indent-guide-color);
   z-index: 1;
-}
-
-.tree-item--rtl .children::before {
-  left: auto;
-  right: 1em;
 }
 
 @media (forced-colors: active) {

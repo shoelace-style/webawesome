@@ -1,4 +1,4 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
@@ -28,8 +28,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
   static shadowStyle = styles;
 
   @query('.icon-button') button: HTMLButtonElement | HTMLLinkElement;
-
-  @state() private hasFocus = false;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
   @property({ reflect: true }) name: string | null = null;
@@ -74,12 +72,10 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean }) disabled = false;
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -115,8 +111,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
         part="base"
         class=${classMap({
           'icon-button': true,
-          'icon-button--disabled': !isLink && this.disabled,
-          'icon-button--focused': this.hasFocus,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${ifDefined(isLink ? undefined : 'button')}

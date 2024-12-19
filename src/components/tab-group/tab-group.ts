@@ -382,7 +382,6 @@ export default class WaTabGroup extends WebAwesomeElement {
           'tab-group--bottom': this.placement === 'bottom',
           'tab-group--start': this.placement === 'start',
           'tab-group--end': this.placement === 'end',
-          'tab-group--rtl': isRtl,
           'tab-group--has-scroll-controls': this.hasScrollControls,
         })}
         @click=${this.handleClick}

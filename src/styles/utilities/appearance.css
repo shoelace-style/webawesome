@@ -26,10 +26,11 @@
 
 .wa-filled,
 :host([appearance~='filled']) {
-  --background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+  --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+  --border-color: transparent;
   --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 
-  --background-color-hover: color-mix(in oklab, var(--background-color), transparent 10%);
+  --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
   --background-color-active: color-mix(in oklab, var(--background-color), transparent 20%);
 
   &:is(.wa-outlined, :host([appearance~='outlined'])) {

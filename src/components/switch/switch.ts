@@ -13,6 +13,7 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import styles from './switch.css';
 
 /**
@@ -52,7 +53,7 @@ import styles from './switch.css';
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -62,7 +63,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the switch, submitted as a name/value pair with form data. */
@@ -130,7 +130,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -145,7 +144,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -238,64 +236,48 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <div
+      <label
+        part="base"
         class=${classMap({
-          'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
+          checked: this.checked,
+          disabled: this.disabled,
         })}
       >
-        <label
-          part="base"
-          class=${classMap({
-            switch: true,
-            'switch--checked': this.checked,
-            'switch--disabled': this.disabled,
-            'switch--focused': this.hasFocus,
-            'switch--small': this.size === 'small',
-            'switch--medium': this.size === 'medium',
-            'switch--large': this.size === 'large',
-          })}
-        >
-          <input
-            class="input"
-            type="checkbox"
-            title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-            name=${this.name}
-            value=${ifDefined(this.value)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
-            role="switch"
-            aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby="hint"
-            @click=${this.handleClick}
-            @input=${this.handleInput}
-            @blur=${this.handleBlur}
-            @focus=${this.handleFocus}
-            @keydown=${this.handleKeyDown}
-          />
+        <input
+          class="input"
+          type="checkbox"
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${this.name}
+          value=${ifDefined(this.value)}
+          .checked=${live(this.checked)}
+          .disabled=${this.disabled}
+          .required=${this.required}
+          role="switch"
+          aria-checked=${this.checked ? 'true' : 'false'}
+          aria-describedby="hint"
+          @click=${this.handleClick}
+          @input=${this.handleInput}
+          @blur=${this.handleBlur}
+          @focus=${this.handleFocus}
+          @keydown=${this.handleKeyDown}
+        />
 
-          <span part="control" class="control">
-            <span part="thumb" class="thumb"></span>
-          </span>
+        <span part="control" class="switch">
+          <span part="thumb" class="thumb"></span>
+        </span>
 
-          <div part="label" class="label">
-            <slot></slot>
-          </div>
-        </label>
+        <slot part="label" class="label"></slot>
+      </label>
 
-        <slot
-          name="hint"
-          part="hint"
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          >${this.hint}</slot
-        >
-      </div>
+      <slot
+        name="hint"
+        part="hint"
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        >${this.hint}</slot
+      >
     `;
   }
 }

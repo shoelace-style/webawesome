@@ -2,7 +2,7 @@
 title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
 tags: component
-essentials: dialog
+native: dialog
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

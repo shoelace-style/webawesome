@@ -38,7 +38,6 @@ describe('<wa-rating>', () => {
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
         expect(base.getAttribute('aria-disabled')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' rating rating--disabled ');
       });
 
       it('should set max value by attribute', async () => {

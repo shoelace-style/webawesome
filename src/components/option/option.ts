@@ -129,7 +129,6 @@ export default class WaOption extends WebAwesomeElement {
         class=${classMap({
           option: true,
           'option--current': this.current,
-          'option--disabled': this.disabled,
           'option--selected': this.selected,
           'option--hover': this.hasHover,
         })}

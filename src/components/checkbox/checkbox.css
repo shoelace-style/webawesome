@@ -24,13 +24,6 @@ input {
   }
 }
 
-[part~='label'] {
-  display: inline-block;
-  line-height: var(--toggle-size);
-  user-select: none;
-  -webkit-user-select: none;
-}
-
 :host([required]) [part~='label']::after {
   content: var(--wa-form-control-required-content);
   color: var(--wa-form-control-required-content-color);

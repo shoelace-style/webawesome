@@ -1,6 +1,6 @@
 ---
 title: Button
-tags: essentials
+tags: native
 layout: element
 component: button
 ---

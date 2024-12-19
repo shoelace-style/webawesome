@@ -20,7 +20,7 @@
 </ul>
 
 {# Components #}
-<wa-details{{ ' open' if '/components/' in page.url }}>
+<wa-details {{ 'open' if '/components/' in page.url }}>
   <h2 slot=summary>
     <a href="/docs/components/" title="Overview">Components
       <wa-icon name="grid-2"></wa-icon>
@@ -50,16 +50,16 @@
   </ul>
 </wa-details>
 
-<wa-details{{ ' open' if '/essentials/' in page.url }}>
+<wa-details {{ 'open' if '/native/' in page.url }}>
   <h2 slot=summary>
-    <a href="/docs/essentials/" title="Overview">Essentials
+    <a href="/docs/native/" title="Overview">Native Styles
       <wa-icon name="grid-2"></wa-icon>
     </a>
   </h2>
   <ul>
-    {% for page in collections.essentials | sort %}
+    {% for page in collections.native | sort %}
     <li>
-      <a href="/docs/essentials/{{ page.fileSlug }}">{{ page.data.title }}</a>
+      <a href="/docs/native/{{ page.fileSlug }}">{{ page.data.title }}</a>
     </li>
     {% endfor %}
   </ul>

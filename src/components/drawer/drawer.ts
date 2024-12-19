@@ -243,7 +243,6 @@ export default class WaDrawer extends WebAwesomeElement {
           'drawer--end': this.placement === 'end',
           'drawer--bottom': this.placement === 'bottom',
           'drawer--start': this.placement === 'start',
-          'drawer--rtl': this.localize.dir() === 'rtl',
           'drawer--with-header': this.withHeader,
           'drawer--with-footer': this.withFooter,
         })}

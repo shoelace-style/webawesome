@@ -1,5 +1,5 @@
 ---
-title: Essentials
+title: Native Styles
 description: TODO
 ---
 
@@ -7,7 +7,7 @@ Web Awesome works _with_ the platform, rather than trying to reinvent it.
 If all you need is styles, you don’t need to use new `<wa-*>` elements!
 We also provide styles that make native HTML elements look good so you can continue using what you know and gradually adopt Web Awesome as you see fit.
 
-To use all Web Awesome Essentials, include the following stylesheet in your project:
+To use all Web Awesome Native Styles, include the following stylesheet in your project:
 
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/applied.css' %}" />
@@ -17,19 +17,19 @@ Here’s what we have so far:
 
 <!-- TODO make nice cards for these -->
 <ul>
-  {%- for page in collections.essentials | sort -%}
+  {%- for page in collections.native | sort -%}
   <li>
-    <a href="/docs/essentials/{{ page.fileSlug }}">{{ page.data.title }}</a>
+    <a href="/docs/native/{{ page.fileSlug }}">{{ page.data.title }}</a>
   </li>
   {%- endfor -%}
 </ul>
 
-## Opting out of Essentials on a case by case basis
+## Opting out of Native Styles
 
-So you've decided to use Essentials and now you need to style an element or a part of a page completely differently, what to do?
+So you've decided to use Native Styles and now you need to style an element or a part of a page completely differently, what to do?
 You can create an opt-out with the power of [CSS Cascade Layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers)!
 
-Instead of including Essentials with a `<link>` element, you can include it like this:
+Instead of including Native Styles with a `<link>` element, you can include it like this:
 
 ```html
 <style>
@@ -45,7 +45,7 @@ Instead of including Essentials with a `<link>` element, you can include it like
 </style>
 ```
 
-Then you can opt-out of Essentials styling by using a `wa-off` class on individual elements or `wa-off-deep` for entire subtrees:
+Then you can opt-out of Native Styles styling by using a `wa-off` class on individual elements or `wa-off-deep` for entire subtrees:
 
 ```html
 <p>
@@ -79,5 +79,5 @@ E.g. to opt-out of `<details>` styling:
 }
 ```
 
-If you find yourself opting out of entire element types too much, you could consider only including the parts of Essentials you need instead of the whole thing.
-You can find instructions for how to do that on the individual Essentials pages.
+If you find yourself opting out of entire element types too much, you could consider only including the parts of Native Styles you need instead of the whole thing.
+You can find instructions for how to do that on the individual Native Styles pages.

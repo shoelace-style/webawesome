@@ -1,55 +1,12 @@
-/* Details */
-details {
-  background-color: var(--wa-color-neutral-fill-quiet);
+details:where(:not(:host *)),
+:host {
+  --icon-color: var(--wa-color-text-quiet);
+  --spacing: var(--wa-space-m);
+
+  background-color: var(--wa-color-surface-default);
+  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
   border-radius: var(--wa-panel-border-radius);
-  padding-block: 0;
-  padding-inline: var(--wa-space-m);
-  margin: 0;
-  margin-block-end: var(--wa-space-xl);
-
-  > :last-child {
-    margin-block-end: 0;
-  }
-
-  summary {
-    position: relative;
-    display: block;
-    cursor: pointer;
-    text-indent: calc(0.4em + 1em);
-    padding-inline: 0;
-    padding-block: var(--wa-space-m);
-    margin: 0;
-    user-select: none;
-    -webkit-user-select: none;
-
-    &::marker,
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &::before {
-      content: '';
-      border: 0.4em solid transparent;
-      border-left-color: currentColor;
-      position: absolute;
-      top: calc(50% - 0.4em);
-      left: calc(0.4em / 2);
-      rotate: 0deg;
-      transform-origin: calc(0.4em / 2) 50%;
-    }
-  }
-
-  &[open] {
-    padding-block-end: var(--wa-space-m);
-
-    > summary::before {
-      rotate: 90deg;
-    }
-  }
-
-  + details {
-    margin-top: calc(-1 * var(--wa-space-xl) + var(--wa-border-width-s));
-  }
+  padding: var(--spacing);
 
   /* Print styles */
   @media print {
@@ -59,5 +16,54 @@ details {
     summary {
       list-style: none;
     }
+  }
+}
+
+details:where(:not(:host *)) summary,
+:host summary /* nesting these summary styles in the rule above breaks in Firefox and Safari */ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
+  }
+}
+
+details:not(:host *) {
+  summary::after {
+    content: '';
+    background-color: var(--icon-color);
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
+      center no-repeat;
+    width: 1rem;
+    height: 1rem;
+    rotate: 0deg;
+    transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
+  }
+
+  &:dir(rtl) > summary::after {
+    rotate: 180deg;
+  }
+
+  &[open] > summary::after {
+    rotate: 90deg;
+  }
+
+  > :last-child {
+    margin-block-end: 0;
   }
 }

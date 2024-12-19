@@ -1,4 +1,3 @@
-await customElements.whenDefined('wa-checkbox');
 let container = document.getElementById('page_slots_demo');
 
 let fieldset = container.querySelector('fieldset');
@@ -10,7 +9,16 @@ let includes = `${stylesheets}
   <script src="/dist/webawesome.loader.js" type="module"></script>
   <link rel="stylesheet" href="/assets/examples/page-demo/page.css">`;
 
-function render() {
+async function render() {
+  await customElements.whenDefined('wa-checkbox');
+
+  // Let checkboxes update their "state"
+  await Promise.allSettled(
+    Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]')).map(checkbox => {
+      return checkbox.updateComplete;
+    }),
+  );
+
   let slots = Array.from(fieldset.querySelectorAll('wa-checkbox[name=slot]:state(checked)'));
   let slotsHTML = slots
     .map(slot => {
@@ -39,5 +47,5 @@ function render() {
     iframe.srcdoc = `${includes}<wa-page>${slotsHTML}</wa-page>`;
   }
 }
+await render();
 fieldset?.addEventListener('input', render);
-render();

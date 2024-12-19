@@ -51,7 +51,7 @@
   &.show.drawer--end {
     animation: show-drawer-from-end var(--show-duration) ease;
 
-    &.drawer--rtl {
+    &:dir(rtl) {
       animation-name: show-drawer-from-start;
     }
   }
@@ -59,7 +59,7 @@
   &.hide.drawer--end {
     animation: show-drawer-from-end var(--hide-duration) ease reverse;
 
-    &.drawer--rtl {
+    &:dir(rtl) {
       animation-name: show-drawer-from-start;
     }
   }
@@ -75,7 +75,7 @@
   &.show.drawer--start {
     animation: show-drawer-from-start var(--show-duration) ease;
 
-    &.drawer--rtl {
+    &:dir(rtl) {
       animation-name: show-drawer-from-end;
     }
   }
@@ -83,7 +83,7 @@
   &.hide.drawer--start {
     animation: show-drawer-from-start var(--hide-duration) ease reverse;
 
-    &.drawer--rtl {
+    &:dir(rtl) {
       animation-name: show-drawer-from-end;
     }
   }

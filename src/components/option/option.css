@@ -25,19 +25,19 @@
   cursor: pointer;
 }
 
-.option--hover:not(.option--current):not(.option--disabled) {
+:host(:not([disabled])) .option--hover:not(.option--current) {
   background-color: var(--background-color-hover);
   color: var(--text-color-hover);
 }
 
 .option--current,
-.option--current.option--disabled {
+:host([disabled]) .option--current {
   background-color: var(--background-color-current);
   color: var(--text-color-current);
   opacity: 1;
 }
 
-.option--disabled {
+:host([disabled]) .option {
   outline: none;
   opacity: 0.5;
   cursor: not-allowed;
