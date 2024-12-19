@@ -1,6 +1,6 @@
 .wa-text-field,
 :host,
-textarea,
+textarea:where(:not(:host *, .wa-text-field *)),
 input:where(:not(
     /* Exclude inputs that don't accept text */
     [type='button'],
@@ -13,31 +13,29 @@ input:where(:not(
     [type='range'],
     [type='reset'],
     [type='submit']
-  )) {
+  )):where(:not(:host *, .wa-text-field *)) {
   /* Style native inputs and <wa-input>'s visible container */
-  &:where(:not(.wa-text-field *, :host input, :host textarea)) {
-    /* Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
+  /* Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
      * Instead we provide the fallback when setting
      */
-    --border-width: var(--wa-form-control-border-width);
-    --box-shadow: initial;
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: initial;
 
-    border-color: var(--border-color, var(--wa-form-control-resting-color));
-    border-radius: var(--wa-form-control-border-radius);
-    border-style: var(--wa-form-control-border-style);
-    cursor: text;
-    color: var(--wa-form-control-value-color);
-    font-size: var(--wa-size);
-    font-family: inherit;
-    line-height: var(--wa-form-control-value-line-height);
-    vertical-align: middle;
-    width: 100%;
-    transition:
-      background-color var(--wa-transition-normal),
-      border var(--wa-transition-normal),
-      outline var(--wa-transition-fast);
-    transition-timing-function: var(--wa-transition-easing);
-  }
+  border-color: var(--border-color, var(--wa-form-control-resting-color));
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-form-control-border-style);
+  cursor: text;
+  color: var(--wa-form-control-value-color);
+  font-size: var(--wa-size);
+  font-family: inherit;
+  line-height: var(--wa-form-control-value-line-height);
+  vertical-align: middle;
+  width: 100%;
+  transition:
+    background-color var(--wa-transition-normal),
+    border var(--wa-transition-normal),
+    outline var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
 
   /* Style text controls of inputs, including within <wa-input> */
   &:where(:not(:host, .wa-text-field :is(input, textarea))) {
