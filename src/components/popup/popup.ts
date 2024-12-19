@@ -283,6 +283,9 @@ export default class WaPopup extends WebAwesomeElement {
       return;
     }
 
+    // Should this only be for `strategy="fixed"`? (hoist in most components)
+    if (SUPPORTS_POPOVER) { this.popup.showPopover() }
+
     this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
     });
@@ -290,6 +293,8 @@ export default class WaPopup extends WebAwesomeElement {
 
   private async stop(): Promise<void> {
     return new Promise(resolve => {
+      if (SUPPORTS_POPOVER) { this.popup.hidePopover() }
+
       if (this.cleanup) {
         this.cleanup();
         this.cleanup = undefined;
@@ -578,19 +583,6 @@ export default class WaPopup extends WebAwesomeElement {
         ${this.arrow ? html`<div part="arrow" class="arrow" role="presentation"></div>` : ''}
       </div>
     `;
-  }
-
-  @watch('active')
-  handleActiveChange() {
-    if (!SUPPORTS_POPOVER || !this.popup) {
-      return;
-    }
-
-    if (this.active) {
-      this.popup.showPopover();
-    } else {
-      this.popup.hidePopover();
-    }
   }
 }
 
