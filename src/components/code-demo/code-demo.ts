@@ -77,9 +77,9 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
-  firstUpdated () {
+  firstUpdated() {
     // This works around a bug where if you have no slotted preview, initial previews will not load.
-    this.requestUpdate()
+    this.requestUpdate();
   }
 
   render() {
