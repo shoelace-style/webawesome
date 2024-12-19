@@ -63,6 +63,14 @@ Use the `disabled` attribute to disable a textarea.
 <wa-textarea placeholder="Textarea" disabled></wa-textarea>
 ```
 
+### Value
+
+Use the `value` attribute to set an initial value.
+
+```html {.example}
+<wa-textarea value="Write something awesome!"></wa-textarea>
+```
+
 ### Sizes
 
 Use the `size` attribute to change a textarea's size.

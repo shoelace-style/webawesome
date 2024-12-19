@@ -210,6 +210,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleChange() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
     this.setTextareaHeight();
     this.dispatchEvent(new WaChangeEvent());
@@ -222,6 +223,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleInput() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
     this.dispatchEvent(new WaInputEvent());
   }

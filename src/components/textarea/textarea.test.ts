@@ -25,7 +25,7 @@ describe('<wa-textarea>', () => {
         expect(el.value).to.equal('');
         expect(el.defaultValue).to.equal('');
         expect(el.title).to.equal('');
-        expect(el.filled).to.be.false;
+        expect(el.appearance).to.equal('outlined');
         expect(el.label).to.equal('');
         expect(el.hint).to.equal('');
         expect(el.placeholder).to.equal('');
