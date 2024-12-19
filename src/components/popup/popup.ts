@@ -23,7 +23,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
   );
 }
 
-const SUPPORTS_POPOVER = HTMLElement?.prototype.hasOwnProperty('popover');
+const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popover');
 
 /**
  * @summary Popup is a utility that lets you declaratively anchor "popup" containers to another element.
