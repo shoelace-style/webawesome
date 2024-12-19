@@ -7,8 +7,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './page.css';
 import mobileStyles from './page.mobile.styles.js';
 
-import '../drawer/drawer.js';
 import '../button/button.js';
+import '../drawer/drawer.js';
 import '../icon/icon.js';
 
 import type { PropertyValues } from 'lit';
