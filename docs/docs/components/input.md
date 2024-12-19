@@ -2,7 +2,7 @@
 title: Input
 description: Inputs collect data from the user.
 tags: component
-essentials: input
+natives: input
 ---
 
 ```html {.example}

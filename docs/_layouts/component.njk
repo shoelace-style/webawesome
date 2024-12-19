@@ -23,11 +23,11 @@
   <p class="summary">
     {{ component.summary | inlineMarkdown | safe }}
   </p>
-  {% if essentials %}
+  {% if natives %}
   <wa-callout variant="success">
     <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
     Just want the styles?
-    Check out <a href="/docs/essentials/{{ essentials }}/">{{ ('/docs/essentials/' + essentials + '/') | getTitleFromUrl }} essentials</a>!
+    Check out <a href="/docs/natives/{{ natives }}/">{{ ('/docs/natives/' + natives + '/') | getTitleFromUrl }} natives</a>!
   </wa-callout>
   {% endif %}
 {% endblock %}

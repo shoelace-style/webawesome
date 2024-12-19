@@ -1,6 +1,6 @@
 ---
 title: Table
-tags: essentials
+tags: natives
 layout: element
 elements:
   "<table>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table

@@ -1,6 +1,6 @@
 ---
 title: Form Inputs
-tags: essentials
+tags: natives
 layout: element
 component:
  - input

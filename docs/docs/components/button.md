@@ -2,7 +2,7 @@
 title: Button
 description: Buttons represent actions that are available to the user.
 tags: component
-essentials: button
+natives: button
 ---
 
 ```html {.example}

@@ -1,6 +1,6 @@
 ---
 title: Details
-tags: essentials
+tags: natives
 layout: element
 component: details
 elements:
