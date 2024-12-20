@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -35,7 +35,8 @@ import styles from './textarea.css';
  * @csspart label - The label
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
- * @csspart base - The internal `<textarea>` control.
+ * @csspart textarea - The internal `<textarea>` control.
+ * @csspart base - The wrapper around the `<textarea>` control.
  *
  * @cssproperty --background-color - The textarea's background color.
  * @cssproperty --border-color - The color of the textarea's borders.
@@ -57,6 +58,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   private resizeObserver: ResizeObserver;
 
   @query('.control') input: HTMLTextAreaElement;
+  @query('[part~="base"]') base: HTMLDivElement;
   @query('.size-adjuster') sizeAdjuster: HTMLTextAreaElement;
 
   @property() title = ''; // make reactive to pass through
@@ -107,7 +109,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ type: Number }) rows = 4;
 
   /** Controls how the textarea can be resized. */
-  @property() resize: 'none' | 'vertical' | 'auto' = 'vertical';
+  @property({ reflect: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' | 'auto' = 'vertical';
 
   /** Disables the textarea. */
   @property({ type: Boolean }) disabled = false;
@@ -179,10 +181,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.resizeObserver = new ResizeObserver(() => this.setTextareaHeight());
+    this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
 
     this.updateComplete.then(() => {
-      this.setTextareaHeight();
+      this.setTextareaDimensions();
       this.resizeObserver.observe(this.input);
 
       if (this.didSSR && this.input && this.value !== this.input.value) {
@@ -208,7 +210,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   private handleChange() {
     this.valueHasChanged = true;
     this.value = this.input.value;
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
     this.dispatchEvent(new WaChangeEvent());
     this.checkValidity();
   }
@@ -223,7 +225,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new WaInputEvent());
   }
 
-  private setTextareaHeight() {
+  private setTextareaDimensions() {
+    if (this.resize === 'none') {
+      // just in case this is called via a property changing.
+      this.base.style.width = ``
+      this.base.style.height = ``
+      return
+    }
+
     if (this.resize === 'auto') {
       // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it.
       // In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
@@ -231,21 +240,43 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
-    } else {
-      this.input.style.height = '';
+
+      this.base.style.width = ``
+      this.base.style.height = ``
+      return
+    }
+
+    // handles vertical, horizontal, and both resizers:
+
+    // These should always be set by a manual resize operation , so its reasonable to expect px.
+    if (this.input.style.width) {
+      const width = Number(this.input.style.width.split(/px/)[0]) + 2
+      this.base.style.width = `${width}px`
+    }
+
+    if (this.input.style.height) {
+      const height = Number(this.input.style.height.split(/px/)[0]) + 2
+      this.base.style.height = `${height}px`
     }
   }
 
   @watch('rows', { waitUntilFirstUpdate: true })
   handleRowsChange() {
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
   }
 
   @watch('value', { waitUntilFirstUpdate: true })
   async handleValueChange() {
     await this.updateComplete;
     this.checkValidity();
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
+  }
+
+  protected updated (changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('resize')) {
+      this.setTextareaDimensions()
+    }
+    super.updated(changedProperties)
   }
 
   /** Sets focus on the textarea. */
@@ -300,7 +331,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== this.input.value) {
       this.value = this.input.value;
-      this.setTextareaHeight();
+      this.setTextareaDimensions();
     }
   }
 
@@ -321,9 +352,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="textarea" class="textarea wa-text-field">
+      <div part="base" class="wa-text-field textarea">
         <textarea
-          part="base"
+          part="textarea"
           id="input"
           class="control"
           title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}

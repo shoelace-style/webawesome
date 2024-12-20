@@ -1,6 +1,5 @@
 :host {
-  display: flex;
-  flex-flow: column;
+  display: block;
   border-width: 0;
 }
 
@@ -46,8 +45,17 @@ textarea::-webkit-search-results-decoration {
   resize: none;
 }
 
+textarea,
 :host([resize='vertical']) textarea {
   resize: vertical;
+}
+
+:host([resize='horizontal']) textarea {
+  resize: horizontal;
+}
+
+:host([resize='both']) textarea {
+  resize: both;
 }
 
 :host([resize='auto']) textarea {

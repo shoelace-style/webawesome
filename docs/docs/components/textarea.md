@@ -98,3 +98,19 @@ Textareas will automatically resize to expand to fit their content when `resize`
 ```html {.example}
 <wa-textarea resize="auto"></wa-textarea>
 ```
+
+### Resize horizontal
+
+Textareas can be made to resize horizontally when `resize` is set to `"horizontal"`
+
+```html {.example}
+<wa-textarea resize="horizontal"></wa-textarea>
+```
+
+### Resize both
+
+Textareas can be made to resize both vertically and horizontally when `resize` is set to `"both"`
+
+```html {.example}
+<wa-textarea resize="both"></wa-textarea>
+```
