@@ -228,9 +228,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   private setTextareaDimensions() {
     if (this.resize === 'none') {
       // just in case this is called via a property changing.
-      this.base.style.width = ``
-      this.base.style.height = ``
-      return
+      this.base.style.width = ``;
+      this.base.style.height = ``;
+      return;
     }
 
     if (this.resize === 'auto') {
@@ -241,22 +241,22 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
 
-      this.base.style.width = ``
-      this.base.style.height = ``
-      return
+      this.base.style.width = ``;
+      this.base.style.height = ``;
+      return;
     }
 
     // handles vertical, horizontal, and both resizers:
 
     // These should always be set by a manual resize operation , so its reasonable to expect px.
     if (this.input.style.width) {
-      const width = Number(this.input.style.width.split(/px/)[0]) + 2
-      this.base.style.width = `${width}px`
+      const width = Number(this.input.style.width.split(/px/)[0]) + 2;
+      this.base.style.width = `${width}px`;
     }
 
     if (this.input.style.height) {
-      const height = Number(this.input.style.height.split(/px/)[0]) + 2
-      this.base.style.height = `${height}px`
+      const height = Number(this.input.style.height.split(/px/)[0]) + 2;
+      this.base.style.height = `${height}px`;
     }
   }
 
@@ -272,11 +272,11 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.setTextareaDimensions();
   }
 
-  protected updated (changedProperties: PropertyValues<this>) {
+  protected updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('resize')) {
-      this.setTextareaDimensions()
+      this.setTextareaDimensions();
     }
-    super.updated(changedProperties)
+    super.updated(changedProperties);
   }
 
   /** Sets focus on the textarea. */
