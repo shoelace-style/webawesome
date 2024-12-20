@@ -150,7 +150,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
       grid-column: 1 / -1;
       grid-row-end: span 2;
       display: grid;
-      grid-template-rows: subgrid;
+      grid-template-columns: subgrid;
       gap: 0 var(--wa-space-l);
       align-items: center;
     }
