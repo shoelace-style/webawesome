@@ -114,7 +114,7 @@ To allow multiple options to be selected, use the `multiple` attribute. It's a g
 <wa-select label="Select a Few" value="option-1 option-2 option-3" multiple clearable>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+  <wa-option value="option-3">Really super extra long option that has too many characters in it and just looks silly, and a few more to make it even more obnoxious</wa-option>
   <wa-option value="option-4">Option 4</wa-option>
   <wa-option value="option-5">Option 5</wa-option>
   <wa-option value="option-6">Option 6</wa-option>

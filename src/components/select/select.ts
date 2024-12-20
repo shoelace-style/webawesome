@@ -257,7 +257,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           removable
           @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
-          ${option.getTextLabel()}
+          <span style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;max-width: 10ch;">
+            ${option.getTextLabel()}
+          </span>
         </wa-tag>
       `;
     };
