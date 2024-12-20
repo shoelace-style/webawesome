@@ -18,6 +18,7 @@ import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button-group/button-group.js';
 import '../button/button.js';
@@ -26,7 +27,6 @@ import type WaDropdown from '../dropdown/dropdown.js';
 import '../icon/icon.js';
 import '../input/input.js';
 import type WaInput from '../input/input.js';
-import '../visually-hidden/visually-hidden.js';
 import styles from './color-picker.css';
 
 interface EyeDropperConstructor {
@@ -106,7 +106,7 @@ declare const EyeDropper: EyeDropperConstructor;
  */
 @customElement('wa-color-picker')
 export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, formControlStyles, styles];
+  static shadowStyle = [visuallyHidden, sizeStyles, formControlStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 

@@ -167,7 +167,7 @@ Create a split button using a button and a dropdown. Use a [visually hidden](/do
   <wa-button variant="brand">Save</wa-button>
   <wa-dropdown placement="bottom-end">
     <wa-button slot="trigger" variant="brand" caret>
-      <wa-visually-hidden>More options</wa-visually-hidden>
+      <span class="wa-visually-hidden">More options</span>
     </wa-button>
     <wa-menu>
       <wa-menu-item>Save</wa-menu-item>

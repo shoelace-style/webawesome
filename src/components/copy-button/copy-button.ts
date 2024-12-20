@@ -5,11 +5,11 @@ import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { animateWithClass } from '../../internal/animate.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
-import '../visually-hidden/visually-hidden.js';
 import styles from './copy-button.css';
 
 /**
@@ -44,7 +44,7 @@ import styles from './copy-button.css';
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
 
@@ -201,7 +201,7 @@ export default class WaCopyButton extends WebAwesomeElement {
         @click=${this.handleCopy}
       >
         <!-- Render a visually hidden label to appease the accessibility checking gods -->
-        <wa-visually-hidden>${this.currentLabel}</wa-visually-hidden>
+        <span class="wa-visually-hidden">${this.currentLabel}</span>
         <slot part="copy-icon" name="copy-icon">
           <wa-icon library="system" name="copy" variant="regular" fixed-width></wa-icon>
         </slot>

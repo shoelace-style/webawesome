@@ -31,10 +31,12 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added [appearance utilities](/docs/utilities/appearance/)
 - Added [size utilities](/docs/utilities/size/)
 - Added [layout utilities](/docs/layout/#utilities)
-- Added [visually hidden](/docs/utilities/a11y/#visually-hidden) utility
+- Added [`.wa-visually hidden`](/docs/utilities/a11y/#visually-hidden) utility
 - Added [`<wa-page>`](/docs/components/page/#styles) native styles and utilities
 
 ### Components
+
+- Removed `<wa-visually-hidden>` in favor of the utility class
 - `<wa-page>`: `mobile-breakpoint` now takes any CSS length, not just pixels
 - Added `checked` and `disabled` custom states to `<wa-checkbox>` and `<wa-radio>`
 - Added `disabled`, `expanded`, `indeterminate`, and `selected` custom states to `<wa-tree-item>`

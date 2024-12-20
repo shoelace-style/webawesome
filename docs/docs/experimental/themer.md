@@ -379,12 +379,8 @@ hasOutline: false
     background-color: var(--wa-color-neutral-fill-quiet);
   }
 
-  /**
-  <wa-visually-hidden>, but without the :not(:focus-within),
-  the reason is that it shows the default browser file uploader.
-*/
-  .hidden-label::part(form-control-label),
-  .file-uploader input {
+  /** Visually hidden */
+  .hidden-label::part(form-control-label) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -522,7 +518,7 @@ hasOutline: false
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-input name="project-name" value="" placeholder="Project name" label="What are you working on?"></wa-input>
     <div>
-      <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
+      <label class="file-uploader wa-visually-hidden-force" style="display: block;" aria-describedby="file-uploader-description">
         <input name="project-logo" type="file" accept="image/*">
         Add logo
       </label>
@@ -537,7 +533,7 @@ hasOutline: false
           <wa-button value="[choose]" appearance="plain" id="icon-chooser-trigger" class="logo-chooser">
             <wa-tooltip for="icon-chooser-trigger" distance="-3" hoist>Browse Icons</wa-tooltip>
             <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
-            <wa-visually-hidden>Browse icons</wa-visually-hidden>
+            <span class="wa-visually-hidden">Browse icons</span>
           </wa-button>
           <small slot="hint" style="display: inline-block; line-height: var(--wa-line-height-condensed);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
@@ -2270,17 +2266,17 @@ hasOutline: false
       <table style="margin-bottom: 0;">
         <thead>
           <tr>
-            <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
+            <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Check all</span></wa-checkbox></th>
             <th>Customer</th>
             <th>Conversation</th>
             <th>Assigned To</th>
             <th style="text-align: center;">Status</th>
-            <th><wa-visually-hidden>Actions</wa-visually-hidden></th>
+            <th><span class="wa-visually-hidden">Actions</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Keanu Reeves</td>
             <td class="desc"><span style="font-weight: bold">Am I dead?</span><br><span class="excerpt">Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...</span></td>
             <td><wa-avatar  image="/assets/images/themer/avatar-chad.jpg"  label="Chad" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
@@ -2310,7 +2306,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Lawrence Fishburne</td>
             <td class="desc"><span style="font-weight: bold">We have a rule</span><br><span class="excerpt">We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</span></td>
             <td><wa-avatar image="/assets/images/themer/avatar-char.jpg"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
@@ -2340,7 +2336,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Carrie-Ann Moss</td>
             <td class="desc"><span style="font-weight: bold">Was it the same cat?</span><br><span class="excerpt">A déjà vu is usually a glitch in the Matrix. It happens when they change something.</span></td>
             <td><wa-avatar initials="DE" label="Avatar with initials: DE" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Debbie Evans</td>
@@ -2370,7 +2366,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Joe Pantoliano</td>
             <td class="desc"><span style="font-weight: bold">Ignorance is bliss</span><br><span class="excerpt">Why oh why didn't I take the blue pill?</span></td>
             <td></td>
@@ -2400,7 +2396,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Hugo Weaving</td>
             <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br><span class="excerpt">I need the codes, I have to get inside Zion and you have to tell me how.</span></td>
             <td><wa-avatar  image="/assets/images/themer/avatar-dara.jpg"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>

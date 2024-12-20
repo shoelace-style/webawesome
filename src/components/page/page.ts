@@ -4,6 +4,7 @@ import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { toLength, toPx } from '../../internal/css-values.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import styles from './page.css';
 import mobileStyles from './page.mobile.styles.js';
 
@@ -78,7 +79,7 @@ if (typeof ResizeObserver === 'undefined') {
  */
 @customElement('wa-page')
 export default class WaPage extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [visuallyHidden, styles];
 
   private headerResizeObserver = this.slotResizeObserver('header');
   private subheaderResizeObserver = this.slotResizeObserver('subheader');
@@ -262,7 +263,7 @@ export default class WaPage extends WebAwesomeElement {
 
   render() {
     return html`
-      <a href="#main-content" part="skip-to-content" class="skip-to-content">
+      <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
         <slot name="skip-to-content">Skip to content</slot>
       </a>
 
