@@ -34,10 +34,10 @@ export default class WaFormatNumber extends WebAwesomeElement {
   /** The minimum number of integer digits to use. Possible values are 1-21. */
   @property({ attribute: 'minimum-integer-digits', type: Number }) minimumIntegerDigits: number;
 
-  /** The minimum number of fraction digits to use. Possible values are 0-20. */
+  /** The minimum number of fraction digits to use. Possible values are 0-100. */
   @property({ attribute: 'minimum-fraction-digits', type: Number }) minimumFractionDigits: number;
 
-  /** The maximum number of fraction digits to use. Possible values are 0-0. */
+  /** The maximum number of fraction digits to use. Possible values are 0-100. */
   @property({ attribute: 'maximum-fraction-digits', type: Number }) maximumFractionDigits: number;
 
   /** The minimum number of significant digits to use. Possible values are 1-21. */

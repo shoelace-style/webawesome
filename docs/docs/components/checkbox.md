@@ -1,7 +1,7 @@
 ---
 title: Checkbox
 description: Checkboxes allow the user to toggle an option on or off.
-tags: forms
+tags: component
 native: checkbox
 ---
 
