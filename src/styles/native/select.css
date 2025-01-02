@@ -36,7 +36,7 @@ select,
 
 /* Add ellipses to multi select options */
 :host wa-tag::part(content) {
-  display: block;
+  display: initial;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
