@@ -35,7 +35,8 @@ select,
 }
 
 /* Add ellipses to multi select options */
-:host :has(wa-tag) span {
+:host wa-tag::part(content) {
+  display: block;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
