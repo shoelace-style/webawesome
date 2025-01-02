@@ -1,0 +1,8 @@
+<a href="{{ page.url }}" data-keywords="{{ page.data.keywords }}">
+	<wa-card with-header>
+		<div slot="header">
+		{% include "svgs/" + (page.data.icon or "thumbnail-placeholder") + ".njk" %}
+		</div>
+		<span class="page-name">{{ page.data.title }}</span>
+	</wa-card>
+</a>

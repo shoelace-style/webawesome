@@ -41,3 +41,10 @@
     box-shadow: 0 0 0 0 transparent;
   }
 }
+
+::slotted(wa-icon) {
+  margin-inline-end: var(--wa-space-2xs, 0.25em);
+  opacity: 90%;
+  line-height: 1;
+  height: 0.85em;
+}

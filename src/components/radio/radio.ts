@@ -5,6 +5,7 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/radio.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
 import styles from './radio.css';
@@ -43,7 +44,7 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, styles];
+  static shadowStyle = [sizeStyles, nativeStyles, styles];
 
   @state() checked = false;
 
@@ -125,25 +126,19 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
         class=${classMap({
           radio: true,
           'radio--checked': this.checked,
-          'radio--disabled': this.disabled,
         })}
       >
-        <span part="control" class="radio__control">
+        <span part="control" class="control">
           ${this.checked
             ? html`
-                <svg
-                  viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  part="checked-icon"
-                  class="radio__checked-icon"
-                >
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" part="checked-icon" class="checked-icon">
                   <circle cx="8" cy="8" r="8" />
                 </svg>
               `
             : ''}
         </span>
 
-        <slot part="label" class="radio__label"></slot>
+        <slot part="label" class="label"></slot>
       </span>
     `;
   }

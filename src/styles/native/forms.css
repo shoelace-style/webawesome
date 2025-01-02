@@ -1,3 +1,17 @@
+/* Labels */
+label {
+  display: inline-block;
+  color: var(--wa-form-control-label-color);
+  font-weight: var(--wa-form-control-label-font-weight);
+  line-height: var(--wa-form-control-label-line-height);
+  position: relative;
+}
+
+label + :is(input:not([type='checkbox'], [type='radio']), textarea, select),
+label > :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
+  margin-block-start: var(--wa-space-xs);
+}
+
 /* Fieldsets */
 fieldset {
   border: solid 1px var(--wa-color-surface-border);

@@ -542,7 +542,8 @@
 
   wa-input,
   wa-select {
-    --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s) -0.08em var(--wa-color-shadow);
+    --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s) -0.08em
+      var(--wa-color-shadow);
     & wa-icon {
       color: var(--wa-color-text-quiet);
     }

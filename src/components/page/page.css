@@ -57,8 +57,12 @@ slot[name]:not([name='skip-to-content'], [name='navigation-toggle'])::slotted(*)
   padding: var(--wa-space-m) var(--wa-space-3xl);
 }
 
-::slotted(:not([slot])) {
-  padding: var(--wa-space-3xl);
+slot:not([name]) {
+  /* See #331 */
+  &::slotted(main),
+  &::slotted(section) {
+    padding: var(--wa-space-3xl);
+  }
 }
 
 ::slotted([slot='main-footer']),
@@ -189,19 +193,6 @@ slot[name]:not([name='skip-to-content'], [name='navigation-toggle'])::slotted(*)
 }
 [part~='main-footer'] {
   grid-area: main-footer;
-}
-
-/* Visually hidden */
-.skip-to-content:not(:focus-within) {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  clip: rect(0 0 0 0) !important;
-  clip-path: inset(50%) !important;
-  border: none !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  padding: 0 !important;
 }
 
 .skip-to-content {

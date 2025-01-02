@@ -15,7 +15,7 @@ describe('<wa-skeleton>', () => {
         const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
 
         expect(base.getAttribute('class')).to.equal(' skeleton ');
-        expect(indicator.getAttribute('class')).to.equal('skeleton__indicator');
+        expect(indicator.getAttribute('class')).to.equal('indicator');
       });
 
       it('should set pulse effect by attribute', async () => {

@@ -316,7 +316,7 @@ describe('<wa-input>', () => {
         it('should be invalid when a native input is empty and form.reportValidity() is called', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
-              <input required value=""></input>
+              <input required value="" />
               <wa-button type="submit">Submit</wa-button>
             </form>
           `);

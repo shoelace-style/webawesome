@@ -1,7 +1,6 @@
 ---
 title: Shadows
 description: Elevate your components with Web Awesome's shadow properties.
-layout: page-outline
 ---
 
 Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/theming/color/#shadow), these custom properties create realistic shadows for Web Awesome components.

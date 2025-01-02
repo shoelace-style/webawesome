@@ -1,7 +1,8 @@
 ---
 title: QR Code
 description: Generates a QR code and renders it using the Canvas API.
-tags: component
+tags: [actions, apps, niche]
+icon: qr-code
 ---
 
 QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.
@@ -11,7 +12,9 @@ QR codes are useful for providing small pieces of information to users who can q
   <wa-qr-code value="https://shoelace.style/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
   <br />
 
-  <wa-input maxlength="255" clearable label="Value"></wa-input>
+  <wa-input maxlength="255" clearable label="Value">
+    <wa-icon slot="prefix" name="link"></wa-icon>
+  </wa-input>
 </div>
 
 <script>
@@ -43,7 +46,9 @@ QR codes are useful for providing small pieces of information to users who can q
 Use the `fill` and `background` attributes to modify the QR code's colors. You should always ensure good contrast for optimal compatibility with QR code scanners.
 
 ```html {.example}
-<wa-qr-code value="https://shoelace.style/" fill="deeppink" background="white"></wa-qr-code>
+<wa-qr-code value="https://shoelace.style/" fill="deeppink" background="white">
+  <wa-icon slot="prefix" name="palette"></wa-icon>
+</wa-qr-code>
 ```
 
 ### Size
@@ -51,7 +56,9 @@ Use the `fill` and `background` attributes to modify the QR code's colors. You s
 Use the `size` attribute to change the size of the QR code.
 
 ```html {.example}
-<wa-qr-code value="https://shoelace.style/" size="64"></wa-qr-code>
+<wa-qr-code value="https://shoelace.style/" size="64">
+  <wa-icon slot="prefix" name="expand"></wa-icon>
+</wa-qr-code>
 ```
 
 ### Radius
@@ -59,7 +66,9 @@ Use the `size` attribute to change the size of the QR code.
 Create a rounded effect with the `radius` attribute.
 
 ```html {.example}
-<wa-qr-code value="https://shoelace.style/" radius="0.5"></wa-qr-code>
+<wa-qr-code value="https://shoelace.style/" radius="0.5">
+  <wa-icon slot="prefix" name="circle"></wa-icon>
+</wa-qr-code>
 ```
 
 ### Error Correction
@@ -68,10 +77,18 @@ QR codes can be rendered with various levels of [error correction](https://www.q
 
 ```html {.example}
 <div class="qr-error-correction">
-  <wa-qr-code value="https://shoelace.style/" error-correction="L"></wa-qr-code>
-  <wa-qr-code value="https://shoelace.style/" error-correction="M"></wa-qr-code>
-  <wa-qr-code value="https://shoelace.style/" error-correction="Q"></wa-qr-code>
-  <wa-qr-code value="https://shoelace.style/" error-correction="H"></wa-qr-code>
+  <wa-qr-code value="https://shoelace.style/" error-correction="L">
+    <wa-icon slot="prefix" name="shield"></wa-icon>
+  </wa-qr-code>
+  <wa-qr-code value="https://shoelace.style/" error-correction="M">
+    <wa-icon slot="prefix" name="shield"></wa-icon>
+  </wa-qr-code>
+  <wa-qr-code value="https://shoelace.style/" error-correction="Q">
+    <wa-icon slot="prefix" name="shield"></wa-icon>
+  </wa-qr-code>
+  <wa-qr-code value="https://shoelace.style/" error-correction="H">
+    <wa-icon slot="prefix" name="shield"></wa-icon>
+  </wa-qr-code>
 </div>
 
 <style>

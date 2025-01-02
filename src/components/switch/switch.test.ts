@@ -127,7 +127,7 @@ describe('<wa-switch>', () => {
         //
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const label = el.shadowRoot!.querySelector('.switch')!;
-        const input = el.shadowRoot!.querySelector('.switch__input')!;
+        const input = el.shadowRoot!.querySelector('.input')!;
 
         const labelPosition = getComputedStyle(label).position;
         const inputPosition = getComputedStyle(input).position;
@@ -327,6 +327,19 @@ describe('<wa-switch>', () => {
         lastSwitch.focus();
         await aTimeout(10);
         expect(window.scrollY).to.equal(0);
+      });
+
+      // https://github.com/shoelace-style/webawesome-alpha/discussions/124
+      it('Should properly flag changes to checked and reflect', async () => {
+        const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
+        await el.updateComplete;
+        expect(el.checked).to.equal(false);
+
+        el.checked = true;
+
+        await el.updateComplete;
+
+        expect(el.checked).to.equal(true);
       });
     });
   }

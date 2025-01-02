@@ -30,7 +30,7 @@ export default class WaBadge extends WebAwesomeElement {
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
 
   /** The badge's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'tinted' | 'outlined' = 'filled';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' = 'accent';
 
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

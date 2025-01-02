@@ -73,7 +73,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
   render() {
     return html`
       <div part="base" class="breadcrumb-item">
-        <span part="prefix" class="breadcrumb-item__prefix">
+        <span part="prefix" class="prefix">
           <slot name="prefix"></slot>
         </span>
 
@@ -81,7 +81,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
           ? html`
               <a
                 part="label"
-                class="breadcrumb-item__label breadcrumb-item__label--link"
+                class="label label--link"
                 href="${this.href!}"
                 target="${ifDefined(this.target ? this.target : undefined)}"
                 rel=${ifDefined(this.target ? this.rel : undefined)}
@@ -92,24 +92,24 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
           : ''}
         ${this.renderType === 'button'
           ? html`
-              <button part="label" type="button" class="breadcrumb-item__label breadcrumb-item__label--button">
+              <button part="label" type="button" class="label label--button">
                 <slot @slotchange=${this.handleSlotChange}></slot>
               </button>
             `
           : ''}
         ${this.renderType === 'dropdown'
           ? html`
-              <div part="label" class="breadcrumb-item__label breadcrumb-item__label--dropdown">
+              <div part="label" class="label label--dropdown">
                 <slot @slotchange=${this.handleSlotChange}></slot>
               </div>
             `
           : ''}
 
-        <span part="suffix" class="breadcrumb-item__suffix">
+        <span part="suffix" class="suffix">
           <slot name="suffix"></slot>
         </span>
 
-        <span part="separator" class="breadcrumb-item__separator" aria-hidden="true">
+        <span part="separator" class="separator" aria-hidden="true">
           <slot name="separator"></slot>
         </span>
       </div>

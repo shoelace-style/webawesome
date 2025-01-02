@@ -14,19 +14,19 @@
   min-height: 1rem;
 }
 
-.skeleton__indicator {
+.indicator {
   flex: 1 1 auto;
   background: var(--color);
   border-radius: var(--border-radius);
 }
 
-.skeleton--sheen .skeleton__indicator {
+.skeleton--sheen .indicator {
   background: linear-gradient(270deg, var(--sheen-color), var(--color), var(--color), var(--sheen-color));
   background-size: 400% 100%;
   animation: sheen 8s ease-in-out infinite;
 }
 
-.skeleton--pulse .skeleton__indicator {
+.skeleton--pulse .indicator {
   animation: pulse 2s ease-in-out 0.5s infinite;
 }
 

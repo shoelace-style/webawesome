@@ -1,0 +1,93 @@
+input[type='radio'],
+label:has(input[type='radio']),
+:host {
+  --background-color: var(--wa-form-control-background-color);
+  --background-color-checked: var(--background-color);
+  --border-color: var(--wa-form-control-resting-color);
+  --border-color-checked: var(--wa-form-control-activated-color);
+  --border-style: var(--wa-border-style);
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: none;
+  --checked-icon-color: var(--wa-form-control-activated-color);
+  --checked-icon-scale: 0.75;
+  --toggle-size: 1lh;
+
+  color: var(--wa-form-control-value-color);
+  display: inline-flex;
+  line-height: var(--wa-form-control-value-line-height);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Replace native radio styles */
+input[type='radio'] {
+  appearance: none;
+  margin: 0;
+
+  &:checked::after {
+    background-color: var(--checked-icon-color);
+    border-radius: 50%;
+    content: '';
+    position: absolute;
+    width: calc(var(--toggle-size) - var(--border-width));
+    height: calc(var(--toggle-size) - var(--border-width));
+    scale: var(--checked-icon-scale);
+  }
+}
+
+input[type='radio'],
+:host .control {
+  flex: 0 0 auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  border-color: var(--border-color);
+  border-radius: 50%;
+  border-style: var(--border-style);
+  border-width: var(--border-width);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  color: transparent;
+  transition:
+    background var(--wa-transition-normal),
+    border-color var(--wa-transition-fast),
+    box-shadow var(--wa-transition-fast),
+    color var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
+
+  margin-inline-end: var(--wa-space-xs);
+}
+
+/* Set cursor for input and labels */
+input[type='radio'],
+label:has(input[type='radio']),
+input[type='radio'] + label,
+:host [part~='base'] {
+  cursor: pointer;
+}
+
+/* Checked */
+input[type='radio']:checked,
+:host .radio--checked .control {
+  color: var(--checked-icon-color);
+  border-color: var(--border-color-checked);
+  background-color: var(--background-color-checked);
+}
+
+/* Focus */
+input[type='radio']:focus-visible,
+:host(:focus-visible) .control {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+/* Disabled */
+input[type='radio']:disabled,
+label:has(input[type='radio']:disabled),
+:host([disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -2,6 +2,7 @@
 title: Sample Media App Page
 description: A sample page for a media app using Web Awesome's page component.
 layout: blank
+eleventyExcludeFromCollections: true
 ---
 
 <wa-page class="wa-theme-default-dark">

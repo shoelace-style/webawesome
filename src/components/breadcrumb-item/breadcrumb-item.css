@@ -16,7 +16,7 @@
   white-space: nowrap;
 }
 
-.breadcrumb-item__label {
+.label {
   display: inline-block;
   font: inherit;
   text-decoration: none;
@@ -30,33 +30,33 @@
   transition: color var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-:host(:not(:last-of-type)) .breadcrumb-item__label:hover {
+:host(:not(:last-of-type)) .label:hover {
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
 }
 
-:host(:not(:last-of-type)) .breadcrumb-item__label:active {
+:host(:not(:last-of-type)) .label:active {
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
 }
 
-.breadcrumb-item__label:focus {
+.label:focus {
   outline: none;
 }
 
-.breadcrumb-item__label:focus-visible {
+.label:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.breadcrumb-item__prefix,
-.breadcrumb-item__suffix {
+.prefix,
+.suffix {
   display: none;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
 
-.breadcrumb-item__prefix,
-.breadcrumb-item__suffix {
+.prefix,
+.suffix {
   display: inline-flex;
   color: var(--wa-color-text-quiet);
 }
@@ -69,11 +69,11 @@
   margin-inline-start: var(--wa-space-s);
 }
 
-:host(:last-of-type) .breadcrumb-item__separator {
+:host(:last-of-type) .separator {
   display: none;
 }
 
-.breadcrumb-item__separator {
+.separator {
   color: var(--wa-color-text-quiet);
   display: inline-flex;
   align-items: center;

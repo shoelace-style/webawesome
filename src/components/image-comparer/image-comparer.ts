@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { drag } from '../../internal/drag.js';
@@ -43,7 +42,7 @@ export default class WaImageComparer extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   @query('.image-comparer') base: HTMLElement;
-  @query('.image-comparer__handle') handle: HTMLElement;
+  @query('.handle') handle: HTMLElement;
 
   /** The position of the divider as a percentage. */
   @property({ type: Number, reflect: true }) position = 50;
@@ -100,23 +99,15 @@ export default class WaImageComparer extends WebAwesomeElement {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
-      <div
-        part="base"
-        id="image-comparer"
-        class=${classMap({
-          'image-comparer': true,
-          'image-comparer--rtl': isRtl,
-        })}
-        @keydown=${this.handleKeyDown}
-      >
-        <div class="image-comparer__image">
-          <div part="before" class="image-comparer__before">
+      <div part="base" id="image-comparer" class="image-comparer" @keydown=${this.handleKeyDown}>
+        <div class="image">
+          <div part="before" class="before">
             <slot name="before"></slot>
           </div>
 
           <div
             part="after"
-            class="image-comparer__after"
+            class="after"
             style=${styleMap({
               clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
             })}
@@ -127,7 +118,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
         <div
           part="divider"
-          class="image-comparer__divider"
+          class="divider"
           style=${styleMap({
             left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
           })}
@@ -136,7 +127,7 @@ export default class WaImageComparer extends WebAwesomeElement {
         >
           <div
             part="handle"
-            class="image-comparer__handle"
+            class="handle"
             role="scrollbar"
             aria-valuenow=${this.position}
             aria-valuemin="0"

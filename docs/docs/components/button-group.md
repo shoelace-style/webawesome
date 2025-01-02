@@ -1,7 +1,8 @@
 ---
 title: Button Group
 description: Button groups can be used to group related buttons into sections.
-tags: component
+tags: [actions, forms, apps]
+icon: button-group
 ---
 
 ```html {.example}
@@ -139,15 +140,17 @@ Pill buttons are supported through the button's `pill` attribute.
 </wa-button-group>
 ```
 
-### Dropdowns in Button Groups
+### Dropdowns and Native Buttons in Button Groups
 
-Dropdowns can be placed inside button groups as long as the trigger is an `<wa-button>` element.
+Other elements can also be placed inside button groups:
+- Native buttons as long as their [native styles](/docs/native/button) are included
+- Dropdowns as long as the trigger is either a `<wa-button>`, or a `<button>` with [native styles](/docs/native/button) included.
 
 ```html {.example}
 <wa-button-group label="Example Button Group">
   <wa-button>Button</wa-button>
-  <wa-button>Button</wa-button>
-  <wa-dropdown>
+  <button>Native Button</button>
+  <wa-dropdown hoist>
     <wa-button slot="trigger" caret>Dropdown</wa-button>
     <wa-menu>
       <wa-menu-item>Item 1</wa-menu-item>
@@ -165,9 +168,9 @@ Create a split button using a button and a dropdown. Use a [visually hidden](/do
 ```html {.example}
 <wa-button-group label="Example Button Group">
   <wa-button variant="brand">Save</wa-button>
-  <wa-dropdown placement="bottom-end">
+  <wa-dropdown placement="bottom-end" hoist>
     <wa-button slot="trigger" variant="brand" caret>
-      <wa-visually-hidden>More options</wa-visually-hidden>
+      <span class="wa-visually-hidden">More options</span>
     </wa-button>
     <wa-menu>
       <wa-menu-item>Save</wa-menu-item>

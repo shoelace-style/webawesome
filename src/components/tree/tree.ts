@@ -292,9 +292,7 @@ export default class WaTree extends WebAwesomeElement {
   private handleClick(event: Event) {
     const target = event.target as WaTreeItem;
     const treeItem = target.closest('wa-tree-item')!;
-    const isExpandButton = event
-      .composedPath()
-      .some((el: HTMLElement) => el?.classList?.contains('tree-item__expand-button'));
+    const isExpandButton = event.composedPath().some((el: HTMLElement) => el?.classList?.contains('expand-button'));
 
     //
     // Don't Do anything if there's no tree item, if it's disabled, or if the click doesn't match the initial target

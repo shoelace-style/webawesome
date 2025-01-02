@@ -9,32 +9,36 @@ caption {
   color: var(--wa-color-text-quiet);
 }
 
-tbody tr {
-  border-top: solid var(--wa-border-width-s) var(--wa-color-surface-border);
-}
+tbody {
+  tr {
+    border-top: solid var(--wa-border-width-s) var(--wa-color-border-quiet);
 
-tbody tr:hover {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-quiet), transparent 50%);
-  border-top-color: var(--wa-color-neutral-border-quiet);
-}
+    :where(table.wa-zebra-rows) &:nth-child(odd) {
+      background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
+    }
 
-tbody tr:hover + tr {
-  border-top-color: var(--wa-color-neutral-border-quiet);
-}
+    &:hover {
+      background-color: var(--wa-color-fill-quiet);
 
-th {
-  font-size: var(--wa-font-size-s);
-  font-weight: var(--wa-font-weight-bold);
+      &,
+      + tr {
+        border-top-color: var(--wa-color-border-normal);
+      }
+    }
+  }
 }
 
 td,
 th {
   text-align: start;
-  padding: var(--wa-space-l) var(--wa-space-s);
+  padding: var(--wa-space-s) var(--wa-space-s);
   vertical-align: top;
 }
 
-/* Utilities */
-table.wa-alternating-row-colors tbody tr:nth-child(2n + 1) {
-  background-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), transparent 80%);
+th {
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-bold);
+  padding-block: var(--wa-space-xs);
 }
+
+/* Utilities */

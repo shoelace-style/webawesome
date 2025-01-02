@@ -1,6 +1,6 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -13,6 +13,7 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import styles from './switch.css';
 
 /**
@@ -52,7 +53,7 @@ import styles from './switch.css';
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -62,35 +63,22 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the switch, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  private _value: string | null = null;
+  private _value: string | null = this.getAttribute('value') ?? null;
 
-  /** The current value of the switch, submitted as a name/value pair with form data. */
+  /** The value of the switch, submitted as a name/value pair with form data. */
   get value(): string | null {
-    if (this.valueHasChanged) {
-      return this._value;
-    }
-
-    return this._value ?? this.defaultValue;
+    return this._value ?? 'on';
   }
 
-  @state()
+  @property({ reflect: true })
   set value(val: string | null) {
-    if (this._value === val) {
-      return;
-    }
-
-    this.valueHasChanged = true;
     this._value = val;
   }
-
-  /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The switch's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -130,7 +118,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -145,7 +132,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -168,28 +154,39 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('defaultChecked')) {
+      if (!this.hasInteracted) {
+        this.checked = this.defaultChecked;
+      }
+    }
+
+    if (changedProperties.has('value') || changedProperties.has('checked')) {
       this.handleValueOrCheckedChange();
     }
   }
 
   handleValueOrCheckedChange() {
-    this.handleDefaultCheckedChange();
-    this.value = this.checked ? this.value || 'on' : null;
-
-    if (this.input) {
-      this.input.checked = this.checked; // force a sync update
-    }
-
-    this.setValue(this.value, this.value);
+    // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
+    this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
+  @watch('defaultChecked')
   handleDefaultCheckedChange() {
     if (!this.hasInteracted && this.checked !== this.defaultChecked) {
       this.checked = this.defaultChecked;
       this.handleValueOrCheckedChange();
     }
+  }
+
+  @watch(['checked'])
+  handleStateChange() {
+    if (this.hasUpdated) {
+      this.input.checked = this.checked; // force a sync update
+    }
+
+    this.toggleCustomState('checked', this.checked);
+    this.updateValidity();
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -238,64 +235,48 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <div
+      <label
+        part="base"
         class=${classMap({
-          'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
+          checked: this.checked,
+          disabled: this.disabled,
         })}
       >
-        <label
-          part="base"
-          class=${classMap({
-            switch: true,
-            'switch--checked': this.checked,
-            'switch--disabled': this.disabled,
-            'switch--focused': this.hasFocus,
-            'switch--small': this.size === 'small',
-            'switch--medium': this.size === 'medium',
-            'switch--large': this.size === 'large',
-          })}
-        >
-          <input
-            class="switch__input"
-            type="checkbox"
-            title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-            name=${this.name}
-            value=${ifDefined(this.value)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
-            role="switch"
-            aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby="hint"
-            @click=${this.handleClick}
-            @input=${this.handleInput}
-            @blur=${this.handleBlur}
-            @focus=${this.handleFocus}
-            @keydown=${this.handleKeyDown}
-          />
+        <input
+          class="input"
+          type="checkbox"
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${this.name}
+          value=${ifDefined(this.value)}
+          .checked=${live(this.checked)}
+          .disabled=${this.disabled}
+          .required=${this.required}
+          role="switch"
+          aria-checked=${this.checked ? 'true' : 'false'}
+          aria-describedby="hint"
+          @click=${this.handleClick}
+          @input=${this.handleInput}
+          @blur=${this.handleBlur}
+          @focus=${this.handleFocus}
+          @keydown=${this.handleKeyDown}
+        />
 
-          <span part="control" class="switch__control">
-            <span part="thumb" class="switch__thumb"></span>
-          </span>
+        <span part="control" class="switch">
+          <span part="thumb" class="thumb"></span>
+        </span>
 
-          <div part="label" class="switch__label">
-            <slot></slot>
-          </div>
-        </label>
+        <slot part="label" class="label"></slot>
+      </label>
 
-        <slot
-          name="hint"
-          part="hint"
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          >${this.hint}</slot
-        >
-      </div>
+      <slot
+        name="hint"
+        part="hint"
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        >${this.hint}</slot
+      >
     `;
   }
 }

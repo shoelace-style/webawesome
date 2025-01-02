@@ -1,7 +1,6 @@
 ---
 title: Color
 description: Ensure consistent use of color and readable contrast with Web Awesome's color properties.
-layout: page-outline
 ---
 
 <style>

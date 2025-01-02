@@ -77,6 +77,11 @@ export default class WaCodeDemo extends WebAwesomeElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'preview');
 
+  firstUpdated() {
+    // This works around a bug where if you have no slotted preview, initial previews will not load.
+    this.requestUpdate();
+  }
+
   render() {
     // NOTE We don't want to render the contents of the code element anywhere if a custom preview is provided.
     // That way, providing a custom preview can also be used to sanitize the code.
@@ -249,7 +254,7 @@ export default class WaCodeDemo extends WebAwesomeElement {
    */
   public edit() {
     const markup = this.getDemoHTML({ isolated: true, absolutize: true, prettyWhitespace: true });
-    const css = 'body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
+    const css = 'body {\n  padding: 2rem !important;\n}';
     const js = '';
 
     const form = Object.assign(document.createElement('form'), {

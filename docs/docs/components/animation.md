@@ -1,7 +1,8 @@
 ---
 title: Animation
 description: Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes.
-tags: component
+tags: [helpers, primitives]
+icon: animation
 ---
 
 To animate an element, wrap it in `<wa-animation>` and set an animation `name`. The animation will not start until you add the `play` attribute. Refer to the [properties table](#properties) for a list of all animation options.
@@ -196,4 +197,3 @@ Animations won't play until you apply the `play` attribute. You can omit it init
     animation.play = true;
   });
 </script>
-```

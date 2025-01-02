@@ -19,7 +19,7 @@ let id = 0;
  *
  * @csspart base - The component's base wrapper.
  * @csspart close-button - The close button, an `<wa-icon-button>`.
- * @csspart close-button__base - The close button's exported `base` part.
+ * @csspart base - The close button's exported `base` part.
  */
 @customElement('wa-tab')
 export default class WaTab extends WebAwesomeElement {
@@ -77,7 +77,6 @@ export default class WaTab extends WebAwesomeElement {
         class=${classMap({
           tab: true,
           'tab--active': this.active,
-          'tab--disabled': this.disabled,
         })}
       >
         <slot></slot>

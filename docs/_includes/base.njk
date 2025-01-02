@@ -32,7 +32,7 @@
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
     <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
-    <link rel="stylesheet" href="/dist/styles/applied.css" />
+    <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
     <link rel="stylesheet" href="/dist/styles/forms.css" />
 
@@ -89,16 +89,16 @@
         {# Logo #}
         <div id="docs-branding">
           {# Nav toggle #}
-          <wa-button appearance="text" size="small" data-toggle-nav>
+          <wa-button appearance="plain" size="small" data-toggle-nav>
             <wa-icon name="bars" label="Toggle navigation"></wa-icon>
           </wa-button>
 
           <a href="/" aria-label="Web Awesome">
-            <span class="only-desktop">{% include "logo.njk" %}</span>
-            <span class="only-mobile">{% include "logo-simple.njk" %}</span>
+            <span class="wa-desktop-only">{% include "logo.njk" %}</span>
+            <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
           </a>
           <small id="version-number" class="only-desktop">{{ package.version }}</small>
-          <wa-badge variant="warning" appearance="tinted" class="only-desktop">Alpha</wa-badge>
+          <wa-badge variant="warning" appearance="filled" class="only-desktop">Alpha</wa-badge>
         </div>
 
         <div id="docs-toolbar">
@@ -120,7 +120,7 @@
       {# Sidebar #}
       {% if hasSidebar %}
         {# Mobile selectors #}
-        <div class="only-mobile" slot="navigation-header">
+        <div class="wa-mobile-only" slot="navigation-header">
           <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
@@ -148,6 +148,17 @@
             <summary>On this page</summary>
           </details>
         </nav>
+
+        {% set breadcrumbs = page.url | breadcrumbs %}
+        {% if breadcrumbs.length > 0 %}
+          <wa-breadcrumb id="docs-breadcrumbs">
+            {% for crumb in breadcrumbs %}
+              <wa-breadcrumb-item href="{{ crumb.url }}">{{ crumb.title }}</wa-breadcrumb-item>
+            {% endfor %}
+            <wa-breadcrumb-item>{# Current page #}</wa-breadcrumb-item>
+          </wa-breadcrumb>
+          {% else %}
+        {% endif %}
 
         {% block beforeContent %}{% endblock %}
 

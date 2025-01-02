@@ -1,7 +1,6 @@
 ---
 title: Theming
 description: Browse the library of customizable, framework-friendly web components included in Web Awesome.
-layout: page-outline
 ---
 
 <p class="index-summary">A theme is a collection of pre-defined CSS custom properties that control global styles from color to shadows. These custom properties thread through all Web Awesome components for a consistent look and feel.</p>

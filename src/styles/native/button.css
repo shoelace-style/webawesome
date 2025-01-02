@@ -1,4 +1,4 @@
-:is(button, input:where([type='button'], [type='reset'], [type='submit'])):where(:not(:host *, .wa-off, .wa-off *)),
+:is(button, input:where([type='button'], [type='reset'], [type='submit'])):where(:not(:host *)),
 :host,
 .wa-button:where(:not([part~='base'])) {
   --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
@@ -14,7 +14,24 @@
   --text-color-hover: var(--text-color);
   --text-color-active: var(--text-color);
 
-  border-radius: var(--wa-form-control-border-radius);
+  /* These allow button groups to zero out border-radius on the first and last buttons */
+  border-start-start-radius: var(
+    /* top left */ --wa-border-block-start-radius,
+    var(--wa-border-inline-start-radius, var(--wa-form-control-border-radius))
+  );
+  border-start-end-radius: var(
+    /* top right */ --wa-border-block-start-radius,
+    var(--wa-border-inline-end-radius, var(--wa-form-control-border-radius))
+  );
+  border-end-start-radius: var(
+    /* bottom left */ --wa-border-block-end-radius,
+    var(--wa-border-inline-start-radius, var(--wa-form-control-border-radius))
+  );
+  border-end-end-radius: var(
+    /* bottom right */ --wa-border-block-end-radius,
+    var(--wa-border-inline-end-radius, var(--wa-form-control-border-radius))
+  );
+
   border-style: var(--wa-border-style);
   border-width: var(--border-width);
   align-items: center;
@@ -28,15 +45,12 @@
   transition-duration: var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
   cursor: pointer;
-  padding: 0 var(--space, var(--wa-space-m));
+  padding: 0 var(--wa-space, var(--wa-space-m));
   font-family: inherit;
-  font-size: var(--size, var(--wa-font-size-m));
+  font-size: var(--wa-size, var(--wa-font-size-m));
   font-weight: var(--wa-font-weight-action);
-  --form-control-height: calc(
-    2 * var(--space-smaller, var(--wa-space-s)) + 1em * var(--wa-form-control-value-line-height)
-  );
-  height: var(--form-control-height);
-  line-height: calc(var(--form-control-height) - var(--border-width) * 2);
+  height: var(--wa-form-control-height);
+  line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
 }
 
 button,

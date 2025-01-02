@@ -18,7 +18,7 @@ import process from 'process';
 
 const packageData = JSON.parse(await readFile('./package.json', 'utf-8'));
 const isAlpha = process.argv.includes('--alpha');
-// const isDeveloping = process.argv.includes('--develop');
+const isDev = process.argv.includes('--develop');
 
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
@@ -42,15 +42,6 @@ export default function (eleventyConfig) {
   for (let name in filters) {
     eleventyConfig.addFilter(name, filters[name]);
   }
-
-  eleventyConfig.addFilter('sort', (arr, key = 'data.title') => {
-    key = key.split('.');
-    return arr.sort((a, b) => {
-      let aVal = key.reduce((obj, i) => obj?.[i], a);
-      let bVal = key.reduce((obj, i) => obj?.[i], b);
-      return aVal.localeCompare(bVal);
-    });
-  });
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
@@ -113,24 +104,28 @@ export default function (eleventyConfig) {
     ]),
   );
 
-  const omittedModules = [];
+  // SSR plugin
+  if (!isDev) {
+    //
+    // Problematic components in SSR land:
+    //  - animation (breaks on navigation + ssr with Turbo)
+    //  - mutation-observer (why SSR this?)
+    //  - resize-observer (why SSR this?)
+    //  - tooltip (why SSR this?)
+    //
+    const omittedModules = [];
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        return `./dist/components/${name}/${name}.js`;
+      });
 
-  // problematic components:
-  // animation (breaks on navigation + ssr with Turbo)
-  // mutation-observer (why SSR this?)
-  // resize-observer (why SSR this?)
-  // tooltip (why SSR this?)
-  const componentModules = componentList
-    // .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-    .map(component => {
-      const name = component.tagName.split(/wa-/)[1];
-      return `./dist/components/${name}/${name}.js`;
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
     });
-
-  eleventyConfig.addPlugin(litPlugin, {
-    mode: 'worker',
-    componentModules,
-  });
+  }
 
   // Build the search index
   eleventyConfig.addPlugin(
@@ -145,7 +140,7 @@ export default function (eleventyConfig) {
   //
   // TODO - disabled because it takes about a minute to run now
   //
-  // if (!isDeveloping) {
+  // if (!isDev) {
   //   // Run Prettier on each file (prod only because it can be slow)
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }

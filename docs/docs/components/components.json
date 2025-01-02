@@ -1,3 +1,4 @@
 {
-  "layout": "component.njk"
+  "layout": "component.njk",
+  "tags": ["components"]
 }

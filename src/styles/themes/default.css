@@ -18,4 +18,5 @@
 .wa-theme-default-dark,
 .wa-theme-default-dark :host {
   color-scheme: dark;
+  color: var(--wa-color-text-normal);
 }

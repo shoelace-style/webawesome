@@ -1,7 +1,8 @@
 ---
 title: Drawer
 description: Drawers slide in from a container to expose additional options and information.
-tags: component
+tags: [organization, disclosure]
+icon: drawer
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

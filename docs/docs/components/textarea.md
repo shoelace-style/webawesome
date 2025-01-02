@@ -1,7 +1,9 @@
 ---
 title: Textarea
 description: Textareas collect data from the user and allow multiple lines of text.
-tags: component
+tags: [inputs, forms]
+icon: textarea
+native: input
 ---
 
 ```html {.example}
@@ -46,12 +48,12 @@ Use the `placeholder` attribute to add a placeholder.
 <wa-textarea placeholder="Type something"></wa-textarea>
 ```
 
-### Filled Textareas
+### Appearance
 
-Add the `filled` attribute to draw a filled textarea.
+Use the `appearance` attribute to change the textarea's visual appearance.
 
 ```html {.example}
-<wa-textarea placeholder="Type something" filled></wa-textarea>
+<wa-textarea placeholder="Type something" appearance="filled"></wa-textarea>
 ```
 
 ### Disabled
@@ -60,6 +62,14 @@ Use the `disabled` attribute to disable a textarea.
 
 ```html {.example}
 <wa-textarea placeholder="Textarea" disabled></wa-textarea>
+```
+
+### Value
+
+Use the `value` attribute to set an initial value.
+
+```html {.example}
+<wa-textarea value="Write something awesome!"></wa-textarea>
 ```
 
 ### Sizes
@@ -88,4 +98,20 @@ Textareas will automatically resize to expand to fit their content when `resize`
 
 ```html {.example}
 <wa-textarea resize="auto"></wa-textarea>
+```
+
+### Resize horizontal
+
+Textareas can be made to resize horizontally when `resize` is set to `"horizontal"`
+
+```html {.example}
+<wa-textarea resize="horizontal"></wa-textarea>
+```
+
+### Resize both
+
+Textareas can be made to resize both vertically and horizontally when `resize` is set to `"both"`
+
+```html {.example}
+<wa-textarea resize="both"></wa-textarea>
 ```

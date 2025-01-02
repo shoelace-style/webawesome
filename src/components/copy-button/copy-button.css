@@ -8,7 +8,7 @@
   color: var(--wa-color-text-quiet);
 }
 
-.copy-button__button {
+.button {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -22,13 +22,13 @@
   transition: color var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-.copy-button__button:hover:not([disabled]),
-.copy-button__button:focus-visible:not([disabled]) {
+.button:hover:not([disabled]),
+.button:focus-visible:not([disabled]) {
   background-color: var(--background-color-hover);
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
 }
 
-.copy-button__button:active:not([disabled]) {
+.button:active:not([disabled]) {
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
 }
 
@@ -40,12 +40,12 @@ slot[name='error-icon'] {
   color: var(--error-color);
 }
 
-.copy-button__button:focus-visible {
+.button:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.copy-button__button[disabled] {
+.button[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }

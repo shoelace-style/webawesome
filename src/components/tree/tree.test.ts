@@ -434,7 +434,7 @@ describe('<wa-tree>', () => {
             const node = el.children[2] as WaTreeItem;
             await node.updateComplete;
 
-            const expandButton: HTMLElement = node.shadowRoot!.querySelector('.tree-item__expand-button')!;
+            const expandButton: HTMLElement = node.shadowRoot!.querySelector('.expand-button')!;
 
             // Act
             await clickOnElement(expandButton);

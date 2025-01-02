@@ -2,7 +2,6 @@
   --size-s: var(--wa-font-size-xs);
   --size-m: var(--wa-font-size-s);
   --size-l: var(--wa-font-size-m);
-  --form-control-height: calc(var(--space-smaller) * 2 + 1em * var(--wa-form-control-value-line-height));
 
   display: inline-flex;
   border-radius: var(--wa-border-radius-s);
@@ -16,15 +15,19 @@
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
-  height: calc(var(--form-control-height) * 0.8);
-  line-height: calc(var(--form-control-height) - var(--wa-form-control-border-width) * 2);
-  padding: 0 var(--space-smaller);
+  height: calc(var(--wa-form-control-height) * 0.8);
+  line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
+  padding: 0 var(--wa-space-smaller);
 }
 
 [part='remove-button'] {
   color: inherit;
   padding: 0;
   margin-inline-start: 0.75em;
+}
+
+[part='remove-button']::part(base) {
+  padding: 0;
 }
 
 :host(:hover) > wa-icon-button {

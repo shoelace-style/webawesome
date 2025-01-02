@@ -1,7 +1,8 @@
 ---
 title: Include
 description: Includes give you the power to embed external HTML files into the page.
-tags: component
+tags: [helpers, primitives]
+icon: include
 ---
 
 Included files are asynchronously requested using `window.fetch()`. Requests are cached, so the same file can be included multiple times, but only one request will be made.

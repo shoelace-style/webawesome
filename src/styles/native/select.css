@@ -1,0 +1,67 @@
+select,
+label:has(select),
+:host {
+  --background-color: var(--wa-form-control-background-color);
+  --border-color: var(--wa-form-control-resting-color);
+  --border-radius: var(--wa-form-control-border-radius);
+  --border-style: var(--wa-form-control-border-style);
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: initial;
+}
+select,
+:host [part~='combobox'] {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  border-radius: var(--border-radius);
+  border-style: var(--border-style);
+  border-width: var(--border-width);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  font: inherit;
+  vertical-align: middle;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    background var(--wa-transition-normal),
+    border var(--wa-transition-normal),
+    box-shadow var(--wa-transition-normal),
+    color var(--wa-transition-normal),
+    outline var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
+
+  padding: var(--wa-space-smaller) var(--wa-space);
+}
+
+select:disabled,
+:host .disabled [part~='combobox'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  outline: none;
+}
+
+select:focus,
+:host .enabled:is(.open, :focus-within) [part~='combobox'] {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+/* Replace native select caret */
+select {
+  appearance: none;
+}
+label:has(select) {
+  position: relative;
+  &::after {
+    content: '';
+    background-color: var(--wa-color-neutral-on-quiet);
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>')
+      center no-repeat;
+    width: 1rem;
+    height: var(--wa-form-control-height);
+    position: absolute;
+    bottom: 0;
+    right: var(--wa-space);
+  }
+}

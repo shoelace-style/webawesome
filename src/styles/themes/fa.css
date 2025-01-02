@@ -504,7 +504,7 @@
     }
   }
 
-  wa-button:not([appearance='text']) {
+  wa-button:not([appearance='plain']) {
     --border-color: var(--text-color);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);

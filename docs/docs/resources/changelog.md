@@ -14,6 +14,41 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Fixed a bug in `<wa-switch>` where it would not properly change its "checked" state when its property changed.
+- Fixed a bug in the `wa-split` CSS utility that caused it to behave incorrectly
+- Improved performance of `<wa-select>` when using a large number of options
+- Updated the Japanese translation
+
+## 3.0.0-alpha.7
+
+- Renamed applied.css to webawesome.css
+
+## 3.0.0-alpha.6
+
+### Native styles
+
+- Added native styles for
+  [buttons](/docs/native/button),
+  [input fields](/docs/native/input),
+  [dialogs](/docs/native/dialog),
+  [details](/docs/native/details),
+  [tables](/docs/native/table),
+  [lists](/docs/native/lists),
+  and most [content elements](/docs/native/content).
+
+### Style utilities
+
+- Added [color variant utilities](/docs/utilities/color/)
+- Added [appearance utilities](/docs/utilities/appearance/)
+- Added [size utilities](/docs/utilities/size/)
+- Added [layout utilities](/docs/layout/#utilities)
+- Added [`.wa-visually hidden`](/docs/utilities/a11y/#visually-hidden) utility
+- Added [`<wa-page>`](/docs/components/page/#styles) native styles and utilities
+
+### Components
+
+- Removed `<wa-visually-hidden>` in favor of the utility class
+- `<wa-page>`: `mobile-breakpoint` now takes any CSS length, not just pixels
 - Added `checked` and `disabled` custom states to `<wa-checkbox>` and `<wa-radio>`
 - Added `disabled`, `expanded`, `indeterminate`, and `selected` custom states to `<wa-tree-item>`
 - Renamed the `navigation-button--previous` and `navigation-button--next` parts to `navigation-button-previous` and `navigation-button-next` in `<wa-carousel>`

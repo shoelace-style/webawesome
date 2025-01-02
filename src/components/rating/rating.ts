@@ -232,7 +232,6 @@ export default class WaRating extends WebAwesomeElement {
           rating: true,
           'rating--readonly': this.readonly,
           'rating--disabled': this.disabled,
-          'rating--rtl': isRtl,
         })}
         role="slider"
         aria-label=${this.label}
@@ -251,7 +250,7 @@ export default class WaRating extends WebAwesomeElement {
         @mousemove=${this.handleMouseMove}
         @touchmove=${this.handleTouchMove}
       >
-        <span class="rating__symbols">
+        <span class="symbols">
           ${counter.map(index => {
             if (displayValue > index && displayValue < index + 1) {
               // Users can click the current value to clear the rating. When this happens, we set this.isHovering to
@@ -260,9 +259,9 @@ export default class WaRating extends WebAwesomeElement {
               return html`
                 <span
                   class=${classMap({
-                    rating__symbol: true,
-                    'rating__partial-symbol-container': true,
-                    'rating__symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
+                    symbol: true,
+                    'partial-symbol-container': true,
+                    'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
                   })}
                   role="presentation"
                 >
@@ -276,7 +275,7 @@ export default class WaRating extends WebAwesomeElement {
                     ${unsafeHTML(this.getSymbol(index + 1))}
                   </div>
                   <div
-                    class="rating__partial--filled"
+                    class="partial--filled"
                     style=${styleMap({
                       clipPath: isRtl
                         ? `inset(0 0 0 ${100 - (displayValue - index) * 100}%)`
@@ -292,9 +291,9 @@ export default class WaRating extends WebAwesomeElement {
             return html`
               <span
                 class=${classMap({
-                  rating__symbol: true,
-                  'rating__symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
-                  'rating__symbol--active': displayValue >= index + 1,
+                  symbol: true,
+                  'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
+                  'symbol--active': displayValue >= index + 1,
                 })}
                 role="presentation"
               >

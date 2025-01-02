@@ -1,7 +1,8 @@
 ---
 title: Rating
 description: Ratings give users a way to quickly view and provide feedback.
-tags: component
+tags: [inputs, interactive]
+icon: rating
 ---
 
 ```html {.example}

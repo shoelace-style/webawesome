@@ -97,10 +97,10 @@ button ::slotted(wa-badge) {
 */
 
 slot[name='prefix']::slotted(*) {
-  margin-inline-end: var(--space);
+  margin-inline-end: var(--wa-space);
 }
 
 slot[name='suffix']::slotted(*),
 .wa-button:not(.visually-hidden-label) [part~='caret'] {
-  margin-inline-start: var(--space);
+  margin-inline-start: var(--wa-space);
 }

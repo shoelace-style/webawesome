@@ -1,7 +1,6 @@
 ---
 title: Transitions
 description: Customize your theme's built-in transitions with Web Awesome's transition properties.
-layout: page-outline
 ---
 
 <style>

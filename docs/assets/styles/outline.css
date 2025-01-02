@@ -42,5 +42,6 @@
 
   #outline-expandable {
     display: block;
+    margin-block-end: var(--wa-space-xl);
   }
 }

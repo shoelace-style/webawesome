@@ -11,30 +11,21 @@ export async function animate(el: Element, keyframes: Keyframe[], options?: Keyf
  */
 export function animateWithClass(el: Element, className: string) {
   return new Promise<void>(resolve => {
-    el.classList.remove(className);
     const controller = new AbortController();
     const { signal } = controller;
 
+    el.classList.remove(className);
     el.classList.add(className);
-    el.addEventListener(
-      'animationend',
-      () => {
-        el.classList.remove(className);
-        resolve();
-        controller.abort();
-      },
-      { once: true, signal },
-    );
 
-    el.addEventListener(
-      'animationcancel',
-      () => {
-        el.classList.remove(className);
-        resolve();
-        controller.abort();
-      },
-      { once: true, signal },
-    );
+    let onEnd = () => {
+      el.classList.remove(className);
+      resolve();
+      controller.abort();
+    };
+
+    el.addEventListener('animationend', onEnd, { once: true, signal });
+    el.addEventListener('animationcancel', onEnd, { once: true, signal });
+    // TODO add failsafe if neither of these fires
   });
 }
 

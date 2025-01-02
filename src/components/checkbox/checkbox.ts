@@ -12,6 +12,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/checkbox.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
@@ -59,7 +60,7 @@ import styles from './checkbox.css';
  */
 @customElement('wa-checkbox')
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, nativeStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -239,9 +240,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
         })}
       >
         <label part="base">
-          <span class="checkbox__control">
+          <span class="control">
             <input
-              class="checkbox__input"
+              class="input"
               type="checkbox"
               title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
               name=${this.name}

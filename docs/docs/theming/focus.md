@@ -1,7 +1,6 @@
 ---
 title: Focus
 description: Configure recognizable focus states with Web Awesome's focus properties.
-layout: page-outline
 ---
 
 A consistent focus ring helps with predictable keyboard navigation. Together with [`--wa-color-focus`](/docs/theming/color/#interactions), these custom properties create a uniform focus state for Web Awesome components.

@@ -1,7 +1,9 @@
 ---
 title: Select
 description: Selects allow you to choose items from a menu of predefined options.
-tags: component
+tags: [inputs, forms]
+native: select
+icon: select
 ---
 
 ```html {.example}
@@ -69,12 +71,12 @@ Use the `clearable` attribute to make the control clearable. The clear button on
 </wa-select>
 ```
 
-### Filled Selects
+### Appearance
 
-Add the `filled` attribute to draw a filled select.
+Use the `appearance` attribute to change the select's visual appearance.
 
 ```html {.example}
-<wa-select filled>
+<wa-select appearance="filled">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -413,3 +415,10 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
   container.addEventListener("submit", handleLazySubmit)
 </script>
 ```
+
+<script type="module">
+  //
+  // TODO - remove once we switch to the Popover API
+  //
+  document.querySelectorAll('wa-code-demo [slot="preview"] wa-select').forEach(select => select.hoist = true);
+</script>

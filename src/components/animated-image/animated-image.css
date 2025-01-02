@@ -17,7 +17,7 @@ img[aria-hidden='true'] {
   display: none;
 }
 
-.animated-image__control-box {
+.control-box {
   display: flex;
   position: absolute;
   align-items: center;
@@ -36,11 +36,11 @@ img[aria-hidden='true'] {
   transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-:host([play]:hover) .animated-image__control-box {
+:host([play]:hover) .control-box {
   opacity: 1;
 }
 
-:host([play]:not(:hover)) .animated-image__control-box {
+:host([play]:not(:hover)) .control-box {
   opacity: 0;
 }
 

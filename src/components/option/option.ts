@@ -36,8 +36,9 @@ export default class WaOption extends WebAwesomeElement {
 
   // @ts-expect-error - Controller is currently unused
   private readonly localize = new LocalizeController(this);
+  private isInitialized = false;
 
-  @query('.option__label') defaultSlot: HTMLSlotElement;
+  @query('.label') defaultSlot: HTMLSlotElement;
 
   @state() current = false; // the user has keyed into the option, but hasn't selected it yet (shows a highlight)
   @state() selected = false; // the option is selected and has aria-selected="true"
@@ -60,13 +61,17 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private handleDefaultSlotChange() {
-    // When the label changes, tell the controller to update
-    customElements.whenDefined('wa-select').then(() => {
-      const controller = this.closest('wa-select');
-      if (controller) {
-        controller.handleDefaultSlotChange();
-      }
-    });
+    if (this.isInitialized) {
+      // When the label changes, tell the controller to update
+      customElements.whenDefined('wa-select').then(() => {
+        const controller = this.closest('wa-select');
+        if (controller) {
+          controller.handleDefaultSlotChange();
+        }
+      });
+    } else {
+      this.isInitialized = true;
+    }
   }
 
   private handleMouseEnter() {
@@ -129,7 +134,6 @@ export default class WaOption extends WebAwesomeElement {
         class=${classMap({
           option: true,
           'option--current': this.current,
-          'option--disabled': this.disabled,
           'option--selected': this.selected,
           'option--hover': this.hasHover,
         })}
@@ -138,15 +142,15 @@ export default class WaOption extends WebAwesomeElement {
       >
         <wa-icon
           part="checked-icon"
-          class="option__check"
+          class="check"
           name="check"
           library="system"
           variant="solid"
           aria-hidden="true"
         ></wa-icon>
-        <slot part="prefix" name="prefix" class="option__prefix"></slot>
-        <slot part="label" class="option__label" @slotchange=${this.handleDefaultSlotChange}></slot>
-        <slot part="suffix" name="suffix" class="option__suffix"></slot>
+        <slot part="prefix" name="prefix" class="prefix"></slot>
+        <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
+        <slot part="suffix" name="suffix" class="suffix"></slot>
       </div>
     `;
   }

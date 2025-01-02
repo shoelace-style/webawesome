@@ -1,7 +1,6 @@
 .wa-button-group {
   display: inline-flex;
   position: relative;
-  flex-wrap: wrap;
   isolation: isolate;
 
   > :hover,
@@ -13,8 +12,8 @@
   > :focus,
   &::slotted(:focus),
   > [aria-checked='true'],
-  > [checked],
   &::slotted([aria-checked='true']),
+  > [checked],
   &::slotted([checked]) {
     z-index: 2 !important;
   }
@@ -26,6 +25,8 @@
   &::slotted(:not(:first-child)) {
     border-start-start-radius: 0 !important;
     border-end-start-radius: 0 !important;
+    --wa-border-inline-start-radius: 0;
+
     border-inline-start-color: var(--border-color, rgb(0 0 0 / 0.3));
     margin-inline-start: calc(-1 * var(--border-width, 1px));
   }
@@ -34,6 +35,7 @@
   &::slotted(:not(:last-child)) {
     border-start-end-radius: 0 !important;
     border-end-end-radius: 0 !important;
+    --wa-border-inline-end-radius: 0;
   }
 }
 
@@ -45,6 +47,8 @@
   &::slotted(:not(:first-child)) {
     border-start-start-radius: 0 !important;
     border-start-end-radius: 0 !important;
+    --wa-border-block-start-radius: 0;
+
     border-block-start-color: var(--border-color, rgb(0 0 0 / 0.3));
     margin-block-start: calc(-1 * var(--border-width, 1px));
   }
@@ -53,5 +57,6 @@
   &::slotted(:not(:last-child)) {
     border-end-start-radius: 0 !important;
     border-end-end-radius: 0 !important;
+    --wa-border-block-end-radius: 0;
   }
 }

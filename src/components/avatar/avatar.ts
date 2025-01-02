@@ -19,7 +19,6 @@ import styles from './avatar.css';
  * @event wa-error - The image could not be loaded. This may because of an invalid URL, a temporary network condition, or some
  * unknown cause.
  *
- * @csspart base - The component's base wrapper.
  * @csspart icon - The container that wraps the avatar's icon.
  * @csspart initials - The container that wraps the avatar's initials.
  * @csspart image - The avatar image. Only shown when the `image` attribute is set.

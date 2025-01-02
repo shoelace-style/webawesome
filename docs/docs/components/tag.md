@@ -1,7 +1,8 @@
 ---
 title: Tag
 description: Tags are used as labels to organize things or to indicate a selection.
-tags: component
+tags: [feedback, content, apps]
+icon: tag
 ---
 
 ```html {.example}

@@ -11,8 +11,8 @@
   --text-color-hover: var(--wa-color-on-quiet);
 }
 
-.wa-filled,
-:host([appearance~='filled']) {
+.wa-accent,
+:host([appearance~='accent']) {
   --background-color: var(--wa-color-fill-loud);
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
@@ -24,12 +24,13 @@
   }
 }
 
-.wa-tinted,
-:host([appearance~='tinted']) {
-  --background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+.wa-filled,
+:host([appearance~='filled']) {
+  --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+  --border-color: transparent;
   --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 
-  --background-color-hover: color-mix(in oklab, var(--background-color), transparent 10%);
+  --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
   --background-color-active: color-mix(in oklab, var(--background-color), transparent 20%);
 
   &:is(.wa-outlined, :host([appearance~='outlined'])) {
@@ -37,8 +38,8 @@
   }
 }
 
-.wa-text,
-:host([appearance~='text']) {
+.wa-plain,
+:host([appearance~='plain']) {
   --background-color: transparent;
   --text-color: var(--wa-color-on-quiet);
 

@@ -87,8 +87,8 @@ export default class WaCarousel extends WebAwesomeElement {
   /** When set, it is possible to scroll through the slides by dragging them with the mouse. */
   @property({ type: Boolean, reflect: true, attribute: 'mouse-dragging' }) mouseDragging = false;
 
-  @query('.carousel__slides') scrollContainer: HTMLElement;
-  @query('.carousel__pagination') paginationContainer: HTMLElement;
+  @query('.slides') scrollContainer: HTMLElement;
+  @query('.pagination') paginationContainer: HTMLElement;
 
   // The index of the active slide
   @state() activeSlide = 0;
@@ -574,10 +574,10 @@ export default class WaCarousel extends WebAwesomeElement {
           id="scroll-container"
           part="scroll-container"
           class="${classMap({
-            carousel__slides: true,
-            'carousel__slides--horizontal': this.orientation === 'horizontal',
-            'carousel__slides--vertical': this.orientation === 'vertical',
-            'carousel__slides--dragging': this.dragging,
+            slides: true,
+            'slides--horizontal': this.orientation === 'horizontal',
+            'slides--vertical': this.orientation === 'vertical',
+            'slides--dragging': this.dragging,
           })}"
           style="--slides-per-page: ${this.slidesPerPage};"
           aria-busy="${scrolling ? 'true' : 'false'}"
@@ -594,13 +594,13 @@ export default class WaCarousel extends WebAwesomeElement {
 
         ${this.navigation
           ? html`
-              <div part="navigation" class="carousel__navigation">
+              <div part="navigation" class="navigation">
                 <button
                   part="navigation-button navigation-button-previous"
                   class="${classMap({
-                    'carousel__navigation-button': true,
-                    'carousel__navigation-button-previous': true,
-                    'carousel__navigation-button-disabled': !prevEnabled,
+                    'navigation-button': true,
+                    'navigation-button-previous': true,
+                    'navigation-button-disabled': !prevEnabled,
                   })}"
                   aria-label="${this.localize.term('previousSlide')}"
                   aria-controls="scroll-container"
@@ -615,9 +615,9 @@ export default class WaCarousel extends WebAwesomeElement {
                 <button
                   part="navigation-button navigation-button-next"
                   class=${classMap({
-                    'carousel__navigation-button': true,
-                    'carousel__navigation-button-next': true,
-                    'carousel__navigation-button-disabled': !nextEnabled,
+                    'navigation-button': true,
+                    'navigation-button-next': true,
+                    'navigation-button-disabled': !nextEnabled,
                   })}
                   aria-label="${this.localize.term('nextSlide')}"
                   aria-controls="scroll-container"
@@ -633,15 +633,15 @@ export default class WaCarousel extends WebAwesomeElement {
           : ''}
         ${this.pagination
           ? html`
-              <div part="pagination" role="tablist" class="carousel__pagination" aria-controls="scroll-container">
+              <div part="pagination" role="tablist" class="pagination" aria-controls="scroll-container">
                 ${map(range(pagesCount), index => {
                   const isActive = index === currentPage;
                   return html`
                     <button
                       part="pagination-item ${isActive ? 'pagination-item--active' : ''}"
                       class="${classMap({
-                        'carousel__pagination-item': true,
-                        'carousel__pagination-item--active': isActive,
+                        'pagination-item': true,
+                        'pagination-item--active': isActive,
                       })}"
                       role="tab"
                       aria-selected="${isActive ? 'true' : 'false'}"

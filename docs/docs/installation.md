@@ -8,8 +8,6 @@ Welcome to the Web Awesome alpha release for early backers! 👋
 
 ==This is a very early alpha release!== For this preview, we're only offering access to the free components through a temporary CDN. Please be aware: Things can change. Things can break. You probably shouldn't be using this software in production yet! But fear not, we're working hard to polish up the free stuff you see here _plus_ all the great stuff we have planned for Web Awesome Pro!
 
-==To be clear, this release _only_ includes a preview the components in Web Awesome Free!==
-
 Thank you so much for backing us!
 
 - [Report a bug](https://github.com/shoelace-style/webawesome-alpha/issues)

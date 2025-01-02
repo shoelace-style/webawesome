@@ -1,46 +1,44 @@
 :host {
-  --height: 1.25rem;
-  --track-color: var(--wa-color-neutral-fill-normal);
   --indicator-color: var(--wa-color-brand-fill-loud);
-  --text-color: var(--wa-color-brand-on-loud);
-  --box-shadow: none;
 
-  display: block;
+  display: contents;
+  height: 1.25rem;
+  border-radius: var(--wa-border-radius-pill);
+  background-color: var(--wa-color-neutral-fill-normal);
+  color: var(--wa-color-brand-on-loud);
 }
 
 .progress-bar {
+  all: inherit;
+  display: flex;
   position: relative;
-  background-color: var(--track-color);
-  height: var(--height);
-  border-radius: var(--wa-border-radius-pill);
-  box-shadow: var(--box-shadow);
   overflow: hidden;
 }
 
-.progress-bar__indicator {
-  height: 100%;
-  font: inherit;
+.indicator {
+  width: calc(var(--value, 0) * 1%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--indicator-color);
-  color: var(--text-color);
   text-align: center;
-  line-height: var(--height);
   white-space: nowrap;
   overflow: hidden;
-  transition:
-    400ms width,
-    400ms background-color;
+  line-height: 1;
+  font-weight: var(--wa-font-weight-semibold);
+  transition: var(--wa-transition-slow, 200ms) var(--wa-transition-easing, ease);
+  transition: 1s;
+  /* transition-property: width, background; */
   user-select: none;
   -webkit-user-select: none;
 }
 
 /* Indeterminate */
-.progress-bar--indeterminate .progress-bar__indicator {
+:host([indeterminate]) .indicator {
   position: absolute;
-  animation: indeterminate 2.5s infinite cubic-bezier(0.37, 0, 0.63, 1);
-}
-
-.progress-bar--indeterminate.progress-bar--rtl .progress-bar__indicator {
-  animation-name: indeterminate-rtl;
+  inset-block: 0;
+  inline-size: 50%;
+  animation: wa-progress-indeterminate 2.5s infinite cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 @media (forced-colors: active) {
@@ -49,32 +47,19 @@
     background-color: var(--wa-color-surface-default);
   }
 
-  .progress-bar__indicator {
+  .indicator {
     outline: solid 1px SelectedItem;
     background-color: SelectedItem;
   }
 }
 
-@keyframes indeterminate {
+@keyframes wa-progress-indeterminate {
   0% {
-    left: -50%;
-    width: 50%;
+    inset-inline-start: -50%;
   }
-  75%,
-  100% {
-    left: 100%;
-    width: 50%;
-  }
-}
 
-@keyframes indeterminate-rtl {
-  0% {
-    right: -50%;
-    width: 50%;
-  }
   75%,
   100% {
-    right: 100%;
-    width: 50%;
+    inset-inline-start: 100%;
   }
 }

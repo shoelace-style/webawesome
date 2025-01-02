@@ -13,7 +13,7 @@
 svg {
   display: inline-block;
   width: auto;
-  height: 1em;
+  height: inherit;
   fill: currentColor;
 
   .fa-primary {

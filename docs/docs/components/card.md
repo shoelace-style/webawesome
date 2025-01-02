@@ -1,7 +1,8 @@
 ---
 title: Card
 description: Cards can be used to group related subjects in a container.
-tags: component
+tags: [organization, layout]
+icon: card
 ---
 
 ```html {.example}

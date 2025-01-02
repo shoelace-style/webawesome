@@ -115,7 +115,7 @@ export default class WebAwesomeElement extends LitElement {
 
   /** Checks if states are supported by the element */
   private hasStatesSupport(): boolean {
-    return this.internals?.states instanceof Set;
+    return Boolean(this.internals?.states);
   }
 
   /** Adds a custom state to the element. */

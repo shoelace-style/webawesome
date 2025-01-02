@@ -1,8 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-bar.css';
@@ -19,11 +17,7 @@ import styles from './progress-bar.css';
  * @csspart indicator - The progress bar's indicator.
  * @csspart label - The progress bar's label.
  *
- * @cssproperty --height - The progress bar's height.
- * @cssproperty --track-color - The color of the track.
  * @cssproperty --indicator-color - The color of the indicator.
- * @cssproperty --text-color - The color of the label.
- * @cssproperty --box-shadow - The shadow effects around the edges of the progress bar.
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {
@@ -43,20 +37,16 @@ export default class WaProgressBar extends WebAwesomeElement {
     return html`
       <div
         part="base"
-        class=${classMap({
-          'progress-bar': true,
-          'progress-bar--indeterminate': this.indeterminate,
-          'progress-bar--rtl': this.localize.dir() === 'rtl',
-        })}
+        class="progress-bar"
         role="progressbar"
         title=${ifDefined(this.title)}
         aria-label=${this.label.length > 0 ? this.label : this.localize.term('progress')}
         aria-valuemin="0"
         aria-valuemax="100"
-        aria-valuenow=${this.indeterminate ? 0 : this.value}
+        ${this.indeterminate ? 0 : `aria-valuenow="${this.value}"`}
       >
-        <div part="indicator" class="progress-bar__indicator" style=${styleMap({ width: `${this.value}%` })}>
-          ${!this.indeterminate ? html` <slot part="label" class="progress-bar__label"></slot> ` : ''}
+        <div part="indicator" class="indicator" style="--value: ${this.value}">
+          ${!this.indeterminate ? html` <slot part="label" class="label"></slot> ` : ''}
         </div>
       </div>
     `;

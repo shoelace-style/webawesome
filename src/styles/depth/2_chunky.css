@@ -45,7 +45,7 @@ wa-button {
   --wa-transition-normal: 0ms;
   --wa-transition-fast: 0ms;
 
-  &:not([appearance='text']) {
+  &:not([appearance='plain']) {
     --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s)
       var(--box-shadow-color);
     margin-bottom: var(--wa-shadow-offset-y-s);
@@ -82,7 +82,7 @@ wa-button {
 wa-input,
 wa-select,
 wa-textarea {
-  &:not([filled]):not([disabled]) {
+  &:not([appearance='filled']):not([disabled]) {
     --box-shadow: var(--wa-shadow-xs);
   }
 }

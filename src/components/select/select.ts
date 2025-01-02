@@ -20,7 +20,9 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/select.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -86,7 +88,7 @@ import styles from './select.css';
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static shadowStyle = [appearanceStyles, formControlStyles, sizeStyles, nativeStyles, styles];
 
   static get validators() {
     const validators = isServer
@@ -118,7 +120,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return this.valueInput;
   }
 
-  @state() private hasFocus = false;
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
@@ -197,8 +198,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean }) hoist = false;
 
-  /** Draws a filled select. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The select's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** Draws a pill-style select with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -310,13 +311,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.displayInput.setSelectionRange(0, 0);
     this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -803,7 +802,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <label
           id="label"
           part="form-control-label"
-          class="form-control__label"
+          class="label"
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
         >
@@ -818,7 +817,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               disabled: this.disabled,
               enabled: !this.disabled,
               multiple: this.multiple,
-              focused: this.hasFocus,
               'placeholder-visible': isPlaceholderVisible,
             })}
             placement=${this.placement}

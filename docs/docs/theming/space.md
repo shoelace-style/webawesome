@@ -1,7 +1,6 @@
 ---
 title: Space
 description: Lock down consistent spacing Web Awesome's space properties.
-layout: page-outline
 ---
 
 <style>

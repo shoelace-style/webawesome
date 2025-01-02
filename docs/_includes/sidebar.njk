@@ -20,53 +20,85 @@
 </ul>
 
 {# Components #}
-<wa-details{{ ' open' if '/components/' in page.url }}>
-<h2 slot=summary>
-  <a href="/docs/components/" title="Overview">Components
-    <wa-icon name="grid-2"></wa-icon>
-  </a>
-</h2>
+<wa-details {{ 'open' if '/components/' in page.url }}>
+  <h2 slot=summary>
+    <a href="/docs/components/" title="Overview">Components
+      <wa-icon name="grid-2"></wa-icon>
+    </a>
+  </h2>
 
-<ul>
-  {% for component in collections.component | sort %}
-  {% if not component.data.parent and not (isAlpha and component.data.isAlpha) %}
-  <li>
-    <a href="/docs/components/{{ component.fileSlug }}">{{ component.data.title }}</a>
+  <ul>
+    {% for component in collections.components | sort %}
+    {% if not component.data.parent and not (isAlpha and component.data.noAlpha) and not component.data.unlisted %}
+    <li>
+      <a href="/docs/components/{{ component.fileSlug }}">{{ component.data.title }}</a>
 
-    {% if components[component.fileSlug].status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}
-    {% if component.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
-    <ul>
-    {% for child in collections.component | sort %}
-      {% if child.data.parent == component.fileSlug and not (isAlpha and child.data.isAlpha) %}
-        <li>
-          <a href="/docs/components/{{ child.fileSlug }}">{{ child.data.title }}</a>
-        </li>
-      {% endif %}
+      {% if components[component.fileSlug].status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}
+      {% if component.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
+      <ul>
+      {% for child in collections.components | sort %}
+        {% if child.data.parent == component.fileSlug and not (isAlpha and child.data.noAlpha) %}
+          <li>
+            <a href="/docs/components/{{ child.fileSlug }}">{{ child.data.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
     {% endfor %}
-    </ul>
-  </li>
-  {% endif %}
-  {% endfor %}
-</ul>
+  </ul>
+</wa-details>
+
+<wa-details {{ 'open' if '/native/' in page.url }}>
+  <h2 slot=summary>
+    <a href="/docs/native/" title="Overview">Native Styles
+      <wa-icon name="grid-2"></wa-icon>
+    </a>
+  </h2>
+  <ul>
+    {% for page in collections.native | sort %}
+    {% if page.fileSlug != 'native' and not page.unlisted %}
+    <li>
+      <a href="/docs/native/{{ page.fileSlug }}">{{ page.data.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</wa-details>
+
+<wa-details {{ 'open' if '/utilities/' in page.url }}>
+  <h2 slot=summary>
+    <a href="/docs/utilities/" title="Overview">Style Utilities
+      <wa-icon name="grid-2"></wa-icon>
+    </a>
+  </h2>
+  <ul>
+    {% for page in collections.utilities | sort %}
+    {% if page.fileSlug != 'utilities' and not page.unlisted %}
+    <li>
+      <a href="/docs/utilities/{{ page.fileSlug }}">{{ page.data.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
 </wa-details>
 
 {# Layout #}
-{% if not isAlpha %}
 <h2>
   <a href="/docs/layout" title="Overview">Layout
     <wa-icon name="grid-2"></wa-icon>
   </a>
 </h2>
 <ul>
-  <li><a href="/docs/components/page">Page</a></li>
-  <li><a href="/docs/layout/cluster">Cluster</a></li>
-  <li><a href="/docs/layout/flank">Flank</a></li>
-  <li><a href="/docs/layout/frame">Frame</a></li>
-  <li><a href="/docs/layout/grid">Grid</a></li>
-  <li><a href="/docs/layout/split">Split</a></li>
-  <li><a href="/docs/layout/stack">Stack</a></li>
+  {% for page in collections.layout | sort %}
+    {% if page.fileSlug != 'layout' and not page.unlisted %}
+    <li>
+      <a href="{{ page.url }}">{{ page.data.title }}</a>
+    </li>
+    {% endif %}
+  {% endfor %}
 </ul>
-{% endif %}
 
 {# Patterns #}
 {% if not isAlpha %}
@@ -97,39 +129,11 @@
   </a>
 </h2>
 <ul>
-  <li>
-    <a href="/docs/theming/color">Color</a>
-  </li>
-  <li>
-    <a href="/docs/theming/typography">Typography</a>
-  </li>
-  <li>
-    <a href="/docs/theming/space">Space</a>
-  </li>
-  <li>
-    <a href="/docs/theming/borders">Borders</a>
-  </li>
-  <li>
-    <a href="/docs/theming/focus">Focus</a>
-  </li>
-  <li>
-    <a href="/docs/theming/shadows">Shadows</a>
-  </li>
-  <li>
-    <a href="/docs/theming/transitions">Transitions</a>
-  </li>
-  <li>
-    <a href="/docs/theming/component-groups">Component Groups</a>
-  </li>
+{% for page in collections.theming | sort %}
+  {% if page.fileSlug != 'theming' and not page.unlisted %}
+    <li>
+      <a href="/docs/theming/{{ page.fileSlug }}">{{ page.data.title }}</a>
+    </li>
+  {% endif %}
+{% endfor %}
 </ul>
-
-{# Style Utilities #}
-{% if not isAlpha %}
-<h2>Style Utilities</h2>
-<ul>
-  <li><a href="/docs/style-utilities/align-items">Align Items</a></li>
-  <li><a href="/docs/style-utilities/border-radius">Border Radius</a></li>
-  <li><a href="/docs/style-utilities/gap">Gap</a></li>
-  <li><a href="/docs/style-utilities/text">Text</a></li>
-</ul>
-{% endif %}

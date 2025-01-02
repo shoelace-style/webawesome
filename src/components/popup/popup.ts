@@ -63,7 +63,7 @@ export default class WaPopup extends WebAwesomeElement {
 
   /** A reference to the internal popup container. Useful for animating and styling the popup with JavaScript. */
   @query('.popup') popup: HTMLElement;
-  @query('.popup__arrow') private arrowEl: HTMLElement;
+  @query('.arrow') private arrowEl: HTMLElement;
 
   /**
    * The element the popup will be anchored to. If the anchor lives outside of the popup, you can provide the anchor
@@ -571,7 +571,7 @@ export default class WaPopup extends WebAwesomeElement {
         })}
       >
         <slot></slot>
-        ${this.arrow ? html`<div part="arrow" class="popup__arrow" role="presentation"></div>` : ''}
+        ${this.arrow ? html`<div part="arrow" class="arrow" role="presentation"></div>` : ''}
       </div>
     `;
   }
