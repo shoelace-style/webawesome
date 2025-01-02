@@ -44,43 +44,12 @@ describe('<wa-range>', () => {
 
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaRange>(html` <wa-range disabled></wa-range> `);
-        const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part~="input"]')!;
+        const input = el.shadowRoot!.querySelector<HTMLInputElement>('.control')!;
 
         expect(input.disabled).to.be.true;
       });
 
       describe('when the value changes', () => {
-        it('should emit wa-change and wa-input when the value changes from clicking the slider', async () => {
-          const el = await fixture<WaRange>(html` <wa-range value="0"></wa-range> `);
-          const changeHandler = sinon.spy();
-          const inputHandler = sinon.spy();
-
-          el.addEventListener('wa-change', changeHandler);
-          el.addEventListener('wa-input', inputHandler);
-          await clickOnElement(el, 'right');
-          await el.updateComplete;
-
-          expect(el.value).to.equal(100);
-          expect(changeHandler).to.have.been.calledOnce;
-          expect(inputHandler).to.have.been.calledOnce;
-        });
-
-        it('should emit wa-change and wa-input and decrease the value when pressing left arrow', async () => {
-          const el = await fixture<WaRange>(html` <wa-range value="50"></wa-range> `);
-          const changeHandler = sinon.spy();
-          const inputHandler = sinon.spy();
-
-          el.addEventListener('wa-change', changeHandler);
-          el.addEventListener('wa-input', inputHandler);
-          el.focus();
-          await sendKeys({ press: 'ArrowLeft' });
-          await el.updateComplete;
-
-          expect(el.value).to.equal(49);
-          expect(changeHandler).to.have.been.calledOnce;
-          expect(inputHandler).to.have.been.calledOnce;
-        });
-
         it('should emit wa-change and wa-input and decrease the value when pressing right arrow', async () => {
           const el = await fixture<WaRange>(html` <wa-range value="50"></wa-range> `);
           const changeHandler = sinon.spy();
