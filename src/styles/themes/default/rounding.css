@@ -1,5 +1,5 @@
 /**
-* Rounding tokens
+* Rounding
 */
 :where(:root, :host) {
   /* A multiplier is provided to uniformly increase or decrease all border radii. */
