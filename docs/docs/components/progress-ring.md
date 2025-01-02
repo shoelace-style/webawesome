@@ -1,11 +1,14 @@
 ---
 title: Progress Ring
 description: Progress rings are used to show the progress of a determinate operation in a circular fashion.
-tags: component
+tags: [feedback, apps]
+icon: progress-ring
 ---
 
 ```html {.example}
-<wa-progress-ring value="25"></wa-progress-ring>
+<wa-progress-ring value="25">
+  <wa-icon slot="prefix" name="circle-notch"></wa-icon>
+</wa-progress-ring>
 ```
 
 ## Examples
@@ -15,7 +18,9 @@ tags: component
 Use the `--size` custom property to set the diameter of the progress ring.
 
 ```html {.example}
-<wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
+<wa-progress-ring value="50" style="--size: 200px;">
+  <wa-icon slot="prefix" name="expand"></wa-icon>
+</wa-progress-ring>
 ```
 
 ### Track and Indicator Width
@@ -23,7 +28,9 @@ Use the `--size` custom property to set the diameter of the progress ring.
 Use the `--track-width` and `--indicator-width` custom properties to set the width of the progress ring's track and indicator.
 
 ```html {.example}
-<wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
+<wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;">
+  <wa-icon slot="prefix" name="arrows-alt"></wa-icon>
+</wa-progress-ring>
 ```
 
 ### Colors
@@ -37,18 +44,12 @@ To change the color, use the `--track-color` and `--indicator-color` custom prop
     --track-color: pink;
     --indicator-color: deeppink;
   "
-></wa-progress-ring>
+>
+  <wa-icon slot="prefix" name="palette"></wa-icon>
+</wa-progress-ring>
 ```
 
 ### Labels
-
-Use the `label` attribute to label the progress ring and tell assistive devices how to announce it.
-
-```html {.example}
-<wa-progress-ring value="50" label="Upload progress"></wa-progress-ring>
-```
-
-### Showing Values
 
 Use the default slot to show a label inside the progress ring.
 

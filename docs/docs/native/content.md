@@ -1,7 +1,7 @@
 ---
 title: Content
 description: 'Content styles apply your Web Awesome theme to HTML text content, code, and images.'
-tags: native
+tags: content
 layout: element
 icon: skeleton
 ---

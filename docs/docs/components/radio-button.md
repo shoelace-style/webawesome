@@ -1,8 +1,9 @@
 ---
 title: Radio Button
 description: Radios buttons allow the user to select a single option from a group using a button-like control.
-tags: component
+tags: forms
 parent: radio-group
+icon: radio-group
 ---
 
 Radio buttons are designed to be used with [radio groups](/docs/components/radio-group). When a radio button has focus, the arrow keys can be used to change the selected option just like standard radio controls.

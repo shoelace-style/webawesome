@@ -1,8 +1,10 @@
 ---
 title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
-tags: component
+tags: [organization, apps, disclosure]
+icon: dialog
 native: dialog
+keywords: modal
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

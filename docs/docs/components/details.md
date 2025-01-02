@@ -1,7 +1,8 @@
 ---
 title: Details
 description: Details show a brief summary and expand to show additional content.
-tags: component
+tags: [organization, apps, content, disclosure]
+icon: details
 native: details
 ---
 

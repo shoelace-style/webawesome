@@ -1,7 +1,8 @@
 ---
 title: Resize Observer
 description: The Resize Observer component offers a thin, declarative interface to the ResizeObserver API.
-tags: component
+tags: [helpers, primitives]
+icon: resize-observer
 ---
 
 The resize observer will report changes to the dimensions of the elements it wraps through the `wa-resize` event. When emitted, a collection of [`ResizeObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry) objects will be attached to `event.detail` that contains the target element and information about its dimensions.

@@ -1,7 +1,8 @@
 ---
 title: Copy Button
 description: Copies data to the clipboard when the user clicks the button.
-tags: component
+tags: [actions, apps]
+icon: copy-button
 ---
 
 ```html {.example}

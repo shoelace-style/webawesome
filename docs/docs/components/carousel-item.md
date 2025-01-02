@@ -3,6 +3,7 @@ title: Carousel Item
 description: A carousel item represent a slide within a carousel.
 tags: component
 parent: carousel
+icon: carousel-item
 ---
 
 ```html {.example}

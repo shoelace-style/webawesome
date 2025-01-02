@@ -1,7 +1,7 @@
 ---
 title: Details
 description: 'Details styles apply your Web Awesome theme to the HTML `<details>` element. Details show a brief summary and expand to show additional content.'
-tags: native
+tags: apps
 layout: element
 component: details
 icon: details

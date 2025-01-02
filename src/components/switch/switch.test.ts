@@ -328,6 +328,19 @@ describe('<wa-switch>', () => {
         await aTimeout(10);
         expect(window.scrollY).to.equal(0);
       });
+
+      // https://github.com/shoelace-style/webawesome-alpha/discussions/124
+      it('Should properly flag changes to checked and reflect', async () => {
+        const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
+        await el.updateComplete;
+        expect(el.checked).to.equal(false);
+
+        el.checked = true;
+
+        await el.updateComplete;
+
+        expect(el.checked).to.equal(true);
+      });
     });
   }
 });

@@ -1,7 +1,8 @@
 ---
 title: Breadcrumb
 description: Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
-tags: component
+tags: [navigation]
+icon: breadcrumb
 ---
 
 Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.
@@ -171,4 +172,3 @@ Alternatively, you can place dropdown menus in a prefix or suffix slot.
     </wa-dropdown>
   </wa-breadcrumb-item>
 </wa-breadcrumb>
-```

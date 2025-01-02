@@ -1,7 +1,7 @@
 ---
 title: Lists
 description: 'List styles apply your Web Awesome theme to HTML lists, such as bulleted, numbered, or description lists.'
-tags: native
+tags: content
 layout: element
 elements:
   "<ul>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul

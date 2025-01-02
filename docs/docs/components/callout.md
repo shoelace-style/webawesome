@@ -1,7 +1,8 @@
 ---
 title: Callout
 description: Callouts are used to display important messages inline.
-tags: component
+tags: [feedback, content]
+icon: callout
 ---
 
 ```html {.example}

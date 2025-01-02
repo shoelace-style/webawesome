@@ -1,8 +1,7 @@
 ---
 title: Button
 description: 'Button styles apply your Web Awesome theme to native HTML buttons. Buttons are activated by users to perform actions, such as submitting a form.'
-tags: native
-layout: element
+tags: forms
 component: button
 icon: button
 ---

@@ -3,6 +3,8 @@ title: Radio
 description: Radios allow the user to select a single option from a group.
 tags: component
 parent: radio-group
+native: radio
+icon: radio-group
 ---
 
 Radios are designed to be used with [radio groups](/docs/components/radio-group).
@@ -45,7 +47,7 @@ Use the `disabled` attribute to disable a radio.
 </wa-radio-group>
 ```
 
-## Sizes
+### Sizes
 
 Add the `size` attribute to the [Radio Group](/docs/components/radio-group) to change the radios' size.
 

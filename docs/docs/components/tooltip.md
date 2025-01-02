@@ -1,7 +1,8 @@
 ---
 title: Tooltip
 description: Tooltips display additional information based on a specific action.
-tags: component
+tags: [feedback, apps, disclosure]
+icon: tooltip
 ---
 
 

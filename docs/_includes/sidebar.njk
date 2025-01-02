@@ -28,15 +28,15 @@
   </h2>
 
   <ul>
-    {% for component in collections.component | sort %}
-    {% if not component.data.parent and not (isAlpha and component.data.noAlpha) %}
+    {% for component in collections.components | sort %}
+    {% if not component.data.parent and not (isAlpha and component.data.noAlpha) and not component.data.unlisted %}
     <li>
       <a href="/docs/components/{{ component.fileSlug }}">{{ component.data.title }}</a>
 
       {% if components[component.fileSlug].status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}
       {% if component.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
       <ul>
-      {% for child in collections.component | sort %}
+      {% for child in collections.components | sort %}
         {% if child.data.parent == component.fileSlug and not (isAlpha and child.data.noAlpha) %}
           <li>
             <a href="/docs/components/{{ child.fileSlug }}">{{ child.data.title }}</a>

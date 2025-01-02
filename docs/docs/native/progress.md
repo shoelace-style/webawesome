@@ -1,14 +1,12 @@
 ---
 title: Progress Bar
 description: Progress bars are used to show the status of an ongoing operation.
-tags: native
-layout: element
+tags: apps
+icon: progress-bar
 status: experimental
-component:
- - progress-bar
+component: progress-bar
 elements:
   "<progress>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
-icon: progress-bar
 ---
 
 

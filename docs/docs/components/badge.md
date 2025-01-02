@@ -1,7 +1,8 @@
 ---
 title: Badge
 description: Badges are used to draw attention and display statuses or counts.
-tags: component
+tags: [feedback, content]
+icon: badge
 ---
 
 ```html {.example}
@@ -127,4 +128,3 @@ When including badges in menu items, use the `suffix` slot to make sure they're 
   <wa-menu-item>Comments <wa-badge slot="suffix" variant="neutral" pill>4</wa-badge></wa-menu-item>
   <wa-menu-item>Replies <wa-badge slot="suffix" variant="neutral" pill>12</wa-badge></wa-menu-item>
 </wa-menu>
-```

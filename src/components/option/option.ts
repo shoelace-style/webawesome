@@ -36,6 +36,7 @@ export default class WaOption extends WebAwesomeElement {
 
   // @ts-expect-error - Controller is currently unused
   private readonly localize = new LocalizeController(this);
+  private isInitialized = false;
 
   @query('.label') defaultSlot: HTMLSlotElement;
 
@@ -60,13 +61,17 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private handleDefaultSlotChange() {
-    // When the label changes, tell the controller to update
-    customElements.whenDefined('wa-select').then(() => {
-      const controller = this.closest('wa-select');
-      if (controller) {
-        controller.handleDefaultSlotChange();
-      }
-    });
+    if (this.isInitialized) {
+      // When the label changes, tell the controller to update
+      customElements.whenDefined('wa-select').then(() => {
+        const controller = this.closest('wa-select');
+        if (controller) {
+          controller.handleDefaultSlotChange();
+        }
+      });
+    } else {
+      this.isInitialized = true;
+    }
   }
 
   private handleMouseEnter() {

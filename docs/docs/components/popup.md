@@ -1,7 +1,8 @@
 ---
 title: Popup
 description: 'Popup is a utility that lets you declaratively anchor "popup" containers to another element.'
-tags: component
+tags: [helpers, primitives]
+icon: popup
 ---
 
 This component's name is inspired by [`<popup>`](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Popup/explainer.md). It uses [Floating UI](https://floating-ui.com/) under the hood to provide a well-tested, lightweight, and fully declarative positioning utility for tooltips, dropdowns, and more.

@@ -3,6 +3,7 @@ title: Menu Item
 description: Menu items provide options for the user to pick from in a menu.
 tags: component
 parent: menu
+icon: menu
 ---
 
 ```html {.example}

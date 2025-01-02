@@ -1,6 +1,6 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -68,29 +68,17 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** The name of the switch, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  private _value: string | null = null;
+  private _value: string | null = this.getAttribute('value') ?? null;
 
-  /** The current value of the switch, submitted as a name/value pair with form data. */
+  /** The value of the switch, submitted as a name/value pair with form data. */
   get value(): string | null {
-    if (this.valueHasChanged) {
-      return this._value;
-    }
-
-    return this._value ?? this.defaultValue;
+    return this._value ?? 'on';
   }
 
-  @state()
+  @property({ reflect: true })
   set value(val: string | null) {
-    if (this._value === val) {
-      return;
-    }
-
-    this.valueHasChanged = true;
     this._value = val;
   }
-
-  /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The switch's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -166,28 +154,39 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('defaultChecked')) {
+      if (!this.hasInteracted) {
+        this.checked = this.defaultChecked;
+      }
+    }
+
+    if (changedProperties.has('value') || changedProperties.has('checked')) {
       this.handleValueOrCheckedChange();
     }
   }
 
   handleValueOrCheckedChange() {
-    this.handleDefaultCheckedChange();
-    this.value = this.checked ? this.value || 'on' : null;
-
-    if (this.input) {
-      this.input.checked = this.checked; // force a sync update
-    }
-
-    this.setValue(this.value, this.value);
+    // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
+    this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
+  @watch('defaultChecked')
   handleDefaultCheckedChange() {
     if (!this.hasInteracted && this.checked !== this.defaultChecked) {
       this.checked = this.defaultChecked;
       this.handleValueOrCheckedChange();
     }
+  }
+
+  @watch(['checked'])
+  handleStateChange() {
+    if (this.hasUpdated) {
+      this.input.checked = this.checked; // force a sync update
+    }
+
+    this.toggleCustomState('checked', this.checked);
+    this.updateValidity();
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })

@@ -133,3 +133,68 @@ export function sort(arr, keys = ['data.order', 'data.title']) {
     }
   });
 }
+
+/**
+ * Group an 11ty collection (or any array of objects with a `data.tags` property) by certain tags.
+ * @param {object[]} collection
+ * @param { Object<string, string> | (string | Object<string, string>)[]} [tags] The tags to group by. If not provided/empty, defaults to grouping by all tags.
+ * @returns { Object.<string, object[]> } An object with keys for each tag, and an array of items for each tag.
+ */
+export function groupByTags(collection, tags) {
+  if (!tags) {
+    // Default to grouping by union of all tags
+    tags = Array.from(new Set(collection.flatMap(item => item.data.tags)));
+  } else if (Array.isArray(tags)) {
+    // May contain objects of one-off tag -> label mappings
+    tags = tags.map(tag => (typeof tag === 'object' ? Object.keys(tag)[0] : tag));
+  } else if (typeof tags === 'object') {
+    // tags is an object of tags to labels, so we just want the keys
+    tags = Object.keys(tags);
+  }
+
+  let ret = Object.fromEntries(tags.map(tag => [tag, []]));
+  ret.other = [];
+
+  for (let item of collection) {
+    let categorized = false;
+
+    for (let tag of tags) {
+      if (item.data.tags.includes(tag)) {
+        ret[tag].push(item);
+        categorized = true;
+      }
+    }
+
+    if (!categorized) {
+      ret.other.push(item);
+    }
+  }
+
+  // Remove empty categories
+  for (let category in ret) {
+    if (ret[category].length === 0) {
+      delete ret[category];
+    }
+  }
+
+  return ret;
+}
+
+export function getCategoryTitle(category, categories) {
+  let title;
+  if (Array.isArray(categories)) {
+    // Find relevant entry
+    // [{id: "Title"}, id2, ...]
+    title = categories.find(entry => typeof entry === 'object' && entry?.[category])?.[category];
+  } else if (typeof categories === 'object') {
+    // {id: "Title", id2: "Title 2", ...}
+    title = categories[category];
+  }
+
+  if (title) {
+    return title;
+  }
+
+  // Capitalized
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}

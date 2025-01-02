@@ -1,4 +1,4 @@
 {
-  "layout": "docs.njk",
+  "layout": "element.njk",
   "tags": ["native"]
 }

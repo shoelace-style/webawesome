@@ -1,7 +1,8 @@
 ---
 title: Format Date
 description: Formats a date/time using the specified locale and options.
-tags: component
+tags: [helpers, content, inline]
+icon: format-date
 ---
 
 Localization is handled by the browser's [`Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). No language packs are required.

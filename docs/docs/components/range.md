@@ -1,7 +1,9 @@
 ---
 title: Range
 description: Ranges allow the user to select a single value within a given range using a slider.
-tags: component
+tags: [inputs, forms]
+native: slider
+icon: range
 ---
 
 ```html {.example}

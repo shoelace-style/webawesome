@@ -1,7 +1,8 @@
 ---
 title: Icon Button
 description: Icons buttons are simple, icon-only buttons that can be used for actions and in toolbars.
-tags: component
+tags: [actions, apps]
+icon: icon-button
 ---
 
 For a full list of icons that come bundled with Web Awesome, refer to the [icon component](/docs/components/icon).
