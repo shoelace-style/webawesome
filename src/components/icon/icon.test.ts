@@ -170,9 +170,7 @@ describe('<wa-icon>', () => {
       });
 
       describe('svg sprite sheets', () => {
-        //  For some reason ESLint wants to fail in CI here, but works locally.
         // TODO: this test is skipped because Bootstrap sprite.svg doesn't seem to be available in CI. Will fix in a future PR. [Konnor]
-        /* eslint-disable */
         it.skip('Should properly grab an SVG and render it from bootstrap icons', async () => {
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
