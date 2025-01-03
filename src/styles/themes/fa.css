@@ -332,6 +332,7 @@
 
   --wa-form-control-placeholder-color: var(--wa-color-base-60);
 
+  --wa-form-control-height: calc(2 * var(--wa-space-smaller) + 1.5em * var(--wa-form-control-value-line-height));
   --wa-form-control-height-s: calc(var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height));
   --wa-form-control-height-m: calc(var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height));
   --wa-form-control-height-l: calc(var(--wa-space-l) * 2 + 1em * var(--wa-form-control-value-line-height));

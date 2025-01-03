@@ -239,7 +239,7 @@
   /* Form controls */
   --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
   --wa-form-control-label-line-height: var(--wa-line-height-normal);
-
+  --wa-form-control-height: calc(2 * var(--wa-space-smaller) + 1.5em * var(--wa-form-control-value-line-height));
   --wa-form-control-height-s: 1.875rem;
   --wa-form-control-height-m: 2.5rem;
   --wa-form-control-height-l: 3.125rem;

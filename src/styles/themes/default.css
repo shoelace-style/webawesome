@@ -13,6 +13,7 @@
 .wa-theme-default-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
+  --wa-form-control-height: calc(2 * var(--wa-space-smaller) + 1.15em * var(--wa-form-control-value-line-height));
 }
 
 .wa-theme-default-dark,
