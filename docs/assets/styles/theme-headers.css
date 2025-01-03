@@ -57,3 +57,83 @@ html[class*='wa-theme-default'] .preview-container {
   }
 }
 /* #endregion */
+
+/* #region Migration */
+html[class*='wa-theme-migration'] .preview-container {
+  container-name: migration-theme;
+}
+
+@container migration-theme (min-width: 0) {
+  .project-header {
+    background: var(--wa-color-surface-default);
+  }
+
+  .hero {
+    --hero-background-color: var(--wa-color-surface-default);
+    --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), transparent 30%);
+    background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
+      radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-red-50) 16%, transparent), transparent 30%),
+      radial-gradient(
+        circle at 40% 50%,
+        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-red-50) 8%, transparent), transparent 20%),
+      radial-gradient(
+        circle at 80% 80%,
+        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-red-60) 8%, transparent), transparent 10%),
+      linear-gradient(176deg, var(--hero-background-color), transparent 6rem),
+      linear-gradient(90deg, var(--hero-background-color), transparent),
+      repeating-linear-gradient(
+        var(--hero-lines-color),
+        var(--hero-lines-color) 1px,
+        transparent 1px,
+        transparent 10rem,
+        var(--hero-lines-color) 10rem
+      ),
+      repeating-linear-gradient(
+        90deg,
+        var(--hero-lines-color),
+        var(--hero-lines-color) 1px,
+        transparent 1px,
+        transparent 10rem,
+        var(--hero-lines-color) 10rem
+      ),
+      var(--hero-background-color);
+
+    & .title {
+      padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
+
+      & .hero-title {
+        font-size: calc((var(--wa-font-size-4xl) * 1.125) * 1.125);
+        margin-block: 0 var(--wa-space-3xl);
+      }
+    }
+  }
+  .badge-stock {
+    position: absolute;
+    top: var(--wa-space-l);
+    left: var(--wa-space-l);
+  }
+
+  .message-composer wa-card {
+    &::part(footer) {
+      border: none;
+    }
+    & wa-icon-button {
+      color: var(--wa-color-base-50);
+    }
+  }
+
+  .products {
+    margin-top: calc(var(--wa-space-3xl) * -8);
+  }
+
+  pre.codeblock {
+    background-color: var(--wa-color-neutral-fill-normal);
+  }
+}
+/* #endregion */
