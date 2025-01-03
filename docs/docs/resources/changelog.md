@@ -21,6 +21,10 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ### Theming
 
+- Added new themes:
+  - Font Awesome
+  - Brutalist
+  - Migration
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
   - Changed the value of `--wa-border-width-scale` to `1` and updated calculations of size-based `--wa-border-width-*` tokens
   - Changed the value of `--wa-border-radius-scale` to `1` and updated calculations of size-based `--wa-border-radius-*` tokens
