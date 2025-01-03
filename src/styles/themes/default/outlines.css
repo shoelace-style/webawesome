@@ -8,7 +8,7 @@
   --wa-border-width-scale: 1;
   --wa-border-width-s: calc(var(--wa-border-width-scale) * 0.0625rem);
   --wa-border-width-m: calc(var(--wa-border-width-scale) * 0.125rem);
-  --wa-border-width-l: calc(var(--wa-border-width-scale) * 0.25rem);
+  --wa-border-width-l: calc(var(--wa-border-width-scale) * 0.1875rem);
 
   /**
    * Focus

@@ -1,7 +1,10 @@
-@import url('default/typography.css');
+@import url('default/color-semantic.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
+@import url('default/typography.css');
+@import url('default/rounding.css');
 @import url('default/shadows.css');
+@import url('default/transitions.css');
 @import url('default/groups.css');
 
 :root,
@@ -11,11 +14,6 @@
 
   /**
    * Literal Colors
-   * Each color is identified by a number that corresponds to its perceived lightness, where 100 is equal to white and 0 is equal to black.
-   * Each lightness value has nearly uniform WCAG 2.1 contrast across hues.
-   * A difference of 40 between lightness values ensures a minimum 3:1 contrast ratio.
-   * A difference of 50 between lightness values ensures a minimum 4.5:1 contrast ratio.
-   * A difference of 60 between lightness values ensures a minimum 7:1 contrast ratio.
    */
   --wa-color-red-95: #feeeee;
   --wa-color-red-90: #fedede;
@@ -104,50 +102,22 @@
   /**
    * Foundational Colors
    */
-
-  /* Surfaces are background layers that other content rests on.
-   * Surface colors help convey hierarchy through elevation, where raised is closest to the user and lowered is farthest away. */
-  --wa-color-surface-raised: white;
-  --wa-color-surface-default: white;
-  --wa-color-surface-lowered: var(--wa-color-gray-95);
-  --wa-color-surface-border: var(--wa-color-gray-90);
-
-  /* Text colors are used for standard text elements.
-   * Recommended: minimum 4.5:1 contrast ratio between text colors and surface colors. */
   --wa-color-text-normal: var(--wa-color-gray-10);
   --wa-color-text-quiet: var(--wa-color-gray-40);
   --wa-color-text-link: var(--wa-color-blue-50);
 
-  /* Overlays provide a backdrop for isolated content, often allowing background context to show through. */
   --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-gray-10) 32%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 8%, transparent);
 
-  /* Shadows indicate elevation. Shadow color is used in your theme's shadow properties.
-   * By default, the opacity of your shadow color is tied to the blur of shadows in your theme.
-   * Because solid shadows appear stronger in color than diffused shadows, this helps keep consistent color intensity. */
   --wa-color-shadow: color-mix(
     in oklab,
     var(--wa-color-gray-40) calc(var(--wa-shadow-blur-scale) * 24% + 8%),
     transparent
   );
 
-  /* Focus color provides the default color of the focus ring for predictable keyboard navigation.
-   * Recommended: minimum 3:1 contrast ratio against surfaces and background colors. */
-  --wa-color-focus: var(--wa-color-blue-60);
-
-  /* Hover and active colors are intended to be used in color-mix() to achieve consistent effects across components. */
-  --wa-color-mix-hover: black 10%;
-  --wa-color-mix-active: black 20%;
-
   /**
    * Semantic Colors
-   * Five semantic groups - brand, success, neutral, warning, and danger - reinforce a component's message, intended usage, or expected results.
-   * Within these groups, each color specifies a role -
-   *  *  Fill for background colors or areas larger than a few pixels
-   *  *  Border for borders, dividers, and other stroke-like elements
-   *  *  On for content displayed on a fill with the corresponding attention
-   * Each role has three options for attention - quiet, normal, and loud - where quiet draws the least attention and loud draws the most.
-  */
+   */
   --wa-color-brand-fill-quiet: var(--wa-color-blue-95);
   --wa-color-brand-fill-normal: var(--wa-color-blue-90);
   --wa-color-brand-fill-loud: var(--wa-color-blue-50);
@@ -216,9 +186,12 @@
     color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
 
   /**
+   * Rounding
+   */
+  --wa-border-radius-scale: 0.7;
+
+  /**
    * Shadows
-   * Shadow properties are highly modular to make it easy to create custom shadow effects or transform elements based on specific shadow qualities.
-   * A multiplier is provided for each shadow quality to uniformly scale all related values.
    */
   --wa-shadow-offset-y-scale: 0.0625;
   --wa-shadow-spread-scale: 0;
@@ -255,6 +228,7 @@
 .wa-theme-classic-dark,
 .wa-theme-classic-dark :host {
   color-scheme: dark;
+  color: var(--wa-color-text-normal);
 
   /**
    * Foundational Colors
@@ -337,7 +311,7 @@
 }
 
 /**
- * Component style overrides
+ * Component Styles
  */
 wa-avatar {
   --background-color: var(--wa-color-neutral-fill-loud);
@@ -380,10 +354,9 @@ wa-breadcrumb {
   font-size: var(--wa-font-size-s);
 }
 
-/* #region Callouts */
 wa-callout {
   --background-color: var(--wa-color-surface-raised);
-  --border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
+  border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
   --text-color: var(--wa-color-text-normal);
   --spacing: var(--wa-space-l);
 
