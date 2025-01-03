@@ -23,6 +23,10 @@
 
   --wa-form-control-placeholder-color: var(--wa-color-gray-60);
 
+  --wa-form-control-height-s: calc(var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height));
+  --wa-form-control-height-m: calc(var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height));
+  --wa-form-control-height-l: calc(var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height));
+
   --wa-form-control-required-content: '*';
   --wa-form-control-required-content-color: inherit;
   --wa-form-control-required-content-offset: -0.1em;
