@@ -5,6 +5,15 @@ layout: page
 hasOutline: false
 ---
 
+<script>
+  // Add stylesheet to set themed headers
+  const themeHeadersLink = document.createElement("link");
+  themeHeadersLink.type="text/css";
+  themeHeadersLink.rel="stylesheet";
+  themeHeadersLink.href="/assets/styles/theme-headers.css";
+  document.getElementsByTagName("head")[0].appendChild(themeHeadersLink);
+</script>
+
 <style>
   /* turn off eleventy header anchors */
   .anchor-heading a {
@@ -1664,7 +1673,7 @@ hasOutline: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    container: preview / inline-size;
+    container-type: inline-size;
     padding: 0;
     max-inline-size: 1400px;
     margin-inline: auto;

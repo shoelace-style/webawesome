@@ -1,5 +1,14 @@
-/* #region Custom Styles */
-@container preview (min-width: 0) {
+/* Theme Builder Headers
+ * These styles control the appearance of the header of the theme builder,
+ * allowing each theme to have a unique hero section.
+ */
+
+/* #region Default */
+html[class*='wa-theme-default'] .preview-container {
+  container-name: default-theme;
+}
+
+@container default-theme (min-width: 0) {
   .hero-background {
     height: 47rem;
     background-color: var(--wa-color-brand-fill-loud);
@@ -22,7 +31,7 @@
   }
 
   .hero wa-button[variant='brand'] {
-    --background: var(--wa-color-neutral-fill-quiet);
+    --background-color: var(--wa-color-neutral-fill-quiet);
     --text-color: var(--wa-color-neutral-on-normal);
   }
 
@@ -41,7 +50,7 @@
 }
 
 /* responsive */
-@container preview (min-width: 1040px) {
+@container default-theme (min-width: 1040px) {
   .hero-background::after {
     background-position: right bottom;
     background-size: 90%;
