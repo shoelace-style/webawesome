@@ -252,7 +252,7 @@
 }
 
 .wa-theme-fa-dark,
-.wa-theme-fa-dark :host {
+:is(:host-context(.wa-theme-fa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

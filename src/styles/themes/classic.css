@@ -226,7 +226,7 @@
 }
 
 .wa-theme-classic-dark,
-.wa-theme-classic-dark :host {
+:is(:host-context(.wa-theme-classic-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 
