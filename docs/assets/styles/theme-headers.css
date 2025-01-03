@@ -137,3 +137,214 @@ html[class*='wa-theme-migration'] .preview-container {
   }
 }
 /* #endregion */
+
+/* #region Brutalist */
+html[class*='wa-theme-brutalist'] .preview-container {
+  container-name: brutalist-theme;
+}
+
+@container brutalist-theme (min-width: 0) {
+  .overlap {
+    background: var(--wa-color-surface-lowered) url('/assets/images/themer/brutalist/hero.png') 50% 3% no-repeat;
+  }
+
+  .strata.hero {
+    height: 42rem;
+    padding-top: 8rem;
+    padding-right: 50%;
+    --wa-font-weight-heading: var(--wa-font-weight-normal);
+  }
+
+  .hero wa-button {
+    --background: var(--wa-color-neutral-fill-loud);
+    margin-block-start: var(--wa-space-xl);
+    font-size: var(--wa-font-size-l);
+  }
+
+  /* imitating the large button styles */
+  .hero wa-button::part(base) {
+    height: var(--wa-form-control-height-l);
+    line-height: calc(var(--wa-form-control-height-l) - var(--border-width) * 2);
+    padding-inline-start: var(--wa-space-m);
+    padding-inline-end: var(--wa-space-xs);
+  }
+
+  .hero wa-button::part(label) {
+    padding: 0 var(--wa-space-l);
+  }
+
+  .strata.products {
+    margin-top: -20rem;
+    padding-top: 10rem;
+  }
+
+  .product-card .badge-stock {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .product-card::part(footer) {
+    --wa-shadow-offset-x-s: 0;
+    --wa-shadow-offset-y-s: 0;
+    border-width: 0;
+    text-align: right;
+  }
+
+  .product-card wa-button::part(base) {
+    height: var(--wa-form-control-height-m);
+    line-height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
+  }
+
+  .product-card wa-button::part(prefix) {
+    padding-inline-start: var(--wa-space-xs);
+  }
+
+  .product-card wa-button::part(suffix) {
+    padding-inline-end: var(--wa-space-xs);
+  }
+
+  .product-card wa-button:not(:last-child) {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  /* imitating the rounded avatar */
+  .blog wa-avatar {
+    background-color: transparent;
+  }
+
+  .blog wa-avatar::part(image) {
+    border: var(--wa-border-width-s) solid var(--wa-color-brand-fill-loud);
+    border-radius: var(--wa-border-radius-circle);
+  }
+
+  .blog .landscape-frame {
+    box-shadow: var(--wa-shadow-s);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+    margin-block-end: var(--wa-shadow-offset-y-s);
+  }
+
+  .post-meta .categories {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-composer wa-card::part(header) {
+    background-color: var(--wa-color-neutral-fill-loud);
+  }
+
+  .message-composer .grouped-buttons {
+    --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-base-30), white 40%);
+  }
+
+  .message-composer [slot='header'] wa-icon-button::part(base) {
+    color: var(--wa-color-neutral-on-loud);
+  }
+
+  .message-composer .grouped-buttons wa-icon-button::part(base) {
+    block-size: var(--wa-form-control-height-s);
+    inline-size: var(--wa-form-control-height-s);
+    justify-content: center;
+  }
+
+  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
+    background-color: var(--wa-color-neutral-fill-normal);
+    color: var(--wa-color-text-normal);
+  }
+
+  .message-composer wa-tooltip::part(body) {
+    background-color: var(--wa-color-brand-fill-loud);
+    color: var(--wa-color-brand-on-loud);
+  }
+
+  .message-composer wa-tooltip::part(base__arrow) {
+    --arrow-color: var(--wa-color-brand-fill-loud);
+  }
+
+  .message-composer wa-card::part(footer) {
+    border-width: 0;
+    --padding: 0 var(--wa-space-s) var(--wa-space-s) var(--wa-space-s);
+  }
+
+  .support-table th {
+    background-color: var(--wa-color-neutral-fill-loud);
+    color: var(--wa-color-neutral-on-loud);
+  }
+
+  .support-table th wa-checkbox {
+    --background: transparent;
+    --border-color: var(--wa-color-neutral-on-loud);
+    --border-color-checked: var(--wa-color-neutral-on-loud);
+  }
+
+  .checkout-form {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form .square-frame {
+    box-shadow: var(--wa-shadow-s);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+  }
+
+  .wa-theme-brutalist-dark {
+    & p a::before {
+      background: var(--wa-color-yellow-40);
+    }
+
+    & wa-rating {
+      --symbol-color: color-mix(in oklab, var(--wa-color-base-80), transparent 50%);
+      --symbol-color-active: var(--wa-color-base-80);
+    }
+
+    & wa-alert {
+      &[variant='brand'] {
+        --icon-color: var(--wa-color-brand-on-quiet);
+      }
+      &[variant='success'] {
+        --icon-color: var(--wa-color-success-on-quiet);
+      }
+      &[variant='warning'] {
+        --icon-color: var(--wa-color-warning-on-quiet);
+      }
+      &[variant='danger'] {
+        --icon-color: var(--wa-color-danger-on-quiet);
+      }
+      &[variant='neutral'] {
+        --icon-color: var(--wa-color-neutral-on-quiet);
+      }
+    }
+  }
+
+  .preview-container pre {
+    border-inline-start: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-neutral-border-quiet);
+  }
+
+  p a,
+  a.highlite-link {
+    position: relative;
+    --wa-link-decoration-default: none;
+    --wa-link-decoration-hover: none;
+
+    &:before {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      background: var(--wa-color-yellow-80);
+      width: 100%;
+      bottom: 0;
+      height: 50%;
+      opacity: 0.7;
+      transition: all var(--wa-transition-fast) ease-in-out;
+    }
+
+    &:hover:before {
+      height: 100%;
+    }
+  }
+}
+@container brutalist-theme (min-width: 1040px) and (max-width: 1140px) {
+  .product-card wa-button {
+    font-size: 80%;
+  }
+}
+/* #endregion */
