@@ -2,11 +2,6 @@
   display: block;
 }
 
-:host([appearance='filled']) {
-  --background-color: var(--wa-color-neutral-fill-quiet);
-  --border-color: var(--background-color);
-}
-
 /** The popup */
 .select {
   flex: 1 1 auto;
@@ -40,16 +35,12 @@
   min-height: var(--wa-form-control-height);
 
   :host([size='small']) & {
-    min-height: var(--wa-form-control-height-s);
-
     &:not(.placeholder-visible *) {
       padding-block: 2px;
     }
   }
 
   :host([size='large']) & {
-    min-height: var(--wa-form-control-height-l);
-
     &:not(.placeholder-visible *) {
       padding-block: 4px;
     }

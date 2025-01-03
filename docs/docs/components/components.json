@@ -1,4 +1,7 @@
 {
   "layout": "component.njk",
-  "tags": ["components"]
+  "tags": ["components"],
+  "eleventyComputed": {
+    "status": "{{ components[page.fileSlug].status }}"
+  }
 }

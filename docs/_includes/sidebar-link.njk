@@ -1,0 +1,16 @@
+{% if not (isAlpha and page.data.noAlpha) and page.fileSlug != tag and not page.unlisted -%}
+	<li>
+		<a href="/docs/{{ tag }}/{{ page.fileSlug }}">{{ page.data.title }}</a>
+		{% if page.data.status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}
+		{% if page.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
+
+		{% set children = page.data.children %}
+		{% if children.length > 0 %}
+			<ul>
+				{% for page in children %}
+					{% include 'sidebar-link.njk' %}
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</li>
+{%- endif %}

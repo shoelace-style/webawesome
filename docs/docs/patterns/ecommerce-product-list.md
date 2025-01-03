@@ -1,7 +1,7 @@
 ---
-title: E-commerce - Product Lists
+title: Product Lists
 description: TODO
-layout: pattern.njk
+parent: ecommerce
 ---
 
 TODO Page Description
