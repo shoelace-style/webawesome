@@ -38,8 +38,12 @@ export function getTitleFromUrl(url, collection) {
   return item?.data.title || '';
 }
 
+export function split(text, separator) {
+  return (text + '').split(separator).filter(Boolean);
+}
+
 export function breadcrumbs(url, { withCurrent = false } = {}) {
-  const parts = url.split('/').filter(Boolean);
+  const parts = split(url, '/');
   const ret = [];
 
   while (parts.length) {
@@ -113,13 +117,13 @@ function compare(a, b) {
   return (a + '').localeCompare(b);
 }
 
-/** Sort an array of objects */
-export function sort(arr, keys = ['data.order', 'data.title']) {
-  keys = toArray(keys);
+/** Sort an array of objects by one or more of their properties */
+export function sort(arr, by = { 'data.order': 1, 'data.title': '' }) {
+  let keys = Array.isArray(by) ? by : Object.keys(by);
 
   return arr.sort((a, b) => {
-    let aValues = keys.map(key => deepValue(a, key));
-    let bValues = keys.map(key => deepValue(b, key));
+    let aValues = keys.map(key => deepValue(a, key) ?? by[key]);
+    let bValues = keys.map(key => deepValue(b, key) ?? by[key]);
 
     for (let i = 0; i < aValues.length; i++) {
       let aVal = aValues[i];
@@ -197,4 +201,42 @@ export function getCategoryTitle(category, categories) {
 
   // Capitalized
   return category.charAt(0).toUpperCase() + category.slice(1);
+}
+
+const IDENTITY = x => x;
+
+/**
+ * Helper to print out one or more HTML attributes, especially conditional ones.
+ * Usage in 11ty:
+ * - Single attribute: `<foo{{ value | attr(name) }}>`
+ * - Multiple attributes: `<foo{{ { name1: value1, name2: value2 } | attr }}>`
+ *
+ * @overload
+ * @param {any} value - The attribute value If falsey, the attribute is not printed. If `true` the attribute is printed without a value.
+ * @param {string} name - The name of the attribute
+ *
+ * @overload
+ * @param {Object<string, any>} obj - Map of attribute names to values
+ *
+ * @returns {string} The attribute string. No `| safe` is needed.
+ */
+export function attr(value, name) {
+  const safe = this?.env.filters.safe ?? IDENTITY;
+
+  if (arguments.length === 1 && value && typeof value === 'object') {
+    // Called with a single object argument of names to values
+    let ret = Object.entries(obj)
+      .map(([name, value]) => attr(value, name))
+      .join('');
+    return safe(ret);
+  }
+
+  if (!value) {
+    // false, "", null, undefined
+    return '';
+  }
+
+  let ret = ' ' + name + (value === true ? '' : `="${value}"`);
+
+  return safe(ret);
 }

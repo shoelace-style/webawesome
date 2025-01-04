@@ -2,6 +2,7 @@
 title: Category Filter
 description: TODO
 parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

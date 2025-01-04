@@ -2,6 +2,7 @@
 title: Product Lists
 description: TODO
 parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

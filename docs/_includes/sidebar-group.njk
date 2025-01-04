@@ -1,5 +1,5 @@
 
-<wa-details {{ 'open' if ('/' + tag + '/') in page.url }}>
+<wa-details {{ (('/' + tag + '/') in page.url) | attr('open') }}>
   <h2 slot="summary">
     {% set groupUrl %}/docs/{{ tag }}/{% endset %}
     {% if groupUrl | getCollectionItemFromUrl %}

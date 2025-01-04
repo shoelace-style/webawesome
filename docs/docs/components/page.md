@@ -3,7 +3,7 @@ title: Page
 description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
 tags: [organization, layout]
 isPro: true
-order: 1
+order: 0
 # icon: page
 ---
 

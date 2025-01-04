@@ -1,6 +1,7 @@
 ---
 title: Component Groups
 description: Style groups of components that share similar qualities with these Web Awesome custom properties.
+order: 9999
 ---
 
 For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
