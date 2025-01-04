@@ -75,13 +75,13 @@ html[class*='wa-theme-migration'] .preview-container {
       radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-red-50) 16%, transparent), transparent 30%),
       radial-gradient(
         circle at 40% 50%,
-        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
+        color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent),
         transparent 40%
       ),
       radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-red-50) 8%, transparent), transparent 20%),
       radial-gradient(
         circle at 80% 80%,
-        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
+        color-mix(in oklab, var(--wa-color-indigo-40) 16%, transparent),
         transparent 40%
       ),
       radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-red-60) 8%, transparent), transparent 10%),
@@ -234,7 +234,7 @@ html[class*='wa-theme-brutalist'] .preview-container {
   }
 
   .message-composer .grouped-buttons {
-    --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-base-30), white 40%);
+    --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-30), white 40%);
   }
 
   .message-composer [slot='header'] wa-icon-button::part(base) {
@@ -293,7 +293,7 @@ html[class*='wa-theme-brutalist'] .preview-container {
 
     & wa-rating {
       --symbol-color: color-mix(in oklab, var(--wa-color-base-80), transparent 50%);
-      --symbol-color-active: var(--wa-color-base-80);
+      --symbol-color-active: var(--wa-color-gray-80);
     }
 
     & wa-alert {
@@ -345,6 +345,179 @@ html[class*='wa-theme-brutalist'] .preview-container {
 @container brutalist-theme (min-width: 1040px) and (max-width: 1140px) {
   .product-card wa-button {
     font-size: 80%;
+  }
+}
+/* #endregion */
+
+/* #region Playful */
+html[class*='wa-theme-playful'] .preview-container {
+  container-name: playful-theme;
+}
+
+@container playful-theme (min-width: 0) {
+  .project-header {
+    color: var(--wa-color-success-on-normal);
+  }
+
+  .hero-background {
+    position: absolute;
+    z-index: -1;
+    top: -60rem;
+    left: 50%;
+    width: 250rem;
+    height: 250rem;
+    transform: translate(-50%, -50%);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--wa-color-green-90) 69.42%, var(--wa-color-green-80) 100%);
+  }
+
+  .hero-background::after {
+    background: url(/assets/images/themer/playful/hero.png) 0 50% no-repeat;
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 600px;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 33rem;
+  }
+
+  .strata.hero {
+    padding-top: 19rem;
+    text-align: center;
+  }
+
+  .hero .hero-title {
+    color: var(--wa-color-success-on-normal);
+    font-size: var(--wa-font-size-4xl);
+  }
+
+  .hero .hero-cta {
+    font-size: var(--wa-font-size-l);
+  }
+
+  .product-card .badge-stock {
+    position: absolute;
+    top: var(--wa-space-xl);
+    right: var(--wa-space-xl);
+  }
+
+  .product-card {
+    --wa-panel-border-radius: var(--wa-border-radius-l);
+  }
+
+  .product-card::part(footer) {
+    border-width: 0;
+  }
+
+  .product-card wa-button {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  .blog wa-avatar {
+    --size: 2rem;
+  }
+
+  .blog .landscape-frame {
+    border-radius: var(--wa-border-radius-l);
+    box-shadow: var(--wa-shadow-s);
+  }
+
+  .message-composer wa-card {
+    --background: var(--wa-color-surface-raised);
+  }
+
+  .message-composer wa-card::part(header) {
+    --wa-color-neutral-border-quiet: var(--wa-color-gray-70);
+    border-width: 0;
+    background-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  &:not(.wa-theme-premium-dark) .message-composer wa-card {
+    --wa-color-neutral-fill-quiet: var(--wa-color-gray-90);
+  }
+
+  .message-composer wa-icon-button {
+    color: var(--wa-text-color-normal);
+    font-size: var(--wa-font-size-l);
+  }
+
+  .message-composer wa-card::part(footer) {
+    padding-top: 0;
+  }
+
+  .product-detail .price {
+    font-weight: var(--wa-font-weight-bold);
+  }
+
+  .support-table wa-card {
+    --background: var(--wa-color-surface-raised);
+  }
+
+  .support-table th {
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-bold);
+    background-color: var(--wa-color-surface-lowered);
+  }
+
+  .support-table tr {
+    border-top-color: var(--wa-color-surface-lowered);
+  }
+
+  .support-table .excerpt {
+    color: var(--wa-color-text-quiet);
+  }
+
+  .order-item img {
+    border-radius: var(--wa-border-radius-m);
+  }
+
+  .checkout-form {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .checkout-form h2 {
+    font-size: var(--wa-font-size-3xl);
+  }
+
+  .checkout-form wa-input::part(form-control-label),
+  .checkout-form wa-select::part(form-control-label) {
+    font-size: var(--wa-font-size-s);
+    padding-block-end: var(--wa-space-xs);
+  }
+
+  .wa-theme-playful-dark {
+    & .hero-background {
+      background: linear-gradient(180deg, var(--wa-color-green-60) 69.42%, var(--wa-color-green-30) 100%);
+    }
+
+    & .message-composer wa-card {
+      --border-color: var(--wa-color-gray-30);
+    }
+
+    & .message-composer wa-card::part(header) {
+      background: var(--wa-color-gray-40);
+    }
+
+    & .message-composer wa-card::part(footer) {
+      border-top: 0;
+    }
+
+    & .message-composer .tools .grouped-buttons:not(:last-of-type) {
+      --wa-color-neutral-border-quiet: var(--wa-color-gray-40);
+    }
+
+    & .support-table th {
+      background: var(--wa-color-surface-lowered);
+    }
+  }
+}
+/* responsive */
+@container playful-theme (min-width: 1040px) and (max-width: 1140px) {
+  .product-card wa-button {
+    font-size: 80%;
+    margin-inline-end: 0;
   }
 }
 /* #endregion */
