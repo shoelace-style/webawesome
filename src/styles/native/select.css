@@ -19,7 +19,11 @@ select,
   width: 100%;
   min-width: 0;
   position: relative;
-  font: inherit;
+  color: var(--wa-form-control-value-color);
+  font-size: var(--wa-size);
+  font-family: inherit;
+  font-weight: var(--wa-form-control-value-font-weight);
+  line-height: var(--wa-form-control-value-line-height);
   vertical-align: middle;
   overflow: hidden;
   cursor: pointer;
