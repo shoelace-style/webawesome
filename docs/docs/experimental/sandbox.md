@@ -287,7 +287,7 @@ layout: page-outline
   <label>Native Textarea <textarea placeholder="placeholder"></textarea></label>
   <wa-textarea label="WA Textarea" placeholder="placeholder"></wa-textarea>
 
-  <label>Native Textarea <textarea value="value"></textarea></label>
+  <label>Native Textarea <textarea>value</textarea></label>
   <wa-textarea label="WA Textarea" value="value"></wa-textarea>
 
   <label><input type="checkbox" checked> Native Checkbox</label>
