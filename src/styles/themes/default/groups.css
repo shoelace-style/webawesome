@@ -1,6 +1,6 @@
 /**
-* Component Groups
-*/
+ * Component Groups
+ */
 :where(:root, :host),
 .wa-theme-default-light {
   /* Form controls */
@@ -14,8 +14,8 @@
   --wa-form-control-resting-color: var(--wa-color-neutral-border-loud);
 
   --wa-form-control-label-color: var(--wa-color-text-normal);
-  --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
-  --wa-form-control-label-line-height: var(--wa-line-height-condensed);
+  --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
+  --wa-form-control-label-line-height: var(--wa-line-height-normal);
 
   --wa-form-control-value-color: var(--wa-color-text-normal);
   --wa-form-control-value-font-weight: var(--wa-font-weight-body);
