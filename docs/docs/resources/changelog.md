@@ -25,6 +25,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Font Awesome
   - Active
   - Brutalist
+  - Mellow
   - Migration
   - Playful
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
