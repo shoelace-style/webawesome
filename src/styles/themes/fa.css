@@ -448,9 +448,7 @@ wa-radio-group > wa-radio-button {
 }
 
 wa-switch {
-  /* --thumb-size: 1em; */
   --height: 1.5em;
-  /* --width: calc(var(--thumb-size) * 2.5); */
 }
 
 wa-tag {
@@ -458,24 +456,8 @@ wa-tag {
 }
 
 wa-input,
-wa-select {
-  --wa-form-control-height-s: calc(
-    var(--wa-space-s) * 2 + var(--wa-font-size-s) * var(--wa-form-control-value-line-height) +
-      var(--wa-shadow-offset-y-s)
-  );
-  --wa-form-control-height-m: calc(
-    var(--wa-space-m) * 2 + var(--wa-font-size-m) * var(--wa-form-control-value-line-height) +
-      var(--wa-shadow-offset-y-s)
-  );
-  --wa-form-control-height-l: calc(
-    var(--wa-space-l) * 2 + var(--wa-font-size-l) * var(--wa-form-control-value-line-height) +
-      var(--wa-shadow-offset-y-s)
-  );
-}
-
-wa-input,
 wa-select,
 wa-textarea {
-  --box-shadow: var(--wa-shadow-s) inset;
+  --box-shadow: inset var(--wa-shadow-s);
 }
 /* #endregion */
