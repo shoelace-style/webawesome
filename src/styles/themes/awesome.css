@@ -11,7 +11,7 @@
 
 :root,
 :host,
-.wa-theme-fa-light {
+.wa-theme-awesome-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
@@ -141,8 +141,8 @@
   --wa-tooltip-line-height: var(--wa-line-height-normal);
 }
 
-.wa-theme-fa-dark,
-:is(:host-context(.wa-theme-fa-dark)) {
+.wa-theme-awesome-dark,
+:is(:host-context(.wa-theme-awesome-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 
@@ -274,7 +274,7 @@ wa-badge {
     transform: translateY(var(--wa-shadow-offset-y-s));
   }
 
-  .wa-theme-fa-dark & {
+  .wa-theme-awesome-dark & {
     --border-color: var(--wa-color-border-quiet);
   }
 }

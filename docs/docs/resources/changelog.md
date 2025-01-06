@@ -22,7 +22,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ### Theming
 
 - Added new themes:
-  - Font Awesome
+  - Awesome
   - Active
   - Brutalist
   - Mellow
