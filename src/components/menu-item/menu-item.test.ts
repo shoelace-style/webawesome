@@ -145,13 +145,13 @@ describe('<wa-menu-item>', () => {
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
         submenu.focus();
         await menu.updateComplete;
-        await aTimeout(1)
+        await aTimeout(1);
         await sendKeys({ press: 'ArrowRight' });
         await menu.updateComplete;
-        await aTimeout(1)
+        await aTimeout(1);
         await sendKeys({ press: 'Enter' });
         await menu.updateComplete;
-        await aTimeout(1)
+        await aTimeout(1);
         // Once for each menu element.
         expect(selectHandler).to.have.been.calledTwice;
       });
