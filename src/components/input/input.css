@@ -30,6 +30,7 @@ input {
   background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
   height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
   padding-block: 0;
+  color: inherit;
 }
 
 input::-webkit-search-decoration,

@@ -15,6 +15,7 @@
 
 textarea {
   background-color: transparent;
+  color: inherit;
 
   &[part] {
     padding: var(--wa-space);
