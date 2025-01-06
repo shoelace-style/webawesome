@@ -6,20 +6,20 @@ import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
-import type WaRange from './range.js';
+import type WaSlider from './slider.js';
 
-describe('<wa-range>', () => {
-  runFormControlBaseTests('wa-range');
+describe('<wa-slider>', () => {
+  runFormControlBaseTests('wa-slider');
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should pass accessibility tests', async () => {
-        const el = await fixture<WaRange>(html`<wa-range label="Name"></wa-range>`);
+        const el = await fixture<WaSlider>(html`<wa-slider label="Name"></wa-slider>`);
         await expect(el).to.be.accessible();
       });
 
       it('default properties', async () => {
-        const el = await fixture<WaRange>(html` <wa-range></wa-range> `);
+        const el = await fixture<WaSlider>(html` <wa-slider></wa-slider> `);
 
         expect(el.name).to.equal('');
         expect(el.value).to.equal(0);
@@ -36,14 +36,14 @@ describe('<wa-range>', () => {
       });
 
       it('should have title if title attribute is set', async () => {
-        const el = await fixture<WaRange>(html` <wa-range title="Test"></wa-range> `);
+        const el = await fixture<WaSlider>(html` <wa-slider title="Test"></wa-slider> `);
         const input = el.shadowRoot!.querySelector('input')!;
 
         expect(input.title).to.equal('Test');
       });
 
       it('should be disabled with the disabled attribute', async () => {
-        const el = await fixture<WaRange>(html` <wa-range disabled></wa-range> `);
+        const el = await fixture<WaSlider>(html` <wa-slider disabled></wa-slider> `);
         const input = el.shadowRoot!.querySelector<HTMLInputElement>('.control')!;
 
         expect(input.disabled).to.be.true;
@@ -51,7 +51,7 @@ describe('<wa-range>', () => {
 
       describe('when the value changes', () => {
         it('should emit wa-change and wa-input and decrease the value when pressing right arrow', async () => {
-          const el = await fixture<WaRange>(html` <wa-range value="50"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider value="50"></wa-slider> `);
           const changeHandler = sinon.spy();
           const inputHandler = sinon.spy();
 
@@ -67,7 +67,7 @@ describe('<wa-range>', () => {
         });
 
         it('should not emit wa-change or wa-input when changing the value programmatically', async () => {
-          const el = await fixture<WaRange>(html` <wa-range value="0"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider value="0"></wa-slider> `);
 
           el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
           el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
@@ -77,7 +77,7 @@ describe('<wa-range>', () => {
         });
 
         it('should not emit wa-change or wa-input when stepUp() is called programmatically', async () => {
-          const el = await fixture<WaRange>(html` <wa-range step="2" value="2"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
           el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
           el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
@@ -86,7 +86,7 @@ describe('<wa-range>', () => {
         });
 
         it('should not emit wa-change or wa-input when stepDown() is called programmatically', async () => {
-          const el = await fixture<WaRange>(html` <wa-range step="2" value="2"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
           el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
           el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
@@ -97,7 +97,7 @@ describe('<wa-range>', () => {
 
       describe('step', () => {
         it('should increment by step when stepUp() is called', async () => {
-          const el = await fixture<WaRange>(html` <wa-range step="2" value="2"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
           el.stepUp();
           await el.updateComplete;
@@ -105,7 +105,7 @@ describe('<wa-range>', () => {
         });
 
         it('should decrement by step when stepDown() is called', async () => {
-          const el = await fixture<WaRange>(html` <wa-range step="2" value="2"></wa-range> `);
+          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
           el.stepDown();
           await el.updateComplete;
@@ -115,49 +115,49 @@ describe('<wa-range>', () => {
 
       describe('when submitting a form', () => {
         it('should serialize its name and value with FormData', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-range name="a" value="1"></wa-range></form> `);
+          const form = await fixture<HTMLFormElement>(html` <form><wa-slider name="a" value="1"></wa-slider></form> `);
           const formData = new FormData(form);
           expect(formData.get('a')).to.equal('1');
         });
 
         it('should serialize its name and value with JSON', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-range name="a" value="1"></wa-range></form> `);
+          const form = await fixture<HTMLFormElement>(html` <form><wa-slider name="a" value="1"></wa-slider></form> `);
           const json = serialize(form);
           expect(json.a).to.equal('1');
         });
 
         it('should be invalid when setCustomValidity() is called with a non-empty value', async () => {
-          const range = await fixture<HTMLFormElement>(html` <wa-range></wa-range> `);
+          const slider = await fixture<HTMLFormElement>(html` <wa-slider></wa-slider> `);
 
-          range.setCustomValidity('Invalid selection');
-          await range.updateComplete;
+          slider.setCustomValidity('Invalid selection');
+          await slider.updateComplete;
 
-          expect(range.checkValidity()).to.be.false;
-          expect(range.hasCustomState('invalid')).to.be.true;
-          expect(range.hasCustomState('valid')).to.be.false;
-          expect(range.hasCustomState('user-invalid')).to.be.false;
-          expect(range.hasCustomState('user-valid')).to.be.false;
+          expect(slider.checkValidity()).to.be.false;
+          expect(slider.hasCustomState('invalid')).to.be.true;
+          expect(slider.hasCustomState('valid')).to.be.false;
+          expect(slider.hasCustomState('user-invalid')).to.be.false;
+          expect(slider.hasCustomState('user-valid')).to.be.false;
 
-          await clickOnElement(range);
-          await range.updateComplete;
-          range.blur();
-          await range.updateComplete;
+          await clickOnElement(slider);
+          await slider.updateComplete;
+          slider.blur();
+          await slider.updateComplete;
 
-          expect(range.hasCustomState('user-invalid')).to.be.true;
-          expect(range.hasCustomState('user-valid')).to.be.false;
+          expect(slider.hasCustomState('user-invalid')).to.be.true;
+          expect(slider.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-range></wa-range></form> `);
-          const range = el.querySelector<WaRange>('wa-range')!;
+          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-slider></wa-slider></form> `);
+          const slider = el.querySelector<WaSlider>('wa-slider')!;
 
-          range.setCustomValidity('Invalid value');
-          await range.updateComplete;
+          slider.setCustomValidity('Invalid value');
+          await slider.updateComplete;
 
-          expect(range.hasCustomState('invalid')).to.be.true;
-          expect(range.hasCustomState('valid')).to.be.false;
-          expect(range.hasCustomState('user-invalid')).to.be.false;
-          expect(range.hasCustomState('user-valid')).to.be.false;
+          expect(slider.hasCustomState('invalid')).to.be.true;
+          expect(slider.hasCustomState('valid')).to.be.false;
+          expect(slider.hasCustomState('user-invalid')).to.be.false;
+          expect(slider.hasCustomState('user-valid')).to.be.false;
         });
 
         it('should be present in form data when using the form attribute and located outside of a <form>', async () => {
@@ -166,7 +166,7 @@ describe('<wa-range>', () => {
               <form id="f">
                 <wa-button type="submit">Submit</wa-button>
               </form>
-              <wa-range form="f" name="a" value="50"></wa-range>
+              <wa-slider form="f" name="a" value="50"></wa-slider>
             </div>
           `);
           const form = el.querySelector('form')!;
@@ -180,12 +180,12 @@ describe('<wa-range>', () => {
         it('should reset the element to its initial value', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
-              <wa-range name="a" value="99"></wa-range>
+              <wa-slider name="a" value="99"></wa-slider>
               <wa-button type="reset">Reset</wa-button>
             </form>
           `);
           const button = form.querySelector('wa-button')!;
-          const input = form.querySelector('wa-range')!;
+          const input = form.querySelector('wa-slider')!;
           input.value = 80;
 
           await input.updateComplete;

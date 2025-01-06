@@ -50,7 +50,7 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
   </wa-radio-group>
   <wa-checkbox>Checkbox</wa-checkbox>
   <wa-switch>Switch</wa-switch>
-  <wa-range label="Range"></wa-range>
+  <wa-slider label="Range"></wa-slider>
   <wa-button>Button</wa-button>
 </form>
 
