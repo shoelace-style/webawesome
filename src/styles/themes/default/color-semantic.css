@@ -29,7 +29,7 @@
    * Because solid shadows appear stronger in color than diffused shadows, this helps keep consistent color intensity. */
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-scale) * 24% + 8%),
+    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-scale) * 4% + 8%),
     transparent
   );
 

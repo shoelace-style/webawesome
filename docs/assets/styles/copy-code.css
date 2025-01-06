@@ -6,7 +6,7 @@ wa-copy-button.copy-button {
   right: 0.25rem;
   font-family: var(--wa-font-family-body);
   color: var(--wa-color-gray-80);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: 0.25rem;
 
   &:hover {

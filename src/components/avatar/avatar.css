@@ -24,7 +24,7 @@
 }
 
 :host([shape='rounded']) {
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
 }
 
 .icon {

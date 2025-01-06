@@ -167,7 +167,6 @@ layout: page
     width: 4rem;
   }
   </style>
-<div class="shadow" style="box-shadow: var(--wa-shadow-xs);"></div>
 <div class="shadow" style="box-shadow: var(--wa-shadow-s);"></div>
 <div class="shadow" style="box-shadow: var(--wa-shadow-m);"></div>
 <div class="shadow" style="box-shadow: var(--wa-shadow-l);"></div>

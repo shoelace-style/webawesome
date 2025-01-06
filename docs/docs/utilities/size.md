@@ -46,7 +46,7 @@ For example, assume we wanted to make a custom `.tag` class with size variants.
   .tag {
 	display: inline-block;
 	padding: var(--wa-space-smaller) var(--wa-space);
-	border-radius: var(--wa-border-radius-s); /* usually fixed across sizes */
+	border-radius: var(--wa-border-radius-m); /* usually fixed across sizes */
 	background-color: var(--wa-color-fill-quiet);
 	border: 1px solid var(--wa-color-border-quiet);
 	color: var(--wa-color-on-quiet);
@@ -114,7 +114,7 @@ That by itself is sufficient to give you sizes when the utility classes are used
 	display: inline-block;
 	font-size: var(--wa-size); /* needed for the default size */
 	padding: var(--wa-space-smaller) var(--wa-space);
-	border-radius: var(--wa-border-radius-xs); /* usually fixed across sizes */
+	border-radius: var(--wa-border-radius-s); /* usually fixed across sizes */
 	background-color: var(--wa-color-fill-quiet);
 	border: 1px solid var(--wa-color-border-quiet);
 	color: var(--wa-color-on-quiet);
@@ -155,7 +155,7 @@ Supporting a default size as well requires a little bit more plumbing:
 	display: inline-block;
 	font-size: var(--wa-size); /* needed for the default size */
 	padding: var(--wa-space-smaller) var(--wa-space);
-	border-radius: var(--wa-border-radius-xs); /* usually fixed across sizes */
+	border-radius: var(--wa-border-radius-s); /* usually fixed across sizes */
 	background-color: var(--wa-color-fill-quiet);
 	border: 1px solid var(--wa-color-border-quiet);
 	color: var(--wa-color-on-quiet);

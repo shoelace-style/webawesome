@@ -261,7 +261,7 @@ h1.title wa-badge {
   display: flex;
   gap: 1rem;
   border: var(--wa-border-style) var(--wa-border-width-s);
-  border-radius: var(--wa-border-radius-m);
+  border-radius: var(--wa-border-radius-l);
   padding: 1rem;
   margin-block-end: var(--wa-flow-spacing);
 
@@ -325,7 +325,7 @@ wa-page > main:has(> .index-grid) {
   gap: var(--wa-space-2xl);
 
   a {
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
   }
 
   wa-card {
@@ -374,7 +374,7 @@ wa-page > main:has(> .index-grid) {
   border-color: var(--wa-color-neutral-border-normal);
   border-style: var(--wa-border-style);
   border-width: var(--wa-border-width-s);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   box-sizing: border-box;
   line-height: 2.5;
   height: 2.5em;
@@ -384,13 +384,13 @@ wa-page > main:has(> .index-grid) {
 /* Layout Examples */
 .layout-example-boundary {
   border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-  border-radius: var(--wa-border-radius-m);
+  border-radius: var(--wa-border-radius-l);
   padding: var(--wa-space-s);
 }
 
 .layout-example-block {
   background-color: var(--wa-color-indigo-60);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   min-block-size: 4rem;
   min-inline-size: 4rem;
 }

@@ -1,6 +1,7 @@
 ---
 title: Component Groups
 description: Style groups of components that share similar qualities with these Web Awesome custom properties.
+order: 9999
 ---
 
 For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
@@ -16,7 +17,7 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | `--wa-form-control-background-color`        | `var(--wa-color-surface-default)`                                                                 |
 | `--wa-form-control-border-style`            | `var(--wa-border-style)`                                                                          |
 | `--wa-form-control-border-width`            | `var(--wa-border-width-s)`                                                                        |
-| `--wa-form-control-border-radius`           | `var(--wa-border-radius-s)`                                                                       |
+| `--wa-form-control-border-radius`           | `var(--wa-border-radius-m)`                                                                       |
 | `--wa-form-control-activated-color`         | `var(--wa-color-brand-fill-loud)`                                                                 |
 | `--wa-form-control-resting-color`           | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-label-color`             | `var(--wa-color-neutral-border-loud)`                                                             |
@@ -75,7 +76,7 @@ Panels consist of components with larger, contained surface areas like [callout]
 | -------------------------- | --------------------------- |
 | `--wa-panel-border-style`  | `var(--wa-border-style)`    |
 | `--wa-panel-border-width`  | `var(--wa-border-width-s)`  |
-| `--wa-panel-border-radius` | `var(--wa-border-radius-m)` |
+| `--wa-panel-border-radius` | `var(--wa-border-radius-l)` |
 
 ```html {.example}
 <div class="wa-block-spacing-l">
@@ -105,7 +106,7 @@ Tooltip styles are shared between the [tooltip](/docs/components/tooltip) compon
 | ---------------------------- | ----------------------------------- |
 | `--wa-tooltip-arrow-size`    | `0.375rem` <small>(6px)</small>     |
 | `--wa-tooltip-background-color`    | `var(--wa-color-neutral-fill-loud)` |
-| `--wa-tooltip-border-radius` | `var(--wa-border-radius-s)`         |
+| `--wa-tooltip-border-radius` | `var(--wa-border-radius-m)`         |
 | `--wa-tooltip-content-color` | `var(--wa-color-neutral-on-loud)`   |
 | `--wa-tooltip-font-size`     | `var(--wa-font-size-s)`             |
 | `--wa-tooltip-line-height`   | `var(--wa-line-height-normal)`      |

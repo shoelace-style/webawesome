@@ -68,7 +68,7 @@ For example when hiding a checkbox to render a custom one:
   height: var(--wa-font-size-l);
   background: var(--wa-color-neutral-fill-quiet);
   color: var(--wa-color-neutral-on-quiet);
-  border-radius: var(--wa-border-radius-xs);
+  border-radius: var(--wa-border-radius-s);
   margin-inline-end: var(--wa-space-xs);
 
   &::after {

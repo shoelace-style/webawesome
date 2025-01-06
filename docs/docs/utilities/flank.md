@@ -9,13 +9,13 @@ icon: layout/flank
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-flank']:has(div:empty) {
     border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
     padding: var(--wa-space-s);
   }
 
   [class*='wa-flank'] div:empty {
     background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     min-block-size: 4rem;
     min-inline-size: 4rem;
   }

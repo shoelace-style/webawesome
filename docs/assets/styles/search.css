@@ -2,7 +2,7 @@
   width: 38rem;
   position: absolute;
   top: 0;
-  border-radius: var(--wa-border-radius-m);
+  border-radius: var(--wa-border-radius-l);
   padding: 0;
   margin: 0 auto;
   overflow: hidden;
@@ -231,8 +231,8 @@ header {
   gap: 2rem;
   color: var(--wa-color-text-quiet);
   border-top: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  border-bottom-left-radius: var(--wa-border-radius-m);
-  border-bottom-right-radius: var(--wa-border-radius-m);
+  border-bottom-left-radius: var(--wa-border-radius-l);
+  border-bottom-right-radius: var(--wa-border-radius-l);
   padding: 1rem;
 
   kbd {

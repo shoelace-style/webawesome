@@ -29,6 +29,7 @@ input:where(:not(
     color: var(--wa-form-control-value-color);
     font-size: var(--wa-size);
     font-family: inherit;
+    font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
     vertical-align: middle;
     width: 100%;

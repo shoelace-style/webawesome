@@ -5,31 +5,25 @@
  */
 :where(:root, :host) {
   --wa-shadow-offset-x-scale: 0;
-  --wa-shadow-offset-x-xs: calc(var(--wa-shadow-offset-x-scale) * 0.5rem);
-  --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-scale) * 1rem);
-  --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-scale) * 2rem);
-  --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-scale) * 4rem);
+  --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-scale) * 0.125rem);
+  --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-scale) * 0.25rem);
+  --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-scale) * 0.5rem);
 
-  --wa-shadow-offset-y-scale: 0.125;
-  --wa-shadow-offset-y-xs: calc(var(--wa-shadow-offset-y-scale) * 0.5rem);
-  --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-scale) * 1rem);
-  --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-scale) * 2rem);
-  --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-scale) * 4rem);
+  --wa-shadow-offset-y-scale: 1;
+  --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-scale) * 0.125rem);
+  --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-scale) * 0.25rem);
+  --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-scale) * 0.5rem);
 
-  --wa-shadow-blur-scale: 0.125;
-  --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-scale) * 0.5rem);
-  --wa-shadow-blur-s: calc(var(--wa-shadow-blur-scale) * 1rem);
-  --wa-shadow-blur-m: calc(var(--wa-shadow-blur-scale) * 2rem);
-  --wa-shadow-blur-l: calc(var(--wa-shadow-blur-scale) * 4rem);
+  --wa-shadow-blur-scale: 1;
+  --wa-shadow-blur-s: calc(var(--wa-shadow-blur-scale) * 0.125rem);
+  --wa-shadow-blur-m: calc(var(--wa-shadow-blur-scale) * 0.25rem);
+  --wa-shadow-blur-l: calc(var(--wa-shadow-blur-scale) * 0.5rem);
 
-  --wa-shadow-spread-scale: -0.0625;
-  --wa-shadow-spread-xs: calc(var(--wa-shadow-spread-scale) * 0.5rem);
-  --wa-shadow-spread-s: calc(var(--wa-shadow-spread-scale) * 1rem);
-  --wa-shadow-spread-m: calc(var(--wa-shadow-spread-scale) * 2rem);
-  --wa-shadow-spread-l: calc(var(--wa-shadow-spread-scale) * 4rem);
+  --wa-shadow-spread-scale: -0.5;
+  --wa-shadow-spread-s: calc(var(--wa-shadow-spread-scale) * 0.125rem);
+  --wa-shadow-spread-m: calc(var(--wa-shadow-spread-scale) * 0.25rem);
+  --wa-shadow-spread-l: calc(var(--wa-shadow-spread-scale) * 0.5rem);
 
-  --wa-shadow-xs: var(--wa-shadow-offset-x-xs) var(--wa-shadow-offset-y-xs) var(--wa-shadow-blur-xs)
-    var(--wa-shadow-spread-xs) var(--wa-color-shadow);
   --wa-shadow-s: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s)
     var(--wa-shadow-spread-s) var(--wa-color-shadow);
   --wa-shadow-m: var(--wa-shadow-offset-x-m) var(--wa-shadow-offset-y-m) var(--wa-shadow-blur-m)

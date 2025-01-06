@@ -174,7 +174,7 @@ i.e. the previews of demos using the `viewport` attribute, but also opening demo
 Just setting `border-radius` or `border` should work as expected:
 
 ```html{.example}
-<wa-code-demo style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-s)">
+<wa-code-demo style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-m)">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
     &lt;wa-button&gt;Click me!&lt;/wa-button&gt;

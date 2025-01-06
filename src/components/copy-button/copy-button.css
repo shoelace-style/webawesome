@@ -14,7 +14,7 @@
   align-items: center;
   background-color: var(--background-color);
   border: none;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   color: inherit;
   font-size: inherit;
   padding: var(--wa-space-xs);

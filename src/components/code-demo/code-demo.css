@@ -15,7 +15,7 @@
   display: flex;
   flex-flow: column;
   border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  border-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-m));
+  border-radius: var(--wa-code-demo-rounding, var(--wa-border-radius-l));
   color: var(--wa-color-text-normal);
   margin-block-end: var(--wa-flow-spacing);
   background: var(--preview-backdrop);

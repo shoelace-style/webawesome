@@ -4,10 +4,9 @@
 {% for category, pages in allPages | groupByTags(categories) -%}
   <h2 class="index-category">{{ category | getCategoryTitle(categories) }}</h2>
     {%- for page in pages -%}
-      {%- if not page.data.unlisted and not page.data.parent -%}
+      {%- if not page.data.parent or listChildren -%}
         {% include "page-card.njk" %}
       {%- endif -%}
     {%- endfor -%}
 {%- endfor -%}
 </section>
-

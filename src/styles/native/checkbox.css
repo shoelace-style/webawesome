@@ -7,7 +7,7 @@ label:has(input[type='checkbox']):where(:not(:host *)),
   --border-color-checked: var(--wa-form-control-activated-color);
   --border-radius: min(
     calc(var(--toggle-size) * 0.375),
-    var(--wa-border-radius-xs)
+    var(--wa-border-radius-s)
   ); /* min prevents entirely circular checkbox */
   --border-style: var(--wa-border-style);
   --border-width: var(--wa-form-control-border-width);
@@ -17,6 +17,8 @@ label:has(input[type='checkbox']):where(:not(:host *)),
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
+  font-family: inherit;
+  font-weight: var(--wa-form-control-value-font-weight);
   line-height: var(--wa-form-control-value-line-height);
   user-select: none;
   -webkit-user-select: none;

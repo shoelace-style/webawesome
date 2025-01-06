@@ -1,7 +1,8 @@
 ---
-title: E-commerce - Order History
+title: Order History
 description: TODO
-layout: pattern.njk
+parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description
@@ -170,31 +171,4 @@ TODO Page Description
       }
     }
 
-    wa-button {
-      width: 100%;
-    }
-    /* dl {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 1rem;
-    } */
-  }
-
-  /* @media (min-width: 30rem) {
-    .invoice-totals {
-    display: flex;
-    justify-content: space-between;
-
-    dl {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 1rem;
-    }
-  }
-  } */
-</style>
-```
-
-### List
-```html{.example}
 ```

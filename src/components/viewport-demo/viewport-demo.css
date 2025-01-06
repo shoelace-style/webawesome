@@ -36,7 +36,7 @@
 
   /* Style frame like a window */
   border: var(--viewport-bezel-width) solid transparent;
-  border-radius: calc(var(--wa-border-radius-s));
+  border-radius: calc(var(--wa-border-radius-m));
 
   /* Window-like frame styling */
   --button-params: 0.4em / 0.5em 0.5em border-box;

@@ -245,7 +245,7 @@
   --wa-form-control-height-l: 3.125rem;
 
   /* Panels */
-  --wa-panel-border-radius: var(--wa-border-radius-s);
+  --wa-panel-border-radius: var(--wa-border-radius-m);
 
   /* Tooltips */
   --wa-tooltip-background-color: var(--wa-color-text-normal);
@@ -425,7 +425,7 @@ wa-card {
 }
 
 wa-carousel {
-  --box-shadow: var(--wa-shadow-xs);
+  --box-shadow: var(--wa-shadow-s);
   --pagination-color-active: var(--wa-color-neutral-fill-loud);
 }
 
