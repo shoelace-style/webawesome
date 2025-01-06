@@ -33,13 +33,13 @@ import styles from './card.css';
 export default class WaCard extends WebAwesomeElement {
   static shadowStyle = styles;
 
-  /** Renders the card with a header */
+  /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
 
-  /** Renders the card with an image */
+  /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-image', type: Boolean }) withImage = false;
 
-  /** Renders the card with a footer */
+  /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
 
   render() {

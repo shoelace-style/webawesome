@@ -60,7 +60,8 @@ Basic cards aren't very exciting, but they can display any content you want them
 
 ### Card with Header
 
-Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the card.
+Headers can be used to display titles and more.
+If using SSR, you need to also use the `with-header` attribute to add a header to the card (if not, it is added automatically).
 
 ```html {.example}
 <wa-card with-header class="card-header">
@@ -95,7 +96,8 @@ Headers can be used to display titles and more. Use the `with-header` attribute 
 
 ### Card with Footer
 
-Footers can be used to display actions, summaries, or other relevant content. Use the `with-footer` attribute to add a footer to the card.
+Footers can be used to display actions, summaries, or other relevant content.
+If using SSR, you need to also use the `with-footer` attribute to add a footer to the card (if not, it is added automatically).
 
 ```html {.example}
 <wa-card with-footer class="card-footer">
@@ -122,7 +124,8 @@ Footers can be used to display actions, summaries, or other relevant content. Us
 
 ### Images
 
-Card images are displayed atop the card and will stretch to fit. Use the `with-image` attribute to add an image to the card.
+Card images are displayed atop the card and will stretch to fit.
+If using SSR, you need to also use the `with-image` attribute to add an image to the card (if not, it is added automatically).
 
 ```html {.example}
 <wa-card with-image class="card-image">
