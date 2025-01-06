@@ -145,7 +145,7 @@ describe('<wa-menu-item>', () => {
 
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
         // Sometimes Chrome fails if we dont click before triggering focus.
-        await clickOnElement(document.body);
+        await clickOnElement(submenu);
         submenu.focus();
         await menu.updateComplete;
         await sendKeys({ press: 'ArrowRight' });
