@@ -22,7 +22,7 @@ elements:
 
 ### Appearance
 
-Use the [appearence utilities](/docs/utilities/appearance/) to change the select's visual appearance.
+Use the [appearance utilities](/docs/utilities/appearance/) to change the select's visual appearance.
 
 ```html {.example}
 <label>Select

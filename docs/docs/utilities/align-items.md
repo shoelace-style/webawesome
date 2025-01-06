@@ -7,14 +7,14 @@ tags: ["utilities", "layout"]
 <style>
   .preview-wrapper {
     border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     min-block-size: 3em;
     padding: var(--wa-space-2xs);
   }
   .preview-block {
     aspect-ratio: 1 / 1;
     background-color: var(--wa-color-neutral-fill-loud);
-    border-radius: var(--wa-border-radius-xs);
+    border-radius: var(--wa-border-radius-s);
     min-block-size: 1em;
   }
 </style>

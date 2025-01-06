@@ -43,7 +43,7 @@
   overscroll-behavior-x: contain;
   scrollbar-width: none;
   aspect-ratio: calc(var(--aspect-ratio) * var(--slides-per-page));
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
 
   --slide-size: calc((100% - (var(--slides-per-page) - 1) * var(--slide-gap)) / var(--slides-per-page));
 }
@@ -101,7 +101,7 @@
   align-items: center;
   background: none;
   border: none;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   font-size: inherit;
   color: var(--navigation-color);
   padding: var(--wa-space-xs);

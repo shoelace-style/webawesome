@@ -3,7 +3,7 @@ title: Page
 description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
 tags: [organization, layout]
 isPro: true
-order: 1
+order: 0
 # icon: page
 ---
 
@@ -119,7 +119,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-m wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
@@ -141,7 +141,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
           <span class="wa-caption-m">Least Concern</span>
         </div>
       </div>
-      <div class="wa-frame" style="border-radius: var(--wa-border-radius-m); max-inline-size: 40ch;">
+      <div class="wa-frame" style="border-radius: var(--wa-border-radius-l); max-inline-size: 40ch;">
         <img src="https://images.unsplash.com/photo-1544648720-132573cb590d?q=20" />
       </div>
     </div>
@@ -576,21 +576,21 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
   <div slot="main-footer" class="wa-grid wa-gap-xl wa-align-items-center">
     <h2 class="wa-heading-2xl">More You Might Like</h2>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1675219119611-40323b738563?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Festival of Lights</span>
       <span class="wa-caption-s">Station</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1481930916222-5ec4696fc0f2?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Holiday Cheer</span>
       <span class="wa-caption-s">Essential Playlist</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Nursery Rhymes from the Shire</span>
@@ -647,7 +647,7 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
       margin: 0;
 
       a {
-        border-radius: var(--wa-border-radius-s);
+        border-radius: var(--wa-border-radius-m);
         padding: var(--wa-space-xs);
 
         &:hover {
@@ -664,7 +664,7 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
       justify-content: center;
     }
     #recent wa-icon {
-      border-radius: var(--wa-border-radius-xs);
+      border-radius: var(--wa-border-radius-s);
     }
   }
 

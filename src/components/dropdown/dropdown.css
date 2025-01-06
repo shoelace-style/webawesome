@@ -31,7 +31,7 @@
 .panel {
   font: inherit;
   box-shadow: var(--box-shadow);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   pointer-events: none;
 }
 

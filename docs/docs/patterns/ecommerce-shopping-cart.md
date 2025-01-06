@@ -1,7 +1,8 @@
 ---
-title: E-commerce - Shopping Cart
+title: Shopping Cart
 description: TODO
-layout: pattern.njk
+parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

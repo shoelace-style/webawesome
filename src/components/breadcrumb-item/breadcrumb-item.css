@@ -23,7 +23,7 @@
   color: currentColor;
   background: none;
   border: none;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: 0;
   margin: 0;
   cursor: pointer;

@@ -5,10 +5,10 @@
   --wa-border-style: solid;
 
   /* A multiplier is provided to uniformly increase or decrease all border widths. */
-  --wa-border-width-scale: 0.0625;
-  --wa-border-width-s: calc(var(--wa-border-width-scale) * 1rem);
-  --wa-border-width-m: calc(var(--wa-border-width-scale) * 2rem);
-  --wa-border-width-l: calc(var(--wa-border-width-scale) * 3rem);
+  --wa-border-width-scale: 1;
+  --wa-border-width-s: calc(var(--wa-border-width-scale) * 0.0625rem);
+  --wa-border-width-m: calc(var(--wa-border-width-scale) * 0.125rem);
+  --wa-border-width-l: calc(var(--wa-border-width-scale) * 0.25rem);
 
   /**
    * Focus

@@ -127,7 +127,7 @@ eleventyExcludeFromCollections: true
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-m wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
@@ -149,7 +149,7 @@ eleventyExcludeFromCollections: true
           <span class="wa-caption-m">Least Concern</span>
         </div>
       </div>
-      <div class="wa-frame" style="border-radius: var(--wa-border-radius-m); max-inline-size: 40ch;">
+      <div class="wa-frame" style="wa-border-radius-l max-inline-size: 40ch;">
         <img src="https://images.unsplash.com/photo-1544648720-132573cb590d?q=20" />
       </div>
     </div>

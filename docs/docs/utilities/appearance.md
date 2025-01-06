@@ -48,7 +48,7 @@ This is all we need to do:
 	border: 1px solid var(--border-color);
 	color: var(--text-color);
 	padding: var(--wa-space-2xs) var(--wa-space-xs);
-	border-radius: var(--wa-border-radius-xs);
+	border-radius: var(--wa-border-radius-s);
   }
 </style>
 ```
@@ -91,7 +91,7 @@ These properties also work well with the [color variants](/docs/utilities/color/
 	border: 1px solid var(--border-color);
 	color: var(--text-color);
 	padding: var(--wa-space-2xs) var(--wa-space-xs);
-	border-radius: var(--wa-border-radius-xs);
+	border-radius: var(--wa-border-radius-s);
   }
 </style>
 ```

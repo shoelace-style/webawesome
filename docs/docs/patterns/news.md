@@ -1,7 +1,6 @@
 ---
 title: News
 description: TODO
-layout: pattern.njk
 ---
 
 TODO Page Description

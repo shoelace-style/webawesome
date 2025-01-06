@@ -290,9 +290,9 @@
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-border-radius-scale: calc(8 / 18);
-  --wa-border-radius-xs: calc(var(--wa-border-radius-scale) * 1rem);
-  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1.5rem);
-  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 3rem);
+  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem);
+  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1.5rem);
+  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 3rem);
   --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 5rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
@@ -349,7 +349,7 @@
   --wa-form-control-required-content-color: inherit;
   --wa-form-control-required-content-offset: -0.1em;
 
-  --wa-panel-border-radius: var(--wa-border-radius-m);
+  --wa-panel-border-radius: var(--wa-border-radius-l);
 
   /**
    * From 2.x
@@ -442,7 +442,7 @@
 /* #region Custom Styles */
 @container preview (min-width: 0) {
   .preview-container pre {
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
     background-color: var(--wa-color-base-90);
   }
 
@@ -823,7 +823,7 @@
   }
 
   .order-item img {
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .checkout-form {

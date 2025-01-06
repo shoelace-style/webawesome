@@ -1,7 +1,8 @@
 ---
-title: E-commerce - Category Filter
+title: Category Filter
 description: TODO
-layout: pattern.njk
+parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

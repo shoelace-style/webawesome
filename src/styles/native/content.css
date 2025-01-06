@@ -64,14 +64,14 @@ mark {
 ins {
   background-color: var(--wa-color-success-fill-quiet);
   color: var(--wa-color-success-on-normal);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   text-decoration: none;
 }
 
 del {
   background-color: var(--wa-color-danger-fill-quiet);
   color: var(--wa-color-danger-on-normal);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   text-decoration: none;
   padding: 0.125em 0.25em;
 }
@@ -79,7 +79,7 @@ del {
 mark {
   background-color: var(--wa-color-warning-fill-quiet);
   color: inherit;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: 0.125em 0.25em;
 }
 

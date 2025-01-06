@@ -5,7 +5,7 @@ blockquote {
   font-size: var(--wa-font-size-l);
   font-style: italic;
   background-color: var(--wa-color-neutral-fill-quiet);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: var(--wa-space-xl);
   margin: 0 0 var(--wa-space-xl) 0;
 

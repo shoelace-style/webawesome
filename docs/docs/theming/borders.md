@@ -37,11 +37,10 @@ Common border radius properties allow you to achieve specific shapes beyond your
 
 Size-based border radius properties allow you to customize the overall roundness of Web Awesome components. These use `rem` units in order to scale proportionately with the root font size.
 
-Each property uses a `calc()` function with `--wa-border-radius-scale` to scale all border radii at once. By default, this multiplier is `0.375`. The table below lists the result of the calculation.
+Each property uses a `calc()` function with `--wa-border-radius-scale` to uniformly scale all border radii. By default, this multiplier is `1`. The table below lists the result of the calculation.
 
 | Custom Property         | Default Value                    |  Preview                                                                     |
 | ----------------------- | -------------------------------- | ---------------------------------------------------------------------------- |
-| `--wa-border-radius-xs` | `0.1875rem` <small>(3px)</small> | <div class="swatch" style="border-radius: var(--wa-border-radius-xs)"></div> |
-| `--wa-border-radius-s`  | `0.375rem` <small>(6px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-s)"></div>  |
-| `--wa-border-radius-m`  | `0.75rem` <small>(12px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-m)"></div>  |
-| `--wa-border-radius-l`  | `1.125rem` <small>(18px)</small> | <div class="swatch" style="border-radius: var(--wa-border-radius-l)"></div>  |
+| `--wa-border-radius-s` | `0.1875rem` <small>(3px)</small> | <div class="swatch" style="border-radius: var(--wa-border-radius-s)"></div> |
+| `--wa-border-radius-m`  | `0.375rem` <small>(6px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-m)"></div>  |
+| `--wa-border-radius-l`  | `0.75rem` <small>(12px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-l)"></div>  |

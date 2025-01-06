@@ -48,6 +48,9 @@ export default function (eleventyConfig) {
     return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + location.replace(/^\//, '');
   });
 
+  // Paired shortcodes - {% shortCode %}content{% endShortCode %}
+  eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
+
   // Helpers
 
   // Remove elements that have [data-alpha="remove"]

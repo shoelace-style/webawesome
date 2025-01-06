@@ -7,7 +7,7 @@ var {
   font-family: var(--wa-font-family-code);
   font-size: 0.875em;
   background-color: var(--wa-color-overlay-inline);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: 0.25em 0.5em;
 }
 
@@ -17,7 +17,7 @@ code {
 
 pre {
   color: var(--wa-color-text-normal);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: var(--wa-space-m);
   white-space: pre;
 }
@@ -41,7 +41,7 @@ kbd {
   border: solid var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
   border-bottom-width: var(--wa-border-width-m);
   font-family: var(--wa-font-family-code);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   color: var(--wa-color-neutral-on-normal);
   padding: 0.25em 0.5em;
 
