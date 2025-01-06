@@ -177,7 +177,7 @@ describe('<wa-menu-item>', () => {
 
         const outerItem = menu.querySelector<WaMenuItem>('#outer')!;
         // Silly fix for CI + Chrome to focus properly.
-        await clickOnElement(outerItem)
+        await clickOnElement(outerItem);
         outerItem.focus();
         await menu.updateComplete;
         await sendKeys({ press: 'ArrowRight' });
