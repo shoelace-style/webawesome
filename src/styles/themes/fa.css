@@ -1,3 +1,4 @@
+@import url('../color/bright.css');
 @import url('default/color-semantic.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
@@ -6,7 +7,7 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 :root,
 :host,
@@ -15,114 +16,9 @@
   color: var(--wa-color-text-normal);
 
   /**
-   * Literal Colors
-   */
-  --wa-color-red-95: #ffefef;
-  --wa-color-red-90: #ffdddd;
-  --wa-color-red-80: #ffb7b7;
-  --wa-color-red-70: #ff8e8e;
-  --wa-color-red-60: #fd5f5f;
-  --wa-color-red-50: #de3131;
-  --wa-color-red-40: #b40917;
-  --wa-color-red-30: #910000;
-  --wa-color-red-20: #6d0000;
-  --wa-color-red-10: #450000;
-  --wa-color-red-05: #300000;
-
-  --wa-color-yellow-95: #fef3c1;
-  --wa-color-yellow-90: #fee682;
-  --wa-color-yellow-80: #fbc217;
-  --wa-color-yellow-70: #f39b00;
-  --wa-color-yellow-60: #e67700;
-  --wa-color-yellow-50: #b75d00;
-  --wa-color-yellow-40: #8c4600;
-  --wa-color-yellow-30: #6f3600;
-  --wa-color-yellow-20: #532600;
-  --wa-color-yellow-10: #341500;
-  --wa-color-yellow-05: #220c00;
-
-  --wa-color-green-95: #e0fae4;
-  --wa-color-green-90: #baf4c2;
-  --wa-color-green-80: #73e085;
-  --wa-color-green-70: #46c65c;
-  --wa-color-green-60: #33aa49;
-  --wa-color-green-50: #2a863c;
-  --wa-color-green-40: #20662e;
-  --wa-color-green-30: #194f24;
-  --wa-color-green-20: #123a1a;
-  --wa-color-green-10: #0b2210;
-  --wa-color-green-05: #07150a;
-
-  --wa-color-teal-95: #d8fbf0;
-  --wa-color-teal-90: #a4f5dd;
-  --wa-color-teal-80: #51e1b5;
-  --wa-color-teal-70: #1cc693;
-  --wa-color-teal-60: #0da97a;
-  --wa-color-teal-50: #088660;
-  --wa-color-teal-40: #066549;
-  --wa-color-teal-30: #054f39;
-  --wa-color-teal-20: #043a2a;
-  --wa-color-teal-10: #022319;
-  --wa-color-teal-05: #01160f;
-
-  --wa-color-blue-95: #e7f5ff;
-  --wa-color-blue-90: #ceeaff;
-  --wa-color-blue-80: #94d0fe;
-  --wa-color-blue-70: #60b5f9;
-  --wa-color-blue-60: #3299f0;
-  --wa-color-blue-50: #1a77cc;
-  --wa-color-blue-40: #165a9b;
-  --wa-color-blue-30: #11477a;
-  --wa-color-blue-20: #0d3459;
-  --wa-color-blue-10: #071f35;
-  --wa-color-blue-05: #051321;
-
-  --wa-color-indigo-95: #edf2ff;
-  --wa-color-indigo-90: #dce5ff;
-  --wa-color-indigo-80: #bac8ff;
-  --wa-color-indigo-70: #96abff;
-  --wa-color-indigo-60: #738efc;
-  --wa-color-indigo-50: #486af1;
-  --wa-color-indigo-40: #354dc3;
-  --wa-color-indigo-30: #293c98;
-  --wa-color-indigo-20: #1e2c70;
-  --wa-color-indigo-10: #121a43;
-  --wa-color-indigo-05: #0b102a;
-
-  --wa-color-violet-95: #f3f0ff;
-  --wa-color-violet-90: #eae2ff;
-  --wa-color-violet-80: #d1c0ff;
-  --wa-color-violet-70: #b8a0fd;
-  --wa-color-violet-60: #a080fb;
-  --wa-color-violet-50: #7f57f5;
-  --wa-color-violet-40: #603dc7;
-  --wa-color-violet-30: #4c309c;
-  --wa-color-violet-20: #372372;
-  --wa-color-violet-10: #211544;
-  --wa-color-violet-05: #150d2a;
-
-  --wa-color-gray-95: #f1f2f4;
-  --wa-color-gray-90: #e3e5ea;
-  --wa-color-gray-80: #c7cad4;
-  --wa-color-gray-70: #a9afbe;
-  --wa-color-gray-60: #8d95a8;
-  --wa-color-gray-50: #6a7591;
-  --wa-color-gray-40: #4b5977;
-  --wa-color-gray-30: #344566;
-  --wa-color-gray-20: #1a3356;
-  --wa-color-gray-10: #0e1e35;
-  --wa-color-gray-05: #081220;
-
-  /**
    * Foundational Colors
    */
   --wa-color-text-normal: var(--wa-color-gray-20);
-
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-scale) * 24% + 8%),
-    transparent
-  );
 
   /**
    * Semantic Colors
@@ -212,19 +108,14 @@
   /**
    * Shadows
    */
-
   --wa-shadow-offset-y-scale: 2;
-
   --wa-shadow-blur-scale: 0;
-
   --wa-shadow-spread-scale: 0;
 
   /**
    * Transitions
    */
-  --wa-transition-slow: 0ms;
-  --wa-transition-normal: 0ms;
-  --wa-transition-fast: 0ms;
+  --wa-transition-easing: ease-in;
 
   /**
    * Component Groups
@@ -351,11 +242,19 @@
 
 /* #region Custom Styles */
 wa-badge {
+  border-radius: var(--wa-border-radius-m);
   font-weight: var(--wa-font-weight-bold);
   text-transform: uppercase;
 }
 
-wa-button:not([appearance='plain']) {
+:is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
+    [appearance='plain'],
+    .wa-plain
+  ) {
+  --wa-transition-slow: 0;
+  --wa-transition-normal: 0;
+  --wa-transition-fast: 0;
+
   --border-color: var(--text-color);
   --border-color-hover: var(--border-color);
   --border-color-active: var(--border-color);
@@ -365,55 +264,25 @@ wa-button:not([appearance='plain']) {
   --text-color-active: var(--background-color);
 
   margin-bottom: var(--wa-shadow-offset-y-s);
-  margin-right: var(--wa-shadow-offset-x-s);
-}
-.wa-theme-fa-dark wa-button:not([appearance='plain'])[variant='brand'] {
-  --border-color: var(--wa-color-brand-border-quiet);
-}
-.wa-theme-fa-dark wa-button:not([appearance='plain'])[variant='success'] {
-  --border-color: var(--wa-color-success-border-quiet);
-}
-.wa-theme-fa-dark wa-button:not([appearance='plain'])[variant='warning'] {
-  --border-color: var(--wa-color-warning-border-quiet);
-}
-.wa-theme-fa-dark wa-button:not([appearance='plain'])[variant='danger'] {
-  --border-color: var(--wa-color-danger-border-quiet);
-}
-.wa-theme-fa-dark wa-button:not([appearance='plain'])[variant='neutral'] {
-  --border-color: var(--wa-color-neutral-border-quiet);
-}
 
-wa-button:not([appearance='plain']):active {
-  box-shadow: none;
-  transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
-}
+  &:is([appearance='outlined'], .wa-outlined) {
+    --background-color: var(--wa-color-surface-default);
+  }
 
-wa-button[appearance='outlined'] {
-  --background-color: var(--wa-color-surface-default);
+  &:not([disabled], [loading]):active {
+    box-shadow: none;
+    transform: translateY(var(--wa-shadow-offset-y-s));
+  }
+
+  .wa-theme-fa-dark & {
+    --border-color: var(--wa-color-border-quiet);
+  }
 }
 
 wa-callout {
+  border-color: var(--wa-color-border-normal);
   color: var(--wa-color-text-normal);
-}
-wa-callout[variant='brand'] {
-  border-color: var(--wa-color-brand-border-normal);
-  --icon-color: var(--wa-color-brand-border-normal);
-}
-wa-callout[variant='success'] {
-  border-color: var(--wa-color-success-border-normal);
-  --icon-color: var(--wa-color-success-border-normal);
-}
-wa-callout[variant='warning'] {
-  border-color: var(--wa-color-warning-border-normal);
-  --icon-color: var(--wa-color-warning-border-normal);
-}
-wa-callout[variant='danger'] {
-  border-color: var(--wa-color-danger-border-normal);
-  --icon-color: var(--wa-color-danger-border-normal);
-}
-wa-callout[variant='neutral'] {
-  border-color: var(--wa-color-neutral-border-normal);
-  --icon-color: var(--wa-color-neutral-border-normal);
+  --icon-color: var(--wa-color-border-normal);
 }
 
 wa-card {
@@ -427,6 +296,7 @@ wa-card::part(footer) {
   border-top: var(--border-width) dotted var(--border-color);
 }
 
+input[type='checkbox'],
 wa-checkbox {
   --checked-icon-color: var(--wa-color-surface-default);
 }
@@ -455,9 +325,28 @@ wa-tag {
   font-weight: var(--wa-font-weight-bold);
 }
 
-wa-input,
-wa-select,
-wa-textarea {
+:is(
+    input:where(
+        :not(
+          [type='button'],
+          [type='checkbox'],
+          [type='color'],
+          [type='file'],
+          [type='hidden'],
+          [type='image'],
+          [type='radio'],
+          [type='range'],
+          [type='reset'],
+          [type='submit']
+        )
+      ),
+    select,
+    textarea,
+    wa-input,
+    wa-select,
+    wa-textarea,
+    .wa-text-field
+  ):not(:focus, [appearance='filled'], .wa-filled) {
   --box-shadow: inset var(--wa-shadow-s);
 }
 /* #endregion */
