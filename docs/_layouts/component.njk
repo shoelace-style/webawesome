@@ -1,23 +1,8 @@
-{% set hasSidebar = true %}
-{% set hasOutline = true %}
+{% extends '../_layouts/block.njk' %}
 {% set component = components[page.fileSlug] %}
-{% set description = component.summary %}
-{% set status = component.status %}
-{% set since = component.since %}
-
-{% extends '../_includes/base.njk' %}
 
 {# Component header #}
-{% block beforeContent %}
-  <h1 class="title">{{ title }}</h1>
-  <div class="component-info">
-    <code class="tag">&lt;{{ component.tagName }}&gt;</code>
-
-    {% include '../_includes/status.njk' %}
-  </div>
-  <p class="summary">
-    {{ component.summary | inlineMarkdown | safe }}
-  </p>
+{% block notes %}
   {% if native %}
   <wa-callout variant="success">
     <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
@@ -25,11 +10,6 @@
     Check out the <a href="/docs/native/{{ native }}/">{{ ('/docs/native/' + native + '/') | getTitleFromUrl }} native styles</a>!
   </wa-callout>
   {% endif %}
-{% endblock %}
-
-{# Content #}
-{% block content %}
-  {{ content | safe }}
 {% endblock %}
 
 {# Component API #}

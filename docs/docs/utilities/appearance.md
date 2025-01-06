@@ -1,11 +1,11 @@
 ---
 title: Appearance Variants
 description: Appearance utilities apply a collection of properties to achieve certain effects, like making elements accented, outlined, filled, or plain.
-classes:
-  - wa-accent
-  - wa-outlined
-  - wa-filled
-  - wa-plain
+snippets:
+  - .wa-accent
+  - .wa-outlined
+  - .wa-filled
+  - .wa-plain
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change their overall style by using an `appearance` attribute:
