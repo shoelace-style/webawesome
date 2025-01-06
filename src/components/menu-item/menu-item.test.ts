@@ -1,8 +1,9 @@
-import { expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaSelectEvent } from '../../events/select.js';
+import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaMenuItem from './menu-item.js';
 
@@ -143,6 +144,8 @@ describe('<wa-menu-item>', () => {
         menu.addEventListener('wa-select', selectHandler);
 
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
+        // Sometimes Chrome fails if we dont click before triggering focus.
+        await clickOnElement(submenu);
         submenu.focus();
         await menu.updateComplete;
         await sendKeys({ press: 'ArrowRight' });
@@ -173,6 +176,9 @@ describe('<wa-menu-item>', () => {
         });
 
         const outerItem = menu.querySelector<WaMenuItem>('#outer')!;
+        // Silly fix for CI + Chrome to focus properly.
+        await clickOnElement(outerItem);
+
         outerItem.focus();
         await menu.updateComplete;
         await sendKeys({ press: 'ArrowRight' });
