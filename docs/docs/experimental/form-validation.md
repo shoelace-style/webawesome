@@ -15,7 +15,7 @@ Adding the `wa-valid` or `wa-invalid` class to a form control will change its ap
       <wa-option>Well, maybe two is OK</wa-option>
     </wa-select>
     <wa-textarea class="wa-valid" label="Bio" hint="Tell us about yourself" placeholder="Enter a bio"></wa-textarea><br>
-    <wa-range class="wa-valid" value="50" label="Volume" hint="Crank it up"></wa-range><br>
+    <wa-slider class="wa-valid" value="50" label="Volume" hint="Crank it up"></wa-slider><br>
     <wa-checkbox class="wa-valid" checked>I am awesome</wa-checkbox><br>
     <wa-checkbox class="wa-valid">So am I</wa-checkbox><br><br>
     <wa-switch class="wa-valid" checked>Still awesome</wa-switch><br>
@@ -35,7 +35,7 @@ Adding the `wa-valid` or `wa-invalid` class to a form control will change its ap
       <wa-option>Well, maybe two is OK</wa-option>
     </wa-select>
     <wa-textarea class="wa-invalid" label="Bio" hint="Tell us about yourself" placeholder="Enter a bio"></wa-textarea><br>
-    <wa-range class="wa-invalid" value="50" label="Volume" hint="Crank it up"></wa-range><br>
+    <wa-slider class="wa-invalid" value="50" label="Volume" hint="Crank it up"></wa-slider><br>
     <wa-checkbox class="wa-invalid" checked>I am awesome</wa-checkbox><br>
     <wa-checkbox class="wa-invalid">So am I</wa-checkbox><br><br>
     <wa-switch class="wa-invalid" checked>Still awesome</wa-switch><br>

@@ -1,5 +1,5 @@
 {
-  "layout": "pattern.njk",
+  "layout": "block.njk",
   "tags": ["patterns"],
   "noAlpha": true
 }

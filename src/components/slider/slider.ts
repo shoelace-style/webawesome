@@ -14,7 +14,7 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-eleme
 import sliderStyles from '../../styles/native/slider.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './range.css';
+import styles from './slider.css';
 
 /**
  * @summary Ranges allow the user to select a single value within a given range using a slider.
@@ -22,7 +22,7 @@ import styles from './range.css';
  * @status stable
  * @since 2.0
  *
- * @slot label - The range's label. Alternatively, you can use the `label` attribute.
+ * @slot label - The slider label. Alternatively, you can use the `label` attribute.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
@@ -36,7 +36,7 @@ import styles from './range.css';
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart base - The internal `<input>` element.
- * @csspart tooltip - The range's tooltip.
+ * @csspart tooltip - The slider tooltip.
  *
  * @cssproperty --thumb-color - The color of the thumb.
  * @cssproperty --thumb-gap - The visual gap between the edges of the thumb and the track.
@@ -48,8 +48,8 @@ import styles from './range.css';
  * @cssproperty --track-height - The height of the track.
  * @cssproperty --track-active-offset - The point of origin of the active track.
  */
-@customElement('wa-range')
-export default class WaRange extends WebAwesomeFormAssociatedElement {
+@customElement('wa-slider')
+export default class WaSlider extends WebAwesomeFormAssociatedElement {
   static shadowStyle = [formControlStyles, sliderStyles, styles];
 
   static get validators() {
@@ -66,7 +66,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
   @state() private hasTooltip = false;
   @property() title = ''; // make reactive to pass through
 
-  /** The name of the range, submitted as a name/value pair with form data. */
+  /** The name of the slider, submitted as a name/value pair with form data. */
   @property() name: string = '';
 
   /** The default value of the form control. Primarily used for resetting the form control. */
@@ -75,7 +75,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
 
   private _value: number | null = null;
 
-  /** The current value of the range, submitted as a name/value pair with form data. */
+  /** The current value of the slider, submitted as a name/value pair with form data. */
   get value(): number {
     if (this.valueHasChanged) {
       return this._value || 0;
@@ -94,29 +94,29 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
-  /** The range's label. If you need to display HTML, use the `label` slot instead. */
+  /** The slider label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The range's hint. If you need to display HTML, use the hint slot instead. */
+  /** The slider hint. If you need to display HTML, use the hint slot instead. */
   @property({ attribute: 'hint' }) hint = '';
 
-  /** Disables the range. */
+  /** Disables the slider. */
   @property({ type: Boolean }) disabled = false;
 
-  /** The minimum acceptable value of the range. */
+  /** The minimum acceptable value of the slider. */
   @property({ type: Number }) min = 0;
 
-  /** The maximum acceptable value of the range. */
+  /** The maximum acceptable value of the slider. */
   @property({ type: Number }) max = 100;
 
-  /** The interval at which the range will increase and decrease. */
+  /** The interval at which the slider will increase and decrease. */
   @property({ type: Number }) step = 1;
 
-  /** The preferred placement of the range's tooltip. */
+  /** The preferred placement of the slider tooltip. */
   @property() tooltip: 'top' | 'bottom' | 'none' = 'top';
 
   /**
-   * A function used to format the tooltip's value. The range's value is passed as the first and only argument. The
+   * A function used to format the tooltip's value. The slider value is passed as the first and only argument. The
    * function should return a string to display in the tooltip.
    */
   @property({ attribute: false }) tooltipFormatter: (value: number) => string = (value: number) => value.toString();
@@ -237,17 +237,17 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  /** Sets focus on the range. */
+  /** Sets focus on the slider. */
   focus(options?: FocusOptions) {
     this.input.focus(options);
   }
 
-  /** Removes focus from the range. */
+  /** Removes focus from the slider. */
   blur() {
     this.input.blur();
   }
 
-  /** Increments the value of the range by the value of the step attribute. */
+  /** Increments the value of the slider by the value of the step attribute. */
   stepUp() {
     this.input.stepUp();
     if (this.value !== Number(this.input.value)) {
@@ -255,7 +255,7 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  /** Decrements the value of the range by the value of the step attribute. */
+  /** Decrements the value of the slider by the value of the step attribute. */
   stepDown() {
     this.input.stepDown();
     if (this.value !== Number(this.input.value)) {
@@ -330,6 +330,6 @@ export default class WaRange extends WebAwesomeFormAssociatedElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'wa-range': WaRange;
+    'wa-slider': WaSlider;
   }
 }

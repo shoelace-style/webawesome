@@ -4,6 +4,9 @@ description: 'Button styles apply your Web Awesome theme to native HTML buttons.
 tags: forms
 component: button
 icon: button
+snippets:
+  '<button>': https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+  '.wa-button': false
 ---
 
 ```html {.example}
