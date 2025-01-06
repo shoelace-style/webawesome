@@ -9,13 +9,13 @@ icon: layout/grid
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-grid']:has(div:empty) {
     border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
     padding: var(--wa-space-s);
   }
 
   [class*='wa-grid'] div:empty {
     background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     min-block-size: 4rem;
     min-inline-size: 4rem;
   }
@@ -39,35 +39,35 @@ Grids work especially well for card lists and content designed for browsing.
 ```html {.example}
 <div class="wa-grid">
   <div class="wa-stack wa-gap-s">
-    <div class="wa-frame wa-border-radius-m">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?q=20" alt="" />
     </div>
     <h3 class="wa-heading-s">Tulip</h3>
     <em>Tulipa gesneriana</em>
   </div>
   <div class="wa-stack wa-gap-s">
-    <div class="wa-frame wa-border-radius-m">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1591767134492-338e62f7b5a2?q=20" alt="" />
     </div>
     <h3 class="wa-heading-s">Peony</h3>
     <em>Paeonia officinalis</em>
   </div>
   <div class="wa-stack wa-gap-s">
-    <div class="wa-frame wa-border-radius-m">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1590872000386-4348c6393115?q=20" alt="" />
     </div>
     <h3 class="wa-heading-s">Poppy</h3>
     <em>Papaver rhoeas</em>
   </div>
   <div class="wa-stack wa-gap-s">
-    <div class="wa-frame wa-border-radius-m">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1516723338795-324c7c33f700?q=20" alt="" />
     </div>
     <h3 class="wa-heading-s">Sunflower</h3>
     <em>Helianthus annuus</em>
   </div>
   <div class="wa-stack wa-gap-s">
-    <div class="wa-frame wa-border-radius-m">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1563601841845-74a0a8ab7c8a?q=20" alt="" />
     </div>
     <h3 class="wa-heading-s">Daisy</h3>

@@ -1,7 +1,8 @@
 ---
-title: E-commerce - Product Detail
+title: Product Detail
 description: TODO
-layout: pattern.njk
+parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

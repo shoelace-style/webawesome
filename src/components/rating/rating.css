@@ -10,7 +10,7 @@
 .rating {
   position: relative;
   display: inline-flex;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   vertical-align: middle;
 }
 

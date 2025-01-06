@@ -1,7 +1,6 @@
 ---
 title: Blog
 description: TODO
-layout: pattern.njk
 ---
 
 TODO Page Description

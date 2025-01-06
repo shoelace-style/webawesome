@@ -2,6 +2,7 @@
 title: E-commerce
 description: TODO
 layout: page
+tags: e-commerce
 ---
 
 TODO Page Description

@@ -14,7 +14,7 @@ icon: layout/frame
 
   [class*='wa-frame'] div:empty {
     background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     min-block-size: 4rem;
     min-inline-size: 4rem;
   }
@@ -131,7 +131,6 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 ## Border Radius
 
 Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
-- `wa-border-radius-xs`
 - `wa-border-radius-s`
 - `wa-border-radius-m`
 - `wa-border-radius-l`

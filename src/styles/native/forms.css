@@ -15,7 +15,7 @@ label > :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
 /* Fieldsets */
 fieldset {
   border: solid 1px var(--wa-color-surface-border);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   padding: var(--wa-space-m);
   padding-block-end: var(--wa-space-xl);
 }

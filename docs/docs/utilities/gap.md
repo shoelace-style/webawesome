@@ -8,7 +8,7 @@ tags: ["utilities", "layout"]
   .preview-block {
     aspect-ratio: 1 / 1;
     background-color: var(--wa-color-neutral-fill-loud);
-    border-radius: var(--wa-border-radius-xs);
+    border-radius: var(--wa-border-radius-s);
     min-block-size: 1.5em;
   }
 </style>

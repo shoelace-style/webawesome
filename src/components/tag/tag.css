@@ -4,7 +4,7 @@
   --size-l: var(--wa-font-size-m);
 
   display: inline-flex;
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   align-items: center;
   background-color: var(--wa-color-fill-quiet);
   border-color: var(--wa-color-border-normal);

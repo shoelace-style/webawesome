@@ -18,8 +18,7 @@ Each class corresponds to one of the [`--wa-border-radius-*`](/docs/theming/bord
 
 | Class Name                | `border-radius` Value       | Preview                                                                                 |
 | ------------------------- | --------------------------- | --------------------------------------------------------------------------------------- |
-| `wa-border-radius-xs`     | `--wa-border-radius-xs`     | <div class="preview-block" style="border-radius: var(--wa-border-radius-xs)"></div>     |
-| `wa-border-radius-s`      | `--wa-border-radius-s`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-s)"></div>      |
+| `wa-border-radius-s`     | `--wa-border-radius-s`     | <div class="preview-block" style="border-radius: var(--wa-border-radius-s)"></div>     |
 | `wa-border-radius-m`      | `--wa-border-radius-m`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-m)"></div>      |
 | `wa-border-radius-l`      | `--wa-border-radius-l`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-l)"></div>      |
 | `wa-border-radius-pill`   | `--wa-border-radius-pill`   | <div class="preview-block" style="border-radius: var(--wa-border-radius-pill)"></div>   |

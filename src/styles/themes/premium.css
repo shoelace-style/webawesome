@@ -278,9 +278,9 @@
   /* Corners are designed to scale according to a single base value.
    * The base value is intended for calculations and is not used by components directly. */
   --wa-border-radius-scale: 0.25;
-  --wa-border-radius-xs: calc(var(--wa-border-radius-scale) * 0.75rem);
-  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem);
-  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 2rem);
+  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 0.75rem);
+  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem);
+  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 2rem);
   --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 3rem);
 
   /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
@@ -314,7 +314,7 @@
    */
   --wa-form-control-background-color: transparent;
 
-  --wa-form-control-border-radius: var(--wa-border-radius-s);
+  --wa-form-control-border-radius: var(--wa-border-radius-m);
 
   --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
   --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
@@ -337,7 +337,7 @@
   --wa-form-control-required-content-color: inherit;
   --wa-form-control-required-content-offset: -0.1em;
 
-  --wa-panel-border-radius: var(--wa-border-radius-s);
+  --wa-panel-border-radius: var(--wa-border-radius-m);
 
   /**
    * From 2.x
@@ -483,7 +483,7 @@
   }
 
   wa-card {
-    --border-radius: var(--wa-border-radius-m);
+    --border-radius: var(--wa-border-radius-l);
   }
 
   wa-alert {
@@ -641,11 +641,11 @@
   }
 
   .support-table th:first-child {
-    border-radius: var(--wa-border-radius-m) 0 0 0;
+    border-radius: var(--wa-border-radius-l) 0 0 0;
   }
 
   .support-table th:last-child {
-    border-radius: 0 var(--wa-border-radius-m) 0 0;
+    border-radius: 0 var(--wa-border-radius-l) 0 0;
   }
 
   .support-table tr {

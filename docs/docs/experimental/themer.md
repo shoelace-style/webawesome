@@ -120,10 +120,9 @@ hasOutline: false
     --wa-panel-border-width: var(--wa-border-width-s);
 
     --wa-border-radius-scale: 0.375;
-    --wa-border-radius-xs: calc(var(--wa-border-radius-scale) * 1rem * 0.75);
-    --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem * 1);
-    --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem * 2);
-    --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 1rem * 3);
+    --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem * 0.75);
+    --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem * 1);
+    --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 1rem * 2);
 
     --wa-shadow-blur-scale: 0.125;
     --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-scale) * 0.75rem);
@@ -154,7 +153,7 @@ hasOutline: false
 
     --wa-form-control-background-color: var(--wa-color-surface-default);
 
-    --wa-form-control-border-radius: var(--wa-border-radius-s);
+    --wa-form-control-border-radius: var(--wa-border-radius-m);
 
     --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
     --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
@@ -183,7 +182,7 @@ hasOutline: false
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: -0.1em;
 
-    --wa-panel-border-radius: var(--wa-border-radius-m);
+    --wa-panel-border-radius: var(--wa-border-radius-l);
 
     font-family: var(--wa-font-family-code);
     font-size: 1rem;
@@ -288,7 +287,7 @@ hasOutline: false
 
   #knobs wa-radio-group[name="color"] wa-radio {
     border: 0.0625em solid var(--wa-color-neutral-border-quiet);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
     box-shadow: inset 0 0 0 0 transparent;
     padding: 1em;
     transition: box-shadow var(--wa-transition-normal) var(--wa-transition-easing);
@@ -415,7 +414,7 @@ hasOutline: false
   }
 
   wa-radio-group[name="project-logo-selector"] wa-radio-button:last-of-type::part(button) {
-    border-radius: 0 var(--wa-border-radius-s) var(--wa-border-radius-s) 0;
+    border-radius: 0 var(--wa-border-radius-m) var(--wa-border-radius-m) 0;
   }
 
   wa-radio-group[name="project-logo-selector"] wa-tooltip {
@@ -443,7 +442,7 @@ hasOutline: false
 
   .icon-search {
     border: solid 1px var(--wa-color-surface-border);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     padding: var(--wa-space-m);
   }
 
@@ -1704,7 +1703,7 @@ hasOutline: false
     overflow: hidden;
 
     &:not(wa-card *) {
-      border-radius: calc(var(--wa-border-radius-m) - var(--wa-panel-border-width));
+      border-radius: calc(var(--wa-border-radius-l) - var(--wa-panel-border-width));
     }
 
     & > img {

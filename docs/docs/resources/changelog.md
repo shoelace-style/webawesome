@@ -19,6 +19,20 @@ During the alpha period, things might break! We take breaking changes very serio
 - Improved performance of `<wa-select>` when using a large number of options
 - Updated the Japanese translation
 
+### Theming
+
+- Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
+  - Changed the value of `--wa-border-width-scale` to `1` and updated calculations of size-based `--wa-border-width-*` tokens
+  - Changed the value of `--wa-border-radius-scale` to `1` and updated calculations of size-based `--wa-border-radius-*` tokens
+  - Removed unused `--wa-border-radius-xs` token and `wa-border-radius-xs` utility class
+  - Decreased the size of the scale so that `--wa-border-radius-s` is now the smallest border radius token, matching the value of the previous `--wa-border-radius-xs` token
+- Updated the `--wa-shadow-*` scales for better DX
+  - Changed the value of `--wa-shadow-offset-y-scale` to `1` and updated calculations of size-based `--wa-shadow-offset-y-*` tokens
+  - Changed the value of `--wa-shadow-blur-scale` to `1` and updated calculations of size-based `--wa-shadow-blur-*` tokens
+  - Changed the value of `--wa-shadow-spread-scale` to `-0.5` and updated calculations of size-based `--wa-shadow-spread-*` tokens
+  - Updated calculations of size-based `--wa-shadow-offset-x-*` tokens to match calculations used for other shadow qualities (`--wa-shadow-offset-x-scale` remains `0`)
+  - Removed unused `--wa-shadow-xs` token
+
 ## 3.0.0-alpha.7
 
 - Renamed applied.css to webawesome.css
