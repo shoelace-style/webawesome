@@ -66,7 +66,7 @@ export default class WaAvatar extends WebAwesomeElement {
         class="image"
         src="${this.image}"
         loading="${this.loading}"
-        alt=""
+        role="img"
         aria-label=${this.label}
         @error="${this.handleImageLoadError}"
       />

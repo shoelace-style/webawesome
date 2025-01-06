@@ -247,11 +247,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <wa-tag
           part="tag"
           exportparts="
-              base:tag__base,
-              content:tag__content,
-              remove-button:tag__remove-button,
-              remove-button__base:tag__remove-button__base
-            "
+            base:tag__base,
+            content:tag__content,
+            remove-button:tag__remove-button,
+            remove-button__base:tag__remove-button__base
+          "
           ?pill=${this.pill}
           size=${this.size}
           removable
@@ -902,7 +902,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               </slot>
             </div>
 
-            <slot
+            <div
               id="listbox"
               role="listbox"
               aria-expanded=${this.open ? 'true' : 'false'}
@@ -912,9 +912,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               class="listbox"
               tabindex="-1"
               @mouseup=${this.handleOptionClick}
-              @slotchange=${this.handleDefaultSlotChange}
             >
-            </slot>
+              <slot @slotchange=${this.handleDefaultSlotChange}></slot>
+            </div>
           </wa-popup>
         </div>
 

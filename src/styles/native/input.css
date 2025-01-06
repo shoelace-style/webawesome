@@ -14,14 +14,17 @@ input:where(:not(
     [type='reset'],
     [type='submit']
   )) {
-  /* Style native inputs and <wa-input>'s visible container */
-  &:not(.wa-text-field *, :host input, :host textarea) {
-    /* Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
+  :where(&:not(:host *)) {
+    /* Defaults for root element with 0 specificity.
+     * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
      * Instead we provide the fallback when setting
      */
     --border-width: var(--wa-form-control-border-width);
     --box-shadow: initial;
+  }
 
+  /* Style native inputs and <wa-input>'s visible container */
+  &:not(.wa-text-field *, :host input, :host textarea) {
     border-color: var(--border-color, var(--wa-form-control-resting-color));
     border-radius: var(--wa-form-control-border-radius);
     border-style: var(--wa-form-control-border-style);

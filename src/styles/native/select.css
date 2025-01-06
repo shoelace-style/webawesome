@@ -38,6 +38,15 @@ select,
   padding: var(--wa-space-smaller) var(--wa-space);
 }
 
+/* Add ellipses to multi select options */
+:host wa-tag::part(content) {
+  display: initial;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 7ch;
+}
+
 select:disabled,
 :host .disabled [part~='combobox'] {
   opacity: 0.5;

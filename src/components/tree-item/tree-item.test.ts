@@ -122,13 +122,13 @@ describe('<wa-tree-item>', () => {
           expect(leafItem).to.have.attribute('aria-selected', 'true');
         });
 
-        it('should set item--selected part', async () => {
+        it('should set selected part', async () => {
           // Act
           leafItem.selected = true;
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--selected')).to.be.true;
+          expect(leafItem.hasCustomState('selected')).to.be.true;
         });
       });
 
@@ -144,13 +144,13 @@ describe('<wa-tree-item>', () => {
       });
 
       describe('when the item is expanded', () => {
-        it('should set item--expanded part', async () => {
+        it('should set expanded state', async () => {
           // Act
           leafItem.expanded = true;
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.item')?.part.contains('item--expanded')).to.be.true;
+          expect(leafItem.hasCustomState('expanded')).to.be.true;
         });
       });
 

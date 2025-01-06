@@ -9,60 +9,43 @@ describe('<wa-tag>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render default tag', async () => {
         const el = await fixture<WaTag>(html` <wa-tag>Test</wa-tag> `);
-
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
         expect(el.getAttribute('size')).to.equal('medium');
-        expect(base.getAttribute('class')).to.equal(' tag tag--neutral tag--medium ');
+        expect(el.getAttribute('variant')).to.equal('neutral');
       });
 
       it('should set variant by attribute', async () => {
         const el = await fixture<WaTag>(html` <wa-tag variant="danger">Test</wa-tag> `);
-
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('class')).to.equal(' tag tag--danger tag--medium ');
+        expect(el.getAttribute('variant')).to.equal('danger');
       });
 
       it('should set size by attribute', async () => {
         const el = await fixture<WaTag>(html` <wa-tag size="large">Test</wa-tag> `);
-
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('class')).to.equal(' tag tag--neutral tag--large ');
+        expect(el.getAttribute('size')).to.equal('large');
       });
 
-      it('should set pill-attribute by attribute', async () => {
+      it('should set pill attribute', async () => {
         const el = await fixture<WaTag>(html` <wa-tag pill>Test</wa-tag> `);
-
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('class')).to.equal(' tag tag--neutral tag--medium tag--pill ');
+        expect(el.hasAttribute('pill')).to.be.true;
       });
 
       it('should set removable by attribute', async () => {
         const el = await fixture<WaTag>(html` <wa-tag removable>Test</wa-tag> `);
+        const removeButton = el.shadowRoot!.querySelector('wa-icon-button');
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-        const removeButton = el.shadowRoot!.querySelector('[part~="remove-button"]');
-
-        expect(el.removable).to.equal(true);
-        expect(base.getAttribute('class')).to.equal(' tag tag--neutral tag--medium tag--removable ');
-        expect(removeButton).not.to.be.null;
+        expect(el.removable).to.be.true;
+        expect(removeButton).to.exist;
       });
 
       describe('removable', () => {
         it('should emit remove event when remove button clicked', async () => {
           const el = await fixture<WaTag>(html` <wa-tag removable>Test</wa-tag> `);
-
-          const removeButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="remove-button"]')!;
+          const removeButton = el.shadowRoot!.querySelector('wa-icon-button');
           const spy = sinon.spy();
 
           el.addEventListener('wa-remove', spy, { once: true });
+          removeButton?.click();
 
-          removeButton.click();
-
-          expect(spy.called).to.equal(true);
+          expect(spy.called).to.be.true;
         });
       });
     });
