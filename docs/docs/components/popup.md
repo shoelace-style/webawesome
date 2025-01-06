@@ -248,7 +248,7 @@ Use the `distance` attribute to change the distance between the popup and its an
     <div class="box"></div>
   </wa-popup>
 
-  <wa-range min="-50" max="50" step="1" value="0" label="Distance"></wa-range>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Distance"></wa-slider>
 </div>
 
 <style>
@@ -267,7 +267,7 @@ Use the `distance` attribute to change the distance between the popup and its an
     border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-distance wa-range {
+  .popup-distance wa-slider {
     max-width: 260px;
   }
 </style>
@@ -275,7 +275,7 @@ Use the `distance` attribute to change the distance between the popup and its an
 <script>
   const container = document.querySelector('.popup-distance');
   const popup = container.querySelector('wa-popup');
-  const distance = container.querySelector('wa-range');
+  const distance = container.querySelector('wa-slider');
 
   distance.addEventListener('wa-input', () => (popup.distance = distance.value));
 </script>
@@ -292,7 +292,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
     <div class="box"></div>
   </wa-popup>
 
-  <wa-range min="-50" max="50" step="1" value="0" label="Skidding"></wa-range>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
 
 <style>
@@ -311,7 +311,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
     border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-skidding wa-range {
+  .popup-skidding wa-slider {
     max-width: 260px;
   }
 </style>
@@ -319,7 +319,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
 <script>
   const container = document.querySelector('.popup-skidding');
   const popup = container.querySelector('wa-popup');
-  const skidding = container.querySelector('wa-range');
+  const skidding = container.querySelector('wa-slider');
 
   skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
 </script>
@@ -747,8 +747,8 @@ When a gap exists between the anchor and the popup element, this option will add
   </wa-popup>
   <br>
   <wa-switch checked>Hover Bridge</wa-switch><br>
-  <wa-range min="0" max="50" step="1" value="10" label="Distance"></wa-range>
-  <wa-range min="-50" max="50" step="1" value="0" label="Skidding"></wa-range>
+  <wa-slider min="0" max="50" step="1" value="10" label="Distance"></wa-slider>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
 <style>
   .popup-hover-bridge span[slot='anchor'] {
@@ -766,7 +766,7 @@ When a gap exists between the anchor and the popup element, this option will add
     border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-hover-bridge wa-range {
+  .popup-hover-bridge wa-slider {
     max-width: 260px;
     margin-top: .5rem;
   }
@@ -780,8 +780,8 @@ When a gap exists between the anchor and the popup element, this option will add
   const container = document.querySelector('.popup-hover-bridge');
   const popup = container.querySelector('wa-popup');
   const hoverBridge = container.querySelector('wa-switch');
-  const distance = container.querySelector('wa-range[label="Distance"]');
-  const skidding = container.querySelector('wa-range[label="Skidding"]');
+  const distance = container.querySelector('wa-slider[label="Distance"]');
+  const skidding = container.querySelector('wa-slider[label="Skidding"]');
   distance.addEventListener('wa-input', () => (popup.distance = distance.value));
   skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
   hoverBridge.addEventListener('wa-change', () => (popup.hoverBridge = hoverBridge.checked));
