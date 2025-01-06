@@ -1,0 +1,37 @@
+{% set hasSidebar = true %}
+{% set hasOutline = true %}
+
+{% extends '../_includes/base.njk' %}
+
+{# Component header #}
+{% block beforeContent %}
+  <h1 class="title">{{ title }}</h1>
+  <div class="block-info">
+    {% set snippets = (elements or element or snippets or snippet) | dict  %}
+
+    {% for snippet, link in snippets %}
+      {% if snippet %}
+        <code class="class">
+          {%- if link -%}
+            <a href="{{ link }}">{{ snippet }}</a>
+          {%- else -%}
+            {{ snippet }}
+          {%- endif-%}
+        </code>
+      {%- endif %}
+    {% endfor %}
+
+    {% include '../_includes/status.njk' %}
+  </div>
+  {% if description %}
+  <p class="summary">
+    {{ description | inlineMarkdown | safe }}
+  </p>
+  {% endif %}
+  {% block notes %}{% endblock %}
+{% endblock %}
+
+{# Content #}
+{% block content %}
+  {{ content | safe }}
+{% endblock %}

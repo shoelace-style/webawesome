@@ -1,37 +1,18 @@
-{% set hasSidebar = true %}
-{% set hasOutline = true %}
-
-{% extends '../_includes/base.njk' %}
+{% extends '../_layouts/block.njk' %}
 
 {# Component header #}
-{% block beforeContent %}
-  <h1 class="title">{{ title }}</h1>
-  <div class="component-info">
-    {% for tag, url in elements %}
-      <code class="tag"><a href="{{ url }}">{{ tag }}</a></code>
-    {% endfor %}
-    {% include '../_includes/status.njk' %}
-  </div>
-  {% if description -%}
-    <p class="summary">{{ description | inlineMarkdown | safe }}</p>
-  {%- endif %}
+{% block notes %}
   {% if component %}
   <wa-callout variant="success">
     <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
     Want to do more?
-    Check out the {% for name in (component | toArray) -%}
+    Check out the {% for name in (component | toList) -%}
       {{ ' and ' if loop.last and not loop.first }}<a href="/docs/components/{{ name }}"><code>&lt;wa-{{ name }}&gt;</code></a>{{ ', ' if not loop.last }}
-      {%- endfor %} component{{ 's' if (component | isArray) }}</a>!
+      {%- endfor %} component{{ 's' if (component | isList) }}</a>!
   </wa-callout>
   {% endif %}
 {% endblock %}
 
-{# Content #}
-{% block content %}
-  {{ content | safe }}
-{% endblock %}
-
-{# Component API #}
 {% block afterContent %}
   {# Slots #}
   {% if css_file %}

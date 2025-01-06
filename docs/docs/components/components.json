@@ -2,6 +2,10 @@
   "layout": "component.njk",
   "tags": ["components"],
   "eleventyComputed": {
-    "status": "{{ components[page.fileSlug].status }}"
+    "component": "{{ components[page.fileSlug] }}",
+    "description": "{{ components[page.fileSlug].summary }}",
+    "status": "{{ components[page.fileSlug].status }}",
+    "since": "{{ components[page.fileSlug].since }}",
+    "element": "<{{ components[page.fileSlug].tagName }}>"
   }
 }

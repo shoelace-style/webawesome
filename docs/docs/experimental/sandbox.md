@@ -132,7 +132,7 @@ layout: page
 <br />
 <wa-switch checked>Switch on</wa-switch>
 <br /><br />
-<wa-range label="Range" hint="Here's a bit of handy content." min="0" max="100"></wa-range>
+<wa-slider label="Range" hint="Here's a bit of handy content." min="0" max="100"></wa-slider>
 <br /><br />
 <wa-input label="Label" hint="Super helpful and/or contextual content" placeholder="Placeholder"></wa-input>
 <br />
@@ -239,7 +239,7 @@ layout: page
     <wa-badge>OCBS</wa-badge>
     <wa-avatar></wa-avatar>
     <wa-rating></wa-rating>
-    <wa-range></wa-range>
+    <wa-slider></wa-slider>
     <wa-icon-button name="gear" label="Settings"></wa-icon-button>
     <wa-progress-bar value="50" style="width: 8rem;"></wa-progress-bar>
     <wa-spinner></wa-spinner>

@@ -3,8 +3,8 @@ title: Slider
 description: Sliders allow the user to select a single value within a given range using a slider.
 tags: forms
 layout: element
-icon: range
-component: range
+icon: slider
+component: slider
 elements:
   "<input type=range>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
 ---

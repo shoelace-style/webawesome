@@ -74,12 +74,30 @@ export function breadcrumbs(url, { withCurrent = false } = {}) {
   return ret;
 }
 
-export function isArray(value) {
-  return Array.isArray(value);
+export function isObject(value) {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function toArray(value) {
-  return isArray(value) ? value : [value];
+export function isList(value) {
+  return Array.isArray(value) || value instanceof Set;
+}
+
+/** Get an Array or Set */
+export function toList(value) {
+  return isList(value) ? value : [value];
+}
+
+/**
+ * Convert any value to something that can be iterated over with a for key, value loop.
+ * Arrays and sets will be converted to a Map of value -> undefined
+ */
+export function dict(value) {
+  if (value instanceof Map || isObject(value)) {
+    return value;
+  }
+
+  let list = toList(value);
+  return new Map([...list].map(item => [item, undefined]));
 }
 
 export function deepValue(obj, key) {
@@ -87,11 +105,15 @@ export function deepValue(obj, key) {
   return key.reduce((subObj, property) => subObj?.[property], obj);
 }
 
-function isNumeric(value) {
+export function isNumeric(value) {
   return typeof value === 'number' || (typeof value === 'string' && !isNaN(value));
 }
 
-function isEmpty(value) {
+export function isString(value) {
+  return typeof value === 'string';
+}
+
+export function isEmpty(value) {
   return value === null || value === undefined || value === '';
 }
 
