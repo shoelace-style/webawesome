@@ -14,13 +14,20 @@ input:where(:not(
     [type='reset'],
     [type='submit']
   )) {
-  :where(&:not(:host *)) {
-    /* Defaults for root element with 0 specificity.
-     * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
-     * Instead we provide the fallback when setting
-     */
-    --border-width: var(--wa-form-control-border-width);
-    --box-shadow: initial;
+  &:not(:host *) {
+    /* Defaults for root element. */
+    --outlined-background-color: var(--wa-form-control-background-color);
+    --outlined-border-color: var(--wa-form-control-resting-color);
+    --outlined-text-color: var(--wa-form-control-value-color);
+
+    :where(&) {
+      /* Defaults with 0 specificity.
+       * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
+       * Instead we provide the fallback when setting
+       */
+      --border-width: var(--wa-form-control-border-width);
+      --box-shadow: initial;
+    }
   }
 
   /* Style native inputs and <wa-input>'s visible container */

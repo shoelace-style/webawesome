@@ -1,14 +1,17 @@
 .wa-outlined,
 :host([appearance~='outlined']) {
-  --background-color: transparent;
-  --background-color-hover: var(--wa-color-fill-quiet);
-  --background-color-active: color-mix(in oklab, var(--background-color-hover), transparent 20%);
+  --background-color: var(--outlined-background-color, transparent);
+  --background-color-hover: var(--outlined-background-color-hover, var(--wa-color-fill-quiet));
+  --background-color-active: var(
+    --outlined-background-color-active,
+    color-mix(in oklab, var(--background-color-hover), transparent 20%)
+  );
 
-  --border-color: var(--wa-color-border-loud);
-  --border-color-hover: var(--wa-color-border-loud);
+  --border-color: var(--outlined-border-color, var(--wa-color-border-loud));
+  --border-color-hover: var(--outlined-border-color-hover, var(--wa-color-border-loud));
 
-  --text-color: var(--wa-color-on-quiet);
-  --text-color-hover: var(--wa-color-on-quiet);
+  --text-color: var(--outlined-text-color, var(--wa-color-on-quiet));
+  --text-color-hover: var(--outlined-text-color-hover, var(--text-color));
 }
 
 .wa-accent,
@@ -17,32 +20,27 @@
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
 
-  --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+  --outlined-border-color: oklch(from var(--wa-color-fill-loud) calc(l - 0.1) c h);
 
-  &:is(.wa-outlined, :host([appearance~='outlined'])) {
-    --border-color: oklch(from var(--wa-color-fill-loud) calc(l - 0.1) c h);
-  }
+  --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
 }
 
 .wa-filled,
 :host([appearance~='filled']) {
   --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
-  --border-color: transparent;
-  --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-
   --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
   --background-color-active: color-mix(in oklab, var(--background-color), transparent 20%);
 
-  &:is(.wa-outlined, :host([appearance~='outlined'])) {
-    --border-color: var(--wa-color-border-normal);
-  }
+  --outlined-border-color: var(--wa-color-border-normal);
+
+  --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 }
 
 .wa-plain,
 :host([appearance~='plain']) {
   --background-color: transparent;
-  --text-color: var(--wa-color-on-quiet);
-
   --background-color-hover: var(--wa-color-fill-quiet);
   --background-color-active: color-mix(in oklab, var(--background-color-hover), transparent 20%);
+
+  --text-color: var(--wa-color-on-quiet);
 }
