@@ -144,16 +144,14 @@ describe('<wa-menu-item>', () => {
         menu.addEventListener('wa-select', selectHandler);
 
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
-        await clickOnElement(submenu);
+        // Sometimes Chrome fails if we dont click before triggering focus.
+        await clickOnElement(document.body);
         submenu.focus();
         await menu.updateComplete;
-        await aTimeout(1);
         await sendKeys({ press: 'ArrowRight' });
         await menu.updateComplete;
-        await aTimeout(1);
         await sendKeys({ press: 'Enter' });
         await menu.updateComplete;
-        await aTimeout(1);
         // Once for each menu element.
         expect(selectHandler).to.have.been.calledTwice;
       });
