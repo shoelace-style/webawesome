@@ -162,6 +162,13 @@ wa-select {
     inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
 }
 
+wa-checkbox:state(checked),
+wa-radio:state(checked) {
+  --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
+}
+
 wa-textarea:not(:focus) {
   &:not([appearance='filled']):not([disabled]) {
     --box-shadow: var(--wa-shadow-s);
