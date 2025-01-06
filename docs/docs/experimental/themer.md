@@ -661,10 +661,10 @@ hasOutline: false
       <wa-option value="dotted">Dotted</wa-option>
       <wa-option value="double">Double</wa-option>
     </wa-select>
-    <wa-range name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
-    <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
-    <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
-    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-slider name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-slider>
+    <wa-slider name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-slider>
+    <wa-slider name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-slider>
+    <wa-slider name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-slider>
   </wa-details>
 </form>
 
