@@ -15,7 +15,7 @@ Border style controls the standard line shape of borders throughout Web Awesome.
 
 Border widths use `rem` units in order to scale proportionately with the root font size.
 
-Each border width value uses a `calc()` function with `--wa-border-width-scale` to scale all border widths at once. By default, this multiplier is `0.0625`. The table below lists the result of the calculation.
+Each border width value uses a `calc()` function with `--wa-border-width-scale` to scale all border widths at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
 
 | Custom Property       | Default Value                    | Preview                                                                   |
 | --------------------- | -------------------------------- | ------------------------------------------------------------------------- |
