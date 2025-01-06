@@ -21,7 +21,7 @@ input[type='range'] {
   border-radius: calc(var(--track-height) / 2);
   width: 100%;
   height: var(--track-height);
-  line-height: var(--wa-form-control-height-m);
+  line-height: var(--wa-form-control-height);
   vertical-align: middle;
   margin: 0;
   --dir: right;
