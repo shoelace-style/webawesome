@@ -1,4 +1,4 @@
-import { expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -145,10 +145,13 @@ describe('<wa-menu-item>', () => {
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
         submenu.focus();
         await menu.updateComplete;
+        await aTimeout(1)
         await sendKeys({ press: 'ArrowRight' });
         await menu.updateComplete;
+        await aTimeout(1)
         await sendKeys({ press: 'Enter' });
         await menu.updateComplete;
+        await aTimeout(1)
         // Once for each menu element.
         expect(selectHandler).to.have.been.calledTwice;
       });
