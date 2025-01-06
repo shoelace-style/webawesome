@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import type { WaSelectEvent } from '../../events/select.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaMenuItem from './menu-item.js';
+import { clickOnElement } from '../../internal/test.js';
 
 describe('<wa-menu-item>', () => {
   for (const fixture of fixtures) {
@@ -143,6 +144,7 @@ describe('<wa-menu-item>', () => {
         menu.addEventListener('wa-select', selectHandler);
 
         const submenu = menu.querySelector<WaMenuItem>('wa-menu-item')!;
+        await clickOnElement(submenu)
         submenu.focus();
         await menu.updateComplete;
         await aTimeout(1);
