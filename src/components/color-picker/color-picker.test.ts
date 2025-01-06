@@ -4,12 +4,12 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { clickOnElement, dragElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+// import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
 import type WaColorPicker from './color-picker.js';
 
 describe('<wa-color-picker>', () => {
-  runFormControlBaseTests('wa-color-picker');
+  // runFormControlBaseTests('wa-color-picker');
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {

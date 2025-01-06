@@ -16,6 +16,7 @@ describe('<wa-select>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility', () => {
         it('should pass accessibility tests when closed', async () => {
+          await customElements.whenDefined('wa-option');
           const select = await fixture<WaSelect>(html`
             <wa-select label="Select one">
               <wa-option value="option-1">Option 1</wa-option>

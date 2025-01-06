@@ -38,6 +38,16 @@ export default {
       bail: process.env['FAIL_FAST'] === 'true',
     },
   },
+  middleware: [
+    // When using relative CSS imports, we need to rewrite the paths so the test runner can find them.
+    function rewriteCssUrls(context, next) {
+      if (context.url.endsWith('.css') && context.url.match(/^\/[^/]+\//)) {
+        const theme = context.url.split('/')[1];
+        context.url = `/dist/styles/themes/${theme}${context.url.slice(theme.length + 1)}`;
+      }
+      return next();
+    },
+  ],
   plugins: [
     esbuildPlugin({
       ts: true,

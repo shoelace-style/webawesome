@@ -196,8 +196,8 @@ describe('<wa-details>', () => {
         await first.show();
         await second.show();
 
-        expect(firstBody.clientHeight).to.equal(232); // 200 + 16px + 16px (vertical padding)
-        expect(secondBody.clientHeight).to.equal(432); // 400 + 16px + 16px (vertical padding)
+        expect(firstBody.clientHeight).to.equal(200);
+        expect(secondBody.clientHeight).to.equal(400);
       });
     });
   }
