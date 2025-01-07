@@ -1,13 +1,17 @@
-//
-// Preset theme selector
-//
 (() => {
+  function applyThemeChange(stylesheet, newStylesheet) {
+    newStylesheet.rel = 'stylesheet';
+    newStylesheet.id = stylesheet.id;
+    requestAnimationFrame(() => {
+      stylesheet.remove();
+    });
+  }
+
   function setPresetTheme(newPresetTheme) {
     presetTheme = newPresetTheme;
     localStorage.setItem('presetTheme', presetTheme);
 
     const stylesheet = document.getElementById('theme-stylesheet');
-
     const newStylesheet = Object.assign(document.createElement('link'), {
       href: `/dist/styles/themes/${presetTheme}.css`,
       rel: 'preload',
@@ -17,21 +21,20 @@
     newStylesheet.addEventListener(
       'load',
       () => {
-        newStylesheet.rel = 'stylesheet';
-        newStylesheet.id = stylesheet.id;
-        requestAnimationFrame(() => {
-          stylesheet.remove();
-        });
+        const canUseViewTransitions =
+          document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (canUseViewTransitions) {
+          document.startViewTransition(() => applyThemeChange(stylesheet, newStylesheet));
+        } else {
+          applyThemeChange(stylesheet, newStylesheet);
+        }
       },
       { once: true },
     );
 
     document.head.append(newStylesheet);
-
-    // Update the UI
     updateSelection();
-
-    // Toggle the dark mode class
     document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
   }
 
