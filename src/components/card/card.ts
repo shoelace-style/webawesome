@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './card.css';
 
@@ -15,7 +14,6 @@ import styles from './card.css';
  * @slot footer - An optional footer for the card.
  * @slot image - An optional image to render at the start of the card.
  *
- * @csspart base - The component's base wrapper.
  * @csspart image - The container that wraps the card's image.
  * @csspart header - The container that wraps the card's header.
  * @csspart body - The container that wraps the card's main content.
@@ -44,20 +42,10 @@ export default class WaCard extends WebAwesomeElement {
 
   render() {
     return html`
-      <div
-        part="base"
-        class=${classMap({
-          card: true,
-          'card--has-footer': this.withFooter,
-          'card--has-image': this.withImage,
-          'card--has-header': this.withHeader,
-        })}
-      >
-        <slot name="image" part="image" class="image"></slot>
-        <slot name="header" part="header" class="header"></slot>
-        <slot part="body" class="body"></slot>
-        <slot name="footer" part="footer" class="footer"></slot>
-      </div>
+      <slot name="image" part="image" class="image"></slot>
+      <slot name="header" part="header" class="header"></slot>
+      <slot part="body" class="body"></slot>
+      <slot name="footer" part="footer" class="footer"></slot>
     `;
   }
 }
