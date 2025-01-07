@@ -24,6 +24,32 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 <wa-icon family="brands" name="web-awesome"></wa-icon>
 ```
 
+### Setting icon info via CSS
+
+You can set the icon's family, name, and variant via CSS custom properties. This can be useful when you want to set
+<!-- the icon dynamically or set  -->
+defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme):
+
+```html {.example}
+<wa-callout id=test>
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  This is a callout.
+</wa-callout>
+
+<style>
+wa-callout {
+  --wa-icon-variant: regular;
+  --wa-icon-name: info-circle;
+}
+</style>
+```
+
+Notes:
+- If you specify attributes, they will override the CSS custom properties, which provides a way to set defaults and then override them as needed.
+- CSS custom properties inherit — so if you set a `--wa-icon-*` custom property on an element, it will affect *all* icons within it that don’t override these values (either via attributes or CSS custom properties).
+- These CSS properties are currently not reactive and will only be read when the component is first connected.
+
 ### Colors
 
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
