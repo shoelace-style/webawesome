@@ -222,8 +222,8 @@ wa-alert {
 }
 
 wa-carousel {
-  --pagination-color-activated: var(--wa-color-brand-fill-loud);
-  --pagination-color-resting: var(--wa-color-neutral-fill-normal);
+  --pagination-color-active: var(--wa-color-brand-fill-loud);
+  --pagination-color: var(--wa-color-neutral-fill-normal);
 }
 
 wa-badge,
@@ -234,7 +234,7 @@ wa-tag {
 
 wa-badge,
 wa-tag {
-  --border-width: 0;
+  border-width: 0;
 }
 
 &:not(.wa-theme-premium-dark) wa-alert {
