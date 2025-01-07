@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
+import { getComputedStyle } from '../../internal/computedStyle.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './icon.css';
