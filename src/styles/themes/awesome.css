@@ -247,10 +247,13 @@ wa-badge {
   text-transform: uppercase;
 }
 
-:is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
-    [appearance='plain'],
-    .wa-plain
-  ) {
+:is(
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']),
+    wa-button,
+    wa-radio-group > wa-radio-button,
+    .wa-button
+  ):not([appearance='plain'], .wa-plain) {
   --wa-transition-slow: 0;
   --wa-transition-normal: 0;
   --wa-transition-fast: 0;
@@ -269,7 +272,8 @@ wa-badge {
     --background-color: var(--wa-color-surface-default);
   }
 
-  &:not([disabled], [loading]):active {
+  &:not([disabled], [loading]):active,
+  &::part(checked) {
     box-shadow: none;
     transform: translateY(var(--wa-shadow-offset-y-s));
   }
@@ -308,18 +312,12 @@ wa-checkbox {
 }
 
 wa-radio-group > wa-radio-button {
-  --background-color-active: var(--border-color);
-  --border-color-active: var(--background-color-active);
-  --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s) var(--border-color);
-  --label-color-active: var(--wa-color-surface-default);
-
-  &:active,
-  &[checked] {
+  &::part(base):active,
+  &::part(checked) {
     --background-color: var(--border-color);
+    --background-color-hover: var(--border-color);
     --border-color: var(--wa-color-neutral-border-loud);
-    --box-shadow: none;
-    --label-color: var(--wa-color-surface-default);
-    transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+    --text-color: var(--wa-color-surface-default);
   }
 }
 
