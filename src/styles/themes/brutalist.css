@@ -214,10 +214,10 @@ wa-badge {
   text-transform: uppercase;
 }
 
-wa-callout {
-  --spacing: var(--wa-space-s) var(--wa-space-m);
+wa-callout,
+wa-tag {
   border-inline-start-color: var(--border-color, var(--wa-color-border-loud));
-  border-inline-start-width: var(--wa-border-width-m);
+  border-inline-start-width: var(--wa-border-width-s);
 
   &:not([appearance~='outlined'], .wa-outlined) {
     border-block-start-width: 0;
@@ -226,8 +226,13 @@ wa-callout {
   }
 
   &:not([appearance~='accent'], .wa-accent) {
+    --icon-color: var(--wa-color-fill-loud);
     --text-color: var(--wa-color-text-normal);
   }
+}
+
+wa-callout {
+  --spacing: var(--wa-space-s) var(--wa-space-m);
 
   &::part(icon) {
     --spacing: var(--wa-space-m);
@@ -284,8 +289,4 @@ wa-carousel-item {
 
 wa-rating {
   --symbol-color-active: var(--wa-color-neutral-fill-loud);
-}
-
-wa-tag {
-  border-width: 0 0 0 var(--wa-panel-border-width);
 }
