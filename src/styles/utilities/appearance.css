@@ -39,6 +39,8 @@
 .wa-plain,
 :host([appearance~='plain']) {
   --background-color: transparent;
+  --text-color: var(--wa-color-on-quiet);
+
   --background-color-hover: var(--wa-color-fill-quiet);
   --background-color-active: color-mix(in oklab, var(--background-color-hover), transparent 20%);
 
