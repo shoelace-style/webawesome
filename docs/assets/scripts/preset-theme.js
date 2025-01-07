@@ -56,7 +56,9 @@
         customElements.whenDefined(selectedItem.localName).then(async () => {
           await selectedItem.updateComplete;
           selectedItem.checked = true;
-          container.querySelector('.preset-theme-selector__text').textContent = selectedItem.innerText;
+          container.querySelectorAll('.preset-theme-selector__text').forEach(themeSelector => {
+            themeSelector.textContent = selectedItem.innerText;
+          });
         });
       }
     });
