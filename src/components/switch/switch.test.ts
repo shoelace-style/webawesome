@@ -20,8 +20,7 @@ describe('<wa-switch>', () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
 
         expect(el.name).to.equal(null);
-        // TODO - fix default value
-        // expect(el.value).to.be.null;
+        expect(el.value).to.equal('on');
         expect(el.title).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.required).to.be.false;
@@ -138,10 +137,7 @@ describe('<wa-switch>', () => {
       });
 
       describe('when submitting a form', () => {
-        //
-        // TODO - this test should pass, so this is likely a bug in the component
-        //
-        it.skip('should submit the correct value when a value is provided', async () => {
+        it('should submit the correct value when a value is provided', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
               <wa-switch name="a" value="1" checked></wa-switch>
@@ -215,10 +211,7 @@ describe('<wa-switch>', () => {
           expect(waSwitch.checkValidity()).to.be.true;
         });
 
-        //
-        // TODO - this test should pass, so this is likely a bug in the component
-        //
-        it.skip('should be present in form data when using the form attribute and located outside of a <form>', async () => {
+        it('should be present in form data when using the form attribute and located outside of a <form>', async () => {
           const el = await fixture<HTMLFormElement>(html`
             <div>
               <form id="f">
