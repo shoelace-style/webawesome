@@ -3,13 +3,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
-import { getComputedStyle } from '../../internal/computedStyle.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './icon.css';
 import { getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
 
-import type { HTMLTemplateResult, PropertyDeclaration, PropertyValues } from 'lit';
+import type { HTMLTemplateResult, PropertyValues } from 'lit';
 
 const CACHEABLE_ERROR = Symbol();
 const RETRYABLE_ERROR = Symbol();
@@ -49,21 +48,21 @@ export default class WaIcon extends WebAwesomeElement {
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
-  @property() name?: string;
+  @property({ cssProperty: true }) name?: string;
 
   /**
    * The family of icons to choose from. For Font Awesome Free (default), valid options include `classic` and `brands`.
    * For Font Awesome Pro subscribers, valid options include, `classic`, `sharp`, `duotone`, and `brands`. Custom icon
    * libraries may or may not use this property.
    */
-  @property() family: string;
+  @property({ cssProperty: true }) family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
    * may or may not use this property.
    */
-  @property() variant: string;
+  @property({ cssProperty: true }) variant: string;
 
   /** Draws the icon in a fixed-width both. */
   @property({ attribute: 'fixed-width', type: Boolean, reflect: true }) fixedWidth: false;
@@ -81,49 +80,12 @@ export default class WaIcon extends WebAwesomeElement {
   @property() label = '';
 
   /** The name of a registered custom icon library. */
-  @property() library = 'default';
-
-  #computedStyle: CSSStyleDeclaration | null;
-  // Ideally we want to move this config to the decorators
-  static cssPropertyAttributes = new Set(['family', 'name', 'variant', 'library']);
-  #setVia: Record<string, 'css' | 'attribute' | 'js'> = {};
-  #setting = new Set();
+  @property({ cssProperty: true }) library = 'default';
 
   connectedCallback() {
     super.connectedCallback();
 
-    if (WaIcon.cssPropertyAttributes.size > 0) {
-      this.updateCSSProperties();
-    }
-
     watchIcon(this);
-  }
-
-  private updateCSSProperties() {
-    this.#computedStyle ??= getComputedStyle(this);
-
-    // FIXME this is currently static. It will only update when the element is connected, and not when the CSS property changes.
-    for (let name of WaIcon.cssPropertyAttributes) {
-      this.updateCSSProperty(name as 'family' | 'name' | 'variant' | 'library');
-    }
-  }
-
-  private updateCSSProperty(name: 'family' | 'name' | 'variant' | 'library') {
-    // FIXME currently this means that CSS properties will override JS properties. This is not ideal.
-    if (!this.hasAttribute(name) && this.#setVia[name] !== 'js') {
-      // Check if supplied as a CSS custom property
-      // TODO !important should override attribute values
-      const value = this.#computedStyle?.getPropertyValue(`--wa-icon-${name}`);
-
-      if (value) {
-        this.#setVia[name] = 'css';
-        this.#setting.add(name);
-        this[name] = value.trim();
-        this.updateComplete.then(() => {
-          this.#setting.delete(name);
-        });
-      }
-    }
   }
 
   firstUpdated() {
@@ -267,15 +229,6 @@ export default class WaIcon extends WebAwesomeElement {
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
-
-    if (WaIcon.cssPropertyAttributes.size > 0) {
-      for (let [name] of changedProperties) {
-        if (typeof name === 'string' && this.#setVia[name] === 'css' && !this.#setting.has(name)) {
-          // A property is being set via JS and it’s NOT because we're reflecting a CSS property
-          this.#setVia[name] = 'js';
-        }
-      }
-    }
 
     // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
     const library = getIconLibrary(this.library);

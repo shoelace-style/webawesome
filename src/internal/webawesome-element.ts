@@ -1,7 +1,18 @@
-import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
+import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
 import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../styles/shadow/component.css';
+import { getComputedStyle } from './computedStyle.js';
+
+// Augment Lit's module
+declare module 'lit' {
+  interface PropertyDeclaration {
+    /**
+     * Indicates whether the property should reflect to a CSS custom property.
+     */
+    cssProperty?: boolean;
+  }
+}
 
 export default class WebAwesomeElement extends LitElement {
   constructor() {
@@ -51,6 +62,16 @@ export default class WebAwesomeElement extends LitElement {
   initialReflectedProperties: Map<string, unknown> = new Map();
 
   internals: ElementInternals;
+
+  #computedStyle: CSSStyleDeclaration | null;
+  #setVia: Record<PropertyKey, 'css' | 'attribute' | 'js'> = {};
+  #setting = new Set<PropertyKey>();
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.updateCSSProperties();
+  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
@@ -111,6 +132,21 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+
+    if (Self.cssPropertyAttributes.size > 0) {
+      for (let [name] of changedProperties) {
+        if (typeof name === 'string' && this.#setVia[name] === 'css' && !this.#setting.has(name)) {
+          // A property is being set via JS and it’s NOT because we're reflecting a CSS property
+          this.#setVia[name] = 'js';
+        }
+      }
+    }
+  }
+
   /** Checks if states are supported by the element */
   private hasStatesSupport(): boolean {
     return Boolean(this.internals?.states);
@@ -147,5 +183,52 @@ export default class WebAwesomeElement extends LitElement {
   /** Determines if the element has the specified custom state. */
   hasCustomState(state: string): boolean {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
+  }
+
+  protected updateCSSProperties() {
+    const Self = this.constructor as typeof WebAwesomeElement;
+    if (Self.cssPropertyAttributes.size === 0) {
+      return;
+    }
+
+    this.#computedStyle ??= getComputedStyle(this);
+
+    // FIXME this is currently static. It will only update when the element is connected, and not when the CSS property changes.
+    const tagName = this.tagName.toLowerCase();
+    for (let name of Self.cssPropertyAttributes) {
+      // FIXME currently this means that CSS properties will override JS properties. This is not ideal.
+      if (typeof name === 'string' && !this.hasAttribute(name) && this.#setVia[name] !== 'js') {
+        // Check if supplied as a CSS custom property
+        // TODO !important should override attribute values
+        const value = this.#computedStyle?.getPropertyValue(`--${tagName}-${name}`);
+
+        if (value) {
+          this.#setVia[name] = 'css';
+          this.#setting.add(name);
+          // @ts-ignore
+          this[name] = value.trim();
+          this.updateComplete.then(() => {
+            this.#setting.delete(name);
+          });
+        }
+      }
+    }
+  }
+
+  // Subclasses will override this
+  static cssPropertyAttributes = new Set<PropertyKey>();
+
+  static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
+    super.createProperty(name, options);
+
+    if (options?.cssProperty) {
+      if (this.cssPropertyAttributes === WebAwesomeElement.cssPropertyAttributes) {
+        // Each class needs its own, otherwise they'd share the same Set
+        this.cssPropertyAttributes = new Set();
+      }
+
+      // let cssProperty = options.cssProperty === true ? `--${this.tagName}-${name}` : options.cssProperty;
+      this.cssPropertyAttributes.add(name);
+    }
   }
 }
