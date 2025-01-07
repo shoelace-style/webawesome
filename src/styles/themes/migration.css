@@ -234,8 +234,11 @@ wa-tag {
 }
 
 wa-callout {
-  --icon-color: var(--wa-color-border-loud);
   border-radius: var(--wa-border-radius-m);
+
+  &::part(icon) {
+    opacity: 0.6;
+  }
 }
 
 input[type='radio'],

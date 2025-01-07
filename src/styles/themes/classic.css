@@ -351,15 +351,22 @@ wa-breadcrumb {
 }
 
 wa-callout {
-  --background-color: var(--wa-color-surface-raised);
-  border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
-  --border-color: var(--wa-color-fill-loud) var(--wa-color-surface-border) var(--wa-color-surface-border)
-    var(--wa-color-surface-border);
-  --icon-color: var(--wa-color-fill-loud);
-  --text-color: var(--wa-color-text-normal);
   --spacing: var(--wa-space-l);
+  font-size: var(--wa-size-smaller);
 
-  font-size: var(--wa-font-size-s);
+  &:is([appearance~='outlined'], .wa-outlined) {
+    border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
+    border-color: var(--border-color, var(--wa-color-border-loud)) var(--wa-color-surface-border)
+      var(--wa-color-surface-border) var(--wa-color-surface-border);
+
+    &:not([appearance~='accent'], .wa-accent) {
+      --border-color: var(--wa-color-fill-loud);
+    }
+  }
+  &:not([appearance~='accent'], .wa-accent) {
+    --icon-color: var(--wa-color-fill-loud);
+    --text-color: var(--wa-color-text-normal);
+  }
 }
 
 wa-card {

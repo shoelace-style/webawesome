@@ -208,18 +208,26 @@
  */
 blockquote,
 pre {
-  border-inline-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+  border-inline-start: var(--wa-border-style) var(--wa-border-width-m) var(--wa-color-surface-border);
 }
 wa-badge {
   text-transform: uppercase;
 }
 
 wa-callout {
-  --icon-color: var(--wa-color-on-normal);
   --spacing: var(--wa-space-s) var(--wa-space-m);
-  --text-color: var(--wa-color-text-normal);
+  border-inline-start-color: var(--border-color, var(--wa-color-border-loud));
+  border-inline-start-width: var(--wa-border-width-m);
 
-  border-width: 0 0 0 var(--wa-panel-border-width);
+  &:not([appearance~='outlined'], .wa-outlined) {
+    border-block-start-width: 0;
+    border-block-end-width: 0;
+    border-inline-end-width: 0;
+  }
+
+  &:not([appearance~='accent'], .wa-accent) {
+    --text-color: var(--wa-color-text-normal);
+  }
 
   &::part(icon) {
     --spacing: var(--wa-space-m);

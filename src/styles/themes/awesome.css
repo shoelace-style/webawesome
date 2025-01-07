@@ -280,9 +280,15 @@ wa-badge {
 }
 
 wa-callout {
-  border-color: var(--wa-color-border-normal);
-  color: var(--wa-color-text-normal);
-  --icon-color: var(--wa-color-border-normal);
+  &:is([appearance~='outlined'], .wa-outlined) {
+    border-color: var(--wa-color-border-normal);
+  }
+  &:not([appearance~='accent'], .wa-accent) {
+    color: var(--wa-color-text-normal);
+  }
+  &:not([appearance~='accent'], .wa-accent) {
+    --icon-color: var(--wa-color-border-normal);
+  }
 }
 
 wa-card {
