@@ -200,7 +200,7 @@
    */
   --wa-form-control-border-radius: var(--wa-border-radius-pill);
 
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 }
 
 .wa-theme-playful-dark,

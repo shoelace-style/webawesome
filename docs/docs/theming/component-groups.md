@@ -15,11 +15,11 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | Custom Property                             | Default Value                                                                                     |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `--wa-form-control-background-color`        | `var(--wa-color-surface-default)`                                                                 |
+| `--wa-form-control-border-color`            | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-border-style`            | `var(--wa-border-style)`                                                                          |
 | `--wa-form-control-border-width`            | `var(--wa-border-width-s)`                                                                        |
 | `--wa-form-control-border-radius`           | `var(--wa-border-radius-m)`                                                                       |
 | `--wa-form-control-activated-color`         | `var(--wa-color-brand-fill-loud)`                                                                 |
-| `--wa-form-control-resting-color`           | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-label-color`             | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-label-font-weight`       | `var(--wa-font-weight-normal)`                                                                    |
 | `--wa-form-control-label-line-height`       | `var(--wa-line-height-normal)`                                                                    |

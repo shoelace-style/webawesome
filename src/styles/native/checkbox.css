@@ -3,7 +3,7 @@ label:has(input[type='checkbox']):where(:not(:host *)),
 :host {
   --background-color: var(--wa-form-control-background-color);
   --background-color-checked: var(--wa-form-control-activated-color);
-  --border-color: var(--wa-form-control-resting-color);
+  --border-color: var(--wa-form-control-border-color);
   --border-color-checked: var(--wa-form-control-activated-color);
   --border-radius: min(
     calc(var(--toggle-size) * 0.375),

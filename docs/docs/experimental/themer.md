@@ -165,7 +165,7 @@ hasOutline: false
     --wa-form-control-border-radius: var(--wa-border-radius-m);
 
     --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-    --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
@@ -363,7 +363,7 @@ hasOutline: false
   /* file uploader styles */
   .file-uploader {
     position: relative;
-    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-resting-color);
+    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-border-color);
     border-radius: var(--wa-form-control-border-radius);
     background: var(--wa-form-control-background-color);
     cursor: pointer;

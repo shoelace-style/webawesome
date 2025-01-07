@@ -116,7 +116,7 @@
   /**
    * Component Groups
    */
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 }
 
 .wa-theme-mellow-dark,

@@ -118,7 +118,7 @@
    * Component Groups
    */
   --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
   --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
   --wa-form-control-label-line-height: var(--wa-line-height-normal);

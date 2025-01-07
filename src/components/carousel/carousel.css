@@ -1,7 +1,7 @@
 :host {
   --aspect-ratio: 16 / 9;
   --navigation-color: var(--wa-color-text-quiet);
-  --pagination-color: var(--wa-form-control-resting-color);
+  --pagination-color: var(--wa-form-control-border-color);
   --pagination-color-active: var(--wa-form-control-activated-color);
   --scroll-hint: 0px;
   --slide-gap: var(--wa-space-m, 1rem);

@@ -317,7 +317,7 @@
   border-radius: inherit;
   background-color: currentColor;
   box-shadow:
-    inset 0 0 0 0.0625rem var(--wa-form-control-resting-color),
+    inset 0 0 0 0.0625rem var(--wa-form-control-border-color),
     inset 0 0 0 0.25rem var(--wa-color-surface-default);
 }
 

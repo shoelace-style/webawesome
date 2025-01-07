@@ -264,7 +264,7 @@ layout: page-outline
     --wa-form-control-border-radius: 12px;
 
     --wa-form-control-activated-color: mediumvioletred;
-    --wa-form-control-resting-color: palevioletred;
+    --wa-form-control-border-color: palevioletred;
 
     --wa-form-control-label-color: rosybrown;
     --wa-form-control-label-font-weight: 900;

@@ -123,7 +123,7 @@
 
   /* Form controls */
   --wa-form-control-activated-color: var(--wa-color-neutral-border-loud);
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
   --wa-form-control-label-color: var(--wa-color-text-normal);
   --wa-form-control-label-font-weight: var(--wa-font-weight-bold);
@@ -229,7 +229,7 @@
   --wa-form-control-background-color: var(--wa-color-surface-default);
 
   --wa-form-control-activated-color: var(--wa-color-neutral-border-loud);
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
   --wa-form-control-label-color: var(--wa-color-text-normal);
 

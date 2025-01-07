@@ -81,7 +81,7 @@ wa-page > header {
   }
   wa-button#search-trigger {
     --background-color: var(--wa-form-control-background-color);
-    --border-color: var(--wa-form-control-resting-color);
+    --border-color: var(--wa-form-control-border-color);
   }
   #search-trigger kbd {
     font-size: var(--wa-font-size-2xs);
