@@ -15,9 +15,50 @@ icon: tag
 
 ## Examples
 
+### Appearance
+
+Use the `size` attribute to change a tag's visual appearance.
+The default appearance is `outlined filled`.
+
+```html {.example}
+<div class="wa-stack">
+<p>
+  <wa-tag variant="brand" appearance="outlined accent">Outlined accent</wa-tag>
+  <wa-tag variant="brand" appearance="accent">Accent</wa-tag>
+  <wa-tag variant="brand" appearance="outlined">Outlined</wa-tag>
+  <wa-tag variant="brand" appearance="filled">Filled</wa-tag>
+  <wa-tag variant="brand" appearance="outlined filled">Outlined Filled</wa-tag>
+</p>
+<p>
+  <wa-tag variant="success" appearance="outlined accent">Outlined accent</wa-tag>
+  <wa-tag variant="success" appearance="accent">Accent</wa-tag>
+  <wa-tag variant="success" appearance="outlined">Outlined</wa-tag>
+  <wa-tag variant="success" appearance="filled">Filled</wa-tag>
+  <wa-tag variant="success" appearance="outlined filled">Outlined Filled</wa-tag>
+<p>
+  <wa-tag variant="neutral" appearance="outlined accent">Outlined accent</wa-tag>
+  <wa-tag variant="neutral" appearance="accent">Accent</wa-tag>
+  <wa-tag variant="neutral" appearance="outlined">Outlined</wa-tag>
+  <wa-tag variant="neutral" appearance="filled">Filled</wa-tag>
+  <wa-tag variant="neutral" appearance="outlined filled">Outlined Filled</wa-tag>
+<p>
+  <wa-tag variant="warning" appearance="outlined accent">Outlined accent</wa-tag>
+  <wa-tag variant="warning" appearance="accent">Accent</wa-tag>
+  <wa-tag variant="warning" appearance="outlined">Outlined</wa-tag>
+  <wa-tag variant="warning" appearance="filled">Filled</wa-tag>
+  <wa-tag variant="warning" appearance="outlined filled">Outlined Filled</wa-tag>
+<p>
+  <wa-tag variant="danger" appearance="outlined accent">Outlined accent</wa-tag>
+  <wa-tag variant="danger" appearance="accent">Accent</wa-tag>
+  <wa-tag variant="danger" appearance="outlined">Outlined</wa-tag>
+  <wa-tag variant="danger" appearance="filled">Filled</wa-tag>
+  <wa-tag variant="danger" appearance="outlined filled">Outlined Filled</wa-tag>
+</div>
+```
+
 ### Sizes
 
-Use the `size` attribute to change a tab's size.
+Use the `size` attribute to change a tag's size.
 
 ```html {.example}
 <wa-tag size="small">Small</wa-tag>
