@@ -64,41 +64,43 @@ Use the `appearance` attribute to change the callout's visual appearance (the de
 
 ```html {.example}
 <wa-callout variant="brand" appearance="outlined accent">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-  <strong>This is super informative</strong><br />
-  You can tell by how pretty the callout is.
+  <wa-icon slot="icon" name="check-to-slot"></wa-icon>
+  This <strong>accent</strong> callout is also <strong>outlined</strong>
 </wa-callout>
 
 <br />
 
-<wa-callout variant="success" appearance="accent">
-  <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
-  <strong>Your changes have been saved</strong><br />
-  You can safely exit the app now.
+<wa-callout variant="brand" appearance="accent">
+  <wa-icon slot="icon" name="square-check"></wa-icon>
+  This <strong>accent</strong> callout draws attention without an outline
 </wa-callout>
 
 <br />
 
-<wa-callout variant="neutral" appearance="outlined">
-  <wa-icon slot="icon" name="gear" variant="regular"></wa-icon>
-  <strong>Your settings have been updated</strong><br />
-  Settings will take effect on next login.
+<wa-callout variant="brand" appearance="outlined filled">
+  <wa-icon slot="icon" name="fill-drip" variant="regular"></wa-icon>
+  This callout is both <strong>filled</strong> and <strong>outlined</strong>
 </wa-callout>
 
 <br />
 
-<wa-callout variant="warning" appearance="filled">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  <strong>Your session has ended</strong><br />
-  Please login again to continue.
+<wa-callout variant="brand" appearance="filled">
+  <wa-icon slot="icon" name="fill" variant="regular"></wa-icon>
+  This callout is only <strong>filled</strong>
 </wa-callout>
 
 <br />
 
-<wa-callout variant="danger" appearance="plain">
-  <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
-  <strong>Your account has been deleted</strong><br />
-  We're very sorry to see you go!
+<wa-callout variant="brand" appearance="outlined">
+  <wa-icon slot="icon" name="lines-leaning" variant="regular"></wa-icon>
+  Here's an <strong>outlined</strong> callout
+</wa-callout>
+
+<br />
+
+<wa-callout variant="brand" appearance="plain">
+  <wa-icon slot="icon" name="font" variant="regular"></wa-icon>
+  No bells and whistles on this <strong>plain</strong> callout
 </wa-callout>
 ```
 
