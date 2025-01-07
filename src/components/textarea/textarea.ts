@@ -1,4 +1,5 @@
-import { html, type PropertyValues } from 'lit';
+import type { PropertyValues } from 'lit';
+import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -272,7 +273,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.setTextareaDimensions();
   }
 
-  protected updated(changedProperties: PropertyValues<this>) {
+  updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('resize')) {
       this.setTextareaDimensions();
     }

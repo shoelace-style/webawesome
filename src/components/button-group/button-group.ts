@@ -1,3 +1,4 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -32,8 +33,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('orientation')) {
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('orientation')) {
       this.setAttribute('aria-orientation', this.orientation);
       this.updateClassNames();
     }
