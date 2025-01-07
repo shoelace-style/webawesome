@@ -7,7 +7,7 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
 
 :root,
 :host,
@@ -142,7 +142,7 @@
   --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
 
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-scale) * 32% + 40%), transparent);
+  --wa-color-shadow: rgb(0 0 0 / 0.5);
 
   --wa-color-focus: var(--wa-color-blue-60);
 
@@ -211,6 +211,7 @@ wa-badge {
 }
 
 wa-callout {
+  --icon-color: var(--wa-color-on-normal);
   --spacing: var(--wa-space-s) var(--wa-space-m);
   --text-color: var(--wa-color-text-normal);
 
@@ -219,34 +220,23 @@ wa-callout {
   &::part(icon) {
     --spacing: var(--wa-space-m);
   }
-
-  &[variant='brand'] {
-    --icon-color: var(--wa-color-brand-on-normal);
-  }
-  &[variant='success'] {
-    --icon-color: var(--wa-color-success-on-normal);
-  }
-  &[variant='warning'] {
-    --icon-color: var(--wa-color-warning-on-normal);
-  }
-  &[variant='danger'] {
-    --icon-color: var(--wa-color-danger-on-normal);
-  }
-  &[variant='neutral'] {
-    --icon-color: var(--wa-color-neutral-on-normal);
-  }
 }
 
 wa-carousel {
   --pagination-color: var(--wa-color-neutral-fill-normal);
-  --pagination-color-active: var(--wa-color-brand-fill-loud);
 }
 
 wa-carousel::part(scroll-container) {
   padding: var(--wa-shadow-offset-y-s) var(--wa-shadow-offset-x-s); /* make room for the box-shadow */
 }
 
-wa-carousel::part(pagination-item) {
+wa-carousel::part(pagination-item),
+wa-image-comparer::part(handle),
+wa-progress-bar::part(base),
+wa-slider::part(base),
+input[type='range'],
+wa-switch::part(control),
+wa-switch::part(thumb) {
   border-radius: var(--wa-border-radius-square);
 }
 
@@ -255,23 +245,33 @@ wa-carousel-item {
   box-shadow: var(--wa-shadow-s);
 }
 
-wa-input::part(input),
-wa-select::part(combobox),
-wa-textarea::part(base) {
-  border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
+:is(
+  input:where(
+      :not(
+        [type='button'],
+        [type='checkbox'],
+        [type='color'],
+        [type='file'],
+        [type='hidden'],
+        [type='image'],
+        [type='radio'],
+        [type='range'],
+        [type='reset'],
+        [type='submit']
+      )
+    ),
+  select,
+  textarea,
+  wa-input,
+  wa-select,
+  wa-textarea,
+  .wa-text-field
+) {
+  --border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
 }
 
 wa-rating {
   --symbol-color-active: var(--wa-color-neutral-fill-loud);
-}
-
-wa-switch {
-  --height: calc(1.2em * var(--wa-line-height-condensed) - 0.125rem);
-}
-
-wa-switch::part(control),
-wa-switch::part(thumb) {
-  border-radius: var(--wa-border-radius-square);
 }
 
 wa-tag {
