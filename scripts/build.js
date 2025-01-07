@@ -113,7 +113,15 @@ async function generateStyles() {
     // Remove pro themes
     const allThemes = await globby(join(cdnDir, 'styles/themes/**/*.css'));
     const proThemes = allThemes.filter(file => {
-      if (file.includes('themes/classic') || file.includes('themes/default')) {
+      if (
+        file.includes('themes/classic') ||
+        file.includes('themes/default') ||
+        file.includes('themes/awesome') ||
+        file.includes('themes/active') ||
+        file.includes('themes/mellow') ||
+        file.includes('themes/migration') ||
+        file.includes('themes/brutalist')
+      ) {
         return false;
       }
       return true;
