@@ -36,17 +36,29 @@
   --wa-color-green-10: #002400;
   --wa-color-green-05: #001700;
 
-  --wa-color-blue-95: #e8f3ff;
-  --wa-color-blue-90: #d1e8ff;
-  --wa-color-blue-80: #9fceff;
-  --wa-color-blue-70: #6eb3ff;
-  --wa-color-blue-60: #3e96ff;
-  --wa-color-blue-50: #0071ec;
-  --wa-color-blue-40: #0053c0;
-  --wa-color-blue-30: #003f9c;
-  --wa-color-blue-20: #002d77;
-  --wa-color-blue-10: #001a4e;
-  --wa-color-blue-05: #000f35;
+  --wa-color-teal-95: #e3f7f5;
+  --wa-color-teal-90: #c6eeeb;
+  --wa-color-teal-80: #81d9d3;
+  --wa-color-teal-70: #34c2b9;
+  --wa-color-teal-60: #10a69d;
+  --wa-color-teal-50: #00837c;
+  --wa-color-teal-40: #00645e;
+  --wa-color-teal-30: #004e49;
+  --wa-color-teal-20: #003935;
+  --wa-color-teal-10: #002220;
+  --wa-color-teal-05: #001513;
+
+  --wa-color-blue-95: #ebf4ff;
+  --wa-color-blue-90: #d4e7ff;
+  --wa-color-blue-80: #a6ccff;
+  --wa-color-blue-70: #77b1ff;
+  --wa-color-blue-60: #4895fd;
+  --wa-color-blue-50: #0070ef;
+  --wa-color-blue-40: #0055b8;
+  --wa-color-blue-30: #004390;
+  --wa-color-blue-20: #00306c;
+  --wa-color-blue-10: #001c45;
+  --wa-color-blue-05: #00112f;
 
   --wa-color-indigo-95: #f0f2fe;
   --wa-color-indigo-90: #e2e4fc;

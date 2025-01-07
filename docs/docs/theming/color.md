@@ -210,6 +210,54 @@ Web Awesome defines seven literal colors each with 11 lightness values using the
   </li>
 </ul>
 
+<div class="color-name">Teal</div>
+<ul class="color-group">
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-95)"></div>
+    <small>95</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-90)"></div>
+    <small>90</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-80)"></div>
+    <small>80</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-70)"></div>
+    <small>70</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-60)"></div>
+    <small>60</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-50)"></div>
+    <small>50</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-40)"></div>
+    <small>40</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-30)"></div>
+    <small>30</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-20)"></div>
+    <small>20</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-10)"></div>
+    <small>10</small>
+  </li>
+  <li class="color-preview">
+    <div class="swatch" style="background-color: var(--wa-color-teal-05)"></div>
+    <small>05</small>
+  </li>
+</ul>
+
 <div class="color-name">Blue</div>
 <ul class="color-group">
   <li class="color-preview">
