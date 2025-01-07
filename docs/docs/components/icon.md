@@ -26,9 +26,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 
 ### Setting icon info via CSS
 
-You can set the icon's family, name, and variant via CSS custom properties. This can be useful when you want to set
-<!-- the icon dynamically or set  -->
-defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme):
+You can set the icon's family, name, and variant via CSS custom properties. This can be useful when you want to set <!-- the icon dynamically or set  --> defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme):
 
 ```html {.example}
 <wa-callout id=test>
