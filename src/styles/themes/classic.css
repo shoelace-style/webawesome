@@ -1,3 +1,4 @@
+@import url('../color/classic.css');
 @import url('default/color-semantic.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
@@ -11,109 +12,6 @@
 :host,
 .wa-theme-classic-light {
   color-scheme: light;
-
-  /**
-   * Literal Colors
-   */
-  --wa-color-red-95: #feeeee;
-  --wa-color-red-90: #fedede;
-  --wa-color-red-80: #fdb8b8;
-  --wa-color-red-70: #fa9292;
-  --wa-color-red-60: #ee6c6c;
-  --wa-color-red-50: #d43c3c;
-  --wa-color-red-40: #ac1e1e;
-  --wa-color-red-30: #640f0f;
-  --wa-color-red-20: #631111;
-  --wa-color-red-10: #3b0d0d;
-  --wa-color-red-05: #260606;
-
-  --wa-color-yellow-95: #fef2c4;
-  --wa-color-yellow-90: #fde494;
-  --wa-color-yellow-80: #fbc129;
-  --wa-color-yellow-70: #f29c0b;
-  --wa-color-yellow-60: #db7e13;
-  --wa-color-yellow-50: #af6005;
-  --wa-color-yellow-40: #904207;
-  --wa-color-yellow-30: #713406;
-  --wa-color-yellow-20: #532408;
-  --wa-color-yellow-10: #321606;
-  --wa-color-yellow-05: #1f0c01;
-
-  --wa-color-green-95: #e9f5ed;
-  --wa-color-green-90: #cfedd9;
-  --wa-color-green-80: #a2d5b4;
-  --wa-color-green-70: #6cc08a;
-  --wa-color-green-60: #38a961;
-  --wa-color-green-50: #178640;
-  --wa-color-green-40: #3d6208;
-  --wa-color-green-30: #0d5026;
-  --wa-color-green-20: #0c391d;
-  --wa-color-green-10: #082213;
-  --wa-color-green-05: #02140a;
-
-  --wa-color-blue-95: #e5f4fe;
-  --wa-color-blue-90: #c8ebfd;
-  --wa-color-blue-80: #80d4fc;
-  --wa-color-blue-70: #37bbf5;
-  --wa-color-blue-60: #0d9ee0;
-  --wa-color-blue-50: #027ab9;
-  --wa-color-blue-40: #015d8d;
-  --wa-color-blue-30: #024970;
-  --wa-color-blue-20: #04354f;
-  --wa-color-blue-10: #05202f;
-  --wa-color-blue-05: #04121b;
-
-  --wa-color-indigo-95: #eef2ff;
-  --wa-color-indigo-90: #dee5fd;
-  --wa-color-indigo-80: #bec8f2;
-  --wa-color-indigo-70: #9dabf0;
-  --wa-color-indigo-60: #818cf7;
-  --wa-color-indigo-50: #6063eb;
-  --wa-color-indigo-40: #4941d3;
-  --wa-color-indigo-30: #3930ad;
-  --wa-color-indigo-20: #29247a;
-  --wa-color-indigo-10: #191843;
-  --wa-color-indigo-05: #0f0e26;
-
-  --wa-color-violet-95: #f7efff;
-  --wa-color-violet-90: #efe0ff;
-  --wa-color-violet-80: #dcbdfe;
-  --wa-color-violet-70: #cb9afd;
-  --wa-color-violet-60: #b976f9;
-  --wa-color-violet-50: #9d46ec;
-  --wa-color-violet-40: #7d22cc;
-  --wa-color-violet-30: #631f9c;
-  --wa-color-violet-20: #48176e;
-  --wa-color-violet-10: #2e054e;
-  --wa-color-violet-05: #1d0331;
-
-  --wa-color-gray-95: #f2f2f3;
-  --wa-color-gray-90: #e5e5e8;
-  --wa-color-gray-80: #c9c9cc;
-  --wa-color-gray-70: #aeafb1;
-  --wa-color-gray-60: #94959b;
-  --wa-color-gray-50: #72747d;
-  --wa-color-gray-40: #565861;
-  --wa-color-gray-30: #43454d;
-  --wa-color-gray-20: #313134;
-  --wa-color-gray-10: #1d1d20;
-  --wa-color-gray-05: #101113;
-
-  /**
-   * Foundational Colors
-   */
-  --wa-color-text-normal: var(--wa-color-gray-10);
-  --wa-color-text-quiet: var(--wa-color-gray-40);
-  --wa-color-text-link: var(--wa-color-blue-50);
-
-  --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-gray-10) 32%, transparent);
-  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 8%, transparent);
-
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-gray-40) calc(var(--wa-shadow-blur-scale) * 24% + 8%),
-    transparent
-  );
 
   /**
    * Semantic Colors
@@ -177,7 +75,7 @@
   --wa-font-family-code: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   --wa-font-family-longform: Georgia, 'Times New Roman', serif;
 
-  --wa-link-decoration-default: underline color-mix(in oklab, var(--wa-color-text-link) 70%, transparent) dotted;
+  --wa-link-decoration-default: underline;
 
   /**
    * Focus
@@ -199,8 +97,6 @@
   /**
    * Transitions
    */
-  --wa-transition-easing: ease;
-
   --wa-transition-slow: 250ms;
   --wa-transition-normal: 150ms;
   --wa-transition-fast: 50ms;
@@ -211,7 +107,6 @@
 
   /* Form controls */
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-  --wa-form-control-label-line-height: var(--wa-line-height-normal);
 
   /* Panels */
   --wa-panel-border-radius: var(--wa-border-radius-m);
@@ -314,19 +209,12 @@ wa-avatar {
   --text-color: var(--wa-color-neutral-on-loud);
 }
 
+button,
+input:where([type='button'], [type='reset'], [type='submit']),
 wa-button,
+.wa-button,
 wa-radio-button {
-  &[size='small'] {
-    font-size: var(--wa-font-size-xs);
-  }
-
-  &[size='medium'] {
-    font-size: var(--wa-font-size-s);
-  }
-
-  &[size='large'] {
-    font-size: var(--wa-font-size-m);
-  }
+  font-size: var(--wa-size-smaller);
 }
 
 wa-radio-button {
