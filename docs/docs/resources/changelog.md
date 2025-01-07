@@ -29,6 +29,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Migration
   - Playful
 - Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
+- Removed size-based `--wa-form-control-height-*` tokens in favor of previously added [size utilities](/docs/utilities/size/)
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
   - Changed the value of `--wa-border-width-scale` to `1` and updated calculations of size-based `--wa-border-width-*` tokens
   - Changed the value of `--wa-border-radius-scale` to `1` and updated calculations of size-based `--wa-border-radius-*` tokens
