@@ -10,7 +10,7 @@ declare module 'lit' {
     /**
      * Indicates whether the property should reflect to a CSS custom property.
      */
-    cssProperty?: boolean;
+    cssProperty?: true | string;
   }
 }
 
@@ -137,7 +137,7 @@ export default class WebAwesomeElement extends LitElement {
 
     let Self = this.constructor as typeof WebAwesomeElement;
 
-    if (Self.cssPropertyAttributes.size > 0) {
+    if (Self.cssAttributeProperties.size > 0) {
       for (let [name] of changedProperties) {
         if (typeof name === 'string' && this.#setVia[name] === 'css' && !this.#setting.has(name)) {
           // A property is being set via JS and it’s NOT because we're reflecting a CSS property
@@ -187,7 +187,7 @@ export default class WebAwesomeElement extends LitElement {
 
   protected updateCSSProperties() {
     const Self = this.constructor as typeof WebAwesomeElement;
-    if (Self.cssPropertyAttributes.size === 0) {
+    if (Self.cssAttributeProperties.size === 0) {
       return;
     }
 
@@ -195,12 +195,13 @@ export default class WebAwesomeElement extends LitElement {
 
     // FIXME this is currently static. It will only update when the element is connected, and not when the CSS property changes.
     const tagName = this.tagName.toLowerCase();
-    for (let name of Self.cssPropertyAttributes) {
+    for (let [name, cssProperty] of Self.cssAttributeProperties) {
       // FIXME currently this means that CSS properties will override JS properties. This is not ideal.
       if (typeof name === 'string' && !this.hasAttribute(name) && this.#setVia[name] !== 'js') {
         // Check if supplied as a CSS custom property
         // TODO !important should override attribute values
-        const value = this.#computedStyle?.getPropertyValue(`--${tagName}-${name}`);
+        cssProperty = cssProperty === true ? `--${tagName}-${name}` : cssProperty;
+        const value = this.#computedStyle?.getPropertyValue(cssProperty);
 
         if (value) {
           this.#setVia[name] = 'css';
@@ -216,19 +217,18 @@ export default class WebAwesomeElement extends LitElement {
   }
 
   // Subclasses will override this
-  static cssPropertyAttributes = new Set<PropertyKey>();
+  protected static cssAttributeProperties = new Map<PropertyKey, true | string>();
 
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     super.createProperty(name, options);
 
     if (options?.cssProperty) {
-      if (this.cssPropertyAttributes === WebAwesomeElement.cssPropertyAttributes) {
+      if (this.cssAttributeProperties === WebAwesomeElement.cssAttributeProperties) {
         // Each class needs its own, otherwise they'd share the same Set
-        this.cssPropertyAttributes = new Set();
+        this.cssAttributeProperties = new Map();
       }
 
-      // let cssProperty = options.cssProperty === true ? `--${this.tagName}-${name}` : options.cssProperty;
-      this.cssPropertyAttributes.add(name);
+      this.cssAttributeProperties.set(name, options.cssProperty);
     }
   }
 }
