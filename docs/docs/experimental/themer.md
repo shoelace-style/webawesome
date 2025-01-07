@@ -177,16 +177,6 @@ hasOutline: false
 
     --wa-form-control-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
 
-    --wa-form-control-height-s: calc(
-      var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-m: calc(
-      var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-l: calc(
-      var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: -0.1em;
@@ -378,8 +368,8 @@ hasOutline: false
     background: var(--wa-form-control-background-color);
     cursor: pointer;
     font-weight: var(--wa-font-weight-action);
-    height: calc(var(--wa-form-control-height-m) + var(--wa-border-width-s) * 2);
-    line-height: var(--wa-form-control-height-m);
+    height: calc(var(--wa-form-control-height) + var(--wa-border-width-s) * 2);
+    line-height: var(--wa-form-control-height);
     text-align: center;
   }
 

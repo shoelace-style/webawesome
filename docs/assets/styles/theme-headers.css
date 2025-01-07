@@ -162,13 +162,6 @@ html[class*='wa-theme-brutalist'] .preview-container {
   }
 
   /* imitating the large button styles */
-  .hero wa-button::part(base) {
-    height: var(--wa-form-control-height-l);
-    line-height: calc(var(--wa-form-control-height-l) - var(--border-width) * 2);
-    padding-inline-start: var(--wa-space-m);
-    padding-inline-end: var(--wa-space-xs);
-  }
-
   .hero wa-button::part(label) {
     padding: 0 var(--wa-space-l);
   }
@@ -189,11 +182,6 @@ html[class*='wa-theme-brutalist'] .preview-container {
     --wa-shadow-offset-y-s: 0;
     border-width: 0;
     text-align: right;
-  }
-
-  .product-card wa-button::part(base) {
-    height: var(--wa-form-control-height-m);
-    line-height: calc(var(--wa-form-control-height-m) - var(--border-width) * 2);
   }
 
   .product-card wa-button::part(prefix) {
@@ -239,12 +227,6 @@ html[class*='wa-theme-brutalist'] .preview-container {
 
   .message-composer [slot='header'] wa-icon-button::part(base) {
     color: var(--wa-color-neutral-on-loud);
-  }
-
-  .message-composer .grouped-buttons wa-icon-button::part(base) {
-    block-size: var(--wa-form-control-height-s);
-    inline-size: var(--wa-form-control-height-s);
-    justify-content: center;
   }
 
   .message-composer .grouped-buttons wa-icon-button::part(base):hover {
