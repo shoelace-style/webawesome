@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaRemoveEvent } from '../../events/remove.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -27,12 +28,16 @@ import styles from './tag.css';
  */
 @customElement('wa-tag')
 export default class WaTag extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, variantStyles, styles];
+  static shadowStyle = [sizeStyles, variantStyles, appearanceStyles, styles];
 
   private readonly localize = new LocalizeController(this);
 
   /** The tag's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' = 'neutral';
+
+  /** The tag's visual appearance. */
+  @property({ reflect: true }) appearance: 'accent' | 'outlined accent' | 'filled' | 'outlined' | 'outlined filled' =
+    'outlined filled';
 
   /** The tag's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
