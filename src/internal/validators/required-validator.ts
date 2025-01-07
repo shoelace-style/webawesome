@@ -1,4 +1,4 @@
-import type { Validator } from '../webawesome-element.js';
+import type { Validator } from '../webawesome-formassociated-element.js';
 
 export interface RequiredValidatorOptions {
   /** This is a cheap way for us to get translation strings for the user without having proper translations. */
