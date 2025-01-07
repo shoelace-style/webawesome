@@ -48,21 +48,21 @@ export default class WaIcon extends WebAwesomeElement {
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
-  @property({ reflect: true }) name?: string;
+  @property({ cssProperty: true }) name?: string;
 
   /**
    * The family of icons to choose from. For Font Awesome Free (default), valid options include `classic` and `brands`.
    * For Font Awesome Pro subscribers, valid options include, `classic`, `sharp`, `duotone`, and `brands`. Custom icon
    * libraries may or may not use this property.
    */
-  @property({ reflect: true }) family: string;
+  @property({ cssProperty: true }) family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
    * may or may not use this property.
    */
-  @property({ reflect: true }) variant: string;
+  @property({ cssProperty: true }) variant: string;
 
   /** Draws the icon in a fixed-width both. */
   @property({ attribute: 'fixed-width', type: Boolean, reflect: true }) fixedWidth: false;
@@ -80,10 +80,11 @@ export default class WaIcon extends WebAwesomeElement {
   @property() label = '';
 
   /** The name of a registered custom icon library. */
-  @property({ reflect: true }) library = 'default';
+  @property({ cssProperty: true }) library = 'default';
 
   connectedCallback() {
     super.connectedCallback();
+
     watchIcon(this);
   }
 
