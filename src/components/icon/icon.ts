@@ -9,7 +9,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './icon.css';
 import { getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
 
-import type { HTMLTemplateResult, PropertyValues } from 'lit';
+import type { HTMLTemplateResult, PropertyDeclaration, PropertyValues } from 'lit';
 
 const CACHEABLE_ERROR = Symbol();
 const RETRYABLE_ERROR = Symbol();
@@ -83,29 +83,45 @@ export default class WaIcon extends WebAwesomeElement {
   /** The name of a registered custom icon library. */
   @property() library = 'default';
 
-  #computedStyle: CSSStyleDeclaration = getComputedStyle(this);
-  #cssPropertyAttributes = ['family', 'name', 'variant', 'library'];
+  #computedStyle: CSSStyleDeclaration | null;
+  // Ideally we want to move this config to the decorators
+  static cssPropertyAttributes = new Set(['family', 'name', 'variant', 'library']);
+  #setVia: Record<string, 'css' | 'attribute' | 'js'> = {};
+  #setting = new Set();
 
   connectedCallback() {
     super.connectedCallback();
 
-    // FIXME this is currently static. It will only update when the element is connected, and not when the CSS property changes.
-    for (let name of this.#cssPropertyAttributes) {
-      this.updateCSSProperty(name as 'family' | 'name' | 'variant' | 'library');
+    if (WaIcon.cssPropertyAttributes.size > 0) {
+      this.updateCSSProperties();
     }
 
     watchIcon(this);
   }
 
+  private updateCSSProperties() {
+    this.#computedStyle ??= getComputedStyle(this);
+
+    // FIXME this is currently static. It will only update when the element is connected, and not when the CSS property changes.
+    for (let name of WaIcon.cssPropertyAttributes) {
+      this.updateCSSProperty(name as 'family' | 'name' | 'variant' | 'library');
+    }
+  }
+
   private updateCSSProperty(name: 'family' | 'name' | 'variant' | 'library') {
     // FIXME currently this means that CSS properties will override JS properties. This is not ideal.
-    if (!this.hasAttribute(name)) {
+    if (!this.hasAttribute(name) && this.#setVia[name] !== 'js') {
       // Check if supplied as a CSS custom property
-      // Q: Should !important override attribute values?
-      const value = this.#computedStyle.getPropertyValue(`--wa-icon-${name}`);
+      // TODO !important should override attribute values
+      const value = this.#computedStyle?.getPropertyValue(`--wa-icon-${name}`);
 
       if (value) {
+        this.#setVia[name] = 'css';
+        this.#setting.add(name);
         this[name] = value.trim();
+        this.updateComplete.then(() => {
+          this.#setting.delete(name);
+        });
       }
     }
   }
@@ -251,6 +267,15 @@ export default class WaIcon extends WebAwesomeElement {
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
+
+    if (WaIcon.cssPropertyAttributes.size > 0) {
+      for (let [name] of changedProperties) {
+        if (typeof name === 'string' && this.#setVia[name] === 'css' && !this.#setting.has(name)) {
+          // A property is being set via JS and it’s NOT because we're reflecting a CSS property
+          this.#setVia[name] = 'js';
+        }
+      }
+    }
 
     // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
     const library = getIconLibrary(this.library);
