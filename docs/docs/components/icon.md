@@ -35,10 +35,15 @@ You can set the icon's family, name, and variant via CSS custom properties. This
   This is a callout.
 </wa-callout>
 
-<wa-callout variant=danger>
+<wa-callout variant="danger">
+  <wa-icon slot="icon" name="dumpster-fire" variant="solid"></wa-icon>
+  This is a callout with an explicit icon.
+</wa-callout>
+
+<wa-callout variant="warning">
   <!-- Look ma, no attributes! -->
   <wa-icon slot="icon"></wa-icon>
-  Houston, we have a problem.
+  Here be dragons.
 </wa-callout>
 
 <style>
@@ -46,8 +51,8 @@ wa-callout {
   --wa-icon-variant: regular;
   --wa-icon-name: info-circle;
 
-  &[variant=danger] {
-    --wa-icon-name: circle-exclamation;
+  &[variant="warning"] {
+    --wa-icon-name: triangle-exclamation;
   }
 }
 </style>
