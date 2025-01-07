@@ -15,7 +15,7 @@ import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import visuallyHidden from '../../styles/utilities/visually-hidden.css';

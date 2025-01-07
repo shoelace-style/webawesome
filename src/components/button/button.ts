@@ -7,7 +7,7 @@ import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/button.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
