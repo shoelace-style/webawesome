@@ -1,5 +1,6 @@
 import { arrow, autoUpdate, computePosition, flip, offset, platform, shift, size } from '@floating-ui/dom';
 import { offsetParent } from 'composed-offset-position';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -222,11 +223,11 @@ export default class WaPopup extends WebAwesomeElement {
     this.stop();
   }
 
-  async updated(changedProps: Map<string, unknown>) {
-    super.updated(changedProps);
+  async updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
 
     // Start or stop the positioner when active changes
-    if (changedProps.has('active')) {
+    if (changedProperties.has('active')) {
       if (this.active) {
         this.start();
       } else {
@@ -235,7 +236,7 @@ export default class WaPopup extends WebAwesomeElement {
     }
 
     // Update the anchor when anchor changes
-    if (changedProps.has('anchor')) {
+    if (changedProperties.has('anchor')) {
       this.handleAnchorChange();
     }
 
