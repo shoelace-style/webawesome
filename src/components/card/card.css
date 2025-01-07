@@ -1,28 +1,21 @@
 :host {
-  --background-color: var(--wa-color-surface-default);
-  --border-color: var(--wa-color-surface-border);
-  --border-radius: var(--wa-panel-border-radius);
-  --border-style: var(--wa-panel-border-style);
-  --border-width: var(--wa-panel-border-width);
-  --box-shadow: var(--wa-shadow-s);
   --spacing: var(--wa-space-xl);
 
   display: flex;
   flex-direction: column;
-  background-color: var(--background-color);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
-  box-shadow: var(--box-shadow);
+  background-color: var(--wa-color-surface-default);
+  border-color: var(--wa-color-surface-border);
+  border-radius: var(--wa-panel-border-radius);
+  border-style: var(--wa-panel-border-style);
+  border-width: var(--wa-panel-border-width);
+  box-shadow: var(--wa-shadow-s);
   color: var(--wa-color-text-normal);
-  font: inherit;
 }
 
 .image {
   display: flex;
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
   margin: calc(-1 * var(--border-width));
   overflow: hidden;
 
@@ -41,8 +34,8 @@
 }
 
 :host(:not([with-image])) .header {
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .body {
@@ -53,8 +46,8 @@
 .footer {
   display: block;
   border-top: inherit;
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
   padding: var(--spacing);
 }
 
