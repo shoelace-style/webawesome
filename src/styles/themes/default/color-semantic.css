@@ -49,7 +49,7 @@
    *  *  Border for borders, dividers, and other stroke-like elements
    *  *  On for content displayed on a fill with the corresponding attention
    * Each role has three options for attention - quiet, normal, and loud - where quiet draws the least attention and loud draws the most.
-  */
+   */
   --wa-color-brand-fill-quiet: var(--wa-color-blue-95);
   --wa-color-brand-fill-normal: var(--wa-color-blue-90);
   --wa-color-brand-fill-loud: var(--wa-color-blue-50);

@@ -1,567 +1,264 @@
-@import '../depth/1_semiflat.css';
+@import url('../color/vogue.css');
+@import url('default/color-semantic.css');
+@import url('default/space.css');
+@import url('default/outlines.css');
+@import url('default/typography.css');
+@import url('default/rounding.css');
+@import url('default/shadows.css');
+@import url('default/transitions.css');
+@import url('default/groups.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root,
 :host,
 .wa-theme-migration-light {
   color-scheme: light;
+  color: var(--wa-color-text-normal);
 
   /**
-   * Primitive colors
-   * Each color is identified by a number that corresponds to its lightness value, where 100 is lightest (white) and 0 is darkest (black).
-   * Lightness on this scale is directly related to relative luminance, so each lightness value has uniform WCAG 2.1 contrast across hues.
-   * A difference of 40 between lightness values guarantees a minimum 3:1 contrast ratio.
-   * A difference of 50 between lightness values guarantees a minimum 4.5:1 contrast ratio.
-   * A difference of 60 between lightness values guarantees a minimum 7:1 contrast ratio.
+   * Foundational Colors
    */
-  --wa-color-red-95: #feeeee;
-  --wa-color-red-90: #fedede;
-  --wa-color-red-80: #fdb8b8;
-  --wa-color-red-70: #fa9292;
-  --wa-color-red-60: #ee6c6c;
-  --wa-color-red-50: #d43c3c;
-  --wa-color-red-40: #ac1e1e;
-  --wa-color-red-30: #640f0f;
-  --wa-color-red-20: #631111;
-  --wa-color-red-10: #3b0d0d;
-  --wa-color-red-05: #260606;
+  --wa-color-text-link: var(--wa-color-indigo-40);
 
-  --wa-color-yellow-95: #fef2c4;
-  --wa-color-yellow-90: #fde494;
-  --wa-color-yellow-80: #fbc129;
-  --wa-color-yellow-70: #f29c0b;
-  --wa-color-yellow-60: #db7e13;
-  --wa-color-yellow-50: #af6005;
-  --wa-color-yellow-40: #904207;
-  --wa-color-yellow-30: #713406;
-  --wa-color-yellow-20: #532408;
-  --wa-color-yellow-10: #321606;
-  --wa-color-yellow-05: #1f0c01;
+  --wa-color-shadow: rgb(0 0 0 / 0.05);
 
-  --wa-color-green-95: #e9f5ed;
-  --wa-color-green-90: #cfedd9;
-  --wa-color-green-80: #a2d5b4;
-  --wa-color-green-70: #6cc08a;
-  --wa-color-green-60: #38a961;
-  --wa-color-green-50: #178640;
-  --wa-color-green-40: #0e662e;
-  --wa-color-green-30: #0d5026;
-  --wa-color-green-20: #0c391d;
-  --wa-color-green-10: #082213;
-  --wa-color-green-05: #02140a;
+  --wa-color-focus: var(--wa-color-indigo-50);
 
-  --wa-color-indigo-95: #eef2ff;
-  --wa-color-indigo-90: #dee5fd;
-  --wa-color-indigo-80: #bec8f2;
-  --wa-color-indigo-70: #9dabf0;
-  --wa-color-indigo-60: #818cf7;
-  --wa-color-indigo-50: #6063eb;
-  --wa-color-indigo-40: #4941d3;
-  --wa-color-indigo-30: #3930ad;
-  --wa-color-indigo-20: #29247a;
-  --wa-color-indigo-10: #191843;
-  --wa-color-indigo-05: #0f0e26;
-
-  --wa-color-gray-95: #f1f2f3;
-  --wa-color-gray-90: #e5e6e7;
-  --wa-color-gray-80: #c8c9cd;
-  --wa-color-gray-70: #acafb4;
-  --wa-color-gray-60: #8f95a0;
-  --wa-color-gray-50: #6e7482;
-  --wa-color-gray-40: #4f5967;
-  --wa-color-gray-30: #3c4655;
-  --wa-color-gray-20: #293240;
-  --wa-color-gray-10: #171d2c;
-  --wa-color-gray-05: #0d111b;
-
-  --wa-color-primary-95: var(--wa-color-indigo-95);
-  --wa-color-primary-90: var(--wa-color-indigo-90);
-  --wa-color-primary-80: var(--wa-color-indigo-80);
-  --wa-color-primary-70: var(--wa-color-indigo-70);
-  --wa-color-primary-60: var(--wa-color-indigo-60);
-  --wa-color-primary-50: var(--wa-color-indigo-50);
-  --wa-color-primary-40: var(--wa-color-indigo-40);
-  --wa-color-primary-30: var(--wa-color-indigo-30);
-  --wa-color-primary-20: var(--wa-color-indigo-20);
-  --wa-color-primary-10: var(--wa-color-indigo-10);
-  --wa-color-primary-05: var(--wa-color-indigo-05);
-
-  --wa-color-base-95: var(--wa-color-gray-95);
-  --wa-color-base-90: var(--wa-color-gray-90);
-  --wa-color-base-80: var(--wa-color-gray-80);
-  --wa-color-base-70: var(--wa-color-gray-70);
-  --wa-color-base-60: var(--wa-color-gray-60);
-  --wa-color-base-50: var(--wa-color-gray-50);
-  --wa-color-base-40: var(--wa-color-gray-40);
-  --wa-color-base-30: var(--wa-color-gray-30);
-  --wa-color-base-20: var(--wa-color-gray-20);
-  --wa-color-base-10: var(--wa-color-gray-10);
-  --wa-color-base-05: var(--wa-color-gray-05);
+  --wa-color-mix-hover: var(--wa-color-gray-80) 20%;
+  --wa-color-mix-active: var(--wa-color-gray-80) 10%;
 
   /**
-   * Foundational theme colors
+   * Semantic Colors
    */
-
-  /* Surfaces are background layers that UI components and other content rest on.
-   * Surface colors support elevation, where raised is closest to the user and lowered is farthest away. */
-  --wa-color-surface-raised: white;
-  --wa-color-surface-default: white;
-  --wa-color-surface-lowered: var(--wa-color-base-95);
-  --wa-color-surface-border: var(--wa-color-base-90);
-
-  /* Text colors are used for standard text elements.
-   * Text should have a minimum 4.5:1 contrast ratio against surfaces.
-   * Inverse text should support appropriate contrast against background colors with opposing lightness. */
-  --wa-color-text-normal: var(--wa-color-base-10);
-  --wa-color-text-quiet: var(--wa-color-base-40);
-  --wa-color-text-link: var(--wa-color-brand-on-quiet);
-
-  /* Focus specifies the default color of the focus ring for predictable keyboard navigation.
-   * Focus should have a minimum 3:1 contrast ratio against surfaces and background colors whenever possible. */
-  --wa-color-focus: var(--wa-color-primary-50);
-
-  /* Overlays provide a backdrop for isolated content, often allowing background colors or content to show through. */
-  --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-base-20) 32%, transparent);
-  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-base-50) 8%, transparent);
-
-  /* Shadow specifies the default color for box shadows that indicate elevation. */
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-base-05) calc(var(--wa-shadow-blur-scale) * 8% + 6%),
-    transparent
-  );
-
-  /* Mix colors are used in color-mix() to achieve consistent interaction effects across components. */
-  --wa-color-mix-hover: var(--wa-color-base-80) 20%;
-  --wa-color-mix-active: var(--wa-color-base-80) 10%;
-
-  /**
-   * Semantic theme colors
-   * Five semantic groups reinforce a component's message, intended usage, or expected results through meaningful hues -
-   *  *  Brand to reinforce product branding
-   *  *  Success to express validity or confirmation
-   *  *  Warning to express caution or uncertainty
-   *  *  Danger to express errors or risk
-   *  *  Neutral for elements that are innocuous or inert
-   * Each semantic group specifies colors to use as fills, outlines, and text content with vivid and muted variations.
-   * Vivid colors are the most noticeable against base theme colors, whereas muted colors draw less attention.
-   * Vivid colors should have a minimum 3:1 contrast ratio against surfaces when possible.
-   * Muted colors have no contrast requirements.
-   * Text colors should have a minimum 4.5:1 contrast ratio on the intended background - vivid, muted, or surface.
-  */
-
-  --wa-color-brand-fill-loud: var(--wa-color-primary-40);
-  --wa-color-brand-fill-quiet: var(--wa-color-primary-95);
-  --wa-color-brand-fill-normal: var(--wa-color-primary-90);
-  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-primary-80), transparent);
-  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-primary-70), transparent);
+  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-indigo-95) 85%, transparent);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-indigo-80), transparent);
+  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-indigo-70) 60%, transparent);
+  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-indigo-60) 70%, transparent);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
   --wa-color-brand-on-loud: white;
-  --wa-color-brand-on-normal: var(--wa-color-primary-40);
-  --wa-color-brand-on-quiet: var(--wa-color-primary-40);
 
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
-  --wa-color-success-fill-quiet: var(--wa-color-green-95);
+  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-95) 85%, transparent);
   --wa-color-success-fill-normal: var(--wa-color-green-90);
+  --wa-color-success-fill-loud: var(--wa-color-green-50);
   --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-green-80), transparent);
-  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-70), transparent);
+  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-70) 60%, transparent);
+  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-green-60) 70%, transparent);
+  --wa-color-success-on-quiet: var(--wa-color-green-40);
+  --wa-color-success-on-normal: var(--wa-color-green-30);
   --wa-color-success-on-loud: white;
-  --wa-color-success-on-normal: var(--wa-color-green-40);
-  --wa-color-success-on-quiet: var(--wa-color-green-50);
 
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
-  --wa-color-warning-fill-quiet: var(--wa-color-yellow-95);
+  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-yellow-95) 85%, transparent);
   --wa-color-warning-fill-normal: var(--wa-color-yellow-90);
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
   --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-yellow-80), transparent);
-  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-70), transparent);
+  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-70) 60%, transparent);
+  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-yellow-60) 70%, transparent);
+  --wa-color-warning-on-quiet: var(--wa-color-yellow-40);
+  --wa-color-warning-on-normal: var(--wa-color-yellow-30);
   --wa-color-warning-on-loud: white;
-  --wa-color-warning-on-normal: var(--wa-color-yellow-40);
-  --wa-color-warning-on-quiet: var(--wa-color-yellow-50);
 
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
-  --wa-color-danger-fill-quiet: var(--wa-color-red-95);
+  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-red-95) 85%, transparent);
   --wa-color-danger-fill-normal: var(--wa-color-red-90);
+  --wa-color-danger-fill-loud: var(--wa-color-red-50);
   --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-red-80), transparent);
-  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-70), transparent);
+  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-70) 60%, transparent);
+  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-red-60) 70%, transparent);
+  --wa-color-danger-on-quiet: var(--wa-color-red-40);
+  --wa-color-danger-on-normal: var(--wa-color-red-30);
   --wa-color-danger-on-loud: white;
-  --wa-color-danger-on-normal: var(--wa-color-red-40);
-  --wa-color-danger-on-quiet: var(--wa-color-red-50);
 
-  --wa-color-neutral-fill-loud: var(--wa-color-base-10);
-  --wa-color-neutral-fill-quiet: var(--wa-color-base-95);
-  --wa-color-neutral-fill-normal: var(--wa-color-base-90);
-  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-base-80), transparent 50%);
-  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-base-70), transparent 50%);
+  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-gray-95) 85%, transparent);
+  --wa-color-neutral-fill-normal: var(--wa-color-gray-90);
+  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
+  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-80), transparent);
+  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-gray-70) 60%, transparent);
+  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-gray-60) 70%, transparent);
+  --wa-color-neutral-on-quiet: var(--wa-color-gray-30);
+  --wa-color-neutral-on-normal: var(--wa-color-gray-30);
   --wa-color-neutral-on-loud: white;
-  --wa-color-neutral-on-normal: var(--wa-color-base-40);
-  --wa-color-neutral-on-quiet: var(--wa-color-base-40);
 
   /**
    * Typography
    */
-  --wa-font-family-heading: 'Inter', sans-serif;
   --wa-font-family-body: 'Inter', sans-serif;
-  --wa-font-family-code: ui-monospace, monospace;
-  --wa-font-family-longform: ui-serif, serif;
+  --wa-font-family-heading: var(--wa-font-family-body);
 
   --wa-font-weight-light: 300;
   --wa-font-weight-normal: 400;
   --wa-font-weight-semibold: 500;
-  --wa-font-weight-bold: 600;
-  --wa-font-weight-black: 700;
+  --wa-font-weight-bold: 700;
 
-  --wa-font-weight-heading: var(--wa-font-weight-black);
-  --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-action: var(--wa-font-weight-bold);
+  --wa-font-size-scale: 0.875;
 
-  /* The default typescale is based on the Major Second scale (x1.125).
-   * Every other step on the scale is skipped for larger sizes in order to maximize variation. */
-  --wa-font-size-root: 14px;
-  --wa-font-size-2xs: 0.6875rem; /* 11px */
-  --wa-font-size-xs: 0.75rem; /* 12px */
-  --wa-font-size-s: 0.875rem; /* 14px */
-  --wa-font-size-m: 1rem; /* 16px */
-  --wa-font-size-l: 1.25rem; /* 20px */
-  --wa-font-size-xl: 1.625rem; /* 26px */
-  --wa-font-size-2xl: 2rem; /* 32px */
-  --wa-font-size-3xl: 2.5625rem; /* 41px */
-  --wa-font-size-4xl: 3.25rem; /* 52px */
-
-  --wa-line-height-condensed: 1.25;
-  --wa-line-height-normal: 1.6;
-  --wa-line-height-expanded: 2;
+  --wa-link-decoration-default: none;
+  --wa-link-decoration-hover: none;
 
   /**
    * Spacing
-   * Used intentionally, space properties yield a predictable rhythm and support effective implementation of the proximity principle.
-   * Space can be organized into three groups with distinct usage -
-   *  *  Small-scale space (3xs, 2xs, and xs) is used for gaps between closely related elements, such as a dropdown button and its menu,
-   *     and padding within small components, such as badges and tooltips
-   *  *  Normal space (s, m, and l) is used for gaps between related elements with distinct purposes or touch targets and padding within
-   *     typical interface elements, such as buttons and inputs
-   *  *  Large-scale space (xl, 2xl, and 3xl) is used for gaps between unrelated elements and padding within larger components,
-   *     such as cards and dialogs
    */
-  /* Space is designed to scale according to a single base value.
-   * The base value is intended for calculations and is not used by components directly. */
-  --wa-space-scale: 1;
-  --wa-space-3xs: calc(var(--wa-space-scale) * 0.125rem); /* 2px */
-  --wa-space-2xs: calc(var(--wa-space-scale) * 0.25rem); /* 4px */
-  --wa-space-xs: calc(var(--wa-space-scale) * 0.5rem); /* 8px */
-  --wa-space-s: calc(var(--wa-space-scale) * 0.75rem); /* 12px */
-  --wa-space-m: calc(var(--wa-space-scale) * 1rem); /* 16px */
-  --wa-space-l: calc(var(--wa-space-scale) * 1.25rem); /* 20px */
-  --wa-space-xl: calc(var(--wa-space-scale) * 1.5rem); /* 24px */
-  --wa-space-2xl: calc(var(--wa-space-scale) * 2rem); /* 32px */
-  --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
-
-  /**
-   * Borders
-   */
-  --wa-border-style: solid;
-
-  /* Border widths are designed to scale according to a single base value.
-     * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-width-scale: calc(1 / 14);
-  --wa-border-width-s: calc(var(--wa-border-width-scale) * 1rem);
-  --wa-border-width-m: calc(var(--wa-border-width-scale) * 2rem);
-  --wa-border-width-l: calc(var(--wa-border-width-scale) * 3rem);
-
-  --wa-form-control-border-style: var(--wa-border-style);
-  --wa-form-control-border-width: var(--wa-border-width-s);
-
-  --wa-panel-border-style: var(--wa-border-style);
-  --wa-panel-border-width: var(--wa-border-width-s);
-
-  /**
-   * Corners
-   */
-  /* Corners are designed to scale according to a single base value.
-   * The base value is intended for calculations and is not used by components directly. */
-  --wa-border-radius-scale: 0.375;
-  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 0.75rem);
-  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem);
-  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 2rem);
-  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 3rem);
-
-  /* Semantic corner properties create specific shapes beyond the theme's preferred corner styles. */
-  --wa-border-radius-pill: 9999px;
-  --wa-border-radius-circle: 50%;
-  --wa-border-radius-square: 0;
+  --wa-space-scale: 0.875;
 
   /**
    * Focus
    */
-  --wa-focus-ring-style: solid;
-  --wa-focus-ring-width: calc((2 / 14) * 1rem);
-  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-    color-mix(in oklab, var(--wa-color-focus) 98%, transparent);
+  --wa-focus-ring-width: 0.125rem;
   --wa-focus-ring-offset: 0;
 
   /**
-   * Links
+   * Shadows
    */
-  --wa-link-decoration-default: none;
-  --wa-link-decoration-hover: underline;
+  --wa-shadow-offset-y-scale: 0.5;
+  --wa-shadow-offset-blur-scale: 0.5;
+  --wa-shadow-spread-scale: 0;
 
   /**
-   * Transitions
+   * Component Groups
    */
-  --wa-transition-slow: 250ms;
-  --wa-transition-normal: 150ms;
-  --wa-transition-fast: 50ms;
+  --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
+  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
-  /**
-   * Component groups
-   */
-  --wa-form-control-background-color: var(--wa-color-surface-default);
-
-  --wa-form-control-border-radius: var(--wa-border-radius-m);
-
-  --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-  --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
-
-  --wa-form-control-label-color: var(--wa-color-text-quiet);
   --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
   --wa-form-control-label-line-height: var(--wa-line-height-normal);
-
-  --wa-form-control-value-color: var(--wa-color-text-normal);
-  --wa-form-control-value-font-weight: var(--wa-font-weight-body);
-  --wa-form-control-value-line-height: var(--wa-line-height-condensed);
-
-  --wa-form-control-placeholder-color: var(--wa-color-base-60);
-
-  --wa-form-control-height-s: calc(var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height));
-  --wa-form-control-height-m: calc(var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height));
-  --wa-form-control-height-l: calc(var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height));
-
-  --wa-form-control-required-content: '*';
-  --wa-form-control-required-content-color: inherit;
-  --wa-form-control-required-content-offset: -0.1em;
-
-  --wa-panel-border-radius: var(--wa-border-radius-l);
-
-  /**
-   * From 2.x
-   */
-  --wa-tooltip-arrow-size: 0.375rem;
 }
 
 .wa-theme-migration-dark,
-.wa-theme-migration-dark :host {
+:is(:host-context(.wa-theme-migration-dark)) {
   color-scheme: dark;
+  color: var(--wa-color-text-normal);
 
   /**
-   * Base theme colors
+   * Foundational Colors
    */
-  --wa-color-surface-raised: color-mix(in oklab, var(--wa-color-base-10) 60%, var(--wa-color-base-20));
-  --wa-color-surface-default: var(--wa-color-base-10);
-  --wa-color-surface-lowered: var(--wa-color-base-05);
+  --wa-color-surface-raised: var(--wa-color-gray-10);
+  --wa-color-surface-default: var(--wa-color-gray-05);
+  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 10%);
   --wa-color-surface-border: rgb(255 255 255 / 0.1);
 
   --wa-color-text-normal: white;
-  --wa-color-text-quiet: var(--wa-color-base-60);
-  --wa-color-text-link: var(--wa-color-brand-on-quiet);
+  --wa-color-text-quiet: var(--wa-color-gray-60);
+  --wa-color-text-link: var(--wa-color-indigo-70);
 
-  --wa-color-focus: var(--wa-color-primary-60);
+  --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
+  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
 
-  --wa-color-overlay-modal: color-mix(in oklab, black 50%, transparent);
+  --wa-color-shadow: rgb(0 0 0 / 0.2);
 
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-scale) * 16% + 40%), transparent);
+  --wa-color-focus: var(--wa-color-indigo-60);
 
-  --wa-color-mix-hover: var(--wa-color-base-70) 20%;
-  --wa-color-mix-active: var(--wa-color-base-70) 10%;
+  --wa-color-mix-hover: var(--wa-color-gray-70) 20%;
+  --wa-color-mix-active: var(--wa-color-gray-70) 10%;
 
   /**
-   * Semantic theme colors
+   * Semantic Colors
    */
-  --wa-color-brand-fill-loud: var(--wa-color-primary-50);
-  --wa-color-brand-fill-quiet: var(--wa-color-primary-10);
-  --wa-color-brand-fill-normal: var(--wa-color-primary-20);
-  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-primary-20), transparent);
-  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-primary-30), transparent);
+  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-indigo-10) 90%, transparent);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-50);
+  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-indigo-20), transparent);
+  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-indigo-30), transparent);
+  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-indigo-40), transparent);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
   --wa-color-brand-on-loud: white;
-  --wa-color-brand-on-normal: var(--wa-color-primary-70);
-  --wa-color-brand-on-quiet: var(--wa-color-primary-60);
 
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
-  --wa-color-success-fill-quiet: var(--wa-color-green-10);
+  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-10) 90%, transparent);
   --wa-color-success-fill-normal: var(--wa-color-green-20);
+  --wa-color-success-fill-loud: var(--wa-color-green-50);
   --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-green-20), transparent);
-  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-30), transparent);
-  --wa-color-success-on-loud: white;
-  --wa-color-success-on-normal: var(--wa-color-green-70);
+  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-30) 60%, transparent);
+  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-green-40) 70%, transparent);
   --wa-color-success-on-quiet: var(--wa-color-green-60);
+  --wa-color-success-on-normal: var(--wa-color-green-70);
+  --wa-color-success-on-loud: white;
 
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
-  --wa-color-warning-fill-quiet: var(--wa-color-yellow-10);
+  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-yellow-10) 90%, transparent);
   --wa-color-warning-fill-normal: var(--wa-color-yellow-20);
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
   --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-yellow-20), transparent);
-  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-30), transparent);
-  --wa-color-warning-on-loud: white;
-  --wa-color-warning-on-normal: var(--wa-color-yellow-70);
+  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-30) 60%, transparent);
+  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-yellow-40) 70%, transparent);
   --wa-color-warning-on-quiet: var(--wa-color-yellow-60);
+  --wa-color-warning-on-normal: var(--wa-color-yellow-70);
+  --wa-color-warning-on-loud: white;
 
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
-  --wa-color-danger-fill-quiet: var(--wa-color-red-10);
+  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-red-10) 90%, transparent);
   --wa-color-danger-fill-normal: var(--wa-color-red-20);
+  --wa-color-danger-fill-loud: var(--wa-color-red-50);
   --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-red-20), transparent);
-  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-30), transparent);
-  --wa-color-danger-on-loud: white;
-  --wa-color-danger-on-normal: var(--wa-color-red-70);
+  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-30) 60%, transparent);
+  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-red-40) 70%, transparent);
   --wa-color-danger-on-quiet: var(--wa-color-red-60);
+  --wa-color-danger-on-normal: var(--wa-color-red-70);
+  --wa-color-danger-on-loud: white;
 
+  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-gray-10) 90%, transparent);
+  --wa-color-neutral-fill-normal: var(--wa-color-gray-20);
   --wa-color-neutral-fill-loud: white;
-  --wa-color-neutral-fill-quiet: var(--wa-color-base-10);
-  --wa-color-neutral-fill-normal: var(--wa-color-base-20);
-  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-base-20), transparent);
-  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-base-30), transparent);
-  --wa-color-neutral-on-loud: var(--wa-color-base-10);
-  --wa-color-neutral-on-normal: var(--wa-color-base-70);
-  --wa-color-neutral-on-quiet: var(--wa-color-base-60);
+  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-20), transparent);
+  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-gray-30) 60%, transparent);
+  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-gray-40) 70%, transparent);
+  --wa-color-neutral-on-quiet: var(--wa-color-gray-60);
+  --wa-color-neutral-on-normal: var(--wa-color-gray-70);
+  --wa-color-neutral-on-loud: var(--wa-color-gray-10);
 }
 
-/* #region Custom Styles */
-@container preview (min-width: 0) {
-  h1,
-  h2,
-  h3,
-  h4 {
-    letter-spacing: calc(1em * -0.03);
-  }
+/**
+ * Component Styles
+ */
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: calc(1em * -0.03);
+}
 
-  .project-header {
-    background: var(--wa-color-surface-default);
-  }
+wa-avatar {
+  --background-color: var(--wa-color-neutral-fill-quiet);
+  --text-color: var(--wa-color-neutral-on-quiet);
+}
 
-  .hero {
-    --hero-background-color: var(--wa-color-surface-default);
-    --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), transparent 30%);
-    background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
-      radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-red-50) 16%, transparent), transparent 30%),
-      radial-gradient(
-        circle at 40% 50%,
-        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
-        transparent 40%
-      ),
-      radial-gradient(circle at 80% 25%, color-mix(in oklab, var(--wa-color-red-50) 8%, transparent), transparent 20%),
-      radial-gradient(
-        circle at 80% 80%,
-        color-mix(in oklab, var(--wa-color-primary-40) 16%, transparent),
-        transparent 40%
-      ),
-      radial-gradient(circle at 90% 30%, color-mix(in oklab, var(--wa-color-red-60) 8%, transparent), transparent 10%),
-      linear-gradient(176deg, var(--hero-background-color), transparent 6rem),
-      linear-gradient(90deg, var(--hero-background-color), transparent),
-      repeating-linear-gradient(
-        var(--hero-lines-color),
-        var(--hero-lines-color) 1px,
-        transparent 1px,
-        transparent 10rem,
-        var(--hero-lines-color) 10rem
-      ),
-      repeating-linear-gradient(
-        90deg,
-        var(--hero-lines-color),
-        var(--hero-lines-color) 1px,
-        transparent 1px,
-        transparent 10rem,
-        var(--hero-lines-color) 10rem
-      ),
-      var(--hero-background-color);
+a,
+wa-badge,
+wa-tag {
+  font-weight: var(--wa-font-weight-semibold);
+}
 
-    & .title {
-      padding-block: calc(var(--wa-space-3xl) * 2) calc(var(--wa-space-3xl) * 10);
+:is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
+    [appearance='plain'],
+    .wa-plain
+  ) {
+  box-shadow: var(--wa-shadow-s);
+}
 
-      & .hero-title {
-        font-size: calc((var(--wa-font-size-4xl) * 1.125) * 1.125);
-        margin-block: 0 var(--wa-space-3xl);
-      }
-    }
-  }
+wa-callout {
+  border-radius: var(--wa-border-radius-m);
 
-  .badge-stock {
-    position: absolute;
-    top: var(--wa-space-l);
-    left: var(--wa-space-l);
-  }
-
-  .message-composer wa-card {
-    &::part(footer) {
-      border: none;
-    }
-    & wa-icon-button {
-      color: var(--wa-color-base-50);
-    }
-  }
-
-  .products {
-    margin-top: calc(var(--wa-space-3xl) * -8);
-  }
-
-  pre.codeblock {
-    background-color: var(--wa-color-neutral-fill-normal);
-  }
-
-  wa-avatar {
-    --wa-color-neutral-fill-loud: var(--wa-color-base-50);
-  }
-
-  a,
-  wa-badge,
-  wa-tag {
-    font-weight: var(--wa-font-weight-semibold);
-  }
-
-  wa-badge {
-    --border-color: transparent;
-
-    &[variant='brand'] {
-      --background: var(--wa-color-brand-fill-normal);
-      --text-color: var(--wa-color-brand-on-normal);
-    }
-    &[variant='success'] {
-      --background: var(--wa-color-success-fill-normal);
-      --text-color: var(--wa-color-success-on-normal);
-    }
-    &[variant='warning'] {
-      --background: var(--wa-color-warning-fill-normal);
-      --text-color: var(--wa-color-warning-on-normal);
-    }
-    &[variant='danger'] {
-      --background: var(--wa-color-danger-fill-normal);
-      --text-color: var(--wa-color-danger-on-normal);
-    }
-    &[variant='neutral'] {
-      --background: var(--wa-color-neutral-fill-normal);
-      --text-color: var(--wa-color-neutral-on-normal);
-    }
-  }
-
-  wa-button[appearance='outline'] {
-    --border-color: color-mix(in oklab, var(--text-color), transparent 75%);
-  }
-
-  wa-input,
-  wa-select {
-    --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s) -0.08em
-      var(--wa-color-shadow);
-    & wa-icon {
-      color: var(--wa-color-text-quiet);
-    }
-  }
-
-  wa-radio-button:not([checked]) {
-    --border-color: var(--wa-color-neutral-border-normal);
-    --text-color: var(--wa-color-text-normal);
-  }
-
-  wa-switch {
-    --border-color: transparent;
-    --height: calc(var(--thumb-size) * (18 / 14));
-    --thumb-color: white;
-    --thumb-color-checked: var(--thumb-color);
-    --thumb-size: 1em;
-    --thumb-shadow: var(--wa-shadow-m);
-    --width: calc(var(--thumb-size) * (32 / 14));
+  &::part(icon) {
+    opacity: 0.6;
   }
 }
-/* #endregion */
+
+input[type='radio'],
+wa-radio {
+  --background-color-checked: var(--wa-form-control-activated-color);
+  --checked-icon-color: var(--wa-color-brand-on-loud);
+  --checked-icon-scale: 0.4;
+}
+
+wa-switch {
+  --background-color: var(--wa-color-neutral-fill-normal);
+  --border-color: transparent;
+  --height: calc(var(--thumb-size) * (18 / 14));
+  --thumb-color: white;
+  --thumb-color-checked: var(--thumb-color);
+  --thumb-size: 1.25em;
+  --thumb-shadow: var(--wa-shadow-s);
+  --width: calc(var(--thumb-size) * (32 / 14));
+}
+
+wa-tab {
+  color: var(--wa-color-text-quiet);
+}

@@ -3,7 +3,7 @@ label:has(input[type='radio']),
 :host {
   --background-color: var(--wa-form-control-background-color);
   --background-color-checked: var(--background-color);
-  --border-color: var(--wa-form-control-resting-color);
+  --border-color: var(--wa-form-control-border-color);
   --border-color-checked: var(--wa-form-control-activated-color);
   --border-style: var(--wa-border-style);
   --border-width: var(--wa-form-control-border-width);

@@ -10,7 +10,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import sliderStyles from '../../styles/native/slider.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import { LocalizeController } from '../../utilities/localize.js';

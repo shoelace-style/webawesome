@@ -5,7 +5,7 @@ input[type='color'] {
   padding: 3px;
   width: calc(var(--wa-form-control-height) - 2px);
   height: calc(var(--wa-form-control-height) - 2px);
-  border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-form-control-resting-color);
+  border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-form-control-border-color);
   cursor: pointer;
   margin-block-start: 3px;
   forced-color-adjust: none;

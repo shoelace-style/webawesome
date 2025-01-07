@@ -1,7 +1,7 @@
 ---
 title: Theming Sandbox
 description: TODO
-layout: page
+layout: page-outline
 ---
 
 ## Card
@@ -245,11 +245,78 @@ layout: page
     <wa-spinner></wa-spinner>
   </div>
   <div class="alignment">
-    <wa-input label="AaBbCc" hint="Lorem ipsum dolor"></wa-input>
-    <wa-select label="AaBbCc" value="ocbs" multiple hint="Lorem ipsum dolor">
+    <wa-input label="AaBbCc" hint="Ipsum"></wa-input>
+    <wa-select label="AaBbCc" value="ocbs" multiple hint="Ipsum">
       <wa-option value="ocbs">OCBS</wa-option>
     </wa-select>
-    <wa-color-picker label="AaBbCc" hint="Lorem ipsum dolor"></wa-color-picker>
+    <wa-color-picker label="AaBbCc" hint="Ipsum"></wa-color-picker>
   </div>
 </div>
+```
+
+```html {.example}
+<style>
+  .wa-theme-test {
+    --wa-form-control-background-color: mistyrose;
+
+    --wa-form-control-border-style: dotted;
+    --wa-form-control-border-width: 3px;
+    --wa-form-control-border-radius: 12px;
+
+    --wa-form-control-activated-color: mediumvioletred;
+    --wa-form-control-border-color: palevioletred;
+
+    --wa-form-control-label-color: rosybrown;
+    --wa-form-control-label-font-weight: 900;
+    --wa-form-control-label-line-height: 1;
+
+    --wa-form-control-value-color: brown;
+    --wa-form-control-value-font-weight: 900;
+    --wa-form-control-value-line-height: 2;
+
+    --wa-form-control-placeholder-color: lightpink;
+  }
+</style>
+<div class="wa-theme-test" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+  <label>Native Input <input type="text" placeholder="placeholder"></label>
+  <wa-input label="WA Input" type="text" placeholder="placeholder"></wa-input>
+
+  <label>Native Input <input type="text" value="value"></label>
+  <wa-input label="WA Input" type="text" value="value"></wa-input>
+
+  <label>Native Textarea <textarea placeholder="placeholder"></textarea></label>
+  <wa-textarea label="WA Textarea" placeholder="placeholder"></wa-textarea>
+
+  <label>Native Textarea <textarea>value</textarea></label>
+  <wa-textarea label="WA Textarea" value="value"></wa-textarea>
+
+  <label><input type="checkbox" checked> Native Checkbox</label>
+  <wa-checkbox checked>WA Checkbox</wa-checkbox>
+
+  <label><input type="checkbox"> Native Checkbox</label>
+  <wa-checkbox>WA Checkbox</wa-checkbox>
+
+  <label><input type="radio" checked> Native Radio</label>
+  <wa-radio checked>WA Radio</wa-radio>
+
+  <label><input type="radio"> Native Radio</label>
+  <wa-radio>WA Radio</wa-radio>
+
+  <label>
+    Native Select 
+    <select value="option-1">
+      <option value="option-1">Option 1</option>
+      <option value="option-2">Option 2</option>
+      <option value="option-3">Option 3</option>
+      <option value="option-4">Option 4</option>
+    </select>
+  </label>
+  <wa-select label="WA Select" value="option-1">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+    <wa-option value="option-3">Option 3</wa-option>
+    <wa-option value="option-4">Option 4</wa-option>
+  </wa-select>
+</div>
+
 ```

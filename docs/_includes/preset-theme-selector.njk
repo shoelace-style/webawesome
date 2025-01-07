@@ -1,17 +1,18 @@
 {# Preset theme selector #}
-<wa-dropdown id="preset-theme-selector">
+<wa-dropdown class="preset-theme-selector">
   <wa-button slot="trigger" appearance="filled" size="small" pill caret>
     <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
-    <span id="preset-theme-selector__text">Default</span>
+    <span class="preset-theme-selector__text">Default</span>
   </wa-button>
   <wa-menu>
     <wa-menu-item type="checkbox" value="default">Default</wa-menu-item>
     <wa-menu-item type="checkbox" value="classic">Classic</wa-menu-item>
-    <wa-menu-item data-alpha="remove" type="checkbox" value="fa">Font Awesome</wa-menu-item>
-    <wa-menu-item data-alpha="remove" type="checkbox" value="active">Active</wa-menu-item>
-    <wa-menu-item data-alpha="remove" type="checkbox" value="brutalist">Brutalism</wa-menu-item>
+    <wa-menu-item type="checkbox" value="awesome">Awesome</wa-menu-item>
+    <wa-menu-item type="checkbox" value="active">Active</wa-menu-item>
+    <wa-menu-item type="checkbox" value="brutalist">Brutalist</wa-menu-item>
     <wa-menu-item data-alpha="remove" type="checkbox" value="glassy">Glassy</wa-menu-item>
-    <wa-menu-item data-alpha="remove" type="checkbox" value="migration">Migration</wa-menu-item>
+    <wa-menu-item type="checkbox" value="mellow">Mellow</wa-menu-item>
+    <wa-menu-item type="checkbox" value="migration">Migration</wa-menu-item>
     <wa-menu-item data-alpha="remove" type="checkbox" value="playful">Playful</wa-menu-item>
     <wa-menu-item data-alpha="remove" type="checkbox" value="premium">Premium</wa-menu-item>
   </wa-menu>

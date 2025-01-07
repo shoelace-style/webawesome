@@ -22,7 +22,7 @@ wa-page {
 /* Header */
 wa-page::part(header) {
   background-color: var(--wa-color-surface-default);
-  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
 }
 
 wa-page::part(body) {
@@ -81,7 +81,7 @@ wa-page > header {
   }
   wa-button#search-trigger {
     --background-color: var(--wa-form-control-background-color);
-    --border-color: var(--wa-form-control-resting-color);
+    --border-color: var(--wa-form-control-border-color);
   }
   #search-trigger kbd {
     font-size: var(--wa-font-size-2xs);
@@ -428,7 +428,7 @@ wa-page > main:has(> .index-grid) {
 @media screen and not (max-width: 768px) {
   /* Navigation sidebar */
   wa-page::part(navigation) {
-    border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
   }
 
   wa-page > #sidebar {

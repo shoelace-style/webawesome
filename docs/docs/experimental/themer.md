@@ -5,6 +5,15 @@ layout: page
 hasOutline: false
 ---
 
+<script>
+  // Add stylesheet to set themed headers
+  const themeHeadersLink = document.createElement("link");
+  themeHeadersLink.type="text/css";
+  themeHeadersLink.rel="stylesheet";
+  themeHeadersLink.href="/assets/styles/theme-headers.css";
+  document.getElementsByTagName("head")[0].appendChild(themeHeadersLink);
+</script>
+
 <style>
   /* turn off eleventy header anchors */
   .anchor-heading a {
@@ -156,7 +165,7 @@ hasOutline: false
     --wa-form-control-border-radius: var(--wa-border-radius-m);
 
     --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-    --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
@@ -167,16 +176,6 @@ hasOutline: false
     --wa-form-control-value-line-height: var(--wa-line-height-condensed);
 
     --wa-form-control-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
-
-    --wa-form-control-height-s: calc(
-      var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-m: calc(
-      var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-l: calc(
-      var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
 
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
@@ -364,13 +363,13 @@ hasOutline: false
   /* file uploader styles */
   .file-uploader {
     position: relative;
-    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-resting-color);
+    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-border-color);
     border-radius: var(--wa-form-control-border-radius);
     background: var(--wa-form-control-background-color);
     cursor: pointer;
     font-weight: var(--wa-font-weight-action);
-    height: calc(var(--wa-form-control-height-m) + var(--wa-border-width-s) * 2);
-    line-height: var(--wa-form-control-height-m);
+    height: calc(var(--wa-form-control-height) + var(--wa-border-width-s) * 2);
+    line-height: var(--wa-form-control-height);
     text-align: center;
   }
 
@@ -502,7 +501,7 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="fa">Font Awesome</wa-option>
+      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
       <wa-option data-alpha="remove" value="premium">Premium</wa-option>
       <wa-option data-alpha="remove" value="playful">Playful</wa-option>
       <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
@@ -880,7 +879,7 @@ hasOutline: false
       case 'migration':
         colorPalette = 'classic';
         break;
-      case 'fa':
+      case 'awesome':
         colorPalette = 'bright';
         break;
       case 'playful':
@@ -1049,7 +1048,7 @@ hasOutline: false
       case 'playful':
       case 'brutalist':
       case 'classic':
-      case 'fa':
+      case 'awesome':
       case 'glassy':
       case 'active':
         assetFolder = themeSelect.value;
@@ -1245,7 +1244,7 @@ hasOutline: false
     let presetLogoIcons;
 
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
@@ -1447,7 +1446,7 @@ hasOutline: false
 
   function setPreferredIcons() {
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1664,7 +1663,7 @@ hasOutline: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    container: preview / inline-size;
+    container-type: inline-size;
     padding: 0;
     max-inline-size: 1400px;
     margin-inline: auto;
