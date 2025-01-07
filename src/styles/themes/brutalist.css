@@ -133,7 +133,7 @@
   --wa-color-surface-raised: var(--wa-color-gray-05);
   --wa-color-surface-default: var(--wa-color-gray-10);
   --wa-color-surface-lowered: var(--wa-color-gray-05);
-  --wa-color-surface-border: var(--wa-color-gray-20);
+  --wa-color-surface-border: var(--wa-color-gray-30);
 
   --wa-color-text-normal: var(--wa-color-gray-95);
   --wa-color-text-quiet: var(--wa-color-gray-60);
@@ -206,6 +206,10 @@
 /**
  * Component Styles
  */
+blockquote,
+pre {
+  border-inline-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+}
 wa-badge {
   text-transform: uppercase;
 }
