@@ -505,7 +505,7 @@ hasOutline: false
       <wa-option data-alpha="remove" value="premium">Premium</wa-option>
       <wa-option data-alpha="remove" value="playful">Playful</wa-option>
       <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="migration">Migration</wa-option>
+      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
       <wa-option data-alpha="remove" value="glassy">Glassy</wa-option>
       <wa-option data-alpha="remove" value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -876,7 +876,7 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'classic':
-      case 'migration':
+      case 'tailspin':
         colorPalette = 'classic';
         break;
       case 'awesome':
@@ -1044,7 +1044,7 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'premium':
-      case 'migration':
+      case 'tailspin':
       case 'playful':
       case 'brutalist':
       case 'classic':
@@ -1256,7 +1256,7 @@ hasOutline: false
       case 'brutalist':
         presetLogoIcons = ['leaf', 'mug-hot', 'book-open', 'landmark'];
         break;
-      case 'migration':
+      case 'tailspin':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
       case 'glassy':
@@ -1490,7 +1490,7 @@ hasOutline: false
           }
         });
         break;
-      case 'migration':
+      case 'tailspin':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
