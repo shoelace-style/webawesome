@@ -204,7 +204,7 @@
 }
 
 wa-card {
-  --box-shadow: var(--wa-theme-active-shadow-pop-out);
+  box-shadow: var(--wa-theme-active-shadow-pop-out);
 }
 
 input:not([type='button'], [type='reset'], [type='submit'], :checked),

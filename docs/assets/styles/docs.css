@@ -336,16 +336,18 @@ wa-page > main:has(> .index-grid) {
 
   a {
     border-radius: var(--wa-border-radius-l);
+    text-decoration: none;
   }
 
   wa-card {
-    --box-shadow: none;
+    box-shadow: none;
     --spacing: var(--wa-space-m);
     inline-size: 100%;
 
     &:hover {
       --border-color: var(--wa-color-brand-border-loud);
-      --box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+      border-color: var(--border-color);
+      box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
 
       .page-name {
         color: var(--wa-color-brand-on-quiet);

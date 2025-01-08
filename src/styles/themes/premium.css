@@ -214,7 +214,7 @@ wa-button[appearance='outlined'] {
 }
 
 wa-card {
-  --border-radius: var(--wa-border-radius-l);
+  border-radius: var(--wa-border-radius-l);
 }
 
 wa-alert {

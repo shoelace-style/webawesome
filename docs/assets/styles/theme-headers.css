@@ -434,7 +434,7 @@ html.wa-theme-playful .preview-container {
   }
 
   .support-table wa-card {
-    --background: var(--wa-color-surface-raised);
+    background: var(--wa-color-surface-raised);
   }
 
   .support-table th {
@@ -475,7 +475,7 @@ html.wa-theme-playful .preview-container {
     }
 
     & .message-composer wa-card {
-      --border-color: var(--wa-color-gray-30);
+      border-color: var(--wa-color-gray-30);
     }
 
     & .message-composer wa-card::part(header) {
@@ -644,7 +644,7 @@ html.wa-theme-premium .preview-container {
   }
 
   .message-composer wa-card {
-    --background: var(--wa-color-surface-raised);
+    background: var(--wa-color-surface-raised);
   }
 
   .message-composer wa-card::part(header) {

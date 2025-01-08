@@ -1742,7 +1742,7 @@ hasOutline: false
 
   /* strata product cards */
 
-  .products wa-card::part(base) {
+  .products wa-card {
     height: 100%;
   }
 

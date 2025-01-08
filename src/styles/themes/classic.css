@@ -259,7 +259,7 @@ wa-callout {
 }
 
 wa-card {
-  --background-color: var(--wa-color-surface-raised);
+  background-color: var(--wa-color-surface-raised);
 }
 
 wa-carousel {
