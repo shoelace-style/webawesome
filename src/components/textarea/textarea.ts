@@ -41,8 +41,6 @@ import styles from './textarea.css';
  *
  * @cssproperty --background-color - The textarea's background color.
  * @cssproperty --border-color - The color of the textarea's borders.
- * @cssproperty --border-radius - The border radius of the textarea's corners.
- * @cssproperty --border-style - The style of the textarea's borders.
  * @cssproperty --border-width - The width of the textarea's borders.
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
  */

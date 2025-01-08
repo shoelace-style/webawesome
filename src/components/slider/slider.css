@@ -38,7 +38,7 @@
   }
 
   --inset-block: calc(50% + (var(--thumb-size) / 2) + var(--tooltip-offset));
-  --border-block: var(--wa-tooltip-arrow-size) solid var(--wa-color-neutral-fill-loud);
+  --border-block: var(--wa-tooltip-arrow-size) solid var(--wa-tooltip-background-color);
 
   @media (forced-colors: active) {
     border: solid 1px transparent;
