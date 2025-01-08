@@ -261,7 +261,7 @@ Even more themes are available with Web Awesome <wa-badge>Pro</wa-badge>:
 
 To get started right away, include the following in your project, replacing `default.css` at the end with your preferred pre-made theme:
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/default.css" />
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
 ```
 
 
@@ -302,19 +302,19 @@ For example, the default theme is set up like this:
 You can import pre-made themes from the Web Awesome CDN. Simply add the following code to the `<head>` of your page to import the **default** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/default.css" />
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
 ```
 
 Or the **Classic** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/classic.css" />
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/classic.css' %}" />
 ```
 
 Or any of our Pro themes, like **Brutalist**:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/brutalist.css" />
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/brutalist.css' %}" />
 ```
 
  To activate the dark color scheme of any theme, apply the class `wa-dark` to the `<html>` element on your page, like this example for the default theme:
