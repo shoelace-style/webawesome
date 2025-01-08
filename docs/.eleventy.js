@@ -20,6 +20,12 @@ const packageData = JSON.parse(await readFile('./package.json', 'utf-8'));
 const isAlpha = process.argv.includes('--alpha');
 const isDev = process.argv.includes('--develop');
 
+const globalData = {
+  package: packageData,
+  isAlpha,
+  layout: 'page.njk',
+};
+
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
@@ -32,8 +38,9 @@ export default function (eleventyConfig) {
   }
 
   // Add template data
-  eleventyConfig.addGlobalData('package', packageData);
-  eleventyConfig.addGlobalData('isAlpha', isAlpha);
+  for (let name in globalData) {
+    eleventyConfig.addGlobalData(name, globalData[name]);
+  }
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
