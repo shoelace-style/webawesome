@@ -64,6 +64,7 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
+    "@bramus/style-observer": "^1.3.0",
     "@ctrl/tinycolor": "^4.1.0",
     "@floating-ui/dom": "^1.6.12",
     "@shoelace-style/animations": "^1.2.0",

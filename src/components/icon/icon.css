@@ -31,3 +31,24 @@ svg {
   width: 1em;
   justify-content: center;
 }
+
+@property --wa-icon-family {
+  syntax: '<custom-ident> | auto';
+  inherits: true;
+  initial-value: 'auto';
+}
+@property --wa-icon-variant {
+  syntax: '<custom-ident> | auto';
+  inherits: true;
+  initial-value: 'auto';
+}
+@property --wa-icon-library {
+  syntax: '<custom-ident> | auto';
+  inherits: true;
+  initial-value: 'auto';
+}
+@property --wa-icon-name {
+  syntax: '<custom-ident> | auto';
+  inherits: true;
+  initial-value: 'auto';
+}

@@ -1,3 +1,4 @@
+import { CSSStyleObserver } from '@bramus/style-observer';
 import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
 import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -193,6 +194,26 @@ export default class WebAwesomeElement extends LitElement {
       return;
     }
 
+    if (!Self.styleObserver) {
+      // First time, init stuff
+      // First, replace `true` with actual CSS property names
+      for (let [name, cssProperty] of Self.cssAttributeProperties) {
+        if (cssProperty === true) {
+          // Default name
+          cssProperty = `--${this.tagName.toLowerCase()}-${name}`;
+          Self.cssAttributeProperties.set(name, cssProperty);
+        }
+      }
+      // Then we observe them
+      let cssProperties = [...Self.cssAttributeProperties.values()] as string[];
+      console.log(cssProperties);
+
+      Self.styleObserver = new CSSStyleObserver(cssProperties, (...args) => {
+        console.log(...args);
+        this.updateCSSProperties();
+      });
+    }
+
     this.#computedStyle ??= getComputedStyle(this);
 
     const tagName = this.tagName.toLowerCase();
@@ -203,7 +224,7 @@ export default class WebAwesomeElement extends LitElement {
         cssProperty = cssProperty === true ? `--${tagName}-${name}` : cssProperty;
         const value = this.#computedStyle?.getPropertyValue(cssProperty);
 
-        if (value) {
+        if (value && value !== 'auto') {
           this.#setVia[name] = 'css';
           this.#setting.add(name);
           // @ts-ignore
@@ -218,6 +239,7 @@ export default class WebAwesomeElement extends LitElement {
 
   // Subclasses will get their own copy automagically (see below)
   protected static cssAttributeProperties = new Map<PropertyKey, true | string>();
+  protected static styleObserver: CSSStyleObserver | undefined;
 
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     super.createProperty(name, options);
