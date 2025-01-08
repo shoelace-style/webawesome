@@ -35,6 +35,7 @@
 
   --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 
+  /* 0 specificity */
   :where(&) {
     --border-color: transparent;
   }
