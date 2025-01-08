@@ -58,12 +58,12 @@ html.wa-theme-default .preview-container {
 }
 /* #endregion */
 
-/* #region Migration */
-html.wa-theme-migration .preview-container {
-  container-name: migration-theme;
+/* #region Tailspin */
+html.wa-theme-tailspin .preview-container {
+  container-name: tailspin-theme;
 }
 
-@container migration-theme (min-width: 0) {
+@container tailspin-theme (min-width: 0) {
   .project-header {
     background: var(--wa-color-surface-default);
   }
