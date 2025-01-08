@@ -20,6 +20,7 @@ label:has(select),
     --box-shadow: initial;
   }
 }
+
 select,
 :host [part~='combobox'] {
   background-color: var(--background-color, var(--wa-form-control-background-color));
@@ -75,15 +76,16 @@ select {
 }
 label:has(select) {
   position: relative;
+  --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
+
   &::after {
     content: '';
     background-color: var(--wa-color-neutral-on-quiet);
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>')
-      center no-repeat;
+    mask: var(--icon-caret) 50% 50% no-repeat;
     width: 1rem;
     height: var(--wa-form-control-height);
     position: absolute;
-    bottom: 0;
+    bottom: var(--wa-form-control-border-width);
     right: var(--wa-space);
   }
 }
