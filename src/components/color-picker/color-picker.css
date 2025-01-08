@@ -317,8 +317,8 @@
   border-radius: inherit;
   background-color: currentColor;
   box-shadow:
-    inset 0 0 0 0.0625rem var(--wa-form-control-border-color),
-    inset 0 0 0 0.25rem var(--wa-color-surface-default);
+    inset 0 0 0 var(--border-width) var(--wa-form-control-border-color),
+    inset 0 0 0 calc(var(--border-width) * 2) var(--wa-color-surface-default);
 }
 
 .trigger--empty:before {
