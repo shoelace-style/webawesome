@@ -11,7 +11,8 @@
 
 :root,
 :host,
-.wa-theme-active {
+.wa-theme-active,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 

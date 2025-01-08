@@ -2,7 +2,8 @@
  * Foundational Colors and Semantic Colors
  */
 :where(:root, :host),
-.wa-theme-default {
+.wa-theme-default,
+.wa-light {
   /**
    * Foundational Colors
    */

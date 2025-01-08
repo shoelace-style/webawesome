@@ -10,7 +10,8 @@
 
 :root,
 :host,
-.wa-theme-classic {
+.wa-theme-classic,
+.wa-light {
   color-scheme: light;
 
   /**

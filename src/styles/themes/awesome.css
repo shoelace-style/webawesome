@@ -11,7 +11,8 @@
 
 :root,
 :host,
-.wa-theme-awesome {
+.wa-theme-awesome,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
