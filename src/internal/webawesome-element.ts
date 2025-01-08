@@ -206,7 +206,6 @@ export default class WebAwesomeElement extends LitElement {
       }
       // Then we observe them
       let cssProperties = [...Self.cssAttributeProperties.values()] as string[];
-      console.log(cssProperties);
 
       Self.styleObserver = new CSSStyleObserver(cssProperties, (...args) => {
         console.log(...args);
