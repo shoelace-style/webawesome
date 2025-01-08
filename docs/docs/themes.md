@@ -36,9 +36,7 @@ layout: page-outline
   }
 
   .showcase-examples {
-    column-count: 2;
     column-gap: var(--wa-space-xl);
-    zoom: 40%;
 
     & wa-card {
       display: inline-block;
@@ -50,22 +48,47 @@ layout: page-outline
     }
   }
 
-  @container showcase (width > 400px) {
+  @supports not (zoom: 1) {
     .showcase-examples {
-      zoom: 55%;
+      column-count: 1;
+    }
+
+    @container showcase (width > 700px) {
+      .showcase-examples {
+        column-count: 2;
+      }
+    }
+
+    @container showcase (width > 900px) {
+      .showcase-examples {
+        column-count: 3;
+      }
     }
   }
 
-  @container showcase (width > 700px) {
+  @supports (zoom: 1) {
     .showcase-examples {
-      zoom: 70%;
+      column-count: 2;
+      zoom: 40%;
     }
-  }
 
-  @container showcase (width > 800px) {
-    .showcase-examples {
-      column-count: 3;
-      zoom: 70%;
+    @container showcase (width > 400px) {
+      .showcase-examples {
+        zoom: 55%;
+      }
+    }
+
+    @container showcase (width > 700px) {
+      .showcase-examples {
+        zoom: 70%;
+      }
+    }
+
+    @container showcase (width > 800px) {
+      .showcase-examples {
+        column-count: 3;
+        zoom: 70%;
+      }
     }
   }
 </style>
@@ -226,15 +249,21 @@ layout: page-outline
 Themes are collections of pre-defined CSS custom properties that thread through every Web Awesome component and pattern.
 
 Web Awesome Free includes these pre-made themes:
-- **Default** for a clean look that prioritizes accessibility and performance
-- **Classic** for the look and feel of Shoelace with more accessible color pairings
-- **Awesome** for the familiar, vibrant styles from your friends at Font Awesome
+- **Default** (`default.css`) for a clean look that prioritizes accessibility and performance
+- **Classic** (`classic.css`) for the look and feel of Shoelace with more accessible color pairings
+- **Awesome** (`awesome.css`) for the familiar, vibrant styles from your friends at Font Awesome
 
 Even more themes are available with Web Awesome <wa-badge>Pro</wa-badge>:
-- **Active** 
-- **Brutalist**
-- **Mellow**
-- **Tailspin**
+- **Active** (`active.css`)
+- **Brutalist** (`brutalist.css`)
+- **Mellow** (`mellow.css`)
+- **Tailspin** (`tailspin.css`)
+
+To get started right away, include the following in your project, replacing `default.css` at the end with your preferred pre-made theme:
+```html
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/default.css" />
+```
+
 
 ## What's a Theme?
 
