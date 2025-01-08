@@ -10,8 +10,8 @@
   --wa-brand-grey: #30323b;
 }
 
-html.wa-theme-default-dark .only-light,
-html:not(.wa-theme-default-dark) .only-dark {
+.wa-dark .only-light,
+.only-dark:not(.wa-dark, .wa-dark *) {
   display: none;
 }
 

@@ -17,7 +17,7 @@ To customize a theme, simply override any of these custom properties in your own
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default {
   /* Changes the brand color to violet across the library */
   --wa-color-brand-fill-quiet: var(--wa-color-violet-95);
   --wa-color-brand-fill-normal: var(--wa-color-violet-90);
