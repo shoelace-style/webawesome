@@ -193,13 +193,12 @@ export default class WebAwesomeElement extends LitElement {
       return;
     }
 
-    this.#computedStyle ??= getComputedStyle(this);
-
     const tagName = this.tagName.toLowerCase();
     for (let [name, cssProperty] of Self.cssAttributeProperties) {
       if (typeof name === 'string' && !this.hasAttribute(name) && this.#setVia[name] !== 'js') {
         // Check if supplied as a CSS custom property
         // TODO !important should override attribute values
+        this.#computedStyle ??= getComputedStyle(this);
         cssProperty = cssProperty === true ? `--${tagName}-${name}` : cssProperty;
         const value = this.#computedStyle?.getPropertyValue(cssProperty);
 
