@@ -10,7 +10,8 @@
 
 :root,
 :host,
-.wa-theme-glassy-light {
+.wa-theme-glassy,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
@@ -33,8 +34,8 @@
   --wa-shadow-blur-scale: 3;
 }
 
-.wa-theme-glassy-dark,
-:is(:host-context(.wa-theme-glassy-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

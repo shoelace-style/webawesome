@@ -119,7 +119,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-l wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
@@ -299,7 +299,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
 A sample media app page using `header`, `navigation-header`, `main-header`, and `main-footer` along with the default slot. The navigation menu collapses into a drawer at the default `mobile-breakpoint` and can be opened using a button with `[data-toggle-nav]` that appears in the `header` slot.
 
 ```html {.example viewport="1600"}
-<wa-page class="wa-theme-default-dark">
+<wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
       <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>

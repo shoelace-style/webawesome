@@ -35,7 +35,7 @@
 
     document.head.append(newStylesheet);
     updateSelection();
-    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
+    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
   }
 
   function updateSelection(container = document) {
@@ -56,7 +56,9 @@
         customElements.whenDefined(selectedItem.localName).then(async () => {
           await selectedItem.updateComplete;
           selectedItem.checked = true;
-          container.querySelector('.preset-theme-selector__text').textContent = selectedItem.innerText;
+          container.querySelectorAll('.preset-theme-selector__text').forEach(themeSelector => {
+            themeSelector.textContent = selectedItem.innerText;
+          });
         });
       }
     });

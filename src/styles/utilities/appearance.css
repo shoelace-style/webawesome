@@ -36,6 +36,12 @@
   --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 }
 
+/* 0 specificity. Safari doesn't like :where(:host()) so we need a separate rule. */
+:where(.wa-filled),
+:host(:where([appearance~='filled'])) {
+  --border-color: transparent;
+}
+
 .wa-plain,
 :host([appearance~='plain']) {
   --background-color: transparent;

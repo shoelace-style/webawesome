@@ -5,7 +5,7 @@ layout: blank
 eleventyExcludeFromCollections: true
 ---
 
-<wa-page class="wa-theme-default-dark">
+<wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
       <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>

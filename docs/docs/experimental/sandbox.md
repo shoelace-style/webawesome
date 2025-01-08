@@ -172,7 +172,7 @@ layout: page-outline
 <div class="shadow" style="box-shadow: var(--wa-shadow-l);"></div>
 ```
 
-## Tests
+## Alignment Tests
 
 ```html {.example}
 <style>
@@ -254,6 +254,8 @@ layout: page-outline
 </div>
 ```
 
+## Custom Property Tests
+
 ```html {.example}
 <style>
   .wa-theme-test {
@@ -319,4 +321,32 @@ layout: page-outline
   </wa-select>
 </div>
 
+```
+
+## Text Controls Tests
+
+```html {.example}
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+  <label>Native Input <input type="text" value="value"></label>
+  <wa-input label="WA Input" type="text" value="value"></wa-input>
+
+  <label>
+    Native Select 
+    <select value="option-1">
+      <option value="option-1">Option 1</option>
+      <option value="option-2">Option 2</option>
+      <option value="option-3">Option 3</option>
+      <option value="option-4">Option 4</option>
+    </select>
+  </label>
+  <wa-select label="WA Select" value="option-1">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+    <wa-option value="option-3">Option 3</wa-option>
+    <wa-option value="option-4">Option 4</wa-option>
+  </wa-select>
+
+  <label>Native Textarea <textarea>value</textarea></label>
+  <wa-textarea label="WA Textarea" value="value"></wa-textarea>
+</div>
 ```

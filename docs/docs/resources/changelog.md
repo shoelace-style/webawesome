@@ -29,7 +29,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Active
   - Brutalist
   - Mellow
-  - Migration
+  - Tailspin
   - Playful
 - Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
 - Removed size-based `--wa-form-control-height-*` tokens in favor of `--wa-form-control-height` (see [size utilities](/docs/utilities/size/))

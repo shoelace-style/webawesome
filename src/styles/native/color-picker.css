@@ -2,12 +2,11 @@ input[type='color'] {
   display: block;
   border-radius: calc(infinity * 1px);
   background: transparent;
-  padding: 3px;
+  padding: var(--wa-form-control-border-width);
   width: calc(var(--wa-form-control-height) - 2px);
   height: calc(var(--wa-form-control-height) - 2px);
-  border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-form-control-border-color);
+  border: var(--wa-form-control-border-width) var(--wa-border-style) var(--wa-form-control-border-color);
   cursor: pointer;
-  margin-block-start: 3px;
   forced-color-adjust: none;
 
   &::-webkit-color-swatch-wrapper {

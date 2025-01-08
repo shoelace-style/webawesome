@@ -119,7 +119,7 @@ async function generateStyles() {
         file.includes('themes/awesome') ||
         file.includes('themes/active') ||
         file.includes('themes/mellow') ||
-        file.includes('themes/migration') ||
+        file.includes('themes/tailspin') ||
         file.includes('themes/brutalist')
       ) {
         return false;
