@@ -6,6 +6,10 @@ layout: page-outline
 <style>
   wa-page > main {
     max-width: 140ch;
+
+    .max-line-length {
+      max-width: 80ch;
+    }
   }
 
   .theme-showcase {
@@ -217,54 +221,76 @@ layout: page-outline
   </div>
 </div>
 
+<div class="max-line-length">
+
 Themes are collections of pre-defined CSS custom properties that thread through every Web Awesome component and pattern.
 
-Web Awesome includes two pre-made themes:
+Web Awesome Free includes these pre-made themes:
 - **Default** for a clean look that prioritizes accessibility and performance
 - **Classic** for the look and feel of Shoelace with more accessible color pairings
+- **Awesome** for the familiar, vibrant styles from your friends at Font Awesome
+
+Even more themes are available with Web Awesome <wa-badge>Pro</wa-badge>:
+- **Active** 
+- **Brutalist**
+- **Mellow**
+- **Tailspin**
 
 ## What's a Theme?
 
-Themes are a standard collection of [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) that cover all styles from colors to transitions. We use these custom properties throughout Web Awesome components to ensure a cohesive look and feel. Our [Theming pages](/docs/theming/) document these styles so that you can use them freely throughout your project and customize them as needed.
+Themes are a collection of standardized [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) that cover a range of styles from colors to transitions. We use these custom properties throughout Web Awesome components for a cohesive look and feel. Our [Theming pages](/docs/theming/) document these styles so that you can use them freely throughout your project and customize them as needed.
 
-Themes are scoped to unique classes for each color scheme, such as `wa-theme-default-light` and `wa-theme-default-dark`, and the `:host` selector. Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions, while scoping to `:host` ensures the styles are applied to the shadow roots of custom elements.
+Themes are scoped to unique classes, such as `wa-theme-default` or `wa-theme-classic`. Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions.
 
-Additionally, styles may be scoped to the `:root` selector to be activated automatically. For pre-made themes, *all* custom properties are scoped to both `:root` and the class for the light color scheme (`wa-theme-default-light` or `wa-theme-classic-light`), activating the light color scheme by default.
+Each theme may also include both light and dark color schemes with the classes `wa-light` and `wa-dark`. 
+You can use these classes to apply a specific color scheme to an entire page or just a section. 
+In pre-made themes, we use a light color scheme by default.
 
-Other themes or color schemes must be activated with the corresponding class, like the dark color scheme for pre-made themes (`wa-theme-default-dark` or `wa-theme-classic-dark`), which only defines a subset of custom properties for colors. This ensures that non-color styles only need to be defined once for the theme, regardless of whether the color scheme is light or dark.
+
+Additionally, styles may be scoped to the `:root` selector to be activated automatically.
+For pre-made themes, *all* custom properties are scoped to `:root`, the theme class, and `wa-light`.
+
+Finally, we scope themes to `:host` and `:host-context()` to ensure the styles are applied to the shadow roots of custom elements.
 
 For example, the default theme is set up like this:
 
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default,
+.wa-light {
   /* all CSS custom properties for color, typography, space, etc. */
 }
 
-.wa-theme-default-dark,
-.wa-theme-default-dark :host {
-  /* subset of CSS custom properties for color */
+.wa-dark,
+:host-context(.wa-dark) {
+  /* subset of CSS custom properties for a dark color scheme */
 }
 ```
 
 ## Using Themes
 
-You can import the default and classic themes from the Web Awesome CDN. Simply add the following code to the `<head>` of your page to import the **default** theme:
+You can import pre-made themes from the Web Awesome CDN. Simply add the following code to the `<head>` of your page to import the **default** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/styles/themes/default.css" />
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/default.css" />
 ```
 
-Or import the **classic** theme:
+Or the **Classic** theme:
 
 ```html
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/styles/themes/classic.css" />
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/classic.css" />
 ```
 
-Both the default and classic themes include both light and dark color schemes. When importing either theme, the light color scheme is activated by default. To activate the dark color scheme, apply the appropriate class (`wa-theme-default-dark` or `wa-theme-classic-dark`, depending on theme) to the `<html>` element on your page, like this example for the default theme:
+Or any of our Pro themes, like **Brutalist**:
+
 ```html
-<html class="wa-theme-default-dark">
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.7/dist/styles/themes/brutalist.css" />
+```
+
+ To activate the dark color scheme of any theme, apply the class `wa-dark` to the `<html>` element on your page, like this example for the default theme:
+```html
+<html class="wa-theme-default wa-dark">
   <head>
     <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/default.css" />
     <!-- other links, scripts, and metadata -->
@@ -275,7 +301,7 @@ Both the default and classic themes include both light and dark color schemes. W
 </html>
 ```
 
-Because themes are scoped to specific classes, you can activate different color schemes or entire themes on different containers throughout the page. This example uses the default theme with a dark sidebar.
+Because themes are scoped to specific classes, you can use different color schemes or even different themes throughout the page. Here, we use the default theme with a dark sidebar:
 
 ```html
 <html>
@@ -284,7 +310,7 @@ Because themes are scoped to specific classes, you can activate different color 
   </head>
 
   <body>
-    <nav class="wa-theme-default-dark">
+    <nav class="wa-dark">
       <!-- dark-themed sidebar -->
     </nav>
 
@@ -306,7 +332,8 @@ If you're customizing the default light styles, scope your styles to the followi
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default,
+.wa-light {
   /* your custom styles here */
 }
 ```
@@ -314,13 +341,13 @@ If you're customizing the default light styles, scope your styles to the followi
 If you're customizing the default dark styles, scope your styles to the following selectors.
 
 ```css
-:host,
-.wa-theme-default-dark {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   /* your custom styles here */
 }
 ```
 
-By customizing a built-in theme, you'll maintain a smaller stylesheet containing only the changes you've made. Contrast this to [creating a new theme](#creating-a-new-theme), where you need to explicitly define every custom property required by the library. This approach is more "future-proof," as new design tokens that emerge in subsequent versions of Web Awesome will be accounted for by built-in themes.
+By customizing a built-in theme, you'll maintain a smaller stylesheet containing only your changes. Contrast this to [creating a new theme](#creating-a-new-theme), where you need to explicitly define every custom property required by the library. This approach is more "future-proof," as new design tokens that emerge in subsequent versions of Web Awesome will be accounted for by built-in themes.
 
 While this approach is easier to maintain, the drawback is that your theme can't be activated independently — it's tied to the built-in theme you're extending.
 
@@ -331,8 +358,10 @@ Creating a new theme is more of an undertaking than [customizing an existing one
 Start by changing the selector to match your theme's name. Assuming your new theme is called "Purple Power", your theme should be scoped like this.
 
 ```css
+:root,
 :host,
-.wa-theme-purple-power {
+.wa-theme-purple-power,
+.wa-light {
   /* your custom styles here */
 }
 ```
@@ -350,3 +379,4 @@ Web Awesome's default theme has both light and dark styles built in. However, We
 - Remember the user's preference and restore it on subsequent logins
 
 Web Awesome avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.
+</div>
