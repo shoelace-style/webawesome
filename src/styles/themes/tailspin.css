@@ -11,7 +11,7 @@
 
 :root,
 :host,
-.wa-theme-migration,
+.wa-theme-tailspin,
 .wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
