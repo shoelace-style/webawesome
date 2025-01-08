@@ -212,16 +212,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   setValue(value: string | File | FormData | null, stateValue?: string | File | FormData | null | undefined): void {
     if (!this.checked) {
-      this.value = null;
       this.internals.setFormValue(null, null);
       return;
     }
 
-    if (!value) {
-      value = 'on';
-    }
-
-    this.internals.setFormValue(value, stateValue);
+    this.internals.setFormValue(value ?? 'on', stateValue);
   }
 
   formResetCallback(): void {

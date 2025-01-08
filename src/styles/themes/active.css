@@ -11,7 +11,8 @@
 
 :root,
 :host,
-.wa-theme-active-light {
+.wa-theme-active,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
@@ -79,7 +80,7 @@
   --wa-color-neutral-on-normal: var(--wa-color-gray-30);
   --wa-color-neutral-on-loud: black;
 
-  /** 
+  /**
    * Typography
    */
   --wa-font-family-body: 'Inter', sans-serif;
@@ -98,8 +99,8 @@
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 }
 
-.wa-theme-active-dark,
-:is(:host-context(.wa-theme-active-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

@@ -17,6 +17,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Simplified the internal structure and CSS properties of `<wa-card>`, removed `base` part.
 - Added `appearance` to `<wa-callout>` and `<wa-tag>`
 - Fixed a bug in `<wa-switch>` where it would not properly change its "checked" state when its property changed.
+- Fixed a bug in `<wa-switch>` where the value would be incorrectly submitted as "on" when a value is provided and the switch is checked
 - Fixed a bug in the `wa-split` CSS utility that caused it to behave incorrectly
 - Improved performance of `<wa-select>` when using a large number of options
 - Updated the Japanese translation

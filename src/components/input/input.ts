@@ -54,6 +54,7 @@ import styles from './input.css';
  * @csspart suffix - The container that wraps the suffix.
  *
  * @cssproperty --background-color - The input's background color.
+ * @cssproperty --border-color - The color of the input's borders.
  * @cssproperty --border-width - The width of the input's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
  */

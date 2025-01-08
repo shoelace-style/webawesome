@@ -11,7 +11,8 @@
 
 :root,
 :host,
-.wa-theme-mellow-light {
+.wa-theme-mellow,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
@@ -119,8 +120,8 @@
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 }
 
-.wa-theme-mellow-dark,
-:is(:host-context(.wa-theme-mellow-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

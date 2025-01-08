@@ -76,10 +76,7 @@
 
       newStylesheet.addEventListener("load", updateStylesheet)
 
-      document.documentElement.classList.toggle(
-        `wa-theme-${preset}-dark`,
-        isDark()
-      );
+      document.documentElement.classList.toggle(`wa-dark`, isDark());
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">

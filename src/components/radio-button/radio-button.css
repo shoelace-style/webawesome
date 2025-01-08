@@ -34,14 +34,12 @@
  */
 
 :host([checked]) {
-  --background-color: var(--wa-color-brand-fill-quiet);
-  --background-color-hover: var(--background-color);
-  --border-color: var(--wa-form-control-activated-color);
-  --text-color: var(--wa-color-brand-on-normal);
-  --indicator-color: var(--border-color);
+  --indicator-color: var(--wa-form-control-activated-color);
   --indicator-width: var(--wa-border-width-s);
 
-  box-shadow:
-    var(--box-shadow, 0 0 transparent),
-    inset 0 0 0 var(--indicator-width) var(--indicator-color);
+  box-shadow: inset 0 0 0 var(--indicator-width) var(--indicator-color);
+
+  & button {
+    --border-color: var(--indicator-color);
+  }
 }

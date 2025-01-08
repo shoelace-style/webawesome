@@ -35,7 +35,7 @@
 
     document.head.append(newStylesheet);
     updateSelection();
-    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
+    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
   }
 
   function updateSelection(container = document) {

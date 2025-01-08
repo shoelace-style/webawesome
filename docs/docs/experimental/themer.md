@@ -2123,7 +2123,7 @@ hasOutline: false
 <h3>Ontological Shock</h3>
 <p>The allegory is related to Plato's theory of Forms, which holds that the true essence of an object is not what we perceive with our senses, but rather its quality, and that most people perceive only the shadow of the object and are thus limited to false perception.</p>
 <pre class="codeblock">
-<code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
+<code class="language-html">&lt;html class="wa-dark"&gt;
   &lt;head&gt;
     &lt;link rel="stylesheet" href="path/to/webawesome/dist/styles/themes/dark.css" /&gt;
   &lt;/head&gt;

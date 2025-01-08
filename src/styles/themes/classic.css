@@ -10,7 +10,8 @@
 
 :root,
 :host,
-.wa-theme-classic-light {
+.wa-theme-classic,
+.wa-light {
   color-scheme: light;
 
   /**
@@ -116,8 +117,8 @@
   --wa-tooltip-content-color: var(--wa-color-surface-default);
 }
 
-.wa-theme-classic-dark,
-:is(:host-context(.wa-theme-classic-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

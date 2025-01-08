@@ -10,13 +10,14 @@
 
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default,
+.wa-light {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 }
 
-.wa-theme-default-dark,
-:is(:host-context(.wa-theme-migration-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 }

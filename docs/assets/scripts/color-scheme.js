@@ -5,13 +5,12 @@
   function setColorScheme(newColorScheme) {
     colorScheme = newColorScheme;
     localStorage.setItem('colorScheme', colorScheme);
-    const presetTheme = window.getPresetTheme();
 
     // Update the UI
     updateSelection();
 
     // Toggle the dark mode class
-    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
+    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
   }
 
   function updateSelection() {
