@@ -5,7 +5,7 @@ layout: page-outline
 ---
 <style>
   wa-page > main {
-    max-width: 120ch;
+    max-width: 140ch;
   }
 
   .theme-showcase {
@@ -15,12 +15,14 @@ layout: page-outline
     border-radius: var(--wa-border-radius-l);
     min-height: 16lh;
     height: 65vh;
-    max-height: 24lh;
-    padding: var(--wa-space-m);
+    max-height: 21lh;
+    padding: var(--wa-space-xl);
     overflow: hidden;
+    margin-block-end: var(--wa-space-xl);
 
     &.wa-flank {
       --content-percentage: 55%;
+      --flank-size: 20ch;
     }
   }
 
@@ -64,7 +66,7 @@ layout: page-outline
   }
 </style>
 
-<div class="theme-showcase wa-flank">
+<div class="theme-showcase wa-flank wa-gap-xl">
   <div>
     <h2 id="theme-showcase-name" data-theme-name></h2>
     <p id="theme-showcase-description" data-theme-description></p>
@@ -144,8 +146,7 @@ layout: page-outline
         <div class="wa-stack">
           <div class="wa-split">
             <h3 class="wa-heading-m">To-Do</h3>
-            <wa-icon-button id="add-todo" name="plus"></wa-icon-button>
-            <wa-tooltip for="add-todo">Add task</wa-tooltip>
+            <wa-icon-button name="plus" label="Add task"></wa-icon-button>
           </div>
           <wa-checkbox checked>Umbrella for Adelard</wa-checkbox>
           <wa-checkbox checked>Waste-paper basket for Dora</wa-checkbox>
@@ -159,8 +160,8 @@ layout: page-outline
       </wa-card>
       <wa-card>
         <div class="wa-stack">
-          <div class="wa-frame wa-border-radius-m">
-            <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="">
+          <div class="wa-frame wa-border-radius-m" style="align-self: center; max-inline-size: 25ch;">
+            <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="Album art">
           </div>
           <div class="wa-flank:end wa-align-items-start">
             <div class="wa-stack wa-gap-3xs">
@@ -170,8 +171,7 @@ layout: page-outline
               </div>
               <span class="wa-caption-m">Samwise G</span>
             </div>
-            <wa-icon-button id="options-menu" name="ellipsis"></wa-icon-button>
-            <wa-tooltip for="options-menu">Options</wa-tooltip>
+            <wa-icon-button name="ellipsis" label="Options"></wa-icon-button>
           </div>
           <div class="wa-stack wa-gap-2xs">
             <wa-progress-bar value="34" style="height: 0.5em"></wa-progress-bar>
@@ -181,9 +181,9 @@ layout: page-outline
             </div>
           </div>
           <div class="wa-grid wa-align-items-center" style="--min-column-size: 1em; justify-items: center;">
-            <wa-icon-button name="backward"></wa-icon-button>
-            <wa-icon-button name="pause" style="font-size: var(--wa-font-size-2xl);"></wa-icon-button>
-            <wa-icon-button name="forward"></wa-icon-button>
+            <wa-icon-button name="backward" label="Skip backward"></wa-icon-button>
+            <wa-icon-button name="pause" style="font-size: var(--wa-font-size-2xl);" label="Pause"></wa-icon-button>
+            <wa-icon-button name="forward" label="Skip forward"></wa-icon-button>
           </div>
         </div>
       </wa-card>
