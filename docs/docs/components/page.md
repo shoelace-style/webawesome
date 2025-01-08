@@ -299,7 +299,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
 A sample media app page using `header`, `navigation-header`, `main-header`, and `main-footer` along with the default slot. The navigation menu collapses into a drawer at the default `mobile-breakpoint` and can be opened using a button with `[data-toggle-nav]` that appears in the `header` slot.
 
 ```html {.example viewport="1600"}
-<wa-page class="wa-theme-default wa-dark">
+<wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
       <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>
