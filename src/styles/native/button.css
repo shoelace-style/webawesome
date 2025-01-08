@@ -1,13 +1,11 @@
 :is(button, input:where([type='button'], [type='reset'], [type='submit'])):where(:not(:host *)),
 :host,
 .wa-button:where(:not([part~='base'])) {
-  --wa-color-fill-loud: --wa-color-gray-95;
-  --wa-color-on-loud: --wa-color-gray-10;
   --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
 
-  --border-color: --wa-color-gray-10;
+  --border-color: transparent;
   --border-color-hover: var(--border-color);
   --border-color-active: var(--border-color);
   --border-width: max(1px, var(--wa-form-control-border-width));
