@@ -127,7 +127,7 @@
    */
   --wa-color-surface-raised: var(--wa-color-gray-10);
   --wa-color-surface-default: var(--wa-color-gray-05);
-  --wa-color-surface-lowered: var(--wa-color-gray-05);
+  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
   --wa-color-surface-border: var(--wa-color-gray-20);
 
   --wa-color-text-normal: var(--wa-color-gray-80);
