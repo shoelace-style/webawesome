@@ -5,6 +5,15 @@ layout: page
 hasOutline: false
 ---
 
+<script>
+  // Add stylesheet to set themed headers
+  const themeHeadersLink = document.createElement("link");
+  themeHeadersLink.type="text/css";
+  themeHeadersLink.rel="stylesheet";
+  themeHeadersLink.href="/assets/styles/theme-headers.css";
+  document.getElementsByTagName("head")[0].appendChild(themeHeadersLink);
+</script>
+
 <style>
   /* turn off eleventy header anchors */
   .anchor-heading a {
@@ -156,7 +165,7 @@ hasOutline: false
     --wa-form-control-border-radius: var(--wa-border-radius-m);
 
     --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-    --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
@@ -167,16 +176,6 @@ hasOutline: false
     --wa-form-control-value-line-height: var(--wa-line-height-condensed);
 
     --wa-form-control-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
-
-    --wa-form-control-height-s: calc(
-      var(--wa-space-xs) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-m: calc(
-      var(--wa-space-s) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-l: calc(
-      var(--wa-space-m) * 2 + 1em * var(--wa-form-control-value-line-height)
-    );
 
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
@@ -364,13 +363,13 @@ hasOutline: false
   /* file uploader styles */
   .file-uploader {
     position: relative;
-    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-resting-color);
+    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-border-color);
     border-radius: var(--wa-form-control-border-radius);
     background: var(--wa-form-control-background-color);
     cursor: pointer;
     font-weight: var(--wa-font-weight-action);
-    height: calc(var(--wa-form-control-height-m) + var(--wa-border-width-s) * 2);
-    line-height: var(--wa-form-control-height-m);
+    height: calc(var(--wa-form-control-height) + var(--wa-border-width-s) * 2);
+    line-height: var(--wa-form-control-height);
     text-align: center;
   }
 
@@ -502,11 +501,11 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="fa">Font Awesome</wa-option>
+      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
       <wa-option data-alpha="remove" value="premium">Premium</wa-option>
       <wa-option data-alpha="remove" value="playful">Playful</wa-option>
       <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="migration">Migration</wa-option>
+      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
       <wa-option data-alpha="remove" value="glassy">Glassy</wa-option>
       <wa-option data-alpha="remove" value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -661,10 +660,10 @@ hasOutline: false
       <wa-option value="dotted">Dotted</wa-option>
       <wa-option value="double">Double</wa-option>
     </wa-select>
-    <wa-range name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
-    <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
-    <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
-    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-slider name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-slider>
+    <wa-slider name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-slider>
+    <wa-slider name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-slider>
+    <wa-slider name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-slider>
   </wa-details>
 </form>
 
@@ -877,10 +876,10 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'classic':
-      case 'migration':
+      case 'tailspin':
         colorPalette = 'classic';
         break;
-      case 'fa':
+      case 'awesome':
         colorPalette = 'bright';
         break;
       case 'playful':
@@ -1045,11 +1044,11 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'premium':
-      case 'migration':
+      case 'tailspin':
       case 'playful':
       case 'brutalist':
       case 'classic':
-      case 'fa':
+      case 'awesome':
       case 'glassy':
       case 'active':
         assetFolder = themeSelect.value;
@@ -1245,7 +1244,7 @@ hasOutline: false
     let presetLogoIcons;
 
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
@@ -1257,7 +1256,7 @@ hasOutline: false
       case 'brutalist':
         presetLogoIcons = ['leaf', 'mug-hot', 'book-open', 'landmark'];
         break;
-      case 'migration':
+      case 'tailspin':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
       case 'glassy':
@@ -1447,7 +1446,7 @@ hasOutline: false
 
   function setPreferredIcons() {
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1491,7 +1490,7 @@ hasOutline: false
           }
         });
         break;
-      case 'migration':
+      case 'tailspin':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1664,7 +1663,7 @@ hasOutline: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    container: preview / inline-size;
+    container-type: inline-size;
     padding: 0;
     max-inline-size: 1400px;
     margin-inline: auto;
@@ -1743,7 +1742,7 @@ hasOutline: false
 
   /* strata product cards */
 
-  .products wa-card::part(base) {
+  .products wa-card {
     height: 100%;
   }
 
@@ -2124,7 +2123,7 @@ hasOutline: false
 <h3>Ontological Shock</h3>
 <p>The allegory is related to Plato's theory of Forms, which holds that the true essence of an object is not what we perceive with our senses, but rather its quality, and that most people perceive only the shadow of the object and are thus limited to false perception.</p>
 <pre class="codeblock">
-<code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
+<code class="language-html">&lt;html class="wa-dark"&gt;
   &lt;head&gt;
     &lt;link rel="stylesheet" href="path/to/webawesome/dist/styles/themes/dark.css" /&gt;
   &lt;/head&gt;

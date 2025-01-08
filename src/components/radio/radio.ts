@@ -4,7 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/radio.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';

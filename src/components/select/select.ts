@@ -19,7 +19,7 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/select.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
@@ -81,8 +81,6 @@ import styles from './select.css';
  *
  * @cssproperty --background-color - The background color of the select's combobox.
  * @cssproperty --border-color - The border color of the select's combobox.
- * @cssproperty --border-radius - The border radius of the select's combobox.
- * @cssproperty --border-style - The style of the select's borders, including the listbox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
@@ -247,11 +245,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <wa-tag
           part="tag"
           exportparts="
-              base:tag__base,
-              content:tag__content,
-              remove-button:tag__remove-button,
-              remove-button__base:tag__remove-button__base
-            "
+            base:tag__base,
+            content:tag__content,
+            remove-button:tag__remove-button,
+            remove-button__base:tag__remove-button__base
+          "
           ?pill=${this.pill}
           size=${this.size}
           removable
@@ -902,7 +900,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               </slot>
             </div>
 
-            <slot
+            <div
               id="listbox"
               role="listbox"
               aria-expanded=${this.open ? 'true' : 'false'}
@@ -912,9 +910,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               class="listbox"
               tabindex="-1"
               @mouseup=${this.handleOptionClick}
-              @slotchange=${this.handleDefaultSlotChange}
             >
-            </slot>
+              <slot @slotchange=${this.handleDefaultSlotChange}></slot>
+            </div>
           </wa-popup>
         </div>
 

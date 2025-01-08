@@ -110,7 +110,7 @@ describe('<wa-checkbox>', () => {
         // See: https://github.com/shoelace-style/shoelace/issues/1169
         //
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
-        const label = el.shadowRoot!.querySelector('.checkbox')!;
+        const label = el.shadowRoot!.querySelector('label')!;
         const input = el.shadowRoot!.querySelector('.input')!;
 
         const labelPosition = getComputedStyle(label).position;

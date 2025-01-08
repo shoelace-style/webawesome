@@ -3,10 +3,10 @@ title: Size
 description: Size utilities give elements one of three preset sizes (small, medium, or large).
 icon: theming/space
 status: experimental
-classes:
-  - wa-size-s
-  - wa-size-m
-  - wa-size-l
+snippets:
+  - .wa-size-s
+  - .wa-size-m
+  - .wa-size-l
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change their size to one of three presets: `small`, `medium`, and `large` by using a `size` attribute:
@@ -24,6 +24,7 @@ You can create the same effect on any element by using the size utility classes:
 Using these classes does two things:
 - It sets `font-size` to one of the [size tokens](/docs/theming/typography/#font-size).
 You can use CSS `em` units to reference that size in other properties.
+- It calculates `--wa-form-control-height` based on the applied size, supporting consistent heights for elements like inputs and buttons.
 - It aliases a bunch of other properties that CSS can use:
 
 | Custom Property | Small | Medium | Large |
@@ -32,7 +33,6 @@ You can use CSS `em` units to reference that size in other properties.
 | `--wa-size-smaller` | `--wa-font-size-xs` | `--wa-font-size-s` | `--wa-font-size-m` |
 | `--wa-space` | `--wa-space-s` | `--wa-space-m` | `--wa-space-l` |
 | `--wa-space-smaller` | `--wa-space-xs` | `--wa-space-s` | `--wa-space-m` |
-| `--wa-form-control-height` | `--wa-form-control-height-s` | `--wa-form-control-height-m` | `--wa-form-control-height-l` |
 
 For example, assume we wanted to make a custom `.tag` class with size variants.
 

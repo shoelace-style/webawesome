@@ -13,10 +13,15 @@
   transition: inherit;
 }
 
-textarea[part] {
-  padding: var(--wa-space);
-  border-radius: inherit;
-  border: var(--border-width) solid transparent; /* make resizer look a little nicer */
+textarea {
+  background-color: transparent;
+  color: inherit;
+
+  &[part] {
+    padding: var(--wa-space);
+    border-radius: inherit;
+    border: var(--border-width) solid transparent; /* make resizer look a little nicer */
+  }
 }
 
 textarea,

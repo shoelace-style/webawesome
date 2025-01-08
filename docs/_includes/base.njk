@@ -76,16 +76,13 @@
 
       newStylesheet.addEventListener("load", updateStylesheet)
 
-      document.documentElement.classList.toggle(
-        `wa-theme-${preset}-dark`,
-        isDark()
-      );
+      document.documentElement.classList.toggle(`wa-dark`, isDark());
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
     <wa-page view="desktop" disable-navigation-toggle="">
-      <header slot="header">
+      <header slot="header" class="wa-split">
         {# Logo #}
         <div id="docs-branding">
           {# Nav toggle #}
@@ -101,9 +98,9 @@
           <wa-badge variant="warning" appearance="filled" class="only-desktop">Alpha</wa-badge>
         </div>
 
-        <div id="docs-toolbar">
+        <div id="docs-toolbar" class="wa-cluster wa-gap-xs">
           {# Desktop selectors #}
-          <div class="only-desktop">
+          <div class="only-desktop wa-cluster wa-gap-xs">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
@@ -121,7 +118,7 @@
       {% if hasSidebar %}
         {# Mobile selectors #}
         <div class="wa-mobile-only" slot="navigation-header">
-          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <div class="wa-cluster wa-gap-xs">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>

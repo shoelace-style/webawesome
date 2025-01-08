@@ -268,7 +268,7 @@ layout: page
     <h1 class="brand-font">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
-      <wa-button class="wa-theme-default-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
+      <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
         <wa-icon slot="prefix" name="person-running"></wa-icon>
         Pre-order WA Pro
       </wa-button>

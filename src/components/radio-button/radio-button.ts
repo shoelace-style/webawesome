@@ -6,8 +6,9 @@ import { WaBlurEvent } from '../../events/blur.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/button.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import buttonStyles from '../button/button.css';
@@ -50,7 +51,7 @@ import styles from './radio-button.css';
  */
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, sizeStyles, nativeStyles, buttonStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, buttonStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
 

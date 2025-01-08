@@ -1,3 +1,4 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -281,14 +282,14 @@ export default class WaViewportDemo extends WebAwesomeElement {
     }
   }
 
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
+  updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('iframe')) {
+    if (changedProperties.has('iframe' as keyof WaViewportDemo)) {
       this.observeResize();
     }
 
-    if (['zoomLevel', 'availableWidth', 'viewport'].some(p => changedProperties.has(p))) {
+    if (['zoomLevel', 'availableWidth', 'viewport'].some(p => changedProperties.has(p as keyof WaViewportDemo))) {
       this.updateZoom();
     }
 

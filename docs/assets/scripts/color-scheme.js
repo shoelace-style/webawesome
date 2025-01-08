@@ -5,22 +5,24 @@
   function setColorScheme(newColorScheme) {
     colorScheme = newColorScheme;
     localStorage.setItem('colorScheme', colorScheme);
-    const presetTheme = window.getPresetTheme();
 
     // Update the UI
     updateSelection();
 
     // Toggle the dark mode class
-    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
+    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
   }
 
   function updateSelection() {
-    const menu = document.querySelector('#color-scheme-selector wa-menu');
-    if (!menu) return;
-    [...menu.querySelectorAll('wa-menu-item')].forEach(async item => {
-      await customElements.whenDefined(item.localName);
-      await item.updateComplete;
-      item.checked = item.getAttribute('value') === colorScheme;
+    const menus = document.querySelectorAll('.color-scheme-selector wa-menu');
+
+    menus.forEach(menu => {
+      if (!menu) return;
+      [...menu.querySelectorAll('wa-menu-item')].forEach(async item => {
+        await customElements.whenDefined(item.localName);
+        await item.updateComplete;
+        item.checked = item.getAttribute('value') === colorScheme;
+      });
     });
   }
 
@@ -28,14 +30,16 @@
 
   // Selection is not preserved when changing page, so update when opening dropdown
   document.addEventListener('wa-show', event => {
-    const colorSchemeSelector = event.target.closest('#color-scheme-selector');
+    const colorSchemeSelector = event.target.closest('.color-scheme-selector');
     if (!colorSchemeSelector) return;
     updateSelection();
   });
 
   // Listen for selections
   document.addEventListener('wa-select', event => {
-    const menu = event.target.closest('#color-scheme-selector wa-menu');
+    const selector = event.target.closest('.color-scheme-selector');
+    const menu = selector?.querySelector('wa-menu');
+    console.log(menu);
     if (!menu) return;
     setColorScheme(event.detail.item.value);
   });

@@ -10,8 +10,8 @@
   --wa-brand-grey: #30323b;
 }
 
-html.wa-theme-default-dark .only-light,
-html:not(.wa-theme-default-dark) .only-dark {
+.wa-dark .only-light,
+.only-dark:not(.wa-dark, .wa-dark *) {
   display: none;
 }
 
@@ -22,7 +22,7 @@ wa-page {
 /* Header */
 wa-page::part(header) {
   background-color: var(--wa-color-surface-default);
-  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
 }
 
 wa-page::part(body) {
@@ -34,10 +34,6 @@ wa-page::part(header-actions) {
 }
 
 wa-page > header {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding-inline: var(--wa-space-xl);
 
   a[href='/'] {
@@ -81,7 +77,7 @@ wa-page > header {
   }
   wa-button#search-trigger {
     --background-color: var(--wa-form-control-background-color);
-    --border-color: var(--wa-form-control-resting-color);
+    --border-color: var(--wa-form-control-border-color);
   }
   #search-trigger kbd {
     font-size: var(--wa-font-size-2xs);
@@ -215,6 +211,20 @@ wa-page::part(menu) {
   scrollbar-width: thin;
 }
 
+wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
+  padding: 0;
+
+  & wa-details::part(icon) {
+    padding-inline: var(--wa-space-xs); /* aligns details icons with drawer close icon */
+  }
+}
+
+[slot='navigation-header'] wa-menu {
+  font-family: var(--wa-font-family-body);
+  font-size: var(--wa-font-size-m);
+  font-weight: var(--wa-font-weight-normal);
+}
+
 /* Main content */
 wa-page > main {
   max-width: 80ch;
@@ -230,7 +240,7 @@ h1.title wa-badge {
   }
 }
 
-.component-info {
+.block-info {
   margin-block-end: var(--wa-flow-spacing);
 }
 
@@ -326,16 +336,18 @@ wa-page > main:has(> .index-grid) {
 
   a {
     border-radius: var(--wa-border-radius-l);
+    text-decoration: none;
   }
 
   wa-card {
-    --box-shadow: none;
+    box-shadow: none;
     --spacing: var(--wa-space-m);
     inline-size: 100%;
 
     &:hover {
       --border-color: var(--wa-color-brand-border-loud);
-      --box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+      border-color: var(--border-color);
+      box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
 
       .page-name {
         color: var(--wa-color-brand-on-quiet);
@@ -428,7 +440,7 @@ wa-page > main:has(> .index-grid) {
 @media screen and not (max-width: 768px) {
   /* Navigation sidebar */
   wa-page::part(navigation) {
-    border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
   }
 
   wa-page > #sidebar {

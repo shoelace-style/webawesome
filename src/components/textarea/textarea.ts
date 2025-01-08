@@ -1,4 +1,5 @@
-import { html, type PropertyValues } from 'lit';
+import type { PropertyValues } from 'lit';
+import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -10,7 +11,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/input.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
@@ -40,8 +41,6 @@ import styles from './textarea.css';
  *
  * @cssproperty --background-color - The textarea's background color.
  * @cssproperty --border-color - The color of the textarea's borders.
- * @cssproperty --border-radius - The border radius of the textarea's corners.
- * @cssproperty --border-style - The style of the textarea's borders.
  * @cssproperty --border-width - The width of the textarea's borders.
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
  */
@@ -272,7 +271,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.setTextareaDimensions();
   }
 
-  protected updated(changedProperties: PropertyValues<this>) {
+  updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('resize')) {
       this.setTextareaDimensions();
     }

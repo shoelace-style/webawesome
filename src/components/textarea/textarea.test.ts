@@ -61,7 +61,7 @@ describe('<wa-textarea>', () => {
 
       it('should focus the textarea when clicking on the label', async () => {
         const el = await fixture<WaTextarea>(html` <wa-textarea label="Name"></wa-textarea> `);
-        const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
+        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
         const submitHandler = sinon.spy();
 
         el.addEventListener('wa-focus', submitHandler);

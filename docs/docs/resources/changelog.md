@@ -14,13 +14,25 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Simplified the internal structure and CSS properties of `<wa-card>`, removed `base` part.
+- Added `appearance` to `<wa-callout>` and `<wa-tag>`
 - Fixed a bug in `<wa-switch>` where it would not properly change its "checked" state when its property changed.
+- Fixed a bug in `<wa-switch>` where the value would be incorrectly submitted as "on" when a value is provided and the switch is checked
 - Fixed a bug in the `wa-split` CSS utility that caused it to behave incorrectly
 - Improved performance of `<wa-select>` when using a large number of options
 - Updated the Japanese translation
 
 ### Theming
 
+- Added new themes:
+  - Awesome
+  - Active
+  - Brutalist
+  - Mellow
+  - Tailspin
+  - Playful
+- Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
+- Removed size-based `--wa-form-control-height-*` tokens in favor of `--wa-form-control-height` (see [size utilities](/docs/utilities/size/))
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
   - Changed the value of `--wa-border-width-scale` to `1` and updated calculations of size-based `--wa-border-width-*` tokens
   - Changed the value of `--wa-border-radius-scale` to `1` and updated calculations of size-based `--wa-border-radius-*` tokens

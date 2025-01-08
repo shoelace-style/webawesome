@@ -48,10 +48,7 @@
 
       stylesheet.href = `/dist/styles/themes/${preset}.css`
 
-      document.documentElement.classList.toggle(
-        `wa-theme-${preset}-dark`,
-        isDark()
-      );
+      document.documentElement.classList.toggle(`wa-dark`, isDark());
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">

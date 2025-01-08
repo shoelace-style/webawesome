@@ -11,7 +11,7 @@ import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
 import nativeStyles from '../../styles/native/input.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
@@ -54,6 +54,7 @@ import styles from './input.css';
  * @csspart suffix - The container that wraps the suffix.
  *
  * @cssproperty --background-color - The input's background color.
+ * @cssproperty --border-color - The color of the input's borders.
  * @cssproperty --border-width - The width of the input's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
  */

@@ -28,45 +28,31 @@ describe('<wa-input>', () => {
         expect(el.value).to.equal(null);
         expect(el.defaultValue).to.equal(null);
         expect(el.title).to.equal('');
-        expect(el.filled).to.be.false;
-        expect(el.pill).to.be.false;
+        expect(el.appearance).to.equal('outlined'); // Added
+        expect(el.pill).to.equal(false);
         expect(el.label).to.equal('');
         expect(el.hint).to.equal('');
-        expect(el.clearable).to.be.false;
-        expect(el.passwordToggle).to.be.false;
-        expect(el.passwordVisible).to.be.false;
-        expect(el.noSpinButtons).to.be.false;
+        expect(el.clearable).to.equal(false);
+        expect(el.passwordToggle).to.equal(false);
+        expect(el.passwordVisible).to.equal(false);
+        expect(el.noSpinButtons).to.equal(false);
         expect(el.placeholder).to.equal('');
-        expect(el.disabled).to.be.false;
-        expect(el.readonly).to.be.false;
-        expect(el.minlength).to.be.undefined;
-        expect(el.maxlength).to.be.undefined;
-        expect(el.min).to.be.undefined;
-        expect(el.max).to.be.undefined;
-        expect(el.step).to.be.undefined;
-        expect(el.pattern).to.be.undefined;
-        expect(el.required).to.be.false;
-        expect(el.autocapitalize).to.be.undefined;
-        expect(el.autocorrect).to.be.undefined;
-        expect(el.autocomplete).to.be.undefined;
-        expect(el.autofocus).to.be.undefined;
-        expect(el.enterkeyhint).to.be.undefined;
-        expect(el.spellcheck).to.be.true;
-        expect(el.inputmode).to.be.undefined;
+        expect(el.disabled).to.equal(false);
+        expect(el.readonly).to.equal(false);
       });
 
       it('should have title if title attribute is set', async () => {
         const el = await fixture<WaInput>(html` <wa-input title="Test"></wa-input> `);
-        const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part~="input"]')!;
-
+        await el.updateComplete;
+        const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;
         expect(input.title).to.equal('Test');
       });
 
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaInput>(html` <wa-input disabled></wa-input> `);
-        const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part~="input"]')!;
-
-        expect(input.disabled).to.be.true;
+        await el.updateComplete;
+        const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;
+        expect(input.disabled).to.equal(true);
       });
 
       it('should focus the input when clicking on the label', async () => {

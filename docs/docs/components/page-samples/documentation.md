@@ -127,7 +127,7 @@ eleventyExcludeFromCollections: true
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-l wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>

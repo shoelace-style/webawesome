@@ -2,7 +2,8 @@
  * Foundational Colors and Semantic Colors
  */
 :where(:root, :host),
-.wa-theme-default-light {
+.wa-theme-default,
+.wa-light {
   /**
    * Foundational Colors
    */
@@ -49,7 +50,7 @@
    *  *  Border for borders, dividers, and other stroke-like elements
    *  *  On for content displayed on a fill with the corresponding attention
    * Each role has three options for attention - quiet, normal, and loud - where quiet draws the least attention and loud draws the most.
-  */
+   */
   --wa-color-brand-fill-quiet: var(--wa-color-blue-95);
   --wa-color-brand-fill-normal: var(--wa-color-blue-90);
   --wa-color-brand-fill-loud: var(--wa-color-blue-50);
@@ -102,14 +103,14 @@
 }
 
 /** need to wrap :host-context() in an :is() selector for unsupported browsers */
-.wa-theme-default-dark,
-:is(:host-context(.wa-theme-default-dark)) {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   /**
    * Foundational Colors
    */
   --wa-color-surface-raised: var(--wa-color-gray-10);
   --wa-color-surface-default: var(--wa-color-gray-05);
-  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 10%);
+  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
   --wa-color-surface-border: var(--wa-color-gray-20);
 
   --wa-color-text-normal: var(--wa-color-gray-95);

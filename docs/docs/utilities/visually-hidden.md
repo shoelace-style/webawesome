@@ -2,9 +2,9 @@
 title: Visually Hidden
 description: The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.
 icon: visually-hidden
-classes:
-  - wa-visually-hidden
-  - wa-visually-hidden-force
+snippets:
+  - .wa-visually-hidden
+  - .wa-visually-hidden-force
 ---
 
 > "there are real world situations where visually hiding content may be appropriate, while the content should remain available to assistive technologies, such as screen readers. For instance, hiding a search field's label as a common magnifying glass icon is used in its stead."

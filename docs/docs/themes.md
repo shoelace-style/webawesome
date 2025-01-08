@@ -14,23 +14,25 @@ Web Awesome includes two pre-made themes:
 
 Themes are a standard collection of [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) that cover all styles from colors to transitions. We use these custom properties throughout Web Awesome components to ensure a cohesive look and feel. Our [Theming pages](/docs/theming/) document these styles so that you can use them freely throughout your project and customize them as needed.
 
-Themes are scoped to unique classes for each color scheme, such as `wa-theme-default-light` and `wa-theme-default-dark`, and the `:host` selector. Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions, while scoping to `:host` ensures the styles are applied to the shadow roots of custom elements.
+Themes are scoped to unique classes for each color scheme, such as `wa-theme-default`.
+You can apply the dark version of each theme by using the class `wa-dark`.
+Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions, while scoping to `:host` ensures the styles are applied to the shadow roots of custom elements.
 
-Additionally, styles may be scoped to the `:root` selector to be activated automatically. For pre-made themes, *all* custom properties are scoped to both `:root` and the class for the light color scheme (`wa-theme-default-light` or `wa-theme-classic-light`), activating the light color scheme by default.
-
-Other themes or color schemes must be activated with the corresponding class, like the dark color scheme for pre-made themes (`wa-theme-default-dark` or `wa-theme-classic-dark`), which only defines a subset of custom properties for colors. This ensures that non-color styles only need to be defined once for the theme, regardless of whether the color scheme is light or dark.
+Additionally, styles may be scoped to the `:root` selector to be activated automatically.
+For pre-made themes, *all* custom properties are scoped to both `:root` and the theme class (`wa-theme-default` or `wa-theme-classic`),
+activating the light color scheme by default.
 
 For example, the default theme is set up like this:
 
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default {
   /* all CSS custom properties for color, typography, space, etc. */
 }
 
-.wa-theme-default-dark,
-.wa-theme-default-dark :host {
+.wa-dark,
+:host-context(.wa-dark) {
   /* subset of CSS custom properties for color */
 }
 ```
@@ -49,9 +51,11 @@ Or import the **classic** theme:
 <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/styles/themes/classic.css" />
 ```
 
-Both the default and classic themes include both light and dark color schemes. When importing either theme, the light color scheme is activated by default. To activate the dark color scheme, apply the appropriate class (`wa-theme-default-dark` or `wa-theme-classic-dark`, depending on theme) to the `<html>` element on your page, like this example for the default theme:
+Both the default and classic themes include both light and dark color schemes.
+When importing either theme, the light color scheme is activated by default.
+ To activate the dark color scheme, apply the class `wa-dark` to the `<html>` element on your page, like this example for the default theme:
 ```html
-<html class="wa-theme-default-dark">
+<html class="wa-theme-default wa-dark">
   <head>
     <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/default.css" />
     <!-- other links, scripts, and metadata -->
@@ -71,7 +75,7 @@ Because themes are scoped to specific classes, you can activate different color 
   </head>
 
   <body>
-    <nav class="wa-theme-default-dark">
+    <nav class="wa-dark">
       <!-- dark-themed sidebar -->
     </nav>
 
@@ -93,7 +97,7 @@ If you're customizing the default light styles, scope your styles to the followi
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default {
   /* your custom styles here */
 }
 ```
@@ -101,8 +105,8 @@ If you're customizing the default light styles, scope your styles to the followi
 If you're customizing the default dark styles, scope your styles to the following selectors.
 
 ```css
-:host,
-.wa-theme-default-dark {
+.wa-dark,
+:is(:host-context(.wa-dark)) {
   /* your custom styles here */
 }
 ```
