@@ -19,43 +19,40 @@ icon: callout
 Set the `variant` attribute to change the callout's variant.
 
 ```html {.example}
-<wa-callout variant="brand">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-  <strong>This is super informative</strong><br />
-  You can tell by how pretty the callout is.
-</wa-callout>
-
-<br />
-
-<wa-callout variant="success">
-  <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
-  <strong>Your changes have been saved</strong><br />
-  You can safely exit the app now.
-</wa-callout>
-
-<br />
-
-<wa-callout variant="neutral">
-  <wa-icon slot="icon" name="gear" variant="regular"></wa-icon>
-  <strong>Your settings have been updated</strong><br />
-  Settings will take effect on next login.
-</wa-callout>
-
-<br />
-
-<wa-callout variant="warning">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  <strong>Your session has ended</strong><br />
-  Please login again to continue.
-</wa-callout>
-
-<br />
-
-<wa-callout variant="danger">
-  <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
-  <strong>Your account has been deleted</strong><br />
-  We're very sorry to see you go!
-</wa-callout>
+{% for variant, info in {
+  brand: {
+    title: 'This is super informative',
+    content: 'You can tell by how pretty the callout is.',
+    icon: 'circle-info'
+  },
+  success: {
+    title: 'Your changes have been saved',
+    content: 'You can safely exit the app now.',
+    icon: 'circle-check'
+  },
+  neutral: {
+    title: 'Your settings have been updated',
+    content: 'Settings will take effect on next login.',
+    icon: 'gear'
+  },
+  warning: {
+    title: 'Your session has ended',
+    content: 'Please login again to continue.',
+    icon: 'triangle-exclamation'
+  },
+  danger: {
+    title: 'Your account has been deleted',
+    content: 'We’re very sorry to see you go!',
+    icon: 'circle-exclamation'
+  }
+} %}
+  <wa-callout variant="{{ variant }}">
+    <wa-icon slot="icon" name="{{ info.icon }}" variant="regular"></wa-icon>
+    <strong>{{ info.title }}</strong><br />
+    {{ info.content }}
+  </wa-callout>
+  {% if not loop.last %}<br />{% endif %}
+{% endfor %}
 ```
 
 ### Appearance
