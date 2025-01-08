@@ -3,29 +3,36 @@ title: Themes
 description: Everything you need to know about theming Web Awesome.
 layout: page-outline
 ---
-
 <style>
   wa-page > main {
     max-width: 120ch;
   }
 
   .theme-showcase {
+    container: showcase / inline-size;
+
+    background-color: var(--wa-color-surface-lowered);
+    border-radius: var(--wa-border-radius-l);
     min-height: 16lh;
-    height: 50vh;
-    max-height: 32lh;
-    padding: var(--wa-space-xl);
+    height: 65vh;
+    max-height: 24lh;
+    padding: var(--wa-space-m);
     overflow: hidden;
+
+    &.wa-flank {
+      --content-percentage: 55%;
+    }
   }
 
-  .showcase-wrapper {
+  .showcase-examples-wrapper {
     inline-size: 100%;
     block-size: 100%;
   }
 
-  .showcase {
-    column-count: 3;
+  .showcase-examples {
+    column-count: 2;
     column-gap: var(--wa-space-xl);
-    zoom: 80%;
+    zoom: 40%;
 
     & wa-card {
       display: inline-block;
@@ -36,15 +43,34 @@ layout: page-outline
       }
     }
   }
+
+  @container showcase (width > 400px) {
+    .showcase-examples {
+      zoom: 55%;
+    }
+  }
+
+  @container showcase (width > 700px) {
+    .showcase-examples {
+      zoom: 70%;
+    }
+  }
+
+  @container showcase (width > 800px) {
+    .showcase-examples {
+      column-count: 3;
+      zoom: 70%;
+    }
+  }
 </style>
 
-<div class="wa-flank theme-showcase" style="background-color: var(--wa-color-surface-lowered); border-radius: var(--wa-border-radius-l);">
+<div class="theme-showcase wa-flank">
   <div>
-    <h2>Theme Name</h2>
-    <p>Lorem ipsum dolor sit amet</p>
+    <h2 id="theme-showcase-name">Theme Name</h2>
+    <p id="theme-showcase-description">Lorem ipsum dolor sit amet</p>
   </div>
-  <div class="showcase-wrapper">
-    <div class="showcase">
+  <div class="showcase-examples-wrapper">
+    <div class="showcase-examples">
       <wa-card with-header with-footer>
         <div slot="header" class="wa-split">
           <h3 class="wa-heading-m">Your Cart</h3>
