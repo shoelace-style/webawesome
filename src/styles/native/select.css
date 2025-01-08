@@ -6,7 +6,12 @@ label:has(select),
   --outlined-border-color: var(--wa-form-control-border-color);
   --outlined-text-color: var(--wa-form-control-value-color);
 
-  :where(&) {
+  /* Safari and FF don't like :where(:host) so we need to add :host explicitly.
+    However, we can't just specify :host, because then it would become & :host which matches nothing.
+    :host(*) is the same as :host and the & prevents it from becoming a descendant selector.
+   */
+  :where(&),
+  :host(:where(&, *)) {
     /* Defaults with 0 specificity.
        * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
        * Instead we provide the fallback when setting

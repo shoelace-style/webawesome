@@ -14,13 +14,22 @@ input:where(:not(
     [type='reset'],
     [type='submit']
   )) {
-  &:not(:host *) {
+  /* Styling root, i.e. excluding elements within a host.
+     This is so that these properties can be overridden.
+   */
+  &:not(:host *),
+  /* Safari and FF don't like :host:not(:host *) or :where(:host) so we need to add :host explicitly.
+    However, we can't just specify :host, because then it would become & :host which matches nothing.
+    :host(*) is the same as :host and the & prevents it from becoming a descendant selector.
+   */
+  :host(:is(&, *)) {
     /* Defaults for root element. */
     --outlined-background-color: var(--wa-form-control-background-color);
     --outlined-border-color: var(--wa-form-control-border-color);
     --outlined-text-color: var(--wa-form-control-value-color);
 
-    :where(&) {
+    :where(&),
+    :host(:where(&, *)) {
       /* Defaults with 0 specificity.
        * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
        * Instead we provide the fallback when setting
