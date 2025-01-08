@@ -28,7 +28,8 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 
 ### Setting icon info via CSS
 
-You can set the icon's family, name, and variant via CSS custom properties. This can be useful when you want to set <!-- the icon dynamically or set  --> defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme):
+You can also set the icon's family, name, and variant via CSS custom properties.
+This can be useful when you want to set the icon dynamically (e.g. in response to a CSS pseudo-class or media query) or set  defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme).
 
 ```html {.example}
 <wa-callout>
@@ -46,6 +47,7 @@ You can set the icon's family, name, and variant via CSS custom properties. This
   <!-- Look ma, no attributes! -->
   <wa-icon slot="icon"></wa-icon>
   Here be dragons.
+  <button id="toggle_icon">Toggle&nbsp;<wa-icon name="circle-exclamation"></wa-icon></button>
 </wa-callout>
 
 <style>
@@ -58,6 +60,18 @@ wa-callout {
   }
 }
 </style>
+<script>
+toggle_icon.addEventListener('click', e => {
+  let callout = e.target.closest('wa-callout');
+  let value = callout.style.getPropertyValue('--wa-icon-name').trim();
+  if (value) {
+    callout.style.removeProperty('--wa-icon-name');
+  }
+  else {
+    callout.style.setProperty('--wa-icon-name', 'circle-exclamation');
+  }
+});
+</script>
 ```
 
 Notes:
