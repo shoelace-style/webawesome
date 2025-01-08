@@ -297,14 +297,13 @@ wa-callout {
 }
 
 wa-card {
-  --background-color: var(--wa-color-surface-raised);
-  --border-style: none;
+  background-color: var(--wa-color-surface-raised);
 }
 wa-card::part(header) {
-  border-bottom: var(--border-width) dotted var(--border-color);
+  border-bottom-style: dotted;
 }
 wa-card::part(footer) {
-  border-top: var(--border-width) dotted var(--border-color);
+  border-top-style: dotted;
 }
 
 input[type='checkbox'],

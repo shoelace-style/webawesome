@@ -217,10 +217,10 @@ wa-callout {
 }
 
 wa-card::part(header) {
-  border-bottom: var(--border-width) dotted var(--border-color);
+  border-bottom-style: dotted;
 }
 wa-card::part(footer) {
-  border-top: var(--border-width) dotted var(--border-color);
+  border-top-style: dotted;
 }
 
 input[type='radio'],
