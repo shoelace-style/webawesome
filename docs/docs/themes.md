@@ -66,8 +66,8 @@ layout: page-outline
 
 <div class="theme-showcase wa-flank">
   <div>
-    <h2 id="theme-showcase-name">Theme Name</h2>
-    <p id="theme-showcase-description">Lorem ipsum dolor sit amet</p>
+    <h2 id="theme-showcase-name" data-theme-name></h2>
+    <p id="theme-showcase-description" data-theme-description></p>
   </div>
   <div class="showcase-examples-wrapper">
     <div class="showcase-examples">
