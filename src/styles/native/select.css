@@ -1,41 +1,45 @@
 select,
 label:has(select),
 :host {
-  --background-color: var(--wa-form-control-background-color);
-  --border-color: var(--wa-form-control-border-color);
-  --border-radius: var(--wa-form-control-border-radius);
-  --border-style: var(--wa-form-control-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
+  /* Defaults for root element. */
+  --outlined-background-color: var(--wa-form-control-background-color);
+  --outlined-border-color: var(--wa-form-control-border-color);
+  --outlined-text-color: var(--wa-form-control-value-color);
+
+  :where(&) {
+    /* Defaults with 0 specificity.
+       * Do NOT reset --background-color and --border-color here so they trickle in from the appearance utils
+       * Instead we provide the fallback when setting
+       */
+    --border-width: var(--wa-form-control-border-width);
+    --box-shadow: initial;
+  }
 }
 select,
 :host [part~='combobox'] {
-  background-color: var(--background-color);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  border-style: var(--border-style);
+  background-color: var(--background-color, var(--wa-form-control-background-color));
+  border-color: var(--border-color, var(--wa-form-control-border-color));
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-form-control-border-style);
   border-width: var(--border-width);
   box-shadow: var(--box-shadow);
-  width: 100%;
-  min-width: 0;
-  position: relative;
   color: var(--wa-form-control-value-color);
-  font-size: var(--wa-size);
+  cursor: pointer;
   font-family: inherit;
+  font-size: var(--wa-size);
   font-weight: var(--wa-form-control-value-font-weight);
   line-height: var(--wa-form-control-value-line-height);
-  vertical-align: middle;
+  min-width: 0;
   overflow: hidden;
-  cursor: pointer;
+  padding: var(--wa-space-smaller) var(--wa-space);
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
   transition:
-    background var(--wa-transition-normal),
+    background-color var(--wa-transition-normal),
     border var(--wa-transition-normal),
-    box-shadow var(--wa-transition-normal),
-    color var(--wa-transition-normal),
     outline var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
-
-  padding: var(--wa-space-smaller) var(--wa-space);
 }
 
 /* Add ellipses to multi select options */
