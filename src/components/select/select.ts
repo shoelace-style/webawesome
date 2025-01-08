@@ -81,8 +81,6 @@ import styles from './select.css';
  *
  * @cssproperty --background-color - The background color of the select's combobox.
  * @cssproperty --border-color - The border color of the select's combobox.
- * @cssproperty --border-radius - The border radius of the select's combobox.
- * @cssproperty --border-style - The style of the select's borders, including the listbox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
