@@ -1,0 +1,49 @@
+{
+  "default": {
+    "name": "Default",
+    "description": "Your trusty companion, like a perfectly broken-in pair of jeans."
+  },
+  "classic": {
+    "name": "Classic",
+    "description": "Timeless elegance that never goes out of style."
+  },
+  "awesome": {
+    "name": "Awesome",
+    "description": "Punchy and vibrant, the rockstar of themes."
+  },
+  "active": {
+    "name": "Active",
+    "description": "Energetic and tactile, always in motion.",
+    "isPro": true
+  },
+  "brutalist": {
+    "name": "Brutalist",
+    "description": "Sharp, raw, and unapologetically bold.",
+    "isPro": true
+  },
+  "glassy": {
+    "name": "Glassy",
+    "description": "TODO",
+    "noAlpha": true
+  },
+  "mellow": {
+    "name": "Mellow",
+    "description": "Soft and soothing, like a lazy Sunday morning.",
+    "isPro": true
+  },
+  "tailspin": {
+    "name": "Tailspin",
+    "description": "Like a bird in flight, guiding you from there to here.",
+    "isPro": true
+  },
+  "playful": {
+    "name": "Playful",
+    "description": "TODO",
+    "noAlpha": true
+  },
+  "premium": {
+    "name": "Premium",
+    "description": "TODO",
+    "noAlpha": true
+  }
+}
