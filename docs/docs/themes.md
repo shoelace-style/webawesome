@@ -31,13 +31,15 @@ layout: page-outline
   }
 
   .showcase-examples-wrapper {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
     inline-size: 100%;
     block-size: 100%;
   }
 
   .showcase-examples {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
     column-gap: var(--wa-space-xl);
 
     & wa-card {
