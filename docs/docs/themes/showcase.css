@@ -1,0 +1,93 @@
+wa-page > main {
+  max-width: 140ch;
+
+  .max-line-length {
+    max-width: 80ch;
+  }
+}
+
+.theme-showcase {
+  container: showcase / inline-size;
+
+  background-color: var(--wa-color-surface-lowered);
+  border-radius: var(--wa-border-radius-l);
+  min-height: 16lh;
+  height: 65vh;
+  max-height: 21lh;
+  padding: var(--wa-space-xl);
+  overflow: hidden;
+  margin-block-end: var(--wa-space-xl);
+
+  &.wa-flank {
+    --content-percentage: 60%;
+    --flank-size: 25ch;
+  }
+}
+
+.showcase-examples-wrapper {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.showcase-examples {
+  column-gap: var(--wa-space-xl);
+
+  & wa-card {
+    display: inline-block;
+    width: 100%;
+
+    &:has(+ wa-card) {
+      margin-block-end: var(--wa-space-xl);
+    }
+  }
+}
+
+@supports not (zoom: 1) {
+  .showcase-examples {
+    column-count: 1;
+  }
+
+  @container showcase (width > 750px) {
+    .showcase-examples {
+      column-count: 2;
+    }
+  }
+
+  @container showcase (width > 950px) {
+    .showcase-examples {
+      column-count: 3;
+    }
+  }
+}
+
+@supports (zoom: 1) {
+  .showcase-examples {
+    column-count: 1;
+    zoom: 40%;
+  }
+
+  @container showcase (width > 350px) {
+    .showcase-examples {
+      column-count: 2;
+    }
+  }
+
+  @container showcase (width > 450px) {
+    .showcase-examples {
+      zoom: 55%;
+    }
+  }
+
+  @container showcase (width > 750px) {
+    .showcase-examples {
+      zoom: 70%;
+    }
+  }
+
+  @container showcase (width > 950px) {
+    .showcase-examples {
+      column-count: 3;
+      zoom: 70%;
+    }
+  }
+}
