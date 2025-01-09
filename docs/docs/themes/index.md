@@ -4,7 +4,7 @@ description: Everything you need to know about theming Web Awesome.
 layout: page-outline
 ---
 
-<link rel="stylesheet" href="./showcase.css" />
+<link rel="stylesheet" href="{{ page.url }}showcase.css" />
 
 <div class="theme-showcase wa-flank wa-gap-xl">
   <div>
