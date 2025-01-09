@@ -3,95 +3,8 @@ title: Themes
 description: Everything you need to know about theming Web Awesome.
 layout: page-outline
 ---
-<style>
-  wa-page > main {
-    max-width: 140ch;
 
-    .max-line-length {
-      max-width: 80ch;
-    }
-  }
-
-  .theme-showcase {
-    container: showcase / inline-size;
-
-    background-color: var(--wa-color-surface-lowered);
-    border-radius: var(--wa-border-radius-l);
-    min-height: 16lh;
-    height: 65vh;
-    max-height: 21lh;
-    padding: var(--wa-space-xl);
-    overflow: hidden;
-    margin-block-end: var(--wa-space-xl);
-
-    &.wa-flank {
-      --content-percentage: 55%;
-      --flank-size: 20ch;
-    }
-  }
-
-  .showcase-examples-wrapper {
-    inline-size: 100%;
-    block-size: 100%;
-  }
-
-  .showcase-examples {
-    column-gap: var(--wa-space-xl);
-
-    & wa-card {
-      display: inline-block;
-      width: 100%;
-
-      &:has(+ wa-card) {
-        margin-block-end: var(--wa-space-xl);
-      }
-    }
-  }
-
-  @supports not (zoom: 1) {
-    .showcase-examples {
-      column-count: 1;
-    }
-
-    @container showcase (width > 700px) {
-      .showcase-examples {
-        column-count: 2;
-      }
-    }
-
-    @container showcase (width > 900px) {
-      .showcase-examples {
-        column-count: 3;
-      }
-    }
-  }
-
-  @supports (zoom: 1) {
-    .showcase-examples {
-      column-count: 2;
-      zoom: 40%;
-    }
-
-    @container showcase (width > 400px) {
-      .showcase-examples {
-        zoom: 55%;
-      }
-    }
-
-    @container showcase (width > 700px) {
-      .showcase-examples {
-        zoom: 70%;
-      }
-    }
-
-    @container showcase (width > 800px) {
-      .showcase-examples {
-        column-count: 3;
-        zoom: 70%;
-      }
-    }
-  }
-</style>
+<link rel="stylesheet" href="./showcase.css" />
 
 <div class="theme-showcase wa-flank wa-gap-xl">
   <div>
@@ -271,8 +184,8 @@ Themes are a collection of standardized [CSS custom properties](https://develope
 
 Themes are scoped to unique classes, such as `wa-theme-default` or `wa-theme-classic`. Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions.
 
-Each theme may also include both light and dark color schemes with the classes `wa-light` and `wa-dark`. 
-You can use these classes to apply a specific color scheme to an entire page or just a section. 
+Each theme may also include both light and dark color schemes with the classes `wa-light` and `wa-dark`.
+You can use these classes to apply a specific color scheme to an entire page or just a section.
 In pre-made themes, we use a light color scheme by default.
 
 
