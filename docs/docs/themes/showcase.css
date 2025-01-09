@@ -19,8 +19,8 @@ wa-page > main {
   margin-block-end: var(--wa-space-xl);
 
   &.wa-flank {
-    --content-percentage: 55%;
-    --flank-size: 20ch;
+    --content-percentage: 60%;
+    --flank-size: 25ch;
   }
 
   header {
@@ -53,13 +53,13 @@ wa-page > main {
     column-count: 1;
   }
 
-  @container showcase (width > 700px) {
+  @container showcase (width > 750px) {
     .showcase-examples {
       column-count: 2;
     }
   }
 
-  @container showcase (width > 900px) {
+  @container showcase (width > 950px) {
     .showcase-examples {
       column-count: 3;
     }
@@ -68,23 +68,29 @@ wa-page > main {
 
 @supports (zoom: 1) {
   .showcase-examples {
-    column-count: 2;
+    column-count: 1;
     zoom: 40%;
   }
 
-  @container showcase (width > 400px) {
+  @container showcase (width > 350px) {
+    .showcase-examples {
+      column-count: 2;
+    }
+  }
+
+  @container showcase (width > 450px) {
     .showcase-examples {
       zoom: 55%;
     }
   }
 
-  @container showcase (width > 700px) {
+  @container showcase (width > 750px) {
     .showcase-examples {
       zoom: 70%;
     }
   }
 
-  @container showcase (width > 800px) {
+  @container showcase (width > 950px) {
     .showcase-examples {
       column-count: 3;
       zoom: 70%;
