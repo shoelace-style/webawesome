@@ -12,6 +12,14 @@ class ThemeAspect {
   constructor(options) {
     Object.assign(this, options);
     this.set();
+
+    // Update when local storage changes.
+    // That way changes in one window will propagate to others (including iframes).
+    window.addEventListener('storage', event => {
+      if (event.key === this.key) {
+        this.set();
+      }
+    });
   }
 
   get() {
