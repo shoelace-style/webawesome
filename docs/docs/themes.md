@@ -276,15 +276,19 @@ You can use these classes to apply a specific color scheme to an entire page or 
 In pre-made themes, we use a light color scheme by default.
 
 
-Additionally, styles may be scoped to the `:root` selector to be activated automatically.
-For pre-made themes, *all* custom properties are scoped to `:root`, the theme class, and `wa-light`.
+Additionally, styles may be scope to the `:root` selector to be activated automatically.
+For pre-made themes, *all* custom properties are scoped to `:where(:root)`, the theme class, and `wa-light`. 
+
+:::info
+We use `:where(:root)` to give these styles 0 [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) so that they can be easily overridden. If you plan on using multiple themes in your project, we recommend doing the same for your custom themes.
+:::
 
 Finally, we scope themes to `:host` and `:host-context()` to ensure the styles are applied to the shadow roots of custom elements.
 
 For example, the default theme is set up like this:
 
 ```css
-:root,
+:where(:root),
 :host,
 .wa-theme-default,
 .wa-light {
