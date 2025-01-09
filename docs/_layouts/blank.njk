@@ -44,7 +44,7 @@
       }
 
       const stylesheet = document.getElementById("theme-stylesheet")
-      let preset = getPresetTheme()
+      let preset = {{ defaultTheme or "false" }} || getPresetTheme();
 
       stylesheet.href = `/dist/styles/themes/${preset}.css`
 

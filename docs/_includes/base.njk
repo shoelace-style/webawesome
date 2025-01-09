@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}">
+<html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}"
+      data-page-url="{{ page.url }}"{{ (' class="wa-theme-' + forceTheme + '"') if forceTheme }}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,7 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" />
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
     <link rel="stylesheet" href="/dist/styles/forms.css" />
@@ -61,12 +62,14 @@
 
       const newStylesheet = document.createElement("link")
 
+      {% if not forceTheme -%}
       let preset = getPresetTheme()
       newStylesheet.href = `/dist/styles/themes/${preset}.css`
       newStylesheet.rel = "preload"
       newStylesheet.as = "style"
 
       document.head.append(newStylesheet)
+      {%- endif %}
 
       function updateStylesheet () {
         newStylesheet.rel = "stylesheet"
