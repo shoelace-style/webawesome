@@ -1,0 +1,64 @@
+// JS code that runs synchronously to set the preset theme & color scheme (i.e. NOT using type=module)
+// Preset theme selector
+function getPresetTheme() {
+  return localStorage.getItem('presetTheme') || 'default';
+}
+
+const oldStylesheet = document.querySelector('#theme-stylesheet');
+
+function swapStylesheets(stylesheet, newStylesheet) {
+  newStylesheet.rel = 'stylesheet';
+  newStylesheet.id = stylesheet.id;
+  requestAnimationFrame(() => {
+    stylesheet.remove();
+  });
+}
+
+function setStylesheetHref(link, href, { behavior = 'instant' } = {}) {
+  if (link.getAttribute('href') !== href) {
+    const newStylesheet = document.createElement('link');
+    Object.assign(newStylesheet, { href, rel: 'preload', as: 'style' });
+
+    link.after(newStylesheet);
+    newStylesheet.addEventListener(
+      'load',
+      e => {
+        const canUseViewTransitions =
+          document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (canUseViewTransitions && behavior === 'smooth') {
+          document.startViewTransition(() => swapStylesheets(link, newStylesheet));
+        } else {
+          swapStylesheets(link, newStylesheet);
+        }
+      },
+      { once: true },
+    );
+
+    return newStylesheet;
+  }
+
+  return link;
+}
+
+if (!forceTheme) {
+  let preset = getPresetTheme();
+  let href = `/dist/styles/themes/${preset}.css`;
+
+  setStylesheetHref(oldStylesheet, href);
+}
+
+// Color scheme selector
+function getColorScheme() {
+  return localStorage.getItem('colorScheme') || 'auto';
+}
+
+function isDark() {
+  const colorScheme = getColorScheme();
+  if (colorScheme === 'auto') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  return colorScheme === 'dark';
+}
+
+document.documentElement.classList.toggle(`wa-dark`, isDark());

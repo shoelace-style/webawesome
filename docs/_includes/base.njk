@@ -20,9 +20,8 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm"></script>
 
     <script type="module" src="/assets/scripts/code-examples.js"></script>
-    <script type="module" src="/assets/scripts/color-scheme.js"></script>
     <script type="module" src="/assets/scripts/copy-code.js"></script>
-    <script type="module" src="/assets/scripts/preset-theme.js"></script>
+    <script type="module" src="/assets/scripts/theme-picker.js"></script>
     <script type="module" src="/assets/scripts/scroll.js"></script>
     <script type="module" src="/assets/scripts/turbo.js"></script>
     <script type="module" src="/assets/scripts/search.js"></script>
@@ -41,42 +40,8 @@
 
     {# Set the theme to prevent flashing #}
     <script>
-      function getColorScheme() {
-        return localStorage.getItem('colorScheme') || 'auto';
-      }
-
-      function getPresetTheme () {
-        return localStorage.getItem('presetTheme') || 'default';
-      }
-
-      function isDark() {
-        const colorScheme = getColorScheme()
-        if (colorScheme === 'auto') {
-          return window.matchMedia('(prefers-color-scheme: dark)').matches;
-        }
-        return colorScheme === 'dark';
-      }
-
-      const oldStylesheet = document.querySelector("#theme-stylesheet")
-
-      const newStylesheet = document.createElement("link")
-
-      let preset = getPresetTheme()
-      newStylesheet.href = `/dist/styles/themes/${preset}.css`
-      newStylesheet.rel = "preload"
-      newStylesheet.as = "style"
-
-      document.head.append(newStylesheet)
-
-      function updateStylesheet () {
-        newStylesheet.rel = "stylesheet"
-        newStylesheet.id = "theme-stylesheet"
-        requestAnimationFrame(() => oldStylesheet.remove())
-      }
-
-      newStylesheet.addEventListener("load", updateStylesheet)
-
-      document.documentElement.classList.toggle(`wa-dark`, isDark());
+      let forceTheme = "{{ forceTheme }}";
+      {% include 'set-theme-sync.js.njk' %}
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">

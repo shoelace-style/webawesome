@@ -20,35 +20,15 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" />
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
     <link rel="stylesheet" href="/dist/styles/forms.css" />
 
     {# Set the theme to prevent flashing #}
     <script>
-      function getColorScheme() {
-        return localStorage.getItem('colorScheme') || 'auto';
-      }
-
-      function getPresetTheme () {
-        return localStorage.getItem('presetTheme') || 'default';
-      }
-
-      function isDark() {
-        const colorScheme = getColorScheme()
-        if (colorScheme === 'auto') {
-          return window.matchMedia('(prefers-color-scheme: dark)').matches;
-        }
-        return colorScheme === 'dark';
-      }
-
-      const stylesheet = document.getElementById("theme-stylesheet")
-      let preset = getPresetTheme()
-
-      stylesheet.href = `/dist/styles/themes/${preset}.css`
-
-      document.documentElement.classList.toggle(`wa-dark`, isDark());
+      let forceTheme = "{{ forceTheme }}";
+      {% include 'set-theme-sync.js.njk' %}
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">

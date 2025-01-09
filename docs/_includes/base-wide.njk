@@ -22,7 +22,7 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" />
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <link rel="stylesheet" href="/dist/styles/forms.css" />
 
@@ -31,10 +31,8 @@
 
     {# Set the theme to prevent flashing #}
     <script>
-      document.documentElement.classList.toggle(
-        'wa-dark',
-        sessionStorage.getItem('theme') === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches
-      );
+      let forceTheme = "{{ forceTheme }}";
+      {% include 'set-theme-sync.js.njk' %}
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
