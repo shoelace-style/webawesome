@@ -64,6 +64,12 @@
     });
   }
 
+  // Updates any element on the page with [data-theme-name] and [data-theme-description] with the current themes info
+  function updateThemeNameAndDescription(name, description) {
+    document.querySelectorAll('[data-theme-name]').forEach(el => (el.textContent = name));
+    document.querySelectorAll('[data-theme-description]').forEach(el => (el.textContent = description));
+  }
+
   let presetTheme = window.getPresetTheme();
 
   // Selection is not preserved when changing page, so update when opening dropdown
@@ -78,7 +84,14 @@
     const menu = event.target.closest('.preset-theme-selector wa-menu');
     if (!menu) return;
     setPresetTheme(event.detail.item.value);
+    updateThemeNameAndDescription(event.detail.item.textContent, event.detail.item.getAttribute('data-description'));
   });
+
+  // Set the initial preset name/description in the UI by grabbing it from the dropdown (ugly, but quick)
+  const currentTheme = document.querySelector(`.preset-theme-selector wa-menu-item[value="${presetTheme}"]`);
+  if (currentTheme) {
+    updateThemeNameAndDescription(currentTheme.textContent, currentTheme.getAttribute('data-description'));
+  }
 
   // Update the color scheme when the preference changes
   window.matchMedia('(prefers-preset-theme: dark)').addEventListener('change', () => setPresetTheme(presetTheme));

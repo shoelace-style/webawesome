@@ -16,7 +16,7 @@
   font-size: var(--wa-size);
 }
 
-:root,
+:where(:root),
 :host,
 .wa-size-s,
 .wa-size-m,

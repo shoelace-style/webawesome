@@ -1,7 +1,8 @@
 /**
 * Rounding
 */
-:where(:root, :host) {
+:where(:root),
+:host {
   /* A multiplier is provided to uniformly increase or decrease all border radii. */
   --wa-border-radius-scale: 1;
   --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 0.1875rem);

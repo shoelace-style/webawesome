@@ -8,7 +8,7 @@
 @import url('default/groups.css');
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-playful,
 .wa-light {
@@ -288,93 +288,97 @@
 /**
  * Component Styles
  */
-wa-button:not([disabled]) {
-  transition-property: all;
+:where(:root),
+:host,
+.wa-theme-playful {
+  wa-button:not([disabled]) {
+    transition-property: all;
 
-  &:hover {
-    transform: scale(1.02, 1.02);
+    &:hover {
+      transform: scale(1.02, 1.02);
+    }
+
+    &:active {
+      transform: scale(0.98, 0.98);
+    }
+  }
+  wa-button:is([appearance~='accent'], [appearance~='filled']) {
+    --button-gradient-top: oklch(from var(--background-color) calc(l - 0.1) c h);
+    --button-gradient-middle: var(--background-color);
+    --button-gradient-bottom: oklch(from var(--background-color) calc(l + 0.1) c h);
+    --button-shadow-outer: oklch(from var(--background-color) calc(l + 0.1) c h);
+    --button-shadow-inner-a: oklch(from var(--background-color) calc(l - 0.2) c h);
+    --button-shadow-inner-b: oklch(from var(--background-color) calc(l + 0.3) c h);
+    --button-text-shadow: oklch(from var(--background-color) calc(l - 0.1) c h);
+    --border-color: var(--button-gradient-middle);
+    --border-width: 1px;
+    --border-color-hover: var(--button-gradient-middle);
+    --border-color-active: var(--button-gradient-middle);
+
+    &::part(base) {
+      background: linear-gradient(
+        180deg,
+        var(--button-gradient-top) 0%,
+        var(--button-gradient-middle) 51.88%,
+        var(--button-gradient-bottom) 100%
+      );
+      box-shadow:
+        0px 6px 16px var(--button-shadow-outer),
+        inset 0 -2px 8px var(--button-shadow-inner-a),
+        inset 0 2px 8px var(--button-shadow-inner-b);
+    }
+
+    &:not([disabled])::part(base):hover {
+      background: linear-gradient(
+        180deg,
+        var(--button-gradient-bottom) 0%,
+        var(--button-gradient-middle) 51.88%,
+        var(--button-gradient-top) 100%
+      );
+    }
+
+    &:not([disabled])::part(base):active {
+      background: linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
+        color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
+        color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
+      );
+      box-shadow:
+        inset 0 -2px 8px var(--button-shadow-inner-a),
+        inset 0 2px 8px var(--button-shadow-inner-b);
+    }
   }
 
-  &:active {
-    transform: scale(0.98, 0.98);
-  }
-}
-wa-button:is([appearance~='accent'], [appearance~='filled']) {
-  --button-gradient-top: oklch(from var(--background-color) calc(l - 0.1) c h);
-  --button-gradient-middle: var(--background-color);
-  --button-gradient-bottom: oklch(from var(--background-color) calc(l + 0.1) c h);
-  --button-shadow-outer: oklch(from var(--background-color) calc(l + 0.1) c h);
-  --button-shadow-inner-a: oklch(from var(--background-color) calc(l - 0.2) c h);
-  --button-shadow-inner-b: oklch(from var(--background-color) calc(l + 0.3) c h);
-  --button-text-shadow: oklch(from var(--background-color) calc(l - 0.1) c h);
-  --border-color: var(--button-gradient-middle);
-  --border-width: 1px;
-  --border-color-hover: var(--button-gradient-middle);
-  --border-color-active: var(--button-gradient-middle);
-
-  &::part(base) {
-    background: linear-gradient(
-      180deg,
-      var(--button-gradient-top) 0%,
-      var(--button-gradient-middle) 51.88%,
-      var(--button-gradient-bottom) 100%
-    );
-    box-shadow:
-      0px 6px 16px var(--button-shadow-outer),
-      inset 0 -2px 8px var(--button-shadow-inner-a),
-      inset 0 2px 8px var(--button-shadow-inner-b);
+  wa-button::part(label) {
+    font-weight: var(--wa-font-weight-bold);
+    text-shadow: 0 2px 2px var(--button-text-shadow);
   }
 
-  &:not([disabled])::part(base):hover {
-    background: linear-gradient(
-      180deg,
-      var(--button-gradient-bottom) 0%,
-      var(--button-gradient-middle) 51.88%,
-      var(--button-gradient-top) 100%
-    );
+  wa-callout {
+    border-style: dashed;
   }
 
-  &:not([disabled])::part(base):active {
-    background: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--button-gradient-top), var(--wa-color-mix-active)) 0%,
-      color-mix(in oklab, var(--button-gradient-middle), var(--wa-color-mix-active)) 51.88%,
-      color-mix(in oklab, var(--button-gradient-bottom), var(--wa-color-mix-active)) 100%
-    );
-    box-shadow:
-      inset 0 -2px 8px var(--button-shadow-inner-a),
-      inset 0 2px 8px var(--button-shadow-inner-b);
+  wa-checkbox::part(check-icon) {
+    filter: drop-shadow(var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0.125em var(--wa-color-shadow));
   }
-}
 
-wa-button::part(label) {
-  font-weight: var(--wa-font-weight-bold);
-  text-shadow: 0 2px 2px var(--button-text-shadow);
-}
+  wa-rating {
+    --symbol-color: color-mix(in oklab, var(--symbol-color-active), transparent);
+  }
 
-wa-callout {
-  border-style: dashed;
-}
+  wa-switch {
+    --thumb-size: 0.8em;
+    --height: 1.5em;
+    --width: calc(var(--thumb-size) * 3);
+  }
 
-wa-checkbox::part(check-icon) {
-  filter: drop-shadow(var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0.125em var(--wa-color-shadow));
-}
+  wa-switch[checked]::part(thumb) {
+    box-shadow: var(--wa-shadow-s);
+  }
 
-wa-rating {
-  --symbol-color: color-mix(in oklab, var(--symbol-color-active), transparent);
-}
-
-wa-switch {
-  --thumb-size: 0.8em;
-  --height: 1.5em;
-  --width: calc(var(--thumb-size) * 3);
-}
-
-wa-switch[checked]::part(thumb) {
-  box-shadow: var(--wa-shadow-s);
-}
-
-wa-tag {
-  border-style: dashed;
-  border-color: var(--wa-color-border-quiet);
+  wa-tag {
+    border-style: dashed;
+    border-color: var(--wa-color-border-quiet);
+  }
 }

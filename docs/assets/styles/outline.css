@@ -31,6 +31,9 @@
 }
 
 @media screen and (max-width: 1199px) {
+  wa-page [slot='aside'] {
+    display: none;
+  }
   #outline {
     padding-block: 0.25rem;
     margin-block-end: -1rem;

@@ -1,7 +1,8 @@
 /**
  * Foundational Colors and Semantic Colors
  */
-:where(:root, :host),
+:where(:root),
+:host,
 .wa-theme-default,
 .wa-light {
   /**

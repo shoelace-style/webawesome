@@ -1,7 +1,8 @@
 /**
  * Transitions
  */
-:where(:root, :host) {
+:where(:root),
+:host {
   --wa-transition-easing: ease;
   --wa-transition-slow: 300ms;
   --wa-transition-normal: 150ms;

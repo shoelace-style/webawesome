@@ -8,7 +8,7 @@
 @import url('default/transitions.css');
 @import url('default/groups.css');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-classic,
 .wa-light {
@@ -205,132 +205,136 @@
 /**
  * Component Styles
  */
-wa-avatar {
-  --background-color: var(--wa-color-neutral-fill-loud);
-  --text-color: var(--wa-color-neutral-on-loud);
-}
-
-button,
-input:where([type='button'], [type='reset'], [type='submit']),
-wa-button,
-.wa-button,
-wa-radio-button {
-  font-size: var(--wa-size-smaller);
-}
-
-wa-radio-button {
-  --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
-  --background-color-hover: var(--wa-form-control-activated-color);
-  --border-color: var(--wa-form-control-border-color);
-  --border-color-active: var(--background-color-active);
-  --border-color-hover: var(--background-color-hover);
-  --text-color-active: var(--text-color-hover);
-  --text-color-hover: var(--wa-color-brand-on-loud);
-  --indicator-color: var(--wa-background-color);
-
-  &[checked] {
-    --background-color: var(--wa-form-control-activated-color);
-    --border-color: var(--background-color);
-    --text-color: var(--wa-color-brand-on-loud);
+:where(:root),
+:host,
+.wa-theme-classic {
+  wa-avatar {
+    --background-color: var(--wa-color-neutral-fill-loud);
+    --text-color: var(--wa-color-neutral-on-loud);
   }
-}
 
-wa-breadcrumb {
-  font-size: var(--wa-font-size-s);
-}
+  button,
+  input:where([type='button'], [type='reset'], [type='submit']),
+  wa-button,
+  .wa-button,
+  wa-radio-button {
+    font-size: var(--wa-size-smaller);
+  }
 
-wa-callout {
-  --spacing: var(--wa-space-l);
-  font-size: var(--wa-size-smaller);
+  wa-radio-button {
+    --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
+    --background-color-hover: var(--wa-form-control-activated-color);
+    --border-color: var(--wa-form-control-border-color);
+    --border-color-active: var(--background-color-active);
+    --border-color-hover: var(--background-color-hover);
+    --text-color-active: var(--text-color-hover);
+    --text-color-hover: var(--wa-color-brand-on-loud);
+    --indicator-color: var(--wa-background-color);
 
-  &:is([appearance~='outlined'], .wa-outlined) {
-    border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
-    border-color: var(--border-color, var(--wa-color-border-loud)) var(--wa-color-surface-border)
-      var(--wa-color-surface-border) var(--wa-color-surface-border);
-
-    &:not([appearance~='accent'], .wa-accent) {
-      --border-color: var(--wa-color-fill-loud);
+    &[checked] {
+      --background-color: var(--wa-form-control-activated-color);
+      --border-color: var(--background-color);
+      --text-color: var(--wa-color-brand-on-loud);
     }
   }
-  &:not([appearance~='accent'], .wa-accent) {
-    --icon-color: var(--wa-color-fill-loud);
-    --text-color: var(--wa-color-text-normal);
+
+  wa-breadcrumb {
+    font-size: var(--wa-font-size-s);
   }
-}
 
-wa-card {
-  background-color: var(--wa-color-surface-raised);
-}
+  wa-callout {
+    --spacing: var(--wa-space-l);
+    font-size: var(--wa-size-smaller);
 
-wa-carousel {
-  --box-shadow: var(--wa-shadow-s);
-  --pagination-color-active: var(--wa-color-neutral-fill-loud);
-}
+    &:is([appearance~='outlined'], .wa-outlined) {
+      border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
+      border-color: var(--border-color, var(--wa-color-border-loud)) var(--wa-color-surface-border)
+        var(--wa-color-surface-border) var(--wa-color-surface-border);
 
-wa-dialog,
-wa-drawer {
-  --spacing: var(--wa-space-l);
-}
-
-:is(
-    input:where(
-        :not(
-          [type='button'],
-          [type='checkbox'],
-          [type='color'],
-          [type='file'],
-          [type='hidden'],
-          [type='image'],
-          [type='radio'],
-          [type='range'],
-          [type='reset'],
-          [type='submit']
-        )
-      ),
-    select,
-    textarea,
-    wa-input,
-    wa-select,
-    wa-textarea,
-    .wa-text-field
-  ):not([appearance='filled'], .wa-filled) {
-  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-    color-mix(in oklab, var(--wa-color-focus), transparent 50%);
-  --wa-focus-ring-offset: 0;
-}
-
-input[type='radio'],
-wa-radio {
-  --background-color-checked: var(--border-color-checked);
-  --checked-icon-color: var(--wa-color-surface-default);
-  --checked-icon-scale: 0.4;
-}
-
-input[type='range'],
-wa-slider {
-  --thumb-gap: 0;
-}
-
-wa-switch {
-  --background-color: var(--wa-color-gray-50);
-  --border-color: var(--background-color);
-  --height: calc(1em * var(--wa-form-control-value-line-height) - var(--border-width) * 2);
-  --thumb-color: var(--wa-color-surface-default);
-  --thumb-size: calc(var(--height) + 4px);
-  --width: calc(var(--height) * 2);
-
-  &::part(thumb) {
-    border: var(--wa-border-width-s) var(--wa-border-style) var(--background-color);
+      &:not([appearance~='accent'], .wa-accent) {
+        --border-color: var(--wa-color-fill-loud);
+      }
+    }
+    &:not([appearance~='accent'], .wa-accent) {
+      --icon-color: var(--wa-color-fill-loud);
+      --text-color: var(--wa-color-text-normal);
+    }
   }
-  &[checked]::part(thumb) {
-    border-color: var(--background-color-checked);
+
+  wa-card {
+    background-color: var(--wa-color-surface-raised);
   }
-}
 
-wa-progress-bar {
-  --height: 1rem;
-}
+  wa-carousel {
+    --box-shadow: var(--wa-shadow-s);
+    --pagination-color-active: var(--wa-color-neutral-fill-loud);
+  }
 
-wa-tab {
-  font-size: var(--wa-font-size-s);
+  wa-dialog,
+  wa-drawer {
+    --spacing: var(--wa-space-l);
+  }
+
+  :is(
+      input:where(
+          :not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          )
+        ),
+      select,
+      textarea,
+      wa-input,
+      wa-select,
+      wa-textarea,
+      .wa-text-field
+    ):not([appearance='filled'], .wa-filled) {
+    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
+      color-mix(in oklab, var(--wa-color-focus), transparent 50%);
+    --wa-focus-ring-offset: 0;
+  }
+
+  input[type='radio'],
+  wa-radio {
+    --background-color-checked: var(--border-color-checked);
+    --checked-icon-color: var(--wa-color-surface-default);
+    --checked-icon-scale: 0.4;
+  }
+
+  input[type='range'],
+  wa-slider {
+    --thumb-gap: 0;
+  }
+
+  wa-switch {
+    --background-color: var(--wa-color-gray-50);
+    --border-color: var(--background-color);
+    --height: calc(1em * var(--wa-form-control-value-line-height) - var(--border-width) * 2);
+    --thumb-color: var(--wa-color-surface-default);
+    --thumb-size: calc(var(--height) + 4px);
+    --width: calc(var(--height) * 2);
+
+    &::part(thumb) {
+      border: var(--wa-border-width-s) var(--wa-border-style) var(--background-color);
+    }
+    &[checked]::part(thumb) {
+      border-color: var(--background-color-checked);
+    }
+  }
+
+  wa-progress-bar {
+    --height: 1rem;
+  }
+
+  wa-tab {
+    font-size: var(--wa-font-size-s);
+  }
 }

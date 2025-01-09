@@ -6,7 +6,8 @@
  * A difference of 50 between lightness values ensures a minimum 4.5:1 contrast ratio.
  * A difference of 60 between lightness values ensures a minimum 7:1 contrast ratio.
  */
-:where(:root, :host) {
+:where(:root),
+:host {
   --wa-color-red-95: #ffefef;
   --wa-color-red-90: #ffdddc;
   --wa-color-red-80: #ffb7b6;

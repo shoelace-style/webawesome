@@ -79,11 +79,12 @@
           </details>
         </nav>
 
-        {% block beforeContent %}{% endblock %}
+        {% block header %}
+          {% include 'breadcrumbs.njk' %}
+          <h1 class="title">{{ title }}</h1>
+        {% endblock %}
 
         {% block content %}
-          <h1 class="title">{{ title }}</h1>
-
           {{ content | safe }}
         {% endblock %}
 

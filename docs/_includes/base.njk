@@ -146,22 +146,14 @@
           </details>
         </nav>
 
-        {% set breadcrumbs = page.url | breadcrumbs %}
-        {% if breadcrumbs.length > 0 %}
-          <wa-breadcrumb id="docs-breadcrumbs">
-            {% for crumb in breadcrumbs %}
-              <wa-breadcrumb-item href="{{ crumb.url }}">{{ crumb.title }}</wa-breadcrumb-item>
-            {% endfor %}
-            <wa-breadcrumb-item>{# Current page #}</wa-breadcrumb-item>
-          </wa-breadcrumb>
-          {% else %}
-        {% endif %}
 
-        {% block beforeContent %}{% endblock %}
+
+        {% block header %}
+          {% include 'breadcrumbs.njk' %}
+          <h1 class="title">{{ title }}</h1>
+        {% endblock %}
 
         {% block content %}
-          <h1 class="title">{{ title }}</h1>
-
           {{ content | safe }}
         {% endblock %}
 
