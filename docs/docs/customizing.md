@@ -15,7 +15,7 @@ Because these custom properties live at the page level, they're prefixed with `-
 To customize a theme, simply override any of these custom properties in your own stylesheet by scoping your styles to `:root`, `:host`, and, if needed, the class for the specific theme you want to override. Here's an example that changes the default brand color (blue) to violet in the light theme using existing [literal colors](/docs/theming/color/#literal-colors).
 
 ```css
-:root,
+:where(:root),
 :host,
 .wa-theme-default {
   /* Changes the brand color to violet across the library */

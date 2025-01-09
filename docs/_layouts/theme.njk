@@ -1,0 +1,97 @@
+{% set hasSidebar = true %}
+{% set hasOutline = true %}
+
+{% extends '../_includes/base.njk' %}
+
+{% block header %}
+<style>
+@import url('/dist/styles/themes/{{ page.fileSlug }}.css') layer(subtheme);
+</style>
+<link rel="stylesheet" href="/docs/themes/showcase.css" />
+
+<div class="theme-showcase wa-flank wa-gap-xl wa-theme-{{ page.fileSlug }}">
+  <header>
+	{% include 'breadcrumbs.njk' %}
+    <h1 class="title">{{ title }}</h1>
+	<p>{% include '../_includes/status.njk' %}</p>
+    <p id="theme-showcase-description">{{ description| inlineMarkdown | safe }}</p>
+  </header>
+  {% include 'theme-showcase.njk' %}
+</div>
+{% endblock %}
+
+{% block afterContent %}
+{% markdown %}
+## How to use this theme
+
+You can import this theme from the Web Awesome CDN.
+
+<wa-tab-group>
+<wa-tab panel="html">In HTML</wa-tab>
+<wa-tab panel="css">In CSS</wa-tab>
+<wa-tab-panel name="html">
+
+Simply add the following code to the `<head>` of your page:
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/' + page.fileSlug + '.css' %}" />
+```
+</wa-tab-panel>
+<wa-tab-panel name="css">
+
+Simply add the following code at the top of your CSS file:
+```css
+@import url('{% cdnUrl 'styles/themes/' + page.fileSlug + '.css' %}');
+```
+</wa-tab-panel>
+</wa-tab-group>
+
+## Dark mode
+
+To activate the dark color scheme of the theme on any element and its contents, apply the class `wa-dark` to it.
+This means you can use different color schemes throughout the page.
+Here, we use the default theme with a dark sidebar:
+
+```html
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/default.css" />
+  </head>
+
+  <body>
+    <nav class="wa-dark">
+      <!-- dark-themed sidebar -->
+    </nav>
+
+    <!-- light-themed content -->
+  </body>
+</html>
+```
+
+You can apply the class to the `<html>` element on your page to activate the dark color scheme for the entire page.
+
+```html
+<html class="wa-dark">
+  <head>
+    <link rel="stylesheet" href="path/to/web-awesome/dist/styles/themes/{{ page.fileSlug }}.css" />
+    <!-- other links, scripts, and metadata -->
+  </head>
+  <body>
+    <!-- page content -->
+  </body>
+</html>
+```
+### Detecting Color Scheme Preference
+
+Web Awesome's themes have both light and dark styles built in.
+However, Web Awesome doesn't try to auto-detect the user's light/dark mode preference.
+This should be done at the application level.
+As a best practice, to provide a dark theme in your app, you should:
+
+- Check for [`prefers-color-scheme`](https://stackoverflow.com/a/57795495/567486) and use its value by default
+- Allow the user to override the setting in your app
+- Remember the user's preference and restore it on subsequent logins
+
+Web Awesome avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.
+
+{% endmarkdown %}
+{% endblock %}
