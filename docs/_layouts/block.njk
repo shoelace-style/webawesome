@@ -4,7 +4,8 @@
 {% extends '../_includes/base.njk' %}
 
 {# Component header #}
-{% block beforeContent %}
+{% block header %}
+  {% include 'breadcrumbs.njk' %}
   <h1 class="title">{{ title }}</h1>
   <div class="block-info">
     {% set snippets = (elements or element or snippets or snippet) | dict  %}

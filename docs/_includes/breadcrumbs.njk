@@ -1,0 +1,10 @@
+{% set breadcrumbs = page.url | breadcrumbs %}
+{% if breadcrumbs.length > 0 %}
+  <wa-breadcrumb id="docs-breadcrumbs">
+  {% for crumb in breadcrumbs %}
+    <wa-breadcrumb-item href="{{ crumb.url }}">{{ crumb.title }}</wa-breadcrumb-item>
+  {% endfor %}
+  <wa-breadcrumb-item>{# Current page #}</wa-breadcrumb-item>
+  </wa-breadcrumb>
+  {% else %}
+{% endif %}
