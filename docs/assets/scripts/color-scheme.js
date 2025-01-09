@@ -10,7 +10,13 @@
     updateSelection();
 
     // Toggle the dark mode class
-    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
+    let dark = window.isDark();
+    document.documentElement.classList.toggle(`wa-dark`, dark);
+
+    for (let el of document.querySelectorAll('.wa-invert')) {
+      el.classList.toggle('wa-dark', !dark);
+      el.classList.toggle('wa-light', dark);
+    }
   }
 
   function updateSelection() {
