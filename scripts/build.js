@@ -259,9 +259,6 @@ async function generateDocs() {
     .toLowerCase()
     .trim();
 
-  // Copy assets
-  await copy(join(docsDir, 'assets'), join(siteDir, 'assets'), { overwrite: true });
-
   // Copy dist (production only)
   if (!isDeveloping) {
     await copy(cdnDir, join(siteDir, 'dist'));

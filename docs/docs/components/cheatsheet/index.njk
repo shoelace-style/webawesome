@@ -45,7 +45,7 @@ table code {
 	}
 }
 </script>
-<script type="module" src="/assets/scripts/cheatsheet.js"></script>
+<script type="module" src="./cheatsheet.js"></script>
 
 {% for type, all in componentsBy -%}
 {% set typeTitle = "CSS custom properties" if type == "cssProperty" else ("CSS parts" if type == "cssPart" else (type | title) + "s") %}

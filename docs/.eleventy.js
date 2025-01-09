@@ -26,6 +26,9 @@ const globalData = {
   layout: 'page.njk',
 };
 
+const passThroughExtensions = ['css', 'png', 'svg', 'jpg', 'mp4'];
+const passThrough = ['docs/**/*.js', ...passThroughExtensions.map(ext => '**/*.' + ext)];
+
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
@@ -155,9 +158,18 @@ export default function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
 
+  eleventyConfig.addPassthroughCopy({
+    'docs/assets': 'assets',
+  });
+
+  for (let glob of passThrough) {
+    eleventyConfig.addPassthroughCopy(glob);
+  }
+
   return {
     markdownTemplateEngine: 'njk',
     dir: {
+      input: 'docs',
       includes: '_includes',
       layouts: '_layouts',
     },
