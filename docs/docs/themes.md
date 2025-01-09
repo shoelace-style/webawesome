@@ -25,8 +25,8 @@ layout: page-outline
     margin-block-end: var(--wa-space-xl);
 
     &.wa-flank {
-      --content-percentage: 55%;
-      --flank-size: 20ch;
+      --content-percentage: 60%;
+      --flank-size: 25ch;
     }
   }
 
@@ -36,6 +36,7 @@ layout: page-outline
   }
 
   .showcase-examples {
+    -webkit-text-size-adjust: none;
     column-gap: var(--wa-space-xl);
 
     & wa-card {
@@ -72,19 +73,19 @@ layout: page-outline
       zoom: 40%;
     }
 
-    @container showcase (width > 400px) {
+    @container showcase (width > 450px) {
       .showcase-examples {
         zoom: 55%;
       }
     }
 
-    @container showcase (width > 700px) {
+    @container showcase (width > 750px) {
       .showcase-examples {
         zoom: 70%;
       }
     }
 
-    @container showcase (width > 800px) {
+    @container showcase (width > 950px) {
       .showcase-examples {
         column-count: 3;
         zoom: 70%;
@@ -110,12 +111,12 @@ layout: page-outline
             <wa-avatar shape="rounded" style="--size: 3em; --background-color: var(--wa-color-green-60); --text-color: var(--wa-color-green-95);">
               <wa-icon slot="icon" name="sword-laser" family="duotone" style="font-size: 1.5em;"></wa-icon>
             </wa-avatar>
-            <div class="wa-stack wa-gap-xs">
-              <div class="wa-split wa-gap-xs">
+            <div class="wa-stack wa-gap-2xs">
+              <div class="wa-split wa-gap-2xs">
                 <strong>Initiate Saber</strong>
                 <strong>$179.99</strong>
               </div>
-              <div class="wa-split wa-gap-xs wa-caption-m">
+              <div class="wa-split wa-gap-2xs wa-caption-m">
                 <span>Green</span>
                 <a href="#">Remove</a>
               </div>
@@ -126,12 +127,12 @@ layout: page-outline
             <wa-avatar shape="rounded" style="--size: 3em; --background-color: var(--wa-color-teal-60); --text-color: var(--wa-color-teal-95);">
               <wa-icon slot="icon" name="robot-astromech" family="duotone" style="font-size: 1.5em;"></wa-icon>
             </wa-avatar>
-            <div class="wa-stack wa-gap-xs">
-              <div class="wa-split wa-gap-xs">
+            <div class="wa-stack wa-gap-2xs">
+              <div class="wa-split wa-gap-2xs">
                 <strong>Repair Droid</strong>
                 <strong>$3,049.99</strong>
               </div>
-              <div class="wa-split wa-gap-xs wa-caption-m">
+              <div class="wa-split wa-gap-2xs wa-caption-m">
                 <span>R-series</span>
                 <a href="#">Remove</a>
               </div>
