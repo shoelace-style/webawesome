@@ -18,7 +18,7 @@
 .diff-grid > * {
   height: 100%;
 }
-.diff-dialog::part(dialog) {
+.diff-dialog {
   max-width: 90vw;
   width: 90vw;
 }

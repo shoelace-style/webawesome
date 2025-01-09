@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaQrCode from './qr-code.js';
 
 const getCanvas = (qrCode: WaQrCode): HTMLCanvasElement => {
@@ -49,7 +49,7 @@ const getColorFromPixel = (colorArray: Uint8ClampedArray, pixelNumber: number): 
     colorArray[startEntryNumber],
     colorArray[startEntryNumber + 1],
     colorArray[startEntryNumber + 2],
-    colorArray[startEntryNumber + 3]
+    colorArray[startEntryNumber + 3],
   );
 };
 
@@ -71,7 +71,7 @@ const getQrCodeColors = (qrCode: WaQrCode): QrCodeColors => {
   }
   return {
     foreground: foregroundColor,
-    background: backgroundColor!
+    background: backgroundColor!,
   };
 };
 
@@ -130,7 +130,7 @@ describe('<wa-qr-code>', () => {
 
       it('sets the correct background for the qr code', async () => {
         const qrCode = await fixture<WaQrCode>(
-          html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`
+          html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`,
         );
 
         expectQrCodeColorsToBe(qrCode, { foreground: red, background: blue });

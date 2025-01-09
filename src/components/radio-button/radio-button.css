@@ -1,0 +1,45 @@
+:host {
+  display: contents;
+}
+
+:where([part~='base']) {
+  all: inherit;
+  display: inline-flex;
+}
+
+.prefix,
+.suffix,
+.label {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+}
+
+/* We use a hidden input so constraint validation errors work, since they don't appear to show when used with buttons.
+    We can't actually hide it, though, otherwise the messages will be suppressed by the browser. */
+.hidden-input {
+  all: unset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  outline: dotted 1px red;
+  opacity: 0;
+  z-index: -1;
+}
+
+/*
+ * Checked buttons
+ */
+
+:host([checked]) {
+  --indicator-color: var(--wa-form-control-activated-color);
+  --indicator-width: var(--wa-border-width-s);
+
+  box-shadow: inset 0 0 0 var(--indicator-width) var(--indicator-color);
+
+  & button {
+    --border-color: var(--indicator-color);
+  }
+}

@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaCopyButton from './copy-button.js';
 
 // We use aria-live to announce labels via tooltips

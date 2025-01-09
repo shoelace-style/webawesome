@@ -1,0 +1,24 @@
+:host(:focus-visible) {
+  outline: none;
+}
+
+.radio {
+  display: flex;
+  align-items: top;
+  font: inherit;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.checked-icon {
+  display: flex;
+  fill: currentColor;
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  scale: var(--checked-icon-scale);
+}
+
+/* When the control isn't checked, hide the circle for Windows High Contrast mode a11y */
+.radio:not(.radio--checked) svg circle {
+  opacity: 0;
+}

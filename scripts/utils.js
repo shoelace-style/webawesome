@@ -1,6 +1,6 @@
+import childProcess from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import childProcess from 'child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

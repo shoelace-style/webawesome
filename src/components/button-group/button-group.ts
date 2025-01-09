@@ -1,9 +1,9 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './button-group.styles.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import buttonGroupStyles from '../../styles/utilities/button-group.css';
+import styles from './button-group.css';
 
 /**
  * @summary Button groups can be used to group related buttons into sections.
@@ -17,7 +17,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [buttonGroupStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
@@ -33,8 +33,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('orientation')) {
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('orientation')) {
       this.setAttribute('aria-orientation', this.orientation);
       this.updateClassNames();
     }
@@ -42,22 +44,22 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   private handleFocus(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('wa-button-group__button--focus');
+    button?.classList.add('button--focus');
   }
 
   private handleBlur(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('wa-button-group__button--focus');
+    button?.classList.remove('button--focus');
   }
 
   private handleMouseOver(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.add('wa-button-group__button--hover');
+    button?.classList.add('button--hover');
   }
 
   private handleMouseOut(event: Event) {
     const button = findButton(event.target as HTMLElement);
-    button?.classList.remove('wa-button-group__button--hover');
+    button?.classList.remove('button--hover');
   }
 
   private handleSlotChange() {
@@ -72,32 +74,31 @@ export default class WaButtonGroup extends WebAwesomeElement {
       const button = findButton(el);
 
       if (button) {
-        button.classList.add('wa-button-group__button');
+        button.classList.add('button');
         button.classList.toggle('wa-button-group-horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group-vertical', this.orientation === 'vertical');
-        button.classList.toggle('wa-button-group__button--first', index === 0);
-        button.classList.toggle('wa-button-group__button--inner', index > 0 && index < slottedElements.length - 1);
-        button.classList.toggle('wa-button-group__button--last', index === slottedElements.length - 1);
-        button.classList.toggle('wa-button-group__button--radio', button.tagName.toLowerCase() === 'wa-radio-button');
+        button.classList.toggle('button--first', index === 0);
+        button.classList.toggle('button--inner', index > 0 && index < slottedElements.length - 1);
+        button.classList.toggle('button--last', index === slottedElements.length - 1);
+        button.classList.toggle('button--radio', button.tagName.toLowerCase() === 'wa-radio-button');
       }
     });
   }
 
   render() {
-    // eslint-disable-next-line lit-a11y/mouse-events-have-key-events
     return html`
-      <div
+      <slot
         part="base"
-        class="button-group"
+        class="wa-button-group"
         role="${this.disableRole ? 'presentation' : 'group'}"
         aria-label=${this.label}
+        aria-orientation=${this.orientation}
         @focusout=${this.handleBlur}
         @focusin=${this.handleFocus}
         @mouseover=${this.handleMouseOver}
         @mouseout=${this.handleMouseOut}
-      >
-        <slot @slotchange=${this.handleSlotChange}></slot>
-      </div>
+        @slotchange=${this.handleSlotChange}
+      ></slot>
     `;
   }
 }

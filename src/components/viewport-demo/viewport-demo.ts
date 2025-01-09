@@ -1,14 +1,13 @@
-import '../icon-button/icon-button.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { getComputedStyle } from '../../internal/computedStyle.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { getComputedStyle } from '../../internal/computedStyle.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './viewport-demo.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import '../icon-button/icon-button.js';
+import styles from './viewport-demo.css';
 
 export interface ViewportDimensions {
   width: number;
@@ -16,7 +15,7 @@ export interface ViewportDimensions {
 }
 
 export function isViewportDimensions(
-  viewport: boolean | ViewportDimensions | undefined
+  viewport: boolean | ViewportDimensions | undefined,
 ): viewport is ViewportDimensions {
   return Boolean(viewport) && typeof viewport === 'object' && 'width' in viewport;
 }
@@ -45,7 +44,7 @@ export const viewportPropertyConverter = {
       return '';
     }
     return `${value.width} x ${value.height}`;
-  }
+  },
 };
 
 /**
@@ -71,7 +70,7 @@ export const viewportPropertyConverter = {
  */
 @customElement('wa-viewport-demo')
 export default class WaViewportDemo extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('[part~=frame]')
   private viewportElement: HTMLElement;
@@ -103,8 +102,8 @@ export default class WaViewportDemo extends WebAwesomeElement {
           return '';
         }
         return `${value.width} x ${value.height}`;
-      }
-    }
+      },
+    },
   })
   viewport?: boolean | ViewportDimensions;
 
@@ -135,7 +134,7 @@ export default class WaViewportDemo extends WebAwesomeElement {
   private innerHeight: number = 0;
 
   @state()
-  private iframeHOffset: number = 0;
+  private offsetInline: number = 0;
 
   @state()
   private availableWidth = 0;
@@ -144,7 +143,10 @@ export default class WaViewportDemo extends WebAwesomeElement {
   private contentWindow: Window | null;
 
   @state()
-  private needsInternalZoom: boolean | undefined;
+  private iframeManualWidth: number | undefined;
+
+  @state()
+  private iframeManualHeight: number | undefined;
 
   private resizeObserver: ResizeObserver;
 
@@ -159,73 +161,76 @@ export default class WaViewportDemo extends WebAwesomeElement {
   }
 
   private observeResize() {
-    if (this.viewportElement) {
-      this.resizeObserver ??= new ResizeObserver(() => this.handleResize());
-      this.updateComplete.then(() => this.resizeObserver.observe(this));
-    }
+    this.resizeObserver ??= new ResizeObserver(records => this.handleResize(records));
+    this.resizeObserver.observe(this);
+
+    this.updateComplete.then(() => {
+      if (this.iframe) {
+        this.resizeObserver.observe(this.iframe);
+      }
+    });
   }
 
   private unobserveResize() {
     this.resizeObserver?.unobserve(this);
+    this.resizeObserver?.unobserve(this.iframe);
   }
 
   // Called when this.iframe.contentWindow changes
   private handleIframeLoad() {
     if (this.iframe.contentWindow) {
       this.contentWindow = this.iframe.contentWindow;
-      this.updateCS();
       this.updateZoom();
 
       this.handleViewportResize();
       this.contentWindow.addEventListener('resize', () => this.handleViewportResize());
-
-      if (this.needsInternalZoom === undefined) {
-        this.updateComplete.then(() => {
-          const innerWidth = this.contentWindow?.innerWidth || 0;
-          const availableWidth = Math.round(this.availableWidth);
-          const ratio = availableWidth / innerWidth;
-
-          if (Math.abs(ratio - this.computedZoom) > 0.01) {
-            // The actual iframe content is not zoomed. This is a known Safari bug.
-            // We need to zoom the iframe content manually.
-            this.needsInternalZoom = true;
-          }
-        });
-      }
     }
   }
 
-  private updateCS() {
+  private updateAvailableWidth() {
     // This is only needed for isolated demos
-    if (this.viewport && globalThis.window) {
-      if (this.iframe) {
-        this.iframeHOffset = getHorizontalOffsets(getComputedStyle(this.iframe));
-      }
+    if (this.viewport && globalThis.window && this.iframe) {
+      const offsets = {
+        host: getHorizontalOffsets(getComputedStyle(this)),
+        frame: getHorizontalOffsets(getComputedStyle(this.viewportElement)),
+        iframe: getHorizontalOffsets(getComputedStyle(this.iframe)),
+      };
 
-      const width = this.viewportElement.clientWidth;
-      this.availableWidth = width - this.iframeHOffset;
+      this.offsetInline = offsets.host.inner + offsets.frame.all + offsets.iframe.all;
+      this.availableWidth = this.clientWidth - this.offsetInline;
     }
+  }
+
+  /** Called when the user resizes the iframe */
+  private handleIframeResize() {
+    const { width, height } = this.iframe.style;
+
+    this.iframeManualWidth = (width && getNumber(width)) || undefined;
+    this.iframeManualHeight = (height && getNumber(height)) || undefined;
   }
 
   /** Gets called when the host gets resized */
-  private handleResize() {
+  private handleResize(records: ResizeObserverEntry[]) {
     // This is only needed for isolated demos
-    if (this.viewport && globalThis.window) {
-      this.updateCS();
-      this.updateZoom();
+    for (const record of records) {
+      if (record.target === this) {
+        if (this.viewport && globalThis.window) {
+          this.updateAvailableWidth();
+        }
+      } else if (record.target === this.iframe) {
+        this.handleIframeResize();
+      }
     }
   }
 
   /** Zoom in by one step */
   public zoomIn() {
     this.zoomLevel++;
-    this.updateZoom();
   }
 
   /** Zoom out by one step */
   public zoomOut() {
     this.zoomLevel--;
-    this.updateZoom();
   }
 
   private updateZoom() {
@@ -233,7 +238,7 @@ export default class WaViewportDemo extends WebAwesomeElement {
 
     if (isViewportDimensions(this.viewport)) {
       if (!this.availableWidth) {
-        this.updateCS();
+        this.updateAvailableWidth();
       }
 
       // Zoom level = available width / virtual width
@@ -277,27 +282,38 @@ export default class WaViewportDemo extends WebAwesomeElement {
     }
   }
 
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
+  updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (
-      this.contentWindow &&
-      ['computedZoom', 'needsInternalZoom', 'contentWindow'].some(p => changedProperties.has(p))
-    ) {
-      if (changedProperties.has('computedZoom')) {
-        this.viewportElement.style.setProperty('--zoom', this.computedZoom + '');
-      }
+    if (changedProperties.has('iframe' as keyof WaViewportDemo)) {
+      this.observeResize();
+    }
 
-      if (this.needsInternalZoom) {
-        const innerWidth = this.contentWindow?.innerWidth || 0;
-        const availableWidth = Math.round(this.availableWidth);
-        const ratio = availableWidth / innerWidth;
+    if (['zoomLevel', 'availableWidth', 'viewport'].some(p => changedProperties.has(p as keyof WaViewportDemo))) {
+      this.updateZoom();
+    }
 
-        if (Math.abs(ratio - this.computedZoom) > 0.01) {
-          // The actual iframe content is not zoomed. This is a known Safari bug.
-          // We need to zoom the iframe content manually.
-          this.iframe.contentDocument!.documentElement.style.setProperty('zoom', this.computedZoom + '');
+    if (changedProperties.has('computedZoom')) {
+      if (this.iframeManualWidth !== undefined || this.iframeManualHeight !== undefined) {
+        // These inline styles have been created based on the previous zoom level
+        // We need to convert them manually and reapply them
+        this.unobserveResize(); // pause the observer
+
+        const previousZoom = changedProperties.get('computedZoom') as number;
+
+        if (this.iframeManualWidth !== undefined) {
+          const width = (this.iframeManualWidth * previousZoom) / this.computedZoom;
+          this.iframe.style.width = width + 'px';
+          this.iframeManualWidth = width;
         }
+
+        if (this.iframeManualHeight !== undefined) {
+          const height = (this.iframeManualHeight * previousZoom) / this.computedZoom;
+          this.iframe.style.height = height + 'px';
+          this.iframeManualHeight = height;
+        }
+
+        this.observeResize();
       }
     }
   }
@@ -308,8 +324,23 @@ export default class WaViewportDemo extends WebAwesomeElement {
     const dimensions = width && height ? html`<span class="dimensions">${width} × ${height}</span>` : '';
 
     const viewportStyle: Record<string, string | number> = {
-      '--zoom': this.computedZoom
+      '--zoom': this.computedZoom,
+      '--offset-inline': this.offsetInline + 'px',
     };
+    const resized = Boolean(this.iframeManualWidth || this.iframeManualHeight);
+    const viewportClasses = {
+      'resized-width': Boolean(this.iframeManualWidth),
+      'resized-height': Boolean(this.iframeManualHeight),
+      resized,
+    };
+
+    if (this.iframeManualWidth) {
+      viewportStyle['--iframe-manual-width-px'] = this.iframeManualWidth;
+    }
+    if (this.iframeManualHeight) {
+      viewportStyle['--iframe-manual-height-px'] = this.iframeManualHeight;
+    }
+
     if (isViewportDimensions(this.viewport)) {
       viewportStyle['--viewport-width-px'] = this.viewport.width;
 
@@ -319,13 +350,18 @@ export default class WaViewportDemo extends WebAwesomeElement {
     }
 
     return html`
-      <div
-        id="viewport"
-        part="frame"
-        style=${styleMap(viewportStyle)}
-        class=${classMap({ 'needs-internal-zoom': this.needsInternalZoom! })}
-      >
+      <div id="viewport" part="frame" style=${styleMap(viewportStyle)} class=${classMap(viewportClasses)}>
         <span part="controls">
+          ${resized
+            ? html`<wa-icon-button
+                name="arrow-rotate-left"
+                variant="regular"
+                label="Revert resizing"
+                @click=${() => this.iframe.removeAttribute('style')}
+                part="undo button"
+                >-</wa-icon-button
+              >`
+            : ''}
           ${dimensions}
           <span class="zoom">
             <wa-icon-button
@@ -382,18 +418,29 @@ function getNumber(value: string | number): number {
   return (typeof value === 'string' ? parseFloat(value) : value) || 0;
 }
 
+interface HorizontalOffsets {
+  padding: number;
+  border: number;
+  margin: number;
+  inner: number;
+  all: number;
+}
+
+const noOffsets: HorizontalOffsets = { padding: 0, border: 0, margin: 0, inner: 0, all: 0 };
+
 /**
  * Get the horizontal padding and border widths of an element
  */
-function getHorizontalOffsets(cs: CSSStyleDeclaration | null): number {
+function getHorizontalOffsets(cs: CSSStyleDeclaration | null): HorizontalOffsets {
   if (!cs) {
-    return 0;
+    return noOffsets;
   }
 
-  return (
-    getNumber(cs.paddingLeft) +
-    getNumber(cs.paddingRight) +
-    getNumber(cs.borderLeftWidth) +
-    getNumber(cs.borderRightWidth)
-  );
+  const padding = getNumber(cs.paddingLeft) + getNumber(cs.paddingRight);
+  const border = getNumber(cs.borderLeftWidth) + getNumber(cs.borderRightWidth);
+  const margin = getNumber(cs.marginLeft) + getNumber(cs.marginRight);
+  const inner = padding + border;
+  const all = inner + margin;
+
+  return { padding, border, margin, inner, all };
 }

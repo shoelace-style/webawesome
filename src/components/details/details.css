@@ -1,0 +1,69 @@
+:host {
+  --show-duration: 200ms;
+  --hide-duration: 200ms;
+
+  display: contents !important;
+}
+
+details {
+  all: inherit;
+  display: block;
+  overflow-anchor: none;
+}
+
+:host([disabled]) details {
+  opacity: 0.5;
+
+  summary {
+    cursor: not-allowed;
+  }
+
+  summary:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+[part~='icon'] {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--icon-color);
+  transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+:host([open]) [part~='icon'] {
+  rotate: 90deg;
+}
+
+:host([open]:dir(rtl)) [part~='icon'] {
+  rotate: -90deg;
+}
+
+:host([open]) slot[name='expand-icon'],
+:host(:not([open])) slot[name='collapse-icon'] {
+  display: none;
+}
+
+/* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
+:host(:not([open])) .body {
+  overflow: hidden;
+}
+
+.content {
+  display: block;
+  padding-block-start: var(--spacing);
+}
+
+.show {
+}
+
+.hide {
+}
+
+@keyframes show {
+  from {
+  }
+  to {
+  }
+}

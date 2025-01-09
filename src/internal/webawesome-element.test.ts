@@ -59,7 +59,7 @@ before(async () => {
       tagNames.push(tagName);
 
       return { tagName, path };
-    }
+    },
   );
 
   relevantMetadata.forEach(({ tagName, path }) => {

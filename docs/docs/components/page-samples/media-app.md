@@ -2,9 +2,10 @@
 title: Sample Media App Page
 description: A sample page for a media app using Web Awesome's page component.
 layout: blank
+eleventyExcludeFromCollections: true
 ---
 
-<wa-page class="wa-theme-default-dark">
+<wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
       <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>
@@ -276,21 +277,21 @@ layout: blank
   <div slot="main-footer" class="wa-grid wa-gap-xl">
     <h2 class="wa-heading-2xl">More You Might Like</h2>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1675219119611-40323b738563?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Festival of Lights</span>
       <span class="wa-caption-s">Station</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1481930916222-5ec4696fc0f2?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Holiday Cheer</span>
       <span class="wa-caption-s">Essential Playlist</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Nursery Rhymes from the Shire</span>
@@ -305,9 +306,7 @@ layout: blank
     --wa-tooltip-arrow-size: 0;
     background-color: var(--wa-color-surface-lowered);
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-  }
+
   wa-page[view='mobile'] {
     --menu-width: auto;
   }
@@ -342,7 +341,7 @@ layout: blank
     margin: 0;
   }
   [slot='navigation'] ul a {
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     padding: var(--wa-space-xs);
   }
   [slot='navigation'] ul a:hover,
@@ -358,7 +357,7 @@ layout: blank
     justify-content: center;
   }
   [slot='navigation'] #recent wa-icon {
-    border-radius: var(--wa-border-radius-xs);
+    border-radius: var(--wa-border-radius-s);
   }
   [slot='main-header'] {
     border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);

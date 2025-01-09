@@ -1,4 +1,4 @@
-import type { Validator } from '../webawesome-element.js';
+import type { Validator } from '../webawesome-formassociated-element.js';
 
 /**
  * This validator is for if you have an exact copy of your element in the shadow DOM. Rather than needing
@@ -12,7 +12,7 @@ export const MirrorValidator = (): Validator => {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       if (!formControl) {
@@ -54,6 +54,6 @@ export const MirrorValidator = (): Validator => {
       }
 
       return validity;
-    }
+    },
   };
 };

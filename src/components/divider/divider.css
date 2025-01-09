@@ -1,0 +1,18 @@
+:host {
+  --color: var(--wa-color-surface-border);
+  --width: var(--wa-border-width-s);
+  --spacing: var(--wa-space-m);
+}
+
+:host(:not([vertical])) {
+  display: block;
+  border-top: solid var(--width) var(--color);
+  margin: var(--spacing) 0;
+}
+
+:host([vertical]) {
+  display: inline-block;
+  height: 100%;
+  border-left: solid var(--width) var(--color);
+  margin: 0 var(--spacing);
+}

@@ -1,7 +1,9 @@
 ---
 title: Color Picker
 description: Color pickers allow the user to select a color.
-layout: component
+tags: [inputs, forms]
+native: input
+icon: color-picker
 ---
 
 ```html {.example}
@@ -37,10 +39,12 @@ Set the color picker's format with the `format` attribute. Valid options include
 To prevent users from toggling the format themselves, add the `no-format-toggle` attribute.
 
 ```html {.example}
-<wa-color-picker format="hex" value="#4a90e2" label="Select a color"></wa-color-picker>
-<wa-color-picker format="rgb" value="rgb(80, 227, 194)" label="Select a color"></wa-color-picker>
-<wa-color-picker format="hsl" value="hsl(290, 87%, 47%)" label="Select a color"></wa-color-picker>
-<wa-color-picker format="hsv" value="hsv(55, 89%, 97%)" label="Select a color"></wa-color-picker>
+<div class="wa-grid" style="--min-column-size: 12ch;">
+  <wa-color-picker format="hex" value="#4a90e2" label="Pick a hex color"></wa-color-picker>
+  <wa-color-picker format="rgb" value="rgb(80, 227, 194)" label="Pick an RGB color"></wa-color-picker>
+  <wa-color-picker format="hsl" value="hsl(290, 87%, 47%)" label="Pick an HSL color"></wa-color-picker>
+  <wa-color-picker format="hsv" value="hsv(55, 89%, 97%)" label="Pick an HSV color"></wa-color-picker>
+</div>
 ```
 
 ### Swatches
@@ -75,10 +79,10 @@ The color picker can be rendered as disabled.
 <wa-color-picker disabled label="Select a color"></wa-color-picker>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a color picker with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a color picker with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-color-picker label="Select a color" help-text="Choose a color with appropate contrast!"></wa-color-picker>
+<wa-color-picker label="Select a color" hint="Choose a color with appropate contrast!"></wa-color-picker>
 ```

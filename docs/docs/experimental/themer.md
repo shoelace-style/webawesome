@@ -5,6 +5,15 @@ layout: page
 hasOutline: false
 ---
 
+<script>
+  // Add stylesheet to set themed headers
+  const themeHeadersLink = document.createElement("link");
+  themeHeadersLink.type="text/css";
+  themeHeadersLink.rel="stylesheet";
+  themeHeadersLink.href="/assets/styles/theme-headers.css";
+  document.getElementsByTagName("head")[0].appendChild(themeHeadersLink);
+</script>
+
 <style>
   /* turn off eleventy header anchors */
   .anchor-heading a {
@@ -95,23 +104,23 @@ hasOutline: false
     --wa-line-height-normal: 1.6;
     --wa-line-height-expanded: 2;
 
-    --wa-space-multiplier: 1;
-    --wa-space-3xs: calc(var(--wa-space-multiplier) * 1rem * 0.125);
-    --wa-space-2xs: calc(var(--wa-space-multiplier) * 1rem * 0.25);
-    --wa-space-xs: calc(var(--wa-space-multiplier) * 1rem * 0.5);
-    --wa-space-s: calc(var(--wa-space-multiplier) * 1rem * 0.75);
-    --wa-space-m: calc(var(--wa-space-multiplier) * 1rem * 1);
-    --wa-space-l: calc(var(--wa-space-multiplier) * 1rem * 1.25);
-    --wa-space-xl: calc(var(--wa-space-multiplier) * 1rem * 1.5);
-    --wa-space-2xl: calc(var(--wa-space-multiplier) * 1rem * 2);
-    --wa-space-3xl: calc(var(--wa-space-multiplier) * 1rem * 3);
+    --wa-space-scale: 1;
+    --wa-space-3xs: calc(var(--wa-space-scale) * 1rem * 0.125);
+    --wa-space-2xs: calc(var(--wa-space-scale) * 1rem * 0.25);
+    --wa-space-xs: calc(var(--wa-space-scale) * 1rem * 0.5);
+    --wa-space-s: calc(var(--wa-space-scale) * 1rem * 0.75);
+    --wa-space-m: calc(var(--wa-space-scale) * 1rem * 1);
+    --wa-space-l: calc(var(--wa-space-scale) * 1rem * 1.25);
+    --wa-space-xl: calc(var(--wa-space-scale) * 1rem * 1.5);
+    --wa-space-2xl: calc(var(--wa-space-scale) * 1rem * 2);
+    --wa-space-3xl: calc(var(--wa-space-scale) * 1rem * 3);
 
     --wa-border-style: solid;
 
-    --wa-border-width-multiplier: 0.0625;
-    --wa-border-width-s: calc(var(--wa-border-width-multiplier) * 1rem * 1);
-    --wa-border-width-m: calc(var(--wa-border-width-multiplier) * 1rem * 2);
-    --wa-border-width-l: calc(var(--wa-border-width-multiplier) * 1rem * 3);
+    --wa-border-width-scale: 0.0625;
+    --wa-border-width-s: calc(var(--wa-border-width-scale) * 1rem * 1);
+    --wa-border-width-m: calc(var(--wa-border-width-scale) * 1rem * 2);
+    --wa-border-width-l: calc(var(--wa-border-width-scale) * 1rem * 3);
 
     --wa-form-control-border-style: var(--wa-border-style);
     --wa-form-control-border-width: var(--wa-border-width-s);
@@ -119,29 +128,28 @@ hasOutline: false
     --wa-panel-border-style: var(--wa-border-style);
     --wa-panel-border-width: var(--wa-border-width-s);
 
-    --wa-border-radius-multiplier: 0.375;
-    --wa-border-radius-xs: calc(var(--wa-border-radius-multiplier) * 1rem * 0.75);
-    --wa-border-radius-s: calc(var(--wa-border-radius-multiplier) * 1rem * 1);
-    --wa-border-radius-m: calc(var(--wa-border-radius-multiplier) * 1rem * 2);
-    --wa-border-radius-l: calc(var(--wa-border-radius-multiplier) * 1rem * 3);
+    --wa-border-radius-scale: 0.375;
+    --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 1rem * 0.75);
+    --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 1rem * 1);
+    --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 1rem * 2);
 
-    --wa-shadow-blur-multiplier: 0.125;
-    --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-multiplier) * 0.75rem);
-    --wa-shadow-blur-s: calc(var(--wa-shadow-blur-multiplier) * 1rem);
-    --wa-shadow-blur-m: calc(var(--wa-shadow-blur-multiplier) * 1.5rem);
-    --wa-shadow-blur-l: calc(var(--wa-shadow-blur-multiplier) * 2rem);
+    --wa-shadow-blur-scale: 0.125;
+    --wa-shadow-blur-xs: calc(var(--wa-shadow-blur-scale) * 0.75rem);
+    --wa-shadow-blur-s: calc(var(--wa-shadow-blur-scale) * 1rem);
+    --wa-shadow-blur-m: calc(var(--wa-shadow-blur-scale) * 1.5rem);
+    --wa-shadow-blur-l: calc(var(--wa-shadow-blur-scale) * 2rem);
 
-    --wa-shadow-offset-y-multiplier: 0.1;
-    --wa-shadow-offset-y-xs: calc(var(--wa-shadow-offset-y-multiplier) * 0.75rem);
-    --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-multiplier) * 1rem);
-    --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-multiplier) * 1.5rem);
-    --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-multiplier) * 2rem);
+    --wa-shadow-offset-y-scale: 0.1;
+    --wa-shadow-offset-y-xs: calc(var(--wa-shadow-offset-y-scale) * 0.75rem);
+    --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-scale) * 1rem);
+    --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-scale) * 1.5rem);
+    --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-scale) * 2rem);
 
-    --wa-shadow-offset-x-multiplier: 0;
-    --wa-shadow-offset-x-xs: calc(var(--wa-shadow-offset-x-multiplier) * 0.75rem);
-    --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-multiplier) * 1rem);
-    --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-multiplier) * 1.5rem);
-    --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-multiplier) * 2rem);
+    --wa-shadow-offset-x-scale: 0;
+    --wa-shadow-offset-x-xs: calc(var(--wa-shadow-offset-x-scale) * 0.75rem);
+    --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-scale) * 1rem);
+    --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-scale) * 1.5rem);
+    --wa-shadow-offset-x-l: calc(var(--wa-shadow-offset-x-scale) * 2rem);
 
     --wa-shadow-xs: inset var(--wa-shadow-offset-x-xs) var(--wa-shadow-offset-y-xs) var(--wa-shadow-blur-xs)
       calc(var(--wa-shadow-offset-x-xs) * -1) var(--wa-color-shadow);
@@ -154,10 +162,10 @@ hasOutline: false
 
     --wa-form-control-background-color: var(--wa-color-surface-default);
 
-    --wa-form-control-border-radius: var(--wa-border-radius-s);
+    --wa-form-control-border-radius: var(--wa-border-radius-m);
 
     --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-    --wa-form-control-resting-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
@@ -169,21 +177,11 @@ hasOutline: false
 
     --wa-form-control-placeholder-color: color-mix(in oklab, var(--wa-color-text-normal), transparent);
 
-    --wa-form-control-height-s: calc(
-      var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-m: calc(
-      var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-control-value-line-height)
-    );
-    --wa-form-control-height-l: calc(
-      var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-control-value-line-height)
-    );
-
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: -0.1em;
 
-    --wa-panel-border-radius: var(--wa-border-radius-m);
+    --wa-panel-border-radius: var(--wa-border-radius-l);
 
     font-family: var(--wa-font-family-code);
     font-size: 1rem;
@@ -288,7 +286,7 @@ hasOutline: false
 
   #knobs wa-radio-group[name="color"] wa-radio {
     border: 0.0625em solid var(--wa-color-neutral-border-quiet);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-l);
     box-shadow: inset 0 0 0 0 transparent;
     padding: 1em;
     transition: box-shadow var(--wa-transition-normal) var(--wa-transition-easing);
@@ -365,13 +363,13 @@ hasOutline: false
   /* file uploader styles */
   .file-uploader {
     position: relative;
-    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-resting-color);
+    border: var(--wa-form-control-border-width) dashed var(--wa-form-control-border-color);
     border-radius: var(--wa-form-control-border-radius);
     background: var(--wa-form-control-background-color);
     cursor: pointer;
     font-weight: var(--wa-font-weight-action);
-    height: calc(var(--wa-form-control-height-m) + var(--wa-border-width-s) * 2);
-    line-height: var(--wa-form-control-height-m);
+    height: calc(var(--wa-form-control-height) + var(--wa-border-width-s) * 2);
+    line-height: var(--wa-form-control-height);
     text-align: center;
   }
 
@@ -379,12 +377,8 @@ hasOutline: false
     background-color: var(--wa-color-neutral-fill-quiet);
   }
 
-  /**
-  <wa-visually-hidden>, but without the :not(:focus-within),
-  the reason is that it shows the default browser file uploader.
-*/
-  .hidden-label::part(form-control-label),
-  .file-uploader input {
+  /** Visually hidden */
+  .hidden-label::part(form-control-label) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -419,7 +413,7 @@ hasOutline: false
   }
 
   wa-radio-group[name="project-logo-selector"] wa-radio-button:last-of-type::part(button) {
-    border-radius: 0 var(--wa-border-radius-s) var(--wa-border-radius-s) 0;
+    border-radius: 0 var(--wa-border-radius-m) var(--wa-border-radius-m) 0;
   }
 
   wa-radio-group[name="project-logo-selector"] wa-tooltip {
@@ -429,9 +423,9 @@ hasOutline: false
 
   #icon-chooser-trigger {
     --button-group-separator-border: none;
-    --label-color: var(--wa-color-neutral-on-quiet);
-    --label-color-hover: color-mix(in oklab, var(--wa-color-neutral-on-quiet), var(--wa-color-mix-hover));
-    --label-color-active: var(--label-color-hover);
+    --text-color: var(--wa-color-neutral-on-quiet);
+    --text-color-hover: color-mix(in oklab, var(--wa-color-neutral-on-quiet), var(--wa-color-mix-hover));
+    --text-color-active: var(--text-color-hover);
   }
 
   #icon-chooser::part(dialog) {
@@ -447,7 +441,7 @@ hasOutline: false
 
   .icon-search {
     border: solid 1px var(--wa-color-surface-border);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     padding: var(--wa-space-m);
   }
 
@@ -507,11 +501,11 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="fa">Font Awesome</wa-option>
+      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
       <wa-option data-alpha="remove" value="premium">Premium</wa-option>
       <wa-option data-alpha="remove" value="playful">Playful</wa-option>
       <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="migration">Migration</wa-option>
+      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
       <wa-option data-alpha="remove" value="glassy">Glassy</wa-option>
       <wa-option data-alpha="remove" value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
@@ -522,7 +516,7 @@ hasOutline: false
     <wa-icon name="minus" library="fa-classic-regular" slot="collapse-icon"></wa-icon>
     <wa-input name="project-name" value="" placeholder="Project name" label="What are you working on?"></wa-input>
     <div>
-      <label class="file-uploader" style="display: block;" aria-describedby="file-uploader-description">
+      <label class="file-uploader wa-visually-hidden-force" style="display: block;" aria-describedby="file-uploader-description">
         <input name="project-logo" type="file" accept="image/*">
         Add logo
       </label>
@@ -534,12 +528,12 @@ hasOutline: false
         <wa-radio-button value="meteor"><wa-icon name="meteor"></wa-icon></wa-radio-button>
         <wa-radio-button value="cat-space"><wa-icon name="cat-space"></wa-icon></wa-radio-button>
         <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
-          <wa-button value="[choose]" appearance="text" id="icon-chooser-trigger" class="logo-chooser">
+          <wa-button value="[choose]" appearance="plain" id="icon-chooser-trigger" class="logo-chooser">
             <wa-tooltip for="icon-chooser-trigger" distance="-3" hoist>Browse Icons</wa-tooltip>
             <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
-            <wa-visually-hidden>Browse icons</wa-visually-hidden>
+            <span class="wa-visually-hidden">Browse icons</span>
           </wa-button>
-          <small slot="help-text" style="display: inline-block; line-height: var(--wa-line-height-condensed);">It's dangerous to go alone. Take these!</small>
+          <small slot="hint" style="display: inline-block; line-height: var(--wa-line-height-condensed);">It's dangerous to go alone. Take these!</small>
       </wa-radio-group>
     </div>
   </wa-details>
@@ -666,10 +660,10 @@ hasOutline: false
       <wa-option value="dotted">Dotted</wa-option>
       <wa-option value="double">Double</wa-option>
     </wa-select>
-    <wa-range name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-range>
-    <wa-range name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-range>
-    <wa-range name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-range>
-    <wa-range name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-range>
+    <wa-slider name="border-width" label="Border width" min="1" max="5" value="1" step="1" tooltip="none"></wa-slider>
+    <wa-slider name="spacing" label="Spacing" min=".5" max="1.5" value="1" step="0.125" tooltip="none"></wa-slider>
+    <wa-slider name="corners" label="Corners" min="0" max="1.5" value=".25" step=".125" tooltip="none"></wa-slider>
+    <wa-slider name="depth" label="Depth" min="0" max="4" value="0" step="1" tooltip="none"></wa-slider>
   </wa-details>
 </form>
 
@@ -882,10 +876,10 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'classic':
-      case 'migration':
+      case 'tailspin':
         colorPalette = 'classic';
         break;
-      case 'fa':
+      case 'awesome':
         colorPalette = 'bright';
         break;
       case 'playful':
@@ -903,7 +897,7 @@ hasOutline: false
       default:
         colorPalette = 'standard';
     }
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/color/${colorPalette}.css`;
     colorSelect.value = colorPalette;
   }
 
@@ -928,8 +922,8 @@ hasOutline: false
   }
 
   function resetBorderWidthValue() {
-    document.documentElement.style.removeProperty('--wa-border-width-multiplier')
-    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-multiplier")
+    document.documentElement.style.removeProperty('--wa-border-width-scale')
+    borderWidth.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-width-scale")
   }
 
   function resetBorderStyleValue() {
@@ -938,24 +932,24 @@ hasOutline: false
   }
 
   function resetSpacingValue() {
-    document.documentElement.style.removeProperty('--wa-space-multiplier')
-    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-multiplier")
+    document.documentElement.style.removeProperty('--wa-space-scale')
+    spacing.value = getComputedStyle(previewContainer).getPropertyValue("--wa-space-scale")
   }
 
   function resetCornersValue() {
-    document.documentElement.style.removeProperty('--wa-border-radius-multiplier')
-    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-radius-multiplier")
+    document.documentElement.style.removeProperty('--wa-border-radius-scale')
+    corners.value = getComputedStyle(previewContainer).getPropertyValue("--wa-border-radius-scale")
   }
 
 
 
   // Depth slider and settings
   const depthNames = {
-    0: "depth_0_flat.css",
-    1: "depth_1_semiflat.css",
-    2: "depth_2_chunky.css",
-    3: "depth_3_punchy.css",
-    4: "depth_4_glossy.css",
+    0: "depth/0_flat.css",
+    1: "depth/1_semiflat.css",
+    2: "depth/2_chunky.css",
+    3: "depth/3_punchy.css",
+    4: "depth/4_glossy.css",
   }
 
   function resetDepthValue() {
@@ -1018,7 +1012,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${depthName}`,
+      href: `/dist/styles/themes/${depthName}`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1050,11 +1044,11 @@ hasOutline: false
 
     switch(themeSelect.value) {
       case 'premium':
-      case 'migration':
+      case 'tailspin':
       case 'playful':
       case 'brutalist':
       case 'classic':
-      case 'fa':
+      case 'awesome':
       case 'glassy':
       case 'active':
         assetFolder = themeSelect.value;
@@ -1101,7 +1095,7 @@ hasOutline: false
       media: "print",
       rel: "stylesheet",
       type: "text/css",
-      href: `/dist/themes/${theme}.css`,
+      href: `/dist/styles/themes/${theme}.css`,
     })
 
     // This prevents the typical flash and reflow you see if you replace the old stylesheet
@@ -1141,7 +1135,7 @@ hasOutline: false
   colorSelect.addEventListener('wa-change', event => {
     const colorPalette = event.target.value;
 
-    colorStylesheet.href = `/dist/themes/color_${colorPalette}.css`;
+    colorStylesheet.href = `/dist/styles/themes/color/${colorPalette}.css`;
   });
 
   // Brand Color
@@ -1250,7 +1244,7 @@ hasOutline: false
     let presetLogoIcons;
 
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         presetLogoIcons = ['cupcake', 'camera-retro', 'rocket-launch', 'cookie-bite'];
         break;
       case 'premium':
@@ -1262,7 +1256,7 @@ hasOutline: false
       case 'brutalist':
         presetLogoIcons = ['leaf', 'mug-hot', 'book-open', 'landmark'];
         break;
-      case 'migration':
+      case 'tailspin':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
       case 'glassy':
@@ -1452,7 +1446,7 @@ hasOutline: false
 
   function setPreferredIcons() {
     switch(themeSelect.value) {
-      case 'fa':
+      case 'awesome':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1496,7 +1490,7 @@ hasOutline: false
           }
         });
         break;
-      case 'migration':
+      case 'tailspin':
         iconFamily.value = 'fa-classic';
         iconStyle.value = 'solid';
         useFaIcons();
@@ -1616,12 +1610,12 @@ hasOutline: false
 
   // Corners
   container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-radius-multiplier', `${event.target.value}`);
+    document.documentElement.style.setProperty('--wa-border-radius-scale', `${event.target.value}`);
   });
 
   // Border width
   container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-border-width-multiplier', `${event.target.value / 16}`);
+    document.documentElement.style.setProperty('--wa-border-width-scale', `${event.target.value / 16}`);
   });
 
   // Border style
@@ -1631,7 +1625,7 @@ hasOutline: false
 
   // Spacing style
   spacing.addEventListener('wa-input', event => {
-    document.documentElement.style.setProperty('--wa-space-multiplier', `${event.target.value}`);
+    document.documentElement.style.setProperty('--wa-space-scale', `${event.target.value}`);
   });
 
   // Form validation
@@ -1669,7 +1663,7 @@ hasOutline: false
 
   .preview-container {
     background: var(--wa-color-surface-lowered);
-    container: preview / inline-size;
+    container-type: inline-size;
     padding: 0;
     max-inline-size: 1400px;
     margin-inline: auto;
@@ -1708,7 +1702,7 @@ hasOutline: false
     overflow: hidden;
 
     &:not(wa-card *) {
-      border-radius: calc(var(--wa-border-radius-m) - var(--wa-panel-border-width));
+      border-radius: calc(var(--wa-border-radius-l) - var(--wa-panel-border-width));
     }
 
     & > img {
@@ -1748,7 +1742,7 @@ hasOutline: false
 
   /* strata product cards */
 
-  .products wa-card::part(base) {
+  .products wa-card {
     height: 100%;
   }
 
@@ -2129,9 +2123,9 @@ hasOutline: false
 <h3>Ontological Shock</h3>
 <p>The allegory is related to Plato's theory of Forms, which holds that the true essence of an object is not what we perceive with our senses, but rather its quality, and that most people perceive only the shadow of the object and are thus limited to false perception.</p>
 <pre class="codeblock">
-<code class="language-html">&lt;html class="wa-theme-default-dark"&gt;
+<code class="language-html">&lt;html class="wa-dark"&gt;
   &lt;head&gt;
-    &lt;link rel="stylesheet" href="path/to/webawesome/dist/themes/dark.css" /&gt;
+    &lt;link rel="stylesheet" href="path/to/webawesome/dist/styles/themes/dark.css" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
     ...
@@ -2270,17 +2264,17 @@ hasOutline: false
       <table style="margin-bottom: 0;">
         <thead>
           <tr>
-            <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Check all</wa-visually-hidden></wa-checkbox></th>
+            <th><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Check all</span></wa-checkbox></th>
             <th>Customer</th>
             <th>Conversation</th>
             <th>Assigned To</th>
             <th style="text-align: center;">Status</th>
-            <th><wa-visually-hidden>Actions</wa-visually-hidden></th>
+            <th><span class="wa-visually-hidden">Actions</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Keanu Reeves</td>
             <td class="desc"><span style="font-weight: bold">Am I dead?</span><br><span class="excerpt">Okey dokey... free my mind. Right, no problem, free my mind, free my mind, no problem, right...</span></td>
             <td><wa-avatar  image="/assets/images/themer/avatar-chad.jpg"  label="Chad" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Chad Stahelski</td>
@@ -2310,7 +2304,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Lawrence Fishburne</td>
             <td class="desc"><span style="font-weight: bold">We have a rule</span><br><span class="excerpt">We never free a mind once it's reached a certain age. It's dangerous, the mind has trouble letting go.</span></td>
             <td><wa-avatar image="/assets/images/themer/avatar-char.jpg"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
@@ -2340,7 +2334,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)" checked><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Carrie-Ann Moss</td>
             <td class="desc"><span style="font-weight: bold">Was it the same cat?</span><br><span class="excerpt">A déjà vu is usually a glitch in the Matrix. It happens when they change something.</span></td>
             <td><wa-avatar initials="DE" label="Avatar with initials: DE" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Debbie Evans</td>
@@ -2370,7 +2364,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Joe Pantoliano</td>
             <td class="desc"><span style="font-weight: bold">Ignorance is bliss</span><br><span class="excerpt">Why oh why didn't I take the blue pill?</span></td>
             <td></td>
@@ -2400,7 +2394,7 @@ hasOutline: false
             </td>
           </tr>
           <tr>
-            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><wa-visually-hidden>Completed</wa-visually-hidden></wa-checkbox></td>
+            <td><wa-checkbox size="large" style="padding-left: var(--wa-space-s)"><span class="wa-visually-hidden">Completed</span></wa-checkbox></td>
             <td>Hugo Weaving</td>
             <td class="desc"><span style="font-weight: bold">I'd like to share a revelation</span><br><span class="excerpt">I need the codes, I have to get inside Zion and you have to tell me how.</span></td>
             <td><wa-avatar  image="/assets/images/themer/avatar-dara.jpg"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
@@ -2486,7 +2480,7 @@ hasOutline: false
             </div>
             <span class="name">
               <b>Seraph</b>
-              <span class="finish">Tinted</span>
+              <span class="finish">Filled</span>
             </span>
             <wa-input type="number" value="2"></wa-input>
             <span class="price">$180.00</span>

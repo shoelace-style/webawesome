@@ -1,8 +1,8 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
@@ -14,7 +14,7 @@ describe('<wa-button>', () => {
 
     init: (control: WaButton) => {
       control.type = 'button';
-    }
+    },
   });
   runFormControlBaseTests({
     tagName: 'wa-button',
@@ -22,7 +22,7 @@ describe('<wa-button>', () => {
 
     init: (control: WaButton) => {
       control.type = 'submit';
-    }
+    },
   });
   runFormControlBaseTests({
     tagName: 'wa-button',
@@ -30,7 +30,7 @@ describe('<wa-button>', () => {
 
     init: (control: WaButton) => {
       control.href = 'some-url';
-    }
+    },
   });
 
   for (const fixture of fixtures) {
@@ -113,7 +113,7 @@ describe('<wa-button>', () => {
 
           expect(el.title).to.equal('');
           expect(el.variant).to.equal('neutral');
-          expect(el.appearance).to.equal('filled');
+          expect(el.appearance).to.equal('accent');
           expect(el.size).to.equal('medium');
           expect(el.disabled).to.equal(false);
           expect(el.caret).to.equal(false);
@@ -282,7 +282,7 @@ describe('<wa-button>', () => {
             html`<form>
               <wa-button type="submit" name="btn-1" value="value-1">Button 1</wa-button>
               <wa-button type="submit" name="btn-2" value="value-2">Button 2</wa-button>
-            </form>`
+            </form>`,
           );
 
           let formData = new FormData(form);

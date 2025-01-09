@@ -1,19 +1,17 @@
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { uniqueId } from '../../internal/math.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
-import { waitForEvent } from '../../internal/event.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { waitForEvent } from '../../internal/event.js';
+import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './tooltip.styles.js';
-import WaPopup from '../popup/popup.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import WaPopup from '../popup/popup.js';
+import styles from './tooltip.css';
 
 /**
  * @summary Tooltips display additional information based on a specific action.
@@ -37,7 +35,7 @@ import type { CSSResultGroup } from 'lit';
  *
  * @cssproperty --background-color - The tooltip's background color.
  * @cssproperty --border-radius - The radius of the tooltip's corners.
- * @cssproperty --content-color - The color of the tooltip's content.
+ * @cssproperty --text-color - The color of the tooltip's content.
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
  * @cssproperty --padding - The padding within the tooltip.
  * @cssproperty --hide-delay - The amount of time to wait before hiding the tooltip when hovering.
@@ -45,14 +43,14 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-tooltip')
 export default class WaTooltip extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
   static dependencies = { 'wa-popup': WaPopup };
 
   private hoverTimeout: number;
   private closeWatcher: CloseWatcher | null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
-  @query('.tooltip__body') body: HTMLElement;
+  @query('.body') body: HTMLElement;
   @query('wa-popup') popup: WaPopup;
 
   /**
@@ -105,7 +103,7 @@ export default class WaTooltip extends WebAwesomeElement {
    */
   @property({ type: Boolean }) hoist = false;
 
-  @property() for: null | string = null;
+  @property() for: string | null = null;
 
   @state() anchor: null | Element = null;
 
@@ -351,7 +349,7 @@ export default class WaTooltip extends WebAwesomeElement {
         "
         class=${classMap({
           tooltip: true,
-          'tooltip--open': this.open
+          'tooltip--open': this.open,
         })}
         placement=${this.placement}
         distance=${this.distance}
@@ -363,7 +361,7 @@ export default class WaTooltip extends WebAwesomeElement {
         hover-bridge
         .anchor=${this.anchor}
       >
-        <div part="body" class="tooltip__body">
+        <div part="body" class="body">
           <slot></slot>
         </div>
       </wa-popup>

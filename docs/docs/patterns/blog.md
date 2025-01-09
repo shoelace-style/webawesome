@@ -1,7 +1,6 @@
 ---
 title: Blog
 description: TODO
-layout: pattern.njk
 ---
 
 TODO Page Description
@@ -417,6 +416,7 @@ TODO Page Description
 
 </style>
 ```
+<<<<<<< HEAD
 
 ## Related articles
 ```html{.example}
@@ -572,3 +572,5 @@ TODO Page Description
 </style>
 ```
 
+=======
+>>>>>>> pattern-main

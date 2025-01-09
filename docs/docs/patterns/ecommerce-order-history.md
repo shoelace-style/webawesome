@@ -1,7 +1,8 @@
 ---
-title: E-commerce - Order History
+title: Order History
 description: TODO
-layout: pattern.njk
+parent: ecommerce
+tags: e-commerce
 ---
 
 TODO Page Description

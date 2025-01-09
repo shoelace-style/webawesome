@@ -1,0 +1,12 @@
+{# Cards for pages listed by category #}
+
+<section id="grid" class="index-grid">
+{% for category, pages in allPages | groupByTags(categories) -%}
+  <h2 class="index-category">{{ category | getCategoryTitle(categories) }}</h2>
+    {%- for page in pages -%}
+      {%- if not page.data.parent or listChildren -%}
+        {% include "page-card.njk" %}
+      {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+</section>

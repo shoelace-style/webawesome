@@ -1,7 +1,6 @@
 ---
 title: Transitions
 description: Customize your theme's built-in transitions with Web Awesome's transition properties.
-layout: page-outline
 ---
 
 <style>
@@ -14,7 +13,7 @@ layout: page-outline
     content: '';
     position: absolute;
     background-color: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
     top: 0;
     left: 0;
     width: 0;

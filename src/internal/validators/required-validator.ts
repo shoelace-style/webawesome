@@ -1,4 +1,4 @@
-import type { Validator } from '../webawesome-element.js';
+import type { Validator } from '../webawesome-formassociated-element.js';
 
 export interface RequiredValidatorOptions {
   /** This is a cheap way for us to get translation strings for the user without having proper translations. */
@@ -29,7 +29,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       const isRequired = element.required ?? element.hasAttribute('required');
@@ -50,7 +50,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
       }
 
       return validity;
-    }
+    },
   };
 
   return obj;

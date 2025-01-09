@@ -12,6 +12,78 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## 3.0.0-alpha.8
+
+- Simplified the internal structure and CSS properties of `<wa-card>`, removed `base` part.
+- Added `appearance` to `<wa-callout>` and `<wa-tag>`
+- Fixed a bug in `<wa-switch>` where it would not properly change its "checked" state when its property changed.
+- Fixed a bug in `<wa-switch>` where the value would be incorrectly submitted as "on" when a value is provided and the switch is checked
+- Fixed a bug in the `wa-split` CSS utility that caused it to behave incorrectly
+- Improved performance of `<wa-select>` when using a large number of options
+- Updated the Japanese translation
+
+### Theming
+
+- Added new themes:
+  - Awesome
+  - Active
+  - Brutalist
+  - Mellow
+  - Tailspin
+  - Playful
+- Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
+- Removed size-based `--wa-form-control-height-*` tokens in favor of `--wa-form-control-height` (see [size utilities](/docs/utilities/size/))
+- Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
+  - Changed the value of `--wa-border-width-scale` to `1` and updated calculations of size-based `--wa-border-width-*` tokens
+  - Changed the value of `--wa-border-radius-scale` to `1` and updated calculations of size-based `--wa-border-radius-*` tokens
+  - Removed unused `--wa-border-radius-xs` token and `wa-border-radius-xs` utility class
+  - Decreased the size of the scale so that `--wa-border-radius-s` is now the smallest border radius token, matching the value of the previous `--wa-border-radius-xs` token
+- Updated the `--wa-shadow-*` scales for better DX
+  - Changed the value of `--wa-shadow-offset-y-scale` to `1` and updated calculations of size-based `--wa-shadow-offset-y-*` tokens
+  - Changed the value of `--wa-shadow-blur-scale` to `1` and updated calculations of size-based `--wa-shadow-blur-*` tokens
+  - Changed the value of `--wa-shadow-spread-scale` to `-0.5` and updated calculations of size-based `--wa-shadow-spread-*` tokens
+  - Updated calculations of size-based `--wa-shadow-offset-x-*` tokens to match calculations used for other shadow qualities (`--wa-shadow-offset-x-scale` remains `0`)
+  - Removed unused `--wa-shadow-xs` token
+
+## 3.0.0-alpha.7
+
+- Renamed applied.css to webawesome.css
+
+## 3.0.0-alpha.6
+
+### Native styles
+
+- Added native styles for
+  [buttons](/docs/native/button),
+  [input fields](/docs/native/input),
+  [dialogs](/docs/native/dialog),
+  [details](/docs/native/details),
+  [tables](/docs/native/table),
+  [lists](/docs/native/lists),
+  and most [content elements](/docs/native/content).
+
+### Style utilities
+
+- Added [color variant utilities](/docs/utilities/color/)
+- Added [appearance utilities](/docs/utilities/appearance/)
+- Added [size utilities](/docs/utilities/size/)
+- Added [layout utilities](/docs/layout/#utilities)
+- Added [`.wa-visually hidden`](/docs/utilities/a11y/#visually-hidden) utility
+- Added [`<wa-page>`](/docs/components/page/#styles) native styles and utilities
+
+### Components
+
+- Removed `<wa-visually-hidden>` in favor of the utility class
+- `<wa-page>`: `mobile-breakpoint` now takes any CSS length, not just pixels
+- Added `checked` and `disabled` custom states to `<wa-checkbox>` and `<wa-radio>`
+- Added `disabled`, `expanded`, `indeterminate`, and `selected` custom states to `<wa-tree-item>`
+- Renamed the `navigation-button--previous` and `navigation-button--next` parts to `navigation-button-previous` and `navigation-button-next` in `<wa-carousel>`
+- Renamed the `scroll-button--start` and `scroll-button--end` parts to `scroll-button-start` and `scroll-button-end` in `<wa-tab-group>`
+- Removed stateful CSS parts in favor of custom states
+  - `<wa-checkbox>`: `control--checked`, `control--indeterminate`
+  - `<wa-radio>`: `control--checked`
+  - `<wa-tree-item>`: `item--disabled`, `item--expanded`, `item--indeterminate`, `item--selected`
+
 ## 3.0.0-alpha.5
 
 - Added the Finnish translation

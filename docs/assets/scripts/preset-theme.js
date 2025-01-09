@@ -1,69 +1,97 @@
-//
-// Preset theme selector
-//
 (() => {
+  function applyThemeChange(stylesheet, newStylesheet) {
+    newStylesheet.rel = 'stylesheet';
+    newStylesheet.id = stylesheet.id;
+    requestAnimationFrame(() => {
+      stylesheet.remove();
+    });
+  }
+
   function setPresetTheme(newPresetTheme) {
     presetTheme = newPresetTheme;
     localStorage.setItem('presetTheme', presetTheme);
 
     const stylesheet = document.getElementById('theme-stylesheet');
-
     const newStylesheet = Object.assign(document.createElement('link'), {
-      href: `/dist/themes/${presetTheme}.css`,
+      href: `/dist/styles/themes/${presetTheme}.css`,
       rel: 'preload',
-      as: 'style'
+      as: 'style',
     });
 
     newStylesheet.addEventListener(
       'load',
       () => {
-        newStylesheet.rel = 'stylesheet';
-        newStylesheet.id = stylesheet.id;
-        requestAnimationFrame(() => {
-          stylesheet.remove();
-        });
+        const canUseViewTransitions =
+          document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (canUseViewTransitions) {
+          document.startViewTransition(() => applyThemeChange(stylesheet, newStylesheet));
+        } else {
+          applyThemeChange(stylesheet, newStylesheet);
+        }
       },
-      { once: true }
+      { once: true },
     );
 
     document.head.append(newStylesheet);
-
-    // Update the UI
     updateSelection();
-
-    // Toggle the dark mode class
-    document.documentElement.classList.toggle(`wa-theme-${presetTheme}-dark`, window.isDark());
+    document.documentElement.classList.toggle(`wa-dark`, window.isDark());
   }
 
   function updateSelection(container = document) {
-    const menu = container.querySelector('#preset-theme-selector wa-menu');
-    if (!menu) return;
-    [...menu.querySelectorAll('wa-menu-item')].forEach(async item => {
-      const isChecked = item.getAttribute('value') === presetTheme;
-      if (isChecked) {
-        container.querySelector('#preset-theme-selector__text').textContent = item.innerText;
+    const menus = container.querySelectorAll('.preset-theme-selector wa-menu');
+    if (!menus) return;
+
+    [...menus].forEach(menu => {
+      // Clear all checked states
+      [...menu.querySelectorAll('wa-menu-item')].forEach(async item => {
+        await customElements.whenDefined(item.localName);
+        await item.updateComplete;
+        item.checked = false; // Reset all items to unchecked first
+      });
+
+      // Then set only the selected item as checked
+      const selectedItem = menu.querySelector(`wa-menu-item[value="${presetTheme}"]`);
+      if (selectedItem) {
+        customElements.whenDefined(selectedItem.localName).then(async () => {
+          await selectedItem.updateComplete;
+          selectedItem.checked = true;
+          container.querySelectorAll('.preset-theme-selector__text').forEach(themeSelector => {
+            themeSelector.textContent = selectedItem.innerText;
+          });
+        });
       }
-      await customElements.whenDefined(item.localName);
-      await item.updateComplete;
-      item.checked = isChecked;
     });
+  }
+
+  // Updates any element on the page with [data-theme-name] and [data-theme-description] with the current themes info
+  function updateThemeNameAndDescription(name, description) {
+    document.querySelectorAll('[data-theme-name]').forEach(el => (el.textContent = name));
+    document.querySelectorAll('[data-theme-description]').forEach(el => (el.textContent = description));
   }
 
   let presetTheme = window.getPresetTheme();
 
   // Selection is not preserved when changing page, so update when opening dropdown
   document.addEventListener('wa-show', event => {
-    const presetThemeSelector = event.target.closest('#preset-theme-selector');
+    const presetThemeSelector = event.target.closest('.preset-theme-selector');
     if (!presetThemeSelector) return;
     updateSelection();
   });
 
   // Listen for selections
   document.addEventListener('wa-select', event => {
-    const menu = event.target.closest('#preset-theme-selector wa-menu');
+    const menu = event.target.closest('.preset-theme-selector wa-menu');
     if (!menu) return;
     setPresetTheme(event.detail.item.value);
+    updateThemeNameAndDescription(event.detail.item.textContent, event.detail.item.getAttribute('data-description'));
   });
+
+  // Set the initial preset name/description in the UI by grabbing it from the dropdown (ugly, but quick)
+  const currentTheme = document.querySelector(`.preset-theme-selector wa-menu-item[value="${presetTheme}"]`);
+  if (currentTheme) {
+    updateThemeNameAndDescription(currentTheme.textContent, currentTheme.getAttribute('data-description'));
+  }
 
   // Update the color scheme when the preference changes
   window.matchMedia('(prefers-preset-theme: dark)').addEventListener('change', () => setPresetTheme(presetTheme));

@@ -1,6 +1,6 @@
 import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 
 // Make sure this is `dist-cdn/` otherwise you will get an error.
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
@@ -19,7 +19,7 @@ const testLibraryIcons = {
     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"></path>
     </svg>
   `,
-  'bad-icon': `<div></div>`
+  'bad-icon': `<div></div>`,
 };
 
 describe('<wa-icon>', () => {
@@ -36,7 +36,7 @@ describe('<wa-icon>', () => {
         }
         return '';
       },
-      mutator: (svg: SVGElement) => svg.setAttribute('fill', 'currentColor')
+      mutator: (svg: SVGElement) => svg.setAttribute('fill', 'currentColor'),
     });
   });
 
@@ -170,14 +170,12 @@ describe('<wa-icon>', () => {
       });
 
       describe('svg sprite sheets', () => {
-        //  For some reason ESLint wants to fail in CI here, but works locally.
         // TODO: this test is skipped because Bootstrap sprite.svg doesn't seem to be available in CI. Will fix in a future PR. [Konnor]
-        /* eslint-disable */
         it.skip('Should properly grab an SVG and render it from bootstrap icons', async () => {
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
-            spriteSheet: true
+            spriteSheet: true,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="arrow-left" library="sprite"></wa-icon>`);
@@ -204,7 +202,7 @@ describe('<wa-icon>', () => {
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
-            spriteSheet: true
+            spriteSheet: true,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
@@ -235,7 +233,7 @@ describe('<wa-icon>', () => {
             mutator(svg) {
               return svg.setAttribute('fill', 'currentColor');
             },
-            spriteSheet: true
+            spriteSheet: true,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);

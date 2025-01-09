@@ -86,13 +86,13 @@ layout: page
       flex: 1 1 67%;
     }
     & wa-button {
-      --wa-form-control-height-s: 2.5rem;
       --border-color: black;
       --border-width: 0.125rem;
-      --box-shadow: 0 0.25rem 0 0 var(--border-color);
+      box-shadow: 0 0.25rem 0 0 var(--border-color);
       flex: 1 1 auto;
+      height: 2.5rem;
       &:active:not([disabled]) {
-        --box-shadow: 0 0 0 0 transparent;
+        box-shadow: 0 0 0 0 transparent;
         transform: translateY(0.25rem);
       }
     }
@@ -163,8 +163,8 @@ layout: page
       background-color: var(--wa-brand-orange);
       color: white;
       border-radius: 0.25rem;
-      height: 2rem;
-      width: 2rem;
+      aspect-ratio: 1;
+      padding: 0.5em;
     }
     & h3 {
       font-size: 1rem;
@@ -190,8 +190,7 @@ layout: page
         gap: 0.5rem;
       }
       & wa-button {
-        --wa-form-control-height-m: 1.5rem;
-        display: inline-flex;
+        height: 1.5rem;
         font-size: 0.75rem;
       }
     }
@@ -269,7 +268,7 @@ layout: page
     <h1 class="brand-font">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
-      <wa-button class="wa-theme-default-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
+      <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
         <wa-icon slot="prefix" name="person-running"></wa-icon>
         Pre-order WA Pro
       </wa-button>
@@ -375,12 +374,12 @@ layout: page
       <div class="attribution">
         <span>Special thanks</span>
         <div class="button-list">
-          <wa-button appearance="tinted" pill href="https://lit.dev/">Lit</wa-button>
-          <wa-button appearance="tinted" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
-          <wa-button appearance="tinted" pill href="https://www.11ty.dev/">11ty</wa-button>
-          <wa-button appearance="tinted" pill href="https://floating-ui.com/">Floating UI</wa-button>
-          <wa-button appearance="tinted" pill href="https://animate.style/">animate.css</wa-button>
-          <wa-button appearance="tinted" pill href="https://lunrjs.com/">Lunr</wa-button>
+          <wa-button appearance="filled" pill href="https://lit.dev/">Lit</wa-button>
+          <wa-button appearance="filled" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
+          <wa-button appearance="filled" pill href="https://www.11ty.dev/">11ty</wa-button>
+          <wa-button appearance="filled" pill href="https://floating-ui.com/">Floating UI</wa-button>
+          <wa-button appearance="filled" pill href="https://animate.style/">animate.css</wa-button>
+          <wa-button appearance="filled" pill href="https://lunrjs.com/">Lunr</wa-button>
         </div>
       </div>
     </div>

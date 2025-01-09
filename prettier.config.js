@@ -13,8 +13,9 @@ const config = {
   semi: true,
   singleQuote: true,
   tabWidth: 2,
-  trailingComma: 'none',
-  useTabs: false
+  useTabs: false,
+  organizeImportsSkipDestructiveCodeActions: true,
+  plugins: ['prettier-plugin-organize-imports'],
 };
 
 export default config;

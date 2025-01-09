@@ -1,0 +1,54 @@
+.wa-outlined,
+:host([appearance~='outlined']) {
+  --background-color: var(--outlined-background-color, transparent);
+  --background-color-hover: var(--outlined-background-color-hover, var(--wa-color-fill-quiet));
+  --background-color-active: var(
+    --outlined-background-color-active,
+    color-mix(in oklab, var(--background-color-hover), transparent 20%)
+  );
+
+  --border-color: var(--outlined-border-color, var(--wa-color-border-loud));
+  --border-color-hover: var(--outlined-border-color-hover, var(--wa-color-border-loud));
+
+  --text-color: var(--outlined-text-color, var(--wa-color-on-quiet));
+  --text-color-hover: var(--outlined-text-color-hover, var(--text-color));
+}
+
+.wa-accent,
+:host([appearance~='accent']) {
+  --background-color: var(--wa-color-fill-loud);
+  --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
+  --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
+
+  --outlined-border-color: oklch(from var(--wa-color-fill-loud) calc(l - 0.1) c h);
+
+  --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+}
+
+.wa-filled,
+:host([appearance~='filled']) {
+  --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+  --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+  --background-color-active: color-mix(in oklab, var(--background-color), transparent 20%);
+
+  --outlined-border-color: var(--wa-color-border-normal);
+
+  --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+}
+
+/* 0 specificity. Safari doesn't like :where(:host()) so we need a separate rule. */
+:where(.wa-filled),
+:host(:where([appearance~='filled'])) {
+  --border-color: transparent;
+}
+
+.wa-plain,
+:host([appearance~='plain']) {
+  --background-color: transparent;
+  --text-color: var(--wa-color-on-quiet);
+
+  --background-color-hover: var(--wa-color-fill-quiet);
+  --background-color-active: color-mix(in oklab, var(--background-color-hover), transparent 20%);
+
+  --text-color: var(--wa-color-on-quiet);
+}

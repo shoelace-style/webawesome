@@ -1,0 +1,111 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  border-width: 0;
+}
+
+.wa-text-field {
+  flex: auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: start;
+  position: relative;
+
+  border-color: inherit;
+  border-style: inherit;
+  border-radius: inherit;
+  transition: inherit;
+
+  height: var(--wa-form-control-height);
+  padding-block: 0;
+}
+
+input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  transition: inherit;
+
+  /* prettier-ignore */
+  background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
+  height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+  padding-block: 0;
+  color: inherit;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.prefix,
+.suffix {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  cursor: default;
+
+  &::slotted(wa-icon) {
+    color: var(--wa-color-neutral-on-quiet);
+  }
+}
+
+.prefix::slotted(*) {
+  margin-inline-end: var(--wa-space);
+}
+
+.suffix::slotted(*) {
+  margin-inline-start: var(--wa-space);
+}
+
+/*
+ * Clearable + Password Toggle
+ */
+
+.clear,
+.password-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  color: var(--wa-color-neutral-on-quiet);
+  border: none;
+  background: none;
+  padding: 0;
+  transition: var(--wa-transition-normal) color;
+  cursor: pointer;
+
+  &:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+
+  &:active {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/* Don't show the browser's password toggle in Edge */
+::-ms-reveal {
+  display: none;
+}
+
+/* Hide the built-in number spinner */
+:host([no-spin-buttons]) input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+}

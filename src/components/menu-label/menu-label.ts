@@ -1,9 +1,7 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './menu-label.styles.js';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './menu-label.css';
 
 /**
  * @summary Menu labels are used to describe a group of menu items.
@@ -17,7 +15,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-menu-label')
 export default class WaMenuLabel extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   render() {
     return html` <slot part="base" class="menu-label"></slot> `;

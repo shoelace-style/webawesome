@@ -1,0 +1,224 @@
+:host {
+  display: block;
+}
+
+/** The popup */
+.select {
+  flex: 1 1 auto;
+  display: inline-flex;
+  width: 100%;
+  position: relative;
+  vertical-align: middle;
+
+  &::part(popup) {
+    z-index: 900;
+  }
+
+  &[data-current-placement^='top']::part(popup) {
+    transform-origin: bottom;
+  }
+
+  &[data-current-placement^='bottom']::part(popup) {
+    transform-origin: top;
+  }
+}
+
+/* Combobox */
+.combobox {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: start;
+
+  min-height: var(--wa-form-control-height);
+
+  :host([size='small']) & {
+    &:not(.placeholder-visible *) {
+      padding-block: 2px;
+    }
+  }
+
+  :host([size='large']) & {
+    &:not(.placeholder-visible *) {
+      padding-block: 4px;
+    }
+  }
+
+  :host([multiple]) .select:not(.placeholder-visible) & {
+    padding-inline-start: 0;
+    padding-block: 3px;
+  }
+
+  /* Pills */
+  :host([pill]) & {
+    border-radius: var(--wa-border-radius-pill);
+  }
+}
+
+.display-input {
+  position: relative;
+  width: 100%;
+  font: inherit;
+  border: none;
+  background: none;
+  line-height: var(--wa-form-control-value-line-height);
+  color: var(--wa-form-control-value-color);
+  cursor: inherit;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--wa-form-controls-placeholder-color);
+  }
+}
+
+/* Visually hide the display input when multiple is enabled */
+:host([multiple]) .select:not(.placeholder-visible) .display-input {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.value-input {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-inline-start: var(--wa-space-2xs);
+  gap: 3px;
+
+  :host([size='small']) & {
+    gap: 2px;
+  }
+
+  :host([size='large']) & {
+    gap: 4px;
+  }
+
+  &::slotted(wa-tag) {
+    cursor: pointer !important;
+  }
+
+  .disabled &,
+  .disabled &::slotted(wa-tag) {
+    cursor: not-allowed !important;
+  }
+}
+
+/* Prefix and Suffix */
+
+.prefix,
+.suffix {
+  flex: 0;
+  display: inline-flex;
+  align-items: center;
+  color: var(--wa-color-neutral-on-quiet);
+}
+
+.suffix::slotted(*) {
+  margin-inline-start: var(--wa-space-sm);
+}
+
+.prefix::slotted(*) {
+  margin-inline-end: var(--wa-space);
+}
+
+/* Clear button */
+[part~='clear-button'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  color: var(--wa-color-neutral-on-quiet);
+  border: none;
+  background: none;
+  padding: 0;
+  transition: color var(--wa-transition-normal);
+  cursor: pointer;
+  margin-inline-start: var(--wa-space);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+
+  &:active {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+  }
+}
+
+/* Expand icon */
+.expand-icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--wa-color-neutral-on-quiet);
+  transition: rotate var(--wa-transition-slow) ease;
+  rotate: 0;
+  margin-inline-start: var(--wa-space-s);
+
+  .open & {
+    rotate: -180deg;
+  }
+}
+
+/* Listbox */
+.listbox {
+  display: block;
+  position: relative;
+  font: inherit;
+  box-shadow: var(--wa-shadow-m);
+  background: var(--wa-color-surface-raised);
+  border-color: var(--wa-color-surface-border);
+  border-radius: var(--wa-border-radius-m);
+  border-style: var(--border-style);
+  border-width: var(--border-width);
+  padding-block: var(--wa-space-xs);
+  padding-inline: 0;
+  overflow: auto;
+  overscroll-behavior: none;
+
+  /* Make sure it adheres to the popup's auto size */
+  max-width: var(--auto-size-available-width);
+  max-height: var(--auto-size-available-height);
+
+  &::slotted(wa-divider) {
+    --spacing: var(--wa-space-xs);
+  }
+
+  &::slotted(small) {
+    display: block;
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-semibold);
+    color: var(--wa-color-text-quiet);
+    padding-block: var(--wa-space-xs);
+    padding-inline: var(--wa-space-xl);
+  }
+}

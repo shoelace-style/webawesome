@@ -69,7 +69,7 @@ export function scrollIntoView(
   element: HTMLElement,
   container: HTMLElement,
   direction: 'horizontal' | 'vertical' | 'both' = 'vertical',
-  behavior: 'smooth' | 'auto' = 'smooth'
+  behavior: 'smooth' | 'auto' = 'smooth',
 ) {
   const offset = getOffset(element, container);
   const offsetTop = offset.top + container.scrollTop;

@@ -1,0 +1,56 @@
+progress {
+  --indicator-color: var(--wa-color-brand-fill-loud);
+
+  width: 100%;
+  height: 1.25rem;
+  border-radius: var(--wa-border-radius-pill);
+  background-color: var(--wa-color-neutral-fill-normal);
+  color: var(--wa-color-brand-on-loud);
+  overflow: hidden;
+
+  &::-webkit-progress-bar {
+    background: transparent;
+  }
+
+  &[value]::-webkit-progress-value {
+    background-color: var(--indicator-color);
+  }
+
+  &::-moz-progress-bar {
+    background-color: var(--indicator-color);
+  }
+}
+
+/* Indeterminate */
+progress:not([value]) {
+  animation: wa-progress-indeterminate 2.5s infinite cubic-bezier(0.37, 0, 0.63, 1);
+  padding-left: var(--inset-inline-start);
+
+  &::-webkit-progress-bar {
+    background-color: var(--indicator-color); /* Chrome does not render a ::-webkit-progress-value for indeterminates */
+  }
+}
+
+@keyframes wa-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* For some reason Chrome fiercely resists animations on this pseudo
+	  so we had to do it with padding on <progress> */
+@keyframes wa-progress-indeterminate {
+  0% {
+    padding-inline-end: 100%;
+  }
+
+  25%,
+  100% {
+    padding-inline-end: 0%;
+  }
+
+  75%,
+  100% {
+    padding-inline-start: 100%;
+  }
+}

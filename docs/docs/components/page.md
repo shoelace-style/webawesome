@@ -1,8 +1,10 @@
 ---
 title: Page
 description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
-layout: component
+tags: [organization, layout]
 isPro: true
+order: 0
+# icon: page
 ---
 
 The page component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
@@ -39,6 +41,10 @@ body {
 }
 ```
 
+::info
+If you use [native styles](/docs/native/), this is already taken care of.
+:::
+
 ## Examples
 
 :::warning
@@ -63,7 +69,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
   <header slot="header" class="wa-split">
     <div class="wa-cluster">
       <wa-icon name="feather-pointed" style="color: var(--wa-color-brand-fill-loud); font-size: 1.5em;"></wa-icon>
-      <span id="brand-name" class="wa-heading-s">Audubon Worldwide</span>
+      <span id="brand-name" class="wa-heading-s wa-desktop-only">Audubon Worldwide</span>
       <a href="#">Our Work</a>
       <a href="#">About Us</a>
       <a href="#">Discover</a>
@@ -83,7 +89,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
         <wa-breadcrumb-item>Great Horned Owl</wa-breadcrumb-item>
       </wa-breadcrumb>
     </div>
-    <wa-input id="search" placeholder="Search" size="small" style="max-inline-size: 12rem;">
+    <wa-input id="search" class="wa-desktop-only" placeholder="Search" size="small" style="max-inline-size: 12rem;">
       <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
     </wa-input>
   </nav>
@@ -103,17 +109,17 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     <a href="#conservation">Conservation</a>
   </nav>
   <nav slot="navigation-footer">
-    <a href="#" class="wa-flank" style="--flank-size: 1.25em;">
+    <a href="#" class="wa-flank">
       <wa-icon name="camera"></wa-icon>
       <span>Photo Gallery</span>
     </a>
-    <a href="#" class="wa-flank" style="--flank-size: 1.25em;">
+    <a href="#" class="wa-flank">
       <wa-icon name="map-location-dot"></wa-icon>
       <span>Interactive Range Map</span>
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-m wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
@@ -135,7 +141,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
           <span class="wa-caption-m">Least Concern</span>
         </div>
       </div>
-      <div class="wa-frame" style="border-radius: var(--wa-border-radius-m); max-inline-size: 40ch;">
+      <div class="wa-frame" style="border-radius: var(--wa-border-radius-l); max-inline-size: 40ch;">
         <img src="https://images.unsplash.com/photo-1544648720-132573cb590d?q=20" />
       </div>
     </div>
@@ -160,7 +166,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
       </ul>
     </section>
   </footer>
-  <aside slot="aside">
+  <aside slot="aside" class="wa-desktop-only">
     <h2 class="wa-heading-m">Discover More Birds</h2>
     <wa-card with-image>
       <div slot="image" class="wa-frame">
@@ -227,18 +233,16 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     --menu-width: 15rem;
     --aside-width: 15rem;
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
+  wa-page[view='desktop'] {
+    [slot*='navigation'] {
+      border-inline-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+    }
   }
   wa-page[view='mobile'] {
     --menu-width: auto;
     --aside-width: auto;
   }
-  wa-page[view='mobile'] [slot='aside'],
-  wa-page[view='mobile'] #brand-name,
-  wa-page[view='mobile'] #search {
-    display: none;
-  }
+
   [slot='banner'] {
     --wa-color-text-link: var(--wa-color-neutral-on-loud);
     background-color: var(--wa-color-neutral-fill-loud);
@@ -257,14 +261,16 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
   [slot='navigation-header'] {
     border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
   }
-  wa-page[view='desktop'] [slot*='navigation'] {
-    border-inline-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
-  }
+
   [slot*='navigation'] a {
     --wa-color-text-link: var(--wa-color-text-normal);
   }
   [slot='navigation-footer'] {
     border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+
+    .wa-flank {
+      --flank-size: 1.25em;
+    }
   }
   [slot='main-header'],
   main,
@@ -281,6 +287,11 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
     font-size: var(--wa-font-size-s);
   }
 </style>
+
+<script>
+  const sectionAnchors = document.querySelectorAll("[slot*='navigation'] a[href*='#']");
+  sectionAnchors.forEach((sectionAnchor) => sectionAnchor.setAttribute("data-drawer", "close"));
+</script>
 ```
 
 ### Media
@@ -288,14 +299,14 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
 A sample media app page using `header`, `navigation-header`, `main-header`, and `main-footer` along with the default slot. The navigation menu collapses into a drawer at the default `mobile-breakpoint` and can be opened using a button with `[data-toggle-nav]` that appears in the `header` slot.
 
 ```html {.example viewport="1600"}
-<wa-page class="wa-theme-default-dark">
+<wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
       <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>
       <wa-icon name="record-vinyl"></wa-icon>
       <span class="wa-heading-m">radiogaga</span>
     </div>
-    <wa-input id="search-header" placeholder="Search" style="max-inline-size: 100%;">
+    <wa-input id="search-header" placeholder="Search" class="wa-desktop-only" style="max-inline-size: 100%;">
       <wa-icon slot="prefix" name="magnifying-glass" ></wa-icon>
     </wa-input>
     <div class="wa-cluster">
@@ -304,7 +315,7 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     </div>
   </header>
   <div slot="navigation-header" class="wa-split">
-    <wa-input id="search-nav-drawer" placeholder="Search" style="max-inline-size: 100%;">
+    <wa-input id="search-nav-drawer" placeholder="Search" style="max-inline-size: 100%;" class="wa-mobile-only">
       <wa-icon slot="prefix" name="magnifying-glass" ></wa-icon>
     </wa-input>
     <div class="wa-split">
@@ -565,21 +576,21 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
   <div slot="main-footer" class="wa-grid wa-gap-xl wa-align-items-center">
     <h2 class="wa-heading-2xl">More You Might Like</h2>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1675219119611-40323b738563?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Festival of Lights</span>
       <span class="wa-caption-s">Station</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1481930916222-5ec4696fc0f2?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Holiday Cheer</span>
       <span class="wa-caption-s">Essential Playlist</span>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <div class="wa-frame wa-border-radius-m">
+      <div class="wa-frame wa-border-radius-l">
         <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="" />
       </div>
       <span class="wa-heading-s">Nursery Rhymes from the Shire</span>
@@ -594,18 +605,15 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     --wa-tooltip-arrow-size: 0;
     background-color: var(--wa-color-surface-lowered);
   }
-  wa-page[view='desktop'] :is([data-toggle-nav], #search-nav-drawer) {
-    display: none;
-  }
+
   wa-page[view='mobile'] {
     --menu-width: auto;
+
+    [slot*='main'], main {
+      padding: var(--wa-space-xl);
+    }
   }
-  wa-page[view='mobile'] #search-header {
-    display: none;
-  }
-  wa-page[view='mobile'] :is([slot*='main'], main) {
-    padding: var(--wa-space-xl);
-  }
+
   wa-page,
   [slot='header'],
   wa-page[view='desktop'] [slot*='navigation'] {
@@ -625,37 +633,41 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     padding-block-end: 0 !important;
     padding-block-start: var(--wa-space-3xl);
   }
-  [slot='navigation'] a {
-    --wa-color-text-link: var(--wa-color-text-normal);
-    --wa-link-decoration-default: none;
-    --wa-link-decoration-hover: none;
-    --flank-size: 2rem;
-    font-weight: var(--wa-font-weight-action);
-    gap: 0.5rem;
+  [slot='navigation'] {
+    a {
+      --wa-color-text-link: var(--wa-color-text-normal);
+      --wa-link-decoration-default: none;
+      --wa-link-decoration-hover: none;
+      --flank-size: 2rem;
+      font-weight: var(--wa-font-weight-action);
+      gap: 0.5rem;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+
+      a {
+        border-radius: var(--wa-border-radius-m);
+        padding: var(--wa-space-xs);
+
+        &:hover {
+          background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
+        }
+      }
+    }
+    wa-icon {
+      align-items: center;
+      aspect-ratio: 1;
+      color: var(--wa-color-brand-fill-loud);
+      display: flex;
+      height: var(--flank-size);
+      justify-content: center;
+    }
+    #recent wa-icon {
+      border-radius: var(--wa-border-radius-s);
+    }
   }
-  [slot='navigation'] ul {
-    list-style: none;
-    margin: 0;
-  }
-  [slot='navigation'] ul a {
-    border-radius: var(--wa-border-radius-s);
-    padding: var(--wa-space-xs);
-  }
-  [slot='navigation'] ul a:hover,
-  main ol li:hover {
-    background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
-  }
-  [slot='navigation'] wa-icon {
-    align-items: center;
-    aspect-ratio: 1;
-    color: var(--wa-color-brand-fill-loud);
-    display: flex;
-    height: var(--flank-size);
-    justify-content: center;
-  }
-  [slot='navigation'] #recent wa-icon {
-    border-radius: var(--wa-border-radius-xs);
-  }
+
   [slot='main-header'] {
     border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
     border-inline: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
@@ -667,12 +679,18 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
   }
   main ol li {
     padding: var(--wa-space-m);
-  }
-  main ol li .wa-flank {
-    --flank-size: 2rem;
-  }
-  main ol li:not(:first-child) {
-    border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+
+    &:hover {
+      background-color: color-mix(in oklab, var(--wa-color-surface-default), var(--wa-color-brand-fill-quiet));
+    }
+
+    &:not(:first-child) {
+      border-block-start: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+    }
+
+    .wa-flank {
+      --flank-size: 2rem;
+    }
   }
   main,
   [slot='main-footer'] {
@@ -698,6 +716,11 @@ A sample media app page using `header`, `navigation-header`, `main-header`, and 
     max-inline-size: 30ch;
   }
 </style>
+
+<script>
+  const sectionAnchors = document.querySelectorAll("[slot*='navigation'] a[href*='#']");
+  sectionAnchors.forEach((sectionAnchor) => sectionAnchor.setAttribute("data-drawer", "close"));
+</script>
 ```
 
 
@@ -761,10 +784,28 @@ You can override the default display and flex properties for each slot with your
 #### Responsive Navigation
 
 When you use the `navigation` slot, your slotted content automatically collapses into a drawer on smaller screens.
-The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute.
+The breakpoint at which this occurs is `768px` by default, but you can change it using the `mobile-breakpoint` attribute,
+which takes either a number or a [CSS length](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
 
 ```html
 <wa-page mobile-breakpoint="600"> ... </wa-page>
+```
+```html {.example viewport}
+<wa-page mobile-breakpoint="50ch">
+  <div slot=navigation>Nav</div>
+  <header slot=header>
+    <div style="width: 50ch; background: gold">I’m 50ch wide</div>
+  </header>
+</wa-page>
+<style>
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+</style>
 ```
 
 By default, a "hamburger" button appears in the `header` slot to toggle the navigation menu on smaller screens.
@@ -794,6 +835,10 @@ wa-page[view='desktop'] [data-toggle-nav] {
 }
 ```
 
+::info
+If you use [native styles](/docs/native/), this is already taken care for you, and the `data-toggle-nav` button is already hidden on wider screens.
+:::
+
 #### Custom Widths
 
 You specify widths for some slots on your page with [CSS custom properties](#css-custom-properties) for `--menu-width`, `--main-width`, and `--aside-width`.
@@ -809,9 +854,10 @@ You can use a similar approach for `--aside-width` to hide the `aside` slot on s
 ```css
 wa-page[view='mobile'] {
   --aside-width: auto;
-}
-wa-page[view='mobile'] [slot='aside'] {
-  display: none;
+
+   [slot='aside'] {
+    display: none;
+  }
 }
 ```
 
@@ -827,3 +873,16 @@ You can override the default spacing for each slot with your own CSS. In this ex
 }
 ```
 
+## Utility classes
+
+[Native styles](/docs/native/) define a few useful defaults for `<wa-page>`, as well as
+two utility classes you can use for common responsive design tasks:
+- `.wa-mobile-only` hides an element on the desktop view
+- `.wa-desktop-only` hides an element on the mobile view
+
+
+If you don’t want to use [native styles](/docs/native/), you can include this stylesheet in your project to use these:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/components/page.css' %}" />
+```

@@ -1,0 +1,40 @@
+:host {
+  --spacing: var(--wa-space-xl);
+
+  display: contents;
+}
+
+:host(:not([open])) {
+  display: none;
+}
+
+dialog {
+  width: inherit;
+  max-width: inherit;
+  max-height: inherit;
+  background-color: inherit;
+  border-radius: inherit;
+  border: inherit;
+  box-shadow: inherit;
+  padding: inherit;
+  margin: auto;
+  transition: inherit;
+}
+
+.header-actions {
+  align-self: start;
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: var(--wa-space-2xs);
+  margin-inline-start: auto;
+
+  wa-icon-button,
+  ::slotted(wa-icon-button) {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: var(--wa-font-size-m);
+  }
+}

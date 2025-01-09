@@ -1,7 +1,8 @@
 ---
 title: Tab Group
 description: Tab groups organize content into a container that shows one section at a time.
-layout: component
+tags: [navigation, disclosure]
+icon: tab-group
 ---
 
 Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.
@@ -100,7 +101,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
 <wa-tab-group class="tabs-closable">
   <wa-tab panel="general">General</wa-tab>
   <wa-tab panel="closable">Closable</wa-tab>
-  <wa-icon-button tabindex="-1" name="xmark" label="Close the closable tab"></wa-icon-button>
+  <wa-icon-button slot="nav" tabindex="-1" name="xmark" label="Close the closable tab"></wa-icon-button>
   <wa-tab panel="closable-2">Advanced</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
@@ -125,7 +126,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
   const closableTab = tabGroup.querySelectorAll('wa-tab')[1];
   const closeButton = tabGroup.querySelector('wa-icon-button');
   const restoreButton = tabGroup.nextElementSibling.nextElementSibling;
-  
+
   // Remove the tab when the close button is clicked
   closeButton.addEventListener('click', () => {
     closableTab.remove();

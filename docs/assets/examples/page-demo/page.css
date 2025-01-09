@@ -26,7 +26,7 @@ wa-page {
 
 .slot-content {
   padding: var(--wa-space-m);
-  border-radius: var(--wa-border-radius-s);
+  border-radius: var(--wa-border-radius-m);
   align-content: center;
   justify-content: center;
   text-align: center;

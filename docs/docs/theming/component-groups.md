@@ -1,7 +1,7 @@
 ---
 title: Component Groups
 description: Style groups of components that share similar qualities with these Web Awesome custom properties.
-layout: page-outline
+order: 9999
 ---
 
 For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
@@ -15,11 +15,11 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | Custom Property                             | Default Value                                                                                     |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `--wa-form-control-background-color`        | `var(--wa-color-surface-default)`                                                                 |
+| `--wa-form-control-border-color`            | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-border-style`            | `var(--wa-border-style)`                                                                          |
 | `--wa-form-control-border-width`            | `var(--wa-border-width-s)`                                                                        |
-| `--wa-form-control-border-radius`           | `var(--wa-border-radius-s)`                                                                       |
+| `--wa-form-control-border-radius`           | `var(--wa-border-radius-m)`                                                                       |
 | `--wa-form-control-activated-color`         | `var(--wa-color-brand-fill-loud)`                                                                 |
-| `--wa-form-control-resting-color`           | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-label-color`             | `var(--wa-color-neutral-border-loud)`                                                             |
 | `--wa-form-control-label-font-weight`       | `var(--wa-font-weight-normal)`                                                                    |
 | `--wa-form-control-label-line-height`       | `var(--wa-line-height-normal)`                                                                    |
@@ -27,9 +27,6 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | `--wa-form-control-value-font-weight`       | `var(--wa-font-weight-body)`                                                                      |
 | `--wa-form-control-value-line-height`       | `var(--wa-line-height-condensed)`                                                                 |
 | `--wa-form-control-placeholder-color`       | `var(--wa-color-gray-60)`                                                                         |
-| `--wa-form-control-height-s`                | `calc(var(--wa-space-xs) * 2 + var(--wa-font-size-s) * var(--wa-form-control-value-line-height))` |
-| `--wa-form-control-height-m`                | `calc(var(--wa-space-s) * 2 + var(--wa-font-size-m) * var(--wa-form-control-value-line-height))`  |
-| `--wa-form-control-height-l`                | `calc(var(--wa-space-m) * 2 + var(--wa-font-size-l) * var(--wa-form-control-value-line-height))`  |
 | `--wa-form-control-required-content`        | `'*'`                                                                                             |
 | `--wa-form-control-required-content-color`  | `inherit`                                                                                         |
 | `--wa-form-control-required-content-offset` | `-0.1em`                                                                                          |
@@ -50,7 +47,7 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
   </wa-radio-group>
   <wa-checkbox>Checkbox</wa-checkbox>
   <wa-switch>Switch</wa-switch>
-  <wa-range label="Range"></wa-range>
+  <wa-slider label="Range"></wa-slider>
   <wa-button>Button</wa-button>
 </form>
 
@@ -76,7 +73,7 @@ Panels consist of components with larger, contained surface areas like [callout]
 | -------------------------- | --------------------------- |
 | `--wa-panel-border-style`  | `var(--wa-border-style)`    |
 | `--wa-panel-border-width`  | `var(--wa-border-width-s)`  |
-| `--wa-panel-border-radius` | `var(--wa-border-radius-m)` |
+| `--wa-panel-border-radius` | `var(--wa-border-radius-l)` |
 
 ```html {.example}
 <div class="wa-block-spacing-l">
@@ -106,7 +103,7 @@ Tooltip styles are shared between the [tooltip](/docs/components/tooltip) compon
 | ---------------------------- | ----------------------------------- |
 | `--wa-tooltip-arrow-size`    | `0.375rem` <small>(6px)</small>     |
 | `--wa-tooltip-background-color`    | `var(--wa-color-neutral-fill-loud)` |
-| `--wa-tooltip-border-radius` | `var(--wa-border-radius-s)`         |
+| `--wa-tooltip-border-radius` | `var(--wa-border-radius-m)`         |
 | `--wa-tooltip-content-color` | `var(--wa-color-neutral-on-loud)`   |
 | `--wa-tooltip-font-size`     | `var(--wa-font-size-s)`             |
 | `--wa-tooltip-line-height`   | `var(--wa-line-height-normal)`      |

@@ -1,4 +1,4 @@
-import type { Validator } from '../webawesome-element.js';
+import type { Validator } from '../webawesome-formassociated-element.js';
 
 /**
  * This validator is for if you have an exact copy of your element in the shadow DOM. Rather than needing
@@ -11,7 +11,7 @@ export const CustomErrorValidator = (): Validator => {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
         isValid: true,
-        invalidKeys: []
+        invalidKeys: [],
       };
 
       if (element.customError) {
@@ -21,6 +21,6 @@ export const CustomErrorValidator = (): Validator => {
       }
 
       return validity;
-    }
+    },
   };
 };

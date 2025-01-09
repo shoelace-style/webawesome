@@ -1,0 +1,37 @@
+wa-card#drawer-card::part(header) {
+  --spacing: 0;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+#block-filter {
+  margin-block-end: var(--wa-space-xl);
+}
+
+.index-grid.filtered {
+  h2 {
+    /* Hide headings while filtering */
+    display: none;
+  }
+
+  &:not(:has(> a:not([hidden]))) {
+    /* We’re filtering and there are no results */
+
+    &::before {
+      content: var(--empty-message);
+      grid-column: 1 / -1;
+      color: var(--wa-color-on-quiet);
+      font-style: italic;
+      font-weight: var(--wa-font-weight-action);
+    }
+
+    /* Show empty state when there's a search filter and no results */
+    &[data-empty] {
+      --empty-message: attr(data-empty);
+    }
+
+    &:not([data-empty]) {
+      --empty-message: 'No results';
+    }
+  }
+}

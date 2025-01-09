@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
-import { LocalizeController } from '../../utilities/localize.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 
 /**
  * @summary Formats a number using the specified locale and options.
@@ -10,6 +10,10 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
  */
 @customElement('wa-format-number')
 export default class WaFormatNumber extends WebAwesomeElement {
+  static get styles() {
+    return [];
+  }
+
   private readonly localize = new LocalizeController(this);
 
   /** The number to format. */
@@ -30,10 +34,10 @@ export default class WaFormatNumber extends WebAwesomeElement {
   /** The minimum number of integer digits to use. Possible values are 1-21. */
   @property({ attribute: 'minimum-integer-digits', type: Number }) minimumIntegerDigits: number;
 
-  /** The minimum number of fraction digits to use. Possible values are 0-20. */
+  /** The minimum number of fraction digits to use. Possible values are 0-100. */
   @property({ attribute: 'minimum-fraction-digits', type: Number }) minimumFractionDigits: number;
 
-  /** The maximum number of fraction digits to use. Possible values are 0-0. */
+  /** The maximum number of fraction digits to use. Possible values are 0-100. */
   @property({ attribute: 'maximum-fraction-digits', type: Number }) maximumFractionDigits: number;
 
   /** The minimum number of significant digits to use. Possible values are 1-21. */
@@ -56,7 +60,7 @@ export default class WaFormatNumber extends WebAwesomeElement {
       minimumFractionDigits: this.minimumFractionDigits,
       maximumFractionDigits: this.maximumFractionDigits,
       minimumSignificantDigits: this.minimumSignificantDigits,
-      maximumSignificantDigits: this.maximumSignificantDigits
+      maximumSignificantDigits: this.maximumSignificantDigits,
     });
   }
 }

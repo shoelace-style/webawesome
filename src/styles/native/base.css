@@ -1,0 +1,75 @@
+/* Baseline styles for the root elements or multiple native elements at once */
+html {
+  box-sizing: border-box;
+  background-color: var(--wa-color-surface-default);
+  padding: 0;
+  margin: 0;
+  tab-size: 4;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--wa-font-family-body);
+  font-size: var(--wa-font-size-m);
+  font-weight: var(--wa-font-weight-body);
+  line-height: var(--wa-line-height-normal);
+  text-size-adjust: none;
+  color: var(--wa-color-text-normal);
+  padding: 0;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+@keyframes wa-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Show custom elements only after they're registered */
+:where(:not(:defined, [did-ssr])) {
+  /*
+	  * if an element gets defined earlier than 800ms, the animation stops applying so it just appears (no fade)
+	  * If it takes somewhere between 800 and 1000 ms, then you may get an interrupted fade
+	  * If an element takes longer than 1000ms to get defined, it fades in over 200ms
+	  */
+  animation: 200ms 800ms wa-fade-in both;
+}
+
+/* Content flow */
+address,
+audio,
+blockquote,
+dd,
+details,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+iframe,
+ol,
+p,
+pre,
+table,
+ul,
+video,
+wa-callout,
+wa-code-demo,
+wa-viewport-demo {
+  &:has(+ *) {
+    margin: 0 0 var(--wa-space-xl) 0;
+  }
+}

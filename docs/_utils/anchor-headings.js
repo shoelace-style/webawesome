@@ -1,11 +1,11 @@
 import { parse } from 'node-html-parser';
-import { v4 as uuid } from 'uuid';
 import slugify from 'slugify';
+import { v4 as uuid } from 'uuid';
 
 function createId(text) {
   let slug = slugify(String(text), {
     remove: /[^\w|\s]/g,
-    lower: true
+    lower: true,
   });
 
   // ids must start with a letter
@@ -24,7 +24,7 @@ export function anchorHeadingsPlugin(options = {}) {
     container: 'body',
     headingSelector: 'h2, h3, h4, h5, h6',
     anchorLabel: 'Jump to heading',
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

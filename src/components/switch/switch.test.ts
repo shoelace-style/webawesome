@@ -1,9 +1,9 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
-import { html } from 'lit';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaSwitch from './switch.js';
 
 describe('<wa-switch>', () => {
@@ -20,13 +20,13 @@ describe('<wa-switch>', () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
 
         expect(el.name).to.equal(null);
-        expect(el.value).to.be.null;
+        expect(el.value).to.equal('on');
         expect(el.title).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.required).to.be.false;
         expect(el.checked).to.be.false;
         expect(el.defaultChecked).to.be.false;
-        expect(el.helpText).to.equal('');
+        expect(el.hint).to.equal('');
       });
 
       it('should have title if title attribute is set', async () => {
@@ -127,7 +127,7 @@ describe('<wa-switch>', () => {
         //
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const label = el.shadowRoot!.querySelector('.switch')!;
-        const input = el.shadowRoot!.querySelector('.switch__input')!;
+        const input = el.shadowRoot!.querySelector('.input')!;
 
         const labelPosition = getComputedStyle(label).position;
         const inputPosition = getComputedStyle(input).position;
@@ -230,12 +230,12 @@ describe('<wa-switch>', () => {
           const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-switch required></wa-switch></form> `);
           const waSwitch = el.querySelector<WaSwitch>('wa-switch')!;
 
-          expect(waSwitch.hasAttribute('data-wa-required')).to.be.true;
-          expect(waSwitch.hasAttribute('data-wa-optional')).to.be.false;
-          expect(waSwitch.hasAttribute('data-wa-invalid')).to.be.true;
-          expect(waSwitch.hasAttribute('data-wa-valid')).to.be.false;
-          expect(waSwitch.hasAttribute('data-wa-user-invalid')).to.be.false;
-          expect(waSwitch.hasAttribute('data-wa-user-valid')).to.be.false;
+          expect(waSwitch.hasCustomState('required')).to.be.true;
+          expect(waSwitch.hasCustomState('optional')).to.be.false;
+          expect(waSwitch.hasCustomState('invalid')).to.be.true;
+          expect(waSwitch.hasCustomState('valid')).to.be.false;
+          expect(waSwitch.hasCustomState('user-invalid')).to.be.false;
+          expect(waSwitch.hasCustomState('user-valid')).to.be.false;
         });
       });
 
@@ -327,6 +327,19 @@ describe('<wa-switch>', () => {
         lastSwitch.focus();
         await aTimeout(10);
         expect(window.scrollY).to.equal(0);
+      });
+
+      // https://github.com/shoelace-style/webawesome-alpha/discussions/124
+      it('Should properly flag changes to checked and reflect', async () => {
+        const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
+        await el.updateComplete;
+        expect(el.checked).to.equal(false);
+
+        el.checked = true;
+
+        await el.updateComplete;
+
+        expect(el.checked).to.equal(true);
       });
     });
   }

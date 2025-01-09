@@ -1,9 +1,10 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './callout.style.js';
+import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import variantStyles from '../../styles/utilities/variants.css';
+import styles from './callout.css';
 
 /**
  * @summary Callouts are used to display important messages inline.
@@ -23,10 +24,22 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, styles];
 
   /** The callout's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+
+  /** The callout's visual appearance. */
+  @property({ reflect: true }) appearance:
+    | 'accent'
+    | 'filled'
+    | 'outlined'
+    | 'plain'
+    | 'outlined filled'
+    | 'outlined accent' = 'outlined filled';
+
+  /** The callout's size. */
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   render() {
     return html`

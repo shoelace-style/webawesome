@@ -1,11 +1,10 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './qr-code.styles.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import type _QrCreator from 'qr-creator';
+import { watch } from '../../internal/watch.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import styles from './qr-code.css';
 
 let QrCreator: _QrCreator.default;
 
@@ -19,7 +18,7 @@ let QrCreator: _QrCreator.default;
  */
 @customElement('wa-qr-code')
 export default class WaQrCode extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   @query('canvas') canvas: HTMLElement;
 
@@ -83,9 +82,9 @@ export default class WaQrCode extends WebAwesomeElement {
         fill: this.fill,
         background: this.background,
         // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
-        size: this.size * 2
+        size: this.size * 2,
       },
-      this.canvas
+      this.canvas,
     );
 
     this.generated = true;

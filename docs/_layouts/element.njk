@@ -1,0 +1,24 @@
+{% extends '../_layouts/block.njk' %}
+
+{# Component header #}
+{% block notes %}
+  {% if component %}
+  <wa-callout variant="success">
+    <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
+    Want to do more?
+    Check out the {% for name in (component | toList) -%}
+      {{ ' and ' if loop.last and not loop.first }}<a href="/docs/components/{{ name }}"><code>&lt;wa-{{ name }}&gt;</code></a>{{ ', ' if not loop.last }}
+      {%- endfor %} component{{ 's' if (component | isList) }}</a>!
+  </wa-callout>
+  {% endif %}
+{% endblock %}
+
+{% block afterContent %}
+  {# Slots #}
+  {% if css_file %}
+    <h2>Using these styles</h2>
+    <p>If you want to use these styles without using the entirety of Web Awesome Native Styles, you can include the following CSS files:</p>
+
+
+  {% endif %}
+{% endblock %}

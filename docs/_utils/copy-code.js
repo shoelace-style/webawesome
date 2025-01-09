@@ -6,7 +6,7 @@ import { parse } from 'node-html-parser';
 export function copyCodePlugin(options = {}) {
   options = {
     container: 'body',
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

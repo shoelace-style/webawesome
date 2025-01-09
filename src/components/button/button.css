@@ -1,0 +1,106 @@
+:host {
+  display: contents;
+  position: relative;
+}
+
+:where([part~='base']) {
+  all: inherit;
+  display: inline-flex;
+}
+
+/*
+ * Label
+ */
+
+.prefix,
+.suffix {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.label {
+  display: inline-block;
+}
+
+.label::slotted(wa-icon) {
+  vertical-align: -2px;
+}
+
+/*
+ * Caret modifier
+ */
+
+wa-icon[part~='caret'] {
+  display: flex;
+  align-self: center;
+  align-items: center;
+
+  &::part(svg) {
+    width: 0.875em;
+    height: 0.875em;
+  }
+
+  .wa-button:has(&) .suffix {
+    display: none;
+  }
+}
+
+/*
+ * Loading modifier
+ */
+
+.loading {
+  position: relative;
+  cursor: wait;
+
+  .prefix,
+  .label,
+  .suffix,
+  .caret {
+    visibility: hidden;
+  }
+
+  wa-spinner {
+    --indicator-color: currentColor;
+    --track-color: color-mix(in oklab, currentColor, transparent 90%);
+
+    position: absolute;
+    font-size: 1em;
+    height: 1em;
+    width: 1em;
+    top: calc(50% - 0.5em);
+    left: calc(50% - 0.5em);
+  }
+}
+
+/*
+ * Badges
+ */
+
+button ::slotted(wa-badge) {
+  border-color: var(--wa-color-surface-default);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  translate: 50% -50%;
+  pointer-events: none;
+}
+
+:host(:dir(rtl)) ::slotted(wa-badge) {
+  translate: -50% -50%;
+}
+
+/*
+* Button spacing
+*/
+
+slot[name='prefix']::slotted(*) {
+  margin-inline-end: var(--wa-space);
+}
+
+slot[name='suffix']::slotted(*),
+.wa-button:not(.visually-hidden-label) [part~='caret'] {
+  margin-inline-start: var(--wa-space);
+}

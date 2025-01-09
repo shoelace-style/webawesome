@@ -22,10 +22,9 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
-    <link rel="stylesheet" href="/dist/themes/applied.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/color_standard.css" />
-    <link rel="stylesheet" href="/dist/themes/forms.css" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
+    <link rel="stylesheet" href="/dist/styles/webawesome.css" />
+    <link rel="stylesheet" href="/dist/styles/forms.css" />
 
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
@@ -43,7 +42,7 @@
     <wa-page>
       <header slot="header">
         {# Nav toggle #}
-        <wa-button variant="text" data-toggle-nav>
+        <wa-button appearance="plain" data-toggle-nav>
           <wa-icon name="bars" label="Toggle navigation"></wa-icon>
         </wa-button>
 
@@ -80,11 +79,12 @@
           </details>
         </nav>
 
-        {% block beforeContent %}{% endblock %}
+        {% block header %}
+          {% include 'breadcrumbs.njk' %}
+          <h1 class="title">{{ title }}</h1>
+        {% endblock %}
 
         {% block content %}
-          <h1 class="title">{{ title }}</h1>
-
           {{ content | safe }}
         {% endblock %}
 

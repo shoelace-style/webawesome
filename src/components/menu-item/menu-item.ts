@@ -1,17 +1,16 @@
+import type { PropertyValues } from 'lit';
+import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { getTextContent } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import '../popup/popup.js';
 import '../spinner/spinner.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
-import { getTextContent } from '../../internal/slot.js';
-import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import styles from './menu-item.css';
 import { SubmenuController } from './submenu-controller.js';
-import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './menu-item.styles.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
 
 /**
  * @summary Menu items provide options for the user to pick from in a menu.
@@ -37,12 +36,12 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @csspart submenu-icon - The submenu icon, visible only when the menu item has a submenu (not yet implemented).
  *
  * @cssproperty --background-color-hover - The menu item's background color on hover.
- * @cssproperty --label-color-hover - The label color on hover.
+ * @cssproperty --text-color-hover - The label color on hover.
  * @cssproperty [--submenu-offset=-2px] - The distance submenus shift to overlap the parent menu.
  */
 @customElement('wa-menu-item')
 export default class WaMenuItem extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private cachedTextLabel: string;
   private readonly localize = new LocalizeController(this);
@@ -174,27 +173,25 @@ export default class WaMenuItem extends WebAwesomeElement {
         part="base"
         class=${classMap({
           'menu-item': true,
-          'menu-item--rtl': isRtl,
           'menu-item--checked': this.checked,
-          'menu-item--disabled': this.disabled,
           'menu-item--loading': this.loading,
           'menu-item--has-submenu': this.isSubmenu(),
-          'menu-item--submenu-expanded': isSubmenuExpanded
+          'menu-item--submenu-expanded': isSubmenuExpanded,
         })}
         ?aria-haspopup="${this.isSubmenu()}"
         ?aria-expanded="${isSubmenuExpanded ? true : false}"
       >
-        <span part="checked-icon" class="menu-item__check">
+        <span part="checked-icon" class="check">
           <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
         </span>
 
-        <slot name="prefix" part="prefix" class="menu-item__prefix"></slot>
+        <slot name="prefix" part="prefix" class="prefix"></slot>
 
-        <slot part="label" class="menu-item__label" @slotchange=${this.handleDefaultSlotChange}></slot>
+        <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
 
-        <slot name="suffix" part="suffix" class="menu-item__suffix"></slot>
+        <slot name="suffix" part="suffix" class="suffix"></slot>
 
-        <span part="submenu-icon" class="menu-item__chevron">
+        <span part="submenu-icon" class="chevron">
           <wa-icon
             name=${isRtl ? 'chevron-left' : 'chevron-right'}
             library="system"

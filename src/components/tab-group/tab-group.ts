@@ -1,20 +1,18 @@
-import '../icon-button/icon-button.js';
-import '../tab-panel/tab-panel.js';
-import '../tab/tab.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { scrollIntoView } from '../../internal/scroll.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
 import { WaTabShowEvent } from '../../events/tab-show.js';
+import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './tab-group.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
-import type WaTab from '../tab/tab.js';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import '../tab-panel/tab-panel.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
+import '../tab/tab.js';
+import type WaTab from '../tab/tab.js';
+import styles from './tab-group.css';
 
 /**
  * @summary Tab groups organize content into a container that shows one section at a time.
@@ -38,8 +36,8 @@ import type WaTabPanel from '../tab-panel/tab-panel.js';
  * @csspart tabs - The container that wraps the tabs.
  * @csspart body - The tab group's body where tab panels are slotted in.
  * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, an `<wa-icon-button>`.
- * @csspart scroll-button--start - The starting scroll button.
- * @csspart scroll-button--end - The ending scroll button.
+ * @csspart scroll-button-start - The starting scroll button.
+ * @csspart scroll-button-end - The ending scroll button.
  * @csspart scroll-button__base - The scroll button's exported `base` part.
  *
  * @cssproperty --indicator-color - The color of the active tab indicator.
@@ -48,7 +46,7 @@ import type WaTabPanel from '../tab-panel/tab-panel.js';
  */
 @customElement('wa-tab-group')
 export default class WaTabGroup extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private activeTab?: WaTab;
   private mutationObserver: MutationObserver;
@@ -59,8 +57,8 @@ export default class WaTabGroup extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   @query('.tab-group') tabGroup: HTMLElement;
-  @query('.tab-group__body') body: HTMLSlotElement;
-  @query('.tab-group__nav') nav: HTMLElement;
+  @query('.body') body: HTMLSlotElement;
+  @query('.nav') nav: HTMLElement;
 
   @state() private hasScrollControls = false;
 
@@ -278,7 +276,7 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.localize.dir() === 'rtl'
           ? this.nav.scrollLeft + this.nav.clientWidth
           : this.nav.scrollLeft - this.nav.clientWidth,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -288,7 +286,7 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.localize.dir() === 'rtl'
           ? this.nav.scrollLeft - this.nav.clientWidth
           : this.nav.scrollLeft + this.nav.clientWidth,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -296,7 +294,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     options = {
       emitEvents: true,
       scrollBehavior: 'auto',
-      ...options
+      ...options,
     };
 
     if (tab !== this.activeTab && !tab.disabled) {
@@ -384,19 +382,18 @@ export default class WaTabGroup extends WebAwesomeElement {
           'tab-group--bottom': this.placement === 'bottom',
           'tab-group--start': this.placement === 'start',
           'tab-group--end': this.placement === 'end',
-          'tab-group--rtl': isRtl,
-          'tab-group--has-scroll-controls': this.hasScrollControls
+          'tab-group--has-scroll-controls': this.hasScrollControls,
         })}
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
       >
-        <div class="tab-group__nav-container" part="nav">
+        <div class="nav-container" part="nav">
           ${this.hasScrollControls
             ? html`
                 <wa-icon-button
-                  part="scroll-button scroll-button--start"
+                  part="scroll-button scroll-button-start"
                   exportparts="base:scroll-button__base"
-                  class="tab-group__scroll-button tab-group__scroll-button--start"
+                  class="scroll-button scroll-button-start"
                   name=${isRtl ? 'chevron-right' : 'chevron-left'}
                   library="system"
                   variant="solid"
@@ -407,8 +404,8 @@ export default class WaTabGroup extends WebAwesomeElement {
             : ''}
 
           <!-- We have a focus listener because in Firefox (and soon to be Chrome) overflow containers are focusable. -->
-          <div class="tab-group__nav" @focus=${() => this.activeTab?.focus({ preventScroll: true })}>
-            <div part="tabs" class="tab-group__tabs" role="tablist">
+          <div class="nav" @focus=${() => this.activeTab?.focus({ preventScroll: true })}>
+            <div part="tabs" class="tabs" role="tablist">
               <slot name="nav" @slotchange=${this.syncTabsAndPanels}></slot>
             </div>
           </div>
@@ -416,9 +413,9 @@ export default class WaTabGroup extends WebAwesomeElement {
           ${this.hasScrollControls
             ? html`
                 <wa-icon-button
-                  part="scroll-button scroll-button--end"
+                  part="scroll-button scroll-button-end"
+                  class="scroll-button scroll-button-end"
                   exportparts="base:scroll-button__base"
-                  class="tab-group__scroll-button tab-group__scroll-button--end"
                   name=${isRtl ? 'chevron-left' : 'chevron-right'}
                   library="system"
                   variant="solid"
@@ -429,7 +426,7 @@ export default class WaTabGroup extends WebAwesomeElement {
             : ''}
         </div>
 
-        <slot part="body" class="tab-group__body" @slotchange=${this.syncTabsAndPanels}></slot>
+        <slot part="body" class="body" @slotchange=${this.syncTabsAndPanels}></slot>
       </div>
     `;
   }

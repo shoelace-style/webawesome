@@ -18,12 +18,11 @@ document.addEventListener('click', event => {
     const cdnUrl = document.documentElement.dataset.cdnUrl;
     const html =
       `<script type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/default.css">\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/applied.css">\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/layout.css">\n` +
-      `<link rel="stylesheet" href="${cdnUrl}themes/utilities.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}styles/themes/default.css">\n` +
+      `<link rel="stylesheet" href="${cdnUrl}styles/webawesome.css">\n` +
+      `<link rel="stylesheet" href="${cdnUrl}styles/utilities.css">\n\n` +
       `${code.textContent}`;
-    const css = 'html > body {\n  font: 16px sans-serif;\n  padding: 2rem;\n}';
+    const css = 'html > body {\n  padding: 2rem !important;\n}';
     const js = '';
 
     const form = document.createElement('form');
@@ -44,7 +43,7 @@ document.addEventListener('click', event => {
       js_pre_processor: 'none',
       html,
       css,
-      js
+      js,
     };
 
     const input = document.createElement('input');

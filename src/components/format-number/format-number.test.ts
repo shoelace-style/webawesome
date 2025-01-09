@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaFormatNumber from './format-number.js';
 
 describe('<wa-format-number>', () => {
@@ -84,7 +84,7 @@ describe('<wa-format-number>', () => {
             `);
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
-              currencyDisplay: currencyDisplay
+              currencyDisplay: currencyDisplay,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
@@ -100,7 +100,7 @@ describe('<wa-format-number>', () => {
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
               currencyDisplay: 'symbol',
-              minimumIntegerDigits: minDigits
+              minimumIntegerDigits: minDigits,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
@@ -116,7 +116,7 @@ describe('<wa-format-number>', () => {
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
               currencyDisplay: 'symbol',
-              minimumFractionDigits: minFractionDigits
+              minimumFractionDigits: minFractionDigits,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
@@ -132,7 +132,7 @@ describe('<wa-format-number>', () => {
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
               currencyDisplay: 'symbol',
-              maximumFractionDigits: maxFractionDigits
+              maximumFractionDigits: maxFractionDigits,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
@@ -148,7 +148,7 @@ describe('<wa-format-number>', () => {
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
               currencyDisplay: 'symbol',
-              minimumSignificantDigits: minSignificantDigits
+              minimumSignificantDigits: minSignificantDigits,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });
@@ -164,7 +164,7 @@ describe('<wa-format-number>', () => {
             const expected = new Intl.NumberFormat('en-US', {
               style: 'decimal',
               currencyDisplay: 'symbol',
-              maximumSignificantDigits: maxSignificantDigits
+              maximumSignificantDigits: maxSignificantDigits,
             }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
           });

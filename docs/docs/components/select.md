@@ -1,7 +1,9 @@
 ---
 title: Select
 description: Selects allow you to choose items from a menu of predefined options.
-layout: component
+tags: [inputs, forms]
+native: select
+icon: select
 ---
 
 ```html {.example}
@@ -33,12 +35,12 @@ Use the `label` attribute to give the select an accessible label. For labels tha
 </wa-select>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a select with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a select with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-select label="Experience" help-text="Please tell us your skill level.">
+<wa-select label="Experience" hint="Please tell us your skill level.">
   <wa-option value="1">Novice</wa-option>
   <wa-option value="2">Intermediate</wa-option>
   <wa-option value="3">Advanced</wa-option>
@@ -69,12 +71,12 @@ Use the `clearable` attribute to make the control clearable. The clear button on
 </wa-select>
 ```
 
-### Filled Selects
+### Appearance
 
-Add the `filled` attribute to draw a filled select.
+Use the `appearance` attribute to change the select's visual appearance.
 
 ```html {.example}
-<wa-select filled>
+<wa-select appearance="filled">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -413,3 +415,10 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
   container.addEventListener("submit", handleLazySubmit)
 </script>
 ```
+
+<script type="module">
+  //
+  // TODO - remove once we switch to the Popover API
+  //
+  document.querySelectorAll('wa-code-demo [slot="preview"] wa-select').forEach(select => select.hoist = true);
+</script>

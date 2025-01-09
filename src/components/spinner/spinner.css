@@ -1,0 +1,59 @@
+:host {
+  --track-width: 2px;
+  --track-color: var(--wa-color-neutral-fill-normal);
+  --indicator-color: var(--wa-color-brand-fill-loud);
+  --speed: 2s;
+
+  /* Resizing a spinner element using anything but font-size will break the animation because the animation uses em units.
+   Therefore, if a spinner is used in a flex container without `flex: none` applied, the spinner can grow/shrink and
+   break the animation. The use of `flex: none` on the host element prevents this by always having the spinner sized
+   according to its actual dimensions.
+  */
+  flex: none;
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  animation: spin var(--speed) linear infinite;
+}
+
+.track {
+  stroke: var(--track-color);
+}
+
+.indicator {
+  stroke: var(--indicator-color);
+  stroke-dasharray: 75, 100;
+  stroke-dashoffset: -5;
+  animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}

@@ -1,7 +1,7 @@
 import { expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaTreeItem from './tree-item.js';
 
 describe('<wa-tree-item>', () => {
@@ -38,7 +38,7 @@ describe('<wa-tree-item>', () => {
 
         it('should show the expand button', () => {
           // Arrange
-          const expandButton = parentItem.shadowRoot?.querySelector('.tree-item__expand-button');
+          const expandButton = parentItem.shadowRoot?.querySelector('.expand-button');
 
           // Act
 
@@ -97,7 +97,7 @@ describe('<wa-tree-item>', () => {
           describe('and the item is disabled', () => {
             it('should not expand', async () => {
               // Arrange
-              const expandButton: HTMLElement = parentItem.shadowRoot!.querySelector('.tree-item__expand-button')!;
+              const expandButton: HTMLElement = parentItem.shadowRoot!.querySelector('.expand-button')!;
               parentItem.disabled = true;
 
               // Act
@@ -122,13 +122,13 @@ describe('<wa-tree-item>', () => {
           expect(leafItem).to.have.attribute('aria-selected', 'true');
         });
 
-        it('should set item--selected part', async () => {
+        it('should set selected part', async () => {
           // Act
           leafItem.selected = true;
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--selected')).to.be.true;
+          expect(leafItem.hasCustomState('selected')).to.be.true;
         });
       });
 
@@ -141,25 +141,16 @@ describe('<wa-tree-item>', () => {
           // Assert
           expect(leafItem).to.have.attribute('aria-disabled', 'true');
         });
-
-        it('should set item--disabled part', async () => {
-          // Act
-          leafItem.disabled = true;
-          await leafItem.updateComplete;
-
-          // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--disabled')).to.be.true;
-        });
       });
 
       describe('when the item is expanded', () => {
-        it('should set item--expanded part', async () => {
+        it('should set expanded state', async () => {
           // Act
           leafItem.expanded = true;
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.shadowRoot?.querySelector('.tree-item__item')?.part.contains('item--expanded')).to.be.true;
+          expect(leafItem.hasCustomState('expanded')).to.be.true;
         });
       });
 

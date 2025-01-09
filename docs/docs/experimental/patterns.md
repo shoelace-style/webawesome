@@ -1,4 +1,0 @@
----
-title: Patterns
-description: TODO
----

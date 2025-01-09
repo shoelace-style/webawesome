@@ -17,7 +17,7 @@ To customize a theme, simply override any of these custom properties in your own
 ```css
 :root,
 :host,
-.wa-theme-default-light {
+.wa-theme-default {
   /* Changes the brand color to violet across the library */
   --wa-color-brand-fill-quiet: var(--wa-color-violet-95);
   --wa-color-brand-fill-normal: var(--wa-color-violet-90);
@@ -31,11 +31,11 @@ To customize a theme, simply override any of these custom properties in your own
 }
 ```
 
-For more examples and further guidance, refer to [Themes](/docs/themes) and the Theming section of this documentation. For a complete list of all custom properties used for theming, refer to `src/themes/default.css` in the project's source code.
+For more examples and further guidance, refer to [Themes](/docs/themes) and the Theming section of this documentation. For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
 ## Components
 
-Whereas a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually. 
+Whereas a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
 
 Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of custom properties and CSS parts that can be targeted to customize their appearance.
 
@@ -66,6 +66,19 @@ Alternatively, you can set them inline directly on the element.
 ```
 
 The custom properties exposed by each component can be found in the component's API documentation.
+
+### Custom States
+
+Components can expose custom states that allow you to style them based on their current condition using the `:state()` selector. Custom states provide a way to target specific component states that aren't covered by standard pseudo-classes like `:hover` or `:focus`.
+Here's an example that styles a checkbox that's checked.
+
+```css
+wa-checkbox:state(checked) {
+  outline: dotted 2px tomato;
+}
+```
+
+Custom states can be combined with CSS parts and custom properties to create sophisticated customizations. The custom states exposed by each component can be found in the component's API documentation under the "Custom States" section.
 
 ### CSS Parts
 

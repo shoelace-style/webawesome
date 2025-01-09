@@ -1,20 +1,22 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './textarea.styles.js';
-import type { CSSResultGroup } from 'lit';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import nativeStyles from '../../styles/native/input.css';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import styles from './textarea.css';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -23,7 +25,7 @@ import type { CSSResultGroup } from 'lit';
  * @since 2.0
  *
  * @slot label - The textarea's label. Alternatively, you can use the `label` attribute.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
@@ -31,35 +33,33 @@ import type { CSSResultGroup } from 'lit';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart label - The label
  * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
- * @csspart base - The component's base wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
+ * @csspart base - The wrapper around the `<textarea>` control.
  *
  * @cssproperty --background-color - The textarea's background color.
  * @cssproperty --border-color - The color of the textarea's borders.
- * @cssproperty --border-radius - The border radius of the textarea's corners.
- * @cssproperty --border-style - The style of the textarea's borders.
  * @cssproperty --border-width - The width of the textarea's borders.
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [formControlStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+
   static get validators() {
     return [...super.validators, MirrorValidator()];
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private resizeObserver: ResizeObserver;
 
-  @query('.textarea__control') input: HTMLTextAreaElement;
-  @query('.textarea__size-adjuster') sizeAdjuster: HTMLTextAreaElement;
+  @query('.control') input: HTMLTextAreaElement;
+  @query('[part~="base"]') base: HTMLDivElement;
+  @query('.size-adjuster') sizeAdjuster: HTMLTextAreaElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the textarea, submitted as a name/value pair with form data. */
@@ -92,14 +92,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The textarea's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
-  /** Draws a filled textarea. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The textarea's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The textarea's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The textarea's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** Placeholder text to show as a hint when the input is empty. */
   @property() placeholder = '';
@@ -108,7 +108,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ type: Number }) rows = 4;
 
   /** Controls how the textarea can be resized. */
-  @property() resize: 'none' | 'vertical' | 'auto' = 'vertical';
+  @property({ reflect: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' | 'auto' = 'vertical';
 
   /** Disables the textarea. */
   @property({ type: Boolean }) disabled = false;
@@ -156,8 +156,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     converter: {
       // Allow "true|false" attribute values but keep the property boolean
       fromAttribute: value => (!value || value === 'false' ? false : true),
-      toAttribute: value => (value ? 'true' : 'false')
-    }
+      toAttribute: value => (value ? 'true' : 'false'),
+    },
   })
   spellcheck = true;
 
@@ -173,17 +173,17 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR. If you're slotting in a `help-text` element, make sure to set this to `true`.
+   * Used for SSR. If you're slotting in a `hint` element, make sure to set this to `true`.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   connectedCallback() {
     super.connectedCallback();
 
-    this.resizeObserver = new ResizeObserver(() => this.setTextareaHeight());
+    this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
 
     this.updateComplete.then(() => {
-      this.setTextareaHeight();
+      this.setTextareaDimensions();
       this.resizeObserver.observe(this.input);
 
       if (this.didSSR && this.input && this.value !== this.input.value) {
@@ -202,49 +202,80 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
     this.checkValidity();
   }
 
   private handleChange() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
     this.dispatchEvent(new WaChangeEvent());
     this.checkValidity();
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleInput() {
+    this.valueHasChanged = true;
     this.value = this.input.value;
     this.dispatchEvent(new WaInputEvent());
   }
 
-  private setTextareaHeight() {
+  private setTextareaDimensions() {
+    if (this.resize === 'none') {
+      // just in case this is called via a property changing.
+      this.base.style.width = ``;
+      this.base.style.height = ``;
+      return;
+    }
+
     if (this.resize === 'auto') {
-      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it. In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it.
+      // In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // Let’s switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
-    } else {
-      this.input.style.height = '';
+
+      this.base.style.width = ``;
+      this.base.style.height = ``;
+      return;
+    }
+
+    // handles vertical, horizontal, and both resizers:
+
+    // These should always be set by a manual resize operation , so its reasonable to expect px.
+    if (this.input.style.width) {
+      const width = Number(this.input.style.width.split(/px/)[0]) + 2;
+      this.base.style.width = `${width}px`;
+    }
+
+    if (this.input.style.height) {
+      const height = Number(this.input.style.height.split(/px/)[0]) + 2;
+      this.base.style.height = `${height}px`;
     }
   }
 
   @watch('rows', { waitUntilFirstUpdate: true })
   handleRowsChange() {
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
   }
 
   @watch('value', { waitUntilFirstUpdate: true })
   async handleValueChange() {
     await this.updateComplete;
     this.checkValidity();
-    this.setTextareaHeight();
+    this.setTextareaDimensions();
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('resize')) {
+      this.setTextareaDimensions();
+    }
+    super.updated(changedProperties);
   }
 
   /** Sets focus on the textarea. */
@@ -272,7 +303,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     return {
       top: this.input.scrollTop,
-      left: this.input.scrollTop
+      left: this.input.scrollTop,
     };
   }
 
@@ -280,7 +311,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   setSelectionRange(
     selectionStart: number,
     selectionEnd: number,
-    selectionDirection: 'forward' | 'backward' | 'none' = 'none'
+    selectionDirection: 'forward' | 'backward' | 'none' = 'none',
   ) {
     this.input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
@@ -290,7 +321,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     replacement: string,
     start?: number,
     end?: number,
-    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve'
+    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve',
   ) {
     const selectionStart = start ?? this.input.selectionStart;
     const selectionEnd = end ?? this.input.selectionEnd;
@@ -299,7 +330,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== this.input.value) {
       this.value = this.input.value;
-      this.setTextareaHeight();
+      this.setTextareaDimensions();
     }
   }
 
@@ -311,90 +342,56 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <div
-        part="form-control"
-        class=${classMap({
-          'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
-          'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
-        })}
-      >
-        <label
-          part="form-control-label"
-          class="form-control__label"
-          for="input"
-          aria-hidden=${hasLabel ? 'false' : 'true'}
-        >
-          <slot name="label">${this.label}</slot>
-        </label>
+      <label part="label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+        <slot name="label">${this.label}</slot>
+      </label>
 
-        <div part="form-control-input" class="form-control-input">
-          <div
-            part="base"
-            class=${classMap({
-              textarea: true,
-              'textarea--small': this.size === 'small',
-              'textarea--medium': this.size === 'medium',
-              'textarea--large': this.size === 'large',
-              'textarea--standard': !this.filled,
-              'textarea--filled': this.filled,
-              'textarea--disabled': this.disabled,
-              'textarea--focused': this.hasFocus,
-              'textarea--empty': !this.value,
-              'textarea--resize-none': this.resize === 'none',
-              'textarea--resize-vertical': this.resize === 'vertical',
-              'textarea--resize-auto': this.resize === 'auto'
-            })}
-          >
-            <textarea
-              part="textarea"
-              id="input"
-              class="textarea__control"
-              title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-              name=${ifDefined(this.name)}
-              .value=${live(this.value)}
-              ?disabled=${this.disabled}
-              ?readonly=${this.readonly}
-              ?required=${this.required}
-              placeholder=${ifDefined(this.placeholder)}
-              rows=${ifDefined(this.rows)}
-              minlength=${ifDefined(this.minlength)}
-              maxlength=${ifDefined(this.maxlength)}
-              autocapitalize=${ifDefined(this.autocapitalize)}
-              autocorrect=${ifDefined(this.autocorrect)}
-              ?autofocus=${this.autofocus}
-              spellcheck=${ifDefined(this.spellcheck)}
-              enterkeyhint=${ifDefined(this.enterkeyhint)}
-              inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="help-text"
-              @change=${this.handleChange}
-              @input=${this.handleInput}
-              @focus=${this.handleFocus}
-              @blur=${this.handleBlur}
-            ></textarea>
+      <div part="base" class="wa-text-field textarea">
+        <textarea
+          part="textarea"
+          id="input"
+          class="control"
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${ifDefined(this.name)}
+          .value=${live(this.value)}
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          ?required=${this.required}
+          placeholder=${ifDefined(this.placeholder)}
+          rows=${ifDefined(this.rows)}
+          minlength=${ifDefined(this.minlength)}
+          maxlength=${ifDefined(this.maxlength)}
+          autocapitalize=${ifDefined(this.autocapitalize)}
+          autocorrect=${ifDefined(this.autocorrect)}
+          ?autofocus=${this.autofocus}
+          spellcheck=${ifDefined(this.spellcheck)}
+          enterkeyhint=${ifDefined(this.enterkeyhint)}
+          inputmode=${ifDefined(this.inputmode)}
+          aria-describedby="hint"
+          @change=${this.handleChange}
+          @input=${this.handleInput}
+          @focus=${this.handleFocus}
+          @blur=${this.handleBlur}
+        ></textarea>
 
-            <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
-            <div part="textarea-adjuster" class="textarea__size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
-          </div>
-        </div>
-
-        <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
+        <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
+        <div part="textarea-adjuster" class="size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
       </div>
+
+      <slot
+        name="hint"
+        part="hint"
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        >${this.hint}</slot
+      >
     `;
   }
 }

@@ -1,7 +1,7 @@
-export { getBasePath, setBasePath, getKitCode, setKitCode } from './utilities/base-path.js';
 export { registerIconLibrary, unregisterIconLibrary } from './components/icon/library.js';
-export { registerTranslation } from './utilities/localize.js';
 export { discover, startLoader, stopLoader } from './utilities/autoloader.js';
+export { getBasePath, getKitCode, setBasePath, setKitCode } from './utilities/base-path.js';
+export { registerTranslation } from './utilities/localize.js';
 
 // Utilities
 export * from './utilities/animation.js';

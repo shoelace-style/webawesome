@@ -31,11 +31,10 @@
 
     {# Web Awesome #}
     <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/themes/default.css" />
-    <link rel="stylesheet" href="/dist/themes/applied.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/layout.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/themes/utilities.css" />
-    <link rel="stylesheet" href="/dist/themes/forms.css" />
+    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
+    <link rel="stylesheet" href="/dist/styles/webawesome.css" />
+    <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
+    <link rel="stylesheet" href="/dist/styles/forms.css" />
 
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
@@ -63,7 +62,7 @@
       const newStylesheet = document.createElement("link")
 
       let preset = getPresetTheme()
-      newStylesheet.href = `/dist/themes/${preset}.css`
+      newStylesheet.href = `/dist/styles/themes/${preset}.css`
       newStylesheet.rel = "preload"
       newStylesheet.as = "style"
 
@@ -77,34 +76,31 @@
 
       newStylesheet.addEventListener("load", updateStylesheet)
 
-      document.documentElement.classList.toggle(
-        `wa-theme-${preset}-dark`,
-        isDark()
-      );
+      document.documentElement.classList.toggle(`wa-dark`, isDark());
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
     <wa-page view="desktop" disable-navigation-toggle="">
-      <header slot="header">
+      <header slot="header" class="wa-split">
         {# Logo #}
         <div id="docs-branding">
           {# Nav toggle #}
-          <wa-button appearance="text" size="small" data-toggle-nav>
+          <wa-button appearance="plain" size="small" data-toggle-nav>
             <wa-icon name="bars" label="Toggle navigation"></wa-icon>
           </wa-button>
 
           <a href="/" aria-label="Web Awesome">
-            <span class="only-desktop">{% include "logo.njk" %}</span>
-            <span class="only-mobile">{% include "logo-simple.njk" %}</span>
+            <span class="wa-desktop-only">{% include "logo.njk" %}</span>
+            <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
           </a>
           <small id="version-number" class="only-desktop">{{ package.version }}</small>
-          <wa-badge variant="warning" class="only-desktop">Alpha</wa-badge>
+          <wa-badge variant="warning" appearance="filled" class="only-desktop">Alpha</wa-badge>
         </div>
 
-        <div id="docs-toolbar">
+        <div id="docs-toolbar" class="wa-cluster wa-gap-xs">
           {# Desktop selectors #}
-          <div class="only-desktop">
+          <div class="only-desktop wa-cluster wa-gap-xs">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
@@ -121,8 +117,8 @@
       {# Sidebar #}
       {% if hasSidebar %}
         {# Mobile selectors #}
-        <div class="only-mobile" slot="navigation-header">
-          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <div class="wa-mobile-only" slot="navigation-header">
+          <div class="wa-cluster wa-gap-xs">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
@@ -150,11 +146,14 @@
           </details>
         </nav>
 
-        {% block beforeContent %}{% endblock %}
+
+
+        {% block header %}
+          {% include 'breadcrumbs.njk' %}
+          <h1 class="title">{{ title }}</h1>
+        {% endblock %}
 
         {% block content %}
-          <h1 class="title">{{ title }}</h1>
-
           {{ content | safe }}
         {% endblock %}
 

@@ -1,6 +1,6 @@
+import type WaIcon from '../icon/icon.js';
 import defaultLibrary from './library.default.js';
 import systemLibrary from './library.system.js';
-import type WaIcon from '../icon/icon.js';
 
 export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
@@ -36,7 +36,7 @@ export function registerIconLibrary(name: string, options: Omit<IconLibrary, 'na
     name,
     resolver: options.resolver,
     mutator: options.mutator,
-    spriteSheet: options.spriteSheet
+    spriteSheet: options.spriteSheet,
   });
 
   // Redraw watched icons

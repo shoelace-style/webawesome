@@ -1,0 +1,49 @@
+:host {
+  --background-color-hover: var(--wa-color-neutral-fill-quiet);
+
+  display: inline-block;
+  color: var(--wa-color-text-quiet);
+}
+
+.icon-button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--wa-border-radius-m);
+  font-size: inherit;
+  color: inherit;
+  padding: var(--wa-space-xs);
+  cursor: pointer;
+  transition: color var(--wa-transition-fast) var(--wa-transition-easing);
+  -webkit-appearance: none;
+}
+
+:host(:not([disabled])) .icon-button:hover,
+:host(:not([disabled])) .icon-button:focus-visible {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+}
+
+:host(:not([disabled])) .icon-button:active {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+}
+
+.icon-button:focus {
+  outline: none;
+}
+
+:host([disabled]) .icon-button {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-button:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+.icon {
+  pointer-events: none;
+}

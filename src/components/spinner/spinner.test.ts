@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaSpinner from './spinner.js';
 
 describe('<wa-spinner>', () => {

@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.form-control {
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.label {
+  padding: 0;
+}
+
+.radio-group--required .label::after {
+  content: var(--wa-form-control-required-content);
+  margin-inline-start: var(--wa-form-control-required-content-offset);
+}
+
+.wa-button-group {
+  display: flex;
+}
+
+/* Help text */
+[part~='hint'] {
+  margin-block-start: var(--wa-space-2xs);
+}

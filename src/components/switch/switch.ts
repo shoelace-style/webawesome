@@ -1,20 +1,20 @@
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './switch.styles.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import styles from './switch.css';
 
 /**
  * @summary Switches allow the user to toggle an option on or off.
@@ -23,7 +23,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @since 2.0
  *
  * @slot - The switch's label.
- * @slot help-text - Text that describes how to use the switch. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the switch. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when the control's checked state changes.
@@ -35,7 +35,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  * @csspart control - The control that houses the switch's thumb.
  * @csspart thumb - The switch's thumb.
  * @csspart label - The switch's label.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The switch's background color.
  * @cssproperty --background-color-checked - The switch's background color when checked.
@@ -53,45 +53,32 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text');
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /** The name of the switch, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  private _value: string | null = null;
+  private _value: string | null = this.getAttribute('value') ?? null;
 
-  /** The current value of the switch, submitted as a name/value pair with form data. */
-  get value() {
-    if (this.valueHasChanged) {
-      return this._value;
-    }
-
-    return this._value ?? this.defaultValue;
+  /** The value of the switch, submitted as a name/value pair with form data. */
+  get value(): string | null {
+    return this._value ?? 'on';
   }
 
-  @state()
+  @property({ reflect: true })
   set value(val: string | null) {
-    if (this._value === val) {
-      return;
-    }
-
-    this.valueHasChanged = true;
     this._value = val;
   }
-
-  /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
 
   /** The switch's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -100,10 +87,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean }) disabled = false;
 
   /** Draws the switch in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked: boolean =
+    this.hasAttribute('checked');
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -115,13 +103,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** Makes the switch a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
-  /** The switch's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The switch's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR. If you slot in help-text, make sure to add `with-help-text` to your component to get it to properly render with SSR.
+   * Used for SSR. If you slot in hint, make sure to add `with-hint` to your component to get it to properly render with SSR.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -130,7 +118,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -145,7 +132,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -168,28 +154,39 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked') || changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('defaultChecked')) {
+      if (!this.hasInteracted) {
+        this.checked = this.defaultChecked;
+      }
+    }
+
+    if (changedProperties.has('value') || changedProperties.has('checked')) {
       this.handleValueOrCheckedChange();
     }
   }
 
   handleValueOrCheckedChange() {
-    this.handleDefaultCheckedChange();
-    this.value = this.checked ? this.value || 'on' : null;
-
-    if (this.input) {
-      this.input.checked = this.checked; // force a sync update
-    }
-
-    this.setValue(this.value, this.value);
+    // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
+    this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
   }
 
+  @watch('defaultChecked')
   handleDefaultCheckedChange() {
     if (!this.hasInteracted && this.checked !== this.defaultChecked) {
       this.checked = this.defaultChecked;
       this.handleValueOrCheckedChange();
     }
+  }
+
+  @watch(['checked'])
+  handleStateChange() {
+    if (this.hasUpdated) {
+      this.input.checked = this.checked; // force a sync update
+    }
+
+    this.toggleCustomState('checked', this.checked);
+    this.updateValidity();
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -215,16 +212,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   setValue(value: string | File | FormData | null, stateValue?: string | File | FormData | null | undefined): void {
     if (!this.checked) {
-      this.value = null;
       this.internals.setFormValue(null, null);
       return;
     }
 
-    if (!value) {
-      value = 'on';
-    }
-
-    this.internals.setFormValue(value, stateValue);
+    this.internals.setFormValue(value ?? 'on', stateValue);
   }
 
   formResetCallback(): void {
@@ -234,68 +226,52 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <div
+      <label
+        part="base"
         class=${classMap({
-          'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
-          'form-control--has-help-text': hasHelpText
+          checked: this.checked,
+          disabled: this.disabled,
         })}
       >
-        <label
-          part="base"
-          class=${classMap({
-            switch: true,
-            'switch--checked': this.checked,
-            'switch--disabled': this.disabled,
-            'switch--focused': this.hasFocus,
-            'switch--small': this.size === 'small',
-            'switch--medium': this.size === 'medium',
-            'switch--large': this.size === 'large'
-          })}
-        >
-          <input
-            class="switch__input"
-            type="checkbox"
-            title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-            name=${this.name}
-            value=${ifDefined(this.value)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
-            role="switch"
-            aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby="help-text"
-            @click=${this.handleClick}
-            @input=${this.handleInput}
-            @blur=${this.handleBlur}
-            @focus=${this.handleFocus}
-            @keydown=${this.handleKeyDown}
-          />
+        <input
+          class="input"
+          type="checkbox"
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${this.name}
+          value=${ifDefined(this.value)}
+          .checked=${live(this.checked)}
+          .disabled=${this.disabled}
+          .required=${this.required}
+          role="switch"
+          aria-checked=${this.checked ? 'true' : 'false'}
+          aria-describedby="hint"
+          @click=${this.handleClick}
+          @input=${this.handleInput}
+          @blur=${this.handleBlur}
+          @focus=${this.handleFocus}
+          @keydown=${this.handleKeyDown}
+        />
 
-          <span part="control" class="switch__control">
-            <span part="thumb" class="switch__thumb"></span>
-          </span>
+        <span part="control" class="switch">
+          <span part="thumb" class="thumb"></span>
+        </span>
 
-          <div part="label" class="switch__label">
-            <slot></slot>
-          </div>
-        </label>
+        <slot part="label" class="label"></slot>
+      </label>
 
-        <div
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-          class="form-control__help-text"
-          id="help-text"
-          part="form-control-help-text"
-        >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
-      </div>
+      <slot
+        name="hint"
+        part="hint"
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        >${this.hint}</slot
+      >
     `;
   }
 }

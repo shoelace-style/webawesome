@@ -1,7 +1,9 @@
 ---
 title: Switch
 description: Switches allow the user to toggle an option on or off.
-layout: component
+tags: [inputs, forms]
+icon: switch
+keywords: toggle
 ---
 
 ```html {.example}
@@ -42,12 +44,12 @@ Use the `size` attribute to change a switch's size.
 <wa-switch size="large">Large</wa-switch>
 ```
 
-### Help Text
+### Hint
 
-Add descriptive help text to a switch with the `help-text` attribute. For help texts that contain HTML, use the `help-text` slot instead.
+Add descriptive hint to a switch with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-switch help-text="What should the user know about the switch?">Label</wa-switch>
+<wa-switch hint="What should the user know about the switch?">Label</wa-switch>
 ```
 
 ### Custom Styles

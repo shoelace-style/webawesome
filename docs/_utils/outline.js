@@ -15,7 +15,7 @@ export function outlinePlugin(options = {}) {
     target: '.outline',
     selector: 'h2,h3',
     ifEmpty: () => null,
-    ...options
+    ...options,
   };
 
   return function (eleventyConfig) {

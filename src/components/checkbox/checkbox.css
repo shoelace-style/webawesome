@@ -1,0 +1,36 @@
+[part~='base'] {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  color: var(--wa-form-control-value-color);
+  vertical-align: middle;
+}
+
+input {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+[part~='icon'] {
+  display: flex;
+
+  /* Without this, Safari renders the icon slightly to the left */
+  &::part(svg) {
+    translate: 0.0009765625em;
+  }
+
+  input:not(:checked, :indeterminate) + & {
+    visibility: hidden;
+  }
+}
+
+:host([required]) [part~='label']::after {
+  content: var(--wa-form-control-required-content);
+  color: var(--wa-form-control-required-content-color);
+  margin-inline-start: var(--wa-form-control-required-content-offset);
+}

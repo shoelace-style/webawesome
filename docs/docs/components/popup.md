@@ -1,7 +1,8 @@
 ---
 title: Popup
 description: 'Popup is a utility that lets you declaratively anchor "popup" containers to another element.'
-layout: component
+tags: [helpers, primitives]
+icon: popup
 ---
 
 This component's name is inspired by [`<popup>`](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Popup/explainer.md). It uses [Floating UI](https://floating-ui.com/) under the hood to provide a well-tested, lightweight, and fully declarative positioning utility for tooltips, dropdowns, and more.
@@ -77,7 +78,7 @@ Popup is a low-level utility built specifically for positioning elements. Do not
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .popup-overview-options {
@@ -135,7 +136,7 @@ Popups are inactive and hidden until the `active` attribute is applied. Removing
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 
@@ -172,7 +173,7 @@ By default, anchors are slotted into the popup using the `anchor` slot. If your 
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 ```
@@ -219,7 +220,7 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .popup-placement wa-select {
@@ -247,7 +248,7 @@ Use the `distance` attribute to change the distance between the popup and its an
     <div class="box"></div>
   </wa-popup>
 
-  <wa-range min="-50" max="50" step="1" value="0" label="Distance"></wa-range>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Distance"></wa-slider>
 </div>
 
 <style>
@@ -263,10 +264,10 @@ Use the `distance` attribute to change the distance between the popup and its an
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-distance wa-range {
+  .popup-distance wa-slider {
     max-width: 260px;
   }
 </style>
@@ -274,7 +275,7 @@ Use the `distance` attribute to change the distance between the popup and its an
 <script>
   const container = document.querySelector('.popup-distance');
   const popup = container.querySelector('wa-popup');
-  const distance = container.querySelector('wa-range');
+  const distance = container.querySelector('wa-slider');
 
   distance.addEventListener('wa-input', () => (popup.distance = distance.value));
 </script>
@@ -291,7 +292,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
     <div class="box"></div>
   </wa-popup>
 
-  <wa-range min="-50" max="50" step="1" value="0" label="Skidding"></wa-range>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
 
 <style>
@@ -307,10 +308,10 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-skidding wa-range {
+  .popup-skidding wa-slider {
     max-width: 260px;
   }
 </style>
@@ -318,7 +319,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
 <script>
   const container = document.querySelector('.popup-skidding');
   const popup = container.querySelector('wa-popup');
-  const skidding = container.querySelector('wa-range');
+  const skidding = container.querySelector('wa-slider');
 
   skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
 </script>
@@ -382,7 +383,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
       width: 100px;
       height: 50px;
       background: var(--wa-color-brand-fill-loud);
-      border-radius: var(--wa-border-radius-s);
+      border-radius: var(--wa-border-radius-m);
     }
 
     .popup-arrow-options {
@@ -449,7 +450,7 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
     min-width: 50px;
     min-height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .popup-sync wa-select {
@@ -509,7 +510,7 @@ Toggle the switch and scroll the container to see the difference.
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .popup-strategy wa-switch {
@@ -565,7 +566,7 @@ Scroll the container to see how the popup flips to prevent clipping.
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 
@@ -618,7 +619,7 @@ Scroll the container to see how the popup changes it's fallback placement to pre
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 ```
@@ -660,7 +661,7 @@ Toggle the switch to see the difference.
     width: 300px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 
@@ -712,7 +713,7 @@ Scroll the container to see the popup resize as its available space changes.
 
   .popup-auto-size .box {
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
 
     /* This sets the preferred size of the popup's content */
     width: 100px;
@@ -746,8 +747,8 @@ When a gap exists between the anchor and the popup element, this option will add
   </wa-popup>
   <br>
   <wa-switch checked>Hover Bridge</wa-switch><br>
-  <wa-range min="0" max="50" step="1" value="10" label="Distance"></wa-range>
-  <wa-range min="-50" max="50" step="1" value="0" label="Skidding"></wa-range>
+  <wa-slider min="0" max="50" step="1" value="10" label="Distance"></wa-slider>
+  <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
 <style>
   .popup-hover-bridge span[slot='anchor'] {
@@ -762,10 +763,10 @@ When a gap exists between the anchor and the popup element, this option will add
     width: 100px;
     height: 50px;
     background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-s);
+    border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-hover-bridge wa-range {
+  .popup-hover-bridge wa-slider {
     max-width: 260px;
     margin-top: .5rem;
   }
@@ -779,8 +780,8 @@ When a gap exists between the anchor and the popup element, this option will add
   const container = document.querySelector('.popup-hover-bridge');
   const popup = container.querySelector('wa-popup');
   const hoverBridge = container.querySelector('wa-switch');
-  const distance = container.querySelector('wa-range[label="Distance"]');
-  const skidding = container.querySelector('wa-range[label="Skidding"]');
+  const distance = container.querySelector('wa-slider[label="Distance"]');
+  const skidding = container.querySelector('wa-slider[label="Skidding"]');
   distance.addEventListener('wa-input', () => (popup.distance = distance.value));
   skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
   hoverBridge.addEventListener('wa-change', () => (popup.hoverBridge = hoverBridge.checked));

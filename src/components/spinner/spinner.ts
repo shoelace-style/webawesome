@@ -1,10 +1,8 @@
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './spinner.styles.js';
+import { customElement } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import styles from './spinner.css';
 
 /**
  * @summary Spinners are used to show the progress of an indeterminate operation.
@@ -21,7 +19,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-spinner')
 export default class WaSpinner extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
@@ -35,8 +33,8 @@ export default class WaSpinner extends WebAwesomeElement {
         viewBox="0 0 50 50"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle class="spinner__track" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
-        <circle class="spinner__indicator" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
+        <circle class="track" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
+        <circle class="indicator" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
       </svg>
     `;
   }

@@ -1,33 +1,33 @@
-import '../button-group/button-group.js';
-import '../button/button.js';
-import '../dropdown/dropdown.js';
-import '../icon/icon.js';
-import '../input/input.js';
-import '../visually-hidden/visually-hidden.js';
-import { clamp } from '../../internal/math.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
-import { drag } from '../../internal/drag.js';
-import { HasSlotController } from '../../internal/slot.js';
-import { html, isServer } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { LocalizeController } from '../../utilities/localize.js';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { TinyColor } from '@ctrl/tinycolor';
+import type { PropertyValues } from 'lit';
+import { html, isServer } from 'lit';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { drag } from '../../internal/drag.js';
+import { clamp } from '../../internal/math.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './color-picker.styles.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../button-group/button-group.js';
+import '../button/button.js';
+import '../dropdown/dropdown.js';
 import type WaDropdown from '../dropdown/dropdown.js';
+import '../icon/icon.js';
+import '../input/input.js';
 import type WaInput from '../input/input.js';
+import styles from './color-picker.css';
 
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;
@@ -52,7 +52,7 @@ declare const EyeDropper: EyeDropperConstructor;
  * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
- * @slot help-text - The color picker's form help text. Alternatively, you can use the `helpText` attribute.
+ * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the color picker loses focus.
  * @event wa-change - Emitted when the color picker's value changes.
@@ -106,7 +106,7 @@ declare const EyeDropper: EyeDropperConstructor;
  */
 @customElement('wa-color-picker')
 export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [visuallyHidden, sizeStyles, formControlStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -115,7 +115,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
   private isSafeValue = false;
   private readonly localize = new LocalizeController(this);
@@ -178,10 +178,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   @property({ attribute: 'with-label', reflect: true, type: Boolean }) withLabel = false;
-  @property({ attribute: 'with-help-text', reflect: true, type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', reflect: true, type: Boolean }) withHint = false;
 
   @state() private hasEyeDropper: boolean = false;
 
@@ -192,9 +192,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() label = '';
 
   /**
-   * The color picker's help text. If you need to display HTML, use the `help-text` slot instead.
+   * The color picker's hint. If you need to display HTML, use the `hint` slot instead.
    */
-  @property({ attribute: 'help-text' }) helpText = '';
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
    * The format to use. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA respectively. The color
@@ -258,9 +258,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.previewButton.focus();
 
     // Show copied animation
-    this.previewButton.classList.add('color-picker__preview-color--copied');
+    this.previewButton.classList.add('preview-color--copied');
     this.previewButton.addEventListener('animationend', () => {
-      this.previewButton.classList.remove('color-picker__preview-color--copied');
+      this.previewButton.classList.remove('preview-color--copied');
     });
   }
 
@@ -284,8 +284,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private handleAlphaDrag(event: PointerEvent) {
-    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__slider.color-picker__alpha')!;
-    const handle = container.querySelector<HTMLElement>('.color-picker__slider-handle')!;
+    const container = this.shadowRoot!.querySelector<HTMLElement>('.slider.alpha')!;
+    const handle = container.querySelector<HTMLElement>('.slider-handle')!;
     const { width } = container.getBoundingClientRect();
     let initialValue = this.value;
     let currentValue = this.value;
@@ -309,13 +309,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
   private handleHueDrag(event: PointerEvent) {
-    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__slider.color-picker__hue')!;
-    const handle = container.querySelector<HTMLElement>('.color-picker__slider-handle')!;
+    const container = this.shadowRoot!.querySelector<HTMLElement>('.slider.hue')!;
+    const handle = container.querySelector<HTMLElement>('.slider-handle')!;
     const { width } = container.getBoundingClientRect();
     let initialValue = this.value;
     let currentValue = this.value;
@@ -339,13 +339,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
   private handleGridDrag(event: PointerEvent) {
-    const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-picker__grid')!;
-    const handle = grid.querySelector<HTMLElement>('.color-picker__grid-handle')!;
+    const grid = this.shadowRoot!.querySelector<HTMLElement>('.grid')!;
+    const handle = grid.querySelector<HTMLElement>('.grid-handle')!;
     const { width, height } = grid.getBoundingClientRect();
     let initialValue = this.value;
     let currentValue = this.value;
@@ -373,7 +373,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.dispatchEvent(new WaChangeEvent());
         }
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -543,7 +543,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       h: hslColor.h,
       s: hslColor.s * 100,
       l: hslColor.l * 100,
-      a: hslColor.a
+      a: hslColor.a,
     };
 
     const rgb = color.toRgb();
@@ -557,7 +557,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       h: hsvColor.h,
       s: hsvColor.s * 100,
       v: hsvColor.v * 100,
-      a: hsvColor.a
+      a: hsvColor.a,
     };
 
     return {
@@ -565,7 +565,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         h: hsl.h,
         s: hsl.s,
         l: hsl.l,
-        string: this.setLetterCase(`hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`)
+        string: this.setLetterCase(`hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`),
       },
       hsla: {
         h: hsl.h,
@@ -573,14 +573,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         l: hsl.l,
         a: hsl.a,
         string: this.setLetterCase(
-          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%, ${hsl.a.toFixed(2).toString()})`
-        )
+          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%, ${hsl.a.toFixed(2).toString()})`,
+        ),
       },
       hsv: {
         h: hsv.h,
         s: hsv.s,
         v: hsv.v,
-        string: this.setLetterCase(`hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%)`)
+        string: this.setLetterCase(`hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%)`),
       },
       hsva: {
         h: hsv.h,
@@ -588,14 +588,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         v: hsv.v,
         a: hsv.a,
         string: this.setLetterCase(
-          `hsva(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%, ${hsv.a.toFixed(2).toString()})`
-        )
+          `hsva(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%, ${hsv.a.toFixed(2).toString()})`,
+        ),
       },
       rgb: {
         r: rgb.r,
         g: rgb.g,
         b: rgb.b,
-        string: this.setLetterCase(`rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`)
+        string: this.setLetterCase(`rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`),
       },
       rgba: {
         r: rgb.r,
@@ -603,11 +603,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         b: rgb.b,
         a: rgb.a,
         string: this.setLetterCase(
-          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`
-        )
+          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`,
+        ),
       },
       hex: this.setLetterCase(hex),
-      hexa: this.setLetterCase(hexa)
+      hexa: this.setLetterCase(hexa),
     };
   }
 
@@ -637,7 +637,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private async syncValues() {
     const currentColor = this.parseColor(
-      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`
+      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`,
     );
 
     if (currentColor === null) {
@@ -666,7 +666,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private handleAfterHide() {
-    this.previewButton.classList.remove('color-picker__preview-color--copied');
+    this.previewButton.classList.remove('preview-color--copied');
     // Update validity so we get a new anchor.
     this.updateValidity();
   }
@@ -801,7 +801,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' | 'hsv' | 'hsva' = 'hex') {
     const currentColor = this.parseColor(
-      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`
+      `hsva(${this.hue}, ${this.saturation}%, ${this.brightness}%, ${this.alpha / 100})`,
     );
 
     if (currentColor === null) {
@@ -872,11 +872,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
-    const hasHelpTextSlot = !this.hasUpdated
-      ? this.withHelpText
-      : this.withHelpText || this.hasSlotController.test('help-text');
+    const hasHintSlot = !this.hasUpdated ? this.withHint : this.withHint || this.hasSlotController.test('hint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
@@ -889,15 +887,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         part="base"
         class=${classMap({
           'color-picker': true,
-          'color-picker--disabled': this.disabled,
-          'color-picker--focused': this.hasFocus
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         tabindex="-1"
       >
         <div
           part="grid"
-          class="color-picker__grid"
+          class="grid"
           style=${styleMap({ backgroundColor: this.getHexString(this.hue, 100, 100) })}
           @pointerdown=${this.handleGridDrag}
           @touchmove=${this.handleTouchMove}
@@ -905,13 +901,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           <span
             part="grid-handle"
             class=${classMap({
-              'color-picker__grid-handle': true,
-              'color-picker__grid-handle--dragging': this.isDraggingGridHandle
+              'grid-handle': true,
+              'grid-handle--dragging': this.isDraggingGridHandle,
             })}
             style=${styleMap({
               top: `${gridHandleY}%`,
               left: `${gridHandleX}%`,
-              backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             role="application"
             aria-label="HSV"
@@ -920,20 +916,20 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           ></span>
         </div>
 
-        <div class="color-picker__controls">
-          <div class="color-picker__sliders">
+        <div class="controls">
+          <div class="sliders">
             <div
               part="slider hue-slider"
-              class="color-picker__hue color-picker__slider"
+              class="hue slider"
               @pointerdown=${this.handleHueDrag}
               @touchmove=${this.handleTouchMove}
             >
               <span
                 part="slider-handle hue-slider-handle"
-                class="color-picker__slider-handle"
+                class="slider-handle"
                 style=${styleMap({
                   left: `${this.hue === 0 ? 0 : 100 / (360 / this.hue)}%`,
-                  backgroundColor: this.getHexString(this.hue, 100, 100)
+                  backgroundColor: this.getHexString(this.hue, 100, 100),
                 })}
                 role="slider"
                 aria-label="hue"
@@ -950,26 +946,26 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <div
                     part="slider opacity-slider"
-                    class="color-picker__alpha color-picker__slider color-picker__transparent-bg"
+                    class="alpha slider transparent-bg"
                     @pointerdown="${this.handleAlphaDrag}"
                     @touchmove=${this.handleTouchMove}
                   >
                     <div
-                      class="color-picker__alpha-gradient"
+                      class="alpha-gradient"
                       style=${styleMap({
                         backgroundImage: `linear-gradient(
                           to right,
                           ${this.getHexString(this.hue, this.saturation, this.brightness, 0)} 0%,
                           ${this.getHexString(this.hue, this.saturation, this.brightness, 100)} 100%
-                        )`
+                        )`,
                       })}
                     ></div>
                     <span
                       part="slider-handle opacity-slider-handle"
-                      class="color-picker__slider-handle"
+                      class="slider-handle"
                       style=${styleMap({
                         left: `${this.alpha}%`,
-                        backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+                        backgroundColor: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
                       })}
                       role="slider"
                       aria-label="alpha"
@@ -988,16 +984,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           <button
             type="button"
             part="preview"
-            class="color-picker__preview color-picker__transparent-bg"
+            class="preview transparent-bg"
             aria-label=${this.localize.term('copy')}
             style=${styleMap({
-              '--preview-color': this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              '--preview-color': this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             @click=${this.handleCopy}
           ></button>
         </div>
 
-        <div class="color-picker__user-input" aria-live="polite">
+        <div class="user-input" aria-live="polite">
           <wa-input
             part="input"
             type="text"
@@ -1070,7 +1066,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         ${swatches.length > 0
           ? html`
-              <div part="swatches" class="color-picker__swatches">
+              <div part="swatches" class="swatches">
                 ${swatches.map(swatch => {
                   const parsedColor = this.parseColor(swatch);
 
@@ -1082,7 +1078,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                   return html`
                     <div
                       part="swatch"
-                      class="color-picker__swatch color-picker__transparent-bg"
+                      class="swatch transparent-bg"
                       tabindex=${ifDefined(this.disabled ? undefined : '0')}
                       role="button"
                       aria-label=${swatch}
@@ -1090,10 +1086,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       @keydown=${(event: KeyboardEvent) =>
                         !this.disabled && event.key === 'Enter' && this.setColor(parsedColor.hexa)}
                     >
-                      <div
-                        class="color-picker__swatch-color"
-                        style=${styleMap({ backgroundColor: parsedColor.hexa })}
-                      ></div>
+                      <div class="swatch-color" style=${styleMap({ backgroundColor: parsedColor.hexa })}></div>
                     </div>
                   `;
                 })}
@@ -1116,13 +1109,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       >
         <div
           class=${classMap({
-            'color-dropdown__container': true,
+            container: true,
             'form-control': true,
-            'form-control--small': this.size === 'small',
-            'form-control--medium': this.size === 'medium',
-            'form-control--large': this.size === 'large',
             'form-control--has-label': hasLabel,
-            'form-control--has-help-text': hasHelpText
           })}
           part="trigger-container form-control"
           slot="trigger"
@@ -1145,7 +1134,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             }
           }}
         >
-          <div part="form-control-label" class="form-control__label" id="form-control-label">
+          <div part="form-control-label" class="label" id="form-control-label">
             <slot name="label">${this.label}</slot>
           </div>
 
@@ -1153,27 +1142,28 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             id="trigger"
             part="trigger form-control-input"
             class=${classMap({
-              'color-dropdown__trigger': true,
-              'color-dropdown__trigger--disabled': this.disabled,
-              'color-dropdown__trigger--small': this.size === 'small',
-              'color-dropdown__trigger--medium': this.size === 'medium',
-              'color-dropdown__trigger--large': this.size === 'large',
-              'color-dropdown__trigger--empty': this.isEmpty,
-              'color-dropdown__trigger--focused': this.hasFocus,
-              'color-picker__transparent-bg': true,
-              'form-control-input': true
+              trigger: true,
+              'trigger--empty': this.isEmpty,
+              'transparent-bg': true,
+              'form-control-input': true,
             })}
             style=${styleMap({
-              color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha)
+              color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
             })}
             type="button"
             aria-labelledby="form-control-label"
-            aria-describedby="help-text"
+            aria-describedby="hint"
+            .disabled=${this.disabled}
           ></button>
 
-          <div part="form-control-help-text" id="help-text" class="form-control__help-text">
-            <slot name="help-text">${this.helpText}</slot>
-          </div>
+          <slot
+            name="hint"
+            part="hint"
+            class=${classMap({
+              'has-slotted': hasHint,
+            })}
+            >${this.hint}</slot
+          >
         </div>
         ${colorPicker}
       </wa-dropdown>

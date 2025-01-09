@@ -1,5 +1,5 @@
-import { registerTranslation } from '../utilities/localize.js';
 import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'zh-cn',
@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: '从屏幕中选择一种颜色',
   showPassword: '显示密码',
   slideNum: slide => `幻灯片 ${slide}`,
-  toggleColorFormat: '切换颜色模式'
+  toggleColorFormat: '切换颜色模式',
 };
 
 registerTranslation(translation);

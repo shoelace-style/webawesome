@@ -1,0 +1,50 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: max(var(--wa-font-size-2xs), 0.75em);
+  font-weight: var(--wa-font-weight-semibold);
+  line-height: 1;
+  background-color: var(--background-color, var(--wa-color-fill-loud));
+  border-color: var(--border-color, transparent);
+  border-radius: var(--wa-border-radius-s);
+  border-style: var(--wa-border-style);
+  border-width: var(--wa-border-width-s);
+  color: var(--text-color, var(--wa-color-on-loud));
+  white-space: nowrap;
+  padding: 0.375em 0.625em;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: inherit;
+}
+
+/* Pill modifier */
+:host([pill]) {
+  border-radius: var(--wa-border-radius-pill);
+}
+
+/* Pulse modifier */
+:host([pulse]) {
+  --pulse-color: var(--background-color);
+
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-color);
+  }
+  70% {
+    box-shadow: 0 0 0 0.5rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+::slotted(wa-icon) {
+  margin-inline-end: var(--wa-space-2xs, 0.25em);
+  opacity: 90%;
+  line-height: 1;
+  height: 0.85em;
+}

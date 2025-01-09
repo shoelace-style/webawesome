@@ -1,7 +1,8 @@
 ---
 title: Split Panel
 description: Split panels display two adjacent panels, allowing the user to reposition them.
-layout: component
+tags: [organization, layout, apps]
+icon: split-panel
 ---
 
 ```html {.example}

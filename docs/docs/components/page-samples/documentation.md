@@ -2,6 +2,7 @@
 title: Sample Documentation Page
 description: A sample page for a documentation website using Web Awesome's page component.
 layout: blank
+eleventyExcludeFromCollections: true
 ---
 
 <style>
@@ -9,9 +10,7 @@ layout: blank
     --menu-width: 15rem;
     --aside-width: 15rem;
   }
-  wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-  }
+
   wa-page[view='mobile'] {
     --menu-width: auto;
     --aside-width: auto;
@@ -128,7 +127,7 @@ layout: blank
     </a>
   </nav>
   <header slot="main-header">
-    <div class="wa-flank:end wa-border-radius-m wa-theme-default-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
+    <div class="wa-flank:end wa-border-radius-l wa-dark" style="background-color: var(--wa-color-surface-lowered); --content-percentage: 35%; padding: var(--wa-space-m);">
       <div class="wa-stack" style="margin: var(--wa-space-2xl);">
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
@@ -150,7 +149,7 @@ layout: blank
           <span class="wa-caption-m">Least Concern</span>
         </div>
       </div>
-      <div class="wa-frame" style="border-radius: var(--wa-border-radius-m); max-inline-size: 40ch;">
+      <div class="wa-frame" style="wa-border-radius-l max-inline-size: 40ch;">
         <img src="https://images.unsplash.com/photo-1544648720-132573cb590d?q=20" />
       </div>
     </div>

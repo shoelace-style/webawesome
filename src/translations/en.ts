@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Select a color from the screen',
   showPassword: 'Show password',
   slideNum: slide => `Slide ${slide}`,
-  toggleColorFormat: 'Toggle color format'
+  toggleColorFormat: 'Toggle color format',
 };
 
 registerTranslation(translation);

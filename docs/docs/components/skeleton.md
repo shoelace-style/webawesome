@@ -1,7 +1,8 @@
 ---
 title: Skeleton
 description: Skeletons are used to provide a visual representation of where content will eventually be drawn.
-layout: component
+tags: [feedback, apps, content]
+icon: skeleton
 ---
 
 These are simple containers for scaffolding layouts that mimic what users will see when content has finished loading. This prevents large areas of empty space during asynchronous operations.
@@ -139,7 +140,7 @@ Set a matching width and height to make a circle, square, or rounded avatar skel
   }
 
   .skeleton-avatars wa-skeleton:nth-child(2) {
-    --border-radius: var(--wa-border-radius-s);
+    --border-radius: var(--wa-border-radius-m);
   }
 </style>
 ```
@@ -165,7 +166,7 @@ Use the `--border-radius` custom property to make circles, squares, and rectangl
   }
 
   .skeleton-shapes .square::part(indicator) {
-    --border-radius: var(--wa-border-radius-s);
+    --border-radius: var(--wa-border-radius-m);
   }
 
   .skeleton-shapes .circle::part(indicator) {

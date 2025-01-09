@@ -1,13 +1,11 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import { requestInclude } from './request.js';
+import { customElement, property } from 'lit/decorators.js';
 import { WaIncludeErrorEvent } from '../../events/include-error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './include.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import styles from './include.css';
+import { requestInclude } from './request.js';
 
 /**
  * @summary Includes give you the power to embed external HTML files into the page.
@@ -20,7 +18,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-include')
 export default class WaInclude extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   /**
    * The location of the HTML file to include. Be sure you trust the content you are including as it will be executed as

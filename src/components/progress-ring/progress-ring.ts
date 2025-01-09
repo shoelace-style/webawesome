@@ -1,10 +1,9 @@
-import { customElement, property, query, state } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './progress-ring.styles.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import styles from './progress-ring.css';
 
 /**
  * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.
@@ -26,11 +25,11 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-progress-ring')
 export default class WaProgressRing extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
-  @query('.progress-ring__indicator') indicator: SVGCircleElement;
+  @query('.indicator') indicator: SVGCircleElement;
 
   @state() indicatorOffset: string;
 
@@ -40,15 +39,15 @@ export default class WaProgressRing extends WebAwesomeElement {
   /** A custom label for assistive devices. */
   @property() label = '';
 
-  updated(changedProps: Map<string, unknown>) {
-    super.updated(changedProps);
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
 
     //
     // This block is only required for Safari because it doesn't transition the circle when the custom properties
     // change, possibly because of a mix of pixel + unit-less values in the calc() function. It seems like a Safari bug,
     // but I couldn't pinpoint it so this works around the problem.
     //
-    if (changedProps.has('value')) {
+    if (changedProperties.has('value')) {
       const radius = parseFloat(getComputedStyle(this.indicator).getPropertyValue('r'));
       const circumference = 2 * Math.PI * radius;
       const offset = circumference - (this.value / 100) * circumference;
@@ -70,12 +69,12 @@ export default class WaProgressRing extends WebAwesomeElement {
         aria-valuenow="${this.value}"
         style="--percentage: ${this.value / 100}"
       >
-        <svg class="progress-ring__image">
-          <circle class="progress-ring__track"></circle>
-          <circle class="progress-ring__indicator" style="stroke-dashoffset: ${this.indicatorOffset}"></circle>
+        <svg class="image">
+          <circle class="track"></circle>
+          <circle class="indicator" style="stroke-dashoffset: ${this.indicatorOffset}"></circle>
         </svg>
 
-        <slot id="label" part="label" class="progress-ring__label"></slot>
+        <slot id="label" part="label" class="label"></slot>
       </div>
     `;
   }

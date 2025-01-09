@@ -1,13 +1,14 @@
 // Smooth links
 document.addEventListener('click', event => {
   const link = event.target.closest('a');
-  const id = (link?.hash ?? '').substr(1);
-
   if (!link || link.getAttribute('data-smooth-link') === 'off') {
     return;
   }
 
-  if (id) {
+  const id = (link.hash ?? '').substr(1);
+
+  // Only handle smooth scroll if there's a hash and the link points to the current page
+  if (id && link.pathname === window.location.pathname) {
     const target = document.getElementById(id);
     const headerHeight = document.querySelector('wa-page > header').clientHeight;
 
@@ -15,7 +16,7 @@ document.addEventListener('click', event => {
       event.preventDefault();
       window.scroll({
         top: target.offsetTop - headerHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       history.pushState(undefined, undefined, `#${id}`);
     }

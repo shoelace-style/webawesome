@@ -1,0 +1,33 @@
+:host {
+  --primary-color: currentColor;
+  --primary-opacity: 1;
+  --secondary-color: currentColor;
+  --secondary-opacity: 0.4;
+
+  display: inline-flex;
+  box-sizing: content-box !important;
+  width: auto;
+  height: 1em;
+}
+
+svg {
+  display: inline-block;
+  width: auto;
+  height: inherit;
+  fill: currentColor;
+
+  .fa-primary {
+    color: var(--primary-color);
+    opacity: var(--primary-opacity);
+  }
+
+  .fa-secondary {
+    color: var(--secondary-color);
+    opacity: var(--secondary-opacity);
+  }
+}
+
+:host([fixed-width]) {
+  width: 1em;
+  justify-content: center;
+}

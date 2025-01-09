@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaTab from './tab.js';
 
 describe('<wa-tab>', () => {
@@ -36,7 +36,6 @@ describe('<wa-tab>', () => {
 
         expect(el.disabled).to.equal(true);
         expect(el.getAttribute('aria-disabled')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' tab tab--disabled ');
         expect(el.getAttribute('tabindex')).to.equal('-1');
       });
 

@@ -1,7 +1,8 @@
 ---
 title: Format Bytes
 description: Formats a number as a human readable bytes value.
-layout: component
+tags: [helpers, content, inline]
+icon: format-bytes
 ---
 
 ```html {.example}

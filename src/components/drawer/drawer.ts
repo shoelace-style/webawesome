@@ -1,19 +1,17 @@
-import '../icon-button/icon-button.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query } from 'lit/decorators.js';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { customElement, property, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './drawer.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon-button/icon-button.js';
+import styles from './drawer.css';
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
@@ -60,7 +58,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-drawer')
 export default class WaDrawer extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
@@ -90,7 +88,7 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
-  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
+  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
 
   firstUpdated() {
     if (isServer) {
@@ -245,9 +243,8 @@ export default class WaDrawer extends WebAwesomeElement {
           'drawer--end': this.placement === 'end',
           'drawer--bottom': this.placement === 'bottom',
           'drawer--start': this.placement === 'start',
-          'drawer--rtl': this.localize.dir() === 'rtl',
           'drawer--with-header': this.withHeader,
-          'drawer--with-footer': this.withFooter
+          'drawer--with-footer': this.withFooter,
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}
@@ -255,17 +252,17 @@ export default class WaDrawer extends WebAwesomeElement {
       >
         ${this.withHeader
           ? html`
-              <header part="header" class="drawer__header">
-                <h2 part="title" class="drawer__title" id="title">
+              <header part="header" class="header">
+                <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
                   <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(65279)} </slot>
                 </h2>
-                <div part="header-actions" class="drawer__header-actions">
+                <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>
                   <wa-icon-button
                     part="close-button"
                     exportparts="base:close-button__base"
-                    class="drawer__close"
+                    class="close"
                     name="xmark"
                     label=${this.localize.term('close')}
                     library="system"
@@ -277,11 +274,11 @@ export default class WaDrawer extends WebAwesomeElement {
             `
           : ''}
 
-        <div part="body" class="drawer__body"><slot></slot></div>
+        <div part="body" class="body"><slot></slot></div>
 
         ${this.withFooter
           ? html`
-              <footer part="footer" class="drawer__footer">
+              <footer part="footer" class="footer">
                 <slot name="footer"></slot>
               </footer>
             `

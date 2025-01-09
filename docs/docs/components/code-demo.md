@@ -1,7 +1,8 @@
 ---
 title: Code Demo
 description: Code demos can be used to render code examples as inline live demos.
-layout: component
+tags: component
+noAlpha: true
 ---
 
 ```html {.example}
@@ -81,7 +82,7 @@ There are certain types of elements that are handled specially:
 This is useful for including resources in your demo that you don't want rendered outside the demo.
 
 The following example shows both methods.
-It includes all stylesheets on this page whose URLs start with `/dist/themes/`,
+It includes all stylesheets on this page whose URLs start with `/dist/styles/themes/`,
 plus any other elements with the class `.demo-import`, plus a CSS file with the class `wa-code-demo-include`:
 
 ```html {.example}
@@ -173,7 +174,7 @@ i.e. the previews of demos using the `viewport` attribute, but also opening demo
 Just setting `border-radius` or `border` should work as expected:
 
 ```html{.example}
-<wa-code-demo style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-s)">
+<wa-code-demo style="border: 2px dotted var(--wa-color-blue-50); border-radius: var(--wa-border-radius-m)">
   <pre><code class="language-html">
     &lt;button&gt;Click me!&lt;/button&gt;
     &lt;wa-button&gt;Click me!&lt;/wa-button&gt;

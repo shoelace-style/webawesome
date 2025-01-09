@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaProgressBar from './progress-bar.js';
 
 describe('<wa-progress-bar>', () => {
@@ -24,7 +24,7 @@ describe('<wa-progress-bar>', () => {
 
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar title="Titled Progress Ring" value="25"></wa-progress-bar>`
+            html`<wa-progress-bar title="Titled Progress Ring" value="25"></wa-progress-bar>`,
           );
           base = el.shadowRoot!.querySelector('[part~="base"]')!;
           indicator = el.shadowRoot!.querySelector('[part~="indicator"]')!;
@@ -35,11 +35,11 @@ describe('<wa-progress-bar>', () => {
         });
 
         it('uses the value parameter on the base, as aria-valuenow', () => {
-          expect(base).attribute('aria-valuenow', '25');
+          expect(base.getAttribute('aria-valuenow')).to.equal('25');
         });
 
-        it('appends a % to the value, and uses it as the  the value parameter to determine the width on the "indicator" part', () => {
-          expect(indicator).attribute('style', 'width:25%;');
+        it('uses the value parameter to set the custom property on the indicator', () => {
+          expect(indicator.style.getPropertyValue('--value')).to.equal('25');
         });
       });
 
@@ -48,7 +48,7 @@ describe('<wa-progress-bar>', () => {
 
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar title="Titled Progress Ring" indeterminate></wa-progress-bar>`
+            html`<wa-progress-bar title="Titled Progress Ring" indeterminate></wa-progress-bar>`,
           );
           base = el.shadowRoot!.querySelector('[part~="base"]')!;
         });
@@ -57,15 +57,15 @@ describe('<wa-progress-bar>', () => {
           await expect(el).to.be.accessible();
         });
 
-        it('should append a progress-bar--indeterminate class to the "base" part.', () => {
-          expect(base.classList.value.trim()).to.eq('progress-bar progress-bar--indeterminate');
+        it('should set the indeterminate attribute on the host', () => {
+          expect(el.hasAttribute('indeterminate')).to.be.true;
         });
       });
 
       describe('when provided a ariaLabel, and value parameter', () => {
         beforeEach(async () => {
           el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar ariaLabel="Labelled Progress Ring" value="25"></wa-progress-bar>`
+            html`<wa-progress-bar ariaLabel="Labelled Progress Ring" value="25"></wa-progress-bar>`,
           );
         });
 

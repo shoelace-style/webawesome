@@ -45,7 +45,7 @@ export async function clickOnElement(
   /** The horizontal offset to apply to the position when clicking */
   offsetX = 0,
   /** The vertical offset to apply to the position when clicking */
-  offsetY = 0
+  offsetY = 0,
 ) {
   const { clickX, clickY } = determineMousePosition(el, position, offsetX, offsetY);
 
@@ -61,7 +61,7 @@ export async function moveMouseOnElement(
   /** The horizontal offset to apply to the position when clicking */
   offsetX = 0,
   /** The vertical offset to apply to the position when clicking */
-  offsetY = 0
+  offsetY = 0,
 ) {
   const { clickX, clickY } = determineMousePosition(el, position, offsetX, offsetY);
 
@@ -79,7 +79,7 @@ export async function dragElement(
   callbacks: {
     afterMouseDown?: () => void | Promise<void>;
     afterMouseMove?: () => void | Promise<void>;
-  } = {}
+  } = {},
 ): Promise<void> {
   await moveMouseOnElement(el);
   await sendMouse({ type: 'down' });

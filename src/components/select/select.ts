@@ -1,14 +1,7 @@
-import '../icon/icon.js';
-import '../popup/popup.js';
-import '../tag/tag.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
+import type { TemplateResult } from 'lit';
 import { html, isServer } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
-import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { scrollIntoView } from '../../internal/scroll.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
@@ -18,17 +11,26 @@ import { WaClearEvent } from '../../events/clear.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaInputEvent } from '../../events/input.js';
-import { waitForEvent } from '../../internal/event.js';
-import { WaShowEvent } from '../../events/show.js';
-import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './select.styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { WaRemoveEvent } from '../../events/remove.js';
+import { WaShowEvent } from '../../events/show.js';
+import { animateWithClass } from '../../internal/animate.js';
+import { waitForEvent } from '../../internal/event.js';
+import { scrollIntoView } from '../../internal/scroll.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
+import { watch } from '../../internal/watch.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import nativeStyles from '../../styles/native/select.css';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
 import type WaOption from '../option/option.js';
+import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
+import '../tag/tag.js';
+import styles from './select.css';
 
 /**
  * @summary Selects allow you to choose items from a menu of predefined options.
@@ -46,7 +48,7 @@ import type WaPopup from '../popup/popup.js';
  * @slot suffix - Used to append a presentational icon or similar element to the combobox.
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot expand-icon - The icon to show when the control is expanded and collapsed. Rotates on open and close.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-change - Emitted when the control's value changes.
  * @event wa-clear - Emitted when the control's value is cleared.
@@ -59,10 +61,10 @@ import type WaPopup from '../popup/popup.js';
  * @event wa-after-hide - Emitted after the select's menu closes and all animations are complete.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The select's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
+ * @csspart hint - The hint's wrapper.
  * @csspart combobox - The container the wraps the prefix, suffix, combobox, clear icon, and expand button.
  * @csspart prefix - The container that wraps the prefix slot.
  * @csspart suffix - The container that wraps the suffix slot.
@@ -79,46 +81,43 @@ import type WaPopup from '../popup/popup.js';
  *
  * @cssproperty --background-color - The background color of the select's combobox.
  * @cssproperty --border-color - The border color of the select's combobox.
- * @cssproperty --border-radius - The border radius of the select's combobox.
- * @cssproperty --border-style - The style of the select's borders, including the listbox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [appearanceStyles, formControlStyles, sizeStyles, nativeStyles, styles];
 
   static get validators() {
     const validators = isServer
       ? []
       : [
           RequiredValidator({
-            validationElement: Object.assign(document.createElement('select'), { required: true })
-          })
+            validationElement: Object.assign(document.createElement('select'), { required: true }),
+          }),
         ];
     return [...super.validators, ...validators];
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
 
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
   private closeWatcher: CloseWatcher | null;
 
   @query('.select') popup: WaPopup;
-  @query('.select__combobox') combobox: HTMLSlotElement;
-  @query('.select__display-input') displayInput: HTMLInputElement;
-  @query('.select__value-input') valueInput: HTMLInputElement;
-  @query('.select__listbox') listbox: HTMLSlotElement;
+  @query('.combobox') combobox: HTMLSlotElement;
+  @query('.display-input') displayInput: HTMLInputElement;
+  @query('.value-input') valueInput: HTMLInputElement;
+  @query('.listbox') listbox: HTMLSlotElement;
 
   /** Where to anchor native constraint validation */
   get validationTarget() {
     return this.valueInput;
   }
 
-  @state() private hasFocus = false;
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
@@ -133,8 +132,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     reflect: true,
     converter: {
       fromAttribute: (value: string) => value.split(' '),
-      toAttribute: (value: string | string[]) => (Array.isArray(value) ? value.join(' ') : value)
-    }
+      toAttribute: (value: string | string[]) => (Array.isArray(value) ? value.join(' ') : value),
+    },
   })
   set defaultValue(val: string | string[]) {
     this._defaultValue = this.convertDefaultValue(val);
@@ -197,8 +196,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean }) hoist = false;
 
-  /** Draws a filled select. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The select's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** Draws a pill-style select with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -212,8 +211,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ reflect: true }) placement: 'top' | 'bottom' = 'bottom';
 
-  /** The select's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The select's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /**
    * Used for SSR purposes when a label is slotted in. Will show the label on first render.
@@ -221,9 +220,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR purposes when help-text is slotted in. Will show the help-text on first render.
+   * Used for SSR purposes when hint is slotted in. Will show the hint on first render.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -240,25 +239,26 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    * is the current tag's index.  The function should return either a Lit TemplateResult or a string containing trusted
    * HTML of the symbol to render at the specified value.
    */
-  @property() getTag: (option: WaOption, index: number) => TemplateResult | string | HTMLElement = option => {
-    return html`
-      <wa-tag
-        part="tag"
-        exportparts="
-              base:tag__base,
-              content:tag__content,
-              remove-button:tag__remove-button,
-              remove-button__base:tag__remove-button__base
-            "
-        ?pill=${this.pill}
-        size=${this.size}
-        removable
-        @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
-      >
-        ${option.getTextLabel()}
-      </wa-tag>
-    `;
-  };
+  @property({ attribute: false }) getTag: (option: WaOption, index: number) => TemplateResult | string | HTMLElement =
+    option => {
+      return html`
+        <wa-tag
+          part="tag"
+          exportparts="
+            base:tag__base,
+            content:tag__content,
+            remove-button:tag__remove-button,
+            remove-button__base:tag__remove-button__base
+          "
+          ?pill=${this.pill}
+          size=${this.size}
+          removable
+          @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
+        >
+          ${option.getTextLabel()}
+        </wa-tag>
+      `;
+    };
 
   connectedCallback() {
     super.connectedCallback();
@@ -309,13 +309,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.displayInput.setSelectionRange(0, 0);
     this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -329,7 +327,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement;
-    const isClearButton = target.closest('.select__clear') !== null;
+    const isClearButton = target.closest('[part~="clear-button"]') !== null;
     const isIconButton = target.closest('wa-icon-button') !== null;
 
     // Ignore presses when the target is an icon button (e.g. the remove button in `<wa-tag>`)
@@ -784,9 +782,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
       (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
     const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
@@ -796,17 +794,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         part="form-control"
         class=${classMap({
           'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
           'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
         })}
       >
         <label
           id="label"
           part="form-control-label"
-          class="form-control__label"
+          class="label"
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
         >
@@ -817,19 +811,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           <wa-popup
             class=${classMap({
               select: true,
-              'select--standard': true,
-              'select--filled': this.filled,
-              'select--pill': this.pill,
-              'select--open': this.open,
-              'select--disabled': this.disabled,
-              'select--multiple': this.multiple,
-              'select--focused': this.hasFocus,
-              'select--placeholder-visible': isPlaceholderVisible,
-              'select--top': this.placement === 'top',
-              'select--bottom': this.placement === 'bottom',
-              'select--small': this.size === 'small',
-              'select--medium': this.size === 'medium',
-              'select--large': this.size === 'large'
+              open: this.open,
+              disabled: this.disabled,
+              enabled: !this.disabled,
+              multiple: this.multiple,
+              'placeholder-visible': isPlaceholderVisible,
             })}
             placement=${this.placement}
             strategy=${this.hoist ? 'fixed' : 'absolute'}
@@ -841,16 +827,16 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           >
             <div
               part="combobox"
-              class="select__combobox"
+              class="combobox"
               slot="anchor"
               @keydown=${this.handleComboboxKeyDown}
               @mousedown=${this.handleComboboxMouseDown}
             >
-              <slot part="prefix" name="prefix" class="select__prefix"></slot>
+              <slot part="prefix" name="prefix" class="prefix"></slot>
 
               <input
                 part="display-input"
-                class="select__display-input"
+                class="display-input"
                 type="text"
                 placeholder=${this.placeholder}
                 .disabled=${this.disabled}
@@ -869,7 +855,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 aria-haspopup="listbox"
                 aria-labelledby="label"
                 aria-disabled=${this.disabled ? 'true' : 'false'}
-                aria-describedby="help-text"
+                aria-describedby="hint"
                 role="combobox"
                 tabindex="0"
                 @focus=${this.handleFocus}
@@ -877,10 +863,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               />
 
               <!-- Tags need to wait for first hydration before populating otherwise it will create a hydration mismatch. -->
-              ${this.multiple && this.hasUpdated ? html`<div part="tags" class="select__tags">${this.tags}</div>` : ''}
+              ${this.multiple && this.hasUpdated ? html`<div part="tags" class="tags">${this.tags}</div>` : ''}
 
               <input
-                class="select__value-input"
+                class="value-input"
                 type="text"
                 ?disabled=${this.disabled}
                 ?required=${this.required}
@@ -894,7 +880,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 ? html`
                     <button
                       part="clear-button"
-                      class="select__clear"
                       type="button"
                       aria-label=${this.localize.term('clearEntry')}
                       @mousedown=${this.handleClearMouseDown}
@@ -908,9 +893,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                   `
                 : ''}
 
-              <slot name="suffix" part="suffix" class="select__suffix"></slot>
+              <slot name="suffix" part="suffix" class="suffix"></slot>
 
-              <slot name="expand-icon" part="expand-icon" class="select__expand-icon">
+              <slot name="expand-icon" part="expand-icon" class="expand-icon">
                 <wa-icon library="system" name="chevron-down" variant="solid"></wa-icon>
               </slot>
             </div>
@@ -922,24 +907,24 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               aria-multiselectable=${this.multiple ? 'true' : 'false'}
               aria-labelledby="label"
               part="listbox"
-              class="select__listbox"
+              class="listbox"
               tabindex="-1"
               @mouseup=${this.handleOptionClick}
-              @slotchange=${this.handleDefaultSlotChange}
             >
-              <slot></slot>
+              <slot @slotchange=${this.handleDefaultSlotChange}></slot>
             </div>
           </wa-popup>
         </div>
 
-        <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          >${this.hint}</slot
         >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
       </div>
     `;
   }

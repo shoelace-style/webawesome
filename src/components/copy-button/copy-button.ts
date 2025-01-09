@@ -1,18 +1,16 @@
-import '../icon/icon.js';
-import '../tooltip/tooltip.js';
-import '../visually-hidden/visually-hidden.js';
-import { animateWithClass } from '../../internal/animate.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './copy-button.styles.js';
+import { animateWithClass } from '../../internal/animate.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
+import styles from './copy-button.css';
 
 /**
  * @summary Copies text data to the clipboard when the user clicks the trigger.
@@ -46,7 +44,7 @@ import type WaTooltip from '../tooltip/tooltip.js';
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = [visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
 
@@ -195,7 +193,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   render() {
     return html`
       <button
-        class="copy-button__button"
+        class="button"
         part="button"
         type="button"
         id="copy-button"
@@ -203,7 +201,7 @@ export default class WaCopyButton extends WebAwesomeElement {
         @click=${this.handleCopy}
       >
         <!-- Render a visually hidden label to appease the accessibility checking gods -->
-        <wa-visually-hidden>${this.currentLabel}</wa-visually-hidden>
+        <span class="wa-visually-hidden">${this.currentLabel}</span>
         <slot part="copy-icon" name="copy-icon">
           <wa-icon library="system" name="copy" variant="regular" fixed-width></wa-icon>
         </slot>
@@ -217,7 +215,7 @@ export default class WaCopyButton extends WebAwesomeElement {
           class=${classMap({
             'copy-button': true,
             'copy-button--success': this.status === 'success',
-            'copy-button--error': this.status === 'error'
+            'copy-button--error': this.status === 'error',
           })}
           for="copy-button"
           placement=${this.tooltipPlacement}

@@ -19,7 +19,7 @@ Font families are assigned specific roles &mdash; like heading or code &mdash; t
 
 Font sizes use the Major Second type scale, rounded to the nearest whole pixel assuming a 16px root font size. To maximize variation in larger font sizes, every other step on the scale is skipped.
 
-Each font size uses a `calc()` function with `--wa-font-size-multiplier` to scale all font sizes at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
+Each font size uses a `calc()` function with `--wa-font-size-scale` to scale all font sizes at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
 
 | Custom Property      | Default Value                     | Preview                                                    |
 | -------------------- | --------------------------------- | ---------------------------------------------------------- |

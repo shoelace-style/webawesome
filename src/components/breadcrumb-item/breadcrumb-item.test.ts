@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { fixtures } from '../../internal/test/fixture.js';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 import type WaBreadcrumbItem from './breadcrumb-item.js';
 
 describe('<wa-breadcrumb-item>', () => {
@@ -193,7 +193,7 @@ describe('<wa-breadcrumb-item>', () => {
           await expect(el).to.be.accessible();
           expect(el.shadowRoot!.querySelector('a')).to.be.null;
           expect(el.shadowRoot!.querySelector('button')).to.be.null;
-          expect(el.shadowRoot!.querySelector('.breadcrumb-item__label--dropdown')).not.to.be.null;
+          expect(el.shadowRoot!.querySelector('.label--dropdown')).not.to.be.null;
         });
       });
     });

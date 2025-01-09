@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { clickOnElement } from '../test.js';
-import { fixtures } from './fixture.js';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
+import { clickOnElement } from '../test.js';
+import type { WebAwesomeFormControl } from '../webawesome-formassociated-element.js';
 import type { clientFixture, hydratedFixture } from './fixture.js';
-import type { WebAwesomeFormControl } from '../webawesome-element.js';
+import { fixtures } from './fixture.js';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 
@@ -16,7 +16,7 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
         tagName: string;
         init?: (control: T) => void;
         variantName: string;
-      }
+      },
 ) {
   const isStringArg = typeof tagNameOrConfig === 'string';
   const tagName = isStringArg ? tagNameOrConfig : tagNameOrConfig.tagName;
@@ -56,7 +56,7 @@ export function runFormControlBaseTests<T extends WebAwesomeFormControl = WebAwe
 function runAllValidityTests(
   tagName: string, //
   displayName: string,
-  renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>
+  renderControl: (fixture: typeof hydratedFixture | typeof clientFixture) => () => Promise<WebAwesomeFormControl>,
 ) {
   // This needs to be outside the describe block other wise everything breaks because "describe" blocks cannot be async.
   // https://github.com/mochajs/mocha/issues/2116
@@ -184,7 +184,7 @@ function runAllValidityTests(
             control.customError = 'MyError';
             await control.updateComplete;
             expect(control.validity.valid).to.equal(false);
-            expect(control.hasAttribute('data-wa-invalid')).to.equal(true);
+            expect(control.hasCustomState('invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');
           });
 
@@ -193,7 +193,7 @@ function runAllValidityTests(
             // expect(control.validity.valid).to.equal(true)
             control.setAttribute('custom-error', 'MyError');
             await control.updateComplete;
-            expect(control.hasAttribute('data-wa-invalid')).to.equal(true);
+            expect(control.hasCustomState('invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');
           });
 
@@ -207,7 +207,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(true);
             // expect(control.hasAttribute("disabled")).to.equal(false)
             expect(control.matches(':disabled')).to.equal(true);
-            expect(control.hasAttribute('data-wa-disabled')).to.equal(true);
+            expect(control.hasCustomState('disabled')).to.equal(true);
 
             fieldset.disabled = false;
 
@@ -215,7 +215,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(false);
             expect(control.hasAttribute('disabled')).to.equal(false);
             expect(control.matches(':disabled')).to.equal(false);
-            expect(control.hasAttribute('data-wa-disabled')).to.equal(false);
+            expect(control.hasCustomState('disabled')).to.equal(false);
           });
 
           // it("This is the one edge case with ':disabled'. If you disable a fieldset, and then disable the element directly, it will not reflect the disabled attribute.", async () => {
@@ -246,7 +246,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(true);
             expect(control.hasAttribute('disabled')).to.equal(true);
             expect(control.matches(':disabled')).to.equal(true);
-            expect(control.hasAttribute('data-wa-disabled')).to.equal(true);
+            expect(control.hasCustomState('disabled')).to.equal(true);
 
             control.disabled = false;
             await control.updateComplete;
@@ -254,7 +254,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(false);
             expect(control.hasAttribute('disabled')).to.equal(false);
             expect(control.matches(':disabled')).to.equal(false);
-            expect(control.hasAttribute('data-wa-disabled')).to.equal(false);
+            expect(control.hasCustomState('disabled')).to.equal(false);
           });
         }
       });

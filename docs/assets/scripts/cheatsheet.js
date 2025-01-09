@@ -13,7 +13,7 @@ const matchers = {
   regexp(textContent, query) {
     query.lastIndex = 0;
     return query.test(textContent);
-  }
+  },
 };
 
 matchers.iregexp = matchers.regexp; // i is baked into the query

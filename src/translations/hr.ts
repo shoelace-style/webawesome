@@ -31,7 +31,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Odaberi boju sa ekrana',
   showPassword: 'Pokaži lozinku',
   slideNum: slide => `Slajd ${slide}`,
-  toggleColorFormat: 'Zamijeni format boje'
+  toggleColorFormat: 'Zamijeni format boje',
 };
 
 registerTranslation(translation);

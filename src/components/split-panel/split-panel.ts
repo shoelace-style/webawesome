@@ -1,15 +1,13 @@
-import { clamp } from '../../internal/math.js';
-import { customElement, property, query } from 'lit/decorators.js';
-import { drag } from '../../internal/drag.js';
 import { html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { LocalizeController } from '../../utilities/localize.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
+import { drag } from '../../internal/drag.js';
+import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './split-panel.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import styles from './split-panel.css';
 
 /**
  * @summary Split panels display two adjacent panels, allowing the user to reposition them.
@@ -37,7 +35,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-split-panel')
 export default class WaSplitPanel extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private cachedPositionInPixels: number;
   private isCollapsed = false;
@@ -155,7 +153,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
         this.position = clamp(this.pixelsToPercentage(newPositionInPixels), 0, 100);
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 

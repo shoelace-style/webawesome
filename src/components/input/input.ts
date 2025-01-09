@@ -1,24 +1,25 @@
-import '../icon/icon.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { HasSlotController } from '../../internal/slot.js';
 import { html, isServer } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { LocalizeController } from '../../utilities/localize.js';
-import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WaBlurEvent } from '../../events/blur.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaFocusEvent } from '../../events/focus.js';
 import { WaInputEvent } from '../../events/input.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component.styles.js';
-import formControlStyles from '../../styles/form-control.styles.js';
-import styles from './input.styles.js';
-import type { CSSResultGroup } from 'lit';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import nativeStyles from '../../styles/native/input.css';
+import formControlStyles from '../../styles/shadow/form-control.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
+import '../icon/icon.js';
+import styles from './input.css';
 
 /**
  * @summary Inputs collect data from the user.
@@ -34,7 +35,7 @@ import type WaButton from '../button/button.js';
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot show-password-icon - An icon to use in lieu of the default show password icon.
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
- * @slot help-text - Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.
+ * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
  * @event wa-blur - Emitted when the control loses focus.
  * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
@@ -43,12 +44,10 @@ import type WaButton from '../button/button.js';
  * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart form-control - The form control that wraps the label, input, and help text.
- * @csspart form-control-label - The label's wrapper.
- * @csspart form-control-input - The input's wrapper.
- * @csspart form-control-help-text - The help text's wrapper.
- * @csspart base - The component's base wrapper.
- * @csspart input - The internal `<input>` control.
+ * @csspart label - The label
+ * @csspart hint - The hint's wrapper.
+ * @csspart input - The wrapper being rendered as an input
+ * @csspart base - The internal `<input>` control.
  * @csspart prefix - The container that wraps the prefix.
  * @csspart clear-button - The clear button.
  * @csspart password-toggle-button - The password toggle button.
@@ -56,14 +55,12 @@ import type WaButton from '../button/button.js';
  *
  * @cssproperty --background-color - The input's background color.
  * @cssproperty --border-color - The color of the input's borders.
- * @cssproperty --border-radius - The radius of the input's corners.
- * @cssproperty --border-style - The style of the input's borders.
  * @cssproperty --border-width - The width of the input's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
  */
 @customElement('wa-input')
 export default class WaInput extends WebAwesomeFormAssociatedElement {
-  static styles: CSSResultGroup = [componentStyles, formControlStyles, styles];
+  static shadowStyle = [sizeStyles, appearanceStyles, formControlStyles, nativeStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -72,12 +69,11 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   assumeInteractionOn = ['wa-blur', 'wa-input'];
-  private readonly hasSlotController = new HasSlotController(this, 'help-text', 'label');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
 
-  @query('.input__control') input: HTMLInputElement;
+  @query('input') input: HTMLInputElement;
 
-  @state() private hasFocus = false;
   @property() title = ''; // make reactive to pass through
 
   /**
@@ -118,13 +114,13 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: null | string = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The input's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
-  /** Draws a filled input. */
-  @property({ type: Boolean, reflect: true }) filled = false;
+  /** The input's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
   /** Draws a pill-style input with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -132,8 +128,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** The input's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
 
-  /** The input's help text. If you need to display HTML, use the `help-text` slot instead. */
-  @property({ attribute: 'help-text' }) helpText = '';
+  /** The input's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property({ attribute: 'hint' }) hint = '';
 
   /** Adds a clear button when the input is not empty. */
   @property({ type: Boolean }) clearable = false;
@@ -208,8 +204,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     converter: {
       // Allow "true|false" attribute values but keep the property boolean
       fromAttribute: value => (!value || value === 'false' ? false : true),
-      toAttribute: value => (value ? 'true' : 'false')
-    }
+      toAttribute: value => (value ? 'true' : 'false'),
+    },
   })
   spellcheck = true;
 
@@ -225,12 +221,11 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR. Will determine if the SSRed component will have the help text slot rendered on initial paint.
+   * Used for SSR. Will determine if the SSRed component will have the hint slot rendered on initial paint.
    */
-  @property({ attribute: 'with-help-text', type: Boolean }) withHelpText = false;
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   private handleBlur() {
-    this.hasFocus = false;
     this.dispatchEvent(new WaBlurEvent());
   }
 
@@ -253,7 +248,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
     this.dispatchEvent(new WaFocusEvent());
   }
 
@@ -291,7 +285,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           }
 
           const button = formElements.find(
-            (el: HTMLButtonElement) => el.type === 'submit' && !el.matches(':disabled')
+            (el: HTMLButtonElement) => el.type === 'submit' && !el.matches(':disabled'),
           ) as undefined | HTMLButtonElement | WaButton;
 
           // No button found, don't submit.
@@ -341,7 +335,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   setSelectionRange(
     selectionStart: number,
     selectionEnd: number,
-    selectionDirection: 'forward' | 'backward' | 'none' = 'none'
+    selectionDirection: 'forward' | 'backward' | 'none' = 'none',
   ) {
     this.input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
@@ -351,7 +345,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     replacement: string,
     start?: number,
     end?: number,
-    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve'
+    selectMode: 'select' | 'start' | 'end' | 'preserve' = 'preserve',
   ) {
     const selectionStart = start ?? this.input.selectionStart!;
     const selectionEnd = end ?? this.input.selectionEnd!;
@@ -394,9 +388,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHelpTextSlot = this.hasUpdated ? this.hasSlotController.test('help-text') : this.withHelpText;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
-    const hasHelpText = this.helpText ? true : !!hasHelpTextSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
@@ -405,140 +399,99 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
-      <div
-        part="form-control"
-        class=${classMap({
-          'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
-          'form-control--has-label': hasLabel,
-          'form-control--has-help-text': hasHelpText
-        })}
-      >
-        <label
-          part="form-control-label"
-          class="form-control__label"
-          for="input"
-          aria-hidden=${hasLabel ? 'false' : 'true'}
-        >
-          <slot name="label">${this.label}</slot>
-        </label>
+      <label part="form-control-label label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+        <slot name="label">${this.label}</slot>
+      </label>
 
-        <div part="form-control-input" class="form-control-input">
-          <div
-            part="base"
-            class=${classMap({
-              input: true,
+      <div part="input" class="wa-text-field">
+        <slot name="prefix" part="prefix" class="prefix"></slot>
 
-              // Sizes
-              'input--small': this.size === 'small',
-              'input--medium': this.size === 'medium',
-              'input--large': this.size === 'large',
+        <input
+          part="base"
+          id="input"
+          class="control"
+          type=${this.type === 'password' && this.passwordVisible ? 'text' : this.type}
+          title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+          name=${ifDefined(this.name)}
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          ?required=${this.required}
+          placeholder=${ifDefined(this.placeholder)}
+          minlength=${ifDefined(this.minlength)}
+          maxlength=${ifDefined(this.maxlength)}
+          min=${ifDefined(this.min)}
+          max=${ifDefined(this.max)}
+          step=${ifDefined(this.step as number)}
+          .value=${live(this.value || '')}
+          autocapitalize=${ifDefined(this.autocapitalize)}
+          autocomplete=${ifDefined(this.autocomplete)}
+          autocorrect=${ifDefined(this.autocorrect)}
+          ?autofocus=${this.autofocus}
+          spellcheck=${this.spellcheck}
+          pattern=${ifDefined(this.pattern)}
+          enterkeyhint=${ifDefined(this.enterkeyhint)}
+          inputmode=${ifDefined(this.inputmode)}
+          aria-describedby="hint"
+          @change=${this.handleChange}
+          @input=${this.handleInput}
+          @keydown=${this.handleKeyDown}
+          @focus=${this.handleFocus}
+          @blur=${this.handleBlur}
+        />
 
-              // States
-              'input--pill': this.pill,
-              'input--standard': !this.filled,
-              'input--filled': this.filled,
-              'input--disabled': this.disabled,
-              'input--focused': this.hasFocus,
-              'input--empty': !this.value,
-              'input--no-spin-buttons': this.noSpinButtons
-            })}
-          >
-            <span part="prefix" class="input__prefix">
-              <slot name="prefix"></slot>
-            </span>
+        ${isClearIconVisible
+          ? html`
+              <button
+                part="clear-button"
+                class="clear"
+                type="button"
+                aria-label=${this.localize.term('clearEntry')}
+                @click=${this.handleClearClick}
+                tabindex="-1"
+              >
+                <slot name="clear-icon">
+                  <wa-icon name="circle-xmark" library="system" variant="regular"></wa-icon>
+                </slot>
+              </button>
+            `
+          : ''}
+        ${this.passwordToggle && !this.disabled
+          ? html`
+              <button
+                part="password-toggle-button"
+                class="password-toggle"
+                type="button"
+                aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
+                @click=${this.handlePasswordToggle}
+                tabindex="-1"
+              >
+                ${this.passwordVisible
+                  ? html`
+                      <slot name="show-password-icon">
+                        <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
+                      </slot>
+                    `
+                  : html`
+                      <slot name="hide-password-icon">
+                        <wa-icon name="eye" library="system" variant="regular"></wa-icon>
+                      </slot>
+                    `}
+              </button>
+            `
+          : ''}
 
-            <input
-              part="input"
-              id="input"
-              class="input__control"
-              type=${this.type === 'password' && this.passwordVisible ? 'text' : this.type}
-              title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-              name=${ifDefined(this.name)}
-              ?disabled=${this.disabled}
-              ?readonly=${this.readonly}
-              ?required=${this.required}
-              placeholder=${ifDefined(this.placeholder)}
-              minlength=${ifDefined(this.minlength)}
-              maxlength=${ifDefined(this.maxlength)}
-              min=${ifDefined(this.min)}
-              max=${ifDefined(this.max)}
-              step=${ifDefined(this.step as number)}
-              .value=${live(this.value || '')}
-              autocapitalize=${ifDefined(this.autocapitalize)}
-              autocomplete=${ifDefined(this.autocomplete)}
-              autocorrect=${ifDefined(this.autocorrect)}
-              ?autofocus=${this.autofocus}
-              spellcheck=${this.spellcheck}
-              pattern=${ifDefined(this.pattern)}
-              enterkeyhint=${ifDefined(this.enterkeyhint)}
-              inputmode=${ifDefined(this.inputmode)}
-              aria-describedby="help-text"
-              @change=${this.handleChange}
-              @input=${this.handleInput}
-              @keydown=${this.handleKeyDown}
-              @focus=${this.handleFocus}
-              @blur=${this.handleBlur}
-            />
-
-            ${isClearIconVisible
-              ? html`
-                  <button
-                    part="clear-button"
-                    class="input__clear"
-                    type="button"
-                    aria-label=${this.localize.term('clearEntry')}
-                    @click=${this.handleClearClick}
-                    tabindex="-1"
-                  >
-                    <slot name="clear-icon">
-                      <wa-icon name="circle-xmark" library="system" variant="regular"></wa-icon>
-                    </slot>
-                  </button>
-                `
-              : ''}
-            ${this.passwordToggle && !this.disabled
-              ? html`
-                  <button
-                    part="password-toggle-button"
-                    class="input__password-toggle"
-                    type="button"
-                    aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
-                    @click=${this.handlePasswordToggle}
-                    tabindex="-1"
-                  >
-                    ${this.passwordVisible
-                      ? html`
-                          <slot name="show-password-icon">
-                            <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
-                          </slot>
-                        `
-                      : html`
-                          <slot name="hide-password-icon">
-                            <wa-icon name="eye" library="system" variant="regular"></wa-icon>
-                          </slot>
-                        `}
-                  </button>
-                `
-              : ''}
-
-            <span part="suffix" class="input__suffix">
-              <slot name="suffix"></slot>
-            </span>
-          </div>
-        </div>
-
-        <div
-          part="form-control-help-text"
-          id="help-text"
-          class="form-control__help-text"
-          aria-hidden=${hasHelpText ? 'false' : 'true'}
-        >
-          <slot name="help-text">${this.helpText}</slot>
-        </div>
+        <slot name="suffix" part="suffix" class="suffix"></slot>
       </div>
+
+      <slot
+        name="hint"
+        part="hint"
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        >${this.hint}</slot
+      >
     `;
   }
 }

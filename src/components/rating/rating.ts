@@ -1,18 +1,16 @@
-import '../icon/icon.js';
-import { clamp } from '../../internal/math.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaChangeEvent } from '../../events/change.js';
 import { WaHoverEvent } from '../../events/hover.js';
+import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './rating.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
+import styles from './rating.css';
 
 /**
  * @summary Ratings give users a way to quickly view and provide feedback.
@@ -36,7 +34,7 @@ import type { CSSResultGroup } from 'lit';
  */
 @customElement('wa-rating')
 export default class WaRating extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
@@ -191,8 +189,8 @@ export default class WaRating extends WebAwesomeElement {
     this.dispatchEvent(
       new WaHoverEvent({
         phase: 'move',
-        value: this.hoverValue
-      })
+        value: this.hoverValue,
+      }),
     );
   }
 
@@ -201,8 +199,8 @@ export default class WaRating extends WebAwesomeElement {
     this.dispatchEvent(
       new WaHoverEvent({
         phase: this.isHovering ? 'start' : 'end',
-        value: this.hoverValue
-      })
+        value: this.hoverValue,
+      }),
     );
   }
 
@@ -234,7 +232,6 @@ export default class WaRating extends WebAwesomeElement {
           rating: true,
           'rating--readonly': this.readonly,
           'rating--disabled': this.disabled,
-          'rating--rtl': isRtl
         })}
         role="slider"
         aria-label=${this.label}
@@ -253,7 +250,7 @@ export default class WaRating extends WebAwesomeElement {
         @mousemove=${this.handleMouseMove}
         @touchmove=${this.handleTouchMove}
       >
-        <span class="rating__symbols">
+        <span class="symbols">
           ${counter.map(index => {
             if (displayValue > index && displayValue < index + 1) {
               // Users can click the current value to clear the rating. When this happens, we set this.isHovering to
@@ -262,9 +259,9 @@ export default class WaRating extends WebAwesomeElement {
               return html`
                 <span
                   class=${classMap({
-                    rating__symbol: true,
-                    'rating__partial-symbol-container': true,
-                    'rating__symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1
+                    symbol: true,
+                    'partial-symbol-container': true,
+                    'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
                   })}
                   role="presentation"
                 >
@@ -272,17 +269,17 @@ export default class WaRating extends WebAwesomeElement {
                     style=${styleMap({
                       clipPath: isRtl
                         ? `inset(0 ${(displayValue - index) * 100}% 0 0)`
-                        : `inset(0 0 0 ${(displayValue - index) * 100}%)`
+                        : `inset(0 0 0 ${(displayValue - index) * 100}%)`,
                     })}
                   >
                     ${unsafeHTML(this.getSymbol(index + 1))}
                   </div>
                   <div
-                    class="rating__partial--filled"
+                    class="partial--filled"
                     style=${styleMap({
                       clipPath: isRtl
                         ? `inset(0 0 0 ${100 - (displayValue - index) * 100}%)`
-                        : `inset(0 ${100 - (displayValue - index) * 100}% 0 0)`
+                        : `inset(0 ${100 - (displayValue - index) * 100}% 0 0)`,
                     })}
                   >
                     ${unsafeHTML(this.getSymbol(index + 1))}
@@ -294,9 +291,9 @@ export default class WaRating extends WebAwesomeElement {
             return html`
               <span
                 class=${classMap({
-                  rating__symbol: true,
-                  'rating__symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
-                  'rating__symbol--active': displayValue >= index + 1
+                  symbol: true,
+                  'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
+                  'symbol--active': displayValue >= index + 1,
                 })}
                 role="presentation"
               >
