@@ -1,7 +1,8 @@
 /**
  * Component Groups
  */
-:where(:root, :host),
+:where(:root),
+:host,
 .wa-theme-default,
 .wa-light {
   /* Form controls */

@@ -1,7 +1,8 @@
 /**
  * Spacing
  */
-:where(:root, :host) {
+:where(:root),
+:host {
   /* A multiplier is provided to uniformly increase or decrease all spacing. */
   --wa-space-scale: 1;
   --wa-space-3xs: calc(var(--wa-space-scale) * 0.125rem); /* 2px */
