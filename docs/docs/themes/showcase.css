@@ -1,14 +1,8 @@
-wa-page > main {
-  max-width: 140ch;
-
-  .max-line-length {
-    max-width: 80ch;
-  }
+html {
+  background: transparent;
 }
 
 .theme-showcase {
-  container: showcase / inline-size;
-
   background-color: var(--wa-color-surface-lowered);
   border-radius: var(--wa-border-radius-l);
   min-height: 16lh;
@@ -16,16 +10,20 @@ wa-page > main {
   max-height: 21lh;
   padding: var(--wa-space-xl);
   overflow: hidden;
-  margin-block-end: var(--wa-space-xl);
 
-  &.wa-flank {
-    --content-percentage: 60%;
-    --flank-size: 25ch;
+  @media (width < 500px) {
+    flex-flow: column;
   }
 
   header {
+    min-width: min(25ch, 100vw);
+
     h1 {
       margin-bottom: var(--wa-space-2xs);
+    }
+
+    wa-breadcrumb-item:not(:first-of-type, :last-of-type) {
+      display: none;
     }
   }
 }
@@ -46,52 +44,36 @@ wa-page > main {
       margin-block-end: var(--wa-space-xl);
     }
   }
-}
 
-@supports not (zoom: 1) {
-  .showcase-examples {
+  @supports not (zoom: 1) {
     column-count: 1;
-  }
 
-  @container showcase (width > 750px) {
-    .showcase-examples {
+    @media (width > 750px) {
       column-count: 2;
     }
-  }
 
-  @container showcase (width > 950px) {
-    .showcase-examples {
+    @media (width > 950px) {
       column-count: 3;
     }
   }
-}
 
-@supports (zoom: 1) {
-  .showcase-examples {
+  @supports (zoom: 1) {
     column-count: 1;
     zoom: 40%;
-  }
 
-  @container showcase (width > 350px) {
-    .showcase-examples {
+    @media (width > 350px) {
       column-count: 2;
     }
-  }
 
-  @container showcase (width > 450px) {
-    .showcase-examples {
+    @media (width > 450px) {
       zoom: 55%;
     }
-  }
 
-  @container showcase (width > 750px) {
-    .showcase-examples {
+    @media (width > 750px) {
       zoom: 70%;
     }
-  }
 
-  @container showcase (width > 950px) {
-    .showcase-examples {
+    @media (width > 950px) {
       column-count: 3;
       zoom: 70%;
     }

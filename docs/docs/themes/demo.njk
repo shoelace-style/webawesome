@@ -1,0 +1,40 @@
+---
+layout: blank
+pagination:
+  data: collections.theme
+  size: 1
+  alias: theme
+permalink: '/docs/themes/{{ theme.fileSlug }}/demo.html'
+eleventyExcludeFromCollections: true
+override:tags: []
+eleventyComputed:
+  forceTheme: "{{ theme.fileSlug }}"
+---
+<script>
+  document.getElementById('theme-stylesheet').href = '/dist/styles/themes/{{ theme.fileSlug }}.css';
+</script>
+<script type=module>
+  document.getElementById('theme-stylesheet').href = '/dist/styles/themes/{{ theme.fileSlug }}.css';
+</script>
+
+<link rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
+<link rel="stylesheet" href="/docs/themes/showcase.css" />
+
+{% set content %}
+<header>
+  {% include 'breadcrumbs.njk' %}
+  <h1 class="title">{{ theme.data.title }}</h1>
+  <p>{% include 'status.njk' %}</p>
+  <p id="theme-showcase-description">{{ theme.data.description | inlineMarkdown | safe }}</p>
+</header>
+{% include 'theme-showcase.njk' %}
+{% endset %}
+
+<wa-image-comparer style="width: 100%" position="90">
+<div slot="after" class="theme-showcase wa-gap-xl">
+{{ content | safe }}
+</div>
+<div slot="before" class="theme-showcase wa-gap-xl wa-invert">
+  {{ content | safe }}
+</div>
+</wa-image-comparer>

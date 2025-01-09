@@ -455,3 +455,20 @@ wa-page > main:has(> .index-grid) {
     padding: var(--wa-space-3xl);
   }
 }
+
+.layout-theme {
+  wa-page > main {
+    max-width: 140ch;
+
+    .max-line-length {
+      max-width: 80ch;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    min-height: 16lh;
+    height: 65vh;
+    max-height: 21lh;
+  }
+}

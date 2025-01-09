@@ -1,32 +1,12 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
-{% set forceTheme = page.fileSlug %}
+{# {% set forceTheme = page.fileSlug %} #}
 
 {% extends '../_includes/base.njk' %}
 
 {% block header %}
-<link rel="stylesheet" href="/docs/themes/showcase.css" />
-
-<wa-image-comparer style="width: 100%" position="90">
-<div slot="after" class="theme-showcase wa-flank wa-gap-xl">
-  <header>
-	{% include 'breadcrumbs.njk' %}
-    <h1 class="title">{{ title }}</h1>
-	<p>{% include '../_includes/status.njk' %}</p>
-    <p id="theme-showcase-description">{{ description| inlineMarkdown | safe }}</p>
-  </header>
-  {% include 'theme-showcase.njk' %}
-</div>
-<div slot="before" class="theme-showcase wa-flank wa-gap-xl wa-invert">
-  <header>
-	{% include 'breadcrumbs.njk' %}
-    <h1 class="title">{{ title }}</h1>
-	<p>{% include '../_includes/status.njk' %}</p>
-    <p id="theme-showcase-description">{{ description| inlineMarkdown | safe }}</p>
-  </header>
-  {% include 'theme-showcase.njk' %}
-</div>
-</wa-image-comparer>
+<iframe src='{{ page.url }}demo.html'></iframe>
+<script type="module" src="/assets/scripts/sync-iframe-height.js"></script>
 {% endblock %}
 
 {% block afterContent %}
