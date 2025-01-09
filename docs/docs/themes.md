@@ -31,15 +31,11 @@ layout: page-outline
   }
 
   .showcase-examples-wrapper {
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
     inline-size: 100%;
     block-size: 100%;
   }
 
   .showcase-examples {
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
     column-gap: var(--wa-space-xl);
 
     & wa-card {
@@ -57,13 +53,13 @@ layout: page-outline
       column-count: 1;
     }
 
-    @container showcase (width > 700px) {
+    @container showcase (width > 750px) {
       .showcase-examples {
         column-count: 2;
       }
     }
 
-    @container showcase (width > 900px) {
+    @container showcase (width > 950px) {
       .showcase-examples {
         column-count: 3;
       }
@@ -72,8 +68,14 @@ layout: page-outline
 
   @supports (zoom: 1) {
     .showcase-examples {
-      column-count: 2;
+      column-count: 1;
       zoom: 40%;
+    }
+
+    @container showcase (width > 350px) {
+      .showcase-examples {
+        column-count: 2;
+      }
     }
 
     @container showcase (width > 450px) {
