@@ -36,7 +36,7 @@ layout: page-outline
   }
 
   .showcase-examples {
-    -webkit-text-size-adjust: none;
+    -webkit-text-size-adjust: 100%;
     column-gap: var(--wa-space-xl);
 
     & wa-card {
