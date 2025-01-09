@@ -5,10 +5,10 @@
     <span class="preset-theme-selector__text">Default</span>
   </wa-button>
   <wa-menu>
-    {% for themeId, theme in themes %}
-      <wa-menu-item type="radio" value="{{ themeId }}" data-description="{{ theme.description }}"{{ ' data-alpha="remove"' if theme.noAlpha }}>
-        {{ theme.name }}
-      </wa-menu-item>
-    {% endfor %}
+  {% for theme in collections.theme %}
+    <wa-menu-item type="radio" value="{{ theme.page.fileSlug }}" data-description="{{ theme.description }}"{{ ' data-alpha="remove"' if theme.noAlpha }}>
+      {{ theme.data.title }}
+    </wa-menu-item>
+  {% endfor %}
   </wa-menu>
 </wa-dropdown>

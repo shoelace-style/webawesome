@@ -22,6 +22,12 @@ wa-page > main {
     --content-percentage: 55%;
     --flank-size: 20ch;
   }
+
+  header {
+    h1 {
+      margin-bottom: var(--wa-space-2xs);
+    }
+  }
 }
 
 .showcase-examples-wrapper {
