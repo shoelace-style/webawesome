@@ -48,6 +48,7 @@
     "build": "node scripts/build.js",
     "build:serve": "npm run build && npx http-server _site -p 4000",
     "build:alpha": "node scripts/build.js --alpha",
+    "build:alpha:serve": "npm run build:alpha && npx http-server _site -p 4000",
     "start:alpha": "node scripts/build.js --alpha --develop",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
     "create": "plop --plopfile scripts/plop/plopfile.js",
