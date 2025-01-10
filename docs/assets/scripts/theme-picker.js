@@ -1,14 +1,20 @@
-// Listen for selections
-document.addEventListener('wa-change', event => {
-  for (let aspect of [presetTheme, colorScheme]) {
-    const picker = event.target.closest(aspect.picker);
-    if (picker) {
-      aspect.set(picker.value);
-    }
-  }
-});
+// Helper for view transitions
+export function domChange(fn, { behavior = 'smooth' } = {}) {
+  const canUseViewTransitions =
+    document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-class ThemeAspect {
+  if (canUseViewTransitions && behavior === 'smooth') {
+    document.startViewTransition(fn);
+  } else {
+    fn(true);
+  }
+}
+
+function nextFrame() {
+  return new Promise(resolve => requestAnimationFrame(resolve));
+}
+
+export class ThemeAspect {
   constructor(options) {
     Object.assign(this, options);
     this.set();
@@ -20,10 +26,28 @@ class ThemeAspect {
         this.set();
       }
     });
+
+    // Listen for selections
+    document.addEventListener('wa-change', event => {
+      const picker = event.target.closest(this.picker);
+      if (picker) {
+        this.set(picker.value);
+      }
+    });
   }
 
   get() {
     return localStorage.getItem(this.key) ?? this.defaultValue;
+  }
+
+  computed = {};
+
+  get computedValue() {
+    if (this.value in this.computed) {
+      return this.computed[this.value];
+    }
+
+    return this.value;
   }
 
   set(value = this.get()) {
@@ -32,14 +56,18 @@ class ThemeAspect {
     }
 
     this.value = value;
-    localStorage.setItem(this.key, this.value);
+
+    if (this.value === this.defaultValue) {
+      localStorage.removeItem(this.key);
+    } else {
+      localStorage.setItem(this.key, this.value);
+    }
 
     this.applyChange();
     this.syncUI();
   }
 
   syncUI(container = document) {
-    console.log(this.key, this.value);
     for (let picker of container.querySelectorAll(this.picker)) {
       picker.setAttribute('value', this.value);
       picker.value = this.value;
@@ -53,8 +81,44 @@ const presetTheme = new ThemeAspect({
   picker: 'wa-select.preset-theme-selector',
 
   applyChange() {
-    const stylesheet = document.getElementById('theme-stylesheet');
-    window.setStylesheetHref(stylesheet, `/dist/styles/themes/${this.value}.css`, { behavior: 'smooth' });
+    const oldStylesheets = [...document.querySelectorAll('#theme-stylesheet')];
+    const oldStylesheet = oldStylesheets.pop();
+
+    if (oldStylesheets.length > 0) {
+      // Remove all but the last one
+      for (let stylesheet of oldStylesheets) {
+        stylesheet.remove();
+      }
+    }
+
+    const href = `/dist/styles/themes/${this.value}.css`;
+
+    if (!oldStylesheet || oldStylesheet.getAttribute('href') !== href) {
+      const newStylesheet = document.createElement('link');
+      Object.assign(newStylesheet, { href, id: 'theme-stylesheet', rel: 'preload', as: 'style' });
+      oldStylesheet.after(newStylesheet);
+
+      newStylesheet.addEventListener(
+        'load',
+        e => {
+          domChange(
+            async instant => {
+              // Swap stylesheets
+              newStylesheet.rel = 'stylesheet';
+
+              if (instant) {
+                // If no VT, delay by 1 frame to make it smoother
+                await nextFrame();
+              }
+
+              oldStylesheet.remove();
+            },
+            { behavior: 'smooth' },
+          );
+        },
+        { once: true },
+      );
+    }
   },
 });
 
@@ -63,15 +127,23 @@ const colorScheme = new ThemeAspect({
   key: 'colorScheme',
   picker: 'wa-select.color-scheme-selector',
 
+  computed: {
+    get auto() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    },
+  },
+
   applyChange() {
     // Toggle the dark mode class
-    let dark = window.isDark();
-    document.documentElement.classList.toggle(`wa-dark`, dark);
+    domChange(() => {
+      let dark = this.computedValue === 'dark';
+      document.documentElement.classList.toggle(`wa-dark`, dark);
 
-    for (let el of document.querySelectorAll('.wa-invert')) {
-      el.classList.toggle('wa-dark', !dark);
-      el.classList.toggle('wa-light', dark);
-    }
+      for (let el of document.querySelectorAll('.wa-invert')) {
+        el.classList.toggle('wa-dark', !dark);
+        el.classList.toggle('wa-light', dark);
+      }
+    });
   },
 });
 
@@ -93,16 +165,13 @@ function updateSelectionBeforeTurboLoad(e) {
   document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
 });
 
-// Toggle with backslash
+// Toggle color scheme with backslash
 document.addEventListener('keydown', event => {
   if (
     event.key === '\\' &&
     !event.composedPath().some(el => ['input', 'textarea'].includes(el?.tagName?.toLowerCase()))
   ) {
     event.preventDefault();
-    colorScheme.set(window.isDark() ? 'light' : 'dark');
+    colorScheme.set(theming.colorScheme.resolvedValue === 'dark' ? 'light' : 'dark');
   }
 });
-
-window.colorScheme = colorScheme;
-window.presetTheme = presetTheme;

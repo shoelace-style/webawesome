@@ -1,0 +1,51 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ description }}">
+{% if noindex %}<meta name="robots" content="noindex">{% endif %}
+
+<title>{{ title }}</title>
+
+{# Dark mode #}
+<script>
+	let colorScheme = localStorage.colorScheme;
+	let isDark = localStorage.colorScheme === "dark";
+	if (!colorScheme || colorScheme === "auto") {
+		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	}
+	document.documentElement.classList.toggle('wa-dark', isDark);
+</script>
+
+<link rel="icon" href="/assets/images/webawesome-logo.svg" />
+<link rel="apple-touch-icon" href="/assets/images/app-icon.png">
+
+{# Scripts #}
+{# Hydration stuff #}
+<script src="/assets/scripts/hydration-errors.js"></script>
+<link rel="stylesheet" href="/assets/styles/hydration-errors.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm"></script>
+
+{# Web Awesome #}
+<script type="module" src="/dist/webawesome.ssr-loader.js"></script>
+
+{# Preset Theme #}
+<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" render="blocking" fetchpriority="high" />
+{% if not forceTheme %}
+<script>
+if (localStorage.presetTheme) {
+	let preset = localStorage.presetTheme;
+	let script = document.currentScript;
+	let link = script.previousElementSibling;
+	let newLink = link.cloneNode();
+	newLink.href = link.href.replace("/default.css", `/${preset}.css`);
+	newLink.addEventListener('load', () => {
+		link.remove();
+	});
+	link.after(newLink);
+}
+</script>
+{% endif %}
+
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+<link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
+<link rel="stylesheet" href="/dist/styles/forms.css" />

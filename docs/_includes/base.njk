@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ description }}">
+    {% include 'head.njk' %}
     <meta name="theme-color" content="#f36944">
-    {% if noindex %}<meta name="robots" content="noindex">{% endif %}
-
-    <title>{{ title }}</title>
-
-    <link rel="icon" href="/assets/images/webawesome-logo.svg" />
-    <link rel="apple-touch-icon" href="/assets/images/app-icon.png">
-
-    {# Scripts #}
-    {# Hydration stuff #}
-    <script src="/assets/scripts/hydration-errors.js"></script>
-    <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm"></script>
 
     <script type="module" src="/assets/scripts/code-examples.js"></script>
     <script type="module" src="/assets/scripts/copy-code.js"></script>
@@ -28,21 +13,8 @@
     <script type="module" src="/assets/scripts/outline.js"></script>
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {# Web Awesome #}
-    <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" />
-    <link rel="stylesheet" href="/dist/styles/webawesome.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
-    <link rel="stylesheet" href="/dist/styles/forms.css" />
-
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
-
-    {# Set the theme to prevent flashing #}
-    <script>
-      let forceTheme = "{{ forceTheme }}";
-      {% include 'set-theme-sync.js.njk' %}
-    </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
