@@ -59,6 +59,8 @@ To generate a production build, run the following command.
 npm run build
 ```
 
+You can also run `npm run build:serve` to start an [`http-server`](https://www.npmjs.com/package/http-server) instance on `http://localhost:4000` after the build completes, so you can preview the production build.
+
 ### Creating New Components
 
 To scaffold a new component, run the following command, replacing `wa-tag-name` with the desired tag name.
