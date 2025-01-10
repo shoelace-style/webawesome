@@ -28,6 +28,7 @@
 {# Web Awesome #}
 <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 
+<script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
 <link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" render="blocking" fetchpriority="high" />
 {% if not forceTheme %}
@@ -44,6 +45,7 @@ if (localStorage.presetTheme) {
 	link.after(newLink);
 }
 </script>
+<script type="module" src="/assets/scripts/preset-theme-picker.js"></script>
 {% endif %}
 
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />

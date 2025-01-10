@@ -10,7 +10,7 @@ export function domChange(fn, { behavior = 'smooth' } = {}) {
   }
 }
 
-function nextFrame() {
+export function nextFrame() {
   return new Promise(resolve => requestAnimationFrame(resolve));
 }
 
@@ -75,55 +75,6 @@ export class ThemeAspect {
   }
 }
 
-const presetTheme = new ThemeAspect({
-  defaultValue: 'default',
-  key: 'presetTheme',
-  picker: 'wa-select.preset-theme-selector',
-
-  applyChange() {
-    const oldStylesheets = [...document.querySelectorAll('#theme-stylesheet')];
-    const oldStylesheet = oldStylesheets.pop();
-
-    if (oldStylesheets.length > 0) {
-      // Remove all but the last one
-      for (let stylesheet of oldStylesheets) {
-        stylesheet.remove();
-      }
-    }
-
-    const href = `/dist/styles/themes/${this.value}.css`;
-
-    if (!oldStylesheet || oldStylesheet.getAttribute('href') !== href) {
-      const newStylesheet = document.createElement('link');
-      Object.assign(newStylesheet, { href, id: 'theme-stylesheet', rel: 'preload', as: 'style' });
-      oldStylesheet.after(newStylesheet);
-
-      newStylesheet.addEventListener(
-        'load',
-        e => {
-          domChange(
-            async instant => {
-              // Swap stylesheets
-              newStylesheet.rel = 'stylesheet';
-
-              if (instant) {
-                // If no VT, delay by 1 frame to make it smoother
-                await nextFrame();
-              }
-
-              oldStylesheet.remove();
-            },
-            { behavior: 'smooth' },
-          );
-        },
-        { once: true },
-      );
-
-      nextFrame().then(_ => updateThemeNameAndDescription());
-    }
-  },
-});
-
 const colorScheme = new ThemeAspect({
   defaultValue: 'auto',
   key: 'colorScheme',
@@ -152,23 +103,6 @@ const colorScheme = new ThemeAspect({
 // Update the color scheme when the preference changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => colorScheme.set());
 
-/**
- * Without this, there's a flash of the incorrect preset theme.
- */
-function updateSelectionBeforeTurboLoad(e) {
-  const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
-  if (newElement) {
-    presetTheme.syncUI(newElement);
-    colorScheme.syncUI(newElement);
-  }
-}
-
-['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
-  document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
-});
-
-document.addEventListener('turbo:render', updateThemeNameAndDescription);
-
 // Toggle color scheme with backslash
 document.addEventListener('keydown', event => {
   if (
@@ -179,22 +113,3 @@ document.addEventListener('keydown', event => {
     colorScheme.set(theming.colorScheme.resolvedValue === 'dark' ? 'light' : 'dark');
   }
 });
-
-// Temp hack for theme switcher
-function updateThemeNameAndDescription() {
-  let selectedOption = document.querySelector(`.preset-theme-selector wa-option[value="${presetTheme.value}"]`);
-
-  if (selectedOption) {
-    let title = selectedOption.textContent;
-    let description = selectedOption.dataset.description;
-    for (let element of document.querySelectorAll('[data-theme-name]')) {
-      element.textContent = title;
-    }
-    for (let element of document.querySelectorAll('[data-theme-description]')) {
-      element.textContent = description;
-    }
-  }
-}
-updateThemeNameAndDescription();
-
-window.presetTheme = presetTheme;
