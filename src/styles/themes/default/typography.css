@@ -1,7 +1,8 @@
 /**
  * Typography
  */
-:where(:root, :host) {
+:where(:root),
+:host {
   --wa-font-family-body: ui-sans-serif, system-ui, sans-serif;
   --wa-font-family-heading: var(--wa-font-family-body);
   --wa-font-family-code: ui-monospace, monospace;

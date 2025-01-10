@@ -1,85 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ description }}">
+    {% include 'head.njk' %}
     <meta name="theme-color" content="#f36944">
-    {% if noindex %}<meta name="robots" content="noindex">{% endif %}
-
-    <title>{{ title }}</title>
-
-    <link rel="icon" href="/assets/images/webawesome-logo.svg" />
-    <link rel="apple-touch-icon" href="/assets/images/app-icon.png">
-
-    {# Scripts #}
-    {# Hydration stuff #}
-    <script src="/assets/scripts/hydration-errors.js"></script>
-    <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm"></script>
 
     <script type="module" src="/assets/scripts/code-examples.js"></script>
-    <script type="module" src="/assets/scripts/color-scheme.js"></script>
     <script type="module" src="/assets/scripts/copy-code.js"></script>
-    <script type="module" src="/assets/scripts/preset-theme.js"></script>
+    <script type="module" src="/assets/scripts/theme-picker.js"></script>
     <script type="module" src="/assets/scripts/scroll.js"></script>
     <script type="module" src="/assets/scripts/turbo.js"></script>
     <script type="module" src="/assets/scripts/search.js"></script>
     <script type="module" src="/assets/scripts/outline.js"></script>
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {# Web Awesome #}
-    <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
-    <link rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" />
-    <link rel="stylesheet" href="/dist/styles/webawesome.css" />
-    <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
-    <link rel="stylesheet" href="/dist/styles/forms.css" />
-
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
-
-    {# Set the theme to prevent flashing #}
-    <script>
-      function getColorScheme() {
-        return localStorage.getItem('colorScheme') || 'auto';
-      }
-
-      function getPresetTheme () {
-        return localStorage.getItem('presetTheme') || 'default';
-      }
-
-      function isDark() {
-        const colorScheme = getColorScheme()
-        if (colorScheme === 'auto') {
-          return window.matchMedia('(prefers-color-scheme: dark)').matches;
-        }
-        return colorScheme === 'dark';
-      }
-
-      const oldStylesheet = document.querySelector("#theme-stylesheet")
-
-      const newStylesheet = document.createElement("link")
-
-      {% if not forceTheme -%}
-      let preset = getPresetTheme()
-      newStylesheet.href = `/dist/styles/themes/${preset}.css`
-      newStylesheet.rel = "preload"
-      newStylesheet.as = "style"
-
-      document.head.append(newStylesheet)
-      {%- endif %}
-
-      function updateStylesheet () {
-        newStylesheet.rel = "stylesheet"
-        newStylesheet.id = "theme-stylesheet"
-        requestAnimationFrame(() => oldStylesheet.remove())
-      }
-
-      newStylesheet.addEventListener("load", updateStylesheet)
-
-      document.documentElement.classList.toggle(`wa-dark`, isDark());
-    </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->

@@ -1,7 +1,8 @@
 /**
   * Borders and outlines
   */
-:where(:root, :host) {
+:where(:root),
+:host {
   --wa-border-style: solid;
 
   /* A multiplier is provided to uniformly increase or decrease all border widths. */

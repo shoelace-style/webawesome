@@ -8,7 +8,7 @@
 @import url('default/transitions.css');
 @import url('default/groups.css');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-default,
 .wa-light {

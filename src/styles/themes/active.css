@@ -9,7 +9,7 @@
 @import url('default/groups.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-active,
 .wa-light {
@@ -183,59 +183,61 @@
 /**
  * Component Styles
  */
-:root {
+:where(:root),
+:host,
+.wa-theme-active {
   --wa-theme-active-shadow-pop-out: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
     inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
     inset 0 -0.0625rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */, var(--wa-shadow-s) /* outer shadow */;
   --wa-theme-active-shadow-punch-in: inset 0 0 0 0 transparent /* shine */,
     inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.1) /* inner highlight */,
     inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.1) /* inner shadow */, 0 0 0 0 transparent /* outer shadow */;
-}
 
-:is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
-    [appearance='plain'],
-    .wa-plain
-  ) {
-  box-shadow: var(--wa-theme-active-shadow-pop-out);
+  :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
+      [appearance='plain'],
+      .wa-plain
+    ) {
+    box-shadow: var(--wa-theme-active-shadow-pop-out);
 
-  &:not([disabled], [loading]):active {
-    box-shadow: var(--wa-theme-active-shadow-punch-in);
+    &:not([disabled], [loading]):active {
+      box-shadow: var(--wa-theme-active-shadow-punch-in);
+    }
   }
-}
 
-wa-card {
-  box-shadow: var(--wa-theme-active-shadow-pop-out);
-}
-
-input:not([type='button'], [type='reset'], [type='submit'], :checked),
-select,
-textarea,
-:is(wa-checkbox, wa-radio, wa-switch):not(:state(checked)),
-wa-input,
-wa-select,
-wa-textarea {
-  &:not([appearance='filled']):not([disabled]) {
-    --box-shadow: inset var(--wa-shadow-s);
+  wa-card {
+    box-shadow: var(--wa-theme-active-shadow-pop-out);
   }
-}
 
-input[type='radio'],
-wa-radio {
-  --background-color-checked: var(--wa-form-control-activated-color);
-  --checked-icon-color: var(--wa-color-brand-on-loud);
-  --checked-icon-scale: 0.4;
-}
+  input:not([type='button'], [type='reset'], [type='submit'], :checked),
+  select,
+  textarea,
+  :is(wa-checkbox, wa-radio, wa-switch):not(:state(checked)),
+  wa-input,
+  wa-select,
+  wa-textarea {
+    &:not([appearance='filled']):not([disabled]) {
+      --box-shadow: inset var(--wa-shadow-s);
+    }
+  }
 
-input[type='range'],
-wa-slider,
-wa-switch {
-  --thumb-shadow: var(--wa-theme-active-shadow-pop-out);
-}
+  input[type='radio'],
+  wa-radio {
+    --background-color-checked: var(--wa-form-control-activated-color);
+    --checked-icon-color: var(--wa-color-brand-on-loud);
+    --checked-icon-scale: 0.4;
+  }
 
-wa-progress-bar {
-  box-shadow: inset var(--wa-shadow-s);
+  input[type='range'],
+  wa-slider,
+  wa-switch {
+    --thumb-shadow: var(--wa-theme-active-shadow-pop-out);
+  }
 
-  &::part(indicator) {
-    box-shadow: inset 0 -0.5em 1em -0.5em oklch(from var(--indicator-color) calc(l - 0.1) c h);
+  wa-progress-bar {
+    box-shadow: inset var(--wa-shadow-s);
+
+    &::part(indicator) {
+      box-shadow: inset 0 -0.5em 1em -0.5em oklch(from var(--indicator-color) calc(l - 0.1) c h);
+    }
   }
 }

@@ -8,7 +8,7 @@
 @import url('default/transitions.css');
 @import url('default/groups.css');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-glassy,
 .wa-light {
@@ -118,83 +118,87 @@
 /**
  * Component Styles
  */
-wa-button:not([appearance='plain']) {
-  box-shadow:
-    inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
-    inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-    inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */,
-    var(--wa-shadow-s) /* outer shadow */;
-
-  margin-bottom: var(--wa-shadow-offset-y-s);
-  transition: transform var(--wa-transition-fast);
-
-  &:not([disabled]) {
-    &:hover {
-      box-shadow:
-        inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
-        inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-        inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */,
-        var(--wa-shadow-m) /* outer shadow */;
-    }
-
-    &:active {
-      box-shadow:
-        inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
-        inset 0 0.125rem 0 0 rgb(0 0 0 / 0.1) /* top highlight */,
-        inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
-        inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-        inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */,
-        0 0 0 0 transparent /* outer shadow */;
-
-      transform: translateY(var(--wa-shadow-offset-y-s));
-    }
-  }
-}
-
-wa-checkbox,
-wa-input:not(:focus),
-wa-radio,
-wa-select {
-  --box-shadow: inset var(--wa-shadow-s), inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
-    inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
-}
-
-wa-checkbox:state(checked),
-wa-radio:state(checked) {
-  --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
-}
-
-wa-textarea:not(:focus) {
-  &:not([appearance='filled']):not([disabled]) {
-    --box-shadow: var(--wa-shadow-s);
-  }
-}
-
-wa-switch {
-  --box-shadow: inset var(--wa-shadow-s);
-  --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-    inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
-    inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
-    inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-    inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
-}
-
-wa-progress-bar {
-  box-shadow: inset var(--wa-shadow-s);
-
-  &::part(indicator) {
+:where(:root),
+:host,
+.wa-theme-glassy {
+  wa-button:not([appearance='plain']) {
     box-shadow:
       inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
       inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
-      inset 0 0.625rem 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-      inset 0 -0.5rem 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+      inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
       inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */,
       var(--wa-shadow-s) /* outer shadow */;
+
+    margin-bottom: var(--wa-shadow-offset-y-s);
+    transition: transform var(--wa-transition-fast);
+
+    &:not([disabled]) {
+      &:hover {
+        box-shadow:
+          inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+          inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
+          inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
+          inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+          inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */,
+          var(--wa-shadow-m) /* outer shadow */;
+      }
+
+      &:active {
+        box-shadow:
+          inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
+          inset 0 0.125rem 0 0 rgb(0 0 0 / 0.1) /* top highlight */,
+          inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
+          inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+          inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */,
+          0 0 0 0 transparent /* outer shadow */;
+
+        transform: translateY(var(--wa-shadow-offset-y-s));
+      }
+    }
+  }
+
+  wa-checkbox,
+  wa-input:not(:focus),
+  wa-radio,
+  wa-select {
+    --box-shadow: inset var(--wa-shadow-s), inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
+  }
+
+  wa-checkbox:state(checked),
+  wa-radio:state(checked) {
+    --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+      inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
+  }
+
+  wa-textarea:not(:focus) {
+    &:not([appearance='filled']):not([disabled]) {
+      --box-shadow: var(--wa-shadow-s);
+    }
+  }
+
+  wa-switch {
+    --box-shadow: inset var(--wa-shadow-s);
+    --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+      inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
+      inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+      inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
+  }
+
+  wa-progress-bar {
+    box-shadow: inset var(--wa-shadow-s);
+
+    &::part(indicator) {
+      box-shadow:
+        inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+        inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
+        inset 0 0.625rem 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
+        inset 0 -0.5rem 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+        inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */,
+        var(--wa-shadow-s) /* outer shadow */;
+    }
   }
 }

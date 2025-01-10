@@ -9,7 +9,7 @@
 @import url('default/groups.css');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-:root,
+:where(:root),
 :host,
 .wa-theme-mellow,
 .wa-light {
@@ -202,28 +202,32 @@
 /**
  * Component Styles
  */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  letter-spacing: calc(1em * -0.02);
-}
+:where(:root),
+:host,
+.wa-theme-mellow {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: calc(1em * -0.02);
+  }
 
-wa-callout {
-  border-width: var(--wa-panel-border-width) var(--wa-panel-border-width) var(--wa-panel-border-width)
-    calc(var(--wa-panel-border-width) * 4);
-}
+  wa-callout {
+    border-width: var(--wa-panel-border-width) var(--wa-panel-border-width) var(--wa-panel-border-width)
+      calc(var(--wa-panel-border-width) * 4);
+  }
 
-wa-card::part(header) {
-  border-bottom-style: dotted;
-}
-wa-card::part(footer) {
-  border-top-style: dotted;
-}
+  wa-card::part(header) {
+    border-bottom-style: dotted;
+  }
+  wa-card::part(footer) {
+    border-top-style: dotted;
+  }
 
-input[type='radio'],
-wa-radio {
-  --checked-icon-scale: 0.6;
+  input[type='radio'],
+  wa-radio {
+    --checked-icon-scale: 0.6;
+  }
 }

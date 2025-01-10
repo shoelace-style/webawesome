@@ -3,7 +3,8 @@
  * Shadow properties are highly modular to make it easy to create custom shadow effects or transform elements based on specific shadow qualities.
  * A multiplier is provided for each shadow quality to uniformly scale all related values.
  */
-:where(:root, :host) {
+:where(:root),
+:host {
   --wa-shadow-offset-x-scale: 0;
   --wa-shadow-offset-x-s: calc(var(--wa-shadow-offset-x-scale) * 0.125rem);
   --wa-shadow-offset-x-m: calc(var(--wa-shadow-offset-x-scale) * 0.25rem);

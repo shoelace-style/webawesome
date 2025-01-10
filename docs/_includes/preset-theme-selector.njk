@@ -1,14 +1,9 @@
 {# Preset theme selector #}
-<wa-dropdown class="preset-theme-selector">
-  <wa-button slot="trigger" appearance="filled" size="small" pill caret>
-    <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
-    <span class="preset-theme-selector__text">Default</span>
-  </wa-button>
-  <wa-menu>
-  {% for theme in collections.theme %}
-    <wa-menu-item type="radio" value="{{ theme.page.fileSlug }}" data-description="{{ theme.description }}"{{ ' data-alpha="remove"' if theme.noAlpha }}>
+<wa-select appearance="filled" size="small" value="default" pill class="preset-theme-selector">
+  <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
+  {% for theme in collections.theme | sort %}
+    <wa-option value="{{ theme.page.fileSlug }}"{{ ' data-alpha="remove"' if theme.noAlpha }}>
       {{ theme.data.title }}
-    </wa-menu-item>
+    </wa-option>
   {% endfor %}
-  </wa-menu>
-</wa-dropdown>
+</wa-select>
