@@ -167,6 +167,8 @@ function updateSelectionBeforeTurboLoad(e) {
   document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
 });
 
+document.addEventListener('turbo:render', updateThemeNameAndDescription);
+
 // Toggle color scheme with backslash
 document.addEventListener('keydown', event => {
   if (
