@@ -118,6 +118,8 @@ const presetTheme = new ThemeAspect({
         },
         { once: true },
       );
+
+      nextFrame().then(_ => updateThemeNameAndDescription());
     }
   },
 });
@@ -175,3 +177,22 @@ document.addEventListener('keydown', event => {
     colorScheme.set(theming.colorScheme.resolvedValue === 'dark' ? 'light' : 'dark');
   }
 });
+
+// Temp hack for theme switcher
+function updateThemeNameAndDescription() {
+  let selectedOption = document.querySelector(`.preset-theme-selector wa-option[value="${presetTheme.value}"]`);
+
+  if (selectedOption) {
+    let title = selectedOption.textContent;
+    let description = selectedOption.dataset.description;
+    for (let element of document.querySelectorAll('[data-theme-name]')) {
+      element.textContent = title;
+    }
+    for (let element of document.querySelectorAll('[data-theme-description]')) {
+      element.textContent = description;
+    }
+  }
+}
+updateThemeNameAndDescription();
+
+window.presetTheme = presetTheme;
