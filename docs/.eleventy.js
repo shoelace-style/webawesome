@@ -26,8 +26,8 @@ const globalData = {
   layout: 'page.njk',
 };
 
-const passThroughExtensions = ['css', 'png', 'svg', 'jpg', 'mp4'];
-const passThrough = ['docs/**/*.js', ...passThroughExtensions.map(ext => '**/*.' + ext)];
+const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
+const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
 
 export default function (eleventyConfig) {
   // NOTE - alpha setting removes certain pages
