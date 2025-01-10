@@ -46,6 +46,7 @@
   "scripts": {
     "start": "node scripts/build.js --develop",
     "build": "node scripts/build.js",
+    "build:serve": "npm run build && npx http-server _site -p 4000",
     "build:alpha": "node scripts/build.js --alpha",
     "start:alpha": "node scripts/build.js --alpha --develop",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
