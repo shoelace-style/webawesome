@@ -1,0 +1,36 @@
+---
+title: Styling Tests
+---
+
+<h2>Appearance and variant tests</h2>
+
+{% for component in componentsBy.attribute.variant %}
+{%- if component.attributes.appearance -%}
+<h3><a href="../{{ component.url }}"><code>&lt;{{ component.tagName }}&gt;</code></a></h3>
+
+{% set variantValues = component.attributes.variant.type.text | getEnumValues %}
+{% set appearanceValues = component.attributes.appearance.type.text | getEnumValues %}
+
+<table>
+<thead>
+	<tr>
+		<th>Variant</th>
+		{% for appearance in appearanceValues %}
+			<th>{{ appearance }}</th>
+		{%- endfor %}
+	</tr>
+</thead>
+{% for variant in variantValues %}
+<tr>
+	<th>{{ variant }}</th>
+	{% for appearance in appearanceValues %}
+	<td>
+		<{{ component.tagName }} variant={{ variant }} appearance={{ appearance }}>{{ variant }} {{ appearance }}</{{ component.tagName }}>
+	</td>
+	{%- endfor %}
+</tr>
+{%- endfor %}
+</table>
+
+{% endif %}
+{%- endfor %}

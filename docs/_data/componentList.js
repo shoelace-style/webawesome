@@ -31,13 +31,25 @@ const components = manifest.modules.flatMap(module => {
         return prop.kind === 'field' && prop.privacy !== 'private';
       });
 
-      return {
+      let ret = {
         ...declaration,
         slug: declaration.tagName.replace(/^wa-/, ''),
         methods,
         attributes,
         properties,
       };
+
+      // Add named keys to these arrays
+      for (let thing of ['methods', 'attributes', 'properties', 'cssProperties', 'cssParts', 'cssStates', 'events']) {
+        if (ret[thing]) {
+          ret[thing] = ret[thing].reduce((acc, item) => {
+            acc[item.name] = item;
+            return acc;
+          }, ret[thing]);
+        }
+      }
+
+      return ret;
     });
 });
 
