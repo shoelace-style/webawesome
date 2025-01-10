@@ -76,7 +76,7 @@ function generateManifest() {
     console.error(`\n\n${error.message}`);
 
     if (!isDeveloping) {
-      process.exit(1)
+      process.exit(1);
     }
   }
 
@@ -97,7 +97,7 @@ function generateReactWrappers() {
     console.error(`\n\n${error.message}`);
 
     if (!isDeveloping) {
-      process.exit(1)
+      process.exit(1);
     }
   }
   spinner.succeed();
@@ -156,7 +156,7 @@ async function generateTypes() {
     execSync(`tsc --project ./tsconfig.prod.json --outdir "${cdnDir}"`);
   } catch (error) {
     if (!isDeveloping) {
-      process.exit(1)
+      process.exit(1);
     }
     return Promise.reject(error.stdout);
   }
@@ -231,7 +231,7 @@ async function generateBundle() {
     spinner.fail();
     console.log(chalk.red(`\n${error}`));
     if (!isDeveloping) {
-      process.exit(1)
+      process.exit(1);
     }
   }
 
@@ -251,7 +251,7 @@ async function regenerateBundle() {
     console.log(chalk.red(`\n${error}`));
 
     if (!isDeveloping) {
-      process.exit(1)
+      process.exit(1);
     }
   }
 
@@ -268,7 +268,7 @@ async function generateDocs() {
   if (isAlpha) args.push('--alpha');
   if (isDeveloping) args.push('--develop');
 
-  let output
+  let output;
   try {
     // 11ty
     output = (await runScript(join(__dirname, 'docs.js'), args))
@@ -279,19 +279,20 @@ async function generateDocs() {
       .toLowerCase()
       .trim();
 
-      // Copy dist (production only)
-      if (!isDeveloping) {
-        await copy(cdnDir, join(siteDir, 'dist'));
-      }
+    // Copy dist (production only)
+    if (!isDeveloping) {
+      await copy(cdnDir, join(siteDir, 'dist'));
+    }
 
+    spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
   } catch (error) {
-    console.error("\n\n" + chalk.red(error) + "\n")
+    console.error('\n\n' + chalk.red(error) + '\n');
 
     spinner.fail(chalk.red(`Error while writing the docs.`));
-    if (!isDeveloping) { process.exit(1) }
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
-
-  spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
 }
 
 // Initial build
@@ -394,7 +395,7 @@ if (isDeveloping) {
       console.error(chalk.red(err));
 
       if (!isDeveloping) {
-        process.exit(1)
+        process.exit(1);
       }
     }
   });
@@ -423,4 +424,3 @@ function terminate() {
 
 process.on('SIGINT', terminate);
 process.on('SIGTERM', terminate);
-
