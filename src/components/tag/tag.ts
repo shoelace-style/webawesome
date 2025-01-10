@@ -1,10 +1,15 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaRemoveEvent } from '../../events/remove.js';
+import {
+  appearanceStyles,
+  sizeStyles,
+  variantStyles,
+  type AppearanceAttribute,
+  type SizeAttribute,
+  type VariantAttribute,
+} from '../../internal/styling-attributes.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
-import sizeStyles from '../../styles/utilities/size.css';
-import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon-button/icon-button.js';
 import styles from './tag.css';
@@ -33,14 +38,13 @@ export default class WaTag extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /** The tag's theme variant. */
-  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' = 'neutral';
+  @property({ reflect: true }) variant: VariantAttribute = 'neutral';
 
   /** The tag's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'outlined accent' | 'filled' | 'outlined' | 'outlined filled' =
-    'outlined filled';
+  @property({ reflect: true }) appearance: AppearanceAttribute = 'outlined filled';
 
   /** The tag's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: SizeAttribute = 'medium';
 
   /** Draws a pill-style tag with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

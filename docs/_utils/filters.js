@@ -14,6 +14,18 @@ export function trimPipes(content) {
   return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
 }
 
+export function stripQuotes(content) {
+  return content.replace(/^(['"])(.+)\1$/g, '$2');
+}
+
+export function getEnumValues(type) {
+  return type
+    .split('|')
+    .map(value => value.trim())
+    .filter(Boolean)
+    .map(stripQuotes);
+}
+
 export function keys(obj) {
   return Object.keys(obj);
 }
