@@ -17,12 +17,17 @@ html {
 
   header {
     min-width: min(25ch, 100vw);
+    align-self: center;
 
     h1 {
       margin-bottom: var(--wa-space-2xs);
     }
 
     wa-breadcrumb-item:not(:first-of-type, :last-of-type) {
+      display: none;
+    }
+
+    p:empty {
       display: none;
     }
   }
