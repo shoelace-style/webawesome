@@ -42,11 +42,13 @@ export const icons = Object.assign({}, ...Object.values(iconsByVariant));
 const systemLibrary: IconLibrary = {
   name: 'system',
   resolver: (name: string, family = 'classic', variant = 'solid') => {
-    // Try given variant first, fall back to any variant
-    let svg = icons[variant]?.[name] ?? icons[name];
+    if (family === 'classic') {
+      // Try given variant first, fall back to any variant
+      let svg = icons[variant]?.[name] ?? icons[name];
 
-    if (svg) {
-      return dataUri(svg);
+      if (svg) {
+        return dataUri(svg);
+      }
     }
 
     return '';
