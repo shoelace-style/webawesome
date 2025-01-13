@@ -1,3 +1,7 @@
+/**
+ * Sync iframe height with its content page (for same-origin iframes)
+ * NOT CURRENTLY USED ANYWHERE
+ */
 for (let iframe of document.querySelectorAll('iframe')) {
   if (iframe.contentDocument) {
     // Already loaded

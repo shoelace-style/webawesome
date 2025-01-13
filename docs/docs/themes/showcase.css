@@ -2,13 +2,18 @@ html {
   background: transparent;
 }
 
+html,
+body,
+.theme-showcase {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .theme-showcase {
   background-color: var(--wa-color-surface-lowered);
   border-radius: var(--wa-border-radius-l);
-  min-height: 16lh;
-  height: 65vh;
-  max-height: 21lh;
   padding: var(--wa-space-xl);
+  box-sizing: border-box;
   overflow: hidden;
 
   @media (width < 500px) {
