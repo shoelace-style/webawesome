@@ -44,7 +44,7 @@ const systemLibrary: IconLibrary = {
   resolver: (name: string, family = 'classic', variant = 'solid') => {
     if (family === 'classic') {
       // Try given variant first, fall back to any variant
-      let svg = icons[variant]?.[name] ?? icons[name];
+      let svg = icons[variant]?.[name];
 
       if (svg) {
         return dataUri(svg);
