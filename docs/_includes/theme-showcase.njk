@@ -1,9 +1,9 @@
-<div class="showcase-examples-wrapper" data-no-outline>
+<div class="showcase-examples-wrapper" aria-hidden="true" data-no-outline>
   <div class="showcase-examples">
     <wa-card with-header with-footer>
       <div slot="header" class="wa-split">
         <h3 class="wa-heading-m">Your Cart</h3>
-        <wa-icon-button name="xmark"></wa-icon-button>
+        <wa-icon-button name="xmark" tabindex="-1"></wa-icon-button>
       </div>
       <div class="wa-stack wa-gap-xl">
         <div class="wa-flank">
@@ -17,7 +17,7 @@
             </div>
             <div class="wa-split wa-gap-2xs wa-caption-m">
               <span>Green</span>
-              <a href="#">Remove</a>
+              <a href="#" tabindex="-1">Remove</a>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="wa-split wa-gap-2xs wa-caption-m">
               <span>R-series</span>
-              <a href="#">Remove</a>
+              <a href="#" tabindex="-1">Remove</a>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <strong>$3,229.98</strong>
         </div>
         <span class="wa-caption-m">Shipping and taxes calculated at checkout.</span>
-        <wa-button variant="brand">
+        <wa-button tabindex="-1" variant="brand">
           <wa-icon slot="prefix" name="shopping-bag"></wa-icon>
           Checkout
         </wa-button>
@@ -59,30 +59,30 @@
     <wa-card>
       <div class="wa-stack">
         <h3 class="wa-heading-m">Sign In</h3>
-        <wa-input label="Email" placeholder="ddjarin@mandalore.gov">
+        <wa-input tabindex="-1" label="Email" placeholder="ddjarin@mandalore.gov">
           <wa-icon slot="prefix" name="envelope" variant="regular"></wa-icon>
         </wa-input>
-        <wa-input label="Password" type="password">
+        <wa-input tabindex="-1" label="Password" type="password">
           <wa-icon slot="prefix" name="lock" variant="regular"></wa-icon>
         </wa-input>
-        <wa-button variant="brand">Sign In</wa-button>
-        <a href="#" class="wa-body-s">I forgot my password</a>
+        <wa-button tabindex="-1" variant="brand">Sign In</wa-button>
+        <a href="#" tabindex="-1" class="wa-body-s">I forgot my password</a>
       </div>
     </wa-card>
     <wa-card with-footer>
       <div class="wa-stack">
         <div class="wa-split">
           <h3 class="wa-heading-m">To-Do</h3>
-          <wa-icon-button name="plus" label="Add task"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="plus" label="Add task"></wa-icon-button>
         </div>
-        <wa-checkbox checked>Umbrella for Adelard</wa-checkbox>
-        <wa-checkbox checked>Waste-paper basket for Dora</wa-checkbox>
-        <wa-checkbox checked>Pen and ink for Milo</wa-checkbox>
-        <wa-checkbox>Mirror for Angelica</wa-checkbox>
-        <wa-checkbox>Silver spoons for Lobelia</wa-checkbox>
+        <wa-checkbox tabindex="-1" checked>Umbrella for Adelard</wa-checkbox>
+        <wa-checkbox tabindex="-1" checked>Waste-paper basket for Dora</wa-checkbox>
+        <wa-checkbox tabindex="-1" checked>Pen and ink for Milo</wa-checkbox>
+        <wa-checkbox tabindex="-1">Mirror for Angelica</wa-checkbox>
+        <wa-checkbox tabindex="-1">Silver spoons for Lobelia</wa-checkbox>
       </div>
       <div slot="footer">
-        <a href="">View all completed</a>
+        <a href="" tabindex="-1">View all completed</a>
       </div>
     </wa-card>
     <wa-card>
@@ -98,7 +98,7 @@
             </div>
             <span class="wa-caption-m">Samwise G</span>
           </div>
-          <wa-icon-button name="ellipsis" label="Options"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="ellipsis" label="Options"></wa-icon-button>
         </div>
         <div class="wa-stack wa-gap-2xs">
           <wa-progress-bar value="34" style="height: 0.5em"></wa-progress-bar>
@@ -108,9 +108,9 @@
           </div>
         </div>
         <div class="wa-grid wa-align-items-center" style="--min-column-size: 1em; justify-items: center;">
-          <wa-icon-button name="backward" label="Skip backward"></wa-icon-button>
-          <wa-icon-button name="pause" style="font-size: var(--wa-font-size-2xl);" label="Pause"></wa-icon-button>
-          <wa-icon-button name="forward" label="Skip forward"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="backward" label="Skip backward"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="pause" style="font-size: var(--wa-font-size-2xl);" label="Pause"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="forward" label="Skip forward"></wa-icon-button>
         </div>
       </div>
     </wa-card>
@@ -136,7 +136,7 @@
         </div>
         <div class="wa-flank wa-gap-xs">
           <wa-icon name="location-dot"></wa-icon>
-          <a href="#" class="wa-caption-m">Mos Eisley, Tatooine</a>
+          <a href="#" class="wa-caption-m" tabindex="-1">Mos Eisley, Tatooine</a>
         </div>
       </div>
     </wa-card>
