@@ -85,7 +85,6 @@ body,
 
     @media (width > 950px) {
       column-count: 3;
-      zoom: 70%;
     }
   }
 }
