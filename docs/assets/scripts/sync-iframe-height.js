@@ -1,7 +1,11 @@
-const iframe = document.getElementById('myIframe');
-
 for (let iframe of document.querySelectorAll('iframe')) {
+  if (iframe.contentDocument) {
+    // Already loaded
+    syncIframeHeight(iframe);
+  }
+
   iframe.onload = () => {
+    console.log('iframe loaded');
     if (iframe.contentDocument) {
       // Same origin
       iframe.contentWindow.iframe = iframe;
@@ -15,6 +19,7 @@ for (let iframe of document.querySelectorAll('iframe')) {
       });
 
       resizeObserver.observe(iframe.contentDocument.body);
+      window.addEventListener('turbo:render', syncIframeHeight(iframe));
     }
   };
 }
