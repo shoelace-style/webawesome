@@ -4,7 +4,7 @@ function dataUri(svg: string) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
-export const iconsByVariant = {
+export const iconsByVariant: { [key: string]: { [key: string]: string } } = {
   solid: {
     check: `<svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>`,
     'chevron-down': `<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>`,
@@ -32,7 +32,7 @@ export const iconsByVariant = {
 /**
  * Union of all icons, across variants
  */
-export const icons = Object.assign({}, ...Object.values(iconsByVariant));
+export const icons: { [key: string]: string } = Object.assign({}, ...Object.values(iconsByVariant));
 
 //
 // System icons are a separate library to ensure they're always available, regardless of how the default icon library is
@@ -44,7 +44,7 @@ const systemLibrary: IconLibrary = {
   resolver: (name: string, family = 'classic', variant = 'solid') => {
     if (family === 'classic') {
       // Try given variant first, fall back to any variant
-      let svg = icons[variant]?.[name];
+      let svg = iconsByVariant[variant]?.[name];
 
       if (svg) {
         return dataUri(svg);
