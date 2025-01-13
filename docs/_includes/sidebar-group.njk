@@ -1,8 +1,8 @@
 {# Some collections (like "patterns") will not have any items in the alpha build for example. So this checks to make sure the collection exists. #}
 {% if collections[tag] -%}
-  <wa-details {{ (tag in (tags or [])) | attr('open') }}>
+  {% set groupUrl %}/docs/{{ tag }}/{% endset %}
+  <wa-details {{ (tag in (tags or [])) or (groupUrl in page.url) | attr('open') }}>
     <h2 slot="summary">
-      {% set groupUrl %}/docs/{{ tag }}/{% endset %}
       {% if groupUrl | getCollectionItemFromUrl %}
         <a href="{{ groupUrl }}" title="Overview">{{ title or (tag | capitalize) }}
           <wa-icon name="grid-2"></wa-icon>
