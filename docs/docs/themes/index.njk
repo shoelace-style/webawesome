@@ -36,11 +36,13 @@ For example, the default theme is set up like this:
 :where(:root),
 :host,
 .wa-theme-default,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   /* all CSS custom properties for color, typography, space, etc. */
 }
 
 .wa-dark,
+.wa-invert,
 :host-context(.wa-dark) {
   /* subset of CSS custom properties for a dark color scheme */
 }
