@@ -4,52 +4,24 @@
 
 {% extends '../_includes/base.njk' %}
 
-{% block header %}
-<iframe src='{{ page.url }}demo.html'></iframe>
+{% set themeId = page.fileSlug %}
+{% set palette = defaultPalette %}
+{% set palettes = ['default', 'classic', 'rudimentary', 'bright', 'anodized', 'elegant', 'vogue'] %}
 
-<div>
-  <template shadowrootmode="open">
-    <link href="/assets/styles/docs.css" rel="stylesheet" />
-    <link id="palette" href="/dist/styles/themes/{{ page.fileSlug }}.css" rel="stylesheet" />
-    <link id="palette" href="/dist/styles/color/{{ defaultPalette }}.css" rel="stylesheet" />
-    <slot></slot>
-    <ul class="color-group">
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-brand-fill-loud)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-neutral-fill-loud)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-success-fill-loud)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-warning-fill-loud)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-danger-fill-loud)"></div>
-      </li>
-    </ul>
-    <ul class="color-group">
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-brand-fill-normal)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-neutral-fill-normal)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-success-fill-normal)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-warning-fill-normal)"></div>
-      </li>
-      <li class="color-preview">
-        <div class="swatch" style="background-color: var(--wa-color-danger-fill-normal)"></div>
-      </li>
-    </ul>
-  </template>
-  <p>Color palette: <strong>{{ defaultPalette | capitalize }}</strong></p>
-</div>
+{% block header %}
+
+<iframe id="theme-demo" src='{{ page.url }}demo.html'></iframe>
+
+<p>
+  <wa-select label="Color palette:" value="{{ defaultPalette }}" id="palette-picker">
+  {% for p in palettes -%}
+    <wa-option value="{{ p }}">{{ p | capitalize }}</wa-option>
+  {%- endfor %}
+  </wa-select>
+  <script type="module" src="/docs/themes/palette-picker.js"></script>
+</p>
+{% include 'palette.njk' %}
+
 <br>
 {% endblock %}
 

@@ -17,7 +17,7 @@ eleventyComputed:
   document.getElementById('theme-stylesheet').href = '/dist/styles/themes/{{ theme.fileSlug }}.css';
 </script>
 
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
+<link id="theme" rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
 <link rel="stylesheet" href="/docs/themes/showcase.css" />
 
 {% set content %}
