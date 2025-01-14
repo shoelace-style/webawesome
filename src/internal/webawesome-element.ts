@@ -1,7 +1,17 @@
-import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
-import { LitElement, isServer, unsafeCSS } from 'lit';
+import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
+import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../styles/shadow/component.css';
+
+// Augment Lit's module
+declare module 'lit' {
+  interface PropertyDeclaration {
+    /**
+     * Specifies the property’s default value
+     */
+    default?: any;
+  }
+}
 
 export default class WebAwesomeElement extends LitElement {
   constructor() {
@@ -147,5 +157,24 @@ export default class WebAwesomeElement extends LitElement {
   /** Determines if the element has the specified custom state. */
   hasCustomState(state: string): boolean {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
+  }
+
+  static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
+    if (options && options.default !== undefined && options.converter === undefined) {
+      let converter = {
+        fromAttribute(value: string | null, type: unknown): unknown {
+          return defaultConverter.fromAttribute!(value, type);
+        },
+        toAttribute(value: string, type: unknown): unknown {
+          if (value === options!.default) {
+            return null;
+          }
+          return defaultConverter.toAttribute!(value, type);
+        },
+      };
+      options = { ...options, converter };
+    }
+
+    super.createProperty(name, options);
   }
 }

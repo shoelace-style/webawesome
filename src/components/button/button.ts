@@ -69,13 +69,16 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The button's theme variant. */
-  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
+  @property({ reflect: true, default: 'neutral' })
+  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The button's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
+  @property({ reflect: true, default: 'accent' })
+  appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
 
   /** The button's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, default: 'medium' })
+  size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ type: Boolean, reflect: true }) caret = false;
