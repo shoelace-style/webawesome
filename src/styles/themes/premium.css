@@ -25,6 +25,9 @@
 
   --wa-color-focus: var(--wa-color-teal-60);
 
+  --wa-color-mix-hover: white 10%;
+  --wa-color-mix-active: var(--wa-color-surface-default) 5%;
+
   /**
    * Semantic Colors
    */
@@ -132,19 +135,10 @@
   --wa-color-text-quiet: var(--wa-color-gray-80);
   --wa-color-text-link: var(--wa-color-teal-80);
 
-  --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
-  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
-
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-surface-lowered) calc(var(--wa-shadow-blur-scale) * 32% + 40%),
-    transparent
-  );
-
   --wa-color-focus: var(--wa-color-teal-60);
 
-  --wa-color-mix-hover: black 8%;
-  --wa-color-mix-active: black 16%;
+  --wa-color-mix-hover: white 20%;
+  --wa-color-mix-active: var(--wa-color-surface-default) 10%;
 
   /**
     * Semantic Colors
