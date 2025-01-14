@@ -7,6 +7,7 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 :where(:root),
 :host,
@@ -18,15 +19,73 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-teal-95);
-  --wa-color-brand-fill-normal: var(--wa-color-teal-90);
-  --wa-color-brand-fill-loud: var(--wa-color-teal-50);
-  --wa-color-brand-border-quiet: var(--wa-color-teal-90);
-  --wa-color-brand-border-normal: var(--wa-color-teal-80);
-  --wa-color-brand-border-loud: var(--wa-color-teal-60);
-  --wa-color-brand-on-quiet: var(--wa-color-teal-40);
-  --wa-color-brand-on-normal: var(--wa-color-teal-30);
+  --wa-color-brand-fill-quiet: var(--wa-color-indigo-95);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-border-quiet: var(--wa-color-indigo-90);
+  --wa-color-brand-border-normal: var(--wa-color-indigo-80);
+  --wa-color-brand-border-loud: var(--wa-color-indigo-60);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
   --wa-color-brand-on-loud: white;
+
+  --wa-color-success-fill-quiet: var(--wa-color-green-95);
+  --wa-color-success-fill-normal: var(--wa-color-green-90);
+  --wa-color-success-fill-loud: var(--wa-color-green-40);
+  --wa-color-success-border-quiet: var(--wa-color-green-90);
+  --wa-color-success-border-normal: var(--wa-color-green-80);
+  --wa-color-success-border-loud: var(--wa-color-green-60);
+  --wa-color-success-on-quiet: var(--wa-color-green-40);
+  --wa-color-success-on-normal: var(--wa-color-green-30);
+  --wa-color-success-on-loud: white;
+
+  --wa-color-warning-fill-quiet: var(--wa-color-yellow-95);
+  --wa-color-warning-fill-normal: var(--wa-color-yellow-90);
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
+  --wa-color-warning-border-quiet: var(--wa-color-yellow-90);
+  --wa-color-warning-border-normal: var(--wa-color-yellow-80);
+  --wa-color-warning-border-loud: var(--wa-color-yellow-60);
+  --wa-color-warning-on-quiet: var(--wa-color-yellow-40);
+  --wa-color-warning-on-normal: var(--wa-color-yellow-30);
+  --wa-color-warning-on-loud: white;
+
+  --wa-color-danger-fill-quiet: var(--wa-color-red-95);
+  --wa-color-danger-fill-normal: var(--wa-color-red-90);
+  --wa-color-danger-fill-loud: var(--wa-color-red-40);
+  --wa-color-danger-border-quiet: var(--wa-color-red-90);
+  --wa-color-danger-border-normal: var(--wa-color-red-80);
+  --wa-color-danger-border-loud: var(--wa-color-red-60);
+  --wa-color-danger-on-quiet: var(--wa-color-red-40);
+  --wa-color-danger-on-normal: var(--wa-color-red-30);
+  --wa-color-danger-on-loud: white;
+
+  --wa-color-neutral-fill-quiet: var(--wa-color-gray-95);
+  --wa-color-neutral-fill-normal: var(--wa-color-gray-90);
+  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
+  --wa-color-neutral-border-quiet: var(--wa-color-gray-90);
+  --wa-color-neutral-border-normal: var(--wa-color-gray-80);
+  --wa-color-neutral-border-loud: var(--wa-color-gray-60);
+  --wa-color-neutral-on-quiet: var(--wa-color-gray-40);
+  --wa-color-neutral-on-normal: var(--wa-color-gray-30);
+  --wa-color-neutral-on-loud: white;
+
+  /**
+   * Typography
+   */
+  --wa-font-family-body: 'Figtree', sans-serif;
+  --wa-font-family-heading: var(--wa-font-family-body);
+  --wa-font-family-code: ui-monospace, monospace;
+  --wa-font-family-longform: ui-serif, serif;
+
+  --wa-font-weight-light: 300;
+  --wa-font-weight-normal: 400;
+  --wa-font-weight-semibold: 600;
+  --wa-font-weight-bold: 800;
+
+  /**
+   * Rounding
+   */
+  --wa-border-radius-scale: 1.33;
 
   /**
    * Shadows
@@ -64,19 +123,19 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-teal-10);
-  --wa-color-brand-fill-normal: var(--wa-color-teal-20);
-  --wa-color-brand-fill-loud: var(--wa-color-teal-50);
-  --wa-color-brand-border-quiet: var(--wa-color-teal-20);
-  --wa-color-brand-border-normal: var(--wa-color-teal-30);
-  --wa-color-brand-border-loud: var(--wa-color-teal-40);
-  --wa-color-brand-on-quiet: var(--wa-color-teal-60);
-  --wa-color-brand-on-normal: var(--wa-color-teal-70);
+  --wa-color-brand-fill-quiet: var(--wa-color-indigo-10);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-border-quiet: var(--wa-color-indigo-20);
+  --wa-color-brand-border-normal: var(--wa-color-indigo-30);
+  --wa-color-brand-border-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-quiet: var(--wa-color-green-10);
   --wa-color-success-fill-normal: var(--wa-color-green-20);
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
+  --wa-color-success-fill-loud: var(--wa-color-green-40);
   --wa-color-success-border-quiet: var(--wa-color-green-20);
   --wa-color-success-border-normal: var(--wa-color-green-30);
   --wa-color-success-border-loud: var(--wa-color-green-40);
@@ -86,7 +145,7 @@
 
   --wa-color-warning-fill-quiet: var(--wa-color-yellow-10);
   --wa-color-warning-fill-normal: var(--wa-color-yellow-20);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
   --wa-color-warning-border-quiet: var(--wa-color-yellow-20);
   --wa-color-warning-border-normal: var(--wa-color-yellow-30);
   --wa-color-warning-border-loud: var(--wa-color-yellow-40);
@@ -96,7 +155,7 @@
 
   --wa-color-danger-fill-quiet: var(--wa-color-red-10);
   --wa-color-danger-fill-normal: var(--wa-color-red-20);
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
+  --wa-color-danger-fill-loud: var(--wa-color-red-40);
   --wa-color-danger-border-quiet: var(--wa-color-red-20);
   --wa-color-danger-border-normal: var(--wa-color-red-30);
   --wa-color-danger-border-loud: var(--wa-color-red-40);
@@ -121,17 +180,28 @@
 :where(:root),
 :host,
 .wa-theme-glassy {
-  wa-button:not([appearance='plain']) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: -0.02em;
+  }
+  :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
+      [appearance='plain'],
+      .wa-plain
+    ) {
     box-shadow:
-      inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
-      inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
-      inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */,
-      var(--wa-shadow-s) /* outer shadow */;
+      inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.32) /* shine */,
+      inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2) /* top highlight */,
+      inset 0 1.25em 0 0 rgb(255 255 255 / 0.15) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02) /* lower shade */,
+      inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15) /* bottom shadow */,
+      0 0 0 0 transparent /* outer shadow */;
 
     margin-bottom: var(--wa-shadow-offset-y-s);
-    transition: transform var(--wa-transition-fast);
+    transition: all var(--wa-transition-fast);
 
     &:not([disabled]) {
       &:hover {
@@ -140,17 +210,17 @@
           inset 0 0.125rem 0 0 rgb(255 255 255 / 0.1) /* top highlight */,
           inset 0 1.25em 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
           inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-          inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom highlight */,
-          var(--wa-shadow-m) /* outer shadow */;
+          inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.1) /* bottom shadow */,
+          var(--wa-shadow-s) /* outer shadow */;
       }
 
       &:active {
         box-shadow:
           inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1) /* shine */,
-          inset 0 0.125rem 0 0 rgb(0 0 0 / 0.1) /* top highlight */,
-          inset 0 1.25em 0 0 rgb(255 255 255 / 0.08) /* upper tint */,
+          inset 0 0.125rem 0 0 rgb(0 0 0 / 0.04) /* top highlight */,
+          inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
           inset 0 -1.125em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-          inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom highlight */,
+          inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04) /* bottom shadow */,
           0 0 0 0 transparent /* outer shadow */;
 
         transform: translateY(var(--wa-shadow-offset-y-s));
@@ -158,14 +228,33 @@
     }
   }
 
-  wa-checkbox,
-  wa-input:not(:focus),
-  wa-radio,
-  wa-select {
-    --box-shadow: inset var(--wa-shadow-s), inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
-      inset 0 -1.125em 0 0 rgb(255 255 255 / 0.05) /* lower shade */;
+  :is(
+      input:where(
+          :not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          )
+        ),
+      select,
+      textarea,
+      wa-input,
+      wa-select,
+      wa-textarea,
+      .wa-text-field
+    ):not(:focus) {
+    --box-shadow: inset 0 1.25em 0 0 rgb(0 0 0 / 0.02) /* upper tint */,
+      inset 0 -1.125em 0 0 rgb(255 255 255 / 0.02) /* lower shade */;
   }
 
+  input:is([type='checkbox'], [type='radio']):checked,
   wa-checkbox:state(checked),
   wa-radio:state(checked) {
     --box-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
@@ -173,21 +262,25 @@
       inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
   }
 
-  wa-textarea:not(:focus) {
-    &:not([appearance='filled']):not([disabled]) {
-      --box-shadow: var(--wa-shadow-s);
-    }
+  input[type='radio'],
+  wa-radio {
+    --background-color-checked: var(--border-color-checked);
+    --checked-icon-color: var(--wa-color-surface-default);
+    --checked-icon-scale: 0.4;
   }
 
+  input[type='range'],
+  wa-slider,
   wa-switch {
     --box-shadow: inset var(--wa-shadow-s);
-    --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.2) /* shine */,
+    --thumb-shadow: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.5) /* shine */,
       inset 0 0.125rem 0 0 rgb(255 255 255 / 0.05) /* top highlight */,
-      inset 0 calc(var(--height) * 0.25) 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
-      inset 0 calc(var(--height) * -0.25) 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
+      inset 0 0.25em 0 0 rgb(255 255 255 / 0.04) /* upper tint */,
+      inset 0 -0.25em 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
       inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.2) /* bottom highlight */, var(--wa-shadow-s) /* outer shadow */;
   }
 
+  progress,
   wa-progress-bar {
     box-shadow: inset var(--wa-shadow-s);
 
