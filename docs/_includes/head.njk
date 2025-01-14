@@ -30,19 +30,15 @@
 
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
-<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" render="blocking" fetchpriority="high" />
-{% if not forceTheme %}
+{% if forceTheme %}
+<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
+{% else %}
+<noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>
 <script>
-if (localStorage.presetTheme) {
-	let preset = localStorage.presetTheme;
-	let link = document.getElementById('theme-stylesheet');
-	let newLink = link.cloneNode();
-	newLink.href = link.href.replace("/default.css", `/${preset}.css`);
-	newLink.classList.add('wa-preset-theme');
-	newLink.addEventListener('load', () => {
-		link.remove();
-	}, { once: true });
-	link.after(newLink);
+{
+	let preset = localStorage.presetTheme ?? 'default';
+	let script = document.currentScript;
+	script.insertAdjacentHTML('beforebegin', `<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/${ preset }.css" render="blocking" fetchpriority="high" />`);
 }
 </script>
 <script type="module" src="/assets/scripts/preset-theme-picker.js"></script>
