@@ -47,7 +47,7 @@
 
   --wa-color-warning-fill-quiet: var(--wa-color-yellow-95);
   --wa-color-warning-fill-normal: var(--wa-color-yellow-90);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-80);
+  --wa-color-warning-fill-loud: var(--wa-color-yellow);
   --wa-color-warning-border-quiet: var(--wa-color-yellow-70);
   --wa-color-warning-border-normal: var(--wa-color-yellow-50);
   --wa-color-warning-border-loud: var(--wa-color-yellow-30);
