@@ -66,389 +66,17 @@ Lightness values on this scale have a strong correlation to [relative luminance]
 
 Web Awesome defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
-<div class="color-name">Red</div>
+{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] -%}
+<div class="color-name">{{ hue | capitalize }}</div>
 <ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-red-05)"></div>
-    <small>05</small>
-  </li>
+  {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}
+    <li class="color-preview">
+      <div class="swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})"></div>
+      <small>{{ tint }}</small>
+    </li>
+  {%- endfor %}
 </ul>
-
-<div class="color-name">Yellow</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-yellow-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Green</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-green-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Teal</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-teal-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Blue</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-blue-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Indigo</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-indigo-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Violet</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-violet-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
-
-<div class="color-name">Gray</div>
-<ul class="color-group">
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-95)"></div>
-    <small>95</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-90)"></div>
-    <small>90</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-80)"></div>
-    <small>80</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-70)"></div>
-    <small>70</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-60)"></div>
-    <small>60</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-50)"></div>
-    <small>50</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-40)"></div>
-    <small>40</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-30)"></div>
-    <small>30</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-20)"></div>
-    <small>20</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-10)"></div>
-    <small>10</small>
-  </li>
-  <li class="color-preview">
-    <div class="swatch" style="background-color: var(--wa-color-gray-05)"></div>
-    <small>05</small>
-  </li>
-</ul>
+{%- endfor %}
 
 ## Foundational Colors
 
@@ -532,52 +160,33 @@ Finally, each color is named according to how much attention it draws. Here, we 
 - **Normal** draws some attention
 - **Loud** draws the most attention
 
-| Custom Property              |  <code>brand</code> |  <code>success</code> |  <code>neutral</code> |  <code>warning</code> | <code>danger</code> |
-| ---------------------------- | ------------------- | --------------------- | --------------------- | --------------------- | ------------------- |
-| `--wa-color-*-fill-quiet`    | <div class="swatch" style="background-color: var(--wa-color-brand-fill-quiet)"></div> |  <div class="swatch" style="background-color: var(--wa-color-success-fill-quiet)"></div> | <div class="swatch" style="background-color: var(--wa-color-neutral-fill-quiet)"></div> | <div class="swatch" style="background-color: var(--wa-color-warning-fill-quiet)"></div> | <div class="swatch" style="background-color: var(--wa-color-danger-fill-quiet)"></div> |
-| `--wa-color-*-fill-normal`   | <div class="swatch" style="background-color: var(--wa-color-brand-fill-normal)"></div> | <div class="swatch" style="background-color: var(--wa-color-success-fill-normal)"></div> |<div class="swatch" style="background-color: var(--wa-color-neutral-fill-normal)"></div> | <div class="swatch" style="background-color: var(--wa-color-warning-fill-normal)"></div> | <div class="swatch" style="background-color: var(--wa-color-danger-fill-normal)"></div> |
-| `--wa-color-*-fill-loud`     | <div class="swatch" style="background-color: var(--wa-color-brand-fill-loud)"></div> | <div class="swatch" style="background-color: var(--wa-color-success-fill-loud)"></div> | <div class="swatch" style="background-color: var(--wa-color-neutral-fill-loud)"></div> |  <div class="swatch" style="background-color: var(--wa-color-warning-fill-loud)"></div> |  <div class="swatch" style="background-color: var(--wa-color-danger-fill-loud)"></div> |
-| `--wa-color-*-border-quiet`  | <div class="swatch" value="--wa-color-brand-border-quiet" style="border-color: var(--wa-color-brand-border-quiet)"></div> | <div class="swatch" value="--wa-color-success-border-quiet" style="border-color: var(--wa-color-success-border-quiet)"></div> | <div class="swatch" value="--wa-color-success-border-quiet" style="border-color: var(--wa-color-neutral-border-quiet)"></div> | <div class="swatch" value="--wa-color-warning-border-quiet" style="border-color: var(--wa-color-warning-border-quiet)"></div> | <div class="swatch" value="--wa-color-danger-border-quiet" style="border-color: var(--wa-color-danger-border-quiet)"></div> |
-| `--wa-color-*-border-normal`  | <div class="swatch" value="--wa-color-brand-border-normal" style="border-color: var(--wa-color-brand-border-normal)"></div> | <div class="swatch" value="--wa-color-success-border-normal" style="border-color: var(--wa-color-success-border-normal)"></div> | <div class="swatch" value="--wa-color-success-border-normal" style="border-color: var(--wa-color-neutral-border-normal)"></div> | <div class="swatch" value="--wa-color-warning-border-normal" style="border-color: var(--wa-color-warning-border-normal)"></div> | <div class="swatch" value="--wa-color-danger-border-normal" style="border-color: var(--wa-color-danger-border-normal)"></div> |
-| `--wa-color-*-border-loud`  | <div class="swatch" value="--wa-color-brand-border-loud" style="border-color: var(--wa-color-brand-border-loud)"></div> | <div class="swatch" value="--wa-color-success-border-loud" style="border-color: var(--wa-color-success-border-loud)"></div> | <div class="swatch" value="--wa-color-success-border-loud" style="border-color: var(--wa-color-neutral-border-loud)"></div> | <div class="swatch" value="--wa-color-warning-border-loud" style="border-color: var(--wa-color-warning-border-loud)"></div> | <div class="swatch" value="--wa-color-danger-border-loud" style="border-color: var(--wa-color-danger-border-loud)"></div> |
-| `--wa-color-*-on-quiet`      | <div class="swatch" value="--wa-color-brand-on-quiet" style="background-color: var(--wa-color-brand-fill-quiet); color: var(--wa-color-brand-on-quiet)">AaBb</div> | <div class="swatch" value="--wa-color-success-on-quiet" style="background-color: var(--wa-color-success-fill-quiet); color: var(--wa-color-success-on-quiet)">AaBb</div> | <div class="swatch" value="--wa-color-neutral-on-quiet" style="background-color: var(--wa-color-neutral-fill-quiet); color: var(--wa-color-neutral-on-quiet)">AaBb</div> | <div class="swatch" value="--wa-color-warning-on-quiet" style="background-color: var(--wa-color-warning-fill-quiet); color: var(--wa-color-warning-on-quiet)">AaBb</div> | <div class="swatch" value="--wa-color-danger-on-quiet" style="background-color: var(--wa-color-danger-fill-quiet); color: var(--wa-color-danger-on-quiet)">AaBb</div> |
-| `--wa-color-*-on-normal`     | <div class="swatch" value="--wa-color-brand-on-normal" style="background-color: var(--wa-color-brand-fill-normal); color: var(--wa-color-brand-on-normal)">AaBb</div> | <div class="swatch" value="--wa-color-success-on-normal" style="background-color: var(--wa-color-success-fill-normal); color: var(--wa-color-success-on-normal)">AaBb</div> | <div class="swatch" value="--wa-color-neutral-on-normal" style="background-color: var(--wa-color-neutral-fill-normal); color: var(--wa-color-neutral-on-normal)">AaBb</div> | <div class="swatch" value="--wa-color-warning-on-normal" style="background-color: var(--wa-color-warning-fill-normal); color: var(--wa-color-warning-on-normal)">AaBb</div> | <div class="swatch" value="--wa-color-warning-on-normal" style="background-color: var(--wa-color-danger-fill-normal); color: var(--wa-color-danger-on-normal)">AaBb</div> |
-| `--wa-color-*-on-loud`       | <div class="swatch" value="--wa-color-brand-on-loud" style="background-color: var(--wa-color-brand-fill-loud); color: var(--wa-color-brand-on-loud)">AaBb</div> | <div class="swatch" value="--wa-color-success-on-loud" style="background-color: var(--wa-color-success-fill-loud); color: var(--wa-color-success-on-loud)">AaBb</div> | <div class="swatch" value="--wa-color-neutral-on-loud" style="background-color: var(--wa-color-neutral-fill-loud); color: var(--wa-color-neutral-on-loud)">AaBb</div> | <div class="swatch" value="--wa-color-warning-on-loud" style="background-color: var(--wa-color-warning-fill-loud); color: var(--wa-color-warning-on-loud)">AaBb</div> | <div class="swatch" value="--wa-color-danger-on-loud" style="background-color: var(--wa-color-danger-fill-loud); color: var(--wa-color-danger-on-loud)">AaBb</div> |
-
-<style>
-.swatch {
-  position: relative;
-}
-.swatch wa-copy-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.swatch wa-copy-button::part(button) {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-.swatch wa-copy-button {
-  --background-color-hover: transparent;
-  font-family: var(--wa-font-family-code);
-}
-
-.swatch wa-copy-button::part(button):hover {
-  cursor: copy;
-}
-
-.swatch wa-copy-button::part(copy-icon),
-.swatch wa-copy-button::part(success-icon),
-.swatch wa-copy-button::part(error-icon) {
-  opacity: 0 !important;
-}
-</style>
+{% set variants = ['brand', 'success', 'neutral', 'warning', 'danger'] %}
+<table>
+  <thead>
+    <tr>
+      <th>Custom Property</th>
+      {% for variant in variants -%}
+        <th><code>{{ variant }}</code></th>
+      {%- endfor %}
+    </tr>
+  </thead>
+  {% for type in ['fill', 'border', 'on'] -%}
+    {% for attention in ['quiet', 'normal', 'loud'] -%}
+      <tr>
+        <td><code>--wa-color-*-{{ type }}-{{ attention }}</code></td>
+        {% for variant in variants -%}
+          <td>
+            {%- if type == 'border' -%}
+            <div class="swatch" style="border-color: var(--wa-color-{{ variant }}-{{ type }}-{{ attention }})"></div>
+            {%- else -%}
+            <div class="swatch" style="background-color: var(--wa-color-{{ variant }}-fill-{{ attention }}); color: var(--wa-color-{{ variant }}-on-{{ attention }})">{{ 'AaBb' if type == 'on' }}</div>
+            {%- endif %}
+          </td>
+        {%- endfor %}
+      </tr>
+    {%- endfor %}
+    {%- endfor %}
+</table>
 
 <script type="module">
   const computedStyle = getComputedStyle(document.body)
