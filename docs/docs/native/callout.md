@@ -59,14 +59,12 @@ Use the [appearance utility classes](../utilities/appearance.md) to change the c
 
 ```html {.example}
 <article class="wa-callout wa-brand wa-outlined wa-accent">
-  <wa-icon slot="icon" name="check-to-slot"></wa-icon>
   This <strong>accent</strong> callout is also <strong>outlined</strong>
 </article>
 
 <br />
 
 <article class="wa-callout wa-brand wa-accent">
-  <wa-icon slot="icon" name="square-check"></wa-icon>
   This <strong>accent</strong> callout draws attention without an outline
 </article>
 
