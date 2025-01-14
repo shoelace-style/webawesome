@@ -4,7 +4,8 @@
 :where(:root),
 :host,
 .wa-theme-default,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   /* Form controls */
   --wa-form-control-background-color: var(--wa-color-surface-default);
 
@@ -48,6 +49,7 @@
 
 /** need to wrap :host-context() in an :is() selector for unsupported browsers */
 .wa-dark,
+.wa-invert,
 :is(:host-context(.wa-dark)) {
   /* Form controls */
   --wa-form-control-background-color: var(--wa-color-surface-default);

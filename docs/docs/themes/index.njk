@@ -1,6 +1,6 @@
 ---
 title: Themes
-description: Themes are collections of pre-defined CSS custom properties that thread through every Web Awesome component and pattern.
+description: Themes are collections of predefined CSS custom properties that thread through every Web Awesome component and pattern.
 layout: overview
 override:tags: []
 forTag: theme
@@ -14,7 +14,7 @@ categories:
 
 ## What's a Theme?
 
-Themes are a collection of standardized [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) that cover a range of styles from colors to transitions. We use these custom properties throughout Web Awesome components for a cohesive look and feel. Our [Theming pages](/docs/theming/) document these styles so that you can use them freely throughout your project and customize them as needed.
+A theme is a collection of standardized [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), also called "design tokens," that cover a range of styles from colors to transitions. We use these tokens throughout Web Awesome components for a cohesive look and feel. Our [Design Tokens pages](/docs/tokens/) document these styles so that you can use them freely throughout your project and customize them as needed.
 
 Themes are scoped to unique classes, such as `wa-theme-default` or `wa-theme-classic`.
 Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions.
@@ -22,6 +22,7 @@ Please note that if you import multiple themes, the last one will be the default
 
 Each theme may also include both light and dark color schemes with the classes `wa-light` and `wa-dark`.
 You can use these classes to apply a specific color scheme to an entire page or just a section.
+You can also use `wa-invert` which behaves like `wa-dark` in light mode, and like `wa-light` in dark mode.
 In pre-made themes, we use a light color scheme by default.
 
 
@@ -36,11 +37,13 @@ For example, the default theme is set up like this:
 :where(:root),
 :host,
 .wa-theme-default,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   /* all CSS custom properties for color, typography, space, etc. */
 }
 
 .wa-dark,
+.wa-invert,
 :host-context(.wa-dark) {
   /* subset of CSS custom properties for a dark color scheme */
 }

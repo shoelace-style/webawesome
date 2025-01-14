@@ -12,7 +12,8 @@
 :where(:root),
 :host,
 .wa-theme-mellow,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   color-scheme: light;
   color: var(--wa-color-text-normal);
 
@@ -121,6 +122,7 @@
 }
 
 .wa-dark,
+.wa-invert,
 :is(:host-context(.wa-dark)) {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
