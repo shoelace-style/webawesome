@@ -1,6 +1,10 @@
 pre {
   background-color: var(--wa-color-gray-20);
   color: white;
+
+  .wa-dark & {
+    background-color: var(--wa-color-surface-lowered);
+  }
 }
 .code-comment,
 .code-prolog,
