@@ -162,9 +162,7 @@ export default class WebAwesomeElement extends LitElement {
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options && options.default !== undefined && options.converter === undefined) {
       let converter = {
-        fromAttribute(value: string | null, type: unknown): unknown {
-          return defaultConverter.fromAttribute!(value, type);
-        },
+        ...defaultConverter,
         toAttribute(value: string, type: unknown): unknown {
           if (value === options!.default) {
             return null;
