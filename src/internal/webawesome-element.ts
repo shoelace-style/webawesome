@@ -161,6 +161,8 @@ export default class WebAwesomeElement extends LitElement {
 
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options && options.default !== undefined && options.converter === undefined) {
+      // Wrap the default converter to remove the attribute if the value is the default
+      // This effectively prevents the component sprouting attributes that have not been specified
       let converter = {
         ...defaultConverter,
         toAttribute(value: string, type: unknown): unknown {
@@ -174,5 +176,21 @@ export default class WebAwesomeElement extends LitElement {
     }
 
     super.createProperty(name, options);
+
+    // Wrap the default accessor with logic to return the default value if the value is null
+    if (options && options.default !== undefined) {
+      const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
+
+      if (descriptor?.get) {
+        const getter = descriptor.get;
+
+        Object.defineProperty(this.prototype, name, {
+          ...descriptor,
+          get() {
+            return getter.call(this) ?? options.default;
+          },
+        });
+      }
+    }
   }
 }
