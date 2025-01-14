@@ -22,6 +22,7 @@ Please note that if you import multiple themes, the last one will be the default
 
 Each theme may also include both light and dark color schemes with the classes `wa-light` and `wa-dark`.
 You can use these classes to apply a specific color scheme to an entire page or just a section.
+You can also use `wa-invert` which behaves like `wa-dark` in light mode, and like `wa-light` in dark mode.
 In pre-made themes, we use a light color scheme by default.
 
 
@@ -36,11 +37,13 @@ For example, the default theme is set up like this:
 :where(:root),
 :host,
 .wa-theme-default,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   /* all CSS custom properties for color, typography, space, etc. */
 }
 
 .wa-dark,
+.wa-invert,
 :host-context(.wa-dark) {
   /* subset of CSS custom properties for a dark color scheme */
 }

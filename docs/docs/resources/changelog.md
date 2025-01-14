@@ -12,6 +12,11 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## 3.0.0-alpha.9
+
+- Added new themes:
+  - Premium
+
 ## 3.0.0-alpha.8
 
 - Simplified the internal structure and CSS properties of `<wa-card>`, removed `base` part.
@@ -30,7 +35,6 @@ During the alpha period, things might break! We take breaking changes very serio
   - Brutalist
   - Mellow
   - Tailspin
-  - Playful
 - Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
 - Removed size-based `--wa-form-control-height-*` tokens in favor of `--wa-form-control-height` (see [size utilities](/docs/utilities/size/))
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX
