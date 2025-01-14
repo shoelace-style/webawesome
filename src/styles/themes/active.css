@@ -119,11 +119,7 @@
   --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
 
-  --wa-color-shadow: color-mix(
-    in oklab,
-    var(--wa-color-surface-lowered) calc(var(--wa-shadow-blur-scale) * 32% + 40%),
-    transparent
-  );
+  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-scale) * 32% + 40%), transparent);
 
   --wa-color-focus: var(--wa-color-blue-60);
 
