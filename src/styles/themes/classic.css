@@ -139,7 +139,7 @@
 
   --wa-color-shadow: color-mix(
     in oklab,
-    var(--wa-color-gray-05) calc(var(--wa-shadow-blur-scale) * 32% + 40%),
+    var(--wa-color-surface-lowered) calc(var(--wa-shadow-blur-scale) * 32% + 40%),
     transparent
   );
 
