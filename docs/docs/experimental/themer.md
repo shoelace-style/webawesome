@@ -506,7 +506,7 @@ hasOutline: false
       <wa-option data-alpha="remove" value="playful">Playful</wa-option>
       <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
       <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
-      <wa-option data-alpha="remove" value="glassy">Glassy</wa-option>
+      <wa-option data-alpha="remove" value="glossy">Glossy</wa-option>
       <wa-option data-alpha="remove" value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
     </wa-select>
@@ -886,7 +886,7 @@ hasOutline: false
       case 'active':
         colorPalette = 'rudimentary';
         break;
-      case 'glassy':
+      case 'glossy':
         colorPalette = 'elegant';
         break;
       case 'premium':
@@ -1049,7 +1049,7 @@ hasOutline: false
       case 'brutalist':
       case 'classic':
       case 'awesome':
-      case 'glassy':
+      case 'glossy':
       case 'active':
         assetFolder = themeSelect.value;
         break;
@@ -1259,7 +1259,7 @@ hasOutline: false
       case 'tailspin':
         presetLogoIcons = ['wind', 'feather', 'lemon', 'wind-turbine'];
         break;
-      case 'glassy':
+      case 'glossy':
         presetLogoIcons = ['raindrops', 'citrus-slice', 'lighthouse', 'kiwi-bird'];
         break;
       case 'active':

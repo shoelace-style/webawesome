@@ -11,7 +11,7 @@
 
 :where(:root),
 :host,
-.wa-theme-glassy,
+.wa-theme-glossy,
 .wa-light,
 .wa-dark .wa-invert {
   color-scheme: light;
@@ -58,10 +58,14 @@
   --wa-font-weight-semibold: 600;
   --wa-font-weight-bold: 800;
 
+  --wa-line-height-condensed: 1.35;
+  --wa-line-height-normal: 1.8;
+  --wa-line-height-expanded: 2.25;
+
   /**
    * Spacing
    */
-  --wa-space-scale: 1.2;
+  --wa-space-scale: 1.125;
 
   /**
    * Rounding
@@ -112,18 +116,18 @@
  */
 :where(:root),
 :host,
-.wa-theme-glassy {
-  --wa-theme-glassy-inner-shine: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.4);
-  --wa-theme-glassy-top-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
-  --wa-theme-glassy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glassy-lower-shade: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.03);
-  --wa-theme-glassy-bottom-shadow: inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15);
+.wa-theme-glossy {
+  --wa-theme-glossy-inner-shine: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.4);
+  --wa-theme-glossy-top-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
+  --wa-theme-glossy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);
+  --wa-theme-glossy-lower-shade: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.03);
+  --wa-theme-glossy-bottom-shadow: inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15);
 
-  --wa-theme-glassy-inner-shine-active: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glassy-top-highlight-active: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glassy-upper-tint-active: inset 0 1.25em 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glassy-lower-shade-active: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02);
-  --wa-theme-glassy-bottom-shadow-active: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
+  --wa-theme-glossy-inner-shine-active: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1);
+  --wa-theme-glossy-top-highlight-active: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.04);
+  --wa-theme-glossy-upper-tint-active: inset 0 1.25em 0 0 rgb(0 0 0 / 0.04);
+  --wa-theme-glossy-lower-shade-active: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02);
+  --wa-theme-glossy-bottom-shadow-active: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
 
   h1,
   h2,
@@ -140,16 +144,16 @@
       wa-radio-button,
       .wa-button
     ):not([appearance='plain'], .wa-plain) {
-    box-shadow: var(--wa-theme-glassy-inner-shine), var(--wa-theme-glassy-top-highlight),
-      var(--wa-theme-glassy-upper-tint), var(--wa-theme-glassy-lower-shade), var(--wa-theme-glassy-bottom-shadow);
+    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
+      var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
 
     margin-bottom: var(--wa-shadow-offset-y-s);
     transition: all var(--wa-transition-fast);
 
     &:not([disabled]):active {
-      box-shadow: var(--wa-theme-glassy-inner-shine-active), var(--wa-theme-glassy-top-highlight-active),
-        var(--wa-theme-glassy-upper-tint-active), var(--wa-theme-glassy-lower-shade-active),
-        var(--wa-theme-glassy-bottom-shadow-active);
+      box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
+        var(--wa-theme-glossy-upper-tint-active), var(--wa-theme-glossy-lower-shade-active),
+        var(--wa-theme-glossy-bottom-shadow-active);
 
       transform: scale(0.98);
     }
@@ -175,7 +179,7 @@
   wa-select,
   wa-textarea,
   .wa-text-field {
-    --box-shadow: var(--wa-theme-glassy-upper-tint), var(--wa-theme-glassy-lower-shade);
+    --box-shadow: var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade);
     transition: all var(--wa-transition-fast);
 
     &:focus {
@@ -186,12 +190,12 @@
   input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
   wa-checkbox:is(:state(checked), :state(indeterminate)),
   wa-radio:state(checked) {
-    --box-shadow: var(--wa-theme-glassy-inner-shine), var(--wa-theme-glassy-top-highlight),
-      var(--wa-theme-glassy-bottom-shadow);
+    --box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
+      var(--wa-theme-glossy-bottom-shadow);
 
     &:active {
-      --box-shadow: var(--wa-theme-glassy-inner-shine-active), var(--wa-theme-glassy-top-highlight-active),
-        var(--wa-theme-glassy-bottom-shadow-active);
+      --box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
+        var(--wa-theme-glossy-bottom-shadow-active);
     }
   }
 
@@ -205,8 +209,8 @@
   input[type='range'],
   wa-slider,
   wa-switch {
-    --thumb-shadow: var(--wa-theme-glassy-inner-shine), var(--wa-theme-glassy-top-highlight),
-      var(--wa-theme-glassy-bottom-shadow);
+    --thumb-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
+      var(--wa-theme-glossy-bottom-shadow);
   }
 
   progress,
@@ -215,11 +219,11 @@
 
     &::part(indicator) {
       box-shadow:
-        var(--wa-theme-glassy-inner-shine),
-        var(--wa-theme-glassy-top-highlight),
+        var(--wa-theme-glossy-inner-shine),
+        var(--wa-theme-glossy-top-highlight),
         inset 0 0.625rem 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
         inset 0 -0.5rem 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-        var(--wa-theme-glassy-bottom-shadow);
+        var(--wa-theme-glossy-bottom-shadow);
     }
   }
 }
