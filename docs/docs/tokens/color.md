@@ -66,10 +66,12 @@ Lightness values on this scale have a strong correlation to [relative luminance]
 
 Web Awesome defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
-{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] -%}
+{% set hues = ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] %}
+{% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
+{% for hue in hues -%}
 <div class="color-name">{{ hue | capitalize }}</div>
 <ul class="color-group">
-  {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}
+  {% for tint in tints -%}
     <li class="color-preview">
       <div class="swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})"></div>
       <small>{{ tint }}</small>
@@ -77,6 +79,18 @@ Web Awesome defines seven literal colors each with 11 lightness values using the
   {%- endfor %}
 </ul>
 {%- endfor %}
+
+You can also omit the lightness value to get the brightest, most intense color for each hue:
+
+<div class="color-name">Accent colors</div>
+<ul class="color-group">
+  {% for hue in hues -%}
+    <li class="color-preview">
+      <div class="swatch" style="background-color: var(--wa-color-{{ hue }})"></div>
+      <small>{{ hue }}</small>
+    </li>
+  {%- endfor %}
+</ul>
 
 ## Foundational Colors
 
