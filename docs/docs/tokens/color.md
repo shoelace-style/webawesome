@@ -6,30 +6,6 @@ description: Ensure consistent use of color and readable contrast with Web Aweso
 <style>
   td { vertical-align: middle; }
 
-  .color-name {
-    font-weight: var(--wa-font-weight-semibold);
-    margin-block-end: var(--wa-space-2xs);
-  }
-  ul.color-group {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .color-group {
-    align-items: start;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0.25em;
-  }
-  .color-group + * {
-    margin-block-start: var(--wa-space-xl);
-  }
-  .color-preview {
-    flex: 1 1 auto;
-  }
-  .swatch {
-    border-color: transparent;
-  }
   .color-mix-example {
     background-image:
       linear-gradient(to right,

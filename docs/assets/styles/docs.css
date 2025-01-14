@@ -384,7 +384,8 @@ wa-page > main:has(> .index-grid) {
 .swatch {
   position: relative;
   background-color: transparent;
-  border-color: var(--wa-color-neutral-border-normal);
+  /* border-color: var(--wa-color-neutral-border-normal); */
+  border-color: transparent;
   border-style: var(--wa-border-style);
   border-width: var(--wa-border-width-s);
   border-radius: var(--wa-border-radius-m);
@@ -419,6 +420,35 @@ wa-page > main:has(> .index-grid) {
       opacity: 0 !important;
     }
   }
+}
+
+.color-name {
+  font-weight: var(--wa-font-weight-semibold);
+  margin-block-end: var(--wa-space-2xs);
+}
+
+.color-group {
+  align-items: start;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.25em;
+
+  &:where(ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  + * {
+    margin-block-start: var(--wa-space-xl);
+  }
+
+  + & {
+    margin-block-start: var(--wa-space-2xs);
+  }
+}
+.color-preview {
+  flex: 1 1 auto;
 }
 
 /* Layout Examples */
