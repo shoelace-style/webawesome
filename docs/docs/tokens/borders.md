@@ -21,7 +21,7 @@ Border widths use `rem` units in order to scale proportionately with the root fo
 | `--wa-border-width-m` | `0.125rem` <small>(2px)</small>  | <div class="swatch" style="border-width: var(--wa-border-width-m)"></div> |
 | `--wa-border-width-l` | `0.1875rem` <small>(3px)</small> | <div class="swatch" style="border-width: var(--wa-border-width-l)"></div> |
 
-To scale all borders at once, you can use the  `--wa-border-width-scale` property which specifies a multiplier on `border-width`. 
+To scale all borders at once, you can use the  `--wa-border-width-scale` property which specifies a multiplier on `border-width`.
 Values < 1 make all borders uniformly thinner, while values > 1 make them thicker.
 
 ## Radius
@@ -44,5 +44,5 @@ Size-based border radius properties allow you to customize the overall roundness
 | `--wa-border-radius-m`  | `0.375rem` <small>(6px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-m)"></div> |
 | `--wa-border-radius-l`  | `0.75rem` <small>(12px)</small>  | <div class="swatch" style="border-radius: var(--wa-border-radius-l)"></div> |
 
-To scale all border radii at once, you can use the  `--wa-border-radius-scale` property which specifies a multiplier on `border-radius`. 
+To scale all border radii at once, you can use the  `--wa-border-radius-scale` property which specifies a multiplier on `border-radius`.
 Values < 1 make corners sharper, while values > 1 make them rounder.

@@ -3,6 +3,7 @@ title: Callout
 description: Callouts are used to display important messages inline.
 tags: [feedback, content]
 icon: callout
+native: callout
 ---
 
 ```html {.example}

@@ -1,5 +1,5 @@
 @import url('../color/classic.css');
-@import url('default/color-semantic.css');
+@import url('default/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
 @import url('default/typography.css');
@@ -244,7 +244,8 @@
     font-size: var(--wa-font-size-s);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     --spacing: var(--wa-space-l);
     font-size: var(--wa-size-smaller);
 

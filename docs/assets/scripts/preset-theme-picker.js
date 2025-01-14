@@ -5,7 +5,7 @@ const presetTheme = new ThemeAspect({
   key: 'presetTheme',
   picker: 'wa-select.preset-theme-selector',
 
-  applyChange() {
+  applyChange(options = {}) {
     const oldStylesheets = [...document.querySelectorAll('#theme-stylesheet')];
     const oldStylesheet = oldStylesheets.pop();
 
@@ -38,7 +38,7 @@ const presetTheme = new ThemeAspect({
 
               oldStylesheet.remove();
             },
-            { behavior: 'smooth' },
+            { behavior: 'smooth', ...options },
           );
         },
         { once: true },
@@ -59,6 +59,10 @@ function updateSelectionBeforeTurboLoad(e) {
 
 ['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
   document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
+});
+
+window.addEventListener('turbo:render', e => {
+  presetTheme.applyChange({ behavior: 'instant' });
 });
 
 window.presetTheme = presetTheme;

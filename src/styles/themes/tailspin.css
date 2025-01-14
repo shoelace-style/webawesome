@@ -1,5 +1,5 @@
 @import url('../color/vogue.css');
-@import url('default/color-semantic.css');
+@import url('default/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
 @import url('default/typography.css');
@@ -240,7 +240,8 @@
     box-shadow: var(--wa-shadow-s);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     border-radius: var(--wa-border-radius-m);
 
     &::part(icon) {

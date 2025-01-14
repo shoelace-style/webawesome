@@ -1,5 +1,5 @@
 @import url('../color/natural.css');
-@import url('default/color-semantic.css');
+@import url('default/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
 @import url('default/typography.css');
@@ -216,7 +216,8 @@
     letter-spacing: calc(1em * -0.02);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     border-width: var(--wa-panel-border-width) var(--wa-panel-border-width) var(--wa-panel-border-width)
       calc(var(--wa-panel-border-width) * 4);
   }

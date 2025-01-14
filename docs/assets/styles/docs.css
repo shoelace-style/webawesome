@@ -382,6 +382,7 @@ wa-page > main:has(> .index-grid) {
 
 /* Swatches */
 .swatch {
+  position: relative;
   background-color: transparent;
   border-color: var(--wa-color-neutral-border-normal);
   border-style: var(--wa-border-style);
@@ -391,6 +392,33 @@ wa-page > main:has(> .index-grid) {
   line-height: 2.5;
   height: 2.5em;
   padding-inline: var(--wa-space-xs);
+
+  wa-copy-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    --background-color-hover: transparent;
+    font-family: var(--wa-font-family-code);
+
+    &::part(button) {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    &::part(button):hover {
+      cursor: copy;
+    }
+
+    &::part(copy-icon),
+    &::part(success-icon),
+    &::part(error-icon) {
+      opacity: 0 !important;
+    }
+  }
 }
 
 /* Layout Examples */

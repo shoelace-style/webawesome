@@ -1,7 +1,0 @@
-{
-  "layout": "page-outline.njk",
-  "tags": ["theming"],
-  "eleventyComputed": {
-    "icon": "theming/{{ page.fileSlug }}"
-  }
-}
