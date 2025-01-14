@@ -1,4 +1,5 @@
 .wa-outlined,
+:where(.wa-callout),
 :host([appearance~='outlined']) {
   --background-color: var(--outlined-background-color, transparent);
   --background-color-hover: var(--outlined-background-color-hover, var(--wa-color-fill-quiet));
@@ -26,6 +27,7 @@
 }
 
 .wa-filled,
+:where(.wa-callout),
 :host([appearance~='filled']) {
   --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
   --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -45,10 +47,10 @@
 .wa-plain,
 :host([appearance~='plain']) {
   --background-color: transparent;
-  --text-color: var(--wa-color-on-quiet);
-
   --background-color-hover: var(--wa-color-fill-quiet);
   --background-color-active: color-mix(in oklab, var(--background-color-hover), transparent 20%);
+
+  --border-color: transparent;
 
   --text-color: var(--wa-color-on-quiet);
 }
