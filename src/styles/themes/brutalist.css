@@ -235,7 +235,8 @@
     }
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     --spacing: var(--wa-space-s) var(--wa-space-m);
 
     &::part(icon) {

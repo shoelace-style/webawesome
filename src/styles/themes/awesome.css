@@ -287,7 +287,8 @@
     }
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     &:is([appearance~='outlined'], .wa-outlined) {
       border-color: var(--wa-color-border-normal);
     }

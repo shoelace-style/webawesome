@@ -238,7 +238,8 @@
     box-shadow: var(--wa-shadow-s);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     border-radius: var(--wa-border-radius-m);
 
     &::part(icon) {

@@ -242,7 +242,8 @@
     font-size: var(--wa-font-size-s);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     --spacing: var(--wa-space-l);
     font-size: var(--wa-size-smaller);
 

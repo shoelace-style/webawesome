@@ -214,7 +214,8 @@
     letter-spacing: calc(1em * -0.02);
   }
 
-  wa-callout {
+  wa-callout,
+  .wa-callout {
     border-width: var(--wa-panel-border-width) var(--wa-panel-border-width) var(--wa-panel-border-width)
       calc(var(--wa-panel-border-width) * 4);
   }
