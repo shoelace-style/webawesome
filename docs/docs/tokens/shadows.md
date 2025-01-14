@@ -3,7 +3,7 @@ title: Shadows
 description: Elevate your components with Web Awesome's shadow properties.
 ---
 
-Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/tokens/color/#shadow), these custom properties create realistic shadows for Web Awesome components.
+Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/tokens/color/#shadow), these tokens create realistic shadows for Web Awesome components.
 
 Shadows are constructed using corresponding offset-x, offset-y, blur, and spread properties, detailed in the sections below. In Web Awesome, shadows use a size-based scale where larger shadows have greater offset and blur values to indicate greater distance from the surface below.
 

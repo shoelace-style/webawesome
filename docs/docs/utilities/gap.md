@@ -16,7 +16,7 @@ tags: ["utilities", "layout"]
 Web Awesome includes classes to set the `gap` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/layout/cluster) and [stack](/docs/layout/stack), to change the space between items.
 Or even by themselves — all gap properties also set `display: flex` with a specificity of 0 so that it can be trivially overridden.
 
-Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the [`--wa-space-*`](/docs/tokens/space) properties in your theme.
+Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme.
 
 | Class Name   | `gap` Value      | Preview                                                                                                     |
 | ------------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |

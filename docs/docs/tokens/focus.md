@@ -3,7 +3,7 @@ title: Focus
 description: Configure recognizable focus states with Web Awesome's focus properties.
 ---
 
-A consistent focus ring helps with predictable keyboard navigation. Together with [`--wa-color-focus`](/docs/tokens/color/#interactions), these custom properties create a uniform focus state for Web Awesome components.
+A consistent focus ring helps with predictable keyboard navigation. Together with [`--wa-color-focus`](/docs/tokens/color/#interactions), these tokens create a uniform focus state for Web Awesome components.
 
 
 | Custom Property          |  Default Value                                                                |

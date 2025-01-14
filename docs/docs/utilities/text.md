@@ -13,7 +13,7 @@ Use body classes to style the main content of your pages. Each `wa-body-*` class
 - `font-weight: var(--wa-font-weight-body);`
 - `line-height: var(--wa-line-height-normal);`
 
-Additionally, each class specifies a `font-size` that corresponds to a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) property from your theme.
+Additionally, each class specifies a `font-size` that corresponds to a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) token from your theme.
 
 | Class Name         | `font-size` Value    |  Preview                                                                  |
 | ------------------ | -------------------- | ------------------------------------------------------------------------- |
@@ -31,7 +31,7 @@ Use heading classes to style section titles and headings in your content. Each `
 - `line-height: var(--wa-line-height-condensed);`
 - `text-wrap: balance;`
 
-Additionally, each class specifies a `font-size` using a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) property from your theme. Heading classes are one font size larger than the corresponding `wa-body-*` class.
+Additionally, each class specifies a `font-size` using a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) token from your theme. Heading classes are one font size larger than the corresponding `wa-body-*` class.
 
 | Class Name       | `font-size` Value    | Preview                                               |
 | ---------------- | -------------------- | ----------------------------------------------------- |
@@ -51,7 +51,7 @@ Use caption classes to style descriptions or auxiliary text in your content. Eac
 - `font-weight: var(--wa-font-weight-body);`
 - `line-height: var(--wa-line-height-condensed);`
 
-Additionally, each class specifies a `font-size` using a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) property from your theme. Caption classes are one font size smaller than the corresponding `wa-body-*` class.
+Additionally, each class specifies a `font-size` using a [`--wa-font-size-*`](/docs/tokens/typography/#font-size) token from your theme. Caption classes are one font size smaller than the corresponding `wa-body-*` class.
 
 | Class Name       | `font-size` Value    | Preview                                                                        |
 | ---------------- | -------------------- | ------------------------------------------------------------------------------ |
