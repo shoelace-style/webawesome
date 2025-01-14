@@ -69,7 +69,7 @@ Line heights control the distance between lines of text and are unitless to scal
 
 ## Links
 
-Together with [`--wa-color-link`](/docs/theming/color/#text), these custom properties add text decoration to `<a>` elements to signal their role as hyperlinks.
+Together with [`--wa-color-link`](/docs/tokens/color/#text), these custom properties add text decoration to `<a>` elements to signal their role as hyperlinks.
 
 | Custom Property                | Default Value                                                                      |
 | ------------------------------ | ---------------------------------------------------------------------------------- |

@@ -486,7 +486,8 @@ Overlays provide a backdrop to isolate content, often allowing background contex
 
 ### Shadow
 
-Web Awesome uses a single color for all shadows. This is used alongside other [shadow properties](/docs/theming/shadows) to construct your theme's shadows.
+Web Awesome uses a single color for all shadows.
+This is used alongside other [shadow properties](/docs/tokens/shadows) to construct your theme's shadows.
 
 | Custom Property     | Preview                                                                     |
 | ------------------- | --------------------------------------------------------------------------- |
@@ -496,7 +497,7 @@ Web Awesome uses a single color for all shadows. This is used alongside other [s
 
 #### Focus
 
-Web Awesome uses a single focus color for predictable keyboard navigation. This is used alongside other [focus properties](/docs/theming/focus) to construct `--wa-focus-ring`. We recommend a minimum 3:1 contrast ratio against surface colors and background colors wherever possible.
+Web Awesome uses a single focus color for predictable keyboard navigation. This is used alongside other [focus properties](/docs/tokens/focus) to construct `--wa-focus-ring`. We recommend a minimum 3:1 contrast ratio against surface colors and background colors wherever possible.
 
 | Custom Property    | Preview                                                                                                                 |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
