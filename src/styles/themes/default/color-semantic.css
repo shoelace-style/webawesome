@@ -121,6 +121,7 @@
   --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
 
+  /* Mixing with --wa-color-surface-lowered prevents shadows from becoming excessively dark relative to --wa-color-surface-default. */
   --wa-color-shadow: color-mix(
     in oklab,
     var(--wa-color-surface-lowered) calc(var(--wa-shadow-blur-scale) * 32% + 40%),
