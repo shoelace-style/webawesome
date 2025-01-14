@@ -30,18 +30,18 @@
 
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
-<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" render="blocking" fetchpriority="high" />
+<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/{{ forceTheme or 'default' }}.css" render="blocking" fetchpriority="high" />
 {% if not forceTheme %}
 <script>
 if (localStorage.presetTheme) {
 	let preset = localStorage.presetTheme;
-	let script = document.currentScript;
-	let link = script.previousElementSibling;
+	let link = document.getElementById('theme-stylesheet');
 	let newLink = link.cloneNode();
 	newLink.href = link.href.replace("/default.css", `/${preset}.css`);
+	newLink.classList.add('wa-preset-theme');
 	newLink.addEventListener('load', () => {
 		link.remove();
-	});
+	}, { once: true });
 	link.after(newLink);
 }
 </script>
