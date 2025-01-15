@@ -7,19 +7,3 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-
-:where(:root),
-:host,
-.wa-theme-default,
-.wa-light,
-.wa-dark .wa-invert {
-  color-scheme: light;
-  color: var(--wa-color-text-normal);
-}
-
-.wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
-  color-scheme: dark;
-  color: var(--wa-color-text-normal);
-}
