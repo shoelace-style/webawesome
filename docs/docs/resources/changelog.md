@@ -19,6 +19,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added new themes:
   - Glossy
   - Premium
+  - Playful
 
 ## 3.0.0-alpha.8
 
