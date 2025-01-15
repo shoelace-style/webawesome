@@ -72,47 +72,10 @@
   --wa-color-neutral-on-loud: white;
 
   /**
-   * Typography
-   */
-  --wa-font-family-body: 'Inter', sans-serif;
-  --wa-font-family-heading: var(--wa-font-family-body);
-
-  --wa-font-weight-light: 300;
-  --wa-font-weight-normal: 400;
-  --wa-font-weight-semibold: 500;
-  --wa-font-weight-bold: 700;
-
-  --wa-font-size-scale: 0.875;
-
-  --wa-link-decoration-default: none;
-  --wa-link-decoration-hover: none;
-
-  /**
-   * Spacing
-   */
-  --wa-space-scale: 0.875;
-
-  /**
-   * Focus
-   */
-  --wa-focus-ring-width: 0.125rem;
-  --wa-focus-ring-offset: 0;
-
-  /**
-   * Shadows
-   */
-  --wa-shadow-offset-y-scale: 0.5;
-  --wa-shadow-offset-blur-scale: 0.5;
-  --wa-shadow-spread-scale: 0;
-
-  /**
    * Component Groups
    */
   --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-
-  --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
-  --wa-form-control-label-line-height: var(--wa-line-height-normal);
 }
 
 .wa-dark,

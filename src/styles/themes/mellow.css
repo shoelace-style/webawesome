@@ -1,27 +1,16 @@
 @import url('mellow/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
-@import url('default/typography.css');
+@import url('mellow/typography.css');
 @import url('default/rounding.css');
 @import url('default/shadows.css');
 @import url('default/transitions.css');
-@import url('mellow/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('default/groups.css');
+@import url('mellow/overrides.css');
 
 :where(:root),
 :host,
 .wa-theme-mellow {
-  /**
-   * Typography
-   */
-  --wa-font-family-body: 'Mulish', sans-serif;
-  --wa-font-family-heading: 'Lora', serif;
-  --wa-font-family-code: ui-monospace, monospace;
-  --wa-font-family-longform: 'Lora', serif;
-
-  --wa-font-weight-semibold: 600;
-  --wa-font-weight-bold: 700;
-
   /**
    * Spacing
    */

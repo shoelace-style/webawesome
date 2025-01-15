@@ -1,24 +1,16 @@
 @import url('active/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
-@import url('default/typography.css');
+@import url('active/typography.css');
 @import url('default/rounding.css');
 @import url('default/shadows.css');
 @import url('default/transitions.css');
-@import url('active/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('default/groups.css');
+@import url('active/overrides.css');
 
 :where(:root),
 :host,
 .wa-theme-active {
-  /**
-   * Typography
-   */
-  --wa-font-family-body: 'Inter', sans-serif;
-
-  --wa-font-weight-semibold: 550;
-  --wa-font-weight-bold: 650;
-
   /**
    * Rounding
    */
