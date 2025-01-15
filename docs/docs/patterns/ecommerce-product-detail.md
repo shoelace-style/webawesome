@@ -15,22 +15,29 @@ TODO Page Description
       <span class="card-title">Graphic Tank</span>
       <wa-icon-button name="close" label="close-modal"></wa-icon-button>
     </div>
-    <div class="card-body">
-      <img style="border-radius: var(--border-radius)" src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
-      <form class="detail">
+    <div class="card-body wa-grid" style="grid-template-columns: 35% 1fr;">
+      <img style="height: 100%; object-fit: cover;" src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+      <form class="detail wa-stack">
         <span class="price">$32</span>
-        <span class="rating"><wa-rating></wa-rating><a style="margin-left: .5rem; " href="*">36 Reviews</a></span>
-        <wa-radio-group style="margin-bottom: 1rem;" label="Select an option" name="a" value="1">
-  <wa-radio-button value="Black">Black</wa-radio-button>
-  <wa-radio-button value="White">White</wa-radio-button>
-  <wa-radio-button value="Gray">Gray</wa-radio-button>
-</wa-radio-group>
-<wa-select label="Sizes" placeholder="select size">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<wa-button size="medium" style="width: 100%; margin-top: auto;">Medium</wa-button>
+        <span class="rating">
+          <wa-rating label="Rating" precision="0.5" value="3.75"></wa-rating>
+          <a style="margin-left: .5rem; " href="*">36 Reviews</a>
+        </span>
+        <wa-radio-group style="margin-bottom: 1rem;" label="Color" name="a" value="black">
+          <wa-radio-button value="black">Black</wa-radio-button>
+          <wa-radio-button value="white">White</wa-radio-button>
+          <wa-radio-button value="gray">Gray</wa-radio-button>
+        </wa-radio-group>
+        <wa-select label="Sizes" placeholder="select size">
+          <wa-option value="option-1">Small</wa-option>
+          <wa-option value="option-2">Medium</wa-option>
+          <wa-option value="option-3">Large</wa-option>
+          <wa-option value="option-3">Extra Large</wa-option>
+        </wa-select>
+<wa-button variant="brand" size="medium" style="width: 100%; margin-top: auto;">
+  <wa-icon slot="suffix" name="cart-shopping" variant="solid"></wa-icon>
+  Add to Cart
+  </wa-button>
       </form>
     </div>
    </wa-card>
@@ -50,14 +57,7 @@ TODO Page Description
           }
         }
         .card-body {
-          display: grid;
-          grid-template-columns: 35% 1fr;
-          gap: 1rem;
-
           .detail {
-            display: flex;
-            flex-direction: column;
-
             .price {
               font-size: xx-large;
               font-weight: 600;

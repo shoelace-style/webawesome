@@ -9,23 +9,52 @@ TODO Page Description
 
 ## Three Column (WIP)
 ```html{.example}
-<div class="category-preview">
-  <div>
+<div class="three-column wa-stack">
+  <div class="wa-split" sty>
     <h1>Shop by Category</h1>
     <a href="#">Browse all Categories</a>
   </div>
-  <div class="category-grid">
-    <a href="#">
-      <wa-card with-image class="card-image">
-  <img
-    slot="image"
-    src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
-    alt="A kitten walks towards camera on top of pallet."
-  />
-  This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-</wa-card>
-    </a>
+  <div class="category-grid wa-grid">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
-<style></style>
+<style>
+  .three-column {
+     [class*='wa-grid'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-m);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+    aspect-ratio: 1/1;
+  }
+    
+  }
+</style>
+```
+
+```html{.example}
+<div class="mosaic wa-stack">
+  <div class="wa-split" sty>
+    <h1>Shop by Category</h1>
+    <a href="#">Browse all Categories</a>
+  </div>
+  <div class="category-grid wa-grid" style="grid-template-rows: 1fr 1fr 1fr 1fr;">
+    <div style="grid-row: 1/-1"></div>
+    <div style="grid-row-start: span 2"></div>
+    <div style="grid-column-start: 2; grid-row-start: span 2"></div>
+  </div>
+</div>
+<style>
+  .mosaic {
+     [class*='wa-grid'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-m);
+    min-block-size: 10rem;
+    min-inline-size: 4rem;
+  }
+    
+  }
+</style>
 ```

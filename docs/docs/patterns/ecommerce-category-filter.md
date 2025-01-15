@@ -12,13 +12,14 @@ TODO Page Description
 <div class="category-filter">
   <div style="display: flex; justify-content: space-between; align-itemst: flex-start;">
     <h1>New Arrivals</h1>
-    <wa-select placeholder="Sort">
-      <wa-option value="option-1">Most Popular</wa-option>
-      <wa-option value="option-2">Best Rating</wa-option>
-      <wa-option value="option-3">Newest</wa-option>
-    </wa-select>
   </div>
   <div class="category-filter-container">
+    <form>
+      <wa-checkbox>All Products</wa-checkbox>
+      <wa-checkbox>Sale</wa-checkbox>
+      <wa-checkbox>Travel</wa-checkbox>
+      <wa-checkbox>Organization</wa-checkbox>
+      <wa-checkbox>Accessories</wa-checkbox>
     <wa-details summary="Color" open>
       <wa-checkbox>White</wa-checkbox>
       <wa-checkbox>Beige</wa-checkbox>
@@ -39,40 +40,16 @@ TODO Page Description
       <wa-checkbox>XL</wa-checkbox>
       <wa-checkbox>2XL</wa-checkbox>
     </wa-details>
+    </form>
+    
   </div>
-  <div class="product-list">
-    <wa-card with-image with-footer class="card-overview">
-  <img
-    slot="image"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
-  />
-
-  <strong>Mittens</strong><br />
-  This kitten is as cute as he is playful. Bring him home today!<br />
-  <small>6 weeks old</small>
-
-  <div slot="footer">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
-  </div>
-</wa-card>
-<wa-card with-image with-footer class="card-overview">
-  <img
-    slot="image"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
-  />
-
-  <strong>Mittens</strong><br />
-  This kitten is as cute as he is playful. Bring him home today!<br />
-  <small>6 weeks old</small>
-
-  <div slot="footer">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
-  </div>
-</wa-card>
+  <div class="product-list wa-grid">
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+  <div></div>
+  <div></div>
   </div>
 </div>
 
@@ -81,8 +58,14 @@ TODO Page Description
     wa-details::part(content) {
       display: flex;
       flex-direction: column;
+    }
 
-     
+    form > wa-details:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
+    form > wa-checkbox {
+      display: block;
+      margin-bottom: 1rem;
     }
      wa-details wa-checkbox {
         margin-bottom: 1rem;
@@ -101,9 +84,21 @@ TODO Page Description
     justify-content: space-between;
     align-items: center;
   }
+
+  [class*='wa-grid'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-m);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+    aspect-ratio: 1/1;
+  }
   }
   .category-filter-container {
      margin-bottom: 1rem;
+     padding-top: 1rem;
+     padding-bottom: 1rem;
+     border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+     border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
   }
 </style>
 <script>
