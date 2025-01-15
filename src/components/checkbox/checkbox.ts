@@ -233,47 +233,40 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
     return html`
-      <div
-        class=${classMap({
-          'form-control--has-hint': hasHint,
-          'form-control': true,
-        })}
+      <label part="base">
+        <span part="control">
+          <input
+            class="input"
+            type="checkbox"
+            title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
+            name=${this.name}
+            value=${ifDefined(this._value)}
+            .indeterminate=${live(this.indeterminate)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
+            .required=${this.required}
+            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-describedby="hint"
+            @click=${this.handleClick}
+            @input=${this.handleInput}
+            @blur=${this.handleBlur}
+            @focus=${this.handleFocus}
+          />
+
+          <wa-icon part="${iconState}-icon icon" library="system" name=${iconName}></wa-icon>
+        </span>
+
+        <slot part="label"></slot>
+      </label>
+
+      <slot
+        name="hint"
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        class="${classMap({ 'has-slotted': hasHint })}"
+        id="hint"
+        part="hint"
+        >${this.hint}</slot
       >
-        <label part="base">
-          <span class="control">
-            <input
-              class="input"
-              type="checkbox"
-              title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-              name=${this.name}
-              value=${ifDefined(this._value)}
-              .indeterminate=${live(this.indeterminate)}
-              .checked=${live(this.checked)}
-              .disabled=${this.disabled}
-              .required=${this.required}
-              aria-checked=${this.checked ? 'true' : 'false'}
-              aria-describedby="hint"
-              @click=${this.handleClick}
-              @input=${this.handleInput}
-              @blur=${this.handleBlur}
-              @focus=${this.handleFocus}
-            />
-
-            <wa-icon part="${iconState}-icon icon" library="system" name=${iconName}></wa-icon>
-          </span>
-
-          <slot part="label"></slot>
-        </label>
-
-        <slot
-          name="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class="${classMap({ 'has-slotted': hasHint })}"
-          id="hint"
-          part="hint"
-          >${this.hint}</slot
-        >
-      </div>
     `;
   }
 }
