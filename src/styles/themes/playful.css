@@ -218,9 +218,9 @@
     &:not([disabled]) {
       transition-property: all;
 
-      /* Doesn't apply transform to buttons used as dropdown triggers.
-       * This prevents the dropdown panel from shifting. */
-      &:not([slot='trigger']) {
+      /* Doesn't apply transform to buttons in dropdowns or button groups.
+       * For dropdowns, this prevents the dropdown panel from shifting. */
+      &:not(:where(wa-button-group &, wa-dropdown &, wa-radio-group &)) {
         &:hover {
           transform: scale(1.02, 1.02) rotate(-1deg);
         }
