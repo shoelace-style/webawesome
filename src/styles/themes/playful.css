@@ -146,6 +146,8 @@
 
   --wa-color-focus: var(--wa-color-violet-60);
 
+  --wa-color-mix-hover: white 10%;
+
   /**
    * Semantic Colors
    */
