@@ -126,7 +126,9 @@ async function generateStyles() {
         file.includes('themes/default') ||
         file.includes('themes/awesome') ||
         file.includes('themes/active') ||
+        file.includes('themes/glossy') ||
         file.includes('themes/mellow') ||
+        file.includes('themes/premium') ||
         file.includes('themes/tailspin') ||
         file.includes('themes/brutalist')
       ) {
