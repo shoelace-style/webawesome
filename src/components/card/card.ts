@@ -22,6 +22,14 @@ import styles from './card.css';
  * @cssproperty --border-radius - The radius for the card's corners. Expects a single value. Defaults to `var(--wa-panel-border-radius)`.
  * @cssproperty --border-width - The width of the card's borders. Expects a single value. Defaults to `var(--wa-panel-border-width)`.
  * @cssproperty --spacing - The amount of space around and between sections of the card. Expects a single value.
+ * @cssproperty --wa-card-border-radius - The default radius for all cards, typically set on an ancestor element (e.g. by a theme). Expects a single value.
+ * @cssproperty --wa-card-border-color - The default border color for all cards, typically set on an ancestor element (e.g. by a theme). Expects a single color.
+ * @cssproperty --wa-card-border-width - The default border width for all cards, typically set on an ancestor element (e.g. by a theme). Expects a single value.
+ * @cssproperty --wa-card-background-color - The default background color for all cards, typically set on an ancestor element (e.g. by a theme).
+ * @cssproperty --wa-card-shadow - The default shadow for all cards, typically set on an ancestor element (e.g. by a theme).
+ * @cssproperty --wa-card-header-background-color - The default background color for card headers, typically set on an ancestor element (e.g. by a theme).
+ * @cssproperty --wa-card-footer-background-color - The default background color for card footers, typically set on an ancestor element (e.g. by a theme).
+ * @cssproperty --wa-card-image-background-color - The default background color for card images, typically set on an ancestor element (e.g. by a theme).
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {

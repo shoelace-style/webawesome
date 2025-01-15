@@ -1,18 +1,18 @@
 :host {
   --spacing: var(--wa-space-xl);
-  --border-width: var(--wa-panel-border-width);
-  --border-radius: var(--wa-panel-border-radius);
+  --border-width: var(--wa-card-border-width, var(--wa-panel-border-width));
+  --border-radius: var(--wa-card-border-radius, var(--wa-panel-border-radius));
 
   --inner-border-radius: calc(var(--border-radius) - var(--border-width));
 
   display: flex;
   flex-direction: column;
-  background-color: var(--wa-color-surface-default);
-  border-color: var(--wa-color-surface-border);
+  background-color: var(--wa-card-background-color, var(--wa-color-surface-default));
+  border-color: var(--wa-card-border-color, var(--wa-color-surface-border));
   border-radius: var(--border-radius);
   border-style: var(--wa-panel-border-style);
-  box-shadow: var(--wa-shadow-s);
   border-width: var(--border-width);
+  box-shadow: var(--wa-card-shadow, var(--wa-shadow-s));
   color: var(--wa-color-text-normal);
 }
 
@@ -24,6 +24,7 @@
 
 .image {
   display: flex;
+  background-color: var(--wa-card-image-background-color, transparent);
 
   &::slotted(img) {
     display: block;
@@ -37,6 +38,7 @@
   display: block;
   border-bottom: inherit;
   padding: calc(var(--spacing) / 2) var(--spacing);
+  background-color: var(--wa-card-header-background-color, transparent);
 }
 
 .body {
@@ -50,6 +52,7 @@
   border-end-start-radius: var(--inner-border-radius);
   border-end-end-radius: var(--inner-border-radius);
   padding: var(--spacing);
+  background-color: var(--wa-card-footer-background-color, transparent);
 }
 
 :host(:not([with-header])) .header,
