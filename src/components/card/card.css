@@ -1,29 +1,35 @@
 :host {
   --spacing: var(--wa-space-xl);
+  --border-width: var(--wa-panel-border-width);
+  --border-radius: var(--wa-panel-border-radius);
+
+  --inner-border-radius: calc(var(--border-radius) - var(--border-width));
 
   display: flex;
   flex-direction: column;
   background-color: var(--wa-color-surface-default);
   border-color: var(--wa-color-surface-border);
-  border-radius: var(--wa-panel-border-radius);
+  border-radius: var(--border-radius);
   border-style: var(--wa-panel-border-style);
-  border-width: var(--wa-panel-border-width);
   box-shadow: var(--wa-shadow-s);
+  border-width: var(--border-width);
   color: var(--wa-color-text-normal);
+}
+
+.image,
+:host(:not([with-image])) .header {
+  border-start-start-radius: var(--inner-border-radius);
+  border-start-end-radius: var(--inner-border-radius);
 }
 
 .image {
   display: flex;
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  margin: calc(-1 * var(--border-width));
-  overflow: hidden;
 
   &::slotted(img) {
     display: block;
     width: 100%;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+    border-start-start-radius: inherit !important;
+    border-start-end-radius: inherit !important;
   }
 }
 
@@ -31,11 +37,6 @@
   display: block;
   border-bottom: inherit;
   padding: calc(var(--spacing) / 2) var(--spacing);
-}
-
-:host(:not([with-image])) .header {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
 }
 
 .body {
@@ -46,8 +47,8 @@
 .footer {
   display: block;
   border-top: inherit;
-  border-bottom-left-radius: inherit;
-  border-bottom-right-radius: inherit;
+  border-end-start-radius: var(--inner-border-radius);
+  border-end-end-radius: var(--inner-border-radius);
   padding: var(--spacing);
 }
 
