@@ -10,7 +10,10 @@
 
 :where(:root),
 :host,
-.wa-theme-tailspin {
+.wa-theme-tailspin,
+.wa-dark,
+.wa-light,
+.wa-invert {
   /**
    * Spacing
    */

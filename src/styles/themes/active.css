@@ -10,7 +10,10 @@
 
 :where(:root),
 :host,
-.wa-theme-active {
+.wa-theme-active,
+.wa-dark,
+.wa-light,
+.wa-invert {
   /**
    * Rounding
    */

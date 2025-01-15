@@ -10,7 +10,10 @@
 
 :where(:root),
 :host,
-.wa-theme-classic {
+.wa-theme-classic,
+.wa-dark,
+.wa-light,
+.wa-invert {
   /**
    * Focus
    */
