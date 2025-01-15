@@ -10,9 +10,7 @@
 
 :where(:root),
 :host,
-.wa-theme-premium,
-.wa-light,
-.wa-dark .wa-invert {
+.wa-theme-premium {
   /**
    * Borders
    */
