@@ -216,12 +216,16 @@
     &:not([disabled]) {
       transition-property: all;
 
-      &:hover {
-        transform: scale(1.02, 1.02) rotate(-1deg);
-      }
+      /* Doesn't apply transform to buttons used as dropdown triggers.
+       * This prevents the dropdown panel from shifting. */
+      &:not([slot='trigger']) {
+        &:hover {
+          transform: scale(1.02, 1.02) rotate(-1deg);
+        }
 
-      &:active {
-        transform: scale(0.98, 0.98);
+        &:active {
+          transform: scale(0.98, 0.98);
+        }
       }
     }
 
@@ -289,7 +293,8 @@
   }
 
   wa-callout,
-  .wa-callout {
+  .wa-callout,
+  wa-tag {
     border-style: dashed;
   }
 
@@ -337,9 +342,5 @@
 
   wa-switch[checked] {
     --thumb-shadow: var(--wa-shadow-s);
-  }
-
-  wa-tag {
-    border-style: dashed;
   }
 }
