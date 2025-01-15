@@ -7,7 +7,9 @@
  * A difference of 60 between lightness values ensures a minimum 7:1 contrast ratio.
  */
 :where(:root),
-:host {
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+.wa-palette-default {
   --wa-color-red-95: #ffefef;
   --wa-color-red-90: #ffdddc;
   --wa-color-red-80: #ffb7b6;
