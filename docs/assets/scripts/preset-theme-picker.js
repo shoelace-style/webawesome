@@ -47,22 +47,6 @@ const presetTheme = new ThemeAspect({
   },
 });
 
-/**
- * Without this, there's a flash of the incorrect preset theme.
- */
-function updateSelectionBeforeTurboLoad(e) {
-  const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
-  if (newElement) {
-    presetTheme.syncUI(newElement);
-  }
-}
-
-['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
-  document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
-});
-
 window.addEventListener('turbo:render', e => {
   presetTheme.applyChange({ behavior: 'instant' });
 });
-
-window.presetTheme = presetTheme;

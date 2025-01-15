@@ -34,6 +34,15 @@ export class ThemeAspect {
         this.set(picker.value);
       }
     });
+
+    ['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
+      document.addEventListener(eventName, e => {
+        const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
+        if (newElement) {
+          this.syncUI(newElement);
+        }
+      });
+    });
   }
 
   get() {
