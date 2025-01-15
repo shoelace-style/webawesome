@@ -21,7 +21,7 @@
   font-size: var(--wa-size-smaller, 85%);
   line-height: var(--wa-form-control-label-line-height);
 
-  &:not(.has-slotted, .form-control--has-hint *) {
+  &:not(.has-slotted) {
     display: none;
   }
 }
