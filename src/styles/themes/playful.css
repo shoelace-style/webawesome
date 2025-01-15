@@ -95,6 +95,10 @@
 
   --wa-font-weight-heading: var(--wa-font-weight-semibold);
 
+  --wa-line-height-condensed: 1.35;
+  --wa-line-height-normal: 1.8;
+  --wa-line-height-expanded: 2.25;
+
   --wa-link-decoration-default: underline color-mix(in oklab, currentColor 60%, transparent) dashed;
 
   /**
@@ -121,9 +125,8 @@
   /**
    * Component Groups
    */
-  --wa-form-control-border-radius: min(var(--wa-border-radius-pill), calc(var(--wa-form-control-height) * 0.6));
-
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+  --wa-form-control-border-radius: min(var(--wa-border-radius-pill), calc(var(--wa-form-control-height) * 0.6));
 }
 
 .wa-dark,
@@ -208,6 +211,19 @@
 :where(:root),
 :host,
 .wa-theme-playful {
+  wa-badge {
+    font-weight: var(--wa-font-weight-bold);
+  }
+
+  wa-badge,
+  wa-tag,
+  wa-select::part(tag) {
+    border-width: calc(var(--wa-border-width-s) * 0.67);
+  }
+  wa-select::part(tag) {
+    border-radius: var(--wa-form-control-border-radius);
+  }
+
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
   wa-button,
@@ -222,7 +238,7 @@
        * For dropdowns, this prevents the dropdown panel from shifting. */
       &:not(:where(wa-button-group &, wa-dropdown &, wa-radio-group &)) {
         &:hover {
-          transform: scale(1.02, 1.02) rotate(-1deg);
+          transform: scale(1.02, 1.02);
         }
 
         &:active {
@@ -292,12 +308,6 @@
         }
       }
     }
-  }
-
-  wa-callout,
-  .wa-callout,
-  wa-tag {
-    border-style: dashed;
   }
 
   input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
