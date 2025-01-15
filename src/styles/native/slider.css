@@ -96,7 +96,7 @@ input[type='range'] {
     border-radius: 50%;
     background-color: var(--thumb-color);
     box-shadow:
-      var(--thumb-shadow),
+      var(--thumb-shadow, 0 0 transparent),
       0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
     transition-property: background-color, border-color, box-shadow, color;
     transition-duration: var(--wa-transition-normal);

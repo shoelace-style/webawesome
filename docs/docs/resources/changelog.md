@@ -17,6 +17,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - Added `.wa-callout` utility class
 - Added new themes:
+  - Glossy
   - Premium
 
 ## 3.0.0-alpha.8
