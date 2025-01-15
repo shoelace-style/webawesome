@@ -1,6 +1,6 @@
 ---
 title: Playful
-description: Fun, colorful, and full of personality.
+description: Delightfully engaging with every click.
 isPro: true
 tags: pro
 noAlpha: true
