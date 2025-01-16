@@ -6,6 +6,16 @@
 
 {% block header %}
 <iframe src='{{ page.url }}demo.html'></iframe>
+
+<h2>Default Color Palette</h2>
+{% set paletteURL = '/docs/palettes/' + palette + '/' %}
+{% set themePage = page %}
+{% set page = paletteURL | getCollectionItemFromUrl %}
+<div class="index-grid">
+{% include 'page-card.njk' %}
+</div>
+{% set page = themePage %}
+
 {% endblock %}
 
 {% block afterContent %}
