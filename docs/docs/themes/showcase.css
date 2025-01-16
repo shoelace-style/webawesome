@@ -10,6 +10,7 @@ body,
 }
 
 .theme-showcase {
+  isolation: isolate;
   background-color: var(--wa-color-surface-lowered);
   border-radius: var(--wa-border-radius-l);
   padding: var(--wa-space-xl);
