@@ -40,7 +40,7 @@ These properties can be set on any ancestor, including the root element:
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--wa-ripple-start-radius` | `<length>` | `0.1em` | The starting radius of the ripple effect. |
-| `--wa-ripple-start-opacity` | `<number>` | `0.15` | The starting opacity of the ripple effect. |
+| `--wa-ripple-start-opacity` | `<number>` | `0.1` | The starting opacity of the ripple effect. |
 | `--wa-ripple-duration` | `<time>` | `calc(2 * var(--wa-transition-slow))` | The duration of the ripple effect transition. |
 
 Any of these can be used to disable the ripple effect:
