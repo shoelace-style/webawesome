@@ -1,0 +1,118 @@
+:where(:root),
+:host,
+.wa-theme-awesome {
+  /* #region Custom Styles */
+  wa-badge {
+    border-radius: var(--wa-border-radius-m);
+    font-weight: var(--wa-font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  :is(
+      button,
+      input:where([type='button'], [type='reset'], [type='submit']),
+      wa-button,
+      wa-radio-group > wa-radio-button,
+      .wa-button
+    ):not([appearance='plain'], .wa-plain) {
+    --wa-transition-slow: 0;
+    --wa-transition-normal: 0;
+    --wa-transition-fast: 0;
+
+    --border-color: var(--text-color);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s)
+      var(--wa-shadow-spread-s) var(--border-color);
+    --background-color-active: var(--border-color);
+    --text-color-active: var(--background-color);
+
+    margin-bottom: var(--wa-shadow-offset-y-s);
+
+    &:is([appearance='outlined'], .wa-outlined) {
+      --background-color: var(--wa-color-surface-default);
+    }
+
+    &:not([disabled], [loading]):active,
+    &::part(checked) {
+      box-shadow: none;
+      transform: translateY(var(--wa-shadow-offset-y-s));
+    }
+
+    .wa-dark & {
+      --border-color: var(--wa-color-border-quiet);
+    }
+  }
+
+  wa-callout,
+  .wa-callout {
+    &:is([appearance~='outlined'], .wa-outlined) {
+      border-color: var(--wa-color-border-normal);
+    }
+    &:not([appearance~='accent'], .wa-accent) {
+      color: var(--wa-color-text-normal);
+    }
+    &:not([appearance~='accent'], .wa-accent) {
+      --icon-color: var(--wa-color-border-normal);
+    }
+  }
+
+  wa-card {
+    background-color: var(--wa-color-surface-raised);
+  }
+  wa-card::part(header) {
+    border-bottom-style: dotted;
+  }
+  wa-card::part(footer) {
+    border-top-style: dotted;
+  }
+
+  input[type='checkbox'],
+  wa-checkbox {
+    --checked-icon-color: var(--wa-color-surface-default);
+  }
+
+  wa-radio-group > wa-radio-button {
+    &::part(base):active,
+    &::part(checked) {
+      --background-color: var(--border-color);
+      --background-color-hover: var(--border-color);
+      --border-color: var(--wa-color-neutral-border-loud);
+      --text-color: var(--wa-color-surface-default);
+    }
+  }
+
+  wa-switch {
+    --height: 1.5em;
+  }
+
+  wa-tag {
+    font-weight: var(--wa-font-weight-bold);
+  }
+
+  :is(
+      input:where(
+          :not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          )
+        ),
+      select,
+      textarea,
+      wa-input,
+      wa-select,
+      wa-textarea,
+      .wa-text-field
+    ):not(:focus, [appearance='filled'], .wa-filled) {
+    --box-shadow: inset var(--wa-shadow-s);
+  }
+  /* #endregion */
+}

@@ -4,8 +4,10 @@
 :where(:root),
 :host,
 .wa-theme-default,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
 .wa-light,
-.wa-dark .wa-invert {
+.wa-dark,
+.wa-invert {
   /* Form controls */
   --wa-form-control-background-color: var(--wa-color-surface-default);
 
@@ -45,28 +47,4 @@
   --wa-tooltip-content-color: var(--wa-color-neutral-on-loud);
   --wa-tooltip-font-size: var(--wa-font-size-s);
   --wa-tooltip-line-height: var(--wa-line-height-normal);
-}
-
-/** need to wrap :host-context() in an :is() selector for unsupported browsers */
-.wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
-  /* Form controls */
-  --wa-form-control-background-color: var(--wa-color-surface-default);
-
-  --wa-form-control-activated-color: var(--wa-color-brand-fill-loud);
-  --wa-form-control-border-color: var(--wa-color-neutral-border-loud);
-
-  --wa-form-control-label-color: var(--wa-color-text-normal);
-
-  --wa-form-control-value-color: var(--wa-color-text-normal);
-
-  --wa-form-control-placeholder-color: var(--wa-color-gray-60);
-
-  --wa-form-control-required-content-color: inherit;
-
-  /* Tooltips */
-  --wa-tooltip-background-color: var(--wa-color-neutral-fill-loud);
-
-  --wa-tooltip-content-color: var(--wa-color-neutral-on-loud);
 }
