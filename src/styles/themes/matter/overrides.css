@@ -11,7 +11,7 @@
 :host,
 .wa-theme-matter {
   --wa-ripple-start-radius: 0.1em;
-  --wa-ripple-start-opacity: 0.15;
+  --wa-ripple-start-opacity: 0.1;
   --wa-ripple-duration: calc(2 * var(--wa-transition-slow));
 
   button,
@@ -28,6 +28,10 @@
 
     &:not([appearance~='outlined'], [appearance~='plain'], .wa-outlined, .wa-plain):hover {
       box-shadow: var(--wa-shadow-s);
+
+      &:active {
+        box-shadow: 0 0 transparent;
+      }
     }
 
     &:is([appearance~='outlined'], .wa-outlined) {
