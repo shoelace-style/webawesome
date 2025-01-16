@@ -84,17 +84,11 @@
   /**
    * Foundational Colors
    */
-  --wa-color-surface-raised: var(--wa-color-gray-10);
-  --wa-color-surface-default: var(--wa-color-gray-05);
-  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
   --wa-color-surface-border: rgb(255 255 255 / 0.1);
 
   --wa-color-text-normal: white;
   --wa-color-text-quiet: var(--wa-color-gray-60);
   --wa-color-text-link: var(--wa-color-indigo-70);
-
-  --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
-  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
 
   --wa-color-shadow: rgb(0 0 0 / 0.2);
 
