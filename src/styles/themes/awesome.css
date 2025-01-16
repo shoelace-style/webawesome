@@ -44,7 +44,6 @@
   /**
    * Component Groups
    */
-  /* Form controls */
   --wa-form-control-background-color: var(--wa-color-surface-default);
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
   --wa-form-control-activated-color: var(--wa-color-neutral-border-loud);
@@ -52,12 +51,4 @@
   --wa-form-control-label-color: var(--wa-color-text-normal);
   --wa-form-control-label-font-weight: var(--wa-font-weight-bold);
   --wa-form-control-label-line-height: var(--wa-line-height-normal);
-
-  /* Tooltips */
-  --wa-tooltip-arrow-size: 0.375rem;
-  --wa-tooltip-background-color: var(--wa-color-text-normal);
-  --wa-tooltip-border-radius: var(--wa-border-radius-s);
-  --wa-tooltip-content-color: var(--wa-color-surface-default);
-  --wa-tooltip-font-size: var(--wa-font-size-s);
-  --wa-tooltip-line-height: var(--wa-line-height-normal);
 }

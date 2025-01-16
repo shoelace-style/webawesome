@@ -46,8 +46,4 @@
 
   /* Panels */
   --wa-panel-border-radius: var(--wa-border-radius-m);
-
-  /* Tooltips */
-  --wa-tooltip-background-color: var(--wa-color-text-normal);
-  --wa-tooltip-content-color: var(--wa-color-surface-default);
 }
