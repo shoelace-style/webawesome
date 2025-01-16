@@ -27,7 +27,7 @@ You can import this theme from the Web Awesome CDN.
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
 
-### Mixing and matching themes
+### Mixing & Matching
 
 If you want to combine the colors from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
 
@@ -39,7 +39,10 @@ To use the typography from this theme with another theme, you can import this CS
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
 
-Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
+<wa-callout variant="warning">
+  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+  Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
+</wa-callout>
 
 ## Dark mode
 
