@@ -1,7 +1,9 @@
 {
   "layout": "palette.njk",
   "tags": ["palettes", "palette"],
+  "hues": ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"],
   "eleventyComputed": {
-    "snippet": ".wa-palette-{{ page.fileSlug }}"
+    "snippet": ".wa-palette-{{ page.fileSlug }}",
+    "icon": "palette"
   }
 }

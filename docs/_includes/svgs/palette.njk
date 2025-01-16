@@ -1,0 +1,24 @@
+{% set paletteId = page.fileSlug %}
+{% set tints = [80, 60, 40, 20] %}
+{% set width = 20 %}
+{% set height = 13 %}
+{% set gap_x = 3 %}
+{% set gap_y = 3 %}
+
+<svg viewBox="0 0 {{ (width + gap_x) * hues|length }} {{ (height + gap_y) * tints|length }}" fill="none" xmlns="http://www.w3.org/2000/svg" class="wa-palette-{{ paletteId }} palette-icon">
+<style>
+	@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});
+	.palette-icon {
+		height: 8ch;
+	}
+</style>
+
+{% for hue in hues -%}
+  {% set hueIndex = loop.index0 %}
+  {% for tint in tints -%}
+    <rect x="{{ hueIndex * (width + gap_x) }}" y="{{ loop.index0 * (height + gap_y) }}"
+	      width="{{ width }}" height="{{ height }}"
+	      fill="var(--wa-color-{{ hue }}-{{ tint }})" rx="4" />
+  {%- endfor %}
+{% endfor %}
+</svg>
