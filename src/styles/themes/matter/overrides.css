@@ -1,18 +1,26 @@
 /**
  * Component Styles
  */
+@property --wa-ripple-progress {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
 :where(:root),
 :host,
 .wa-theme-matter {
+  --wa-ripple-start-radius: 0.1em;
+  --wa-ripple-start-opacity: 0.15;
+  --wa-ripple-duration: calc(2 * var(--wa-transition-slow));
+
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
   wa-button,
   wa-radio-group > wa-radio-button,
   .wa-button {
     --wa-form-control-border-radius: var(--wa-border-radius-pill);
-
     box-shadow: 0 0 transparent;
-    transition-property: all;
 
     &:not([appearance~='plain'], .wa-plain) {
       padding-inline: calc(var(--wa-space) * 1.5);
@@ -24,6 +32,31 @@
 
     &:is([appearance~='outlined'], .wa-outlined) {
       --border-color: var(--wa-form-control-border-color);
+    }
+
+    /* Ripple effect */
+    --wa-ripple-progress: 1;
+    --wa-ripple-progress-inv: calc(1 - var(--wa-ripple-progress));
+    --wa-ripple-radius: calc(
+      var(--wa-ripple-start-radius) * var(--wa-ripple-progress-inv) + 100% * var(--wa-ripple-progress)
+    );
+    --wa-ripple-opacity: calc(var(--wa-ripple-start-opacity) * var(--wa-ripple-progress-inv));
+    --wa-ripple-color: hsl(0 0% 100% / var(--wa-ripple-opacity));
+    --wa-ripple-center-x: calc(100% * var(--mouse-local-x, 0.5));
+    --wa-ripple-center-y: calc(100% * var(--mouse-local-y, 0.5));
+
+    background-image: radial-gradient(
+      circle at var(--wa-ripple-center-x) var(--wa-ripple-center-y),
+      var(--wa-ripple-color) var(--wa-ripple-radius),
+      transparent 0
+    );
+    transition:
+      var(--wa-transition-fast),
+      --wa-ripple-progress var(--wa-ripple-duration);
+
+    &:active {
+      --wa-ripple-progress: 0;
+      --wa-ripple-duration: 0s;
     }
   }
 
