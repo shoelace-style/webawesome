@@ -189,6 +189,7 @@
 
   input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
   wa-checkbox:is(:state(checked), :state(indeterminate)),
+  wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
   wa-radio:state(checked) {
     --box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
       var(--wa-theme-glossy-bottom-shadow);

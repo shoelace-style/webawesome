@@ -312,6 +312,7 @@
 
   input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
   wa-checkbox:is(:state(checked), :state(indeterminate))::part(control),
+  wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
   wa-radio:state(checked)::part(control),
   wa-switch:state(checked)::part(control) {
     --gradient-top: oklch(from var(--background-color-checked) calc(l - 0.1) c h);

@@ -19,7 +19,8 @@
   }
 
   input[type='checkbox'],
-  wa-checkbox {
+  wa-checkbox,
+  wa-tree-item::part(checkbox__control) {
     --checked-icon-color: var(--wa-color-surface-default);
   }
 
