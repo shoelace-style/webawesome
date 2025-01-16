@@ -112,24 +112,8 @@ This also goes for a difference of `65`:
 If you are using a Web Awesome theme that uses this palette, it will already be included.
 To use a different palette than a theme default, or to use it in a custom theme, you can import this palette directly from the Web Awesome CDN.
 
-<wa-tab-group>
-<wa-tab panel="html">In HTML</wa-tab>
-<wa-tab panel="css">In CSS</wa-tab>
-<wa-tab-panel name="html">
-
-Simply add the following code to the `<head>` of your page:
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/color/' + page.fileSlug + '.css' %}" />
-```
-</wa-tab-panel>
-<wa-tab-panel name="css">
-
-Simply add the following code at the top of your CSS file:
-```css
-@import url('{% cdnUrl 'styles/color/' + page.fileSlug + '.css' %}');
-```
-</wa-tab-panel>
-</wa-tab-group>
+{% set stylesheet = 'styles/color/' + page.fileSlug + '.css' %}
+{% include 'import-stylesheet-code.md.njk' %}
 
 {% endmarkdown %}
 {% endblock %}

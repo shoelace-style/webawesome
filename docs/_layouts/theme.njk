@@ -24,24 +24,22 @@
 
 You can import this theme from the Web Awesome CDN.
 
-<wa-tab-group>
-<wa-tab panel="html">In HTML</wa-tab>
-<wa-tab panel="css">In CSS</wa-tab>
-<wa-tab-panel name="html">
+{% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
+{% include 'import-stylesheet-code.md.njk' %}
 
-Simply add the following code to the `<head>` of your page:
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/' + page.fileSlug + '.css' %}" />
-```
-</wa-tab-panel>
-<wa-tab-panel name="css">
+### Mixing and matching themes
 
-Simply add the following code at the top of your CSS file:
-```css
-@import url('{% cdnUrl 'styles/themes/' + page.fileSlug + '.css' %}');
-```
-</wa-tab-panel>
-</wa-tab-group>
+If you want to combine the colors from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
+
+{% set stylesheet = 'styles/themes/' + page.fileSlug + '/color.css' %}
+{% include 'import-stylesheet-code.md.njk' %}
+
+To use the typography from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
+
+{% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
+{% include 'import-stylesheet-code.md.njk' %}
+
+Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
 
 ## Dark mode
 
