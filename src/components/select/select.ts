@@ -83,6 +83,8 @@ import styles from './select.css';
  * @cssproperty --border-color - The border color of the select's combobox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
+ *
+ * @cssstate blank - The select is empty.
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
