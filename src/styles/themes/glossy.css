@@ -1,67 +1,19 @@
-@import url('../color/elegant.css');
-@import url('default/color.css');
+@import url('glossy/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
-@import url('default/typography.css');
+@import url('glossy/typography.css');
 @import url('default/rounding.css');
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('glossy/overrides.css');
 
 :where(:root),
 :host,
-.wa-theme-glossy,
+.wa-theme-mellow,
+.wa-dark,
 .wa-light,
-.wa-dark .wa-invert {
-  color-scheme: light;
-  color: var(--wa-color-text-normal);
-
-  /**
-   * Foundational Colors
-   */
-  --wa-color-text-link: var(--wa-color-indigo-40);
-
-  --wa-color-focus: var(--wa-color-indigo-60);
-
-  /**
-   * Semantic Colors
-   */
-  --wa-color-brand-fill-quiet: var(--wa-color-indigo-95);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-border-quiet: var(--wa-color-indigo-90);
-  --wa-color-brand-border-normal: var(--wa-color-indigo-80);
-  --wa-color-brand-border-loud: var(--wa-color-indigo-60);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
-  --wa-color-brand-on-loud: white;
-
-  --wa-color-success-fill-loud: var(--wa-color-green-40);
-
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
-
-  --wa-color-danger-fill-loud: var(--wa-color-red-40);
-
-  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
-
-  /**
-   * Typography
-   */
-  --wa-font-family-body: 'Figtree', sans-serif;
-  --wa-font-family-heading: var(--wa-font-family-body);
-  --wa-font-family-code: ui-monospace, monospace;
-  --wa-font-family-longform: ui-serif, serif;
-
-  --wa-font-weight-light: 300;
-  --wa-font-weight-normal: 400;
-  --wa-font-weight-semibold: 600;
-  --wa-font-weight-bold: 800;
-
-  --wa-line-height-condensed: 1.35;
-  --wa-line-height-normal: 1.8;
-  --wa-line-height-expanded: 2.25;
-
+.wa-invert {
   /**
    * Spacing
    */
@@ -76,155 +28,4 @@
    * Shadows
    */
   --wa-shadow-blur-scale: 3;
-}
-
-.wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
-  color-scheme: dark;
-  color: var(--wa-color-text-normal);
-
-  /**
-   * Foundational Colors
-   */
-  --wa-color-text-link: var(--wa-color-indigo-70);
-
-  --wa-color-focus: var(--wa-color-indigo-60);
-
-  /**
-   * Semantic Colors
-   */
-  --wa-color-brand-fill-quiet: var(--wa-color-indigo-10);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-border-quiet: var(--wa-color-indigo-20);
-  --wa-color-brand-border-normal: var(--wa-color-indigo-30);
-  --wa-color-brand-border-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
-  --wa-color-brand-on-loud: white;
-
-  --wa-color-success-fill-loud: var(--wa-color-green-40);
-
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
-
-  --wa-color-danger-fill-loud: var(--wa-color-red-40);
-}
-
-/**
- * Component Styles
- */
-:where(:root),
-:host,
-.wa-theme-glossy {
-  --wa-theme-glossy-inner-shine: inset 0 0.0625rem 0 0 rgb(255 255 255 / 0.4);
-  --wa-theme-glossy-top-highlight: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.2);
-  --wa-theme-glossy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glossy-lower-shade: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.03);
-  --wa-theme-glossy-bottom-shadow: inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15);
-
-  --wa-theme-glossy-inner-shine-active: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glossy-top-highlight-active: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glossy-upper-tint-active: inset 0 1.25em 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glossy-lower-shade-active: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02);
-  --wa-theme-glossy-bottom-shadow-active: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    letter-spacing: -0.02em;
-  }
-  :is(
-      button,
-      input:where([type='button'], [type='reset'], [type='submit']),
-      wa-button,
-      wa-radio-button,
-      .wa-button
-    ):not([appearance='plain'], .wa-plain) {
-    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
-
-    margin-bottom: var(--wa-shadow-offset-y-s);
-    transition: all var(--wa-transition-fast);
-
-    &:not([disabled]):active {
-      box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
-        var(--wa-theme-glossy-upper-tint-active), var(--wa-theme-glossy-lower-shade-active),
-        var(--wa-theme-glossy-bottom-shadow-active);
-
-      transform: scale(0.98);
-    }
-  }
-
-  input:where(
-      :not(
-        [type='button'],
-        [type='checkbox'],
-        [type='color'],
-        [type='file'],
-        [type='hidden'],
-        [type='image'],
-        [type='radio'],
-        [type='range'],
-        [type='reset'],
-        [type='submit']
-      )
-    ),
-  select,
-  textarea,
-  wa-input,
-  wa-select,
-  wa-textarea,
-  .wa-text-field {
-    --box-shadow: var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade);
-    transition: all var(--wa-transition-fast);
-
-    &:focus {
-      --box-shadow: 0 0 transparent, 0 0 transparent;
-    }
-  }
-
-  input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
-  wa-checkbox:is(:state(checked), :state(indeterminate)),
-  wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
-  wa-radio:state(checked) {
-    --box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-bottom-shadow);
-
-    &:active {
-      --box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
-        var(--wa-theme-glossy-bottom-shadow-active);
-    }
-  }
-
-  input[type='radio'],
-  wa-radio {
-    --background-color-checked: var(--border-color-checked);
-    --checked-icon-color: var(--wa-color-surface-default);
-    --checked-icon-scale: 0.4;
-  }
-
-  input[type='range'],
-  wa-slider,
-  wa-switch {
-    --thumb-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-bottom-shadow);
-  }
-
-  progress,
-  wa-progress-bar {
-    box-shadow: inset var(--wa-shadow-s);
-
-    &::part(indicator) {
-      box-shadow:
-        var(--wa-theme-glossy-inner-shine),
-        var(--wa-theme-glossy-top-highlight),
-        inset 0 0.625rem 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-        inset 0 -0.5rem 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-        var(--wa-theme-glossy-bottom-shadow);
-    }
-  }
 }

@@ -1,0 +1,66 @@
+@import url('../../color/elegant.css');
+@import url('../default/color.css');
+
+:where(:root),
+:host,
+.wa-theme-glossy,
+.wa-light,
+.wa-dark .wa-invert {
+  /**
+   * Foundational Colors
+   */
+  --wa-color-text-link: var(--wa-color-indigo-40);
+
+  --wa-color-focus: var(--wa-color-indigo-60);
+
+  /**
+   * Semantic Colors
+   */
+  --wa-color-brand-fill-quiet: var(--wa-color-indigo-95);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-border-quiet: var(--wa-color-indigo-90);
+  --wa-color-brand-border-normal: var(--wa-color-indigo-80);
+  --wa-color-brand-border-loud: var(--wa-color-indigo-60);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
+  --wa-color-brand-on-loud: white;
+
+  --wa-color-success-fill-loud: var(--wa-color-green-40);
+
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
+
+  --wa-color-danger-fill-loud: var(--wa-color-red-40);
+
+  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
+}
+
+.wa-dark,
+.wa-invert,
+:is(:host-context(.wa-dark)) {
+  /**
+   * Foundational Colors
+   */
+  --wa-color-text-link: var(--wa-color-indigo-70);
+
+  --wa-color-focus: var(--wa-color-indigo-60);
+
+  /**
+    * Semantic Colors
+    */
+  --wa-color-brand-fill-quiet: var(--wa-color-indigo-10);
+  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
+  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-border-quiet: var(--wa-color-indigo-20);
+  --wa-color-brand-border-normal: var(--wa-color-indigo-30);
+  --wa-color-brand-border-loud: var(--wa-color-indigo-40);
+  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
+  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
+  --wa-color-brand-on-loud: white;
+
+  --wa-color-success-fill-loud: var(--wa-color-green-40);
+
+  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
+
+  --wa-color-danger-fill-loud: var(--wa-color-red-40);
+}
