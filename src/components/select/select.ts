@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -674,6 +674,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     });
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.toggleCustomState('blank', !this.value);
+    }
+  }
+
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
     // Close the listbox when the control is disabled
@@ -799,7 +807,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       >
         <label
           id="label"
-          part="form-control-label"
+          part="form-control-label label"
           class="label"
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
