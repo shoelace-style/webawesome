@@ -12,15 +12,24 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+<!--
+## Next
+
+- Added `.wa-callout` utility class
+-->
 
 ## 3.0.0-alpha.9
 
-- Added `.wa-callout` utility class
 - Added new themes:
   - Glossy
   - Matter
   - Premium
   - Playful
+- Added docs on themes and palettes
+- Separated colors and typography out from themes so they can be used independently
+- Added testsuite to ensure all color palettes provide the color contrast they are supposed to
+- Added `.wa-invert` utility class to invert the current color scheme
+- Added `:state(blank)` to `<wa-input>`, `<wa-textarea>`, and `<wa-select>` to style form inputs differently when empty.
 
 ## 3.0.0-alpha.8
 
