@@ -41,7 +41,19 @@ These properties can be set on any ancestor, including the root element:
 | --- | --- | --- | --- |
 | `--wa-ripple-start-radius` | `<length>` | `0.1em` | The starting radius of the ripple effect. |
 | `--wa-ripple-start-opacity` | `<number>` | `0.15` | The starting opacity of the ripple effect. |
-| `--wa-ripple-transition-duration` | `<time>` | `calc(2 * var(--wa-transition-slow))` | The duration of the ripple effect transition. |
+| `--wa-ripple-duration` | `<time>` | `calc(2 * var(--wa-transition-slow))` | The duration of the ripple effect transition. |
+
+Any of these can be used to disable the ripple effect:
+
+```css
+--wa-ripple-start-radius: 0em;
+```
+```css
+--wa-ripple-start-opacity: 0;
+```
+```css
+--wa-ripple-duration: 0s;
+```
 
 These properties would only work on the button itself:
 
