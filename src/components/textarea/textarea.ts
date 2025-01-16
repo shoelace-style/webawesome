@@ -275,7 +275,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     if (changedProperties.has('resize')) {
       this.setTextareaDimensions();
     }
+
     super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.toggleCustomState('blank', !this.value);
+    }
   }
 
   /** Sets focus on the textarea. */
