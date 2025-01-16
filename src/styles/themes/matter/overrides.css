@@ -61,6 +61,9 @@
   .wa-text-field {
     --wa-form-control-value-line-height: var(--wa-line-height-normal);
 
+    /* Needed for floating label */
+    position: relative;
+
     &:is([appearance~='filled'], .wa-filled):not([appearance~='outlined'], .wa-outlined, [pill], .wa-pill) {
       --wa-focus-ring: ;
       --border-color: transparent transparent var(--wa-form-control-border-color) transparent;
@@ -75,6 +78,39 @@
       &::part(input),
       &::part(combobox) {
         border-radius: var(--wa-form-control-border-radius) var(--wa-form-control-border-radius) 0px 0px;
+      }
+    }
+
+    /* Floating label */
+    &::part(label) {
+      transition: all var(--wa-transition-normal);
+
+      position: absolute;
+      top: calc(var(--wa-form-control-height) / 2 - 0.5lh);
+      left: calc(var(--wa-space) - 0.25em);
+      z-index: 1;
+
+      background-color: var(--wa-form-control-background-color);
+      padding-inline: 0.25em;
+    }
+    &:focus::part(label) {
+      top: -0.5lh;
+      color: var(--wa-color-focus);
+      font-size: var(--wa-size-smaller);
+    }
+
+    /* Different positioning and appearance for filled */
+    &:is([appearance~='filled'], .wa-filled) {
+      &::part(input) {
+        padding-block: calc(var(--wa-space) * 1.5) calc(var(--wa-space) * 0.5);
+      }
+
+      &::part(label) {
+        background-color: var(--background-color);
+      }
+
+      &:focus::part(label) {
+        top: 0;
       }
     }
   }
