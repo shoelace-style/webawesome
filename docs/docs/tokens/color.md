@@ -49,22 +49,22 @@ Web Awesome's color system is made up of CSS custom properties to help with cons
 
 Color is organized by three main categories:
 
-- [Literal colors](/#literal-colors) that give familiar names to your starting color palette
+- [Literal colors](/#literal-colors) that give familiar names to your starting [color palette](/docs/palettes/)
 - [Foundational colors](/#foundational-colors) that lay the groundwork for your theme
 - [Semantic colors](/#semantic-colors) that draw attention and convey meaning
 
 
 ## Literal Colors
 
-Literal colors are the lowest level color properties in your theme. Each color is identified by a name, like red or gray, and a number that roughly corresponds to the color's perceived lightness. On this scale, 100 is equal to pure white and 0 is equal to pure black.
+Literal colors are defined by your theme's [color palette](/docs/palettes/) and are the lowest level color tokens in your theme. Each token is identified by a name, like red or gray, and a number based on the color's lightness. On this scale, 100 is equal to pure white and 0 is equal to pure black.
 
-Lightness values on this scale have a strong correlation to [relative luminance](https://www.w3.org/WAI/GL/wiki/Relative_luminance), which is used to calculate color contrast. To meet [WCAG 2.1 success criteria for minimum or enhanced contrast](https://www.w3.org/TR/WCAG21/#contrast-minimum), even across hues, calculate the difference between the lightness values of any two colors:
+You can use these numbers to ensure accessible color contrast per [WCAG 2.1 success criteria](https://www.w3.org/TR/WCAG21/#contrast-minimum):
 
 - A difference of 40 ensures a minimum 3:1 contrast ratio, suitable for large text and icons (AA)
 - A difference of 50 ensures a minimum 4.5:1 contrast ratio, suitable for normal text (AA) and large text (AAA)
 - A difference of 60 ensures a minimum 7:1 contrast ratio, suitable for all text (AAA)
 
-Web Awesome defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
+Each Web Awesome palette defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
 {% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] -%}
 <div class="color-name">{{ hue | capitalize }}</div>
