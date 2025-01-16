@@ -396,6 +396,7 @@ wa-page > main:has(> .index-grid) {
   min-height: 2.5em;
   padding: var(--wa-space-xs);
   font-weight: var(--wa-font-weight-semibold);
+  line-height: var(--wa-line-height-condensed);
 
   &.color {
     border-color: transparent;
