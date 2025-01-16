@@ -81,22 +81,36 @@
       }
     }
 
-    /* Floating label */
+    /**
+     * Floating labels
+     */
     &::part(label) {
       transition: all var(--wa-transition-normal);
 
       position: absolute;
-      top: calc(var(--wa-form-control-height) / 2 - 0.5lh);
       left: calc(var(--wa-space) - 0.25em);
       z-index: 1;
+
+      /* State: out of the way by default */
+      top: -0.5lh;
+      font-size: var(--wa-size-smaller);
 
       background-color: var(--wa-form-control-background-color);
       padding-inline: 0.25em;
     }
+
     &:focus::part(label) {
-      top: -0.5lh;
       color: var(--wa-color-focus);
-      font-size: var(--wa-size-smaller);
+    }
+
+    /* State: placeholder-like when:
+     * - the input is empty
+     * - the input is not focused
+     * - there is no actual placeholder
+     */
+    &:state(blank):not(:focus, [placeholder])::part(label) {
+      top: calc(var(--wa-form-control-height) / 2 - 0.5lh);
+      font-size: inherit;
     }
 
     /* Different positioning and appearance for filled */
