@@ -1,0 +1,31 @@
+<table class="colors wa-palette-{{ paletteId }}">
+  <thead>
+    <tr>
+      <th></th>
+      {% for tint_bg in tints -%}
+        {% for tint_fg in tints | reverse -%}
+          {% if (tint_fg - tint_bg) | abs == difference %}
+          <th>{{ tint_fg }} on {{ tint_bg }}</th>
+          {% endif %}
+        {%- endfor -%}
+      {%- endfor %}
+    </tr>
+  </thead>
+{% for hue in hues -%}
+<tr>
+  <th>{{ hue | capitalize }}</th>
+  {% for tint_bg in tints -%}
+  {% for tint_fg in tints | reverse -%}
+
+    {% if (tint_fg - tint_bg) | abs == difference %}
+    <td>
+      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint_bg }}); color: var(--wa-color-{{ hue }}-{{ tint_fg }})">
+        {{ tint_fg }} on {{ tint_bg }}
+      </div>
+    </td>
+    {% endif %}
+    {%- endfor -%}
+  {%- endfor -%}
+</tr>
+{%- endfor %}
+</table>

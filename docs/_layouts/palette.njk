@@ -1,0 +1,108 @@
+{% set hasSidebar = true %}
+{% set hasOutline = true %}
+{# {% set forceTheme = page.fileSlug %} #}
+
+{% extends '../_layouts/block.njk' %}
+
+{% set paletteId = page.fileSlug %}
+
+{% block afterContent %}
+<style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
+
+{% set hues = ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] %}
+{% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
+
+<table class="colors wa-palette-{{ paletteId }}">
+  <thead>
+    <tr>
+      <th></th>
+      {% for tint in tints -%}
+      <th>{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
+{% for hue in hues -%}
+<tr>
+  <th>{{ hue | capitalize }}</th>
+  {% for tint in tints -%}
+    <td>
+      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
+        <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
+      </div>
+    </td>
+  {%- endfor -%}
+</tr>
+{%- endfor %}
+</table>
+
+<h2>Used By</h2>
+
+<section id="grid" class="index-grid">
+{% for page in collections.theme %}
+  {%- if page.data.palette == paletteId -%}
+    {% include "page-card.njk" %}
+  {%- endif -%}
+{% endfor %}
+</section>
+
+{% markdown %}
+## Color Contrast
+
+Web Awesome color scales are designed to guarantee certain contrast ratios,
+both per [WCAG 2.1 success criteria](https://www.w3.org/TR/WCAG21/#contrast-minimum)
+as well as the emergent APCA specification _(planned)_.
+so you can ensure that text is both legible to all users, and legally conformant.
+
+### Level 1
+
+A difference of `40` ensures a minimum **3:1** contrast ratio, suitable for large text and icons (AA).
+{% endmarkdown %}
+
+{% set difference = 40 %}
+{% include "contrast-table.njk" %}
+
+{% markdown %}
+### Level 2
+
+A difference of `50` ensures a minimum **4.5:1** contrast ratio, suitable for normal text (AA) and large text (AAA)
+{% endmarkdown %}
+
+{% set difference = 50 %}
+{% include "contrast-table.njk" %}
+
+{% markdown %}
+### Level 3
+
+A difference of `60` ensures a minimum **7:1** contrast ratio, suitable for all text (AAA)
+{% endmarkdown %}
+
+{% set difference = 60 %}
+{% include "contrast-table.njk" %}
+
+{% markdown %}
+## How to use this palette
+
+If you are using a Web Awesome theme that uses this palette, it will already be included.
+To use a different palette than a theme default, or to use it in a custom theme, you can import this palette directly from the Web Awesome CDN.
+
+<wa-tab-group>
+<wa-tab panel="html">In HTML</wa-tab>
+<wa-tab panel="css">In CSS</wa-tab>
+<wa-tab-panel name="html">
+
+Simply add the following code to the `<head>` of your page:
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/color/' + page.fileSlug + '.css' %}" />
+```
+</wa-tab-panel>
+<wa-tab-panel name="css">
+
+Simply add the following code at the top of your CSS file:
+```css
+@import url('{% cdnUrl 'styles/color/' + page.fileSlug + '.css' %}');
+```
+</wa-tab-panel>
+</wa-tab-group>
+
+{% endmarkdown %}
+{% endblock %}

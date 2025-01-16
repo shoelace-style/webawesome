@@ -71,7 +71,9 @@ Web Awesome defines seven literal colors each with 11 lightness values using the
 <ul class="color-group">
   {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}
     <li class="color-preview">
-      <div class="swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})"></div>
+      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
+        <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
+      </div>
       <small>{{ tint }}</small>
     </li>
   {%- endfor %}
@@ -187,23 +189,3 @@ Finally, each color is named according to how much attention it draws. Here, we 
     {%- endfor %}
     {%- endfor %}
 </table>
-
-<script type="module">
-  const computedStyle = getComputedStyle(document.body)
-  document.querySelectorAll(".swatch").forEach((swatch) => {
-    let varName = swatch.getAttribute("value")
-
-    if (!varName) {
-      const bgColor = swatch.style.backgroundColor
-      varName = bgColor.replace(/^var\((--.*)\)$/, "$1")
-    }
-
-    const copyButton = Object.assign(document.createElement("wa-copy-button"), {
-      value: varName,
-      copyLabel: varName,
-      errorLabel: "Whoops, your browser doesn't support this!",
-    })
-
-    swatch.appendChild(copyButton)
-  })
-</script>

@@ -333,6 +333,7 @@ wa-page > main:has(> .index-grid) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(22ch, 100%), 1fr));
   gap: var(--wa-space-2xl);
+  margin-block-end: var(--wa-space-3xl);
 
   a {
     border-radius: var(--wa-border-radius-l);
@@ -383,15 +384,22 @@ wa-page > main:has(> .index-grid) {
 /* Swatches */
 .swatch {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   border-color: var(--wa-color-neutral-border-normal);
   border-style: var(--wa-border-style);
   border-width: var(--wa-border-width-s);
   border-radius: var(--wa-border-radius-m);
   box-sizing: border-box;
-  line-height: 2.5;
-  height: 2.5em;
-  padding-inline: var(--wa-space-xs);
+  min-height: 2.5em;
+  padding: var(--wa-space-xs);
+  font-weight: var(--wa-font-weight-semibold);
+
+  &.color {
+    border-color: transparent;
+  }
 
   wa-copy-button {
     position: absolute;
@@ -417,6 +425,34 @@ wa-page > main:has(> .index-grid) {
     &::part(success-icon),
     &::part(error-icon) {
       opacity: 0 !important;
+    }
+  }
+}
+
+table.colors {
+  thead {
+    th {
+      text-align: center;
+      padding-block: 0;
+    }
+  }
+  tbody {
+    tr {
+      border: none;
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    th {
+      width: 0;
+      vertical-align: middle;
+      text-align: right;
+    }
+
+    td {
+      padding-inline: var(--wa-space-3xs);
+      padding-block: var(--wa-space-s);
     }
   }
 }

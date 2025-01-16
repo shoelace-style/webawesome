@@ -1,0 +1,7 @@
+{
+  "layout": "palette.njk",
+  "tags": ["palettes", "palette"],
+  "eleventyComputed": {
+    "snippet": ".wa-palette-{{ page.fileSlug }}"
+  }
+}
