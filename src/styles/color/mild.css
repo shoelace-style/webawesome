@@ -1,7 +1,7 @@
 :where(:root),
 :host,
 :where([class^='wa-theme-'], [class*=' wa-theme-']),
-.wa-palette-gentle {
+.wa-palette-mild {
   --wa-color-red-95: #ffeeec;
   --wa-color-red-90: #ffddda;
   --wa-color-red-80: #f9bbb3;
