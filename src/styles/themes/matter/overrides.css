@@ -114,16 +114,18 @@
     }
 
     /* Different positioning and appearance for filled */
-    &:is([appearance~='filled'], .wa-filled) {
-      &::part(input) {
-        padding-block: calc(var(--wa-space) * 1.5) calc(var(--wa-space) * 0.5);
+    &:where([appearance~='filled'], .wa-filled)[label]:not([placeholder]) {
+      &::part(base) {
+        /* We want to move this down a bit to make space for the floating label */
+        translate: 0 0.3em;
       }
 
       &::part(label) {
-        background-color: var(--background-color);
+        /* In filled inputs, the floating label stays within the input */
+        background-color: transparent;
       }
 
-      &:focus::part(label) {
+      &:not(:state(blank):not(:focus, [placeholder]))::part(label) {
         top: 0;
       }
     }
