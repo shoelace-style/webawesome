@@ -4,8 +4,12 @@
 :where(:root),
 :host,
 .wa-theme-default,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
 .wa-light,
 .wa-dark .wa-invert {
+  color-scheme: light;
+  color: var(--wa-color-text-normal);
+
   /**
    * Foundational Colors
    */
@@ -108,6 +112,9 @@
 .wa-dark,
 .wa-invert,
 :is(:host-context(.wa-dark)) {
+  color-scheme: dark;
+  color: var(--wa-color-text-normal);
+
   /**
    * Foundational Colors
    */

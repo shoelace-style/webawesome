@@ -1,100 +1,19 @@
-@import url('../color/natural.css');
-@import url('default/color.css');
+@import url('mellow/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
-@import url('default/typography.css');
+@import url('mellow/typography.css');
 @import url('default/rounding.css');
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('mellow/overrides.css');
 
 :where(:root),
 :host,
 .wa-theme-mellow,
+.wa-dark,
 .wa-light,
-.wa-dark .wa-invert {
-  color-scheme: light;
-  color: var(--wa-color-text-normal);
-
-  /**
-   * Foundational Colors
-   */
-  --wa-color-surface-raised: white;
-  --wa-color-surface-default: var(--wa-color-gray-95);
-  --wa-color-surface-lowered: var(--wa-color-gray-90);
-  --wa-color-surface-border: color-mix(in oklab, var(--wa-color-gray-80), transparent);
-
-  --wa-color-text-normal: var(--wa-color-blue-20);
-  --wa-color-text-quiet: var(--wa-color-blue-40);
-  --wa-color-text-link: var(--wa-color-blue-40);
-
-  --wa-color-focus: var(--wa-color-blue-50);
-
-  /**
-   * Semantic Colors
-   */
-  --wa-color-brand-fill-quiet: var(--wa-color-blue-90);
-  --wa-color-brand-fill-normal: var(--wa-color-blue-80);
-  --wa-color-brand-fill-loud: var(--wa-color-blue-40);
-  --wa-color-brand-border-quiet: var(--wa-color-blue-80);
-  --wa-color-brand-border-normal: var(--wa-color-blue-70);
-  --wa-color-brand-border-loud: var(--wa-color-blue-60);
-  --wa-color-brand-on-quiet: var(--wa-color-blue-40);
-  --wa-color-brand-on-normal: var(--wa-color-blue-30);
-  --wa-color-brand-on-loud: white;
-
-  --wa-color-success-fill-quiet: var(--wa-color-green-90);
-  --wa-color-success-fill-normal: var(--wa-color-green-80);
-  --wa-color-success-fill-loud: var(--wa-color-green-40);
-  --wa-color-success-border-quiet: var(--wa-color-green-80);
-  --wa-color-success-border-normal: var(--wa-color-green-70);
-  --wa-color-success-border-loud: var(--wa-color-green-60);
-  --wa-color-success-on-quiet: var(--wa-color-green-40);
-  --wa-color-success-on-normal: var(--wa-color-green-30);
-  --wa-color-success-on-loud: white;
-
-  --wa-color-warning-fill-quiet: var(--wa-color-yellow-90);
-  --wa-color-warning-fill-normal: var(--wa-color-yellow-80);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-40);
-  --wa-color-warning-border-quiet: var(--wa-color-yellow-80);
-  --wa-color-warning-border-normal: var(--wa-color-yellow-70);
-  --wa-color-warning-border-loud: var(--wa-color-yellow-60);
-  --wa-color-warning-on-quiet: var(--wa-color-yellow-40);
-  --wa-color-warning-on-normal: var(--wa-color-yellow-30);
-  --wa-color-warning-on-loud: white;
-
-  --wa-color-danger-fill-quiet: var(--wa-color-red-90);
-  --wa-color-danger-fill-normal: var(--wa-color-red-80);
-  --wa-color-danger-fill-loud: var(--wa-color-red-40);
-  --wa-color-danger-border-quiet: var(--wa-color-red-80);
-  --wa-color-danger-border-normal: var(--wa-color-red-70);
-  --wa-color-danger-border-loud: var(--wa-color-red-60);
-  --wa-color-danger-on-quiet: var(--wa-color-red-40);
-  --wa-color-danger-on-normal: var(--wa-color-red-30);
-  --wa-color-danger-on-loud: white;
-
-  --wa-color-neutral-fill-quiet: var(--wa-color-gray-90);
-  --wa-color-neutral-fill-normal: var(--wa-color-gray-80);
-  --wa-color-neutral-fill-loud: var(--wa-color-gray-40);
-  --wa-color-neutral-border-quiet: var(--wa-color-gray-80);
-  --wa-color-neutral-border-normal: var(--wa-color-gray-70);
-  --wa-color-neutral-border-loud: var(--wa-color-gray-60);
-  --wa-color-neutral-on-quiet: var(--wa-color-gray-40);
-  --wa-color-neutral-on-normal: var(--wa-color-gray-30);
-  --wa-color-neutral-on-loud: white;
-
-  /**
-   * Typography
-   */
-  --wa-font-family-body: 'Mulish', sans-serif;
-  --wa-font-family-heading: 'Lora', serif;
-  --wa-font-family-code: ui-monospace, monospace;
-  --wa-font-family-longform: 'Lora', serif;
-
-  --wa-font-weight-semibold: 600;
-  --wa-font-weight-bold: 700;
-
+.wa-invert {
   /**
    * Spacing
    */
@@ -119,118 +38,4 @@
    * Component Groups
    */
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-}
-
-.wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
-  color-scheme: dark;
-  color: var(--wa-color-text-normal);
-
-  /**
-   * Foundational Colors
-   */
-  --wa-color-surface-raised: var(--wa-color-gray-10);
-  --wa-color-surface-default: var(--wa-color-gray-05);
-  --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
-  --wa-color-surface-border: color-mix(in oklab, var(--wa-color-gray-30), transparent);
-
-  --wa-color-text-normal: var(--wa-color-blue-90);
-  --wa-color-text-quiet: var(--wa-color-blue-70);
-  --wa-color-text-link: var(--wa-color-blue-70);
-
-  --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
-  --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
-
-  --wa-color-shadow: color-mix(in oklab, black calc(var(--wa-shadow-blur-scale) * 32% + 40%), transparent);
-
-  --wa-color-mix-hover: black 8%;
-  --wa-color-mix-active: black 16%;
-
-  /**
-   * Semantic Colors
-   */
-  --wa-color-brand-fill-quiet: var(--wa-color-blue-10);
-  --wa-color-brand-fill-normal: var(--wa-color-blue-20);
-  --wa-color-brand-fill-loud: var(--wa-color-blue-50);
-  --wa-color-brand-border-quiet: var(--wa-color-blue-20);
-  --wa-color-brand-border-normal: var(--wa-color-blue-30);
-  --wa-color-brand-border-loud: var(--wa-color-blue-40);
-  --wa-color-brand-on-quiet: var(--wa-color-blue-60);
-  --wa-color-brand-on-normal: var(--wa-color-blue-70);
-  --wa-color-brand-on-loud: white;
-
-  --wa-color-success-fill-quiet: var(--wa-color-green-10);
-  --wa-color-success-fill-normal: var(--wa-color-green-20);
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
-  --wa-color-success-border-quiet: var(--wa-color-green-20);
-  --wa-color-success-border-normal: var(--wa-color-green-30);
-  --wa-color-success-border-loud: var(--wa-color-green-40);
-  --wa-color-success-on-quiet: var(--wa-color-green-60);
-  --wa-color-success-on-normal: var(--wa-color-green-70);
-  --wa-color-success-on-loud: white;
-
-  --wa-color-warning-fill-quiet: var(--wa-color-yellow-10);
-  --wa-color-warning-fill-normal: var(--wa-color-yellow-20);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
-  --wa-color-warning-border-quiet: var(--wa-color-yellow-20);
-  --wa-color-warning-border-normal: var(--wa-color-yellow-30);
-  --wa-color-warning-border-loud: var(--wa-color-yellow-40);
-  --wa-color-warning-on-quiet: var(--wa-color-yellow-60);
-  --wa-color-warning-on-normal: var(--wa-color-yellow-70);
-  --wa-color-warning-on-loud: white;
-
-  --wa-color-danger-fill-quiet: var(--wa-color-red-10);
-  --wa-color-danger-fill-normal: var(--wa-color-red-20);
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
-  --wa-color-danger-border-quiet: var(--wa-color-red-20);
-  --wa-color-danger-border-normal: var(--wa-color-red-30);
-  --wa-color-danger-border-loud: var(--wa-color-red-40);
-  --wa-color-danger-on-quiet: var(--wa-color-red-60);
-  --wa-color-danger-on-normal: var(--wa-color-red-70);
-  --wa-color-danger-on-loud: white;
-
-  --wa-color-neutral-fill-quiet: var(--wa-color-gray-10);
-  --wa-color-neutral-fill-normal: var(--wa-color-gray-20);
-  --wa-color-neutral-fill-loud: var(--wa-color-gray-50);
-  --wa-color-neutral-border-quiet: var(--wa-color-gray-20);
-  --wa-color-neutral-border-normal: var(--wa-color-gray-30);
-  --wa-color-neutral-border-loud: var(--wa-color-gray-40);
-  --wa-color-neutral-on-quiet: var(--wa-color-gray-60);
-  --wa-color-neutral-on-normal: var(--wa-color-gray-70);
-  --wa-color-neutral-on-loud: white;
-}
-
-/**
- * Component Styles
- */
-:where(:root),
-:host,
-.wa-theme-mellow {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    letter-spacing: calc(1em * -0.02);
-  }
-
-  wa-callout,
-  .wa-callout {
-    border-width: var(--wa-panel-border-width) var(--wa-panel-border-width) var(--wa-panel-border-width)
-      calc(var(--wa-panel-border-width) * 4);
-  }
-
-  wa-card::part(header) {
-    border-bottom-style: dotted;
-  }
-  wa-card::part(footer) {
-    border-top-style: dotted;
-  }
-
-  input[type='radio'],
-  wa-radio {
-    --checked-icon-scale: 0.6;
-  }
 }

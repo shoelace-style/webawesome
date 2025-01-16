@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
+@import url('../default/typography.css');
+
+:where(:root),
+:host,
+.wa-theme-brutalist {
+  --wa-font-family-body: 'Space Grotesk', sans-serif;
+  --wa-font-family-heading: 'IBM Plex Sans Condensed', sans-serif;
+  --wa-font-family-code: 'Space Mono', monospace;
+  --wa-font-family-longform: ui-serif, serif;
+
+  --wa-font-weight-bold: 700;
+
+  --wa-font-weight-heading: var(--wa-font-weight-semibold);
+}
