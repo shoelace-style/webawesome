@@ -163,3 +163,20 @@ Toronto, ON N3Y 4H8
   }
 </style>
 ```
+
+## Split Image
+```html{.example}
+<wa-card>
+  <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" style="border-top-left-radius: var(--wa-panel-border-radius); border-bottom-left-radius: var(--wa-panel-border-radius);"/>
+  <div style="padding: var(--spacing);">
+    Info Side
+  </div>
+</wa-card>
+<style>
+  wa-card::part(body) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+</style>
+```
