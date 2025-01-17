@@ -10,7 +10,8 @@
 <p id="mix_and_match" class="wa-gap-m">
   <strong>
     <wa-icon name="merge" slot="prefix"></wa-icon>
-    Remix:
+    Remix
+    <wa-icon-button href="#remixing" name="circle-question" slot="suffix" variant="regular" label="How to use?"></wa-icon-button>
   </strong>
   <wa-select name="colors" label="Colors from…" size="small">
     <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
@@ -44,6 +45,8 @@
       {% endif %}
     {% endfor %}
   </wa-select>
+
+
 </p>
 <script>
   document.querySelector('#mix_and_match').addEventListener('wa-change', function(event) {
@@ -78,14 +81,14 @@ You can import this theme from the Web Awesome CDN.
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
 
-### Mixing & Matching
+### Remixing { #remixing }
 
-If you want to combine the colors from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
+If you want to combine the **colors** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
 
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '/color.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
 
-To use the typography from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
+To use the **typography** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
 
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
