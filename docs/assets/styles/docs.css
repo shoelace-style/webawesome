@@ -536,4 +536,23 @@ table.colors {
     height: 65vh;
     max-height: 21lh;
   }
+
+  #mix_and_match {
+    strong {
+      display: flex;
+      align-items: center;
+      gap: var(--wa-space-2xs);
+      margin-top: 1.2em;
+    }
+
+    wa-select::part(label) {
+      margin-block-end: 0;
+    }
+
+    wa-select[value='']::part(display-input),
+    wa-option[value=''] {
+      font-style: italic;
+      color: var(--wa-color-text-quiet);
+    }
+  }
 }

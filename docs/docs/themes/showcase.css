@@ -9,6 +9,15 @@ body,
   overflow: hidden;
 }
 
+#mix_and_match {
+  font-weight: var(--wa-font-weight-semibold);
+  color: var(--wa-color-text-quiet);
+
+  wa-icon {
+    vertical-align: middle;
+  }
+}
+
 .theme-showcase {
   isolation: isolate;
   background-color: var(--wa-color-surface-lowered);
