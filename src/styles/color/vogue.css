@@ -1,5 +1,7 @@
-:root,
-:host {
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+.wa-palette-vogue {
   --wa-color-red-95: #feeeee;
   --wa-color-red-90: #fedddd;
   --wa-color-red-80: #fdb8b8;

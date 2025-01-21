@@ -21,7 +21,8 @@ If you're customizing the default light styles, scope your styles to the followi
 :where(:root),
 :host,
 .wa-theme-default,
-.wa-light {
+.wa-light,
+.wa-dark .wa-invert {
   /* your custom styles here */
 }
 ```
@@ -30,6 +31,7 @@ If you're customizing the default dark styles, scope your styles to the followin
 
 ```css
 .wa-dark,
+.wa-invert,
 :is(:host-context(.wa-dark)) {
   /* your custom styles here */
 }

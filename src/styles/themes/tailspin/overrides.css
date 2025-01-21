@@ -1,0 +1,60 @@
+:where(:root),
+:host,
+.wa-theme-tailspin,
+:is(:host-context(.wa-theme-tailspin)) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: calc(1em * -0.03);
+  }
+
+  wa-avatar {
+    --background-color: var(--wa-color-neutral-fill-quiet);
+    --text-color: var(--wa-color-neutral-on-quiet);
+  }
+
+  a,
+  wa-badge,
+  wa-tag {
+    font-weight: var(--wa-font-weight-semibold);
+  }
+
+  :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
+      [appearance='plain'],
+      .wa-plain
+    ) {
+    box-shadow: var(--wa-shadow-s);
+  }
+
+  wa-callout,
+  .wa-callout {
+    border-radius: var(--wa-border-radius-m);
+
+    &::part(icon) {
+      opacity: 0.6;
+    }
+  }
+
+  input[type='radio'],
+  wa-radio {
+    --background-color-checked: var(--wa-form-control-activated-color);
+    --checked-icon-color: var(--wa-color-brand-on-loud);
+    --checked-icon-scale: 0.4;
+  }
+
+  wa-switch {
+    --background-color: var(--wa-color-neutral-fill-normal);
+    --border-color: transparent;
+    --height: calc(var(--thumb-size) * (18 / 14));
+    --thumb-color: white;
+    --thumb-color-checked: var(--thumb-color);
+    --thumb-size: 1.25em;
+    --thumb-shadow: var(--wa-shadow-s);
+    --width: calc(var(--thumb-size) * (32 / 14));
+  }
+
+  wa-tab {
+    color: var(--wa-color-text-quiet);
+  }
+}

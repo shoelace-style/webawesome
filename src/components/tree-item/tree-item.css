@@ -30,14 +30,16 @@ slot:not([name])::slotted(wa-icon) {
 }
 
 .checkbox {
+  line-height: var(--wa-form-control-value-line-height);
   pointer-events: none;
 }
 
 .expand-button,
 .checkbox,
 .label {
-  font: inherit;
+  font-family: inherit;
   font-size: var(--wa-font-size-m);
+  font-weight: inherit;
 }
 
 .checkbox::part(base) {

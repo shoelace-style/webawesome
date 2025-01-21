@@ -20,7 +20,7 @@ snippets:
 
 ### Variants
 
-Use the variant utility classes to set the button's semantic variant.
+Use the [variant utility classes](../utilities/color.md) to set the button's semantic variant.
 
 ```html {.example}
 <button class="wa-neutral">Neutral</button>
@@ -32,7 +32,7 @@ Use the variant utility classes to set the button's semantic variant.
 
 ### Appearance
 
-Use the appearance utility classes to change the button's visual appearance:
+Use the [appearance utility classes](../utilities/appearance.md) to change the button's visual appearance:
 
 ```html {.example}
 <div style="margin-block-end: 1rem;">
@@ -69,7 +69,7 @@ Use the appearance utility classes to change the button's visual appearance:
 
 ### Sizes
 
-Use `wa-size-*` classes to change a button's size.
+Use the [size utility classes](../utilities/size.md) to change a button's size.
 
 ```html {.example}
 <button class="wa-size-s">Small</button>

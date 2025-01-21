@@ -34,6 +34,15 @@ export class ThemeAspect {
         this.set(picker.value);
       }
     });
+
+    ['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
+      document.addEventListener(eventName, e => {
+        const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
+        if (newElement) {
+          this.syncUI(newElement);
+        }
+      });
+    });
   }
 
   get() {
@@ -91,11 +100,6 @@ const colorScheme = new ThemeAspect({
     domChange(() => {
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
-
-      for (let el of document.querySelectorAll('.wa-invert')) {
-        el.classList.toggle('wa-dark', !dark);
-        el.classList.toggle('wa-light', dark);
-      }
     });
   },
 });

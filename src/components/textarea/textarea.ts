@@ -43,6 +43,8 @@ import styles from './textarea.css';
  * @cssproperty --border-color - The color of the textarea's borders.
  * @cssproperty --border-width - The width of the textarea's borders.
  * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
+ *
+ * @cssstate blank - The textarea is empty.
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
@@ -275,7 +277,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     if (changedProperties.has('resize')) {
       this.setTextareaDimensions();
     }
+
     super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.toggleCustomState('blank', !this.value);
+    }
   }
 
   /** Sets focus on the textarea. */
