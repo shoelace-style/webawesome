@@ -16,6 +16,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - Added `.wa-callout` utility class
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
+- Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
 
 ## 3.0.0-alpha.9
 
