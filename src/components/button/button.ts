@@ -69,8 +69,8 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The button's theme variant. */
-  @property({ reflect: true, default: 'neutral' })
-  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
+  @property({ reflect: true, initial: 'neutral' })
+  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'inherit' = 'inherit';
 
   /** The button's visual appearance. */
   @property({ reflect: true, default: 'accent' })

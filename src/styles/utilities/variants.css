@@ -15,6 +15,7 @@
 }
 
 .wa-brand,
+:host(:where(:state(initial-variant-brand))),
 :host([variant='brand']) {
   --wa-color-fill-loud: var(--wa-color-brand-fill-loud);
   --wa-color-fill-normal: var(--wa-color-brand-fill-normal);

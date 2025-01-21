@@ -10,6 +10,7 @@ declare module 'lit' {
      * Specifies the property’s default value
      */
     default?: any;
+    initial?: any;
   }
 }
 
@@ -23,6 +24,13 @@ export default class WebAwesomeElement extends LitElement {
       /* Need to tell people if they need a polyfill. */
       /* eslint-disable-next-line */
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
+    }
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+    for (let [property, spec] of Self.elementProperties) {
+      if (spec.default === 'inherit' && spec.initial !== undefined && typeof property === 'string') {
+        this.toggleCustomState(`initial-${property}-${spec.initial}`);
+      }
     }
   }
 
@@ -160,36 +168,69 @@ export default class WebAwesomeElement extends LitElement {
   }
 
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
-    if (options && options.default !== undefined && options.converter === undefined) {
-      // Wrap the default converter to remove the attribute if the value is the default
-      // This effectively prevents the component sprouting attributes that have not been specified
-      let converter = {
-        ...defaultConverter,
-        toAttribute(value: string, type: unknown): unknown {
-          if (value === options!.default) {
-            return null;
-          }
-          return defaultConverter.toAttribute!(value, type);
-        },
-      };
-      options = { ...options, converter };
+    if (options) {
+      if (options.initial !== undefined && options.default === undefined) {
+        // Set "inherit" value as default if no default is specified but the initial value is
+        // This saves us having to tediously specify default: "inherit", initial: "foo" for every property
+        options.default = 'inherit';
+      }
+
+      if (options.default !== undefined && options.converter === undefined) {
+        // Wrap the default converter to remove the attribute if the value is the default
+        // This effectively prevents the component sprouting attributes that have not been specified
+        let converter = {
+          ...defaultConverter,
+          toAttribute(value: string, type: unknown): unknown {
+            if (value === options!.default) {
+              return null;
+            }
+            return defaultConverter.toAttribute!(value, type);
+          },
+        };
+        options = { ...options, converter };
+      }
     }
 
     super.createProperty(name, options);
 
     // Wrap the default accessor with logic to return the default value if the value is null
-    if (options && options.default !== undefined) {
-      const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
+    if (options) {
+      if (options.default !== undefined) {
+        const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
 
-      if (descriptor?.get) {
-        const getter = descriptor.get;
+        if (descriptor?.get) {
+          const getter = descriptor.get;
 
-        Object.defineProperty(this.prototype, name, {
-          ...descriptor,
-          get() {
-            return getter.call(this) ?? options.default;
-          },
-        });
+          Object.defineProperty(this.prototype, name, {
+            ...descriptor,
+            get() {
+              return getter.call(this) ?? options.default;
+            },
+          });
+        }
+
+        if (options.default === 'inherit') {
+          // Add getter for "computed" value (taking ancestors into account)
+          let capitalizedName = name.toString().replace(/^\w/, c => c.toUpperCase());
+          Object.defineProperty(this.prototype, `computed${capitalizedName}`, {
+            get() {
+              let value;
+              let element = this;
+
+              do {
+                value = element[name as string];
+                element = element.parentElement;
+              } while (value === 'inherit' && element.parentElement);
+
+              if (value === 'inherit') {
+                // If we've reached this point and we still have `inherit`, we just ran out of parents
+                return options.initial;
+              }
+
+              return value;
+            },
+          });
+        }
       }
     }
   }

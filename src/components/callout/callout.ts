@@ -27,7 +27,13 @@ export default class WaCallout extends WebAwesomeElement {
   static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, styles];
 
   /** The callout's theme variant. */
-  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+  @property({ reflect: true, initial: 'brand' }) variant:
+    | 'brand'
+    | 'success'
+    | 'neutral'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   /** The callout's visual appearance. */
   @property({ reflect: true }) appearance:
