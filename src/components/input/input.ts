@@ -475,15 +475,15 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 @click=${this.handlePasswordToggle}
                 tabindex="-1"
               >
-                ${this.passwordVisible
+                ${!this.passwordVisible
                   ? html`
                       <slot name="show-password-icon">
-                        <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
+                        <wa-icon name="eye" library="system" variant="regular"></wa-icon>
                       </slot>
                     `
                   : html`
                       <slot name="hide-password-icon">
-                        <wa-icon name="eye" library="system" variant="regular"></wa-icon>
+                        <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
                       </slot>
                     `}
               </button>
