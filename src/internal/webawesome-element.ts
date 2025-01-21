@@ -1,7 +1,17 @@
-import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
-import { LitElement, isServer, unsafeCSS } from 'lit';
+import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
+import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../styles/shadow/component.css';
+
+// Augment Lit's module
+declare module 'lit' {
+  interface PropertyDeclaration {
+    /**
+     * Specifies the property’s default value
+     */
+    default?: any;
+  }
+}
 
 export default class WebAwesomeElement extends LitElement {
   constructor() {
@@ -147,5 +157,40 @@ export default class WebAwesomeElement extends LitElement {
   /** Determines if the element has the specified custom state. */
   hasCustomState(state: string): boolean {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
+  }
+
+  static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
+    if (options && options.default !== undefined && options.converter === undefined) {
+      // Wrap the default converter to remove the attribute if the value is the default
+      // This effectively prevents the component sprouting attributes that have not been specified
+      let converter = {
+        ...defaultConverter,
+        toAttribute(value: string, type: unknown): unknown {
+          if (value === options!.default) {
+            return null;
+          }
+          return defaultConverter.toAttribute!(value, type);
+        },
+      };
+      options = { ...options, converter };
+    }
+
+    super.createProperty(name, options);
+
+    // Wrap the default accessor with logic to return the default value if the value is null
+    if (options && options.default !== undefined) {
+      const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
+
+      if (descriptor?.get) {
+        const getter = descriptor.get;
+
+        Object.defineProperty(this.prototype, name, {
+          ...descriptor,
+          get() {
+            return getter.call(this) ?? options.default;
+          },
+        });
+      }
+    }
   }
 }
