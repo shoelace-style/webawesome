@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { WaChangeEvent } from '../../events/change.js';
 import { drag } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
@@ -22,7 +21,7 @@ import styles from './image-comparer.css';
  * @slot after - The after image, an `<img>` or `<svg>` element.
  * @slot handle - The icon used inside the handle.
  *
- * @event wa-change - Emitted when the position changes.
+ * @event change - Emitted when the position changes.
  *
  * @csspart base - The component's base wrapper.
  * @csspart before - The container that wraps the before image.
@@ -92,7 +91,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   @watch('position', { waitUntilFirstUpdate: true })
   handlePositionChange() {
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new Event('change'));
   }
 
   render() {
