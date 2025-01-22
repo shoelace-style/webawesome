@@ -166,7 +166,7 @@ export default class WebAwesomeElement extends LitElement {
    */
   dispatchComposedEvent(event: Event) {
     if (!event.composed) {
-      this.dispatchEvent(new Event(event.type, { ...event, composed: true }));
+      this.dispatchEvent(new (event.constructor as typeof Event)(event.type, { ...event, composed: true }));
     }
   }
 
