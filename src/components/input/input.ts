@@ -229,7 +229,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new WaBlurEvent());
   }
 
-  private handleChange() {
+  private handleChange(event: Event) {
+    this.dispatchComposedEvent(event);
     this.value = this.input.value;
   }
 

@@ -159,6 +159,17 @@ export default class WebAwesomeElement extends LitElement {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
   }
 
+  /**
+   * Given a native event, this function ensures it's composed and, if not, dispatches it again as a composed event.
+   * This is useful for relaying native events such as `change`, which will otherwise not be retargeted. It is safe,
+   * albeit sloppy, to call this on composed events, as it will no-op.
+   */
+  dispatchComposedEvent(event: Event) {
+    if (!event.composed) {
+      this.dispatchEvent(new Event(event.type, { ...event, composed: true }));
+    }
+  }
+
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options && options.default !== undefined && options.converter === undefined) {
       // Wrap the default converter to remove the attribute if the value is the default
