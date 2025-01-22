@@ -496,7 +496,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private handleInputInput(event: InputEvent) {
     this.updateValidity();
 
-    // Prevent the `<wa-input>` element's `wa-input` event from bubbling up
+    // Prevent the `<wa-input>` element's `input` event from bubbling up
     event.stopPropagation();
   }
 
