@@ -2,8 +2,6 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -26,8 +24,8 @@ import styles from './button.css';
  * @dependency wa-icon
  * @dependency wa-spinner
  *
- * @event wa-blur - Emitted when the button loses focus.
- * @event wa-focus - Emitted when the button gains focus.
+ * @event blur - Emitted when the button loses focus.
+ * @event focus - Emitted when the button gains focus.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @slot - The button's label.
@@ -141,14 +139,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   /** Used to override the form owner's `target` attribute. */
   @property({ attribute: 'formtarget' }) formTarget: '_self' | '_blank' | '_parent' | '_top' | string;
-
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
-  }
 
   private handleClick() {
     const form = this.getForm();
@@ -274,8 +264,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         role=${ifDefined(isLink ? undefined : 'button')}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         tabindex=${this.disabled ? '-1' : '0'}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}
       >

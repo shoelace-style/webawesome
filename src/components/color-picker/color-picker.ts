@@ -1023,8 +1023,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       caret:format-button__caret
                     "
                     @click=${this.handleFormatToggle}
-                    @wa-blur=${this.stopNestedEventPropagation}
-                    @wa-focus=${this.stopNestedEventPropagation}
+                    @blur=${this.stopNestedEventPropagation}
+                    @focus=${this.stopNestedEventPropagation}
                   >
                     ${this.setLetterCase(this.format)}
                   </wa-button>
@@ -1043,8 +1043,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       caret:eye-dropper-button__caret
                     "
                     @click=${this.handleEyeDropper}
-                    @wa-blur=${this.stopNestedEventPropagation}
-                    @wa-focus=${this.stopNestedEventPropagation}
+                    @blur=${this.stopNestedEventPropagation}
+                    @focus=${this.stopNestedEventPropagation}
                   >
                     <wa-icon
                       library="system"
