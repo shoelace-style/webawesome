@@ -50,10 +50,10 @@ declare const EyeDropper: EyeDropperConstructor;
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
  * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the color picker loses focus.
- * @event wa-change - Emitted when the color picker's value changes.
- * @event wa-focus - Emitted when the color picker receives focus.
- * @event wa-input - Emitted when the color picker receives input.
+ * @event blur - Emitted when the color picker loses focus.
+ * @event change - Emitted when the color picker's value changes.
+ * @event focus - Emitted when the color picker receives focus.
+ * @event input - Emitted when the color picker receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
