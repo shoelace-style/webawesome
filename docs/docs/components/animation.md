@@ -77,9 +77,9 @@ This example demonstrates all of the baked-in animations and easings. Animations
     easingName.appendChild(option);
   });
 
-  animationName.addEventListener('wa-change', () => (animation.name = animationName.value));
-  easingName.addEventListener('wa-change', () => (animation.easing = easingName.value));
-  playbackRate.addEventListener('wa-input', () => (animation.playbackRate = playbackRate.value));
+  animationName.addEventListener('change', () => (animation.name = animationName.value));
+  easingName.addEventListener('change', () => (animation.easing = easingName.value));
+  playbackRate.addEventListener('input', () => (animation.playbackRate = playbackRate.value));
 </script>
 
 <style>

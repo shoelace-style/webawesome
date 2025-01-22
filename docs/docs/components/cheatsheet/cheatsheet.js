@@ -73,4 +73,4 @@ if (name_search.value) {
   filterByName(name_search.value);
 }
 
-name_search_group.addEventListener('wa-input', e => filterByName(name_search.value));
+name_search_group.addEventListener('input', e => filterByName(name_search.value));

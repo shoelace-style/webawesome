@@ -65,7 +65,7 @@ The size of [Radios](/docs/components/radio) and [Radio Buttons](/docs/component
 <script>
   const radioGroup = document.querySelector('.radio-group-size');
 
-  radioGroup.addEventListener('wa-change', () => {
+  radioGroup.addEventlistener('change', () => {
     radioGroup.size = radioGroup.value;
   });
 </script>
@@ -127,7 +127,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
   });
 
   // Update validity when a selection is made
-  form.addEventListener('wa-change', () => {
+  form.addEventlistener('change', () => {
     const isValid = radioGroup.value === '3';
     radioGroup.setCustomValidity(isValid ? '' : errorMessage);
   });
