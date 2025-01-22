@@ -5,12 +5,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
 import { WaClearEvent } from '../../events/clear.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { WaHideEvent } from '../../events/hide.js';
-import { WaInputEvent } from '../../events/input.js';
 import type { WaRemoveEvent } from '../../events/remove.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
@@ -50,11 +46,11 @@ import styles from './select.css';
  * @slot expand-icon - The icon to show when the control is expanded and collapsed. Rotates on open and close.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-change - Emitted when the control's value changes.
+ * @event change - Emitted when the control's value changes.
+ * @event input - Emitted when the control receives input.
+ * @event focus - Emitted when the control gains focus.
+ * @event blur - Emitted when the control loses focus.
  * @event wa-clear - Emitted when the control's value is cleared.
- * @event wa-input - Emitted when the control receives input.
- * @event wa-focus - Emitted when the control gains focus.
- * @event wa-blur - Emitted when the control loses focus.
  * @event wa-show - Emitted when the select's menu opens.
  * @event wa-after-show - Emitted after the select's menu opens and all animations are complete.
  * @event wa-hide - Emitted when the select's menu closes.
@@ -101,7 +97,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  assumeInteractionOn = ['wa-blur', 'wa-input'];
+  assumeInteractionOn = ['blur', 'input'];
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
@@ -312,11 +308,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleFocus() {
     this.displayInput.setSelectionRange(0, 0);
-    this.dispatchEvent(new WaFocusEvent());
-  }
-
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleDocumentFocusIn = (event: KeyboardEvent) => {
@@ -368,8 +359,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
         // Emit after updating
         this.updateComplete.then(() => {
-          this.dispatchEvent(new WaInputEvent());
-          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new InputEvent('input'));
+          this.dispatchEvent(new Event('change'));
         });
 
         if (!this.multiple) {
@@ -498,8 +489,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       // Emit after update
       this.updateComplete.then(() => {
         this.dispatchEvent(new WaClearEvent());
-        this.dispatchEvent(new WaInputEvent());
-        this.dispatchEvent(new WaChangeEvent());
+        this.dispatchEvent(new InputEvent('input'));
+        this.dispatchEvent(new Event('change'));
       });
     }
   }
@@ -529,8 +520,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       if (this.value !== oldValue) {
         // Emit after updating
         this.updateComplete.then(() => {
-          this.dispatchEvent(new WaInputEvent());
-          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new InputEvent('input'));
+          this.dispatchEvent(new Event('change'));
         });
       }
 
@@ -567,8 +558,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
       // Emit after updating
       this.updateComplete.then(() => {
-        this.dispatchEvent(new WaInputEvent());
-        this.dispatchEvent(new WaChangeEvent());
+        this.dispatchEvent(new InputEvent('input'));
+        this.dispatchEvent(new Event('change'));
       });
     }
   }
@@ -869,7 +860,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                 role="combobox"
                 tabindex="0"
                 @focus=${this.handleFocus}
-                @blur=${this.handleBlur}
               />
 
               <!-- Tags need to wait for first hydration before populating otherwise it will create a hydration mismatch. -->
