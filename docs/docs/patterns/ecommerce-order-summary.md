@@ -168,7 +168,7 @@ TODO Page Description
 ```
 
 ## Split Image
-```html{.example viewport="1200"}
+```html{.example}
 <div class="split-image">
 <wa-card>
   <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" style="border-top-left-radius: var(--wa-panel-border-radius); border-bottom-left-radius: var(--wa-panel-border-radius); height: 100%; object-fit: cover;"/>
