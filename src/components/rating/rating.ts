@@ -3,7 +3,6 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { WaChangeEvent } from '../../events/change.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
@@ -20,7 +19,7 @@ import styles from './rating.css';
  *
  * @dependency wa-icon
  *
- * @event wa-change - Emitted when the rating's value changes.
+ * @event change - Emitted when the rating's value changes.
  * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
@@ -96,7 +95,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     this.setValue(this.getValueFromMousePosition(event));
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new Event('change'));
   }
 
   private setValue(newValue: number) {
@@ -140,7 +139,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new Event('change'));
     }
   }
 
@@ -173,7 +172,7 @@ export default class WaRating extends WebAwesomeElement {
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
     this.setValue(this.hoverValue);
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new Event('change'));
 
     // Prevent click on mobile devices
     event.preventDefault();
