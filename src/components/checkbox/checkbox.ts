@@ -4,10 +4,6 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -29,10 +25,10 @@ import styles from './checkbox.css';
  * @slot - The checkbox's label.
  * @slot hint - Text that describes how to use the checkbox. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the checkbox loses focus.
- * @event wa-change - Emitted when the checked state changes.
- * @event wa-focus - Emitted when the checkbox gains focus.
- * @event wa-input - Emitted when the checkbox receives input.
+ * @event blur - Emitted when the checkbox loses focus.
+ * @event change - Emitted when the checked state changes.
+ * @event focus - Emitted when the checkbox gains focus.
+ * @event input - Emitted when the checkbox receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's label .
@@ -137,19 +133,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     this.hasInteracted = true;
     this.checked = !this.checked;
     this.indeterminate = false;
-    this.dispatchEvent(new WaChangeEvent());
-  }
-
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleInput() {
-    this.dispatchEvent(new WaInputEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
+    this.dispatchEvent(new Event('change'));
   }
 
   @watch('defaultChecked')
@@ -248,9 +232,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             aria-checked=${this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}
-            @input=${this.handleInput}
-            @blur=${this.handleBlur}
-            @focus=${this.handleFocus}
           />
 
           <wa-icon part="${iconState}-icon icon" library="system" name=${iconName}></wa-icon>
