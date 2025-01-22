@@ -41,10 +41,12 @@ Nested callouts:
 <wa-callout>
 	Brand
 	<wa-callout>Brand</wa-callout>
+	<wa-callout variant="neutral">Neutral</wa-callout>
 </wa-callout>
 <wa-callout variant="neutral">
 	Neutral
 	<wa-callout>Neutral</wa-callout>
+	<wa-callout variant="brand">Brand</wa-callout>
 </wa-callout>
 ```
 
