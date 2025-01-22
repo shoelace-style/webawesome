@@ -16,8 +16,8 @@ import styles from './icon-button.css';
  *
  * @dependency wa-icon
  *
- * @event wa-blur - Emitted when the icon button loses focus.
- * @event wa-focus - Emitted when the icon button gains focus.
+ * @event blur - Emitted when the icon button loses focus.
+ * @event focus - Emitted when the icon button gains focus.
  *
  * @cssproperty --background-color-hover - The color of the button's background on hover.
  *
@@ -71,14 +71,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
   /** Disables the button. */
   @property({ type: Boolean }) disabled = false;
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
-  }
-
   private handleClick(event: MouseEvent) {
     if (this.disabled) {
       event.preventDefault();
@@ -122,8 +114,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label="${this.label}"
         tabindex=${this.disabled ? '-1' : '0'}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @click=${this.handleClick}
       >
         <wa-icon
