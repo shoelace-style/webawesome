@@ -394,7 +394,7 @@ describe('<wa-radio-group>', () => {
     });
 
     describe('when the value changes', () => {
-      it('should emit wa-change when toggled with the arrow keys', async () => {
+      it('should emit change when toggled with the arrow keys', async () => {
         const radioGroup = await fixture<WaRadioGroup>(html`
           <wa-radio-group>
             <wa-radio id="radio-1" value="1"></wa-radio>
@@ -405,8 +405,8 @@ describe('<wa-radio-group>', () => {
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        radioGroup.addEventListener('wa-change', changeHandler);
-        radioGroup.addEventListener('wa-input', inputHandler);
+        radioGroup.addEventListener('change', changeHandler);
+        radioGroup.addEventListener('input', inputHandler);
         firstRadio.focus();
         await sendKeys({ press: 'ArrowRight' });
         await radioGroup.updateComplete;
@@ -416,7 +416,7 @@ describe('<wa-radio-group>', () => {
         expect(radioGroup.value).to.equal('2');
       });
 
-      it('should emit wa-change and wa-input when clicked', async () => {
+      it('should emit change and input when clicked', async () => {
         const radioGroup = await fixture<WaRadioGroup>(html`
           <wa-radio-group>
             <wa-radio id="radio-1" value="1"></wa-radio>
@@ -425,12 +425,12 @@ describe('<wa-radio-group>', () => {
         `);
         const radio = radioGroup.querySelector<WaRadio>('#radio-1')!;
         setTimeout(() => radio.click());
-        const event = (await oneEvent(radioGroup, 'wa-change')) as WaChangeEvent;
+        const event = (await oneEvent(radioGroup, 'change')) as WaChangeEvent;
         expect(event.target).to.equal(radioGroup);
         expect(radioGroup.value).to.equal('1');
       });
 
-      it('should emit wa-change and wa-input when toggled with spacebar', async () => {
+      it('should emit change and input when toggled with spacebar', async () => {
         const radioGroup = await fixture<WaRadioGroup>(html`
           <wa-radio-group>
             <wa-radio id="radio-1" value="1"></wa-radio>
@@ -440,12 +440,12 @@ describe('<wa-radio-group>', () => {
         const radio = radioGroup.querySelector<WaRadio>('#radio-1')!;
         radio.focus();
         setTimeout(() => sendKeys({ press: ' ' }));
-        const event = (await oneEvent(radioGroup, 'wa-change')) as WaChangeEvent;
+        const event = (await oneEvent(radioGroup, 'change')) as WaChangeEvent;
         expect(event.target).to.equal(radioGroup);
         expect(radioGroup.value).to.equal('1');
       });
 
-      it('should not emit wa-change or wa-input when the value is changed programmatically', async () => {
+      it('should not emit change or input when the value is changed programmatically', async () => {
         const radioGroup = await fixture<WaRadioGroup>(html`
           <wa-radio-group value="1">
             <wa-radio id="radio-1" value="1"></wa-radio>
@@ -453,8 +453,8 @@ describe('<wa-radio-group>', () => {
           </wa-radio-group>
         `);
 
-        radioGroup.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-        radioGroup.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+        radioGroup.addEventListener('change', () => expect.fail('change should not be emitted'));
+        radioGroup.addEventListener('input', () => expect.fail('input should not be emitted'));
         radioGroup.value = '2';
         await radioGroup.updateComplete;
       });
