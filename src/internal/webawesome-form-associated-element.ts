@@ -95,7 +95,7 @@ export class WebAwesomeFormAssociatedElement
 
   required: boolean = false;
 
-  assumeInteractionOn: string[] = ['wa-input'];
+  assumeInteractionOn: string[] = ['input'];
 
   // Additional
   input?: (HTMLElement & { value: unknown }) | HTMLInputElement | HTMLTextAreaElement;
@@ -154,7 +154,7 @@ export class WebAwesomeFormAssociatedElement
     }
 
     if (changedProperties.has('value') || changedProperties.has('disabled')) {
-      // @ts-expect-error Some components will use an accessors, other use a property, so we dont want to limit them.
+      // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
       // Accounts for the snowflake case on `<wa-select>`

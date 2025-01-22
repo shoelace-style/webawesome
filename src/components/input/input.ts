@@ -4,10 +4,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -37,11 +35,11 @@ import styles from './input.css';
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
+ * @event blur - Emitted when the control loses focus.
+ * @event change - Emitted when an alteration to the control's value is committed by the user.
+ * @event focus - Emitted when the control gains focus.
+ * @event input - Emitted when the control receives input.
  * @event wa-clear - Emitted when the clear button is activated.
- * @event wa-focus - Emitted when the control gains focus.
- * @event wa-input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label
@@ -70,7 +68,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     return [...super.validators, MirrorValidator()];
   }
 
-  assumeInteractionOn = ['wa-blur', 'wa-input'];
+  assumeInteractionOn = ['wa-blur', 'input'];
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
 
@@ -233,7 +231,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   private handleChange() {
     this.value = this.input.value;
-    this.dispatchEvent(new WaChangeEvent());
   }
 
   private handleClearClick(event: MouseEvent) {
@@ -242,8 +239,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     if (this.value !== '') {
       this.value = '';
       this.dispatchEvent(new WaClearEvent());
-      this.dispatchEvent(new WaInputEvent());
-      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
 
     this.input.focus();
@@ -255,7 +252,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   private handleInput() {
     this.value = this.input.value;
-    this.dispatchEvent(new WaInputEvent());
   }
 
   private handleKeyDown(event: KeyboardEvent) {
