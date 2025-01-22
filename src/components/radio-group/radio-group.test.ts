@@ -2,7 +2,6 @@ import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import type { WaChangeEvent } from '../../events/change.js';
 import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
@@ -425,7 +424,7 @@ describe('<wa-radio-group>', () => {
         `);
         const radio = radioGroup.querySelector<WaRadio>('#radio-1')!;
         setTimeout(() => radio.click());
-        const event = (await oneEvent(radioGroup, 'change')) as WaChangeEvent;
+        const event = await oneEvent(radioGroup, 'change');
         expect(event.target).to.equal(radioGroup);
         expect(radioGroup.value).to.equal('1');
       });
@@ -440,7 +439,7 @@ describe('<wa-radio-group>', () => {
         const radio = radioGroup.querySelector<WaRadio>('#radio-1')!;
         radio.focus();
         setTimeout(() => sendKeys({ press: ' ' }));
-        const event = (await oneEvent(radioGroup, 'change')) as WaChangeEvent;
+        const event = await oneEvent(radioGroup, 'change');
         expect(event.target).to.equal(radioGroup);
         expect(radioGroup.value).to.equal('1');
       });

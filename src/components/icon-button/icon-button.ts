@@ -2,8 +2,6 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import '../icon/icon.js';
 import styles from './icon-button.css';
