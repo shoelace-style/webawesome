@@ -325,7 +325,7 @@ describe('<wa-radio-group>', () => {
             const validFocusHandler = sinon.spy();
 
             Array.from(el.querySelectorAll<WaRadio>('wa-radio')).forEach(radio =>
-              radio.addEventListener('wa-focus', validFocusHandler),
+              radio.addEventListener('focus', validFocusHandler),
             );
 
             expect(validFocusHandler).to.not.have.been.called;
@@ -349,8 +349,8 @@ describe('<wa-radio-group>', () => {
             const disabledRadio = el.querySelector('#radio-0')!;
             const validRadio = el.querySelector('#radio-1')!;
 
-            disabledRadio.addEventListener('wa-focus', invalidFocusHandler);
-            validRadio.addEventListener('wa-focus', validFocusHandler);
+            disabledRadio.addEventListener('focus', invalidFocusHandler);
+            validRadio.addEventListener('focus', validFocusHandler);
 
             expect(invalidFocusHandler).to.not.have.been.called;
             expect(validFocusHandler).to.not.have.been.called;
@@ -377,8 +377,8 @@ describe('<wa-radio-group>', () => {
             const disabledRadio = el.querySelector('#radio-0')!;
             const validRadio = el.querySelector('#radio-2')!;
 
-            disabledRadio.addEventListener('wa-focus', invalidFocusHandler);
-            validRadio.addEventListener('wa-focus', validFocusHandler);
+            disabledRadio.addEventListener('focus', invalidFocusHandler);
+            validRadio.addEventListener('focus', validFocusHandler);
 
             expect(invalidFocusHandler).to.not.have.been.called;
             expect(validFocusHandler).to.not.have.been.called;
