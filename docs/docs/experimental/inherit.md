@@ -2,6 +2,8 @@
 title: Inheritance & Default value tests
 ---
 
+## Variant
+
 Button variant should default to `neutral`:
 
 ```html {.example}
