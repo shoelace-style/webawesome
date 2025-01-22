@@ -60,7 +60,7 @@ describe('<wa-input>', () => {
         const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
         const focusHandler = sinon.spy();
 
-        el.addEventListener('wa-focus', focusHandler);
+        el.addEventListener('focus', focusHandler);
         (label as HTMLLabelElement).click();
         await waitUntil(() => focusHandler.calledOnce);
 

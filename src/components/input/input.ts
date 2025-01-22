@@ -3,9 +3,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { WaBlurEvent } from '../../events/blur.js';
 import { WaClearEvent } from '../../events/clear.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -68,7 +66,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     return [...super.validators, MirrorValidator()];
   }
 
-  assumeInteractionOn = ['wa-blur', 'input'];
+  assumeInteractionOn = ['blur', 'input'];
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
 
@@ -225,10 +223,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
   private handleChange(event: Event) {
     this.dispatchComposedEvent(event);
     this.value = this.input.value;
@@ -245,10 +239,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     }
 
     this.input.focus();
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleInput() {
@@ -442,8 +432,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           @change=${this.handleChange}
           @input=${this.handleInput}
           @keydown=${this.handleKeyDown}
-          @focus=${this.handleFocus}
-          @blur=${this.handleBlur}
         />
 
         ${isClearIconVisible
