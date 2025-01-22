@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import buttonGroupStyles from '../../styles/utilities/button-group.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import styles from './button-group.css';
 
 /**
@@ -17,7 +18,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static shadowStyle = [buttonGroupStyles, styles];
+  static shadowStyle = [sizeStyles, buttonGroupStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
