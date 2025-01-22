@@ -3,10 +3,6 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -25,10 +21,10 @@ import styles from './slider.css';
  * @slot label - The slider label. Alternatively, you can use the `label` attribute.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
- * @event wa-focus - Emitted when the control gains focus.
- * @event wa-input - Emitted when the control receives input.
+ * @event blur - Emitted when the control loses focus.
+ * @event change - Emitted when an alteration to the control's value is committed by the user.
+ * @event focus - Emitted when the control gains focus.
+ * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
@@ -160,24 +156,21 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     this.resizeObserver?.unobserve(this.input);
   }
 
-  private handleChange() {
-    this.dispatchEvent(new WaChangeEvent());
+  private handleChange(event: Event) {
+    this.dispatchComposedEvent(event);
   }
 
   private handleInput() {
     this.value = parseFloat(this.input.value);
-    this.dispatchEvent(new WaInputEvent());
     this.syncRange();
   }
 
   private handleBlur() {
     this.hasTooltip = false;
-    this.dispatchEvent(new WaBlurEvent());
   }
 
   private handleFocus() {
     this.hasTooltip = true;
-    this.dispatchEvent(new WaFocusEvent());
   }
 
   @eventOptions({ passive: true })
