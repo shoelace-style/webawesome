@@ -1,7 +1,7 @@
 ---
 title: Color Variants
 description: Color utilities allow you to apply the brand, neutral, success, warning, and danger colors from your theme to any element.
-icon: theming/color
+icon: tokens/color
 snippets:
   - .wa-brand
   - .wa-neutral
@@ -27,7 +27,7 @@ You can create the same effect on any element by using the color variant utility
 - `.wa-danger`
 
 Using these classes is a two-way handshake:
-they do not directly apply styles, but define generic color tokens modeled after our [Semantic Colors](/docs/theming/color/#semantic-colors) but *without* the group identifier (`neutral`, `brand`, `success`, `warning`, `danger`), defaulting to `neutral`.
+they do not directly apply styles, but define generic color tokens modeled after our [Semantic Colors](/docs/tokens/color/#semantic-colors) but *without* the group identifier (`neutral`, `brand`, `success`, `warning`, `danger`), defaulting to `neutral`.
 This means that styles can be written to respond to variants by using e.g. `--wa-color-fill-loud` instead of e.g. `--wa-color-brand-fill-loud`,
 and all of our [native styles](/docs/native/) do so (where it made sense).
 

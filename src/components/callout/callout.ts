@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/callout.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -24,7 +25,7 @@ import styles from './callout.css';
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
 
   /** The callout's theme variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';

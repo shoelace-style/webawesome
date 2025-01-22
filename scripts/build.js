@@ -74,6 +74,10 @@ function generateManifest() {
     execSync('cem analyze --config "custom-elements-manifest.js"');
   } catch (error) {
     console.error(`\n\n${error.message}`);
+
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
 
   spinner.succeed();
@@ -91,6 +95,10 @@ function generateReactWrappers() {
     execSync(`node scripts/make-react.js --outdir "${cdnDir}"`, { stdio: 'inherit' });
   } catch (error) {
     console.error(`\n\n${error.message}`);
+
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
   spinner.succeed();
 
@@ -118,7 +126,11 @@ async function generateStyles() {
         file.includes('themes/default') ||
         file.includes('themes/awesome') ||
         file.includes('themes/active') ||
+        file.includes('themes/glossy') ||
+        file.includes('themes/matter') ||
         file.includes('themes/mellow') ||
+        file.includes('themes/playful') ||
+        file.includes('themes/premium') ||
         file.includes('themes/tailspin') ||
         file.includes('themes/brutalist')
       ) {
@@ -147,6 +159,9 @@ async function generateTypes() {
   try {
     execSync(`tsc --project ./tsconfig.prod.json --outdir "${cdnDir}"`);
   } catch (error) {
+    if (!isDeveloping) {
+      process.exit(1);
+    }
     return Promise.reject(error.stdout);
   }
 
@@ -219,6 +234,9 @@ async function generateBundle() {
   } catch (error) {
     spinner.fail();
     console.log(chalk.red(`\n${error}`));
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
 
   spinner.succeed();
@@ -235,6 +253,10 @@ async function regenerateBundle() {
   } catch (error) {
     spinner.fail();
     console.log(chalk.red(`\n${error}`));
+
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
 
   spinner.succeed();
@@ -250,24 +272,31 @@ async function generateDocs() {
   if (isAlpha) args.push('--alpha');
   if (isDeveloping) args.push('--develop');
 
-  // 11ty
-  const output = (await runScript(join(__dirname, 'docs.js'), args))
-    // Cleanup the output
-    .replace('[11ty]', '')
-    .replace(' seconds', 's')
-    .replace(/\(.*?\)/, '')
-    .toLowerCase()
-    .trim();
+  let output;
+  try {
+    // 11ty
+    output = (await runScript(join(__dirname, 'docs.js'), args))
+      // Cleanup the output
+      .replace('[11ty]', '')
+      .replace(' seconds', 's')
+      .replace(/\(.*?\)/, '')
+      .toLowerCase()
+      .trim();
 
-  // Copy assets
-  await copy(join(docsDir, 'assets'), join(siteDir, 'assets'), { overwrite: true });
+    // Copy dist (production only)
+    if (!isDeveloping) {
+      await copy(cdnDir, join(siteDir, 'dist'));
+    }
 
-  // Copy dist (production only)
-  if (!isDeveloping) {
-    await copy(cdnDir, join(siteDir, 'dist'));
+    spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
+  } catch (error) {
+    console.error('\n\n' + chalk.red(error) + '\n');
+
+    spinner.fail(chalk.red(`Error while writing the docs.`));
+    if (!isDeveloping) {
+      process.exit(1);
+    }
   }
-
-  spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
 }
 
 // Initial build
@@ -368,6 +397,10 @@ if (isDeveloping) {
       reload();
     } catch (err) {
       console.error(chalk.red(err));
+
+      if (!isDeveloping) {
+        process.exit(1);
+      }
     }
   });
 

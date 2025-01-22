@@ -1,5 +1,7 @@
-:root,
-:host {
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+.wa-palette-rudimentary {
   --wa-color-red-95: #ffeeee;
   --wa-color-red-90: #ffdddd;
   --wa-color-red-80: #ffb6b8;

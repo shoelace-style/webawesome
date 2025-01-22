@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -57,6 +57,8 @@ import styles from './input.css';
  * @cssproperty --border-color - The color of the input's borders.
  * @cssproperty --border-width - The width of the input's borders. Expects a single value.
  * @cssproperty --box-shadow - The shadow effects around the edges of the input.
+ *
+ * @cssstate blank - The input is empty.
  */
 @customElement('wa-input')
 export default class WaInput extends WebAwesomeFormAssociatedElement {
@@ -308,6 +310,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this.passwordVisible = !this.passwordVisible;
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.toggleCustomState('blank', !this.value);
+    }
+  }
+
   @watch('step', { waitUntilFirstUpdate: true })
   handleStepChange() {
     // If step changes, the value may become invalid so we need to recheck after the update. We set the new step
@@ -465,15 +475,15 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 @click=${this.handlePasswordToggle}
                 tabindex="-1"
               >
-                ${this.passwordVisible
+                ${!this.passwordVisible
                   ? html`
                       <slot name="show-password-icon">
-                        <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
+                        <wa-icon name="eye" library="system" variant="regular"></wa-icon>
                       </slot>
                     `
                   : html`
                       <slot name="hide-password-icon">
-                        <wa-icon name="eye" library="system" variant="regular"></wa-icon>
+                        <wa-icon name="eye-slash" library="system" variant="regular"></wa-icon>
                       </slot>
                     `}
               </button>

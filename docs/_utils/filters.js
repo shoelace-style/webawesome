@@ -105,6 +105,23 @@ export function deepValue(obj, key) {
   return key.reduce((subObj, property) => subObj?.[property], obj);
 }
 
+export function number(value, options) {
+  if (typeof value !== 'number' && isNaN(value)) {
+    return value;
+  }
+
+  let lang = options?.lang ?? 'en';
+  if (options?.lang) {
+    delete options.lang;
+  }
+
+  if (!options || Object.keys(options).length === 0) {
+    options = { maximumSignificantDigits: 3 };
+  }
+
+  return Number(value).toLocaleString(lang, options);
+}
+
 export function isNumeric(value) {
   return typeof value === 'number' || (typeof value === 'string' && !isNaN(value));
 }
@@ -167,6 +184,9 @@ export function sort(arr, by = { 'data.order': 1, 'data.title': '' }) {
  * @returns { Object.<string, object[]> } An object with keys for each tag, and an array of items for each tag.
  */
 export function groupByTags(collection, tags) {
+  if (!collection) {
+    console.error(`Empty collection passed to groupByTags() to group by ${JSON.stringify(tags)}`);
+  }
   if (!tags) {
     // Default to grouping by union of all tags
     tags = Array.from(new Set(collection.flatMap(item => item.data.tags)));

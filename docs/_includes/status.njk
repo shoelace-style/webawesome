@@ -1,25 +1,25 @@
 {% if since -%}
 	<wa-badge variant="neutral">Since {{ since }}</wa-badge>
-{%- endif %}
+{% endif -%}
 
-{% if status -%}
+{%- if status %}
 	{%- if status == "wip" %}
 	<wa-badge variant="danger">
 		<wa-icon name="pickaxe"></wa-icon>
 		Work In Progress
 	</wa-badge>
-	{%- elif status == "experimental" -%}
+	{%- elif status == "experimental" %}
 	<wa-badge variant="warning">
 		<wa-icon name="flask"></wa-icon>
 		Experimental
 	</wa-badge>
-	{%- elif status == "stable" -%}
+	{%- elif status == "stable" %}
 	<wa-badge variant="brand">Stable</wa-badge>
 	{%- else %}
 	<wa-badge>{{ status}}</wa-badge>
-	{%- endif %}
+	{%- endif -%}
 {%- endif %}
 
-{% if isPro -%}
+{%- if isPro %}
 	<wa-badge class="pro">PRO</wa-badge>
-{%- endif %}
+{%- endif -%}

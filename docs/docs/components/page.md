@@ -1,7 +1,7 @@
 ---
 title: Page
 description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
-tags: [organization, layout]
+tags: [pro, organization, layout]
 isPro: true
 order: 0
 # icon: page

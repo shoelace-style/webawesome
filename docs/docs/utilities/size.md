@@ -1,7 +1,7 @@
 ---
 title: Size
 description: Size utilities give elements one of three preset sizes (small, medium, or large).
-icon: theming/space
+icon: tokens/space
 status: experimental
 snippets:
   - .wa-size-s
@@ -22,7 +22,7 @@ You can create the same effect on any element by using the size utility classes:
 - `.wa-size-l`
 
 Using these classes does two things:
-- It sets `font-size` to one of the [size tokens](/docs/theming/typography/#font-size).
+- It sets `font-size` to one of the [size tokens](/docs/tokens/typography/#font-size).
 You can use CSS `em` units to reference that size in other properties.
 - It calculates `--wa-form-control-height` based on the applied size, supporting consistent heights for elements like inputs and buttons.
 - It aliases a bunch of other properties that CSS can use:

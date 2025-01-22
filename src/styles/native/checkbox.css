@@ -41,7 +41,7 @@ input[type='checkbox']:where(:not(:host *)) {
 }
 
 input[type='checkbox']:where(:not(:host *)),
-:host .control {
+:host [part~='control'] {
   flex: 0 0 auto;
   position: relative;
   display: inline-flex;
@@ -75,7 +75,7 @@ input[type='checkbox']:where(:not(:host *)) + label,
 
 /* Checked */
 input[type='checkbox']:is(:checked, :indeterminate):where(:not(:host *)),
-[part~='base'] .control:has(:checked, :indeterminate) /* scoping this rule to :host breaks in Firefox */ {
+[part~='base'] [part~="control"]:has(:checked, :indeterminate) /* scoping this rule to :host breaks in Firefox */ {
   color: var(--checked-icon-color);
   border-color: var(--border-color-checked);
   background-color: var(--background-color-checked);
@@ -83,7 +83,7 @@ input[type='checkbox']:is(:checked, :indeterminate):where(:not(:host *)),
 
 /* Focus */
 input[type='checkbox']:focus-visible:where(:not(:host *)),
-[part~='base'] .control:has(> input:focus-visible:not(:disabled)) /* scoping this rule to :host breaks in Firefox */ {
+[part~='base'] [part~="control"]:has(> input:focus-visible:not(:disabled)) /* scoping this rule to :host breaks in Firefox */ {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
