@@ -4,10 +4,6 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -27,10 +23,10 @@ import styles from './textarea.css';
  * @slot label - The textarea's label. Alternatively, you can use the `label` attribute.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-change - Emitted when an alteration to the control's value is committed by the user.
- * @event wa-focus - Emitted when the control gains focus.
- * @event wa-input - Emitted when the control receives input.
+ * @event blur - Emitted when the control loses focus.
+ * @event change - Emitted when an alteration to the control's value is committed by the user.
+ * @event focus - Emitted when the control gains focus.
+ * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label
@@ -54,7 +50,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     return [...super.validators, MirrorValidator()];
   }
 
-  assumeInteractionOn = ['wa-blur', 'wa-input'];
+  assumeInteractionOn = ['blur', 'input'];
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private resizeObserver: ResizeObserver;
 
@@ -204,26 +200,20 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
     this.checkValidity();
   }
 
-  private handleChange() {
+  private handleChange(event: Event) {
     this.valueHasChanged = true;
     this.value = this.input.value;
     this.setTextareaDimensions();
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchComposedEvent(event);
     this.checkValidity();
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
   }
 
   private handleInput() {
     this.valueHasChanged = true;
     this.value = this.input.value;
-    this.dispatchEvent(new WaInputEvent());
   }
 
   private setTextareaDimensions() {
@@ -382,7 +372,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           aria-describedby="hint"
           @change=${this.handleChange}
           @input=${this.handleInput}
-          @focus=${this.handleFocus}
           @blur=${this.handleBlur}
         ></textarea>
 
