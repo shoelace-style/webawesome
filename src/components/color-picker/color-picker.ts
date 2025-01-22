@@ -273,7 +273,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this.setColor(this.value || '');
-    this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+    this.dispatchEvent(new Event('change'));
     this.dispatchEvent(new InputEvent('input'));
   }
 
@@ -300,7 +300,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+          this.dispatchEvent(new Event('change'));
         }
       },
       initialEvent: event,
@@ -330,7 +330,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+          this.dispatchEvent(new Event('change'));
         }
       },
       initialEvent: event,
@@ -364,7 +364,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.isDraggingGridHandle = false;
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+          this.dispatchEvent(new Event('change'));
         }
       },
       initialEvent: event,
@@ -401,7 +401,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== oldValue) {
       this.dispatchEvent(new InputEvent('input'));
-      this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+      this.dispatchEvent(new Event('change'));
     }
   }
 
@@ -435,7 +435,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== oldValue) {
       this.dispatchEvent(new InputEvent('input'));
-      this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+      this.dispatchEvent(new Event('change'));
     }
   }
 
@@ -469,7 +469,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== oldValue) {
       this.dispatchEvent(new InputEvent('input'));
-      this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+      this.dispatchEvent(new Event('change'));
     }
   }
 
@@ -489,7 +489,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     if (this.value !== oldValue) {
       this.dispatchEvent(new InputEvent('input'));
-      this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+      this.dispatchEvent(new Event('change'));
     }
   }
 
@@ -510,7 +510,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== oldValue) {
           this.dispatchEvent(new InputEvent('input'));
-          this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+          this.dispatchEvent(new Event('change'));
         }
 
         setTimeout(() => this.input.select());
@@ -686,7 +686,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== oldValue) {
           this.dispatchEvent(new InputEvent('input'));
-          this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+          this.dispatchEvent(new Event('change'));
         }
       })
       .catch(() => {
@@ -702,7 +702,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       if (this.value !== oldValue) {
         this.dispatchEvent(new InputEvent('input'));
-        this.dispatchEvent(new Event('change', { composed: true, bubbles: true }));
+        this.dispatchEvent(new Event('change'));
       }
     }
   }
