@@ -1,4 +1,5 @@
 {
   "layout": "theme.njk",
+  "wide": true,
   "tags": ["themes", "theme"]
 }

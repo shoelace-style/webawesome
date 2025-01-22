@@ -16,7 +16,7 @@
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
   </head>
-  <body class="layout-{{ layout | stripExtension }}">
+  <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
     <wa-page view="desktop" disable-navigation-toggle="">
       <header slot="header" class="wa-split">
