@@ -110,43 +110,44 @@ TODO Page Description
 ### Table
 ```html{.example}
 <div class="invoice-table">
-  <div class="invoice-totals" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal))">
-    <dl>
+  <div class="invoice-totals" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); display: flex; justify-content: space-between;padding-inline: 1rem; padding-block: 1rem;">
+    <dl class="wa-grid" style="grid-template-columns: repeat(3, 1fr); --wa-space-xl: 0;">
       <div>
         <dt>Date Placed</dt>
-        <dd>
+        <dd style="--wa-space-m: 0;">
           <time datetime="2021-01-22">January 22, 2021</time>
         </dd>
       </div>
       <div>
         <dt>Order Number</dt>
-        <dd>
+        <dd style="--wa-space-m: 0;">
           WU88191111
         </dd>
       </div>
       <div>
         <dt>Total Amount</dt>
-        <dd>
+        <dd style="--wa-space-m: 0;">
           $238.00
         </dd>
       </div>
     </dl>
     <wa-button>View Invoice</wa-button>
   </div>
-  <table>
+  <table class="wa-zebra-rows wa-brand">
+    <caption>Order History</caption>
     <thead>
       <tr>
         <th>Product</th>
-        <th>Product</th>
-        <th>Product</th>
-        <th>Product</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>info</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <div>
-            <img src="#" />
+          <div style="display: flex">
+            <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
             <div>
               <div>Machined Pen and Pencil Set</div>
               <div>$70.00</div>
@@ -154,7 +155,49 @@ TODO Page Description
           </div>
         </td>
         <td>$70.00</td>
-        <td>Delivered Jan 25, 2021</td>\
+        <td>Delivered Jan 25, 2021</td>
+        <td><a href="#">View</a></td>
+      </tr>
+      <tr>
+        <td>
+          <div style="display: flex">
+            <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
+            <div>
+              <div>Machined Pen and Pencil Set</div>
+              <div>$70.00</div>
+            </div>
+          </div>
+        </td>
+        <td>$70.00</td>
+        <td>Delivered Jan 25, 2021</td>
+        <td><a href="#">View</a></td>
+      </tr>
+      <tr>
+        <td>
+          <div style="display: flex">
+            <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
+            <div>
+              <div>Machined Pen and Pencil Set</div>
+              <div>$70.00</div>
+            </div>
+          </div>
+        </td>
+        <td>$70.00</td>
+        <td>Delivered Jan 25, 2021</td>
+        <td><a href="#">View</a></td>
+      </tr>
+      <tr>
+        <td>
+          <div style="display: flex">
+            <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
+            <div>
+              <div>Machined Pen and Pencil Set</div>
+              <div>$70.00</div>
+            </div>
+          </div>
+        </td>
+        <td>$70.00</td>
+        <td>Delivered Jan 25, 2021</td>
         <td><a href="#">View</a></td>
       </tr>
     </tbody>
@@ -163,12 +206,12 @@ TODO Page Description
 <style>
   .invoice-totals {
    
-    dl {
-      div {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid var(--wa-color-surface-border);
-      }
-    }
+   
+  }
+  </style>
 
+```
+
+### List with Quick Actions
+```html{example}
 ```
