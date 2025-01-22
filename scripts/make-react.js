@@ -24,7 +24,7 @@ for await (const component of components) {
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');
   const importPath = component.path.replace(/\.js$/, '.js');
-  const eventImports = (component.events || [])
+  const eventImports = (component.events?.filter(event => event.eventName.startsWith('wa-')) || [])
     .map(event => `import type { ${event.eventName} } from '../../events/events.js';`)
     .join('\n');
   const eventExports = (component.events || [])
