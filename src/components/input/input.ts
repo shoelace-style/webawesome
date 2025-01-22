@@ -234,7 +234,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     if (this.value !== '') {
       this.value = '';
       this.dispatchEvent(new WaClearEvent());
-      this.dispatchEvent(new Event('input'));
+      this.dispatchEvent(new InputEvent('input'));
       this.dispatchEvent(new Event('change'));
     }
 
