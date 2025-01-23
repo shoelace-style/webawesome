@@ -76,7 +76,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
 
   /** The button's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, default: 'inherit' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ type: Boolean, reflect: true }) caret = false;
