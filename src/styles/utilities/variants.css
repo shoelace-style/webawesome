@@ -3,7 +3,21 @@
  */
 
 /**
- * Element defaults
+ * Register color properties so that the space toggle hack can work.
+ */
+@property --wa-color-fill-loud     { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-fill-normal   { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-fill-quiet    { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-border-loud   { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-border-normal { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-border-quiet  { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-on-loud       { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-on-normal     { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wa-color-on-quiet      { syntax: '<color>'; inherits: true; initial-value: transparent; }
+
+/**
+ * Element defaults.
+   We want these to resolve to inherit when inside a variant, and only be applied when not inside an explicit variant.
  */
 
 :host(wa-callout),
