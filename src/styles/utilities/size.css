@@ -1,17 +1,39 @@
-/* Shadow styles for elements that have a size attribute. */
+/**
+ * Shadow styles for elements that have a size attribute and for the size utility classes.
+ */
+/* Defaults */
+:where(:root),
+:host {
+  --wa-size: var(--wa-font-size-m, 1rem);
+  --wa-size-smaller: var(--wa-font-size-s, 0.875rem);
+  --wa-space: var(--wa-space-m, 1rem);
+  --wa-space-smaller: var(--wa-space-s, 0.75rem);
+
+  --wa-size-s-index: 0;
+  --wa-size-m-index: 1;
+  --wa-size-l-index: 2;
+
+  /* "Private" helper variables to make interpolation expressions more palatable */
+  --_s-m: (var(--wa-size-s-index) - var(--wa-size-m-index));
+  --_s-l: (var(--wa-size-s-index) - var(--wa-size-l-index));
+  --_m-l: (var(--wa-size-m-index) - var(--wa-size-l-index));
+  --_m-s: (var(--wa-size-m-index) - var(--wa-size-s-index));
+  --_l-s: (var(--wa-size-l-index) - var(--wa-size-s-index));
+  --_l-m: (var(--wa-size-l-index) - var(--wa-size-m-index));
+}
 
 :host,
 :where(.wa-size-s, .wa-size-m, .wa-size-l) {
   /* Defaults. Components are expected to override these */
   --size-xs: var(--wa-font-size-xs, 0.75rem); /* Used for hints etc */
-  --size-s: var(--wa-font-size-s, 0.875rem); /* size=small */
-  --size-m: var(--wa-font-size-m, 1rem); /* default */
-  --size-l: var(--wa-font-size-l, 1.25rem); /* size=large */
+  --wa-size-small: var(--wa-font-size-s, 0.875rem); /* size=small */
+  --wa-size-medium: var(--wa-font-size-m, 1rem); /* default */
+  --wa-size-large: var(--wa-font-size-l, 1.25rem); /* size=large */
 
   --space-xs: var(--wa-space-xs, 0.5rem);
-  --space-s: var(--wa-space-s, 0.75rem);
-  --space-m: var(--wa-space-m, 1rem);
-  --space-l: var(--wa-space-l, 1.25rem);
+  --wa-space-small: var(--wa-space-s, 0.75rem);
+  --wa-space-medium: var(--wa-space-m, 1rem);
+  --wa-space-large: var(--wa-space-l, 1.25rem);
 
   font-size: var(--wa-size);
 }
@@ -29,36 +51,45 @@
   }
 
   /* Each of these is 1 for the corresponding size and 0 otherwise */
-  --wa-is-small: calc((var(--wa-size-index) - 1) * (var(--wa-size-index) - 2) / ((0 - 1) * (0 - 2)));
-  --wa-is-medium: calc((var(--wa-size-index) - 0) * (var(--wa-size-index) - 2) / ((1 - 0) * (1 - 2)));
-  --wa-is-large: calc((var(--wa-size-index) - 0) * (var(--wa-size-index) - 1) / ((2 - 0) * (2 - 1)));
+  --wa-is-small: calc(var(--_i-m) * var(--_i-l) / (var(--_s-m) * var(--_s-l)));
+  --wa-is-medium: calc(var(--_i-s) * var(--_i-l) / (var(--_m-s) * var(--_m-l)));
+  --wa-is-large: calc(var(--_i-s) * var(--_i-m) / (var(--_l-s) * var(--_l-m)));
+
+  /* "Private" helper variables to make interpolation expressions more palatable */
+  --_i-s: (var(--wa-size-index) - var(--wa-size-s-index));
+  --_i-m: (var(--wa-size-index) - var(--wa-size-m-index));
+  --_i-l: (var(--wa-size-index) - var(--wa-size-l-index));
 
   --wa-size: calc(
-    var(--wa-is-small) * var(--size-s) + var(--wa-is-medium) * var(--size-m) + var(--wa-is-large) * var(--size-l)
+    var(--wa-is-small) * var(--wa-size-small) + var(--wa-is-medium) * var(--wa-size-medium) + var(--wa-is-large) *
+      var(--wa-size-large)
   );
   --wa-size-smaller: calc(
-    var(--wa-is-small) * var(--size-xs) + var(--wa-is-medium) * var(--size-s) + var(--wa-is-large) * var(--size-m)
+    var(--wa-is-small) * var(--size-xs) + var(--wa-is-medium) * var(--wa-size-small) + var(--wa-is-large) *
+      var(--wa-size-medium)
   );
   --wa-space: calc(
-    var(--wa-is-small) * var(--space-s) + var(--wa-is-medium) * var(--space-m) + var(--wa-is-large) * var(--space-l)
+    var(--wa-is-small) * var(--wa-space-small) + var(--wa-is-medium) * var(--wa-space-medium) + var(--wa-is-large) *
+      var(--wa-space-large)
   );
   --wa-space-smaller: calc(
-    var(--wa-is-small) * var(--space-xs) + var(--wa-is-medium) * var(--space-s) + var(--wa-is-large) * var(--space-m)
+    var(--wa-is-small) * var(--space-xs) + var(--wa-is-medium) * var(--wa-space-small) + var(--wa-is-large) *
+      var(--wa-space-medium)
   );
 }
 
 :host([size='small']),
 .wa-size-s {
-  --wa-size-index: 0;
+  --wa-size-index: var(--wa-size-s-index);
 }
 
 :root, /* Medium size is the default */
 :host([size='medium']),
 .wa-size-m {
-  --wa-size-index: 1;
+  --wa-size-index: var(--wa-size-m-index);
 }
 
 :host([size='large']),
 .wa-size-l {
-  --wa-size-index: 2;
+  --wa-size-index: var(--wa-size-l-index);
 }

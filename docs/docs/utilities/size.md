@@ -66,13 +66,13 @@ The first thing you need to do is define these 8 properties in your CSS for your
 | Custom property | Default value |
 | --------------- | ------------- |
 | `--size-xs` | `var(--wa-font-size-xs)` |
-| `--size-s` | `var(--wa-font-size-s)` |
-| `--size-m` | `var(--wa-font-size-m)` |
-| `--size-l` | `var(--wa-font-size-l)` |
+| `--wa-size-small` | `var(--wa-font-size-s)` |
+| `--wa-size-medium` | `var(--wa-font-size-m)` |
+| `--wa-size-large` | `var(--wa-font-size-l)` |
 | `--space-xs` | `var(--wa-space-xs)` |
-| `--space-s` | `var(--wa-space-s)` |
-| `--space-m` | `var(--wa-space-m)` |
-| `--space-l` | `var(--wa-space-l)` |
+| `--wa-space-small` | `var(--wa-space-s)` |
+| `--wa-space-medium` | `var(--wa-space-m)` |
+| `--wa-space-large` | `var(--wa-space-l)` |
 
 
 It would look like this:
@@ -80,14 +80,14 @@ It would look like this:
 ```css
 .tag2 {
 	--size-xs: var(--wa-font-size-2xs);
-	--size-s: var(--wa-font-size-xs);
-	--size-m: var(--wa-font-size-s);
-	--size-l: var(--wa-font-size-m);
+	--wa-size-small: var(--wa-font-size-xs);
+	--wa-size-medium: var(--wa-font-size-s);
+	--wa-size-large: var(--wa-font-size-m);
 
 	--space-xs: var(--wa-space-2xs);
-	--space-s: var(--wa-space-xs);
-	--space-m: var(--wa-space-s);
-	--space-l: var(--wa-space-m);
+	--wa-space-small: var(--wa-space-xs);
+	--wa-space-medium: var(--wa-space-s);
+	--wa-space-large: var(--wa-space-m);
 }
 ```
 
@@ -102,14 +102,14 @@ That by itself is sufficient to give you sizes when the utility classes are used
 <style>
   .tag2 {
 	--size-xs: var(--wa-font-size-2xs);
-	--size-s: var(--wa-font-size-xs);
-	--size-m: var(--wa-font-size-s);
-	--size-l: var(--wa-font-size-m);
+	--wa-size-small: var(--wa-font-size-xs);
+	--wa-size-medium: var(--wa-font-size-s);
+	--wa-size-large: var(--wa-font-size-m);
 
 	--space-xs: var(--wa-space-2xs);
-	--space-s: var(--wa-space-xs);
-	--space-m: var(--wa-space-s);
-	--space-l: var(--wa-space-m);
+	--wa-space-small: var(--wa-space-xs);
+	--wa-space-medium: var(--wa-space-s);
+	--wa-space-large: var(--wa-space-m);
 
 	display: inline-block;
 	font-size: var(--wa-size); /* needed for the default size */
@@ -135,21 +135,21 @@ Supporting a default size as well requires a little bit more plumbing:
 <style>
   .tag3 {
 	--size-xs: var(--wa-font-size-2xs);
-	--size-s: var(--wa-font-size-xs);
-	--size-m: var(--wa-font-size-s);
-	--size-l: var(--wa-font-size-m);
+	--wa-size-small: var(--wa-font-size-xs);
+	--wa-size-medium: var(--wa-font-size-s);
+	--wa-size-large: var(--wa-font-size-m);
 
 	--space-xs: var(--wa-space-2xs);
-	--space-s: var(--wa-space-xs);
-	--space-m: var(--wa-space-s);
-	--space-l: var(--wa-space-m);
+	--wa-space-small: var(--wa-space-xs);
+	--wa-space-medium: var(--wa-space-s);
+	--wa-space-large: var(--wa-space-m);
 
 	/* Default size assignments with 0 specificity */
 	:where(&) {
-		--wa-size: var(--size-m);
-		--wa-size-smaller: var(--size-s);
-		--wa-space: var(--space-m);
-		--wa-space-smaller: var(--space-s);
+		--wa-size: var(--wa-size-medium);
+		--wa-size-smaller: var(--wa-size-small);
+		--wa-space: var(--wa-space-medium);
+		--wa-space-smaller: var(--wa-space-small);
 	}
 
 	display: inline-block;

@@ -1,7 +1,7 @@
 :host {
-  --size-s: var(--wa-font-size-xs);
-  --size-m: var(--wa-font-size-s);
-  --size-l: var(--wa-font-size-m);
+  --wa-size-small: var(--wa-font-size-xs);
+  --wa-size-medium: var(--wa-font-size-s);
+  --wa-size-large: var(--wa-font-size-m);
 
   display: inline-flex;
   border-radius: var(--wa-border-radius-m);
