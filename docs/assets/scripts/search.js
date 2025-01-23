@@ -9,6 +9,7 @@ const icons = {
   component: 'puzzle-piece',
   document: 'file',
   home: 'house',
+  native: 'code',
   theme: 'palette',
 };
 let searchTimeout;
@@ -166,6 +167,7 @@ async function updateResults(query = '') {
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
 
       if (page.url === '/') icon = icons.home;
+      if (page.url.startsWith('/docs/native')) icon = icons.native;
       if (page.url.startsWith('/docs/components')) icon = icons.component;
       if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = icons.theme;
 

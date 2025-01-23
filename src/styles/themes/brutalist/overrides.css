@@ -1,0 +1,89 @@
+:where(:root),
+:host,
+.wa-theme-brutalist {
+  blockquote,
+  pre {
+    border-inline-start: var(--wa-border-style) var(--wa-border-width-m) var(--wa-color-surface-border);
+  }
+  wa-badge {
+    text-transform: uppercase;
+  }
+
+  wa-callout,
+  wa-tag {
+    border-inline-start-color: var(--border-color, var(--wa-color-border-loud));
+    border-inline-start-width: var(--wa-border-width-s);
+
+    &:not([appearance~='outlined'], .wa-outlined) {
+      border-block-start-width: 0;
+      border-block-end-width: 0;
+      border-inline-end-width: 0;
+    }
+
+    &:not([appearance~='accent'], .wa-accent) {
+      --icon-color: var(--wa-color-fill-loud);
+      --text-color: var(--wa-color-text-normal);
+    }
+  }
+
+  wa-callout,
+  .wa-callout {
+    --spacing: var(--wa-space-s) var(--wa-space-m);
+
+    &::part(icon) {
+      --spacing: var(--wa-space-m);
+    }
+  }
+
+  wa-carousel {
+    --pagination-color: var(--wa-color-neutral-fill-normal);
+  }
+
+  wa-carousel::part(scroll-container) {
+    padding: var(--wa-shadow-offset-y-s) var(--wa-shadow-offset-x-s); /* make room for the box-shadow */
+  }
+
+  wa-carousel::part(pagination-item),
+  wa-image-comparer::part(handle),
+  wa-progress-bar::part(base),
+  wa-slider::part(base),
+  input[type='range'],
+  wa-switch::part(control),
+  wa-switch::part(thumb) {
+    border-radius: var(--wa-border-radius-square);
+  }
+
+  wa-carousel-item {
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+    box-shadow: var(--wa-shadow-s);
+  }
+
+  :is(
+    input:where(
+        :not(
+          [type='button'],
+          [type='checkbox'],
+          [type='color'],
+          [type='file'],
+          [type='hidden'],
+          [type='image'],
+          [type='radio'],
+          [type='range'],
+          [type='reset'],
+          [type='submit']
+        )
+      ),
+    select,
+    textarea,
+    wa-input,
+    wa-select,
+    wa-textarea,
+    .wa-text-field
+  ) {
+    --border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
+  }
+
+  wa-rating {
+    --symbol-color-active: var(--wa-color-neutral-fill-loud);
+  }
+}

@@ -17,16 +17,13 @@
 .before,
 .after {
   display: block;
-  pointer-events: none;
-}
 
-.before::slotted(img),
-.after::slotted(img),
-.before::slotted(svg),
-.after::slotted(svg) {
-  display: block;
-  max-width: 100% !important;
-  height: auto;
+  &::slotted(img),
+  &::slotted(svg) {
+    display: block;
+    max-width: 100% !important;
+    height: auto;
+  }
 }
 
 .after {

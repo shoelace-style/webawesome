@@ -1,6 +1,12 @@
 pre {
   background-color: var(--wa-color-gray-20);
   color: white;
+
+  /* Ensures a discernible background color in dark mode
+   * Useful for themes that use gray-20 as --wa-color-surface-default  */
+  .wa-dark & {
+    background-color: var(--wa-color-surface-lowered);
+  }
 }
 .code-comment,
 .code-prolog,

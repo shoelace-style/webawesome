@@ -1,0 +1,31 @@
+@import url('glossy/color.css');
+@import url('default/space.css');
+@import url('default/outlines.css');
+@import url('glossy/typography.css');
+@import url('default/rounding.css');
+@import url('default/shadows.css');
+@import url('default/transitions.css');
+@import url('default/groups.css');
+@import url('glossy/overrides.css');
+
+:where(:root),
+:host,
+.wa-theme-mellow,
+.wa-dark,
+.wa-light,
+.wa-invert {
+  /**
+   * Spacing
+   */
+  --wa-space-scale: 1.125;
+
+  /**
+   * Rounding
+   */
+  --wa-border-radius-scale: 1.33;
+
+  /**
+   * Shadows
+   */
+  --wa-shadow-blur-scale: 3;
+}

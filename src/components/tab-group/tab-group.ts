@@ -90,17 +90,22 @@ export default class WaTabGroup extends WebAwesomeElement {
         setTimeout(() => this.setAriaLabels());
       }
 
+      // Only process mutations for elements that are children of this tab group
+      const relevantMutations = mutations.filter(m => {
+        const target = m.target as HTMLElement;
+        return target.closest('wa-tab-group') === this;
+      });
+
       // Sync tabs when disabled states change
-      if (mutations.some(m => m.attributeName === 'disabled')) {
+      if (relevantMutations.some(m => m.attributeName === 'disabled')) {
         this.syncTabsAndPanels();
-        // sync tabs when active state on tab changes
-      } else if (mutations.some(m => m.attributeName === 'active')) {
-        const tabs = mutations
+      } else if (relevantMutations.some(m => m.attributeName === 'active')) {
+        const tabs = relevantMutations
           .filter(m => m.attributeName === 'active' && (m.target as HTMLElement).tagName.toLowerCase() === 'wa-tab')
           .map(m => m.target as WaTab);
         const newActiveTab = tabs.find(tab => tab.active);
 
-        if (newActiveTab) {
+        if (newActiveTab && newActiveTab.closest('wa-tab-group') === this) {
           this.setActiveTab(newActiveTab);
         }
       }
@@ -164,7 +169,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     const tab = target.closest('wa-tab');
     const tabGroup = tab?.closest('wa-tab-group');
 
-    // Ensure the target tab is in this tab group
+    // Ensure the target tab is in this specific tab group instance
     if (tabGroup !== this) {
       return;
     }
@@ -179,7 +184,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     const tab = target.closest('wa-tab');
     const tabGroup = tab?.closest('wa-tab-group');
 
-    // Ensure the target tab is in this tab group
+    // Ensure the target tab is in this specific tab group instance
     if (tabGroup !== this) {
       return;
     }
@@ -296,6 +301,11 @@ export default class WaTabGroup extends WebAwesomeElement {
       scrollBehavior: 'auto',
       ...options,
     };
+
+    // Ensure the tab belongs to this tab group before activating
+    if (tab.closest('wa-tab-group') !== this) {
+      return;
+    }
 
     if (tab !== this.activeTab && !tab.disabled) {
       const previousTab = this.activeTab;

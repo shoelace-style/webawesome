@@ -1,0 +1,144 @@
+<div class="showcase-examples-wrapper" aria-hidden="true" data-no-outline>
+  <div class="showcase-examples">
+    <wa-card with-header with-footer>
+      <div slot="header" class="wa-split">
+        <h3 class="wa-heading-m">Your Cart</h3>
+        <wa-icon-button name="xmark" tabindex="-1"></wa-icon-button>
+      </div>
+      <div class="wa-stack wa-gap-xl">
+        <div class="wa-flank">
+          <wa-avatar shape="rounded" style="--size: 3em; --background-color: var(--wa-color-green-60); --text-color: var(--wa-color-green-95);">
+            <wa-icon slot="icon" name="sword-laser" family="duotone" style="font-size: 1.5em;"></wa-icon>
+          </wa-avatar>
+          <div class="wa-stack wa-gap-2xs">
+            <div class="wa-split wa-gap-2xs">
+              <strong>Initiate Saber</strong>
+              <strong>$179.99</strong>
+            </div>
+            <div class="wa-split wa-gap-2xs wa-caption-m">
+              <span>Green</span>
+              <a href="#" tabindex="-1">Remove</a>
+            </div>
+          </div>
+        </div>
+        <wa-divider></wa-divider>
+        <div class="wa-flank">
+          <wa-avatar shape="rounded" style="--size: 3em; --background-color: var(--wa-color-teal-60); --text-color: var(--wa-color-teal-95);">
+            <wa-icon slot="icon" name="robot-astromech" family="duotone" style="font-size: 1.5em;"></wa-icon>
+          </wa-avatar>
+          <div class="wa-stack wa-gap-2xs">
+            <div class="wa-split wa-gap-2xs">
+              <strong>Repair Droid</strong>
+              <strong>$3,049.99</strong>
+            </div>
+            <div class="wa-split wa-gap-2xs wa-caption-m">
+              <span>R-series</span>
+              <a href="#" tabindex="-1">Remove</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer" class="wa-stack">
+        <div class="wa-split">
+          <strong>Subtotal</strong>
+          <strong>$3,229.98</strong>
+        </div>
+        <span class="wa-caption-m">Shipping and taxes calculated at checkout.</span>
+        <wa-button tabindex="-1" variant="brand">
+          <wa-icon slot="prefix" name="shopping-bag"></wa-icon>
+          Checkout
+        </wa-button>
+      </div>
+    </wa-card>
+    <wa-card>
+      <wa-avatar shape="rounded" style="--size: 1.9lh; float: left; margin-right: var(--wa-space-m);">
+        <wa-icon slot="icon" name="hat-wizard" family="duotone" style="font-size: 1.75em;"></wa-icon>
+      </wa-avatar>
+      <p class="wa-body-l" style="margin: 0;">&ldquo;All we have to decide is what to do with the time that is given to us. There are other forces at work in this world, Frodo, besides the will of evil.&rdquo;</p>
+    </wa-card>
+    <wa-card>
+      <div class="wa-stack">
+        <h3 class="wa-heading-m">Sign In</h3>
+        <wa-input tabindex="-1" label="Email" placeholder="ddjarin@mandalore.gov">
+          <wa-icon slot="prefix" name="envelope" variant="regular"></wa-icon>
+        </wa-input>
+        <wa-input tabindex="-1" label="Password" type="password">
+          <wa-icon slot="prefix" name="lock" variant="regular"></wa-icon>
+        </wa-input>
+        <wa-button tabindex="-1" variant="brand">Sign In</wa-button>
+        <a href="#" tabindex="-1" class="wa-body-s">I forgot my password</a>
+      </div>
+    </wa-card>
+    <wa-card with-footer>
+      <div class="wa-stack">
+        <div class="wa-split">
+          <h3 class="wa-heading-m">To-Do</h3>
+          <wa-icon-button tabindex="-1" name="plus" label="Add task"></wa-icon-button>
+        </div>
+        <wa-checkbox tabindex="-1" checked>Umbrella for Adelard</wa-checkbox>
+        <wa-checkbox tabindex="-1" checked>Waste-paper basket for Dora</wa-checkbox>
+        <wa-checkbox tabindex="-1" checked>Pen and ink for Milo</wa-checkbox>
+        <wa-checkbox tabindex="-1">Mirror for Angelica</wa-checkbox>
+        <wa-checkbox tabindex="-1">Silver spoons for Lobelia</wa-checkbox>
+      </div>
+      <div slot="footer">
+        <a href="" tabindex="-1">View all completed</a>
+      </div>
+    </wa-card>
+    <wa-card>
+      <div class="wa-stack">
+        <div class="wa-frame wa-border-radius-m" style="align-self: center; max-inline-size: 25ch;">
+          <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="Album art">
+        </div>
+        <div class="wa-flank:end wa-align-items-start">
+          <div class="wa-stack wa-gap-3xs">
+            <div class="wa-cluster wa-gap-xs" style="height: 2.25em;">
+              <strong>The Stone Troll</strong>
+              <small><wa-badge variant="neutral" appearance="filled">E</wa-badge></small>
+            </div>
+            <span class="wa-caption-m">Samwise G</span>
+          </div>
+          <wa-icon-button tabindex="-1" name="ellipsis" label="Options"></wa-icon-button>
+        </div>
+        <div class="wa-stack wa-gap-2xs">
+          <wa-progress-bar value="34" style="height: 0.5em"></wa-progress-bar>
+          <div class="wa-split">
+            <span class="wa-caption-xs">1:01</span>
+            <span class="wa-caption-xs">-1:58</span>
+          </div>
+        </div>
+        <div class="wa-grid wa-align-items-center" style="--min-column-size: 1em; justify-items: center;">
+          <wa-icon-button tabindex="-1" name="backward" label="Skip backward"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="pause" style="font-size: var(--wa-font-size-2xl);" label="Pause"></wa-icon-button>
+          <wa-icon-button tabindex="-1" name="forward" label="Skip forward"></wa-icon-button>
+        </div>
+      </div>
+    </wa-card>
+    <wa-card>
+      <div class="wa-stack">
+        <h3 class="wa-heading-m">Chalmun's Spaceport Cantina</h3>
+        <div class="wa-cluster wa-gap-xs">
+          <wa-rating value="4.6" read-only></wa-rating>
+          <strong>4.6</strong>
+          <span>(419 reviews)</span>
+        </div>
+        <div class="wa-cluster wa-gap-xs">
+          <div class="wa-cluster wa-gap-3xs">
+            <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
+            <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
+            <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
+          </div>
+          <span class="wa-caption-m">&bull;</span>
+          <wa-tag size="small">Cocktail Bar</wa-tag>
+          <wa-tag size="small">Gastropub</wa-tag>
+          <wa-tag size="small">Local Fare</wa-tag>
+          <wa-tag size="small">Gluten Free</wa-tag>
+        </div>
+        <div class="wa-flank wa-gap-xs">
+          <wa-icon name="location-dot"></wa-icon>
+          <a href="#" class="wa-caption-m" tabindex="-1">Mos Eisley, Tatooine</a>
+        </div>
+      </div>
+    </wa-card>
+  </div>
+</div>
