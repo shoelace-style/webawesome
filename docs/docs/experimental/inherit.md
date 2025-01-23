@@ -54,7 +54,11 @@ wide: true
 <table>
 	<thead>
 		<tr>
+			{% if parent == child -%}
+			<th>👇 Parent / Child 👉</th>
+			{% else %}
 			<th>👇 {{ parent | capitalize }} / {{ child | capitalize }} 👉</th>
+			{%- endif %}
 			<th>Default</th>
 			<th>Neutral</th>
 			<th>Brand</th>
