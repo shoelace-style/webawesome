@@ -17,7 +17,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - 🚨 BREAKING: updated all components to use native events instead of `wa-` prefixed events. This will allow components to work more like native elements in your code, frameworks, third-party plugins, etc. To update your code, simply remove the prefix from your event listeners for the following events.
   - `wa-input` => `input`
   - `wa-change` => `change`
-  - `wa-blur` => `blur` (this event will no longer bubble)
+  - `wa-blur` => `blur` (this event will no longer bubble, use `focusout` for a bubbling version)
   - `wa-focus` => `focus` (this event will no longer bubble)
 - Added `.wa-callout` utility class
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
