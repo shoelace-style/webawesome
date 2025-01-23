@@ -27,29 +27,38 @@
   @supports (height: round(1.2px, 1px)) {
     --wa-form-control-height: round(var(--_wa-form-control-height), 1px);
   }
+
+  /* Each of these is 1 for the corresponding size and 0 otherwise */
+  --wa-is-small: calc((var(--wa-size-index) - 1) * (var(--wa-size-index) - 2) / ((0 - 1) * (0 - 2)));
+  --wa-is-medium: calc((var(--wa-size-index) - 0) * (var(--wa-size-index) - 2) / ((1 - 0) * (1 - 2)));
+  --wa-is-large: calc((var(--wa-size-index) - 0) * (var(--wa-size-index) - 1) / ((2 - 0) * (2 - 1)));
+
+  --wa-size: calc(
+    var(--wa-is-small) * var(--size-s) + var(--wa-is-medium) * var(--size-m) + var(--wa-is-large) * var(--size-l)
+  );
+  --wa-size-smaller: calc(
+    var(--wa-is-small) * var(--size-xs) + var(--wa-is-medium) * var(--size-s) + var(--wa-is-large) * var(--size-m)
+  );
+  --wa-space: calc(
+    var(--wa-is-small) * var(--space-s) + var(--wa-is-medium) * var(--space-m) + var(--wa-is-large) * var(--space-l)
+  );
+  --wa-space-smaller: calc(
+    var(--wa-is-small) * var(--space-xs) + var(--wa-is-medium) * var(--space-s) + var(--wa-is-large) * var(--space-m)
+  );
 }
 
 :host([size='small']),
 .wa-size-s {
-  --wa-size: var(--size-s);
-  --wa-size-smaller: var(--size-xs);
-  --wa-space: var(--space-s);
-  --wa-space-smaller: var(--space-xs);
+  --wa-size-index: 0;
 }
 
 :root, /* Medium size is the default */
-:host,
+:host([size='medium']),
 .wa-size-m {
-  --wa-size: var(--size-m, var(--wa-font-size-m));
-  --wa-size-smaller: var(--size-s, var(--wa-font-size-s));
-  --wa-space: var(--space-m, var(--wa-space-m));
-  --wa-space-smaller: var(--space-s, var(--wa-space-s));
+  --wa-size-index: 1;
 }
 
 :host([size='large']),
 .wa-size-l {
-  --wa-size: var(--size-l);
-  --wa-size-smaller: var(--size-m);
-  --wa-space: var(--space-l);
-  --wa-space-smaller: var(--space-m);
+  --wa-size-index: 2;
 }
