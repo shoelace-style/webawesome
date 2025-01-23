@@ -65,11 +65,11 @@ The first thing you need to do is define these 8 properties in your CSS for your
 
 | Custom property | Default value |
 | --------------- | ------------- |
-| `--size-xs` | `var(--wa-font-size-xs)` |
+| `--wa-size-xsmall` | `var(--wa-font-size-xs)` |
 | `--wa-size-small` | `var(--wa-font-size-s)` |
 | `--wa-size-medium` | `var(--wa-font-size-m)` |
 | `--wa-size-large` | `var(--wa-font-size-l)` |
-| `--space-xs` | `var(--wa-space-xs)` |
+| `--wa-space-xsmall` | `var(--wa-space-xs)` |
 | `--wa-space-small` | `var(--wa-space-s)` |
 | `--wa-space-medium` | `var(--wa-space-m)` |
 | `--wa-space-large` | `var(--wa-space-l)` |
@@ -79,12 +79,12 @@ It would look like this:
 
 ```css
 .tag2 {
-	--size-xs: var(--wa-font-size-2xs);
+	--wa-size-xsmall: var(--wa-font-size-2xs);
 	--wa-size-small: var(--wa-font-size-xs);
 	--wa-size-medium: var(--wa-font-size-s);
 	--wa-size-large: var(--wa-font-size-m);
 
-	--space-xs: var(--wa-space-2xs);
+	--wa-space-xsmall: var(--wa-space-2xs);
 	--wa-space-small: var(--wa-space-xs);
 	--wa-space-medium: var(--wa-space-s);
 	--wa-space-large: var(--wa-space-m);
@@ -101,12 +101,12 @@ That by itself is sufficient to give you sizes when the utility classes are used
 
 <style>
   .tag2 {
-	--size-xs: var(--wa-font-size-2xs);
+	--wa-size-xsmall: var(--wa-font-size-2xs);
 	--wa-size-small: var(--wa-font-size-xs);
 	--wa-size-medium: var(--wa-font-size-s);
 	--wa-size-large: var(--wa-font-size-m);
 
-	--space-xs: var(--wa-space-2xs);
+	--wa-space-xsmall: var(--wa-space-2xs);
 	--wa-space-small: var(--wa-space-xs);
 	--wa-space-medium: var(--wa-space-s);
 	--wa-space-large: var(--wa-space-m);
@@ -134,12 +134,12 @@ Supporting a default size as well requires a little bit more plumbing:
 
 <style>
   .tag3 {
-	--size-xs: var(--wa-font-size-2xs);
+	--wa-size-xsmall: var(--wa-font-size-2xs);
 	--wa-size-small: var(--wa-font-size-xs);
 	--wa-size-medium: var(--wa-font-size-s);
 	--wa-size-large: var(--wa-font-size-m);
 
-	--space-xs: var(--wa-space-2xs);
+	--wa-space-xsmall: var(--wa-space-2xs);
 	--wa-space-small: var(--wa-space-xs);
 	--wa-space-medium: var(--wa-space-s);
 	--wa-space-large: var(--wa-space-m);
