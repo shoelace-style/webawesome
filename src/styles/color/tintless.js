@@ -22,6 +22,10 @@ const defaultAccent = 60;
 // Chroma tolerance: Chroma will need to differ more than this to gravitate away from defaultAccent
 const chromaTolerance = 0.000001;
 
+// Min and max allowed tints
+const minAccentTint = 40;
+const maxAccentTint = 90;
+
 // Used for formatting warnings
 const paletteIdMaxChars = Object.keys(palettes).reduce((max, id) => Math.max(max, id.length), 0);
 const hueMaxChars = Object.keys(palettes.default).reduce((max, id) => Math.max(max, id.length), 0);
@@ -63,8 +67,8 @@ for (let paletteId in palettes) {
       tintCSS = `--wa-color-${hue}-${tint}: ${color} ${lchComment};\n` + tintCSS;
     }
 
-    if (maxChromaTint < 40 || maxChromaTint > 90) {
-      let fakeMaxChromaTint = clamp(40, maxChromaTint, 90);
+    if (maxChromaTint < minAccentTint || maxChromaTint > maxAccentTint) {
+      let fakeMaxChromaTint = clamp(minAccentTint, maxChromaTint, maxAccentTint);
       let huePrefix = hueToChalk(hue)(hue.padEnd(hueMaxChars + 2));
 
       console.warn(
