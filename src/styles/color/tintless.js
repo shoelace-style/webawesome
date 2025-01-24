@@ -78,7 +78,7 @@ for (let paletteId in palettes) {
       maxChromaTint = fakeMaxChromaTint;
 
       if (prefix.trim()) {
-        // First time're encountering an issue with this palette
+        // First time encountering an issue with this palette
         issuePaletteCount++;
 
         // Don't print palette id multiple times
