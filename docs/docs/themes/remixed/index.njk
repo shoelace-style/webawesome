@@ -1,0 +1,84 @@
+---
+title: Remixed
+description: TODO
+isPro: true
+tags: pro
+---
+<link rel="stylesheet" href="{{ page.url }}/style.css">
+{% block header %}
+<script>
+globalThis.defaultPalettes = {
+  {% for theme in collections.theme | sort -%}
+    "{{ theme.fileSlug }}": "{{ theme.data.palette }}",
+  {%- endfor %}
+};
+</script>
+<p id="mix_and_match" class="wa-gap-m">
+  {# <strong>
+    <wa-icon name="merge" slot="prefix"></wa-icon>
+    Remix
+    <wa-icon-button href="#remixing" name="circle-question" slot="suffix" variant="regular" label="How to use?"></wa-icon-button>
+  </strong> #}
+  <wa-select name="base" label="Base:" size="small" value="default">
+    <wa-icon name="brush" slot="prefix" variant="regular"></wa-icon>
+    {% for theme in collections.theme | sort %}
+      {% if theme.fileSlug !== page.fileSlug %}
+      <wa-option value="{{ theme.fileSlug }}" data-palette="{{ theme.data.palette }}">{{ theme.data.title }}</wa-option>
+      {% endif %}
+    {% endfor %}
+  </wa-select>
+
+  <wa-select name="palette" label="Palette" size="small">
+    <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
+    <wa-option value="">(Theme default)</wa-option>
+    <wa-divider></wa-divider>
+    {% for p in collections.palette | sort %}
+      <wa-option value="{{ p.fileSlug }}">{{ p.data.title }}</wa-option>
+    {% endfor %}
+  </wa-select>
+
+  <wa-select name="color" label="Colors from…" size="small" value="">
+    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
+    <wa-option value="">(Theme default)</wa-option>
+    <wa-divider></wa-divider>
+    {% for theme in collections.theme | sort %}
+      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
+    {% endfor %}
+  </wa-select>
+
+  <wa-select name="typography" label="Typography from…" size="small" value="">
+    <wa-icon name="font-case" slot="prefix"></wa-icon>
+    <wa-option value="">(Theme default)</wa-option>
+    <wa-divider></wa-divider>
+    {% for theme in collections.theme | sort %}
+      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
+    {% endfor %}
+  </wa-select>
+</p>
+<script src="{{ page.url }}index.js" type="module"></script>
+
+<wa-callout variant="warning">
+  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+  Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
+</wa-callout>
+{% endblock %}
+
+{% block afterContent %}
+{% markdown %}
+
+## How to use your remixed theme { #remixed-usage }
+
+You can import your remixed theme by importing the individual theme files from the Web Awesome CDN.
+{# Note: If you change the order here, you need to update index.js too #}
+{% set stylesheets = [
+  'styles/themes/default.css',
+  'styles/color/default.css',
+  'styles/themes/default/color.css',
+  'styles/themes/default/typography.css'
+] %}
+{% set stylesheet = 'styles/themes/default/color.css' %}
+{% include 'import-stylesheet-code.md.njk' %}
+
+
+{% endmarkdown %}
+{% endblock %}

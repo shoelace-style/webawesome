@@ -9,6 +9,18 @@ body,
   overflow: hidden;
 }
 
+html.remixed {
+  .remix-link {
+    display: none;
+  }
+}
+
+html:not(.remixed) {
+  #mix_and_match {
+    display: none;
+  }
+}
+
 #mix_and_match {
   font-weight: var(--wa-font-weight-semibold);
   color: var(--wa-color-text-quiet);

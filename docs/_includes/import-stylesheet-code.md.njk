@@ -1,3 +1,5 @@
+{%- if not stylesheets %}{% set stylesheets = [stylesheet] %}{% endif -%}
+
 <wa-tab-group>
 <wa-tab panel="html">In HTML</wa-tab>
 <wa-tab panel="css">In CSS</wa-tab>
@@ -5,14 +7,18 @@
 
 Simply add the following code to the `<head>` of your page:
 ```html
-<link rel="stylesheet" href="{% cdnUrl stylesheet %}" />
+{% for stylesheet in stylesheets -%}
+<link rel="stylesheet" href="{% cdnUrl stylesheet %}" />{% if not loop.last %}
+{% endif %}{% endfor %}
 ```
 </wa-tab-panel>
 <wa-tab-panel name="css">
 
 Simply add the following code at the top of your CSS file:
 ```css
-@import url('{% cdnUrl stylesheet %}');
+{% for stylesheet in stylesheets -%}
+@import url('{% cdnUrl stylesheet %}');{% if not loop.last %}
+{% endif %}{% endfor %}
 ```
 </wa-tab-panel>
 </wa-tab-group>

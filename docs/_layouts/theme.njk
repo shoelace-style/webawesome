@@ -3,64 +3,15 @@
 {# {% set forceTheme = page.fileSlug %} #}
 
 {% extends '../_includes/base.njk' %}
+{% set themeId = page.fileSlug %}
+{% if themeId == 'remixed' -%}
+  {% set themeId = 'default' %}
+{% endif -%}
 
 {% block header %}
-<iframe src='{{ page.url }}demo.html' id="demo"></iframe>
+<iframe src='/docs/themes/{{ themeId }}/demo.html' id="demo"></iframe>
 
-<p id="mix_and_match" class="wa-gap-m">
-  <strong>
-    <wa-icon name="merge" slot="prefix"></wa-icon>
-    Remix
-    <wa-icon-button href="#remixing" name="circle-question" slot="suffix" variant="regular" label="How to use?"></wa-icon-button>
-  </strong>
-  <wa-select name="colors" label="Colors from…" size="small">
-    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-  <wa-select name="palette" label="Palette" size="small">
-    <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for p in collections.palette | sort %}
-      {% if p.fileSlug !== palette %}
-      <wa-option value="{{ p.fileSlug }}">{{ p.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-  <wa-select name="typography" label="Typography from…" size="small">
-    <wa-icon name="font-case" slot="prefix"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-
-</p>
-<script>
-  document.querySelector('#mix_and_match').addEventListener('change', function(event) {
-    let selects = document.querySelectorAll('#mix_and_match wa-select');
-    let url = new URL(demo.src);
-
-    for (let select of selects) {
-      url.searchParams.set(select.name, select.value);
-    }
-
-    demo.src = url;
-  });
-</script>
-
+{% if palette -%}
 <h2>Default Color Palette</h2>
 {% set paletteURL = '/docs/palettes/' + palette + '/' %}
 {% set themePage = page %}
@@ -69,34 +20,20 @@
 {% include 'page-card.njk' %}
 </div>
 {% set page = themePage %}
+{% endif %}
 
 {% endblock %}
 
 {% block afterContent %}
 {% markdown %}
+{%- if page.fileSlug != 'remixed' %}
 ## How to use this theme
 
 You can import this theme from the Web Awesome CDN.
 
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
+{% set stylesheet = 'styles/themes/' + themeId + '.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
-
-### Remixing { #remixing }
-
-If you want to combine the **colors** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
-
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/color.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-To use the **typography** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
-
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-<wa-callout variant="warning">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
-</wa-callout>
+{% endif %}
 
 ## Dark mode
 

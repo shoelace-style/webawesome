@@ -19,6 +19,10 @@ eleventyComputed:
   {% include 'breadcrumbs.njk' %}
   <h1 class="title">{{ theme.data.title }}</h1>
   <p id="mix_and_match" hidden class="wa-size-s"></p>
+  <wa-button href="/docs/themes/remixed/?base={{ theme.fileSlug }}" class="remix-link" size="small" variant="brand" target="_parent">
+    <wa-icon name="merge"></wa-icon>
+    Remix
+  </wa-button>
   <p>{% include 'status.njk' %}</p>
   <p id="theme-showcase-description">{{ theme.data.description | inlineMarkdown | safe }}</p>
 </header>
@@ -39,12 +43,12 @@ function updateTheme() {
   let params = new URLSearchParams(window.location.search);
   let script = document.currentScript;
   const stylesheetURLs = {
-    colors: id => `/dist/styles/themes/${ id }/color.css`,
+    color: id => `/dist/styles/themes/${ id }/color.css`,
     palette: id => `/dist/styles/color/${ id }.css`,
     typography: id => `/dist/styles/themes/${ id }/typography.css`
   };
   const icons = {
-    colors: 'palette',
+    color: 'palette',
     palette: 'swatchbook',
     typography: 'font-case'
   }
@@ -66,11 +70,14 @@ function updateTheme() {
     }
   }
 
+  let isRemixed = msgs.length > 0;
+  document.documentElement.classList.toggle("remixed", isRemixed);
+
   for (let p of mix_and_match) {
-    p.hidden = msgs.length === 0;
-    if (msgs.length) {
+    p.hidden = !isRemixed;
+    if (isRemixed) {
       let icon =
-      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
+      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong><br> ` + msgs.map(msg => `<wa-badge appearance=outlined>
         ${ msg }</wa-badge>`).join(' ');
     }
   }
