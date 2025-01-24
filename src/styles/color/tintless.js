@@ -62,7 +62,7 @@ for (let paletteId in palettes) {
         maxChromaTint = tint;
       }
 
-      let lchComment = ` /* ${lchColor.toString()} */`;
+      let lchComment = `/* ${lchColor.toString()} */`;
 
       tintCSS = `--wa-color-${hue}-${tint}: ${color} ${lchComment};\n` + tintCSS;
     }
