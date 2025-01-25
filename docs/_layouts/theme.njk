@@ -138,6 +138,7 @@ You can apply the class to the `<html>` element on your page to activate the dar
 Web Awesome's themes have both light and dark styles built in.
 However, Web Awesome doesn't try to auto-detect the user's light/dark mode preference.
 This should be done at the application level.
+
 As a best practice, to provide a dark theme in your app, you should:
 
 - Check for [`prefers-color-scheme`](https://stackoverflow.com/a/57795495/567486) and use its value by default
@@ -145,6 +146,19 @@ As a best practice, to provide a dark theme in your app, you should:
 - Remember the user's preference and restore it on subsequent logins
 
 Web Awesome avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.
+
+Assuming the user's preference is in a variable called `colorScheme` (values: `auto`, `light`, `dark`),
+you can use the following JS snippet to apply the `wa-dark` class to the `<html>` element accordingly:
+
+```js
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const applyDark = function (event = systemDark) {
+  const isDark = colorScheme === 'auto' ? event.matches : colorScheme === 'dark';
+  document.documentElement.classList.toggle('wa-dark', isDark);
+};
+systemDark.addEventListener('change', applyDark);
+applyDark();
+```
 
 {% endmarkdown %}
 {% endblock %}
