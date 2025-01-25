@@ -224,7 +224,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   private handleChange(event: Event) {
-    this.dispatchComposedEvent(event);
+    this.relayNativeEvent(event, { bubbles: true, composed: true });
     this.value = this.input.value;
   }
 
@@ -235,7 +235,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       this.value = '';
       this.dispatchEvent(new WaClearEvent());
       this.dispatchEvent(new InputEvent('input'));
-      this.dispatchEvent(new Event('change'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
 
     this.input.focus();

@@ -116,21 +116,21 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   private handleClick() {
     this.hasInteracted = true;
     this.checked = !this.checked;
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
       this.checked = false;
-      this.dispatchEvent(new Event('change'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       this.dispatchEvent(new InputEvent('input'));
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
       this.checked = true;
-      this.dispatchEvent(new Event('change'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       this.dispatchEvent(new InputEvent('input'));
     }
   }

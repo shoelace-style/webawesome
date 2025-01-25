@@ -91,7 +91,7 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   @watch('position', { waitUntilFirstUpdate: true })
   handlePositionChange() {
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 
   render() {

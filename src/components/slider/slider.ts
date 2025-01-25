@@ -157,7 +157,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   private handleChange(event: Event) {
-    this.dispatchComposedEvent(event);
+    this.relayNativeEvent(event, { bubbles: true, composed: true });
   }
 
   private handleInput() {
