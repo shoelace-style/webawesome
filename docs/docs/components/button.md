@@ -31,42 +31,42 @@ Use the `appearance` attribute to change the button's visual appearance.
 ```html {.example}
 <div class="wa-stack">
   <div class="wa-gap-2xs">
-    <wa-button appearance="accent outlined" variant="neutral">Accent outlined</wa-button>
+    <wa-button appearance="accent outlined" variant="neutral">A + O</wa-button>
     <wa-button appearance="accent" variant="neutral">Accent</wa-button>
     <wa-button appearance="outlined" variant="neutral">Outlined</wa-button>
-    <wa-button appearance="filled outlined" variant="neutral">Filled outlined</wa-button>
+    <wa-button appearance="filled outlined" variant="neutral">F + O</wa-button>
     <wa-button appearance="filled" variant="neutral">Filled</wa-button>
     <wa-button appearance="plain" variant="neutral">Plain</wa-button>
   </div>
   <div class="wa-gap-2xs">
-    <wa-button appearance="accent outlined" variant="brand">Accent outlined</wa-button>
+    <wa-button appearance="accent outlined" variant="brand">A + O</wa-button>
     <wa-button appearance="accent" variant="brand">Accent</wa-button>
     <wa-button appearance="outlined" variant="brand">Outlined</wa-button>
-    <wa-button appearance="filled outlined" variant="brand">Filled outlined</wa-button>
+    <wa-button appearance="filled outlined" variant="brand">F + O</wa-button>
     <wa-button appearance="filled" variant="brand">Filled</wa-button>
     <wa-button appearance="plain" variant="brand">Plain</wa-button>
   </div>
   <div class="wa-gap-2xs">
-    <wa-button appearance="accent outlined" variant="success">Accent outlined</wa-button>
+    <wa-button appearance="accent outlined" variant="success">A + O</wa-button>
     <wa-button appearance="accent" variant="success">Accent</wa-button>
     <wa-button appearance="outlined" variant="success">Outlined</wa-button>
-    <wa-button appearance="filled outlined" variant="success">Filled outlined</wa-button>
+    <wa-button appearance="filled outlined" variant="success">F + O</wa-button>
     <wa-button appearance="filled" variant="success">Filled</wa-button>
     <wa-button appearance="plain" variant="success">Plain</wa-button>
   </div>
   <div class="wa-gap-2xs">
-    <wa-button appearance="accent outlined" variant="warning">Accent outlined</wa-button>
+    <wa-button appearance="accent outlined" variant="warning">A + O</wa-button>
     <wa-button appearance="accent" variant="warning">Accent</wa-button>
     <wa-button appearance="outlined" variant="warning">Outlined</wa-button>
-    <wa-button appearance="filled outlined" variant="warning">Filled outlined</wa-button>
+    <wa-button appearance="filled outlined" variant="warning">F + O</wa-button>
     <wa-button appearance="filled" variant="warning">Filled</wa-button>
     <wa-button appearance="plain" variant="warning">Plain</wa-button>
   </div>
   <div class="wa-gap-2xs">
-    <wa-button appearance="accent outlined" variant="danger">Accent outlined</wa-button>
+    <wa-button appearance="accent outlined" variant="danger">A + O</wa-button>
     <wa-button appearance="accent" variant="danger">Accent</wa-button>
     <wa-button appearance="outlined" variant="danger">Outlined</wa-button>
-    <wa-button appearance="filled outlined" variant="danger">Filled outlined</wa-button>
+    <wa-button appearance="filled outlined" variant="danger">F + O</wa-button>
     <wa-button appearance="filled" variant="danger">Filled</wa-button>
     <wa-button appearance="plain" variant="danger">Plain</wa-button>
   </div>
