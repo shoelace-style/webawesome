@@ -360,7 +360,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         // Emit after updating
         this.updateComplete.then(() => {
           this.dispatchEvent(new InputEvent('input'));
-          this.dispatchEvent(new Event('change'));
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         });
 
         if (!this.multiple) {
@@ -490,7 +490,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new WaClearEvent());
         this.dispatchEvent(new InputEvent('input'));
-        this.dispatchEvent(new Event('change'));
+        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       });
     }
   }
@@ -521,7 +521,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         // Emit after updating
         this.updateComplete.then(() => {
           this.dispatchEvent(new InputEvent('input'));
-          this.dispatchEvent(new Event('change'));
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         });
       }
 
@@ -559,7 +559,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       // Emit after updating
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input'));
-        this.dispatchEvent(new Event('change'));
+        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       });
     }
   }

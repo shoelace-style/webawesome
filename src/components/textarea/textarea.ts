@@ -207,7 +207,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.valueHasChanged = true;
     this.value = this.input.value;
     this.setTextareaDimensions();
-    this.dispatchComposedEvent(event);
+    this.relayNativeEvent(event, { bubbles: true, composed: true });
     this.checkValidity();
   }
 

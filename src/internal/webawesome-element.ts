@@ -160,14 +160,18 @@ export default class WebAwesomeElement extends LitElement {
   }
 
   /**
-   * Given a native event, this function ensures it's composed and, if not, dispatches it again as a composed event.
-   * This is useful for relaying native events such as `change`, which will otherwise not be retargeted. It is safe,
-   * albeit sloppy, to call this on composed events, as it will no-op.
+   * Given a native event, this function cancels it and dispatches it again from the host element using the desired
+   * event options.
    */
-  dispatchComposedEvent(event: Event) {
-    if (!event.composed) {
-      this.dispatchEvent(new (event.constructor as typeof Event)(event.type, { ...event, composed: true }));
-    }
+  relayNativeEvent(event: Event, eventOptions?: EventInit) {
+    event.stopImmediatePropagation();
+
+    this.dispatchEvent(
+      new (event.constructor as typeof Event)(event.type, {
+        ...event,
+        ...eventOptions,
+      }),
+    );
   }
 
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
