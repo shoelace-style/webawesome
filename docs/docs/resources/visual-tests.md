@@ -23,7 +23,11 @@ wide: true
       background-color: color-mix(in oklch, var(--wa-color-fill-quiet), transparent 60%)
     }
   }
-  .test-failure {
+  wa-divider {
+    --width: var(--wa-border-width-m);
+    --spacing: var(--wa-space-3xl);
+  }
+  /* .test-failure {
     &::before {
       content: '\f071';
       color: red;
@@ -31,17 +35,14 @@ wide: true
       font-size: 1.5rem;
       margin-inline: 0.5rem;
     }
-  }
-  .anchor-heading:has(.test-failure) {
-    display: flex;
-  }
+  } */
 </style>
 
 With so many ways to build with and use Web Awesome components, visual tests help ensure consistency and prevent broken styles from leaking into production.
 
 These tests can come in handy when creating or customizing your own theme. Look through each test case to make sure that custom styles in your theme cover all of the attributes, utilities, and built-in styles Web Awesome offers.
 
-Known test failures that affect the entire library, regardless of theme, are indicated by <wa-icon name="triangle-exclamation" family="duotone" style="color: red;"></wa-icon> and will be addressed in a future release.
+<!-- Known test failures that affect the entire library, regardless of theme, are indicated by <wa-icon name="triangle-exclamation" family="duotone" style="color: red;"></wa-icon> and will be addressed in a future release. -->
 
 <wa-tab-group>
   <wa-tab panel="appearance">Appearance</wa-tab>
@@ -194,6 +195,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Button
 
@@ -332,6 +334,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Callout
 
@@ -650,6 +653,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Tag
 
@@ -788,6 +792,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Form Controls
 
@@ -1062,6 +1067,7 @@ Color tests ensure that both the `variant` attribute and `.wa-[variant]` classes
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Button
 
@@ -1189,6 +1195,7 @@ Color tests ensure that both the `variant` attribute and `.wa-[variant]` classes
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Callout
 
@@ -1496,8 +1503,9 @@ Color tests ensure that both the `variant` attribute and `.wa-[variant]` classes
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
-### <span class="test-failure">Icon</span>
+### <span>Icon</span>
 
 <table>
   <thead>
@@ -1563,6 +1571,7 @@ Color tests ensure that both the `variant` attribute and `.wa-[variant]` classes
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Tag
 
@@ -1919,6 +1928,146 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
+
+### Callout
+
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-callout&gt;</code></th>
+    <th><code>.wa-callout</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-callout>Callout</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout">Callout</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-brand</code></th>
+      <td>
+        <wa-callout class="wa-brand">Brand</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-brand">Brand</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-neutral</code></th>
+      <td>
+        <wa-callout class="wa-neutral">Neutral</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-neutral">Neutral</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-success</code></th>
+      <td>
+        <wa-callout class="wa-success">Success</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-success">Success</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-warning</code></th>
+      <td>
+        <wa-callout class="wa-warning">Warning</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-warning">Warning</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-danger</code></th>
+      <td>
+        <wa-callout class="wa-danger">Danger</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-danger">Danger</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-accent</code></th>
+      <td>
+        <wa-callout class="wa-accent">Accent</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-accent">Accent</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-filled</code></th>
+      <td>
+        <wa-callout class="wa-filled">Filled</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-filled">Filled</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-outlined</code></th>
+      <td>
+        <wa-callout class="wa-outlined">Outlined</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-outlined">Outlined</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-plain</code></th>
+      <td>
+        <wa-callout class="wa-plain">Plain</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-plain">Plain</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-size-s</code></th>
+      <td>
+        <wa-callout class="wa-size-s">Small</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-size-s">Small</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-size-m</code></th>
+      <td>
+        <wa-callout class="wa-size-m">Medium</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-size-m">Medium</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-size-l</code></th>
+      <td>
+        <wa-callout class="wa-size-l">Large</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-size-l">Large</div>
+      </td>
+    </tr>
+    <tr>
+      <th><code>.wa-pill</code></th>
+      <td>
+        <wa-callout class="wa-pill">Pill</wa-callout>
+      </td>
+      <td>
+        <div class="wa-callout wa-pill">Pill</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<wa-divider></wa-divider>
 
 ### Checkbox
 
@@ -1949,6 +2098,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Color Picker
 
@@ -1970,6 +2120,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Details
 
@@ -2012,6 +2163,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Input
 
@@ -2096,6 +2248,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Progress Bar
 
@@ -2117,6 +2270,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Radio
 
@@ -2149,6 +2303,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Select
 
@@ -2236,6 +2391,7 @@ Native styles tests ensure that supported native elements and component utilitie
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Slider
 
@@ -2251,12 +2407,13 @@ Native styles tests ensure that supported native elements and component utilitie
       <td>
         <wa-slider label="Slider"></wa-slider>
       </td>
-      <td class="test-failure">
+      <td>
         <label>Slider <input type="range"></input></label>
       </td>
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Textarea
 
@@ -2361,6 +2518,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Callout
 
@@ -2418,6 +2576,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Checkbox
 
@@ -2457,6 +2616,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Color Picker
 
@@ -2496,6 +2656,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Input
 
@@ -2535,6 +2696,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Radio
 
@@ -2574,6 +2736,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Radio Button
 
@@ -2586,7 +2749,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
   <tbody>
     <tr>
       <th><code>small</code>/<code>s</code></th>
-      <td class="test-failure">
+      <td>
         <wa-radio-group>
           <wa-radio-button size="small" value="1">Radio</wa-radio-button>
           <wa-radio-button size="small" value="2">Button</wa-radio-button>
@@ -2601,7 +2764,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
     <tr>
       <th><code>medium</code>/<code>m</code></th>
-      <td class="test-failure">
+      <td>
         <wa-radio-group>
           <wa-radio-button size="medium" value="1">Radio</wa-radio-button>
           <wa-radio-button size="medium" value="2">Button</wa-radio-button>
@@ -2616,7 +2779,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
     <tr>
       <th><code>large</code>/<code>l</code></th>
-      <td class="test-failure">
+      <td>
         <wa-radio-group>
           <wa-radio-button size="large" value="1">Radio</wa-radio-button>
           <wa-radio-button size="large" value="2">Button</wa-radio-button>
@@ -2631,6 +2794,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Radio Group
 
@@ -2655,7 +2819,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
           </wa-radio-group>
         </div>
       </td>
-      <td class="test-failure">
+      <td>
         <div class="wa-stack">
           <wa-radio-group label="Radio Group" hint="Hint" class="wa-size-s">
             <wa-radio value="1">Radio 1</wa-radio><br>
@@ -2682,7 +2846,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
           </wa-radio-group>
         </div>
       </td>
-      <td class="test-failure">
+      <td>
         <div class="wa-stack">
           <wa-radio-group label="Radio Group" hint="Hint" class="wa-size-m">
             <wa-radio value="1">Radio 1</wa-radio><br>
@@ -2709,7 +2873,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
           </wa-radio-group>
         </div>
       </td>
-      <td class="test-failure">
+      <td>
         <div class="wa-stack">
           <wa-radio-group label="Radio Group" hint="Hint" class="wa-size-l">
             <wa-radio value="1">Radio 1</wa-radio><br>
@@ -2724,6 +2888,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Select
 
@@ -2775,6 +2940,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Switch
 
@@ -2814,6 +2980,7 @@ Size tests ensure that both the `size` attribute and `.wa-size-[s|m|l]` classes 
     </tr>
   </tbody>
 </table>
+<wa-divider></wa-divider>
 
 ### Textarea
 
