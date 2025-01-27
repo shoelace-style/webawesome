@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Label */
 :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)) {
   display: inline-block;
