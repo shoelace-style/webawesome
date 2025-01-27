@@ -20,6 +20,20 @@
    We want these to resolve to inherit when inside a variant, and only be applied when not inside an explicit variant.
  */
 
+:host(wa-button),
+.wa-button,
+button {
+  --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-neutral-fill-loud));
+  --wa-color-fill-normal: var(--wa-no-variant, var(--wa-color-neutral-fill-normal));
+  --wa-color-fill-quiet: var(--wa-no-variant, var(--wa-color-neutral-fill-quiet));
+  --wa-color-border-loud: var(--wa-no-variant, var(--wa-color-neutral-border-loud));
+  --wa-color-border-normal: var(--wa-no-variant, var(--wa-color-neutral-border-normal));
+  --wa-color-border-quiet: var(--wa-no-variant, var(--wa-color-neutral-border-quiet));
+  --wa-color-on-loud: var(--wa-no-variant, var(--wa-color-neutral-on-loud));
+  --wa-color-on-normal: var(--wa-no-variant, var(--wa-color-neutral-on-normal));
+  --wa-color-on-quiet: var(--wa-no-variant, var(--wa-color-neutral-on-quiet));
+}
+
 :host(wa-callout),
 .wa-callout,
 :host(wa-badge),
