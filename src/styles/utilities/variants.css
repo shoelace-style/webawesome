@@ -68,8 +68,8 @@
 :host(wa-button),
 .wa-button,
 button,
-input[type="button"],
-input[type="submit"],
+input[type='button'],
+input[type='submit'],
 :host(wa-tag),
 .wa-tag {
   --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-neutral-fill-loud));
