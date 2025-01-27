@@ -6,6 +6,7 @@ icon: select
 component: select
 elements:
   "<select>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+file: styles/native/select.css
 ---
 
 ```html {.example}

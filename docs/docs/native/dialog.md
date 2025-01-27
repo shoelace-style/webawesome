@@ -6,6 +6,7 @@ icon: dialog
 elements:
   "<dialog>":  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 component: dialog
+file: styles/native/dialog.css
 ---
 
 ```html {.example}

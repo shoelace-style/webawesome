@@ -7,6 +7,7 @@ icon: button
 snippets:
   '<button>': https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
   '.wa-button': false
+file: styles/native/button.css
 ---
 
 ```html {.example}
