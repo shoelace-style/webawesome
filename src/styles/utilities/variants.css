@@ -5,15 +5,60 @@
 /**
  * Register color properties so that the space toggle hack can work.
  */
-@property --wa-color-fill-loud     { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-fill-normal   { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-fill-quiet    { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-border-loud   { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-border-normal { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-border-quiet  { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-on-loud       { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-on-normal     { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --wa-color-on-quiet      { syntax: '<color>'; inherits: true; initial-value: transparent; }
+
+@property --wa-color-fill-loud {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-fill-normal {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-fill-quiet {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-border-loud {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-border-normal {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-border-quiet {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-on-loud {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-on-normal {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --wa-color-on-quiet {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
 
 /**
  * Element defaults.
@@ -22,7 +67,9 @@
 
 :host(wa-button),
 .wa-button,
-button {
+button, input[type="button"], input[type="submit"],
+:host(wa-tag),
+.wa-tag {
   --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-neutral-fill-loud));
   --wa-color-fill-normal: var(--wa-no-variant, var(--wa-color-neutral-fill-normal));
   --wa-color-fill-quiet: var(--wa-no-variant, var(--wa-color-neutral-fill-quiet));
