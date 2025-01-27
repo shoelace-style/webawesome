@@ -105,6 +105,23 @@ export function deepValue(obj, key) {
   return key.reduce((subObj, property) => subObj?.[property], obj);
 }
 
+export function number(value, options) {
+  if (typeof value !== 'number' && isNaN(value)) {
+    return value;
+  }
+
+  let lang = options?.lang ?? 'en';
+  if (options?.lang) {
+    delete options.lang;
+  }
+
+  if (!options || Object.keys(options).length === 0) {
+    options = { maximumSignificantDigits: 3 };
+  }
+
+  return Number(value).toLocaleString(lang, options);
+}
+
 export function isNumeric(value) {
   return typeof value === 'number' || (typeof value === 'string' && !isNaN(value));
 }

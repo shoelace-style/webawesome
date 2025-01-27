@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('../default/typography.css');
+
+:where(:root),
+:host,
+.wa-theme-playful {
+  --wa-font-family-body: 'Nunito', sans-serif;
+  --wa-font-family-heading: 'Fredoka', sans-serif;
+  --wa-font-family-code: 'Azeret Mono', monospace;
+  --wa-font-family-longform: ui-serif, serif;
+
+  --wa-font-size-scale: 1.125;
+
+  --wa-font-weight-normal: 500;
+  --wa-font-weight-semibold: 600;
+  --wa-font-weight-bold: 700;
+
+  --wa-font-weight-heading: var(--wa-font-weight-semibold);
+
+  --wa-line-height-condensed: 1.35;
+  --wa-line-height-normal: 1.8;
+  --wa-line-height-expanded: 2.25;
+
+  --wa-link-decoration-default: underline color-mix(in oklab, currentColor 60%, transparent) dashed;
+}

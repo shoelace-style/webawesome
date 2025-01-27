@@ -12,6 +12,30 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## Next
+
+- 🚨 BREAKING: updated all components to use native events instead of `wa-` prefixed events. This will allow components to work more like native elements in your code, frameworks, third-party plugins, etc. To update your code, simply remove the prefix from your event listeners for the following events.
+  - `wa-input` => `input`
+  - `wa-change` => `change`
+  - `wa-blur` => `blur` (this event will no longer bubble, use `focusout` for a bubbling version)
+  - `wa-focus` => `focus` (this event will no longer bubble)
+- Added `.wa-callout` utility class
+- Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
+- Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
+
+## 3.0.0-alpha.9
+
+- Added new themes:
+  - Glossy
+  - Matter
+  - Premium
+  - Playful
+- Added docs on themes and palettes
+- Separated colors and typography out from themes so they can be used independently
+- Added test suite to ensure all color palettes provide the color contrast they are supposed to
+- Added `.wa-invert` utility class to invert the current color scheme
+- Added `:state(blank)` to `<wa-input>`, `<wa-textarea>`, and `<wa-select>` to style form inputs differently when empty.
+
 ## 3.0.0-alpha.8
 
 - Simplified the internal structure and CSS properties of `<wa-card>`, removed `base` part.
@@ -30,7 +54,6 @@ During the alpha period, things might break! We take breaking changes very serio
   - Brutalist
   - Mellow
   - Tailspin
-  - Playful
 - Renamed `--wa-form-control-resting-color` to `--wa-form-control-border-color` for familiarity and accuracy
 - Removed size-based `--wa-form-control-height-*` tokens in favor of `--wa-form-control-height` (see [size utilities](/docs/utilities/size/))
 - Updated the `--wa-border-width-*` and `--wa-border-radius-*` scale for better DX

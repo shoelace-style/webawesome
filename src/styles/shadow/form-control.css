@@ -1,6 +1,6 @@
 /* Label */
 :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)) {
-  display: block;
+  display: inline-block;
   color: var(--wa-form-control-label-color);
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);
@@ -21,7 +21,7 @@
   font-size: var(--wa-size-smaller, 85%);
   line-height: var(--wa-form-control-label-line-height);
 
-  &:not(.has-slotted, .form-control--has-hint *) {
+  &:not(.has-slotted) {
     display: none;
   }
 }

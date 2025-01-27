@@ -10,12 +10,6 @@ override:tags: []
 eleventyComputed:
   forceTheme: "{{ theme.fileSlug }}"
 ---
-<script>
-  document.getElementById('theme-stylesheet').href = '/dist/styles/themes/{{ theme.fileSlug }}.css';
-</script>
-<script type=module>
-  document.getElementById('theme-stylesheet').href = '/dist/styles/themes/{{ theme.fileSlug }}.css';
-</script>
 
 <link rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
 <link rel="stylesheet" href="/docs/themes/showcase.css" />
@@ -24,6 +18,7 @@ eleventyComputed:
 <header>
   {% include 'breadcrumbs.njk' %}
   <h1 class="title">{{ theme.data.title }}</h1>
+  <p id="mix_and_match" hidden class="wa-size-s"></p>
   <p>{% include 'status.njk' %}</p>
   <p id="theme-showcase-description">{{ theme.data.description | inlineMarkdown | safe }}</p>
 </header>
@@ -38,3 +33,47 @@ eleventyComputed:
   {{ content | safe }}
 </div>
 </wa-image-comparer>
+
+<script>
+function updateTheme() {
+  let params = new URLSearchParams(window.location.search);
+  let script = document.currentScript;
+  const stylesheetURLs = {
+    colors: id => `/dist/styles/themes/${ id }/color.css`,
+    palette: id => `/dist/styles/color/${ id }.css`,
+    typography: id => `/dist/styles/themes/${ id }/typography.css`
+  };
+  const icons = {
+    colors: 'palette',
+    palette: 'swatchbook',
+    typography: 'font-case'
+  }
+
+  for (let link of document.querySelectorAll('link.mix-and-match')) {
+    link.remove();
+  }
+
+  let msgs = [];
+
+  for (let name in stylesheetURLs) {
+    if (params.get(name)) {
+      let url = stylesheetURLs[name](params.get(name));
+      script.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${ url }" class="mix-and-match" />`);
+      let docsURL = (name === 'palette' ? '/docs/palettes/' : '/docs/themes/') + params.get(name) + '/';
+      let title = params.get(name).replace(/^[a-z]/g, c => c.toUpperCase());
+      let icon = icons[name];
+      msgs.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> <a href="${ docsURL }">${ title }</a>`);
+    }
+  }
+
+  for (let p of mix_and_match) {
+    p.hidden = msgs.length === 0;
+    if (msgs.length) {
+      let icon =
+      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
+        ${ msg }</wa-badge>`).join(' ');
+    }
+  }
+}
+updateTheme();
+</script>

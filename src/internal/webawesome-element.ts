@@ -1,16 +1,15 @@
 import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
-import { LitElement, isServer, unsafeCSS } from 'lit';
+import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../styles/shadow/component.css';
-import { getComputedStyle } from './computedStyle.js';
 
 // Augment Lit's module
 declare module 'lit' {
   interface PropertyDeclaration {
     /**
-     * Indicates whether the property should reflect to a CSS custom property.
+     * Specifies the property’s default value
      */
-    cssProperty?: true | string;
+    default?: any;
   }
 }
 
@@ -62,18 +61,6 @@ export default class WebAwesomeElement extends LitElement {
   initialReflectedProperties: Map<string, unknown> = new Map();
 
   internals: ElementInternals;
-
-  #computedStyle: CSSStyleDeclaration | null;
-  #setVia: Record<PropertyKey, 'css' | 'attribute' | 'js'> = {};
-  #setting = new Set<PropertyKey>();
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    // FIXME this is currently static.
-    // It will only update when the element is connected, not when a relevant CSS property changes.
-    this.updateCSSProperties();
-  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
@@ -134,21 +121,6 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
-    let Self = this.constructor as typeof WebAwesomeElement;
-
-    if (Self.cssAttributeProperties.size > 0) {
-      for (let [name] of changedProperties) {
-        if (typeof name === 'string' && this.#setVia[name] === 'css' && !this.#setting.has(name)) {
-          // A property is being set via JS and it’s NOT because we're reflecting a CSS property
-          this.#setVia[name] = 'js';
-        }
-      }
-    }
-  }
-
   /** Checks if states are supported by the element */
   private hasStatesSupport(): boolean {
     return Boolean(this.internals?.states);
@@ -187,47 +159,53 @@ export default class WebAwesomeElement extends LitElement {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
   }
 
-  protected updateCSSProperties() {
-    const Self = this.constructor as typeof WebAwesomeElement;
-    if (Self.cssAttributeProperties.size === 0) {
-      return;
-    }
+  /**
+   * Given a native event, this function cancels it and dispatches it again from the host element using the desired
+   * event options.
+   */
+  relayNativeEvent(event: Event, eventOptions?: EventInit) {
+    event.stopImmediatePropagation();
 
-    const tagName = this.tagName.toLowerCase();
-    for (let [name, cssProperty] of Self.cssAttributeProperties) {
-      if (typeof name === 'string' && !this.hasAttribute(name) && this.#setVia[name] !== 'js') {
-        // Check if supplied as a CSS custom property
-        // TODO !important should override attribute values
-        this.#computedStyle ??= getComputedStyle(this);
-        cssProperty = cssProperty === true ? `--${tagName}-${name}` : cssProperty;
-        const value = this.#computedStyle?.getPropertyValue(cssProperty);
-
-        if (value) {
-          this.#setVia[name] = 'css';
-          this.#setting.add(name);
-          // @ts-ignore
-          this[name] = value.trim();
-          this.updateComplete.then(() => {
-            this.#setting.delete(name);
-          });
-        }
-      }
-    }
+    this.dispatchEvent(
+      new (event.constructor as typeof Event)(event.type, {
+        ...event,
+        ...eventOptions,
+      }),
+    );
   }
 
-  // Subclasses will get their own copy automagically (see below)
-  protected static cssAttributeProperties = new Map<PropertyKey, true | string>();
-
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
+    if (options && options.default !== undefined && options.converter === undefined) {
+      // Wrap the default converter to remove the attribute if the value is the default
+      // This effectively prevents the component sprouting attributes that have not been specified
+      let converter = {
+        ...defaultConverter,
+        toAttribute(value: string, type: unknown): unknown {
+          if (value === options!.default) {
+            return null;
+          }
+          return defaultConverter.toAttribute!(value, type);
+        },
+      };
+      options = { ...options, converter };
+    }
+
     super.createProperty(name, options);
 
-    if (options?.cssProperty) {
-      if (this.cssAttributeProperties === WebAwesomeElement.cssAttributeProperties) {
-        // Each class needs its own, otherwise they'd share the same object
-        this.cssAttributeProperties = new Map();
-      }
+    // Wrap the default accessor with logic to return the default value if the value is null
+    if (options && options.default !== undefined) {
+      const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
 
-      this.cssAttributeProperties.set(name, options.cssProperty);
+      if (descriptor?.get) {
+        const getter = descriptor.get;
+
+        Object.defineProperty(this.prototype, name, {
+          ...descriptor,
+          get() {
+            return getter.call(this) ?? options.default;
+          },
+        });
+      }
     }
   }
 }

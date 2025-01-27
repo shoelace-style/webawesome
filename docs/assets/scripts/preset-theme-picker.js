@@ -5,7 +5,7 @@ const presetTheme = new ThemeAspect({
   key: 'presetTheme',
   picker: 'wa-select.preset-theme-selector',
 
-  applyChange() {
+  applyChange(options = {}) {
     const oldStylesheets = [...document.querySelectorAll('#theme-stylesheet')];
     const oldStylesheet = oldStylesheets.pop();
 
@@ -38,7 +38,7 @@ const presetTheme = new ThemeAspect({
 
               oldStylesheet.remove();
             },
-            { behavior: 'smooth' },
+            { behavior: 'smooth', ...options },
           );
         },
         { once: true },
@@ -47,18 +47,6 @@ const presetTheme = new ThemeAspect({
   },
 });
 
-/**
- * Without this, there's a flash of the incorrect preset theme.
- */
-function updateSelectionBeforeTurboLoad(e) {
-  const newElement = e.detail.newBody || e.detail.newFrame || e.detail.newStream;
-  if (newElement) {
-    presetTheme.syncUI(newElement);
-  }
-}
-
-['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
-  document.addEventListener(eventName, updateSelectionBeforeTurboLoad);
+window.addEventListener('turbo:render', e => {
+  presetTheme.applyChange({ behavior: 'instant' });
 });
-
-window.presetTheme = presetTheme;

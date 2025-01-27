@@ -249,7 +249,7 @@ This example is best demonstrated using a mouse. Try clicking and dragging the s
   const carousel = container.querySelector('wa-carousel');
   const toggle = container.querySelector('wa-switch');
 
-  toggle.addEventListener('wa-change', () => {
+  toggle.addEventListener('change', () => {
     carousel.toggleAttribute('mouse-dragging', toggle.checked);
   });
 </script>
@@ -450,7 +450,7 @@ Use the `--aspect-ratio` custom property to customize the size of the carousel's
     const carousel = document.querySelector('wa-carousel.aspect-ratio');
     const aspectRatio = document.querySelector('wa-select[name="aspect"]');
 
-    aspectRatio.addEventListener('wa-change', () => {
+    aspectRatio.addEventlistener('change', () => {
       carousel.style.setProperty('--aspect-ratio', aspectRatio.value);
     });
   })();

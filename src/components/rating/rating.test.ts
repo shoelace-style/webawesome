@@ -54,12 +54,12 @@ describe('<wa-rating>', () => {
         expect(base.getAttribute('aria-valuenow')).to.equal('3');
       });
 
-      it('should emit wa-change when clicked', async () => {
+      it('should emit change when clicked', async () => {
         const el = await fixture<WaRating>(html` <wa-rating></wa-rating> `);
         const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.symbol:last-child')!;
         const changeHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
+        el.addEventListener('change', changeHandler);
 
         await clickOnElement(lastSymbol);
         await el.updateComplete;
@@ -68,11 +68,11 @@ describe('<wa-rating>', () => {
         expect(el.value).to.equal(5);
       });
 
-      it('should emit wa-change when the value is changed with the keyboard', async () => {
+      it('should emit change when the value is changed with the keyboard', async () => {
         const el = await fixture<WaRating>(html` <wa-rating></wa-rating> `);
         const changeHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
+        el.addEventListener('change', changeHandler);
         el.focus();
         await el.updateComplete;
         await sendKeys({ press: 'ArrowRight' });
@@ -82,12 +82,12 @@ describe('<wa-rating>', () => {
         expect(el.value).to.equal(1);
       });
 
-      it('should not emit wa-change when disabled', async () => {
+      it('should not emit change when disabled', async () => {
         const el = await fixture<WaRating>(html` <wa-rating value="5" disabled></wa-rating> `);
         const lastSymbol = el.shadowRoot!.querySelector<HTMLSpanElement>('.symbol:last-child')!;
         const changeHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
+        el.addEventListener('change', changeHandler);
 
         await clickOnElement(lastSymbol);
         await el.updateComplete;
@@ -96,9 +96,9 @@ describe('<wa-rating>', () => {
         expect(el.value).to.equal(5);
       });
 
-      it('should not emit wa-change when the value is changed programmatically', async () => {
+      it('should not emit change when the value is changed programmatically', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test" value="1"></wa-rating> `);
-        el.addEventListener('wa-change', () => expect.fail('wa-change incorrectly emitted'));
+        el.addEventListener('change', () => expect.fail('change incorrectly emitted'));
         el.value = 5;
         await el.updateComplete;
       });
