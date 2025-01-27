@@ -1,5 +1,5 @@
 ---
-title: Product Reviews
+title: Product Overviews
 description: TODO
 parent: ecommerce
 tags: e-commerce
@@ -52,6 +52,8 @@ TODO Page Description
 </div>
 <style>
   .with-image-grid {
+    max-width: 960px;
+    margin: 0 auto;
     wa-breadcrumb::part(base) {
       margin-bottom: 1rem;
     }
