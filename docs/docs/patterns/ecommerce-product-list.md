@@ -9,30 +9,30 @@ TODO Page Description
 ## With Product Grid
 
 ```html{.example}
-  <div class="with-product-grid">
+  <div class="with-product-grid wa-grid wa-gap-0" style="--min-column-size: 50ch">
     <div class="grid-item">
-      <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" />
       <div class="grid-item-name">Shirt</div>
       <wa-rating label="Rating" readonly value="3"></wa-rating>
       <a class="grid-item-reviews" href="#">38 Reviews</a>
       <div class="grid-item-price">$170</div>
     </div>
     <div class="grid-item">
-      <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/disruptivo-c2trroai5fa-unsplash.jpg" />
       <div class="grid-item-name">Shirt</div>
       <wa-rating label="Rating" readonly value="3"></wa-rating>
       <a class="grid-item-reviews" href="#">38 Reviews</a>
       <div class="grid-item-price">$170</div>
     </div>
     <div class="grid-item">
-      <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
       <div class="grid-item-name">Shirt</div>
       <wa-rating label="Rating" readonly value="3"></wa-rating>
       <a class="grid-item-reviews" href="#">38 Reviews</a>
       <div class="grid-item-price">$170</div>
     </div>
     <div class="grid-item">
-      <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
       <div class="grid-item-name">Shirt</div>
       <wa-rating label="Rating" readonly value="3"></wa-rating>
       <a class="grid-item-reviews" href="#">38 Reviews</a>
@@ -63,6 +63,7 @@ TODO Page Description
       .grid-item-image {
         width: 100%;
         object-fit: cover;
+        height: 100%;
       }
 
       .grid-item-name {
@@ -88,9 +89,9 @@ TODO Page Description
 ```
 ## Card with full details
 ```html{.example}
-  <div class="card-with-details">
-   <wa-card with-footer>
-    <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+  <div class="wa-grid card-with-details" style="--min-column-size: 50ch">
+   <wa-card with-image with-footer>
+    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" alt="">
     <div slot="footer" class="card-footer details">
       <span class="detail-name">Basic Tee 8-pack</span>
       <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
@@ -98,8 +99,8 @@ TODO Page Description
       <span class="detail-price">$256</span>
     </div>
    </wa-card>
-   <wa-card with-footer>
-    <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+    <wa-card with-image with-footer>
+    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/creative.jpg" />
     <div slot="footer" class="card-footer details">
       <span class="detail-name">Basic Tee 8-pack</span>
       <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
@@ -107,8 +108,8 @@ TODO Page Description
       <span class="detail-price">$256</span>
     </div>
    </wa-card>
-   <wa-card with-footer>
-    <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+    <wa-card with-image with-footer>
+    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
     <div slot="footer" class="card-footer details">
       <span class="detail-name">Basic Tee 8-pack</span>
       <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
@@ -116,8 +117,8 @@ TODO Page Description
       <span class="detail-price">$256</span>
     </div>
    </wa-card>
-   <wa-card with-footer>
-    <img class="grid-item-image" src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+    <wa-card with-image with-footer>
+    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
     <div slot="footer" class="card-footer details">
       <span class="detail-name">Basic Tee 8-pack</span>
       <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
@@ -128,9 +129,6 @@ TODO Page Description
   </div>
   <style>
     .card-with-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
     }
     .card-with-details wa-card::part(body) {
         padding: 0;
