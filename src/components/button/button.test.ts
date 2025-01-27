@@ -45,20 +45,20 @@ describe('<wa-button>', () => {
       });
 
       describe('when an attribute is removed', () => {
-        it("should return to 'neutral' when attribute removed with no initial attribute", async () => {
+        it("should return to 'inherit' when attribute removed with no initial attribute", async () => {
           const el = await fixture<WaButton>(html`<wa-button>Button label</wa-button>`);
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
 
           el.removeAttribute('variant');
           await el.updateComplete;
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
         });
 
-        it("should return to 'neutral' when attribute removed with an initial attribute", async () => {
+        it("should return to 'inherit' when attribute removed with an initial attribute", async () => {
           const el = await fixture<WaButton>(html`<wa-button variant="primary">Button label</wa-button>`);
 
           expect(el.variant).to.equal('primary');
@@ -67,8 +67,8 @@ describe('<wa-button>', () => {
           el.removeAttribute('variant');
           await el.updateComplete;
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
         });
       });
 
@@ -76,15 +76,15 @@ describe('<wa-button>', () => {
         it("should return to 'default' when property set to null with no initial attribute", async () => {
           const el = await fixture<WaButton>(html`<wa-button>Button label</wa-button>`);
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
 
           // @ts-expect-error Its a test. Stop.
           el.variant = null;
           await el.updateComplete;
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
         });
 
         it("should return to 'default' when property set to null with an initial attribute", async () => {
@@ -97,8 +97,8 @@ describe('<wa-button>', () => {
           el.variant = null;
           await el.updateComplete;
 
-          expect(el.variant).to.equal('neutral');
-          expect(el.getAttribute('variant')).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
+          expect(el.getAttribute('variant')).to.equal(null);
         });
       });
 
@@ -112,7 +112,7 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button>Button Label</wa-button> `);
 
           expect(el.title).to.equal('');
-          expect(el.variant).to.equal('neutral');
+          expect(el.variant).to.equal('inherit');
           expect(el.appearance).to.equal('accent');
           expect(el.size).to.equal('medium');
           expect(el.disabled).to.equal(false);
