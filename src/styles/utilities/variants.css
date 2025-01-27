@@ -7,55 +7,55 @@
  */
 
 @property --wa-color-fill-loud {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-fill-normal {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-fill-quiet {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-border-loud {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-border-normal {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-border-quiet {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-on-loud {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-on-normal {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
 
 @property --wa-color-on-quiet {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
@@ -67,7 +67,9 @@
 
 :host(wa-button),
 .wa-button,
-button, input[type="button"], input[type="submit"],
+button,
+input[type="button"],
+input[type="submit"],
 :host(wa-tag),
 .wa-tag {
   --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-neutral-fill-loud));

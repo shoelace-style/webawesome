@@ -7,13 +7,13 @@ const roles = ['fill', 'border', 'on'];
 const noise = ['loud', 'normal', 'quiet'];
 const defaults = {
   neutral: [
-    ':host(wa-button)',
-    '.wa-button',
-    'button, input[type="button"], input[type="submit"]',
-    ':host(wa-tag)',
-    '.wa-tag',
+    [':host(wa-button)', '.wa-button', 'button', 'input[type="button"]', 'input[type="submit"]'],
+    [':host(wa-tag)', '.wa-tag'],
   ],
-  brand: [':host(wa-callout)', '.wa-callout', ':host(wa-badge)', '.wa-badge'],
+  brand: [
+    [':host(wa-callout)', '.wa-callout'],
+    [':host(wa-badge)', '.wa-badge'],
+  ],
 };
 const types = roles.map(layer => noise.map(priority => layer + '-' + priority)).flat();
 
@@ -23,7 +23,7 @@ ret += comment('Register color properties so that the space toggle hack can work
 
 for (let type of types) {
   ret += cssRule(`@property --wa-color-${type}`, [
-    'syntax: "<color>";',
+    `syntax: '<color>';`,
     'inherits: true;',
     'initial-value: transparent;',
   ]);
