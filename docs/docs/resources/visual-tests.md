@@ -27,22 +27,23 @@ wide: true
     --width: var(--wa-border-width-m);
     --spacing: var(--wa-space-3xl);
   }
-  /* .test-failure {
+  .test-failure {
     &::before {
       content: '\f071';
       color: red;
       font-family: 'Font Awesome 6 Duotone';
-      font-size: 1.5rem;
-      margin-inline: 0.5rem;
+      font-size: 1em;
+      margin-inline-end: 0.5rem;
+      vertical-align: middle;
     }
-  } */
+  }
 </style>
 
 With so many ways to build with and use Web Awesome components, visual tests help ensure consistency and prevent broken styles from leaking into production.
 
 These tests can come in handy when creating or customizing your own theme. Look through each test case to make sure that custom styles in your theme cover all of the attributes, utilities, and built-in styles Web Awesome offers.
 
-<!-- Known test failures that affect the entire library, regardless of theme, are indicated by <wa-icon name="triangle-exclamation" family="duotone" style="color: red;"></wa-icon> and will be addressed in a future release. -->
+Known test failures that affect the entire library, regardless of theme, are indicated by <wa-icon name="triangle-exclamation" family="duotone" style="color: red;" label="alert icon"></wa-icon> and will be addressed in a future release.
 
 <wa-tab-group>
   <wa-tab panel="appearance">Appearance</wa-tab>
@@ -152,7 +153,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
       </td>
     </tr>
     <tr>
-      <th><code>outlined</code></th>
+      <th class="test-failure"><code>outlined</code></th>
       <td>
         <div class="wa-cluster wa-gap-2xs">
           <wa-badge variant="brand" appearance="outlined">Brand</wa-badge>
@@ -550,7 +551,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
       </td>
     </tr>
     <tr>
-      <th><code>outlined</code></th>
+      <th class="test-failure"><code>outlined</code></th>
       <td>
         <div class="wa-grid wa-gap-2xs">
           <wa-callout variant="brand" appearance="outlined">
@@ -749,7 +750,7 @@ Appearance tests ensure that both the `appearance` attribute and `.wa-[appearanc
       </td>
     </tr>
     <tr>
-      <th><code>outlined</code></th>
+      <th class="test-failure"><code>outlined</code></th>
       <td>
         <div class="wa-cluster wa-gap-2xs">
           <wa-tag variant="brand" appearance="outlined">Brand</wa-tag>
@@ -874,7 +875,7 @@ Alignment tests reveal the top boundary, vertical center, and bottom boundary of
     background-color: red;
   }
 </style>
-<div class="wa-stack">
+<div class="wa-stack wa-gap-xl">
   <div class="alignment">
     <wa-switch size="small">Switch</wa-switch>
     <wa-checkbox size="small">Checkbox</wa-checkbox>
@@ -891,7 +892,8 @@ Alignment tests reveal the top boundary, vertical center, and bottom boundary of
     <wa-radio value="1" size="large">Radio</wa-radio>
   </div>
   <div class="alignment">
-    <wa-input size="small"></wa-input>
+    <wa-textarea placeholder="textarea" size="small" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="small"></wa-input>
     <wa-select size="small" value="1" multiple>
       <wa-option value="1">Option</wa-option>
     </wa-select>
@@ -899,7 +901,8 @@ Alignment tests reveal the top boundary, vertical center, and bottom boundary of
     <wa-button size="small">Button</wa-button>
   </div>
   <div class="alignment">
-    <wa-input size="medium"></wa-input>
+    <wa-textarea placeholder="textarea" size="medium" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="medium"></wa-input>
     <wa-select size="medium" value="1" multiple>
       <wa-option value="1">Option</wa-option>
     </wa-select>
@@ -907,7 +910,8 @@ Alignment tests reveal the top boundary, vertical center, and bottom boundary of
     <wa-button size="medium">Button</wa-button>
   </div>
   <div class="alignment">
-    <wa-input size="large"></wa-input>
+    <wa-textarea placeholder="textarea" size="large" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="large"></wa-input>
     <wa-select size="large" value="1" multiple>
       <wa-option value="1">Option</wa-option>
     </wa-select>
@@ -916,19 +920,17 @@ Alignment tests reveal the top boundary, vertical center, and bottom boundary of
   </div>
   <div class="alignment">
     <wa-badge>Badge</wa-badge>
-    <wa-avatar></wa-avatar>
-    <wa-rating></wa-rating>
-    <wa-slider></wa-slider>
-    <wa-icon-button name="gear" label="Settings"></wa-icon-button>
-    <wa-progress-bar value="50" style="width: 8rem;"></wa-progress-bar>
-    <wa-spinner></wa-spinner>
+    <code>Inline Code</code>
+    <kbd>Keyboard</kbd>
+    <ins>Inserted</ins>
+    <del>Deleted</del>
+    <mark>Highlighted</mark>
   </div>
   <div class="alignment">
-    <wa-input label="Input" hint="Hint"></wa-input>
-    <wa-select label="Select" value="1" multiple hint="Hint">
-      <wa-option value="1">Option</wa-option>
-    </wa-select>
-    <wa-color-picker label="Color" hint="Hint"></wa-color-picker>
+    <wa-avatar></wa-avatar>
+    <wa-rating></wa-rating>
+    <wa-icon-button name="gear" label="Settings"></wa-icon-button>
+    <wa-spinner></wa-spinner>
   </div>
 </div>
 ```
@@ -1505,7 +1507,7 @@ Color tests ensure that both the `variant` attribute and `.wa-[variant]` classes
 </table>
 <wa-divider></wa-divider>
 
-### <span>Icon</span>
+### <span class="test-failure">Icon</span>
 
 <table>
   <thead>
@@ -1940,7 +1942,7 @@ Native styles tests ensure that supported native elements and component utilitie
   </thead>
   <tbody>
     <tr>
-      <th><em>default</em></th>
+      <th class="test-failure"><em>default</em></th>
       <td>
         <wa-callout>Callout</wa-callout>
       </td>
@@ -2165,7 +2167,7 @@ Native styles tests ensure that supported native elements and component utilitie
 </table>
 <wa-divider></wa-divider>
 
-### Input
+### <span class="test-failure">Input</span>
 
 <table>
   <thead>
@@ -2403,7 +2405,7 @@ Native styles tests ensure that supported native elements and component utilitie
   </thead>
   <tbody>
     <tr>
-      <th><em>default</em></th>
+      <th class="test-failure"><em>default</em></th>
       <td>
         <wa-slider label="Slider"></wa-slider>
       </td>
@@ -2415,7 +2417,7 @@ Native styles tests ensure that supported native elements and component utilitie
 </table>
 <wa-divider></wa-divider>
 
-### Textarea
+### <span class="test-failure">Textarea</span>
 
 <table>
   <thead>
@@ -2427,46 +2429,46 @@ Native styles tests ensure that supported native elements and component utilitie
     <tr>
       <th><em>default</em></th>
       <td>
-        <wa-textarea label="Textarea" placeholder="Placeholder"></wa-textarea>
+        <wa-textarea label="Textarea" placeholder="Placeholder" rows="2"></wa-textarea>
       </td>
       <td>
-        <label>Textarea <textarea placeholder="Placeholder"></textarea></label>
+        <label>Textarea <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
     <tr>
       <th><code>.wa-filled</code></th>
       <td>
-        <wa-textarea label="Textarea (filled)" placeholder="Placeholder" class="wa-filled"></wa-textarea>
+        <wa-textarea label="Textarea (filled)" placeholder="Placeholder" class="wa-filled" rows="2"></wa-textarea>
       </td>
       <td>
-        <label>Textarea (filled) <textarea placeholder="Placeholder" class="wa-filled"></textarea></label>
+        <label>Textarea (filled) <textarea placeholder="Placeholder" class="wa-filled" rows="2"></textarea></label>
       </td>
     </tr>
     <tr>
       <th><code>.wa-size-s</code></th>
       <td>
-        <wa-textarea label="Textarea (small)" placeholder="Placeholder" class="wa-size-s"></wa-textarea>
+        <wa-textarea label="Textarea (small)" placeholder="Placeholder" class="wa-size-s" rows="2"></wa-textarea>
       </td>
       <td>
-        <label class="wa-size-s">Textarea (small) <textarea placeholder="Placeholder"></textarea></label>
+        <label class="wa-size-s">Textarea (small) <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
     <tr>
       <th><code>.wa-size-m</code></th>
       <td>
-        <wa-textarea label="Textarea (medium)" placeholder="Placeholder" class="wa-size-m"></wa-textarea>
+        <wa-textarea label="Textarea (medium)" placeholder="Placeholder" class="wa-size-m" rows="2"></wa-textarea>
       </td>
       <td>
-        <label class="wa-size-m">Textarea (medium) <textarea placeholder="Placeholder"></textarea></label>
+        <label class="wa-size-m">Textarea (medium) <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
     <tr>
       <th><code>.wa-size-l</code></th>
       <td>
-        <wa-textarea label="Textarea (large)" placeholder="Placeholder" class="wa-size-l"></wa-textarea>
+        <wa-textarea label="Textarea (large)" placeholder="Placeholder" class="wa-size-l" rows="2"></wa-textarea>
       </td>
       <td>
-        <label class="wa-size-l">Textarea (large) <textarea placeholder="Placeholder"></textarea></label>
+        <label class="wa-size-l">Textarea (large) <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
   </tbody>
