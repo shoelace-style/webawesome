@@ -15,8 +15,8 @@ TODO Page Description
       <span class="card-title">Graphic Tank</span>
       <wa-icon-button name="close" label="close-modal"></wa-icon-button>
     </div>
-    <div class="card-body wa-grid" style="grid-template-columns: 35% 1fr;">
-      <img style="height: 100%; object-fit: cover;" src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+    <div class="card-body wa-grid">
+      <img style="height: 100%; object-fit: cover;" src="https://img.fortawesome.com/cfa83f3c/gervyn-louis-is03aji00fc-unsplash.jpg" alt="">
       <form class="detail wa-stack">
         <span class="price">$32</span>
         <span class="rating">
@@ -44,6 +44,8 @@ TODO Page Description
   </div>
   <style>
     .with-inline-price {
+      max-width: 960px;
+      margin: 0 auto;
       wa-card {
         width: 100%;
         .card-header {
@@ -57,6 +59,7 @@ TODO Page Description
           }
         }
         .card-body {
+          grid-template-columns: 35% 1fr;
           .detail {
             .price {
               font-size: xx-large;
@@ -69,40 +72,53 @@ TODO Page Description
         }
       }
     }
+    @media (max-width: 1030px) {
+      .with-inline-price {
+        wa-card {
+          .card-body {
+        grid-template-columns: 1fr;
+      }
+        }
+      
+    }
+    }
   </style>
 ```
 
 ## with large selector
 ```html{.example}
   <wa-card class="large-selector">
-    <div class="card-body">
-      <div style="grid-column: 1/6">
-      <img style="border-radius: var(--border-radius); height: 100%; object-fit: cover;" src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+    <div class="card-body wa-grid">
+      <div>
+      <img style="border-radius: var(--border-radius); height: 100%; object-fit: cover;" src="https://img.fortawesome.com/cfa83f3c/gervyn-louis-is03aji00fc-unsplash.jpg" alt="">
       </div>
-      <div style="grid-column: 6/-1" class="info">
-        <h2>Basic Tank</h2>
+      <div class="info">
+        <h2>Graphic Tank</h2>
         <wa-icon-button name="close" label="close-modal"></wa-icon-button>
         <section>
           <p style="font-size: x-large;font-weight: 600;">$32</p>
-          <div style="display: flex; align-items: flex-start">
+          <div class="wa-split">
             <p>3.9</p>
-            <wa-rating></wa-rating>
+            <wa-rating value="3.9"></wa-rating>
             <a href="*" style="margin-left: auto;">See all 512 Reviews</a>
           </div>
         </section>
         <section>
-          <form>
-            <wa-radio-group label="Color" hint="Choose the most appropriate option." name="a" value="black" style="margin-bottom: 1rem;">
+          <form class="wa-stack">
+            <wa-radio-group label="Color" hint="We've got more colors on the way!" name="a" value="black" style="margin: 1rem 0;">
               <wa-radio value="black">Black</wa-radio>
               <wa-radio value="gray">Gray</wa-radio>
             </wa-radio-group>
-            <wa-radio-group label="Size" hint="Select an option that makes you proud." name="a" value="medium"  style="margin-bottom: 1rem;">
+            <wa-radio-group label="Size" name="a" value="medium"  style="margin-bottom: 1rem;">
               <wa-radio-button value="small">S</wa-radio-button>
               <wa-radio-button value="medium">M</wa-radio-button>
               <wa-radio-button value="large">L</wa-radio-button>
               <wa-radio-button value="extra-large">XL</wa-radio-button>
             </wa-radio-group>
-            <wa-button size="medium" style="width: 100%; margin-top: auto;margin-bottom: 1rem;">Medium</wa-button>
+            <wa-button variant="brand" size="medium" style="width: 100%; margin-top: auto;margin-bottom: 1rem;">
+              <wa-icon slot="suffix" name="cart-shopping" variant="solid"></wa-icon>
+              Add to Cart
+            </wa-button>
             <a href="*" style="display: inline-block;width: 100%;text-align: center;">View full details</a>
           </form>
         </section>
@@ -110,10 +126,11 @@ TODO Page Description
     </div>
   </wa-card>
 <style>
+  .large-selector {
+    max-width: 960px;
+    margin: 0 auto;
+  }
   .large-selector .card-body {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1rem;
 
     .info {
       position: relative;
