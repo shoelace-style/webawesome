@@ -9,6 +9,7 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-
 import formControlStyles from '../../styles/shadow/form-control.css';
 import buttonGroupStyles from '../../styles/utilities/button-group.css';
 import sizeStyles from '../../styles/utilities/size.css';
+import '../radio-button/radio-button.js';
 import type WaRadioButton from '../radio-button/radio-button.js';
 import '../radio/radio.js';
 import type WaRadio from '../radio/radio.js';
@@ -20,7 +21,8 @@ import styles from './radio-group.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-button-group
+ * @dependency wa-radio
+ * @dependency wa-radio-button
  *
  * @slot - The default slot where `<wa-radio>` or `<wa-radio-button>` elements are placed.
  * @slot label - The radio group's label. Required for proper accessibility. Alternatively, you can use the `label`
