@@ -21,6 +21,10 @@ label:has(input[type='radio']),
   -webkit-user-select: none;
 }
 
+:host {
+  width: fit-content;
+}
+
 /* Replace native radio styles */
 input[type='radio'] {
   appearance: none;

@@ -34,6 +34,7 @@ import styles from './radio-group.css';
  * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
+ * @csspart radios - The wrapper than surrounds radio items, styled as a flex container by default.
  * @csspart hint - The hint's wrapper.
  * @csspart button-group - The button group that wraps radio buttons.
  * @csspart button-group__base - The button group's `base` part.
@@ -63,6 +64,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
   @state() private hasButtonGroup = false;
+  @state() private hasRadioButtons = false;
 
   /**
    * The radio group's label. Required for proper accessibility. If you need to display HTML, use the `label` slot
@@ -75,6 +77,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   /** The name of the radio group, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
+
+  /** The orientation in which to show radio items. */
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
 
   private _value: string | null = null;
 
@@ -172,6 +177,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private async syncRadioElements() {
     const radios = this.getAllRadios();
+
+    // Detect the presence of radio buttons
+    this.hasRadioButtons = radios.some(radio => radio.localName === 'wa-radio-button');
 
     await Promise.all(
       // Sync the checked state and size
@@ -324,11 +332,13 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control--large': this.size === 'large',
           'form-control--radio-group': true,
           'form-control--has-label': hasLabel,
+          'form-control--has-radio-buttons': this.hasRadioButtons,
         })}
         role="radiogroup"
         aria-labelledby="label"
         aria-describedby="hint"
         aria-errormessage="error-message"
+        aria-orientation=${this.orientation}
       >
         <label
           part="form-control-label"
@@ -342,7 +352,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
         <slot
           part="form-control-input"
-          class=${classMap({ 'wa-button-group': this.hasButtonGroup })}
+          class=${classMap({
+            'wa-button-group': this.hasButtonGroup,
+            'wa-button-group-vertical': this.orientation === 'vertical',
+          })}
           @slotchange=${this.syncRadioElements}
         ></slot>
 
