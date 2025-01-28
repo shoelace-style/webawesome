@@ -33,7 +33,7 @@ Add descriptive hint to a radio group with the `hint` attribute. For hints that 
 
 ```html {.example}
 <wa-radio-group 
-  label="Horizontal-options" 
+  label="Horizontal options" 
   hint="Select an option that makes you proud." 
   orientation="horizontal" 
   name="a" 
