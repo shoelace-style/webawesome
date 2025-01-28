@@ -5,11 +5,30 @@ label {
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);
   position: relative;
-}
 
-label + :is(input:not([type='checkbox'], [type='radio']), textarea, select),
-label > :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
-  margin-block-start: var(--wa-space-xs);
+  &:has(
+      input:not(
+          [type='button'],
+          [type='checkbox'],
+          [type='color'],
+          [type='file'],
+          [type='hidden'],
+          [type='image'],
+          [type='radio'],
+          [type='range'],
+          [type='reset'],
+          [type='submit']
+        ),
+      textarea,
+      select
+    ) {
+    width: 100%;
+  }
+
+  & + :is(input:not([type='checkbox'], [type='radio']), textarea, select),
+  & > :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
+    margin-block-start: var(--wa-space-xs);
+  }
 }
 
 /* Fieldsets */

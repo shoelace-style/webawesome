@@ -50,13 +50,13 @@ describe('<wa-slider>', () => {
       });
 
       describe('when the value changes', () => {
-        it('should emit wa-change and wa-input and decrease the value when pressing right arrow', async () => {
+        it('should emit change and input and decrease the value when pressing right arrow', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider value="50"></wa-slider> `);
           const changeHandler = sinon.spy();
           const inputHandler = sinon.spy();
 
-          el.addEventListener('wa-change', changeHandler);
-          el.addEventListener('wa-input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
           el.focus();
           await sendKeys({ press: 'ArrowRight' });
           await el.updateComplete;
@@ -66,30 +66,30 @@ describe('<wa-slider>', () => {
           expect(inputHandler).to.have.been.calledOnce;
         });
 
-        it('should not emit wa-change or wa-input when changing the value programmatically', async () => {
+        it('should not emit change or input when changing the value programmatically', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider value="0"></wa-slider> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.value = 50;
 
           await el.updateComplete;
         });
 
-        it('should not emit wa-change or wa-input when stepUp() is called programmatically', async () => {
+        it('should not emit change or input when stepUp() is called programmatically', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepUp();
           await el.updateComplete;
         });
 
-        it('should not emit wa-change or wa-input when stepDown() is called programmatically', async () => {
+        it('should not emit change or input when stepDown() is called programmatically', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepDown();
           await el.updateComplete;
         });

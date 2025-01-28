@@ -2,11 +2,9 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/button.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
@@ -24,8 +22,8 @@ import styles from './radio-button.css';
  * @slot prefix - A presentational prefix icon or similar element.
  * @slot suffix - A presentational suffix icon or similar element.
  *
- * @event wa-blur - Emitted when the button loses focus.
- * @event wa-focus - Emitted when the button gains focus.
+ * @event blur - Emitted when the button loses focus.
+ * @event focus - Emitted when the button gains focus.
  *
  * @cssproperty --background-color - The button's background color.
  * @cssproperty --background-color-active - The button's background color when active.
@@ -107,10 +105,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     this.setAttribute('role', 'presentation');
   }
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
   private handleClick(e: MouseEvent) {
     if (this.disabled) {
       e.preventDefault();
@@ -119,10 +113,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     }
 
     this.checked = true;
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -164,8 +154,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
         aria-disabled=${this.disabled}
         type="button"
         value=${ifDefined(this.value)}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @click=${this.handleClick}
       >
         <slot name="prefix" part="prefix" class="prefix"></slot>

@@ -1,13 +1,11 @@
 import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaInputEvent } from '../../events/input.js';
 import { uniqueId } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import buttonGroupStyles from '../../styles/utilities/button-group.css';
 import sizeStyles from '../../styles/utilities/size.css';
@@ -29,8 +27,8 @@ import styles from './radio-group.css';
  *  attribute.
  * @slot hint - Text that describes how to use the radio group. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-change - Emitted when the radio group's selected value changes.
- * @event wa-input - Emitted when the radio group receives user input.
+ * @event change - Emitted when the radio group's selected value changes.
+ * @event input - Emitted when the radio group receives user input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
@@ -159,8 +157,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   };
 
@@ -290,8 +288,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
 
     event.preventDefault();

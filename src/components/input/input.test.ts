@@ -60,7 +60,7 @@ describe('<wa-input>', () => {
         const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
         const focusHandler = sinon.spy();
 
-        el.addEventListener('wa-focus', focusHandler);
+        el.addEventListener('focus', focusHandler);
         (label as HTMLLabelElement).click();
         await waitUntil(() => focusHandler.calledOnce);
 
@@ -312,13 +312,13 @@ describe('<wa-input>', () => {
       });
 
       describe('when the value changes', () => {
-        it('should emit wa-change and wa-input when the user types in the input', async () => {
+        it('should emit change and input when the user types in the input', async () => {
           const el = await fixture<WaInput>(html` <wa-input></wa-input> `);
           const inputHandler = sinon.spy();
           const changeHandler = sinon.spy();
 
-          el.addEventListener('wa-input', inputHandler);
-          el.addEventListener('wa-change', changeHandler);
+          el.addEventListener('input', inputHandler);
+          el.addEventListener('change', changeHandler);
           el.focus();
           await sendKeys({ type: 'abc' });
           el.blur();
@@ -328,21 +328,21 @@ describe('<wa-input>', () => {
           expect(inputHandler).to.have.been.calledThrice;
         });
 
-        it('should not emit wa-change or wa-input when the value is set programmatically', async () => {
+        it('should not emit change or input when the value is set programmatically', async () => {
           const el = await fixture<WaInput>(html` <wa-input></wa-input> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.value = 'abc';
 
           await el.updateComplete;
         });
 
-        it('should not emit wa-change or wa-input when calling setRangeText()', async () => {
+        it('should not emit change or input when calling setRangeText()', async () => {
           const el = await fixture<WaInput>(html` <wa-input value="hi there"></wa-input> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.focus();
           el.setSelectionRange(0, 2);
           el.setRangeText('hello');
@@ -399,21 +399,21 @@ describe('<wa-input>', () => {
           expect(el.value).to.equal('0');
         });
 
-        it('should not emit wa-input or wa-change when stepUp() is called programmatically', async () => {
+        it('should not emit input or change when stepUp() is called programmatically', async () => {
           const el = await fixture<WaInput>(html` <wa-input type="number" step="2" value="2"></wa-input> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepUp();
 
           await el.updateComplete;
         });
 
-        it('should not emit wa-input and wa-change when stepDown() is called programmatically', async () => {
+        it('should not emit input and change when stepDown() is called programmatically', async () => {
           const el = await fixture<WaInput>(html` <wa-input type="number" step="2" value="2"></wa-input> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepDown();
 
           await el.updateComplete;

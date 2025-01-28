@@ -521,7 +521,7 @@ table.colors {
   }
 }
 
-.layout-theme {
+.page-wide {
   wa-page > main {
     max-width: 140ch;
 
@@ -529,7 +529,9 @@ table.colors {
       max-width: 80ch;
     }
   }
+}
 
+.layout-theme {
   iframe {
     width: 100%;
     min-height: 16lh;

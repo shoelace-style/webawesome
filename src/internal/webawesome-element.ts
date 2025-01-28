@@ -188,6 +188,21 @@ export default class WebAwesomeElement extends LitElement {
     return options?.initial ?? options?.default ?? value;
   }
 
+  /**
+   * Given a native event, this function cancels it and dispatches it again from the host element using the desired
+   * event options.
+   */
+  relayNativeEvent(event: Event, eventOptions?: EventInit) {
+    event.stopImmediatePropagation();
+
+    this.dispatchEvent(
+      new (event.constructor as typeof Event)(event.type, {
+        ...event,
+        ...eventOptions,
+      }),
+    );
+  }
+
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options) {
       if (options.initial !== undefined && options.default === undefined) {

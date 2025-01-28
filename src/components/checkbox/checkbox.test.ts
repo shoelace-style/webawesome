@@ -60,13 +60,13 @@ describe('<wa-checkbox>', () => {
         expect(el.checkValidity()).to.be.true;
       });
 
-      it('should emit wa-change and wa-input when clicked', async () => {
+      it('should emit change and input when clicked', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.click();
         await aTimeout(0);
         await el.updateComplete;
@@ -76,13 +76,13 @@ describe('<wa-checkbox>', () => {
         expect(el.checked).to.be.true;
       });
 
-      it('should emit wa-change and wa-input when toggled with spacebar', async () => {
+      it('should emit change and input when toggled with spacebar', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.focus();
         await el.updateComplete;
         await sendKeys({ press: ' ' });
@@ -92,11 +92,11 @@ describe('<wa-checkbox>', () => {
         expect(el.checked).to.be.true;
       });
 
-      it('should not emit wa-change or wa-input when checked programmatically', async () => {
+      it('should not emit change or input when checked programmatically', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
 
-        el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-        el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+        el.addEventListener('change', () => expect.fail('change should not be emitted'));
+        el.addEventListener('input', () => expect.fail('input should not be emitted'));
         el.checked = true;
         await el.updateComplete;
         await aTimeout(0);
