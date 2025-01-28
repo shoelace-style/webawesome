@@ -13,6 +13,7 @@ TODO Page Description
   <div style="display: flex; justify-content: space-between; align-itemst: flex-start;">
     <h1>New Arrivals</h1>
   </div>
+  <div class="wa-flank wa-align-items-start" style="--flank-size: 200px;">
   <div class="category-filter-container">
     <form>
       <wa-checkbox>All Products</wa-checkbox>
@@ -50,6 +51,7 @@ TODO Page Description
    <div></div>
   <div></div>
   <div></div>
+  </div>
   </div>
 </div>
 
@@ -111,4 +113,61 @@ TODO Page Description
     }
   });
 </script>
+```
+## With Dropdowns
+
+```html{.example}
+<div class="filter-with-dropdowns">
+  <div class="heading">
+    <h1>New Arrivals</h1>
+    <p>something clever should probably be here...</p>
+  </div>
+ <div class="wa-flank wa-align-items-start">
+  <div style="border-right: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
+    <wa-select label="Sort" placeholder="Category" value="release-date" style="padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
+      <wa-option value="release-date">Option 1</wa-option>
+      <wa-option value="cheapest">Price - Lowest to Highest</wa-option>
+      <wa-option value="option-3">Option 3</wa-option>
+    </wa-select>
+    <div>
+      <wa-select label="Sort" placeholder="Category" value="release-date">
+      <wa-option value="release-date">Option 1</wa-option>
+      <wa-option value="cheapest">Price - Lowest to Highest</wa-option>
+      <wa-option value="option-3">Option 3</wa-option>
+    </wa-select>
+    <wa-select label="Sort" placeholder="Category" value="release-date">
+      <wa-option value="release-date">Option 1</wa-option>
+      <wa-option value="cheapest">Price - Lowest to Highest</wa-option>
+      <wa-option value="option-3">Option 3</wa-option>
+    </wa-select>
+    <wa-select label="Sort" placeholder="Category" value="release-date">
+      <wa-option value="release-date">Option 1</wa-option>
+      <wa-option value="cheapest">Price - Lowest to Highest</wa-option>
+      <wa-option value="option-3">Option 3</wa-option>
+    </wa-select>
+    </div>
+  </div>
+  <div class="wa-grid" style="border-left: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+</div>
+<style>
+  .filter-with-dropdowns {
+ 
+
+    [class*='wa-grid'] div:empty {
+    background-color: var(--wa-color-indigo-60);
+    border-radius: var(--wa-border-radius-m);
+    min-block-size: 4rem;
+    min-inline-size: 4rem;
+    aspect-ratio: 1/1;
+  }
+  }
+</style>
 ```
