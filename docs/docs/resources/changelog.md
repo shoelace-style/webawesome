@@ -20,6 +20,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - `wa-blur` => `blur` (this event will no longer bubble, use `focusout` for a bubbling version)
   - `wa-focus` => `focus` (this event will no longer bubble)
 - Added `.wa-callout` utility class
+- Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
 
