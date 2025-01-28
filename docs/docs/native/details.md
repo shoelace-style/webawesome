@@ -7,6 +7,7 @@ component: details
 icon: details
 elements:
   "<details>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+file: styles/native/details.css
 ---
 
 ```html {.example}
