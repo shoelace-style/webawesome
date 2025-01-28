@@ -177,8 +177,7 @@ export default class WebAwesomeElement extends LitElement {
     let options = Self.elementProperties.get(prop as string);
 
     for (let element: Node = this; element.parentElement; element = element.parentElement) {
-      // @ts-ignore
-      value = element[prop as PropertyKey];
+      value = (element as any)[prop as PropertyKey];
       if (value !== 'inherit') {
         return value;
       }
