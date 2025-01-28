@@ -20,7 +20,7 @@
 }
 
 /* Horizontal */
-.wa-button-group:not([aria-orientation='vertical']) {
+.wa-button-group:not([aria-orientation='vertical']):not(.wa-button-group-vertical) {
   > :not(:first-child),
   &::slotted(:not(:first-child)) {
     border-start-start-radius: 0 !important;
@@ -40,7 +40,8 @@
 }
 
 /* Vertical */
-.wa-button-group[aria-orientation='vertical'] {
+.wa-button-group[aria-orientation='vertical'],
+.wa-button-group-vertical {
   flex-direction: column;
 
   > :not(:first-child),

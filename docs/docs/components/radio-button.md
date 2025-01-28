@@ -9,7 +9,7 @@ icon: radio-group
 Radio buttons are designed to be used with [radio groups](/docs/components/radio-group). When a radio button has focus, the arrow keys can be used to change the selected option just like standard radio controls.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
+<wa-radio-group label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -23,7 +23,7 @@ Radio buttons are designed to be used with [radio groups](/docs/components/radio
 To set the initial value and checked state, use the `value` attribute on the containing radio group.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
+<wa-radio-group label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -35,7 +35,7 @@ To set the initial value and checked state, use the `value` attribute on the con
 Use the `disabled` attribute to disable a radio button.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
+<wa-radio-group label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2" disabled>Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -47,7 +47,7 @@ Use the `disabled` attribute to disable a radio button.
 Use the `size` attribute to change a radio button's size.
 
 ```html {.example}
-<wa-radio-group size="small" label="Select an option" name="a" value="1">
+<wa-radio-group size="small" label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -55,7 +55,7 @@ Use the `size` attribute to change a radio button's size.
 
 <br />
 
-<wa-radio-group size="medium" label="Select an option" name="a" value="1">
+<wa-radio-group size="medium" label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -63,7 +63,7 @@ Use the `size` attribute to change a radio button's size.
 
 <br />
 
-<wa-radio-group size="large" label="Select an option" name="a" value="1">
+<wa-radio-group size="large" label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">Option 1</wa-radio-button>
   <wa-radio-button value="2">Option 2</wa-radio-button>
   <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -75,7 +75,7 @@ Use the `size` attribute to change a radio button's size.
 Use the `pill` attribute to give radio buttons rounded edges.
 
 ```html {.example}
-<wa-radio-group size="small" label="Select an option" name="a" value="1">
+<wa-radio-group size="small" label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button pill value="1">Option 1</wa-radio-button>
   <wa-radio-button pill value="2">Option 2</wa-radio-button>
   <wa-radio-button pill value="3">Option 3</wa-radio-button>
@@ -83,7 +83,7 @@ Use the `pill` attribute to give radio buttons rounded edges.
 
 <br />
 
-<wa-radio-group size="medium" label="Select an option" name="a" value="1">
+<wa-radio-group size="medium" label="Select an option" orientation="horizontal" name="a" value="1">
   <wa-radio-button pill value="1">Option 1</wa-radio-button>
   <wa-radio-button pill value="2">Option 2</wa-radio-button>
   <wa-radio-button pill value="3">Option 3</wa-radio-button>
@@ -91,7 +91,7 @@ Use the `pill` attribute to give radio buttons rounded edges.
 
 <br />
 
-<wa-radio-group size="large" label="Select an option" name="a" value="1">
+<wa-radio-group size="large" label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button pill value="1">Option 1</wa-radio-button>
   <wa-radio-button pill value="2">Option 2</wa-radio-button>
   <wa-radio-button pill value="3">Option 3</wa-radio-button>
@@ -103,7 +103,7 @@ Use the `pill` attribute to give radio buttons rounded edges.
 Use the `prefix` and `suffix` slots to add icons.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
+<wa-radio-group label="Select an option" orientation="horizontal"  name="a" value="1">
   <wa-radio-button value="1">
     <wa-icon slot="prefix" name="archive" variant="solid"></wa-icon>
     Option 1
@@ -127,7 +127,7 @@ Use the `prefix` and `suffix` slots to add icons.
 You can omit button labels and use icons instead. Make sure to set a `label` attribute on each icon so screen readers will announce each option correctly.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="neutral">
+<wa-radio-group label="Select an option" orientation="horizontal" name="a" value="neutral">
   <wa-radio-button value="angry">
     <wa-icon name="face-angry" variant="solid" label="Angry"></wa-icon>
   </wa-radio-button>
