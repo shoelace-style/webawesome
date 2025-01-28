@@ -167,6 +167,27 @@ export default class WebAwesomeElement extends LitElement {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
   }
 
+  getComputed(prop: PropertyKey) {
+    let value = this[prop as keyof this];
+    if (value !== 'inherit') {
+      return value;
+    }
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+    let options = Self.elementProperties.get(prop as string);
+
+    for (let element: Node = this; element.parentElement; element = element.parentElement) {
+      // @ts-ignore
+      value = element[prop as PropertyKey];
+      if (value !== 'inherit') {
+        return value;
+      }
+    }
+
+    // If we've reached this point and we still have `inherit`, we just ran out of parents
+    return options?.initial ?? options?.default ?? value;
+  }
+
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options) {
       if (options.initial !== undefined && options.default === undefined) {
@@ -205,29 +226,6 @@ export default class WebAwesomeElement extends LitElement {
             ...descriptor,
             get() {
               return getter.call(this) ?? options.default;
-            },
-          });
-        }
-
-        if (options.default === 'inherit') {
-          // Add getter for "computed" value (taking ancestors into account)
-          let capitalizedName = name.toString().replace(/^\w/, c => c.toUpperCase());
-          Object.defineProperty(this.prototype, `computed${capitalizedName}`, {
-            get() {
-              let value;
-              let element = this;
-
-              do {
-                value = element[name as string];
-                element = element.parentElement;
-              } while (value === 'inherit' && element.parentElement);
-
-              if (value === 'inherit') {
-                // If we've reached this point and we still have `inherit`, we just ran out of parents
-                return options.initial;
-              }
-
-              return value;
             },
           });
         }
