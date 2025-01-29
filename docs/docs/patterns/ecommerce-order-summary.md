@@ -97,6 +97,9 @@ TODO Page Description
 </div>
 <style>
   .order-summary {
+    max-width: 960px;
+    margin: 0 auto;
+    
     ul {
     :where(& > :not(:last-child)) {
       border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
