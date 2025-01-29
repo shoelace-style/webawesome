@@ -15,16 +15,16 @@ TODO Page Description
 <div>
   <h2>Order History</h2>
   <p>Check the status of recent orders, manage returns, and download invoices.</p>
-  <div class="order-history-meta">
-    <span class="order-history-meta-item">
+  <div class="order-history-meta wa-split" style="margin-bottom: var(--wa-space-xl);">
+    <span class="wa-stack wa-gap-0">
       <strong>Order number</strong>
       <span>WU88191111</span>
     </span>
-       <span class="order-history-meta-item">
+    <span class="wa-stack wa-gap-0">
       <strong>Date placed</strong>
       <span>January 22, 2021</span>
     </span>
-       <span class="order-history-meta-item">
+    <span class="wa-stack wa-gap-0">
       <strong>Total amount</strong>
       <span>$95.00</span>
     </span>
@@ -34,7 +34,7 @@ TODO Page Description
       </span>
   </div>
   <div>
-    <div class="order-history-list-item" style="align-items: center;">
+    <div class="order-history-list-item wa-grid" style="align-items: center;">
       <img class="cart-item-image" src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
       <div>
         <span style="display: flex;justify-content: space-between;">
@@ -49,7 +49,7 @@ TODO Page Description
         <span>Out for Delivery</span>
       </div>
     </div>
-    <div class="order-history-list-item" style="margin-top: 1rem; align-items: center;">
+    <div class="order-history-list-item wa-grid" style="margin-top: 1rem; align-items: center;">
       <img class="cart-item-image" src="https://plus.unsplash.com/premium_photo-1675705062445-0c14a42d4289?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMwODJ8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
       <div>
         <span style="display: flex;justify-content: space-between;">
@@ -64,7 +64,7 @@ TODO Page Description
         <span>Out for Delivery</span>
       </div>
     </div>
-    <div class="order-history-list-item" style="margin-top: 1rem; align-items: center;">
+    <div class="order-history-list-item wa-grid" style="margin-top: 1rem; align-items: center;">
       <img class="cart-item-image" src="https://images.unsplash.com/photo-1613536844480-ac5d7b1b6ed1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMyMzh8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
       <div>
         <span style="display: flex;justify-content: space-between;">
@@ -85,24 +85,16 @@ TODO Page Description
    :root {
     --border-color: var(--wa-color-surface-border);
   }
-  .order-history-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-
-    .order-history-meta-item {
-      display: flex;
-      flex-direction: column;
-    }
-
+  .order-history-list-item {
+    grid-template-columns: 18% 79%;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
   }
 
-  .order-history-list-item {
-        display: grid;
-    grid-template-columns: 18% 79%;
-    column-gap: 1rem;
-        border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
+  @media (max-width: 1030px) {
+    .order-history-list-item {
+      grid-template-columns: initial;
+    }
   }
 </style>
 ```
@@ -110,7 +102,7 @@ TODO Page Description
 ### Table
 ```html{.example}
 <div class="invoice-table">
-  <div class="invoice-totals" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); display: flex; justify-content: space-between;padding-inline: 1rem; padding-block: 1rem;">
+  <div class="invoice-totals wa-split" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); padding-inline: 1rem; padding-block: 1rem;">
     <dl class="wa-grid" style="grid-template-columns: repeat(3, 1fr); --wa-space-xl: 0;">
       <div>
         <dt>Date Placed</dt>
@@ -146,7 +138,7 @@ TODO Page Description
     <tbody>
       <tr>
         <td>
-          <div style="display: flex">
+          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
             <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
             <div>
               <div>Machined Pen and Pencil Set</div>
@@ -160,7 +152,7 @@ TODO Page Description
       </tr>
       <tr>
         <td>
-          <div style="display: flex">
+          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
             <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
             <div>
               <div>Machined Pen and Pencil Set</div>
@@ -174,7 +166,7 @@ TODO Page Description
       </tr>
       <tr>
         <td>
-          <div style="display: flex">
+          <div class="wa-split wa-align-items-start"" style="justify-content: flex-start;">
             <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
             <div>
               <div>Machined Pen and Pencil Set</div>
@@ -188,7 +180,7 @@ TODO Page Description
       </tr>
       <tr>
         <td>
-          <div style="display: flex">
+          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
             <img src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&q=80" style="width: calc(1rem* 8);margin-right: .5rem;" />
             <div>
               <div>Machined Pen and Pencil Set</div>
@@ -203,13 +195,6 @@ TODO Page Description
     </tbody>
   </table>
 </div>
-<style>
-  .invoice-totals {
-   
-   
-  }
-  </style>
-
 ```
 
 ### List with Quick Actions
