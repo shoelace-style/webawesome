@@ -25,7 +25,7 @@ TODO Page Description
     <dd style="--wa-space-m: 0;">51547878755545848512</dd>
   </dl>
   <ul style="list-style-type: none; margin: 0">
-    <li style="display: flex;">
+    <li class="wa-split">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -34,7 +34,7 @@ TODO Page Description
       </div>
       <div style="flex:none;">$36.00</div>
     </li>
-    <li style="display: flex;">
+     <li class="wa-split">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -43,29 +43,28 @@ TODO Page Description
       </div>
       <div style="flex:none;">$36.00</div>
     </li>
-    
   </ul>
   <dl>
-    <div style="display:flex; justify-content: space-between">
+    <div class="wa-split">
       <dt>Subtotal</dt>
       <dd class="baw">$72.00</dd>
     </div>
-    <div style="display:flex; justify-content: space-between">
+    <div class="wa-split">
       <dt>Shipping</dt>
       <dd class="baw">$8.00</dd>
     </div>
-    <div style="display:flex; justify-content: space-between">
+    <div class="wa-split">
       <dt>Taxes</dt>
       <dd class="baw">$6.40</dd>
     </div>
-    <div style="display:flex;justify-content: space-between;border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);margin-top: 1rem;padding-top: 1rem;">
+    <div class="wa-split" style="border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);margin-top: 1rem;padding-top: 1rem;">
       <dt class="ayn">Total</dt>
       <dd class="ayn">$86.40</dd>
     </div>
   </dl>
-  <dl style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+  <dl class="wa-grid">
     <div>
-      <dt class="azp baw">Shipping Address</dt>
+      <dt>Shipping Address</dt>
       <dd style="margin: 0;">
         <address class="bdw">
           <span class="ky">Kristin Watson</span>
@@ -76,7 +75,7 @@ TODO Page Description
     </div>
     <div>
       <dt>Payment Information</dt>
-      <dd style="margin: 0; display: flex;">
+      <dd class="wa-split" style="margin: 0; justify-content: flex-start;">
         <div>
           <wa-icon family="brands" name="cc-visa" style="color: #224DBA; margin-right: 1rem;"></wa-icon>
         </div>
@@ -157,12 +156,19 @@ TODO Page Description
     <div slot="footer">
       <p style="--wa-space-xl: 0.75rem;">Preparing to ship soon!</p>
     <wa-progress-bar value="50" label="Upload progress"></wa-progress-bar>
+    <div class="wa-grid">
+      <p>Order Received</p>
+      <p style="text-align: center;">Preparing Shipment</p>
+      <p style="text-align: center;">In Transit</p>
+      <p style="text-align: right;">Delivered</p>
+    </div>
   </div>
   </wa-card>
 </div>
 <style>
   .order-summary-progress-bar {
-
+    max-width: 960px;
+    margin: 0 auto;
   }
 </style>
 ```
