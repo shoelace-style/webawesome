@@ -199,6 +199,21 @@ describe('<wa-textarea>', () => {
       });
 
       describe('when submitting a form', () => {
+        it('should submit an empty value when initial value is set and then deleted', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-textarea name="a" value="1"></wa-textarea></form>
+          `);
+          const textarea = form.querySelector('wa-textarea')!;
+
+          textarea.focus();
+          textarea.select();
+          await sendKeys({ press: 'Backspace' });
+          await textarea.updateComplete;
+
+          const formData = new FormData(form);
+          expect(formData.get('a')).to.equal('');
+        });
+
         it('should serialize its name and value with FormData', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form><wa-textarea name="a" value="1"></wa-textarea></form>
