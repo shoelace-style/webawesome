@@ -63,7 +63,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The name of the textarea, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
 
-  private _value: string = '';
+  private _value: string | null = null;
 
   /** The current value of the input, submitted as a name/value pair with form data. */
   get value() {
@@ -71,11 +71,11 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       return this._value;
     }
 
-    return this._value || this.defaultValue;
+    return this._value ?? this.defaultValue;
   }
 
   @state()
-  set value(val: string) {
+  set value(val: string | null) {
     if (this._value === val) {
       return;
     }

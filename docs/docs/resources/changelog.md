@@ -23,6 +23,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
+- Fixed a bug in `<wa-textarea>` that caused empty controls to submit a value if the initial value was deleted a certain way
 
 ## 3.0.0-alpha.9
 
