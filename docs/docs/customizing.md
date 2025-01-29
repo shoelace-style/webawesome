@@ -1,24 +1,28 @@
 ---
 title: Customizing
-description: Learn how to customize Web Awesome through parts and custom properties.
+description: Learn how to customize Web Awesome through themes, parts, and custom properties.
 layout: page-outline
 ---
 
-Web Awesome components can be customized at a high level through a theming API. This gives you control over theme colors and general styling. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
+You can customize the look and feel of Web Awesome at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
 
 ## Themes
 
-Web Awesome uses numerous CSS custom properties that make up a high-level theming API and provide a consistent look and feel across the entire library. You can customize them and use them in your own application just with CSS — no preprocessor required.
+Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
-Because these custom properties live at the page level, they're prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties.
+To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can replace the link to `default.css` in the [installation code](/docs/installation/#quick-start-autoloading-via-cdn) with this snippet to use the *Awesome* theme:
 
-To customize a theme, simply override any of these custom properties in your own stylesheet by scoping your styles to `:root`, `:host`, and, if needed, the class for the specific theme you want to override. Here's an example that changes the default brand color (blue) to violet in the light theme using existing [literal colors](/docs/tokens/color/#literal-colors).
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
+```
+
+You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:root`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to violet in light mode:
 
 ```css
 :where(:root),
 :host,
-.wa-theme-default {
-  /* Changes the brand color to violet across the library */
+.wa-light,
+.wa-dark .wa-invert {
   --wa-color-brand-fill-quiet: var(--wa-color-violet-95);
   --wa-color-brand-fill-normal: var(--wa-color-violet-90);
   --wa-color-brand-fill-loud: var(--wa-color-violet-50);
@@ -31,11 +35,11 @@ To customize a theme, simply override any of these custom properties in your own
 }
 ```
 
-For more examples and further guidance, refer to [Themes](/docs/themes) and the Theming section of this documentation. For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
+For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
 ## Components
 
-Whereas a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
+While a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
 
 Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of custom properties and CSS parts that can be targeted to customize their appearance.
 
@@ -122,3 +126,52 @@ CSS parts have a few important advantages:
 - It encourages us to think more about how components are designed and how customizations should be allowed before users can take advantage of them. Once we opt a part into the component's API, it's guaranteed to be supported and can't be removed until a major version of the library is released.
 
 Most (but not all) components expose parts. You can find them in each component's API documentation under the "CSS Parts" section.
+
+## Native Elements
+
+If you're using [native styles](/docs/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
+
+For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the same custom properties required to style the component:
+```html {.example}
+<wa-checkbox>Web Awesome checkbox</wa-checkbox>
+<br />
+<label>
+  <input type="checkbox" />
+  HTML checkbox
+</label>
+
+<style>
+  wa-checkbox,
+  input[type="checkbox"] {
+    --background-color-checked: hotpink;
+    --border-color-checked: hotpink;
+    --border-width: 3px;
+    --checked-icon-color: lavenderblush;
+  }
+</style>
+```
+
+## Style Utilities
+
+Similarly, if you're using [style utilities](/docs/utilities), any custom styles added for a specific attribute variation of a component — such as `appearance`, `variant`, or `size` — should also target the corresponding style utility class. This ensures that the attribute and its utility class counterpart work interchangeably.
+
+For example, we can give all outlined callouts a thick left border, regardless of whether they are styled with `appearance="outlined"` or `class="wa-outlined"`:
+```html {.example}
+<wa-callout appearance="outlined filled">
+  <wa-icon slot="icon" name="circle-star"></wa-icon>
+  Here's a callout with <code>appearance="outlined"</code>
+</wa-callout>
+<wa-callout class="wa-outlined wa-filled">
+  <wa-icon slot="icon" name="circle-star"></wa-icon>
+  Here's a callout with <code>class="wa-outlined"</code>
+</wa-callout>
+
+<style>
+  wa-callout:is(
+    [appearance~="outlined"], 
+    .wa-outlined
+  ) {
+    border-left-width: var(--wa-panel-border-radius);
+  }
+</style>
+```

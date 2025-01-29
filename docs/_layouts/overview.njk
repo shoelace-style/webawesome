@@ -20,6 +20,6 @@ tags: ["overview"]
 <script type="module" src="/assets/scripts/filter.js"></script>
 
 {% if content | trim %}
-<br> {# Temp fix for spacing issue #}
+<wa-divider style="--spacing: var(--wa-space-3xl)"></wa-divider> {# Temp fix for spacing issue #}
 {{ content | safe }}
 {% endif %}
