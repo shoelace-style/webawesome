@@ -65,14 +65,14 @@ The first thing you need to do is define these 8 properties in your CSS for your
 
 | Custom property | Default value |
 | --------------- | ------------- |
-| `--wa-size-xsmall` | `var(--wa-font-size-xs)` |
-| `--wa-size-small` | `var(--wa-font-size-s)` |
-| `--wa-size-medium` | `var(--wa-font-size-m)` |
-| `--wa-size-large` | `var(--wa-font-size-l)` |
-| `--wa-space-xsmall` | `var(--wa-space-xs)` |
-| `--wa-space-small` | `var(--wa-space-s)` |
-| `--wa-space-medium` | `var(--wa-space-m)` |
-| `--wa-space-large` | `var(--wa-space-l)` |
+| `--size-xs` | `var(--wa-font-size-xs)` |
+| `--size-s` | `var(--wa-font-size-s)` |
+| `--size-m` | `var(--wa-font-size-m)` |
+| `--size-l` | `var(--wa-font-size-l)` |
+| `--space-xs` | `var(--wa-space-xs)` |
+| `--space-s` | `var(--wa-space-s)` |
+| `--space-m` | `var(--wa-space-m)` |
+| `--space-l` | `var(--wa-space-l)` |
 
 
 It would look like this:
