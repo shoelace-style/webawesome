@@ -151,7 +151,7 @@ Use the `size` attribute to change a card's size.
 ```html {.example}
 <div class="wa-stack">
 <wa-card with-footer size="small">
-  <p>This is a small card.</p>
+  This is a small card.
 
   <footer slot="footer" class="wa-flank">
     <wa-button variant="brand" pill>More Info</wa-button>
@@ -160,7 +160,7 @@ Use the `size` attribute to change a card's size.
 </wa-card>
 
 <wa-card with-footer size="medium">
-  <p>This is a medium card (default).</p>
+  This is a medium card (default).
 
   <footer slot="footer" class="wa-flank">
     <wa-button variant="brand" pill>More Info</wa-button>
@@ -169,7 +169,7 @@ Use the `size` attribute to change a card's size.
 </wa-card>
 
 <wa-card with-footer size="large">
-  <p>This is a large card.</p>
+  This is a large card.
 
   <footer slot="footer" class="wa-flank">
     <wa-button variant="brand" pill>More Info</wa-button>
