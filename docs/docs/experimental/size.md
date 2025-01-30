@@ -47,6 +47,22 @@ Dropdown:
 <br><br>
 <wa-dropdown>
   <wa-button slot="trigger" caret>Dropdown</wa-button>
+  <wa-menu size="small">
+    <wa-menu-item>Dropdown Item 1</wa-menu-item>
+    <wa-menu-item>Dropdown Item 2</wa-menu-item>
+    <wa-menu-item>Dropdown Item 3</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
+<wa-dropdown>
+  <wa-button slot="trigger" caret>Dropdown</wa-button>
+  <wa-menu>
+    <wa-menu-item size="small">Dropdown Item 1</wa-menu-item>
+    <wa-menu-item size="small">Dropdown Item 2</wa-menu-item>
+    <wa-menu-item size="small">Dropdown Item 3</wa-menu-item>
+  </wa-menu>
+</wa-dropdown>
+<wa-dropdown>
+  <wa-button slot="trigger" caret>Dropdown</wa-button>
   <wa-menu>
     <wa-menu-item>Dropdown Item 1</wa-menu-item>
     <wa-menu-item>Dropdown Item 2</wa-menu-item>
