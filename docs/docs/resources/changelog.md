@@ -23,7 +23,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
 - Added docs for visual tests
 - Added docs on how to cherry-pick native styles
-- Changed the behavior of the `variant` and `size` attributes so that nested components that support these attributes but do not have them set inherit the values set on their ancestors
+- Changed the behavior of the `variant` and `size` attributes so that nested components that support these attributes but do not have them set inherit the values set on their ancestors. Additionally:
+  - Added `size` and `variant` attributes to `<wa-button-group>`
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
 - Fixed a bug in `<wa-textarea>` that caused empty controls to submit a value if the initial value was deleted a certain way
