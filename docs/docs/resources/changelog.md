@@ -21,7 +21,8 @@ During the alpha period, things might break! We take breaking changes very serio
   - `wa-focus` => `focus` (this event will no longer bubble)
 - Added `.wa-callout` utility class
 - Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
-- Added a docs page for visual tests
+- Added docs for visual tests
+- Added docs on how to cherry-pick native styles
 - Changed `variant` behavior so that nested components with `variant` support inherit the `variant` set on their ancestor
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
