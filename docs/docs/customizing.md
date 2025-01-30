@@ -16,7 +16,7 @@ To use a theme, simply add a link to the theme's stylesheet to the `<head>` of y
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
 ```
 
-You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:root`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to violet in light mode:
+You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:where(:root)`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to violet in light mode:
 
 ```css
 :where(:root),
@@ -35,11 +35,15 @@ You can [customize any theme](/docs/themes/creating) just with CSS — no prepro
 }
 ```
 
+:::info
+Wrapping the `:root` selector in `:where()` gives this selector 0 specificity. This allows us to define our design tokens' default values while ensuring they can be cleanly overridden as needed.
+:::
+
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
 ## Components
 
-While a theme offers a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
+While themes offer a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
 
 Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of custom properties and CSS parts that can be targeted to customize their appearance.
 
@@ -131,18 +135,18 @@ Most (but not all) components expose parts. You can find them in each component'
 
 If you're using [native styles](/docs/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 
-For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the same custom properties required to style the component:
+For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the custom properties required to style the component:
 ```html {.example}
-<wa-checkbox>Web Awesome checkbox</wa-checkbox>
+<wa-checkbox class="pinkify">Web Awesome checkbox</wa-checkbox>
 <br />
 <label>
-  <input type="checkbox" />
+  <input type="checkbox" class="pinkify" />
   HTML checkbox
 </label>
 
 <style>
-  wa-checkbox,
-  input[type="checkbox"] {
+  wa-checkbox.pinkify,
+  input[type="checkbox"].pinkify {
     --background-color-checked: hotpink;
     --border-color-checked: hotpink;
     --border-width: 3px;
@@ -150,6 +154,31 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
   }
 </style>
 ```
+
+Or, if using CSS parts, we can give both checkboxes the same custom styles using standard CSS properties:
+```html {.example}
+<wa-checkbox class="purpleify">Web Awesome checkbox</wa-checkbox>
+<br />
+<label>
+  <input type="checkbox" class="purpleify" />
+  HTML checkbox
+</label>
+
+<style>
+  wa-checkbox.purpleify::part(control),
+  input[type="checkbox"].purpleify {
+    border-width: 3px;
+  }
+
+  wa-checkbox.purpleify:state(checked)::part(control),
+  input[type="checkbox"].purpleify:checked {
+    background-color: darkorchid;
+    border-color: darkorchid;
+    color: lavender;
+  }
+</style>
+```
+
 
 ## Style Utilities
 
