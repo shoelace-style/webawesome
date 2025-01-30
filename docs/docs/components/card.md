@@ -143,3 +143,42 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
   }
 </style>
 ```
+
+### Sizing
+
+Use the `size` attribute to change a card's size.
+
+```html {.example}
+<div class="wa-stack">
+<wa-card with-footer size="small">
+  <p>This is a small card.</p>
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="medium">
+  <p>This is a medium card (default).</p>
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="large">
+  <p>This is a large card.</p>
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+</div>
+
+```
+
+<style>
+</style>

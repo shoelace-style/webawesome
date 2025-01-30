@@ -24,7 +24,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added docs for visual tests
 - Added docs on how to cherry-pick native styles
 - Changed the behavior of the `variant` and `size` attributes so that nested components that support these attributes but do not have them set inherit the values set on their ancestors. Additionally:
-  - Added `size` attribute to `<wa-dropdown>`, `<wa-button-group>`, `<wa-menu>`, `<wa-rating>`
+  - Added `size` attribute to `<wa-dropdown>`, `<wa-button-group>`, `<wa-menu>`, `<wa-rating>`, `<wa-card>`
   - Added `variant` attribute to `<wa-button-group>`
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions

@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
 
 /**
@@ -21,11 +22,14 @@ import styles from './card.css';
  *
  * @cssproperty --border-radius - The radius for the card's corners. Expects a single value. Defaults to `var(--wa-panel-border-radius)`.
  * @cssproperty --border-width - The width of the card's borders. Expects a single value. Defaults to `var(--wa-panel-border-width)`.
- * @cssproperty --spacing - The amount of space around and between sections of the card. Expects a single value.
+ * @cssproperty --spacing - The amount of space around and between sections of the card. Expects a single value. Defaults to `var(--wa-space)`.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
+
+  /** The component's size. Will be inherited by any descendants with a `size` attribute. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
