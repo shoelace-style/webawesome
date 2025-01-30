@@ -36,6 +36,7 @@ If no button size is specified, it should default to that of its ancestor:
 Dropdown:
 
 ```html {.example}
+<p>Small dropdown:
 <wa-dropdown size="small">
   <wa-button slot="trigger" caret>Dropdown</wa-button>
   <wa-menu>
@@ -44,7 +45,7 @@ Dropdown:
     <wa-menu-item>Dropdown Item 3</wa-menu-item>
   </wa-menu>
 </wa-dropdown>
-<br><br>
+<p>Small menu:
 <wa-dropdown>
   <wa-button slot="trigger" caret>Dropdown</wa-button>
   <wa-menu size="small">
@@ -53,6 +54,7 @@ Dropdown:
     <wa-menu-item>Dropdown Item 3</wa-menu-item>
   </wa-menu>
 </wa-dropdown>
+<p>Small menu item:
 <wa-dropdown>
   <wa-button slot="trigger" caret>Dropdown</wa-button>
   <wa-menu>
@@ -61,6 +63,7 @@ Dropdown:
     <wa-menu-item size="small">Dropdown Item 3</wa-menu-item>
   </wa-menu>
 </wa-dropdown>
+<p>No size:
 <wa-dropdown>
   <wa-button slot="trigger" caret>Dropdown</wa-button>
   <wa-menu>
