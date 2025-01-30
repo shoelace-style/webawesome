@@ -40,6 +40,66 @@
 </div>
 <wa-divider></wa-divider>
 
+<h3>Button Group</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>size=""</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>small</code>/<code>s</code></th>
+      <td>
+        <wa-button-group orientation="horizontal" size="small">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+      <td>
+        <wa-button-group orientation="horizontal" class="wa-size-s">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code>/<code>m</code></th>
+      <td>
+        <wa-button-group orientation="horizontal" size="medium">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+      <td>
+        <wa-button-group orientation="horizontal" class="wa-size-m">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code>/<code>l</code></th>
+      <td>
+        <wa-button-group orientation="horizontal" size="large">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+      <td>
+        <wa-button-group orientation="horizontal" class="wa-size-l">
+          <wa-button value="1">Button L</wa-button>
+          <wa-button value="2">Button R</wa-button>
+        </wa-button-group>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
 <h3>Callout</h3>
 
 <div class="table-scroll">
@@ -93,6 +153,60 @@
           <wa-icon slot="icon" name="circle-star"></wa-icon>
           Callout
         </wa-callout>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Card</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>size=""</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>small</code>/<code>s</code></th>
+      <td>
+        <wa-card size="small">
+          Card
+        </wa-card>
+      </td>
+      <td>
+        <wa-card class="wa-size-s">
+          Card
+        </wa-card>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code>/<code>m</code></th>
+      <td>
+        <wa-card size="medium">
+          Card
+        </wa-card>
+      </td>
+      <td>
+        <wa-card class="wa-size-m">
+          Card
+        </wa-card>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code>/<code>l</code></th>
+      <td>
+        <wa-card size="large">
+          Card
+        </wa-card>
+      </td>
+      <td>
+        <wa-card class="wa-size-l">
+          Card
+        </wa-card>
       </td>
     </tr>
   </tbody>
@@ -177,6 +291,144 @@
       </td>
       <td>
         <wa-color-picker class="wa-size-l" label="Color Picker" hint="Hint"></wa-color-picker>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Dropdown</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>size=""</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>small</code>/<code>s</code></th>
+      <td>
+        <wa-dropdown size="small">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+      <td>
+        <wa-dropdown class="wa-size-s">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code>/<code>m</code></th>
+      <td>
+        <wa-dropdown size="medium">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+      <td>
+        <wa-dropdown class="wa-size-m">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code>/<code>l</code></th>
+      <td>
+        <wa-dropdown size="large">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+      <td>
+        <wa-dropdown class="wa-size-l">
+          <wa-button slot="trigger" caret>Dropdown</wa-button>
+          <wa-menu>
+            <wa-menu-item>Menu Item 1</wa-menu-item>
+            <wa-menu-item>Menu Item 2</wa-menu-item>
+          </wa-menu>
+        </wa-dropdown>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Menu</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>size=""</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>small</code>/<code>s</code></th>
+      <td>
+        <wa-menu size="small">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
+      </td>
+      <td>
+        <wa-menu class="wa-size-s">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code>/<code>m</code></th>
+      <td>
+        <wa-menu size="medium">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
+      </td>
+      <td>
+        <wa-menu class="wa-size-m">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code>/<code>l</code></th>
+      <td>
+        <wa-menu size="large">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
+      </td>
+      <td>
+        <wa-menu class="wa-size-l">
+          <wa-menu-item>Menu Item 1</wa-menu-item>
+          <wa-menu-item>Menu Item 2</wa-menu-item>
+        </wa-menu>
       </td>
     </tr>
   </tbody>
@@ -274,7 +526,7 @@
 <table>
   <thead>
     <th></th>
-    <th class="test-failure"><code>size=""</code></th>
+    <th><code>size=""</code></th>
     <th><code>.wa-size-[s|m|l]</code></th>
   </thead>
   <tbody>
@@ -335,7 +587,7 @@
   <thead>
     <th></th>
     <th><code>size=""</code></th>
-    <th class="test-failure"><code>.wa-size-[s|m|l]</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
   </thead>
   <tbody>
     <tr>
@@ -417,6 +669,48 @@
             <wa-radio-button value="2">Radio 2</wa-radio-button>
           </wa-radio-group>
         </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Rating</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>size=""</code></th>
+    <th><code>.wa-size-[s|m|l]</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>small</code>/<code>s</code></th>
+      <td>
+        <wa-rating size="small"></wa-rating>
+      </td>
+      <td>
+        <wa-rating class="wa-size-s"></wa-rating>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code>/<code>m</code></th>
+      <td>
+        <wa-rating size="medium"></wa-rating>
+      </td>
+      <td>
+        <wa-rating class="wa-size-m"></wa-rating>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code>/<code>l</code></th>
+      <td>
+        <wa-rating size="large"></wa-rating>
+      </td>
+      <td>
+        <wa-rating class="wa-size-l"></wa-rating>
       </td>
     </tr>
   </tbody>
