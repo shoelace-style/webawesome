@@ -9,7 +9,7 @@ describe('<wa-tag>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render default tag', async () => {
         const el = await fixture<WaTag>(html` <wa-tag>Test</wa-tag> `);
-        expect(el.getAttribute('size')).to.equal('medium');
+        expect(el.getAttribute('size')).to.equal(null);
         expect(el.getAttribute('variant')).to.equal(null);
         expect(el.variant).to.equal('inherit');
       });
