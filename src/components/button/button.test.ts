@@ -114,7 +114,7 @@ describe('<wa-button>', () => {
           expect(el.title).to.equal('');
           expect(el.variant).to.equal('neutral');
           expect(el.appearance).to.equal('accent');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('inherit');
           expect(el.disabled).to.equal(false);
           expect(el.caret).to.equal(false);
           expect(el.loading).to.equal(false);
