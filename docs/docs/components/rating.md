@@ -35,12 +35,20 @@ Use the `precision` attribute to let users select fractional ratings.
 <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
 ```
 
-### Symbol Sizes
+### Sizing
 
-Set the `--symbol-size` custom property to adjust the size.
+Use the `size` attribute to adjust the size of the rating.
 
 ```html {.example}
-<wa-rating label="Rating" style="--symbol-size: 2rem;"></wa-rating>
+<wa-rating label="Rating" size="small"></wa-rating><br>
+<wa-rating label="Rating" size="medium"></wa-rating><br>
+<wa-rating label="Rating" size="large"></wa-rating>
+```
+
+For more granular sizing, you can use the `font-size` property.
+
+```html {.example}
+<wa-rating label="Rating" style="font-size: 2rem;"></wa-rating>
 ```
 
 ### Readonly
