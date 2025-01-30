@@ -79,15 +79,15 @@ It would look like this:
 
 ```css
 .tag2 {
-	--wa-size-xsmall: var(--wa-font-size-2xs);
-	--wa-size-small: var(--wa-font-size-xs);
-	--wa-size-medium: var(--wa-font-size-s);
-	--wa-size-large: var(--wa-font-size-m);
+	--size-xs: var(--wa-font-size-2xs);
+	--size-s: var(--wa-font-size-xs);
+	--size-m: var(--wa-font-size-s);
+	--size-l: var(--wa-font-size-m);
 
-	--wa-space-xsmall: var(--wa-space-2xs);
-	--wa-space-small: var(--wa-space-xs);
-	--wa-space-medium: var(--wa-space-s);
-	--wa-space-large: var(--wa-space-m);
+	--space-xs: var(--wa-space-2xs);
+	--space-s: var(--wa-space-xs);
+	--space-m: var(--wa-space-s);
+	--space-l: var(--wa-space-m);
 }
 ```
 
@@ -101,15 +101,15 @@ That by itself is sufficient to give you sizes when the utility classes are used
 
 <style>
   .tag2 {
-	--wa-size-xsmall: var(--wa-font-size-2xs);
-	--wa-size-small: var(--wa-font-size-xs);
-	--wa-size-medium: var(--wa-font-size-s);
-	--wa-size-large: var(--wa-font-size-m);
+	--size-xs: var(--wa-font-size-2xs);
+	--size-s: var(--wa-font-size-xs);
+	--size-m: var(--wa-font-size-s);
+	--size-l: var(--wa-font-size-m);
 
-	--wa-space-xsmall: var(--wa-space-2xs);
-	--wa-space-small: var(--wa-space-xs);
-	--wa-space-medium: var(--wa-space-s);
-	--wa-space-large: var(--wa-space-m);
+	--space-xs: var(--wa-space-2xs);
+	--space-s: var(--wa-space-xs);
+	--space-m: var(--wa-space-s);
+	--space-l: var(--wa-space-m);
 
 	display: inline-block;
 	font-size: var(--wa-size); /* needed for the default size */
@@ -134,22 +134,22 @@ Supporting a default size as well requires a little bit more plumbing:
 
 <style>
   .tag3 {
-	--wa-size-xsmall: var(--wa-font-size-2xs);
-	--wa-size-small: var(--wa-font-size-xs);
-	--wa-size-medium: var(--wa-font-size-s);
-	--wa-size-large: var(--wa-font-size-m);
+	--size-xs: var(--wa-font-size-2xs);
+	--size-s: var(--wa-font-size-xs);
+	--size-m: var(--wa-font-size-s);
+	--size-l: var(--wa-font-size-m);
 
-	--wa-space-xsmall: var(--wa-space-2xs);
-	--wa-space-small: var(--wa-space-xs);
-	--wa-space-medium: var(--wa-space-s);
-	--wa-space-large: var(--wa-space-m);
+	--space-xs: var(--wa-space-2xs);
+	--space-s: var(--wa-space-xs);
+	--space-m: var(--wa-space-s);
+	--space-l: var(--wa-space-m);
 
 	/* Default size assignments with 0 specificity */
 	:where(&) {
-		--wa-size: var(--wa-size-medium);
-		--wa-size-smaller: var(--wa-size-small);
-		--wa-space: var(--wa-space-medium);
-		--wa-space-smaller: var(--wa-space-small);
+		--wa-size: var(--size-m);
+		--wa-size-smaller: var(--size-s);
+		--wa-space: var(--space-m);
+		--wa-space-smaller: var(--space-s);
 	}
 
 	display: inline-block;
