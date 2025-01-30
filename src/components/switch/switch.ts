@@ -4,14 +4,10 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './switch.css';
@@ -25,10 +21,10 @@ import styles from './switch.css';
  * @slot - The switch's label.
  * @slot hint - Text that describes how to use the switch. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-change - Emitted when the control's checked state changes.
- * @event wa-input - Emitted when the control receives input.
- * @event wa-focus - Emitted when the control gains focus.
+ * @event blur - Emitted when the control loses focus.
+ * @event change - Emitted when the control's checked state changes.
+ * @event input - Emitted when the control receives input.
+ * @event focus - Emitted when the control gains focus.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
@@ -117,37 +113,25 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this.handleValueOrCheckedChange();
   }
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleInput() {
-    this.dispatchEvent(new WaInputEvent());
-  }
-
   private handleClick() {
     this.hasInteracted = true;
     this.checked = !this.checked;
-    this.dispatchEvent(new WaChangeEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
       this.checked = false;
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      this.dispatchEvent(new InputEvent('input'));
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
       this.checked = true;
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      this.dispatchEvent(new InputEvent('input'));
     }
   }
 
@@ -250,9 +234,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           aria-checked=${this.checked ? 'true' : 'false'}
           aria-describedby="hint"
           @click=${this.handleClick}
-          @input=${this.handleInput}
-          @blur=${this.handleBlur}
-          @focus=${this.handleFocus}
           @keydown=${this.handleKeyDown}
         />
 

@@ -803,7 +803,7 @@ hasOutline: false
   const queue = [];
   let inputTimeout;
 
-  variantInput.addEventListener('wa-change', () => {
+  variantInput.addEventlistener('change', () => {
     iconList.dataset.variant = variantInput.value;
   });
 
@@ -823,7 +823,7 @@ hasOutline: false
   });
 
   // Filter as the user types
-  input.addEventListener('wa-input', () => {
+  input.addEventListener('input', () => {
     clearTimeout(inputTimeout);
     inputTimeout = setTimeout(() => {
       [...iconList.children].map(item => {
@@ -1084,10 +1084,10 @@ hasOutline: false
     el.classList.add(`wa-theme-${theme}-${colorMode}`);
   }
 
-  colorModeSelect.addEventListener('wa-change', setColorMode);
+  colorModeSelect.addEventlistener('change', setColorMode);
 
   // Theme Switcher
-  themeSelect.addEventListener('wa-change', event => {
+  themeSelect.addEventlistener('change', event => {
     const theme = event.target.value
     const newStylesheet = Object.assign(document.createElement("link"), {
       // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
@@ -1132,14 +1132,14 @@ hasOutline: false
   });
 
   // Color Palette
-  colorSelect.addEventListener('wa-change', event => {
+  colorSelect.addEventlistener('change', event => {
     const colorPalette = event.target.value;
 
     colorStylesheet.href = `/dist/styles/themes/color/${colorPalette}.css`;
   });
 
   // Brand Color
-  brandColor.addEventListener('wa-change', event => {
+  brandColor.addEventlistener('change', event => {
     const documentStyles = document.documentElement.style
     documentStyles.setProperty('--wa-color-primary-95', `var(--wa-color-${event.target.value}-95)`);
     documentStyles.setProperty('--wa-color-primary-90', `var(--wa-color-${event.target.value}-90)`);
@@ -1223,7 +1223,7 @@ hasOutline: false
   })
 
   // Pre-generated logos
-  logoSelector.addEventListener('wa-change', event => {
+  logoSelector.addEventlistener('change', event => {
     const value = event.currentTarget.value
 
     const projectLogo = previewContainer.querySelector("#project-logo");
@@ -1279,21 +1279,21 @@ hasOutline: false
     })
   }
 
-  themeSelect.addEventListener('wa-change', setLogoIcons);
+  themeSelect.addEventlistener('change', setLogoIcons);
 
   // Project Name
-  container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="project-name"]').addEventListener('input', event => {
     previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
   })
 
   // Heading font weight
   resetHeadingFontWeightValue()
-  fontWeightHeading.addEventListener('wa-input', event => {
+  fontWeightHeading.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
   // Heading text
-  fontFamilyHeading.addEventListener('wa-change', event => {
+  fontFamilyHeading.addEventlistener('change', event => {
     let fontFamily;
     switch (event.target.value) {
       case 'assistant':
@@ -1351,7 +1351,7 @@ hasOutline: false
   })
 
   // Body text
-  fontFamilyBody.addEventListener('wa-change', event => {
+  fontFamilyBody.addEventlistener('change', event => {
     let fontFamily;
     switch (event.target.value) {
       case 'assistant':
@@ -1404,7 +1404,7 @@ hasOutline: false
 
   // Body font weight
   resetBodyFontWeightValue()
-  fontWeightBody.addEventListener('wa-input', event => {
+  fontWeightBody.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
@@ -1580,7 +1580,7 @@ hasOutline: false
   }
 
   // Swaps icons to the preferred set for the selected theme
-  themeSelect.addEventListener('wa-change', event => {
+  themeSelect.addEventlistener('change', event => {
     setPreferredIcons();
     showIconStyleOptions();
     syncLogoIcon();
@@ -1599,32 +1599,32 @@ hasOutline: false
   });
 
   // Changes available Icon Styles and swaps icons based on the selected Icon Family
-  iconFamily.addEventListener('wa-change', event => {
+  iconFamily.addEventlistener('change', event => {
     useFaIcons();
     showIconStyleOptions();
   });
 
   // Swaps icons based on the selected Icon Style
-  iconStyle.addEventListener('wa-change', useFaIcons);
+  iconStyle.addEventlistener('change', useFaIcons);
 
 
   // Corners
-  container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="corners"]').addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-radius-scale', `${event.target.value}`);
   });
 
   // Border width
-  container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="border-width"]').addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-width-scale', `${event.target.value / 16}`);
   });
 
   // Border style
-  borderStyle.addEventListener('wa-input', event => {
+  borderStyle.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-style', event.target.value);
   });
 
   // Spacing style
-  spacing.addEventListener('wa-input', event => {
+  spacing.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-space-scale', `${event.target.value}`);
   });
 

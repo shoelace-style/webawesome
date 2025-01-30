@@ -1,7 +1,3 @@
-:host {
-  display: block;
-}
-
 /** The popup */
 .select {
   flex: 1 1 auto;

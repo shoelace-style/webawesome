@@ -13,7 +13,7 @@
   --thumb-size: calc((var(--height) - var(--border-width) * 2) * 0.75);
   --width: calc(var(--height) * 1.75);
 
-  display: inline-block;
+  display: inline-flex;
 }
 
 label {

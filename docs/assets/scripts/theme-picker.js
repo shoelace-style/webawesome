@@ -28,7 +28,7 @@ export class ThemeAspect {
     });
 
     // Listen for selections
-    document.addEventListener('wa-change', event => {
+    document.addEventListener('change', event => {
       const picker = event.target.closest(this.picker);
       if (picker) {
         this.set(picker.value);

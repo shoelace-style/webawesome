@@ -6,6 +6,7 @@ icon: textarea
 component: textarea
 elements:
   "<textarea>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+file: styles/native/input.css
 ---
 
 ```html {.example}

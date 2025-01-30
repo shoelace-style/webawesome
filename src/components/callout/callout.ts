@@ -27,8 +27,14 @@ import styles from './callout.css';
 export default class WaCallout extends WebAwesomeElement {
   static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
 
-  /** The callout's theme variant. */
-  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+  /** The callout's theme variant. Defaults to `brand` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'brand' }) variant:
+    | 'brand'
+    | 'neutral'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   /** The callout's visual appearance. */
   @property({ reflect: true }) appearance:

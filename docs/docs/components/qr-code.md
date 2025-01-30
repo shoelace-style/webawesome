@@ -24,7 +24,7 @@ QR codes are useful for providing small pieces of information to users who can q
 
   customElements.whenDefined('wa-qr-code').then(() => {
     input.value = qrCode.value;
-    input.addEventListener('wa-input', () => (qrCode.value = input.value));
+    input.addEventListener('input', () => (qrCode.value = input.value));
   });
 </script>
 

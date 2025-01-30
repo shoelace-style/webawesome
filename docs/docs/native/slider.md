@@ -7,6 +7,7 @@ icon: slider
 component: slider
 elements:
   "<input type=range>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+file: styles/native/slider.css
 ---
 
 ```html {.example}

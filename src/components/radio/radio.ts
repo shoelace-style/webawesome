@@ -1,10 +1,8 @@
 import { html, isServer } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/radio.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
@@ -20,8 +18,8 @@ import styles from './radio.css';
  *
  * @slot - The radio's label.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-focus - Emitted when the control gains focus.
+ * @event blur - Emitted when the control loses focus.
+ * @event focus - Emitted when the control gains focus.
  *
  * @csspart base - The component's base wrapper.
  * @csspart control - The circular container that wraps the radio's checked state.
@@ -69,8 +67,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     super();
     if (!isServer) {
       this.addEventListener('click', this.handleClick);
-      this.addEventListener('blur', this.handleBlur);
-      this.addEventListener('focus', this.handleFocus);
     }
   }
 
@@ -78,14 +74,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     super.connectedCallback();
     this.setInitialAttributes();
   }
-
-  private handleBlur = () => {
-    this.dispatchEvent(new WaBlurEvent());
-  };
-
-  private handleFocus = () => {
-    this.dispatchEvent(new WaFocusEvent());
-  };
 
   private setInitialAttributes() {
     this.setAttribute('role', 'radio');

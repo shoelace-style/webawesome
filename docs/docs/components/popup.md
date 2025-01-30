@@ -54,11 +54,11 @@ Popup is a low-level utility built specifically for positioning elements. Do not
   const active = container.querySelector('wa-switch[name="active"]');
   const arrow = container.querySelector('wa-switch[name="arrow"]');
 
-  select.addEventListener('wa-change', () => (popup.placement = select.value));
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
-  active.addEventListener('wa-change', () => (popup.active = active.checked));
-  arrow.addEventListener('wa-change', () => (popup.arrow = arrow.checked));
+  select.addEventListener('change', () => (popup.placement = select.value));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
+  active.addEventListener('change', () => (popup.active = active.checked));
+  arrow.addEventListener('change', () => (popup.arrow = arrow.checked));
 </script>
 
 <style>
@@ -145,7 +145,7 @@ Popups are inactive and hidden until the `active` attribute is applied. Removing
   const popup = container.querySelector('wa-popup');
   const active = container.querySelector('wa-switch');
 
-  active.addEventListener('wa-change', () => (popup.active = active.checked));
+  active.addEventListener('change', () => (popup.active = active.checked));
 </script>
 ```
 
@@ -233,7 +233,7 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
   const popup = container.querySelector('wa-popup');
   const select = container.querySelector('wa-select');
 
-  select.addEventListener('wa-change', () => (popup.placement = select.value));
+  select.addEventListener('change', () => (popup.placement = select.value));
 </script>
 ```
 
@@ -277,7 +277,7 @@ Use the `distance` attribute to change the distance between the popup and its an
   const popup = container.querySelector('wa-popup');
   const distance = container.querySelector('wa-slider');
 
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
 </script>
 ```
 
@@ -321,7 +321,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
   const popup = container.querySelector('wa-popup');
   const skidding = container.querySelector('wa-slider');
 
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
 </script>
 ```
 
@@ -409,9 +409,9 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
     const arrowPlacement = container.querySelector('[name="arrow-placement"]');
     const arrow = container.querySelector('[name="arrow"]');
 
-    placement.addEventListener('wa-change', () => (popup.placement = placement.value));
-    arrowPlacement.addEventListener('wa-change', () => (popup.arrowPlacement = arrowPlacement.value));
-    arrow.addEventListener('wa-change', () => (popup.arrow = arrow.checked));
+    placement.addEventListener('change', () => (popup.placement = placement.value));
+    arrowPlacement.addEventListener('change', () => (popup.arrowPlacement = arrowPlacement.value));
+    arrow.addEventListener('change', () => (popup.arrow = arrow.checked));
   </script>
 </div>
 ```
@@ -464,7 +464,7 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
   const fixed = container.querySelector('wa-switch');
   const sync = container.querySelector('wa-select');
 
-  sync.addEventListener('wa-change', () => (popup.sync = sync.value));
+  sync.addEventListener('change', () => (popup.sync = sync.value));
 </script>
 ```
 
@@ -523,7 +523,7 @@ Toggle the switch and scroll the container to see the difference.
   const popup = container.querySelector('wa-popup');
   const fixed = container.querySelector('wa-switch');
 
-  fixed.addEventListener('wa-change', () => (popup.strategy = fixed.checked ? 'fixed' : 'absolute'));
+  fixed.addEventListener('change', () => (popup.strategy = fixed.checked ? 'fixed' : 'absolute'));
 </script>
 ```
 
@@ -575,7 +575,7 @@ Scroll the container to see how the popup flips to prevent clipping.
   const popup = container.querySelector('wa-popup');
   const flip = container.querySelector('wa-switch');
 
-  flip.addEventListener('wa-change', () => (popup.flip = flip.checked));
+  flip.addEventListener('change', () => (popup.flip = flip.checked));
 </script>
 ```
 
@@ -670,7 +670,7 @@ Toggle the switch to see the difference.
   const popup = container.querySelector('wa-popup');
   const shift = container.querySelector('wa-switch');
 
-  shift.addEventListener('wa-change', () => (popup.shift = shift.checked));
+  shift.addEventListener('change', () => (popup.shift = shift.checked));
 </script>
 ```
 
@@ -731,7 +731,7 @@ Scroll the container to see the popup resize as its available space changes.
   const popup = container.querySelector('wa-popup');
   const autoSize = container.querySelector('wa-switch');
 
-  autoSize.addEventListener('wa-change', () => (popup.autoSize = autoSize.checked ? 'both' : ''));
+  autoSize.addEventListener('change', () => (popup.autoSize = autoSize.checked ? 'both' : ''));
 </script>
 ```
 
@@ -782,9 +782,9 @@ When a gap exists between the anchor and the popup element, this option will add
   const hoverBridge = container.querySelector('wa-switch');
   const distance = container.querySelector('wa-slider[label="Distance"]');
   const skidding = container.querySelector('wa-slider[label="Skidding"]');
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
-  hoverBridge.addEventListener('wa-change', () => (popup.hoverBridge = hoverBridge.checked));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
+  hoverBridge.addEventListener('change', () => (popup.hoverBridge = hoverBridge.checked));
 </script>
 ```
 
@@ -837,7 +837,7 @@ This example anchors a popup to the mouse cursor using a virtual element. As suc
   };
 
   // Only activate the popup when the switch is checked
-  enabled.addEventListener('wa-change', () => {
+  enabled.addEventListener('change', () => {
     popup.active = enabled.checked;
   });
 

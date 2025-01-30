@@ -6,6 +6,7 @@ icon: radio-group
 component: radio
 elements:
   "<input type=radio>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
+file: styles/native/radio.css
 ---
 
 <style>

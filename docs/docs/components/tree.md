@@ -88,7 +88,7 @@ The `selection` attribute lets you change the selection behavior of the tree.
   const selectionMode = document.querySelector('#selection-mode');
   const tree = document.querySelector('.tree-selectable');
 
-  selectionMode.addEventListener('wa-change', () => {
+  selectionMode.addEventlistener('change', () => {
     tree.querySelectorAll('wa-tree-item').forEach(item => (item.selected = false));
     tree.selection = selectionMode.value;
   });

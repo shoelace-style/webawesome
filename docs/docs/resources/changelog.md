@@ -14,9 +14,22 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- 🚨 BREAKING: updated all components to use native events instead of `wa-` prefixed events. This will allow components to work more like native elements in your code, frameworks, third-party plugins, etc. To update your code, simply remove the prefix from your event listeners for the following events.
+  - `wa-input` => `input`
+  - `wa-change` => `change`
+  - `wa-blur` => `blur` (this event will no longer bubble, use `focusout` for a bubbling version)
+  - `wa-focus` => `focus` (this event will no longer bubble)
 - Added `.wa-callout` utility class
+- Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
+- Added docs for visual tests
+- Added docs on how to cherry-pick native styles
+- Changed `variant` behavior so that nested components with `variant` support inherit the `variant` set on their ancestor
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
+- Fixed a bug in `<wa-textarea>` that caused empty controls to submit a value if the initial value was deleted a certain way
+- Fixed a bug in `<input>`, `<textarea>`, and `<select>` styles that prevented full-width controls from using 100% width when wrapped in a `<label>`
+- Fixed a bug in `<select>` styles that caused the caret to block interactions and prevented the caret from rendering unless wrapped in a `<label>`
+- Fixed a bug in `<wa-checkbox>` that caused hints to render inline with the label
 
 ## 3.0.0-alpha.9
 

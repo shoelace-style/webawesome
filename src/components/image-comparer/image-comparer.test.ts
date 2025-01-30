@@ -37,7 +37,7 @@ describe('<wa-image-comparer>', () => {
         `);
         const handler = sinon.spy();
 
-        el.addEventListener('wa-change', handler, { once: true });
+        el.addEventListener('change', handler, { once: true });
 
         el.position = 40;
         await el.updateComplete;
