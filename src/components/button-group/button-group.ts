@@ -34,6 +34,9 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
+  /** The component's size. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 

@@ -88,7 +88,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** The textarea's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** The textarea's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';

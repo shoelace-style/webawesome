@@ -46,7 +46,7 @@ export default class WaCallout extends WebAwesomeElement {
     | 'outlined accent' = 'outlined filled';
 
   /** The callout's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   render() {
     return html`

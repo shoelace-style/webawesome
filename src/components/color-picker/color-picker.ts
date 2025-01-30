@@ -199,7 +199,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
 
   /** Determines the size of the color picker's trigger */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Removes the button that lets users toggle between format.   */
   @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;

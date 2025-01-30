@@ -98,7 +98,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   /** The checkbox's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Disables the checkbox. */
   @property({ type: Boolean }) disabled = false;

@@ -107,8 +107,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. This size will be applied to all child radios and radio buttons. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  /** The radio group's size. This size will be applied to all child radios and radio buttons, except when explicitly overridden. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -187,7 +187,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       // Sync the checked state and size
       radios.map(async radio => {
         await radio.updateComplete;
-        radio.size = this.size;
 
         if (!radio.disabled && radio.value === this.value) {
           radio.checked = true;
@@ -329,9 +328,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         part="form-control"
         class=${classMap({
           'form-control': true,
-          'form-control--small': this.size === 'small',
-          'form-control--medium': this.size === 'medium',
-          'form-control--large': this.size === 'large',
           'form-control--radio-group': true,
           'form-control--has-label': hasLabel,
           'form-control--has-radio-buttons': this.hasRadioButtons,

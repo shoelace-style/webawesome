@@ -162,7 +162,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ attribute: false }) value: string | string[] | null = null;
 
   /** The select's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Placeholder text to show as a hint when the select is empty. */
   @property() placeholder = '';
