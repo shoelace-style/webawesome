@@ -12,12 +12,12 @@ TODO Page Description
 ### Slide Over
 
 ```html {.example}
-<wa-card with-header with-footer class="card-header" style="width: 500px;">
-  <div slot="header">
+<wa-card with-header with-footer class="card-header" style="width: 500px; margin: 0 auto;">
+  <div slot="header" class="wa-split">
     <strong>Shopping Cart</strong>
     <wa-icon-button name="close" variant="solid" label="Settings"></wa-icon-button>
   </div>
-    <section class="cart-item">
+    <section class="cart-item wa-split">
     <img src="https://images.unsplash.com/photo-1704677982224-89cd6d039fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDEwOTJ8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
     <div>
       <div style="display:flex; justify-content: space-between; font-weight: 600;">
@@ -31,7 +31,7 @@ TODO Page Description
       </div>
     </div>
   </section>
-   <section class="cart-item">
+   <section class="cart-item wa-split">
     <img src="https://plus.unsplash.com/premium_photo-1707932485795-1d0aed727376?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDE2NDl8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
     <div>
       <div style="display:flex; justify-content: space-between; font-weight: 600;">
@@ -45,7 +45,7 @@ TODO Page Description
       </div>
     </div>
   </section>
-   <section class="cart-item">
+   <section class="cart-item wa-split">
     <img src="https://plus.unsplash.com/premium_photo-1690347839113-b5db143123b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDE5MTB8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
     <div>
       <div style="display:flex; justify-content: space-between; font-weight: 600;">
@@ -59,7 +59,6 @@ TODO Page Description
       </div>
     </div>
   </section>
-
   <div slot="footer">
     <div style="display:flex; justify-content: space-between; font-weight: 600;">
       <span>Subtotal</span>
@@ -67,152 +66,91 @@ TODO Page Description
     </div>
     <div style="font-size: small; margin-bottom: 1rem;">Shipping and taxes calculated at checkout.</div>
    <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Medium</wa-button>
-    or <a href="#">Continue shopping <wa-icon-button name="arrow-right" variant="solid" label="Settings"></wa-icon-button></a>
+   <wa-button appearance="plain" size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Continue Shopping</wa-button>
   </div>
-
 </wa-card>
-
 <style>
-
-
-  .card-header [slot='header'] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .card-header h3 {
-    margin: 0;
-  }
-
-  .card-header wa-icon-button {
-    font-size: var(--wa-font-size-m);
-  }
-
   .cart-item {
-    display: flex;
-    gap: 2rem;
     margin-bottom: 1rem;
-
     &:not(:last-of-type) {
       padding-bottom: 1rem;
       border-bottom: 1px solid var(--border-color);
     }
-
-
     img {
       width: 6rem;
       flex-grow: 1;
     }
-
     div {
       flex-grow: 11;
     }
   }
-
-
 </style>
 ```
 
 ### Two Column Cart
 
 ```html {.example}
-<div class="two-column">
+<div>
   <h1>Shopping Cart</h1>
-  <div class="first-column">
-    <section class="cart-item">
-     <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
-    <div class="cart-item-info">
-      <div class="cart-item-meta">
-        <div>
-          <span style="font-size: larger">Classic</span>
-          <div>White - L</div>
-          <span style="font-size: larger">$15.00</span>
+  <div class="wa-grid">
+    <div>
+      <section class="cart-item wa-flank">
+        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
+        <div class="wa-split">
+          <div>
+            <div>
+              <h3 style="margin-bottom: 0">Classic Tee</h3>
+            <p style="margin: 0;">Large - green</p>
+            </div>
+            <span>$20.00</span>
+          </div>
+          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
         </div>
-
-          <wa-select placeholder="1">
-            <wa-option value="option-1">1</wa-option>
-            <wa-option value="option-2">2</wa-option>
-            <wa-option value="option-3">3</wa-option>
-          </wa-select>
-          <wa-icon-button name="close" variant="solid" label="Settings"></wa-icon-button>
-
-      </div>
-       <div style="display: flex;justify-content: flex-start;align-items: baseline;">
-        <wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock
+      </section>
+     <section class="cart-item wa-flank">
+        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
+        <div class="wa-split">
+          <div>
+            <div>
+              <h3 style="margin-bottom: 0">Classic Tee</h3>
+            <p style="margin: 0;">Large - green</p>
+            </div>
+            <span>$20.00</span>
+          </div>
+          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
         </div>
-
+      </section><section class="cart-item wa-flank">
+        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
+        <div class="wa-split">
+          <div>
+            <div>
+              <h3 style="margin-bottom: 0">Classic Tee</h3>
+            <p style="margin: 0;">Large - green</p>
+            </div>
+            <span>$20.00</span>
+          </div>
+          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
+        </div>
+      </section>
     </div>
-  </section>
-  <section class="cart-item">
-     <img class="cart-item-image" src="https://images.unsplash.com/photo-1624378440847-4a64ee1a889d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI0MDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
-    <div class="cart-item-info">
-      <div class="cart-item-meta">
-        <div>
-          <span style="font-size: larger">Button Up</span>
-          <div>Blue - L</div>
-          <span style="font-size: larger">$20.00</span>
-        </div>
-
-          <wa-select placeholder="1">
-            <wa-option value="option-1">1</wa-option>
-            <wa-option value="option-2">2</wa-option>
-            <wa-option value="option-3">3</wa-option>
-          </wa-select>
-          <wa-icon-button name="close" variant="solid" label="Settings"></wa-icon-button>
-
-      </div>
-       <div style="display: flex;justify-content: flex-start;align-items: baseline;">
-        <wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock
-        </div>
-
-    </div>
-  </section>
-  <section class="cart-item">
-     <img class="cart-item-image" src="https://images.unsplash.com/photo-1511551203524-9a24350a5771?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI0OTB8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
-    <div class="cart-item-info">
-      <div class="cart-item-meta">
-        <div>
-          <span style="font-size: larger">Kitten</span>
-          <div>Egg - L</div>
-          <span style="font-size: larger">$20.00</span>
-        </div>
-
-          <wa-select placeholder="1">
-            <wa-option value="option-1">1</wa-option>
-            <wa-option value="option-2">2</wa-option>
-            <wa-option value="option-3">3</wa-option>
-          </wa-select>
-          <wa-icon-button name="close" variant="solid" label="Settings"></wa-icon-button>
-
-      </div>
-       <div style="display: flex;justify-content: flex-start;align-items: baseline;">
-        <wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock
-        </div>
-
-    </div>
-  </section>
-
-
-  </div>
-  <wa-card with-header class="card-header second-column">
+    <wa-card with-header class="card-header second-column">
   <div slot="header">
     Order Summary
 
   </div>
-  <div style="display:flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Subtotal</span>
     <span>$55.00</span>
   </div>
-  <div style="display:flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Shipping</span>
     <span>$5.00</span>
   </div>
-  <div style="display:flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Tax</span>
     <span>$5.50</span>
   </div>
-  <div style="display:flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Order Total</span>
     <span>$65.50</span>
   </div>
@@ -223,50 +161,15 @@ TODO Page Description
 
 
 </wa-card>
+  </div>
+</div>
+
 
 <style>
   :root {
     --border-color: var(--wa-color-surface-border);
   }
-  .two-column {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 1rem;
 
-    .first-column {
-      grid-column: 1/8;
-    }
-
-    .second-column {
-      grid-column: 8/14
-    }
-
-    .cart-item {
-      display: grid;
-      grid-template-columns: 30% 61%;
-      column-gap: 0.5rem;
-      margin-bottom: 1rem;
-
-       &:not(:last-of-type) {
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-
-    }
-
-    .cart-item-meta {
-            display: grid;
-    grid-template-columns: 45% 35% 20%;
-    column-gap: 1rem;
-      }
-
-
-    h1 {
-      width: 100%;
-    grid-column: 1 / end;
-    }
-  }
 </style>
 </div>
 ```
