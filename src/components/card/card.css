@@ -21,7 +21,7 @@
 }
 
 .image,
-:host(:not([with-image])) .header {
+:host(:not([ssr-slots~='image'])) .header {
   border-start-start-radius: var(--inner-border-radius);
   border-start-end-radius: var(--inner-border-radius);
 }
@@ -56,8 +56,8 @@
   padding: var(--spacing);
 }
 
-:host(:not([with-header])) .header,
-:host(:not([with-footer])) .footer,
-:host(:not([with-image])) .image {
+:host(:not([ssr-slots~='header'])) .header,
+:host(:not([ssr-slots~='footer'])) .footer,
+:host(:not([ssr-slots~='image'])) .image {
   display: none;
 }

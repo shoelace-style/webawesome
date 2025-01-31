@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
@@ -31,21 +32,29 @@ export default class WaCard extends WebAwesomeElement {
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
-  /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
-
-  /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-image', type: Boolean }) withImage = false;
-
-  /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+  static SSR_SLOTS = ['image', 'header', 'footer'];
 
   render() {
     return html`
-      <slot name="image" part="image" class="image"></slot>
-      <slot name="header" part="header" class="header"></slot>
+      <slot
+        name="image"
+        part="image"
+        class="${classMap({ image: true, 'has-slotted': this.hasSlotted.has('image') })}"
+        @slotchange=${this.slotUpdate}
+      ></slot>
+      <slot
+        name="header"
+        part="header"
+        class="${classMap({ header: true, 'has-slotted': this.hasSlotted.has('header') })}"
+        @slotchange=${this.slotUpdate}
+      ></slot>
       <slot part="body" class="body"></slot>
-      <slot name="footer" part="footer" class="footer"></slot>
+      <slot
+        name="footer"
+        part="footer"
+        class="${classMap({ footer: true, 'has-slotted': this.hasSlotted.has('footer') })}"
+        @slotchange=${this.slotUpdate}
+      ></slot>
     `;
   }
 }

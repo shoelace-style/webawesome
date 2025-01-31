@@ -2,6 +2,7 @@ import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } f
 import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../styles/shadow/component.css';
+import { setConverter } from './converters.js';
 
 // Augment Lit's module
 declare module 'lit' {
@@ -40,6 +41,20 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
 
+  @property({
+    reflect: true,
+    attribute: 'ssr-slots',
+    converter: setConverter,
+  })
+  ssrSlots: Set<string> | null = null;
+
+  /**
+   * All slots whose slotted status we need to know on the root for SSR.
+   * Subclasses are expected to override this with their own list of slots.
+   */
+  static SSR_SLOTS: string[] = [];
+  protected hasSlotted = new Set();
+
   /**
    * One or more styles for the element’s own shadow DOM.
    * Shared component styles will automatically be added.
@@ -71,6 +86,13 @@ export default class WebAwesomeElement extends LitElement {
   initialReflectedProperties: Map<string, unknown> = new Map();
 
   internals: ElementInternals;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+    this.ssrSlots = new Set(Self.SSR_SLOTS.filter(name => this.slotUpdate(name)));
+  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
@@ -167,6 +189,44 @@ export default class WebAwesomeElement extends LitElement {
   /** Determines if the element has the specified custom state. */
   hasCustomState(state: string): boolean {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
+  }
+
+  protected async slotUpdate(target: Event | HTMLSlotElement | string) {
+    await this.updateComplete;
+
+    let slot = target;
+
+    if (target instanceof Event) {
+      slot = target.target as HTMLSlotElement;
+    } else if (typeof target === 'string') {
+      slot = this.shadowRoot!.querySelector(`slot[name="${target}"]`) as HTMLSlotElement;
+    } else {
+      slot = slot as HTMLSlotElement;
+    }
+
+    if (!slot) {
+      return;
+    }
+
+    const slotName = slot.name;
+    const hasSlotted = slot.assignedNodes().length > 0;
+
+    let previousHasSlotted = this.hasSlotted.has(slotName);
+
+    if (previousHasSlotted === hasSlotted) {
+      let ssrSlots = new Set(this.ssrSlots);
+
+      if (hasSlotted) {
+        ssrSlots.add(slotName);
+      } else {
+        ssrSlots.delete(slotName);
+      }
+
+      this.ssrSlots = ssrSlots;
+    }
+
+    slot.classList.toggle('has-slotted', hasSlotted);
+    return hasSlotted;
   }
 
   getComputed(prop: PropertyKey) {

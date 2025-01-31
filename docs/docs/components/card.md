@@ -6,7 +6,7 @@ icon: card
 ---
 
 ```html {.example}
-<wa-card with-image with-footer class="card-overview">
+<wa-card class="card-overview">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -61,10 +61,10 @@ Basic cards aren't very exciting, but they can display any content you want them
 ### Card with Header
 
 Headers can be used to display titles and more.
-If using SSR, you need to also use the `with-header` attribute to add a header to the card (if not, it is added automatically).
+If using SSR, you need to also use the `ssr-slots` attribute to add a header to the card (if not, it is added automatically).
 
 ```html {.example}
-<wa-card with-header class="card-header">
+<wa-card ssr-slots="header" class="card-header">
   <div slot="header">
     Header Title
     <wa-icon-button name="gear" variant="solid" label="Settings"></wa-icon-button>
@@ -97,10 +97,10 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 ### Card with Footer
 
 Footers can be used to display actions, summaries, or other relevant content.
-If using SSR, you need to also use the `with-footer` attribute to add a footer to the card (if not, it is added automatically).
+If using SSR, you need to also use the `ssr-slots` attribute to add a footer to the card (if not, it is added automatically).
 
 ```html {.example}
-<wa-card with-footer class="card-footer">
+<wa-card ssr-slots="footer" class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
   <div slot="footer">
@@ -125,10 +125,10 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 ### Images
 
 Card images are displayed atop the card and will stretch to fit.
-If using SSR, you need to also use the `with-image` attribute to add an image to the card (if not, it is added automatically).
+If using SSR, you need to also use the `ssr-slots` attribute to add an image to the card (if not, it is added automatically).
 
 ```html {.example}
-<wa-card with-image class="card-image">
+<wa-card ssr-slots="image" class="card-image">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
@@ -150,7 +150,7 @@ Use the `size` attribute to change a card's size.
 
 ```html {.example}
 <div class="wa-stack">
-<wa-card with-footer size="small">
+<wa-card ssr-slots=footer size="small">
   This is a small card.
 
   <footer slot="footer" class="wa-flank">
@@ -159,7 +159,7 @@ Use the `size` attribute to change a card's size.
   </footer>
 </wa-card>
 
-<wa-card with-footer size="medium">
+<wa-card ssr-slots=footer size="medium">
   This is a medium card (default).
 
   <footer slot="footer" class="wa-flank">
@@ -168,7 +168,7 @@ Use the `size` attribute to change a card's size.
   </footer>
 </wa-card>
 
-<wa-card with-footer size="large">
+<wa-card ssr-slots=footer size="large">
   This is a large card.
 
   <footer slot="footer" class="wa-flank">

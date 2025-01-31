@@ -65,6 +65,35 @@ All Web Awesome components that get rendered for SSR will receive the `did-ssr` 
 
 This can help if you need some styling prior to the element connecting.
 
+### The `ssr-slots` Attribute
+
+When using certain slots in a component rendered through SSR, you may need to use the `ssr-slots` attribute
+to declare which slots have content.
+
+E.g. when using a `<wa-card>` component without SSR, you can do this:
+
+```html
+<wa-card>
+  <img src="cat.jpg" slot="image">
+  <header slot=header>Card Header</header>
+  Card body
+  <footer slot=footer>Card Footer</footer>
+</wa-card>
+```
+
+However, when server-side rendering the very same card, you need to duplicate the information about what is in the slots in the `ssr-slots` attribute:
+
+```html
+<wa-card ssr-slots="image header footer">
+  <img src="cat.jpg" slot="image">
+  <header slot=header>Card Header</header>
+  Card body
+  <footer slot=footer>Card Footer</footer>
+</wa-card>
+```
+
+We are hoping to eventually be able to remove this requirement.
+
 ### Timing Issues
 
 Before setting any properties on your frontend, it is important to first wait for the element to be defined and then wait for its first update to complete.
