@@ -7,6 +7,19 @@
   font-size: var(--wa-size, var(--wa-font-size-m));
 }
 
+:host {
+  /* Components are meant to override these */
+  --size-xs: var(--wa-space-xs);
+  --size-s: var(--wa-space-s);
+  --size-m: var(--wa-space-m);
+  --size-l: var(--wa-space-l);
+
+  --space-xs: var(--wa-space-xs);
+  --space-s: var(--wa-space-s);
+  --space-m: var(--wa-space-m);
+  --space-l: var(--wa-space-l);
+}
+
 :where(:root),
 :host,
 .wa-size-s,
