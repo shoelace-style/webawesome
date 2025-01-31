@@ -26,6 +26,8 @@ export default class WebAwesomeElement extends LitElement {
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
     }
 
+    this.toggleCustomState('wa-defined');
+
     let Self = this.constructor as typeof WebAwesomeElement;
     for (let [property, spec] of Self.elementProperties) {
       if (spec.default === 'inherit' && spec.initial !== undefined && typeof property === 'string') {
