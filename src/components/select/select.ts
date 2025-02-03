@@ -71,10 +71,6 @@ import styles from './select.css';
  * @csspart tag__content - The tag's content part.
  * @csspart tag__remove-button - The tag's remove button.
  * @csspart tag__remove-button__base - The tag's remove button base part.
- * @csspart tag-counter - The tag that shows when more than the max number of options have been shown.
- * @csspart tag-counter__content - The tag counter's content part.
- * @csspart tag-counter__remove-button - The tag counter's remove button.
- * @csspart tag-counter__remove-button__base - The tag counter's remove button base part.
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
  *
@@ -666,12 +662,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         // Hit tag limit
         return html`
           <wa-tag
-            part="tag-counter"
+            part="tag"
             exportparts="
-              base:tag-counter__base,
-              content:tag-counter__content,
-              remove-button:tag-counter__remove-button,
-              remove-button__base:tag-counter__remove-button__base
+              base:tag__base,
+              content:tag__content,
+              remove-button:tag__remove-button,
+              remove-button__base:tag__remove-button__base
             "
             >+${this.selectedOptions.length - index}</wa-tag
           >
