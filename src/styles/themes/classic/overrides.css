@@ -109,7 +109,7 @@
   }
 
   wa-switch {
-    --background-color: var(--wa-color-gray-50);
+    --background-color: var(--wa-color-neutral-50);
     --border-color: var(--background-color);
     --height: calc(1em * var(--wa-form-control-value-line-height) - var(--border-width) * 2);
     --thumb-color: var(--wa-color-surface-default);

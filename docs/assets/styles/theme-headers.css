@@ -222,7 +222,7 @@ html.wa-theme-brutalist .preview-container {
   }
 
   .message-composer .grouped-buttons {
-    --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-30), white 40%);
+    --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-neutral-30), white 40%);
   }
 
   .message-composer [slot='header'] wa-icon-button::part(base) {
@@ -275,7 +275,7 @@ html.wa-theme-brutalist .preview-container {
 
     & wa-rating {
       --symbol-color: color-mix(in oklab, var(--wa-color-base-80), transparent 50%);
-      --symbol-color-active: var(--wa-color-gray-80);
+      --symbol-color-active: var(--wa-color-neutral-80);
     }
 
     & wa-alert {
@@ -411,13 +411,13 @@ html.wa-theme-playful .preview-container {
   }
 
   .message-composer wa-card::part(header) {
-    --wa-color-neutral-border-quiet: var(--wa-color-gray-70);
+    --wa-color-neutral-border-quiet: var(--wa-color-neutral-70);
     border-width: 0;
     background-color: var(--wa-color-neutral-fill-quiet);
   }
 
   &:not(.wa-theme-premium.wa-dark) .message-composer wa-card {
-    --wa-color-neutral-fill-quiet: var(--wa-color-gray-90);
+    --wa-color-neutral-fill-quiet: var(--wa-color-neutral-90);
   }
 
   .message-composer wa-icon-button {
@@ -475,11 +475,11 @@ html.wa-theme-playful .preview-container {
     }
 
     & .message-composer wa-card {
-      border-color: var(--wa-color-gray-30);
+      border-color: var(--wa-color-neutral-30);
     }
 
     & .message-composer wa-card::part(header) {
-      background: var(--wa-color-gray-40);
+      background: var(--wa-color-neutral-40);
     }
 
     & .message-composer wa-card::part(footer) {
@@ -487,7 +487,7 @@ html.wa-theme-playful .preview-container {
     }
 
     & .message-composer .tools .grouped-buttons:not(:last-of-type) {
-      --wa-color-neutral-border-quiet: var(--wa-color-gray-40);
+      --wa-color-neutral-border-quiet: var(--wa-color-neutral-40);
     }
 
     & .support-table th {

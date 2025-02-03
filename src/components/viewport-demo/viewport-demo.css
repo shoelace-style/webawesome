@@ -47,10 +47,10 @@
       1.1em var(--button-params),
     radial-gradient(circle closest-side, var(--wa-color-green-70) 80%, var(--wa-color-green-60) 98%, transparent) 1.8em
       var(--button-params),
-    var(--wa-color-gray-95);
+    var(--wa-color-neutral-95);
   background-repeat: no-repeat;
   box-shadow:
-    0 0 0 1px var(--wa-color-gray-90),
+    0 0 0 1px var(--wa-color-neutral-90),
     var(--wa-shadow-m);
 
   &.resized {
@@ -90,7 +90,7 @@ slot {
   min-height: calc(var(--viewport-min-height) / var(--zoom));
 
   /* Divide with var(--zoom) to get lengths that stay constant regardless of zoom level */
-  border: calc(1px / var(--zoom)) solid var(--wa-color-gray-90);
+  border: calc(1px / var(--zoom)) solid var(--wa-color-neutral-90);
   background: var(--viewport-background-color);
 }
 
@@ -120,7 +120,7 @@ slot {
     display: none;
     vertical-align: -0.1em;
     font-size: 85%;
-    color: var(--wa-color-gray-70);
+    color: var(--wa-color-neutral-70);
   }
 
   wa-icon-button {

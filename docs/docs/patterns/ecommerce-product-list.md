@@ -76,7 +76,7 @@ TODO Page Description
       }
       .grid-item-reviews {
         --wa-link-decoration-default: none;
-        --wa-color-text-link: var(--wa-color-gray-50);
+        --wa-color-text-link: var(--wa-color-neutral-50);
         font-size: var(--wa-font-size-m);
       }
       .grid-item-price {
@@ -142,14 +142,14 @@ TODO Page Description
 
     .details {
       .detail-description {
-        color: var(--wa-color-gray-50);
+        color: var(--wa-color-neutral-50);
       }
       .detail-name {
         font-size: var(--wa-font-size-l);
         font-weight: var(--wa-font-weight-action);
       }
       .detail-color {
-        color: var(--wa-color-gray-50);
+        color: var(--wa-color-neutral-50);
         font-style: italic;
       }
       .detail-price {

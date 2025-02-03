@@ -580,7 +580,7 @@ hasOutline: false
       <wa-radio value="blue"><span style="background-color:var(--wa-color-blue-60);"></span></wa-radio>
       <wa-radio value="indigo"><span style="background-color:var(--wa-color-indigo-60);"></span></wa-radio>
       <wa-radio value="violet"><span style="background-color:var(--wa-color-violet-60);"></span></wa-radio>
-      <wa-radio value="gray"><span style="background-color:var(--wa-color-gray-60);"></span></wa-radio>
+      <wa-radio value="neutral"><span style="background-color:var(--wa-color-neutral-60);"></span></wa-radio>
     </wa-radio-group>
   </wa-details>
   <wa-details summary="Typography">

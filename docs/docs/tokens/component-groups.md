@@ -26,7 +26,7 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | `--wa-form-control-value-color`             | `var(--wa-color-text-normal)`                                                                     |
 | `--wa-form-control-value-font-weight`       | `var(--wa-font-weight-body)`                                                                      |
 | `--wa-form-control-value-line-height`       | `var(--wa-line-height-condensed)`                                                                 |
-| `--wa-form-control-placeholder-color`       | `var(--wa-color-gray-60)`                                                                         |
+| `--wa-form-control-placeholder-color`       | `var(--wa-color-neutral-60)`                                                                         |
 | `--wa-form-control-required-content`        | `'*'`                                                                                             |
 | `--wa-form-control-required-content-color`  | `inherit`                                                                                         |
 | `--wa-form-control-required-content-offset` | `-0.1em`                                                                                          |

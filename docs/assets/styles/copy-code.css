@@ -1,11 +1,11 @@
 wa-copy-button.copy-button {
-  --background-color: var(--wa-color-gray-20);
+  --background-color: var(--wa-color-neutral-20);
   --background-color-hover: color-mix(in oklab, var(--background-color), white 5%);
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   font-family: var(--wa-font-family-body);
-  color: var(--wa-color-gray-80);
+  color: var(--wa-color-neutral-80);
   border-radius: var(--wa-border-radius-m);
   padding: 0.25rem;
 

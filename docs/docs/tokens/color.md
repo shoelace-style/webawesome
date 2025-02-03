@@ -56,7 +56,7 @@ Color is organized by three main categories:
 
 ## Literal Colors
 
-Literal colors are defined by your theme's [color palette](/docs/palettes/) and are the lowest level color tokens in your theme. Each token is identified by a name, like red or gray, and a number based on the color's lightness. On this scale, 100 is equal to pure white and 0 is equal to pure black.
+Literal colors are defined by your theme's [color palette](/docs/palettes/) and are the lowest level color tokens in your theme. Each token is identified by a name, like red or neutral, and a number based on the color's lightness. On this scale, 100 is equal to pure white and 0 is equal to pure black.
 
 You can use these numbers to ensure accessible color contrast per [WCAG 2.1 success criteria](https://www.w3.org/TR/WCAG21/#contrast-minimum):
 
@@ -66,7 +66,7 @@ You can use these numbers to ensure accessible color contrast per [WCAG 2.1 succ
 
 Each Web Awesome palette defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
-{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] -%}
+{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "neutral"] -%}
 <div class="color-name">{{ hue | capitalize }}</div>
 <ul class="color-group">
   {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}

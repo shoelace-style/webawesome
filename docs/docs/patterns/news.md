@@ -148,7 +148,7 @@ TODO Page Description
       display: flex;
       align-items: center;
       text-decoration: none;
-      --wa-color-text-link: var(--wa-color-gray-20);
+      --wa-color-text-link: var(--wa-color-neutral-20);
 
       wa-icon {
         margin-right: .5rem;

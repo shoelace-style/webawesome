@@ -47,8 +47,8 @@ wa-page {
 
   &[slot^='main'],
   &[slot=''] {
-    background: var(--wa-color-gray-80);
-    color: var(--wa-color-gray-20);
+    background: var(--wa-color-neutral-80);
+    color: var(--wa-color-neutral-20);
   }
 
   &[slot^='navigation'] {
