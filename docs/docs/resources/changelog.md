@@ -19,6 +19,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a number of broken event listeners throughout the docs
 - Fixed a bug in `<wa-card>` that prevented slots from showing automatically without `with-` attributes
 - Fixed a bug in `<wa-select>` that prevented the placeholder color from being customized with the `--wa-form-control-placeholder-color` token
+- Improved accessibility of `<wa-carousel>`
+
 
 ## 3.0.0-alpha.10
 

@@ -378,7 +378,15 @@ export default class WaCarousel extends WebAwesomeElement {
     this.getSlides({ excludeClones: false }).forEach((slide, index) => {
       slide.classList.remove('--in-view');
       slide.classList.remove('--is-active');
+      slide.setAttribute('role', 'group');
       slide.setAttribute('aria-label', this.localize.term('slideNum', index + 1));
+
+      if (this.pagination) {
+        slide.setAttribute('role', 'tabpanel');
+        slide.removeAttribute('aria-label');
+        slide.setAttribute('aria-labelledby', `tab-${index + 1}`);
+        slide.setAttribute('id', `slide-${index + 1}`);
+      }
 
       if (slide.hasAttribute('data-clone')) {
         slide.remove();
@@ -633,7 +641,7 @@ export default class WaCarousel extends WebAwesomeElement {
           : ''}
         ${this.pagination
           ? html`
-              <div part="pagination" role="tablist" class="pagination" aria-controls="scroll-container">
+              <div part="pagination" role="tablist" class="pagination">
                 ${map(range(pagesCount), index => {
                   const isActive = index === currentPage;
                   return html`
@@ -644,8 +652,10 @@ export default class WaCarousel extends WebAwesomeElement {
                         'pagination-item--active': isActive,
                       })}"
                       role="tab"
+                      id="tab-${index + 1}"
+                      aria-controls="slide-${index + 1}"
                       aria-selected="${isActive ? 'true' : 'false'}"
-                      aria-label="${this.localize.term('goToSlide', index + 1, pagesCount)}"
+                      ${isActive ? '' : `aria-label="${this.localize.term('goToSlide', index + 1, pagesCount)}"`}
                       tabindex=${isActive ? '0' : '-1'}
                       @click=${() => this.goToSlide(index * slidesPerMove)}
                       @keydown=${this.handleKeyDown}
