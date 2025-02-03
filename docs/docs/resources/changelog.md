@@ -17,6 +17,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added an orientation example to the native radio docs
 - Added the `tag-counter` part to `<wa-select>` to allow targeting the tag that shows when more than the max number of visible items has been selected
 - Fixed a number of broken event listeners throughout the docs
+- Fixed a bug in `<wa-card>` that prevented slots from showing automatically without `with-` attributes
 
 ## 3.0.0-alpha.10
 

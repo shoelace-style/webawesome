@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
@@ -28,17 +29,26 @@ import styles from './card.css';
 export default class WaCard extends WebAwesomeElement {
   static shadowStyle = [sizeStyles, styles];
 
+  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
+  @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
   /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-image', type: Boolean }) withImage = false;
+  @property({ attribute: 'with-image', type: Boolean, reflect: true }) withImage = false;
 
   /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+  @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
+
+  updated() {
+    // Enable the respective slots when detected
+    if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
+    if (!this.withImage && this.hasSlotController.test('image')) this.withImage = true;
+    if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
+  }
 
   render() {
     return html`
