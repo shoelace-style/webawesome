@@ -80,7 +80,7 @@ Use the [size utilities](/docs/utilities/size) to change the radios' size.
 
 ### Orientation
 
-You can wrap native radios in a flex container to give them a horizontal or vertical orientation with even spacing. The convenience `wa-cluster` and `wa-stack` utilities make this easy.
+You can wrap native radios in a flex container to give them a horizontal or vertical orientation with even spacing. The convenience [`wa-cluster`](/docs/utilities/cluster) and [`wa-stack`](/docs/utilities/stack) utilities make this easy.
 
 ```html {.example}
 <div class="wa-cluster">
