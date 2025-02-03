@@ -1,5 +1,6 @@
 @import url('../../color/vogue.css');
 @import url('../default/color.css');
+@import url('../../brand/indigo.css');
 
 :where(:root),
 :host,
@@ -9,11 +10,11 @@
   /**
    * Foundational Colors
    */
-  --wa-color-text-link: var(--wa-color-indigo-40);
+  --wa-color-text-link: var(--wa-color-brand-40);
 
   --wa-color-shadow: rgb(0 0 0 / 0.05);
 
-  --wa-color-focus: var(--wa-color-indigo-50);
+  --wa-color-focus: var(--wa-color-brand-50);
 
   --wa-color-mix-hover: var(--wa-color-gray-80) 20%;
   --wa-color-mix-active: var(--wa-color-gray-80) 10%;
@@ -21,14 +22,14 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-indigo-95) 85%, transparent);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-indigo-80), transparent);
-  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-indigo-70) 60%, transparent);
-  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-indigo-60) 70%, transparent);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
+  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-brand-95) 85%, transparent);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-40);
+  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-brand-80), transparent);
+  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-brand-70) 60%, transparent);
+  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-brand-60) 70%, transparent);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+  --wa-color-brand-on-normal: var(--wa-color-brand-30);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-95) 85%, transparent);
@@ -88,11 +89,11 @@
 
   --wa-color-text-normal: white;
   --wa-color-text-quiet: var(--wa-color-gray-60);
-  --wa-color-text-link: var(--wa-color-indigo-70);
+  --wa-color-text-link: var(--wa-color-brand-70);
 
   --wa-color-shadow: rgb(0 0 0 / 0.2);
 
-  --wa-color-focus: var(--wa-color-indigo-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   --wa-color-mix-hover: var(--wa-color-gray-70) 20%;
   --wa-color-mix-active: var(--wa-color-gray-70) 10%;
@@ -100,14 +101,14 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-indigo-10) 90%, transparent);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-50);
-  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-indigo-20), transparent);
-  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-indigo-30), transparent);
-  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-indigo-40), transparent);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
+  --wa-color-brand-fill-quiet: color-mix(in oklab, var(--wa-color-brand-10) 90%, transparent);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-20);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+  --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-brand-20), transparent);
+  --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-brand-30), transparent);
+  --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-brand-40), transparent);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-60);
+  --wa-color-brand-on-normal: var(--wa-color-brand-70);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-10) 90%, transparent);

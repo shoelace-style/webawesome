@@ -1,5 +1,6 @@
 @import url('../../color/anodized.css');
 @import url('../default/color.css');
+@import url('../../brand/teal.css');
 
 :where(:root),
 :host,
@@ -11,9 +12,9 @@
    */
   --wa-color-surface-border: var(--wa-color-gray-80);
 
-  --wa-color-text-link: var(--wa-color-teal-40);
+  --wa-color-text-link: var(--wa-color-brand-40);
 
-  --wa-color-focus: var(--wa-color-teal-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   --wa-color-mix-hover: white 10%;
   --wa-color-mix-active: var(--wa-color-surface-default) 5%;
@@ -21,15 +22,15 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-teal-95);
-  --wa-color-brand-fill-normal: var(--wa-color-teal-90);
-  --wa-color-brand-fill-loud: var(--wa-color-teal-80);
-  --wa-color-brand-border-quiet: var(--wa-color-teal-80);
-  --wa-color-brand-border-normal: var(--wa-color-teal-70);
-  --wa-color-brand-border-loud: var(--wa-color-teal-50);
-  --wa-color-brand-on-quiet: var(--wa-color-teal-40);
-  --wa-color-brand-on-normal: var(--wa-color-teal-30);
-  --wa-color-brand-on-loud: var(--wa-color-teal-20);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-80);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-80);
+  --wa-color-brand-border-normal: var(--wa-color-brand-70);
+  --wa-color-brand-border-loud: var(--wa-color-brand-50);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+  --wa-color-brand-on-normal: var(--wa-color-brand-30);
+  --wa-color-brand-on-loud: var(--wa-color-brand-20);
 
   --wa-color-success-fill-quiet: var(--wa-color-green-95);
   --wa-color-success-fill-normal: var(--wa-color-green-90);
@@ -85,9 +86,9 @@
 
   --wa-color-text-normal: var(--wa-color-gray-95);
   --wa-color-text-quiet: var(--wa-color-gray-80);
-  --wa-color-text-link: var(--wa-color-teal-80);
+  --wa-color-text-link: var(--wa-color-brand-80);
 
-  --wa-color-focus: var(--wa-color-teal-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   --wa-color-mix-hover: white 20%;
   --wa-color-mix-active: var(--wa-color-surface-default) 10%;
@@ -95,15 +96,15 @@
   /**
     * Semantic Colors
     */
-  --wa-color-brand-fill-quiet: var(--wa-color-teal-30);
-  --wa-color-brand-fill-normal: var(--wa-color-teal-40);
-  --wa-color-brand-fill-loud: var(--wa-color-teal-80);
-  --wa-color-brand-border-quiet: var(--wa-color-teal-30);
-  --wa-color-brand-border-normal: var(--wa-color-teal-40);
-  --wa-color-brand-border-loud: var(--wa-color-teal-70);
-  --wa-color-brand-on-quiet: var(--wa-color-teal-70);
-  --wa-color-brand-on-normal: var(--wa-color-teal-90);
-  --wa-color-brand-on-loud: var(--wa-color-teal-20);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-30);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-40);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-80);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-30);
+  --wa-color-brand-border-normal: var(--wa-color-brand-40);
+  --wa-color-brand-border-loud: var(--wa-color-brand-70);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-70);
+  --wa-color-brand-on-normal: var(--wa-color-brand-90);
+  --wa-color-brand-on-loud: var(--wa-color-brand-20);
 
   --wa-color-success-fill-quiet: var(--wa-color-green-30);
   --wa-color-success-fill-normal: var(--wa-color-green-40);

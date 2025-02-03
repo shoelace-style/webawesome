@@ -1,3 +1,5 @@
+@import url('../../brand/blue.css');
+
 /**
  * Foundational Colors and Semantic Colors
  */
@@ -25,7 +27,7 @@
    * Recommended: minimum 4.5:1 contrast ratio between text colors and surface colors. */
   --wa-color-text-normal: var(--wa-color-gray-10);
   --wa-color-text-quiet: var(--wa-color-gray-40);
-  --wa-color-text-link: var(--wa-color-blue-40);
+  --wa-color-text-link: var(--wa-color-brand-40);
 
   /* Overlays provide a backdrop for isolated content, often allowing background context to show through. */
   --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-gray-05) 50%, transparent);
@@ -42,7 +44,7 @@
 
   /* Focus color provides the default color of the focus ring for predictable keyboard navigation.
    * Recommended: minimum 3:1 contrast ratio against surfaces and background colors. */
-  --wa-color-focus: var(--wa-color-blue-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   /* Hover and active colors are intended to be used in color-mix() to achieve consistent effects across components. */
   --wa-color-mix-hover: black 10%;
@@ -57,14 +59,14 @@
    *  *  On for content displayed on a fill with the corresponding attention
    * Each role has three options for attention - quiet, normal, and loud - where quiet draws the least attention and loud draws the most.
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-blue-95);
-  --wa-color-brand-fill-normal: var(--wa-color-blue-90);
-  --wa-color-brand-fill-loud: var(--wa-color-blue-50);
-  --wa-color-brand-border-quiet: var(--wa-color-blue-90);
-  --wa-color-brand-border-normal: var(--wa-color-blue-80);
-  --wa-color-brand-border-loud: var(--wa-color-blue-60);
-  --wa-color-brand-on-quiet: var(--wa-color-blue-40);
-  --wa-color-brand-on-normal: var(--wa-color-blue-30);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-90);
+  --wa-color-brand-border-normal: var(--wa-color-brand-80);
+  --wa-color-brand-border-loud: var(--wa-color-brand-60);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+  --wa-color-brand-on-normal: var(--wa-color-brand-30);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-quiet: var(--wa-color-green-95);
@@ -125,7 +127,7 @@
 
   --wa-color-text-normal: var(--wa-color-gray-95);
   --wa-color-text-quiet: var(--wa-color-gray-60);
-  --wa-color-text-link: var(--wa-color-blue-70);
+  --wa-color-text-link: var(--wa-color-brand-70);
 
   --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
   --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-gray-50) 10%, transparent);
@@ -137,7 +139,7 @@
     transparent
   );
 
-  --wa-color-focus: var(--wa-color-blue-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   --wa-color-mix-hover: black 8%;
   --wa-color-mix-active: black 16%;
@@ -145,14 +147,14 @@
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-blue-10);
-  --wa-color-brand-fill-normal: var(--wa-color-blue-20);
-  --wa-color-brand-fill-loud: var(--wa-color-blue-50);
-  --wa-color-brand-border-quiet: var(--wa-color-blue-20);
-  --wa-color-brand-border-normal: var(--wa-color-blue-30);
-  --wa-color-brand-border-loud: var(--wa-color-blue-40);
-  --wa-color-brand-on-quiet: var(--wa-color-blue-60);
-  --wa-color-brand-on-normal: var(--wa-color-blue-70);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-20);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-20);
+  --wa-color-brand-border-normal: var(--wa-color-brand-30);
+  --wa-color-brand-border-loud: var(--wa-color-brand-40);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-60);
+  --wa-color-brand-on-normal: var(--wa-color-brand-70);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-quiet: var(--wa-color-green-10);
