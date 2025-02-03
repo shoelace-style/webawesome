@@ -82,7 +82,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
   });
 
   // Update validity on change
-  checkbox.addEventlistener('change', () => {
+  checkbox.addEventListener('change', () => {
     checkbox.setCustomValidity(checkbox.checked ? '' : errorMessage);
   });
 
