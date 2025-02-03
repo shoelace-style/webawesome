@@ -16,21 +16,21 @@ To use a theme, simply add a link to the theme's stylesheet to the `<head>` of y
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
 ```
 
-You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:where(:root)`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to violet in light mode:
+You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:where(:root)`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to purple in light mode:
 
 ```css
 :where(:root),
 :host,
 .wa-light,
 .wa-dark .wa-invert {
-  --wa-color-brand-fill-quiet: var(--wa-color-violet-95);
-  --wa-color-brand-fill-normal: var(--wa-color-violet-90);
-  --wa-color-brand-fill-loud: var(--wa-color-violet-50);
-  --wa-color-brand-border-quiet: var(--wa-color-violet-90);
-  --wa-color-brand-border-normal: var(--wa-color-violet-80);
-  --wa-color-brand-border-loud: var(--wa-color-violet-60);
-  --wa-color-brand-on-quiet: var(--wa-color-violet-40);
-  --wa-color-brand-on-normal: var(--wa-color-violet-30);
+  --wa-color-brand-fill-quiet: var(--wa-color-purple-95);
+  --wa-color-brand-fill-normal: var(--wa-color-purple-90);
+  --wa-color-brand-fill-loud: var(--wa-color-purple-50);
+  --wa-color-brand-border-quiet: var(--wa-color-purple-90);
+  --wa-color-brand-border-normal: var(--wa-color-purple-80);
+  --wa-color-brand-border-loud: var(--wa-color-purple-60);
+  --wa-color-brand-on-quiet: var(--wa-color-purple-40);
+  --wa-color-brand-on-normal: var(--wa-color-purple-30);
   --wa-color-brand-on-loud: white;
 }
 ```
@@ -99,8 +99,8 @@ Parts allow you to style *any* standard CSS property, not just those exposed thr
 
 <style>
   .gradient-button::part(base) {
-    background: linear-gradient(217deg, var(--wa-color-indigo-50), var(--wa-color-violet-50), var(--wa-color-red-50));
-    border: solid 1px var(--wa-color-violet-50);
+    background: linear-gradient(217deg, var(--wa-color-indigo-50), var(--wa-color-purple-50), var(--wa-color-red-50));
+    border: solid 1px var(--wa-color-purple-50);
     transition: transform 100ms, box-shadow 100ms;
   }
 

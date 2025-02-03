@@ -579,7 +579,7 @@ hasOutline: false
       <wa-radio value="teal"><span style="background-color:var(--wa-color-teal-60);"></span></wa-radio>
       <wa-radio value="blue"><span style="background-color:var(--wa-color-blue-60);"></span></wa-radio>
       <wa-radio value="indigo"><span style="background-color:var(--wa-color-indigo-60);"></span></wa-radio>
-      <wa-radio value="violet"><span style="background-color:var(--wa-color-violet-60);"></span></wa-radio>
+      <wa-radio value="purple"><span style="background-color:var(--wa-color-purple-60);"></span></wa-radio>
       <wa-radio value="gray"><span style="background-color:var(--wa-color-gray-60);"></span></wa-radio>
     </wa-radio-group>
   </wa-details>

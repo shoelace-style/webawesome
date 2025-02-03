@@ -139,7 +139,7 @@ function hueToChalk(hue) {
     case 'indigo':
       ret = chalk.hex('#8a8beb');
       break;
-    case 'violet':
+    case 'purple':
       ret = chalk.hex('#a94dc6');
       break;
   }

@@ -66,7 +66,7 @@ You can use these numbers to ensure accessible color contrast per [WCAG 2.1 succ
 
 Each Web Awesome palette defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
 
-{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "violet", "gray"] -%}
+{% for hue in ["red", "yellow", "green", "teal", "blue", "indigo", "purple", "gray"] -%}
 <div class="color-name">{{ hue | capitalize }}</div>
 <ul class="color-group">
   {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}

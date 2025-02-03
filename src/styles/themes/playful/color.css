@@ -1,6 +1,6 @@
 @import url('../../color/rudimentary.css');
 @import url('../default/color.css');
-@import url('../../brand/violet.css');
+@import url('../../brand/purple.css');
 
 :where(:root),
 :host,
