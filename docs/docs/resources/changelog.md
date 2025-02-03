@@ -15,6 +15,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ## Next
 
 - Added an orientation example to the native radio docs
+- Fixed a number of broken event listeners throughout the docs
 
 ## 3.0.0-alpha.10
 

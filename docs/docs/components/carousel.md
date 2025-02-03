@@ -450,7 +450,7 @@ Use the `--aspect-ratio` custom property to customize the size of the carousel's
     const carousel = document.querySelector('wa-carousel.aspect-ratio');
     const aspectRatio = document.querySelector('wa-select[name="aspect"]');
 
-    aspectRatio.addEventlistener('change', () => {
+    aspectRatio.addEventListener('change', () => {
       carousel.style.setProperty('--aspect-ratio', aspectRatio.value);
     });
   })();
