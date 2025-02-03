@@ -47,34 +47,28 @@ Use the `disabled` attribute to disable a radio.
 Use the [size utilities](/docs/utilities/size) to change the radios' size.
 
 ```html {.example}
-<fieldset class="wa-size-s">
+<fieldset class="wa-size-s wa-cluster">
   <legend>Small</legend>
-  <div class="wa-cluster">
-    <label><input type="radio" name="radio" value="1"> Option 1</label>
-    <label><input type="radio" name="radio" value="2"> Option 2</label>
-    <label><input type="radio" name="radio" value="3"> Option 3</label>
-  </div>
+  <label><input type="radio" name="radio" value="1"> Option 1</label>
+  <label><input type="radio" name="radio" value="2"> Option 2</label>
+  <label><input type="radio" name="radio" value="3"> Option 3</label>
 </fieldset>
 
 <br />
-<fieldset class="wa-size-m">
+<fieldset class="wa-size-m wa-cluster">
   <legend>Medium</legend>
-  <div class="wa-cluster">
-    <label><input type="radio" name="radio" value="1"> Option 1</label>
-    <label><input type="radio" name="radio" value="2"> Option 2</label>
-    <label><input type="radio" name="radio" value="3"> Option 3</label>
-  </div>
+  <label><input type="radio" name="radio" value="1"> Option 1</label>
+  <label><input type="radio" name="radio" value="2"> Option 2</label>
+  <label><input type="radio" name="radio" value="3"> Option 3</label>
 </fieldset>
 
 <br />
 
-<fieldset class="wa-size-l">
-	<legend>Large</legend>
-  <div class="wa-cluster">
+<fieldset class="wa-size-l wa-cluster">
+	  <legend>Large</legend>
     <label><input type="radio" name="radio" value="1"> Option 1</label>
     <label><input type="radio" name="radio" value="2"> Option 2</label>
     <label><input type="radio" name="radio" value="3"> Option 3</label>
-  </div>
 </fieldset>
 ```
 
