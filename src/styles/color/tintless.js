@@ -133,9 +133,6 @@ function hueToChalk(hue) {
     ret = chalk[hue];
   }
   switch (hue) {
-    case 'teal':
-      ret = chalk.cyan;
-      break;
     case 'indigo':
       ret = chalk.hex('#8a8beb');
       break;
