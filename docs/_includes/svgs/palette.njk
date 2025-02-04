@@ -1,43 +1,36 @@
 {% set paletteId = page.fileSlug %}
+{% set tints = [10, '', 95] %}
+{% set tintStroke = {'95': '80', '10': '30'} %}
+{% set tintRow = {'': '1', '10': '0', '95': '0'} %}
+{% set rows = 2 %}
+{% set tintClass = {'10': 'only-dark', '95': 'only-light'} %}
+{% set width = 30 %}
+{% set height = 40 %}
+{% set gap_x = 8 %}
+{% set gap_y = 10 %}
 
-<svg width="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="wa-palette-{{ paletteId }}">
-  <style>
-    @import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});
+<svg viewBox="{{ -gap_x/2 }} {{ -gap_y/2 }} {{ (width + gap_x) * hues|length + gap_x }} {{ (height + gap_y) * rows + gap_y }}" fill="none" xmlns="http://www.w3.org/2000/svg" class="wa-palette-{{ paletteId }} palette-icon">
+<style>
+	@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});
+	.palette-icon {
+		height: 8ch;
+	}
 
-    .gray,
-    .hue-slice {
-      --gap: 3;
-      --gap-arc: 2;
-      --gray-r: 18;
-      --hue-count: {{ hues|length - 1 }}; /* Exclude gray */
+	.palette-swatch {
+		width: {{ width }}px;
+		height: {{ height }}px;
+		rx: 4px;
+		stroke-width: 1px;
+	}
+</style>
 
-      --radius: calc(25 + var(--gray-r)/2 + var(--gap));
-      --perimeter: calc(2 * pi * var(--radius));
-      --hue-arc: calc(var(--perimeter) / var(--hue-count) - var(--gap-arc));
-      --hue-thickness: calc(50 - var(--gray-r) - var(--gap) * 2);
-    }
-
-    .gray {
-      r: var(--gray-r);
-    }
-
-    .hue-slice {
-      r: var(--radius);
-      stroke-dasharray: var(--hue-arc) var(--perimeter);
-      stroke-width: var(--hue-thickness);
-      stroke-dashoffset: calc(-1 * var(--index) * (var(--hue-arc) + var(--gap-arc)));
-      {# fill: black; fill-opacity: 0.1; #}
-
-      transform: rotate(-90deg);
-      transform-box: fill-box;
-      transform-origin: center;
-    }
-  </style>
-  {# <rect fill="yellow" width="100" height="100" /> #}
-  <circle cx="50" cy="50" class="gray" r="{{ gray_r }}" fill="var(--wa-color-gray)" />
-  {% for hue in hues -%}
-    {%- if hue != 'gray' %}
-      <circle cx="50" cy="50" style="stroke: var(--wa-color-{{ hue }}); --index: {{ loop.index0 }}" class="hue-slice" />
-    {%- endif %}
+{% for hue in hues -%}
+  {% set hueIndex = loop.index0 %}
+  {% for tint in tints -%}
+	{% set suffix = '-' + tint if tint %}
+    <rect class="palette-swatch {{ tintClass[tint] }}" x="{{ gap_x/2 + hueIndex * (width + gap_x) }}" y="{{ gap_y/2 + tintRow[tint] * (height + gap_y) }}"
+	      fill="var(--wa-color-{{ hue }}{{ '-' + tint if tint }})"
+		  stroke="var(--wa-color-{{ hue }}{{ '-' + tintStroke[tint] if tint }})" />
   {%- endfor %}
+{% endfor %}
 </svg>
