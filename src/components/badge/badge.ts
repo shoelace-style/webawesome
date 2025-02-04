@@ -1,9 +1,10 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import nativeStyles from '../../styles/native/badge.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
-import styles from './badge.css';
 
 /**
  * @summary Badges are used to draw attention and display statuses or counts.
@@ -24,7 +25,7 @@ import styles from './badge.css';
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
-  static shadowStyle = [variantStyles, appearanceStyles, styles];
+  static shadowStyle = [variantStyles, sizeStyles, appearanceStyles, nativeStyles];
 
   /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
   @property({ reflect: true, initial: 'brand' }) variant:

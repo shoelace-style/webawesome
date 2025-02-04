@@ -1,8 +1,14 @@
-:host {
+:host,
+.wa-badge {
+  --size-xs: var(--wa-font-size-2xs);
+  --size-s: var(--wa-font-size-2xs);
+  --size-m: var(--wa-font-size-2xs);
+  --size-l: var(--wa-font-size-xs);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: max(var(--wa-font-size-2xs), 0.75em);
+  font-size: max(var(--wa-size), 0.75em);
   font-weight: var(--wa-font-weight-semibold);
   line-height: 1;
   background-color: var(--background-color, var(--wa-color-fill-loud));
@@ -18,19 +24,15 @@
   cursor: inherit;
 }
 
-/* Pill modifier */
-:host([pill]) {
-  border-radius: var(--wa-border-radius-pill);
+::slotted(wa-icon),
+.wa-badge > wa-icon {
+  margin-inline-end: var(--wa-space-2xs, 0.25em);
+  opacity: 90%;
+  line-height: 1;
+  height: 0.85em;
 }
 
-/* Pulse modifier */
-:host([pulse]) {
-  --pulse-color: var(--background-color);
-
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
+@keyframes wa-pulse {
   0% {
     box-shadow: 0 0 0 0 var(--pulse-color);
   }
@@ -42,9 +44,16 @@
   }
 }
 
-::slotted(wa-icon) {
-  margin-inline-end: var(--wa-space-2xs, 0.25em);
-  opacity: 90%;
-  line-height: 1;
-  height: 0.85em;
+/* Pill modifier */
+.wa-pill,
+:host([pill]) {
+  border-radius: var(--wa-border-radius-pill);
+}
+
+/* Pulse modifier */
+:host([pulse]),
+.wa-badge.wa-pulse {
+  --pulse-color: var(--background-color);
+
+  animation: wa-pulse 1.5s infinite;
 }

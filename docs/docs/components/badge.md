@@ -77,6 +77,16 @@ Use the `pill` attribute to give badges rounded edges.
 <wa-badge variant="danger" pill>Danger</wa-badge>
 ```
 
+### Sizes
+
+Use the `size` attribute to change a badge's size.
+
+```html {.example}
+<wa-badge size="small">Small</wa-badge>
+<wa-badge size="medium">Medium</wa-badge>
+<wa-badge size="large">Large</wa-badge>
+```
+
 ### Pulsating Badges
 
 Use the `pulse` attribute to draw attention to the badge with a subtle animation.
