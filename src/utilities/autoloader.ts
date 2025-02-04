@@ -76,7 +76,10 @@ function register(tagName: string): Promise<void> {
   });
 }
 
-/** TODO */
+/**
+ * Acts as a middleware for Turbo's `turbo:before-render` event to ensure components are auto-loaded before showing the
+ * next page, eliminating page-to-page FOUCE in a Turbo environment.
+ */
 export function preventTurboFouce(timeout = 2000) {
   document.addEventListener('turbo:before-render', async (event: CustomEvent) => {
     const newBody = event.detail.newBody;
