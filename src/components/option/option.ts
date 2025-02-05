@@ -1,6 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import getText from '../../internal/getText.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -42,7 +43,9 @@ export default class WaOption extends WebAwesomeElement {
 
   @query('.label') defaultSlot: HTMLSlotElement;
 
+  // Set via the parent select
   @state() current = false;
+
   @state() selected = false;
 
   /**
@@ -55,6 +58,36 @@ export default class WaOption extends WebAwesomeElement {
   /** Draws the option in a disabled state, preventing selection. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  _label: string = '';
+  /**
+   * The option’s plain text label.
+   * Usually automatically generated, but can be useful to provide manually for cases involving complex content.
+   */
+  @property()
+  set label(value) {
+    const oldValue = this._label;
+    this._label = value || '';
+
+    if (this._label !== oldValue) {
+      this.requestUpdate('label', oldValue);
+    }
+  }
+
+  get label(): string {
+    if (this._label) {
+      return this._label;
+    }
+
+    if (!this.defaultLabel) {
+      this.updateDefaultLabel();
+    }
+
+    return this.defaultLabel;
+  }
+
+  /** The default label, generated from the element contents. Will be equal to `label` in most cases. */
+  @state() defaultLabel = '';
+
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'option');
@@ -62,6 +95,7 @@ export default class WaOption extends WebAwesomeElement {
 
     this.addEventListener('mouseenter', this.handleHover);
     this.addEventListener('mouseleave', this.handleHover);
+    this.updateDefaultLabel();
   }
 
   disconnectedCallback(): void {
@@ -72,6 +106,8 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private handleDefaultSlotChange() {
+    this.updateDefaultLabel();
+
     if (this.isInitialized) {
       // When the label changes, tell the controller to update
       customElements.whenDefined('wa-select').then(() => {
@@ -126,24 +162,17 @@ export default class WaOption extends WebAwesomeElement {
     }
   }
 
-  /** Returns a plain text label based on the option's content. */
-  getTextLabel() {
-    const nodes = this.childNodes;
-    let label = '';
+  private updateDefaultLabel() {
+    let oldValue = this.defaultLabel;
+    this.defaultLabel = getText(this).trim();
+    let changed = this.defaultLabel !== oldValue;
 
-    [...nodes].forEach(node => {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        if (!(node as HTMLElement).hasAttribute('slot')) {
-          label += (node as HTMLElement).textContent;
-        }
-      }
+    if (!this._label && changed) {
+      // Uses default label, and it has changed
+      this.requestUpdate('label', oldValue);
+    }
 
-      if (node.nodeType === Node.TEXT_NODE) {
-        label += node.textContent;
-      }
-    });
-
-    return label.trim();
+    return changed;
   }
 
   render() {

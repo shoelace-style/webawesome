@@ -252,7 +252,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           removable
           @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
-          ${option.getTextLabel()}
+          ${option.label}
         </wa-tag>
       `;
     };
@@ -437,7 +437,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
 
       for (const option of allOptions) {
-        const label = option.getTextLabel().toLowerCase();
+        const label = option.label.toLowerCase();
 
         if (label.startsWith(this.typeToSelectString)) {
           this.setCurrentOption(option);
@@ -642,7 +642,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     } else {
       const selectedOption = this.selectedOptions[0];
       this.value = selectedOption?.value ?? '';
-      this.displayLabel = selectedOption?.getTextLabel?.() ?? '';
+      this.displayLabel = selectedOption?.label ?? '';
     }
 
     // Update validity
