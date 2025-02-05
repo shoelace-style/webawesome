@@ -64,4 +64,3 @@ function clamp(min, value, max) {
 
 export default palettes;
 export { rawPalettes };
-console.log(palettes);
