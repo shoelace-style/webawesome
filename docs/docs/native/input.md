@@ -6,6 +6,7 @@ icon: input
 component: input
 elements:
   "<input>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+file: styles/native/input.css
 ---
 
 <style>

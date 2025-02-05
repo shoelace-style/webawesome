@@ -6,6 +6,7 @@ snippets:
   - .wa-outlined
   - .wa-filled
   - .wa-plain
+file: styles/utilities/appearance.css
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change their overall style by using an `appearance` attribute:

@@ -8,6 +8,7 @@ snippets:
   - .wa-success
   - .wa-warning
   - .wa-danger
+file: styles/utilities/variants.css
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change the color by using a `variant` attribute:

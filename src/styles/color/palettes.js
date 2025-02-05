@@ -11,7 +11,9 @@ import { fileURLToPath } from 'url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export const paletteFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.css'));
-export const declarationRegex = /^\s*--wa-color-(?<hue>[a-z]+)-(?<level>[0-9]+):\s*(?<color>[^;]+)\s*;$/gm;
+export const declarationRegex =
+  /^\s*--wa-color-(?<hue>[a-z]+)-(?<level>[0-9]+):\s*(?<color>.+?)\s*(\/\*.+?\*\/)?\s*;$/gm;
+export const rawCSS = {};
 
 function parse(contents, file) {
   // Regex for each declaration
@@ -54,6 +56,7 @@ const palettes = {};
 
 for (let file of paletteFiles) {
   let css = fs.readFileSync(path.join(__dirname, file), 'utf8');
+  rawCSS[file] = css;
   let tokens = parse(css, file);
   let paletteId = file.replace(/\.css$/, '');
 

@@ -1,0 +1,17 @@
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+:where([class^='wa-palette-'], [class*=' wa-palette-']) {
+  --wa-color-brand-95: var(--wa-color-blue-95);
+  --wa-color-brand-90: var(--wa-color-blue-90);
+  --wa-color-brand-80: var(--wa-color-blue-80);
+  --wa-color-brand-70: var(--wa-color-blue-70);
+  --wa-color-brand-60: var(--wa-color-blue-60);
+  --wa-color-brand-50: var(--wa-color-blue-50);
+  --wa-color-brand-40: var(--wa-color-blue-40);
+  --wa-color-brand-30: var(--wa-color-blue-30);
+  --wa-color-brand-20: var(--wa-color-blue-20);
+  --wa-color-brand-10: var(--wa-color-blue-10);
+  --wa-color-brand-05: var(--wa-color-blue-05);
+  --wa-color-brand: var(--wa-color-blue);
+}

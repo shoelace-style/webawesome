@@ -5,6 +5,7 @@ component: callout
 icon: callout
 snippets: '.wa-callout'
 noAlpha: true
+file: styles/native/callout.css
 ---
 
 ```html {.example}

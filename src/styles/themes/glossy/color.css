@@ -1,5 +1,6 @@
 @import url('../../color/elegant.css');
 @import url('../default/color.css');
+@import url('../../brand/indigo.css');
 
 :where(:root),
 :host,
@@ -9,21 +10,21 @@
   /**
    * Foundational Colors
    */
-  --wa-color-text-link: var(--wa-color-indigo-40);
+  --wa-color-text-link: var(--wa-color-brand-40);
 
-  --wa-color-focus: var(--wa-color-indigo-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-indigo-95);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-90);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-border-quiet: var(--wa-color-indigo-90);
-  --wa-color-brand-border-normal: var(--wa-color-indigo-80);
-  --wa-color-brand-border-loud: var(--wa-color-indigo-60);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-40);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-30);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-40);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-90);
+  --wa-color-brand-border-normal: var(--wa-color-brand-80);
+  --wa-color-brand-border-loud: var(--wa-color-brand-60);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+  --wa-color-brand-on-normal: var(--wa-color-brand-30);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-loud: var(--wa-color-green-40);
@@ -41,21 +42,21 @@
   /**
    * Foundational Colors
    */
-  --wa-color-text-link: var(--wa-color-indigo-70);
+  --wa-color-text-link: var(--wa-color-brand-70);
 
-  --wa-color-focus: var(--wa-color-indigo-60);
+  --wa-color-focus: var(--wa-color-brand-60);
 
   /**
     * Semantic Colors
     */
-  --wa-color-brand-fill-quiet: var(--wa-color-indigo-10);
-  --wa-color-brand-fill-normal: var(--wa-color-indigo-20);
-  --wa-color-brand-fill-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-border-quiet: var(--wa-color-indigo-20);
-  --wa-color-brand-border-normal: var(--wa-color-indigo-30);
-  --wa-color-brand-border-loud: var(--wa-color-indigo-40);
-  --wa-color-brand-on-quiet: var(--wa-color-indigo-60);
-  --wa-color-brand-on-normal: var(--wa-color-indigo-70);
+  --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
+  --wa-color-brand-fill-normal: var(--wa-color-brand-20);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-40);
+  --wa-color-brand-border-quiet: var(--wa-color-brand-20);
+  --wa-color-brand-border-normal: var(--wa-color-brand-30);
+  --wa-color-brand-border-loud: var(--wa-color-brand-40);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-60);
+  --wa-color-brand-on-normal: var(--wa-color-brand-70);
   --wa-color-brand-on-loud: white;
 
   --wa-color-success-fill-loud: var(--wa-color-green-40);

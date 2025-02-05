@@ -437,6 +437,7 @@ table.colors {
       padding-block: 0;
     }
   }
+
   tbody {
     tr {
       border: none;
@@ -455,6 +456,10 @@ table.colors {
       padding-inline: var(--wa-space-3xs);
       padding-block: var(--wa-space-s);
     }
+  }
+
+  .core-column {
+    padding-inline-end: var(--wa-space-xl);
   }
 }
 
