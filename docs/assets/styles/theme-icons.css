@@ -1,0 +1,34 @@
+.theme-color-icon {
+  display: grid;
+  gap: var(--wa-space-xs);
+  grid-template-columns: repeat(4, auto);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: var(--wa-border-radius-m);
+    background-color: var(--background-color);
+    border: var(--wa-border-width-s) var(--wa-border-style) var(--border-color);
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    color: var(--text-color);
+    font-weight: var(--wa-font-weight-semibold);
+
+    &.plain {
+      font-weight: var(--wa-font-weight-bold);
+    }
+  }
+}
+
+.theme-typography-icon {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wa-space-xs);
+
+  h3,
+  p {
+    margin-block: 0;
+    padding: 0;
+  }
+}

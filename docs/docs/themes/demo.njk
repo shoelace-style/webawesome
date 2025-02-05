@@ -70,7 +70,7 @@ function updateTheme() {
     p.hidden = msgs.length === 0;
     if (msgs.length) {
       let icon =
-      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
+      p.innerHTML = `<strong><wa-icon name="arrows-rotate"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
         ${ msg }</wa-badge>`).join(' ');
     }
   }

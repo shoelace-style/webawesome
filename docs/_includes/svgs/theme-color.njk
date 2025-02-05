@@ -1,0 +1,24 @@
+{% set themeId = theme.fileSlug %}
+
+<div>
+  <template shadowrootmode="open">
+    <link rel="stylesheet" href="/dist/styles/utilities.css">
+    <link rel="stylesheet" href="/dist/styles/themes/{{ page.fileSlug or 'default' }}.css">
+    <link rel="stylesheet" href="/dist/styles/themes/{{ themeId }}/color.css">
+    <link rel="stylesheet" href="/assets/styles/theme-icons.css">
+
+    <div class="theme-color-icon wa-theme-{{ themeId }}">
+      <div class="wa-brand wa-accent">A</div>
+      <div class="wa-brand wa-outlined">A</div>
+      <div class="wa-brand wa-filled">A</div>
+      <div class="wa-brand wa-plain">A</div>
+      {# <div class="wa-danger wa-outlined wa-filled"><wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon></div> #}
+
+      <div class="wa-neutral wa-accent">A</div>
+      <div class="wa-neutral wa-outlined">A</div>
+      <div class="wa-neutral wa-filled">A</div>
+      <div class="wa-neutral wa-plain">A</div>
+      {# <div class="wa-warning wa-outlined wa-filled"><wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon></div> #}
+    </div>
+  </template>
+</div>
