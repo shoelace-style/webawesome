@@ -1,7 +1,6 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -25,10 +24,13 @@ import styles from './option.css';
  * @cssproperty --text-color-hover - The label color on hover.
  *
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
- * @csspart base - The component's base wrapper.
  * @csspart label - The option's label.
  * @csspart prefix - The container that wraps the prefix.
  * @csspart suffix - The container that wraps the suffix.
+ *
+ * @cssstate current - The user has keyed into the option, but hasn't selected it yet (shows a highlight)
+ * @cssstate selected - The option is selected and has aria-selected="true"
+ * @cssstate hover - Like `:hover` but works while dragging in Safari
  */
 @customElement('wa-option')
 export default class WaOption extends WebAwesomeElement {
@@ -40,9 +42,8 @@ export default class WaOption extends WebAwesomeElement {
 
   @query('.label') defaultSlot: HTMLSlotElement;
 
-  @state() current = false; // the user has keyed into the option, but hasn't selected it yet (shows a highlight)
-  @state() selected = false; // the option is selected and has aria-selected="true"
-  @state() hasHover = false; // we need this because Safari doesn't honor :hover styles while dragging
+  @state() current = false;
+  @state() selected = false;
 
   /**
    * The option's value. When selected, the containing form control will receive this value. The value must be unique
@@ -58,6 +59,16 @@ export default class WaOption extends WebAwesomeElement {
     super.connectedCallback();
     this.setAttribute('role', 'option');
     this.setAttribute('aria-selected', 'false');
+
+    this.addEventListener('mouseenter', this.handleHover);
+    this.addEventListener('mouseleave', this.handleHover);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.removeEventListener('mouseenter', this.handleHover);
+    this.removeEventListener('mouseleave', this.handleHover);
   }
 
   private handleDefaultSlotChange() {
@@ -74,36 +85,44 @@ export default class WaOption extends WebAwesomeElement {
     }
   }
 
-  private handleMouseEnter() {
-    this.hasHover = true;
-  }
+  private handleHover = (event: Event) => {
+    // We need this because Safari doesn't honor :hover styles while dragging
+    // Testcase: https://codepen.io/leaverou/pen/VYZOOjy
+    if (event.type === 'mouseenter') {
+      this.toggleCustomState('hover', true);
+    } else if (event.type === 'mouseleave') {
+      this.toggleCustomState('hover', false);
+    }
+  };
 
-  private handleMouseLeave() {
-    this.hasHover = false;
-  }
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
 
-  @watch('disabled')
-  handleDisabledChange() {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-  }
-
-  @watch('selected')
-  handleSelectedChange() {
-    this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-  }
-
-  @watch('value')
-  handleValueChange() {
-    // Ensure the value is a string. This ensures the next line doesn't error and allows framework users to pass numbers
-    // instead of requiring them to cast the value to a string.
-    if (typeof this.value !== 'string') {
-      this.value = String(this.value);
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
     }
 
-    if (this.value.includes(' ')) {
-      // eslint-disable-next-line no-console
-      console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
-      this.value = this.value.replace(/ /g, '_');
+    if (changedProperties.has('selected')) {
+      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+      this.toggleCustomState('selected', this.selected);
+    }
+
+    if (changedProperties.has('value')) {
+      // Ensure the value is a string. This ensures the next line doesn't error and allows framework users to pass numbers
+      // instead of requiring them to cast the value to a string.
+      if (typeof this.value !== 'string') {
+        this.value = String(this.value);
+      }
+
+      if (this.value.includes(' ')) {
+        // eslint-disable-next-line no-console
+        console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
+        this.value = this.value.replace(/ /g, '_');
+      }
+    }
+
+    if (changedProperties.has('current')) {
+      this.toggleCustomState('current', this.current);
     }
   }
 
@@ -129,29 +148,17 @@ export default class WaOption extends WebAwesomeElement {
 
   render() {
     return html`
-      <div
-        part="base"
-        class=${classMap({
-          option: true,
-          'option--current': this.current,
-          'option--selected': this.selected,
-          'option--hover': this.hasHover,
-        })}
-        @mouseenter=${this.handleMouseEnter}
-        @mouseleave=${this.handleMouseLeave}
-      >
-        <wa-icon
-          part="checked-icon"
-          class="check"
-          name="check"
-          library="system"
-          variant="solid"
-          aria-hidden="true"
-        ></wa-icon>
-        <slot part="prefix" name="prefix" class="prefix"></slot>
-        <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
-        <slot part="suffix" name="suffix" class="suffix"></slot>
-      </div>
+      <wa-icon
+        part="checked-icon"
+        class="check"
+        name="check"
+        library="system"
+        variant="solid"
+        aria-hidden="true"
+      ></wa-icon>
+      <slot part="prefix" name="prefix" class="prefix"></slot>
+      <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
+      <slot part="suffix" name="suffix" class="suffix"></slot>
     `;
   }
 }

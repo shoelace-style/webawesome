@@ -18,7 +18,7 @@ function updateResults(input) {
   }
 }
 
-document.documentElement.addEventListener('wa-input', e => {
+document.documentElement.addEventListener('input', e => {
   if (e.target?.matches('#block-filter wa-input')) {
     updateResults(e.target);
   }

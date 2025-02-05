@@ -24,14 +24,16 @@ for await (const component of components) {
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');
   const importPath = component.path.replace(/\.js$/, '.js');
-  const eventImports = (component.events || [])
+  // We only want to wrap wa- prefixed events, because the others are native
+  const eventsToWrap = component.events?.filter(event => event.name.startsWith('wa-')) || [];
+  const eventImports = eventsToWrap
     .map(event => `import type { ${event.eventName} } from '../../events/events.js';`)
     .join('\n');
-  const eventExports = (component.events || [])
+  const eventExports = eventsToWrap
     .map(event => `export type { ${event.eventName} } from '../../events/events.js';`)
     .join('\n');
-  const eventNameImport = (component.events || []).length > 0 ? `import { type EventName } from '@lit/react';` : ``;
-  const events = (component.events || [])
+  const eventNameImport = eventsToWrap.length > 0 ? `import { type EventName } from '@lit/react';` : ``;
+  const events = eventsToWrap
     .map(event => `${event.reactName}: '${event.name}' as EventName<${event.eventName}>`)
     .join(',\n');
 

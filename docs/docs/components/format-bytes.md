@@ -16,7 +16,7 @@ icon: format-bytes
   const formatter = container.querySelector('wa-format-bytes');
   const input = container.querySelector('wa-input');
 
-  input.addEventListener('wa-input', () => (formatter.value = input.value || 0));
+  input.addEventListener('input', () => (formatter.value = input.value || 0));
 </script>
 ```
 

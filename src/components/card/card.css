@@ -1,5 +1,9 @@
 :host {
-  --spacing: var(--wa-space-xl);
+  --space-s: var(--wa-space-l);
+  --space-m: var(--wa-space-xl);
+  --space-l: var(--wa-space-2xl);
+
+  --spacing: var(--wa-space);
   --border-width: var(--wa-panel-border-width);
   --border-radius: var(--wa-panel-border-radius);
 

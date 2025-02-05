@@ -1,0 +1,131 @@
+---
+title: Reduce FOUCE
+description: Utility to improve the loading experience by hiding non-prerendered custom elements until they are registered.
+file: styles/utilities/fouce.css
+icon: spinner
+---
+{% markdown %}
+No class is needed to use this utility, it will be applied automatically as long as it its CSS is included.
+
+Here is a comparison of the loading experience with and without this utility,
+with a simulated slow loading time:
+
+{% endmarkdown %}
+
+
+<div class="wa-split wa-align-items-end">
+  <strong>Normal loading</strong>
+  <wa-button onclick="document.querySelectorAll('iframe').forEach(iframe => iframe.srcdoc = iframe.srcdoc)">
+    <wa-icon name="refresh"></wa-icon>
+    Refresh
+  </wa-button>
+  <strong>With FOUCE reduction</strong>
+</div>
+
+
+{% set sample_card %}
+<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high">
+<link rel="stylesheet" href="/dist/styles/webawesome.css">
+<link rel="stylesheet" href="/dist/styles/forms.css">
+<script type=module>
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const loadScript = src => new Promise((resolve, reject) => {
+  const script = document.createElement("script");
+  script.src = src;
+  script.type = "module";
+  script.onload = resolve;
+  script.onerror = reject;
+  document.head.appendChild(script);
+});
+
+await delay(500);
+await loadScript("/dist/components/button/button.js");
+await delay(500);
+await loadScript("/dist/components/card/card.js");
+await delay(500);
+await loadScript("/dist/components/rating/rating.js");
+</script>
+
+<wa-card with-footer with-image class="card-overview">
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
+
+  <strong>Mittens</strong><br />
+  This kitten is as cute as he is playful. Bring him home today!<br />
+  <small>6 weeks old</small>
+
+  <div slot="footer">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </div>
+</wa-card>
+
+<style>
+  .card-overview small {
+    color: var(--wa-color-text-quiet);
+  }
+
+  .card-overview [slot=footer] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+{% endset %}
+
+
+<div class="iframes">
+<iframe srcdoc='<body class="wa-fouce-off">{{ sample_card }}</body>'></iframe>
+<iframe srcdoc='{{ sample_card }}'></iframe>
+</div>
+<style>
+.iframes {
+	display: flex;
+	gap: var(--wa-space-m);
+  margin-top: var(--wa-space-l);
+
+	iframe {
+		flex: 1;
+		height: 60ch;
+	}
+}
+</style>
+
+{% markdown %}
+## How does it work?
+
+The utility consists of a timeout (`2s` by default) and a fade duration (`200ms` by default).
+- If the element is _ready_ before the timeout, it will appear immediately.
+- If it takes longer than _timeout_ + _fade_, it will fade in over the fade duration.
+- If it takes somewhere between _timeout_ and _timeout_ + _fade_, you will get an interrupted fade.
+
+An element is considered ready when both of these are true:
+1. Either It has been registered or has a `did-ssr` attribute (indicating it was pre-rendered)
+2. If it’s a Web Awesome component, its contents are also ready
+
+## Customization
+
+You can use the following CSS variables to customize the behavior:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--wa-fouce-fade` | The transition duration for the fade effect. | `200ms` |
+| `--wa-fouce-timeout` | The timeout after which elements will appear even if not registered | `2s` |
+
+The fade duration cannot be longer than the timeout.
+This means that you can disable FOUCE reduction on an element by setting `--wa-fouce-timeout: 0s`.
+
+For example, if instead of `did-ssr` you used an `ssr` attribute to mark elements that were pre-rendered, you can do this to get them to appear immediately:
+
+```css
+[ssr] {
+  --wa-fouce-timeout: 0s;
+}
+```
+
+You can also opt-out from FOUCE reduction for an element and its contents by adding the `.wa-fouce-off` class to it.
+Applying this class to the root element will disable the utility for the entire page.
+{% endmarkdown %}

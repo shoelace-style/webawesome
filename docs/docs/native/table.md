@@ -4,6 +4,7 @@ description: 'Table styles apply your Web Awesome theme to the HTML table conten
 tags: content
 elements:
   "<table>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table
+file: styles/native/tables.css
 ---
 
 ```html {.example}

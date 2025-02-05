@@ -26,8 +26,14 @@ import styles from './badge.css';
 export default class WaBadge extends WebAwesomeElement {
   static shadowStyle = [variantStyles, appearanceStyles, styles];
 
-  /** The badge's theme variant. */
-  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+  /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'brand' }) variant:
+    | 'brand'
+    | 'neutral'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   /** The badge's visual appearance. */
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' = 'accent';

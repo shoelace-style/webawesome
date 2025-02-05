@@ -52,8 +52,8 @@ wa-page {
   }
 
   &[slot^='navigation'] {
-    background: var(--wa-color-violet-80);
-    color: var(--wa-color-violet-20);
+    background: var(--wa-color-purple-80);
+    color: var(--wa-color-purple-20);
   }
 
   strong {

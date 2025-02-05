@@ -1,0 +1,19 @@
+{% extends '../_layouts/block.njk' %}
+
+{% block afterContent %}
+{% if file %}
+{% markdown %}
+## Opting In
+
+If you want to use this utility **only** without [all others](../), you can include the following CSS file from the Web Awesome CDN.
+
+{% set stylesheet = file %}
+{% include 'import-stylesheet-code.md.njk' %}
+
+Want them all?
+Follow the [instructions on the Utilities overview page](../) to get all Web Awesome utilities.
+
+{% endmarkdown %}
+{% endif %}
+
+{% endblock %}

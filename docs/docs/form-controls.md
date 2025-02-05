@@ -146,7 +146,7 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
       alert('All fields are valid!');
     });
 
-    input.addEventListener('wa-input', () => {
+    input.addEventListener('input', () => {
       if (input.value === 'webawesome') {
         input.setCustomValidity('');
       } else {

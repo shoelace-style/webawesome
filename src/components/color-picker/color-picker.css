@@ -15,8 +15,6 @@
   --swatch-border-radius: var(--wa-border-radius-m);
   --swatch-size: 1.5rem;
   --trigger-border-radius: var(--wa-border-radius-circle);
-
-  display: inline-block;
 }
 
 .color-picker {

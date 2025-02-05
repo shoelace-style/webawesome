@@ -15,6 +15,7 @@
   <thead>
     <tr>
       <th></th>
+      <th class="core-column">Core tint</th>
       {% for tint in tints -%}
       <th>{{ tint }}</th>
       {%- endfor %}
@@ -23,6 +24,12 @@
 {% for hue in hues -%}
 <tr>
   <th>{{ hue | capitalize }}</th>
+  <td class="core-column">
+    <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
+      {{ palettes[paletteId][hue].maxChromaTint }}
+      <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+    </div>
+  </td>
   {% for tint in tints -%}
     <td>
       <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">

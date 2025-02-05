@@ -1,7 +1,25 @@
 ---
 title: Layout
-description: Layout components and utility classes help you organize content that can adapt to any device or screen size. Browse the collection of responsive layout tools included in Web Awesome Pro.
+description: Layout components and utility classes help you organize content that can adapt to any device or screen size. See the [installation instructions](#installation) to use Web Awesome's layout tools in your project.
 layout: overview
 categories: ["components", "utilities"]
 override:tags: []
 ---
+
+{% markdown %}
+## Installation
+
+Layout components are included in Web Awesome's [autoloader](/docs/installation/#quick-start-autoloading-via-cdn). You can also import them individually via [cherry picking](/docs/installation/#cherry-picking).
+
+Layout utilities are bundled with all [style utilities](/docs/utilities). You can import all Web Awesome page styles (including [native styles](/docs/native/)) by including the following stylesheet in your project:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
+```
+
+Or, you can choose to import _only_ the utilities:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}" />
+```
+{% endmarkdown %}
