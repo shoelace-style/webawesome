@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import palettes from './palettes.js';
+import palettes, { rawPalettes } from './palettes-analyzed.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -18,9 +18,6 @@ const selector = paletteId =>
 
 // Default accent tint if all chromas are 0, but also the tint accent colors will be nudged towards (see chromaTolerance)
 const defaultAccent = 60;
-
-// Chroma tolerance: Chroma will need to differ more than this to gravitate away from defaultAccent
-const chromaTolerance = 0.000001;
 
 // Min and max allowed tints
 const minAccentTint = 40;
@@ -42,40 +39,29 @@ for (let paletteId in palettes) {
   for (let hue in tokens) {
     let tints = tokens[hue];
 
-    let maxChromaTint = defaultAccent;
-    let maxChroma = tints[defaultAccent].get('oklch.c');
-
     let tintCSS = '';
 
     for (let tint in tints) {
-      if (tint === '05') {
+      if (tint === '05' || !(tint > 0)) {
         // The object has both '5' and '05' keys, but '05' is out of order
+        // Also ignore non-tints
         continue;
       }
 
       let color = tints[tint];
-      let lchColor = color.to('oklch');
       tint = tint.padStart(2, '0');
 
-      if (lchColor.c > maxChroma + chromaTolerance) {
-        maxChroma = lchColor.c;
-        maxChromaTint = tint;
-      }
-
-      let lchComment = `/* ${lchColor.toString()} */`;
-
-      tintCSS = `--wa-color-${hue}-${tint}: ${color} ${lchComment};\n` + tintCSS;
+      tintCSS =
+        `--wa-color-${hue}-${tint}: ${color.toString({ format: 'hex' })} /* ${color.toString()} */;\n` + tintCSS;
     }
 
-    if (maxChromaTint < minAccentTint || maxChromaTint > maxAccentTint) {
-      let fakeMaxChromaTint = clamp(minAccentTint, maxChromaTint, maxAccentTint);
+    if (tints.maxChromaTint != tints.maxChromaTintRaw) {
       let huePrefix = hueToChalk(hue)(hue.padEnd(hueMaxChars + 2));
 
       console.warn(
-        `${prefix} ${huePrefix}: Clamping accent color to ${chalk.bold(fakeMaxChromaTint)}, but peak chroma is in ${chalk.bold(maxChromaTint)} (${formatComparison(tints[maxChromaTint].get('oklch.c'), tints[fakeMaxChromaTint].get('oklch.c'))})`,
+        `${prefix} ${huePrefix}: Clamping accent color to ${chalk.bold(tints.maxChromaTint)}, but peak chroma is in ${chalk.bold(tints.maxChromaTintRaw)} (${formatComparison(tints[tints.maxChromaTintRaw].c, tints[tints.maxChromaTint].c)})`,
       );
       issueCount++;
-      maxChromaTint = fakeMaxChromaTint;
 
       if (prefix.trim()) {
         // First time encountering an issue with this palette
@@ -86,7 +72,7 @@ for (let paletteId in palettes) {
       }
     }
 
-    tintCSS += `--wa-color-${hue}: var(--wa-color-${hue}-${maxChromaTint});\n`;
+    tintCSS += `--wa-color-${hue}: var(--wa-color-${hue}-${tints.maxChromaTint});\n`;
     css += tintCSS + '\n';
   }
 
@@ -100,10 +86,6 @@ console.info(
   `🎨 Wrote ${Object.keys(palettes).length} palette files.` +
     (issueCount > 0 ? ` ${chalk.bold(issueCount)} issues found across ${chalk.bold(issuePaletteCount)} palettes.` : ''),
 );
-
-function clamp(min, value, max) {
-  return Math.min(Math.max(min, value), max);
-}
 
 /**
  * Format a comparison by rounding numbers to the lowest number of significant digits that still shows a difference.
