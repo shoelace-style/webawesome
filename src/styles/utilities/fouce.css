@@ -19,8 +19,3 @@
     animation: var(--wa-fouce-animation);
   }
 }
-
-/* An opt in utility that hides any container with this class until the autoloader removes it */
-.wa-cloak {
-  opacity: 0;
-}
