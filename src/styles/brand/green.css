@@ -14,4 +14,5 @@
   --wa-color-brand-10: var(--wa-color-green-10);
   --wa-color-brand-05: var(--wa-color-green-05);
   --wa-color-brand: var(--wa-color-green);
+  --wa-color-brand-key: var(--wa-color-green-key);
 }
