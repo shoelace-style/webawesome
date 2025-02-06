@@ -21,9 +21,10 @@ import styles from './card.css';
  * @csspart body - The container that wraps the card's main content.
  * @csspart footer - The container that wraps the card's footer.
  *
- * @cssproperty --border-radius - The radius for the card's corners. Expects a single value. Defaults to `var(--wa-panel-border-radius)`.
- * @cssproperty --border-width - The width of the card's borders. Expects a single value. Defaults to `var(--wa-panel-border-width)`.
- * @cssproperty --spacing - The amount of space around and between sections of the card. Expects a single value. Defaults to `var(--wa-space)`.
+ * @cssproperty [--border-radius=var(--wa-panel-border-radius)] - The radius for the card's corners. Expects a single value.
+ * @cssproperty [--border-color=var(--wa-color-surface-border)] - The color of the card's borders, including inner borders. Expects a single value.
+ * @cssproperty [--border-width=var(--wa-panel-border-width)] - The width of the card's borders. Expects a single value.
+ * @cssproperty [--spacing=var(--wa-space)] - The amount of space around and between sections of the card. Expects a single value.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
