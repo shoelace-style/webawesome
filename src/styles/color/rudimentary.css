@@ -14,6 +14,7 @@
   --wa-color-red-10: #3d0d00 /* oklch(24.253% 0.07888 38.298) */;
   --wa-color-red-05: #290600 /* oklch(18.868% 0.06197 37.848) */;
   --wa-color-red: var(--wa-color-red-50);
+  --wa-color-red-key: 50;
 
   --wa-color-yellow-95: #fff497 /* oklch(95.586% 0.11473 102.45) */;
   --wa-color-yellow-90: #ffe571 /* oklch(92.08% 0.13847 96.881) */;
@@ -27,6 +28,7 @@
   --wa-color-yellow-10: #311613 /* oklch(23.859% 0.04441 27.497) */;
   --wa-color-yellow-05: #1f0d0b /* oklch(18.561% 0.0315 27.209) */;
   --wa-color-yellow: var(--wa-color-yellow-80);
+  --wa-color-yellow-key: 80;
 
   --wa-color-green-95: #dafadc /* oklch(95.411% 0.05194 146.87) */;
   --wa-color-green-90: #b9f4bc /* oklch(91.261% 0.09639 146.02) */;
@@ -40,6 +42,7 @@
   --wa-color-green-10: #00230e /* oklch(22.462% 0.05754 153.24) */;
   --wa-color-green-05: #001607 /* oklch(17.557% 0.04482 153.41) */;
   --wa-color-green: var(--wa-color-green-70);
+  --wa-color-green-key: 70;
 
   --wa-color-cyan-95: #d1f9f1 /* oklch(95.167% 0.04252 181.91) */;
   --wa-color-cyan-90: #a9f4e6 /* oklch(91.421% 0.07655 181.59) */;
@@ -53,6 +56,7 @@
   --wa-color-cyan-10: #002129 /* oklch(22.851% 0.04085 217.17) */;
   --wa-color-cyan-05: #00151b /* oklch(18.055% 0.03231 217.31) */;
   --wa-color-cyan: var(--wa-color-cyan-70);
+  --wa-color-cyan-key: 70;
 
   --wa-color-blue-95: #e1f4ff /* oklch(95.642% 0.02496 232.97) */;
   --wa-color-blue-90: #caebff /* oklch(92.258% 0.04407 234.57) */;
@@ -66,6 +70,7 @@
   --wa-color-blue-10: #001a4e /* oklch(23.965% 0.10161 260.68) */;
   --wa-color-blue-05: #000f36 /* oklch(18.68% 0.08063 260.98) */;
   --wa-color-blue: var(--wa-color-blue-50);
+  --wa-color-blue-key: 50;
 
   --wa-color-indigo-95: #f1efff /* oklch(95.834% 0.02142 291.74) */;
   --wa-color-indigo-90: #e7e3ff /* oklch(92.744% 0.03793 292.2) */;
@@ -79,6 +84,7 @@
   --wa-color-indigo-10: #220064 /* oklch(25.227% 0.14791 284.49) */;
   --wa-color-indigo-05: #160046 /* oklch(19.835% 0.11578 285.15) */;
   --wa-color-indigo: var(--wa-color-indigo-40);
+  --wa-color-indigo-key: 40;
 
   --wa-color-purple-95: #f8edfd /* oklch(95.934% 0.02417 315.47) */;
   --wa-color-purple-90: #f2e0fc /* oklch(92.948% 0.04198 313.7) */;
@@ -92,6 +98,7 @@
   --wa-color-purple-10: #310a42 /* oklch(24.603% 0.10191 313.12) */;
   --wa-color-purple-05: #20052d /* oklch(19.24% 0.07931 312.44) */;
   --wa-color-purple: var(--wa-color-purple-50);
+  --wa-color-purple-key: 50;
 
   --wa-color-gray-95: #f2f2f2 /* oklch(96.115% 0 none) */;
   --wa-color-gray-90: #e6e6e6 /* oklch(92.494% 0 none) */;
@@ -105,4 +112,5 @@
   --wa-color-gray-10: #1d1d1d /* oklch(23.075% 0 none) */;
   --wa-color-gray-05: #131313 /* oklch(18.674% 0 none) */;
   --wa-color-gray: var(--wa-color-gray-60);
+  --wa-color-gray-key: 60;
 }
