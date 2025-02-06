@@ -39,7 +39,10 @@ Now you can [start using Web Awesome!](/docs/usage)
 
 ### Reducing FOUCE
 
-While convenient, autoloading can lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/). To prevent this, you can add the `wa-reduce-fouce` class to any element on the page. Make sure to include the [FOUCE style utility](/docs/utilities/fouce/#opting-in) to get the corresponding CSS.
+While convenient, autoloading can lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/).
+The [FOUCE style utility](/docs/utilities/fouce/#opting-in) (which is automatically applied if you use the Web Awesome utilities) takes care of hiding custom elements until they and their contents have been registered, up to a maximum of two seconds (configurable).
+
+In many cases, this is not enough, and you may wish to hide a broader wrapper element or even the entire page until all WA elements within it have loaded. To do that, you can add the `wa-reduce-fouce` class to any element on the page or even apply it to the whole page by placing the class on the `<html>` or `<body>` element.
 
 ```html
 <html class="wa-reduce-fouce">
