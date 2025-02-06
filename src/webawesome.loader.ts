@@ -10,7 +10,10 @@ startLoader();
 Promise.race([
   new Promise(resolve => document.addEventListener('wa-discovery-complete', resolve)),
   new Promise(resolve => setTimeout(resolve, 2000)),
-]).then(() => {
+]).then(async () => {
+  // Wait a cycle for updates to complete
+  await new Promise(requestAnimationFrame);
+
   document.querySelectorAll('.wa-cloak').forEach(el => {
     el.classList.remove('wa-cloak');
   });
