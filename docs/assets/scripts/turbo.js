@@ -1,3 +1,5 @@
+import 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm';
+
 if (!window.___turboScrollPositions___) {
   window.___turboScrollPositions___ = {};
 }
