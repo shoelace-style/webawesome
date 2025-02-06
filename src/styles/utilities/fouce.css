@@ -10,7 +10,7 @@
 
 :not(:defined),
 :state(wa-defined):has(:not(:defined)),
-.wa-reduce-fouce:has(:not(:defined)) {
+.wa-cloak:has(:not(:defined)) {
   /* The clamp() ensures that if --wa-fouce-timeout is set to 0s, the whole effect is disabled */
   --wa-fouce-animation: clamp(0s, var(--wa-fouce-fade, 200ms), var(--wa-fouce-timeout, 2s)) var(--wa-fouce-timeout, 2s)
     wa-fade-in both;
@@ -21,6 +21,6 @@
 }
 
 /* An opt in utility that hides any container with this class until the autoloader removes it */
-.wa-reduce-fouce {
+.wa-cloak {
   opacity: 0;
 }

@@ -39,10 +39,10 @@ Now you can [start using Web Awesome!](/docs/usage)
 
 ### Reducing FOUCE
 
-While convenient, autoloading can lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/). To prevent this, you can add the `wa-reduce-fouce` class to any element on the page. Make sure to include the [FOUCE style utility](/docs/utilities/fouce/#opting-in) to get the corresponding CSS.
+While convenient, autoloading can lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/). To prevent this, you can add the `wa-cloak` class to any element on the page. Make sure to include the [FOUCE style utility](/docs/utilities/fouce/#opting-in) to get the corresponding CSS.
 
 ```html
-<html class="wa-reduce-fouce">
+<html class="wa-cloak">
   ...
 </html>
 ```
