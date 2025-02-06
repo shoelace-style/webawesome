@@ -23,6 +23,7 @@ describe('<wa-option>', () => {
 
         expect(el.value).to.equal('');
         expect(el.disabled).to.be.false;
+        expect(el.label).to.equal('Test');
         expect(el.getAttribute('aria-disabled')).to.equal('false');
       });
 
@@ -44,9 +45,16 @@ describe('<wa-option>', () => {
         expect(el.value).to.equal('10');
       });
 
-      it('should escape HTML when calling getTextLabel()', async () => {
+      it('defaultLabel should escape HTML', async () => {
         const el = await fixture<WaOption>(html` <wa-option><strong>Option</strong></wa-option> `);
-        expect(el.getTextLabel()).to.equal('Option');
+        expect(el.defaultLabel).to.equal('Option');
+        expect(el.label).to.equal('Option');
+      });
+
+      it('label attribute should override default label', async () => {
+        const el = await fixture<WaOption>(html` <wa-option label="Manual label">Text content</wa-option> `);
+        expect(el.defaultLabel).to.equal('Text content');
+        expect(el.label).to.equal('Manual label');
       });
     });
   }
