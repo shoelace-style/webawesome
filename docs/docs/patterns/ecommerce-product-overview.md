@@ -15,10 +15,12 @@ TODO Page Description
     <wa-breadcrumb-item>Men's</wa-breadcrumb-item>
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
   </wa-breadcrumb>
-  <div class="image-grid">
+  <div class="wa-stack wa-gap-xs" style="margin-bottom: var(--wa-space-l);">
     <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
-    <img src="/assets/images/patterns/gervyn-louis-KXvd7y7AU6Q-unsplash.jpg" />
-    <img src="/assets/images/patterns/gervyn-louis-semwwyXFQho-unsplash.jpg" />
+    <div class="wa-grid wa-gap-xs">
+      <img src="/assets/images/patterns/gervyn-louis-KXvd7y7AU6Q-unsplash.jpg" />
+      <img src="/assets/images/patterns/gervyn-louis-semwwyXFQho-unsplash.jpg" />
+    </div>
     <img src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
   </div>
   <div>
@@ -32,22 +34,24 @@ TODO Page Description
     <h3>Highlights</h3>
     <p>The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.</p>
 
-    <span>$192</span>
-    <div>
+    <span style="font-size: var(--wa-font-size-2xl); margin-bottom: var(--wa-space-l);">$192</span>
+    <div style="margin-bottom: var(--wa-space-l);">
       <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
       <a href="#">117 Reviews</a>
     </div>
-    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
-</wa-radio-group>
-  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
-</wa-radio-group>
-  <wa-button>Add to Cart</wa-button>
+    <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
+      <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+        <wa-radio-button value="1">Option 1</wa-radio-button>
+        <wa-radio-button value="2">Option 2</wa-radio-button>
+        <wa-radio-button value="3">Option 3</wa-radio-button>
+      </wa-radio-group>
+      <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+        <wa-radio-button value="1">Option 1</wa-radio-button>
+        <wa-radio-button value="2">Option 2</wa-radio-button>
+        <wa-radio-button value="3">Option 3</wa-radio-button>
+      </wa-radio-group>
+    </div>
+    <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
   </div>
 </div>
 <style>
@@ -91,32 +95,39 @@ TODO Page Description
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
   </wa-breadcrumb>
   <div>
-    <div class="heading">
+    <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
       <h2>Basic Tee</h2>
       <span style="font-size: var(--wa-font-size-2xl)">$35</span>
     </div>
-    <div class="rating">
-      <span>3.9</span>
-       <wa-rating label="Rating" precision="0.5" value="3.9"></wa-rating>
+    <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
+      <div>
+        <span>3.9</span>
+        <wa-rating label="Rating" precision="0.5" value="3.9"></wa-rating>
+      </div>
       <a href="#">117 Reviews</a>
     </div>
-    <div class="tiered-images">
-      <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+    <div class="wa-stack wa-gap-xs" style="margin-bottom: var(--wa-space-l);">
+    <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+    <div class="wa-grid wa-gap-xs">
       <img src="/assets/images/patterns/gervyn-louis-KXvd7y7AU6Q-unsplash.jpg" />
       <img src="/assets/images/patterns/gervyn-louis-semwwyXFQho-unsplash.jpg" />
     </div>
   </div>
-  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
-</wa-radio-group>
-  <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
-</wa-radio-group>
- <wa-button>Add to Cart</wa-button>
+  </div>
+  <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
+    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+      <wa-radio-button value="1">Option 1</wa-radio-button>
+      <wa-radio-button value="2">Option 2</wa-radio-button>
+      <wa-radio-button value="3">Option 3</wa-radio-button>
+    </wa-radio-group>
+    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+      <wa-radio-button value="1">Option 1</wa-radio-button>
+      <wa-radio-button value="2">Option 2</wa-radio-button>
+      <wa-radio-button value="3">Option 3</wa-radio-button>
+    </wa-radio-group>
+  </div>
+  
+ <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
  <h3>Description</h3>
  <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
  <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
@@ -125,7 +136,7 @@ TODO Page Description
     <ul>
       <li>Hand cut and sewn locally</li>
     </ul>
-  <div>
+  <div class="wa-split">
     <wa-card>
       <wa-icon family="solid" name="earth-americas"></wa-icon>
       <h3>International delivery</h3>
@@ -141,49 +152,25 @@ TODO Page Description
 </div>
 <style>
   .with-tiered-images {
+    max-width: 960px;
+    margin: 0 auto;
     wa-breadcrumb::part(base) {
       margin-bottom: 1rem;
     }
-    .heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    span {
+      display: inline-block;
+      margin-right: 1rem;
     }
-
-    .rating {
-      display: flex;
-
-      span {
-        display: inline-block;
-        margin-right: 1rem;
-      }
-
-      wa-rating {
-        margin-right: 1rem;
-      }
+    wa-rating {
+      margin-right: 1rem;
     }
-
-    .tiered-images {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1rem;
-    }
-
-    .tiered-images img:nth-of-type(1) {
-      grid-column: 1/-1;
-    }
-
-    .tiered-images img:nth-of-type(2) {
-      grid-column: 1/7;
-    }
-    .tiered-images img:nth-of-type(3) {
-      grid-column: 7/-1;
   }
 </style>
 ```
 ## with images and expandable details
 
 ```html {.example}
+<div class="with-expandable-details">
 <wa-carousel class="carousel-thumbnails" navigation loop>
   <wa-carousel-item>
     <img
@@ -257,8 +244,12 @@ TODO Page Description
   </wa-details>
 </div>
 </div>
-
+</div>
 <style>
+  .with-expandable-details {
+    max-width: 960px;
+    margin: 0 auto;
+  }
   .carousel-thumbnails {
     --slide-aspect-ratio: 3 / 2;
   }
