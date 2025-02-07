@@ -6,22 +6,13 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import palettes, { rawPalettes } from './palettes-analyzed.js';
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+import { PALETTE_DIR, formatComparison, hueToChalk } from './util.js';
 
 const selector = paletteId =>
   [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${paletteId}`].join(
     ',\n',
   );
-
-// Default accent tint if all chromas are 0, but also the tint accent colors will be nudged towards (see chromaTolerance)
-const defaultAccent = 60;
-
-// Min and max allowed tints
-const minAccentTint = 40;
-const maxAccentTint = 90;
 
 // Used for formatting warnings
 const paletteIdMaxChars = Object.keys(palettes).reduce((max, id) => Math.max(max, id.length), 0);
@@ -80,53 +71,10 @@ for (let paletteId in palettes) {
   let indent = '  ';
   css = `${selector(paletteId)} {\n${css.trimEnd().replace(/^(?=\S)/gm, indent)}\n}\n`;
 
-  fs.writeFileSync(path.join(__dirname, paletteId + '.css'), css, 'utf8');
+  fs.writeFileSync(path.join(PALETTE_DIR, paletteId + '.css'), css, 'utf8');
 }
 
 console.info(
   `🎨 Wrote ${Object.keys(palettes).length} palette files.` +
     (issueCount > 0 ? ` ${chalk.bold(issueCount)} issues found across ${chalk.bold(issuePaletteCount)} palettes.` : ''),
 );
-
-/**
- * Format a comparison by rounding numbers to the lowest number of significant digits that still shows a difference.
- * @param {number} a
- * @param {number} b
- * @returns {string}
- */
-function formatComparison(a, b) {
-  let op = a < b ? '<' : '>';
-
-  for (let i = 1; i < 10; i++) {
-    let roundedA = a.toPrecision(i);
-    let roundedB = b.toPrecision(i);
-
-    if (roundedA !== roundedB) {
-      return `${roundedA} ${op} ${roundedB}`;
-    }
-  }
-
-  return `${a} ${op} ${b}`;
-}
-
-function hueToChalk(hue) {
-  let ret;
-
-  if (hue in chalk) {
-    ret = chalk[hue];
-  }
-  switch (hue) {
-    case 'indigo':
-      ret = chalk.hex('#8a8beb');
-      break;
-    case 'purple':
-      ret = chalk.hex('#a94dc6');
-      break;
-  }
-
-  if (ret) {
-    return ret.bold;
-  }
-
-  return chalk.bold;
-}
