@@ -1,11 +1,10 @@
 ---
 title: Category Filter
-description: TODO
+description: ''
 parent: ecommerce
 tags: e-commerce
----
 
-TODO Page Description
+---
 
 ## With inline actions and expandable sidebar filters
 ```html{.example}
@@ -61,7 +60,6 @@ TODO Page Description
       display: flex;
       flex-direction: column;
     }
-
     form > wa-details:not(:last-of-type) {
       margin-bottom: 1rem;
     }
@@ -69,23 +67,9 @@ TODO Page Description
       display: block;
       margin-bottom: 1rem;
     }
-     wa-details wa-checkbox {
-        margin-bottom: 1rem;
-      }
-
-      .card-overview {
-    max-width: 300px;
-  }
-
-  .card-overview small {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .card-overview [slot='footer'] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    wa-details wa-checkbox {
+      margin-bottom: 1rem;
+    }
 
   [class*='wa-grid'] div:empty {
     background-color: var(--wa-color-indigo-60);
@@ -99,8 +83,6 @@ TODO Page Description
      margin-bottom: 1rem;
      padding-top: 1rem;
      padding-bottom: 1rem;
-     border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-     border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
   }
 </style>
 <script>
@@ -123,7 +105,7 @@ TODO Page Description
     <p>something clever should probably be here...</p>
   </div>
  <div class="wa-flank wa-align-items-start">
-  <div style="border-right: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
+  <div>
     <wa-select label="Sort" placeholder="Category" value="release-date" style="padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
       <wa-option value="release-date">Option 1</wa-option>
       <wa-option value="cheapest">Price - Lowest to Highest</wa-option>
@@ -147,7 +129,7 @@ TODO Page Description
     </wa-select>
     </div>
   </div>
-  <div class="wa-grid" style="border-left: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)">
+  <div class="wa-grid">
     <div></div>
     <div></div>
     <div></div>
@@ -160,7 +142,6 @@ TODO Page Description
 <style>
   .filter-with-dropdowns {
  
-
     [class*='wa-grid'] div:empty {
     background-color: var(--wa-color-indigo-60);
     border-radius: var(--wa-border-radius-m);
