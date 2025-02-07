@@ -155,6 +155,8 @@ export default class WaOption extends WebAwesomeElement {
         console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
         this.value = this.value.replace(/ /g, '_');
       }
+
+      this.handleDefaultSlotChange();
     }
 
     if (changedProperties.has('current')) {

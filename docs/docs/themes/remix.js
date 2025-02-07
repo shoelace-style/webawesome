@@ -1,7 +1,13 @@
-await Promise.all(['wa-select', 'wa-details'].map(tag => customElements.whenDefined(tag)));
+await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
 
-let selects, data, computed;
+let selects, data, themeDefaults;
+
+let computed = {
+  get isRemixed() {
+    return Object.values(data.params).filter(Boolean).length > 0;
+  },
+};
 
 function selectsChanged(event) {
   data.params[event.target.name] = event.target.value;
@@ -15,33 +21,37 @@ function init() {
 
   data = {
     baseTheme: '',
-    defaultPalettes: {},
     defaultParams: {
       colors: '',
       get palette() {
         let colors = data.params.colors || data.baseTheme;
-        return data.defaultPalettes[colors];
+        return themeDefaults[colors].palette;
+      },
+      get brand() {
+        let colors = data.params.colors || data.baseTheme;
+        return themeDefaults[colors].brand;
       },
       typography: '',
     },
-    params: { colors: '', palette: '', typography: '' },
+    params: { colors: '', palette: '', brand: '', typography: '' },
     urlParams: new URLSearchParams(location.search),
   };
 
-  for (let themeOption of selects.colors.querySelectorAll('wa-option[data-palette]')) {
-    let id = themeOption.value || themeOption.dataset.id;
-    if (themeOption.dataset.id) {
-      data.baseTheme = id;
+  if (!themeDefaults) {
+    // We only need to do this once
+    data.themeDefaults = themeDefaults = {};
+
+    for (let themeOption of selects.colors.querySelectorAll('wa-option[data-palette]')) {
+      let id = themeOption.value || themeOption.dataset.id;
+      if (themeOption.dataset.id) {
+        // Current theme
+        data.baseTheme = id;
+      }
+
+      let { palette, brand } = themeOption.dataset;
+      themeDefaults[id] = { palette, brand };
     }
-
-    data.defaultPalettes[id] = themeOption.dataset.palette;
   }
-
-  computed = {
-    get isRemixed() {
-      return Object.values(data.params).filter(Boolean).length > 0;
-    },
-  };
 
   // Read URL params and apply them. This facilitates permalinks.
   if (location.search) {
@@ -62,29 +72,38 @@ function init() {
     selects[name].addEventListener('change', selectsChanged);
   }
 
-  render();
+  Promise.all(Object.values(selects).map(select => select.updateComplete)).then(() => render());
 
-  return { selects, data, computed };
+  return { selects, data, computed, render };
 }
 
 globalThis.remixApp = init();
+
+function setDefault(select, value) {
+  let oldDefaultOption = select.querySelector('wa-option[value=""]');
+  let newDefaultOption = select.querySelector(`wa-option[value="${value}"]`);
+
+  if (oldDefaultOption) {
+    oldDefaultOption.value = oldDefaultOption.dataset.id;
+  }
+
+  if (newDefaultOption) {
+    newDefaultOption.dataset.id ??= newDefaultOption.value;
+    newDefaultOption.value = '';
+  }
+}
 
 function render(changedAspect) {
   let url = new URL(demo.src);
 
   if (!changedAspect || changedAspect === 'colors') {
     // Update the default palette when the theme colors change to the default palette of that theme
-    let oldDefaultPaletteOption = selects.palette.querySelector('wa-option[value=""]');
-    let newDefaultPaletteOption = selects.palette.querySelector(`wa-option[value="${data.defaultParams.palette}"]`);
-
-    if (oldDefaultPaletteOption) {
-      oldDefaultPaletteOption.value = oldDefaultPaletteOption.dataset.id;
-    }
-
-    if (newDefaultPaletteOption) {
-      newDefaultPaletteOption.value = '';
-    }
+    setDefault(selects.palette, data.defaultParams.palette);
+    setDefault(selects.brand, data.defaultParams.brand);
   }
+
+  let brand = data.params.brand || data.defaultParams.brand;
+  selects.brand.style.setProperty('--color', `var(--wa-color-${brand})`);
 
   for (let aspect in data.params) {
     let value = data.params[aspect];
