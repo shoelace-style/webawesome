@@ -11,7 +11,6 @@ eleventyComputed:
   forceTheme: "{{ theme.fileSlug }}"
 ---
 
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
 <link rel="stylesheet" href="/docs/themes/showcase.css" />
 
 {% set content %}
@@ -34,37 +33,45 @@ eleventyComputed:
 </div>
 </wa-image-comparer>
 
-<script>
+<script type="module">
+import { getCode, urls as stylesheetURLs } from "/assets/scripts/remix.js";
+
 function updateTheme() {
   let params = new URLSearchParams(window.location.search);
-  let script = document.currentScript;
-  const stylesheetURLs = {
-    colors: id => `/dist/styles/themes/${ id }/color.css`,
-    palette: id => `/dist/styles/color/${ id }.css`,
-    brand: id => `/dist/styles/brand/${ id }.css`,
-    typography: id => `/dist/styles/themes/${ id }/typography.css`
+  params = Object.fromEntries(params.entries());
+
+  const docsURLs = {
+    colors: '/docs/themes/',
+    palette: '/docs/palettes/',
+    typography: '/docs/themes/'
   };
   const icons = {
     colors: 'palette',
     palette: 'swatchbook',
     brand: 'droplet',
     typography: 'font-case'
-  }
+  };
 
   for (let link of document.querySelectorAll('link.mix-and-match')) {
     link.remove();
   }
 
   let msgs = [];
+  let code = getCode("{{ theme.fileSlug }}", params, {attributes: 'class="mix-and-match"'});
+  document.head.insertAdjacentHTML('beforeend', code);
 
   for (let name in stylesheetURLs) {
-    if (params.get(name)) {
-      let url = stylesheetURLs[name](params.get(name));
-      script.insertAdjacentHTML('beforebegin', `<link rel="stylesheet" href="${ url }" class="mix-and-match" />`);
-      let docsURL = (name === 'palette' ? '/docs/palettes/' : '/docs/themes/') + params.get(name) + '/';
-      let title = params.get(name).replace(/^[a-z]/g, c => c.toUpperCase());
+    let override = params[name];
+    if (override) {
+      let docsURL = docsURLs[name] ? docsURLs[name] + override + '/' : '';
+      let title = override.replace(/^[a-z]/g, c => c.toUpperCase());
+
+      if (docsURL) {
+        title = `<a href="${ docsURL }">${ title }</a>`;
+      }
+
       let icon = icons[name];
-      msgs.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> <a href="${ docsURL }">${ title }</a>`);
+      msgs.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> ${ title }`);
     }
   }
 
