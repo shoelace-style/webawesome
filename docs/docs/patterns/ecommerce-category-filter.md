@@ -1,6 +1,6 @@
 ---
 title: Category Filter
-description: ''
+description: 'The users needs to conduct a search using contextual filters that narrow the search results.'
 parent: ecommerce
 tags: e-commerce
 
