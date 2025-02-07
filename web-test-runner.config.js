@@ -78,6 +78,11 @@ export default {
 
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
         </script>
+        <script type="module">
+          ;(async () => {
+            await Promise.allSettled(window.clientComponents.map(str => import(str)));
+          })()
+        </script>
         <script type="module" src="${testFramework}"></script>
       </head>
       <body>
