@@ -1,5 +1,6 @@
 {
   "layout": "theme.njk",
   "wide": true,
-  "tags": ["themes", "theme"]
+  "tags": ["themes", "theme"],
+  "brand": "blue"
 }
