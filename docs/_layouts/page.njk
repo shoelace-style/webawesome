@@ -1,4 +1,9 @@
-{% set hasSidebar = true %}
-{% set hasOutline = false %}
+{% if hasSidebar == undefined  %}
+  {% set hasSidebar = true %}
+{% endif %}
+
+{% if hasOutline == undefined  %}
+  {% set hasOutline = false %}
+{% endif %}
 
 {% extends "../_includes/base.njk" %}

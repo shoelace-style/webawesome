@@ -4,6 +4,8 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
+
+import nunjucks from "nunjucks"
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
@@ -336,10 +338,38 @@ if (isDeveloping) {
           '/dist/': './dist-cdn/',
         },
       },
+      middleware: [
+        function (req, res, next) {
+          // Accumulator for strings so we can pass them through EJS.
+          const finalString = []
+          const encoding = "utf-8"
+
+          const _write = res.write
+          res.write = function(chunk, encoding) {
+            finalString.push(chunk.toString())
+          }
+
+          const _end = res.end
+          res.end = function (...args) {
+            const transformedStr = nunjucks.renderString(finalString.join(""), {
+              // Stub the server EJS shortcodes.
+              server: {
+                head: "",
+                loginOrAvatar: "",
+              }
+            })
+            _write.call(res, transformedStr, encoding)
+            _end.call(res, ...args)
+          }
+
+          next()
+        }
+      ],
       callbacks: {
         ready: (_err, instance) => {
           // 404 errors
           instance.addMiddleware('*', async (req, res) => {
+
             if (req.url.toLowerCase().endsWith('.svg')) {
               // Make sure SVGs error out in dev instead of serve the 404 page
               res.writeHead(404);
@@ -355,6 +385,7 @@ if (isDeveloping) {
 
             res.end();
           });
+
         },
       },
     },
