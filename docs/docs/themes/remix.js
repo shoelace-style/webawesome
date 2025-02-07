@@ -4,13 +4,11 @@ const domChange = document.startViewTransition ? document.startViewTransition.bi
 let selects, data, computed;
 
 function selectsChanged(event) {
-  console.log('selectsChanged', event);
   data.params[event.target.name] = event.target.value;
   render(event.target.name);
 }
 
 function init() {
-  console.log('remix init');
   selects = Object.fromEntries(
     [...document.querySelectorAll('#mix_and_match wa-select')].map(select => [select.getAttribute('name'), select]),
   );
