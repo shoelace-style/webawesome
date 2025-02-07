@@ -101,6 +101,7 @@
     display: inline-block;
     width: 1.2em;
     aspect-ratio: 1;
+    flex: none;
     border-radius: var(--wa-border-radius-m);
     background: var(--color);
     border: 1px solid var(--wa-color-surface-default);
