@@ -94,15 +94,23 @@
   </wa-select>
 </wa-details>
 
-<h2>Default color palette</h2>
+<h2>Color</h2>
 {% set paletteURL = '/docs/palettes/' + palette + '/' %}
-{% set themePage = page %}
-{% set page = paletteURL | getCollectionItemFromUrl %}
-<div class="index-grid">
-{% include 'page-card.njk' %}
-</div>
-{% set page = themePage %}
 
+
+<div class="index-grid">
+  {% set themePage = page %}
+  {% set page = paletteURL | getCollectionItemFromUrl %}
+  {% set pageSubtitle = "Default color palette" %}
+  {% include 'page-card.njk' %}
+  {% set page = themePage %}
+
+  <wa-card style="--header-background: var(--wa-color-{{ brand }})" class="wa-palette-{{ palette }}">
+    <div slot="header"></div>
+    <div class="page-name">{{ brand | capitalize }}</div>
+    <div class="wa-caption-s">Default brand color</div>
+  </wa-card>
+</div>
 {% endblock %}
 
 {% block afterContent %}

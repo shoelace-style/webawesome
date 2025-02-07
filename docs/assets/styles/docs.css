@@ -360,7 +360,7 @@ wa-page > main:has(> .index-grid) {
     }
 
     &::part(header) {
-      background-color: var(--wa-color-neutral-fill-quiet);
+      background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
       border-bottom: none;
       display: flex;
       align-items: center;
