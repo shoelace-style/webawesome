@@ -4,72 +4,131 @@
 
 {% extends '../_includes/base.njk' %}
 
+{% block head %}
+<script>
+globalThis.wa_data ??= {};
+wa_data.baseTheme = "{{ page.fileSlug }}";
+wa_data.themes = {
+  {% for theme in collections.theme -%}
+  "{{ theme.fileSlug }}": {
+    "title": "{{ theme.data.title }}",
+    "palette": "{{ theme.data.palette }}",
+    "brand": "{{ theme.data.brand }}"
+  },
+  {% endfor %}
+};
+wa_data.palettes = {
+  {% for palette in collections.palette -%}
+  "{{ palette.fileSlug }}": {
+    "title": "{{ palette.data.title }}",
+  },
+  {% endfor %}
+};
+</script>
+<link href="{{ page.url }}../remix.css" rel="stylesheet">
+<script src="{{ page.url }}../remix.js" type="module"></script>
+{% endblock %}
+
 {% block header %}
+
 <iframe src='{{ page.url }}demo.html' id="demo"></iframe>
 
-<p id="mix_and_match" class="wa-gap-m">
-  <strong>
-    <wa-icon name="merge" slot="prefix"></wa-icon>
+<wa-details id="mix_and_match" class="wa-gap-m" >
+  <h4 slot="summary" data-no-anchor data-no-outline>
+    <wa-icon name="arrows-rotate"></wa-icon>
     Remix
-    <wa-icon-button href="#remixing" name="circle-question" slot="suffix" variant="regular" label="How to use?"></wa-icon-button>
-  </strong>
-  <wa-select name="colors" label="Colors from…" size="small">
+    <wa-icon id="what-is-remixing" href="#remixing" name="circle-question" slot="suffix" variant="regular"></wa-icon>
+    <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
+  </h4>
+
+  <wa-select name="colors" label="Colors from…" value="" clearable>
     <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
     {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
+      {% set currentTheme = theme.fileSlug == page.fileSlug %}
+      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
+        <wa-card with-header>
+          <div slot="header">
+          {% include "svgs/theme-color.njk" %}
+          </div>
+          <span class="page-name">
+            {{ theme.data.title }}
+            {% if theme.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
+            {% if currentTheme %}<wa-badge variant="neutral" appearance="outlined">This theme</wa-badge>{% endif %}
+          </span>
+        </wa-card>
+      </wa-option>
     {% endfor %}
   </wa-select>
 
-  <wa-select name="palette" label="Palette" size="small">
+  <wa-select name="palette" label="Palette" clearable>
     <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for p in collections.palette | sort %}
-      {% if p.fileSlug !== palette %}
-      <wa-option value="{{ p.fileSlug }}">{{ p.data.title }}</wa-option>
-      {% endif %}
+    {% set defaultPalette = palette %}
+    {% for palette in collections.palette | sort %}
+      {% set currentPalette = palette.fileSlug == defaultPalette %}
+      <wa-option label="{{ palette.data.title }}" value="{{ palette.fileSlug if not currentPalette }}" {{ (palette.fileSlug if currentPalette) | attr('data-id') }}>
+        <wa-card with-header>
+          <div slot="header">
+          {% include "svgs/" + (palette.data.icon or "thumbnail-placeholder") + ".njk" %}
+          </div>
+          <span class="page-name">
+            {{ palette.data.title }}
+            {% if palette.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
+            {% if currentPalette %}<wa-badge variant="neutral" appearance="outlined">Theme default</wa-badge>{% endif %}
+          </span>
+        </wa-card>
+      </wa-option>
+    {% endfor %}
+    {% set palette = defaultPalette %}
+  </wa-select>
+
+  <wa-select name="brand" label="Brand color" value="" clearable>
+    <div class="selected-swatch" slot="prefix"></div>
+    {% for hue in hues %}
+      {% set currentBrand = hue == brand %}
+      <wa-option label="{{ hue | capitalize }}" value="{{ hue if not currentBrand }}" {{ (hue if currentBrand) | attr('data-id') }} style="--color: var(--wa-color-{{ hue }})">
+        {{ hue | capitalize }}
+        {% if currentBrand %}<wa-badge variant="neutral" appearance="outlined">Theme default</wa-badge>{% endif %}
+      </wa-option>
     {% endfor %}
   </wa-select>
 
-  <wa-select name="typography" label="Typography from…" size="small">
+  <wa-select name="typography" label="Typography from…" clearable>
     <wa-icon name="font-case" slot="prefix"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
     {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
+      {% set currentTheme = theme.fileSlug == page.fileSlug %}
+      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
+        <wa-card with-header>
+          <div slot="header">
+          {% include "svgs/theme-typography.njk" %}
+          </div>
+          <span class="page-name">
+            {{ theme.data.title }}
+            {% if theme.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
+            {% if currentTheme %}<wa-badge variant="neutral" appearance="outlined">This theme</wa-badge>{% endif %}
+          </span>
+        </wa-card>
+      </wa-option>
     {% endfor %}
   </wa-select>
+</wa-details>
 
-
-</p>
-<script>
-  document.querySelector('#mix_and_match').addEventListener('change', function(event) {
-    let selects = document.querySelectorAll('#mix_and_match wa-select');
-    let url = new URL(demo.src);
-
-    for (let select of selects) {
-      url.searchParams.set(select.name, select.value);
-    }
-
-    demo.src = url;
-  });
-</script>
-
-<h2>Default Color Palette</h2>
+<h2>Color</h2>
 {% set paletteURL = '/docs/palettes/' + palette + '/' %}
-{% set themePage = page %}
-{% set page = paletteURL | getCollectionItemFromUrl %}
-<div class="index-grid">
-{% include 'page-card.njk' %}
-</div>
-{% set page = themePage %}
 
+
+<div class="index-grid">
+  {% set themePage = page %}
+  {% set page = paletteURL | getCollectionItemFromUrl %}
+  {% set pageSubtitle = "Default color palette" %}
+  {% include 'page-card.njk' %}
+  {% set page = themePage %}
+
+  <wa-card style="--header-background: var(--wa-color-{{ brand }})" class="wa-palette-{{ palette }}">
+    <div slot="header"></div>
+    <div class="page-name">{{ brand | capitalize }}</div>
+    <div class="wa-caption-s">Default brand color</div>
+  </wa-card>
+</div>
 {% endblock %}
 
 {% block afterContent %}

@@ -41,11 +41,13 @@ function updateTheme() {
   const stylesheetURLs = {
     colors: id => `/dist/styles/themes/${ id }/color.css`,
     palette: id => `/dist/styles/color/${ id }.css`,
+    brand: id => `/dist/styles/brand/${ id }.css`,
     typography: id => `/dist/styles/themes/${ id }/typography.css`
   };
   const icons = {
     colors: 'palette',
     palette: 'swatchbook',
+    brand: 'droplet',
     typography: 'font-case'
   }
 
@@ -58,7 +60,7 @@ function updateTheme() {
   for (let name in stylesheetURLs) {
     if (params.get(name)) {
       let url = stylesheetURLs[name](params.get(name));
-      script.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${ url }" class="mix-and-match" />`);
+      script.insertAdjacentHTML('beforebegin', `<link rel="stylesheet" href="${ url }" class="mix-and-match" />`);
       let docsURL = (name === 'palette' ? '/docs/palettes/' : '/docs/themes/') + params.get(name) + '/';
       let title = params.get(name).replace(/^[a-z]/g, c => c.toUpperCase());
       let icon = icons[name];
@@ -70,7 +72,7 @@ function updateTheme() {
     p.hidden = msgs.length === 0;
     if (msgs.length) {
       let icon =
-      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
+      p.innerHTML = `<strong><wa-icon name="arrows-rotate"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
         ${ msg }</wa-badge>`).join(' ');
     }
   }

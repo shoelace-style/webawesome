@@ -73,6 +73,7 @@ for (let paletteId in palettes) {
     }
 
     tintCSS += `--wa-color-${hue}: var(--wa-color-${hue}-${tints.maxChromaTint});\n`;
+    tintCSS += `--wa-color-${hue}-key: ${tints.maxChromaTint};\n`;
     css += tintCSS + '\n';
   }
 

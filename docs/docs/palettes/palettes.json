@@ -3,6 +3,7 @@
   "tags": ["palettes", "palette"],
   "eleventyComputed": {
     "snippet": ".wa-palette-{{ page.fileSlug }}",
-    "icon": "palette"
+    "icon": "palette",
+    "file": "styles/color/{{ page.fileSlug }}.css"
   }
 }
