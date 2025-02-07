@@ -1,11 +1,17 @@
 await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
 
-let selects, data, themeDefaults;
+let selects, data;
 
 let computed = {
   get isRemixed() {
     return Object.values(data.params).filter(Boolean).length > 0;
+  },
+  get palette() {
+    return data.params.palette || data.defaultParams.palette;
+  },
+  get brand() {
+    return data.params.brand || data.defaultParams.brand;
   },
 };
 
@@ -20,38 +26,24 @@ function init() {
   );
 
   data = {
-    baseTheme: '',
+    baseTheme: wa_data.baseTheme,
+    themes: wa_data.themes,
+    palettes: wa_data.palettes,
     defaultParams: {
       colors: '',
       get palette() {
         let colors = data.params.colors || data.baseTheme;
-        return themeDefaults[colors].palette;
+        return data.themes[colors].palette;
       },
       get brand() {
         let colors = data.params.colors || data.baseTheme;
-        return themeDefaults[colors].brand;
+        return data.themes[colors].brand;
       },
       typography: '',
     },
     params: { colors: '', palette: '', brand: '', typography: '' },
     urlParams: new URLSearchParams(location.search),
   };
-
-  if (!themeDefaults) {
-    // We only need to do this once
-    data.themeDefaults = themeDefaults = {};
-
-    for (let themeOption of selects.colors.querySelectorAll('wa-option[data-palette]')) {
-      let id = themeOption.value || themeOption.dataset.id;
-      if (themeOption.dataset.id) {
-        // Current theme
-        data.baseTheme = id;
-      }
-
-      let { palette, brand } = themeOption.dataset;
-      themeDefaults[id] = { palette, brand };
-    }
-  }
 
   // Read URL params and apply them. This facilitates permalinks.
   if (location.search) {
@@ -79,8 +71,26 @@ function init() {
 
 globalThis.remixApp = init();
 
+// Async load CSS for other themes *before* current theme stylesheet
+let themeStylesheet = document.querySelector('#theme-stylesheet');
+
+for (const theme in data.themes) {
+  themeStylesheet.insertAdjacentHTML(
+    'beforebegin',
+    `<link rel="preload" as="style" href="/dist/styles/themes/${theme}/color.css" onload="this.rel = 'stylesheet'" />
+    <link rel="preload" as="style" href="/dist/styles/themes/${theme}/typography.css" onload="this.rel = 'stylesheet'" />`,
+  );
+}
+
+for (const palette in data.palettes) {
+  themeStylesheet.insertAdjacentHTML(
+    'beforebegin',
+    `<link rel="preload" as="style" href="/dist/styles/color/${palette}.css" onload="this.rel = 'stylesheet'" />`,
+  );
+}
+
 function setDefault(select, value) {
-  let oldDefaultOption = select.querySelector('wa-option[value=""]');
+  let oldDefaultOption = select.querySelector(`wa-option[value=""]:not([data-id="${value}"])`);
   let newDefaultOption = select.querySelector(`wa-option[value="${value}"]`);
 
   if (oldDefaultOption) {
@@ -104,6 +114,7 @@ function render(changedAspect) {
 
   let brand = data.params.brand || data.defaultParams.brand;
   selects.brand.style.setProperty('--color', `var(--wa-color-${brand})`);
+  selects.brand.className = `wa-palette-${computed.palette}`;
 
   for (let aspect in data.params) {
     let value = data.params[aspect];

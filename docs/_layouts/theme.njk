@@ -5,6 +5,26 @@
 {% extends '../_includes/base.njk' %}
 
 {% block head %}
+<script>
+globalThis.wa_data ??= {};
+wa_data.baseTheme = "{{ page.fileSlug }}";
+wa_data.themes = {
+  {% for theme in collections.theme -%}
+  "{{ theme.fileSlug }}": {
+    "title": "{{ theme.data.title }}",
+    "palette": "{{ theme.data.palette }}",
+    "brand": "{{ theme.data.brand }}"
+  },
+  {% endfor %}
+};
+wa_data.palettes = {
+  {% for palette in collections.palette -%}
+  "{{ palette.fileSlug }}": {
+    "title": "{{ palette.data.title }}",
+  },
+  {% endfor %}
+};
+</script>
 <link href="{{ page.url }}../remix.css" rel="stylesheet">
 <script src="{{ page.url }}../remix.js" type="module"></script>
 {% endblock %}
@@ -25,9 +45,7 @@
     <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
     {% for theme in collections.theme | sort %}
       {% set currentTheme = theme.fileSlug == page.fileSlug %}
-      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}
-      data-palette="{{ theme.data.palette }}" data-brand="{{ theme.data.brand }}"
-      >
+      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
         <wa-card with-header>
           <div slot="header">
           {% include "svgs/theme-color.njk" %}
