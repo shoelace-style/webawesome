@@ -34,9 +34,9 @@ wa_data.palettes = {
 <iframe src='{{ page.url }}demo.html' id="demo"></iframe>
 
 <wa-details id="mix_and_match" class="wa-gap-m" >
-  <h4 slot="summary" data-no-anchor data-no-outline>
+  <h4 slot="summary" data-no-anchor data-no-outline id="remix">
     <wa-icon name="arrows-rotate"></wa-icon>
-    Remix
+    Remix this theme
     <wa-icon id="what-is-remixing" href="#remixing" name="circle-question" slot="suffix" variant="regular"></wa-icon>
     <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
   </h4>
@@ -132,30 +132,14 @@ wa_data.palettes = {
 {% endblock %}
 
 {% block afterContent %}
-{% markdown %}
-## How to use this theme
 
+<h2 id="usage">How to use this theme</h2>
+
+{% markdown %}
 You can import this theme from the Web Awesome CDN.
 
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
 {% include 'import-stylesheet-code.md.njk' %}
-
-### Remixing { #remixing }
-
-If you want to combine the **colors** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
-
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/color.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-To use the **typography** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
-
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-<wa-callout variant="warning">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
-</wa-callout>
 
 ## Dark mode
 

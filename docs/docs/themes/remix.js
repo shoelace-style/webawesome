@@ -1,7 +1,16 @@
+import { getCode } from '/assets/scripts/remix.js';
+
 await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
+globalThis.Prism = globalThis.Prism || {};
+globalThis.Prism.manual = true;
+await import('/assets/scripts/prism.js');
+Prism.plugins.customClass.prefix('code-');
+
+const cdnUrl = document.documentElement.dataset.cdnUrl;
+
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
 
-let selects, data;
+let selects, data, codeSnippets;
 
 let computed = {
   get isRemixed() {
@@ -24,6 +33,12 @@ function init() {
   selects = Object.fromEntries(
     [...document.querySelectorAll('#mix_and_match wa-select')].map(select => [select.getAttribute('name'), select]),
   );
+
+  codeSnippets = document.querySelector('#usage ~ wa-tab-group.import-stylesheet-code:first-of-type');
+  codeSnippets = {
+    html: codeSnippets.querySelector('code.language-html'),
+    css: codeSnippets.querySelector('code.language-css'),
+  };
 
   data = {
     baseTheme: wa_data.baseTheme,
@@ -66,7 +81,7 @@ function init() {
 
   Promise.all(Object.values(selects).map(select => select.updateComplete)).then(() => render());
 
-  return { selects, data, computed, render };
+  return { selects, codeSnippets, data, computed, render };
 }
 
 globalThis.remixApp = init();
@@ -139,6 +154,16 @@ function render(changedAspect) {
   // We don’t want to clog the user’s history while they iterate
   let historyAction = location.search ? 'replaceState' : 'pushState';
   history[historyAction](null, '', `?${data.urlParams}`);
+
+  // Update code snippets
+  for (let language in codeSnippets) {
+    let codeSnippet = codeSnippets[language];
+    let copyButton = codeSnippet.previousElementSibling;
+    let code = getCode(data.baseTheme, data.params, { language, cdnUrl });
+    codeSnippet.textContent = code;
+    copyButton.value = code;
+    Prism.highlightElement(codeSnippet);
+  }
 }
 
 addEventListener('turbo:render', event => {
