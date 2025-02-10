@@ -24,7 +24,7 @@ if (!paletteId) {
 }
 
 const tints = ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'];
-const hues = ['red', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'gray'];
+const hues = ['red', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'];
 
 function analyzePalette(scales, results, { component, levels, by = 'tint' }) {
   for (let hue in scales) {
