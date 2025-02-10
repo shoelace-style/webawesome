@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import recursiveQSA from '../../internal/recursive-qsa.js';
 import { HasSlotController, getInnerHTML } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon/icon.js';
@@ -323,25 +324,6 @@ function absolutizeURLs(root: Element | DocumentFragment, base = location.href) 
       }
     }
   }
-}
-
-/**
- * Get elements that match a selector within an element’s shadow tree
- * and any parent shadow trees, all the way up to the light DOM
- * @param selector
- * @param node - The node to start the search from
- */
-function recursiveQSA(selector: string, node: Node) {
-  const ret: Element[] = [];
-
-  for (let root = node; root.nodeType !== Node.DOCUMENT_NODE; ) {
-    root = root.getRootNode();
-    const elements = (root as ShadowRoot | Document).querySelectorAll(selector);
-
-    ret.push(...elements);
-  }
-
-  return ret;
 }
 
 function dedent(code: string) {

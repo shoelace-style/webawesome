@@ -1,7 +1,7 @@
 {% set themeId = theme.fileSlug %}
 
-<div>
-  <template shadowrootmode="open">
+<wa-isolate>
+  <template>
     <link rel="stylesheet" href="/dist/styles/utilities.css">
     <link rel="stylesheet" href="/dist/styles/themes/{{ page.fileSlug or 'default' }}.css">
     <link rel="stylesheet" href="/dist/styles/themes/{{ themeId }}/color.css">
@@ -21,4 +21,4 @@
       {# <div class="wa-warning wa-outlined wa-filled"><wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon></div> #}
     </div>
   </template>
-</div>
+</wa-isolate>
