@@ -1,11 +1,9 @@
 ---
-title: Product Detail
-description: TODO
+title: Product Preview
+description: 'Gives Customers the ability to see more details about a product or service in a modal to get more information'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
 
 ## With color and size selector
 ```html{.example}
@@ -36,7 +34,7 @@ TODO Page Description
         </wa-select>
 <wa-button variant="brand" size="medium" style="width: 100%; margin-top: auto;">
   <wa-icon slot="suffix" name="cart-shopping" variant="solid"></wa-icon>
-  Add to Cart
+  Add to Cart 
   </wa-button>
       </form>
     </div>

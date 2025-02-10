@@ -1,11 +1,9 @@
 ---
 title: Order Summary
-description: TODO
+description: 'A necessary step in all e-commerce flows. show customers a clear breakdown of thier purchases before completing an order'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
 
 ## With image
 ```html{.example}

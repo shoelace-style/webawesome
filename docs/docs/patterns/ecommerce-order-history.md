@@ -1,13 +1,9 @@
 ---
 title: Order History
-description: TODO
+description: 'Enable customers to view past purchases, track shipments and access details of previous purchases'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
-
-
 ## Invoice
 
 ### Panel

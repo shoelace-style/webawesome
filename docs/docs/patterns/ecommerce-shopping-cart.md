@@ -1,11 +1,9 @@
 ---
 title: Shopping Cart
-description: TODO
+description: 'Provide customers with an overview of selected items, with the ability to update and remove products'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
 
 ## Examples
 

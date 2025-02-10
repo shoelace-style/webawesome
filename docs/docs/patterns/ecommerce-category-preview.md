@@ -1,11 +1,9 @@
 ---
 title: Category Preview
-description: TODO
+description: 'Showcase different product categories, help customers find what you have to offer in your storefront'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
 
 ## Three Column (WIP)
 ```html{.example}

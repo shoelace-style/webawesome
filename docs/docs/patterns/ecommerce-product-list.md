@@ -1,11 +1,10 @@
 ---
 title: Product Lists
-description: TODO
+description: 'Show off your products in all their glory. Our product list patterns allow customers to browse your finest wares, add them to your cart, check out and leave a review.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-TODO Page Description
 ## With Product Grid
 
 ```html{.example}

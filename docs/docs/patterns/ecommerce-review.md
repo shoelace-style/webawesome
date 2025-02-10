@@ -1,11 +1,9 @@
 ---
 title: Product Reviews
-description: TODO
+description: 'Display reviews, ratings and testimonials for potential customers.'
 parent: ecommerce
 tags: e-commerce
 ---
-
-
 
 ### Product Review
 

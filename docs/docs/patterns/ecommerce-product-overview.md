@@ -1,11 +1,9 @@
 ---
 title: Product Overviews
-description: TODO
+description: 'Give your product a sleak look on its own page with product overviews. Show all the info such as pricing, more images, customization options etc.'
 parent: ecommerce
 tags: e-commerce
 ---
-
-TODO Page Description
 
 ## With images grid
 ```html{.example}

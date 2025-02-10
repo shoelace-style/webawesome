@@ -1,6 +1,6 @@
 ---
 title: Category Filter
-description: 'The users needs to conduct a search using contextual filters that narrow the search results.'
+description: 'Allows customers to refine (reduce?) the results of their searches by specific attributes'
 parent: ecommerce
 tags: e-commerce
 
