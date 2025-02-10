@@ -402,7 +402,7 @@ wa-page > main:has(> .index-grid) {
     border-color: transparent;
   }
 
-  wa-copy-button {
+  > wa-copy-button {
     position: absolute;
     top: 0;
     left: 0;
