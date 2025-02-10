@@ -26,14 +26,16 @@ export default class WaIsolate extends WebAwesomeElement {
   private getShadowHTML(): string {
     let html = '';
 
-    if (this.include) {
-      let includedElements = recursiveQSA(this.include, this);
-      html += includedElements.map(el => el.outerHTML).join('\n');
-    }
+    if (this.ownerDocument) {
+      if (this.include) {
+        let includedElements = recursiveQSA(this.include, this);
+        html += includedElements.map(el => el.outerHTML).join('\n');
+      }
 
-    // Get template elements from the light DOM
-    const templates = Array.from(this.querySelectorAll(':scope > template'));
-    html += templates.map(template => template.innerHTML).join('\n');
+      // Get template elements from the light DOM
+      const templates = Array.from(this.querySelectorAll(':scope > template'));
+      html += templates.map(template => template.innerHTML).join('\n');
+    }
 
     return html;
   }
