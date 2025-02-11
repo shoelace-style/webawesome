@@ -400,6 +400,10 @@ wa-page > main:has(> .index-grid) {
 
   &.color {
     border-color: transparent;
+    transition: background var(--wa-transition-slow);
+    background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box;
+    background-position: var(--color-2-position, top);
+    background-size: var(--color-2-width, 100%) var(--color-2-height, 50%);
   }
 
   > wa-copy-button {

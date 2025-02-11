@@ -72,19 +72,14 @@ wa-dropdown > .color.swatch {
   }
 
   .color.swatch {
-    transition: background-size var(--wa-transition-slow);
-    background-image: linear-gradient(var(--color-tweaked) 0 100%);
-    background-size: 100% 0%;
-    background-repeat: no-repeat;
-    background-clip: border-box;
-    background-origin: border-box;
+    --color-2: var(--color-tweaked);
   }
 
   &.tweaked .color.swatch {
-    background-size: 100% 100%;
+    --color-2-height: 100%;
   }
 
   &.tweaking .color.swatch {
-    background-size: 100% 60%;
+    --color-2-height: 65%;
   }
 }

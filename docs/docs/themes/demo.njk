@@ -34,7 +34,8 @@ eleventyComputed:
 </wa-image-comparer>
 
 <script type="module">
-import { getCode, urls as stylesheetURLs } from "/assets/scripts/remix.js";
+import { urls as stylesheetURLs } from "/assets/scripts/tweak/data.js";
+import { theme as getThemeCode } from "/assets/scripts/tweak/code.js";
 
 function updateTheme() {
   let params = new URLSearchParams(window.location.search);
@@ -57,7 +58,7 @@ function updateTheme() {
   }
 
   let msgs = [];
-  let code = getCode("{{ theme.fileSlug }}", params, {attributes: 'class="mix-and-match"'});
+  let code = getThemeCode("{{ theme.fileSlug }}", params, {attributes: 'class="mix-and-match"'});
   document.head.insertAdjacentHTML('beforeend', code);
 
   for (let name in stylesheetURLs) {

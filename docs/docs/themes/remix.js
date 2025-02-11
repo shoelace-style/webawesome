@@ -1,12 +1,7 @@
-import { getCode } from '/assets/scripts/remix.js';
-
+import Prism from '/assets/scripts/prism.js';
+import { theme as getThemeCode } from '/assets/scripts/tweak/code.js';
+import { cdnUrl } from '/assets/scripts/tweak/data.js';
 await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
-globalThis.Prism = globalThis.Prism || {};
-globalThis.Prism.manual = true;
-await import('/assets/scripts/prism.js');
-Prism.plugins.customClass.prefix('code-');
-
-const cdnUrl = document.documentElement.dataset.cdnUrl;
 
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
 
@@ -159,7 +154,7 @@ function render(changedAspect) {
   for (let language in codeSnippets) {
     let codeSnippet = codeSnippets[language];
     let copyButton = codeSnippet.previousElementSibling;
-    let code = getCode(data.baseTheme, data.params, { language, cdnUrl });
+    let code = getThemeCode(data.baseTheme, data.params, { language, cdnUrl });
     codeSnippet.textContent = code;
     copyButton.value = code;
     Prism.highlightElement(codeSnippet);

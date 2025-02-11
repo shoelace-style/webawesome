@@ -46,6 +46,11 @@
 {%- endfor %}
 </table>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
+<script>
+  globalThis.wa_data = {
+    paletteId: '{{ paletteId }}',
+  }
+</script>
 <script type="module" src="{{ page.url }}../tweak.js"></script>
 
 <h2>Used By</h2>
@@ -121,7 +126,7 @@ This also goes for a difference of `65`:
 {% include "contrast-table.njk" %}
 
 {% markdown %}
-## How to use this palette
+## How to use this palette { #usage }
 
 If you are using a Web Awesome theme that uses this palette, it will already be included.
 To use a different palette than a theme default, or to use it in a custom theme, you can import this palette directly from the Web Awesome CDN.
