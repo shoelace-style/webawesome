@@ -1,4 +1,4 @@
-{% set paletteId = page.fileSlug %}
+{% set paletteId = palette.fileSlug or page.fileSlug %}
 {% set tints = [80, 60, 40, 20] %}
 {% set width = 20 %}
 {% set height = 13 %}

@@ -5,6 +5,9 @@
 		{% include "svgs/" + (page.data.icon or "thumbnail-placeholder") + ".njk" %}
 		</div>
 		<span class="page-name">{{ page.data.title }}</span>
+		{% if pageSubtitle -%}
+		<div class="wa-caption-s">{{ pageSubtitle }}</div>
+		{%- endif %}
 	</wa-card>
 </a>
 {% endif %}

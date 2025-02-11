@@ -14,7 +14,18 @@ body,
   color: var(--wa-color-text-quiet);
 
   wa-icon {
-    vertical-align: middle;
+    vertical-align: -0.15em;
+  }
+
+  > strong {
+    margin-inline-end: var(--wa-space-2xs);
+  }
+
+  wa-badge {
+    > a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 }
 
