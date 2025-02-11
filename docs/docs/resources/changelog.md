@@ -1,7 +1,7 @@
 ---
 title: Changelog
 description: Changes to each version of the project are documented here.
-layout: page
+layout: page-outline
 ---
 
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand" pill>Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
@@ -14,11 +14,41 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+### Color Palettes
+
+- Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
+- Added a `pink` scale to all color palettes
+
+### Design Tokens
+
+- Added `--wa-color-[hue]` tokens with the "core" color of each scale, regardless of which tint it lives on.
+You can find them in the first column of each color palette.
+
+### Themes
+
+- You can now override the brand color of any theme with any of the 9 hues supported.
+- Improved UI for theme remixing, with previews and generated copyable code snippets
+
+### Components
+
+- Various `<wa-radio>` improvements:
+  - Dropped the `base` part. It can now be styled by directly applying CSS to the element itself.
+  - Added `hint` attribute and corresponding slot.
+- Various `<wa-select>` improvements:
+  - Added the `tag` part (and associated exported parts) to `<wa-select>` to allow targeting the tag that shows when more than the max number of visible items have been selected
+  - Fixed a bug that prevented the placeholder color from being customized with the `--wa-form-control-placeholder-color` token
+  - Dropped the `base` part from `<wa-option>` for easier styling. CSS can now be applied directly to the element itself.
+- Various `<wa-card>` improvements:
+  - Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
+  - Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
+  - Fixed a bug that prevented slots from showing automatically without `with-` attributes
+
+
+### Docs
+
 - Added an orientation example to the native radio docs
-- Added the `tag` part (and associated exported parts) to `<wa-select>` to allow targeting the tag that shows when more than the max number of visible items have been selected
 - Fixed a number of broken event listeners throughout the docs
-- Fixed a bug in `<wa-card>` that prevented slots from showing automatically without `with-` attributes
-- Fixed a bug in `<wa-select>` that prevented the placeholder color from being customized with the `--wa-form-control-placeholder-color` token
+
 
 ## 3.0.0-alpha.10
 
