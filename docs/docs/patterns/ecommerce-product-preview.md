@@ -3,8 +3,9 @@ title: Product Preview
 description: 'Gives Customers the ability to see more details about a product or service in a modal to get more information'
 parent: ecommerce
 tags: e-commerce
+icon: preview
 ---
-
+ 
 ## With color and size selector
 ```html{.example}
   <div class="with-inline-price">

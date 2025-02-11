@@ -3,6 +3,7 @@ title: Category Preview
 description: 'Showcase different product categories, help customers find what you have to offer in your storefront'
 parent: ecommerce
 tags: e-commerce
+icon: preview
 ---
 
 ## Three Column (WIP)

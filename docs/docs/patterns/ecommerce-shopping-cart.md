@@ -17,7 +17,7 @@ tags: e-commerce
   </div>
     <section class="cart-item wa-split">
     <img src="https://images.unsplash.com/photo-1704677982224-89cd6d039fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDEwOTJ8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300">
-    <div>
+    <div> 
       <div style="display:flex; justify-content: space-between; font-weight: 600;">
         <span>AJ1</span>
         <span>$170.00</span>

@@ -3,7 +3,7 @@ title: Category Filter
 description: 'Allows customers to refine (reduce?) the results of their searches by specific attributes'
 parent: ecommerce
 tags: e-commerce
-
+icon: checkbox
 ---
 
 ## With inline actions and expandable sidebar filters
