@@ -13,8 +13,8 @@ wa-dropdown > .color.swatch {
   grid-template-columns: auto 1fr auto;
   margin-block-end: var(--wa-space-xl);
 
-  --color-1: oklch(from var(--color) l c var(--hue-min, h));
-  --color-2: oklch(from var(--color) l c var(--hue-max, h));
+  --color-1: oklch(from var(--color) l c calc(h + var(--min, 0)));
+  --color-2: oklch(from var(--color) l c calc(h + var(--max, 0)));
 
   wa-slider {
     grid-column: 1 / -1;

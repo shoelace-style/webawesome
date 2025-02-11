@@ -1,6 +1,5 @@
 import Prism from '/assets/scripts/prism.js';
-import { theme as getThemeCode } from '/assets/scripts/tweak/code.js';
-import { cdnUrl } from '/assets/scripts/tweak/data.js';
+import { cdnUrl, getThemeCode, Permalink } from '/assets/scripts/tweak.js';
 await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
 
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
@@ -52,17 +51,11 @@ function init() {
       typography: '',
     },
     params: { colors: '', palette: '', brand: '', typography: '' },
-    urlParams: new URLSearchParams(location.search),
+    urlParams: new Permalink(),
   };
 
-  // Read URL params and apply them. This facilitates permalinks.
-  if (location.search) {
-    for (let aspect in data.params) {
-      if (data.urlParams.has(aspect)) {
-        data.params[aspect] = data.urlParams.get(aspect);
-      }
-    }
-  }
+  data.urlParams.mapObject(data.params);
+  data.urlParams.writeTo(data.params);
 
   if (computed.isRemixed) {
     // Start with the remixing UI open if the theme has been remixed
@@ -128,15 +121,10 @@ function render(changedAspect) {
 
   for (let aspect in data.params) {
     let value = data.params[aspect];
-
-    if (value) {
-      data.urlParams.set(aspect, value);
-    } else {
-      data.urlParams.delete(aspect);
-    }
-
     selects[aspect].value = value;
   }
+
+  data.urlParams.readFrom(data.params);
 
   // Update demo URL
   domChange(() => {
@@ -145,10 +133,8 @@ function render(changedAspect) {
     return new Promise(resolve => (demo.onload = resolve));
   });
 
-  // Update page URL. If there’s already a search, replace it.
-  // We don’t want to clog the user’s history while they iterate
-  let historyAction = location.search ? 'replaceState' : 'pushState';
-  history[historyAction](null, '', `?${data.urlParams}`);
+  // Update page URL
+  data.urlParams.updateLocation();
 
   // Update code snippets
   for (let language in codeSnippets) {
