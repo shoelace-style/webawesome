@@ -52,11 +52,12 @@ const tweakHueTemplate = (hue, oklch) => {
 
 for (let td of document.querySelectorAll('.core-column')) {
   let swatch = td.querySelector('.color.swatch');
-  let { hue, oklchH, oklchC, oklchL } = td.dataset;
+  let { hue, oklch } = td.dataset;
 
   if (!hue || hue === 'gray') continue;
 
-  let oklch = { h: +oklchH, c: +oklchC, l: +oklchL };
+  oklch = oklch.split(',').map(Number);
+  oklch = { l: oklch[0], c: oklch[1], h: oklch[2] };
   let dropdown = document.createElement('wa-dropdown');
   swatch.slot = 'trigger';
   dropdown.innerHTML = tweakHueTemplate(hue, oklch);

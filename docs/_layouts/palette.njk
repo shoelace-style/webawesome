@@ -28,9 +28,7 @@
   </th>
   <td class="core-column" style="--color: var(--wa-color-{{ hue }})"
       data-hue="{{ hue }}"
-      data-oklch-h="{{ palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint].h }}"
-      data-oklch-c="{{ palettes[paletteId][hue].maxChroma }}"
-      data-oklch-l="{{ palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint].l }}"
+      data-oklch="{{ palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint].oklch }}"
       >
     <div id="core-{{ hue }}-swatch" class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
       {{ palettes[paletteId][hue].maxChromaTint }}
