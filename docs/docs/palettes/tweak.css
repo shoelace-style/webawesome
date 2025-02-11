@@ -91,7 +91,7 @@ wa-dropdown > .color.swatch {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: var(--wa-space-xs);
+    right: var(--wa-space-s);
     opacity: 0%;
 
     &:is(.tweaked *) {
