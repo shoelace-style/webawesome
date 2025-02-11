@@ -1,13 +1,13 @@
-:host(:focus-visible) {
-  outline: none;
-}
-
-.radio {
-  display: flex;
+:host {
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: top;
-  font: inherit;
   vertical-align: middle;
   cursor: pointer;
+}
+
+:host(:focus-visible) {
+  outline: none;
 }
 
 .checked-icon {
@@ -19,6 +19,11 @@
 }
 
 /* When the control isn't checked, hide the circle for Windows High Contrast mode a11y */
-.radio:not(.radio--checked) svg circle {
+:host(:not(:state(checked))) svg circle {
   opacity: 0;
+}
+
+[part~='hint'] {
+  grid-column: 2;
+  margin-block-start: var(--wa-space-3xs);
 }

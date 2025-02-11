@@ -71,13 +71,13 @@ input[type='radio'],
 input[type='radio'],
 label:has(input[type='radio']),
 input[type='radio'] + label,
-:host [part~='base'] {
+:host {
   cursor: pointer;
 }
 
 /* Checked */
 input[type='radio']:checked,
-:host .radio--checked .control {
+:host(:state(checked)) .control {
   color: var(--checked-icon-color);
   border-color: var(--border-color-checked);
   background-color: var(--background-color-checked);

@@ -5,6 +5,7 @@
  * More later.
  */
 import rawPalettes from './palettes.js';
+import { clamp } from './util.js';
 
 // Default accent tint if all chromas are 0, but also the tint accent colors will be nudged towards (see chromaTolerance)
 const DEFAULT_ACCENT = 60;
@@ -56,10 +57,6 @@ for (let paletteId in palettes) {
       tints.maxChroma = tints[maxChromaTint].c;
     }
   }
-}
-
-function clamp(min, value, max) {
-  return Math.min(Math.max(min, value), max);
 }
 
 export default palettes;
