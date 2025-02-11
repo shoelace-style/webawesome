@@ -67,6 +67,10 @@ wa-dropdown > .color.swatch {
 }
 
 .color-scale {
+  th {
+    white-space: nowrap;
+  }
+
   td {
     --color-tweaked: oklch(from var(--color) l c calc(h + var(--hue-shift, 0)));
   }
@@ -81,5 +85,23 @@ wa-dropdown > .color.swatch {
 
   &.tweaking .color.swatch {
     --color-2-height: 65%;
+  }
+
+  wa-icon[name='sliders-simple'] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--wa-space-xs);
+    opacity: 0%;
+
+    &:is(.tweaked *) {
+      opacity: 80%;
+    }
+  }
+
+  &:not(.tweaked):has(.core-column:hover, wa-dropdown[open]) {
+    wa-icon[name='sliders-simple'] {
+      opacity: 40%;
+    }
   }
 }
