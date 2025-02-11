@@ -56,9 +56,9 @@ for (let td of document.querySelectorAll('.core-column')) {
 
   if (!hue || hue === 'gray') continue;
 
+  let oklch = { h: +oklchH, c: +oklchC, l: +oklchL };
   let dropdown = document.createElement('wa-dropdown');
   swatch.slot = 'trigger';
-  let oklch = { h: +oklchH, c: +oklchC, l: +oklchL };
   dropdown.innerHTML = tweakHueTemplate(hue, oklch);
   swatch.replaceWith(dropdown);
   dropdown.prepend(swatch);
@@ -71,7 +71,7 @@ for (let td of document.querySelectorAll('.core-column')) {
     tr.classList.add('tweaking');
 
     if (Math.abs(delta) <= 1) {
-      delete hueShifts[hue];
+      hueShifts[hue] = 0;
       tr.classList.remove('tweaked');
       tr.style.removeProperty('--hue-shift');
       return;
@@ -103,7 +103,6 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 if (location.search) {
   // Update from URL
   permalink.writeTo(hueShifts);
-  console.log(JSON.stringify(hueShifts));
 
   for (let hue in hueShifts) {
     let value = hueShifts[hue];

@@ -99,7 +99,7 @@ wa-dropdown > .color.swatch {
     }
   }
 
-  &:not(.tweaked):has(.core-column:hover, wa-dropdown[open]) {
+  &:not(.tweaked):has(.core-column:hover) {
     wa-icon[name='sliders-simple'] {
       opacity: 40%;
     }
