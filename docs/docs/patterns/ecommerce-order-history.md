@@ -29,11 +29,11 @@ tags: e-commerce
         <wa-button variant="neutral" appearance="outlined">View Invoice</wa-button>
       </span>
   </div>
-  <div>
-    <div class="order-history-list-item wa-grid" style="align-items: center;">
-      <img class="cart-item-image" src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+  <div class="wa-stack">
+    <div class="wa-flank">
+      <img src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" style="max-width: 215px">
       <div>
-        <span style="display: flex;justify-content: space-between;">
+        <span class="wa-split">
           <span><strong>Kitchen Stool</strong></span>
           <span><strong>$55.00</strong></span>
         </span>
@@ -45,12 +45,12 @@ tags: e-commerce
         <span>Out for Delivery</span>
       </div>
     </div>
-    <div class="order-history-list-item wa-grid" style="margin-top: 1rem; align-items: center;">
-      <img class="cart-item-image" src="https://plus.unsplash.com/premium_photo-1675705062445-0c14a42d4289?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMwODJ8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+    <div class="wa-flank">
+      <img src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" style="max-width: 215px">
       <div>
-        <span style="display: flex;justify-content: space-between;">
-          <span><strong>Succulent</strong></span>
-          <span><strong>$5.00</strong></span>
+        <span class="wa-split">
+          <span><strong>Kitchen Stool</strong></span>
+          <span><strong>$55.00</strong></span>
         </span>
         <p>TODO: add a description</p>
         <span>
@@ -60,12 +60,27 @@ tags: e-commerce
         <span>Out for Delivery</span>
       </div>
     </div>
-    <div class="order-history-list-item wa-grid" style="margin-top: 1rem; align-items: center;">
-      <img class="cart-item-image" src="https://images.unsplash.com/photo-1613536844480-ac5d7b1b6ed1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMyMzh8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+    <div class="wa-flank">
+      <img src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" style="max-width: 215px">
       <div>
-        <span style="display: flex;justify-content: space-between;">
-          <span><strong>French Roast</strong></span>
-          <span><strong>$35.00</strong></span>
+        <span class="wa-split">
+          <span><strong>Kitchen Stool</strong></span>
+          <span><strong>$55.00</strong></span>
+        </span>
+        <p>TODO: add a description</p>
+        <span>
+          <a href="#">View Product</a> |  <a href="#">Buy Again</a>
+        </span>
+        <br/>
+        <span>Out for Delivery</span>
+      </div>
+    </div>
+    <div class="wa-flank">
+      <img src="https://images.unsplash.com/photo-1628304433247-804066a9864c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDMxODN8&ixlib=rb-4.0.3&q=80&w=1080" style="max-width: 215px">
+      <div>
+        <span class="wa-split">
+          <span><strong>Kitchen Stool</strong></span>
+          <span><strong>$55.00</strong></span>
         </span>
         <p>TODO: add a description</p>
         <span>
@@ -80,17 +95,6 @@ tags: e-commerce
 <style>
    :root {
     --border-color: var(--wa-color-surface-border);
-  }
-  .order-history-list-item {
-    grid-template-columns: 18% 79%;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-  }
-
-  @media (max-width: 1030px) {
-    .order-history-list-item {
-      grid-template-columns: initial;
-    }
   }
 </style>
 ```
