@@ -7,8 +7,8 @@ tags: e-commerce
 
 ## With images grid
 ```html{.example}
-<div class="with-image-grid">
-  <wa-breadcrumb>
+<div class="with-image-grid" style="max-width: 960px;margin: 0 auto;">
+  <wa-breadcrumb style="margin-bottom: 1rem; display: block;">
     <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
     <wa-breadcrumb-item>Men's</wa-breadcrumb-item>
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
@@ -38,12 +38,12 @@ tags: e-commerce
       <a href="#">117 Reviews</a>
     </div>
     <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
-      <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+      <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
         <wa-radio-button value="1">Option 1</wa-radio-button>
         <wa-radio-button value="2">Option 2</wa-radio-button>
         <wa-radio-button value="3">Option 3</wa-radio-button>
       </wa-radio-group>
-      <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+      <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
         <wa-radio-button value="1">Option 1</wa-radio-button>
         <wa-radio-button value="2">Option 2</wa-radio-button>
         <wa-radio-button value="3">Option 3</wa-radio-button>
@@ -52,42 +52,13 @@ tags: e-commerce
     <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
   </div>
 </div>
-<style>
-  .with-image-grid {
-    max-width: 960px;
-    margin: 0 auto;
-    wa-breadcrumb::part(base) {
-      margin-bottom: 1rem;
-    }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1rem;
-    }
-
-    .image-grid img:nth-of-type(1) {
-      grid-column: 1/-1;
-    }
-
-    .image-grid img:nth-of-type(2) {
-      grid-column: 1/7;
-    }
-    .image-grid img:nth-of-type(3) {
-      grid-column: 7/-1;
-    }
-     .image-grid img:nth-of-type(4) {
-      grid-column: 1/-1;
-    }
-  }
-</style>
 ```
 
 ## With Tiered Images
 
 ```html{.example}
-<div class="with-tiered-images">
-  <wa-breadcrumb>
+<div style="max-width: 960px;margin: 0 auto;">
+  <wa-breadcrumb style="margin-bottom: 1rem; display: block;">
     <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
     <wa-breadcrumb-item>Men's</wa-breadcrumb-item>
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
@@ -95,11 +66,11 @@ tags: e-commerce
   <div>
     <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
       <h2>Basic Tee</h2>
-      <span style="font-size: var(--wa-font-size-2xl)">$35</span>
+      <span style="font-size: var(--wa-font-size-2xl); margin-right: 1rem;">$35</span>
     </div>
     <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
       <div>
-        <span>3.9</span>
+        <span style="margin-right: 1rem;">3.9</span>
         <wa-rating label="Rating" precision="0.5" value="3.9"></wa-rating>
       </div>
       <a href="#">117 Reviews</a>
@@ -113,18 +84,17 @@ tags: e-commerce
   </div>
   </div>
   <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
-    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+    <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
       <wa-radio-button value="1">Option 1</wa-radio-button>
       <wa-radio-button value="2">Option 2</wa-radio-button>
       <wa-radio-button value="3">Option 3</wa-radio-button>
     </wa-radio-group>
-    <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+    <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
       <wa-radio-button value="1">Option 1</wa-radio-button>
       <wa-radio-button value="2">Option 2</wa-radio-button>
       <wa-radio-button value="3">Option 3</wa-radio-button>
     </wa-radio-group>
   </div>
-  
  <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
  <h3>Description</h3>
  <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
@@ -144,31 +114,14 @@ tags: e-commerce
       <wa-icon family="solid" name="earth-americas"></wa-icon>
       <h3>International delivery</h3>
       <p>Get your order in 2 years</p>
-
     </wa-card>
   </div>
 </div>
-<style>
-  .with-tiered-images {
-    max-width: 960px;
-    margin: 0 auto;
-    wa-breadcrumb::part(base) {
-      margin-bottom: 1rem;
-    }
-    span {
-      display: inline-block;
-      margin-right: 1rem;
-    }
-    wa-rating {
-      margin-right: 1rem;
-    }
-  }
-</style>
 ```
 ## with images and expandable details
 
 ```html {.example}
-<div class="with-expandable-details">
+<div style="max-width: 960px;margin: 0 auto;">
 <wa-carousel class="carousel-thumbnails" navigation loop>
   <wa-carousel-item>
     <img
@@ -202,7 +155,7 @@ tags: e-commerce
   </wa-carousel-item>
 </wa-carousel>
 
-<div class="thumbnails">
+<div class="thumbnails wa-split" style="margin-bottom: 1rem; justify-content: center">
   <div class="thumbnails__scroller">
     <img alt="Thumbnail by 1" class="thumbnails__image active" src="/assets/examples/carousel/pullover-1.jpg" />
     <img alt="Thumbnail by 2" class="thumbnails__image" src="/assets/examples/carousel/pullover-2.jpg" />
@@ -213,13 +166,13 @@ tags: e-commerce
 </div>
 <div>
   <h3 style="--wa-space-xl: 0;">Pullover Sweater</h3>
-  <span class="price-big">$140</span>
-  <wa-rating class="sweater-rating" label="Rating" precision="0.5" value="2.5"></wa-rating>
+  <span style="display: block;font-size: 32px;">$140</span>
+  <wa-rating style="margin-bottom: 1rem;" label="Rating" precision="0.5" value="2.5"></wa-rating>
   <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  <wa-radio-group label="Select Color" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1"></wa-radio-button>
-  <wa-radio-button value="2"></wa-radio-button>
-  <wa-radio-button value="3"></wa-radio-button>
+  <wa-radio-group orientation="horizontal" label="Select Color" hint="Select an option that makes you proud." name="a" value="1">
+  <wa-radio-button value="1">d</wa-radio-button>
+  <wa-radio-button value="2">d</wa-radio-button>
+  <wa-radio-button value="3">d</wa-radio-button>
 </wa-radio-group>
 <div>
   <wa-button>Add to cart</wa-button>
@@ -244,40 +197,10 @@ tags: e-commerce
 </div>
 </div>
 <style>
-  .with-expandable-details {
-    max-width: 960px;
-    margin: 0 auto;
-  }
+ 
   .carousel-thumbnails {
     --slide-aspect-ratio: 3 / 2;
   }
-
-  wa-radio-button #shadow-root div .button--medium {
-    padding: var(--wa-space-xs) var(--wa-space-xs);
-  }
-
-  .color-circle {
-    --background: #000;
-    background: var(--background);
-
-    width: 50px;
-    height: 100%;
-  }
-
-  .sweater-rating {
-    margin-bottom: 1rem;
-  }
-  .price-big {
-    display: block;
-    font-size: 32px;
-  }
-
-  .thumbnails {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
   .thumbnails__scroller {
     display: flex;
     gap: var(--wa-space-s);
@@ -286,23 +209,18 @@ tags: e-commerce
     scroll-behavior: smooth;
     scroll-padding: var(--wa-space-s);
   }
-
   .thumbnails__scroller::-webkit-scrollbar {
     display: none;
   }
-
   .thumbnails__image {
     width: 64px;
     height: 64px;
     object-fit: cover;
-
     opacity: 0.3;
     will-change: opacity;
     transition: 250ms opacity;
-
     cursor: pointer;
   }
-
   .thumbnails__image.active {
     opacity: 1;
   }
@@ -354,54 +272,35 @@ tags: e-commerce
 ## Split with image
 
 ```html {.example}
-<div class="split-with-image">
-  <div class="div-1">
-    <wa-breadcrumb>
+<div class="split-with-image" style="max-width: 960px;margin: 0 auto;">
+  <div>
+    <wa-breadcrumb style="margin-bottom: 1rem; display: block;">
     <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
     <wa-breadcrumb-item>Men's</wa-breadcrumb-item>
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
     </wa-breadcrumb>
     <h2>Everyday Ruck Snack</h2>
-    <span>
-      <span>$220</span> |
-      <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
-      <span>1624 reviews</span>
+    <div style="margin-bottom: 1rem;" class="wa-split">
+      <span>$220</span>
+      <span>
+        <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
+        <span>1624 reviews</span>
+      </span>
     </span>
     <p>Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.</p>
-    <span><wa-icon family="solid" name="check"></wa-icon> In stock and ready to ship</span>
-
-
+    <div style="margin-bottom: 1rem;"><wa-icon family="solid" name="check"></wa-icon> In stock and ready to ship</div>
   </div>
-  <div class="div-2">
+  <div>
     <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
   </div>
-  <div class="div-3">
-     <wa-radio-group label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
-</wa-radio-group>
+  <div>
+     <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
+      <wa-radio-button value="1">Option 1</wa-radio-button>
+      <wa-radio-button value="2">Option 2</wa-radio-button>
+      <wa-radio-button value="3">Option 3</wa-radio-button>
+    </wa-radio-group>
   </div>
 </div>
-<style>
-  .split-with-image {
-    display: grid;
-    /* grid-template-columns: repeat(2, 1fr); */
-    /* height: 1000px; */
-    /* gap: 1rem; */
-    .div-1 {
-
-    }
-    .div-2 {
-      /* background-color: black;
-      grid-column-start: 2;
-      grid-row: span 2 / span 2; */
-    }
-    .div-3 {
-
-    }
-  }
-</style>
 ```
 ## With tabs
 
@@ -409,7 +308,7 @@ tags: e-commerce
 <div>
   <wa-rating class="sweater-rating" label="Rating" precision="0.5" value="2.5"></wa-rating>
   <h2>Application UI Icon Pack</h2>
-  <img alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." src="https://tailwindui.com/img/ecommerce-images/product-page-05-product-01.jpg" class="aqk aql">
+  <img alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." src="https://tailwindui.com/plus-assets/img/ecommerce-images/product-page-05-product-01.jpg" class="aqk aql">
   <p>The Application UI Icon Pack comes with over 200 icons in 3 styles: outline, filled, and branded. This playful icon pack is tailored for complex application user interfaces with a friendly and legible look.</p>
   <wa-button variant="brand">Brand</wa-button>
 
@@ -436,7 +335,6 @@ tags: e-commerce
   <wa-tab panel="custom">Custom</wa-tab>
   <wa-tab panel="advanced">Advanced</wa-tab>
   <wa-tab panel="disabled" disabled>Disabled</wa-tab>
-
   <wa-tab-panel name="general">
     <div></div>
     <div>
@@ -450,7 +348,5 @@ tags: e-commerce
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
   <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
 </wa-tab-group>
-
 </div>
-
 ```
