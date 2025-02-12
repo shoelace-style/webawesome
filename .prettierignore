@@ -13,4 +13,4 @@ package-lock.json
 tsconfig.json
 cdn
 _site
-docs/assets/scripts/prism.js
+docs/assets/scripts/prism-downloaded.js
