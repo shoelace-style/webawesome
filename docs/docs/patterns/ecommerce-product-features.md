@@ -9,7 +9,7 @@ tags: e-commerce
 
 ```html {.example}
 <div class="wa-stack wa-gap-3xl">
-  <wa-carousel pagination loop style="--aspect-ratio: 3 / 2;">
+  <wa-carousel pagination navigation loop style="--aspect-ratio: 3 / 2;">
     <wa-carousel-item>
       <img
         alt="Knit sweater in sand color sleeve detail, showing the seamless design"
