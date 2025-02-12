@@ -1,13 +1,22 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
-{# {% set forceTheme = page.fileSlug %} #}
+{% set paletteId = page.fileSlug %}
 
 {% extends '../_layouts/block.njk' %}
 
-{% set paletteId = page.fileSlug %}
+{% block head %}
+<style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
+<link href="{{ page.url }}../tweak.css" rel="stylesheet">
+<script>
+  globalThis.wa_data = {
+    paletteId: '{{ paletteId }}',
+    colors: {{ palettes[paletteId] | dump | safe }}
+  }
+</script>
+<script type="module" src="{{ page.url }}../tweak.js"></script>
+{% endblock %}
 
 {% block afterContent %}
-<style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 
 {% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
 
@@ -78,14 +87,6 @@
 </tr>
 {%- endfor %}
 </table>
-<link href="{{ page.url }}../tweak.css" rel="stylesheet">
-<script>
-  globalThis.wa_data = {
-    paletteId: '{{ paletteId }}',
-    colors: {{ palettes[paletteId] | dump | safe }}
-  }
-</script>
-<script type="module" src="{{ page.url }}../tweak.js"></script>
 
 <h2>Used By</h2>
 
