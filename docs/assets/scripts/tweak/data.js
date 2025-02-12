@@ -1,4 +1,8 @@
-export const cdnUrl = document.documentElement.dataset.cdnUrl;
+/**
+ * Data related to theme remixing and palette tweaking
+ * Must work in both browser and Node.js
+ */
+export const cdnUrl = globalThis.document ? document.documentElement.dataset.cdnUrl : '/dist/';
 
 export const urls = {
   theme: id => `styles/themes/${id}.css`,
@@ -13,29 +17,24 @@ export const selectors = {
     [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
 };
 
-export const HUE_RANGES = {
-  red: { min: 15, max: 35 },
-  // gap: 35 - 60, will be filled by orange
-  yellow: { min: 60, max: 95 },
-  // gap: 95 - 130
-  green: { min: 130, max: 170 },
-  // gap: 170 - 190
-  cyan: { min: 190, max: 220 },
-  // gap: 220 - 240
-  blue: { min: 240, max: 260 },
-  // gap: 260 - 270
-  indigo: { min: 270, max: 290 },
-  purple: { min: 290, max: 310 },
-  pink: { min: 310, max: 365 },
-  // gap: 5-15
+export const hueRanges = {
+  red: { min: 5, max: 35 }, // 30
+  orange: { min: 35, max: 60 }, // 25
+  yellow: { min: 60, max: 120 }, // 60
+  green: { min: 120, max: 170 }, // 50
+  cyan: { min: 170, max: 220 }, // 50
+  blue: { min: 220, max: 260 }, // 40
+  indigo: { min: 260, max: 290 }, // 30
+  purple: { min: 290, max: 320 }, // 30
+  pink: { min: 320, max: 365 }, // 45
 };
 
 // Spread hue ranges to cover gaps
-let previousRange = HUE_RANGES.pink;
+let previousRange = hueRanges.pink;
 
-for (let hue in HUE_RANGES) {
+for (let hue in hueRanges) {
   let bound = previousRange.max % 360;
-  let range = HUE_RANGES[hue];
+  let range = hueRanges[hue];
 
   if (range.min > bound) {
     let gap = range.min - bound;
@@ -46,4 +45,4 @@ for (let hue in HUE_RANGES) {
   previousRange = range;
 }
 
-export const hues = Object.keys(HUE_RANGES);
+export const hues = Object.keys(hueRanges);

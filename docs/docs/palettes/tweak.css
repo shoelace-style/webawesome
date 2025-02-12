@@ -1,4 +1,10 @@
+:root {
+  --fa-sliders-simple: '\f1de';
+}
+
 .core-column {
+  position: relative;
+
   > wa-dropdown {
     min-width: 100%;
   }
@@ -84,24 +90,22 @@ wa-dropdown > .color.swatch {
   }
 
   &.tweaking .color.swatch {
-    --color-2-height: 65%;
+    --color-2-height: 50%;
   }
 
-  wa-icon[name='sliders-simple'] {
+  .tweak-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: var(--wa-space-s);
-    opacity: 0%;
-
-    &:is(.tweaked *) {
-      opacity: 80%;
-    }
+    opacity: var(--tweak-icon-opacity, 0%);
   }
 
-  &:not(.tweaked):has(.core-column:hover) {
-    wa-icon[name='sliders-simple'] {
-      opacity: 40%;
-    }
+  .core-column:hover {
+    --tweak-icon-opacity: 40%;
+  }
+
+  &.tweaked .core-column {
+    --tweak-icon-opacity: 80%;
   }
 }
