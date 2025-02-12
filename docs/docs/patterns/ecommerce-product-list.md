@@ -8,153 +8,81 @@ tags: e-commerce
 ## With Product Grid
 
 ```html{.example}
-  <div class="with-product-grid wa-grid wa-gap-0" style="--min-column-size: 50ch">
-    <div class="grid-item">
-      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" />
-      <div class="grid-item-name">Shirt</div>
-      <wa-rating label="Rating" readonly value="3"></wa-rating>
-      <a class="grid-item-reviews" href="#">38 Reviews</a>
-      <div class="grid-item-price">$170</div>
+  <div class="wa-grid wa-gap-0" style="--min-column-size: 50ch;border: var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-neutral-border-quiet);">
+    <div class="wa-stack wa-align-items-center" style="padding: 1.5rem">
+      <img style="width: 100%;object-fit: cover;height: 100%;" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" />
+      <div style="margin-top: 1rem;font-weight: var(--wa-font-weight-bold);">Shirt</div>
+      <wa-rating label="Rating" readonly value="3" style="--symbol-size: var(--wa-font-size-m);margin-top: .5rem;"></wa-rating>
+      <a style="--wa-link-decoration-default: none;--wa-color-text-link: var(--wa-color-gray-50);font-size: var(--wa-font-size-m);" href="#">38 Reviews</a>
+      <div style="font-size: var(--wa-font-size-2xl);font-weight: var(--wa-font-weight-bold);">$170</div>
     </div>
-    <div class="grid-item">
-      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/disruptivo-c2trroai5fa-unsplash.jpg" />
-      <div class="grid-item-name">Shirt</div>
-      <wa-rating label="Rating" readonly value="3"></wa-rating>
-      <a class="grid-item-reviews" href="#">38 Reviews</a>
-      <div class="grid-item-price">$170</div>
+    <div class="wa-stack wa-align-items-center" style="padding: 1.5rem">
+      <img style="width: 100%;object-fit: cover;height: 100%;" src="https://img.fortawesome.com/cfa83f3c/disruptivo-c2trroai5fa-unsplash.jpg" />
+      <div style="margin-top: 1rem;font-weight: var(--wa-font-weight-bold);">Shirt</div>
+      <wa-rating label="Rating" readonly value="3" style="--symbol-size: var(--wa-font-size-m);margin-top: .5rem;"></wa-rating>
+      <a style="--wa-link-decoration-default: none;--wa-color-text-link: var(--wa-color-gray-50);font-size: var(--wa-font-size-m);" href="#">38 Reviews</a>
+      <div style="font-size: var(--wa-font-size-2xl);font-weight: var(--wa-font-weight-bold);">$170</div>
     </div>
-    <div class="grid-item">
-      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
-      <div class="grid-item-name">Shirt</div>
-      <wa-rating label="Rating" readonly value="3"></wa-rating>
-      <a class="grid-item-reviews" href="#">38 Reviews</a>
-      <div class="grid-item-price">$170</div>
+    <div class="wa-stack wa-align-items-center" style="padding: 1.5rem">
+      <img style="width: 100%;object-fit: cover;height: 100%;" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
+      <div style="margin-top: 1rem;font-weight: var(--wa-font-weight-bold);">Shirt</div>
+      <wa-rating label="Rating" readonly value="3" style="--symbol-size: var(--wa-font-size-m);margin-top: .5rem;"></wa-rating>
+      <a style="--wa-link-decoration-default: none;--wa-color-text-link: var(--wa-color-gray-50);font-size: var(--wa-font-size-m);" href="#">38 Reviews</a>
+      <div style="font-size: var(--wa-font-size-2xl);font-weight: var(--wa-font-weight-bold);">$170</div>
     </div>
-    <div class="grid-item">
-      <img class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
-      <div class="grid-item-name">Shirt</div>
-      <wa-rating label="Rating" readonly value="3"></wa-rating>
-      <a class="grid-item-reviews" href="#">38 Reviews</a>
-      <div class="grid-item-price">$170</div>
+    <div class="wa-stack wa-align-items-center" style="padding: 1.5rem">
+      <img style="width: 100%;object-fit: cover;height: 100%;" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
+      <div style="margin-top: 1rem;font-weight: var(--wa-font-weight-bold);">Shirt</div>
+      <wa-rating label="Rating" readonly value="3" style="--symbol-size: var(--wa-font-size-m);margin-top: .5rem;"></wa-rating>
+      <a style="--wa-link-decoration-default: none;--wa-color-text-link: var(--wa-color-gray-50);font-size: var(--wa-font-size-m);" href="#">38 Reviews</a>
+      <div style="font-size: var(--wa-font-size-2xl);font-weight: var(--wa-font-weight-bold);">$170</div>
     </div>
   </div>
-  <style>
-    .with-product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border: var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-neutral-border-quiet);
-
-      .grid-item {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .grid-item:nth-of-type(odd) {
-
-        border-right: var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-neutral-border-quiet);
-      }
-      .grid-item:not(:nth-last-child(-n + 2)) {
-        border-bottom: var(--wa-panel-border-width) var(--wa-border-style) var(--wa-color-neutral-border-quiet);
-      }
-
-      .grid-item-image {
-        width: 100%;
-        object-fit: cover;
-        height: 100%;
-      }
-
-      .grid-item-name {
-        margin-top: 1rem;
-        font-weight: var(--wa-font-weight-bold);
-      }
-
-      .grid-item wa-rating {
-        --symbol-size: var(--wa-font-size-m);
-        margin-top: .5rem;
-      }
-      .grid-item-reviews {
-        --wa-link-decoration-default: none;
-        --wa-color-text-link: var(--wa-color-gray-50);
-        font-size: var(--wa-font-size-m);
-      }
-      .grid-item-price {
-        font-size: var(--wa-font-size-2xl);
-        font-weight: var(--wa-font-weight-bold);
-      }
-    }
-  </style>
 ```
 ## Card with full details
 ```html{.example}
   <div class="wa-grid card-with-details" style="--min-column-size: 50ch">
    <wa-card with-image with-footer>
-    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" alt="">
-    <div slot="footer" class="card-footer details">
-      <span class="detail-name">Basic Tee 8-pack</span>
-      <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
-      <span class="detail-color">8 colors</span>
-      <span class="detail-price">$256</span>
+    <img slot="image" src="https://img.fortawesome.com/cfa83f3c/mad-rabbit-tattoo-7n4fmowsgek-unsplash.jpg" alt="">
+    <div slot="footer" class="wa-stack">
+      <span style="font-size: var(--wa-font-size-l);font-weight: var(--wa-font-weight-action);">Basic Tee 8-pack</span>
+      <p style="color: var(--wa-color-gray-50);">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+      <span style="color: var(--wa-color-gray-50);font-style: italic;">8 colors</span>
+      <span style="font-size: var(--wa-font-size-xl);font-weight: var(--wa-font-weight-action);">$256</span>
     </div>
    </wa-card>
     <wa-card with-image with-footer>
-    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/creative.jpg" />
-    <div slot="footer" class="card-footer details">
-      <span class="detail-name">Basic Tee 8-pack</span>
-      <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
-      <span class="detail-color">8 colors</span>
-      <span class="detail-price">$256</span>
+    <img slot="image" src="https://img.fortawesome.com/cfa83f3c/creative.jpg" />
+    <div slot="footer" class="wa-stack">
+      <span style="font-size: var(--wa-font-size-l);font-weight: var(--wa-font-weight-action);">Basic Tee 8-pack</span>
+      <p style="color: var(--wa-color-gray-50);">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+      <span style="color: var(--wa-color-gray-50);font-style: italic;">8 colors</span>
+      <span style="font-size: var(--wa-font-size-xl);font-weight: var(--wa-font-weight-action);">$256</span>
     </div>
    </wa-card>
     <wa-card with-image with-footer>
-    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
-    <div slot="footer" class="card-footer details">
-      <span class="detail-name">Basic Tee 8-pack</span>
-      <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
-      <span class="detail-color">8 colors</span>
-      <span class="detail-price">$256</span>
+    <img slot="image" src="https://img.fortawesome.com/cfa83f3c/christian-bolt-vw5vjsknxz8-unsplash.jpg" />
+    <div slot="footer" class="wa-stack">
+      <span style="font-size: var(--wa-font-size-l);font-weight: var(--wa-font-weight-action);">Basic Tee 8-pack</span>
+      <p style="color: var(--wa-color-gray-50);">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+      <span style="color: var(--wa-color-gray-50);font-style: italic;">8 colors</span>
+      <span style="font-size: var(--wa-font-size-xl);font-weight: var(--wa-font-weight-action);">$256</span>
     </div>
    </wa-card>
     <wa-card with-image with-footer>
-    <img slot="image" class="grid-item-image" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
-    <div slot="footer" class="card-footer details">
-      <span class="detail-name">Basic Tee 8-pack</span>
-      <p class="detail-description">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
-      <span class="detail-color">8 colors</span>
-      <span class="detail-price">$256</span>
+    <img slot="image" src="https://img.fortawesome.com/cfa83f3c/marcel-j-uwrcdb5sm-unsplash.jpg" />
+    <div slot="footer" class="wa-stack">
+      <span style="font-size: var(--wa-font-size-l);font-weight: var(--wa-font-weight-action);">Basic Tee 8-pack</span>
+      <p style="color: var(--wa-color-gray-50);">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+      <span style="color: var(--wa-color-gray-50);font-style: italic;">8 colors</span>
+      <span style="font-size: var(--wa-font-size-xl);font-weight: var(--wa-font-weight-action);">$256</span>
     </div>
    </wa-card>
   </div>
   <style>
-    .card-with-details {
-    }
     .card-with-details wa-card::part(body) {
         padding: 0;
       }
-    .card-with-details .card-footer {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .details {
-      .detail-description {
-        color: var(--wa-color-gray-50);
-      }
-      .detail-name {
-        font-size: var(--wa-font-size-l);
-        font-weight: var(--wa-font-weight-action);
-      }
-      .detail-color {
-        color: var(--wa-color-gray-50);
-        font-style: italic;
-      }
-      .detail-price {
-        font-size: var(--wa-font-size-xl);
-        font-weight: var(--wa-font-weight-action);
-      }
-    }
-
   </style>
 ```
 ## With color swatches (WIP)
