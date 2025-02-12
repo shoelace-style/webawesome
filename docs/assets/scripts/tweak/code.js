@@ -70,7 +70,9 @@ export function palette(paletteId, tweaks, options) {
 
         for (let suffix of ['', '-05', '-10', '-20', '-30', '-40', '-50', '-60', '-70', '-80', '-90', '-95']) {
           let baseColor = cs.getPropertyValue(`--wa-color-${hue}${suffix}`);
-          declarations.push(`--wa-color-${hue}: oklch(from ${baseColor.padEnd(7)} var(--wa-color-${hue}-tweak));`);
+          declarations.push(
+            `--wa-color-${hue}${suffix}: oklch(from ${baseColor.padEnd(7)} var(--wa-color-${hue}-tweak));`,
+          );
         }
 
         declarations.push('');
