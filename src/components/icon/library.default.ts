@@ -14,29 +14,29 @@ const lookup: IconLookup = {
     regular: 'regular',
     light: 'light',
     thin: 'thin',
-    brands: 'brands'
+    brands: 'brands',
   },
   duotone: {
     solid: 'duotone',
     regular: 'duotone-regular',
     light: 'duotone-light',
-    thin: 'duotone-thin'
+    thin: 'duotone-thin',
   },
   sharp: {
     solid: 'sharp-solid',
     regular: 'sharp-regular',
     light: 'sharp-light',
-    thin: 'sharp-thin'
+    thin: 'sharp-thin',
   },
   'sharp-duotone': {
     solid: 'sharp-duotone-solid',
     regular: 'sharp-duotone-regular',
     light: 'sharp-duotone-light',
-    thin: 'sharp-duotone-thin'
-  }
+    thin: 'sharp-duotone-thin',
+  },
 };
 
-const version = "6.7.2";
+const version = '6.7.2';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
@@ -45,7 +45,7 @@ function getIconUrl(name: string, family: string, variant: string) {
   let folder = (lookup as Record<string, Record<string, string>>)?.[family]?.[variant] ?? 'solid';
 
   if (family === 'kit' || family === 'kit-duotone') {
-    return `https://kit.fontawesome.com/${kitCode}/icons/${family}/custom/${name}.svg`
+    return `https://kit.fontawesome.com/${kitCode}/icons/${family}/custom/${name}.svg`;
   }
 
   return isPro
