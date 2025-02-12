@@ -401,9 +401,14 @@ wa-page > main:has(> .index-grid) {
   &.color {
     border-color: transparent;
     transition: background var(--wa-transition-slow);
-    background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box;
+    background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box var(--color,);
     background-position: var(--color-2-position, top);
     background-size: var(--color-2-width, 100%) var(--color-2-height, 50%);
+
+    &.contrast-fail {
+      outline: 1px dashed var(--wa-color-red);
+      outline-offset: calc(-1 * var(--wa-space-2xs));
+    }
   }
 
   > wa-copy-button {
@@ -465,6 +470,34 @@ table.colors {
   .core-column {
     padding-inline-end: var(--wa-space-xl);
   }
+}
+
+.value-up,
+.value-down {
+  position: relative;
+
+  &::after {
+    content: ' ' var(--icon);
+    position: absolute;
+    margin-inline-start: 3em;
+    scale: 1 0.6;
+    color: color-mix(in oklch, oklch(from var(--icon-color) none c h) 0%, oklch(from currentColor l none none));
+    font-size: 90%;
+  }
+}
+
+.value-down {
+  --icon: '▼';
+  --icon-color: var(--wa-color-danger-fill-quiet);
+
+  &::after {
+    margin-block-end: -0.2em;
+  }
+}
+
+.value-up {
+  --icon: '▲';
+  --icon-color: var(--wa-color-success-fill-quiet);
 }
 
 /* Layout Examples */

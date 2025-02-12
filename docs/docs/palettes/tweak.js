@@ -1,5 +1,8 @@
+// TODO move these to local imports
+import Color from 'https://colorjs.io/dist/color.js';
 import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { cdnUrl, getPaletteCode, hueRanges, hues, Permalink } from '../../assets/scripts/tweak.js';
+
+import { cdnUrl, getPaletteCode, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
 import { palette } from '../../assets/scripts/tweak/code.js';
 import Prism from '/assets/scripts/prism.js';
 
@@ -12,7 +15,14 @@ codeSnippets = {
 const paletteId = wa_data.paletteId;
 const permalink = new Permalink();
 const hueShifts = Object.fromEntries(hues.map(hue => [hue, 0]));
-const originalColors = {};
+const originalColors = wa_data.colors;
+
+// Replace colors with their oklch coords (since they're all opaque and all in the same color space)
+for (let hue in originalColors) {
+  for (let tint of tints) {
+    originalColors[hue][tint] = originalColors[hue][tint].coords;
+  }
+}
 
 // Read URL params and apply them. This facilitates permalinks.
 permalink.mapObject(hueShifts, {
@@ -25,16 +35,6 @@ permalink.mapObject(hueShifts, {
 if (location.search) {
   // Update from URL
   permalink.writeTo(hueShifts);
-}
-
-for (let td of document.querySelectorAll('.core-column')) {
-  let { hue, oklch } = td.dataset;
-
-  if (!hue || hue === 'gray') continue;
-
-  oklch = oklch.split(',').map(Number);
-  oklch = { l: oklch[0], c: oklch[1], h: oklch[2] };
-  originalColors[hue] = oklch;
 }
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
@@ -50,17 +50,46 @@ globalThis.paletteApp = createApp({
     };
   },
 
+  mounted() {
+    if (this.isTweaked) {
+      // Update contrast colors
+      updateContrastTables(this.colors);
+    }
+  },
+
   computed: {
     tweaks() {
       return { hueShifts: this.hueShifts };
     },
 
+    isTweaked() {
+      return Object.values(this.hueShifts).some(Boolean);
+    },
+
     paletteHTML() {
-      return palette(this.paletteId, this.tweaks, { language: 'html', cdnUrl });
+      return getPaletteCode(this.paletteId, this.tweaks, { language: 'html', cdnUrl });
     },
 
     paletteCSS() {
-      return palette(this.paletteId, this.tweaks, { language: 'css', cdnUrl });
+      return getPaletteCode(this.paletteId, this.tweaks, { language: 'css', cdnUrl });
+    },
+
+    colors() {
+      let ret = {};
+
+      for (let hue in this.originalColors) {
+        ret[hue] = {};
+
+        for (let tint of tints) {
+          ret[hue][tint] = this.originalColors[hue][tint].slice();
+
+          if (this.hueShifts[hue]) {
+            ret[hue][tint][2] += this.hueShifts[hue];
+          }
+        }
+      }
+
+      return ret;
     },
   },
 
@@ -87,6 +116,9 @@ globalThis.paletteApp = createApp({
 
         // Update page URL
         permalink.updateLocation();
+
+        // Update contrast colors
+        updateContrastTables(this.colors);
       },
     },
   },
@@ -95,3 +127,29 @@ globalThis.paletteApp = createApp({
     isCustomElement: tag => tag.startsWith('wa-'),
   },
 }).mount('table.colors.main');
+
+function updateContrastTables(colors) {
+  for (let td of document.querySelectorAll('.contrast-table td[data-tint-bg][data-tint-fg]')) {
+    let table = td.closest('.contrast-table');
+    let { minContrast } = table.dataset;
+    let { tintBg, tintFg } = td.dataset;
+    let tr = td.parentNode;
+    let swatch = td.querySelector('.color.swatch');
+    let { hue } = tr.dataset;
+
+    let bg = new Color('oklch', colors[hue][tintBg]);
+    let fg = new Color('oklch', colors[hue][tintFg]);
+    let originalContrast = td.dataset.originalContrast;
+
+    if (!originalContrast) {
+      td.dataset.originalContrast = originalContrast = swatch.textContent.trim();
+    }
+
+    let contrast = bg.contrast(fg, 'WCAG21').toLocaleString(undefined, { maximumSignificantDigits: 2 });
+    swatch.textContent = contrast;
+
+    swatch.classList.toggle('value-up', contrast > originalContrast);
+    swatch.classList.toggle('value-down', contrast < originalContrast);
+    swatch.classList.toggle('contrast-fail', contrast < minContrast);
+  }
+}

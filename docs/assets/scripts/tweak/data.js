@@ -29,20 +29,6 @@ export const hueRanges = {
   pink: { min: 320, max: 365 }, // 45
 };
 
-// Spread hue ranges to cover gaps
-let previousRange = hueRanges.pink;
-
-for (let hue in hueRanges) {
-  let bound = previousRange.max % 360;
-  let range = hueRanges[hue];
-
-  if (range.min > bound) {
-    let gap = range.min - bound;
-    previousRange.max += gap / 2;
-    range.min -= gap / 2;
-  }
-
-  previousRange = range;
-}
-
 export const hues = Object.keys(hueRanges);
+
+export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];

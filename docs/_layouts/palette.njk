@@ -25,21 +25,19 @@
 {%- set hueBefore = hues[hues|length - 2] -%}
 {% for hue in hues -%}
 {%- set coreColor = palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint] -%}
-<tr class="color-scale" :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
+<tr class="color-scale" data-hue="{{ hue }}" :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
     :style="{ '--hue-shift': hueShifts.{{ hue }} }">
   <th>
     {{ hue | capitalize }}
   </th>
-  <td class="core-column" style="--color: var(--wa-color-{{ hue }})"
-      data-hue="{{ hue }}" data-oklch="{{ coreColor.oklch }}"
-      >
+  <td class="core-column" style="--color: var(--wa-color-{{ hue }})">
     {% if hue !== 'gray' %}
     {%- set hueAfter = hues[loop.index0 + 1] -%}
     {%- set hueAfter = hues[0] if hueAfter == 'gray' else hueAfter -%}
     {%- set minShift = hueRanges[hue].min - coreColor.h | round -%}
     {%- set maxShift = hueRanges[hue].max - coreColor.h | round -%}
     <wa-dropdown>
-    <div slot="trigger" id="core-{{ hue }}-swatch" class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
+    <div slot="trigger" id="core-{{ hue }}-swatch" data-tint="core" class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
       {{ palettes[paletteId][hue].maxChromaTint }}
       <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
     </div>
@@ -65,14 +63,14 @@
     </wa-dropdown>
     {%- set hueBefore = hue -%}
     {% else %}
-    <div id="core-{{ hue }}-swatch" class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
+    <div id="core-{{ hue }}-swatch" class="color swatch" data-tint="core" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});">
       {{ palettes[paletteId][hue].maxChromaTint }}
     </div>
     {% endif %}
   </td>
   {% for tint in tints -%}
     <td style="--color: var(--wa-color-{{ hue }}-{{ tint }})">
-      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
+      <div data-tint="{{ tint }}" class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
         <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
       </div>
     </td>
@@ -84,6 +82,7 @@
 <script>
   globalThis.wa_data = {
     paletteId: '{{ paletteId }}',
+    colors: {{ palettes[paletteId] | dump | safe }}
   }
 </script>
 <script type="module" src="{{ page.url }}../tweak.js"></script>
@@ -112,6 +111,7 @@ A difference of `40` ensures a minimum **3:1** contrast ratio, suitable for larg
 {% endmarkdown %}
 
 {% set difference = 40 %}
+{% set minContrast = 3 %}
 {% include "contrast-table.njk" %}
 
 {% markdown %}
@@ -131,6 +131,7 @@ A difference of `50` ensures a minimum **4.5:1** contrast ratio, suitable for no
 {% endmarkdown %}
 
 {% set difference = 50 %}
+{% set minContrast = 4.5 %}
 {% include "contrast-table.njk" %}
 
 {% markdown %}
@@ -149,6 +150,7 @@ A difference of `60` ensures a minimum **7:1** contrast ratio, suitable for all 
 {% endmarkdown %}
 
 {% set difference = 60 %}
+{% set minContrast = 7 %}
 {% include "contrast-table.njk" %}
 
 {% markdown %}
