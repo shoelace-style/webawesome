@@ -25,14 +25,14 @@
   --wa-color-brand-on-normal: var(--wa-color-brand-40);
   --wa-color-brand-on-loud: var(--wa-color-text-normal);
 
-  --wa-color-success-fill-quiet: var(--wa-color-cyan-95);
-  --wa-color-success-fill-normal: var(--wa-color-cyan-90);
-  --wa-color-success-fill-loud: var(--wa-color-cyan-80);
-  --wa-color-success-border-quiet: var(--wa-color-cyan-70);
-  --wa-color-success-border-normal: var(--wa-color-cyan-50);
-  --wa-color-success-border-loud: var(--wa-color-cyan-30);
-  --wa-color-success-on-quiet: var(--wa-color-cyan-40);
-  --wa-color-success-on-normal: var(--wa-color-cyan-40);
+  --wa-color-success-fill-quiet: var(--wa-color-green-95);
+  --wa-color-success-fill-normal: var(--wa-color-green-90);
+  --wa-color-success-fill-loud: var(--wa-color-green-80);
+  --wa-color-success-border-quiet: var(--wa-color-green-70);
+  --wa-color-success-border-normal: var(--wa-color-green-50);
+  --wa-color-success-border-loud: var(--wa-color-green-30);
+  --wa-color-success-on-quiet: var(--wa-color-green-40);
+  --wa-color-success-on-normal: var(--wa-color-green-40);
   --wa-color-success-on-loud: var(--wa-color-text-normal);
 
   --wa-color-warning-fill-quiet: var(--wa-color-yellow-95);
@@ -85,14 +85,14 @@
   --wa-color-brand-on-normal: var(--wa-color-brand-80);
   --wa-color-brand-on-loud: white;
 
-  --wa-color-success-fill-quiet: var(--wa-color-cyan-10);
-  --wa-color-success-fill-normal: var(--wa-color-cyan-20);
-  --wa-color-success-fill-loud: var(--wa-color-cyan-50);
-  --wa-color-success-border-quiet: var(--wa-color-cyan-30);
-  --wa-color-success-border-normal: var(--wa-color-cyan-50);
-  --wa-color-success-border-loud: var(--wa-color-cyan-80);
-  --wa-color-success-on-quiet: var(--wa-color-cyan-70);
-  --wa-color-success-on-normal: var(--wa-color-cyan-80);
+  --wa-color-success-fill-quiet: var(--wa-color-green-10);
+  --wa-color-success-fill-normal: var(--wa-color-green-20);
+  --wa-color-success-fill-loud: var(--wa-color-green-50);
+  --wa-color-success-border-quiet: var(--wa-color-green-30);
+  --wa-color-success-border-normal: var(--wa-color-green-50);
+  --wa-color-success-border-loud: var(--wa-color-green-80);
+  --wa-color-success-on-quiet: var(--wa-color-green-70);
+  --wa-color-success-on-normal: var(--wa-color-green-80);
   --wa-color-success-on-loud: white;
 
   --wa-color-warning-fill-quiet: var(--wa-color-yellow-10);

@@ -1,4 +1,4 @@
-{% set paletteId = page.fileSlug %}
+{% set paletteId = palette.fileSlug or page.fileSlug %}
 {% set tints = [10, '', 95] %}
 {% set tintStroke = {'95': '80', '10': '30'} %}
 {% set tintRow = {'': '1', '10': '0', '95': '0'} %}
