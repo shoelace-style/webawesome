@@ -1,0 +1,63 @@
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+:where([class^='wa-palette-'], [class*=' wa-palette-']),
+:where([class^='wa-brand-'], [class*=' wa-brand-']) {
+  /**
+   * Conditional tokens for use in color-mix()
+   * --wa-color-brand-if-lt-N ➡️ 100% if key < N, 0% otherwise
+   * --wa-color-brand-if-gte-N ➡️ 100% if key >= N, 0% otherwise
+   */
+  --wa-color-brand-if-lt-40: calc(clamp(0, 40 - var(--wa-color-brand-key), 1) * 100%);
+  --wa-color-brand-if-lt-50: calc(clamp(0, 50 - var(--wa-color-brand-key), 1) * 100%);
+  --wa-color-brand-if-lt-60: calc(clamp(0, 60 - var(--wa-color-brand-key), 1) * 100%);
+  --wa-color-brand-if-lt-70: calc(clamp(0, 70 - var(--wa-color-brand-key), 1) * 100%);
+  --wa-color-brand-if-lt-80: calc(clamp(0, 80 - var(--wa-color-brand-key), 1) * 100%);
+
+  --wa-color-brand-if-gte-40: calc(100% - var(--wa-color-brand-if-lt-40));
+  --wa-color-brand-if-gte-50: calc(100% - var(--wa-color-brand-if-lt-50));
+  --wa-color-brand-if-gte-60: calc(100% - var(--wa-color-brand-if-lt-60));
+  --wa-color-brand-if-gte-70: calc(100% - var(--wa-color-brand-if-lt-70));
+  --wa-color-brand-if-gte-80: calc(100% - var(--wa-color-brand-if-lt-80));
+
+  /*
+   * Convenience tokens for common tint cutoffs
+   * --wa-color-brand-N-max ➡️ var(--color-brand) if key <= N, var(--color-brand-N) otherwise
+   * --wa-color-brand-N-min ➡️ var(--color-brand) if key >= N, var(--color-brand-N) otherwise
+   */
+  --wa-color-brand-40-max: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-lt-40),
+    var(--wa-color-brand-40)
+  );
+  --wa-color-brand-40-min: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-gte-40),
+    var(--wa-color-brand-40)
+  );
+
+  --wa-color-brand-50-max: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-lt-50),
+    var(--wa-color-brand-50)
+  );
+  --wa-color-brand-50-min: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-gte-50),
+    var(--wa-color-brand-50)
+  );
+
+  --wa-color-brand-60-max: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-lt-60),
+    var(--wa-color-brand-60)
+  );
+  --wa-color-brand-60-min: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-gte-60),
+    var(--wa-color-brand-60)
+  );
+
+  /* Text color: white if key < 70, brand-10 otherwise */
+  --wa-color-brand-on: color-mix(in oklab, var(--wa-color-brand-10) var(--wa-color-brand-if-gte-60), white);
+}
