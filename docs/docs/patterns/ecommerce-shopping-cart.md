@@ -1,13 +1,11 @@
 ---
 title: Shopping Cart
-description: 'Provide customers with an overview of selected items, with the ability to update and remove products'
+description: 'Give shoppers an overview of selected items with shopping carts that let them edit items and proceed to checkout.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-## Examples
-
-### Slide Over
+## Slide Over
 
 ```html {.example}
 <wa-card with-header with-footer class="card-header" style="width: 500px; margin: 0 auto;">
@@ -69,7 +67,7 @@ tags: e-commerce
 </wa-card>
 ```
 
-### Two Column Cart
+## Two Columns
 
 ```html {.example}
 <div>
@@ -148,7 +146,7 @@ tags: e-commerce
 </div>
 ```
 
-### Single Column Cart
+## Single Column
 
 ```html {.example}
 <div class="single-column">

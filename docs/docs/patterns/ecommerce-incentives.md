@@ -1,14 +1,14 @@
 ---
 title: Incentives
-description: 'Highlight Special offers,discount and promotional deals'
+description: 'Encourage shoppers to buy your products with value propositions, discounts, and promotions.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-## Coupon
+## Promotion Dialog
 
-```html{.example}
-<wa-dialog label="New Here?" with-header class="coupon" style="--width: 50rem;">
+```html {.example viewport}
+<wa-dialog label="New Here?" with-header class="coupon" style="--width: 50rem;" open>
   <div class="coupon-split">
     <img style="height: 100%" src="/assets/images/patterns/coupon.jpg" />
     <div>
@@ -24,8 +24,6 @@ tags: e-commerce
   </div>
 </wa-dialog>
 
-<wa-button>Open Dialog</wa-button>
-
 <style>
   .coupon {
     .coupon-split {
@@ -35,11 +33,4 @@ tags: e-commerce
     }
   }
 </style>
-<script>
-  const dialog = document.querySelector('.coupon');
-  const openButton = dialog.nextElementSibling;
-
-  openButton.addEventListener('click', () => dialog.open = true);
-</script>
-
 ```

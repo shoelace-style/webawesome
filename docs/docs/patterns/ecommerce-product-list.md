@@ -1,6 +1,6 @@
 ---
 title: Product Lists
-description: 'Show off your products in all their glory. Our product list patterns allow customers to browse your finest wares, add them to your cart, check out and leave a review.'
+description: 'Let shoppers browse and compare products with detailed lists of the products in your store.'
 parent: ecommerce
 tags: e-commerce
 ---
@@ -39,7 +39,7 @@ tags: e-commerce
     </div>
   </div>
 ```
-## Card with full details
+## Card with Details
 ```html{.example}
   <div class="wa-grid card-with-details" style="--min-column-size: 50ch">
    <wa-card with-image with-footer>
@@ -85,7 +85,7 @@ tags: e-commerce
       }
   </style>
 ```
-## With color swatches (WIP)
+## With Color Swatches (WIP)
 ```html{.example}
 
 ```

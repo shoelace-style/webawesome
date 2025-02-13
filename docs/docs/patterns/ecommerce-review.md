@@ -1,11 +1,11 @@
 ---
 title: Product Reviews
-description: 'Display reviews, ratings and testimonials for potential customers.'
+description: 'Help shoppers make informed decisions with ratings, reviews, and testimonials from your customers.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-### Product Review
+## With Ratings Distribution
 
 ```html {.example}
 <div>
