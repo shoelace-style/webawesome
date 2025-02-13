@@ -53,7 +53,7 @@ let paletteAppSpec = {
       // Update from URL
       this.permalink.writeTo(this.hueShifts);
 
-      if (this.permalink.has('chromaScale')) {
+      if (this.permalink.has('chroma-scale')) {
         this.chromaScale = Number(this.permalink.get('chromaScale') || 1);
       }
     }
@@ -138,7 +138,7 @@ let paletteAppSpec = {
     },
 
     chromaScale() {
-      this.permalink.set('chromaScale', this.chromaScale, 1);
+      this.permalink.set('chroma-scale', this.chromaScale, 1);
 
       // Update page URL
       this.permalink.updateLocation();
