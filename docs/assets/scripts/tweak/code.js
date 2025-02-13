@@ -74,7 +74,7 @@ export function palette(paletteId, tweaks, options) {
           let colorSpace = suffix === '-95' || suffix === '-90' ? '  lch' : 'oklch';
           let value = `${colorSpace}(from ${baseColor.padEnd(7)} var(--wa-color-${hue}-tweak))`;
           suffix = (suffix + ':').padEnd(4);
-          declarations.push(`--wa-color-${hue}${suffix} ${value});`);
+          declarations.push(`--wa-color-${hue}${suffix} ${value};`);
         }
 
         declarations.push('');
