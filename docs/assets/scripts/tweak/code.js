@@ -70,7 +70,7 @@ export function palette(paletteId, tweaks, options) {
         }
 
         let shiftCode = shift > 0 ? `+ ${shift}` : `- ${-shift}`;
-        let c = chromaScale === 1 ? 'c' : `calc(c * ${chromaScale})`;
+        let c = chromaScale === 1 ? 'c' : `calc(c * var(--wa-chroma-scale))`;
         let h = shift ? `calc(h ${shiftCode})` : 'h';
         declarations.push(`--wa-color-${hue}-tweak: l ${c} ${h});`);
 
