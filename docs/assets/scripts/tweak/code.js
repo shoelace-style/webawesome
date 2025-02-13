@@ -65,7 +65,7 @@ export function palette(paletteId, tweaks, options) {
       for (let hue in hueShifts) {
         let shift = hueShifts[hue];
 
-        if (!shift && chromaScale === 1) {
+        if ((!shift && chromaScale === 1) || hue === 'orange') {
           continue;
         }
 
