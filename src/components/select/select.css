@@ -177,7 +177,7 @@
   align-items: center;
   color: var(--wa-color-neutral-on-quiet);
   transition: rotate var(--wa-transition-slow) ease;
-  rotate: 0;
+  rotate: 0deg;
   margin-inline-start: var(--wa-space-s);
 
   .open & {
