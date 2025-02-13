@@ -9,46 +9,59 @@ tags: e-commerce
 ### Checkout
 
 ```html {.example}
-<div class="checkout-form">
-<div class="checkout-form-inputs">
-  <h4 class="full-row" style="margin-top: 0.5rem;">Contact Info</h4>
-  <wa-input type="email" label="Email Address" class="full-row"></wa-input>
-  <hr class="full-row" />
+<div style="max-width: 960px; margin: 0 auto;">
+<div class="wa-stack">
+  <h4 style="margin-top: 0.5rem;">Contact Info</h4>
+  <wa-input type="email" label="Email Address" class=""></wa-input>
+  <hr style="width: 100%" />
   <h4 class="full-row" style="margin-top: 0.5rem;">Shipping Information</h4>
-  <wa-input label="First Name" class="first-half"></wa-input>
-  <wa-input label="Last Name" class="second-half" style="margin-top: 1.5rem;"></wa-input>
-  <wa-input label="Company" class="full-row" style="margin-top: 1.5rem;"></wa-input>
-  <wa-input label="Address" class="full-row" style="margin-top: 1.5rem;"></wa-input>
-  <wa-input label="City" class="first-half" style="margin-top: 1.5rem;"></wa-input>
-  <wa-select label="Country" placeholder="Country" class="second-half" style="margin-top: 1.5rem;">
+  <div class="wa-grid">
+    <wa-input label="First Name"></wa-input>
+    <wa-input label="Last Name"></wa-input>
+  </div>
+ 
+  <wa-input label="Company"></wa-input>
+  <div class="wa-grid">
+    <wa-input label="Address"></wa-input>
+  <wa-input label="City"></wa-input>
+  <wa-select label="Country" placeholder="Country" >
     <wa-option value="option-1">Option 1</wa-option>
     <wa-option value="option-2">Option 2</wa-option>
     <wa-option value="option-3">Option 3</wa-option>
-  </wa-select>
-  <wa-input label="State" class="first-half" style="margin-top: 1.5rem;"></wa-input>
-  <wa-input label="Postal Code" class="second-half" style="margin-top: 1.5rem;"></wa-input>
-  <wa-input label="Phone" class=" full-row" style="margin-top: 1.5rem;"></wa-input>
+  </wa-select> 
+  </div>
+  <div class="wa-grid">
+    <wa-input label="State"></wa-input>
+    <wa-input label="Postal Code"></wa-input>
+    <wa-input label="Phone"></wa-input>
+  </div>
+  
   <hr class="full-row" />
-    <wa-radio-group label="Delivery Method" hint="Select an option that makes you proud." name="a" value="1" class="full-row" style="margin-top: 1.5rem;">
+    <wa-radio-group orientation="horizontal" label="Delivery Method" hint="Select an option that makes you proud." name="a" value="1" class="full-row" style="margin-top: 1.5rem;">
     <wa-radio-button value="1">Standard</wa-radio-button>
     <wa-radio-button value="2">Express</wa-radio-button>
   </wa-radio-group>
   <hr class="full-row" />
-  <h4 class="full-row" style="margin-top: 0.5rem;">Payment</h4>
-  <wa-radio-group label="Select an option" name="a" value="1" class="full-row" style="margin-top: 1.5rem;">
+  <h4 class="full-row">Payment</h4>
+  <wa-radio-group label="Select an option" name="a" value="1">
     <wa-radio value="1">Credit Card</wa-radio>
     <wa-radio value="3">Paypal</wa-radio>
   </wa-radio-group>
-  <wa-input label="Card Number" class="full-row" style="margin-top: 1.5rem;"></wa-input>
-<wa-input label="Name on Card" class="full-row" style="margin-top: 1.5rem;"></wa-input>
-<wa-input label="Expiration Date" class="first-half" style="margin-top: 1.5rem;"></wa-input>
-<wa-input label="CVC" class="second-half" style="margin-top: 1.5rem;"></wa-input>
+  <wa-input label="Name on Card"></wa-input>
+  <div class="wa-grid">
+    <wa-input label="Card Number"></wa-input>
+
+<wa-input label="Expiration Date"></wa-input>
+<wa-input label="CVC"></wa-input>
+  </div>
+  
 </div>
-<div class="checkout-form-summary">
+<div class="wa-stack" style="margin-top: 1rem">
+  <hr class="full-row" />
   <h4>Order Summary</h4>
-  <wa-card class="card-basic">
-    <div class="summary-item">
-      <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1MzB8&ixlib=rb-4.0.3&q=80&w=1080">
+  <wa-card class="wa-stack">
+    <div class="wa-grid" style="margin-bottom: 1rem;">
+      <img src="https://img.fortawesome.com/cfa83f3c/air-forces.jpg" alt="">
       <div class="summary-item-info">
         <span style="display: flex; justify-content: space-between;">
           <span class="item-heading">Dolce Runners</span>
@@ -66,10 +79,9 @@ tags: e-commerce
           </wa-select>
           </span>
         </div>
-      <hr style="grid-column: 1 / -1;">
     </div>
-    <div class="summary-item">
-      <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1Njh8&ixlib=rb-4.0.3&q=80&w=1080">
+    <div class="wa-grid" style="margin-bottom: 1rem;">
+      <img src="https://img.fortawesome.com/cfa83f3c/air-max.jpg" alt="">
       <div class="summary-item-info">
         <span style="display: flex; justify-content: space-between;">
           <span class="item-heading">Dunk High</span>
@@ -87,10 +99,10 @@ tags: e-commerce
           </wa-select>
           </span>
         </div>
-      <hr style="grid-column: 1 / -1;">
+
     </div>
-    <div class="summary-item">
-      <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM2MTF8&ixlib=rb-4.0.3&q=80&w=1080">
+    <div class="wa-grid" style="margin-bottom: 1rem;">
+      <img src="https://img.fortawesome.com/cfa83f3c/nike-runner.jpg" alt="">
       <div class="summary-item-info">
         <span style="display: flex; justify-content: space-between;">
           <span class="item-heading">NB Runner</span>
@@ -108,14 +120,14 @@ tags: e-commerce
           </wa-select>
           </span>
         </div>
-      <hr style="grid-column: 1 / -1;">
+
     </div>
  <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Confirm Order</wa-button>
 </wa-card>
 </div>
 </div>
 
-<style>
+<!-- <style>
   .checkout-form {
     display: grid;
     grid-template-columns: 1fr;
@@ -154,27 +166,7 @@ tags: e-commerce
 
     /* Grid utilities */
 
-    .full-row {
-      grid-column: 1/-1
-    }
-
-    .first-half {
-      grid-column: 1/4
-    }
-
-    .second-half {
-      grid-column: 4/7
-    }
-
-    .first-third {
-      rid-column: 1/3
-    }
-    .second-third {
-      rid-column: 3/5
-    }
-    .last-third {
-      rid-column: 5/7
-    }
+   
   }
-</style>
+</style> -->
 ```
