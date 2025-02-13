@@ -7,14 +7,13 @@ tags: e-commerce
 
 ## With image
 ```html{.example}
-<div class="order-summary">
+<div style="max-width: 960px;margin: 0 auto;">
  <wa-card with-image with-footer class="card-overview">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
     alt="A kitten sits patiently between a terracotta pot and decorative grasses."
   />
-
   <span>Payment Successful</span>
   <h1>Thanks for Ordering</h1>
   <p>We appreciate your order, we’re currently processing it. So hang tight and we’ll send you confirmation very soon!</p>
@@ -23,7 +22,7 @@ tags: e-commerce
     <dd style="--wa-space-m: 0;">51547878755545848512</dd>
   </dl>
   <ul style="list-style-type: none; margin: 0">
-    <li class="wa-split">
+    <li class="wa-split" style="border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); padding-block: 1rem;">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -32,7 +31,7 @@ tags: e-commerce
       </div>
       <div style="flex:none;">$36.00</div>
     </li>
-     <li class="wa-split">
+     <li class="wa-split" style="padding-block: 1rem;">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -90,42 +89,23 @@ tags: e-commerce
     Continue Shopping
   </wa-button>
   </div>
-  
 </wa-card>
 </div>
-<style>
-  .order-summary {
-    max-width: 960px;
-    margin: 0 auto;
-    
-    ul {
-    :where(& > :not(:last-child)) {
-      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-      border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-    }
-    li {
-      padding-block: 1rem;
-    }
-    }
-  }
-</style>
 ```
 
 ## With Progress Bar
 ```html{.example}
-<div class="order-summary-progress-bar">
+<div style="max-width: 960px;margin: 0 auto;">
   <div>
     <div>
       <h1>Order #54879</h1>
       <a href="#">View Invoice <wa-icon fixed-width name="arrow-right"></wa-icon></a>
       <p>Order placed March 22, 2021</p>
     </div>
-    
   </div>
   <wa-card with-image with-footer>
     <img slot="image" src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"/>
     <div>
-      
       <div>
         <h3>Title</h3>
         <span>subtitle</span>
@@ -166,12 +146,6 @@ tags: e-commerce
   </div>
   </wa-card>
 </div>
-<style>
-  .order-summary-progress-bar {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-</style>
 ```
 
 ## Split Image
@@ -188,7 +162,7 @@ tags: e-commerce
     <dd style="--wa-space-m: 0;">51547878755545848512</dd>
   </dl>
     <ul style="list-style-type: none; margin: 0">
-    <li style="display: flex;">
+    <li style="display: flex;padding-block: 1rem; border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -197,7 +171,7 @@ tags: e-commerce
       </div>
       <div style="flex:none;">$36.00</div>
     </li>
-    <li style="display: flex;">
+    <li style="display: flex;padding-block: 1rem;">
       <img style="object-fit: cover; margin-inline-end: 1rem;" src="https://images.unsplash.com/photo-1687539203170-907f641c35fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGRhaXN5fGVufDB8MXwwfHx8Mg%3D%3D" alt="" width="96" />
       <div style="flex:auto;">
         <h3 style="margin: 0">Basic Tee</h3>
@@ -236,19 +210,7 @@ tags: e-commerce
     display: grid;
     grid-template-columns: 40% 1fr;
     padding: 0;
-
-    
   }
-
-  ul {
-    :where(& > :not(:last-child)) {
-      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-      border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-    }
-    li {
-      padding-block: 1rem;
-    }
-    }
   }
   
 </style>
