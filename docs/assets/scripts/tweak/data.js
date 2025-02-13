@@ -20,8 +20,8 @@ export const selectors = {
 export const hueRanges = {
   red: { min: 5, max: 35 }, // 30
   orange: { min: 35, max: 60 }, // 25
-  yellow: { min: 60, max: 105 }, // 45
-  green: { min: 115, max: 170 }, // 55
+  yellow: { min: 60, max: 112 }, // 45
+  green: { min: 112, max: 170 }, // 55
   cyan: { min: 170, max: 220 }, // 50
   blue: { min: 220, max: 265 }, // 45
   indigo: { min: 265, max: 290 }, // 25
