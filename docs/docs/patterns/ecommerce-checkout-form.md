@@ -1,12 +1,12 @@
 ---
 title: Checkout Form
-description: 'streamline the payment process for your customers with well designed form that capture billing, shipping, and payment info.'
+description: 'Let shoppers checkout with ease with streamlined forms to capture shipping and payment info.'
 parent: ecommerce
 tags: e-commerce
 ---
 
 
-### Checkout
+## With Order Summary Card
 
 ```html {.example}
 <div style="max-width: 960px; margin: 0 auto;">

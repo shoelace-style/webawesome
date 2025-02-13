@@ -1,6 +1,6 @@
 ---
 title: Category Preview
-description: 'Showcase different product categories, help customers find what you have to offer in your storefront'
+description: 'Help shoppers discover your product offerings with showcases of product categories.'
 parent: ecommerce
 tags: e-commerce
 icon: preview
@@ -14,9 +14,11 @@ icon: preview
     min-block-size: 4rem;
     min-inline-size: 4rem;
     aspect-ratio: var(--aspect-ratio);
+  }
 </style>
 
-## Three Column (WIP)
+## Grid Tiles
+
 ```html{.example}
 <div class="three-column wa-stack">
   <div class="wa-split" sty>
@@ -30,6 +32,8 @@ icon: preview
   </div>
 </div>
 ```
+
+## Mosaic Tiles
 
 ```html{.example}
 <div class="mosaic wa-stack">

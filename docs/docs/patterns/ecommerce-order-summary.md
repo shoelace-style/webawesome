@@ -1,11 +1,11 @@
 ---
 title: Order Summary
-description: 'A necessary step in all e-commerce flows. show customers a clear breakdown of thier purchases before completing an order'
+description: 'Give shoppers confidence in their purchases with summaries of everything included in their order.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-## With image
+## With Image
 ```html{.example}
 <div style="max-width: 960px;margin: 0 auto;">
  <wa-card with-image with-footer class="card-overview">
