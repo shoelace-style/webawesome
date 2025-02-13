@@ -16,8 +16,9 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ### Color Palettes
 
-- Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
 - Added a `pink` scale to all color palettes
+- Fixed an incorrect CSS value in `<wa-select>`'s expand icon
+- Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
 
 ### Design Tokens
 
