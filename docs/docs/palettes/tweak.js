@@ -128,28 +128,35 @@ function init() {
 }
 
 function updateContrastTables(colors) {
-  for (let td of document.querySelectorAll('.contrast-table td[data-tint-bg][data-tint-fg]')) {
-    let table = td.closest('.contrast-table');
+  for (let table of document.querySelectorAll('.contrast-table')) {
     let { minContrast } = table.dataset;
-    let { tintBg, tintFg } = td.dataset;
-    let tr = td.parentNode;
-    let swatch = td.querySelector('.color.swatch');
-    let { hue } = tr.dataset;
 
-    let bg = new Color('oklch', colors[hue][tintBg]);
-    let fg = new Color('oklch', colors[hue][tintFg]);
-    let originalContrast = td.dataset.originalContrast;
+    for (let tr of table.querySelectorAll('tr[data-hue]')) {
+      let { hue } = tr.dataset;
 
-    if (!originalContrast) {
-      td.dataset.originalContrast = originalContrast = swatch.textContent.trim();
+      for (let td of tr.querySelectorAll('td[data-tint-bg][data-tint-fg]')) {
+        let swatch = td.querySelector('.color.swatch');
+
+        let { tintBg, tintFg, originalContrast } = td.dataset;
+
+        let bg = new Color('oklch', colors[hue][tintBg]);
+        let fg = new Color('oklch', colors[hue][tintFg]);
+
+        if (!originalContrast) {
+          td.dataset.originalContrast = originalContrast = swatch.textContent.trim();
+        }
+
+        let contrast = bg.contrast(fg, 'WCAG21').toLocaleString(undefined, { maximumSignificantDigits: 2 });
+        swatch.textContent = contrast;
+
+        swatch.classList.toggle('value-up', contrast > originalContrast);
+        swatch.classList.toggle('value-down', contrast < originalContrast);
+        swatch.classList.toggle('contrast-fail', contrast < minContrast);
+
+        swatch.style.setProperty('--color', bg.display());
+        swatch.style.setProperty('color', fg.display());
+      }
     }
-
-    let contrast = bg.contrast(fg, 'WCAG21').toLocaleString(undefined, { maximumSignificantDigits: 2 });
-    swatch.textContent = contrast;
-
-    swatch.classList.toggle('value-up', contrast > originalContrast);
-    swatch.classList.toggle('value-down', contrast < originalContrast);
-    swatch.classList.toggle('contrast-fail', contrast < minContrast);
   }
 }
 
