@@ -7,18 +7,16 @@
 {% block head %}
 <style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
-<script>
-  globalThis.wa_data = {
-    paletteId: '{{ paletteId }}',
-    colors: {{ palettes[paletteId] | dump | safe }}
-  }
-</script>
-<script type="module" src="{{ page.url }}../tweak.js"></script>
 {% endblock %}
 
 {% block afterContent %}
 
 {% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
+{% set maxChroma = 0 %}
+<div id="palette-app">
+<div
+  :class="{ tweaking: tweaking.chroma, 'tweaking-chroma': tweaking.chroma, 'tweaking-hue': tweaking.chroma }"
+  :style="{ '--chroma-scale': chromaScale }">
 
 <table class="colors main wa-palette-{{ paletteId }}">
   <thead>
@@ -34,6 +32,7 @@
 {%- set hueBefore = hues[hues|length - 2] -%}
 {% for hue in hues -%}
 {%- set coreColor = palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint] -%}
+{%- set maxChroma = coreColor.c if coreColor.c > maxChroma else maxChroma -%}
 <tr data-hue="{{ hue }}" class="color-scale" :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
     :style="{ '--hue-shift': hueShifts.{{ hue }} || '' }">
   <th>
@@ -51,11 +50,11 @@
       <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
     </div>
     <div class="popup">
-      <div class="decorated-slider" style="--min: {{ minShift }}; --max: {{ maxShift }};">
+      <div class="decorated-slider hue-shift-slider" style="--min: {{ minShift }}; --max: {{ maxShift }};">
         <wa-slider name="{{ hue }}-shift" v-model="hueShifts.{{ hue }}" value="0"
           min="{{ minShift }}" max="{{ maxShift }}" step="1"
-          @input="tweaking.{{hue}} = true"
-          @change="tweaking.{{ hue }} = false">
+          @input="tweaking.hue = tweaking.{{hue}} = true"
+          @change="tweaking.hue = tweaking.{{ hue }} = false">
           <div slot="label">
             Tweak {{ hue }} hue
             <wa-icon-button @click="hueShifts.{{ hue }} = 0" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
@@ -79,8 +78,8 @@
   </td>
   {% for tint in tints -%}
     {%- set color = palettes[paletteId][hue][tint] -%}
-    <td style="--color: var(--wa-color-{{ hue }}-{{ tint }})" :class="{'safari-oklch-bug': SAFARI_OKLCH_BUG && {{ color.c < 0.027 }} }">
-      <div data-tint="{{ tint }}" class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
+    <td data-tint="{{ tint }}" style="--color: var(--wa-color-{{ hue }}-{{ tint }})">
+      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
         <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
       </div>
     </td>
@@ -88,6 +87,37 @@
 </tr>
 {%- endfor %}
 </table>
+
+{% set chromaScaleBounds = [
+(0.08 / maxChroma) | number({maximumFractionDigits: 2}),
+(0.3 / maxChroma]) | number({maximumFractionDigits: 2}) -%}
+<div class="decorated-slider chroma-scale-slider wa-palette-{{ paletteId }}"
+:class="{ tweaked: chromaScale !== 1 }"
+style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
+  <wa-slider name="chroma-scale" v-model="chromaScale" value="1" step="0.01"
+    min="{{ chromaScaleBounds[0] }}" max="{{ chromaScaleBounds[1] }}"
+    @input="tweaking.chroma = true"
+    @change="tweaking.chroma = false">
+    <div slot="label">
+      Overall colorfulness
+      <wa-icon-button @click="chromaScale = 1" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+    </div>
+  </wa-slider>
+  <div class="label-min">More muted</div>
+  <div class="label-max">More vibrant</div>
+</div>
+
+</div>
+</div>
+
+<script>
+  globalThis.wa_data = {
+    paletteId: '{{ paletteId }}',
+    colors: {{ palettes[paletteId] | dump | safe }},
+    maxChroma: {{ maxChroma }},
+  }
+</script>
+<script type="module" src="{{ page.url }}../tweak.js"></script>
 
 <h2>Used By</h2>
 

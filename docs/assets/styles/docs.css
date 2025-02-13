@@ -402,7 +402,7 @@ wa-page > main:has(> .index-grid) {
     border-color: transparent;
     transition: background var(--wa-transition-slow);
     background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box var(--color,);
-    background-position: var(--color-2-position, top);
+    background-position: var(--color-2-position, bottom);
     background-size: var(--color-2-width, 100%) var(--color-2-height, 50%);
 
     &.contrast-fail {

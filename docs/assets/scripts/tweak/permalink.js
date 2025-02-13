@@ -45,10 +45,10 @@ export default class Permalink extends URLSearchParams {
     }
   }
 
-  set(key, value) {
+  set(key, value, defaultValue) {
     let oldValue = this.get(key);
 
-    if (!value) {
+    if (!value || value == defaultValue) {
       super.delete(key);
 
       if (oldValue) {

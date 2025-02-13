@@ -51,27 +51,33 @@ export function palette(paletteId, tweaks, options) {
   let css = '';
 
   if (tweaks) {
-    let { hueShifts } = tweaks;
+    let { hueShifts, chromaScale = 1 } = tweaks;
     let declarations = [];
 
-    if (hueShifts) {
+    if (chromaScale !== 1) {
+      declarations.push(`--wa-chroma-scale: ${chromaScale};`);
+    }
+
+    if (hueShifts || chromaScale !== 1) {
       let element = document.querySelector(`.wa-palette-${paletteId}`) ?? document.documentElement;
       let cs = getComputedStyle(element);
 
       for (let hue in hueShifts) {
         let shift = hueShifts[hue];
 
-        if (!shift) {
+        if (!shift && chromaScale === 1) {
           continue;
         }
 
         let shiftCode = shift > 0 ? `+ ${shift}` : `- ${-shift}`;
-        declarations.push(`--wa-color-${hue}-tweak: l c calc(h ${shiftCode});`);
+        let c = chromaScale === 1 ? 'c' : `calc(c * ${chromaScale})`;
+        let h = shift ? `calc(h ${shiftCode})` : 'h';
+        declarations.push(`--wa-color-${hue}-tweak: l ${c} ${h});`);
 
         for (let suffix of ['', '-05', '-10', '-20', '-30', '-40', '-50', '-60', '-70', '-80', '-90', '-95']) {
           let baseColor = cs.getPropertyValue(`--wa-color-${hue}${suffix}`);
           // Work around https://bugs.webkit.org/show_bug.cgi?id=287637
-          let colorSpace = suffix === '-95' || suffix === '-90' ? '  lch' : 'oklch';
+          let colorSpace = ['-95', '-90'].includes(suffix) ? '  lch' : 'oklch';
           let value = `${colorSpace}(from ${baseColor.padEnd(7)} var(--wa-color-${hue}-tweak))`;
           suffix = (suffix + ':').padEnd(4);
           declarations.push(`--wa-color-${hue}${suffix} ${value};`);

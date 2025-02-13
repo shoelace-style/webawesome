@@ -19,9 +19,6 @@ wa-dropdown > .color.swatch {
   grid-template-columns: auto 1fr auto;
   margin-block-end: var(--wa-space-xl);
 
-  --color-1: oklch(from var(--color) l c calc(h + var(--min, 0)));
-  --color-2: oklch(from var(--color) l c calc(h + var(--max, 0)));
-
   wa-slider {
     grid-column: 1 / -1;
     --track-height: 1em;
@@ -61,6 +58,18 @@ wa-dropdown > .color.swatch {
   }
 }
 
+.hue-shift-slider {
+  --color-1: oklch(from var(--color) l c calc(h + var(--min, 0)));
+  --color-2: oklch(from var(--color) l c calc(h + var(--max, 0)));
+}
+
+.chroma-scale-slider {
+  --color: var(--wa-color-brand);
+  --color-1: oklch(from var(--color) l calc(c * var(--min)) h);
+  --color-2: oklch(from var(--color) l calc(c * var(--max)) h);
+  --color-tweaked: oklch(from var(--color) l calc(c * var(--chroma-scale)) h);
+}
+
 .popup {
   background: var(--wa-color-surface-default);
   border: 1px solid var(--wa-color-surface-border);
@@ -78,13 +87,17 @@ wa-dropdown > .color.swatch {
   }
 
   td {
-    --color-tweaked: oklch(from var(--color) l c calc(h + var(--hue-shift)));
+    --tweak-c: calc(c * var(--chroma-scale, 1));
+    --tweak-h: calc(h + var(--hue-shift, 0));
+    --color-tweaked: oklch(from var(--color) l var(--tweak-c) var(--tweak-h));
+    --color-tweaked-no-chroma-scale: oklch(from var(--color) l c var(--tweak-h));
+    --color-tweaked-no-hue-shift: oklch(from var(--color) l var(--tweak-c) h);
 
-    &.safari-oklch-bug {
-      /* Multiplying and then dividing by 6 to work around  https://bugs.webkit.org/show_bug.cgi?id=287637 */
-      --color-tweaked: oklch(
-        from oklab(from var(--color) l calc(6 * a) calc(6 * b)) l calc(c / 6) calc(h + var(--hue-shift))
-      );
+    &:is([data-tint='90'], [data-tint='90']) {
+      /* Work around  https://bugs.webkit.org/show_bug.cgi?id=287637 */
+      --color-tweaked: lch(from var(--color) l var(--tweak-c) var(--tweak-h));
+      --color-tweaked-no-chroma-scale: lch(from var(--color) l c var(--tweak-h));
+      --color-tweaked-no-hue-shift: lch(from var(--color) l var(--tweak-c) h);
 
       /* outline: 1px dashed red; */
     }
@@ -92,14 +105,19 @@ wa-dropdown > .color.swatch {
 
   .color.swatch {
     --color-2: var(--color-tweaked);
-  }
-
-  &.tweaked .color.swatch {
     --color-2-height: 100%;
-  }
 
-  &.tweaking .color.swatch {
-    --color-2-height: 50%;
+    &:is(.tweaking *) {
+      --color-2-height: 70%;
+
+      &:is(.tweaking-chroma *) {
+        --color: var(--color-tweaked-no-chroma-scale);
+      }
+
+      &:is(.tweaking-hue *) {
+        --color: var(--color-tweaked-no-hue-shift);
+      }
+    }
   }
 
   .tweak-icon {
