@@ -98,7 +98,7 @@ function runTest(test = {}) {
             return coreTint;
           }
 
-          return localUsed.tints.filter(t => {
+          return used.tints.filter(t => {
             let distance = t - coreTint;
             return Math.abs(distance) <= offset && !((op === '-' && distance > 0) || (op === '+' && distance < 0));
           });
