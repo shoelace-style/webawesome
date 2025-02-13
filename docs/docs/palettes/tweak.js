@@ -7,6 +7,16 @@ import Prism from '/assets/scripts/prism.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
+// Detect https://bugs.webkit.org/show_bug.cgi?id=287637
+const SAFARI_OKLCH_BUG = (() => {
+  let dummy = document.createElement('div');
+  document.body.appendChild(dummy);
+  dummy.style.color = 'oklch(from #d5e0e6 l c h)';
+  let computedColor = getComputedStyle(dummy).color;
+  dummy.remove();
+  return computedColor.endsWith(' 0)');
+})();
+
 let paletteAppSpec = {
   data() {
     const { paletteId, colors } = wa_data;
@@ -25,6 +35,7 @@ let paletteAppSpec = {
       paletteId,
       originalColors: colors,
       tweaking: {},
+      SAFARI_OKLCH_BUG,
     };
   },
 

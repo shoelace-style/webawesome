@@ -34,8 +34,8 @@
 {%- set hueBefore = hues[hues|length - 2] -%}
 {% for hue in hues -%}
 {%- set coreColor = palettes[paletteId][hue][palettes[paletteId][hue].maxChromaTint] -%}
-<tr class="color-scale" data-hue="{{ hue }}" :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
-    :style="{ '--hue-shift': hueShifts.{{ hue }} }">
+<tr data-hue="{{ hue }}" class="color-scale" :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
+    :style="{ '--hue-shift': hueShifts.{{ hue }} || '' }">
   <th>
     {{ hue | capitalize }}
   </th>
@@ -78,7 +78,8 @@
     {% endif %}
   </td>
   {% for tint in tints -%}
-    <td style="--color: var(--wa-color-{{ hue }}-{{ tint }})">
+    {%- set color = palettes[paletteId][hue][tint] -%}
+    <td style="--color: var(--wa-color-{{ hue }}-{{ tint }})" :class="{'safari-oklch-bug': SAFARI_OKLCH_BUG && {{ color.c < 0.027 }} }">
       <div data-tint="{{ tint }}" class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
         <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
       </div>

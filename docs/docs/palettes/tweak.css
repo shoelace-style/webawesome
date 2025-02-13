@@ -27,7 +27,7 @@ wa-dropdown > .color.swatch {
     --track-height: 1em;
     --track-color-inactive: transparent;
     --track-color-active: transparent;
-    --thumb-color: var(--color-tweaked);
+    --thumb-color: var(--color-tweaked, var(--color));
 
     &::part(base) {
       background: linear-gradient(to right in oklch, var(--color-1), var(--color-2));
@@ -78,7 +78,16 @@ wa-dropdown > .color.swatch {
   }
 
   td {
-    --color-tweaked: oklch(from var(--color) l c calc(h + var(--hue-shift, 0)));
+    --color-tweaked: oklch(from var(--color) l c calc(h + var(--hue-shift)));
+
+    &.safari-oklch-bug {
+      /* Multiplying and then dividing by 6 to work around  https://bugs.webkit.org/show_bug.cgi?id=287637 */
+      --color-tweaked: oklch(
+        from oklab(from var(--color) l calc(6 * a) calc(6 * b)) l calc(c / 6) calc(h + var(--hue-shift))
+      );
+
+      /* outline: 1px dashed red; */
+    }
   }
 
   .color.swatch {
