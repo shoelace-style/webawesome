@@ -6,7 +6,8 @@ import { aggregates, normalizeAngles, toPrecision } from './util.js';
 /**
  * Each "test" consists of the following params to analyze:
  * - component: The color component to analyze (h, c, l)
- * - label: The label to display in the console (optional)
+ * - getValue: A function to extract the value to analyze from a color, for more complex analysis than just getting a component
+ * - caption: The caption to display in the console (optional)
  * - by: The grouping to analyze by (1-2 of 'tint', 'hue', 'palette')
  * - filter: Restrict to specific hues/tints/palettes or exclude them
  * - stats: The stats to calculate for each group (min, max, mid, extent, avg, median, count)
@@ -18,6 +19,18 @@ let tests = [
   { component: 'c', by: 'tint', filter: '-gray' },
   { component: 'c', by: 'palette', filter: 'core', stats: ['max', 'avg', 'median', 'count'] },
   { component: 'l', by: 'tint' },
+  {
+    caption: 'Hue change between consecutive tints',
+    getValue(color, { palette, tint, hue }) {
+      let nextTint = getNextTint(tint);
+      let nextColor = palettes[palette][hue][nextTint];
+      return color.h - nextColor.h;
+    },
+    getKey({ tint }) {
+      return `${tint} → ${getNextTint(tint)}`;
+    },
+    filter: '-95',
+  },
 ];
 
 const COMPONENT_NAMES = { l: 'lightness', c: 'chroma', h: 'hue' };
@@ -31,6 +44,8 @@ const all = {
 
 let args = process.argv.slice(2);
 let used = getSubset(all, args);
+
+const getNextTint = tint => Number(tint) + (tint == 5 || tint == 90 ? 5 : 10);
 
 for (let key in used) {
   if (used[key].length < all[key].length) {
@@ -83,7 +98,16 @@ function getSubset(all, args) {
 }
 
 function runTest(test = {}) {
-  let { component, label, by = 'tint', filter, stats = ['min', 'max', 'median', 'count'], silent } = test;
+  let {
+    component,
+    getValue = color => color[component],
+    by = 'tint',
+    getKey = getDefaultKey(by),
+    filter,
+    caption = getDefaultCaption(test),
+    stats = ['min', 'max', 'median', 'count'],
+    silent,
+  } = test;
   let results = {};
   let localUsed = filter ? getSubset(used, filter) : used;
 
@@ -94,6 +118,7 @@ function runTest(test = {}) {
       let tints = localUsed.tints.flatMap(tint => {
         if (CORE_TINT_MICROSYNTAX.test(tint)) {
           let { op, offset } = CORE_TINT_MICROSYNTAX.exec(tint).groups;
+
           if (!offset) {
             return coreTint;
           }
@@ -108,9 +133,9 @@ function runTest(test = {}) {
       });
 
       for (let tint of tints) {
-        let key = getKey(by, { hue, tint, palette });
+        let key = getKey({ hue, tint, palette });
         let color = palettes[palette][hue][tint];
-        let value = color[component];
+        let value = getValue(color, { hue, tint, palette }, localUsed);
 
         results[key] ??= [];
         results[key].push(value);
@@ -130,22 +155,12 @@ function runTest(test = {}) {
       acc[stat] = toPrecision(aggregates[stat](values, acc));
       return acc;
     }, {});
-
-    if (key.startsWith('0')) {
-      // Replace 05 with 5 so that it appears in the correct place
-      let newKey = key.replace(/^0+/, '');
-      results[newKey] = results[key];
-      delete results[key];
-    }
-  }
-
-  if (!label) {
-    label = getLabel(test);
   }
 
   if (!silent) {
-    console.log(label);
+    console.log(caption);
     console.table(results);
+    console.log('\n');
   }
 
   return results;
@@ -155,12 +170,22 @@ for (let test of tests) {
   runTest(test);
 }
 
-function getKey(by, things) {
+function getDefaultKey(by) {
   by = Array.isArray(by) ? by : [by];
-  return by.map(thing => things[thing]).join('-');
+
+  return variables =>
+    by
+      .map((variableName, i) => {
+        if (variableName === 'tint' && i === 0) {
+          // Drop leading zeros because they throw off row order
+          return String(variables.tint).replace(/^0+/, '');
+        }
+        return variables[variableName];
+      })
+      .join('-');
 }
 
-function getLabel({ component, by, filter }) {
+function getDefaultCaption({ component, by, filter }) {
   let ret = COMPONENT_NAMES[component];
 
   by = Array.isArray(by) ? by : [by];
