@@ -5,10 +5,11 @@ import { aggregates, normalizeAngles, toPrecision } from './util.js';
 
 /**
  * Each "test" consists of the following params to analyze:
- * - component: The color component to analyze (h, c, l)
+ * - component: The color component to analyze (h, c, l). If `getValue()` is provided, this is ignored.
  * - getValue: A function to extract the value to analyze from a color, for more complex analysis than just getting a component
- * - caption: The caption to display in the console (optional)
- * - by: The grouping to analyze by (1-2 of 'tint', 'hue', 'palette')
+ * - by: The grouping to analyze by (1-2 of 'tint', 'hue', 'palette'). If `getKey()` is provided, this is ignored
+ * - getKey: A function to generate a key for each group. If not provided, it is generated based on the 'by' param
+ * - caption: The caption to display in the console. If not provided, a default label is generated from test params.
  * - filter: Restrict to specific hues/tints/palettes or exclude them
  * - stats: The stats to calculate for each group (min, max, mid, extent, avg, median, count)
  */
