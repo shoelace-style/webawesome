@@ -87,12 +87,17 @@ let paletteAppSpec = {
       return Object.values(this.hueShifts).some(Boolean);
     },
 
-    paletteHTML() {
-      return getPaletteCode(this.paletteId, this.tweaks, { language: 'html', cdnUrl });
-    },
+    code() {
+      let ret = {};
+      for (let language of ['html', 'css']) {
+        let code = getPaletteCode(this.paletteId, this.tweaks, { language, cdnUrl });
+        ret[language] = {
+          raw: code,
+          highlighted: Prism.highlight(code, Prism.languages[language], language),
+        };
+      }
 
-    paletteCSS() {
-      return getPaletteCode(this.paletteId, this.tweaks, { language: 'css', cdnUrl });
+      return ret;
     },
 
     colors() {
@@ -175,23 +180,6 @@ let paletteAppSpec = {
   },
 
   watch: {
-    // Note: These could move to `v-html` directives if we widen the app root
-    paletteHTML() {
-      let codeElement = document.querySelector('#usage ~ wa-tab-group.import-stylesheet-code code.language-html');
-      codeElement.textContent = this.paletteHTML;
-      let copyButton = codeElement.previousElementSibling;
-      copyButton.value = this.paletteHTML;
-      Prism.highlightElement(codeElement);
-    },
-
-    paletteCSS() {
-      let codeElement = document.querySelector('#usage ~ wa-tab-group.import-stylesheet-code code.language-css');
-      codeElement.textContent = this.paletteCSS;
-      let copyButton = codeElement.previousElementSibling;
-      copyButton.value = this.paletteCSS;
-      Prism.highlightElement(codeElement);
-    },
-
     hueShifts: {
       deep: true,
       handler() {
@@ -257,24 +245,25 @@ let paletteAppSpec = {
   directives: {
     // Like v-text, but doesn't complain if the element has content,
     // making it possible to use in a PE fashion, with the contents being the fallback
-    content: {
-      mounted(el, { value, arg }) {
-        if (!el.dataset.fallback) {
-          // Store the original content as a fallback the first time
-          el.dataset.fallback = el.textContent;
-        }
+    content(el, { value, arg }) {
+      if (!el.dataset.fallback) {
+        // Store the original content as a fallback the first time
+        el.dataset.fallback = el.textContent;
+      }
 
-        if (value === '') {
-          el.textContent = el.dataset.fallback;
-          return;
-        }
-
+      if (value === '') {
+        value = el.dataset.fallback;
+      } else {
         if (arg === 'number') {
           value = Number(value).toLocaleString(undefined, { maximumSignificantDigits: 2 });
         }
+      }
 
+      if (arg === 'html') {
+        el.innerHTML = value;
+      } else {
         el.textContent = value;
-      },
+      }
     },
   },
 

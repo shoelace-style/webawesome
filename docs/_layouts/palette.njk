@@ -231,7 +231,25 @@ If you are using a Web Awesome theme that uses this palette, it will already be 
 To use a different palette than a theme default, or to use it in a custom theme, you can import this palette directly from the Web Awesome CDN.
 
 {% set stylesheet = 'styles/color/' + page.fileSlug + '.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
+<wa-tab-group class="import-stylesheet-code">
+<wa-tab panel="html">In HTML</wa-tab>
+<wa-tab panel="css">In CSS</wa-tab>
+<wa-tab-panel name="html">
+
+Add the following code to the `<head>` of your page:
+```html { v-content:html="code.html.highlighted" }
+<link rel="stylesheet" href="{% cdnUrl stylesheet %}" />
+```
+</wa-tab-panel>
+<wa-tab-panel name="css">
+
+Add the following code at the top of your CSS file:
+```css { v-content:html="code.css.highlighted" }
+@import url('{% cdnUrl stylesheet %}');
+```
+</wa-tab-panel>
+</wa-tab-group>
+
 
 {% endmarkdown %}
 </div></div> {# end palette app #}
