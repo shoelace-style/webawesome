@@ -51,10 +51,12 @@ wa-dropdown > .color.swatch {
 
   .label-min {
     grid-column: 1;
+    margin-inline-start: 0.15em;
   }
 
   .label-max {
     grid-column: 3;
+    margin-inline-end: 0.1em;
   }
 }
 
