@@ -1,6 +1,6 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
 import { cdnUrl, getPaletteCode, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
 import Prism from '/assets/scripts/prism.js';
@@ -150,10 +150,8 @@ let paletteAppSpec = {
 
     tweaks: {
       deep: true,
-      handler(value, oldValue) {
-        if (JSON.stringify(value) === JSON.stringify(oldValue)) {
-          return;
-        }
+      async handler(value, oldValue) {
+        await nextTick(); // must run after individual watchers
 
         // Update page URL
         this.permalink.updateLocation();

@@ -13,6 +13,10 @@ function renderPalettes() {
 }
 
 function isPaletteEqual(p1, p2) {
+  if (!p1 || !p2) {
+    return false;
+  }
+
   return p1.id === p2.id && (p1.title === p2.title || p1.search === p2.search);
 }
 

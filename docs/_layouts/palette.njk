@@ -47,7 +47,7 @@
 
 <p v-if="tweaked.chroma || tweaked.hue">
    This palette has been tweaked.
-   <wa-button size="small" v-if="tweaked.chroma || tweaked.hue" @click="save">
+   <wa-button size="small" v-if="!saved" @click="save">
     <span slot="prefix" class="icon-modifier">
       <wa-icon name="sidebar" variant="regular"></wa-icon>
       <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
@@ -55,7 +55,9 @@
     Save
   </wa-button>
 </p>
-
+<p v-else>
+  &nbsp;
+</p>
 
 <table class="colors main wa-palette-{{ paletteId }}">
   <thead>
