@@ -93,7 +93,7 @@ wa-dropdown > .color.swatch {
     --color-tweaked-no-chroma-scale: oklch(from var(--color) l c var(--tweak-h));
     --color-tweaked-no-hue-shift: oklch(from var(--color) l var(--tweak-c) h);
 
-    &:is([data-tint='90'], [data-tint='90']) {
+    &:is([data-tint='90'], [data-tint='95']) {
       /* Work around  https://bugs.webkit.org/show_bug.cgi?id=287637 */
       --color-tweaked: lch(from var(--color) l var(--tweak-c) var(--tweak-h));
       --color-tweaked-no-chroma-scale: lch(from var(--color) l c var(--tweak-h));
