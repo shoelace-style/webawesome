@@ -17,7 +17,7 @@
    */
   --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
   --wa-color-brand-fill-normal: var(--wa-color-brand-90);
-  --wa-color-brand-fill-loud: var(--wa-color-brand-70);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-70-min);
   --wa-color-brand-border-quiet: var(--wa-color-brand-70);
   --wa-color-brand-border-normal: var(--wa-color-brand-50);
   --wa-color-brand-border-loud: var(--wa-color-brand-30);
@@ -77,7 +77,7 @@
    */
   --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
   --wa-color-brand-fill-normal: var(--wa-color-brand-20);
-  --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+  --wa-color-brand-fill-loud: var(--wa-color-brand-50-max);
   --wa-color-brand-border-quiet: var(--wa-color-brand-30);
   --wa-color-brand-border-normal: var(--wa-color-brand-50);
   --wa-color-brand-border-loud: var(--wa-color-brand-80);
