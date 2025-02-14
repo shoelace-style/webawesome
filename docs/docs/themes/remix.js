@@ -139,10 +139,8 @@ function render(changedAspect) {
   // Update code snippets
   for (let language in codeSnippets) {
     let codeSnippet = codeSnippets[language];
-    let copyButton = codeSnippet.previousElementSibling;
     let code = getThemeCode(data.baseTheme, data.params, { language, cdnUrl });
     codeSnippet.textContent = code;
-    copyButton.value = code;
     Prism.highlightElement(codeSnippet);
   }
 }
