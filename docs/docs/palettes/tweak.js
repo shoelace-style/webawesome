@@ -70,7 +70,7 @@ let paletteAppSpec = {
       }
 
       let palette = { id: this.paletteId, search: location.search };
-      this.saved = sidebar.getSavedPalette(palette);
+      this.saved = sidebar.palette.getSaved(palette);
     }
   },
 
@@ -217,7 +217,7 @@ let paletteAppSpec = {
       }
 
       let palette = { title, id: this.paletteId, search: location.search };
-      sidebar.savePalette(palette, this.saved);
+      sidebar.palette.save(palette, this.saved);
       this.saved = palette;
     },
 
@@ -233,11 +233,11 @@ let paletteAppSpec = {
       }
 
       this.saved.title = newTitle;
-      sidebar.savePalette(this.saved);
+      sidebar.palette.save(this.saved);
     },
 
     deleteSaved() {
-      sidebar.deletePalette(this.saved);
+      sidebar.palette.delete(this.saved);
       this.saved = null;
     },
   },
