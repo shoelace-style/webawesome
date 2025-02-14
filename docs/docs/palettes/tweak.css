@@ -86,7 +86,7 @@ wa-dropdown > .color.swatch {
     white-space: nowrap;
   }
 
-  td {
+  td:not([data-hue='gray'] *) {
     --tweak-c: calc(c * var(--chroma-scale, 1));
     --tweak-h: calc(h + var(--hue-shift, 0));
     --color-tweaked: oklch(from var(--color) l var(--tweak-c) var(--tweak-h));
