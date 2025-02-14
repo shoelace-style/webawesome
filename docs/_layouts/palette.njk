@@ -8,6 +8,14 @@
 {% block head %}
 <style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
+<script>
+  globalThis.paletteApp = {
+    paletteId: '{{ paletteId }}',
+    paletteTitle: '{{ title }}',
+    originalColors: {{ palettes[paletteId] | dump | safe }},
+    saved: globalThis.paletteApp?.saved || null,
+  };
+</script>
 {% endblock %}
 
 {% block header %}
@@ -152,12 +160,7 @@ style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
 </div>
 
 <script>
-  globalThis.paletteApp = Object.assign({}, globalThis.paletteApp, {
-    paletteId: '{{ paletteId }}',
-    paletteTitle: '{{ title }}',
-    originalColors: {{ palettes[paletteId] | dump | safe }},
-    maxChroma: {{ maxChroma }},
-  });
+  globalThis.paletteApp.maxChroma = {{ maxChroma }};
 </script>
 <script type="module" src="{{ page.url }}../tweak.js"></script>
 

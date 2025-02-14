@@ -39,11 +39,18 @@ function renderPalettes() {
           ul.appendChild(li);
         }
 
-        if (parentA.classList.contains('current') && location.search === search) {
+        if (parentA.classList.contains('current')) {
           // We are currently viewing this page
-          parentA.classList.remove('current');
-          a.classList.add('current');
-          globalThis.paletteApp = Object.assign({}, globalThis.paletteApp, { saved: palette });
+          if (location.search === search) {
+            parentA.classList.remove('current');
+            a.classList.add('current');
+
+            if (!globalThis.paletteApp) {
+              globalThis.paletteApp = {};
+            }
+
+            globalThis.paletteApp.saved = palette;
+          }
         }
       }
     }
@@ -98,27 +105,38 @@ function deletePalette(palette) {
   }
 }
 
+function getSavedPalette(palette, savedPalettes = JSON.parse(localStorage.savedPalettes ?? '[]')) {
+  return savedPalettes.find(p => p.id === palette.id && (p.title === palette.title || p.search === palette.search));
+}
+
 function savePalette(palette, saved) {
   let savedPalettes = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
-  let existing = savedPalettes.find(p => propertiesEqual(saved ?? palette, p, ['search', 'id']));
+  let existing = getSavedPalette(saved ?? palette, savedPalettes);
 
   if (existing) {
     // Rename
+    let a = document.querySelector(`a[href="/docs/palettes/${existing.id}/${existing.search}"]`);
+
     Object.assign(existing, palette);
+
+    if (a) {
+      a.textContent = palette.title;
+      a.href = `/docs/palettes/${palette.id}/${palette.search}`;
+    }
   } else {
     savedPalettes.push(palette);
   }
 
   localStorage.savedPalettes = JSON.stringify(savedPalettes);
-
-  renderPalettes();
 }
 
 function render() {
+  console.trace('Rendering sidebar');
+
   renderPalettes();
 }
 
-globalThis.sidebar = { render, renderPalettes, deletePalette, savePalette };
+globalThis.sidebar = { render, renderPalettes, deletePalette, savePalette, getSavedPalette };
 
 render();
 window.addEventListener('turbo:render', render);

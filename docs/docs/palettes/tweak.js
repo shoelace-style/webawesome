@@ -17,11 +17,11 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   return computedColor.endsWith(' 0)');
 // })();
 
+let pageData = globalThis.paletteApp || {};
+
 let paletteAppSpec = {
   data() {
     // Replace colors with their oklch coords (since they're all opaque and all in the same color space)
-    let pageData = globalThis.paletteApp || {};
-
     if (pageData.originalColors) {
       for (let hue in pageData.originalColors) {
         for (let tint of tints) {
@@ -34,6 +34,7 @@ let paletteAppSpec = {
     return {
       saved: null,
       ...pageData,
+      pageData,
       permalink: new Permalink(),
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
@@ -56,7 +57,7 @@ let paletteAppSpec = {
       this.permalink.writeTo(this.hueShifts);
 
       if (this.permalink.has('chroma-scale')) {
-        this.chromaScale = Number(this.permalink.get('chromaScale') || 1);
+        this.chromaScale = Number(this.permalink.get('chroma-scale') || 1);
       }
     }
   },
@@ -150,8 +151,10 @@ let paletteAppSpec = {
 
     tweaks: {
       deep: true,
-      handler() {
-        this.permalink.readFrom(this.hueShifts);
+      handler(value, oldValue) {
+        if (JSON.stringify(value) === JSON.stringify(oldValue)) {
+          return;
+        }
 
         // Update page URL
         this.permalink.updateLocation();
@@ -209,6 +212,7 @@ let paletteAppSpec = {
 
 function init() {
   globalThis.paletteApp = createApp(paletteAppSpec).mount('#palette-app');
+  console.log('Initializing palette app', paletteApp.saved);
 }
 
 function updateContrastTables(colors) {
