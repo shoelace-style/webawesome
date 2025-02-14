@@ -1,12 +1,12 @@
 ---
 title: Product Preview
-description: 'Gives Customers the ability to see more details about a product or service in a modal to get more information'
+description: 'Give shoppers a quick look at your products as they browse with modal previews.'
 parent: ecommerce
 tags: e-commerce
 icon: preview
 ---
  
-## With color and size selector
+## With Quick Options
 ```html{.example}
   <div style="max-width: 960px;margin: 0 auto;">
    <wa-card with-header>
@@ -48,7 +48,7 @@ icon: preview
   </div>
 ```
 
-## with large selector
+## With Quick Options & Details Link
 ```html{.example}
   <wa-card style="max-width: 960px;margin: 0 auto;">
     <div class="card-body wa-grid">

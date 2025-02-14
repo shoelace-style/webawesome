@@ -1,12 +1,13 @@
 ---
 title: Category Filter
-description: 'Allows customers to refine (reduce?) the results of their searches by specific attributes'
+description: 'Help shoppers find the right products with filters to refine search results by specific attributes.'
 parent: ecommerce
 tags: e-commerce
 icon: checkbox
 ---
 
-## With Checkboxes and Expandable Categories
+## Sidebar with Checkboxes & Expandable Filters
+
 ```html{.example}
   <h1>New Arrivals</h1>
   <div class="wa-flank wa-align-items-start" style="--flank-size: 200px;">
@@ -46,7 +47,8 @@ icon: checkbox
   </div>
 </div>
 ```
-## With Dropdowns
+
+## Sidebar with Dropdowns
 
 ```html{.example}
   <h1>New Arrivals</h1>

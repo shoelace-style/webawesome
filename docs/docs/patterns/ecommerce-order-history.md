@@ -1,12 +1,11 @@
 ---
 title: Order History
-description: 'Enable customers to view past purchases, track shipments and access details of previous purchases'
+description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
 parent: ecommerce
 tags: e-commerce
 ---
-## Invoice
 
-### Panel
+## Order Panels
 ```html {.example}
 <div>
   <h2>Order History</h2>
@@ -99,7 +98,7 @@ tags: e-commerce
 </style>
 ```
 
-### Table
+## Invoice Table
 ```html{.example}
 <div class="invoice-table">
   <div class="invoice-totals wa-split" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); padding-inline: 1rem; padding-block: 1rem;">
@@ -197,6 +196,6 @@ tags: e-commerce
 </div>
 ```
 
-### List with Quick Actions
-```html{example}
+## List with Quick Actions
+```html{.example}
 ```

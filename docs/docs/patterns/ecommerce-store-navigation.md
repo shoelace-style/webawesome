@@ -1,11 +1,11 @@
 ---
-title: Mega Menu
-description: 'provide and overall view of a sites complex information architecture'
+title: Store Navigation
+description: 'Help shoppers explore categories and find products with all of the links they need to navigate your store.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-## Mega Menu
+## Popup Menu
 
 ```html{.example}
 <wa-dropdown>

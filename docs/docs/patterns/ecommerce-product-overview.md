@@ -1,11 +1,11 @@
 ---
 title: Product Overviews
-description: 'Give your product a sleak look on its own page with product overviews. Show all the info such as pricing, more images, customization options etc.'
+description: 'Showcase your products with overviews including images, ratings, features, options, and more.'
 parent: ecommerce
 tags: e-commerce
 ---
 
-## With images grid
+## With Image Grid
 ```html{.example}
 <div class="with-image-grid" style="max-width: 960px;margin: 0 auto;">
   <wa-breadcrumb style="margin-bottom: 1rem; display: block;">
@@ -118,7 +118,7 @@ tags: e-commerce
   </div>
 </div>
 ```
-## with images and expandable details
+## With Image Carousel & Expandable Details
 
 ```html {.example}
 <div style="max-width: 960px;margin: 0 auto;">
@@ -269,7 +269,7 @@ tags: e-commerce
 </script>
 ```
 
-## Split with image
+## Split with Image
 
 ```html {.example}
 <div class="split-with-image" style="max-width: 960px;margin: 0 auto;">
@@ -302,7 +302,7 @@ tags: e-commerce
   </div>
 </div>
 ```
-## With tabs
+## With Tabs
 
 ```html{.example}
 <div>
