@@ -17,24 +17,24 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   return computedColor.endsWith(' 0)');
 // })();
 
+let pageData = globalThis.paletteApp || {};
 let paletteAppSpec = {
   data() {
-    const { paletteId, colors, maxChroma } = wa_data;
-
     // Replace colors with their oklch coords (since they're all opaque and all in the same color space)
-    for (let hue in colors) {
-      for (let tint of tints) {
-        colors[hue][tint] = colors[hue][tint].coords;
+    if (pageData.originalColors) {
+      for (let hue in pageData.originalColors) {
+        for (let tint of tints) {
+          pageData.originalColors[hue][tint] = pageData.originalColors[hue][tint].coords;
+        }
       }
     }
 
     return {
+      saved: false,
+      ...pageData,
       permalink: new Permalink(),
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
-      paletteId,
-      originalColors: colors,
-      maxChroma,
       chromaScale: 1,
       tweaking: {},
     };
@@ -104,6 +104,13 @@ let paletteAppSpec = {
 
       return ret;
     },
+
+    tweaked() {
+      return {
+        chroma: this.chromaScale !== 1,
+        hue: Object.values(this.hueShifts).some(Boolean),
+      };
+    },
   },
 
   watch: {
@@ -145,6 +152,22 @@ let paletteAppSpec = {
 
       // Update contrast colors
       updateContrastTables(this.colors);
+    },
+  },
+
+  methods: {
+    save() {
+      let title = prompt('Title:', `${this.paletteTitle} (tweaked)`);
+
+      if (!title) {
+        return;
+      }
+
+      let savedPalettes = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+      savedPalettes.push({ title, id: this.paletteId, search: location.search });
+      localStorage.savedPalettes = JSON.stringify(savedPalettes);
+
+      sidebar.renderPalettes();
     },
   },
 

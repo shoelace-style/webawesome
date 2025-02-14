@@ -156,7 +156,7 @@ wa-page > header {
 }
 
 /* Pro badges */
-wa-badge.pro::part(base) {
+wa-badge.pro {
   background-color: var(--wa-brand-orange);
   border-color: var(--wa-brand-orange);
 }
@@ -186,6 +186,19 @@ wa-badge.pro::part(base) {
           color: var(--wa-color-brand-on-quiet);
         }
       }
+    }
+  }
+
+  .delete {
+    margin-inline-start: var(--wa-space-xs);
+    vertical-align: -0.2em;
+
+    &:hover {
+      color: var(--wa-color-danger-on-quiet);
+    }
+
+    &::part(base):hover {
+      background: var(--wa-color-danger-fill-quiet);
     }
   }
 }
@@ -498,6 +511,27 @@ table.colors {
 .value-up {
   --icon: '▲';
   --icon-color: var(--wa-color-success-fill-quiet);
+}
+
+.icon-modifier {
+  position: relative;
+  display: inline-flex;
+
+  .modifier {
+    position: absolute;
+    bottom: -0.1em;
+    right: -0.3em;
+    font-size: 60%;
+
+    &::part(svg) {
+      stroke: var(--background-color, var(--wa-color-surface-default));
+      stroke-width: 100px;
+      paint-order: stroke;
+      overflow: visible;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
 }
 
 /* Layout Examples */
