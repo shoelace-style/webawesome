@@ -8,18 +8,10 @@
 {% block head %}
 <style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
-<script>
-  globalThis.paletteApp = {
-    paletteId: '{{ paletteId }}',
-    paletteTitle: '{{ title }}',
-    originalColors: {{ palettes[paletteId] | dump | safe }},
-    saved: globalThis.paletteApp?.saved || null,
-  };
-</script>
 {% endblock %}
 
 {% block header %}
-<div id="palette-app">
+<div id="palette-app" data-palette-id="{{ paletteId }}">
   <div
   :class="{
     tweaking: tweaking.chroma,
@@ -37,16 +29,7 @@
     <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
     <wa-icon-button class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
   </h1>
-  <h1 v-else class="title">
-    {{ title }}
-    <wa-button size="small" v-if="tweaked.chroma || tweaked.hue" @click="save">
-      <span slot="prefix" class="icon-modifier">
-        <wa-icon name="sidebar" variant="regular"></wa-icon>
-        <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-      </span>
-      Save
-    </wa-button>
-  </h1>
+  <h1 v-else class="title">{{ title }}</h1>
   <div class="block-info">
     <code class="class">.wa-palette-{{ paletteId }}</code>
     {% include '../_includes/status.njk' %}
@@ -64,6 +47,13 @@
 
 <p v-if="tweaked.chroma || tweaked.hue">
    This palette has been tweaked.
+   <wa-button size="small" v-if="tweaked.chroma || tweaked.hue" @click="save">
+    <span slot="prefix" class="icon-modifier">
+      <wa-icon name="sidebar" variant="regular"></wa-icon>
+      <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
+    </span>
+    Save
+  </wa-button>
 </p>
 
 
@@ -159,9 +149,6 @@ style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
 </div>
 </div>
 
-<script>
-  globalThis.paletteApp.maxChroma = {{ maxChroma }};
-</script>
 <script type="module" src="{{ page.url }}../tweak.js"></script>
 
 <h2>Used By</h2>

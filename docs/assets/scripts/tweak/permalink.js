@@ -61,6 +61,8 @@ export default class Permalink extends URLSearchParams {
         this.changed = true;
       }
     }
+
+    this.sort();
   }
 
   /**

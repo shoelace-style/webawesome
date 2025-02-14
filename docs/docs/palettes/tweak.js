@@ -17,29 +17,25 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   return computedColor.endsWith(' 0)');
 // })();
 
-let pageData = globalThis.paletteApp || {};
+let allPalettes = await fetch('/docs/palettes/data.json').then(r => r.json());
+globalThis.allPalettes = allPalettes;
 
 let paletteAppSpec = {
   data() {
-    // Replace colors with their oklch coords (since they're all opaque and all in the same color space)
-    if (pageData.originalColors) {
-      for (let hue in pageData.originalColors) {
-        for (let tint of tints) {
-          pageData.originalColors[hue][tint] =
-            pageData.originalColors[hue][tint].coords ?? pageData.originalColors[hue][tint];
-        }
-      }
-    }
+    let appRoot = document.querySelector('#palette-app');
+    let paletteId = appRoot.dataset.paletteId;
+    let palette = allPalettes[paletteId];
 
     return {
-      saved: null,
-      ...pageData,
-      pageData,
+      paletteId,
+      paletteTitle: palette.title,
+      originalColors: palette.colors,
       permalink: new Permalink(),
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
       tweaking: {},
+      saved: null,
     };
   },
 
@@ -59,6 +55,9 @@ let paletteAppSpec = {
       if (this.permalink.has('chroma-scale')) {
         this.chromaScale = Number(this.permalink.get('chroma-scale') || 1);
       }
+
+      let palette = { id: this.paletteId, search: location.search };
+      this.saved = sidebar.getSavedPalette(palette);
     }
   },
 
@@ -195,7 +194,7 @@ let paletteAppSpec = {
         return;
       }
 
-      this.paletteTitle = this.saved.title = newTitle;
+      this.saved.title = newTitle;
       sidebar.savePalette(this.saved);
     },
 
@@ -211,8 +210,8 @@ let paletteAppSpec = {
 };
 
 function init() {
+  globalThis.paletteApp?.unmount?.();
   globalThis.paletteApp = createApp(paletteAppSpec).mount('#palette-app');
-  console.log('Initializing palette app', paletteApp.saved);
 }
 
 function updateContrastTables(colors) {
