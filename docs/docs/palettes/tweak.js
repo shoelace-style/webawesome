@@ -20,6 +20,19 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 let allPalettes = await fetch('/docs/palettes/data.json').then(r => r.json());
 globalThis.allPalettes = allPalettes;
 
+for (let palette in allPalettes) {
+  for (let hue in allPalettes[palette].colors) {
+    let scale = allPalettes[palette].colors[hue];
+    for (let tint of tints) {
+      let color = scale[tint];
+
+      if (Array.isArray(color)) {
+        scale[tint] = new Color('oklch', color);
+      }
+    }
+  }
+}
+
 let paletteAppSpec = {
   data() {
     let appRoot = document.querySelector('#palette-app');
@@ -61,13 +74,6 @@ let paletteAppSpec = {
     }
   },
 
-  mounted() {
-    if (this.isTweaked) {
-      // Update contrast colors
-      updateContrastTables(this.colors);
-    }
-  },
-
   computed: {
     global() {
       return globalThis;
@@ -96,7 +102,7 @@ let paletteAppSpec = {
         ret[hue] = {};
 
         for (let tint of tints) {
-          let oklch = this.originalColors[hue][tint].slice();
+          let oklch = this.originalColors[hue][tint].coords.slice();
 
           if (this.hueShifts[hue]) {
             oklch[2] += this.hueShifts[hue];
@@ -126,11 +132,16 @@ let paletteAppSpec = {
       for (let hue in this.originalColors) {
         ret[hue] = {};
 
-        for (let tintBg in tints) {
+        for (let tintBg of tints) {
           ret[hue][tintBg] = {};
           let bgColor = this.originalColors[hue][tintBg];
 
-          for (let tintFg in tints) {
+          if (!bgColor || !bgColor.contrast) {
+            console.log(hue, tintBg, bgColor);
+            continue;
+          }
+
+          for (let tintFg of tints) {
             let contrast = bgColor.contrast(this.originalColors[hue][tintFg], 'WCAG21');
             ret[hue][tintBg][tintFg] = contrast;
           }
@@ -148,14 +159,18 @@ let paletteAppSpec = {
 
         for (let tintBg in this.colors[hue]) {
           ret[hue][tintBg] = {};
+          let bgColor = this.colors[hue][tintBg];
 
           for (let tintFg in this.colors[hue]) {
-            let contrast = this.colors[hue][tintBg].contrast(this.colors[hue][tintFg], 'WCAG21');
-            let originalContrast = this.originalContrasts[hue][tintBg][tintFg];
-            ret[hue][tintBg][tintFg] = { contrast, originalContrast };
+            let fgColor = this.colors[hue][tintFg];
+            let value = bgColor.contrast(fgColor, 'WCAG21');
+            let original = this.originalContrasts[hue][tintBg][tintFg];
+            ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
           }
         }
       }
+
+      return ret;
     },
   },
 
@@ -195,9 +210,6 @@ let paletteAppSpec = {
 
         // Update page URL
         this.permalink.updateLocation();
-
-        // Update contrast colors
-        updateContrastTables(this.colors);
 
         if (this.saved) {
           this.save({ silent: true });
@@ -242,6 +254,30 @@ let paletteAppSpec = {
     },
   },
 
+  directives: {
+    // Like v-text, but doesn't complain if the element has content,
+    // making it possible to use in a PE fashion, with the contents being the fallback
+    content: {
+      mounted(el, { value, arg }) {
+        if (!el.dataset.fallback) {
+          // Store the original content as a fallback the first time
+          el.dataset.fallback = el.textContent;
+        }
+
+        if (value === '') {
+          el.textContent = el.dataset.fallback;
+          return;
+        }
+
+        if (arg === 'number') {
+          value = Number(value).toLocaleString(undefined, { maximumSignificantDigits: 2 });
+        }
+
+        el.textContent = value;
+      },
+    },
+  },
+
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
@@ -250,39 +286,6 @@ let paletteAppSpec = {
 function init() {
   globalThis.paletteApp?.unmount?.();
   globalThis.paletteApp = createApp(paletteAppSpec).mount('#palette-app');
-}
-
-function updateContrastTables(colors) {
-  for (let table of document.querySelectorAll('.contrast-table')) {
-    let { minContrast } = table.dataset;
-
-    for (let tr of table.querySelectorAll('tr[data-hue]')) {
-      let { hue } = tr.dataset;
-
-      for (let td of tr.querySelectorAll('td[data-tint-bg][data-tint-fg]')) {
-        let swatch = td.querySelector('.color.swatch');
-
-        let { tintBg, tintFg, originalContrast } = td.dataset;
-
-        let bg = colors[hue][tintBg];
-        let fg = colors[hue][tintFg];
-
-        if (!originalContrast) {
-          td.dataset.originalContrast = originalContrast = swatch.textContent.trim();
-        }
-
-        let contrast = bg.contrast(fg, 'WCAG21').toLocaleString(undefined, { maximumSignificantDigits: 2 });
-        swatch.textContent = contrast;
-
-        swatch.classList.toggle('value-up', contrast > originalContrast);
-        swatch.classList.toggle('value-down', contrast < originalContrast);
-        swatch.classList.toggle('contrast-fail', contrast < minContrast);
-
-        swatch.style.setProperty('--color', bg.display());
-        swatch.style.setProperty('color', fg.display());
-      }
-    }
-  }
 }
 
 init();
