@@ -6,7 +6,7 @@ tags: e-commerce
 ---
 
 
-## With Order Summary Card
+## Full Form with Order Summary Card
 
 ```html {.example}
 <div class="wa-grid wa-gap-3xl">
@@ -138,6 +138,109 @@ tags: e-commerce
         <wa-button variant="brand">Confirm Order</wa-button>
       </div>
     </wa-card>
+  </div>
+</div>
+```
+
+## Short Form with Order Summary
+
+```html {.example}
+<div class="wa-grid wa-gap-3xl">
+  <div class="wa-stack wa-gap-xl">
+    <h2>Payment</h2>
+    <wa-input type="email" label="Email" placeholder="ex. tanderson@metacortex.com">
+      <wa-icon slot="prefix" name="envelope"></wa-icon>
+    </wa-input>
+    <wa-input label="Card Number" placeholder="1234 1234 1234 1234">
+      <wa-icon slot="prefix" name="credit-card"></wa-icon>
+    </wa-input>
+    <div class="wa-grid" style="--min-column-size: 12ch">
+      <wa-input label="Expiration" placeholder="MM/YY">
+        <wa-icon slot="prefix" name="calendar"></wa-icon>
+      </wa-input>
+      <wa-input label="CVC" placeholder="CVC">
+        <wa-icon slot="prefix" name="lock"></wa-icon>
+      </wa-input>
+    </div>
+    <wa-input label="Cardholder Name" placeholder="Thomas Anderson">
+      <wa-icon slot="prefix" name="user"></wa-icon>
+    </wa-input>
+    <div class="wa-grid" style="--min-column-size: 12ch">
+      <wa-select label="Country" value="us">
+        <wa-icon slot="prefix" name="globe"></wa-icon>
+        <wa-option value="ca">Canada</wa-option>
+        <wa-option value="us">United States</wa-option>
+        <wa-option value="mx">Mexico</wa-option>
+      </wa-select>
+      <wa-input label="ZIP" placeholder="12345">
+        <wa-icon slot="prefix" name="location-dot"></wa-icon>
+      </wa-input>
+    </div>
+    <wa-switch checked>Sign me up for more offers from this store</wa-switch>
+    <wa-button variant="brand">Pay Now</wa-button>
+  </div>
+  <div class="wa-stack wa-gap-xl">
+    <h2>Order Summary</h2>
+    <div class="wa-split">
+      <div class="wa-cluster">
+        <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
+          <img src="https://images.unsplash.com/photo-1618677366787-9727aacca7ea?q=80&w=3255&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with black wire frames and dark tinted, circular lenses (Photograph by Colin Lloyd)">
+        </div>
+        <strong>Morpheus</strong>
+      </div>
+      <div class="wa-cluster">
+        <wa-input type="number" value="1" style="max-width: 5rem"></wa-input>
+        <span>$120.00</span>
+      </div>
+    </div>
+    <div class="wa-split">
+      <div class="wa-cluster">
+        <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
+          <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=3558&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with rose gold wire frames and green tinted, circular lenses (Photograph by Charles Deluvio)">
+        </div>
+        <div class="wa-stack wa-gap-3xs">
+          <strong>Seraph</strong>
+          <em class="wa-caption-m">Tinted</em>
+        </div>
+      </div>
+      <div class="wa-cluster">
+        <wa-input type="number" value="1" style="max-width: 5rem"></wa-input>
+        <span>$180.00</span>
+      </div>
+    </div>
+    <div class="wa-split">
+      <div class="wa-cluster">
+        <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
+          <img src="https://images.unsplash.com/photo-1547104442-a40f335740cb?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with tortoise shell half frames and large, rounded lenses (Photograph by Sincerely Media)">
+        </div>
+        <div class="wa-stack wa-gap-3xs">
+          <strong>Keymaker</strong>
+          <em class="wa-caption-m">Glossy</em>
+        </div>
+      </div>
+      <div class="wa-cluster">
+        <wa-input type="number" value="1" style="max-width: 5rem"></wa-input>
+        <span>$50.00</span>
+      </div>
+    </div>
+    <div class="wa-flank:end">
+      <wa-input placeholder="Discount code or gift card"></wa-input>
+      <wa-button appearance="filled">Apply</wa-button>
+    </div>
+    <div class="wa-stack wa-gap-s">
+      <div class="wa-split">
+        <span>Subtotal</span>
+        <strong>$530.00</strong>
+      </div>
+      <div class="wa-split">
+        <span>Shipping</span>
+        <span>$8.00</span>
+      </div>
+      <div class="wa-split">
+        <strong>Total</strong>
+        <strong>$538.00</strong>
+      </div>
+    </div>
   </div>
 </div>
 ```
