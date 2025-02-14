@@ -189,17 +189,27 @@ wa-badge.pro {
     }
   }
 
-  .delete {
-    margin-inline-start: var(--wa-space-xs);
+  wa-icon-button.delete {
     vertical-align: -0.2em;
+    margin-inline-start: var(--wa-space-xs);
 
-    &:hover {
-      color: var(--wa-color-danger-on-quiet);
+    &:not(li:hover > *, :focus) {
+      opacity: 0;
     }
+  }
+}
 
-    &::part(base):hover {
-      background: var(--wa-color-danger-fill-quiet);
-    }
+wa-icon-button.delete {
+  &:hover {
+    color: var(--wa-color-danger-on-quiet);
+  }
+
+  &::part(base):hover {
+    background: var(--wa-color-danger-fill-quiet);
+  }
+
+  &:not(:hover, :focus) {
+    opacity: 0.5;
   }
 }
 
@@ -245,16 +255,32 @@ wa-page > main {
   margin-inline: auto;
 }
 
-h1.title wa-badge {
-  vertical-align: middle;
+h1.title {
+  wa-icon-button {
+    font-size: var(--wa-font-size-l);
+    color: var(--wa-color-text-quiet);
 
-  &::part(base) {
+    &:not(:hover, :focus) {
+      opacity: 0.5;
+    }
+  }
+
+  wa-badge {
+    vertical-align: middle;
     font-size: 1.5rem;
   }
 }
 
 .block-info {
+  display: flex;
+  gap: var(--wa-space-xs);
+  flex-wrap: wrap;
+  align-items: center;
   margin-block-end: var(--wa-flow-spacing);
+
+  code {
+    line-height: var(--wa-line-height-condensed);
+  }
 }
 
 /* Current link */

@@ -17,20 +17,22 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   return computedColor.endsWith(' 0)');
 // })();
 
-let pageData = globalThis.paletteApp || {};
 let paletteAppSpec = {
   data() {
     // Replace colors with their oklch coords (since they're all opaque and all in the same color space)
+    let pageData = globalThis.paletteApp || {};
+
     if (pageData.originalColors) {
       for (let hue in pageData.originalColors) {
         for (let tint of tints) {
-          pageData.originalColors[hue][tint] = pageData.originalColors[hue][tint].coords;
+          pageData.originalColors[hue][tint] =
+            pageData.originalColors[hue][tint].coords ?? pageData.originalColors[hue][tint];
         }
       }
     }
 
     return {
-      saved: false,
+      saved: null,
       ...pageData,
       permalink: new Permalink(),
       hueRanges,
@@ -67,6 +69,10 @@ let paletteAppSpec = {
   },
 
   computed: {
+    global() {
+      return globalThis;
+    },
+
     tweaks() {
       return { hueShifts: this.hueShifts, chromaScale: this.chromaScale };
     },
@@ -135,39 +141,64 @@ let paletteAppSpec = {
       deep: true,
       handler() {
         this.permalink.readFrom(this.hueShifts);
+      },
+    },
+
+    chromaScale() {
+      this.permalink.set('chroma-scale', this.chromaScale, 1);
+    },
+
+    tweaks: {
+      deep: true,
+      handler() {
+        this.permalink.readFrom(this.hueShifts);
 
         // Update page URL
         this.permalink.updateLocation();
 
         // Update contrast colors
         updateContrastTables(this.colors);
+
+        if (this.saved) {
+          this.save({ silent: true });
+        }
       },
-    },
-
-    chromaScale() {
-      this.permalink.set('chroma-scale', this.chromaScale, 1);
-
-      // Update page URL
-      this.permalink.updateLocation();
-
-      // Update contrast colors
-      updateContrastTables(this.colors);
     },
   },
 
   methods: {
-    save() {
-      let title = prompt('Title:', `${this.paletteTitle} (tweaked)`);
+    save({ silent } = {}) {
+      let title = silent
+        ? (this.saved?.title ?? this.paletteTitle)
+        : prompt('Palette title:', `${this.paletteTitle} (tweaked)`);
 
       if (!title) {
         return;
       }
 
-      let savedPalettes = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
-      savedPalettes.push({ title, id: this.paletteId, search: location.search });
-      localStorage.savedPalettes = JSON.stringify(savedPalettes);
+      let palette = { title, id: this.paletteId, search: location.search };
+      sidebar.savePalette(palette, this.saved);
+      this.saved = palette;
+    },
 
-      sidebar.renderPalettes();
+    rename() {
+      if (!this.saved) {
+        return;
+      }
+
+      let newTitle = prompt('New title:', this.saved.title);
+
+      if (!newTitle) {
+        return;
+      }
+
+      this.paletteTitle = this.saved.title = newTitle;
+      sidebar.savePalette(this.saved);
+    },
+
+    deleteSaved() {
+      sidebar.deletePalette(this.saved);
+      this.saved = null;
     },
   },
 

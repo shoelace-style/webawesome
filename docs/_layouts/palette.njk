@@ -1,20 +1,18 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
 {% set paletteId = page.fileSlug %}
+{% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
 
-{% extends '../_layouts/block.njk' %}
+{% extends '../_includes/base.njk' %}
 
 {% block head %}
 <style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
 {% endblock %}
 
-{% block afterContent %}
-
-{% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
-{% set maxChroma = 0 %}
+{% block header %}
 <div id="palette-app">
-<div
+  <div
   :class="{
     tweaking: tweaking.chroma,
     'tweaking-chroma': tweaking.chroma,
@@ -24,16 +22,42 @@
   }"
   :style="{ '--chroma-scale': chromaScale }">
 
-<p v-show="tweaked.chroma || tweaked.hue">
-This palette has been tweaked.
-<wa-button size="small" class="add-to-sidebar" @click="save">
-  <span slot="prefix" class="icon-modifier">
-    <wa-icon name="sidebar" variant="regular"></wa-icon>
-    <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-  </span>
-  Save to sidebar
-</wa-button>
+  {% include 'breadcrumbs.njk' %}
+
+  <h1 v-if="saved" class="title">
+    {% raw %}{{ saved.title }}{% endraw %}
+    <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
+    <wa-icon-button class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
+  </h1>
+  <h1 v-else class="title">
+    {{ title }}
+    <wa-button size="small" v-if="tweaked.chroma || tweaked.hue" @click="save">
+      <span slot="prefix" class="icon-modifier">
+        <wa-icon name="sidebar" variant="regular"></wa-icon>
+        <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
+      </span>
+      Save
+    </wa-button>
+  </h1>
+  <div class="block-info">
+    <code class="class">.wa-palette-{{ paletteId }}</code>
+    {% include '../_includes/status.njk' %}
+  </div>
+  {% if description %}
+  <p class="summary">
+    {{ description | inlineMarkdown | safe }}
+  </p>
+  {% endif %}
+{% endblock %}
+
+{% block afterContent %}
+
+{% set maxChroma = 0 %}
+
+<p v-if="tweaked.chroma || tweaked.hue">
+   This palette has been tweaked.
 </p>
+
 
 <table class="colors main wa-palette-{{ paletteId }}">
   <thead>

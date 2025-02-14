@@ -12,22 +12,29 @@ function renderPalettes() {
       if (parentLi) {
         let a = parentLi.querySelector(`a[href="${url}"]`);
 
-        if (!a) {
+        if (a) {
+          if (a.textContent !== title) {
+            // Renamed
+            a.textContent = title;
+          }
+        } else {
+          a = Object.assign(document.createElement('a'), { href: url, textContent: title });
           let badges = [...parentLi.querySelectorAll('wa-badge')].map(badge => badge.cloneNode(true));
           let ul = parentLi.querySelector('ul') ?? parentLi.appendChild(document.createElement('ul'));
           let li = document.createElement('li');
-          a = Object.assign(document.createElement('a'), { href: url, textContent: title });
           let deleteButton = Object.assign(document.createElement('wa-icon-button'), {
             name: 'trash',
             label: 'Delete',
             className: 'delete',
           });
+
           deleteButton.addEventListener('click', () => {
-            if (confirm('Are you sure you want to delete this palette?')) {
+            if (confirm(`Are you sure you want to delete palette “${title}”?`)) {
               // TODO improve UX of this
               deletePalette(palette);
             }
           });
+
           li.append(a, ' ', ...badges, deleteButton);
           ul.appendChild(li);
         }
@@ -36,11 +43,19 @@ function renderPalettes() {
           // We are currently viewing this page
           parentA.classList.remove('current');
           a.classList.add('current');
-          globalThis.paletteApp = Object.assign({}, globalThis.paletteApp, { saved: true });
+          globalThis.paletteApp = Object.assign({}, globalThis.paletteApp, { saved: palette });
         }
       }
     }
   }
+}
+
+function propertiesEqual(obj1, obj2, properties) {
+  if (!obj1 || !obj2) {
+    return false;
+  }
+  properties ??= Object.keys(obj1);
+  return properties.every(prop => obj1[prop] === obj2[prop]);
 }
 
 function deletePalette(palette) {
@@ -50,10 +65,8 @@ function deletePalette(palette) {
 
   let savedPalettes = JSON.parse(localStorage.savedPalettes);
   let count = savedPalettes.length;
-  savedPalettes = savedPalettes.filter(
-    p => !(p.search === palette.search && p.id === palette.id && p.title === palette.title),
-  );
-  console.log(palette, savedPalettes, count);
+  savedPalettes = savedPalettes.filter(p => !propertiesEqual(palette, p));
+
   if (savedPalettes.length === count) {
     // Nothing was removed
     return;
@@ -79,13 +92,33 @@ function deletePalette(palette) {
   }
 
   localStorage.savedPalettes = JSON.stringify(savedPalettes);
+
+  if (propertiesEqual(globalThis.paletteApp?.saved, palette)) {
+    paletteApp.saved = null;
+  }
+}
+
+function savePalette(palette, saved) {
+  let savedPalettes = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+  let existing = savedPalettes.find(p => propertiesEqual(saved ?? palette, p, ['search', 'id']));
+
+  if (existing) {
+    // Rename
+    Object.assign(existing, palette);
+  } else {
+    savedPalettes.push(palette);
+  }
+
+  localStorage.savedPalettes = JSON.stringify(savedPalettes);
+
+  renderPalettes();
 }
 
 function render() {
   renderPalettes();
 }
 
-globalThis.sidebar = { render, renderPalettes, deletePalette };
+globalThis.sidebar = { render, renderPalettes, deletePalette, savePalette };
 
 render();
 window.addEventListener('turbo:render', render);
