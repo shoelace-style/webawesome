@@ -15,7 +15,7 @@ icon: preview
       <wa-icon-button name="close" label="close-modal" style="flex-basis: initial;flex-grow: initial;min-inline-size: auto;"></wa-icon-button>
     </div>
     <div class="card-body wa-grid">
-      <img style="height: 100%; object-fit: cover;" src="https://img.fortawesome.com/cfa83f3c/gervyn-louis-is03aji00fc-unsplash.jpg" alt="">
+      <img style="height: 100%; object-fit: cover;" src="https://img.fortawesome.com/cfa83f3c/gervyn-louis-is03aji00fc-unsplash.jpg" alt="graphic tank top">
       <div class="wa-stack">
         <div class="wa-split" style="margin-bottom: var(--wa-size);">
           <span style="font-size: xx-large;font-weight: 600;">$32</span>
@@ -29,7 +29,7 @@ icon: preview
         </span>
          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet odio convallis, blandit ante sit amet, sagittis erat. Aliquam sodales luctus nibh, eu cursus est euismod in. Nullam ac ex iaculis est mattis sodales vel vitae tellus. Fusce dapibus malesuada blandit. Curabitur eu iaculis lectus. Maecenas vitae enim nisi. Integer in eros ex. Sed eu facilisis nibh. In nec leo lacus. Nunc eu diam quam. Mauris nec sem ex. Pellentesque vitae magna et magna ornare porttitor tincidunt ut nunc.</p>
         <form class="detail wa-flank">
-          <wa-radio-group orientation="horizontal" style="margin-bottom: 1rem;" label="Color" name="a" value="black">
+          <wa-radio-group orientation="horizontal" label="Color" name="a" value="black">
             <wa-radio-button value="black">Black</wa-radio-button>
             <wa-radio-button value="white">White</wa-radio-button>
             <wa-radio-button value="gray">Gray</wa-radio-button>
