@@ -96,15 +96,17 @@ let paletteAppSpec = {
         ret[hue] = {};
 
         for (let tint of tints) {
-          ret[hue][tint] = this.originalColors[hue][tint].slice();
+          let oklch = this.originalColors[hue][tint].slice();
 
           if (this.hueShifts[hue]) {
-            ret[hue][tint][2] += this.hueShifts[hue];
+            oklch[2] += this.hueShifts[hue];
           }
 
           if (this.chromaScale !== 1) {
-            ret[hue][tint][1] *= this.chromaScale;
+            oklch[1] *= this.chromaScale;
           }
+
+          ret[hue][tint] = new Color('oklch', oklch);
         }
       }
 
@@ -116,6 +118,44 @@ let paletteAppSpec = {
         chroma: this.chromaScale !== 1,
         hue: Object.values(this.hueShifts).some(Boolean),
       };
+    },
+
+    originalContrasts() {
+      let ret = {};
+
+      for (let hue in this.originalColors) {
+        ret[hue] = {};
+
+        for (let tintBg in tints) {
+          ret[hue][tintBg] = {};
+          let bgColor = this.originalColors[hue][tintBg];
+
+          for (let tintFg in tints) {
+            let contrast = bgColor.contrast(this.originalColors[hue][tintFg], 'WCAG21');
+            ret[hue][tintBg][tintFg] = contrast;
+          }
+        }
+      }
+
+      return ret;
+    },
+
+    contrasts() {
+      let ret = {};
+
+      for (let hue in this.colors) {
+        ret[hue] = {};
+
+        for (let tintBg in this.colors[hue]) {
+          ret[hue][tintBg] = {};
+
+          for (let tintFg in this.colors[hue]) {
+            let contrast = this.colors[hue][tintBg].contrast(this.colors[hue][tintFg], 'WCAG21');
+            let originalContrast = this.originalContrasts[hue][tintBg][tintFg];
+            ret[hue][tintBg][tintFg] = { contrast, originalContrast };
+          }
+        }
+      }
     },
   },
 
@@ -224,8 +264,8 @@ function updateContrastTables(colors) {
 
         let { tintBg, tintFg, originalContrast } = td.dataset;
 
-        let bg = new Color('oklch', colors[hue][tintBg]);
-        let fg = new Color('oklch', colors[hue][tintFg]);
+        let bg = colors[hue][tintBg];
+        let fg = colors[hue][tintFg];
 
         if (!originalContrast) {
           td.dataset.originalContrast = originalContrast = swatch.textContent.trim();

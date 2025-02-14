@@ -8,6 +8,7 @@
 {% block head %}
 <style>@import url('/dist/styles/color/{{ paletteId }}.css') layer(palette.{{ paletteId }});</style>
 <link href="{{ page.url }}../tweak.css" rel="stylesheet">
+<script type="module" src="{{ page.url }}../tweak.js"></script>
 {% endblock %}
 
 {% block header %}
@@ -148,11 +149,6 @@ style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
   <div class="label-max">More vibrant</div>
 </div>
 
-</div>
-</div>
-
-<script type="module" src="{{ page.url }}../tweak.js"></script>
-
 <h2>Used By</h2>
 
 <section class="index-grid">
@@ -238,4 +234,7 @@ To use a different palette than a theme default, or to use it in a custom theme,
 {% include 'import-stylesheet-code.md.njk' %}
 
 {% endmarkdown %}
+</div></div> {# end palette app #}
 {% endblock %}
+
+

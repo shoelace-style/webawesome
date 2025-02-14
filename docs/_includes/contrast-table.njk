@@ -19,12 +19,13 @@
     {% for tint_fg in tints | reverse -%}
       {% set color_fg = palettes[paletteId][hue][tint_fg] %}
       {% if (tint_fg - tint_bg) | abs == difference %}
-      <td data-tint-bg="{{ tint_bg }}" data-tint-fg="{{ tint_fg }}">
+      {% set contrast_wcag = '' %}
+      {% if color_fg and color_bg -%}
+        {% set contrast_wcag = color_bg.contrast(color_fg, 'WCAG21') %}
+      {%- endif %}
+      <td data-tint-bg="{{ tint_bg }}" data-tint-fg="{{ tint_fg }}" data-original-contrast="{{ contrast_wcag }}">
         <div class="color swatch" style="--color: var(--wa-color-{{ hue }}-{{ tint_bg }}); color: var(--wa-color-{{ hue }}-{{ tint_fg }})">
-          {% set contrast_wcag = '' %}
-          {% if color_fg and color_bg %}
-            {% set contrast_wcag = color_bg.contrast(color_fg, 'WCAG21') %}
-          {% endif %}
+          <span v-text="colors.{{ hue }}.{{ tint_bg }}.{{ tint_fg }}"></span>
           {% if contrast_wcag %}
           {{ contrast_wcag | number({maximumSignificantDigits: 2}) }}
           {% else %}
