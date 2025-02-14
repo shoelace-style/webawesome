@@ -9,7 +9,7 @@
   --banner-height: 0px;
   --header-height: 0px;
   --subheader-height: 0px;
-  --scroll-margin-top: calc(var(--header-height, 0px) + var(--subheader-height, 0px));
+  --scroll-margin-top: calc(var(--header-height, 0px) + var(--subheader-height, 0px) + 0.5em);
 }
 
 slot[name]:not([name='skip-to-content'], [name='navigation-toggle'])::slotted(*) {
