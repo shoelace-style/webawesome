@@ -927,6 +927,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         </div>
 
         <slot
+          id="hint"
           name="hint"
           part="hint"
           class=${classMap({

@@ -43,6 +43,7 @@ You can find them in the first column of each color palette.
   - Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
   - Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
   - Fixed a bug that prevented slots from showing automatically without `with-` attributes
+- Fixed a bug in `<wa-select>` that prevented the description from being read by screen readers
 
 
 ### Docs
