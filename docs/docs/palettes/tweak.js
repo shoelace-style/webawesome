@@ -4,6 +4,7 @@ import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browse
 import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
 import { selectors, urls } from '../../assets/scripts/tweak/data.js';
+import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
@@ -48,6 +49,8 @@ let paletteAppSpec = {
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
+      grayChroma: 0,
+      grayColor: 'indigo',
       tweaking: {},
       saved: null,
     };
@@ -73,6 +76,9 @@ let paletteAppSpec = {
       let palette = { id: this.paletteId, search: location.search };
       this.saved = sidebar.palette.getSaved(palette);
     }
+
+    this.grayChroma = this.originalGrayChroma;
+    this.grayColor = this.originalGrayColor;
   },
 
   computed: {
@@ -81,7 +87,12 @@ let paletteAppSpec = {
     },
 
     tweaks() {
-      return { hueShifts: this.hueShifts, chromaScale: this.chromaScale };
+      return {
+        hueShifts: this.hueShifts,
+        chromaScale: this.chromaScale,
+        grayColor: this.grayColor,
+        grayChroma: this.grayChroma,
+      };
     },
 
     isTweaked() {
@@ -102,39 +113,30 @@ let paletteAppSpec = {
     },
 
     colors() {
-      let ret = {};
+      return applyTweaks(this.originalColors, this.tweaks, this.tweaked);
+    },
 
-      for (let hue in this.originalColors) {
-        let originalScale = this.originalColors[hue];
-        let scale = (ret[hue] = {});
-        let descriptors = Object.getOwnPropertyDescriptors(originalScale);
-        Object.defineProperties(scale, {
-          maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
-          maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
-        });
+    colorsMinusChromaScale() {
+      let tweaked = { ...this.tweaked, chromaScale: false };
+      return applyTweaks(this.originalColors, this.tweaks, tweaked);
+    },
 
-        for (let tint of tints) {
-          let oklch = originalScale[tint].coords.slice();
+    colorsMinusHueShifts() {
+      let tweaked = { ...this.tweaked, hue: false };
+      return applyTweaks(this.originalColors, this.tweaks, tweaked);
+    },
 
-          if (this.hueShifts[hue]) {
-            oklch[2] += this.hueShifts[hue];
-          }
-
-          if (this.chromaScale !== 1) {
-            oklch[1] *= this.chromaScale;
-          }
-
-          scale[tint] = new Color('oklch', oklch);
-        }
-      }
-
-      return ret;
+    colorsMinusGrayChroma() {
+      let tweaked = { ...this.tweaked, grayChroma: false };
+      return applyTweaks(this.originalColors, this.tweaks, tweaked);
     },
 
     tweaked() {
       return {
         chroma: this.chromaScale !== 1,
         hue: Object.values(this.hueShifts).some(Boolean),
+        grayChroma: this.grayChroma !== this.originalGrayChroma,
+        grayColor: this.grayColor !== this.originalGrayColor,
       };
     },
 
@@ -210,6 +212,63 @@ let paletteAppSpec = {
       }
 
       return ret;
+    },
+
+    originalCoreColors() {
+      let ret = {};
+      for (let hue in this.originalColors) {
+        let maxChromaTintRaw = this.originalColors[hue].maxChromaTintRaw;
+        ret[hue] = this.originalColors[hue][maxChromaTintRaw];
+      }
+      return ret;
+    },
+
+    coreColors() {
+      let ret = {};
+      for (let hue in this.colors) {
+        let maxChromaTintRaw = this.colors[hue].maxChromaTintRaw;
+        ret[hue] = this.colors[hue][maxChromaTintRaw];
+      }
+
+      return ret;
+    },
+
+    originalGrayColor() {
+      let grayHue = this.originalCoreColors.gray.get('h');
+      let minDistance = Infinity;
+      let closestHue = null;
+
+      for (let name in this.originalCoreColors) {
+        if (name === 'gray') {
+          continue;
+        }
+
+        let hue = this.originalCoreColors[name].get('h');
+        let distance = Math.abs(subtractAngles(hue, grayHue));
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestHue = name;
+        }
+      }
+
+      return closestHue ?? 'indigo';
+    },
+
+    originalGrayChroma() {
+      let grayChroma = this.originalCoreColors.gray.get('c');
+      if (grayChroma === 0) {
+        return 0;
+      }
+
+      let grayColorChroma = this.originalCoreColors[this.originalGrayColor].get('c');
+      return grayChroma / grayColorChroma;
+    },
+
+    grayTemperature() {
+      let grayHue = this.coreColors[this.grayColor].get('h');
+
+      let isCool = grayHue > 110 && grayHue < 290;
+      return isCool ? 'Cool' : 'Warm';
     },
   },
 
@@ -392,4 +451,40 @@ function arrayNext(array, element) {
 function arrayPrevious(array, element) {
   let index = array.indexOf(element);
   return array[(index - 1 + array.length) % array.length];
+}
+
+function applyTweaks(originalColors, tweaks, tweaked) {
+  let ret = {};
+  let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
+
+  for (let hue in originalColors) {
+    let originalScale = originalColors[hue];
+    let scale = (ret[hue] = {});
+    let descriptors = Object.getOwnPropertyDescriptors(originalScale);
+    Object.defineProperties(scale, {
+      maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
+      maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
+    });
+
+    for (let tint of tints) {
+      let color = originalScale[tint].clone();
+
+      if (tweaked.hue && hueShifts[hue]) {
+        color.set({ h: h => h + hueShifts[hue] });
+      }
+
+      if (tweaked.chromaScale && chromaScale !== 1) {
+        color.set({ c: c => c * chromaScale });
+      }
+
+      if (hue === 'gray' && (tweaked.grayChroma || tweaked.grayColor)) {
+        let colorUndertone = originalColors[grayColor][tint].clone();
+        color = colorUndertone.set({ c: c => c * grayChroma });
+      }
+
+      scale[tint] = color;
+    }
+  }
+
+  return ret;
 }
