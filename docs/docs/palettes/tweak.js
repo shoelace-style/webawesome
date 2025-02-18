@@ -373,3 +373,13 @@ export function getPaletteCode(paletteId, tweaks, options) {
 
   return ret;
 }
+
+function arrayNext(array, element) {
+  let index = array.indexOf(element);
+  return array[(index + 1) % array.length];
+}
+
+function arrayPrevious(array, element) {
+  let index = array.indexOf(element);
+  return array[(index - 1 + array.length) % array.length];
+}
