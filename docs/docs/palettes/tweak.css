@@ -138,3 +138,23 @@ wa-dropdown > .color.swatch {
     --tweak-icon-opacity: 80%;
   }
 }
+
+.tweaked-callout {
+  padding: var(--wa-space-xs);
+  padding-inline-start: var(--wa-space-m);
+  align-items: center;
+
+  &:not(.tweaked-any *) {
+    visibility: hidden;
+  }
+
+  &::part(message) {
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-xs);
+  }
+
+  wa-button:first-of-type {
+    margin-inline-start: auto;
+  }
+}

@@ -20,17 +20,19 @@
     'tweaking-hue': tweaking.chroma,
     'tweaked-chroma': tweaked.chroma,
     'tweaked-hue': tweaked.hue,
+    'tweaked-any': tweaked.chroma || tweaked.hue
   }"
   :style="{ '--chroma-scale': chromaScale }">
 
   {% include 'breadcrumbs.njk' %}
 
-  <h1 v-if="saved" class="title">
+  <h1 v-if="!saved" class="title">{{ title }}</h1>
+  <h1 v-else class="title">
     {% raw %}{{ saved.title }}{% endraw %}
     <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
     <wa-icon-button class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
   </h1>
-  <h1 v-else class="title">{{ title }}</h1>
+
   <div class="block-info">
     <code class="class">.wa-palette-{{ paletteId }}</code>
     {% include '../_includes/status.njk' %}
@@ -46,19 +48,17 @@
 
 {% set maxChroma = 0 %}
 
-<p v-if="tweaked.chroma || tweaked.hue">
+<wa-callout size="small" class="tweaked-callout" variant="brand">
+  <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
    This palette has been tweaked.
-   <wa-button size="small" v-if="!saved" @click="save">
+  <wa-button v-if="!saved" @click="save">
     <span slot="prefix" class="icon-modifier">
       <wa-icon name="sidebar" variant="regular"></wa-icon>
       <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
     </span>
     Save
   </wa-button>
-</p>
-<p v-else>
-  &nbsp;
-</p>
+</wa-callout>
 
 <table class="colors main wa-palette-{{ paletteId }}">
   <thead>
