@@ -176,7 +176,6 @@ let paletteAppSpec = {
           let bgColor = this.originalColors[hue][tintBg];
 
           if (!bgColor || !bgColor.contrast) {
-            console.log(hue, tintBg, bgColor);
             continue;
           }
 
@@ -349,6 +348,8 @@ export function getPaletteCode(paletteId, tweaks, options) {
 
           if (Array.isArray(color)) {
             color = new Color('oklch', coords);
+          } else {
+            color = color.clone();
           }
           color.set({ h: h => h + shift, c: c => c * chromaScale });
           let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
