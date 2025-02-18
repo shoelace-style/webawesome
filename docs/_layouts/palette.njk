@@ -51,6 +51,13 @@
 <wa-callout size="small" class="tweaked-callout" variant="brand">
   <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
    This palette has been tweaked.
+
+  <wa-button @click="reset" appearance="outlined">
+    <span slot="prefix" class="icon-modifier">
+      <wa-icon name="circle-xmark" variant="regular"></wa-icon>
+    </span>
+    Reset
+  </wa-button>
   <wa-button v-if="!saved" @click="save">
     <span slot="prefix" class="icon-modifier">
       <wa-icon name="sidebar" variant="regular"></wa-icon>

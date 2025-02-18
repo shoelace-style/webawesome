@@ -240,6 +240,11 @@ let paletteAppSpec = {
       sidebar.palette.delete(this.saved);
       this.saved = null;
     },
+
+    reset() {
+      this.hueShifts = Object.fromEntries(hues.map(hue => [hue, 0]));
+      this.chromaScale = 1;
+    },
   },
 
   directives: {
