@@ -276,7 +276,9 @@ let paletteAppSpec = {
     },
 
     reset() {
-      this.hueShifts = Object.fromEntries(hues.map(hue => [hue, 0]));
+      for (let hue in this.hueShifts) {
+        this.hueShifts[hue] = 0;
+      }
       this.chromaScale = 1;
     },
 
