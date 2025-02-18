@@ -1,8 +1,9 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-
-import { cdnUrl, getPaletteCode, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
+import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
+import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
+import { selectors, urls } from '../../assets/scripts/tweak/data.js';
 import Prism from '/assets/scripts/prism.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
@@ -284,3 +285,58 @@ function init() {
 
 init();
 addEventListener('turbo:render', init);
+
+export function getPaletteCode(paletteId, tweaks, options) {
+  let palette = allPalettes[paletteId].colors;
+
+  let imports = [];
+
+  if (paletteId) {
+    imports.push(urls.palette(paletteId));
+  }
+
+  let css = '';
+
+  if (tweaks) {
+    let { hueShifts, chromaScale = 1 } = tweaks;
+    let declarations = [];
+
+    if (hueShifts || chromaScale !== 1) {
+      for (let hue in hueShifts) {
+        let shift = hueShifts[hue];
+
+        if ((!shift && chromaScale === 1) || hue === 'orange') {
+          continue;
+        }
+
+        let scale = palette[hue];
+
+        for (let tint of ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95']) {
+          let color = scale[tint];
+
+          if (Array.isArray(color)) {
+            color = new Color('oklch', coords);
+          }
+          color.set({ h: h => h + shift, c: c => c * chromaScale });
+          let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
+
+          declarations.push(`--wa-color-${hue}-${tint}: ${stringified};`);
+        }
+
+        declarations.push('');
+      }
+    }
+
+    if (declarations.length > 0) {
+      css += cssRule(selectors.palette(paletteId), declarations);
+    }
+  }
+
+  let ret = imports.map(url => cssImport(url, options)).join('\n');
+
+  if (css) {
+    ret += `\n\n${cssLiteral(css, options)}`;
+  }
+
+  return ret;
+}

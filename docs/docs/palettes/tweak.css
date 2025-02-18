@@ -158,3 +158,7 @@ wa-dropdown > .color.swatch {
     margin-inline-start: auto;
   }
 }
+
+[v-if='saved'] {
+  display: none;
+}
