@@ -105,10 +105,16 @@ let paletteAppSpec = {
       let ret = {};
 
       for (let hue in this.originalColors) {
-        ret[hue] = {};
+        let originalScale = this.originalColors[hue];
+        let scale = (ret[hue] = {});
+        let descriptors = Object.getOwnPropertyDescriptors(originalScale);
+        Object.defineProperties(scale, {
+          maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
+          maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
+        });
 
         for (let tint of tints) {
-          let oklch = this.originalColors[hue][tint].coords.slice();
+          let oklch = originalScale[tint].coords.slice();
 
           if (this.hueShifts[hue]) {
             oklch[2] += this.hueShifts[hue];
@@ -118,7 +124,7 @@ let paletteAppSpec = {
             oklch[1] *= this.chromaScale;
           }
 
-          ret[hue][tint] = new Color('oklch', oklch);
+          scale[tint] = new Color('oklch', oklch);
         }
       }
 
