@@ -26,12 +26,12 @@
 
   {% include 'breadcrumbs.njk' %}
 
-  <h1 v-if="!saved" class="title">{{ title }}</h1>
-  <h1 v-else class="title">
+  <h1 v-if="saved" class="title">
     {% raw %}{{ saved.title }}{% endraw %}
     <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
     <wa-icon-button class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
   </h1>
+  <h1 v-if="!saved" class="title">{{ title }}</h1>
 
   <div class="block-info">
     <code class="class">.wa-palette-{{ paletteId }}</code>
