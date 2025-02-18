@@ -72,7 +72,7 @@ let paletteAppSpec = {
       }
 
       if (this.permalink.has('uid')) {
-        this.uid = this.permalink.get('uid');
+        this.uid = Number(this.permalink.get('uid'));
       }
 
       let palette = { id: this.paletteId, uid: this.uid, search: location.search };
