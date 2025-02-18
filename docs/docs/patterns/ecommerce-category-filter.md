@@ -1,6 +1,6 @@
 ---
 title: Category Filter
-description: 'Help shoppers find the right products with filters to refine search results by specific attributes.'
+description: 'Helps the user find the right products with filters to refine search results by specific attributes.'
 parent: ecommerce
 tags: e-commerce
 icon: checkbox

@@ -10,46 +10,44 @@ tags: e-commerce
 <div class="with-image-grid" style="max-width: 960px;margin: 0 auto;">
   <wa-breadcrumb style="margin-bottom: 1rem; display: block;">
     <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
-    <wa-breadcrumb-item>Men's</wa-breadcrumb-item>
+    <wa-breadcrumb-item>Women's</wa-breadcrumb-item>
     <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
   </wa-breadcrumb>
   <div class="wa-stack wa-gap-xs" style="margin-bottom: var(--wa-space-l);">
-    <img src="/assets/images/patterns/gervyn-louis-IS03ajI00Fc-unsplash.jpg" />
+    <img src="https://images.unsplash.com/photo-1614792568992-ded1c487c1dd?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     <div class="wa-grid wa-gap-xs">
-      <img src="/assets/images/patterns/gervyn-louis-KXvd7y7AU6Q-unsplash.jpg" />
-      <img src="/assets/images/patterns/gervyn-louis-semwwyXFQho-unsplash.jpg" />
+      <img src="https://images.unsplash.com/photo-1614725078749-29c421fd0e51?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+      <img src="https://images.unsplash.com/photo-1614725808713-e6bbe418fc5d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
-    <img src="/assets/images/patterns/mad-rabbit-tattoo-7N4FMowSGek-unsplash.jpg" />
+    <img src="https://images.unsplash.com/photo-1614725078379-9d1330a08c95?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
   </div>
   <div>
     <h2>Tank top</h2>
-    <p>The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.</p>
-    <h3>Highlights</h3>
-    <ul>
-      <li>Hand cut and sewn locally</li>
-    </ul>
-
-    <h3>Highlights</h3>
-    <p>The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.</p>
-
-    <span style="font-size: var(--wa-font-size-2xl); margin-bottom: var(--wa-space-l);">$192</span>
-    <div style="margin-bottom: var(--wa-space-l);">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem. In efficitur nisl nec tincidunt mollis. Nulla eu velit porta, tincidunt erat a, scelerisque neque. Quisque tincidunt, erat sit amet cursus posuere, nisi mi aliquam ligula, non pulvinar augue eros eget ligula. Nullam sed molestie magna. Suspendisse porta blandit massa in suscipit. Nulla ultricies purus convallis, tincidunt orci ut, auctor sem. Suspendisse ornare orci lectus. Fusce eu orci et sem sollicitudin pharetra et eu purus. Quisque interdum, ante nec euismod consequat, ante leo maximus dui, ut commodo massa urna et nisi. Proin placerat augue in consequat fringilla.</p>
+    <div class="wa-flank">
+      <span style="font-size: var(--wa-font-size-2xl); margin-bottom: var(--wa-space-l);">$192</span>
+      <div style="margin-bottom: var(--wa-space-l);">
       <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
       <a href="#">117 Reviews</a>
     </div>
-    <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
-      <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-        <wa-radio-button value="1">Option 1</wa-radio-button>
-        <wa-radio-button value="2">Option 2</wa-radio-button>
-        <wa-radio-button value="3">Option 3</wa-radio-button>
+    </div>
+    
+    <div class="wa-flank" style="margin-bottom: var(--wa-space-l);">
+      <wa-radio-group orientation="horizontal" label="Color" name="colors" value="gray">
+        <wa-radio-button value="gray">Gray</wa-radio-button>
+        <wa-radio-button value="black">Black</wa-radio-button>
+        <wa-radio-button value="white">White</wa-radio-button>
       </wa-radio-group>
-      <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-        <wa-radio-button value="1">Option 1</wa-radio-button>
-        <wa-radio-button value="2">Option 2</wa-radio-button>
-        <wa-radio-button value="3">Option 3</wa-radio-button>
+      <wa-radio-group orientation="horizontal" label="Size" name="size" value="small">
+        <wa-radio-button value="small">Small</wa-radio-button>
+        <wa-radio-button value="medium">Medium</wa-radio-button>
+        <wa-radio-button value="large">Large</wa-radio-button>
       </wa-radio-group>
     </div>
-    <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
+    <wa-button variant="brand" size="large">
+      <wa-icon slot="suffix" name="cart-plus" variant="solid"></wa-icon>
+      Add to Cart
+    </wa-button>
   </div>
 </div>
 ```
@@ -83,39 +81,41 @@ tags: e-commerce
     </div>
   </div>
   </div>
-  <div class="wa-split" style="margin-bottom: var(--wa-space-l);">
-    <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-      <wa-radio-button value="1">Option 1</wa-radio-button>
-      <wa-radio-button value="2">Option 2</wa-radio-button>
-      <wa-radio-button value="3">Option 3</wa-radio-button>
+  <div class="wa-grid" style="margin-bottom: var(--wa-space-l);">
+    <wa-radio-group orientation="horizontal" label="Color"  name="color" value="black">
+      <wa-radio-button value="black">Black</wa-radio-button>
+      <wa-radio-button value="gray">Gray</wa-radio-button>
+      <wa-radio-button value="white">White</wa-radio-button>
     </wa-radio-group>
-    <wa-radio-group orientation="horizontal" label="Select an option" hint="Select an option that makes you proud." name="a" value="1">
-      <wa-radio-button value="1">Option 1</wa-radio-button>
-      <wa-radio-button value="2">Option 2</wa-radio-button>
-      <wa-radio-button value="3">Option 3</wa-radio-button>
+    <wa-radio-group orientation="horizontal" label="Size"  name="size" value="large">
+      <wa-radio-button value="small">Small</wa-radio-button>
+      <wa-radio-button value="medium">Medium</wa-radio-button>
+      <wa-radio-button value="large">Large</wa-radio-button>
     </wa-radio-group>
   </div>
- <wa-button size="large" style="width: 100%;">Add to Cart</wa-button>
  <h3>Description</h3>
- <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
- <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
+ <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem. In efficitur nisl nec tincidunt mollis. Nulla eu velit porta, tincidunt erat a, scelerisque neque. Quisque tincidunt, erat sit amet cursus posuere, nisi mi aliquam ligula, non pulvinar augue eros eget ligula. Nullam sed molestie magna. Suspendisse porta blandit massa in suscipit. Nulla ultricies purus convallis, tincidunt orci ut, auctor sem. Suspendisse ornare orci lectus. Fusce eu orci et sem sollicitudin pharetra et eu purus. Quisque interdum, ante nec euismod consequat, ante leo maximus dui, ut commodo massa urna et nisi. Proin placerat augue in consequat fringilla.</p>
  <hr />
  <h3>Highlights</h3>
     <ul>
       <li>Hand cut and sewn locally</li>
     </ul>
-  <div class="wa-split">
+  <div class="wa-grid">
     <wa-card>
       <wa-icon family="solid" name="earth-americas"></wa-icon>
       <h3>International delivery</h3>
-      <p>Get your order in 2 years</p>
+      <p>We ship anywhere</p>
     </wa-card>
     <wa-card>
-      <wa-icon family="solid" name="earth-americas"></wa-icon>
-      <h3>International delivery</h3>
-      <p>Get your order in 2 years</p>
+      <wa-icon family="solid" name="arrow-right-arrow-left"></wa-icon>
+      <h3>90 Returns</h3>
+      <p>Not happy? Return your item and get a full refund.</p>
     </wa-card>
   </div>
+  <wa-button variant="brand" size="large" style="margin-top: var(--wa-size);">
+    <wa-icon slot="suffix" name="cart-plus" variant="solid"></wa-icon>
+    Add to Cart
+  </wa-button>
 </div>
 ```
 ## With Image Carousel & Expandable Details
@@ -166,38 +166,34 @@ tags: e-commerce
 </div>
 <div>
   <h3 style="--wa-space-xl: 0;">Pullover Sweater</h3>
-  <span style="display: block;font-size: 32px;">$140</span>
+  <span style="display: block;font-size: 32px;">$40</span>
   <wa-rating style="margin-bottom: 1rem;" label="Rating" precision="0.5" value="2.5"></wa-rating>
-  <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  <wa-radio-group orientation="horizontal" label="Select Color" hint="Select an option that makes you proud." name="a" value="1">
-  <wa-radio-button value="1">d</wa-radio-button>
-  <wa-radio-button value="2">d</wa-radio-button>
-  <wa-radio-button value="3">d</wa-radio-button>
-</wa-radio-group>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem. In efficitur nisl nec tincidunt mollis. Nulla eu velit porta, tincidunt erat a, scelerisque neque. Quisque tincidunt, erat sit amet cursus posuere, nisi mi aliquam ligula, non pulvinar augue eros eget ligula. Nullam sed molestie magna. Suspendisse porta blandit massa in suscipit. Nulla ultricies purus convallis, tincidunt orci ut, auctor sem. Suspendisse ornare orci lectus. Fusce eu orci et sem sollicitudin pharetra et eu purus. Quisque interdum, ante nec euismod consequat, ante leo maximus dui, ut commodo massa urna et nisi. Proin placerat augue in consequat fringilla.</p>
+  <wa-radio-group orientation="horizontal" label="Select Color" name="color" value="beige" style="margin-bottom: var(--wa-size);">
+    <wa-radio-button value="beige">Beige</wa-radio-button>
+    <wa-radio-button value="gray">Gray</wa-radio-button>
+    <wa-radio-button value="brown">Brown</wa-radio-button>
+  </wa-radio-group>
 <div>
-  <wa-button>Add to cart</wa-button>
-  <wa-icon-button name="gear" label="Settings"></wa-icon-button>
 </div>
 <div class="details-group-example">
-  <wa-details summary="First" open>
+  <wa-details summary="Locally Sourced" open>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
 
-  <wa-details summary="Second">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </wa-details>
-
-  <wa-details summary="Third">
+  <wa-details summary="Hand Inspected">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
 </div>
 </div>
+  <wa-button variant="brand" size="large" style="margin-top: var(--wa-size);">
+      <wa-icon slot="suffix" name="cart-plus" variant="solid"></wa-icon>
+      Add to Cart
+  </wa-button>
 </div>
 <style>
- 
   .carousel-thumbnails {
     --slide-aspect-ratio: 3 / 2;
   }
@@ -269,7 +265,7 @@ tags: e-commerce
 </script>
 ```
 
-## Split with Image
+<!-- ## Split with Image
 
 ```html {.example}
 <div class="split-with-image" style="max-width: 960px;margin: 0 auto;">
@@ -301,18 +297,18 @@ tags: e-commerce
     </wa-radio-group>
   </div>
 </div>
-```
+``` -->
 ## With Tabs
 
 ```html{.example}
 <div>
-  <wa-rating class="sweater-rating" label="Rating" precision="0.5" value="2.5"></wa-rating>
   <h2>Application UI Icon Pack</h2>
-  <img alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." src="https://tailwindui.com/plus-assets/img/ecommerce-images/product-page-05-product-01.jpg" class="aqk aql">
+  <img alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." src="https://img.fortawesome.com/cfa83f3c/icon-grid-wallpaper.png" class="icon grid">
   <p>The Application UI Icon Pack comes with over 200 icons in 3 styles: outline, filled, and branded. This playful icon pack is tailored for complex application user interfaces with a friendly and legible look.</p>
-  <wa-button variant="brand">Brand</wa-button>
-
-<wa-button variant="success">Success</wa-button>
+    <wa-button variant="brand" size="large" style="margin-top: var(--wa-size);">
+      <wa-icon slot="suffix" name="cart-plus" variant="solid"></wa-icon>
+      Add to Cart
+  </wa-button>
 <hr />
 <h3>Highlights</h3>
 <ul>
@@ -327,26 +323,23 @@ tags: e-commerce
 <h3>Share</h3>
 
 
-<wa-icon family="brands" name="facebook"></wa-icon>
+<wa-icon family="brands" name="facebook" style="margin-right: var(--wa-size)"></wa-icon>
 <wa-icon family="brands" name="instagram"></wa-icon>
-<wa-icon family="brands" name="x-twitter"></wa-icon>
   <wa-tab-group>
-  <wa-tab panel="general">General</wa-tab>
+  <wa-tab panel="general">Reviews</wa-tab>
   <wa-tab panel="custom">Custom</wa-tab>
   <wa-tab panel="advanced">Advanced</wa-tab>
-  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
   <wa-tab-panel name="general">
     <div></div>
     <div>
-      <h3>Hector Gibbons</h3>
+      <h3>Victor Vaughn</h3>
       <p>July 12, 2021</p>
       <wa-rating label="Rating" precision="0.5" value="2.5"></wa-rating>
-      <p>Blown away by how polished this icon pack is. Everything looks so consistent and each SVG is optimized out of the box so I can use it directly with confidence. It would take me several hours to create a single icon this good, so it's a steal at this price.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem. In efficitur nisl nec tincidunt mollis. Nulla eu velit porta, tincidunt erat a, scelerisque neque. Quisque tincidunt, erat sit amet cursus posuere, nisi mi aliquam ligula, non pulvinar augue eros eget ligula. Nullam sed molestie magna. Suspendisse porta blandit massa in suscipit. Nulla ultricies purus convallis, tincidunt orci ut, auctor sem. Suspendisse ornare orci lectus. Fusce eu orci et sem sollicitudin pharetra et eu purus. Quisque interdum, ante nec euismod consequat, ante leo maximus dui, ut commodo massa urna et nisi. Proin placerat augue in consequat fringilla.</p>
     </div>
   </wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
-  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
 </wa-tab-group>
 </div>
 ```

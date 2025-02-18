@@ -88,27 +88,27 @@ tags: e-commerce
         </div>
       </section>
      <section class="wa-grid" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
+        <img class="cart-item-image" src="https://images.unsplash.com/photo-1564859227552-81fde4a1df0b?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
         <div class="wa-split">
           <div>
             <div>
-              <h3 style="margin-bottom: 0">Classic Tee</h3>
-            <p style="margin: 0;">Large - green</p>
+              <h3 style="margin-bottom: 0">RVCA Graphic</h3>
+            <p style="margin: 0;">Large - White</p>
             </div>
-            <span>$20.00</span>
+            <span>$25.00</span>
           </div>
           <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
         </div>
       </section>
       <section class="wa-grid">
-        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
+        <img class="cart-item-image" src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
         <div class="wa-split">
           <div>
             <div>
-              <h3 style="margin-bottom: 0">Classic Tee</h3>
-            <p style="margin: 0;">Large - green</p>
+              <h3 style="margin-bottom: 0">Made Wild Graphic</h3>
+            <p style="margin: 0;">Large - Black</p>
             </div>
-            <span>$20.00</span>
+            <span>$18.00</span>
           </div>
           <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
         </div>
@@ -120,7 +120,7 @@ tags: e-commerce
   </div>
   <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Subtotal</span>
-    <span>$55.00</span>
+    <span>$63.00</span>
   </div>
   <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Shipping</span>
@@ -132,7 +132,7 @@ tags: e-commerce
   </div>
   <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
     <span>Order Total</span>
-    <span>$65.50</span>
+    <span>$73.50</span>
   </div>
   <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Checkout</wa-button>
 </wa-card>
@@ -149,57 +149,61 @@ tags: e-commerce
 ## Single Column
 
 ```html {.example}
-<div class="single-column">
+<div style="max-width: 960px; margin: 0 auto;">
   <h1>Shopping Cart</h1>
   <div class="wa-stack">
     <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
     <img class="cart-item-image" src="https://images.unsplash.com/photo-1594787317357-dcda50fd1d78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4MDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
     <div>
-      <span style="display: flex;justify-content: space-between;">
-        <span><strong>Convertible</strong></span>
-        <span>$32.00</span>
+      <span class="wa-split" style="margin-bottom: var(--wa-size);">
+        <h2>Convertible</h2>
+        <wa-tag size="small" variant="brand" appearance="filled" pill>Cherry Red</wa-tag>
       </span>
-      <div>Eggplant</div>
-       <div style="display: flex;justify-content: space-between;align-items: baseline;">
-        <span><wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
+      
+        <span>$32.00</span>
+      
+       <div class="wa-split">
+        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
         </div>
     </div>
   </section>
   <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
     <img class="cart-item-image" src="https://images.unsplash.com/photo-1597670250484-0e9aff7f8804?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4NTB8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
     <div>
-      <span style="display: flex;justify-content: space-between;">
-        <span><strong>Pickup</strong></span>
-        <span>$32.00</span>
+      <span class="wa-split" style="margin-bottom: var(--wa-size);">
+        <h2>Racers - 3 Pack</h2>
+        <wa-tag size="small" variant="brand" appearance="filled" pill>Assorted Colors</wa-tag>
       </span>
-      <div>Sky Blue</div>
-
-       <div style="display: flex;justify-content: space-between;align-items: baseline;">
-        <span><wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
+      
+        <span>$60.00</span>
+      
+       <div class="wa-split">
+        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
         </div>
     </div>
   </section>
- <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+  <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
     <img class="cart-item-image" src="https://images.unsplash.com/photo-1594787826350-19386fdb2363?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4ODV8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
     <div>
-      <span style="display: flex;justify-content: space-between;">
-        <span><strong>Volkswagon T2</strong></span>
-        <span>$32.00</span>
+      <span class="wa-split" style="margin-bottom: var(--wa-size);">
+        <h2>Volkswagen T2</h2>
+        <wa-tag size="small" variant="brand" appearance="filled" pill>Red/White</wa-tag>
       </span>
-      <div>Red/White</div>
-
-       <div style="display: flex;justify-content: space-between;align-items: baseline;">
-        <span><wa-icon name="check" style="color: green; margin-right: 0.5rem;"></wa-icon> In Stock</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
+      
+        <span>$80.00</span>
+      
+       <div class="wa-split">
+        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
         </div>
     </div>
   </section>
    <div slot="footer">
     <div style="display:flex; justify-content: space-between; font-weight: 600;">
       <span>Subtotal</span>
-      <span>$96.00</span>
+      <span>$172.00</span>
     </div>
     <div style="font-size: small; margin-bottom: 1rem;">Shipping and taxes calculated at checkout.</div>
    <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Medium</wa-button>
