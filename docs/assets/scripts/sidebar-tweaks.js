@@ -2,40 +2,67 @@ const sidebar = (globalThis.sidebar = {});
 
 sidebar.palettes = {
   render() {
-    if (!localStorage.savedPalettes) {
+    if (this.saved.length === 0) {
       return;
     }
 
-    let savedPalettes = JSON.parse(localStorage.savedPalettes);
-
-    for (let palette of savedPalettes) {
+    for (let palette of this.saved) {
       sidebar.palette.render(palette);
     }
 
     sidebar.updateCurrent();
   },
+
+  saved: localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [],
+
+  save(saved = this.saved) {
+    this.saved = saved ?? [];
+
+    if (saved.length > 0) {
+      localStorage.savedPalettes = JSON.stringify(saved);
+    } else {
+      delete localStorage.savedPalettes;
+    }
+  },
 };
 
 sidebar.palette = {
+  getUid() {
+    let savedPalettes = sidebar.palettes.saved;
+    let uids = new Set(savedPalettes.map(p => p.uid));
+
+    if (savedPalettes.length === 0) {
+      return 1;
+    }
+
+    // Find first available number
+    for (let i = 1; i < savedPalettes.length + 1; i++) {
+      if (!uids.has(i)) {
+        return i;
+      }
+    }
+  },
+
   equals(p1, p2) {
     if (!p1 || !p2) {
       return false;
     }
 
-    return p1.id === p2.id && (p1.title === p2.title || p1.search === p2.search);
+    return p1.id === p2.id && p1.uid === p2.uid;
   },
 
   delete(palette) {
-    if (!localStorage.savedPalettes) {
+    let savedPalettes = sidebar.palettes.saved;
+    let count = savedPalettes.length;
+    if (count === 0) {
       return;
     }
 
+    // TODO improve UX of this
     if (!confirm(`Are you sure you want to delete palette “${palette.title}”?`)) {
       return;
     }
 
-    let savedPalettes = JSON.parse(localStorage.savedPalettes);
-    let count = savedPalettes.length;
     savedPalettes = savedPalettes.filter(p => !sidebar.palette.equals(palette, p));
 
     if (savedPalettes.length === count) {
@@ -64,33 +91,26 @@ sidebar.palette = {
 
     sidebar.updateCurrent();
 
-    if (savedPalettes.length) {
-      localStorage.savedPalettes = JSON.stringify(savedPalettes);
-    } else {
-      delete localStorage.savedPalettes;
-    }
+    sidebar.palettes.save(savedPalettes);
 
     if (sidebar.palette.equals(globalThis.paletteApp?.saved, palette)) {
       paletteApp.saved = null;
     }
   },
 
-  getSaved(palette, savedPalettes = JSON.parse(localStorage.savedPalettes ?? '[]')) {
+  getSaved(palette, savedPalettes = sidebar.palettes.saved) {
     return savedPalettes.find(p => sidebar.palette.equals(p, palette));
   },
 
-  render(palette, oldValues) {
-    // Find existing a
-    let { title, id, search } = palette;
-    let paletteToCheck = oldValues ?? palette;
+  render(palette) {
+    // Find existing <a>
+    let { title, id, search, uid } = palette;
 
-    for (let a of document.querySelectorAll(`#sidebar a[href^="/docs/palettes/${id}/"]`)) {
-      if (sidebar.palette.equals(paletteToCheck, { id, title: a.textContent, search: a.search })) {
-        // Palette already in sidebar, just update it
-        a.textContent = palette.title;
-        a.href = `/docs/palettes/${id}/${search}`;
-        return;
-      }
+    for (let a of document.querySelectorAll(`#sidebar a[href^="/docs/palettes/${id}/"][data-uid="${uid}"]`)) {
+      // Palette already in sidebar, just update it
+      a.textContent = palette.title;
+      a.href = `/docs/palettes/${id}/${search}`;
+      return;
     }
 
     let pathname = `/docs/palettes/${id}/`;
@@ -101,6 +121,7 @@ sidebar.palette = {
 
     if (parentLi) {
       a = Object.assign(document.createElement('a'), { href: url, textContent: title });
+      a.dataset.uid = uid;
       let badges = [...parentLi.querySelectorAll('wa-badge')].map(badge => badge.cloneNode(true));
       let ul = parentLi.querySelector('ul') ?? parentLi.appendChild(document.createElement('ul'));
       let li = document.createElement('li');
@@ -111,7 +132,6 @@ sidebar.palette = {
       });
 
       deleteButton.addEventListener('click', () => {
-        // TODO improve UX of this
         let palette = { id, title: a.textContent, search: a.search };
         sidebar.palette.delete(palette);
       });
@@ -122,7 +142,7 @@ sidebar.palette = {
   },
 
   save(palette, saved) {
-    let savedPalettes = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+    let savedPalettes = sidebar.palettes.saved;
     let existing = this.getSaved(saved ?? palette, savedPalettes);
     let oldValues;
 
@@ -137,7 +157,7 @@ sidebar.palette = {
     this.render(palette, oldValues);
     sidebar.updateCurrent();
 
-    localStorage.savedPalettes = JSON.stringify(savedPalettes);
+    sidebar.palettes.save(savedPalettes);
   },
 };
 

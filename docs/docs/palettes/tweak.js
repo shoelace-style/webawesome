@@ -41,6 +41,7 @@ let paletteAppSpec = {
     let palette = allPalettes[paletteId];
 
     return {
+      uid: undefined,
       paletteId,
       paletteTitle: palette.title,
       originalColors: palette.colors,
@@ -70,7 +71,11 @@ let paletteAppSpec = {
         this.chromaScale = Number(this.permalink.get('chroma-scale') || 1);
       }
 
-      let palette = { id: this.paletteId, search: location.search };
+      if (this.permalink.has('uid')) {
+        this.uid = this.permalink.get('uid');
+      }
+
+      let palette = { id: this.paletteId, uid: this.uid, search: location.search };
       this.saved = sidebar.palette.getSaved(palette);
     }
   },
@@ -250,7 +255,16 @@ let paletteAppSpec = {
         return;
       }
 
-      let palette = { title, id: this.paletteId, search: location.search };
+      let uid = this.uid;
+
+      if (!uid) {
+        this.uid = uid = sidebar.palette.getUid();
+
+        this.permalink.set('uid', uid);
+        this.permalink.updateLocation();
+      }
+
+      let palette = { title, id: this.paletteId, uid, search: location.search };
       sidebar.palette.save(palette, this.saved);
       this.saved = palette;
     },
