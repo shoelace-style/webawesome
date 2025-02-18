@@ -50,7 +50,7 @@
 
 <wa-callout size="small" class="tweaked-callout" variant="brand">
   <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
-   This palette has been tweaked.
+   This palette has been tweaked ({% raw %}{{  tweaksHumanReadable.join(', ') }}{% endraw %}).
 
   <wa-button @click="reset" appearance="outlined">
     <span slot="prefix" class="icon-modifier">

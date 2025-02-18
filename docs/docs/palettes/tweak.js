@@ -138,6 +138,33 @@ let paletteAppSpec = {
       };
     },
 
+    tweaksHumanReadable() {
+      let ret = [];
+
+      if (this.chromaScale !== 1) {
+        ret.push('more ' + (this.chromaScale > 1 ? 'vibrant' : 'muted') + ' colors overall');
+      }
+
+      for (let hue in this.hueShifts) {
+        let shift = this.hueShifts[hue];
+
+        if (!shift) {
+          continue;
+        }
+
+        let relHue = shift < 0 ? arrayPrevious(hues, hue) : arrayNext(hues, hue);
+        let hueTweak =
+          {
+            red: 'redder',
+            indigo: 'more indigo',
+          }[relHue] ?? relHue + 'er';
+
+        ret.push(hueTweak + ' ' + hue + 's');
+      }
+
+      return ret;
+    },
+
     originalContrasts() {
       let ret = {};
 
