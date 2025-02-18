@@ -139,10 +139,10 @@ let paletteAppSpec = {
     },
 
     tweaksHumanReadable() {
-      let ret = [];
+      let ret = {};
 
       if (this.chromaScale !== 1) {
-        ret.push('more ' + (this.chromaScale > 1 ? 'vibrant' : 'muted') + ' colors overall');
+        ret.chromaScale = 'more ' + (this.chromaScale > 1 ? 'vibrant' : 'muted');
       }
 
       for (let hue in this.hueShifts) {
@@ -156,10 +156,11 @@ let paletteAppSpec = {
         let hueTweak =
           {
             red: 'redder',
+            orange: 'oranger',
             indigo: 'more indigo',
           }[relHue] ?? relHue + 'er';
 
-        ret.push(hueTweak + ' ' + hue + 's');
+        ret[hue] = hueTweak + ' ' + hue + 's';
       }
 
       return ret;
@@ -277,6 +278,14 @@ let paletteAppSpec = {
     reset() {
       this.hueShifts = Object.fromEntries(hues.map(hue => [hue, 0]));
       this.chromaScale = 1;
+    },
+
+    removeTweak(param) {
+      if (param === 'chromaScale') {
+        this.chromaScale = 1;
+      } else {
+        this.hueShifts[param] = 0;
+      }
     },
   },
 
