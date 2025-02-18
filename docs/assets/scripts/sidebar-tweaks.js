@@ -132,7 +132,7 @@ sidebar.palette = {
       });
 
       deleteButton.addEventListener('click', () => {
-        let palette = { id, title: a.textContent, search: a.search };
+        let palette = { id, uid, title: a.textContent, search: a.search };
         sidebar.palette.delete(palette);
       });
 
