@@ -451,8 +451,14 @@ let paletteAppSpec = {
 };
 
 function init() {
+  let paletteAppContainer = document.querySelector('#palette-app');
   globalThis.paletteApp?.unmount?.();
-  globalThis.paletteApp = createApp(paletteAppSpec).mount('#palette-app');
+
+  if (!paletteAppContainer) {
+    return;
+  }
+
+  globalThis.paletteApp = createApp(paletteAppSpec).mount(paletteAppContainer);
 }
 
 init();
