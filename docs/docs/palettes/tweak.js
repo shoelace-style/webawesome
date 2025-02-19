@@ -231,26 +231,6 @@ let paletteAppSpec = {
 
     contrasts() {
       return getContrasts(this.colors, this.originalContrasts);
-      let ret = {};
-
-      for (let hue in this.colors) {
-        ret[hue] = {};
-
-        for (let tintBg in this.colors[hue]) {
-          ret[hue][tintBg] = {};
-          let bgColor = this.colors[hue][tintBg];
-
-          for (let tintFg in this.colors[hue]) {
-            let fgColor = this.colors[hue][tintFg];
-            console.log(hue, tintBg, tintFg, bgColor, this.originalColors[hue][tintFg]);
-            let value = bgColor.contrast(fgColor, 'WCAG21');
-            let original = this.originalContrasts[hue][tintBg][tintFg];
-            ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
-          }
-        }
-      }
-
-      return ret;
     },
 
     originalCoreColors() {
