@@ -35,6 +35,8 @@ for (let palette in allPalettes) {
   }
 }
 
+const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
+
 let paletteAppSpec = {
   data() {
     let appRoot = document.querySelector('#palette-app');
@@ -99,9 +101,9 @@ let paletteAppSpec = {
   },
 
   mounted() {
-    const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
-    this.$refs.chromaScaleSlider.tooltipFormatter = percentFormatter;
-    this.$refs.grayChromaSlider.tooltipFormatter = percentFormatter;
+    for (let ref in this.$refs) {
+      this.$refs[ref].tooltipFormatter = percentFormatter;
+    }
   },
 
   computed: {
