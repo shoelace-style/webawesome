@@ -171,7 +171,7 @@ let paletteAppSpec = {
         : false;
 
       let ret = {
-        chroma: this.chromaScale !== 1,
+        chromaScale: this.chromaScale !== 1,
         hue,
         grayChroma: this.grayChroma !== this.originalGrayChroma,
         grayColor: this.grayColor !== this.originalGrayColor,
