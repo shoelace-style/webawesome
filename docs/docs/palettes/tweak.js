@@ -389,6 +389,8 @@ let paletteAppSpec = {
         this.hueShifts[hue] = 0;
       }
       this.chromaScale = 1;
+      this.grayChroma = this.originalGrayChroma;
+      this.grayColor = this.originalGrayColor;
     },
 
     removeTweak(param) {
