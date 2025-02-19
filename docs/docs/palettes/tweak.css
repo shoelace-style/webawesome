@@ -177,7 +177,9 @@ wa-dropdown > .color.swatch {
   }
 }
 
-[v-if='saved'] {
+/* Better UI before Vue initializes */
+[v-if='saved'],
+[v-if^='tweaked'] {
   display: none;
 }
 

@@ -40,6 +40,9 @@
   <div class="block-info">
     <code class="class">.wa-palette-{{ paletteId }}</code>
     {% include '../_includes/status.njk' %}
+    {% if not isPro %}
+    <wa-badge class="pro" v-if="tweaked">PRO</wa-badge>
+    {% endif %}
   </div>
   {% if description %}
   <p class="summary">
