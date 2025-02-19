@@ -339,7 +339,7 @@ let paletteAppSpec = {
         this.permalink.updateLocation();
       }
 
-      let palette = { ...this.palette, title };
+      let palette = { ...this.palette, uid, title };
       sidebar.palette.save(palette, this.saved);
       this.saved = palette;
     },

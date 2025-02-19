@@ -13,7 +13,9 @@ sidebar.palettes = {
     sidebar.updateCurrent();
   },
 
-  saved: localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [],
+  updateSaved() {
+    this.saved = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+  },
 
   save(saved = this.saved) {
     this.saved = saved ?? [];
@@ -26,6 +28,9 @@ sidebar.palettes = {
   },
 };
 
+sidebar.palettes.updateSaved();
+addEventListener('storage', event => sidebar.palettes.updateSaved());
+
 sidebar.palette = {
   getUid() {
     let savedPalettes = sidebar.palettes.saved;
@@ -36,7 +41,7 @@ sidebar.palette = {
     }
 
     // Find first available number
-    for (let i = 1; i < savedPalettes.length + 1; i++) {
+    for (let i = 1; i <= savedPalettes.length + 1; i++) {
       if (!uids.has(i)) {
         return i;
       }
@@ -184,17 +189,51 @@ sidebar.updateCurrent = function () {
 
   // We want to start from the longest prefix
   prefixes.reverse();
+  let candidates;
+  let matchingPrefix;
 
   for (let prefix of prefixes) {
-    let a = document.querySelector(`#sidebar a[href^="${prefix}"]`);
+    candidates = document.querySelectorAll(`#sidebar a[href^="${prefix}"]`);
 
-    if (a) {
-      for (let current of document.querySelectorAll('#sidebar a.current')) {
-        current.classList.remove('current');
-      }
-      a.classList.add('current');
+    if (candidates.length > 0) {
+      matchingPrefix = prefix;
       break;
     }
+  }
+
+  if (!matchingPrefix) {
+    // Abort mission
+    return;
+  }
+
+  if (matchingPrefix === pathParts.at(-1)) {
+    // Full path matches, check search
+    if (location.search) {
+      candidates = [...candidates];
+
+      let searchParams = new URLSearchParams(location.search);
+
+      if (searchParams.has('uid')) {
+        // Only consider candidates with the same uid
+        candidates = candidates.filter(a => {
+          let params = new URLSearchParams(a.search);
+          return params.get('uid') === searchParams.get('uid');
+        });
+      } else {
+        // Sort candidates based on how many params they have in common, in descending order
+        candidates = candidates.sort((a, b) => {
+          return countSharedSearchParams(searchParams, b.search) - countSharedSearchParams(searchParams, a.search);
+        });
+      }
+    }
+  }
+
+  if (candidates.length > 0) {
+    for (let current of document.querySelectorAll('#sidebar a.current')) {
+      current.classList.remove('current');
+    }
+
+    candidates[0].classList.add('current');
   }
 };
 
@@ -204,3 +243,12 @@ sidebar.render = function () {
 
 sidebar.render();
 window.addEventListener('turbo:render', () => sidebar.render());
+
+function countSharedSearchParams(searchParams, search) {
+  if (!search || search === '?') {
+    return 0;
+  }
+
+  let params = new URLSearchParams(search);
+  return [...searchParams.keys()].filter(k => params.get(k) === searchParams.get(k)).length;
+}
