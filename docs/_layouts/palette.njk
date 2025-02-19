@@ -128,9 +128,9 @@
             Gray undertone
           </div>
         </wa-radio-group>
-        <div class="decorated-slider gray-chroma-slider" style="--max: 0.35;">
+        <div class="decorated-slider gray-chroma-slider" :style="{'--max': maxGrayChroma}">
           <wa-slider name="gray-chroma" v-model="grayChroma" ref="grayChromaSlider"
-          value="0" min="0" max="0.35" step="0.01"
+          value="0" min="0" :max="maxGrayChroma" step="0.01"
             @input="tweaking.grayChroma = true" @change="tweaking.grayChroma = false">
             <div slot="label">
               Gray colorfulness

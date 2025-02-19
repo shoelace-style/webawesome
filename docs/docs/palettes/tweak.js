@@ -7,6 +7,21 @@ import { selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
 
+/**
+ * Max gray chroma (% of chroma of undertone) per hue
+ */
+const GRAY_CHROMA_MAX = {
+  red: 0.2,
+  orange: 0.2,
+  yellow: 0.25,
+  green: 0.2,
+  cyan: 0.3,
+  blue: 0.3,
+  indigo: 0.35,
+  purple: 0.3,
+  pink: 0.25,
+};
+
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
 // // Detect https://bugs.webkit.org/show_bug.cgi?id=287637
@@ -131,22 +146,22 @@ let paletteAppSpec = {
     },
 
     colors() {
-      return applyTweaks(this.originalColors, this.tweaks, this.tweaked);
+      return applyTweaks.call(this, this.originalColors, this.tweaks, this.tweaked);
     },
 
     colorsMinusChromaScale() {
       let tweaked = { ...this.tweaked, chromaScale: false };
-      return applyTweaks(this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
     },
 
     colorsMinusHueShifts() {
       let tweaked = { ...this.tweaked, hue: false };
-      return applyTweaks(this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
     },
 
     colorsMinusGrayChroma() {
       let tweaked = { ...this.tweaked, grayChroma: false };
-      return applyTweaks(this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
     },
 
     tweaked() {
@@ -294,6 +309,19 @@ let paletteAppSpec = {
 
       let isCool = grayHue > 110 && grayHue < 290;
       return isCool ? 'Cool' : 'Warm';
+    },
+
+    /**
+     * We want to preserve the original grayChroma selection so that when the user switches to another undertone
+     * that supports higher chromas, their selection will be there.
+     * This property is the gray chroma % that is actually applied.
+     */
+    computedGrayChroma() {
+      return Math.min(this.grayChroma, this.maxGrayChroma);
+    },
+
+    maxGrayChroma() {
+      return GRAY_CHROMA_MAX[this.grayColor] ?? 0.3;
     },
   },
 
@@ -491,6 +519,10 @@ function applyTweaks(originalColors, tweaks, tweaked) {
 
   if (!tweaked) {
     return originalColors;
+  }
+
+  if (tweaked.grayChroma) {
+    grayChroma = this.computedGrayChroma;
   }
 
   for (let hue in originalColors) {
