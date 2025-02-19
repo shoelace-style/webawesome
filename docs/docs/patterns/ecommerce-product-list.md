@@ -85,7 +85,7 @@ tags: e-commerce
       }
   </style>
 ```
-## With Color Swatches (WIP)
+<!-- ## With Color Swatches (WIP)
 ```html{.example}
 
-```
+``` -->
