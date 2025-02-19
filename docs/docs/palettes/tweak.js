@@ -369,19 +369,32 @@ let paletteAppSpec = {
     },
 
     reset() {
-      for (let hue in this.hueShifts) {
-        this.hueShifts[hue] = 0;
-      }
-      this.chromaScale = 1;
-      this.grayChroma = this.originalGrayChroma;
-      this.grayColor = this.originalGrayColor;
+      this.removeTweak();
     },
 
+    /**
+     * Remove a specific tweak or all tweaks
+     * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
+     */
     removeTweak(param) {
-      if (param === 'chromaScale') {
+      if (!param || param === 'chromaScale') {
         this.chromaScale = 1;
-      } else {
+      }
+
+      if (param in this.hueShifts) {
         this.hueShifts[param] = 0;
+      } else if (!param) {
+        for (let hue in this.hueShifts) {
+          this.hueShifts[hue] = 0;
+        }
+      }
+
+      if (!param || param === 'grayColor') {
+        this.grayColor = this.originalGrayColor;
+      }
+
+      if (!param || param === 'grayChroma') {
+        this.grayChroma = this.originalGrayChroma;
       }
     },
   },
