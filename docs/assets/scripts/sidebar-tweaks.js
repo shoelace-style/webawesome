@@ -94,7 +94,7 @@ sidebar.palette = {
     sidebar.palettes.save(savedPalettes);
 
     if (sidebar.palette.equals(globalThis.paletteApp?.saved, palette)) {
-      paletteApp.saved = null;
+      paletteApp.postDelete();
     }
   },
 

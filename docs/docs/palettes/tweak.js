@@ -50,8 +50,8 @@ let paletteAppSpec = {
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
-      grayChroma: 0,
-      grayColor: 'indigo',
+      grayChroma: undefined,
+      grayColor: undefined,
       tweaking: {},
       saved: null,
     };
@@ -69,31 +69,33 @@ let paletteAppSpec = {
       valueTo: value => (!value ? 0 : Number(value)),
     });
 
+    this.grayChroma = this.originalGrayChroma;
+    this.grayColor = this.originalGrayColor;
+
     if (location.search) {
       // Update from URL
       this.permalink.writeTo(this.hueShifts);
 
       for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
         if (this.permalink.has(param)) {
-          let prop = camelCase(param);
-          this[prop] = this.permalink.get(param);
-        }
-      }
+          let value = this.permalink.get(param);
 
-      if (this.permalink.has('chroma-scale')) {
-        this.chromaScale = Number(this.permalink.get('chroma-scale'));
+          if (!isNaN(value)) {
+            // Convert numeric values to numbers
+            value = Number(value);
+          }
+
+          let prop = camelCase(param);
+          this[prop] = value;
+        }
       }
 
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
       }
 
-      let palette = { id: this.paletteId, uid: this.uid, search: location.search };
-      this.saved = sidebar.palette.getSaved(palette);
+      this.saved = sidebar.palette.getSaved(this.palette);
     }
-
-    this.grayChroma = this.originalGrayChroma;
-    this.grayColor = this.originalGrayColor;
   },
 
   mounted() {
@@ -103,8 +105,8 @@ let paletteAppSpec = {
   },
 
   computed: {
-    global() {
-      return globalThis;
+    palette() {
+      return { id: this.paletteId, uid: this.uid, search: location.search };
     },
 
     tweaks() {
@@ -335,7 +337,7 @@ let paletteAppSpec = {
         this.permalink.updateLocation();
       }
 
-      let palette = { title, id: this.paletteId, uid, search: location.search };
+      let palette = { ...this.palette, title };
       sidebar.palette.save(palette, this.saved);
       this.saved = palette;
     },
@@ -357,7 +359,13 @@ let paletteAppSpec = {
 
     deleteSaved() {
       sidebar.palette.delete(this.saved);
+    },
+
+    postDelete() {
       this.saved = null;
+      this.permalink.delete('uid');
+      this.uid = undefined;
+      this.permalink.updateLocation();
     },
 
     reset() {
