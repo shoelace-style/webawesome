@@ -27,8 +27,9 @@ You can find them in the first column of each color palette.
 
 ### Themes
 
+- Updated Active, Glossy, Playful, and Premium themes so that `--wa-color-brand-fill-loud` uses the core color of the chosen brand color, regardless of tint.
 - You can now override the brand color of any theme with any of the 9 hues supported.
-- Improved UI for theme remixing, with previews and generated copyable code snippets
+- Improved UI for theme remixing, with previews and generated copyable code snippets.
 
 ### Components
 
@@ -43,6 +44,7 @@ You can find them in the first column of each color palette.
   - Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
   - Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
   - Fixed a bug that prevented slots from showing automatically without `with-` attributes
+- Fixed a bug in `<wa-select>` that prevented the description from being read by screen readers
 
 
 ### Docs

@@ -58,6 +58,17 @@
     var(--wa-color-brand-60)
   );
 
-  /* Text color: white if key < 70, brand-10 otherwise */
+  --wa-color-brand-70-max: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-lt-70),
+    var(--wa-color-brand-70)
+  );
+  --wa-color-brand-70-min: color-mix(
+    in oklab,
+    var(--wa-color-brand) var(--wa-color-brand-if-gte-70),
+    var(--wa-color-brand-70)
+  );
+
+  /* Text color: white if key < 60, brand-10 otherwise */
   --wa-color-brand-on: color-mix(in oklab, var(--wa-color-brand-10) var(--wa-color-brand-if-gte-60), white);
 }
