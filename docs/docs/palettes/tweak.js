@@ -16,7 +16,7 @@ const GRAY_CHROMA_MAX = {
   yellow: 0.25,
   green: 0.25,
   cyan: 0.3,
-  blue: 0.3,
+  blue: 0.35,
   indigo: 0.35,
   purple: 0.3,
   pink: 0.25,
