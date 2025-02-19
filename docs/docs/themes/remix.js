@@ -107,6 +107,10 @@ function setDefault(select, value) {
 }
 
 function render(changedAspect) {
+  if (!globalThis.demo) {
+    return;
+  }
+
   let url = new URL(demo.src);
 
   if (!changedAspect || changedAspect === 'colors') {
