@@ -3,24 +3,9 @@ import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
-import { selectors, urls } from '../../assets/scripts/tweak/data.js';
+import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
-
-/**
- * Max gray chroma (% of chroma of undertone) per hue
- */
-const GRAY_CHROMA_MAX = {
-  red: 0.2,
-  orange: 0.2,
-  yellow: 0.25,
-  green: 0.25,
-  cyan: 0.3,
-  blue: 0.35,
-  indigo: 0.35,
-  purple: 0.3,
-  pink: 0.25,
-};
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -196,12 +181,7 @@ let paletteAppSpec = {
         }
 
         let relHue = shift < 0 ? arrayPrevious(hues, hue) : arrayNext(hues, hue);
-        let hueTweak =
-          {
-            red: 'redder',
-            orange: 'oranger',
-            indigo: 'more indigo',
-          }[relHue] ?? relHue + 'er';
+        let hueTweak = moreHue[relHue] ?? relHue + 'er';
 
         ret[hue] = capitalize(hueTweak + ' ' + hue + 's');
       }
@@ -301,7 +281,7 @@ let paletteAppSpec = {
     },
 
     maxGrayChroma() {
-      return GRAY_CHROMA_MAX[this.grayColor] ?? 0.3;
+      return maxGrayChroma[this.grayColor] ?? 0.3;
     },
   },
 
@@ -353,6 +333,7 @@ let paletteAppSpec = {
       let uid = this.uid;
 
       if (!uid) {
+        // First time saving
         this.uid = uid = sidebar.palette.getUid();
 
         this.permalink.set('uid', uid);

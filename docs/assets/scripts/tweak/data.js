@@ -29,6 +29,45 @@ export const hueRanges = {
   pink: { min: 320, max: 365 }, // 45
 };
 
+export const moreHue = {
+  red: 'Redder',
+  orange: 'More orange', // https://www.reddit.com/r/grammar/comments/u9n0uo/is_it_oranger_or_more_orange/
+  yellow: 'Yellower',
+  green: 'Greener',
+  cyan: 'More cyan',
+  blue: 'Bluer',
+  indigo: 'More indigo',
+  pink: 'More pink',
+};
+
+/**
+ * Max gray chroma (% of chroma of undertone) per hue
+ */
+export const maxGrayChroma = {
+  red: 0.2,
+  orange: 0.2,
+  yellow: 0.25,
+  green: 0.25,
+  cyan: 0.3,
+  blue: 0.35,
+  indigo: 0.35,
+  purple: 0.3,
+  pink: 0.25,
+};
+
+export const docsURLs = {
+  colors: '/docs/themes/',
+  palette: '/docs/palettes/',
+  typography: '/docs/themes/',
+};
+
+export const icons = {
+  colors: 'palette',
+  palette: 'swatchbook',
+  brand: 'droplet',
+  typography: 'font-case',
+};
+
 export const hues = Object.keys(hueRanges);
 
 export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
