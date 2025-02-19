@@ -1,6 +1,6 @@
 ---
-title: Product Overviews
-description: 'Showcase your products with overviews including images, ratings, features, options, and more.'
+title: Product Overview
+description: 'Create focus landing pages for your store with detailed descriptions'
 parent: ecommerce
 tags: e-commerce
 ---
@@ -118,151 +118,97 @@ tags: e-commerce
   </wa-button>
 </div>
 ```
-## With Image Carousel & Expandable Details
+### With Carousel
 
 ```html {.example}
-<div style="max-width: 960px;margin: 0 auto;">
-<wa-carousel class="carousel-thumbnails" navigation loop>
-  <wa-carousel-item>
-    <img
-      alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
-      src="/assets/examples/carousel/pullover-1.jpg"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-      src="/assets/examples/carousel/pullover-2.jpg"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
-      src="/assets/examples/carousel/pullover-3.jpg"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
-      src="/assets/examples/carousel/pullover-4.jpg"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
-      src="/assets/examples/carousel/pullover-5.jpg"
-    />
-  </wa-carousel-item>
-</wa-carousel>
-
-<div class="thumbnails wa-split" style="margin-bottom: 1rem; justify-content: center">
-  <div class="thumbnails__scroller">
-    <img alt="Thumbnail by 1" class="thumbnails__image active" src="/assets/examples/carousel/pullover-1.jpg" />
-    <img alt="Thumbnail by 2" class="thumbnails__image" src="/assets/examples/carousel/pullover-2.jpg" />
-    <img alt="Thumbnail by 3" class="thumbnails__image" src="/assets/examples/carousel/pullover-3.jpg" />
-    <img alt="Thumbnail by 4" class="thumbnails__image" src="/assets/examples/carousel/pullover-4.jpg" />
-    <img alt="Thumbnail by 5" class="thumbnails__image" src="/assets/examples/carousel/pullover-5.jpg" />
+<div class="wa-stack wa-gap-3xl">
+  <wa-carousel pagination navigation loop style="--aspect-ratio: 3 / 2;">
+    <wa-carousel-item>
+      <img
+        alt="Knit sweater in sand color sleeve detail, showing the seamless design"
+        src="/assets/examples/carousel/pullover-1.jpg"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="Knit sweater in sand color sleeve detail, showing loose fit around the arms"
+        src="/assets/examples/carousel/pullover-2.jpg"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="Knit sweater in sand color shoulder detail, showing relaxed fit on broader shoulders"
+        src="/assets/examples/carousel/pullover-3.jpg"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="Knit sweater in sand color full view, showing waffle knit pattern, relaxed fit, and crew neckline"
+        src="/assets/examples/carousel/pullover-4.jpg"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="Knit sweater in sand color sleeve detail, showing rolled sleeves and ribbed cuffs"
+        src="/assets/examples/carousel/pullover-5.jpg"
+      />
+    </wa-carousel-item>
+  </wa-carousel>
+  <div class="wa-grid wa-gap-3xl" style="--min-column-size: 30ch;">
+    <div class="wa-stack">
+      <h3>Pullover Sweater</h3>
+      <span class="wa-heading-l">$140</span>
+      <wa-rating label="Rating" precision="0.5" value="4.5" readonly></wa-rating>
+      <p>Wrap yourself in warmth and effortless style with this wool knit Pullover Sweater. Designed for unparalleled comfort. The relaxed fit and classic crew neckline make it a versatile staple for layering or wearing solo.</p>
+      <wa-radio-group label="Color" name="color" value="sand" orientation="horizontal">
+        <wa-radio-button value="sand">
+          <wa-icon slot="prefix" name="circle" style="color: burlywood;"></wa-icon>
+          Sand
+        </wa-radio-button>
+        <wa-radio-button value="slate">
+          <wa-icon slot="prefix" name="circle" style="color: dimgray;"></wa-icon>
+          Slate
+        </wa-radio-button>
+        <wa-radio-button value="shale">
+          <wa-icon slot="prefix" name="circle" style="color: silver;"></wa-icon>
+          Shale
+        </wa-radio-button>
+      </wa-radio-group>
+      <wa-radio-group label="Size" name="size" value="s" orientation="horizontal">
+        <wa-radio-button value="xs">XS</wa-radio-button>
+        <wa-radio-button value="s">S</wa-radio-button>
+        <wa-radio-button value="m">M</wa-radio-button>
+        <wa-radio-button value="l">L</wa-radio-button>
+        <wa-radio-button value="xl">XL</wa-radio-button>
+      </wa-radio-group>
+      <wa-button variant="brand">Add to cart</wa-button>
+    </div>
+    <div class="wa-stack">
+      <wa-details summary="Size and Fit" open>
+        <ul class="wa-caption-m">
+          <li>True to size with a relaxed fit</li>
+          <li>Fits all shoulder shapes, broad to narrow</li>
+          <li>No pinching in the arms or irritating seams</li>
+          <li>Ribbed cuffs and hem</li>
+        </ul>
+      </wa-details>
+      <wa-details summary="Materials and Care">
+        <ul class="wa-caption-m">
+          <li>Durable Merino and Yak wool blend</li>
+          <li>Machine wash cold on delicate cycle</li>
+          <li>Lay flat to dry</li>
+          <li>Made with <wa-icon name="heart" label="love"></wa-icon> in Bentonville, USA</li>
+        </ul>
+      </wa-details>
+      <wa-details summary="Shipping">
+        <ul class="wa-caption-m">
+          <li>Flat $9 shipping free for orders under $200.</li>
+          <li>Free shipping on orders over $200, anywhere in the world.</li>
+        </ul>
+      </wa-details>
+    </div>
   </div>
 </div>
-<div>
-  <h3 style="--wa-space-xl: 0;">Pullover Sweater</h3>
-  <span style="display: block;font-size: 32px;">$40</span>
-  <wa-rating style="margin-bottom: 1rem;" label="Rating" precision="0.5" value="2.5"></wa-rating>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem. In efficitur nisl nec tincidunt mollis. Nulla eu velit porta, tincidunt erat a, scelerisque neque. Quisque tincidunt, erat sit amet cursus posuere, nisi mi aliquam ligula, non pulvinar augue eros eget ligula. Nullam sed molestie magna. Suspendisse porta blandit massa in suscipit. Nulla ultricies purus convallis, tincidunt orci ut, auctor sem. Suspendisse ornare orci lectus. Fusce eu orci et sem sollicitudin pharetra et eu purus. Quisque interdum, ante nec euismod consequat, ante leo maximus dui, ut commodo massa urna et nisi. Proin placerat augue in consequat fringilla.</p>
-  <wa-radio-group orientation="horizontal" label="Select Color" name="color" value="beige" style="margin-bottom: var(--wa-size);">
-    <wa-radio-button value="beige">Beige</wa-radio-button>
-    <wa-radio-button value="gray">Gray</wa-radio-button>
-    <wa-radio-button value="brown">Brown</wa-radio-button>
-  </wa-radio-group>
-<div>
-</div>
-<div class="details-group-example">
-  <wa-details summary="Locally Sourced" open>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </wa-details>
-
-  <wa-details summary="Hand Inspected">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </wa-details>
-</div>
-</div>
-  <wa-button variant="brand" size="large" style="margin-top: var(--wa-size);">
-      <wa-icon slot="suffix" name="cart-plus" variant="solid"></wa-icon>
-      Add to Cart
-  </wa-button>
-</div>
-<style>
-  .carousel-thumbnails {
-    --slide-aspect-ratio: 3 / 2;
-  }
-  .thumbnails__scroller {
-    display: flex;
-    gap: var(--wa-space-s);
-    overflow-x: auto;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    scroll-padding: var(--wa-space-s);
-  }
-  .thumbnails__scroller::-webkit-scrollbar {
-    display: none;
-  }
-  .thumbnails__image {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    opacity: 0.3;
-    will-change: opacity;
-    transition: 250ms opacity;
-    cursor: pointer;
-  }
-  .thumbnails__image.active {
-    opacity: 1;
-  }
-  .details-group-example wa-details:not(:last-of-type) {
-    margin-bottom: var(--wa-space-2xs);
-  }
-</style>
-
-<script>
-  {
-    const carousel = document.querySelector('.carousel-thumbnails');
-    const scroller = document.querySelector('.thumbnails__scroller');
-    const thumbnails = document.querySelectorAll('.thumbnails__image');
-
-    scroller.addEventListener('click', e => {
-      const target = e.target;
-
-      if (target.matches('.thumbnails__image')) {
-        const index = [...thumbnails].indexOf(target);
-        carousel.goToSlide(index);
-      }
-    });
-
-    carousel.addEventListener('wa-slide-change', e => {
-      const slideIndex = e.detail.index;
-
-      [...thumbnails].forEach((thumb, i) => {
-        thumb.classList.toggle('active', i === slideIndex);
-        if (i === slideIndex) {
-          thumb.scrollIntoView({
-            block: 'nearest'
-          });
-        }
-      });
-    });
-  }
-
-    const container = document.querySelector('.details-group-example');
-
-  // Close all other details when one is shown
-  container.addEventListener('wa-show', event => {
-    if (event.target.localName === 'wa-details') {
-      [...container.querySelectorAll('wa-details')].map(details => (details.open = event.target === details));
-    }
-  });
-</script>
 ```
 
 <!-- ## Split with Image

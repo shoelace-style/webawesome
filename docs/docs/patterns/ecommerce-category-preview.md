@@ -47,6 +47,7 @@ icon: preview
       <div></div>
       <div></div>
     </div>
+     <div style="--aspect-ratio: 1/.25"></div>
   </div>
 </div>
 ```

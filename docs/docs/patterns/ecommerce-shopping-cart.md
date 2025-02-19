@@ -70,13 +70,13 @@ tags: e-commerce
 ## Two Columns
 
 ```html {.example}
-<div>
+<div style="max-width: 960px; margin: 0 auto;">
   <h1>Shopping Cart</h1>
   <div class="wa-grid">
     <div class="wa-stack">
       <section class="wa-grid" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
         <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
-        <div class="wa-split">
+        <div class="wa-flank">
           <div>
             <div>
               <h3 style="margin-bottom: 0">Classic Tee</h3>
@@ -89,7 +89,7 @@ tags: e-commerce
       </section>
      <section class="wa-grid" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
         <img class="cart-item-image" src="https://images.unsplash.com/photo-1564859227552-81fde4a1df0b?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
-        <div class="wa-split">
+        <div class="wa-flank">
           <div>
             <div>
               <h3 style="margin-bottom: 0">RVCA Graphic</h3>
@@ -102,7 +102,7 @@ tags: e-commerce
       </section>
       <section class="wa-grid">
         <img class="cart-item-image" src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
-        <div class="wa-split">
+        <div class="wa-flank">
           <div>
             <div>
               <h3 style="margin-bottom: 0">Made Wild Graphic</h3>

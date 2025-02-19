@@ -2,12 +2,12 @@
 title: Incentives
 description: 'Encourage shoppers to buy your products with value propositions, discounts, and promotions.'
 parent: ecommerce
-tags: e-commerce
+unlisted: true
 ---
 
 ## Promotion Dialog
 
-```html {.example viewport}
+```html {.example}
 <wa-dialog label="New Here?" with-header class="coupon" style="--width: 50rem;" open>
   <div class="coupon-split">
     <img style="height: 100%" src="/assets/images/patterns/coupon.jpg" />

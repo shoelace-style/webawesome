@@ -29,7 +29,7 @@ tags: e-commerce
       </span>
   </div>
   <div class="wa-stack">
-    <div class="wa-flank">
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
       <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
@@ -37,14 +37,15 @@ tags: e-commerce
           <span><strong>$215.00</strong></span>
         </span>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
-        <span>
-          <a href="#">View Product</a> |  <a href="#">Buy Again</a>
+        <div class="wa-split">
+          <span>
+            <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
-        <br/>
-        <span>Delivered</span>
+        <wa-badge appearance="filled" variant="success">Delivered</wa-badge>
+        </div> 
       </div>
     </div>
-    <div class="wa-flank">
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
       <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
@@ -52,14 +53,15 @@ tags: e-commerce
           <span><strong>$115.00</strong></span>
         </span>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
-        <span>
-          <a href="#">View Product</a> |  <a href="#">Buy Again</a>
+        <div class="wa-split">
+          <span>
+          <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
-        <br/>
-        <span>Out for delivery</span>
+        <wa-badge appearance="filled" variant="brand">Out for delivery</wa-badge>
+        </div>
       </div>
     </div>
-    <div class="wa-flank">
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
       <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
@@ -67,11 +69,12 @@ tags: e-commerce
           <span><strong>$260.00</strong></span>
         </span>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
-        <span>
-          <a href="#">View Product</a> |  <a href="#">Buy Again</a>
+        <div class="wa-split">
+          <span>
+          <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
-        <br/>
-        <span>Preparing to ship</span>
+         <wa-badge appearance="filled" variant="neutral">Preparing to ship</wa-badge>
+        </div>
       </div>
     </div>
   </div>
