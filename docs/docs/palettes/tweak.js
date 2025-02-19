@@ -70,8 +70,15 @@ let paletteAppSpec = {
       // Update from URL
       this.permalink.writeTo(this.hueShifts);
 
+      for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
+        if (this.permalink.has(param)) {
+          let prop = camelCase(param);
+          this[prop] = this.permalink.get(param);
+        }
+      }
+
       if (this.permalink.has('chroma-scale')) {
-        this.chromaScale = Number(this.permalink.get('chroma-scale') || 1);
+        this.chromaScale = Number(this.permalink.get('chroma-scale'));
       }
 
       if (this.permalink.has('uid')) {
@@ -84,6 +91,12 @@ let paletteAppSpec = {
 
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
+  },
+
+  mounted() {
+    const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
+    this.$refs.chromaScaleSlider.tooltipFormatter = percentFormatter;
+    this.$refs.grayChromaSlider.tooltipFormatter = percentFormatter;
   },
 
   computed: {
@@ -107,7 +120,7 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.paletteId, this.tweaks, { language, cdnUrl });
+        let code = getPaletteCode(this.paletteId, this.colors, this.tweaked, { language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -137,19 +150,27 @@ let paletteAppSpec = {
     },
 
     tweaked() {
-      return {
+      let anyHueTweaked = Object.values(this.hueShifts).some(Boolean);
+      let hue = anyHueTweaked
+        ? Object.fromEntries(Object.entries(this.hueShifts).map(([hue, shift]) => [hue, shift !== 0]))
+        : false;
+
+      let ret = {
         chroma: this.chromaScale !== 1,
-        hue: Object.values(this.hueShifts).some(Boolean),
+        hue,
         grayChroma: this.grayChroma !== this.originalGrayChroma,
         grayColor: this.grayColor !== this.originalGrayColor,
       };
+
+      let anyTweaked = Object.values(ret).some(Boolean);
+      return anyTweaked ? ret : false;
     },
 
     tweaksHumanReadable() {
       let ret = {};
 
       if (this.chromaScale !== 1) {
-        ret.chromaScale = 'more ' + (this.chromaScale > 1 ? 'vibrant' : 'muted');
+        ret.chromaScale = 'More ' + (this.chromaScale > 1 ? 'vibrant' : 'muted');
       }
 
       for (let hue in this.hueShifts) {
@@ -167,102 +188,34 @@ let paletteAppSpec = {
             indigo: 'more indigo',
           }[relHue] ?? relHue + 'er';
 
-        ret[hue] = hueTweak + ' ' + hue + 's';
+        ret[hue] = capitalize(hueTweak + ' ' + hue + 's');
+      }
+
+      if (this.tweaked.grayChroma || this.tweaked.grayColor) {
+        if (this.tweaked.grayChroma === 0) {
+          ret.grayChroma = 'Achromatic grays';
+        } else {
+          if (this.tweaked.grayColor) {
+            ret.grayColor = capitalize(this.grayColor) + ' gray undertone';
+          }
+
+          if (this.tweaked.grayChroma > this.originalGrayChroma) {
+            ret.grayChroma = this.grayTemperature + 'er grays';
+          } else {
+            ret.grayChroma = 'Less ' + this.grayTemperature + ' grays';
+          }
+        }
       }
 
       return ret;
     },
 
     originalContrasts() {
-      let ret = {};
-
-      for (let hue in this.originalColors) {
-        let originalScale = this.originalColors[hue];
-        let scale = (ret[hue] = {});
-        let descriptors = Object.getOwnPropertyDescriptors(originalScale);
-        Object.defineProperties(scale, {
-          maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
-          maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
-        });
-
-        for (let tint of tints) {
-          let oklch = originalScale[tint].coords.slice();
-
-          if (this.hueShifts[hue]) {
-            oklch[2] += this.hueShifts[hue];
-          }
-
-          if (this.chromaScale !== 1) {
-            oklch[1] *= this.chromaScale;
-          }
-
-          scale[tint] = new Color('oklch', oklch);
-        }
-      }
-
-      return ret;
-    },
-
-    tweaked() {
-      return {
-        chroma: this.chromaScale !== 1,
-        hue: Object.values(this.hueShifts).some(Boolean),
-      };
-    },
-
-    tweaksHumanReadable() {
-      let ret = {};
-
-      if (this.chromaScale !== 1) {
-        ret.chromaScale = 'more ' + (this.chromaScale > 1 ? 'vibrant' : 'muted');
-      }
-
-      for (let hue in this.hueShifts) {
-        let shift = this.hueShifts[hue];
-
-        if (!shift) {
-          continue;
-        }
-
-        let relHue = shift < 0 ? arrayPrevious(hues, hue) : arrayNext(hues, hue);
-        let hueTweak =
-          {
-            red: 'redder',
-            orange: 'oranger',
-            indigo: 'more indigo',
-          }[relHue] ?? relHue + 'er';
-
-        ret[hue] = hueTweak + ' ' + hue + 's';
-      }
-
-      return ret;
-    },
-
-    originalContrasts() {
-      let ret = {};
-
-      for (let hue in this.originalColors) {
-        ret[hue] = {};
-
-        for (let tintBg of tints) {
-          ret[hue][tintBg] = {};
-          let bgColor = this.originalColors[hue][tintBg];
-
-          if (!bgColor || !bgColor.contrast) {
-            continue;
-          }
-
-          for (let tintFg of tints) {
-            let contrast = bgColor.contrast(this.originalColors[hue][tintFg], 'WCAG21');
-            ret[hue][tintBg][tintFg] = contrast;
-          }
-        }
-      }
-
-      return ret;
+      return getContrasts(this.originalColors);
     },
 
     contrasts() {
+      return getContrasts(this.colors, this.originalContrasts);
       let ret = {};
 
       for (let hue in this.colors) {
@@ -274,28 +227,7 @@ let paletteAppSpec = {
 
           for (let tintFg in this.colors[hue]) {
             let fgColor = this.colors[hue][tintFg];
-            let value = bgColor.contrast(fgColor, 'WCAG21');
-            let original = this.originalContrasts[hue][tintBg][tintFg];
-            ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
-          }
-        }
-      }
-
-      return ret;
-    },
-
-    contrasts() {
-      let ret = {};
-
-      for (let hue in this.colors) {
-        ret[hue] = {};
-
-        for (let tintBg in this.colors[hue]) {
-          ret[hue][tintBg] = {};
-          let bgColor = this.colors[hue][tintBg];
-
-          for (let tintFg in this.colors[hue]) {
-            let fgColor = this.colors[hue][tintFg];
+            console.log(hue, tintBg, tintFg, bgColor, this.originalColors[hue][tintFg]);
             let value = bgColor.contrast(fgColor, 'WCAG21');
             let original = this.originalContrasts[hue][tintBg][tintFg];
             ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
@@ -347,12 +279,13 @@ let paletteAppSpec = {
     },
 
     originalGrayChroma() {
-      let grayChroma = this.originalCoreColors.gray.get('c');
-      if (grayChroma === 0) {
+      let coreTint = this.originalColors.gray.maxChromaTint;
+      let grayChroma = this.originalColors.gray[coreTint].get('c');
+      if (grayChroma === 0 || grayChroma === null) {
         return 0;
       }
 
-      let grayColorChroma = this.originalCoreColors[this.originalGrayColor].get('c');
+      let grayColorChroma = this.originalColors[this.originalGrayColor][coreTint].get('c');
       return grayChroma / grayColorChroma;
     },
 
@@ -374,6 +307,14 @@ let paletteAppSpec = {
 
     chromaScale() {
       this.permalink.set('chroma-scale', this.chromaScale, 1);
+    },
+
+    grayColor() {
+      this.permalink.set('gray-color', this.grayColor, this.originalGrayColor);
+    },
+
+    grayChroma() {
+      this.permalink.set('gray-chroma', this.grayChroma, this.originalGrayChroma);
     },
 
     tweaks: {
@@ -489,9 +430,7 @@ function init() {
 init();
 addEventListener('turbo:render', init);
 
-export function getPaletteCode(paletteId, tweaks, options) {
-  let palette = allPalettes[paletteId].colors;
-
+export function getPaletteCode(paletteId, colors, tweaked, options) {
   let imports = [];
 
   if (paletteId) {
@@ -499,37 +438,27 @@ export function getPaletteCode(paletteId, tweaks, options) {
   }
 
   let css = '';
+  let declarations = [];
 
-  if (tweaks) {
-    let { hueShifts, chromaScale = 1 } = tweaks;
-    let declarations = [];
-
-    if (hueShifts || chromaScale !== 1) {
-      for (let hue in hueShifts) {
-        let shift = hueShifts[hue];
-
-        if ((!shift && chromaScale === 1) || hue === 'orange') {
+  if (tweaked) {
+    for (let hue in colors) {
+      if (hue === 'orange') {
+        continue;
+      } else if (hue === 'gray') {
+        if (!tweaked.grayChroma && !tweaked.grayColor) {
           continue;
         }
-
-        let scale = palette[hue];
-
-        for (let tint of ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95']) {
-          let color = scale[tint];
-
-          if (Array.isArray(color)) {
-            color = new Color('oklch', coords);
-          } else {
-            color = color.clone();
-          }
-          color.set({ h: h => h + shift, c: c => c * chromaScale });
-          let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
-
-          declarations.push(`--wa-color-${hue}-${tint}: ${stringified};`);
-        }
-
-        declarations.push('');
+      } else if (!tweaked.chromaScale && !tweaked.hue?.[hue]) {
+        continue;
       }
+
+      for (let tint of tints) {
+        let color = colors[hue][tint];
+        let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
+        declarations.push(`--wa-color-${hue}-${tint}: ${stringified};`);
+      }
+
+      declarations.push('');
     }
 
     if (declarations.length > 0) {
@@ -560,6 +489,10 @@ function applyTweaks(originalColors, tweaks, tweaked) {
   let ret = {};
   let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
 
+  if (!tweaked) {
+    return originalColors;
+  }
+
   for (let hue in originalColors) {
     let originalScale = originalColors[hue];
     let scale = (ret[hue] = {});
@@ -586,6 +519,44 @@ function applyTweaks(originalColors, tweaks, tweaked) {
       }
 
       scale[tint] = color;
+    }
+  }
+
+  return ret;
+}
+
+function camelCase(str) {
+  return (str + '').replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+function getContrasts(colors, originalContrasts) {
+  let ret = {};
+
+  for (let hue in colors) {
+    ret[hue] = {};
+
+    for (let tintBg of tints) {
+      ret[hue][tintBg] = {};
+      let bgColor = colors[hue][tintBg];
+
+      if (!bgColor || !bgColor.contrast) {
+        continue;
+      }
+
+      for (let tintFg of tints) {
+        let fgColor = colors[hue][tintFg];
+        let value = bgColor.contrast(fgColor, 'WCAG21');
+        if (originalContrasts) {
+          let original = originalContrasts[hue][tintBg][tintFg];
+          ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
+        } else {
+          ret[hue][tintBg][tintFg] = value;
+        }
+      }
     }
   }
 

@@ -25,9 +25,16 @@ wa-dropdown > .color.swatch {
     --track-color-inactive: transparent;
     --track-color-active: transparent;
     --thumb-color: var(--color-tweaked, var(--color));
+    --thumb-shadow: 0 0 0 var(--thumb-gap) var(--wa-color-surface-default),
+      var(--wa-shadow-offset-x-m) var(--wa-shadow-offset-y-m) var(--wa-shadow-blur-m)
+        calc(var(--wa-shadow-offset-x-m) * -1 + var(--thumb-gap)) var(--wa-color-shadow);
+
+    &:active {
+      --thumb-size: 2em;
+    }
 
     &::part(base) {
-      background: linear-gradient(to right in oklch, var(--color-1), var(--color-2));
+      background: linear-gradient(to right in var(--color-interpolation-space, oklab), var(--color-1), var(--color-2));
     }
   }
 
@@ -63,6 +70,7 @@ wa-dropdown > .color.swatch {
 .hue-shift-slider {
   --color-1: oklch(from var(--color) l c calc(h + var(--min, 0)));
   --color-2: oklch(from var(--color) l c calc(h + var(--max, 0)));
+  --color-interpolation-space: oklch;
 }
 
 .chroma-scale-slider {
@@ -117,14 +125,18 @@ wa-dropdown > .color.swatch {
 
     &:is(.tweaking *) {
       --color-2-height: 70%;
+    }
 
-      &:is(.tweaking-chroma *) {
-        --color: var(--color-tweaked-no-chroma-scale);
-      }
+    &:is(.tweaking-chroma *) {
+      --color: var(--color-tweaked-no-chroma-scale);
+    }
 
-      &:is(.tweaking-hue *) {
-        --color: var(--color-tweaked-no-hue-shift);
-      }
+    &:is(.tweaking-hue *) {
+      --color: var(--color-tweaked-no-hue-shift);
+    }
+
+    &:is(.tweaking-gray-chroma *) {
+      --color: var(--color-tweaked-no-gray-chroma);
     }
   }
 
