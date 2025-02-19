@@ -141,7 +141,7 @@
             </div>
           </wa-slider>
           <div class="label-min">Neutral</div>
-          <div class="label-max" v-content="grayTemperature + 'er'">Warmer/Cooler</div>
+          <div class="label-max" v-content="moreHue[grayColor]">Warmer/Cooler</div>
         </div>
       {% else %}
       {%- set hueAfter = hues[loop.index0 + 1] -%}

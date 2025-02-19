@@ -58,6 +58,9 @@ let paletteAppSpec = {
   },
 
   created() {
+    // Non-reactive variables to expose
+    Object.assign(this, { moreHue });
+
     // Read URL params and apply them. This facilitates permalinks.
     this.permalink.mapObject(this.hueShifts, {
       keyTo: key => key.replace(/-shift$/, ''),
@@ -194,10 +197,9 @@ let paletteAppSpec = {
             ret.grayColor = capitalize(this.grayColor) + ' gray undertone';
           }
 
-          if (this.tweaked.grayChroma > this.originalGrayChroma) {
-            ret.grayChroma = this.grayTemperature + 'er grays';
-          } else {
-            ret.grayChroma = 'Less ' + this.grayTemperature + ' grays';
+          if (this.tweaked.grayChroma) {
+            let more = this.tweaked.grayChroma > this.originalGrayChroma;
+            ret.grayChroma = `More ${more ? 'colorful' : 'neutral'} grays`;
           }
         }
       }
@@ -262,13 +264,6 @@ let paletteAppSpec = {
 
       let grayColorChroma = this.originalColors[this.originalGrayColor][coreTint].get('c');
       return grayChroma / grayColorChroma;
-    },
-
-    grayTemperature() {
-      let grayHue = this.coreColors[this.grayColor].get('h');
-
-      let isCool = grayHue > 110 && grayHue < 290;
-      return isCool ? 'Cool' : 'Warm';
     },
 
     /**
