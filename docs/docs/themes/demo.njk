@@ -36,24 +36,12 @@ eleventyComputed:
 </wa-image-comparer>
 
 <script type="module">
-import { urls as stylesheetURLs } from "/assets/scripts/tweak/data.js";
+import { urls as stylesheetURLs, docsURLs, icons } from "/assets/scripts/tweak/data.js";
 import { theme as getThemeCode } from "/assets/scripts/tweak/code.js";
 
 function updateTheme() {
   let params = new URLSearchParams(window.location.search);
   params = Object.fromEntries(params.entries());
-
-  const docsURLs = {
-    colors: '/docs/themes/',
-    palette: '/docs/palettes/',
-    typography: '/docs/themes/'
-  };
-  const icons = {
-    colors: 'palette',
-    palette: 'swatchbook',
-    brand: 'droplet',
-    typography: 'font-case'
-  };
 
   for (let link of document.querySelectorAll('link.mix-and-match')) {
     link.remove();
