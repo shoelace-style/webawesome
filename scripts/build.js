@@ -7,7 +7,6 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import nunjucks from 'nunjucks';
 import ora from 'ora';
 import { dirname, join, relative } from 'path';
 import process from 'process';
