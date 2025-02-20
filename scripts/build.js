@@ -379,7 +379,9 @@ if (isDeveloping) {
         return;
       }
 
-      await regenerateBundle();
+      if (filename.includes('src/') && /\.(js|ts)$/.test(filename)) {
+        await regenerateBundle();
+      }
 
       // Copy stylesheets when CSS files change
       if (isCssStylesheet) {
@@ -392,7 +394,9 @@ if (isDeveloping) {
       }
 
       // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
-      await generateDocs();
+      if (filename.includes('/docs/')) {
+        await generateDocs();
+      }
 
       reload();
     } catch (err) {
