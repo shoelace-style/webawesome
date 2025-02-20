@@ -12,6 +12,7 @@ import { dirname, join, relative } from 'path';
 import process from 'process';
 import copy from 'recursive-copy';
 import { fileURLToPath } from 'url';
+import { preprocessStylesheet } from './preprocess-css.js';
 import { cdnDir, distDir, docsDir, rootDir, runScript, siteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,6 +37,7 @@ async function buildAll() {
     await generateManifest();
     await generateReactWrappers();
     await generateTypes();
+    await preprocessStyles();
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
@@ -103,6 +105,23 @@ function generateReactWrappers() {
   spinner.succeed();
 
   return Promise.resolve();
+}
+
+/**
+ * Generate preprocessed CSS
+ */
+async function preprocessStyles() {
+  const preprocessedCSSFiles = await globby(join(rootDir, 'src/styles/**/*.css.njk'));
+
+  if (preprocessedCSSFiles.length > 0) {
+    spinner.start('Preprocessing stylesheets');
+
+    for (let filePath of preprocessedCSSFiles) {
+      await preprocessStylesheet(filePath);
+    }
+
+    spinner.succeed();
+  }
 }
 
 /**
@@ -371,6 +390,7 @@ if (isDeveloping) {
     try {
       const isTestFile = filename.includes('.test.ts');
       const isCssStylesheet = filename.includes('.css');
+      const isPreprocessedStylesheet = filename.endsWith('.css.njk');
       const isComponent =
         filename.includes('components/') && filename.includes('.ts') && !isCssStylesheet && !isTestFile;
 
@@ -380,6 +400,10 @@ if (isDeveloping) {
       }
 
       await regenerateBundle();
+
+      if (isPreprocessedStylesheet || filename.endsWith('src/styles/data.js')) {
+        await preprocessStyles();
+      }
 
       // Copy stylesheets when CSS files change
       if (isCssStylesheet) {

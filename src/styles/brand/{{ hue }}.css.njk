@@ -1,0 +1,13 @@
+@import url('base.css');
+
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+:where([class^='wa-palette-'], [class*=' wa-palette-']),
+.wa-brand-{{ hue }} {
+  {%- for tint in tints | reverse %}
+  --wa-color-brand-{{ tint }}: var(--wa-color-{{ hue }}-{{ tint }});
+  {%- endfor %}
+  --wa-color-brand: var(--wa-color-{{ hue }});
+  --wa-color-brand-key: var(--wa-color-{{ hue }}-key);
+}

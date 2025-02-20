@@ -1,0 +1,48 @@
+/**
+ * Register color properties so that the space toggle hack can work.
+ */
+{% for type in semantic_color_types %}
+@property --wa-color-{{ type }} {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+{% endfor %}
+
+/**
+ * Element defaults.
+   We want these to resolve to inherit when inside a variant, and only be applied when not inside an explicit variant.
+ */
+:host(wa-button), .wa-button, button, input[type='button'], input[type='submit'],
+:host(wa-tag), .wa-tag {
+  {%- for type in semantic_color_types %}
+  --wa-color-{{ type }}: var(--wa-no-variant, var(--wa-color-neutral-{{ type }}));
+  {%- endfor %}
+}
+
+:host(wa-callout), .wa-callout,
+:host(wa-badge), .wa-badge {
+  {%- for type in semantic_color_types %}
+  --wa-color-{{ type }}: var(--wa-no-variant, var(--wa-color-brand-{{ type }}));
+  {%- endfor %}
+}
+
+/**
+ * Variants
+ */
+{% for variant in variants %}
+{{ ':root,' if variant === 'neutral' }}
+.wa-{{ variant }},
+:host([variant='{{ variant }}']) {
+  {%- for type in semantic_color_types %}
+  --wa-color-{{ type }}: var(--wa-color-{{ variant }}-{{ type }});
+  {%- endfor %}
+}
+{%- endfor %}
+
+{% for variant in variants %}
+.wa-{{ variant }},
+{%- endfor %}
+:host([variant]) {
+  --wa-no-variant: /* space toggle */;
+}
