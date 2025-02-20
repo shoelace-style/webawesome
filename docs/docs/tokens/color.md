@@ -1,6 +1,7 @@
 ---
 title: Color
 description: Ensure consistent use of color and readable contrast with Web Awesome's color properties.
+wide: true
 ---
 
 <style>
@@ -43,6 +44,18 @@ description: Ensure consistent use of color and readable contrast with Web Aweso
     color: var(--wa-color-brand-on-loud);
     text-align: center;
   }
+  .colors.bounded,
+  .core-column {
+    .color.swatch {
+      --key: var(--core-key);
+      --lt-60: calc(clamp(0, 60 - var(--key), 1) * 100%);
+
+      &::before {
+        counter-reset: key var(--key);
+        content: counter(key);
+      }
+    }
+  }
 </style>
 
 Web Awesome's color system is made up of CSS custom properties to help with consistent color use throughout your project.
@@ -64,21 +77,125 @@ You can use these numbers to ensure accessible color contrast per [WCAG 2.1 succ
 - A difference of 50 ensures a minimum 4.5:1 contrast ratio, suitable for normal text (AA) and large text (AAA)
 - A difference of 60 ensures a minimum 7:1 contrast ratio, suitable for all text (AAA)
 
-Each Web Awesome palette defines seven literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
+Each Web Awesome palette defines eight literal colors each with 11 lightness values using the format `--wa-color-{hue}-{tint}`.
+Additionally, the "core" (most vibrant) color of each scale is mapped to `--wa-color-{hue}`.
 
+{% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}
+
+<table class="colors">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="core-column">Core tint</th>
+      {% for tint in tints -%}
+      <th>{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
 {% for hue in hues -%}
-<div class="color-name">{{ hue | capitalize }}</div>
-<ul class="color-group">
-  {% for tint in ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] -%}
-    <li class="color-preview">
+<tr style="--core-key: var(--wa-color-{{ hue }}-key)">
+  <th>{{ hue | capitalize }}</th>
+  <td class="core-column" style="--color: var(--wa-color-{{ hue }})">
+    <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on);">
+      <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+    </div>
+  </td>
+  {% for tint in tints -%}
+    <td data-tint="{{ tint }}" style="--color: var(--wa-color-{{ hue }}-{{ tint }})">
       <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
         <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
       </div>
-      <small>{{ tint }}</small>
-    </li>
-  {%- endfor %}
-</ul>
+    </td>
+  {%- endfor -%}
+</tr>
 {%- endfor %}
+</table>
+
+## Bounded Core Colors
+
+In addition to the literal color scales above and their core colors,
+we also define variables for "bounded" core colors, which resolve to the core color of the hue's scale,
+but clamped to a specific tint.
+
+This is useful for using core colors while ensuring a minimum contrast ratio with other colors in your theme.
+
+### Upper Bound Core Colors
+
+These variables resolve to the core color as long as it is equal or below the specified tint,
+and to the specified tint otherwise.
+
+{% set tints_clamped = ['40', '50', '60', '70'] %}
+
+<table class="colors bounded">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="core-column">Core tint</th>
+      {% for tint in tints_clamped -%}
+      <th>max-{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
+{% for hue in hues -%}
+<tr style="--core-key: var(--wa-color-{{ hue }}-key)">
+  <th>{{ hue | capitalize }}</th>
+  <td class="core-column">
+    <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on);">
+      {{ palettes[paletteId][hue].maxChromaTint -}}
+      <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+    </div>
+  </td>
+  {% for tint in tints_clamped -%}
+    <td>
+      <div class="color swatch" style="
+        --key: min(var(--core-key), {{ tint }});
+        color: color-mix(in oklab, var(--wa-color-{{ hue }}-10), white var(--lt-60));
+        background-color: var(--wa-color-{{ hue }}-max-{{ tint }});">
+        <wa-copy-button value="--wa-color-{{ hue }}-max-{{ tint }}" copy-label="--wa-color-{{ hue }}-max-{{ tint }}"></wa-copy-button>
+      </div>
+    </td>
+  {%- endfor -%}
+</tr>
+{%- endfor %}
+</table>
+
+### Lower Bound Core Colors
+
+These variables resolve to the core color as long as it is at least at the specified tint,
+and to the specified tint otherwise.
+
+<table class="colors bounded">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="core-column">Core tint</th>
+      {% for tint in tints_clamped -%}
+      <th>min-{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
+{% for hue in hues -%}
+<tr style="--core-key: var(--wa-color-{{ hue }}-key)">
+  <th>{{ hue | capitalize }}</th>
+  <td class="core-column">
+    <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on);">
+      {{ palettes[paletteId][hue].maxChromaTint -}}
+      <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+    </div>
+  </td>
+  {% for tint in tints_clamped -%}
+    <td>
+      <div class="color swatch" style="
+        --key: max(var(--core-key), {{ tint }});
+        color: color-mix(in oklab, var(--wa-color-{{ hue }}-10), white var(--lt-60));
+        background-color: var(--wa-color-{{ hue }}-min-{{ tint }})">
+        <wa-copy-button value="--wa-color-{{ hue }}-min-{{ tint }}" copy-label="--wa-color-{{ hue }}-min-{{ tint }}"></wa-copy-button>
+      </div>
+    </td>
+  {%- endfor -%}
+</tr>
+{%- endfor %}
+</table>
 
 ## Foundational Colors
 
