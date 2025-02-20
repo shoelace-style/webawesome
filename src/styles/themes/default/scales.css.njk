@@ -1,0 +1,15 @@
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']) {
+  {% for variant, hue in { success: 'green', warning: 'yellow', danger: 'red', neutral: 'gray' } -%}
+  {%- for tint in tints %}
+  --wa-color-{{ variant }}-{{ tint }}: var(--wa-color-{{ hue }}-{{ tint }});
+  {%- endfor %}
+  --wa-color-{{ variant }}:    var(--wa-color-{{ hue }});
+
+  {% for tint in ['40', '50', '60', '70'] %}
+  --wa-color-{{ variant }}-max-{{ tint }}: var(--wa-color-max-{{ hue }}-{{ tint }});
+  --wa-color-{{ variant }}-min-{{ tint }}: var(--wa-color-min-{{ hue }}-{{ tint }});
+  {%- endfor %}
+  {% endfor -%}
+}

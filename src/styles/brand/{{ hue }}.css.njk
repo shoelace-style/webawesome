@@ -1,5 +1,3 @@
-@import url('base.css');
-
 :where(:root),
 :host,
 :where([class^='wa-theme-'], [class*=' wa-theme-']),
@@ -10,4 +8,15 @@
   {%- endfor %}
   --wa-color-brand: var(--wa-color-{{ hue }});
   --wa-color-brand-key: var(--wa-color-{{ hue }}-key);
+
+  {% for tint in ['40', '50', '60', '70', '80'] %}
+  --wa-color-brand-lt-{{ tint }}: var(--wa-color-{{ hue }}-lt-{{ tint }});
+  --wa-color-brand-gte-{{ tint }}: var(--wa-color-{{ hue }}-gte-{{ tint }});
+  {% endfor %}
+  {% for tint in ['40', '50', '60', '70'] %}
+  --wa-color-brand-max-{{ tint }}: var(--wa-color-{{ hue }}-max-{{ tint }});
+  --wa-color-brand-min-{{ tint }}: var(--wa-color-{{ hue }}-min-{{ tint }});
+  {%- endfor %}
+
+  --wa-color-brand-on: var(--wa-color-{{ hue }}-on);
 }

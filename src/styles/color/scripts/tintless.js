@@ -6,7 +6,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
-import palettes, { rawPalettes } from './palettes-analyzed.js';
+import palettes from './palettes-analyzed.js';
 import { PALETTE_DIR, formatComparison, hueToChalk } from './util.js';
 
 const selector = paletteId =>

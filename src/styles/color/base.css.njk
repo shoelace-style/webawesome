@@ -1,0 +1,34 @@
+{% for class in ['theme', 'palette', 'brand'] %}
+:where([class^='wa-{{ class }}-'], [class*=' wa-{{ class }}-']),
+{%- endfor %}
+:where(:root),
+:host {
+  /**
+   * Conditional tokens for use in color-mix()
+   * --wa-color-{hue}-lt-N ➡️ 100% if key < N, 0% otherwise
+   * --wa-color-{hue}-gte-N ➡️ 100% if key >= N, 0% otherwise
+   */
+  {% for hue in hues %}
+  {% for tint in ['40', '50', '60', '70', '80'] %}
+  --wa-color-{{ hue }}-lt-{{ tint }}: calc(clamp(0, {{ tint }} - var(--wa-color-{{ hue }}-key), 1) * 100%);
+  --wa-color-{{ hue }}-gte-{{ tint }}: calc(100% - var(--wa-color-{{ hue }}-lt-{{ tint }}));
+  {%- endfor %}
+  {% endfor %}
+
+  /*
+   * Convenience tokens for common tint cutoffs
+   * --wa-color-{hue}-N-max ➡️ var(--color-{hue}) if key <= N, var(--color-{hue}-N) otherwise
+   * --wa-color-{hue}-N-min ➡️ var(--color-{hue}) if key >= N, var(--color-{hue}-N) otherwise
+   */
+  {% for hue in hues %}
+  {% for tint in ['40', '50', '60', '70'] %}
+  --wa-color-{{ hue }}-max-{{ tint }}: color-mix(in oklab, var(--wa-color-{{ hue }}) var(--wa-color-{{ hue }}-lt-{{ tint }}), var(--wa-color-{{ hue }}-{{ tint }}));
+  --wa-color-{{ hue }}-min-{{ tint }}: color-mix(in oklab, var(--wa-color-{{ hue }}) var(--wa-color-{{ hue }}-gte-{{ tint }}), var(--wa-color-{{ hue }}-{{ tint }}));
+  {%- endfor %}
+  {%- endfor %}
+
+  /* Text color: white if key < 60, {hue}-10 otherwise */
+  {% for hue in hues %}
+  --wa-color-{{ hue }}-on: color-mix(in oklab, var(--wa-color-{{ hue }}-10) var(--wa-color-{{ hue }}-gte-60), white);
+  {%- endfor %}
+}
