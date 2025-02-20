@@ -370,15 +370,11 @@ let paletteAppSpec = {
       this.permalink.updateLocation();
     },
 
-    reset() {
-      this.removeTweak();
-    },
-
     /**
      * Remove a specific tweak or all tweaks
      * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
      */
-    removeTweak(param) {
+    reset(param) {
       if (!param || param === 'chromaScale') {
         this.chromaScale = 1;
       }
