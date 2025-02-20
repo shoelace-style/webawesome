@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
 import ora from 'ora';
@@ -342,6 +342,7 @@ if (isDeveloping) {
   bs.init(
     {
       startPath: '/',
+      open: false,
       port,
       logLevel: 'silent',
       logPrefix: '[webawesome]',
