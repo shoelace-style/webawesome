@@ -37,7 +37,7 @@ export const moreHue = {
   cyan: 'More cyan',
   blue: 'Bluer',
   indigo: 'More indigo',
-  pink: 'More pink',
+  pink: 'Pinker',
 };
 
 /**
