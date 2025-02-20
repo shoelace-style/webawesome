@@ -96,7 +96,7 @@ let paletteAppSpec = {
         this.uid = Number(this.permalink.get('uid'));
       }
 
-      this.saved = sidebar.palette.getSaved(this.palette);
+      this.saved = sidebar.palette.getSaved(this.getPalette());
     }
   },
 
@@ -107,10 +107,6 @@ let paletteAppSpec = {
   },
 
   computed: {
-    palette() {
-      return { id: this.paletteId, uid: this.uid, search: location.search };
-    },
-
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -320,6 +316,10 @@ let paletteAppSpec = {
   },
 
   methods: {
+    getPalette() {
+      return { id: this.paletteId, uid: this.uid, search: location.search };
+    },
+
     save({ silent } = {}) {
       let title = silent
         ? (this.saved?.title ?? this.paletteTitle)
@@ -339,7 +339,8 @@ let paletteAppSpec = {
         this.permalink.updateLocation();
       }
 
-      let palette = { ...this.palette, uid, title };
+      let palette = { ...this.getPalette(), uid, title };
+
       sidebar.palette.save(palette, this.saved);
       this.saved = palette;
     },
