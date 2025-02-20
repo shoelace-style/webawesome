@@ -194,7 +194,7 @@
   background: var(--wa-color-surface-raised);
   border-color: var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-m);
-  border-style: var(--border-style);
+  border-style: var(--wa-border-style);
   border-width: var(--border-width);
   padding-block: var(--wa-space-xs);
   padding-inline: 0;
