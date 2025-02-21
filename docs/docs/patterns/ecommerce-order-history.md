@@ -23,7 +23,7 @@ tags: e-commerce
       <strong>Total amount</strong>
       <span>$590.00</span>
     </span>
-      <span style="display: grid;grid-template-columns: 1fr 1fr;column-gap: 1rem;">
+      <span class="wa-cluster">
         <wa-button variant="neutral" appearance="outlined">View Order</wa-button>
         <wa-button variant="neutral" appearance="outlined">View Invoice</wa-button>
       </span>
@@ -36,10 +36,11 @@ tags: e-commerce
           <span><strong>Dome Light Fixtures</strong></span>
           <span><strong>$215.00</strong></span>
         </span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
+        <p class="wa-caption-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
         <div class="wa-split">
           <span>
-            <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
+            <wa-button size="small" appearance="plain" variant="neutral">View Product</wa-button>
+            <wa-button size="small" appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
         <wa-badge appearance="filled" variant="success">Delivered</wa-badge>
         </div> 
@@ -52,10 +53,11 @@ tags: e-commerce
           <span><strong>Reading Chair</strong></span>
           <span><strong>$115.00</strong></span>
         </span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
+        <p class="wa-caption-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
         <div class="wa-split">
           <span>
-          <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
+          <wa-button size="small" appearance="plain" variant="neutral">View Product</wa-button>
+          <wa-button size="small" appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
         <wa-badge appearance="filled" variant="brand">Out for delivery</wa-badge>
         </div>
@@ -68,10 +70,11 @@ tags: e-commerce
           <span><strong>Custom Sofa</strong></span>
           <span><strong>$260.00</strong></span>
         </span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
+        <p class="wa-caption-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae tincidunt nulla. Suspendisse eu augue mauris. Morbi ut euismod sem.</p>
         <div class="wa-split">
           <span>
-          <wa-button appearance="plain" variant="neutral">View Product</wa-button><wa-button appearance="accent" variant="brand">Buy Again</wa-button>
+          <wa-button size="small" appearance="plain" variant="neutral">View Product</wa-button>
+          <wa-button size="small" appearance="accent" variant="brand">Buy Again</wa-button>
         </span>
          <wa-badge appearance="filled" variant="neutral">Preparing to ship</wa-badge>
         </div>
@@ -89,7 +92,7 @@ tags: e-commerce
 ## Invoice Table
 ```html{.example}
 <div style="max-width: 960px; margin: 0 auto;">
-  <div class="invoice-totals wa-split" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); padding-inline: 1rem; padding-block: 1rem;">
+  <div class="wa-split" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); padding-inline: 1rem; padding-block: 1rem;">
     <dl class="wa-grid" style="grid-template-columns: repeat(3, 1fr); --wa-space-xl: 0;">
       <div>
         <dt>Date Placed</dt>

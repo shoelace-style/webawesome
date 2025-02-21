@@ -2,13 +2,13 @@
 title: Incentives
 description: 'Encourage shoppers to buy your products with value propositions, discounts, and promotions.'
 parent: ecommerce
-unlisted: true
+tags: e-commerce
 ---
 
 ## Promotion Dialog
 
 ```html {.example}
-<wa-dialog label="New Here?" with-header class="coupon" style="--width: 50rem;" open>
+
   <div class="coupon-split">
     <img style="height: 100%" src="/assets/images/patterns/coupon.jpg" />
     <div>
@@ -22,7 +22,7 @@ unlisted: true
       <p style="font-size: xx-small;font-style: italic;">*The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
     </div>
   </div>
-</wa-dialog>
+
 
 <style>
   .coupon {

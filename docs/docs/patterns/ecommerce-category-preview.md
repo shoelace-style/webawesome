@@ -6,29 +6,48 @@ tags: e-commerce
 icon: preview
 ---
 
-<style>
-  [class*='wa-'] div:empty {
-    --aspect-ratio: 1/1;
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-m);
-    min-block-size: 4rem;
-    min-inline-size: 4rem;
-    aspect-ratio: var(--aspect-ratio);
-  }
-</style>
-
 ## Grid Tiles
 
 ```html{.example}
-<div class="three-column wa-stack">
-  <div class="wa-split" sty>
+<div class="wa-stack">
+  <div class="wa-split">
     <h1>Shop by Category</h1>
-    <a href="#">Browse all Categories</a>
+    <a href="#" class="wa-cluster">Browse all Categories  <wa-icon name="arrow-right"></wa-icon></a>
   </div>
-  <div class="category-grid wa-grid">
-    <div></div>
-    <div></div>
-    <div></div>
+  <div class="wa-grid">
+    <a href="*" style="--wa-link-decoration-default: none;">
+      <wa-card with-image>
+        <img
+          slot="image"
+          src="https://img.fortawesome.com/cfa83f3c/outdoor.jpg"
+          alt="Durable gear for all conditions"
+        />
+        <span class="wa-heading-m">Outdoor</span>
+        <p class="wa-caption-l"><em>Durable gear for all conditions</em></p>
+      </wa-card>
+    </a>
+    <a href="*" style="--wa-link-decoration-default: none;">
+      <wa-card with-image>
+        <img
+          slot="image"
+          src="https://img.fortawesome.com/cfa83f3c/home.jpg"
+          alt="Cozy up on the couch and relax"
+        />
+      <span class="wa-heading-m">Home</span>
+      <p class="wa-caption-l"><em>Cozy up on the couch and relax</em></p>
+      </wa-card>
+    </a>
+    <a href="*" style="--wa-link-decoration-default: none;">
+      <wa-card with-image>
+        <img
+          slot="image"
+          src="https://img.fortawesome.com/cfa83f3c/fitness.jpg"
+          alt="Get fit in style with our breathable poly blends"
+        />
+        <span class="wa-heading-m">Active</span>
+        <p class="wa-caption-l"><em>Get fit in style with our breathable poly blends</em></p>
+      </wa-card>
+    </a>
   </div>
 </div>
 ```
@@ -36,18 +55,50 @@ icon: preview
 ## Mosaic Tiles
 
 ```html{.example}
-<div class="mosaic wa-stack">
-  <div class="wa-split" sty>
+<div class="wa-stack" style="max-width: 960px; margin: 0 auto;">
+  <div class="wa-split">
     <h1>Shop by Category</h1>
-    <a href="#">Browse all Categories</a>
+    <a href="#" class="wa-cluster">Browse all Categories  <wa-icon name="arrow-right"></wa-icon></a>
   </div>
   <div class="wa-stack">
-    <div style="--aspect-ratio: 1/.25"></div>
+    <wa-card with-image class="card-image">
+      <img
+        slot="image"
+        src="https://img.fortawesome.com/cfa83f3c/outdoor.jpg"
+        alt="Durable gear for all conditions"
+      />
+      <span class="wa-heading-m">Outdoor</span>
+      <p class="wa-caption-l"><em>Durable gear for all conditions</em></p>
+    </wa-card>
     <div class="wa-grid">
-      <div></div>
-      <div></div>
+      <wa-card with-image>
+        <img
+          slot="image"
+          src="https://img.fortawesome.com/cfa83f3c/home.jpg"
+          alt="Cozy up on the couch and relax"
+        />
+      <span class="wa-heading-m">Home</span>
+      <p class="wa-caption-l"><em>Cozy up on the couch and relax</em></p>
+      </wa-card>
+      <wa-card with-image>
+        <img
+          slot="image"
+          src="https://img.fortawesome.com/cfa83f3c/fitness.jpg"
+          alt="Get fit in style with our breathable poly blends"
+        />
+        <span class="wa-heading-m">Active</span>
+        <p class="wa-caption-l"><em>Get fit in style with our breathable poly blends</em></p>
+      </wa-card>
     </div>
-     <div style="--aspect-ratio: 1/.25"></div>
+     <wa-card with-image class="card-image">
+      <img
+        slot="image"
+        src="https://img.fortawesome.com/cfa83f3c/outdoor.jpg"
+        alt="Durable gear for all conditions"
+      />
+      <span class="wa-heading-m">Outdoor</span>
+      <p class="wa-caption-l"><em>Durable gear for all conditions</em></p>
+    </wa-card>
   </div>
 </div>
 ```
