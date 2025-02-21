@@ -58,7 +58,9 @@
 <wa-callout size="small" class="tweaked-callout" variant="warning">
   <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
    This palette has been tweaked.
-   <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" removable @wa-remove="reset(param)">{% raw %}{{ tweakHumanReadable }}{% endraw %}</wa-tag>
+   <div class="wa-cluster wa-gap-xs">
+    <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" removable @wa-remove="reset(param)">{% raw %}{{ tweakHumanReadable }}{% endraw %}</wa-tag>
+   </div>
 
   <wa-button @click="reset()" appearance="outlined" variant="danger">
     <span slot="prefix" class="icon-modifier">
