@@ -7,10 +7,10 @@ tags: e-commerce
 
 ## List
 ```html {.example}
-<div style="max-width: 960px; margin: 0 auto;">
+<div class="wa-stack" style="max-width: 960px; margin: 0 auto;">
   <h2>Order History</h2>
   <p>Check the status of recent orders, manage returns, and download invoices.</p>
-  <div class="order-history-meta wa-split" style="margin-bottom: var(--wa-space-xl);">
+  <div class="wa-split">
     <span class="wa-stack wa-gap-0">
       <strong>Order number</strong>
       <span>WU88191111</span>
@@ -82,17 +82,12 @@ tags: e-commerce
     </div>
   </div>
 </div>
-<style>
-   :root {
-    --border-color: var(--wa-color-surface-border);
-  }
-</style>
 ```
 
 ## Invoice Table
 ```html{.example}
-<div style="max-width: 960px; margin: 0 auto;">
-  <div class="wa-split" style="background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)); padding-inline: 1rem; padding-block: 1rem;">
+<div class="wa-stack" style="max-width: 960px; margin: 0 auto;">
+  <div class="wa-split wa-callout wa-neutral">
     <dl class="wa-grid" style="grid-template-columns: repeat(3, 1fr); --wa-space-xl: 0;">
       <div>
         <dt>Date Placed</dt>
@@ -115,8 +110,7 @@ tags: e-commerce
     </dl>
     <wa-button>View Invoice</wa-button>
   </div>
-  <table class="wa-zebra-rows wa-brand">
-    <caption>Order History</caption>
+  <table class="wa-brand">
     <thead>
       <tr>
         <th>Product</th>
@@ -128,8 +122,8 @@ tags: e-commerce
     <tbody>
       <tr>
         <td>
-          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
-            <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" style="width: calc(1rem* 8);margin-right: .5rem;" />
+          <div class="wa-flank wa-align-items-start">
+            <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" style="width: calc(1rem * 8);" />
             <div>
               <div>Dome Light Fixtures</div>
             </div>
@@ -141,8 +135,8 @@ tags: e-commerce
       </tr>
       <tr>
         <td>
-          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
-            <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" style="width: calc(1rem* 8);margin-right: .5rem;" />
+          <div class="wa-flank wa-align-items-start">
+            <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" style="width: calc(1rem * 8);" />
             <div>
               <div>Reading Chair</div>
             </div>
@@ -154,8 +148,8 @@ tags: e-commerce
       </tr>
       <tr>
         <td>
-          <div class="wa-split wa-align-items-start" style="justify-content: flex-start;">
-            <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" style="width: calc(1rem* 8);margin-right: .5rem;" />
+          <div class="wa-flank wa-align-items-start">
+            <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" style="width: calc(1rem * 8);" />
             <div>
               <div>Custom Sofa</div>   
             </div>
