@@ -25,18 +25,23 @@ export function cssLiteral(value, options = {}) {
   }
 }
 
-export function theme(base, params, options) {
+// Params in correct order
+export const themeParams = ['colors', 'palette', 'brand', 'typography'];
+
+export function getThemeCode(base, params, options) {
   let ret = [];
 
   if (base) {
     ret.push(urls.theme(base));
   }
 
-  ret.push(
-    ...Object.entries(params)
-      .filter(([aspect, id]) => Boolean(id))
-      .map(([aspect, id]) => urls[aspect](id)),
-  );
+  for (let aspect of themeParams) {
+    let value = params[aspect];
+
+    if (value) {
+      ret.push(urls[aspect](value));
+    }
+  }
 
   return ret.map(url => cssImport(url, options)).join('\n');
 }
