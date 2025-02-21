@@ -1,13 +1,14 @@
-{% set semantic_color_types = [
+{% set suffixes = [
   'fill-loud', 'fill-normal', 'fill-quiet',
   'border-loud', 'border-normal', 'border-quiet',
   'on-loud', 'on-normal', 'on-quiet'
 ] -%}
+
 /**
  * Register color properties so that the space toggle hack can work.
  */
-{% for type in semantic_color_types %}
-@property --wa-color-{{ type }} {
+{% for suffix in suffixes %}
+@property --wa-color-{{ suffix }} {
   syntax: '<color>';
   inherits: true;
   initial-value: transparent;
@@ -20,15 +21,15 @@
  */
 :host(wa-button), .wa-button, button, input[type='button'], input[type='submit'],
 :host(wa-tag), .wa-tag {
-  {%- for type in semantic_color_types %}
-  --wa-color-{{ type }}: var(--wa-no-variant, var(--wa-color-neutral-{{ type }}));
+  {%- for suffix in suffixes %}
+  --wa-color-{{ suffix }}: var(--wa-no-variant, var(--wa-color-neutral-{{ suffix }}));
   {%- endfor %}
 }
 
 :host(wa-callout), .wa-callout,
 :host(wa-badge), .wa-badge {
-  {%- for type in semantic_color_types %}
-  --wa-color-{{ type }}: var(--wa-no-variant, var(--wa-color-brand-{{ type }}));
+  {%- for suffix in suffixes %}
+  --wa-color-{{ suffix }}: var(--wa-no-variant, var(--wa-color-brand-{{ suffix }}));
   {%- endfor %}
 }
 
@@ -39,8 +40,8 @@
 {{ ':root,' if variant === 'neutral' }}
 .wa-{{ variant }},
 :host([variant='{{ variant }}']) {
-  {%- for type in semantic_color_types %}
-  --wa-color-{{ type }}: var(--wa-color-{{ variant }}-{{ type }});
+  {%- for suffix in suffixes %}
+  --wa-color-{{ suffix }}: var(--wa-color-{{ variant }}-{{ suffix }});
   {%- endfor %}
 }
 {%- endfor %}
