@@ -94,7 +94,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(highlightCodePlugin());
 
   // Add copy code buttons to code blocks
-  eleventyConfig.addPlugin(copyCodePlugin());
+  eleventyConfig.addPlugin(copyCodePlugin);
 
   // Various text replacements
   eleventyConfig.addPlugin(

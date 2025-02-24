@@ -1,12 +1,6 @@
-import { getCode } from '/assets/scripts/remix.js';
-
+import Prism from '/assets/scripts/prism.js';
+import { cdnUrl, getThemeCode, Permalink } from '/assets/scripts/tweak.js';
 await Promise.all(['wa-select', 'wa-option', 'wa-details'].map(tag => customElements.whenDefined(tag)));
-globalThis.Prism = globalThis.Prism || {};
-globalThis.Prism.manual = true;
-await import('/assets/scripts/prism.js');
-Prism.plugins.customClass.prefix('code-');
-
-const cdnUrl = document.documentElement.dataset.cdnUrl;
 
 const domChange = document.startViewTransition ? document.startViewTransition.bind(document) : fn => fn();
 
@@ -57,17 +51,11 @@ function init() {
       typography: '',
     },
     params: { colors: '', palette: '', brand: '', typography: '' },
-    urlParams: new URLSearchParams(location.search),
+    urlParams: new Permalink(),
   };
 
-  // Read URL params and apply them. This facilitates permalinks.
-  if (location.search) {
-    for (let aspect in data.params) {
-      if (data.urlParams.has(aspect)) {
-        data.params[aspect] = data.urlParams.get(aspect);
-      }
-    }
-  }
+  data.urlParams.mapObject(data.params);
+  data.urlParams.writeTo(data.params);
 
   if (computed.isRemixed) {
     // Start with the remixing UI open if the theme has been remixed
@@ -119,6 +107,10 @@ function setDefault(select, value) {
 }
 
 function render(changedAspect) {
+  if (!globalThis.demo) {
+    return;
+  }
+
   let url = new URL(demo.src);
 
   if (!changedAspect || changedAspect === 'colors') {
@@ -133,15 +125,10 @@ function render(changedAspect) {
 
   for (let aspect in data.params) {
     let value = data.params[aspect];
-
-    if (value) {
-      data.urlParams.set(aspect, value);
-    } else {
-      data.urlParams.delete(aspect);
-    }
-
     selects[aspect].value = value;
   }
+
+  data.urlParams.readFrom(data.params);
 
   // Update demo URL
   domChange(() => {
@@ -150,18 +137,14 @@ function render(changedAspect) {
     return new Promise(resolve => (demo.onload = resolve));
   });
 
-  // Update page URL. If there’s already a search, replace it.
-  // We don’t want to clog the user’s history while they iterate
-  let historyAction = location.search ? 'replaceState' : 'pushState';
-  history[historyAction](null, '', `?${data.urlParams}`);
+  // Update page URL
+  data.urlParams.updateLocation();
 
   // Update code snippets
   for (let language in codeSnippets) {
     let codeSnippet = codeSnippets[language];
-    let copyButton = codeSnippet.previousElementSibling;
-    let code = getCode(data.baseTheme, data.params, { language, cdnUrl });
+    let code = getThemeCode(data.baseTheme, data.params, { language, cdnUrl });
     codeSnippet.textContent = code;
-    copyButton.value = code;
     Prism.highlightElement(codeSnippet);
   }
 }

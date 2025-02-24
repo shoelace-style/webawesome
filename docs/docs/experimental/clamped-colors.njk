@@ -1,0 +1,47 @@
+---
+title: Clamped brand tokens
+layout: block
+---
+
+{% set tints = ['40-max', '50-max', '60-max', '40-min', '50-min', '60-min'] %}
+
+{% for hue in hues %}
+<link href="/dist/styles/brand/{{ hue }}.css" rel="stylesheet">
+{% endfor %}
+
+<table class="colors">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="core-column">Core tint</th>
+      {% for tint in tints -%}
+      <th>{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
+{% for hue in hues -%}
+<tr class="wa-brand-{{ hue }}">
+  <th>{{ hue | capitalize }}</th>
+  <td class="core-column">
+    <div class="color swatch" style="background-color: var(--wa-color-brand); color: var(--wa-color-brand-on);">
+      {{ palettes[paletteId][hue].maxChromaTint }}
+      <wa-copy-button value="--wa-color-brand" copy-label="--wa-color-brand"></wa-copy-button>
+    </div>
+  </td>
+  {% for tint in tints -%}
+    <td>
+      <div class="color swatch" style="background-color: var(--wa-color-brand-{{ tint }})">
+        <wa-copy-button value="--wa-color-brand-{{ tint }}" copy-label="--wa-color-brand-{{ tint }}"></wa-copy-button>
+      </div>
+    </td>
+  {%- endfor -%}
+</tr>
+{%- endfor %}
+</table>
+
+<style>
+.core-column .color.swatch::before {
+  counter-reset: key var(--wa-color-brand-key);
+  content: counter(key);
+}
+</style>
