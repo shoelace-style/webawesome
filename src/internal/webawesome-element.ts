@@ -204,6 +204,32 @@ export default class WebAwesomeElement extends LitElement {
     );
   }
 
+  getBoundingClientRect(): DOMRect {
+    let rect = super.getBoundingClientRect();
+
+    if (rect.width === 0 && rect.height === 0) {
+      let Self = this.constructor as typeof WebAwesomeElement;
+
+      if (Self.rectProxy) {
+        let element = this[Self.rectProxy as keyof this];
+        if (element instanceof Element) {
+          let childRect = element.getBoundingClientRect();
+          if (childRect.width > 0 || childRect.height > 0) {
+            return childRect;
+          }
+        }
+      }
+    }
+
+    return rect;
+  }
+
+  /**
+   * If getBoundingClientRect() returns an empty rect,
+   * should we check another element?
+   */
+  static rectProxy: undefined | string;
+
   static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
     if (options) {
       if (options.initial !== undefined && options.default === undefined) {

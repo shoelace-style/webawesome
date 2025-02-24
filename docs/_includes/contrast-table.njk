@@ -1,4 +1,4 @@
-<table class="colors wa-palette-{{ paletteId }}">
+<table class="colors wa-palette-{{ paletteId }} contrast-table" data-min-contrast="{{ minContrast }}">
   <thead>
     <tr>
       <th></th>
@@ -12,19 +12,31 @@
     </tr>
   </thead>
 {% for hue in hues -%}
-<tr>
+<tr data-hue="{{ hue }}">
   <th>{{ hue | capitalize }}</th>
   {% for tint_bg in tints -%}
     {% set color_bg = palettes[paletteId][hue][tint_bg] %}
     {% for tint_fg in tints | reverse -%}
       {% set color_fg = palettes[paletteId][hue][tint_fg] %}
       {% if (tint_fg - tint_bg) | abs == difference %}
-      <td>
-        <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint_bg }}); color: var(--wa-color-{{ hue }}-{{ tint_fg }})">
-          {% set contrast_wcag = '' %}
-          {% if color_fg and color_bg %}
-            {% set contrast_wcag = color_bg.contrast(color_fg, 'WCAG21') %}
-          {% endif %}
+      {% set contrast_wcag = '' %}
+      {% if color_fg and color_bg -%}
+        {% set contrast_wcag = color_bg.contrast(color_fg, 'WCAG21') %}
+      {%- endif %}
+      <td v-for="contrast of [contrasts.{{ hue }}['{{ tint_bg }}']['{{ tint_fg }}']]"
+      data-tint-bg="{{ tint_bg }}" data-tint-fg="{{ tint_fg }}" data-original-contrast="{{ contrast_wcag }}">
+        <div v-content:number="contrast.value"
+        class="color swatch" :class="{
+          'value-up': contrast.value - contrast.original > 0.0001,
+          'value-down': contrast.original - contrast.value > 0.0001,
+          'contrast-fail': contrast.value < {{ minContrast }}
+        }"
+        style="--color: var(--wa-color-{{ hue }}-{{ tint_bg }}); color: var(--wa-color-{{ hue }}-{{ tint_fg }})"
+        :style="{
+          '--color': contrast.bgColor,
+          color: contrast.fgColor,
+        }"
+        >
           {% if contrast_wcag %}
           {{ contrast_wcag | number({maximumSignificantDigits: 2}) }}
           {% else %}

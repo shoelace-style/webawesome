@@ -1,7 +1,10 @@
+@import url('base.css');
+
 :where(:root),
 :host,
 :where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']) {
+:where([class^='wa-palette-'], [class*=' wa-palette-']),
+.wa-brand-cyan {
   --wa-color-brand-95: var(--wa-color-cyan-95);
   --wa-color-brand-90: var(--wa-color-cyan-90);
   --wa-color-brand-80: var(--wa-color-cyan-80);

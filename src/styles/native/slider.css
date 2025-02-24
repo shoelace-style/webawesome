@@ -55,6 +55,8 @@ input[type='range'] {
       0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
     -webkit-appearance: none;
     margin-top: calc(var(--thumb-size) / -2 + var(--track-height) / 2);
+    transition: var(--wa-transition-fast);
+    transition-property: width, height;
   }
 
   &:enabled {

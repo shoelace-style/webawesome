@@ -12,6 +12,11 @@ body,
 #mix_and_match {
   font-weight: var(--wa-font-weight-semibold);
   color: var(--wa-color-text-quiet);
+  margin-block-end: var(--wa-space-xs);
+
+  html:not(.is-remixed) {
+    display: none;
+  }
 
   wa-icon {
     vertical-align: -0.15em;

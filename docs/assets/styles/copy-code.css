@@ -27,3 +27,19 @@ wa-copy-button.copy-button {
     opacity: 1;
   }
 }
+
+.block-link-icon {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: calc(100% + var(--wa-space-s));
+
+  transition: var(--wa-transition-slow);
+
+  &:not(:hover, :focus) {
+    opacity: 50%;
+  }
+
+  :not(:hover, :focus-within) > & {
+    opacity: 0;
+  }
+}
