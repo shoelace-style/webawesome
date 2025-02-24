@@ -1,11 +1,11 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
-import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
-import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
-import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
+import { cdnUrl, hueRanges, hues, Permalink, tints } from '/assets/scripts/tweak.js';
+import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
+import { maxGrayChroma, moreHue, selectors, urls } from '/assets/scripts/tweak/data.js';
+import { subtractAngles } from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
