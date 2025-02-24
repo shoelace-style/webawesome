@@ -87,7 +87,7 @@ tags: e-commerce
 ## Invoice Table
 ```html{.example}
 <div class="wa-stack" style="max-width: 960px; margin: 0 auto;">
-  <div class="wa-split wa-callout wa-neutral">
+  <div class="wa-split wa-callout wa-outlined wa-neutral">
     <dl class="wa-grid" style="grid-template-columns: repeat(3, 1fr); --wa-space-xl: 0;">
       <div>
         <dt>Date Placed</dt>

@@ -8,18 +8,14 @@ tags: e-commerce
 ## With Image
 ```html{.example}
 <div style="max-width: 960px;margin: 0 auto;">
- <wa-card with-image with-footer class="card-overview">
-  <img
-    slot="image"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
-  />
-  <span>Payment Successful</span>
+ <wa-card with-footer>
+
+  <div class="wa-align-items-center wa-callout wa-split wa-success"><em>Payment Successful</em><wa-icon name="circle-check"></wa-icon></div>
   <h1>Thanks for Ordering</h1>
-  <p>We appreciate your order, we’re currently processing it. So hang tight and we’ll send you confirmation very soon!</p>
-  <dl>
+  <p class="wa-caption-l">We appreciate your order, we’re currently processing it. So hang tight and we’ll send you confirmation very soon!</p>
+  <dl style="--wa-space-xl: 0; margin-bottom: 1rem;">
     <dt>Tracking number</dt>
-    <dd style="--wa-space-m: 0;">51547878755545848512</dd>
+    <dd class="wa-caption-l" style="--wa-space-m: 0;"><em>51547878755545848512</em></dd>
   </dl>
   <ul style="list-style-type: none; margin: 0">
     <li class="wa-split" style="border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); padding-block: 1rem;">
@@ -103,8 +99,7 @@ tags: e-commerce
       <p>Order placed March 22, 2021</p>
     </div>
   </div>
-  <wa-card with-image with-footer>
-    <img slot="image" src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"/>
+  <wa-card with-footer>
     <div>
       <div>
         <h3>Title</h3>
