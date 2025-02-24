@@ -3,8 +3,6 @@ title: App
 description: TODO
 ---
 
-TODO Page Description
-
 ## Examples
 
 ### Action Plan
