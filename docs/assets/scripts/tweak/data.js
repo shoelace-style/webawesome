@@ -43,7 +43,7 @@ export const hueRanges = {
   pink: { min: 320, max: 375 }, // 55
 };
 
-export const lRanges = {
+export const L_RANGES = {
   '05': { min: 0.18, max: 0.2 },
   10: { min: 0.23, max: 0.25 },
   20: { min: 0.31, max: 0.35 },
@@ -56,6 +56,10 @@ export const lRanges = {
   90: { min: 0.91, max: 0.93 },
   95: { min: 0.95, max: 0.97 },
 };
+
+for (let lightness in L_RANGES) {
+  L_RANGES[lightness].mid = (L_RANGES[lightness].min + L_RANGES[lightness].max) / 2;
+}
 
 export const moreHue = {
   red: 'Redder',

@@ -76,6 +76,11 @@ export function camelCase(str) {
 }
 
 export function capitalize(str) {
+  if (!str) {
+    return str;
+  }
+
+  str = str + '';
   return str[0].toUpperCase() + str.slice(1);
 }
 

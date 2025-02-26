@@ -10,7 +10,7 @@ import {
   HUE_SHIFTS,
   hueRanges,
   hues,
-  lRanges,
+  L_RANGES,
   MAX_CHROMA_BOUNDS,
   maxGrayChroma,
   moreHue,
@@ -23,6 +23,7 @@ import {
   capitalize,
   clamp,
   findClosestRange,
+  interpolate,
   mapRange,
   progress,
   subtractAngles,
@@ -67,7 +68,15 @@ let paletteAppSpec = {
     return {
       uid: undefined,
       seedColors: [],
-      seedColorSamples: ['oklch(77% 0.19 70)', 'rgb(95, 59, 255)', '#f06', 'yellowgreen', 'oklch(82% 0.185 195)'],
+      seedColorSamples: [
+        'oklch(77% 0.19 70)',
+        'rgb(95, 59, 255)',
+        '#f06',
+        'yellowgreen',
+        'oklch(82% 0.185 195)',
+        'oklch(30% 0.18 175)',
+        'oklch(30% 0.18 150)',
+      ],
       paletteId,
       paletteTitle: palette.title,
       originalColors: palette.colors,
@@ -147,7 +156,7 @@ let paletteAppSpec = {
 
       for (let color of this.seedColorObjects) {
         let hue = findClosestRange(hueRanges, color.get('oklch.h'), { type: 'angle' }).key;
-        let level = findClosestRange(lRanges, color.get('oklch.l')).key;
+        let level = findClosestRange(L_RANGES, color.get('oklch.l')).key;
         ret[hue] ??= {};
         ret[hue][level] = color;
       }
@@ -186,77 +195,129 @@ let paletteAppSpec = {
 
       // Generate scales from seed hues
       for (let hue in this.seedHues) {
-        let [coreLevel, coreColor] = Object.entries(this.seedHues[hue])[0];
+        // Find core color
+        let coreColor, maxChroma, coreLevel;
 
-        let distance = coreColor.get('oklch.l') - (lRanges[coreLevel].max + lRanges[coreLevel].min) / 2;
+        for (let level in this.seedHues[hue]) {
+          let color = this.seedHues[hue][level];
+          let chroma = color.get('oklch.c');
+
+          if (!(chroma < maxChroma)) {
+            // not < will also kick in when they are empty
+            coreColor = color;
+            maxChroma = chroma;
+            coreLevel = level;
+          }
+        }
+
+        let distance = coreColor.get('oklch.l') - L_RANGES[coreLevel].mid;
         let coreChroma = coreColor.get('oklch.c');
-        ret[hue] ??= {
+
+        ret[hue] = {
           maxChromaTint: coreLevel,
           maxChromaTintRaw: coreLevel,
           maxChroma: coreChroma,
           maxChromaRaw: coreChroma,
         };
 
-        let scale = getLightestChromaScale(hue, coreLevel, coreChroma);
-        let chroma95 = clamp(0, coreChroma * scale, 0.1);
-
-        // Find if any hue shift applies to this hue (we assume defined hue shifts are mutually exclusive)
+        // Find if any hue shift applies to this hue (we assume defined hue shift ranges are mutually exclusive)
+        let hueShift = { dark: 0, light: 0, intensity: 0 };
         let autoHueShift = HUE_SHIFTS.find(
           ({ range }) =>
             subtractAngles(range[0], coreColor.get('oklch.h')) <= 0 &&
             subtractAngles(coreColor.get('oklch.h'), range[1]) <= 0,
         );
 
+        if (autoHueShift) {
+          hueShift = { ...autoHueShift.shift };
+          let hueRange = [autoHueShift.range[0], ...autoHueShift.peak, autoHueShift.range[1]];
+          hueShift.intensity = mapRange(coreColor.get('oklch.h'), hueRange, [0, 1, 1, 0]);
+        }
+
+        // First, add pinned colors
+        for (let tint in this.seedHues[hue]) {
+          ret[hue][tint] = this.seedHues[hue][tint];
+        }
+
+        // Now generate the rest, starting from the edges
+        if (!('95' in ret[hue])) {
+          let color = coreColor.clone().to('oklch');
+          let scale = getLightestChromaScale(hue, coreLevel, coreChroma);
+
+          color.set({
+            l: L_RANGES[95].mid + distance,
+            c: clamp(0, coreChroma * scale, 0.1),
+            h: h => h + hueShift.light * hueShift.intensity,
+          });
+
+          ret[hue][95] = color;
+        }
+
+        if (!('05' in ret[hue])) {
+          let color = coreColor.clone().to('oklch');
+
+          color.set({
+            l: L_RANGES['05'].mid + distance,
+            // TODO c
+            h: h => h + hueShift.dark * hueShift.intensity,
+          });
+
+          ret[hue]['05'] = color;
+        }
+
+        let pinnedLevels = Object.keys(this.seedHues[hue]).sort((a, b) => a - b);
+        let levelBefore = '05';
+
         for (let tint of tints) {
-          if (tint in this.seedHues[hue]) {
-            ret[hue][tint] = this.seedHues[hue][tint];
-          } else {
-            let color = coreColor.clone().to('oklch');
+          if (tint in ret[hue]) {
+            // Pinned or already generated
+            levelBefore = tint;
+            continue;
+          }
 
-            // Lightness
-            let mid = (lRanges[tint].max + lRanges[tint].min) / 2;
-            color.set('l', mid + distance);
+          // Generated color
+          // First, find closest pinned colors before and after
+          let levelAfter = pinnedLevels.findLast(level => level < tint) ?? '95';
+          let colorBefore = ret[hue][levelBefore];
+          let colorAfter = ret[hue][levelAfter];
 
-            // Calculate auto hue shift
-            let deltaLevel = tint - coreLevel;
-            let edgeLevel = deltaLevel < 0 ? '05' : '95';
+          let color = coreColor.clone().to('oklch');
 
-            if (autoHueShift && tint !== '05') {
-              // No hue shift for darkest tint
-              let intensity = 1;
+          // Lightness
+          color.set('l', L_RANGES[tint].mid + distance);
 
-              if (coreColor.get('oklch.h') < autoHueShift.peak[0]) {
-                intensity = progress(coreColor.get('oklch.h'), autoHueShift.range[0], autoHueShift.peak[0]);
-              } else if (coreColor.get('oklch.h') > autoHueShift.peak[1]) {
-                intensity = progress(coreColor.get('oklch.h'), autoHueShift.peak[1], autoHueShift.range[1]);
-              }
+          // Interpolate hue linearly and chroma with a power curve
+          color.set({
+            l: L_RANGES[tint].mid + distance,
+            h: mapRange(tint, {
+              from: [levelBefore, levelAfter],
+              to: [colorBefore.get('oklch.h'), colorAfter.get('oklch.h')],
+            }),
+          });
 
-              let maxShift = deltaLevel < 0 ? autoHueShift.shift.dark : autoHueShift.shift.light;
-              let p = progress(tint, coreLevel, Math.max(edgeLevel, 10));
-              let shift = maxShift * intensity * p ** 0.75;
-              color.set('oklch.h', coreColor.get('oklch.h') + shift);
-            }
-
-            // Chroma
-            if (tint > coreLevel) {
-              // Lighter, reduce chroma
-              let chroma = mapRange(tint, {
-                from: [coreLevel, 95],
-                to: [coreChroma, chroma95],
+          if (tint > coreLevel) {
+            color.set(
+              'c',
+              mapRange(tint, {
+                from: [levelBefore, levelAfter],
+                to: [colorBefore.get('oklch.c'), colorAfter.get('oklch.c')],
                 progression: p => p ** this.factor,
-              });
-              color.set('c', chroma);
-            }
+              }),
+            );
+          }
 
-            color = color.toGamut('p3');
+          ret[hue][tint] = color;
+        }
 
-            ret[hue][tint] = color;
+        for (let tint in ret[hue]) {
+          if (!(tint in this.seedHues) && ret[hue][tint].toGamut) {
+            ret[hue][tint] = ret[hue][tint].toGamut('p3');
           }
         }
       }
 
-      // Get rest of hues from default palette
-      // TODO generate from existing colors
+      // Fill in remaining hues
+      // TODO generate from seed hues
       for (let hue of hues) {
         if (hue in ret) {
           continue;
