@@ -16,9 +16,9 @@
   <div
   :class="{
     seeded: seedColors.length,
-    tweaking: tweaking.chroma,
-    'tweaking-chroma': tweaking.chroma,
-    'tweaking-hue': tweaking.chroma,
+    tweaking: tweaking.chromaScale,
+    'tweaking-chroma': tweaking.chromaScale,
+    'tweaking-hue': tweaking.chromaScale,
     'tweaking-gray-chroma': tweaking.grayChroma,
     'tweaked-chroma': tweaked?.chroma,
     'tweaked-hue': tweaked?.hue,
@@ -78,6 +78,8 @@
   </wa-button>
 </wa-callout>
 
+{% include "palette.njk" %}
+
 <table class="colors main wa-palette-{{ paletteId }}">
   <thead>
     <tr>
@@ -88,123 +90,102 @@
       {%- endfor %}
     </tr>
   </thead>
-{# Initialize to last hue before gray #}
-{%- set hueBefore = hues[hues|length - 2] -%}
-{% for hue in hues -%}
-{% set coreTint = palettes[paletteId][hue].maxChromaTint %}
-{%- set coreColor = palettes[paletteId][hue][coreTint] -%}
-{%- set maxChroma = coreColor.c if coreColor.c > maxChroma else maxChroma -%}
-{% if hue === 'gray' %}
-<tr data-hue="{{ hue }}" class="color-scale"
-    :class="{tweaking: tweaking.grayChroma, tweaked: tweaked.grayChroma || tweaked.grayColor }">
-{% else %}
-<tr data-hue="{{ hue }}" class="color-scale"
-    :class="{tweaking: tweaking.{{ hue }}, tweaked: hueShifts.{{ hue }} }"
-    :style="{ '--hue-shift': hueShifts.{{ hue }} || '' }">
-{% endif %}
-  <th>
-    {{ hue | capitalize }}
-  </th>
-  <td class="core-column"
-      style="--color: var(--wa-color-{{ hue }})"
-      :style="{
-        '--color': baseCoreColors.{{ hue }},
-        '--color-tweaked': colors.{{ hue }}[coreLevels.{{ hue }}],
-        '--color-gray-undertone': colors[grayColor][{{coreTint}}],
-        '--color-tweaked-no-gray-chroma': colorsMinusGrayChroma.{{ hue }}[{{ coreTint }}],
-      }">
-    <wa-dropdown>
-      <div slot="trigger" id="core-{{ hue }}-swatch" data-tint="core" class="color swatch"
-      style="color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});"
-      :style="{color: colors.{{ hue }}[coreLevels.{{ hue }} > 60 ? '05' : '95'] }"
-      >
-        <span v-content="coreLevels.{{ hue }}">{{ palettes[paletteId][hue].maxChromaTint }}</span>
-        <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
-      </div>
-      <div class="popup">
-      {% if hue === 'gray' %}
-        <wa-radio-group class="core-color" orientation="horizontal" v-model="grayColor">
-          {% for h in hues -%}
-            {%- if h !== 'gray' -%}
-              <wa-radio-button id="gray-undertone-{{ h }}" value="{{ h }}" label="{{ h | capitalize }}" style="--color: var(--wa-color-{{ h }})"></wa-radio-button>
-              <wa-tooltip for="gray-undertone-{{ h }}" hoist>
-                {{ h | capitalize }}
-              </wa-tooltip>
-            {%- endif -%}
-          {%- endfor -%}
-          <div slot="label">
-            Gray undertone
-          </div>
-        </wa-radio-group>
-        <div class="decorated-slider gray-chroma-slider" :style="{'--max': maxGrayChroma}">
-          <wa-slider name="gray-chroma" v-model="grayChroma" ref="grayChromaSlider"
-          value="0" min="0" :max="maxGrayChroma" step="0.01"
-            @input="tweaking.grayChroma = true" @change="tweaking.grayChroma = false">
-            <div slot="label">
-              Gray colorfulness
-              <wa-icon-button @click="grayChroma = originalGrayChroma" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
-            </div>
-          </wa-slider>
-          <div class="label-min">Neutral</div>
-          <div class="label-max" v-content="moreHue[grayColor]">Warmer/Cooler</div>
-        </div>
-      {% else %}
-      {%- set hueAfter = hues[loop.index0 + 1] -%}
-      {%- set hueAfter = hues[0] if hueAfter == 'gray' else hueAfter -%}
-      {%- set minShift = hueRanges[hue].min - coreColor.h | round -%}
-      {%- set maxShift = hueRanges[hue].max - coreColor.h | round -%}
-
-      <div class="decorated-slider hue-shift-slider" style="--min: {{ minShift }}; --max: {{ maxShift }};">
-        <wa-slider name="{{ hue }}-shift" v-model="hueShifts.{{ hue }}" value="0"
-          min="{{ minShift }}" max="{{ maxShift }}" step="1"
-          @input="tweaking.hue = tweaking.{{hue}} = true"
-          @change="tweaking.hue = tweaking.{{ hue }} = false">
-          <div slot="label">
-            Tweak {{ hue }} hue
-            <wa-icon-button @click="hueShifts.{{ hue }} = 0" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
-          </div>
-        </wa-slider>
-        <div class="label-min">More {{hueBefore}}</div>
-        <div class="label-max">More {{hueAfter}}</div>
-      </div>
-      {%- set hueBefore = hue -%}
-      {% endif %}
-      <div class="wa-gap-s">
-          <code>--wa-color-{{ hue }}</code>
-          <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
-        </div>
-      </div>`
-    </wa-dropdown>
-  </td>
-  {% for tint in tints -%}
-    {%- set color = palettes[paletteId][hue][tint] -%}
-    <td data-tint="{{ tint }}"
-        style="--color: var(--wa-color-{{ hue }}-{{ tint }})"
+  {% raw %}
+  <tbody v-cloak>
+    <tr v-for="hue in [...hues, 'gray']" :data-hue="hue"
+        class="color-scale" :class="{
+          tweaking: hue === 'gray' ? tweaking.grayChroma : tweaking.hue?.[hue],
+          tweaked: hue === 'gray' ? tweaked.grayChroma || tweaked.grayColor : hueShifts[hue],
+        }"
         :style="{
-          '--color': baseColors.{{ hue }}[{{ tint }}],
-          '--color-tweaked': colors.{{ hue }}[{{ tint }}],
-          '--color-tweaked-no-gray-chroma': colorsMinusGrayChroma.{{ hue }}[{{ tint }}],
+          '--swatch-text-color': `light-dark(var(--wa-color-${ hue }-10), white)`,
+          '--hue-shift': hueShifts[hue] || ''
         }">
-      <div class="color swatch" style="--color: var(--wa-color-{{ hue }}-{{ tint }})">
-        <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
-      </div>
-    </td>
-  {%- endfor -%}
-</tr>
-{%- endfor %}
+      <th>{{ capitalize(hue) }}</th>
+      <td class="core-column" :style="{'--original-color': `var(--wa-color-${ hue })`, '--color': colors[hue][coreLevels[hue]]}">
+        <wa-dropdown>
+          <div slot="trigger" id="core-{{ hue }}-swatch" class="color swatch" :style="{
+              '--color-base': colorsMinusCurrentTweak[hue][coreLevels[hue]],
+              colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'
+            }">
+            <span v-content="coreLevels[hue]">{{ coreLevels[hue] }}</span>
+            <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
+          </div>
+          <div class="popup">
+            <template v-if="hue === 'gray'">
+            <wa-radio-group class="core-color" orientation="horizontal" v-model="grayColor">
+              <template v-for="h in hues">
+                <wa-radio-button :id="'gray-undertone-' + h" :value="h" :label="capitalize(h)" :style="{'--color': `var(--wa-color-${ h })`}"></wa-radio-button>
+                <wa-tooltip :for="'gray-undertone-' + h" hoist>{{ capitalize(h) }}</wa-tooltip>
+              </template>
+              <div slot="label">
+                Gray undertone
+              </div>
+            </wa-radio-group>
+            <div class="decorated-slider gray-chroma-slider" :style="{
+            '--color': coreColors.gray,
+            '--color-1': coreColors[grayColor].clone().set('oklch.c', 0),
+            '--color-2': coreColors[grayColor].clone().set('oklch.c', c => c * maxGrayChroma),
+            }">
+              <wa-slider name="gray-chroma" v-model="grayChroma" ref="grayChromaSlider"
+              value="0" min="0" :max="maxGrayChroma" step="0.01"
+                @input="tweaking.grayChroma = true" @change="tweaking.grayChroma = false">
+                <div slot="label">
+                  Gray colorfulness
+                  <wa-icon-button @click="grayChroma = originalGrayChroma" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+                </div>
+              </wa-slider>
+              <div class="label-min">Neutral</div>
+              <div class="label-max">{{ moreHue[grayColor] }}</div>
+            </div>
+            </template>
+            <div v-else class="decorated-slider hue-shift-slider" :style="{
+              '--color': coreColors[hue],
+              '--color-1': coreColors[hue].clone().set('oklch.h', h => h + shiftBounds[hue].min),
+              '--color-2': coreColors[hue].clone().set('oklch.h', h => h + shiftBounds[hue].max),
+             }">
+              <wa-slider name="{{ hue }}-shift" v-model="hueShifts[hue]" value="0"
+                :min="shiftBounds[hue].min" :max="shiftBounds[hue].max" step="1"
+                @input="tweaking.hue ??= {}; tweaking.hue[hue] = true" @change="tweaking.hue = null">
+                <div slot="label">
+                  Tweak {{ hue }} hue
+                  <wa-icon-button @click="hueShifts[hue] = 0" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+                </div>
+              </wa-slider>
+              <div class="label-min">More {{hueBefore[hue]}}</div>
+              <div class="label-max">More {{hueAfter[hue]}}</div>
+            </div>
+          <div class="wa-gap-s">
+              <code>--wa-color-{{ hue }}</code>
+              <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+            </div>
+          </div>`
+        </wa-dropdown>
+      </td>
+      <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
+        <div class="color swatch" :style="{
+            '--color-base': colorsMinusCurrentTweak[hue][tint],
+            colorScheme: tint > 60 ? 'light' : 'dark'
+          }">
+          <wa-copy-button :value="`--wa-color-${ hue }-${ tint }`" :copy-label="`--wa-color-${ hue }-${ tint }`"></wa-copy-button>
+        </div>
+      </td>
+    </tr>
+{% endraw %}
+</tbody>
 </table>
 
-{% set chromaScaleBounds = [
-(0.08 / maxChroma) | number({maximumFractionDigits: 2}),
-(0.3 / maxChroma]) | number({maximumFractionDigits: 2}) -%}
 <div class="decorated-slider chroma-scale-slider wa-palette-{{ paletteId }}"
 :class="{ tweaked: chromaScale !== 1 }"
-style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
+:style="{
+'--color': coreColors.blue,
+'--color-1': coreColors.blue.clone().set('oklch.c', c => c * chromaScaleBounds.min),
+'--color-2': coreColors.blue.clone().set('oklch.c', c => c * chromaScaleBounds.max),
+ }" v-cloak>
   <wa-slider name="chroma-scale" ref="chromaScaleSlider"
     v-model="chromaScale" value="1" step="0.01"
-    min="{{ chromaScaleBounds[0] }}" max="{{ chromaScaleBounds[1] }}"
-    @input="tweaking.chroma = true"
-    @change="tweaking.chroma = false">
+    :min="chromaScaleBounds.min" :max="chromaScaleBounds.max"
+    @input="tweaking.chromaScale = true" @change="tweaking.chromaScale = false">
     <div slot="label">
       Overall colorfulness
       <wa-icon-button @click="chromaScale = 1" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>

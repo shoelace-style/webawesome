@@ -29,6 +29,8 @@ export const HUE_SHIFTS = [
   { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 } },
 ];
 
+export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
+
 export const hueRanges = {
   red: { min: 15, max: 35 }, // 20
   // orange: { min: 35, max: 60 }, // 25

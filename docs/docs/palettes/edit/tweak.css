@@ -24,7 +24,7 @@ wa-dropdown > .color.swatch {
     --track-height: 1em;
     --track-color-inactive: transparent;
     --track-color-active: transparent;
-    --thumb-color: var(--color-tweaked, var(--color));
+    --thumb-color: var(--color);
     --thumb-shadow: 0 0 0 var(--thumb-gap) var(--wa-color-surface-default),
       var(--wa-shadow-offset-x-m) var(--wa-shadow-offset-y-m) var(--wa-shadow-blur-m)
         calc(var(--wa-shadow-offset-x-m) * -1 + var(--thumb-gap)) var(--wa-color-shadow);
@@ -68,21 +68,10 @@ wa-dropdown > .color.swatch {
 }
 
 .hue-shift-slider {
-  --color-1: oklch(from var(--color) l c calc(h + var(--min, 0)));
-  --color-2: oklch(from var(--color) l c calc(h + var(--max, 0)));
   --color-interpolation-space: oklch;
 }
 
-.chroma-scale-slider {
-  --color: var(--wa-color-brand);
-  --color-1: oklch(from var(--color) l calc(c * var(--min)) h);
-  --color-2: oklch(from var(--color) l calc(c * var(--max)) h);
-}
-
 .gray-chroma-slider {
-  --color: var(--wa-color-gray);
-  --color-1: oklch(from var(--wa-color-gray) l 0 none);
-  --color-2: oklch(from var(--color-gray-undertone) l calc(c * var(--max)) h);
   margin-top: var(--wa-space-m);
 }
 
@@ -102,41 +91,9 @@ wa-dropdown > .color.swatch {
     white-space: nowrap;
   }
 
-  td:not([data-hue='gray'] *) {
-    --tweak-c: calc(c * var(--chroma-scale, 1));
-    --tweak-h: calc(h + var(--hue-shift, 0));
-
-    --color-tweaked-no-chroma-scale: oklch(from var(--color) l c var(--tweak-h));
-    --color-tweaked-no-hue-shift: oklch(from var(--color) l var(--tweak-c) h);
-
-    &:is([data-tint='90'], [data-tint='95']) {
-      /* Work around  https://bugs.webkit.org/show_bug.cgi?id=287637 */
-
-      --color-tweaked-no-chroma-scale: lch(from var(--color) l c var(--tweak-h));
-      --color-tweaked-no-hue-shift: lch(from var(--color) l var(--tweak-c) h);
-
-      /* outline: 1px dashed red; */
-    }
-  }
-
   .color.swatch {
-    --color-2: var(--color-tweaked);
-    --color-2-height: 100%;
-
     &:is(.tweaking *) {
-      --color-2-height: 70%;
-    }
-
-    &:is(.tweaking-chroma *) {
-      --color: var(--color-tweaked-no-chroma-scale);
-    }
-
-    &:is(.tweaking-hue *) {
-      --color: var(--color-tweaked-no-hue-shift);
-    }
-
-    &:is(.tweaking-gray-chroma *) {
-      --color: var(--color-tweaked-no-gray-chroma);
+      --color-top: var(--color-base);
     }
   }
 
@@ -180,7 +137,12 @@ wa-dropdown > .color.swatch {
 
 /* Better UI before Vue initializes */
 [v-if='saved'],
-[v-if^='tweaked'] {
+[v-if^='tweaked'],
+[v-cloak] {
+  display: none;
+}
+
+.static-palette:has(+ .colors:not([v-cloak])) {
   display: none;
 }
 

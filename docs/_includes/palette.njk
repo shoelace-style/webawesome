@@ -1,0 +1,36 @@
+<table class="colors main wa-palette-{{ paletteId }} static-palette">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="core-column">Core tint</th>
+      {% for tint in tints -%}
+      <th>{{ tint }}</th>
+      {%- endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {%- set hueBefore = hues[hues|length - 2] -%}
+    {% for hue in hues -%}
+      {% set scale = palettes[paletteId][hue] %}
+      {% set coreTint = scale.maxChromaTint %}
+      {%- set coreColor = scale[coreTint] -%}
+      {%- set maxChroma = coreColor.c if coreColor.c > maxChroma else maxChroma -%}
+      <tr data-hue="{{ hue }}" class="color-scale" style="--swatch-text-color: light-dark(var(--wa-color-{{ hue }}-10), white)">
+        <th>{{ hue | capitalize }}</th>
+        <td class="core-column" style="--color: var(--wa-color-{{ hue }})">
+          <div class="color swatch" style="color-scheme: {{ 'light' if scale.maxChromaTint > 60 else 'dark' }};">
+            {{ scale.maxChromaTint }}
+          </div>
+        </td>
+        {% for tint in tints -%}
+        {%- set color = scale[tint] -%}
+        <td style="--color: var(--wa-color-{{ hue }}-{{ tint }}); color-scheme: ">
+          <div class="color swatch" style="color-scheme: {{ 'light' if tint > 60 else 'dark' }};">
+            <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
+          </div>
+        </td>
+      {%- endfor -%}
+      </tr>
+  </tbody>
+  {% endfor %}
+</table>

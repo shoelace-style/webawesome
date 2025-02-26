@@ -11,6 +11,7 @@ import {
   hueRanges,
   hues,
   lRanges,
+  MAX_CHROMA_BOUNDS,
   maxGrayChroma,
   moreHue,
   selectors,
@@ -18,8 +19,6 @@ import {
   urls,
 } from '/assets/scripts/tweak/data.js';
 import {
-  arrayNext,
-  arrayPrevious,
   camelCase,
   capitalize,
   clamp,
@@ -73,7 +72,6 @@ let paletteAppSpec = {
       paletteTitle: palette.title,
       originalColors: palette.colors,
       permalink: new Permalink(),
-      hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
       grayChroma: undefined,
@@ -86,7 +84,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue });
+    Object.assign(this, { moreHue, hueRanges, hues, tints, MAX_CHROMA_BOUNDS });
 
     // Read URL params and apply them. This facilitates permalinks.
     this.permalink.mapObject(this.hueShifts, {
@@ -164,10 +162,6 @@ let paletteAppSpec = {
         grayColor: this.grayColor,
         grayChroma: this.grayChroma,
       };
-    },
-
-    isTweaked() {
-      return Object.values(this.hueShifts).some(Boolean);
     },
 
     code() {
@@ -280,18 +274,19 @@ let paletteAppSpec = {
       return applyTweaks.call(this, this.baseColors, this.tweaks, this.tweaked);
     },
 
-    colorsMinusChromaScale() {
-      let tweaked = { ...this.tweaked, chromaScale: false };
-      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
-    },
+    colorsMinusCurrentTweak() {
+      if (!this.tweaked) {
+        return this.baseColors;
+      }
 
-    colorsMinusHueShifts() {
-      let tweaked = { ...this.tweaked, hue: false };
-      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
-    },
+      let tweaked = { ...this.tweaked };
 
-    colorsMinusGrayChroma() {
-      let tweaked = { ...this.tweaked, grayChroma: false };
+      for (let thing in this.tweaking) {
+        if (thing in tweaked && this.tweaking[thing]) {
+          tweaked[thing] = false;
+        }
+      }
+
       return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
     },
 
@@ -326,7 +321,7 @@ let paletteAppSpec = {
           continue;
         }
 
-        let relHue = shift < 0 ? arrayPrevious(hues, hue) : arrayNext(hues, hue);
+        let relHue = shift < 0 ? this.hueBefore[hue] : this.hueAfter[hue];
         let hueTweak = moreHue[relHue] ?? relHue + 'er';
 
         ret[hue] = capitalize(hueTweak + ' ' + hue + 's');
@@ -361,13 +356,18 @@ let paletteAppSpec = {
     baseCoreColors() {
       let ret = {};
       for (let hue in this.baseColors) {
-        if (!this.baseColors[hue]) {
-          console.log(hue);
-        }
         let maxChromaTintRaw = this.baseColors[hue].maxChromaTintRaw;
         ret[hue] = this.baseColors[hue][maxChromaTintRaw];
       }
       return ret;
+    },
+
+    baseMaxChroma() {
+      return Math.max(
+        ...Object.values(this.baseCoreColors)
+          .map(color => color.get('oklch.c'))
+          .filter(c => c >= 0),
+      );
     },
 
     coreColors() {
@@ -389,6 +389,20 @@ let paletteAppSpec = {
       }
 
       return ret;
+    },
+
+    shiftBounds() {
+      return Object.fromEntries(
+        hues.map(hue => {
+          let range = hueRanges[hue];
+          let coreHue = Math.round(this.baseCoreColors[hue].get('oklch.h'));
+          return [hue, { min: range.min - coreHue, max: range.max - coreHue }];
+        }),
+      );
+    },
+
+    chromaScaleBounds() {
+      return { min: MAX_CHROMA_BOUNDS.min / this.baseMaxChroma, max: MAX_CHROMA_BOUNDS.max / this.baseMaxChroma };
     },
 
     originalGrayColor() {
@@ -435,6 +449,14 @@ let paletteAppSpec = {
     maxGrayChroma() {
       return maxGrayChroma[this.grayColor] ?? 0.3;
     },
+
+    hueBefore() {
+      return Object.fromEntries(hues.map((hue, i) => [hue, hues[i - 1] ?? hues.at(-1)]));
+    },
+
+    hueAfter() {
+      return Object.fromEntries(hues.map((hue, i) => [hue, hues[i + 1] ?? hues[0]]));
+    },
   },
 
   watch: {
@@ -473,6 +495,8 @@ let paletteAppSpec = {
   },
 
   methods: {
+    capitalize,
+
     /**
      * Testing method. Import all core colors from a given palette.
      * @param {string} paletteId
@@ -546,26 +570,28 @@ let paletteAppSpec = {
      * Remove a specific tweak or all tweaks
      * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
      */
-    reset(param) {
+    reset(param, context = this) {
       if (!param || param === 'chromaScale') {
-        this.chromaScale = 1;
+        context.chromaScale = 1;
       }
 
       if (param in this.hueShifts) {
-        this.hueShifts[param] = 0;
+        context.hueShifts[param] = 0;
       } else if (!param) {
         for (let hue in this.hueShifts) {
-          this.hueShifts[hue] = 0;
+          context.hueShifts[hue] = 0;
         }
       }
 
       if (!param || param === 'grayColor') {
-        this.grayColor = this.originalGrayColor;
+        context.grayColor = this.originalGrayColor;
       }
 
       if (!param || param === 'grayChroma') {
-        this.grayChroma = this.originalGrayChroma;
+        context.grayChroma = this.originalGrayChroma;
       }
+
+      return context;
     },
   },
 
@@ -617,15 +643,16 @@ function init() {
 init();
 addEventListener('turbo:render', init);
 
-export function getPaletteCode(paletteId, colors, tweaked, options) {
+export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
   let imports = [];
 
-  if (paletteId) {
+  if (paletteId && options.imports !== false) {
     imports.push(urls.palette(paletteId));
   }
 
   let css = '';
   let declarations = [];
+  let prefix = options.prefix ?? 'wa-color';
 
   if (tweaked) {
     for (let hue in colors) {
@@ -642,14 +669,15 @@ export function getPaletteCode(paletteId, colors, tweaked, options) {
       for (let tint of tints) {
         let color = colors[hue][tint];
         let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
-        declarations.push(`--wa-color-${hue}-${tint}: ${stringified};`);
+        declarations.push(`--${prefix}-${hue}-${tint}: ${stringified};`);
       }
 
       declarations.push('');
     }
 
     if (declarations.length > 0) {
-      css += cssRule(selectors.palette(paletteId), declarations);
+      let selector = options.selector ?? selectors.palette(paletteId);
+      css += cssRule(selector, declarations);
     }
   }
 
