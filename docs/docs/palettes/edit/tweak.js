@@ -277,7 +277,7 @@ let paletteAppSpec = {
 
           // Generated color
           // First, find closest pinned colors before and after
-          let levelAfter = pinnedLevels.findLast(level => level < tint) ?? '95';
+          let levelAfter = pinnedLevels.find(level => level > tint) ?? '95';
           let colorBefore = ret[hue][levelBefore];
           let colorAfter = ret[hue][levelAfter];
 
