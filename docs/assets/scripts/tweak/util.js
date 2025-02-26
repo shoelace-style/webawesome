@@ -34,3 +34,183 @@ export function subtractAngles(θ1, θ2) {
   let [a, b] = normalizeAngles([θ1, θ2]);
   return a - b;
 }
+
+/**
+ * Given an object of keys to ranges, find the closest range.
+ * Ranges are assumed to be mutually exclusive.
+ * @param {Object<string, {min: number, max: number}>} ranges
+ * @param {number} value
+ * @param {object} options
+ * @param {"angle" | undefined} options.type
+ * @returns {{key: string, distance: number}} The key of the closest range. Distance is 0 if the value is within the range, negative if below, positive if above.
+ */
+export function findClosestRange(ranges, value, options) {
+  let { type } = options || {};
+  let keys = Object.keys(ranges);
+  let closest = { key: keys[0], distance: Infinity };
+
+  for (let key of keys) {
+    let range = ranges[key];
+    let { min, max } = range;
+    let deltaMin = type === 'angle' ? subtractAngles(value, min) : value - min;
+    let deltaMax = type === 'angle' ? subtractAngles(value, max) : value - max;
+
+    if (deltaMin >= 0 && deltaMax <= 0) {
+      return { key, distance: 0 };
+    }
+
+    if (Math.abs(deltaMin) < Math.abs(closest.distance)) {
+      closest = { key, distance: deltaMin };
+    }
+
+    if (deltaMax > 0 && Math.abs(deltaMax) < Math.abs(closest.distance)) {
+      closest = { key, distance: deltaMax };
+    }
+  }
+
+  return closest;
+}
+
+export function camelCase(str) {
+  return (str + '').replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+export function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+export function arrayNext(array, element) {
+  let index = array.indexOf(element);
+  return array[(index + 1) % array.length];
+}
+
+export function arrayPrevious(array, element) {
+  let index = array.indexOf(element);
+  return array[(index - 1 + array.length) % array.length];
+}
+
+export function levelToIndex(level) {
+  if (level === '05') {
+    return 0;
+  }
+
+  return level === '95' ? 10 : +level / 10;
+}
+
+export function indexToLevel(i) {
+  if (i === 0) {
+    return '05';
+  }
+
+  return (i === 10 ? 95 : i * 10) + '';
+}
+
+export function previousLevel(level) {
+  if (level === '05') {
+    return;
+  }
+
+  return indexToLevel(levelToIndex(level) - 1);
+}
+
+export function nextLevel(level) {
+  if (level === '95') {
+    return;
+  }
+
+  return indexToLevel(levelToIndex(level) + 1);
+}
+
+export function relativeLevel(level, steps) {
+  if (level == 100) {
+    // loose intentional
+    return relativeLevel(95, ++steps);
+  }
+
+  if (level == 95) {
+    // loose intentional
+    return relativeLevel(90, ++steps);
+  }
+
+  if (level == 0) {
+    // loose intentional
+    return relativeLevel(5, --steps);
+  }
+
+  if (level == 5) {
+    // loose intentional
+    return relativeLevel(10, --steps);
+  }
+
+  let index = clamp(0, levelToIndex(level) + steps, 10);
+
+  return indexToLevel(index);
+}
+
+/**
+ *
+ * @param {number} p Number from 0-1 where 0 is start and 1 is end
+ * @param {*} start Number for p=0
+ * @param {*} end Number for p=1
+ * @returns
+ */
+export function interpolate(p, range = [0, 1], options) {
+  let [start, end] = range;
+
+  if (p <= 0 || p >= 1 || range.length === 2) {
+    let value = start + p * (end - start);
+    return options?.unclamped ? value : clamp(start, value, end);
+  }
+
+  // If we're here, there are more points in the range
+  let interval = 1 / (range.length - 1);
+  let index = Math.floor(p / interval);
+  let intervalProgress = progress(p, [index * interval, (index + 1) * interval]);
+  return interpolate(intervalProgress, range.slice(index, index + 2), options);
+}
+
+/**
+ * Inverse of interpolate: given a value, find the progress between start and end.
+ * @param {*} value
+ * @param {*} range
+ * @returns
+ */
+export function progress(value, range = [0, 1], options) {
+  let [start, end] = range;
+
+  if (value <= start || value >= end || range.length === 2) {
+    let ret = (value - start) / (end - start);
+
+    return options?.unclamped ? ret : clamp(0, ret, 1);
+  }
+
+  // If we're here, there are more points in the range
+  let index = range.findIndex((v, i) => value > range[i - 1] && value <= v);
+  return (index - 1) / (range.length - 1);
+}
+
+export function mapRange(value, { from, to, progression }) {
+  let p = progress(value, from);
+
+  if (progression) {
+    p = progression(p);
+  }
+
+  return interpolate(p, to);
+}
+
+export function clamp(min, value, max) {
+  if (max < min) {
+    [min, max] = [max, min];
+  }
+
+  if (min !== undefined) {
+    value = Math.max(min, value);
+  }
+
+  if (max !== undefined) {
+    value = Math.min(max, value);
+  }
+
+  return value;
+}

@@ -1,11 +1,33 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import CoreColorInput from './core-color-input.js';
 import Prism from '/assets/scripts/prism.js';
-import { cdnUrl, hueRanges, hues, Permalink, tints } from '/assets/scripts/tweak.js';
+import { Permalink } from '/assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
-import { maxGrayChroma, moreHue, selectors, urls } from '/assets/scripts/tweak/data.js';
-import { subtractAngles } from '/assets/scripts/tweak/util.js';
+import {
+  cdnUrl,
+  HUE_SHIFTS,
+  hueRanges,
+  hues,
+  lRanges,
+  maxGrayChroma,
+  moreHue,
+  selectors,
+  tints,
+  urls,
+} from '/assets/scripts/tweak/data.js';
+import {
+  arrayNext,
+  arrayPrevious,
+  camelCase,
+  capitalize,
+  clamp,
+  findClosestRange,
+  mapRange,
+  progress,
+  subtractAngles,
+} from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -45,6 +67,8 @@ let paletteAppSpec = {
 
     return {
       uid: undefined,
+      seedColors: [],
+      seedColorSamples: ['oklch(77% 0.19 70)', 'rgb(95, 59, 255)', '#f06', 'yellowgreen', 'oklch(82% 0.185 195)'],
       paletteId,
       paletteTitle: palette.title,
       originalColors: palette.colors,
@@ -56,6 +80,7 @@ let paletteAppSpec = {
       grayColor: undefined,
       tweaking: {},
       saved: null,
+      factor: 1.2,
     };
   },
 
@@ -107,6 +132,31 @@ let paletteAppSpec = {
   },
 
   computed: {
+    seedColorObjects() {
+      return this.seedColors
+        .map(color => {
+          try {
+            return Color.get(color);
+          } catch (e) {
+            return null;
+          }
+        })
+        .filter(Boolean);
+    },
+
+    seedHues() {
+      let ret = {};
+
+      for (let color of this.seedColorObjects) {
+        let hue = findClosestRange(hueRanges, color.get('oklch.h'), { type: 'angle' }).key;
+        let level = findClosestRange(lRanges, color.get('oklch.l')).key;
+        ret[hue] ??= {};
+        ret[hue][level] = color;
+      }
+
+      return ret;
+    },
+
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -133,23 +183,116 @@ let paletteAppSpec = {
       return ret;
     },
 
+    baseColors() {
+      if (this.seedColors.length === 0) {
+        return this.originalColors;
+      }
+
+      let ret = {};
+
+      // Generate scales from seed hues
+      for (let hue in this.seedHues) {
+        let [coreLevel, coreColor] = Object.entries(this.seedHues[hue])[0];
+
+        let distance = coreColor.get('oklch.l') - (lRanges[coreLevel].max + lRanges[coreLevel].min) / 2;
+        let coreChroma = coreColor.get('oklch.c');
+        ret[hue] ??= {
+          maxChromaTint: coreLevel,
+          maxChromaTintRaw: coreLevel,
+          maxChroma: coreChroma,
+          maxChromaRaw: coreChroma,
+        };
+
+        let scale = getLightestChromaScale(hue, coreLevel, coreChroma);
+        let chroma95 = clamp(0, coreChroma * scale, 0.1);
+
+        // Find if any hue shift applies to this hue (we assume defined hue shifts are mutually exclusive)
+        let autoHueShift = HUE_SHIFTS.find(
+          ({ range }) =>
+            subtractAngles(range[0], coreColor.get('oklch.h')) <= 0 &&
+            subtractAngles(coreColor.get('oklch.h'), range[1]) <= 0,
+        );
+
+        for (let tint of tints) {
+          if (tint in this.seedHues[hue]) {
+            ret[hue][tint] = this.seedHues[hue][tint];
+          } else {
+            let color = coreColor.clone().to('oklch');
+
+            // Lightness
+            let mid = (lRanges[tint].max + lRanges[tint].min) / 2;
+            color.set('l', mid + distance);
+
+            // Calculate auto hue shift
+            let deltaLevel = tint - coreLevel;
+            let edgeLevel = deltaLevel < 0 ? '05' : '95';
+
+            if (autoHueShift && tint !== '05') {
+              // No hue shift for darkest tint
+              let intensity = 1;
+
+              if (coreColor.get('oklch.h') < autoHueShift.peak[0]) {
+                intensity = progress(coreColor.get('oklch.h'), autoHueShift.range[0], autoHueShift.peak[0]);
+              } else if (coreColor.get('oklch.h') > autoHueShift.peak[1]) {
+                intensity = progress(coreColor.get('oklch.h'), autoHueShift.peak[1], autoHueShift.range[1]);
+              }
+
+              let maxShift = deltaLevel < 0 ? autoHueShift.shift.dark : autoHueShift.shift.light;
+              let p = progress(tint, coreLevel, Math.max(edgeLevel, 10));
+              let shift = maxShift * intensity * p ** 0.75;
+              color.set('oklch.h', coreColor.get('oklch.h') + shift);
+            }
+
+            // Chroma
+            if (tint > coreLevel) {
+              // Lighter, reduce chroma
+              let chroma = mapRange(tint, {
+                from: [coreLevel, 95],
+                to: [coreChroma, chroma95],
+                progression: p => p ** this.factor,
+              });
+              color.set('c', chroma);
+            }
+
+            color = color.toGamut('p3');
+
+            ret[hue][tint] = color;
+          }
+        }
+      }
+
+      // Get rest of hues from default palette
+      // TODO generate from existing colors
+      for (let hue of hues) {
+        if (hue in ret) {
+          continue;
+        }
+
+        ret[hue] = this.originalColors[hue];
+      }
+
+      ret.gray = generateGrays(ret, this);
+
+      return ret;
+    },
+
     colors() {
-      return applyTweaks.call(this, this.originalColors, this.tweaks, this.tweaked);
+      return applyTweaks.call(this, this.baseColors, this.tweaks, this.tweaked);
     },
 
     colorsMinusChromaScale() {
       let tweaked = { ...this.tweaked, chromaScale: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
     },
 
     colorsMinusHueShifts() {
       let tweaked = { ...this.tweaked, hue: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
     },
 
     colorsMinusGrayChroma() {
       let tweaked = { ...this.tweaked, grayChroma: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
+      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
     },
 
     tweaked() {
@@ -208,18 +351,21 @@ let paletteAppSpec = {
     },
 
     originalContrasts() {
-      return getContrasts(this.originalColors);
+      return getContrasts(this.baseColors);
     },
 
     contrasts() {
       return getContrasts(this.colors, this.originalContrasts);
     },
 
-    originalCoreColors() {
+    baseCoreColors() {
       let ret = {};
-      for (let hue in this.originalColors) {
-        let maxChromaTintRaw = this.originalColors[hue].maxChromaTintRaw;
-        ret[hue] = this.originalColors[hue][maxChromaTintRaw];
+      for (let hue in this.baseColors) {
+        if (!this.baseColors[hue]) {
+          console.log(hue);
+        }
+        let maxChromaTintRaw = this.baseColors[hue].maxChromaTintRaw;
+        ret[hue] = this.baseColors[hue][maxChromaTintRaw];
       }
       return ret;
     },
@@ -234,17 +380,28 @@ let paletteAppSpec = {
       return ret;
     },
 
+    coreLevels() {
+      let ret = {};
+
+      for (let hue in this.colors) {
+        let maxChromaTint = this.colors[hue].maxChromaTint;
+        ret[hue] = maxChromaTint;
+      }
+
+      return ret;
+    },
+
     originalGrayColor() {
-      let grayHue = this.originalCoreColors.gray.get('h');
+      let grayHue = this.baseCoreColors.gray.get('oklch.h');
       let minDistance = Infinity;
       let closestHue = null;
 
-      for (let name in this.originalCoreColors) {
+      for (let name in this.baseCoreColors) {
         if (name === 'gray') {
           continue;
         }
 
-        let hue = this.originalCoreColors[name].get('h');
+        let hue = this.baseCoreColors[name].get('oklch.h');
         let distance = Math.abs(subtractAngles(hue, grayHue));
         if (distance < minDistance) {
           minDistance = distance;
@@ -256,13 +413,13 @@ let paletteAppSpec = {
     },
 
     originalGrayChroma() {
-      let coreTint = this.originalColors.gray.maxChromaTint;
-      let grayChroma = this.originalColors.gray[coreTint].get('c');
+      let coreTint = this.baseColors.gray.maxChromaTint;
+      let grayChroma = this.baseColors.gray[coreTint].get('oklch.c');
       if (grayChroma === 0 || grayChroma === null) {
         return 0;
       }
 
-      let grayColorChroma = this.originalColors[this.originalGrayColor][coreTint].get('c');
+      let grayColorChroma = this.baseColors[this.originalGrayColor][coreTint].get('oklch.c');
       return grayChroma / grayColorChroma;
     },
 
@@ -316,6 +473,20 @@ let paletteAppSpec = {
   },
 
   methods: {
+    /**
+     * Testing method. Import all core colors from a given palette.
+     * @param {string} paletteId
+     */
+    emulate(paletteId) {
+      for (let hue in allPalettes[paletteId].colors) {
+        if (hue !== 'gray') {
+          let coreTint = allPalettes.natural.colors[hue].maxChromaTint;
+          let coreColor = allPalettes.natural.colors[hue][coreTint];
+          this.seedColors.push(coreColor);
+        }
+      }
+    },
+
     getPalette() {
       return { id: this.paletteId, uid: this.uid, search: location.search };
     },
@@ -423,6 +594,10 @@ let paletteAppSpec = {
     },
   },
 
+  components: {
+    CoreColorInput,
+  },
+
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
@@ -487,30 +662,20 @@ export function getPaletteCode(paletteId, colors, tweaked, options) {
   return ret;
 }
 
-function arrayNext(array, element) {
-  let index = array.indexOf(element);
-  return array[(index + 1) % array.length];
-}
-
-function arrayPrevious(array, element) {
-  let index = array.indexOf(element);
-  return array[(index - 1 + array.length) % array.length];
-}
-
-function applyTweaks(originalColors, tweaks, tweaked) {
+function applyTweaks(baseColors, tweaks, tweaked) {
   let ret = {};
   let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
 
   if (!tweaked) {
-    return originalColors;
+    return baseColors;
   }
 
   if (tweaked.grayChroma) {
     grayChroma = this.computedGrayChroma;
   }
 
-  for (let hue in originalColors) {
-    let originalScale = originalColors[hue];
+  for (let hue in baseColors) {
+    let originalScale = baseColors[hue];
     let scale = (ret[hue] = {});
     let descriptors = Object.getOwnPropertyDescriptors(originalScale);
     Object.defineProperties(scale, {
@@ -518,20 +683,33 @@ function applyTweaks(originalColors, tweaks, tweaked) {
       maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
     });
 
+    if (hue === 'gray') {
+      if (tweaked.grayChroma || tweaked.grayColor) {
+        ret.gray = generateGrays(baseColors, { grayColor, grayChroma });
+      } else {
+        ret.gray = originalScale;
+      }
+      continue;
+    }
+
     for (let tint of tints) {
       let color = originalScale[tint].clone();
 
+      let tweak = {};
+      let thisTweaked = false;
+
       if (tweaked.hue && hueShifts[hue]) {
-        color.set({ h: h => h + hueShifts[hue] });
+        tweak.h = h => h + hueShifts[hue];
+        thisTweaked = true;
       }
 
       if (tweaked.chromaScale && chromaScale !== 1) {
-        color.set({ c: c => c * chromaScale });
+        tweak.c = c => c * chromaScale;
+        thisTweaked = true;
       }
 
-      if (hue === 'gray' && (tweaked.grayChroma || tweaked.grayColor)) {
-        let colorUndertone = originalColors[grayColor][tint].clone();
-        color = colorUndertone.set({ c: c => c * grayChroma });
+      if (thisTweaked) {
+        color = color.to('oklch').set(tweak);
       }
 
       scale[tint] = color;
@@ -541,12 +719,23 @@ function applyTweaks(originalColors, tweaks, tweaked) {
   return ret;
 }
 
-function camelCase(str) {
-  return (str + '').replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-}
+function generateGrays(baseColors, { grayColor, grayChroma }) {
+  let ret = {};
+  let undertoneScale = baseColors[grayColor];
 
-function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1);
+  // These will be the same, since scaling them won't change the relationship
+  ret.maxChromaTint = undertoneScale.maxChromaTint;
+  ret.maxChromaTintRaw = undertoneScale.maxChromaTintRaw;
+
+  for (let tint of tints) {
+    let colorUndertone = undertoneScale[tint].clone().to('oklch');
+    ret[tint] = colorUndertone.set({ c: c => c * grayChroma });
+  }
+
+  ret.maxChroma = ret[ret.maxChromaTint].get('oklch.c');
+  ret.maxChromaRaw = ret[ret.maxChromaTintRaw].get('oklch.c');
+
+  return ret;
 }
 
 function getContrasts(colors, originalContrasts) {
@@ -577,4 +766,28 @@ function getContrasts(colors, originalContrasts) {
   }
 
   return ret;
+}
+
+/*
+┌─────────┬────────┬───────┬────────┬───────┬───────┬────────┬───────┐
+│ (index) │ median │ avg   │ stddev │ min   │ max   │ extent │ count │
+├─────────┼────────┼───────┼────────┼───────┼───────┼────────┼───────┤
+│ 40      │ 0.069  │ 0.073 │ 0.019  │ 0.047 │ 0.099 │ 0.052  │ 6     │
+│ 50      │ 0.09   │ 0.094 │ 0.015  │ 0.073 │ 0.13  │ 0.058  │ 18    │
+│ 70      │ 0.17   │ 0.17  │ 0      │ 0.17  │ 0.17  │ 0      │ 1     │
+│ 60      │ 0.2    │ 0.2   │ 0      │ 0.2   │ 0.2   │ 0      │ 1     │
+│ 80      │ 0.4    │ 0.4   │ 0.07   │ 0.31  │ 0.49  │ 0.17   │ 4     │
+└─────────┴────────┴───────┴────────┴───────┴───────┴────────┴───────┘
+*/
+function getLightestChromaScale(hue, tint, chroma) {
+  return (
+    {
+      95: 1,
+      90: 0.8,
+      80: 0.5,
+      70: 0.2,
+      60: 0.2,
+      50: 0.15,
+    }[tint] ?? 0.1
+  );
 }

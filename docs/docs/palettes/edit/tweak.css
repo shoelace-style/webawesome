@@ -160,6 +160,7 @@ wa-dropdown > .color.swatch {
 .tweaked-callout {
   padding: var(--wa-space-xs);
   padding-inline-start: var(--wa-space-m);
+  margin-block: var(--wa-space-m);
   align-items: center;
 
   &:not(.tweaked-any *) {
@@ -202,4 +203,9 @@ wa-dropdown > .color.swatch {
   &::part(form-control-input) {
     gap: var(--wa-space-xs);
   }
+}
+
+[data-slug='custom'] > :not(.seeded) #seed-colors ~ *,
+#outline:has(+ main > [data-slug='custom'] > :not(.seeded)) li:nth-child(n + 2) {
+  display: none;
 }

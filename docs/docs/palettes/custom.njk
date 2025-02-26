@@ -1,0 +1,21 @@
+---
+title: Custom
+isPro: true
+tags: pro
+order: 99
+---
+<link href="{{ page.url }}../edit/custom.css" rel="stylesheet">
+
+<p>Create your own color palette from scratch.</p>
+
+<h2>Seed color(s)</h2>
+
+<div id="seed-colors">
+	<template v-for="color, i in seedColors">
+		<core-color-input v-model="seedColors[i]" @delete="seedColors.splice(i, 1)"></core-color-input>
+	</template>
+	<wa-button class="add-button" appearance="outlined" @click="seedColors.push(seedColorSamples.shift())">
+		<wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
+		Add color
+	</wa-button>
+</div>

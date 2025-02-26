@@ -17,16 +17,42 @@ export const selectors = {
     [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
 };
 
+export const HUE_SHIFTS = [
+  // Reds
+  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 } },
+  // Yellows
+  { range: [30, 125], peak: [70, 100], shift: { dark: -48, light: 16 } },
+
+  // Greens
+  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 } },
+  // Blues
+  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 } },
+];
+
 export const hueRanges = {
-  red: { min: 5, max: 35 }, // 30
-  orange: { min: 35, max: 60 }, // 25
+  red: { min: 15, max: 35 }, // 20
+  // orange: { min: 35, max: 60 }, // 25
   yellow: { min: 60, max: 112 }, // 45
   green: { min: 112, max: 170 }, // 55
   cyan: { min: 170, max: 220 }, // 50
   blue: { min: 220, max: 265 }, // 45
   indigo: { min: 265, max: 290 }, // 25
   purple: { min: 290, max: 320 }, // 30
-  pink: { min: 320, max: 365 }, // 45
+  pink: { min: 320, max: 375 }, // 55
+};
+
+export const lRanges = {
+  '05': { min: 0.18, max: 0.2 },
+  10: { min: 0.23, max: 0.25 },
+  20: { min: 0.31, max: 0.35 },
+  30: { min: 0.38, max: 0.43 },
+  40: { min: 0.45, max: 0.5 },
+  50: { min: 0.55, max: 0.6 },
+  60: { min: 0.65, max: 0.7 },
+  70: { min: 0.73, max: 0.78 },
+  80: { min: 0.82, max: 0.85 },
+  90: { min: 0.91, max: 0.93 },
+  95: { min: 0.95, max: 0.97 },
 };
 
 export const moreHue = {

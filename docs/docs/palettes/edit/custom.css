@@ -1,0 +1,54 @@
+#seed-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wa-space-m);
+
+  > .add-button {
+    flex-flow: column wrap;
+    height: auto;
+    min-width: 18ch;
+    min-height: 16ch;
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+    --border-color: var(--wa-color-surface-border);
+    border-radius: var(--wa-panel-border-radius);
+    background-color: var(--wa-color-surface-default);
+    box-shadow: var(--wa-shadow-s);
+
+    wa-icon {
+      font-size: 200%;
+      margin: 0;
+      margin-top: 0.35em;
+    }
+  }
+
+  > wa-card {
+    --spacing: var(--wa-space-s);
+
+    [slot='image'] {
+      position: relative;
+      height: 5.5rem;
+      width: 100%;
+      background-color: var(--color);
+    }
+
+    wa-input {
+      margin-top: var(--wa-space-xs);
+    }
+
+    .delete-button {
+      position: absolute;
+      top: var(--wa-space-s);
+      right: var(--wa-space-s);
+      color: light-dark(black, white);
+      transition: opacity var(--wa-transition-slow);
+
+      &:hover {
+        color: var(--wa-color-danger-on-normal);
+      }
+    }
+
+    &:not(:hover, :focus-within) .delete-button {
+      opacity: 0;
+    }
+  }
+}

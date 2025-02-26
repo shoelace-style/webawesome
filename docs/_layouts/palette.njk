@@ -1,6 +1,6 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
-{% set paletteId = page.fileSlug %}
+{% set paletteId = "default" if page.fileSlug == 'custom' else page.fileSlug %}
 {% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
 
 {% extends '../_includes/base.njk' %}
@@ -12,9 +12,10 @@
 {% endblock %}
 
 {% block header %}
-<div id="palette-app" data-palette-id="{{ paletteId }}">
+<div id="palette-app" data-slug="{{ page.fileSlug }}" data-palette-id="{{ paletteId }}">
   <div
   :class="{
+    seeded: seedColors.length,
     tweaking: tweaking.chroma,
     'tweaking-chroma': tweaking.chroma,
     'tweaking-hue': tweaking.chroma,
@@ -107,15 +108,17 @@
   <td class="core-column"
       style="--color: var(--wa-color-{{ hue }})"
       :style="{
-        '--color-tweaked': colors.{{ hue }}[{{ coreTint }}],
+        '--color': baseCoreColors.{{ hue }},
+        '--color-tweaked': colors.{{ hue }}[coreLevels.{{ hue }}],
         '--color-gray-undertone': colors[grayColor][{{coreTint}}],
         '--color-tweaked-no-gray-chroma': colorsMinusGrayChroma.{{ hue }}[{{ coreTint }}],
       }">
     <wa-dropdown>
       <div slot="trigger" id="core-{{ hue }}-swatch" data-tint="core" class="color swatch"
-      style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});"
+      style="color: var(--wa-color-{{ hue }}-{{ '05' if palettes[paletteId][hue].maxChromaTint > 60 else '95' }});"
+      :style="{color: colors.{{ hue }}[coreLevels.{{ hue }} > 60 ? '05' : '95'] }"
       >
-        {{ palettes[paletteId][hue].maxChromaTint }}
+        <span v-content="coreLevels.{{ hue }}">{{ palettes[paletteId][hue].maxChromaTint }}</span>
         <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
       </div>
       <div class="popup">
@@ -175,8 +178,10 @@
   </td>
   {% for tint in tints -%}
     {%- set color = palettes[paletteId][hue][tint] -%}
-    <td data-tint="{{ tint }}" style="--color: var(--wa-color-{{ hue }}-{{ tint }})"
+    <td data-tint="{{ tint }}"
+        style="--color: var(--wa-color-{{ hue }}-{{ tint }})"
         :style="{
+          '--color': baseColors.{{ hue }}[{{ tint }}],
           '--color-tweaked': colors.{{ hue }}[{{ tint }}],
           '--color-tweaked-no-gray-chroma': colorsMinusGrayChroma.{{ hue }}[{{ tint }}],
         }">
