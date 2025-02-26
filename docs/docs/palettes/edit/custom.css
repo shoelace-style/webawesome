@@ -28,6 +28,8 @@
       position: relative;
       height: 5.5rem;
       width: 100%;
+      border-start-start-radius: var(--inner-border-radius);
+      border-start-end-radius: var(--inner-border-radius);
       background-color: var(--color);
     }
 
