@@ -1,5 +1,5 @@
 import { HUE_SHIFTS, L_RANGES, tints } from '/assets/scripts/tweak/data.js';
-import { clamp, mapRange, subtractAngles } from '/assets/scripts/tweak/util.js';
+import { clamp, getRange, mapRange, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 const chromaScaleLightest = {
   95: 1,
@@ -38,13 +38,14 @@ export function generateScale(seedColors) {
 
   // Find if any hue shift applies to this hue (we assume defined hue shift ranges are mutually exclusive)
   let hueShift = { dark: 0, light: 0, intensity: 0 };
-  let autoHueShift = HUE_SHIFTS.find(
-    ({ range }) =>
-      subtractAngles(range[0], coreColor.get('oklch.h')) <= 0 &&
-      subtractAngles(coreColor.get('oklch.h'), range[1]) <= 0,
-  );
+  let autoHueShift = getRange(HUE_SHIFTS, coreColor.get('oklch.h'), {
+    getRange: v => v.range,
+    type: 'angle',
+    tolerance: 0,
+  });
 
   if (autoHueShift) {
+    autoHueShift = HUE_SHIFTS[autoHueShift.key];
     hueShift = { ...autoHueShift.shift };
     let hueRange = [autoHueShift.range[0], ...autoHueShift.peak, autoHueShift.range[1]];
     hueShift.intensity = mapRange(coreColor.get('oklch.h'), hueRange, [0, 1, 1, 0]);

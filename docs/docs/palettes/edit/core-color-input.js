@@ -1,6 +1,6 @@
 import Color from 'https://colorjs.io/dist/color.js';
 import { hueRanges, L_RANGES } from '/assets/scripts/tweak/data.js';
-import { capitalize, findClosestRange } from '/assets/scripts/tweak/util.js';
+import { capitalize, getRange } from '/assets/scripts/tweak/util.js';
 
 export default {
   props: ['modelValue'],
@@ -23,12 +23,12 @@ export default {
 
     closestHue() {
       if (!this.color) return '';
-      return findClosestRange(hueRanges, this.color.get('oklch.h'), { type: 'angle' })?.key;
+      return getRange(hueRanges, this.color.get('oklch.h'), { type: 'angle' })?.key;
     },
 
     closestLevel() {
       if (!this.color) return '';
-      return findClosestRange(L_RANGES, this.color.get('oklch.l'))?.key;
+      return getRange(L_RANGES, this.color.get('oklch.l'))?.key;
     },
   },
   methods: {

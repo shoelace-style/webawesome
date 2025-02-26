@@ -18,7 +18,7 @@ import {
   tints,
   urls,
 } from '/assets/scripts/tweak/data.js';
-import { camelCase, capitalize, findClosestRange, subtractAngles } from '/assets/scripts/tweak/util.js';
+import { camelCase, capitalize, getRange, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -147,8 +147,8 @@ let paletteAppSpec = {
       let ret = Object.fromEntries(hues.map(hue => [hue, undefined]));
 
       for (let color of this.seedColorObjects) {
-        let hue = findClosestRange(hueRanges, color.get('oklch.h'), { type: 'angle' }).key;
-        let level = findClosestRange(L_RANGES, color.get('oklch.l')).key;
+        let hue = getRange(hueRanges, color.get('oklch.h'), { type: 'angle' }).key;
+        let level = getRange(L_RANGES, color.get('oklch.l')).key;
         ret[hue] ??= {};
         ret[hue][level] = color;
       }

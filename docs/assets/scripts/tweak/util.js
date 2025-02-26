@@ -42,16 +42,28 @@ export function subtractAngles(θ1, θ2) {
  * @param {number} value
  * @param {object} options
  * @param {"angle" | undefined} options.type
+ * @param {number} [options.tolerance=Infinity] If value is not within any range, how close can it be?
+ * @param {(range: {min: number, max: number}) => {min: number, max: number}} options.getRange
  * @returns {{key: string, distance: number}} The key of the closest range. Distance is 0 if the value is within the range, negative if below, positive if above.
  */
-export function findClosestRange(ranges, value, options) {
+export function getRange(ranges, value, options) {
   let { type } = options || {};
   let keys = Object.keys(ranges);
   let closest = { key: keys[0], distance: Infinity };
 
   for (let key of keys) {
     let range = ranges[key];
+
+    if (options?.getRange) {
+      range = options.getRange(range);
+    }
+
     let { min, max } = range;
+
+    if (Array.isArray(range)) {
+      [min, max] = range;
+    }
+
     let deltaMin = type === 'angle' ? subtractAngles(value, min) : value - min;
     let deltaMax = type === 'angle' ? subtractAngles(value, max) : value - max;
 
@@ -66,6 +78,10 @@ export function findClosestRange(ranges, value, options) {
     if (deltaMax > 0 && Math.abs(deltaMax) < Math.abs(closest.distance)) {
       closest = { key, distance: deltaMax };
     }
+  }
+
+  if (options?.tolerance && Math.abs(closest.distance) > options.tolerance) {
+    return;
   }
 
   return closest;
