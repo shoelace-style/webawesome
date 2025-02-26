@@ -563,10 +563,12 @@ let paletteAppSpec = {
      * @param {string} paletteId
      */
     emulate(paletteId) {
+      this.seedColors = [];
+
       for (let hue in allPalettes[paletteId].colors) {
         if (hue !== 'gray') {
-          let coreTint = allPalettes.natural.colors[hue].maxChromaTint;
-          let coreColor = allPalettes.natural.colors[hue][coreTint];
+          let coreTint = allPalettes[paletteId].colors[hue].maxChromaTint;
+          let coreColor = allPalettes[paletteId].colors[hue][coreTint];
           this.seedColors.push(coreColor);
         }
       }
