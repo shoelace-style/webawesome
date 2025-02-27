@@ -1,5 +1,5 @@
-import { HUE_SHIFTS, L_RANGES, tints } from '/assets/scripts/tweak/data.js';
-import { clamp, getRange, mapRange, subtractAngles } from '/assets/scripts/tweak/util.js';
+import { HUE_RANGES, HUE_SHIFTS, L_RANGES, tints } from '/assets/scripts/tweak/data.js';
+import { clamp, getRange, mapRange } from '/assets/scripts/tweak/util.js';
 
 const chromaScaleLightest = {
   95: 1,
@@ -11,6 +11,11 @@ const chromaScaleLightest = {
 };
 
 export function generateScale(seedColors) {
+  if (seedColors.constructor.name === 'Color') {
+    let { level } = placeColor(seedColors);
+    seedColors = { [level]: seedColors };
+  }
+
   // Find core color
   let coreColor, maxChroma, coreLevel;
 
@@ -152,6 +157,12 @@ export function generateGrays(colors, { grayColor, grayChroma }) {
   ret.maxChromaRaw = ret[ret.maxChromaTintRaw].get('oklch.c');
 
   return ret;
+}
+
+export function placeColor(color) {
+  let hue = getRange(HUE_RANGES, color.get('oklch.h'), { type: 'angle' }).key;
+  let level = getRange(L_RANGES, color.get('oklch.l')).key;
+  return { hue, level };
 }
 
 export default generateScale;

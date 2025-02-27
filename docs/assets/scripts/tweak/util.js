@@ -235,3 +235,18 @@ export function clamp(min, value, max) {
 
   return value;
 }
+
+export function clampAngle(min, value, max) {
+  [min, value, max] = normalizeAngles([min, value, max]);
+  return clamp(min, value, max);
+}
+
+export function interpolateAngles(p, range) {
+  range = normalizeAngles(range);
+  return interpolate(p, range, { unclamped: true });
+}
+
+export function progressAngle(angle, range) {
+  [angle, ...range] = normalizeAngles([angle, ...range]);
+  return progress(angle, range, { unclamped: true });
+}

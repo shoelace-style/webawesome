@@ -2,13 +2,13 @@
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import CoreColorInput from './core-color-input.js';
-import { generateGrays, generateScale } from './generateScale.js';
+import { generateGrays, generateScale, placeColor } from './generateScale.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
 import {
   cdnUrl,
-  hueRanges,
+  HUE_RANGES,
   hues,
   L_RANGES,
   MAX_CHROMA_BOUNDS,
@@ -18,7 +18,15 @@ import {
   tints,
   urls,
 } from '/assets/scripts/tweak/data.js';
-import { camelCase, capitalize, getRange, subtractAngles } from '/assets/scripts/tweak/util.js';
+import {
+  camelCase,
+  capitalize,
+  clampAngle,
+  interpolate,
+  interpolateAngles,
+  progressAngle,
+  subtractAngles,
+} from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -84,7 +92,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue, hueRanges, hues, tints, MAX_CHROMA_BOUNDS });
+    Object.assign(this, { moreHue, HUE_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
 
     // Read URL params and apply them. This facilitates permalinks.
     this.permalink.mapObject(this.hueShifts, {
@@ -147,8 +155,7 @@ let paletteAppSpec = {
       let ret = Object.fromEntries(hues.map(hue => [hue, undefined]));
 
       for (let color of this.seedColorObjects) {
-        let hue = getRange(hueRanges, color.get('oklch.h'), { type: 'angle' }).key;
-        let level = getRange(L_RANGES, color.get('oklch.l')).key;
+        let { hue, level } = placeColor(color);
         ret[hue] ??= {};
         ret[hue][level] = color;
       }
@@ -195,20 +202,63 @@ let paletteAppSpec = {
       }
 
       // Fill in remaining hues
-      // TODO generate from seed hues
       for (let hue of hues) {
         if (hue in ret) {
           continue;
         }
 
-        //
+        // Shift if too close to pinned hues
         let hueIndex = hues.indexOf(hue);
         let huesAfter = [...hues.slice(hueIndex + 1), ...hues.slice(0, hueIndex)];
         let pinnedHuesAfter = huesAfter.filter(hue => hue in ret);
-        let pinnedHueBefore = pinnedHuesAfter.at(-1);
-        let pinnedHueAfter = pinnedHuesAfter[0];
+        let pinnedHue =
+          pinnedHuesAfter.length === 1 ? pinnedHuesAfter[0] : [pinnedHuesAfter.at(-1), pinnedHuesAfter[0]];
+        let coreColor;
 
-        ret[hue] = this.originalColors[hue];
+        if (pinnedHuesAfter.length === 1) {
+          let pinnedScale = ret[pinnedHue];
+          let color = pinnedScale[pinnedScale.maxChromaTint];
+          let relH = color.get('oklch.h');
+          let h = HUE_RANGES[hue].mid;
+          let deltaH = subtractAngles(h, relH);
+
+          if (deltaH < 0 && deltaH > -40) {
+            h = relH - 40;
+          } else if (deltaH > 0 && deltaH < 40) {
+            h = relH + 40;
+          }
+
+          h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
+
+          coreColor = color.clone().to('oklch').set({ h: HUE_RANGES[hue].mid });
+        } else {
+          let hueProgress = progressAngle(
+            HUE_RANGES[hue].mid,
+            pinnedHue.map(hue => HUE_RANGES[hue].mid),
+          );
+          let pinnedScale = pinnedHue.map(hue => ret[hue]);
+          let color = pinnedScale.map(scale => scale[scale.maxChromaTint]);
+          let relH = color.map(c => c.get('oklch.h'));
+
+          // let h = HUE_RANGES[hue].mid;
+          let h = interpolateAngles(hueProgress, relH);
+          h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
+
+          let c = interpolate(
+            hueProgress,
+            pinnedScale.map(scale => scale.maxChroma),
+          );
+          let l = interpolate(
+            hueProgress,
+            pinnedScale.map(scale => L_RANGES[scale.maxChromaTint].mid),
+          );
+
+          coreColor = new Color('oklch', [l, c, h]);
+        }
+
+        coreColor.toGamut('p3');
+
+        ret[hue] = generateScale(coreColor);
       }
 
       ret.gray = generateGrays(ret, this);
@@ -340,7 +390,7 @@ let paletteAppSpec = {
     shiftBounds() {
       return Object.fromEntries(
         hues.map(hue => {
-          let range = hueRanges[hue];
+          let range = HUE_RANGES[hue];
           let coreHue = Math.round(this.baseCoreColors[hue].get('oklch.h'));
           return [hue, { min: range.min - coreHue, max: range.max - coreHue }];
         }),

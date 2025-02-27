@@ -31,7 +31,7 @@ export const HUE_SHIFTS = [
 
 export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
 
-export const hueRanges = {
+export const HUE_RANGES = {
   red: { min: 15, max: 35 }, // 20
   // orange: { min: 35, max: 60 }, // 25
   yellow: { min: 60, max: 112 }, // 45
@@ -57,8 +57,10 @@ export const L_RANGES = {
   95: { min: 0.95, max: 0.97 },
 };
 
-for (let lightness in L_RANGES) {
-  L_RANGES[lightness].mid = (L_RANGES[lightness].min + L_RANGES[lightness].max) / 2;
+for (let range of [HUE_RANGES, L_RANGES]) {
+  for (let key in range) {
+    range[key].mid = (range[key].min + range[key].max) / 2;
+  }
 }
 
 export const moreHue = {
@@ -100,6 +102,6 @@ export const icons = {
   typography: 'font-case',
 };
 
-export const hues = Object.keys(hueRanges);
+export const hues = Object.keys(HUE_RANGES);
 
 export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
