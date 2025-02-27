@@ -202,6 +202,10 @@ let paletteAppSpec = {
         }
       }
 
+      if (!firstSeedHue) {
+        return this.originalColors;
+      }
+
       // Fill in remaining hues
       let hueBefore = firstSeedHue;
 
