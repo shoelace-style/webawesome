@@ -73,7 +73,6 @@ let paletteAppSpec = {
         '#f06',
         'yellowgreen',
         'oklch(82% 0.185 195)',
-        'oklch(30% 0.18 175)',
         'oklch(30% 0.18 150)',
       ],
       paletteId,
@@ -205,6 +204,7 @@ let paletteAppSpec = {
 
       // Fill in remaining hues
       let hueBefore = firstSeedHue;
+
       for (let hue of this.huesAfter[firstSeedHue]) {
         if (hue in ret) {
           continue;
@@ -225,7 +225,7 @@ let paletteAppSpec = {
         let pinnedScale = pinnedHue.map(hue => ret[hue]);
         let h = HUE_RANGES[hue].mid;
 
-        let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('h');
+        let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('oklch.h');
         let hDelta = subtractAngles(h, hBefore);
 
         if (hDelta < 40) {
