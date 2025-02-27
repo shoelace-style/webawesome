@@ -193,72 +193,60 @@ let paletteAppSpec = {
       let ret = {};
 
       // Generate scales from seed hues
+      let firstSeedHue;
       for (let hue in this.seedHues) {
         let seedColors = this.seedHues[hue];
 
         if (seedColors) {
+          firstSeedHue ??= hue;
           ret[hue] = generateScale(seedColors);
         }
       }
 
       // Fill in remaining hues
-      for (let hue of hues) {
+      let hueBefore = firstSeedHue;
+      for (let hue of this.huesAfter[firstSeedHue]) {
         if (hue in ret) {
           continue;
         }
 
         // Shift if too close to pinned hues
-        let hueIndex = hues.indexOf(hue);
-        let huesAfter = [...hues.slice(hueIndex + 1), ...hues.slice(0, hueIndex)];
+        let huesAfter = this.huesAfter[hue];
         let pinnedHuesAfter = huesAfter.filter(hue => hue in ret);
-        let pinnedHue =
-          pinnedHuesAfter.length === 1 ? pinnedHuesAfter[0] : [pinnedHuesAfter.at(-1), pinnedHuesAfter[0]];
-        let coreColor;
+        let pinnedHue = [pinnedHuesAfter.at(-1), pinnedHuesAfter[0]];
+        let hueProgress =
+          pinnedHuesAfter.length === 1
+            ? 0
+            : progressAngle(
+                HUE_RANGES[hue].mid,
+                pinnedHue.map(hue => HUE_RANGES[hue].mid),
+              );
 
-        if (pinnedHuesAfter.length === 1) {
-          let pinnedScale = ret[pinnedHue];
-          let color = pinnedScale[pinnedScale.maxChromaTint];
-          let relH = color.get('oklch.h');
-          let h = HUE_RANGES[hue].mid;
-          let deltaH = subtractAngles(h, relH);
+        let pinnedScale = pinnedHue.map(hue => ret[hue]);
+        let h = HUE_RANGES[hue].mid;
 
-          if (deltaH < 0 && deltaH > -40) {
-            h = relH - 40;
-          } else if (deltaH > 0 && deltaH < 40) {
-            h = relH + 40;
-          }
+        let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('h');
+        let hDelta = subtractAngles(h, hBefore);
 
-          h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
-
-          coreColor = color.clone().to('oklch').set({ h: HUE_RANGES[hue].mid });
-        } else {
-          let hueProgress = progressAngle(
-            HUE_RANGES[hue].mid,
-            pinnedHue.map(hue => HUE_RANGES[hue].mid),
-          );
-          let pinnedScale = pinnedHue.map(hue => ret[hue]);
-          let color = pinnedScale.map(scale => scale[scale.maxChromaTint]);
-          let relH = color.map(c => c.get('oklch.h'));
-
-          // let h = HUE_RANGES[hue].mid;
-          let h = interpolateAngles(hueProgress, relH);
-          h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
-
-          let c = interpolate(
-            hueProgress,
-            pinnedScale.map(scale => scale.maxChroma),
-          );
-          let l = interpolate(
-            hueProgress,
-            pinnedScale.map(scale => L_RANGES[scale.maxChromaTint].mid),
-          );
-
-          coreColor = new Color('oklch', [l, c, h]);
+        if (hDelta < 40) {
+          h = hBefore + 40;
         }
 
-        coreColor.toGamut('p3');
+        h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
+
+        let c = interpolate(
+          hueProgress,
+          pinnedScale.map(scale => scale.maxChroma),
+        );
+        let l = interpolate(
+          hueProgress,
+          pinnedScale.map(scale => L_RANGES[scale.maxChromaTint].mid),
+        );
+
+        let coreColor = new Color('oklch', [l, c, h]).toGamut('p3');
 
         ret[hue] = generateScale(coreColor);
+        hueBefore = hue;
       }
 
       ret.gray = generateGrays(ret, this);
@@ -467,6 +455,17 @@ let paletteAppSpec = {
 
     hueAfter() {
       return Object.fromEntries(hues.map((hue, i) => [hue, hues[i + 1] ?? hues[0]]));
+    },
+
+    huesAfter() {
+      let ret = {};
+      let huesRotated = [...hues];
+      for (let hue of hues) {
+        let first = huesRotated.shift();
+        ret[hue] = huesRotated.slice();
+        huesRotated.push(first);
+      }
+      return ret;
     },
   },
 
