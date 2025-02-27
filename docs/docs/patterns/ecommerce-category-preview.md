@@ -8,13 +8,13 @@ icon: preview
 
 ## 2 Column
 ```html{.example}
-<div class="wa-flank wa-align-items-start" style="--flank-size: 360px;">
+<div class="wa-flank wa-align-items-start" style="--flank-size: 320px;">
   <div class="wa-gap-2xl wa-stack">
     <div class="wa-stack">
       <span class="wa-heading-xl">Casual Collection</span>
-      <p class="wa-caption-l">Look good - without looking like you're trying too hard. Our casual collection includes laid back styles that work in <em>almost</em> any situation</p>
+      <p class="wa-caption-l" style="--wa-line-height-condensed: 24px;">Look good - without looking like you're trying too hard. Our casual collection includes laid back styles that work in <em>almost</em> any situation</p>
     </div>
-    <wa-button>View the collection</wa-button>
+    <wa-button variant="brand">View the collection</wa-button>
   </div>
   <div>
   <img class="wa-frame:landscape" src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -27,26 +27,26 @@ icon: preview
 <div class="wa-stack">
     <h2 class="wa-heading-l">Shop by Category</h2>
   <div class="wa-grid">
-    <div class="wa-stack">
+    <a  href="*"class="wa-stack" style="--wa-link-decoration-default: none;">
       <img src="https://uploads.webawesome.com/organization.jpg" />
       <span class="wa-caption-xl">Organization</span>
     
-    </div>
-    <div class="wa-stack">
+    </a>
+    <a href="*" class="wa-stack" style="--wa-link-decoration-default: none;">
       <img src="https://uploads.webawesome.com/bags.jpg" />
         <span class="wa-caption-xl">Bags</span>
   
-    </div>
-    <div class="wa-stack">
+    </a>
+    <a href="*" class="wa-stack" style="--wa-link-decoration-default: none;">
       <img src="https://uploads.webawesome.com/outdoor-2.jpg" />
       <span class="wa-caption-xl">Outdoor</span>
      
-    </div>
+    </a>
   </div>
 </div>
 ```
 
-## 3 Column Card
+## 3 Column with Card
 
 ```html{.example}
 <div class="wa-stack">
@@ -94,27 +94,24 @@ icon: preview
 ## Split Panel
 
 ```html{.example}
+<div class="wa-stack" style="max-width: 960px; margin: 0 auto;">
+  <div class="wa-stack wa-gap-xs wa-align-items-center">
+    <h2 class="wa-heading-xl">New Arrivals</h2>
+    <p class="wa-caption-l">We have brand new furniture for you to choose from that will accentuate your home aesthetic</p>
+  </div>
 <div class="wa-grid">
   <div class="wa-stack">
-  <img class="wa-frame:landscape" src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+  <img class="wa-frame" src="https://uploads.webawesome.com/indoor-furniture.jpg" />
     <div class="wa-gap-2xl wa-stack">
-    <div class="wa-stack">
-      <span class="wa-heading-xl">Workspace Collection</span>
-      <p class="wa-caption-l">Upgrade your desk with objects that keep you organized and clear-minded.</p>
-    </div>
-    <wa-button>View the collection</wa-button>
+    <wa-button appearance="outlined">View Indoor Furniture</wa-button>
   </div>
   </div>
   <div class="wa-stack">
-    <img class="wa-frame:landscape" src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    <img class="wa-frame" src="https://uploads.webawesome.com/outdoor-furniture.jpg" />
     <div class="wa-gap-2xl wa-stack">
-    <div class="wa-stack">
-      <span class="wa-heading-xl">Workspace Collection</span>
-      <p class="wa-caption-l">Upgrade your desk with objects that keep you organized and clear-minded.</p>
-    </div>
-    <wa-button>View the collection</wa-button>
+    <wa-button appearance="outlined">View Outdoor Furniture</wa-button>
   </div>
   </div>
 </div>
-
+</div>
 ```
