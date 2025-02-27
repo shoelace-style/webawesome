@@ -71,6 +71,7 @@ export const moreHue = {
   cyan: 'More cyan',
   blue: 'Bluer',
   indigo: 'More indigo',
+  purple: 'Purpler',
   pink: 'Pinker',
 };
 
