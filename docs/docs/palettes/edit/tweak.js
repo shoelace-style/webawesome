@@ -92,7 +92,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue, HUE_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
+    Object.assign(this, { moreHue, HUE_RANGES, L_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
 
     // Read URL params and apply them. This facilitates permalinks.
     this.permalink.mapObject(this.hueShifts, {
@@ -376,6 +376,14 @@ let paletteAppSpec = {
       return ret;
     },
 
+    maxChroma() {
+      return Math.max(
+        ...Object.values(this.coreColors)
+          .map(color => color.get('oklch.c'))
+          .filter(c => c >= 0),
+      );
+    },
+
     coreLevels() {
       let ret = {};
 
@@ -385,6 +393,13 @@ let paletteAppSpec = {
       }
 
       return ret;
+    },
+
+    level() {
+      let levels = Object.values(this.coreLevels).sort((a, b) => a - b);
+      levels = levels.slice(levels.length / 4, -levels.length / 4); // Remove top and bottom 25%
+      let trimmedMean = levels.map(Number).reduce((a, b) => a + b, 0) / levels.length;
+      return Math.round(trimmedMean / 10) * 10;
     },
 
     shiftBounds() {
