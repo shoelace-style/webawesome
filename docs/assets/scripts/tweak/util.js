@@ -252,3 +252,37 @@ export function progressAngle(angle, range) {
   [angle, ...range] = normalizeAngles([angle, ...range]);
   return progress(angle, range, { unclamped: true });
 }
+
+/**
+ * Round a number to the nearest multiple of `roundTo` or to the closest number in an array of numbers
+ * @param {number} value
+ * @param {number | number[]} roundTo
+ * @returns
+ */
+export function roundTo(value, roundTo = 1) {
+  if (Array.isArray(roundTo)) {
+    let closest = roundTo[0];
+    let closestDistance = Math.abs(value - closest);
+
+    for (let candidate of roundTo) {
+      let distance = Math.abs(value - candidate);
+
+      if (distance < closestDistance) {
+        closest = candidate;
+        closestDistance = distance;
+      }
+    }
+
+    return closest;
+  }
+
+  let decimals = roundTo.toString().split('.')[1]?.length ?? 0;
+  let ret = Math.round(value / roundTo) * roundTo;
+
+  if (decimals > 0) {
+    // Eliminate IEEE 754 floating point errors
+    ret = +ret.toFixed(decimals);
+  }
+
+  return ret;
+}

@@ -1,4 +1,13 @@
-import { HUE_RANGES, HUE_SHIFTS, L_RANGES, tints } from '/assets/scripts/tweak/data.js';
+import {
+  CHROMA_TOLERANCE,
+  DEFAULT_ACCENT,
+  HUE_RANGES,
+  HUE_SHIFTS,
+  L_RANGES,
+  MAX_ACCENT,
+  MIN_ACCENT,
+  tints,
+} from '/assets/scripts/tweak/data.js';
 import { clamp, getRange, mapRange } from '/assets/scripts/tweak/util.js';
 
 const chromaScaleLightest = {
@@ -17,20 +26,8 @@ export function generateScale(seedColors) {
   }
 
   // Find core color
-  let coreColor, maxChroma, coreLevel;
-
-  for (let level in seedColors) {
-    let color = seedColors[level];
-    let chroma = color.get('oklch.c');
-
-    if (!(chroma < maxChroma)) {
-      // not < will also kick in when they are empty
-      coreColor = color;
-      maxChroma = chroma;
-      coreLevel = level;
-    }
-  }
-
+  let coreLevel = getCoreTint(seedColors);
+  let coreColor = seedColors[coreLevel];
   let distance = coreColor.get('oklch.l') - L_RANGES[coreLevel].mid;
   let coreChroma = coreColor.get('oklch.c');
 
@@ -194,9 +191,27 @@ export function getHueShift(color, fromTint, toTint) {
   let shift = hueShift.shift[type];
 
   let ret = shift * intensity;
-  let maxShift = Math.sign(shift) * hueShift.maxConsecutive * tintDistance;
-  console.log(ret, clamp(undefined, ret, maxShift));
+  let maxConsecutive = hueShift.maxConsecutive[type] ?? hueShift.maxConsecutive;
+  let maxShift = Math.sign(shift) * maxConsecutive * tintDistance;
+
   ret = clamp(undefined, ret, maxShift);
+
+  return ret;
+}
+
+export function getCoreTint(scale) {
+  let ret = DEFAULT_ACCENT;
+  let maxChroma = 0;
+
+  for (let tint in scale) {
+    let color = scale[tint];
+    let chroma = color.get('oklch.c');
+
+    if (chroma > maxChroma + CHROMA_TOLERANCE && tint >= MIN_ACCENT && tint <= MAX_ACCENT) {
+      ret = tint;
+      maxChroma = chroma;
+    }
+  }
 
   return ret;
 }

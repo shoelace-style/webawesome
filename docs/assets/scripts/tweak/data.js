@@ -65,6 +65,23 @@ for (let range of [HUE_RANGES, L_RANGES]) {
   }
 }
 
+/**
+ * Most common tint per hue.
+ * Largely the statistical mode, but also informed by the average and median.
+ */
+export const HUE_TOP_TINT = {
+  red: 50,
+  orange: 70,
+  yellow: 80,
+  green: 80,
+  cyan: 70,
+  blue: 50,
+  indigo: 40,
+  purple: 50,
+  pink: 50,
+  gray: 40,
+};
+
 export const moreHue = {
   red: 'Redder',
   orange: 'More orange', // https://www.reddit.com/r/grammar/comments/u9n0uo/is_it_oranger_or_more_orange/
@@ -76,17 +93,30 @@ export const moreHue = {
   purple: 'Purpler',
   pink: 'Pinker',
 };
-
+/*
+┌─────────┬──────┬─────┬────────┬───────┬────────┬───────┐
+│ (index) │ min  │ max │ median │ avg   │ stddev │ count │
+├─────────┼──────┼─────┼────────┼───────┼────────┼───────┤
+│ red     │ -1.9 │ 4.2 │ 0.12   │ 0.37  │ 1.3    │ 88    │
+│ yellow  │ -14  │ 2.9 │ -1.5   │ -3.1  │ 4.1    │ 88    │
+│ green   │ -4.5 │ 7.8 │ 0.22   │ 0.48  │ 1.6    │ 88    │
+│ cyan    │ -2.8 │ 10  │ 0.67   │ 0.99  │ 2.5    │ 88    │
+│ blue    │ -4.1 │ 7.9 │ 0.94   │ 1.3   │ 2.3    │ 88    │
+│ indigo  │ -3.8 │ 3   │ -0.18  │ -0.1  │ 1.2    │ 88    │
+│ purple  │ -4.4 │ 2.9 │ -0.29  │ -0.61 │ 1.3    │ 88    │
+│ pink    │ -4.8 │ 6.9 │ 0.2    │ 0.23  │ 2      │ 88    │
+└─────────┴──────┴─────┴────────┴───────┴────────┴───────┘
+*/
 export const HUE_SHIFTS = [
   // Reds
-  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 }, maxConsecutive: 2 },
+  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 }, maxConsecutive: { dark: 4, light: -2 } },
   // Yellows
-  { range: [30, 112], peak: [70, 100], shift: { dark: -48, light: 16 }, maxConsecutive: 13 },
+  { range: [30, 112], peak: [70, 100], shift: { dark: -48, light: 16 }, maxConsecutive: { dark: -20, light: 4 } },
 
   // Greens
-  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 }, maxConsecutive: 2 },
+  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 }, maxConsecutive: { dark: 7, light: -5 } },
   // Blues
-  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 }, maxConsecutive: 7 },
+  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 }, maxConsecutive: { dark: -3, light: -4 } },
 ];
 
 export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
@@ -105,3 +135,13 @@ export const maxGrayChroma = {
   purple: 0.3,
   pink: 0.25,
 };
+
+/** Default accent tint if all chromas are 0, but also the tint accent colors will be nudged towards (see chromaTolerance) */
+export const DEFAULT_ACCENT = 60;
+
+/** Min and max allowed tints */
+export const MIN_ACCENT = 40;
+export const MAX_ACCENT = 90;
+
+/** Chroma tolerance: Chroma will need to differ more than this to gravitate away from defaultAccent */
+export const CHROMA_TOLERANCE = 0.000001;

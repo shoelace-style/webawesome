@@ -2,6 +2,7 @@
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import CoreColorInput from './core-color-input.js';
+import generatePalette from './generatePalette.js';
 import { generateGrays, generateScale, placeColor } from './generateScale.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
@@ -18,15 +19,7 @@ import {
   tints,
   urls,
 } from '/assets/scripts/tweak/data.js';
-import {
-  camelCase,
-  capitalize,
-  clampAngle,
-  interpolate,
-  interpolateAngles,
-  progressAngle,
-  subtractAngles,
-} from '/assets/scripts/tweak/util.js';
+import { camelCase, capitalize, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -189,74 +182,8 @@ let paletteAppSpec = {
         return this.originalColors;
       }
 
-      let ret = {};
-
-      // Generate scales from seed hues
-      let firstSeedHue;
-      for (let hue in this.seedHues) {
-        let seedColors = this.seedHues[hue];
-
-        if (seedColors) {
-          firstSeedHue ??= hue;
-          ret[hue] = generateScale(seedColors);
-        }
-      }
-
-      if (!firstSeedHue) {
-        // No valid seed colors, abort mission
-        return this.originalColors;
-      }
-
-      // Fill in remaining hues
-      let hueBefore = firstSeedHue;
-
-      for (let hue of this.huesAfter[firstSeedHue]) {
-        if (hue in ret) {
-          continue;
-        }
-
-        // Shift if too close to pinned hues
-        let huesAfter = this.huesAfter[hue];
-        let pinnedHuesAfter = huesAfter.filter(hue => hue in ret);
-        let pinnedHue = [pinnedHuesAfter.at(-1), pinnedHuesAfter[0]];
-        let hueProgress =
-          pinnedHuesAfter.length === 1
-            ? 0
-            : progressAngle(
-                HUE_RANGES[hue].mid,
-                pinnedHue.map(hue => HUE_RANGES[hue].mid),
-              );
-
-        let pinnedScale = pinnedHue.map(hue => ret[hue]);
-        let h = HUE_RANGES[hue].mid;
-
-        let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('oklch.h');
-        let hDelta = subtractAngles(h, hBefore);
-
-        if (hDelta < 40) {
-          h = hBefore + 40;
-        }
-
-        h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
-
-        let c = interpolate(
-          hueProgress,
-          pinnedScale.map(scale => scale.maxChroma),
-        );
-        let l = interpolate(
-          hueProgress,
-          pinnedScale.map(scale => L_RANGES[scale.maxChromaTint].mid),
-        );
-
-        let coreColor = new Color('oklch', [l, c, h]).toGamut('p3');
-
-        ret[hue] = generateScale(coreColor);
-        hueBefore = hue;
-      }
-
-      ret.gray = generateGrays(ret, this);
-
-      return ret;
+      let { huesAfter, grayChroma, grayColor } = this;
+      return generatePalette(this.seedHues, { huesAfter, grayChroma, grayColor }) ?? this.originalColors;
     },
 
     colors() {
