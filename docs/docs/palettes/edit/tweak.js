@@ -93,20 +93,16 @@ let paletteAppSpec = {
     // Non-reactive variables to expose
     Object.assign(this, { moreHue, HUE_RANGES, L_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
 
-    // Read URL params and apply them. This facilitates permalinks.
-    this.permalink.mapObject(this.hueShifts, {
-      keyTo: key => key.replace(/-shift$/, ''),
-      keyFrom: key => key + '-shift',
-      valueFrom: value => (!value ? '' : Number(value)),
-      valueTo: value => (!value ? 0 : Number(value)),
-    });
-
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
 
     if (location.search) {
-      // Update from URL
-      this.permalink.writeTo(this.hueShifts);
+      // Read URL params and apply them. This facilitates permalinks.
+      for (let hue in this.hueShifts) {
+        if (this.permalink.has(hue + '-shift')) {
+          this.hueShifts[hue] = Number(this.permalink.get(hue + '-shift'));
+        }
+      }
 
       for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
         if (this.permalink.has(param)) {
@@ -203,6 +199,7 @@ let paletteAppSpec = {
       }
 
       if (!firstSeedHue) {
+        // No valid seed colors, abort mission
         return this.originalColors;
       }
 
@@ -477,7 +474,9 @@ let paletteAppSpec = {
     hueShifts: {
       deep: true,
       handler() {
-        this.permalink.readFrom(this.hueShifts);
+        for (let hue in this.hueShifts) {
+          this.permalink.set(hue + '-shift', this.hueShifts[hue], 0);
+        }
       },
     },
 
