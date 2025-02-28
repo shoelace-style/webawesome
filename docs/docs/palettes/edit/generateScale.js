@@ -41,47 +41,39 @@ export function generateScale(seedColors) {
     maxChromaRaw: coreChroma,
   };
 
-  // Find if any hue shift applies to this hue (we assume defined hue shift ranges are mutually exclusive)
-  let hueShift = { dark: 0, light: 0, intensity: 0 };
-  let autoHueShift = getRange(HUE_SHIFTS, coreColor.get('oklch.h'), {
-    getRange: v => v.range,
-    type: 'angle',
-    tolerance: 0,
-  });
-
-  if (autoHueShift) {
-    autoHueShift = HUE_SHIFTS[autoHueShift.key];
-    hueShift = { ...autoHueShift.shift };
-    let hueRange = [autoHueShift.range[0], ...autoHueShift.peak, autoHueShift.range[1]];
-    hueShift.intensity = mapRange(coreColor.get('oklch.h'), hueRange, [0, 1, 1, 0]);
-  }
-
   // First, add pinned colors
   for (let tint in seedColors) {
     scale[tint] = seedColors[tint];
   }
 
+  // For finding lightest and darkest pinned colors
+  let pinnedTints = Object.keys(seedColors).sort((a, b) => a - b);
+
   // Now generate the rest, starting from the edges
   if (!('95' in scale)) {
-    let color = coreColor.clone().to('oklch');
+    let lightest = seedColors[pinnedTints[0]];
+    let color = lightest.clone().to('oklch');
     let chromaScale = chromaScaleLightest[coreLevel] ?? 0.1;
+    let hueShift = getHueShift(lightest, pinnedTints[0], '95');
 
     color.set({
       l: L_RANGES[95].mid + distance,
       c: clamp(0, coreChroma * chromaScale, 0.1),
-      h: h => h + hueShift.light * hueShift.intensity,
+      h: h => h + hueShift,
     });
 
     scale[95] = color;
   }
 
   if (!('05' in scale)) {
-    let color = coreColor.clone().to('oklch');
+    let darkest = seedColors[pinnedTints.at(-1)];
+    let color = darkest.clone().to('oklch');
+    let hueShift = getHueShift(darkest, pinnedTints.at(-1), '05');
 
     color.set({
       l: L_RANGES['05'].mid + distance,
       // TODO c
-      h: h => h + hueShift.dark * hueShift.intensity,
+      h: h => h + hueShift,
     });
 
     scale['05'] = color;
@@ -166,3 +158,45 @@ export function placeColor(color) {
 }
 
 export default generateScale;
+
+/**
+ * How many tints are between two tints?
+ * E.g. `getTintDistance('90', '95')` should return `1`
+ * @param {number | string} tint1
+ * @param {number | string} tint2
+ * @returns {number}
+ */
+export function getTintDistance(tint1, tint2) {
+  tint1 = String(tint1);
+  tint2 = String(tint2);
+  return Math.abs(tints.indexOf(tint2) - tints.indexOf(tint1));
+}
+
+export function getHueShift(color, fromTint, toTint) {
+  let tintDistance = getTintDistance(fromTint, toTint);
+  let hueShift = getRange(HUE_SHIFTS, color.get('oklch.h'), {
+    getRange: v => v.range,
+    type: 'angle',
+    tolerance: 0,
+  });
+
+  if (!hueShift) {
+    return 0;
+  }
+
+  hueShift = HUE_SHIFTS[hueShift.key];
+
+  let { peak, range } = hueShift;
+  let h = color.get('oklch.h');
+  let breakpoints = [range[0], ...peak, range[1]];
+  let intensity = mapRange(h, breakpoints, [0, 1, 1, 0]);
+  let type = tintDistance > 0 ? 'light' : 'dark';
+  let shift = hueShift.shift[type];
+
+  let ret = shift * intensity;
+  let maxShift = Math.sign(shift) * hueShift.maxConsecutive * tintDistance;
+  console.log(ret, clamp(undefined, ret, maxShift));
+  ret = clamp(undefined, ret, maxShift);
+
+  return ret;
+}

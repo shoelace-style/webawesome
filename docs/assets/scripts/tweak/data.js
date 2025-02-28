@@ -79,14 +79,14 @@ export const moreHue = {
 
 export const HUE_SHIFTS = [
   // Reds
-  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 } },
+  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 }, maxConsecutive: 2 },
   // Yellows
-  { range: [30, 125], peak: [70, 100], shift: { dark: -48, light: 16 } },
+  { range: [30, 112], peak: [70, 100], shift: { dark: -48, light: 16 }, maxConsecutive: 13 },
 
   // Greens
-  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 } },
+  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 }, maxConsecutive: 2 },
   // Blues
-  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 } },
+  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 }, maxConsecutive: 7 },
 ];
 
 export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };

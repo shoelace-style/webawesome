@@ -1,5 +1,6 @@
 export function normalizeAngles(angles) {
   // First, normalize
+  angles = angles.filter(h => !isNaN(h));
   angles = angles.map(h => ((h % 360) + 360) % 360);
 
   // Remove top and bottom 25% and find average
@@ -80,7 +81,8 @@ export function getRange(ranges, value, options) {
     }
   }
 
-  if (options?.tolerance && Math.abs(closest.distance) > options.tolerance) {
+  // TODO use angle functions to check tolerance against angles
+  if (options?.tolerance !== undefined && Math.abs(closest.distance) > options.tolerance) {
     return;
   }
 
