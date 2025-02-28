@@ -12,24 +12,26 @@ export const urls = {
   typography: id => `styles/themes/${id}/typography.css`,
 };
 
+export const docsURLs = {
+  colors: '/docs/themes/',
+  palette: '/docs/palettes/',
+  typography: '/docs/themes/',
+};
+
+export const icons = {
+  colors: 'palette',
+  palette: 'swatchbook',
+  brand: 'droplet',
+  typography: 'font-case',
+};
+
 export const selectors = {
   palette: id =>
     [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
 };
 
-export const HUE_SHIFTS = [
-  // Reds
-  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 } },
-  // Yellows
-  { range: [30, 125], peak: [70, 100], shift: { dark: -48, light: 16 } },
-
-  // Greens
-  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 } },
-  // Blues
-  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 } },
-];
-
-export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
+export const hues = Object.keys(HUE_RANGES);
+export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
 
 export const HUE_RANGES = {
   red: { min: 15, max: 35 }, // 20
@@ -75,6 +77,20 @@ export const moreHue = {
   pink: 'Pinker',
 };
 
+export const HUE_SHIFTS = [
+  // Reds
+  { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 } },
+  // Yellows
+  { range: [30, 125], peak: [70, 100], shift: { dark: -48, light: 16 } },
+
+  // Greens
+  { range: [140, 160], peak: [145, 155], shift: { dark: 15, light: -5 } },
+  // Blues
+  { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 } },
+];
+
+export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
+
 /**
  * Max gray chroma (% of chroma of undertone) per hue
  */
@@ -89,20 +105,3 @@ export const maxGrayChroma = {
   purple: 0.3,
   pink: 0.25,
 };
-
-export const docsURLs = {
-  colors: '/docs/themes/',
-  palette: '/docs/palettes/',
-  typography: '/docs/themes/',
-};
-
-export const icons = {
-  colors: 'palette',
-  palette: 'swatchbook',
-  brand: 'droplet',
-  typography: 'font-case',
-};
-
-export const hues = Object.keys(HUE_RANGES);
-
-export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
