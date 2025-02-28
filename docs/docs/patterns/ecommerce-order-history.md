@@ -28,8 +28,9 @@ tags: e-commerce
         <wa-button variant="neutral" appearance="outlined">View Invoice</wa-button>
       </span>
   </div>
+  <wa-divider></wa-divider>
   <div class="wa-stack">
-    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);">
       <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
@@ -46,7 +47,8 @@ tags: e-commerce
         </div> 
       </div>
     </div>
-    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
+    <wa-divider></wa-divider>
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);">
       <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
@@ -63,7 +65,8 @@ tags: e-commerce
         </div>
       </div>
     </div>
-    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;">
+    <wa-divider></wa-divider>
+    <div class="wa-flank" style="border-bottom: 1px solid var(--border-color);">
       <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" style="max-width: 215px">
       <div>
         <span class="wa-split">
