@@ -5,216 +5,275 @@ parent: ecommerce
 tags: e-commerce
 ---
 
-## Slide Over
+## Two Columns with Summary Card
 
 ```html {.example}
-<wa-card with-header with-footer class="card-header" style="width: 500px; margin: 0 auto;">
-  <div slot="header" class="wa-split">
-    <strong>Shopping Cart</strong>
-    <wa-icon-button name="close" variant="solid" label="Settings"></wa-icon-button>
-  </div>
-    <section class="cart-item wa-split" style="margin-bottom: 1rem;padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img src="https://images.unsplash.com/photo-1704677982224-89cd6d039fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDEwOTJ8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300" style="width: 6rem;flex-grow: 1;">
-    <div style="flex-grow: 11;"> 
-      <div class="wa-split" style="font-weight: 600;">
-        <span>AJ1</span>
-        <span>$170.00</span>
-      </div>
-      <div style="font-size: small;">Off-white Jordan One</div>
-      <div style="display:flex; justify-content: space-between; align-items: center;">
-        <span>Qty: 1</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
-      </div>
-    </div>
-  </section>
-   <section class="wa-split" style="margin-bottom: 1rem;padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img src="https://plus.unsplash.com/premium_photo-1707932485795-1d0aed727376?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDE2NDl8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300" style="width: 6rem;flex-grow: 1;">
-    <div style="flex-grow: 11;"> 
-      <div class="wa-split" style="font-weight: 600;">
-        <span>The Trails</span>
-        <span>$35.00</span>
-      </div>
-      <div style="font-size: small;">50/50 Cotton Poly Blend</div>
-      <div style="display:flex; justify-content: space-between; align-items: center;">
-        <span>Qty: 1</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
-      </div>
-    </div>
-  </section>
-   <section class="cart-item wa-split" style="margin-bottom: 1rem;padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img src="https://plus.unsplash.com/premium_photo-1690347839113-b5db143123b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDE5MTB8&ixlib=rb-4.0.3&q=80&w=1080" alt="" width="300" style="width: 6rem;flex-grow: 1;">
-    <div style="flex-grow: 11;"> 
-      <div class="wa-split" style="font-weight: 600;">
-        <span>Outcast</span>
-        <span>$27.00</span>
-      </div>
-      <div style="font-size: small;">100% Cotton</div>
-      <div style="display:flex; justify-content: space-between; align-items: center;">
-        <span>Qty: 1</span>
-        <wa-button appearance="plain" size="small">Remove</wa-button>
-      </div>
-    </div>
-  </section>
-  <div slot="footer">
-    <div style="display:flex; justify-content: space-between; font-weight: 600;">
-      <span>Subtotal</span>
-      <span>$232.00</span>
-    </div>
-    <div style="font-size: small; margin-bottom: 1rem;">Shipping and taxes calculated at checkout.</div>
-   <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Medium</wa-button>
-   <wa-button appearance="plain" size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Continue Shopping</wa-button>
-  </div>
-</wa-card>
-```
-
-## Two Columns
-
-```html {.example}
-<div style="max-width: 960px; margin: 0 auto;">
-  <h1>Shopping Cart</h1>
-  <div class="wa-grid">
-    <div class="wa-stack">
-      <section class="wa-grid" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-        <img class="cart-item-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
-        <div class="wa-flank">
-          <div>
-            <div>
-              <h3 style="margin-bottom: 0">Classic Tee</h3>
-            <p style="margin: 0;">Large - green</p>
-            </div>
+<div class="wa-stack wa-gap-2xl">
+  <h2>Shopping Cart</h2>
+  <div class="wa-grid wa-align-items-start wa-gap-2xl">
+    <div class="wa-stack wa-gap-xl">
+      <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
+        <div class="wa-frame wa-border-radius-m">
+          <img 
+            src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080"
+            alt=""
+          />
+        </div>
+        <div class="wa-flank:end wa-align-items-baseline">
+          <div class="wa-stack wa-gap-xs">
+            <h3 class="wa-heading-s">Classic Tee</h3>
+            <span class="wa-caption-m">Sage Green</span>
+            <span class="wa-caption-m">Large</span>
             <span>$20.00</span>
           </div>
-          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
+          <wa-icon-button name="xmark" label="Remove" id="remove-1"></wa-icon-button>
+          <wa-tooltip for="remove-1">Remove</wa-tooltip>
         </div>
-      </section>
-     <section class="wa-grid" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-        <img class="cart-item-image" src="https://images.unsplash.com/photo-1564859227552-81fde4a1df0b?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
-        <div class="wa-flank">
-          <div>
-            <div>
-              <h3 style="margin-bottom: 0">RVCA Graphic</h3>
-            <p style="margin: 0;">Large - White</p>
-            </div>
+      </article>
+      <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
+        <div class="wa-frame wa-border-radius-m">
+          <img 
+            src="https://images.unsplash.com/photo-1564859227552-81fde4a1df0b?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
+          />
+        </div>
+        <div class="wa-flank:end wa-align-items-baseline">
+          <div class="wa-stack wa-gap-xs">
+            <h3 class="wa-heading-s">RVCA Graphic</h3>
+            <span class="wa-caption-m">White</span>
+            <span class="wa-caption-m">Large</span>
             <span>$25.00</span>
           </div>
-          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
+          <wa-icon-button name="xmark" label="Remove" id="remove-2"></wa-icon-button>
+          <wa-tooltip for="remove-2">Remove</wa-tooltip>
         </div>
-      </section>
-      <section class="wa-grid">
-        <img class="cart-item-image" src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" >
-        <div class="wa-flank">
-          <div>
-            <div>
-              <h3 style="margin-bottom: 0">Made Wild Graphic</h3>
-            <p style="margin: 0;">Large - Black</p>
-            </div>
+      </article>
+      <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
+        <div class="wa-frame wa-border-radius-m">
+          <img 
+            src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
+          />
+        </div>
+        <div class="wa-flank:end wa-align-items-baseline">
+          <div class="wa-stack wa-gap-xs">
+            <h3 class="wa-heading-s">Stay Wild Graphic</h3>
+            <span class="wa-caption-m">Black</span>
+            <span class="wa-caption-m">Large</span>
             <span>$18.00</span>
           </div>
-          <wa-icon-button name="trash-can" variant="solid" label="Remove item"></wa-icon-button>
+          <wa-icon-button name="xmark" label="Remove" id="remove-3"></wa-icon-button>
+          <wa-tooltip for="remove-3">Remove</wa-tooltip>
         </div>
-      </section>
+      </article>
     </div>
-    <wa-card with-header class="card-header second-column">
-  <div slot="header">
-    Order Summary
-  </div>
-  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-    <span>Subtotal</span>
-    <span>$63.00</span>
-  </div>
-  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-    <span>Shipping</span>
-    <span>$5.00</span>
-  </div>
-  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-    <span>Tax</span>
-    <span>$5.50</span>
-  </div>
-  <div class="wa-split" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-    <span>Order Total</span>
-    <span>$73.50</span>
-  </div>
-  <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Checkout</wa-button>
-</wa-card>
+    <wa-card>
+      <div slot="header">
+        <h3 class="wa-heading-m">Order Summary</h3>
+      </div>
+      <div class="wa-stack">
+        <div class="wa-split">
+          <span class="wa-caption-l">Subtotal</span>
+          <strong>$63.00</strong>
+        </div>
+        <wa-divider></wa-divider>
+        <div class="wa-split">
+          <span class="wa-caption-l">Shipping</span>
+          <strong>$5.00</strong>
+        </div>
+        <wa-divider></wa-divider>
+        <div class="wa-split">
+          <span class="wa-caption-l">Tax</span>
+          <strong>$5.50</strong>
+        </div>
+        <wa-divider></wa-divider>
+        <div class="wa-split wa-body-l">
+          <span>Total</span>
+          <strong>$73.50</strong>
+        </div>
+        <wa-button variant="brand">Checkout</wa-button>
+      </div>
+    </wa-card>
   </div>
 </div>
-  <style>
-    :root {
-      --border-color: var(--wa-color-surface-border);
-    }
-  </style>
 </div>
 ```
 
 ## Single Column
 
 ```html {.example}
-<div style="max-width: 960px; margin: 0 auto;">
-  <h1>Shopping Cart</h1>
+<div class="wa-stack wa-gap-2xl" style="max-width: 60ch; margin: auto">
+  <h2>Your Cart</h2>
+  <wa-divider></wa-divider>
+  <article class="wa-flank" style="--flank-size: 12rem">
+    <div class="wa-frame wa-border-radius-m" style="aspect-ratio: 3 / 2">
+      <img
+        src="https://images.unsplash.com/photo-1594787317357-dcda50fd1d78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4MDd8&ixlib=rb-4.0.3&q=80&w=1080"
+        alt=""
+      />
+    </div>
+    <div class="wa-split:column wa-align-items-stretch wa-gap-xs">
+      <div class="wa-stack wa-gap-xs">
+        <span class="wa-split wa-gap-xs">
+          <h3 class="wa-heading-m">Convertible</h3>
+          <span>$32.00</span>
+        </span>
+        <wa-tag size="small" variant="neutral" appearance="filled" pill style="width: fit-content">Cherry Red</wa-tag>
+      </div>
+      <div class="wa-split">
+        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger">
+          <wa-icon slot="suffix" name="trash"></wa-icon>
+          Remove
+        </wa-button>
+      </div>
+    </div>
+  </article>
+  <wa-divider></wa-divider>
+  <article class="wa-flank" style="--flank-size: 12rem">
+    <div class="wa-frame wa-border-radius-m" style="aspect-ratio: 3 / 2">
+      <img
+        src="https://images.unsplash.com/photo-1597670250484-0e9aff7f8804?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4NTB8&ixlib=rb-4.0.3&q=80&w=1080"
+        alt=""
+      />
+    </div>
+    <div class="wa-split:column wa-align-items-stretch wa-gap-xs">
+      <div class="wa-stack wa-gap-xs">
+        <span class="wa-split wa-gap-xs">
+          <h3 class="wa-heading-m">Racers (3 Pack)</h3>
+          <span>$80.00</span>
+        </span>
+        <wa-tag size="small" variant="neutral" appearance="filled" pill style="width: fit-content">Assorted Colors</wa-tag>
+      </div>
+      <div class="wa-split">
+        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger">
+          <wa-icon slot="suffix" name="trash"></wa-icon>
+          Remove
+        </wa-button>
+      </div>
+    </div>
+  </article>
+  <wa-divider></wa-divider>
+  <article class="wa-flank" style="--flank-size: 12rem">
+    <div class="wa-frame wa-border-radius-m" style="aspect-ratio: 3 / 2">
+      <img
+        src="https://images.unsplash.com/photo-1594787826350-19386fdb2363?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4ODV8&ixlib=rb-4.0.3&q=80&w=1080"
+        alt=""
+      />
+    </div>
+    <div class="wa-split:column wa-align-items-stretch wa-gap-xs">
+      <div class="wa-stack wa-gap-xs">
+        <span class="wa-split wa-gap-xs">
+          <h3 class="wa-heading-m">Volkswagen T2</h3>
+          <span>$60.00</span>
+        </span>
+        <wa-tag size="small" variant="neutral" appearance="filled" pill style="width: fit-content">Red/White</wa-tag>
+      </div>
+      <div class="wa-split">
+        <wa-badge appearance="filled" variant="warning">Low Stock</wa-badge>
+        <wa-button appearance="plain" size="small" variant="danger">
+          <wa-icon slot="suffix" name="trash"></wa-icon>
+          Remove
+        </wa-button>
+      </div>
+    </div>
+  </article>
+  <wa-divider></wa-divider>
   <div class="wa-stack">
-    <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img class="cart-item-image" src="https://images.unsplash.com/photo-1594787317357-dcda50fd1d78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4MDd8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
-    <div>
-      <span class="wa-split" style="margin-bottom: var(--wa-size);">
-        <h2>Convertible</h2>
-        <wa-tag size="small" variant="brand" appearance="filled" pill>Cherry Red</wa-tag>
-      </span>
-      
-        <span>$32.00</span>
-      
-       <div class="wa-split">
-        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
-        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
-        </div>
+    <div class="wa-split">
+      <h3 class="wa-heading-m">Subtotal</h3>
+      <span class="wa-body-l">$172.00</span>
     </div>
-  </section>
-  <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img class="cart-item-image" src="https://images.unsplash.com/photo-1597670250484-0e9aff7f8804?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4NTB8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
-    <div>
-      <span class="wa-split" style="margin-bottom: var(--wa-size);">
-        <h2>Racers - 3 Pack</h2>
-        <wa-tag size="small" variant="brand" appearance="filled" pill>Assorted Colors</wa-tag>
-      </span>
-      
-        <span>$60.00</span>
-      
-       <div class="wa-split">
-        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
-        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
-        </div>
+    <span class="wa-caption-m">Shipping and taxes calculated at checkout</span>
+    <wa-button size="large" variant="brand">Checkout</wa-button>
+    <div class="cluster">
+      <span class="wa-caption-m">Not quite ready?</span>
+      <wa-button appearance="plain" size="small" variant="brand">
+        Continue Shopping
+        <wa-icon name="arrow-right"></wa-icon>
+      </wa-button>
     </div>
-  </section>
-  <section class="wa-grid" style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-    <img class="cart-item-image" src="https://images.unsplash.com/photo-1594787826350-19386fdb2363?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDI4ODV8&ixlib=rb-4.0.3&q=80&w=1080" alt="" >
-    <div>
-      <span class="wa-split" style="margin-bottom: var(--wa-size);">
-        <h2>Volkswagen T2</h2>
-        <wa-tag size="small" variant="brand" appearance="filled" pill>Red/White</wa-tag>
-      </span>
-      
-        <span>$80.00</span>
-      
-       <div class="wa-split">
-        <wa-badge appearance="filled" variant="success">In Stock</wa-badge>
-        <wa-button appearance="plain" size="small" variant="danger"><wa-icon slot="suffix" name="trash-can" variant="solid"></wa-icon>Remove</wa-button>
-        </div>
-    </div>
-  </section>
-   <div slot="footer">
-    <div style="display:flex; justify-content: space-between; font-weight: 600;">
-      <span>Subtotal</span>
-      <span>$172.00</span>
-    </div>
-    <div style="font-size: small; margin-bottom: 1rem;">Shipping and taxes calculated at checkout.</div>
-   <wa-button size="medium" variant="brand" style="width: 100%; margin-bottom: 1rem;">Medium</wa-button>
-    or <a href="#">Continue shopping <wa-icon-button name="arrow-right" variant="solid" label="Settings"></wa-icon-button></a>
-  </div>
-
   </div>
 </div>
-<style>
-  :root {
-    --border-color: var(--wa-color-surface-border);
-  }
-</style>
+```
+
+## Drawer
+
+```html {.example viewport}
+<wa-drawer label="Shopping Cart" with-header with-footer open>
+  <div class="wa-stack">
+    <article class="wa-flank" style="--flank-size: 6rem">
+      <div class="wa-frame wa-border-radius-m">
+        <img 
+          src="https://images.unsplash.com/photo-1704677982224-89cd6d039fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDEwOTJ8&ixlib=rb-4.0.3&q=80&w=1080"
+          alt=""
+        />
+      </div>
+      <div class="wa-stack wa-gap-2xs"> 
+        <div class="wa-split wa-gap-2xs">
+          <strong>AJ1 Low</strong>
+          <strong>$170.00</strong>
+        </div>
+        <span class="wa-caption-m">Multi-color</span>
+        <div class="wa-split wa-gap-2xs">
+          <span class="wa-body-s">Qty: 1</span>
+          <wa-button appearance="plain" size="small">Remove</wa-button>
+        </div>
+      </div>
+    </article>
+    <wa-divider></wa-divider>
+    <article class="wa-flank" style="--flank-size: 6rem">
+      <div class="wa-frame wa-border-radius-m">
+        <img
+          src="https://images.unsplash.com/photo-1672908615254-71a0b373eaba?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="(Photograph by Hamed darzi)"
+        />
+      </div>
+      <div class="wa-stack wa-gap-2xs"> 
+        <div class="wa-split wa-gap-2xs">
+          <strong>The Trails</strong>
+          <strong>$35.00</strong>
+        </div>
+        <span class="wa-caption-m">Twilight Blue</span>
+        <div class="wa-split wa-gap-2xs">
+          <span class="wa-body-s">Qty: 1</span>
+          <wa-button appearance="plain" size="small">Remove</wa-button>
+        </div>
+      </div>
+    </article>
+    <wa-divider></wa-divider>
+    <article class="wa-flank" style="--flank-size: 6rem">
+      <div class="wa-frame wa-border-radius-m">
+        <img 
+          src="https://images.unsplash.com/photo-1693443687750-611ad77f3aba?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="(Photograph by tian dayong)"
+        />
+      </div>
+      <div class="wa-stack wa-gap-2xs"> 
+        <div class="wa-split wa-gap-2xs">
+          <strong>Outcast 2-pack</strong>
+          <strong>$27.00</strong>
+        </div>
+        <span class="wa-caption-m">Black / White</span>
+        <div class="wa-split wa-gap-2xs">
+          <span class="wa-body-s">Qty: 1</span>
+          <wa-button appearance="plain" size="small">Remove</wa-button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div slot="footer" class="wa-stack" style="width: 100%">
+    <div class="wa-split">
+      <strong>Subtotal</strong>
+      <strong>$232.00</strong>
+    </div>
+    <span class="wa-caption-m">Shipping and taxes calculated at checkout.</span>
+    <wa-button variant="brand">Checkout</wa-button>
+    <wa-button appearance="plain" size="small" variant="brand">
+      Continue Shopping
+      <wa-icon name="arrow-right"></wa-icon>
+    </wa-button>
+  </div>
+</wa-drawer>
 ```
