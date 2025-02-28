@@ -30,9 +30,6 @@ export const selectors = {
     [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
 };
 
-export const hues = Object.keys(HUE_RANGES);
-export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
-
 export const HUE_RANGES = {
   red: { min: 15, max: 35 }, // 20
   // orange: { min: 35, max: 60 }, // 25
@@ -44,6 +41,9 @@ export const HUE_RANGES = {
   purple: { min: 290, max: 320 }, // 30
   pink: { min: 320, max: 375 }, // 55
 };
+
+export const hues = Object.keys(HUE_RANGES);
+export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
 
 export const L_RANGES = {
   '05': { min: 0.18, max: 0.2 },
