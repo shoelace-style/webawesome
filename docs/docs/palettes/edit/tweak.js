@@ -118,6 +118,10 @@ let paletteAppSpec = {
         }
       }
 
+      if (this.permalink.has('color')) {
+        this.seedColors = this.permalink.getAll('color');
+      }
+
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
       }
@@ -490,6 +494,14 @@ let paletteAppSpec = {
 
     grayChroma() {
       this.permalink.set('gray-chroma', this.grayChroma, this.originalGrayChroma);
+    },
+
+    seedColors: {
+      deep: true,
+      handler() {
+        this.permalink.set('color', this.seedColors);
+        this.permalink.updateLocation();
+      },
     },
 
     tweaks: {
