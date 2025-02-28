@@ -6,7 +6,7 @@ import { interpolate, progress, progressAngle, roundTo } from '/assets/scripts/t
 const maxChroma = {};
 const OOG_CHROMA = 0.4; // guaranteed to be OOG for every P3 color
 const H_STEP = 10;
-const L_STEP = 0.1;
+const L_STEP = 0.05;
 const H_STEPS = [-H_STEP, 0, H_STEP];
 const L_STEPS = [-L_STEP, 0, L_STEP];
 

@@ -200,7 +200,13 @@ export function getHueShift(color, fromTint, toTint) {
 }
 
 export function getCoreTint(scale) {
-  let ret = DEFAULT_ACCENT;
+  let tintsInScale = Object.keys(scale);
+
+  if (tintsInScale.length <= 1) {
+    return tintsInScale[0];
+  }
+
+  let ret = DEFAULT_ACCENT in scale ? DEFAULT_ACCENT : tintsInScale[Math.floor(tintsInScale.length / 2)];
   let maxChroma = 0;
 
   for (let tint in scale) {
