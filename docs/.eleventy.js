@@ -67,6 +67,11 @@ export default function (eleventyConfig) {
     return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || "").replace(/^\//, '');
   });
 
+  // Turns `{% server_variable "foo" %} into `{{ server.foo | safe }}`
+  eleventyConfig.addShortcode('server', function (property) {
+    return `{{ server.${property} | safe }}`;
+  });
+
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
 

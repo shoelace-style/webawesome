@@ -167,7 +167,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     }
     button.value = this.value || '';
 
-    ['form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget'].forEach(attr => {
+    ;['form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget'].forEach(attr => {
       if (this.hasAttribute(attr)) {
         button.setAttribute(attr, this.getAttribute(attr)!);
       }
