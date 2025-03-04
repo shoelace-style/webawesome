@@ -109,6 +109,20 @@ export const HUE_CHROMA_SCALE = {
   pink: 0.92,
 };
 
+export const CHROMA_SCALE_LIGHTEST = {
+  95: 1,
+  90: 0.8,
+  80: 0.5,
+  70: 0.2,
+  60: 0.2,
+  50: 0.15,
+  40: 0.1,
+};
+
+export const MAX_CHROMA_BY_TINT = {
+  95: 0.11,
+};
+
 export const moreHue = {
   red: 'Redder',
   orange: 'More orange', // https://www.reddit.com/r/grammar/comments/u9n0uo/is_it_oranger_or_more_orange/
@@ -132,6 +146,14 @@ export const HUE_SHIFTS = [
   // Blues
   { range: [240, 265], peak: [245, 260], shift: { dark: -3, light: -15 }, maxConsecutive: { dark: -3, light: -4 } },
 ];
+
+export const CHROMA_CURVES = {
+  50: { dark: 0.9, light: 0.8 },
+  60: { dark: 1, light: 1.2 },
+  70: { light: 1.2 },
+  80: { dark: 1.1, light: 2 },
+  90: { dark: 3, light: 2 },
+};
 
 export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
 

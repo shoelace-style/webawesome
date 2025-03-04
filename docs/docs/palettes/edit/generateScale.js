@@ -1,23 +1,17 @@
 import {
+  CHROMA_CURVES,
+  CHROMA_SCALE_LIGHTEST,
   CHROMA_TOLERANCE,
   DEFAULT_ACCENT,
   HUE_RANGES,
   HUE_SHIFTS,
   L_RANGES,
   MAX_ACCENT,
+  MAX_CHROMA_BY_TINT,
   MIN_ACCENT,
   tints,
 } from '/assets/scripts/tweak/data.js';
 import { clamp, getRange, mapRange } from '/assets/scripts/tweak/util.js';
-
-const chromaScaleLightest = {
-  95: 1,
-  90: 0.8,
-  80: 0.5,
-  70: 0.2,
-  60: 0.2,
-  50: 0.15,
-};
 
 export function generateScale(seedColors) {
   if (seedColors.constructor.name === 'Color') {
@@ -50,12 +44,12 @@ export function generateScale(seedColors) {
   if (!('95' in scale)) {
     let lightest = seedColors[pinnedTints[0]];
     let color = lightest.clone().to('oklch');
-    let chromaScale = chromaScaleLightest[coreLevel] ?? 0.1;
+    let chromaScale = CHROMA_SCALE_LIGHTEST[clamp(40, coreLevel, 95)];
     let hueShift = getHueShift(lightest, pinnedTints[0], '95');
 
     color.set({
       l: L_RANGES[95].mid + distance,
-      c: clamp(0, coreChroma * chromaScale, 0.1),
+      c: clamp(0, coreChroma * chromaScale, MAX_CHROMA_BY_TINT[95]),
       h: h => h + hueShift,
     });
 
@@ -112,7 +106,7 @@ export function generateScale(seedColors) {
         mapRange(tint, {
           from: [levelBefore, levelAfter],
           to: [colorBefore.get('oklch.c'), colorAfter.get('oklch.c')],
-          progression: p => p ** 1.2,
+          progression: p => p ** chromaCurve.light,
         }),
       );
     }
