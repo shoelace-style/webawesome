@@ -1,6 +1,7 @@
 {% set hasSidebar = true %}
 {% set hasOutline = true %}
 {% set paletteId = "default" if page.fileSlug == 'custom' else page.fileSlug %}
+{% set isCustom = page.fileSlug == 'custom' %}
 {% set tints = ["95", "90", "80", "70", "60", "50", "40", "30", "20", "10", "05"] %}
 
 {% extends '../_includes/base.njk' %}
@@ -12,7 +13,7 @@
 {% endblock %}
 
 {% block header %}
-<div id="palette-app" data-slug="{{ page.fileSlug }}" data-palette-id="{{ paletteId }}">
+<div id="palette-app" data-slug="{{ page.fileSlug }}" data-palette-id="{{ page.fileSlug }}">
   <div
   :class="{
     seeded: seedColors.length,
@@ -94,6 +95,13 @@
   </wa-button>
 </wa-callout>
 
+<wa-tab-group class="scale-filter" v-if="seedColors.length > 0" @wa-tab-show="show = $event.detail.name.slice(0, -7)">
+  <wa-tab panel="my-scales"><wa-icon name="star" variant="regular"></wa-icon> My scales</wa-tab>
+  <wa-tab panel="all-scales"><wa-icon name="rainbow" variant="regular"></wa-icon> All scales</wa-tab>
+  <wa-tab-panel name="my-scales"></wa-tab-panel>
+  <wa-tab-panel name="all-scales"></wa-tab-panel>
+</wa-tab-group>
+
 {% include "palette.njk" %}
 
 <table class="colors main wa-palette-{{ paletteId }}">
@@ -108,7 +116,7 @@
   </thead>
   {% raw %}
   <tbody v-cloak>
-    <tr v-for="hue in [...hues, 'gray']" :data-hue="hue"
+    <tr v-for="hue in [...hues, 'gray']" v-show="show === 'all' || seedHues[hue]" :data-hue="hue"
         class="color-scale" :class="{
           tweaking: hue === 'gray' ? tweaking.grayChroma : tweaking.hue?.[hue],
           tweaked: hue === 'gray' ? tweaked.grayChroma || tweaked.grayColor : hueShifts[hue],

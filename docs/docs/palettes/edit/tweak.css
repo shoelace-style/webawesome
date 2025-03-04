@@ -280,3 +280,9 @@ wa-dropdown > .color.swatch {
     pointer-events: none;
   }
 }
+
+.scale-filter {
+  wa-tab wa-icon {
+    margin-right: 0.4em;
+  }
+}
