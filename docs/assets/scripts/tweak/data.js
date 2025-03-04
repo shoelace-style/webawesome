@@ -96,17 +96,17 @@ export const HUE_TOP_TINT = {
 │ pink    │ 0.74 │ 1    │ 0.93   │ 0.89 │ 0.089  │ 8     │
 └─────────┴──────┴──────┴────────┴──────┴────────┴───────┘
 */
-/** Max(Average, Median) % of max P3 chroma per hue, relative to palette maximum */
+/** Max(Average, Median) % of max P3 chroma per hue, relative to palette maximum and capped to 0.8 */
 export const HUE_CHROMA_SCALE = {
   red: 0.92,
   orange: 0.96, // interpolated
   yellow: 1,
-  green: 0.75,
+  green: 0.8,
   cyan: 0.81,
   blue: 0.83,
   indigo: 0.87,
   purple: 0.86,
-  pink: 0.93,
+  pink: 0.92,
 };
 
 export const moreHue = {
