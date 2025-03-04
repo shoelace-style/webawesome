@@ -49,7 +49,7 @@ export function generateScale(seedColors) {
     let hueShift = getHueShift(lightest, pinnedTints[0], '95');
 
     color.set({
-      l: L_RANGES[95].mid + distance,
+      l: getLightness(95, distance),
       c: clamp(0, coreChroma * chromaScale, MAX_CHROMA_BY_TINT[95]),
       h: h => h + hueShift,
     });
@@ -63,7 +63,7 @@ export function generateScale(seedColors) {
     let hueShift = getHueShift(darkest, pinnedTints.at(-1), '05');
 
     color.set({
-      l: L_RANGES['05'].mid + distance,
+      l: getLightness('05', distance),
       // TODO c
       h: h => h + hueShift,
     });
@@ -94,7 +94,7 @@ export function generateScale(seedColors) {
 
     // Interpolate hue linearly and chroma with a power curve
     color.set({
-      l: L_RANGES[tint].mid + distance,
+      l: getLightness(tint, distance),
       h: mapRange(tint, {
         from: [levelBefore, levelAfter],
         to: [colorBefore.get('oklch.h'), colorAfter.get('oklch.h')],
@@ -215,4 +215,8 @@ export function getCoreTint(scale) {
   }
 
   return ret;
+}
+
+export function getLightness(level, distance) {
+  return clamp(L_RANGES[level].min, L_RANGES[level].mid + distance, L_RANGES[level].max);
 }
