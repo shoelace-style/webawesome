@@ -39,6 +39,7 @@ export function generateScale(seedColors) {
 
   // For finding lightest and darkest pinned colors
   let pinnedTints = Object.keys(seedColors).sort((a, b) => a - b);
+  let chromaCurve = CHROMA_CURVES[clamp(50, coreLevel, 90)];
 
   // Now generate the rest, starting from the edges
   if (!('95' in scale)) {
@@ -160,7 +161,7 @@ export default generateScale;
 export function getTintDistance(tint1, tint2) {
   tint1 = String(tint1);
   tint2 = String(tint2);
-  return Math.abs(tints.indexOf(tint2) - tints.indexOf(tint1));
+  return tints.indexOf(tint2) - tints.indexOf(tint1);
 }
 
 export function getHueShift(color, fromTint, toTint) {
@@ -181,12 +182,12 @@ export function getHueShift(color, fromTint, toTint) {
   let h = color.get('oklch.h');
   let breakpoints = [range[0], ...peak, range[1]];
   let intensity = mapRange(h, breakpoints, [0, 1, 1, 0]);
-  let type = tintDistance > 0 ? 'light' : 'dark';
+  let type = tintDistance < 0 ? 'dark' : 'light';
   let shift = hueShift.shift[type];
 
   let ret = shift * intensity;
   let maxConsecutive = hueShift.maxConsecutive[type] ?? hueShift.maxConsecutive;
-  let maxShift = Math.sign(shift) * maxConsecutive * tintDistance;
+  let maxShift = Math.sign(shift) * maxConsecutive * Math.abs(tintDistance);
 
   ret = clamp(undefined, ret, maxShift);
 
