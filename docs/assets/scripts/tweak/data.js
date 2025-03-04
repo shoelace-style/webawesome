@@ -82,6 +82,33 @@ export const HUE_TOP_TINT = {
   gray: 40,
 };
 
+/*
+┌─────────┬──────┬──────┬────────┬──────┬────────┬───────┐
+│ (index) │ min  │ max  │ median │ avg  │ stddev │ count │
+├─────────┼──────┼──────┼────────┼──────┼────────┼───────┤
+│ red     │ 0.74 │ 1    │ 0.92   │ 0.88 │ 0.085  │ 9     │
+│ yellow  │ 0.72 │ 1    │ 0.98   │ 0.92 │ 0.11   │ 8     │
+│ green   │ 0.55 │ 0.93 │ 0.75   │ 0.75 │ 0.1    │ 8     │
+│ cyan    │ 0.7  │ 0.88 │ 0.82   │ 0.81 │ 0.053  │ 8     │
+│ blue    │ 0.54 │ 1    │ 0.83   │ 0.82 │ 0.15   │ 9     │
+│ indigo  │ 0.63 │ 1    │ 0.87   │ 0.86 │ 0.13   │ 8     │
+│ purple  │ 0.58 │ 0.99 │ 0.86   │ 0.84 │ 0.11   │ 8     │
+│ pink    │ 0.74 │ 1    │ 0.93   │ 0.89 │ 0.089  │ 8     │
+└─────────┴──────┴──────┴────────┴──────┴────────┴───────┘
+*/
+/** Max(Average, Median) % of max P3 chroma per hue, relative to palette maximum */
+export const HUE_CHROMA_SCALE = {
+  red: 0.92,
+  orange: 0.96, // interpolated
+  yellow: 1,
+  green: 0.75,
+  cyan: 0.81,
+  blue: 0.83,
+  indigo: 0.87,
+  purple: 0.86,
+  pink: 0.93,
+};
+
 export const moreHue = {
   red: 'Redder',
   orange: 'More orange', // https://www.reddit.com/r/grammar/comments/u9n0uo/is_it_oranger_or_more_orange/

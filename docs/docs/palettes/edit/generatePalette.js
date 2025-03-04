@@ -1,9 +1,11 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { generateGrays, generateScale, getCoreTint } from './generateScale.js';
-import getMaxChroma from './util/get-max-chroma.js';
-import { HUE_RANGES, HUE_TOP_TINT, L_RANGES } from '/assets/scripts/tweak/data.js';
+import { HUE_CHROMA_SCALE, HUE_RANGES, HUE_TOP_TINT, L_RANGES } from '/assets/scripts/tweak/data.js';
 import { clampAngle, interpolate, progressAngle, roundTo, subtractAngles } from '/assets/scripts/tweak/util.js';
+
+/** An OKLCh chroma value that is guaranteed to be OOG for every P3 color */
+const OOG_CHROMA = 0.4;
 
 export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...options } = {}) {
   let ret = {};
@@ -57,7 +59,6 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
             neighboringPinnedHues.map(hue => HUE_RANGES[hue].mid),
           );
 
-    let pinnedScale = neighboringPinnedHues.map(hue => ret[hue]);
     let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('oklch.h');
     let h = HUE_RANGES[hue].mid;
     let hDelta = subtractAngles(h, hBefore);
@@ -74,18 +75,20 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
     let lOffset = (hueLOffsets[hue] = interpolate(hueProgress, lOffsets));
     let l = L_RANGES[coreLevel].mid + lOffset;
 
-    let neighborCScale = pinnedScale.map(scale => {
-      let coreColor = scale[scale.maxChromaTint];
-      let [l, c, h] = coreColor.getAll('oklch');
-      let maxChroma = getMaxChroma(l, h);
-      return c / maxChroma;
+    let neighborCScale = neighboringPinnedHues.map(hue => {
+      let scale = ret[hue];
+      let coreColor = scale[scale.maxChromaTint].to('oklch');
+      let maxC = coreColor.clone().set('c', OOG_CHROMA).toGamut('p3', { method: 'oklch.c' }).c;
+      return coreColor.c / maxC;
     });
+
     let cScale = interpolate(hueProgress, neighborCScale);
-    // let c = cScale * getMaxChroma(l, h);
-    let c = interpolate(
-      hueProgress,
-      pinnedScale.map(scale => scale.maxChroma),
-    );
+    let maxC = new Color('oklch', [l, OOG_CHROMA, h]).toGamut('p3', { method: 'oklch.c' }).c;
+    let c = cScale * maxC;
+    // let c = interpolate(
+    //   hueProgress,
+    //   pinnedScale.map(scale => scale.maxChroma),
+    // );
 
     let coreColor = new Color('oklch', [l, c, h]).toGamut('p3');
 
