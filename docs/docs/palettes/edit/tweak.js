@@ -213,6 +213,7 @@ let paletteAppSpec = {
         : false;
 
       let ret = {
+        seedColors: this.seedColors.length > 0,
         chromaScale: this.chromaScale !== 1,
         hue,
         grayChroma: this.grayChroma !== this.originalGrayChroma,
@@ -600,7 +601,7 @@ addEventListener('turbo:render', init);
 export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
   let imports = [];
 
-  if (paletteId && options.imports !== false) {
+  if (paletteId && options.imports !== false && !tweaked.seedColors) {
     imports.push(urls.palette(paletteId));
   }
 
@@ -612,12 +613,14 @@ export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
     for (let hue in colors) {
       if (hue === 'orange') {
         continue;
-      } else if (hue === 'gray') {
-        if (!tweaked.grayChroma && !tweaked.grayColor) {
+      } else if (!tweaked.seedColors) {
+        if (hue === 'gray') {
+          if (!tweaked.grayChroma && !tweaked.grayColor) {
+            continue;
+          }
+        } else if (!tweaked.chromaScale && !tweaked.hue?.[hue]) {
           continue;
         }
-      } else if (!tweaked.chromaScale && !tweaked.hue?.[hue]) {
-        continue;
       }
 
       for (let tint of tints) {
@@ -635,10 +638,18 @@ export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
     }
   }
 
-  let ret = imports.map(url => cssImport(url, options)).join('\n');
+  let ret = '';
+
+  if (imports.length) {
+    ret += imports.map(url => cssImport(url, options)).join('\n');
+
+    if (css) {
+      ret += '\n\n';
+    }
+  }
 
   if (css) {
-    ret += `\n\n${cssLiteral(css, options)}`;
+    ret += `${cssLiteral(css, options)}`;
   }
 
   return ret;
