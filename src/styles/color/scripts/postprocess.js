@@ -14,7 +14,7 @@ const hues = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'pur
 const huesChromatic = hues.slice(0, -1);
 
 /** If a hue is missing, how should it be generated from the neighboring hues? */
-const mixPercentage = { orange: 0.7 };
+const mixPercentage = { orange: 0.6 };
 const selector = paletteId =>
   [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${paletteId}`].join(
     ',\n',
@@ -37,17 +37,6 @@ for (let paletteId in palettes) {
   for (let hue in palette) {
     let scale = palette[hue];
 
-    for (let tint in scale) {
-      if (tint === '05' || !(tint > 0)) {
-        // The object has both '5' and '05' keys, but '05' is out of order
-        // Also ignore non-tints
-        continue;
-      }
-
-      let color = scale[tint];
-      hueCSS[hue] = declareColor(color, hue, tint) + '\n' + hueCSS[hue];
-    }
-
     if (scale.maxChromaTint != scale.maxChromaTintRaw) {
       reportPaletteIssue(
         `Clamping accent color to ${chalk.bold(scale.maxChromaTint)}, but peak chroma is in ${chalk.bold(scale.maxChromaTintRaw)} (${formatComparison(scale[scale.maxChromaTintRaw].c, scale[scale.maxChromaTint].c)})`,
@@ -55,13 +44,13 @@ for (let paletteId in palettes) {
       );
     }
 
-    hueCSS[hue] += `--wa-color-${hue}: var(--wa-color-${hue}-${scale.maxChromaTint});\n`;
-    hueCSS[hue] += `--wa-color-${hue}-key: ${scale.maxChromaTint};\n`;
+    hueCSS[hue] += scaleCSS(hue, scale);
   }
 
   // Generate missing hues
   for (let i = 0; i < hues.length; i++) {
     let hue = hues[i];
+
     if (hueCSS[hue]) {
       continue;
     }
@@ -71,9 +60,18 @@ for (let paletteId in palettes) {
     let prevHue = huesChromatic[i - 1] ?? huesChromatic.at(-1);
     let nextHue = huesChromatic[i + 1] ?? huesChromatic[0];
 
-    reportPaletteIssue(`Missing hue ${hue}. Generating from ${prevHue} and ${nextHue}`, { paletteId, hue });
+    reportPaletteIssue(`Missing hue. Generating from ${prevHue} and ${nextHue}`, { paletteId, hue });
 
-    for (let tint in palette[prevHue]) {
+    let prevScale = palette[prevHue];
+    let nextScale = palette[nextHue];
+
+    let progress = mixPercentage[hue] ?? 0.5;
+    let scale = (palette[hue] = {});
+
+    scale.maxChromaTint = (1 - progress) * prevScale.maxChromaTint + progress * nextScale.maxChromaTint;
+    scale.maxChromaTint = Math.round(scale.maxChromaTint / 10) * 10;
+
+    for (let tint in prevScale) {
       if (tint === '05' || !(tint > 0)) {
         continue;
       }
@@ -81,19 +79,25 @@ for (let paletteId in palettes) {
       let prevColor = palette[prevHue][tint];
       let nextColor = palette[nextHue][tint];
 
-      let color = prevColor.mix(nextColor, mixPercentage[hue] ?? 0.5, { space: 'oklch' });
-      hueCSS[hue] = declareColor(color, hue, tint) + '\n' + hueCSS[hue];
+      let color = prevColor.mix(nextColor, progress, { space: 'oklch' });
+      scale[tint] = color;
     }
+
+    // Ensure core color has the max chroma
+    let coreColor = scale[scale.maxChromaTint];
+    coreColor.c = Math.max(...Object.values(scale).map(color => color.c || 0)) + 0.0002;
+
+    hueCSS[hue] += scaleCSS(hue, scale);
   }
 
-  hueCSS = Object.values(hueCSS).join('\n');
+  hueCSS = Object.values(hueCSS).filter(Boolean).join('\n\n');
   // TODO apply Prettier instead of faking it
   paletteCSS = `${selector(paletteId)} {\n${hueCSS.trimEnd().replace(/^(?=\S)/gm, indent)}\n}\n`;
 
   fs.writeFileSync(path.join(PALETTE_DIR, paletteId + '.css'), paletteCSS, 'utf8');
 }
 
-let issuePaletteCount = Object.keys(paletteIssues).length;
+let issuePaletteCount = Object.keys(paletteIssues).length - 1;
 console.info(
   `🎨 Wrote ${Object.keys(palettes).length} palette files.` +
     (paletteIssues.total > 0
@@ -136,4 +140,23 @@ function declareColor(color, hue, tint) {
   }
 
   return ret;
+}
+
+function scaleCSS(hue, scale) {
+  let ret = [];
+  for (let tint in scale) {
+    if (tint === '05' || !(tint > 0)) {
+      // The object has both '5' and '05' keys, but '05' is out of order
+      // Also ignore non-tints
+      continue;
+    }
+
+    let color = scale[tint];
+    ret.push(declareColor(color, hue, tint));
+  }
+  ret.reverse();
+
+  ret.push(`--wa-color-${hue}: var(--wa-color-${hue}-${scale.maxChromaTint});`);
+  ret.push(`--wa-color-${hue}-key: ${scale.maxChromaTint};`);
+  return ret.join('\n');
 }
