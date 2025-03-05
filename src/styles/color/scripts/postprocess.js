@@ -41,9 +41,9 @@ for (let paletteId in palettes) {
 
       let color = tints[tint];
       tint = tint.padStart(2, '0');
+      let format = color.inGamut('srgb') ? 'hex' : undefined;
 
-      tintCSS =
-        `--wa-color-${hue}-${tint}: ${color.toString({ format: 'hex' })} /* ${color.toString()} */;\n` + tintCSS;
+      tintCSS = `--wa-color-${hue}-${tint}: ${color.toString({ format })} /* ${color.toString()} */;\n` + tintCSS;
     }
 
     if (tints.maxChromaTint != tints.maxChromaTintRaw) {
