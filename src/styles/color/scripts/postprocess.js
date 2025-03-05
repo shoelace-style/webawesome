@@ -22,35 +22,35 @@ let issueCount = 0;
 let issuePaletteCount = 0;
 
 for (let paletteId in palettes) {
-  const tokens = palettes[paletteId];
+  const palette = palettes[paletteId];
 
   let css = '';
   let prefix = `[${paletteId}]`.padEnd(paletteIdMaxChars + 2);
 
-  for (let hue in tokens) {
-    let tints = tokens[hue];
+  for (let hue in palette) {
+    let scale = palette[hue];
 
     let tintCSS = '';
 
-    for (let tint in tints) {
+    for (let tint in scale) {
       if (tint === '05' || !(tint > 0)) {
         // The object has both '5' and '05' keys, but '05' is out of order
         // Also ignore non-tints
         continue;
       }
 
-      let color = tints[tint];
+      let color = scale[tint];
       tint = tint.padStart(2, '0');
       let format = color.inGamut('srgb') ? 'hex' : undefined;
 
       tintCSS = `--wa-color-${hue}-${tint}: ${color.toString({ format })} /* ${color.toString()} */;\n` + tintCSS;
     }
 
-    if (tints.maxChromaTint != tints.maxChromaTintRaw) {
+    if (scale.maxChromaTint != scale.maxChromaTintRaw) {
       let huePrefix = hueToChalk(hue)(hue.padEnd(hueMaxChars + 2));
 
       console.warn(
-        `${prefix} ${huePrefix}: Clamping accent color to ${chalk.bold(tints.maxChromaTint)}, but peak chroma is in ${chalk.bold(tints.maxChromaTintRaw)} (${formatComparison(tints[tints.maxChromaTintRaw].c, tints[tints.maxChromaTint].c)})`,
+        `${prefix} ${huePrefix}: Clamping accent color to ${chalk.bold(scale.maxChromaTint)}, but peak chroma is in ${chalk.bold(scale.maxChromaTintRaw)} (${formatComparison(scale[scale.maxChromaTintRaw].c, scale[scale.maxChromaTint].c)})`,
       );
       issueCount++;
 
@@ -63,8 +63,8 @@ for (let paletteId in palettes) {
       }
     }
 
-    tintCSS += `--wa-color-${hue}: var(--wa-color-${hue}-${tints.maxChromaTint});\n`;
-    tintCSS += `--wa-color-${hue}-key: ${tints.maxChromaTint};\n`;
+    tintCSS += `--wa-color-${hue}: var(--wa-color-${hue}-${scale.maxChromaTint});\n`;
+    tintCSS += `--wa-color-${hue}-key: ${scale.maxChromaTint};\n`;
     css += tintCSS + '\n';
   }
 
