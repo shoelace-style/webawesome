@@ -1,12 +1,12 @@
 /**
- * Add tintless variables and OKLCH coords as comments to palette CSS files.
- * Run via node tintless.js
+ * Post-process palette CSS files to add core colors, oklch coordinates etc.
+ * Run via node postprocess.js
  * Warning: Will overwrite existing files. Check the diff before committing!
  */
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
-import palettes, { rawPalettes } from './palettes-analyzed.js';
+import palettes from './palettes-analyzed.js';
 import { PALETTE_DIR, formatComparison, hueToChalk } from './util.js';
 
 const selector = paletteId =>
