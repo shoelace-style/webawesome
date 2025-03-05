@@ -286,3 +286,7 @@ wa-dropdown > .color.swatch {
     margin-right: 0.4em;
   }
 }
+
+.title wa-icon-button[name='pencil'] {
+  margin-inline-start: var(--wa-space-xs);
+}

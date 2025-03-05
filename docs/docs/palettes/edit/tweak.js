@@ -79,7 +79,8 @@ let paletteAppSpec = {
       grayColor: undefined,
       tweaking: {},
       saved: null,
-      factor: 1.2,
+      unsavedChanges: false,
+      savedPalettes: sidebar.palettes.saved,
     };
   },
 
@@ -118,9 +119,8 @@ let paletteAppSpec = {
 
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
+        this.saved = sidebar.palettes.saved.find(p => p.uid === this.uid);
       }
-
-      this.saved = sidebar.palette.getSaved(this.getPalette());
     }
   },
 
@@ -128,9 +128,26 @@ let paletteAppSpec = {
     for (let ref in this.$refs) {
       this.$refs[ref].tooltipFormatter = percentFormatter;
     }
+
+    nextTick().then(() => {
+      this.unsavedChanges = false;
+    });
   },
 
   computed: {
+    isCustom() {
+      return this.paletteId === 'custom';
+    },
+
+    /** Default palette title for saving */
+    defaultPaletteTitle() {
+      if (this.isCustom) {
+        return 'My Palette';
+      } else {
+        return this.paletteTitle + ' (tweaked)';
+      }
+    },
+
     seedColorObjects() {
       return this.seedColors
         .map(color => {
@@ -401,6 +418,11 @@ let paletteAppSpec = {
       }
       return ret;
     },
+
+    /** Get other variants of the same base palette that are not this one */
+    savedVariations() {
+      return this.savedPalettes.filter(palette => palette.id === this.paletteId && palette.uid !== this.uid);
+    },
   },
 
   watch: {
@@ -430,6 +452,10 @@ let paletteAppSpec = {
       handler() {
         this.permalink.set('color', this.seedColors);
         this.permalink.updateLocation();
+
+        if (this.saved || this.isCustom) {
+          this.unsavedChanges = true;
+        }
       },
     },
 
@@ -441,8 +467,8 @@ let paletteAppSpec = {
         // Update page URL
         this.permalink.updateLocation();
 
-        if (this.saved) {
-          this.save({ silent: true });
+        if (this.saved || this.isCustom) {
+          this.unsavedChanges = true;
         }
       },
     },
@@ -467,50 +493,39 @@ let paletteAppSpec = {
       }
     },
 
-    getPalette() {
-      return { id: this.paletteId, uid: this.uid, search: location.search };
-    },
-
-    save({ silent } = {}) {
-      let title = silent
-        ? (this.saved?.title ?? this.paletteTitle)
-        : prompt('Palette title:', `${this.paletteTitle} (tweaked)`);
-
-      if (!title) {
-        return;
-      }
-
+    save({ title } = {}) {
       let uid = this.uid;
 
-      if (!uid) {
-        // First time saving
-        this.uid = uid = sidebar.palette.getUid();
+      this.saved ??= { id: this.paletteId, uid: this.uid, search: location.search };
 
+      if (title) {
+        // Renaming
+        this.saved.title = title;
+      } else {
+        this.saved.title ??= this.defaultPaletteTitle;
+      }
+
+      sidebar.palette.save(this.saved);
+
+      if (uid !== this.saved.uid) {
+        // UID changed (most likely from saving a new palette)
+        this.uid = this.saved.uid;
         this.permalink.set('uid', uid);
         this.permalink.updateLocation();
       }
 
-      let palette = { ...this.getPalette(), uid, title };
-
-      sidebar.palette.save(palette, this.saved);
-      this.saved = palette;
+      this.unsavedChanges = false;
     },
 
     rename() {
-      if (!this.saved) {
-        return;
+      let newTitle = prompt('Palette title:', this.saved?.title ?? this.defaultPaletteTitle);
+
+      if (newTitle && newTitle !== this.saved?.title) {
+        this.save({ title: newTitle });
       }
-
-      let newTitle = prompt('New title:', this.saved.title);
-
-      if (!newTitle) {
-        return;
-      }
-
-      this.saved.title = newTitle;
-      sidebar.palette.save(this.saved);
     },
 
+    // Cannot name this delete() because Vue complains
     deleteSaved() {
       sidebar.palette.delete(this.saved);
     },
