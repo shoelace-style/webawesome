@@ -6,7 +6,7 @@ import getPaletteCode from './color/get-palette-code.js';
 import { applyTweaks } from './color/modify-palette.js';
 import allPalettes from './color/palettes.js';
 import { getContrasts, identifyColor } from './color/util.js';
-import CoreColorInput from './vue-components/core-color-input.js';
+import ColorInput from './vue-components/color-input.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import {
@@ -578,7 +578,7 @@ let paletteAppSpec = {
   },
 
   components: {
-    CoreColorInput,
+    ColorInput,
   },
 
   compilerOptions: {
