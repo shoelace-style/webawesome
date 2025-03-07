@@ -1,24 +1,27 @@
 ---
 title: Comments
-description: TODO
+description: 'For feedback forms and message boxes'
 parent: app
 tags: app
 ---
 
+## In card with footer
 ```html{.example}
 <form class="comment-box" style="max-width: 960px; margin: 0 auto;">
-<wa-card with-footer>
-  <wa-textarea resize="horizontal"></wa-textarea>
-  <div slot="footer" class="comment-footer">
-    <wa-button variant="text">
-  <wa-icon slot="prefix" name="paperclip" variant="solid"></wa-icon>
-  Attach a file
-</wa-button><wa-button>Comment</wa-button>
-  </div>
-</wa-card>
+  <wa-card with-footer>
+    <wa-textarea resize="horizontal"></wa-textarea>
+    <div slot="footer" class="wa-cluster" style="justify-content: flex-end;">
+      <wa-button variant="text">
+        <wa-icon slot="prefix" name="paperclip" variant="solid"></wa-icon>
+        Attach a file
+      </wa-button>
+      <wa-button>Comment</wa-button>
+    </div>
+  </wa-card>
 </form>
 ```
 
+## with avatar and icon buttons
 ```html{.example}
 <div class="wa-callout wa-neutral wa-outlined" style="max-width: 960px; margin: 0 auto;">
   <div class="wa-align-items-start wa-flank">

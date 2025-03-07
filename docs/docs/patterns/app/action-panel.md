@@ -1,10 +1,11 @@
 ---
 title: Action Panel
-description: TODO
+description: 'These patterns help add user actions to dashboards'
 parent: app
 tags: app
 ---
 
+## Simple
 ```html {.example}
 <wa-card style="max-width: 960px; margin: 0 auto;">
   <div class="wa-align-items-start wa-stack wa-gap-xs">
@@ -14,6 +15,7 @@ tags: app
   </div>
 </wa-card>
 ```
+## with right flank
 
 ```html {.example}
 <wa-card style="max-width: 960px; margin: 0 auto;">
@@ -26,7 +28,7 @@ tags: app
   </div>
 </wa-card>
 ```
-
+## with switch
 ```html {.example}
 <wa-card style="max-width: 960px; margin: 0 auto;">
   <div class="wa-flank:end">
