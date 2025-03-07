@@ -2,7 +2,6 @@
 title: Store Navigation
 description: 'Help shoppers explore categories and find products with all of the links they need to navigate your store.'
 parent: ecommerce
-tags: e-commerce
 unlisted: true
 ---
 
