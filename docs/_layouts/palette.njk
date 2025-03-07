@@ -191,7 +191,7 @@
             '--color-base': colorsMinusCurrentTweak[hue][tint],
             colorScheme: tint > 60 ? 'light' : 'dark'
           }">
-          <wa-icon class="pinned-icon" name="star" variant="regular" v-if="seedHues[hue]?.[tint]"></wa-icon>
+          <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedHues[hue]?.[tint]"></wa-icon>
           <wa-copy-button :value="`--wa-color-${ hue }-${ tint }`" :copy-label="`--wa-color-${ hue }-${ tint }`"></wa-copy-button>
         </div>
       </td>
