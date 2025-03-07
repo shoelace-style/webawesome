@@ -1,3 +1,4 @@
+import { stringifyColor } from './util.js';
 import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
 import { selectors, tints, urls } from '/assets/scripts/tweak/data.js';
 
@@ -26,7 +27,7 @@ export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
 
       for (let tint of tints) {
         let color = colors[hue][tint];
-        let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
+        let stringified = stringifyColor(color);
         declarations.push(`--${prefix}-${hue}-${tint}: ${stringified};`);
       }
 

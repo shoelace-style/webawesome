@@ -117,3 +117,18 @@ export function getContrasts(colors, originalContrasts) {
 
   return ret;
 }
+
+/**
+ * Return hex code iff a color is within sRGB, otherwise fall back to its default string representation
+ *
+ * @param {Color} color
+ * @returns {string}
+ */
+export function stringifyColor(color) {
+  if (color?.constructor.name !== 'Color') {
+    return color;
+  }
+
+  let format = color.inGamut('srgb') ? 'hex' : undefined;
+  return color.toString({ format });
+}
