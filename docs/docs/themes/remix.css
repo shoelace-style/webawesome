@@ -96,7 +96,7 @@
   }
 
   .selected-swatch,
-  wa-select[name='brand'] wa-option::before {
+  .color-select wa-option::before {
     content: '';
     display: inline-block;
     width: 1.2em;
@@ -107,7 +107,7 @@
     border: 1px solid var(--wa-color-surface-default);
   }
 
-  wa-select[name='brand'] wa-option {
+  .color-select wa-option {
     white-space: nowrap;
 
     &::before {

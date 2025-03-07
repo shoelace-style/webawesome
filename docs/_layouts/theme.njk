@@ -81,7 +81,7 @@ wa_data.palettes = {
     {% set palette = defaultPalette %}
   </wa-select>
 
-  <wa-select name="brand" label="Brand color" value="" clearable>
+  <wa-select class="color-select" name="brand" label="Brand color" value="" clearable>
     <div class="selected-swatch" slot="prefix"></div>
     {% for hue in hues %}
       {% set currentBrand = hue == brand %}
