@@ -1,12 +1,14 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import generatePalette from './color/generate-palette.js';
+import getPaletteCode from './color/get-palette-code.js';
+import { applyTweaks } from './color/modify-palette.js';
+import allPalettes from './color/palettes.js';
+import { getContrasts, identifyColor } from './color/util.js';
 import CoreColorInput from './core-color-input.js';
-import generatePalette from './generatePalette.js';
-import { generateGrays, generateScale, placeColor } from './generateScale.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
-import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
 import {
   cdnUrl,
   HUE_RANGES,
@@ -15,9 +17,7 @@ import {
   MAX_CHROMA_BOUNDS,
   maxGrayChroma,
   moreHue,
-  selectors,
   tints,
-  urls,
 } from '/assets/scripts/tweak/data.js';
 import { camelCase, capitalize, subtractAngles } from '/assets/scripts/tweak/util.js';
 
@@ -32,22 +32,6 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   dummy.remove();
 //   return computedColor.endsWith(' 0)');
 // })();
-
-let allPalettes = await fetch('/docs/palettes/data.json').then(r => r.json());
-globalThis.allPalettes = allPalettes;
-
-for (let palette in allPalettes) {
-  for (let hue in allPalettes[palette].colors) {
-    let scale = allPalettes[palette].colors[hue];
-    for (let tint of tints) {
-      let color = scale[tint];
-
-      if (Array.isArray(color)) {
-        scale[tint] = new Color('oklch', color);
-      }
-    }
-  }
-}
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
@@ -165,7 +149,7 @@ let paletteAppSpec = {
       let ret = Object.fromEntries(hues.map(hue => [hue, undefined]));
 
       for (let color of this.seedColorObjects) {
-        let { hue, level } = placeColor(color);
+        let { hue, level } = identifyColor(color);
         ret[hue] ??= {};
         ret[hue][level] = color;
       }
@@ -613,147 +597,3 @@ function init() {
 
 init();
 addEventListener('turbo:render', init);
-
-export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
-  let imports = [];
-
-  if (paletteId && options.imports !== false && !tweaked.seedColors) {
-    imports.push(urls.palette(paletteId));
-  }
-
-  let css = '';
-  let declarations = [];
-  let prefix = options.prefix ?? 'wa-color';
-
-  if (tweaked) {
-    for (let hue in colors) {
-      if (hue === 'orange') {
-        continue;
-      } else if (!tweaked.seedColors) {
-        if (hue === 'gray') {
-          if (!tweaked.grayChroma && !tweaked.grayColor) {
-            continue;
-          }
-        } else if (!tweaked.chromaScale && !tweaked.hue?.[hue]) {
-          continue;
-        }
-      }
-
-      for (let tint of tints) {
-        let color = colors[hue][tint];
-        let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
-        declarations.push(`--${prefix}-${hue}-${tint}: ${stringified};`);
-      }
-
-      declarations.push('');
-    }
-
-    if (declarations.length > 0) {
-      let selector = options.selector ?? selectors.palette(paletteId);
-      css += cssRule(selector, declarations);
-    }
-  }
-
-  let ret = '';
-
-  if (imports.length) {
-    ret += imports.map(url => cssImport(url, options)).join('\n');
-
-    if (css) {
-      ret += '\n\n';
-    }
-  }
-
-  if (css) {
-    ret += `${cssLiteral(css, options)}`;
-  }
-
-  return ret;
-}
-
-function applyTweaks(baseColors, tweaks, tweaked) {
-  let ret = {};
-  let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
-
-  if (!tweaked) {
-    return baseColors;
-  }
-
-  if (tweaked.grayChroma) {
-    grayChroma = this.computedGrayChroma;
-  }
-
-  for (let hue in baseColors) {
-    let originalScale = baseColors[hue];
-    let scale = (ret[hue] = {});
-    let descriptors = Object.getOwnPropertyDescriptors(originalScale);
-    Object.defineProperties(scale, {
-      maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
-      maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
-    });
-
-    if (hue === 'gray') {
-      if (tweaked.grayChroma || tweaked.grayColor) {
-        ret.gray = generateGrays(baseColors, { grayColor, grayChroma });
-      } else {
-        ret.gray = originalScale;
-      }
-      continue;
-    }
-
-    for (let tint of tints) {
-      let color = originalScale[tint].clone();
-
-      let tweak = {};
-      let thisTweaked = false;
-
-      if (tweaked.hue && hueShifts[hue]) {
-        tweak.h = h => h + hueShifts[hue];
-        thisTweaked = true;
-      }
-
-      if (tweaked.chromaScale && chromaScale !== 1) {
-        tweak.c = c => c * chromaScale;
-        thisTweaked = true;
-      }
-
-      if (thisTweaked) {
-        color = color.to('oklch').set(tweak);
-      }
-
-      scale[tint] = color;
-    }
-  }
-
-  return ret;
-}
-
-function getContrasts(colors, originalContrasts) {
-  let ret = {};
-
-  for (let hue in colors) {
-    ret[hue] = {};
-
-    for (let tintBg of tints) {
-      ret[hue][tintBg] = {};
-      let bgColor = colors[hue][tintBg];
-
-      if (!bgColor || !bgColor.contrast) {
-        continue;
-      }
-
-      for (let tintFg of tints) {
-        let fgColor = colors[hue][tintFg];
-        let value = bgColor.contrast(fgColor, 'WCAG21');
-        if (originalContrasts) {
-          let original = originalContrasts[hue][tintBg][tintFg];
-          ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
-        } else {
-          ret[hue][tintBg][tintFg] = value;
-        }
-      }
-    }
-  }
-
-  return ret;
-}

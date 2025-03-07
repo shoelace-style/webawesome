@@ -1,5 +1,5 @@
 import Color from 'https://colorjs.io/dist/color.js';
-import { placeColor } from './generateScale.js';
+import { identifyColor } from './color/util.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
 export default {
@@ -23,7 +23,7 @@ export default {
 
     colorInfo() {
       if (!this.color) return '';
-      return placeColor(this.color);
+      return identifyColor(this.color);
     },
   },
   methods: {

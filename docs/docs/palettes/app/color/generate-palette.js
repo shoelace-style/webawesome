@@ -1,6 +1,8 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
-import { generateGrays, generateScale, getCoreTint } from './generateScale.js';
+import generateGrays from './generate-grays.js';
+import generateScale from './generate-scale.js';
+import { getCoreTint } from './util.js';
 import {
   HUE_CHROMA_SCALE,
   HUE_RANGES,
