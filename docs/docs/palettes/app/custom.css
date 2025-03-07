@@ -58,3 +58,41 @@
 .pinned-icon {
   opacity: 70%;
 }
+
+#suggested-colors {
+  display: grid;
+  grid-template-columns: minmax(auto, 30ch) 1fr;
+  gap: var(--wa-space-m);
+  margin-top: var(--wa-space-2xl);
+  container-name: suggested-colors;
+  container-type: inline-size;
+
+  @container (width < 30ch) {
+    grid-template-columns: 1fr;
+  }
+
+  h3 {
+    margin-bottom: 0;
+  }
+
+  p.wa-caption-s {
+    margin-block: var(--wa-space-s);
+    text-wrap: pretty;
+  }
+
+  .suggestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6ch, 1fr));
+    gap: var(--wa-space-s);
+
+    wa-button {
+      wa-icon {
+        transition: var(--wa-transition-normal);
+      }
+
+      &:not(:focus, :hover) wa-icon {
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -95,12 +95,7 @@
   </wa-button>
 </wa-callout>
 
-<wa-tab-group class="scale-filter" v-if="seedColors.length > 0" @wa-tab-show="show = $event.detail.name.slice(0, -7)">
-  <wa-tab panel="my-scales"><wa-icon name="star" variant="regular"></wa-icon> My scales</wa-tab>
-  <wa-tab panel="all-scales"><wa-icon name="rainbow" variant="regular"></wa-icon> All scales</wa-tab>
-  <wa-tab-panel name="my-scales"></wa-tab-panel>
-  <wa-tab-panel name="all-scales"></wa-tab-panel>
-</wa-tab-group>
+<h2>Scales</h2>
 
 {% include "palette.njk" %}
 
@@ -116,7 +111,7 @@
   </thead>
   {% raw %}
   <tbody v-cloak>
-    <tr v-for="hue in [...hues, 'gray']" v-show="show === 'all' || seedHues[hue]" :data-hue="hue"
+    <tr v-for="hue in [...hues, 'gray']" v-show="hue === 'gray' || seedHues[hue] || !isCustom" :data-hue="hue"
         class="color-scale" :class="{
           tweaking: hue === 'gray' ? tweaking.grayChroma : tweaking.hue?.[hue],
           tweaked: hue === 'gray' ? tweaked.grayChroma || tweaked.grayColor : hueShifts[hue],
@@ -125,7 +120,10 @@
           '--swatch-text-color': `light-dark(var(--wa-color-${ hue }-10), white)`,
           '--hue-shift': hueShifts[hue] || ''
         }">
-      <th>{{ capitalize(hue) }}</th>
+      <th>
+        {{ capitalize(hue) }}
+        <wa-icon v-if="isCustom && !seedHues[hue]" name="sparkles" style="color: var(--wa-color-gray-50)"></wa-icon>
+      </th>
       <td class="core-column" :style="{'--original-color': `var(--wa-color-${ hue })`, '--color': colors[hue][coreLevels[hue]]}">
         <wa-dropdown>
           <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{

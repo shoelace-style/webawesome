@@ -109,6 +109,18 @@ let paletteAppSpec = {
   },
 
   computed: {
+    suggestedColors() {
+      let ret = {};
+
+      for (let hue in this.coreColors) {
+        if (!this.seedHues[hue] && hue !== 'gray') {
+          ret[hue] = this.coreColors[hue];
+        }
+      }
+
+      return ret;
+    },
+
     isCustom() {
       return this.paletteId === 'custom';
     },
