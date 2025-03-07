@@ -14,9 +14,7 @@ export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
 
   if (tweaked) {
     for (let hue in colors) {
-      if (hue === 'orange') {
-        continue;
-      } else if (!tweaked.seedColors) {
+      if (!tweaked.seedColors) {
         if (hue === 'gray') {
           if (!tweaked.grayChroma && !tweaked.grayColor) {
             continue;
