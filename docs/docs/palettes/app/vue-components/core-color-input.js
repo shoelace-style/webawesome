@@ -1,5 +1,5 @@
 import Color from 'https://colorjs.io/dist/color.js';
-import { identifyColor } from './color/util.js';
+import { identifyColor } from '../color/util.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
 export default {
