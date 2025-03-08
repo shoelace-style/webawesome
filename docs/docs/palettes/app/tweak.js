@@ -7,6 +7,7 @@ import { applyTweaks } from './color/modify-palette.js';
 import allPalettes from './color/palettes.js';
 import { getContrasts, identifyColor } from './color/util.js';
 import ColorInput from './vue-components/color-input.js';
+import ColorSelect from './vue-components/color-select.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import {
@@ -24,6 +25,7 @@ import { camelCase, capitalize, subtractAngles } from '/assets/scripts/tweak/uti
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
+const roles = ['brand', 'neutral', 'success', 'warning', 'danger'];
 
 let paletteAppSpec = {
   data() {
@@ -55,6 +57,7 @@ let paletteAppSpec = {
       saved: null,
       unsavedChanges: false,
       savedPalettes: sidebar.palettes.saved,
+      roles: Object.fromEntries(roles.map(role => [role, undefined])),
     };
   },
 
@@ -109,6 +112,65 @@ let paletteAppSpec = {
   },
 
   computed: {
+    suggestedForRole() {
+      let ret = {};
+
+      if (!this.seedHues.green) {
+        ret.success = ['green'];
+      }
+
+      ret.warning = [];
+      if (!this.seedHues.yellow) {
+        ret.warning.push('yellow');
+      }
+      if (!this.seedHues.orange) {
+        ret.warning.push('orange');
+      }
+
+      if (!this.seedHues.red) {
+        ret.danger = ['red'];
+      }
+
+      return ret;
+    },
+
+    defaultRoles() {
+      let seedHues = new Set(this.seedHueList);
+
+      // Arrays define candidates in preference order
+      let ret = {
+        brand: ['blue', 'indigo', 'purple', 'cyan', 'pink', 'green', 'orange', 'yellow', 'red', 'gray'],
+        neutral: 'gray',
+        success: ['green'],
+        warning: ['yellow', 'orange'],
+        danger: ['red'],
+      };
+
+      // Reduce to first candidate in seed hues
+      for (let role in ret) {
+        if (Array.isArray(ret[role])) {
+          ret[role] = ret[role].find(hue => seedHues.has(hue));
+        }
+      }
+
+      if (this.seedColors.length === 0) {
+        return ret;
+      }
+
+      // Now apply brand color to anything empty
+      for (let role in ret) {
+        if (!ret[role]) {
+          ret[role] = ret.brand;
+        }
+      }
+
+      return ret;
+    },
+
+    computedRoles() {
+      return Object.fromEntries(roles.map(role => [role, this.roles[role] ?? this.defaultRoles[role]]));
+    },
+
     suggestedColors() {
       let ret = {};
 
@@ -146,13 +208,26 @@ let paletteAppSpec = {
         .filter(Boolean);
     },
 
+    seedHueList() {
+      return Object.keys(this.seedHues);
+    },
+
     seedHues() {
       // Make sure hues are in the right order
-      let ret = Object.fromEntries(hues.map(hue => [hue, undefined]));
+      let ret = {};
+      for (let hue of hues) {
+        Object.defineProperty(ret, hue, { value: undefined, enumerable: false, writable: true, configurable: true });
+      }
 
       for (let color of this.seedColorObjects) {
         let { hue, level } = identifyColor(color);
-        ret[hue] ??= {};
+
+        if (!ret[hue]) {
+          // First color of this hue
+          delete ret[hue]; // remove non-enumerable descriptor
+          ret[hue] = {};
+        }
+
         ret[hue][level] = color;
       }
 
@@ -550,6 +625,15 @@ let paletteAppSpec = {
 
       return context;
     },
+
+    setRole(role, hue) {
+      if (!this.seedHues[hue]) {
+        // We're also adding it
+        this.seedColors.push(this.coreColors[hue] + '');
+      }
+
+      this.roles[role] = hue;
+    },
   },
 
   directives: {
@@ -579,6 +663,7 @@ let paletteAppSpec = {
 
   components: {
     ColorInput,
+    ColorSelect,
   },
 
   compilerOptions: {

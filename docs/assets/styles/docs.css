@@ -646,3 +646,39 @@ table.colors {
     max-height: 21lh;
   }
 }
+
+.color-select {
+  > small {
+    margin-inline-start: calc(1 * var(--wa-space-xs) + 0em);
+  }
+
+  &::part(combobox)::before,
+  wa-option::before {
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    aspect-ratio: 1;
+    margin-inline-end: var(--wa-space-xs);
+    flex: none;
+    border-radius: var(--wa-border-radius-m);
+    background: var(--color);
+    border: 1px solid var(--wa-color-surface-default);
+  }
+
+  wa-option {
+    white-space: nowrap;
+
+    &::before {
+      width: 1em;
+      margin-inline: var(--wa-space-xs);
+    }
+
+    &::part(checked-icon) {
+      order: 2;
+    }
+  }
+
+  .default-badge {
+    opacity: 0.6;
+  }
+}

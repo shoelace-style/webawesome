@@ -1,0 +1,73 @@
+import Color from 'https://colorjs.io/dist/color.js';
+import { identifyColor } from '../color/util.js';
+import { capitalize } from '/assets/scripts/tweak/util.js';
+
+export default {
+  props: {
+    modelValue: String,
+    label: String,
+    getLabel: {
+      type: Function,
+      default: capitalize,
+    },
+    getContent: {
+      type: Function,
+    },
+    getColor: {
+      type: Function,
+      default: value => `var(--wa-color-${value})`,
+    },
+    values: {
+      type: Array,
+      default: [],
+    },
+    groups: {
+      type: Object,
+    },
+  },
+  emits: ['update:modelValue', 'input'],
+  data() {
+    return {};
+  },
+  computed: {
+    computedGroups() {
+      let ret = {};
+
+      if (this.values?.length) {
+        ret[''] = this.values;
+      }
+
+      if (this.groups) {
+        for (let group in this.groups) {
+          if (this.groups[group]?.length) {
+            ret[group] = this.groups[group];
+          }
+        }
+      }
+
+      return ret;
+    },
+  },
+
+  methods: {
+    capitalize,
+    handleInput(e) {
+      this.$emit('input', this.modelValue);
+    },
+  },
+  template: `
+    <wa-select class="color-select" name="brand" :label="label" :value="modelValue"  @input="$emit('update:modelValue', $event.target.value)"
+    :style="{'--color': getColor(modelValue)}">
+      <template v-for="values, group in computedGroups">
+        <template v-if="group">
+          <wa-divider></wa-divider>
+          <small>{{ group }}</small>
+        </template>
+        <wa-option v-if="values?.length" v-for="value of values" :label="getLabel(value)" :value="value" :style="{'--color': getColor(value)}">
+        {{ getContent?.(value) ??  getLabel(value) }}
+        </wa-option>
+      </template>
+      <slot></slot>
+    </wa-select>
+  `,
+};

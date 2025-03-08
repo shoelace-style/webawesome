@@ -86,6 +86,8 @@
     gap: var(--wa-space-s);
 
     wa-button {
+      /* --background-color-hover: var(--background-color); */
+
       wa-icon {
         transition: var(--wa-transition-normal);
       }
@@ -93,6 +95,21 @@
       &:not(:focus, :hover) wa-icon {
         opacity: 0;
       }
+    }
+  }
+}
+
+#roles {
+  margin-top: var(--wa-space-2xl);
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wa-space-m);
+
+    > wa-select {
+      flex: 1;
+      max-width: 20ch;
     }
   }
 }
