@@ -2,7 +2,7 @@ import { stringifyColor } from './util.js';
 import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
 import { selectors, tints, urls } from '/assets/scripts/tweak/data.js';
 
-export function getPaletteCode({ base, slug = base, colors, tweaked, ...options }) {
+export function getPaletteCode({ base, slug = base, colors, tweaked, roles, ...options }) {
   let imports = [];
 
   if (base && options.imports !== false && !tweaked.seedColors) {
@@ -42,6 +42,17 @@ export function getPaletteCode({ base, slug = base, colors, tweaked, ...options 
           `--${prefix}-${hue}: var(--${prefix}-${hue}-${coreTint});`,
           `--${prefix}-${hue}-key: ${coreTint};`,
         );
+      }
+
+      declarations.push('');
+    }
+  }
+
+  if (roles) {
+    for (let role in roles) {
+      let hue = roles[role];
+      for (let suffix of [...tints.map(t => '-' + t), '', '-key']) {
+        declarations.push(`--${prefix}-${role}${suffix}: var(--${prefix}-${hue}${suffix});`);
       }
 
       declarations.push('');

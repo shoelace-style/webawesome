@@ -295,6 +295,7 @@ let paletteAppSpec = {
           slug: this.isCustom ? this.slug : undefined,
           colors: this.colors,
           tweaked: this.tweaked,
+          roles: this.isCustom ? this.computedRoles : this.roles,
           language,
           cdnUrl,
         });
