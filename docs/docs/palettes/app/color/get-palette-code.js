@@ -2,11 +2,11 @@ import { stringifyColor } from './util.js';
 import { cssImport, cssLiteral, cssRule } from '/assets/scripts/tweak/code.js';
 import { selectors, tints, urls } from '/assets/scripts/tweak/data.js';
 
-export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
+export function getPaletteCode({ base, slug = base, colors, tweaked, ...options }) {
   let imports = [];
 
-  if (paletteId && options.imports !== false && !tweaked.seedColors) {
-    imports.push(urls.palette(paletteId));
+  if (base && options.imports !== false && !tweaked.seedColors) {
+    imports.push(urls.palette(base));
   }
 
   let css = '';
@@ -35,7 +35,7 @@ export function getPaletteCode(paletteId, colors, tweaked, options = {}) {
     }
 
     if (declarations.length > 0) {
-      let selector = options.selector ?? selectors.palette(paletteId);
+      let selector = options.selector ?? selectors.palette(slug);
       css += cssRule(selector, declarations);
     }
   }

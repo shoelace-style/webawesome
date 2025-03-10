@@ -286,3 +286,13 @@ export function roundTo(value, roundTo = 1) {
 
   return ret;
 }
+
+export function slugify(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Convert accented letters to ASCII
+    .replace(/[^\w\s-]/g, '') // Remove remaining non-ASCII characters
+    .trim()
+    .replace(/\s+/g, '-') // Convert whitespace to hyphens
+    .toLowerCase();
+}

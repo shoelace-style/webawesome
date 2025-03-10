@@ -7,7 +7,7 @@ description: Create your own color palette from scratch, from one or more seed c
 ---
 <link href="{{ page.url }}../app/custom.css" rel="stylesheet">
 
-<h2>My colors</h2>
+<h2 v-if="step > 0" v-cloak>My colors</h2>
 
 <div id="seed-colors">
 	<template v-for="color, i in seedColors">
@@ -15,11 +15,11 @@ description: Create your own color palette from scratch, from one or more seed c
 	</template>
 	<wa-button class="add-button" appearance="outlined" @click="seedColors.push(seedColorSamples.shift() || '')">
 		<wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
-		Add color
+		{% raw %}{{ step > 0 ? 'Add color' : 'New palette' }}{% endraw %}
 	</wa-button>
 </div>
 
-<section id="suggested-colors">
+<section id="suggested-colors" v-if="step > 0" v-cloak>
 	<header>
 		<h3>Suggestions</h3>
 
@@ -38,7 +38,7 @@ description: Create your own color palette from scratch, from one or more seed c
 	</div>
 </section>
 
-<section id="roles">
+<section id="roles" v-if="step > 0" v-cloak>
 	<h2>Roles</h2>
 
 	<div>

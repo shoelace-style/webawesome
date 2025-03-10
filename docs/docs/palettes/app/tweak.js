@@ -20,7 +20,7 @@ import {
   moreHue,
   tints,
 } from '/assets/scripts/tweak/data.js';
-import { camelCase, capitalize, subtractAngles } from '/assets/scripts/tweak/util.js';
+import { camelCase, capitalize, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -46,7 +46,7 @@ let paletteAppSpec = {
       ],
       show: paletteId === 'custom' ? 'my' : 'all',
       paletteId,
-      paletteTitle: palette.title,
+      originalPaletteTitle: palette.title,
       originalColors: paletteId === 'custom' ? allPalettes.default.colors : palette.colors,
       permalink: new Permalink(),
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
@@ -112,6 +112,27 @@ let paletteAppSpec = {
   },
 
   computed: {
+    /**
+     * Stage of interaction with the palette app
+     * 0: Static
+     * 1: Started editing
+     * 2: Edited
+     * @returns
+     */
+    step() {
+      if (this.isCustom) {
+        if (this.seedColorObjects.length > 0) {
+          return 2;
+        } else if (this.seedColors.length > 0) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        return this.tweaked ? 1 : 0;
+      }
+    },
+
     suggestedForRole() {
       let ret = {};
 
@@ -187,18 +208,41 @@ let paletteAppSpec = {
       return this.paletteId === 'custom';
     },
 
+    slug() {
+      if (this.isCustom) {
+        return slugify(this.paletteTitle);
+      } else {
+        // The slug does not change for tweaked palettes
+        return this.paletteId;
+      }
+    },
+
     /** Default palette title for saving */
     defaultPaletteTitle() {
       if (this.isCustom) {
         return 'My Palette';
       } else {
-        return this.paletteTitle + ' (tweaked)';
+        return this.originalPaletteTitle + ' (tweaked)';
+      }
+    },
+
+    paletteTitle() {
+      if (this.step === 0) {
+        return this.originalPaletteTitle;
+      } else if (this.saved) {
+        return this.saved.title;
+      } else {
+        return this.defaultPaletteTitle;
       }
     },
 
     seedColorObjects() {
       return this.seedColors
         .map(color => {
+          if (!color) {
+            return null;
+          }
+
           try {
             return Color.get(color);
           } catch (e) {
@@ -246,7 +290,14 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.paletteId, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode({
+          base: this.paletteId,
+          slug: this.isCustom ? this.slug : undefined,
+          colors: this.colors,
+          tweaked: this.tweaked,
+          language,
+          cdnUrl,
+        });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -537,6 +588,7 @@ let paletteAppSpec = {
 
   methods: {
     capitalize,
+    slugify,
 
     /**
      * Testing method. Import all core colors from a given palette.

@@ -16,7 +16,7 @@
 <div id="palette-app" data-slug="{{ page.fileSlug }}" data-palette-id="{{ page.fileSlug }}">
   <div
   :class="{
-    seeded: seedColors.length,
+    seeded: seedColorObjects.length,
     tweaking: tweaking.chromaScale,
     'tweaking-chroma': tweaking.chromaScale,
     'tweaking-hue': tweaking.chromaScale,
@@ -36,10 +36,10 @@
   {% include 'breadcrumbs.njk' %}
 
   <h1 class="title">
-    <span v-content="saved?.title || paletteTitle">{{ title }}</span>
-    <wa-icon-button v-if="saved || isCustom && seedColors.length > 0" name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
+    <span v-content="saved?.title || (step > 0 ? defaultPaletteTitle : paletteTitle)">{{ title }}</span>
+    <wa-icon-button v-if="saved || step > 0" name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
     <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
-    <wa-button v-if="saved || isCustom && seedColors.length > 0" @click="save()" :disabled="!unsavedChanges"
+    <wa-button v-if="saved || step > 0" @click="save()" :disabled="!unsavedChanges"
       variant="success" size="small">
       <span slot="prefix" class="icon-modifier">
         <wa-icon name="sidebar" variant="regular"></wa-icon>
@@ -49,8 +49,8 @@
     </wa-button>
   </h1>
 
-  <div class="block-info">
-    <code class="class">.wa-palette-{{ paletteId }}</code>
+  <div class="block-info" v-if="saved || !isCustom || step > 0">
+    <code class="class">.wa-palette-<span v-content="slug">{{ page.fileSlug }}</span></code>
     {% include '../_includes/status.njk' %}
     {% if not isPro %}
     <wa-badge class="pro" v-if="tweaked">PRO</wa-badge>
@@ -62,7 +62,7 @@
   </p>
   {% endif %}
   {% raw %}
-  <div class="hue-wheel">
+  <div class="hue-wheel" v-if="!isCustom || step > 1">
     <template v-for="color, hue in coreColors">
       <div :id="`hue-wheel-${hue}`" class="color"
           :style="{
@@ -323,7 +323,7 @@ Add the following code at the top of your CSS file:
 
 {% endmarkdown %}
 
-<section class="index-grid" v-if="savedVariations?.length">
+<section id="saved" class="index-grid" v-if="savedVariations?.length">
   <h2 class="index-category">Saved {{ 'custom palettes' if page.fileSlug == 'custom' else title + ' variations' }}</h2>
   <a v-for="palette of savedVariations" :href="'/docs/palettes/' + palette.id">
     <wa-card with-header>

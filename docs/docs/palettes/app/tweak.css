@@ -167,8 +167,7 @@ wa-dropdown > .color.swatch {
   }
 }
 
-[data-slug='custom'] > :not(.seeded) #seed-colors ~ *,
-[data-slug='custom'] > :not(.seeded) .hue-wheel,
+[data-slug='custom'] > :not(.seeded) #seed-colors ~ :not(#saved),
 #outline:has(+ main > [data-slug='custom'] > :not(.seeded)) li:nth-child(n + 2) {
   display: none;
 }
