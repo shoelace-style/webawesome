@@ -9,9 +9,12 @@ export function getPaletteCode({ base, slug = base, colors, tweaked, ...options 
     imports.push(urls.palette(base));
   }
 
-  let css = '';
+  let ret = imports.map(url => cssImport(url, options)).join('\n');
+
   let declarations = [];
   let prefix = options.prefix ?? 'wa-color';
+
+  let css = '';
 
   if (tweaked) {
     for (let hue in colors) {
@@ -25,32 +28,36 @@ export function getPaletteCode({ base, slug = base, colors, tweaked, ...options 
         }
       }
 
+      let scale = colors[hue];
+
       for (let tint of tints) {
-        let color = colors[hue][tint];
+        let color = scale[tint];
         let stringified = stringifyColor(color);
         declarations.push(`--${prefix}-${hue}-${tint}: ${stringified};`);
       }
 
-      declarations.push('');
-    }
+      let coreTint = scale.maxChromaTint;
+      if (coreTint) {
+        declarations.push(
+          `--${prefix}-${hue}: var(--${prefix}-${hue}-${coreTint});`,
+          `--${prefix}-${hue}-key: ${coreTint};`,
+        );
+      }
 
-    if (declarations.length > 0) {
-      let selector = options.selector ?? selectors.palette(slug);
-      css += cssRule(selector, declarations);
+      declarations.push('');
     }
   }
 
-  let ret = '';
-
-  if (imports.length) {
-    ret += imports.map(url => cssImport(url, options)).join('\n');
-
-    if (css) {
-      ret += '\n\n';
-    }
+  if (declarations.length > 0) {
+    let selector = options.selector ?? selectors.palette(slug);
+    css += cssRule(selector, declarations);
   }
 
   if (css) {
+    if (imports.length) {
+      ret += '\n\n';
+    }
+
     ret += `${cssLiteral(css, options)}`;
   }
 
