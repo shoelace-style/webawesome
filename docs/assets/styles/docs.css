@@ -648,6 +648,11 @@ table.colors {
 }
 
 .color-select {
+  &.default::part(display-input) {
+    opacity: 0.6;
+    font-style: italic;
+  }
+
   > small {
     margin-inline-start: calc(1 * var(--wa-space-xs) + 0em);
   }
@@ -680,5 +685,6 @@ table.colors {
 
   .default-badge {
     opacity: 0.6;
+    margin-inline-start: var(--wa-space-xs);
   }
 }

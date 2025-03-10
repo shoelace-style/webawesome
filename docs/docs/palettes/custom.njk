@@ -52,7 +52,7 @@ description: Create your own color palette from scratch, from one or more seed c
 		:getLabel="capitalize"
 		:getContent="value => capitalize(value) + (seedHues[value] ? '' : ' <wa-icon name=square-plus></wa-icon>')"
 		:getColor="value => coreColors[value]">
-			<wa-badge class="default-badge" v-if="!roles[role]" slot="suffix" variant="neutral" appearance="outlined">Default</wa-badge>
+			{# <wa-badge class="default-badge" v-if="!roles[role]" slot="suffix" variant="neutral" appearance="outlined">Default</wa-badge> #}
 		</color-select>
 	</div>
 </section>
