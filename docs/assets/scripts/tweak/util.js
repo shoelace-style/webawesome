@@ -1,6 +1,5 @@
 export function normalizeAngles(angles) {
   // First, normalize
-  angles = angles.filter(h => !isNaN(h));
   angles = angles.map(h => ((h % 360) + 360) % 360);
 
   // Remove top and bottom 25% and find average
@@ -18,9 +17,7 @@ export function normalizeAngles(angles) {
     if (Math.abs(delta) > 180) {
       let equivalent = [h + 360, h - 360];
       // Offset hue to minimize difference in the direction that brings it closer to the average
-      let delta = h - averageHue;
-
-      if (Math.abs(equivalent[0] - prevHue) <= Math.abs(equivalent[1] - prevHue)) {
+      if (Math.abs(equivalent[0] - averageHue) <= Math.abs(equivalent[1] - averageHue)) {
         angles[i] = equivalent[0];
       } else {
         angles[i] = equivalent[1];
