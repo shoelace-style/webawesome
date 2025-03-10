@@ -62,16 +62,18 @@
   </p>
   {% endif %}
   {% raw %}
-  <div class="hue-wheel" v-if="!isCustom || step > 1">
-    <template v-for="color, hue in coreColors">
-      <div :id="`hue-wheel-${hue}`" class="color"
-          :style="{
-        '--color': color,
-        '--h': color.get('oklch.h'),
-        '--c': color.get('oklch.c'),
-        '--l': color.get('oklch.l'),
-        }"></div>
-        <wa-tooltip :for="`hue-wheel-${ hue }`" hoist>{{ capitalize(hue) }} {{ coreLevels[hue] }}</wa-tooltip>
+    <div class="hue-wheel" v-if="!isCustom || step > 1">
+      <template v-for="color, hue in coreColors">
+        <template v-if="!isCustom || seedHues[hue]">
+          <div :id="`hue-wheel-${hue}`" class="color"
+              :style="{
+            '--color': color,
+            '--h': color.get('oklch.h'),
+            '--c': color.get('oklch.c'),
+            '--l': color.get('oklch.l'),
+            }"></div>
+          <wa-tooltip :for="`hue-wheel-${ hue }`" hoist>{{ capitalize(hue) }} {{ coreLevels[hue] }}</wa-tooltip>
+        </template>
       </template>
   </div>
   {% endraw %}
