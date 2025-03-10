@@ -37,8 +37,6 @@ import styles from './tooltip.css';
  * @cssproperty --border-radius - The radius of the tooltip's corners.
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
  * @cssproperty --padding - The padding within the tooltip.
- * @cssproperty --hide-delay - The amount of time to wait before hiding the tooltip when hovering.
- * @cssproperty --show-delay - The amount of time to wait before showing the tooltip when hovering.
  */
 @customElement('wa-tooltip')
 export default class WaTooltip extends WebAwesomeElement {
