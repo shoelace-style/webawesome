@@ -218,6 +218,7 @@
   <div class="label-max">More vibrant</div>
 </div>
 
+{% if page.fileSlug != 'custom' %}
 <h2>Used By</h2>
 
 <section class="index-grid">
@@ -227,6 +228,7 @@
   {%- endif -%}
 {% endfor %}
 </section>
+{% endif %}
 
 {% markdown %}
 ## Color Contrast
