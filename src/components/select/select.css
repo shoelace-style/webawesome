@@ -208,13 +208,13 @@
   &::slotted(wa-divider) {
     --spacing: var(--wa-space-xs);
   }
+}
 
-  &::slotted(small) {
-    display: block;
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-semibold);
-    color: var(--wa-color-text-quiet);
-    padding-block: var(--wa-space-xs);
-    padding-inline: var(--wa-space-xl);
-  }
+slot:not([name])::slotted(small) {
+  display: block;
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-semibold);
+  color: var(--wa-color-text-quiet);
+  padding-block: var(--wa-space-xs);
+  padding-inline: var(--wa-space-xl);
 }
