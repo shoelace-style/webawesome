@@ -3,29 +3,26 @@ import { identifyColor } from '../color/util.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
 export default {
-  props: ['modelValue'],
-  emits: ['update:modelValue', 'delete'],
+  props: {
+    modelValue: { type: [String, Color], default: '' },
+    colorObject: {
+      type: Color,
+      default(rawProps) {
+        return tryColor(rawProps.modelValue);
+      },
+    },
+    colorInfo: {
+      type: Object,
+      default(rawProps) {
+        return identifyColor(rawProps.colorObject);
+      },
+    },
+  },
+  emits: ['update:modelValue', 'update:colorObject', 'delete'],
   data() {
     return {};
   },
-  computed: {
-    color() {
-      if (this.modelValue instanceof Color) {
-        return this.modelValue;
-      }
-
-      try {
-        return new Color(this.modelValue);
-      } catch (e) {
-        return null;
-      }
-    },
-
-    colorInfo() {
-      if (!this.color) return '';
-      return identifyColor(this.color);
-    },
-  },
+  computed: {},
   methods: {
     capitalize,
     handleInput(e) {
@@ -33,12 +30,28 @@ export default {
     },
   },
   template: `
-    <wa-card class="color" :class="colorInfo.level < 70 ? 'dark' : 'light'" size="small">
-      <div slot="image" :style="{'--color': modelValue, colorScheme: colorInfo.level <= 60 ? 'dark' : 'light'}">
+    <wa-card class="color" :class="colorInfo?.level < 70 ? 'dark' : 'light'" size="small">
+      <div slot="image" :style="{'--color': modelValue, colorScheme: colorInfo?.level <= 60 ? 'dark' : 'light'}">
         <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
-        <div class="name">{{ capitalize(colorInfo.hue) || 'New color' }} {{ colorInfo.level }}</div>
+        <div class="name">{{ capitalize(colorInfo?.hue) || 'New color' }} {{ colorInfo.level }}</div>
       </div>
       <wa-input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"></wa-input>
     </wa-card>
   `,
 };
+
+function tryColor(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (value instanceof Color) {
+    return value;
+  }
+
+  try {
+    return new Color(value);
+  } catch (e) {
+    return null;
+  }
+}

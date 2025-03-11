@@ -236,20 +236,26 @@ let paletteAppSpec = {
       }
     },
 
-    seedColorObjects() {
-      return this.seedColors
-        .map(color => {
-          if (!color) {
-            return null;
-          }
+    seedColorObjectsRaw() {
+      return this.seedColors.map(color => {
+        if (!color) {
+          return null;
+        }
 
-          try {
-            return Color.get(color);
-          } catch (e) {
-            return null;
-          }
-        })
-        .filter(Boolean);
+        try {
+          return Color.get(color);
+        } catch (e) {
+          return null;
+        }
+      });
+    },
+
+    seedColorObjects() {
+      return this.seedColorObjectsRaw.filter(Boolean);
+    },
+
+    seedColorInfo() {
+      return this.seedColorObjectsRaw.map(colorObject => (colorObject ? identifyColor(colorObject) : null));
     },
 
     seedHueList() {
@@ -263,8 +269,14 @@ let paletteAppSpec = {
         Object.defineProperty(ret, hue, { value: undefined, enumerable: false, writable: true, configurable: true });
       }
 
-      for (let color of this.seedColorObjects) {
-        let { hue, level } = identifyColor(color);
+      for (let i = 0; i < this.seedColors.length; i++) {
+        let colorInfo = this.seedColorInfo[i];
+        let color = this.seedColorObjects[i];
+        if (!colorInfo) {
+          continue;
+        }
+
+        let { hue, level } = colorInfo;
 
         if (!ret[hue]) {
           // First color of this hue
