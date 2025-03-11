@@ -64,9 +64,6 @@ let paletteAppSpec = {
     // Non-reactive variables to expose
     Object.assign(this, { moreHue, HUE_RANGES, L_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
 
-    this.grayChroma = this.originalGrayChroma;
-    this.grayColor = this.originalGrayColor;
-
     if (location.search) {
       // Read URL params and apply them. This facilitates permalinks.
       for (let hue in this.hueShifts) {
@@ -340,7 +337,7 @@ let paletteAppSpec = {
         return this.originalColors;
       }
 
-      let { huesAfter, grayChroma, grayColor } = this;
+      let { huesAfter, grayChroma = 0.15, grayColor = 'indigo' } = this;
       return generatePalette(this.seedHues, { huesAfter, grayChroma, grayColor }) ?? this.originalColors;
     },
 
@@ -374,8 +371,8 @@ let paletteAppSpec = {
         seedColors: this.seedColors.length > 0,
         chromaScale: this.chromaScale !== 1,
         hue,
-        grayChroma: this.grayChroma !== this.originalGrayChroma,
-        grayColor: this.grayColor !== this.originalGrayColor,
+        grayChroma: this.grayChroma !== undefined && this.grayChroma !== this.originalGrayChroma,
+        grayColor: this.grayColor !== undefined && this.grayColor !== this.originalGrayColor,
       };
 
       let anyTweaked = Object.values(ret).some(Boolean);
@@ -533,7 +530,12 @@ let paletteAppSpec = {
      * This property is the gray chroma % that is actually applied.
      */
     computedGrayChroma() {
-      return Math.min(this.grayChroma, this.maxGrayChroma);
+      let grayChroma = this.grayChroma ?? this.originalGrayChroma;
+      return Math.min(grayChroma, this.maxGrayChroma);
+    },
+
+    computedGrayColor() {
+      return this.grayColor ?? this.originalGrayColor;
     },
 
     maxGrayChroma() {

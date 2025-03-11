@@ -4,14 +4,9 @@ import { tints } from '/assets/scripts/tweak/data.js';
 
 export function tweakPalette(baseColors, tweaks, tweaked) {
   let ret = {};
-  let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
 
   if (!tweaked) {
     return baseColors;
-  }
-
-  if (tweaked.grayChroma) {
-    grayChroma = this.computedGrayChroma;
   }
 
   for (let hue in baseColors) {
@@ -25,6 +20,8 @@ export function tweakPalette(baseColors, tweaks, tweaked) {
 
     if (hue === 'gray') {
       if (tweaked.grayChroma || tweaked.grayColor) {
+        let grayColor = tweaks.grayColor ?? this.originalGrayColor;
+        let grayChroma = this.computedGrayChroma;
         ret.gray = generateGrays(baseColors, { grayColor, grayChroma });
       } else {
         ret.gray = originalScale;
