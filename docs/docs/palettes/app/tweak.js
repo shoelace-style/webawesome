@@ -4,7 +4,7 @@ import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browse
 import generatePalette from './color/generate-palette.js';
 import getPaletteCode from './color/get-palette-code.js';
 import allPalettes from './color/palettes.js';
-import { tweakPalette } from './color/tweak.js';
+import { tweakColor, tweakPalette } from './color/tweak.js';
 import { getContrasts, identifyColor } from './color/util.js';
 import ColorInput from './vue-components/color-input.js';
 import ColorSelect from './vue-components/color-select.js';
@@ -250,15 +250,15 @@ let paletteAppSpec = {
     },
 
     seedColorObjectsTweaked() {
-      return this.seedColorInfo.map(info => {
+      return this.seedColorInfo.map((info, i) => {
         if (!info) {
           return null;
         }
 
+        let color = this.seedColorObjectsRaw[i];
         let { hue, level } = info;
-        // TODO handle collisions
-        let color = this.colors[hue][level];
-        return color;
+
+        return tweakColor(hue, color, this.tweaks, this.tweaked);
       });
     },
 
