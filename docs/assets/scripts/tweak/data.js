@@ -123,6 +123,25 @@ export const MAX_CHROMA_BY_TINT = {
   95: 0.11,
 };
 
+/**
+ * Chroma levels to identify gray.
+ * First number: below this we identify as gray regardless
+ * Second number: below this we identify as gray if it's also in the bottom 25% of colors when sorted by chroma
+ */
+export const GRAY_CHROMA_BY_TINT = {
+  '05': [0.03, 0.05],
+  10: [0.035, 0.06],
+  20: [0.045, 0.06],
+  30: [0.05, 0.06],
+  40: [0.05, 0.06],
+  50: [0.04, 0.06],
+  60: [0.03, 0.05],
+  70: [0.02, 0.04],
+  80: [0.015, 0.03],
+  90: [0.007, 0.01],
+  95: [0.004, 0.005],
+};
+
 export const moreHue = {
   red: 'Redder',
   orange: 'More orange', // https://www.reddit.com/r/grammar/comments/u9n0uo/is_it_oranger_or_more_orange/

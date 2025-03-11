@@ -254,7 +254,9 @@ let paletteAppSpec = {
     },
 
     seedColorInfo() {
-      return this.seedColorObjectsRaw.map(colorObject => (colorObject ? identifyColor(colorObject) : null));
+      return this.seedColorObjectsRaw.map(colorObject =>
+        colorObject ? identifyColor(colorObject, this.seedColorObjects) : null,
+      );
     },
 
     seedHueList() {
@@ -264,6 +266,7 @@ let paletteAppSpec = {
     seedHues() {
       // Make sure hues are in the right order
       let ret = {};
+
       for (let hue of hues) {
         Object.defineProperty(ret, hue, { value: undefined, enumerable: false, writable: true, configurable: true });
       }

@@ -1,21 +1,41 @@
 import {
-  CHROMA_CURVES,
-  CHROMA_SCALE_LIGHTEST,
   CHROMA_TOLERANCE,
   DEFAULT_ACCENT,
+  GRAY_CHROMA_BY_TINT,
   HUE_RANGES,
   HUE_SHIFTS,
   L_RANGES,
   MAX_ACCENT,
-  MAX_CHROMA_BY_TINT,
   MIN_ACCENT,
   tints,
 } from '/assets/scripts/tweak/data.js';
 import { clamp, getRange, mapRange } from '/assets/scripts/tweak/util.js';
 
-export function identifyColor(color) {
-  let hue = getRange(HUE_RANGES, color.get('oklch.h'), { type: 'angle' }).key;
-  let level = getRange(L_RANGES, color.get('oklch.l')).key;
+export function identifyColor(color, colors) {
+  let [l, c, h] = color.getAll('oklch');
+  let level = getRange(L_RANGES, l).key;
+  let hue;
+
+  // Identify grays
+  let grayBounds = GRAY_CHROMA_BY_TINT[level];
+  if (c <= grayBounds[1]) {
+    // Possibly gray
+    if (c <= grayBounds[0]) {
+      // Definitely gray
+      hue = 'gray';
+    } else if (colors) {
+      // May or may not be gray, compare to palette max chroma
+      // FIXME this does not take level into account, so is more likely to identify lighter colors as gray
+      let maxChroma = Math.max(...colors.map(color => color.get('oklch.c')));
+
+      if (c / maxChroma < 0.2) {
+        hue = 'gray';
+      }
+    }
+  }
+
+  hue ??= getRange(HUE_RANGES, h, { type: 'angle' }).key;
+
   return { hue, level };
 }
 
