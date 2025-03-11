@@ -30,9 +30,10 @@
       border-start-start-radius: var(--inner-border-radius);
       border-start-end-radius: var(--inner-border-radius);
       background-color: var(--color);
+      color: canvastext;
 
-      &:is(.dark *) {
-        color: white;
+      &:is(.tweaked *) {
+        background: linear-gradient(105deg, var(--color) 50%, var(--color-original) 0);
       }
 
       .name {
@@ -40,6 +41,12 @@
         bottom: var(--wa-space-xs);
         left: var(--wa-space-s);
         font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .tweak-icon {
+        position: absolute;
+        top: var(--wa-space-s);
+        left: var(--wa-space-s);
       }
     }
 

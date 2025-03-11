@@ -17,6 +17,10 @@ export default {
         return identifyColor(rawProps.colorObject);
       },
     },
+    colorTweaked: {
+      type: Color,
+      default: null,
+    },
   },
   emits: ['update:modelValue', 'update:colorObject', 'delete'],
   data() {
@@ -30,8 +34,11 @@ export default {
     },
   },
   template: `
-    <wa-card class="color" :class="colorInfo?.level < 70 ? 'dark' : 'light'" size="small">
-      <div slot="image" :style="{'--color': modelValue, colorScheme: colorInfo?.level <= 60 ? 'dark' : 'light'}">
+    <wa-card size="small"
+      class="color" :class="{tweaked: !!colorTweaked}"
+      :style="{'--color': colorTweaked ?? modelValue, '--color-original': colorTweaked ? modelValue : '', colorScheme: colorInfo?.level <= 60 ? 'dark' : 'light'}">
+      <div slot="image" >
+      <wa-icon name="sliders-simple" class="tweak-icon" v-if="colorTweaked"></wa-icon>
         <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
         <div class="name">{{ capitalize(colorInfo?.hue) || 'New color' }} {{ colorInfo.level }}</div>
       </div>

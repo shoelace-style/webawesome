@@ -12,7 +12,7 @@ description: Create your own color palette from scratch, from one or more seed c
 <div id="seed-colors">
   <template v-for="color, i in seedColors">
     <color-input
-      v-model="seedColors[i]" v-model:color-object="seedColorObjectsRaw[i]" v-model:color-info="seedColorInfo[i]"
+      v-model="seedColors[i]" :color-tweaked="seedColorObjectsTweaked[i] === seedColorObjectsRaw[i] ? null : seedColorObjectsTweaked[i]" :color-object="seedColorObjectsRaw[i]" :color-info="seedColorInfo[i]"
       @delete="seedColors.splice(i, 1)"></color-input>
   </template>
   <wa-button class="add-button" appearance="outlined" @click="seedColors.push(seedColorSamples.shift() || '')">

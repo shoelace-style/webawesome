@@ -249,6 +249,19 @@ let paletteAppSpec = {
       });
     },
 
+    seedColorObjectsTweaked() {
+      return this.seedColorInfo.map(info => {
+        if (!info) {
+          return null;
+        }
+
+        let { hue, level } = info;
+        // TODO handle collisions
+        let color = this.colors[hue][level];
+        return color;
+      });
+    },
+
     seedColorObjects() {
       return this.seedColorObjectsRaw.filter(Boolean);
     },
