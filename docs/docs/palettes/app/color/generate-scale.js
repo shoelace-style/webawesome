@@ -10,6 +10,7 @@ import { clamp, mapRange } from '/assets/scripts/tweak/util.js';
 
 export function generateScale(seedColors) {
   if (seedColors.constructor.name === 'Color') {
+    // Single color given
     let { level } = identifyColor(seedColors);
     seedColors = { [level]: seedColors };
   }
