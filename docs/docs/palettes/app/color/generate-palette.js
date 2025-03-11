@@ -124,7 +124,11 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
     hueBefore = hue;
   }
 
-  ret.gray = generateGrays(ret, options);
+  if ('gray' in seedHues) {
+    ret.gray = generateScale(seedHues.gray);
+  } else {
+    ret.gray = generateGrays(ret, options);
+  }
 
   return ret;
 }
