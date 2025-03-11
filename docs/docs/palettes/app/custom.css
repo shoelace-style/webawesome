@@ -1,13 +1,11 @@
 #seed-colors {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18ch, 1fr));
   gap: var(--wa-space-m);
 
   > .add-button {
     flex-flow: column wrap;
     height: auto;
-    min-width: 18ch;
-    min-height: 16ch;
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
     --border-color: var(--wa-color-surface-border);
     border-radius: var(--wa-panel-border-radius);
@@ -31,6 +29,17 @@
       border-start-start-radius: var(--inner-border-radius);
       border-start-end-radius: var(--inner-border-radius);
       background-color: var(--color);
+
+      &:is(.dark *) {
+        color: white;
+      }
+
+      .name {
+        position: absolute;
+        bottom: var(--wa-space-xs);
+        left: var(--wa-space-s);
+        font-weight: var(--wa-font-weight-semibold);
+      }
     }
 
     wa-input {
