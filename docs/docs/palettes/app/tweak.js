@@ -3,8 +3,8 @@ import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import generatePalette from './color/generate-palette.js';
 import getPaletteCode from './color/get-palette-code.js';
-import { applyTweaks } from './color/modify-palette.js';
 import allPalettes from './color/palettes.js';
+import { tweakPalette } from './color/tweak.js';
 import { getContrasts, identifyColor } from './color/util.js';
 import ColorInput from './vue-components/color-input.js';
 import ColorSelect from './vue-components/color-select.js';
@@ -332,7 +332,7 @@ let paletteAppSpec = {
     },
 
     colors() {
-      return applyTweaks.call(this, this.baseColors, this.tweaks, this.tweaked);
+      return tweakPalette.call(this, this.baseColors, this.tweaks, this.tweaked);
     },
 
     colorsMinusCurrentTweak() {
@@ -348,7 +348,7 @@ let paletteAppSpec = {
         }
       }
 
-      return applyTweaks.call(this, this.baseColors, this.tweaks, tweaked);
+      return tweakPalette.call(this, this.baseColors, this.tweaks, tweaked);
     },
 
     tweaked() {

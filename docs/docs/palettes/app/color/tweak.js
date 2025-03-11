@@ -2,7 +2,7 @@
 import generateGrays from './generate-grays.js';
 import { tints } from '/assets/scripts/tweak/data.js';
 
-export function applyTweaks(baseColors, tweaks, tweaked) {
+export function tweakPalette(baseColors, tweaks, tweaked) {
   let ret = {};
   let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
 
@@ -33,30 +33,39 @@ export function applyTweaks(baseColors, tweaks, tweaked) {
     }
 
     for (let tint of tints) {
-      let color = originalScale[tint].clone();
-
-      let tweak = {};
-      let thisTweaked = false;
-
-      if (tweaked.hue && hueShifts[hue]) {
-        tweak.h = h => h + hueShifts[hue];
-        thisTweaked = true;
-      }
-
-      if (tweaked.chromaScale && chromaScale !== 1) {
-        tweak.c = c => c * chromaScale;
-        thisTweaked = true;
-      }
-
-      if (thisTweaked) {
-        color = color.to('oklch').set(tweak);
-      }
-
-      scale[tint] = color;
+      scale[tint] = tweakColor(hue, originalScale[tint], tweaks, tweaked);
     }
   }
 
   return ret;
 }
 
-export default applyTweaks;
+export function tweakColor(hue, originalColor, tweaks, tweaked) {
+  if (!tweaked) {
+    return originalColor;
+  }
+
+  let color = originalColor;
+  let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
+
+  let tweak = {};
+  let thisTweaked = false;
+
+  if (tweaked.hue && hueShifts[hue]) {
+    tweak.h = h => h + hueShifts[hue];
+    thisTweaked = true;
+  }
+
+  if (tweaked.chromaScale && chromaScale !== 1) {
+    tweak.c = c => c * chromaScale;
+    thisTweaked = true;
+  }
+
+  if (thisTweaked) {
+    color = color.clone().to('oklch').set(tweak);
+  }
+
+  return color;
+}
+
+export default tweakPalette;
