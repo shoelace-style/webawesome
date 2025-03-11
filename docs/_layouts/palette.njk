@@ -137,39 +137,38 @@
           </div>
           <div class="popup">
             <template v-if="hue === 'gray'">
-            <wa-radio-group class="core-color" orientation="horizontal" :value="computedGrayColor" @input="grayColor = $event.target.value">
-              <template v-for="h in hues">
-                <wa-radio-button :id="'gray-undertone-' + h" :value="h" :label="capitalize(h)" :style="{'--color': `var(--wa-color-${ h })`}"></wa-radio-button>
-                <wa-tooltip :for="'gray-undertone-' + h" hoist>{{ capitalize(h) }}</wa-tooltip>
-              </template>
-              <div slot="label">
-                Gray undertone
-              </div>
-            </wa-radio-group>
-            <color-slider class="gray-chroma-slider" type="percentage" :default-value="originalGrayChroma"
-            :model-value="computedGrayChroma"
-            @update:model-value="grayChroma = $event"
-             v-model:tweaking="tweaking.grayChroma"
-            :min="0" :max="maxGrayChroma" :step="0.01"
-            :get-color="scale => baseCoreColors[computedGrayColor].clone().set('oklch.c', c => c * scale)"
-            label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
-            ></color-slider>
-
+              <wa-radio-group class="core-color" orientation="horizontal" :value="computedGrayColor" @input="grayColor = $event.target.value">
+                <template v-for="h in hues">
+                  <wa-radio-button :id="'gray-undertone-' + h" :value="h" :label="capitalize(h)" :style="{'--color': `var(--wa-color-${ h })`}"></wa-radio-button>
+                  <wa-tooltip :for="'gray-undertone-' + h" hoist>{{ capitalize(h) }}</wa-tooltip>
+                </template>
+                <div slot="label">
+                  Gray undertone
+                </div>
+              </wa-radio-group>
+              <color-slider class="gray-chroma-slider" type="percentage" :default-value="originalGrayChroma"
+              :model-value="computedGrayChroma"
+              @update:model-value="grayChroma = $event"
+              v-model:tweaking="tweaking.grayChroma"
+              :min="0" :max="maxGrayChroma" :step="0.01"
+              :get-color="scale => baseCoreColors[computedGrayColor].clone().set('oklch.c', c => c * scale)"
+              label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
+              ></color-slider>
             </template>
             <color-slider v-else
-            class="hue-shift-slider"
-             v-model="hueShifts[hue]"
-             v-model:tweaking="tweaking.hue[hue]"
-            :min="shiftBounds[hue].min" :max="shiftBounds[hue].max"
-            :get-color="shift => baseCoreColors[hue].clone().set('oklch.h', h => h + shift)"
-            :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
-            ></color-slider>
+              class="hue-shift-slider"
+              v-model="hueShifts[hue]"
+              v-model:tweaking="tweaking.hue[hue]"
+              :min="shiftBounds[hue].min" :max="shiftBounds[hue].max"
+              :get-color="shift => baseCoreColors[hue].clone().set('oklch.h', h => h + shift)"
+              :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+              ></color-slider>
 
-          <div class="wa-gap-s">
-              <code>--wa-color-{{ hue }}</code>
-              <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+            <div class="wa-gap-s">
+                <code>--wa-color-{{ hue }}</code>
+                <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
+              </div>
             </div>
-          </div>
         </wa-dropdown>
       </td>
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
