@@ -14,7 +14,10 @@ tags: e-commerce
       <span class="wa-heading-xl">Get the Best Instruction from our Educators.</span>
       <p class="wa-caption-l">At the beginning at least, but then we realized we could make a lot more money if we kinda stopped caring about that. Our new strategy is to write a bunch of things that look really good in the headlines, then clarify in the small print but hope people don't actually read it.</p>
     </div>
-    <img src="https://uploads.webawesome.com/online-learning.jpg" />
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://uploads.webawesome.com/online-learning.jpg" />
+    </div>
+    
   </div>
   <div class="wa-grid">
     <div class="wa-stack wa-gap-xs">

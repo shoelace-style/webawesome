@@ -15,7 +15,7 @@ icon: preview
       <wa-icon-button name="close" label="close-modal" style="flex-basis: initial;flex-grow: initial;min-inline-size: auto;"></wa-icon-button>
     </div>
     <div class="wa-grid">
-    <div class="wa-frame" style="width: 100%; height: 100%">
+    <div class="wa-frame wa-border-radius-l" style="width: 100%; height: 100%">
       <img src="https://images.unsplash.com/photo-1660997351262-6c31d8a35b6c?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="stan smith graphic tee" />
     </div>
     <div class="wa-stack">
@@ -94,7 +94,9 @@ icon: preview
         </div>
 
     <div class="wa-grid">
+      <div class="wa-frame:portrait wa-border-radius-l">
       <img style="height: 100%; object-fit: cover;" src="https://images.unsplash.com/photo-1643467358005-899641cab7b5?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="champion crossbody bag" />
+      </div>
       <div class="wa-stack">
           <div class="wa-split wa-align-items-start">
             <span class="wa-heading-2xl">$32</span>
