@@ -33,7 +33,7 @@
       color: canvastext;
 
       &:is(.tweaked *) {
-        background: linear-gradient(105deg, var(--color) 50%, var(--color-original) 0);
+        background: linear-gradient(105deg, var(--color) 60%, var(--color-original) 0);
       }
 
       .name {
