@@ -8,6 +8,7 @@ import allPalettes from './color/palettes.js';
 import { getContrasts, identifyColor } from './color/util.js';
 import ColorInput from './vue-components/color-input.js';
 import ColorSelect from './vue-components/color-select.js';
+import ColorSlider from './vue-components/color-slider.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import {
@@ -21,8 +22,6 @@ import {
   tints,
 } from '/assets/scripts/tweak/data.js';
 import { camelCase, capitalize, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
-
-await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 const roles = ['brand', 'neutral', 'success', 'warning', 'danger'];
@@ -53,7 +52,7 @@ let paletteAppSpec = {
       chromaScale: 1,
       grayChroma: undefined,
       grayColor: undefined,
-      tweaking: {},
+      tweaking: { hue: {} },
       saved: null,
       unsavedChanges: false,
       savedPalettes: sidebar.palettes.saved,
@@ -729,6 +728,7 @@ let paletteAppSpec = {
   components: {
     ColorInput,
     ColorSelect,
+    ColorSlider,
   },
 
   compilerOptions: {
