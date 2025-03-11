@@ -6,8 +6,13 @@ import {
   MAX_CHROMA_BY_TINT,
   tints,
 } from '/assets/scripts/tweak/data.js';
-import { clamp, mapRange } from '/assets/scripts/tweak/util.js';
+import { clamp, interpolate, progress } from '/assets/scripts/tweak/util.js';
 
+/**
+ * Generate a scale of tints from one or more key colors
+ * @param {Color | Record<number | string, Color>} seedColors
+ * @returns {Record<number | string, Color>}
+ */
 export function generateScale(seedColors) {
   if (seedColors.constructor.name === 'Color') {
     // Single color given
@@ -18,7 +23,6 @@ export function generateScale(seedColors) {
   // Find core color
   let coreLevel = getCoreTint(seedColors);
   let coreColor = seedColors[coreLevel];
-  let distance = coreColor.get('oklch.l') - L_RANGES[coreLevel].mid;
   let coreChroma = coreColor.get('oklch.c');
 
   let scale = {
@@ -39,14 +43,16 @@ export function generateScale(seedColors) {
 
   // Now generate the rest, starting from the edges
   if (!('95' in scale)) {
-    let lightest = seedColors[pinnedTints[0]];
-    let color = lightest.clone().to('oklch');
-    let chromaScale = CHROMA_SCALE_LIGHTEST[clamp(40, coreLevel, 95)];
-    let hueShift = getHueShift(lightest, pinnedTints[0], '95');
+    let lightestPinnedTint = pinnedTints.at(-1);
+    let lightest = seedColors[lightestPinnedTint];
+    let lOffset = lightest.get('oklch.l') - L_RANGES[lightestPinnedTint].mid;
+    let chromaScale = CHROMA_SCALE_LIGHTEST[lightestPinnedTint];
+    let hueShift = getHueShift(lightest, lightestPinnedTint, '95');
 
+    let color = lightest.clone().to('oklch');
     color.set({
-      l: getLightness(95, distance),
-      c: clamp(0, coreChroma * chromaScale, MAX_CHROMA_BY_TINT[95]),
+      l: getLightness(95, lOffset),
+      c: clamp(0, lightest.get('oklch.c') * chromaScale, MAX_CHROMA_BY_TINT[95]),
       h: h => h + hueShift,
     });
 
@@ -54,12 +60,14 @@ export function generateScale(seedColors) {
   }
 
   if (!('05' in scale)) {
-    let darkest = seedColors[pinnedTints.at(-1)];
+    let darkestPinnedTint = pinnedTints[0];
+    let darkest = seedColors[darkestPinnedTint];
+    let lOffset = darkest.get('oklch.l') - L_RANGES[darkestPinnedTint].mid;
     let color = darkest.clone().to('oklch');
-    let hueShift = getHueShift(darkest, pinnedTints.at(-1), '05');
+    let hueShift = getHueShift(darkest, darkestPinnedTint, '05');
 
     color.set({
-      l: getLightness('05', distance),
+      l: getLightness('05', lOffset),
       // TODO c
       h: h => h + hueShift,
     });
@@ -67,46 +75,45 @@ export function generateScale(seedColors) {
     scale['05'] = color;
   }
 
-  let pinnedLevels = Object.keys(seedColors).sort((a, b) => a - b);
-  let levelBefore = '05';
+  let tintBefore = '05';
 
   for (let tint of tints) {
     if (tint in scale) {
       // Pinned or already generated
-      levelBefore = tint;
+      tintBefore = tint;
       continue;
     }
 
     // Generated color
     // First, find closest pinned colors before and after
-    let levelAfter = pinnedLevels.find(level => level > tint) ?? '95';
-    let colorBefore = scale[levelBefore];
-    let colorAfter = scale[levelAfter];
+    let tintAfter = pinnedTints.find(level => level > tint) ?? '95';
+    let neighboringTints = [tintBefore, tintAfter];
+    let neighboringColors = neighboringTints.map(t => scale[t]);
+    let tintProgress = progress(tint, neighboringTints);
 
     let color = coreColor.clone().to('oklch');
 
     // Lightness
-    color.set('l', L_RANGES[tint].mid + distance);
+    let lOffset = interpolate(
+      tintProgress,
+      neighboringTints.map(t => scale[t].get('oklch.l') - L_RANGES[t].mid),
+    );
 
     // Interpolate hue linearly and chroma with a power curve
     color.set({
-      l: getLightness(tint, distance),
-      h: mapRange(tint, {
-        from: [levelBefore, levelAfter],
-        to: [colorBefore.get('oklch.h'), colorAfter.get('oklch.h')],
-      }),
+      l: getLightness(tint, lOffset),
+      c: interpolate(
+        tintProgress,
+        neighboringColors.map(c => c.get('oklch.c')),
+        {
+          progression: tint > coreLevel ? p => p ** chromaCurve.light : undefined,
+        },
+      ),
+      h: interpolate(
+        tintProgress,
+        neighboringColors.map(c => c.get('oklch.h')),
+      ),
     });
-
-    if (tint > coreLevel) {
-      color.set(
-        'c',
-        mapRange(tint, {
-          from: [levelBefore, levelAfter],
-          to: [colorBefore.get('oklch.c'), colorAfter.get('oklch.c')],
-          progression: p => p ** chromaCurve.light,
-        }),
-      );
-    }
 
     scale[tint] = color;
   }
