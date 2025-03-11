@@ -97,7 +97,11 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
 
     if (hue === 'yellow') {
       // Yellow tends to be the brighest hue in the palette
-      cScale = Math.max(...Object.values(seedMeta).map(meta => meta.relativeCScale));
+      cScale = Math.max(
+        ...Object.values(seedMeta)
+          .map(meta => meta.relativeCScale)
+          .filter(c => c > 0),
+      );
     } else {
       cScale = interpolate(
         hueProgress,
