@@ -8,7 +8,9 @@ import fs from 'fs';
 import path from 'path';
 import { PALETTE_DIR } from './util.js';
 
-export const paletteFiles = fs.readdirSync(PALETTE_DIR + '/').filter(file => file.endsWith('.css'));
+export const paletteFiles = fs
+  .readdirSync(PALETTE_DIR + '/')
+  .filter(file => file.endsWith('.css') && !file.endsWith('base.css'));
 export const declarationRegex =
   /^\s*--wa-color-(?<hue>[a-z]+)(?:-(?<level>[0-9]+|key))?:\s*(?<color>.+?)\s*(\/\*.+?\*\/)?\s*;$/gm;
 export const rawCSS = {};
