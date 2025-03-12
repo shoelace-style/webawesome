@@ -57,7 +57,6 @@ export default class WaDialog extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private originalTrigger: HTMLElement | null;
-  private closeWatcher: CloseWatcher | null;
 
   @query('.dialog') dialog: HTMLDialogElement;
 
@@ -125,16 +124,7 @@ export default class WaDialog extends WebAwesomeElement {
   }
 
   private addOpenListeners() {
-    if ('CloseWatcher' in window) {
-      this.closeWatcher?.destroy();
-      this.closeWatcher = new CloseWatcher();
-      this.closeWatcher.onclose = () => {
-        this.requestClose(this.dialog);
-      };
-    } else {
-      this.closeWatcher?.destroy();
-      document.addEventListener('keydown', this.handleDocumentKeyDown);
-    }
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
   }
 
   private removeOpenListeners() {
