@@ -177,7 +177,7 @@ let paletteAppSpec = {
       // Now apply brand color to anything empty
       for (let role in ret) {
         if (!ret[role]) {
-          ret[role] = ret.brand;
+          ret[role] = 'brand';
         }
       }
 
@@ -297,6 +297,27 @@ let paletteAppSpec = {
         }
 
         ret[hue][level] = color;
+      }
+
+      return ret;
+    },
+
+    paletteScales() {
+      if (!this.isCustom) {
+        return this.colors;
+      }
+
+      let ret = Object.fromEntries(
+        Object.keys(this.colors)
+          .filter(hue => this.seedHues[hue] || hue === 'gray')
+          .map(hue => [hue, this.colors[hue]]),
+      );
+
+      // Ensure gray is last
+      if (ret.gray) {
+        let grayScale = ret.gray;
+        delete ret.gray;
+        ret.gray = grayScale;
       }
 
       return ret;

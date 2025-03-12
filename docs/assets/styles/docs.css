@@ -654,7 +654,8 @@ table.colors {
   }
 
   > small {
-    margin-inline-start: calc(1 * var(--wa-space-xs) + 0em);
+    margin-inline-start: var(--wa-space-xs);
+    padding-block: 0 var(--wa-space-xs);
   }
 
   &::part(combobox)::before,

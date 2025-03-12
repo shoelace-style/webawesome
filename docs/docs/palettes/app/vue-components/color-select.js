@@ -1,5 +1,3 @@
-import Color from 'https://colorjs.io/dist/color.js';
-import { identifyColor } from '../color/util.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
 export default {
@@ -47,6 +45,10 @@ export default {
 
       return ret;
     },
+
+    firstGroup() {
+      return Object.keys(this.computedGroups)[0];
+    },
   },
 
   methods: {
@@ -60,12 +62,10 @@ export default {
     :style="{'--color': getColor(modelValue)}">
       <template v-for="values, group in computedGroups">
         <template v-if="group">
-          <wa-divider></wa-divider>
+          <wa-divider v-if="group !== firstGroup"></wa-divider>
           <small>{{ group }}</small>
         </template>
-        <wa-option v-if="values?.length" v-for="value of values" :label="getLabel(value)" :value="value" :style="{'--color': getColor(value)}">
-        {{ getContent?.(value) ??  getLabel(value) }}
-        </wa-option>
+        <wa-option v-if="values?.length" v-for="value of values" :label="getLabel(value)" :value="value" :style="{'--color': getColor(value)}" v-html="getContent?.(value) ?? getLabel(value)"></wa-option>
       </template>
       <slot></slot>
     </wa-select>

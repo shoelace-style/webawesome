@@ -53,11 +53,14 @@ description: Create your own color palette from scratch, from one or more seed c
     @update:model-value="value => setRole(role, value)"
     :class="{'default': !roles[role]}"
     :label="capitalize(role) + ':'"
-    :values="[...seedHueList, 'gray']"
-    :groups="{Suggested: suggestedForRole[role]}"
-    :getLabel="capitalize"
-    :getContent="value => capitalize(value) + (seedHues[value] ? '' : ' <wa-icon name=square-plus></wa-icon>')"
-    :getColor="value => coreColors[value]">
+    :groups="{
+      Dynamic: !['brand', 'neutral'].includes(role) ? ['brand', 'neutral'] : undefined,
+      Colors: Object.keys(paletteScales),
+      Suggested: suggestedForRole[role]
+    }"
+    :get-label="capitalize"
+    :get-content="value => capitalize(value) + (seedHues[value] || computedRoles[value] ? '' : ' <wa-icon name=square-plus variant=regular></wa-icon>')"
+    :get-color="value => coreColors[computedRoles[value] ?? value]">
       {# <wa-badge class="default-badge" v-if="!roles[role]" slot="suffix" variant="neutral" appearance="outlined">Default</wa-badge> #}
     </color-select>
   </div>
