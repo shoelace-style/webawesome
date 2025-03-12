@@ -7,8 +7,9 @@
   margin: 0 auto;
   overflow: hidden;
 
-  &::part(base) {
-    margin-block: 10rem;
+  &::part(dialog) {
+    margin-block-start: 10vh;
+    margin-block-end: 0;
   }
 
   &::part(body) {
@@ -23,8 +24,12 @@
   @media screen and (max-width: 900px) {
     max-width: calc(100% - 2rem);
 
-    &::part(base) {
+    &::part(dialog) {
       margin-block: 1rem;
+    }
+
+    #site-search-container {
+      max-height: none;
     }
   }
 }
@@ -32,11 +37,7 @@
 #site-search-container {
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 20rem);
-
-  @media screen and (max-width: 900px) {
-    max-height: calc(100dvh - 2rem);
-  }
+  max-height: calc(100vh - 18rem);
 }
 
 /* Header */
