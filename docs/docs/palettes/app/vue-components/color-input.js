@@ -2,6 +2,8 @@ import Color from 'https://colorjs.io/dist/color.js';
 import { identifyColor } from '../color/util.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
+await customElements.whenDefined('wa-select');
+
 export default {
   props: {
     modelValue: { type: [String, Color], default: '' },
@@ -21,8 +23,12 @@ export default {
       type: Color,
       default: null,
     },
+    roles: {
+      type: Array,
+      default: [],
+    },
   },
-  emits: ['update:modelValue', 'update:colorObject', 'delete'],
+  emits: ['update:modelValue', 'update:colorObject', 'update:roles', 'delete'],
   data() {
     return {};
   },
@@ -42,6 +48,11 @@ export default {
         <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
         <div class="name">{{ capitalize(colorInfo?.hue) || 'New color' }} {{ colorInfo.level }}</div>
       </div>
+      <wa-select class="color-to-role" multiple size="small" appearance="plain" placeholder="(No states)"
+        :value.attr="roles.join(' ')" :value="roles"
+        @input="$emit('update:roles', $event.target.value)">
+        <wa-option v-for="role in ['brand', 'neutral', 'success', 'warning', 'danger']" :value="role">{{ capitalize(role) }}</wa-option>
+      </wa-select>
       <wa-input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"></wa-input>
     </wa-card>
   `,

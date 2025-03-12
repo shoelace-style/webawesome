@@ -269,6 +269,27 @@ let paletteAppSpec = {
       );
     },
 
+    hueRoles() {
+      let ret = {};
+      for (let role in this.computedRoles) {
+        let value = this.computedRoles[role];
+        ret[value] ??= [];
+        ret[value].push(role);
+      }
+      return ret;
+    },
+
+    seedColorRoles() {
+      return this.seedColorInfo.map(info => {
+        if (!info) {
+          return [];
+        }
+
+        let { hue } = info;
+        return this.hueRoles[hue];
+      });
+    },
+
     seedHueList() {
       return Object.keys(this.seedHues);
     },
@@ -729,13 +750,36 @@ let paletteAppSpec = {
       return context;
     },
 
-    setRole(role, hue) {
-      if (!this.seedHues[hue]) {
+    /**
+     * Assign a hue to a role
+     * @param {string} role - Role we are setting
+     * @param {string} hue - Hue (literal or semantic)
+     */
+    setRoleColor(role, hue) {
+      if (!this.seedHues[hue] && hue !== 'gray') {
         // We're also adding it
         this.seedColors.push(this.coreColors[hue] + '');
       }
 
       this.roles[role] = hue;
+    },
+
+    /**
+     * Set a color's role(s)
+     * @param {string | number} hueOrIndex
+     * @param {string | string[]} roles
+     */
+    setColorRole(hueOrIndex, roles) {
+      let hue = hueOrIndex >= 0 ? this.seedColorInfo[hueOrIndex]?.hue : hueOrIndex;
+      roles = new Set(Array.isArray(roles) ? roles : [roles]);
+
+      for (let role in this.roles) {
+        if (roles.has(role)) {
+          this.roles[role] = hue;
+        } else if (this.roles[role] === hue) {
+          this.roles[role] = undefined;
+        }
+      }
     },
   },
 

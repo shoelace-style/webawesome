@@ -70,6 +70,20 @@
       opacity: 0;
     }
   }
+
+  .color-to-role {
+    --border-width: 0;
+    margin-inline-start: calc(-1 * var(--wa-space-3xs));
+
+    &::part(tags) {
+      margin-inline-start: 0;
+    }
+
+    &::part(combobox) {
+      padding: var(--wa-space-3xs);
+      min-height: auto;
+    }
+  }
 }
 
 .pinned-icon {

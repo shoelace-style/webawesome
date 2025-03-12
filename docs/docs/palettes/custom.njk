@@ -13,10 +13,12 @@ description: Create your own color palette from scratch, from one or more seed c
   <template v-for="color, i in seedColors">
     <color-input
       :model-value="seedColorObjectsTweaked[i] === seedColorObjectsRaw[i] ? seedColors[i] : seedColorObjectsTweaked[i]"
+      @update:model-value="value => seedColors[i] = value"
       :color-object="seedColorObjectsTweaked[i]"
       :color-info="seedColorInfo[i]"
       :color-original="seedColorObjectsTweaked[i] === seedColorObjectsRaw[i] ? null : seedColorObjectsRaw[i]"
-      @update:model-value="value => seedColors[i] = value"
+      v-model:roles="seedColorRoles[i]"
+      @update:roles="roles => setColorRole(i, roles)"
       @delete="seedColors.splice(i, 1)"></color-input>
   </template>
   <wa-button class="add-button" appearance="outlined" @click="seedColors.push(seedColorSamples.shift() || '')">
@@ -50,7 +52,7 @@ description: Create your own color palette from scratch, from one or more seed c
   <div>
     <color-select v-for="computedRole, role in computedRoles"
     :model-value="computedRoles[role]"
-    @update:model-value="value => setRole(role, value)"
+    @update:model-value="value => setRoleColor(role, value)"
     :class="{'default': !roles[role]}"
     :label="capitalize(role) + ':'"
     :groups="{
@@ -59,7 +61,7 @@ description: Create your own color palette from scratch, from one or more seed c
       Suggested: suggestedForRole[role]
     }"
     :get-label="capitalize"
-    :get-content="value => capitalize(value) + (seedHues[value] || computedRoles[value] ? '' : ' <wa-icon name=square-plus variant=regular></wa-icon>')"
+    :get-content="value => capitalize(value) + (seedHues[value] || computedRoles[value] || value === 'gray' ? '' : ' <wa-icon name=square-plus variant=regular></wa-icon>')"
     :get-color="value => coreColors[computedRoles[value] ?? value]">
       {# <wa-badge class="default-badge" v-if="!roles[role]" slot="suffix" variant="neutral" appearance="outlined">Default</wa-badge> #}
     </color-select>
