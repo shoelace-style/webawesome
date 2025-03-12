@@ -16,7 +16,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - Fixed `wa-pill` class for text fields
 - Fixed `pill` style for `<wa-input>` elements
-- Fixed a bug in `<wa-color-picker>` that prevented light dismiss when clicking immediately above the color picker dropdown
+- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 
 ## 3.0.0-alpha.11
 
