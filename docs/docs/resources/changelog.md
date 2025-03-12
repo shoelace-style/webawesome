@@ -12,6 +12,12 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## Next
+
+- Fixed `wa-pill` class for text fields
+- Fixed `pill` style for `<wa-input>` elements
+- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
+
 ## 3.0.0-alpha.11
 
 ### Color Palettes
@@ -20,6 +26,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a `pink` scale to all color palettes
 - Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
 - Dropped `violet` and `teal`, instead using `purple` and `cyan` (this is not just a renaming, the colors have been adjusted too).
+- Fixed a bug in `<wa-switch>` that caused tooltips to work incorrectly when toggling the switch
 
 ### Design Tokens
 
