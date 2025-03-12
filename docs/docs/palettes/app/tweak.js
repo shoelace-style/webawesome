@@ -344,6 +344,10 @@ let paletteAppSpec = {
       return ret;
     },
 
+    paletteScalesSet() {
+      return new Set(Object.keys(this.paletteScales));
+    },
+
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -653,6 +657,18 @@ let paletteAppSpec = {
 
         if (this.saved || this.isCustom) {
           this.unsavedChanges = true;
+        }
+      },
+    },
+
+    paletteScalesSet: {
+      deep: true,
+      handler() {
+        for (let role in this.roles) {
+          if (this.roles[role] && !this.paletteScalesSet.has(this.roles[role])) {
+            // Role color is no longer in the palette
+            this.roles[role] = undefined;
+          }
         }
       },
     },
