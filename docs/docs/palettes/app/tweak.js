@@ -94,6 +94,13 @@ let paletteAppSpec = {
         this.uid = Number(this.permalink.get('uid'));
         this.saved = sidebar.palettes.saved.find(p => p.uid === this.uid);
       }
+
+      for (let role in this.roles) {
+        let value = this.permalink.get(`role-${role}`);
+        if (value) {
+          this.roles[role] = value;
+        }
+      }
     }
   },
 
@@ -651,6 +658,22 @@ let paletteAppSpec = {
       deep: true,
       async handler(value, oldValue) {
         await nextTick(); // must run after individual watchers
+
+        // Update page URL
+        this.permalink.updateLocation();
+
+        if (this.saved || this.isCustom) {
+          this.unsavedChanges = true;
+        }
+      },
+    },
+
+    roles: {
+      deep: true,
+      handler() {
+        for (let role in this.roles) {
+          this.permalink.set(`role-${role}`, this.roles[role]);
+        }
 
         // Update page URL
         this.permalink.updateLocation();
