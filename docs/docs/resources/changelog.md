@@ -20,6 +20,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a `pink` scale to all color palettes
 - Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
 - Dropped `violet` and `teal`, instead using `purple` and `cyan` (this is not just a renaming, the colors have been adjusted too).
+- Fixed a bug in `<wa-switch>` that caused tooltips to work incorrectly when toggling the switch
 
 ### Design Tokens
 
