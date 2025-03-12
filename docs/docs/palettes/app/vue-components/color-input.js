@@ -48,7 +48,7 @@ export default {
         <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
         <div class="name">{{ capitalize(colorInfo?.hue) || 'New color' }} {{ colorInfo.level }}</div>
       </div>
-      <wa-select class="color-to-role" multiple size="small" appearance="plain" placeholder="(No states)"
+      <wa-select class="color-to-role" multiple size="small" appearance="plain" placeholder="(No states)" max-options-visible="2"
         :value.attr="roles.join(' ')" :value="roles"
         @input="$emit('update:roles', $event.target.value)">
         <wa-option v-for="role in ['brand', 'neutral', 'success', 'warning', 'danger']" :value="role">{{ capitalize(role) }}</wa-option>
