@@ -1,6 +1,7 @@
 @import url('../../color/elegant.css');
 @import url('../default/color.css');
 @import url('../../brand/indigo.css');
+@import url('../../neutral/gray.css');
 
 :where(:root),
 :host,
@@ -33,7 +34,7 @@
 
   --wa-color-danger-fill-loud: var(--wa-color-red-40);
 
-  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
+  --wa-color-neutral-fill-loud: var(--wa-color-neutral-10);
 }
 
 .wa-dark,
