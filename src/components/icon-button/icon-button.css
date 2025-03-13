@@ -22,8 +22,8 @@
 
 :host(:not([disabled])) .icon-button:hover,
 :host(:not([disabled])) .icon-button:focus-visible {
-  background-color: var(--wa-color-neutral-fill-quiet);
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  background-color: var(--background-color-hover);
 }
 
 :host(:not([disabled])) .icon-button:active {
