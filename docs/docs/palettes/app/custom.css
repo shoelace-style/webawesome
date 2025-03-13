@@ -32,8 +32,19 @@
       background-color: var(--color);
       color: canvastext;
 
-      &:is(.tweaked *) {
-        background: linear-gradient(105deg, var(--color) 60%, var(--color-original) 0);
+      .original-color {
+        position: absolute;
+        top: var(--wa-space-s);
+        left: var(--wa-space-s);
+        padding: var(--wa-space-s);
+        padding-top: var(--wa-space-xs);
+        border: 1px solid hsl(0 0 100 / 50%);
+        border-radius: var(--wa-border-radius-s);
+        background-color: var(--color-original);
+
+        wa-icon {
+          display: block;
+        }
       }
 
       .name {
@@ -41,12 +52,6 @@
         bottom: var(--wa-space-xs);
         left: var(--wa-space-s);
         font-weight: var(--wa-font-weight-semibold);
-      }
-
-      .tweak-icon {
-        position: absolute;
-        top: var(--wa-space-s);
-        left: var(--wa-space-s);
       }
     }
 

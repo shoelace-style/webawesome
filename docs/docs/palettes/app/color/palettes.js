@@ -14,6 +14,13 @@ for (let palette in palettes) {
         scale[tint] = new Color('oklch', color);
       }
     }
+
+    Object.defineProperty(scale, 'core', {
+      get() {
+        return this[this.maxChromaTint];
+      },
+      enumerable: false,
+    });
   }
 }
 

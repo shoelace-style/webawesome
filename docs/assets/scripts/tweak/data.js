@@ -200,3 +200,5 @@ export const MAX_ACCENT = 90;
 
 /** Chroma tolerance: Chroma will need to differ more than this to gravitate away from defaultAccent */
 export const CHROMA_TOLERANCE = 0.000001;
+
+export const ROLES = ['brand', 'neutral', 'success', 'warning', 'danger'];

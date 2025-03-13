@@ -155,12 +155,13 @@
               label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
               ></color-slider>
             </template>
-            <color-slider v-else
-              class="hue-shift-slider"
-              v-model="hueShifts[hue]"
+            <color-slider v-else class="hue-shift-slider"
+              :model-value="tweak('hueShift', {hue, level: 'core'})"
+              @update:model-value="tweak('hueShift', {hue, level: 'core'}, $event)"
+              :default-value="tweakDefault('hueShift', {hue, level: 'core'})"
               v-model:tweaking="tweaking.hue[hue]"
-              :min="shiftBounds[hue].min" :max="shiftBounds[hue].max"
-              :get-color="shift => baseCoreColors[hue].clone().set('oklch.h', h => h + shift)"
+              :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
+              :get-color="h => baseCoreColors[hue].clone().set('oklch.h', h)"
               :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
               ></color-slider>
 

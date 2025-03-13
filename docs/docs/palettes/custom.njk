@@ -11,18 +11,14 @@ status: experimental
 <h2 v-if="step > 0" v-cloak>My colors</h2>
 
 <div id="seed-colors">
-  <template v-for="color, i in seedColors">
-    <color-input
-      :model-value="seedColorObjectsTweaked[i] === seedColorObjectsRaw[i] ? seedColors[i] : seedColorObjectsTweaked[i]"
-      @update:model-value="value => seedColors[i] = value"
-      :color-object="seedColorObjectsTweaked[i]"
-      :color-info="seedColorInfo[i]"
-      :color-original="seedColorObjectsTweaked[i] === seedColorObjectsRaw[i] ? null : seedColorObjectsRaw[i]"
+  <template v-for="color, i in seedColors" :key="color.uid ?? maxSeedUid">
+    <color-input v-model="seedColors[i]"
+      :otherColors="seedColors.filter((_, j) => j !== i).map(c => c.color)"
       v-model:roles="seedColorRoles[i]"
       @update:roles="roles => setColorRole(i, roles)"
       @delete="seedColors.splice(i, 1)"></color-input>
   </template>
-  <wa-button class="add-button" appearance="outlined" @click="seedColors.push(seedColorSamples.shift() || '')">
+  <wa-button class="add-button" appearance="outlined" @click="addColor()">
     <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
     {% raw %}{{ step > 0 ? 'Add color' : 'New palette' }}{% endraw %}
   </wa-button>
@@ -39,7 +35,7 @@ status: experimental
   </header>
   <div class="suggestions">
     <template v-for="color, hue in suggestedColors">
-    <wa-button :id="'suggestion-hue-' + hue" :style="{'--background-color': color}" @click="seedColors.push(color + '')">
+    <wa-button :id="'suggestion-hue-' + hue" :style="{'--background-color': color}" @click="addColor(color + '')">
       <wa-icon name="plus"></wa-icon>
     </wa-button>
     <wa-tooltip :for="'suggestion-hue-' + hue" v-content="capitalize(hue)"></wa-tooltip>

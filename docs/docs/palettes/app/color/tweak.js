@@ -16,6 +16,12 @@ export function tweakPalette(baseColors, tweaks, tweaked) {
     Object.defineProperties(scale, {
       maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
       maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
+      core: {
+        get() {
+          return this[this.maxChromaTint];
+        },
+        enumerable: false,
+      },
     });
 
     if (hue === 'gray') {

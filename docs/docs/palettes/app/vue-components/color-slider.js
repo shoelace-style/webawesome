@@ -26,6 +26,12 @@ export default {
     getColor: {
       type: Function,
     },
+    color: {
+      type: Color,
+      default(rawProps) {
+        return rawProps.getColor(rawProps.modelValue);
+      },
+    },
 
     label: String,
     labelMin: String,
@@ -33,12 +39,12 @@ export default {
 
     tweaking: Boolean,
   },
-  emits: ['update:modelValue', 'update:tweaking'],
+  emits: ['update:modelValue', 'update:tweaking', 'update:color'],
   data() {
     return {};
   },
   computed: {
-    color() {
+    colorCurrent() {
       return this.getColor(this.modelValue);
     },
 
@@ -57,18 +63,24 @@ export default {
   },
   methods: {
     capitalize,
-    handleInput(e) {
-      this.$emit('input', this.modelValue);
+    handleInput(event) {
+      this.$emit('update:tweaking', true);
+      this.$emit('update:modelValue', event.target.value);
+    },
+  },
+  watch: {
+    colorCurrent() {
+      this.$emit('update:color', this.colorCurrent);
     },
   },
   template: `
 	<div class="decorated-slider" :style="{
-		'--color': color,
+		'--color': colorCurrent,
 		'--color-1': colorMin,
 		'--color-2': colorMax,
 		}">
 		<wa-slider ref="slider" :min="min" :max="max" :step="step"
-		@change="$emit('update:tweaking', false)" :value="modelValue" @input="$emit('update:tweaking', true); $emit('update:modelValue', $event.target.value)">
+		@change="$emit('update:tweaking', false)" :value="modelValue" @input="handleInput">
 		<div slot="label">
 			{{ label }}
 			<wa-icon-button @click="$emit('update:modelValue', defaultValue)" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>

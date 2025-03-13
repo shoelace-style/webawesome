@@ -19,12 +19,12 @@ import {
   MAX_CHROMA_BOUNDS,
   maxGrayChroma,
   moreHue,
+  ROLES,
   tints,
 } from '/assets/scripts/tweak/data.js';
 import { camelCase, capitalize, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
-const roles = ['brand', 'neutral', 'success', 'warning', 'danger'];
 
 let paletteAppSpec = {
   data() {
@@ -34,6 +34,7 @@ let paletteAppSpec = {
 
     return {
       uid: undefined,
+      maxSeedUid: 0,
       seedColors: [],
       seedColorSamples: [
         'oklch(77% 0.19 70)',
@@ -43,7 +44,6 @@ let paletteAppSpec = {
         'oklch(82% 0.185 195)',
         'oklch(30% 0.18 150)',
       ],
-      show: paletteId === 'custom' ? 'my' : 'all',
       paletteId,
       originalPaletteTitle: palette.title,
       originalColors: paletteId === 'custom' ? allPalettes.default.colors : palette.colors,
@@ -56,7 +56,7 @@ let paletteAppSpec = {
       saved: null,
       unsavedChanges: false,
       savedPalettes: sidebar.palettes.saved,
-      roles: Object.fromEntries(roles.map(role => [role, undefined])),
+      roles: Object.fromEntries(ROLES.map(role => [role, undefined])),
     };
   },
 
@@ -87,7 +87,7 @@ let paletteAppSpec = {
       }
 
       if (this.permalink.has('color')) {
-        this.seedColors = this.permalink.getAll('color');
+        this.seedColors = this.permalink.getAll('color').map(value => ({ value }));
       }
 
       if (this.permalink.has('uid')) {
@@ -192,7 +192,7 @@ let paletteAppSpec = {
     },
 
     computedRoles() {
-      return Object.fromEntries(roles.map(role => [role, this.roles[role] ?? this.defaultRoles[role]]));
+      return Object.fromEntries(ROLES.map(role => [role, this.roles[role] ?? this.defaultRoles[role]]));
     },
 
     suggestedColors() {
@@ -239,41 +239,56 @@ let paletteAppSpec = {
       }
     },
 
-    seedColorObjectsRaw() {
-      return this.seedColors.map(color => {
-        if (!color) {
-          return null;
-        }
-
-        try {
-          return Color.get(color);
-        } catch (e) {
-          return null;
-        }
-      });
+    seedColorValues() {
+      return this.seedColors.map(c => c.value);
     },
 
-    seedColorObjectsTweaked() {
-      return this.seedColorInfo.map((info, i) => {
-        if (!info) {
-          return null;
-        }
-
-        let color = this.seedColorObjectsRaw[i];
-        let { hue, level } = info;
-
-        return tweakColor(hue, color, this.tweaks, this.tweaked);
-      });
+    seedColorObjectsRaw() {
+      return this.seedColors.map(c => c.colorRaw);
     },
 
     seedColorObjects() {
-      return this.seedColorObjectsRaw.filter(Boolean);
+      return this.seedColors.map(c => c.color).filter(Boolean);
     },
 
     seedColorInfo() {
-      return this.seedColorObjectsRaw.map(colorObject =>
-        colorObject ? identifyColor(colorObject, this.seedColorObjects) : null,
-      );
+      return this.seedColors.map(({ hue, level }) => ({ hue, level }));
+      // return this.seedColorObjectsRaw.map(colorObject =>
+      //   colorObject ? identifyColor(colorObject, this.seedColorObjects) : null,
+      // );
+    },
+
+    /**
+     * Map hue + level to index in seedColors
+     */
+    colorToIndex() {
+      let ret = {};
+
+      for (let hue of [...hues, 'gray']) {
+        ret[hue] = {};
+      }
+
+      if (this.seedColorObjects.length === 0) {
+        return ret;
+      }
+
+      for (let i = 0; i < this.seedColors.length; i++) {
+        let { hue, level } = this.seedColors[i];
+
+        if (!hue || !level) {
+          continue;
+        }
+
+        ret[hue][level] = i;
+      }
+
+      for (let hue in this.coreLevels) {
+        if (ret[hue]) {
+          ret[hue].core = ret[hue][this.coreLevels[hue]];
+        }
+      }
+
+      return ret;
     },
 
     hueRoles() {
@@ -310,13 +325,12 @@ let paletteAppSpec = {
       }
 
       for (let i = 0; i < this.seedColors.length; i++) {
-        let colorInfo = this.seedColorInfo[i];
-        let color = this.seedColorObjects[i];
-        if (!colorInfo) {
+        let seed = this.seedColors[i];
+        let { hue, level, color } = seed;
+
+        if (!hue) {
           continue;
         }
-
-        let { hue, level } = colorInfo;
 
         if (!ret[hue]) {
           // First color of this hue
@@ -386,7 +400,7 @@ let paletteAppSpec = {
     },
 
     baseColors() {
-      if (this.seedColors.length === 0) {
+      if (this.seedColorObjects.length === 0) {
         return this.originalColors;
       }
 
@@ -642,10 +656,11 @@ let paletteAppSpec = {
       this.permalink.set('gray-chroma', this.grayChroma, this.originalGrayChroma);
     },
 
-    seedColors: {
+    seedColorValues: {
       deep: true,
       handler() {
-        this.permalink.set('color', this.seedColors);
+        this.permalink.set('color', this.seedColorValues);
+
         this.permalink.updateLocation();
 
         if (this.saved || this.isCustom) {
@@ -701,6 +716,11 @@ let paletteAppSpec = {
     capitalize,
     slugify,
 
+    log(...args) {
+      console.log(...args);
+      return args[0];
+    },
+
     /**
      * Testing method. Import all core colors from a given palette.
      * @param {string} paletteId
@@ -712,7 +732,7 @@ let paletteAppSpec = {
         if (hue !== 'gray') {
           let coreTint = allPalettes[paletteId].colors[hue].maxChromaTint;
           let coreColor = allPalettes[paletteId].colors[hue][coreTint];
-          this.seedColors.push(coreColor);
+          this.addColor(coreColor);
         }
       }
     },
@@ -797,7 +817,7 @@ let paletteAppSpec = {
     setRoleColor(role, hue) {
       if (!this.seedHues[hue] && hue !== 'gray') {
         // We're also adding it
-        this.seedColors.push(this.coreColors[hue] + '');
+        this.addColor(this.coreColors[hue]);
       }
 
       this.roles[role] = hue;
@@ -817,6 +837,86 @@ let paletteAppSpec = {
           this.roles[role] = hue;
         } else if (this.roles[role] === hue) {
           this.roles[role] = undefined;
+        }
+      }
+    },
+
+    addColor(value = this.seedColorSamples.shift() ?? '') {
+      value = typeof value === 'string' || value?.constructor.name === 'Color' ? { value } : value;
+      value.uid ??= this.maxSeedUid++;
+      this.seedColors.push(value);
+    },
+
+    getColor(ref) {
+      let color, index;
+
+      if (this.isCustom) {
+        if (ref?.hue) {
+          let { hue, level } = ref;
+          color = this.colors[hue][level];
+          index = this.colorToIndex[hue][level];
+        } else if (ref > 0) {
+          index = ref;
+          color = this.seedColors[index]?.color;
+        }
+      } else {
+        let { hue, level } = ref;
+        color = this.baseColors[hue][level];
+      }
+
+      return { color, index };
+    },
+
+    tweak(type, ref, value) {
+      let { color, index } = this.getColor(ref);
+
+      if (color === undefined) {
+        return;
+      }
+
+      if (type === 'hueShift') {
+        if (this.isCustom) {
+          if (index === undefined) {
+            return;
+          }
+
+          if (value === undefined) {
+            return color.get('oklch.h');
+          } else {
+            // console.log(`About to set h of ${color} to ${value}`);
+            color.set('oklch.h', value);
+          }
+        } else {
+          let { hue, level } = ref;
+          let color = this.baseColors[hue][level];
+          let h = color.get('oklch.h');
+
+          if (value === undefined) {
+            // Get
+            return h + this.hueShifts[hue];
+          } else {
+            // Set
+            let { hue } = ref;
+            this.hueShifts[hue] = value - h;
+          }
+        }
+      }
+    },
+
+    tweakDefault(type, ref) {
+      if (type === 'hueShift') {
+        if (this.isCustom) {
+          let { index } = this.getColor(ref);
+
+          if (index === undefined || !this.seedColors[index]) {
+            return;
+          }
+
+          let { inputColor } = this.seedColors[index];
+
+          return inputColor?.get('oklch.h');
+        } else {
+          return 0;
         }
       }
     },

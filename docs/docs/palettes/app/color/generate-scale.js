@@ -25,12 +25,20 @@ export function generateScale(seedColors) {
   let coreColor = seedColors[coreLevel];
   let coreChroma = coreColor.get('oklch.c');
 
-  let scale = {
-    maxChromaTint: coreLevel,
-    maxChromaTintRaw: coreLevel,
-    maxChroma: coreChroma,
-    maxChromaRaw: coreChroma,
-  };
+  let scale = {};
+
+  Object.defineProperties(scale, {
+    maxChromaTint: { value: coreLevel, enumerable: false, configurable: true },
+    maxChromaTintRaw: { value: coreLevel, enumerable: false, configurable: true },
+    maxChroma: { value: coreChroma, enumerable: false, configurable: true },
+    maxChromaRaw: { value: coreChroma, enumerable: false, configurable: true },
+    core: {
+      get() {
+        return this[this.maxChromaTint];
+      },
+      enumerable: false,
+    },
+  });
 
   // First, add pinned colors
   for (let tint in seedColors) {
