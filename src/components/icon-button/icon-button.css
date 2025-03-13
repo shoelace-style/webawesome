@@ -1,7 +1,7 @@
 :host {
   --background-color-hover: var(--wa-color-neutral-fill-quiet);
   --text-color-hover: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
-  --background-color-active: ;
+  --background-color-active: transparent;
   --text-color-active: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
 
   display: inline-block;
