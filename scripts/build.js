@@ -356,6 +356,7 @@ if (isDeveloping) {
               server: {
                 head: "",
                 loginOrAvatar: "",
+                flashes: "",
               }
             })
             _write.call(res, transformedStr, encoding)

@@ -77,6 +77,7 @@
         </aside>
       {% endif %}
 
+
       {# Main #}
       <main id="content">
         {# Expandable outline #}
@@ -87,6 +88,8 @@
           </details>
         </nav>
         {% endif %}
+
+        <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
           {% include 'breadcrumbs.njk' %}
