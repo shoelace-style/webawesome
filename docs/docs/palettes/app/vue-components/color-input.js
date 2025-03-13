@@ -193,7 +193,7 @@ export default {
       :style="{'--color': value, '--color-original': inputValue}">
       <div slot="image" :style="{ colorScheme: level <= 60 ? 'dark' : 'light'}">
         <div class="original-color" v-if="tweaked">
-          <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
+          <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
         </div>
         <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
         <div class="name">{{ capitalize(hue) || 'New color' }} {{ level }}</div>
