@@ -16,9 +16,6 @@
   --wa-color-success-05: var(--wa-color-gray-05);
   --wa-color-success: var(--wa-color-gray);
 
-  --wa-color-success-lt-40: var(--wa-color-gray-lt-40);
-  --wa-color-success-gte-40: var(--wa-color-gray-gte-40);
-
   --wa-color-success-lt-50: var(--wa-color-gray-lt-50);
   --wa-color-success-gte-50: var(--wa-color-gray-gte-50);
 
@@ -28,11 +25,6 @@
   --wa-color-success-lt-70: var(--wa-color-gray-lt-70);
   --wa-color-success-gte-70: var(--wa-color-gray-gte-70);
 
-  --wa-color-success-lt-80: var(--wa-color-gray-lt-80);
-  --wa-color-success-gte-80: var(--wa-color-gray-gte-80);
-
-  --wa-color-success-max-40: var(--wa-color-gray-max-40);
-  --wa-color-success-min-40: var(--wa-color-gray-min-40);
   --wa-color-success-max-50: var(--wa-color-gray-max-50);
   --wa-color-success-min-50: var(--wa-color-gray-min-50);
   --wa-color-success-max-60: var(--wa-color-gray-max-60);

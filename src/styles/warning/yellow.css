@@ -16,9 +16,6 @@
   --wa-color-warning-05: var(--wa-color-yellow-05);
   --wa-color-warning: var(--wa-color-yellow);
 
-  --wa-color-warning-lt-40: var(--wa-color-yellow-lt-40);
-  --wa-color-warning-gte-40: var(--wa-color-yellow-gte-40);
-
   --wa-color-warning-lt-50: var(--wa-color-yellow-lt-50);
   --wa-color-warning-gte-50: var(--wa-color-yellow-gte-50);
 
@@ -28,11 +25,6 @@
   --wa-color-warning-lt-70: var(--wa-color-yellow-lt-70);
   --wa-color-warning-gte-70: var(--wa-color-yellow-gte-70);
 
-  --wa-color-warning-lt-80: var(--wa-color-yellow-lt-80);
-  --wa-color-warning-gte-80: var(--wa-color-yellow-gte-80);
-
-  --wa-color-warning-max-40: var(--wa-color-yellow-max-40);
-  --wa-color-warning-min-40: var(--wa-color-yellow-min-40);
   --wa-color-warning-max-50: var(--wa-color-yellow-max-50);
   --wa-color-warning-min-50: var(--wa-color-yellow-min-50);
   --wa-color-warning-max-60: var(--wa-color-yellow-max-60);
