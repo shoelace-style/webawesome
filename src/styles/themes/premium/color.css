@@ -140,7 +140,7 @@
   --wa-color-neutral-border-quiet: var(--wa-color-neutral-30);
   --wa-color-neutral-border-normal: var(--wa-color-neutral-40);
   --wa-color-neutral-border-loud: var(--wa-color-neutral-70);
-  --wa-color-neutral-on-quiet: var(--wa-color-neutral-70);
+  --wa-color-neutral-on-quiet: var(--wa-color-neutral-80);
   --wa-color-neutral-on-normal: var(--wa-color-neutral-90);
-  --wa-color-neutral-on-loud: var(--wa-color-neutral-20);
+  --wa-color-neutral-on-loud: var(--wa-color-neutral-10);
 }
