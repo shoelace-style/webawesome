@@ -4,10 +4,16 @@
   --max-width: 30ch;
   --padding: var(--wa-space-2xs) var(--wa-space-xs);
 
+  /** These styles are added so we don't interfere in the DOM. */
   display: inline-block;
   position: absolute;
 
-  /** These styles are added so we dont interfere in the DOM. */
+  /** Defaults for inherited CSS properties */
+  color: var(--wa-tooltip-content-color);
+  font-size: var(--wa-tooltip-font-size);
+  line-height: var(--wa-tooltip-line-height);
+  text-align: start;
+  white-space: normal;
 }
 
 .tooltip {
@@ -41,12 +47,6 @@
   max-width: var(--max-width);
   border-radius: var(--border-radius);
   background-color: var(--background-color);
-  font: inherit;
-  color: var(--wa-tooltip-content-color);
-  font-size: var(--wa-tooltip-font-size);
-  line-height: var(--wa-tooltip-line-height);
-  text-align: start;
-  white-space: normal;
   padding: var(--padding);
   user-select: none;
   -webkit-user-select: none;

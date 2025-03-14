@@ -1,6 +1,10 @@
 @import url('../../color/vogue.css');
 @import url('../default/color.css');
 @import url('../../brand/indigo.css');
+@import url('../../success/green.css');
+@import url('../../warning/yellow.css');
+@import url('../../danger/red.css');
+@import url('../../neutral/gray.css');
 
 :where(:root),
 :host,
@@ -16,8 +20,8 @@
 
   --wa-color-focus: var(--wa-color-brand-50);
 
-  --wa-color-mix-hover: var(--wa-color-gray-80) 20%;
-  --wa-color-mix-active: var(--wa-color-gray-80) 10%;
+  --wa-color-mix-hover: var(--wa-color-neutral-80) 20%;
+  --wa-color-mix-active: var(--wa-color-neutral-80) 10%;
 
   /**
    * Semantic Colors
@@ -32,44 +36,44 @@
   --wa-color-brand-on-normal: var(--wa-color-brand-30);
   --wa-color-brand-on-loud: white;
 
-  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-95) 85%, transparent);
-  --wa-color-success-fill-normal: var(--wa-color-green-90);
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
-  --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-green-80), transparent);
-  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-70) 60%, transparent);
-  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-green-60) 70%, transparent);
-  --wa-color-success-on-quiet: var(--wa-color-green-40);
-  --wa-color-success-on-normal: var(--wa-color-green-30);
+  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-success-95) 85%, transparent);
+  --wa-color-success-fill-normal: var(--wa-color-success-90);
+  --wa-color-success-fill-loud: var(--wa-color-success-50);
+  --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-success-80), transparent);
+  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-success-70) 60%, transparent);
+  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-success-60) 70%, transparent);
+  --wa-color-success-on-quiet: var(--wa-color-success-40);
+  --wa-color-success-on-normal: var(--wa-color-success-30);
   --wa-color-success-on-loud: white;
 
-  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-yellow-95) 85%, transparent);
-  --wa-color-warning-fill-normal: var(--wa-color-yellow-90);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
-  --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-yellow-80), transparent);
-  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-70) 60%, transparent);
-  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-yellow-60) 70%, transparent);
-  --wa-color-warning-on-quiet: var(--wa-color-yellow-40);
-  --wa-color-warning-on-normal: var(--wa-color-yellow-30);
+  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-warning-95) 85%, transparent);
+  --wa-color-warning-fill-normal: var(--wa-color-warning-90);
+  --wa-color-warning-fill-loud: var(--wa-color-warning-50);
+  --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-warning-80), transparent);
+  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-warning-70) 60%, transparent);
+  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-warning-60) 70%, transparent);
+  --wa-color-warning-on-quiet: var(--wa-color-warning-40);
+  --wa-color-warning-on-normal: var(--wa-color-warning-30);
   --wa-color-warning-on-loud: white;
 
-  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-red-95) 85%, transparent);
-  --wa-color-danger-fill-normal: var(--wa-color-red-90);
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
-  --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-red-80), transparent);
-  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-70) 60%, transparent);
-  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-red-60) 70%, transparent);
-  --wa-color-danger-on-quiet: var(--wa-color-red-40);
-  --wa-color-danger-on-normal: var(--wa-color-red-30);
+  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-danger-95) 85%, transparent);
+  --wa-color-danger-fill-normal: var(--wa-color-danger-90);
+  --wa-color-danger-fill-loud: var(--wa-color-danger-50);
+  --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-danger-80), transparent);
+  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-danger-70) 60%, transparent);
+  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-danger-60) 70%, transparent);
+  --wa-color-danger-on-quiet: var(--wa-color-danger-40);
+  --wa-color-danger-on-normal: var(--wa-color-danger-30);
   --wa-color-danger-on-loud: white;
 
-  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-gray-95) 85%, transparent);
-  --wa-color-neutral-fill-normal: var(--wa-color-gray-90);
-  --wa-color-neutral-fill-loud: var(--wa-color-gray-10);
-  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-80), transparent);
-  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-gray-70) 60%, transparent);
-  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-gray-60) 70%, transparent);
-  --wa-color-neutral-on-quiet: var(--wa-color-gray-30);
-  --wa-color-neutral-on-normal: var(--wa-color-gray-30);
+  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-neutral-95) 85%, transparent);
+  --wa-color-neutral-fill-normal: var(--wa-color-neutral-90);
+  --wa-color-neutral-fill-loud: var(--wa-color-neutral-10);
+  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-neutral-80), transparent);
+  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-neutral-70) 60%, transparent);
+  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-neutral-60) 70%, transparent);
+  --wa-color-neutral-on-quiet: var(--wa-color-neutral-30);
+  --wa-color-neutral-on-normal: var(--wa-color-neutral-30);
   --wa-color-neutral-on-loud: white;
 
   /**
@@ -88,15 +92,15 @@
   --wa-color-surface-border: rgb(255 255 255 / 0.1);
 
   --wa-color-text-normal: white;
-  --wa-color-text-quiet: var(--wa-color-gray-60);
+  --wa-color-text-quiet: var(--wa-color-neutral-60);
   --wa-color-text-link: var(--wa-color-brand-70);
 
   --wa-color-shadow: rgb(0 0 0 / 0.2);
 
   --wa-color-focus: var(--wa-color-brand-60);
 
-  --wa-color-mix-hover: var(--wa-color-gray-70) 20%;
-  --wa-color-mix-active: var(--wa-color-gray-70) 10%;
+  --wa-color-mix-hover: var(--wa-color-neutral-70) 20%;
+  --wa-color-mix-active: var(--wa-color-neutral-70) 10%;
 
   /**
    * Semantic Colors
@@ -107,47 +111,47 @@
   --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-brand-20), transparent);
   --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-brand-30), transparent);
   --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-brand-40), transparent);
-  --wa-color-brand-on-quiet: var(--wa-color-brand-60);
-  --wa-color-brand-on-normal: var(--wa-color-brand-70);
+  --wa-color-brand-on-quiet: var(--wa-color-brand-min-60);
+  --wa-color-brand-on-normal: var(--wa-color-brand-min-70);
   --wa-color-brand-on-loud: white;
 
-  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-green-10) 90%, transparent);
-  --wa-color-success-fill-normal: var(--wa-color-green-20);
-  --wa-color-success-fill-loud: var(--wa-color-green-50);
-  --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-green-20), transparent);
-  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-green-30) 60%, transparent);
-  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-green-40) 70%, transparent);
-  --wa-color-success-on-quiet: var(--wa-color-green-60);
-  --wa-color-success-on-normal: var(--wa-color-green-70);
+  --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-success-10) 90%, transparent);
+  --wa-color-success-fill-normal: var(--wa-color-success-20);
+  --wa-color-success-fill-loud: var(--wa-color-success-50);
+  --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-success-20), transparent);
+  --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-success-30) 60%, transparent);
+  --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-success-40) 70%, transparent);
+  --wa-color-success-on-quiet: var(--wa-color-success-min-60);
+  --wa-color-success-on-normal: var(--wa-color-success-min-70);
   --wa-color-success-on-loud: white;
 
-  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-yellow-10) 90%, transparent);
-  --wa-color-warning-fill-normal: var(--wa-color-yellow-20);
-  --wa-color-warning-fill-loud: var(--wa-color-yellow-50);
-  --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-yellow-20), transparent);
-  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-yellow-30) 60%, transparent);
-  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-yellow-40) 70%, transparent);
-  --wa-color-warning-on-quiet: var(--wa-color-yellow-60);
-  --wa-color-warning-on-normal: var(--wa-color-yellow-70);
+  --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-warning-10) 90%, transparent);
+  --wa-color-warning-fill-normal: var(--wa-color-warning-20);
+  --wa-color-warning-fill-loud: var(--wa-color-warning-50);
+  --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-warning-20), transparent);
+  --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-warning-30) 60%, transparent);
+  --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-warning-40) 70%, transparent);
+  --wa-color-warning-on-quiet: var(--wa-color-warning-min-60);
+  --wa-color-warning-on-normal: var(--wa-color-warning-min-70);
   --wa-color-warning-on-loud: white;
 
-  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-red-10) 90%, transparent);
-  --wa-color-danger-fill-normal: var(--wa-color-red-20);
-  --wa-color-danger-fill-loud: var(--wa-color-red-50);
-  --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-red-20), transparent);
-  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-red-30) 60%, transparent);
-  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-red-40) 70%, transparent);
-  --wa-color-danger-on-quiet: var(--wa-color-red-60);
-  --wa-color-danger-on-normal: var(--wa-color-red-70);
+  --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-danger-10) 90%, transparent);
+  --wa-color-danger-fill-normal: var(--wa-color-danger-20);
+  --wa-color-danger-fill-loud: var(--wa-color-danger-50);
+  --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-danger-20), transparent);
+  --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-danger-30) 60%, transparent);
+  --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-danger-40) 70%, transparent);
+  --wa-color-danger-on-quiet: var(--wa-color-danger-min-60);
+  --wa-color-danger-on-normal: var(--wa-color-danger-min-70);
   --wa-color-danger-on-loud: white;
 
-  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-gray-10) 90%, transparent);
-  --wa-color-neutral-fill-normal: var(--wa-color-gray-20);
+  --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-neutral-10) 90%, transparent);
+  --wa-color-neutral-fill-normal: var(--wa-color-neutral-20);
   --wa-color-neutral-fill-loud: white;
-  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-20), transparent);
-  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-gray-30) 60%, transparent);
-  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-gray-40) 70%, transparent);
-  --wa-color-neutral-on-quiet: var(--wa-color-gray-60);
-  --wa-color-neutral-on-normal: var(--wa-color-gray-70);
-  --wa-color-neutral-on-loud: var(--wa-color-gray-10);
+  --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-neutral-20), transparent);
+  --wa-color-neutral-border-normal: color-mix(in oklab, var(--wa-color-neutral-30) 60%, transparent);
+  --wa-color-neutral-border-loud: color-mix(in oklab, var(--wa-color-neutral-40) 70%, transparent);
+  --wa-color-neutral-on-quiet: var(--wa-color-neutral-60);
+  --wa-color-neutral-on-normal: var(--wa-color-neutral-70);
+  --wa-color-neutral-on-loud: var(--wa-color-neutral-10);
 }

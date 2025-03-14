@@ -9,10 +9,10 @@
 
 :host {
   /* Components are meant to override these */
-  --size-xs: var(--wa-space-xs);
-  --size-s: var(--wa-space-s);
-  --size-m: var(--wa-space-m);
-  --size-l: var(--wa-space-l);
+  --size-xs: var(--wa-font-size-xs);
+  --size-s: var(--wa-font-size-s);
+  --size-m: var(--wa-font-size-m);
+  --size-l: var(--wa-font-size-l);
 
   --space-xs: var(--wa-space-xs);
   --space-s: var(--wa-space-s);

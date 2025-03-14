@@ -42,6 +42,14 @@ wa-code-demo::part(preview) {
 <wa-input label="WA Input (url)" type="url"></wa-input>
 ```
 
+## Pill shaped text fields
+
+Add the `wa-pill` class to an `<input>` to make it pill-shaped.
+
+```html {.example}
+<label>Input <input type="text" placeholder="placeholder" class="wa-pill"></label>
+```
+
 ## Color Picker
 
 Basic:

@@ -24,15 +24,22 @@ for (let paletteId in palettes) {
   palettes[paletteId] = tokens;
 
   for (let hue in tokens) {
-    let tints = Object.assign({}, tokens[hue]);
-    tokens[hue] = tints;
+    let scale = Object.assign({}, tokens[hue]);
+    tokens[hue] = scale;
 
-    let maxChromaTint = DEFAULT_ACCENT;
-    let maxChroma = tints[DEFAULT_ACCENT].c || 0;
+    let maxChromaTint = DEFAULT_ACCENT; // TODO handle scale.core
+    let maxChroma = scale.core?.get('oklch.c') ?? (scale[DEFAULT_ACCENT].c || 0);
 
-    for (let tint in tints) {
-      let color = tints[tint].to('oklch');
-      tints[tint] = color;
+    for (let tint in scale) {
+      let color = scale[tint];
+
+      if (!color || color.constructor.name !== 'Color') {
+        // Not a color
+        continue;
+      }
+
+      color = color.to('oklch');
+      scale[tint] = color;
 
       if (tint === '05') {
         // The object has both '5' and '05' keys, but '05' is out of order
@@ -47,14 +54,14 @@ for (let paletteId in palettes) {
       }
     }
 
-    tints['05'] = tints['5'];
+    scale['05'] = scale['5'];
 
-    tints.maxChroma = tints.maxChromaRaw = maxChroma;
-    tints.maxChromaTint = tints.maxChromaTintRaw = maxChromaTint;
+    scale.maxChroma = scale.maxChromaRaw = maxChroma;
+    scale.maxChromaTint = scale.maxChromaTintRaw = maxChromaTint;
 
     if (maxChromaTint < MIN_ACCENT || maxChromaTint > MAX_ACCENT) {
-      tints.maxChromaTint = clamp(MIN_ACCENT, maxChromaTint, MAX_ACCENT);
-      tints.maxChroma = tints[maxChromaTint].c;
+      scale.maxChromaTint = clamp(MIN_ACCENT, maxChromaTint, MAX_ACCENT);
+      scale.maxChroma = scale[maxChromaTint].c;
     }
   }
 }
