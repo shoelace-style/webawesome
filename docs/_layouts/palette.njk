@@ -129,7 +129,8 @@
         <wa-icon v-if="isCustom && !seedHues[hue]" name="sparkles" style="color: var(--wa-color-gray-50)"></wa-icon>
       </th>
       <td class="core-column" :style="{'--original-color': `var(--wa-color-${ hue })`, '--color': colors[hue][coreLevels[hue]]}">
-        <wa-dropdown>
+        <color-popup :token="`--wa-color-${ hue }`" :color="colors[hue].core">
+          <template #trigger>
           <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{
               '--color-base': colorsMinusCurrentTweak[hue][coreLevels[hue]],
               colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'
@@ -137,7 +138,7 @@
             <span v-content="coreLevels[hue]">{{ coreLevels[hue] }}</span>
             <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
           </div>
-          <div class="popup">
+          </template>
             <template v-if="hue === 'gray'">
               <wa-radio-group class="core-color" orientation="horizontal" :value="computedGrayColor" @input="grayColor = $event.target.value">
                 <template v-for="h in hues">
@@ -181,12 +182,8 @@
                 :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
                 ></color-slider>
             </template>
-            <div class="wa-gap-s">
-                <code>--wa-color-{{ hue }}</code>
-                <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
-              </div>
-            </div>
-        </wa-dropdown>
+
+        </color-popup>
       </td>
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
         <div class="color swatch" :style="{

@@ -81,8 +81,18 @@ wa-dropdown > .color.swatch {
   padding: var(--wa-space-xl);
   border-radius: var(--wa-border-radius-m);
 
-  code {
-    white-space: nowrap;
+  .copyable-code {
+    display: flex;
+    gap: var(--wa-space-xs);
+    align-items: center;
+
+    code {
+      flex: 1;
+      max-width: 20ch;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import allPalettes from './color/palettes.js';
 import { tweakColor, tweakPalette } from './color/tweak.js';
 import { getContrasts, identifyColor } from './color/util.js';
 import ColorInput from './vue-components/color-input.js';
+import ColorPopup from './vue-components/color-popup.js';
 import ColorSelect from './vue-components/color-select.js';
 import ColorSlider from './vue-components/color-slider.js';
 import Prism from '/assets/scripts/prism.js';
@@ -900,6 +901,7 @@ let paletteAppSpec = {
   },
 
   components: {
+    ColorPopup,
     ColorInput,
     ColorSelect,
     ColorSlider,
