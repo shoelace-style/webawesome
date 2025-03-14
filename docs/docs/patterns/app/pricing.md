@@ -6,162 +6,130 @@ tags: app
 ---
 
 ```html{.example}
-<div class="pricing">
-  <wa-card with-footer class="plan">
-    <div class="card-body">
-      <div class="plan-title">Basic Plan</div>
-      <span class="plan-price">
-        <span style="font-size: xxx-large; font-weight: 800;letter-spacing: -2.5px;">$10</span>
-        <span style="margin-left: 0.5rem;">
-          <p style="margin-bottom: 0;">per user</p>
-          <p style="margin-bottom: 0;">per month</p>
-        </span>
+<div class="wa-grid">
+  <wa-card with-header>
+    <div slot="header">
+      <span class="wa-split">
+        <span class="wa-heading-s">Plan</span>
+        <wa-badge appearance="filled outlined" variant="success" pill>Most Popular</wa-badge>
       </span>
-      <p>Basic features for up to 10 users.</p>
-      <wa-button style="width: 100%; margin-bottom: 1rem;">Get Started</wa-button>
-      <wa-button style="width: 100%; margin-bottom: 1rem;" appearance="outlined">Talk to sales</wa-button>
+      <span class="wa-flank wa-gap-2xs">
+        <span class="wa-heading-2xl">$10</span>
+        <span class="wa-caption-l">per user/per month</span>
+      </span>
+      <p class="wa-caption-l">Basic Features</p>
+      <span class="wa-grid">
+        <wa-button>Get Started</wa-button>
+      <wa-button appearance="outlined">Talk to sales</wa-button>
+      </span>
     </div>
-      <div slot="footer" class="features">
-        <span class="list-title">Features</span>
-        <p style="margin-bottom: var(--wa-space-s);">Everything in our free plans plus...</p>
-        <ul>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Access to basic features
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic Reporting and analytics
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Up to 10 individual users
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            20GB Individual data each user
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic chat and email support
-          </li>
-        </ul>
+    <div class="wa-stack">
+      <p class="wa-heading-s">Features</p>
+      <p class="wa-caption-m">Everything in out free plan plus</p>
+      <div class="wa-stack">
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Access to basic features</span>  
+        </div>
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Basic Reporting and Analytics</span>  
+        </div>
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">10 Individual users</span>  
+        </div>
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">20GB of data for user</span>  
+        </div>
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Basic Chat and email</span>  
+        </div>
       </div>
+    </div>
   </wa-card>
-  <wa-card with-footer class="plan">
-    <div class="card-body">
-      <div class="plan-title" style="display: flex; justify-content: space-between;">Business Plan <wa-badge variant="success" pill>Most Popular</wa-badge></div>
-      <span class="plan-price">
-        <span style="font-size: xxx-large; font-weight: 800;"letter-spacing: -2.5px;>$20</span>
-        <span style="margin-left: 0.5rem;">
-          <p style="margin-bottom: 0;">per user</p>
-          <p style="margin-bottom: 0;">per month</p>
-        </span>
+  <wa-card with-header>
+    <div slot="header">
+      <span class="wa-split">
+        <span class="wa-heading-s">Plan</span>
+        <wa-badge appearance="filled outlined" variant="success" pill>Most Popular</wa-badge>
       </span>
-      <p>Growing teams up to 20 users.</p>
-      <wa-button style="width: 100%; margin-bottom: 1rem;">Get Started</wa-button>
-      <wa-button style="width: 100%; margin-bottom: 1rem;" appearance="outlined">Talk to sales</wa-button>
+      <span class="wa-flank wa-gap-2xs">
+        <span class="wa-heading-2xl">$10</span>
+        <span class="wa-caption-l">per user/per month</span>
+      </span>
+      <p class="wa-caption-l">Basic Features</p>
+      <span class="wa-grid">
+        <wa-button>Get Started</wa-button>
+      <wa-button appearance="outlined">Talk to sales</wa-button>
+      </span>
     </div>
-      <div slot="footer" class="features">
-        <span class="list-title">Features</span>
-        <p style="margin-bottom: var(--wa-space-s);">Everything in Basic plus...</p>
-        <ul>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            200+ integrations
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic Reporting and analytics
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Up to 10 individual users
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            20GB Individual data each user
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic chat and email support
-          </li>
-        </ul>
+    <div class="wa-stack wa-gap-2xs">
+      <p class="wa-heading-s">Features</p>
+      <p class="wa-caption-m">Everything in out free plan plus</p>
+      <div class="wa-stack">
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Access to basic features</span>  
+        </div>
       </div>
+    </div>
   </wa-card>
-  <wa-card with-footer class="plan">
-    <div class="card-body">
-      <div class="plan-title">Basic Plan</div>
-      <span class="plan-price">
-        <span style="font-size: xxx-large; font-weight: 800;"letter-spacing: -2.5px;>$40</span>
-        <span style="margin-left: 0.5rem;">
-          <p style="margin-bottom: 0;">per user</p>
-          <p style="margin-bottom: 0;">per month</p>
-        </span>
+  <wa-card with-header>
+    <div slot="header">
+      <span class="wa-split">
+        <span class="wa-heading-s">Plan</span>
+        <wa-badge appearance="filled outlined" variant="success" pill>Most Popular</wa-badge>
       </span>
-      <p>Basic features for up to 10 users.</p>
-      <wa-button style="width: 100%; margin-bottom: 1rem;">Get Started</wa-button>
-      <wa-button style="width: 100%; margin-bottom: 1rem;" appearance="outlined">Talk to sales</wa-button>
+      <span class="wa-flank wa-gap-2xs">
+        <span class="wa-heading-2xl">$10</span>
+        <span class="wa-caption-l">per user/per month</span>
+      </span>
+      <p class="wa-caption-l">Basic Features</p>
+      <span class="wa-grid">
+        <wa-button>Get Started</wa-button>
+      <wa-button appearance="outlined">Talk to sales</wa-button>
+      </span>
     </div>
-      <div slot="footer" class="features">
-        <span class="list-title">Features</span>
-        <p style="margin-bottom: var(--wa-space-s);">Everything in our free plans plus...</p>
-        <ul>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Access to basic features
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic Reporting and analytics
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Up to 10 individual users
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            20GB Individual data each user
-          </li>
-          <li>
-            <wa-icon name="circle-check" style="color: #63e6be; margin-right: .25rem;"></wa-icon>
-            Basic chat and email support
-          </li>
-        </ul>
+    <div class="wa-stack wa-gap-2xs">
+      <p class="wa-heading-s">Features</p>
+      <p class="wa-caption-m">Everything in out free plan plus</p>
+      <div class="wa-stack">
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Access to basic features</span>  
+        </div>
       </div>
+    </div>
   </wa-card>
 </div>
-<style>
-.pricing {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  .plan {
-  }
-  .plan-title {
-    font-weight: 600;
-  }
-  .plan-price {
-    display: flex;
-    align-items: center;
-  }
-  .features {
-    .list-title {
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    ul {
-      list-style: none;
-      margin-left: 0;
-      li {
-        margin-bottom: .5rem;
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-}
-</style>
+```
+```html{.example}
+<div class="wa-callout wa-neutral wa-outlined wa-grid">
+  <div class="wa-stack">
+    <h2 class="wa-heading-l">Lifetime membership</h2>
+    <p>Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis repellendus etur quidem assumenda.</p>
+    <wa-divider></wa-divider>
+    <h3 class="wa-heading-s">What's included</h3>
+    <div class="wa-grid">
+      <span class="wa-flank wa-gap-xs"><wa-icon name="check"></wa-icon><p class="wa-caption-m">Private forum access</p></span>
+      <span class="wa-flank wa-gap-xs"><wa-icon name="check"></wa-icon><p class="wa-caption-m">Entry to annual conference</p></span>
+      <span class="wa-flank wa-gap-xs"><wa-icon name="check"></wa-icon><p class="wa-caption-m">Member resources</p></span>
+      <span class="wa-flank wa-gap-xs"><wa-icon name="check"></wa-icon><p class="wa-caption-m">Official member t-shirt</p></span>
+    </div>
+  </div>
+  <div class="wa-callout wa-neutral wa-stack wa-align-items-center">
+    <h3 class="wa-heading-s">Pay once, own it forever</h3>
+    <div>
+      <span class="wa-heading-3xl">$349</span>
+      <span>USD</span>
+    </div>
+    <wa-button variant="success">Get Access</wa-button>
+    <p class="wa-caption-s">Invoices and receipts available for easy company reimbursement</p>
+  </div>
+</div>
 ```
 
 ### With templates
