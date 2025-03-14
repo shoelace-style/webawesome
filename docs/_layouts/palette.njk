@@ -45,7 +45,7 @@
         <wa-icon name="sidebar" variant="regular"></wa-icon>
         <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
       </span>
-      Save{% raw %}{{ unsavedChanges ? '' : 'd' }}{% endraw %}
+      <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
     </wa-button>
   </h1>
 

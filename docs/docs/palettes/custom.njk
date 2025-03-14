@@ -20,7 +20,7 @@ status: experimental
   </template>
   <wa-button class="add-button" appearance="outlined" @click="addColor()">
     <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
-    {% raw %}{{ step > 0 ? 'Add color' : 'New palette' }}{% endraw %}
+    <span v-content="step > 0 ? 'Add color' : 'New palette'">New palette</span>
   </wa-button>
 </div>
 
