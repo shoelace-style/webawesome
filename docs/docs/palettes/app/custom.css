@@ -1,6 +1,6 @@
 #seed-colors {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(21ch, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(22ch, 1fr));
   gap: var(--wa-space-m);
 
   > .add-button {
@@ -57,6 +57,8 @@
     wa-icon-button {
       color: light-dark(black, white);
       transition: opacity var(--wa-transition-slow);
+      --background-color-hover: oklab(from currentColor l a b / 15%);
+      --text-color-hover: currentColor;
     }
 
     .delete-button {
