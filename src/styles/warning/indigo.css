@@ -1,0 +1,36 @@
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+:where([class^='wa-palette-'], [class*=' wa-palette-']),
+.wa-warning-indigo {
+  --wa-color-warning-95: var(--wa-color-indigo-95);
+  --wa-color-warning-90: var(--wa-color-indigo-90);
+  --wa-color-warning-80: var(--wa-color-indigo-80);
+  --wa-color-warning-70: var(--wa-color-indigo-70);
+  --wa-color-warning-60: var(--wa-color-indigo-60);
+  --wa-color-warning-50: var(--wa-color-indigo-50);
+  --wa-color-warning-40: var(--wa-color-indigo-40);
+  --wa-color-warning-30: var(--wa-color-indigo-30);
+  --wa-color-warning-20: var(--wa-color-indigo-20);
+  --wa-color-warning-10: var(--wa-color-indigo-10);
+  --wa-color-warning-05: var(--wa-color-indigo-05);
+  --wa-color-warning: var(--wa-color-indigo);
+
+  --wa-color-warning-lt-50: var(--wa-color-indigo-lt-50);
+  --wa-color-warning-gte-50: var(--wa-color-indigo-gte-50);
+
+  --wa-color-warning-lt-60: var(--wa-color-indigo-lt-60);
+  --wa-color-warning-gte-60: var(--wa-color-indigo-gte-60);
+
+  --wa-color-warning-lt-70: var(--wa-color-indigo-lt-70);
+  --wa-color-warning-gte-70: var(--wa-color-indigo-gte-70);
+
+  --wa-color-warning-max-50: var(--wa-color-indigo-max-50);
+  --wa-color-warning-min-50: var(--wa-color-indigo-min-50);
+  --wa-color-warning-max-60: var(--wa-color-indigo-max-60);
+  --wa-color-warning-min-60: var(--wa-color-indigo-min-60);
+  --wa-color-warning-max-70: var(--wa-color-indigo-max-70);
+  --wa-color-warning-min-70: var(--wa-color-indigo-min-70);
+
+  --wa-color-warning-on: var(--wa-color-indigo-on);
+}

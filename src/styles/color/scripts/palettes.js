@@ -8,9 +8,11 @@ import fs from 'fs';
 import path from 'path';
 import { PALETTE_DIR } from './util.js';
 
-export const paletteFiles = fs.readdirSync(PALETTE_DIR + '/').filter(file => file.endsWith('.css'));
+export const paletteFiles = fs
+  .readdirSync(PALETTE_DIR + '/')
+  .filter(file => file.endsWith('.css') && !file.endsWith('base.css'));
 export const declarationRegex =
-  /^\s*--wa-color-(?<hue>[a-z]+)-(?<level>[0-9]+):\s*(?<color>.+?)\s*(\/\*.+?\*\/)?\s*;$/gm;
+  /^\s*--wa-color-(?<hue>[a-z]+)(?:-(?<level>[0-9]+|key))?:\s*(?<color>.+?)\s*(\/\*.+?\*\/)?\s*;$/gm;
 export const rawCSS = {};
 
 function parse(contents, file) {
@@ -24,8 +26,24 @@ function parse(contents, file) {
   const ret = {};
 
   for (let match of matches) {
-    let { hue, level, color } = match.groups;
+    let { hue, level = '', color } = match.groups;
     ret[hue] ??= {};
+    let scale = ret[hue];
+
+    if (level === 'key') {
+      scale.maxChromaTint = color;
+      continue;
+    }
+
+    if (!level) {
+      if (color.startsWith('var(')) {
+        // Core color aliased to another color, ignore
+        continue;
+      } else {
+        // Custom core color
+        level = 'core';
+      }
+    }
 
     // Attempt to convert color to Color object, fall back to string if this fails
     // This will happen for e.g. colors defined via color-mix()
@@ -38,13 +56,13 @@ function parse(contents, file) {
     if (level.startsWith('0')) {
       // Leading zeroes throw off sorting, add both properties
       // NOTE: Ideally one of the two would be added as non-enumerable, but then we cannot access it via 11ty data
-      ret[hue][level] = color;
+      scale[level] = color;
 
       // Drop leading zeroes
       level = level.replace(/^0+/, '');
     }
 
-    ret[hue][level] = color;
+    scale[level] = color;
   }
 
   return ret;

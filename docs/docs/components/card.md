@@ -19,13 +19,13 @@ icon: card
 
   <div slot="footer">
     <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
+    <wa-rating label="Rating"></wa-rating>
   </div>
 </wa-card>
 
 <style>
   .card-overview {
-    max-width: 300px;
+    width: 300px;
   }
 
   .card-overview small {
