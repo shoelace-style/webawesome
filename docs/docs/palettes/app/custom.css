@@ -6,7 +6,7 @@
   > .add-button {
     flex-flow: column wrap;
     height: auto;
-    min-height: 14ch;
+    min-height: 15ch;
     border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
     --border-color: var(--wa-color-surface-border);
     border-radius: var(--wa-panel-border-radius);
