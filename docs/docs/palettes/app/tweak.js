@@ -1,6 +1,7 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
-import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+// import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import generatePalette from './color/generate-palette.js';
 import getPaletteCode from './color/get-palette-code.js';
 import allPalettes from './color/palettes.js';
@@ -124,7 +125,7 @@ let paletteAppSpec = {
      */
     step() {
       if (this.isCustom) {
-        if (this.seedColorObjects.length > 0) {
+        if (this.isSeeded) {
           return 2;
         } else if (this.seedColors.length > 0) {
           return 1;
@@ -248,14 +249,15 @@ let paletteAppSpec = {
     },
 
     seedColorObjects() {
-      return this.seedColors.map(c => c.color).filter(Boolean);
+      return this.seedColors.map(c => c.color);
+    },
+
+    isSeeded() {
+      return this.seedColorObjectsRaw.filter(Boolean).length > 0;
     },
 
     seedColorInfo() {
       return this.seedColors.map(({ hue, level }) => ({ hue, level }));
-      // return this.seedColorObjectsRaw.map(colorObject =>
-      //   colorObject ? identifyColor(colorObject, this.seedColorObjects) : null,
-      // );
     },
 
     /**
@@ -268,7 +270,7 @@ let paletteAppSpec = {
         ret[hue] = {};
       }
 
-      if (this.seedColorObjects.length === 0) {
+      if (!this.isSeeded) {
         return ret;
       }
 
@@ -365,8 +367,12 @@ let paletteAppSpec = {
       return ret;
     },
 
+    paletteScalesList() {
+      return Object.keys(this.paletteScales);
+    },
+
     paletteScalesSet() {
-      return new Set(Object.keys(this.paletteScales));
+      return new Set(this.paletteScalesList);
     },
 
     tweaks() {
@@ -400,7 +406,7 @@ let paletteAppSpec = {
     },
 
     baseColors() {
-      if (this.seedColorObjects.length === 0) {
+      if (!this.isSeeded) {
         return this.originalColors;
       }
 
@@ -865,60 +871,6 @@ let paletteAppSpec = {
       }
 
       return { color, index };
-    },
-
-    tweak(type, ref, value) {
-      let { color, index } = this.getColor(ref);
-
-      if (color === undefined) {
-        return;
-      }
-
-      if (type === 'hueShift') {
-        if (this.isCustom) {
-          if (index === undefined) {
-            return;
-          }
-
-          if (value === undefined) {
-            return color.get('oklch.h');
-          } else {
-            // console.log(`About to set h of ${color} to ${value}`);
-            color.set('oklch.h', value);
-          }
-        } else {
-          let { hue, level } = ref;
-          let color = this.baseColors[hue][level];
-          let h = color.get('oklch.h');
-
-          if (value === undefined) {
-            // Get
-            return h + this.hueShifts[hue];
-          } else {
-            // Set
-            let { hue } = ref;
-            this.hueShifts[hue] = value - h;
-          }
-        }
-      }
-    },
-
-    tweakDefault(type, ref) {
-      if (type === 'hueShift') {
-        if (this.isCustom) {
-          let { index } = this.getColor(ref);
-
-          if (index === undefined || !this.seedColors[index]) {
-            return;
-          }
-
-          let { inputColor } = this.seedColors[index];
-
-          return inputColor?.get('oklch.h');
-        } else {
-          return 0;
-        }
-      }
     },
   },
 

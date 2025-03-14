@@ -1,5 +1,6 @@
 import Color from 'https://colorjs.io/dist/color.js';
-import { nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+// import { nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import { identifyColor, stringifyColor } from '../color/util.js';
 import { ROLES } from '/assets/scripts/tweak/data.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
@@ -49,6 +50,7 @@ export default {
       inputColor,
       editing: 0,
       inputFocused: false,
+      watching: {},
     };
   },
   computed: {
@@ -129,10 +131,9 @@ export default {
       this.editing++;
 
       let value = event.target.value;
-      // Editing the input manually also incorporates tweaks as part of the color itself
+      // Editing the input manually also incorporates any tweaks as part of the color itself
       // I.e. input color and color are now the same
-      this.valueRaw = this.modelValue.valueRaw = this.modelValue.inputValueRaw = this.inputValueRaw = value;
-      this.$emit('update:modelValue', this.modelValue);
+      this.valueRaw = this.inputValueRaw = value;
 
       nextTick().then(() => {
         if (this.colorRaw) {
@@ -147,12 +148,44 @@ export default {
       });
     },
 
+    mutateModelValue(mutator) {
+      if (this.watching.modelValue === null) {
+        // If we're not watching modelValue, it means we're reacting to a change to it
+        // so no point in updating it again
+        return;
+      }
+
+      if (this.watching.modelValue) {
+        this.watching.modelValue();
+        this.watching.modelValue = null;
+      }
+
+      mutator();
+
+      this.watching.modelValue = this.$watch('modelValue', {
+        deep: true,
+        handler() {
+          let computedValue = this.computedValue;
+          // What changed?
+
+          if (this.modelValue.value !== computedValue.value) {
+            this.valueRaw = this.modelValue.value;
+          }
+
+          if (this.modelValue.color + '' !== computedValue.color + '') {
+            this.color = this.modelValue.color;
+          }
+        },
+      });
+    },
+
     revert() {
       this.$emit('update:modelValue', this.inputValue);
       this.$emit('update:color', this.inputColor);
     },
   },
   watch: {
+    /** colorRaw -> color */
     colorRaw: {
       deep: true,
       handler() {
@@ -161,6 +194,7 @@ export default {
         }
       },
     },
+    /** inputColorRaw -> inputColor */
     inputColorRaw: {
       deep: true,
       handler() {
@@ -169,22 +203,25 @@ export default {
         }
       },
     },
+    /** color -> value, valueRaw, modelValue.value */
     color: {
       deep: true,
       handler() {
         if (this.tweaked && this.color) {
           // If tweaked, color is the source of truth
-          this.value = this.valueRaw = this.modelValue.value = this.color + '';
-          this.$emit('update:modelValue', this.modelValue);
+          this.value = this.valueRaw = this.color + '';
         }
       },
     },
+    /** computedValue -> modelValue */
     computedValue: {
       deep: true,
       immediate: true,
       handler() {
-        Object.assign(this.modelValue, this.computedValue);
-        this.$emit('update:modelValue', this.modelValue);
+        this.mutateModelValue(() => {
+          Object.assign(this.modelValue, this.computedValue);
+          this.$emit('update:modelValue', this.modelValue);
+        });
       },
     },
   },

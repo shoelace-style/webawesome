@@ -16,7 +16,7 @@
 <div id="palette-app" data-slug="{{ page.fileSlug }}" data-palette-id="{{ page.fileSlug }}">
   <div
   :class="{
-    seeded: seedColorObjects.length,
+    seeded: isSeeded,
     tweaking: tweaking.chromaScale,
     'tweaking-chroma': tweaking.chromaScale,
     'tweaking-hue': tweaking.chromaScale,
@@ -115,7 +115,7 @@
   </thead>
   {% raw %}
   <tbody v-cloak>
-    <tr v-for="hue in [...hues, 'gray']" v-show="hue === 'gray' || seedHues[hue] || !isCustom" :data-hue="hue"
+    <tr v-for="hue in paletteScalesList" :data-hue="hue" :key="hue"
         class="color-scale" :class="{
           tweaking: hue === 'gray' ? tweaking.grayChroma : tweaking.hue?.[hue],
           tweaked: hue === 'gray' ? tweaked.grayChroma || tweaked.grayColor : hueShifts[hue],
@@ -148,7 +148,7 @@
                   Gray undertone
                 </div>
               </wa-radio-group>
-              <color-slider class="gray-chroma-slider" type="percentage" :default-value="originalGrayChroma"
+              <color-slider class="gray-chroma-slider" type="scale" :default-value="originalGrayChroma"
               :model-value="computedGrayChroma"
               @update:model-value="grayChroma = $event"
               v-model:tweaking="tweaking.grayChroma"
@@ -157,16 +157,30 @@
               label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
               ></color-slider>
             </template>
-            <color-slider v-else class="hue-shift-slider"
-              :model-value="tweak('hueShift', {hue, level: 'core'})"
-              @update:model-value="tweak('hueShift', {hue, level: 'core'}, $event)"
-              :default-value="tweakDefault('hueShift', {hue, level: 'core'})"
+            <template v-else>
+            <color-slider v-if="isCustom && seedColors[colorToIndex[hue].core]"
+              v-model:color="seedColors[colorToIndex[hue].core].color"
+              :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
+
               v-model:tweaking="tweaking.hue[hue]"
+              class="hue-shift-slider"
+              color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-              :get-color="h => baseCoreColors[hue].clone().set('oklch.h', h)"
               :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
               ></color-slider>
 
+              <color-slider v-if="!isCustom && baseCoreColors[hue]"
+                type="shift"
+                v-model="hueShifts[hue]"
+                :default-color="baseCoreColors[hue]"
+
+                v-model:tweaking="tweaking.hue[hue]"
+                class="hue-shift-slider"
+                color-component="oklch.h"
+                :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
+                :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+                ></color-slider>
+            </template>
             <div class="wa-gap-s">
                 <code>--wa-color-{{ hue }}</code>
                 <wa-copy-button value="--wa-color-{{ hue }}" copy-label="--wa-color-{{ hue }}"></wa-copy-button>
@@ -190,7 +204,7 @@
 
 <color-slider
   class="chroma-scale-slider wa-palette-{{ paletteId }}" :class="{ tweaked: chromaScale !== 1 }"
-  type="percentage" :default-value="1"
+  type="scale" :default-value="1"
   v-model="chromaScale"
   v-model:tweaking="tweaking.chromaScale"
   :min="chromaScaleBounds.min" :max="chromaScaleBounds.max" :step="0.01"
