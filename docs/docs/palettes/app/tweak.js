@@ -480,7 +480,7 @@ let paletteAppSpec = {
     },
 
     contrasts() {
-      return getContrasts(this.colors, this.originalContrasts);
+      return getContrasts(this.paletteScales, this.originalContrasts);
     },
 
     baseCoreColors() {

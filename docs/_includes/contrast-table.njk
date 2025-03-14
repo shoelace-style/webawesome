@@ -12,7 +12,7 @@
     </tr>
   </thead>
 {% for hue in hues -%}
-<tr data-hue="{{ hue }}">
+<tr data-hue="{{ hue }}" v-if="'{{hue}}' in paletteScales">
   <th>{{ hue | capitalize }}</th>
   {% for tint_bg in tints -%}
     {% set color_bg = palettes[paletteId][hue][tint_bg] %}
