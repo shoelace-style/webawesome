@@ -101,12 +101,6 @@ wa-dropdown > .color.swatch {
     white-space: nowrap;
   }
 
-  .color.swatch {
-    &:is(.tweaking *) {
-      --color-top: var(--color-base);
-    }
-  }
-
   .tweak-icon {
     position: absolute;
     top: 50%;

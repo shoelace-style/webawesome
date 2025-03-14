@@ -419,22 +419,6 @@ let paletteAppSpec = {
       return tweakPalette.call(this, this.baseColors, this.tweaks, this.tweaked);
     },
 
-    colorsMinusCurrentTweak() {
-      if (!this.tweaked) {
-        return this.baseColors;
-      }
-
-      let tweaked = { ...this.tweaked };
-
-      for (let thing in this.tweaking) {
-        if (thing in tweaked && this.tweaking[thing]) {
-          tweaked[thing] = false;
-        }
-      }
-
-      return tweakPalette.call(this, this.baseColors, this.tweaks, tweaked);
-    },
-
     tweaked() {
       let anyHueTweaked = Object.values(this.hueShifts).some(Boolean);
       let hue = anyHueTweaked

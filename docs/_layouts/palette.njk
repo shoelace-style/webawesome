@@ -132,7 +132,6 @@
         <color-popup :token="`--wa-color-${ hue }`" :color="colors[hue].core">
           <template #trigger>
           <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{
-              '--color-base': colorsMinusCurrentTweak[hue][coreLevels[hue]],
               colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'
             }">
             <span v-content="coreLevels[hue]">{{ coreLevels[hue] }}</span>
@@ -187,7 +186,6 @@
       </td>
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
         <div class="color swatch" :style="{
-            '--color-base': colorsMinusCurrentTweak[hue][tint],
             colorScheme: tint > 60 ? 'light' : 'dark'
           }">
           <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedHues[hue]?.[tint]"></wa-icon>
