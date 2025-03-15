@@ -51,11 +51,11 @@
     </template>
   </h1>
 
-  <div class="block-info" v-if="saved || !isCustom || step > 0" v-cloak>
-    <code class="class">.wa-palette-<span v-content="slug">{{ page.fileSlug }}</span></code>
+  <div class="block-info" v-cloak>
+    <code class="class" v-if="saved || !isCustom || step > 0">.wa-palette-<span v-content="slug">{{ page.fileSlug }}</span></code>
     {% include '../_includes/status.njk' %}
     {% if not isPro %}
-    <wa-badge class="pro" v-if="tweaked">PRO</wa-badge>
+    <wa-badge class="pro" v-if="tweaked || isCustom">PRO</wa-badge>
     {% endif %}
   </div>
   {% if description %}
