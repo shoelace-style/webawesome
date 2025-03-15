@@ -1,5 +1,3 @@
-@import url('base.css');
-
 :where(:root),
 :host,
 :where([class^='wa-theme-'], [class*=' wa-theme-']),
@@ -17,5 +15,22 @@
   --wa-color-brand-10: var(--wa-color-pink-10);
   --wa-color-brand-05: var(--wa-color-pink-05);
   --wa-color-brand: var(--wa-color-pink);
-  --wa-color-brand-key: var(--wa-color-pink-key);
+
+  --wa-color-brand-lt-50: var(--wa-color-pink-lt-50);
+  --wa-color-brand-gte-50: var(--wa-color-pink-gte-50);
+
+  --wa-color-brand-lt-60: var(--wa-color-pink-lt-60);
+  --wa-color-brand-gte-60: var(--wa-color-pink-gte-60);
+
+  --wa-color-brand-lt-70: var(--wa-color-pink-lt-70);
+  --wa-color-brand-gte-70: var(--wa-color-pink-gte-70);
+
+  --wa-color-brand-max-50: var(--wa-color-pink-max-50);
+  --wa-color-brand-min-50: var(--wa-color-pink-min-50);
+  --wa-color-brand-max-60: var(--wa-color-pink-max-60);
+  --wa-color-brand-min-60: var(--wa-color-pink-min-60);
+  --wa-color-brand-max-70: var(--wa-color-pink-max-70);
+  --wa-color-brand-min-70: var(--wa-color-pink-min-70);
+
+  --wa-color-brand-on: var(--wa-color-pink-on);
 }
