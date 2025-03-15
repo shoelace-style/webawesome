@@ -1,3 +1,4 @@
+/* CSS included both in predefined palettes and custom ones */
 :root {
   --fa-sliders-simple: '\f1de';
 }
@@ -17,7 +18,6 @@ wa-dropdown > .color.swatch {
 .decorated-slider {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  margin-block-end: var(--wa-space-xl);
 
   wa-slider {
     grid-column: 1 / -1;
@@ -71,14 +71,13 @@ wa-dropdown > .color.swatch {
   --color-interpolation-space: oklch;
 }
 
-.gray-chroma-slider {
-  margin-top: var(--wa-space-m);
-}
-
 .popup {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-m);
   background: var(--wa-color-surface-default);
   border: 1px solid var(--wa-color-surface-border);
-  padding: var(--wa-space-xl);
+  padding: var(--wa-space-m) var(--wa-space-l);
   border-radius: var(--wa-border-radius-m);
 
   .copyable-code {
@@ -92,6 +91,23 @@ wa-dropdown > .color.swatch {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+    }
+  }
+
+  > legend {
+    /* Force legend to be rendered inside the fieldset */
+    float: left;
+    clear: all;
+    padding: 0;
+  }
+
+  .wa-heading-s {
+    display: flex;
+    gap: var(--wa-gap-xs);
+    align-items: center;
+
+    > :nth-child(1 of .align-end) {
+      margin-inline-start: auto;
     }
   }
 }
@@ -109,7 +125,7 @@ wa-dropdown > .color.swatch {
     opacity: var(--tweak-icon-opacity, 0%);
   }
 
-  .core-column:hover {
+  .color.swatch:hover {
     --tweak-icon-opacity: 40%;
   }
 
@@ -322,5 +338,13 @@ wa-dropdown > .color.swatch {
     vertical-align: -0.15em;
     color: var(--color-gray);
     opacity: 0.6;
+  }
+}
+
+.color-popup {
+  display: block;
+
+  .popup {
+    min-width: 25ch;
   }
 }

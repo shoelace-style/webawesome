@@ -126,18 +126,21 @@
         }">
       <th>
         {{ capitalize(hue) }}
-        <wa-icon v-if="isCustom && !seedHues[hue]" name="sparkles" style="color: var(--wa-color-gray-50)"></wa-icon>
+        <info-tip v-if="isCustom && !seedHues[hue]">
+          <wa-icon name="sparkles" style="color: var(--wa-color-gray-50)"></wa-icon>
+          <template #content>Generated scale</template>
+        </info-tip>
       </th>
       <td class="core-column" :style="{'--original-color': `var(--wa-color-${ hue })`, '--color': colors[hue][coreLevels[hue]]}">
-        <color-popup :token="`--wa-color-${ hue }`" :color="colors[hue].core">
-          <template #trigger>
-          <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{
-              colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'
-            }">
-            <span v-content="coreLevels[hue]">{{ coreLevels[hue] }}</span>
+        <color-popup :title="capitalize(hue) + ' (core)'" :token="`--wa-color-${ hue }`" :color="coreColors[hue]"
+          :pinned="seedColors[colorToIndex[hue].core]"
+          :deletable="isCustom" @delete="deleteColor(colorToIndex[hue].core)"
+          :pinnable="isCustom" @pin="addColor(coreColors[hue] + '')">
+          <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'}">
+            <span v-content="coreLevels[hue]"></span>
             <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
           </div>
-          </template>
+          <template #content>
             <template v-if="hue === 'gray'">
               <wa-radio-group class="core-color" orientation="horizontal" :value="computedGrayColor" @input="grayColor = $event.target.value">
                 <template v-for="h in hues">
@@ -166,7 +169,7 @@
               class="hue-shift-slider"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-              :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+              label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
               ></color-slider>
 
               <color-slider v-if="!isCustom && baseCoreColors[hue]"
@@ -178,19 +181,23 @@
                 class="hue-shift-slider"
                 color-component="oklch.h"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-                :label="`Tweak ${ hue } hue`" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+                label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
                 ></color-slider>
             </template>
-
+          </template>
         </color-popup>
       </td>
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
-        <div class="color swatch" :style="{
-            colorScheme: tint > 60 ? 'light' : 'dark'
-          }">
-          <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedHues[hue]?.[tint]"></wa-icon>
-          <wa-copy-button :value="`--wa-color-${ hue }-${ tint }`" :copy-label="`--wa-color-${ hue }-${ tint }`"></wa-copy-button>
-        </div>
+        <color-popup :title="capitalize(hue) + ' ' + tint" :token="`--wa-color-${ hue }-${ tint }`" :color="colors[hue][tint]"
+          :pinned="seedColors[colorToIndex[hue][tint]]"
+          :deletable="isCustom" @delete="deleteColor(colorToIndex[hue][tint])"
+          :pinnable="isCustom" @pin="addColor(colors[hue][tint] + '')">
+          <div slot="trigger" class="color swatch" :style="{ colorScheme: tint > 60 ? 'light' : 'dark' }">
+            <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedColors[colorToIndex[hue][tint]]"></wa-icon>
+            <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
+          </div>
+          <template #content></template>
+        </color-popup>
       </td>
     </tr>
 {% endraw %}

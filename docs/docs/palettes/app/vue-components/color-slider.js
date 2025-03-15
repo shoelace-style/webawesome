@@ -174,14 +174,13 @@ export default {
     },
   },
   template: `
-  <div class="decorated-slider"
-       :style="{'--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax}">
+  <div class="decorated-slider" :style="{'--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax}">
     <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
       @change="$emit('update:tweaking', false)"  @input="handleInput">
-    <div slot="label">
-      {{ label }}
-      <wa-icon-button @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
-    </div>
+      <div slot="label">
+        {{ label }}
+        <wa-icon-button @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+      </div>
     </wa-slider>
     <div class="label-min">{{ labelMin }}</div>
     <div class="label-max">{{ labelMax }}</div>

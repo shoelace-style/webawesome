@@ -1,3 +1,4 @@
+/* CSS for custom palettes only */
 #seed-colors {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(22ch, 1fr));
@@ -61,16 +62,6 @@
       --text-color-hover: currentColor;
     }
 
-    .delete-button {
-      position: absolute;
-      top: var(--wa-space-s);
-      right: var(--wa-space-s);
-
-      &:hover {
-        color: var(--wa-color-danger-on-normal);
-      }
-    }
-
     &:not(:hover, :focus-within) .delete-button {
       opacity: 0;
     }
@@ -89,6 +80,13 @@
       min-height: auto;
     }
   }
+}
+
+wa-icon-button.delete-button {
+  position: absolute;
+  top: var(--wa-space-s);
+  right: var(--wa-space-s);
+  --text-color-hover: var(--wa-color-danger-on-normal);
 }
 
 .pinned-icon {
@@ -148,4 +146,7 @@
       max-width: 20ch;
     }
   }
+}
+
+.pin-color {
 }

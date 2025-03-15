@@ -6,6 +6,12 @@ export function generateGrays(colors, { grayColor, grayChroma }) {
 
   // These will be the same, since scaling them won't change the relationship
   ret.maxChromaTint = undertoneScale.maxChromaTint;
+  Object.defineProperty(ret, 'core', {
+    enumerable: false,
+    get() {
+      return this[this.maxChromaTint];
+    },
+  });
   ret.maxChromaTintRaw = undertoneScale.maxChromaTintRaw;
 
   for (let tint of tints) {

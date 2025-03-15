@@ -11,6 +11,7 @@ import ColorInput from './vue-components/color-input.js';
 import ColorPopup from './vue-components/color-popup.js';
 import ColorSelect from './vue-components/color-select.js';
 import ColorSlider from './vue-components/color-slider.js';
+import InfoTip from './vue-components/info-tip.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import {
@@ -39,6 +40,7 @@ let paletteAppSpec = {
       maxSeedUid: 0,
       seedColors: [],
       seedColorSamples: [
+        '#0071ec',
         'oklch(77% 0.19 70)',
         'rgb(95, 59, 255)',
         '#f06',
@@ -486,8 +488,7 @@ let paletteAppSpec = {
     baseCoreColors() {
       let ret = {};
       for (let hue in this.baseColors) {
-        let maxChromaTintRaw = this.baseColors[hue].maxChromaTintRaw;
-        ret[hue] = this.baseColors[hue][maxChromaTintRaw];
+        ret[hue] = this.baseColors[hue].core;
       }
       return ret;
     },
@@ -503,8 +504,7 @@ let paletteAppSpec = {
     coreColors() {
       let ret = {};
       for (let hue in this.colors) {
-        let maxChromaTintRaw = this.colors[hue].maxChromaTintRaw;
-        ret[hue] = this.colors[hue][maxChromaTintRaw];
+        ret[hue] = this.colors[hue].core;
       }
 
       return ret;
@@ -838,6 +838,10 @@ let paletteAppSpec = {
       this.seedColors.push(value);
     },
 
+    deleteColor(index) {
+      this.seedColors.splice(index, 1);
+    },
+
     getColor(ref) {
       let color, index;
 
@@ -889,6 +893,7 @@ let paletteAppSpec = {
     ColorInput,
     ColorSelect,
     ColorSlider,
+    InfoTip,
   },
 
   compilerOptions: {
