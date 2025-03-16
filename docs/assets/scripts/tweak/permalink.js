@@ -31,7 +31,7 @@ export default class Permalink extends URLSearchParams {
     if (Array.isArray(value)) {
       super.delete(key);
       value = value.slice();
-      value.sort(); // to aid future comparisons
+
       for (let v of value) {
         super.append(key, v);
       }
