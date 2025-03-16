@@ -34,7 +34,28 @@ wa-dropdown > .color.swatch {
     }
 
     &::part(base) {
+      position: relative;
       background: linear-gradient(to right in var(--color-interpolation-space, oklab), var(--color-1), var(--color-2));
+    }
+
+    .tick {
+      --width: 1px;
+      --height: 0.5em;
+      --tick-color: var(--wa-color-neutral-border-normal);
+      width: 4px;
+      height: 2.4em;
+      background: no-repeat;
+      background-image: linear-gradient(var(--tick-color) 0 100%), linear-gradient(var(--tick-color) 0 100%);
+      background-position: top, bottom;
+      background-size: var(--width) var(--height);
+      position: absolute;
+      left: calc(var(--default-value-progress) * 100% - (var(--default-value-progress) - 0.5) * var(--thumb-size));
+      translate: -50% 0;
+      bottom: -0.5em;
+
+      &:hover {
+        --tick-color: var(--wa-color-neutral-border-loud);
+      }
     }
   }
 
@@ -76,6 +97,7 @@ wa-dropdown > .color.swatch {
   border: 1px solid var(--wa-color-surface-border);
   padding: var(--wa-space-m) var(--wa-space-l);
   border-radius: var(--wa-border-radius-m);
+  color-scheme: light;
 
   .copyable-code {
     display: flex;
@@ -106,6 +128,12 @@ wa-dropdown > .color.swatch {
     > :nth-child(1 of .align-end) {
       margin-inline-start: auto;
     }
+  }
+}
+
+@scope (.wa-dark) to (.wa-light) {
+  .popup {
+    color-scheme: dark;
   }
 }
 

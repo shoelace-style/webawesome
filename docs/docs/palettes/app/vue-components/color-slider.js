@@ -1,15 +1,16 @@
 const template = `
 <div class="color-slider" :style="{
   '--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax,
-  '--default-value-progress': (computedDefaultValue - min) / (max - min),
+  '--default-value-progress': defaultProgress,
   }" :data-component="colorComponent || null">
-  <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value" @change="$emit('update:tweaking', false)"  @input="handleInput">
+  <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
+    @input="handleInput($event.target.value); $emit('update:tweaking', true);" @change="$emit('update:tweaking', false)">
     <div slot="label">
       {{ label }}
       <wa-icon-button v-if="value !== computedDefaultValue" @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
       <info-tip>
         <div class="tick"></div>
-        <template #content>Default value</template>
+        <template #content>{{ computedLabelDefault }}</template>
       </info-tip>
     </div>
   </wa-slider>
@@ -20,9 +21,7 @@ const template = `
 
 import Color from 'https://colorjs.io/dist/color.js';
 import InfoTip from './info-tip.js';
-import { capitalize, clamp, promise } from '/assets/scripts/tweak/util.js';
-
-const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
+import { capitalize, clamp, promise, roundTo } from '/assets/scripts/tweak/util.js';
 
 export default {
   props: {
@@ -32,6 +31,11 @@ export default {
     },
     defaultValue: {
       type: Number,
+    },
+    /** Used for formatting only. Only specify if different from default value. */
+    baseValue: {
+      type: Number,
+      default: undefined,
     },
 
     modelValue: {
@@ -44,14 +48,18 @@ export default {
     max: Number,
     step: {
       type: Number,
-      default(rawProps) {
-        return clamp(0, Math.abs((rawProps.max - rawProps.min) / 100), 1);
-      },
+      default: 1,
     },
 
     type: {
       type: String,
       default: 'raw',
+    },
+    formatType: {
+      type: String,
+      default(rawProps) {
+        return rawProps.type ?? 'raw';
+      },
     },
 
     getColor: {
@@ -59,50 +67,34 @@ export default {
     },
     color: {
       type: Color,
-      default(rawProps) {
-        if (rawProps.defaultColor) {
-          return rawProps.defaultColor;
-        }
-
-        return rawProps.getColor(
-          getAbsoluteValue({
-            type: rawProps.type,
-            baseValue: rawProps.defaultValue,
-            relativeValue: rawProps.modelValue,
-          }),
-          rawProps.modelValue,
-        );
-      },
     },
 
     label: String,
     labelMin: String,
     labelMax: String,
+    labelDefault: String,
 
     tweaking: Boolean,
   },
   emits: ['update:modelValue', 'update:tweaking', 'update:color'],
   data() {
-    let { type, modelValue, defaultValue } = this;
-    let value = getAbsoluteValue({ type, relativeValue: modelValue, baseValue: defaultValue });
-
     return {
       mounted: promise(),
       initialColor: this.color,
-      value,
+      value: undefined,
     };
   },
   mounted() {
-    if (this.value === undefined) {
-      this.value = this.computedDefaultValue;
-    }
-
     if (this.$refs.slider) {
-      if (this.type === 'scale') {
-        this.$refs.slider.tooltipFormatter = percentFormatter;
-      }
+      this.$refs.slider.tooltipFormatter = value => this.formatValue(value);
       this.$refs.slider.colorSliderData = this; // for debugging
     }
+
+    this.value = getAbsoluteValue({
+      type: this.type,
+      relativeValue: this.modelValue,
+      baseValue: this.defaultValue,
+    });
 
     this.mounted.resolve();
   },
@@ -128,6 +120,12 @@ export default {
 
     l() {
       return this.colorCurrent?.get('oklch.l') ?? this.initialColor?.get('oklch.l');
+    },
+
+    colorComponentValue() {
+      if (this.colorComponent) {
+        return this.color?.get(this.colorComponent);
+      }
     },
 
     colorMin() {
@@ -172,9 +170,31 @@ export default {
 
       return this.getColor?.(defaultValue);
     },
+
+    computedLabelDefault() {
+      let labelDefault = this.labelDefault || 'Default value';
+      let formattedDefaultValue = this.formatValue(this.computedDefaultValue);
+      return `${labelDefault} (${formattedDefaultValue})`;
+    },
+
+    defaultProgress() {
+      return (this.computedDefaultValue - this.min) / (this.max - this.min);
+    },
   },
   methods: {
     capitalize,
+
+    formatValue(value = this.value) {
+      let style = this.formatType === 'scale' ? 'percent' : undefined;
+
+      if (this.formatType !== 'raw') {
+        let baseValue = this.baseValue ?? this.computedDefaultValue;
+        value = getRelativeValue({ type: this.formatType, absoluteValue: value, baseValue });
+      }
+
+      value = roundTo(value, this.step);
+      return value.toLocaleString(undefined, { style });
+    },
 
     getColorAt(value) {
       if (this.getColor) {
@@ -186,27 +206,34 @@ export default {
       }
     },
 
-    handleInput(event) {
-      let value = (this.value = event.target.value);
+    handleInput(value) {
+      this.value = value;
+
       let modelValue = getRelativeValue({
         type: this.type,
         absoluteValue: value,
         baseValue: this.computedDefaultValue,
       });
 
-      this.$emit('update:tweaking', true);
       this.$emit('update:modelValue', modelValue);
     },
 
     reset() {
-      let { value, type, computedDefaultValue: defaultValue } = this;
-      this.value = defaultValue;
-      this.$emit('update:modelValue', getRelativeValue({ type, absoluteValue: value, baseValue: defaultValue }));
+      this.handleInput(this.computedDefaultValue);
     },
   },
   watch: {
     colorCurrentString() {
       this.$emit('update:color', this.colorCurrent);
+    },
+
+    async colorComponentValue() {
+      await this.$nextTick();
+      if (this.value !== this.colorComponentValue) {
+        // Color changed externally
+        this.value = this.colorComponentValue;
+        this.$emit('update:color', this.colorCurrent);
+      }
     },
   },
   template,
@@ -217,8 +244,8 @@ export default {
 };
 
 function getAbsoluteValue({ type, relativeValue, baseValue }) {
-  if (baseValue === undefined && (type === 'shift' || type === 'scale')) {
-    return undefined;
+  if (baseValue === undefined) {
+    type = 'raw';
   }
 
   if (type === 'shift') {
@@ -233,8 +260,8 @@ function getAbsoluteValue({ type, relativeValue, baseValue }) {
 }
 
 function getRelativeValue({ type, absoluteValue, baseValue }) {
-  if (baseValue === undefined && (type === 'shift' || type === 'scale')) {
-    return undefined;
+  if (baseValue === undefined) {
+    type = 'raw';
   }
 
   if (type === 'shift') {

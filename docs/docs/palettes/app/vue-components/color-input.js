@@ -6,9 +6,15 @@ const template = `
     <color-popup placement="top-start" class="seed-color-tweak">
       <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
       <template #content>
-        <color-slider label="Hue"          v-model:color="color" :default-value="inputColor.get('oklch.h')" color-component="oklch.h" :min="0" :max="359"></color-slider>
-        <color-slider label="Colorfulness" v-model:color="color" :default-value="inputColor.get('oklch.c')" color-component="oklch.c" :min="0" :max="getMaxChroma(color.oklch.l, color.oklch.h)"></color-slider>
-        <color-slider label="Lightness"    v-model:color="color" :default-value="inputColor.get('oklch.l')" color-component="oklch.l" :min="0" :max="1"></color-slider>
+        <color-slider label="Hue" label-default="Entered color"
+                      color-component="oklch.h" :min="0" :max="359" :step="1"
+                      v-model:color="color" :default-value="inputLCH[2]" ></color-slider>
+        <color-slider label="Colorfulness" label-default="Entered color"
+                      color-component="oklch.c" :min="0" :max="maxChroma" :step="0.001"
+                      v-model:color="color" :default-value="inputLCH[1]" format-type="scale" :base-value="maxChroma" ></color-slider>
+        <color-slider label="Lightness" label-default="Entered color"
+                      color-component="oklch.l" :min="0" :max="1" :step="0.01"
+                      v-model:color="color" :default-value="inputLCH[0]" format-type="scale" :base-value="1" ></color-slider>
       </template>
     </color-popup>
 
@@ -86,12 +92,20 @@ export default {
     };
   },
   computed: {
+    inputLCH() {
+      return this.inputColor?.oklch;
+    },
+
+    currentLCH() {
+      return this.color?.oklch;
+    },
+
     tweaked() {
-      if (this.inputFocused || this.editing > 0 || !this.color || !this.inputColor) {
+      if (this.inputFocused || this.editing > 0 || !this.inputLCH || !this.currentLCH) {
         return false;
       }
 
-      return !this.inputColor.equals(this.color.to(this.inputColor.space));
+      return this.inputLCH.some((coord, i) => coord !== this.currentLCH[i]);
     },
 
     computedValue() {
@@ -155,10 +169,17 @@ export default {
 
       return ret;
     },
+
+    maxChroma() {
+      if (!this.color) {
+        return 0.4;
+      }
+
+      return getMaxChroma(this.color.oklch.l, this.color.oklch.h);
+    },
   },
   methods: {
     capitalize,
-    getMaxChroma,
 
     handleInput(event) {
       this.editing++;
