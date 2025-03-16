@@ -58,7 +58,6 @@ let paletteAppSpec = {
       chromaScale: 1,
       grayChroma: undefined,
       grayColor: undefined,
-      tweaking: { hue: {} },
       saved: null,
       unsavedChanges: false,
       savedPalettes: sidebar.palettes.saved,

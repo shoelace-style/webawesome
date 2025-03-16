@@ -113,7 +113,6 @@
   <tbody v-cloak>
     <tr v-for="hue in paletteScalesList" :data-hue="hue" :key="hue"
         class="color-scale" :class="{
-          tweaking: hue === 'gray' ? tweaking.grayChroma : tweaking.hue?.[hue],
           tweaked: hue === 'gray' ? tweaked.grayChroma || tweaked.grayColor : hueShifts[hue],
         }"
         :style="{
@@ -150,7 +149,6 @@
               <color-slider class="gray-chroma-slider" type="scale" :default-value="originalGrayChroma"
               :model-value="computedGrayChroma"
               @update:model-value="grayChroma = $event"
-              v-model:tweaking="tweaking.grayChroma"
               :min="0" :max="maxGrayChroma" :step="0.01"
               :get-color="scale => baseCoreColors[computedGrayColor].clone().set('oklch.c', c => c * scale)"
               label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
@@ -161,7 +159,6 @@
               v-model:color="seedColors[colorToIndex[hue].core].color"
               :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
 
-              v-model:tweaking="tweaking.hue[hue]"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
               label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
@@ -172,7 +169,6 @@
                 v-model="hueShifts[hue]"
                 :default-color="baseCoreColors[hue]"
 
-                v-model:tweaking="tweaking.hue[hue]"
                 color-component="oklch.h"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
                 label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
@@ -196,7 +192,6 @@
               @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, level: tint}) : null"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
 
-              v-model:tweaking="tweaking.hue[hue]"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
@@ -214,7 +209,6 @@
   class="chroma-scale-slider wa-palette-{{ paletteId }}" :class="{ tweaked: chromaScale !== 1 }"
   type="scale" :default-value="1"
   v-model="chromaScale"
-  v-model:tweaking="tweaking.chromaScale"
   :min="chromaScaleBounds.min" :max="chromaScaleBounds.max" :step="0.01"
   :get-color="scale => baseCoreColors.blue.clone().set('oklch.c', c => c * scale)"
   label="Overall colorfulness" label-min="More muted" label-max="More vibrant"
