@@ -35,10 +35,12 @@ status: experimental
   </header>
   <div class="suggestions">
     <template v-for="color, hue in suggestedColors">
-    <wa-button :id="'suggestion-hue-' + hue" :style="{'--background-color': color}" @click="addColor(color + '')">
-      <wa-icon name="plus"></wa-icon>
-    </wa-button>
-    <wa-tooltip :for="'suggestion-hue-' + hue" v-content="capitalize(hue)"></wa-tooltip>
+      <info-tip>
+        <wa-button :style="{'--background-color': color}" @click="addColor({hue})">
+          <wa-icon name="plus"></wa-icon>
+        </wa-button>
+        <template #content>{% raw %}{{ capitalize(hue) }}{% endraw %}</template>
+      </info-tip>
     </template>
   </div>
 </section>

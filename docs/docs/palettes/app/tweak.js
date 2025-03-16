@@ -868,7 +868,16 @@ let paletteAppSpec = {
     },
 
     addColor(value = this.seedColorSamples.shift() ?? '') {
-      value = typeof value === 'string' || value?.constructor.name === 'Color' ? { value } : value;
+      if (value?.hue) {
+        let hue = value.hue;
+        // Pinning a generated color
+        let level = value.level ?? this.coreLevels[hue];
+        let color = this.colors[hue][level];
+        value = { value: color + '', color };
+      } else {
+        value = typeof value === 'string' || value?.constructor.name === 'Color' ? { value } : value;
+      }
+
       value.uid ??= this.maxSeedUid++;
       this.seedColors.push(value);
     },
