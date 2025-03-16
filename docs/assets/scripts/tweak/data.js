@@ -154,6 +154,14 @@ export const moreHue = {
   pink: 'Pinker',
 };
 
+export const hueBefore = {};
+export const hueAfter = {};
+
+for (let i = 0; i < hues.length; i++) {
+  hueBefore[hues[i]] = hues[i - 1] ?? hues.at(-1);
+  hueAfter[hues[i]] = hues[i + 1] ?? hues[0];
+}
+
 export const HUE_SHIFTS = [
   // Reds
   { range: [0, 25], peak: [10, 25], shift: { dark: 15, light: -18 }, maxConsecutive: { dark: 4, light: -2 } },

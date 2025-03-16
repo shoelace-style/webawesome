@@ -17,6 +17,8 @@ import { Permalink } from '/assets/scripts/tweak.js';
 import {
   cdnUrl,
   HUE_RANGES,
+  hueAfter,
+  hueBefore,
   hues,
   L_RANGES,
   MAX_CHROMA_BOUNDS,
@@ -66,7 +68,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue, HUE_RANGES, L_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
+    Object.assign(this, { moreHue, hueBefore, hueAfter, HUE_RANGES, L_RANGES, hues, tints, MAX_CHROMA_BOUNDS });
 
     if (location.search) {
       // Read URL params and apply them. This facilitates permalinks.
@@ -453,7 +455,7 @@ let paletteAppSpec = {
           continue;
         }
 
-        let relHue = shift < 0 ? this.hueBefore[hue] : this.hueAfter[hue];
+        let relHue = shift < 0 ? hueBefore[hue] : hueAfter[hue];
         let hueTweak = moreHue[relHue] ?? relHue + 'er';
 
         ret[hue] = capitalize(hueTweak + ' ' + hue + 's');
@@ -598,14 +600,6 @@ let paletteAppSpec = {
 
     maxGrayChroma() {
       return maxGrayChroma[this.grayColor] ?? 0.3;
-    },
-
-    hueBefore() {
-      return Object.fromEntries(hues.map((hue, i) => [hue, hues[i - 1] ?? hues.at(-1)]));
-    },
-
-    hueAfter() {
-      return Object.fromEntries(hues.map((hue, i) => [hue, hues[i + 1] ?? hues[0]]));
     },
 
     huesAfter() {

@@ -164,7 +164,7 @@
               v-model:tweaking="tweaking.hue[hue]"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-              label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+              label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               ></color-slider>
 
               <color-slider v-if="!isCustom && baseCoreColors[hue]"
@@ -175,7 +175,7 @@
                 v-model:tweaking="tweaking.hue[hue]"
                 color-component="oklch.h"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-                label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+                label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
                 ></color-slider>
             </template>
           </template>
@@ -199,7 +199,7 @@
               v-model:tweaking="tweaking.hue[hue]"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max" :step="1"
-              label="Hue shift" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
+              label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
               ></color-slider>
           </template>
