@@ -202,7 +202,7 @@
 </tbody>
 </table>
 
-<color-slider
+<color-slider v-if="!isCustom"
   class="chroma-scale-slider wa-palette-{{ paletteId }}" :class="{ tweaked: chromaScale !== 1 }"
   type="scale" :default-value="1"
   v-model="chromaScale"
