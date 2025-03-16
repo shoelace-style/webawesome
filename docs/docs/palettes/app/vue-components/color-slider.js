@@ -64,7 +64,14 @@ export default {
           return rawProps.defaultColor;
         }
 
-        return rawProps.getColor(getValue(rawProps), rawProps.modelValue);
+        return rawProps.getColor(
+          getAbsoluteValue({
+            type: rawProps.type,
+            baseValue: rawProps.defaultValue,
+            relativeValue: rawProps.modelValue,
+          }),
+          rawProps.modelValue,
+        );
       },
     },
 
@@ -77,7 +84,7 @@ export default {
   emits: ['update:modelValue', 'update:tweaking', 'update:color'],
   data() {
     let { type, modelValue, defaultValue } = this;
-    let value = getValue({ type, modelValue, defaultValue });
+    let value = getAbsoluteValue({ type, relativeValue: modelValue, baseValue: defaultValue });
 
     return {
       mounted: promise(),
@@ -181,15 +188,20 @@ export default {
 
     handleInput(event) {
       let value = (this.value = event.target.value);
-      let modelValue = getModelValue({ type: this.type, value, defaultValue: this.computedDefaultValue });
+      let modelValue = getRelativeValue({
+        type: this.type,
+        absoluteValue: value,
+        baseValue: this.computedDefaultValue,
+      });
 
       this.$emit('update:tweaking', true);
       this.$emit('update:modelValue', modelValue);
     },
 
     reset() {
-      let { value, type, defaultValue } = this;
-      this.$emit('update:modelValue', getModelValue({ value, type, defaultValue }));
+      let { value, type, computedDefaultValue: defaultValue } = this;
+      this.value = defaultValue;
+      this.$emit('update:modelValue', getRelativeValue({ type, absoluteValue: value, baseValue: defaultValue }));
     },
   },
   watch: {
@@ -204,34 +216,34 @@ export default {
   },
 };
 
-function getValue({ type, modelValue, defaultValue }) {
-  if (defaultValue === undefined && (type === 'shift' || type === 'scale')) {
+function getAbsoluteValue({ type, relativeValue, baseValue }) {
+  if (baseValue === undefined && (type === 'shift' || type === 'scale')) {
     return undefined;
   }
 
   if (type === 'shift') {
-    return modelValue + defaultValue;
+    return relativeValue + baseValue;
   }
 
   if (type === 'scale') {
-    return modelValue * defaultValue;
+    return relativeValue * baseValue;
   }
 
-  return modelValue;
+  return relativeValue;
 }
 
-function getModelValue({ value, type, defaultValue }) {
-  if (defaultValue === undefined && (type === 'shift' || type === 'scale')) {
+function getRelativeValue({ type, absoluteValue, baseValue }) {
+  if (baseValue === undefined && (type === 'shift' || type === 'scale')) {
     return undefined;
   }
 
   if (type === 'shift') {
-    return value - defaultValue;
+    return absoluteValue - baseValue;
   }
 
   if (type === 'scale') {
-    return value / defaultValue;
+    return absoluteValue / baseValue;
   }
 
-  return value;
+  return absoluteValue;
 }
