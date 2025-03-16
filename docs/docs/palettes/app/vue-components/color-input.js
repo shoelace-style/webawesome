@@ -3,7 +3,7 @@ const template = `
   :style="{'--color': value, '--color-original': inputValue}">
   <div slot="image" :style="{ colorScheme: level <= 60 ? 'dark' : 'light'}">
 
-    <color-popup placement="top-start" class="seed-color-tweak">
+    <color-popup placement="top-start" class="seed-color-tweak" :pinned=true deletable @delete="$emit('delete')" title="Edit color">
       <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
       <template #content>
         <color-slider label="Hue" label-default="Entered color"
@@ -18,7 +18,6 @@ const template = `
       </template>
     </color-popup>
 
-    <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
     <div class="name">{{ capitalize(hue) || 'New color' }} {{ level }}</div>
   </div>
 

@@ -36,14 +36,12 @@
       .tweak-icon {
         position: absolute;
         top: var(--wa-space-s);
-        left: var(--wa-space-s);
+        right: var(--wa-space-s);
 
         --background-color-hover: oklab(from currentColor l a b / 15%);
         --text-color-hover: currentColor;
 
         &:is(.tweaked *) {
-          opacity: 1;
-
           &::part(base) {
             transition: var(--wa-transition-normal);
             transition-property: padding, border;
@@ -59,11 +57,6 @@
         bottom: var(--wa-space-xs);
         left: var(--wa-space-s);
         font-weight: var(--wa-font-weight-semibold);
-      }
-
-      &:not(:hover, :focus-within) > wa-icon-button,
-      &:not(:hover, :focus-within) > wa-dropdown > wa-icon-button {
-        opacity: 0;
       }
     }
 

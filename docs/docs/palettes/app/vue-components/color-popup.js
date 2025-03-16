@@ -9,7 +9,7 @@ export default {
     color: Color,
     deletable: Boolean,
     pinnable: Boolean,
-    pinned: Object,
+    pinned: Boolean,
     placement: String,
   },
   data() {

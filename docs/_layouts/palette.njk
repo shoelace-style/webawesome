@@ -133,7 +133,7 @@
       </th>
       <td class="core-column" :style="{'--original-color': `var(--wa-color-${ hue })`, '--color': colors[hue][coreLevels[hue]]}">
         <color-popup :title="capitalize(hue) + ' (core)'" :token="`--wa-color-${ hue }`" :color="coreColors[hue]"
-          :pinned="seedColors[colorToIndex[hue].core]"
+          :pinned="!!seedColors[colorToIndex[hue].core]"
           :deletable="isCustom" @delete="deleteColor(colorToIndex[hue].core)"
           :pinnable="isCustom" @pin="addColor(coreColors[hue] + '')">
           <div slot="trigger" :id="`core-${ hue }-swatch`" class="color swatch" :style="{colorScheme: coreLevels[hue] > 60 ? 'light' : 'dark'}">
@@ -187,7 +187,7 @@
       </td>
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
         <color-popup :title="capitalize(hue) + ' ' + tint" :token="`--wa-color-${ hue }-${ tint }`" :color="colors[hue][tint]"
-          :pinned="seedColors[colorToIndex[hue][tint]]"
+          :pinned="!!seedColors[colorToIndex[hue][tint]]"
           :deletable="isCustom" @delete="deleteColor(colorToIndex[hue][tint])"
           :pinnable="isCustom" @pin="addColor(colors[hue][tint] + '')">
           <div slot="trigger" class="color swatch" :style="{ colorScheme: tint > 60 ? 'light' : 'dark' }">
