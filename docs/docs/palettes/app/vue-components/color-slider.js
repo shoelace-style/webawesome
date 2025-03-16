@@ -1,4 +1,25 @@
+const template = `
+<div class="color-slider" :style="{
+  '--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax,
+  '--default-value-progress': (computedDefaultValue - min) / (max - min),
+  }" :data-component="colorComponent || null">
+  <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value" @change="$emit('update:tweaking', false)"  @input="handleInput">
+    <div slot="label">
+      {{ label }}
+      <wa-icon-button v-if="value !== computedDefaultValue" @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+      <info-tip>
+        <div class="tick"></div>
+        <template #content>Default value</template>
+      </info-tip>
+    </div>
+  </wa-slider>
+  <div class="label-min">{{ labelMin }}</div>
+  <div class="label-max">{{ labelMax }}</div>
+</div>
+`;
+
 import Color from 'https://colorjs.io/dist/color.js';
+import InfoTip from './info-tip.js';
 import { capitalize, clamp, promise } from '/assets/scripts/tweak/util.js';
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
@@ -176,21 +197,8 @@ export default {
       this.$emit('update:color', this.colorCurrent);
     },
   },
-  template: `
-  <div class="decorated-slider" :style="{
-    '--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax,
-    }" :data-component="colorComponent || null">
-    <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
-      @change="$emit('update:tweaking', false)"  @input="handleInput">
-      <div slot="label">
-        {{ label }}
-        <wa-icon-button @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
-      </div>
-    </wa-slider>
-    <div class="label-min">{{ labelMin }}</div>
-    <div class="label-max">{{ labelMax }}</div>
-  </div>
-  `,
+  template,
+  components: { InfoTip },
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },

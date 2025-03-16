@@ -15,7 +15,7 @@ wa-dropdown > .color.swatch {
   cursor: pointer;
 }
 
-.decorated-slider {
+.color-slider {
   display: grid;
   grid-template-columns: auto 1fr auto;
 
