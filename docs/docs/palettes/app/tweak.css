@@ -45,10 +45,6 @@ wa-dropdown > .color.swatch {
   .clear-button {
     vertical-align: middle;
     font-size: var(--wa-font-size-xs);
-
-    &:not(.tweaked *) {
-      display: none;
-    }
   }
 
   .label-min,

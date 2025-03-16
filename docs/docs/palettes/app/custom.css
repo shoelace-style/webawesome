@@ -60,6 +60,11 @@
         left: var(--wa-space-s);
         font-weight: var(--wa-font-weight-semibold);
       }
+
+      &:not(:hover, :focus-within) > wa-icon-button,
+      &:not(:hover, :focus-within) > wa-dropdown > wa-icon-button {
+        opacity: 0;
+      }
     }
 
     wa-input {
@@ -71,10 +76,6 @@
       transition: opacity var(--wa-transition-slow);
       --background-color-hover: oklab(from currentColor l a b / 15%);
       --text-color-hover: currentColor;
-    }
-
-    &:not(:hover, :focus-within) wa-icon-button {
-      opacity: 0;
     }
   }
 
