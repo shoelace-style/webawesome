@@ -31,6 +31,9 @@ export default {
     },
     defaultValue: {
       type: Number,
+      default(rawProps) {
+        return rawProps.defaultColor?.get(rawProps.colorComponent);
+      },
     },
     /** Used for formatting only. Only specify if different from default value. */
     baseValue: {
