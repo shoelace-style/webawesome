@@ -197,7 +197,7 @@
           <template #content>
             <color-slider v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]"
               v-model:color="colors[hue][tint]"
-              @update:color="!seedColors[colorToIndex[hue][tint]] ? addColor($event) : null"
+              @input="!seedColors[colorToIndex[hue][tint]] ? addColor($event) : null"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
 
               v-model:tweaking="tweaking.hue[hue]"

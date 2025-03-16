@@ -4,7 +4,7 @@ const template = `
   '--default-value-progress': defaultProgress,
   }" :data-component="colorComponent || null">
   <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
-    @input="handleInput($event.target.value); $emit('update:tweaking', true);" @change="$emit('update:tweaking', false)">
+    @input="handleInput($event.target.value); $emit('update:tweaking', true); $emit('input', $event.target.value);" @change="$emit('update:tweaking', false)">
     <div slot="label">
       {{ label }}
       <wa-icon-button v-if="value !== computedDefaultValue" @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
@@ -76,7 +76,7 @@ export default {
 
     tweaking: Boolean,
   },
-  emits: ['update:modelValue', 'update:tweaking', 'update:color'],
+  emits: ['update:modelValue', 'update:tweaking', 'update:color', 'input'],
   data() {
     return {
       mounted: promise(),
@@ -220,6 +220,7 @@ export default {
 
     reset() {
       this.handleInput(this.computedDefaultValue);
+      this.$emit('input', this.computedDefaultValue);
     },
   },
   watch: {
