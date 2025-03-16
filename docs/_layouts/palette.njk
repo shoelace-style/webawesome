@@ -166,7 +166,6 @@
               :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
 
               v-model:tweaking="tweaking.hue[hue]"
-              class="hue-shift-slider"
               color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
               label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"
@@ -178,7 +177,6 @@
                 :default-color="baseCoreColors[hue]"
 
                 v-model:tweaking="tweaking.hue[hue]"
-                class="hue-shift-slider"
                 color-component="oklch.h"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
                 label="Tweak hue" :label-min="`More ${hueBefore[hue]}`" :label-max="`More ${hueAfter[hue]}`"

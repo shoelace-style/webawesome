@@ -67,8 +67,8 @@ wa-dropdown > .color.swatch {
   }
 }
 
-.hue-shift-slider {
-  --color-interpolation-space: oklch;
+[data-component='oklch.h'] {
+  --color-interpolation-space: oklch increasing hue;
 }
 
 .popup {
@@ -76,6 +76,7 @@ wa-dropdown > .color.swatch {
   flex-flow: column;
   gap: var(--wa-space-m);
   background: var(--wa-color-surface-default);
+  color: var(--wa-color-text-normal);
   border: 1px solid var(--wa-color-surface-border);
   padding: var(--wa-space-m) var(--wa-space-l);
   border-radius: var(--wa-border-radius-m);

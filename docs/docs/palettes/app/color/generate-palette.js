@@ -2,6 +2,7 @@
 import Color from 'https://colorjs.io/dist/color.js';
 import generateGrays from './generate-grays.js';
 import generateScale from './generate-scale.js';
+import getMaxChroma from './get-max-chroma.js';
 import { getCoreTint } from './util.js';
 import {
   HUE_CHROMA_SCALE,
@@ -12,9 +13,6 @@ import {
   MIN_ACCENT,
 } from '/assets/scripts/tweak/data.js';
 import { clamp, clampAngle, interpolate, progressAngle, roundTo, subtractAngles } from '/assets/scripts/tweak/util.js';
-
-/** An OKLCh chroma value that is guaranteed to be OOG for every P3 color */
-const OOG_CHROMA = 0.4;
 
 export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...options } = {}) {
   let ret = {};
@@ -36,9 +34,10 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
 
     let coreLevel = (coreLevels[hue] = getCoreTint(seedColors));
     let coreColor = seedColors[coreLevel];
+    let [l, c, h] = coreColor.getAll('oklch');
 
-    let lOffset = coreColor.get('oklch.l') - L_RANGES[coreLevel].mid;
-    let cScale = coreColor.get('oklch.c') / coreColor.to('oklch').clone().set('c', OOG_CHROMA).toGamut('p3').c;
+    let lOffset = l - L_RANGES[coreLevel].mid;
+    let cScale = c / getMaxChroma(l, h);
     let relativeCScale = cScale / HUE_CHROMA_SCALE[hue];
     let levelOffset = coreLevel - HUE_TOP_TINT[hue];
     seedMeta[hue] = { lOffset, cScale, relativeCScale, levelOffset };
@@ -111,7 +110,7 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
 
     cScale *= HUE_CHROMA_SCALE[hue];
 
-    let maxC = new Color('oklch', [l, OOG_CHROMA, h]).toGamut('p3').c;
+    let maxC = getMaxChroma(l, h);
     let c = cScale * maxC;
     // let c = interpolate(
     //   hueProgress,

@@ -1,3 +1,15 @@
+// https://lea.verou.me/blog/2016/12/resolve-promises-externally-with-this-one-weird-trick/
+export function promise() {
+  let res, rej;
+
+  let promise = new Promise((resolve, reject) => {
+    res = resolve;
+    rej = reject;
+  });
+
+  return Object.assign(promise, { resolve: res, reject: rej });
+}
+
 export function normalizeAngles(angles) {
   // First, normalize
   angles = angles.map(h => ((h % 360) + 360) % 360);

@@ -1,5 +1,5 @@
 import Color from 'https://colorjs.io/dist/color.js';
-import { capitalize, clamp } from '/assets/scripts/tweak/util.js';
+import { capitalize, clamp, promise } from '/assets/scripts/tweak/util.js';
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
@@ -59,6 +59,7 @@ export default {
     let value = getValue({ type, modelValue, defaultValue });
 
     return {
+      mounted: promise(),
       initialColor: this.color,
       value,
     };
@@ -74,6 +75,8 @@ export default {
       }
       this.$refs.slider.colorSliderData = this; // for debugging
     }
+
+    this.mounted.resolve();
   },
   beforeUnmount() {
     delete this.$refs.slider?.colorSliderData;
@@ -174,7 +177,9 @@ export default {
     },
   },
   template: `
-  <div class="decorated-slider" :style="{'--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax}">
+  <div class="decorated-slider" :style="{
+    '--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax,
+    }" :data-component="colorComponent || null">
     <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
       @change="$emit('update:tweaking', false)"  @input="handleInput">
       <div slot="label">

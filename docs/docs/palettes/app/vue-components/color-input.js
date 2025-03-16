@@ -1,7 +1,39 @@
+const template = `
+<wa-card size="small" class="color" :class="{tweaked}"
+  :style="{'--color': value, '--color-original': inputValue}">
+  <div slot="image" :style="{ colorScheme: level <= 60 ? 'dark' : 'light'}">
+
+    <color-popup  placement="top-start">
+      <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
+      <template #content>
+        <color-slider label="Hue"          v-model:color="color" :default-value="inputColor.get('oklch.h')" color-component="oklch.h" :min="0" :max="359"></color-slider>
+        <color-slider label="Colorfulness" v-model:color="color" :default-value="inputColor.get('oklch.c')" color-component="oklch.c" :min="0" :max="getMaxChroma(color.oklch.l, color.oklch.h)"></color-slider>
+        <color-slider label="Lightness"    v-model:color="color" :default-value="inputColor.get('oklch.l')" color-component="oklch.l" :min="0" :max="1"></color-slider>
+      </template>
+    </color-popup>
+
+    <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
+    <div class="name">{{ capitalize(hue) || 'New color' }} {{ level }}</div>
+  </div>
+
+  <wa-select class="color-to-role" multiple appearance="plain" placeholder="(No states)" max-options-visible="2"
+    :value.attr="roles.join(' ')" :value="roles"
+    @input="$emit('update:roles', $event.target.value)">
+    <wa-option v-for="role in ROLES" :value="role">{{ capitalize(role) }}</wa-option>
+  </wa-select>
+
+  <wa-input :value="valueRaw" @input="handleInput" @focus="inputFocused = true" @blur="inputFocused = false" ref="input"></wa-input>
+</wa-card>
+`;
+
 import Color from 'https://colorjs.io/dist/color.js';
 // import { nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import getMaxChroma from '../color/get-max-chroma.js';
 import { identifyColor, stringifyColor } from '../color/util.js';
+import ColorPopup from './color-popup.js';
+import ColorSlider from './color-slider.js';
+import InfoTip from './info-tip.js';
 import { ROLES } from '/assets/scripts/tweak/data.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
@@ -126,6 +158,7 @@ export default {
   },
   methods: {
     capitalize,
+    getMaxChroma,
 
     handleInput(event) {
       this.editing++;
@@ -225,26 +258,11 @@ export default {
       },
     },
   },
-  template: `
-    <wa-card size="small" class="color" :class="{tweaked}"
-      :style="{'--color': value, '--color-original': inputValue}">
-      <div slot="image" :style="{ colorScheme: level <= 60 ? 'dark' : 'light'}">
-        <div class="original-color" v-if="tweaked">
-          <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
-        </div>
-        <wa-icon-button name="trash" label="Delete" variant="regular" class="delete-button" @click="$emit('delete')"></wa-icon-button>
-        <div class="name">{{ capitalize(hue) || 'New color' }} {{ level }}</div>
-      </div>
-
-      <wa-select class="color-to-role" multiple appearance="plain" placeholder="(No states)" max-options-visible="2"
-        :value.attr="roles.join(' ')" :value="roles"
-        @input="$emit('update:roles', $event.target.value)">
-        <wa-option v-for="role in ROLES" :value="role">{{ capitalize(role) }}</wa-option>
-      </wa-select>
-
-      <wa-input :value="valueRaw" @input="handleInput" @focus="inputFocused = true" @blur="inputFocused = false" ref="input"></wa-input>
-    </wa-card>
-  `,
+  template,
+  components: { InfoTip, ColorSlider, ColorPopup },
+  compilerOptions: {
+    isCustomElement: tag => tag.startsWith('wa-'),
+  },
 };
 
 function tryColor(value) {

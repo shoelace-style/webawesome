@@ -10,6 +10,7 @@ export default {
     deletable: Boolean,
     pinnable: Boolean,
     pinned: Object,
+    placement: String,
   },
   data() {
     return {};
@@ -17,11 +18,12 @@ export default {
   emits: ['delete', 'pin'],
   mounted() {
     let popup = this.$refs.popup;
+
     if (popup) {
       // Find trigger
       let trigger = popup.previousElementSibling;
       if (trigger) {
-        trigger.slot ??= 'trigger';
+        trigger.slot ||= 'trigger';
       }
     }
   },
@@ -31,15 +33,15 @@ export default {
     },
   },
   template: `
-  <wa-dropdown class="color-popup">
+  <wa-dropdown class="color-popup" :placement>
     <slot></slot>
     <component :is="title ? 'fieldset' : 'div'" class="popup" ref="popup">
-      <component :is="title ? 'legend' : 'div'"  class="wa-heading-s">
+      <component :is="title ? 'legend' : 'div'"  class="wa-heading-s" v-if="title || token || deletable || pinnable">
         <span v-if="title">{{ title }}</span>
         <wa-copy-button v-if="title && token" :value="token" :copy-label="token"></wa-copy-button>
 
         <info-tip v-if="deletable && pinned">
-          <wa-button variant="danger" appearance="plain" class="delete-button align-end" @click="$emit('delete')">
+          <wa-button size="small" variant="danger" appearance="plain" class="delete-button align-end" @click="$emit('delete')">
             <wa-icon name="trash" variant="regular"></wa-icon>
           </wa-button>
           <template #content>

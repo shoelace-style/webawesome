@@ -33,14 +33,25 @@
       background-color: var(--color);
       color: canvastext;
 
-      .original-color {
+      .tweak-icon {
         position: absolute;
         top: var(--wa-space-s);
         left: var(--wa-space-s);
-        padding: var(--wa-space-2xs);
-        border: 1px solid hsl(0 0 100 / 50%);
-        border-radius: var(--wa-border-radius-s);
-        background-color: var(--color-original);
+
+        --background-color-hover: oklab(from currentColor l a b / 15%);
+        --text-color-hover: currentColor;
+
+        &:is(.tweaked *) {
+          opacity: 1;
+
+          &::part(base) {
+            transition: var(--wa-transition-normal);
+            transition-property: padding, border;
+            background-color: var(--color-original);
+            padding: var(--wa-space-s);
+            border: 1px solid hsl(0 0 100 / 60%);
+          }
+        }
       }
 
       .name {
@@ -62,7 +73,7 @@
       --text-color-hover: currentColor;
     }
 
-    &:not(:hover, :focus-within) .delete-button {
+    &:not(:hover, :focus-within) wa-icon-button {
       opacity: 0;
     }
   }
