@@ -623,7 +623,42 @@ let paletteAppSpec = {
     savedVariations() {
       return this.savedPalettes.filter(palette => palette.id === this.paletteId && palette.uid !== this.uid);
     },
-  },
+
+    /** When tweaking a non-core tint, which tint are we tweaking relative to? */
+    tweakBase() {
+      let ret = {};
+
+      for (let hue in this.paletteScales) {
+        let pinned = Object.keys(this.seedHues[hue] ?? {}).sort((a, b) => a - b);
+        let core = this.coreLevels[hue];
+        ret[hue] ??= {};
+
+        for (let tint in this.paletteScales[hue]) {
+          if (tint === core) {
+            continue;
+          }
+
+          let delta = tint - core;
+
+          if (pinned.length <= 1) {
+            // If nothing is pinned or just the core level is pinned, all other tints are edited relative to that
+            ret[hue][tint] = core;
+          } else {
+            // Find closest pinned tint in the direction of the core color
+            if (delta < 0) {
+              // We want the first pinned tint that is larger than tint
+              ret[hue][tint] = pinned.find(pinnedTint => pinnedTint > tint);
+            } else {
+              // We want the last pinned tint that is smaller than tint
+              ret[hue][tint] = pinned.findLast(pinnedTint => pinnedTint < tint);
+            }
+          }
+        }
+      }
+
+      return ret;
+    },
+  }, // end computed
 
   watch: {
     hueShifts: {
@@ -701,7 +736,7 @@ let paletteAppSpec = {
         }
       },
     },
-  },
+  }, // end watch
 
   methods: {
     capitalize,
@@ -861,7 +896,7 @@ let paletteAppSpec = {
 
       return { color, index };
     },
-  },
+  }, // end methods
 
   directives: {
     // Like v-text, but doesn't complain if the element has content,
