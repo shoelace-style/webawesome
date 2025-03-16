@@ -223,8 +223,15 @@ export default {
     },
   },
   watch: {
-    colorCurrentString() {
-      this.$emit('update:color', this.colorCurrent);
+    async colorCurrentString() {
+      if (!this.colorComponent) {
+        // If we're monitoring a specific color component, we can key off changes to that value
+        await this.$nextTick();
+        if (this.color + '' !== this.colorCurrentString) {
+          // Still different
+          this.$emit('update:color', this.colorCurrent);
+        }
+      }
     },
 
     async colorComponentValue() {
