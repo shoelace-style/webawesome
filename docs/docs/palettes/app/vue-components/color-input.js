@@ -3,7 +3,7 @@ const template = `
   :style="{'--color': value, '--color-original': inputValue}">
   <div slot="image" :style="{ colorScheme: level <= 60 ? 'dark' : 'light'}">
 
-    <color-popup  placement="top-start">
+    <color-popup placement="top-start" class="seed-color-tweak">
       <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
       <template #content>
         <color-slider label="Hue"          v-model:color="color" :default-value="inputColor.get('oklch.h')" color-component="oklch.h" :min="0" :max="359"></color-slider>

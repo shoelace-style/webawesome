@@ -160,5 +160,6 @@ wa-icon-button.delete-button {
   }
 }
 
-.pin-color {
+.seed-color-tweak .popup {
+  min-width: clamp(0ch, 50ch, 90vw);
 }
