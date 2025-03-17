@@ -335,6 +335,10 @@ wa-dropdown > .color.swatch {
   margin-inline-start: var(--wa-space-xs);
 }
 
+.seeded wa-badge.status {
+  display: none;
+}
+
 .selected-swatch,
 .color-select wa-option::before {
   content: '';
