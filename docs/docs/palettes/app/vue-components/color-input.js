@@ -46,7 +46,22 @@ await customElements.whenDefined('wa-select');
 
 let maxUid = 0;
 
+const expose = [
+  'valueRaw',
+  'value',
+  'inputValueRaw',
+  'inputValue',
+  'colorRaw',
+  'color',
+  'inputColorRaw',
+  'inputColor',
+  'hue',
+  'level',
+  'tweaked',
+];
+
 export default {
+  expose,
   props: {
     modelValue: {
       type: Object,
@@ -109,19 +124,7 @@ export default {
 
     computedValue() {
       let ret = {};
-      for (let property of [
-        'valueRaw',
-        'value',
-        'inputValueRaw',
-        'inputValue',
-        'colorRaw',
-        'color',
-        'inputColorRaw',
-        'inputColor',
-        'hue',
-        'level',
-        'tweaked',
-      ]) {
+      for (let property of expose) {
         ret[property] = this[property];
       }
 
