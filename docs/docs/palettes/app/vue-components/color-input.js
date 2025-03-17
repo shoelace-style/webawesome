@@ -263,11 +263,6 @@ export default {
         },
       });
     },
-
-    revert() {
-      this.$emit('update:modelValue', this.inputValue);
-      this.$emit('update:color', this.inputColor);
-    },
   },
   watch: {
     /** colorRaw -> color */
