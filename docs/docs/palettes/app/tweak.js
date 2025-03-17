@@ -16,6 +16,7 @@ import InfoTip from './vue-components/info-tip.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
 import {
+  allHues,
   cdnUrl,
   HUE_RANGES,
   hueAfter,
@@ -288,7 +289,7 @@ let paletteAppSpec = {
     colorToIndex() {
       let ret = {};
 
-      for (let hue of [...hues, 'gray']) {
+      for (let hue of allHues) {
         ret[hue] = {};
       }
 

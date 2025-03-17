@@ -43,6 +43,7 @@ export const HUE_RANGES = {
 };
 
 export const hues = Object.keys(HUE_RANGES);
+export const allHues = [...hues, 'gray'];
 export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];
 
 export const L_RANGES = {

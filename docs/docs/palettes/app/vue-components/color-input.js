@@ -39,7 +39,7 @@ import { identifyColor } from '../color/util.js';
 import ColorPopup from './color-popup.js';
 import ColorSlider from './color-slider.js';
 import InfoTip from './info-tip.js';
-import { ROLES } from '/assets/scripts/tweak/data.js';
+import { ROLES, allHues } from '/assets/scripts/tweak/data.js';
 import { capitalize } from '/assets/scripts/tweak/util.js';
 
 await customElements.whenDefined('wa-select');
@@ -92,7 +92,6 @@ export default {
     let inputColor = tryColor(inputValueRaw);
 
     return {
-      ROLES,
       uid,
       initialProps: { ...this.modelValue },
       valueRaw,
@@ -106,6 +105,10 @@ export default {
       inputFocused: false,
       watching: {},
     };
+  },
+  created() {
+    // Non-reactive variables to expose
+    Object.assign(this, { ROLES, allHues });
   },
   computed: {
     inputLCH() {
@@ -144,17 +147,21 @@ export default {
     },
 
     colorInfo() {
-      if (!this.color) {
-        return { hue: this.pinnedHue, level: undefined };
-      }
-
-      let ret = identifyColor(this.color, this.otherColors);
+      let ret = { ...this.detectedColorInfo };
 
       if (this.pinnedHue) {
         ret.hue = this.pinnedHue;
       }
 
       return ret;
+    },
+
+    detectedColorInfo() {
+      if (!this.color) {
+        return { hue: undefined, level: undefined };
+      }
+
+      return identifyColor(this.color, this.otherColors);
     },
 
     hue() {
