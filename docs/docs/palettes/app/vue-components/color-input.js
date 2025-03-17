@@ -56,6 +56,7 @@ const expose = [
   'inputColorRaw',
   'inputColor',
   'hue',
+  'pinnedHue',
   'level',
   'tweaked',
 ];
@@ -100,6 +101,7 @@ export default {
       inputValueRaw,
       inputValue: inputColor ? inputValueRaw : undefined,
       inputColor,
+      pinnedHue: this.modelValue.pinnedHue,
       editing: 0,
       inputFocused: false,
       watching: {},
@@ -143,10 +145,16 @@ export default {
 
     colorInfo() {
       if (!this.color) {
-        return { hue: undefined, level: undefined };
+        return { hue: this.pinnedHue, level: undefined };
       }
 
-      return identifyColor(this.color, this.otherColors);
+      let ret = identifyColor(this.color, this.otherColors);
+
+      if (this.pinnedHue) {
+        ret.hue = this.pinnedHue;
+      }
+
+      return ret;
     },
 
     hue() {

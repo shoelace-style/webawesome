@@ -178,7 +178,7 @@
         <color-popup :title="capitalize(hue) + ' ' + tint" :token="`--wa-color-${ hue }-${ tint }`" :color="colors[hue][tint]"
           :pinned="!!seedColors[colorToIndex[hue][tint]]"
           :deletable="isCustom" @delete="deleteColor(colorToIndex[hue][tint])"
-          :pinnable="isCustom" @pin="addColor(colors[hue][tint] + '')">
+          :pinnable="isCustom" @pin="addColor({hue, pinnedHue: hue, level: tint})">
           <div slot="trigger" class="color swatch" :style="{ colorScheme: tint > 60 ? 'light' : 'dark' }">
             <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedColors[colorToIndex[hue][tint]]"></wa-icon>
             <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
@@ -187,7 +187,7 @@
             <color-slider v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]"
               v-model:color="colors[hue][tint]"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
-              @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, level: tint}) : null"
+              @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, pinnedHue: hue, level: tint}) : null"
               coord="h"
               :min="HUE_RANGES[hue].mid - 70" :max="HUE_RANGES[hue].mid + 70" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"

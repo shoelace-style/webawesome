@@ -92,7 +92,17 @@ let paletteAppSpec = {
       }
 
       if (this.permalink.has('color')) {
-        this.seedColors = this.permalink.getAll('color').map(value => ({ value }));
+        this.seedColors = this.permalink.getAll('color').map(value => {
+          if (value.startsWith('{')) {
+            try {
+              return JSON.parse(value);
+            } catch (e) {
+              return { value };
+            }
+          } else {
+            return { value };
+          }
+        });
       }
 
       if (this.permalink.has('uid')) {
@@ -245,7 +255,14 @@ let paletteAppSpec = {
     },
 
     seedColorValues() {
-      return this.seedColors.map(c => c.value);
+      return this.seedColors.map(c => {
+        if (c.pinnedHue) {
+          let { value, pinnedHue } = c;
+          return { value, pinnedHue };
+        } else {
+          return c.value;
+        }
+      });
     },
 
     seedColorObjectsRaw() {
@@ -877,11 +894,12 @@ let paletteAppSpec = {
 
     addColor(value = this.seedColorSamples.shift() ?? '') {
       if (value?.hue) {
-        let hue = value.hue;
         // Pinning a generated color
-        let level = value.level ?? this.coreLevels[hue];
+        let { hue, level, pinnedHue } = value;
+
+        level ??= this.coreLevels[hue];
         let color = this.colors[hue][level];
-        value = { value: color + '', color };
+        value = { value: color + '', color, pinnedHue };
       } else {
         value = typeof value === 'string' || value?.constructor.name === 'Color' ? { value } : value;
       }

@@ -33,7 +33,13 @@ export default class Permalink extends URLSearchParams {
       value = value.slice();
 
       for (let v of value) {
-        super.append(key, v);
+        if (v || v === 0) {
+          if (typeof v === 'object') {
+            super.append(key, JSON.stringify(v));
+          } else {
+            super.append(key, v);
+          }
+        }
       }
     } else if (value === null) {
       super.delete(key);
