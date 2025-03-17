@@ -373,3 +373,8 @@ wa-dropdown > .color.swatch {
     min-width: 25ch;
   }
 }
+
+wa-icon[name='thumbtack'],
+wa-icon-button[name='thumbtack']::part(icon) {
+  rotate: 45deg;
+}
