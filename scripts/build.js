@@ -5,10 +5,10 @@ import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
 
-import nunjucks from "nunjucks"
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
+import nunjucks from 'nunjucks';
 import ora from 'ora';
 import { dirname, join, relative } from 'path';
 import process from 'process';
@@ -44,7 +44,7 @@ async function buildAll() {
     await copy(cdnDir, distDir, { overwrite: true });
 
     await generateBundle();
-      await generateDocs();
+    await generateDocs();
 
     const time = (Date.now() - start) / 1000 + 's';
     spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
@@ -269,10 +269,10 @@ async function regenerateBundle() {
  */
 async function generateDocs() {
   /**
-    * Used by the webawesome-app to skip doc generation since it will do its own.
-    */
-  if (process.env.SKIP_ELEVENTY === "true") {
-    return
+   * Used by the webawesome-app to skip doc generation since it will do its own.
+   */
+  if (process.env.SKIP_ELEVENTY === 'true') {
+    return;
   }
 
   spinner.start('Writing the docs');
@@ -348,36 +348,35 @@ if (isDeveloping) {
       middleware: [
         function (req, res, next) {
           // Accumulator for strings so we can pass them through EJS.
-          const finalString = []
-          const encoding = "utf-8"
+          const finalString = [];
+          const encoding = 'utf-8';
 
-          const _write = res.write
-          res.write = function(chunk, encoding) {
-            finalString.push(chunk.toString())
-          }
+          const _write = res.write;
+          res.write = function (chunk, encoding) {
+            finalString.push(chunk.toString());
+          };
 
-          const _end = res.end
+          const _end = res.end;
           res.end = function (...args) {
-            const transformedStr = nunjucks.renderString(finalString.join(""), {
+            const transformedStr = nunjucks.renderString(finalString.join(''), {
               // Stub the server EJS shortcodes.
               server: {
-                head: "",
-                loginOrAvatar: "",
-                flashes: "",
-              }
-            })
-            _write.call(res, transformedStr, encoding)
-            _end.call(res, ...args)
-          }
+                head: '',
+                loginOrAvatar: '',
+                flashes: '',
+              },
+            });
+            _write.call(res, transformedStr, encoding);
+            _end.call(res, ...args);
+          };
 
-          next()
-        }
+          next();
+        },
       ],
       callbacks: {
         ready: (_err, instance) => {
           // 404 errors
           instance.addMiddleware('*', async (req, res) => {
-
             if (req.url.toLowerCase().endsWith('.svg')) {
               // Make sure SVGs error out in dev instead of serve the 404 page
               res.writeHead(404);
@@ -393,7 +392,6 @@ if (isDeveloping) {
 
             res.end();
           });
-
         },
       },
     },
