@@ -29,9 +29,10 @@ const globalData = {
   isAlpha,
   layout: 'page.njk',
 
-  //
   server: {
-    head: null,
+    head: "",
+    loginOrAvatar: "",
+    flashes: "",
   }
 };
 
@@ -140,18 +141,19 @@ export default function (eleventyConfig) {
     //  - resize-observer (why SSR this?)
     //  - tooltip (why SSR this?)
     //
-    // const omittedModules = [];
-    // const componentModules = componentList
-    //   .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-    //   .map(component => {
-    //     const name = component.tagName.split(/wa-/)[1];
-    //     return `./dist/components/${name}/${name}.js`;
-    //   });
+    const omittedModules = [];
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join(".", "dist")
+        return path.join(componentDirectory, "components", name, `${name}.js`);
+      });
 
-    // eleventyConfig.addPlugin(litPlugin, {
-    //   mode: 'worker',
-    //   componentModules,
-    // });
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
+    });
   }
 
   // Build the search index

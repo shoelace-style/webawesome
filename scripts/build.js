@@ -44,7 +44,7 @@ async function buildAll() {
     await copy(cdnDir, distDir, { overwrite: true });
 
     await generateBundle();
-    await generateDocs();
+      await generateDocs();
 
     const time = (Date.now() - start) / 1000 + 's';
     spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
@@ -268,6 +268,13 @@ async function regenerateBundle() {
  * Generates the documentation site.
  */
 async function generateDocs() {
+  /**
+    * Used by the webawesome-app to skip doc generation since it will do its own.
+    */
+  if (process.env.SKIP_ELEVENTY === "true") {
+    return
+  }
+
   spinner.start('Writing the docs');
 
   const args = [];
