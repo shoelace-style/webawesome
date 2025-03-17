@@ -861,7 +861,7 @@ let paletteAppSpec = {
      * @param {string} hue - Hue (literal or semantic)
      */
     setRoleColor(role, hue) {
-      if (!this.seedHues[hue] && hue !== 'gray') {
+      if (!this.seedHues[hue] && hue !== 'gray' && !ROLES.includes(hue)) {
         // We're also adding it
         this.addColor(this.coreColors[hue]);
       }
