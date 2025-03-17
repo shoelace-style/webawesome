@@ -62,6 +62,7 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
     let seedHuesAfter = huesAfter.filter(hue => seedHues[hue]);
     let neighboringSeedHues = [seedHuesAfter.at(-1), seedHuesAfter[0]];
 
+    // A number from 0 to 1 indicating how close we are to each neighboring seed hue (0 if only one seed hue)
     let hueProgress =
       seedHuesAfter.length === 1
         ? 0
@@ -70,15 +71,35 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
             neighboringSeedHues.map(hue => HUE_RANGES[hue].mid),
           );
 
+    // Hue of the core color of the previous seed scale
     let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('oklch.h');
-    let h = HUE_RANGES[hue].mid;
-    let hDelta = subtractAngles(h, hBefore);
 
-    if (hDelta < 40) {
-      // Shift if too close to seed hues
+    // We start from the midpoint of the hue range
+    let h = HUE_RANGES[hue].mid;
+
+    // Shift if too close to seed hues
+    let hBeforeDelta = subtractAngles(h, hBefore);
+
+    if (hBeforeDelta < 40) {
       h = hBefore + 40;
     }
 
+    if (seedHuesAfter.length > 1) {
+      let hueAfter = seedHuesAfter[0];
+      let hAfter = ret[hueAfter][ret[hueAfter].maxChromaTint].get('oklch.h');
+      [hBefore, h, hAfter] = normalizeAngles([hBefore, h, hAfter]);
+      let hAfterDelta = subtractAngles(hAfter, h);
+
+      if (hAfter - 40 < hBefore + 40) {
+        // It's not possible to have a distance of at least 40deg from both neighboring hues
+        // so at least maximize distance
+        h = (hBefore + hAfter) / 2;
+      } else if (hAfterDelta < 40) {
+        h = hAfter - 40;
+      }
+    }
+
+    // Make sure hue is still within range for this scale
     h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
 
     let coreLevelOffset = interpolate(
