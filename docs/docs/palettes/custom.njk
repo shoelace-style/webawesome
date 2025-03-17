@@ -18,7 +18,7 @@ status: experimental
   <template v-for="color, i in seedColors" :key="color.uid ?? maxSeedUid">
     <color-input v-model="seedColors[i]"
       :other-colors="seedColors.filter((_, j) => j !== i).map(c => c.color)"
-      v-model:roles="seedColorRoles[i]"
+      :roles="seedColorRoles[i]"
       @update:roles="roles => setColorRole(i, roles)"
       @delete="deleteColor(i)"></color-input>
   </template>

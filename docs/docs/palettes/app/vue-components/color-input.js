@@ -36,9 +36,10 @@ const template = `
   </div>
 
   <wa-select class="color-to-role" multiple appearance="plain" placeholder="(No states)" max-options-visible="2"
-    :value.attr="roles.join(' ')" :value="roles"
+    ref="roles" :value.attr="Object.keys(roles).join(' ')" :value="Object.keys(roles)"
+    :getTag="getTag"
     @input="$emit('update:roles', $event.target.value)">
-    <wa-option v-for="role in ROLES" :value="role">{{ capitalize(role) }}</wa-option>
+    <wa-option v-for="role in ROLES" :value="role" :class="{'default': !roles[role]}">{{ capitalize(role) }}</wa-option>
   </wa-select>
 
   <wa-input :value="valueRaw" @input="handleInput" @focus="inputFocused = true" @blur="inputFocused = false" ref="input"></wa-input>
@@ -88,8 +89,8 @@ export default {
       type: Array,
     },
     roles: {
-      type: Array,
-      default: [],
+      type: Object,
+      default: {},
     },
   },
   emits: ['update:modelValue', 'update:roles', 'delete'],
@@ -270,6 +271,25 @@ export default {
           }
         },
       });
+    },
+
+    getTag(option) {
+      let isDefault = option.classList.contains('default');
+      let tag = Object.assign(document.createElement('wa-tag'), {
+        part: `tag${isDefault ? ' default' : ''}`,
+        exportparts: `
+          base:tag__base,
+          content:tag__content,
+          remove-button:tag__remove-button,
+          remove-button__base:tag__remove-button__base`,
+        size: 'small',
+        removable: !isDefault,
+        'data-value': option.value,
+        id: 'tag-' + option.value,
+        innerHTML: option.label + ` <wa-tooltip hoist for="tag-${option.value}">Default role</wa-tooltip>`,
+      });
+
+      return tag;
     },
   },
   watch: {

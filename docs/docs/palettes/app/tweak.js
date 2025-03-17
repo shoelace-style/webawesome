@@ -316,8 +316,8 @@ let paletteAppSpec = {
       let ret = {};
       for (let role in this.computedRoles) {
         let value = this.computedRoles[role];
-        ret[value] ??= [];
-        ret[value].push(role);
+        ret[value] ??= {};
+        ret[value][role] = this.roles[role];
       }
       return ret;
     },
