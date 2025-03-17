@@ -92,7 +92,7 @@ export default {
       default: [],
     },
   },
-  emits: ['update:modelValue', 'update:color', 'update:roles', 'delete'],
+  emits: ['update:modelValue', 'update:roles', 'delete'],
   data() {
     let uid = this.modelValue.uid ?? maxUid++;
     if (this.modelValue.uid) {
@@ -222,8 +222,8 @@ export default {
 
       nextTick().then(() => {
         if (this.colorRaw) {
+          this.color = this.colorRaw;
           this.$refs.input.setCustomValidity('');
-          this.$emit('update:color', this.colorRaw);
         } else {
           this.$refs.input.setCustomValidity('Invalid color');
           this.$refs.input.reportValidity();
