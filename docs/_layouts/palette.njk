@@ -156,7 +156,7 @@
             </template>
             <template v-else>
             <color-slider v-if="isCustom && seedColors[colorToIndex[hue].core]"
-              coord="h"
+              coord="h" type="shift"
               v-model:color="seedColors[colorToIndex[hue].core].color"
               :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
@@ -178,6 +178,7 @@
               :max="getMaxChroma(colors[hue].core?.oklch.l, colors[hue].core?.oklch.h) - 0.001" :step="0.001"
               label="Adjust colorfulness" label-min="More muted" label-max="More vibrant"
               label-default="Entered color"
+              format-type="scale"
               ></color-slider>
             </template>
           </template>
@@ -201,6 +202,7 @@
               :min="HUE_RANGES[hue].mid - 70" :max="HUE_RANGES[hue].mid + 70" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
+              format-type="shift"
               ></color-slider>
             <color-slider v-if="hue != 'gray'" v-model:color="colors[hue][tint]"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.c"
@@ -209,7 +211,8 @@
               coord="c"
               :min="coreColors.gray.oklch.c + 0.001"
               :max="tint == coreLevels[hue] ? maxChroma(colors[hue][tweakBase[hue][tint]].oklch.l, colors[hue][tweakBase[hue][tint]].oklch.h) : coreColors[hue].oklch.c - 0.001" :step="0.001"
-              label="Chroma shift" label-min="More muted" label-max="More vibrant"
+              label="Colorfulness" label-min="More muted" label-max="More vibrant"
+              format-type="scale"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
               ></color-slider>
           </template>
