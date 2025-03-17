@@ -494,12 +494,27 @@ let paletteAppSpec = {
       return ret;
     },
 
+    baseMaxChromaHue() {
+      let maxChroma = -1;
+      let maxChromaHue = null;
+
+      for (let hue in this.baseCoreColors) {
+        let color = this.baseCoreColors[hue];
+        let chroma = color.get('oklch.c');
+        if (chroma > maxChroma || !maxChromaHue) {
+          maxChroma = chroma;
+          maxChromaHue = hue;
+        }
+      }
+      return maxChromaHue;
+    },
+
+    baseMaxChromaColor() {
+      return this.baseCoreColors[this.baseMaxChromaHue];
+    },
+
     baseMaxChroma() {
-      return Math.max(
-        ...Object.values(this.baseCoreColors)
-          .map(color => color.get('oklch.c'))
-          .filter(c => c >= 0),
-      );
+      return this.baseMaxChromaColor.get('oklch.c');
     },
 
     coreColors() {

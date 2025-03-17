@@ -84,7 +84,7 @@ wa-dropdown > .color.swatch {
   }
 }
 
-[data-component='oklch.h'] {
+[data-component='h'] {
   --color-interpolation-space: oklch increasing hue;
 }
 

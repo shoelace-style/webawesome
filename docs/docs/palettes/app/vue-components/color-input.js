@@ -7,13 +7,13 @@ const template = `
       <wa-icon-button name="sliders-simple" class="tweak-icon"></wa-icon-button>
       <template #content>
         <color-slider label="Hue" label-default="Entered color"
-                      color-component="oklch.h" :min="0" :max="359" :step="1"
+                      coord="h" :min="0" :max="359" :step="1"
                       v-model:color="color" :default-value="inputLCH[2]" ></color-slider>
         <color-slider label="Colorfulness" label-default="Entered color"
-                      color-component="oklch.c" :min="0" :max="maxChroma" :step="0.001"
+                      coord="c" :min="0" :max="maxChroma" :step="0.001"
                       v-model:color="color" :default-value="inputLCH[1]" format-type="scale" :base-value="maxChroma" ></color-slider>
         <color-slider label="Lightness" label-default="Entered color"
-                      color-component="oklch.l" :min="0" :max="1" :step="0.01"
+                      coord="l" :min="0" :max="1" :step="0.01"
                       v-model:color="color" :default-value="inputLCH[0]" format-type="scale" :base-value="1" ></color-slider>
       </template>
     </color-popup>
@@ -35,7 +35,7 @@ import Color from 'https://colorjs.io/dist/color.js';
 // import { nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import getMaxChroma from '../color/get-max-chroma.js';
-import { identifyColor, stringifyColor } from '../color/util.js';
+import { identifyColor } from '../color/util.js';
 import ColorPopup from './color-popup.js';
 import ColorSlider from './color-slider.js';
 import InfoTip from './info-tip.js';

@@ -146,30 +146,27 @@
                   Gray undertone
                 </div>
               </wa-radio-group>
-              <color-slider class="gray-chroma-slider" type="scale" :default-value="originalGrayChroma"
+              <color-slider coord="c" type="scale" :default-value="originalGrayChroma"
               :model-value="computedGrayChroma"
               @update:model-value="grayChroma = $event"
+              :default-color="baseCoreColors[computedGrayColor]"
               :min="0" :max="maxGrayChroma" :step="0.01"
-              :get-color="scale => baseCoreColors[computedGrayColor].clone().set('oklch.c', c => c * scale)"
               label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
               ></color-slider>
             </template>
             <template v-else>
-            <color-slider v-if="isCustom && seedColors[colorToIndex[hue].core]"
+            <color-slider  v-if="isCustom && seedColors[colorToIndex[hue].core]"
+              coord="h"
               v-model:color="seedColors[colorToIndex[hue].core].color"
               :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
-
-              color-component="oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
               label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               ></color-slider>
 
-              <color-slider v-if="!isCustom && baseCoreColors[hue]"
-                type="shift"
+              <color-slider  v-if="!isCustom && baseCoreColors[hue]"
+                coord="h" type="shift"
                 v-model="hueShifts[hue]"
                 :default-color="baseCoreColors[hue]"
-
-                color-component="oklch.h"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
                 label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
                 ></color-slider>
@@ -192,7 +189,7 @@
               @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, level: tint}) : null"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
 
-              color-component="oklch.h"
+              coord="h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
@@ -205,12 +202,13 @@
 </tbody>
 </table>
 
-<color-slider v-if="!isCustom"
-  class="chroma-scale-slider wa-palette-{{ paletteId }}" :class="{ tweaked: chromaScale !== 1 }"
-  type="scale" :default-value="1"
+<color-slider v-if="!isCustom" :class="{ tweaked: chromaScale !== 1 }"
+  type="scale"
   v-model="chromaScale"
-  :min="chromaScaleBounds.min" :max="chromaScaleBounds.max" :step="0.01"
-  :get-color="scale => baseCoreColors.blue.clone().set('oklch.c', c => c * scale)"
+  coord="c"
+  :default-color="baseMaxChromaColor"
+  :default-value="baseMaxChroma"
+  :min="MAX_CHROMA_BOUNDS.min" :max="MAX_CHROMA_BOUNDS.max" :step="0.01"
   label="Overall colorfulness" label-min="More muted" label-max="More vibrant"
 ></color-slider>
 

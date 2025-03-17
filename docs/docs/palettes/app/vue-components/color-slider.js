@@ -1,10 +1,10 @@
 const template = `
 <div class="color-slider" :style="{
-  '--color': colorCurrent, '--color-1': colorMin, '--color-2': colorMax,
+  '--color': computedColor, '--color-1': colorMin, '--color-2': colorMax,
   '--default-value-progress': defaultProgress,
-  }" :data-component="colorComponent || null">
+  }" :data-component="coord || null">
   <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
-    @input="handleInput($event.target.value); $emit('update:tweaking', true); $emit('input', $event.target.value);" @change="$emit('update:tweaking', false)">
+    @input="handleInput($event.target.value);" @change="inputEnd($event.target.value)">
     <div slot="label">
       {{ label }}
       <wa-icon-button v-if="value !== computedDefaultValue" @click="reset" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
@@ -25,15 +25,22 @@ import { capitalize, clamp, promise, roundTo } from '/assets/scripts/tweak/util.
 
 export default {
   props: {
-    colorComponent: String,
+    coord: {
+      type: String,
+      required: true,
+      validator(value) {
+        return ['l', 'c', 'h'].includes(value);
+      },
+    },
+    color: {
+      type: Color,
+    },
     defaultColor: {
       type: Color,
     },
+
     defaultValue: {
       type: Number,
-      default(rawProps) {
-        return rawProps.defaultColor?.get(rawProps.colorComponent);
-      },
     },
     /** Used for formatting only. Only specify if different from default value. */
     baseValue: {
@@ -60,32 +67,29 @@ export default {
     },
     formatType: {
       type: String,
-      default(rawProps) {
-        return rawProps.type ?? 'raw';
-      },
-    },
-
-    getColor: {
-      type: Function,
-    },
-    color: {
-      type: Color,
     },
 
     label: String,
     labelMin: String,
     labelMax: String,
     labelDefault: String,
-
-    tweaking: Boolean,
   },
-  emits: ['update:modelValue', 'update:tweaking', 'update:color', 'input'],
+  emits: ['update:modelValue', 'update:color', 'input'],
   data() {
     return {
       mounted: promise(),
       initialColor: this.color,
       value: undefined,
+      tweaking: false,
     };
+  },
+  created() {
+    if (!this.color && !this.defaultColor) {
+      console.warn(
+        `[${this.label}]`,
+        '<color-slider> requires at least one of the following props: color, defaultColor',
+      );
+    }
   },
   mounted() {
     if (this.$refs.slider) {
@@ -96,7 +100,7 @@ export default {
     this.value = getAbsoluteValue({
       type: this.type,
       relativeValue: this.modelValue,
-      baseValue: this.defaultValue,
+      baseValue: this.computedDefaultValue,
     });
 
     this.mounted.resolve();
@@ -105,30 +109,43 @@ export default {
     delete this.$refs.slider?.colorSliderData;
   },
   computed: {
-    colorCurrent() {
-      return this.getColorAt(this.value, this.modelValue) ?? this.initialColor;
+    computedColor() {
+      return this.getColorAt(this.value);
     },
 
-    colorCurrentString() {
-      return this.colorCurrent + '';
+    computedColorCoords() {
+      return this.computedColor.oklch.slice();
     },
 
-    h() {
-      return this.colorCurrent?.get('oklch.h') ?? this.initialColor?.get('oklch.h');
+    colorCoords() {
+      let color = this.color ?? this.computedColor;
+      return color?.oklch.slice();
     },
 
-    c() {
-      return this.colorCurrent?.get('oklch.c') ?? this.initialColor?.get('oklch.c');
+    computedColorString() {
+      return `oklch(${this.computedColorCoords.join(' ')})`;
     },
 
-    l() {
-      return this.colorCurrent?.get('oklch.l') ?? this.initialColor?.get('oklch.l');
+    colorString() {
+      return `oklch(${this.colorCoords.join(' ')})`;
     },
 
-    colorComponentValue() {
-      if (this.colorComponent) {
-        return this.color?.get(this.colorComponent);
+    defaultCoords() {
+      if (this.defaultColor) {
+        return this.defaultColor.oklch.slice();
       }
+
+      let ret = this.color.oklch.slice();
+
+      if (this.defaultValue !== undefined) {
+        ret[this.coordIndex] = this.defaultValue;
+      }
+
+      return ret;
+    },
+
+    coordIndex() {
+      return ['l', 'c', 'h'].indexOf(this.coord);
     },
 
     colorMin() {
@@ -140,38 +157,11 @@ export default {
     },
 
     computedDefaultValue() {
-      let { defaultValue, colorComponent, defaultColor, type, min, max } = this;
-
-      if (defaultValue !== undefined) {
-        return defaultValue;
-      }
-
-      if (colorComponent && defaultColor) {
-        return this.computedDefaultColor.get(colorComponent);
-      }
-
-      return clamp(min, type === 'scale' ? 1 : 0, max);
+      return this.defaultValue ?? this.defaultCoords[this.coordIndex];
     },
 
     computedDefaultColor() {
-      if (this.defaultColor) {
-        return this.defaultColor;
-      }
-
-      let defaultValue = this.computedDefaultValue;
-
-      if (this.colorComponent && this.defaultValue !== undefined) {
-        switch (this.colorComponent) {
-          case 'oklch.l':
-            return new Color('oklch', [defaultValue, this.c, this.h]);
-          case 'oklch.c':
-            return new Color('oklch', [this.l, defaultValue, this.h]);
-          case 'oklch.h':
-            return new Color('oklch', [this.l, this.c, defaultValue]);
-        }
-      }
-
-      return this.getColor?.(defaultValue);
+      return this.defaultColor ?? this.getColorAt(this.computedDefaultValue);
     },
 
     computedLabelDefault() {
@@ -188,11 +178,12 @@ export default {
     capitalize,
 
     formatValue(value = this.value) {
-      let style = this.formatType === 'scale' ? 'percent' : undefined;
+      let formatType = this.formatType ?? this.type;
+      let style = formatType === 'scale' ? 'percent' : undefined;
 
-      if (this.formatType !== 'raw') {
+      if (formatType && formatType !== 'raw') {
         let baseValue = this.baseValue ?? this.computedDefaultValue;
-        value = getRelativeValue({ type: this.formatType, absoluteValue: value, baseValue });
+        value = getRelativeValue({ type: formatType, absoluteValue: value, baseValue });
       }
 
       value = roundTo(value, this.step);
@@ -200,17 +191,15 @@ export default {
     },
 
     getColorAt(value) {
-      if (this.getColor) {
-        return this.getColor(value, this.modelValue);
-      }
-
-      if (this.computedDefaultColor && this.colorComponent) {
-        return this.computedDefaultColor.clone().set(this.colorComponent, value);
-      }
+      let coords = this.defaultCoords.slice();
+      coords[this.coordIndex] = value;
+      return new Color('oklch', coords);
     },
 
+    /** Called when value changes due to user interaction */
     handleInput(value) {
       this.value = value;
+      this.tweaking = true;
 
       let modelValue = getRelativeValue({
         type: this.type,
@@ -219,31 +208,45 @@ export default {
       });
 
       this.$emit('update:modelValue', modelValue);
+      this.$emit('input', modelValue);
+    },
+
+    inputEnd() {
+      this.tweaking = false;
     },
 
     reset() {
       this.handleInput(this.computedDefaultValue);
-      this.$emit('input', this.computedDefaultValue);
+      this.inputEnd();
     },
   },
   watch: {
-    async colorCurrentString() {
-      if (!this.colorComponent) {
-        // If we're monitoring a specific color component, we can key off changes to that value
-        await this.$nextTick();
-        if (this.color + '' !== this.colorCurrentString) {
-          // Still different
-          this.$emit('update:color', this.colorCurrent);
-        }
+    computedColorString() {
+      if (this.color && this.colorString !== this.computedColorString) {
+        // Color changed, communicate to the outside world
+        this.$emit('update:color', this.computedColor);
       }
     },
 
-    async colorComponentValue() {
+    async colorString() {
       await this.$nextTick();
-      if (this.value !== this.colorComponentValue) {
-        // Color changed externally
-        this.value = this.colorComponentValue;
-        this.$emit('update:color', this.colorCurrent);
+      await this.mounted;
+
+      if (this.color && this.colorString !== this.computedColorString) {
+        // Color changed in the outside world, update our internals
+        if (this.colorCoords[this.coordIndex] !== this.value) {
+          this.value = this.colorCoords[this.coordIndex];
+
+          await this.$nextTick();
+
+          let modelValue = getRelativeValue({
+            type: this.type,
+            absoluteValue: this.value,
+            baseValue: this.computedDefaultValue,
+          });
+
+          this.$emit('update:modelValue', modelValue);
+        }
       }
     },
   },
