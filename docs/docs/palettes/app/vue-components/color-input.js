@@ -124,6 +124,14 @@ export default {
     // Non-reactive variables to expose
     Object.assign(this, { ROLES, allHues });
   },
+  async mounted() {
+    if (this.modelValue.editImmediately) {
+      let input = this.$refs.input;
+      await input.updateComplete;
+      input.focus();
+      input.select();
+    }
+  },
   computed: {
     inputLCH() {
       return this.inputColor?.oklch;

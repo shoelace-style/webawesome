@@ -18,7 +18,7 @@ status: experimental
       @update:roles="roles => setColorRole(i, roles)"
       @delete="deleteColor(i)"></color-input>
   </template>
-  <wa-button class="add-button" appearance="outlined" @click="addColor()">
+  <wa-button class="add-button" appearance="outlined" @click="addColor(undefined, {editImmediately: true})">
     <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
     <span v-content="step > 0 ? 'Add color' : 'New palette'">New palette</span>
   </wa-button>

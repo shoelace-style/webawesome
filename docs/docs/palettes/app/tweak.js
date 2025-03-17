@@ -887,7 +887,7 @@ let paletteAppSpec = {
       }
     },
 
-    addColor(value) {
+    addColor(value, options) {
       if (!value) {
         if (this.seedColors.length === 0) {
           value = firstSeedColor;
@@ -915,6 +915,10 @@ let paletteAppSpec = {
         value = { value };
       } else if (value instanceof Color || value?.constructor.name === 'Color') {
         value = { value: value + '', color: value };
+      }
+
+      if (options) {
+        Object.assign(value, options);
       }
 
       value.uid ??= this.maxSeedUid++;
