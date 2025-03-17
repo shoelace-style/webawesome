@@ -335,8 +335,14 @@ wa-dropdown > .color.swatch {
   margin-inline-start: var(--wa-space-xs);
 }
 
-.seeded wa-badge.status {
-  display: none;
+.seeded {
+  wa-badge.status {
+    display: none;
+  }
+
+  wa-badge.pro {
+    filter: grayscale(0.95);
+  }
 }
 
 .selected-swatch,
