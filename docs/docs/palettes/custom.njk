@@ -10,6 +10,10 @@ status: experimental
 
 <h2 v-if="step > 0" v-cloak>My colors</h2>
 
+<p v-if="step > 0" v-cloak>
+  Just add your colors, in any order. We’ll sort them out for you, generate tints, and suggest additional colors.
+</p>
+
 <div id="seed-colors">
   <template v-for="color, i in seedColors" :key="color.uid ?? maxSeedUid">
     <color-input v-model="seedColors[i]"
