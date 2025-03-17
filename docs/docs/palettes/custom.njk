@@ -8,7 +8,7 @@ status: experimental
 ---
 <link href="{{ page.url }}../app/custom.css" rel="stylesheet">
 
-<h2 v-if="step > 0" v-cloak>My colors</h2>
+<h2 v-if="step > 0" v-cloak>My Colors</h2>
 
 <p v-if="step > 0" v-cloak>
   Just add your colors, in any order. We’ll sort them out for you, generate tints, and suggest additional colors.
@@ -37,7 +37,7 @@ status: experimental
       See a color you like? Grab it before it’s gone!
     </p>
   </header>
-  <div class="suggestions">
+  <div class="suggestions wa-cluster wa-align-items-start wa-gap-s">
     <template v-for="color, hue in suggestedColors">
       <info-tip>
         <wa-button :style="{'--background-color': color}" @click="addColor({hue})">

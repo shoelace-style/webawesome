@@ -152,12 +152,10 @@ wa-icon-button.delete-button {
   }
 
   .suggestions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(6ch, 1fr));
-    gap: var(--wa-space-s);
-
     wa-button {
       /* --background-color-hover: var(--background-color); */
+      height: var(--wa-form-control-height);
+      width: var(--wa-form-control-height);
 
       wa-icon {
         transition: var(--wa-transition-normal);
