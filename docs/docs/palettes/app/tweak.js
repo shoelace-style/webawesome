@@ -31,7 +31,6 @@ import {
 } from '/assets/scripts/tweak/data.js';
 import { camelCase, capitalize, log, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
-const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
 let paletteAppSpec = {
   data() {
@@ -122,10 +121,6 @@ let paletteAppSpec = {
   },
 
   mounted() {
-    for (let ref in this.$refs) {
-      this.$refs[ref].tooltipFormatter = percentFormatter;
-    }
-
     nextTick().then(() => {
       this.unsavedChanges = false;
     });
