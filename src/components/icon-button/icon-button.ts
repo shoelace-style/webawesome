@@ -17,7 +17,10 @@ import styles from './icon-button.css';
  * @event blur - Emitted when the icon button loses focus.
  * @event focus - Emitted when the icon button gains focus.
  *
- * @cssproperty --background-color-hover - The color of the button's background on hover.
+ * @cssproperty [--background-color-hover=var(--wa-color-neutral-fill-quiet)] - The color of the button's background on hover.
+ * @cssproperty [--background-color-active=var(--wa-color-neutral-fill-quiet)] - The color of the button's background on `:active`.
+ * @cssproperty --text-color-hover - The color of the button's background on hover.
+ * @cssproperty --text-color-active - The color of the button's background on `:active`.
  *
  * @csspart base - The component's base wrapper.
  */

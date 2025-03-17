@@ -4,6 +4,25 @@ description: 'Content styles apply your Web Awesome theme to HTML text content, 
 tags: content
 layout: element
 icon: skeleton
+elements:
+  "<h1>-<h6>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  "<blockquote>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote
+  "<strong>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
+  "<em>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em
+  "<u>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u
+  "<del>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del
+  "<ins>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins
+  "<s>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
+  "<small>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small
+  "<sub>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub
+  "<sup>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup
+  "<abbr>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr
+  "<kbd>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd
+  "<mark>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark
+  "<a>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+  "<code>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code
+  "<img>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+file: styles/native/content.css
 ---
 
 

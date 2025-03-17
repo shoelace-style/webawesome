@@ -11,6 +11,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import type WaButton from '../button/button.js';
 import type WaIconButton from '../icon-button/icon-button.js';
 import type WaMenu from '../menu/menu.js';
@@ -43,7 +44,7 @@ import styles from './dropdown.css';
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
 
   @query('.dropdown') popup: WaPopup;
   @query('#trigger') trigger: HTMLSlotElement;

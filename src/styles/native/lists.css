@@ -1,0 +1,29 @@
+/* Lists */
+ul,
+ol,
+dl {
+  padding: 0;
+  margin: 0 0 var(--wa-space-xl) var(--wa-space-xl);
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  padding: 0;
+}
+
+li > ul,
+li > ol {
+  margin-block-end: 0;
+}
+
+/* Definition lists */
+dt {
+  font-weight: var(--wa-font-weight-semibold);
+}
+
+dd {
+  margin-inline-start: var(--wa-space-m);
+}

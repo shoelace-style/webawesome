@@ -133,35 +133,6 @@ button:focus-visible {
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-/* Lists */
-ul,
-ol {
-  padding: 0;
-  margin: 0 0 var(--wa-space-xl) var(--wa-space-xl);
-}
-
-ul {
-  list-style: disc;
-}
-
-li {
-  padding: 0;
-}
-
-li > ul,
-li > ol {
-  margin-block-end: 0;
-}
-
-/* Definition lists */
-dt {
-  font-weight: var(--wa-font-weight-semibold);
-}
-
-dd {
-  margin-inline-start: var(--wa-space-m);
-}
-
 /* Images, videos, iframes, etc. */
 img,
 svg,

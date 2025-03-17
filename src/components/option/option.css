@@ -8,13 +8,7 @@
   color: var(--wa-color-text-normal);
   -webkit-user-select: none;
   user-select: none;
-}
 
-:host(:focus) {
-  outline: none;
-}
-
-.option {
   position: relative;
   display: flex;
   align-items: center;
@@ -25,19 +19,23 @@
   cursor: pointer;
 }
 
-:host(:not([disabled])) .option--hover:not(.option--current) {
+:host(:focus) {
+  outline: none;
+}
+
+:host(:not([disabled], :state(current)):is(:state(hover), :hover)) {
   background-color: var(--background-color-hover);
   color: var(--text-color-hover);
 }
 
-.option--current,
-:host([disabled]) .option--current {
+:host(:state(current)),
+:host([disabled]:state(current)) {
   background-color: var(--background-color-current);
   color: var(--text-color-current);
   opacity: 1;
 }
 
-:host([disabled]) .option {
+:host([disabled]) {
   outline: none;
   opacity: 0.5;
   cursor: not-allowed;
@@ -48,7 +46,7 @@
   display: inline-block;
 }
 
-.option .check {
+.check {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -58,7 +56,7 @@
   width: var(--wa-space-xl);
 }
 
-.option--selected .check {
+:host(:state(selected)) .check {
   visibility: visible;
 }
 
@@ -78,7 +76,7 @@
 }
 
 @media (forced-colors: active) {
-  :host(:hover:not([aria-disabled='true'])) .option {
+  :host(:hover:not([aria-disabled='true'])) {
     outline: dashed 1px SelectedItem;
     outline-offset: -1px;
   }

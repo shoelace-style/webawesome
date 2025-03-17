@@ -60,9 +60,16 @@ describe('<wa-menu-item>', () => {
         });
       });
 
-      it('should return a text label when calling getTextLabel()', async () => {
+      it('defaultLabel should return a text label', async () => {
         const el = await fixture<WaMenuItem>(html` <wa-menu-item>Test</wa-menu-item> `);
-        expect(el.getTextLabel()).to.equal('Test');
+        expect(el.defaultLabel).to.equal('Test');
+        expect(el.label).to.equal('Test');
+      });
+
+      it('label attribute should override default label', async () => {
+        const el = await fixture<WaMenuItem>(html` <wa-menu-item label="Manual label">Text content</wa-menu-item> `);
+        expect(el.defaultLabel).to.equal('Text content');
+        expect(el.label).to.equal('Manual label');
       });
 
       it('should emit the slotchange event when the label changes', async () => {
@@ -107,7 +114,7 @@ describe('<wa-menu-item>', () => {
         expect(submenuSlot.hidden).to.be.true;
       });
 
-      it('should render an wa-popup if the slot="submenu" attribute is present', async () => {
+      it('should render a wa-popup if the slot="submenu" attribute is present', async () => {
         const menu = await fixture<WaMenuItem>(html`
           <wa-menu>
             <wa-menu-item id="test">

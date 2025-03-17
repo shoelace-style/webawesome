@@ -68,7 +68,6 @@ import styles from './select.css';
  * @csspart listbox - The listbox container where options are slotted.
  * @csspart tags - The container that houses option tags when `multiselect` is used.
  * @csspart tag - The individual tags that represent each multiselect option.
- * @csspart tag__base - The tag's base part.
  * @csspart tag__content - The tag's content part.
  * @csspart tag__remove-button - The tag's remove button.
  * @csspart tag__remove-button__base - The tag's remove button base part.
@@ -119,6 +118,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
+  @state() optionValues: Set<string> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
   @property() name = '';
@@ -159,10 +159,50 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return val;
   }
 
-  @property({ attribute: false }) value: string | string[] | null = null;
+  private _value: string[] | undefined;
+  @property({ attribute: false })
+  set value(val: string | string[]) {
+    let oldValue = this.value;
+
+    if (!Array.isArray(val)) {
+      val = val.split(' ');
+    }
+
+    if (!this._value || this._value.join(' ') !== val.join(' ')) {
+      this._value = val;
+      let newValue = this.value;
+
+      if (newValue != oldValue) {
+        this.requestUpdate('value', oldValue);
+      }
+    }
+  }
+  get value() {
+    let value = this._value ?? this.defaultValue;
+    value = Array.isArray(value) ? value : [value];
+    let optionsChanged = !this.optionValues;
+
+    if (optionsChanged) {
+      this.optionValues = new Set(
+        this.getAllOptions()
+          .filter(option => !option.disabled)
+          .map(option => option.value),
+      );
+    }
+
+    // Drop values not in the DOM
+    let ret: string | string[] = value.filter(v => this.optionValues!.has(v));
+    ret = this.multiple ? ret : (ret[0] ?? '');
+
+    if (optionsChanged) {
+      this.requestUpdate('value');
+    }
+
+    return ret;
+  }
 
   /** The select's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Placeholder text to show as a hint when the select is empty. */
   @property() placeholder = '';
@@ -253,7 +293,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           removable
           @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
-          ${option.getTextLabel()}
+          ${option.label}
         </wa-tag>
       `;
     };
@@ -438,7 +478,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
 
       for (const option of allOptions) {
-        const label = option.getTextLabel().toLowerCase();
+        const label = option.label.toLowerCase();
 
         if (label.startsWith(this.typeToSelectString)) {
           this.setCurrentOption(option);
@@ -539,12 +579,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     const allOptions = this.getAllOptions();
-    const val = this.valueHasChanged ? this.value : this.defaultValue;
-    const value = Array.isArray(val) ? val : [val];
-    const values: string[] = [];
+    this.optionValues = undefined; // dirty the value so it gets recalculated
 
-    // Check for duplicate values in menu items
-    allOptions.forEach(option => values.push(option.value));
+    const value = this.value;
 
     // Select only the options that match the new value
     this.setSelectedOptions(allOptions.filter(el => value.includes(el.value)));
@@ -566,6 +603,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   // Gets an array of all `<wa-option>` elements
   private getAllOptions() {
+    if (!this?.querySelectorAll) {
+      return [];
+    }
     return [...this.querySelectorAll<WaOption>('wa-option')];
   }
 
@@ -629,11 +669,24 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Update selected options cache
     this.selectedOptions = options.filter(el => el.selected);
+    let selectedValues = new Set(this.selectedOptions.map(el => el.value));
+
+    // Toggle values present in the DOM from this.value, while preserving options NOT present in the DOM (for lazy loading)
+    // Note that options NOT present in the DOM will be moved to the end after this
+    if (selectedValues.size > 0 || this._value) {
+      if (!this._value) {
+        // First time it's set
+        let value = this.defaultValue ?? [];
+        this._value = Array.isArray(value) ? value : [value];
+      }
+
+      // Filter out values that are in the DOM
+      this._value = this._value.filter(value => !this.optionValues?.has(value));
+      this._value.unshift(...selectedValues);
+    }
 
     // Update the value and display label
     if (this.multiple) {
-      this.value = this.selectedOptions.map(el => el.value);
-
       if (this.placeholder && this.value.length === 0) {
         // When no items are selected, keep the value empty so the placeholder shows
         this.displayLabel = '';
@@ -642,8 +695,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
     } else {
       const selectedOption = this.selectedOptions[0];
-      this.value = selectedOption?.value ?? '';
-      this.displayLabel = selectedOption?.getTextLabel?.() ?? '';
+      this.displayLabel = selectedOption?.label ?? '';
     }
 
     // Update validity
@@ -661,7 +713,18 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         </div>`;
       } else if (index === this.maxOptionsVisible) {
         // Hit tag limit
-        return html`<wa-tag>+${this.selectedOptions.length - index}</wa-tag>`;
+        return html`
+          <wa-tag
+            part="tag"
+            exportparts="
+              base:tag__base,
+              content:tag__content,
+              remove-button:tag__remove-button,
+              remove-button__base:tag__remove-button__base
+            "
+            >+${this.selectedOptions.length - index}</wa-tag
+          >
+        `;
       }
       return html``;
     });
@@ -917,6 +980,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         </div>
 
         <slot
+          id="hint"
           name="hint"
           part="hint"
           class=${classMap({

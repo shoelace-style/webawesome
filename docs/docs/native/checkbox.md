@@ -6,6 +6,7 @@ component: checkbox
 icon: checkbox
 elements:
   "<input type=checkbox>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+file: styles/native/checkbox.css
 ---
 
 ```html {.example}

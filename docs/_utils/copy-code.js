@@ -3,30 +3,39 @@ import { parse } from 'node-html-parser';
 /**
  * Eleventy plugin to add copy buttons to code blocks.
  */
-export function copyCodePlugin(options = {}) {
+export function copyCodePlugin(eleventyConfig, options = {}) {
   options = {
     container: 'body',
     ...options,
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('copy-code', content => {
-      const doc = parse(content, { blockTextElements: { code: true } });
-      const container = doc.querySelector(options.container);
+  let codeCount = 0;
+  eleventyConfig.addTransform('copy-code', content => {
+    const doc = parse(content, { blockTextElements: { code: true } });
+    const container = doc.querySelector(options.container);
 
-      if (!container) {
-        return content;
+    if (!container) {
+      return content;
+    }
+
+    // Look for code blocks
+    container.querySelectorAll('pre > code').forEach(code => {
+      const pre = code.closest('pre');
+      let preId = pre.getAttribute('id') || `code-block-${++codeCount}`;
+      let codeId = code.getAttribute('id') || `${preId}-inner`;
+
+      if (!code.getAttribute('id')) {
+        code.setAttribute('id', codeId);
+      }
+      if (!pre.getAttribute('id')) {
+        pre.setAttribute('id', preId);
       }
 
-      // Look for code blocks
-      container.querySelectorAll('pre > code').forEach(code => {
-        const pre = code.closest('pre');
-
-        // Add a copy button (we set the copy data at runtime to reduce page bloat)
-        pre.innerHTML = `<wa-copy-button class="copy-button" hoist></wa-copy-button>` + pre.innerHTML;
-      });
-
-      return doc.toString();
+      // Add a copy button
+      pre.innerHTML += `<wa-icon-button href="#${preId}" class="block-link-icon" name="link"></wa-icon-button>
+        <wa-copy-button from="${codeId}" class="copy-button" hoist></wa-copy-button>`;
     });
-  };
+
+    return doc.toString();
+  });
 }

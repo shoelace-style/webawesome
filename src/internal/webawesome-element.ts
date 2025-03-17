@@ -10,6 +10,7 @@ declare module 'lit' {
      * Specifies the property’s default value
      */
     default?: any;
+    initial?: any;
   }
 }
 
@@ -23,6 +24,15 @@ export default class WebAwesomeElement extends LitElement {
       /* Need to tell people if they need a polyfill. */
       /* eslint-disable-next-line */
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
+    }
+
+    this.toggleCustomState('wa-defined');
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+    for (let [property, spec] of Self.elementProperties) {
+      if (spec.default === 'inherit' && spec.initial !== undefined && typeof property === 'string') {
+        this.toggleCustomState(`initial-${property}-${spec.initial}`);
+      }
     }
   }
 
@@ -159,6 +169,26 @@ export default class WebAwesomeElement extends LitElement {
     return this.hasStatesSupport() ? this.internals.states.has(state) : false;
   }
 
+  getComputed(prop: PropertyKey) {
+    let value = this[prop as keyof this];
+    if (value !== 'inherit') {
+      return value;
+    }
+
+    let Self = this.constructor as typeof WebAwesomeElement;
+    let options = Self.elementProperties.get(prop as string);
+
+    for (let element: Node = this; element.parentElement; element = element.parentElement) {
+      value = (element as any)[prop as PropertyKey];
+      if (value !== 'inherit') {
+        return value;
+      }
+    }
+
+    // If we've reached this point and we still have `inherit`, we just ran out of parents
+    return options?.initial ?? options?.default ?? value;
+  }
+
   /**
    * Given a native event, this function cancels it and dispatches it again from the host element using the desired
    * event options.
@@ -174,37 +204,73 @@ export default class WebAwesomeElement extends LitElement {
     );
   }
 
-  static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
-    if (options && options.default !== undefined && options.converter === undefined) {
-      // Wrap the default converter to remove the attribute if the value is the default
-      // This effectively prevents the component sprouting attributes that have not been specified
-      let converter = {
-        ...defaultConverter,
-        toAttribute(value: string, type: unknown): unknown {
-          if (value === options!.default) {
-            return null;
+  getBoundingClientRect(): DOMRect {
+    let rect = super.getBoundingClientRect();
+
+    if (rect.width === 0 && rect.height === 0) {
+      let Self = this.constructor as typeof WebAwesomeElement;
+
+      if (Self.rectProxy) {
+        let element = this[Self.rectProxy as keyof this];
+        if (element instanceof Element) {
+          let childRect = element.getBoundingClientRect();
+          if (childRect.width > 0 || childRect.height > 0) {
+            return childRect;
           }
-          return defaultConverter.toAttribute!(value, type);
-        },
-      };
-      options = { ...options, converter };
+        }
+      }
+    }
+
+    return rect;
+  }
+
+  /**
+   * If getBoundingClientRect() returns an empty rect,
+   * should we check another element?
+   */
+  static rectProxy: undefined | string;
+
+  static createProperty(name: PropertyKey, options?: PropertyDeclaration): void {
+    if (options) {
+      if (options.initial !== undefined && options.default === undefined) {
+        // Set "inherit" value as default if no default is specified but the initial value is
+        // This saves us having to tediously specify default: "inherit", initial: "foo" for every property
+        options.default = 'inherit';
+      }
+
+      if (options.default !== undefined && options.converter === undefined) {
+        // Wrap the default converter to remove the attribute if the value is the default
+        // This effectively prevents the component sprouting attributes that have not been specified
+        let converter = {
+          ...defaultConverter,
+          toAttribute(value: string, type: unknown): unknown {
+            if (value === options!.default) {
+              return null;
+            }
+            return defaultConverter.toAttribute!(value, type);
+          },
+        };
+        options = { ...options, converter };
+      }
     }
 
     super.createProperty(name, options);
 
     // Wrap the default accessor with logic to return the default value if the value is null
-    if (options && options.default !== undefined) {
-      const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
+    if (options) {
+      if (options.default !== undefined) {
+        const descriptor = Object.getOwnPropertyDescriptor(this.prototype, name as string);
 
-      if (descriptor?.get) {
-        const getter = descriptor.get;
+        if (descriptor?.get) {
+          const getter = descriptor.get;
 
-        Object.defineProperty(this.prototype, name, {
-          ...descriptor,
-          get() {
-            return getter.call(this) ?? options.default;
-          },
-        });
+          Object.defineProperty(this.prototype, name, {
+            ...descriptor,
+            get() {
+              return getter.call(this) ?? options.default;
+            },
+          });
+        }
       }
     }
   }

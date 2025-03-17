@@ -50,6 +50,7 @@ import styles from './radio-button.css';
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
   static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, buttonStyles, styles];
+  static rectProxy = 'input';
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
 
@@ -72,7 +73,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
    * The radio button's size. When used inside a radio group, the size will be determined by the radio group's size so
    * this attribute can typically be omitted.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Draws a pill-style radio button with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

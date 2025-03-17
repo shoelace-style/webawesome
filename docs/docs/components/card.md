@@ -19,13 +19,13 @@ icon: card
 
   <div slot="footer">
     <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
+    <wa-rating label="Rating"></wa-rating>
   </div>
 </wa-card>
 
 <style>
   .card-overview {
-    max-width: 300px;
+    width: 300px;
   }
 
   .card-overview small {
@@ -143,3 +143,42 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
   }
 </style>
 ```
+
+### Sizing
+
+Use the `size` attribute to change a card's size.
+
+```html {.example}
+<div class="wa-stack">
+<wa-card with-footer size="small">
+  This is a small card.
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="medium">
+  This is a medium card (default).
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="large">
+  This is a large card.
+
+  <footer slot="footer" class="wa-flank">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+</div>
+
+```
+
+<style>
+</style>

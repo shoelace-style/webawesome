@@ -1,7 +1,8 @@
 import { html } from 'lit';
-import { customElement, query } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { WaSelectEvent } from '../../events/select.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import '../menu-item/menu-item.js';
 import type WaMenuItem from '../menu-item/menu-item.js';
 import styles from './menu.css';
@@ -24,7 +25,10 @@ export interface MenuSelectEventDetail {
  */
 @customElement('wa-menu')
 export default class WaMenu extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
+
+  /** The component's size. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   @query('slot') defaultSlot: HTMLSlotElement;
 

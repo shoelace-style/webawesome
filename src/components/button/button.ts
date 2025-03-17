@@ -52,6 +52,7 @@ import styles from './button.css';
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
   static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static rectProxy = 'button';
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -66,15 +67,16 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
 
-  /** The button's theme variant. */
-  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
+  /** The button's theme variant. Defaults to `neutral` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'neutral' })
+  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'inherit' = 'inherit';
 
   /** The button's visual appearance. */
   @property({ reflect: true, default: 'accent' })
   appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
 
   /** The button's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ type: Boolean, reflect: true }) caret = false;
@@ -221,17 +223,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Removes focus from the button. */
   blur() {
     this.button.blur();
-  }
-
-  getBoundingClientRect(): DOMRect {
-    let rect = super.getBoundingClientRect();
-    let buttonRect = this.button.getBoundingClientRect();
-
-    if (rect.width === 0 && buttonRect.width > 0) {
-      return buttonRect;
-    }
-
-    return rect;
   }
 
   render() {

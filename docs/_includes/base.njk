@@ -5,16 +5,18 @@
     <meta name="theme-color" content="#f36944">
 
     <script type="module" src="/assets/scripts/code-examples.js"></script>
-    <script type="module" src="/assets/scripts/copy-code.js"></script>
 
     <script type="module" src="/assets/scripts/scroll.js"></script>
     <script type="module" src="/assets/scripts/turbo.js"></script>
     <script type="module" src="/assets/scripts/search.js"></script>
     <script type="module" src="/assets/scripts/outline.js"></script>
+    {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar-tweaks.js"></script>{% endif %}
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
+
+    {% block head %}{% endblock %}
   </head>
   <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->

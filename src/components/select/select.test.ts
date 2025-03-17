@@ -647,6 +647,7 @@ describe('<wa-select>', () => {
             );
             const el = form.querySelector<WaSelect>('wa-select')!;
 
+            expect(el.defaultValue).to.equal('option-1');
             expect(el.value).to.equal('');
             expect(new FormData(form).get('select')).equal('');
 
@@ -657,6 +658,7 @@ describe('<wa-select>', () => {
 
             await aTimeout(10);
             await el.updateComplete;
+            expect(el.optionValues ? [...el.optionValues] : []).to.have.members(['option-1']);
             expect(el.value).to.equal('option-1');
             expect(new FormData(form).get('select')).equal('option-1');
           });
@@ -745,6 +747,8 @@ describe('<wa-select>', () => {
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
+            expect(el.optionValues ? [...el.optionValues] : []).to.have.members(['bar', 'baz']);
+            expect(el.optionValues?.size).to.equal(2);
             expect(el.value).to.have.members(['bar', 'baz']);
             expect(el.value!.length).to.equal(2);
             expect(new FormData(form).getAll('select')).to.have.members(['bar', 'baz']);
@@ -758,6 +762,36 @@ describe('<wa-select>', () => {
             await el.updateComplete;
             expect(el.value).to.have.members(['foo', 'bar', 'baz']);
             expect(new FormData(form).getAll('select')).to.have.members(['foo', 'bar', 'baz']);
+          });
+        });
+
+        describe('With setting the value via JS', () => {
+          it('Should preserve value even if not returned', async () => {
+            const form = await fixture<HTMLFormElement>(
+              html` <form>
+                <wa-select name="select">
+                  <wa-option value="bar">Bar</wa-option>
+                  <wa-option value="baz">Baz</wa-option>
+                </wa-select>
+              </form>`,
+            );
+
+            const el = form.querySelector<WaSelect>('wa-select')!;
+            expect(el.value).to.equal('');
+
+            el.value = 'foo';
+            await aTimeout(10);
+            await el.updateComplete;
+            expect(el.value).to.equal('');
+
+            const option = document.createElement('wa-option');
+            option.value = 'foo';
+            option.innerText = 'Foo';
+            el.append(option);
+
+            await aTimeout(10);
+            await el.updateComplete;
+            expect(el.value).to.equal('foo');
           });
         });
       });
