@@ -57,7 +57,7 @@ status: experimental
     :groups="{
       Dynamic: !['brand', 'neutral'].includes(role) ? ['brand', 'neutral'] : undefined,
       Colors: Object.keys(paletteScales),
-      Suggested: suggestedForRole[role]
+      Common: suggestedForRole[role]
     }"
     :get-label="capitalize"
     :get-content="value => capitalize(value) + (seedHues[value] || computedRoles[value] || value === 'gray' ? '' : ' <wa-icon name=square-plus variant=regular></wa-icon>')"
