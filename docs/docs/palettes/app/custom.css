@@ -57,10 +57,38 @@
       }
 
       .name {
+        display: flex;
+        gap: var(--wa-space-xs);
         position: absolute;
         bottom: var(--wa-space-xs);
         left: var(--wa-space-s);
         font-weight: var(--wa-font-weight-semibold);
+
+        wa-dropdown.pin-hue {
+          wa-button {
+            --outlined-border-color: oklab(from currentColor l a b / 10%);
+            --outlined-background-color-hover: transparent;
+            --border-width: 1.5px;
+            --text-color: currentColor;
+            --wa-space: var(--wa-space-xs);
+            --wa-space-smaller: var(--wa-space-2xs);
+          }
+
+          &.pin-hue.pinned {
+            wa-button {
+              --outlined-border-color: oklab(from currentColor l a b / 40%);
+              font-weight: var(--wa-font-weight-bold);
+            }
+          }
+
+          wa-icon[name='thumbtack'] {
+            opacity: 60%;
+          }
+        }
+
+        .level {
+          font-weight: var(--wa-font-weight-bold);
+        }
       }
     }
 

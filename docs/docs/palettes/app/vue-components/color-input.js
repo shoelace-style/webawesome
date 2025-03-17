@@ -18,7 +18,21 @@ const template = `
       </template>
     </color-popup>
 
-    <div class="name">{{ capitalize(hue) || 'New color' }} {{ level }}</div>
+    <div class="name">
+      <wa-dropdown class="pin-hue" :class="{pinned: pinnedHue}">
+        <wa-button slot="trigger" appearance="outlined" caret>
+          <wa-icon name="thumbtack" v-if="pinnedHue" variant="solid" slot="prefix"></wa-icon>
+          {{ capitalize(hue) || 'New color' }}
+        </wa-button>
+        <wa-menu @wa-select="pinnedHue = $event.detail.item.value">
+          <wa-menu-item type="checkbox" :checked="pinnedHue ? null : ''">Automatic <em>({{ capitalize(detectedColorInfo.hue) }})</em></wa-menu-item>
+          <wa-divider></wa-divider>
+          <wa-menu-label>Pin to…</wa-menu-label>
+          <wa-menu-item v-for="hue in allHues" type="checkbox" :value="hue" :checked="pinnedHue === hue ? '' : null">{{ capitalize(hue) }}</wa-menu-item>
+        </wa-menu>
+      </wa-dropdown>
+      <span class="level">{{ level }}</span>
+     </div>
   </div>
 
   <wa-select class="color-to-role" multiple appearance="plain" placeholder="(No states)" max-options-visible="2"
