@@ -12,7 +12,15 @@ import {
   MAX_ACCENT,
   MIN_ACCENT,
 } from '/assets/scripts/tweak/data.js';
-import { clamp, clampAngle, interpolate, progressAngle, roundTo, subtractAngles } from '/assets/scripts/tweak/util.js';
+import {
+  clamp,
+  clampAngle,
+  interpolate,
+  normalizeAngles,
+  progressAngle,
+  roundTo,
+  subtractAngles,
+} from '/assets/scripts/tweak/util.js';
 
 export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...options } = {}) {
   let ret = {};
