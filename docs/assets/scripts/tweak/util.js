@@ -11,33 +11,25 @@ export function promise() {
 }
 
 export function normalizeAngles(angles) {
-  // First, normalize
-  angles = angles.map(h => ((h % 360) + 360) % 360);
+  // First, normalize each angle individually
+  let normalizedAngles = angles.map(h => ((h % 360) + 360) % 360);
 
-  // Remove top and bottom 25% and find average
-  let averageHue =
-    angles
-      .toSorted((a, b) => a - b)
-      .slice(angles.length / 4, -angles.length / 4)
-      .reduce((a, b) => a + b, 0) / angles.length;
-
-  for (let i = 0; i < angles.length; i++) {
-    let h = angles[i];
-    let prevHue = angles[i - 1];
-    let delta = h - prevHue;
+  for (let i = 1; i < angles.length; i++) {
+    let angle = normalizedAngles[i];
+    let prevAngle = normalizedAngles[i - 1];
+    let delta = angle - prevAngle;
 
     if (Math.abs(delta) > 180) {
-      let equivalent = [h + 360, h - 360];
-      // Offset hue to minimize difference in the direction that brings it closer to the average
-      if (Math.abs(equivalent[0] - averageHue) <= Math.abs(equivalent[1] - averageHue)) {
-        angles[i] = equivalent[0];
-      } else {
-        angles[i] = equivalent[1];
-      }
+      let equivalent = [angle + 360, angle - 360];
+
+      // Offset hue to minimize difference in the direction that brings it closer to the previous hue
+      let deltas = equivalent.map(e => Math.abs(e - prevAngle));
+
+      normalizedAngles[i] = equivalent[deltas[0] < deltas[1] ? 0 : 1];
     }
   }
 
-  return angles;
+  return normalizedAngles;
 }
 
 export function subtractAngles(θ1, θ2) {
