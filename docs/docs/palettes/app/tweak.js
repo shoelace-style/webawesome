@@ -409,7 +409,7 @@ let paletteAppSpec = {
         let code = getPaletteCode({
           base: this.paletteId,
           slug: this.isCustom ? this.slug : undefined,
-          colors: this.colors,
+          colors: this.paletteScales,
           tweaked: this.tweaked,
           roles: this.isCustom ? this.computedRoles : this.roles,
           language,

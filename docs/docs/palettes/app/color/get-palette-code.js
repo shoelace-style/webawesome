@@ -51,6 +51,11 @@ export function getPaletteCode({ base, slug = base, colors, tweaked, roles, ...o
   if (roles) {
     for (let role in roles) {
       let hue = roles[role];
+
+      if (!hue) {
+        continue;
+      }
+
       for (let suffix of [...tints.map(t => '-' + t), '', '-key']) {
         declarations.push(`--${prefix}-${role}${suffix}: var(--${prefix}-${hue}${suffix});`);
       }
