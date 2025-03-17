@@ -186,11 +186,10 @@
           <template #content>
             <color-slider v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]"
               v-model:color="colors[hue][tint]"
-              @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, level: tint}) : null"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
-
+              @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, level: tint}) : null"
               coord="h"
-              :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max" :step="1"
+              :min="HUE_RANGES[hue].mid - 70" :max="HUE_RANGES[hue].mid + 70" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
               ></color-slider>

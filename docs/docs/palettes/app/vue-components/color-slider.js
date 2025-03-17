@@ -21,7 +21,7 @@ const template = `
 
 import Color from 'https://colorjs.io/dist/color.js';
 import InfoTip from './info-tip.js';
-import { capitalize, clamp, promise, roundTo } from '/assets/scripts/tweak/util.js';
+import { capitalize, promise, roundTo } from '/assets/scripts/tweak/util.js';
 
 export default {
   props: {
@@ -50,9 +50,6 @@ export default {
 
     modelValue: {
       type: Number,
-      default(rawProps) {
-        return rawProps.defaultValue;
-      },
     },
     min: Number,
     max: Number,
@@ -90,18 +87,22 @@ export default {
         '<color-slider> requires at least one of the following props: color, defaultColor',
       );
     }
+
+    if (this.modelValue !== undefined) {
+      this.value = getAbsoluteValue({
+        type: this.type,
+        relativeValue: this.modelValue,
+        baseValue: this.computedDefaultValue,
+      });
+    } else if (this.color) {
+      this.value = this.colorCoords[this.coordIndex];
+    }
   },
   mounted() {
     if (this.$refs.slider) {
       this.$refs.slider.tooltipFormatter = value => this.formatValue(value);
       this.$refs.slider.colorSliderData = this; // for debugging
     }
-
-    this.value = getAbsoluteValue({
-      type: this.type,
-      relativeValue: this.modelValue,
-      baseValue: this.computedDefaultValue,
-    });
 
     this.mounted.resolve();
   },
@@ -228,16 +229,11 @@ export default {
       }
     },
 
-    async colorString() {
-      await this.$nextTick();
-      await this.mounted;
-
+    colorString() {
       if (this.color && this.colorString !== this.computedColorString) {
         // Color changed in the outside world, update our internals
         if (this.colorCoords[this.coordIndex] !== this.value) {
           this.value = this.colorCoords[this.coordIndex];
-
-          await this.$nextTick();
 
           let modelValue = getRelativeValue({
             type: this.type,
