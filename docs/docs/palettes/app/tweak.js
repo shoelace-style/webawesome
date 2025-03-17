@@ -29,7 +29,7 @@ import {
   ROLES,
   tints,
 } from '/assets/scripts/tweak/data.js';
-import { camelCase, capitalize, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
+import { camelCase, capitalize, log, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
@@ -769,11 +769,7 @@ let paletteAppSpec = {
     capitalize,
     slugify,
     getMaxChroma,
-
-    log(...args) {
-      console.log(...args);
-      return args[0];
-    },
+    log,
 
     /**
      * Testing method. Import all core colors from a given palette.

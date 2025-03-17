@@ -297,3 +297,8 @@ export function slugify(str) {
     .replace(/\s+/g, '-') // Convert whitespace to hyphens
     .toLowerCase();
 }
+
+export function log(...args) {
+  console.log(...args);
+  return args[0];
+}
