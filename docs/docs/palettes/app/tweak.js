@@ -31,6 +31,7 @@ import {
 } from '/assets/scripts/tweak/data.js';
 import { camelCase, capitalize, log, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
+const firstSeedColor = '#0071ec';
 
 let paletteAppSpec = {
   data() {
@@ -886,7 +887,21 @@ let paletteAppSpec = {
       }
     },
 
-    addColor(value = this.seedColorSamples.shift() ?? '') {
+    addColor(value) {
+      if (!value) {
+        if (this.seedColors.length === 0) {
+          value = firstSeedColor;
+        } else {
+          // Add suggestions
+          for (let hue of ['red', 'green', 'yellow', 'blue', 'orange', 'cyan', 'purple', 'pink', 'indigo']) {
+            if (hue in this.suggestedColors) {
+              value = { hue };
+              break;
+            }
+          }
+        }
+      }
+
       if (value?.hue) {
         // Pinning a generated color
         let { hue, level, pinnedHue } = value;
@@ -894,8 +909,12 @@ let paletteAppSpec = {
         level ??= this.coreLevels[hue];
         let color = this.colors[hue][level];
         value = { value: color + '', color, pinnedHue };
-      } else {
-        value = typeof value === 'string' || value?.constructor.name === 'Color' ? { value } : value;
+      }
+
+      if (typeof value === 'string') {
+        value = { value };
+      } else if (value instanceof Color || value?.constructor.name === 'Color') {
+        value = { value: value + '', color: value };
       }
 
       value.uid ??= this.maxSeedUid++;
