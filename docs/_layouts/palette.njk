@@ -188,6 +188,7 @@
               v-model:color="colors[hue][tint]"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
               @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, pinnedHue: hue, level: tint}) : null"
+              @update:color="seedColors[colorToIndex[hue][tint]] ? seedColors[colorToIndex[hue][tint]].color = $event : null"
               coord="h"
               :min="HUE_RANGES[hue].mid - 70" :max="HUE_RANGES[hue].mid + 70" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
