@@ -3,6 +3,7 @@ import Color from 'https://colorjs.io/dist/color.js';
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import generatePalette from './color/generate-palette.js';
+import getMaxChroma from './color/get-max-chroma.js';
 import getPaletteCode from './color/get-palette-code.js';
 import allPalettes from './color/palettes.js';
 import { tweakColor, tweakPalette } from './color/tweak.js';
@@ -766,6 +767,7 @@ let paletteAppSpec = {
   methods: {
     capitalize,
     slugify,
+    getMaxChroma,
 
     log(...args) {
       console.log(...args);

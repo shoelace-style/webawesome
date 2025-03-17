@@ -155,12 +155,12 @@
               ></color-slider>
             </template>
             <template v-else>
-            <color-slider  v-if="isCustom && seedColors[colorToIndex[hue].core]"
+            <color-slider v-if="isCustom && seedColors[colorToIndex[hue].core]"
               coord="h"
               v-model:color="seedColors[colorToIndex[hue].core].color"
               :default-value="seedColors[colorToIndex[hue].core].inputColor.oklch.h"
               :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-              label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
+              label="Adjust hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
               ></color-slider>
 
               <color-slider  v-if="!isCustom && baseCoreColors[hue]"
@@ -168,8 +168,17 @@
                 v-model="hueShifts[hue]"
                 :default-color="baseCoreColors[hue]"
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
-                label="Tweak hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
+                label="Adjust hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
                 ></color-slider>
+
+              <color-slider v-if="hue != 'gray' && isCustom" v-model:color="seedColors[colorToIndex[hue].core].color"
+              :default-value="seedColors[colorToIndex[hue].core].inputColor?.oklch.c"
+              coord="c"
+              :min="Math.max(coreColors.gray.oklch.c, ...Object.keys(seedHues[hue]).filter(t => t !== coreLevels[hue]).map(t => seedHues[hue][t].oklch.c))"
+              :max="getMaxChroma(colors[hue].core?.oklch.l, colors[hue].core?.oklch.h) - 0.001" :step="0.001"
+              label="Adjust colorfulness" label-min="More muted" label-max="More vibrant"
+              label-default="Entered color"
+              ></color-slider>
             </template>
           </template>
         </color-popup>
@@ -183,15 +192,24 @@
             <wa-icon class="pinned-icon" name="thumbtack" variant="regular" v-if="seedColors[colorToIndex[hue][tint]]"></wa-icon>
             <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
           </div>
-          <template #content>
-            <color-slider v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]"
-              v-model:color="colors[hue][tint]"
+          <template #content v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]">
+            <color-slider v-model:color="colors[hue][tint]"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
               @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, pinnedHue: hue, level: tint}) : null"
               @update:color="seedColors[colorToIndex[hue][tint]] ? seedColors[colorToIndex[hue][tint]].color = $event : null"
               coord="h"
               :min="HUE_RANGES[hue].mid - 70" :max="HUE_RANGES[hue].mid + 70" :step="1"
               label="Hue shift" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
+              :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
+              ></color-slider>
+            <color-slider v-if="hue != 'gray'" v-model:color="colors[hue][tint]"
+              :default-value="colors[hue][tweakBase[hue][tint]].oklch.c"
+              @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, pinnedHue: hue, level: tint}) : null"
+              @update:color="seedColors[colorToIndex[hue][tint]] ? seedColors[colorToIndex[hue][tint]].color = $event : null"
+              coord="c"
+              :min="coreColors.gray.oklch.c + 0.001"
+              :max="tint == coreLevels[hue] ? maxChroma(colors[hue][tweakBase[hue][tint]].oklch.l, colors[hue][tweakBase[hue][tint]].oklch.h) : coreColors[hue].oklch.c - 0.001" :step="0.001"
+              label="Chroma shift" label-min="More muted" label-max="More vibrant"
               :label-default="`${capitalize(hue)} ${tweakBase[hue][tint]}`"
               ></color-slider>
           </template>
