@@ -41,10 +41,14 @@
         --background-color-hover: oklab(from currentColor l a b / 15%);
         --text-color-hover: currentColor;
 
+        &:not(:hover, :focus, :has(+ :focus-within)) {
+          opacity: 50%;
+        }
+
         &:is(.tweaked *) {
           &::part(base) {
             transition: var(--wa-transition-normal);
-            transition-property: padding, border;
+            transition-property: padding, border, opacity;
             background-color: var(--color-original);
             padding: var(--wa-space-s);
             border: 1px solid hsl(0 0 100 / 60%);
