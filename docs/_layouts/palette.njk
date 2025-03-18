@@ -80,7 +80,7 @@
 
 {% block afterContent %}
 
-<wa-callout size="small" class="tweaked-callout" variant="warning">
+<wa-callout size="small" class="tweaked-callout" variant="warning" v-if="!isCustom">
   <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
    This palette has been tweaked.
    <div class="wa-cluster wa-gap-xs">
@@ -146,11 +146,13 @@
                   Gray undertone
                 </div>
               </wa-radio-group>
-              <color-slider coord="c" type="scale" :default-value="originalGrayChroma"
+
+              <color-slider coord="c" type="scale"
               :model-value="computedGrayChroma"
               @update:model-value="grayChroma = $event"
               :default-color="baseCoreColors[computedGrayColor]"
-              :min="0" :max="maxGrayChroma" :step="0.01"
+              :default-value="baseCoreColors[originalGrayColor].oklch.c"
+              :min="0" :max-relative="maxGrayChroma" :step="0.01"
               label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
               ></color-slider>
             </template>

@@ -24,7 +24,7 @@ import {
   hues,
   L_RANGES,
   MAX_CHROMA_BOUNDS,
-  maxGrayChroma,
+  MAX_GRAY_CHROMA_SCALE,
   moreHue,
   ROLES,
   tints,
@@ -32,6 +32,10 @@ import {
 import { camelCase, capitalize, log, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 const firstSeedColor = '#0071ec';
+const defaults = {
+  grayChroma: 0.15,
+  grayColor: 'indigo',
+};
 
 let paletteAppSpec = {
   data() {
@@ -429,8 +433,11 @@ let paletteAppSpec = {
         return this.originalColors;
       }
 
-      let { huesAfter, grayChroma = 0.15, grayColor = 'indigo' } = this;
-      return generatePalette(this.seedHues, { huesAfter, grayChroma, grayColor }) ?? this.originalColors;
+      let { huesAfter } = this;
+      return (
+        generatePalette(this.seedHues, { huesAfter, grayChroma: defaults.grayChroma, grayColor: defaults.grayColor }) ??
+        this.originalColors
+      );
     },
 
     colors() {
@@ -586,6 +593,7 @@ let paletteAppSpec = {
       let minDistance = Infinity;
       let closestHue = null;
 
+      // Find core color whose hue is closest to our gray
       for (let name in this.baseCoreColors) {
         if (name === 'gray') {
           continue;
@@ -603,13 +611,12 @@ let paletteAppSpec = {
     },
 
     originalGrayChroma() {
-      let coreTint = this.baseColors.gray.maxChromaTint;
-      let grayChroma = this.baseColors.gray[coreTint].get('oklch.c');
+      let grayChroma = this.baseColors.gray.core.get('oklch.c');
       if (grayChroma === 0 || grayChroma === null) {
         return 0;
       }
 
-      let grayColorChroma = this.baseColors[this.originalGrayColor][coreTint].get('oklch.c');
+      let grayColorChroma = this.baseColors[this.originalGrayColor].core.get('oklch.c');
       return grayChroma / grayColorChroma;
     },
 
@@ -628,7 +635,7 @@ let paletteAppSpec = {
     },
 
     maxGrayChroma() {
-      return maxGrayChroma[this.grayColor] ?? 0.3;
+      return MAX_GRAY_CHROMA_SCALE[this.grayColor] ?? 0.3;
     },
 
     huesAfter() {

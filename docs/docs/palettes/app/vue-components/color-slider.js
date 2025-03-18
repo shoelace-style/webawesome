@@ -3,7 +3,7 @@ const template = `
   '--color': computedColor, '--color-1': colorMin, '--color-2': colorMax,
   '--default-value-progress': defaultProgress,
   }" :data-component="coord || null">
-  <wa-slider ref="slider" :min="min" :max="max" :step="step" :value="value"
+  <wa-slider ref="slider" :min="computedMin" :max="computedMax" :step="step" :value="value"
     @input="handleInput($event.target.value);" @change="inputEnd($event.target.value)">
     <div slot="label">
       {{ label }}
@@ -53,6 +53,8 @@ export default {
     },
     min: Number,
     max: Number,
+    minRelative: Number,
+    maxRelative: Number,
     step: {
       type: Number,
       default: 1,
@@ -110,6 +112,30 @@ export default {
     delete this.$refs.slider?.colorSliderData;
   },
   computed: {
+    computedMin() {
+      if (this.minRelative !== undefined) {
+        return getAbsoluteValue({
+          type: this.type,
+          relativeValue: this.minRelative,
+          baseValue: this.computedDefaultValue,
+        });
+      }
+
+      return this.min;
+    },
+
+    computedMax() {
+      if (this.maxRelative !== undefined) {
+        return getAbsoluteValue({
+          type: this.type,
+          relativeValue: this.maxRelative,
+          baseValue: this.computedDefaultValue,
+        });
+      }
+
+      return this.max;
+    },
+
     computedColor() {
       return this.getColorAt(this.value);
     },
@@ -150,11 +176,11 @@ export default {
     },
 
     colorMin() {
-      return this.getColorAt(this.min);
+      return this.getColorAt(this.computedMin);
     },
 
     colorMax() {
-      return this.getColorAt(this.max);
+      return this.getColorAt(this.computedMax);
     },
 
     computedDefaultValue() {
@@ -172,7 +198,7 @@ export default {
     },
 
     defaultProgress() {
-      return (this.computedDefaultValue - this.min) / (this.max - this.min);
+      return (this.computedDefaultValue - this.computedMin) / (this.computedMax - this.computedMin);
     },
   },
   methods: {
@@ -279,6 +305,10 @@ function getRelativeValue({ type, absoluteValue, baseValue }) {
   }
 
   if (type === 'scale') {
+    if (!absoluteValue) {
+      return 0;
+    }
+
     return absoluteValue / baseValue;
   }
 

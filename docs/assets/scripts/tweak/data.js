@@ -188,7 +188,7 @@ export const MAX_CHROMA_BOUNDS = { min: 0.08, max: 0.3 };
 /**
  * Max gray chroma (% of chroma of undertone) per hue
  */
-export const maxGrayChroma = {
+export const MAX_GRAY_CHROMA_SCALE = {
   red: 0.2,
   orange: 0.2,
   yellow: 0.25,
