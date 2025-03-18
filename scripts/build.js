@@ -346,7 +346,7 @@ if (isDeveloping) {
         },
       },
       middleware: [
-        function simulateWebawesomeApp (req, res, next) {
+        function simulateWebawesomeApp(req, res, next) {
           // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
           // will be running nunjucks twice.
           const finalString = [];
