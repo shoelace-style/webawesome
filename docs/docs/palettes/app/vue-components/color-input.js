@@ -11,10 +11,10 @@ const template = `
                       v-model:color="color" :default-value="inputLCH[2]" ></color-slider>
         <color-slider label="Colorfulness" label-default="Entered color"
                       coord="c" :min="0" :max="maxChroma" :step="0.001"
-                      v-model:color="color" :default-value="inputLCH[1]" format-type="scale" :base-value="maxChroma" ></color-slider>
+                      v-model:color="color" :default-value="inputLCH[1]" format-type="scale" :format-base-value="maxChroma" ></color-slider>
         <color-slider label="Lightness" label-default="Entered color"
                       coord="l" :min="0" :max="1" :step="0.01"
-                      v-model:color="color" :default-value="inputLCH[0]" format-type="scale" :base-value="1" ></color-slider>
+                      v-model:color="color" :default-value="inputLCH[0]" format-type="scale" :format-base-value="1" ></color-slider>
       </template>
     </color-popup>
 

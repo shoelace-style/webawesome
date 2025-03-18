@@ -32,18 +32,17 @@ export default {
         return ['l', 'c', 'h'].includes(value);
       },
     },
-    color: {
-      type: Color,
-    },
-    defaultColor: {
-      type: Color,
-    },
+    color: Color,
+    defaultColor: Color,
 
-    defaultValue: {
-      type: Number,
-    },
-    /** Used for formatting only. Only specify if different from default value. */
-    baseValue: {
+    defaultValue: Number,
+    defaultValueRelative: Number,
+
+    /** Used for relative types. Defaults to defaultValue if not provided. */
+    baseValue: Number,
+
+    /** Used for formatting only. Only specify if different from base value. */
+    formatBaseValue: {
       type: Number,
       default: undefined,
     },
@@ -91,11 +90,7 @@ export default {
     }
 
     if (this.modelValue !== undefined) {
-      this.value = getAbsoluteValue({
-        type: this.type,
-        relativeValue: this.modelValue,
-        baseValue: this.computedDefaultValue,
-      });
+      this.value = this.getAbsoluteValue(this.modelValue);
     } else if (this.color) {
       this.value = this.colorCoords[this.coordIndex];
     }
@@ -114,11 +109,7 @@ export default {
   computed: {
     computedMin() {
       if (this.minRelative !== undefined) {
-        return getAbsoluteValue({
-          type: this.type,
-          relativeValue: this.minRelative,
-          baseValue: this.computedDefaultValue,
-        });
+        return getAbsoluteValue(this.minRelative);
       }
 
       return this.min;
@@ -126,11 +117,7 @@ export default {
 
     computedMax() {
       if (this.maxRelative !== undefined) {
-        return getAbsoluteValue({
-          type: this.type,
-          relativeValue: this.maxRelative,
-          baseValue: this.computedDefaultValue,
-        });
+        return this.getAbsoluteValue(this.maxRelative);
       }
 
       return this.max;
@@ -183,8 +170,36 @@ export default {
       return this.getColorAt(this.computedMax);
     },
 
+    isRelative() {
+      return this.type && this.type !== 'raw';
+    },
+
+    computedBaseValue() {
+      if (!this.isRelative) {
+        return;
+      }
+
+      if (this.baseValue !== undefined) {
+        return this.baseValue;
+      }
+
+      return this.computedDefaultValue;
+    },
+
     computedDefaultValue() {
-      return this.defaultValue ?? this.defaultCoords[this.coordIndex];
+      if (this.defaultValue !== undefined) {
+        return this.defaultValue;
+      }
+
+      if (this.defaultValueRelative !== undefined) {
+        return this.getAbsoluteValue(this.defaultValueRelative);
+      }
+
+      if (this.baseValue !== undefined) {
+        return this.baseValue;
+      }
+
+      return this.defaultCoords[this.coordIndex];
     },
 
     computedDefaultColor() {
@@ -200,16 +215,37 @@ export default {
     defaultProgress() {
       return (this.computedDefaultValue - this.computedMin) / (this.computedMax - this.computedMin);
     },
+
+    relativeValue() {
+      this.computedBaseValue;
+      return this.getRelativeValue(this.value);
+    },
   },
   methods: {
     capitalize,
+
+    getAbsoluteValue(relativeValue) {
+      return getAbsoluteValue({
+        type: this.type,
+        relativeValue,
+        baseValue: this.baseValue ?? this.computedBaseValue,
+      });
+    },
+
+    getRelativeValue(absoluteValue) {
+      return getRelativeValue({
+        type: this.type,
+        absoluteValue,
+        baseValue: this.baseValue ?? this.computedBaseValue,
+      });
+    },
 
     formatValue(value = this.value) {
       let formatType = this.formatType ?? this.type;
       let style = formatType === 'scale' ? 'percent' : undefined;
 
       if (formatType && formatType !== 'raw') {
-        let baseValue = this.baseValue ?? this.computedDefaultValue;
+        let baseValue = this.formatBaseValue ?? this.computedBaseValue;
         value = getRelativeValue({ type: formatType, absoluteValue: value, baseValue });
       }
 
@@ -227,15 +263,7 @@ export default {
     handleInput(value) {
       this.value = value;
       this.tweaking = true;
-
-      let modelValue = getRelativeValue({
-        type: this.type,
-        absoluteValue: value,
-        baseValue: this.computedDefaultValue,
-      });
-
-      this.$emit('update:modelValue', modelValue);
-      this.$emit('input', modelValue);
+      this.$emit('input', value);
     },
 
     inputEnd() {
@@ -261,15 +289,14 @@ export default {
         if (this.colorCoords[this.coordIndex] !== this.value) {
           this.value = this.colorCoords[this.coordIndex];
 
-          let modelValue = getRelativeValue({
-            type: this.type,
-            absoluteValue: this.value,
-            baseValue: this.computedDefaultValue,
-          });
-
+          let modelValue = this.getRelativeValue(this.value);
           this.$emit('update:modelValue', modelValue);
         }
       }
+    },
+
+    relativeValue() {
+      this.$emit('update:modelValue', this.relativeValue);
     },
   },
   template,
