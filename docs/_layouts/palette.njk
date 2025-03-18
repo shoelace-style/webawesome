@@ -138,16 +138,6 @@
           <template #content>
             <template v-if="hue === 'gray'">
               <color-swatch-picker :model-value="computedGrayColor" @update:model-value="grayColor = $event" label="Gray undertone" :colors="coreColors"></color-swatch-picker>
-
-              <color-slider coord="c" type="scale"
-              :model-value="computedGrayChroma"
-              @update:model-value="grayChroma = $event"
-              :default-color="baseCoreColors[computedGrayColor]"
-              :base-value="baseCoreColors[originalGrayColor].oklch.c"
-              :default-value-relative="originalGrayChroma"
-              :min="0" :max-relative="maxGrayChroma" :step="0.00001"
-              label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
-              ></color-slider>
             </template>
             <template v-else>
             <color-slider v-if="isCustom && seedColors[colorToIndex[hue].core]"
@@ -165,8 +155,18 @@
                 :min="HUE_RANGES[hue].min + 1" :max="HUE_RANGES[hue].max"
                 label="Adjust hue" :label-min="moreHue[hueBefore[hue]]" :label-max="moreHue[hueAfter[hue]]"
                 ></color-slider>
+            </template>
 
-              <color-slider v-if="hue != 'gray' && isCustom" v-model:color="seedColors[colorToIndex[hue].core].color"
+            <color-slider v-if="hue === 'gray'" coord="c" type="scale"
+              :model-value="computedGrayChroma"
+              @update:model-value="grayChroma = $event"
+              :default-color="baseCoreColors[computedGrayColor]"
+              :base-value="baseCoreColors[originalGrayColor].oklch.c"
+              :default-value-relative="originalGrayChroma"
+              :min="0" :max-relative="maxGrayChroma" :step="0.00001"
+              label="Gray colorfulness" label-min="Neutral" :label-max="moreHue[computedGrayColor]"
+              ></color-slider>
+            <color-slider v-else-if="isCustom" v-model:color="seedColors[colorToIndex[hue].core].color"
               :default-value="seedColors[colorToIndex[hue].core].inputColor?.oklch.c"
               coord="c"
               :min="Math.max(coreColors.gray.oklch.c, ...Object.keys(seedHues[hue]).filter(t => t !== coreLevels[hue]).map(t => seedHues[hue][t].oklch.c))"
@@ -175,7 +175,7 @@
               label-default="Entered color"
               format-type="scale"
               ></color-slider>
-            </template>
+
           </template>
         </color-popup>
       </td>
@@ -189,7 +189,7 @@
             <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
           </div>
           <template #content v-if="isCustom && seedHues[hue] && (tint == '95' || tint == '05' || seedColors[colorToIndex[hue][tint]]) && tweakBase[hue][tint]">
-            <color-slider v-model:color="colors[hue][tint]"
+            <color-slider v-if="HUE_RANGES[hue]" v-model:color="colors[hue][tint]"
               :default-value="colors[hue][tweakBase[hue][tint]].oklch.h"
               @input="!seedColors[colorToIndex[hue][tint]] ? addColor({hue, pinnedHue: hue, level: tint}) : null"
               @update:color="seedColors[colorToIndex[hue][tint]] ? seedColors[colorToIndex[hue][tint]].color = $event : null"
