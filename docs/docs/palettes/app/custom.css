@@ -168,7 +168,7 @@ wa-icon-button.delete-button {
 }
 
 #roles {
-  margin-top: var(--wa-space-2xl);
+  margin-block: var(--wa-space-2xl);
 
   > div {
     display: flex;
