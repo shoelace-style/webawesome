@@ -12,6 +12,7 @@ import ColorInput from './vue-components/color-input.js';
 import ColorPopup from './vue-components/color-popup.js';
 import ColorSelect from './vue-components/color-select.js';
 import ColorSlider from './vue-components/color-slider.js';
+import ColorSwatchPicker from './vue-components/color-swatch-picker.js';
 import InfoTip from './vue-components/info-tip.js';
 import Prism from '/assets/scripts/prism.js';
 import { Permalink } from '/assets/scripts/tweak.js';
@@ -987,6 +988,7 @@ let paletteAppSpec = {
     ColorInput,
     ColorSelect,
     ColorSlider,
+    ColorSwatchPicker,
     InfoTip,
   },
 

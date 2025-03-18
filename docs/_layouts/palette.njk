@@ -137,15 +137,7 @@
           </div>
           <template #content>
             <template v-if="hue === 'gray'">
-              <wa-radio-group class="core-color" orientation="horizontal" :value="computedGrayColor" @input="grayColor = $event.target.value">
-                <template v-for="h in hues">
-                  <wa-radio-button :id="'gray-undertone-' + h" :value="h" :label="capitalize(h)" :style="{'--color': `var(--wa-color-${ h })`}"></wa-radio-button>
-                  <wa-tooltip :for="'gray-undertone-' + h" hoist>{{ capitalize(h) }}</wa-tooltip>
-                </template>
-                <div slot="label">
-                  Gray undertone
-                </div>
-              </wa-radio-group>
+              <color-swatch-picker :model-value="computedGrayColor" @update:model-value="grayColor = $event" label="Gray undertone" :colors="coreColors"></color-swatch-picker>
 
               <color-slider coord="c" type="scale"
               :model-value="computedGrayChroma"
