@@ -346,8 +346,9 @@ if (isDeveloping) {
         },
       },
       middleware: [
-        function (req, res, next) {
-          // Accumulator for strings so we can pass them through EJS.
+        function simulateWebawesomeApp (req, res, next) {
+          // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
+          // will be running nunjucks twice.
           const finalString = [];
           const encoding = 'utf-8';
 
