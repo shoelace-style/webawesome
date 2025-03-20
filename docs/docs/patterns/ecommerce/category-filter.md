@@ -1,8 +1,6 @@
 ---
 title: Category Filter
 description: 'Helps the user find the right products with filters to refine search results by specific attributes.'
-parent: ecommerce
-tags: e-commerce
 icon: checkbox
 ---
 
@@ -42,7 +40,7 @@ icon: checkbox
           <wa-checkbox>XXL</wa-checkbox>
         </div>
       </wa-details>
-    </form> 
+    </form>
     <div class="wa-placeholder"></div>
   </div>
 </div>

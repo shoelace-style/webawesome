@@ -1,8 +1,6 @@
 ---
 title: Description List
 description: 'Shows the user information with labels and values in an easy to read format.'
-parent: app
-tags: app
 ---
 ## Examples
 

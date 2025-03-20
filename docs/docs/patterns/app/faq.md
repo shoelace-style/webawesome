@@ -1,8 +1,6 @@
 ---
 title: FAQ
 description: TODO
-parent: app
-tags: app
 ---
 
 ```html{.example}

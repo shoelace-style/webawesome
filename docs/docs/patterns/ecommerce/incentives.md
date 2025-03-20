@@ -1,8 +1,6 @@
 ---
 title: Incentives
 description: 'Encourage shoppers to buy your products with value propositions, discounts, and promotions.'
-parent: ecommerce
-tags: e-commerce
 ---
 
 ## 3 Column
@@ -17,7 +15,7 @@ tags: e-commerce
     <div class="wa-frame wa-border-radius-l">
       <img src="https://uploads.webawesome.com/online-learning.jpg" />
     </div>
-    
+
   </div>
   <div class="wa-grid">
     <div class="wa-stack wa-gap-xs">

@@ -1,8 +1,6 @@
 ---
 title: Order Summary
 description: 'Give shoppers confidence in their purchases with summaries of everything included in their order.'
-parent: ecommerce
-tags: e-commerce
 ---
 
 ## Simple
@@ -26,7 +24,7 @@ tags: e-commerce
           <ul class="wa-stack wa-gap-xl">
             <li class="wa-flank wa-align-items-start">
               <div class="wa-frame wa-border-radius-s">
-                <img 
+                <img
                   src="https://uploads.webawesome.com/vase-1.jpg"
                   alt=""
                 />
@@ -39,7 +37,7 @@ tags: e-commerce
             <wa-divider></wa-divider>
             <li class="wa-flank wa-align-items-start">
               <div class="wa-frame wa-border-radius-s">
-                <img 
+                <img
                   src="https://uploads.webawesome.com/decorative-vase.jpg"
                   alt=""
                 />
@@ -219,7 +217,7 @@ tags: e-commerce
         <p class="wa-caption-m">Wood fired, salt glaze</p>
         <wa-tag variant="success" appearance="filled" size="small">Delivered</wa-tag>
       </div>
-    </div>   
+    </div>
   </wa-card>
   <wa-card>
     <div class="wa-flank wa-align-items-start">
@@ -237,7 +235,7 @@ tags: e-commerce
         <p class="wa-caption-m">High quality Japanese Kutani-yaki ceramic-ware</p>
         <wa-tag variant="neutral" appearance="filled" size="small">Shipping Soon</wa-tag>
       </div>
-    </div>   
+    </div>
   </wa-card>
   <wa-card>
     <div class="wa-flank wa-align-items-start">
@@ -255,7 +253,7 @@ tags: e-commerce
         <p class="wa-caption-m">Koishiwara-yaki style with crystalline glaze</p>
         <wa-tag variant="brand" appearance="filled" size="small">Out for Delivery</wa-tag>
       </div>
-    </div>   
+    </div>
   </wa-card>
   <wa-divider></wa-divider>
   <wa-callout variant="neutral" appearance="filled">

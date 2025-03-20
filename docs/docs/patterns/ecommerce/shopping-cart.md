@@ -1,8 +1,6 @@
 ---
 title: Shopping Cart
 description: 'Give shoppers an overview of selected items with shopping carts that let them edit items and proceed to checkout.'
-parent: ecommerce
-tags: e-commerce
 ---
 
 ## Two Columns with Summary Card
@@ -14,7 +12,7 @@ tags: e-commerce
     <div class="wa-stack wa-gap-xl">
       <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
         <div class="wa-frame wa-border-radius-m">
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDIzNDd8&ixlib=rb-4.0.3&q=80&w=1080"
             alt=""
           />
@@ -32,7 +30,7 @@ tags: e-commerce
       </article>
       <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
         <div class="wa-frame wa-border-radius-m">
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1564859227552-81fde4a1df0b?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
           />
@@ -50,7 +48,7 @@ tags: e-commerce
       </article>
       <article class="wa-flank wa-gap-xl" style="--flank-size: 8rem">
         <div class="wa-frame wa-border-radius-m">
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
           />
@@ -205,12 +203,12 @@ tags: e-commerce
   <div class="wa-stack">
     <article class="wa-flank" style="--flank-size: 6rem">
       <div class="wa-frame wa-border-radius-m">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1704677982224-89cd6d039fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDEwOTJ8&ixlib=rb-4.0.3&q=80&w=1080"
           alt=""
         />
       </div>
-      <div class="wa-stack wa-gap-2xs"> 
+      <div class="wa-stack wa-gap-2xs">
         <div class="wa-split wa-gap-2xs">
           <strong>AJ1 Low</strong>
           <strong>$170.00</strong>
@@ -230,7 +228,7 @@ tags: e-commerce
           alt="(Photograph by Hamed darzi)"
         />
       </div>
-      <div class="wa-stack wa-gap-2xs"> 
+      <div class="wa-stack wa-gap-2xs">
         <div class="wa-split wa-gap-2xs">
           <strong>The Trails</strong>
           <strong>$35.00</strong>
@@ -245,12 +243,12 @@ tags: e-commerce
     <wa-divider></wa-divider>
     <article class="wa-flank" style="--flank-size: 6rem">
       <div class="wa-frame wa-border-radius-m">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1693443687750-611ad77f3aba?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="(Photograph by tian dayong)"
         />
       </div>
-      <div class="wa-stack wa-gap-2xs"> 
+      <div class="wa-stack wa-gap-2xs">
         <div class="wa-split wa-gap-2xs">
           <strong>Outcast 2-pack</strong>
           <strong>$27.00</strong>
