@@ -40,6 +40,11 @@ const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
 
 export default function (eleventyConfig) {
+  /**
+    * This is the guard we use for now to make sure our final dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
+    */
+  const serverShortcodesEnabled = process.env.WEBAWESOME_SERVER === "true"
+
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
     eleventyConfig.ignores.add('**/experimental/**');
@@ -68,9 +73,13 @@ export default function (eleventyConfig) {
     return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
   });
 
-  // Turns `{% server_variable "foo" %} into `{{ server.foo | safe }}`
+  // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
   eleventyConfig.addShortcode('server', function (property) {
-    return `{{ server.${property} | safe }}`;
+    if (serverShortcodesEnabled) {
+      return `{{ server.${property} | safe }}`;
+    }
+
+    return ""
   });
 
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
