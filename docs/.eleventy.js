@@ -42,7 +42,7 @@ const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
 
 export default function (eleventyConfig) {
   /**
-    * This is the guard we use for now to make sure our final dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
+    * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
     */
   const serverBuild = process.env.WEBAWESOME_SERVER === "true"
 
