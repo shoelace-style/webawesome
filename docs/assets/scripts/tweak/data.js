@@ -33,8 +33,8 @@ export const selectors = {
 export const HUE_RANGES = {
   red: { min: 15, max: 35 }, // 20
   orange: { min: 35, max: 75 }, // 40
-  yellow: { min: 75, max: 112 }, // 37
-  green: { min: 112, max: 170 }, // 58
+  yellow: { min: 75, max: 110 }, // 35
+  green: { min: 115, max: 170 }, // 55
   cyan: { min: 170, max: 220 }, // 50
   blue: { min: 220, max: 265 }, // 45
   indigo: { min: 265, max: 290 }, // 25
@@ -102,7 +102,7 @@ export const HUE_CHROMA_SCALE = {
   red: 0.92,
   orange: 0.96, // interpolated
   yellow: 1,
-  green: 0.8,
+  green: 0.7,
   cyan: 0.81,
   blue: 0.83,
   indigo: 0.87,
