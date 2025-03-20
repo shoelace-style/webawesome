@@ -88,8 +88,8 @@ export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...
     // Shift if too close to seed hues
     let hBeforeDelta = subtractAngles(h, hBefore);
 
-    if (hBeforeDelta < 40) {
-      h = hBefore + 40;
+    if (Math.abs(hBeforeDelta) < 40) {
+      h = hBefore + 40 * Math.sign(hBeforeDelta);
     }
 
     if (seedHuesAfter.length > 1) {
