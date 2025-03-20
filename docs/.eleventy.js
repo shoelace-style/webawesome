@@ -7,9 +7,9 @@ import { highlightCodePlugin } from './_utils/highlight-code.js';
 import { markdown } from './_utils/markdown.js';
 import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
-import nunjucks from 'nunjucks';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
+import nunjucks from 'nunjucks';
 import componentList from './_data/componentList.js';
 import * as filters from './_utils/filters.js';
 import { outlinePlugin } from './_utils/outline.js';
@@ -42,9 +42,9 @@ const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
 
 export default function (eleventyConfig) {
   /**
-    * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
-    */
-  const serverBuild = process.env.WEBAWESOME_SERVER === "true"
+   * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
+   */
+  const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
 
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
@@ -80,16 +80,18 @@ export default function (eleventyConfig) {
       return `{{ server.${property} | safe }}`;
     }
 
-    return ""
+    return '';
   });
 
-  eleventyConfig.addTransform("second-nunjucks-transform", function NunjucksTransform(content) {
+  eleventyConfig.addTransform('second-nunjucks-transform', function NunjucksTransform(content) {
     // For a server build, we expect a server to run the second transform.
-    if (serverBuild) { return content }
+    if (serverBuild) {
+      return content;
+    }
 
     // Only run the transform on files nunjucks would transform.
     if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
-      return content
+      return content;
     }
 
     /** This largely mimics what an app would do and just stubs out what we don't care about. */
@@ -100,8 +102,8 @@ export default function (eleventyConfig) {
         loginOrAvatar: '',
         flashes: '',
       },
-    })
-  })
+    });
+  });
 
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
@@ -212,7 +214,6 @@ export default function (eleventyConfig) {
       componentModules,
     });
   }
-
 
   return {
     markdownTemplateEngine: 'njk',
