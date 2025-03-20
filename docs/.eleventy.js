@@ -7,6 +7,7 @@ import { highlightCodePlugin } from './_utils/highlight-code.js';
 import { markdown } from './_utils/markdown.js';
 import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
+import nunjucks from 'nunjucks';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import componentList from './_data/componentList.js';
@@ -43,7 +44,7 @@ export default function (eleventyConfig) {
   /**
     * This is the guard we use for now to make sure our final dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
     */
-  const serverShortcodesEnabled = process.env.WEBAWESOME_SERVER === "true"
+  const serverBuild = process.env.WEBAWESOME_SERVER === "true"
 
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
@@ -75,12 +76,32 @@ export default function (eleventyConfig) {
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
   eleventyConfig.addShortcode('server', function (property) {
-    if (serverShortcodesEnabled) {
+    if (serverBuild) {
       return `{{ server.${property} | safe }}`;
     }
 
     return ""
   });
+
+  eleventyConfig.addTransform("second-nunjucks-transform", function NunjucksTransform(content) {
+    // For a server build, we expect a server to run the second transform.
+    if (serverBuild) { return content }
+
+    // Only run the transform on files nunjucks would transform.
+    if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
+      return content
+    }
+
+    /** This largely mimics what an app would do and just stubs out what we don't care about. */
+    return nunjucks.renderString(content, {
+      // Stub the server EJS shortcodes.
+      server: {
+        head: '',
+        loginOrAvatar: '',
+        flashes: '',
+      },
+    })
+  })
 
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
@@ -141,30 +162,6 @@ export default function (eleventyConfig) {
     ]),
   );
 
-  // SSR plugin
-  if (!isDev) {
-    //
-    // Problematic components in SSR land:
-    //  - animation (breaks on navigation + ssr with Turbo)
-    //  - mutation-observer (why SSR this?)
-    //  - resize-observer (why SSR this?)
-    //  - tooltip (why SSR this?)
-    //
-    const omittedModules = [];
-    const componentModules = componentList
-      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-      .map(component => {
-        const name = component.tagName.split(/wa-/)[1];
-        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
-        return path.join(componentDirectory, 'components', name, `${name}.js`);
-      });
-
-    eleventyConfig.addPlugin(litPlugin, {
-      mode: 'worker',
-      componentModules,
-    });
-  }
-
   // Build the search index
   eleventyConfig.addPlugin(
     searchPlugin({
@@ -190,6 +187,32 @@ export default function (eleventyConfig) {
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
+
+  // SSR plugin
+  // Make sure this is the last thing, we dont want to run the risk of accidentally transforming shadow roots with the nunjucks 2nd transform.
+  if (!isDev) {
+    //
+    // Problematic components in SSR land:
+    //  - animation (breaks on navigation + ssr with Turbo)
+    //  - mutation-observer (why SSR this?)
+    //  - resize-observer (why SSR this?)
+    //  - tooltip (why SSR this?)
+    //
+    const omittedModules = [];
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
+        return path.join(componentDirectory, 'components', name, `${name}.js`);
+      });
+
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
+    });
+  }
+
 
   return {
     markdownTemplateEngine: 'njk',

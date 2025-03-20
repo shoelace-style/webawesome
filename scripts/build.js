@@ -8,7 +8,6 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import nunjucks from 'nunjucks';
 import ora from 'ora';
 import { dirname, join, relative } from 'path';
 import process from 'process';
@@ -345,35 +344,6 @@ if (isDeveloping) {
           '/dist/': './dist-cdn/',
         },
       },
-      middleware: [
-        function simulateWebawesomeApp(req, res, next) {
-          // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
-          // will be running nunjucks twice.
-          const finalString = [];
-          const encoding = 'utf-8';
-
-          const _write = res.write;
-          res.write = function (chunk, encoding) {
-            finalString.push(chunk.toString());
-          };
-
-          const _end = res.end;
-          res.end = function (...args) {
-            const transformedStr = nunjucks.renderString(finalString.join(''), {
-              // Stub the server EJS shortcodes.
-              server: {
-                head: '',
-                loginOrAvatar: '',
-                flashes: '',
-              },
-            });
-            _write.call(res, transformedStr, encoding);
-            _end.call(res, ...args);
-          };
-
-          next();
-        },
-      ],
       callbacks: {
         ready: (_err, instance) => {
           // 404 errors
