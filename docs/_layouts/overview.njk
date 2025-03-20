@@ -14,7 +14,9 @@ tags: ["overview"]
 </div>
 
 {% set allPages = collections[forTag] %}
+{% if forTag and allPages %}
 {% include "grouped-pages.njk" %}
+{% endif %}
 
 <link href="/assets/styles/filter.css" rel="stylesheet">
 <script type="module" src="/assets/scripts/filter.js"></script>
