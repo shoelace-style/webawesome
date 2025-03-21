@@ -178,6 +178,10 @@ export function sort(arr, by = { 'data.order': 1, 'data.title': '' }) {
   });
 }
 
+export function show(page) {
+  return !(page.data.noAlpha && page.data.isAlpha) && !page.data.unlisted;
+}
+
 /**
  * Group an 11ty collection (or any array of objects with a `data.tags` property) by certain tags.
  * @param {object[]} collection
@@ -198,7 +202,7 @@ export function groupPages(collection, options = {}, page) {
     options = { tags: options };
   }
 
-  let { tags, groups, titles = {}, other = 'Other' } = options;
+  let { tags, groups, titles = {}, other = 'Other', filter = show } = options;
 
   if (groups === undefined && Array.isArray(tags)) {
     groups = tags;
@@ -236,6 +240,10 @@ export function groupPages(collection, options = {}, page) {
 
   let byUrl = {};
   let byParentUrl = {};
+
+  if (filter) {
+    collection = collection.filter(filter);
+  }
 
   for (let item of collection) {
     let url = item.page.url;
