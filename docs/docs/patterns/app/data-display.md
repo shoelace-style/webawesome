@@ -27,13 +27,13 @@ tags: app
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="square" label="Square avatar" class="wa-callout wa-neutral">
-         <wa-icon slot="icon" name="user-plus" variant="solid"></wa-icon>
+         <wa-icon slot="icon" name="envelope" variant="solid"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-heading-xs">Total Subscribers</span>
+        <span class="wa-heading-xs">Avg. Open Rate</span>
         <div class="wa-cluster">
-          <span class="wa-heading-l">71,897</span>
-          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 122</wa-tag>
+          <span class="wa-heading-l">58.16%</span>
+          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 5.4%</wa-tag>
         </div>
       </div>
     </div>
@@ -41,13 +41,13 @@ tags: app
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="square" label="Square avatar" class="wa-callout wa-neutral">
-         <wa-icon slot="icon" name="user-plus" variant="solid"></wa-icon>
+         <wa-icon slot="icon" name="arrow-pointer" variant="solid"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-heading-xs">Total Subscribers</span>
+        <span class="wa-heading-xs">Avg. Click Rate</span>
         <div class="wa-cluster">
-          <span class="wa-heading-l">71,897</span>
-          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 122</wa-tag>
+          <span class="wa-heading-l">24.57%</span>
+          <wa-tag size="small" variant="danger" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-down"></wa-icon> 3.2%</wa-tag>
         </div>
       </div>
     </div>
@@ -71,11 +71,11 @@ tags: app
     </div>
     <wa-divider></wa-divider>
     <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
+      <wa-icon family="brands" name="amazon"></wa-icon>
       <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
+        <span>Amazon</span>
         <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+        <wa-tag variant="success" appearance="outlined filled" pill>+$79.79</wa-tag>
       </div>
     </div>
     <wa-divider></wa-divider>
@@ -105,7 +105,6 @@ tags: app
         <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
       </div>
     </div>
-    <wa-divider></wa-divider>
     </div>
   </wa-card>
 </div>
