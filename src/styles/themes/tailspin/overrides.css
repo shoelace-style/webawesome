@@ -1,7 +1,6 @@
 :where(:root),
 :host,
-.wa-theme-tailspin,
-:is(:host-context(.wa-theme-tailspin)) {
+.wa-theme-tailspin {
   h1,
   h2,
   h3,

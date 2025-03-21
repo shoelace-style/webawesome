@@ -50,6 +50,9 @@
             Search
             <kbd slot="suffix" class="only-desktop">/</kbd>
           </wa-button>
+
+          {# Login #}
+          {% server "loginOrAvatar" %}
         </div>
       </header>
 
@@ -76,14 +79,19 @@
         </aside>
       {% endif %}
 
+
       {# Main #}
       <main id="content">
         {# Expandable outline #}
+        {% if hasOutline %}
         <nav id="outline-expandable">
           <details class="outline-links">
             <summary>On this page</summary>
           </details>
         </nav>
+        {% endif %}
+
+        <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
           {% include 'breadcrumbs.njk' %}

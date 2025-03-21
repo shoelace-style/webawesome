@@ -4,6 +4,7 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
+
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
@@ -266,6 +267,13 @@ async function regenerateBundle() {
  * Generates the documentation site.
  */
 async function generateDocs() {
+  /**
+   * Used by the webawesome-app to skip doc generation since it will do its own.
+   */
+  if (process.env.SKIP_ELEVENTY === 'true') {
+    return;
+  }
+
   spinner.start('Writing the docs');
 
   const args = [];

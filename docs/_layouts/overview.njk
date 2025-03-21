@@ -1,6 +1,5 @@
 ---
 layout: page-outline
-tags: ["overview"]
 ---
 {% set forTag = forTag or (page.url | split('/') | last) %}
 {% if description %}
@@ -13,8 +12,10 @@ tags: ["overview"]
   </wa-input>
 </div>
 
-{% set allPages = collections[forTag] %}
+{% set allPages = allPages or collections[forTag] %}
+{% if allPages and allPages.length > 0 %}
 {% include "grouped-pages.njk" %}
+{% endif %}
 
 <link href="/assets/styles/filter.css" rel="stylesheet">
 <script type="module" src="/assets/scripts/filter.js"></script>

@@ -68,7 +68,7 @@ wa_data.palettes = {
       <wa-option label="{{ palette.data.title }}" value="{{ palette.fileSlug if not currentPalette }}" {{ (palette.fileSlug if currentPalette) | attr('data-id') }}>
         <wa-card with-header>
           <div slot="header">
-          {% include "svgs/" + (palette.data.icon or "thumbnail-placeholder") + ".njk" %}
+          {% include "svgs/" + (palette.data.icon or "thumbnail-placeholder") + ".njk" ignore missing %}
           </div>
           <span class="page-name">
             {{ palette.data.title }}
