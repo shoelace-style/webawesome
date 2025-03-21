@@ -1,22 +1,22 @@
 {% if since -%}
-	<wa-badge variant="neutral">Since {{ since }}</wa-badge>
+	<wa-badge variant="neutral" class="since">Since {{ since }}</wa-badge>
 {% endif -%}
 
 {%- if status %}
 	{%- if status == "wip" %}
-	<wa-badge variant="danger">
+	<wa-badge variant="danger" class="status">
 		<wa-icon name="pickaxe"></wa-icon>
 		Work In Progress
 	</wa-badge>
 	{%- elif status == "experimental" %}
-	<wa-badge variant="warning">
+	<wa-badge variant="warning" class="status">
 		<wa-icon name="flask"></wa-icon>
 		Experimental
 	</wa-badge>
 	{%- elif status == "stable" %}
-	<wa-badge variant="brand">Stable</wa-badge>
+	<wa-badge variant="brand" class="status">Stable</wa-badge>
 	{%- else %}
-	<wa-badge>{{ status}}</wa-badge>
+	<wa-badge class="status">{{ status}}</wa-badge>
 	{%- endif -%}
 {%- endif %}
 
