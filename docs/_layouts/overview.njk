@@ -12,8 +12,10 @@ layout: page-outline
   </wa-input>
 </div>
 
-{% set allPages = collections[forTag] %}
+{% set allPages = allPages or collections[forTag] %}
+{% if allPages and allPages.length > 0 %}
 {% include "grouped-pages.njk" %}
+{% endif %}
 
 <link href="/assets/styles/filter.css" rel="stylesheet">
 <script type="module" src="/assets/scripts/filter.js"></script>
