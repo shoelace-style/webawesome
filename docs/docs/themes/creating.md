@@ -31,8 +31,7 @@ If you're customizing the default dark styles, scope your styles to the followin
 
 ```css
 .wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
+.wa-invert {
   /* your custom styles here */
 }
 ```

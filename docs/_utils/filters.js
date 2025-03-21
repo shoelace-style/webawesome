@@ -29,6 +29,9 @@ function getCollection(name) {
 }
 
 export function getCollectionItemFromUrl(url, collection) {
+  if (!url) {
+    return null;
+  }
   collection ??= getCollection.call(this, 'all') || [];
   return collection.find(item => item.url === url);
 }
@@ -42,35 +45,33 @@ export function split(text, separator) {
   return (text + '').split(separator).filter(Boolean);
 }
 
-export function breadcrumbs(url, { withCurrent = false } = {}) {
-  const parts = split(url, '/');
-  const ret = [];
+export function ancestors(url, { withCurrent = false, withRoot = false } = {}) {
+  let ret = [];
+  let currentUrl = url;
+  let currentItem = getCollectionItemFromUrl.call(this, url);
 
-  while (parts.length) {
-    let partialUrl = '/' + parts.join('/') + '/';
-    let item = getCollectionItemFromUrl.call(this, partialUrl);
-
-    if (item && (partialUrl !== url || withCurrent)) {
-      let title = item.data.title;
-      if (title) {
-        ret.unshift({ url: partialUrl, title });
-      }
-    }
-
-    parts.pop();
-
-    if (item?.data.parent) {
-      let parentURL = item.data.parent;
-      if (!item.data.parent.startsWith('/')) {
-        // Parent is in the same directory
-        parts.push(item.data.parent);
-        parentURL = '/' + parts.join('/') + '/';
-      }
-
-      let parentBreadcrumbs = breadcrumbs.call(this, parentURL, { withCurrent: true });
-      return [...parentBreadcrumbs, ...ret];
+  if (!currentItem) {
+    // Might have eleventyExcludeFromCollections, jump to parent
+    let parentUrl = this.ctx.parentUrl;
+    if (parentUrl) {
+      url = parentUrl;
     }
   }
+
+  for (let item; (item = getCollectionItemFromUrl.call(this, url)); url = item.data.parentUrl) {
+    ret.unshift(item);
+  }
+
+  if (!withRoot && ret[0]?.page.url === '/') {
+    // Remove root
+    ret.shift();
+  }
+
+  if (!withCurrent && ret.at(-1)?.page.url === currentUrl) {
+    // Remove current page
+    ret.pop();
+  }
+
   return ret;
 }
 
@@ -180,69 +181,178 @@ export function sort(arr, by = { 'data.order': 1, 'data.title': '' }) {
 /**
  * Group an 11ty collection (or any array of objects with a `data.tags` property) by certain tags.
  * @param {object[]} collection
- * @param { Object<string, string> | (string | Object<string, string>)[]} [tags] The tags to group by. If not provided/empty, defaults to grouping by all tags.
- * @returns { Object.<string, object[]> } An object with keys for each tag, and an array of items for each tag.
+ * @param { Object<string, string> | string[]} [options] Options object or array of tags to group by.
+ * @param {string[] | true} [options.tags] Tags to group by. If true, groups by all tags.
+ *                            If not provided/empty, defaults to grouping by page hierarchy, with any pages with more than 1 children becoming groups.
+ * @param {string[]} [options.groups] The groups to use if only a subset or a specific order is desired. Defaults to `options.tags`.
+ * @param {string[]} [options.titles] Any title overrides for groups.
+ * @param {string | false} [options.other="Other"] The title to use for the "Other" group. If `false`, the "Other" group is removed..
+ * @returns { Object.<string, object[]> } An object of group ids to arrays of page objects.
  */
-export function groupByTags(collection, tags) {
+export function groupPages(collection, options = {}, page) {
   if (!collection) {
-    console.error(`Empty collection passed to groupByTags() to group by ${JSON.stringify(tags)}`);
-  }
-  if (!tags) {
-    // Default to grouping by union of all tags
-    tags = Array.from(new Set(collection.flatMap(item => item.data.tags)));
-  } else if (Array.isArray(tags)) {
-    // May contain objects of one-off tag -> label mappings
-    tags = tags.map(tag => (typeof tag === 'object' ? Object.keys(tag)[0] : tag));
-  } else if (typeof tags === 'object') {
-    // tags is an object of tags to labels, so we just want the keys
-    tags = Object.keys(tags);
+    console.error(`Empty collection passed to groupPages() to group by ${JSON.stringify(options)}`);
   }
 
-  let ret = Object.fromEntries(tags.map(tag => [tag, []]));
-  ret.other = [];
+  if (Array.isArray(options)) {
+    options = { tags: options };
+  }
+
+  let { tags, groups, titles = {}, other = 'Other' } = options;
+
+  if (groups === undefined && Array.isArray(tags)) {
+    groups = tags;
+  }
+
+  let grouping;
+
+  if (tags) {
+    grouping = {
+      isGroup: item => undefined,
+      getCandidateGroups: item => item.data.tags,
+      getGroupMeta: group => ({}),
+    };
+  } else {
+    grouping = {
+      isGroup: item => (item.data.children.length >= 2 ? item.page.url : undefined),
+      getCandidateGroups: item => {
+        let parentUrl = item.data.parentUrl;
+        if (page?.url === parentUrl) {
+          return [];
+        }
+        return [parentUrl];
+      },
+      getGroupMeta: group => {
+        let item = byUrl[group] || getCollectionItemFromUrl.call(this, group);
+        return {
+          title: item?.data.title,
+          url: group,
+          item,
+        };
+      },
+      sortGroups: groups => sort(groups.map(url => byUrl[url]).filter(Boolean)).map(item => item.page.url),
+    };
+  }
+
+  let byUrl = {};
+  let byParentUrl = {};
 
   for (let item of collection) {
-    let categorized = false;
+    let url = item.page.url;
+    let parentUrl = item.data.parentUrl;
 
-    for (let tag of tags) {
-      if (item.data.tags.includes(tag)) {
-        ret[tag].push(item);
-        categorized = true;
-      }
-    }
+    byUrl[url] = item;
 
-    if (!categorized) {
-      ret.other.push(item);
+    if (parentUrl) {
+      byParentUrl[parentUrl] ??= [];
+      byParentUrl[parentUrl].push(item);
     }
   }
 
-  // Remove empty categories
-  for (let category in ret) {
-    if (ret[category].length === 0) {
-      delete ret[category];
+  let urlToGroups = {};
+
+  for (let item of collection) {
+    let url = item.page.url;
+    let parentUrl = item.data.parentUrl;
+
+    if (grouping.isGroup(item)) {
+      continue;
+    }
+
+    let parentItem = byUrl[parentUrl];
+    if (parentItem && !grouping.isGroup(parentItem)) {
+      // Their parent is also here and is not a group
+      continue;
+    }
+
+    let candidateGroups = grouping.getCandidateGroups(item);
+
+    if (groups) {
+      candidateGroups = candidateGroups.filter(group => groups.includes(group));
+    }
+
+    urlToGroups[url] ??= [];
+
+    for (let group of candidateGroups) {
+      urlToGroups[url].push(group);
+    }
+  }
+
+  let ret = {};
+
+  for (let url in urlToGroups) {
+    let groups = urlToGroups[url];
+    let item = byUrl[url];
+
+    if (groups.length === 0) {
+      // Not filtered out but also not categorized
+      groups = ['other'];
+    }
+
+    for (let group of groups) {
+      ret[group] ??= [];
+      ret[group].push(item);
+
+      if (!ret[group].meta) {
+        if (group === 'other') {
+          ret[group].meta = { title: other };
+        } else {
+          ret[group].meta = grouping.getGroupMeta(group);
+          ret[group].meta.title = titles[group] ?? ret[group].meta.title ?? capitalize(group);
+        }
+      }
+    }
+  }
+
+  if (other === false) {
+    delete ret.other;
+  }
+
+  // Sort
+  let sortedGroups = groups ?? grouping.sortGroups?.(Object.keys(ret));
+
+  if (sortedGroups) {
+    ret = sortObject(ret, sortedGroups);
+  }
+
+  Object.defineProperty(ret, 'meta', {
+    value: {
+      groupCount: Object.keys(ret).length,
+    },
+    enumerable: false,
+  });
+
+  return ret;
+}
+
+/**
+ * Sort an object by its keys
+ * @param {*} obj
+ * @param {function | string[]} order
+ */
+function sortObject(obj, order) {
+  let ret = {};
+  let sortedKeys = Array.isArray(order) ? order : Object.keys(obj).sort(order);
+
+  for (let key of sortedKeys) {
+    if (key in obj) {
+      ret[key] = obj[key];
+    }
+  }
+
+  // Add any keys that weren't in the order
+  for (let key in obj) {
+    if (!(key in ret)) {
+      ret[key] = obj[key];
     }
   }
 
   return ret;
 }
 
-export function getCategoryTitle(category, categories) {
-  let title;
-  if (Array.isArray(categories)) {
-    // Find relevant entry
-    // [{id: "Title"}, id2, ...]
-    title = categories.find(entry => typeof entry === 'object' && entry?.[category])?.[category];
-  } else if (typeof categories === 'object') {
-    // {id: "Title", id2: "Title 2", ...}
-    title = categories[category];
-  }
-
-  if (title) {
-    return title;
-  }
-
-  // Capitalized
-  return category.charAt(0).toUpperCase() + category.slice(1);
+function capitalize(str) {
+  str += '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 const IDENTITY = x => x;

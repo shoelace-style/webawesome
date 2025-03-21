@@ -291,7 +291,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           ?pill=${this.pill}
           size=${this.size}
           removable
-          @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
           ${option.label}
         </wa-tag>
@@ -587,10 +586,33 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.setSelectedOptions(allOptions.filter(el => value.includes(el.value)));
   }
 
-  private handleTagRemove(event: WaRemoveEvent, option: WaOption) {
+  private handleTagRemove(event: WaRemoveEvent, directOption?: WaOption) {
     event.stopPropagation();
 
-    if (!this.disabled) {
+    if (this.disabled) return;
+
+    // Use the directly provided option if available (from getTag method)
+    let option = directOption;
+
+    // If no direct option was provided, find the option from the event path
+    if (!option) {
+      const tagElement = (event.target as Element).closest('wa-tag[part~=tag]');
+
+      if (tagElement) {
+        // Find the index of this tag among all tags
+        const tagsContainer = this.shadowRoot?.querySelector('[part="tags"]');
+        if (tagsContainer) {
+          const allTags = Array.from(tagsContainer.children);
+          const index = allTags.indexOf(tagElement as HTMLElement);
+
+          if (index >= 0 && index < this.selectedOptions.length) {
+            option = this.selectedOptions[index];
+          }
+        }
+      }
+    }
+
+    if (option) {
       this.toggleOptionSelection(option, false);
 
       // Emit after updating
@@ -707,10 +729,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return this.selectedOptions.map((option, index) => {
       if (index < this.maxOptionsVisible || this.maxOptionsVisible <= 0) {
         const tag = this.getTag(option, index);
-        // Wrap so we can handle the remove
-        return html`<div @wa-remove=${(e: WaRemoveEvent) => this.handleTagRemove(e, option)}>
-          ${typeof tag === 'string' ? unsafeHTML(tag) : tag}
-        </div>`;
+        if (!tag) return null;
+        return typeof tag === 'string' ? unsafeHTML(tag) : tag;
       } else if (index === this.maxOptionsVisible) {
         // Hit tag limit
         return html`
@@ -726,7 +746,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           >
         `;
       }
-      return html``;
+      return null;
     });
   }
 
@@ -926,7 +946,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               />
 
               <!-- Tags need to wait for first hydration before populating otherwise it will create a hydration mismatch. -->
-              ${this.multiple && this.hasUpdated ? html`<div part="tags" class="tags">${this.tags}</div>` : ''}
+              ${this.multiple && this.hasUpdated
+                ? html`<div part="tags" class="tags" @wa-remove=${this.handleTagRemove}>${this.tags}</div>`
+                : ''}
 
               <input
                 class="value-input"

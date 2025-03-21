@@ -4,8 +4,6 @@ description: Build better with Web Awesome, the open source library of web compo
 layout: page
 ---
 
-
-
 <style>
   .title,
   .anchor-heading a,
