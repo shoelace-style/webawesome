@@ -4,61 +4,71 @@ description: 'For feedback forms and message boxes'
 parent: app
 tags: app
 ---
-## Examples
 
-### In card with footer
-```html{.example}
-<form class="comment-box" style="max-width: 960px; margin: 0 auto;">
-  <wa-card with-footer>
-    <wa-textarea resize="horizontal"></wa-textarea>
-    <div slot="footer" class="wa-cluster" style="justify-content: flex-end;">
-      <wa-button appearance="outlined">
+## Card with Header & Footer
+
+```html {.example}
+<form style="max-width: 60ch; margin: auto">
+  <wa-card>
+    <div slot="header" id="comment-area-label">
+      <span class="wa-heading-s">Leave a Comment</span>
+    </div>
+    <wa-textarea aria-labelledby="comment-area-label"></wa-textarea>
+    <div slot="footer" class="wa-cluster" style="justify-content: flex-end">
+      <wa-button appearance="filled">
         <wa-icon slot="prefix" name="paperclip" variant="solid"></wa-icon>
         Attach a file
       </wa-button>
-      <wa-button variant="success">Comment</wa-button>
+      <wa-button variant="brand">Comment</wa-button>
     </div>
   </wa-card>
 </form>
 ```
 
-### with avatar and icon buttons
-```html{.example}
-<div class="wa-callout wa-neutral wa-outlined" style="max-width: 960px; margin: 0 auto;">
-  <div class="wa-align-items-start wa-flank">
-    <wa-avatar image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="User avatar"></wa-avatar>
-    <div class="wa-stack wa-gap-s">
-      <wa-textarea placeholder="Add to the conversation..." size="medium"></wa-textarea>
-      <div class="wa-split">
-        <div>
-          <wa-icon-button name="link" variant="solid" label="Bold"></wa-icon-button>
-          <wa-icon-button name="face-smile" variant="solid" label="Italic"></wa-icon-button>
-        </div>
-        </wa-button><wa-button>Comment</wa-button>  
+## With Avatar & Additional Actions
+
+```html {.example}
+<div class="wa-align-items-start wa-flank">
+  <wa-avatar image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="User avatar"></wa-avatar>
+  <div class="wa-stack wa-gap-s">
+    <wa-textarea placeholder="Add to the conversation..."></wa-textarea>
+    <div class="wa-split">
+      <div class="wa-cluster wa-gap-s">
+        <wa-icon-button name="paperclip" label="Attach File" id="attach-button"></wa-icon-button>
+        <wa-tooltip for="attach-button">Attach File</wa-tooltip>
+        <wa-icon-button name="face-smile" label="Add Sticker" id="sticker-button"></wa-icon-button>
+        <wa-tooltip for="sticker-button">Add Sticker</wa-tooltip>
       </div>
+      <wa-button variant="brand">Comment</wa-button>  
     </div>
   </div>
 </div>
 ```
 
-### With multiple actions
+## Rich Card with Multiple Actions
 
-```html{.example}
-<wa-card with-header with-footer style="max-width: 640px; margin: 0 auto;">
+```html {.example}
+<wa-card with-header with-footer style="max-width: 60ch; margin: auto">
   <div slot="header">
-    <h2 class="wa-heading-s">I watched...</h2>
+    <h3 class="wa-heading-s">I watched...</h3>
   </div>
   <div class="wa-stack">
-    <div class="wa-flank">
-      <div>
-        <img src="https://a.ltrbxd.com/resized/film-poster/1/0/2/5/3/3/1/1025331-heretic-2024-0-1000-0-1500-crop.jpg?v=c79c5c8121" width="40"/>
+    <div class="wa-flank" style="--flank-size: 3rem">
+      <div class="wa-frame:portrait wa-border-radius-s">
+        <img 
+          src="https://images.unsplash.com/photo-1607675742178-f616ae75044b?q=80&w=3435&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+          alt="" 
+        />
       </div>
-        <span class="wa-heading-l">Heretic</span>
+      <span class="wa-heading-l">Heretic</span>
     </div>
     <wa-divider></wa-divider>
-    <div class="wa-split">
-      <span class="wa-heading-s">Date</span><span class="wa-caption-m">Thursday, March 13, 2025</span>
-    </div>
+    <dl class="wa-split">
+      <dt>Date</dt>
+      <dd>
+        <wa-format-date date="2025-03-13T00:00:00.000-04:00" weekday="long" month="long" day="numeric" year="numeric" class="wa-caption-m"></wa-format-date>
+      </dd>
+    </dl>
     <wa-divider></wa-divider>
     <div class="wa-split">
       <wa-rating label="Rating"></wa-rating>
