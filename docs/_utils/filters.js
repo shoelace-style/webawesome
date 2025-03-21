@@ -321,6 +321,13 @@ export function groupPages(collection, options = {}, page) {
 
   if (sortedGroups) {
     ret = sortObject(ret, sortedGroups);
+  } else {
+    // At least make sure other is last
+    if (ret.other) {
+      let otherGroup = ret.other;
+      delete ret.other;
+      ret.other = otherGroup;
+    }
   }
 
   Object.defineProperty(ret, 'meta', {
