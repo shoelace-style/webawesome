@@ -596,13 +596,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // If no direct option was provided, find the option from the event path
     if (!option) {
-      const path = event.composedPath();
-      const tagElement = path.find(
-        el =>
-          el instanceof HTMLElement &&
-          (el.tagName.toLowerCase() === 'wa-tag' ||
-            (el instanceof HTMLElement && el.hasAttribute('part') && el.getAttribute('part')?.includes('tag'))),
-      );
+      const tagElement = (event.target as Element).closest('wa-tag[part~=tag]');
 
       if (tagElement) {
         // Find the index of this tag among all tags
