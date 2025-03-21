@@ -314,6 +314,13 @@ export function groupPages(collection, options = {}, page) {
     ret = sortObject(ret, sortedGroups);
   }
 
+  Object.defineProperty(ret, 'meta', {
+    value: {
+      groupCount: Object.keys(ret).length,
+    },
+    enumerable: false,
+  });
+
   return ret;
 }
 
