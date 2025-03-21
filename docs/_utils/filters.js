@@ -29,6 +29,9 @@ function getCollection(name) {
 }
 
 export function getCollectionItemFromUrl(url, collection) {
+  if (!url) {
+    return null;
+  }
   collection ??= getCollection.call(this, 'all') || [];
   return collection.find(item => item.url === url);
 }
@@ -42,35 +45,33 @@ export function split(text, separator) {
   return (text + '').split(separator).filter(Boolean);
 }
 
-export function breadcrumbs(url, { withCurrent = false } = {}) {
-  const parts = split(url, '/');
-  const ret = [];
+export function ancestors(url, { withCurrent = false, withRoot = false } = {}) {
+  let ret = [];
+  let currentUrl = url;
+  let currentItem = getCollectionItemFromUrl.call(this, url);
 
-  while (parts.length) {
-    let partialUrl = '/' + parts.join('/') + '/';
-    let item = getCollectionItemFromUrl.call(this, partialUrl);
-
-    if (item && (partialUrl !== url || withCurrent)) {
-      let title = item.data.title;
-      if (title) {
-        ret.unshift({ url: partialUrl, title });
-      }
-    }
-
-    parts.pop();
-
-    if (item?.data.parent) {
-      let parentURL = item.data.parent;
-      if (!item.data.parent.startsWith('/')) {
-        // Parent is in the same directory
-        parts.push(item.data.parent);
-        parentURL = '/' + parts.join('/') + '/';
-      }
-
-      let parentBreadcrumbs = breadcrumbs.call(this, parentURL, { withCurrent: true });
-      return [...parentBreadcrumbs, ...ret];
+  if (!currentItem) {
+    // Might have eleventyExcludeFromCollections, jump to parent
+    let parentUrl = this.ctx.parentUrl;
+    if (parentUrl) {
+      url = parentUrl;
     }
   }
+
+  for (let item; (item = getCollectionItemFromUrl.call(this, url)); url = item.data.parentUrl) {
+    ret.unshift(item);
+  }
+
+  if (!withRoot && ret[0]?.page.url === '/') {
+    // Remove root
+    ret.shift();
+  }
+
+  if (!withCurrent && ret.at(-1)?.page.url === currentUrl) {
+    // Remove current page
+    ret.pop();
+  }
+
   return ret;
 }
 
