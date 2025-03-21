@@ -6,25 +6,10 @@ import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tw
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import allPalettes from './color/palettes.js';
 import Prism from '/assets/scripts/prism.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
-
-let allPalettes = await fetch('/docs/palettes/data.json').then(r => r.json());
-globalThis.allPalettes = allPalettes;
-
-for (let palette in allPalettes) {
-  for (let hue in allPalettes[palette].colors) {
-    let scale = allPalettes[palette].colors[hue];
-    for (let tint of tints) {
-      let color = scale[tint];
-
-      if (Array.isArray(color)) {
-        scale[tint] = new Color('oklch', color);
-      }
-    }
-  }
-}
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
