@@ -51,40 +51,30 @@ export default {
 function getParentUrl(url, parent) {
   let parts = url.split('/').filter(Boolean);
   let ancestorIndex = parts.findLastIndex(part => part === parent);
-  let ret = parts.slice();
+  let retParts = parts.slice();
 
   if (ancestorIndex > -1) {
     // parent is an ancestor
-    ret.splice(ancestorIndex + 1);
+    retParts.splice(ancestorIndex + 1);
   } else {
     // parent is a sibling in the same directory
-    ret.splice(-1, 1, parent);
+    retParts.splice(-1, 1, parent);
   }
 
-  ret = ret.join('/');
-  ret = copySlashes(url, ret);
+  let ret = retParts.join('/');
+
+  if (url.startsWith('/')) {
+    ret = '/' + ret;
+  }
+
+  if (!retParts.at(-1).includes('.') && !ret.endsWith('/')) {
+    // If no extension, make sure to end with a slash
+    ret += '/';
+  }
 
   if (ret === '/docs/') {
     ret = '/';
   }
 
   return ret;
-}
-
-/**
- * Copy trailing and leading slashes from one URL to another
- * @param {*} source
- * @param {*} dest
- * @returns
- */
-function copySlashes(source, dest) {
-  if (source.startsWith('/') && !dest.startsWith('/')) {
-    dest = '/' + dest;
-  }
-
-  if (source.endsWith('/') && !dest.endsWith('/')) {
-    dest += '/';
-  }
-
-  return dest;
 }
