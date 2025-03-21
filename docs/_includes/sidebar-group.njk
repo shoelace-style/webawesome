@@ -1,9 +1,12 @@
 {# Some collections (like "patterns") will not have any items in the alpha build for example. So this checks to make sure the collection exists. #}
 {% if collections[tag] -%}
   {% set groupUrl %}/docs/{{ tag }}/{% endset %}
+  {% set groupItem = groupUrl | getCollectionItemFromUrl %}
+  {% set children = groupItem.data.children if groupItem.data.children.length > 0 else (collections[tag] | sort) %}
+
   <wa-details {{ ((tag in (tags or [])) or (groupUrl in page.url)) | attr('open') }}>
     <h2 slot="summary">
-      {% if groupUrl | getCollectionItemFromUrl %}
+      {% if groupItem %}
         <a href="{{ groupUrl }}" title="Overview">{{ title or (tag | capitalize) }}
           <wa-icon name="grid-2"></wa-icon>
         </a>
@@ -12,10 +15,8 @@
       {% endif %}
     </h2>
     <ul>
-      {% for page in collections[tag] | sort %}
-        {% if not page.data.parent -%}
+      {% for page in children %}
           {% include 'sidebar-link.njk' %}
-        {%- endif %}
       {% endfor %}
     </ul>
   </wa-details>
