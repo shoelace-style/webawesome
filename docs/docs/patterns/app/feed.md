@@ -84,3 +84,59 @@ tags: app
   }
 </style>
 ```
+
+## Multi column
+
+```html{.example}
+<div style="max-width: 480px; margin: 0 auto">
+  <wa-card>
+    <div>
+      <div class="wa-flank">
+      <wa-icon family="brands" name="youtube"></wa-icon>
+      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
+        <span>YouTube Premium</span>
+        <span>5 minutes ago</span>
+        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+      </div>
+    </div>
+    <wa-divider></wa-divider>
+    <div class="wa-flank">
+      <wa-icon family="brands" name="youtube"></wa-icon>
+      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
+        <span>YouTube Premium</span>
+        <span>5 minutes ago</span>
+        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+      </div>
+    </div>
+    <wa-divider></wa-divider>
+    <div class="wa-flank">
+      <wa-icon family="brands" name="youtube"></wa-icon>
+      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
+        <span>YouTube Premium</span>
+        <span>5 minutes ago</span>
+        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+      </div>
+    </div>
+    <wa-divider></wa-divider>
+    <div class="wa-flank">
+      <wa-icon family="brands" name="youtube"></wa-icon>
+      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
+        <span>YouTube Premium</span>
+        <span>5 minutes ago</span>
+        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+      </div>
+    </div>
+    <wa-divider></wa-divider>
+    <div class="wa-flank">
+      <wa-icon family="brands" name="youtube"></wa-icon>
+      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
+        <span>YouTube Premium</span>
+        <span>5 minutes ago</span>
+        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+      </div>
+    </div>
+    <wa-divider></wa-divider>
+    </div>
+  </wa-card>
+</div>
+```

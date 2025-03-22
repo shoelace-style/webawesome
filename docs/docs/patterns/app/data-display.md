@@ -4,50 +4,58 @@ description: TODO
 parent: app
 tags: app
 ---
-## Examples
 
-### With icon
+## Cards with Avatars
 
-```html{.example}
-<div class="wa-grid" style="max-width: 960px; margin: 0 auto">
+```html {.example}
+<div class="wa-grid" style="--min-column-size: 30ch">
   <wa-card>
-    <div class="wa-flank">
-      <wa-avatar shape="square" label="Square avatar" class="wa-callout wa-neutral">
-         <wa-icon slot="icon" name="user-plus" variant="solid"></wa-icon>
+    <div class="wa-flank wa-align-items-start">
+      <wa-avatar shape="rounded">
+         <wa-icon slot="icon" name="globe"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-heading-xs">Total Subscribers</span>
-        <div class="wa-cluster">
-          <span class="wa-heading-l">71,897</span>
-          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 122</wa-tag>
+        <span class="wa-caption-m">Population (Zion)</span>
+        <div class="wa-cluster wa-gap-xs">
+          <span class="wa-heading-l">251,999</span>
+          <wa-badge variant="danger" appearance="filled outlined" pill>
+            <wa-icon fixed-width name="arrow-down" label="Down"></wa-icon>
+            3%
+          </wa-badge>
         </div>
       </div>
     </div>
   </wa-card>
   <wa-card>
-    <div class="wa-flank">
-      <wa-avatar shape="square" label="Square avatar" class="wa-callout wa-neutral">
-         <wa-icon slot="icon" name="user-plus" variant="solid"></wa-icon>
+    <div class="wa-flank wa-align-items-start">
+      <wa-avatar shape="rounded">
+         <wa-icon slot="icon" name="brain-circuit"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-heading-xs">Total Subscribers</span>
-        <div class="wa-cluster">
-          <span class="wa-heading-l">71,897</span>
-          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 122</wa-tag>
+        <span class="wa-caption-m">Minds Freed</span>
+        <div class="wa-cluster wa-gap-xs">
+          <span class="wa-heading-l">0.36%</span>
+          <wa-badge variant="success" appearance="filled outlined" pill>
+            <wa-icon fixed-width name="arrow-up" label="Up"></wa-icon>
+            0.03%
+          </wa-badge>
         </div>
       </div>
     </div>
   </wa-card>
   <wa-card>
-    <div class="wa-flank">
-      <wa-avatar shape="square" label="Square avatar" class="wa-callout wa-neutral">
-         <wa-icon slot="icon" name="user-plus" variant="solid"></wa-icon>
+    <div class="wa-flank wa-align-items-start">
+      <wa-avatar shape="rounded">
+         <wa-icon slot="icon" name="robot"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-heading-xs">Total Subscribers</span>
-        <div class="wa-cluster">
-          <span class="wa-heading-l">71,897</span>
-          <wa-tag size="small" variant="success" appearance="filled outlined" pill><wa-icon fixed-width name="arrow-up"></wa-icon> 122</wa-tag>
+        <span class="wa-caption-m">Agents Discovered</span>
+        <div class="wa-cluster wa-gap-xs">
+          <span class="wa-heading-l">3</span>
+          <wa-badge variant="neutral" appearance="filled outlined" pill>
+            <wa-icon fixed-width name="wave-triangle" label="Stable"></wa-icon>
+            0%
+          </wa-badge>
         </div>
       </div>
     </div>
@@ -55,74 +63,18 @@ tags: app
 </div>
 ```
 
-### Multi column
+## Condensed Card
 
-```html{.example}
-<div style="max-width: 480px; margin: 0 auto">
-  <wa-card>
-    <div>
-      <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
+```html {.example}
+<wa-card style="max-width: 60ch; margin: auto">
+  <section slot="header" class="wa-split">
+    <div href="" class="wa-stack wa-gap-0">
+      <span class="wa-caption-s">Query</span>
+      <a href="" class="wa-heading-m">getUser</a>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
-    </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
-    </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
-    </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
-    </div>
-    <wa-divider></wa-divider>
-    </div>
-  </wa-card>
-</div>
-```
-
-### Card with condensed information
-```html{.example}
-<wa-card style="max-width: 480px; margin: 0 auto;">
-  <div class="wa-stack">
-  <section class="wa-split">
-    <a href="#" class="wa-cluster wa-gap-xs wa-align-items-center">
-      <span class="wa-caption-m">query</span>
-      <span class="wa-heading-m">getUser</span>
-      <wa-icon fixed-width name="arrow-right"></wa-icon>
-    </a>
     <wa-icon-button fixed-width name="ellipsis" label="actions"></wa-icon-button>
   </section>
+  <div class="wa-stack">
   <section class="wa-cluster">
     <span class="wa-caption-l">7.15M request • 9% • 734msP95</span>
   </section>
