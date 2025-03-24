@@ -247,16 +247,28 @@ wa-dropdown > .color.swatch {
   --lc: var(--avg-l) var(--max-c);
   --lc2: var(--avg-l) calc(var(--max-c) / 2);
   margin-top: calc(var(--r) * -0.05);
-  background: conic-gradient(
-    in oklch,
-    oklch(var(--lc) 0),
-    oklch(var(--lc) 60),
-    oklch(var(--lc) 120),
-    oklch(var(--lc) 180),
-    oklch(var(--lc) 240),
-    oklch(var(--lc) 300),
-    oklch(var(--lc) 360)
-  );
+  --cover-size: calc(100% - var(--visible-size, 0%));
+  background:
+    radial-gradient(closest-side, var(--wa-color-surface-default) 100%, transparent 0) center / var(--cover-size)
+      var(--cover-size),
+    conic-gradient(
+      in oklch,
+      oklch(var(--lc) 0),
+      oklch(var(--lc) 60),
+      oklch(var(--lc) 120),
+      oklch(var(--lc) 180),
+      oklch(var(--lc) 240),
+      oklch(var(--lc) 300),
+      oklch(var(--lc) 360)
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-repeat: no-repeat;
+  transition: var(--wa-transition-slow) ease-in background-size;
+
+  &:is(:hover, :focus-within) {
+    --visible-size: 100%;
+  }
 
   &,
   &::before {
@@ -270,6 +282,10 @@ wa-dropdown > .color.swatch {
     height: 100%;
     border-radius: 50%;
     mask: radial-gradient(white, transparent);
+    mask-size: var(--visible-size, 0%) var(--visible-size, 0%);
+    mask-repeat: no-repeat;
+    transition: inherit;
+    transition-property: mask-size;
     background: radial-gradient(oklch(var(--avg-l) calc(var(--gray-chroma) * var(--max-c)) 0) 5%, transparent 30%),
       conic-gradient(
         in oklch,
@@ -299,6 +315,7 @@ wa-dropdown > .color.swatch {
       --scale: 1.2;
       --line-color: white;
       --line-style: solid;
+      z-index: 2;
     }
 
     &::before {
