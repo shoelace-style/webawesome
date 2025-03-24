@@ -1,0 +1,162 @@
+// TODO move these to local imports
+import Color from 'https://colorjs.io/dist/color.js';
+import generateGrays from './generate-grays.js';
+import generateScale from './generate-scale.js';
+import getMaxChroma from './get-max-chroma.js';
+import { getCoreTint } from './util.js';
+import {
+  HUE_CHROMA_SCALE,
+  HUE_RANGES,
+  HUE_TOP_TINT,
+  L_RANGES,
+  MAX_ACCENT,
+  MIN_ACCENT,
+} from '/assets/scripts/tweak/data.js';
+import {
+  clamp,
+  clampAngle,
+  interpolate,
+  normalizeAngles,
+  progressAngle,
+  roundTo,
+  subtractAngles,
+} from '/assets/scripts/tweak/util.js';
+
+export default function generatePalette(seedHues, { huesAfter: allHuesAfter, ...options } = {}) {
+  let ret = {};
+
+  // Generate scales from seed hues
+  let firstSeedHue;
+
+  let coreLevels = {};
+  let seedMeta = {};
+
+  for (let hue in seedHues) {
+    let seedColors = seedHues[hue];
+
+    if (!seedColors) {
+      continue;
+    }
+
+    firstSeedHue ??= hue;
+
+    let coreLevel = (coreLevels[hue] = getCoreTint(seedColors));
+    let coreColor = seedColors[coreLevel];
+    let [l, c, h] = coreColor.getAll('oklch');
+
+    let lOffset = l - L_RANGES[coreLevel].mid;
+    let cScale = c / getMaxChroma(l, h);
+    let relativeCScale = cScale / HUE_CHROMA_SCALE[hue];
+    let levelOffset = coreLevel - HUE_TOP_TINT[hue];
+    seedMeta[hue] = { lOffset, cScale, relativeCScale, levelOffset };
+
+    ret[hue] = generateScale(seedColors);
+  }
+
+  if (!firstSeedHue) {
+    // No valid seed colors, abort mission
+    return null;
+  }
+
+  // Fill in remaining hues
+  let hueBefore = firstSeedHue;
+
+  for (let hue of allHuesAfter[firstSeedHue]) {
+    if (hue in ret) {
+      continue;
+    }
+
+    let huesAfter = allHuesAfter[hue];
+    let seedHuesAfter = huesAfter.filter(hue => seedHues[hue]);
+    let neighboringSeedHues = [seedHuesAfter.at(-1), seedHuesAfter[0]];
+
+    // A number from 0 to 1 indicating how close we are to each neighboring seed hue (0 if only one seed hue)
+    let hueProgress =
+      seedHuesAfter.length === 1
+        ? 0
+        : progressAngle(
+            HUE_RANGES[hue].mid,
+            neighboringSeedHues.map(hue => HUE_RANGES[hue].mid),
+          );
+
+    // Hue of the core color of the previous seed scale
+    let hBefore = ret[hueBefore][ret[hueBefore].maxChromaTint].get('oklch.h');
+
+    // We start from the midpoint of the hue range
+    let h = HUE_RANGES[hue].mid;
+
+    // Shift if too close to seed hues
+    let hBeforeDelta = subtractAngles(h, hBefore);
+
+    if (Math.abs(hBeforeDelta) < 40) {
+      h = hBefore + 40 * Math.sign(hBeforeDelta);
+    }
+
+    if (seedHuesAfter.length > 1) {
+      let hueAfter = seedHuesAfter[0];
+      let hAfter = ret[hueAfter][ret[hueAfter].maxChromaTint].get('oklch.h');
+      [hBefore, h, hAfter] = normalizeAngles([hBefore, h, hAfter]);
+      let hAfterDelta = subtractAngles(hAfter, h);
+
+      if (hAfter - 40 < hBefore + 40) {
+        // It's not possible to have a distance of at least 40deg from both neighboring hues
+        // so at least maximize distance
+        h = (hBefore + hAfter) / 2;
+      } else if (hAfterDelta < 40) {
+        h = hAfter - 40;
+      }
+    }
+
+    // Make sure hue is still within range for this scale
+    h = clampAngle(HUE_RANGES[hue].min, h, HUE_RANGES[hue].max);
+
+    let coreLevelOffset = interpolate(
+      hueProgress,
+      neighboringSeedHues.map(hue => seedMeta[hue].levelOffset),
+    );
+    let coreLevel = clamp(MIN_ACCENT, roundTo(HUE_TOP_TINT[hue] + coreLevelOffset, 10), MAX_ACCENT);
+
+    coreLevels[hue] = coreLevel;
+    let lOffsets = neighboringSeedHues.map(hue => seedMeta[hue].lOffset);
+    let lOffset = interpolate(hueProgress, lOffsets);
+    let l = L_RANGES[coreLevel].mid + lOffset;
+
+    let cScale = 1;
+
+    if (hue === 'yellow') {
+      // Yellow tends to be the brighest hue in the palette
+      cScale = Math.max(
+        ...Object.values(seedMeta)
+          .map(meta => meta.relativeCScale)
+          .filter(c => c > 0),
+      );
+    } else {
+      cScale = interpolate(
+        hueProgress,
+        neighboringSeedHues.map(neighboringHue => seedMeta[neighboringHue].relativeCScale),
+      );
+    }
+
+    cScale *= HUE_CHROMA_SCALE[hue];
+
+    let maxC = getMaxChroma(l, h);
+    let c = cScale * maxC;
+    // let c = interpolate(
+    //   hueProgress,
+    //   pinnedScale.map(scale => scale.maxChroma),
+    // );
+
+    let coreColor = new Color('oklch', [l, c, h]).toGamut('p3');
+
+    ret[hue] = generateScale(coreColor);
+    hueBefore = hue;
+  }
+
+  if ('gray' in seedHues) {
+    ret.gray = generateScale(seedHues.gray);
+  } else {
+    ret.gray = generateGrays(ret, options);
+  }
+
+  return ret;
+}

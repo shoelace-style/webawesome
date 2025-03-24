@@ -94,31 +94,6 @@
       }
     }
   }
-
-  .selected-swatch,
-  wa-select[name='brand'] wa-option::before {
-    content: '';
-    display: inline-block;
-    width: 1.2em;
-    aspect-ratio: 1;
-    flex: none;
-    border-radius: var(--wa-border-radius-m);
-    background: var(--color);
-    border: 1px solid var(--wa-color-surface-default);
-  }
-
-  wa-select[name='brand'] wa-option {
-    white-space: nowrap;
-
-    &::before {
-      width: 1em;
-      margin-inline: var(--wa-space-xs);
-    }
-
-    &::part(checked-icon) {
-      order: 2;
-    }
-  }
 }
 
 #test_select wa-option:state(selected) {

@@ -1,17 +1,34 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
-import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
-import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
-import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
-import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import generatePalette from './color/generate-palette.js';
+import getMaxChroma from './color/get-max-chroma.js';
+import getPaletteCode from './color/get-palette-code.js';
 import allPalettes from './color/palettes.js';
+import { tweakColor, tweakPalette } from './color/tweak.js';
+import { getContrasts, identifyColor } from './color/util.js';
+import ColorPopup from './vue-components/color-popup.js';
+import ColorSlider from './vue-components/color-slider.js';
+import ColorSwatchPicker from './vue-components/color-swatch-picker.js';
+import InfoTip from './vue-components/info-tip.js';
 import Prism from '/assets/scripts/prism.js';
-
-await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
-
-const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
+import { Permalink } from '/assets/scripts/tweak.js';
+import {
+  allHues,
+  cdnUrl,
+  HUE_RANGES,
+  hueAfter,
+  hueBefore,
+  hues,
+  L_RANGES,
+  MAX_CHROMA_BOUNDS,
+  MAX_GRAY_CHROMA_SCALE,
+  moreHue,
+  ROLES,
+  tints,
+} from '/assets/scripts/tweak/data.js';
+import { camelCase, capitalize, log, slugify, subtractAngles } from '/assets/scripts/tweak/util.js';
 
 let paletteAppSpec = {
   data() {
@@ -22,37 +39,41 @@ let paletteAppSpec = {
     return {
       uid: undefined,
       paletteId,
-      paletteTitle: palette.title,
+      originalPaletteTitle: palette.title,
       originalColors: palette.colors,
+      baseColors: { ...palette.colors },
       permalink: new Permalink(),
-      hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
       grayChroma: undefined,
       grayColor: undefined,
-      tweaking: {},
       saved: null,
+      unsavedChanges: false,
+      savedPalettes: sidebar.palettes.saved,
     };
   },
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue });
-
-    // Read URL params and apply them. This facilitates permalinks.
-    this.permalink.mapObject(this.hueShifts, {
-      keyTo: key => key.replace(/-shift$/, ''),
-      keyFrom: key => key + '-shift',
-      valueFrom: value => (!value ? '' : Number(value)),
-      valueTo: value => (!value ? 0 : Number(value)),
+    Object.assign(this, {
+      moreHue,
+      hueBefore,
+      hueAfter,
+      HUE_RANGES,
+      L_RANGES,
+      hues,
+      allHues,
+      tints,
+      MAX_CHROMA_BOUNDS,
     });
 
-    this.grayChroma = this.originalGrayChroma;
-    this.grayColor = this.originalGrayColor;
-
     if (location.search) {
-      // Update from URL
-      this.permalink.writeTo(this.hueShifts);
+      // Read URL params and apply them. This facilitates permalinks.
+      for (let hue in this.hueShifts) {
+        if (this.permalink.has(hue + '-shift')) {
+          this.hueShifts[hue] = Number(this.permalink.get(hue + '-shift'));
+        }
+      }
 
       for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
         if (this.permalink.has(param)) {
@@ -70,19 +91,50 @@ let paletteAppSpec = {
 
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
+        this.saved = sidebar.palettes.saved.find(p => p.uid === this.uid);
       }
-
-      this.saved = sidebar.palette.getSaved(this.getPalette());
     }
   },
 
   mounted() {
-    for (let ref in this.$refs) {
-      this.$refs[ref].tooltipFormatter = percentFormatter;
-    }
+    nextTick().then(() => {
+      if (!this.tweaked || this.saved) {
+        this.unsavedChanges = false;
+      }
+    });
   },
 
   computed: {
+    /**
+     * Stage of interaction with the palette app
+     * 0: Static
+     * 1: Started editing
+     * 2: Edited
+     * @returns
+     */
+    step() {
+      return this.tweaked ? 1 : 0;
+    },
+
+    slug() {
+      return this.paletteId;
+    },
+
+    /** Default palette title for saving */
+    defaultPaletteTitle() {
+      return this.originalPaletteTitle + ' (tweaked)';
+    },
+
+    paletteTitle() {
+      if (this.step === 0) {
+        return this.originalPaletteTitle;
+      } else if (this.saved) {
+        return this.saved.title;
+      } else {
+        return this.defaultPaletteTitle;
+      }
+    },
+
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -92,14 +144,16 @@ let paletteAppSpec = {
       };
     },
 
-    isTweaked() {
-      return Object.values(this.hueShifts).some(Boolean);
-    },
-
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.paletteId, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode({
+          base: this.paletteId,
+          colors: this.colors,
+          tweaked: this.tweaked,
+          language,
+          cdnUrl,
+        });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -110,22 +164,7 @@ let paletteAppSpec = {
     },
 
     colors() {
-      return applyTweaks.call(this, this.originalColors, this.tweaks, this.tweaked);
-    },
-
-    colorsMinusChromaScale() {
-      let tweaked = { ...this.tweaked, chromaScale: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
-    },
-
-    colorsMinusHueShifts() {
-      let tweaked = { ...this.tweaked, hue: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
-    },
-
-    colorsMinusGrayChroma() {
-      let tweaked = { ...this.tweaked, grayChroma: false };
-      return applyTweaks.call(this, this.originalColors, this.tweaks, tweaked);
+      return tweakPalette.call(this, this.baseColors, this.tweaks, this.tweaked);
     },
 
     tweaked() {
@@ -137,8 +176,8 @@ let paletteAppSpec = {
       let ret = {
         chromaScale: this.chromaScale !== 1,
         hue,
-        grayChroma: this.grayChroma !== this.originalGrayChroma,
-        grayColor: this.grayColor !== this.originalGrayColor,
+        grayChroma: this.grayChroma !== undefined && this.grayChroma !== this.originalGrayChroma,
+        grayColor: this.grayColor !== undefined && this.grayColor !== this.originalGrayColor,
       };
 
       let anyTweaked = Object.values(ret).some(Boolean);
@@ -159,7 +198,7 @@ let paletteAppSpec = {
           continue;
         }
 
-        let relHue = shift < 0 ? arrayPrevious(hues, hue) : arrayNext(hues, hue);
+        let relHue = shift < 0 ? hueBefore[hue] : hueAfter[hue];
         let hueTweak = moreHue[relHue] ?? relHue + 'er';
 
         ret[hue] = capitalize(hueTweak + ' ' + hue + 's');
@@ -184,43 +223,105 @@ let paletteAppSpec = {
     },
 
     originalContrasts() {
-      return getContrasts(this.originalColors);
+      return getContrasts(this.baseColors);
     },
 
     contrasts() {
       return getContrasts(this.colors, this.originalContrasts);
     },
 
-    originalCoreColors() {
+    baseCoreColors() {
       let ret = {};
-      for (let hue in this.originalColors) {
-        let maxChromaTintRaw = this.originalColors[hue].maxChromaTintRaw;
-        ret[hue] = this.originalColors[hue][maxChromaTintRaw];
+      for (let hue in this.baseColors) {
+        ret[hue] = this.baseColors[hue].core;
       }
       return ret;
+    },
+
+    baseMaxChromaHue() {
+      let maxChroma = -1;
+      let maxChromaHue = null;
+
+      for (let hue in this.baseCoreColors) {
+        let color = this.baseCoreColors[hue];
+        let chroma = color.get('oklch.c');
+        if (chroma > maxChroma || !maxChromaHue) {
+          maxChroma = chroma;
+          maxChromaHue = hue;
+        }
+      }
+      return maxChromaHue;
+    },
+
+    baseMaxChromaColor() {
+      return this.baseCoreColors[this.baseMaxChromaHue];
+    },
+
+    baseMaxChroma() {
+      return this.baseMaxChromaColor.get('oklch.c');
     },
 
     coreColors() {
       let ret = {};
       for (let hue in this.colors) {
-        let maxChromaTintRaw = this.colors[hue].maxChromaTintRaw;
-        ret[hue] = this.colors[hue][maxChromaTintRaw];
+        ret[hue] = this.colors[hue].core;
       }
 
       return ret;
     },
 
+    maxChroma() {
+      return Math.max(
+        ...Object.values(this.coreColors)
+          .map(color => color.get('oklch.c'))
+          .filter(c => c >= 0),
+      );
+    },
+
+    coreLevels() {
+      let ret = {};
+
+      for (let hue in this.colors) {
+        let maxChromaTint = this.colors[hue].maxChromaTint;
+        ret[hue] = maxChromaTint;
+      }
+
+      return ret;
+    },
+
+    level() {
+      let levels = Object.values(this.coreLevels).sort((a, b) => a - b);
+      levels = levels.slice(levels.length / 4, -levels.length / 4); // Remove top and bottom 25%
+      let trimmedMean = levels.map(Number).reduce((a, b) => a + b, 0) / levels.length;
+      return Math.round(trimmedMean / 10) * 10;
+    },
+
+    shiftBounds() {
+      return Object.fromEntries(
+        hues.map(hue => {
+          let range = HUE_RANGES[hue];
+          let coreHue = Math.round(this.baseCoreColors[hue].get('oklch.h'));
+          return [hue, { min: range.min - coreHue, max: range.max - coreHue }];
+        }),
+      );
+    },
+
+    chromaScaleBounds() {
+      return { min: MAX_CHROMA_BOUNDS.min / this.baseMaxChroma, max: MAX_CHROMA_BOUNDS.max / this.baseMaxChroma };
+    },
+
     originalGrayColor() {
-      let grayHue = this.originalCoreColors.gray.get('h');
+      let grayHue = this.baseCoreColors.gray.get('oklch.h');
       let minDistance = Infinity;
       let closestHue = null;
 
-      for (let name in this.originalCoreColors) {
+      // Find core color whose hue is closest to our gray
+      for (let name in this.baseCoreColors) {
         if (name === 'gray') {
           continue;
         }
 
-        let hue = this.originalCoreColors[name].get('h');
+        let hue = this.baseCoreColors[name].get('oklch.h');
         let distance = Math.abs(subtractAngles(hue, grayHue));
         if (distance < minDistance) {
           minDistance = distance;
@@ -232,13 +333,12 @@ let paletteAppSpec = {
     },
 
     originalGrayChroma() {
-      let coreTint = this.originalColors.gray.maxChromaTint;
-      let grayChroma = this.originalColors.gray[coreTint].get('c');
+      let grayChroma = this.baseColors.gray.core.get('oklch.c');
       if (grayChroma === 0 || grayChroma === null) {
         return 0;
       }
 
-      let grayColorChroma = this.originalColors[this.originalGrayColor][coreTint].get('c');
+      let grayColorChroma = this.baseColors[this.originalGrayColor].core.get('oklch.c');
       return grayChroma / grayColorChroma;
     },
 
@@ -248,19 +348,42 @@ let paletteAppSpec = {
      * This property is the gray chroma % that is actually applied.
      */
     computedGrayChroma() {
-      return Math.min(this.grayChroma, this.maxGrayChroma);
+      let grayChroma = this.grayChroma ?? this.originalGrayChroma;
+      return Math.min(grayChroma, this.maxGrayChroma);
+    },
+
+    computedGrayColor() {
+      return this.grayColor ?? this.originalGrayColor;
     },
 
     maxGrayChroma() {
-      return maxGrayChroma[this.grayColor] ?? 0.3;
+      return MAX_GRAY_CHROMA_SCALE[this.grayColor] ?? 0.3;
     },
-  },
+
+    huesAfter() {
+      let ret = {};
+      let huesRotated = [...hues];
+      for (let hue of hues) {
+        let first = huesRotated.shift();
+        ret[hue] = huesRotated.slice();
+        huesRotated.push(first);
+      }
+      return ret;
+    },
+
+    /** Get other variants of the same base palette that are not this one */
+    savedVariations() {
+      return this.savedPalettes.filter(palette => palette.id === this.paletteId && palette.uid !== this.uid);
+    },
+  }, // end computed
 
   watch: {
     hueShifts: {
       deep: true,
       handler() {
-        this.permalink.readFrom(this.hueShifts);
+        for (let hue in this.hueShifts) {
+          this.permalink.set(hue + '-shift', this.hueShifts[hue], 0);
+        }
       },
     },
 
@@ -284,58 +407,50 @@ let paletteAppSpec = {
         // Update page URL
         this.permalink.updateLocation();
 
-        if (this.saved) {
-          this.save({ silent: true });
-        }
+        this.unsavedChanges = true;
       },
     },
-  },
+  }, // end watch
 
   methods: {
-    getPalette() {
-      return { id: this.paletteId, uid: this.uid, search: location.search };
-    },
+    capitalize,
+    slugify,
+    getMaxChroma,
+    log,
 
-    save({ silent } = {}) {
-      let title = silent
-        ? (this.saved?.title ?? this.paletteTitle)
-        : prompt('Palette title:', `${this.paletteTitle} (tweaked)`);
-
-      if (!title) {
-        return;
-      }
-
+    async save({ title } = {}) {
       let uid = this.uid;
 
-      if (!uid) {
-        // First time saving
-        this.uid = uid = sidebar.palette.getUid();
+      this.saved ??= { id: this.paletteId, uid: this.uid, search: location.search };
 
+      if (title) {
+        // Renaming
+        this.saved.title = title;
+      } else {
+        this.saved.title ??= this.defaultPaletteTitle;
+      }
+
+      sidebar.palette.save(this.saved);
+
+      if (uid !== this.saved.uid) {
+        // UID changed (most likely from saving a new palette)
+        this.uid = this.saved.uid;
         this.permalink.set('uid', uid);
         this.permalink.updateLocation();
       }
 
-      let palette = { ...this.getPalette(), uid, title };
-
-      sidebar.palette.save(palette, this.saved);
-      this.saved = palette;
+      this.unsavedChanges = false;
     },
 
     rename() {
-      if (!this.saved) {
-        return;
+      let newTitle = prompt('Palette title:', this.saved?.title ?? this.defaultPaletteTitle);
+
+      if (newTitle && newTitle !== this.saved?.title) {
+        this.save({ title: newTitle });
       }
-
-      let newTitle = prompt('New title:', this.saved.title);
-
-      if (!newTitle) {
-        return;
-      }
-
-      this.saved.title = newTitle;
-      sidebar.palette.save(this.saved);
     },
 
+    // Cannot name this delete() because Vue complains
     deleteSaved() {
       sidebar.palette.delete(this.saved);
     },
@@ -351,28 +466,30 @@ let paletteAppSpec = {
      * Remove a specific tweak or all tweaks
      * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
      */
-    reset(param) {
+    reset(param, context = this) {
       if (!param || param === 'chromaScale') {
-        this.chromaScale = 1;
+        context.chromaScale = 1;
       }
 
       if (param in this.hueShifts) {
-        this.hueShifts[param] = 0;
+        context.hueShifts[param] = 0;
       } else if (!param) {
         for (let hue in this.hueShifts) {
-          this.hueShifts[hue] = 0;
+          context.hueShifts[hue] = 0;
         }
       }
 
       if (!param || param === 'grayColor') {
-        this.grayColor = this.originalGrayColor;
+        context.grayColor = this.originalGrayColor;
       }
 
       if (!param || param === 'grayChroma') {
-        this.grayChroma = this.originalGrayChroma;
+        context.grayChroma = this.originalGrayChroma;
       }
+
+      return context;
     },
-  },
+  }, // end methods
 
   directives: {
     // Like v-text, but doesn't complain if the element has content,
@@ -399,6 +516,13 @@ let paletteAppSpec = {
     },
   },
 
+  components: {
+    ColorPopup,
+    ColorSlider,
+    ColorSwatchPicker,
+    InfoTip,
+  },
+
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
@@ -417,140 +541,3 @@ function init() {
 
 init();
 addEventListener('turbo:render', init);
-
-export function getPaletteCode(paletteId, colors, tweaked, options) {
-  let imports = [];
-
-  if (paletteId) {
-    imports.push(urls.palette(paletteId));
-  }
-
-  let css = '';
-  let declarations = [];
-
-  if (tweaked) {
-    for (let hue in colors) {
-      if (hue === 'orange') {
-        continue;
-      } else if (hue === 'gray') {
-        if (!tweaked.grayChroma && !tweaked.grayColor) {
-          continue;
-        }
-      } else if (!tweaked.chromaScale && !tweaked.hue?.[hue]) {
-        continue;
-      }
-
-      for (let tint of tints) {
-        let color = colors[hue][tint];
-        let stringified = color.toString({ format: color.inGamut('srgb') ? 'hex' : undefined });
-        declarations.push(`--wa-color-${hue}-${tint}: ${stringified};`);
-      }
-
-      declarations.push('');
-    }
-
-    if (declarations.length > 0) {
-      css += cssRule(selectors.palette(paletteId), declarations);
-    }
-  }
-
-  let ret = imports.map(url => cssImport(url, options)).join('\n');
-
-  if (css) {
-    ret += `\n\n${cssLiteral(css, options)}`;
-  }
-
-  return ret;
-}
-
-function arrayNext(array, element) {
-  let index = array.indexOf(element);
-  return array[(index + 1) % array.length];
-}
-
-function arrayPrevious(array, element) {
-  let index = array.indexOf(element);
-  return array[(index - 1 + array.length) % array.length];
-}
-
-function applyTweaks(originalColors, tweaks, tweaked) {
-  let ret = {};
-  let { hueShifts, chromaScale = 1, grayColor, grayChroma } = tweaks;
-
-  if (!tweaked) {
-    return originalColors;
-  }
-
-  if (tweaked.grayChroma) {
-    grayChroma = this.computedGrayChroma;
-  }
-
-  for (let hue in originalColors) {
-    let originalScale = originalColors[hue];
-    let scale = (ret[hue] = {});
-    let descriptors = Object.getOwnPropertyDescriptors(originalScale);
-    Object.defineProperties(scale, {
-      maxChromaTint: { ...descriptors.maxChromaTint, enumerable: false },
-      maxChromaTintRaw: { ...descriptors.maxChromaTintRaw, enumerable: false },
-    });
-
-    for (let tint of tints) {
-      let color = originalScale[tint].clone();
-
-      if (tweaked.hue && hueShifts[hue]) {
-        color.set({ h: h => h + hueShifts[hue] });
-      }
-
-      if (tweaked.chromaScale && chromaScale !== 1) {
-        color.set({ c: c => c * chromaScale });
-      }
-
-      if (hue === 'gray' && (tweaked.grayChroma || tweaked.grayColor)) {
-        let colorUndertone = originalColors[grayColor][tint].clone();
-        color = colorUndertone.set({ c: c => c * grayChroma });
-      }
-
-      scale[tint] = color;
-    }
-  }
-
-  return ret;
-}
-
-function camelCase(str) {
-  return (str + '').replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-}
-
-function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1);
-}
-
-function getContrasts(colors, originalContrasts) {
-  let ret = {};
-
-  for (let hue in colors) {
-    ret[hue] = {};
-
-    for (let tintBg of tints) {
-      ret[hue][tintBg] = {};
-      let bgColor = colors[hue][tintBg];
-
-      if (!bgColor || !bgColor.contrast) {
-        continue;
-      }
-
-      for (let tintFg of tints) {
-        let fgColor = colors[hue][tintFg];
-        let value = bgColor.contrast(fgColor, 'WCAG21');
-        if (originalContrasts) {
-          let original = originalContrasts[hue][tintBg][tintFg];
-          ret[hue][tintBg][tintFg] = { value, original, bgColor, fgColor };
-        } else {
-          ret[hue][tintBg][tintFg] = value;
-        }
-      }
-    }
-  }
-
-  return ret;
-}

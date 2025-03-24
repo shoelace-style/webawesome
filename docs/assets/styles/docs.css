@@ -440,9 +440,14 @@ wa-page > main:has(> .index-grid) {
   &.color {
     border-color: transparent;
     transition: background var(--wa-transition-slow);
-    background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box var(--color,);
-    background-position: var(--color-2-position, bottom);
-    background-size: var(--color-2-width, 100%) var(--color-2-height, 50%);
+    background:
+      linear-gradient(var(--color-top, transparent) 0% 100%) top no-repeat border-box,
+      linear-gradient(var(--color-bottom, transparent) 0% 100%) bottom no-repeat border-box var(--color,);
+    background-position: top, bottom;
+    background-size:
+      var(--color-top-width, 100%) var(--color-top-height, 30%),
+      var(--color-bottom-width, 100%) var(--color-bottom-height, 30%);
+    color: var(--swatch-text-color);
 
     &.contrast-fail {
       outline: 1px dashed var(--wa-color-red);
@@ -639,5 +644,48 @@ table.colors {
     min-height: 16lh;
     height: 65vh;
     max-height: 21lh;
+  }
+}
+
+.color-select {
+  &.default::part(display-input) {
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  > small {
+    margin-inline-start: var(--wa-space-xs);
+    padding-block: 0 var(--wa-space-xs);
+  }
+
+  &::part(combobox)::before,
+  wa-option::before {
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    aspect-ratio: 1;
+    margin-inline-end: var(--wa-space-xs);
+    flex: none;
+    border-radius: var(--wa-border-radius-m);
+    background: var(--color);
+    border: 1px solid var(--wa-color-surface-default);
+  }
+
+  wa-option {
+    white-space: nowrap;
+
+    &::before {
+      width: 1em;
+      margin-inline: var(--wa-space-xs);
+    }
+
+    &::part(checked-icon) {
+      order: 2;
+    }
+  }
+
+  .default-badge {
+    opacity: 0.6;
+    margin-inline-start: var(--wa-space-xs);
   }
 }
