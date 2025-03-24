@@ -12,49 +12,49 @@ tags: app
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="globe"></wa-icon>
+         <wa-icon slot="icon" name="user-group"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
-        <span class="wa-caption-m">Population (Zion)</span>
+        <span class="wa-caption-m">Total Subscribers</span>
         <div class="wa-cluster wa-gap-xs">
-          <span class="wa-heading-l">251,999</span>
-          <wa-badge variant="danger" appearance="filled outlined" pill>
-            <wa-icon fixed-width name="arrow-down" label="Down"></wa-icon>
-            3%
-          </wa-badge>
-        </div>
-      </div>
-    </div>
-  </wa-card>
-  <wa-card>
-    <div class="wa-flank wa-align-items-start">
-      <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="brain-circuit"></wa-icon>
-      </wa-avatar>
-      <div class="wa-stack wa-gap-2xs">
-        <span class="wa-caption-m">Minds Freed</span>
-        <div class="wa-cluster wa-gap-xs">
-          <span class="wa-heading-l">0.36%</span>
-          <wa-badge variant="success" appearance="filled outlined" pill>
-            <wa-icon fixed-width name="arrow-up" label="Up"></wa-icon>
-            0.03%
-          </wa-badge>
-        </div>
-      </div>
-    </div>
-  </wa-card>
-  <wa-card>
-    <div class="wa-flank wa-align-items-start">
-      <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="robot"></wa-icon>
-      </wa-avatar>
-      <div class="wa-stack wa-gap-2xs">
-        <span class="wa-caption-m">Agents Discovered</span>
-        <div class="wa-cluster wa-gap-xs">
-          <span class="wa-heading-l">3</span>
+          <span class="wa-heading-l">81,779</span>
           <wa-badge variant="neutral" appearance="filled outlined" pill>
             <wa-icon fixed-width name="wave-triangle" label="Stable"></wa-icon>
-            0%
+            0
+          </wa-badge>
+        </div>
+      </div>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-flank wa-align-items-start">
+      <wa-avatar shape="rounded">
+         <wa-icon slot="icon" name="envelope-open"></wa-icon>
+      </wa-avatar>
+      <div class="wa-stack wa-gap-2xs">
+        <span class="wa-caption-m">Open Rate</span>
+        <div class="wa-cluster wa-gap-xs">
+          <span class="wa-heading-l">61.58%</span>
+          <wa-badge variant="success" appearance="filled outlined" pill>
+            <wa-icon fixed-width name="arrow-up" label="Up"></wa-icon>
+            4.5%
+          </wa-badge>
+        </div>
+      </div>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-flank wa-align-items-start">
+      <wa-avatar shape="rounded">
+         <wa-icon slot="icon" name="arrow-pointer"></wa-icon>
+      </wa-avatar>
+      <div class="wa-stack wa-gap-2xs">
+        <span class="wa-caption-m">Click Rate</span>
+        <div class="wa-cluster wa-gap-xs">
+          <span class="wa-heading-l">25.74%</span>
+          <wa-badge variant="danger" appearance="filled outlined" pill>
+            <wa-icon fixed-width name="arrow-down" label="Down"></wa-icon>
+            2.1%
           </wa-badge>
         </div>
       </div>
