@@ -156,15 +156,15 @@ wa-dropdown > .color.swatch {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     opacity: var(--copy-icon-opacity, 0%);
-
-    &:has(wa-dropdown[open]) {
-      --copy-icon-opacity: 40%;
-    }
   }
 
   .color.swatch:hover {
     --tweak-icon-opacity: 40%;
     --copy-icon-opacity: 40%;
+  }
+
+  wa-dropdown[open] .copy-icon {
+    --copy-icon-opacity: 60%;
   }
 
   &.tweaked .core-column {
