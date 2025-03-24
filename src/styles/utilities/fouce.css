@@ -4,10 +4,10 @@
 :not(:defined),
 :state(wa-defined):has(:not(:defined)),
 .wa-cloak:has(:not(:defined)) {
-  animation: 2s step-end wa-fade-in;
+  animation: 2s step-end wa-fouce-cloak;
 }
 
-@keyframes wa-fade-in {
+@keyframes wa-fouce-cloak {
   from {
     opacity: 0;
   }
