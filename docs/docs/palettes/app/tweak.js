@@ -357,7 +357,7 @@ let paletteAppSpec = {
     },
 
     maxGrayChroma() {
-      return MAX_GRAY_CHROMA_SCALE[this.grayColor] ?? 0.3;
+      return MAX_GRAY_CHROMA_SCALE[this.grayColor] ?? 0.35;
     },
 
     huesAfter() {
@@ -410,6 +410,13 @@ let paletteAppSpec = {
         this.unsavedChanges = true;
       },
     },
+
+    saved: {
+      deep: true,
+      handler() {
+        this.unsavedChanges = !this.saved;
+      },
+    },
   }, // end watch
 
   methods: {
@@ -421,7 +428,7 @@ let paletteAppSpec = {
     async save({ title } = {}) {
       let uid = this.uid;
 
-      this.saved ??= { id: this.paletteId, uid: this.uid, search: location.search };
+      this.saved ??= { id: this.paletteId, uid: this.uid };
 
       if (title) {
         // Renaming
@@ -430,13 +437,17 @@ let paletteAppSpec = {
         this.saved.title ??= this.defaultPaletteTitle;
       }
 
-      sidebar.palette.save(this.saved);
+      this.saved.search = location.search;
+
+      this.saved = sidebar.palette.save(this.saved);
 
       if (uid !== this.saved.uid) {
         // UID changed (most likely from saving a new palette)
         this.uid = this.saved.uid;
-        this.permalink.set('uid', uid);
+        this.permalink.set('uid', this.uid);
         this.permalink.updateLocation();
+        await this.$nextTick();
+        this.save(); // Save again to update the search param to include the UID
       }
 
       this.unsavedChanges = false;

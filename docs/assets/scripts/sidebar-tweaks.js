@@ -80,7 +80,7 @@ sidebar.palette = {
       return;
     }
 
-    for (let index; index > -1; index = savedPalettes.findIndex(p => p.uid === palette.uid)) {
+    for (let index; (index = savedPalettes.findIndex(p => p.uid === palette.uid)) > -1; ) {
       savedPalettes.splice(index, 1);
     }
 
