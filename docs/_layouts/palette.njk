@@ -148,7 +148,7 @@
       <td v-for="tint in tints.toReversed()" :data-tint="tint" :style="{'--original-color': `var(--wa-color-${ hue }-${tint})`, '--color': colors[hue][tint] }">
         <color-popup :title="capitalize(hue) + ' ' + tint" :token="`--wa-color-${ hue }-${ tint }`" :color="colors[hue][tint]">
           <div slot="trigger" class="color swatch" :style="{ colorScheme: tint > 60 ? 'light' : 'dark' }">
-            <wa-icon name="sliders-simple" class="tweak-icon"></wa-icon>
+            <wa-icon name="copy" variant="regular" class="copy-icon"></wa-icon>
           </div>
         </color-popup>
       </td>
