@@ -1,0 +1,46 @@
+:root {
+  --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+wa-page > header {
+  border-bottom: var(--ui-border);
+
+  .title {
+    display: flex;
+    margin: 0 auto;
+
+    h1 {
+      font-size: inherit;
+      margin: 0;
+    }
+  }
+}
+
+.sidebar {
+  min-width: 20ch;
+  border-right: var(--ui-border);
+}
+
+iframe.preview {
+  width: 100%;
+  height: 100%;
+}
+
+[slot='main-header'] {
+  padding-block: 0;
+  wa-tab-group {
+    margin-left: auto;
+  }
+
+  wa-tab-panel {
+    --padding: 0;
+  }
+}

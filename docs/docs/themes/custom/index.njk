@@ -1,0 +1,31 @@
+---
+layout: blank
+title: Custom Theme
+---
+
+{% block head %}
+<link href="{{ page.url }}style.css" rel="stylesheet" />
+{% endblock %}
+
+<wa-page>
+  <header slot="header">
+    <a href="/" aria-label="Web Awesome">
+      {% include "logo-simple.njk" %}
+    </a>
+    <div class="title">
+      <h1>Custom Theme</h1>
+    </div>
+  </header>
+  <section class="sidebar" slot="navigation">
+  Sidebar
+  </section>
+  <div slot="main-header">
+    <wa-tab-group>
+      <wa-tab panel="app">App</wa-tab>
+      <wa-tab panel="content">Content</wa-tab>
+      <wa-tab-panel name="app"></wa-tab-panel>
+      <wa-tab-panel name="content"></wa-tab-panel>
+    </wa-tab-group>
+  </div>
+  <iframe class="preview" src="{{ page.url }}../preview/app/"></iframe>
+</wa-page>
