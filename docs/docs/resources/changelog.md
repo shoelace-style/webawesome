@@ -14,6 +14,8 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Added the `wa-cloak` utility to prevent FOUCE
+- Added the `allDefined()` utility for awaiting component registration
 - Fixed `wa-pill` class for text fields
 - Fixed `pill` style for `<wa-input>` elements
 - Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
