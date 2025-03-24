@@ -1,11 +1,11 @@
 import { tints } from '/assets/scripts/tweak/data.js';
 
-export function generateGrays(colors, { grayColor, grayChroma }) {
+export function generateGrays(colors, { grayColor, grayChroma, grayLevel }) {
   let ret = {};
   let undertoneScale = colors[grayColor];
 
   // These will be the same, since scaling them won't change the relationship
-  ret.maxChromaTint = undertoneScale.maxChromaTint;
+  ret.maxChromaTint = grayLevel ?? undertoneScale.maxChromaTint;
   Object.defineProperty(ret, 'core', {
     enumerable: false,
     get() {

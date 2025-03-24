@@ -28,7 +28,8 @@ export function tweakPalette(baseColors, tweaks, tweaked) {
       if (tweaked.grayChroma || tweaked.grayColor) {
         let grayColor = tweaks.grayColor ?? this.originalGrayColor;
         let grayChroma = this.computedGrayChroma;
-        ret.gray = generateGrays(baseColors, { grayColor, grayChroma });
+        let grayLevel = baseColors.gray?.maxChromaTint;
+        ret.gray = generateGrays(baseColors, { grayColor, grayChroma, grayLevel });
       } else {
         ret.gray = originalScale;
       }
