@@ -1,8 +1,11 @@
-{% set breadcrumbs = page.url | breadcrumbs %}
-{% if breadcrumbs.length > 0 %}
+{% set ancestors = page.url | ancestors %}
+
+{% if ancestors.length > 0 %}
   <wa-breadcrumb id="docs-breadcrumbs">
-  {% for crumb in breadcrumbs %}
-    <wa-breadcrumb-item href="{{ crumb.url }}">{{ crumb.title }}</wa-breadcrumb-item>
+  {% for ancestor in ancestors %}
+    {% if ancestor.page.url != "/" %}
+    <wa-breadcrumb-item href="{{ ancestor.page.url }}">{{ ancestor.data.title }}</wa-breadcrumb-item>
+    {% endif %}
   {% endfor %}
   <wa-breadcrumb-item>{# Current page #}</wa-breadcrumb-item>
   </wa-breadcrumb>

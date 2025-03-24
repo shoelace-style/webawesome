@@ -78,8 +78,7 @@
 }
 
 .wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
+.wa-invert {
   color-scheme: dark;
   color: var(--wa-color-text-normal);
 

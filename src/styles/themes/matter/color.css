@@ -85,8 +85,7 @@
 }
 
 .wa-dark,
-.wa-invert,
-:is(:host-context(.wa-dark)) {
+.wa-invert {
   /**
    * Foundational Colors
    */
