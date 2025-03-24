@@ -49,6 +49,7 @@ import styles from './switch.css';
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
+  static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
   static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static get validators() {

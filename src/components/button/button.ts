@@ -52,6 +52,7 @@ import styles from './button.css';
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
   static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static rectProxy = 'button';
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -108,7 +109,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) value: string | null = null;
 
   /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
-  @property() href = '';
+  @property({ reflect: true }) href = null;
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property() target: '_blank' | '_parent' | '_self' | '_top';
@@ -222,17 +223,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Removes focus from the button. */
   blur() {
     this.button.blur();
-  }
-
-  getBoundingClientRect(): DOMRect {
-    let rect = super.getBoundingClientRect();
-    let buttonRect = this.button.getBoundingClientRect();
-
-    if (rect.width === 0 && buttonRect.width > 0) {
-      return buttonRect;
-    }
-
-    return rect;
   }
 
   render() {

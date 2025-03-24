@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
@@ -8,6 +9,7 @@ import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js'
 // import { formatCodePlugin } from './_utils/format-code.js';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
+import nunjucks from 'nunjucks';
 import componentList from './_data/componentList.js';
 import * as filters from './_utils/filters.js';
 import { outlinePlugin } from './_utils/outline.js';
@@ -16,7 +18,10 @@ import { searchPlugin } from './_utils/search.js';
 
 import process from 'process';
 
-const packageData = JSON.parse(await readFile('./package.json', 'utf-8'));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
 const isAlpha = process.argv.includes('--alpha');
 const isDev = process.argv.includes('--develop');
 
@@ -24,12 +29,23 @@ const globalData = {
   package: packageData,
   isAlpha,
   layout: 'page.njk',
+
+  server: {
+    head: '',
+    loginOrAvatar: '',
+    flashes: '',
+  },
 };
 
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
 
 export default function (eleventyConfig) {
+  /**
+   * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
+   */
+  const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
+
   // NOTE - alpha setting removes certain pages
   if (isAlpha) {
     eleventyConfig.ignores.add('**/experimental/**');
@@ -55,7 +71,38 @@ export default function (eleventyConfig) {
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
-    return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + location.replace(/^\//, '');
+    return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
+  });
+
+  // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
+  eleventyConfig.addShortcode('server', function (property) {
+    if (serverBuild) {
+      return `{{ server.${property} | safe }}`;
+    }
+
+    return '';
+  });
+
+  eleventyConfig.addTransform('second-nunjucks-transform', function NunjucksTransform(content) {
+    // For a server build, we expect a server to run the second transform.
+    if (serverBuild) {
+      return content;
+    }
+
+    // Only run the transform on files nunjucks would transform.
+    if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
+      return content;
+    }
+
+    /** This largely mimics what an app would do and just stubs out what we don't care about. */
+    return nunjucks.renderString(content, {
+      // Stub the server EJS shortcodes.
+      server: {
+        head: '',
+        loginOrAvatar: '',
+        flashes: '',
+      },
+    });
   });
 
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
@@ -94,7 +141,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(highlightCodePlugin());
 
   // Add copy code buttons to code blocks
-  eleventyConfig.addPlugin(copyCodePlugin());
+  eleventyConfig.addPlugin(copyCodePlugin);
 
   // Various text replacements
   eleventyConfig.addPlugin(
@@ -141,6 +188,31 @@ export default function (eleventyConfig) {
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
+  }
+
+  // SSR plugin
+  // Make sure this is the last thing, we dont want to run the risk of accidentally transforming shadow roots with the nunjucks 2nd transform.
+  if (!isDev) {
+    //
+    // Problematic components in SSR land:
+    //  - animation (breaks on navigation + ssr with Turbo)
+    //  - mutation-observer (why SSR this?)
+    //  - resize-observer (why SSR this?)
+    //  - tooltip (why SSR this?)
+    //
+    const omittedModules = [];
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
+        return path.join(componentDirectory, 'components', name, `${name}.js`);
+      });
+
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
+    });
   }
 
   return {

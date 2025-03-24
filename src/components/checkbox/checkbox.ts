@@ -127,7 +127,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) required = false;
 
   /** The checkbox's hint. If you need to display HTML, use the `hint` slot instead. */
-  @property({ attribute: 'hint' }) hint = '';
+  @property() hint = '';
 
   private handleClick() {
     this.hasInteracted = true;

@@ -45,7 +45,8 @@
 
   --outlined-border-color: var(--wa-color-border-normal);
 
-  --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+  --text-color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+  --text-color-hover: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 }
 
 .wa-plain,
