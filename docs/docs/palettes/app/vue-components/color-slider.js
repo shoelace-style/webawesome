@@ -56,7 +56,7 @@ export default {
     maxRelative: Number,
     step: {
       type: Number,
-      default: 1,
+      default: 0.001,
     },
 
     type: {
