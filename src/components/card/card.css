@@ -5,20 +5,34 @@
 
   --spacing: var(--wa-space);
   --border-width: var(--wa-panel-border-width);
-  --border-color: var(--wa-color-surface-border);
+  --outlined-border-color: var(--wa-color-surface-border);
   --border-radius: var(--wa-panel-border-radius);
-
   --inner-border-radius: calc(var(--border-radius) - var(--border-width));
+  --inner-border-color: var(--outlined-border-color);
 
   display: flex;
   flex-direction: column;
-  background-color: var(--wa-color-surface-default);
-  border-color: var(--border-color);
+  background-color: var(--background-color, var(--wa-color-surface-default));
+  border-color: var(--border-color, var(--wa-color-surface-border));
   border-radius: var(--border-radius);
   border-style: var(--wa-panel-border-style);
   box-shadow: var(--wa-shadow-s);
   border-width: var(--border-width);
   color: var(--wa-color-text-normal);
+}
+
+:host(:is([appearance~='accent'], .wa-accent)) {
+  color: var(--text-color, var(--wa-color-text-normal));
+}
+
+:host([appearance~='filled']),
+:host(.wa-filled) {
+  --inner-border-color: oklab(from var(--outlined-border-color) l a b / 65%);
+}
+
+:host([appearance='plain']) {
+  --inner-border-color: transparent;
+  box-shadow: none;
 }
 
 /* Take care of top and bottom radii */
@@ -49,7 +63,7 @@
 .header {
   display: block;
   border-block-end-style: inherit;
-  border-block-end-color: var(--border-color);
+  border-block-end-color: var(--inner-border-color);
   border-block-end-width: var(--border-width);
   padding: calc(var(--spacing) / 2) var(--spacing);
 }
@@ -62,7 +76,7 @@
 .footer {
   display: block;
   border-block-start-style: inherit;
-  border-block-start-color: var(--border-color);
+  border-block-start-color: var(--inner-border-color);
   border-block-start-width: var(--border-width);
   padding: var(--spacing);
 }

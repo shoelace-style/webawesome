@@ -177,8 +177,23 @@ Use the `size` attribute to change a card's size.
   </footer>
 </wa-card>
 </div>
-
 ```
 
-<style>
-</style>
+### Appearance
+
+Use the `appearance` attribute to change the card's visual appearance.
+
+```html {.example}
+<div class="wa-grid">
+<wa-card>
+  <div slot="header">Outlined (default)</div>
+  Card content.
+</wa-card>
+{% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
+<wa-card appearance="{{ appearance }}">
+  <div slot="header">{{ appearance | capitalize }}</div>
+  Card content.
+</wa-card>
+{%- endfor %}
+</div>
+```
