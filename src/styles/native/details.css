@@ -21,6 +21,12 @@ details:where(:not(:host *)),
   }
 }
 
+details.wa-plain,
+:host(wa-details[appearance='plain']),
+:host(wa-details.wa-plain) {
+  border-radius: 0;
+}
+
 details:where(:not(:host *)) summary,
 :host summary /* nesting these summary styles in the rule above breaks in Firefox and Safari */ {
   display: flex;
