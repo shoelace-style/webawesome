@@ -5,6 +5,7 @@
 
   --spacing: var(--wa-space);
   --border-width: var(--wa-panel-border-width);
+  --outlined-background-color: var(--wa-color-surface-default);
   --outlined-border-color: var(--wa-color-surface-border);
   --border-radius: var(--wa-panel-border-radius);
   --inner-border-radius: calc(var(--border-radius) - var(--border-width));
