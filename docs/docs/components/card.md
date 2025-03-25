@@ -186,11 +186,21 @@ Use the `appearance` attribute to change the card's visual appearance.
 ```html {.example}
 <div class="wa-grid">
 <wa-card>
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
   <div slot="header">Outlined (default)</div>
   Card content.
 </wa-card>
 {% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
 <wa-card appearance="{{ appearance }}">
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
   <div slot="header">{{ appearance | capitalize }}</div>
   Card content.
 </wa-card>

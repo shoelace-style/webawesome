@@ -60,6 +60,15 @@
   }
 }
 
+/* Round all corners for plain appearance */
+:host([appearance='plain']) .image {
+  border-radius: var(--inner-border-radius);
+
+  &::slotted(img) {
+    border-radius: inherit !important;
+  }
+}
+
 .header {
   display: block;
   border-block-end-style: inherit;
