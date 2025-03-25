@@ -1,6 +1,7 @@
 export { registerIconLibrary, unregisterIconLibrary } from './components/icon/library.js';
-export { discover, startLoader, stopLoader } from './utilities/autoloader.js';
+export { discover, preventTurboFouce, startLoader, stopLoader } from './utilities/autoloader.js';
 export { getBasePath, getKitCode, setBasePath, setKitCode } from './utilities/base-path.js';
+export { allDefined } from './utilities/defined.js';
 export { registerTranslation } from './utilities/localize.js';
 
 // Utilities

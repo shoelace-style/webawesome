@@ -3,8 +3,8 @@
 <section id="grid" class="index-grid">
 {% set groupedPages = allPages | groupPages(categories, page) %}
 {% for category, pages in groupedPages -%}
-  {% if groupedPages.meta.groupCount > 1 %}
-  <h2 class="index-category">
+  {% if groupedPages.meta.groupCount > 1 and pages.length > 0 %}
+  <h2 class="index-category" id="{{ category | slugify }}">
     {% if pages.meta.url %}<a href="{{ pages.meta.url }}">{{ pages.meta.title }}</a>
     {% else %}
     {{ pages.meta.title }}

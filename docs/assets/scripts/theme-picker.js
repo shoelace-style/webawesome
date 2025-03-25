@@ -4,9 +4,12 @@ export function domChange(fn, { behavior = 'smooth' } = {}) {
     document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (canUseViewTransitions && behavior === 'smooth') {
-    document.startViewTransition(fn);
-  } else {
-    fn(true);
+    const transition = document.startViewTransition(() => {
+      fn(true);
+      // Wait a brief delay before finishing the transition to prevent jumpiness
+      return new Promise(resolve => setTimeout(resolve, 200));
+    });
+    return transition;
   }
 }
 
