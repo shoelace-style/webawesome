@@ -2,10 +2,12 @@ details:where(:not(:host *)),
 :host {
   --icon-color: var(--wa-color-text-quiet);
   --spacing: var(--wa-space-m);
+  --outlined-border-color: var(--wa-color-surface-border);
 
-  background-color: var(--wa-color-surface-default);
-  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
+  background-color: var(--background-color, var(--wa-color-surface-default));
+  border: var(--wa-panel-border-width) var(--border-color, var(--wa-color-surface-border)) var(--wa-panel-border-style);
   border-radius: var(--wa-panel-border-radius);
+  color: var(--text-color, inherit);
   padding: var(--spacing);
 
   /* Print styles */
