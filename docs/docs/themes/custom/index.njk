@@ -5,9 +5,35 @@ title: Custom Theme
 
 {% block head %}
 <link href="{{ page.url }}style.css" rel="stylesheet" />
+<script src="{{ page.url }}index.js" type="module"></script>
 {% endblock %}
 
-<wa-page>
+<script>
+globalThis.wa_data ??= {};
+wa_data.themes = {
+  {% for theme in collections.theme | sort -%}
+  {%- if not theme.data.unlisted -%}
+  "{{ theme.fileSlug }}": {
+    "id": "{{ theme.fileSlug }}",
+    "title": "{{ theme.data.title }}",
+    "palette": "{{ theme.data.palette }}",
+    "brand": "{{ theme.data.brand }}"
+  },
+  {%- endif -%}
+  {% endfor %}
+};
+wa_data.palettes = {
+  {% for palette in collections.palette | sort -%}
+  {%- if not palette.data.unlisted -%}
+  "{{ palette.fileSlug }}": {
+    "id": "{{ palette.fileSlug }}",
+    "title": "{{ palette.data.title }}",
+  },
+  {%- endif -%}
+  {% endfor %}
+};
+</script>
+<wa-page id="theme-app">
   <header slot="header">
     <a href="/" aria-label="Web Awesome">
       {% include "logo-simple.njk" %}
@@ -16,16 +42,43 @@ title: Custom Theme
       <h1>Custom Theme</h1>
     </div>
   </header>
+
   <section class="sidebar" slot="navigation">
-  Sidebar
+    <section class="panel">
+      <label class="panel-title" for="starting-theme">
+        <wa-icon name="angle-left" class="if-closed"></wa-icon>
+        Starting theme
+      </label>
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
+        {% for theme in collections.theme %}
+          {% set page = {data: theme.data} %}{# disable <a> by having no url #}
+          <wa-radio v-for="theme, themeId in themes" :value="themeId" size="small">
+            {% include "page-card.njk" %}
+          </wa-radio>
+        {% endfor %}
+      </wa-radio-group>
+    </section>
+    <section class="panel open">
+      <h2 class="panel-title">Styles</h2>
+
+      <select v-model="theme.palette">
+        <option v-for="palette, paletteId in palettes" :value="paletteId" v-text="palette.title"></option>
+      </select>
+
+      <select v-model="theme.typography">
+        <option v-for="theme, themeId in themes" :value="themeId" v-text="theme.title"></option>
+      </select>
+    </section>
   </section>
+
   <div slot="main-header">
-    <wa-tab-group>
+    <wa-tab-group :active="preview" @wa-tab-show="preview = $event.detail.name">
       <wa-tab panel="app">App</wa-tab>
       <wa-tab panel="content">Content</wa-tab>
+
       <wa-tab-panel name="app"></wa-tab-panel>
       <wa-tab-panel name="content"></wa-tab-panel>
     </wa-tab-group>
   </div>
-  <iframe class="preview" src="{{ page.url }}../preview/app/"></iframe>
+  <iframe class="preview" :src="`{{ page.url }}../preview/${preview}/?${urlParams}`"></iframe>
 </wa-page>

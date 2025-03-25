@@ -24,11 +24,6 @@ wa-page > header {
   }
 }
 
-.sidebar {
-  min-width: 20ch;
-  border-right: var(--ui-border);
-}
-
 iframe.preview {
   width: 100%;
   height: 100%;
@@ -42,5 +37,73 @@ iframe.preview {
 
   wa-tab-panel {
     --padding: 0;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-flow: column;
+  min-width: 30ch;
+  border-right: var(--ui-border);
+}
+
+.panel {
+  display: flex;
+  flex-flow: column;
+  max-height: 100%;
+
+  &.open {
+    flex: 1;
+    border-block: var(--ui-border);
+  }
+
+  &:not(.open) {
+    > :not(.panel-title) {
+      display: none;
+    }
+  }
+
+  &.open .if-closed,
+  &:not(.open) .if-open {
+    display: none;
+  }
+
+  .panel-title {
+    margin: 0;
+    font-size: inherit;
+    padding-block: var(--wa-space-xs);
+  }
+}
+
+wa-radio-group.card-picker {
+  flex-shrink: 1;
+  min-height: 0;
+  overflow: auto;
+
+  &::part(form-control-input) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+  }
+
+  wa-radio {
+    display: flex;
+    position: relative;
+    width: 100%;
+
+    &::part(control) {
+      position: absolute;
+      top: var(--wa-space-xs);
+      right: var(--wa-space-xs);
+    }
+
+    wa-card {
+      margin: calc(var(--wa-border-width-s) + 1px);
+    }
+
+    &:state(checked) wa-card {
+      --border-color: var(--wa-color-brand-border-loud);
+      border-color: var(--border-color);
+      box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+    }
   }
 }

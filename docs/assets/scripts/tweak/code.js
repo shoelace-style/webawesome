@@ -31,6 +31,11 @@ export const themeParams = ['colors', 'palette', 'brand', 'typography'];
 export function getThemeCode(base, params, options) {
   let ret = [];
 
+  if (base && typeof base === 'object') {
+    [params, options] = [base, params];
+    base = params.base;
+  }
+
   if (base) {
     ret.push(urls.theme(base));
   }
