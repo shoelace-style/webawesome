@@ -198,7 +198,19 @@ Use the `appearance` attribute to change the card's visual appearance.
 </div>
 ```
 
+### Variants
 
+Use the `variant` attribute to set the card's semantic variant, if any.
+
+```html {.example}
+<div class="wa-grid">
+{% for variant in ['brand', 'success', 'warning', 'danger'] -%}
+  {% for appearance in ['outlined', 'outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
+  <wa-card variant="{{ variant }}" appearance="{{ appearance }}">
+    <div slot="header">{{ appearance | capitalize }}</div>
+    {{ variant | capitalize }} variant.
+  </wa-card>
+  {%- endfor %}
+{%- endfor %}
 </div>
 ```
-

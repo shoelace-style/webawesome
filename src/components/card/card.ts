@@ -4,6 +4,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
+import variantStyles from '../../styles/utilities/variants.css';
 import styles from './card.css';
 
 /**
@@ -30,12 +31,21 @@ import styles from './card.css';
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, appearanceStyles, styles];
+  static shadowStyle = [sizeStyles, variantStyles, appearanceStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
 
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
+  /** The card's theme variant. Defaults to `neutral` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'neutral' }) variant:
+    | 'brand'
+    | 'neutral'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   /** The card's visual appearance. */
   @property({ reflect: true })

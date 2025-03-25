@@ -21,7 +21,8 @@
   color: var(--wa-color-text-normal);
 }
 
-:host(:is([appearance~='filled'], [appearance~='accent'], .wa-filled, .wa-accent)) {
+:host(:is([appearance~='filled'], [appearance~='accent'], .wa-filled, .wa-accent)),
+:host(:is([variant='brand'], [variant='success'], [variant='warning'], [variant='danger'])) {
   color: var(--text-color, var(--wa-color-text-normal));
 }
 
