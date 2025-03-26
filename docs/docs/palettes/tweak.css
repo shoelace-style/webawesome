@@ -1,6 +1,4 @@
-:root {
-  --fa-sliders-simple: '\f1de';
-}
+@import url('/assets/styles/ui.css');
 
 .core-column {
   position: relative;
@@ -84,17 +82,6 @@ wa-dropdown > .color.swatch {
   --color-1: oklch(from var(--wa-color-gray) l 0 none);
   --color-2: oklch(from var(--color-gray-undertone) l calc(c * var(--max)) h);
   margin-top: var(--wa-space-m);
-}
-
-.popup {
-  background: var(--wa-color-surface-default);
-  border: 1px solid var(--wa-color-surface-border);
-  padding: var(--wa-space-xl);
-  border-radius: var(--wa-border-radius-m);
-
-  code {
-    white-space: nowrap;
-  }
 }
 
 .color-scale {

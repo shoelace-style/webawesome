@@ -1,0 +1,17 @@
+/* App UI, for themer, palette tweaking etc */
+
+:root {
+  --fa-sliders-simple: '\f1de';
+}
+
+.popup {
+  background: var(--wa-color-surface-default);
+  border: 1px solid var(--wa-color-surface-border);
+  padding: var(--wa-space-xl);
+  border-radius: var(--wa-border-radius-m);
+  max-height: 90dvh;
+
+  code {
+    white-space: nowrap;
+  }
+}

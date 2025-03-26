@@ -1,6 +1,6 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
-import { PageCard } from '/assets/scripts/vue/components/index.js';
+import { PageCard, ShadowRootComponent, ThemeCard } from '/assets/scripts/vue/components/index.js';
 import palettes from '/docs/palettes/data.js';
 import themes from '/docs/themes/data.js';
 
@@ -12,8 +12,10 @@ let appSpec = {
         palette: '',
         typography: '',
       },
-
-      preview: 'app',
+      ui: {
+        panel: 'styles',
+        preview: 'app',
+      },
     };
   },
 
@@ -40,6 +42,8 @@ let appSpec = {
 
   components: {
     PageCard,
+    ThemeCard,
+    ShadowRoot: ShadowRootComponent,
   },
 
   compilerOptions: {

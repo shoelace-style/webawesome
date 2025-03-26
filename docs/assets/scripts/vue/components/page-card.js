@@ -1,5 +1,3 @@
-import VueIsolate from './vue-isolate.js';
-
 export const ICON_PLACEHOLDER = `
 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 7C1 3.68629 3.68629 1 7 1H43C46.3137 1 49 3.68629 49 7V43C49 46.3137 46.3137 49 43 49H7C3.68629 49 1 46.3137 1 43V7Z" stroke="var(--wa-color-surface-border)" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 6"/>
@@ -9,13 +7,15 @@ export const ICON_PLACEHOLDER = `
 
 const template = `
 	<wa-card with-header>
-		<div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
+    <slot name="icon" slot="header">
+      <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
+    </slot>
+
 		<span class="page-name">
       <slot></slot>
+      <wa-badge class="pro" v-if="pro">PRO</wa-badge>
     </span>
-		{% if subtitle -%}
-		<div class="wa-caption-s">{{ subtitle }}</div>
-		{%- endif %}
+		<div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
 	</wa-card>
 
 `;
@@ -24,14 +24,19 @@ export default {
   props: {
     subtitle: String,
     icon: String,
+    pro: Boolean,
   },
 
   data() {
     return {};
   },
 
+  created() {
+    Object.assign(this, { ICON_PLACEHOLDER });
+  },
+
   template,
-  components: { VueIsolate },
+  components: {},
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },

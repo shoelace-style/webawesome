@@ -1,38 +1,16 @@
 ---
 layout: blank
 title: Custom Theme
+override:tags: [themes]
 ---
 
 {% block head %}
+<link href="/assets/styles/docs.css" rel="stylesheet" />
+<link href="/assets/styles/ui.css" rel="stylesheet" />
 <link href="{{ page.url }}style.css" rel="stylesheet" />
 <script src="{{ page.url }}index.js" type="module"></script>
 {% endblock %}
 
-<script>
-globalThis.wa_data ??= {};
-wa_data.themes = {
-  {% for theme in collections.theme | sort -%}
-  {%- if not theme.data.unlisted -%}
-  "{{ theme.fileSlug }}": {
-    "id": "{{ theme.fileSlug }}",
-    "title": "{{ theme.data.title }}",
-    "palette": "{{ theme.data.palette }}",
-    "brand": "{{ theme.data.brand }}"
-  },
-  {%- endif -%}
-  {% endfor %}
-};
-wa_data.palettes = {
-  {% for palette in collections.palette | sort -%}
-  {%- if not palette.data.unlisted -%}
-  "{{ palette.fileSlug }}": {
-    "id": "{{ palette.fileSlug }}",
-    "title": "{{ palette.data.title }}",
-  },
-  {%- endif -%}
-  {% endfor %}
-};
-</script>
 <wa-page id="theme-app">
   <header slot="header">
     <a href="/" aria-label="Web Awesome">
@@ -44,22 +22,33 @@ wa_data.palettes = {
   </header>
 
   <section class="sidebar" slot="navigation">
-    <section class="panel">
-      <label class="panel-title" for="starting-theme">
-        <wa-icon name="angle-left" class="if-closed"></wa-icon>
-        Starting theme
-      </label>
-      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
-        {% for theme in collections.theme %}
-          {% set page = {data: theme.data} %}{# disable <a> by having no url #}
-          <wa-radio v-for="theme, themeId in themes" :value="themeId" size="small">
-            {% include "page-card.njk" %}
+
+    <wa-details class="panel wa-plain" open :open="ui.panel === 'theme'" @wa-after-show="ui.panel = 'theme'" appearance="plain">
+      <wa-icon slot="expand-icon" name="angle-left"></wa-icon>
+      <span slot="collapse-icon"></span>
+      <h2 slot="summary">
+        <label for="starting-theme">Starting theme</label>
+      </h2>
+
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base" @change="panel = 'styles'">
+          <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
+            <theme-card :theme="themeId"></theme-card>
           </wa-radio>
-        {% endfor %}
       </wa-radio-group>
-    </section>
-    <section class="panel open">
-      <h2 class="panel-title">Styles</h2>
+    </wa-details>
+    <wa-details class="panel" appearance="plain" :open="ui.panel === 'styles'">
+      <h2 slot="summary" class="panel-title">Styles</h2>
+
+      <wa-dropdown placement="right">
+        <theme-card :theme="theme.typography || theme.base || 'default'" slot="trigger" type="typography"></theme-card>
+        <div class="popup">
+          <wa-radio-group class="card-picker" v-model="theme.typography">
+            <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
+              <theme-card :theme="themeId" type="typography"></theme-card>
+            </wa-radio>
+          </wa-radio-group>
+        </div>
+      </wa-dropdown>
 
       <select v-model="theme.palette">
         <option v-for="palette, paletteId in palettes" :value="paletteId" v-text="palette.title"></option>
@@ -68,11 +57,11 @@ wa_data.palettes = {
       <select v-model="theme.typography">
         <option v-for="theme, themeId in themes" :value="themeId" v-text="theme.title"></option>
       </select>
-    </section>
+    </wa-details>
   </section>
 
   <div slot="main-header">
-    <wa-tab-group :active="preview" @wa-tab-show="preview = $event.detail.name">
+    <wa-tab-group :active="ui.preview" @wa-tab-show="ui.preview = $event.detail.name">
       <wa-tab panel="app">App</wa-tab>
       <wa-tab panel="content">Content</wa-tab>
 
@@ -80,5 +69,5 @@ wa_data.palettes = {
       <wa-tab-panel name="content"></wa-tab-panel>
     </wa-tab-group>
   </div>
-  <iframe class="preview" :src="`{{ page.url }}../preview/${preview}/?${urlParams}`"></iframe>
+  {# <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/?${urlParams}`"></iframe> #}
 </wa-page>

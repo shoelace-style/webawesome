@@ -1,3 +1,5 @@
+@import url('/assets/styles/theme-icons.css');
+
 :root {
   --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
 }
@@ -8,6 +10,15 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+}
+
+wa-card {
+  .page-name {
+    display: flex;
+    gap: var(--wa-space-xs);
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-action);
+  }
 }
 
 wa-page > header {
@@ -52,26 +63,37 @@ iframe.preview {
   flex-flow: column;
   max-height: 100%;
 
-  &.open {
-    flex: 1;
-    border-block: var(--ui-border);
+  &::part(header) {
+    flex-direction: row-reverse;
+    justify-content: start;
+    gap: var(--wa-space-xs);
   }
 
-  &:not(.open) {
-    > :not(.panel-title) {
-      display: none;
+  &[open] {
+    flex: 1;
+
+    &:not(:first-child) {
+      border-block-start: var(--ui-border);
+    }
+
+    &:not(:last-child) {
+      border-block-end: var(--ui-border);
     }
   }
 
-  &.open .if-closed,
-  &:not(.open) .if-open {
+  /* Hide future steps */
+  &[open] + .panel:not([open]) {
     display: none;
   }
 
-  .panel-title {
+  &[open] .if-closed,
+  &:not([open]) .if-open {
+    display: none;
+  }
+
+  > [slot='summary'] {
     margin: 0;
     font-size: inherit;
-    padding-block: var(--wa-space-xs);
   }
 }
 
@@ -93,7 +115,11 @@ wa-radio-group.card-picker {
     &::part(control) {
       position: absolute;
       top: var(--wa-space-xs);
-      right: var(--wa-space-xs);
+      right: var(--wa-space-3xs);
+    }
+
+    &:has(> wa-card):not(:state(checked))::part(control) {
+      display: none;
     }
 
     wa-card {
