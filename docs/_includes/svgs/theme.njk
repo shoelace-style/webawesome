@@ -1,0 +1,28 @@
+{% set themeId = theme.fileSlug or page.fileSlug %}
+
+<div class="theme-icon-host theme-overall-icon-host">
+  <template shadowrootmode="open">
+    <link rel="stylesheet" href="/dist/styles/utilities.css">
+    <link rel="stylesheet" href="/dist/styles/native/content.css">
+    <link rel="stylesheet" href="/dist/styles/themes/{{ themeId }}.css">
+    <link rel="stylesheet" href="/assets/styles/theme-icons.css">
+
+    <div class="theme-icon theme-overall-icon wa-theme-{{ themeId }}" role="presentation" data-no-anchor data-no-outline>
+      <div class="row row-1">
+        <h2>Aa</h2>
+        <div class="swatches">
+          <div class="wa-brand"></div>
+
+          <div class="wa-success"></div>
+          <div class="wa-warning"></div>
+          <div class="wa-danger"></div>
+          <div class="wa-neutral"></div>
+        </div>
+      </div>
+      <div class="row row-2">
+        <wa-input value="Input" size="small"></wa-input>
+        <wa-button size="small" variant="brand">Go</wa-button>
+      </div>
+    </div>
+  </template>
+</div>
