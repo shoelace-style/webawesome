@@ -1,8 +1,6 @@
 ---
 title: Empty State
 description: TODO
-parent: app
-tags: app
 ---
 ## Examples
 

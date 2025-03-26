@@ -1,8 +1,6 @@
 ---
 title: Data Display
 description: TODO
-parent: app
-tags: app
 ---
 ## Examples
 

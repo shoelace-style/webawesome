@@ -1,8 +1,6 @@
 ---
 title: Order History
 description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
-parent: ecommerce
-tags: e-commerce
 ---
 
 ## List
@@ -32,7 +30,7 @@ tags: e-commerce
   <wa-divider></wa-divider>
   <div class="wa-flank" style="--flank-size: 12rem">
     <div class="wa-frame wa-border-radius-s" style="aspect-ratio: 3 / 2">
-      <img 
+      <img
         src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg"
         alt=""
       />
@@ -49,7 +47,7 @@ tags: e-commerce
           <wa-button size="small" appearance="plain" variant="neutral">View Product</wa-button>
           <wa-button size="small" appearance="accent" variant="brand">Buy Again</wa-button>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
   <wa-divider></wa-divider>

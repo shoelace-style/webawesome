@@ -1,8 +1,6 @@
 ---
 title: Category Preview
 description: 'Help shoppers discover your product offerings with showcases of product categories.'
-parent: ecommerce
-tags: e-commerce
 icon: preview
 ---
 
@@ -17,20 +15,20 @@ icon: preview
   </div>
   <div class="wa-stack">
     <div class="wa-frame:landscape wa-border-radius-s">
-      <img 
+      <img
         src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="An analog watch, cotton pants, crew neck tee, and pair of tennis shoes (Photograph by Mnz)"
       />
     </div>
     <div class="wa-grid">
       <div class="wa-frame:landscape wa-border-radius-s">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1548768041-2fceab4c0b85?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Stack of three folded solid color tees (Photograph by Mnz)"
         />
       </div>
       <div class="wa-frame:landscape wa-border-radius-s">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1544441892-794166f1e3be?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Pair of bright white tennis shoes(Photograph by Mnz)"
         />
@@ -48,7 +46,7 @@ icon: preview
   <div class="wa-grid">
     <a href="" class="wa-stack wa-link-plain">
       <div class="wa-frame:portrait wa-border-radius-s">
-        <img 
+        <img
           src="https://uploads.webawesome.com/organization.jpg"
           alt="Inside of a closet filled with clothes on wooden hangers and integrated shelving with shoes"
         />
@@ -57,7 +55,7 @@ icon: preview
     </a>
     <a href="" class="wa-stack wa-link-plain">
       <div class="wa-frame:portrait wa-border-radius-s">
-        <img 
+        <img
           src="https://uploads.webawesome.com/bags.jpg"
           alt="Young person hugging a small floral patterned book bag between their arms"
         />
@@ -66,7 +64,7 @@ icon: preview
     </a>
     <a href="" class="wa-stack wa-link-plain">
       <div class="wa-frame:portrait wa-border-radius-s">
-        <img 
+        <img
           src="https://uploads.webawesome.com/outdoor-2.jpg"
           alt="Person in a mountain clearing wearing a waterproof hooded windbreaker in black and orange"
         />

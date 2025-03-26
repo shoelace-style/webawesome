@@ -1,8 +1,6 @@
 ---
 title: Product Overview
 description: 'Showcase your products with overviews including images, ratings, features, options, and more.'
-parent: ecommerce
-tags: e-commerce
 ---
 
 ## Split with Image
@@ -77,7 +75,7 @@ tags: e-commerce
     </dl>
   </div>
   <div class="wa-frame wa-border-radius-m">
-    <img 
+    <img
       src="https://images.unsplash.com/photo-1600396538702-d234dbb79139?q=80&w=3833&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Whole roasted coffee beans (Photograph by Jocelyn Morales)"
     />
@@ -362,7 +360,7 @@ tags: e-commerce
   <div class="wa-stack">
     <img class="wa-border-radius-l"
       src="https://img.fortawesome.com/cfa83f3c/icon-grid-wallpaper.png"
-      alt="Sample of 48 line-style icons" 
+      alt="Sample of 48 line-style icons"
     />
     <wa-tab-group>
       <wa-tab panel="license">License</wa-tab>

@@ -1,11 +1,10 @@
 ---
 title: Newsletter
 description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
-parent: information
-tags: information
 ---
 
 ### Newsletter signup
+
 ```html{.example}
 <wa-card class="news-letter-signup">
   <h2>Subscribe to our Newsletter</h2>

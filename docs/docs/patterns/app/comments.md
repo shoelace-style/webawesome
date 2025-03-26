@@ -1,8 +1,6 @@
 ---
 title: Comments
 description: 'For feedback forms and message boxes'
-parent: app
-tags: app
 ---
 ## Examples
 
@@ -34,7 +32,7 @@ tags: app
           <wa-icon-button name="link" variant="solid" label="Bold"></wa-icon-button>
           <wa-icon-button name="face-smile" variant="solid" label="Italic"></wa-icon-button>
         </div>
-        </wa-button><wa-button>Comment</wa-button>  
+        </wa-button><wa-button>Comment</wa-button>
       </div>
     </div>
   </div>
