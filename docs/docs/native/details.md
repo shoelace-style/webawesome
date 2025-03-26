@@ -13,7 +13,7 @@ file: styles/native/details.css
 ```html {.example}
 <details>
   <summary>Tincidunt nunc pulvinar</summary>
-  <p>Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.</p>
+  Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
 </details>
 ```
 
@@ -27,23 +27,23 @@ Use the [appearance utility classes](/docs/utilities/appearance) to change the e
 <div class="wa-stack">
 <details>
   <summary>Outlined (default)</summary>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </details>
 <details class="wa-filled">
   <summary>Filled</summary>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </details>
 <details class="wa-filled wa-outlined">
   <summary>Filled + Outlined</summary>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </details>
 <details class="wa-plain">
   <summary>Plain</summary>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </details>
 </div>
 ```
@@ -55,7 +55,7 @@ The details styling automatically adapts to right-to-left languages:
 ```html {.example}
 <details lang="ar" dir="rtl">
   <summary>تبديلني</summary>
-  <p>استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن</p>
+  استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن
 </details>
 ```
 
@@ -67,16 +67,16 @@ grouping `<details>` elements via the `name` attribute provides accordion-style 
 ```html {.example}
 <details name="details-accordion">
   <summary>Enim diam</summary>
-  <p>Nunc faucibus a pellentesque sit amet porttitor. Adipiscing tristique risus nec feugiat in fermentum. Leo duis ut diam quam nulla porttitor massa id. Mauris nunc congue nisi vitae.</p>
+  Nunc faucibus a pellentesque sit amet porttitor. Adipiscing tristique risus nec feugiat in fermentum. Leo duis ut diam quam nulla porttitor massa id. Mauris nunc congue nisi vitae.
 </details>
 
 <details name="details-accordion">
   <summary>Arcu non odio</summary>
-  <p>Sed libero enim sed faucibus turpis in eu mi bibendum. Nunc mi ipsum faucibus vitae aliquet nec. Ultricies tristique nulla aliquet enim tortor. Tellus at urna condimentum mattis pellentesque.</p>
+  Sed libero enim sed faucibus turpis in eu mi bibendum. Nunc mi ipsum faucibus vitae aliquet nec. Ultricies tristique nulla aliquet enim tortor. Tellus at urna condimentum mattis pellentesque.
 </details>
 
 <details name="details-accordion">
   <summary>Ut porttitor</summary>
-  <p>Eu facilisis sed odio morbi quis commodo odio aenean sed. Sit amet purus gravida quis blandit turpis cursus. Eu consequat ac felis donec et odio pellentesque diam volutpat.</p>
+  Eu facilisis sed odio morbi quis commodo odio aenean sed. Sit amet purus gravida quis blandit turpis cursus. Eu consequat ac felis donec et odio pellentesque diam volutpat.
 </details>
 ```
