@@ -1,7 +1,8 @@
 {% set themeId = theme.fileSlug or page.fileSlug %}
 
-<div class="theme-icon-host theme-overall-icon-host">
-  <template shadowrootmode="open">
+
+<wa-scoped class="theme-icon-host theme-overall-icon-host">
+  <template>
     <link rel="stylesheet" href="/dist/styles/utilities.css">
     <link rel="stylesheet" href="/dist/styles/native/content.css">
     <link rel="stylesheet" href="/dist/styles/themes/{{ themeId }}.css">
@@ -25,4 +26,4 @@
       </div>
     </div>
   </template>
-</div>
+</wa-scoped>

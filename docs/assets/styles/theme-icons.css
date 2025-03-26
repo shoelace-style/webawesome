@@ -20,6 +20,7 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 }
 
 .theme-icon {
+  padding: var(--wa-space-xs) var(--wa-space-m);
   border-radius: inherit;
   box-sizing: border-box;
 
@@ -68,7 +69,6 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   width: 100%;
   min-height: 7.5rem;
   box-sizing: border-box;
-  padding: var(--wa-space-xs) var(--wa-space-m);
   background: var(--wa-color-surface-lowered);
 
   .row {
