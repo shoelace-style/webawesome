@@ -91,17 +91,17 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 
   .swatches {
     display: flex;
-    gap: var(--wa-space-2xs);
+    gap: var(--wa-space-3xs);
 
     > div {
-      width: 1em;
-      height: 2em;
+      width: 1.25rem;
+      height: 1.25rem;
       border-radius: var(--wa-border-radius-s);
       background: var(--wa-color-fill-loud);
       color: var(--wa-color-on-loud);
 
       &.wa-brand {
-        width: 2em;
+        width: 2.5rem;
       }
     }
   }
