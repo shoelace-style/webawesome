@@ -1,20 +1,17 @@
 /*
  * Utility to minimize FOUCE and show custom elements only after they're registered
  */
+:not(:defined),
+:state(wa-defined):has(:not(:defined)),
+.wa-cloak:has(:not(:defined)) {
+  animation: 2s step-end wa-fouce-cloak;
+}
 
-@keyframes wa-fade-in {
+@keyframes wa-fouce-cloak {
   from {
     opacity: 0;
   }
-}
-
-:not(:defined),
-:state(wa-defined):has(:not(:defined)) {
-  /* The clamp() ensures that if --wa-fouce-timeout is set to 0s, the whole effect is disabled */
-  --wa-fouce-animation: clamp(0s, var(--wa-fouce-fade, 200ms), var(--wa-fouce-timeout, 2s)) var(--wa-fouce-timeout, 2s)
-    wa-fade-in both;
-
-  &:where(:not([did-ssr], .wa-fouce-off, .wa-fouce-off *)) {
-    animation: var(--wa-fouce-animation);
+  to {
+    opacity: 1;
   }
 }

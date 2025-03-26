@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
 
@@ -22,18 +23,23 @@ import styles from './card.css';
  * @csspart footer - The container that wraps the card's footer.
  *
  * @cssproperty [--border-radius=var(--wa-panel-border-radius)] - The radius for the card's corners. Expects a single value.
- * @cssproperty [--border-color=var(--wa-color-surface-border)] - The color of the card's borders, including inner borders. Expects a single value.
+ * @cssproperty [--border-color=var(--wa-color-surface-border)] - The color of the card's borders. Expects a single value.
+ * @cssproperty [--inner-border-color=var(--wa-color-surface-border)] - The color of the card's inner borders, e.g. those separating headers and footers from the main content. Expects a single value.
  * @cssproperty [--border-width=var(--wa-panel-border-width)] - The width of the card's borders. Expects a single value.
  * @cssproperty [--spacing=var(--wa-space)] - The amount of space around and between sections of the card. Expects a single value.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, styles];
+  static shadowStyle = [sizeStyles, appearanceStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
 
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
+  /** The card's visual appearance. */
+  @property({ reflect: true })
+  appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'outlined';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;

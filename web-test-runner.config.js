@@ -1,4 +1,3 @@
-import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
@@ -53,7 +52,6 @@ export default {
       ts: true,
       target: 'es2020',
     }),
-    litSsrPlugin(),
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium', concurrency }),
@@ -78,12 +76,10 @@ export default {
             ${componentImports.map(str => `"${str}"`).join(',\n')}
           ]
 
-          window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
         </script>
         <script type="module">
           ;(async () => {
-            await import('@lit-labs/ssr-client/lit-element-hydrate-support.js')
             await Promise.allSettled(window.clientComponents.map(str => import(str)));
           })()
         </script>

@@ -37,10 +37,6 @@ This snippet includes three parts:
 
 Now you can [start using Web Awesome!](/docs/usage)
 
-:::info
-While convenient, autoloading may lead to a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/). The linked article describes some ways to alleviate it.
-:::
-
 ---
 
 ## Using Font Awesome Kit Codes

@@ -7,10 +7,10 @@ import { highlightCodePlugin } from './_utils/highlight-code.js';
 import { markdown } from './_utils/markdown.js';
 import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
-import litPlugin from '@lit-labs/eleventy-plugin-lit';
+// import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import nunjucks from 'nunjucks';
-import componentList from './_data/componentList.js';
+// import componentList from './_data/componentList.js';
 import * as filters from './_utils/filters.js';
 import { outlinePlugin } from './_utils/outline.js';
 import { replaceTextPlugin } from './_utils/replace-text.js';
@@ -29,7 +29,6 @@ const globalData = {
   package: packageData,
   isAlpha,
   layout: 'page.njk',
-
   server: {
     head: '',
     loginOrAvatar: '',
@@ -190,30 +189,30 @@ export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(glob);
   }
 
-  // SSR plugin
-  // Make sure this is the last thing, we dont want to run the risk of accidentally transforming shadow roots with the nunjucks 2nd transform.
-  if (!isDev) {
-    //
-    // Problematic components in SSR land:
-    //  - animation (breaks on navigation + ssr with Turbo)
-    //  - mutation-observer (why SSR this?)
-    //  - resize-observer (why SSR this?)
-    //  - tooltip (why SSR this?)
-    //
-    const omittedModules = [];
-    const componentModules = componentList
-      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-      .map(component => {
-        const name = component.tagName.split(/wa-/)[1];
-        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
-        return path.join(componentDirectory, 'components', name, `${name}.js`);
-      });
-
-    eleventyConfig.addPlugin(litPlugin, {
-      mode: 'worker',
-      componentModules,
-    });
-  }
+  // // SSR plugin
+  // // Make sure this is the last thing, we don't want to run the risk of accidentally transforming shadow roots with the nunjucks 2nd transform.
+  // if (!isDev) {
+  //   //
+  //   // Problematic components in SSR land:
+  //   //  - animation (breaks on navigation + ssr with Turbo)
+  //   //  - mutation-observer (why SSR this?)
+  //   //  - resize-observer (why SSR this?)
+  //   //  - tooltip (why SSR this?)
+  //   //
+  //   const omittedModules = [];
+  //   const componentModules = componentList
+  //     .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+  //     .map(component => {
+  //       const name = component.tagName.split(/wa-/)[1];
+  //       const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
+  //       return path.join(componentDirectory, 'components', name, `${name}.js`);
+  //     });
+  //
+  //   eleventyConfig.addPlugin(litPlugin, {
+  //     mode: 'worker',
+  //     componentModules,
+  //   });
+  // }
 
   return {
     markdownTemplateEngine: 'njk',
