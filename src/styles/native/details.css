@@ -8,7 +8,7 @@ details:where(:not(:host *)),
   border: var(--wa-panel-border-width) var(--border-color, var(--wa-color-surface-border)) var(--wa-panel-border-style);
   border-radius: var(--wa-panel-border-radius);
   color: var(--text-color, inherit);
-  padding: var(--spacing);
+  padding: 0;
 
   /* Print styles */
   @media print {
@@ -35,6 +35,7 @@ details:where(:not(:host *)) summary,
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
+  padding: var(--spacing);
 
   &::marker,
   &::-webkit-details-marker {
@@ -69,6 +70,10 @@ details:not(:host *) {
 
   &[open] > summary::after {
     rotate: 90deg;
+  }
+
+  > :not(summary) {
+    padding: 0 var(--spacing) var(--spacing) var(--spacing);
   }
 
   > :last-child {
