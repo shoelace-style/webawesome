@@ -18,6 +18,9 @@ export default class WaScoped extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    this.ownerDocument.documentElement.addEventListener('wa-color-scheme-change', e =>
+      this.#applyDarkMode(e.detail.dark),
+    );
   }
 
   render() {
@@ -47,8 +50,18 @@ export default class WaScoped extends HTMLElement {
     this.shadowRoot.append(...nodes);
 
     this.#fixStyles();
+    this.#applyDarkMode();
 
     this.observer.observe(this, { childList: true, subtree: true, characterData: true });
+  }
+
+  #applyDarkMode(isDark = getComputedStyle(this).colorScheme === 'dark') {
+    // Hack to make dark mode work
+    // NOTE If any child nodes actually have .wa-dark, this will override it
+    for (let node of this.shadowRoot.children) {
+      node.classList.toggle('wa-dark', isDark);
+    }
+    this.classList.toggle('wa-dark', isDark);
   }
 
   /**
