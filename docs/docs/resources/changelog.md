@@ -24,7 +24,6 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-radio-button>` that prevented the pill effect from applying properly
 - Fixed a bug in `<wa-radio-button>` that prevented active buttons from receiving the correct styles
 - Fixed a bug in `<wa-button>` that prevented the focus ring from showing in Safari
-- Improved native `<details>` styles so the entire visible area is clickable
 
 ## 3.0.0-alpha.11
 
