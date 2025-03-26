@@ -1,11 +1,9 @@
 ---
 title: Product Preview
 description: 'Give shoppers a quick look at your products as they browse with modal previews.'
-parent: ecommerce
-tags: e-commerce
 icon: preview
 ---
- 
+
 ## With Product Options
 
 ```html {.example}
@@ -16,7 +14,7 @@ icon: preview
   </div>
   <div class="wa-grid wa-gap-xl">
     <div class="wa-frame wa-border-radius-l" style="aspect-ratio: auto">
-      <img 
+      <img
         src="https://images.unsplash.com/photo-1660997351262-6c31d8a35b6c?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Stan Smith graphic crew-neck tee in honeydew color"
       />
@@ -128,7 +126,7 @@ icon: preview
         <div class="wa-gap-xs wa-stack">
           <h4 class="wa-heading-m">About</h4>
           <p class="wa-body-s">The Champion® Crossbody Bag is crafted for the trendsetter. Its sleek silhouette, paired with a tonal branded adjustable sling strap, ensures you look effortlessly cool no matter where you go.</p>
-        </div> 
+        </div>
         <wa-divider></wa-divider>
         <div class="wa-gap-xs wa-stack">
           <h4 class="wa-heading-m">Details</h4>
@@ -150,7 +148,7 @@ icon: preview
       </div>
       <div class="wa-flank:end wa-align-items-end">
         <wa-button variant="brand" size="medium">
-          <wa-icon slot="suffix" name="cart-shopping" variant="solid"></wa-icon>Add to Cart 
+          <wa-icon slot="suffix" name="cart-shopping" variant="solid"></wa-icon>Add to Cart
         </wa-button>
         <wa-button appearance="outlined" size="medium">
           <wa-icon slot="suffix" name="arrow-right" variant="solid"></wa-icon>View Full Details

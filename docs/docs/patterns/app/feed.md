@@ -1,8 +1,6 @@
 ---
 title: Feed
 description: TODO
-parent: app
-tags: app
 ---
 
 ```html {.example}

@@ -1,8 +1,6 @@
 ---
 title: Pagination
 description: TODO
-parent: app
-tags: app
 ---
 
 ## Simple Pagination

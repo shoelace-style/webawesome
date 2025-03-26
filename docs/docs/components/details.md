@@ -77,6 +77,31 @@ The details component automatically adapts to right-to-left languages:
 </wa-details>
 ```
 
+### Appearance
+
+Use the `appearance` attribute to change the element’s visual appearance.
+
+```html {.example}
+<div class="wa-stack">
+<wa-details summary="Outlined (default)">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</wa-details>
+<wa-details summary="Filled" appearance="filled">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</wa-details>
+<wa-details summary="Filled + Outlined" appearance="filled outlined">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</wa-details>
+<wa-details summary="Plain" appearance="plain">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</wa-details>
+</div>
+```
+
 ### Grouping Details
 
 Details are designed to function independently, but you can simulate a group or "accordion" where only one is shown at a time by listening for the `wa-show` event.

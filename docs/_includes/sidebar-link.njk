@@ -1,4 +1,4 @@
-{% if not (isAlpha and page.data.noAlpha) and not page.data.unlisted -%}
+{% if page | show -%}
 	<li>
 		<a href="{{ page.url }}">{{ page.data.title }}</a>
 		{% if page.data.status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}

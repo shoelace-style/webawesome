@@ -1,8 +1,6 @@
 ---
 title: Pricing
 description: TODO
-parent: app
-tags: app
 ---
 
 ```html{.example}
@@ -29,50 +27,23 @@ tags: app
       <div class="wa-stack">
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">Access to basic features</span>  
+          <span class="wa-caption-m">Access to basic features</span>
         </div>
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">Basic Reporting and Analytics</span>  
+          <span class="wa-caption-m">Basic Reporting and Analytics</span>
         </div>
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">10 Individual users</span>  
+          <span class="wa-caption-m">10 Individual users</span>
         </div>
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">20GB of data for user</span>  
+          <span class="wa-caption-m">20GB of data for user</span>
         </div>
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">Basic Chat and email</span>  
-        </div>
-      </div>
-    </div>
-  </wa-card>
-  <wa-card with-header>
-    <div slot="header">
-      <span class="wa-split">
-        <span class="wa-heading-s">Plan</span>
-        <wa-badge appearance="filled outlined" variant="success" pill>Most Popular</wa-badge>
-      </span>
-      <span class="wa-flank wa-gap-2xs">
-        <span class="wa-heading-2xl">$10</span>
-        <span class="wa-caption-l">per user/per month</span>
-      </span>
-      <p class="wa-caption-l">Basic Features</p>
-      <span class="wa-grid">
-        <wa-button>Get Started</wa-button>
-      <wa-button appearance="outlined">Talk to sales</wa-button>
-      </span>
-    </div>
-    <div class="wa-stack wa-gap-2xs">
-      <p class="wa-heading-s">Features</p>
-      <p class="wa-caption-m">Everything in out free plan plus</p>
-      <div class="wa-stack">
-        <div class="wa-flank">
-          <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">Access to basic features</span>  
+          <span class="wa-caption-m">Basic Chat and email</span>
         </div>
       </div>
     </div>
@@ -99,7 +70,34 @@ tags: app
       <div class="wa-stack">
         <div class="wa-flank">
           <wa-icon name="check"></wa-icon>
-          <span class="wa-caption-m">Access to basic features</span>  
+          <span class="wa-caption-m">Access to basic features</span>
+        </div>
+      </div>
+    </div>
+  </wa-card>
+  <wa-card with-header>
+    <div slot="header">
+      <span class="wa-split">
+        <span class="wa-heading-s">Plan</span>
+        <wa-badge appearance="filled outlined" variant="success" pill>Most Popular</wa-badge>
+      </span>
+      <span class="wa-flank wa-gap-2xs">
+        <span class="wa-heading-2xl">$10</span>
+        <span class="wa-caption-l">per user/per month</span>
+      </span>
+      <p class="wa-caption-l">Basic Features</p>
+      <span class="wa-grid">
+        <wa-button>Get Started</wa-button>
+      <wa-button appearance="outlined">Talk to sales</wa-button>
+      </span>
+    </div>
+    <div class="wa-stack wa-gap-2xs">
+      <p class="wa-heading-s">Features</p>
+      <p class="wa-caption-m">Everything in out free plan plus</p>
+      <div class="wa-stack">
+        <div class="wa-flank">
+          <wa-icon name="check"></wa-icon>
+          <span class="wa-caption-m">Access to basic features</span>
         </div>
       </div>
     </div>

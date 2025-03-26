@@ -1,8 +1,6 @@
 ---
 title: FAQ
 description: 'The user has questions concerning a site and its related services'
-parent: app
-tags: app
 ---
 ## Examples
 

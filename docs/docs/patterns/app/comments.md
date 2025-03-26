@@ -1,8 +1,6 @@
 ---
 title: Comments
 description: 'For feedback forms and message boxes'
-parent: app
-tags: app
 ---
 
 ## Card with Header & Footer
