@@ -32,7 +32,6 @@
 /*
  * Checked buttons
  */
-
 :host([checked]) {
   --indicator-color: var(--wa-form-control-activated-color);
   --indicator-width: var(--wa-border-width-s);
@@ -42,6 +41,14 @@
   & button {
     --border-color: var(--indicator-color);
   }
+}
+
+/*
+ * Active buttons
+ */
+button:active {
+  --text-color-active: var(--wa-form-control-activated-color);
+  --border-color-active: var(--wa-form-control-activated-color);
 }
 
 /* Horizontal radio pill buttons */

@@ -22,6 +22,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output
 - Fixed a bug in `<wa-radio-button>` that prevented the pill effect from applying properly
+- Fixed a bug in `<wa-radio-button>` that prevented active buttons from receiving the correct styles
 
 ## 3.0.0-alpha.11
 
