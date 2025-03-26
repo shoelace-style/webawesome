@@ -370,9 +370,21 @@ wa-page > main:has(> .index-grid) {
 
 .index-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(22ch, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--wa-space-2xl);
   margin-block-end: var(--wa-space-3xl);
+
+  @media screen and (max-width: 1470px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   a {
     border-radius: var(--wa-border-radius-l);
