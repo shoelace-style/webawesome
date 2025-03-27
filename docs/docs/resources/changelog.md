@@ -19,6 +19,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug that caused dropdowns inside button groups to show with a vertical misalignment
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
 - Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
+- Fixed the missing indeterminate icon in native checkbox styles
 
 ### Enhancements
 
