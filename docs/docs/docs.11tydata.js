@@ -49,6 +49,10 @@ export default {
 };
 
 function getParentUrl(url, parent) {
+  if (!parent) {
+    return undefined;
+  }
+
   let parts = url.split('/').filter(Boolean);
   let ancestorIndex = parts.findLastIndex(part => part === parent);
   let retParts = parts.slice();
