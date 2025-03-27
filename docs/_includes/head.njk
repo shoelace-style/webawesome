@@ -24,6 +24,9 @@
 <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
+{# Internal components #}
+<script type="module" src="/assets/components/scoped.js"></script>
+
 {# Web Awesome #}
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
@@ -46,7 +49,6 @@
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
 <link rel="stylesheet" href="/dist/styles/forms.css" />
-
 
 {# Used by Web Awesome App to inject other assets into the head. #}
 {% server "head" %}

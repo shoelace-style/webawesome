@@ -118,6 +118,7 @@ const colorScheme = new ThemeAspect({
     domChange(() => {
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
+      document.documentElement.dispatchEvent(new CustomEvent('wa-color-scheme-change', { detail: { dark } }));
     });
   },
 });
