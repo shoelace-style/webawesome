@@ -26,7 +26,7 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 .palette-icon {
   display: grid;
   grid-template-columns: repeat(var(--hues, 9), 1fr);
-  gap: var(--wa-space-2xs);
+  gap: var(--wa-space-3xs);
   min-width: 20ch;
   min-height: 9ch;
   align-content: center;
