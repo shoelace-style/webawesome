@@ -1,4 +1,5 @@
 @import url('/assets/styles/theme-icons.css');
+@import url('styles/panel.css');
 
 :root {
   --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
@@ -13,6 +14,15 @@ body {
 }
 
 wa-card {
+  &.page-card {
+    contain: inline-size;
+
+    &.disabled {
+      opacity: 60%;
+      cursor: not-allowed;
+    }
+  }
+
   .page-name {
     display: flex;
     gap: var(--wa-space-xs);
@@ -22,6 +32,7 @@ wa-card {
 }
 
 wa-page > header {
+  flex: 1;
   border-bottom: var(--ui-border);
 
   .title {
@@ -58,42 +69,10 @@ iframe.preview {
   border-right: var(--ui-border);
 }
 
-.panel {
-  display: flex;
-  flex-flow: column;
-  max-height: 100%;
-
-  &::part(header) {
-    flex-direction: row-reverse;
-    justify-content: start;
-    gap: var(--wa-space-xs);
-  }
-
-  &[open] {
-    flex: 1;
-
-    &:not(:first-child) {
-      border-block-start: var(--ui-border);
-    }
-
-    &:not(:last-child) {
-      border-block-end: var(--ui-border);
-    }
-  }
-
-  /* Hide future steps */
-  &[open] + .panel:not([open]) {
-    display: none;
-  }
-
-  &[open] .if-closed,
-  &:not([open]) .if-open {
-    display: none;
-  }
-
-  > [slot='summary'] {
-    margin: 0;
-    font-size: inherit;
+@keyframes card-selected {
+  from {
+    border-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
   }
 }
 
@@ -130,6 +109,38 @@ wa-radio-group.card-picker {
       --border-color: var(--wa-color-brand-border-loud);
       border-color: var(--border-color);
       box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
+
+      &:is(.pulse-on-select *) {
+        animation: 250ms card-selected 5 alternate both cubic-bezier(0.1, 0.6, 0, 1);
+      }
     }
   }
+}
+
+.panel-content {
+  > wa-dropdown {
+    flex: 1;
+  }
+
+  > wa-card {
+    margin-block: var(--wa-space-xs);
+  }
+}
+
+wa-card {
+}
+
+.panel wa-card {
+  --spacing: var(--wa-space-s);
+  position: relative;
+
+  .coming-soon {
+    position: absolute;
+    top: calc(-1 * var(--wa-space-2xs));
+    left: 50%;
+    translate: -50% 0;
+  }
+}
+
+wa-dropdown > wa-card[slot='trigger'] {
 }

@@ -6,7 +6,7 @@ export const ICON_PLACEHOLDER = `
 </svg>`;
 
 const template = `
-	<wa-card with-header>
+	<wa-card with-header class="page-card" :class="{disabled}" :inert="disabled">
     <slot name="icon" slot="header">
       <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
     </slot>
@@ -17,7 +17,6 @@ const template = `
     </span>
 		<div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
 	</wa-card>
-
 `;
 
 export default {
@@ -25,6 +24,7 @@ export default {
     subtitle: String,
     icon: String,
     pro: Boolean,
+    disabled: Boolean,
   },
 
   data() {

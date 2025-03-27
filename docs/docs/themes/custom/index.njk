@@ -22,42 +22,56 @@ override:tags: [themes]
   </header>
 
   <section class="sidebar" slot="navigation">
-
-    <wa-details class="panel wa-plain" open :open="ui.panel === 'theme'" @wa-after-show="ui.panel = 'theme'" appearance="plain">
-      <wa-icon slot="expand-icon" name="angle-left"></wa-icon>
-      <span slot="collapse-icon"></span>
-      <h2 slot="summary">
+    <ui-panel v-model="ui.panel" value="theme" :previous="previousPanel">
+      <template #title>
         <label for="starting-theme">Starting theme</label>
-      </h2>
+      </template>
 
-      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base" @change="panel = 'styles'">
+      <wa-radio-group id="starting-theme" class="card-picker pulse-on-select" v-model="theme.base" @change="setTimeout(() => ui.panel = 'styles', 1500)">
           <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
       </wa-radio-group>
-    </wa-details>
-    <wa-details class="panel" appearance="plain" :open="ui.panel === 'styles'">
-      <h2 slot="summary" class="panel-title">Styles</h2>
+    </ui-panel>
 
-      <wa-dropdown placement="right">
-        <theme-card :theme="theme.typography || theme.base || 'default'" slot="trigger" type="typography"></theme-card>
-        <div class="popup">
-          <wa-radio-group class="card-picker" v-model="theme.typography">
-            <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
-              <theme-card :theme="themeId" type="typography"></theme-card>
-            </wa-radio>
-          </wa-radio-group>
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :previous="previousPanel">
+      <palette-card :palette="computed.palette" size="small" @click="ui.panel = 'color'">
+        <div>
+          Color Palette
+          <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
         </div>
-      </wa-dropdown>
+      </palette-card>
 
-      <select v-model="theme.palette">
-        <option v-for="palette, paletteId in palettes" :value="paletteId" v-text="palette.title"></option>
-      </select>
+      <theme-card :theme="computed.typography" type="typography" size="small" @click="ui.panel = 'typography'">
+        <div>
+          Typography
+          <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
+        </div>
+      </theme-card>
 
-      <select v-model="theme.typography">
-        <option v-for="theme, themeId in themes" :value="themeId" v-text="theme.title"></option>
-      </select>
-    </wa-details>
+      <icons-card size="small" disabled>
+        <div>
+          Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
+          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+        </div>
+      </icons-card>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="color" title="Color Palette" :previous="previousPanel">
+      <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
+        <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
+          <palette-card :palette="paletteId" size="small"></palette-card>
+        </wa-radio>
+      </wa-radio-group>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="typography" title="Typography" :previous="previousPanel">
+      <wa-radio-group class="card-picker" v-model="theme.typography" >
+        <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
+          <theme-card :theme="themeId" type="typography" size="small"></theme-card>
+        </wa-radio>
+      </wa-radio-group>
+    </ui-panel>
   </section>
 
   <div slot="main-header">
@@ -69,5 +83,5 @@ override:tags: [themes]
       <wa-tab-panel name="content"></wa-tab-panel>
     </wa-tab-group>
   </div>
-  {# <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/?${urlParams}`"></iframe> #}
+  <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/?${urlParams}`"></iframe>
 </wa-page>

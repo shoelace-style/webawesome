@@ -1,18 +1,17 @@
 import PageCard from './page-card.js';
-import ShadowRootComponent from './shadow-root.js';
 import themes from '/docs/themes/data.js';
 
 const template = `
-	<page-card class="theme-card" :pro="themeMeta.isPro">
+	<page-card class="theme-card" :pro="$slots.default ? false : themeMeta.isPro">
     <template #icon>
-      <div slot="header" class="theme-icon-host">
-      <shadow-root>
+      <wa-scoped slot="header" class="theme-icon-host">
+        <template>
         <link rel="stylesheet" href="/dist/styles/utilities.css">
         <link rel="stylesheet" href="/dist/styles/native/content.css">
         <link rel="stylesheet" href="/assets/styles/theme-icons.css">
         <link rel="stylesheet" :href="\`/dist/styles/themes/\${ theme }.css\`">
 
-        <div v-if="type == 'typography'" class="theme-icon theme-typography-icon" :class="'wa-theme-' + theme" role="presentation">
+        <div v-if="type == 'typography'" class="theme-icon theme-typography-icon" role="presentation">
           <h2>Heading</h2>
           <p>This is your paragraph.</p>
         </div>
@@ -42,15 +41,16 @@ const template = `
             <wa-button size="small" variant="brand">Go</wa-button>
           </div>
         </div>
-      </shadow-root>
-      </div>
+        </template>
+      </wa-scoped>
     </template>
-		{{ themeMeta.title }}
+		<slot>{{ title || themeMeta.title }}</slot>
 	</page-card>
 `;
 
 export default {
   props: {
+    title: String,
     theme: String,
     type: {
       type: String,
@@ -72,7 +72,6 @@ export default {
 
   template,
   components: {
-    ShadowRoot: ShadowRootComponent,
     PageCard,
   },
   compilerOptions: {

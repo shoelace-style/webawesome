@@ -1,13 +1,6 @@
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 // import { docsURLs, icons, urls as stylesheetURLs } from '/assets/scripts/tweak/data.js';
-
-function domChange(fn, options = {}) {
-  if (options.immediate || !document.startViewTransition) {
-    return fn();
-  }
-
-  document.startViewTransition(fn);
-}
+import { domChange } from '/assets/scripts/theme-picker.js';
 
 export const defaultParams = { base: 'default', palette: '', typography: '' };
 export const params = { ...defaultParams };

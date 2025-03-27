@@ -10,6 +10,7 @@
   padding: var(--wa-space-xl);
   border-radius: var(--wa-border-radius-m);
   max-height: 90dvh;
+  overflow: auto;
 
   code {
     white-space: nowrap;

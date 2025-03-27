@@ -1,6 +1,6 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
-import { PageCard, ShadowRootComponent, ThemeCard } from '/assets/scripts/vue/components/index.js';
+import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
 import palettes from '/docs/palettes/data.js';
 import themes from '/docs/themes/data.js';
 
@@ -13,21 +13,43 @@ let appSpec = {
         typography: '',
       },
       ui: {
-        panel: 'styles',
+        panel: 'theme',
         preview: 'app',
       },
     };
   },
 
   created() {
-    Object.assign(this, { themes, palettes });
+    Object.assign(this, { themes, palettes, setTimeout: setTimeout.bind(globalThis) });
+
+    this.theme.base = 'glossy';
+    this.ui.panel = 'styles';
   },
 
   computed: {
+    computed() {
+      let ret = { ...this.theme };
+      let theme = (ret.base ||= 'default');
+      ret.palette ||= themes[theme].palette;
+      ret.typography ||= theme;
+      return ret;
+    },
+
     urlParams() {
       let ret = new URLSearchParams(this.theme);
       ret.sort();
       return ret;
+    },
+
+    previousPanel() {
+      switch (this.ui.panel) {
+        case 'styles':
+          return 'theme';
+        case 'theme':
+          return undefined;
+      }
+
+      return 'styles';
     },
   },
 
@@ -42,8 +64,10 @@ let appSpec = {
 
   components: {
     PageCard,
+    PaletteCard,
     ThemeCard,
-    ShadowRoot: ShadowRootComponent,
+    IconsCard,
+    UiPanel,
   },
 
   compilerOptions: {
