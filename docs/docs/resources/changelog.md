@@ -16,6 +16,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - Fixed the search dialog's styles so it doesn't jump around as you search
 - Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
+- Fixed a bug that caused dropdowns inside button groups to show with a vertical misalignment
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
 
 ### Enhancements

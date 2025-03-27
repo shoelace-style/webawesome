@@ -20,6 +20,10 @@
 }
 
 /* Horizontal */
+.wa-button-group[aria-orientation='horizontal'] {
+  align-items: end;
+}
+
 .wa-button-group:not([aria-orientation='vertical']):not(.wa-button-group-vertical) {
   > :not(:first-child),
   &::slotted(:not(:first-child)) {
