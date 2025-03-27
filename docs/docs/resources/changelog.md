@@ -14,6 +14,10 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- Fixed the search dialog's styles so it doesn't jump around as you search
+- Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
+- Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
+
 ### Enhancements
 
 - Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).

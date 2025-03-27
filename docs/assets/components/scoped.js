@@ -2,8 +2,8 @@
  * Low-level utility to encapsulate a bit of HTML (mainly to apply certain stylesheets to it without them leaking to the rest of the page)
  * Usage: <wa-scoped><template><!-- your HTML here --></template></wa-scoped>
  */
+import { discover } from '/dist/webawesome.js';
 
-// Map of <wa-scoped> elements to any global <style> elements they’ve created
 const imports = new Set();
 const fontFaceRules = new Set();
 
@@ -51,6 +51,8 @@ export default class WaScoped extends HTMLElement {
 
     this.#fixStyles();
     this.#applyDarkMode();
+
+    discover(this.shadowRoot);
 
     this.observer.observe(this, { childList: true, subtree: true, characterData: true });
   }
