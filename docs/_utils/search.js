@@ -1,4 +1,5 @@
 /* eslint-disable no-invalid-this */
+import * as path from "path"
 import { mkdir, writeFile } from 'fs/promises';
 import lunr from 'lunr';
 import { parse } from 'node-html-parser';
@@ -52,8 +53,9 @@ export function searchPlugin(options = {}) {
       return content;
     });
 
-    eleventyConfig.on('eleventy.after', ({ dir }) => {
-      const outputFilename = join(dir.output, 'search.json');
+    eleventyConfig.on('eleventy.after', ({ directories }) => {
+      const { output } = directories
+      const outputFilename = path.resolve(join(output, 'search.json'));
       const map = [];
       const searchIndex = lunr(async function () {
         let index = 0;
