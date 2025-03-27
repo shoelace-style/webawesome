@@ -14,9 +14,18 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- Added the `wa-cloak` utility to prevent FOUCE
+### Enhancements
+
+- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).
+- Added an `orange` scale to all color palettes
+- Added the `.wa-cloak` utility to prevent FOUCE
 - Added the `allDefined()` utility for awaiting component registration
-- Fixed `wa-pill` class for text fields
+
+### Bugfixes
+
+- Specifying inherited CSS properties on `<wa-tooltip>` now works as expected ([thanks Dennis!](https://github.com/shoelace-style/webawesome-alpha/discussions/203))
+- Fixed a bug in `<wa-select>` that made it hard to use with VueJS, Svelte, and many other frameworks
+- Fixed the `wa-pill` class for text fields
 - Fixed `pill` style for `<wa-input>` elements
 - Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output

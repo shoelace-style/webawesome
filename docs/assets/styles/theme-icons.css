@@ -1,3 +1,37 @@
+wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
+  min-width: 22ch;
+
+  &::part(header) {
+    /* We want to add a background color, so any spacing needs to go on .theme-icon */
+    padding: 0;
+    min-block-size: 0;
+  }
+
+  [slot='header'] {
+    display: block;
+    width: 100%;
+    border-radius: inherit;
+  }
+}
+
+.theme-icon-host {
+  display: block;
+  border-radius: inherit;
+}
+
+.theme-icon {
+  padding: var(--wa-space-xs) var(--wa-space-m);
+  border-radius: inherit;
+  box-sizing: border-box;
+
+  h2,
+  h3,
+  p {
+    margin-block: 0;
+    padding: 0;
+  }
+}
+
 .theme-color-icon {
   display: grid;
   gap: var(--wa-space-xs);
@@ -25,10 +59,50 @@
   display: flex;
   flex-direction: column;
   gap: var(--wa-space-xs);
+}
 
-  h3,
-  p {
-    margin-block: 0;
-    padding: 0;
+.theme-overall-icon {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-xs);
+  justify-content: center;
+  width: 100%;
+  min-height: 7.5rem;
+  box-sizing: border-box;
+  background: var(--wa-color-surface-lowered);
+
+  .row {
+    display: flex;
+    gap: var(--wa-space-xs);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    contain: inline-size;
+    width: 100%;
+
+    wa-input {
+      min-width: 1em;
+    }
+  }
+
+  .swatches {
+    display: flex;
+    gap: var(--wa-space-3xs);
+
+    > div {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: var(--wa-border-radius-s);
+      background: var(--wa-color-fill-loud);
+      color: var(--wa-color-on-loud);
+
+      &.wa-brand {
+        width: 2.5rem;
+      }
+    }
   }
 }
