@@ -94,12 +94,13 @@ function getParentUrl(url, parent) {
     ret = '/' + ret;
   }
 
-  if (!retParts.at(-1).includes('.') && !ret.endsWith('/')) {
+  if (!retParts.at(-1)?.includes('.') && !ret.endsWith('/')) {
     // If no extension, make sure to end with a slash
     ret += '/';
   }
 
   if (ret === '/docs/') {
+    // We don't want anyone's parent to be "Installation"!
     ret = '/';
   }
 
