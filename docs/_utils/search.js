@@ -1,8 +1,8 @@
 /* eslint-disable no-invalid-this */
-import * as path from "path"
 import { mkdir, writeFile } from 'fs/promises';
 import lunr from 'lunr';
 import { parse } from 'node-html-parser';
+import * as path from 'path';
 import { dirname, join } from 'path';
 
 function collapseWhitespace(string) {
@@ -54,7 +54,7 @@ export function searchPlugin(options = {}) {
     });
 
     eleventyConfig.on('eleventy.after', ({ directories }) => {
-      const { output } = directories
+      const { output } = directories;
       const outputFilename = path.resolve(join(output, 'search.json'));
       const map = [];
       const searchIndex = lunr(async function () {
