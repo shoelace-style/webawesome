@@ -16,7 +16,7 @@
 }
 
 .indicator {
-  width: calc(var(--value, 0) * 1%);
+  width: var(--percentage);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,9 +26,7 @@
   overflow: hidden;
   line-height: 1;
   font-weight: var(--wa-font-weight-semibold);
-  transition: var(--wa-transition-slow, 200ms) var(--wa-transition-easing, ease);
-  transition: 1s;
-  /* transition-property: width, background; */
+  transition: all var(--wa-transition-slow, 200ms) var(--wa-transition-easing, ease);
   user-select: none;
   -webkit-user-select: none;
 }

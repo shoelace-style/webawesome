@@ -18,6 +18,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
 - Fixed a bug that caused dropdowns inside button groups to show with a vertical misalignment
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
+- Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
 
 ### Enhancements
 
