@@ -28,7 +28,8 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   grid-template-columns: repeat(var(--hues, 9), 1fr);
   gap: var(--wa-space-2xs);
   min-width: 20ch;
-  margin-block: var(--space-xs);
+  min-height: 9ch;
+  align-content: center;
 
   .swatch {
     height: 0.7em;
