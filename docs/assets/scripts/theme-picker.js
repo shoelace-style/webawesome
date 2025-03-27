@@ -1,8 +1,10 @@
-let initialPageLoadComplete = false;
+let initialPageLoadComplete = document.readyState === 'complete';
 
-window.addEventListener('load', () => {
-  initialPageLoadComplete = true;
-});
+if (!initialPageLoadComplete) {
+  window.addEventListener('load', () => {
+    initialPageLoadComplete = true;
+  });
+}
 
 // Helper for view transitions
 export function domChange(fn, { behavior = 'smooth', ignoreInitialLoad = true } = {}) {
