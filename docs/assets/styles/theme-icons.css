@@ -23,12 +23,17 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   }
 }
 
+.theme-icon,
+.palette-icon,
+.icons-icon {
+  min-height: 9ch;
+}
+
 .palette-icon {
   display: grid;
   grid-template-columns: repeat(var(--hues, 9), 1fr);
   gap: var(--wa-space-3xs);
   min-width: 20ch;
-  min-height: 9ch;
   align-content: center;
 
   .swatch {
@@ -129,4 +134,12 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
       }
     }
   }
+}
+
+.icons-icon {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 8), auto);
+  gap: var(--wa-space-xs);
+  place-items: center;
+  place-content: center;
 }
