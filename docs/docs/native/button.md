@@ -33,7 +33,7 @@ Use the [variant utility classes](../utilities/color.md) to set the button's sem
 
 ### Appearance
 
-Use the [appearance utility classes](../utilities/appearance.md) to change the button's visual appearance:
+Use the [appearance utility classes](/docs/utilities/appearance) to change the button's visual appearance:
 
 ```html {.example}
 <div style="margin-block-end: 1rem;">

@@ -278,11 +278,11 @@
 }
 
 /*
-   * Color dropdown
-   */
+ * Color dropdown
+ */
 
 .color-dropdown {
-  display: flex;
+  display: contents;
 }
 
 .color-dropdown::part(panel) {

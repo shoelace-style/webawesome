@@ -3,6 +3,7 @@
   "wide": true,
   "tags": ["themes", "theme"],
   "brand": "blue",
+  "icon": "theme",
   "eleventyComputed": {
     "file": "styles/themes/{{ page.fileSlug }}.css"
   }

@@ -57,7 +57,7 @@ Use the [variant utility classes](../utilities/color.md) to set the callout's co
 
 ### Appearance
 
-Use the [appearance utility classes](../utilities/appearance.md) to change the callout's visual appearance (the default is `outlined filled`).
+Use the [appearance utility classes](/docs/utilities/appearance) to change the callout's visual appearance (the default is `outlined filled`).
 
 ```html {.example}
 <article class="wa-callout wa-brand wa-outlined wa-accent">

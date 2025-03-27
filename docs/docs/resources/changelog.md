@@ -18,6 +18,22 @@ During the alpha period, things might break! We take breaking changes very serio
 - Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
 
+### Enhancements
+
+- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).
+- Added an `orange` scale to all color palettes
+- Added the `.wa-cloak` utility to prevent FOUCE
+- Added the `allDefined()` utility for awaiting component registration
+
+### Bugfixes
+
+- Specifying inherited CSS properties on `<wa-tooltip>` now works as expected ([thanks Dennis!](https://github.com/shoelace-style/webawesome-alpha/discussions/203))
+- Fixed a bug in `<wa-select>` that made it hard to use with VueJS, Svelte, and many other frameworks
+- Fixed the `wa-pill` class for text fields
+- Fixed `pill` style for `<wa-input>` elements
+- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
+- Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output
+
 ## 3.0.0-alpha.11
 
 ### Color Palettes
@@ -26,6 +42,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a `pink` scale to all color palettes
 - Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
 - Dropped `violet` and `teal`, instead using `purple` and `cyan` (this is not just a renaming, the colors have been adjusted too).
+- Fixed a bug in `<wa-switch>` that caused tooltips to work incorrectly when toggling the switch
 
 ### Design Tokens
 

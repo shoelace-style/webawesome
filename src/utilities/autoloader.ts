@@ -50,6 +50,12 @@ export async function discover(root: Element | ShadowRoot) {
       console.warn(imp.reason); // eslint-disable-line no-console
     }
   }
+
+  // Wait a cycle to allow the first Lit update to run
+  await new Promise(requestAnimationFrame);
+
+  // Dispatch an event when discovery is complete.
+  document.dispatchEvent(new CustomEvent('wa-discovery-complete'));
 }
 
 /**
@@ -67,5 +73,24 @@ function register(tagName: string): Promise<void> {
   // Register it
   return new Promise((resolve, reject) => {
     import(path).then(() => resolve()).catch(() => reject(new Error(`Unable to autoload <${tagName}> from ${path}`)));
+  });
+}
+
+/**
+ * Acts as a middleware for Turbo's `turbo:before-render` event to ensure components are auto-loaded before showing the
+ * next page, eliminating page-to-page FOUCE in a Turbo environment.
+ */
+export function preventTurboFouce(timeout = 2000) {
+  document.addEventListener('turbo:before-render', async (event: CustomEvent) => {
+    const newBody = event.detail.newBody;
+
+    event.preventDefault();
+
+    try {
+      // Wait until all elements are registered or two seconds, whichever comes first
+      await Promise.race([discover(newBody), new Promise(resolve => setTimeout(resolve, timeout))]);
+    } finally {
+      event.detail.resume();
+    }
   });
 }
