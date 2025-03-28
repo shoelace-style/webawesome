@@ -14,20 +14,9 @@ body {
 }
 
 wa-card {
-  &.page-card {
-    contain: inline-size;
-
-    &.disabled {
-      opacity: 60%;
-      cursor: not-allowed;
-    }
-  }
-
   .page-name {
     display: flex;
     gap: var(--wa-space-xs);
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-action);
   }
 }
 
@@ -69,13 +58,6 @@ iframe.preview {
   border-right: var(--ui-border);
 }
 
-@keyframes card-selected {
-  from {
-    border-color: transparent;
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-
 wa-radio-group.card-picker {
   flex-shrink: 1;
   min-height: 0;
@@ -88,32 +70,6 @@ wa-radio-group.card-picker {
 
   wa-radio {
     display: flex;
-    position: relative;
-    width: 100%;
-
-    &::part(control) {
-      position: absolute;
-      top: var(--wa-space-xs);
-      right: var(--wa-space-3xs);
-    }
-
-    &:has(> wa-card):not(:state(checked))::part(control) {
-      display: none;
-    }
-
-    wa-card {
-      margin: calc(var(--wa-border-width-s) + 1px);
-    }
-
-    &:state(checked) wa-card {
-      --border-color: var(--wa-color-brand-border-loud);
-      border-color: var(--border-color);
-      box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
-
-      &:is(.pulse-on-select *) {
-        animation: 250ms card-selected 5 alternate both cubic-bezier(0.1, 0.6, 0, 1);
-      }
-    }
   }
 }
 
@@ -125,9 +81,6 @@ wa-radio-group.card-picker {
   > wa-card {
     margin-block: var(--wa-space-xs);
   }
-}
-
-wa-card {
 }
 
 .panel wa-card {
