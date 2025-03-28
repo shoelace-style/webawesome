@@ -13,23 +13,33 @@ sidebar.palettes = {
     sidebar.updateCurrent();
   },
 
-  updateSaved() {
-    this.saved = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+  saved: [],
+
+  /**
+   * Update saved palettes from local storage
+   */
+  fromLocalStorage() {
+    // Replace contents of array without breaking references
+    let saved = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
+    this.saved.splice(0, this.saved.length, ...saved);
   },
 
-  save(saved = this.saved) {
-    this.saved = saved ?? [];
-
-    if (saved.length > 0) {
-      localStorage.savedPalettes = JSON.stringify(saved);
+  /**
+   * Write palettes to local storage
+   */
+  toLocalStorage() {
+    if (this.saved.length > 0) {
+      localStorage.savedPalettes = JSON.stringify(this.saved);
     } else {
       delete localStorage.savedPalettes;
     }
   },
 };
 
-sidebar.palettes.updateSaved();
-addEventListener('storage', event => sidebar.palettes.updateSaved());
+sidebar.palettes.fromLocalStorage();
+
+// Palettes were updated in another tab
+addEventListener('storage', () => sidebar.palettes.fromLocalStorage());
 
 sidebar.palette = {
   getUid() {
@@ -59,7 +69,9 @@ sidebar.palette = {
   delete(palette) {
     let savedPalettes = sidebar.palettes.saved;
     let count = savedPalettes.length;
-    if (count === 0) {
+
+    if (count === 0 || !palette.uid) {
+      // No stored palettes or this palette has not been saved
       return;
     }
 
@@ -68,7 +80,9 @@ sidebar.palette = {
       return;
     }
 
-    savedPalettes = savedPalettes.filter(p => !sidebar.palette.equals(palette, p));
+    for (let index; (index = savedPalettes.findIndex(p => p.uid === palette.uid)) > -1; ) {
+      savedPalettes.splice(index, 1);
+    }
 
     if (savedPalettes.length === count) {
       // Nothing was removed
@@ -96,15 +110,12 @@ sidebar.palette = {
 
     sidebar.updateCurrent();
 
-    sidebar.palettes.save(savedPalettes);
+    sidebar.palettes.toLocalStorage();
 
-    if (sidebar.palette.equals(globalThis.paletteApp?.saved, palette)) {
+    if (globalThis.paletteApp?.saved?.uid === palette.uid) {
+      // We deleted the currently active palette
       paletteApp.postDelete();
     }
-  },
-
-  getSaved(palette, savedPalettes = sidebar.palettes.saved) {
-    return savedPalettes.find(p => sidebar.palette.equals(p, palette));
   },
 
   render(palette) {
@@ -146,23 +157,27 @@ sidebar.palette = {
     }
   },
 
-  save(palette, saved) {
-    let savedPalettes = sidebar.palettes.saved;
-    let existing = this.getSaved(saved ?? palette, savedPalettes);
-    let oldValues;
-
-    if (existing) {
-      // Rename
-      oldValues = { ...existing };
-      Object.assign(existing, palette);
-    } else {
-      savedPalettes.push(palette);
+  /**
+   * Save a palette, either by updating its existing entry or creating a new one
+   * @param {object} palette
+   */
+  save(palette) {
+    if (!palette.uid) {
+      // First time saving
+      palette.uid = this.getUid();
     }
+
+    let savedPalettes = sidebar.palettes.saved;
+    let existingIndex = palette.uid ? sidebar.palettes.saved.findIndex(p => p.uid === palette.uid) : -1;
+    let newIndex = existingIndex > -1 ? existingIndex : savedPalettes.length;
+
+    let [oldValues] = sidebar.palettes.saved.splice(newIndex, 1, palette);
 
     this.render(palette, oldValues);
     sidebar.updateCurrent();
+    sidebar.palettes.toLocalStorage();
 
-    sidebar.palettes.save(savedPalettes);
+    return palette;
   },
 };
 

@@ -30,12 +30,21 @@
 
   {% include 'breadcrumbs.njk' %}
 
-  <h1 v-if="saved" class="title">
-    {% raw %}{{ saved.title }}{% endraw %}
-    <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
-    <wa-icon-button class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
+  <h1 class="title">
+    <span v-content="paletteTitle">{{ title }}</span>
+    <template v-if="saved || tweaked">
+      <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
+      <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
+      <wa-button @click="save()" :disabled="!unsavedChanges"
+        :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
+        <span slot="prefix" class="icon-modifier">
+          <wa-icon name="sidebar" variant="regular"></wa-icon>
+          <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
+        </span>
+        <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
+      </wa-button>
+    </template>
   </h1>
-  <h1 v-if="!saved" class="title">{{ title }}</h1>
 
   <div class="block-info">
     <code class="class">.wa-palette-{{ paletteId }}</code>
@@ -67,13 +76,6 @@
       <wa-icon name="circle-xmark" variant="regular"></wa-icon>
     </span>
     Reset
-  </wa-button>
-  <wa-button v-if="!saved" @click="save" variant="success">
-    <span slot="prefix" class="icon-modifier">
-      <wa-icon name="sidebar" variant="regular"></wa-icon>
-      <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-    </span>
-    Save
   </wa-button>
 </wa-callout>
 
