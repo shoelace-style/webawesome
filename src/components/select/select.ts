@@ -711,6 +711,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.updateValidity();
     });
   }
+
   protected get tags() {
     return this.selectedOptions.map((option, index) => {
       if (index < this.maxOptionsVisible || this.maxOptionsVisible <= 0) {
