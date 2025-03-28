@@ -10,19 +10,6 @@ icon: radio-group
 Radios are designed to be used with [radio groups](/docs/components/radio-group).
 
 ```html {.example}
-<wa-radio-group>
-  <wa-radio>
-    Testitem 1
-    <wa-icon id="icon" family="brands" name="font-awesome"></wa-icon>
-    <wa-tooltip for="icon">Tooltip</wa-tooltip>
-  </wa-radio>
-  <wa-radio>
-    Testitem 2
-  </wa-radio>
-</wa-radio-group>
-
-<BR><BR>
-
 <wa-radio-group label="Select an option" name="a" value="1">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
