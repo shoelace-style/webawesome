@@ -4,7 +4,7 @@ import themes from '/docs/themes/data.js';
 const template = `
 	<page-card class="theme-card" :pro="$slots.default ? false : themeMeta.isPro">
     <template #icon>
-      <wa-scoped slot="header" class="theme-icon-host">
+      <wa-scoped slot="header" class="theme-icon-host" inert>
         <template>
         <link rel="stylesheet" href="/dist/styles/utilities.css">
         <link rel="stylesheet" href="/dist/styles/native/content.css">
