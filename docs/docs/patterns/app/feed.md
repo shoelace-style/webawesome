@@ -3,138 +3,98 @@ title: Feed
 description: TODO
 ---
 
+## Timeline with Icons
+
 ```html {.example}
-<div class="activity-feed">
-  <div class="activity-group">
-    <span class="connector"></span>
-    <div class="activity">
-      <wa-icon name="user-circle" class="fa-fw"></wa-icon>
-      <p>Kicked ass and <strong>chewed bubblegum</strong></p>
-      <span style="margin-left: auto"><em>Oct. 31st</em></span>
+<div class="wa-stack wa-gap-3xs" style="max-width: 60ch; margin: auto">
+  <article class="wa-flank" style="flex-wrap: nowrap">
+    <wa-avatar style="--size: 2rem">
+      <wa-icon slot="icon" name="acorn"></wa-icon>
+    </wa-avatar>
+    <div class="wa-flank:end wa-gap-xs">
+      <span>Buried by <strong>squirrel</strong></span>
+      <wa-format-date date="2025-04-01" month="short" day="numeric"></wa-format-date>
     </div>
-  </div>
-  <div class="activity-group">
-    <span class="connector"></span>
-    <div class="activity">
-      <wa-icon name="thumbs-up" style="color: blue" class="fa-fw"></wa-icon>
-      <p>Kicked ass and <strong>chewed bubblegum</strong></p>
-      <span style="margin-left: auto"><em>Oct. 31st</em></span>
+  </article>
+  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <article class="wa-flank" style="flex-wrap: nowrap">
+    <wa-avatar style="--size: 2rem">
+      <wa-icon slot="icon" name="seedling"></wa-icon>
+    </wa-avatar>
+    <div class="wa-flank:end wa-gap-xs">
+      <span>Germinated in <strong>nutrient-rich soil</strong></span>
+      <wa-format-date date="2025-05-29" month="short" day="numeric"></wa-format-date>
     </div>
-  </div>
-  <div class="activity-group">
-    <span class="connector"></span>
-    <div class="activity">
-      <wa-icon name="crown" class="fa-fw"></wa-icon>
-      <p>Kicked ass and <strong>chewed bubblegum</strong></p>
-      <span style="margin-left: auto"><em>Oct. 31st</em></span>
+  </article>
+  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <article class="wa-flank" style="flex-wrap: nowrap">
+    <wa-avatar style="--size: 2rem">
+      <wa-icon slot="icon" name="tree-deciduous"></wa-icon>
+    </wa-avatar>
+    <div class="wa-flank:end wa-gap-xs">
+      <span>Matured by <strong>water</strong> and <strong>sunlight</strong></span>
+      <wa-format-date date="2025-09-15" month="short" day="numeric"></wa-format-date>
     </div>
-  </div>
-  <div class="activity-group">
-    <span class="connector"></span>
-    <div class="activity">
-      <wa-icon name="turtle" style="color: green" class="fa-fw"></wa-icon>
-      <p>Kicked ass and <strong>chewed bubblegum</strong></p>
-      <span style="margin-left: auto"><em>Oct. 31st</em></span>
+  </article>
+  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <article class="wa-flank" style="flex-wrap: nowrap">
+    <wa-avatar style="--size: 2rem">
+      <wa-icon slot="icon" name="crate-apple"></wa-icon>
+    </wa-avatar>
+    <div class="wa-flank:end wa-gap-xs">
+      <span>Fruit harvested by <strong>you</strong></span>
+      <wa-format-date date="2025-10-18" month="short" day="numeric"></wa-format-date>
     </div>
-  </div>
-
+  </article>
 </div>
-
-<style>
-  :root {
-    --border-color: var(--wa-color-surface-border);
-  }
-  .activity-feed {
-    wa-icon {
-      margin-right: 1rem;
-      font-size: 32px;
-    }
-    .fa-fw {
-      text-align: center;
-      width: 1.25em;
-    }
-    .activity {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-    }
-
-    .activity-group:not(:first-child) {
-          margin-top: .5rem;
-    }
-    .activity-group {
-      position: relative;
-    }
-
-    .connector {
-      position: absolute;
-    background-color: var(--border-color);
-    height: 25%;
-    width: 0.125rem;
-    margin-left: -1px;
-    top: 2.5rem;
-    left: 1rem;
-    }
-
-    .activity-group:last-of-type .connector {
-      display: none;
-    }
-  }
-</style>
 ```
 
-## Multi column
+## Simple Rows
 
-```html{.example}
-<div style="max-width: 480px; margin: 0 auto">
-  <wa-card>
-    <div>
-      <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+```html {.example}
+<div class="wa-stack" style="max-width: 60ch; margin: auto">
+  <article class="wa-flank:end wa-align-items-baseline" style="--flank-size: 10ch">
+    <div class="wa-grid">
+      <div class="wa-cluster">
+        <wa-icon name="french-fries" fixed-width></wa-icon>
+        <span>Fast food</span>
       </div>
+      <wa-relative-time sync></wa-relative-time>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+    <wa-tag variant="danger">- $5.00</wa-tag>
+  </article>
+  <wa-divider></wa-divider>
+  <article class="wa-flank:end wa-align-items-baseline" style="--flank-size: 10ch">
+    <div class="wa-grid">
+      <div class="wa-cluster">
+        <wa-icon name="piggy-bank" fixed-width></wa-icon>
+        <span>Refund</span>
       </div>
+      <wa-relative-time date="2025-03-26T09:00:00-04:00"></wa-relative-time>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+    <wa-tag variant="success">+ $48.99</wa-tag>
+  </article>
+  <wa-divider></wa-divider>
+  <article class="wa-flank:end wa-align-items-baseline" style="--flank-size: 10ch">
+    <div class="wa-grid">
+      <div class="wa-cluster">
+        <wa-icon name="carrot" fixed-width></wa-icon>
+        <span>Groceries</span>
       </div>
+      <wa-relative-time date="2025-03-24T09:00:00-04:00"></wa-relative-time>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
+    <wa-tag variant="danger">- $115.37</wa-tag>
+  </article>
+  <wa-divider></wa-divider>
+  <article class="wa-flank:end wa-align-items-baseline" style="--flank-size: 10ch">
+    <div class="wa-grid">
+      <div class="wa-cluster">
+        <wa-icon name="shirt" fixed-width></wa-icon>
+        <span>Clothing</span>
       </div>
+      <wa-relative-time date="2025-03-15T09:00:00-04:00"></wa-relative-time>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-flank">
-      <wa-icon family="brands" name="youtube"></wa-icon>
-      <div class="wa-align-items-center wa-cluster" style="justify-content: space-between;">
-        <span>YouTube Premium</span>
-        <span>5 minutes ago</span>
-        <wa-tag variant="danger" appearance="outlined filled" pill>-$5.00</wa-tag>
-      </div>
-    </div>
-    <wa-divider></wa-divider>
-    </div>
-  </wa-card>
+    <wa-tag variant="danger">- $220.99</wa-tag>
+  </article>
 </div>
 ```
