@@ -1,25 +1,49 @@
 wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
-  min-width: 22ch;
-
   &::part(header) {
     /* We want to add a background color, so any spacing needs to go on .theme-icon */
+    flex: 1;
     padding: 0;
     min-block-size: 0;
   }
 
   [slot='header'] {
-    display: block;
     width: 100%;
+  }
+}
+
+.theme-icon-host,
+.palette-icon-host {
+  flex: 1;
+  border-radius: inherit;
+
+  &[slot='header'],
+  [slot='header']:has(&) {
+    flex: 1;
     border-radius: inherit;
   }
 }
 
-.theme-icon-host {
-  display: block;
-  border-radius: inherit;
+.palette-icon {
+  display: grid;
+  grid-template-columns: repeat(var(--hues, 9), 1fr);
+  gap: var(--wa-space-3xs);
+  min-width: 20ch;
+  min-height: 9ch;
+  align-content: center;
+
+  .swatch {
+    height: 0.7em;
+    background: var(--color);
+    border-radius: var(--wa-border-radius-s);
+
+    &[data-suffix=''] {
+      height: 1.1em;
+    }
+  }
 }
 
 .theme-icon {
+  min-width: 18ch;
   padding: var(--wa-space-xs) var(--wa-space-m);
   border-radius: inherit;
   box-sizing: border-box;
