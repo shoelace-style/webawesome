@@ -112,49 +112,6 @@ For example, `<button>` and `<wa-button>` both have a `type` attribute, but the 
 **Don't make assumptions about a component's API!** To prevent unexpected behaviors, please take the time to review the documentation and make sure you understand what each attribute, property, method, and event is intended to do.
 :::
 
-## Waiting for Components to Load
-
-Web components are registered with JavaScript, so depending on how and when you load Web Awesome, you may notice a [Flash of Undefined Custom Elements (FOUCE)](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/) when the page loads. There are a couple ways to prevent this, both of which are described in the linked article.
-
-One option is to use the [`:defined`](https://developer.mozilla.org/en-US/docs/Web/CSS/:defined) CSS pseudo-class to "hide" custom elements that haven't been registered yet. You can scope it to specific tags or you can hide all undefined custom elements as shown below.
-
-```css
-:not(:defined) {
-  visibility: hidden;
-}
-```
-
-As soon as a custom element is registered, it will immediately appear with all of its styles, effectively eliminating FOUCE. Note the use of `visibility: hidden` instead of `display: none` to reduce shifting as elements are registered. The drawback to this approach is that custom elements can potentially appear one by one instead of all at the same time.
-
-Another option is to use [`customElements.whenDefined()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined), which returns a promise that resolves when the specified element gets registered. You'll probably want to use it with [`Promise.allSettled()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) in case an element fails to load for some reason.
-
-A clever way to use this method is to hide the `<body>` with `opacity: 0` and add a class that fades it in as soon as all your custom elements are defined.
-
-```html
-<style>
-  body {
-    opacity: 0;
-  }
-
-  body.ready {
-    opacity: 1;
-    transition: 0.25s opacity;
-  }
-</style>
-
-<script type="module">
-  await Promise.allSettled([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-card'),
-    customElements.whenDefined('wa-rating')
-  ]);
-
-  // Button, card, and rating are registered now! Add
-  // the `ready` class so the UI fades in.
-  document.body.classList.add('ready');
-</script>
-```
-
 ## Component Rendering and Updating
 
 Web Awesome components are built with [Lit](https://lit.dev/), a tiny library that makes authoring custom elements easier, more maintainable, and a lot of fun! As a Web Awesome user, here is some helpful information about rendering and updating you should probably be aware of.
