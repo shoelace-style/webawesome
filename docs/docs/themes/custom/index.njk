@@ -27,7 +27,7 @@ override:tags: [themes]
         <label for="starting-theme">Starting theme</label>
       </template>
 
-      <wa-radio-group id="starting-theme" class="card-picker pulse-on-select" v-model="theme.base" @change="setTimeout(() => ui.panel = 'styles', 1500)">
+      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.base">
           <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>

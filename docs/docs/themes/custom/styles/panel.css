@@ -42,7 +42,11 @@
     display: flex;
     flex-flow: column;
     gap: var(--wa-space-s);
+  }
 
+  .scrollable {
+    flex-shrink: 1;
+    min-height: 0;
     overflow: auto;
   }
 

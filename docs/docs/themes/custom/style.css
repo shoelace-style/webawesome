@@ -63,10 +63,6 @@ iframe.preview {
 }
 
 wa-radio-group.card-picker {
-  flex-shrink: 1;
-  min-height: 0;
-  overflow: auto;
-
   &::part(form-control-input) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
