@@ -15,6 +15,14 @@
   -webkit-user-select: none;
   cursor: pointer;
   transition: color var(--wa-transition-fast) var(--wa-transition-easing);
+
+  ::slotted(wa-icon:first-child) {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  ::slotted(wa-icon:last-child) {
+    margin-inline-start: var(--wa-space-xs);
+  }
 }
 
 :host(:hover:not([disabled])) .tab {

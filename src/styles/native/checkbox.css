@@ -38,6 +38,16 @@ input[type='checkbox']:where(:not(:host *)) {
     height: 100%;
     width: 100%;
   }
+
+  &:indeterminate::after {
+    background-color: currentColor;
+    content: '';
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M431 256c0 17.7-14.3 32-32 32H49c-17.7 0-32-14.3-32-32s14.3-32 32-32h350c17.7 0 32 14.3 32 32z"/></svg>')
+      center no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 input[type='checkbox']:where(:not(:host *)),

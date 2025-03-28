@@ -22,6 +22,7 @@ import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
+import '../option/option.js';
 import type WaOption from '../option/option.js';
 import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
@@ -37,6 +38,7 @@ import styles from './select.css';
  * @dependency wa-icon
  * @dependency wa-popup
  * @dependency wa-tag
+ * @dependency wa-option
  *
  * @slot - The listbox options. Must be `<wa-option>` elements. You can use `<wa-divider>` to group items visually.
  * @slot label - The input's label. Alternatively, you can use the `label` attribute.
@@ -670,9 +672,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.selectionChanged();
   }
 
-  // This method must be called whenever the selection changes. It will update the selected options cache, the current
-  // value, and the display value
-  private selectionChanged() {
+  // @internal This method must be called whenever the selection changes. It will update the selected options cache, the
+  // current value, and the display value. The option component uses it internally to update labels as they change.
+  public selectionChanged() {
     const options = this.getAllOptions();
 
     // Update selected options cache
@@ -711,6 +713,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.updateValidity();
     });
   }
+
   protected get tags() {
     return this.selectedOptions.map((option, index) => {
       if (index < this.maxOptionsVisible || this.maxOptionsVisible <= 0) {
