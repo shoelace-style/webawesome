@@ -6,17 +6,18 @@ export const ICON_PLACEHOLDER = `
 </svg>`;
 
 const template = `
-	<wa-card with-header class="page-card" :class="{disabled}" :inert="disabled">
-    <slot name="icon" slot="header">
-      <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
-    </slot>
+<wa-card with-header class="page-card" :aria-disabled="disabled ? 'true' : null" :inert="disabled"
+         @click="!disabled && action ? action($event) : null" :role="action ? 'button' : null" :tabindex="action? 0 : null">
+  <slot name="icon" slot="header">
+    <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
+  </slot>
 
-		<span class="page-name">
-      <slot></slot>
-      <wa-badge class="pro" v-if="pro">PRO</wa-badge>
-    </span>
-		<div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
-	</wa-card>
+  <span class="page-name">
+    <slot></slot>
+    <wa-badge class="pro" v-if="pro">PRO</wa-badge>
+  </span>
+  <div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
+</wa-card>
 `;
 
 export default {
@@ -25,6 +26,7 @@ export default {
     icon: String,
     pro: Boolean,
     disabled: Boolean,
+    action: Function,
   },
 
   data() {

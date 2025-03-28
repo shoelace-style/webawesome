@@ -35,14 +35,14 @@ override:tags: [themes]
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="styles" title="Styles" :previous="previousPanel">
-      <palette-card :palette="computed.palette" size="small" @click="ui.panel = 'color'">
+      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'">
         <div>
           Color Palette
           <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
         </div>
       </palette-card>
 
-      <theme-card :theme="computed.typography" type="typography" size="small" @click="ui.panel = 'typography'">
+      <theme-card :theme="computed.typography" type="typography" size="small" role="button" :action="e => ui.panel = 'typography'">
         <div>
           Typography
           <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
