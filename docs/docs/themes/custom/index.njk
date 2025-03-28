@@ -74,7 +74,7 @@ override:tags: [themes]
     </ui-panel>
   </section>
 
-  <div slot="main-header">
+  <div slot="main-header" class="preview-header">
     <wa-tab-group :active="ui.preview" @wa-tab-show="ui.preview = $event.detail.name">
       <wa-tab panel="app">App</wa-tab>
       <wa-tab panel="content">Content</wa-tab>

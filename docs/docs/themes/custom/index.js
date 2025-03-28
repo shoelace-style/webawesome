@@ -6,6 +6,12 @@ import themes from '/docs/themes/data.js';
 
 let appSpec = {
   data() {
+    let mobileMQ = window.matchMedia('(max-width: 768px)');
+    let isMobile = mobileMQ.matches;
+    mobileMQ.addEventListener('change', e => {
+      this.isMobile = e.matches;
+    });
+
     return {
       theme: {
         base: '',
@@ -16,14 +22,13 @@ let appSpec = {
         panel: 'theme',
         preview: 'app',
       },
+      isMobile,
     };
   },
 
   created() {
     Object.assign(this, { themes, palettes, setTimeout: setTimeout.bind(globalThis) });
 
-    this.theme.base = 'glossy';
-    this.ui.panel = 'styles';
   },
 
   computed: {

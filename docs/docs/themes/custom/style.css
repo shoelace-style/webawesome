@@ -40,7 +40,7 @@ iframe.preview {
   height: 100%;
 }
 
-[slot='main-header'] {
+.preview-header {
   padding-block: 0;
   wa-tab-group {
     margin-left: auto;

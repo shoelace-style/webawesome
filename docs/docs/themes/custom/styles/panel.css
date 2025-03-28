@@ -1,8 +1,8 @@
 .panel {
+  --spacing: var(--wa-space-s);
   display: flex;
   flex-flow: column;
   max-height: 100%;
-  --spacing: var(--wa-space-s);
   margin-bottom: 0;
 
   summary {
