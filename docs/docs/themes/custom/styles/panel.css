@@ -29,6 +29,7 @@
     }
   }
 
+  /* TODO find a solution that also works in Safari and Chrome */
   &::details-content {
     flex: 1;
     min-height: 0;
@@ -42,12 +43,6 @@
     display: flex;
     flex-flow: column;
     gap: var(--wa-space-s);
-  }
-
-  .scrollable {
-    flex-shrink: 1;
-    min-height: 0;
-    overflow: auto;
   }
 
   h2,
