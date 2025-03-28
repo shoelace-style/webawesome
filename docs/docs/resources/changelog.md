@@ -18,30 +18,31 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).
 - Added an `orange` scale to all color palettes
-- Added the `.wa-cloak` utility to prevent FOUCE
-- Added the `allDefined()` utility for awaiting component registration
-- Added default spacing to icons slotted into `<wa-tab>`
-- Fixed `wa-pill` class for text fields
+- Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
+- Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
 
 ### Bug fixes
 
 - Specifying inherited CSS properties on `<wa-tooltip>` now works as expected ([thanks Dennis!](https://github.com/shoelace-style/webawesome-alpha/discussions/203))
 - Fixed a bug in `<wa-select>` that made it hard to use with VueJS, Svelte, and many other frameworks
-- Fixed the `wa-pill` class for text fields
-- Fixed `pill` style for `<wa-input>` elements
-- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output
-- Fixed a bug in `<wa-radio-button>` that prevented the pill effect from applying properly
+- Fixed a bug where changing a `<wa-option>` label wouldn't update the display label in `<wa-select>`
+- Added default spacing to icons slotted into `<wa-tab>`
+- Lots of fixes around pill-shaped elements:
+  - Fixed the `wa-pill` class for text fields
+  - Fixed `pill` style for `<wa-input>` and `<wa-radio-button>` elements
 - Fixed a bug in `<wa-radio-button>` that prevented active buttons from receiving the correct styles
 - Fixed a bug in `<wa-button>` that prevented the focus ring from showing in Safari
-- Fixed the search dialog's styles so it doesn't jump around as you search
+- Fixed alignment of `<wa-dropdown>` inside button groups
 - Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
-- Fixed a bug that caused dropdowns inside button groups to show with a vertical misalignment
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
+- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
-- Fixed the missing indeterminate icon in native checkbox styles
-- Fixed a bug where changing a `<wa-option>` label wouldn't update the display label in `<wa-select>`
+- Fixed the missing indeterminate icon in [native checkbox styles](/docs/native/checkbox)
 - Fixed a bug in `<wa-radio>` where elements would stack instead of display inline
+- Docs fixes:
+  - Fixed the search dialog's styles so it doesn't jump around as you search
+  - Theme cards now have icons
 
 ## 3.0.0-alpha.11
 
