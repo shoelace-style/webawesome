@@ -1,3 +1,11 @@
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
 function updateResults(input) {
   const filter = input.value.toLowerCase().trim();
   let filtered = Boolean(filter);
@@ -18,8 +26,10 @@ function updateResults(input) {
   }
 }
 
+const debouncedUpdateResults = debounce(updateResults, 300);
+
 document.documentElement.addEventListener('input', e => {
   if (e.target?.matches('#block-filter wa-input')) {
-    updateResults(e.target);
+    debouncedUpdateResults(e.target);
   }
 });

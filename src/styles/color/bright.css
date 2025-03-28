@@ -22,13 +22,13 @@
   --wa-color-orange-90: oklch(92.395% 0.07984 53.06);
   --wa-color-orange-80: oklch(84.389% 0.12224 47.981);
   --wa-color-orange-70: oklch(76.55% 0.16521 42.512);
-  --wa-color-orange-60: #ea7237 /* oklch(68.444% 0.16501 44.349) */;
-  --wa-color-orange-50: #c0561a /* oklch(57.844% 0.15254 45.085) */;
-  --wa-color-orange-40: #963e05 /* oklch(47.639% 0.13153 45.898) */;
-  --wa-color-orange-30: oklch(40.376% 0.11554 45.517);
-  --wa-color-orange-20: oklch(32.94% 0.09927 45.913);
-  --wa-color-orange-10: oklch(24.083% 0.07743 46.027);
-  --wa-color-orange-05: oklch(18.817% 0.06098 48.455);
+  --wa-color-orange-60: #e97331 /* oklch(68.357% 0.16507 46.504) */;
+  --wa-color-orange-50: #bf5712 /* oklch(57.834% 0.15197 47.326) */;
+  --wa-color-orange-40: oklch(47.62% 0.132 48.51);
+  --wa-color-orange-30: oklch(40.38% 0.11554 50);
+  --wa-color-orange-20: oklch(32.94% 0.09927 52);
+  --wa-color-orange-10: oklch(24.083% 0.07743 54);
+  --wa-color-orange-05: oklch(18.817% 0.06098 55);
   --wa-color-orange: var(--wa-color-orange-70);
   --wa-color-orange-key: 70;
 

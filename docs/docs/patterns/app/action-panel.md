@@ -1,8 +1,7 @@
 ---
 title: Action Panel
 description: 'These patterns help add user actions to dashboards'
-parent: app
-tags: app
+icon: action-panel
 ---
 ## Examples
 

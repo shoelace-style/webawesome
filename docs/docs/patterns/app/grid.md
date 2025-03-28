@@ -1,8 +1,6 @@
 ---
 title: Grid
 description: TODO
-parent: app
-tags: app
 ---
 
 ```html {.example}

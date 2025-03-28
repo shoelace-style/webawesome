@@ -1,8 +1,6 @@
 ---
 title: Product Reviews
 description: 'Help shoppers make informed decisions with ratings, reviews, and testimonials from your customers.'
-parent: ecommerce
-tags: e-commerce
 ---
 ## Multi column
 
@@ -174,7 +172,7 @@ tags: e-commerce
       <wa-rating label="Rating" precision="0.5" value="5" readonly></wa-rating>
       <p>I recently purchased the Modern Sofa Couch, and I couldn't be happier with my decision! The process from ordering to delivery was smooth and hassle-free</p>
     </div>
-   
+
   </div>
   <wa-divider></wa-divider>
   <div class="wa-flank wa-align-items-center">
@@ -190,7 +188,7 @@ tags: e-commerce
       <wa-rating label="Rating" precision="0.5" value="3.4" readonly></wa-rating>
       <p>The cushions are soft yet supportive, and the sectional layout gives plenty of space to stretch out. It’s perfect for movie nights or just lounging with a good book.</p>
     </div>
-    
+
   </div>
   <wa-divider></wa-divider>
   <div class="wa-flank wa-align-items-center">
@@ -206,7 +204,7 @@ tags: e-commerce
       <wa-rating label="Rating" precision="0.5" value="3.8" readonly></wa-rating>
       <p>The leather is high quality, but it’s a little firmer than I thought. That said, after sitting on it for a while, it does soften up and feels more comfortable. It’s perfect if you’re looking for a more structured seating experience.</p>
     </div>
-    
+
   </div>
   <wa-divider></wa-divider>
 </div>

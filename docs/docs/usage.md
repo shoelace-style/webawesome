@@ -8,6 +8,30 @@ Web Awesome components are just regular HTML elements, or [custom elements](http
 
 If you're new to custom elements, often referred to as "web components," this section will familiarize you with how to use them.
 
+## Awaiting Registration
+
+Unlike traditional frameworks, custom elements don't have a centralized initialization phase. This means you need to verify that a custom element has been properly registered before attempting to interact with its properties or methods.
+
+You can use the [`customElements.whenDefined()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined) method to ensure a specific component is ready:
+
+```ts
+await customElements.whenDefined('wa-button');
+
+// <wa-button> is ready to use!
+const button = document.querySelector('wa-button');
+```
+
+When working with multiple components, checking each one individually can become tedious. For convenience, Web Awesome provides the `allDefined()` function which automatically detects and waits for all Web Awesome components in the DOM to be initialized before resolving.
+
+```ts
+import { allDefined } from '/dist/webawesome.js';
+
+// Waits for all Web Awesome components in the DOM to be registered
+await allDefined();
+
+// All Web Awesome components on the page are ready!
+```
+
 ## Attributes & Properties
 
 Many components have properties that can be set using attributes. For example, buttons accept a `size` attribute that maps to the `size` property which dictates the button's size.
