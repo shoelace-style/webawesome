@@ -106,6 +106,9 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private handleDefaultSlotChange() {
+    // Tell the controller to update the label
+    this.closest('wa-select')?.selectionChanged();
+
     this.updateDefaultLabel();
 
     if (this.isInitialized) {
@@ -123,7 +126,7 @@ export default class WaOption extends WebAwesomeElement {
 
   private handleHover = (event: Event) => {
     // We need this because Safari doesn't honor :hover styles while dragging
-    // Testcase: https://codepen.io/leaverou/pen/VYZOOjy
+    // Test case: https://codepen.io/leaverou/pen/VYZOOjy
     if (event.type === 'mouseenter') {
       this.toggleCustomState('hover', true);
     } else if (event.type === 'mouseleave') {

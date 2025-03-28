@@ -670,9 +670,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.selectionChanged();
   }
 
-  // This method must be called whenever the selection changes. It will update the selected options cache, the current
-  // value, and the display value
-  private selectionChanged() {
+  // @internal This method must be called whenever the selection changes. It will update the selected options cache, the
+  // current value, and the display value. The option component uses it internally to update labels as they change.
+  public selectionChanged() {
     const options = this.getAllOptions();
 
     // Update selected options cache
