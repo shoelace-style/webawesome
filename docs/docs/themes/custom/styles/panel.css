@@ -1,15 +1,20 @@
 .panel {
   --spacing: var(--wa-space-s);
+  --panel-background: var(--wa-color-surface-default);
+
   display: flex;
   flex-flow: column;
   max-height: 100%;
   margin-bottom: 0;
+  position: relative;
+  background: var(--panel-background);
 
   summary {
     flex-direction: row-reverse;
     justify-content: start;
     gap: var(--wa-space-xs);
     cursor: pointer;
+    background: var(--panel-background);
 
     &::after {
       transform: rotate(180deg);
@@ -24,11 +29,21 @@
     }
   }
 
+  &::details-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-flow: column;
+  }
+
   .panel-content {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-flow: column;
     gap: var(--wa-space-s);
+
+    overflow: auto;
   }
 
   h2,

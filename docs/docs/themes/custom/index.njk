@@ -32,6 +32,14 @@ override:tags: [themes]
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
       </wa-radio-group>
+
+      <footer v-if="theme.base">
+        <span class="wa-caption-m">Excellent choice!</span>
+        <wa-button @click=" ui.panel = 'styles'" class="next" size="small">
+          Next
+          <wa-icon library="system" name="chevron-right" variant="solid" slot="suffix"></wa-icon>
+        </wa-button>
+      </footer>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="styles" title="Styles" :previous="previousPanel">

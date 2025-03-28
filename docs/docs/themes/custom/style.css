@@ -33,6 +33,10 @@ wa-page > header {
       margin: 0;
     }
   }
+
+  &::part(menu) {
+    overflow: initial;
+  }
 }
 
 iframe.preview {
@@ -74,12 +78,18 @@ wa-radio-group.card-picker {
 }
 
 .panel-content {
-  > wa-dropdown {
-    flex: 1;
-  }
-
   > wa-card {
     margin-block: var(--wa-space-xs);
+  }
+
+  > footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .next {
+      margin-inline-start: auto;
+    }
   }
 }
 
