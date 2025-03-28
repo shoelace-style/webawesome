@@ -107,7 +107,9 @@ export default class WaOption extends WebAwesomeElement {
 
   private handleDefaultSlotChange() {
     // Tell the controller to update the label
-    this.closest('wa-select')?.selectionChanged();
+    if (customElements.get('wa-select')) {
+      this.closest('wa-select')?.selectionChanged();
+    }
 
     this.updateDefaultLabel();
 
