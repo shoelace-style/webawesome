@@ -21,6 +21,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
 - Fixed the missing indeterminate icon in native checkbox styles
 - Fixed a bug where changing a `<wa-option>` label wouldn't update the display label in `<wa-select>`
+- Fixed a bug in `<wa-radio>` where elements would stack instead of display inline
 
 ### Enhancements
 
