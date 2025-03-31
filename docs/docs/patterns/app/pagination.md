@@ -1,6 +1,6 @@
 ---
 title: Pagination
-description: TODO
+description: 'Improve navigation and performance by breaking long lists or content into manageable pages.'
 ---
 
 ## Simple

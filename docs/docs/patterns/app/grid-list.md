@@ -1,6 +1,6 @@
 ---
-title: Grid
-description: TODO
+title: Grid List
+description: 'Improve browsing and selection by organizing data in a structured grid layout.'
 ---
 
 ## Cards with Footer Actions

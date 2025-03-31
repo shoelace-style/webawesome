@@ -1,6 +1,6 @@
 ---
 title: FAQ
-description: 'The user has questions concerning a site and its related services'
+description: 'Empower users to learn more with a structured list of questions and answers.'
 ---
 
 ## With Flanked Heading & Description

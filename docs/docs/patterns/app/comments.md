@@ -1,6 +1,6 @@
 ---
 title: Comments
-description: 'For feedback forms and message boxes'
+description: 'Enable users to engage in discussions, provide feedback, or record their thoughts.'
 ---
 
 ## Card with Header & Footer

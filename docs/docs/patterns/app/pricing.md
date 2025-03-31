@@ -1,6 +1,6 @@
 ---
 title: Pricing
-description: TODO
+description: 'Help users make informed purchasing decisions with clear, structured pricing.'
 ---
 
 ## Three Tiers

@@ -1,6 +1,6 @@
 ---
 title: Action Panel
-description: 'These patterns help add user actions to dashboards'
+description: 'Help users complete tasks efficiently with quick access to key actions.'
 icon: action-panel
 ---
 

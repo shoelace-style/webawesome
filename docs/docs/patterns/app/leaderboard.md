@@ -1,6 +1,6 @@
 ---
 title: Leaderboard
-description: TODO
+description: 'Engage and motivate users by highlighting top performers, scores, and achievements.'
 ---
 
 ## Simple

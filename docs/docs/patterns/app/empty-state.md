@@ -1,9 +1,10 @@
 ---
 title: Empty State
-description: TODO
+description: 'Guide users with helpful prompts and visuals when no content is available.'
 ---
 
 ## Simple
+
 ```html {.example}
 <div class="wa-stack wa-align-items-center">
   <wa-icon name="backpack" class="wa-caption-l" style="font-size: var(--wa-font-size-3xl)"></wa-icon>
@@ -16,7 +17,7 @@ description: TODO
 </div>
 ```
 
-## With Border
+## With Interactive Placeholder
 
 ```html {.example}
 <a href="" class="wa-stack wa-align-items-center wa-placeholder wa-link-plain" style="max-width: 60ch; margin: auto">
@@ -26,7 +27,7 @@ description: TODO
 </a>
 ```
 
-## With starting points
+## With Templates
 
 ```html {.example}
 <wa-card with-header with-footer style="max-width: 70ch; margin: auto">
@@ -34,7 +35,7 @@ description: TODO
     <h2 class="wa-heading-m">Projects</h2>
   </div>
   <div class="wa-stack wa-gap-xl">
-    <p class="wa-caption-m">You haven’t created a project yet. Get started by selecting a template or start from an empty project.</p>
+    <p class="wa-caption-m">You haven’t created a project yet. Get started by selecting a template or start with a blank canvas.</p>
     <div class="wa-grid wa-gap-xl" style="--min-column-size: 30ch;">
       <a href="" class="wa-flank wa-align-items-start wa-link-plain">
         <wa-avatar shape="rounded">

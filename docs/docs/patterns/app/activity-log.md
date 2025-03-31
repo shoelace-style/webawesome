@@ -1,6 +1,6 @@
 ---
-title: Feed
-description: TODO
+title: Activity Log
+description: 'Track and organize recent user actions or events.'
 ---
 
 ## Timeline with Icons

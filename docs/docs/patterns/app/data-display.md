@@ -1,6 +1,6 @@
 ---
 title: Data Display
-description: TODO
+description: 'Convey insights, metrics, and aggregate data at a glance.'
 ---
 
 ## Cards with Avatars

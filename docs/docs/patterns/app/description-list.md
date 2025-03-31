@@ -1,6 +1,6 @@
 ---
 title: Description List
-description: 'Shows the user information with labels and values in an easy to read format.'
+description: 'Help users digest detailed information in a structured, easy-to-scan format.'
 ---
 
 ## Left Aligned
