@@ -23,6 +23,60 @@ description: 'Enable users to engage in discussions, provide feedback, or record
 </form>
 ```
 
+## Card with Thread
+
+```html {.example}
+<wa-card style="max-width: 60ch; margin: auto">
+  <div class="wa-stack">
+    <h3 class="wa-heading-m">Comments</h3>
+    <wa-textarea aria-label="Comment"></wa-textarea>
+    <wa-button variant="brand">Add Comment</wa-button>
+    <wa-divider></wa-divider>
+    <ul class="wa-stack">
+      <li class="wa-stack wa-gap-2xs">
+        <div class="wa-flank">
+          <wa-avatar initials="RF" label="User avatar"></wa-avatar>
+          <div class="wa-cluster">
+            <strong>Robert Fox</strong>
+            <span class="wa-caption-m">commented <wa-relative-time date="2025-03-31T09:17:00-04:00"></wa-relative-time></span>
+          </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec. Suspendisse potenti. Pellentesque lobortis pulvinar nulla non tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+      </li>
+      <div class="wa-flank wa-gap-xl">
+        <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
+        <ul class="wa-stack">
+          <li class="wa-stack wa-gap-2xs">
+            <div class="wa-flank">
+              <wa-avatar label="User avatar"></wa-avatar>
+              <div class="wa-cluster">
+                <strong>Virginia Woolf</strong>
+                <span class="wa-caption-m">commented <wa-relative-time date="2025-03-31T12:32:00-04:00"></wa-relative-time></span>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec.</p>
+          </li>
+          <li class="wa-stack wa-gap-2xs">
+            <div class="wa-flank">
+              <wa-avatar label="User avatar"></wa-avatar>
+              <div class="wa-cluster">
+                <strong>Clarissa Vaughan</strong>
+                <span class="wa-caption-m">commented <wa-relative-time></wa-relative-time></span>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec.</p>
+          </li>
+          <li class="wa-cluster">
+            <wa-icon name="reply"></wa-icon>
+            <a href="">Leave a reply</a>
+          </li>
+        </ul>
+      </div>
+    </ul>
+  </div>
+</wa-card>
+```
+
 ## With Avatar & Additional Actions
 
 ```html {.example}

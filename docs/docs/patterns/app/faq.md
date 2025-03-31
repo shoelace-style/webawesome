@@ -28,7 +28,7 @@ description: 'Empower users to learn more with a structured list of questions an
 </div>
 ```
 
-## Expandable Answers
+## With Expandable Answers
 
 ```html {.example}
 <div class="wa-stack">
