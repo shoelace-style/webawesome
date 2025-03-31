@@ -29,7 +29,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
 <div class="wa-align-items-start wa-flank">
   <wa-avatar image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="User avatar"></wa-avatar>
   <div class="wa-stack wa-gap-s">
-    <wa-textarea placeholder="Add to the conversation..."></wa-textarea>
+    <wa-textarea placeholder="Add to the conversation..." aria-label="Add comment"></wa-textarea>
     <div class="wa-split">
       <div class="wa-cluster wa-gap-s">
         <wa-icon-button name="paperclip" label="Attach File" id="attach-button"></wa-icon-button>
@@ -73,7 +73,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
       <wa-checkbox>Loved it!</wa-checkbox>
     </div>
     <wa-divider></wa-divider>
-    <wa-textarea placeholder="Add review..."></wa-textarea>
+    <wa-textarea placeholder="Add review..." aria-label="Add review"></wa-textarea>
   </div>
   <div slot="footer" class="wa-grid">
     <wa-button appearance="outlined">Cancel</wa-button>
