@@ -28,6 +28,8 @@ wa-page > header {
   .title {
     display: flex;
     margin: 0 auto;
+    gap: var(--wa-space-xs);
+    align-items: center;
 
     h1 {
       font-size: inherit;
