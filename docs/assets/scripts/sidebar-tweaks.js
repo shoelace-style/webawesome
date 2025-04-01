@@ -1,5 +1,49 @@
 const sidebar = (globalThis.sidebar = {});
 
+class PersistedArray extends Array {
+  constructor(key) {
+    super();
+    this.key = key;
+
+    if (this.key) {
+      this.fromLocalStorage();
+    }
+
+    // Items were updated in another tab
+    addEventListener('storage', event => {
+      if (event.key === this.key || !event.key) {
+        this.fromLocalStorage();
+      }
+    });
+  }
+
+  /**
+   * Update data from local storage
+   */
+  fromLocalStorage() {
+    // First, empty the array
+    this.splice(0, this.length);
+
+    // Then, fill it with the data from local storage
+    let saved = localStorage[this.key] ? JSON.parse(localStorage[this.key]) : null;
+
+    if (saved) {
+      this.push(...saved);
+    }
+  }
+
+  /**
+   * Write data to local storage
+   */
+  toLocalStorage() {
+    if (this.length > 0) {
+      localStorage[this.key] = JSON.stringify(this);
+    } else {
+      delete localStorage[this.key];
+    }
+  }
+}
+
 sidebar.palettes = {
   render() {
     if (this.saved.length === 0) {
@@ -13,33 +57,8 @@ sidebar.palettes = {
     sidebar.updateCurrent();
   },
 
-  saved: [],
-
-  /**
-   * Update saved palettes from local storage
-   */
-  fromLocalStorage() {
-    // Replace contents of array without breaking references
-    let saved = localStorage.savedPalettes ? JSON.parse(localStorage.savedPalettes) : [];
-    this.saved.splice(0, this.saved.length, ...saved);
-  },
-
-  /**
-   * Write palettes to local storage
-   */
-  toLocalStorage() {
-    if (this.saved.length > 0) {
-      localStorage.savedPalettes = JSON.stringify(this.saved);
-    } else {
-      delete localStorage.savedPalettes;
-    }
-  },
+  saved: new PersistedArray('savedPalettes'),
 };
-
-sidebar.palettes.fromLocalStorage();
-
-// Palettes were updated in another tab
-addEventListener('storage', () => sidebar.palettes.fromLocalStorage());
 
 sidebar.palette = {
   getUid() {
@@ -110,7 +129,7 @@ sidebar.palette = {
 
     sidebar.updateCurrent();
 
-    sidebar.palettes.toLocalStorage();
+    sidebar.palettes.saved.toLocalStorage();
 
     if (globalThis.paletteApp?.saved?.uid === palette.uid) {
       // We deleted the currently active palette
@@ -175,7 +194,7 @@ sidebar.palette = {
 
     this.render(palette, oldValues);
     sidebar.updateCurrent();
-    sidebar.palettes.toLocalStorage();
+    sidebar.palettes.saved.toLocalStorage();
 
     return palette;
   },
