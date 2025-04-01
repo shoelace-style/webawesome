@@ -46,7 +46,7 @@ let paletteAppSpec = {
     return {
       uid: undefined,
       paletteId,
-      paletteTitle: palette.title,
+      originalPaletteTitle: palette.title,
       originalColors: palette.colors,
       permalink: new Permalink(),
       hueRanges,
@@ -56,6 +56,8 @@ let paletteAppSpec = {
       grayColor: undefined,
       tweaking: {},
       saved: null,
+      unsavedChanges: false,
+      savedPalettes: sidebar.palettes.saved,
     };
   },
 
@@ -63,20 +65,16 @@ let paletteAppSpec = {
     // Non-reactive variables to expose
     Object.assign(this, { moreHue });
 
-    // Read URL params and apply them. This facilitates permalinks.
-    this.permalink.mapObject(this.hueShifts, {
-      keyTo: key => key.replace(/-shift$/, ''),
-      keyFrom: key => key + '-shift',
-      valueFrom: value => (!value ? '' : Number(value)),
-      valueTo: value => (!value ? 0 : Number(value)),
-    });
-
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
 
     if (location.search) {
-      // Update from URL
-      this.permalink.writeTo(this.hueShifts);
+      // Read URL params and apply them. This facilitates permalinks.
+      for (let hue in this.hueShifts) {
+        if (this.permalink.has(hue + '-shift')) {
+          this.hueShifts[hue] = Number(this.permalink.get(hue + '-shift'));
+        }
+      }
 
       for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
         if (this.permalink.has(param)) {
@@ -94,9 +92,8 @@ let paletteAppSpec = {
 
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
+        this.saved = sidebar.palettes.saved.find(p => p.uid === this.uid);
       }
-
-      this.saved = sidebar.palette.getSaved(this.getPalette());
     }
   },
 
@@ -104,9 +101,30 @@ let paletteAppSpec = {
     for (let ref in this.$refs) {
       this.$refs[ref].tooltipFormatter = percentFormatter;
     }
+
+    nextTick().then(() => {
+      if (!this.tweaked || this.saved) {
+        this.unsavedChanges = false;
+      }
+    });
   },
 
   computed: {
+    /** Default palette title for saving */
+    defaultPaletteTitle() {
+      return this.originalPaletteTitle + ' (tweaked)';
+    },
+
+    paletteTitle() {
+      if (this.saved) {
+        return this.saved.title;
+      } else if (this.tweaked) {
+        return this.defaultPaletteTitle;
+      } else {
+        return this.originalPaletteTitle;
+      }
+    },
+
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -284,7 +302,9 @@ let paletteAppSpec = {
     hueShifts: {
       deep: true,
       handler() {
-        this.permalink.readFrom(this.hueShifts);
+        for (let hue in this.hueShifts) {
+          this.permalink.set(hue + '-shift', this.hueShifts[hue], 0);
+        }
       },
     },
 
@@ -308,58 +328,56 @@ let paletteAppSpec = {
         // Update page URL
         this.permalink.updateLocation();
 
-        if (this.saved) {
-          this.save({ silent: true });
-        }
+        this.unsavedChanges = true;
+      },
+    },
+
+    saved: {
+      deep: true,
+      handler() {
+        this.unsavedChanges = !this.saved;
       },
     },
   },
 
   methods: {
-    getPalette() {
-      return { id: this.paletteId, uid: this.uid, search: location.search };
-    },
-
-    save({ silent } = {}) {
-      let title = silent
-        ? (this.saved?.title ?? this.paletteTitle)
-        : prompt('Palette title:', `${this.paletteTitle} (tweaked)`);
-
-      if (!title) {
-        return;
-      }
-
+    async save({ title } = {}) {
       let uid = this.uid;
 
-      if (!uid) {
-        // First time saving
-        this.uid = uid = sidebar.palette.getUid();
+      this.saved ??= { id: this.paletteId, uid: this.uid };
 
-        this.permalink.set('uid', uid);
-        this.permalink.updateLocation();
+      if (title) {
+        // Renaming
+        this.saved.title = title;
+      } else {
+        this.saved.title ??= this.defaultPaletteTitle;
       }
 
-      let palette = { ...this.getPalette(), uid, title };
+      this.saved.search = location.search;
 
-      sidebar.palette.save(palette, this.saved);
-      this.saved = palette;
+      this.saved = sidebar.palette.save(this.saved);
+
+      if (uid !== this.saved.uid) {
+        // UID changed (most likely from saving a new palette)
+        this.uid = this.saved.uid;
+        this.permalink.set('uid', this.uid);
+        this.permalink.updateLocation();
+        await this.$nextTick();
+        this.save(); // Save again to update the search param to include the UID
+      }
+
+      this.unsavedChanges = false;
     },
 
     rename() {
-      if (!this.saved) {
-        return;
+      let newTitle = prompt('Palette title:', this.saved?.title ?? this.defaultPaletteTitle);
+
+      if (newTitle && newTitle !== this.saved?.title) {
+        this.save({ title: newTitle });
       }
-
-      let newTitle = prompt('New title:', this.saved.title);
-
-      if (!newTitle) {
-        return;
-      }
-
-      this.saved.title = newTitle;
-      sidebar.palette.save(this.saved);
     },
 
+    // Cannot name this delete() because Vue complains
     deleteSaved() {
       sidebar.palette.delete(this.saved);
     },

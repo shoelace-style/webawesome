@@ -13,56 +13,42 @@ export default class Permalink extends URLSearchParams {
     return Object.fromEntries(this.entries());
   }
 
-  #mappings = new WeakMap();
-
-  mapObject(obj, mapping = {}) {
-    this.#mappings.set(obj, mapping);
-  }
-
-  readFrom(obj) {
-    let mapping = this.#mappings.get(obj) ?? {};
-    let { keyFrom = IDENTITY, valueFrom = IDENTITY } = mapping;
-
-    for (let key in obj) {
-      let value = obj[key];
-      let mappedValue = valueFrom(value);
-      let mappedKey = keyFrom(key);
-      this.set(mappedKey, mappedValue);
-    }
-  }
-
-  writeTo(obj) {
-    let mapping = this.#mappings.get(obj) ?? {};
-    let { keyTo = IDENTITY, valueTo = IDENTITY, canExtend = false } = mapping;
-
-    for (let [key, value] of this) {
-      let mappedKey = keyTo(key);
-      let mappedValue = valueTo(value);
-
-      if (canExtend || mappedKey in obj) {
-        obj[mappedKey] = mappedValue;
-      }
-    }
-  }
-
   set(key, value, defaultValue) {
-    let oldValue = this.get(key);
+    if (equals(value, defaultValue) || equals(value, '')) {
+      value = null;
+    }
 
-    if (!value || value == defaultValue) {
+    value ??= null; // undefined -> null
+
+    let oldValue = Array.isArray(value) ? this.getAll(key) : this.get(key);
+    let changed = !equals(value, oldValue);
+
+    if (!changed) {
+      // Nothing to do here
+      return;
+    }
+
+    if (Array.isArray(value)) {
       super.delete(key);
+      value = value.slice();
 
-      if (oldValue) {
-        this.changed = true;
+      for (let v of value) {
+        if (v || v === 0) {
+          if (typeof v === 'object') {
+            super.append(key, JSON.stringify(v));
+          } else {
+            super.append(key, v);
+          }
+        }
       }
+    } else if (value === null) {
+      super.delete(key);
     } else {
       super.set(key, value);
-
-      if (String(value) !== String(oldValue)) {
-        this.changed = true;
-      }
     }
 
     this.sort();
+    this.changed ||= changed;
   }
 
   /**
@@ -78,4 +64,41 @@ export default class Permalink extends URLSearchParams {
       this.changed = false;
     }
   }
+}
+
+function equals(value, oldValue) {
+  if (Array.isArray(value) || Array.isArray(oldValue)) {
+    value = toArray(value);
+    oldValue = toArray(oldValue);
+
+    if (value.length !== oldValue.length) {
+      return false;
+    }
+
+    return value.every((v, i) => equals(v, oldValue[i]));
+  }
+
+  // (value ?? oldValue ?? true) returns true if they're both empty (null or undefined)
+  [value, oldValue] = [value, oldValue].map(v => (!v && v !== false && v !== 0 ? null : v));
+  return value === oldValue || String(value) === String(oldValue);
+}
+
+/**
+ * Convert a value to an array. `undefined` and `null` values are converted to an empty array.
+ * @param {*} value - The value to convert.
+ * @returns {any[]} The converted array.
+ */
+function toArray(value) {
+  value ??= [];
+
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  // Don't convert "foo" into ["f", "o", "o"]
+  if (typeof value !== 'string' && typeof value[Symbol.iterator] === 'function') {
+    return Array.from(value);
+  }
+
+  return [value];
 }
