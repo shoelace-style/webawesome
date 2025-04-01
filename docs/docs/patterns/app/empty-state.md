@@ -2,9 +2,7 @@
 title: Empty State
 description: TODO
 ---
-## Examples
-
-### Simple
+## Simple
 ```html{.example}
  <div class="wa-stack wa-align-items-center">
   <wa-icon name="folder" style="font-size: 60px;"></wa-icon>
@@ -17,7 +15,7 @@ description: TODO
 </div>
 ```
 
-### With border
+## With border
 
 ```html{.example}
   <a href="#" class="wa-align-items-center wa-callout wa-neutral wa-outlined wa-stack" style="max-width: 480px; margin: 0 auto; text-decoration: none;">
@@ -28,7 +26,7 @@ description: TODO
     </div>
   </a>
 ```
-### With starting points
+## With starting points
 
 ```html{.example}
 <wa-card with-header with-footer style="max-width: 720px; margin: 0 auto;">
@@ -106,6 +104,86 @@ description: TODO
   </div>
   <div slot="footer">
     <a href="#">Or start from an empty project →</a>
+  </div>
+</wa-card>
+```
+## Add people 
+```html{.example}
+<wa-card style="max-width: 60ch; margin: 0 auto;">
+  <div class="wa-stack">
+    <wa-icon></wa-icon>
+    <h1>Add team members</h1>
+    <p>You haven’t added any team members to your project yet. As the owner of this project, you can manage team member permissions.</p>
+    <div class="wa-flank:end">
+      <wa-input></wa-input><wa-button>Invite</wa-button>
+    </div>
+    <div class="wa-stack">
+      <span>Team members previously added to projects</span>
+      <wa-divider></wa-divider>
+      <section>
+        <div class="wa-flank">
+          <wa-avatar></wa-avatar>
+        <div class="wa-split">
+          <div class="wa-stack wa-gap-0">
+            <span>lindsey Walton</span>
+            <span>Front end Developer</span>
+          </div>
+          <wa-button appearance="plain">
+            <wa-icon name="plus" slot="prefix"></wa-icon>  
+            Invite
+          </wa-button>
+        </div>
+        </div>
+        <wa-divider></wa-divider>
+      </section>
+      <section>
+        <div class="wa-flank">
+          <wa-avatar></wa-avatar>
+        <div class="wa-split">
+          <div class="wa-stack wa-gap-0">
+            <span>lindsey Walton</span>
+            <span>Front end Developer</span>
+          </div>
+          <wa-button appearance="plain">
+            <wa-icon name="plus" slot="prefix"></wa-icon>  
+            Invite
+          </wa-button>
+        </div>
+        </div>
+        <wa-divider></wa-divider>
+      </section>
+      <section>
+        <div class="wa-flank">
+          <wa-avatar></wa-avatar>
+        <div class="wa-split">
+          <div class="wa-stack wa-gap-0">
+            <span>lindsey Walton</span>
+            <span>Front end Developer</span>
+          </div>
+          <wa-button appearance="plain">
+            <wa-icon name="plus" slot="prefix"></wa-icon>  
+            Invite
+          </wa-button>
+        </div>
+        </div>
+        <wa-divider></wa-divider>
+      </section><section>
+        <div class="wa-flank">
+          <wa-avatar></wa-avatar>
+        <div class="wa-split">
+          <div class="wa-stack wa-gap-0">
+            <span>lindsey Walton</span>
+            <span>Front end Developer</span>
+          </div>
+          <wa-button appearance="plain">
+            <wa-icon name="plus" slot="prefix"></wa-icon>  
+            Invite
+          </wa-button>
+        </div>
+        </div>
+        <wa-divider></wa-divider>
+      </section>
+    </div>
   </div>
 </wa-card>
 ```

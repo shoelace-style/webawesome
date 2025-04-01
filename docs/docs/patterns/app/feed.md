@@ -155,3 +155,109 @@ description: TODO
 </div>
 </wa-card>
 ```
+
+## Card Separated
+```html{.example}
+<div class="wa-stack" style="max-width: 45ch; margin: 0 auto;">
+  <div class="wa-stack">
+    <wa-card>
+      <div class="wa-flank">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack wa-gap-0">
+          <div class="wa-split">
+            <span class="wa-heading-s">Charlotte Parker</span>
+            <span class="wa-caption-s">4h</span>
+          </div>
+          <p>Who's on first?</p>
+          <a href="#" class="wa-cluster wa-gap-2xs">
+            <wa-icon name="reply"></wa-icon>
+            <span>Reply</span>
+          </a>
+        </div>
+      </div>
+    </wa-card>
+    <ul class="wa-stack"  style="list-style-type: none; margin-inline-start: 2.5em;">
+      <li>
+        <wa-card>
+      <div class="wa-flank">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack wa-gap-0">
+          <div class="wa-split">
+            <span class="wa-heading-s">Charlotte Parker</span>
+            <span class="wa-caption-s">1h</span>
+          </div>
+          <p>What's on second?</p>
+          <a href="#" class="wa-cluster wa-gap-2xs">
+            <wa-icon name="reply"></wa-icon>
+            <span>Reply</span>
+          </a>
+        </div>
+      </div>
+    </wa-card>
+      </li>
+      <li>
+        <wa-card>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack wa-gap-xs">
+          <div class="wa-split">
+            <span class="wa-heading-s">Charlotte Parker</span>
+          </div>
+          <wa-textarea size="small"></wa-textarea>
+        </div>
+      </div>
+    </wa-card>
+      </li>
+    </ul>
+  </div>
+  <div class="wa-stack">
+    <wa-card>
+      <div class="wa-flank">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack">
+          <div class="wa-split">
+            <span>Charlotte Parker</span>
+            <span>4h</span>
+          </div>
+          <p>dfjsfjskfjska</p>
+          <a href="#">Reply</a>
+        </div>
+      </div>
+    </wa-card>
+    <ul class="wa-stack"  style="list-style-type: none; margin-inline-start: 2.5em;">
+      <li><wa-card></wa-card></li>
+      <li><wa-card></wa-card></li>
+      <li><wa-card></wa-card></li>
+    </ul>
+  </div>
+</div>
+```
+## Divider Separated
+```html{.example}
+<wa-card with-header style="max-width: 54ch; margin: 0 auto;">
+  <div slot="header" class="wa-split">
+    <div>
+      <span>Notifications</span>
+      <wa-badge>2</wa-badge>
+    </div>
+    <wa-icon name="close"></wa-icon>
+  </div>
+  <div class="wa-stack">
+    <section>
+      <div class="wa-flank">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack">
+          <div class="wa-split">
+
+          </div>
+          <div class="wa-split">
+            
+          </div>
+          <wa-callout>dfjsdljfdsl</wa-callout>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </section>
+  </div>
+</wa-card>
+```

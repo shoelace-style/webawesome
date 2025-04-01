@@ -2,9 +2,8 @@
 title: Comments
 description: 'For feedback forms and message boxes'
 ---
-## Examples
 
-### In card with footer
+## In card with footer
 ```html{.example}
 <form class="comment-box" style="max-width: 960px; margin: 0 auto;">
   <wa-card with-footer>
@@ -20,7 +19,7 @@ description: 'For feedback forms and message boxes'
 </form>
 ```
 
-### with avatar and icon buttons
+## with avatar and icon buttons
 ```html{.example}
 <div class="wa-callout wa-neutral wa-outlined" style="max-width: 960px; margin: 0 auto;">
   <div class="wa-align-items-start wa-flank">
@@ -39,7 +38,7 @@ description: 'For feedback forms and message boxes'
 </div>
 ```
 
-### With multiple actions
+## With multiple actions
 
 ```html{.example}
 <wa-card with-header with-footer style="max-width: 640px; margin: 0 auto;">
@@ -70,4 +69,30 @@ description: 'For feedback forms and message boxes'
     <wa-button variant="brand">Save</wa-button>
   </div>
 </wa-card>
+```
+## with preview
+```html{.example}
+<div style="max-width: 60ch; margin: 0 auto;">
+  <wa-card class="wa-border-radius-square" with-footer>
+    <wa-tab-group>
+      <wa-tab panel="write">Write</wa-tab>
+      <wa-tab panel="preview">Preview</wa-tab>
+      <wa-tab-panel name="write">
+        <div class="wa-stack">
+          <div class="wa-cluster wa-gap-xs"  style="justify-content: flex-end;">
+            <wa-icon-button name="link" label="add link"></wa-icon-button>
+            <wa-icon-button name="at" label="mention collaborator"></wa-icon-button>
+            <wa-icon-button name="hashtag" label="change heading"></wa-icon-button>
+          </div>
+          <wa-textarea></wa-textarea>
+        </div>
+      </wa-tab-panel>
+      <wa-tab-panel name="preview">Your content will be will render here.</wa-tab-panel>
+    </wa-tab-group>
+    <div slot="footer" class="wa-cluster" style="justify-content: flex-end;">
+      <wa-button size="small">Post</wa-button>
+    </div>
+  </wa-card>
+
+</div>
 ```
