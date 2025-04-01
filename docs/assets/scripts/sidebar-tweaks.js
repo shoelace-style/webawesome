@@ -1,280 +1,114 @@
-const sidebar = (globalThis.sidebar = {});
+import my from '/assets/scripts/my.js';
 
-class PersistedArray extends Array {
-  constructor(key) {
-    super();
-    this.key = key;
+const sidebar = {
+  addChild(a, parentA) {
+    let parentLi = parentA.closest('li');
+    let ul = parentLi.querySelector(':scope > ul');
+    ul ??= parentLi.appendChild(document.createElement('ul'));
+    let li = document.createElement('li');
+    li.append(a);
+    ul.appendChild(li);
 
-    if (this.key) {
-      this.fromLocalStorage();
+    // If we are on the same page, update the current link
+    let url = location.href.replace(/#.+$/, '');
+    if (url.startsWith(a.href)) {
+      a.classList.add('current');
     }
 
-    // Items were updated in another tab
-    addEventListener('storage', event => {
-      if (event.key === this.key || !event.key) {
-        this.fromLocalStorage();
-      }
-    });
-  }
+    return a;
+  },
 
-  /**
-   * Update data from local storage
-   */
-  fromLocalStorage() {
-    // First, empty the array
-    this.splice(0, this.length);
-
-    // Then, fill it with the data from local storage
-    let saved = localStorage[this.key] ? JSON.parse(localStorage[this.key]) : null;
-
-    if (saved) {
-      this.push(...saved);
-    }
-  }
-
-  /**
-   * Write data to local storage
-   */
-  toLocalStorage() {
-    if (this.length > 0) {
-      localStorage[this.key] = JSON.stringify(this);
-    } else {
-      delete localStorage[this.key];
-    }
-  }
-}
-
-sidebar.palettes = {
-  render() {
-    if (this.saved.length === 0) {
+  removeLink(a) {
+    if (!a || !a.isConnected) {
+      // Link doesn't exist or is already removed
       return;
     }
 
-    for (let palette of this.saved) {
-      sidebar.palette.render(palette);
+    let li = a?.closest('li');
+    let ul = li?.closest('ul');
+    let parentA = ul?.closest('li')?.querySelector(':scope > a');
+
+    li?.remove();
+    if (ul?.children.length === 0) {
+      ul.remove();
     }
 
-    sidebar.updateCurrent();
-  },
-
-  saved: new PersistedArray('savedPalettes'),
-};
-
-sidebar.palette = {
-  getUid() {
-    let savedPalettes = sidebar.palettes.saved;
-    let uids = new Set(savedPalettes.map(p => p.uid));
-
-    if (savedPalettes.length === 0) {
-      return 1;
-    }
-
-    // Find first available number
-    for (let i = 1; i <= savedPalettes.length + 1; i++) {
-      if (!uids.has(i)) {
-        return i;
-      }
+    if (a.classList.contains('current')) {
+      // If the deleted palette was the current one, the current one is now the parent
+      parentA.classList.add('current');
     }
   },
 
-  delete(palette) {
-    let savedPalettes = sidebar.palettes.saved;
-    let count = savedPalettes.length;
-
-    if (count === 0 || !palette.uid) {
-      // No stored palettes or this palette has not been saved
-      return;
-    }
-
-    // TODO improve UX of this
-    if (!confirm(`Are you sure you want to delete palette “${palette.title}”?`)) {
-      return;
-    }
-
-    for (let index; (index = savedPalettes.findIndex(p => p.uid === palette.uid)) > -1; ) {
-      savedPalettes.splice(index, 1);
-    }
-
-    if (savedPalettes.length === count) {
-      // Nothing was removed
-      return;
-    }
-
-    // Update UI
-    let pathname = `/docs/palettes/${palette.id}/`;
-    let url = pathname + palette.search;
-    let uls = new Set();
-
-    for (let a of document.querySelectorAll(`#sidebar a[href="${url}"]`)) {
-      let li = a.closest('li');
-      let ul = li.closest('ul');
-      uls.add(ul);
-      li.remove();
-    }
-
-    // Remove empty lists
-    for (let ul of uls) {
-      if (!ul.children.length) {
-        ul.remove();
-      }
-    }
-
-    sidebar.updateCurrent();
-
-    sidebar.palettes.saved.toLocalStorage();
-
-    if (globalThis.paletteApp?.saved?.uid === palette.uid) {
-      // We deleted the currently active palette
-      paletteApp.postDelete();
-    }
+  findEntity(entity) {
+    return document.querySelector(`#sidebar a[href^="${entity.baseUrl}"][data-uid="${entity.uid}"]`);
   },
 
-  render(palette) {
-    // Find existing <a>
-    let { title, id, search, uid } = palette;
+  renderEntity(entity) {
+    let { url, parentUrl } = entity;
 
-    for (let a of document.querySelectorAll(`#sidebar a[href^="/docs/palettes/${id}/"][data-uid="${uid}"]`)) {
-      // Palette already in sidebar, just update it
-      a.textContent = palette.title;
-      a.href = `/docs/palettes/${id}/${search}`;
-      return;
-    }
-
-    let pathname = `/docs/palettes/${id}/`;
-    let url = pathname + search;
-    let parentA = document.querySelector(`a[href="${pathname}"]`);
+    // Find parent
+    let parentA = document.querySelector(`#sidebar a[href="${parentUrl}"]`);
     let parentLi = parentA?.closest('li');
-    let a;
 
-    if (parentLi) {
-      a = Object.assign(document.createElement('a'), { href: url, textContent: title });
-      a.dataset.uid = uid;
-      let badges = [...parentLi.querySelectorAll('wa-badge')].map(badge => badge.cloneNode(true));
-      let ul = parentLi.querySelector('ul') ?? parentLi.appendChild(document.createElement('ul'));
-      let li = document.createElement('li');
-      let deleteButton = Object.assign(document.createElement('wa-icon-button'), {
-        name: 'trash',
-        label: 'Delete',
-        className: 'delete',
-      });
-
-      deleteButton.addEventListener('click', () => {
-        let palette = { id, uid, title: a.textContent, search: a.search };
-        sidebar.palette.delete(palette);
-      });
-
-      li.append(a, ' ', ...badges, deleteButton);
-      ul.appendChild(li);
-    }
-  },
-
-  /**
-   * Save a palette, either by updating its existing entry or creating a new one
-   * @param {object} palette
-   */
-  save(palette) {
-    if (!palette.uid) {
-      // First time saving
-      palette.uid = this.getUid();
+    if (!parentLi) {
+      throw new Error(`Cannot find parent url ${parentUrl}`);
     }
 
-    let savedPalettes = sidebar.palettes.saved;
-    let existingIndex = palette.uid ? sidebar.palettes.saved.findIndex(p => p.uid === palette.uid) : -1;
-    let newIndex = existingIndex > -1 ? existingIndex : savedPalettes.length;
+    // Find existing
+    let a = this.findEntity(entity);
+    let alreadyExisted = !!a;
 
-    let [oldValues] = sidebar.palettes.saved.splice(newIndex, 1, palette);
+    a ??= document.createElement('a');
 
-    this.render(palette, oldValues);
-    sidebar.updateCurrent();
-    sidebar.palettes.saved.toLocalStorage();
+    a.textContent = entity.title;
+    a.href = url;
 
-    return palette;
-  },
-};
+    if (!alreadyExisted) {
+      a.dataset.uid = entity.uid;
 
-sidebar.updateCurrent = function () {
-  // Find the sidebar link with the longest shared prefix with the current URL
-  let pathParts = location.pathname.split('/').filter(Boolean);
-  let prefixes = [];
+      a = sidebar.addChild(a, parentA);
 
-  if (pathParts.length === 1) {
-    // If at /docs/ we just use that, otherwise we want at least two parts (/docs/xxx/)
-    prefixes.push('/' + pathParts[0] + '/');
-  } else {
-    for (let i = 2; i <= pathParts.length; i++) {
-      prefixes.push('/' + pathParts.slice(0, i).join('/') + '/');
-    }
-  }
+      // This is mainly to port Pro badges
+      let badges = Array.from(parentLi.querySelectorAll('wa-badge'), badge => badge.cloneNode(true));
+      let append = [...badges];
 
-  // Last prefix includes the search too (if any)
-  if (location.search) {
-    let params = new URLSearchParams(location.search);
-    params.sort();
-    prefixes.push(prefixes.at(-1) + location.search);
-  }
-
-  // We want to start from the longest prefix
-  prefixes.reverse();
-  let candidates;
-  let matchingPrefix;
-
-  for (let prefix of prefixes) {
-    candidates = document.querySelectorAll(`#sidebar a[href^="${prefix}"]`);
-
-    if (candidates.length > 0) {
-      matchingPrefix = prefix;
-      break;
-    }
-  }
-
-  if (!matchingPrefix) {
-    // Abort mission
-    return;
-  }
-
-  if (matchingPrefix === pathParts.at(-1)) {
-    // Full path matches, check search
-    if (location.search) {
-      candidates = [...candidates];
-
-      let searchParams = new URLSearchParams(location.search);
-
-      if (searchParams.has('uid')) {
-        // Only consider candidates with the same uid
-        candidates = candidates.filter(a => {
-          let params = new URLSearchParams(a.search);
-          return params.get('uid') === searchParams.get('uid');
+      if (entity.delete) {
+        let deleteButton = Object.assign(document.createElement('wa-icon-button'), {
+          name: 'trash',
+          label: 'Delete',
+          className: 'delete',
         });
-      } else {
-        // Sort candidates based on how many params they have in common, in descending order
-        candidates = candidates.sort((a, b) => {
-          return countSharedSearchParams(searchParams, b.search) - countSharedSearchParams(searchParams, a.search);
-        });
+        deleteButton.addEventListener('click', () => entity.delete());
+        append.push(deleteButton);
+      }
+
+      if (append.length > 0) {
+        a.closest('li').append(' ', ...append);
       }
     }
-  }
+  },
 
-  if (candidates.length > 0) {
-    for (let current of document.querySelectorAll('#sidebar a.current')) {
-      current.classList.remove('current');
+  render() {
+    for (let type in my) {
+      let controller = my[type];
+
+      if (!controller.saved) {
+        continue;
+      }
+
+      for (let entity of controller.saved) {
+        let object = controller.getObject(entity);
+        this.renderEntity(object);
+      }
     }
-
-    candidates[0].classList.add('current');
-  }
+  },
 };
 
-sidebar.render = function () {
-  this.palettes.render();
-};
+globalThis.sidebar = sidebar;
+
+// Update sidebar when my saved stuff changes
+my.addEventListener('delete', e => sidebar.removeLink(sidebar.findEntity(e.detail)));
+my.addEventListener('save', e => sidebar.renderEntity(e.detail));
 
 sidebar.render();
 window.addEventListener('turbo:render', () => sidebar.render());
-
-function countSharedSearchParams(searchParams, search) {
-  if (!search || search === '?') {
-    return 0;
-  }
-
-  let params = new URLSearchParams(search);
-  return [...searchParams.keys()].filter(k => params.get(k) === searchParams.get(k)).length;
-}
