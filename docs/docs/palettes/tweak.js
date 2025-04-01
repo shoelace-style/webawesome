@@ -5,8 +5,8 @@ import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
 import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
-import my from '/assets/scripts/my.js';
 import Prism from '/assets/scripts/prism.js';
+import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -39,26 +39,25 @@ for (let palette in allPalettes) {
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
 let paletteAppSpec = {
+  mixins: [savedMixin],
+
   data() {
     let appRoot = document.querySelector('#palette-app');
     let paletteId = appRoot.dataset.paletteId;
     let palette = allPalettes[paletteId];
 
     return {
-      uid: undefined,
       paletteId,
-      originalPaletteTitle: palette.title,
+      originalTitle: palette.title,
       originalColors: palette.colors,
-      permalink: new Permalink(),
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
       grayChroma: undefined,
       grayColor: undefined,
       tweaking: {},
-      saved: null,
-      unsavedChanges: false,
-      savedPalettes: my.palettes.saved,
+      type: 'palette',
+      collection: 'palettes',
     };
   },
 
@@ -90,17 +89,6 @@ let paletteAppSpec = {
           this[prop] = value;
         }
       }
-
-      if (this.permalink.has('uid')) {
-        this.uid = Number(this.permalink.get('uid'));
-        this.saved = my.palettes.saved.find(p => p.uid === this.uid);
-      }
-
-      my.palettes.addEventListener('delete', ({ detail: palette }) => {
-        if (palette.uid === this.saved?.uid) {
-          this.postDelete();
-        }
-      });
     }
   },
 
@@ -108,28 +96,12 @@ let paletteAppSpec = {
     for (let ref in this.$refs) {
       this.$refs[ref].tooltipFormatter = percentFormatter;
     }
-
-    nextTick().then(() => {
-      if (!this.tweaked || this.saved) {
-        this.unsavedChanges = false;
-      }
-    });
   },
 
   computed: {
     /** Default palette title for saving */
-    defaultPaletteTitle() {
-      return this.originalPaletteTitle + ' (tweaked)';
-    },
-
-    paletteTitle() {
-      if (this.saved) {
-        return this.saved.title;
-      } else if (this.tweaked) {
-        return this.defaultPaletteTitle;
-      } else {
-        return this.originalPaletteTitle;
-      }
+    defaultTitle() {
+      return this.originalTitle + ' (tweaked)';
     },
 
     tweaks() {
@@ -338,64 +310,9 @@ let paletteAppSpec = {
         this.unsavedChanges = true;
       },
     },
-
-    saved: {
-      deep: true,
-      handler() {
-        this.unsavedChanges = !this.saved;
-      },
-    },
   },
 
   methods: {
-    async save({ title } = {}) {
-      let uid = this.uid;
-
-      this.saved ??= { id: this.paletteId, uid: this.uid };
-
-      if (title) {
-        // Renaming
-        this.saved.title = title;
-      } else {
-        this.saved.title ??= this.defaultPaletteTitle;
-      }
-
-      this.saved.search = location.search;
-
-      this.saved = my.palettes.save(this.saved);
-
-      if (uid !== this.saved.uid) {
-        // UID changed (most likely from saving a new palette)
-        this.uid = this.saved.uid;
-        this.permalink.set('uid', this.uid);
-        this.permalink.updateLocation();
-        await this.$nextTick();
-        this.save(); // Save again to update the search param to include the UID
-      }
-
-      this.unsavedChanges = false;
-    },
-
-    rename() {
-      let newTitle = prompt('Palette title:', this.saved?.title ?? this.defaultPaletteTitle);
-
-      if (newTitle && newTitle !== this.saved?.title) {
-        this.save({ title: newTitle });
-      }
-    },
-
-    // Cannot name this delete() because Vue complains
-    deleteSaved() {
-      my.palettes.delete(this.saved);
-    },
-
-    postDelete() {
-      this.saved = null;
-      this.permalink.delete('uid');
-      this.uid = undefined;
-      this.permalink.updateLocation();
-    },
-
     /**
      * Remove a specific tweak or all tweaks
      * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
