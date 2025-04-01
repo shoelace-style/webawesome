@@ -97,7 +97,9 @@ let paletteAppSpec = {
       }
 
       my.palettes.addEventListener('delete', ({ detail: palette }) => {
-        this.postDelete();
+        if (palette.uid === this.saved?.uid) {
+          this.postDelete();
+        }
       });
     }
   },
