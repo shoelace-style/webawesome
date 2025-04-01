@@ -5,6 +5,7 @@ import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
 import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
+import my from '/assets/scripts/my.js';
 import Prism from '/assets/scripts/prism.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
@@ -57,7 +58,7 @@ let paletteAppSpec = {
       tweaking: {},
       saved: null,
       unsavedChanges: false,
-      savedPalettes: sidebar.palettes.saved,
+      savedPalettes: my.palettes.saved,
     };
   },
 
@@ -92,8 +93,14 @@ let paletteAppSpec = {
 
       if (this.permalink.has('uid')) {
         this.uid = Number(this.permalink.get('uid'));
-        this.saved = sidebar.palettes.saved.find(p => p.uid === this.uid);
+        this.saved = my.palettes.saved.find(p => p.uid === this.uid);
       }
+
+      my.palettes.addEventListener('delete', ({ detail: palette }) => {
+        if (palette.uid === this.saved?.uid) {
+          this.postDelete();
+        }
+      });
     }
   },
 
@@ -355,7 +362,7 @@ let paletteAppSpec = {
 
       this.saved.search = location.search;
 
-      this.saved = sidebar.palette.save(this.saved);
+      this.saved = my.palettes.save(this.saved);
 
       if (uid !== this.saved.uid) {
         // UID changed (most likely from saving a new palette)
@@ -379,7 +386,7 @@ let paletteAppSpec = {
 
     // Cannot name this delete() because Vue complains
     deleteSaved() {
-      sidebar.palette.delete(this.saved);
+      my.palettes.delete(this.saved);
     },
 
     postDelete() {
