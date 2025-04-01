@@ -6,6 +6,7 @@ import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.
 import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
+import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
@@ -341,28 +342,7 @@ let paletteAppSpec = {
   },
 
   directives: {
-    // Like v-text, but doesn't complain if the element has content,
-    // making it possible to use in a PE fashion, with the contents being the fallback
-    content(el, { value, arg }) {
-      if (!el.dataset.fallback) {
-        // Store the original content as a fallback the first time
-        el.dataset.fallback = el.textContent;
-      }
-
-      if (value === '') {
-        value = el.dataset.fallback;
-      } else {
-        if (arg === 'number') {
-          value = Number(value).toLocaleString(undefined, { maximumSignificantDigits: 2 });
-        }
-      }
-
-      if (arg === 'html') {
-        el.innerHTML = value;
-      } else {
-        el.textContent = value;
-      }
-    },
+    content,
   },
 
   compilerOptions: {
