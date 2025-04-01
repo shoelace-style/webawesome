@@ -77,14 +77,6 @@ sidebar.palette = {
     }
   },
 
-  equals(p1, p2) {
-    if (!p1 || !p2) {
-      return false;
-    }
-
-    return p1.id === p2.id && p1.uid === p2.uid;
-  },
-
   delete(palette) {
     let savedPalettes = sidebar.palettes.saved;
     let count = savedPalettes.length;
