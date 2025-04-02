@@ -31,7 +31,7 @@
   {% include 'breadcrumbs.njk' %}
 
   <h1 class="title">
-    <span v-content="paletteTitle">{{ title }}</span>
+    <span v-content="title">{{ title }}</span>
     <template v-if="saved || tweaked">
       <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
       <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
