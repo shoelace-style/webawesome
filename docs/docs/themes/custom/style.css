@@ -32,7 +32,7 @@ wa-page > header {
     align-items: center;
 
     h1 {
-      font-size: inherit;
+      font-size: var(--wa-font-size-l);
       margin: 0;
     }
   }
