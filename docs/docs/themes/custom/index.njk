@@ -57,21 +57,21 @@ order: 99
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="styles" title="Styles" :previous="previousPanel">
-      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'">
+      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
         <div>
           Color Palette
           <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
         </div>
       </palette-card>
 
-      <theme-card :theme="computed.typography" type="typography" size="small" role="button" :action="e => ui.panel = 'typography'">
+      <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
         <div>
           Typography
           <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
         </div>
       </theme-card>
 
-      <icons-card size="small" disabled>
+      <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
         <div>
           Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
           <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>

@@ -7,7 +7,8 @@ export const ICON_PLACEHOLDER = `
 
 const template = `
 <wa-card with-header class="page-card" :aria-disabled="disabled ? 'true' : null" :inert="disabled"
-         @click="!disabled && action ? action($event) : null" :role="action ? 'button' : null" :tabindex="action? 0 : null">
+         @click="handleClick" @keyup.enter="handleClick"  @keyup.space="handleClick"
+         :role="action ? 'button' : null" :tabindex="action? 0 : null">
   <slot name="icon" slot="header">
     <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
   </slot>
@@ -35,6 +36,19 @@ export default {
 
   created() {
     Object.assign(this, { ICON_PLACEHOLDER });
+  },
+
+  methods: {
+    handleClick(event) {
+      if (this.disabled) {
+        event.stopImmediatePropagation();
+        return;
+      }
+
+      if (this.action) {
+        this.action(event);
+      }
+    },
   },
 
   template,
