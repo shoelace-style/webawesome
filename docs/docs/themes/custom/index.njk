@@ -1,7 +1,9 @@
 ---
 layout: blank
 title: Custom Theme
-override:tags: [themes]
+override:tags: [themes, pro]
+isPro: true
+order: 99
 ---
 
 {% block head %}
@@ -44,7 +46,7 @@ override:tags: [themes]
 
       <footer v-if="theme.base">
         <span class="wa-caption-m">Excellent choice!</span>
-        <wa-button @click=" ui.panel = 'styles'" class="next" size="small">
+        <wa-button @click=" ui.panel = 'styles'" class="next" size="small" variant="success">
           Next
           <wa-icon library="system" name="chevron-right" variant="solid" slot="suffix"></wa-icon>
         </wa-button>
