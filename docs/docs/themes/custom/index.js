@@ -51,6 +51,10 @@ let appSpec = {
 
   computed: {
     id() {
+      if (this.isCustom) {
+        return 'custom';
+      }
+
       return this.computed.base;
     },
 
