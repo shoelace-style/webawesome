@@ -44,11 +44,11 @@ let paletteAppSpec = {
 
   data() {
     let appRoot = document.querySelector('#palette-app');
-    let paletteId = appRoot.dataset.paletteId;
-    let palette = allPalettes[paletteId];
+    let id = appRoot.dataset.paletteId;
+    let palette = allPalettes[id];
 
     return {
-      paletteId,
+      id,
       originalTitle: palette.title,
       originalColors: palette.colors,
       hueRanges,
@@ -121,7 +121,7 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.paletteId, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode(this.id, this.colors, this.tweaked, { language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
