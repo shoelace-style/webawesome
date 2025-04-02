@@ -12,6 +12,11 @@ const sidebar = {
     // If we are on the same page, update the current link
     let url = location.href.replace(/#.+$/, '');
     if (url.startsWith(a.href)) {
+      // Remove existing current
+      for (let current of document.querySelectorAll('#sidebar a.current')) {
+        current.classList.remove('current');
+      }
+
       a.classList.add('current');
     }
 

@@ -17,8 +17,8 @@ export default {
       this.saved = this.controller.saved.find(p => p.uid === this.uid);
     }
 
-    this.controller.addEventListener('delete', ({ detail: palette }) => {
-      if (palette.uid === this.saved?.uid) {
+    this.controller.addEventListener('delete', ({ detail: entity }) => {
+      if (entity.uid === this.saved?.uid) {
         this.postDelete();
       }
     });
@@ -61,7 +61,8 @@ export default {
     async save({ title } = {}) {
       let uid = this.uid;
 
-      this.saved ??= { id: this.paletteId, uid: this.uid };
+      this.saved ??= { uid: this.uid };
+      this.saved.id = this.id;
 
       if (title) {
         // Renaming
@@ -75,7 +76,7 @@ export default {
       this.saved = this.controller.save(this.saved);
 
       if (uid !== this.saved.uid) {
-        // UID changed (most likely from saving a new palette)
+        // UID changed (most likely from saving a new entity)
         this.uid = this.saved.uid;
         this.permalink.set('uid', this.uid);
         this.permalink.updateLocation();
