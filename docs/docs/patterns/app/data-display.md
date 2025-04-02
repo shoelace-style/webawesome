@@ -3,9 +3,9 @@ title: Data Display
 description: 'Convey insights, metrics, and aggregate data at a glance.'
 ---
 
-<<<<<<< HEAD
+
 ## Simple 
-```html{.example}
+```html {.example}
 <wa-card>
   <div class="wa-grid wa-gap-3xl">
     <div class="wa-stack">
@@ -39,11 +39,8 @@ description: 'Convey insights, metrics, and aggregate data at a glance.'
   </div>
 </wa-card>
 ```
-## With icon
-=======
-## Cards with Avatars
->>>>>>> pattern-main
 
+## Cards with Avatars
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 30ch">
   <wa-card>
