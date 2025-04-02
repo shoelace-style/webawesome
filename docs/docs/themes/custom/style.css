@@ -49,13 +49,18 @@ iframe.preview {
 
 .preview-header {
   padding-block: 0;
+
   wa-tab-group {
     margin-left: auto;
   }
+}
 
-  wa-tab-panel {
-    --padding: 0;
-  }
+wa-tab::part(base) {
+  padding-bottom: var(--wa-space-xs);
+}
+
+wa-tab-panel:empty {
+  --padding: 0;
 }
 
 .sidebar {
@@ -102,7 +107,4 @@ wa-radio-group.card-picker {
     left: 50%;
     translate: -50% 0;
   }
-}
-
-wa-dropdown > wa-card[slot='trigger'] {
 }

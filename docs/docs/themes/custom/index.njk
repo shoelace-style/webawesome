@@ -33,6 +33,27 @@ order: 99
       </span>
       <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
     </wa-button>
+    <wa-button size="small" @click="ui.showCode = !showCode" appearance="outlined">
+      <wa-icon name="code" variant="solid"></wa-icon>
+      Code
+    </wa-button>
+    <wa-drawer label="Theme code" with-header :open="ui.showCode" @wa-after-hide="ui.showCode = false" light-dismiss>
+      <wa-tab-group class="import-stylesheet-code" :active="ui.code" @wa-tab-show="ui.code = $event.detail.name">
+        <wa-tab panel="css">CSS</wa-tab>
+        <wa-tab-panel name="css">
+          <pre class="language-css"><code v-content:html="code.css.highlighted"></code></pre>
+          <wa-button :href="code.css.blob" download="theme.css">
+            <wa-icon name="arrow-down-to-line" variant="solid" slot="prefix"></wa-icon>
+            Download
+          </wa-button>
+        </wa-tab-panel>
+
+        <wa-tab panel="html">HTML</wa-tab>
+        <wa-tab-panel name="html">
+          <pre class="'language-html"><code v-content:html="code.html.highlighted"></code></pre>
+        </wa-tab-panel>
+      </wa-tab-group>
+    </wa-drawer>
   </header>
 
   <section class="sidebar" slot="navigation">

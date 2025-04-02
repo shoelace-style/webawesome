@@ -1,5 +1,8 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import Prism from '/assets/scripts/prism.js';
+import { getThemeCode } from '/assets/scripts/tweak/code.js';
+import { cdnUrl } from '/assets/scripts/tweak/data.js';
 import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -27,6 +30,8 @@ let appSpec = {
       },
       ui: {
         panel: 'theme',
+        showCode: false,
+        code: 'css',
         preview: 'app',
       },
       isMobile,
@@ -100,6 +105,23 @@ let appSpec = {
       }
 
       return 'styles';
+    },
+
+    code() {
+      let ret = {};
+
+      for (let language of ['html', 'css']) {
+        let code = getThemeCode(this.id, this.theme, { language, cdnUrl });
+        ret[language] = {
+          raw: code,
+          highlighted: Prism.highlight(code, Prism.languages[language], language),
+        };
+      }
+
+      ret.css.dataURI = `data:text/css;charset=utf-8,${encodeURIComponent(ret.css.raw)}`;
+      ret.css.blob = URL.createObjectURL(new Blob([ret.css.raw], { type: 'text/css' }));
+
+      return ret;
     },
   },
 
