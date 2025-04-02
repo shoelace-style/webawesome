@@ -152,6 +152,3 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   background: var(--wa-color-brand-border-quiet);
   color: var(--wa-color-brand-50);
 }
-
-.typography-card::part(header) {
-}
