@@ -1,10 +1,14 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp, nextTick } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
+import content from '/assets/scripts/vue/directives/content.js';
+import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 import palettes from '/docs/palettes/data.js';
 import themes from '/docs/themes/data.js';
 
 let appSpec = {
+  mixins: [savedMixin],
+
   data() {
     let mobileMQ = window.matchMedia('(max-width: 768px)');
     let isMobile = mobileMQ.matches;
@@ -13,6 +17,9 @@ let appSpec = {
     });
 
     return {
+      type: 'theme',
+      collection: 'themes',
+      isCustom: location.pathname.endsWith('/themes/custom/'),
       theme: {
         base: '',
         palette: '',
@@ -27,11 +34,41 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes, setTimeout: setTimeout.bind(globalThis) });
+    Object.assign(this, { themes, palettes });
 
+    if (location.search) {
+      for (let key in this.theme) {
+        if (this.permalink.has(key)) {
+          this.theme[key] = this.permalink.get(key);
+        }
+      }
+    }
   },
 
   computed: {
+    id() {
+      return this.computed.base;
+    },
+
+    originalTitle() {
+      if (this.isCustom) {
+        return 'My Theme';
+      }
+
+      return themes[this.computed.base]?.title ?? 'Unknown Theme';
+    },
+
+    /** Default theme title for saving */
+    defaultTitle() {
+      let ret = this.originalTitle;
+
+      if (!this.isCustom) {
+        ret += ' (remixed)';
+      }
+
+      return ret;
+    },
+
     computed() {
       let ret = { ...this.theme };
       let theme = (ret.base ||= 'default');
@@ -58,7 +95,21 @@ let appSpec = {
     },
   },
 
-  watch: {},
+  watch: {
+    theme: {
+      deep: true,
+      handler() {
+        for (let key in this.theme) {
+          this.permalink.set(key, this.theme[key]);
+        }
+
+        // Update page URL
+        this.permalink.updateLocation();
+
+        this.unsavedChanges = true;
+      },
+    },
+  },
 
   methods: {
     log(...args) {
@@ -74,6 +125,8 @@ let appSpec = {
     IconsCard,
     UiPanel,
   },
+
+  directives: { content },
 
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),

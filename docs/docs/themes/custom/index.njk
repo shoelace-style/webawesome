@@ -18,10 +18,13 @@ order: 99
     <a href="/" aria-label="Web Awesome">
       {% include "logo-simple.njk" %}
     </a>
+
     <div class="title">
-      <h1>Custom Theme</h1>
-      <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
+      <h1 v-content="title"></h1>
+      <wa-icon-button name="pencil" label="Rename theme" @click="rename"></wa-icon-button>
+      <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
     </div>
+
     <wa-button @click="save()" :disabled="!unsavedChanges"
       :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
       <span slot="prefix" class="icon-modifier">
