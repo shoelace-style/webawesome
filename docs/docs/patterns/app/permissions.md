@@ -1,5 +1,5 @@
 ---
-title: Permissions
+title: Share & Access
 description: ''
 parent: app
 tags: app
@@ -7,7 +7,7 @@ tags: app
 
 ## with form inputs
 ```html{.example}
-<wa-card with-header style="max-width: 60ch; margin: 0 auto;">
+<wa-card with-header style="max-width: 72ch; margin: 0 auto;">
   <div slot="header" class="wa-split">
     <h2 class="wa-heading-m">Invite Team Member</h2>
     <wa-icon name="close"></wa-icon>
@@ -92,5 +92,34 @@ tags: app
       </wa-button>
     </div>
   </div>
+</wa-card>
+```
+
+## Link Settings
+```html {.example}
+<wa-card style="max-width: 45ch; margin: 0 auto;">
+  <div class="wa-stack">
+     <h2 class="wa-heading-m">Manage Link</h2>
+    <wa-input label="Expiration Date" type="date"></wa-input>
+    <wa-radio-group
+      label="Share Limit"
+      orientation="horizontal"
+      name="share-limit"
+      value="0"
+    >
+      <wa-radio-button value="0">None</wa-radio-button>
+      <wa-radio-button value="5">5</wa-radio-button>
+      <wa-radio-button value="10">10</wa-radio-button>
+      <wa-radio-button value="50">50</wa-radio-button>
+      <wa-radio-button value="100">100</wa-radio-button>
+    </wa-radio-group>
+     <wa-divider></wa-divider>
+    <wa-switch hint="Members are removed after logging out." checked>Temporary Access</wa-switch>
+    <div  class="wa-cluster" style="justify-content: flex-end">
+    <wa-button size="small" appearance="outlined" pill>Cancel</wa-button>
+    <wa-button size="small" variant="brand" pill>Generate</wa-button>
+  </div>
+  </div>
+  
 </wa-card>
 ```
