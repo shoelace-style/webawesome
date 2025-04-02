@@ -4,6 +4,7 @@
 @import 'outline.css';
 @import 'search.css';
 @import 'cera_typeface.css';
+@import 'theme-icons.css';
 
 :root {
   --wa-brand-orange: #f36944;
@@ -412,7 +413,6 @@ wa-page > main:has(> .index-grid) {
 
     &::part(header) {
       background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
-      border-bottom: none;
       display: flex;
       align-items: center;
       justify-content: center;

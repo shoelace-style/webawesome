@@ -20,6 +20,11 @@
 }
 
 /* Horizontal */
+.wa-button-group[aria-orientation='horizontal'] {
+  /* TODO - see https://github.com/shoelace-style/webawesome/issues/374 */
+  align-items: end;
+}
+
 .wa-button-group:not([aria-orientation='vertical']):not(.wa-button-group-vertical) {
   > :not(:first-child),
   &::slotted(:not(:first-child)) {

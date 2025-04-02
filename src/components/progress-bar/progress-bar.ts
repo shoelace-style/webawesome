@@ -1,6 +1,8 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { clamp } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-bar.css';
@@ -33,6 +35,16 @@ export default class WaProgressBar extends WebAwesomeElement {
   /** A custom label for assistive devices. */
   @property() label = '';
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('value')) {
+      // Wait a cycle before setting it so Safari animates it.
+      // https://github.com/shoelace-style/webawesome/issues/356
+      requestAnimationFrame(() => {
+        this.style.setProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
+      });
+    }
+  }
+
   render() {
     return html`
       <div
@@ -45,7 +57,7 @@ export default class WaProgressBar extends WebAwesomeElement {
         aria-valuemax="100"
         aria-valuenow=${this.indeterminate ? '0' : this.value}
       >
-        <div part="indicator" class="indicator" style="--value: ${this.value}">
+        <div part="indicator" class="indicator">
           ${!this.indeterminate ? html` <slot part="label" class="label"></slot> ` : ''}
         </div>
       </div>

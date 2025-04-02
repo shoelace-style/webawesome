@@ -38,8 +38,6 @@ import styles from './radio-group.css';
  * @csspart form-control-input - The input's wrapper.
  * @csspart radios - The wrapper than surrounds radio items, styled as a flex container by default.
  * @csspart hint - The hint's wrapper.
- * @csspart button-group - The button group that wraps radio buttons.
- * @csspart button-group__base - The button group's `base` part.
  */
 @customElement('wa-radio-group')
 export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
@@ -65,7 +63,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  @state() private hasButtonGroup = false;
   @state() private hasRadioButtons = false;
 
   /**
@@ -150,7 +147,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     clickedRadio.checked = true;
 
     const radios = this.getAllRadios();
-    const hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
+    const hasRadioButtons = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
     for (const radio of radios) {
       if (clickedRadio === radio) {
         continue;
@@ -158,7 +155,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
       radio.checked = false;
 
-      if (!hasButtonGroup) {
+      if (!hasRadioButtons) {
         radio.setAttribute('tabindex', '-1');
       }
     }
@@ -183,6 +180,15 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     // Detect the presence of radio buttons
     this.hasRadioButtons = radios.some(radio => radio.localName === 'wa-radio-button');
 
+    // Add data attributes to support styling
+    radios.forEach((radio, index) => {
+      radio.toggleAttribute('data-wa-radio-horizontal', this.orientation !== 'vertical');
+      radio.toggleAttribute('data-wa-radio-vertical', this.orientation === 'vertical');
+      radio.toggleAttribute('data-wa-radio-first', index === 0);
+      radio.toggleAttribute('data-wa-radio-inner', index !== 0 && index !== radios.length - 1);
+      radio.toggleAttribute('data-wa-radio-last', index === radios.length - 1);
+    });
+
     await Promise.all(
       // Sync the checked state and size
       radios.map(async radio => {
@@ -196,10 +202,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       }),
     );
 
-    this.hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
-
     if (radios.length > 0 && !radios.some(radio => radio.checked)) {
-      if (this.hasButtonGroup) {
+      if (this.hasRadioButtons) {
         const buttonRadio = radios[0].shadowRoot?.querySelector('button');
 
         if (buttonRadio) {
@@ -210,7 +214,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       }
     }
 
-    if (this.hasButtonGroup) {
+    if (this.hasRadioButtons) {
       const buttonGroup = this.shadowRoot?.querySelector('wa-button-group');
 
       if (buttonGroup) {
@@ -276,12 +280,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       index = 0;
     }
 
-    const hasButtonGroup = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
+    const hasRadioButtons = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
 
     this.getAllRadios().forEach(radio => {
       radio.checked = false;
 
-      if (!hasButtonGroup) {
+      if (!hasRadioButtons) {
         radio.setAttribute('tabindex', '-1');
       }
     });
@@ -289,7 +293,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     this.value = radios[index].value;
     radios[index].checked = true;
 
-    if (!hasButtonGroup) {
+    if (!hasRadioButtons) {
       radios[index].setAttribute('tabindex', '0');
       radios[index].focus();
     } else {
@@ -351,7 +355,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         <slot
           part="form-control-input"
           class=${classMap({
-            'wa-button-group': this.hasButtonGroup,
+            'wa-button-group': this.hasRadioButtons,
             'wa-button-group-vertical': this.orientation === 'vertical',
           })}
           @slotchange=${this.syncRadioElements}
