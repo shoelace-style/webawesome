@@ -32,7 +32,6 @@
 /*
  * Checked buttons
  */
-
 :host([checked]) {
   --indicator-color: var(--wa-form-control-activated-color);
   --indicator-width: var(--wa-border-width-s);
@@ -42,4 +41,42 @@
   & button {
     --border-color: var(--indicator-color);
   }
+}
+
+/*
+ * Active buttons
+ */
+button:active {
+  --text-color-active: var(--wa-form-control-activated-color);
+  --border-color-active: var(--wa-form-control-activated-color);
+}
+
+/* Horizontal radio pill buttons */
+:host([data-wa-radio-horizontal][data-wa-radio-first]:not([data-wa-radio-last])) .wa-pill {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+:host([data-wa-radio-horizontal][data-wa-radio-inner]) .wa-pill {
+  border-radius: 0;
+}
+
+:host([data-wa-radio-horizontal][data-wa-radio-last]:not([data-wa-radio-first])) .wa-pill {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+/* Vertical radio pill buttons */
+:host([data-wa-radio-vertical][data-wa-radio-first]:not([data-wa-radio-last])) .wa-pill {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+:host([data-wa-radio-vertical][data-wa-radio-inner]) .wa-pill {
+  border-radius: 0;
+}
+
+:host([data-wa-radio-vertical][data-wa-radio-last]:not([data-wa-radio-first])) .wa-pill {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
 }

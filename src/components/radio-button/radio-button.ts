@@ -9,7 +9,6 @@ import nativeStyles from '../../styles/native/button.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
-import buttonStyles from '../button/button.css';
 import styles from './radio-button.css';
 
 /**
@@ -49,7 +48,7 @@ import styles from './radio-button.css';
  */
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, buttonStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
   static rectProxy = 'input';
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');

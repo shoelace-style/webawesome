@@ -97,6 +97,7 @@ slot:not([name]) {
 :host([disable-sticky~='menu']) [part~='menu'] {
   position: static;
   overflow: unset;
+  z-index: unset;
 }
 
 :host([disable-sticky~='aside']) [part~='aside'],

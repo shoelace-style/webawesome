@@ -6,6 +6,8 @@ import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.
 import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
+import content from '/assets/scripts/vue/directives/content.js';
+import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -38,24 +40,25 @@ for (let palette in allPalettes) {
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 
 let paletteAppSpec = {
+  mixins: [savedMixin],
+
   data() {
     let appRoot = document.querySelector('#palette-app');
-    let paletteId = appRoot.dataset.paletteId;
-    let palette = allPalettes[paletteId];
+    let id = appRoot.dataset.paletteId;
+    let palette = allPalettes[id];
 
     return {
-      uid: undefined,
-      paletteId,
-      paletteTitle: palette.title,
+      id,
+      originalTitle: palette.title,
       originalColors: palette.colors,
-      permalink: new Permalink(),
       hueRanges,
       hueShifts: Object.fromEntries(hues.map(hue => [hue, 0])),
       chromaScale: 1,
       grayChroma: undefined,
       grayColor: undefined,
       tweaking: {},
-      saved: null,
+      type: 'palette',
+      collection: 'palettes',
     };
   },
 
@@ -63,20 +66,16 @@ let paletteAppSpec = {
     // Non-reactive variables to expose
     Object.assign(this, { moreHue });
 
-    // Read URL params and apply them. This facilitates permalinks.
-    this.permalink.mapObject(this.hueShifts, {
-      keyTo: key => key.replace(/-shift$/, ''),
-      keyFrom: key => key + '-shift',
-      valueFrom: value => (!value ? '' : Number(value)),
-      valueTo: value => (!value ? 0 : Number(value)),
-    });
-
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
 
     if (location.search) {
-      // Update from URL
-      this.permalink.writeTo(this.hueShifts);
+      // Read URL params and apply them. This facilitates permalinks.
+      for (let hue in this.hueShifts) {
+        if (this.permalink.has(hue + '-shift')) {
+          this.hueShifts[hue] = Number(this.permalink.get(hue + '-shift'));
+        }
+      }
 
       for (let param of ['chroma-scale', 'gray-color', 'gray-chroma']) {
         if (this.permalink.has(param)) {
@@ -91,12 +90,6 @@ let paletteAppSpec = {
           this[prop] = value;
         }
       }
-
-      if (this.permalink.has('uid')) {
-        this.uid = Number(this.permalink.get('uid'));
-      }
-
-      this.saved = sidebar.palette.getSaved(this.getPalette());
     }
   },
 
@@ -107,6 +100,11 @@ let paletteAppSpec = {
   },
 
   computed: {
+    /** Default palette title for saving */
+    defaultTitle() {
+      return this.originalTitle + ' (tweaked)';
+    },
+
     tweaks() {
       return {
         hueShifts: this.hueShifts,
@@ -123,7 +121,7 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.paletteId, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode(this.id, this.colors, this.tweaked, { language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -284,7 +282,9 @@ let paletteAppSpec = {
     hueShifts: {
       deep: true,
       handler() {
-        this.permalink.readFrom(this.hueShifts);
+        for (let hue in this.hueShifts) {
+          this.permalink.set(hue + '-shift', this.hueShifts[hue], 0);
+        }
       },
     },
 
@@ -308,69 +308,12 @@ let paletteAppSpec = {
         // Update page URL
         this.permalink.updateLocation();
 
-        if (this.saved) {
-          this.save({ silent: true });
-        }
+        this.unsavedChanges = true;
       },
     },
   },
 
   methods: {
-    getPalette() {
-      return { id: this.paletteId, uid: this.uid, search: location.search };
-    },
-
-    save({ silent } = {}) {
-      let title = silent
-        ? (this.saved?.title ?? this.paletteTitle)
-        : prompt('Palette title:', `${this.paletteTitle} (tweaked)`);
-
-      if (!title) {
-        return;
-      }
-
-      let uid = this.uid;
-
-      if (!uid) {
-        // First time saving
-        this.uid = uid = sidebar.palette.getUid();
-
-        this.permalink.set('uid', uid);
-        this.permalink.updateLocation();
-      }
-
-      let palette = { ...this.getPalette(), uid, title };
-
-      sidebar.palette.save(palette, this.saved);
-      this.saved = palette;
-    },
-
-    rename() {
-      if (!this.saved) {
-        return;
-      }
-
-      let newTitle = prompt('New title:', this.saved.title);
-
-      if (!newTitle) {
-        return;
-      }
-
-      this.saved.title = newTitle;
-      sidebar.palette.save(this.saved);
-    },
-
-    deleteSaved() {
-      sidebar.palette.delete(this.saved);
-    },
-
-    postDelete() {
-      this.saved = null;
-      this.permalink.delete('uid');
-      this.uid = undefined;
-      this.permalink.updateLocation();
-    },
-
     /**
      * Remove a specific tweak or all tweaks
      * @param {string} [param] - The tweak to remove. If not provided, all tweaks are removed.
@@ -399,28 +342,7 @@ let paletteAppSpec = {
   },
 
   directives: {
-    // Like v-text, but doesn't complain if the element has content,
-    // making it possible to use in a PE fashion, with the contents being the fallback
-    content(el, { value, arg }) {
-      if (!el.dataset.fallback) {
-        // Store the original content as a fallback the first time
-        el.dataset.fallback = el.textContent;
-      }
-
-      if (value === '') {
-        value = el.dataset.fallback;
-      } else {
-        if (arg === 'number') {
-          value = Number(value).toLocaleString(undefined, { maximumSignificantDigits: 2 });
-        }
-      }
-
-      if (arg === 'html') {
-        el.innerHTML = value;
-      } else {
-        el.textContent = value;
-      }
-    },
+    content,
   },
 
   compilerOptions: {

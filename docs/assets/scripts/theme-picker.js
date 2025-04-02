@@ -1,8 +1,10 @@
-let initialPageLoadComplete = false;
+let initialPageLoadComplete = document.readyState === 'complete';
 
-window.addEventListener('load', () => {
-  initialPageLoadComplete = true;
-});
+if (!initialPageLoadComplete) {
+  window.addEventListener('load', () => {
+    initialPageLoadComplete = true;
+  });
+}
 
 // Helper for view transitions
 export function domChange(fn, { behavior = 'smooth', ignoreInitialLoad = true } = {}) {
@@ -118,6 +120,7 @@ const colorScheme = new ThemeAspect({
     domChange(() => {
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
+      document.documentElement.dispatchEvent(new CustomEvent('wa-color-scheme-change', { detail: { dark } }));
     });
   },
 });

@@ -50,8 +50,6 @@ export default class WaDropdown extends WebAwesomeElement {
   @query('#trigger') trigger: HTMLSlotElement;
   @query('.panel') panel: HTMLSlotElement;
 
-  private closeWatcher: CloseWatcher | null;
-
   /**
    * Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you
    * can use the `show()` and `hide()` methods and this attribute will reflect the dropdown's open state.
@@ -148,7 +146,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open dropdown. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape' && !this.closeWatcher) {
+    if (this.open && event.key === 'Escape') {
       event.stopPropagation();
       this.hide();
       this.focusOnTrigger();
@@ -344,16 +342,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   addOpenListeners() {
     this.panel.addEventListener('wa-select', this.handlePanelSelect);
-    if ('CloseWatcher' in window) {
-      this.closeWatcher?.destroy();
-      this.closeWatcher = new CloseWatcher();
-      this.closeWatcher.onclose = () => {
-        this.hide();
-        this.focusOnTrigger();
-      };
-    } else {
-      this.panel.addEventListener('keydown', this.handleKeyDown);
-    }
+    this.panel.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
   }
@@ -365,7 +354,6 @@ export default class WaDropdown extends WebAwesomeElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
-    this.closeWatcher?.destroy();
   }
 
   @watch('open', { waitUntilFirstUpdate: true })

@@ -23,6 +23,10 @@
   opacity: 0;
 }
 
+[part~='label'] {
+  display: inline;
+}
+
 [part~='hint'] {
   grid-column: 2;
   margin-block-start: var(--wa-space-3xs);
