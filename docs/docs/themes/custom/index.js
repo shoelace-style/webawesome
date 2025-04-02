@@ -43,6 +43,10 @@ let appSpec = {
         }
       }
     }
+
+    if (this.theme.base) {
+      this.ui.panel = 'styles';
+    }
   },
 
   computed: {
