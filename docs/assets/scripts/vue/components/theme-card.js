@@ -2,7 +2,7 @@ import PageCard from './page-card.js';
 import themes from '/docs/themes/data.js';
 
 const template = `
-	<page-card class="theme-card" :pro="$slots.default ? false : themeMeta.isPro">
+	<page-card class="theme-card" :class="type + '-card'" :pro="$slots.default ? false : themeMeta.isPro">
     <template #icon>
       <wa-scoped slot="header" class="theme-icon-host" inert>
         <template>

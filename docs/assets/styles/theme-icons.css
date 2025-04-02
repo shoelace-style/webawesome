@@ -143,3 +143,15 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   place-items: center;
   place-content: center;
 }
+
+.theme-card::part(header) {
+  background: var(--wa-color-surface-lowered);
+}
+
+.icons-card::part(header) {
+  background: var(--wa-color-brand-border-quiet);
+  color: var(--wa-color-brand-50);
+}
+
+.typography-card::part(header) {
+}
