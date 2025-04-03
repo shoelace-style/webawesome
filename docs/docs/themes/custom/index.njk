@@ -101,7 +101,7 @@ order: 99
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="color" title="Color Palette" :previous="previousPanel">
-      <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
+      <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small"></palette-card>
         </wa-radio>
@@ -109,7 +109,7 @@ order: 99
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="typography" title="Typography" :previous="previousPanel">
-      <wa-radio-group class="card-picker" v-model="theme.typography" >
+      <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
         <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small"></theme-card>
         </wa-radio>
