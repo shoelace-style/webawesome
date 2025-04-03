@@ -16,6 +16,7 @@ const template = `
   <span class="page-name">
     <slot></slot>
     <wa-badge class="pro" v-if="pro">PRO</wa-badge>
+    <slot name="extra"></slot>
   </span>
   <div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
 </wa-card>

@@ -50,7 +50,7 @@ order: 99
 
         <wa-tab panel="html">HTML</wa-tab>
         <wa-tab-panel name="html">
-          <pre class="'language-html"><code v-content:html="code.html.highlighted"></code></pre>
+          <pre class="language-html"><code v-content:html="code.html.highlighted"></code></pre>
         </wa-tab-panel>
       </wa-tab-group>
     </wa-drawer>
@@ -126,5 +126,5 @@ order: 99
       <wa-tab-panel name="content"></wa-tab-panel>
     </wa-tab-group>
   </div>
-  <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/?${urlParams}`"></iframe>
+  <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
 </wa-page>

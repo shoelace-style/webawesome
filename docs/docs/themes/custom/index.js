@@ -19,12 +19,16 @@ let appSpec = {
       this.isMobile = e.matches;
     });
 
+    let id = location.pathname.match(/\/themes\/([^/]+)\/?$/)?.[1];
+    let isCustom = id === 'custom';
+
     return {
       type: 'theme',
       collection: 'themes',
-      isCustom: location.pathname.endsWith('/themes/custom/'),
+      id,
+      isCustom,
       theme: {
-        base: '',
+        base: isCustom ? '' : id,
         palette: '',
         typography: '',
       },
@@ -55,14 +59,6 @@ let appSpec = {
   },
 
   computed: {
-    id() {
-      if (this.isCustom) {
-        return 'custom';
-      }
-
-      return this.computed.base;
-    },
-
     originalTitle() {
       if (this.isCustom) {
         return 'My Theme';
@@ -82,18 +78,48 @@ let appSpec = {
       return ret;
     },
 
+    baseTheme() {
+      let id = this.computed.base;
+      let ret = themes[id];
+      ret.id ??= id;
+      return ret;
+    },
+
+    defaults() {
+      return {
+        base: themes[this.id] ? this.id : 'default',
+        get colors() {
+          return this.base;
+        },
+        get palette() {
+          return themes[this.base].palette;
+        },
+        get brand() {
+          return themes[this.base].brand;
+        },
+        get typography() {
+          return this.base;
+        },
+      };
+    },
+
     computed() {
-      let ret = { ...this.theme };
-      let theme = (ret.base ||= 'default');
-      ret.palette ||= themes[theme].palette;
-      ret.typography ||= theme;
+      let ret = Object.create(this.defaults, Object.getOwnPropertyDescriptors(this.theme));
+
+      for (let key in this.theme) {
+        if (!this.theme[key]) {
+          delete ret[key];
+        }
+      }
+
       return ret;
     },
 
     urlParams() {
-      let ret = new URLSearchParams(this.theme);
+      let ret = new URLSearchParams(this.computed);
       ret.sort();
-      return ret;
+      ret = ret + '';
+      return ret ? '?' + ret : '';
     },
 
     previousPanel() {
@@ -130,7 +156,9 @@ let appSpec = {
       deep: true,
       handler() {
         for (let key in this.theme) {
-          this.permalink.set(key, this.theme[key]);
+          if (key !== 'base' || this.theme.base !== this.id) {
+            this.permalink.set(key, this.theme[key]);
+          }
         }
 
         // Update page URL

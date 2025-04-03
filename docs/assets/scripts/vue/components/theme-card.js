@@ -2,7 +2,7 @@ import PageCard from './page-card.js';
 import themes from '/docs/themes/data.js';
 
 const template = `
-	<page-card class="theme-card" :class="type + '-card'" :pro="$slots.default ? false : themeMeta.isPro">
+  <page-card class="theme-card" :class="type + '-card'" :pro="$slots.default ? false : themeMeta.isPro">
     <template #icon>
       <wa-scoped slot="header" class="theme-icon-host" inert>
         <template>
@@ -15,6 +15,7 @@ const template = `
           <h2>Heading</h2>
           <p>This is your paragraph.</p>
         </div>
+
         <div v-else-if="type == 'colors'" class="theme-icon theme-color-icon" :class="'wa-theme-' + theme" role="presentation">
           <div class="wa-brand wa-accent">A</div>
           <div class="wa-brand wa-outlined">A</div>
@@ -26,6 +27,7 @@ const template = `
           <div class="wa-neutral wa-filled">A</div>
           <div class="wa-neutral wa-plain">A</div>
         </div>
+
         <div v-else class="theme-icon theme-overall-icon" :class="'wa-theme-' + theme" role="presentation">
           <div class="row row-1">
             <h2>Aa</h2>
@@ -44,8 +46,11 @@ const template = `
         </template>
       </wa-scoped>
     </template>
-		<slot>{{ title || themeMeta.title }}</slot>
-	</page-card>
+    <slot>{{ title || themeMeta.title }}</slot>
+    <template #extra>
+      <slot name="extra" />
+    </template>
+  </page-card>
 `;
 
 export default {
@@ -55,7 +60,7 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return !value || ['typography'].includes(value);
+        return !value || ['typography', 'colors'].includes(value);
       },
     },
   },
