@@ -40,15 +40,6 @@
     }
   }
 
-  wa-option > wa-card {
-    --spacing: var(--wa-space-smaller);
-
-    &::part(body) {
-      background: var(--wa-color-neutral-fill-quiet);
-      padding-block: var(--wa-space-s);
-    }
-  }
-
   .selected-swatch,
   wa-select[name='brand'] wa-option::before {
     content: '';
@@ -73,9 +64,4 @@
       order: 2;
     }
   }
-}
-
-#test_select wa-option:state(selected) {
-  outline: 2px solid red;
-  background: yellow;
 }

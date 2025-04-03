@@ -534,6 +534,10 @@ wa-select:has(> wa-option > wa-card) {
     gap: var(--gap);
     padding: var(--wa-space-smaller) var(--wa-space);
   }
+
+  > wa-option > wa-card {
+    --spacing: var(--wa-space-s);
+  }
 }
 
 wa-radio:has(> wa-card) {

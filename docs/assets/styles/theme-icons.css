@@ -144,6 +144,12 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   place-content: center;
 }
 
+.page-card {
+  wa-badge {
+    margin-inline: var(--wa-space-3xs);
+  }
+}
+
 .theme-card::part(header) {
   background: var(--wa-color-surface-lowered);
 }

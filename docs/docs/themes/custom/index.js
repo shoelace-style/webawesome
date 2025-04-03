@@ -2,7 +2,7 @@
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { cdnUrl } from '/assets/scripts/tweak/data.js';
+import { cdnUrl, hues } from '/assets/scripts/tweak/data.js';
 import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -31,6 +31,8 @@ let appSpec = {
         base: isCustom ? '' : id,
         palette: '',
         typography: '',
+        colors: '',
+        brand: '',
       },
       ui: {
         panel: 'theme',
@@ -43,7 +45,7 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes });
+    Object.assign(this, { themes, palettes, hues: [...hues, 'gray'] });
 
     if (location.search) {
       for (let key in this.theme) {
@@ -170,6 +172,10 @@ let appSpec = {
   },
 
   methods: {
+    capitalize(str) {
+      return (str + '').charAt(0).toUpperCase() + str.slice(1);
+    },
+
     log(...args) {
       console.log(...args);
       return args[0];
