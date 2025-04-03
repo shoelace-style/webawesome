@@ -83,6 +83,7 @@ order: 99
           Color Palette
           <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
         </div>
+        <wa-icon name="angle-right" variant="regular"></wa-icon>
       </palette-card>
 
       <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
@@ -90,6 +91,7 @@ order: 99
           Typography
           <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
         </div>
+        <wa-icon name="angle-right" variant="regular"></wa-icon>
       </theme-card>
 
       <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
@@ -97,6 +99,7 @@ order: 99
           Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
           <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
         </div>
+        <wa-icon name="angle-right" variant="regular"></wa-icon>
       </icons-card>
     </ui-panel>
 
