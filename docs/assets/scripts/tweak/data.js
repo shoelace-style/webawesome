@@ -5,12 +5,16 @@
 export const cdnUrl = globalThis.document ? document.documentElement.dataset.cdnUrl : '/dist/';
 
 export const urls = {
-  theme: id => `styles/themes/${id}.css`,
+  base: id => `styles/themes/${id}.css`,
   colors: id => `styles/themes/${id}/color.css`,
   palette: id => `styles/color/${id}.css`,
   brand: id => `styles/brand/${id}.css`,
   typography: id => `styles/themes/${id}/typography.css`,
 };
+
+// Params in correct order
+// base must be first. brand needs to come after palette, which needs to come after colors.
+export const themeParams = ['base', 'colors', 'palette', 'brand', 'typography'];
 
 export const selectors = {
   palette: id =>
@@ -69,5 +73,6 @@ export const icons = {
 };
 
 export const hues = Object.keys(hueRanges);
+export const allHues = [...hues, 'gray'];
 
 export const tints = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'];

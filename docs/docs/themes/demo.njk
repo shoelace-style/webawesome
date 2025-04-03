@@ -48,7 +48,8 @@ function updateTheme() {
   }
 
   let tweaks = [];
-  let code = getThemeCode("{{ theme.fileSlug }}", params, {attributes: 'class="mix-and-match"'});
+
+  let code = getThemeCode({base: "{{ theme.fileSlug }}", ...params}, {attributes: 'class="mix-and-match"'});
   document.head.insertAdjacentHTML('beforeend', code);
 
   for (let name in stylesheetURLs) {

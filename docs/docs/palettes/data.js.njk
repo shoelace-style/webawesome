@@ -9,6 +9,7 @@ export default {
   {% set paletteId = palette.fileSlug -%}
   {%- set colors = palettes[paletteId] -%}
   '{{ paletteId }}': {
+    id: '{{ paletteId }}',
     title: '{{ palette.data.title }}',
     colors: {
       {% for hue, tints in colors -%}

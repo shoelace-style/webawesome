@@ -9,6 +9,7 @@ export default {
   {% set themeId = theme.fileSlug -%}
   {%- set colors = themes[themeId] -%}
   '{{ themeId }}': {
+    id: '{{ themeId }}',
     title: '{{ theme.data.title }}',
     palette: '{{ theme.data.palette }}',
     brand: '{{ theme.data.brand }}',

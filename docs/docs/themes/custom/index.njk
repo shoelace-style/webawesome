@@ -126,5 +126,5 @@ order: 99
       <wa-tab-panel name="content"></wa-tab-panel>
     </wa-tab-group>
   </div>
-  <iframe class="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
+  <iframe class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
 </wa-page>

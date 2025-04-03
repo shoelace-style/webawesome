@@ -1,7 +1,7 @@
 /**
  * Get import code for remixed themes and tweaked palettes.
  */
-import { urls } from './data.js';
+import { themeParams, urls } from './data.js';
 
 export function cssImport(url, options = {}) {
   let { language = 'html', cdnUrl = '/dist/', attributes } = options;
@@ -25,20 +25,8 @@ export function cssLiteral(value, options = {}) {
   }
 }
 
-// Params in correct order
-export const themeParams = ['colors', 'palette', 'brand', 'typography'];
-
-export function getThemeCode(base, params, options) {
+export function getThemeCode(params, options) {
   let ret = [];
-
-  if (base && typeof base === 'object') {
-    [params, options] = [base, params];
-    base = params.base;
-  }
-
-  if (base) {
-    ret.push(urls.theme(base));
-  }
 
   for (let aspect of themeParams) {
     let value = params[aspect];

@@ -121,7 +121,11 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.id, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode(this.id, this.colors, this.tweaked, {
+          language,
+          cdnUrl,
+          attributes: ' class="wa-palette',
+        });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),

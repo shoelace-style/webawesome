@@ -2,7 +2,7 @@
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { cdnUrl, hues } from '/assets/scripts/tweak/data.js';
+import { allHues, cdnUrl } from '/assets/scripts/tweak/data.js';
 import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -27,6 +27,7 @@ let appSpec = {
       collection: 'themes',
       id,
       isCustom,
+      urlParams: location.search,
       theme: {
         base: isCustom ? '' : id,
         palette: '',
@@ -45,7 +46,7 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes, hues: [...hues, 'gray'] });
+    Object.assign(this, { themes, palettes, hues: allHues });
 
     if (location.search) {
       for (let key in this.theme) {
@@ -81,10 +82,7 @@ let appSpec = {
     },
 
     baseTheme() {
-      let id = this.computed.base;
-      let ret = themes[id];
-      ret.id ??= id;
-      return ret;
+      return themes[this.computed.base];
     },
 
     defaults() {
@@ -117,13 +115,6 @@ let appSpec = {
       return ret;
     },
 
-    urlParams() {
-      let ret = new URLSearchParams(this.computed);
-      ret.sort();
-      ret = ret + '';
-      return ret ? '?' + ret : '';
-    },
-
     previousPanel() {
       switch (this.ui.panel) {
         case 'styles':
@@ -139,7 +130,7 @@ let appSpec = {
       let ret = {};
 
       for (let language of ['html', 'css']) {
-        let code = getThemeCode(this.id, this.theme, { language, cdnUrl });
+        let code = getThemeCode(this.theme, { language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -165,8 +156,25 @@ let appSpec = {
 
         // Update page URL
         this.permalink.updateLocation();
+        let theme = JSON.parse(JSON.stringify(this.theme));
+        this.$refs.preview?.contentWindow.postMessage({
+          type: 'updateTheme',
+          theme,
+        });
 
         this.unsavedChanges = true;
+      },
+    },
+
+    'ui.preview': {
+      immediate: true,
+      handler() {
+        // Update urlParams only when the preview changes
+        // We use postMessage for other updates
+        let urlParams = new URLSearchParams(this.computed);
+        urlParams.sort();
+        urlParams = urlParams + '';
+        this.urlParams ? '?' + urlParams : '';
       },
     },
   },
