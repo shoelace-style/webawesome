@@ -115,7 +115,7 @@ tags: app
     </wa-radio-group>
      <wa-divider></wa-divider>
     <wa-switch hint="Members are removed after logging out." checked>Temporary Access</wa-switch>
-    <div  class="wa-cluster" style="justify-content: flex-end">
+    <div class="wa-cluster wa-gap-xs" style="justify-content: flex-end">
     <wa-button size="small" appearance="outlined" pill>Cancel</wa-button>
     <wa-button size="small" variant="brand" pill>Generate</wa-button>
   </div>
