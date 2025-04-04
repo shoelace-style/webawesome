@@ -3,8 +3,44 @@ title: Data Display
 description: 'Convey insights, metrics, and aggregate data at a glance.'
 ---
 
-## Cards with Avatars
 
+## Simple 
+```html {.example}
+<wa-card>
+  <div class="wa-grid wa-gap-3xl">
+    <div class="wa-stack">
+      <div class="wa-split">
+        <span>Revenue</span>
+        <span>+4.75%</span>
+      </div>
+      <div class="wa-heading-2xl">$400,000</div>
+    </div>
+    <div class="wa-stack">
+      <div class="wa-split">
+        <span>Revenue</span>
+        <span>+4.75%</span>
+      </div>
+      <div class="wa-heading-2xl">$400,000</div>
+    </div>
+    <div class="wa-stack">
+      <div class="wa-split">
+        <span>Revenue</span>
+        <span>+4.75%</span>
+      </div>
+      <div class="wa-heading-2xl">$400,000</div>
+    </div>
+    <div class="wa-stack">
+      <div class="wa-split">
+        <span>Revenue</span>
+        <span>+4.75%</span>
+      </div>
+      <div class="wa-heading-2xl">$400,000</div>
+    </div>
+  </div>
+</wa-card>
+```
+
+## Cards with Avatars
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 30ch">
   <wa-card>

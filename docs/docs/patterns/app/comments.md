@@ -48,7 +48,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
         <ul class="wa-stack">
           <li class="wa-stack wa-gap-2xs">
             <div class="wa-flank">
-              <wa-avatar label="User avatar"></wa-avatar>
+              <wa-avatar initials="VF" label="User avatar"></wa-avatar>
               <div class="wa-cluster">
                 <strong>Virginia Woolf</strong>
                 <span class="wa-caption-m">commented <wa-relative-time date="2025-03-31T12:32:00-04:00"></wa-relative-time></span>
@@ -58,7 +58,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
           </li>
           <li class="wa-stack wa-gap-2xs">
             <div class="wa-flank">
-              <wa-avatar label="User avatar"></wa-avatar>
+              <wa-avatar initials="CV" label="User avatar"></wa-avatar>
               <div class="wa-cluster">
                 <strong>Clarissa Vaughan</strong>
                 <span class="wa-caption-m">commented <wa-relative-time></wa-relative-time></span>
@@ -134,4 +134,31 @@ description: 'Enable users to engage in discussions, provide feedback, or record
     <wa-button variant="brand">Save</wa-button>
   </div>
 </wa-card>
+```
+## With Preview Pane
+```html{.example}
+<div style="max-width: 60ch; margin: 0 auto;">
+  <wa-card class="wa-border-radius-square" with-footer>
+    <h3 class="wa-heading-m">Add a comment</h3>
+    <wa-tab-group>
+      <wa-tab panel="write">Write</wa-tab>
+      <wa-tab panel="preview">Preview</wa-tab>
+      <wa-tab-panel name="write">
+        <div class="wa-stack">
+          <div class="wa-cluster wa-gap-xs"  style="justify-content: flex-end;">
+            <wa-icon-button name="link" label="add link"></wa-icon-button>
+            <wa-icon-button name="at" label="mention collaborator"></wa-icon-button>
+            <wa-icon-button name="hashtag" label="change heading"></wa-icon-button>
+          </div>
+          <wa-textarea aria-label="Add a comment"></wa-textarea>
+        </div>
+      </wa-tab-panel>
+      <wa-tab-panel name="preview">Your content will render here.</wa-tab-panel>
+    </wa-tab-group>
+    <div slot="footer" class="wa-cluster" style="justify-content: flex-end;">
+      <wa-button appearance="outlined" size="small">Post</wa-button>
+    </div>
+  </wa-card>
+
+</div>
 ```
