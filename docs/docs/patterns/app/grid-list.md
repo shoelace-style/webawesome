@@ -130,6 +130,171 @@ description: 'Improve browsing and selection by organizing data in a structured 
 </div>
 ```
 
+## Cards with Footer Actions
+
+```html {.example}
+<div class="wa-grid" style="--min-column-size: 29ch;">
+  <wa-card with-footer>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame wa-border-radius-circle">
+        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+         </div>
+        <h2 class="wa-heading-m">Scott Summers</h2>
+        <p class="wa-caption-l">Product Designer</p>
+    </div>
+    <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="at"></wa-icon>
+        Email
+      </wa-button>
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="phone"></wa-icon>
+        Phone
+      </wa-button>
+    </div>
+  </wa-card>
+  <wa-card with-footer>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame wa-border-radius-circle">
+        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+         </div>
+        <h2 class="wa-heading-m">Scott Summers</h2>
+        <p class="wa-caption-l">Product Designer</p>
+    </div>
+    <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="at"></wa-icon>
+        Email
+      </wa-button>
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="phone"></wa-icon>
+        Phone
+      </wa-button>
+    </div>
+  </wa-card>
+  <wa-card with-footer>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame wa-border-radius-circle">
+        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+         </div>
+        <h2 class="wa-heading-m">Scott Summers</h2>
+        <p class="wa-caption-l">Product Designer</p>
+    </div>
+    <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="at"></wa-icon>
+        Email
+      </wa-button>
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="phone"></wa-icon>
+        Phone
+      </wa-button>
+    </div>
+  </wa-card>
+<wa-card with-footer>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame wa-border-radius-circle">
+        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+         </div>
+        <h2 class="wa-heading-m">Scott Summers</h2>
+        <p class="wa-caption-l">Product Designer</p>
+    </div>
+    <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="at"></wa-icon>
+        Email
+      </wa-button>
+      <wa-button appearance="outlined">
+        <wa-icon slot="prefix" name="phone"></wa-icon>
+        Phone
+      </wa-button>
+    </div>
+  </wa-card>
+</div>
+```
+## with Images
+```html {.example}
+<div class="wa-grid">
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack">
+      <span>Lindsay Walton</span>
+      <span>Developer</span>
+    </div>
+    <div class="wa-cluster">
+      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    </div>
+  </article>
+</div>
+```
 ## Linked Cards with Options Menu
 
 ```html{.example}
@@ -222,6 +387,139 @@ description: 'Improve browsing and selection by organizing data in a structured 
       <wa-tooltip for="more-actions-4">More actions</wa-tooltip>
     </div>
   </wa-card>
+</div>
+```
+## Kanban
+```html {.example}
+<div>
+  <h2>Project #487</h2>
+  <div class="wa-grid wa-gap-2xl">
+    <div class="wa-stack">
+      <div class="wa-cluster wa-gap-s"><span>Draft</span>  <wa-badge appearance="filled outlined" variant="neutral">1</wa-badge></div>
+
+       
+     
+          <wa-card>
+            <div class="wa-flank:end">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs">
+                  <span class="wa-heading-s">Unit Testing</span>
+                  <wa-dropdown>
+                    <wa-icon-button id="task-action-4" slot="trigger" name="ellipsis" label="More actions"></wa-icon-button>
+                    <wa-menu>
+                      <wa-menu-item>Copy link</wa-menu-item>
+                      <wa-menu-item>Rename</wa-menu-item>
+                      <wa-menu-item>Move to trash</wa-menu-item>
+                    </wa-menu>
+                  </wa-dropdown>
+                  <wa-tooltip for="task-action-4">More actions</wa-tooltip>
+                </div>
+                <div class="wa-cluster wa-gap-2xs">
+                <wa-badge appearance="outlined" pill>DevOps</wa-badge>  <wa-badge variant="neutral" appearance="outlined" pill>Priority: Low</wa-badge>
+                </div>
+              </div>
+              <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+  label="Avatar of a gray tabby kitten looking down"></wa-avatar>
+            </div>
+          </wa-card>
+      <wa-button appearance="plain">
+        <wa-icon name="plus"></wa-icon>
+        Add Task
+        </wa-button>
+      
+    </div>
+
+    <div class="wa-stack">
+      <div class="wa-cluster wa-gap-s"><span>In Progress</span>  <wa-badge appearance="filled outlined" variant="neutral">2</wa-badge></div>
+      
+          <wa-card>
+            <div class="wa-flank:end">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs">
+                  <span class="wa-heading-s">UX Audit</span>
+                  <wa-dropdown>
+                    <wa-icon-button id="task-action-2" slot="trigger" name="ellipsis" label="More actions"></wa-icon-button>
+                    <wa-menu>
+                      <wa-menu-item>Copy link</wa-menu-item>
+                      <wa-menu-item>Rename</wa-menu-item>
+                      <wa-menu-item>Move to trash</wa-menu-item>
+                    </wa-menu>
+                  </wa-dropdown>
+                  <wa-tooltip for="task-action-2">More actions</wa-tooltip>
+                </div>
+                <div class="wa-cluster wa-gap-2xs">
+                <wa-badge appearance="outlined" pill>Design</wa-badge>  <wa-badge variant="warning" appearance="outlined" pill>Priority: Medium</wa-badge>
+                </div>
+              </div>
+              <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+  label="Avatar of a gray tabby kitten looking down"></wa-avatar>
+            </div>
+          </wa-card>
+          <wa-card>
+            <div class="wa-flank:end">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs">
+                  <span class="wa-heading-s">Visual Testing</span>
+                  <wa-dropdown>
+                    <wa-icon-button id="task-action-3" slot="trigger" name="ellipsis" label="More actions"></wa-icon-button>
+                    <wa-menu>
+                      <wa-menu-item>Copy link</wa-menu-item>
+                      <wa-menu-item>Rename</wa-menu-item>
+                      <wa-menu-item>Move to trash</wa-menu-item>
+                    </wa-menu>
+                  </wa-dropdown>
+                  <wa-tooltip for="task-action-3">More actions</wa-tooltip>
+                </div>
+                <div class="wa-cluster wa-gap-2xs">
+                <wa-badge appearance="outlined" pill>Design</wa-badge>  <wa-badge variant="danger" appearance="outlined" pill>Priority: High</wa-badge>
+                </div>
+              </div>
+              <wa-avatar></wa-avatar>
+            </div>
+          </wa-card>
+      <wa-button appearance="plain">
+        <wa-icon name="plus"></wa-icon>
+        Add Task
+        </wa-button>
+      
+    </div>
+
+    <div class="wa-stack">
+      <div class="wa-cluster wa-gap-s"><span>Ready for Review</span>  <wa-badge appearance="filled outlined" variant="neutral">1</wa-badge></div>
+          <wa-card>
+            <div class="wa-flank:end">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs">
+                  <span class="wa-heading-s">Deploy Bug Fixes</span>
+                  <wa-dropdown>
+                    <wa-icon-button id="task-action-1" slot="trigger" name="ellipsis" label="More actions"></wa-icon-button>
+                    <wa-menu>
+                      <wa-menu-item>Copy link</wa-menu-item>
+                      <wa-menu-item>Rename</wa-menu-item>
+                      <wa-menu-item>Move to trash</wa-menu-item>
+                    </wa-menu>
+                  </wa-dropdown>
+                  <wa-tooltip for="task-action-1">More actions</wa-tooltip>
+                </div>
+                <div class="wa-cluster wa-gap-2xs">
+                  <wa-badge appearance="outlined" pill>Development</wa-badge>  <wa-badge variant="warning" appearance="outlined" pill>Priority: Medium</wa-badge>
+                </div>
+              </div>
+              <wa-avatar initials="KK" label="Avatar with initials: KK"></wa-avatar>
+            </div>
+          </wa-card>
+     
+        
+      <wa-button appearance="plain">
+        <wa-icon name="plus"></wa-icon>
+        Add Task
+        </wa-button>
+      
+    </div>
+
+
+  
+  </div>
 </div>
 ```
 

@@ -5,12 +5,13 @@ icon: action-panel
 ---
 
 ## Simple
+
 ```html {.example}
-<wa-card style="max-width: 70ch; margin: auto">
+<wa-card style="max-width: 60ch; margin: auto">
   <div class="wa-stack wa-align-items-start">
     <h3 class="wa-heading-m">New Dashboard</h3>
     <p>Arrange your data into a single view to monitor trends and track performance.</p>
-    <wa-button variant="brand">Build Dashboard</wa-button>
+    <wa-button variant="brand" size="small">Build Dashboard</wa-button>
   </div>
 </wa-card>
 ```
@@ -18,7 +19,7 @@ icon: action-panel
 ## With Flanked Button
 
 ```html {.example}
-<wa-card style="max-width: 70ch; margin: auto">
+<wa-card style="max-width: 60ch; margin: auto">
   <div class="wa-flank:end">
     <div class="wa-stack wa-gap-xs">
       <h3 class="wa-heading-m">Query with SQL Runner</h3>
@@ -43,7 +44,8 @@ icon: action-panel
 </wa-card>
 ```
 
-## avatar and quick actions
+## Avatar and Quick actions
+
 ```html{.example}
 <wa-card style="margin: 0 auto; max-width: 45ch;">
   <div class="wa-flank">
@@ -54,9 +56,9 @@ icon: action-panel
         <span class="wa-caption-m">Online</span>
       </div>
       <div class="wa-cluster" style="font-size: var(--wa-font-size-l);">
-        <wa-icon-button name="microphone"></wa-icon-button>
-        <wa-icon-button name="headphones"></wa-icon-button>
-        <wa-icon-button name="gear"></wa-icon-button>
+        <wa-icon-button name="microphone" label="audio-input"></wa-icon-button>
+        <wa-icon-button name="headphones" label="audio-output"></wa-icon-button>
+        <wa-icon-button name="gear" label="settings"></wa-icon-button>
       </div>
     </div>
   </div>

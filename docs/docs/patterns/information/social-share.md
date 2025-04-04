@@ -67,3 +67,35 @@ tags: information
   </div>
 </wa-card>
 ```
+## With Image Card
+```html {.example}
+<wa-card with-image style="max-width: 45ch; margin: 0 auto;">
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1578269174936-2709b6aeb913?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="Super special awesome trophy"
+  />
+  <div class="wa-stack wa-align-items-center">
+      <div class="wa-stack wa-gap-2xs wa-align-items-center">
+        <h2 class="wa-heading-l">Flawless!</h2>
+        <span class="wa-caption-l">
+          10 of 10</span>
+      </div>
+    <p style="text-align: center;">You got a perfect score in this section. Tell your friends, family, really... just anyone who will listen.</p>
+    <div class="wa-cluster" style="margin-top: var(--wa-font-size-xl);">
+      <wa-avatar label="Avatar with an image icon">
+        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="facebook" family="brands" label="Share on Facebook" href="#" target="_blank"></wa-icon-button>
+      </wa-avatar>
+      <wa-avatar label="Avatar with an image icon">
+        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="bluesky" family="brands" label="Share on Bluesky" href="#" target="_blank"></wa-icon-button>
+      </wa-avatar>
+      <wa-avatar label="Avatar with an image icon">
+        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="instagram" family="brands" label="Share on Instagram" href="#" target="_blank"></wa-icon-button>
+      </wa-avatar>
+      <wa-avatar label="Avatar with an image icon">
+        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="linkedin" family="brands" label="Share on LinkedIn" href="#" target="_blank"></wa-icon-button>
+      </wa-avatar>
+    </div>
+  </div>
+</wa-card>
+```

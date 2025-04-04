@@ -1,15 +1,13 @@
 ---
-title: Share & Access
-description: ''
-parent: app
-tags: app
+title: Permissions
+description: 'Permission patterns provide or restrict access to users.'
 ---
 
-## with form inputs
+## With Form Inputs
 ```html{.example}
 <wa-card with-header style="max-width: 72ch; margin: 0 auto;">
   <div slot="header" class="wa-split">
-    <h2 class="wa-heading-m">Invite Team Member</h2>
+    <h2 class="wa-heading-m">Invite Team Members</h2>
     <wa-icon name="close"></wa-icon>
   </div>
   <div class="wa-stack wa-gap-2xl">
@@ -122,4 +120,109 @@ tags: app
   </div>
   
 </wa-card>
+```
+
+## Role Settings
+```html {.example}
+<div style="max-width: 78ch; margin: 0 auto;">
+  <h2>Settings</h2>
+  <p>Update settings for this server.</p>
+  <wa-tab-group>
+  <wa-tab panel="general">
+    <div class="wa-cluster">
+      <wa-icon name="user"></wa-icon>
+      <span>User Permissions</span>
+    </div>
+  </wa-tab>
+  <wa-tab-panel name="general">
+    <wa-card>
+      <div class="wa-flank">
+        <wa-avatar image="https://images.unsplash.com/photo-1741289308283-feba56f857cc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJlYXJkfGVufDB8MnwwfHx8Mg%3D%3D" alt="image avatar"></wa-avatar>
+        <div class="wa-split">
+          <div class="wa-stack wa-gap-xs">
+            <span class="wa-heading-s">Kris Kringle</span>
+            <span class="wa-caption-m">Admin</span>
+          </div>
+          <wa-button appearance="plain">
+            <wa-icon slot="prefix" name="edit"></wa-icon>
+            Edit Profile
+          </wa-button>
+        </div>
+      </div>
+    </wa-card>
+    <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+         <div class="wa-flank">
+            <wa-avatar image="https://images.unsplash.com/photo-1579824894326-77ec5aaf8703?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHJlaW5kZWVyfGVufDB8MnwwfHx8Mg%3D%3D"></wa-avatar>
+            <span class="wa-caption-m">Dasher</span>
+          </div>
+      </td>
+      <td>
+        <wa-select value="moderator">
+          <wa-option value="moderator">Moderator</wa-option>
+          <wa-option value="contributor">Contributor</wa-option>
+          <wa-option value="reader">Reader</wa-option>
+        </wa-select>  
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="wa-flank">
+            <wa-avatar image="https://images.unsplash.com/photo-1691065686144-916ff29d1b4f?q=80&w=2666&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></wa-avatar>
+            <span class="wa-caption-m">Dancer</span>
+          </div>
+      </td>
+
+      <td>
+        <wa-select value="moderator">
+          <wa-option value="moderator">Moderator</wa-option>
+          <wa-option value="contributor">Contributor</wa-option>
+          <wa-option value="reader">Reader</wa-option>
+        </wa-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="wa-flank">
+            <wa-avatar image="https://images.unsplash.com/photo-1616742618872-9e8a890d90b2?q=80&w=2712&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></wa-avatar>
+            <span class="wa-caption-m">Prancer</span>
+          </div>
+      </td>
+      <td>
+        <wa-select value="contributor">
+          <wa-option value="moderator">Moderator</wa-option>
+          <wa-option value="contributor">Contributor</wa-option>
+          <wa-option value="reader">Reader</wa-option>
+        </wa-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="wa-flank">
+            <wa-avatar image="https://images.unsplash.com/photo-1728290403857-1b7909db2baa?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></wa-avatar>
+            <span class="wa-caption-m">Vixen</span>
+          </div>
+      </td>
+      <td>
+        <wa-select value="reader">
+          <wa-option value="moderator">Moderator</wa-option>
+          <wa-option value="contributor">Contributor</wa-option>
+          <wa-option value="reader">Reader</wa-option>
+        </wa-select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  </wa-tab-panel>
+ 
+</wa-tab-group>
+</div>
 ```
