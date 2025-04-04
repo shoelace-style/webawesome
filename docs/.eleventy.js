@@ -43,7 +43,7 @@ export default function (eleventyConfig) {
    */
   const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
-  const baseDir = process.env.BASE_DIR || "docs"
+  const baseDir = process.env.BASE_DIR || 'docs';
   const passThrough = [...passThroughExtensions.map(ext => path.join(baseDir, '**/*.' + ext))];
 
   /**
