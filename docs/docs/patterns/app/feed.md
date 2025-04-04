@@ -176,8 +176,10 @@ description: TODO
         </div>
       </div>
     </wa-card>
-    <ul class="wa-stack"  style="list-style-type: none; margin-inline-start: 2.5em;">
-      <li>
+    <div class="wa-flank wa-gap-xl">
+      <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
+      <ul class="wa-stack">
+      <li class="wa-stack wa-gap-2xs">
         <wa-card>
       <div class="wa-flank">
         <wa-avatar></wa-avatar>
@@ -195,7 +197,7 @@ description: TODO
       </div>
     </wa-card>
       </li>
-      <li>
+      <li class="wa-stack wa-gap-2xs">
         <wa-card>
       <div class="wa-flank wa-align-items-start">
         <wa-avatar></wa-avatar>
@@ -203,32 +205,14 @@ description: TODO
           <div class="wa-split">
             <span class="wa-heading-s">Charlotte Parker</span>
           </div>
-          <wa-textarea size="small"></wa-textarea>
+          <wa-textarea size="small" aria-label="Add Your Comment"></wa-textarea>
         </div>
       </div>
     </wa-card>
       </li>
     </ul>
-  </div>
-  <div class="wa-stack">
-    <wa-card>
-      <div class="wa-flank">
-        <wa-avatar></wa-avatar>
-        <div class="wa-stack">
-          <div class="wa-split">
-            <span>Charlotte Parker</span>
-            <span>4h</span>
-          </div>
-          <p>dfjsfjskfjska</p>
-          <a href="#">Reply</a>
-        </div>
-      </div>
-    </wa-card>
-    <ul class="wa-stack"  style="list-style-type: none; margin-inline-start: 2.5em;">
-      <li><wa-card></wa-card></li>
-      <li><wa-card></wa-card></li>
-      <li><wa-card></wa-card></li>
-    </ul>
+    </div>
+    
   </div>
 </div>
 ```
@@ -238,26 +222,66 @@ description: TODO
   <div slot="header" class="wa-split">
     <div>
       <span>Notifications</span>
-      <wa-badge>2</wa-badge>
+      <wa-badge appearance="filled" variant="success" pill>2</wa-badge>
     </div>
     <wa-icon name="close"></wa-icon>
   </div>
   <div class="wa-stack">
-    <section>
-      <div class="wa-flank">
+    <article>
+      <div class="wa-flank wa-align-items-start">
         <wa-avatar></wa-avatar>
-        <div class="wa-stack">
+        <div class="wa-stack wa-gap-xs">
           <div class="wa-split">
-
+            <span><strong>Happy</strong> commented in <a href="#">Reporting Dashboard</a></span>
+            <wa-icon name="circle-dot" style="color: var(--wa-color-green-50);"></wa-icon>
           </div>
           <div class="wa-split">
-            
+            <span class="wa-caption-m">Friday 3:12PM</span>
+            <span class="wa-caption-m">2 hours ago</span>
           </div>
-          <wa-callout>dfjsdljfdsl</wa-callout>
+          <wa-callout variant="neutral">
+            Really love this approach. I think this is the best solution for the sync issue.
+          </wa-callout>
         </div>
       </div>
       <wa-divider></wa-divider>
-    </section>
+    </article>
+    <article>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack wa-gap-xs">
+          <div class="wa-split">
+            <span><strong>Charlotte</strong> followed you</span>
+            <wa-icon name="circle-dot" style="color: var(--wa-color-green-50);"></wa-icon>
+          </div>
+          <div class="wa-split">
+            <span class="wa-caption-m">Friday 3:04PM</span>
+            <span class="wa-caption-m">2 hours ago</span>
+          </div>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </article>
+    <article>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar></wa-avatar>
+        <div class="wa-stack wa-gap-xs">
+          <div class="wa-split">
+            <span><strong>Tavitian</strong> invited you to <a href="#">Homepage Redesign</a></span>
+          </div>
+          <div class="wa-split">
+            <span class="wa-caption-m">Friday 2:22PM</span>
+            <span class="wa-caption-m">3 hours ago</span>
+          </div>
+          <div class="wa-cluster wa-gap-xs">
+            <wa-button appearance="outlined" size="small">Decline</wa-button>
+            <wa-button variant="brand" size="small">Accept</wa-button>
+          </div>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </article>
+    
   </div>
 </wa-card>
 ```
