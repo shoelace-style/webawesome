@@ -36,25 +36,20 @@ eleventyComputed:
 </wa-image-comparer>
 
 <script type="module">
-import { urls as stylesheetURLs, docsURLs, icons } from "/assets/scripts/tweak/data.js";
+import { urls as stylesheetURLs, docsURLs, icons, themeParams } from "/assets/scripts/tweak/data.js";
 import { getThemeCode } from "/assets/scripts/tweak/code.js";
+import { theme, documentTheme } from "/docs/themes/preview/preview.js";
+import palettes from '/docs/palettes/data.js';
+import themes from '/docs/themes/data.js';
 
-function updateTheme() {
-  let params = new URLSearchParams(window.location.search);
-  params = Object.fromEntries(params.entries());
+let base = '{{ theme.fileSlug }}';
 
-  for (let link of document.querySelectorAll('link.mix-and-match')) {
-    link.remove();
-  }
-
+theme.addEventListener('change', e => {
   let tweaks = [];
 
-  let code = getThemeCode({base: "{{ theme.fileSlug }}", ...params}, {attributes: 'class="mix-and-match"'});
-  document.head.insertAdjacentHTML('beforeend', code);
-
-  for (let name in stylesheetURLs) {
-    let override = params[name];
-    if (override) {
+  for (let aspect of themeParams) {
+    if (theme[aspect] && theme[aspect] !== documentTheme[aspect]) {
+      let override = theme[aspect];
       let docsURL = docsURLs[name] ? docsURLs[name] + override + '/' : '';
       let title = override.replace(/^[a-z]/g, c => c.toUpperCase());
 
@@ -83,9 +78,10 @@ function updateTheme() {
         p.innerHTML = `<strong><wa-icon name="arrows-rotate"></wa-icon> Remixed</strong> ` + tweaks.map(msg => `<wa-badge appearance=outlined>
           ${ msg }</wa-badge>`).join(' ');
       }
+      else {
+        p.innerHTML = '';
+      }
     }
   }
-
-}
-updateTheme();
+});
 </script>

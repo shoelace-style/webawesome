@@ -165,7 +165,7 @@ let appSpec = {
         this.permalink.updateLocation();
         let theme = JSON.parse(JSON.stringify(this.theme));
         this.$refs.preview?.contentWindow.postMessage({
-          type: 'updateTheme',
+          type: 'updatePreview',
           theme,
         });
 

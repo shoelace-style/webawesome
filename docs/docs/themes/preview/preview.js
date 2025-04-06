@@ -6,108 +6,179 @@ import themes from '/docs/themes/data.js';
 
 const themeIds = Object.keys(themes);
 const paletteIds = Object.keys(palettes);
+let dummy;
 
-export const defaults = { base: 'default', palette: '', typography: '', colors: '', brand: '' };
-export const theme = {};
+export const aspects = {};
 
-export function updateTheme(newTheme, options) {
-  let changed = {};
-  let anyChanged = false;
+for (let aspect in urls) {
+  let urlFactory = urls[aspect];
+  let ids = aspect === 'palette' ? paletteIds : aspect === 'brand' ? allHues : themeIds;
+  let allUrls = ids.map(id => urlFactory(id));
+  let selector = `link[rel="stylesheet"]:is(${allUrls.map(url => `[href$="/${url}"]`).join(', ')})`;
+  let getId = RegExp(`/${urlFactory('([^\\\\]+)')}($|\\?|#)`);
+  aspects[aspect] ??= { ids, urls: allUrls, selector, getId };
+}
 
-  for (let key of themeParams) {
-    let value = newTheme[key];
+aspects.palette.selector += ', style.wa-palette';
 
-    if (value !== undefined) {
-      let newValue = value;
-      newValue ||= defaults[key];
+export const theme = new EventTarget();
 
-      if (theme[key] !== newValue) {
-        changed[key] = theme[key];
-        anyChanged = true;
-      }
+// Read base theme from document
+for (let aspect of themeParams) {
+  let element = document.querySelector(aspects[aspect].selector);
 
-      theme[key] = newValue;
-    } else if (theme[key] === undefined) {
-      // Initialize
-      theme[key] = defaults[key];
+  if (element) {
+    let value = element.href.match(aspects[aspect].getId)?.[1];
+    if (value) {
+      theme[aspect] = value;
+    }
+  }
+}
+
+export const documentTheme = { ...theme };
+
+if (location.search) {
+  // Apply any overrides from URL
+  let urlOverrides = Object.fromEntries(new URLSearchParams(location.search));
+  updateTheme(urlOverrides, { silent: true });
+}
+
+updatePreview({ immediate: true });
+
+window.addEventListener('message', event => {
+  if (event.data?.type === 'updatePreview') {
+    updatePreview({ theme: event.data.theme });
+  }
+});
+
+export function isDefault(aspect, value, base = theme.base || 'default') {
+  if (!value) {
+    return true;
+  }
+
+  switch (aspect) {
+    case 'palette':
+      return value === themes[base].palette;
+    case 'brand':
+      return value === themes[base].brand;
+  }
+
+  return value === base;
+}
+
+/**
+ * Returns an object to be fed to `getThemeCode()`, i.e. with empties for aspects that are set to their default values,
+ * and a resolved base
+ * @param {object} newTheme
+ * @returns {object}
+ */
+export function resolveTheme(newTheme = {}) {
+  let base = newTheme.base || theme.base || 'default';
+  let ret = { base };
+
+  for (let aspect of themeParams) {
+    let value = newTheme[aspect] || theme[aspect];
+
+    if (aspect !== 'base' && !isDefault(aspect, value, base)) {
+      ret[aspect] = value;
     }
   }
 
-  if (anyChanged) {
-    updatePreview({ changed, ...options });
+  return ret;
+}
+
+function updateTheme(newTheme, options = {}) {
+  let resolvedNewTheme = resolveTheme(newTheme);
+
+  let changed = {};
+  let anyChanged = false;
+
+  for (let aspect of themeParams) {
+    let oldValue = theme[aspect];
+    if (resolvedNewTheme[aspect] !== oldValue) {
+      changed[aspect] = oldValue;
+      anyChanged = true;
+      theme[aspect] = resolvedNewTheme[aspect];
+    }
+  }
+
+  Object.defineProperty(changed, 'any', { value: anyChanged, enumerable: false });
+
+  if (anyChanged && !options.silent) {
+    theme.dispatchEvent(new CustomEvent('change', { detail: changed }));
   }
 
   return changed;
 }
 
-let urlsPossible = {};
-let selectors = {};
-
-for (let aspect in urls) {
-  let urlFactory = urls[aspect];
-  let ids = aspect === 'palette' ? paletteIds : aspect === 'brand' ? allHues : themeIds;
-  urlsPossible[aspect] = ids.map(id => urlFactory(id));
-  selectors[aspect] = getSelector(urlsPossible[aspect]);
-}
-
-selectors.palette += ', style.wa-palette';
-
-function getSelector(urls) {
-  urls = typeof urls === 'string' ? [urls] : urls;
-  return `link[rel="stylesheet"]:is(${urls.map(url => `[href$="/${url}"]`).join(', ')})`;
-}
-
 export async function updatePreview(options = {}) {
+  if (options.theme) {
+    updateTheme(options.theme, options);
+  }
+
   let code = getThemeCode(theme, { attributes: ' class="wa-themer"' });
 
-  let dummy = document.createElement('div');
+  dummy ??= document.createElement('div');
   dummy.innerHTML = code;
 
   let allStylesheets = {};
 
-  let params = options.changed ? themeParams.filter(param => param in options.changed) : themeParams;
   let first;
-  let toLoad = [];
-  let toRemove = [];
+  let changeDom = false;
 
-  for (let aspect of params) {
+  // DOM diffing of old and new <link> elements
+  for (let aspect of themeParams) {
     allStylesheets[aspect] ??= {};
     let stylesheets = allStylesheets[aspect];
 
-    // TODO use old values if options.changed is set
-    stylesheets.old = [...document.querySelectorAll(selectors[aspect])];
-    stylesheets.new = [...dummy.querySelectorAll(selectors[aspect])];
+    // TODO use old values in selector instead of any?
+    let selector = aspects[aspect].selector;
+    let oldStylesheets = [...document.querySelectorAll(selector)];
+    let newStylesheets = [...dummy.querySelectorAll(selector)];
 
-    let oldUrls = new Set(stylesheets.old.map(link => link.href));
-    let newUrls = new Set(stylesheets.new.map(link => link.href));
+    let oldUrls = new Set(oldStylesheets.map(link => link.href));
+    let newUrls = new Set(newStylesheets.map(link => link.href));
 
     stylesheets.elements = new Map();
 
-    for (let link of stylesheets.old) {
-      stylesheets.elements.set(link, !link.href || newUrls.has(link.href) ? 'keep' : 'remove');
-    }
+    for (let link of oldStylesheets) {
+      let action = !link.href || newUrls.has(link.href) ? 'keep' : 'remove';
+      stylesheets.elements.set(link, action);
 
-    for (let link of stylesheets.new) {
-      if (!link.href || !oldUrls.has(link.href)) {
-        stylesheets.elements.set(link, 'add');
+      if (action === 'remove') {
+        changeDom = true;
       }
     }
 
-    first ??= stylesheets.old[0];
+    for (let link of newStylesheets) {
+      if (!link.href || !oldUrls.has(link.href)) {
+        stylesheets.elements.set(link, 'add');
+        changeDom = true;
+      }
+    }
+
+    first ??= oldStylesheets[0];
   }
+
+  if (!changeDom) {
+    return;
+  }
+
+  let toLoad = [];
+  let toRemove = [];
 
   await domChange(async () => {
     let previous;
 
-    for (let aspect of params) {
+    for (let aspect of themeParams) {
       let stylesheets = allStylesheets[aspect];
 
       for (let [link, action] of stylesheets.elements) {
         if (action === 'remove') {
           toRemove.push(link);
-          continue;
         } else if (action === 'add') {
           toLoad.push(link);
+
           if (previous) {
             previous.after(link);
           } else if (first) {
@@ -132,16 +203,3 @@ export async function updatePreview(options = {}) {
     }
   }, options);
 }
-
-let changed = updateTheme(Object.fromEntries(new URLSearchParams(location.search)), { immediate: true });
-
-if (Object.keys(changed).length === 0) {
-  // Make sure we have a default theme
-  updatePreview({ immediate: true });
-}
-
-window.addEventListener('message', event => {
-  if (event.data?.type === 'updateTheme' && event.data.theme) {
-    updateTheme(event.data.theme);
-  }
-});
