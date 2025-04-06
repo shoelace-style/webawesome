@@ -12,7 +12,7 @@
 {% block header %}
 <div id="theme-app" data-theme-id="{{ page.fileSlug }}">
 
-<iframe :src="'{{ page.url }}demo.html' + urlParams" src='{{ page.url }}demo.html' id="demo"></iframe>
+<iframe ref="preview" :src="'{{ page.url }}demo.html' + urlParams" src='{{ page.url }}demo.html' id="demo"></iframe>
 
 <wa-details id="mix_and_match" class="wa-gap-m" :open="saved || unsavedChanges">
   <h4 slot="summary" data-no-anchor data-no-outline id="remix">
