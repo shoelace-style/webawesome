@@ -27,3 +27,46 @@
     white-space: nowrap;
   }
 }
+
+.color-select {
+  &.default::part(display-input) {
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  > small {
+    margin-inline-start: var(--wa-space-xs);
+    padding-block: 0 var(--wa-space-xs);
+  }
+
+  &::part(combobox)::before,
+  wa-option::before {
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    aspect-ratio: 1;
+    margin-inline-end: var(--wa-space-xs);
+    flex: none;
+    border-radius: var(--wa-border-radius-m);
+    background: var(--color);
+    border: 1px solid var(--wa-color-surface-default);
+  }
+
+  wa-option {
+    white-space: nowrap;
+
+    &::before {
+      width: 1em;
+      margin-inline: var(--wa-space-xs);
+    }
+
+    &::part(checked-icon) {
+      order: 2;
+    }
+  }
+
+  .default-badge {
+    opacity: 0.6;
+    margin-inline-start: var(--wa-space-xs);
+  }
+}

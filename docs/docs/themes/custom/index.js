@@ -3,7 +3,14 @@ import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-brows
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { allHues, cdnUrl } from '/assets/scripts/tweak/data.js';
-import { IconsCard, PageCard, PaletteCard, ThemeCard, UiPanel } from '/assets/scripts/vue/components/index.js';
+import {
+  ColorSelect,
+  IconsCard,
+  PageCard,
+  PaletteCard,
+  ThemeCard,
+  UiPanel,
+} from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 import palettes from '/docs/palettes/data.js';
@@ -196,6 +203,7 @@ let appSpec = {
     ThemeCard,
     IconsCard,
     UiPanel,
+    ColorSelect,
   },
 
   directives: { content },

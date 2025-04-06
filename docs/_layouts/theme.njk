@@ -44,14 +44,8 @@
     </wa-option>
   </wa-select>
 
-  <wa-select name="brand" label="Brand color" value="" clearable v-model="theme.brand" :style="`--color: var(--wa-color-${ computed.brand })`">
-    <div class="selected-swatch" slot="prefix"></div>
-
-    <wa-option v-for="hue of hues" :label="capitalize(hue)" :value="baseTheme.brand === hue ? '' : hue" :style="`--color: var(--wa-color-${ hue })`">
-      <span v-text="capitalize(hue)"></span>
-      <wa-badge v-if="baseTheme.brand === hue" variant="neutral" appearance="outlined">Theme default</wa-badge>
-    </wa-option>
-  </wa-select>
+  <color-select :model-value="computed.brand" @update:model-value="value => theme.brand = value" label="Brand color"
+                :values="hues"></color-select>
 
   <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
     <wa-icon name="font-case" slot="prefix"></wa-icon>
