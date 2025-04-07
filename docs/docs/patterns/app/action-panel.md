@@ -25,7 +25,7 @@ icon: action-panel
       <h3 class="wa-heading-m">Query with SQL Runner</h3>
       <p>Access your database to run ad hoc queries.</p>
     </div>
-    <wa-button variant="brand">New Query</wa-button>
+    <wa-button variant="brand" size="small">New Query</wa-button>
   </div>
 </wa-card>
 ```
@@ -46,14 +46,17 @@ icon: action-panel
 
 ## Avatar and Quick actions
 
-```html{.example}
+```html {.example}
 <wa-card style="margin: 0 auto; max-width: 45ch;">
   <div class="wa-flank">
     <wa-avatar image="https://images.unsplash.com/photo-1532202802379-df93d543bac3?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile-image"></wa-avatar>
     <div class="wa-split">
-      <div class="wa-stack wa-gap-0">
+      <div class="wa-stack wa-gap-2xs">
         <span class="wa-heading-s">Super Dog</span>
-        <span class="wa-caption-m">Online</span>
+        <div class="wa-caption-m wa-cluster wa-gap-xs">
+          <span>Online</span>
+          <wa-icon name="circle" style="color: var(--wa-color-green); font-size: 10px;"></wa-icon>
+        </div>
       </div>
       <div class="wa-cluster" style="font-size: var(--wa-font-size-l);">
         <wa-icon-button name="microphone" label="audio-input"></wa-icon-button>
