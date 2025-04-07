@@ -103,7 +103,7 @@ description: 'Track and organize recent user actions or events.'
 
 ```html {.example}
 <wa-card style="max-width: 70ch; margin: auto">
-  <h3 class="wa-heading-l">Monthly Activity</h3>
+  <h3 class="wa-heading-m">Monthly Activity</h3>
   <div class="wa-stack">
     <wa-details>
       <span class="wa-heading-m" slot="summary">
@@ -111,7 +111,7 @@ description: 'Track and organize recent user actions or events.'
       </span>
       <div class="wa-stack">
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" name="envelope" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" name="envelope" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Email blasts</span>
@@ -124,7 +124,7 @@ description: 'Track and organize recent user actions or events.'
         </article>
         <wa-divider></wa-divider>
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" name="phone" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" name="phone" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Spoke with the Pope</span>
@@ -143,7 +143,7 @@ description: 'Track and organize recent user actions or events.'
       </span>
       <div class="wa-stack">
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" name="video" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" name="video" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Zoom Call with Northeast office</span>
@@ -156,7 +156,7 @@ description: 'Track and organize recent user actions or events.'
         </article>
         <wa-divider></wa-divider>
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" name="calendar" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" name="calendar" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Scheduled birthday party</span>
@@ -175,7 +175,7 @@ description: 'Track and organize recent user actions or events.'
       </span>
       <div class="wa-stack">
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" family="brands" name="intercom" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" family="brands" name="intercom" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Got new lead</span>
@@ -188,7 +188,7 @@ description: 'Track and organize recent user actions or events.'
         </article>
         <wa-divider></wa-divider>
         <article class="wa-flank">
-          <wa-icon style="font-size: var(--wa-font-size-xl)" name="list-check" fixed-width></wa-icon>
+          <wa-icon style="font-size: var(--wa-font-size-l)" name="list-check" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Completed Todo</span>
