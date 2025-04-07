@@ -13,11 +13,11 @@ description: 'Enable users to engage in discussions, provide feedback, or record
     </div>
     <wa-textarea aria-labelledby="comment-area-label"></wa-textarea>
     <div slot="footer" class="wa-cluster" style="justify-content: flex-end">
-      <wa-button appearance="filled">
+      <wa-button appearance="filled" size="small">
         <wa-icon slot="prefix" name="paperclip" variant="solid"></wa-icon>
         Attach a file
       </wa-button>
-      <wa-button variant="brand">Comment</wa-button>
+      <wa-button variant="brand" size="small">Comment</wa-button>
     </div>
   </wa-card>
 </form>
@@ -109,7 +109,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
       <div class="wa-frame:portrait wa-border-radius-s">
         <img 
           src="https://images.unsplash.com/photo-1607675742178-f616ae75044b?q=80&w=3435&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-          alt="" 
+          alt="the cover image for the film" 
         />
       </div>
       <span class="wa-heading-l">Heretic</span>

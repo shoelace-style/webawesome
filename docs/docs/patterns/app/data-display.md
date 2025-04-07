@@ -7,34 +7,55 @@ description: 'Convey insights, metrics, and aggregate data at a glance.'
 ## Simple 
 ```html {.example}
 <wa-card>
-  <div class="wa-grid wa-gap-3xl">
+  <div class="wa-grid wa-gap-3xl" style="--min-column-size: 24ch;">
     <div class="wa-stack">
       <div class="wa-split">
-        <span>Revenue</span>
-        <span>+4.75%</span>
+        <div class="wa-cluster wa-gap-xs">
+          <wa-icon name="sack-dollar"></wa-icon>
+          <span>Incomes</span>
+        </div>
+        <div class="wa-cluster wa-gap-xs" style="color: var(--wa-color-green);">
+          <wa-icon name="arrow-trend-up"></wa-icon>
+          <wa-format-number class="wa-heading-s" type="percent" value=".475"></wa-format-number>
+        </div>
       </div>
-      <div class="wa-heading-2xl">$400,000</div>
+      <wa-format-number class="wa-heading-xl" type="currency" currency="USD" value="175000000" lang="en-US"></wa-format-number>
+
     </div>
     <div class="wa-stack">
       <div class="wa-split">
-        <span>Revenue</span>
-        <span>+4.75%</span>
+        <div class="wa-cluster wa-gap-xs">
+          <wa-icon name="credit-card"></wa-icon>
+          <span>Expenses</span>
+        </div>
+         <div class="wa-cluster wa-gap-xs" style="color: var(--wa-color-red);">
+          <wa-icon name="arrow-trend-down"></wa-icon>
+          <wa-format-number class="wa-heading-s" type="percent" value=".27"></wa-format-number>
+        </div>
       </div>
-      <div class="wa-heading-2xl">$400,000</div>
+      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="289472" lang="en-US"></wa-format-number>
     </div>
     <div class="wa-stack">
       <div class="wa-split">
-        <span>Revenue</span>
-        <span>+4.75%</span>
+        <div class="wa-cluster wa-gap-xs">
+          <wa-icon name="seedling"></wa-icon>
+          <span>Investments</span>
+        </div>
+        <div class="wa-cluster wa-gap-xs" style="color: var(--wa-color-green);">
+          <wa-icon name="arrow-trend-up"></wa-icon>
+          <wa-format-number class="wa-heading-s" type="percent" value=".14"></wa-format-number>
+        </div>
       </div>
-      <div class="wa-heading-2xl">$400,000</div>
+      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="569213" lang="en-US"></wa-format-number>
     </div>
     <div class="wa-stack">
       <div class="wa-split">
-        <span>Revenue</span>
-        <span>+4.75%</span>
+        <div class="wa-cluster wa-gap-xs">
+          <wa-icon name="landmark"></wa-icon>
+          <span>Mortgages & Loans</span>
+        </div>
       </div>
-      <div class="wa-heading-2xl">$400,000</div>
+      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="23904" lang="en-US"></wa-format-number>
     </div>
   </div>
 </wa-card>
