@@ -204,3 +204,132 @@ description: 'Track and organize recent user actions or events.'
   </div>
 </wa-card>
 ```
+## Card Separated
+```html {.example}
+<div class="wa-stack" style="max-width: 45ch; margin: 0 auto;">
+  <div class="wa-stack">
+    <wa-card>
+      <div class="wa-flank">
+        <wa-avatar image="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-0">
+          <div class="wa-split">
+            <span class="wa-heading-s">Isaiah Hamilton</span>
+            <wa-relative-time class="wa-caption-s" date="2025-01-15T09:17:00-04:00"></wa-relative-time>
+          </div>
+          <p>Who's on first?</p>
+          <a href="#" class="wa-cluster wa-gap-2xs">
+            <wa-icon name="reply" family="sharp" variant="regular"></wa-icon>
+            <span>Reply</span>
+          </a>
+        </div>
+      </div>
+    </wa-card>
+    <div class="wa-flank wa-gap-xl">
+      <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
+      <ul class="wa-stack">
+      <li class="wa-stack wa-gap-2xs">
+        <wa-card>
+      <div class="wa-flank">
+        <wa-avatar image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-0">
+          <div class="wa-split">
+            <span class="wa-heading-s">Melvin Hurst</span>
+            <wa-relative-time class="wa-caption-s" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
+          </div>
+          <p>What's on second?</p>
+          <a href="#" class="wa-cluster wa-gap-2xs">
+            <wa-icon name="reply" family="sharp" variant="regular"></wa-icon>
+            <span>Reply</span>
+          </a>
+        </div>
+      </div>
+    </wa-card>
+      </li>
+      <li class="wa-stack wa-gap-2xs">
+        <wa-card>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar image="https://images.unsplash.com/photo-1674044494331-8db2ecf18d46?q=80&w=3019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-xs">
+          <div class="wa-split">
+            <span class="wa-heading-s">Vanessa Wright</span>
+          </div>
+          <wa-textarea size="small" aria-label="Add Your Comment"></wa-textarea>
+        </div>
+      </div>
+    </wa-card>
+      </li>
+    </ul>
+    </div>
+    
+  </div>
+</div>
+```
+
+## Divider Separated
+```html {.example}
+<wa-card with-header style="max-width: 54ch; margin: 0 auto;">
+  <div slot="header" class="wa-split">
+    <div>
+      <span>Notifications</span>
+      <wa-badge appearance="filled" variant="success" pill>2</wa-badge>
+    </div>
+    <wa-icon name="close"></wa-icon>
+  </div>
+  <div class="wa-stack">
+    <article>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar image="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-2xs">
+          <div class="wa-split">
+            <span><strong>Happy</strong> commented in <a href="#">Reporting Dashboard</a></span>
+            <wa-icon name="circle" style="color: var(--wa-color-green);"></wa-icon>
+          </div>
+          <div class="wa-split">
+            <span class="wa-caption-m">Friday 3:12PM</span>
+            <wa-relative-time class="wa-caption-m" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
+          </div>
+          <wa-callout variant="neutral">
+            Really love this approach. I think this is the best solution for the sync issue.
+          </wa-callout>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </article>
+    <article>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar image="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-2xs">
+          <div class="wa-split">
+            <span><strong>Charlotte</strong> followed you</span>
+            <wa-icon name="circle" style="color: var(--wa-color-green);"></wa-icon>
+          </div>
+          <div class="wa-split">
+            <span class="wa-caption-m">Friday 3:04PM</span>
+            <wa-relative-time class="wa-caption-m" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
+          </div>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </article>
+    <article>
+      <div class="wa-flank wa-align-items-start">
+        <wa-avatar image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Profile image"></wa-avatar>
+        <div class="wa-stack wa-gap-2xs">
+          <div class="wa-split">
+            <span><strong>Tavitian</strong> invited you to <a href="#">Homepage Redesign</a></span>
+          </div>
+          <div class="wa-split">
+            <span class="wa-caption-m">Friday 2:22PM</span>
+            <wa-relative-time class="wa-caption-m" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
+          </div>
+          <div class="wa-cluster wa-gap-xs">
+            <wa-button appearance="outlined" size="small">Decline</wa-button>
+            <wa-button variant="brand" size="small">Accept</wa-button>
+          </div>
+        </div>
+      </div>
+      <wa-divider></wa-divider>
+    </article>
+  </div>
+</wa-card>
+```

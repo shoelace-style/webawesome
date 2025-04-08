@@ -74,7 +74,7 @@ description: 'Empower users to learn more with a structured list of questions an
 </div>
 ```
 
-## 3 Column
+## Multiple Columns
 ```html{.example}
 <div>
 

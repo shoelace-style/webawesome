@@ -130,17 +130,17 @@ description: 'Improve browsing and selection by organizing data in a structured 
 </div>
 ```
 
-## Cards with Footer Actions
+## Cards with Footer Actions & Large Image
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 29ch;">
   <wa-card with-footer>
-    <div class="wa-stack wa-align-items-center">
+    <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
         <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
          </div>
         <h2 class="wa-heading-m">Scott Summers</h2>
-        <p class="wa-caption-l">Product Designer</p>
+        <p class="wa-caption-l">DevOps</p>
     </div>
     <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
       <wa-button appearance="outlined">
@@ -154,12 +154,12 @@ description: 'Improve browsing and selection by organizing data in a structured 
     </div>
   </wa-card>
   <wa-card with-footer>
-    <div class="wa-stack wa-align-items-center">
+    <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
-        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img src="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
          </div>
-        <h2 class="wa-heading-m">Scott Summers</h2>
-        <p class="wa-caption-l">Product Designer</p>
+        <h2 class="wa-heading-m">Kaitlin Moore</h2>
+        <p class="wa-caption-l">Systems Engineer</p>
     </div>
     <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
       <wa-button appearance="outlined">
@@ -173,12 +173,12 @@ description: 'Improve browsing and selection by organizing data in a structured 
     </div>
   </wa-card>
   <wa-card with-footer>
-    <div class="wa-stack wa-align-items-center">
+    <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
-        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img src="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
          </div>
-        <h2 class="wa-heading-m">Scott Summers</h2>
-        <p class="wa-caption-l">Product Designer</p>
+        <h2 class="wa-heading-m">Nessa Riley</h2>
+        <p class="wa-caption-l">Cloud Engineer</p>
     </div>
     <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
       <wa-button appearance="outlined">
@@ -192,12 +192,12 @@ description: 'Improve browsing and selection by organizing data in a structured 
     </div>
   </wa-card>
 <wa-card with-footer>
-    <div class="wa-stack wa-align-items-center">
+    <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
-        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img src="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
          </div>
-        <h2 class="wa-heading-m">Scott Summers</h2>
-        <p class="wa-caption-l">Product Designer</p>
+        <h2 class="wa-heading-m">Veronica Staley</h2>
+        <p class="wa-caption-l">Machine Learning Engineer</p>
     </div>
     <div slot="footer" class="wa-grid wa-gap-xs" style="--min-column-size: 10ch;">
       <wa-button appearance="outlined">
@@ -216,81 +216,81 @@ description: 'Improve browsing and selection by organizing data in a structured 
 ```html {.example}
 <div class="wa-grid">
   <article class="wa-stack">
-    <div class="wa-frame">
+    <div class="wa-frame wa-border-radius-l">
       <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Jeff Hanks</span>
+      <span>Product Designer</span>
     </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
     </div>
   </article>
   <article class="wa-stack">
-    <div class="wa-frame">
-      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://images.unsplash.com/photo-1674044494331-8db2ecf18d46?q=80&w=3019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Allen Bryant</span>
+      <span>Staff Engineer</span>
     </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame">
-      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-    </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
-    </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
     </div>
   </article>
   <article class="wa-stack">
-    <div class="wa-frame">
-      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Mariah Greene</span>
+      <span>DevOps</span>
     </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame">
-      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-    </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
-    </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
     </div>
   </article>
   <article class="wa-stack">
-    <div class="wa-frame">
-      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
-    <div class="wa-stack">
-      <span>Lindsay Walton</span>
-      <span>Developer</span>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Beverly Winslow</span>
+      <span>Design Systems Lead</span>
     </div>
-    <div class="wa-cluster">
-      <wa-icon-button name="bluesky" family="brands"></wa-icon-button>
-      <wa-icon-button name="dribbble" family="brands"></wa-icon-button>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Eric Masterson</span>
+      <span>Copy Writer</span>
+    </div>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
+    </div>
+  </article>
+  <article class="wa-stack">
+    <div class="wa-frame wa-border-radius-l">
+      <img src="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+    </div>
+    <div class="wa-stack wa-gap-3xs">
+      <span>Stephen Coffee</span>
+      <span>Visual Designer</span>
+    </div>
+    <div class="wa-cluster wa-gap-3xs">
+      <wa-icon-button name="bluesky" family="brands" label="link to Blusky profile"></wa-icon-button>
+      <wa-icon-button name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon-button>
     </div>
   </article>
 </div>
@@ -418,8 +418,8 @@ description: 'Improve browsing and selection by organizing data in a structured 
                 <wa-badge appearance="outlined" pill>DevOps</wa-badge>  <wa-badge variant="neutral" appearance="outlined" pill>Priority: Low</wa-badge>
                 </div>
               </div>
-              <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-  label="Avatar of a gray tabby kitten looking down"></wa-avatar>
+              <wa-avatar image="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  label="profile image"></wa-avatar>
             </div>
           </wa-card>
       <wa-button appearance="plain">
@@ -451,8 +451,8 @@ description: 'Improve browsing and selection by organizing data in a structured 
                 <wa-badge appearance="outlined" pill>Design</wa-badge>  <wa-badge variant="warning" appearance="outlined" pill>Priority: Medium</wa-badge>
                 </div>
               </div>
-              <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-  label="Avatar of a gray tabby kitten looking down"></wa-avatar>
+              <wa-avatar image="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  label="profile image"></wa-avatar>
             </div>
           </wa-card>
           <wa-card>
@@ -474,7 +474,7 @@ description: 'Improve browsing and selection by organizing data in a structured 
                 <wa-badge appearance="outlined" pill>Design</wa-badge>  <wa-badge variant="danger" appearance="outlined" pill>Priority: High</wa-badge>
                 </div>
               </div>
-              <wa-avatar></wa-avatar>
+              <wa-avatar image="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
             </div>
           </wa-card>
       <wa-button appearance="plain">
