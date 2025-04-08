@@ -103,7 +103,7 @@ export default class WaPopup extends WebAwesomeElement {
    * Determines how the popup is positioned. The `absolute` strategy works well in most cases, but if overflow is
    * clipped, using a `fixed` position strategy can often workaround it.
    */
-  @property({ reflect: true }) strategy: 'absolute' | 'fixed' = 'absolute';
+  @property({ reflect: true }) strategy: 'absolute' | 'fixed' = SUPPORTS_POPOVER ? 'absolute' : 'fixed';
 
   /** The distance in pixels from which to offset the panel away from its anchor. */
   @property({ type: Number }) distance = 0;
