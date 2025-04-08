@@ -608,13 +608,6 @@ table.colors {
   margin-block-end: var(--wa-flow-spacing);
 }
 
-/** mobile */
-@media screen and (max-width: 768px) {
-  wa-page .only-desktop {
-    display: none;
-  }
-}
-
 /** desktop */
 @media screen and not (max-width: 768px) {
   /* Navigation sidebar */

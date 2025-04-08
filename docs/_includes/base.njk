@@ -20,7 +20,7 @@
   </head>
   <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle="">
+    <wa-page view="desktop" disable-navigation-toggle="" mobile-breakpoint="1140">
       <header slot="header" class="wa-split">
         {# Logo #}
         <div id="docs-branding">
@@ -33,13 +33,13 @@
             <span class="wa-desktop-only">{% include "logo.njk" %}</span>
             <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
           </a>
-          <small id="version-number" class="only-desktop">{{ package.version }}</small>
-          <wa-badge variant="warning" appearance="filled" class="only-desktop">Alpha</wa-badge>
+          <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
+          <wa-badge variant="warning" appearance="filled" class="wa-desktop-only">Alpha</wa-badge>
         </div>
 
         <div id="docs-toolbar" class="wa-cluster wa-gap-xs">
           {# Desktop selectors #}
-          <div class="only-desktop wa-cluster wa-gap-xs">
+          <div class="wa-desktop-only wa-cluster wa-gap-xs">
             {% include "preset-theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
@@ -48,7 +48,7 @@
           <wa-button id="search-trigger" appearance="outlined" size="small" data-search>
             <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
             Search
-            <kbd slot="suffix" class="only-desktop">/</kbd>
+            <kbd slot="suffix" class="wa-desktop-only">/</kbd>
           </wa-button>
 
           {# Login #}
