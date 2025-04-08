@@ -1,7 +1,12 @@
 :host {
+  --size-xs: var(--wa-space-s);
+  --size-s: var(--wa-space-m);
+  --size-m: var(--wa-space-l);
+  --size-l: var(--wa-space-xl);
+
   --symbol-color: var(--wa-color-neutral-fill-normal);
   --symbol-color-active: var(--wa-color-yellow-70);
-  --symbol-size: var(--wa-font-size-l);
+  --symbol-size: var(--wa-size);
   --symbol-spacing: var(--wa-space-3xs);
 
   display: inline-flex;
@@ -26,7 +31,6 @@
 .symbols {
   display: inline-flex;
   position: relative;
-  font-size: var(--symbol-size);
   line-height: 0;
   color: var(--symbol-color);
   white-space: nowrap;

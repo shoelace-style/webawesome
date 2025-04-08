@@ -121,7 +121,8 @@ input:where(:not(
   font: inherit;
 }
 
-.wa-pill,
-:host([pill]) {
-  border-radius: var(--wa-border-radius-pill);
+input.wa-pill,
+textarea.wa-pill,
+:host([pill]) .wa-text-field {
+  border-radius: var(--wa-border-radius-pill) !important;
 }

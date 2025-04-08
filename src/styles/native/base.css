@@ -29,22 +29,6 @@ body {
   -webkit-text-size-adjust: none;
 }
 
-@keyframes wa-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-/* Show custom elements only after they're registered */
-:where(:not(:defined, [did-ssr])) {
-  /*
-	  * if an element gets defined earlier than 800ms, the animation stops applying so it just appears (no fade)
-	  * If it takes somewhere between 800 and 1000 ms, then you may get an interrupted fade
-	  * If an element takes longer than 1000ms to get defined, it fades in over 200ms
-	  */
-  animation: 200ms 800ms wa-fade-in both;
-}
-
 /* Content flow */
 address,
 audio,

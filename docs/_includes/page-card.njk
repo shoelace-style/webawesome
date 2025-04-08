@@ -2,9 +2,12 @@
 <a href="{{ page.url }}"{{ page.data.keywords | attr('data-keywords') }}>
 	<wa-card with-header>
 		<div slot="header">
-		{% include "svgs/" + (page.data.icon or "thumbnail-placeholder") + ".njk" %}
+		{% include "svgs/" + (page.data.icon or "thumbnail-placeholder") + ".njk" ignore missing %}
 		</div>
 		<span class="page-name">{{ page.data.title }}</span>
+		{% if pageSubtitle -%}
+		<div class="wa-caption-s">{{ pageSubtitle }}</div>
+		{%- endif %}
 	</wa-card>
 </a>
 {% endif %}

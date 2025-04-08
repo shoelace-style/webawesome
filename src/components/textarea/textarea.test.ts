@@ -20,7 +20,7 @@ describe('<wa-textarea>', () => {
       it('default properties', async () => {
         const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
 
-        expect(el.size).to.equal('medium');
+        expect(el.size).to.equal('inherit');
         expect(el.name).to.equal(null);
         expect(el.value).to.equal('');
         expect(el.defaultValue).to.equal('');
@@ -64,7 +64,7 @@ describe('<wa-textarea>', () => {
         const label = el.shadowRoot!.querySelector('[part~="label"]')!;
         const submitHandler = sinon.spy();
 
-        el.addEventListener('wa-focus', submitHandler);
+        el.addEventListener('focus', submitHandler);
         (label as HTMLLabelElement).click();
         await waitUntil(() => submitHandler.calledOnce);
 
@@ -72,13 +72,13 @@ describe('<wa-textarea>', () => {
       });
 
       describe('when the value changes', () => {
-        it('should emit wa-change and wa-input when the user types in the textarea', async () => {
+        it('should emit change and input when the user types in the textarea', async () => {
           const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
           const inputHandler = sinon.spy();
           const changeHandler = sinon.spy();
 
-          el.addEventListener('wa-input', inputHandler);
-          el.addEventListener('wa-change', changeHandler);
+          el.addEventListener('input', inputHandler);
+          el.addEventListener('change', changeHandler);
           el.focus();
           await sendKeys({ type: 'abc' });
           el.blur();
@@ -88,21 +88,21 @@ describe('<wa-textarea>', () => {
           expect(inputHandler).to.have.been.calledThrice;
         });
 
-        it('should not emit wa-change or wa-input when the value is set programmatically', async () => {
+        it('should not emit change or input when the value is set programmatically', async () => {
           const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.value = 'abc';
 
           await el.updateComplete;
         });
 
-        it('should not emit wa-change or wa-input when calling setRangeText()', async () => {
+        it('should not emit change or input when calling setRangeText()', async () => {
           const el = await fixture<WaTextarea>(html` <wa-textarea value="hi there"></wa-textarea> `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.focus();
           el.setSelectionRange(0, 2);
           el.setRangeText('hello');
@@ -199,6 +199,21 @@ describe('<wa-textarea>', () => {
       });
 
       describe('when submitting a form', () => {
+        it('should submit an empty value when initial value is set and then deleted', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-textarea name="a" value="1"></wa-textarea></form>
+          `);
+          const textarea = form.querySelector('wa-textarea')!;
+
+          textarea.focus();
+          textarea.select();
+          await sendKeys({ press: 'Backspace' });
+          await textarea.updateComplete;
+
+          const formData = new FormData(form);
+          expect(formData.get('a')).to.equal('');
+        });
+
         it('should serialize its name and value with FormData', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form><wa-textarea name="a" value="1"></wa-textarea></form>

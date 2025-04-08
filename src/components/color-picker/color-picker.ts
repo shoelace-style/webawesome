@@ -5,17 +5,13 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaChangeEvent } from '../../events/change.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WaInputEvent } from '../../events/input.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { drag } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import visuallyHidden from '../../styles/utilities/visually-hidden.css';
@@ -54,10 +50,10 @@ declare const EyeDropper: EyeDropperConstructor;
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
  * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the color picker loses focus.
- * @event wa-change - Emitted when the color picker's value changes.
- * @event wa-focus - Emitted when the color picker receives focus.
- * @event wa-input - Emitted when the color picker receives input.
+ * @event blur - Emitted when the color picker loses focus.
+ * @event change - Emitted when the color picker's value changes.
+ * @event focus - Emitted when the color picker receives focus.
+ * @event input - Emitted when the color picker receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
@@ -203,7 +199,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
 
   /** Determines the size of the color picker's trigger */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Removes the button that lets users toggle between format.   */
   @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;
@@ -266,12 +262,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private handleFocusIn = () => {
     this.hasFocus = true;
-    this.dispatchEvent(new WaFocusEvent());
   };
 
   private handleFocusOut = () => {
     this.hasFocus = false;
-    this.dispatchEvent(new WaBlurEvent());
   };
 
   private handleFormatToggle() {
@@ -279,8 +273,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this.setColor(this.value || '');
-    this.dispatchEvent(new WaChangeEvent());
-    this.dispatchEvent(new WaInputEvent());
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.dispatchEvent(new InputEvent('input'));
   }
 
   private handleAlphaDrag(event: PointerEvent) {
@@ -300,13 +294,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new InputEvent('input'));
         }
       },
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         }
       },
       initialEvent: event,
@@ -330,13 +324,13 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new InputEvent('input'));
         }
       },
       onStop: () => {
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         }
       },
       initialEvent: event,
@@ -363,14 +357,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
         if (this.value !== currentValue) {
           currentValue = this.value;
-          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new InputEvent('input'));
         }
       },
       onStop: () => {
         this.isDraggingGridHandle = false;
         if (this.value !== initialValue) {
           initialValue = this.value;
-          this.dispatchEvent(new WaChangeEvent());
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         }
       },
       initialEvent: event,
@@ -406,8 +400,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   }
 
@@ -440,8 +434,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   }
 
@@ -474,12 +468,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   }
 
-  private handleInputChange(event: WaChangeEvent) {
+  private handleInputChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const oldValue = this.value;
 
@@ -494,15 +488,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
-      this.dispatchEvent(new WaInputEvent());
+      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   }
 
-  private handleInputInput(event: WaInputEvent) {
+  private handleInputInput(event: InputEvent) {
     this.updateValidity();
 
-    // Prevent the `<wa-input>` element's `wa-input` event from bubbling up
+    // Prevent the `<wa-input>` element's `input` event from bubbling up
     event.stopPropagation();
   }
 
@@ -515,8 +509,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.input.value = this.value;
 
         if (this.value !== oldValue) {
-          this.dispatchEvent(new WaChangeEvent());
-          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new InputEvent('input'));
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         }
 
         setTimeout(() => this.input.select());
@@ -691,8 +685,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.setColor(colorSelectionResult.sRGBHex);
 
         if (this.value !== oldValue) {
-          this.dispatchEvent(new WaChangeEvent());
-          this.dispatchEvent(new WaInputEvent());
+          this.dispatchEvent(new InputEvent('input'));
+          this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         }
       })
       .catch(() => {
@@ -707,8 +701,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.setColor(color);
 
       if (this.value !== oldValue) {
-        this.dispatchEvent(new WaChangeEvent());
-        this.dispatchEvent(new WaInputEvent());
+        this.dispatchEvent(new InputEvent('input'));
+        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       }
     }
   }
@@ -1008,10 +1002,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             ?disabled=${this.disabled}
             aria-label=${this.localize.term('currentValue')}
             @keydown=${this.handleInputKeyDown}
-            @wa-change=${this.handleInputChange}
-            @wa-input=${this.handleInputInput}
-            @wa-blur=${this.stopNestedEventPropagation}
-            @wa-focus=${this.stopNestedEventPropagation}
+            @change=${this.handleInputChange}
+            @input=${this.handleInputInput}
+            @blur=${this.stopNestedEventPropagation}
+            @focus=${this.stopNestedEventPropagation}
           ></wa-input>
 
           <wa-button-group>
@@ -1029,8 +1023,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       caret:format-button__caret
                     "
                     @click=${this.handleFormatToggle}
-                    @wa-blur=${this.stopNestedEventPropagation}
-                    @wa-focus=${this.stopNestedEventPropagation}
+                    @blur=${this.stopNestedEventPropagation}
+                    @focus=${this.stopNestedEventPropagation}
                   >
                     ${this.setLetterCase(this.format)}
                   </wa-button>
@@ -1049,8 +1043,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       caret:eye-dropper-button__caret
                     "
                     @click=${this.handleEyeDropper}
-                    @wa-blur=${this.stopNestedEventPropagation}
-                    @wa-focus=${this.stopNestedEventPropagation}
+                    @blur=${this.stopNestedEventPropagation}
+                    @focus=${this.stopNestedEventPropagation}
                   >
                     <wa-icon
                       library="system"

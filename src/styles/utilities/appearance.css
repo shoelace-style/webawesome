@@ -1,9 +1,11 @@
 /* 0 specificity. Safari doesn't like :where(:host()) so we need a separate rule. */
-.wa-filled,
-.wa-plain,
-.wa-accent,
+:where(.wa-filled, .wa-plain, .wa-accent, .wa-outlined),
 :host {
   --border-color: transparent;
+  --outlined-border-color: initial;
+  --outlined-border-color-hover: initial;
+  --outlined-text-color: initial;
+  --outlined-text-color-hover: initial;
 }
 
 .wa-outlined,
@@ -43,7 +45,8 @@
 
   --outlined-border-color: var(--wa-color-border-normal);
 
-  --text-color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+  --text-color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+  --text-color-hover: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 }
 
 .wa-plain,

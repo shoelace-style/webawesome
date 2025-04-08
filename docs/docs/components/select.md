@@ -130,6 +130,15 @@ Note that multi-select options may wrap, causing the control to expand verticall
 
 Use the `value` attribute to set the initial selection.
 
+```html {.example}
+<wa-select value="option-1">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+  <wa-option value="option-4">Option 4</wa-option>
+</wa-select>
+```
+
 When using `multiple`, the `value` _attribute_ uses space-delimited values to select more than one option. Because of this, `<wa-option>` values cannot contain spaces. If you're accessing the `value` _property_ through Javascript, it will be an array.
 
 ```html {.example}
@@ -294,7 +303,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
     return `
       <wa-tag removable>
         <wa-icon name="${name}" style="padding-inline-end: .5rem;"></wa-icon>
-        ${option.getTextLabel()}
+        ${option.label}
       </wa-tag>
     `;
   };

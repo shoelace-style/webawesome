@@ -24,7 +24,6 @@ let id = 0;
 @customElement('wa-tab')
 export default class WaTab extends WebAwesomeElement {
   static shadowStyle = styles;
-  public slot = 'nav'; // Auto-slot into nav slot
 
   private readonly attrId = ++id;
   private readonly componentId = `wa-tab-${this.attrId}`;
@@ -47,6 +46,9 @@ export default class WaTab extends WebAwesomeElement {
   @property({ type: Number, reflect: true }) tabIndex = 0;
 
   connectedCallback() {
+    // Auto-slot into nav slot
+    this.slot ||= 'nav';
+
     super.connectedCallback();
     this.setAttribute('role', 'tab');
   }

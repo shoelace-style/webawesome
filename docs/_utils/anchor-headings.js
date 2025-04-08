@@ -37,7 +37,8 @@ export function anchorHeadingsPlugin(options = {}) {
       }
 
       // Look for headings
-      container.querySelectorAll(options.headingSelector).forEach(heading => {
+      let selector = `:is(${options.headingSelector}):not([data-no-anchor], [data-no-anchor] *)`;
+      container.querySelectorAll(selector).forEach(heading => {
         const hasAnchor = heading.querySelector('a');
         const existingId = heading.getAttribute('id');
         const clone = parse(heading.outerHTML);

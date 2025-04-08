@@ -1,0 +1,36 @@
+:where(:root),
+:host,
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
+:where([class^='wa-palette-'], [class*=' wa-palette-']),
+.wa-danger-orange {
+  --wa-color-danger-95: var(--wa-color-orange-95);
+  --wa-color-danger-90: var(--wa-color-orange-90);
+  --wa-color-danger-80: var(--wa-color-orange-80);
+  --wa-color-danger-70: var(--wa-color-orange-70);
+  --wa-color-danger-60: var(--wa-color-orange-60);
+  --wa-color-danger-50: var(--wa-color-orange-50);
+  --wa-color-danger-40: var(--wa-color-orange-40);
+  --wa-color-danger-30: var(--wa-color-orange-30);
+  --wa-color-danger-20: var(--wa-color-orange-20);
+  --wa-color-danger-10: var(--wa-color-orange-10);
+  --wa-color-danger-05: var(--wa-color-orange-05);
+  --wa-color-danger: var(--wa-color-orange);
+
+  --wa-color-danger-lt-50: var(--wa-color-orange-lt-50);
+  --wa-color-danger-gte-50: var(--wa-color-orange-gte-50);
+
+  --wa-color-danger-lt-60: var(--wa-color-orange-lt-60);
+  --wa-color-danger-gte-60: var(--wa-color-orange-gte-60);
+
+  --wa-color-danger-lt-70: var(--wa-color-orange-lt-70);
+  --wa-color-danger-gte-70: var(--wa-color-orange-gte-70);
+
+  --wa-color-danger-max-50: var(--wa-color-orange-max-50);
+  --wa-color-danger-min-50: var(--wa-color-orange-min-50);
+  --wa-color-danger-max-60: var(--wa-color-orange-max-60);
+  --wa-color-danger-min-60: var(--wa-color-orange-min-60);
+  --wa-color-danger-max-70: var(--wa-color-orange-max-70);
+  --wa-color-danger-min-70: var(--wa-color-orange-min-70);
+
+  --wa-color-danger-on: var(--wa-color-orange-on);
+}

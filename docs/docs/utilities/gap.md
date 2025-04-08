@@ -2,6 +2,7 @@
 title: Gap
 description: Gap utilities set the gap property of flex and grid containers, like other Web Awesome layout utilities.
 tags: ["utilities", "layout"]
+file: styles/utilities/gap.css
 ---
 
 <style>

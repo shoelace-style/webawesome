@@ -1,0 +1,132 @@
+wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
+  &::part(header) {
+    /* We want to add a background color, so any spacing needs to go on .theme-icon */
+    flex: 1;
+    padding: 0;
+    min-block-size: 0;
+  }
+
+  [slot='header'] {
+    width: 100%;
+  }
+}
+
+.theme-icon-host,
+.palette-icon-host {
+  flex: 1;
+  border-radius: inherit;
+
+  &[slot='header'],
+  [slot='header']:has(&) {
+    flex: 1;
+    border-radius: inherit;
+  }
+}
+
+.palette-icon {
+  display: grid;
+  grid-template-columns: repeat(var(--hues, 9), 1fr);
+  gap: var(--wa-space-3xs);
+  min-width: 20ch;
+  min-height: 9ch;
+  align-content: center;
+
+  .swatch {
+    height: 0.7em;
+    background: var(--color);
+    border-radius: var(--wa-border-radius-s);
+
+    &[data-suffix=''] {
+      height: 1.1em;
+    }
+  }
+}
+
+.theme-icon {
+  min-width: 18ch;
+  padding: var(--wa-space-xs) var(--wa-space-m);
+  border-radius: inherit;
+  box-sizing: border-box;
+
+  h2,
+  h3,
+  p {
+    margin-block: 0;
+    padding: 0;
+  }
+}
+
+.theme-color-icon {
+  display: grid;
+  gap: var(--wa-space-xs);
+  grid-template-columns: repeat(4, auto);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: var(--wa-border-radius-m);
+    background-color: var(--background-color);
+    border: var(--wa-border-width-s) var(--wa-border-style) var(--border-color);
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    color: var(--text-color);
+    font-weight: var(--wa-font-weight-semibold);
+
+    &.plain {
+      font-weight: var(--wa-font-weight-bold);
+    }
+  }
+}
+
+.theme-typography-icon {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wa-space-xs);
+}
+
+.theme-overall-icon {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-xs);
+  justify-content: center;
+  width: 100%;
+  min-height: 7.5rem;
+  box-sizing: border-box;
+  background: var(--wa-color-surface-lowered);
+
+  .row {
+    display: flex;
+    gap: var(--wa-space-xs);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    contain: inline-size;
+    width: 100%;
+
+    wa-input {
+      min-width: 1em;
+    }
+  }
+
+  .swatches {
+    display: flex;
+    gap: var(--wa-space-3xs);
+
+    > div {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: var(--wa-border-radius-s);
+      background: var(--wa-color-fill-loud);
+      color: var(--wa-color-on-loud);
+
+      &.wa-brand {
+        width: 2.5rem;
+      }
+    }
+  }
+}

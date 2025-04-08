@@ -22,6 +22,26 @@
   display: flex;
 }
 
+[part~='form-control-input'] {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--wa-space-s);
+  margin-block-end: var(--wa-space-xs);
+}
+
+/* Horizontal */
+:host([orientation='horizontal']) [part~='form-control-input'] {
+  flex-direction: row;
+  gap: var(--wa-space-m);
+}
+
+/* When radio buttons are slotted */
+:host([orientation]) .form-control--has-radio-buttons [part~='form-control-input'] {
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
 /* Help text */
 [part~='hint'] {
   margin-block-start: var(--wa-space-2xs);

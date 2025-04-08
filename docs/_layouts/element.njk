@@ -14,11 +14,19 @@
 {% endblock %}
 
 {% block afterContent %}
-  {# Slots #}
-  {% if css_file %}
-    <h2>Using these styles</h2>
-    <p>If you want to use these styles without using the entirety of Web Awesome Native Styles, you can include the following CSS files:</p>
+{% if file %}
+{% markdown %}
+## Opting In to Native {{ title }} Styles
 
+If you want to use the Native {{ title }} styles **without including the entirety of Web Awesome Native Styles**,
+ you can include the following CSS files from the Web Awesome CDN.
 
-  {% endif %}
+{% set stylesheet = file %}
+{% include 'import-stylesheet-code.md.njk' %}
+
+To use all of Web Awesome Native styles, follow the [instructions on the Native Styles overview page](../).
+
+{% endmarkdown %}
+{% endif %}
+
 {% endblock %}

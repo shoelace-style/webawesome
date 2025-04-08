@@ -2,9 +2,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import '../icon/icon.js';
 import styles from './icon-button.css';
 
@@ -16,10 +14,13 @@ import styles from './icon-button.css';
  *
  * @dependency wa-icon
  *
- * @event wa-blur - Emitted when the icon button loses focus.
- * @event wa-focus - Emitted when the icon button gains focus.
+ * @event blur - Emitted when the icon button loses focus.
+ * @event focus - Emitted when the icon button gains focus.
  *
- * @cssproperty --background-color-hover - The color of the button's background on hover.
+ * @cssproperty [--background-color-hover=var(--wa-color-neutral-fill-quiet)] - The color of the button's background on hover.
+ * @cssproperty [--background-color-active=var(--wa-color-neutral-fill-quiet)] - The color of the button's background on `:active`.
+ * @cssproperty --text-color-hover - The color of the button's background on hover.
+ * @cssproperty --text-color-active - The color of the button's background on `:active`.
  *
  * @csspart base - The component's base wrapper.
  */
@@ -71,14 +72,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
   /** Disables the button. */
   @property({ type: Boolean }) disabled = false;
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
-  }
-
   private handleClick(event: MouseEvent) {
     if (this.disabled) {
       event.preventDefault();
@@ -122,8 +115,6 @@ export default class WaIconButton extends WebAwesomeFormAssociatedElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label="${this.label}"
         tabindex=${this.disabled ? '-1' : '0'}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @click=${this.handleClick}
       >
         <wa-icon

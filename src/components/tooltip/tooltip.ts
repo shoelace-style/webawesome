@@ -35,11 +35,8 @@ import styles from './tooltip.css';
  *
  * @cssproperty --background-color - The tooltip's background color.
  * @cssproperty --border-radius - The radius of the tooltip's corners.
- * @cssproperty --text-color - The color of the tooltip's content.
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
  * @cssproperty --padding - The padding within the tooltip.
- * @cssproperty --hide-delay - The amount of time to wait before hiding the tooltip when hovering.
- * @cssproperty --show-delay - The amount of time to wait before showing the tooltip when hovering.
  */
 @customElement('wa-tooltip')
 export default class WaTooltip extends WebAwesomeElement {
@@ -47,7 +44,6 @@ export default class WaTooltip extends WebAwesomeElement {
   static dependencies = { 'wa-popup': WaPopup };
 
   private hoverTimeout: number;
-  private closeWatcher: CloseWatcher | null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('.body') body: HTMLElement;
@@ -130,7 +126,6 @@ export default class WaTooltip extends WebAwesomeElement {
     super.disconnectedCallback();
 
     // Cleanup this event in case the tooltip is removed while open
-    this.closeWatcher?.destroy();
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     this.eventController.abort();
 
@@ -215,15 +210,7 @@ export default class WaTooltip extends WebAwesomeElement {
         return;
       }
 
-      if ('CloseWatcher' in window) {
-        this.closeWatcher?.destroy();
-        this.closeWatcher = new CloseWatcher();
-        this.closeWatcher.onclose = () => {
-          this.hide();
-        };
-      } else {
-        document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
-      }
+      document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
 
       this.body.hidden = false;
       this.popup.active = true;
@@ -240,7 +227,6 @@ export default class WaTooltip extends WebAwesomeElement {
         return;
       }
 
-      this.closeWatcher?.destroy();
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
 
       await animateWithClass(this.popup.popup, 'hide-with-scale');

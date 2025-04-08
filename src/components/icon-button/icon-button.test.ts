@@ -146,13 +146,13 @@ describe('<wa-icon-button>', () => {
       });
 
       describe('when using methods', () => {
-        it('should emit wa-focus and wa-blur when the button is focused and blurred', async () => {
+        it('should emit focus and blur when the button is focused and blurred', async () => {
           const el = await fixture<WaIconButton>(html` <wa-icon-button></wa-icon-button> `);
           const focusHandler = sinon.spy();
           const blurHandler = sinon.spy();
 
-          el.addEventListener('wa-focus', focusHandler);
-          el.addEventListener('wa-blur', blurHandler);
+          el.addEventListener('focus', focusHandler);
+          el.addEventListener('blur', blurHandler);
 
           el.focus();
           await waitUntil(() => focusHandler.calledOnce);

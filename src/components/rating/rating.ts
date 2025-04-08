@@ -3,11 +3,11 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { WaChangeEvent } from '../../events/change.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './rating.css';
@@ -20,7 +20,7 @@ import styles from './rating.css';
  *
  * @dependency wa-icon
  *
- * @event wa-change - Emitted when the rating's value changes.
+ * @event change - Emitted when the rating's value changes.
  * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
@@ -29,12 +29,11 @@ import styles from './rating.css';
  *
  * @cssproperty --symbol-color - The inactive color for symbols.
  * @cssproperty --symbol-color-active - The active color for symbols.
- * @cssproperty --symbol-size - The size of symbols.
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
 @customElement('wa-rating')
 export default class WaRating extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
 
   private readonly localize = new LocalizeController(this);
 
@@ -72,6 +71,9 @@ export default class WaRating extends WebAwesomeElement {
   @property() getSymbol: (value: number) => string = () =>
     '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
 
+  /** The component's size. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
   private getValueFromMousePosition(event: MouseEvent) {
     return this.getValueFromXCoordinate(event.clientX);
   }
@@ -96,7 +98,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     this.setValue(this.getValueFromMousePosition(event));
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 
   private setValue(newValue: number) {
@@ -140,7 +142,7 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new WaChangeEvent());
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   }
 
@@ -173,7 +175,7 @@ export default class WaRating extends WebAwesomeElement {
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
     this.setValue(this.hoverValue);
-    this.dispatchEvent(new WaChangeEvent());
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
 
     // Prevent click on mobile devices
     event.preventDefault();
