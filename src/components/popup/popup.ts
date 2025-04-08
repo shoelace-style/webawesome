@@ -283,10 +283,7 @@ export default class WaPopup extends WebAwesomeElement {
       return;
     }
 
-    // Should this only be for `strategy="fixed"`? (hoist in most components)
-    if (SUPPORTS_POPOVER) {
-      this.popup.showPopover();
-    }
+    this.popup.showPopover?.();
 
     this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
@@ -295,9 +292,7 @@ export default class WaPopup extends WebAwesomeElement {
 
   private async stop(): Promise<void> {
     return new Promise(resolve => {
-      if (SUPPORTS_POPOVER) {
-        this.popup.hidePopover();
-      }
+      this.popup.hidePopover?.();
 
       if (this.cleanup) {
         this.cleanup();
