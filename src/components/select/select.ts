@@ -229,12 +229,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean, reflect: true }) open = false;
 
-  /**
-   * Enable this option to prevent the listbox from being clipped when the component is placed inside a container with
-   * `overflow: auto|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
   /** The select's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
 
@@ -891,7 +885,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               'placeholder-visible': isPlaceholderVisible,
             })}
             placement=${this.placement}
-            strategy=${this.hoist ? 'fixed' : 'absolute'}
             flip
             shift
             sync="width"

@@ -152,25 +152,3 @@ Use the `--max-width` custom property to change the width the tooltip can grow t
 <wa-button id="wrapping-tooltip">Hover me</wa-button>
 ```
 
-### Hoisting
-
-Tooltips will be clipped if they're inside a container that has `overflow: auto|hidden|scroll`. The `hoist` attribute forces the tooltip to use a fixed positioning strategy, allowing it to break out of the container. In this case, the tooltip will be positioned relative to its [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#Identifying_the_containing_block), which is usually the viewport unless an ancestor uses a `transform`, `perspective`, or `filter`. [Refer to this page](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) for more details.
-
-```html {.example}
-<div class="tooltip-hoist">
-  <wa-tooltip for="no-hoist">This is a tooltip</wa-tooltip>
-  <wa-button id="no-hoist">No Hoist</wa-button>
-
-  <wa-tooltip for="hoist" hoist>This is a tooltip</wa-tooltip>
-  <wa-button id="hoist">Hoist</wa-button>
-</div>
-
-<style>
-  .tooltip-hoist {
-    position: relative;
-    overflow: hidden;
-    border: solid 2px var(--wa-color-surface-border);
-    padding: var(--wa-space-m);
-  }
-</style>
-```

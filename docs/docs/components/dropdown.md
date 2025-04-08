@@ -180,38 +180,3 @@ To create a submenu, nest an `<wa-menu slot="submenu">` element in a [menu item]
 :::warning
 As a UX best practice, avoid using more than one level of submenu when possible.
 :::
-
-### Hoisting
-
-Dropdown panels will be clipped if they're inside a container that has `overflow: auto|hidden`. The `hoist` attribute forces the panel to use a fixed positioning strategy, allowing it to break out of the container. In this case, the panel will be positioned relative to its [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#Identifying_the_containing_block), which is usually the viewport unless an ancestor uses a `transform`, `perspective`, or `filter`. [Refer to this page](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) for more details.
-
-```html {.example}
-<div class="dropdown-hoist">
-  <wa-dropdown>
-    <wa-button slot="trigger" caret>No Hoist</wa-button>
-    <wa-menu>
-      <wa-menu-item>Item 1</wa-menu-item>
-      <wa-menu-item>Item 2</wa-menu-item>
-      <wa-menu-item>Item 3</wa-menu-item>
-    </wa-menu>
-  </wa-dropdown>
-
-  <wa-dropdown hoist>
-    <wa-button slot="trigger" caret>Hoist</wa-button>
-    <wa-menu>
-      <wa-menu-item>Item 1</wa-menu-item>
-      <wa-menu-item>Item 2</wa-menu-item>
-      <wa-menu-item>Item 3</wa-menu-item>
-    </wa-menu>
-  </wa-dropdown>
-</div>
-
-<style>
-  .dropdown-hoist {
-    position: relative;
-    border: solid 2px var(--wa-color-surface-border);
-    padding: var(--wa-space-m);
-    overflow: hidden;
-  }
-</style>
-```
