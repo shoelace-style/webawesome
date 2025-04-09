@@ -1,4 +1,14 @@
-import { arrow, autoUpdate, computePosition, flip, offset, platform, shift, size } from '@floating-ui/dom';
+import {
+  arrow,
+  autoUpdate,
+  computePosition,
+  flip,
+  getOverflowAncestors,
+  offset,
+  platform,
+  shift,
+  size,
+} from '@floating-ui/dom';
 import { offsetParent } from 'composed-offset-position';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
@@ -345,6 +355,7 @@ export default class WaPopup extends WebAwesomeElement {
       middleware.push(
         flip({
           boundary: this.flipBoundary,
+          elementContext: this.flipBoundary ? undefined : 'reference',
           // @ts-expect-error - We're converting a string attribute to an array here
           fallbackPlacements: this.flipFallbackPlacements,
           fallbackStrategy: this.flipFallbackStrategy === 'best-fit' ? 'bestFit' : 'initialPlacement',
@@ -355,9 +366,19 @@ export default class WaPopup extends WebAwesomeElement {
 
     // Then we shift
     if (this.shift) {
+      let boundary = this.shiftBoundary;
+
+      if (!boundary && !isVirtualElement(this.anchor) && SUPPORTS_POPOVER) {
+        // When using the Popover API, the floating element is no longer in the same DOM context
+        // as the overflow ancestors so Floating-UI can't find them.
+        // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
+        // but the option is not available for flip(), so we basically need to implement it ourselves.
+        boundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
+      }
+
       middleware.push(
         shift({
-          boundary: this.shiftBoundary,
+          boundary,
           padding: this.shiftPadding,
         }),
       );
