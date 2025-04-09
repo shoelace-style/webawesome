@@ -347,25 +347,21 @@ export default class WaPopup extends WebAwesomeElement {
       this.popup.style.height = '';
     }
 
-    let overflowBoundary, defaultBoundary;
+    let defaultBoundary;
 
-    if (SUPPORTS_POPOVER && !isVirtualElement(this.anchor)) {
+    if (SUPPORTS_POPOVER && !isVirtualElement(this.anchor) && this.boundary === 'scroll') {
       // When using the Popover API, the floating element is no longer in the same DOM context
       // as the overflow ancestors so Floating-UI can't find them.
       // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
       // but the option is not available for shift() or size(), so we basically need to implement it ourselves.
-      overflowBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
-    }
-
-    if (this.boundary === 'scroll') {
-      defaultBoundary = overflowBoundary;
+      defaultBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
     }
 
     // Then we flip
     if (this.flip) {
       middleware.push(
         flip({
-          boundary: this.flipBoundary || overflowBoundary,
+          boundary: this.flipBoundary || defaultBoundary,
           // @ts-expect-error - We're converting a string attribute to an array here
           fallbackPlacements: this.flipFallbackPlacements,
           fallbackStrategy: this.flipFallbackStrategy === 'best-fit' ? 'bestFit' : 'initialPlacement',

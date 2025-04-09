@@ -473,12 +473,15 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
 When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view and visually connected to its anchor.
 To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
 
+By default, flip takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
+
 Scroll the container to see how the popup flips to prevent clipping.
 
 ```html {.example}
 <div class="popup-flip">
   <div class="overflow">
-    <wa-popup placement="top" flip active>
+    <wa-popup placement="top" flip active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
