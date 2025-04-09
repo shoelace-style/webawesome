@@ -470,7 +470,8 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
 
 ### Flip
 
-When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view. To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
+When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view and visually connected to its anchor.
+To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
 
 Scroll the container to see how the popup flips to prevent clipping.
 
@@ -533,7 +534,7 @@ Scroll the container to see how the popup changes it's fallback placement to pre
 ```html {.example}
 <div class="popup-flip-fallbacks">
   <div class="overflow">
-    <wa-popup placement="top" flip flip-fallback-placements="right bottom" flip-fallback-strategy="initial" active>
+    <wa-popup placement="top" flip flip-fallback-placements="right bottom" flip-fallback-strategy="initial" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -567,14 +568,18 @@ Scroll the container to see how the popup changes it's fallback placement to pre
 
 ### Shift
 
-When a popup is longer than its anchor, it risks being clipped by an overflowing container. In this case, use the `shift` attribute to shift the popup along its axis and back into view. You can customize the shift behavior using `shiftBoundary` and `shift-padding`.
+When a popup is longer than its anchor, it risks overflowing.
+In this case, use the `shift` attribute to shift the popup along its axis and back into view. You can customize the shift behavior using `shiftBoundary` and `shift-padding`.
+
+By default, auto-size takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
 
 Toggle the switch to see the difference.
 
 ```html {.example}
 <div class="popup-shift">
   <div class="overflow">
-    <wa-popup placement="top" shift shift-padding="10" active>
+    <wa-popup placement="top" shift shift-padding="10" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -617,7 +622,11 @@ Toggle the switch to see the difference.
 
 ### Auto-size
 
-Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from getting clipped. Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.
+Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from overflowing.
+Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.
+
+By default, auto-size takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
 
 When using `auto-size`, one or both of `--auto-size-available-width` and `--auto-size-available-height` will be applied to the host element. These values determine the available space the popover has before clipping will occur. Since they cascade, you can use them to set a max-width/height on your popup's content and easily control its overflow.
 
@@ -626,7 +635,7 @@ Scroll the container to see the popup resize as its available space changes.
 ```html {.example}
 <div class="popup-auto-size">
   <div class="overflow">
-    <wa-popup placement="top" auto-size="both" auto-size-padding="10" active>
+    <wa-popup placement="top" auto-size="both" auto-size-padding="10" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>

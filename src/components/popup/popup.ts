@@ -109,6 +109,9 @@ export default class WaPopup extends WebAwesomeElement {
     | 'left-start'
     | 'left-end' = 'top';
 
+  /** Which bounding box to use for flipping, shifting, and auto-sizing? */
+  @property() boundary: 'viewport' | 'scroll' = 'viewport';
+
   /** The distance in pixels from which to offset the panel away from its anchor. */
   @property({ type: Number }) distance = 0;
 
@@ -344,27 +347,25 @@ export default class WaPopup extends WebAwesomeElement {
       this.popup.style.height = '';
     }
 
-    let defaultBoundary;
+    let overflowBoundary, defaultBoundary;
 
-    if (
-      SUPPORTS_POPOVER &&
-      !isVirtualElement(this.anchor) &&
-      ((this.flip && !this.flipBoundary) ||
-        (this.shift && !this.shiftBoundary) ||
-        (this.autoSize && !this.autoSizeBoundary))
-    ) {
+    if (SUPPORTS_POPOVER && !isVirtualElement(this.anchor)) {
       // When using the Popover API, the floating element is no longer in the same DOM context
       // as the overflow ancestors so Floating-UI can't find them.
       // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
       // but the option is not available for shift() or size(), so we basically need to implement it ourselves.
-      defaultBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
+      overflowBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
+    }
+
+    if (this.boundary === 'scroll') {
+      defaultBoundary = overflowBoundary;
     }
 
     // Then we flip
     if (this.flip) {
       middleware.push(
         flip({
-          boundary: this.flipBoundary || defaultBoundary,
+          boundary: this.flipBoundary || overflowBoundary,
           // @ts-expect-error - We're converting a string attribute to an array here
           fallbackPlacements: this.flipFallbackPlacements,
           fallbackStrategy: this.flipFallbackStrategy === 'best-fit' ? 'bestFit' : 'initialPlacement',
