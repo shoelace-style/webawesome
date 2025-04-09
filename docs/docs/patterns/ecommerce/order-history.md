@@ -193,12 +193,14 @@ description: 'Empower your customers to view past purchases and track upcoming o
     <div class="wa-flank:end">
       <div class="wa-stack">
         <div class="wa-cluster wa-gap-xs">
-          <wa-icon family="brands" name="amazon"></wa-icon>
+          <wa-avatar shape="rounded" label="Avatar with an image icon">
+            <wa-icon slot="icon"family="brands" name="amazon"></wa-icon>
+          </wa-avatar>
           <span class="wa-heading-s">Amazon</span>
         </div>
         <div class="wa-stack wa-gap-xs">
           <span>Expected Tomorrow</span>
-          <wa-progress-bar value="75" label="delivery progress" style="height: 1rem;"></wa-progress-bar>
+          <wa-progress-bar value="75" label="delivery progress" style="height: 0.5rem;"></wa-progress-bar>
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
@@ -210,16 +212,18 @@ description: 'Empower your customers to view past purchases and track upcoming o
     <div class="wa-flank:end">
       <div class="wa-stack">
         <div class="wa-cluster wa-gap-xs">
-          <wa-icon family="brands" name="amazon"></wa-icon>
-          <span class="wa-heading-s">Amazon</span>
+          <wa-avatar shape="rounded" label="Avatar with an image icon">
+            <wa-icon slot="icon" family="sharp" variant="light" name="shirt"></wa-icon>
+          </wa-avatar>
+          <span class="wa-heading-s">T-shirt Depot</span>
         </div>
         <div class="wa-stack wa-gap-xs">
-          <span>Expected Tomorrow</span>
-          <wa-progress-bar value="75" label="delivery progress" style="height: 1rem;"></wa-progress-bar>
+          <span>Out for Delivery</span>
+          <wa-progress-bar value="95" label="delivery progress" style="height: 0.5rem;"></wa-progress-bar>
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
-        <img src="https://images.unsplash.com/photo-1589810635657-232948472d98?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </div>
     </div>
   </wa-card>
@@ -227,16 +231,18 @@ description: 'Empower your customers to view past purchases and track upcoming o
     <div class="wa-flank:end">
       <div class="wa-stack">
         <div class="wa-cluster wa-gap-xs">
-          <wa-icon family="brands" name="amazon"></wa-icon>
-          <span class="wa-heading-s">Amazon</span>
+          <wa-avatar shape="rounded" label="Avatar with an image icon">
+            <wa-icon slot="icon"  variant="duotone" name="gamepad-modern"></wa-icon>
+          </wa-avatar>
+          <span class="wa-heading-s">Game Theory</span>
         </div>
         <div class="wa-stack wa-gap-xs">
-          <span>Expected Tomorrow</span>
-          <wa-progress-bar value="75" label="delivery progress" style="height: 1rem;"></wa-progress-bar>
+          <span>Shipping Soon</span>
+          <wa-progress-bar value="15" label="delivery progress" style="height: 0.5rem;"></wa-progress-bar>
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
-        <img src="https://images.unsplash.com/photo-1589810635657-232948472d98?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img src="https://images.unsplash.com/photo-1627421383054-488d9c9828f5?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </div>
     </div>
   </wa-card>

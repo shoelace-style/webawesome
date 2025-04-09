@@ -9,29 +9,29 @@ description: 'Encourage shoppers to buy your products with value propositions, d
 <div class="wa-gap-3xl wa-stack" style="max-width: 960px; margin: 0 auto;">
   <div class="wa-align-items-center wa-grid">
     <div>
-      <span class="wa-heading-xl">Get the Best Instruction from our Educators.</span>
-      <p class="wa-caption-l">At the beginning at least, but then we realized we could make a lot more money if we kinda stopped caring about that. Our new strategy is to write a bunch of things that look really good in the headlines, then clarify in the small print but hope people don't actually read it.</p>
+      <span class="wa-heading-xl">Unlock your Superpower</span>
+      <p class="wa-caption-l">Web development is like a superpower—you can turn your ideas into actual products online, and learning it from home means you don’t need a fancy degree or expensive tuition to start building your future.</p>
     </div>
     <div class="wa-frame wa-border-radius-l">
-      <img src="https://uploads.webawesome.com/online-learning.jpg" />
+      <img src="https://images.unsplash.com/photo-1551981878-4c70c3e64135?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
     </div>
 
   </div>
   <div class="wa-grid">
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="stopwatch" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">Learn at your Speed</span>
-      <p class="wa-caption-m">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</p>
+      <wa-icon name="briefcase" variant="light" style="font-size: 32px;"></wa-icon>
+      <span class="wa-heading-s">Career Opportunities</span>
+      <p class="wa-caption-m">Mastering web development can lead to high-paying jobs, freelancing gigs, or even launching your own business or app.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="chart-line" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">Track Progress</span>
-      <p class="wa-caption-m">If it breaks in the first 10 years we'll replace it. After that you're on your own though.</p>
+      <wa-icon name="laptop-code" variant="light" style="font-size: 32px;"></wa-icon>
+      <span class="wa-heading-s">Flexibility of Online Learning</span>
+      <p class="wa-caption-m">Perfect for people balancing school, work, or other responsibilities—no need to attend in-person classes</p>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="people-group" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">Active Community</span>
-      <p class="wa-caption-m">If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.</p>
+      <wa-icon name="palette" variant="light" style="font-size: 32px;"></wa-icon>
+      <span class="wa-heading-s">Creative & Practical Skillset</span>
+      <p class="wa-caption-m">You can build real, functional things like personal portfolios, blogs, or web apps—and immediately see your progress.</p>
     </div>
   </div>
 </div>
@@ -39,7 +39,7 @@ description: 'Encourage shoppers to buy your products with value propositions, d
 ## 2 Column with Cards
 
 ```html{.example}
-<div class="wa-grid" style="--min-column-size: 41ch;">
+<div class="wa-grid" style="--min-column-size: 24ch;">
   <wa-card>
     <div class="wa-flank">
     <div>
@@ -97,26 +97,26 @@ description: 'Encourage shoppers to buy your products with value propositions, d
 
 ```html{.example}
 <div>
-<div class="wa-grid">
+<div class="wa-grid" style="--min-column-size: 16ch;">
   <div class="wa-stack wa-gap-xs">
-      <wa-icon name="magnifying-glass" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">SEO Consulting</span>
-      <p class="wa-caption-m">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</p>
+      <wa-icon family="duotone" name="magnifying-glass" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
+      <span class="wa-heading-s">In-Demand Skills with High Earning Potential</span>
+      <p class="wa-caption-m">Learn skills that lead to well-paying jobs, freelance work, or remote opportunities.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="chalkboard-user" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">In Person Training</span>
-      <p class="wa-caption-m">If it breaks in the first 10 years we'll replace it. After that you're on your own though.</p>
+      <wa-icon family="duotone" name="chalkboard-user" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
+      <span class="wa-heading-s">Freedom to Learn Anytime, Anywhere</span>
+      <p class="wa-caption-m">Flexible learning fits into any schedule—perfect for students, parents, or full-time workers.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="people-arrows" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">1 on 1 Sessions</span>
-      <p class="wa-caption-m">If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.</p>
+      <wa-icon family="duotone" name="people-arrows" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
+      <span class="wa-heading-s">Build and Launch Your Own Projects</span>
+      <p class="wa-caption-m">You’re not just learning theory—you’re creating real, functional websites and apps.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <wa-icon name="code" style="font-size: 32px;"></wa-icon>
-      <span class="wa-heading-s">Web Development</span>
-      <p class="wa-caption-m">If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.</p>
+      <wa-icon family="duotone" name="code" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
+      <span class="wa-heading-s">Low-Cost Entry</span>
+      <p class="wa-caption-m">You don’t need a tech degree or expensive tools to get started</p>
     </div>
 </div>
 </div>
