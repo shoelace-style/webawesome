@@ -100,12 +100,12 @@ description: 'Encourage shoppers to buy your products with value propositions, d
 <div class="wa-grid" style="--min-column-size: 16ch;">
   <div class="wa-stack wa-gap-xs">
       <wa-icon family="duotone" name="magnifying-glass" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
-      <span class="wa-heading-s">In-Demand Skills with High Earning Potential</span>
+      <span class="wa-heading-s">In-Demand Skills</span>
       <p class="wa-caption-m">Learn skills that lead to well-paying jobs, freelance work, or remote opportunities.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
       <wa-icon family="duotone" name="chalkboard-user" style="font-size: var(--wa-font-size-2xl);"></wa-icon>
-      <span class="wa-heading-s">Freedom to Learn Anytime, Anywhere</span>
+      <span class="wa-heading-s">Learn Anytime, Anywhere</span>
       <p class="wa-caption-m">Flexible learning fits into any schedule—perfect for students, parents, or full-time workers.</p>
     </div>
     <div class="wa-stack wa-gap-xs">
