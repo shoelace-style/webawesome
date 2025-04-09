@@ -109,12 +109,6 @@ export default class WaPopup extends WebAwesomeElement {
     | 'left-start'
     | 'left-end' = 'top';
 
-  /**
-   * Determines how the popup is positioned. The `absolute` strategy works well in most cases, but if overflow is
-   * clipped, using a `fixed` position strategy can often workaround it.
-   */
-  @property({ reflect: true }) strategy: 'absolute' | 'fixed' = SUPPORTS_POPOVER ? 'absolute' : 'fixed';
-
   /** The distance in pixels from which to offset the panel away from its anchor. */
   @property({ type: Number }) distance = 0;
 
@@ -431,15 +425,14 @@ export default class WaPopup extends WebAwesomeElement {
     //
     // More info: https://github.com/shoelace-style/shoelace/issues/1135
     //
-    const getOffsetParent =
-      this.strategy === 'absolute'
-        ? (element: Element) => platform.getOffsetParent(element, offsetParent)
-        : platform.getOffsetParent;
+    const getOffsetParent = SUPPORTS_POPOVER
+      ? (element: Element) => platform.getOffsetParent(element, offsetParent)
+      : platform.getOffsetParent;
 
     computePosition(this.anchorEl, this.popup, {
       placement: this.placement,
       middleware,
-      strategy: this.strategy,
+      strategy: SUPPORTS_POPOVER ? 'absolute' : 'fixed',
       platform: {
         ...platform,
         getOffsetParent,
@@ -600,7 +593,7 @@ export default class WaPopup extends WebAwesomeElement {
         class=${classMap({
           popup: true,
           'popup--active': this.active,
-          'popup--fixed': this.strategy === 'fixed',
+          'popup--fixed': !SUPPORTS_POPOVER,
           'popup--has-arrow': this.arrow,
         })}
       >

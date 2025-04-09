@@ -468,65 +468,6 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
 </script>
 ```
 
-### Positioning Strategy
-
-By default, the popup is positioned using an absolute positioning strategy. However, if your anchor is fixed or exists within a container that has `overflow: auto|hidden`, the popup risks being clipped. To work around this, you can use a fixed positioning strategy by setting the `strategy` attribute to `fixed`.
-
-The fixed positioning strategy reduces jumpiness when the anchor is fixed and allows the popup to break out containers that clip. When using this strategy, it's important to note that the content will be positioned relative to its [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#Identifying_the_containing_block), which is usually the viewport unless an ancestor uses a `transform`, `perspective`, or `filter`. [Refer to this page](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) for more details.
-
-In this example, you can see how the popup breaks out of the overflow container when it's fixed. The fixed positioning strategy tends to be less performant than absolute, so avoid using it unnecessarily.
-
-Toggle the switch and scroll the container to see the difference.
-
-```html {.example}
-<div class="popup-strategy">
-  <div class="overflow">
-    <wa-popup placement="top" strategy="fixed" active>
-      <span slot="anchor"></span>
-      <div class="box"></div>
-    </wa-popup>
-  </div>
-
-  <wa-switch checked>Fixed</wa-switch>
-</div>
-
-<style>
-  .popup-strategy .overflow {
-    position: relative;
-    height: 300px;
-    border: solid 2px var(--wa-color-surface-border);
-    overflow: auto;
-  }
-
-  .popup-strategy span[slot='anchor'] {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    border: dashed 2px var(--wa-color-neutral-fill-loud);
-    margin: 150px 50px;
-  }
-
-  .popup-strategy .box {
-    width: 100px;
-    height: 50px;
-    background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-m);
-  }
-
-  .popup-strategy wa-switch {
-    margin-top: 1rem;
-  }
-</style>
-
-<script>
-  const container = document.querySelector('.popup-strategy');
-  const popup = container.querySelector('wa-popup');
-  const fixed = container.querySelector('wa-switch');
-
-  fixed.addEventListener('change', () => (popup.strategy = fixed.checked ? 'fixed' : 'absolute'));
-</script>
-```
-
 ### Flip
 
 When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view. To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
