@@ -81,10 +81,6 @@ input:is([type='button'], [type='reset'], [type='submit']),
    * States
    */
 
-  &::-moz-focus-inner {
-    border: 0;
-  }
-
   &:focus {
     outline: none;
   }
@@ -102,6 +98,11 @@ input:is([type='button'], [type='reset'], [type='submit']),
     * {
       pointer-events: none;
     }
+  }
+
+  /* Keep it last so Safari doesn't stop parsing this block */
+  &::-moz-focus-inner {
+    border: 0;
   }
 }
 

@@ -1,7 +1,7 @@
 ---
 title: Changelog
 description: Changes to each version of the project are documented here.
-layout: page
+layout: page-outline
 ---
 
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand" pill>Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
@@ -12,16 +12,123 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
-## Next
+## 3.0.0-alpha.12
+
+### Enhancements
+
+- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).
+- Added an `orange` scale to all color palettes
+- Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
+- Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
+
+### Bug fixes
+
+- Specifying inherited CSS properties on `<wa-tooltip>` now works as expected ([thanks Dennis!](https://github.com/shoelace-style/webawesome-alpha/discussions/203))
+- Fixed a bug in `<wa-select>` that made it hard to use with VueJS, Svelte, and many other frameworks
+- Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output
+- Fixed a bug where changing a `<wa-option>` label wouldn't update the display label in `<wa-select>`
+- Added default spacing to icons slotted into `<wa-tab>`
+- Lots of fixes around pill-shaped elements:
+  - Fixed the `wa-pill` class for text fields
+  - Fixed `pill` style for `<wa-input>` and `<wa-radio-button>` elements
+- Fixed a bug in `<wa-radio-button>` that prevented active buttons from receiving the correct styles
+- Fixed a bug in `<wa-button>` that prevented the focus ring from showing in Safari
+- Fixed alignment of `<wa-dropdown>` inside button groups
+- Removed close watcher logic to backdrop hide animation bugs in `<wa-dialog>` and `<wa-drawer>`; this logic is already handled and we'll revisit `CloseWatcher` when browser support is better and behaviors are consistent
+- Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
+- Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
+- Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
+- Fixed the missing indeterminate icon in [native checkbox styles](/docs/native/checkbox)
+- Fixed a bug in `<wa-radio>` where elements would stack instead of display inline
+- Docs fixes:
+  - Fixed the search dialog's styles so it doesn't jump around as you search
+  - Theme cards now have icons
+
+## 3.0.0-alpha.11
+
+### Color Palettes
+
+- Color palette tweaking UI. Tweak hue, grays, overall colorfulness, save or share the results.
+- Added a `pink` scale to all color palettes
+- Tweaked hues of all color palettes to make them more distinct and make their hues more intentional
+- Dropped `violet` and `teal`, instead using `purple` and `cyan` (this is not just a renaming, the colors have been adjusted too).
+- Fixed a bug in `<wa-switch>` that caused tooltips to work incorrectly when toggling the switch
+
+### Design Tokens
+
+- Added `--wa-color-[hue]` tokens with the "core" color of each scale, regardless of which tint it lives on.
+You can find them in the first column of each color palette.
+
+### Themes
+
+- Improved UI for theme remixing:
+  - You can now override the brand color of any theme with any of the 9 hues supported.
+  - Rich previews
+  - Generated copyable code snippets.
+  - Permalinks
+- Updated Active, Glossy, Playful, and Premium themes so that `--wa-color-brand-fill-loud` uses the core color of the chosen brand color, regardless of tint.
+
+### Components
+
+#### `<wa-radio>`
+
+- Dropped the `base` part. It can now be styled by directly applying CSS to the element itself.
+- Added `hint` attribute and corresponding slot.
+
+#### `<wa-select>`
+
+- Added the `tag` part (and associated exported parts) to `<wa-select>` to allow targeting the tag that shows when more than the max number of visible items have been selected
+- Fixed a bug that prevented the placeholder color from being customized with the `--wa-form-control-placeholder-color` token
+- Fixed an incorrect CSS value in the expand icon
+- Fixed a bug that prevented the description from being read by screen readers
+
+####  `<wa-option>`
+
+- `label` attribute to override the generated label (useful for rich content)
+- `defaultLabel` property
+- Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
+- Dropped `base` part for easier styling. CSS can now be applied directly to the element itself.
+
+####  `<wa-menu-item>`
+
+- `label` attribute to override the generated label (useful for rich content)
+- `defaultLabel` property
+- Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
+
+#### `<wa-card>`
+- Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
+- Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
+- Fixed a bug that prevented slots from showing automatically without `with-` attributes
+
+#### `<wa-tab>`
+
+- Fixed a bug that caused `document.createElement('wa-tab')` to fail (which also meant it could not be used in VueJS and other frameworks)
+
+### Docs
+
+- Added an orientation example to the native radio docs
+- Fixed a number of broken event listeners throughout the docs
+
+## 3.0.0-alpha.10
 
 - 🚨 BREAKING: updated all components to use native events instead of `wa-` prefixed events. This will allow components to work more like native elements in your code, frameworks, third-party plugins, etc. To update your code, simply remove the prefix from your event listeners for the following events.
   - `wa-input` => `input`
   - `wa-change` => `change`
   - `wa-blur` => `blur` (this event will no longer bubble, use `focusout` for a bubbling version)
-  - `wa-focus` => `focus` (this event will no longer bubble)
+  - `wa-focus` => `focus` (this event will no longer bubble, use `focusin` for a bubbling version)
 - Added `.wa-callout` utility class
+- Added the `orientation` attribute to `<wa-radio-group>` to support vertical and horizontal radio items
+- Added docs for visual tests
+- Added docs on how to cherry-pick native styles
+- Changed the behavior of the `variant` and `size` attributes so that nested components that support these attributes but do not have them set inherit the values set on their ancestors. Additionally:
+  - Added `size` attribute to `<wa-dropdown>`, `<wa-button-group>`, `<wa-menu>`, `<wa-rating>`, `<wa-card>`
+  - Added `variant` attribute to `<wa-button-group>`
 - Fixed a bug in `<wa-tab-group>` that prevented nested tab groups from working properly
 - Fixed slot names for `show-password-icon` and `hide-password-icon` in `<wa-input>` to more intuitively represent their functions
+- Fixed a bug in `<wa-textarea>` that caused empty controls to submit a value if the initial value was deleted a certain way
+- Fixed a bug in `<input>`, `<textarea>`, and `<select>` styles that prevented full-width controls from using 100% width when wrapped in a `<label>`
+- Fixed a bug in `<select>` styles that caused the caret to block interactions and prevented the caret from rendering unless wrapped in a `<label>`
+- Fixed a bug in `<wa-checkbox>` that caused hints to render inline with the label
 
 ## 3.0.0-alpha.9
 

@@ -39,7 +39,7 @@ export function outlinePlugin(options = {}) {
         }
 
         // Create a clone of the heading so we can remove links and [data-no-outline] elements from the text content
-        clone.querySelectorAll('a').forEach(a => a.remove());
+        clone.querySelectorAll('.wa-visually-hidden, [hidden], [aria-hidden="true"]').forEach(el => el.remove());
         clone.querySelectorAll('[data-no-outline]').forEach(el => el.remove());
 
         // Generate the link

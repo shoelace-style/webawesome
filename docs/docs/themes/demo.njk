@@ -10,16 +10,17 @@ override:tags: []
 eleventyComputed:
   forceTheme: "{{ theme.fileSlug }}"
 ---
-
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.fileSlug }}.css" />
+{% set isPro = theme.data.isPro %}
+{% set status = theme.data.status %}
+{% set since = theme.data.since %}
 <link rel="stylesheet" href="/docs/themes/showcase.css" />
 
 {% set content %}
 <header>
   {% include 'breadcrumbs.njk' %}
   <h1 class="title">{{ theme.data.title }}</h1>
-  <p id="mix_and_match" hidden class="wa-size-s"></p>
-  <p>{% include 'status.njk' %}</p>
+  <p id="mix_and_match" class="wa-size-s"></p>
+  <p id="theme-status">{% include 'status.njk' %}</p>
   <p id="theme-showcase-description">{{ theme.data.description | inlineMarkdown | safe }}</p>
 </header>
 {% include 'theme-showcase.njk' %}
@@ -34,46 +35,56 @@ eleventyComputed:
 </div>
 </wa-image-comparer>
 
-<script>
+<script type="module">
+import { urls as stylesheetURLs, docsURLs, icons } from "/assets/scripts/tweak/data.js";
+import { getThemeCode } from "/assets/scripts/tweak/code.js";
+
 function updateTheme() {
   let params = new URLSearchParams(window.location.search);
-  let script = document.currentScript;
-  const stylesheetURLs = {
-    colors: id => `/dist/styles/themes/${ id }/color.css`,
-    palette: id => `/dist/styles/color/${ id }.css`,
-    typography: id => `/dist/styles/themes/${ id }/typography.css`
-  };
-  const icons = {
-    colors: 'palette',
-    palette: 'swatchbook',
-    typography: 'font-case'
-  }
+  params = Object.fromEntries(params.entries());
 
   for (let link of document.querySelectorAll('link.mix-and-match')) {
     link.remove();
   }
 
-  let msgs = [];
+  let tweaks = [];
+  let code = getThemeCode("{{ theme.fileSlug }}", params, {attributes: 'class="mix-and-match"'});
+  document.head.insertAdjacentHTML('beforeend', code);
 
   for (let name in stylesheetURLs) {
-    if (params.get(name)) {
-      let url = stylesheetURLs[name](params.get(name));
-      script.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${ url }" class="mix-and-match" />`);
-      let docsURL = (name === 'palette' ? '/docs/palettes/' : '/docs/themes/') + params.get(name) + '/';
-      let title = params.get(name).replace(/^[a-z]/g, c => c.toUpperCase());
+    let override = params[name];
+    if (override) {
+      let docsURL = docsURLs[name] ? docsURLs[name] + override + '/' : '';
+      let title = override.replace(/^[a-z]/g, c => c.toUpperCase());
+
+      if (docsURL) {
+        title = `<a href="${ docsURL }">${ title }</a>`;
+      }
+
       let icon = icons[name];
-      msgs.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> <a href="${ docsURL }">${ title }</a>`);
+      tweaks.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> ${ title }`);
     }
   }
 
-  for (let p of mix_and_match) {
-    p.hidden = msgs.length === 0;
-    if (msgs.length) {
-      let icon =
-      p.innerHTML = `<strong><wa-icon name="merge"></wa-icon> Remixed</strong> ` + msgs.map(msg => `<wa-badge appearance=outlined>
-        ${ msg }</wa-badge>`).join(' ');
+  let isRemixed = tweaks.length > 0;
+  document.documentElement.classList.toggle('is-remixed', isRemixed);
+
+  if (isRemixed) {
+    for (let p of document.querySelectorAll("#theme-status")) {
+        let proBadge = p.querySelector(".pro");
+        if (!proBadge) {
+          p.insertAdjacentHTML('beforeend', '<wa-badge class="pro">PRO</wa-badge>');
+        }
+    }
+
+    for (let p of mix_and_match) {
+      if (tweaks.length) {
+        p.innerHTML = `<strong><wa-icon name="arrows-rotate"></wa-icon> Remixed</strong> ` + tweaks.map(msg => `<wa-badge appearance=outlined>
+          ${ msg }</wa-badge>`).join(' ');
+      }
     }
   }
+
 }
 updateTheme();
 </script>

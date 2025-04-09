@@ -7,7 +7,11 @@ native: input
 ---
 
 ```html {.example}
-<wa-textarea></wa-textarea>
+<form action="about:blank" target="_blank">
+  <wa-textarea label="Type something', will ya" name="a" value="no"></wa-textarea>
+
+  <button type="submit">Submit</button>
+</form>
 ```
 
 :::info

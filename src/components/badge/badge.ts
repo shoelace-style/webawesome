@@ -17,17 +17,20 @@ import styles from './badge.css';
  *
  * @cssproperty --background-color - The badge's background color.
  * @cssproperty --border-color - The color of the badge's border.
- * @cssproperty --border-radius - The radius of the badge's corners.
- * @cssproperty --border-style - The style of the badge's border.
- * @cssproperty --border-width - The width of the badge's border.
  * @cssproperty --text-color - The color of the badge's content.
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
   static shadowStyle = [variantStyles, appearanceStyles, styles];
 
-  /** The badge's theme variant. */
-  @property({ reflect: true }) variant: 'brand' | 'success' | 'neutral' | 'warning' | 'danger' = 'brand';
+  /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'brand' }) variant:
+    | 'brand'
+    | 'neutral'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   /** The badge's visual appearance. */
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' = 'accent';

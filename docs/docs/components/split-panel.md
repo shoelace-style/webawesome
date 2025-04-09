@@ -208,7 +208,7 @@ Try resizing the example below with each option and notice how the panels respon
   const splitPanel = container.querySelector('wa-split-panel');
   const select = container.querySelector('wa-select');
 
-  select.addEventlistener('change', () => (splitPanel.primary = select.value));
+  select.addEventListener('change', () => (splitPanel.primary = select.value));
 </script>
 ```
 

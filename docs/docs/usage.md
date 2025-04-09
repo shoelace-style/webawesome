@@ -8,6 +8,61 @@ Web Awesome components are just regular HTML elements, or [custom elements](http
 
 If you're new to custom elements, often referred to as "web components," this section will familiarize you with how to use them.
 
+## Awaiting Registration
+
+Unlike traditional frameworks, custom elements don't have a centralized initialization phase. This means you need to verify that a custom element has been properly registered before attempting to interact with its properties or methods.
+
+### Individual components: `customElements.whenDefined()` { #when-defined}
+
+You can use the [`customElements.whenDefined()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined) method to ensure a specific component is ready:
+
+```ts
+await customElements.whenDefined('wa-button');
+
+// <wa-button> is ready to use!
+const button = document.querySelector('wa-button');
+```
+
+### All Web Awesome components: `allDefined()` { #all-defined }
+
+When working with multiple components, checking each one individually can become tedious. For convenience, Web Awesome provides the `allDefined()` function which automatically detects and waits for all Web Awesome components in the DOM to be initialized before resolving.
+
+```ts
+import { allDefined } from '/dist/webawesome.js';
+
+// Waits for all Web Awesome components in the DOM to be registered
+await allDefined();
+
+// All Web Awesome components on the page are ready!
+```
+
+#### Advanced Usage
+
+By default, `allDefined()` will wait for all `wa-` prefixed custom elements within the current `document` to be registered.
+You can customize this behavior by passing in options:
+- `root` allows you to pass in a different element to search within, or a different document entirely (defaults to `document`).
+- `match` allows you to specify a custom function to determine which elements to wait for. This function should return `true` for elements you want to wait for and `false` for those you don't.
+- `additionalElements` allows you to wait for custom elements to be defined that may not be present in the DOM at the time `allDefined()` is called. This can be useful for elements that are loaded dynamically via JS.
+
+Here is an example of using `match` and `root` to await registration of Web Awesome components inside an element with an id of `sidebar`, plus a `<my-component>` element if present in the DOM, and `<wa-slider>` and `<other-slider>` elements whether present in the DOM or not:
+
+```js
+import { allDefined } from '/dist/webawesome.js';
+
+await allDefined({
+  match: tagName => tagName.startsWith('wa-') || tagName === 'my-component',
+  root: document.getElementById('sidebar'),
+  additionalElements: ['wa-slider', 'other-slider']
+});
+```
+
+:::warning
+`additionalElements` will only wait for elements to be registered — it will not load them.
+If you're using the autoloader plus custom JS to inject HTML dynamically, **you need to make sure your JS runs _before_ the `await allDefined()` call**,
+otherwise you could run into a chicken and egg issue:
+since the autoloader will not load elements until they are present in the DOM, the promise will never resolve and your JS to inject them will not run.
+:::
+
 ## Attributes & Properties
 
 Many components have properties that can be set using attributes. For example, buttons accept a `size` attribute that maps to the `size` property which dictates the button's size.
@@ -87,49 +142,6 @@ For example, `<button>` and `<wa-button>` both have a `type` attribute, but the 
 :::info
 **Don't make assumptions about a component's API!** To prevent unexpected behaviors, please take the time to review the documentation and make sure you understand what each attribute, property, method, and event is intended to do.
 :::
-
-## Waiting for Components to Load
-
-Web components are registered with JavaScript, so depending on how and when you load Web Awesome, you may notice a [Flash of Undefined Custom Elements (FOUCE)](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/) when the page loads. There are a couple ways to prevent this, both of which are described in the linked article.
-
-One option is to use the [`:defined`](https://developer.mozilla.org/en-US/docs/Web/CSS/:defined) CSS pseudo-class to "hide" custom elements that haven't been registered yet. You can scope it to specific tags or you can hide all undefined custom elements as shown below.
-
-```css
-:not(:defined) {
-  visibility: hidden;
-}
-```
-
-As soon as a custom element is registered, it will immediately appear with all of its styles, effectively eliminating FOUCE. Note the use of `visibility: hidden` instead of `display: none` to reduce shifting as elements are registered. The drawback to this approach is that custom elements can potentially appear one by one instead of all at the same time.
-
-Another option is to use [`customElements.whenDefined()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined), which returns a promise that resolves when the specified element gets registered. You'll probably want to use it with [`Promise.allSettled()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) in case an element fails to load for some reason.
-
-A clever way to use this method is to hide the `<body>` with `opacity: 0` and add a class that fades it in as soon as all your custom elements are defined.
-
-```html
-<style>
-  body {
-    opacity: 0;
-  }
-
-  body.ready {
-    opacity: 1;
-    transition: 0.25s opacity;
-  }
-</style>
-
-<script type="module">
-  await Promise.allSettled([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-card'),
-    customElements.whenDefined('wa-rating')
-  ]);
-
-  // Button, card, and rating are registered now! Add
-  // the `ready` class so the UI fades in.
-  document.body.classList.add('ready');
-</script>
-```
 
 ## Component Rendering and Updating
 

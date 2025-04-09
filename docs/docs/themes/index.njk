@@ -1,12 +1,13 @@
 ---
 title: Themes
-description: Themes are collections of predefined CSS custom properties that thread through every Web Awesome component and pattern.
+description: Themes are collections of design tokens that thread through every Web Awesome component and pattern.
+  Themes play a crucial role in [customizing Web Awesome](/docs/customizing).
 layout: overview
 override:tags: []
 forTag: theme
 categories:
+  tags: [other, pro]
   other: Free
-  pro: Pro
 ---
 
 <div class="max-line-length">
@@ -14,7 +15,7 @@ categories:
 
 ## What's a Theme?
 
-A theme is a collection of standardized [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), also called "design tokens," that cover a range of styles from colors to transitions. We use these tokens throughout Web Awesome components for a cohesive look and feel. Our [Design Tokens pages](/docs/tokens/) document these styles so that you can use them freely throughout your project and customize them as needed.
+A theme is a collection of standardized [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), also called "design tokens," that cover a range of styles from colors to transitions. We use these tokens throughout Web Awesome components for a cohesive look and feel. Our [Design Tokens section](/docs/tokens/) document these styles so that you can use them freely throughout your project and customize them as needed.
 
 Themes are scoped to unique classes, such as `wa-theme-default` or `wa-theme-classic`.
 Scoping to unique classes allows you to import multiple themes and use them interchangeably without collisions.
@@ -29,7 +30,7 @@ In pre-made themes, we use a light color scheme by default.
 Additionally, styles may be scoped to the `:root` selector to be activated automatically.
 For pre-made themes, *all* custom properties are scoped to `:root`, the theme class, and `wa-light`.
 
-Finally, we scope themes to `:host` and `:host-context()` to ensure the styles are applied to the shadow roots of custom elements.
+Finally, we scope themes to `:host` to ensure the styles are applied to the shadow roots of custom elements.
 
 For example, the default theme is set up like this:
 
@@ -43,8 +44,7 @@ For example, the default theme is set up like this:
 }
 
 .wa-dark,
-.wa-invert,
-:host-context(.wa-dark) {
+.wa-invert {
   /* subset of CSS custom properties for a dark color scheme */
 }
 ```

@@ -9,6 +9,7 @@ import { getTargetElement, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import nativeStyles from '../../styles/native/details.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './details.css';
@@ -45,7 +46,7 @@ import styles from './details.css';
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static shadowStyle = [nativeStyles, styles];
+  static shadowStyle = [appearanceStyles, nativeStyles, styles];
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);
@@ -66,6 +67,9 @@ export default class WaDetails extends WebAwesomeElement {
 
   /** Disables the details so it can't be toggled. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /** The element's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
 
   firstUpdated() {
     this.body.style.height = this.open ? 'auto' : '0';

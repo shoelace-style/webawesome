@@ -7,6 +7,7 @@ import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './rating.css';
@@ -28,12 +29,11 @@ import styles from './rating.css';
  *
  * @cssproperty --symbol-color - The inactive color for symbols.
  * @cssproperty --symbol-color-active - The active color for symbols.
- * @cssproperty --symbol-size - The size of symbols.
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
 @customElement('wa-rating')
 export default class WaRating extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
 
   private readonly localize = new LocalizeController(this);
 
@@ -70,6 +70,9 @@ export default class WaRating extends WebAwesomeElement {
    */
   @property() getSymbol: (value: number) => string = () =>
     '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
+
+  /** The component's size. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   private getValueFromMousePosition(event: MouseEvent) {
     return this.getValueFromXCoordinate(event.clientX);

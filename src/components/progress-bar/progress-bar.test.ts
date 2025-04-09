@@ -38,8 +38,9 @@ describe('<wa-progress-bar>', () => {
           expect(base.getAttribute('aria-valuenow')).to.equal('25');
         });
 
-        it('uses the value parameter to set the custom property on the indicator', () => {
-          expect(indicator.style.getPropertyValue('--value')).to.equal('25');
+        it('uses the value parameter to set the custom property on the indicator', async () => {
+          await new Promise(requestAnimationFrame);
+          expect(el.style.getPropertyValue('--percentage')).to.equal('25%');
         });
       });
 

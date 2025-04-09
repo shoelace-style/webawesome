@@ -6,6 +6,7 @@ icon: input
 component: input
 elements:
   "<input>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+file: styles/native/input.css
 ---
 
 <style>
@@ -39,6 +40,14 @@ wa-code-demo::part(preview) {
 
 <label>Input (url) <input type="url"></label>
 <wa-input label="WA Input (url)" type="url"></wa-input>
+```
+
+## Pill shaped text fields
+
+Add the `wa-pill` class to an `<input>` to make it pill-shaped.
+
+```html {.example}
+<label>Input <input type="text" placeholder="placeholder" class="wa-pill"></label>
 ```
 
 ## Color Picker

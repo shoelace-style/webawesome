@@ -3,6 +3,8 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import buttonGroupStyles from '../../styles/utilities/button-group.css';
+import sizeStyles from '../../styles/utilities/size.css';
+import variantStyles from '../../styles/utilities/variants.css';
 import styles from './button-group.css';
 
 /**
@@ -17,7 +19,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static shadowStyle = [buttonGroupStyles, styles];
+  static shadowStyle = [sizeStyles, variantStyles, buttonGroupStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
@@ -32,6 +34,13 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+  /** The component's size. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
+  /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'neutral' })
+  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'inherit' = 'inherit';
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);

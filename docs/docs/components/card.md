@@ -15,27 +15,17 @@ icon: card
 
   <strong>Mittens</strong><br />
   This kitten is as cute as he is playful. Bring him home today!<br />
-  <small>6 weeks old</small>
+  <small class="wa-caption-m">6 weeks old</small>
 
-  <div slot="footer">
+  <div slot="footer" class="wa-split">
     <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
+    <wa-rating label="Rating"></wa-rating>
   </div>
 </wa-card>
 
 <style>
   .card-overview {
-    max-width: 300px;
-  }
-
-  .card-overview small {
-    color: var(--wa-color-text-quiet);
-  }
-
-  .card-overview [slot='footer'] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 300px;
   }
 </style>
 ```
@@ -65,9 +55,9 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 
 ```html {.example}
 <wa-card with-header class="card-header">
-  <div slot="header">
+  <div slot="header" class="wa-split">
     Header Title
-    <wa-icon-button name="gear" variant="solid" label="Settings"></wa-icon-button>
+    <wa-icon-button name="gear" variant="solid" label="Settings" class="wa-size-m"></wa-icon-button>
   </div>
 
   This card has a header. You can put all sorts of things in it!
@@ -78,18 +68,8 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
     max-width: 300px;
   }
 
-  .card-header [slot='header'] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   .card-header h3 {
     margin: 0;
-  }
-
-  .card-header wa-icon-button {
-    font-size: var(--wa-font-size-m);
   }
 </style>
 ```
@@ -103,7 +83,7 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 <wa-card with-footer class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
-  <div slot="footer">
+  <div slot="footer" class="wa-split">
     <wa-rating></wa-rating>
     <wa-button variant="brand">Preview</wa-button>
   </div>
@@ -112,12 +92,6 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 <style>
   .card-footer {
     max-width: 300px;
-  }
-
-  .card-footer [slot='footer'] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 </style>
 ```
@@ -142,4 +116,68 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
     max-width: 300px;
   }
 </style>
+```
+
+### Sizing
+
+Use the `size` attribute to change a card's size.
+
+```html {.example}
+<div class="wa-stack">
+<wa-card with-footer size="small">
+  This is a small card.
+
+  <footer slot="footer" class="wa-split">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="medium">
+  This is a medium card (default).
+
+  <footer slot="footer" class="wa-split">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+
+<wa-card with-footer size="large">
+  This is a large card.
+
+  <footer slot="footer" class="wa-split">
+    <wa-button variant="brand" pill>More Info</wa-button>
+    <wa-rating></wa-rating>
+  </footer>
+</wa-card>
+</div>
+```
+
+### Appearance
+
+Use the `appearance` attribute to change the card's visual appearance.
+
+```html {.example}
+<div class="wa-grid">
+<wa-card>
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
+  <div slot="header">Outlined (default)</div>
+  Card content.
+</wa-card>
+{% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
+<wa-card appearance="{{ appearance }}">
+  <img
+    slot="image"
+    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+  />
+  <div slot="header">{{ appearance | capitalize }}</div>
+  Card content.
+</wa-card>
+{%- endfor %}
+</div>
 ```
