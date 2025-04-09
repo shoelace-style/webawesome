@@ -364,21 +364,25 @@ export default class WaPopup extends WebAwesomeElement {
       );
     }
 
+    let defaultBoundary;
+
+    if (
+      SUPPORTS_POPOVER &&
+      !isVirtualElement(this.anchor) &&
+      ((this.shift && !this.shiftBoundary) || (this.autoSize && !this.autoSizeBoundary))
+    ) {
+      // When using the Popover API, the floating element is no longer in the same DOM context
+      // as the overflow ancestors so Floating-UI can't find them.
+      // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
+      // but the option is not available for shift() or size(), so we basically need to implement it ourselves.
+      defaultBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
+    }
+
     // Then we shift
     if (this.shift) {
-      let boundary = this.shiftBoundary;
-
-      if (!boundary && !isVirtualElement(this.anchor) && SUPPORTS_POPOVER) {
-        // When using the Popover API, the floating element is no longer in the same DOM context
-        // as the overflow ancestors so Floating-UI can't find them.
-        // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
-        // but the option is not available for flip(), so we basically need to implement it ourselves.
-        boundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
-      }
-
       middleware.push(
         shift({
-          boundary,
+          boundary: this.shiftBoundary || defaultBoundary,
           padding: this.shiftPadding,
         }),
       );
@@ -388,7 +392,7 @@ export default class WaPopup extends WebAwesomeElement {
     if (this.autoSize) {
       middleware.push(
         size({
-          boundary: this.autoSizeBoundary,
+          boundary: this.autoSizeBoundary || defaultBoundary,
           padding: this.autoSizePadding,
           apply: ({ availableWidth, availableHeight }) => {
             if (this.autoSize === 'vertical' || this.autoSize === 'both') {
