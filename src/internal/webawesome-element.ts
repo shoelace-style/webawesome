@@ -1,7 +1,6 @@
 import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } from 'lit';
 import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-// @ts-ignore
 import { ElementStyleObserver } from 'style-observer';
 import componentStyles from '../styles/shadow/component.css';
 import { getComputedStyle } from './computedStyle.js';
