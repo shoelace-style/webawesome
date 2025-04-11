@@ -24,8 +24,6 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 <wa-icon family="brands" name="web-awesome"></wa-icon>
 ```
 
-<div data-alpha="remove">
-
 ### Setting defaults via CSS
 
 You can use certain CSS custom properties to set icon defaults, not just on the icon itself, but any ancestor.
@@ -105,10 +103,6 @@ For example, here's how we can change the icon on hover:
 }
 </style>
 ```
-
-
-
-</div>
 
 ### Colors
 
