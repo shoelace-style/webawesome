@@ -96,7 +96,6 @@ export default class WebAwesomeElement extends LitElement {
 
       if (Object.keys(this.cssProps).length === 0) {
         // First time connected, initialize
-        // @ts-ignore
         this.cssProps = Object.fromEntries(
           cssProps.map(property => {
             let setVia = this.getSetVia(property);
@@ -216,6 +215,10 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
+  /**
+   * Get how a prop was set
+   * @param property - The property to check
+   */
   private getSetVia(property: PropertyKey): 'css' | 'js' | 'attribute' | undefined {
     let Self = this.constructor as typeof WebAwesomeElement;
     let setVia;
