@@ -73,7 +73,8 @@
     "@shoelace-style/localize": "^3.2.1",
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
-    "qr-creator": "^1.0.0"
+    "qr-creator": "^1.0.0",
+    "style-observer": "^0.0.7"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",

@@ -1,6 +1,7 @@
 ---
 title: CSS Properties Benchmark
 unlisted: true
+wide: true
 ---
 
 {% set icons = {
@@ -22,7 +23,7 @@ unlisted: true
 
 <style>
 .icon-tests {
-	font-size: .2rem;
+	font-size: .5rem;
 	line-height: 1;
 }
 
@@ -34,7 +35,7 @@ wa-icon {
 }
 </style>
 
-{% set repetitions = 500 %}
+{% set repetitions = 200 %}
 
 <h2>Setting everything via attributes</h2>
 
@@ -47,7 +48,8 @@ wa-icon {
 </div>
 
 <h2>Setting variant & family via CSS</h2>
-<div class="icon-tests" style="--wa-icon-variant: solid; --wa-icon-family: classic">
+
+<div class="icon-tests" style="--wa-icon-variant: regular; --wa-icon-family: classic">
 {% for icon, svg in icons %}
 	{% for i in range(repetitions) %}
 	<wa-icon name="{{ icon }}"></wa-icon>

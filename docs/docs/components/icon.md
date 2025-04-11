@@ -26,28 +26,46 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 
 <div data-alpha="remove">
 
-### Setting icon info via CSS
+### Setting defaults via CSS
 
-You can also set the icon's family, name, and variant via CSS custom properties.
-This can be useful when you want to set the icon dynamically (e.g. in response to a CSS pseudo-class or media query) or set  defaults for a group of icons (e.g. icons inside callouts or all icons for a given theme).
+You can use certain CSS custom properties to set icon defaults, not just on the icon itself, but any ancestor.
+This can be useful when you want certain parameters to vary based on context, e.g. icons inside callouts or all icons for a given theme.
+
+:::warning
+These CSS properties are intended to set **defaults**, and thus only make a difference when the corresponding attributes are not set.
+In future versions of Web Awesome, we may change this behavior to allow CSS properties to override attributes if `!important` is used.
+:::
+
+For example, here is how you can use CSS custom properties to set a default icon for each type of callout:
 
 ```html {.example}
 <wa-callout>
   <!-- Look ma, no attributes! -->
   <wa-icon slot="icon"></wa-icon>
-  This is a callout.
+  This is a normal callout.
 </wa-callout>
 
 <wa-callout variant="danger">
   <wa-icon slot="icon" name="dumpster-fire" variant="solid"></wa-icon>
-  This is a callout with an explicit icon.
+  This is a callout with an explicit icon, which overrides these defaults.
 </wa-callout>
 
 <wa-callout variant="warning">
   <!-- Look ma, no attributes! -->
   <wa-icon slot="icon"></wa-icon>
   Here be dragons.
-  <button id="toggle_icon">Toggle&nbsp;<wa-icon name="circle-exclamation"></wa-icon></button>
+</wa-callout>
+
+<wa-callout variant="danger">
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  Here be more dragons.
+</wa-callout>
+
+<wa-callout variant="success">
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  Success!
 </wa-callout>
 
 <style>
@@ -58,26 +76,37 @@ wa-callout {
   &[variant="warning"] {
     --wa-icon-name: triangle-exclamation;
   }
+
+  &[variant="danger"] {
+    --wa-icon-name: circle-exclamation;
+  }
+
+  &[variant="success"] {
+    --wa-icon-name: circle-check;
+  }
 }
 </style>
-<script>
-toggle_icon.addEventListener('click', e => {
-  let callout = e.target.closest('wa-callout');
-  let value = callout.style.getPropertyValue('--wa-icon-name').trim();
-  if (value) {
-    callout.style.removeProperty('--wa-icon-name');
-  }
-  else {
-    callout.style.setProperty('--wa-icon-name', 'circle-exclamation');
-  }
-});
-</script>
 ```
 
-Notes:
-- If you specify attributes, they will override the CSS custom properties, which provides a way to set defaults and then override them as needed.
-- CSS custom properties inherit — so if you set a `--wa-icon-*` custom property on an element, it will affect *all* icons within it that don’t override these values (either via attributes or CSS custom properties).
-- These CSS properties are currently not reactive and will only be read when the component is first connected.
+You can even set icons dynamically, as a response to user interaction or media queries.
+For example, here's how we can change the icon on hover:
+
+```html {.example}
+<wa-button class="github" href="https://github.com/webawesome/webawesome"><wa-icon slot="prefix" fixed-width></wa-icon> GitHub Repo</wa-button>
+<style>
+.github {
+  --wa-icon-name: github;
+  --wa-icon-family: brands;
+
+  &:hover {
+    --wa-icon-name: arrow-up-right-from-square;
+    --wa-icon-family: classic;
+  }
+}
+</style>
+```
+
+
 
 </div>
 
