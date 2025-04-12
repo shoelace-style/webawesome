@@ -30,8 +30,8 @@ function init() {
 
   codeSnippets = document.querySelector('#usage ~ wa-tab-group.import-stylesheet-code:first-of-type');
   codeSnippets = {
-    html: codeSnippets.querySelector('code.language-html'),
-    css: codeSnippets.querySelector('code.language-css'),
+    html: codeSnippets?.querySelector('code.language-html'),
+    css: codeSnippets?.querySelector('code.language-css'),
   };
 
   data = {
@@ -73,11 +73,10 @@ function init() {
 
   Promise.all(Object.values(selects).map(select => select.updateComplete)).then(() => render());
 
-  return { selects, codeSnippets, data, computed, render };
+  globalThis.remixApp = { selects, codeSnippets, data, computed, render };
 }
 
-globalThis.remixApp = init();
-
+init()
 // Async load CSS for other themes *before* current theme stylesheet
 let themeStylesheet = document.querySelector('#theme-stylesheet');
 
@@ -151,12 +150,12 @@ function render(changedAspect) {
   // Update code snippets
   for (let language in codeSnippets) {
     let codeSnippet = codeSnippets[language];
+    if (!codeSnippet) { continue }
+
     let code = getThemeCode(data.baseTheme, data.params, { language, cdnUrl });
     codeSnippet.textContent = code;
     Prism.highlightElement(codeSnippet);
   }
 }
 
-addEventListener('turbo:render', event => {
-  remixApp = init();
-});
+addEventListener('turbo:render', init)
