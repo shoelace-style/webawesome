@@ -30,8 +30,8 @@ function init() {
 
   codeSnippets = document.querySelector('#usage ~ wa-tab-group.import-stylesheet-code:first-of-type');
   codeSnippets = {
-    html: codeSnippets.querySelector('code.language-html'),
-    css: codeSnippets.querySelector('code.language-css'),
+    html: codeSnippets?.querySelector('code.language-html'),
+    css: codeSnippets?.querySelector('code.language-css'),
   };
 
   data = {
@@ -69,10 +69,10 @@ function init() {
 
   Promise.all(Object.values(selects).map(select => select.updateComplete)).then(() => render());
 
-  return { selects, codeSnippets, data, computed, render };
+  globalThis.remixApp = { selects, codeSnippets, data, computed, render };
 }
 
-globalThis.remixApp = init();
+init()
 
 // Async load CSS for other themes *before* current theme stylesheet
 let themeStylesheet = document.querySelector('#theme-stylesheet');
@@ -149,6 +149,5 @@ function render(changedAspect) {
   }
 }
 
-addEventListener('turbo:render', event => {
-  remixApp = init();
-});
+// make sure to use a stable function reference here.
+addEventListener('turbo:render', init)
