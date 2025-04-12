@@ -97,13 +97,6 @@ export default class WaCopyButton extends WebAwesomeElement {
   /** The preferred placement of the tooltip. */
   @property({ attribute: 'tooltip-placement' }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' = 'top';
 
-  /**
-   * Enable this option to prevent the tooltip from being clipped when the component is placed inside a container with
-   * `overflow: auto|hidden|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all,
-   * scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
   private async handleCopy() {
     if (this.disabled || this.isCopying) {
       return;
@@ -220,7 +213,6 @@ export default class WaCopyButton extends WebAwesomeElement {
           for="copy-button"
           placement=${this.tooltipPlacement}
           ?disabled=${this.disabled}
-          ?hoist=${this.hoist}
           exportparts="
             base:tooltip__base,
             base__popup:tooltip__base__popup,

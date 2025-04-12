@@ -425,11 +425,3 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
 </script>
 ```
 
-<script type="module">
-  //
-  // TODO - remove once we switch to the Popover API
-  //
-  customElements.whenDefined('wa-select').then(() => {
-    document.querySelectorAll('wa-code-demo [slot="preview"] wa-select').forEach(select => select.hoist = true);
-  });
-</script>

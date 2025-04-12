@@ -92,13 +92,6 @@ export default class WaTooltip extends WebAwesomeElement {
    */
   @property() trigger = 'hover focus';
 
-  /**
-   * Enable this option to prevent the tooltip from being clipped when the component is placed inside a container with
-   * `overflow: auto|hidden|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all,
-   * scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
   @property() for: string | null = null;
 
   @state() anchor: null | Element = null;
@@ -290,7 +283,7 @@ export default class WaTooltip extends WebAwesomeElement {
     this.anchor = newAnchor;
   }
 
-  @watch(['distance', 'hoist', 'placement', 'skidding'])
+  @watch(['distance', 'placement', 'skidding'])
   async handleOptionsChange() {
     if (this.hasUpdated) {
       await this.updateComplete;
@@ -340,7 +333,6 @@ export default class WaTooltip extends WebAwesomeElement {
         placement=${this.placement}
         distance=${this.distance}
         skidding=${this.skidding}
-        strategy=${this.hoist ? 'fixed' : 'absolute'}
         flip
         shift
         arrow

@@ -54,8 +54,12 @@ function init() {
     urlParams: new Permalink(),
   };
 
-  data.urlParams.mapObject(data.params);
-  data.urlParams.writeTo(data.params);
+  // Apply params from permalink
+  for (let key in data.params) {
+    if (data.urlParams.has(key)) {
+      data.params[key] = data.urlParams.get(key);
+    }
+  }
 
   if (computed.isRemixed) {
     // Start with the remixing UI open if the theme has been remixed
@@ -128,7 +132,11 @@ function render(changedAspect) {
     selects[aspect].value = value;
   }
 
-  data.urlParams.readFrom(data.params);
+  for (let key in data.params) {
+    if (data.params[key]) {
+      data.urlParams.set(key, data.params[key]);
+    }
+  }
 
   // Update demo URL
   domChange(() => {

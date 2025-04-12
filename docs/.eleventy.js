@@ -36,10 +36,16 @@ const globalData = {
   },
 };
 
-const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
-const passThrough = [...passThroughExtensions.map(ext => 'docs/**/*.' + ext)];
-
 export default function (eleventyConfig) {
+  /**
+   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these passthrough extensions
+   * will also need to be updated in the Web Awesome App.
+   */
+  const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
+
+  const baseDir = process.env.BASE_DIR || 'docs';
+  const passThrough = [...passThroughExtensions.map(ext => path.join(baseDir, '**/*.' + ext))];
+
   /**
    * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
    */
