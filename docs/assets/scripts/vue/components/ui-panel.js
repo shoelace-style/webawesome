@@ -1,5 +1,5 @@
 const template = `
-<details :name="name || 'panel'":data-value="value" :open class="panel wa-plain" :class="{previous: previous === value}" @toggle="handleToggle">
+<details :name="name || 'panel'" :open :data-value="value" :data-step="step" class="panel wa-plain" @toggle="handleToggle">
   <summary :inert="open">
     <h2><slot name="title">{{ title }}</slot></h2>
   </summary>
@@ -13,15 +13,13 @@ export default {
   props: {
     title: String,
     name: String,
+    step: Number,
 
     /** Id of this panel */
     value: String,
 
     /** Currently selected id */
     modelValue: String,
-
-    /** Previous panel, if this is a list of steps */
-    previous: String,
   },
   emits: ['update:modelValue'],
   data() {

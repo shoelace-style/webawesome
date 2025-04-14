@@ -56,8 +56,8 @@ order: 99
     </wa-drawer>
   </header>
 
-  <section class="sidebar" slot="navigation">
-    <ui-panel v-model="ui.panel" value="theme" :previous="previousPanel">
+  <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
+    <ui-panel v-model="ui.panel" value="theme" :step="0">
       <template #title>
         <label for="starting-theme">Starting theme</label>
       </template>
@@ -77,7 +77,7 @@ order: 99
       </footer>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="styles" title="Styles" :previous="previousPanel">
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="1">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
         <div>
           Color Palette
@@ -103,7 +103,7 @@ order: 99
       </icons-card>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color" title="Color Palette" :previous="previousPanel">
+    <ui-panel v-model="ui.panel" value="color" title="Color Palette" :step="2">
       <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small"></palette-card>
@@ -111,14 +111,14 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="typography" title="Typography" :previous="previousPanel">
+    <ui-panel v-model="ui.panel" value="typography" title="Typography" :step="2">
       <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
         <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small"></theme-card>
         </wa-radio>
       </wa-radio-group>
     </ui-panel>
-  </section>
+  </ui-panel-container>
 
   <div slot="main-header" class="preview-header">
     <wa-tab-group :active="ui.preview" @wa-tab-show="ui.preview = $event.detail.name">

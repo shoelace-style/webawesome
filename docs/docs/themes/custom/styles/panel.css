@@ -1,3 +1,12 @@
+.sidebar.panel-container {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  min-width: 30ch;
+  border-right: var(--ui-border);
+  overflow: hidden;
+}
+
 .panel {
   --spacing: var(--wa-space-s);
   --panel-background: var(--wa-color-surface-default);
@@ -8,6 +17,18 @@
   margin-bottom: 0;
   position: relative;
   background: var(--panel-background);
+  transition-behavior: allow-discrete;
+  transition-property: display, translate, flex;
+
+  @starting-style {
+    display: flex;
+  }
+
+  &.previous,
+  &[open],
+  &.next {
+    transition-duration: var(--wa-transition-normal);
+  }
 
   summary {
     flex-direction: row-reverse;
@@ -15,6 +36,8 @@
     gap: var(--wa-space-xs);
     cursor: pointer;
     background: var(--panel-background);
+    transition: inherit;
+    transition-property: all;
 
     &::after {
       transform: rotate(180deg);
@@ -29,12 +52,18 @@
     }
   }
 
-  /* TODO find a solution that also works in Safari and Chrome */
+  /* TODO better fallback for FF and old Safari */
   &::details-content {
     flex: 1;
     min-height: 0;
     display: flex;
     flex-flow: column;
+    transition: inherit;
+
+    @starting-style {
+      display: flex;
+      content-visibility: visible;
+    }
   }
 
   .panel-content {
@@ -44,6 +73,7 @@
     flex-flow: column;
     gap: var(--wa-space-s);
     overflow: auto;
+    padding-inline: var(--wa-border-width-m);
   }
 
   h2,
@@ -84,9 +114,34 @@
       }
     }
 
-    &:not(.previous) {
-      /* Hide all but the immediately preceding step */
+    &:not(.previous, .next) {
+      /* Hide all but the immediately preceding or following steps */
       display: none;
+    }
+
+    &.next {
+      height: 0;
+      overflow: hidden;
+    }
+
+    &.previous::details-content,
+    &.next,
+    &.next::details-content {
+      opacity: 0;
+    }
+
+    &.previous {
+      &::details-content {
+        translate: -100% 0%;
+      }
+    }
+
+    &.next {
+      translate: 100% 0%;
+
+      &::details-content {
+        translate: 100% 0%;
+      }
     }
   }
 }

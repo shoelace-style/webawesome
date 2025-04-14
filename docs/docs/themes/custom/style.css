@@ -63,13 +63,6 @@ wa-tab-panel:empty {
   --padding: 0;
 }
 
-.sidebar {
-  display: flex;
-  flex-flow: column;
-  min-width: 30ch;
-  border-right: var(--ui-border);
-}
-
 wa-radio-group.card-picker {
   &::part(form-control-input) {
     display: grid;

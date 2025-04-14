@@ -10,6 +10,7 @@ import {
   PaletteCard,
   ThemeCard,
   UiPanel,
+  UiPanelContainer,
 } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -122,17 +123,6 @@ let appSpec = {
       return ret;
     },
 
-    previousPanel() {
-      switch (this.ui.panel) {
-        case 'styles':
-          return 'theme';
-        case 'theme':
-          return undefined;
-      }
-
-      return 'styles';
-    },
-
     code() {
       let ret = {};
 
@@ -203,6 +193,7 @@ let appSpec = {
     ThemeCard,
     IconsCard,
     UiPanel,
+    UiPanelContainer,
     ColorSelect,
   },
 
