@@ -1,6 +1,6 @@
-import { domChange } from '/assets/scripts/theme-picker.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { allHues, themeParams, urls } from '/assets/scripts/tweak/data.js';
+import { domChange } from '/assets/scripts/util/dom-change.js';
 import palettes from '/docs/palettes/data.js';
 import themes from '/docs/themes/data.js';
 
@@ -52,7 +52,18 @@ if (location.search) {
 }
 
 theme.base ??= 'default';
-updatePreview({ immediate: true });
+
+let isSameOrigin = false;
+try {
+  isSameOrigin = Boolean(parent.document);
+} catch (e) {}
+
+if (isSameOrigin) {
+  // We’re in the same origin as the parent, so let’s be proactive about updating the preview.
+  // For third-party websites, we wait until a message is sent from the parent
+  // to avoid messing up the site for visitors
+  updatePreview({ immediate: true });
+}
 
 window.addEventListener('message', event => {
   if (event.data?.type === 'updatePreview') {
