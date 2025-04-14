@@ -1,6 +1,7 @@
 ---
 title: Product Reviews
 description: 'Help shoppers make informed decisions with ratings, reviews, and testimonials from your customers.'
+isPro: true
 ---
 ## Multi column
 

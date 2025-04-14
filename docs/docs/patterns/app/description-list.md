@@ -1,6 +1,7 @@
 ---
 title: Description List
 description: 'Help users digest detailed information in a structured, easy-to-scan format.'
+isPro: true
 ---
 
 ## Left Aligned

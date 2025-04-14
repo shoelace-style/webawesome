@@ -1,6 +1,7 @@
 ---
 title: Pagination
 description: 'Improve navigation and performance by breaking long lists or content into manageable pages.'
+isPro: true
 ---
 
 ## Simple

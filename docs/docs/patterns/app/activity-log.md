@@ -1,6 +1,7 @@
 ---
 title: Activity Log
 description: 'Track and organize recent user actions or events.'
+
 ---
 
 ## Simple
@@ -260,7 +261,7 @@ description: 'Track and organize recent user actions or events.'
       </li>
     </ul>
     </div>
-    
+
   </div>
 </div>
 ```

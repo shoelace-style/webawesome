@@ -2,6 +2,7 @@
 title: Blog
 description: TODO
 unlisted: true
+isPro: true
 ---
 
 TODO Page Description

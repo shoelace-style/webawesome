@@ -1,6 +1,7 @@
 ---
 title: FAQ
 description: 'Empower users to learn more with a structured list of questions and answers.'
+isPro: true
 ---
 
 ## With Flanked Heading & Description
@@ -86,7 +87,7 @@ description: 'Empower users to learn more with a structured list of questions an
       <dt class="wa-heading-m">How often do you update your courses?</dt>
       <dd>A course is updated once there is a fundamental shift in the language or library’s underlying API. You can check our <a href="#">workshop</a> list to see if a new version of a given course is on the schedule. You may also write to us as <a href="#">support@frontendmasters.com</a> with suggestions for updates.</dd>
     </div>
-   
+
     <div class="wa-stack wa-gap-xs">
       <dt class="wa-heading-m">Do you offer certificates of completion?</dt>
       <dd>You can download certificates of completion from the <a href="#">Completed Courses</a> list in your Learning Library. Click the diploma icon next to the course to download the certificate in light or dark mode. A link to your Public Profile is included on each certificate if you’ve created one. Public Profiles showcase your learning journey and are a fantastic way to share progress with friends, co-workers, or employers. Public Profiles are available to members with an active Frontend Masters subscription who have watched ten or more hours of content. Visit the <a href="#">Public Profile</a> section in My Account to get started.</dd>
@@ -103,12 +104,12 @@ description: 'Empower users to learn more with a structured list of questions an
         </ul>
       </dd>
     </div>
-   
+
     <div class="wa-stack wa-gap-xs">
       <dt class="wa-heading-m">Do you have discounts for students?</dt>
       <dd>We are part of the <a href="#">GitHub Student Developer Pack</a>, allowing students six months of free access to the entire platform.</dd>
     </div>
-   
+
     <div class="wa-stack wa-gap-xs">
       <dt class="wa-heading-m">How do I cancel my plan?</dt>
       <dd>You can cancel your Frontend Masters subscription by visiting the <a href="#">Subscription tab</a> in your My Account area.</dd>

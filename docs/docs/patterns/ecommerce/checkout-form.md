@@ -1,6 +1,7 @@
 ---
 title: Checkout Form
 description: 'Let shoppers checkout with ease with streamlined forms to capture shipping and payment info.'
+isPro: true
 ---
 
 

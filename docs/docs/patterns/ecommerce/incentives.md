@@ -1,6 +1,7 @@
 ---
 title: Incentives
 description: 'Encourage shoppers to buy your products with value propositions, discounts, and promotions.'
+isPro: true
 ---
 
 ## 3 Column

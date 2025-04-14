@@ -1,6 +1,7 @@
 ---
 title: Product Overview
 description: 'Showcase your products with overviews including images, ratings, features, options, and more.'
+isPro: true
 ---
 
 ## Split with Image

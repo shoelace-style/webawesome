@@ -1,6 +1,7 @@
 ---
 title: Leaderboard
 description: 'Engage and motivate users by highlighting top performers, scores, and achievements.'
+isPro: true
 ---
 
 ## Simple

@@ -2,6 +2,7 @@
 title: Category Filter
 description: 'Helps the user find the right products with filters to refine search results by specific attributes.'
 icon: checkbox
+isPro: true
 ---
 
 ## Sidebar with Checkboxes & Expandable Filters

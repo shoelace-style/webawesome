@@ -1,6 +1,7 @@
 ---
 title: Order History
 description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
+isPro: true
 ---
 
 ## List

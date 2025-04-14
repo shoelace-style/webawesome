@@ -2,6 +2,7 @@
 title: Category Preview
 description: 'Help shoppers discover your product offerings with showcases of product categories.'
 icon: preview
+isPro: true
 ---
 
 ## Split with Image Grid

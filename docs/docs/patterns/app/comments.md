@@ -1,6 +1,7 @@
 ---
 title: Comments
 description: 'Enable users to engage in discussions, provide feedback, or record their thoughts.'
+isPro: true
 ---
 
 ## Card with Header & Footer
@@ -91,7 +92,7 @@ description: 'Enable users to engage in discussions, provide feedback, or record
         <wa-icon-button name="face-smile" label="Add Sticker" id="sticker-button"></wa-icon-button>
         <wa-tooltip for="sticker-button">Add Sticker</wa-tooltip>
       </div>
-      <wa-button variant="brand">Comment</wa-button>  
+      <wa-button variant="brand">Comment</wa-button>
     </div>
   </div>
 </div>
@@ -107,9 +108,9 @@ description: 'Enable users to engage in discussions, provide feedback, or record
   <div class="wa-stack">
     <div class="wa-flank" style="--flank-size: 3rem">
       <div class="wa-frame:portrait wa-border-radius-s">
-        <img 
-          src="https://images.unsplash.com/photo-1607675742178-f616ae75044b?q=80&w=3435&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-          alt="the cover image for the film" 
+        <img
+          src="https://images.unsplash.com/photo-1607675742178-f616ae75044b?q=80&w=3435&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="the cover image for the film"
         />
       </div>
       <span class="wa-heading-l">Heretic</span>

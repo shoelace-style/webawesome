@@ -2,6 +2,7 @@
 title: Action Panel
 description: 'Help users complete tasks efficiently with quick access to key actions.'
 icon: action-panel
+isPro: true
 ---
 
 ## Simple

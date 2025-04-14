@@ -1,6 +1,7 @@
 ---
 title: Empty State
 description: 'Guide users with helpful prompts and visuals when no content is available.'
+isPro: true
 ---
 
 ## Simple
@@ -125,7 +126,7 @@ description: 'Guide users with helpful prompts and visuals when no content is av
   </div>
 </wa-card>
 ```
-## Add people 
+## Add people
 ```html {.example}
 <wa-card style="max-width: 60ch; margin: 0 auto;">
   <div class="wa-stack wa-gap-xs">
@@ -146,7 +147,7 @@ description: 'Guide users with helpful prompts and visuals when no content is av
             <span class="wa-caption-m">DevOps</span>
           </div>
           <wa-button appearance="plain">
-            <wa-icon name="user-plus" slot="prefix"></wa-icon>  
+            <wa-icon name="user-plus" slot="prefix"></wa-icon>
             Invite
           </wa-button>
         </div>
@@ -162,7 +163,7 @@ description: 'Guide users with helpful prompts and visuals when no content is av
             <span class="wa-caption-m">Captain</span>
           </div>
           <wa-button appearance="plain">
-            <wa-icon name="user-plus" slot="prefix"></wa-icon>  
+            <wa-icon name="user-plus" slot="prefix"></wa-icon>
             Invite
           </wa-button>
         </div>
@@ -178,7 +179,7 @@ description: 'Guide users with helpful prompts and visuals when no content is av
             <span class="wa-caption-m">Cloud Engineer</span>
           </div>
           <wa-button appearance="plain">
-            <wa-icon name="user-plus" slot="prefix"></wa-icon>  
+            <wa-icon name="user-plus" slot="prefix"></wa-icon>
             Invite
           </wa-button>
         </div>
@@ -193,7 +194,7 @@ description: 'Guide users with helpful prompts and visuals when no content is av
             <span class="wa-caption-m">UX Writer</span>
           </div>
           <wa-button appearance="plain">
-            <wa-icon name="user-plus" slot="prefix"></wa-icon>  
+            <wa-icon name="user-plus" slot="prefix"></wa-icon>
             Invite
           </wa-button>
         </div>

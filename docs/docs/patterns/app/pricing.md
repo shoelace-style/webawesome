@@ -1,6 +1,7 @@
 ---
 title: Pricing
 description: 'Help users make informed purchasing decisions with clear, structured pricing.'
+isPro: true
 ---
 
 ## Three Tiers

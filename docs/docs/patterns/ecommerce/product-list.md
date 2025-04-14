@@ -1,6 +1,7 @@
 ---
 title: Product Lists
 description: 'Let shoppers browse and compare products with detailed lists of the products in your store.'
+isPro: true
 ---
 
 ## Simple Grid with Ratings

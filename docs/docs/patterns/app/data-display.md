@@ -1,10 +1,11 @@
 ---
 title: Data Display
 description: 'Convey insights, metrics, and aggregate data at a glance.'
+isPro: true
 ---
 
 
-## Simple 
+## Simple
 ```html {.example}
 <wa-card>
   <div class="wa-grid wa-gap-3xl" style="--min-column-size: 24ch;">

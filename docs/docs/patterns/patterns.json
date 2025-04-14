@@ -2,5 +2,6 @@
   "layout": "patterns.njk",
   "tags": ["patterns"],
   "wide": true,
-  "noAlpha": true
+  "noAlpha": true,
+  "isPro": true
 }

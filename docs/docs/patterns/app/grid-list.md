@@ -1,6 +1,7 @@
 ---
 title: Grid List
 description: 'Improve browsing and selection by organizing data in a structured grid layout.'
+isPro: true
 ---
 
 ## Cards with Footer Actions
@@ -397,8 +398,8 @@ description: 'Improve browsing and selection by organizing data in a structured 
     <div class="wa-stack">
       <div class="wa-cluster wa-gap-s"><span>Draft</span>  <wa-badge appearance="filled outlined" variant="neutral">1</wa-badge></div>
 
-       
-     
+
+
           <wa-card>
             <div class="wa-flank:end">
               <div class="wa-stack wa-gap-2xs">
@@ -426,12 +427,12 @@ description: 'Improve browsing and selection by organizing data in a structured 
         <wa-icon name="plus"></wa-icon>
         Add Task
         </wa-button>
-      
+
     </div>
 
     <div class="wa-stack">
       <div class="wa-cluster wa-gap-s"><span>In Progress</span>  <wa-badge appearance="filled outlined" variant="neutral">2</wa-badge></div>
-      
+
           <wa-card>
             <div class="wa-flank:end">
               <div class="wa-stack wa-gap-2xs">
@@ -481,7 +482,7 @@ description: 'Improve browsing and selection by organizing data in a structured 
         <wa-icon name="plus"></wa-icon>
         Add Task
         </wa-button>
-      
+
     </div>
 
     <div class="wa-stack">
@@ -508,18 +509,17 @@ description: 'Improve browsing and selection by organizing data in a structured 
               <wa-avatar initials="KK" label="Avatar with initials: KK"></wa-avatar>
             </div>
           </wa-card>
-     
-        
+
+
       <wa-button appearance="plain">
         <wa-icon name="plus"></wa-icon>
         Add Task
         </wa-button>
-      
+
     </div>
 
 
-  
+
   </div>
 </div>
 ```
-

@@ -1,6 +1,7 @@
 ---
 title: Shopping Cart
 description: 'Give shoppers an overview of selected items with shopping carts that let them edit items and proceed to checkout.'
+isPro: true
 ---
 
 ## Two Columns with Summary Card

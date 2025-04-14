@@ -2,6 +2,7 @@
 title: Product Preview
 description: 'Give shoppers a quick look at your products as they browse with modal previews.'
 icon: preview
+isPro: true
 ---
 
 ## With Product Options

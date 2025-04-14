@@ -1,6 +1,7 @@
 ---
 title: Permissions
 description: 'Permission patterns provide or restrict access to users.'
+isPro: true
 ---
 
 ## With Form Inputs
@@ -118,7 +119,7 @@ description: 'Permission patterns provide or restrict access to users.'
     <wa-button size="small" variant="brand" pill>Generate</wa-button>
   </div>
   </div>
-  
+
 </wa-card>
 ```
 
@@ -170,7 +171,7 @@ description: 'Permission patterns provide or restrict access to users.'
           <wa-option value="moderator">Moderator</wa-option>
           <wa-option value="contributor">Contributor</wa-option>
           <wa-option value="reader">Reader</wa-option>
-        </wa-select>  
+        </wa-select>
       </td>
     </tr>
     <tr>
@@ -222,7 +223,7 @@ description: 'Permission patterns provide or restrict access to users.'
   </tbody>
 </table>
   </wa-tab-panel>
- 
+
 </wa-tab-group>
 </div>
 ```

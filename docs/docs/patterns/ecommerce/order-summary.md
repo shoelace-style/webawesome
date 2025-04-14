@@ -1,6 +1,7 @@
 ---
 title: Order Summary
 description: 'Give shoppers confidence in their purchases with summaries of everything included in their order.'
+isPro: true
 ---
 
 ## Simple
