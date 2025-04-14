@@ -76,7 +76,7 @@ function init() {
   globalThis.remixApp = { selects, codeSnippets, data, computed, render };
 }
 
-init()
+init();
 // Async load CSS for other themes *before* current theme stylesheet
 let themeStylesheet = document.querySelector('#theme-stylesheet');
 
@@ -150,7 +150,9 @@ function render(changedAspect) {
   // Update code snippets
   for (let language in codeSnippets) {
     let codeSnippet = codeSnippets[language];
-    if (!codeSnippet) { continue }
+    if (!codeSnippet) {
+      continue;
+    }
 
     let code = getThemeCode(data.baseTheme, data.params, { language, cdnUrl });
     codeSnippet.textContent = code;
@@ -158,4 +160,4 @@ function render(changedAspect) {
   }
 }
 
-addEventListener('turbo:render', init)
+addEventListener('turbo:render', init);
