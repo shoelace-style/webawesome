@@ -14,13 +14,21 @@ for (let aspect in urls) {
   let urlFactory = urls[aspect];
   let ids = aspect === 'palette' ? paletteIds : aspect === 'brand' ? allHues : themeIds;
   let allUrls = ids.map(id => urlFactory(id));
-  let selector = `link[rel="stylesheet"]:is(${allUrls.map(url => `[href$="/${url}"]`).join(', ')})`;
+  let styleClass = aspect === 'palette' || aspect === 'brand' ? aspect : `theme-${aspect}`;
+  let selector = `link[rel="stylesheet"]:is(${allUrls.map(url => `[href$="/${url}"]`).join(', ')}), style.wa-${styleClass}`;
+
   let getId = RegExp(`/${urlFactory('([^\\\\]+)')}($|\\?|#)`);
   aspects[aspect] ??= { ids, urls: allUrls, selector, getId };
 }
 
-aspects.palette.selector += ', style.wa-palette';
-
+/**
+ * @typedef {object} Theme
+ * @property {string} base
+ * @property {string} colors
+ * @property {string} palette
+ * @property {string} brand
+ * @property {string} typography
+ */
 export const theme = new EventTarget();
 
 // Read base theme from document
@@ -43,6 +51,7 @@ if (location.search) {
   updateTheme(urlOverrides, { silent: true });
 }
 
+theme.base ??= 'default';
 updatePreview({ immediate: true });
 
 window.addEventListener('message', event => {
@@ -87,6 +96,13 @@ export function resolveTheme(newTheme = {}) {
   return ret;
 }
 
+/**
+ * Update the current theme and fire a change event on it. Does NOT call `updatePreview()`
+ * @param {Theme} newTheme
+ * @param {object} options
+ * @param {boolean} options.silent - If true, don't fire the change event
+ * @returns {Theme & {any: boolean}} - The changed properties
+ */
 function updateTheme(newTheme, options = {}) {
   let resolvedNewTheme = resolveTheme(newTheme);
 
