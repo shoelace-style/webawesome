@@ -1,7 +1,7 @@
 const template = `
 <span class="editable-text">
 <template v-if="isEditing">
-  <input class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @blur="done" @keydown.enter="done" @keydown.esc="cancel" />
+  <input ref="input" class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @keydown.enter="done" @keydown.esc="cancel" />
   <wa-icon-button name="check" label="Done editing" @click="done"></wa-icon-button>
   <wa-icon-button name="xmark" label="Cancel" @click="cancel"></wa-icon-button>
 </template>
@@ -40,6 +40,10 @@ export default {
 
       this.isEditing = true;
       this.previousValue = this.value;
+
+      this.$nextTick(() => {
+        this.$refs.input.focus();
+      });
     },
     done(event) {
       if (!this.isEditing) {
