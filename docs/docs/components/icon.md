@@ -24,6 +24,86 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 <wa-icon family="brands" name="web-awesome"></wa-icon>
 ```
 
+### Setting defaults via CSS
+
+You can use certain CSS custom properties to set icon defaults, not just on the icon itself, but any ancestor.
+This can be useful when you want certain parameters to vary based on context, e.g. icons inside callouts or all icons for a given theme.
+
+:::warning
+These CSS properties are intended to set **defaults**, and thus only make a difference when the corresponding attributes are not set.
+In future versions of Web Awesome, we may change this behavior to allow CSS properties to override attributes if `!important` is used.
+:::
+
+For example, here is how you can use CSS custom properties to set a default icon for each type of callout:
+
+```html {.example}
+<wa-callout>
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  This is a normal callout.
+</wa-callout>
+
+<wa-callout variant="danger">
+  <wa-icon slot="icon" name="dumpster-fire" variant="solid"></wa-icon>
+  This is a callout with an explicit icon, which overrides these defaults.
+</wa-callout>
+
+<wa-callout variant="warning">
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  Here be dragons.
+</wa-callout>
+
+<wa-callout variant="danger">
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  Here be more dragons.
+</wa-callout>
+
+<wa-callout variant="success">
+  <!-- Look ma, no attributes! -->
+  <wa-icon slot="icon"></wa-icon>
+  Success!
+</wa-callout>
+
+<style>
+wa-callout {
+  --wa-icon-variant: regular;
+  --wa-icon-name: info-circle;
+
+  &[variant="warning"] {
+    --wa-icon-name: triangle-exclamation;
+  }
+
+  &[variant="danger"] {
+    --wa-icon-name: circle-exclamation;
+  }
+
+  &[variant="success"] {
+    --wa-icon-name: circle-check;
+  }
+}
+</style>
+```
+
+You can even set icons dynamically, as a response to user interaction or media queries.
+For example, here's how we can change the icon on hover:
+
+```html {.example}
+<wa-button class="github" href="https://github.com/webawesome/webawesome"><wa-icon slot="prefix" fixed-width></wa-icon> GitHub Repo</wa-button>
+<style>
+.github {
+  --wa-icon-name: github;
+  --wa-icon-family: brands;
+
+  &:hover {
+    --wa-icon-name: arrow-up-right-from-square;
+    --wa-icon-family: classic;
+  }
+}
+</style>
+```
+
 ### Colors
 
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
