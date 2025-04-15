@@ -139,6 +139,10 @@ let appSpec = {
 
       return ret;
     },
+
+    tweaked() {
+      return Object.values(this.theme).filter(Boolean).length > 0;
+    },
   },
 
   watch: {

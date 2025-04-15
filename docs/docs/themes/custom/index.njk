@@ -25,7 +25,7 @@ order: 99
       <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
     </div>
 
-    <wa-button @click="save()" :disabled="!unsavedChanges"
+    <wa-button v-if="tweaked || uid" @click="save()" :disabled="!unsavedChanges"
       :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
       <span slot="prefix" class="icon-modifier">
         <wa-icon name="sidebar" variant="regular"></wa-icon>
