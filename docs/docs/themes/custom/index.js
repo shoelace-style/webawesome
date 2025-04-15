@@ -3,6 +3,7 @@ import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-brows
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { allHues, cdnUrl } from '/assets/scripts/tweak/data.js';
+import { slugify } from '/assets/scripts/util/slugify.js';
 import {
   ColorSelect,
   IconsCard,
@@ -87,6 +88,10 @@ let appSpec = {
       }
 
       return ret;
+    },
+
+    slug() {
+      return slugify(this.title);
     },
 
     baseTheme() {

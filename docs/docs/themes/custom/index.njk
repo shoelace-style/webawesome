@@ -42,7 +42,7 @@ order: 99
         <wa-tab panel="css">CSS</wa-tab>
         <wa-tab-panel name="css">
           <pre class="language-css"><code v-content:html="code.css.highlighted"></code></pre>
-          <wa-button :href="code.css.blob" download="theme.css">
+          <wa-button :href="code.css.blob" :download="`theme-${slug}.css`">
             <wa-icon name="arrow-down-to-line" variant="solid" slot="prefix"></wa-icon>
             Download
           </wa-button>
