@@ -52,6 +52,7 @@ let appSpec = {
         preview: 'app',
       },
       isMobile,
+      isCreated: false,
     };
   },
 
@@ -69,6 +70,8 @@ let appSpec = {
     if (this.theme.base) {
       this.ui.panel = 'styles';
     }
+
+    this.isCreated = true;
   },
 
   computed: {
@@ -178,12 +181,17 @@ let appSpec = {
     'ui.preview': {
       immediate: true,
       handler() {
+        if (!this.isCreated) {
+          return;
+        }
+
         // Update urlParams only when the preview changes
         // We use postMessage for other updates
         let urlParams = new URLSearchParams(this.computed);
         urlParams.sort();
         urlParams = urlParams + '';
-        this.urlParams ? '?' + urlParams : '';
+
+        this.urlParams = urlParams ? '?' + urlParams : '';
       },
     },
   },
