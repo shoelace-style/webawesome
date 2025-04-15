@@ -210,12 +210,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** Disables the color picker. */
   @property({ type: Boolean }) disabled = false;
 
-  /**
-   * Enable this option to prevent the panel from being clipped when the component is placed inside a container with
-   * `overflow: auto|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
   /** Shows the opacity slider. Enabling this will cause the formatted value to be HEXA, RGBA, or HSLA. */
   @property({ type: Boolean }) opacity = false;
 
@@ -1097,7 +1091,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
         .containingElement=${this}
         ?disabled=${this.disabled}
-        ?hoist=${this.hoist}
         @wa-after-show=${this.handleAfterShow}
         @wa-after-hide=${this.handleAfterHide}
       >

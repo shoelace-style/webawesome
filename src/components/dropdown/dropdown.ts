@@ -96,12 +96,6 @@ export default class WaDropdown extends WebAwesomeElement {
   @property({ type: Number }) skidding = 0;
 
   /**
-   * Enable this option to prevent the panel from being clipped when the component is placed inside a container with
-   * `overflow: auto|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
-  /**
    * Syncs the popup width or height to that of the trigger element.
    */
   @property({ reflect: true }) sync: 'width' | 'height' | 'both' | undefined = undefined;
@@ -415,7 +409,6 @@ export default class WaDropdown extends WebAwesomeElement {
         placement=${this.placement}
         distance=${this.distance}
         skidding=${this.skidding}
-        strategy=${this.hoist ? 'fixed' : 'absolute'}
         flip
         shift
         auto-size="vertical"

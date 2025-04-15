@@ -126,7 +126,7 @@
           {% for h in hues -%}
             {%- if h !== 'gray' -%}
               <wa-radio-button id="gray-undertone-{{ h }}" value="{{ h }}" label="{{ h | capitalize }}" style="--color: var(--wa-color-{{ h }})"></wa-radio-button>
-              <wa-tooltip for="gray-undertone-{{ h }}" hoist>
+              <wa-tooltip for="gray-undertone-{{ h }}">
                 {{ h | capitalize }}
               </wa-tooltip>
             {%- endif -%}

@@ -1,4 +1,14 @@
-import { arrow, autoUpdate, computePosition, flip, offset, platform, shift, size } from '@floating-ui/dom';
+import {
+  arrow,
+  autoUpdate,
+  computePosition,
+  flip,
+  getOverflowAncestors,
+  offset,
+  platform,
+  shift,
+  size,
+} from '@floating-ui/dom';
 import { offsetParent } from 'composed-offset-position';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
@@ -22,6 +32,8 @@ function isVirtualElement(e: unknown): e is VirtualElement {
     ('contextElement' in e ? e instanceof Element : true)
   );
 }
+
+const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popover');
 
 /**
  * @summary Popup is a utility that lets you declaratively anchor "popup" containers to another element.
@@ -97,11 +109,8 @@ export default class WaPopup extends WebAwesomeElement {
     | 'left-start'
     | 'left-end' = 'top';
 
-  /**
-   * Determines how the popup is positioned. The `absolute` strategy works well in most cases, but if overflow is
-   * clipped, using a `fixed` position strategy can often workaround it.
-   */
-  @property({ reflect: true }) strategy: 'absolute' | 'fixed' = 'absolute';
+  /** Which bounding box to use for flipping, shifting, and auto-sizing? */
+  @property() boundary: 'viewport' | 'scroll' = 'viewport';
 
   /** The distance in pixels from which to offset the panel away from its anchor. */
   @property({ type: Number }) distance = 0;
@@ -281,6 +290,8 @@ export default class WaPopup extends WebAwesomeElement {
       return;
     }
 
+    this.popup.showPopover?.();
+
     this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
     });
@@ -288,6 +299,8 @@ export default class WaPopup extends WebAwesomeElement {
 
   private async stop(): Promise<void> {
     return new Promise(resolve => {
+      this.popup.hidePopover?.();
+
       if (this.cleanup) {
         this.cleanup();
         this.cleanup = undefined;
@@ -334,11 +347,21 @@ export default class WaPopup extends WebAwesomeElement {
       this.popup.style.height = '';
     }
 
+    let defaultBoundary;
+
+    if (SUPPORTS_POPOVER && !isVirtualElement(this.anchor) && this.boundary === 'scroll') {
+      // When using the Popover API, the floating element is no longer in the same DOM context
+      // as the overflow ancestors so Floating-UI can't find them.
+      // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
+      // but the option is not available for shift() or size(), so we basically need to implement it ourselves.
+      defaultBoundary = getOverflowAncestors(this.anchorEl as Element).filter(el => el instanceof Element);
+    }
+
     // Then we flip
     if (this.flip) {
       middleware.push(
         flip({
-          boundary: this.flipBoundary,
+          boundary: this.flipBoundary || defaultBoundary,
           // @ts-expect-error - We're converting a string attribute to an array here
           fallbackPlacements: this.flipFallbackPlacements,
           fallbackStrategy: this.flipFallbackStrategy === 'best-fit' ? 'bestFit' : 'initialPlacement',
@@ -351,7 +374,7 @@ export default class WaPopup extends WebAwesomeElement {
     if (this.shift) {
       middleware.push(
         shift({
-          boundary: this.shiftBoundary,
+          boundary: this.shiftBoundary || defaultBoundary,
           padding: this.shiftPadding,
         }),
       );
@@ -361,7 +384,7 @@ export default class WaPopup extends WebAwesomeElement {
     if (this.autoSize) {
       middleware.push(
         size({
-          boundary: this.autoSizeBoundary,
+          boundary: this.autoSizeBoundary || defaultBoundary,
           padding: this.autoSizePadding,
           apply: ({ availableWidth, availableHeight }) => {
             if (this.autoSize === 'vertical' || this.autoSize === 'both') {
@@ -399,15 +422,14 @@ export default class WaPopup extends WebAwesomeElement {
     //
     // More info: https://github.com/shoelace-style/shoelace/issues/1135
     //
-    const getOffsetParent =
-      this.strategy === 'absolute'
-        ? (element: Element) => platform.getOffsetParent(element, offsetParent)
-        : platform.getOffsetParent;
+    const getOffsetParent = SUPPORTS_POPOVER
+      ? (element: Element) => platform.getOffsetParent(element, offsetParent)
+      : platform.getOffsetParent;
 
     computePosition(this.anchorEl, this.popup, {
       placement: this.placement,
       middleware,
-      strategy: this.strategy,
+      strategy: SUPPORTS_POPOVER ? 'absolute' : 'fixed',
       platform: {
         ...platform,
         getOffsetParent,
@@ -563,11 +585,12 @@ export default class WaPopup extends WebAwesomeElement {
       ></span>
 
       <div
+        popover="manual"
         part="popup"
         class=${classMap({
           popup: true,
           'popup--active': this.active,
-          'popup--fixed': this.strategy === 'fixed',
+          'popup--fixed': !SUPPORTS_POPOVER,
           'popup--has-arrow': this.arrow,
         })}
       >

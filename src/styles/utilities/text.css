@@ -99,3 +99,25 @@
 .wa-caption-xl {
   font-size: var(--wa-font-size-l);
 }
+
+.wa-link {
+  color: var(--wa-color-text-link);
+  text-decoration: var(--wa-link-decoration-default);
+  -webkit-text-decoration: var(--wa-link-decoration-default);
+
+  &:hover {
+    color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
+    text-decoration: var(--wa-link-decoration-hover);
+    -webkit-text-decoration: var(--wa-link-decoration-hover);
+  }
+}
+
+.wa-link-plain {
+  color: var(--wa-color-text-normal);
+  text-decoration: none;
+
+  &:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+    text-decoration: none;
+  }
+}
