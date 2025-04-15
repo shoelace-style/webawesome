@@ -62,7 +62,7 @@ order: 99
       </template>
 
       <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.base">
-          <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
+          <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
       </wa-radio-group>
@@ -105,15 +105,19 @@ order: 99
     <ui-panel v-model="ui.panel" value="color" title="Color Palette" :step="2">
       <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
-          <palette-card :palette="paletteId" size="small"></palette-card>
+          <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
+            <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="paletteId === themes[computed.base].palette">Default</wa-badge></template>
+          </palette-card>
         </wa-radio>
       </wa-radio-group>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="typography" title="Typography" :step="2">
       <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
-        <wa-radio v-for="(theme, themeId) in themes" :value="themeId" size="small">
-          <theme-card :theme="themeId" type="typography" size="small"></theme-card>
+        <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
+          <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">
+            <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="themeId === theme.base">Default</wa-badge></template>
+          </theme-card>
         </wa-radio>
       </wa-radio-group>
     </ui-panel>

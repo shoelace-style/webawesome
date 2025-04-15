@@ -28,6 +28,9 @@ const template = `
       </wa-scoped>
     </template>
     <slot>{{ title || paletteMeta.title }}</slot>
+    <template #extra>
+      <slot name="extra" />
+    </template>
 	</page-card>
 `;
 
