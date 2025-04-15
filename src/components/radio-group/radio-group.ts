@@ -356,7 +356,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           part="form-control-input"
           class=${classMap({
             'wa-button-group': this.hasRadioButtons,
-            'wa-button-group-vertical': this.orientation === 'vertical',
+            'wa-button-group-vertical': this.hasRadioButtons && this.orientation === 'vertical',
           })}
           @slotchange=${this.syncRadioElements}
         ></slot>
