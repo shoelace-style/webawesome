@@ -125,9 +125,11 @@ let appSpec = {
 
     code() {
       let ret = {};
+      let theme = { ...this.theme };
+      theme.base ||= 'default';
 
       for (let language of ['html', 'css']) {
-        let code = getThemeCode(this.theme, { language, cdnUrl });
+        let code = getThemeCode(theme, { language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
