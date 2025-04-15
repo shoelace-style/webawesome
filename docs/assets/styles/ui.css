@@ -70,3 +70,31 @@
     margin-inline-start: var(--wa-space-xs);
   }
 }
+
+/* Repeated to increase specificity */
+.editable-text.editable-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wa-space-xs);
+  --edit-hint-color: oklab(from var(--wa-color-warning-fill-quiet) l a b / 50%);
+
+  > .text {
+    &:hover,
+    &:focus {
+      background-color: var(--edit-hint-color);
+      box-shadow: 0 0 0 var(--wa-space-2xs) var(--edit-hint-color);
+      color: inherit;
+      border-radius: calc(var(--wa-border-radius-m) - var(--wa-space-2xs));
+    }
+  }
+
+  > input {
+    font: inherit;
+    margin-block: calc(-1 * var(--wa-space-smaller));
+    field-sizing: content;
+  }
+
+  wa-icon-button {
+    font-size: 80%;
+  }
+}

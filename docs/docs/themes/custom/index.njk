@@ -1,6 +1,6 @@
 ---
 layout: blank
-title: Custom Theme
+title: Custom
 override:tags: [themes, pro]
 isPro: true
 order: 99
@@ -20,8 +20,7 @@ order: 99
     </a>
 
     <div class="title">
-      <h1 v-content="title"></h1>
-      <wa-icon-button name="pencil" label="Rename theme" @click="rename"></wa-icon-button>
+      <h1><editable-text :model-value="title" label="theme name" @submit="newTitle => save({title: newTitle})"></editable-text></h1>
       <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
     </div>
 

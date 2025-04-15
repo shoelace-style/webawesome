@@ -6,6 +6,7 @@ import { allHues, cdnUrl } from '/assets/scripts/tweak/data.js';
 import { slugify } from '/assets/scripts/util/slugify.js';
 import {
   ColorSelect,
+  EditableText,
   IconsCard,
   PageCard,
   PaletteCard,
@@ -199,13 +200,14 @@ let appSpec = {
   },
 
   components: {
+    ColorSelect,
+    EditableText,
+    IconsCard,
     PageCard,
     PaletteCard,
     ThemeCard,
-    IconsCard,
     UiPanel,
     UiPanelContainer,
-    ColorSelect,
   },
 
   directives: { content },
