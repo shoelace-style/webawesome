@@ -33,6 +33,12 @@
   position: relative;
   scroll-timeline-name: --scrollable;
 
+  &:is(.panel-content > div) {
+    display: flex;
+    flex-flow: column;
+    gap: inherit;
+  }
+
   &::before,
   &::after {
     --scroll-shadow-height: 1em;
