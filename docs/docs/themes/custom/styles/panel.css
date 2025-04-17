@@ -44,25 +44,14 @@
     }
 
     h2 {
-      margin-block-start: 0;
+      margin-block: 0;
+      font-size: inherit;
     }
 
     label {
       pointer-events: none;
-    }
-  }
-
-  /* TODO better fallback for FF and old Safari */
-  &::details-content {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-flow: column;
-    transition: inherit;
-
-    @starting-style {
-      display: flex;
-      content-visibility: visible;
+      font: inherit;
+      color: inherit;
     }
   }
 
@@ -76,6 +65,7 @@
     padding-inline: var(--wa-border-width-m);
   }
 
+  h1,
   h2,
   h3,
   h4,
@@ -89,10 +79,7 @@
 
     summary {
       padding-block-end: var(--spacing);
-
-      h2 {
-        font-size: var(--wa-font-size-l);
-      }
+      font-size: var(--wa-font-size-l);
 
       &::after {
         display: none;
@@ -108,9 +95,10 @@
     padding: 0;
 
     summary {
+      font-size: var(--wa-font-size-s);
+
       h2 {
         margin: 0;
-        font-size: var(--wa-font-size-s);
       }
     }
 
@@ -124,8 +112,34 @@
       overflow: hidden;
     }
 
+    &.next {
+      opacity: 0;
+    }
+
+    &.next {
+      translate: 100% 0%;
+    }
+  }
+}
+
+/* Safari < 18.4 chokes when this is nested in the rule above */
+/* TODO better fallback for FF and old Safari */
+.panel {
+  &::details-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-flow: column;
+    transition: inherit;
+
+    @starting-style {
+      display: flex;
+      content-visibility: visible;
+    }
+  }
+
+  &:not([open]) {
     &.previous::details-content,
-    &.next,
     &.next::details-content {
       opacity: 0;
     }
@@ -137,10 +151,8 @@
     }
 
     &.next {
-      translate: 100% 0%;
-
       &::details-content {
-        translate: 100% 0%;
+        translate: inherit;
       }
     }
   }
