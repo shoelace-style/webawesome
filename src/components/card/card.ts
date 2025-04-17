@@ -50,6 +50,10 @@ export default class WaCard extends WebAwesomeElement {
   /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
+  /** Renders the card's orientation **/
+  @property({ reflect: true })
+  orientation: 'horizontal' | 'vertical' = 'vertical';
+
   updated() {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;

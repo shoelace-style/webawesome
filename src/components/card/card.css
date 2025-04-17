@@ -36,6 +36,21 @@
   box-shadow: none;
 }
 
+/* Horizontal */
+:host([orientation='horizontal']) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--wa-space-scale);
+
+  ::slotted(img) {
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    border-start-start-radius: inherit !important;
+    border-start-end-radius: 0 !important;
+  }
+}
+
 /* Take care of top and bottom radii */
 .image,
 :host(:not([with-image])) .header,
