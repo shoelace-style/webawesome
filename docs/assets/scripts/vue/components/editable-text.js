@@ -43,6 +43,7 @@ export default {
 
       this.$nextTick(() => {
         this.$refs.input.focus();
+        this.$refs.input.select();
       });
     },
     done(event) {
