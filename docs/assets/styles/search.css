@@ -41,9 +41,9 @@
 }
 
 /* Header */
-header {
+#site-search-container header {
   flex: 0 0 auto;
-  align-items: middle;
+  align-items: center;
   /* Fixes an iOS Safari 16.4 bug that draws the parent element's border radius incorrectly when showing/hiding results */
   border-radius: var(--wa-border-radius-l);
 }
