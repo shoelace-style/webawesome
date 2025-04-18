@@ -3,7 +3,6 @@
   display: flex;
   flex-flow: column;
   min-width: 30ch;
-  border-right: var(--ui-border);
   overflow: hidden;
 }
 
