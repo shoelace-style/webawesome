@@ -126,13 +126,12 @@ order: 99
   </ui-panel-container>
 
   <div slot="main-header" class="preview-header">
-    <wa-tab-group :active="ui.preview" @wa-tab-show="ui.preview = $event.detail.name">
-      <wa-tab panel="app">App</wa-tab>
-      <wa-tab panel="content">Content</wa-tab>
-
-      <wa-tab-panel name="app"></wa-tab-panel>
-      <wa-tab-panel name="content"></wa-tab-panel>
-    </wa-tab-group>
+    <wa-radio-group orientation="horizontal" v-model="ui.preview" size="small" label="Preview:">
+      <wa-radio-button value="app">App</wa-radio-button>
+      <wa-radio-button value="content">Content</wa-radio-button>
+    </wa-radio-group>
   </div>
-  <iframe class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
+  <div class="preview-container">
+    <iframe class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
+  </div>
 </wa-page>

@@ -23,7 +23,7 @@ wa-card {
 
 wa-page > header {
   flex: 1;
-  border-bottom: var(--ui-border);
+  padding-block: var(--wa-space-s);
 
   .title {
     display: flex;
@@ -55,16 +55,31 @@ wa-page > header {
   }
 }
 
-iframe.preview {
-  width: 100%;
-  height: 100%;
+.preview-header {
+  padding-block: var(--wa-space-s) 0;
+
+  wa-radio-group {
+    margin-left: auto;
+
+    &::part(form-control) {
+      display: flex;
+      gap: var(--wa-space-xs);
+      align-items: center;
+    }
+  }
 }
 
-.preview-header {
-  padding-block: 0;
+.preview-container {
+  padding: var(--wa-space-m);
+  padding-block-start: var(--wa-space-2xs);
+  display: grid;
+  height: 100%;
 
-  wa-tab-group {
-    margin-left: auto;
+  iframe.preview {
+    border-radius: var(--wa-border-radius-m);
+    border: var(--ui-border);
+    width: 100%;
+    height: 100%;
   }
 }
 
