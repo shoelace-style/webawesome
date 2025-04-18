@@ -38,9 +38,16 @@
 
 /* Horizontal */
 :host([orientation='horizontal']) {
+  --column-base: 1fr;
+  --first-column: var(--column-base);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: var(--first-column) 1fr;
   gap: var(--wa-space-scale);
+
+  .header,
+  .footer {
+    display: none;
+  }
 
   ::slotted(img) {
     object-fit: cover;
@@ -48,6 +55,16 @@
     width: 100%;
     border-start-start-radius: inherit !important;
     border-start-end-radius: 0 !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :host([orientation='horizontal']) {
+    grid-template-columns: 1fr;
+
+    ::slotted(img) {
+      display: none;
+    }
   }
 }
 
