@@ -36,6 +36,11 @@
       --columns: 3;
     }
 
+    &.theme-colors-select::part(listbox) {
+      --column-width: 15ch;
+      --columns: 4;
+    }
+
     &:state(blank)::part(display-input) {
       font-style: italic;
       color: var(--wa-color-text-quiet);

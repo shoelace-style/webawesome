@@ -22,18 +22,7 @@
     <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
   </h4>
 
-  <wa-select name="colors" label="Colors from…" value="" clearable v-model="theme.colors">
-    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === theme.base ? '' : themeId">
-      <theme-card :theme="themeId" size="small" type="colors">
-        <template #extra>
-          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
-        </template>
-      </theme-card>
-    </wa-option>
-  </wa-select>
-
-  <wa-select name="palette" label="Palette" clearable v-model="theme.palette">
+  <wa-select name="palette" label="Color palette" clearable v-model="theme.palette">
     <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
     <wa-option v-for="(palette, paletteId) in palettes" :label="palette.title" :value="paletteId === baseTheme.palette ? '' : paletteId">
       <palette-card :palette="paletteId" size="small">
@@ -46,6 +35,17 @@
 
   <color-select :model-value="computed.brand" @update:model-value="value => theme.brand = value" label="Brand color"
                 :values="hues"></color-select>
+
+  <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" clearable v-model="theme.colors">
+    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
+    <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
+      <theme-card :theme="themeId" type="colors" :rest="{base: computed.base, palette: computed.palette, brand: computed.brand}" size="small">
+        <template #extra>
+          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
+        </template>
+      </theme-card>
+    </wa-option>
+  </wa-select>
 
   <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
     <wa-icon name="font-case" slot="prefix"></wa-icon>

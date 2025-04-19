@@ -64,7 +64,8 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 .theme-color-icon {
   display: grid;
   gap: var(--wa-space-xs);
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(3, auto);
+  min-width: 15ch;
 
   div {
     display: flex;
@@ -77,10 +78,6 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
     padding: var(--wa-space-2xs) var(--wa-space-xs);
     color: var(--text-color);
     font-weight: var(--wa-font-weight-semibold);
-
-    &.plain {
-      font-weight: var(--wa-font-weight-bold);
-    }
   }
 }
 
