@@ -23,7 +23,7 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   }
 }
 
-.theme-icon,
+.theme-icon:not(.theme-color-icon),
 .palette-icon,
 .icons-icon {
   min-height: 9ch;
@@ -62,12 +62,18 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 }
 
 .theme-color-icon {
-  display: grid;
+  display: flex;
   gap: var(--wa-space-xs);
-  grid-template-columns: repeat(3, auto);
   min-width: 15ch;
+  background: var(--wa-color-surface-lowered);
+
+  & + & {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
 
   div {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;

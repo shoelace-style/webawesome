@@ -16,15 +16,19 @@ const template = `
           <p>This is your paragraph.</p>
         </div>
 
-        <div v-else-if="type == 'colors'" class="theme-icon theme-color-icon" :class="'wa-theme-' + theme" role="presentation">
-          <div style="background: var(--wa-color-brand-fill-loud);   border-color: var(--wa-color-brand-border-loud);   color: var(--wa-color-brand-on-loud);">A</div>
-          <div style="background: var(--wa-color-brand-fill-normal); border-color: var(--wa-color-brand-border-normal); color: var(--wa-color-brand-on-normal);">A</div>
-          <div style="background: var(--wa-color-brand-fill-quiet);  border-color: var(--wa-color-brand-border-quiet);  color: var(--wa-color-brand-on-quiet);">A</div>
+        <template v-else-if="type == 'colors'" >
+          <div class="theme-icon theme-color-icon" role="presentation">
+            <div style="background: var(--wa-color-brand-fill-loud);   border-color: var(--wa-color-brand-border-loud);   color: var(--wa-color-brand-on-loud);">A</div>
+            <div style="background: var(--wa-color-brand-fill-normal); border-color: var(--wa-color-brand-border-normal); color: var(--wa-color-brand-on-normal);">A</div>
+            <div style="background: var(--wa-color-brand-fill-quiet);  border-color: var(--wa-color-brand-border-quiet);  color: var(--wa-color-brand-on-quiet);">A</div>
+          </div>
 
-          <div style="background: var(--wa-color-neutral-fill-loud);   border-color: var(--wa-color-neutral-border-loud);   color: var(--wa-color-neutral-on-loud);">A</div>
-          <div style="background: var(--wa-color-neutral-fill-normal); border-color: var(--wa-color-neutral-border-normal); color: var(--wa-color-neutral-on-normal);">A</div>
-          <div style="background: var(--wa-color-neutral-fill-quiet);  border-color: var(--wa-color-neutral-border-quiet);  color: var(--wa-color-neutral-on-quiet);">A</div>
-        </div>
+          <div class="wa-invert theme-icon theme-color-icon" role="presentation">
+            <div style="background: var(--wa-color-brand-fill-loud);   border-color: var(--wa-color-brand-border-loud);   color: var(--wa-color-brand-on-loud);">A</div>
+            <div style="background: var(--wa-color-brand-fill-normal); border-color: var(--wa-color-brand-border-normal); color: var(--wa-color-brand-on-normal);">A</div>
+            <div style="background: var(--wa-color-brand-fill-quiet);  border-color: var(--wa-color-brand-border-quiet);  color: var(--wa-color-brand-on-quiet);">A</div>
+          </div>
+        </template>
 
         <div v-else class="theme-icon theme-overall-icon" :class="'wa-theme-' + theme" role="presentation">
           <div class="row row-1">
