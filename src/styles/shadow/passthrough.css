@@ -2,6 +2,18 @@
  * Styles for elements that need to use display: contents on the host to enable styling with regular CSS properties (see #207, #259).
  * To use, make sure that the element that needs to inherit properties set on the host has a part of base or a class of .styling-host.
  */
+@property --display {
+  syntax: '*';
+  inherits: false;
+}
+@property --display-outside {
+  syntax: '*';
+  inherits: false;
+}
+@property --display-inside {
+  syntax: '*';
+  inherits: false;
+}
 
 :host {
   display: contents !important;
@@ -9,9 +21,13 @@
 
 :where([part~='base'], .styling-host) {
   all: inherit;
-  display: var(--display, var(--display-outside, inline) var(--display-inside, flow));
 
   /* Add any non-inherited custom properties here, as all: inherit won't cover them */
+  --display: inherit;
+  --display-outside: inherit;
+  --display-inside: inherit;
+
+  display: var(--display, var(--display-outside, inline) var(--display-inside, flow));
 }
 
 :host([hidden]) {
