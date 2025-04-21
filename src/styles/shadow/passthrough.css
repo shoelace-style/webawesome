@@ -13,3 +13,8 @@
 
   /* Add any non-inherited custom properties here, as all: inherit won't cover them */
 }
+
+:host([hidden]) {
+  display: none;
+  --display: none;
+}
