@@ -9,6 +9,7 @@ import { getTargetElement, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import nativeStyles from '../../styles/native/details.css';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -43,10 +44,13 @@ import styles from './details.css';
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
  * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
  * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
+ * @cssproperty [--display-outside=block] - How content flows around the element. Valid values are `inline` and `block`.
+ * @cssproperty [--display-inside=flow] - How to lay the element’s contents. Valid values are `flex`, `grid`, `flow`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static shadowStyle = [appearanceStyles, nativeStyles, styles];
+  static shadowStyle = [passthroughStyles, appearanceStyles, nativeStyles, styles];
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);

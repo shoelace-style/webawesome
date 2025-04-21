@@ -7,6 +7,7 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/button.css';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -39,6 +40,9 @@ import styles from './button.css';
  * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
+ * @cssproperty [--display-outside=inline] - How content flows around the element. Valid values are `inline` and `block`.
+ * @cssproperty [--display-inside=flex] - How to lay the button’s contents. Valid values are `flex`, `grid`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  * @cssproperty --background-color - The button's background color when the button is not being interacted with.
  * @cssproperty --background-color-active - The button's background color when active.
  * @cssproperty --background-color-hover - The button's background color on hover.
@@ -51,7 +55,7 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [passthroughStyles, variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
   static rectProxy = 'button';
 
   static get validators() {
