@@ -10,15 +10,13 @@ import styles from './menu-label.css';
  * @since 2.0
  *
  * @slot - The menu label's content.
- *
- * @csspart base - The component's base wrapper.
  */
 @customElement('wa-menu-label')
 export default class WaMenuLabel extends WebAwesomeElement {
   static shadowStyle = styles;
 
   render() {
-    return html` <slot part="base" class="menu-label"></slot> `;
+    return html`<slot></slot>`;
   }
 }
 
