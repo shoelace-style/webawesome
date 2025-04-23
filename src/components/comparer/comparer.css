@@ -21,6 +21,10 @@
     max-width: 100% !important;
     height: auto;
   }
+
+  &::slotted(:not(img, svg)) {
+    isolation: isolate;
+  }
 }
 
 .after {
