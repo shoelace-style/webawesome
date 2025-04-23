@@ -2,17 +2,17 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
-import type WaImageComparer from './image-comparer.js';
+import type WaComparer from './comparer.js';
 
-describe('<wa-image-comparer>', () => {
+describe('<wa-comparer>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render a basic before/after', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
@@ -29,11 +29,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should emit change event when position changed manually', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
         const handler = sinon.spy();
 
@@ -46,11 +46,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should increment position on arrow right', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -66,11 +66,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should decrement position on arrow left', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -86,11 +86,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should set position to 0 on home key', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -106,11 +106,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should set position to 100 on end key', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -126,11 +126,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should clamp to 100 on arrow right', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         el.position = 0;
@@ -149,11 +149,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should clamp to 0 on arrow left', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         el.position = 100;
@@ -172,11 +172,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should increment position by 10 on arrow right + shift', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -193,11 +193,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should decrement position by 10 on arrow left + shift', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
@@ -214,22 +214,22 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should set position by attribute', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer position="10">
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer position="10">
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         expect(el.position).to.equal(10);
       });
 
       it('should move position on drag', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before" style="width: 50px"></div>
             <div slot="after" style="width: 50px"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
