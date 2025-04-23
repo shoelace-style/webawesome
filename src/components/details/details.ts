@@ -45,8 +45,6 @@ import styles from './details.css';
  * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
  * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
  * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
- * @cssproperty [--display-outside=block] - How content flows around the element. Valid values are `inline` and `block`.
- * @cssproperty [--display-inside=flow] - How to lay the element’s contents. Valid values are `flex`, `grid`, `flow`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {

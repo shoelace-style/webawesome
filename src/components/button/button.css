@@ -1,6 +1,5 @@
 :host {
-  --display-inside: flex;
-  --display-outside: inline;
+  --display: inline-flex;
 
   position: relative;
 }

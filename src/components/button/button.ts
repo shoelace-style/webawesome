@@ -41,8 +41,6 @@ import styles from './button.css';
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
  * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
- * @cssproperty [--display-outside=inline] - How content flows around the element. Valid values are `inline` and `block`.
- * @cssproperty [--display-inside=flex] - How to lay the button’s contents. Valid values are `flex`, `grid`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  * @cssproperty --background-color - The button's background color when the button is not being interacted with.
  * @cssproperty --background-color-active - The button's background color when active.
  * @cssproperty --background-color-hover - The button's background color on hover.

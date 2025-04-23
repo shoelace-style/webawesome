@@ -1,7 +1,6 @@
 :host {
   --indicator-color: var(--wa-color-brand-fill-loud);
-  --display-outside: block;
-  --display-inside: flex;
+  --display: flex;
 
   height: 1.25rem;
   border-radius: var(--wa-border-radius-pill);

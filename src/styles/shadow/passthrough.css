@@ -6,14 +6,6 @@
   syntax: '*';
   inherits: false;
 }
-@property --display-outside {
-  syntax: '*';
-  inherits: false;
-}
-@property --display-inside {
-  syntax: '*';
-  inherits: false;
-}
 
 :host {
   display: contents !important;
@@ -24,10 +16,8 @@
 
   /* Add any non-inherited custom properties here, as all: inherit won't cover them */
   --display: inherit;
-  --display-outside: inherit;
-  --display-inside: inherit;
 
-  display: var(--display, var(--display-outside, inline) var(--display-inside, flow));
+  display: var(--display, inline);
 }
 
 :host([hidden]) {

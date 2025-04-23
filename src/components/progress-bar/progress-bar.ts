@@ -22,8 +22,6 @@ import styles from './progress-bar.css';
  *
  * @cssproperty --indicator-color - The color of the indicator.
  * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
- * @cssproperty [--display-outside=block] - How content flows around the element. Valid values are `inline` and `block`.
- * @cssproperty [--display-inside=flex] - How to lay the element’s contents. Valid values are `flex`, `grid`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {

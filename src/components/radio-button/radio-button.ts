@@ -47,8 +47,6 @@ import styles from './radio-button.css';
  * @csspart label - The container that wraps the radio button's label.
  * @csspart suffix - The container that wraps the suffix.
  * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
- * @cssproperty [--display-outside=block] - How content flows around the element. Valid values are `inline` and `block`.
- * @cssproperty [--display-inside=flex] - How to lay the element’s contents. Valid values are `flex`, `grid`, and every other valid [`<display-inside>`](https://developer.mozilla.org/en-US/docs/Web/CSS/display-inside) value
  */
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {

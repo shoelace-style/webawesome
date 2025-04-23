@@ -1,5 +1,5 @@
 :host {
-  --display-outside: inline;
+  --display: inline-flex;
 }
 
 .prefix,
