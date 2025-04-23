@@ -23,6 +23,8 @@ import { SubmenuController } from './submenu-controller.js';
  * @slot prefix - Used to prepend an icon or similar element to the menu item.
  * @slot suffix - Used to append an icon or similar element to the menu item.
  * @slot submenu - Used to denote a nested menu.
+ * @slot checked-icon - The icon used to indicate that this menu item is checked. Usually a `<wa-icon>`.
+ * @slot submenu-icon - The icon used to indicate that this menu item has a submenu. Usually a `<wa-icon>`.
  *
  * @csspart checked-icon - The checked icon, which is only visible when the menu item is checked.
  * @csspart prefix - The prefix container.
@@ -205,9 +207,9 @@ export default class WaMenuItem extends WebAwesomeElement {
     this.internals.ariaExpanded = isSubmenuExpanded + '';
 
     return html`
-      <span part="checked-icon" class="check">
+      <slot name="checked-icon" part="checked-icon" class="check">
         <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
-      </span>
+      </slot>
 
       <slot name="prefix" part="prefix" class="prefix"></slot>
 
@@ -215,14 +217,14 @@ export default class WaMenuItem extends WebAwesomeElement {
 
       <slot name="suffix" part="suffix" class="suffix"></slot>
 
-      <span part="submenu-icon" class="chevron">
+      <slot name="submenu-icon" part="submenu-icon" class="chevron">
         <wa-icon
           name=${isRtl ? 'chevron-left' : 'chevron-right'}
           library="system"
           variant="solid"
           aria-hidden="true"
         ></wa-icon>
-      </span>
+      </slot>
 
       ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
     `;
