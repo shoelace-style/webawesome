@@ -23,7 +23,6 @@ import styles from './image-comparer.css';
  *
  * @event change - Emitted when the position changes.
  *
- * @csspart base - The component's base wrapper.
  * @csspart before - The container that wraps the before image.
  * @csspart after - The container that wraps the after image.
  * @csspart divider - The divider that separates the images.
@@ -40,19 +39,18 @@ export default class WaImageComparer extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
 
-  @query('.image-comparer') base: HTMLElement;
   @query('.handle') handle: HTMLElement;
 
   /** The position of the divider as a percentage. */
   @property({ type: Number, reflect: true }) position = 50;
 
   private handleDrag(event: PointerEvent) {
-    const { width } = this.base.getBoundingClientRect();
+    const { width } = this.getBoundingClientRect();
     const isRtl = this.localize.dir() === 'rtl';
 
     event.preventDefault();
 
-    drag(this.base, {
+    drag(this, {
       onMove: x => {
         this.position = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
         if (isRtl) this.position = 100 - this.position;
@@ -98,46 +96,45 @@ export default class WaImageComparer extends WebAwesomeElement {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
-      <div part="base" id="image-comparer" class="image-comparer" @keydown=${this.handleKeyDown}>
-        <div class="image">
-          <div part="before" class="before">
-            <slot name="before"></slot>
-          </div>
-
-          <div
-            part="after"
-            class="after"
-            style=${styleMap({
-              clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
-            })}
-          >
-            <slot name="after"></slot>
-          </div>
+      <div class="image">
+        <div part="before" class="before">
+          <slot name="before"></slot>
         </div>
 
         <div
-          part="divider"
-          class="divider"
+          part="after"
+          class="after"
           style=${styleMap({
-            left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
+            clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
           })}
-          @mousedown=${this.handleDrag}
-          @touchstart=${this.handleDrag}
         >
-          <div
-            part="handle"
-            class="handle"
-            role="scrollbar"
-            aria-valuenow=${this.position}
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-controls="image-comparer"
-            tabindex="0"
-          >
-            <slot name="handle">
-              <wa-icon library="system" name="grip-vertical" variant="solid"></wa-icon>
-            </slot>
-          </div>
+          <slot name="after"></slot>
+        </div>
+      </div>
+
+      <div
+        part="divider"
+        class="divider"
+        style=${styleMap({
+          left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
+        })}
+        @keydown=${this.handleKeyDown}
+        @mousedown=${this.handleDrag}
+        @touchstart=${this.handleDrag}
+      >
+        <div
+          part="handle"
+          class="handle"
+          role="scrollbar"
+          aria-valuenow=${this.position}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-controls="image-comparer"
+          tabindex="0"
+        >
+          <slot name="handle">
+            <wa-icon library="system" name="grip-vertical" variant="solid"></wa-icon>
+          </slot>
         </div>
       </div>
     `;
