@@ -214,7 +214,7 @@ describe('<wa-comparer>', () => {
 
         document.dispatchEvent(
           new PointerEvent('pointermove', {
-            clientX: offsetX + 20,
+            clientX: offsetX + 15,
             clientY: offsetY,
           }),
         );
