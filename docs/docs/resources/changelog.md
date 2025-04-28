@@ -14,7 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
+- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
 
 ## 3.0.0-alpha.12
 
