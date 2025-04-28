@@ -72,11 +72,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(49);
@@ -92,11 +89,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'Home',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Home' });
         await el.updateComplete;
 
         expect(el.position).to.equal(0);
@@ -112,11 +106,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'End',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'End' });
         await el.updateComplete;
 
         expect(el.position).to.equal(100);
@@ -135,11 +126,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(0);
@@ -158,11 +146,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(100);
@@ -178,12 +163,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-            shiftKey: true,
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Shift+ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(60);
@@ -199,12 +180,8 @@ describe('<wa-comparer>', () => {
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-            shiftKey: true,
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Shift+ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(40);
