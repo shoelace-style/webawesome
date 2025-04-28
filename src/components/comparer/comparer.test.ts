@@ -15,6 +15,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
+        await customElements.whenDefined('wa-comparer');
+        await el.updateComplete;
+
         const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
         const iconContainer = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="handle"]')!;
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
@@ -53,9 +56,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowRight',
           }),
@@ -73,9 +76,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowLeft',
           }),
@@ -93,9 +96,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'Home',
           }),
@@ -113,9 +116,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'End',
           }),
@@ -136,9 +139,9 @@ describe('<wa-comparer>', () => {
         el.position = 0;
         await el.updateComplete;
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowLeft',
           }),
@@ -159,9 +162,9 @@ describe('<wa-comparer>', () => {
         el.position = 100;
         await el.updateComplete;
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowRight',
           }),
@@ -179,9 +182,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowRight',
             shiftKey: true,
@@ -200,9 +203,9 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
+        handle.dispatchEvent(
           new KeyboardEvent('keydown', {
             key: 'ArrowLeft',
             shiftKey: true,
@@ -232,8 +235,7 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-        const rect = base.getBoundingClientRect();
+        const rect = handle.getBoundingClientRect();
         const offsetX = rect.left + window.pageXOffset;
         const offsetY = rect.top + window.pageYOffset;
 
