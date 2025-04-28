@@ -16,9 +16,6 @@ describe('<wa-comparer>', () => {
           </wa-comparer>
         `);
 
-        await customElements.whenDefined('wa-comparer');
-        await el.updateComplete;
-
         const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
         const iconContainer = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="handle"]')!;
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
