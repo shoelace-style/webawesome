@@ -11,27 +11,37 @@ describe('<wa-skeleton>', () => {
 
         await expect(el).to.be.accessible();
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
         const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
 
-        expect(base.getAttribute('class')).to.equal(' skeleton ');
+        expect(el.getAttribute('effect')).to.equal(null);
         expect(indicator.getAttribute('class')).to.equal('indicator');
       });
 
       it('should set pulse effect by attribute', async () => {
+        const el = await fixture<WaSkeleton>(html` <wa-skeleton effect="none"></wa-skeleton> `);
+        const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
+        const cs = getComputedStyle(indicator);
+
+        expect(el.getAttribute('effect')).to.equal(null);
+        expect(cs.animationName).to.equal('none');
+      });
+
+      it('should set pulse effect by attribute', async () => {
         const el = await fixture<WaSkeleton>(html` <wa-skeleton effect="pulse"></wa-skeleton> `);
+        const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
+        const cs = getComputedStyle(indicator);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('class')).to.equal(' skeleton skeleton--pulse ');
+        expect(el.getAttribute('effect')).to.equal('pulse');
+        expect(cs.animationName).to.equal('pulse');
       });
 
       it('should set sheen effect by attribute', async () => {
         const el = await fixture<WaSkeleton>(html` <wa-skeleton effect="sheen"></wa-skeleton> `);
+        const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
+        const cs = getComputedStyle(indicator);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('class')).to.equal(' skeleton skeleton--sheen ');
+        expect(el.getAttribute('effect')).to.equal('sheen');
+        expect(cs.animationName).to.equal('sheen');
       });
     });
   }

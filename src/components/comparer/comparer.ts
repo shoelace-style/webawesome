@@ -7,52 +7,50 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import styles from './image-comparer.css';
+import styles from './comparer.css';
 
 /**
- * @summary Compare visual differences between similar photos with a sliding panel.
- * @documentation https://backers.webawesome.com/docs/components/image-comparer
+ * @summary Compare visual differences between similar content with a sliding panel.
+ * @documentation https://backers.webawesome.com/docs/components/comparer
  * @status stable
  * @since 2.0
  *
  * @dependency wa-icon
  *
- * @slot before - The before image, an `<img>` or `<svg>` element.
- * @slot after - The after image, an `<img>` or `<svg>` element.
+ * @slot before - The before content, often an `<img>` or `<svg>` element.
+ * @slot after - The after content, often an `<img>` or `<svg>` element.
  * @slot handle - The icon used inside the handle.
  *
  * @event change - Emitted when the position changes.
  *
- * @csspart base - The component's base wrapper.
- * @csspart before - The container that wraps the before image.
- * @csspart after - The container that wraps the after image.
- * @csspart divider - The divider that separates the images.
- * @csspart handle - The handle that the user drags to expose the after image.
+ * @csspart before - The container that wraps the before content.
+ * @csspart after - The container that wraps the after content.
+ * @csspart divider - The divider that separates the before and after content.
+ * @csspart handle - The handle that the user drags to expose the after content.
  *
  * @cssproperty --divider-color - The color of the divider.
  * @cssproperty --divider-width - The width of the dividing line.
  * @cssproperty --handle-color - The color of the icon used inside the handle.
  * @cssproperty --handle-size - The size of the compare handle.
  */
-@customElement('wa-image-comparer')
-export default class WaImageComparer extends WebAwesomeElement {
+@customElement('wa-comparer')
+export default class WaComparer extends WebAwesomeElement {
   static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
-  @query('.image-comparer') base: HTMLElement;
   @query('.handle') handle: HTMLElement;
 
   /** The position of the divider as a percentage. */
   @property({ type: Number, reflect: true }) position = 50;
 
   private handleDrag(event: PointerEvent) {
-    const { width } = this.base.getBoundingClientRect();
+    const { width } = this.getBoundingClientRect();
     const isRtl = this.localize.dir() === 'rtl';
 
     event.preventDefault();
 
-    drag(this.base, {
+    drag(this, {
       onMove: x => {
         this.position = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
         if (isRtl) this.position = 100 - this.position;
@@ -98,46 +96,45 @@ export default class WaImageComparer extends WebAwesomeElement {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
-      <div part="base" id="image-comparer" class="image-comparer" @keydown=${this.handleKeyDown}>
-        <div class="image">
-          <div part="before" class="before">
-            <slot name="before"></slot>
-          </div>
-
-          <div
-            part="after"
-            class="after"
-            style=${styleMap({
-              clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
-            })}
-          >
-            <slot name="after"></slot>
-          </div>
+      <div class="image">
+        <div part="before" class="before">
+          <slot name="before"></slot>
         </div>
 
         <div
-          part="divider"
-          class="divider"
+          part="after"
+          class="after"
           style=${styleMap({
-            left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
+            clipPath: isRtl ? `inset(0 0 0 ${100 - this.position}%)` : `inset(0 ${100 - this.position}% 0 0)`,
           })}
-          @mousedown=${this.handleDrag}
-          @touchstart=${this.handleDrag}
         >
-          <div
-            part="handle"
-            class="handle"
-            role="scrollbar"
-            aria-valuenow=${this.position}
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-controls="image-comparer"
-            tabindex="0"
-          >
-            <slot name="handle">
-              <wa-icon library="system" name="grip-vertical" variant="solid"></wa-icon>
-            </slot>
-          </div>
+          <slot name="after"></slot>
+        </div>
+      </div>
+
+      <div
+        part="divider"
+        class="divider"
+        style=${styleMap({
+          left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
+        })}
+        @keydown=${this.handleKeyDown}
+        @mousedown=${this.handleDrag}
+        @touchstart=${this.handleDrag}
+      >
+        <div
+          part="handle"
+          class="handle"
+          role="scrollbar"
+          aria-valuenow=${this.position}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-controls="comparer"
+          tabindex="0"
+        >
+          <slot name="handle">
+            <wa-icon library="system" name="grip-vertical" variant="solid"></wa-icon>
+          </slot>
         </div>
       </div>
     `;
@@ -146,6 +143,6 @@ export default class WaImageComparer extends WebAwesomeElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'wa-image-comparer': WaImageComparer;
+    'wa-comparer': WaComparer;
   }
 }

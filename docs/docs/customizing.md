@@ -10,7 +10,7 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
-To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can replace the link to `default.css` in the [installation code](/docs/installation/#quick-start-autoloading-via-cdn) with this snippet to use the *Awesome* theme:
+To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can replace the link to `default.css` in the [installation code](/docs/#quick-start-autoloading-via-cdn) with this snippet to use the *Awesome* theme:
 
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
@@ -197,7 +197,7 @@ For example, we can give all outlined callouts a thick left border, regardless o
 
 <style>
   wa-callout:is(
-    [appearance~="outlined"], 
+    [appearance~="outlined"],
     .wa-outlined
   ) {
     border-left-width: var(--wa-panel-border-radius);
