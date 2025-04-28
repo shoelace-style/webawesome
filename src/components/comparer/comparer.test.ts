@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -57,12 +58,8 @@ describe('<wa-comparer>', () => {
         `);
 
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(51);
