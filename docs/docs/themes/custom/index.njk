@@ -57,39 +57,39 @@ order: 99
 
   <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
     <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0">
-      <div class="scrollable">
-        <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
-          <div>
-            Starting theme
-            <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </theme-card>
+      <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
+        <div>
+          Starting theme
+          <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </theme-card>
 
-        <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
-          <div>
-            Colors
-            <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </palette-card>
+      <wa-divider></wa-divider>
 
-        <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
-          <div>
-            Fonts
-            <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </theme-card>
+      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
+        <div>
+          Colors
+          <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </palette-card>
 
-        <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
-          <div>
-            Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
-            <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </icons-card>
-      </div>
+      <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
+        <div>
+          Fonts
+          <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </theme-card>
+
+      <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
+        <div>
+          Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
+          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </icons-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="theme" :step="1">
@@ -97,7 +97,7 @@ order: 99
         <label for="starting-theme">Starting theme</label>
       </template>
 
-      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.base">
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
           <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
@@ -117,7 +117,7 @@ order: 99
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
-      <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
+      <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
             <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="paletteId === themes[computed.base].palette">Default</wa-badge></template>
@@ -127,7 +127,7 @@ order: 99
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1">
-      <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
+      <wa-radio-group class="card-picker" v-model="theme.typography" >
         <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">
             <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="themeId === theme.base">Default</wa-badge></template>

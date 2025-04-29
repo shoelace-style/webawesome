@@ -2,12 +2,16 @@
   position: relative;
   display: flex;
   flex-flow: column;
-  min-width: 30ch;
-  overflow: hidden;
+  width: 32ch;
+  /* overflow: hidden; */
+  overflow-x: hidden;
+  padding: var(--wa-space-2xl);
+  gap: 0em;
 }
 
 .panel {
-  --spacing: var(--wa-space-s);
+  /* --spacing: var(--wa-space-m); */
+  --spacing: 0em;
   --panel-background: var(--wa-color-surface-default);
 
   display: flex;
@@ -16,6 +20,7 @@
   margin-bottom: 0;
   position: relative;
   background: var(--panel-background);
+  border: none;
   transition-behavior: allow-discrete;
   transition-property: display, translate, flex;
 
@@ -26,7 +31,7 @@
   &.previous,
   &[open],
   &.next {
-    transition-duration: var(--wa-transition-normal);
+    transition-duration: var(--wa-transition-slow);
   }
 
   summary {
@@ -37,6 +42,8 @@
     background: var(--panel-background);
     transition: inherit;
     transition-property: all;
+    color: var(--wa-color-text-normal);
+    padding-block-end: var(--wa-space-2xl);
 
     &::after {
       transform: rotate(180deg);
@@ -45,6 +52,7 @@
     h2 {
       margin-block: 0;
       font-size: inherit;
+      transition: inherit;
     }
 
     label {
@@ -59,9 +67,9 @@
     min-height: 0;
     display: flex;
     flex-flow: column;
-    gap: var(--wa-space-s);
-    overflow: auto;
-    padding-inline: var(--wa-border-width-m);
+    gap: var(--wa-space-2xl);
+    /* overflow: auto; */
+    /* padding-inline: var(--wa-border-width-m); */
   }
 
   h1,
@@ -77,7 +85,7 @@
     flex: 1;
 
     summary {
-      padding-block-end: var(--spacing);
+      /* padding-block-end: var(--wa-space-xl); */
       font-size: var(--wa-font-size-l);
 
       &::after {
@@ -86,7 +94,8 @@
     }
 
     &:not(:first-child) {
-      border-block-start: var(--ui-border);
+      /* border-block-start: var(--ui-border);
+      padding-block-start: var(--wa-space-2xl); */
     }
   }
 

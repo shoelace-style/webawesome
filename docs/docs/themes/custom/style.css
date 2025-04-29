@@ -99,10 +99,12 @@ wa-radio-group.card-picker {
   &::part(form-control-input) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+    gap: var(--wa-space-l);
   }
 
   wa-radio {
     display: flex;
+    margin: 0em !important;
   }
 }
 
@@ -111,8 +113,8 @@ wa-radio-group.card-picker {
     gap: var(--wa-space-l);
   }
 
-  > wa-card {
-    margin-block: var(--wa-space-xs);
+  > wa-divider {
+    --spacing: 0em;
   }
 
   > footer {
