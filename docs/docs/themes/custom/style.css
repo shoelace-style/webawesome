@@ -134,7 +134,7 @@ wa-radio-group.card-picker {
   }
 }
 
-wa-card wa-icon[name='angle-right'] {
+wa-card wa-icon.angle-right {
   margin-inline-start: auto;
   align-self: center;
   font-size: var(--wa-font-size-l);
