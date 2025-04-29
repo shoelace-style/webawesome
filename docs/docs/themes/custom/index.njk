@@ -56,7 +56,43 @@ order: 99
   </header>
 
   <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
-    <ui-panel v-model="ui.panel" value="theme" :step="0">
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0">
+      <div class="scrollable">
+        <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
+          <div>
+            Starting theme
+            <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </theme-card>
+
+        <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
+          <div>
+            Colors
+            <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </palette-card>
+
+        <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
+          <div>
+            Typography
+            <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </theme-card>
+
+        <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
+          <div>
+            Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
+            <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </icons-card>
+      </div>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="theme" :step="1">
       <template #title>
         <label for="starting-theme">Starting theme</label>
       </template>
@@ -66,45 +102,9 @@ order: 99
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
       </wa-radio-group>
-
-      <footer v-if="theme.base">
-        <span class="wa-caption-m">Excellent choice!</span>
-        <wa-button @click=" ui.panel = 'styles'" class="next" size="small" variant="success">
-          Next
-          <wa-icon library="system" name="chevron-right" variant="solid" slot="suffix"></wa-icon>
-        </wa-button>
-      </footer>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="1">
-      <div class="scrollable">
-      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
-        <div>
-          Colors
-          <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </palette-card>
-
-      <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
-        <div>
-          Typography
-          <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </theme-card>
-
-      <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
-        <div>
-          Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
-          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </icons-card>
-      </div>
-    </ui-panel>
-
-    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="2">
+    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color-palette'" role="button" tabindex="0">
         <div>
           Color Palette
@@ -116,7 +116,7 @@ order: 99
                 :values="hues"></swatch-select>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="3">
+    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
       <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
@@ -126,7 +126,7 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="typography" title="Typography" :step="2">
+    <ui-panel v-model="ui.panel" value="typography" title="Typography" :step="1">
       <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
         <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">

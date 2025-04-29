@@ -47,7 +47,7 @@ let appSpec = {
         brand: '',
       },
       ui: {
-        panel: 'theme',
+        panel: 'styles',
         showCode: false,
         code: 'css',
         preview: 'app',
@@ -67,12 +67,6 @@ let appSpec = {
         }
       }
     }
-
-    if (this.theme.base) {
-      this.ui.panel = 'styles';
-    }
-
-    this.ui.panel = 'color';
 
     this.isCreated = true;
   },

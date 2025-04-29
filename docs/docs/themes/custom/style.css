@@ -107,6 +107,10 @@ wa-radio-group.card-picker {
 }
 
 .panel-content {
+  &:is(.panel[data-value='styles'] *) {
+    gap: var(--wa-space-l);
+  }
+
   > wa-card {
     margin-block: var(--wa-space-xs);
   }
