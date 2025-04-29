@@ -6,13 +6,11 @@
 .wa-theme-premium,
 .wa-light,
 .wa-dark .wa-invert {
-  --wa-font-family-heading: 'Playfair Display', serif;
   --wa-font-family-body: 'DM Sans', sans-serif;
+  --wa-font-family-heading: 'Playfair Display', serif;
   --wa-font-family-longform: 'Playfair', serif;
 
   --wa-font-weight-heading: var(--wa-font-weight-semibold);
-  --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-action: var(--wa-font-weight-semibold);
 
   --wa-line-height-condensed: 1.1;
   --wa-line-height-normal: 1.5;

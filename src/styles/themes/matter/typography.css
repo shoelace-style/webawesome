@@ -8,11 +8,7 @@
   --wa-font-family-code: 'Roboto Mono', monospace;
   --wa-font-family-longform: 'Roboto Serif', serif;
 
-  --wa-font-weight-light: 300;
-  --wa-font-weight-normal: 400;
-  --wa-font-weight-semibold: 500;
   --wa-font-weight-bold: 700;
-
   --wa-font-weight-heading: var(--wa-font-weight-semibold);
 
   --wa-link-decoration-default: underline;
