@@ -10,6 +10,7 @@ import {
   IconsCard,
   PageCard,
   PaletteCard,
+  SwatchSelect,
   ThemeCard,
   UiPanel,
   UiPanelContainer,
@@ -216,6 +217,7 @@ let appSpec = {
     ThemeCard,
     UiPanel,
     UiPanelContainer,
+    SwatchSelect,
   },
 
   directives: { content },

@@ -6,6 +6,7 @@ import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.
 import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
+import { SwatchSelect } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
 
@@ -64,7 +65,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue });
+    Object.assign(this, { moreHue, hues });
 
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
@@ -347,6 +348,10 @@ let paletteAppSpec = {
 
   directives: {
     content,
+  },
+
+  components: {
+    SwatchSelect,
   },
 
   compilerOptions: {

@@ -1,3 +1,17 @@
+const template = `
+    <wa-select class="color-select" name="brand" :label="label" :value="modelValue"  @input="$emit('update:modelValue', $event.target.value)"
+    :style="{'--color': getColor(modelValue)}">
+      <template v-for="values, group in computedGroups">
+        <template v-if="group">
+          <wa-divider v-if="group !== firstGroup"></wa-divider>
+          <small>{{ group }}</small>
+        </template>
+        <wa-option v-if="values?.length" v-for="value of values" :label="getLabel(value)" :value="value" :style="{'--color': getColor(value)}" v-html="getContent?.(value) ?? getLabel(value)"></wa-option>
+      </template>
+      <slot></slot>
+    </wa-select>
+  `;
+
 export default {
   props: {
     modelValue: String,
@@ -55,19 +69,10 @@ export default {
       this.$emit('input', this.modelValue);
     },
   },
-  template: `
-    <wa-select class="color-select" name="brand" :label="label" :value="modelValue"  @input="$emit('update:modelValue', $event.target.value)"
-    :style="{'--color': getColor(modelValue)}">
-      <template v-for="values, group in computedGroups">
-        <template v-if="group">
-          <wa-divider v-if="group !== firstGroup"></wa-divider>
-          <small>{{ group }}</small>
-        </template>
-        <wa-option v-if="values?.length" v-for="value of values" :label="getLabel(value)" :value="value" :style="{'--color': getColor(value)}" v-html="getContent?.(value) ?? getLabel(value)"></wa-option>
-      </template>
-      <slot></slot>
-    </wa-select>
-  `,
+  template,
+  compilerOptions: {
+    isCustomElement: tag => tag.startsWith('wa-'),
+  },
 };
 
 function capitalize(str) {

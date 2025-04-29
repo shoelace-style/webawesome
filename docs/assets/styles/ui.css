@@ -71,6 +71,28 @@
   }
 }
 
+.swatch-select {
+  wa-radio-button::part(base) {
+    width: 2em;
+    height: 2em;
+    padding: 0;
+    border-radius: var(--wa-border-radius-circle);
+    background: var(--color);
+    background-clip: border-box;
+  }
+
+  wa-radio-button:is([checked], :state(checked))::part(base) {
+    box-shadow:
+      inset 0 0 0 var(--indicator-width) var(--indicator-color),
+      inset 0 0 0 calc(var(--indicator-width) + 1.5px) var(--wa-color-surface-default);
+  }
+
+  &::part(form-control-input) {
+    flex-wrap: wrap;
+    gap: var(--wa-space-xs);
+  }
+}
+
 /* Repeated to increase specificity */
 .editable-text.editable-text {
   display: inline-flex;

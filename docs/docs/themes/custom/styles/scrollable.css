@@ -32,6 +32,7 @@
   overflow: auto;
   position: relative;
   scroll-timeline-name: --scrollable;
+  padding: var(--wa-border-width-m);
 
   &:is(.panel-content > div) {
     display: flex;

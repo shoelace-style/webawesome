@@ -14,6 +14,10 @@ body {
   margin: 0;
 }
 
+.sidebar {
+  max-width: 22rem;
+}
+
 wa-card {
   .page-name {
     display: flex;

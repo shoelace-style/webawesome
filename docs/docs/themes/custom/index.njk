@@ -80,8 +80,8 @@ order: 99
       <div class="scrollable">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
         <div>
-          Color Palette
-          <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
+          Colors
+          <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
         </div>
         <wa-icon name="angle-right" variant="regular"></wa-icon>
       </palette-card>
@@ -104,7 +104,19 @@ order: 99
       </div>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color" title="Color Palette" :step="2">
+    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="2">
+      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color-palette'" role="button" tabindex="0">
+        <div>
+          Color Palette
+          <div class="wa-caption-m" v-text="palettes[computed.palette]?.title"></div>
+        </div>
+        <wa-icon name="angle-right" variant="regular"></wa-icon>
+      </palette-card>
+      <swatch-select label="Brand color" :model-value="computed.brand" @update:model-value="value => theme.brand = value"
+                :values="hues"></swatch-select>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="3">
       <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
