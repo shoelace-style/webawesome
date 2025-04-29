@@ -1,7 +1,7 @@
 import InfoTip from './info-tip.js';
 
 const template = `
-<wa-radio-group :label class="swatch-select" orientation="horizontal" :value="modelValue" @input="handleInput">
+<wa-radio-group :label class="swatch-select" :class="'swatch-shape-' + shape" orientation="horizontal" :value="modelValue" @input="handleInput">
   <info-tip v-for="value in values">
       <wa-radio-button :value :label="getLabel(value)" :style="{'--color': getColor(value)}"></wa-radio-button>
       <template #content>
@@ -16,6 +16,11 @@ export default {
     modelValue: String,
     name: String,
     label: String,
+    shape: {
+      type: String,
+      default: 'rounded',
+      validator: value => ['circle', 'rounded'].includes(value),
+    },
     getLabel: {
       type: Function,
       default: capitalize,

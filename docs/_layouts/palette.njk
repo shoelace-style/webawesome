@@ -122,7 +122,7 @@
       </div>
       <div class="popup">
       {% if hue === 'gray' %}
-        <swatch-select label="Gray undertone" :values="hues" v-model="grayColor"></swatch-select>
+        <swatch-select label="Gray undertone" shape="circle" :values="hues" v-model="grayColor"></swatch-select>
 
         <div class="decorated-slider gray-chroma-slider" :style="{'--max': maxGrayChroma}">
           <wa-slider name="gray-chroma" v-model="grayChroma" ref="grayChromaSlider"

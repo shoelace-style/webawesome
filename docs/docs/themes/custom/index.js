@@ -72,6 +72,8 @@ let appSpec = {
       this.ui.panel = 'styles';
     }
 
+    this.ui.panel = 'color';
+
     this.isCreated = true;
   },
 

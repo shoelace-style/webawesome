@@ -72,19 +72,34 @@
 }
 
 .swatch-select {
-  wa-radio-button::part(base) {
-    width: 2em;
-    height: 2em;
-    padding: 0;
-    border-radius: var(--wa-border-radius-circle);
-    background: var(--color);
-    background-clip: border-box;
+  padding: 2px;
+
+  wa-radio-button {
+    --swatch-border-color: color-mix(in oklab, canvastext, transparent 80%);
+
+    &::part(base) {
+      /* a <button> */
+      width: 2em;
+      height: 2em;
+      padding: 0;
+      border-radius: var(--border-radius, var(--wa-border-radius-m));
+      background: var(--color);
+      background-clip: border-box;
+      border-color: var(--swatch-border-color);
+    }
   }
 
-  wa-radio-button:is([checked], :state(checked))::part(base) {
-    box-shadow:
-      inset 0 0 0 var(--indicator-width) var(--indicator-color),
-      inset 0 0 0 calc(var(--indicator-width) + 1.5px) var(--wa-color-surface-default);
+  &.swatch-shape-circle {
+    --border-radius: var(--wa-border-radius-circle);
+  }
+
+  wa-radio-button:is([checked], :state(checked)) {
+    --swatch-border-color: var(--wa-color-surface-default);
+    &::part(base) {
+      box-shadow:
+        inset 0 0 0 var(--indicator-width) var(--wa-color-surface-default),
+        0 0 0 calc(var(--indicator-width) + 1px) var(--indicator-color);
+    }
   }
 
   &::part(form-control-input) {

@@ -61,6 +61,7 @@
     flex-flow: column;
     gap: var(--wa-space-s);
     overflow: auto;
+    padding-inline: var(--wa-border-width-m);
   }
 
   h1,
