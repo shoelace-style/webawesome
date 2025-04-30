@@ -56,7 +56,7 @@ order: 99
   </header>
 
   <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
-    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0">
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0" class="scrollable">
       <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
         <div>
           Starting theme
@@ -92,7 +92,7 @@ order: 99
       </icons-card>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="theme" :step="1">
+    <ui-panel v-model="ui.panel" value="theme" :step="1" class="scrollable">
       <template #title>
         <label for="starting-theme">Starting theme</label>
       </template>
@@ -104,7 +104,7 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1">
+    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1" class="scrollable">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color-palette'" role="button" tabindex="0">
         <div>
           Color Palette
@@ -116,7 +116,7 @@ order: 99
                 :values="hues"></swatch-select>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
+    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2" class="scrollable">
       <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
@@ -126,7 +126,7 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1">
+    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1" class="scrollable">
       <wa-radio-group class="card-picker" v-model="theme.typography" >
         <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">

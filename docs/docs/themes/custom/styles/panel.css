@@ -3,35 +3,31 @@
   display: flex;
   flex-flow: column;
   width: 32ch;
-  /* overflow: hidden; */
-  overflow-x: hidden;
-  padding: var(--wa-space-2xl);
-  gap: 0em;
+  overflow: hidden;
+  padding: 0;
+  gap: 0;
+  scrollbar-width: thin;
 }
 
 .panel {
-  /* --spacing: var(--wa-space-m); */
-  --spacing: 0em;
+  --spacing: 0;
   --panel-background: var(--wa-color-surface-default);
 
-  display: flex;
-  flex-flow: column;
+  display: block;
   max-height: 100%;
   margin-bottom: 0;
   position: relative;
   background: var(--panel-background);
   border: none;
-  transition-behavior: allow-discrete;
-  transition-property: display, translate, flex;
+  transition:
+    translate var(--wa-transition-slow) allow-discrete,
+    opacity var(--wa-transition-slow) 25ms allow-discrete;
+
+  /* Ensure horizontal scrollbar isn't visible when translate takes effect */
+  overflow-x: hidden !important;
 
   @starting-style {
-    display: flex;
-  }
-
-  &.previous,
-  &[open],
-  &.next {
-    transition-duration: var(--wa-transition-slow);
+    display: block;
   }
 
   summary {
@@ -44,6 +40,15 @@
     transition-property: all;
     color: var(--wa-color-text-normal);
     padding-block-end: var(--wa-space-2xl);
+    padding-inline: var(--wa-space-2xl);
+
+    [data-step='0'] & {
+      padding-block-start: var(--wa-space-2xl);
+    }
+
+    .previous & {
+      padding-block-start: var(--wa-space-2xl);
+    }
 
     &::after {
       transform: rotate(180deg);
@@ -68,8 +73,8 @@
     display: flex;
     flex-flow: column;
     gap: var(--wa-space-2xl);
-    /* overflow: auto; */
-    /* padding-inline: var(--wa-border-width-m); */
+    padding-inline: var(--wa-space-2xl);
+    padding-block-end: var(--wa-space-2xl);
   }
 
   h1,
@@ -83,19 +88,14 @@
 
   &[open] {
     flex: 1;
+    opacity: 1;
 
     summary {
-      /* padding-block-end: var(--wa-space-xl); */
       font-size: var(--wa-font-size-l);
 
       &::after {
         display: none;
       }
-    }
-
-    &:not(:first-child) {
-      /* border-block-start: var(--ui-border);
-      padding-block-start: var(--wa-space-2xl); */
     }
   }
 
