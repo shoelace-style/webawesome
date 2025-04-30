@@ -1,3 +1,5 @@
+import { capitalize } from './util.js';
+
 const template = `
     <wa-select class="color-select" name="brand" :label="label" :value="modelValue"  @input="$emit('update:modelValue', $event.target.value)"
     :style="{'--color': getColor(modelValue)}">
@@ -74,8 +76,3 @@ export default {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
 };
-
-function capitalize(str) {
-  str += '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}

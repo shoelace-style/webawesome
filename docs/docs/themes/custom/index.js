@@ -14,6 +14,7 @@ import {
   ThemeCard,
   UiPanel,
   UiPanelContainer,
+  capitalize,
 } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -194,9 +195,7 @@ let appSpec = {
   },
 
   methods: {
-    capitalize(str) {
-      return (str + '').charAt(0).toUpperCase() + str.slice(1);
-    },
+    capitalize,
 
     log(...args) {
       console.log(...args);

@@ -1,4 +1,5 @@
 import InfoTip from './info-tip.js';
+import { capitalize } from './util.js';
 
 const template = `
 <wa-radio-group :label class="swatch-select" :class="'swatch-shape-' + shape" orientation="horizontal" :value="modelValue" @input="handleInput">
@@ -64,8 +65,3 @@ export default {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
 };
-
-function capitalize(str) {
-  str += '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
