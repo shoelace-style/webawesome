@@ -1,7 +1,8 @@
 /**
  * Get import code for remixed themes and tweaked palettes.
  */
-import { themeParams, urls } from './data.js';
+import { selectors, themeConfig } from './data.js';
+import { deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
 
 export function cssImport(url, options = {}) {
   let { language = 'html', cdnUrl = '/dist/', attributes } = options;
@@ -21,22 +22,55 @@ export function cssLiteral(value, options = {}) {
   if (language === 'css') {
     return value;
   } else {
-    return `<style>\n${value}\n</style>`;
+    return `<style${options.attributes ?? ''}>\n${value}\n</style>`;
   }
 }
 
-export function getThemeCode(params, options) {
-  let ret = [];
+/**
+ * Get code for a theme, including tweaks
+ * @param {*} theme
+ * @param {*} options
+ * @returns
+ */
+export function getThemeCode(theme, options = {}) {
+  let urls = [];
+  let declarations = [];
+  let id = options.id ?? theme.base ?? 'default';
 
-  for (let aspect of themeParams) {
-    let value = params[aspect];
+  deepEach(themeConfig, (config, aspect, obj, path) => {
+    if (!config?.default) {
+      // We're not in a config object
+      return;
+    }
 
-    if (value) {
-      ret.push(urls[aspect](value));
+    let value = deepGet(theme, [...path, aspect]);
+
+    if (!value) {
+      return;
+    }
+
+    if (config.url) {
+      // This is implemented by pulling in different CSS files
+      urls.push(config.url(value));
+    } else {
+      if (config.cssProperty) {
+        declarations.push(`${config.cssProperty}: ${value};`);
+      }
+    }
+  });
+
+  let ret = urls.map(url => cssImport(url, options)).join('\n');
+
+  if (declarations.length > 0) {
+    let cssCode = cssRule(selectors.theme(id), declarations, options);
+    cssCode = cssLiteral(cssCode, options);
+
+    if (ret) {
+      ret += '\n\n' + cssCode;
     }
   }
 
-  return ret.map(url => cssImport(url, options)).join('\n');
+  return ret;
 }
 
 export function cssRule(selector, declarations, { indent = '  ' } = {}) {
