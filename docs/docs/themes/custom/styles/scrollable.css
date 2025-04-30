@@ -32,7 +32,7 @@
   overflow: auto;
   position: relative;
   scroll-timeline-name: --scrollable;
-  padding: var(--wa-border-width-m);
+  scrollbar-width: inherit;
 
   &:is(.panel-content > div) {
     display: flex;
@@ -42,7 +42,7 @@
 
   &::before,
   &::after {
-    --scroll-shadow-height: 1em;
+    --scroll-shadow-height: 0.5em;
 
     /* Must be 0 when scroll-progress is 0 and 1 for > 0.001 */
     --can-scroll-top: clamp(0, var(--scroll-progress) * 1000, 1);
@@ -60,7 +60,7 @@
     animation-name: scroll-progress;
     animation-duration: 1ms; /* Firefox requires this to apply the animation */
     animation-timeline: --scrollable;
-    background: radial-gradient(farthest-side, var(--wa-color-shadow) 10%, transparent) center / 100% 200%;
+    background: radial-gradient(farthest-side, var(--wa-color-shadow) 10%, transparent) center / 120% 200%;
     mix-blend-mode: multiply;
   }
 
