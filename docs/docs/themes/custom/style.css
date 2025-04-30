@@ -111,10 +111,6 @@ wa-radio-group.card-picker {
     gap: var(--wa-space-l);
   }
 
-  > wa-card {
-    margin-block: var(--wa-space-xs);
-  }
-
   > footer {
     display: flex;
     align-items: center;

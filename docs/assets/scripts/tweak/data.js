@@ -1,3 +1,5 @@
+import { deepEach, isPlainObject } from '../util/deep.js';
+
 /**
  * Data related to theme remixing and palette tweaking
  * Must work in both browser and Node.js
@@ -16,9 +18,61 @@ export const urls = {
 // base must be first. brand needs to come after palette, which needs to come after colors.
 export const themeParams = ['base', 'colors', 'palette', 'brand', 'typography'];
 
+// This should eventually replace all uses of `urls` and `themeParams`
+export const themeConfig = {
+  base: { url: id => `styles/themes/${id}.css`, default: 'default' },
+  colors: {
+    url: id => `styles/themes/${id}/color.css`,
+    default() {
+      return this.base;
+    },
+  },
+  palette: {
+    url: id => `styles/color/${id}.css`,
+    default(themes) {
+      return themes?.[this.base]?.palette;
+    },
+  },
+  brand: {
+    url: id => `styles/brand/${id}.css`,
+    default(themes) {
+      return themes?.[this.base]?.brand;
+    },
+  },
+  typography: {
+    url: id => `styles/themes/${id}/typography.css`,
+    default() {
+      return this.base;
+    },
+  },
+  icon: {
+    library: { cssProperty: '--wa-icon-library', default: 'default' },
+    family: { cssProperty: '--wa-icon-family', default: 'classic' },
+    style: { cssProperty: '--wa-icon-variant', default: 'solid' },
+  },
+};
+
+export const themeDefaults = { ...themeConfig };
+
+deepEach(themeDefaults, (value, key, parent) => {
+  if (isPlainObject(value)) {
+    // Replace w/ default value or shallow clone
+    return value.default ?? { ...value };
+  }
+});
+
+export const iconMeta = {
+  default: {
+    title: 'Font Awesome',
+    family: ['classic', 'sharp'],
+    style: ['solid', 'regular', 'light', 'thin'],
+  },
+};
+
 export const selectors = {
   palette: id =>
     [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
+  theme: id => [':where(:root)', ':host', `.wa-theme-${id}`].join(',\n'),
 };
 
 export const hueRanges = {

@@ -1,8 +1,10 @@
+import palettes from '../../palettes/data.js';
+import themes from '../data.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { allHues, themeParams, urls } from '/assets/scripts/tweak/data.js';
+import { allHues, themeConfig, themeDefaults, themeParams } from '/assets/scripts/tweak/data.js';
+import Permalink from '/assets/scripts/tweak/permalink.js';
+import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
 import { domChange } from '/assets/scripts/util/dom-change.js';
-import palettes from '/docs/palettes/data.js';
-import themes from '/docs/themes/data.js';
 
 const themeIds = Object.keys(themes);
 const paletteIds = Object.keys(palettes);
@@ -10,16 +12,22 @@ let dummy;
 
 export const aspects = {};
 
-for (let aspect in urls) {
-  let urlFactory = urls[aspect];
-  let ids = aspect === 'palette' ? paletteIds : aspect === 'brand' ? allHues : themeIds;
-  let allUrls = ids.map(id => urlFactory(id));
-  let styleClass = aspect === 'palette' || aspect === 'brand' ? aspect : `theme-${aspect}`;
-  let selector = `link[rel="stylesheet"]:is(${allUrls.map(url => `[href$="/${url}"]`).join(', ')}), style.wa-${styleClass}`;
+deepEach(themeConfig, (config, aspect, obj, path) => {
+  if (!config?.default) {
+    // We're not in a config object
+    return;
+  }
 
-  let getId = RegExp(`/${urlFactory('([^\\\\]+)')}($|\\?|#)`);
-  aspects[aspect] ??= { ids, urls: allUrls, selector, getId };
-}
+  if (config.url) {
+    config.values ??= aspect === 'palette' ? paletteIds : aspect === 'brand' ? allHues : themeIds;
+    config.urls ??= config.values.map(id => config.url(id));
+    config.selector ??= `link[rel="stylesheet"]:is(${config.urls.map(url => `[href$="/${url}"]`).join(', ')})`;
+    config.getValue = RegExp(`/${config.url('([^\\\\]+)')}($|\\?|#)`);
+  } else {
+    let styleClass = aspect === 'palette' || aspect === 'brand' ? aspect : `theme-${aspect}`;
+    config.selector ??= `style.wa-${styleClass}`;
+  }
+});
 
 /**
  * @typedef {object} Theme
@@ -32,11 +40,12 @@ for (let aspect in urls) {
 export const theme = new EventTarget();
 
 // Read base theme from document
+// TODO read from non-URL aspects too
 for (let aspect of themeParams) {
-  let element = document.querySelector(aspects[aspect].selector);
+  let element = document.querySelector(themeConfig[aspect].selector);
 
   if (element) {
-    let value = element.href.match(aspects[aspect].getId)?.[1];
+    let value = element.href.match(themeConfig[aspect].getValue)?.[1];
     if (value) {
       theme[aspect] = value;
     }
@@ -46,8 +55,10 @@ for (let aspect of themeParams) {
 export const documentTheme = { ...theme };
 
 if (location.search) {
+  let permalink = new Permalink();
   // Apply any overrides from URL
-  let urlOverrides = Object.fromEntries(new URLSearchParams(location.search));
+  let urlOverrides = permalink.getAll();
+
   updateTheme(urlOverrides, { silent: true });
 }
 
@@ -66,49 +77,47 @@ if (isSameOrigin) {
 }
 
 window.addEventListener('message', event => {
-  if (event.data?.type === 'updatePreview') {
-    updatePreview({ theme: event.data.theme });
+  if (!event.data) {
+    return;
+  }
+
+  let { type, theme, id } = event.data;
+
+  if (type === 'updatePreview') {
+    updatePreview({ theme, id });
   }
 });
 
-export function isDefault(aspect, value, base = theme.base || 'default') {
-  if (!value) {
-    return true;
-  }
-
-  switch (aspect) {
-    case 'palette':
-      return value === themes[base].palette;
-    case 'brand':
-      return value === themes[base].brand;
-  }
-
-  return value === base;
-}
-
 /**
- * Returns an object to be fed to `getThemeCode()`, i.e. with empties for aspects that are set to their default values,
- * and a resolved base
+ * Returns a theme object to be fed to `getThemeCode()`,
+ * i.e. with empties for aspects that are set to their default values, and a resolved base
+ * Does NOT update `theme`, you need to call `updateTheme()` for that.
  * @param {object} newTheme
  * @returns {object}
  */
-export function resolveTheme(newTheme = {}) {
-  let base = newTheme.base || theme.base || 'default';
-  let ret = { base };
+export function resolveTheme(newTheme) {
+  let ret = deepClone(theme);
+  ret = deepMerge(ret, newTheme, { emptyValues: [undefined, ''] });
 
-  for (let aspect of themeParams) {
-    let value = newTheme[aspect] || theme[aspect];
-
-    if (aspect !== 'base' && !isDefault(aspect, value, base)) {
-      ret[aspect] = value;
+  deepEach(newTheme, (value, key, parent, path) => {
+    if (typeof value === 'object') {
+      return;
     }
-  }
+
+    let defaultValue = deepGet(themeDefaults, path)?.[key];
+    defaultValue = typeof defaultValue === 'function' ? defaultValue.call(parent, themes) : defaultValue;
+
+    if (!value || value === defaultValue) {
+      delete parent[key];
+    }
+  });
 
   return ret;
 }
 
 /**
- * Update the current theme and fire a change event on it. Does NOT call `updatePreview()`
+ * Update the current theme and fire a change event on it.
+ * Does NOT update the visible preview, you must call `updatePreview()` for that.
  * @param {Theme} newTheme
  * @param {object} options
  * @param {boolean} options.silent - If true, don't fire the change event
@@ -120,14 +129,18 @@ function updateTheme(newTheme, options = {}) {
   let changed = {};
   let anyChanged = false;
 
-  for (let aspect of themeParams) {
-    let oldValue = theme[aspect];
-    if (resolvedNewTheme[aspect] !== oldValue) {
-      changed[aspect] = oldValue;
-      anyChanged = true;
-      theme[aspect] = resolvedNewTheme[aspect];
+  deepEach(theme, (value, key, parent, path) => {
+    if (typeof value === 'object') {
+      return;
     }
-  }
+
+    let oldValue = deepGet(resolvedNewTheme, path)?.[key];
+    if (value !== oldValue) {
+      changed[key] = oldValue;
+      anyChanged = true;
+      parent[key] = value;
+    }
+  });
 
   Object.defineProperty(changed, 'any', { value: anyChanged, enumerable: false });
 
@@ -143,14 +156,14 @@ export async function updatePreview(options = {}) {
     updateTheme(options.theme, options);
   }
 
-  let code = getThemeCode(theme, { attributes: ' class="wa-themer"' });
+  let code = getThemeCode(theme, { id: options.id, attributes: ' class="wa-themer"' });
 
   dummy ??= document.createElement('div');
   dummy.innerHTML = code;
 
   let allStylesheets = {};
 
-  let first;
+  let first, last;
   let changeDom = false;
 
   // DOM diffing of old and new <link> elements
@@ -159,7 +172,7 @@ export async function updatePreview(options = {}) {
     let stylesheets = allStylesheets[aspect];
 
     // TODO use old values in selector instead of any?
-    let selector = aspects[aspect].selector;
+    let selector = themeConfig[aspect].selector;
     let oldStylesheets = [...document.querySelectorAll(selector)];
     let newStylesheets = [...dummy.querySelectorAll(selector)];
 
@@ -185,6 +198,18 @@ export async function updatePreview(options = {}) {
     }
 
     first ??= oldStylesheets[0];
+    last = oldStylesheets.at(-1);
+  }
+
+  // Replace all themer <style> elements, we don't diff those since it does not involve URL loading
+
+  // First, remove old ones
+  for (let oldStyle of document.querySelectorAll('style.wa-themer, style.wa-theme')) {
+    oldStyle.remove();
+  }
+  // Then, insert new ones
+  for (let newStyle of dummy.querySelectorAll('style.wa-themer, style.wa-theme')) {
+    (last || document.head.lastElementChild).after(newStyle);
   }
 
   if (!changeDom) {

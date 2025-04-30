@@ -81,7 +81,7 @@ export default {
       let theme = { ...(this.rest || {}), [this.type || 'base']: this.theme };
       theme.base ||= 'default';
 
-      return getThemeCode(theme, { language: 'html', cdnUrl: '/dist/' });
+      return getThemeCode(theme, { id: this.theme, language: 'html', cdnUrl: '/dist/' });
     },
   },
 
