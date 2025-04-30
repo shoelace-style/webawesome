@@ -173,11 +173,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this._value = val;
       let newValue = this.value;
 
-      if (newValue != oldValue) {
+      if (newValue !== oldValue) {
         this.requestUpdate('value', oldValue);
       }
     }
   }
+
   get value() {
     let value = this._value ?? this.defaultValue;
     value = Array.isArray(value) ? value : [value];
@@ -678,6 +679,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     // Toggle values present in the DOM from this.value, while preserving options NOT present in the DOM (for lazy loading)
     // Note that options NOT present in the DOM will be moved to the end after this
     if (selectedValues.size > 0 || this._value) {
+      const oldValue = this._value;
       if (!this._value) {
         // First time it's set
         let value = this.defaultValue ?? [];
@@ -687,6 +689,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       // Filter out values that are in the DOM
       this._value = this._value.filter(value => !this.optionValues?.has(value));
       this._value.unshift(...selectedValues);
+      this.requestUpdate('value', oldValue);
     }
 
     // Update the value and display label

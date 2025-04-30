@@ -15,6 +15,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ## Next
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
+- Fixed a bug that caused an undesired margin below radio groups
 
 ## 3.0.0-alpha.12
 

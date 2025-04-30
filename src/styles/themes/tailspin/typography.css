@@ -5,11 +5,7 @@
 :host,
 .wa-theme-tailspin {
   --wa-font-family-body: 'Inter', sans-serif;
-  --wa-font-family-heading: var(--wa-font-family-body);
 
-  --wa-font-weight-light: 300;
-  --wa-font-weight-normal: 400;
-  --wa-font-weight-semibold: 500;
   --wa-font-weight-bold: 700;
 
   --wa-font-size-scale: 0.875;
