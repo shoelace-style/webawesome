@@ -1,5 +1,5 @@
+import { capitalize } from '../../util/string.js';
 import PageCard from './page-card.js';
-import { capitalize } from './util.js';
 import { iconMeta } from '/assets/scripts/tweak/data.js';
 
 const icons = [

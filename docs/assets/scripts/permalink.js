@@ -1,5 +1,4 @@
-const IDENTITY = x => x;
-import { deepEach, deepGet, deepSet } from '../util/deep.js';
+import { deepEach, deepGet, deepSet } from './util/deep.js';
 
 export default class Permalink extends URLSearchParams {
   /** Params changed since last URL I/O */

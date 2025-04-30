@@ -4,7 +4,7 @@ import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { allHues, cdnUrl, iconMeta, themeDefaults } from '/assets/scripts/tweak/data.js';
 import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
-import { slugify } from '/assets/scripts/util/slugify.js';
+import { capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
   ColorSelect,
   EditableText,
@@ -15,7 +15,6 @@ import {
   ThemeCard,
   UiPanel,
   UiPanelContainer,
-  capitalize,
 } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';

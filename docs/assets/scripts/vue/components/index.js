@@ -8,4 +8,3 @@ export { default as SwatchSelect } from './swatch-select.js';
 export { default as ThemeCard } from './theme-card.js';
 export { default as UiPanelContainer } from './ui-panel-container.js';
 export { default as UiPanel } from './ui-panel.js';
-export * from './util.js';
