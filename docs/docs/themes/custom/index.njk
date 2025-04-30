@@ -112,8 +112,10 @@ order: 99
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </palette-card>
-      <swatch-select label="Brand color" shape="rounded" :model-value="computed.brand" @update:model-value="value => theme.brand = value"
-                :values="hues"></swatch-select>
+      <swatch-select label="Brand color" shape="rounded"
+                     :get-color="hue => palettes[computed.palette].colors[hue].key"
+                     :model-value="computed.brand" @update:model-value="value => theme.brand = value"
+                     :values="hues"></swatch-select>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
