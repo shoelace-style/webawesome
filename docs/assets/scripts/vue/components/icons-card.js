@@ -1,4 +1,6 @@
 import PageCard from './page-card.js';
+import { capitalize } from './util.js';
+import { iconMeta } from '/assets/scripts/tweak/data.js';
 
 const icons = [
   'web-awesome',
@@ -26,9 +28,15 @@ const template = `
         </template>
       </div>
     </template>
-    <slot>{{ title || iconsMeta.title }}</slot>
+    <slot>{{ defaultTitle }}</slot>
 	</page-card>
 `;
+
+const defaultDefaults = {
+  library: 'default',
+  family: 'classic',
+  style: 'solid',
+};
 
 export default {
   props: {
@@ -36,6 +44,13 @@ export default {
     library: String,
     family: String,
     style: String,
+    defaults: Object,
+    type: {
+      type: String,
+      validate(value) {
+        return ['library', 'family', 'style'].includes(value);
+      },
+    },
   },
 
   data() {
@@ -47,6 +62,25 @@ export default {
   },
 
   computed: {
+    defaultTitle() {
+      let titles = {};
+      for (let key in this.computed) {
+        let value = this.computed[key];
+
+        if (key === 'library') {
+          titles[key] = iconMeta[value].title;
+        }
+
+        titles[key] ??= capitalize(value);
+      }
+
+      if (this.type) {
+        return titles[this.type];
+      } else {
+        return titles.library + ' ' + titles.family + ' • ' + titles.style;
+      }
+    },
+
     iconsRepeated() {
       let total = ICON_GRID.columns * ICON_GRID.rows;
       let ret = [];
@@ -57,12 +91,19 @@ export default {
       return ret.slice(0, total);
     },
 
+    computedDefaults() {
+      return Object.assign({}, defaultDefaults, this.defaults);
+    },
+
     computed() {
       let { library, family, style } = this;
       let ret = { library, family, style };
-      ret.library ||= 'default';
-      ret.family ||= 'classic';
-      ret.style ||= 'solid';
+
+      for (let key in this.computedDefaults) {
+        if (!ret[key]) {
+          ret[key] = this.computedDefaults[key];
+        }
+      }
 
       return ret;
     },
@@ -70,6 +111,10 @@ export default {
       // placeholder
       return {};
     },
+  },
+
+  methods: {
+    capitalize,
   },
 
   template,

@@ -67,13 +67,13 @@ order: 99
 
       <wa-divider></wa-divider>
 
-      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
-        <div>
-          Colors
-          <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand color`"></div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </palette-card>
+        <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
+          <div>
+            Colors
+            <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand`"></div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </palette-card>
 
       <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
         <div>
@@ -83,13 +83,14 @@ order: 99
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </theme-card>
 
-      <icons-card size="small" disabled :action="e => ui.panel = 'icons'">
-        <div>
-          Icons <wa-badge variant="warning" class="coming-soon">Coming soon</wa-badge>
-          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </icons-card>
+        <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">
+          <div>
+            Icons
+            <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+          </div>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </icons-card>
+      </div>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="theme" :step="1" class="scrollable">
@@ -112,8 +113,10 @@ order: 99
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </palette-card>
-      <swatch-select label="Brand color" shape="rounded" :model-value="computed.brand" @update:model-value="value => theme.brand = value"
-                :values="hues"></swatch-select>
+      <swatch-select label="Brand color" shape="rounded"
+                     :get-color="hue => palettes[computed.palette].colors[hue].key"
+                     :model-value="computed.brand" @update:model-value="value => theme.brand = value"
+                     :values="hues"></swatch-select>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2" class="scrollable">
@@ -133,6 +136,44 @@ order: 99
             <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="themeId === theme.base">Default</wa-badge></template>
           </theme-card>
         </wa-radio>
+      </wa-radio-group>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="icons" title="Icons" :step="1">
+      <wa-select label="Library" value="default" disabled>
+        <wa-option value="default" selected>Font Awesome</wa-option>
+      </wa-select>
+
+      <icons-card type="family" size="small" :action="e => ui.panel = 'icon-family'" :defaults="computed.icon">
+        <div>
+          Icon family
+          <div class="wa-caption-m" v-text="capitalize(computed.icon.family)"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </icons-card>
+
+      <icons-card type="style" size="small" :action="e => ui.panel = 'icon-style'" :defaults="computed.icon">
+        <div>
+          Icon style
+          <div class="wa-caption-m" v-text="capitalize(computed.icon.style)"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </icons-card>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2">
+      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.icon.family">
+          <wa-radio v-for="family of iconMeta.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
+            <icons-card type="family" :family="family"  :defaults="computed.icon"></icons-card>
+          </wa-radio>
+      </wa-radio-group>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="icon-style" title="Icon style" :step="2">
+      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.icon.style">
+          <wa-radio v-for="style of iconMeta.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
+            <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>
+          </wa-radio>
       </wa-radio-group>
     </ui-panel>
   </ui-panel-container>

@@ -2,7 +2,8 @@
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { allHues, cdnUrl } from '/assets/scripts/tweak/data.js';
+import { allHues, cdnUrl, iconMeta, themeDefaults } from '/assets/scripts/tweak/data.js';
+import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
 import { slugify } from '/assets/scripts/util/slugify.js';
 import {
   ColorSelect,
@@ -14,6 +15,7 @@ import {
   ThemeCard,
   UiPanel,
   UiPanelContainer,
+  capitalize,
 } from '/assets/scripts/vue/components/index.js';
 import content from '/assets/scripts/vue/directives/content.js';
 import savedMixin from '/assets/scripts/vue/mixins/saved.js';
@@ -45,6 +47,11 @@ let appSpec = {
         typography: '',
         colors: '',
         brand: '',
+        icon: {
+          library: '',
+          family: '',
+          style: '',
+        },
       },
       ui: {
         panel: 'styles',
@@ -58,14 +65,11 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes, hues: allHues });
+    Object.assign(this, { themes, palettes, hues: allHues, iconMeta, themeDefaults });
 
     if (location.search) {
-      for (let key in this.theme) {
-        if (this.permalink.has(key)) {
-          this.theme[key] = this.permalink.get(key);
-        }
-      }
+      let urlTheme = this.permalink.getAll();
+      deepMerge(this.theme, urlTheme, { emptyValues: [undefined, ''] });
     }
 
     this.isCreated = true;
@@ -99,32 +103,31 @@ let appSpec = {
       return themes[this.computed.base];
     },
 
+    // Resolved defaults for the current theme
     defaults() {
-      return {
-        base: themes[this.id] ? this.id : 'default',
-        get colors() {
-          return this.base;
-        },
-        get palette() {
-          return themes[this.base].palette;
-        },
-        get brand() {
-          return themes[this.base].brand;
-        },
-        get typography() {
-          return this.base;
-        },
-      };
+      let ret = deepClone(themeDefaults);
+
+      deepEach(ret, value => {
+        // Resolve defaults that depend on other values based on the current theme params
+        if (typeof value === 'function') {
+          return value.call(this.theme, themes);
+        }
+      });
+
+      return ret;
     },
 
     computed() {
-      let ret = Object.create(this.defaults, Object.getOwnPropertyDescriptors(this.theme));
+      let ret = deepClone(themeDefaults);
 
-      for (let key in this.theme) {
-        if (!this.theme[key]) {
-          delete ret[key];
+      deepMerge(ret, this.theme, { emptyValues: [undefined, ''] });
+
+      deepEach(ret, value => {
+        // Resolve defaults that depend on other values
+        if (typeof value === 'function') {
+          return value.call(ret, themes);
         }
-      }
+      });
 
       return ret;
     },
@@ -135,7 +138,7 @@ let appSpec = {
       theme.base ||= 'default';
 
       for (let language of ['html', 'css']) {
-        let code = getThemeCode(theme, { language, cdnUrl });
+        let code = getThemeCode(theme, { id: this.slug, language, cdnUrl });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -157,11 +160,7 @@ let appSpec = {
     theme: {
       deep: true,
       handler() {
-        for (let key in this.theme) {
-          if (key !== 'base' || this.theme.base !== this.id) {
-            this.permalink.set(key, this.theme[key]);
-          }
-        }
+        this.permalink.setAll(this.theme, this.defaults);
 
         // Update page URL
         this.permalink.updateLocation();
@@ -169,6 +168,7 @@ let appSpec = {
         this.$refs.preview?.contentWindow.postMessage({
           type: 'updatePreview',
           theme,
+          id: this.slug,
         });
 
         this.unsavedChanges = true;
@@ -194,9 +194,7 @@ let appSpec = {
   },
 
   methods: {
-    capitalize(str) {
-      return (str + '').charAt(0).toUpperCase() + str.slice(1);
-    },
+    capitalize,
 
     log(...args) {
       console.log(...args);

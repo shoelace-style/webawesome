@@ -19,6 +19,10 @@ export default {
               '{{ '05' if tint == '5' else tint }}': '{{ value | safe }}',
             {%- endif %}
           {% endfor %}
+
+          get key() {
+            return this[this.maxChromaTint];
+          }
         },
       {% endfor -%} // end colors
     }
