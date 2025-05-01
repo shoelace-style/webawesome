@@ -63,6 +63,16 @@ export function getThemeCode(theme, options = {}) {
 
   if (declarations.length > 0) {
     let cssCode = cssRule(selectors.theme(id), declarations, options);
+
+    let faKitAttribute = ` data-fa-kit-code="${theme.icon.kit}"`;
+    if (theme.icon.kit) {
+      options.attributes ??= '';
+      options.attributes += faKitAttribute;
+      cssCode =
+        `/* Note: To use Font Awesome Pro icons,\n   set ${faKitAttribute} on the <link> (or any other) element */\n\n` +
+        cssCode;
+    }
+
     cssCode = cssLiteral(cssCode, options);
 
     if (ret) {

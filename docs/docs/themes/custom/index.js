@@ -11,6 +11,7 @@ import {
   EditableText,
   FontsCard,
   IconsCard,
+  InfoTip,
   PageCard,
   PaletteCard,
   SwatchSelect,
@@ -49,6 +50,7 @@ let appSpec = {
         colors: '',
         brand: '',
         icon: {
+          kit: '',
           library: '',
           family: '',
           style: '',
@@ -110,6 +112,10 @@ let appSpec = {
       return slugify(this.title);
     },
 
+    cssFilename() {
+      return `theme-${this.slug}.css`;
+    },
+
     baseTheme() {
       return themes[this.computed.base];
     },
@@ -160,6 +166,15 @@ let appSpec = {
       ret.css.blob = URL.createObjectURL(new Blob([ret.css.raw], { type: 'text/css' }));
 
       return ret;
+    },
+
+    codeToUse() {
+      let attributes = this.theme.icon.kit ? ` data-fa-kit-code="${this.theme.icon.kit}"` : '';
+      let code = `<link rel="stylesheet" href="path/to/${this.cssFilename}"${attributes}>`;
+      return {
+        raw: code,
+        highlighted: Prism.highlight(code, Prism.languages.html, 'html'),
+      };
     },
 
     tweaked() {
@@ -218,6 +233,7 @@ let appSpec = {
     EditableText,
     FontsCard,
     IconsCard,
+    InfoTip,
     PageCard,
     PaletteCard,
     ThemeCard,

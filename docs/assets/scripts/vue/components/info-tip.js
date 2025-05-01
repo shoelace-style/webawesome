@@ -1,14 +1,16 @@
 const template = `
 	<slot>
-  		<wa-icon-button :id="id" name="circle-question" variant="regular"></wa-icon-button>
+  		<wa-icon :slot class="info-tip-default-trigger" :id="id" name="circle-question" variant="regular" tabindex="0"></wa-icon>
 	</slot>
-	<wa-tooltip :for="id" ref="tooltip"><slot name="content"></slot></wa-tooltip>
+	<wa-tooltip :slot :for="id" ref="tooltip"><slot name="content"></slot></wa-tooltip>
   `;
 
 let maxUid = 0;
 
 export default {
-  props: {},
+  props: {
+    slot: String,
+  },
   data() {
     let uid = ++maxUid;
     return { uid, id: 'info-tip-' + uid };

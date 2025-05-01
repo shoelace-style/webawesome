@@ -40,15 +40,30 @@ order: 99
       <wa-tab-group class="import-stylesheet-code" :active="ui.code" @wa-tab-show="ui.code = $event.detail.name">
         <wa-tab panel="css">CSS</wa-tab>
         <wa-tab-panel name="css">
+          <p>
+            <wa-button variant="brand" :href="code.css.blob" :download="cssFilename">
+              <wa-icon name="arrow-down-to-line" variant="solid" slot="prefix"></wa-icon>
+              Download <code v-text="cssFilename"></code>
+            </wa-button>
+          </p>
+
           <pre class="language-css"><code v-content:html="code.css.highlighted"></code></pre>
-          <wa-button :href="code.css.blob" :download="`theme-${slug}.css`">
-            <wa-icon name="arrow-down-to-line" variant="solid" slot="prefix"></wa-icon>
-            Download
-          </wa-button>
+
+          <wa-divider></wa-divider>
+
+          <p>To use this theme, add this code snippet to the <code>&lt;head&gt;</code> section of your HTML file:</p>
+
+          <pre class="language-html"><code v-content:html="codeToUse.highlighted"></code></pre>
+
+          <wa-callout size="small" variant="warning" appearance="filled">
+            <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+            Don't forget to replace <code v-text="'path/to/' + cssFilename"></code> with your local path!
+          </wa-callout>
         </wa-tab-panel>
 
         <wa-tab panel="html">HTML</wa-tab>
         <wa-tab-panel name="html">
+          <p>To use this theme, add this code snippet to the <code>&lt;head&gt;</code> section of your HTML file:</p>
           <pre class="language-html"><code v-content:html="code.html.highlighted"></code></pre>
         </wa-tab-panel>
       </wa-tab-group>
@@ -156,6 +171,15 @@ order: 99
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </icons-card>
+
+      <wa-input label="Font Awesome Pro kit code:" v-model="theme.icon.kit" placeholder="e.g. f0nta7e50e">
+        <info-tip slot="suffix"><template #content>You need a Font Awesome Pro license to use certain families and styles.</template></info-tip>
+        <div slot="hint" class="wa-caption-m">
+          FA Pro subscribers
+          <a href="https://fontawesome.com/kits" target="_blank">get your kit code here</a>
+          &nbsp;<wa-icon name="arrow-up-right-from-square" variant="regular"></wa-icon>
+        </div>
+      </wa-input>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2" class="scrollable">

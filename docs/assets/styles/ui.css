@@ -135,3 +135,11 @@
     font-size: 90%;
   }
 }
+
+.info-tip-default-trigger {
+  color: var(--wa-color-text-quiet);
+
+  &:not(:hover, :focus) {
+    opacity: 65%;
+  }
+}
