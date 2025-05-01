@@ -141,10 +141,14 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 
 .icons-icon {
   display: grid;
-  grid-template-columns: repeat(var(--columns, 8), auto);
+  grid-template-columns: repeat(var(--columns, 5), auto);
   gap: var(--wa-space-xs);
   place-items: center;
   place-content: center;
+
+  & wa-icon {
+    font-size: 1.25em;
+  }
 }
 
 .page-card {
@@ -153,11 +157,10 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   }
 }
 
-.theme-card::part(header) {
+:is(.theme-card, .icons-card)::part(header) {
   background: var(--wa-color-surface-lowered);
 }
 
 .icons-card::part(header) {
-  background: var(--wa-color-brand-border-quiet);
-  color: var(--wa-color-brand-50);
+  color: var(--wa-color-neutral-on-quiet);
 }

@@ -3,21 +3,21 @@ import PageCard from './page-card.js';
 import { iconLibraries } from '/assets/data/icons.js';
 
 const icons = [
-  'web-awesome',
-  'font-awesome',
-  'triangle-exclamation',
-  'heart',
-  'image',
-  'search',
-  'star',
+  'user',
+  'paper-plane',
+  'face-laugh',
+  'pen-to-square',
   'trash',
-  'microphone',
+  'cart-shopping',
+  'link',
+  'sun',
+  'bookmark',
   'sparkles',
-  'sliders-simple',
-  'bell',
+  'thumbs-up',
+  'gear',
 ];
 const brands = new Set(['web-awesome', 'font-awesome']);
-const ICON_GRID = { columns: 8, rows: 3 };
+const ICON_GRID = { columns: 6, rows: 2 };
 
 const template = `
 	<page-card class="icons-card" :pro="$slots.default ? false : iconsMeta.isPro">
