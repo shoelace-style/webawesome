@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Framsteg',
   remove: 'Ta bort',
   resize: 'Ändra storlek',
+  scrollableRegion: 'Scrollbart område',
   scrollToEnd: 'Skrolla till slutet',
   scrollToStart: 'Skrolla till början',
   selectAColorFromTheScreen: 'Välj en färg från skärmen',

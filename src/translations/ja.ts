@@ -25,6 +25,7 @@ const translation: Translation = {
   progress: '進行',
   remove: '削除',
   resize: 'サイズ変更',
+  scrollableRegion: 'スクロール可能領域',
   scrollToEnd: '最後にスクロールする',
   scrollToStart: '最初にスクロールする',
   selectAColorFromTheScreen: '画面から色を選択してください',
