@@ -1,5 +1,6 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import { pairings, pairingsList, sameAs } from '/assets/data/fonts.js';
 import { allHues, cdnUrl, iconLibraries, themeDefaults } from '/assets/data/index.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
@@ -8,6 +9,7 @@ import { capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
   ColorSelect,
   EditableText,
+  FontsCard,
   IconsCard,
   PageCard,
   PaletteCard,
@@ -64,7 +66,17 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes, hues: allHues, iconLibraries, themeDefaults });
+    // Data that won't change so we don't need reactivity.
+    // By adding them here instead of in data() we skip having them wrapped in Proxies.
+    Object.assign(this, {
+      themes,
+      palettes,
+      hues: allHues,
+      iconLibraries,
+      themeDefaults,
+      sameAs,
+      pairings: pairingsList,
+    });
 
     if (location.search) {
       let urlTheme = this.permalink.getAll();
@@ -204,6 +216,7 @@ let appSpec = {
   components: {
     ColorSelect,
     EditableText,
+    FontsCard,
     IconsCard,
     PageCard,
     PaletteCard,

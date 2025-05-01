@@ -3,9 +3,6 @@ import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import themes from '/docs/themes/data.js';
 
 const iconTemplates = {
-  typography: `
-    <h2>Heading</h2>
-    <p>This is your paragraph.</p>`,
   colors: `
     <div class="theme-icon theme-color-icon" role="presentation">
       <div style="background: var(--wa-color-brand-fill-loud);   border-color: var(--wa-color-brand-border-loud);   color: var(--wa-color-brand-on-loud);">A</div>
@@ -44,19 +41,13 @@ const template = `
           <link rel="stylesheet" href="/dist/styles/native/content.css">
           <link rel="stylesheet" href="/assets/styles/theme-icons.css">
 
-          <slot name="icon">
-            <div v-if="type == 'typography'" class="theme-icon theme-typography-icon" role="presentation">
-              ${iconTemplates.typography}
-            </div>
+          <template v-if="type == 'colors'" >
+            ${iconTemplates.colors}
+          </template>
 
-            <template v-else-if="type == 'colors'" >
-              ${iconTemplates.colors}
-            </template>
-
-            <div v-else class="theme-icon theme-overall-icon" :class="'wa-theme-' + theme" role="presentation">
-              ${iconTemplates.theme}
-            </div>
-          </slot>
+          <div v-else class="theme-icon theme-overall-icon" :class="'wa-theme-' + theme" role="presentation">
+            ${iconTemplates.theme}
+          </div>
         </template>
       </wa-scoped>
     </template>
@@ -74,7 +65,7 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return !value || ['typography', 'colors'].includes(value);
+        return !value || ['colors'].includes(value);
       },
     },
     rest: Object,

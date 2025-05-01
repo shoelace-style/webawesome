@@ -1,5 +1,6 @@
 /**
  * @typedef { string | number | Symbol } Property
+ * @typedef { (value: any, key: Property, parent: object, path: Property[]) => any } EachCallback
  */
 
 export function isPlainObject(obj) {
@@ -40,7 +41,7 @@ export function deepMerge(target, source, options = {}) {
 /**
  * Iterate over a deep array, recursively for plain objects
  * @param { any } obj The object to iterate over. Can be an array or a plain object, or even a primitive value.
- * @param { (value: any, key: string | number, parent: any, path: (string | number)[]) => void } callback. value is === parent[key]
+ * @param { EachCallback } callback. value is === parent[key]
  * @param { object } [parentObj] The parent object of the current value Mainly used internally to facilitate recursion.
  * @param { Property } [key] The key of the current value. Mainly used internally to facilitate recursion.
  * @param { Property[] } [path] Any existing path (not including the key). Mainly used internally to facilitate recursion.
@@ -142,15 +143,38 @@ export function deepClone(obj) {
   return ret;
 }
 
-export function deepEntries(obj) {
-  let ret = [];
+/**
+ * Like Object.entries, but for deeply nested objects.
+ * For shallow objects the output is the same as Object.entries.
+ * @param {*} obj
+ * @param { object } options
+ * @param { EachCallback } each - If this returns false, the entry is not added to the result and the recursion is stopped.
+ * @param { EachCallback } filter - If this returns false, the entry is not added to the result.
+ * @param { EachCallback } descend - If this returns false, recursion is stopped.
+ * @returns {any[][]}
+ */
+export function deepEntries(obj, options = {}) {
+  let { each, filter, descend } = options;
+  let entries = [];
 
   deepEach(obj, (value, key, parent, path) => {
-    if (key !== undefined) {
-      let fullPath = [...path, key];
-      ret.push([...fullPath, value]);
+    let ret = each?.(value, key, parent, path);
+
+    if (ret !== false) {
+      let included = filter?.(value, key, parent, path) ?? true;
+
+      if (included) {
+        entries.push([...path, key, value]);
+      }
+
+      let descendRet = descend?.(value, key, parent, path);
+      if (descendRet === false) {
+        return false; // Stop recursion
+      }
     }
+
+    return ret;
   });
 
-  return ret;
+  return entries;
 }

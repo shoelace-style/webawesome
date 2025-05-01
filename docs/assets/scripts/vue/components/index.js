@@ -1,5 +1,6 @@
 export { default as ColorSelect } from './color-select.js';
 export { default as EditableText } from './editable-text.js';
+export { default as FontsCard } from './fonts-card.js';
 export { default as IconsCard } from './icons-card.js';
 export { default as InfoTip } from './info-tip.js';
 export { default as PageCard } from './page-card.js';

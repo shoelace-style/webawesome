@@ -75,13 +75,13 @@ order: 99
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </palette-card>
 
-      <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
+      <fonts-card :theme="computed.typography" size="small" :action="e => ui.panel = 'typography'">
         <div>
           Fonts
           <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-      </theme-card>
+      </fonts-card>
 
       <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">
         <div>
@@ -130,10 +130,10 @@ order: 99
 
     <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1" class="scrollable">
       <wa-radio-group class="card-picker" v-model="theme.typography" >
-        <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
-          <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">
-            <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="themeId === theme.base">Default</wa-badge></template>
-          </theme-card>
+        <wa-radio v-for="pairing of pairings" :value="pairing.id" size="small">
+          <fonts-card :pairing :aria-selected="!theme.typography && pairing.id === theme.base ? 'true' : null">
+            <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="pairing.id === theme.base">Default</wa-badge></template>
+          </fonts-card>
         </wa-radio>
       </wa-radio-group>
     </ui-panel>

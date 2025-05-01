@@ -1,4 +1,9 @@
-wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
+wa-card:has(
+    > .theme-icon-host,
+    > [slot='header'] > .theme-icon-host,
+    > .fonts-icon-host,
+    > [slot='header'] > .fonts-icon-host
+  ) {
   &::part(header) {
     /* We want to add a background color, so any spacing needs to go on .theme-icon */
     flex: 1;
@@ -12,6 +17,7 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
 }
 
 .theme-icon-host,
+.fonts-icon-host,
 .palette-icon-host {
   flex: 1;
   border-radius: inherit;
@@ -47,7 +53,8 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   }
 }
 
-.theme-icon {
+.theme-icon,
+.fonts-icon {
   min-width: 18ch;
   padding: var(--wa-space-xs) var(--wa-space-m);
   border-radius: inherit;
@@ -87,13 +94,8 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
   }
 }
 
-.theme-typography-icon {
-  display: flex;
-  flex-direction: column;
-  gap: var(--wa-space-xs);
-}
-
-.theme-overall-icon {
+.theme-overall-icon,
+.fonts-icon {
   display: flex;
   flex-flow: column;
   gap: var(--wa-space-xs);
@@ -137,6 +139,11 @@ wa-card:has(> .theme-icon-host, > [slot='header'] > .theme-icon-host) {
       }
     }
   }
+}
+
+.fonts-icon {
+  min-height: 5rem;
+  padding-block: var(--wa-space-s);
 }
 
 .icons-icon {
