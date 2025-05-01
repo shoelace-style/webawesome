@@ -32,7 +32,7 @@ const iconTemplates = {
 };
 
 const template = `
-  <page-card class="theme-card" :class="type + '-card'" :pro="$slots.default ? false : themeMeta.isPro">
+  <page-card class="theme-card" :class="type + '-card'">
     <template #icon>
       <wa-scoped slot="header" class="theme-icon-host" inert>
         <template v-html="themeCode"></template>
