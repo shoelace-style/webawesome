@@ -75,12 +75,10 @@ order: 99
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </palette-card>
 
-      <fonts-card :theme="computed.typography" size="small" :action="e => ui.panel = 'typography'">
-        <div>
-          Fonts
-          <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
-        </div>
-        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      <fonts-card :theme="computed.typography" title="Fonts" size="small" :action="e => ui.panel = 'typography'">
+        <template #extra>
+          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+        </template>
       </fonts-card>
 
       <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">

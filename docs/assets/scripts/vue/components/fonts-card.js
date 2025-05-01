@@ -21,15 +21,21 @@ const template = `
       </wa-scoped>
     </template>
     <div>
-      {{ computedPairing.title }}
-      <div v-if="computedPairing.id" class="wa-caption-m">As seen in {{ themeMeta.title }}</div>
+      <slot>
+      {{ content.title }}
+      <div v-if="content.subtitle" class="wa-caption-m">{{ content.subtitle }}</div>
+      </slot>
     </div>
+    <template #extra>
+      <slot name="extra" />
+    </template>
   </page-card>
 `;
 
 export default {
   props: {
     title: String,
+    subtitle: String,
     theme: String,
     src: String,
     fonts: Object,
@@ -41,6 +47,17 @@ export default {
   },
 
   computed: {
+    content() {
+      let pairingTitle = this.computedPairing.title;
+      let themeTitle = this.themeId ? `As seen in ${this.themeMeta.title}` : '';
+
+      if (this.title) {
+        return { title: this.title, subtitle: this.subtitle ?? pairingTitle };
+      } else {
+        return { title: pairingTitle, subtitle: this.subtitle ?? themeTitle };
+      }
+    },
+
     url() {
       let ret = this.src ?? this.pairing?.url;
 
