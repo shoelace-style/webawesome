@@ -3,7 +3,7 @@ import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-brows
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { allHues, cdnUrl, iconMeta, themeDefaults } from '/assets/scripts/tweak/data.js';
-import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
+import { deepClone, deepEach, deepMerge } from '/assets/scripts/util/deep.js';
 import { capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
   ColorSelect,
