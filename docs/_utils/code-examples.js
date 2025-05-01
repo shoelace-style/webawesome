@@ -102,12 +102,7 @@ const templates = {
 export function codeExamplesPlugin(eleventyConfig, options = {}) {
   const defaultOptions = {
     container: 'body',
-    defaultOpen: (code, { outputPathIndex }) => {
-      return (
-        outputPathIndex === 1 && // is first
-        code.textContent.length < 500
-      ); // is short
-    },
+    defaultOpen: () => false,
   };
   options = { ...defaultOptions, ...options };
 
