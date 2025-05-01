@@ -1,8 +1,8 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+import { allHues, cdnUrl, iconLibraries, themeDefaults } from '/assets/data/index.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { allHues, cdnUrl, iconMeta, themeDefaults } from '/assets/scripts/tweak/data.js';
 import { deepClone, deepEach, deepMerge } from '/assets/scripts/util/deep.js';
 import { capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
@@ -64,7 +64,7 @@ let appSpec = {
   },
 
   created() {
-    Object.assign(this, { themes, palettes, hues: allHues, iconMeta, themeDefaults });
+    Object.assign(this, { themes, palettes, hues: allHues, iconLibraries, themeDefaults });
 
     if (location.search) {
       let urlTheme = this.permalink.getAll();

@@ -1,5 +1,5 @@
 import PageCard from './page-card.js';
-import { hues } from '/assets/scripts/tweak/data.js';
+import { hues } from '/assets/data/index.js';
 import palettes from '/docs/palettes/data.js';
 
 // TODO import from data.js once available

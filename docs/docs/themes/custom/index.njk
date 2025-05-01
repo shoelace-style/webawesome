@@ -162,7 +162,7 @@ order: 99
 
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2" class="scrollable">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
-          <wa-radio v-for="family of iconMeta.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
+          <wa-radio v-for="family of iconLibraries.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
             <icons-card type="family" :family="family"  :defaults="computed.icon"></icons-card>
           </wa-radio>
       </wa-radio-group>
@@ -170,7 +170,7 @@ order: 99
 
     <ui-panel v-model="ui.panel" value="icon-style" title="Icon style" :step="2" class="scrollable">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.style">
-          <wa-radio v-for="style of iconMeta.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
+          <wa-radio v-for="style of iconLibraries.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
             <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>
           </wa-radio>
       </wa-radio-group>

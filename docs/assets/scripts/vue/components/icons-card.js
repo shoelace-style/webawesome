@@ -1,6 +1,6 @@
 import { capitalize } from '../../util/string.js';
 import PageCard from './page-card.js';
-import { iconMeta } from '/assets/scripts/tweak/data.js';
+import { iconLibraries } from '/assets/data/icons.js';
 
 const icons = [
   'web-awesome',
@@ -68,7 +68,7 @@ export default {
         let value = this.computed[key];
 
         if (key === 'library') {
-          titles[key] = iconMeta[value].title;
+          titles[key] = iconLibraries[value].title;
         }
 
         titles[key] ??= capitalize(value);

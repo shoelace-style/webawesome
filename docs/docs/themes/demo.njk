@@ -36,7 +36,7 @@ eleventyComputed:
 </wa-comparer>
 
 <script type="module">
-import { urls as stylesheetURLs, docsURLs, icons, themeParams } from "/assets/scripts/tweak/data.js";
+import { urls as stylesheetURLs, themeConfig, themeParams } from "/assets/data/index.js";
 import { getThemeCode } from "/assets/scripts/tweak/code.js";
 import { theme, documentTheme } from "/docs/themes/preview/preview.js";
 import palettes from '/docs/palettes/data.js';
@@ -49,15 +49,16 @@ theme.addEventListener('change', e => {
 
   for (let aspect of themeParams) {
     if (theme[aspect] && theme[aspect] !== documentTheme[aspect]) {
+      let config = themeConfig[aspect];
       let override = theme[aspect];
-      let docsURL = docsURLs[name] ? docsURLs[name] + override + '/' : '';
+      let {docs, icon} = config;
+      let docsURL = docs ? docs + override + '/' : '';
       let title = override.replace(/^[a-z]/g, c => c.toUpperCase());
 
       if (docsURL) {
         title = `<a href="${ docsURL }">${ title }</a>`;
       }
 
-      let icon = icons[name];
       tweaks.push(`<wa-icon name="${icon}" variant="regular"></wa-icon> ${ title }`);
     }
   }

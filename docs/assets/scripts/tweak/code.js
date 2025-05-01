@@ -1,7 +1,7 @@
 /**
  * Get import code for remixed themes and tweaked palettes.
  */
-import { selectors, themeConfig } from './data.js';
+import { selectors, themeConfig } from '../../data/index.js';
 import { deepEach, deepGet } from '/assets/scripts/util/deep.js';
 
 export function cssImport(url, options = {}) {
