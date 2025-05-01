@@ -16,6 +16,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
 - Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
+- Fixed a bug that caused an undesired margin below radio groups
 
 ## 3.0.0-alpha.12
 

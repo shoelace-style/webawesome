@@ -5,4 +5,8 @@ isPro: true
 tags: pro
 palette: default
 brand: blue
+fonts:
+  body: Space Grotesk
+  heading: IBM Plex Sans Condensed
+  code: Space Mono
 ---

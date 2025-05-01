@@ -5,4 +5,6 @@ isPro: true
 tags: pro
 palette: elegant
 brand: indigo
+fonts:
+  body: Figtree
 ---
