@@ -64,3 +64,9 @@ deepEach(themeDefaults, (value, key, parent) => {
     return value.default ?? { ...value };
   }
 });
+
+export const selectors = {
+  palette: id =>
+    [':where(:root)', ':host', ":where([class^='wa-theme-'], [class*=' wa-theme-'])", `.wa-palette-${id}`].join(',\n'),
+  theme: id => [':where(:root)', ':host', `.wa-theme-${id}`].join(',\n'),
+};
