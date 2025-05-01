@@ -175,12 +175,6 @@ order: 99
     </ui-panel>
   </ui-panel-container>
 
-  <div slot="main-header" class="preview-header">
-    <wa-radio-group orientation="horizontal" v-model="ui.preview" size="small" label="Preview:">
-      <wa-radio-button value="app">App</wa-radio-button>
-      <wa-radio-button value="content">Content</wa-radio-button>
-    </wa-radio-group>
-  </div>
   <div class="preview-container">
     <iframe class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
   </div>

@@ -75,9 +75,10 @@ wa-page > header {
 
 .preview-container {
   padding: var(--wa-space-m);
-  padding-block-start: var(--wa-space-2xs);
   display: grid;
   height: 100%;
+  max-inline-size: 140ch;
+  margin: auto;
 
   iframe.preview {
     border-radius: var(--wa-border-radius-m);
