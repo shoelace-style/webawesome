@@ -2,31 +2,34 @@
   position: relative;
   display: flex;
   flex-flow: column;
-  min-width: 30ch;
+  gap: 0;
+  padding: 0;
+  width: 32ch;
   overflow: hidden;
+  scrollbar-width: thin;
 }
 
 .panel {
-  --spacing: var(--wa-space-s);
+  /* Remove the uniform spacing used in wa-details */
+  --spacing: 0;
+  /* Specify value to manually set spacing where needed */
+  --panel-spacing: var(--wa-space-2xl);
   --panel-background: var(--wa-color-surface-default);
 
-  display: flex;
-  flex-flow: column;
+  display: block;
   max-height: 100%;
   margin-bottom: 0;
   position: relative;
   background: var(--panel-background);
-  transition-behavior: allow-discrete;
-  transition-property: display, translate, flex;
+  border: none;
+  transition:
+    translate var(--wa-transition-slow) allow-discrete,
+    opacity var(--wa-transition-slow) 25ms allow-discrete;
+  /* Ensure horizontal scrollbar isn't visible when translate takes effect */
+  overflow-x: hidden !important;
 
   @starting-style {
-    display: flex;
-  }
-
-  &.previous,
-  &[open],
-  &.next {
-    transition-duration: var(--wa-transition-normal);
+    display: block;
   }
 
   summary {
@@ -35,8 +38,16 @@
     gap: var(--wa-space-xs);
     cursor: pointer;
     background: var(--panel-background);
+    color: var(--wa-color-text-normal);
+    padding-block-end: var(--panel-spacing);
+    padding-inline: var(--panel-spacing);
     transition: inherit;
     transition-property: all;
+
+    [data-step='0'] &,
+    .previous & {
+      padding-block-start: var(--panel-spacing);
+    }
 
     &::after {
       transform: rotate(180deg);
@@ -59,9 +70,9 @@
     min-height: 0;
     display: flex;
     flex-flow: column;
-    gap: var(--wa-space-s);
-    overflow: auto;
-    padding-inline: var(--wa-border-width-m);
+    gap: var(--panel-spacing);
+    padding-block-end: var(--panel-spacing);
+    padding-inline: var(--panel-spacing);
   }
 
   h1,
@@ -75,18 +86,14 @@
 
   &[open] {
     flex: 1;
+    opacity: 1;
 
     summary {
-      padding-block-end: var(--spacing);
       font-size: var(--wa-font-size-l);
 
       &::after {
         display: none;
       }
-    }
-
-    &:not(:first-child) {
-      border-block-start: var(--ui-border);
     }
   }
 

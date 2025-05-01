@@ -56,55 +56,55 @@ order: 99
   </header>
 
   <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
-    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0">
-      <div class="scrollable">
-        <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
-          <div>
-            Starting theme
-            <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </theme-card>
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0" class="scrollable">
+      <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
+        <div>
+          Starting theme
+          <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </theme-card>
 
-        <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
-          <div>
-            Colors
-            <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand`"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </palette-card>
+      <wa-divider></wa-divider>
 
-        <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
-          <div>
-            Fonts
-            <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </theme-card>
+      <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color'" role="button" tabindex="0">
+        <div>
+          Colors
+          <div class="wa-caption-m" v-text="`${ palettes[computed.palette]?.title } palette &bull; ${ capitalize(computed.brand) } brand`"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </palette-card>
 
-        <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">
-          <div>
-            Icons
-            <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
-          </div>
-          <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
-        </icons-card>
-      </div>
+      <theme-card :theme="computed.typography" type="typography" size="small" :action="e => ui.panel = 'typography'">
+        <div>
+          Fonts
+          <div class="wa-caption-m" v-text="themes[computed.typography]?.title"></div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </theme-card>
+
+      <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">
+        <div>
+          Icons
+          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+        </div>
+        <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
+      </icons-card>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="theme" :step="1">
+    <ui-panel v-model="ui.panel" value="theme" :step="1" class="scrollable">
       <template #title>
         <label for="starting-theme">Starting theme</label>
       </template>
 
-      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.base">
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
           <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
             <theme-card :theme="themeId"></theme-card>
           </wa-radio>
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1">
+    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1" class="scrollable">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color-palette'" role="button" tabindex="0">
         <div>
           Color Palette
@@ -118,8 +118,8 @@ order: 99
                      :values="hues"></swatch-select>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
-      <wa-radio-group class="card-picker scrollable" v-model="theme.palette" size="small">
+    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2" class="scrollable">
+      <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
             <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="paletteId === themes[computed.base].palette">Default</wa-badge></template>
@@ -128,8 +128,8 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1">
-      <wa-radio-group class="card-picker scrollable" v-model="theme.typography" >
+    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1" class="scrollable">
+      <wa-radio-group class="card-picker" v-model="theme.typography" >
         <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small">
           <theme-card :theme="themeId" type="typography" size="small" :aria-selected="!theme.typography && themeId === theme.base ? 'true' : null">
             <template #extra><wa-badge appearance="outlined" variant="neutral" v-if="themeId === theme.base">Default</wa-badge></template>
@@ -138,7 +138,7 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icons" title="Icons" :step="1">
+    <ui-panel v-model="ui.panel" value="icons" title="Icons" :step="1" class="scrollable">
       <wa-select label="Library" value="default" disabled>
         <wa-option value="default" selected>Font Awesome</wa-option>
       </wa-select>
@@ -160,16 +160,16 @@ order: 99
       </icons-card>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2">
-      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.icon.family">
+    <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2" class="scrollable">
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
           <wa-radio v-for="family of iconMeta.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
             <icons-card type="family" :family="family"  :defaults="computed.icon"></icons-card>
           </wa-radio>
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-style" title="Icon style" :step="2">
-      <wa-radio-group id="starting-theme" class="card-picker scrollable" v-model="theme.icon.style">
+    <ui-panel v-model="ui.panel" value="icon-style" title="Icon style" :step="2" class="scrollable">
+      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.style">
           <wa-radio v-for="style of iconMeta.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
             <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>
           </wa-radio>
