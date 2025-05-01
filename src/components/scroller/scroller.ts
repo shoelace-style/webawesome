@@ -15,7 +15,7 @@ import styles from './scroller.styles.js';
  *
  * @cssproperty [--edge-color=var(--wa-color-neutral-border-quiet)] - The color of the shadow's edge.
  * @cssproperty [--edge-width=var(--wa-border-width-s)] - The width of the shadow's edge.
- * @cssproperty [--shadow-color=var(--wa-color-shadow)] - The base color of the shadow.
+ * @cssproperty [--shadow-color=var(--wa-color-text-normal)] - The base color of the shadow.
  * @cssproperty [--shadow-opacity=10%] - The opacity of the shadow.
  * @cssproperty [--shadow-width=0.5rem] - The width of the shadow.
  *
