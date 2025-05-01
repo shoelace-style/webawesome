@@ -10,7 +10,7 @@ label:has(input[type='radio']),
   --box-shadow: none;
   --checked-icon-color: var(--wa-form-control-activated-color);
   --checked-icon-scale: 0.75;
-  --toggle-size: 1lh;
+  --toggle-size: 1.25em;
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
@@ -35,9 +35,11 @@ input[type='radio'] {
     border-radius: 50%;
     content: '';
     position: absolute;
-    width: calc(var(--toggle-size) - var(--border-width));
-    height: calc(var(--toggle-size) - var(--border-width));
-    scale: var(--checked-icon-scale);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 0.25em);
+    aspect-ratio: 1;
   }
 }
 
