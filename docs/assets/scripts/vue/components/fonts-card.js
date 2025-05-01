@@ -49,12 +49,12 @@ export default {
   computed: {
     content() {
       let pairingTitle = this.computedPairing.title;
-      let themeTitle = this.themeId ? `As seen in ${this.themeMeta.title}` : '';
+      // let themeTitle = this.themeId ? `As seen in ${this.themeMeta.title}` : '';
 
       if (this.title) {
         return { title: this.title, subtitle: this.subtitle ?? pairingTitle };
       } else {
-        return { title: pairingTitle, subtitle: this.subtitle ?? themeTitle };
+        return { title: pairingTitle, subtitle: this.subtitle };
       }
     },
 
