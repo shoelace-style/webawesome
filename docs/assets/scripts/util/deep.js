@@ -141,3 +141,16 @@ export function deepClone(obj) {
 
   return ret;
 }
+
+export function deepEntries(obj) {
+  let ret = [];
+
+  deepEach(obj, (value, key, parent, path) => {
+    if (key !== undefined) {
+      let fullPath = [...path, key];
+      ret.push([...fullPath, value]);
+    }
+  });
+
+  return ret;
+}
