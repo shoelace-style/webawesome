@@ -183,7 +183,7 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 
 You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
 
-Web Awesome ships with one built-in icon library, `default`.
+Web Awesome ships with one built-in icon library: `default`.
 The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/).
 
 To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
