@@ -183,7 +183,8 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 
 You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
 
-Web Awesome ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by Web Awesome components.
+Web Awesome ships with one built-in icon library, `default`.
+The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/).
 
 To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
 
@@ -627,18 +628,57 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 </script>
 ```
 
-### Customizing the System Library
+### Prefetched icons { #fetched }
 
-The system library contains only the icons used internally by Web Awesome components. Unlike the default icon library, the system library does not rely on physical assets. Instead, its icons are hard-coded as data URIs into the resolver to ensure their availability.
+You can use the `fetched` property in the icon library to provide the mapping of `(name, library, variant)` to SVG markup and avoid the HTTP request for the icons.
 
-If you want to change the icons Web Awesome uses internally, you can register an icon library using the `system` name and a custom resolver. If you choose to do this, it's your responsibility to provide all of the icons that are required by components. You can reference `src/components/library.system.ts` for a complete list of system icons used by Web Awesome.
+This is used internally in the `default` library to load the icons used internally in Web Awesome’s components really fast,
+but you can take advantage of it too.
+
+If you want to change the default library used by Web Awesome, you are strongly advised to use the `fetched` property to provide prefetched versions of system icons.
+You can reference `src/components/library.default.ts` for a complete list of system icons used by Web Awesome.
+
+Its value is an object literal as deep as the structure of the icon library.
+E.g. in icon libraries with no variant or family, it will be a simple shallow object mapping icon names to SVG markup,
+whereas in icon libraries with family and variant, it will be a nested object with the structure `{ family: { variant: { name: svg } } }` (see `src/components/library.default.ts` for an example of this).
 
 ```html
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('system', {
-    resolver: name => `/path/to/custom/icons/${name}.svg`
+  registerIconLibrary('default', {
+    resolver: name => `/path/to/custom/icons/${name}.svg`,
+    fetched: {
+      check: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
+    }
   });
 </script>
 ```
+
+If you want to add more prefetched icons to an existing library, you can use the `addFetched` method.
+It expects the same value as the `fetched` property.
+For example, suppose you wanted to add `circle-info` and `triangle-exclamation` to the `default` library
+so they load fast in callouts.
+You can do this:
+
+```js
+import {getIconLibrary} from '/dist/webawesome.js';
+
+let defaultLibrary = getIconLibrary('default');
+defaultLibrary.addFetched({
+  {
+    classic: { // family
+      regular: { // variant
+        'circle-info': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
+        'triangle-exclamation': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
+        // ...
+      }
+    }
+  }
+});
+```
+
+::: warning
+Please note that sprite sheets and fetched icons are mutually exclusive.
+If you set the `spriteSheet` property to `true`, the `fetched` property will be ignored.
+:::

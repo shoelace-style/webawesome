@@ -1,18 +1,14 @@
+import { deepEntries } from '../../utilities/deep.js';
 import type WaIcon from '../icon/icon.js';
 import defaultLibrary from './library.default.js';
-import systemLibrary from './library.system.js';
+import type { IconLibrary, IconLibraryCache, IconLibraryResolver, UnregisteredIconLibrary } from './types.d.ts';
 
-export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
-export type IconLibraryMutator = (svg: SVGElement) => void;
-export interface IconLibrary {
-  name: string;
-  resolver: IconLibraryResolver;
-  mutator?: IconLibraryMutator;
-  spriteSheet?: boolean;
-}
+export type { IconLibrary, IconLibraryCache, UnregisteredIconLibrary } from './types.d.ts';
 
-let registry: IconLibrary[] = [defaultLibrary, systemLibrary];
+let registry: IconLibrary[] = [];
 let watchedIcons: WaIcon[] = [];
+
+registerIconLibrary('default', defaultLibrary);
 
 /** Adds an icon to the list of watched icons. */
 export function watchIcon(icon: WaIcon) {
@@ -30,13 +26,21 @@ export function getIconLibrary(name?: string) {
 }
 
 /** Adds an icon library to the registry, or overrides an existing one. */
-export function registerIconLibrary(name: string, options: Omit<IconLibrary, 'name'>) {
+export function registerIconLibrary(name: string, options: UnregisteredIconLibrary) {
   unregisterIconLibrary(name);
+
   registry.push({
     name,
     resolver: options.resolver,
     mutator: options.mutator,
     spriteSheet: options.spriteSheet,
+    fetched: flattenIconLibraryCache(options.resolver, options.fetched),
+    addFetched(cache: IconLibraryCache<1, 3>) {
+      // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
+      let flatCache = flattenIconLibraryCache(this.resolver, cache);
+      this.fetched ??= {};
+      Object.assign(this.fetched, flatCache);
+    },
   });
 
   // Redraw watched icons
@@ -45,6 +49,23 @@ export function registerIconLibrary(name: string, options: Omit<IconLibrary, 'na
       icon.setIcon();
     }
   });
+}
+
+/** Convert deep family → variant → icon name → markup cache to flat URL → markup cache */
+function flattenIconLibraryCache(resolver: IconLibraryResolver, cache?: IconLibraryCache<1, 3>): IconLibraryCache<1> {
+  if (!cache) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    deepEntries(cache, {
+      transformPath: (path: string[]) => {
+        let name = path.pop()!;
+        let [family, variant] = path;
+        return [resolver(name, family, variant)];
+      },
+    }),
+  );
 }
 
 /** Removes an icon library from the registry. */
