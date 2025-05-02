@@ -32,7 +32,7 @@ wa-card:has(
 .theme-icon:not(.theme-color-icon),
 .palette-icon,
 .icons-icon {
-  min-height: 9ch;
+  min-height: 5.5rem;
 }
 
 .palette-icon {
@@ -94,14 +94,14 @@ wa-card:has(
   }
 }
 
-.theme-overall-icon,
+.theme-icon.theme-overall-icon,
 .fonts-icon {
   display: flex;
   flex-flow: column;
   gap: var(--wa-space-2xs);
   justify-content: center;
   width: 100%;
-  min-height: 7.5rem;
+  min-height: 6.75rem;
   box-sizing: border-box;
   background: var(--wa-color-surface-lowered);
 
@@ -143,7 +143,6 @@ wa-card:has(
 
 .fonts-icon {
   font-family: var(--wa-font-family-body);
-  min-height: 5rem;
   padding-block: var(--wa-space-s);
   overflow: hidden;
   position: relative;
