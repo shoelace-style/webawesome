@@ -98,7 +98,7 @@ wa-card:has(
 .fonts-icon {
   display: flex;
   flex-flow: column;
-  gap: var(--wa-space-xs);
+  gap: var(--wa-space-2xs);
   justify-content: center;
   width: 100%;
   min-height: 7.5rem;
@@ -142,8 +142,25 @@ wa-card:has(
 }
 
 .fonts-icon {
+  font-family: var(--wa-font-family-body);
   min-height: 5rem;
   padding-block: var(--wa-space-s);
+  overflow: hidden;
+  position: relative;
+
+  & h2,
+  & p {
+    white-space: nowrap;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: linear-gradient(to left, var(--wa-color-surface-lowered), 20%, transparent);
+  }
 }
 
 .icons-icon {

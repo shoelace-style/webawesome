@@ -14,8 +14,8 @@ const template = `
           <link rel="stylesheet" href="/assets/styles/theme-icons.css">
 
           <div class="fonts-icon" role="presentation">
-            <h2>Heading</h2>
-            <p>This is your paragraph.</p>
+            <h2>When my six o'clock alarm buzzes, I require a pot of good java.</h2>
+            <p>By quarter past seven, I've jotted hazy musings in a flax-bound notebook, sipping lukewarm espresso.</p>
           </div>
         </template>
       </wa-scoped>
