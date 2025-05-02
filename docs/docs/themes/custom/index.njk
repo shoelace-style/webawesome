@@ -174,11 +174,10 @@ order: 99
 
       <wa-input label="Font Awesome Pro Kit Code" v-model="theme.icon.kit" placeholder="e.g. f0nta7e50e">
         <info-tip slot="suffix"><template #content>You need a Font Awesome Pro license to use certain families and styles.</template></info-tip>
-        <div slot="hint" class="wa-caption-m">
-          FA Pro subscribers
-          <a href="https://fontawesome.com/kits" target="_blank">get your kit code here</a>
-          &nbsp;<wa-icon name="arrow-up-right-from-square" variant="regular"></wa-icon>
-        </div>
+        <a href="https://fontawesome.com/kits" target="_blank" slot="hint" class="wa-caption-m wa-cluster wa-gap-2xs">
+          <span>Find your kit code here</span>
+          <wa-icon name="arrow-up-right-from-square" variant="regular" style="font-size: 0.75em"></wa-icon>
+        </a>
       </wa-input>
     </ui-panel>
 
