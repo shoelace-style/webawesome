@@ -5,10 +5,19 @@ export type IconLibraryMutator = (svg: SVGElement) => void;
 // e.g., Decrement[3] yields 2
 type Decrement = [never, 0, 1, 2];
 
-// Record of string → string or nested Record<string, up to (Min, Max) levels deep>
-export type IconLibraryCache<Min extends number = 1, Max extends number = Min> = Min extends 0
-  ? string | (Max extends 0 ? never : Record<string, IconLibraryCache<0, Decrement[Max]>>)
-  : Record<string, IconLibraryCache<Decrement[Min], Max>>;
+/**
+ * Record of string → string or nested string → Record<string, ...>
+ * The number indicates how many params we have; none (0), just family (1), or family and style (2).
+ * IconLibraryCache<0> is Record<string, string> (name → markup)
+ * IconLibraryCache<1> is Record<string, Record<string, string>> (family → name → markup)
+ * IconLibraryCache<2> is Record<string, Record<string, Record<string, string>>> (family → variant → name → markup)
+ */
+export type IconLibraryCache<N extends number = 0> = Record<
+  string,
+  N extends 0 ? string : IconLibraryCache<Decrement[N]>
+>;
+
+export type IconLibraryFetched = IconLibraryCache<0> | IconLibraryCache<1> | IconLibraryCache<2>;
 
 export interface UnregisteredIconLibrary {
   resolver: IconLibraryResolver;
@@ -17,7 +26,7 @@ export interface UnregisteredIconLibrary {
 
   // Max depth: family → variant → icon name → markup
   // but may be shallower for libraries that don't use variants or families
-  fetched?: IconLibraryCache<1, 3>;
+  fetched?: IconLibraryFetched;
 }
 
 // Registered icon library
@@ -28,6 +37,6 @@ export interface IconLibrary {
   spriteSheet?: boolean;
 
   // One level only: URL → markup
-  fetched?: IconLibraryCache<1>;
-  addFetched: (cache: IconLibraryCache<1, 3>) => void;
+  fetched?: IconLibraryCache<0>;
+  addFetched: (cache: IconLibraryFetched) => void;
 }

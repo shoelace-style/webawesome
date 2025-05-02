@@ -1,9 +1,15 @@
-import { deepEntries } from '../../utilities/deep.js';
+import { flatten } from '../../utilities/deep.js';
 import type WaIcon from '../icon/icon.js';
 import defaultLibrary from './library.default.js';
-import type { IconLibrary, IconLibraryCache, IconLibraryResolver, UnregisteredIconLibrary } from './types.d.ts';
+import type {
+  IconLibrary,
+  IconLibraryCache,
+  IconLibraryFetched,
+  IconLibraryResolver,
+  UnregisteredIconLibrary,
+} from './types.d.ts';
 
-export type { IconLibrary, IconLibraryCache, UnregisteredIconLibrary } from './types.d.ts';
+export type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary } from './types.d.ts';
 
 let registry: IconLibrary[] = [];
 let watchedIcons: WaIcon[] = [];
@@ -34,10 +40,10 @@ export function registerIconLibrary(name: string, options: UnregisteredIconLibra
     resolver: options.resolver,
     mutator: options.mutator,
     spriteSheet: options.spriteSheet,
-    fetched: flattenIconLibraryCache(options.resolver, options.fetched),
-    addFetched(cache: IconLibraryCache<1, 3>) {
+    fetched: options.fetched ? flattenIconLibraryCache(options.fetched, options.resolver) : {},
+    addFetched(cache: IconLibraryFetched) {
       // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
-      let flatCache = flattenIconLibraryCache(this.resolver, cache);
+      let flatCache = flattenIconLibraryCache(cache, this.resolver);
       this.fetched ??= {};
       Object.assign(this.fetched, flatCache);
     },
@@ -51,21 +57,19 @@ export function registerIconLibrary(name: string, options: UnregisteredIconLibra
   });
 }
 
-/** Convert deep family → variant → icon name → markup cache to flat URL → markup cache */
-function flattenIconLibraryCache(resolver: IconLibraryResolver, cache?: IconLibraryCache<1, 3>): IconLibraryCache<1> {
-  if (!cache) {
-    return {};
-  }
-
-  return Object.fromEntries(
-    deepEntries(cache, {
-      transformPath: (path: string[]) => {
-        let name = path.pop()!;
-        let [family, variant] = path;
-        return [resolver(name, family, variant)];
-      },
-    }),
-  );
+/**
+ * Convert the deep family → variant → icon name → markup cache that is more convenient to provide
+ * to the flat URL → markup cache that icon libraries use internally
+ **/
+function flattenIconLibraryCache(cache: IconLibraryFetched, resolver: IconLibraryResolver): IconLibraryCache<0> {
+  return flatten(cache, {
+    getKey(path: string[]) {
+      // name is always the last value no matter the depth
+      let name = path.pop()!;
+      let [family, variant] = path;
+      return resolver(name, family, variant);
+    },
+  }) as IconLibraryCache<0>;
 }
 
 /** Removes an icon library from the registry. */
