@@ -74,7 +74,7 @@ order: 99
     <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0" class="scrollable">
       <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'">
         <div>
-          Starting theme
+          Starting Theme
           <div class="wa-caption-m" v-text="themes[computed.base]?.title"></div>
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
@@ -107,7 +107,7 @@ order: 99
 
     <ui-panel v-model="ui.panel" value="theme" :step="1" class="scrollable">
       <template #title>
-        <label for="starting-theme">Starting theme</label>
+        <label for="starting-theme">Starting Theme</label>
       </template>
 
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
@@ -125,7 +125,7 @@ order: 99
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </palette-card>
-      <swatch-select label="Brand color" shape="rounded"
+      <swatch-select label="Brand Color" shape="rounded"
                      :get-color="hue => palettes[computed.palette].colors[hue].key"
                      :model-value="computed.brand" @update:model-value="value => theme.brand = value"
                      :values="hues"></swatch-select>
@@ -158,7 +158,7 @@ order: 99
 
       <icons-card type="family" size="small" :action="e => ui.panel = 'icon-family'" :defaults="computed.icon">
         <div>
-          Icon family
+          Icon Family
           <div class="wa-caption-m" v-text="capitalize(computed.icon.family)"></div>
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
@@ -166,13 +166,13 @@ order: 99
 
       <icons-card type="style" size="small" :action="e => ui.panel = 'icon-style'" :defaults="computed.icon">
         <div>
-          Icon style
+          Icon Style
           <div class="wa-caption-m" v-text="capitalize(computed.icon.style)"></div>
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </icons-card>
 
-      <wa-input label="Font Awesome Pro kit code:" v-model="theme.icon.kit" placeholder="e.g. f0nta7e50e">
+      <wa-input label="Font Awesome Pro Kit Code" v-model="theme.icon.kit" placeholder="e.g. f0nta7e50e">
         <info-tip slot="suffix"><template #content>You need a Font Awesome Pro license to use certain families and styles.</template></info-tip>
         <div slot="hint" class="wa-caption-m">
           FA Pro subscribers
@@ -182,7 +182,7 @@ order: 99
       </wa-input>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-family" title="Icon family" :step="2" class="scrollable">
+    <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2" class="scrollable">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
           <wa-radio v-for="family of iconLibraries.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
             <icons-card type="family" :family="family"  :defaults="computed.icon"></icons-card>
@@ -190,7 +190,7 @@ order: 99
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-style" title="Icon style" :step="2" class="scrollable">
+    <ui-panel v-model="ui.panel" value="icon-style" title="Icon Style" :step="2" class="scrollable">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.style">
           <wa-radio v-for="style of iconLibraries.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
             <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>
