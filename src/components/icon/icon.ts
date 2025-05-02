@@ -136,15 +136,22 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    let markup: string;
+    let cacheKey = library?.getKey?.(url) ?? url;
+    let markup: string | undefined = library?.fetched?.[cacheKey];
 
-    if (library?.fetched?.[url]) {
-      markup = library.fetched[url] as string;
-    } else {
+    if (!markup) {
       try {
         fileData = await fetch(url, { mode: 'cors' });
-        if (!fileData.ok) return fileData.status === 410 ? CACHEABLE_ERROR : RETRYABLE_ERROR;
-        markup = await fileData.text();
+
+        if (fileData.ok) {
+          markup = await fileData.text();
+
+          if (library) {
+            library.fetched![cacheKey] = markup;
+          }
+        } else {
+          return fileData.status === 410 ? CACHEABLE_ERROR : RETRYABLE_ERROR;
+        }
       } catch {
         return RETRYABLE_ERROR;
       }

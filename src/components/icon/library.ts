@@ -14,7 +14,7 @@ export type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIco
 let registry: IconLibrary[] = [];
 let watchedIcons: WaIcon[] = [];
 
-registerIconLibrary('default', defaultLibrary);
+registerIconLibrary(defaultLibrary);
 
 /** Adds an icon to the list of watched icons. */
 export function watchIcon(icon: WaIcon) {
@@ -32,26 +32,26 @@ export function getIconLibrary(name?: string) {
 }
 
 /** Adds an icon library to the registry, or overrides an existing one. */
-export function registerIconLibrary(name: string, options: UnregisteredIconLibrary) {
-  unregisterIconLibrary(name);
+export function registerIconLibrary(library: UnregisteredIconLibrary) {
+  unregisterIconLibrary(library.name);
 
-  registry.push({
-    name,
-    resolver: options.resolver,
-    mutator: options.mutator,
-    spriteSheet: options.spriteSheet,
-    fetched: options.fetched ? flattenIconLibraryCache(options.fetched, options.resolver) : {},
+  let registeredLibrary: IconLibrary = {
+    ...library,
+    fetched: {},
     addFetched(cache: IconLibraryFetched) {
-      // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
-      let flatCache = flattenIconLibraryCache(cache, this.resolver);
-      this.fetched ??= {};
-      Object.assign(this.fetched, flatCache);
+      return addFetched.call(this, cache);
     },
-  });
+  };
+
+  if (library.fetched) {
+    registeredLibrary.addFetched(library.fetched);
+  }
+
+  registry.push(registeredLibrary);
 
   // Redraw watched icons
   watchedIcons.forEach(icon => {
-    if (icon.library === name) {
+    if (icon.library === library.name) {
       icon.setIcon();
     }
   });
@@ -61,15 +61,23 @@ export function registerIconLibrary(name: string, options: UnregisteredIconLibra
  * Convert the deep family → variant → icon name → markup cache that is more convenient to provide
  * to the flat URL → markup cache that icon libraries use internally
  **/
-function flattenIconLibraryCache(cache: IconLibraryFetched, resolver: IconLibraryResolver): IconLibraryCache<0> {
-  return flatten(cache, {
+function addFetched(this: IconLibrary | UnregisteredIconLibrary, cache: IconLibraryFetched) {
+  let { resolver, getKey } = this;
+
+  // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
+  let flatCache = flatten(cache, {
     getKey(path: string[]) {
       // name is always the last value no matter the depth
       let name = path.pop()!;
       let [family, variant] = path;
-      return resolver(name, family, variant);
+      let url = resolver(name, family, variant);
+      let key = getKey?.(url) ?? url;
+      return key;
     },
   }) as IconLibraryCache<0>;
+
+  this.fetched ??= {};
+  Object.assign(this.fetched, flatCache);
 }
 
 /** Removes an icon library from the registry. */

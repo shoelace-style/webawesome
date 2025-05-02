@@ -24,7 +24,8 @@ const testLibraryIcons = {
 
 describe('<wa-icon>', () => {
   before(() => {
-    registerIconLibrary('test-library', {
+    registerIconLibrary({
+      name: 'test-library',
       resolver: (name: keyof typeof testLibraryIcons) => {
         // only for testing a bad request
         if (name === ('bad-request' as keyof typeof testLibraryIcons)) {
@@ -170,7 +171,8 @@ describe('<wa-icon>', () => {
       describe('svg sprite sheets', () => {
         // TODO: this test is skipped because Bootstrap sprite.svg doesn't seem to be available in CI. Will fix in a future PR. [Konnor]
         it.skip('Should properly grab an SVG and render it from bootstrap icons', async () => {
-          registerIconLibrary('sprite', {
+          registerIconLibrary({
+            name: 'sprite',
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
             spriteSheet: true,
@@ -197,7 +199,8 @@ describe('<wa-icon>', () => {
         });
 
         it('Should render nothing if the sprite hash is wrong', async () => {
-          registerIconLibrary('sprite', {
+          registerIconLibrary({
+            name: 'sprite',
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
             spriteSheet: true,
@@ -224,7 +227,8 @@ describe('<wa-icon>', () => {
         // TODO: <use> svg icons don't emit a "load" or "error" event...if we can figure out how to get the event to emit errors.
         // Once we figure out how to emit errors / loading perhaps we can actually test this?
         it.skip("Should produce an error if the icon doesn't exist.", async () => {
-          registerIconLibrary('sprite', {
+          registerIconLibrary({
+            name: 'sprite',
             resolver(name) {
               return `/docs/assets/images/sprite.svg#${name}`;
             },

@@ -196,7 +196,8 @@ Here's an example that registers an icon library located in the `/assets/icons` 
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('my-icons', {
+  registerIconLibrary({
+    name: 'my-icons',
     resolver: (name, family, variant) => `/assets/icons/${name}.svg`,
     mutator: svg => svg.setAttribute('fill', 'currentColor')
   });
@@ -224,7 +225,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('default', {
+  registerIconLibrary({
+    name: 'default',
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
@@ -243,7 +245,8 @@ Icons in this library are licensed under the [Creative Commons 4.0 License](http
 <script type="module">
 import { registerIconLibrary } from '/dist/webawesome.js';
 
-registerIconLibrary('boxicons', {
+registerIconLibrary({
+    name: 'boxicons',
     resolver: name => {
       let folder = 'regular';
       if (name.substring(0, 4) === 'bxs-') folder = 'solid';
@@ -297,7 +300,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('lucide', {
+  registerIconLibrary({
+    name: 'lucide',
     resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`
   });
 </script>
@@ -313,7 +317,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('heroicons', {
+  registerIconLibrary({
+    name: 'heroicons',
     resolver: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`
   });
 </script>
@@ -338,7 +343,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('iconoir', {
+  registerIconLibrary({
+    name: 'iconoir',
     resolver: name => `https://cdn.jsdelivr.net/gh/lucaburgio/iconoir@latest/icons/${name}.svg`
   });
 </script>
@@ -363,7 +369,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/io
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('ionicons', {
+  registerIconLibrary({
+    name: 'ionicons',
     resolver: name => `https://cdn.jsdelivr.net/npm/ionicons@5.1.2/dist/ionicons/svg/${name}.svg`,
     mutator: svg => {
       svg.setAttribute('fill', 'currentColor');
@@ -408,7 +415,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/mi
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('jam', {
+  registerIconLibrary({
+    name: 'jam',
     resolver: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
     mutator: svg => svg.setAttribute('fill', 'currentColor')
   });
@@ -441,7 +449,8 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('material', {
+  registerIconLibrary({
+    name: 'material',
     resolver: name => {
       const match = name.match(/^(.*?)(_(round|sharp))?$/);
       return `https://cdn.jsdelivr.net/npm/@material-icons/svg@1.0.5/svg/${match[1]}/${match[3] || 'outline'}.svg`;
@@ -484,7 +493,8 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('remixicon', {
+  registerIconLibrary({
+    name: 'remixicon',
     resolver: name => {
       const match = name.match(/^(.*?)\/(.*?)?$/);
       match[1] = match[1].charAt(0).toUpperCase() + match[1].slice(1);
@@ -521,7 +531,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('tabler', {
+  registerIconLibrary({
+    name: 'tabler',
     resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
     mutator: svg => {
       svg.style.fill = 'none';
@@ -557,7 +568,8 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('unicons', {
+  registerIconLibrary({
+    name: 'unicons',
     resolver: name => {
       const match = name.match(/^(.*?)(-s)?$/);
       return `https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.3/svg/${match[2] === '-s' ? 'solid' : 'line'}/${
@@ -595,7 +607,8 @@ For example, this will change the default icon library to use [Bootstrap Icons](
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('default', {
+  registerIconLibrary({
+    name: 'default',
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
@@ -620,7 +633,8 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('sprite', {
+  registerIconLibrary({
+    name: 'sprite',
     resolver: name => `/assets/images/sprite.svg#${name}`,
     mutator: svg => svg.setAttribute('fill', 'currentColor'),
     spriteSheet: true
@@ -642,7 +656,8 @@ This creates a mapping of `(name, library, variant)` to SVG markup:
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('default', {
+  registerIconLibrary({
+    name: 'default',
     resolver: name => `/path/to/custom/icons/${name}.svg`,
     fetched: {
       check: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',

@@ -1,5 +1,5 @@
 import { getKitCode } from '../../utilities/base-path.js';
-import type { IconLibrary, IconLibraryCache } from './types.d.ts';
+import type { IconLibraryCache, UnregisteredIconLibrary } from './types.d.ts';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
@@ -66,12 +66,10 @@ export const fetched: IconLibraryCache<2> = {
   },
 };
 
-const library: IconLibrary = {
+const library: UnregisteredIconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid') => {
-    return getIconUrl(name, family, variant);
-  },
-  // @ts-expect-error
+  resolver: getIconUrl,
+  getKey: url => url.replace(/\?token=[^&]+/, ''),
   fetched,
 };
 

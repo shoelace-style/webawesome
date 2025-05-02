@@ -1,4 +1,5 @@
 export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
+export type IconLibraryGetKey = (name: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
 
 // This is a utility for decrementing a number up to 3 by one
@@ -20,8 +21,10 @@ export type IconLibraryCache<N extends number = 0> = Record<
 export type IconLibraryFetched = IconLibraryCache<0> | IconLibraryCache<1> | IconLibraryCache<2>;
 
 export interface UnregisteredIconLibrary {
+  name: string;
   resolver: IconLibraryResolver;
   mutator?: IconLibraryMutator;
+  getKey?: IconLibraryGetKey;
   spriteSheet?: boolean;
 
   // Max depth: family → variant → icon name → markup
@@ -30,12 +33,7 @@ export interface UnregisteredIconLibrary {
 }
 
 // Registered icon library
-export interface IconLibrary {
-  name: string;
-  resolver: IconLibraryResolver;
-  mutator?: IconLibraryMutator;
-  spriteSheet?: boolean;
-
+export interface IconLibrary extends UnregisteredIconLibrary {
   // One level only: URL → markup
   fetched?: IconLibraryCache<0>;
   addFetched: (cache: IconLibraryFetched) => void;

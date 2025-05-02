@@ -95,10 +95,6 @@ function _deepEach(value: any, callback: EachCallback, options: EachOptions, pat
   }
 }
 
-export type DeepEntriesOptions = {
-  filter?: EachCallback;
-};
-
 /**
  * Like Object.entries, but for deeply nested objects.
  * For shallow objects the output is the same as Object.entries.
@@ -109,17 +105,20 @@ export type DeepEntriesOptions = {
  * @returns Array of arrays. In each item, the last value is the value, and all values before that are the keys.
  *          So for an object with N levels, the result will be an array of arrays with N+1 items each.
  */
-export function deepEntries(obj: any, options: DeepEntriesOptions = {}): any[][] {
-  let { filter } = options;
+export function deepEntries(obj: any, options?: EachOptions): any[][] {
   let entries: any[][] = [];
+  deepEach(
+    obj,
+    (value, path) => {
+      if (Array.isArray(value) || isPlainObject(value)) {
+        // We only want leaf values
+        return;
+      }
 
-  deepEach(obj, (value, path, parent) => {
-    let included = filter?.(value, path, parent) ?? true;
-
-    if (included) {
       entries.push([...path, value]);
-    }
-  });
+    },
+    options,
+  );
 
   return entries;
 }
@@ -144,16 +143,18 @@ export function flatten<T = unknown>(
     return {} as Record<keyof any, T>;
   }
 
-  let entries = deepEntries(obj).map(pathAndValue => {
-    if (pathAndValue.length < 2) {
-      return null;
-    }
+  let entries = deepEntries(obj)
+    .map(pathAndValue => {
+      if (pathAndValue.length < 2) {
+        return null;
+      }
 
-    let value = pathAndValue.pop() as T;
-    let path = pathAndValue as Property[];
-    let key = getKey(path, value);
-    return [key, value];
-  }) as [string, T][];
+      let value = pathAndValue.pop() as T;
+      let path = pathAndValue as Property[];
+      let key = getKey(path, value);
+      return [key, value];
+    })
+    .filter(Boolean) as [string, T][];
 
-  return Object.fromEntries(entries.filter(Boolean)) as Record<keyof any, T>;
+  return Object.fromEntries(entries) as Record<keyof any, T>;
 }

@@ -1412,7 +1412,8 @@ hasOutline: false
   import { registerIconLibrary } from '/dist/webawesome.js';
 
   // Ensure regular icons are always available for the knobs
-  registerIconLibrary('fa-classic-regular', {
+  registerIconLibrary({
+    name: 'fa-classic-regular',
     resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/regular/${name}.svg`
   });
 
@@ -1453,36 +1454,47 @@ hasOutline: false
         break;
       case 'premium':
         iconFamily.value = 'custom';
-        registerIconLibrary('default', {
+        registerIconLibrary({
+          name: 'default',
           resolver: name => `/assets/icons/chunk/${name}.svg`,
           mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
         });
-        registerIconLibrary('system', {
+        registerIconLibrary({
+          name: 'system',
           resolver: name => `/assets/icons/chunk/${name}.svg`,
           mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
         });
         break;
       case 'playful':
         iconFamily.value = 'custom';
-        registerIconLibrary('default', {
+        registerIconLibrary({
+          name: 'default',
           resolver: name => `/assets/icons/jelly/${name}.svg`,
           mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
         });
-        registerIconLibrary('system', {
+        registerIconLibrary({
+          name: 'system',
+          name: 'system',
+          name: 'system',
           resolver: name => `/assets/icons/jelly/${name}.svg`,
           mutator: svg => {[...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));}
         });
         break;
-      case 'brutalist':
+      caregisterIconLibrary({
+        registerIconLibrary({
+        registerIconLibrary({
+          name: 'default',
         iconFamily.value = 'custom';
-        registerIconLibrary('default', {
+        registerIconLibrary({
+          name: 'default',
           resolver: name => `/assets/icons/utility/${name}.svg`,
           mutator: svg => {
             [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
             [...svg.querySelectorAll('[stroke="black"]')].map(el => el.setAttribute('stroke', 'currentColor'));
           }
         });
-        registerIconLibrary('system', {
+        registerIconLibrary({
+          name: 'system',
           resolver: name => `/assets/icons/utility/${name}.svg`,
           mutator: svg => {
             [...svg.querySelectorAll('[fill="black"]')].map(el => el.setAttribute('fill', 'currentColor'));
@@ -1497,10 +1509,12 @@ hasOutline: false
         break;
       case 'classic':
         iconFamily.value = 'custom';
-        registerIconLibrary('default', {
+        registerIconLibrary({
+          name: 'default',
           resolver: name => `/assets/icons/bootstrap/${name}.svg`,
         });
-        registerIconLibrary('system', {
+        registerIconLibrary({
+          name: 'system',
           resolver: name => `/assets/icons/bootstrap/${name}.svg`,
         });
         break;
@@ -1531,7 +1545,8 @@ hasOutline: false
           iconLibrary = 'sharp-solid';
       }
       // Ensures sharp-solid variations are available for ratings, etc.
-      registerIconLibrary('always-solid', {
+      registerIconLibrary({
+        name: 'always-solid',
         resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/sharp-solid/${name}.svg`
       });
       solidifyRatingStars();
@@ -1557,15 +1572,18 @@ hasOutline: false
           iconLibrary = 'solid';
       }
       // Ensures solid variations are available for radios, ratings, etc.
-      registerIconLibrary('always-solid', {
+      registerIconLibrary({
+        name: 'always-solid',
         resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/solid/${name}.svg`
       });
       solidifyRatingStars();
     }
-    registerIconLibrary('default', {
+    registerIconLibrary({
+      name: 'default',
       resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
     });
-    registerIconLibrary('system', {
+    registerIconLibrary({
+      name: 'system',
       resolver: name => `https://ka-f.fontawesome.com/releases/v6.5.1/svgs/${iconLibrary}/${name}.svg`
     });
   };
