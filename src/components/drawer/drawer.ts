@@ -255,7 +255,6 @@ export default class WaDrawer extends WebAwesomeElement {
                     class="close"
                     name="xmark"
                     label=${this.localize.term('close')}
-                    library="system"
                     variant="solid"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
                   ></wa-icon-button>

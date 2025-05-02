@@ -91,11 +91,7 @@ export default class WaBreadcrumb extends WebAwesomeElement {
 
       <span hidden aria-hidden="true">
         <slot name="separator">
-          <wa-icon
-            name=${this.localize.dir() === 'rtl' ? 'chevron-left' : 'chevron-right'}
-            library="system"
-            variant="solid"
-          ></wa-icon>
+          <wa-icon name=${this.localize.dir() === 'rtl' ? 'chevron-left' : 'chevron-right'} variant="solid"></wa-icon>
         </slot>
       </span>
     `;

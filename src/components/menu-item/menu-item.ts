@@ -211,7 +211,7 @@ export default class WaMenuItem extends WebAwesomeElement {
         ?aria-expanded="${isSubmenuExpanded ? true : false}"
       >
         <span part="checked-icon" class="check">
-          <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
+          <wa-icon name="check" variant="solid" aria-hidden="true"></wa-icon>
         </span>
 
         <slot name="prefix" part="prefix" class="prefix"></slot>
@@ -221,12 +221,7 @@ export default class WaMenuItem extends WebAwesomeElement {
         <slot name="suffix" part="suffix" class="suffix"></slot>
 
         <span part="submenu-icon" class="chevron">
-          <wa-icon
-            name=${isRtl ? 'chevron-left' : 'chevron-right'}
-            library="system"
-            variant="solid"
-            aria-hidden="true"
-          ></wa-icon>
+          <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} variant="solid" aria-hidden="true"></wa-icon>
         </span>
 
         ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}

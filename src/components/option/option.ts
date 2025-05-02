@@ -184,14 +184,7 @@ export default class WaOption extends WebAwesomeElement {
 
   render() {
     return html`
-      <wa-icon
-        part="checked-icon"
-        class="check"
-        name="check"
-        library="system"
-        variant="solid"
-        aria-hidden="true"
-      ></wa-icon>
+      <wa-icon part="checked-icon" class="check" name="check" variant="solid" aria-hidden="true"></wa-icon>
       <slot part="prefix" name="prefix" class="prefix"></slot>
       <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
       <slot part="suffix" name="suffix" class="suffix"></slot>

@@ -1041,7 +1041,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     @focus=${this.stopNestedEventPropagation}
                   >
                     <wa-icon
-                      library="system"
                       name="eye-dropper"
                       variant="solid"
                       label=${this.localize.term('selectAColorFromTheScreen')}

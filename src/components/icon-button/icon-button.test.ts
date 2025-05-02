@@ -34,11 +34,7 @@ describe('<wa-icon-button>', () => {
       describe('when styling the host element', () => {
         it('renders the correct color and font size', async () => {
           const el = await fixture<WaIconButton>(html`
-            <wa-icon-button
-              library="system"
-              name="check"
-              style="color: rgb(0, 136, 221); font-size: 2rem;"
-            ></wa-icon-button>
+            <wa-icon-button name="check" style="color: rgb(0, 136, 221); font-size: 2rem;"></wa-icon-button>
           `);
           const icon = el.shadowRoot!.querySelector('wa-icon')!;
           const styles = getComputedStyle(icon);
@@ -50,9 +46,7 @@ describe('<wa-icon-button>', () => {
 
       describe('when icon attributes are present', () => {
         it('renders an wa-icon from a library', async () => {
-          const el = await fixture<WaIconButton>(html`
-            <wa-icon-button library="system" name="check"></wa-icon-button>
-          `);
+          const el = await fixture<WaIconButton>(html` <wa-icon-button name="check"></wa-icon-button> `);
           expect(el.shadowRoot?.querySelector('wa-icon')).to.exist;
         });
 

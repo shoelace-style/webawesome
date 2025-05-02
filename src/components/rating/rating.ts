@@ -68,8 +68,7 @@ export default class WaRating extends WebAwesomeElement {
    * The function should return a string containing trusted HTML of the symbol to render at the specified value. Works
    * well with `<wa-icon>` elements.
    */
-  @property() getSymbol: (value: number) => string = () =>
-    '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
+  @property() getSymbol: (value: number) => string = () => '<wa-icon name="star" variant="solid"></wa-icon>';
 
   /** The component's size. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';

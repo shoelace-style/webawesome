@@ -141,7 +141,7 @@
             @input="tweaking.grayChroma = true" @change="tweaking.grayChroma = false">
             <div slot="label">
               Gray colorfulness
-              <wa-icon-button @click="grayChroma = originalGrayChroma" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+              <wa-icon-button @click="grayChroma = originalGrayChroma" class="clear-button" name="circle-xmark" variant="regular" label="Reset"></wa-icon-button>
             </div>
           </wa-slider>
           <div class="label-min">Neutral</div>
@@ -160,7 +160,7 @@
           @change="tweaking.hue = tweaking.{{ hue }} = false">
           <div slot="label">
             Tweak {{ hue }} hue
-            <wa-icon-button @click="hueShifts.{{ hue }} = 0" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+            <wa-icon-button @click="hueShifts.{{ hue }} = 0" class="clear-button" name="circle-xmark" variant="regular" label="Reset"></wa-icon-button>
           </div>
         </wa-slider>
         <div class="label-min">More {{hueBefore}}</div>
@@ -204,7 +204,7 @@ style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
     @change="tweaking.chroma = false">
     <div slot="label">
       Overall colorfulness
-      <wa-icon-button @click="chromaScale = 1" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+      <wa-icon-button @click="chromaScale = 1" class="clear-button" name="circle-xmark" variant="regular" label="Reset"></wa-icon-button>
     </div>
   </wa-slider>
   <div class="label-min">More muted</div>

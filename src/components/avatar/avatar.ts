@@ -81,7 +81,7 @@ export default class WaAvatar extends WebAwesomeElement {
     } else {
       avatarWithoutImage = html`
         <slot name="icon" part="icon" class="icon" role="img" aria-label=${this.label}>
-          <wa-icon name="user" library="system" variant="solid"></wa-icon>
+          <wa-icon name="user" variant="solid"></wa-icon>
         </slot>
       `;
     }
