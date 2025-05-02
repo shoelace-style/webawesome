@@ -356,8 +356,7 @@ Avoid inlining SVG icons inside of templates.
 If a component requires an icon, make sure `<wa-icon>` is a dependency of the component.
 
 If it is not one of the [pre-fetched icons](/components/icon#fetched) in the `default` library,
-you should add it.
-This will render the icons instantly rather than fetching them from a remote source.
+you should add it. This will render the icons instantly rather than fetching them from a remote source.
 
 ### Writing tests
 
