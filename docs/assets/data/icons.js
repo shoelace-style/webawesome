@@ -1,7 +1,7 @@
 export const iconLibraries = {
   default: {
     title: 'Font Awesome',
-    family: ['classic', 'sharp', 'duotone', 'duotone-sharp'],
+    family: ['classic', 'sharp', 'duotone', 'sharp-duotone'],
     style: ['solid', 'regular', 'light', 'thin'],
   },
 };
