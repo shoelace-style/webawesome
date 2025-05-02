@@ -630,17 +630,13 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 
 ### Prefetched icons { #fetched }
 
-You can use the `fetched` property in the icon library to provide the mapping of `(name, library, variant)` to SVG markup and avoid the HTTP request for the icons.
+Prefetched icons are SVG icons that are loaded directly from code rather than from HTTP requests, making them load faster in your application.
+Prefetching icons improves performance by eliminating HTTP requests, reducing load times, and ensuring system icons are immediately available.
 
-This is used internally in the `default` library to load the icons used internally in Web Awesome’s components really fast,
-but you can take advantage of it too.
+#### How to Use Prefetched Icons
 
-If you want to change the default library used by Web Awesome, you are strongly advised to use the `fetched` property to provide prefetched versions of system icons.
-You can reference `src/components/library.default.ts` for a complete list of system icons used by Web Awesome.
-
-Its value is an object literal as deep as the structure of the icon library.
-E.g. in icon libraries with no variant or family, it will be a simple shallow object mapping icon names to SVG markup,
-whereas in icon libraries with family and variant, it will be a nested object with the structure `{ family: { variant: { name: svg } } }` (see `src/components/library.default.ts` for an example of this).
+The `fetched` property allows you to provide icon SVG markup directly in your code.
+This creates a mapping of `(name, library, variant)` to SVG markup:
 
 ```html
 <script type="module">
@@ -655,30 +651,36 @@ whereas in icon libraries with family and variant, it will be a nested object wi
 </script>
 ```
 
-If you want to add more prefetched icons to an existing library, you can use the `addFetched` method.
-It expects the same value as the `fetched` property.
-For example, suppose you wanted to add `circle-info` and `triangle-exclamation` to the `default` library
-so they load fast in callouts.
-You can do this:
+The structure of the `fetched` property is as follows:
+- For simple libraries (no families or variants): `{ name: svg }`
+- For libraries with families (no variants): `{ family: { name: svg } }`
+- For complex libraries (with both family and variant): `{ family: { variant: { name: svg } } }`
+
+#### Adding More Prefetched Icons
+
+To add additional icons to an existing library, use the `addFetched` method:
 
 ```js
 import {getIconLibrary} from '/dist/webawesome.js';
 
 let defaultLibrary = getIconLibrary('default');
 defaultLibrary.addFetched({
-  {
-    classic: { // family
-      regular: { // variant
-        'circle-info': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
-        'triangle-exclamation': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
-        // ...
-      }
+  classic: { // family
+    regular: { // variant
+      'circle-info': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
+      'triangle-exclamation': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
+      // ...
     }
   }
 });
 ```
 
+#### Best Practice
+
+When using custom icon libraries with Web Awesome components, always prefetch system icons to ensure optimal performance.
+Refer to `src/components/library.default.ts` for a complete list of system icons used internally.
+
 ::: warning
-Please note that sprite sheets and fetched icons are mutually exclusive.
+Note that sprite sheets and fetched icons are mutually exclusive.
 If you set the `spriteSheet` property to `true`, the `fetched` property will be ignored.
 :::
