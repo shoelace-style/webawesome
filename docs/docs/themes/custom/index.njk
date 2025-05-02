@@ -156,7 +156,7 @@ order: 99
         <wa-option value="default" selected>Font Awesome</wa-option>
       </wa-select>
 
-      <icons-card type="family" size="small" :action="e => ui.panel = 'icon-family'" :defaults="computed.icon">
+      <icons-card type="family" vary="style" size="small" :action="e => ui.panel = 'icon-family'" :defaults="computed.icon">
         <div>
           Icon Family
           <div class="wa-caption-m" v-text="capitalize(computed.icon.family)"></div>
@@ -185,7 +185,7 @@ order: 99
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2" class="scrollable">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
           <wa-radio v-for="family of iconLibraries.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
-            <icons-card type="family" :family="family"  :defaults="computed.icon"></icons-card>
+            <icons-card type="family" vary="style" :family="family"  :library="computed.icon.library"></icons-card>
           </wa-radio>
       </wa-radio-group>
     </ui-panel>

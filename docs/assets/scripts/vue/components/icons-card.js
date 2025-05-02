@@ -1,8 +1,9 @@
+import { sample } from '../../util/array.js';
 import { capitalize } from '../../util/string.js';
 import PageCard from './page-card.js';
 import { iconLibraries } from '/assets/data/icons.js';
 
-const icons = [
+const iconNames = [
   'user',
   'paper-plane',
   'face-laugh',
@@ -18,13 +19,14 @@ const icons = [
 ];
 const brands = new Set(['web-awesome', 'font-awesome']);
 const ICON_GRID = { columns: 6, rows: 2 };
+const TOTAL_ICONS = ICON_GRID.columns * ICON_GRID.rows;
 
 const template = `
 	<page-card class="icons-card" :class="'icons-' + type + '-card'" :pro="$slots.default ? false : iconsMeta.isPro">
     <template #icon>
       <div slot="header" class="icons-icon" :class="'icons-' + type + '-icon'" :style="{ '--columns': ICON_GRID.columns }">
-        <template v-for="icon of iconsRepeated">
-          <wa-icon :library="computed.library" :family="brands.has(icon) ? 'brands' : computed.family" :variant="computed.style" :name="icon"></wa-icon>
+        <template v-for="icon of icons">
+          <wa-icon v-bind="icon"></wa-icon>
         </template>
       </div>
     </template>
@@ -51,6 +53,19 @@ export default {
         return ['library', 'family', 'style'].includes(value);
       },
     },
+    vary: {
+      type: [Array, String],
+      validate(value) {
+        if (Array.isArray(value)) {
+          return value.every(v => ['family', 'style'].includes(v));
+        }
+
+        return ['family', 'style'].includes(value);
+      },
+      default() {
+        return [];
+      },
+    },
   },
 
   data() {
@@ -58,10 +73,18 @@ export default {
   },
 
   created() {
-    Object.assign(this, { icons, brands, ICON_GRID });
+    Object.assign(this, { iconNames, brands, ICON_GRID });
   },
 
   computed: {
+    computedLibrary() {
+      return this.library ?? 'default';
+    },
+
+    libraryMeta() {
+      return iconLibraries[this.computedLibrary] ?? {};
+    },
+
     defaultTitle() {
       let titles = {};
       for (let key in this.computed) {
@@ -81,14 +104,40 @@ export default {
       }
     },
 
-    iconsRepeated() {
-      let total = ICON_GRID.columns * ICON_GRID.rows;
+    icons() {
+      let { family, style } = this.computed;
+      let library = this.libraryMeta;
+      let vary = Array.isArray(this.vary) ? this.vary : [this.vary];
+
       let ret = [];
-      while (ret.length < total) {
-        ret.push(...icons);
+
+      if (vary.length > 0) {
+        for (let param of vary) {
+          let allValues = library[param];
+          let random = (allValues.random ??= []);
+
+          while (random.length < TOTAL_ICONS) {
+            random.push(sample(allValues));
+          }
+        }
       }
 
-      return ret.slice(0, total);
+      while (ret.length < TOTAL_ICONS) {
+        ret.push(
+          ...iconNames.map((name, i) => {
+            let index = ret.length + i;
+
+            return {
+              library: this.computedLibrary,
+              name,
+              family: !this.family && vary.includes('family') ? library.family.random[index] : family,
+              variant: !this.style && vary.includes('style') ? library.style.random[index] : style,
+            };
+          }),
+        );
+      }
+
+      return ret.slice(0, TOTAL_ICONS);
     },
 
     computedDefaults() {
@@ -107,6 +156,7 @@ export default {
 
       return ret;
     },
+
     iconsMeta() {
       // placeholder
       return {};
