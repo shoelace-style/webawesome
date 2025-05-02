@@ -1,13 +1,7 @@
 import { flatten } from '../../utilities/deep.js';
 import type WaIcon from '../icon/icon.js';
 import defaultLibrary from './library.default.js';
-import type {
-  IconLibrary,
-  IconLibraryCache,
-  IconLibraryFetched,
-  IconLibraryResolver,
-  UnregisteredIconLibrary,
-} from './types.d.ts';
+import type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary } from './types.d.ts';
 
 export type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary } from './types.d.ts';
 
