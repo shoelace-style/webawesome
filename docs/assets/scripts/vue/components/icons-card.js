@@ -20,9 +20,9 @@ const brands = new Set(['web-awesome', 'font-awesome']);
 const ICON_GRID = { columns: 6, rows: 2 };
 
 const template = `
-	<page-card class="icons-card" :pro="$slots.default ? false : iconsMeta.isPro">
+	<page-card class="icons-card" :class="'icons-' + type + '-card'" :pro="$slots.default ? false : iconsMeta.isPro">
     <template #icon>
-      <div slot="header" class="icons-icon" :style="{ '--columns': ICON_GRID.columns }">
+      <div slot="header" class="icons-icon" :class="'icons-' + type + '-icon'" :style="{ '--columns': ICON_GRID.columns }">
         <template v-for="icon of iconsRepeated">
           <wa-icon :library="computed.library" :family="brands.has(icon) ? 'brands' : computed.family" :variant="computed.style" :name="icon"></wa-icon>
         </template>
