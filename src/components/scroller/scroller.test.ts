@@ -1,5 +1,5 @@
-import '../../../dist/webawesome.js';
 import { expect, fixture, html } from '@open-wc/testing';
+import '../../../dist/webawesome.js';
 
 describe('<wa-scroller>', () => {
   it('should render a component', async () => {
