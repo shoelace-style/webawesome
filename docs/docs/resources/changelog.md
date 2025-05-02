@@ -14,8 +14,11 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
-- Fixed a bug that caused an undesired margin below radio groups
+- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content
+- Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
+- Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
+- Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
+- Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
 
 ## 3.0.0-alpha.12
 
