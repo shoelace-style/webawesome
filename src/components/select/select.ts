@@ -746,10 +746,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
-    // Close the listbox when the control is disabled
-    if (this.disabled) {
+    // Close the listbox when the control is open and disabled
+    if (this.disabled && this.open) {
       this.open = false;
-      this.handleOpenChange();
     }
   }
 
