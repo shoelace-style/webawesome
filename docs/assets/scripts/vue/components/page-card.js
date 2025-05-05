@@ -17,18 +17,25 @@ const template = `
     <div slot="header" v-html="icon || ICON_PLACEHOLDER"></div>
   </slot>
 
-  <span class="page-name">
-    <slot></slot>
-    <wa-badge class="pro" v-if="pro">PRO</wa-badge>
+  <div class="page-name">
+    <div>
+      <slot>
+        {{ content.title }}
+        <wa-badge class="pro" v-if="pro">PRO</wa-badge>
+        <div v-if="content.subtitle" class="wa-caption-m">{{ content.subtitle }}</div>
+      </slot>
+    </div>
     <slot name="extra"></slot>
-  </span>
-  <div class="wa-caption-s" v-if="subtitle">{{ subtitle }}</div>
+    <wa-icon v-if="action" name="angle-right" class="angle-right" variant="regular"></wa-icon>
+  </div>
 </wa-card>
 `;
 
 export default {
   props: {
+    title: String,
     subtitle: String,
+    info: Object,
     icon: String,
     pro: Boolean,
     disabled: Boolean,
@@ -41,6 +48,18 @@ export default {
 
   created() {
     Object.assign(this, { ICON_PLACEHOLDER });
+  },
+
+  computed: {
+    content() {
+      let defaultTitle = this.info?.title ?? {};
+
+      if (this.title) {
+        return { title: this.title, subtitle: this.subtitle ?? defaultTitle };
+      } else {
+        return { title: defaultTitle, subtitle: this.subtitle };
+      }
+    },
   },
 
   methods: {

@@ -36,12 +36,12 @@ let appSpec = {
     });
 
     let id = location.pathname.match(/\/themes\/([^/]+)\/?$/)?.[1];
-    let isCustom = id === 'custom';
+    let isCustom = id === 'custom' || id === 'edit';
 
     return {
       type: 'theme',
       collection: 'themes',
-      id,
+      id: id === 'edit' ? 'custom' : id,
       isCustom,
       urlParams: location.search,
       theme: {

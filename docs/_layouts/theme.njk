@@ -6,14 +6,20 @@
 
 {% block head %}
 <link href="{{ page.url }}../remix.css" rel="stylesheet">
-<script type="module" src="{{ page.url }}../custom/index.js"></script>
+<script type="module" src="{{ page.url }}../edit/index.js"></script>
 {% endblock %}
 
 {% block header %}
+<script>
+if (location.pathname.endsWith('/custom/') && !location.search) {
+  location.href = "../edit/";
+}
+</script>
 <div id="theme-app" data-theme-id="{{ page.fileSlug }}">
 
 <iframe ref="preview" :src="'{{ page.url }}demo.html' + urlParams" src='{{ page.url }}demo.html' id="demo"></iframe>
 
+{% if page.fileSlug !== 'custom' %}
 <wa-details id="mix_and_match" class="wa-gap-m" :open="saved || unsavedChanges">
   <h4 slot="summary" data-no-anchor data-no-outline id="remix">
     <wa-icon name="arrows-rotate"></wa-icon>
@@ -38,43 +44,48 @@
 
   <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" clearable v-model="theme.colors">
     <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
-      <theme-card :theme="themeId" type="colors" :rest="{base: computed.base, palette: computed.palette, brand: computed.brand}" size="small">
-        <template #extra>
+    <template v-for="(themeMeta, themeId) in themes">
+      <wa-option v-if="themeId !== 'custom'" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
+        <theme-card :theme="themeId" type="colors" :rest="{base: computed.base, palette: computed.palette, brand: computed.brand}" size="small">
+          <template #extra>
           <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
         </template>
-      </theme-card>
-    </wa-option>
+        </theme-card>
+      </wa-option>
+    </template>
   </wa-select>
 
   <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
     <wa-icon name="font-case" slot="prefix"></wa-icon>
 
     <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === theme.base ? '' : themeId">
-      <theme-card :theme="themeId" type="typography" size="small">
+      <fonts-card :theme="themeId" size="small">
         <template #extra>
           <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
         </template>
-      </theme-card>
+      </fonts-card>
     </wa-option>
   </wa-select>
 </wa-details>
-
+{% endif %}
 <h2>Color</h2>
-{% set paletteURL = '/docs/palettes/' + palette + '/' %}
-
 
 <div class="index-grid">
-  {% set themePage = page %}
-  {% set page = paletteURL | getCollectionItemFromUrl %}
-  {% set pageSubtitle = "Default color palette" %}
-  {% include 'page-card.njk' %}
-  {% set page = themePage %}
-
-  <wa-card style="--header-background: var(--wa-color-{{ brand }})" class="wa-palette-{{ palette }}">
+  {% if page.fileSlug === 'custom' %}
+    <palette-card :palette="computed.palette" subtitle="Color palette"></palette-card>
+  {% else %}
+    {% set themePage = page %}
+    {% set paletteURL = '/docs/palettes/' + palette + '/' %}
+    {% set page = paletteURL | getCollectionItemFromUrl %}
+    {% set pageSubtitle = "Default color palette" %}
+    {% include 'page-card.njk' %}
+    {% set page = themePage %}
+  {% endif %}
+  <wa-card class="wa-palette-{{ palette }}"          style="--header-background: var(--wa-color-{{ brand }})"
+          :class="`wa-palette-${computed.palette}`" :style="{'--header-background': palettes[computed.palette]?.colors[computed.brand]?.key}">
     <div slot="header"></div>
-    <div class="page-name">{{ brand | capitalize }}</div>
-    <div class="wa-caption-s">Default brand color</div>
+    <div class="page-name" v-content="capitalize(computed.brand)">{{ brand | capitalize }}</div>
+    <div class="wa-caption-s">{{ 'Brand color' if page.fileSlug === 'custom' else 'Default brand color' }}</div>
   </wa-card>
 </div>
 {% endblock %}

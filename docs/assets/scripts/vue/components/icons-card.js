@@ -22,7 +22,7 @@ const ICON_GRID = { columns: 6, rows: 2 };
 const TOTAL_ICONS = ICON_GRID.columns * ICON_GRID.rows;
 
 const template = `
-	<page-card class="icons-card" :class="'icons-' + type + '-card'" :pro="$slots.default ? false : iconsMeta.isPro">
+	<page-card class="icons-card" :class="'icons-' + type + '-card'" :pro="$slots.default ? false : iconsMeta.isPro" :info="iconsMeta">
     <template #icon>
       <div slot="header" class="icons-icon" :class="'icons-' + type + '-icon'" :style="{ '--columns': ICON_GRID.columns }">
         <template v-for="icon of icons">
@@ -30,7 +30,7 @@ const template = `
         </template>
       </div>
     </template>
-    <slot>{{ defaultTitle }}</slot>
+    <slot></slot>
 	</page-card>
 `;
 
@@ -42,7 +42,6 @@ const defaultDefaults = {
 
 export default {
   props: {
-    title: String,
     library: String,
     family: String,
     style: String,
@@ -158,8 +157,7 @@ export default {
     },
 
     iconsMeta() {
-      // placeholder
-      return {};
+      return { title: this.defaultTitle };
     },
   },
 

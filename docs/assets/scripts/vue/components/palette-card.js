@@ -6,7 +6,7 @@ import palettes from '/docs/palettes/data.js';
 const allHues = [...hues, 'gray'];
 
 const template = `
-	<page-card class="palette-card" :pro="$slots.default ? false : paletteMeta.isPro">
+	<page-card class="palette-card" :pro="$slots.default ? false : paletteMeta.isPro" :info="paletteMeta">
     <template #icon>
       <wa-scoped slot="header" class="palette-icon-host">
         <template>
@@ -27,7 +27,7 @@ const template = `
         </template>
       </wa-scoped>
     </template>
-    <slot>{{ title || paletteMeta.title }}</slot>
+    <slot></slot>
     <template #extra>
       <slot name="extra" />
     </template>
@@ -36,7 +36,6 @@ const template = `
 
 export default {
   props: {
-    title: String,
     palette: String,
   },
 

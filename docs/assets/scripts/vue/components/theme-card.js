@@ -32,7 +32,7 @@ const iconTemplates = {
 };
 
 const template = `
-  <page-card class="theme-card" :class="type + '-card'">
+  <page-card class="theme-card" :class="type + '-card'" :info="themeMeta">
     <template #icon>
       <wa-scoped slot="header" class="theme-icon-host" inert>
         <template v-html="themeCode"></template>
@@ -51,7 +51,7 @@ const template = `
         </template>
       </wa-scoped>
     </template>
-    <slot>{{ title || themeMeta.title }}</slot>
+    <slot></slot>
     <template #extra>
       <slot name="extra" />
     </template>
@@ -60,7 +60,6 @@ const template = `
 
 export default {
   props: {
-    title: String,
     theme: String,
     type: {
       type: String,

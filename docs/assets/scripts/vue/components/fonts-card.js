@@ -5,7 +5,7 @@ import { cssImport, getThemeCode } from '/assets/scripts/tweak/code.js';
 import themes from '/docs/themes/data.js';
 
 const template = `
-  <page-card class="fonts-card'">
+  <page-card class="fonts-card" :info="computedPairing">
     <template #icon>
       <wa-scoped slot="header" class="fonts-icon-host" inert>
         <template v-html="html"></template>
@@ -20,12 +20,7 @@ const template = `
         </template>
       </wa-scoped>
     </template>
-    <div>
-      <slot>
-      {{ content.title }}
-      <div v-if="content.subtitle" class="wa-caption-m">{{ content.subtitle }}</div>
-      </slot>
-    </div>
+    <slot></slot>
     <template #extra>
       <slot name="extra" />
     </template>
@@ -34,8 +29,6 @@ const template = `
 
 export default {
   props: {
-    title: String,
-    subtitle: String,
     theme: String,
     src: String,
     fonts: Object,
