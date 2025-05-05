@@ -118,7 +118,7 @@ let appSpec = {
     },
 
     computedBase() {
-      return this.theme.base ?? themeDefaults.base;
+      return this.theme.base || themeDefaults.base;
     },
 
     baseTheme() {
