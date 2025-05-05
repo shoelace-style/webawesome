@@ -1,7 +1,5 @@
 import { deepEach, isPlainObject } from '../scripts/util/deep.js';
 
-import themes from '/docs/themes/data.js';
-
 /**
  * Data related to themes, theme remixing
  * Must work in both browser and Node.js
@@ -23,15 +21,15 @@ export const themeConfig = {
     url: id => `styles/color/${id}.css`,
     docs: '/docs/palette/',
     icon: 'swatchbook',
-    default(themes) {
-      return themes?.[this.base]?.palette;
+    default(baseTheme) {
+      return baseTheme?.palette;
     },
   },
   brand: {
     url: id => `styles/brand/${id}.css`,
     icon: 'droplet',
-    default(themes) {
-      return themes?.[this.base]?.brand;
+    default(baseTheme) {
+      return baseTheme?.brand;
     },
   },
   typography: {
@@ -46,14 +44,14 @@ export const themeConfig = {
     library: { cssProperty: '--wa-icon-library', default: 'default' },
     family: {
       cssProperty: '--wa-icon-family',
-      default() {
-        return themes?.[this.base]?.icon?.family ?? 'classic';
+      default(baseTheme) {
+        return baseTheme?.icon?.family ?? 'classic';
       },
     },
     style: {
       cssProperty: '--wa-icon-variant',
-      default() {
-        return themes?.[this.base]?.icon?.style ?? 'solid';
+      default(baseTheme) {
+        return baseTheme?.icon?.style ?? 'solid';
       },
     },
   },

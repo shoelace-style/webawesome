@@ -1,6 +1,6 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
-import { pairings, pairingsList, sameAs } from '/assets/data/fonts.js';
+import { pairingsList, sameAs } from '/assets/data/fonts.js';
 import { allHues, cdnUrl, iconLibraries } from '/assets/data/index.js';
 import { themeDefaults } from '/assets/data/theming.js';
 import Prism from '/assets/scripts/prism.js';
@@ -117,8 +117,12 @@ let appSpec = {
       return `theme-${this.slug}.css`;
     },
 
+    computedBase() {
+      return this.theme.base ?? themeDefaults.base;
+    },
+
     baseTheme() {
-      return themes[this.computed.base];
+      return themes[this.computedBase];
     },
 
     // Resolved defaults for the current theme
@@ -128,7 +132,7 @@ let appSpec = {
       deepEach(ret, value => {
         // Resolve defaults that depend on other values based on the current theme params
         if (typeof value === 'function') {
-          return value.call(this.theme, themes);
+          return value.call(this.theme, this.baseTheme);
         }
       });
 
@@ -143,7 +147,7 @@ let appSpec = {
       deepEach(ret, value => {
         // Resolve defaults that depend on other values
         if (typeof value === 'function') {
-          return value.call(ret, themes);
+          return value.call(ret, this.baseTheme);
         }
       });
 
