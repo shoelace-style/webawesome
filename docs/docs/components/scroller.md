@@ -74,9 +74,17 @@ layout: component
 
 ## Examples
 
-### First Example
+### Orientation
 
-TODO
+Set the `orientation` attribute to `vertical` and provide a height to create a vertical scroller.
+
+```html {.example}
+<wa-scroller orientation="vertical" style="max-height: 300px;">
+  <p>The Appalachian Mist Trail offers hikers a serene 4-mile journey through the lush forests of the Great Smoky Mountains. Much like Misty Ridge Path, this moderate difficulty trail is known for its morning fog that creates an ethereal atmosphere perfect for photography enthusiasts. The path gradually climbs to several scenic overlooks where hikers can pause to admire panoramic views of the surrounding valleys.</p>
+  <p>Desert Canyon Traverse cuts a challenging 5.8-mile path through the rugged terrain of the Southwest, reminiscent of Eagle's Perch in its difficulty level and rewarding vistas. This trail features sections of scrambling over red rock formations and navigates through narrow slot canyons where the walls rise dramatically on either side. The highest point offers breathtaking views across three different desert ecosystems.</p>
+  <p>Coastal Redwood Walk provides an easy 2.5-mile stroll through ancient groves of towering trees, similar to the gentle experience of Whispering Pines. This family-friendly trail features a soft path covered in redwood sorrel and ferns, creating a naturally soundproofed environment where visitors can escape the noise of everyday life. Small wooden bridges cross bubbling streams, adding to the enchanting atmosphere of this accessible nature sanctuary.</p>
+</wa-scroller>
+```
 
 ### Second Example
 
