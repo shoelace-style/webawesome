@@ -1,5 +1,7 @@
 import { deepEach, isPlainObject } from '../scripts/util/deep.js';
 
+import themes from '/docs/themes/data.js';
+
 /**
  * Data related to themes, theme remixing
  * Must work in both browser and Node.js
@@ -42,8 +44,18 @@ export const themeConfig = {
   },
   icon: {
     library: { cssProperty: '--wa-icon-library', default: 'default' },
-    family: { cssProperty: '--wa-icon-family', default: 'classic' },
-    style: { cssProperty: '--wa-icon-variant', default: 'solid' },
+    family: {
+      cssProperty: '--wa-icon-family',
+      default() {
+        return themes?.[this.base]?.icon?.family ?? 'classic';
+      },
+    },
+    style: {
+      cssProperty: '--wa-icon-variant',
+      default() {
+        return themes?.[this.base]?.icon?.style ?? 'solid';
+      },
+    },
   },
 };
 
@@ -58,7 +70,7 @@ export const urls = themeParams.reduce((acc, aspect) => {
 
 export const themeDefaults = { ...themeConfig };
 
-deepEach(themeDefaults, (value, key, parent) => {
+deepEach(themeDefaults, (value, key, parent, path) => {
   if (isPlainObject(value)) {
     // Replace w/ default value or shallow clone
     return value.default ?? { ...value };

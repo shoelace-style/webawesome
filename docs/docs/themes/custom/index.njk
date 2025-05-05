@@ -99,7 +99,7 @@ order: 99
       <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style">
         <div>
           Icons
-          <div class="wa-caption-m">Font Awesome Classic &bull; Solid</div>
+          <div class="wa-caption-m" v-text="`${ capitalize(computed.icon.family) } &bull; ${ capitalize(computed.icon.style) }`"></div>
         </div>
         <wa-icon name="angle-right" class="angle-right" variant="regular"></wa-icon>
       </icons-card>

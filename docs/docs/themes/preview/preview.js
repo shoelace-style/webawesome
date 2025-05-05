@@ -1,6 +1,7 @@
 import palettes from '../../palettes/data.js';
 import themes from '../data.js';
-import { allHues, themeConfig, themeDefaults, themeParams } from '/assets/data/index.js';
+import { allHues } from '/assets/data/index.js';
+import { themeConfig, themeDefaults, themeParams } from '/assets/data/theming.js';
 import Permalink from '/assets/scripts/permalink.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';

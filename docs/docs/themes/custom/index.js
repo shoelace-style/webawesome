@@ -1,7 +1,8 @@
 // import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import { pairings, pairingsList, sameAs } from '/assets/data/fonts.js';
-import { allHues, cdnUrl, iconLibraries, themeDefaults } from '/assets/data/index.js';
+import { allHues, cdnUrl, iconLibraries } from '/assets/data/index.js';
+import { themeDefaults } from '/assets/data/theming.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { deepClone, deepEach, deepMerge } from '/assets/scripts/util/deep.js';
