@@ -10,5 +10,5 @@ fonts:
   longform: Lora
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---

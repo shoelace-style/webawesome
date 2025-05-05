@@ -6,5 +6,5 @@ palette: classic
 brand: blue
 icons:
   family: classic
-  variant: light
+  style: light
 ---

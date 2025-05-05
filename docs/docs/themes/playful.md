@@ -11,5 +11,5 @@ fonts:
   code: Azeret Mono
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---

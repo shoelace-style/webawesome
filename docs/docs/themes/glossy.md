@@ -9,5 +9,5 @@ fonts:
   body: Figtree
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---

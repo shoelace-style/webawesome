@@ -9,5 +9,5 @@ fonts:
   body: Inter
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---

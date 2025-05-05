@@ -11,5 +11,5 @@ fonts:
   longform: Playfair
 icons:
   family: sharp
-  variant: regular
+  style: regular
 ---

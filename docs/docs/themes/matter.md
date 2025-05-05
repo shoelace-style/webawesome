@@ -11,7 +11,7 @@ fonts:
   longform: Roboto Serif
 icons:
   family: classic
-  variant: regular
+  style: regular
 ---
 
 Set the page theme to "{{ title }}" from the top right to preview the following examples.

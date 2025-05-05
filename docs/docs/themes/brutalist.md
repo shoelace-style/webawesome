@@ -11,5 +11,5 @@ fonts:
   code: Space Mono
 icons:
   family: sharp
-  variant: solid
+  style: solid
 ---

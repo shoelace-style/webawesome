@@ -10,5 +10,5 @@ fonts:
   longform: ui-serif
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---

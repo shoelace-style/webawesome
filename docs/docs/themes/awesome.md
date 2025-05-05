@@ -8,5 +8,5 @@ fonts:
   body: Quicksand
 icons:
   family: classic
-  variant: solid
+  style: solid
 ---
