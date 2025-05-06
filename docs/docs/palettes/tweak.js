@@ -377,7 +377,7 @@ export function getPaletteCode(paletteId, colors, tweaked, options) {
   let imports = [];
 
   if (paletteId) {
-    imports.push(themeConfig.palette(paletteId));
+    imports.push(themeConfig.palette.url(paletteId));
   }
 
   let css = '';
