@@ -15,9 +15,9 @@ if (urlParams.has('uid') && my.themes.saved.length > 0) {
 }
 
 for (let editLink of document.querySelectorAll('.edit-link')) {
-  editLink.href = '../edit/' + urlParams;
+  editLink.href = '../edit/?' + urlParams;
   editLink.addEventListener('click', e => {
-    editLink.href = '../edit/' + urlParams;
+    editLink.href = '../edit/?' + urlParams;
   });
 }
 
