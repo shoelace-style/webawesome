@@ -88,10 +88,10 @@ You can add the special `data-dialog="close"` attribute to a button inside the d
 
 ### Custom Width
 
-Just use the CSS `width` property to set the dialog's width.
+Just use the `--width` custom property to set the dialog's width.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-width" style="width: 50vw;">
+<wa-dialog label="Dialog" with-header with-footer class="dialog-width" style="--width: 50vw;">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>

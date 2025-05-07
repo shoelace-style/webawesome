@@ -55,7 +55,13 @@ export async function discover(root: Element | ShadowRoot) {
   await new Promise(requestAnimationFrame);
 
   // Dispatch an event when discovery is complete.
-  document.dispatchEvent(new CustomEvent('wa-discovery-complete'));
+  root.dispatchEvent(
+    new CustomEvent('wa-discovery-complete', {
+      bubbles: false,
+      cancelable: false,
+      composed: true,
+    }),
+  );
 }
 
 /**

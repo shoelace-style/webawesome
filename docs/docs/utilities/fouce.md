@@ -7,6 +7,7 @@ snippet: .wa-cloak
 ---
 
 Often, components are shown before their logic and styles have had a chance to load, also known as a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/).
+
 The FOUCE style utility (which is automatically applied if you use our [style utilities](/docs/utilities/)) automatically takes care of hiding custom elements until **both they and their contents** have been registered, up to a maximum of two seconds.
 
 In many cases, this is not enough, and you may wish to hide a broader wrapper element or even the entire page until all WA elements within it have loaded.

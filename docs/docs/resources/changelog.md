@@ -14,7 +14,6 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-
 - All icon libraries can now declare **pre-fetched** icons and skip the HTTP request.
 When these icons are used, the pre-fetched version is automatically used, with no additional opt-in.
 - 🚨 BREAKING: No more `system` library, just use `default`.
@@ -22,8 +21,15 @@ The improvement above allowed us to fold Web Awesome’s own `system` icon libra
 so the performance benefits can be automatic and shared across all uses of the `default` library,
 rather then requiring a conscious decision to use a different library.
 This also makes WA components play better with different icon libraries and different default families and variants.
-- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content.
 - Fixed a bug that caused an undesired margin below radio groups
+- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content
+- Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
+- Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
+- Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
+- Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
+- Fixed a bug in `<wa-radio-group>` that prevented radio buttons from validating
+- Improved native radio alignment
+- Improved the `.wa-cloak` utility class so all FOUCE-related solutions are 100% opt-in
 
 ## 3.0.0-alpha.12
 

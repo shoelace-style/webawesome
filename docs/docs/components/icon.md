@@ -17,11 +17,14 @@ Not sure which icon to use? [Find the perfect icon over at Font Awesome!](https:
 
 The default icon library is Font Awesome Free, which comes with two icon families: `classic` and `brands`. Use the `family` attribute to set the icon family.
 
-Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp` and `duotone`. For these icon families, use the `variant` attribute to set the variant.
+Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp`, `duotone`, and `sharp-duotone`. For these icon families, use the `variant` attribute to set the variant.
 
 ```html {.example}
-<wa-icon family="brands" name="font-awesome"></wa-icon>
-<wa-icon family="brands" name="web-awesome"></wa-icon>
+  <wa-icon family="brands" name="font-awesome"></wa-icon>
+  <wa-icon family="brands" name="web-awesome"></wa-icon>
+  <wa-icon family="classic" variant="light" name="sparkles"></wa-icon>
+  <wa-icon family="sharp" variant="solid" name="fire"></wa-icon>
+  <wa-icon family="duotone" variant="regular" name="cake-slice"></wa-icon>
 ```
 
 ### Setting defaults via CSS
