@@ -1,4 +1,4 @@
-import { capitalize } from '../../util/string.js';
+import { capitalize } from '../../scripts/util/string.js';
 import InfoTip from './info-tip.js';
 
 const template = `

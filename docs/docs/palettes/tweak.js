@@ -6,9 +6,9 @@ import { cdnUrl, hueRanges, hues, tints } from '../../assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
-import { SwatchSelect } from '/assets/scripts/vue/components/index.js';
-import content from '/assets/scripts/vue/directives/content.js';
-import savedMixin from '/assets/scripts/vue/mixins/saved.js';
+import { SwatchSelect } from '/assets/vue/components/index.js';
+import content from '/assets/vue/directives/content.js';
+import savedMixin from '/assets/vue/mixins/saved.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 

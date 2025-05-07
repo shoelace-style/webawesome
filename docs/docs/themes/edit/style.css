@@ -1,6 +1,6 @@
 @import url('/assets/styles/theme-icons.css');
-@import url('styles/panel.css');
-@import url('styles/scrollable.css');
+@import url('/assets/vue/components/panel.css');
+@import url('/assets/vue/components/scrollable.css');
 
 :root {
   --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);

@@ -19,9 +19,9 @@ import {
   ThemeCard,
   UiPanel,
   UiPanelContainer,
-} from '/assets/scripts/vue/components/index.js';
-import content from '/assets/scripts/vue/directives/content.js';
-import savedMixin from '/assets/scripts/vue/mixins/saved.js';
+} from '/assets/vue/components/index.js';
+import content from '/assets/vue/directives/content.js';
+import savedMixin from '/assets/vue/mixins/saved.js';
 import palettes from '/docs/palettes/data.js';
 import themes from '/docs/themes/data.js';
 

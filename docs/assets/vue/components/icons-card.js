@@ -1,5 +1,5 @@
-import { sample } from '../../util/array.js';
-import { capitalize } from '../../util/string.js';
+import { sample } from '../../scripts/util/array.js';
+import { capitalize } from '../../scripts/util/string.js';
 import PageCard from './page-card.js';
 import { iconLibraries } from '/assets/data/icons.js';
 

@@ -1,4 +1,4 @@
-import { capitalize } from '../../util/string.js';
+import { capitalize } from '../../scripts/util/string.js';
 
 const template = `
     <wa-select class="color-select" name="brand" :label="label" :value="modelValue"  @input="$emit('update:modelValue', $event.target.value)"
