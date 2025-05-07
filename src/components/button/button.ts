@@ -263,7 +263,11 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         <slot name="prefix" part="prefix" class="prefix"></slot>
         <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
         <slot name="suffix" part="suffix" class="suffix"></slot>
-        ${this.caret ? html` <wa-icon part="caret" class="caret" name="chevron-down" variant="solid"></wa-icon> ` : ''}
+        ${
+          this.caret
+            ? html` <wa-icon part="caret" class="caret" name="system:chevron-down" variant="solid"></wa-icon> `
+            : ''
+        }
         ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
       </${tag}>
     `;

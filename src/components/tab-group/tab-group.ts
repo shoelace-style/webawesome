@@ -404,7 +404,7 @@ export default class WaTabGroup extends WebAwesomeElement {
                   part="scroll-button scroll-button-start"
                   exportparts="base:scroll-button__base"
                   class="scroll-button scroll-button-start"
-                  name=${isRtl ? 'chevron-right' : 'chevron-left'}
+                  name="system:${isRtl ? 'chevron-right' : 'chevron-left'}"
                   variant="solid"
                   label=${this.localize.term('scrollToStart')}
                   @click=${this.handleScrollToStart}
@@ -425,7 +425,7 @@ export default class WaTabGroup extends WebAwesomeElement {
                   part="scroll-button scroll-button-end"
                   class="scroll-button scroll-button-end"
                   exportparts="base:scroll-button__base"
-                  name=${isRtl ? 'chevron-left' : 'chevron-right'}
+                  name="system:${isRtl ? 'chevron-left' : 'chevron-right'}"
                   variant="solid"
                   label=${this.localize.term('scrollToEnd')}
                   @click=${this.handleScrollToEnd}

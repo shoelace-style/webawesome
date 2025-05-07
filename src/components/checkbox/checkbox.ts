@@ -234,7 +234,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             @click=${this.handleClick}
           />
 
-          <wa-icon part="${iconState}-icon icon" name=${iconName}></wa-icon>
+          <wa-icon part="${iconState}-icon icon" name="system:${iconName}"></wa-icon>
         </span>
 
         <slot part="label"></slot>

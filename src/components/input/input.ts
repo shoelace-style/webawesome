@@ -445,7 +445,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 tabindex="-1"
               >
                 <slot name="clear-icon">
-                  <wa-icon name="circle-xmark" variant="regular"></wa-icon>
+                  <wa-icon name="system:circle-xmark" variant="regular"></wa-icon>
                 </slot>
               </button>
             `
@@ -463,12 +463,12 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 ${!this.passwordVisible
                   ? html`
                       <slot name="show-password-icon">
-                        <wa-icon name="eye" variant="regular"></wa-icon>
+                        <wa-icon name="system:eye" variant="regular"></wa-icon>
                       </slot>
                     `
                   : html`
                       <slot name="hide-password-icon">
-                        <wa-icon name="eye-slash" variant="regular"></wa-icon>
+                        <wa-icon name="system:eye-slash" variant="regular"></wa-icon>
                       </slot>
                     `}
               </button>

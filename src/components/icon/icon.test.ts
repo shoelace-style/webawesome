@@ -57,7 +57,7 @@ describe('<wa-icon>', () => {
           const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
           const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
 
-          el.name = 'check';
+          el.name = 'system:check';
           const ev = await listener;
           await elementUpdated(el);
 
@@ -66,12 +66,12 @@ describe('<wa-icon>', () => {
         });
 
         it('the icon is accessible', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon name="check"></wa-icon> `);
+          const el = await fixture<WaIcon>(html` <wa-icon name="system:check"></wa-icon> `);
           await expect(el).to.be.accessible();
         });
 
         it('the icon has the correct default aria attributes', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon name="check"></wa-icon> `);
+          const el = await fixture<WaIcon>(html` <wa-icon name="system:check"></wa-icon> `);
 
           expect(el.getAttribute('role')).to.be.null;
           expect(el.getAttribute('aria-label')).to.be.null;
@@ -82,7 +82,7 @@ describe('<wa-icon>', () => {
       describe('when a label is provided', () => {
         it('the icon has the correct default aria attributes', async () => {
           const fakeLabel = 'a label';
-          const el = await fixture<WaIcon>(html` <wa-icon label="${fakeLabel}" name="check"></wa-icon> `);
+          const el = await fixture<WaIcon>(html` <wa-icon label="${fakeLabel}" name="system:check"></wa-icon> `);
 
           expect(el.getAttribute('role')).to.equal('img');
           expect(el.getAttribute('aria-label')).to.equal(fakeLabel);

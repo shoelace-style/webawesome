@@ -957,7 +957,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                       tabindex="-1"
                     >
                       <slot name="clear-icon">
-                        <wa-icon name="circle-xmark" variant="regular"></wa-icon>
+                        <wa-icon name="system:circle-xmark" variant="regular"></wa-icon>
                       </slot>
                     </button>
                   `
@@ -966,7 +966,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               <slot name="suffix" part="suffix" class="suffix"></slot>
 
               <slot name="expand-icon" part="expand-icon" class="expand-icon">
-                <wa-icon name="chevron-down" variant="solid"></wa-icon>
+                <wa-icon name="system:chevron-down" variant="solid"></wa-icon>
               </slot>
             </div>
 

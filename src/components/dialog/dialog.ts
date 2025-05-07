@@ -237,7 +237,7 @@ export default class WaDialog extends WebAwesomeElement {
                     part="close-button"
                     exportparts="base:close-button__base"
                     class="close"
-                    name="xmark"
+                    name="system:xmark"
                     label=${this.localize.term('close')}
                     variant="solid"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
