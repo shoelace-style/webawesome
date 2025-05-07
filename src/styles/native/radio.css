@@ -10,7 +10,7 @@ label:has(input[type='radio']),
   --box-shadow: none;
   --checked-icon-color: var(--wa-form-control-activated-color);
   --checked-icon-scale: 0.75;
-  --toggle-size: 1.25em;
+  --toggle-size: round(1lh, 1px);
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
