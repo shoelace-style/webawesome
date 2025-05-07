@@ -5,7 +5,6 @@ import { copyCodePlugin } from './_utils/copy-code.js';
 import { currentLink } from './_utils/current-link.js';
 import { highlightCodePlugin } from './_utils/highlight-code.js';
 import { markdown } from './_utils/markdown.js';
-import { removeDataAlphaElements } from './_utils/remove-data-alpha-elements.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
 // import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
@@ -22,12 +21,10 @@ import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
-const isAlpha = process.argv.includes('--alpha');
 const isDev = process.argv.includes('--develop');
 
 const globalData = {
   package: packageData,
-  isAlpha,
   layout: 'page.njk',
   server: {
     head: '',
@@ -50,16 +47,6 @@ export default function (eleventyConfig) {
    * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
    */
   const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
-
-  // NOTE - alpha setting removes certain pages
-  if (isAlpha) {
-    eleventyConfig.ignores.add('**/experimental/**');
-    eleventyConfig.ignores.add('**/layout/**');
-    eleventyConfig.ignores.add('**/patterns/**');
-    eleventyConfig.ignores.add('**/style-utilities/**');
-    eleventyConfig.ignores.add('**/components/code-demo.md');
-    eleventyConfig.ignores.add('**/components/viewport-demo.md');
-  }
 
   // Add template data
   for (let name in globalData) {
@@ -114,9 +101,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
 
   // Helpers
-
-  // Remove elements that have [data-alpha="remove"]
-  eleventyConfig.addPlugin(removeDataAlphaElements({ isAlpha }));
 
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);
