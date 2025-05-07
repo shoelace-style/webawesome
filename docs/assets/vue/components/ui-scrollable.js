@@ -1,12 +1,15 @@
 const template = `
 <div class="scrollable" :class="{'can-scroll-top': canScrollTop, 'can-scroll-bottom': canScrollBottom}" ref="container">
-  <div class="scroll-shadow scroll-shadow-top"></div>
+  <div v-if="!disabled" class="scroll-shadow scroll-shadow-top"></div>
   <slot></slot>
-  <div class="scroll-shadow scroll-shadow-bottom"></div>
+  <div v-if="!disabled" class="scroll-shadow scroll-shadow-bottom"></div>
 </div>
 `;
 
 export default {
+  props: {
+    disabled: Boolean,
+  },
   data() {
     return {
       scrollTop: 0,
@@ -25,7 +28,7 @@ export default {
 
   computed: {
     canScrollTop() {
-      return this.scrollTop > 1;
+      return !this.disabled && this.scrollTop > 1;
     },
 
     maxScrollTop() {
@@ -33,7 +36,7 @@ export default {
     },
 
     canScrollBottom() {
-      return this.scrollTop < this.maxScrollTop - 1;
+      return !this.disabled && this.scrollTop < this.maxScrollTop - 1;
     },
 
     scrollProgress() {

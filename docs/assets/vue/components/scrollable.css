@@ -11,9 +11,6 @@
   overflow: auto;
   position: relative;
   scrollbar-width: inherit;
-  contain: size;
-  container-name: scrollable;
-  container-type: size;
 
   &:is(.panel-content > div) {
     display: flex;
@@ -58,8 +55,6 @@
 
   .scroll-shadow-top {
     top: 0;
-    /* TODO convert this magic number to a token that explains what it is */
-    margin-bottom: -18px;
 
     &::before {
       background-position: bottom;
@@ -73,12 +68,22 @@
   }
 
   .scroll-shadow-bottom {
-    bottom: 0;
-    transform: translateY(var(--padding-bottom, var(--panel-spacing)));
+    top: 100%;
 
     &::before {
       bottom: 0;
       background-position: top;
     }
+  }
+}
+
+.scrollable:where(.panel-content) {
+  .scroll-shadow-top {
+    /* TODO convert this magic number to a token that explains what it is */
+    margin-bottom: -18px;
+  }
+
+  .scroll-shadow-bottom {
+    transform: translateY(var(--padding-bottom, var(--panel-spacing)));
   }
 }
