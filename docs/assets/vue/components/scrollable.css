@@ -2,37 +2,18 @@
  * Scrollable element in a vertical flex container
  * Showing shadows as an indicator of scrollability (PE wherever scroll-timeline is supported for now, can be polyfilled with JS later)
  */
-@keyframes scroll-progress {
-  from {
-    --scroll-progress: 0;
-    --scroll-progress-end: 1;
-  }
-
-  to {
-    --scroll-progress: 1;
-    --scroll-progress-end: 0;
-  }
-}
-
-@property --scroll-progress {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: -1;
-}
-
-@property --scroll-progress-end {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: -1;
-}
 
 .scrollable {
+  --scroll-shadow-height: 0.5em;
+
   flex-shrink: 1;
   min-height: 0;
   overflow: auto;
   position: relative;
-  scroll-timeline-name: --scrollable;
   scrollbar-width: inherit;
+  contain: size;
+  container-name: scrollable;
+  container-type: size;
 
   &:is(.panel-content > div) {
     display: flex;
@@ -40,43 +21,64 @@
     gap: inherit;
   }
 
-  &::before,
-  &::after {
-    --scroll-shadow-height: 0.5em;
-
-    /* Must be 0 when scroll-progress is 0 and 1 for > 0.001 */
-    --can-scroll-top: clamp(0, var(--scroll-progress) * 1000, 1);
-
-    /* Must be 0 when scroll-progress-end is 0 and 1 for > 0.001 */
-    --can-scroll-bottom: clamp(0, var(--scroll-progress-end) * 1000, 1);
-
-    content: '';
+  .scroll-shadow {
     position: sticky;
     z-index: 1;
     inset-inline: 0;
     display: block;
 
-    pointer-events: none;
-    animation-name: scroll-progress;
-    animation-duration: 1ms; /* Firefox requires this to apply the animation */
-    animation-timeline: --scrollable;
-    background: radial-gradient(farthest-side, var(--wa-color-shadow) 10%, transparent) center / 120% 200%;
-    mix-blend-mode: multiply;
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      height: var(--scroll-shadow-height);
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      background: radial-gradient(farthest-side, var(--wa-color-shadow) 10%, transparent) center / 120% 200%;
+      transition: var(--wa-transition-slow);
+      /* transition-property: opacity, transform, display, height, min-height; */
+      transition-behavior: allow-discrete;
+    }
   }
 
-  &::before {
-    background-position: bottom;
+  &:not(.can-scroll-top) .scroll-shadow-top,
+  &:not(.can-scroll-bottom) .scroll-shadow-bottom {
+    opacity: 0;
+
+    &::before {
+      height: 0;
+    }
+  }
+
+  &:not(.can-scroll-top) .scroll-shadow-top {
+    &::before {
+      transform: translateY(-100%);
+    }
+  }
+
+  .scroll-shadow-top {
     top: 0;
-    height: calc(var(--can-scroll-top) * var(--scroll-shadow-height));
-    /* Must be -100% when can-scroll-top is 0 and 0% when it is 1 */
-    translate: 0 calc(-100% * (1 - var(--can-scroll-top)));
+    /* TODO convert this magic number to a token that explains what it is */
+    margin-bottom: -18px;
+
+    &::before {
+      background-position: bottom;
+    }
   }
 
-  &::after {
-    background-position: top;
+  &:not(.can-scroll-bottom) .scroll-shadow-bottom {
+    &::before {
+      transform: translateY(100%);
+    }
+  }
+
+  .scroll-shadow-bottom {
     bottom: 0;
-    height: calc(var(--can-scroll-bottom) * var(--scroll-shadow-height));
-    /* Must be 100% when can-scroll-bottom is 0 and 0% when it is 1 */
-    translate: 0 calc(100% * (1 - var(--can-scroll-bottom)));
+    transform: translateY(var(--padding-bottom, var(--panel-spacing)));
+
+    &::before {
+      bottom: 0;
+      background-position: top;
+    }
   }
 }

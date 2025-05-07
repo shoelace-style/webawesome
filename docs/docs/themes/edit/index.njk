@@ -73,7 +73,7 @@ unlisted: true
   </header>
 
   <ui-panel-container class="sidebar" slot="navigation" v-model="ui.panel">
-    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0" class="scrollable">
+    <ui-panel v-model="ui.panel" value="styles" title="Styles" :step="0">
       <theme-card :theme="computed.base" size="small" :action="e => ui.panel = 'theme'" title="Starting Theme"></theme-card>
 
       <wa-divider></wa-divider>
@@ -90,19 +90,21 @@ unlisted: true
       </icons-card>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="theme" :step="1" class="scrollable">
+    <ui-panel v-model="ui.panel" value="theme" :step="1">
       <template #title>
         <label for="starting-theme">Starting Theme</label>
       </template>
 
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
-          <wa-radio v-for="(themeMeta, themeId) in themes" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
-            <theme-card v-if="themeId !== 'custom'" :theme="themeId"></theme-card>
+        <template v-for="(themeMeta, themeId) in themes">
+          <wa-radio v-if="themeId !== 'custom'" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
+            <theme-card :theme="themeId"></theme-card>
           </wa-radio>
+        </template>
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1" class="scrollable">
+    <ui-panel v-model="ui.panel" value="color" title="Colors" :step="1">
       <palette-card :palette="computed.palette" size="small" :action="e => ui.panel = 'color-palette'" role="button" tabindex="0"
                     title="Color Palette" :subtitle="palettes[computed.palette]?.title">
       </palette-card>
@@ -112,7 +114,7 @@ unlisted: true
                      :values="hues"></swatch-select>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2" class="scrollable">
+    <ui-panel v-model="ui.panel" value="color-palette" title="Color Palette" :step="2">
       <wa-radio-group class="card-picker" v-model="theme.palette" size="small">
         <wa-radio v-for="(palette, paletteId) in palettes" :value="paletteId">
           <palette-card :palette="paletteId" size="small" :aria-selected="!theme.palette && paletteId === themes[computed.base].palette ? 'true' : null">
@@ -122,7 +124,7 @@ unlisted: true
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1" class="scrollable">
+    <ui-panel v-model="ui.panel" value="typography" title="Fonts" :step="1">
       <wa-radio-group class="card-picker" v-model="theme.typography" >
         <wa-radio v-for="pairing of pairings" :value="pairing.id" size="small">
           <fonts-card :pairing :aria-selected="!theme.typography && pairing.id === theme.base ? 'true' : null">
@@ -132,7 +134,7 @@ unlisted: true
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icons" title="Icons" :step="1" class="scrollable">
+    <ui-panel v-model="ui.panel" value="icons" title="Icons" :step="1">
       <wa-select label="Library" value="default" disabled style="display: none;">
         <wa-option value="default" selected>Font Awesome</wa-option>
       </wa-select>
@@ -154,7 +156,7 @@ unlisted: true
       </wa-input>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2" class="scrollable">
+    <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
           <wa-radio v-for="family of iconLibraries.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
             <icons-card type="family" vary="style" :family="family"  :library="computed.icon.library"></icons-card>
@@ -162,7 +164,7 @@ unlisted: true
       </wa-radio-group>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="icon-style" title="Icon Style" :step="2" class="scrollable">
+    <ui-panel v-model="ui.panel" value="icon-style" title="Icon Style" :step="2">
       <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.style">
           <wa-radio v-for="style of iconLibraries.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
             <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>

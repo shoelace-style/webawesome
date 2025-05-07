@@ -1,5 +1,5 @@
 const template = `
-<section class="panel-container" @toggle.capture="handleToggle" ref="container" :style="{'--panel-step': step}">
+<section class="panel-container" ref="container" :style="{'--panel-step': step}" @open="handleOpen">
   <slot ref="panels"></slot>
 </section>
 `;
@@ -21,7 +21,7 @@ export default {
 
   mounted() {
     let { container } = this.$refs;
-    let activePanel = container.querySelector(':scope > [open]');
+    let activePanel = container.querySelector(':scope > .open');
 
     if (activePanel) {
       let { step, value } = activePanel.dataset;
@@ -49,13 +49,10 @@ export default {
   },
 
   methods: {
-    handleToggle(event) {
-      let { newState, target } = event;
-
-      if (newState === 'open') {
-        this.value = target.dataset.value;
-        this.step = Number(target.dataset.step);
-      }
+    handleOpen(e) {
+      let { value, step } = e.detail;
+      this.value = value;
+      this.step = step;
     },
 
     updatePanels() {
@@ -82,7 +79,7 @@ export default {
         let isNext = panelStep === step + 1;
 
         panel.classList.toggle('previous', isPrevious);
-        panel.open = isOpen;
+        panel.classList.toggle('open', isOpen);
         panel.classList.toggle('next', isNext);
       }
     },

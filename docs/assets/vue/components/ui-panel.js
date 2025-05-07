@@ -1,12 +1,15 @@
+import UiScrollable from './ui-scrollable.js';
+
 const template = `
-<details :name="name || 'panel'" :open :data-value="value" :data-step="step" class="panel wa-plain" @toggle="handleToggle">
-  <summary :inert="open">
-    <h2><slot name="title">{{ title }}</slot></h2>
-  </summary>
-  <div class="panel-content">
+<div role="group" :name="name || 'panel'" :data-value="value" :data-step="step" class="panel" :class="{open}" ref="panel">
+  <h2 :inert="open" class="panel-header" @click="openPanel">
+    <wa-icon name="chevron-left" class="back-icon" />
+    <slot name="title">{{ title }}</slot>
+  </h2>
+  <ui-scrollable class="panel-content">
     <slot></slot>
-  </div>
-</details>
+  </ui-scrollable>
+</div>
 `;
 
 export default {
@@ -21,9 +24,17 @@ export default {
     /** Currently selected id */
     modelValue: String,
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'open'],
   data() {
     return {};
+  },
+
+  mounted() {
+    if (this.open) {
+      this.$refs.panel.dispatchEvent(
+        new CustomEvent('open', { detail: { value: this.value, step: this.step }, bubbles: true }),
+      );
+    }
   },
 
   computed: {
@@ -33,17 +44,29 @@ export default {
   },
 
   methods: {
-    handleToggle(event) {
-      if (event.target.open) {
-        this.$emit('update:modelValue', this.value);
-      } else if (this.open) {
-        this.$emit('update:modelValue', '');
-      }
+    openPanel() {
+      let wasOpen = this.open;
+      this.$emit('update:modelValue', wasOpen ? '' : this.value);
+    },
+  },
+
+  watch: {
+    open: {
+      immediate: true,
+      handler(open) {
+        if (open && this.$refs.panel) {
+          this.$refs.panel.dispatchEvent(
+            new CustomEvent('open', { detail: { value: this.value, step: this.step }, bubbles: true }),
+          );
+        }
+      },
     },
   },
 
   template,
-  components: {},
+  components: {
+    UiScrollable,
+  },
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
