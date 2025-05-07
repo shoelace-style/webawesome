@@ -34,10 +34,7 @@ input[type='radio'] {
     background-color: var(--checked-icon-color);
     border-radius: 50%;
     content: '';
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 0.25em);
+    width: round(calc(100% * var(--checked-icon-scale)), 1px);
     aspect-ratio: 1;
   }
 }
