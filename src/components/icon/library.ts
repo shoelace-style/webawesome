@@ -1,80 +1,104 @@
 import { flatten } from '../../utilities/deep.js';
-import type WaIcon from '../icon/icon.js';
-import defaultLibrary from './library.default.js';
-import type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary } from './types.d.ts';
 
-export type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary } from './types.d.ts';
+export default class IconLibrary {
+  name: string;
+  resolver: IconLibraryResolver;
+  mutator?: IconLibraryMutator;
+  getKey?: IconLibraryGetKey;
+  spriteSheet?: boolean;
 
-let registry: IconLibrary[] = [];
-let watchedIcons: WaIcon[] = [];
+  // One level only: URL → markup
+  fetched: IconLibraryCache<0> = {};
 
-registerIconLibrary(defaultLibrary);
+  spec: UnregisteredIconLibrary;
 
-/** Adds an icon to the list of watched icons. */
-export function watchIcon(icon: WaIcon) {
-  watchedIcons.push(icon);
-}
+  constructor(library: UnregisteredIconLibrary) {
+    // Store library definition
+    this.spec = library;
 
-/** Removes an icon from the list of watched icons. */
-export function unwatchIcon(icon: WaIcon) {
-  watchedIcons = watchedIcons.filter(el => el !== icon);
-}
+    // Copy certain properties
+    this.name = library.name;
+    this.mutator = library.mutator;
+    this.getKey = library.getKey;
+    this.spriteSheet = library.spriteSheet;
 
-/** Returns a library from the registry. */
-export function getIconLibrary(name?: string) {
-  return registry.find(lib => lib.name === name);
-}
-
-/** Adds an icon library to the registry, or overrides an existing one. */
-export function registerIconLibrary(library: UnregisteredIconLibrary) {
-  unregisterIconLibrary(library.name);
-
-  let registeredLibrary: IconLibrary = {
-    ...library,
-    fetched: {},
-    addFetched(cache: IconLibraryFetched) {
-      return addFetched.call(this, cache);
-    },
-  };
-
-  if (library.fetched) {
-    registeredLibrary.addFetched(library.fetched);
+    if (library.fetched) {
+      this.addFetched(library.fetched);
+    }
   }
 
-  registry.push(registeredLibrary);
+  getURL(name: string, family: string, variant: string) {
+    if (name.startsWith('system:')) {
+      name = name.slice(7);
 
-  // Redraw watched icons
-  watchedIcons.forEach(icon => {
-    if (icon.library === library.name) {
-      icon.setIcon();
+      if (this.spec.system) {
+        let resolved = this.spec.system(name, family, variant);
+        name = resolved.name ?? name;
+        family = resolved.family ?? family;
+        variant = resolved.variant ?? variant;
+      }
     }
-  });
+
+    return this.spec.resolver(name, family, variant);
+  }
+
+  /**
+   * Convert the deep family → variant → icon name → markup cache that is more convenient to provide
+   * to the flat URL → markup cache that icon libraries use internally
+   **/
+  addFetched(cache: IconLibraryFetched) {
+    // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
+    let flatCache = flatten(cache, {
+      getKey: (path: string[]) => {
+        // name is always the last value no matter the depth
+        let name = path.pop()!;
+        let [family, variant] = path;
+        let url = this.getURL(name, family, variant);
+        let key = this.getKey?.(url) ?? url;
+        return key;
+      },
+    });
+
+    Object.assign(this.fetched, flatCache);
+  }
 }
+
+export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
+export type IconLibrarySystemResolver = (
+  name: string,
+  family: string,
+  variant: string,
+) => { name: string; family?: string; variant?: string };
+export type IconLibraryGetKey = (name: string) => string;
+export type IconLibraryMutator = (svg: SVGElement) => void;
+
+// This is a utility for decrementing a number up to 3 by one
+// e.g., Decrement[3] yields 2
+type Decrement = [never, 0, 1, 2];
 
 /**
- * Convert the deep family → variant → icon name → markup cache that is more convenient to provide
- * to the flat URL → markup cache that icon libraries use internally
- **/
-function addFetched(this: IconLibrary | UnregisteredIconLibrary, cache: IconLibraryFetched) {
-  let { resolver, getKey } = this;
+ * Record of string → string or nested string → Record<string, ...>
+ * The number indicates how many params we have; none (0), just family (1), or family and style (2).
+ * IconLibraryCache<0> is Record<string, string> (name → markup)
+ * IconLibraryCache<1> is Record<string, Record<string, string>> (family → name → markup)
+ * IconLibraryCache<2> is Record<string, Record<string, Record<string, string>>> (family → variant → name → markup)
+ */
+export type IconLibraryCache<N extends number = 0> = Record<
+  string,
+  N extends 0 ? string : IconLibraryCache<Decrement[N]>
+>;
 
-  // Convert flat URL → markup cache to deep family → variant → icon name → markup cache
-  let flatCache = flatten(cache, {
-    getKey(path: string[]) {
-      // name is always the last value no matter the depth
-      let name = path.pop()!;
-      let [family, variant] = path;
-      let url = resolver(name, family, variant);
-      let key = getKey?.(url) ?? url;
-      return key;
-    },
-  }) as IconLibraryCache<0>;
+export type IconLibraryFetched = IconLibraryCache<0> | IconLibraryCache<1> | IconLibraryCache<2>;
 
-  this.fetched ??= {};
-  Object.assign(this.fetched, flatCache);
-}
+export interface UnregisteredIconLibrary {
+  name: string;
+  resolver: IconLibraryResolver;
+  system?: IconLibrarySystemResolver;
+  mutator?: IconLibraryMutator;
+  getKey?: IconLibraryGetKey;
+  spriteSheet?: boolean;
 
-/** Removes an icon library from the registry. */
-export function unregisterIconLibrary(name: string) {
-  registry = registry.filter(lib => lib.name !== name);
+  // Max depth: family → variant → icon name → markup
+  // but may be shallower for libraries that don't use variants or families
+  fetched?: IconLibraryFetched;
 }

@@ -1,5 +1,5 @@
 import { getKitCode } from '../../utilities/base-path.js';
-import type { IconLibraryCache, UnregisteredIconLibrary } from './types.d.ts';
+import type { IconLibraryCache, UnregisteredIconLibrary } from './library.js';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
