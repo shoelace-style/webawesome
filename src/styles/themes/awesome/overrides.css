@@ -74,12 +74,17 @@
   }
 
   wa-radio-group > wa-radio-button {
-    &::part(base):active,
+    &::part(base) {
+      --background-color-active: var(--border-color-active);
+      --border-color-active: var(--wa-color-neutral-border-loud);
+      --text-color-active: var(--wa-color-surface-default);
+    }
     &::part(checked) {
       --background-color: var(--border-color);
       --background-color-hover: var(--border-color);
       --border-color: var(--wa-color-neutral-border-loud);
       --text-color: var(--wa-color-surface-default);
+      --text-color-hover: var(--text-color);
     }
   }
 
