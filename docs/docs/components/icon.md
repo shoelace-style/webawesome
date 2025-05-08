@@ -201,7 +201,7 @@ Here's an example that registers an icon library located in the `/assets/icons` 
 
   registerIconLibrary({
     name: 'my-icons',
-    resolver: (name, family, variant) => `/assets/icons/${name}.svg`,
+    getUrl: (name, family, variant) => `/assets/icons/${name}.svg`,
     mutator: svg => svg.setAttribute('fill', 'currentColor')
   });
 </script>
@@ -230,7 +230,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
 
   registerIconLibrary({
     name: 'default',
-    resolver: (name, family) => {
+    getUrl: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
     }
@@ -250,7 +250,7 @@ import { registerIconLibrary } from '/dist/webawesome.js';
 
 registerIconLibrary({
     name: 'boxicons',
-    resolver: name => {
+    getUrl: name => {
       let folder = 'regular';
       if (name.substring(0, 4) === 'bxs-') folder = 'solid';
       if (name.substring(0, 4) === 'bxl-') folder = 'logos';
@@ -305,7 +305,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 
   registerIconLibrary({
     name: 'lucide',
-    resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`
+    getUrl: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`
   });
 </script>
 ```
@@ -322,7 +322,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 
   registerIconLibrary({
     name: 'heroicons',
-    resolver: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`
+    getUrl: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`
   });
 </script>
 
@@ -348,7 +348,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 
   registerIconLibrary({
     name: 'iconoir',
-    resolver: name => `https://cdn.jsdelivr.net/gh/lucaburgio/iconoir@latest/icons/${name}.svg`
+    getUrl: name => `https://cdn.jsdelivr.net/gh/lucaburgio/iconoir@latest/icons/${name}.svg`
   });
 </script>
 
@@ -374,7 +374,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/io
 
   registerIconLibrary({
     name: 'ionicons',
-    resolver: name => `https://cdn.jsdelivr.net/npm/ionicons@5.1.2/dist/ionicons/svg/${name}.svg`,
+    getUrl: name => `https://cdn.jsdelivr.net/npm/ionicons@5.1.2/dist/ionicons/svg/${name}.svg`,
     mutator: svg => {
       svg.setAttribute('fill', 'currentColor');
       svg.setAttribute('stroke', 'currentColor');
@@ -420,7 +420,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/mi
 
   registerIconLibrary({
     name: 'jam',
-    resolver: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
+    getUrl: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
     mutator: svg => svg.setAttribute('fill', 'currentColor')
   });
 </script>
@@ -454,7 +454,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 
   registerIconLibrary({
     name: 'material',
-    resolver: name => {
+    getUrl: name => {
       const match = name.match(/^(.*?)(_(round|sharp))?$/);
       return `https://cdn.jsdelivr.net/npm/@material-icons/svg@1.0.5/svg/${match[1]}/${match[3] || 'outline'}.svg`;
     },
@@ -498,7 +498,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 
   registerIconLibrary({
     name: 'remixicon',
-    resolver: name => {
+    getUrl: name => {
       const match = name.match(/^(.*?)\/(.*?)?$/);
       match[1] = match[1].charAt(0).toUpperCase() + match[1].slice(1);
       return `https://cdn.jsdelivr.net/npm/remixicon@2.5.0/icons/${match[1]}/${match[2]}.svg`;
@@ -536,7 +536,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 
   registerIconLibrary({
     name: 'tabler',
-    resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
+    getUrl: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
     mutator: svg => {
       svg.style.fill = 'none';
       svg.setAttribute('stroke', 'currentColor');
@@ -573,7 +573,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 
   registerIconLibrary({
     name: 'unicons',
-    resolver: name => {
+    getUrl: name => {
       const match = name.match(/^(.*?)(-s)?$/);
       return `https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.3/svg/${match[2] === '-s' ? 'solid' : 'line'}/${
         match[1]
@@ -612,7 +612,7 @@ For example, this will change the default icon library to use [Bootstrap Icons](
 
   registerIconLibrary({
     name: 'default',
-    resolver: (name, family) => {
+    getUrl: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
     }
@@ -638,7 +638,7 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 
   registerIconLibrary({
     name: 'sprite',
-    resolver: name => `/assets/images/sprite.svg#${name}`,
+    getUrl: name => `/assets/images/sprite.svg#${name}`,
     mutator: svg => svg.setAttribute('fill', 'currentColor'),
     spriteSheet: true
   });
@@ -661,7 +661,7 @@ This creates a mapping of `(name, library, variant)` to SVG markup:
 
   registerIconLibrary({
     name: 'default',
-    resolver: name => `/path/to/custom/icons/${name}.svg`,
+    getUrl: name => `/path/to/custom/icons/${name}.svg`,
     fetched: {
       check: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
     }

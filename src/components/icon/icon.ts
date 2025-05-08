@@ -1,26 +1,20 @@
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { isTemplateResult } from 'lit/directive-helpers.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './icon.css';
-import { getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './registry.js';
+import {
+  CACHEABLE_ERROR,
+  getIconLibrary,
+  RETRYABLE_ERROR,
+  unwatchIcon,
+  watchIcon,
+  type IconLibrary,
+} from './registry.js';
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';
-
-const CACHEABLE_ERROR = Symbol();
-const RETRYABLE_ERROR = Symbol();
-type SVGResult = HTMLTemplateResult | SVGSVGElement | typeof RETRYABLE_ERROR | typeof CACHEABLE_ERROR;
-
-let parser: DOMParser;
-const iconCache = new Map<string, Promise<SVGResult>>();
-
-interface IconSource {
-  url?: string;
-  fromLibrary: boolean;
-}
 
 /**
  * @summary Icons are symbols that can be used to represent various options within an application.
@@ -82,6 +76,9 @@ export default class WaIcon extends WebAwesomeElement {
   /** The name of a registered custom icon library. */
   @property({ cssProperty: '--wa-icon-library', default: 'default' }) library = 'default';
 
+  /** The icon library object being used. */
+  private iconLibrary?: IconLibrary;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -99,82 +96,16 @@ export default class WaIcon extends WebAwesomeElement {
     unwatchIcon(this);
   }
 
-  private getIconSource(): IconSource {
-    const library = getIconLibrary(this.library);
-    if (this.name && library) {
-      return {
-        url: library.getURL(this.name, this.family, this.variant),
-        fromLibrary: true,
-      };
+  private getIconSource(): string | undefined {
+    if (this.src) {
+      return this.src;
     }
 
-    return {
-      url: this.src,
-      fromLibrary: false,
-    };
-  }
-
-  /** Given a URL, this function returns the resulting SVG element or an appropriate error symbol. */
-  private async resolveIcon(url: string, library?: IconLibrary): Promise<SVGResult> {
-    let fileData: Response;
-
-    if (library?.spriteSheet) {
-      this.svg = html`<svg part="svg">
-        <use part="use" href="${url}"></use>
-      </svg>`;
-
-      // Using a templateResult requires the SVG to be written to the DOM first before we can grab the SVGElement
-      // to be passed to the library's mutator function.
-      await this.updateComplete;
-
-      const svg = this.shadowRoot!.querySelector("[part='svg']")!;
-
-      if (typeof library.mutator === 'function') {
-        library.mutator(svg as SVGElement);
-      }
-
-      return this.svg;
+    if (this.name) {
+      return this.iconLibrary?.getUrl(this.name, this.family, this.variant);
     }
 
-    let cacheKey = library?.getKey?.(url) ?? url;
-    let markup: string | undefined = library?.fetched?.[cacheKey];
-
-    if (!markup) {
-      try {
-        fileData = await fetch(url, { mode: 'cors' });
-
-        if (fileData.ok) {
-          markup = await fileData.text();
-
-          if (library) {
-            library.fetched![cacheKey] = markup;
-          }
-        } else {
-          return fileData.status === 410 ? CACHEABLE_ERROR : RETRYABLE_ERROR;
-        }
-      } catch {
-        return RETRYABLE_ERROR;
-      }
-    }
-
-    try {
-      const div = document.createElement('div');
-      div.innerHTML = markup;
-
-      const svg = div.firstElementChild;
-      if (svg?.tagName?.toLowerCase() !== 'svg') return CACHEABLE_ERROR;
-
-      if (!parser) parser = new DOMParser();
-      const doc = parser.parseFromString(svg.outerHTML, 'text/html');
-
-      const svgEl = doc.body.querySelector('svg');
-      if (!svgEl) return CACHEABLE_ERROR;
-
-      svgEl.part.add('svg');
-      return document.adoptNode(svgEl);
-    } catch {
-      return CACHEABLE_ERROR;
-    }
+    return undefined;
   }
 
   @watch('label')
@@ -192,21 +123,24 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
+  @watch(['library', 'src'])
+  setIconLibrary() {
+    // Clear it out so that next time `setIcon()` is called it sets it.
+    this.iconLibrary = undefined;
+  }
+
   @watch(['family', 'name', 'library', 'variant', 'src'])
   async setIcon() {
-    const { url, fromLibrary } = this.getIconSource();
-    const library = fromLibrary ? getIconLibrary(this.library) : undefined;
+    this.iconLibrary ??= getIconLibrary(this.src ? 'custom' : this.library);
 
-    if (!url) {
+    const url = this.getIconSource();
+
+    if (!url || !this.iconLibrary) {
       this.svg = null;
       return;
     }
 
-    let iconResolver = iconCache.get(url);
-    if (!iconResolver) {
-      iconResolver = this.resolveIcon(url, library);
-      iconCache.set(url, iconResolver);
-    }
+    let iconResolver = this.iconLibrary.getElement(url);
 
     // If we haven't rendered yet, exit early. This avoids unnecessary work due to watching multiple props.
     if (!this.initialRender) {
@@ -215,17 +149,8 @@ export default class WaIcon extends WebAwesomeElement {
 
     const svg = await iconResolver;
 
-    if (svg === RETRYABLE_ERROR) {
-      iconCache.delete(url);
-    }
-
-    if (url !== this.getIconSource().url) {
+    if (url !== this.getIconSource()) {
       // If the url has changed while fetching the icon, ignore this request
-      return;
-    }
-
-    if (isTemplateResult(svg)) {
-      this.svg = svg;
       return;
     }
 
@@ -237,20 +162,7 @@ export default class WaIcon extends WebAwesomeElement {
         break;
       default:
         this.svg = svg.cloneNode(true) as SVGElement;
-        library?.mutator?.(this.svg);
         this.dispatchEvent(new WaLoadEvent());
-    }
-  }
-
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
-    // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
-    const library = getIconLibrary(this.library);
-
-    const svg = this.shadowRoot?.querySelector('svg');
-    if (svg) {
-      library?.mutator?.(svg);
     }
   }
 

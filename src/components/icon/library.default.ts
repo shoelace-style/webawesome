@@ -79,9 +79,9 @@ export const fetched: IconLibraryCache<2> = {
 
 const library: UnregisteredIconLibrary = {
   name: 'default',
-  resolver: getIconUrl,
+  getUrl: getIconUrl,
   getKey: url => url.replace(/\?token=[^&]+/, ''),
-  fetched,
+  inlined: fetched,
 };
 
 export default library;

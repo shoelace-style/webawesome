@@ -1,17 +1,23 @@
 import type WaIcon from './icon.js';
 import defaultLibrary from './library.default.js';
 import IconLibrary, {
+  CACHEABLE_ERROR,
+  RETRYABLE_ERROR,
+  fetchIcon,
+  type IconFetchedResult,
   type IconLibraryCache,
   type IconLibraryFetched,
   type UnregisteredIconLibrary,
 } from './library.js';
 
-export type { IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary };
+export { CACHEABLE_ERROR, RETRYABLE_ERROR, fetchIcon };
+export type { IconFetchedResult, IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary };
 
 let registry: IconLibrary[] = [];
 let watchedIcons: WaIcon[] = [];
 
 registerIconLibrary(defaultLibrary);
+registerIconLibrary({ name: 'custom' });
 
 /** Adds an icon to the list of watched icons. */
 export function watchIcon(icon: WaIcon) {
