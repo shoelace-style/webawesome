@@ -1,5 +1,4 @@
 let basePath = '';
-let kitCode = '';
 
 /** Sets the library's base path to the specified directory or URL. */
 export function setBasePath(path: string) {
@@ -48,33 +47,4 @@ export function getBasePath(subpath = '') {
 
   // Return the base path without a trailing slash. If one exists, append the subpath separated by a slash.
   return basePath.replace(/\/$/, '') + (subpath ? `/${subpath.replace(/^\//, '')}` : ``);
-}
-
-/** Sets the library's Web Awesome kit code. */
-export function setKitCode(code: string) {
-  kitCode = code;
-}
-
-/**
- * Gets the library's Web Awesome kit code.
- *
- * The kit code is used to fetch premium assets, so it needs to be set for certain components to work correctly. This
- * isn't something we can infer, so the user will need to provide it using the `data-fa-kit-code` attribute. This can
- * be on any element, but ideally it should exist on the script that imports Web Awesome.
- *
- *   <script src="bundle.js" data-fa-kit-code="abc123"></script>
- *
- * Alternatively, you can set the kit code manually using the exported `setKitCode()` function.
- *
- */
-export function getKitCode() {
-  if (!kitCode) {
-    const el = document.querySelector('[data-fa-kit-code]');
-
-    if (el) {
-      setKitCode(el.getAttribute('data-fa-kit-code') || '');
-    }
-  }
-
-  return kitCode;
 }
