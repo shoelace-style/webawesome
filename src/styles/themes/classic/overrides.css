@@ -15,16 +15,18 @@
   }
 
   wa-radio-button {
-    --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
-    --background-color-hover: var(--wa-form-control-activated-color);
-    --border-color: var(--wa-form-control-border-color);
-    --border-color-active: var(--background-color-active);
-    --border-color-hover: var(--background-color-hover);
-    --text-color-active: var(--text-color-hover);
-    --text-color-hover: var(--wa-color-brand-on-loud);
-    --indicator-color: var(--wa-background-color);
+    &::part(base) {
+      --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
+      --background-color-hover: var(--wa-form-control-activated-color);
+      --border-color: var(--wa-form-control-border-color);
+      --border-color-active: var(--background-color-active);
+      --border-color-hover: var(--background-color-hover);
+      --text-color-active: var(--text-color-hover);
+      --text-color-hover: var(--wa-color-brand-on-loud);
+      --indicator-color: var(--wa-form-control-activated-color);
+    }
 
-    &[checked] {
+    &::part(checked) {
       --background-color: var(--wa-form-control-activated-color);
       --border-color: var(--background-color);
       --text-color: var(--wa-color-brand-on-loud);

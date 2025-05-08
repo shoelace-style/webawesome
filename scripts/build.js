@@ -17,7 +17,6 @@ import { cdnDir, distDir, docsDir, rootDir, runScript, siteDir } from './utils.j
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
-const isAlpha = process.argv.includes('--alpha');
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const packageData = JSON.parse(await readFile(join(rootDir, 'package.json'), 'utf-8'));
 const version = JSON.stringify(packageData.version.toString());
@@ -112,39 +111,7 @@ function generateReactWrappers() {
 async function generateStyles() {
   spinner.start('Copying stylesheets');
 
-  //
-  // NOTE - alpha setting omits certain stylesheets that are pro-only
-  //
-  if (isAlpha) {
-    // Copy all styles
-    await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
-
-    // Remove pro themes
-    const allThemes = await globby(join(cdnDir, 'styles/themes/**/*.css'));
-    const proThemes = allThemes.filter(file => {
-      if (
-        file.includes('themes/classic') ||
-        file.includes('themes/default') ||
-        file.includes('themes/awesome') ||
-        file.includes('themes/active') ||
-        file.includes('themes/glossy') ||
-        file.includes('themes/matter') ||
-        file.includes('themes/mellow') ||
-        file.includes('themes/playful') ||
-        file.includes('themes/premium') ||
-        file.includes('themes/tailspin') ||
-        file.includes('themes/brutalist')
-      ) {
-        return false;
-      }
-      return true;
-    });
-
-    // Delete pro themes that shouldn't be in alpha
-    await Promise.all(proThemes.map(file => deleteAsync(file)));
-  } else {
-    await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
-  }
+  await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
 
   spinner.succeed();
 
@@ -277,7 +244,6 @@ async function generateDocs() {
   spinner.start('Writing the docs');
 
   const args = [];
-  if (isAlpha) args.push('--alpha');
   if (isDeveloping) args.push('--develop');
 
   let output;

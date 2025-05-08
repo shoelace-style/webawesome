@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # if [[ $VERCEL_GIT_COMMIT_REF == "alpha"  ]] ; then
-  echo "Running the alpha build!"
-  npm run build:alpha
+  echo "Running the build!"
+  npm run build
 # else
 #   npm run build
 # fi
