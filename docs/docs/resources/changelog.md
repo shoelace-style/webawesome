@@ -19,6 +19,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
 - Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
 - Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
+- Fixed a bug in `<wa-radio-group>` that prevented radio buttons from validating
 - Improved native radio alignment
 - Improved the `.wa-cloak` utility class so all FOUCE-related solutions are 100% opt-in
 
