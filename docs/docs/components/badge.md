@@ -65,6 +65,16 @@ Use the `appearance` attribute to change the badge's visual appearance.
 </div>
 ```
 
+### Size
+
+Badges are sized relative to the current font size. You can set `font-size` on any badge (or an ancestor element) to change it.
+
+```html {.example}
+<wa-badge variant="brand" style="font-size: .75rem;">Brand</wa-badge>
+<wa-badge variant="brand" style="font-size: 1rem;">Brand</wa-badge>
+<wa-badge variant="brand" style="font-size: 1.5rem;">Brand</wa-badge>
+```
+
 ### Pill Badges
 
 Use the `pill` attribute to give badges rounded edges.
