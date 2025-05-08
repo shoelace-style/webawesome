@@ -9,14 +9,28 @@ export const CACHEABLE_HTTP_ERRORS = [410];
 
 let parser: DOMParser;
 
+const defaultFallback = function (name: string, family?: string, variant?: string): IconLocator | undefined {
+  if (this.name !== 'wa') {
+    return {
+      name,
+      family,
+      variant,
+      library: 'wa',
+    };
+  }
+
+  return undefined;
+};
+
 export default class IconLibrary {
   /** The original object used to create this library */
-  private spec: UnregisteredIconLibrary;
+  readonly spec: UnregisteredIconLibrary;
 
   readonly name: string;
   readonly mutator?: IconLibraryMutator;
   readonly system?: IconMapping;
   readonly spriteSheet?: boolean;
+  readonly fallback?: IconMapping;
 
   /** Inlined markup, keyed by URL */
   inlined: IconLibraryCacheFlat = {};
@@ -33,6 +47,7 @@ export default class IconLibrary {
     this.mutator = library.mutator;
     this.system = library.system;
     this.spriteSheet = library.spriteSheet;
+    this.fallback = library.fallback ?? defaultFallback;
 
     if (library.inlined) {
       this.inline(library.inlined);
@@ -42,7 +57,7 @@ export default class IconLibrary {
   /**
    * Convert an icon name, family, and variant into a URL
    */
-  getUrl(name: string, family?: string, variant?: string) {
+  getUrl(name: string, family?: string, variant?: string): string {
     // console.warn('getUrl', name, family, variant);
     if (name.startsWith('system:')) {
       name = name.slice(7);
@@ -54,6 +69,14 @@ export default class IconLibrary {
           name = resolved.name ?? name;
           family = resolved.family ?? family;
           variant = resolved.variant ?? variant;
+
+          if (resolved.library && resolved.library !== this.name) {
+            let library = IconLibrary.registry.get(resolved.library);
+
+            if (library) {
+              return library.getUrl(name, family, variant);
+            }
+          }
         }
       }
     }
@@ -125,7 +148,15 @@ export default class IconLibrary {
         // Try again with fallback
         let fallback = this.spec.fallback(name, family, variant);
         if (fallback) {
-          return this.getElement(fallback.name, fallback.family, fallback.variant);
+          let library: IconLibrary | undefined = this;
+
+          if (fallback.library && fallback.library !== this.name) {
+            library = IconLibrary.registry.get(fallback.library);
+          }
+
+          if (library) {
+            return library.getElement(fallback.name, fallback.family, fallback.variant);
+          }
         }
       }
 
@@ -195,14 +226,20 @@ export default class IconLibrary {
 
     Object.assign(this.inlined, flatCache);
   }
+
+  /**
+   * Create a clone of this library, optionally overriding some of its properties.
+   */
+  extend(library: Partial<UnregisteredIconLibrary> = {}) {
+    return new IconLibrary({ ...this.spec, ...library });
+  }
+
+  static registry = new Map<string, IconLibrary>();
 }
 
 export type IconLibraryResolver = (name: string, family?: string, variant?: string) => string;
-export type IconMapping = (
-  name: string,
-  family?: string,
-  variant?: string,
-) => { name: string; family?: string; variant?: string; library?: string } | undefined;
+export type IconLocator = { name: string; family?: string; variant?: string; library?: string };
+export type IconMapping = (name: string, family?: string, variant?: string) => IconLocator | undefined;
 export type IconLibraryGetKey = (name: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
 export type IconFetchedResult = string | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR;

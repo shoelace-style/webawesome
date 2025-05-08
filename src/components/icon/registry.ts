@@ -1,5 +1,4 @@
 import type WaIcon from './icon.js';
-import defaultLibrary from './library.default.js';
 import IconLibrary, {
   CACHEABLE_ERROR,
   RETRYABLE_ERROR,
@@ -9,14 +8,16 @@ import IconLibrary, {
   type IconLibraryCacheFlat,
   type UnregisteredIconLibrary,
 } from './library.js';
+import waDefaultLibrary from './library.wa.js';
 
 export { CACHEABLE_ERROR, RETRYABLE_ERROR, fetchIcon };
 export type { IconFetchedResult, IconLibrary, IconLibraryCacheDeep, IconLibraryCacheFlat, UnregisteredIconLibrary };
 
-let registry: IconLibrary[] = [];
+let registry = IconLibrary.registry;
 let watchedIcons: WaIcon[] = [];
 
-registerIconLibrary(defaultLibrary);
+registerIconLibrary(waDefaultLibrary);
+registerIconLibrary('default', waDefaultLibrary);
 registerIconLibrary({ name: 'custom' });
 
 /** Adds an icon to the list of watched icons. */
@@ -31,16 +32,37 @@ export function unwatchIcon(icon: WaIcon) {
 
 /** Returns a library from the registry. */
 export function getIconLibrary(name?: string) {
-  return registry.find(lib => lib.name === name);
+  return name ? registry.get(name) : undefined;
 }
 
-/** Adds an icon library to the registry, or overrides an existing one. */
-export function registerIconLibrary(library: UnregisteredIconLibrary) {
-  unregisterIconLibrary(library.name);
+/**
+ * Adds an icon library to the registry, or overrides an existing one.
+ * Optionally accepts a name argument, which will override the library's built-in name, allowing you to register aliases.
+ */
+export function registerIconLibrary(name: string, library: UnregisteredIconLibrary | IconLibrary): void;
+export function registerIconLibrary(library: UnregisteredIconLibrary | IconLibrary): void;
+export function registerIconLibrary(
+  nameOrLibrary: string | UnregisteredIconLibrary | IconLibrary,
+  library?: UnregisteredIconLibrary | IconLibrary,
+) {
+  let name;
+  if (typeof nameOrLibrary === 'string') {
+    name = nameOrLibrary;
+  } else {
+    library = nameOrLibrary;
+  }
 
-  let registeredLibrary = new IconLibrary(library);
+  if (!library) {
+    throw new Error('No library provided');
+  }
 
-  registry.push(registeredLibrary);
+  let instance = library instanceof IconLibrary ? library : new IconLibrary(library);
+
+  if (name) {
+    instance = instance.extend({ name });
+  }
+
+  registry.set(instance.name, instance);
 
   // Redraw watched icons
   watchedIcons.forEach(icon => {
@@ -52,5 +74,5 @@ export function registerIconLibrary(library: UnregisteredIconLibrary) {
 
 /** Removes an icon library from the registry. */
 export function unregisterIconLibrary(name: string) {
-  registry = registry.filter(lib => lib.name !== name);
+  registry.delete(name);
 }

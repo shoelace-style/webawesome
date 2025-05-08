@@ -108,7 +108,7 @@ export const inlined: IconLibraryCacheDeep = {
 };
 
 const library: UnregisteredIconLibrary = {
-  name: 'default',
+  name: 'wa',
   getUrl: getIconUrl,
   // Cache icons using the free URL
   getCacheKey: url => url.replace(/\?token=[^&]+/, '').replace(/ka-p\./, 'ka-f.'),
