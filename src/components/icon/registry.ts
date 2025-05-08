@@ -5,13 +5,13 @@ import IconLibrary, {
   RETRYABLE_ERROR,
   fetchIcon,
   type IconFetchedResult,
-  type IconLibraryCache,
-  type IconLibraryFetched,
+  type IconLibraryCacheDeep,
+  type IconLibraryCacheFlat,
   type UnregisteredIconLibrary,
 } from './library.js';
 
 export { CACHEABLE_ERROR, RETRYABLE_ERROR, fetchIcon };
-export type { IconFetchedResult, IconLibrary, IconLibraryCache, IconLibraryFetched, UnregisteredIconLibrary };
+export type { IconFetchedResult, IconLibrary, IconLibraryCacheDeep, IconLibraryCacheFlat, UnregisteredIconLibrary };
 
 let registry: IconLibrary[] = [];
 let watchedIcons: WaIcon[] = [];

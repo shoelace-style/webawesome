@@ -1,4 +1,4 @@
-import type { IconLibraryCache, UnregisteredIconLibrary } from './library.js';
+import type { IconLibraryCacheDeep, UnregisteredIconLibrary } from './library.js';
 
 let kitCode = '';
 
@@ -80,7 +80,7 @@ function getIconUrl(name: string, family: string, variant: string) {
 }
 
 // Icons used for internal components, prefetched for speed
-export const fetched: IconLibraryCache<2> = {
+export const inlined: IconLibraryCacheDeep = {
   classic: {
     solid: {
       check: `<svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>`,
@@ -110,8 +110,9 @@ export const fetched: IconLibraryCache<2> = {
 const library: UnregisteredIconLibrary = {
   name: 'default',
   getUrl: getIconUrl,
-  getKey: url => url.replace(/\?token=[^&]+/, ''),
-  inlined: fetched,
+  // Cache icons using the free URL
+  getCacheKey: url => url.replace(/\?token=[^&]+/, '').replace(/ka-p\./, 'ka-f.'),
+  inlined,
 };
 
 export default library;

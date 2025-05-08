@@ -97,12 +97,10 @@ export default class WaIcon extends WebAwesomeElement {
   }
 
   private getIconSource(): string | undefined {
-    if (this.src) {
-      return this.src;
-    }
+    let ref = this.src ?? this.name;
 
-    if (this.name) {
-      return this.iconLibrary?.getUrl(this.name, this.family, this.variant);
+    if (ref) {
+      return this.iconLibrary?.getUrl(ref, this.family, this.variant);
     }
 
     return undefined;
@@ -133,14 +131,17 @@ export default class WaIcon extends WebAwesomeElement {
   async setIcon() {
     this.iconLibrary ??= getIconLibrary(this.src ? 'custom' : this.library);
 
-    const url = this.getIconSource();
+    let { src, name, family, variant } = this;
+    let ref = src ?? name;
 
-    if (!url || !this.iconLibrary) {
+    const url = ref ? this.iconLibrary?.getUrl(ref, family, variant) : undefined;
+
+    if (!ref || !url || !this.iconLibrary) {
       this.svg = null;
       return;
     }
 
-    let iconResolver = this.iconLibrary.getElement(url);
+    let iconResolver = this.iconLibrary.getElement(ref, family, variant);
 
     // If we haven't rendered yet, exit early. This avoids unnecessary work due to watching multiple props.
     if (!this.initialRender) {

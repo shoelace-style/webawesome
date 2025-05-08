@@ -3,7 +3,9 @@ export const CACHEABLE_ERROR = Symbol('CACHEABLE_ERROR');
 export const RETRYABLE_ERROR = Symbol('RETRYABLE_ERROR');
 
 // 410: Gone
-export const CACHEABLE_HTTP_ERRORS = [403, 404, 410];
+// NOTE: Resist the temptation to add 403 and 404 to this list.
+// We may get them before a token is added, and we need to be able to retry.
+export const CACHEABLE_HTTP_ERRORS = [410];
 
 let parser: DOMParser;
 
@@ -13,15 +15,14 @@ export default class IconLibrary {
 
   readonly name: string;
   readonly mutator?: IconLibraryMutator;
-  readonly getKey?: IconLibraryGetKey;
-  readonly system?: IconLibrarySystemResolver;
+  readonly system?: IconMapping;
   readonly spriteSheet?: boolean;
 
   /** Inlined markup, keyed by URL */
-  inlined: IconLibraryCache<0> = {};
+  inlined: IconLibraryCacheFlat = {};
 
   /** DOM nodes, keyed by URL */
-  elements: Record<string, SVGElement | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR> = {};
+  cache: Record<string, SVGElement | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR> = {};
 
   constructor(library: UnregisteredIconLibrary) {
     // Store library definition
@@ -30,7 +31,6 @@ export default class IconLibrary {
     // Copy certain properties
     this.name = library.name;
     this.mutator = library.mutator;
-    this.getKey = library.getKey;
     this.system = library.system;
     this.spriteSheet = library.spriteSheet;
 
@@ -42,19 +42,31 @@ export default class IconLibrary {
   /**
    * Convert an icon name, family, and variant into a URL
    */
-  getUrl(name: string, family: string, variant: string) {
+  getUrl(name: string, family?: string, variant?: string) {
+    // console.warn('getUrl', name, family, variant);
     if (name.startsWith('system:')) {
       name = name.slice(7);
 
       if (this.system) {
         let resolved = this.system(name, family, variant);
-        name = resolved.name ?? name;
-        family = resolved.family ?? family;
-        variant = resolved.variant ?? variant;
+
+        if (resolved) {
+          name = resolved.name ?? name;
+          family = resolved.family ?? family;
+          variant = resolved.variant ?? variant;
+        }
       }
     }
 
-    return this.spec.getUrl?.(name, family, variant);
+    if (this.spec.getUrl) {
+      return this.spec.getUrl(name, family, variant);
+    }
+
+    return name;
+  }
+
+  getCacheKey(url: string) {
+    return this.spec.getCacheKey?.(url) ?? url;
   }
 
   /**
@@ -65,12 +77,14 @@ export default class IconLibrary {
       return `<svg><use part="use" href="${url}"></use></svg>`;
     }
 
-    let cacheKey = this.getKey?.(url) ?? url;
-    let markup: string | typeof CACHEABLE_ERROR | undefined = this.inlined?.[cacheKey];
+    let cacheKey = this.getCacheKey(url);
+    let markup = this.inlined[cacheKey];
 
     if (!markup) {
       return fetchIcon(url).then(markup => {
-        if (typeof markup === 'string' || markup === CACHEABLE_ERROR) {
+        if (typeof markup === 'string') {
+          // TBD: Should we add to inlined? DOM nodes are cached anyway, perhaps that’s enough?
+          //      Or perhaps we should go the other way and cache CACHEABLE_ERROR too?
           this.inlined[cacheKey] = markup;
         }
 
@@ -82,19 +96,51 @@ export default class IconLibrary {
   }
 
   /**
-   * Given a URL, this function returns the resulting SVG element or an appropriate error symbol.
+   * Given a name, family, and variant, this function returns the resulting SVG element or an appropriate error symbol.
+   * If the icon library defines fallbacks, they will be tried in order.
    */
-  async getElement(url: string): Promise<SVGElement | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR> {
-    if (this.elements[url]) {
-      return this.elements[url];
+  async getElement(
+    name: string,
+    family?: string,
+    variant?: string,
+  ): Promise<SVGElement | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR> {
+    let url = this.getUrl(name, family, variant);
+    let cacheKey = this.getCacheKey(url);
+
+    if (this.cache[cacheKey]) {
+      return this.cache[cacheKey];
     }
 
     let markup = await this.getMarkup(url);
+    let result;
 
     if (markup === CACHEABLE_ERROR || markup === RETRYABLE_ERROR) {
-      return markup;
+      result = markup;
+    } else {
+      result = await this.getElementFromMarkup(markup);
     }
 
+    if (result === CACHEABLE_ERROR || result === RETRYABLE_ERROR) {
+      if (this.spec.fallback) {
+        // Try again with fallback
+        let fallback = this.spec.fallback(name, family, variant);
+        if (fallback) {
+          return this.getElement(fallback.name, fallback.family, fallback.variant);
+        }
+      }
+
+      if (result === CACHEABLE_ERROR) {
+        this.cache[cacheKey] = result;
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Given a URL, this function synchronously returns the resulting SVG element or an appropriate error symbol.
+   */
+  getElementFromMarkup(markup: string): SVGElement | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR {
     let svgEl;
     try {
       const div = document.createElement('div');
@@ -121,20 +167,14 @@ export default class IconLibrary {
       }
     } catch {}
 
-    const result = svgEl ?? CACHEABLE_ERROR;
-    this.elements[url] = result;
-    return result;
-  }
-
-  fallback(url: string) {
-    // TODO implement this
+    return svgEl ?? CACHEABLE_ERROR;
   }
 
   /**
    * Convert the deep family → variant → icon name → markup cache that is more convenient to write out manually
    * to the flat URL → markup cache that icon libraries use internally
    **/
-  inline(cache: IconLibraryFetched) {
+  inline(cache: IconLibraryCacheDeep) {
     // If no getUrl function was provided, this library does not use names,
     // so this should already be a flat URL → markup mapping
     let flatCache = cache;
@@ -148,55 +188,43 @@ export default class IconLibrary {
           let name = path.pop()!;
           let [family, variant] = path;
           let url = this.getUrl(name as string, family as string, variant as string);
-          let key = this.getKey?.(url!) ?? url;
-          return key as string;
+          return this.getCacheKey(url!);
         },
-      }) as IconLibraryCache<0>;
+      }) as IconLibraryCacheFlat;
     }
 
     Object.assign(this.inlined, flatCache);
   }
 }
 
-export type IconLibraryResolver = (name: string, family: string, variant: string) => string;
-export type IconLibrarySystemResolver = (
+export type IconLibraryResolver = (name: string, family?: string, variant?: string) => string;
+export type IconMapping = (
   name: string,
-  family: string,
-  variant: string,
-) => { name: string; family?: string; variant?: string };
+  family?: string,
+  variant?: string,
+) => { name: string; family?: string; variant?: string; library?: string } | undefined;
 export type IconLibraryGetKey = (name: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
 export type IconFetchedResult = string | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR;
 
-// This is a utility for decrementing a number up to 3 by one
-// e.g., Decrement[3] yields 2
-type Decrement = [never, 0, 1, 2];
-
-/**
- * Record of string → string or nested string → Record<string, ...>
- * The number indicates how many params we have; none (0), just family (1), or family and style (2).
- * IconLibraryCache<0> is Record<string, string> (name → markup)
- * IconLibraryCache<1> is Record<string, Record<string, string>> (family → name → markup)
- * IconLibraryCache<2> is Record<string, Record<string, Record<string, string>>> (family → variant → name → markup)
- */
-export type IconLibraryCache<N extends number = 0> = Record<
-  string,
-  N extends 0 ? string | typeof CACHEABLE_ERROR : IconLibraryCache<Decrement[N]>
->;
-
-export type IconLibraryFetched = IconLibraryCache<0> | IconLibraryCache<1> | IconLibraryCache<2>;
+export type IconLibraryCacheFlat = Record<string, string>;
+export type IconLibraryCacheDeep =
+  | IconLibraryCacheFlat
+  | Record<string, IconLibraryCacheFlat>
+  | Record<string, Record<string, IconLibraryCacheFlat>>;
 
 export interface UnregisteredIconLibrary {
   name: string;
   getUrl?: IconLibraryResolver;
-  system?: IconLibrarySystemResolver;
+  system?: IconMapping;
+  fallback?: IconMapping;
   mutator?: IconLibraryMutator;
-  getKey?: IconLibraryGetKey;
+  getCacheKey?: IconLibraryGetKey;
   spriteSheet?: boolean;
 
   // Max depth: family → variant → icon name → markup
   // but may be shallower for libraries that don't use variants or families
-  inlined?: IconLibraryFetched;
+  inlined?: IconLibraryCacheDeep;
 }
 
 export async function fetchIcon(url: string) {
@@ -208,7 +236,7 @@ export async function fetchIcon(url: string) {
     }
 
     return fileData.text();
-  } catch {
+  } catch (e) {
     return RETRYABLE_ERROR;
   }
 }
