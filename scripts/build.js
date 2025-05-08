@@ -379,7 +379,7 @@ if (isDeveloping) {
         return;
       }
 
-      if (filename.includes('src/') && /\.(js|ts)$/.test(filename)) {
+      if (filename.includes('src/') && /\.(js|ts|css)$/.test(filename)) {
         await regenerateBundle();
       }
 
