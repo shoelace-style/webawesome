@@ -216,6 +216,289 @@ To display an icon, set the `library` and `name` attributes of an `<wa-icon>` el
 
 If an icon is used before registration occurs, it will be empty initially but shown when registered.
 
+### Customizing the Default Icon Library
+
+The default icon library contains over 2,000 icons courtesy of [Font Awesome](https://fontawesome.com/).
+These are the icons that display when you use `<wa-icon>` without the `library` attribute.
+If you prefer to have these icons resolve to a different icon library, simply register it using the `default` name:
+
+For example, this will change the default icon library to use [Bootstrap Icons](https://icons.getbootstrap.com/) loaded from the jsDelivr CDN.
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('default', {
+    name: 'default',
+    getUrl: (name, family) => {
+      const suffix = family === 'filled' ? '-fill' : '';
+      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
+    }
+  });
+</script>
+```
+
+You can also register an existing library as the default:
+
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  let myIcons = registerIconLibrary({
+    name: 'my-icons',
+    getUrl: (name, family, variant) => `/assets/icons/${name}.svg`,
+    mutator: svg => svg.setAttribute('fill', 'currentColor')
+  });
+
+  // Alias of my-icons to default
+  registerIconLibrary('default', myIcons);
+</script>
+```
+
+This allows you to have multiple libraries that co-exist, only one of which is the default.
+
+### Customizing system icons
+
+Web Awesome components use a number of icons internally.
+For example, the checkmark icon in `<wa-checkbox>` or the chevron used in `<wa-details>`.
+These icons have a `system:` prefix in their name, e.g. `system:check` or `system:chevron-down`.
+
+To specify how these map to your icon library, you can define a `system()` function that maps Web Awesome’s system icons to your library’s icons.
+The `system()` function receives the icon name, family and variant as arguments and returns an object with the new `name`, `family`, and `variant`.
+For example, here is how to define system icon mappings for the Bootstrap Icons library:
+
+```js
+import { registerIconLibrary } from '/dist/webawesome.js';
+
+let system = {
+  filled: ['circle', 'pause', 'play', 'star', 'user'],
+  nameMap: {
+    'check': 'check-lg',
+    'circle': 'circle',
+    'circle-xmark': 'x-circle',
+    'eye-dropper': 'eyedropper',
+    'eye': 'eye',
+    'eye-slash': 'eye-slash',
+    'grip-vertical': 'grip-vertical',
+    'indeterminate': 'dash-lg',
+    'minus': 'dash-lg',
+    'pause': 'pause',
+    'play': 'play',
+    'user': 'person',
+    'xmark': 'x-lg',
+  }
+};
+
+registerIconLibrary({
+  name: 'bootstrap-icons',
+  system(name, family) {
+    return {
+      // Transform names where different
+      name: system.nameMap[name] || name,
+
+      // Default to non-filled as many of system's "solid" icons are not filled in Bootstrap Icons
+      family: system.filled.includes(name) ? 'filled' : ''
+    };
+  },
+  getUrl: (name, family) => {
+    const suffix = family === 'filled' ? '-fill' : '';
+    return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
+  }
+});
+```
+
+You can also specify a `library` key to resolve a system icon through a different library, e.g. WA’s default icon library.
+For example, the code above will try to resolve any system icons through your library and only fall back to WA's default library if they fail to load.
+This maximizes the odds that icons from your library are used, but can also be unpredictable.
+To resolve any system icon you have not vetted via the Web Awesome default library, you can use the `library` key:
+
+```js
+let system = {
+  filled: ['circle', 'pause', 'play', 'star', 'user'],
+  nameMap: {
+    'chevron-down': 'chevron-down',
+    'chevron-left': 'chevron-left',
+    'chevron-right': 'chevron-right',
+    'check': 'check-lg',
+    'circle': 'circle',
+    'eye-dropper': 'eyedropper',
+    'grip-vertical': 'grip-vertical',
+    'indeterminate': 'dash-lg',
+    'pause': 'pause',
+    'play': 'play',
+    'circle-xmark': 'x-circle',
+    'grip-vertical': 'grip-vertical',
+    'eye-slash': 'eye-slash',
+    'eye': 'eye',
+    'user': 'person',
+    'xmark': 'x-lg',
+  }
+};
+
+registerIconLibrary({
+  name: 'bootstrap-icons',
+  system(name, family) {
+    if (!system.nameMap[name]) {
+      // If the icon is not known, use the default library
+      return { library: 'wa', name, family, variant };
+    }
+
+    return {
+      name: system.nameMap[name],
+      family: system.filled.includes(name) ? 'filled' : ''
+    };
+  },
+  getUrl: (name, family) => {
+    const suffix = family === 'filled' ? '-fill' : '';
+    return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
+  }
+});
+```
+
+#### Index of All System Icons { #system-icons-index }
+
+These are all system icons used currently by Web Awesome components (`system:` prefix omitted for readability):
+
+| Name | Variant | Icon |
+| --- | --- | --- |
+{%- for icon in systemIcons %}
+| `{{ icon.name }}` | `{{ icon.variant }}` | <wa-icon library="wa" name="system:{{ icon.name }}" family="classic" variant="{{ icon.variant }}"></wa-icon> |
+{%- endfor %}
+
+### Inlined icons { #inlined }
+
+Inlined icons are SVG icons that are loaded directly from code rather than from HTTP requests, making them load faster in your application.
+Inlining critical icons improves performance by eliminating HTTP requests, reducing load times, and ensuring they are immediately available.
+As an example, all of [Web Awesome’s default system icons](#system-icons-index) are inlined, and we strongly advise you inline the corresponding icons in your custom icon libraries as well.
+
+#### How to Use Inlined Icons
+
+The `inlined` property allows you to provide icon SVG markup directly in your code.
+This creates a mapping of `(name, family, variant)` to SVG markup.
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary({
+    name: 'default',
+    getUrl: name => `/path/to/custom/icons/${name}.svg`,
+    inlined: {
+      check: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
+    }
+  });
+</script>
+```
+
+The structure of the `inlined` property is as follows:
+- For simple libraries (no families or variants): `{ name: svg }`
+- For libraries with families (no variants): `{ family: { name: svg } }`
+- For complex libraries (with both family and variant): `{ family: { variant: { name: svg } } }`
+
+#### Adding More Inlined Icons
+
+To add additional icons to an existing library, use the `inline()` method:
+
+```js
+import { getIconLibrary } from '/dist/webawesome.js';
+
+let defaultLibrary = getIconLibrary('default');
+defaultLibrary.inline({
+  classic: { // family
+    regular: { // variant
+      'circle-info': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
+      'triangle-exclamation': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
+      // ...
+    }
+  }
+});
+```
+
+#### Best Practice
+
+When using custom icon libraries with Web Awesome components, always inline system icons to ensure optimal performance.
+
+### Customize icon markup, for SVG sprites and more
+
+By default, icon markup is produced by fetching the URL returned by the `getUrl()` function.
+You can provide a `getMarkup()` function to customize this.
+
+A common use case for that is SVG sprites, often used to improve performance by avoiding multiple trips for each SVG.
+The browser will load the sprite sheet once and then you reference the particular SVG within the sprite sheet using its id:
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary({
+    name: 'sprite',
+    getUrl: name => `/assets/images/sprite.svg#${name}`,
+    getMarkup: url => `<svg fill="currentColor"><use part="use" href="${url}"></use></svg>`
+  });
+</script>
+```
+
+As always, make sure to benchmark these changes. When using HTTP/2, it may in fact be more bandwidth-friendly to use multiple small requests instead of 1 large sprite sheet.
+
+:::warning
+When using sprite sheets, the `wa-load` and `wa-error` events will not fire.
+
+For security reasons, browsers may apply the same-origin policy on `<use>` elements located in the `<wa-icon>` shadow DOM and may refuse to load a cross-origin URL. There is currently no defined way to set a cross-origin policy for `<use>` elements. For this reason, sprite sheets should only be used if you're self-hosting them.
+:::
+
+### Fallbacks
+
+By default, if an icon fails to load, WA will retry using the WA default icon library, and if that also fails, a blank icon will be displayed.
+You can provide a `fallback()` function to customize this behavior.
+Some examples for common use cases follow.
+
+If you never want icons outside your library to display:
+
+```js
+registerIconLibrary({
+  name: 'my-icons',
+  getUrl: (name, family, variant) => `/assets/icons/${name}.svg`,
+  fallback: (name, family, variant) => {
+    // Don't show anything if an icon is not found
+    return null;
+  }
+});
+```
+
+If you want to display a certain designated "missing icon" icon:
+
+```js
+registerIconLibrary({
+  name: 'my-icons',
+  getUrl: (name, family, variant) => `/assets/icons/${name}.svg`,
+  inlined: {
+    // Make sure the missing icon never fails by inlining it:
+    'missing-icon': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
+  }
+  fallback: (name, family, variant) => {
+    return {name: 'missing-icon'};
+  }
+});
+```
+
+If you want to retry with the default family and variant:
+
+```js
+registerIconLibrary({
+  name: 'my-icons',
+  getUrl: (name, family, variant) => `/assets/icons/${name}.svg`,
+  fallback: (name, family, variant) => {
+    if (family !== 'classic' || variant !== 'solid') {
+      return { name, family: 'classic', variant: 'solid' };
+    }
+  }
+});
+```
+
+
+## Icon Library Examples { #icon-libraries }
+
 The following examples demonstrate how to register a number of popular, open source icon libraries via CDN. Feel free to adapt the code as you see fit to use your own origin or naming conventions.
 
 ### Bootstrap Icons
@@ -228,8 +511,41 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
+  let system = {
+    filled: ['circle', 'pause', 'play', 'star', 'user'],
+    nameMap: {
+      'chevron-down': 'chevron-down',
+      'chevron-left': 'chevron-left',
+      'chevron-right': 'chevron-right',
+      'check': 'check-lg',
+      'circle': 'circle',
+      'eye-dropper': 'eyedropper',
+      'grip-vertical': 'grip-vertical',
+      'indeterminate': 'dash-lg',
+      'pause': 'pause',
+      'play': 'play',
+      'circle-xmark': 'x-circle',
+      'grip-vertical': 'grip-vertical',
+      'eye-slash': 'eye-slash',
+      'eye': 'eye',
+      'user': 'person',
+      'xmark': 'x-lg',
+    }
+  };
+
   registerIconLibrary({
     name: 'default',
+    system(name, family) {
+      if (!system.nameMap[name]) {
+        // If the icon is not known, use the default library
+        return { library: 'wa', name: name, family, variant };
+      }
+
+      return {
+        name: system.nameMap[name],
+        family: system.filled.includes(name) ? 'filled' : ''
+      };
+    },
     getUrl: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
@@ -600,105 +916,6 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 </div>
 ```
 
-### Customizing the Default Library
 
-The default icon library contains over 2,000 icons courtesy of [Font Awesome](https://fontawesome.com/). These are the icons that display when you use `<wa-icon>` without the `library` attribute. If you prefer to have these icons resolve elsewhere or to a different icon library, register an icon library using the `default` name and a custom resolver.
 
-For example, this will change the default icon library to use [Bootstrap Icons](https://icons.getbootstrap.com/) loaded from the jsDelivr CDN.
 
-```html
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary({
-    name: 'default',
-    getUrl: (name, family) => {
-      const suffix = family === 'filled' ? '-fill' : '';
-      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
-    }
-  });
-</script>
-```
-
-#### Customize the default library to use SVG sprites
-
-To improve performance you can use a SVG sprites to avoid multiple trips for each SVG. The browser will load the sprite sheet once and then you reference the particular SVG within the sprite sheet using hash selector.
-
-As always, make sure to benchmark these changes. When using HTTP/2, it may in fact be more bandwidth-friendly to use multiple small requests instead of 1 large sprite sheet.
-
-:::warning
-When using sprite sheets, the `wa-load` and `wa-error` events will not fire.
-
-For security reasons, browsers may apply the same-origin policy on `<use>` elements located in the `<wa-icon>` shadow DOM and may refuse to load a cross-origin URL. There is currently no defined way to set a cross-origin policy for `<use>` elements. For this reason, sprite sheets should only be used if you're self-hosting them.
-:::
-
-```html
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary({
-    name: 'sprite',
-    getUrl: name => `/assets/images/sprite.svg#${name}`,
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-    spriteSheet: true
-  });
-</script>
-```
-
-### Prefetched icons { #fetched }
-
-Prefetched icons are SVG icons that are loaded directly from code rather than from HTTP requests, making them load faster in your application.
-Prefetching icons improves performance by eliminating HTTP requests, reducing load times, and ensuring system icons are immediately available.
-
-#### How to Use Prefetched Icons
-
-The `fetched` property allows you to provide icon SVG markup directly in your code.
-This creates a mapping of `(name, library, variant)` to SVG markup:
-
-```html
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary({
-    name: 'default',
-    getUrl: name => `/path/to/custom/icons/${name}.svg`,
-    fetched: {
-      check: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
-    }
-  });
-</script>
-```
-
-The structure of the `fetched` property is as follows:
-- For simple libraries (no families or variants): `{ name: svg }`
-- For libraries with families (no variants): `{ family: { name: svg } }`
-- For complex libraries (with both family and variant): `{ family: { variant: { name: svg } } }`
-
-#### Adding More Prefetched Icons
-
-To add additional icons to an existing library, use the `addFetched` method:
-
-```js
-import {getIconLibrary} from '/dist/webawesome.js';
-
-let defaultLibrary = getIconLibrary('default');
-defaultLibrary.addFetched({
-  classic: { // family
-    regular: { // variant
-      'circle-info': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>',
-      'triangle-exclamation': '<svg xmlns="http://www.w3.org/2000/svg">...</svg>'
-      // ...
-    }
-  }
-});
-```
-
-#### Best Practice
-
-When using custom icon libraries with Web Awesome components, always prefetch system icons to ensure optimal performance.
-Refer to `src/components/library.default.ts` for a complete list of system icons used internally.
-
-::: warning
-Note that sprite sheets and fetched icons are mutually exclusive.
-If you set the `spriteSheet` property to `true`, the `fetched` property will be ignored.
-:::
