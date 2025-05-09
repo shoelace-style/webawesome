@@ -1,92 +1,95 @@
 ---
 title: Post Footer
-description: 'Broad Topics used to organize and structure content'
+description: 'Helps reduce bounce rate and keep users in your content loop.'
 parent: blog-news
 tags: 
 ---
 
-## Card
+## Two Column
 ```html {.example}
 <div class="wa-align-items-start wa-flank:end wa-gap-3xl" style="--flank-size: 40ch;">
     <div class="wa-stack">
-        <span>More in <a href="#">Category</a></span>
+        <span class="wa-heading-s">More in <a href="#">Politics</a></span>
         <div class="wa-grid">
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1580128637215-659d70729ad0?q=80&w=4637&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1719310215903-c39aaf139746?q=80&w=3520&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1587315214098-b132e659dda9?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1631540698890-6bfd5d47671a?q=80&w=4000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1681810553931-39b5bc2acf3d?q=80&w=3536&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
-            <a href="#">
+            <a href="#" class="wa-stack wa-gap-xs">
                 <div class="wa-frame">
-                    <img src="https://images.unsplash.com/photo-1532966404682-9d131a1071f5?q=80&w=3023&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <img src="https://images.unsplash.com/photo-1681810546872-0f0e6eea6206?q=80&w=3617&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                 </div>
-                <span>
-                    Title
+                <span class="wa-heading-m">
+                    FDR: The President Who Redefined American Leadership
                 </span>
             </a>
         </div>
     </div>
     <div class="wa-stack">
-        <span>Top Stories</span>
-        <ul>
+        <span class="wa-heading-s">Top Stories</span>
+        <ul style="list-style-type: none;">
             <li>
-                 <div class="wa-stack">
-                        <wa-format-date month="long" day="numeric" year="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
-                        <h1 class="wa-heading-l">Integrating Design And Code With Native Design Tokens In Penpot</h1>
-                 </div>
+                 <a href="#" class="wa-stack wa-gap-2xs">
+                        <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                        <h1 class="wa-heading-l">Why We Love Getting Lost: The Psychology of Wandering</h1>
+                 </a>
                 <wa-divider></wa-divider>
             </li>
             <li>
-                 <div class="wa-flank:end">
-                        <h1 class="wa-heading-l">Integrating Design And Code With Native Design Tokens In Penpot</h1>
-           <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> </div>
+                 <a href="#" class="wa-stack wa-gap-2xs">
+                        <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                        <h1 class="wa-heading-l">You’ve Been Scrolling for Hours: What Doomscrolling Does to Your Brain</h1>
+                 </a>
            <wa-divider></wa-divider>
             </li>
             <li>
-                 <div class="wa-flank:end">
-                        <h1 class="wa-heading-l">Integrating Design And Code With Native Design Tokens In Penpot</h1>
-           <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> </div>
+                 <a href="#" class="wa-stack wa-gap-2xs">
+                        <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                        <h1 class="wa-heading-l">The Salt Myth: What We Get Wrong About Flavor</h1>
+                 </a>
            <wa-divider></wa-divider>
             </li>
             <li>
-                 <div class="wa-flank:end">
-                        <h1 class="wa-heading-l">Integrating Design And Code With Native Design Tokens In Penpot</h1>
-           <wa-avatar image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" label="Avatar of a gray tabby kitten looking down"></wa-avatar> </div>
+                 <a href="#" class="wa-stack wa-gap-2xs">
+                        <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                        <h1 class="wa-heading-l">Night Owls Unite: The Secret Productivity of the Late-Night Mind</h1>
+                 </a>
            <wa-divider></wa-divider>
             </li>
         </ul>
@@ -94,42 +97,113 @@ tags:
 </div>
 ```
 
-## Card
+## With Share buttons and Carousel
 ```html {.example}
-<div class="wa-stack">
+<div class="wa-stack" style="text-align: center;">
     <div class="wa-stack">
         <h3>Don't forget to share this post!</h3>
-          <div class="wa-cluster">
-      <span class="wa-align-items-center wa-stack wa-gap-2xs">
-        <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="facebook" family="brands" label="Share on Facebook" href="#" target="_blank"></wa-icon-button>
-        <span class="wa-caption-s">Facebook</span>
-      </span>
-      <span class="wa-align-items-center wa-stack wa-gap-2xs">
-        <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="bluesky" family="brands" label="Share on Bluesky" href="#" target="_blank"></wa-icon-button>
-        <span class="wa-caption-s">Bluesky</span>
-      </span>
-      <span class="wa-align-items-center wa-stack wa-gap-2xs">
-        <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="linkedin" family="brands" label="Share on LinkedIn" href="#" target="_blank"></wa-icon-button>
-        <span class="wa-caption-s">LinkedIn</span>
-      </span>
-      <span class="wa-align-items-center wa-stack wa-gap-2xs">
-        <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="envelope-open" label="Share with email" href="#" target="_blank"></wa-icon-button>
-        <span class="wa-caption-s">Email</span>
-      </span>
-    </div>
+        <div class="wa-cluster" style="justify-content: center;">
+            <span class="wa-align-items-center wa-stack wa-gap-2xs">
+                <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="facebook" family="brands" label="Share on Facebook" href="#" target="_blank"></wa-icon-button>
+                <span class="wa-caption-s">Facebook</span>
+            </span>
+            <span class="wa-align-items-center wa-stack wa-gap-2xs">
+                <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="bluesky" family="brands" label="Share on Bluesky" href="#" target="_blank"></wa-icon-button>
+                <span class="wa-caption-s">Bluesky</span>
+            </span>
+            <span class="wa-align-items-center wa-stack wa-gap-2xs">
+                <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="linkedin" family="brands" label="Share on LinkedIn" href="#" target="_blank"></wa-icon-button>
+                <span class="wa-caption-s">LinkedIn</span>
+            </span>
+            <span class="wa-align-items-center wa-stack wa-gap-2xs">
+                <wa-icon-button style="font-size: var(--wa-font-size-2xl);" name="envelope-open" label="Share with email" href="#" target="_blank"></wa-icon-button>
+                <span class="wa-caption-s">Email</span>
+            </span>
+        </div>
     </div>
     <div>
-        <h3>Related Articles</h3>
-          <wa-carousel navigation pagination slides-per-page="2" slides-per-move="2">
-  <wa-carousel-item style="background: red;">Slide 1</wa-carousel-item>
-  <wa-carousel-item style="background: orange;">Slide 2</wa-carousel-item>
-  <wa-carousel-item style="background: yellow;">Slide 3</wa-carousel-item>
-  <wa-carousel-item style="background: green;">Slide 4</wa-carousel-item>
-  <wa-carousel-item style="background: blue;">Slide 5</wa-carousel-item>
-  <wa-carousel-item style="background: purple;">Slide 6</wa-carousel-item>
-</wa-carousel>
+        <wa-divider></wa-divider>
+        <h3 class="wa-heading-xl">Related Articles</h3>
+        <wa-carousel navigation pagination slides-per-page="3" slides-per-move="3" style="--aspect-ratio: initial">
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1490410006060-e1dc82ab0a70?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">Grids with Purpose: Mastering Layout in Web Design</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=5231&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">UI That Feels Right: The Psychology of Good Design</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1581464668854-0da56c32393c?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">Design Is Never Done: Why Iteration Always Matters</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=5232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">Tiny Details Matter: The Power of Microinteractions</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1576595580361-90a855b84b20?q=80&w=4032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">From Wireframe to Wow: Building Functional Design</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+            <wa-carousel-item>
+                <a href="#">
+                    <wa-card with-image>
+                        <div class="wa-frame:landscape" slot="image">
+                            <img src="https://images.unsplash.com/photo-1539541417736-3d44c90da315?q=80&w=5338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Customer service reps" />
+                        </div>
+                        <div class="wa-stack wa-gap-xs">
+                            <wa-format-date class="wa-caption-l" month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+                            <span class="wa-heading-m">Designing with Empathy: Creating for Real People</span>
+                        </div>
+                    </wa-card>
+                </a>
+            </wa-carousel-item>
+        </wa-carousel>
     </div>
-  
-
 </div>
 ```
