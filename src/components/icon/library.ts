@@ -10,16 +10,12 @@ export const CACHEABLE_HTTP_ERRORS = [410];
 let parser: DOMParser;
 
 const defaultFallback = function (name: string, family?: string, variant?: string): IconLocator | undefined {
-  if (this.name !== 'wa') {
-    return {
-      name,
-      family,
-      variant,
-      library: 'wa',
-    };
-  }
-
-  return undefined;
+  return {
+    name,
+    family,
+    variant,
+    library: 'wa',
+  };
 };
 
 export default class IconLibrary {
@@ -44,7 +40,9 @@ export default class IconLibrary {
     // Copy certain properties
     this.name = library.name;
     this.mutator = library.mutator;
-    this.system = library.system;
+    // Resolve system icons through the default icon library if no system() function is provided
+    this.system = library.system ?? defaultFallback;
+    // Resolve failed to load icons through the default icon library if no fallback() function is provided
     this.fallback = library.fallback ?? defaultFallback;
 
     if (library.inlined) {
