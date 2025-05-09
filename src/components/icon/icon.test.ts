@@ -26,7 +26,7 @@ describe('<wa-icon>', () => {
   before(() => {
     registerIconLibrary({
       name: 'test-library',
-      resolver: (name: keyof typeof testLibraryIcons) => {
+      getUrl: (name: keyof typeof testLibraryIcons) => {
         // only for testing a bad request
         if (name === ('bad-request' as keyof typeof testLibraryIcons)) {
           return `data:image/svg+xml`;
@@ -173,9 +173,9 @@ describe('<wa-icon>', () => {
         it.skip('Should properly grab an SVG and render it from bootstrap icons', async () => {
           registerIconLibrary({
             name: 'sprite',
-            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            getUrl: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
-            spriteSheet: true,
+            getMarkup: url => `<svg fill="currentColor"><use part="use" href="${url}"></use></svg>`,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="arrow-left" library="sprite"></wa-icon>`);
@@ -201,9 +201,9 @@ describe('<wa-icon>', () => {
         it('Should render nothing if the sprite hash is wrong', async () => {
           registerIconLibrary({
             name: 'sprite',
-            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            getUrl: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
-            spriteSheet: true,
+            getMarkup: url => `<svg fill="currentColor"><use part="use" href="${url}"></use></svg>`,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
@@ -229,13 +229,11 @@ describe('<wa-icon>', () => {
         it.skip("Should produce an error if the icon doesn't exist.", async () => {
           registerIconLibrary({
             name: 'sprite',
-            resolver(name) {
-              return `/docs/assets/images/sprite.svg#${name}`;
-            },
+            getUrl: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator(svg) {
               return svg.setAttribute('fill', 'currentColor');
             },
-            spriteSheet: true,
+            getMarkup: url => `<svg fill="currentColor"><use part="use" href="${url}"></use></svg>`,
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
