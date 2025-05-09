@@ -22,11 +22,10 @@ import type { HTMLTemplateResult, PropertyValues } from 'lit';
  * @status stable
  * @since 2.0
  *
- * @event wa-load - Emitted when the icon has loaded. When using `spriteSheet: true` this will not emit.
- * @event wa-error - Emitted when the icon fails to load due to an error. When using `spriteSheet: true` this will not emit.
+ * @event wa-load - Emitted when the icon has loaded.
+ * @event wa-error - Emitted when the icon fails to load due to an error.
  *
  * @csspart svg - The internal SVG element.
- * @csspart use - The `<use>` element generated when using `spriteSheet: true`
  *
  * @cssproperty [--primary-color=currentColor] - Sets a duotone icon's primary color.
  * @cssproperty [--primary-opacity=1] - Sets a duotone icon's primary opacity.

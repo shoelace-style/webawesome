@@ -29,7 +29,6 @@ export default class IconLibrary {
   readonly name: string;
   readonly mutator?: IconLibraryMutator;
   readonly system?: IconMapping;
-  readonly spriteSheet?: boolean;
   readonly fallback?: IconMapping;
 
   /** Inlined markup, keyed by URL */
@@ -46,7 +45,6 @@ export default class IconLibrary {
     this.name = library.name;
     this.mutator = library.mutator;
     this.system = library.system;
-    this.spriteSheet = library.spriteSheet;
     this.fallback = library.fallback ?? defaultFallback;
 
     if (library.inlined) {
@@ -88,6 +86,9 @@ export default class IconLibrary {
     return name;
   }
 
+  /**
+   * Convert a URL into a cache key
+   */
   getCacheKey(url: string) {
     return this.spec.getCacheKey?.(url) ?? url;
   }
@@ -96,8 +97,8 @@ export default class IconLibrary {
    * Fetch the markup for an icon as a string
    */
   getMarkup(url: string): IconFetchedResult | Promise<IconFetchedResult> {
-    if (this.spriteSheet) {
-      return `<svg><use part="use" href="${url}"></use></svg>`;
+    if (this.spec.getMarkup) {
+      return this.spec.getMarkup(url);
     }
 
     let cacheKey = this.getCacheKey(url);
@@ -243,6 +244,7 @@ export type IconMapping = (name: string, family?: string, variant?: string) => I
 export type IconLibraryGetKey = (name: string) => string;
 export type IconLibraryMutator = (svg: SVGElement) => void;
 export type IconFetchedResult = string | typeof CACHEABLE_ERROR | typeof RETRYABLE_ERROR;
+export type IconLibraryGetMarkup = (url: string) => string | Promise<string>;
 
 export type IconLibraryCacheFlat = Record<string, string>;
 export type IconLibraryCacheDeep =
@@ -257,7 +259,7 @@ export interface UnregisteredIconLibrary {
   fallback?: IconMapping;
   mutator?: IconLibraryMutator;
   getCacheKey?: IconLibraryGetKey;
-  spriteSheet?: boolean;
+  getMarkup?: IconLibraryGetMarkup;
 
   // Max depth: family → variant → icon name → markup
   // but may be shallower for libraries that don't use variants or families
