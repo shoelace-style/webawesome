@@ -74,34 +74,21 @@ tags: blog-news
 
 ## Links with Background Images
 ```html {.example}
-<div class="wa-stack">
-  <h2>Shop by Category</h2>
+<div class="wa-stack wa-align">
+  <h2 class="wa-heading-2xl">Recipes</h2>
   <div class="wa-grid">
-  <a href="#" class="wa-border-radius-m wa-plain wa-cluster wa-align-items-center wa-heading-xl" 
-  style="padding: var(--wa-space-3xl);
-  --wa-link-decoration-default: none;
-  color: white;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1560264357-8d9202250f21?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center;">
-    Creating Memorable Customer Moments: The Secret Sauce to Loyalty
-  </a>
-  <a href="#" class="wa-border-radius-m wa-plain wa-cluster wa-align-items-center wa-heading-xl" 
-  style="padding: var(--wa-space-3xl);
-  --wa-link-decoration-default: none;
-  color: white;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center;">
-    Why Every Touchpoint Matters: Crafting a Seamless Customer Journey
-  </a>
-  <a href="#" class="wa-border-radius-m wa-plain wa-cluster wa-align-items-center wa-heading-xl" 
-  style="padding: var(--wa-space-3xl);
-  --wa-link-decoration-default: none;
-  color: white;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1561323587-7464f7689886?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center;">
-    Customer Delight vs. Satisfaction: What’s the Real Goal?
-  </a>
+    <a href="#" class="wa-border-radius-m wa-plain wa-stack wa-align-items-center wa-heading-xl" style="padding: var(--wa-space-3xl);--wa-link-decoration-default: none;color: white;background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1548340748-6d2b7d7da280?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center; text-align: center;">
+    Appetizers and Snacks
+    </a>
+    <a href="#" class="wa-border-radius-m wa-plain wa-stack wa-align-items-center wa-heading-xl" style="padding: var(--wa-space-3xl);--wa-link-decoration-default: none;color: white;background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1644704265419-96ddaf628e71?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center; text-align: center">
+      Main Dishes
+    </a>
+    <a href="#" class="wa-border-radius-m wa-plain wa-stack wa-align-items-center wa-heading-xl" style="padding: var(--wa-space-3xl);--wa-link-decoration-default: none; color: white;background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=3200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');background-size: cover;background-position: center; text-align: center;">
+      Desserts
+    </a>
+  </div>
+  <wa-button>View More Recipes</wa-button>
 </div>
-<wa-button>View More</wa-button>
-</div>
-
 ```
 
 ## Category List 1
