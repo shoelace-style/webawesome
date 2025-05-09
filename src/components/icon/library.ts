@@ -53,16 +53,17 @@ export default class IconLibrary {
   /**
    * Convert an icon name, family, and variant into a URL
    */
-  getUrl(name: string, family?: string, variant?: string): string {
-    // console.warn('getUrl', name, family, variant);
-    if (name.startsWith('system:')) {
-      name = name.slice(7);
+  getUrl(name: string, family?: string, variant?: string): string;
+  getUrl(url: string): string;
+  getUrl(nameOrUrl: string, family?: string, variant?: string): string {
+    if (nameOrUrl.startsWith('system:')) {
+      nameOrUrl = nameOrUrl.slice(7);
 
       if (this.system) {
-        let resolved = this.system(name, family, variant);
+        let resolved = this.system(nameOrUrl, family, variant);
 
         if (resolved) {
-          name = resolved.name ?? name;
+          nameOrUrl = resolved.name ?? nameOrUrl;
           family = resolved.family ?? family;
           variant = resolved.variant ?? variant;
 
@@ -70,7 +71,7 @@ export default class IconLibrary {
             let library = IconLibrary.registry.get(resolved.library);
 
             if (library) {
-              return library.getUrl(name, family, variant);
+              return library.getUrl(nameOrUrl, family, variant);
             }
           }
         }
@@ -78,10 +79,12 @@ export default class IconLibrary {
     }
 
     if (this.spec.getUrl) {
-      return this.spec.getUrl(name, family, variant);
+      return this.spec.getUrl(nameOrUrl, family, variant);
     }
 
-    return name;
+    // If no getUrl function was provided, this library does not use names,
+    // just pass the URL through
+    return nameOrUrl;
   }
 
   /**
