@@ -2,7 +2,6 @@
 title: Code Demo
 description: Code demos can be used to render code examples as inline live demos.
 tags: component
-noAlpha: true
 isPro: true
 ---
 

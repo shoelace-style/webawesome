@@ -26,14 +26,14 @@ eleventyComputed:
 {% include 'theme-showcase.njk' %}
 {% endset %}
 
-<wa-image-comparer style="width: 100%" position="90">
+<wa-comparer style="width: 100%" position="90">
 <div slot="after" class="theme-showcase wa-gap-xl">
 {{ content | safe }}
 </div>
 <div slot="before" class="theme-showcase wa-gap-xl wa-invert">
   {{ content | safe }}
 </div>
-</wa-image-comparer>
+</wa-comparer>
 
 <script type="module">
 import { urls as stylesheetURLs, docsURLs, icons } from "/assets/scripts/tweak/data.js";

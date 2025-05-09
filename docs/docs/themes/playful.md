@@ -5,4 +5,8 @@ isPro: true
 tags: pro
 palette: rudimentary
 brand: purple
+fonts:
+  body: Nunito
+  heading: Fredoka
+  code: Azeret Mono
 ---

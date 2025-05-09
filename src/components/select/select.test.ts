@@ -795,6 +795,37 @@ describe('<wa-select>', () => {
           });
         });
       });
+
+      // https://github.com/shoelace-style/webawesome-alpha/issues/263
+      it('should allow interaction after being disabled and re-enabled', async () => {
+        const el = await fixture<WaSelect>(html`
+          <wa-select label="Select one">
+            <wa-option value="option-1">Option 1</wa-option>
+            <wa-option value="option-2">Option 2</wa-option>
+            <wa-option value="option-3">Option 3</wa-option>
+          </wa-select>
+        `);
+        const popup = el.shadowRoot!.querySelector('wa-popup');
+
+        // First disable the select
+        el.disabled = true;
+        await el.updateComplete;
+
+        // Wait 500ms
+        await aTimeout(500);
+
+        // Re-enable the select
+        el.disabled = false;
+        await el.updateComplete;
+
+        // Click on the select to open the dropdown
+        await clickOnElement(el, 'center', 0, 8); // centered + 8px down into the listbox
+        await el.updateComplete;
+        await aTimeout(500); // wait to make sure the listbox doesn't close afterwards
+
+        // Get the popup element and check its active state
+        expect(popup?.active).to.be.true;
+      });
     });
   }
 });

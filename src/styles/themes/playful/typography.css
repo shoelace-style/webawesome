@@ -6,8 +6,7 @@
 .wa-theme-playful {
   --wa-font-family-body: 'Nunito', sans-serif;
   --wa-font-family-heading: 'Fredoka', sans-serif;
-  --wa-font-family-code: 'Azeret Mono', monospace;
-  --wa-font-family-longform: ui-serif, serif;
+  --wa-font-family-code: 'Azeret Mono', ui-monospace, monospace;
 
   --wa-font-size-scale: 1.125;
 

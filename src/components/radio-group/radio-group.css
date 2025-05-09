@@ -27,7 +27,6 @@
   flex-direction: column;
   flex-wrap: wrap;
   gap: var(--wa-space-s);
-  margin-block-end: var(--wa-space-xs);
 }
 
 /* Horizontal */
@@ -44,5 +43,5 @@
 
 /* Help text */
 [part~='hint'] {
-  margin-block-start: var(--wa-space-2xs);
+  margin-block-start: var(--wa-space-xs);
 }

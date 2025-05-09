@@ -228,9 +228,18 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
    * the first radio element.
    */
   get validationTarget() {
-    return isServer
-      ? undefined
-      : this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])') || undefined;
+    if (isServer) return undefined;
+
+    const radio = this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])');
+    if (!radio) return undefined;
+
+    // If it's a radio button, return the internal button element
+    if (radio.localName === 'wa-radio-button') {
+      return radio.input || radio;
+    }
+
+    // Otherwise return the radio itself
+    return radio;
   }
 
   @watch('value')

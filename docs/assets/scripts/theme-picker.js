@@ -106,6 +106,6 @@ document.addEventListener('keydown', event => {
     !event.composedPath().some(el => ['input', 'textarea'].includes(el?.tagName?.toLowerCase()))
   ) {
     event.preventDefault();
-    colorScheme.set(theming.colorScheme.resolvedValue === 'dark' ? 'light' : 'dark');
+    colorScheme.set(colorScheme.get() === 'dark' ? 'light' : 'dark');
   }
 });

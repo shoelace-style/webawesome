@@ -501,13 +501,13 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
-      <wa-option data-alpha="remove" value="premium">Premium</wa-option>
-      <wa-option data-alpha="remove" value="playful">Playful</wa-option>
-      <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
-      <wa-option data-alpha="remove" value="glossy">Glossy</wa-option>
-      <wa-option data-alpha="remove" value="active">Active</wa-option>
+      <wa-option value="awesome">Awesome</wa-option>
+      <wa-option value="premium">Premium</wa-option>
+      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="brutalist">Brutalist</wa-option>
+      <wa-option value="tailspin">Tailspin</wa-option>
+      <wa-option value="glossy">Glossy</wa-option>
+      <wa-option value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
     </wa-select>
   </div>

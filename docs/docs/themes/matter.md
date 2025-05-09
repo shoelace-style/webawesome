@@ -5,6 +5,10 @@ isPro: true
 tags: pro
 palette: mild
 brand: indigo
+fonts:
+  body: 'Wix Madefor Text'
+  code: Roboto Mono
+  longform: Roboto Serif
 ---
 
 Set the page theme to "{{ title }}" from the top right to preview the following examples.
