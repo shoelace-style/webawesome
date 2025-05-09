@@ -39,8 +39,8 @@ export function getIconLibrary(name?: string) {
  * Adds an icon library to the registry, or overrides an existing one.
  * Optionally accepts a name argument, which will override the library's built-in name, allowing you to register aliases.
  */
-export function registerIconLibrary(name: string, library: UnregisteredIconLibrary | IconLibrary): void;
-export function registerIconLibrary(library: UnregisteredIconLibrary | IconLibrary): void;
+export function registerIconLibrary(name: string, library: UnregisteredIconLibrary | IconLibrary): IconLibrary;
+export function registerIconLibrary(library: UnregisteredIconLibrary | IconLibrary): IconLibrary;
 export function registerIconLibrary(
   nameOrLibrary: string | UnregisteredIconLibrary | IconLibrary,
   library?: UnregisteredIconLibrary | IconLibrary,
@@ -70,6 +70,8 @@ export function registerIconLibrary(
       icon.setIcon();
     }
   });
+
+  return instance;
 }
 
 /** Removes an icon library from the registry. */
