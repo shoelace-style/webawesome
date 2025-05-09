@@ -64,8 +64,8 @@ export function getThemeCode(theme, options = {}) {
   if (declarations.length > 0) {
     let cssCode = cssRule(selectors.theme(id), declarations, options);
 
-    let faKitAttribute = ` data-fa-kit-code="${theme.icon.kit}"`;
-    if (theme.icon.kit) {
+    if (theme.icon?.kit) {
+      let faKitAttribute = ` data-fa-kit-code="${theme.icon.kit}"`;
       options.attributes ??= '';
       options.attributes += faKitAttribute;
       cssCode =
