@@ -348,8 +348,6 @@ export default class WaPage extends WebAwesomeElement {
           footer:drawer__footer
         "
         class="navigation-drawer"
-        with-header
-        with-footer
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
           <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>

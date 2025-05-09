@@ -31,7 +31,7 @@ isPro: true
 ## With Templates
 
 ```html {.example}
-<wa-card with-header with-footer style="max-width: 70ch; margin: auto">
+<wa-card style="max-width: 70ch; margin: auto">
   <div slot="header" class="wa-stack wa-gap-xs">
     <h2 class="wa-heading-m">Projects</h2>
   </div>

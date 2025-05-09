@@ -667,7 +667,7 @@ hasOutline: false
   </wa-details>
 </form>
 
-<wa-dialog id="icon-chooser" label="Browse Icons" with-header>
+<wa-dialog id="icon-chooser" label="Browse Icons">
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" autofocus placeholder="Search Icons" clearable style="flex: 1 1 auto;">
@@ -2139,7 +2139,7 @@ hasOutline: false
       </div>
     </section>
     <section class="strata message-composer">
-      <wa-card with-header with-footer class="card-header card-footer">
+      <wa-card class="card-header card-footer">
         <div slot="header">
           <div class="grouped-buttons">
             <wa-icon-button id="bold" name="bold" label="Bold"></wa-icon-button>

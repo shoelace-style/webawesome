@@ -46,7 +46,7 @@ wa_data.palettes = {
     {% for theme in collections.theme | sort %}
       {% set currentTheme = theme.fileSlug == page.fileSlug %}
       <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
-        <wa-card with-header>
+        <wa-card>
           <div slot="header">
           {% include "svgs/theme-color.njk" %}
           </div>
@@ -66,7 +66,7 @@ wa_data.palettes = {
     {% for palette in collections.palette | sort %}
       {% set currentPalette = palette.fileSlug == defaultPalette %}
       <wa-option label="{{ palette.data.title }}" value="{{ palette.fileSlug if not currentPalette }}" {{ (palette.fileSlug if currentPalette) | attr('data-id') }}>
-        <wa-card with-header>
+        <wa-card>
           <div slot="header">
           {% include "svgs/" + (palette.data.icon or "thumbnail-placeholder") + ".njk" ignore missing %}
           </div>
@@ -97,7 +97,7 @@ wa_data.palettes = {
     {% for theme in collections.theme | sort %}
       {% set currentTheme = theme.fileSlug == page.fileSlug %}
       <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
-        <wa-card with-header>
+        <wa-card>
           <div slot="header">
           {% include "svgs/theme-typography.njk" %}
           </div>

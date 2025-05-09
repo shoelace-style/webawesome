@@ -8,7 +8,7 @@ isPro: true
 ## With Product Options
 
 ```html {.example}
-<wa-card with-header>
+<wa-card>
   <div class="wa-split" slot="header">
     <h3 class="wa-heading-l">Stan Smith® Camo Tongue Tee</h3>
     <wa-icon-button name="close" label="Close Preview"></wa-icon-button>
