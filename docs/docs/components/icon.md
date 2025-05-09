@@ -434,7 +434,7 @@ The browser will load the sprite sheet once and then you reference the particula
   registerIconLibrary({
     name: 'sprite',
     getUrl: name => `/assets/images/sprite.svg#${name}`,
-    getMarkup: url => `<svg fill="currentColor"><use part="use" href="${url}"></use></svg>`
+    getMarkup: url => `<svg fill="currentColor"><use href="${url}"></use></svg>`
   });
 </script>
 ```
