@@ -88,6 +88,8 @@ unlisted: true
       <icons-card size="small" :action="e => ui.panel = 'icons'" :family="computed.icon.family" :style="computed.icon.style"
                   title="Icons" :subtitle="`${ capitalize(computed.icon.family) } &bull; ${ capitalize(computed.icon.style) }`">
       </icons-card>
+
+      <theme-card :theme="computed.dimensionality" title="Look & Feel" size="small" :action="e => ui.panel = 'looknfeel'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="theme" :step="1">
@@ -154,6 +156,25 @@ unlisted: true
           <wa-icon name="arrow-up-right-from-square" variant="regular" style="font-size: 0.75em"></wa-icon>
         </a>
       </wa-input>
+    </ui-panel>
+
+
+
+    <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
+      <wa-slider label="Rounding" :min="0" :max="2" :step="0.01" v-model="theme.rounding"></wa-slider>
+      <wa-slider label="Spacing" :min="0" :max="2" :step="0.01" v-model="theme.spacing"></wa-slider>
+
+      <theme-card :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
+    </ui-panel>
+
+    <ui-panel v-model="ui.panel" value="dimensionality" title="Dimensionality" :step="2">
+      <wa-radio-group label="Dimensionality" class="card-picker" v-model="theme.dimensionality">
+        <template v-for="(themeMeta, themeId) in themes">
+          <wa-radio v-if="themeId !== 'custom'" :value="themeId" size="small" :aria-selected="!theme.dimensionality ? 'true' : null">
+            <theme-card :theme="themeId"></theme-card>
+          </wa-radio>
+        </template>
+      </wa-radio-group>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2">

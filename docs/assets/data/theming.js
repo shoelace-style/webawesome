@@ -55,6 +55,22 @@ export const themeConfig = {
       },
     },
   },
+  rounding: {
+    cssProperty: '--wa-border-radius-scale',
+    default: 1,
+  },
+  spacing: {
+    cssProperty: '--wa-space-scale',
+    default: 1,
+  },
+  dimensionality: {
+    url: id => `styles/themes/${id}/overrides.css`,
+    docs: '/docs/themes/',
+    icon: 'wrench',
+    default() {
+      return this.base;
+    },
+  },
 };
 
 // Shallow remixing params in correct order

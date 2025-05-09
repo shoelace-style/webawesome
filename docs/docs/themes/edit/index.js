@@ -56,6 +56,9 @@ let appSpec = {
           family: '',
           style: '',
         },
+        rounding: 1,
+        spacing: 1,
+        dimensionality: '',
       },
       ui: {
         panel: 'styles',
