@@ -153,6 +153,15 @@ export default function (eleventyConfig) {
     ]),
   );
 
+  eleventyConfig.addPreprocessor("unlisted", "*", (data, content) => {
+    if (data.unlisted && process.env.ELEVENTY_RUN_MODE === "build") {
+      // Exclude unlisted from final builds.
+      return false
+    }
+
+    return content
+  })
+
   // Build the search index
   eleventyConfig.addPlugin(
     searchPlugin({

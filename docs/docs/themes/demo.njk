@@ -9,6 +9,7 @@ eleventyExcludeFromCollections: true
 override:tags: []
 eleventyComputed:
   forceTheme: "{{ theme.fileSlug }}"
+excludeFromSearch: true
 ---
 {% set isPro = theme.data.isPro %}
 {% set status = theme.data.status %}
