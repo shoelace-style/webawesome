@@ -1,0 +1,149 @@
+@import url('/assets/styles/theme-icons.css');
+@import url('/assets/vue/components/panel.css');
+@import url('/assets/vue/components/scrollable.css');
+
+:root {
+  --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar {
+  max-width: 22rem;
+}
+
+wa-card {
+  .page-name {
+    display: flex;
+    gap: var(--wa-space-xs);
+  }
+}
+
+wa-page > header {
+  flex: 1;
+  padding-block: var(--wa-space-s);
+
+  .title {
+    display: flex;
+    margin: 0 auto;
+    gap: var(--wa-space-xs);
+    align-items: center;
+    text-indent: 4lh;
+
+    .editable-text {
+      text-indent: 0;
+    }
+
+    h1 {
+      font-size: var(--wa-font-size-l);
+      margin: 0;
+    }
+
+    wa-icon-button {
+      transition: var(--wa-transition-slow);
+    }
+
+    &:not(:hover, :focus-within, :has(input)) wa-icon-button {
+      opacity: 0;
+    }
+  }
+
+  &::part(menu) {
+    overflow: initial;
+  }
+}
+
+.preview-header {
+  padding-block: var(--wa-space-s) 0;
+
+  wa-radio-group {
+    margin-left: auto;
+
+    &::part(form-control) {
+      display: flex;
+      gap: var(--wa-space-xs);
+      align-items: center;
+    }
+  }
+}
+
+.preview-container {
+  padding: var(--wa-space-m);
+  display: grid;
+  height: 100%;
+  max-inline-size: 140ch;
+  margin: auto;
+
+  iframe.preview {
+    border-radius: var(--wa-border-radius-m);
+    border: var(--ui-border);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+wa-tab::part(base) {
+  padding-bottom: var(--wa-space-xs);
+}
+
+wa-tab-panel:empty {
+  --padding: 0;
+}
+
+wa-radio-group.card-picker {
+  &::part(form-control-input) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+    gap: var(--wa-space-l);
+  }
+
+  wa-radio {
+    display: flex;
+    margin: 0 !important;
+  }
+}
+
+.panel-content {
+  &:is(.panel[data-value='styles'] *) {
+    gap: var(--wa-space-l);
+  }
+
+  > wa-divider {
+    --spacing: 0;
+  }
+
+  > footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .next {
+      margin-inline-start: auto;
+    }
+  }
+}
+
+.panel wa-card {
+  --spacing: var(--wa-space-s);
+  position: relative;
+
+  .coming-soon {
+    position: absolute;
+    top: calc(-1 * var(--wa-space-2xs));
+    left: 50%;
+    translate: -50% 0;
+  }
+}
+
+wa-card wa-icon.angle-right {
+  margin-inline-start: auto;
+  align-self: center;
+  font-size: var(--wa-font-size-l);
+  color: var(--wa-color-text-quiet);
+}

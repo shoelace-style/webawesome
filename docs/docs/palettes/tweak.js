@@ -1,13 +1,14 @@
 // TODO move these to local imports
 import Color from 'https://colorjs.io/dist/color.js';
 import { createApp, nextTick } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { cdnUrl, hueRanges, hues, Permalink, tints } from '../../assets/scripts/tweak.js';
+import { maxGrayChroma, moreHue, selectors, themeConfig } from '../../assets/data/index.js';
+import { cdnUrl, hueRanges, hues, tints } from '../../assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
-import { maxGrayChroma, moreHue, selectors, urls } from '../../assets/scripts/tweak/data.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
 import Prism from '/assets/scripts/prism.js';
-import content from '/assets/scripts/vue/directives/content.js';
-import savedMixin from '/assets/scripts/vue/mixins/saved.js';
+import { SwatchSelect } from '/assets/vue/components/index.js';
+import content from '/assets/vue/directives/content.js';
+import savedMixin from '/assets/vue/mixins/saved.js';
 
 await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 
@@ -64,7 +65,7 @@ let paletteAppSpec = {
 
   created() {
     // Non-reactive variables to expose
-    Object.assign(this, { moreHue });
+    Object.assign(this, { moreHue, hues });
 
     this.grayChroma = this.originalGrayChroma;
     this.grayColor = this.originalGrayColor;
@@ -121,7 +122,11 @@ let paletteAppSpec = {
     code() {
       let ret = {};
       for (let language of ['html', 'css']) {
-        let code = getPaletteCode(this.id, this.colors, this.tweaked, { language, cdnUrl });
+        let code = getPaletteCode(this.id, this.colors, this.tweaked, {
+          language,
+          cdnUrl,
+          attributes: ' class="wa-palette',
+        });
         ret[language] = {
           raw: code,
           highlighted: Prism.highlight(code, Prism.languages[language], language),
@@ -345,6 +350,10 @@ let paletteAppSpec = {
     content,
   },
 
+  components: {
+    SwatchSelect,
+  },
+
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
@@ -368,7 +377,7 @@ export function getPaletteCode(paletteId, colors, tweaked, options) {
   let imports = [];
 
   if (paletteId) {
-    imports.push(urls.palette(paletteId));
+    imports.push(themeConfig.palette.url(paletteId));
   }
 
   let css = '';

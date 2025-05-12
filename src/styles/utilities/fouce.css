@@ -1,8 +1,6 @@
 /*
  * Utility to minimize FOUCE and show custom elements only after they're registered
  */
-:not(:defined),
-:state(wa-defined):has(:not(:defined)),
 .wa-cloak:has(:not(:defined)) {
   animation: 2s step-end wa-fouce-cloak;
 }

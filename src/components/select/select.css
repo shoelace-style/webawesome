@@ -136,11 +136,15 @@
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space-sm);
+  margin-inline-start: var(--wa-space-s);
 }
 
 .prefix::slotted(*) {
   margin-inline-end: var(--wa-space);
+}
+
+:host([multiple]) .prefix::slotted(*) {
+  margin-inline: var(--wa-space);
 }
 
 /* Clear button */

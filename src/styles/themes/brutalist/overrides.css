@@ -44,7 +44,7 @@
   }
 
   wa-carousel::part(pagination-item),
-  wa-image-comparer::part(handle),
+  wa-comparer::part(handle),
   wa-progress-bar::part(base),
   wa-slider::part(base),
   input[type='range'],

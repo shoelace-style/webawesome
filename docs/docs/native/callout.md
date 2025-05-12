@@ -4,7 +4,6 @@ description: Callouts are used to display important messages inline.
 component: callout
 icon: callout
 snippets: '.wa-callout'
-noAlpha: true
 file: styles/native/callout.css
 ---
 

@@ -1,5 +1,5 @@
 {%- if not page.data.unlisted -%}
-<a href="{{ page.url }}"{{ page.data.keywords | attr('data-keywords') }}>
+{% if page.url %}<a href="{{ page.url }}"{{ page.data.keywords | attr('data-keywords') }}>{% endif %}
 	<wa-card with-header>
 		<div slot="header">
 		{% include "svgs/" + (page.data.icon or "thumbnail-placeholder") + ".njk" ignore missing %}
@@ -9,5 +9,5 @@
 		<div class="wa-caption-s">{{ pageSubtitle }}</div>
 		{%- endif %}
 	</wa-card>
-</a>
+{% if page.url %}</a>{% endif %}
 {% endif %}

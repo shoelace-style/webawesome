@@ -32,7 +32,8 @@
 
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
-{% if forceTheme %}
+{% if noTheme %}
+{% elif forceTheme %}
 <link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
 {% else %}
 <noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>

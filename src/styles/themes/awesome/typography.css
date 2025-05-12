@@ -8,16 +8,11 @@
    * Typography
    */
   --wa-font-family-body: Quicksand, sans-serif;
-  --wa-font-family-heading: var(--wa-font-family-body);
-  --wa-font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  --wa-font-family-longform: ui-serif, serif;
 
   --wa-font-weight-light: 400;
   --wa-font-weight-normal: 500;
   --wa-font-weight-semibold: 600;
   --wa-font-weight-bold: 700;
 
-  --wa-font-weight-body: var(--wa-font-weight-normal);
-  --wa-font-weight-heading: var(--wa-font-weight-bold);
   --wa-font-weight-action: var(--wa-font-weight-bold);
 }
