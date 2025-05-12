@@ -1,18 +1,6 @@
 :where(:root),
 :host,
 .wa-theme-glossy {
-  --wa-theme-glossy-inner-shine: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.3);
-  --wa-theme-glossy-top-highlight: inset 0 0.25rem 0 0 rgb(255 255 255 / 0.15);
-  --wa-theme-glossy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glossy-lower-shade: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.03);
-  --wa-theme-glossy-bottom-shadow: inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15);
-
-  --wa-theme-glossy-inner-shine-active: inset 0 -0.0625rem 0 0 rgb(255 255 255 / 0.1);
-  --wa-theme-glossy-top-highlight-active: inset 0 0.125rem 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glossy-upper-tint-active: inset 0 1.25em 0 0 rgb(0 0 0 / 0.04);
-  --wa-theme-glossy-lower-shade-active: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02);
-  --wa-theme-glossy-bottom-shadow-active: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
-
   h1,
   h2,
   h3,
@@ -21,96 +9,11 @@
   h6 {
     letter-spacing: -0.02em;
   }
-  :is(
-      button,
-      input:where([type='button'], [type='reset'], [type='submit']),
-      wa-button,
-      wa-radio-button,
-      .wa-button
-    ):not([appearance='plain'], .wa-plain) {
-    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
-
-    margin-bottom: var(--wa-shadow-offset-y-s);
-    transition: all var(--wa-transition-fast);
-
-    &:not([disabled]):active {
-      box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
-        var(--wa-theme-glossy-upper-tint-active), var(--wa-theme-glossy-lower-shade-active),
-        var(--wa-theme-glossy-bottom-shadow-active);
-
-      transform: scale(0.98);
-    }
-  }
-
-  input:where(
-      :not(
-        [type='button'],
-        [type='checkbox'],
-        [type='color'],
-        [type='file'],
-        [type='hidden'],
-        [type='image'],
-        [type='radio'],
-        [type='range'],
-        [type='reset'],
-        [type='submit']
-      )
-    ),
-  select,
-  textarea,
-  wa-input,
-  wa-select,
-  wa-textarea,
-  .wa-text-field {
-    --wa-theme-glossy-upper-tint: inset 0 -1.25em 0 0 rgb(255 255 255 / 0.085);
-    --wa-theme-glossy-lower-shade: inset 0 1.125em 0 0 rgb(0 0 0 / 0.02);
-    --box-shadow: var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade);
-    transition: all var(--wa-transition-fast);
-
-    &:focus {
-      --box-shadow: 0 0 transparent, 0 0 transparent;
-    }
-  }
-
-  input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
-  wa-checkbox:is(:state(checked), :state(indeterminate)),
-  wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
-  wa-radio:state(checked) {
-    --box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-bottom-shadow);
-
-    &:active {
-      --box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
-        var(--wa-theme-glossy-bottom-shadow-active);
-    }
-  }
 
   input[type='radio'],
   wa-radio {
     --background-color-checked: var(--border-color-checked);
     --checked-icon-color: var(--wa-color-surface-default);
     --checked-icon-scale: 0.4;
-  }
-
-  input[type='range'],
-  wa-slider,
-  wa-switch {
-    --thumb-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-bottom-shadow);
-  }
-
-  progress,
-  wa-progress-bar {
-    box-shadow: inset var(--wa-shadow-s);
-
-    &::part(indicator) {
-      box-shadow:
-        var(--wa-theme-glossy-inner-shine),
-        var(--wa-theme-glossy-top-highlight),
-        inset 0 0.625rem 0 0 rgb(255 255 255 / 0.1) /* upper tint */,
-        inset 0 -0.5rem 0 0 rgb(0 0 0 / 0.04) /* lower shade */,
-        var(--wa-theme-glossy-bottom-shadow);
-    }
   }
 }
