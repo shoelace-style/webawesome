@@ -399,3 +399,12 @@ export function attr(value, name) {
 
   return safe(ret);
 }
+
+/**
+ * Format an object as JSON, with formatting & indentation (unlike the default `dump` filter)
+ * @param {*} value
+ * @returns {string}
+ */
+export function json(value) {
+  return JSON.stringify(value, null, 2);
+}
