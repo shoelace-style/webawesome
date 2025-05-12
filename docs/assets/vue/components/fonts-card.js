@@ -1,8 +1,8 @@
+import themes from '../../data/themes.js';
 import PageCard from './page-card.js';
 import { defaultTitle, pairings, sameAs } from '/assets/data/fonts.js';
 import { themeConfig } from '/assets/data/theming.js';
 import { cssImport, getThemeCode } from '/assets/scripts/tweak/code.js';
-import themes from '/docs/themes/data.js';
 
 const template = `
   <page-card class="fonts-card" :info="computedPairing">

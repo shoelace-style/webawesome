@@ -3,7 +3,9 @@ layout: null
 permalink: '/assets/data/palettes.js'
 eleventyExcludeFromCollections: true
 ---
-export default {
+import Color from 'https://colorjs.io/dist/color.js';
+
+const palettes = {
 {%- for palette in collections.palette | sort %}
 {%- if not palette.data.unlisted %}
   {% set paletteId = palette.fileSlug -%}
@@ -30,3 +32,24 @@ export default {
 {%- endif -%}
 {% endfor %}
 };
+
+// Create Color instances for each color
+for (let palette in palettes) {
+  for (let hue in palettes[palette].colors) {
+    let scale = palettes[palette].colors[hue];
+
+    for (let tint in scale) {
+      let color = scale[tint];
+
+      if (Array.isArray(color)) {
+        try {
+          scale[tint] = new Color('oklch', color);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  }
+}
+
+export default palettes;

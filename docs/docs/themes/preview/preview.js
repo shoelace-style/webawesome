@@ -1,6 +1,6 @@
-import palettes from '../../palettes/data.js';
-import themes from '../data.js';
 import { allHues } from '/assets/data/index.js';
+import palettes from '/assets/data/palettes.js';
+import themes from '/assets/data/themes.js';
 import { themeConfig, themeDefaults, themeParams } from '/assets/data/theming.js';
 import Permalink from '/assets/scripts/permalink.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';

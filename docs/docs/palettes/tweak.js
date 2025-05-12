@@ -5,6 +5,7 @@ import { maxGrayChroma, moreHue, selectors, themeConfig } from '../../assets/dat
 import { cdnUrl, hueRanges, hues, tints } from '../../assets/scripts/tweak.js';
 import { cssImport, cssLiteral, cssRule } from '../../assets/scripts/tweak/code.js';
 import { subtractAngles } from '../../assets/scripts/tweak/util.js';
+import allPalettes from '/assets/data/palettes.js';
 import Prism from '/assets/scripts/prism.js';
 import { SwatchSelect } from '/assets/vue/components/index.js';
 import content from '/assets/vue/directives/content.js';
@@ -22,21 +23,7 @@ await Promise.all(['wa-slider'].map(tag => customElements.whenDefined(tag)));
 //   return computedColor.endsWith(' 0)');
 // })();
 
-let allPalettes = await fetch('/docs/palettes/data.json').then(r => r.json());
 globalThis.allPalettes = allPalettes;
-
-for (let palette in allPalettes) {
-  for (let hue in allPalettes[palette].colors) {
-    let scale = allPalettes[palette].colors[hue];
-    for (let tint of tints) {
-      let color = scale[tint];
-
-      if (Array.isArray(color)) {
-        scale[tint] = new Color('oklch', color);
-      }
-    }
-  }
-}
 
 const percentFormatter = value => value.toLocaleString(undefined, { style: 'percent' });
 

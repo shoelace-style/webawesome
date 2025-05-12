@@ -1,6 +1,6 @@
+import themes from '../../data/themes.js';
 import PageCard from './page-card.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import themes from '/docs/themes/data.js';
 
 const iconTemplates = {
   colors: `

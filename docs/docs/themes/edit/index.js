@@ -2,6 +2,8 @@
 import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
 import { pairingsList, sameAs } from '/assets/data/fonts.js';
 import { allHues, cdnUrl, iconLibraries } from '/assets/data/index.js';
+import palettes from '/assets/data/palettes.js';
+import themes from '/assets/data/themes.js';
 import { themeDefaults } from '/assets/data/theming.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
@@ -22,8 +24,6 @@ import {
 } from '/assets/vue/components/index.js';
 import content from '/assets/vue/directives/content.js';
 import savedMixin from '/assets/vue/mixins/saved.js';
-import palettes from '/docs/palettes/data.js';
-import themes from '/docs/themes/data.js';
 
 let appSpec = {
   mixins: [savedMixin],
