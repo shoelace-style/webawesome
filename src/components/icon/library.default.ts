@@ -22,20 +22,31 @@ function getIconUrl(name: string, family: string, variant: string) {
     if (variant === 'solid') folder = 'sharp-solid';
   }
 
+  // Duotone
+  if (family === 'duotone') {
+    if (variant === 'thin') folder = 'duotone-thin';
+    if (variant === 'light') folder = 'duotone-light';
+    if (variant === 'regular') folder = 'duotone-regular';
+    if (variant === 'solid') folder = 'duotone';
+  }
+
+  // Sharp Duotone
+  if (family === 'sharp-duotone') {
+    if (variant === 'thin') folder = 'sharp-duotone-thin';
+    if (variant === 'light') folder = 'sharp-duotone-light';
+    if (variant === 'regular') folder = 'sharp-duotone-regular';
+    if (variant === 'solid') folder = 'sharp-duotone-solid';
+  }
+
   // Brands
   if (family === 'brands') {
     folder = 'brands';
   }
 
-  // Duotone
-  if (family === 'duotone') {
-    folder = 'duotone';
-  }
-
   // Use the default CDN
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v6.5.2/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v6.5.2/svgs/${folder}/${name}.svg`;
+    ? `https://ka-p.fontawesome.com/releases/v6.7.2/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://ka-f.fontawesome.com/releases/v6.7.2/svgs/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {

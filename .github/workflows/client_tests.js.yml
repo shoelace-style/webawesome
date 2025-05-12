@@ -31,7 +31,7 @@ jobs:
       - name: Lint
         run: npm run prettier
       - name: Build
-        run: npm run build:alpha
+        run: npm run build
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run CSR tests

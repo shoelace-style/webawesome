@@ -1,1 +1,1 @@
-export { hueRanges as default } from '../assets/scripts/tweak/data.js';
+export { hueRanges as default } from '../assets/data/index.js';

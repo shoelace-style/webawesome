@@ -116,7 +116,7 @@ describe('<wa-drawer>', () => {
       });
 
       it('should allow initial focus to be set', async () => {
-        const el = await fixture<WaDrawer>(html` <wa-drawer with-header><wa-input autofocus></wa-input></wa-drawer> `);
+        const el = await fixture<WaDrawer>(html` <wa-drawer><wa-input autofocus></wa-input></wa-drawer> `);
         const input = el.querySelector('wa-input')!;
 
         el.open = true;

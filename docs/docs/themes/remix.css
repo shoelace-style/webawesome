@@ -1,3 +1,5 @@
+@import url('/assets/styles/ui.css');
+
 #mix_and_match {
   margin-block-end: var(--wa-space-2xl);
 
@@ -30,68 +32,18 @@
 
   wa-select:has(> wa-option > wa-card) {
     &::part(listbox) {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      width: min(90vw, 800px);
+      --column-width: 16ch;
+      --columns: 3;
+    }
+
+    &.theme-colors-select::part(listbox) {
+      --column-width: 15ch;
+      --columns: 4;
     }
 
     &:state(blank)::part(display-input) {
       font-style: italic;
       color: var(--wa-color-text-quiet);
-    }
-  }
-
-  wa-option:has(> wa-card) {
-    position: relative;
-    padding: var(--wa-space-smaller);
-
-    &::part(checked-icon) {
-      position: absolute;
-      inset-block-start: calc(var(--wa-space-smaller) - 0.5em);
-      inset-inline-end: calc(var(--wa-space-smaller) - 0.5em);
-      width: 1em;
-      height: 1em;
-      line-height: 1em;
-      padding: 0.4em;
-      border-radius: var(--wa-border-radius-circle);
-      text-align: center;
-      background: var(--wa-color-brand-fill-loud);
-      color: var(--wa-color-brand-on-loud);
-      font-size: var(--wa-font-size-xs);
-    }
-
-    wa-card {
-      --spacing: var(--wa-space-smaller);
-
-      &::part(body) {
-        background: var(--wa-color-neutral-fill-quiet);
-        padding-block: var(--wa-space-s);
-      }
-    }
-
-    &:state(current),
-    &:state(hover),
-    &:state(selected),
-    &:hover {
-      background: transparent;
-    }
-
-    &:hover {
-      wa-card {
-        border-color: var(--wa-color-brand-border-loud);
-        box-shadow: 0 0 0 var(--wa-border-width-m) var(--wa-color-brand-border-normal);
-      }
-    }
-
-    &[aria-selected='true'] {
-      wa-card {
-        --border-color: var(--wa-color-brand-border-loud);
-        box-shadow: 0 0 0 var(--wa-border-width-m) var(--wa-color-brand-border-loud);
-
-        &::part(body) {
-          background: var(--wa-color-brand-fill-quiet);
-        }
-      }
     }
   }
 
@@ -119,9 +71,4 @@
       order: 2;
     }
   }
-}
-
-#test_select wa-option:state(selected) {
-  outline: 2px solid red;
-  background: yellow;
 }

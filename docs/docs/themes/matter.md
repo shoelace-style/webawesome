@@ -9,6 +9,9 @@ fonts:
   body: 'Wix Madefor Text'
   code: Roboto Mono
   longform: Roboto Serif
+icons:
+  family: classic
+  style: regular
 ---
 
 Set the page theme to "{{ title }}" from the top right to preview the following examples.

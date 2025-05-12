@@ -2,7 +2,7 @@
 <wa-select appearance="filled" size="small" value="default" pill class="preset-theme-selector">
   <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
   {% for theme in collections.theme | sort %}
-    <wa-option value="{{ theme.page.fileSlug }}"{{ ' data-alpha="remove"' if theme.noAlpha }}>
+    <wa-option value="{{ theme.page.fileSlug }}">
       {{ theme.data.title }}
     </wa-option>
   {% endfor %}

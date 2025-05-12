@@ -10,7 +10,7 @@ keywords: modal
 <!-- cspell:dictionaries lorem-ipsum -->
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer id="dialog-overview">
+<wa-dialog label="Dialog" id="dialog-overview">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
@@ -32,7 +32,7 @@ keywords: modal
 Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the dialog.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header class="dialog-header">
+<wa-dialog label="Dialog" class="dialog-header">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </wa-dialog>
 
@@ -51,7 +51,7 @@ Headers can be used to display titles and more. Use the `with-header` attribute 
 Footers can be used to display titles and more. Use the `with-footer` attribute to add a footer to the dialog.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-footer class="dialog-footer">
+<wa-dialog label="Dialog" class="dialog-footer">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
@@ -71,7 +71,7 @@ Footers can be used to display titles and more. Use the `with-footer` attribute 
 You can add the special `data-dialog="close"` attribute to a button inside the dialog to tell it to close without additional JavaScript. Alternatively, you can set the `open` property to `false` to close the dialog programmatically.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-dismiss">
+<wa-dialog label="Dialog" class="dialog-dismiss">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
@@ -91,7 +91,7 @@ You can add the special `data-dialog="close"` attribute to a button inside the d
 Just use the `--width` custom property to set the dialog's width.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-width" style="--width: 50vw;">
+<wa-dialog label="Dialog" class="dialog-width" style="--width: 50vw;">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
@@ -111,7 +111,7 @@ Just use the `--width` custom property to set the dialog's width.
 By design, a dialog's height will never exceed that of the viewport. As such, dialogs will not scroll with the page ensuring the header and footer are always accessible to the user.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-scrolling">
+<wa-dialog label="Dialog" class="dialog-scrolling">
   <div style="height: 150vh; border: dashed 2px var(--wa-color-surface-border); padding: 0 1rem;">
     <p>Scroll down and give it a try! 👇</p>
   </div>
@@ -133,7 +133,7 @@ By design, a dialog's height will never exceed that of the viewport. As such, di
 The header shows a functional close button by default. You can use the `header-actions` slot to add additional [icon buttons](/docs/components/icon-button) if needed.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-header-actions">
+<wa-dialog label="Dialog" class="dialog-header-actions">
   <wa-icon-button class="new-window" slot="header-actions" name="arrow-up-right-from-square" variant="solid"></wa-icon-button>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
@@ -156,7 +156,7 @@ The header shows a functional close button by default. You can use the `header-a
 If you want the dialog to close when the user clicks on the overlay, add the `light-dismiss` attribute.
 
 ```html {.example}
-<wa-dialog label="Dialog" light-dismiss with-header with-footer class="dialog-light-dismiss">
+<wa-dialog label="Dialog" light-dismiss class="dialog-light-dismiss">
   This dialog will close when you click on the overlay.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
@@ -180,7 +180,7 @@ To keep the dialog open in such cases, you can cancel the `wa-hide` event. When 
 You can use `event.detail.source` to determine which element triggered the request to close. This example prevents the dialog from closing when the overlay is clicked, but allows the close button or [[Escape]] to dismiss it.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-deny-close">
+<wa-dialog label="Dialog" class="dialog-deny-close">
   This dialog will only close when you click the button below.
   <wa-button slot="footer" variant="brand" data-dialog="close">Only this button will close it</wa-button>
 </wa-dialog>
@@ -208,7 +208,7 @@ You can use `event.detail.source` to determine which element triggered the reque
 To give focus to a specific element when the dialog opens, use the `autofocus` attribute.
 
 ```html {.example}
-<wa-dialog label="Dialog" with-header with-footer class="dialog-focus">
+<wa-dialog label="Dialog" class="dialog-focus">
   <wa-input autofocus placeholder="I will have focus when the dialog is opened"></wa-input>
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>

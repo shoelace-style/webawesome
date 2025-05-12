@@ -20,7 +20,7 @@ then
     echo "🚀 OK, blasting off..."
 
     # build it
-    npm run build:alpha
+    npm run build
 
     # copy dist-cdn to the CDN
     aws --profile early-webawesome-com --endpoint-url https://c0c64e1b38a89d8ae060d40170ceef46.r2.cloudflarestorage.com s3 cp ./dist-cdn s3://early-webawesome-com/webawesome@$version/dist --recursive
