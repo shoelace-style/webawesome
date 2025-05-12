@@ -152,9 +152,9 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 
 ### Frontmatter
 
-There's a number of frontmatter properties.
+There's a number of frontmatter properties for doing different things in the Web Awesome documention.
 
-To only show a page in development, use the `unpublished: true` key / value pair.
+For example, to only show a page in development, use the `unpublished: true` key / value pair.
 
 ```md
 ---
