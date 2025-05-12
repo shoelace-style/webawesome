@@ -26,19 +26,19 @@ export function searchPlugin(options = {}) {
   return function (eleventyConfig) {
     const pagesToIndex = new Map();
 
-    eleventyConfig.addPreprocessor("exclude-unlisted-from-search", "*", function (data, content) {
+    eleventyConfig.addPreprocessor('exclude-unlisted-from-search', '*', function (data, content) {
       if (data.unlisted) {
         // no-op
       } else {
-        pagesToIndex.set(data.page.inputPath, {})
+        pagesToIndex.set(data.page.inputPath, {});
       }
 
-      return content
-    })
+      return content;
+    });
 
     eleventyConfig.addTransform('search', function (content) {
       if (!pagesToIndex.has(this.page.inputPath)) {
-        return content
+        return content;
       }
 
       const doc = parse(content, {
@@ -56,16 +56,13 @@ export function searchPlugin(options = {}) {
         doc.querySelectorAll(selector).forEach(el => el.remove());
       });
 
-      pagesToIndex.set(
-        this.page.inputPath,
-        {
-          title: collapseWhitespace(options.getTitle(doc)),
-          description: collapseWhitespace(options.getDescription(doc)),
-          headings: options.getHeadings(doc).map(collapseWhitespace),
-          content: collapseWhitespace(options.getContent(doc)),
-          url: this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, ''),
-        }
-      );
+      pagesToIndex.set(this.page.inputPath, {
+        title: collapseWhitespace(options.getTitle(doc)),
+        description: collapseWhitespace(options.getDescription(doc)),
+        headings: options.getHeadings(doc).map(collapseWhitespace),
+        content: collapseWhitespace(options.getContent(doc)),
+        url: this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, ''),
+      });
 
       return content;
     });

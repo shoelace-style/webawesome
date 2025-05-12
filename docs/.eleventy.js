@@ -153,14 +153,14 @@ export default function (eleventyConfig) {
     ]),
   );
 
-  eleventyConfig.addPreprocessor("unreleased", "*", (data, content) => {
-    if (data.unreleased && process.env.ELEVENTY_RUN_MODE === "build") {
+  eleventyConfig.addPreprocessor('unreleased', '*', (data, content) => {
+    if (data.unreleased && process.env.ELEVENTY_RUN_MODE === 'build') {
       // Exclude "unreleased" from final builds.
-      return false
+      return false;
     }
 
-    return content
-  })
+    return content;
+  });
 
   // Build the search index
   eleventyConfig.addPlugin(
