@@ -20,6 +20,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added an `orange` scale to all color palettes
 - Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
 - Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
+- Simplified `<wa-breadcrumb-item>` by removing the `base` CSS part
 
 ### Bug fixes
 
