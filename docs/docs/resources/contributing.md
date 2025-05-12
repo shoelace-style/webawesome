@@ -166,7 +166,7 @@ To build a page, but not add it to any search indexes and collections so they do
 
 ```md
 ---
-unpublished: true
+unlisted: true
 eleventyExcludeFromCollections: true
 ---
 ```
