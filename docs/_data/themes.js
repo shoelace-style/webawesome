@@ -38,8 +38,8 @@ for (const file of themeFiles) {
   icon.variant = theme.declarations['icon-variant'] ?? theme.default?.iconVariant ?? 'solid';
   theme.icons = icon;
 
-  theme.roundingScale = Number(theme.declarations['border-radius-scale'] ?? theme.default?.roundingScale ?? 1);
-  theme.spacingScale = Number(theme.declarations['space-scale'] ?? theme.default?.spacingScale ?? 1);
+  theme.rounding = Number(theme.declarations['border-radius-scale'] ?? theme.default?.rounding ?? 1);
+  theme.spacing = Number(theme.declarations['space-scale'] ?? theme.default?.spacing ?? 1);
 
   themes[id] = theme;
 }

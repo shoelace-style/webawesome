@@ -57,16 +57,20 @@ export const themeConfig = {
   },
   rounding: {
     cssProperty: '--wa-border-radius-scale',
-    default: 1,
+    default(baseTheme) {
+      return baseTheme?.rounding ?? 1;
+    },
   },
   spacing: {
     cssProperty: '--wa-space-scale',
-    default: 1,
+    default(baseTheme) {
+      return baseTheme?.spacing ?? 1;
+    },
   },
   dimensionality: {
-    url: id => `styles/themes/${id}/overrides.css`,
+    url: id => `styles/themes/${id}/dimension.css`,
     docs: '/docs/themes/',
-    icon: 'wrench',
+    icon: 'cube',
     default() {
       return this.base;
     },

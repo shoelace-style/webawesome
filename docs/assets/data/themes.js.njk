@@ -6,7 +6,7 @@ eleventyExcludeFromCollections: true
 
 export default {
 {%- for theme in collections.theme | sort %}
-{%- if not theme.data.unlisted %}
+{%- if not theme.data.unlisted and theme.fileSlug !== 'edit' and theme.fileSlug !== 'custom' %}
   {% set themeId = theme.fileSlug -%}
   {%- set themeMeta = themes[themeId] -%}
   '{{ themeId }}': {
@@ -17,8 +17,9 @@ export default {
     isPro: {{ theme.data.isPro or 'pro' in theme.data.tags }},
     fonts: {{ (theme.data.fonts | json or 'null') | safe }},
     icons: {{ (themeMeta.icons | json or 'null') | safe }},
-    roundingScale: {{ themeMeta.roundingScale }},
-    spacingScale: {{ themeMeta.spacingScale }},
+    rounding: {{ themeMeta.rounding }},
+    spacing: {{ themeMeta.spacing }},
+    dimension: {{ themeMeta.dimension or 'false' }},
   },
 {%- endif %}
 {% endfor %}
