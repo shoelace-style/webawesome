@@ -26,8 +26,8 @@ export function searchPlugin(options = {}) {
   return function (eleventyConfig) {
     const pagesToIndex = new Map();
 
-    eleventyConfig.addPreprocessor("exclude-from-search", "*", function (data, content) {
-      if (data.excludeFromSearch) {
+    eleventyConfig.addPreprocessor("exclude-unlisted-from-search", "*", function (data, content) {
+      if (data.unlisted) {
         // no-op
       } else {
         pagesToIndex.set(data.page.inputPath, {})
