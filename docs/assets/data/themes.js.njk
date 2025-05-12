@@ -1,0 +1,22 @@
+---
+layout: null
+permalink: '/assets/data/themes.js'
+eleventyExcludeFromCollections: true
+---
+export default {
+{%- for theme in collections.theme | sort %}
+{%- if not theme.data.unlisted %}
+  {% set themeId = theme.fileSlug -%}
+  {%- set colors = themes[themeId] -%}
+  '{{ themeId }}': {
+    id: '{{ themeId }}',
+    title: '{{ theme.data.title }}',
+    palette: '{{ theme.data.palette }}',
+    brand: '{{ theme.data.brand }}',
+    isPro: {{ theme.data.isPro or 'pro' in theme.data.tags }},
+    fonts: {{ (theme.data.fonts | dump or 'null') | safe }},
+    icons: {{ (theme.data.icons | dump  or 'null') | safe }},
+  },
+{%- endif %}
+{% endfor %}
+};

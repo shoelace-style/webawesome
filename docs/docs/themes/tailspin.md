@@ -7,4 +7,7 @@ palette: vogue
 brand: indigo
 fonts:
   body: Inter
+icons:
+  family: classic
+  style: solid
 ---

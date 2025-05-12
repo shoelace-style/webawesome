@@ -8,4 +8,7 @@ fonts:
   body: Mulish
   heading: Lora
   longform: Lora
+icons:
+  family: classic
+  style: solid
 ---

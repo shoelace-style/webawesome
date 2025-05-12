@@ -1,19 +1,15 @@
 :host {
   color: var(--wa-color-text-link);
   display: inline-flex;
-}
-
-:host(:last-of-type) {
-  color: var(--wa-color-text-quiet);
-}
-
-.breadcrumb-item {
-  display: inline-flex;
   align-items: center;
   font: inherit;
   font-weight: var(--wa-font-weight-action);
   line-height: var(--wa-line-height-normal);
   white-space: nowrap;
+}
+
+:host(:last-of-type) {
+  color: var(--wa-color-text-quiet);
 }
 
 .label {

@@ -1,0 +1,78 @@
+:where(:root),
+:host,
+.wa-theme-awesome {
+  :is(
+      button,
+      input:where([type='button'], [type='reset'], [type='submit']),
+      wa-button,
+      wa-radio-group > wa-radio-button,
+      .wa-button
+    ):not([appearance='plain'], .wa-plain) {
+    --wa-transition-slow: 0;
+    --wa-transition-normal: 0;
+    --wa-transition-fast: 0;
+
+    --border-color: var(--text-color);
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s)
+      var(--wa-shadow-spread-s) var(--border-color);
+    --background-color-active: var(--border-color);
+    --text-color-active: var(--background-color);
+
+    margin-bottom: var(--wa-shadow-offset-y-s);
+
+    &:is([appearance='outlined'], .wa-outlined) {
+      --background-color: var(--wa-color-surface-default);
+    }
+
+    &:not([disabled], [loading]):active,
+    &::part(checked) {
+      box-shadow: none;
+      transform: translateY(var(--wa-shadow-offset-y-s));
+    }
+
+    .wa-dark & {
+      --border-color: var(--wa-color-border-quiet);
+    }
+  }
+
+  wa-radio-group > wa-radio-button {
+    &::part(base) {
+      --background-color-active: var(--border-color-active);
+      --border-color-active: var(--wa-color-neutral-border-loud);
+      --text-color-active: var(--wa-color-surface-default);
+    }
+    &::part(checked) {
+      --background-color: var(--border-color);
+      --background-color-hover: var(--border-color);
+      --border-color: var(--wa-color-neutral-border-loud);
+      --text-color: var(--wa-color-surface-default);
+      --text-color-hover: var(--text-color);
+    }
+  }
+  :is(
+      input:where(
+          :not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          )
+        ),
+      select,
+      textarea,
+      wa-input,
+      wa-select,
+      wa-textarea,
+      .wa-text-field
+    ):not(:focus, [appearance='filled'], .wa-filled) {
+    --box-shadow: inset var(--wa-shadow-s);
+  }
+}

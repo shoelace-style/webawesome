@@ -5,35 +5,22 @@
 {% extends '../_includes/base.njk' %}
 
 {% block head %}
-<script>
-globalThis.wa_data ??= {};
-wa_data.baseTheme = "{{ page.fileSlug }}";
-wa_data.themes = {
-  {% for theme in collections.theme -%}
-  "{{ theme.fileSlug }}": {
-    "title": "{{ theme.data.title }}",
-    "palette": "{{ theme.data.palette }}",
-    "brand": "{{ theme.data.brand }}"
-  },
-  {% endfor %}
-};
-wa_data.palettes = {
-  {% for palette in collections.palette -%}
-  "{{ palette.fileSlug }}": {
-    "title": "{{ palette.data.title }}",
-  },
-  {% endfor %}
-};
-</script>
-<link href="/docs/themes/remix.css" rel="stylesheet">
-<script src="/docs/themes/remix.js" type="module"></script>
+<link href="{{ page.url }}../remix.css" rel="stylesheet">
+<script type="module" src="{{ page.url }}../edit/index.js"></script>
 {% endblock %}
 
 {% block header %}
+<script>
+if (location.pathname.endsWith('/custom/') && !location.search) {
+  location.href = "../edit/";
+}
+</script>
+<div id="theme-app" data-theme-id="{{ page.fileSlug }}">
 
-<iframe src='{{ page.url }}demo.html' id="demo"></iframe>
+<iframe ref="preview" :src="'{{ page.url }}demo.html' + urlParams" src='{{ page.url }}demo.html' id="demo"></iframe>
 
-<wa-details id="mix_and_match" class="wa-gap-m" >
+{% if page.fileSlug !== 'custom' %}
+<wa-details id="mix_and_match" class="wa-gap-m" :open="saved || unsavedChanges">
   <h4 slot="summary" data-no-anchor data-no-outline id="remix">
     <wa-icon name="arrows-rotate"></wa-icon>
     Remix this theme
@@ -41,92 +28,64 @@ wa_data.palettes = {
     <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
   </h4>
 
-  <wa-select name="colors" label="Colors from…" value="" clearable>
-    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    {% for theme in collections.theme | sort %}
-      {% set currentTheme = theme.fileSlug == page.fileSlug %}
-      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
-        <wa-card with-header>
-          <div slot="header">
-          {% include "svgs/theme-color.njk" %}
-          </div>
-          <span class="page-name">
-            {{ theme.data.title }}
-            {% if theme.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
-            {% if currentTheme %}<wa-badge variant="neutral" appearance="outlined">This theme</wa-badge>{% endif %}
-          </span>
-        </wa-card>
-      </wa-option>
-    {% endfor %}
-  </wa-select>
-
-  <wa-select name="palette" label="Palette" clearable>
+  <wa-select name="palette" label="Color palette" clearable v-model="theme.palette">
     <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
-    {% set defaultPalette = palette %}
-    {% for palette in collections.palette | sort %}
-      {% set currentPalette = palette.fileSlug == defaultPalette %}
-      <wa-option label="{{ palette.data.title }}" value="{{ palette.fileSlug if not currentPalette }}" {{ (palette.fileSlug if currentPalette) | attr('data-id') }}>
-        <wa-card with-header>
-          <div slot="header">
-          {% include "svgs/" + (palette.data.icon or "thumbnail-placeholder") + ".njk" ignore missing %}
-          </div>
-          <span class="page-name">
-            {{ palette.data.title }}
-            {% if palette.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
-            {% if currentPalette %}<wa-badge variant="neutral" appearance="outlined">Theme default</wa-badge>{% endif %}
-          </span>
-        </wa-card>
-      </wa-option>
-    {% endfor %}
-    {% set palette = defaultPalette %}
+    <wa-option v-for="(palette, paletteId) in palettes" :label="palette.title" :value="paletteId === baseTheme.palette ? '' : paletteId">
+      <palette-card :palette="paletteId" size="small">
+        <template #extra>
+          <wa-badge v-if="paletteId === baseTheme.palette" variant="neutral" appearance="outlined">Theme default</wa-badge>
+        </template>
+      </palette-card>
+    </wa-option>
   </wa-select>
 
-  <wa-select name="brand" label="Brand color" value="" clearable>
-    <div class="selected-swatch" slot="prefix"></div>
-    {% for hue in hues %}
-      {% set currentBrand = hue == brand %}
-      <wa-option label="{{ hue | capitalize }}" value="{{ hue if not currentBrand }}" {{ (hue if currentBrand) | attr('data-id') }} style="--color: var(--wa-color-{{ hue }})">
-        {{ hue | capitalize }}
-        {% if currentBrand %}<wa-badge variant="neutral" appearance="outlined">Theme default</wa-badge>{% endif %}
+  <color-select :model-value="computed.brand" @update:model-value="value => theme.brand = value" label="Brand color"
+                :values="hues"></color-select>
+
+  <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" clearable v-model="theme.colors">
+    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
+    <template v-for="(themeMeta, themeId) in themes">
+      <wa-option v-if="themeId !== 'custom'" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
+        <theme-card :theme="themeId" type="colors" :rest="{base: computed.base, palette: computed.palette, brand: computed.brand}" size="small">
+          <template #extra>
+          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
+        </template>
+        </theme-card>
       </wa-option>
-    {% endfor %}
+    </template>
   </wa-select>
 
-  <wa-select name="typography" label="Typography from…" clearable>
+  <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
     <wa-icon name="font-case" slot="prefix"></wa-icon>
-    {% for theme in collections.theme | sort %}
-      {% set currentTheme = theme.fileSlug == page.fileSlug %}
-      <wa-option label="{{ theme.data.title }}" value="{{ theme.fileSlug if not currentTheme }}" {{ (theme.fileSlug if currentTheme) | attr('data-id') }}>
-        <wa-card with-header>
-          <div slot="header">
-          {% include "svgs/theme-typography.njk" %}
-          </div>
-          <span class="page-name">
-            {{ theme.data.title }}
-            {% if theme.data.isPro %}<wa-badge class="pro">PRO</wa-badge>{% endif %}
-            {% if currentTheme %}<wa-badge variant="neutral" appearance="outlined">This theme</wa-badge>{% endif %}
-          </span>
-        </wa-card>
-      </wa-option>
-    {% endfor %}
+
+    <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === theme.base ? '' : themeId">
+      <fonts-card :theme="themeId" size="small">
+        <template #extra>
+          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
+        </template>
+      </fonts-card>
+    </wa-option>
   </wa-select>
 </wa-details>
-
+{% endif %}
 <h2>Color</h2>
-{% set paletteURL = '/docs/palettes/' + palette + '/' %}
-
 
 <div class="index-grid">
-  {% set themePage = page %}
-  {% set page = paletteURL | getCollectionItemFromUrl %}
-  {% set pageSubtitle = "Default color palette" %}
-  {% include 'page-card.njk' %}
-  {% set page = themePage %}
-
-  <wa-card style="--header-background: var(--wa-color-{{ brand }})" class="wa-palette-{{ palette }}">
+  {% if page.fileSlug === 'custom' %}
+    <palette-card :palette="computed.palette" subtitle="Color palette"></palette-card>
+  {% else %}
+    {% set themePage = page %}
+    {% set paletteURL = '/docs/palettes/' + palette + '/' %}
+    {% set page = paletteURL | getCollectionItemFromUrl %}
+    {% set pageSubtitle = "Default color palette" %}
+    {% include 'page-card.njk' %}
+    {% set page = themePage %}
+  {% endif %}
+  <wa-card class="wa-palette-{{ palette }}"          style="--header-background: var(--wa-color-{{ brand }})"
+          :class="`wa-palette-${computed.palette}`" :style="{'--header-background': palettes[computed.palette]?.colors[computed.brand]?.key}">
     <div slot="header"></div>
-    <div class="page-name">{{ brand | capitalize }}</div>
-    <div class="wa-caption-s">Default brand color</div>
+    <div class="page-name" v-content="capitalize(computed.brand)">{{ brand | capitalize }}</div>
+    <div class="wa-caption-s">{{ 'Brand color' if page.fileSlug === 'custom' else 'Default brand color' }}</div>
   </wa-card>
 </div>
 {% endblock %}
@@ -139,7 +98,25 @@ wa_data.palettes = {
 You can import this theme from the Web Awesome CDN.
 
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
+
+<wa-tab-group class="import-stylesheet-code">
+<wa-tab panel="html">In HTML</wa-tab>
+<wa-tab panel="css">In CSS</wa-tab>
+<wa-tab-panel name="html">
+
+Add the following code to the `<head>` of your page:
+```html { v-content:html="code.html.highlighted" }
+<link rel="stylesheet" href="{% cdnUrl stylesheet %}" />
+```
+</wa-tab-panel>
+<wa-tab-panel name="css">
+
+Add the following code at the top of your CSS file:
+```css { v-content:html="code.css.highlighted" }
+@import url('{% cdnUrl stylesheet %}');
+```
+</wa-tab-panel>
+</wa-tab-group>
 
 ## Dark mode
 
@@ -203,5 +180,6 @@ systemDark.addEventListener('change', applyDark);
 applyDark();
 ```
 
+</div> {# end theme app #}
 {% endmarkdown %}
 {% endblock %}

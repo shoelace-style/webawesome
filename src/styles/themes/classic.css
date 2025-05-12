@@ -46,4 +46,9 @@
 
   /* Panels */
   --wa-panel-border-radius: var(--wa-border-radius-m);
+
+  /**
+   * Icons
+   */
+  --wa-icon-variant: light;
 }

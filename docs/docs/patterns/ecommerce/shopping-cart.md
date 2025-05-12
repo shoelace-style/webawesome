@@ -200,7 +200,7 @@ isPro: true
 ## Drawer
 
 ```html {.example viewport}
-<wa-drawer label="Shopping Cart" with-header with-footer open>
+<wa-drawer label="Shopping Cart" open>
   <div class="wa-stack">
     <article class="wa-flank" style="--flank-size: 6rem">
       <div class="wa-frame wa-border-radius-m">

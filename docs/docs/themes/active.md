@@ -7,4 +7,7 @@ palette: rudimentary
 brand: green
 fonts:
   body: Inter
+icons:
+  family: classic
+  style: solid
 ---
