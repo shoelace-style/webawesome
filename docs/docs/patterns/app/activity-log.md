@@ -268,7 +268,7 @@ description: 'Track and organize recent user actions or events.'
 
 ## Divider Separated
 ```html {.example}
-<wa-card with-header style="max-width: 54ch; margin: 0 auto;">
+<wa-card style="max-width: 54ch; margin: 0 auto;">
   <div slot="header" class="wa-split">
     <div>
       <span>Notifications</span>

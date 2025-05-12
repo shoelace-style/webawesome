@@ -11,8 +11,8 @@ file: styles/native/radio.css
 
 ```html {.example}
 <div class="wa-cluster">
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
+  <label><input type="radio" name="a" value="1" checked> Option 1</label>
+  <label><input type="radio" name="a" value="2"> Option 2</label>
 </div>
 ```
 
@@ -24,9 +24,9 @@ To set the initial value and checked state, use the `checked` attribute on the c
 
 ```html {.example}
 <div class="wa-cluster">
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
-  <label><input type="radio" name="radio" value="3" checked> Option 3</label>
+  <label><input type="radio" name="b" value="1" checked> Option 1</label>
+  <label><input type="radio" name="b" value="2"> Option 2</label>
+  <label><input type="radio" name="b" value="3"> Option 3</label>
 </div>
 ```
 
@@ -36,9 +36,9 @@ Use the `disabled` attribute to disable a radio.
 
 ```html {.example}
 <div class="wa-cluster">
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2" disabled> Option 2</label>
-  <label><input type="radio" name="radio" value="3"> Option 3</label>
+  <label><input type="radio" name="c" value="1" checked> Option 1</label>
+  <label><input type="radio" name="c" value="2" disabled> Option 2</label>
+  <label><input type="radio" name="c" value="3"> Option 3</label>
 </div>
 ```
 
@@ -49,26 +49,26 @@ Use the [size utilities](/docs/utilities/size) to change the radios' size.
 ```html {.example}
 <fieldset class="wa-size-s wa-cluster">
   <legend>Small</legend>
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
-  <label><input type="radio" name="radio" value="3"> Option 3</label>
+  <label><input type="radio" name="d" value="1" checked> Option 1</label>
+  <label><input type="radio" name="d" value="2"> Option 2</label>
+  <label><input type="radio" name="d" value="3"> Option 3</label>
 </fieldset>
 
 <br />
 <fieldset class="wa-size-m wa-cluster">
   <legend>Medium</legend>
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
-  <label><input type="radio" name="radio" value="3"> Option 3</label>
+  <label><input type="radio" name="e" value="1" checked> Option 1</label>
+  <label><input type="radio" name="e" value="2"> Option 2</label>
+  <label><input type="radio" name="e" value="3"> Option 3</label>
 </fieldset>
 
 <br />
 
 <fieldset class="wa-size-l wa-cluster">
 	  <legend>Large</legend>
-    <label><input type="radio" name="radio" value="1"> Option 1</label>
-    <label><input type="radio" name="radio" value="2"> Option 2</label>
-    <label><input type="radio" name="radio" value="3"> Option 3</label>
+    <label><input type="radio" name="f" value="1" checked> Option 1</label>
+    <label><input type="radio" name="f" value="2"> Option 2</label>
+    <label><input type="radio" name="f" value="3"> Option 3</label>
 </fieldset>
 ```
 
@@ -78,16 +78,16 @@ You can wrap native radios in a flex container to give them a horizontal or vert
 
 ```html {.example}
 <div class="wa-cluster">
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
-  <label><input type="radio" name="radio" value="3" checked> Option 3</label>
+  <label><input type="radio" name="g" value="1" checked> Option 1</label>
+  <label><input type="radio" name="g" value="2"> Option 2</label>
+  <label><input type="radio" name="g" value="3"> Option 3</label>
 </div>
 ```
 
 ```html {.example}
 <div class="wa-stack">
-  <label><input type="radio" name="radio" value="1"> Option 1</label>
-  <label><input type="radio" name="radio" value="2"> Option 2</label>
-  <label><input type="radio" name="radio" value="3" checked> Option 3</label>
+  <label><input type="radio" name="h" value="1" checked> Option 1</label>
+  <label><input type="radio" name="h" value="2"> Option 2</label>
+  <label><input type="radio" name="h" value="3"> Option 3</label>
 </div>
 ```

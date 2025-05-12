@@ -1,0 +1,32 @@
+---
+layout: null
+permalink: '/assets/data/palettes.js'
+eleventyExcludeFromCollections: true
+---
+export default {
+{%- for palette in collections.palette | sort %}
+{%- if not palette.data.unlisted %}
+  {% set paletteId = palette.fileSlug -%}
+  {%- set colors = palettes[paletteId] -%}
+  '{{ paletteId }}': {
+    id: '{{ paletteId }}',
+    title: '{{ palette.data.title }}',
+    colors: {
+      {% for hue, tints in colors -%}
+        '{{ hue }}': {
+          {% for tint, value in tints -%}
+            {%- if tint != '05' -%}
+              '{{ '05' if tint == '5' else tint }}': '{{ value | safe }}',
+            {%- endif %}
+          {% endfor %}
+
+          get key() {
+            return this[this.maxChromaTint];
+          }
+        },
+      {% endfor -%} // end colors
+    }
+  }, // end palette
+{%- endif -%}
+{% endfor %}
+};

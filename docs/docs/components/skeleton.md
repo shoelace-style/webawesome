@@ -129,7 +129,7 @@ Set a matching width and height to make a circle, square, or rounded avatar skel
 
 <style>
   .skeleton-avatars wa-skeleton {
-    display: inline-block;
+    display: inline-flex;
     width: 3rem;
     height: 3rem;
     margin-right: 0.5rem;

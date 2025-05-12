@@ -145,7 +145,7 @@ TODO Page Description
 
 ### Posts List
 ```html{.example}
-<wa-card with-header>
+<wa-card>
   <div slot="header">
     Recent Articles
   </div>
@@ -234,7 +234,7 @@ TODO Page Description
 
 ### Related Posts
 ```html{.example}
-<wa-card with-image with-footer class="card-overview">
+<wa-card class="card-overview">
   <img
     slot="image"
     src="https://plus.unsplash.com/premium_photo-1661382011487-cd3d6b1d9dff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDc0ODd8&ixlib=rb-4.0.3&q=80&w=1080"
@@ -316,7 +316,7 @@ TODO Page Description
 
 ### Horizontal
 ```html{.example}
-<wa-card with-header with-footer class="social-share-horizontal">
+<wa-card class="social-share-horizontal">
   <div slot="header">
     Share this Article
   </div>

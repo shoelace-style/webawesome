@@ -31,7 +31,7 @@ The [issue tracker](https://github.com/shoelace-style/webawesome-alpha/issues) i
 - Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome-alpha/discussions/categories/ideas) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
-- Please **do** use the issue tracker for feature requests, bug reports, and pull requests.
+- Please **do** use the issue tracker for bug reports and pull requests.
 
 Issues that do not follow these guidelines are subject to closure. There simply aren't enough resources for the author and contributors to troubleshoot personal support requests.
 

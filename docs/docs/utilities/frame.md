@@ -48,7 +48,7 @@ Frames are well-suited for images and image placeholders.
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 25ch;">
-  <wa-card with-image>
+  <wa-card>
     <div class="wa-frame:landscape" slot="image">
       <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" alt="Grey and white tabby kitten" />
     </div>
@@ -62,7 +62,7 @@ Frames are well-suited for images and image placeholders.
       </div>
     </div>
   </wa-card>
-  <wa-card with-header>
+  <wa-card>
     <div class="wa-frame:landscape" slot="header">
       <div class="wa-stack wa-align-items-center wa-gap-xs wa-caption-m">
         <wa-icon name="paw"></wa-icon>
@@ -79,7 +79,7 @@ Frames are well-suited for images and image placeholders.
       </div>
     </div>
   </wa-card>
-  <wa-card with-image>
+  <wa-card>
     <div class="wa-frame:landscape" slot="image">
       <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" alt="Diluted calico kitten" />
     </div>
@@ -93,7 +93,7 @@ Frames are well-suited for images and image placeholders.
       </div>
     </div>
   </wa-card>
-  <wa-card with-image>
+  <wa-card>
     <div class="wa-frame:landscape" slot="image">
       <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" alt="Short-haired tabby cat" />
     </div>

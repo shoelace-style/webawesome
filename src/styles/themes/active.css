@@ -6,6 +6,7 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
+@import url('active/dimension.css');
 @import url('active/overrides.css');
 
 :where(:root),

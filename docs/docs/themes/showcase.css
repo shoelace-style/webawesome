@@ -1,3 +1,5 @@
+@import url('preview/app.css');
+
 html {
   background: transparent;
 }
@@ -38,8 +40,6 @@ body,
   isolation: isolate;
   background-color: var(--wa-color-surface-lowered);
   border-radius: var(--wa-border-radius-l);
-  padding: var(--wa-space-xl);
-  box-sizing: border-box;
   overflow: hidden;
 
   @media (width < 500px) {
@@ -49,6 +49,8 @@ body,
   header {
     min-width: min(25ch, 100vw);
     align-self: center;
+    padding: var(--wa-space-xl);
+    box-sizing: border-box;
 
     h1 {
       margin-bottom: var(--wa-space-2xs);
@@ -60,57 +62,6 @@ body,
 
     p:empty {
       display: none;
-    }
-  }
-}
-
-.showcase-examples-wrapper {
-  inline-size: 100%;
-  block-size: 100%;
-}
-
-.showcase-examples {
-  column-gap: var(--wa-space-xl);
-
-  & wa-card {
-    display: inline-block;
-    width: 100%;
-
-    &:has(+ wa-card) {
-      margin-block-end: var(--wa-space-xl);
-    }
-  }
-
-  @supports not (zoom: 1) {
-    column-count: 1;
-
-    @media (width > 750px) {
-      column-count: 2;
-    }
-
-    @media (width > 950px) {
-      column-count: 3;
-    }
-  }
-
-  @supports (zoom: 1) {
-    column-count: 1;
-    zoom: 40%;
-
-    @media (width > 350px) {
-      column-count: 2;
-    }
-
-    @media (width > 450px) {
-      zoom: 55%;
-    }
-
-    @media (width > 750px) {
-      zoom: 70%;
-    }
-
-    @media (width > 950px) {
-      column-count: 3;
     }
   }
 }

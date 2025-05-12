@@ -1,18 +1,19 @@
 import { expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
-import type WaImageComparer from './image-comparer.js';
+import type WaComparer from './comparer.js';
 
-describe('<wa-image-comparer>', () => {
+describe('<wa-comparer>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should render a basic before/after', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
@@ -29,11 +30,11 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should emit change event when position changed manually', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
         const handler = sinon.spy();
 
@@ -46,194 +47,166 @@ describe('<wa-image-comparer>', () => {
       });
 
       it('should increment position on arrow right', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-          }),
-        );
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+        handle.focus();
+        await sendKeys({ press: 'ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(51);
       });
 
       it('should decrement position on arrow left', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(49);
       });
 
       it('should set position to 0 on home key', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'Home',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Home' });
         await el.updateComplete;
 
         expect(el.position).to.equal(0);
       });
 
       it('should set position to 100 on end key', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'End',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'End' });
         await el.updateComplete;
 
         expect(el.position).to.equal(100);
       });
 
       it('should clamp to 100 on arrow right', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         el.position = 0;
         await el.updateComplete;
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(0);
       });
 
       it('should clamp to 0 on arrow left', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         el.position = 100;
         await el.updateComplete;
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(100);
       });
 
       it('should increment position by 10 on arrow right + shift', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowRight',
-            shiftKey: true,
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Shift+ArrowRight' });
         await el.updateComplete;
 
         expect(el.position).to.equal(60);
       });
 
       it('should decrement position by 10 on arrow left + shift', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
+        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
 
-        base.dispatchEvent(
-          new KeyboardEvent('keydown', {
-            key: 'ArrowLeft',
-            shiftKey: true,
-          }),
-        );
+        handle.focus();
+        await sendKeys({ press: 'Shift+ArrowLeft' });
         await el.updateComplete;
 
         expect(el.position).to.equal(40);
       });
 
       it('should set position by attribute', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer position="10">
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer position="10">
             <div slot="before"></div>
             <div slot="after"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
 
         expect(el.position).to.equal(10);
       });
 
       it('should move position on drag', async () => {
-        const el = await fixture<WaImageComparer>(html`
-          <wa-image-comparer>
+        const el = await fixture<WaComparer>(html`
+          <wa-comparer>
             <div slot="before" style="width: 50px"></div>
             <div slot="after" style="width: 50px"></div>
-          </wa-image-comparer>
+          </wa-comparer>
         `);
         const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-        const rect = base.getBoundingClientRect();
+        const rect = handle.getBoundingClientRect();
         const offsetX = rect.left + window.pageXOffset;
         const offsetY = rect.top + window.pageYOffset;
 
@@ -241,7 +214,7 @@ describe('<wa-image-comparer>', () => {
 
         document.dispatchEvent(
           new PointerEvent('pointermove', {
-            clientX: offsetX + 20,
+            clientX: offsetX + 15,
             clientY: offsetY,
           }),
         );

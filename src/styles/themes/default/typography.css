@@ -2,6 +2,7 @@
  * Typography
  */
 :where(:root),
+:where([class^='wa-theme-'], [class*=' wa-theme-']),
 :host {
   --wa-font-family-body: ui-sans-serif, system-ui, sans-serif;
   --wa-font-family-heading: var(--wa-font-family-body);
