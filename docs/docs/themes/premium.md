@@ -9,4 +9,7 @@ fonts:
   body: DM Sans
   heading: Playfair Display
   longform: Playfair
+icons:
+  family: sharp
+  style: regular
 ---

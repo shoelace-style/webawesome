@@ -9,4 +9,7 @@ fonts:
   body: Nunito
   heading: Fredoka
   code: Azeret Mono
+icons:
+  family: classic
+  style: solid
 ---

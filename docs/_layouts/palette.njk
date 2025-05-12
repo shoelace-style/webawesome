@@ -122,19 +122,8 @@
       </div>
       <div class="popup">
       {% if hue === 'gray' %}
-        <wa-radio-group class="core-color" orientation="horizontal" v-model="grayColor">
-          {% for h in hues -%}
-            {%- if h !== 'gray' -%}
-              <wa-radio-button id="gray-undertone-{{ h }}" value="{{ h }}" label="{{ h | capitalize }}" style="--color: var(--wa-color-{{ h }})"></wa-radio-button>
-              <wa-tooltip for="gray-undertone-{{ h }}">
-                {{ h | capitalize }}
-              </wa-tooltip>
-            {%- endif -%}
-          {%- endfor -%}
-          <div slot="label">
-            Gray undertone
-          </div>
-        </wa-radio-group>
+        <swatch-select label="Gray undertone" shape="circle" :values="hues" v-model="grayColor"></swatch-select>
+
         <div class="decorated-slider gray-chroma-slider" :style="{'--max': maxGrayChroma}">
           <wa-slider name="gray-chroma" v-model="grayChroma" ref="grayChromaSlider"
           value="0" min="0" :max="maxGrayChroma" step="0.01"

@@ -35,3 +35,5 @@ export function domChange(fn, { behavior = 'smooth', ignoreInitialLoad = true } 
     return null;
   }
 }
+
+export default domChange;

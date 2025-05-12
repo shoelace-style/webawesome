@@ -38,4 +38,10 @@
    * Component Groups
    */
   --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+
+  /**
+   * Icons
+   */
+  --wa-icon-family: duotone;
+  --wa-icon-variant: light;
 }

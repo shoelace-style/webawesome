@@ -8,4 +8,7 @@ fonts:
   body: ui-sans-serif
   code: ui-monospace
   longform: ui-serif
+icons:
+  family: classic
+  style: solid
 ---

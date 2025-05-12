@@ -6,4 +6,7 @@ palette: bright
 brand: blue
 fonts:
   body: Quicksand
+icons:
+  family: classic
+  style: solid
 ---

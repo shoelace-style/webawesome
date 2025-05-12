@@ -1,0 +1,173 @@
+.sidebar.panel-container {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  gap: 0;
+  padding: 0;
+  width: 32ch;
+  overflow: hidden;
+  scrollbar-width: thin;
+}
+
+@keyframes back-icon-hover {
+  to {
+    transform: translateX(-0.2em);
+  }
+}
+
+.panel {
+  /* Remove the uniform spacing used in wa-details */
+  --spacing: 0;
+  /* Specify value to manually set spacing where needed */
+  --panel-spacing: var(--wa-space-2xl);
+  --panel-background: var(--wa-color-surface-default);
+
+  display: flex;
+  flex-flow: column;
+  max-height: 100%;
+  margin-bottom: 0;
+  position: relative;
+  background: var(--panel-background);
+  border: none;
+  transition:
+    translate var(--wa-transition-slow) allow-discrete,
+    opacity var(--wa-transition-slow) 25ms allow-discrete;
+  /* Ensure horizontal scrollbar isn't visible when translate takes effect */
+  overflow-x: hidden !important;
+
+  @starting-style {
+    display: block;
+  }
+
+  .panel-header {
+    flex-direction: row-reverse;
+    justify-content: start;
+    gap: var(--wa-space-xs);
+    cursor: pointer;
+    background: var(--panel-background);
+    color: var(--wa-color-text-normal);
+    padding-block-end: var(--panel-spacing);
+    padding-inline: var(--panel-spacing);
+    transition: inherit;
+    transition-property: all;
+    margin-block: 0;
+    font-size: inherit;
+
+    [data-step='0'] &,
+    .previous & {
+      padding-block-start: var(--panel-spacing);
+    }
+
+    .back-icon {
+      vertical-align: -0.15em;
+      margin-inline-end: var(--wa-space-xs);
+      font-size: var(--wa-font-size-m);
+      transition: transform var(--wa-transition-normal);
+    }
+
+    &:hover .back-icon {
+      animation: back-icon-hover var(--wa-transition-slow) alternate infinite;
+    }
+
+    label {
+      pointer-events: none;
+      font: inherit;
+      color: inherit;
+    }
+  }
+
+  .panel-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-flow: column;
+    gap: var(--panel-spacing);
+    padding-block-end: var(--panel-spacing);
+    padding-inline: var(--panel-spacing);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-block-end: 0;
+  }
+
+  &:not(.open) {
+    padding: 0;
+
+    &:not(.previous, .next) {
+      /* Hide all but the immediately preceding or following steps */
+      display: none;
+    }
+
+    &.next {
+      height: 0;
+      overflow: hidden;
+    }
+
+    &.next {
+      opacity: 0;
+    }
+
+    &.next {
+      translate: 100% 0%;
+    }
+
+    .panel-header {
+      font-size: var(--wa-font-size-s);
+      margin: 0;
+    }
+
+    .panel-content {
+      opacity: 0;
+      pointer-events: none;
+      content-visibility: hidden;
+      padding: 0;
+    }
+  }
+
+  &.open {
+    flex: 1;
+    opacity: 1;
+
+    .panel-header {
+      font-size: var(--wa-font-size-l);
+
+      .back-icon {
+        display: none;
+      }
+    }
+  }
+
+  .panel-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-flow: column;
+    transition: inherit;
+
+    @starting-style {
+      display: flex;
+      content-visibility: visible;
+    }
+  }
+
+  &:not(.open) {
+    &.previous {
+      .panel-content {
+        opacity: 0;
+        translate: -100% 0%;
+      }
+    }
+
+    &.next {
+      .panel-content {
+        opacity: 0;
+        translate: inherit;
+      }
+    }
+  }
+}
