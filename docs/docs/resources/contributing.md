@@ -154,11 +154,11 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 
 There's a number of frontmatter properties.
 
-To only show a page in development, use the `unreleased: true` key / value pair.
+To only show a page in development, use the `unpublished: true` key / value pair.
 
 ```md
 ---
-unreleased: true
+unpublished: true
 ---
 ```
 

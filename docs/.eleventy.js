@@ -153,9 +153,9 @@ export default function (eleventyConfig) {
     ]),
   );
 
-  eleventyConfig.addPreprocessor('unreleased', '*', (data, content) => {
-    if (data.unreleased && process.env.ELEVENTY_RUN_MODE === 'build') {
-      // Exclude "unreleased" from final builds.
+  eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
+    if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
+      // Exclude "unpublished" pages from final builds.
       return false;
     }
 
