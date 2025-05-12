@@ -162,13 +162,16 @@ unlisted: true
 
     <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
       <wa-slider label="Rounding" :min="0" :max="2" :step="0.01" v-model="theme.rounding"></wa-slider>
-      <wa-slider label="Spacing" :min="0" :max="2" :step="0.01" v-model="theme.spacing"></wa-slider>
+      <wa-slider label="Spacing" :min="0.75" :max="1.25" :step="0.125" v-model="theme.spacing"></wa-slider>
 
       <theme-card :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="dimensionality" title="Dimensionality" :step="2">
-      <wa-radio-group label="Dimensionality" class="card-picker" v-model="theme.dimensionality">
+      <template #title>
+        <label for="dimensionality-radio-group">Dimensionality</label>
+      </template>
+      <wa-radio-group id="dimensionality-radio-group" class="card-picker" v-model="theme.dimensionality">
         <template v-for="(themeMeta, themeId) in themes">
           <wa-radio v-if="themeId !== 'custom'" :value="themeId" size="small" :aria-selected="!theme.dimensionality ? 'true' : null">
             <theme-card :theme="themeId"></theme-card>
@@ -178,7 +181,10 @@ unlisted: true
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2">
-      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.family">
+      <template #title>
+        <label for="icon-family-radio-group">Icon Family</label>
+      </template>
+      <wa-radio-group id="icon-family-radio-group" class="card-picker" v-model="theme.icon.family">
           <wa-radio v-for="family of iconLibraries.default.family" :value="family" size="small" :aria-selected="computed.icon.family === family ? 'true' : null">
             <icons-card type="family" vary="style" :family="family"  :library="computed.icon.library"></icons-card>
           </wa-radio>
@@ -186,7 +192,10 @@ unlisted: true
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="icon-style" title="Icon Style" :step="2">
-      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.icon.style">
+      <template #title>
+        <label for="icon-style-radio-group">Icon Style</label>
+      </template>
+      <wa-radio-group id="icon-style-radio-group" class="card-picker" v-model="theme.icon.style">
           <wa-radio v-for="style of iconLibraries.default.style" :value="style" size="small" :aria-selected="computed.icon.style === style ? 'true' : null">
             <icons-card type="style" :style="style" :defaults="computed.icon"></icons-card>
           </wa-radio>
