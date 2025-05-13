@@ -58,6 +58,7 @@ let appSpec = {
         },
         rounding: '',
         spacing: '',
+        borderWidth: '',
         dimensionality: '',
       },
       ui: {

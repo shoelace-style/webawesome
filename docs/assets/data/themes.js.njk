@@ -19,6 +19,7 @@ export default {
     icons: {{ (themeMeta.icons | json or 'null') | safe }},
     rounding: {{ themeMeta.rounding }},
     spacing: {{ themeMeta.spacing }},
+    borderWidth: {{ themeMeta.borderWidth }},
     dimension: {{ (theme.data.dimension or themeMeta.dimension or false) | json | safe }},
   },
 {%- endif %}

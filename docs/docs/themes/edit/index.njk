@@ -159,8 +159,9 @@ unlisted: true
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
-      <wa-slider label="Rounding" :min="0" :max="2" :step="0.01" :value="computed.rounding" @input="e => theme.rounding = e.target.value"></wa-slider>
       <wa-slider label="Spacing" :min="0.75" :max="1.25" :step="0.125" :value="computed.spacing" @input="e => theme.spacing = e.target.value"></wa-slider>
+      <wa-slider label="Rounding" :min="0" :max="2" :step="0.01" :value="computed.rounding" @input="e => theme.rounding = e.target.value"></wa-slider>
+      <wa-slider label="Border Width" :min="0.5" :max="4" :step="0.5" :value="computed.borderWidth" @input="e => theme.borderWidth = e.target.value"></wa-slider>
 
       <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
     </ui-panel>
