@@ -38,6 +38,7 @@ tags: blog-news
     <div class="wa-stack wa-align-items-center wa-gap-3xl">
       <h2 style="font-size: 3rem; text-align: center">
         Unlock Your Future: <br />Start Learning Web Development Today!
+      </h2>
       <div class="wa-cluster wa-gap-xs">
         <wa-button>Get Started</wa-button>
         <wa-button appearance="plain">Find out more <wa-icon slot="suffix" name="arrow-right"></wa-icon></wa-button>
