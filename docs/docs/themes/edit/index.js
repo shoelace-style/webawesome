@@ -189,6 +189,11 @@ let appSpec = {
     tweaked() {
       return Object.values(this.theme).filter(Boolean).length > 0;
     },
+
+    urlParamsInvert() {
+      let invert = 'colorscheme=invert';
+      return (this.urlParams ? this.urlParams + '&' : '?') + invert;
+    },
   },
 
   watch: {

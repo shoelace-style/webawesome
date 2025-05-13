@@ -80,6 +80,16 @@ wa-page > header {
   max-inline-size: 140ch;
   margin: auto;
 
+  wa-comparer {
+    height: 100%;
+
+    &::part(base),
+    &::part(before),
+    &::part(after) {
+      height: 100%;
+    }
+  }
+
   iframe.preview {
     border-radius: var(--wa-border-radius-m);
     border: var(--ui-border);

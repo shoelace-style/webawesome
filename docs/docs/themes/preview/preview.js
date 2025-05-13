@@ -61,6 +61,10 @@ if (location.search) {
   let urlOverrides = permalink.getAll();
 
   updateTheme(urlOverrides, { silent: true });
+
+  if (urlOverrides['colorscheme']) {
+    document.documentElement.classList.add('wa-' + urlOverrides['colorscheme']);
+  }
 }
 
 theme.base ??= 'default';
