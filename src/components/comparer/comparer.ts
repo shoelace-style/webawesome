@@ -23,6 +23,7 @@ import styles from './comparer.css';
  *
  * @event change - Emitted when the position changes.
  *
+ * @csspart base - The container that wraps the before and after content.
  * @csspart before - The container that wraps the before content.
  * @csspart after - The container that wraps the after content.
  * @csspart divider - The divider that separates the before and after content.
@@ -96,7 +97,7 @@ export default class WaComparer extends WebAwesomeElement {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
 
     return html`
-      <div class="image">
+      <div class="image" part="base">
         <div part="before" class="before">
           <slot name="before"></slot>
         </div>
