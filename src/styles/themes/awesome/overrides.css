@@ -12,13 +12,11 @@
     --wa-transition-normal: 0;
     --wa-transition-fast: 0;
 
-    --border-color: var(--text-color);
     --border-color-hover: var(--border-color);
     --border-color-active: var(--border-color);
     box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) var(--wa-shadow-blur-s)
       var(--wa-shadow-spread-s) var(--border-color);
     --background-color-active: var(--border-color);
-    --text-color-active: var(--background-color);
 
     margin-bottom: var(--wa-shadow-offset-y-s);
 
@@ -30,6 +28,13 @@
     &::part(checked) {
       box-shadow: none;
       transform: translateY(var(--wa-shadow-offset-y-s));
+    }
+
+    :where(&),
+    .wa-light &,
+    .wa-dark .wa-invert & {
+      --border-color: var(--text-color);
+      --text-color-active: var(--background-color);
     }
 
     .wa-dark &,
