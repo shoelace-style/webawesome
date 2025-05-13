@@ -30,7 +30,7 @@ export default class Permalink extends URLSearchParams {
         return;
       }
 
-      if (!value || value === defaultValue) {
+      if ((!value && value !== 0) || value === defaultValue) {
         // Remove the param from the URL
         this.delete(param);
         return;

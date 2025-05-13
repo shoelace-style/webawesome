@@ -45,7 +45,7 @@ export function getThemeCode(theme, options = {}) {
 
     let value = deepGet(theme, [...path, aspect]);
 
-    if (!value) {
+    if (!value && value !== 0) {
       return;
     }
 
