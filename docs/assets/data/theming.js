@@ -67,6 +67,12 @@ export const themeConfig = {
       return baseTheme?.spacing ?? 1;
     },
   },
+  borderWidth: {
+    cssProperty: '--wa-border-width-scale',
+    default(baseTheme) {
+      return baseTheme?.borderWidth ?? 1;
+    },
+  },
   dimensionality: {
     url: id => `styles/themes/${id}/dimension.css`,
     docs: '/docs/themes/',

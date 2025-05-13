@@ -40,6 +40,7 @@ for (const file of themeFiles) {
 
   theme.rounding = Number(theme.declarations['border-radius-scale'] ?? theme.default?.rounding ?? 1);
   theme.spacing = Number(theme.declarations['space-scale'] ?? theme.default?.spacing ?? 1);
+  theme.borderWidth = Number(theme.declarations['border-width-scale'] ?? theme.default?.borderWidth ?? 1);
 
   themes[id] = theme;
 }
