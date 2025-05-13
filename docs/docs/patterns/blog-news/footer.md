@@ -1,6 +1,6 @@
 ---
 title: Footer
-description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
+description: 'Provide useful information at the bottom of a webpage.'
 parent: blog-news
 tags: blog-news
 ---

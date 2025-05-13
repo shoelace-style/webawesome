@@ -1,6 +1,6 @@
 ---
 title: Newsletter
-description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
+description: 'Convert site visitors into engaged subscribers or customers.'
 parent: blog-news
 tags: blog-news
 ---

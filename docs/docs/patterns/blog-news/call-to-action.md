@@ -1,6 +1,6 @@
 ---
 title: Call To Action
-description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
+description: 'Solicits a user to take action.'
 parent: blog-news
 tags: blog-news
 ---

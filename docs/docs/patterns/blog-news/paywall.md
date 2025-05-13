@@ -1,6 +1,6 @@
 ---
 title: Paywall
-description: ''
+description: 'Monetizes value and encourages commitment from readers, viewers, or users.'
 parent: blog-news
 tags: blog-news
 ---

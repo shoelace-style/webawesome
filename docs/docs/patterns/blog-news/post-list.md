@@ -1,6 +1,6 @@
 ---
 title: Post List
-description: ''
+description: 'Organize and showcase content in a way that helps users discover, browse, and engage with articles.'
 parent: blog-news
 tags: blog-news
 ---

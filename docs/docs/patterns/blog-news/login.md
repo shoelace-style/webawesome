@@ -1,6 +1,6 @@
 ---
 title: Login
-description: 'Empower your customers to view past purchases and track upcoming orders with comprehensive order histories.'
+description: 'Verifies the identity of a user and ensures that only authorized individuals can access specific content, features, or account data.'
 parent: blog-news
 tags: blog-news
 ---
