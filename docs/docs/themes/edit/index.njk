@@ -89,7 +89,7 @@ unlisted: true
                   title="Icons" :subtitle="`${ capitalize(computed.icon.family) } &bull; ${ capitalize(computed.icon.style) }`">
       </icons-card>
 
-      <theme-card :theme="computed.dimensionality" title="Look & Feel" size="small" :action="e => ui.panel = 'looknfeel'"></theme-card>
+      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Look & Feel" size="small" :action="e => ui.panel = 'looknfeel'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="theme" :step="1">
@@ -162,7 +162,7 @@ unlisted: true
       <wa-slider label="Rounding" :min="0" :max="2" :step="0.01" :value="computed.rounding" @input="e => theme.rounding = e.target.value"></wa-slider>
       <wa-slider label="Spacing" :min="0.75" :max="1.25" :step="0.125" :value="computed.spacing" @input="e => theme.spacing = e.target.value"></wa-slider>
 
-      <theme-card :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
+      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="dimensionality" title="Dimensionality" :step="2">
@@ -170,12 +170,12 @@ unlisted: true
         <label for="dimensionality-radio-group">Dimensionality</label>
       </template>
       <wa-radio-group id="dimensionality-radio-group" class="card-picker" v-model="theme.dimensionality">
-        <wa-radio value="" size="small" :aria-selected="!theme.dimensionality || theme.dimensionality === theme.base ? 'true' : null">
-          <theme-card :theme="theme.base"></theme-card>
+        <wa-radio value="" size="small" :aria-selected="!theme.dimensionality || theme.dimensionality === computed.base ? 'true' : null">
+          <theme-card type="dimensionality" :theme="computed.base"></theme-card>
         </wa-radio>
         <template v-for="(themeMeta, themeId) in themes">
-          <wa-radio v-if="themeId !== theme.base && themeMeta.dimension" :value="themeId" size="small" :aria-selected="theme.dimensionality === themeId ? 'true' : null">
-            <theme-card :theme="themeId"></theme-card>
+          <wa-radio v-if="themeId !== computed.base && themeMeta.dimension" :value="themeId" size="small" :aria-selected="theme.dimensionality === themeId ? 'true' : null">
+            <theme-card type="dimensionality" :theme="themeId"></theme-card>
           </wa-radio>
         </template>
       </wa-radio-group>

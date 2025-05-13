@@ -141,6 +141,34 @@ wa-card:has(
   }
 }
 
+.theme-icon.theme-dimensionality-icon {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-2xs);
+  justify-content: center;
+  width: 100%;
+  min-height: 6.75rem;
+  box-sizing: border-box;
+
+  wa-card {
+    display: block;
+
+    &::part(body) {
+      display: flex;
+      gap: var(--wa-space-xs);
+    }
+
+    wa-input {
+      flex: 4;
+      min-width: 1em;
+    }
+
+    wa-button {
+      flex: 1;
+    }
+  }
+}
+
 .fonts-icon {
   font-family: var(--wa-font-family-body);
   padding-block: var(--wa-space-s);

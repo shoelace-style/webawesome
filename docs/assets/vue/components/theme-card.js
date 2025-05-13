@@ -1,4 +1,5 @@
 import themes from '../../data/themes.js';
+import { capitalize } from '../../scripts/util/string.js';
 import PageCard from './page-card.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 
@@ -15,7 +16,13 @@ const iconTemplates = {
       <div style="background: var(--wa-color-brand-fill-normal); border-color: var(--wa-color-brand-border-normal); color: var(--wa-color-brand-on-normal);">A</div>
       <div style="background: var(--wa-color-brand-fill-quiet);  border-color: var(--wa-color-brand-border-quiet);  color: var(--wa-color-brand-on-quiet);">A</div>
     </div>`,
-  theme: `
+  dimensionality: `
+    <wa-card size="small">
+      <wa-input value="Input" size="small"></wa-input>
+      <wa-button size="small" variant="brand">Go</wa-button>
+    </wa-card>
+  `,
+  overall: `
     <div class="row row-1">
       <h2>Aa</h2>
       <div class="swatches">
@@ -41,12 +48,13 @@ const template = `
           <link rel="stylesheet" href="/dist/styles/native/content.css">
           <link rel="stylesheet" href="/assets/styles/theme-icons.css">
 
-          <template v-if="type == 'colors'" >
+          <template v-if="type === 'colors'">
             ${iconTemplates.colors}
           </template>
-
+          <div v-else-if="type in iconTemplates && type !== 'overall'" class="theme-icon" :class="'theme-' + type + '-icon'" v-html="iconTemplates[type]" role="presentation">
+          </div>
           <div v-else class="theme-icon theme-overall-icon" :class="'wa-theme-' + theme" role="presentation">
-            ${iconTemplates.theme}
+            ${iconTemplates.overall}
           </div>
         </template>
       </wa-scoped>
@@ -64,7 +72,7 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return !value || ['colors'].includes(value);
+        return !value || value in iconTemplates;
       },
     },
     rest: Object,
@@ -74,9 +82,17 @@ export default {
     return {};
   },
 
+  created() {
+    this.iconTemplates = iconTemplates;
+  },
+
   computed: {
     themeMeta() {
-      return themes[this.theme] ?? {};
+      let ret = themes[this.theme] ? { ...themes[this.theme] } : {};
+      if (this.type === 'dimensionality' && typeof ret.dimension === 'string') {
+        ret.title = capitalize(ret.dimension);
+      }
+      return ret;
     },
 
     themeCode() {

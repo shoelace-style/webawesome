@@ -5,4 +5,5 @@ isPro: true
 tags: pro
 fonts:
   body: Inter
+dimension: Subtle
 ---
