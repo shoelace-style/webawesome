@@ -6,6 +6,7 @@ tags: blog-news
 ---
 
 ## Horizontal
+
 ```html{.example}
 <wa-card style="max-width: fit-content; margin: 0 auto;">
   <div class="wa-stack">
@@ -41,6 +42,7 @@ tags: blog-news
 ```
 
 ## Vertical
+
 ```html{.example}
 <wa-card class="wa-border-radius-pill" style="max-width: 8ch; margin: 0 auto;">
   <div class="wa-stack">
@@ -67,7 +69,9 @@ tags: blog-news
   </div>
 </wa-card>
 ```
+
 ## With Image Card
+
 ```html {.example}
 <wa-card with-image style="max-width: 45ch; margin: 0 auto;">
   <img
@@ -76,24 +80,57 @@ tags: blog-news
     alt="Super special awesome trophy"
   />
   <div class="wa-stack wa-align-items-center">
-      <div class="wa-stack wa-gap-2xs wa-align-items-center">
-        <h2 class="wa-heading-l">Flawless!</h2>
-        <span class="wa-caption-l">
-          10 of 10</span>
-      </div>
-    <p style="text-align: center;">You got a perfect score in this section. Tell your friends, family, really... just anyone who will listen.</p>
+    <div class="wa-stack wa-gap-2xs wa-align-items-center">
+      <h2 class="wa-heading-l">Flawless!</h2>
+      <span class="wa-caption-l"> 10 of 10</span>
+    </div>
+    <p style="text-align: center;">
+      You got a perfect score in this section. Tell your friends, family, really... just anyone who will listen.
+    </p>
     <div class="wa-cluster" style="margin-top: var(--wa-font-size-xl);">
       <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="facebook" family="brands" label="Share on Facebook" href="#" target="_blank"></wa-icon-button>
+        <wa-icon-button
+          slot="icon"
+          style="font-size: var(--wa-font-size-2xl);"
+          name="facebook"
+          family="brands"
+          label="Share on Facebook"
+          href="#"
+          target="_blank"
+        ></wa-icon-button>
       </wa-avatar>
       <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="bluesky" family="brands" label="Share on Bluesky" href="#" target="_blank"></wa-icon-button>
+        <wa-icon-button
+          slot="icon"
+          style="font-size: var(--wa-font-size-2xl);"
+          name="bluesky"
+          family="brands"
+          label="Share on Bluesky"
+          href="#"
+          target="_blank"
+        ></wa-icon-button>
       </wa-avatar>
       <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="instagram" family="brands" label="Share on Instagram" href="#" target="_blank"></wa-icon-button>
+        <wa-icon-button
+          slot="icon"
+          style="font-size: var(--wa-font-size-2xl);"
+          name="instagram"
+          family="brands"
+          label="Share on Instagram"
+          href="#"
+          target="_blank"
+        ></wa-icon-button>
       </wa-avatar>
       <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button slot="icon" style="font-size: var(--wa-font-size-2xl);" name="linkedin" family="brands" label="Share on LinkedIn" href="#" target="_blank"></wa-icon-button>
+        <wa-icon-button
+          slot="icon"
+          style="font-size: var(--wa-font-size-2xl);"
+          name="linkedin"
+          family="brands"
+          label="Share on LinkedIn"
+          href="#"
+          target="_blank"
+        ></wa-icon-button>
       </wa-avatar>
     </div>
   </div>

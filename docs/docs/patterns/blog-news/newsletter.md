@@ -43,13 +43,13 @@ tags: blog-news
         <dt><wa-icon name="calendar"></wa-icon></dt><dd>Daily News in your Inbox</dd>
       </div>
        <div class="wa-cluster wa-gap-xs">
-        <dt><wa-icon name="shield-halved"></wa-icon></dt><dd>Spam Free</dd>
+        <dt><wa-icon name="trash"></wa-icon></dt><dd>Spam Free</dd>
       </div>
       <div class="wa-cluster wa-gap-xs">
         <dt><wa-icon name="shield-halved"></wa-icon></dt><dd>The Most trusted source in the industry.</dd>
       </div>
        <div class="wa-cluster wa-gap-xs">
-        <dt><wa-icon name="shield-halved"></wa-icon></dt><dd>Easy to Unsubscribe</dd>
+        <dt><wa-icon name="user-xmark"></wa-icon></dt><dd>Easy to Unsubscribe</dd>
       </div>
     </dl>
   

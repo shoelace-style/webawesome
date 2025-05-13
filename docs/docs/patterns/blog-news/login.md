@@ -6,6 +6,7 @@ tags: blog-news
 ---
 
 ## Login/ Sign Up
+
 ```html{.example}
 <wa-card style="max-width: 45ch; margin: 0 auto">
     <div class="wa-stack">
@@ -14,7 +15,7 @@ tags: blog-news
         <wa-input placeholder="password" type="password"></wa-input>
         <a href="#">Having trouble signing in?</a>
         <wa-button>Sign in</wa-button>
-        
+
         <wa-divider></wa-divider>
         <p>Or sign in with:</p>
         <div class="wa-grid" style="--min-column-size: 12ch;">
@@ -35,7 +36,9 @@ tags: blog-news
     </div>
 </wa-card>
 ```
+
 ## Password Recovery
+
 ```html{.example}
 <wa-card style="max-width: 45ch; margin: 0 auto">
     <div class="wa-stack wa-gap-l">
@@ -59,7 +62,9 @@ tags: blog-news
     </div>
 </wa-card>
 ```
+
 ## Two Factor Authentication
+
 ```html{.example}
 <wa-card style="max-width: 45ch; margin: 0 auto">
     <div class="wa-stack wa-gap-l wa-align-items-center">

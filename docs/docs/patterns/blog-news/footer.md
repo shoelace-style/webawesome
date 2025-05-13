@@ -4,44 +4,85 @@ description: 'Provide useful information at the bottom of a webpage.'
 parent: blog-news
 tags: blog-news
 ---
+
 ## Simple
+
 ```html {.example}
 <div class="wa-stack wa-gap-xl" style="max-width: 102ch; margin: 0 auto;">
-    <div class="wa-split">
-        <div class="wa-cluster wa-gap-xs wa-heading-xl">
-            <wa-icon name="gears"></wa-icon>
-            <span>Widget UI</span>
-        </div>
-        <form class="wa-flank:end wa-gap-xs">
-            <wa-input placeholder="Enter your email" type="email"></wa-input>
-            <wa-button>Subscribe</wa-button>
-        </form>
+  <div class="wa-split">
+    <div class="wa-cluster wa-gap-xs wa-heading-xl">
+      <wa-icon name="gears"></wa-icon>
+      <span>Widget UI</span>
     </div>
-    <wa-divider></wa-divider>
-    <div class="wa-cluster" style="justify-content: flex-end">
-        <p>© 2025 All Rights reserved.</p>
-    </div>
+    <form class="wa-flank:end wa-gap-xs">
+      <wa-input placeholder="Enter your email" type="email"></wa-input>
+      <wa-button>Subscribe</wa-button>
+    </form>
+  </div>
+  <wa-divider></wa-divider>
+  <div class="wa-cluster" style="justify-content: flex-end">
+    <p>© 2025 All Rights reserved.</p>
+  </div>
 </div>
 ```
+
 ## Centered
+
 ```html {.example}
 <div class="wa-stack wa-align-items-center">
-    <div class="wa-cluster wa-gap-xl">
-        <a href="#">Home</a>
-            <a href="#">Get Started</a>
-            <a href="#">Services</a>
-            <a href="#">Portfolio</a>
-    </div>
-    <div class="wa-cluster wa-gap-s">
-                <a href="#"><wa-icon-button style="font-size: var(--wa-font-size-l);" name="facebook" family="brands" label="Share on Facebook" href="#" target="_blank"></wa-icon-button></a>
-                <a href="#"><wa-icon-button style="font-size: var(--wa-font-size-l);" name="bluesky" family="brands" label="Share on Bluesky" href="#" target="_blank"></wa-icon-button></a>
-                <a href="#"><wa-icon-button style="font-size: var(--wa-font-size-l);" name="linkedin" family="brands" label="Share on LinkedIn" href="#" target="_blank"></wa-icon-button></a>
-                <a href="#"><wa-icon-button style="font-size: var(--wa-font-size-l);" name="envelope-open" label="Share with email" href="#" target="_blank"></wa-icon-button></a>
-        </div>
-    <p>© 2025 All Rights reserved.</p>
+  <div class="wa-cluster wa-gap-xl">
+    <a href="#">Home</a>
+    <a href="#">Get Started</a>
+    <a href="#">Services</a>
+    <a href="#">Portfolio</a>
+  </div>
+  <div class="wa-cluster wa-gap-s">
+    <a href="#"
+      ><wa-icon-button
+        style="font-size: var(--wa-font-size-l);"
+        name="facebook"
+        family="brands"
+        label="Share on Facebook"
+        href="#"
+        target="_blank"
+      ></wa-icon-button
+    ></a>
+    <a href="#"
+      ><wa-icon-button
+        style="font-size: var(--wa-font-size-l);"
+        name="bluesky"
+        family="brands"
+        label="Share on Bluesky"
+        href="#"
+        target="_blank"
+      ></wa-icon-button
+    ></a>
+    <a href="#"
+      ><wa-icon-button
+        style="font-size: var(--wa-font-size-l);"
+        name="linkedin"
+        family="brands"
+        label="Share on LinkedIn"
+        href="#"
+        target="_blank"
+      ></wa-icon-button
+    ></a>
+    <a href="#"
+      ><wa-icon-button
+        style="font-size: var(--wa-font-size-l);"
+        name="envelope-open"
+        label="Share with email"
+        href="#"
+        target="_blank"
+      ></wa-icon-button
+    ></a>
+  </div>
+  <p>© 2025 All Rights reserved.</p>
 </div>
 ```
+
 ## Corporate
+
 ```html{.example}
 <div>
     <div class="wa-flank wa-align-items-baseline wa-gap-3xl" style="--flank-size: 36ch;">
