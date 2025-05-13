@@ -1,5 +1,5 @@
 import my from '/assets/scripts/my.js';
-import Permalink from '/assets/scripts/tweak/permalink.js';
+import Permalink from '/assets/scripts/permalink.js';
 
 export default {
   data() {

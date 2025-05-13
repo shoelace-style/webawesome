@@ -1,4 +1,4 @@
-const IDENTITY = x => x;
+import { deepEach, deepGet, deepSet } from './util/deep.js';
 
 export default class Permalink extends URLSearchParams {
   /** Params changed since last URL I/O */
@@ -11,6 +11,59 @@ export default class Permalink extends URLSearchParams {
 
   toJSON() {
     return Object.fromEntries(this.entries());
+  }
+
+  /**
+   * Set multiple values from an object. Nested values will be joined with a hyphen.
+   * @param {object} values - The object containing the values to set.
+   * @param {object} defaults - The object containing the default values.
+   *
+   */
+  setAll(values, defaults) {
+    deepEach(values, (value, key, parent, path) => {
+      let fullPath = [...path, key];
+      let param = fullPath.join('-');
+      let defaultValue = deepGet(defaults, fullPath);
+
+      if (typeof value === 'object') {
+        // We'll handle this when we descend into it
+        return;
+      }
+
+      if (!value || value === defaultValue) {
+        // Remove the param from the URL
+        this.delete(param);
+        return;
+      }
+
+      this.set(param, value);
+    });
+  }
+
+  getAll(...args) {
+    if (args.length > 0) {
+      return super.getAll(...args);
+    }
+
+    // Get all values as a nested object
+    // Assumes that hyphens always mean nesting
+    let obj = {};
+
+    for (let [key, value] of this.entries()) {
+      let path = key.split('-');
+      deepSet(obj, path, value);
+    }
+
+    return obj;
+  }
+
+  delete(key, value) {
+    let hadValue = this.has(key);
+    super.delete(key, value);
+
+    if (hadValue) {
+      this.changed = true;
+    }
   }
 
   set(key, value, defaultValue) {

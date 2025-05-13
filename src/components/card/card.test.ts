@@ -27,7 +27,7 @@ describe('<wa-card>', () => {
       describe('when provided an element in the slot "header" to render a header', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-header>
+            html`<wa-card>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
             </wa-card>`,
@@ -37,7 +37,7 @@ describe('<wa-card>', () => {
 
         it('should render the child content provided.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-header>
+            html`<wa-card>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
             </wa-card>`,
@@ -47,7 +47,7 @@ describe('<wa-card>', () => {
 
         it('render the header content provided.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-header>
+            html`<wa-card>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
             </wa-card>`,
@@ -58,7 +58,7 @@ describe('<wa-card>', () => {
 
         it('accept "header" as an assigned child in the shadow root.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-header>
+            html`<wa-card>
               <div slot="header">Header Title</div>
               This card has a header. You can put all sorts of things in it!
             </wa-card>`,
@@ -73,7 +73,7 @@ describe('<wa-card>', () => {
       describe('when provided an element in the slot "footer" to render a footer', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-footer>
+            html`<wa-card>
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
@@ -84,7 +84,7 @@ describe('<wa-card>', () => {
 
         it('should render the child content provided.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-footer>
+            html`<wa-card>
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
@@ -95,7 +95,7 @@ describe('<wa-card>', () => {
 
         it('render the footer content provided.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-footer>
+            html`<wa-card>
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
@@ -107,7 +107,7 @@ describe('<wa-card>', () => {
 
         it('accept "footer" as an assigned child in the shadow root.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-footer>
+            html`<wa-card>
               This card has a footer. You can put all sorts of things in it!
 
               <div slot="footer">Footer Content</div>
@@ -123,7 +123,7 @@ describe('<wa-card>', () => {
       describe('when provided an element in the slot "image" to render a image', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-image>
+            html`<wa-card>
               <img
                 slot="image"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -138,7 +138,7 @@ describe('<wa-card>', () => {
 
         it('should render the child content provided.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-image>
+            html`<wa-card>
               <img
                 slot="image"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -155,7 +155,7 @@ describe('<wa-card>', () => {
 
         it('accept "image" as an assigned child in the shadow root.', async () => {
           const el = await fixture<WaCard>(
-            html`<wa-card with-image>
+            html`<wa-card>
               <img
                 slot="image"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"

@@ -1,7 +1,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ description }}">
-{% if noindex %}<meta name="robots" content="noindex">{% endif %}
+{% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
 
 <title>{{ title }}</title>
 
@@ -32,7 +32,8 @@
 
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
-{% if forceTheme %}
+{% if noTheme %}
+{% elif forceTheme %}
 <link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
 {% else %}
 <noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>

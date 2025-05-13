@@ -1,7 +1,8 @@
 /**
  * Get import code for remixed themes and tweaked palettes.
  */
-import { urls } from './data.js';
+import { selectors, themeConfig } from '../../data/theming.js';
+import { deepEach, deepGet } from '/assets/scripts/util/deep.js';
 
 export function cssImport(url, options = {}) {
   let { language = 'html', cdnUrl = '/dist/', attributes } = options;
@@ -21,29 +22,65 @@ export function cssLiteral(value, options = {}) {
   if (language === 'css') {
     return value;
   } else {
-    return `<style>\n${value}\n</style>`;
+    return `<style${options.attributes ?? ''}>\n${value}\n</style>`;
   }
 }
 
-// Params in correct order
-export const themeParams = ['colors', 'palette', 'brand', 'typography'];
+/**
+ * Get code for a theme, including tweaks
+ * @param {*} theme
+ * @param {*} options
+ * @returns
+ */
+export function getThemeCode(theme, options = {}) {
+  let urls = [];
+  let declarations = [];
+  let id = options.id ?? theme.base ?? 'default';
 
-export function getThemeCode(base, params, options) {
-  let ret = [];
+  deepEach(themeConfig, (config, aspect, obj, path) => {
+    if (!config?.default) {
+      // We're not in a config object
+      return;
+    }
 
-  if (base) {
-    ret.push(urls.theme(base));
-  }
+    let value = deepGet(theme, [...path, aspect]);
 
-  for (let aspect of themeParams) {
-    let value = params[aspect];
+    if (!value) {
+      return;
+    }
 
-    if (value) {
-      ret.push(urls[aspect](value));
+    if (config.url) {
+      // This is implemented by pulling in different CSS files
+      urls.push(config.url(value));
+    } else {
+      if (config.cssProperty) {
+        declarations.push(`${config.cssProperty}: ${value};`);
+      }
+    }
+  });
+
+  let ret = urls.map(url => cssImport(url, options)).join('\n');
+
+  if (declarations.length > 0) {
+    let cssCode = cssRule(selectors.theme(id), declarations, options);
+
+    let faKitAttribute = ` data-fa-kit-code="${theme.icon.kit}"`;
+    if (theme.icon.kit) {
+      options.attributes ??= '';
+      options.attributes += faKitAttribute;
+      cssCode =
+        `/* Note: To use Font Awesome Pro icons,\n   set ${faKitAttribute} on the <link> (or any other) element */\n\n` +
+        cssCode;
+    }
+
+    cssCode = cssLiteral(cssCode, options);
+
+    if (ret) {
+      ret += '\n\n' + cssCode;
     }
   }
 
-  return ret.map(url => cssImport(url, options)).join('\n');
+  return ret;
 }
 
 export function cssRule(selector, declarations, { indent = '  ' } = {}) {

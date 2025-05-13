@@ -17,7 +17,6 @@ import styles from './breadcrumb-item.css';
  * @slot separator - The separator to use for the breadcrumb item. This will only change the separator for this item. If
  * you want to change it for all items in the group, set the separator on `<wa-breadcrumb>` instead.
  *
- * @csspart base - The component's base wrapper.
  * @csspart label - The breadcrumb item's label.
  * @csspart prefix - The container that wraps the prefix.
  * @csspart suffix - The container that wraps the suffix.
@@ -72,47 +71,45 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
 
   render() {
     return html`
-      <div part="base" class="breadcrumb-item">
-        <span part="prefix" class="prefix">
-          <slot name="prefix"></slot>
-        </span>
+      <span part="prefix" class="prefix">
+        <slot name="prefix"></slot>
+      </span>
 
-        ${this.renderType === 'link'
-          ? html`
-              <a
-                part="label"
-                class="label label--link"
-                href="${this.href!}"
-                target="${ifDefined(this.target ? this.target : undefined)}"
-                rel=${ifDefined(this.target ? this.rel : undefined)}
-              >
-                <slot></slot>
-              </a>
-            `
-          : ''}
-        ${this.renderType === 'button'
-          ? html`
-              <button part="label" type="button" class="label label--button">
-                <slot @slotchange=${this.handleSlotChange}></slot>
-              </button>
-            `
-          : ''}
-        ${this.renderType === 'dropdown'
-          ? html`
-              <div part="label" class="label label--dropdown">
-                <slot @slotchange=${this.handleSlotChange}></slot>
-              </div>
-            `
-          : ''}
+      ${this.renderType === 'link'
+        ? html`
+            <a
+              part="label"
+              class="label label--link"
+              href="${this.href!}"
+              target="${ifDefined(this.target ? this.target : undefined)}"
+              rel=${ifDefined(this.target ? this.rel : undefined)}
+            >
+              <slot></slot>
+            </a>
+          `
+        : ''}
+      ${this.renderType === 'button'
+        ? html`
+            <button part="label" type="button" class="label label--button">
+              <slot @slotchange=${this.handleSlotChange}></slot>
+            </button>
+          `
+        : ''}
+      ${this.renderType === 'dropdown'
+        ? html`
+            <div part="label" class="label label--dropdown">
+              <slot @slotchange=${this.handleSlotChange}></slot>
+            </div>
+          `
+        : ''}
 
-        <span part="suffix" class="suffix">
-          <slot name="suffix"></slot>
-        </span>
+      <span part="suffix" class="suffix">
+        <slot name="suffix"></slot>
+      </span>
 
-        <span part="separator" class="separator" aria-hidden="true">
-          <slot name="separator"></slot>
-        </span>
-      </div>
+      <span part="separator" class="separator" aria-hidden="true">
+        <slot name="separator"></slot>
+      </span>
     `;
   }
 }

@@ -8,7 +8,7 @@ isPro: true
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 30ch;">
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <div class="wa-cluster wa-gap-xs">
@@ -30,7 +30,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <div class="wa-cluster wa-gap-xs">
@@ -52,7 +52,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <h3 class="wa-heading-s">Rex Tailwag</h3 class="wa-heading-s">
@@ -71,7 +71,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <h3 class="wa-heading-s">Luna Sniffington</h3 class="wa-heading-s">
@@ -90,7 +90,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <h3 class="wa-heading-s">Charlie Drooler</h3 class="wa-heading-s">
@@ -109,7 +109,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack wa-gap-xs">
         <h3 class="wa-heading-s">Daisy Zoomley</h3 class="wa-heading-s">
@@ -135,7 +135,7 @@ isPro: true
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 29ch;">
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
         <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -154,7 +154,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
         <img src="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -173,7 +173,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-  <wa-card with-footer>
+  <wa-card>
     <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
         <img src="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -192,7 +192,7 @@ isPro: true
       </wa-button>
     </div>
   </wa-card>
-<wa-card with-footer>
+<wa-card>
     <div class="wa-stack wa-align-items-center wa-gap-xs">
       <div class="wa-frame wa-border-radius-circle">
         <img src="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />

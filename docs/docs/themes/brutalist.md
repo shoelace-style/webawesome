@@ -9,4 +9,7 @@ fonts:
   body: Space Grotesk
   heading: IBM Plex Sans Condensed
   code: Space Mono
+icons:
+  family: sharp
+  style: solid
 ---

@@ -74,7 +74,8 @@ const sidebar = {
       a = sidebar.addChild(a, parentA);
 
       // This is mainly to port Pro badges
-      let badges = Array.from(parentLi.querySelectorAll('wa-badge'), badge => badge.cloneNode(true));
+      let badges = Array.from(parentLi.querySelectorAll(':scope > wa-badge'), badge => badge.cloneNode(true));
+
       let append = [...badges];
 
       if (entity.delete) {
