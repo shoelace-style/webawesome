@@ -205,11 +205,14 @@ let appSpec = {
         // Update page URL
         this.permalink.updateLocation();
         let theme = JSON.parse(JSON.stringify(this.theme));
-        this.$refs.preview?.contentWindow.postMessage({
+        let message = {
           type: 'updatePreview',
           theme,
           id: this.slug,
-        });
+        };
+
+        this.$refs.preview?.contentWindow.postMessage(message);
+        this.$refs.previewInvert?.contentWindow.postMessage(message);
 
         this.unsavedChanges = true;
       },

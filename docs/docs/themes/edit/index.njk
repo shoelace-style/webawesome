@@ -206,9 +206,9 @@ unlisted: true
   </ui-panel-container>
 
   <div class="preview-container">
-    <wa-comparer position="88">
+    <wa-comparer position="80">
+      <iframe slot="before" class="preview" ref="previewInvert" :src="`{{ page.url }}../preview/${ui.preview}/${urlParamsInvert}`"></iframe>
       <iframe slot="after" class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParams}`"></iframe>
-      <iframe slot="before" class="preview" ref="preview" :src="`{{ page.url }}../preview/${ui.preview}/${urlParamsInvert}`"></iframe>
     </wa-comparer>
   </div>
 </wa-page>
