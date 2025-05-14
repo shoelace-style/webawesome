@@ -13,11 +13,8 @@ import styles from './scroller.css';
  *
  * @slot - The content to show inside the scroller.
  *
- * @cssproperty [--edge-color=var(--wa-color-neutral-border-quiet)] - The color of the shadow's edge.
- * @cssproperty [--edge-width=var(--wa-border-width-s)] - The width of the shadow's edge.
- * @cssproperty [--shadow-color=var(--wa-color-text-normal)] - The base color of the shadow.
- * @cssproperty [--shadow-opacity=10%] - The opacity of the shadow.
- * @cssproperty [--shadow-width=0.5rem] - The width of the shadow.
+ * @cssproperty [--shadow-color=var(--wa-color-surface-default)] - The base color of the shadow.
+ * @cssproperty [--shadow-size=0.5rem] - The width of the shadow.
  *
  * @csspart content - The container that wraps the slotted content.
  */
@@ -30,11 +27,16 @@ export default class WaScroller extends WebAwesomeElement {
 
   @query('#content') content: HTMLElement;
 
-  /** Indicates whether the scroller is currently scrollable. */
   @state() canScroll = false;
 
   /** The scroller's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+  /** Removes the visible scrollbar. */
+  @property({ attribute: 'without-scrollbar', type: Boolean, reflect: true }) withoutScrollbar = false;
+
+  /** Removes the shadows. */
+  @property({ attribute: 'without-shadow', type: Boolean, reflect: true }) withoutShadow = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -107,8 +109,12 @@ export default class WaScroller extends WebAwesomeElement {
 
   render() {
     return html`
-      <div id="start-shadow" aria-hidden="true"></div>
-      <div id="end-shadow" aria-hidden="true"></div>
+      ${this.withoutShadow
+        ? ''
+        : html`
+            <div id="start-shadow" part="start-shadow" aria-hidden="true"></div>
+            <div id="end-shadow" part="end-shadow" aria-hidden="true"></div>
+          `}
 
       <div
         id="content"
