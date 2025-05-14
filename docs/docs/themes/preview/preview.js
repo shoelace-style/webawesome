@@ -63,7 +63,7 @@ if (location.search) {
   updateTheme(urlOverrides, { silent: true });
 
   if (urlOverrides['colorscheme']) {
-    document.documentElement.classList.add('wa-' + urlOverrides['colorscheme']);
+    document.body.classList.add('wa-' + urlOverrides['colorscheme']);
   }
 }
 
