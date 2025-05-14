@@ -6,12 +6,18 @@
 
   display: inline-block;
   position: relative;
-}
-
-.image-comparer {
   max-width: 100%;
   max-height: 100%;
   overflow: hidden;
+}
+
+/* Make content inert when dragging.
+   Otherwise, for <iframe> and <object> dragging is very choppy. */
+:host(:active) {
+  .before,
+  .after {
+    pointer-events: none;
+  }
 }
 
 .before,
@@ -23,6 +29,10 @@
     display: block;
     max-width: 100% !important;
     height: auto;
+  }
+
+  &::slotted(:not(img, svg)) {
+    isolation: isolate;
   }
 }
 

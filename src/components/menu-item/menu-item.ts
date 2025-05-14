@@ -1,7 +1,6 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import getText from '../../internal/get-text.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -24,8 +23,9 @@ import { SubmenuController } from './submenu-controller.js';
  * @slot prefix - Used to prepend an icon or similar element to the menu item.
  * @slot suffix - Used to append an icon or similar element to the menu item.
  * @slot submenu - Used to denote a nested menu.
+ * @slot checked-icon - The icon used to indicate that this menu item is checked. Usually a `<wa-icon>`.
+ * @slot submenu-icon - The icon used to indicate that this menu item has a submenu. Usually a `<wa-icon>`.
  *
- * @csspart base - The component's base wrapper.
  * @csspart checked-icon - The checked icon, which is only visible when the menu item is checked.
  * @csspart prefix - The prefix container.
  * @csspart label - The menu item label.
@@ -37,6 +37,9 @@ import { SubmenuController } from './submenu-controller.js';
  * @cssproperty --background-color-hover - The menu item's background color on hover.
  * @cssproperty --text-color-hover - The label color on hover.
  * @cssproperty [--submenu-offset=-2px] - The distance submenus shift to overlap the parent menu.
+ *
+ * @cssstate has-submenu - Applied when the menu item has a submenu.
+ * @cssstate submenu-expanded - Applied when the menu item has a submenu and it is expanded.
  */
 @customElement('wa-menu-item')
 export default class WaMenuItem extends WebAwesomeElement {
@@ -129,6 +132,8 @@ export default class WaMenuItem extends WebAwesomeElement {
       /** @internal - prevent the CEM from recording this event */
       this.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
     }
+
+    this.toggleCustomState('has-submenu', this.isSubmenu());
   }
 
   private handleHostClick = (event: MouseEvent) => {
@@ -188,49 +193,40 @@ export default class WaMenuItem extends WebAwesomeElement {
     return changed;
   }
 
-  isSubmenu() {
+  /** Does this element have a submenu? */
+  private isSubmenu() {
     return this.hasUpdated ? this.querySelector(`:scope > [slot="submenu"]`) !== null : this.withSubmenu;
   }
 
   render() {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
     const isSubmenuExpanded = this.submenuController.isExpanded();
+    this.toggleCustomState('submenu-expanded', isSubmenuExpanded);
+
+    this.internals.ariaHasPopup = this.isSubmenu() + '';
+    this.internals.ariaExpanded = isSubmenuExpanded + '';
 
     return html`
-      <div
-        id="anchor"
-        part="base"
-        class=${classMap({
-          'menu-item': true,
-          'menu-item--checked': this.checked,
-          'menu-item--loading': this.loading,
-          'menu-item--has-submenu': this.isSubmenu(),
-          'menu-item--submenu-expanded': isSubmenuExpanded,
-        })}
-        ?aria-haspopup="${this.isSubmenu()}"
-        ?aria-expanded="${isSubmenuExpanded ? true : false}"
-      >
-        <span part="checked-icon" class="check">
-          <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
-        </span>
+      <slot name="checked-icon" part="checked-icon" class="check">
+        <wa-icon name="check" library="system" variant="solid" aria-hidden="true"></wa-icon>
+      </slot>
 
-        <slot name="prefix" part="prefix" class="prefix"></slot>
+      <slot name="prefix" part="prefix" class="prefix"></slot>
 
-        <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
+      <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
 
-        <slot name="suffix" part="suffix" class="suffix"></slot>
+      <slot name="suffix" part="suffix" class="suffix"></slot>
 
-        <span part="submenu-icon" class="chevron">
-          <wa-icon
-            name=${isRtl ? 'chevron-left' : 'chevron-right'}
-            library="system"
-            variant="solid"
-            aria-hidden="true"
-          ></wa-icon>
-        </span>
+      <slot name="submenu-icon" part="submenu-icon" class="chevron">
+        <wa-icon
+          name=${isRtl ? 'chevron-left' : 'chevron-right'}
+          library="system"
+          variant="solid"
+          aria-hidden="true"
+        ></wa-icon>
+      </slot>
 
-        ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
-      </div>
+      ${this.submenuController.renderSubmenu()} ${this.loading ? html`<wa-spinner part="spinner"></wa-spinner>` : ''}
     `;
   }
 }

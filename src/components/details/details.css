@@ -1,13 +1,10 @@
 :host {
   --show-duration: 200ms;
   --hide-duration: 200ms;
-
-  display: contents !important;
+  --display: block;
 }
 
 details {
-  all: inherit;
-  display: block;
   overflow-anchor: none;
 }
 

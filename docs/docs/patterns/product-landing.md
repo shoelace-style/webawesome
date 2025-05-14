@@ -1,7 +1,7 @@
 ---
 title: Product Landing
 description: TODO
-unlisted: true
+unpublished: true
 isPro: true
 ---
 

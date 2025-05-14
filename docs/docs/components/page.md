@@ -168,7 +168,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
   </footer>
   <aside slot="aside" class="wa-desktop-only">
     <h2 class="wa-heading-m">Discover More Birds</h2>
-    <wa-card with-image>
+    <wa-card>
       <div slot="image" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1635254859323-65b78408dcca?q=20" alt="" />
       </div>
@@ -177,7 +177,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
         <span class="wa-caption-s" lang="la"><em>Asio otus</em></span>
       </div>
     </wa-card>
-    <wa-card with-image>
+    <wa-card>
       <div slot="image" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1661350356618-f5915c7b6a3c?q=20" alt="" />
       </div>
@@ -186,7 +186,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
         <span class="wa-caption-s" lang="la"><em>Surnia ulula</em></span>
       </div>
     </wa-card>
-    <wa-card with-image>
+    <wa-card>
       <div slot="image" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1660307777355-f08bced145d3?q=20" alt="" />
       </div>

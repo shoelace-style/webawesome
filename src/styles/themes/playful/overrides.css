@@ -1,7 +1,12 @@
 :where(:root),
 :host,
 .wa-theme-playful {
-  wa-badge {
+  wa-badge,
+  button,
+  input:where([type='button'], [type='reset'], [type='submit']),
+  wa-button,
+  wa-radio-group > wa-radio-button,
+  .wa-button {
     font-weight: var(--wa-font-weight-bold);
   }
 
@@ -14,124 +19,6 @@
     border-radius: var(--wa-form-control-border-radius);
   }
 
-  button,
-  input:where([type='button'], [type='reset'], [type='submit']),
-  wa-button,
-  wa-radio-group > wa-radio-button,
-  .wa-button {
-    font-weight: var(--wa-font-weight-bold);
-
-    &:not([disabled]) {
-      transition-property: all;
-
-      /* Doesn't apply transform to buttons in dropdowns or button groups.
-       * For dropdowns, this prevents the dropdown panel from shifting. */
-      &:not(:where(wa-button-group &, wa-dropdown &, wa-radio-group &)) {
-        &:hover {
-          transform: scale(1.02, 1.02);
-        }
-
-        &:active {
-          transform: scale(0.98, 0.98);
-        }
-      }
-    }
-
-    &:not(
-        wa-radio-button,
-        [appearance~='outlined'],
-        [appearance~='filled'],
-        [appearance~='plain'],
-        .wa-outlined,
-        .wa-filled,
-        .wa-plain
-      ) {
-      --gradient-top: oklch(from var(--background-color) calc(l - 0.1) c h);
-      --gradient-middle: var(--background-color);
-      --gradient-bottom: oklch(from var(--background-color) calc(l + 0.1) c h);
-      --shadow-outer: 0px 0.375em 1em
-        color-mix(in oklch, oklch(from var(--background-color) calc(l + 0.1) c h), transparent 70%);
-      --shadow-lower: inset 0 -0.125em 0.5em oklch(from var(--background-color) calc(l - 0.2) c h);
-      --shadow-upper: inset 0 0.125em 0.5em oklch(from var(--background-color) calc(l + 0.4) c h);
-      text-shadow: 0 0.125em 0.125em oklch(from var(--background-color) calc(l - 0.1) c h);
-
-      &::part(base),
-      :is(&) {
-        background: linear-gradient(
-          180deg,
-          var(--gradient-top) 0%,
-          var(--gradient-middle) 51.88%,
-          var(--gradient-bottom) 100%
-        );
-        box-shadow: var(--shadow-outer), var(--shadow-lower), var(--shadow-upper);
-        padding-inline: calc(var(--wa-space) + var(--border-width));
-        border-width: 0px;
-      }
-
-      &:not([disabled]) {
-        &:hover {
-          &::part(base),
-          :is(&) {
-            background: linear-gradient(
-              180deg,
-              var(--gradient-bottom) 0%,
-              var(--gradient-middle) 51.88%,
-              var(--gradient-top) 100%
-            );
-          }
-        }
-
-        &:active {
-          &::part(base),
-          :is(&) {
-            background: linear-gradient(
-              180deg,
-              color-mix(in oklab, var(--gradient-top), var(--wa-color-mix-active)) 0%,
-              color-mix(in oklab, var(--gradient-middle), var(--wa-color-mix-active)) 51.88%,
-              color-mix(in oklab, var(--gradient-bottom), var(--wa-color-mix-active)) 100%
-            );
-            box-shadow:
-              0 0 transparent,
-              var(--shadow-lower),
-              var(--shadow-upper);
-          }
-        }
-      }
-    }
-  }
-
-  input:is([type='checkbox'], [type='radio']):is(:checked, :indeterminate),
-  wa-checkbox:is(:state(checked), :state(indeterminate))::part(control),
-  wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
-  wa-radio:state(checked)::part(control),
-  wa-switch:state(checked)::part(control) {
-    --gradient-top: oklch(from var(--background-color-checked) calc(l - 0.1) c h);
-    --gradient-middle: var(--background-color-checked);
-    --gradient-bottom: oklch(from var(--background-color-checked) calc(l + 0.1) c h);
-
-    background: linear-gradient(
-      180deg,
-      var(--gradient-top) 0%,
-      var(--gradient-middle) 51.88%,
-      var(--gradient-bottom) 100%
-    );
-  }
-
-  input[type='range'],
-  wa-progress-bar,
-  wa-slider {
-    --shadow-lower: inset 0 -0.125em 0.5em
-      oklch(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l - 0.2) c h);
-    --shadow-upper: inset 0 0.125em 0.5em
-      oklch(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l + 0.4) c h);
-
-    --thumb-shadow: var(--wa-shadow-s), var(--shadow-lower), var(--shadow-upper);
-
-    &::part(indicator) {
-      box-shadow: var(--shadow-lower), var(--shadow-upper);
-    }
-  }
-
   input[type='radio'],
   wa-radio {
     --background-color-checked: var(--wa-form-control-activated-color);
@@ -141,9 +28,5 @@
 
   wa-rating {
     --symbol-color: color-mix(in oklab, var(--symbol-color-active), transparent);
-  }
-
-  wa-switch[checked] {
-    --thumb-shadow: var(--wa-shadow-s);
   }
 }

@@ -501,13 +501,13 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
-      <wa-option data-alpha="remove" value="premium">Premium</wa-option>
-      <wa-option data-alpha="remove" value="playful">Playful</wa-option>
-      <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
-      <wa-option data-alpha="remove" value="glossy">Glossy</wa-option>
-      <wa-option data-alpha="remove" value="active">Active</wa-option>
+      <wa-option value="awesome">Awesome</wa-option>
+      <wa-option value="premium">Premium</wa-option>
+      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="brutalist">Brutalist</wa-option>
+      <wa-option value="tailspin">Tailspin</wa-option>
+      <wa-option value="glossy">Glossy</wa-option>
+      <wa-option value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
     </wa-select>
   </div>
@@ -667,7 +667,7 @@ hasOutline: false
   </wa-details>
 </form>
 
-<wa-dialog id="icon-chooser" label="Browse Icons" with-header>
+<wa-dialog id="icon-chooser" label="Browse Icons">
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" autofocus placeholder="Search Icons" clearable style="flex: 1 1 auto;">
@@ -2139,7 +2139,7 @@ hasOutline: false
       </div>
     </section>
     <section class="strata message-composer">
-      <wa-card with-header with-footer class="card-header card-footer">
+      <wa-card class="card-header card-footer">
         <div slot="header">
           <div class="grouped-buttons">
             <wa-icon-button id="bold" name="bold" label="Bold"></wa-icon-button>

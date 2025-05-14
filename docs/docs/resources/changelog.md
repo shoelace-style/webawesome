@@ -12,6 +12,18 @@ Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> bad
 During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
 :::
 
+## Next
+
+- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content
+- Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
+- Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
+- Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
+- Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
+- Fixed a bug in `<wa-select>` that caused the listbox to now show after being disabled
+- Fixed a bug in `<wa-radio-group>` that prevented radio buttons from validating
+- Improved native radio alignment
+- Improved the `.wa-cloak` utility class so all FOUCE-related solutions are 100% opt-in
+
 ## 3.0.0-alpha.12
 
 ### Enhancements
@@ -20,6 +32,9 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added an `orange` scale to all color palettes
 - Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
 - Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
+- Simplified `<wa-breadcrumb-item>` by removing the `base` CSS part
+- Simplified `<wa-menu-item>` and `<wa-menu-label>` by removing the `base` CSS part
+- Added slots to `checked-icon` and `submenu-icon` in `<wa-menu-item>` so custom icons can be used
 
 ### Bug fixes
 

@@ -5,12 +5,7 @@
 :host,
 .wa-theme-glossy {
   --wa-font-family-body: 'Figtree', sans-serif;
-  --wa-font-family-heading: var(--wa-font-family-body);
-  --wa-font-family-code: ui-monospace, monospace;
-  --wa-font-family-longform: ui-serif, serif;
 
-  --wa-font-weight-light: 300;
-  --wa-font-weight-normal: 400;
   --wa-font-weight-semibold: 600;
   --wa-font-weight-bold: 800;
 

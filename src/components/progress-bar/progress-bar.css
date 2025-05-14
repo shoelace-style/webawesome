@@ -1,7 +1,7 @@
 :host {
   --indicator-color: var(--wa-color-brand-fill-loud);
+  --display: flex;
 
-  display: contents;
   height: 1.25rem;
   border-radius: var(--wa-border-radius-pill);
   background-color: var(--wa-color-neutral-fill-normal);
@@ -9,8 +9,6 @@
 }
 
 .progress-bar {
-  all: inherit;
-  display: flex;
   position: relative;
   overflow: hidden;
 }

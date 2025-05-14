@@ -165,3 +165,8 @@ my.palettes = new SavedEntities({
   key: 'savedPalettes',
   type: 'palette',
 });
+
+my.themes = new SavedEntities({
+  key: 'savedThemes',
+  type: 'theme',
+});

@@ -1,11 +1,7 @@
 :host {
-  display: contents;
-  position: relative;
-}
+  --display: inline-flex;
 
-:where([part~='base']) {
-  all: inherit;
-  display: inline-flex;
+  position: relative;
 }
 
 /*

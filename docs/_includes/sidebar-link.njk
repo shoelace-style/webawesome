@@ -1,4 +1,4 @@
-{% if page | show -%}
+{% if page -%}
 	<li>
 		<a href="{{ page.url }}">{{ page.data.title }}</a>
 		{% if page.data.status == 'experimental' %}<wa-icon name="flask"></wa-icon>{% endif %}

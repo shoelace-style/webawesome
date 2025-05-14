@@ -286,7 +286,7 @@ layout: page
       </wa-callout>
     </div>
     <div>
-      <wa-button href="/docs/installation" appearance="outlined" class="tile">
+      <wa-button href="/docs/" appearance="outlined" class="tile">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-block-end: 1rem;">
           <div class="icon-heading" style="margin-block-end: 0;">
             <wa-icon name="pen-ruler" fixed-width></wa-icon>

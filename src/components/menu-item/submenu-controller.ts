@@ -271,7 +271,7 @@ export class SubmenuController implements ReactiveController {
       <wa-popup
         ${ref(this.popupRef)}
         placement=${isRtl ? 'left-start' : 'right-start'}
-        anchor="anchor"
+        .anchor="${this.host}"
         flip
         flip-fallback-strategy="best-fit"
         skidding="${this.skidding}"

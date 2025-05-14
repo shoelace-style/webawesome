@@ -6,7 +6,7 @@ isPro: true
 
 ## With Form Inputs
 ```html{.example}
-<wa-card with-header style="max-width: 72ch; margin: 0 auto;">
+<wa-card style="max-width: 72ch; margin: 0 auto;">
   <div slot="header" class="wa-split">
     <h2 class="wa-heading-m">Invite Team Members</h2>
     <wa-icon name="close"></wa-icon>
