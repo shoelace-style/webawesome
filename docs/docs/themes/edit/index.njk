@@ -159,7 +159,7 @@ unlisted: true
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
-      <ui-slider label="Rounding" :min="0" :max="2" :step="0.125" tooltip="{value}x" :model-value="computed.rounding" @update:model-value="value => theme.rounding = value">
+      <ui-slider label="Rounding" clearable :default-value="1" :min="0" :max="2" :step="0.125" tooltip="{value}x" :model-value="computed.rounding" @update:model-value="value => theme.rounding = value">
         <template #min>
           <div class="corner" style="--border-radius: 0;"></div>
         </template>
@@ -167,7 +167,7 @@ unlisted: true
           <div class="corner" style="--border-radius: var(--wa-border-radius-l);"></div>
         </template>
       </ui-slider>
-      <ui-slider label="Spacing" :min="0.5" :max="1.5" :step="0.125" tooltip="{value}x" :model-value="computed.spacing" @update:model-value="value => theme.spacing = value">
+      <ui-slider label="Spacing" clearable :default-value="1":min="0.75" :max="1.5" :step="0.125" tooltip="{value}x" :model-value="computed.spacing" @update:model-value="value => theme.spacing = value">
         <template #min>
           <div class="spacing" style="--spacing: 0.5;"><div></div><div></div><div></div></div>
         </template>
@@ -176,7 +176,7 @@ unlisted: true
         </template>
       </ui-slider>
 
-      <ui-slider label="Border thickness" :min="0.5" :max="3" :step="0.5" tooltip="{value}x" :model-value="computed.borderWidth" @update:model-value="value => theme.borderWidth = value">
+      <ui-slider label="Border thickness" clearable :default-value="1" :min="0.5" :max="3" :step="0.5" tooltip="{value}x" :model-value="computed.borderWidth" @update:model-value="value => theme.borderWidth = value">
         <template #min>
           <div class="borders" style="--border-width: 1px;"></div>
         </template>
@@ -185,7 +185,7 @@ unlisted: true
         </template>
       </ui-slider>
 
-      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
+      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" :subtitle="computed.dimensionality ? undefined : 'Flat'" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="dimensionality" title="Dimensionality" :step="2">

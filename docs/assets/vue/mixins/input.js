@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      defaultValue: this.modelValue,
+      initialValue: this.modelValue,
       value: this.modelValue,
     };
   },

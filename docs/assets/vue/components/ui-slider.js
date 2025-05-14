@@ -1,10 +1,16 @@
 import inputMixin from '../mixins/input.js';
+import InfoTip from './info-tip.js';
 
 let maxUid = 0;
 
 const template = `
     <div class="ui-slider">
-      <label v-if="label" :for="sliderId">{{ label }}</label>
+      <div class="ui-slider-header">
+        <label :for="sliderId">{{ label }}</label>
+        <info-tip v-if="value !== defaultValue ?? initialValue" :text="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)">
+          <wa-icon-button @click="value = defaultValue ?? initialValue" class="clear-button" name="circle-xmark" library="system" variant="regular" :label="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)"></wa-icon-button>
+        </info-tip>
+      </div>
       <wa-button v-if="$slots.min" :aria-label="'Set to min (' + min + ')'" class="ui-slider-min" appearance="plain" size="small" @click="value = min"><slot name="min"></slot></wa-button>
       <wa-slider ref="slider" :id="sliderId" class="ui-slider" :value  @input="handleInput"
                 :min="min" :max="max" :step="step">
@@ -18,7 +24,7 @@ export default {
   props: {
     label: String,
     id: String,
-    baseValue: Number,
+    defaultValue: Number,
     min: {
       type: Number,
       default: 0,
@@ -34,6 +40,7 @@ export default {
       },
     },
     tooltip: [Function, String],
+    clearable: Boolean,
   },
   data() {
     let uid = ++maxUid;
@@ -41,36 +48,35 @@ export default {
   },
   mounted() {
     if (this.tooltip) {
-      applySliderTooltip(this.$refs.slider, this.tooltip);
+      this.$refs.slider.tooltipFormatter = this.tooltipFormatter;
     }
   },
   computed: {
     sliderId() {
       return this.id || `ui-slider-${this.uid}`;
     },
+    tooltipFormatter() {
+      if (typeof this.tooltip === 'string') {
+        return v => this.tooltip.replaceAll('{value}', v);
+      }
+
+      return this.tooltip;
+    },
   },
 
   watch: {
-    tooltip(value) {
-      applySliderTooltip(this.$refs.slider, value);
+    tooltip() {
+      if (this.$refs.slider) {
+        this.$refs.slider.tooltipFormatter = this.tooltipFormatter;
+      }
     },
   },
   template,
 
+  components: {
+    InfoTip,
+  },
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },
 };
-
-async function applySliderTooltip(slider, tooltip) {
-  if (!slider || !tooltip) return;
-
-  await customElements.whenDefined('wa-slider');
-  await slider.updateComplete;
-
-  if (typeof tooltip === 'function') {
-    slider.tooltipFormatter = tooltip;
-  } else if (typeof tooltip === 'string') {
-    slider.tooltipFormatter = v => tooltip.replaceAll('{value}', v);
-  }
-}

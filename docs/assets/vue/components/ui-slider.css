@@ -7,12 +7,6 @@
   align-items: center;
   gap: var(--wa-space-2xs);
 
-  label {
-    grid-area: label;
-    display: inline;
-    contain: inline-size;
-  }
-
   wa-slider {
     display: block;
     grid-area: slider;
@@ -24,6 +18,16 @@
       margin-inline-start: calc(-1 * (var(--wa-space-s) + 1rem + 2 * var(--wa-border-width-m)));
     }
   }
+
+  .clear-button {
+    vertical-align: middle;
+    margin-inline-start: var(--wa-space-xs);
+    font-size: var(--wa-font-size-xs);
+  }
+}
+
+.ui-slider-header {
+  grid-area: label;
 }
 
 .ui-slider-min,
