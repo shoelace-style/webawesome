@@ -4,8 +4,11 @@ import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
 import { parse } from 'comment-parser';
 import fs from 'fs';
 import { pascalCase } from 'pascal-case';
+import * as url from 'url';
+import * as path from "node:path"
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const packageData = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
 const outdir = 'dist-cdn';
 
