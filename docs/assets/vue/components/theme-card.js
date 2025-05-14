@@ -99,6 +99,12 @@ export default {
       let theme = { ...(this.rest || {}), [this.type || 'base']: this.theme };
       theme.base ||= 'default';
 
+      if (theme.dimensionality) {
+        if (!themes[theme.dimensionality]?.dimension || theme.dimensionality === theme.base) {
+          theme.dimensionality = '';
+        }
+      }
+
       return getThemeCode(theme, { id: this.theme, language: 'html', cdnUrl: '/dist/' });
     },
   },
