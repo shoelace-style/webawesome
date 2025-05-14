@@ -27,19 +27,20 @@ keywords: modal
 
 ## Examples
 
-### Dialog with Header
+### Dialog without Header
 
-Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the dialog.
+Headers are enabled by default. To render a dialog without a header, add the `without-header` attribute.
 
 ```html {.example}
-<wa-dialog label="Dialog" class="dialog-header">
+<wa-dialog label="Dialog" without-header class="dialog-without-header">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
 <wa-button>Open Dialog</wa-button>
 
 <script>
-  const dialog = document.querySelector('.dialog-header');
+  const dialog = document.querySelector('.dialog-without-header');
   const openButton = dialog.nextElementSibling;
 
   openButton.addEventListener('click', () => dialog.open = true);
@@ -48,7 +49,7 @@ Headers can be used to display titles and more. Use the `with-header` attribute 
 
 ### Dialog with Footer
 
-Footers can be used to display titles and more. Use the `with-footer` attribute to add a footer to the dialog.
+Footers can be used to display titles and more. Use the `footer` slot to add a footer to the dialog.
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-footer">
