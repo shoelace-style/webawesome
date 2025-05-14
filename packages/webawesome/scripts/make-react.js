@@ -3,7 +3,7 @@ import { deleteSync } from 'del';
 import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
-import { default as prettierConfig } from '../prettier.config.js';
+import { default as prettierConfig } from '../../../prettier.config.js';
 import { getAllComponents } from './shared.js';
 
 const { outdir } = commandLineArgs({ name: 'outdir', type: String });
