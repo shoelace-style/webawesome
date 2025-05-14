@@ -1,3 +1,9 @@
+---
+title: Scroller
+description: Scrollers create an accessible container while providing visual cues that help users identify and navigate through content that scrolls.
+layout: component
+---
+
 ```html {.example}
 <wa-scroller id="scroller__overview">
   <table>
