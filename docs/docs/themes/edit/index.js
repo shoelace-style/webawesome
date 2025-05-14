@@ -88,6 +88,10 @@ let appSpec = {
     if (location.search) {
       let urlTheme = this.permalink.getAll();
       deepMerge(this.theme, urlTheme, { emptyValues: [undefined, ''] });
+
+      if (urlTheme.panel) {
+        this.ui.panel = urlTheme.panel;
+      }
     }
 
     this.isCreated = true;
