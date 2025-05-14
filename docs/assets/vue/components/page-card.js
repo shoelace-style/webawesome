@@ -10,7 +10,7 @@ export const ICON_PLACEHOLDER = `
 </svg>`;
 
 const template = `
-<wa-card with-header class="page-card" :aria-disabled="disabled ? 'true' : null" :inert="disabled"
+<wa-card class="page-card" :aria-disabled="disabled ? 'true' : null" :inert="disabled"
          @click="handleClick" @keyup.enter="handleClick"  @keyup.space="handleClick"
          :role="action ? 'button' : null" :tabindex="action? 0 : null">
   <slot name="icon" slot="header">

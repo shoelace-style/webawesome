@@ -121,7 +121,7 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
 
 ```html {.example}
 <div class="wa-stack">
-<wa-card with-image with-header with-footer orientation="horizontal">
+<wa-card orientation="horizontal">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
@@ -130,7 +130,7 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
   This is a kitten, but not just any kitten. This kitten likes walking along pallets.
 </wa-card>
 
-<wa-card with-image with-header with-footer orientation="horizontal" style="--first-column: 25%">
+<wa-card orientation="horizontal" style="--first-column: 25%">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
@@ -139,7 +139,7 @@ If using SSR, you need to also use the `with-image` attribute to add an image to
   This is a kitten, but not just any kitten. This kitten likes walking along pallets.
 </wa-card>
 
-<wa-card with-image with-header with-footer orientation="horizontal" style="--first-column: 75%">
+<wa-card orientation="horizontal" style="--first-column: 75%">
   <img
     slot="image"
     src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
