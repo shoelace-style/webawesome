@@ -101,7 +101,7 @@ isPro: true
 ## Rich Card with Multiple Actions
 
 ```html {.example}
-<wa-card with-header with-footer style="max-width: 60ch; margin: auto">
+<wa-card style="max-width: 60ch; margin: auto">
   <div slot="header">
     <h3 class="wa-heading-s">I watched...</h3>
   </div>
@@ -139,7 +139,7 @@ isPro: true
 ## With Preview Pane
 ```html{.example}
 <div style="max-width: 60ch; margin: 0 auto;">
-  <wa-card class="wa-border-radius-square" with-footer>
+  <wa-card class="wa-border-radius-square">
     <h3 class="wa-heading-m">Add a comment</h3>
     <wa-tab-group>
       <wa-tab panel="write">Write</wa-tab>

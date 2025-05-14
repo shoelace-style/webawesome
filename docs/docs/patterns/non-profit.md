@@ -1,7 +1,7 @@
 ---
 title: Non-profit
 description: TODO
-unlisted: true
+unpublished: true
 isPro: true
 ---
 

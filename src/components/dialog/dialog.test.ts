@@ -12,7 +12,7 @@ describe('<wa-dialog>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should be visible with the open attribute', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
 
         expect(getComputedStyle(el).display).to.not.equal('none');
@@ -20,7 +20,7 @@ describe('<wa-dialog>', () => {
 
       it('should not be visible without the open attribute', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
 
         expect(getComputedStyle(el).display).to.equal('none');
@@ -28,7 +28,7 @@ describe('<wa-dialog>', () => {
 
       it('should emit wa-show and wa-after-show when calling show()', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
@@ -47,7 +47,7 @@ describe('<wa-dialog>', () => {
 
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
@@ -66,7 +66,7 @@ describe('<wa-dialog>', () => {
 
       it('should emit wa-show and wa-after-show when setting open = true', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
@@ -85,7 +85,7 @@ describe('<wa-dialog>', () => {
 
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
@@ -104,7 +104,7 @@ describe('<wa-dialog>', () => {
 
       it('should not close when wa-hide is prevented', async () => {
         const el = await fixture<WaDialog>(html`
-          <wa-dialog with-header open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
+          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
         `);
 
         const spy = sinon.spy();
@@ -120,7 +120,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should allow initial focus to be set', async () => {
-        const el = await fixture<WaDialog>(html` <wa-dialog with-header><wa-input autofocus></wa-input></wa-dialog> `);
+        const el = await fixture<WaDialog>(html` <wa-dialog><wa-input autofocus></wa-input></wa-dialog> `);
         const input = el.querySelector('wa-input')!;
 
         el.open = true;
@@ -131,7 +131,7 @@ describe('<wa-dialog>', () => {
       it('should close when pressing Escape', async () => {
         const hideHandler = sinon.spy();
 
-        const el = await fixture<WaDialog>(html` <wa-dialog with-header open></wa-dialog> `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open></wa-dialog> `);
         el.addEventListener('wa-after-hide', hideHandler);
 
         await clickOnElement(el); // Chromium wants the page to have been clicked prior to closing the dialog.

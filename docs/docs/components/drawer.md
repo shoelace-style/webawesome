@@ -8,7 +8,7 @@ icon: drawer
 <!-- cspell:dictionaries lorem-ipsum -->
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-overview">
+<wa-drawer label="Drawer" class="drawer-overview">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -30,7 +30,7 @@ icon: drawer
 Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the drawer.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header class="drawer-header">
+<wa-drawer label="Drawer" class="drawer-header">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </wa-drawer>
 
@@ -49,7 +49,7 @@ Headers can be used to display titles and more. Use the `with-header` attribute 
 Footers can be used to display titles and more. Use the `with-footer` attribute to add a footer to the drawer.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-footer class="drawer-footer">
+<wa-drawer label="Drawer" class="drawer-footer">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -69,7 +69,7 @@ Footers can be used to display titles and more. Use the `with-footer` attribute 
 You can add the special `data-drawer="close"` attribute to a button inside the drawer to tell it to close without additional JavaScript. Alternatively, you can set the `open` property to `false` to close the drawer programmatically.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-dismiss">
+<wa-drawer label="Drawer" class="drawer-dismiss">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -89,7 +89,7 @@ You can add the special `data-drawer="close"` attribute to a button inside the d
 By default, drawers slide in from the end. To make the drawer slide in from the start, set the `placement` attribute to `start`.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer placement="start" class="drawer-placement-start">
+<wa-drawer label="Drawer" placement="start" class="drawer-placement-start">
   This drawer slides in from the start.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -109,7 +109,7 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
 To make the drawer slide in from the top, set the `placement` attribute to `top`.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer placement="top" class="drawer-placement-top">
+<wa-drawer label="Drawer" placement="top" class="drawer-placement-top">
   This drawer slides in from the top.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -129,7 +129,7 @@ To make the drawer slide in from the top, set the `placement` attribute to `top`
 To make the drawer slide in from the bottom, set the `placement` attribute to `bottom`.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer placement="bottom" class="drawer-placement-bottom">
+<wa-drawer label="Drawer" placement="bottom" class="drawer-placement-bottom">
   This drawer slides in from the bottom.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -149,7 +149,7 @@ To make the drawer slide in from the bottom, set the `placement` attribute to `b
 Use the `--size` custom property to set the drawer's size. This will be applied to the drawer's width or height depending on its `placement`.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-custom-size" style="--size: 50vw;">
+<wa-drawer label="Drawer" class="drawer-custom-size" style="--size: 50vw;">
   This drawer is always 50% of the viewport.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -169,7 +169,7 @@ Use the `--size` custom property to set the drawer's size. This will be applied 
 By design, a drawer's height will never exceed 100% of its container. As such, drawers will not scroll with the page to ensure the header and footer are always accessible to the user.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-scrolling">
+<wa-drawer label="Drawer" class="drawer-scrolling">
   <div style="height: 150vh; border: dashed 2px var(--wa-color-surface-border); padding: 0 1rem;">
     <p>Scroll down and give it a try! 👇</p>
   </div>
@@ -191,7 +191,7 @@ By design, a drawer's height will never exceed 100% of its container. As such, d
 The header shows a functional close button by default. You can use the `header-actions` slot to add additional [icon buttons](/docs/components/icon-button) if needed.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-header-actions">
+<wa-drawer label="Drawer" class="drawer-header-actions">
   <wa-icon-button class="new-window" slot="header-actions" name="arrow-up-right-from-square" variant="solid"></wa-icon-button>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
@@ -214,7 +214,7 @@ The header shows a functional close button by default. You can use the `header-a
 If you want the drawer to close when the user clicks on the overlay, add the `light-dismiss` attribute.
 
 ```html {.example}
-<wa-drawer label="Drawer" light-dismiss with-header with-footer class="drawer-light-dismiss">
+<wa-drawer label="Drawer" light-dismiss class="drawer-light-dismiss">
   This drawer will close when you click on the overlay.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -238,7 +238,7 @@ To keep the drawer open in such cases, you can cancel the `wa-hide` event. When 
 You can use `event.detail.source` to determine what triggered the request to close. This example prevents the drawer from closing when the overlay is clicked, but allows the close button or [[Escape]] to dismiss it.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-deny-close">
+<wa-drawer label="Drawer" class="drawer-deny-close">
   This drawer will only close when you click the button below.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -266,7 +266,7 @@ You can use `event.detail.source` to determine what triggered the request to clo
 By default, the drawer's panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the drawer. If you want a different element to have focus, add the `autofocus` attribute to it as shown below.
 
 ```html {.example}
-<wa-drawer label="Drawer" with-header with-footer class="drawer-focus">
+<wa-drawer label="Drawer" class="drawer-focus">
   <wa-input autofocus placeholder="I will have focus when the drawer is opened"></wa-input>
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>

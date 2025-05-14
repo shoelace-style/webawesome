@@ -150,6 +150,27 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 [#1234]
 ```
 
+### Frontmatter
+
+There's a number of frontmatter properties for doing different things in the Web Awesome documention.
+
+For example, to only show a page in development, use the `unpublished: true` key / value pair.
+
+```md
+---
+unpublished: true
+---
+```
+
+To build a page, but not add it to any search indexes and collections so they don't appear in the sidebar, use `unlisted: true, eleventyExcludeFromCollections: true` key / value pairs.
+
+```md
+---
+unlisted: true
+eleventyExcludeFromCollections: true
+---
+```
+
 ## Best Practices
 
 The following is a non-exhaustive list of conventions, patterns, and best practices we try to follow. As a contributor, we ask that you make a good faith effort to follow them as well. This ensures consistency and maintainability throughout the project.

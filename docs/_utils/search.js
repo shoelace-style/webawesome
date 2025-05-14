@@ -24,9 +24,23 @@ export function searchPlugin(options = {}) {
   };
 
   return function (eleventyConfig) {
-    const pagesToIndex = [];
+    const pagesToIndex = new Map();
+
+    eleventyConfig.addPreprocessor('exclude-unlisted-from-search', '*', function (data, content) {
+      if (data.unlisted) {
+        // no-op
+      } else {
+        pagesToIndex.set(data.page.inputPath, {});
+      }
+
+      return content;
+    });
 
     eleventyConfig.addTransform('search', function (content) {
+      if (!pagesToIndex.has(this.page.inputPath)) {
+        return content;
+      }
+
       const doc = parse(content, {
         blockTextElements: {
           script: false,
@@ -42,7 +56,7 @@ export function searchPlugin(options = {}) {
         doc.querySelectorAll(selector).forEach(el => el.remove());
       });
 
-      pagesToIndex.push({
+      pagesToIndex.set(this.page.inputPath, {
         title: collapseWhitespace(options.getTitle(doc)),
         description: collapseWhitespace(options.getDescription(doc)),
         headings: options.getHeadings(doc).map(collapseWhitespace),
@@ -65,7 +79,7 @@ export function searchPlugin(options = {}) {
         this.field('h', { boost: 10 });
         this.field('c');
 
-        for (const page of pagesToIndex) {
+        for (const [_inputPath, page] of pagesToIndex) {
           this.add({ id: index, t: page.title, h: page.headings, c: page.content });
           map[index] = { title: page.title, description: page.description, url: page.url };
           index++;
