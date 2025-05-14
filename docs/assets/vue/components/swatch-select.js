@@ -1,8 +1,9 @@
 import { capitalize } from '../../scripts/util/string.js';
+import inputMixin from '../mixins/input.js';
 import InfoTip from './info-tip.js';
 
 const template = `
-<wa-radio-group :label class="swatch-select" :class="'swatch-shape-' + shape" orientation="horizontal" :value="modelValue" @input="handleInput">
+<wa-radio-group :label class="swatch-select" :class="'swatch-shape-' + shape" orientation="horizontal" :value @input="handleInput">
   <info-tip v-for="value in values">
       <wa-radio-button :value :label="getLabel(value)" :style="{'--color': getColor(value)}"></wa-radio-button>
       <template #content>
@@ -13,6 +14,7 @@ const template = `
   `;
 
 export default {
+  mixins: [inputMixin],
   props: {
     modelValue: String,
     name: String,
@@ -35,32 +37,17 @@ export default {
       default: [],
     },
   },
-  emits: ['update:modelValue', 'input'],
-  data() {
-    return {
-      value: this.modelValue,
-    };
-  },
   computed: {},
 
   methods: {
     capitalize,
-    handleInput(e) {
-      this.value = e.target.value;
-      this.$emit('input', this.value);
-    },
-  },
-
-  watch: {
-    value() {
-      this.$emit('update:modelValue', this.value);
-    },
   },
 
   template,
   components: {
     InfoTip,
   },
+
   compilerOptions: {
     isCustomElement: tag => tag.startsWith('wa-'),
   },

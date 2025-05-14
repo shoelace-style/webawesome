@@ -10,3 +10,4 @@ export { default as ThemeCard } from './theme-card.js';
 export { default as UiPanelContainer } from './ui-panel-container.js';
 export { default as UiPanel } from './ui-panel.js';
 export { default as UiScrollable } from './ui-scrollable.js';
+export { default as UiSlider } from './ui-slider.js';

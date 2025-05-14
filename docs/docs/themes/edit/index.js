@@ -21,6 +21,7 @@ import {
   ThemeCard,
   UiPanel,
   UiPanelContainer,
+  UiSlider,
 } from '/assets/vue/components/index.js';
 import content from '/assets/vue/directives/content.js';
 import savedMixin from '/assets/vue/mixins/saved.js';
@@ -261,6 +262,7 @@ let appSpec = {
     UiPanel,
     UiPanelContainer,
     SwatchSelect,
+    UiSlider,
   },
 
   directives: { content },
