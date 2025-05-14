@@ -167,10 +167,10 @@ wa-card wa-icon.angle-right {
   }
 
   .corner,
-  .borders,
-  .spacing div {
+  .borders {
+    --border-color: var(--wa-color-border-normal);
     background-color: var(--wa-color-fill-quiet);
-    border-color: var(--wa-color-border-normal);
+    border-color: var(--border-color, var(--wa-color-border-normal));
     border-style: solid;
     border-width: var(--border-width, var(--wa-border-width-m));
 
@@ -187,17 +187,40 @@ wa-card wa-icon.angle-right {
 
   .spacing {
     display: grid;
-    width:
-    grid-template-columns: 2fr 1fr;
+
+    grid-template-columns: 3fr 2fr;
     gap: calc(2px + var(--spacing) * 2px);
+    border-radius: 2px;
 
     div {
       padding: calc(2px + var(--spacing) * 1px);
+      border-radius: inherit;
+      background-color: var(--wa-color-border-quiet);
     }
 
     div:nth-child(3) {
       grid-column: 2;
       grid-row: 1 / 3;
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    .corner,
+    .borders {
+      --border-color: var(--wa-color-brand);
+    }
+
+    .spacing {
+      background-color: lab(from var(--wa-color-brand) l a b / 10%);
+
+      &:is(wa-button:hover *) {
+        background-color: lab(from var(--wa-color-brand) l a b / 15%);
+
+        div {
+          background-color: var(--wa-color-border-normal);
+        }
+      }
     }
   }
 }
