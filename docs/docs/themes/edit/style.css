@@ -1,7 +1,7 @@
 @import url('/assets/styles/theme-icons.css');
 @import url('/assets/vue/components/panel.css');
 @import url('/assets/vue/components/scrollable.css');
-
+@import url('/assets/vue/components/ui-slider.css');
 :root {
   --ui-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
 }
@@ -156,4 +156,48 @@ wa-card wa-icon.angle-right {
   align-self: center;
   font-size: var(--wa-font-size-l);
   color: var(--wa-color-text-quiet);
+}
+
+.ui-slider {
+  .corner,
+  .borders,
+  .spacing {
+    aspect-ratio: 1;
+    width: max(var(--wa-font-size-l), var(--wa-border-radius-l) * 1.25);
+  }
+
+  .corner,
+  .borders,
+  .spacing div {
+    background-color: var(--wa-color-fill-quiet);
+    border-color: var(--wa-color-border-normal);
+    border-style: solid;
+    border-width: var(--border-width, var(--wa-border-width-m));
+
+    &:is(wa-button:hover *) {
+      background-color: var(--wa-color-fill-normal);
+    }
+  }
+
+  .corner {
+    border-bottom: none;
+    border-left: none;
+    border-top-right-radius: var(--border-radius);
+  }
+
+  .spacing {
+    display: grid;
+    width:
+    grid-template-columns: 2fr 1fr;
+    gap: calc(2px + var(--spacing) * 2px);
+
+    div {
+      padding: calc(2px + var(--spacing) * 1px);
+    }
+
+    div:nth-child(3) {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+  }
 }

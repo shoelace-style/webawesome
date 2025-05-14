@@ -159,9 +159,31 @@ unlisted: true
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
-      <wa-slider label="Spacing" :min="0.5" :max="1.5" :step="0.125" :value="computed.spacing" @input="e => theme.spacing = e.target.value"></wa-slider>
-      <wa-slider label="Rounding" :min="0" :max="2" :step="0.125" :value="computed.rounding" @input="e => theme.rounding = e.target.value"></wa-slider>
-      <wa-slider label="Border Width" :min="0.5" :max="3" :step="0.5" :value="computed.borderWidth" @input="e => theme.borderWidth = e.target.value"></wa-slider>
+      <ui-slider label="Rounding" :min="0" :max="2" :step="0.125" :model-value="computed.rounding" @update:model-value="value => theme.rounding = value">
+        <template #min>
+          <div class="corner" style="--border-radius: 0;"></div>
+        </template>
+        <template #max>
+          <div class="corner" style="--border-radius: var(--wa-border-radius-l);"></div>
+        </template>
+      </ui-slider>
+      <ui-slider label="Spacing" :min="0.5" :max="1.5" :step="0.125" :model-value="computed.spacing" @update:model-value="value => theme.spacing = value">
+        <template #min>
+          <div class="spacing" style="--spacing: 0.5;"><div></div><div></div><div></div></div>
+        </template>
+        <template #max>
+          <div class="spacing" style="--spacing: 1.5;"><div></div><div></div><div></div></div>
+        </template>
+      </ui-slider>
+
+      <ui-slider label="Border thickness" :min="0.5" :max="3" :step="0.5" :model-value="computed.borderWidth" @update:model-value="value => theme.borderWidth = value">
+        <template #min>
+          <div class="borders" style="--border-width: 1px;"></div>
+        </template>
+        <template #max>
+          <div class="borders" style="--border-width: var(--wa-border-width-l);"></div>
+        </template>
+      </ui-slider>
 
       <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
     </ui-panel>
