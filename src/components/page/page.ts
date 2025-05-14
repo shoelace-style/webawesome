@@ -199,24 +199,22 @@ export default class WaPage extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     this.pageResizeObserver.observe(this);
 
-    const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]";
-
-    // check once on initial connect
-    // eslint-disable-next-line
-    this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
-
-    setTimeout(() => {
+    // Wait a cycle for the initial update to complete
+    requestAnimationFrame(() => {
       this.headerResizeObserver.observe(this.header);
       this.subheaderResizeObserver.observe(this.subheader);
       this.bannerResizeObserver.observe(this.banner);
       this.footerResizeObserver.observe(this.footer);
 
-      // Check again when the element updates
-      // eslint-disable-next-line
-      this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
+      if (this.hasAttribute('disable-navigation-toggle')) {
+        this.disableNavigationToggle = true;
+      } else {
+        // Otherwise, use auto-detection again
+        const navQuery = ":not([slot='toggle-navigation']) [data-toggle-nav]";
+        this.disableNavigationToggle = Boolean(this.querySelector(navQuery));
+      }
     });
   }
 

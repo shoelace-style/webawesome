@@ -21,6 +21,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
 - Fixed a bug in `<wa-select>` that caused the listbox to now show after being disabled
 - Fixed a bug in `<wa-radio-group>` that prevented radio buttons from validating
+- Fixed a bug in `<wa-page>` that caused the nav toggle to show even when using `disable-navigation-toggle` 
 - Improved native radio alignment
 - Improved the `.wa-cloak` utility class so all FOUCE-related solutions are 100% opt-in
 
