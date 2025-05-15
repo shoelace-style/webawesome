@@ -201,8 +201,9 @@ export default class WaPage extends WebAwesomeElement {
     super.connectedCallback();
     this.pageResizeObserver.observe(this);
 
-    // Wait a cycle for the initial update to complete
-    requestAnimationFrame(() => {
+    // Wait a cycle for the initial update to complete. We use `setTimeout` intentionally to ensure DOM children also
+    // have a chance to update.
+    setTimeout(() => {
       this.headerResizeObserver.observe(this.header);
       this.subheaderResizeObserver.observe(this.subheader);
       this.bannerResizeObserver.observe(this.banner);
