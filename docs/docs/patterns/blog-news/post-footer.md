@@ -108,7 +108,7 @@ tags:
 
 ```html {.example}
 <div class="wa-stack" style="text-align: center;">
-  <div class="wa-stack">
+  <div class="wa-stack wa-gap-2xl">
     <h3 class="wa-heading-xl">Don't forget to share this post!</h3>
     <div class="wa-cluster" style="justify-content: center;">
       <span class="wa-align-items-center wa-stack wa-gap-2xs">
@@ -156,12 +156,12 @@ tags:
       </span>
     </div>
   </div>
-  <div>
-    <wa-divider></wa-divider>
+  <wa-divider></wa-divider>
+  <div class="wa-stack">
     <h3 class="wa-heading-xl">Related Articles</h3>
     <wa-carousel navigation pagination slides-per-page="3" slides-per-move="3" style="--aspect-ratio: initial">
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
@@ -182,7 +182,7 @@ tags:
         </a>
       </wa-carousel-item>
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
@@ -203,7 +203,7 @@ tags:
         </a>
       </wa-carousel-item>
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
@@ -224,7 +224,7 @@ tags:
         </a>
       </wa-carousel-item>
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
@@ -245,7 +245,7 @@ tags:
         </a>
       </wa-carousel-item>
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
@@ -266,7 +266,7 @@ tags:
         </a>
       </wa-carousel-item>
       <wa-carousel-item>
-        <a href="#">
+        <a href="#" class="wa-link-plain">
           <wa-card with-image>
             <div class="wa-frame:landscape" slot="image">
               <img
