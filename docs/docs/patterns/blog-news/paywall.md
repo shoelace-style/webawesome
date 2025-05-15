@@ -32,7 +32,7 @@ tags: blog-news
 ## Modal
 
 ```html {.example viewport}
-<wa-dialog label="Dialog" class="dialog-deny-close" style="--width: 90ch;" open>
+<wa-dialog without-header label="Subscribe or continue with ads" class="dialog-deny-close" style="--width: 90ch;" open>
   <div class="wa-stack wa-gap-xl">
     <h2 class="wa-heading-m">Want to subscribe or continue using our Products for free with ads?</h2>
     <p>
@@ -60,12 +60,29 @@ tags: blog-news
     </div>
   </div>
 </wa-dialog>
+<script>
+  const dialog = document.querySelector('.dialog-deny-close');
+
+  // Prevent the dialog from closing
+  dialog.addEventListener('wa-hide', event => {
+    if (event.detail.source.hasAttribute('open')) {
+      event.preventDefault();
+    }
+  });
+</script>
 ```
 
 ## Footer
 
 ```html {.example viewport}
-<wa-drawer label="Drawer" placement="bottom" class="drawer-placement-bottom" style="--size: 21rem;" open>
+<wa-drawer
+  without-header
+  label="Free article limit reached"
+  placement="bottom"
+  class="drawer-placement-bottom"
+  style="--size: 21rem;"
+  open
+>
   <div>
     <h2 class="wa-heading-m">You've hit your free article limit.</h2>
     <wa-divider></wa-divider>
@@ -91,4 +108,14 @@ tags: blog-news
     </div>
   </div>
 </wa-drawer>
+<script>
+  const drawer = document.querySelector('.drawer-placement-bottom');
+
+  // Prevent the drawer from closing
+  drawer.addEventListener('wa-hide', event => {
+    if (event.detail.source.hasAttribute('open')) {
+      event.preventDefault();
+    }
+  });
+</script>
 ```
