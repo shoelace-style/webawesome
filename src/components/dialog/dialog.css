@@ -63,7 +63,7 @@
   }
 }
 
-.dialog--open {
+.open {
   display: flex;
   opacity: 1;
 }
@@ -128,9 +128,9 @@
 
 .dialog::backdrop {
   /*
-      NOTE: the ::backdrop element doesn't inherit properly in Safari yet, but it will in 17.4! At that time, we can
-      remove the fallback values here.
-    */
+    NOTE: the ::backdrop element doesn't inherit properly in Safari yet, but it will in 17.4! At that time, we can
+    remove the fallback values here.
+  */
   background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
 }
 
