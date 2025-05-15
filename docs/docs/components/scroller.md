@@ -2,6 +2,8 @@
 title: Scroller
 description: Scrollers create an accessible container while providing visual cues that help users identify and navigate through content that scrolls.
 layout: component
+tags: [organization]
+icon: scroller
 ---
 
 ```html {.example}
