@@ -1,5 +1,6 @@
 *.hbs
 *.md
+docs/docs/patterns/blog-news/post-list.md
 !docs/docs/patterns/**/*.md
 .cache
 .github
