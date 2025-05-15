@@ -33,7 +33,7 @@
    * Shadows
    */
   --wa-shadow-blur-scale: 0;
-  --wa-shadow-offset-x-scale: 4;
+  --wa-shadow-offset-x-scale: var(--wa-shadow-offset-y-scale);
   --wa-shadow-offset-y-scale: 4;
 
   /**
