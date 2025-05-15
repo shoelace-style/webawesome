@@ -11,8 +11,8 @@ tags: blog-news
 <wa-card style="max-width: 45ch; margin: 0 auto">
   <div class="wa-stack">
     <h2 class="wa-heading-m">Sign up with Email</h2>
-    <p>Let's get your account started. Enter your email below</p>
-    <wa-input placeholder="email" type="email"></wa-input>
+    <p>Let's get your account started. Enter your email below.</p>
+    <wa-input label="Email" type="email"></wa-input>
     <wa-button>Continue</wa-button>
     <p class="wa-caption-s">By clicking continue, you agree to our <a href="#">Terms of Service</a></p>
   </div>
@@ -25,8 +25,8 @@ tags: blog-news
 <wa-card style="max-width: 45ch; margin: 0 auto">
   <div class="wa-stack">
     <h2 class="wa-heading-m">Login</h2>
-    <wa-input placeholder="email" type="email"></wa-input>
-    <wa-input placeholder="password" type="password"></wa-input>
+    <wa-input label="Email" type="email"></wa-input>
+    <wa-input label="Password" type="password"></wa-input>
     <a href="#">Having trouble signing in?</a>
     <wa-button>Sign in</wa-button>
   </div>
@@ -39,8 +39,8 @@ tags: blog-news
 <wa-card style="max-width: 45ch; margin: 0 auto">
   <div class="wa-stack">
     <h2 class="wa-heading-m">Login</h2>
-    <wa-input placeholder="email" type="email"></wa-input>
-    <wa-input placeholder="password" type="password"></wa-input>
+    <wa-input label="Email" type="email"></wa-input>
+    <wa-input label="Password" type="password"></wa-input>
     <a href="#">Having trouble signing in?</a>
     <wa-button>Sign in</wa-button>
     <wa-divider></wa-divider>
