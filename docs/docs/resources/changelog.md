@@ -16,6 +16,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content
 - 🚨 BREAKING:  Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
+- Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
 - Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
 - Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
 - Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
