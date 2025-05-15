@@ -10,55 +10,61 @@ tags:
 ```html {.example}
 <div class="wa-align-items-start wa-flank:end wa-gap-3xl" style="--flank-size: 40ch;">
   <div class="wa-stack">
-    <span class="wa-heading-s">More in <a href="#">Politics</a></span>
+    <span class="wa-heading-s">More in <a href="#" class="wa-link-plain">Politics</a></span>
     <div class="wa-grid">
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1580128637215-659d70729ad0?q=80&w=4637&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">FDR: The President Who Redefined American Leadership</span>
       </a>
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1719310215903-c39aaf139746?q=80&w=3520&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">The Rise of Populism: Global Trends and Local Consequences</span>
       </a>
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1587315214098-b132e659dda9?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">From Ballots to Blockchain: The Future of Voting Technology</span>
       </a>
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1631540698890-6bfd5d47671a?q=80&w=4000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">Why Every Vote Matters in a Democracy</span>
       </a>
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1681810553931-39b5bc2acf3d?q=80&w=3536&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">Power and Policy: How Political Agendas Shape Our Everyday Lives</span>
       </a>
-      <a href="#" class="wa-stack wa-gap-xs">
+      <a href="#" class="wa-stack wa-gap-xs wa-link-plain">
         <div class="wa-frame">
           <img
             src="https://images.unsplash.com/photo-1681810546872-0f0e6eea6206?q=80&w=3617&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
         </div>
-        <span class="wa-heading-m"> FDR: The President Who Redefined American Leadership </span>
+        <span class="wa-heading-m">Digital Democracy or Data Dystopia? Politics in the Age of Social Media</span>
       </a>
     </div>
   </div>
@@ -66,29 +72,29 @@ tags:
     <span class="wa-heading-s">Top Stories</span>
     <ul style="list-style-type: none;">
       <li>
-        <a href="#" class="wa-stack wa-gap-2xs">
+        <a href="#" class="wa-stack wa-gap-2xs wa-link-plain">
           <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
           <h1 class="wa-heading-l">Why We Love Getting Lost: The Psychology of Wandering</h1>
         </a>
         <wa-divider></wa-divider>
       </li>
       <li>
-        <a href="#" class="wa-stack wa-gap-2xs">
-          <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+        <a href="#" class="wa-stack wa-gap-2xs wa-link-plain">
+          <wa-format-date month="long" day="numeric" date="2020-07-08T09:17:00-04:00"></wa-format-date>
           <h1 class="wa-heading-l">You’ve Been Scrolling for Hours: What Doomscrolling Does to Your Brain</h1>
         </a>
         <wa-divider></wa-divider>
       </li>
       <li>
-        <a href="#" class="wa-stack wa-gap-2xs">
-          <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+        <a href="#" class="wa-stack wa-gap-2xs wa-link-plain">
+          <wa-format-date month="long" day="numeric" date="2020-06-10T09:17:00-04:00"></wa-format-date>
           <h1 class="wa-heading-l">The Salt Myth: What We Get Wrong About Flavor</h1>
         </a>
         <wa-divider></wa-divider>
       </li>
       <li>
-        <a href="#" class="wa-stack wa-gap-2xs">
-          <wa-format-date month="long" day="numeric" date="2020-07-15T09:17:00-04:00"></wa-format-date>
+        <a href="#" class="wa-stack wa-gap-2xs wa-link-plain">
+          <wa-format-date month="long" day="numeric" date="2020-05-09T09:17:00-04:00"></wa-format-date>
           <h1 class="wa-heading-l">Night Owls Unite: The Secret Productivity of the Late-Night Mind</h1>
         </a>
         <wa-divider></wa-divider>
@@ -103,7 +109,7 @@ tags:
 ```html {.example}
 <div class="wa-stack" style="text-align: center;">
   <div class="wa-stack">
-    <h3>Don't forget to share this post!</h3>
+    <h3 class="wa-heading-xl">Don't forget to share this post!</h3>
     <div class="wa-cluster" style="justify-content: center;">
       <span class="wa-align-items-center wa-stack wa-gap-2xs">
         <wa-icon-button
