@@ -30,7 +30,10 @@ isPro: true
     </div>
     <div class="wa-flank wa-align-items-start" style="--flank-size: 20ch;">
       <dt>About</dt>
-      <dd>After being lost in action and brainwashed into becoming Hydra's ruthless assassin, my journey is one of redemption, healing, and reclaiming my true self. Though burdened with the weight of the past, I remain a fierce warrior, loyal to those I love, and I'm always striving to atone for those dark days as the Winter Soldier.
+      <dd>
+        After being lost in action and brainwashed into becoming Hydra's ruthless assassin, my journey is one of
+        redemption, healing, and reclaiming my true self. Though burdened with the weight of the past, I remain a fierce
+        warrior, loyal to those I love, and I'm always striving to atone for those dark days as the Winter Soldier.
       </dd>
     </div>
     <div class="wa-flank wa-align-items-start" style="--flank-size: 20ch;">
@@ -169,7 +172,12 @@ isPro: true
     <div class="wa-flank wa-align-items-start" style="--flank-size: 20ch;">
       <dt>About</dt>
       <div class="wa-flank:end">
-        <dd>After being lost in action and brainwashed into becoming Hydra's ruthless assassin, my journey is one of redemption, healing, and reclaiming my true self. Though burdened with the weight of the past, I remain a fierce warrior, loyal to those I love, and I'm always striving to atone for those dark days as the Winter Soldier.</dd>
+        <dd>
+          After being lost in action and brainwashed into becoming Hydra's ruthless assassin, my journey is one of
+          redemption, healing, and reclaiming my true self. Though burdened with the weight of the past, I remain a
+          fierce warrior, loyal to those I love, and I'm always striving to atone for those dark days as the Winter
+          Soldier.
+        </dd>
         <wa-button appearance="plain" variant="brand" size="small">Edit</wa-button>
       </div>
     </div>

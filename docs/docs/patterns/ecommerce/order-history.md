@@ -31,17 +31,17 @@ isPro: true
   <wa-divider></wa-divider>
   <div class="wa-flank" style="--flank-size: 12rem">
     <div class="wa-frame wa-border-radius-s" style="aspect-ratio: 3 / 2">
-      <img
-        src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg"
-        alt=""
-      />
+      <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" alt="" />
     </div>
     <div class="wa-stack">
       <div class="wa-split">
         <span><strong>Dome Light Fixtures</strong></span>
         <span><strong>$215.00</strong></span>
       </div>
-      <p class="wa-caption-m">Illuminate your space with elegance and style with stunning Dome Light Fixtures. The shape of these lights complements both modern and traditional interiors.</p>
+      <p class="wa-caption-m">
+        Illuminate your space with elegance and style with stunning Dome Light Fixtures. The shape of these lights
+        complements both modern and traditional interiors.
+      </p>
       <div class="wa-split">
         <wa-badge appearance="filled" variant="success">Delivered</wa-badge>
         <div class="wa-cluster">
@@ -54,17 +54,17 @@ isPro: true
   <wa-divider></wa-divider>
   <div class="wa-flank" style="--flank-size: 12rem">
     <div class="wa-frame wa-border-radius-s" style="aspect-ratio: 3 / 2">
-      <img
-        src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg"
-        alt=""
-      />
+      <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" alt="" />
     </div>
     <div class="wa-stack">
       <div class="wa-split">
         <span><strong>Reading Chair</strong></span>
         <span><strong>$115.00</strong></span>
       </div>
-      <p class="wa-caption-m">Add a pop of color and a touch of elegance to any room with our Reading Chair featuring vibrant yellow fabric upholstery.</p>
+      <p class="wa-caption-m">
+        Add a pop of color and a touch of elegance to any room with our Reading Chair featuring vibrant yellow fabric
+        upholstery.
+      </p>
       <div class="wa-split">
         <wa-badge appearance="filled" variant="brand">Out for delivery</wa-badge>
         <div class="wa-cluster">
@@ -77,17 +77,17 @@ isPro: true
   <wa-divider></wa-divider>
   <div class="wa-flank" style="--flank-size: 12rem">
     <div class="wa-frame wa-border-radius-s" style="aspect-ratio: 3 / 2">
-      <img
-        src="https://img.fortawesome.com/cfa83f3c/sofa.jpg"
-        alt=""
-      />
+      <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" alt="" />
     </div>
     <div class="wa-stack">
       <div class="wa-split">
         <span><strong>Custom Sofa</strong></span>
         <span><strong>$260.00</strong></span>
       </div>
-      <p class="wa-caption-m">Experience luxury and comfort like never before with our Custom Sofa, designed to elevate any living space. This sofa features exquisite velvet upholstery for an air of sophistication.</p>
+      <p class="wa-caption-m">
+        Experience luxury and comfort like never before with our Custom Sofa, designed to elevate any living space. This
+        sofa features exquisite velvet upholstery for an air of sophistication.
+      </p>
       <div class="wa-split">
         <wa-badge appearance="filled" variant="neutral">Preparing to ship</wa-badge>
         <div class="wa-cluster">
@@ -139,10 +139,7 @@ isPro: true
         <td>
           <div class="wa-cluster wa-align-items-start">
             <div class="wa-frame:landscape wa-border-radius-s" style="max-width: 8rem">
-              <img
-                src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg"
-                alt=""
-              />
+              <img src="https://img.fortawesome.com/cfa83f3c/light-fixtures.jpg" alt="" />
             </div>
             <span>Dome Light Fixtures</span>
           </div>
@@ -155,10 +152,7 @@ isPro: true
         <td>
           <div class="wa-cluster wa-align-items-start">
             <div class="wa-frame:landscape wa-border-radius-s" style="max-width: 8rem">
-              <img
-                src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg"
-                alt=""
-              />
+              <img src="https://img.fortawesome.com/cfa83f3c/modern-chair.jpg" alt="" />
             </div>
             <span>Reading Chair</span>
           </div>
@@ -171,10 +165,7 @@ isPro: true
         <td>
           <div class="wa-cluster wa-align-items-start">
             <div class="wa-frame:landscape wa-border-radius-s" style="max-width: 8rem">
-              <img
-                src="https://img.fortawesome.com/cfa83f3c/sofa.jpg"
-                alt=""
-              />
+              <img src="https://img.fortawesome.com/cfa83f3c/sofa.jpg" alt="" />
             </div>
             <span>Custom Sofa</span>
           </div>
@@ -187,15 +178,17 @@ isPro: true
   </table>
 </div>
 ```
+
 ## Card separated
-```html{.example}
+
+```html {.example}
 <div class="wa-stack" style="max-width: 60ch; margin: 0 auto;">
   <wa-card>
     <div class="wa-flank:end">
       <div class="wa-stack">
         <div class="wa-cluster wa-gap-xs">
           <wa-avatar shape="rounded" label="Avatar with an image icon">
-            <wa-icon slot="icon"family="brands" name="amazon"></wa-icon>
+            <wa-icon slot="icon" family="brands" name="amazon"></wa-icon>
           </wa-avatar>
           <span class="wa-heading-s">Amazon</span>
         </div>
@@ -205,7 +198,9 @@ isPro: true
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
-        <img src="https://images.unsplash.com/photo-1589810635657-232948472d98?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img
+          src="https://images.unsplash.com/photo-1589810635657-232948472d98?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
       </div>
     </div>
   </wa-card>
@@ -224,7 +219,9 @@ isPro: true
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
-        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img
+          src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
       </div>
     </div>
   </wa-card>
@@ -233,7 +230,7 @@ isPro: true
       <div class="wa-stack">
         <div class="wa-cluster wa-gap-xs">
           <wa-avatar shape="rounded" label="Avatar with an image icon">
-            <wa-icon slot="icon"  variant="duotone" name="gamepad-modern"></wa-icon>
+            <wa-icon slot="icon" variant="duotone" name="gamepad-modern"></wa-icon>
           </wa-avatar>
           <span class="wa-heading-s">Game Theory</span>
         </div>
@@ -243,7 +240,9 @@ isPro: true
         </div>
       </div>
       <div class="wa-frame wa-border-radius-m" style="max-width: 6rem;">
-        <img src="https://images.unsplash.com/photo-1627421383054-488d9c9828f5?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img
+          src="https://images.unsplash.com/photo-1627421383054-488d9c9828f5?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
       </div>
     </div>
   </wa-card>

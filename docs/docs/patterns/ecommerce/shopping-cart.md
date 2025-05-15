@@ -142,7 +142,9 @@ isPro: true
           <h3 class="wa-heading-m">Racers (3 Pack)</h3>
           <span>$80.00</span>
         </span>
-        <wa-tag size="small" variant="neutral" appearance="filled" pill style="width: fit-content">Assorted Colors</wa-tag>
+        <wa-tag size="small" variant="neutral" appearance="filled" pill style="width: fit-content"
+          >Assorted Colors</wa-tag
+        >
       </div>
       <div class="wa-split">
         <wa-badge appearance="filled" variant="success">In Stock</wa-badge>

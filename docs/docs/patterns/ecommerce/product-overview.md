@@ -10,7 +10,11 @@ isPro: true
 <div class="wa-grid wa-gap-2xl">
   <div class="wa-stack wa-gap-2xl">
     <h2>San Ignacio Pache</h2>
-    <p>A smooth, balanced Arabica varietal, grown and roasted on the Guerrero family's farm. Rich caramel and malt flavors blend with bright citrus for a complex brew suitable for drip, pour over, espresso, or however you take your coffee.</p>
+    <p>
+      A smooth, balanced Arabica varietal, grown and roasted on the Guerrero family's farm. Rich caramel and malt
+      flavors blend with bright citrus for a complex brew suitable for drip, pour over, espresso, or however you take
+      your coffee.
+    </p>
     <div class="wa-stack">
       <wa-select label="Bag Size" value="12oz">
         <wa-option value="12oz">12 oz &ndash; $19.95</wa-option>
@@ -95,27 +99,31 @@ isPro: true
   </wa-breadcrumb>
   <div class="wa-grid wa-gap-xs" style="--min-column-size: 10ch">
     <div class="wa-frame" style="height: 100%; width: 100%">
-      <img class="wa-border-radius-s"
+      <img
+        class="wa-border-radius-s"
         src="https://images.unsplash.com/photo-1614792568992-ded1c487c1dd?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="(Photograph by Patrick Perkins)"
       />
     </div>
     <div class="wa-grid wa-gap-xs">
       <div class="wa-frame" style="aspect-ratio: 3 / 2">
-        <img class="wa-border-radius-s"
+        <img
+          class="wa-border-radius-s"
           src="https://images.unsplash.com/photo-1614725078749-29c421fd0e51?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="(Photograph by Patrick Perkins)"
         />
       </div>
       <div class="wa-frame" style="aspect-ratio: 3 / 2">
-        <img class="wa-border-radius-s"
+        <img
+          class="wa-border-radius-s"
           src="https://images.unsplash.com/photo-1614725808713-e6bbe418fc5d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="(Photograph by Patrick Perkins)"
         />
       </div>
     </div>
     <div class="wa-frame" style="height: 100%; width: 100%">
-      <img class="wa-border-radius-s"
+      <img
+        class="wa-border-radius-s"
         src="https://images.unsplash.com/photo-1614725078379-9d1330a08c95?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="(Photograph by Patrick Perkins)"
       />
@@ -131,10 +139,16 @@ isPro: true
         <wa-rating label="Rating" readonly value="3.5"></wa-rating>
         <a href="">117 Reviews</a>
       </div>
-      <p>Made with a breathable, stretchy fabric blend for unparalleled comfort and flattering style. Pairs perfectly with your favorite high-waisted jeans for lazy summer weekends or lively nights out.</p>
+      <p>
+        Made with a breathable, stretchy fabric blend for unparalleled comfort and flattering style. Pairs perfectly
+        with your favorite high-waisted jeans for lazy summer weekends or lively nights out.
+      </p>
       <div class="wa-stack wa-gap-xs">
         <h3 class="wa-heading-xs">Good to Know</h3>
-        <p class="wa-body-xs">95% cotton, 5% elastane. Our tops are pre-shrunk to ensure a consistent fit with no surprises. Machine wash cold. Tumble dry low.</p>
+        <p class="wa-body-xs">
+          95% cotton, 5% elastane. Our tops are pre-shrunk to ensure a consistent fit with no surprises. Machine wash
+          cold. Tumble dry low.
+        </p>
       </div>
     </div>
     <div class="wa-stack">
@@ -183,16 +197,19 @@ isPro: true
   </wa-breadcrumb>
   <div class="wa-grid wa-gap-2xl" style="--min-column-size: 35ch">
     <div class="wa-stack wa-gap-xs">
-      <img class="wa-border-radius-s"
+      <img
+        class="wa-border-radius-s"
         src="https://images.unsplash.com/photo-1630643583573-c68623718072?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="(Photograph by Gervyn Louis)"
       />
       <div class="wa-grid wa-gap-xs" style="--min-column-size: 0ch">
-        <img class="wa-border-radius-s"
+        <img
+          class="wa-border-radius-s"
           src="https://images.unsplash.com/photo-1571666274590-f8cc87006500?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="(Photograph by Gervyn Louis)"
         />
-        <img class="wa-border-radius-s"
+        <img
+          class="wa-border-radius-s"
           src="https://images.unsplash.com/photo-1630643591760-a6ed60ef499f?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="(Photograph by Gervyn Louis)"
         />
@@ -233,7 +250,11 @@ isPro: true
       </wa-button>
       <wa-divider></wa-divider>
       <h3 class="wa-heading-s">Description</h3>
-      <p>Stay cool, <em>slay</em> cool. Train hard and recover in style with this ultra-breathable cutoff tee. Made from 100% organic, quick-drying cotton to keep the air flowing whether you're lifting, sprinting, or crushing HIIT sessions.</p>
+      <p>
+        Stay cool, <em>slay</em> cool. Train hard and recover in style with this ultra-breathable cutoff tee. Made from
+        100% organic, quick-drying cotton to keep the air flowing whether you're lifting, sprinting, or crushing HIIT
+        sessions.
+      </p>
       <wa-divider></wa-divider>
       <h3 class="wa-heading-s">Highlights</h3>
       <div class="wa-grid">
@@ -241,7 +262,9 @@ isPro: true
           <div class="wa-stack">
             <wa-icon name="hand-holding-heart"></wa-icon>
             <h4 class="wa-heading-s">People and Planet First</h4>
-            <p class="wa-caption-m">Ethical production, fair wages, and sustainable materials empower every part of our supply chain.</p>
+            <p class="wa-caption-m">
+              Ethical production, fair wages, and sustainable materials empower every part of our supply chain.
+            </p>
           </div>
         </wa-card>
         <wa-card>
@@ -301,7 +324,10 @@ isPro: true
         <span class="wa-body-xl">$140</span>
       </div>
       <wa-rating label="Rating" precision="0.5" value="4.5" readonly></wa-rating>
-      <p>Wrap yourself in warmth and effortless style with this wool knit Pullover Sweater. Designed for unparalleled comfort. The relaxed fit and classic crew neckline make it a versatile staple for layering or wearing solo.</p>
+      <p>
+        Wrap yourself in warmth and effortless style with this wool knit Pullover Sweater. Designed for unparalleled
+        comfort. The relaxed fit and classic crew neckline make it a versatile staple for layering or wearing solo.
+      </p>
       <wa-radio-group label="Color" name="color" value="sand" orientation="horizontal">
         <wa-radio-button value="sand">
           <wa-icon slot="prefix" name="circle" style="color: burlywood;"></wa-icon>
@@ -353,13 +379,13 @@ isPro: true
 </div>
 ```
 
-
 ## With Tabs
 
 ```html {.example}
 <div class="wa-flank:end wa-align-items-start wa-gap-2xl" style="--flank-size: 30ch">
   <div class="wa-stack">
-    <img class="wa-border-radius-l"
+    <img
+      class="wa-border-radius-l"
       src="https://img.fortawesome.com/cfa83f3c/icon-grid-wallpaper.png"
       alt="Sample of 48 line-style icons"
     />
@@ -367,16 +393,29 @@ isPro: true
       <wa-tab panel="license">License</wa-tab>
       <wa-tab panel="faq">FAQ</wa-tab>
       <wa-tab-panel name="license">
-        <p class="wa-body-s">Your purchase includes a perpetual Font Awesome Pro License to use Classic Light icons on unlimited projects. <a href="">Read the full license terms.</a></p>
+        <p class="wa-body-s">
+          Your purchase includes a perpetual Font Awesome Pro License to use Classic Light icons on unlimited projects.
+          <a href="">Read the full license terms.</a>
+        </p>
       </wa-tab-panel>
       <wa-tab-panel name="faq">
         <dl class="wa-stack wa-body-s">
           <dt>Do I need to renew my subscription to receive fixes?</dt>
-          <dd>We split up Font Awesome releases into regular updates and bug-fix updates. With a Font Awesome Pro plan that has a perpetual license, you'll always be entitled to bug-fix updates for your last version, even after your subscription has expired.</dd>
+          <dd>
+            We split up Font Awesome releases into regular updates and bug-fix updates. With a Font Awesome Pro plan
+            that has a perpetual license, you'll always be entitled to bug-fix updates for your last version, even after
+            your subscription has expired.
+          </dd>
           <dt>Can I use Font Awesome Pro in themes, plug-ins, or open source projects?</dt>
-          <dd>For themes and open source projects, right now it's best to just use Font Awesome Free. We are working a better solution, so feel free to get in touch if you have thoughts.</dd>
+          <dd>
+            For themes and open source projects, right now it's best to just use Font Awesome Free. We are working a
+            better solution, so feel free to get in touch if you have thoughts.
+          </dd>
           <dt>Do you offer enterprise licenses for Font Awesome Pro?</dt>
-          <dd>We don't currently offer Enterprise-level licenses, but we may do so in the future. Get in touch if interested.</dd>
+          <dd>
+            We don't currently offer Enterprise-level licenses, but we may do so in the future. Get in touch if
+            interested.
+          </dd>
         </dl>
       </wa-tab-panel>
     </wa-tab-group>
@@ -395,36 +434,36 @@ isPro: true
     </wa-button>
     <wa-divider></wa-divider>
     <h3 class="wa-heading-m">What's in the Pack</h3>
-      <ul class="wa-stack wa-gap-xs">
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>3,323 icons</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>Pre-bundled Font Awesome kit</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>Ligature-based desktop font files</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>Individual SVGs + SVG sprites</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>Web fonts + SVG framework</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>SCSS/LESS CSS preprocessor files</span>
-        </li>
-        <li class="wa-flank">
-          <wa-icon name="badge-check"></wa-icon>
-          <span>Perpetual Pro license</span>
-        </li>
-      </ul>
+    <ul class="wa-stack wa-gap-xs">
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>3,323 icons</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>Pre-bundled Font Awesome kit</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>Ligature-based desktop font files</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>Individual SVGs + SVG sprites</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>Web fonts + SVG framework</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>SCSS/LESS CSS preprocessor files</span>
+      </li>
+      <li class="wa-flank">
+        <wa-icon name="badge-check"></wa-icon>
+        <span>Perpetual Pro license</span>
+      </li>
+    </ul>
   </div>
 </div>
 ```

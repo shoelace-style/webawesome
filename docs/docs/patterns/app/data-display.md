@@ -4,8 +4,8 @@ description: 'Convey insights, metrics, and aggregate data at a glance.'
 isPro: true
 ---
 
-
 ## Simple
+
 ```html {.example}
 <wa-card>
   <div class="wa-grid wa-gap-3xl" style="--min-column-size: 24ch;">
@@ -20,8 +20,13 @@ isPro: true
           <wa-format-number class="wa-heading-s" type="percent" value=".475"></wa-format-number>
         </div>
       </div>
-      <wa-format-number class="wa-heading-xl" type="currency" currency="USD" value="175000000" lang="en-US"></wa-format-number>
-
+      <wa-format-number
+        class="wa-heading-xl"
+        type="currency"
+        currency="USD"
+        value="175000000"
+        lang="en-US"
+      ></wa-format-number>
     </div>
     <div class="wa-stack">
       <div class="wa-split">
@@ -29,12 +34,19 @@ isPro: true
           <wa-icon name="credit-card"></wa-icon>
           <span>Expenses</span>
         </div>
-         <div class="wa-cluster wa-gap-xs" style="color: var(--wa-color-red);">
+        <div class="wa-cluster wa-gap-xs" style="color: var(--wa-color-red);">
           <wa-icon name="arrow-trend-down"></wa-icon>
           <wa-format-number class="wa-heading-s" type="percent" value=".27"></wa-format-number>
         </div>
       </div>
-      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="289472" lang="en-US"></wa-format-number>
+      <wa-format-number
+        class="wa-heading-xl"
+        class="wa-heading-xl"
+        type="currency"
+        currency="USD"
+        value="289472"
+        lang="en-US"
+      ></wa-format-number>
     </div>
     <div class="wa-stack">
       <div class="wa-split">
@@ -47,7 +59,14 @@ isPro: true
           <wa-format-number class="wa-heading-s" type="percent" value=".14"></wa-format-number>
         </div>
       </div>
-      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="569213" lang="en-US"></wa-format-number>
+      <wa-format-number
+        class="wa-heading-xl"
+        class="wa-heading-xl"
+        type="currency"
+        currency="USD"
+        value="569213"
+        lang="en-US"
+      ></wa-format-number>
     </div>
     <div class="wa-stack">
       <div class="wa-split">
@@ -56,19 +75,27 @@ isPro: true
           <span>Mortgages & Loans</span>
         </div>
       </div>
-      <wa-format-number class="wa-heading-xl" class="wa-heading-xl" type="currency" currency="USD" value="23904" lang="en-US"></wa-format-number>
+      <wa-format-number
+        class="wa-heading-xl"
+        class="wa-heading-xl"
+        type="currency"
+        currency="USD"
+        value="23904"
+        lang="en-US"
+      ></wa-format-number>
     </div>
   </div>
 </wa-card>
 ```
 
 ## Cards with Avatars
+
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 30ch">
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="user-group"></wa-icon>
+        <wa-icon slot="icon" name="user-group"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
         <h3 class="wa-caption-m">Total Subscribers</h3>
@@ -85,7 +112,7 @@ isPro: true
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="envelope-open"></wa-icon>
+        <wa-icon slot="icon" name="envelope-open"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
         <h3 class="wa-caption-m">Open Rate</h3>
@@ -102,7 +129,7 @@ isPro: true
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <wa-avatar shape="rounded">
-         <wa-icon slot="icon" name="arrow-pointer"></wa-icon>
+        <wa-icon slot="icon" name="arrow-pointer"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-2xs">
         <h3 class="wa-caption-m">Click Rate</h3>
@@ -136,12 +163,16 @@ isPro: true
           <wa-progress-ring value="12.3" style="--size: 1em; --track-width: 0.125em"></wa-progress-ring>
           <span>12.3%</span>
         </div>
-        <wa-badge appearance="filled outlined" variant="danger"><wa-icon name="arrow-down"></wa-icon> down from 19.6%</wa-badge>
+        <wa-badge appearance="filled outlined" variant="danger"
+          ><wa-icon name="arrow-down"></wa-icon> down from 19.6%</wa-badge
+        >
       </article>
       <article class="wa-stack wa-gap-xs wa-align-items-end">
         <h4 class="wa-caption-l">Max CHR</h4>
         <span class="wa-heading-2xl">72.6%</span>
-        <wa-badge appearance="filled outlined" variant="success"><wa-icon name="sparkles"></wa-icon> CHR Impact +5.4%</wa-badge>
+        <wa-badge appearance="filled outlined" variant="success"
+          ><wa-icon name="sparkles"></wa-icon> CHR Impact +5.4%</wa-badge
+        >
       </article>
     </div>
     <wa-divider></wa-divider>

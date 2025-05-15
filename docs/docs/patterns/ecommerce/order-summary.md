@@ -5,6 +5,7 @@ isPro: true
 ---
 
 ## Simple
+
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
   <wa-callout variant="success">
@@ -25,10 +26,7 @@ isPro: true
           <ul class="wa-stack wa-gap-xl">
             <li class="wa-flank wa-align-items-start">
               <div class="wa-frame wa-border-radius-s">
-                <img
-                  src="https://uploads.webawesome.com/vase-1.jpg"
-                  alt=""
-                />
+                <img src="https://uploads.webawesome.com/vase-1.jpg" alt="" />
               </div>
               <div class="wa-split">
                 <span class="wa-heading-s">Spotted Flower Pot</span>
@@ -38,10 +36,7 @@ isPro: true
             <wa-divider></wa-divider>
             <li class="wa-flank wa-align-items-start">
               <div class="wa-frame wa-border-radius-s">
-                <img
-                  src="https://uploads.webawesome.com/decorative-vase.jpg"
-                  alt=""
-                />
+                <img src="https://uploads.webawesome.com/decorative-vase.jpg" alt="" />
               </div>
               <div class="wa-split">
                 <span class="wa-heading-s">Decorative Vase</span>
@@ -81,8 +76,8 @@ isPro: true
             </dd>
             <dt>Payment Information</dt>
             <dd class="wa-flank wa-gap-s">
-                <wa-icon label="Visa" class="wa-body-xl" family="brands" name="cc-visa" style="color: #224DBA;"></wa-icon>
-                <span>Ending with 9065</span>
+              <wa-icon label="Visa" class="wa-body-xl" family="brands" name="cc-visa" style="color: #224DBA;"></wa-icon>
+              <span>Ending with 9065</span>
             </dd>
           </dl>
         </wa-callout>
@@ -103,7 +98,10 @@ isPro: true
   <h2>Order Details</h2>
   <div class="wa-split">
     <div class="wa-cluster">
-      <span>Order placed <wa-format-date date="2025-02-26T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></span>
+      <span
+        >Order placed
+        <wa-format-date date="2025-02-26T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date
+      ></span>
       <wa-divider vertical style="height: 2em"></wa-divider>
       <span>Order # 45646456-4656-4542</span>
     </div>
@@ -162,10 +160,7 @@ isPro: true
         <h3 class="wa-heading-s">Arriving Saturday</h3>
         <div class="wa-flank wa-align-items-start">
           <div class="wa-frame wa-border-radius-s">
-            <img
-              src="https://uploads.webawesome.com/sparkling-water.jpg"
-              alt=""
-            />
+            <img src="https://uploads.webawesome.com/sparkling-water.jpg" alt="" />
           </div>
           <div class="wa-stack">
             <a href="" class="wa-caption-m">Mineragua Sparkling Water 12 Count</a>
@@ -200,15 +195,15 @@ isPro: true
       <h2>Order #7093</h2>
       <a href="">View Invoice</a>
     </div>
-    <p class="wa-caption-m">Order placed <wa-format-date date="2025-06-12T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date></p>
+    <p class="wa-caption-m">
+      Order placed
+      <wa-format-date date="2025-06-12T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date>
+    </p>
   </div>
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <div class="wa-frame wa-border-radius-s">
-        <img
-          src="https://uploads.webawesome.com/vase-1.jpg"
-          alt=""
-        />
+        <img src="https://uploads.webawesome.com/vase-1.jpg" alt="" />
       </div>
       <div class="wa-stack wa-align-items-start wa-gap-s">
         <div class="wa-split wa-gap-s">
@@ -223,10 +218,7 @@ isPro: true
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <div class="wa-frame wa-border-radius-s">
-        <img
-          src="https://uploads.webawesome.com/decorative-vase.jpg"
-          alt=""
-        />
+        <img src="https://uploads.webawesome.com/decorative-vase.jpg" alt="" />
       </div>
       <div class="wa-stack wa-align-items-start wa-gap-s">
         <div class="wa-split wa-gap-s">
@@ -241,10 +233,7 @@ isPro: true
   <wa-card>
     <div class="wa-flank wa-align-items-start">
       <div class="wa-frame wa-border-radius-s">
-        <img
-          src="https://uploads.webawesome.com/cuong-duyen-ceramic.jpg"
-          alt=""
-        />
+        <img src="https://uploads.webawesome.com/cuong-duyen-ceramic.jpg" alt="" />
       </div>
       <div class="wa-stack wa-align-items-start wa-gap-s">
         <div class="wa-split wa-gap-s">

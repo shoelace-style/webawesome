@@ -4,7 +4,6 @@ description: 'Let shoppers checkout with ease with streamlined forms to capture 
 isPro: true
 ---
 
-
 ## Full Form with Order Summary Card
 
 ```html {.example}
@@ -32,7 +31,7 @@ isPro: true
     </div>
     <wa-input label="Phone"></wa-input>
     <wa-divider></wa-divider>
-      <wa-radio-group label="Shipping Method" name="shipping-method" value="standard" orientation="horizontal">
+    <wa-radio-group label="Shipping Method" name="shipping-method" value="standard" orientation="horizontal">
       <wa-radio value="standard" hint="7-10  business days">Standard</wa-radio>
       <wa-radio value="express" hint="2-5 business days">Express</wa-radio>
     </wa-radio-group>
@@ -55,7 +54,10 @@ isPro: true
       <div class="wa-stack">
         <div class="wa-flank wa-align-items-start" style="--flank-size: 7rem">
           <div class="wa-frame wa-border-radius-s">
-            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1MzB8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+            <img
+              src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1MzB8&ixlib=rb-4.0.3&q=80&w=1080"
+              alt=""
+            />
           </div>
           <div class="wa-stack wa-gap-xs">
             <div class="wa-split">
@@ -77,7 +79,10 @@ isPro: true
         <wa-divider></wa-divider>
         <div class="wa-flank wa-align-items-start" style="--flank-size: 7rem">
           <div class="wa-frame wa-border-radius-s">
-            <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1Njh8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+            <img
+              src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM1Njh8&ixlib=rb-4.0.3&q=80&w=1080"
+              alt=""
+            />
           </div>
           <div class="wa-stack wa-gap-xs">
             <div class="wa-split">
@@ -99,7 +104,10 @@ isPro: true
         <wa-divider></wa-divider>
         <div class="wa-flank wa-align-items-start" style="--flank-size: 7rem">
           <div class="wa-frame wa-border-radius-s">
-            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM2MTF8&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+            <img
+              src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1OTAyOTl8MHwxfGFsbHx8fHx8fHx8fDE3MTg2NDM2MTF8&ixlib=rb-4.0.3&q=80&w=1080"
+              alt=""
+            />
           </div>
           <div class="wa-stack wa-gap-xs">
             <div class="wa-split">
@@ -183,7 +191,10 @@ isPro: true
     <div class="wa-split">
       <div class="wa-cluster">
         <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
-          <img src="https://images.unsplash.com/photo-1618677366787-9727aacca7ea?q=80&w=3255&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with black wire frames and dark tinted, circular lenses (Photograph by Colin Lloyd)">
+          <img
+            src="https://images.unsplash.com/photo-1618677366787-9727aacca7ea?q=80&w=3255&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Glasses with black wire frames and dark tinted, circular lenses (Photograph by Colin Lloyd)"
+          />
         </div>
         <strong>Morpheus</strong>
       </div>
@@ -195,7 +206,10 @@ isPro: true
     <div class="wa-split">
       <div class="wa-cluster">
         <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
-          <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=3558&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with rose gold wire frames and green tinted, circular lenses (Photograph by Charles Deluvio)">
+          <img
+            src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=3558&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Glasses with rose gold wire frames and green tinted, circular lenses (Photograph by Charles Deluvio)"
+          />
         </div>
         <div class="wa-stack wa-gap-3xs">
           <strong>Seraph</strong>
@@ -210,7 +224,10 @@ isPro: true
     <div class="wa-split">
       <div class="wa-cluster">
         <div class="wa-frame wa-border-radius-m" style="max-width: 4rem">
-          <img src="https://images.unsplash.com/photo-1547104442-a40f335740cb?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Glasses with tortoise shell half frames and large, rounded lenses (Photograph by Sincerely Media)">
+          <img
+            src="https://images.unsplash.com/photo-1547104442-a40f335740cb?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Glasses with tortoise shell half frames and large, rounded lenses (Photograph by Sincerely Media)"
+          />
         </div>
         <div class="wa-stack wa-gap-3xs">
           <strong>Keymaker</strong>
