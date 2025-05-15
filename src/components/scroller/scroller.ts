@@ -14,7 +14,7 @@ import styles from './scroller.css';
  * @slot - The content to show inside the scroller.
  *
  * @cssproperty [--shadow-color=var(--wa-color-surface-default)] - The base color of the shadow.
- * @cssproperty [--shadow-size=0.5rem] - The width of the shadow.
+ * @cssproperty [--shadow-size=2rem] - The size of the shadow.
  *
  * @csspart content - The container that wraps the slotted content.
  */
