@@ -9,6 +9,8 @@
   display: block;
   position: relative;
   max-width: 100%;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 :host([orientation='vertical']) {
