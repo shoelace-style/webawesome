@@ -7,6 +7,7 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -61,6 +62,7 @@ export default class WaDrawer extends WebAwesomeElement {
   static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
+  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header-actions', 'label');
   private originalTrigger: HTMLElement | null;
 
   @query('.drawer') drawer: HTMLDialogElement;
@@ -80,11 +82,8 @@ export default class WaDrawer extends WebAwesomeElement {
   /** The direction from which the drawer will open. */
   @property({ reflect: true }) placement: 'top' | 'end' | 'bottom' | 'start' = 'end';
 
-  /** Renders the drawer with a header. */
-  @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
-
-  /** Renders the drawer with a footer. */
-  @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
+  /** Disables the header. This will also remove the default close button. */
+  @property({ attribute: 'without-header', type: Boolean, reflect: true }) withoutHeader = false;
 
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
@@ -223,24 +222,27 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   render() {
+    const hasHeader =
+      !this.withoutHeader &&
+      (this.label.length > 0 || this.hasSlotController.test('label') || this.hasSlotController.test('header-actions'));
+    const hasFooter = this.hasSlotController.test('footer');
+
     return html`
       <dialog
         part="dialog"
         class=${classMap({
           drawer: true,
-          'drawer--open': this.open,
-          'drawer--top': this.placement === 'top',
-          'drawer--end': this.placement === 'end',
-          'drawer--bottom': this.placement === 'bottom',
-          'drawer--start': this.placement === 'start',
-          'drawer--with-header': this.withHeader,
-          'drawer--with-footer': this.withFooter,
+          open: this.open,
+          top: this.placement === 'top',
+          end: this.placement === 'end',
+          bottom: this.placement === 'bottom',
+          start: this.placement === 'start',
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}
         @pointerdown=${this.handleDialogPointerDown}
       >
-        ${this.withHeader
+        ${hasHeader
           ? html`
               <header part="header" class="header">
                 <h2 part="title" class="title" id="title">
@@ -266,7 +268,7 @@ export default class WaDrawer extends WebAwesomeElement {
 
         <div part="body" class="body"><slot></slot></div>
 
-        ${this.withFooter
+        ${hasFooter
           ? html`
               <footer part="footer" class="footer">
                 <slot name="footer"></slot>

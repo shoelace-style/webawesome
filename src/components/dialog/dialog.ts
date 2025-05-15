@@ -220,9 +220,7 @@ export default class WaDialog extends WebAwesomeElement {
         part="dialog"
         class=${classMap({
           dialog: true,
-          'dialog--open': this.open,
-          'dialog--has-header': hasHeader,
-          'dialog--has-footer': hasFooter,
+          open: this.open,
         })}
         @cancel=${this.handleDialogCancel}
         @click=${this.handleDialogClick}
