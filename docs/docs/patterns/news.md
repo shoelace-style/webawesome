@@ -1,7 +1,7 @@
 ---
 title: News
 description: TODO
-unlisted: true
+unpublished: true
 isPro: true
 ---
 

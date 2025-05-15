@@ -1,7 +1,7 @@
 ---
 title: Entertainment
 description: TODO
-unlisted: true
+unpublished: true
 isPro: true
 ---
 

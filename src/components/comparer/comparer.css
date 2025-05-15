@@ -11,6 +11,15 @@
   overflow: hidden;
 }
 
+/* Make content inert when dragging.
+   Otherwise, for <iframe> and <object> dragging is very choppy. */
+:host(:active) {
+  .before,
+  .after {
+    pointer-events: none;
+  }
+}
+
 .before,
 .after {
   display: block;

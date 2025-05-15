@@ -153,6 +153,15 @@ export default function (eleventyConfig) {
     ]),
   );
 
+  eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
+    if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
+      // Exclude "unpublished" pages from final builds.
+      return false;
+    }
+
+    return content;
+  });
+
   // Build the search index
   eleventyConfig.addPlugin(
     searchPlugin({

@@ -8,7 +8,7 @@ icon: drawer
 <!-- cspell:dictionaries lorem-ipsum -->
 
 ```html {.example}
-<wa-drawer label="Drawer" class="drawer-overview">
+<wa-drawer label="Drawer" id="drawer-overview">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
@@ -16,7 +16,7 @@ icon: drawer
 <wa-button>Open Drawer</wa-button>
 
 <script>
-  const drawer = document.querySelector('.drawer-overview');
+  const drawer = document.querySelector('#drawer-overview');
   const openButton = drawer.nextElementSibling;
 
   openButton.addEventListener('click', () => drawer.open = true);
@@ -25,19 +25,20 @@ icon: drawer
 
 ## Examples
 
-### Drawer with Header
+### Drawer without Header
 
-Headers can be used to display titles and more. Use the `with-header` attribute to add a header to the drawer.
+Headers are enabled by default. To render a drawer without a header, add the `without-header` attribute.
 
 ```html {.example}
-<wa-drawer label="Drawer" class="drawer-header">
+<wa-drawer label="Drawer" without-header class="drawer-without-header">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
 <wa-button>Open Drawer</wa-button>
 
 <script>
-  const drawer = document.querySelector('.drawer-header');
+  const drawer = document.querySelector('.drawer-without-header');
   const openButton = drawer.nextElementSibling;
 
   openButton.addEventListener('click', () => drawer.open = true);
@@ -46,7 +47,7 @@ Headers can be used to display titles and more. Use the `with-header` attribute 
 
 ### Drawer with Footer
 
-Footers can be used to display titles and more. Use the `with-footer` attribute to add a footer to the drawer.
+Footers can be used to display titles and more. Use the `footer` slot to add a footer to the drawer.
 
 ```html {.example}
 <wa-drawer label="Drawer" class="drawer-footer">
@@ -261,9 +262,9 @@ You can use `event.detail.source` to determine what triggered the request to clo
 </script>
 ```
 
-### Customizing Initial Focus
+### Setting Initial Focus
 
-By default, the drawer's panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the drawer. If you want a different element to have focus, add the `autofocus` attribute to it as shown below.
+To give focus to a specific element when the drawer opens, use the `autofocus` attribute.
 
 ```html {.example}
 <wa-drawer label="Drawer" class="drawer-focus">

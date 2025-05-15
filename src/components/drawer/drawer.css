@@ -40,15 +40,15 @@
     animation: show-backdrop var(--hide-duration, 200ms) ease reverse;
   }
 
-  &.show.drawer--top {
+  &.show.top {
     animation: show-drawer-from-top var(--show-duration) ease;
   }
 
-  &.hide.drawer--top {
+  &.hide.top {
     animation: show-drawer-from-top var(--hide-duration) ease reverse;
   }
 
-  &.show.drawer--end {
+  &.show.end {
     animation: show-drawer-from-end var(--show-duration) ease;
 
     &:dir(rtl) {
@@ -56,7 +56,7 @@
     }
   }
 
-  &.hide.drawer--end {
+  &.hide.end {
     animation: show-drawer-from-end var(--hide-duration) ease reverse;
 
     &:dir(rtl) {
@@ -64,15 +64,15 @@
     }
   }
 
-  &.show.drawer--bottom {
+  &.show.bottom {
     animation: show-drawer-from-bottom var(--show-duration) ease;
   }
 
-  &.hide.drawer--bottom {
+  &.hide.bottom {
     animation: show-drawer-from-bottom var(--hide-duration) ease reverse;
   }
 
-  &.show.drawer--start {
+  &.show.start {
     animation: show-drawer-from-start var(--show-duration) ease;
 
     &:dir(rtl) {
@@ -80,7 +80,7 @@
     }
   }
 
-  &.hide.drawer--start {
+  &.hide.start {
     animation: show-drawer-from-start var(--hide-duration) ease reverse;
 
     &:dir(rtl) {
@@ -97,7 +97,7 @@
   outline: none;
 }
 
-.drawer--top {
+.top {
   top: 0;
   inset-inline-end: auto;
   bottom: auto;
@@ -106,7 +106,7 @@
   height: var(--size);
 }
 
-.drawer--end {
+.end {
   top: 0;
   inset-inline-end: 0;
   bottom: auto;
@@ -115,7 +115,7 @@
   height: 100%;
 }
 
-.drawer--bottom {
+.bottom {
   top: auto;
   inset-inline-end: auto;
   bottom: 0;
@@ -124,7 +124,7 @@
   height: var(--size);
 }
 
-.drawer--start {
+.start {
   top: 0;
   inset-inline-end: auto;
   bottom: auto;
