@@ -19,7 +19,7 @@ tags:
       </div>
       <div class="wa-stack">
         <span><a href="#">Catherine Rigby</a> wrote</span>
-        <2 class="wa-heading-3xl">How Artificial Intelligence Is Quietly Transforming Your Daily Life</h2>
+        <h2 class="wa-heading-3xl">How Artificial Intelligence Is Quietly Transforming Your Daily Life</h2>
         <span>
           <wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
           <a href="#">Artificial Intelligence</a>, <a href="#">Large Language Model</a>,
