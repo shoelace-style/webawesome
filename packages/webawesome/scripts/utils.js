@@ -5,11 +5,11 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Helpful directories
-export const rootDir = dirname(__dirname);
-export const distDir = join(rootDir, 'dist');
-export const cdnDir = join(rootDir, 'dist-cdn');
-export const docsDir = join(rootDir, 'docs');
-export const siteDir = join(rootDir, '_site');
+export const rootDir = process.env.ROOT_DIR || dirname(__dirname);
+export const distDir = process.env.DIST_DIR || join(rootDir, 'dist');
+export const cdnDir = process.env.CDN_DIR || join(rootDir, 'dist-cdn');
+export const docsDir = process.env.DOCS_DIR || join(rootDir, 'docs');
+export const siteDir = process.env.SITE_DIR || join(rootDir, '_site');
 
 /**
  * Runs a script and returns a promise that resolves with the content of stdout when the script exits or rejects with
