@@ -8,7 +8,7 @@ import { getAllComponents } from './shared.js';
 
 const { outdir } = commandLineArgs({ name: 'outdir', type: String });
 
-const reactDir = path.join('./src/react');
+const reactDir = path.join(process.env.ROOT_DIR || ".", 'src', 'react');
 
 // Clear build directory
 deleteSync(reactDir);

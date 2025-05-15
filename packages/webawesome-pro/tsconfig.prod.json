@@ -1,3 +1,13 @@
 {
-  "extends": "../webawesome/tsconfig.prod.json"
+  // This is ../../ instead of ../ because it gets copied into /_bundle_/
+  "extends": "../../webawesome/tsconfig.prod.json",
+  "compilerOptions": {
+    "rootDir": "./src"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }

@@ -4,7 +4,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 
 export default async function (eleventyConfig) {
-  const webawesomeDir = path.resolve(path.join(__dirname, "..", "..", "webawesome"))
+  const webawesomeDir = path.resolve(path.join(__dirname, "..", "..", "..", "webawesome"))
   const baseConfig = (await import(path.join(webawesomeDir, "docs", ".eleventy.js"))).default
   process.env.UNBUNDLED_DIST_DIRECTORY = path.join("dist")
 

@@ -2,18 +2,19 @@ import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { toLength, toPx } from '../../../webawesome/src/internal/css-values.js';
-import WebAwesomeElement from '../../../webawesome/src/internal/webawesome-element.js';
-import visuallyHidden from '../../../webawesome/src/styles/utilities/visually-hidden.css';
+import { toLength, toPx } from '../../internal/css-values.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+
+import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import styles from './page.css';
 import mobileStyles from './page.mobile.styles.js';
 
-import '../../../webawesome/src/components/button/button.js';
-import '../../../webawesome/src/components/drawer/drawer.js';
-import '../../../webawesome/src/components/icon/icon.js';
+import '../button/button.js';
+import '../drawer/drawer.js';
+import '../icon/icon.js';
 
 import type { PropertyValues } from 'lit';
-import type WaDrawer from '../../../webawesome/src/components/drawer/drawer.js';
+import type WaDrawer from '../drawer/drawer.js';
 
 if (typeof ResizeObserver === 'undefined') {
   globalThis.ResizeObserver = class {

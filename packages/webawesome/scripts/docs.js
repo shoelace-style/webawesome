@@ -1,15 +1,15 @@
 import Eleventy from '@11ty/eleventy';
 import { deleteAsync } from 'del';
 import { join } from 'path';
-import { docsDir, siteDir } from './utils.js';
+import { getDocsDir, getSiteDir } from './utils.js';
 
-const elev = new Eleventy(docsDir, siteDir, {
+const elev = new Eleventy(getDocsDir(), getSiteDir(), {
   quietMode: true,
-  configPath: join(docsDir, '.eleventy.js'),
+  configPath: join(getDocsDir(), '.eleventy.js'),
 });
 
 // Cleanup
-await deleteAsync(siteDir);
+await deleteAsync(getSiteDir());
 
 // Write it
 await elev.write();

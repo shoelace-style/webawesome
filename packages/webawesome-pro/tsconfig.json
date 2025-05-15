@@ -1,3 +1,7 @@
 {
-  "extends": "../webawesome/tsconfig"
+  "extends": "../webawesome/tsconfig.json",
+  "include": [
+    "src",
+    "../webawesome/src"
+  ]
 }

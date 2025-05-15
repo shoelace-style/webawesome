@@ -25,8 +25,8 @@ const DIST_CDN_DIR = path.resolve(path.join(ROOT_DIR, "dist-cdn"))
 process.env.ROOT_DIR = BUNDLED_DIR
 process.env.DIST_DIR = path.join(ROOT_DIR, "dist")
 process.env.CDN_DIR = path.join(ROOT_DIR, "dist-cdn")
-process.env.DOCS_DIR = path.join(BUNDLED_DIR, "pages", "")
-process.env.SKIP_ELEVENTY = "true" // We're going to run our own.
+process.env.DOCS_DIR = path.join(BUNDLED_DIR, "pages")
+// process.env.SKIP_ELEVENTY = "true" // We're going to run our own.
 
 /**
  * Copies all files into 1 giant "_bundle_" directory to then run ESBuild + 11ty on top of.
@@ -42,7 +42,7 @@ export async function bundleEverything () {
   // Bundle docs directories to run 11ty on them.
   // Copy "docs" to "pages" so that 11ty has full context.
   await fs.cp(FREE_DOCS_DIR, PAGES_DIR, { recursive: true })
-  await fs.cp(PRO_DOCS_DIR, PAGES_DIR, { recursive: true })
+  await fs.cp(PRO_DOCS_DIR, PAGES_DIR, { recursive: true, filter: () => true })
 }
 
 export async function buildDocs () {
@@ -55,6 +55,6 @@ export async function copyCdnBuild () {
   await copy(DIST_CDN_DIR, path.join(ROOT_DIR, "_site", "dist"))
 }
 
-export async function buildPackage () {
-
+export async function build () {
+  await import("../../../webawesome/scripts/build.js")
 }

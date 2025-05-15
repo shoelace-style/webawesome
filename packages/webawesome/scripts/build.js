@@ -9,16 +9,23 @@ import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
 import ora from 'ora';
-import { dirname, join, relative } from 'path';
-import process from 'process';
+import { dirname, join, relative } from 'node:path';
+import process from 'node:process';
 import copy from 'recursive-copy';
-import { fileURLToPath } from 'url';
-import { cdnDir, distDir, docsDir, rootDir, runScript, siteDir } from './utils.js';
+import { fileURLToPath } from 'node:url';
+import {
+  getCdnDir,
+  getDistDir,
+  getDocsDir,
+  getRootDir,
+  getSiteDir,
+  runScript,
+} from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
-const packageData = JSON.parse(await readFile(join(rootDir, 'package.json'), 'utf-8'));
+const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
 const version = JSON.stringify(packageData.version.toString());
 let buildContexts = {
   bundledContext: {},
@@ -39,7 +46,7 @@ async function buildAll() {
     await generateStyles();
 
     // copy everything to unbundled before we generate bundles.
-    await copy(cdnDir, distDir, { overwrite: true });
+    await copy(getCdnDir(), getDistDir(), { overwrite: true });
 
     await generateBundle();
     await generateDocs();
@@ -56,10 +63,10 @@ async function buildAll() {
 async function cleanup() {
   spinner.start('Cleaning up dist');
 
-  await deleteAsync(distDir);
-  await deleteAsync(cdnDir);
-  await mkdir(distDir, { recursive: true });
-  await mkdir(cdnDir, { recursive: true });
+  await deleteAsync(getDistDir());
+  await deleteAsync(getCdnDir());
+  await mkdir(getDistDir(), { recursive: true });
+  await mkdir(getCdnDir(), { recursive: true });
 
   spinner.succeed();
 }
@@ -92,7 +99,8 @@ function generateReactWrappers() {
   spinner.start('Generating React wrappers');
 
   try {
-    execSync(`node scripts/make-react.js --outdir "${cdnDir}"`, { stdio: 'inherit' });
+    // need to run  make-react from this directories.
+    execSync(`node ${join(__dirname, "make-react.js")} --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
   } catch (error) {
     console.error(`\n\n${error.message}`);
 
@@ -111,7 +119,7 @@ function generateReactWrappers() {
 async function generateStyles() {
   spinner.start('Copying stylesheets');
 
-  await copy(join(rootDir, 'src/styles'), join(cdnDir, 'styles'), { overwrite: true });
+  await copy(join(getRootDir(), 'src/styles'), join(getCdnDir(), 'styles'), { overwrite: true });
 
   spinner.succeed();
 
@@ -124,9 +132,15 @@ async function generateStyles() {
 async function generateTypes() {
   spinner.start('Running the TypeScript compiler');
 
+  const cwd = process.cwd()
   try {
-    execSync(`tsc --project ./tsconfig.prod.json --outdir "${cdnDir}"`);
+    if (process.env.ROOT_DIR) {
+      process.chdir(process.env.ROOT_DIR)
+    }
+    execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`);
+    process.chdir(cwd)
   } catch (error) {
+    process.chdir(cwd)
     if (!isDeveloping) {
       process.exit(1);
     }
@@ -144,6 +158,7 @@ async function generateTypes() {
 async function generateBundle() {
   spinner.start('Bundling with esbuild');
 
+  const rootDir = process.env.ROOT_DIR || "."
   // Bundled config
   const config = {
     format: 'esm',
@@ -153,18 +168,18 @@ async function generateBundle() {
       // IMPORTANT: Entry points MUST be mapped in package.json => exports
       //
       // Utilities
-      './src/webawesome.ts',
+      join(rootDir, 'src/webawesome.ts'),
       // Autoloader + utilities
-      './src/webawesome.loader.ts',
-      './src/webawesome.ssr-loader.ts',
+      join(rootDir, 'src/webawesome.loader.ts'),
+      join(rootDir, 'src/webawesome.ssr-loader.ts'),
       // Individual components
-      ...(await globby('./src/components/**/!(*.(style|test)).ts')),
+      ...(await globby(join(rootDir, 'src/components/**/!(*.(style|test)).ts'))),
       // Translations
-      ...(await globby('./src/translations/**/*.ts')),
+      ...(await globby(join(rootDir, 'src/translations/**/*.ts'))),
       // React wrappers
-      ...(await globby('./src/react/**/*.ts')),
+      ...(await globby(join(rootDir, 'src/react/**/*.ts'))),
     ],
-    outdir: cdnDir,
+    outdir: getCdnDir(),
     chunkNames: 'chunks/[name].[hash]',
     define: {
       'process.env.NODE_ENV': '"production"', // required by Floating UI
@@ -184,7 +199,7 @@ async function generateBundle() {
     treeShaking: true,
     // Don't inline libraries like Lit etc.
     packages: 'external',
-    outdir: distDir,
+    outdir: getDistDir(),
   };
 
   try {
@@ -249,7 +264,7 @@ async function generateDocs() {
   let output;
   try {
     // 11ty
-    output = (await runScript(join(__dirname, 'docs.js'), args))
+    output = (await runScript(join(__dirname, 'docs.js'), args, { env: process.env }))
       // Cleanup the output
       .replace('[11ty]', '')
       .replace(' seconds', 's')
@@ -259,7 +274,7 @@ async function generateDocs() {
 
     // Copy dist (production only)
     if (!isDeveloping) {
-      await copy(cdnDir, join(siteDir, 'dist'));
+      await copy(getCdnDir(), join(getSiteDir(), 'dist'));
     }
 
     spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
@@ -305,7 +320,7 @@ if (isDeveloping) {
       single: false,
       ghostMode: false,
       server: {
-        baseDir: siteDir,
+        baseDir: getSiteDir(),
         routes: {
           '/dist/': './dist-cdn/',
         },
@@ -319,7 +334,7 @@ if (isDeveloping) {
               res.writeHead(404);
             } else {
               try {
-                const notFoundTemplate = await readFile(join(siteDir, '404.html'), 'utf-8');
+                const notFoundTemplate = await readFile(join(getSiteDir(), '404.html'), 'utf-8');
                 res.writeHead(404);
                 res.write(notFoundTemplate || 'Page Not Found');
               } catch {
@@ -340,7 +355,7 @@ if (isDeveloping) {
 
   // Rebuild and reload when source files change
   bs.watch('src/**/!(*.test).*').on('change', async filename => {
-    spinner.info(`File modified ${chalk.gray(`(${relative(rootDir, filename)})`)}`);
+    spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
 
     try {
       const isTestFile = filename.includes('.test.ts');
@@ -379,8 +394,8 @@ if (isDeveloping) {
   });
 
   // Rebuild the docs and reload when the docs change
-  bs.watch(`${docsDir}/**/*.*`).on('change', async filename => {
-    spinner.info(`File modified ${chalk.gray(`(${relative(rootDir, filename)})`)}`);
+  bs.watch(`${getDocsDir()}/**/*.*`).on('change', async filename => {
+    spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
     await generateDocs();
     reload();
   });
