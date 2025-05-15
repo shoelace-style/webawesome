@@ -88,50 +88,42 @@ tags: blog-news
       You got a perfect score in this section. Tell your friends, family, really... just anyone who will listen.
     </p>
     <div class="wa-cluster" style="margin-top: var(--wa-font-size-xl);">
-      <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button
-          slot="icon"
-          style="font-size: var(--wa-font-size-2xl);"
-          name="facebook"
-          family="brands"
-          label="Share on Facebook"
-          href="#"
-          target="_blank"
-        ></wa-icon-button>
-      </wa-avatar>
-      <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button
-          slot="icon"
-          style="font-size: var(--wa-font-size-2xl);"
-          name="bluesky"
-          family="brands"
-          label="Share on Bluesky"
-          href="#"
-          target="_blank"
-        ></wa-icon-button>
-      </wa-avatar>
-      <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button
-          slot="icon"
-          style="font-size: var(--wa-font-size-2xl);"
-          name="instagram"
-          family="brands"
-          label="Share on Instagram"
-          href="#"
-          target="_blank"
-        ></wa-icon-button>
-      </wa-avatar>
-      <wa-avatar label="Avatar with an image icon">
-        <wa-icon-button
-          slot="icon"
-          style="font-size: var(--wa-font-size-2xl);"
-          name="linkedin"
-          family="brands"
-          label="Share on LinkedIn"
-          href="#"
-          target="_blank"
-        ></wa-icon-button>
-      </wa-avatar>
+      <wa-icon-button
+        slot="icon"
+        style="font-size: var(--wa-font-size-2xl);"
+        name="facebook"
+        family="brands"
+        label="Share on Facebook"
+        href="#"
+        target="_blank"
+      ></wa-icon-button>
+      <wa-icon-button
+        slot="icon"
+        style="font-size: var(--wa-font-size-2xl);"
+        name="bluesky"
+        family="brands"
+        label="Share on Bluesky"
+        href="#"
+        target="_blank"
+      ></wa-icon-button>
+      <wa-icon-button
+        slot="icon"
+        style="font-size: var(--wa-font-size-2xl);"
+        name="instagram"
+        family="brands"
+        label="Share on Instagram"
+        href="#"
+        target="_blank"
+      ></wa-icon-button>
+      <wa-icon-button
+        slot="icon"
+        style="font-size: var(--wa-font-size-2xl);"
+        name="linkedin"
+        family="brands"
+        label="Share on LinkedIn"
+        href="#"
+        target="_blank"
+      ></wa-icon-button>
     </div>
   </div>
 </wa-card>
