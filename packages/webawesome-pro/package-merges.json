@@ -1,4 +1,5 @@
 {
+  "//": "This file will get 'deep merged' with the webawesome package.json to preserve things like exportmaps and scripts.",
   "name": "@shoelace-style/webawesome-pro",
   "description": "The pro version of Web Awesome. Same Web Awesome you know and love, with extra features.",
   "license": "TODO",

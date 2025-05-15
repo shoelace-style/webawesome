@@ -1,3 +1,3 @@
 {
-  "extends": "../webawesome/tsconfig.json"
+  "extends": "../webawesome/tsconfig"
 }
