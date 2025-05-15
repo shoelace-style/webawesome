@@ -19,7 +19,7 @@ tags: blog-news
     <wa-divider></wa-divider>
     <div class="wa-grid">
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1560264357-8d9202250f21?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -32,7 +32,7 @@ tags: blog-news
         </wa-card>
       </a>
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -45,7 +45,7 @@ tags: blog-news
         </wa-card>
       </a>
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1561323587-7464f7689886?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -67,7 +67,7 @@ tags: blog-news
     <wa-divider></wa-divider>
     <div class="wa-grid">
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1493599124325-e628361046af?q=80&w=4470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -80,7 +80,7 @@ tags: blog-news
         </wa-card>
       </a>
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1466629437334-b4f6603563c5?q=80&w=4478&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -93,7 +93,7 @@ tags: blog-news
         </wa-card>
       </a>
       <a href="#">
-        <wa-card with-image>
+        <wa-card with-image style="height: 100%">
           <img
             slot="image"
             src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?q=80&w=4469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

@@ -8,59 +8,59 @@ tags:
 ## Single Column
 
 ```html {.example}
-<div class="wa-stack" style="max-width: 84ch; margin: 0 auto;">
+<div class="wa-stack wa-gap-2xl" style="max-width: 90ch; margin: 0 auto;">
   <article class="wa-stack">
-    <div class="wa-grid">
+    <div class="wa-grid wa-gap-2xl">
       <div class="wa-frame wa-border-radius-l">
         <img
           src="https://images.unsplash.com/photo-1673255745677-e36f618550d1?q=80&w=5000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="An image of a robot"
+          alt="Futuristic humanoid robot holding a metallic brain in its right hand"
         />
       </div>
       <div class="wa-stack">
         <span><a href="#">Catherine Rigby</a> wrote</span>
-        <h1 class="wa-heading-3xl">How Artificial Intelligence Is Quietly Transforming Your Daily Life</h1>
-        <span
-          ><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
+        <2 class="wa-heading-3xl">How Artificial Intelligence Is Quietly Transforming Your Daily Life</h2>
+        <span>
+          <wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
           <a href="#">Artificial Intelligence</a>, <a href="#">Large Language Model</a>,
-          <a href="#">Machine Learning</a></span
-        >
+          <a href="#">Machine Learning</a>
+        </span>
       </div>
     </div>
     <p>From your morning playlist to your grocery list, AI is everywhere—and you might not even notice it.</p>
-    <a href="#" class="wa-cluster wa-gap-2  xs wa-align-items-center"
-      ><span>Continue reading</span> <wa-icon name="arrow-right"></wa-icon
-    ></a>
+    <wa-button href="#" appearance="filled" variant="brand">
+      Continue reading
+      <wa-icon name="arrow-right" slot="suffix"></wa-icon>
+    </wa-button>
   </article>
   <wa-divider></wa-divider>
   <article class="wa-stack">
-    <span
-      ><a href="#">Freddie Smith</a><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
+    <span>
+      <a href="#">Freddie Smith</a><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
       <a href="#">Artificial Intelligence</a>, <a href="#">Large Language Model</a>,
-      <a href="#">Machine Learning</a></span
-    >
-    <span></span>
+      <a href="#">Machine Learning</a>
+    </span>
     <div class="wa-flank">
       <wa-avatar
         image="https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=3178&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         label="Avatar of author"
       ></wa-avatar>
-      <h1 class="wa-heading-l">What Generative AI Means for Creativity, Work, and the Future of Content</h1>
+      <h2 class="wa-heading-l">What Generative AI Means for Creativity, Work, and the Future of Content</h2>
     </div>
   </article>
   <wa-divider></wa-divider>
   <article class="wa-stack">
-    <span
-      ><a href="#">Michelle Starling</a><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
+    <span>
+      <a href="#">Michelle Starling</a><wa-format-date month="long" day="numeric" year="numeric"></wa-format-date> in
       <a href="#">Artificial Intelligence</a>, <a href="#">Large Language Model</a>,
-      <a href="#">Machine Learning</a></span
-    >
+      <a href="#">Machine Learning</a>
+    </span>
     <div class="wa-flank">
       <wa-avatar
         image="https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?q=80&w=4000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         label="Avatar of author"
       ></wa-avatar>
-      <h1 class="wa-heading-l">The Ethics of Intelligence: Who’s Accountable When AI Gets It Wrong</h1>
+      <h2 class="wa-heading-l">The Ethics of Intelligence: Who’s Accountable When AI Gets It Wrong</h2>
     </div>
   </article>
 </div>
@@ -90,10 +90,10 @@ tags:
         </span>
       </div>
     </div>
-    <div>
+    <div class="wa-stack">
       <span>Top Stories</span>
       <ol class="wa-stack">
-        <li>
+        <li class="wa-stack">
           <div class="wa-flank:end" style="--flank-size: 8ch">
             <h3 class="wa-heading-m">How Fine Art Captures Emotion Beyond Words</h3>
             <div class="wa-frame wa-border-radius-m">
@@ -108,9 +108,9 @@ tags:
             <wa-format-date month="long" day="numeric" date="2020-05-15T09:17:00-04:00"></wa-format-date> |
             <wa-icon name="comment"></wa-icon> 20
           </span>
-          <wa-divider></wa-divider>
         </li>
-        <li>
+        <wa-divider></wa-divider>
+        <li class="wa-stack wa-gap-2xs">
           <div class="wa-flank:end" style="--flank-size: 8ch">
             <h3 class="wa-heading-m">From Brush to Pixel: The Evolving Identity of Fine Art in the Digital Age</h3>
             <div class="wa-frame wa-border-radius-m">
@@ -125,9 +125,9 @@ tags:
             <wa-format-date month="long" day="numeric" date="2020-04-15T09:17:00-04:00"></wa-format-date> |
             <wa-icon name="comment"></wa-icon> 12
           </span>
-          <wa-divider></wa-divider>
         </li>
-        <li>
+        <wa-divider></wa-divider>
+        <li class="wa-stack wa-gap-2xs">
           <div class="wa-flank:end" style="--flank-size: 8ch">
             <h3 class="wa-heading-m">What Makes It ‘Fine’? Unpacking the Line Between Art and Craft</h3>
             <div class="wa-frame wa-border-radius-m">
@@ -142,9 +142,9 @@ tags:
             <wa-format-date month="long" day="numeric" date="2020-03-20T09:17:00-04:00"></wa-format-date> |
             <wa-icon name="comment"></wa-icon> 8
           </span>
-          <wa-divider></wa-divider>
         </li>
-        <li>
+        <wa-divider></wa-divider>
+        <li class="wa-stack wa-gap-2xs">
           <div class="wa-flank:end" style="--flank-size: 8ch">
             <h3 class="wa-heading-m">Studio Stories: Inside the Creative Rituals of Contemporary Fine Artists</h3>
             <div class="wa-frame wa-border-radius-m">
@@ -159,7 +159,6 @@ tags:
             <wa-format-date month="long" day="numeric" date="2020-02-20T09:17:00-04:00"></wa-format-date> |
             <wa-icon name="comment"></wa-icon> 16
           </span>
-          <wa-divider></wa-divider>
         </li>
       </ol>
     </div>
