@@ -100,6 +100,7 @@ The scroller component automatically provides a scrollable container for any con
         <p>Ninja-like heroes like Black Widow or Nightcrawler slip through the shadows, gathering intel or pulling off surprise attacks. They’re the glue that makes risky plans work, coordinating with the team to flip a losing fight into a win.</p>
       </div>
     </div>
+  </div>
 </wa-scroller>
 ```
 
