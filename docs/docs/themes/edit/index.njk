@@ -97,7 +97,12 @@ unlisted: true
         <label for="starting-theme">Starting Theme</label>
       </template>
 
-      <wa-radio-group id="starting-theme" class="card-picker" v-model="theme.base">
+      <wa-callout v-if="customizations.length > 0" variant="danger" size="small">
+        <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
+        Editing the starting theme will reset your <span v-text="customizations.length + ' customization' + (customizations.length > 1 ? 's' : '')"></span>.
+      </wa-callout>
+
+      <wa-radio-group id="starting-theme" class="card-picker" :value="theme.base" @input="e => resetTo(e.target.value)">
         <template v-for="(themeMeta, themeId) in themes">
           <wa-radio v-if="themeId !== 'custom'" :value="themeId" size="small" :aria-selected="!theme.base && themeId === 'default' ? 'true' : null">
             <theme-card :theme="themeId"></theme-card>

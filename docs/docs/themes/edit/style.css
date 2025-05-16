@@ -128,6 +128,14 @@ wa-radio-group.card-picker {
     --spacing: 0;
   }
 
+  > wa-callout {
+    margin-bottom: 0;
+
+    &[size='small'][variant='danger'] {
+      font-weight: var(--wa-font-weight-semibold);
+    }
+  }
+
   > footer {
     display: flex;
     align-items: center;

@@ -7,7 +7,7 @@ import themes from '/assets/data/themes.js';
 import { getPath, themeDefaults } from '/assets/data/theming.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
-import { deepClone, deepEach, deepMerge } from '/assets/scripts/util/deep.js';
+import { deepClone, deepEach, deepEntries, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
 import { camelCase, capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
   ColorSelect,
@@ -45,23 +45,7 @@ let appSpec = {
       id: id === 'edit' ? 'custom' : id,
       isCustom,
       urlParams: location.search,
-      theme: {
-        base: isCustom ? '' : id,
-        palette: '',
-        typography: '',
-        colors: '',
-        brand: '',
-        icon: {
-          kit: '',
-          library: '',
-          family: '',
-          style: '',
-        },
-        rounding: '',
-        spacing: '',
-        borderWidth: '',
-        dimensionality: '',
-      },
+      theme: getBlankTheme(isCustom ? '' : id),
       ui: {
         panel: 'styles',
         showCode: false,
@@ -187,6 +171,16 @@ let appSpec = {
       return ret;
     },
 
+    customizations() {
+      return deepEntries(this.theme, {
+        filter: (value, key, parent, path) => {
+          let fullPath = [...path, key];
+          let defaultValue = deepGet(this.defaults, fullPath);
+          return key !== 'base' && typeof value !== 'object' && value !== '' && value !== defaultValue;
+        },
+      });
+    },
+
     computed() {
       let ret = deepClone(themeDefaults);
 
@@ -243,7 +237,9 @@ let appSpec = {
   watch: {
     theme: {
       deep: true,
-      handler() {
+      async handler() {
+        await this.$nextTick(); // give defaults a chance to update
+
         this.permalink.setAll(this.theme, this.defaults);
         this.permalink.updateLocation();
 
@@ -291,6 +287,17 @@ let appSpec = {
       this.$refs.preview?.contentWindow.postMessage(message);
       this.$refs.previewInvert?.contentWindow.postMessage(message);
     },
+
+    resetTo(base) {
+      let kit = this.theme.icon.kit;
+      let theme = getBlankTheme(base);
+
+      if (kit) {
+        theme.icon.kit = kit;
+      }
+
+      return (this.theme = theme);
+    },
   },
 
   components: {
@@ -328,3 +335,23 @@ function init() {
 
 init();
 addEventListener('turbo:render', init);
+
+function getBlankTheme(base) {
+  return {
+    base,
+    palette: '',
+    typography: '',
+    colors: '',
+    brand: '',
+    icon: {
+      kit: '',
+      library: '',
+      family: '',
+      style: '',
+    },
+    rounding: '',
+    spacing: '',
+    borderWidth: '',
+    dimensionality: '',
+  };
+}
