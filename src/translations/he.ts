@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'התקדמות',
   remove: 'לְהַסִיר',
   resize: 'שנה גודל',
+  scrollableRegion: 'אזור גלילה',
   scrollToEnd: 'גלול עד הסוף',
   scrollToStart: 'גלול להתחלה',
   selectAColorFromTheScreen: 'בחור צבע מהמסך',

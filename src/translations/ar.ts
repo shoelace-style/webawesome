@@ -28,6 +28,7 @@ const translation: Translation = {
   progress: 'مقدار التقدم',
   remove: 'حذف',
   resize: 'تغيير الحجم',
+  scrollableRegion: 'منطقة قابلة للتمرير',
   scrollToEnd: 'الانتقال الى النهاية',
   scrollToStart: 'الانتقال الى البداية',
   selectAColorFromTheScreen: 'اختر لون من الشاشة',
