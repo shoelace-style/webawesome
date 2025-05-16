@@ -176,6 +176,8 @@ export async function updatePreview(options = {}) {
   let changeDom = false;
 
   // DOM diffing of old and new <link> elements
+  // We want to keep any <link> elements that have not changed,
+  // and add any new ones near the old ones, in the right order
   for (let aspect of themeParams) {
     allStylesheets[aspect] ??= {};
     let stylesheets = allStylesheets[aspect];
@@ -246,7 +248,15 @@ export async function updatePreview(options = {}) {
             first.before(link);
           } else {
             // If no first, it means we didn't find any theme stylesheets
-            document.head.append(link);
+            // We may still have <style> elements though
+            let firstStyleElement = document.querySelector(
+              'style:is(.wa-themer, .wa-palette, [class^="wa-theme-"], [class*=" wa-theme-"])',
+            );
+            if (firstStyleElement) {
+              firstStyleElement.before(link);
+            } else {
+              document.head.append(link);
+            }
           }
         }
 
