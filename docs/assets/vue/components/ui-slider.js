@@ -7,7 +7,7 @@ const template = `
     <div class="ui-slider">
       <div class="ui-slider-header">
         <label :for="sliderId">{{ label }}</label>
-        <info-tip v-if="value !== defaultValue ?? initialValue" :text="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)">
+        <info-tip v-if="clearable && (value !== defaultValue ?? initialValue)" :text="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)">
           <wa-icon-button @click="value = defaultValue ?? initialValue" class="clear-button" name="circle-xmark" library="system" variant="regular" :label="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)"></wa-icon-button>
         </info-tip>
       </div>
