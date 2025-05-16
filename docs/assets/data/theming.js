@@ -41,7 +41,10 @@ export const themeConfig = {
     },
   },
   icon: {
-    library: { cssProperty: '--wa-icon-library', default: 'default' },
+    library: {
+      cssProperty: '--wa-icon-library',
+      default: 'default',
+    },
     family: {
       cssProperty: '--wa-icon-family',
       default(baseTheme) {
