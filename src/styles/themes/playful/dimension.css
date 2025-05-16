@@ -24,21 +24,26 @@
 
     &:not(
         wa-radio-button,
-        [appearance~='outlined'],
-        [appearance~='filled'],
+        [appearance='outlined'],
         [appearance~='plain'],
-        .wa-outlined,
-        .wa-filled,
-        .wa-plain
+        .wa-plain,
+        .wa-outlined:not(.wa-accent, .wa-filled)
       ) {
-      --gradient-top: oklch(from var(--background-color) calc(l - 0.1) c h);
+      --gradient-top: oklab(from var(--background-color) calc(l - 0.1) a b);
       --gradient-middle: var(--background-color);
-      --gradient-bottom: oklch(from var(--background-color) calc(l + 0.1) c h);
-      --shadow-outer: 0px 0.375em 1em
-        color-mix(in oklch, oklch(from var(--background-color) calc(l + 0.1) c h), transparent 70%);
-      --shadow-lower: inset 0 -0.125em 0.5em oklch(from var(--background-color) calc(l - 0.2) c h);
-      --shadow-upper: inset 0 0.125em 0.5em oklch(from var(--background-color) calc(l + 0.4) c h);
-      text-shadow: 0 0.125em 0.125em oklch(from var(--background-color) calc(l - 0.1) c h);
+      --gradient-bottom: oklab(from var(--background-color) calc(l + 0.1) a b);
+      --glow-outer: 0px 0.375em 1em
+        color-mix(in oklab, oklab(from var(--background-color) calc(l + 0.1) a b), transparent 70%);
+      --shadow-lower: inset 0 -0.125em 0.5em oklab(from var(--background-color) calc(l - 0.2) a b);
+      --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--background-color) calc(l + 0.4) a b);
+      text-shadow: 0 0.125em 0.125em oklab(from var(--background-color) calc(l - 0.1) a b);
+
+      &:is([appearance~='filled'], .wa-filled) {
+        --gradient-top: oklab(from var(--background-color) calc(l - 0.05) a b);
+        --gradient-bottom: oklab(from var(--background-color) calc(l + 0.15) a b);
+        --shadow-lower: inset 0 -0.125em 0.5em oklab(from var(--background-color) calc(l - 0.1) a b);
+        --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--background-color) calc(l + 0.5) a b);
+      }
 
       &::part(base),
       :is(&) {
@@ -48,9 +53,15 @@
           var(--gradient-middle) 51.88%,
           var(--gradient-bottom) 100%
         );
-        box-shadow: var(--shadow-outer), var(--shadow-lower), var(--shadow-upper);
-        padding-inline: calc(var(--wa-space) + var(--border-width));
-        border-width: 0px;
+        box-shadow: var(--glow-outer), var(--shadow-lower), var(--shadow-upper);
+      }
+
+      &:not([appearance~='outlined'], .wa-outlined) {
+        &::part(base),
+        :is(&) {
+          padding-inline: calc(var(--wa-space) + var(--border-width));
+          border-width: 0px;
+        }
       }
 
       &:not([disabled]) {
@@ -90,9 +101,9 @@
   wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
   wa-radio:state(checked)::part(control),
   wa-switch:state(checked)::part(control) {
-    --gradient-top: oklch(from var(--background-color-checked) calc(l - 0.1) c h);
+    --gradient-top: oklab(from var(--background-color-checked) calc(l - 0.1) a b);
     --gradient-middle: var(--background-color-checked);
-    --gradient-bottom: oklch(from var(--background-color-checked) calc(l + 0.1) c h);
+    --gradient-bottom: oklab(from var(--background-color-checked) calc(l + 0.1) a b);
 
     background: linear-gradient(
       180deg,
@@ -106,9 +117,9 @@
   wa-progress-bar,
   wa-slider {
     --shadow-lower: inset 0 -0.125em 0.5em
-      oklch(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l - 0.2) c h);
+      oklab(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l - 0.2) a b);
     --shadow-upper: inset 0 0.125em 0.5em
-      oklch(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l + 0.4) c h);
+      oklab(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l + 0.4) a b);
 
     --thumb-shadow: var(--wa-shadow-s), var(--shadow-lower), var(--shadow-upper);
 
