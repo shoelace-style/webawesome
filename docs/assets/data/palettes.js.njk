@@ -40,13 +40,15 @@ for (let palette in palettes) {
 
     for (let tint in scale) {
       let color = scale[tint];
-
-      if (Array.isArray(color)) {
-        try {
+      try {
+        if (Array.isArray(color)) {
           scale[tint] = new Color('oklch', color);
-        } catch (e) {
-          console.error(e);
         }
+        else if (typeof color === 'string' && isNaN(color)) {
+          scale[tint] = new Color(color);
+        }
+      } catch (e) {
+        console.error(e);
       }
     }
   }
