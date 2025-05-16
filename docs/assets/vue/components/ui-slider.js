@@ -12,13 +12,13 @@ const template = `
         </info-tip>
       </div>
       <info-tip v-if="$slots.min" :text="'Set to min (' + valueFormatter(min) + ')'">
-        <wa-button :aria-label="'Set to min (' + min + ')'" class="ui-slider-min" appearance="plain" size="small" @click="value = min"><slot name="min"></slot></wa-button>
+        <wa-button class="ui-slider-min" appearance="plain" size="small" @click="value = min"><slot name="min"></slot></wa-button>
       </info-tip>
       <wa-slider ref="slider" :id="sliderId" class="ui-slider" :value  @input="handleInput"
                 :min="min" :max="max" :step="step">
       </wa-slider>
       <info-tip v-if="$slots.max" :text="'Set to max (' + valueFormatter(max) + ')'">
-        <wa-button :aria-label="'Set to max (' + max + ')'" class="ui-slider-max" appearance="plain" size="small" @click="value = max"><slot name="max"></slot></wa-button>
+        <wa-button class="ui-slider-max" appearance="plain" size="small" @click="value = max"><slot name="max"></slot></wa-button>
       </info-tip>
     </div>
   `;
