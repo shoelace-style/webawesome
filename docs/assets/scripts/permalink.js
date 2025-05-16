@@ -22,17 +22,17 @@ export default class Permalink extends URLSearchParams {
    */
   setAll(values, defaults) {
     deepEach(values, (value, key, parent, path) => {
-      key = kebabCase(key);
       let fullPath = [...path, key];
-      let param = fullPath.join('-');
-      let defaultValue = deepGet(defaults, fullPath);
+      let param = fullPath.map(kebabCase).join('-');
 
       if (typeof value === 'object') {
         // We'll handle this when we descend into it
         return;
       }
 
-      if ((!value && value !== 0) || value === defaultValue) {
+      let defaultValue = deepGet(defaults, fullPath);
+
+      if (equals(value, defaultValue)) {
         // Remove the param from the URL
         this.delete(param);
         return;
