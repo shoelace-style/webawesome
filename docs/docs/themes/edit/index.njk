@@ -22,7 +22,7 @@ unlisted: true
     </a>
 
     <div class="title">
-      <h1><editable-text :model-value="title" label="theme name" @submit="newTitle => save({title: newTitle})"></editable-text></h1>
+      <h1><editable-text :model-value="title" label="theme name" @submit="newTitle => save({title: newTitle})" blur="cancel"></editable-text></h1>
       <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
     </div>
 

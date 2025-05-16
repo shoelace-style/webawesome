@@ -1,9 +1,11 @@
+import inputMixin from '../mixins/input.js';
+
 const template = `
 <span class="editable-text">
 <template v-if="isEditing">
-  <input ref="input" class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @keydown.enter="done" @keydown.esc="cancel" />
-  <wa-icon-button name="check" label="Done editing" @click="done"></wa-icon-button>
-  <wa-icon-button name="xmark" label="Cancel" @click="cancel"></wa-icon-button>
+  <input ref="input" class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @keydown.enter="done" @keydown.esc="cancel" @blur="handleBlur" />
+  <wa-icon-button v-if="blur !== 'done'" name="check" label="Done editing" @click="done"></wa-icon-button>
+  <wa-icon-button v-if="blur !== 'cancel'" name="xmark" label="Cancel" @click="cancel"></wa-icon-button>
 </template>
 <template v-else>
   <span class="text" ref="wrapper" @focus="edit" @click="edit" tabindex="0">{{ value }}</span>
@@ -13,17 +15,22 @@ const template = `
 `;
 
 export default {
+  mixins: [inputMixin],
   props: {
-    modelValue: String,
     label: {
       type: String,
       default: 'Rename',
+    },
+    blur: {
+      type: String,
+      validator(value) {
+        return ['', 'done', 'cancel'].includes(value);
+      },
     },
   },
   emits: ['update:modelValue', 'submit'],
   data() {
     return {
-      value: this.modelValue,
       previousValue: undefined,
       isEditing: false,
     };
@@ -69,14 +76,16 @@ export default {
       this.isEditing = false;
       this.value = this.previousValue;
     },
-    handleInput(event) {
-      this.value = event.target.value;
-    },
-  },
-  watch: {
-    value(newValue) {
-      this.$emit('update:modelValue', newValue);
+    handleBlur(event) {
+      if (this.blur === 'done') {
+        this.done(event);
+      } else if (this.blur === 'cancel') {
+        this.cancel(event);
+      }
     },
   },
   template,
+  compilerOptions: {
+    isCustomElement: tag => tag.startsWith('wa-'),
+  },
 };
