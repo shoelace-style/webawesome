@@ -88,6 +88,10 @@ let appSpec = {
   mounted() {
     let { preview, previewInvert } = this.$refs;
 
+    if (!preview || !previewInvert) {
+      return;
+    }
+
     let contentWindow, contentWindowInvert;
 
     preview.addEventListener('load', () => {
