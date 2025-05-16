@@ -9,7 +9,7 @@ icon: card
 <wa-card class="card-overview">
   <img
     slot="image"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+    src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaThxZzkwc29tMDN1eWY2eXZ2NXR1am90N3lhdTR0aHdxZ29memFmdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JmPenP1svctdfDCEHi/giphy.gif"
     alt="A kitten sits patiently between a terracotta pot and decorative grasses."
   />
 
@@ -57,7 +57,7 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 <wa-card class="card-header">
   <div slot="header" class="wa-split">
     Header Title
-    <wa-icon-button name="gear" variant="solid" label="Settings" class="wa-size-m"></wa-icon-button>
+    <wa-icon-button slot="actions" name="gear" variant="solid" label="Settings" class="wa-size-m"></wa-icon-button>
   </div>
 
   This card has a header. You can put all sorts of things in it!
