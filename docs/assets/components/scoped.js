@@ -12,7 +12,7 @@ export default class WaScoped extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
 
-    this.observer = new MutationObserver(() => this.render());
+    this.observer = new MutationObserver(records => this.render(records));
     this.observer.observe(this, { childList: true, subtree: true, characterData: true });
   }
 
@@ -23,7 +23,7 @@ export default class WaScoped extends HTMLElement {
     );
   }
 
-  render() {
+  render(records) {
     this.observer.takeRecords();
     this.observer.disconnect();
 
@@ -33,17 +33,18 @@ export default class WaScoped extends HTMLElement {
     let nodes = [];
 
     for (let template of this.childNodes) {
-      // Other solutions we can try if needed: <script type="text/html">, or comment nodes
-      if (template instanceof HTMLTemplateElement) {
-        if (template.content.childNodes.length > 0) {
-          nodes.push(template.content.cloneNode(true));
-        } else if (template.childNodes.length > 0) {
-          // Fake template, suck its children out of the light DOM
-          nodes.push(...template.childNodes);
+      if (!(template instanceof HTMLTemplateElement)) {
+        if (template.nodeType === Node.ELEMENT_NODE) {
+          console.warn('<wa-scoped> can only contain <template> elements');
         }
-      } else {
-        // Regular child, suck it out of the light DOM
-        nodes.push(template);
+        continue;
+      }
+
+      if (template.content.childNodes.length > 0) {
+        nodes.push(template.content.cloneNode(true));
+      } else if (template.childNodes.length > 0) {
+        // Fake template, suck its children out of the light DOM
+        nodes.push(...template.childNodes);
       }
     }
 
