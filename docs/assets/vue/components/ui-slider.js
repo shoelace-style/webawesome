@@ -7,15 +7,19 @@ const template = `
     <div class="ui-slider">
       <div class="ui-slider-header">
         <label :for="sliderId">{{ label }}</label>
-        <info-tip v-if="clearable && (value !== defaultValue ?? initialValue)" :text="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)">
+        <info-tip v-if="clearable && (value !== defaultValue ?? initialValue)" :text="'Reset to ' + valueFormatter(defaultValue ?? initialValue)">
           <wa-icon-button @click="value = defaultValue ?? initialValue" class="clear-button" name="circle-xmark" library="system" variant="regular" :label="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)"></wa-icon-button>
         </info-tip>
       </div>
-      <wa-button v-if="$slots.min" :aria-label="'Set to min (' + min + ')'" class="ui-slider-min" appearance="plain" size="small" @click="value = min"><slot name="min"></slot></wa-button>
+      <info-tip v-if="$slots.min" :text="'Set to min (' + valueFormatter(min) + ')'">
+        <wa-button :aria-label="'Set to min (' + min + ')'" class="ui-slider-min" appearance="plain" size="small" @click="value = min"><slot name="min"></slot></wa-button>
+      </info-tip>
       <wa-slider ref="slider" :id="sliderId" class="ui-slider" :value  @input="handleInput"
                 :min="min" :max="max" :step="step">
       </wa-slider>
-      <wa-button v-if="$slots.max" :aria-label="'Set to max (' + max + ')'" class="ui-slider-max" appearance="plain" size="small" @click="value = max"><slot name="max"></slot></wa-button>
+      <info-tip v-if="$slots.max" :text="'Set to max (' + valueFormatter(max) + ')'">
+        <wa-button :aria-label="'Set to max (' + max + ')'" class="ui-slider-max" appearance="plain" size="small" @click="value = max"><slot name="max"></slot></wa-button>
+      </info-tip>
     </div>
   `;
 
@@ -39,7 +43,7 @@ export default {
         return (rawProps.max - rawProps.min) / 100;
       },
     },
-    tooltip: [Function, String],
+    format: [Function, String],
     clearable: Boolean,
   },
   data() {
@@ -47,20 +51,20 @@ export default {
     return { uid, value: this.modelValue };
   },
   mounted() {
-    if (this.tooltip) {
-      this.$refs.slider.tooltipFormatter = this.tooltipFormatter;
+    if (this.format) {
+      this.$refs.slider.tooltipFormatter = this.valueFormatter;
     }
   },
   computed: {
     sliderId() {
       return this.id || `ui-slider-${this.uid}`;
     },
-    tooltipFormatter() {
-      if (typeof this.tooltip === 'string') {
-        return v => this.tooltip.replaceAll('{value}', v);
+    valueFormatter() {
+      if (typeof this.format === 'string') {
+        return v => this.format.replaceAll('{value}', v);
       }
 
-      return this.tooltip;
+      return this.format;
     },
   },
 
