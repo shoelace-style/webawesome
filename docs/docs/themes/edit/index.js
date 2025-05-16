@@ -101,6 +101,42 @@ let appSpec = {
     this.isCreated = true;
   },
 
+  mounted() {
+    let { preview, previewInvert } = this.$refs;
+
+    let contentWindow, contentWindowInvert;
+
+    preview.addEventListener('load', () => {
+      try {
+        contentWindow = preview.contentWindow;
+      } catch (e) {}
+
+      if (contentWindow) {
+        contentWindow.addEventListener('scroll', e => {
+          let { scrollX, scrollY } = contentWindow;
+          if (contentWindowInvert) {
+            contentWindowInvert.scrollTo(scrollX, scrollY);
+          }
+        });
+      }
+    });
+
+    previewInvert.addEventListener('load', () => {
+      try {
+        contentWindowInvert = previewInvert.contentWindow;
+      } catch (e) {}
+
+      if (contentWindowInvert) {
+        contentWindowInvert.addEventListener('scroll', e => {
+          let { scrollX, scrollY } = contentWindowInvert;
+          if (contentWindow) {
+            contentWindow.scrollTo(scrollX, scrollY);
+          }
+        });
+      }
+    });
+  },
+
   computed: {
     originalTitle() {
       if (this.isCustom) {
