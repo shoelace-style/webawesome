@@ -7,7 +7,7 @@ import { cssImport, getThemeCode } from '/assets/scripts/tweak/code.js';
 const template = `
   <page-card class="fonts-card" :info="computedPairing">
     <template #icon>
-      <wa-scoped slot="header" class="fonts-icon-host" inert>
+      <wa-scoped slot="header" class="fonts-icon-host" inert :key="html">
         <template v-html="html"></template>
         <template>
           <link rel="stylesheet" href="/dist/styles/native/content.css">

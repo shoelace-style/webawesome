@@ -39,9 +39,9 @@ const iconTemplates = {
 };
 
 const template = `
-  <page-card class="theme-card" :class="type + '-card'" :info="themeMeta">
+  <page-card class="theme-card" :class="type + '-card'" :info="themeMeta" :data-theme="theme">
     <template #icon>
-      <wa-scoped slot="header" class="theme-icon-host" inert>
+      <wa-scoped slot="header" class="theme-icon-host" inert :key="themeCode">
         <template v-html="themeCode"></template>
         <template>
           <link rel="stylesheet" href="/dist/styles/utilities.css">
