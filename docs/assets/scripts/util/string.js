@@ -22,3 +22,21 @@ export function slugify(str) {
     .replace(/\s+/g, '-') // Convert whitespace to hyphens
     .toLowerCase();
 }
+
+/**
+ * Convert a string to camel case.
+ * @param {string} str - The string to convert.
+ * @returns {string} The camel case string.
+ */
+export function camelCase(str) {
+  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+/**
+ * Convert a string to kebab case.
+ * @param {string} str - The string to convert.
+ * @returns {string} The kebab case string.
+ */
+export function kebabCase(str) {
+  return str.replace(/([A-Z])/g, '-$1').toLowerCase();
+}

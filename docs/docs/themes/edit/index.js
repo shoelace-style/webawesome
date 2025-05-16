@@ -4,11 +4,11 @@ import { pairingsList, sameAs } from '/assets/data/fonts.js';
 import { allHues, cdnUrl, iconLibraries } from '/assets/data/index.js';
 import palettes from '/assets/data/palettes.js';
 import themes from '/assets/data/themes.js';
-import { themeDefaults } from '/assets/data/theming.js';
+import { getPath, themeDefaults } from '/assets/data/theming.js';
 import Prism from '/assets/scripts/prism.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { deepClone, deepEach, deepMerge } from '/assets/scripts/util/deep.js';
-import { capitalize, slugify } from '/assets/scripts/util/string.js';
+import { camelCase, capitalize, slugify } from '/assets/scripts/util/string.js';
 import {
   ColorSelect,
   EditableText,
@@ -87,11 +87,14 @@ let appSpec = {
     });
 
     if (location.search) {
-      let urlTheme = this.permalink.getAll();
+      let urlTheme = this.permalink.toObject({
+        ignoreKeys: ['panel', 'color-scheme'],
+        getPath,
+      });
       deepMerge(this.theme, urlTheme, { emptyValues: [undefined, ''] });
 
-      if (urlTheme.panel) {
-        this.ui.panel = urlTheme.panel;
+      if (this.permalink.has('panel')) {
+        this.ui.panel = this.permalink.get('panel');
       }
     }
 
@@ -196,7 +199,7 @@ let appSpec = {
     },
 
     urlParamsInvert() {
-      let invert = 'colorscheme=invert';
+      let invert = 'color-scheme=invert';
       return (this.urlParams ? this.urlParams + '&' : '?') + invert;
     },
   },
@@ -206,18 +209,9 @@ let appSpec = {
       deep: true,
       handler() {
         this.permalink.setAll(this.theme, this.defaults);
-
-        // Update page URL
         this.permalink.updateLocation();
-        let theme = JSON.parse(JSON.stringify(this.theme));
-        let message = {
-          type: 'updatePreview',
-          theme,
-          id: this.slug,
-        };
 
-        this.$refs.preview?.contentWindow.postMessage(message);
-        this.$refs.previewInvert?.contentWindow.postMessage(message);
+        this.updatePreview();
 
         this.unsavedChanges = true;
       },
@@ -247,6 +241,19 @@ let appSpec = {
     log(...args) {
       console.log(...args);
       return args[0];
+    },
+
+    updatePreview() {
+      // Update page URL
+      let theme = JSON.parse(JSON.stringify(this.theme));
+      let message = {
+        type: 'updatePreview',
+        theme,
+        id: this.slug,
+      };
+
+      this.$refs.preview?.contentWindow.postMessage(message);
+      this.$refs.previewInvert?.contentWindow.postMessage(message);
     },
   },
 

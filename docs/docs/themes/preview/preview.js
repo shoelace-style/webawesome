@@ -1,7 +1,7 @@
 import { allHues } from '/assets/data/index.js';
 import palettes from '/assets/data/palettes.js';
 import themes from '/assets/data/themes.js';
-import { themeConfig, themeDefaults, themeParams } from '/assets/data/theming.js';
+import { getPath, themeConfig, themeDefaults, themeParams } from '/assets/data/theming.js';
 import Permalink from '/assets/scripts/permalink.js';
 import { getThemeCode } from '/assets/scripts/tweak/code.js';
 import { deepClone, deepEach, deepGet, deepMerge } from '/assets/scripts/util/deep.js';
@@ -58,12 +58,16 @@ export const documentTheme = { ...theme };
 if (location.search) {
   let permalink = new Permalink();
   // Apply any overrides from URL
-  let urlOverrides = permalink.getAll();
+  let urlOverrides = permalink.toObject({
+    ignoreKeys: ['color-scheme'],
+    getPath,
+  });
 
   updateTheme(urlOverrides, { silent: true });
 
-  if (urlOverrides['colorscheme']) {
-    document.body.classList.add('wa-' + urlOverrides['colorscheme']);
+  let colorScheme = permalink.get('color-scheme');
+  if (colorScheme) {
+    document.body.classList.add('wa-' + colorScheme);
   }
 }
 

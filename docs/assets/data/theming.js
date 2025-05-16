@@ -83,6 +83,13 @@ export const themeConfig = {
   },
 };
 
+export function getPath(key) {
+  if (key.startsWith('icon-')) {
+    // TODO detect what the nested prefixes are from theme config metadata
+    return ['icon', ...key.slice(5)];
+  }
+}
+
 // Shallow remixing params in correct order
 // base must be first. brand needs to come after palette, which needs to come after colors.
 export const themeParams = Object.keys(themeConfig).filter(aspect => themeConfig[aspect].url);
