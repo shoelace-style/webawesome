@@ -2,7 +2,7 @@
 :host,
 .wa-theme-glossy {
   --wa-theme-glossy-inner-shine: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.3);
-  --wa-theme-glossy-top-highlight: inset 0 0.25rem 0 0 rgb(255 255 255 / 0.15);
+  --wa-theme-glossy-top-highlight: inset 0 0.25rem 0 0 rgb(255 255 255 / 0.1);
   --wa-theme-glossy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);
   --wa-theme-glossy-lower-shade: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.03);
   --wa-theme-glossy-bottom-shadow: inset 0 -0.0625rem 0 0 rgb(0 0 0 / 0.15);
@@ -20,18 +20,35 @@
       wa-radio-button,
       .wa-button
     ):not([appearance='plain'], .wa-plain) {
-    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
+    box-shadow:
+      inset 0 0 0 0.0625rem var(--border-color, var(--background-color, transparent)),
+      var(--wa-theme-glossy-inner-shine),
+      var(--wa-theme-glossy-top-highlight),
+      var(--wa-theme-glossy-upper-tint),
+      var(--wa-theme-glossy-lower-shade),
+      var(--wa-theme-glossy-bottom-shadow),
+      inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
 
     margin-bottom: var(--wa-shadow-offset-y-s);
     transition: all var(--wa-transition-fast);
 
     &:not([disabled]):active {
-      box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
-        var(--wa-theme-glossy-upper-tint-active), var(--wa-theme-glossy-lower-shade-active),
-        var(--wa-theme-glossy-bottom-shadow-active);
+      box-shadow:
+        inset 0 0 0 0.0625rem var(--border-color-active, var(--background-color-active, transparent)),
+        var(--wa-theme-glossy-inner-shine-active),
+        var(--wa-theme-glossy-top-highlight-active),
+        var(--wa-theme-glossy-upper-tint-active),
+        var(--wa-theme-glossy-lower-shade-active),
+        var(--wa-theme-glossy-bottom-shadow-active),
+        inset 0 0 0 var(--border-width) var(--border-color-active, var(--background-color-active, transparent));
 
       transform: scale(0.98);
+    }
+
+    &::part(base),
+    :is(&) {
+      padding-inline: calc(var(--wa-space) + var(--border-width));
+      border-width: 0px;
     }
   }
 
@@ -69,12 +86,18 @@
   wa-checkbox:is(:state(checked), :state(indeterminate)),
   wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
   wa-radio:state(checked) {
-    --box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-      var(--wa-theme-glossy-bottom-shadow);
+    --box-shadow: inset 0 0 0 1px var(--border-color-checked, var(--background-color, transparent)),
+      var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), var(--wa-theme-glossy-bottom-shadow),
+      inset 0 0 0 var(--border-width) var(--border-color-checked, var(--background-color, transparent));
 
     &:active {
       --box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
         var(--wa-theme-glossy-bottom-shadow-active);
+    }
+
+    &::part(control),
+    :is(&) {
+      border-width: 0px;
     }
   }
 
