@@ -89,7 +89,7 @@ unlisted: true
                   title="Icons" :subtitle="`${ capitalize(computed.icon.family) } &bull; ${ capitalize(computed.icon.style) }`">
       </icons-card>
 
-      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Look & Feel" size="small" :action="e => ui.panel = 'looknfeel'"></theme-card>
+      <theme-card type="dimensionality" :theme="computed.dimensionality" title="Elements" size="small" :action="e => ui.panel = 'elements'"></theme-card>
     </ui-panel>
 
     <ui-panel v-model="ui.panel" value="theme" :step="1">
@@ -163,7 +163,7 @@ unlisted: true
       </wa-input>
     </ui-panel>
 
-    <ui-panel v-model="ui.panel" value="looknfeel" title="Look & Feel" :step="1">
+    <ui-panel v-model="ui.panel" value="elements" title="Elements" :step="1">
       <ui-slider label="Rounding" :default-value="1" :min="0" :max="2" :step="0.125" format="{value}x" :model-value="computed.rounding" @update:model-value="value => theme.rounding = value">
         <template #min>
           <div class="corner" style="--border-radius: 0;"></div>
