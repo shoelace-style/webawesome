@@ -9,12 +9,6 @@
   scrollbar-width: thin;
 }
 
-@keyframes back-icon-hover {
-  to {
-    transform: translateX(-0.2em);
-  }
-}
-
 .panel {
   /* Remove the uniform spacing used in wa-details */
   --spacing: 0;
@@ -31,7 +25,7 @@
   border: none;
   transition:
     translate var(--wa-transition-slow) allow-discrete,
-    opacity var(--wa-transition-slow) 25ms allow-discrete;
+    opacity var(--wa-transition-slow) 50ms allow-discrete;
   /* Ensure horizontal scrollbar isn't visible when translate takes effect */
   overflow-x: hidden !important;
 
@@ -62,11 +56,11 @@
       vertical-align: -0.15em;
       margin-inline-end: var(--wa-space-xs);
       font-size: var(--wa-font-size-m);
-      transition: transform var(--wa-transition-normal);
+      transition: transform var(--wa-transition-normal) var(--wa-transition-easing);
     }
 
     &:hover .back-icon {
-      animation: back-icon-hover var(--wa-transition-slow) alternate infinite;
+      transform: translateX(-0.25em);
     }
 
     label {
