@@ -23,7 +23,7 @@ isPro: true
     <div class="wa-split:column wa-align-items-stretch wa-gap-xl">
       <div class="wa-stack wa-gap-xl">
         <div class="wa-cluster">
-        <span class="wa-heading-2xl">$32</span>
+          <span class="wa-heading-2xl">$32</span>
           <wa-divider vertical style="height: 2em"></wa-divider>
           <wa-rating label="Rating" value="3.75" readonly></wa-rating>
           <a href="" class="wa-caption-m">36 Reviews</a>
@@ -92,7 +92,7 @@ isPro: true
 
 ## With Description & Details
 
-```html{.example}
+```html {.example}
 <wa-card>
   <div class="wa-split" slot="header">
     <h3 class="wa-heading-l">Champion® Crossbody Bag</h3>
@@ -122,11 +122,15 @@ isPro: true
         <wa-divider></wa-divider>
         <wa-callout size="small">
           <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-          You purchased this item on <wa-format-date date="2023-02-20T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date>
+          You purchased this item on
+          <wa-format-date date="2023-02-20T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date>
         </wa-callout>
         <div class="wa-gap-xs wa-stack">
           <h4 class="wa-heading-m">About</h4>
-          <p class="wa-body-s">The Champion® Crossbody Bag is crafted for the trendsetter. Its sleek silhouette, paired with a tonal branded adjustable sling strap, ensures you look effortlessly cool no matter where you go.</p>
+          <p class="wa-body-s">
+            The Champion® Crossbody Bag is crafted for the trendsetter. Its sleek silhouette, paired with a tonal
+            branded adjustable sling strap, ensures you look effortlessly cool no matter where you go.
+          </p>
         </div>
         <wa-divider></wa-divider>
         <div class="wa-gap-xs wa-stack">

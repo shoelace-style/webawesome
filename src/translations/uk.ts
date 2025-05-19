@@ -28,6 +28,7 @@ const translation: Translation = {
   progress: 'Поступ',
   remove: 'Видалити',
   resize: 'Змінити розмір',
+  scrollableRegion: 'Область з можливістю прокрутки',
   scrollToEnd: 'Прокрутити в кінець',
   scrollToStart: 'Прокрутити на початок',
   selectAColorFromTheScreen: 'Виберіть колір на екрані',

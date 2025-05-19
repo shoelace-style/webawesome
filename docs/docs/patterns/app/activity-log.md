@@ -1,7 +1,6 @@
 ---
 title: Activity Log
 description: 'Track and organize recent user actions or events.'
-
 ---
 
 ## Simple
@@ -107,9 +106,7 @@ description: 'Track and organize recent user actions or events.'
   <h3 class="wa-heading-m">Monthly Activity</h3>
   <div class="wa-stack">
     <wa-details>
-      <span class="wa-heading-m" slot="summary">
-        February
-      </span>
+      <span class="wa-heading-m" slot="summary"> February </span>
       <div class="wa-stack">
         <article class="wa-flank">
           <wa-icon style="font-size: var(--wa-font-size-l)" name="envelope" fixed-width></wa-icon>
@@ -129,9 +126,7 @@ description: 'Track and organize recent user actions or events.'
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Spoke with the Pope</span>
-              <div class="wa-cluster wa-gap-2xs">
-                <a href="#">Artur Fleck</a><span>for 1 hour</span>
-              </div>
+              <div class="wa-cluster wa-gap-2xs"><a href="#">Artur Fleck</a><span>for 1 hour</span></div>
             </div>
             <wa-format-date date="2025-02-23" month="short" day="numeric" class="wa-caption-m"></wa-format-date>
           </div>
@@ -139,18 +134,14 @@ description: 'Track and organize recent user actions or events.'
       </div>
     </wa-details>
     <wa-details>
-      <span class="wa-heading-m" slot="summary">
-        March
-      </span>
+      <span class="wa-heading-m" slot="summary"> March </span>
       <div class="wa-stack">
         <article class="wa-flank">
           <wa-icon style="font-size: var(--wa-font-size-l)" name="video" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Zoom Call with Northeast office</span>
-              <div class="wa-cluster wa-gap-2xs">
-                <a href="#">Axel Foley</a><span>for 47 minutes</span>
-              </div>
+              <div class="wa-cluster wa-gap-2xs"><a href="#">Axel Foley</a><span>for 47 minutes</span></div>
             </div>
             <wa-format-date date="2025-03-15" month="short" day="numeric" class="wa-caption-m"></wa-format-date>
           </div>
@@ -171,18 +162,14 @@ description: 'Track and organize recent user actions or events.'
       </div>
     </wa-details>
     <wa-details>
-      <span class="wa-heading-m" slot="summary">
-        April
-      </span>
+      <span class="wa-heading-m" slot="summary"> April </span>
       <div class="wa-stack">
         <article class="wa-flank">
           <wa-icon style="font-size: var(--wa-font-size-l)" family="brands" name="intercom" fixed-width></wa-icon>
           <div class="wa-split">
             <div class="wa-stack wa-gap-0">
               <span class="wa-heading-s">Got new lead</span>
-              <div class="wa-cluster wa-gap-2xs">
-                <a href="#">Jack Carter</a><span>on Intercom switchboard</span>
-              </div>
+              <div class="wa-cluster wa-gap-2xs"><a href="#">Jack Carter</a><span>on Intercom switchboard</span></div>
             </div>
             <wa-format-date date="2025-04-18" month="short" day="numeric" class="wa-caption-m"></wa-format-date>
           </div>
@@ -205,13 +192,18 @@ description: 'Track and organize recent user actions or events.'
   </div>
 </wa-card>
 ```
+
 ## Card Separated
+
 ```html {.example}
 <div class="wa-stack" style="max-width: 45ch; margin: 0 auto;">
   <div class="wa-stack">
     <wa-card>
       <div class="wa-flank">
-        <wa-avatar image="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <wa-avatar
+          image="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          label="profile image"
+        ></wa-avatar>
         <div class="wa-stack wa-gap-0">
           <div class="wa-split">
             <span class="wa-heading-s">Isaiah Hamilton</span>
@@ -228,45 +220,51 @@ description: 'Track and organize recent user actions or events.'
     <div class="wa-flank wa-gap-xl">
       <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
       <ul class="wa-stack">
-      <li class="wa-stack wa-gap-2xs">
-        <wa-card>
-      <div class="wa-flank">
-        <wa-avatar image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
-        <div class="wa-stack wa-gap-0">
-          <div class="wa-split">
-            <span class="wa-heading-s">Melvin Hurst</span>
-            <wa-relative-time class="wa-caption-s" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
-          </div>
-          <p>What's on second?</p>
-          <a href="#" class="wa-cluster wa-gap-2xs">
-            <wa-icon name="reply" family="sharp" variant="regular"></wa-icon>
-            <span>Reply</span>
-          </a>
-        </div>
-      </div>
-    </wa-card>
-      </li>
-      <li class="wa-stack wa-gap-2xs">
-        <wa-card>
-      <div class="wa-flank wa-align-items-start">
-        <wa-avatar image="https://images.unsplash.com/photo-1674044494331-8db2ecf18d46?q=80&w=3019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
-        <div class="wa-stack wa-gap-xs">
-          <div class="wa-split">
-            <span class="wa-heading-s">Vanessa Wright</span>
-          </div>
-          <wa-textarea size="small" aria-label="Add Your Comment"></wa-textarea>
-        </div>
-      </div>
-    </wa-card>
-      </li>
-    </ul>
+        <li class="wa-stack wa-gap-2xs">
+          <wa-card>
+            <div class="wa-flank">
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                label="profile image"
+              ></wa-avatar>
+              <div class="wa-stack wa-gap-0">
+                <div class="wa-split">
+                  <span class="wa-heading-s">Melvin Hurst</span>
+                  <wa-relative-time class="wa-caption-s" date="2025-02-15T09:17:00-04:00"></wa-relative-time>
+                </div>
+                <p>What's on second?</p>
+                <a href="#" class="wa-cluster wa-gap-2xs">
+                  <wa-icon name="reply" family="sharp" variant="regular"></wa-icon>
+                  <span>Reply</span>
+                </a>
+              </div>
+            </div>
+          </wa-card>
+        </li>
+        <li class="wa-stack wa-gap-2xs">
+          <wa-card>
+            <div class="wa-flank wa-align-items-start">
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1674044494331-8db2ecf18d46?q=80&w=3019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                label="profile image"
+              ></wa-avatar>
+              <div class="wa-stack wa-gap-xs">
+                <div class="wa-split">
+                  <span class="wa-heading-s">Vanessa Wright</span>
+                </div>
+                <wa-textarea size="small" aria-label="Add Your Comment"></wa-textarea>
+              </div>
+            </div>
+          </wa-card>
+        </li>
+      </ul>
     </div>
-
   </div>
 </div>
 ```
 
 ## Divider Separated
+
 ```html {.example}
 <wa-card style="max-width: 54ch; margin: 0 auto;">
   <div slot="header" class="wa-split">
@@ -279,7 +277,10 @@ description: 'Track and organize recent user actions or events.'
   <div class="wa-stack">
     <article>
       <div class="wa-flank wa-align-items-start">
-        <wa-avatar image="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <wa-avatar
+          image="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          label="profile image"
+        ></wa-avatar>
         <div class="wa-stack wa-gap-2xs">
           <div class="wa-split">
             <span><strong>Happy</strong> commented in <a href="#">Reporting Dashboard</a></span>
@@ -298,7 +299,10 @@ description: 'Track and organize recent user actions or events.'
     </article>
     <article>
       <div class="wa-flank wa-align-items-start">
-        <wa-avatar image="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile image"></wa-avatar>
+        <wa-avatar
+          image="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          label="profile image"
+        ></wa-avatar>
         <div class="wa-stack wa-gap-2xs">
           <div class="wa-split">
             <span><strong>Charlotte</strong> followed you</span>
@@ -314,7 +318,10 @@ description: 'Track and organize recent user actions or events.'
     </article>
     <article>
       <div class="wa-flank wa-align-items-start">
-        <wa-avatar image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Profile image"></wa-avatar>
+        <wa-avatar
+          image="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          label="Profile image"
+        ></wa-avatar>
         <div class="wa-stack wa-gap-2xs">
           <div class="wa-split">
             <span><strong>Tavitian</strong> invited you to <a href="#">Homepage Redesign</a></span>

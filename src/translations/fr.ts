@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Progrès',
   remove: 'Retirer',
   resize: 'Redimensionner',
+  scrollableRegion: 'Région défilante',
   scrollToEnd: `Faire défiler jusqu'à la fin`,
   scrollToStart: `Faire défiler jusqu'au début`,
   selectAColorFromTheScreen: `Sélectionnez une couleur à l'écran`,

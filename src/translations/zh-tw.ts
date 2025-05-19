@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: '進度',
   remove: '移除',
   resize: '調整大小',
+  scrollableRegion: '可捲動区域',
   scrollToEnd: '捲至頁尾',
   scrollToStart: '捲至頁首',
   selectAColorFromTheScreen: '從螢幕中選擇一種顏色',

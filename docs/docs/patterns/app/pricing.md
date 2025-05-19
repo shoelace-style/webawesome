@@ -6,7 +6,7 @@ isPro: true
 
 ## Three Tiers
 
-```html{.example}
+```html {.example}
 <div class="wa-grid">
   <wa-card>
     <div class="wa-stack">
@@ -130,7 +130,9 @@ isPro: true
   <div class="wa-grid">
     <div class="wa-stack">
       <h3 class="wa-heading-l">Lifetime Membership</h3>
-      <p>Learn at your own pace with expert-led content, exclusive resources, and a community of like-minded learners.</p>
+      <p>
+        Learn at your own pace with expert-led content, exclusive resources, and a community of like-minded learners.
+      </p>
       <wa-divider></wa-divider>
       <h4 class="wa-heading-s">Membership Includes:</h4>
       <div class="wa-grid">

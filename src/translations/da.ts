@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Status',
   remove: 'Fjern',
   resize: 'Tilpas størrelse',
+  scrollableRegion: 'Rullebar region',
   scrollToEnd: 'Scroll til slut',
   scrollToStart: 'Scroll til start',
   selectAColorFromTheScreen: 'Vælg en farve fra skærmen',

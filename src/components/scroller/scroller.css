@@ -1,0 +1,128 @@
+:host {
+  --shadow-color: var(--wa-color-surface-default);
+  --shadow-size: 2rem;
+
+  /* private (defined dynamically) */
+  --start-shadow-opacity: 0;
+  --end-shadow-opacity: 0;
+
+  display: block;
+  position: relative;
+  max-width: 100%;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+:host([orientation='vertical']) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#content {
+  border-radius: inherit;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+
+  /* Prevent text in mobile Safari from being larger when the container width larger than the viewport */
+  -webkit-text-size-adjust: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+}
+
+:host([without-scrollbar]) #content {
+  scrollbar-width: none;
+}
+
+:host([orientation='horizontal']) #content {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+:host([orientation='vertical']) #content {
+  flex: 1 1 auto;
+  min-height: 0; /* This is crucial for flex children to respect overflow */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Horizontal shadows */
+:host([orientation='horizontal']) {
+  #start-shadow,
+  #end-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--shadow-size);
+    pointer-events: none;
+  }
+
+  #start-shadow {
+    opacity: var(--start-shadow-opacity);
+  }
+
+  #end-shadow {
+    opacity: var(--end-shadow-opacity);
+  }
+
+  #start-shadow {
+    &:dir(ltr) {
+      left: 0;
+      background: linear-gradient(to right, var(--shadow-color), transparent 100%);
+    }
+
+    &:dir(rtl) {
+      right: 0;
+      background: linear-gradient(to left, var(--shadow-color), transparent 100%);
+    }
+  }
+
+  #end-shadow {
+    &:dir(ltr) {
+      right: 0;
+      background: linear-gradient(to left, var(--shadow-color), transparent 100%);
+    }
+
+    &:dir(rtl) {
+      left: 0;
+      background: linear-gradient(to right, var(--shadow-color), transparent 100%);
+    }
+  }
+}
+
+/* Vertical shadows */
+:host([orientation='vertical']) {
+  #start-shadow,
+  #end-shadow {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: var(--shadow-size);
+    pointer-events: none;
+  }
+
+  #start-shadow {
+    opacity: var(--start-shadow-opacity);
+  }
+
+  #end-shadow {
+    opacity: var(--end-shadow-opacity);
+  }
+
+  #start-shadow {
+    top: 0;
+    background: linear-gradient(to bottom, var(--shadow-color), transparent 100%);
+  }
+
+  #end-shadow {
+    bottom: 0;
+    background: linear-gradient(to top, var(--shadow-color), transparent 100%);
+  }
+}

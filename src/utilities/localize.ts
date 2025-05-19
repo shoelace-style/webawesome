@@ -37,6 +37,7 @@ export interface Translation extends DefaultTranslation {
   progress: string;
   remove: string;
   resize: string;
+  scrollableRegion: string;
   scrollToEnd: string;
   scrollToStart: string;
   selectAColorFromTheScreen: string;

@@ -7,7 +7,7 @@ isPro: true
 
 ## Sidebar with Checkboxes & Expandable Filters
 
-```html{.example}
+```html {.example}
   <h1>New Arrivals</h1>
   <div class="wa-flank wa-align-items-start" style="--flank-size: 200px;">
     <form class="wa-stack">
@@ -49,9 +49,9 @@ isPro: true
 
 ## Sidebar with Dropdowns
 
-```html{.example}
-  <h1>New Arrivals</h1>
- <div class="wa-flank wa-align-items-start">
+```html {.example}
+<h1>New Arrivals</h1>
+<div class="wa-flank wa-align-items-start">
   <div class="wa-stack">
     <wa-select label="Product Type" placeholder="Products" value="all-products">
       <wa-option value="all-products">All Products</wa-option>

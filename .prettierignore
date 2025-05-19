@@ -1,5 +1,7 @@
 *.hbs
 *.md
+!docs/docs/patterns/**/*.md
+docs/docs/patterns/blog-news/post-list.md
 .cache
 .github
 cspell.json

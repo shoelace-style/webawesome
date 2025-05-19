@@ -40,7 +40,10 @@ isPro: true
       <h3 id="auto-renew-label" class="wa-heading-m">Auto-renew</h3>
       <wa-switch size="large" aria-labelledby="auto-renew-label"></wa-switch>
     </div>
-    <p class="wa-body-s">Automatically renew your subscription using your preferred payment method. We'll send you a reminder 30 days before we draft your account.</p>
+    <p class="wa-body-s">
+      Automatically renew your subscription using your preferred payment method. We'll send you a reminder 30 days
+      before we draft your account.
+    </p>
   </div>
 </wa-card>
 ```
@@ -50,7 +53,10 @@ isPro: true
 ```html {.example}
 <wa-card style="margin: 0 auto; max-width: 45ch;">
   <div class="wa-flank">
-    <wa-avatar image="https://images.unsplash.com/photo-1532202802379-df93d543bac3?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="profile-image"></wa-avatar>
+    <wa-avatar
+      image="https://images.unsplash.com/photo-1532202802379-df93d543bac3?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      label="profile-image"
+    ></wa-avatar>
     <div class="wa-split">
       <div class="wa-stack wa-gap-2xs">
         <span class="wa-heading-s">Super Dog</span>

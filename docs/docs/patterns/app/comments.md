@@ -39,10 +39,16 @@ isPro: true
           <wa-avatar initials="RF" label="User avatar"></wa-avatar>
           <div class="wa-cluster">
             <strong>Robert Fox</strong>
-            <span class="wa-caption-m">commented <wa-relative-time date="2025-03-31T09:17:00-04:00"></wa-relative-time></span>
+            <span class="wa-caption-m"
+              >commented <wa-relative-time date="2025-03-31T09:17:00-04:00"></wa-relative-time
+            ></span>
           </div>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec. Suspendisse potenti. Pellentesque lobortis pulvinar nulla non tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus
+          nec. Suspendisse potenti. Pellentesque lobortis pulvinar nulla non tempor. Interdum et malesuada fames ac ante
+          ipsum primis in faucibus.
+        </p>
       </li>
       <div class="wa-flank wa-gap-xl">
         <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
@@ -52,10 +58,15 @@ isPro: true
               <wa-avatar initials="VF" label="User avatar"></wa-avatar>
               <div class="wa-cluster">
                 <strong>Virginia Woolf</strong>
-                <span class="wa-caption-m">commented <wa-relative-time date="2025-03-31T12:32:00-04:00"></wa-relative-time></span>
+                <span class="wa-caption-m"
+                  >commented <wa-relative-time date="2025-03-31T12:32:00-04:00"></wa-relative-time
+                ></span>
               </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec.</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem
+              faucibus nec.
+            </p>
           </li>
           <li class="wa-stack wa-gap-2xs">
             <div class="wa-flank">
@@ -65,7 +76,10 @@ isPro: true
                 <span class="wa-caption-m">commented <wa-relative-time></wa-relative-time></span>
               </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem faucibus nec.</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis mollis nunc, vel tempor sem
+              faucibus nec.
+            </p>
           </li>
           <li class="wa-cluster">
             <wa-icon name="reply"></wa-icon>
@@ -82,7 +96,10 @@ isPro: true
 
 ```html {.example}
 <div class="wa-align-items-start wa-flank">
-  <wa-avatar image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="User avatar"></wa-avatar>
+  <wa-avatar
+    image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    label="User avatar"
+  ></wa-avatar>
   <div class="wa-stack wa-gap-s">
     <wa-textarea placeholder="Add to the conversation..." aria-label="Add comment"></wa-textarea>
     <div class="wa-split">
@@ -119,7 +136,14 @@ isPro: true
     <dl class="wa-split">
       <dt>Date</dt>
       <dd>
-        <wa-format-date date="2025-03-13T00:00:00.000-04:00" weekday="long" month="long" day="numeric" year="numeric" class="wa-caption-m"></wa-format-date>
+        <wa-format-date
+          date="2025-03-13T00:00:00.000-04:00"
+          weekday="long"
+          month="long"
+          day="numeric"
+          year="numeric"
+          class="wa-caption-m"
+        ></wa-format-date>
       </dd>
     </dl>
     <wa-divider></wa-divider>
@@ -136,7 +160,9 @@ isPro: true
   </div>
 </wa-card>
 ```
+
 ## With Preview Pane
+
 ```html{.example}
 <div style="max-width: 60ch; margin: 0 auto;">
   <wa-card class="wa-border-radius-square">

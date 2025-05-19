@@ -38,7 +38,7 @@ unlisted: true
       <wa-icon name="code" variant="solid"></wa-icon>
       Code
     </wa-button>
-    <wa-drawer label="Theme code" with-header :open="ui.showCode" @wa-after-hide="ui.showCode = false" light-dismiss>
+    <wa-drawer label="Theme code" :open="ui.showCode" @wa-after-hide="ui.showCode = false" light-dismiss>
       <wa-tab-group class="import-stylesheet-code" :active="ui.code" @wa-tab-show="ui.code = $event.detail.name">
         <wa-tab panel="css">CSS</wa-tab>
         <wa-tab-panel name="css">

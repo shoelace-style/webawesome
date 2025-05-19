@@ -114,7 +114,8 @@ isPro: true
   <div class="wa-grid">
     <a href="" class="wa-link-plain">
       <wa-card>
-        <img slot="image"
+        <img
+          slot="image"
           src="https://images.unsplash.com/photo-1622445272461-c6580cab8755?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Man in a relaxed fit, white, crew neck t-shirt (Photography by Mediamodifier)"
         />
@@ -123,14 +124,17 @@ isPro: true
             <span>Plain Classic Tee</span>
             <span>$24</span>
           </div>
-          <p class="wa-caption-m">Keep it casual or dress it up. Soft, 100% cotton with a crew neckline, perfect for any occasion.</p>
+          <p class="wa-caption-m">
+            Keep it casual or dress it up. Soft, 100% cotton with a crew neckline, perfect for any occasion.
+          </p>
           <em class="wa-caption-m">8 colors</em>
         </div>
       </wa-card>
     </a>
     <a href="" class="wa-link-plain">
       <wa-card>
-        <img slot="image"
+        <img
+          slot="image"
           src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Woman in a light heather t-shirt printed with sharp black ink (Photograph by Christian Bolt)"
         />
@@ -139,7 +143,9 @@ isPro: true
             <span>One-color Graphic Tee</span>
             <span>$32</span>
           </div>
-          <p class="wa-caption-m">Your own spin on our classic tee. Hand screen printed for the ultimate accuracy and quality.</p>
+          <p class="wa-caption-m">
+            Your own spin on our classic tee. Hand screen printed for the ultimate accuracy and quality.
+          </p>
           <em class="wa-caption-m">6 colors</em>
         </div>
       </wa-card>
@@ -148,7 +154,8 @@ isPro: true
   <div class="wa-grid">
     <a href="" class="wa-link-plain">
       <wa-card>
-        <img slot="image"
+        <img
+          slot="image"
           src="https://images.unsplash.com/photo-1567098260939-5d9cee055592?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Man in a black t-shirt printed with many-colored gradients (Photograph by Marcel)"
         />
@@ -157,14 +164,17 @@ isPro: true
             <span>Multi-color Graphic Tee</span>
             <span>$36</span>
           </div>
-          <p class="wa-caption-m">Make a statement. Screen printed with vibrant, quality inks to last wash after wash.</p>
+          <p class="wa-caption-m">
+            Make a statement. Screen printed with vibrant, quality inks to last wash after wash.
+          </p>
           <em class="wa-caption-m">4 colors</em>
         </div>
       </wa-card>
     </a>
     <a href="" class="wa-link-plain">
       <wa-card>
-        <img slot="image"
+        <img
+          slot="image"
           src="https://images.unsplash.com/photo-1709185727063-c3caae752a64?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Woman in a black t-shirt with a bright white logo printed on the pocket (Photograph by SASI)"
         />
@@ -173,7 +183,9 @@ isPro: true
             <span>Pocket Graphic Tee</span>
             <span>$29</span>
           </div>
-          <p class="wa-caption-m">Go classic with a bit of your own flair. Screen printed, eye-catching detail on the pocket.</p>
+          <p class="wa-caption-m">
+            Go classic with a bit of your own flair. Screen printed, eye-catching detail on the pocket.
+          </p>
           <em class="wa-caption-m">6 colors</em>
         </div>
       </wa-card>

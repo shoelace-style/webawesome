@@ -11,7 +11,10 @@ isPro: true
 <div class="wa-flank wa-align-items-start" style="--flank-size: 20rem;">
   <div class="wa-stack wa-gap-2xl">
     <h2 class="wa-heading-xl">Casual Collection</h2>
-    <p class="wa-body-s">Look good &mdash; without looking like you're trying too hard. Our casual collection includes laid back styles that work in <em>almost</em> any situation.</p>
+    <p class="wa-body-s">
+      Look good &mdash; without looking like you're trying too hard. Our casual collection includes laid back styles
+      that work in <em>almost</em> any situation.
+    </p>
     <wa-button>View the Collection</wa-button>
   </div>
   <div class="wa-stack">
@@ -139,25 +142,25 @@ isPro: true
     <h2 class="wa-heading-xl">New Arrivals</h2>
     <p class="wa-caption-l">Explore brand new furniture to accentuate your home aesthetic &mdash; just for you.</p>
   </div>
-<div class="wa-grid">
-  <div class="wa-stack">
-    <div class="wa-frame wa-border-radius-m">
-      <img
-        src="https://uploads.webawesome.com/indoor-furniture.jpg"
-        alt="Sunny room with a mid-century modern couch, accent chair, and elegant lamp"
-      />
+  <div class="wa-grid">
+    <div class="wa-stack">
+      <div class="wa-frame wa-border-radius-m">
+        <img
+          src="https://uploads.webawesome.com/indoor-furniture.jpg"
+          alt="Sunny room with a mid-century modern couch, accent chair, and elegant lamp"
+        />
+      </div>
+      <wa-button appearance="outlined">View Indoor Furniture</wa-button>
     </div>
-    <wa-button appearance="outlined">View Indoor Furniture</wa-button>
-  </div>
-  <div class="wa-stack">
-    <div class="wa-frame wa-border-radius-m">
-      <img
-        src="https://uploads.webawesome.com/outdoor-furniture.jpg"
-        alt="Covered patio with rustic wooden cabinets, writing desk, and stool"
-      />
+    <div class="wa-stack">
+      <div class="wa-frame wa-border-radius-m">
+        <img
+          src="https://uploads.webawesome.com/outdoor-furniture.jpg"
+          alt="Covered patio with rustic wooden cabinets, writing desk, and stool"
+        />
+      </div>
+      <wa-button appearance="outlined">View Outdoor Furniture</wa-button>
     </div>
-    <wa-button appearance="outlined">View Outdoor Furniture</wa-button>
   </div>
-</div>
 </div>
 ```

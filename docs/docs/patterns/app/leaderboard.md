@@ -140,7 +140,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="1" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=3418&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=3418&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>mitsuwo</span>
@@ -151,7 +154,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="2" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1639628735078-ed2f038a193e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1639628735078-ed2f038a193e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>knowledgeninja</span>
@@ -162,7 +168,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="3" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>NxtLvl</span>
@@ -173,7 +182,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="4" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1630549316063-7ae02749d2cc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1630549316063-7ae02749d2cc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>brainiac</span>
@@ -184,7 +196,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="5" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>eduexplorer</span>
@@ -207,7 +222,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="1" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1630549316063-7ae02749d2cc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1630549316063-7ae02749d2cc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>brainiac</span>
@@ -218,7 +236,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="2" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1546776230-bb86256870ce?q=80&w=3368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1546776230-bb86256870ce?q=80&w=3368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>LessonLegend</span>
@@ -229,7 +250,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="3" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=3418&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=3418&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>mitsuwo</span>
@@ -240,7 +264,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="4" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1586374579358-9d19d632b6df?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1586374579358-9d19d632b6df?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>wiswiz</span>
@@ -251,7 +278,10 @@ isPro: true
           <li class="wa-flank">
             <div class="wa-cluster">
               <wa-icon name="5" fixed-width></wa-icon>
-              <wa-avatar image="https://images.unsplash.com/photo-1639628735078-ed2f038a193e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" shape="rounded"></wa-avatar>
+              <wa-avatar
+                image="https://images.unsplash.com/photo-1639628735078-ed2f038a193e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                shape="rounded"
+              ></wa-avatar>
             </div>
             <div class="wa-split wa-gap-xs">
               <span>knowledgeninja</span>
