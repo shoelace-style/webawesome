@@ -172,7 +172,7 @@ unlisted: true
           <div class="corner" style="--border-radius: var(--wa-border-radius-l);"></div>
         </template>
       </ui-slider>
-      <ui-slider label="Spacing" :default-value="1":min="0.75" :max="1.5" :step="0.125" format="{value}x" :model-value="computed.spacing" @update:model-value="value => theme.spacing = value">
+      <ui-slider label="Spacing" :default-value="1":min="0.5" :max="2" :step="0.125" format="{value}x" :model-value="computed.spacing" @update:model-value="value => theme.spacing = value">
         <template #min>
           <div class="spacing" style="--spacing: 0.5;"><div></div><div></div><div></div></div>
         </template>
