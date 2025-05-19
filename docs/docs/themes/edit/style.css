@@ -166,6 +166,12 @@ wa-card wa-icon.angle-right {
   color: var(--wa-color-text-quiet);
 }
 
+.dimensionality-card {
+  .page-name .wa-caption-m {
+    display: none;
+  }
+}
+
 .ui-slider {
   .corner,
   .borders,

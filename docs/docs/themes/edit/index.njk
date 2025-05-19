@@ -190,9 +190,12 @@ unlisted: true
         </template>
       </ui-slider>
 
+      <!--
       <theme-card type="dimensionality" :theme="computed.dimensionality" title="Dimensionality" :subtitle="computed.dimensionality ? undefined : 'Flat'" size="small" :action="e => ui.panel = 'dimensionality'"></theme-card>
+      -->
     </ui-panel>
 
+    <!--
     <ui-panel v-model="ui.panel" value="dimensionality" title="Dimensionality" :step="2">
       <template #title>
         <label for="dimensionality-radio-group">Dimensionality</label>
@@ -208,6 +211,7 @@ unlisted: true
         </template>
       </wa-radio-group>
     </ui-panel>
+    -->
 
     <ui-panel v-model="ui.panel" value="icon-family" title="Icon Family" :step="2">
       <template #title>

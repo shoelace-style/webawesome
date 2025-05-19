@@ -89,9 +89,9 @@ export default {
   computed: {
     themeMeta() {
       let ret = themes[this.theme] ? { ...themes[this.theme] } : {};
-      if (this.type === 'dimensionality' && typeof ret.dimension === 'string') {
-        ret.title = capitalize(ret.dimension);
-      }
+      // if (this.type === 'dimensionality' && typeof ret.dimension === 'string') {
+      //   ret.title = capitalize(ret.dimension);
+      // }
       return ret;
     },
 
@@ -99,11 +99,11 @@ export default {
       let theme = { ...(this.rest || {}), [this.type || 'base']: this.theme };
       theme.base ||= 'default';
 
-      if (theme.dimensionality) {
-        if (!themes[theme.dimensionality]?.dimension || theme.dimensionality === theme.base) {
-          theme.dimensionality = '';
-        }
-      }
+      // if (theme.dimensionality) {
+      //   if (!themes[theme.dimensionality]?.dimension || theme.dimensionality === theme.base) {
+      //     theme.dimensionality = '';
+      //   }
+      // }
 
       return getThemeCode(theme, { id: this.theme, language: 'html', cdnUrl: '/dist/' });
     },
