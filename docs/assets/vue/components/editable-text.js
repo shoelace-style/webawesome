@@ -5,7 +5,6 @@ const template = `
 <template v-if="isEditing">
   <input ref="input" class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @keydown.enter="done" @keydown.esc="cancel" @blur="handleBlur" />
   <wa-icon-button v-if="blur !== 'done'" name="check" label="Done editing" @click="done"></wa-icon-button>
-  <wa-icon-button v-if="blur !== 'cancel'" name="xmark" label="Cancel" @click="cancel"></wa-icon-button>
 </template>
 <template v-else>
   <span class="text" ref="wrapper" @focus="edit" @click="edit" tabindex="0">{{ value }}</span>
@@ -77,11 +76,7 @@ export default {
       this.value = this.previousValue;
     },
     handleBlur(event) {
-      if (this.blur === 'done') {
-        this.done(event);
-      } else if (this.blur === 'cancel') {
-        this.cancel(event);
-      }
+      this.done(event);
     },
   },
   template,
