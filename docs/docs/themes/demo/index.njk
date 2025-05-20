@@ -35,13 +35,13 @@ unlisted: true
 {% include 'theme-showcase.njk' %}
 {% endset %}
 
-<wa-comparer style="width: 100%" position="90">
+<wa-comparison  style="width: 100%" position="90">
 <div slot="after" class="theme-showcase wa-gap-0">
 {{ content | safe }}
 </div>
 <div slot="before" class="theme-showcase wa-gap-0 wa-invert">
   {{ content | safe }}
 </div>
-</wa-comparer>
+</wa-comparison >
 
 <script type="module" src="../demo/index.js"></script>

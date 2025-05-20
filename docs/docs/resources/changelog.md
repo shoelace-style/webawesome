@@ -14,7 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparer>` and improved compatibility for non-image content
+- 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparison>` and improved compatibility for non-image content
 - 🚨 BREAKING:  Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
 - Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`

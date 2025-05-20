@@ -80,7 +80,7 @@ wa-page > header {
   max-inline-size: 140ch;
   margin: auto;
 
-  wa-comparer {
+  wa-comparison {
     height: 100%;
 
     &::part(base),
