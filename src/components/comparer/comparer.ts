@@ -33,6 +33,8 @@ import styles from './comparer.css';
  * @cssproperty --divider-width - The width of the dividing line.
  * @cssproperty --handle-color - The color of the icon used inside the handle.
  * @cssproperty --handle-size - The size of the compare handle.
+ *
+ * @cssstate dragging - Applied when the comparer is being dragged.
  */
 @customElement('wa-comparer')
 export default class WaComparer extends WebAwesomeElement {
@@ -53,8 +55,12 @@ export default class WaComparer extends WebAwesomeElement {
 
     drag(this, {
       onMove: x => {
+        this.toggleCustomState('dragging', true);
         this.position = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
         if (isRtl) this.position = 100 - this.position;
+      },
+      onStop: () => {
+        this.toggleCustomState('dragging', false);
       },
       initialEvent: event,
     });

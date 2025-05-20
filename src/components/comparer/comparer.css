@@ -11,15 +11,6 @@
   overflow: hidden;
 }
 
-/* Make content inert when dragging.
-   Otherwise, for <iframe> and <object> dragging is very choppy. */
-:host(:active) {
-  .before,
-  .after {
-    pointer-events: none;
-  }
-}
-
 .before,
 .after {
   display: block;
@@ -42,6 +33,14 @@
   left: 0;
   height: 100%;
   width: 100%;
+}
+
+/* Disable pointer-events while dragging. This is especially important for iframes. */
+:host(:state(dragging)) {
+  .before,
+  .after {
+    pointer-events: none;
+  }
 }
 
 .divider {
