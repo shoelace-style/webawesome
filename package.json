@@ -1,7 +1,7 @@
 {
   "name": "@shoelace-style/webawesome",
   "description": "A forward-thinking library of web components.",
-  "version": "3.0.0-alpha.9",
+  "version": "3.0.0-alpha.12",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -45,15 +45,13 @@
   },
   "scripts": {
     "start": "node scripts/build.js --develop",
+    "start:alpha": "echo 'This command has been deprecated. Use: \"npm start\"\n'",
     "build": "node scripts/build.js",
     "build:serve": "npm run build && npx http-server _site -p 4000",
-    "build:alpha": "node scripts/build.js --alpha",
-    "build:alpha:serve": "npm run build:alpha && npx http-server _site -p 4000",
-    "start:alpha": "node scripts/build.js --alpha --develop",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
     "create": "plop --plopfile scripts/plop/plopfile.js",
-    "test": "web-test-runner --group default",
-    "test:component": "web-test-runner -- --watch --group",
+    "test": "CSR_ONLY=\"true\" web-test-runner --group default",
+    "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
     "test:contrast": "cd src/styles/color && node contrast.test.js",
     "test:watch": "web-test-runner --watch --group default",
     "prettier": "prettier --check --log-level=warn .",
@@ -68,12 +66,13 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.1.0",
-    "@floating-ui/dom": "^1.6.12",
+    "@floating-ui/dom": "^1.6.13",
     "@shoelace-style/animations": "^1.2.0",
     "@shoelace-style/localize": "^3.2.1",
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
-    "qr-creator": "^1.0.0"
+    "qr-creator": "^1.0.0",
+    "style-observer": "^0.0.7"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",

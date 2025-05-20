@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Průběh',
   remove: 'Odstranit',
   resize: 'Změnit velikost',
+  scrollableRegion: 'Posunovatelná oblast',
   scrollToEnd: 'Scrollovat na konec',
   scrollToStart: 'Scrollovat na začátek',
   selectAColorFromTheScreen: 'Vybrat barvu z obrazovky',

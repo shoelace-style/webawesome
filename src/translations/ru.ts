@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Прогресс',
   remove: 'Удалить',
   resize: 'Изменить размер',
+  scrollableRegion: 'Scrollable region',
   scrollToEnd: 'Пролистать до конца',
   scrollToStart: 'Пролистать к началу',
   selectAColorFromTheScreen: 'Выберите цвет на экране',

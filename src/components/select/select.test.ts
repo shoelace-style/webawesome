@@ -107,7 +107,7 @@ describe('<wa-select>', () => {
         const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
         const submitHandler = sinon.spy();
 
-        el.addEventListener('wa-focus', submitHandler);
+        el.addEventListener('focus', submitHandler);
         (label as HTMLLabelElement).click();
         await waitUntil(() => submitHandler.calledOnce);
 
@@ -115,7 +115,7 @@ describe('<wa-select>', () => {
       });
 
       describe('when the value changes', () => {
-        it('should emit wa-change when the value is changed with the mouse', async () => {
+        it('should emit change when the value is changed with the mouse', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
               <wa-option value="option-1">Option 1</wa-option>
@@ -132,8 +132,8 @@ describe('<wa-select>', () => {
           const changeHandler = sinon.spy();
           const inputHandler = sinon.spy();
 
-          el.addEventListener('wa-change', changeHandler);
-          el.addEventListener('wa-input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
 
           await el.show();
           await clickOnElement(secondOption);
@@ -144,7 +144,7 @@ describe('<wa-select>', () => {
           expect(el.value).to.equal('option-2');
         });
 
-        it('should emit wa-change and wa-input when the value is changed with the keyboard', async () => {
+        it('should emit change and input when the value is changed with the keyboard', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
               <wa-option value="option-1">Option 1</wa-option>
@@ -155,8 +155,8 @@ describe('<wa-select>', () => {
           const changeHandler = sinon.spy();
           const inputHandler = sinon.spy();
 
-          el.addEventListener('wa-change', changeHandler);
-          el.addEventListener('wa-input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
 
           el.focus();
           await el.updateComplete;
@@ -175,7 +175,7 @@ describe('<wa-select>', () => {
           expect(el.value).to.equal('option-3');
         });
 
-        it('should not emit wa-change or wa-input when the value is changed programmatically', async () => {
+        it('should not emit change or input when the value is changed programmatically', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
               <wa-option value="option-1">Option 1</wa-option>
@@ -184,14 +184,14 @@ describe('<wa-select>', () => {
             </wa-select>
           `);
 
-          el.addEventListener('wa-change', () => expect.fail('wa-change should not be emitted'));
-          el.addEventListener('wa-input', () => expect.fail('wa-input should not be emitted'));
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.value = 'option-2';
 
           await el.updateComplete;
         });
 
-        it('should emit wa-change and wa-input with the correct validation message when the value changes', async () => {
+        it('should emit change and input with the correct validation message when the value changes', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select required>
               <wa-option value="option-1">Option 1</wa-option>
@@ -206,8 +206,8 @@ describe('<wa-select>', () => {
             }
           });
 
-          el.addEventListener('wa-change', handler);
-          el.addEventListener('wa-input', handler);
+          el.addEventListener('change', handler);
+          el.addEventListener('input', handler);
 
           await clickOnElement(el);
           await aTimeout(500);
@@ -532,7 +532,7 @@ describe('<wa-select>', () => {
         expect(displayInput.value).to.equal('updated');
       });
 
-      it('should emit wa-focus and wa-blur when receiving and losing focus', async () => {
+      it('should emit focus and blur when receiving and losing focus', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select value="option-1">
             <wa-option value="option-1">Option 1</wa-option>
@@ -543,8 +543,8 @@ describe('<wa-select>', () => {
         const focusHandler = sinon.spy();
         const blurHandler = sinon.spy();
 
-        el.addEventListener('wa-focus', focusHandler);
-        el.addEventListener('wa-blur', blurHandler);
+        el.addEventListener('focus', focusHandler);
+        el.addEventListener('blur', blurHandler);
 
         el.focus();
         await el.updateComplete;
@@ -574,7 +574,7 @@ describe('<wa-select>', () => {
         expect(clearHandler).to.have.been.calledOnce;
       });
 
-      it('should emit wa-change and wa-input when a tag is removed', async () => {
+      it('should emit change and input when a tag is removed', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select value="option-1 option-2 option-3" multiple>
             <wa-option value="option-1">Option 1</wa-option>
@@ -587,8 +587,8 @@ describe('<wa-select>', () => {
         const tag = el.shadowRoot!.querySelector('[part~="tag"]')!;
         const removeButton = tag.shadowRoot!.querySelector('[part~="remove-button"]')!;
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
 
         // The offsets are a funky hack for Firefox.
         await clickOnElement(removeButton, 'center', 1, 1);
@@ -647,6 +647,7 @@ describe('<wa-select>', () => {
             );
             const el = form.querySelector<WaSelect>('wa-select')!;
 
+            expect(el.defaultValue).to.equal('option-1');
             expect(el.value).to.equal('');
             expect(new FormData(form).get('select')).equal('');
 
@@ -657,6 +658,7 @@ describe('<wa-select>', () => {
 
             await aTimeout(10);
             await el.updateComplete;
+            expect(el.optionValues ? [...el.optionValues] : []).to.have.members(['option-1']);
             expect(el.value).to.equal('option-1');
             expect(new FormData(form).get('select')).equal('option-1');
           });
@@ -745,6 +747,8 @@ describe('<wa-select>', () => {
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
+            expect(el.optionValues ? [...el.optionValues] : []).to.have.members(['bar', 'baz']);
+            expect(el.optionValues?.size).to.equal(2);
             expect(el.value).to.have.members(['bar', 'baz']);
             expect(el.value!.length).to.equal(2);
             expect(new FormData(form).getAll('select')).to.have.members(['bar', 'baz']);
@@ -760,6 +764,67 @@ describe('<wa-select>', () => {
             expect(new FormData(form).getAll('select')).to.have.members(['foo', 'bar', 'baz']);
           });
         });
+
+        describe('With setting the value via JS', () => {
+          it('Should preserve value even if not returned', async () => {
+            const form = await fixture<HTMLFormElement>(
+              html` <form>
+                <wa-select name="select">
+                  <wa-option value="bar">Bar</wa-option>
+                  <wa-option value="baz">Baz</wa-option>
+                </wa-select>
+              </form>`,
+            );
+
+            const el = form.querySelector<WaSelect>('wa-select')!;
+            expect(el.value).to.equal('');
+
+            el.value = 'foo';
+            await aTimeout(10);
+            await el.updateComplete;
+            expect(el.value).to.equal('');
+
+            const option = document.createElement('wa-option');
+            option.value = 'foo';
+            option.innerText = 'Foo';
+            el.append(option);
+
+            await aTimeout(10);
+            await el.updateComplete;
+            expect(el.value).to.equal('foo');
+          });
+        });
+      });
+
+      // https://github.com/shoelace-style/webawesome-alpha/issues/263
+      it('should allow interaction after being disabled and re-enabled', async () => {
+        const el = await fixture<WaSelect>(html`
+          <wa-select label="Select one">
+            <wa-option value="option-1">Option 1</wa-option>
+            <wa-option value="option-2">Option 2</wa-option>
+            <wa-option value="option-3">Option 3</wa-option>
+          </wa-select>
+        `);
+        const popup = el.shadowRoot!.querySelector('wa-popup');
+
+        // First disable the select
+        el.disabled = true;
+        await el.updateComplete;
+
+        // Wait 500ms
+        await aTimeout(500);
+
+        // Re-enable the select
+        el.disabled = false;
+        await el.updateComplete;
+
+        // Click on the select to open the dropdown
+        await clickOnElement(el, 'center', 0, 8); // centered + 8px down into the listbox
+        await el.updateComplete;
+        await aTimeout(500); // wait to make sure the listbox doesn't close afterwards
+
+        // Get the popup element and check its active state
+        expect(popup?.active).to.be.true;
       });
     });
   }

@@ -1,7 +1,3 @@
-:host {
-  display: block;
-}
-
 /** The popup */
 .select {
   flex: 1 1 auto;
@@ -76,7 +72,7 @@
   }
 
   &::placeholder {
-    color: var(--wa-form-controls-placeholder-color);
+    color: var(--wa-form-control-placeholder-color);
   }
 }
 
@@ -140,11 +136,15 @@
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space-sm);
+  margin-inline-start: var(--wa-space-s);
 }
 
 .prefix::slotted(*) {
   margin-inline-end: var(--wa-space);
+}
+
+:host([multiple]) .prefix::slotted(*) {
+  margin-inline: var(--wa-space);
 }
 
 /* Clear button */
@@ -181,7 +181,7 @@
   align-items: center;
   color: var(--wa-color-neutral-on-quiet);
   transition: rotate var(--wa-transition-slow) ease;
-  rotate: 0;
+  rotate: 0deg;
   margin-inline-start: var(--wa-space-s);
 
   .open & {
@@ -198,7 +198,7 @@
   background: var(--wa-color-surface-raised);
   border-color: var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-m);
-  border-style: var(--border-style);
+  border-style: var(--wa-border-style);
   border-width: var(--border-width);
   padding-block: var(--wa-space-xs);
   padding-inline: 0;
@@ -212,13 +212,13 @@
   &::slotted(wa-divider) {
     --spacing: var(--wa-space-xs);
   }
+}
 
-  &::slotted(small) {
-    display: block;
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-semibold);
-    color: var(--wa-color-text-quiet);
-    padding-block: var(--wa-space-xs);
-    padding-inline: var(--wa-space-xl);
-  }
+slot:not([name])::slotted(small) {
+  display: block;
+  font-size: var(--wa-font-size-s);
+  font-weight: var(--wa-font-weight-semibold);
+  color: var(--wa-color-text-quiet);
+  padding-block: var(--wa-space-xs);
+  padding-inline: var(--wa-space-xl);
 }

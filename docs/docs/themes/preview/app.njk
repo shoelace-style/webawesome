@@ -1,0 +1,20 @@
+---
+title: App-focused theme preview
+layout: blank
+eleventyExcludeFromCollections: true
+override:tags: []
+noTheme: true
+---
+
+{% block head %}
+<link href="{{ page.url }}../app.css" rel="stylesheet" />
+<script type="module" src="{{ page.url }}../preview.js"></script>
+{% endblock %}
+
+<style>
+.showcase-examples-wrapper {
+  padding: var(--wa-space-3xl);
+}
+</style>
+
+{% include 'theme-showcase.njk' %}

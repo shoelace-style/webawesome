@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'İlerleme',
   remove: 'Kaldır',
   resize: 'Yeniden boyutlandır',
+  scrollableRegion: 'Kaydırılabilir alan',
   scrollToEnd: 'Sona kay',
   scrollToStart: 'Başa kay',
   selectAColorFromTheScreen: 'Ekrandan bir renk seçin',

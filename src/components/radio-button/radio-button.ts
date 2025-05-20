@@ -2,16 +2,14 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/button.css';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
-import buttonStyles from '../button/button.css';
 import styles from './radio-button.css';
 
 /**
@@ -24,34 +22,23 @@ import styles from './radio-button.css';
  * @slot prefix - A presentational prefix icon or similar element.
  * @slot suffix - A presentational suffix icon or similar element.
  *
- * @event wa-blur - Emitted when the button loses focus.
- * @event wa-focus - Emitted when the button gains focus.
+ * @event blur - Emitted when the button loses focus.
+ * @event focus - Emitted when the button gains focus.
  *
- * @cssproperty --background-color - The button's background color.
- * @cssproperty --background-color-active - The button's background color when active.
- * @cssproperty --background-color-hover - The button's background color on hover.
- * @cssproperty --border-color - The color of the button's border.
- * @cssproperty --border-color-active - The color of the button's border when active.
- * @cssproperty --border-color-hover - The color of the button's border on hover.
- * @cssproperty --border-radius - The radius of the button's corners.
- * @cssproperty --border-style - The style of the button's border.
- * @cssproperty --border-width - The width of the button's border. Expects a single value.
- * @cssproperty --box-shadow - The shadow effects around the edges of the button.
  * @cssproperty --indicator-color - The color of the checked button indicator.
  * @cssproperty --indicator-width - The width of the checked button indicator.
- * @cssproperty --text-color - The color of the button's label.
- * @cssproperty --text-color-active - The color of the button's label when active.
- * @cssproperty --text-color-hover - The color of the button's label on hover.
  *
  * @csspart base - The internal `<button>` element.
  * @csspart checked - The internal button element when the radio button is checked.
  * @csspart prefix - The container that wraps the prefix.
  * @csspart label - The container that wraps the radio button's label.
  * @csspart suffix - The container that wraps the suffix.
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
  */
 @customElement('wa-radio-button')
 export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, buttonStyles, styles];
+  static shadowStyle = [passthroughStyles, variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static rectProxy = 'input';
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
 
@@ -74,7 +61,7 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
    * The radio button's size. When used inside a radio group, the size will be determined by the radio group's size so
    * this attribute can typically be omitted.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Draws a pill-style radio button with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -107,10 +94,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     this.setAttribute('role', 'presentation');
   }
 
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
   private handleClick(e: MouseEvent) {
     if (this.disabled) {
       e.preventDefault();
@@ -119,10 +102,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
     }
 
     this.checked = true;
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -164,8 +143,6 @@ export default class WaRadioButton extends WebAwesomeFormAssociatedElement {
         aria-disabled=${this.disabled}
         type="button"
         value=${ifDefined(this.value)}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @click=${this.handleClick}
       >
         <slot name="prefix" part="prefix" class="prefix"></slot>

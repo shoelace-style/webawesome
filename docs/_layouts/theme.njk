@@ -4,99 +4,119 @@
 
 {% extends '../_includes/base.njk' %}
 
+{% block head %}
+<link href="{{ page.url }}../remix.css" rel="stylesheet">
+<script type="module" src="{{ page.url }}../edit/index.js"></script>
+{% endblock %}
+
 {% block header %}
-<iframe src='{{ page.url }}demo.html' id="demo"></iframe>
-
-<p id="mix_and_match" class="wa-gap-m">
-  <strong>
-    <wa-icon name="merge" slot="prefix"></wa-icon>
-    Remix
-    <wa-icon-button href="#remixing" name="circle-question" slot="suffix" variant="regular" label="How to use?"></wa-icon-button>
-  </strong>
-  <wa-select name="colors" label="Colors from…" size="small">
-    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-  <wa-select name="palette" label="Palette" size="small">
-    <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for p in collections.palette | sort %}
-      {% if p.fileSlug !== palette %}
-      <wa-option value="{{ p.fileSlug }}">{{ p.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-  <wa-select name="typography" label="Typography from…" size="small">
-    <wa-icon name="font-case" slot="prefix"></wa-icon>
-    <wa-option value="">(Theme default)</wa-option>
-    <wa-divider></wa-divider>
-    {% for theme in collections.theme | sort %}
-      {% if theme.fileSlug !== page.fileSlug %}
-      <wa-option value="{{ theme.fileSlug }}">{{ theme.data.title }}</wa-option>
-      {% endif %}
-    {% endfor %}
-  </wa-select>
-
-
-</p>
 <script>
-  document.querySelector('#mix_and_match').addEventListener('wa-change', function(event) {
-    let selects = document.querySelectorAll('#mix_and_match wa-select');
-    let url = new URL(demo.src);
-
-    for (let select of selects) {
-      url.searchParams.set(select.name, select.value);
-    }
-
-    demo.src = url;
-  });
+if (location.pathname.endsWith('/custom/') && !location.search) {
+  location.href = "../edit/";
+}
 </script>
+<div id="theme-app" data-theme-id="{{ page.fileSlug }}">
 
-<h2>Default Color Palette</h2>
-{% set paletteURL = '/docs/palettes/' + palette + '/' %}
-{% set themePage = page %}
-{% set page = paletteURL | getCollectionItemFromUrl %}
+<iframe ref="preview" :src="'{{ page.url }}demo.html' + urlParams" src='{{ page.url }}demo.html' id="demo"></iframe>
+
+{% if page.fileSlug !== 'custom' %}
+<wa-details id="mix_and_match" class="wa-gap-m" :open="saved || unsavedChanges">
+  <h4 slot="summary" data-no-anchor data-no-outline id="remix">
+    <wa-icon name="arrows-rotate"></wa-icon>
+    Remix this theme
+    <wa-icon id="what-is-remixing" href="#remixing" name="circle-question" slot="suffix" variant="regular"></wa-icon>
+    <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
+  </h4>
+
+  <wa-select name="palette" label="Color palette" clearable v-model="theme.palette">
+    <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
+    <wa-option v-for="(palette, paletteId) in palettes" :label="palette.title" :value="paletteId === baseTheme.palette ? '' : paletteId">
+      <palette-card :palette="paletteId" size="small">
+        <template #extra>
+          <wa-badge v-if="paletteId === baseTheme.palette" variant="neutral" appearance="outlined">Theme default</wa-badge>
+        </template>
+      </palette-card>
+    </wa-option>
+  </wa-select>
+
+  <color-select :model-value="computed.brand" @update:model-value="value => theme.brand = value" label="Brand color"
+                :values="hues"></color-select>
+
+  <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" clearable v-model="theme.colors">
+    <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
+    <template v-for="(themeMeta, themeId) in themes">
+      <wa-option v-if="themeId !== 'custom'" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
+        <theme-card :theme="themeId" type="colors" :rest="{base: computed.base, palette: computed.palette, brand: computed.brand}" size="small">
+          <template #extra>
+          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
+        </template>
+        </theme-card>
+      </wa-option>
+    </template>
+  </wa-select>
+
+  <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
+    <wa-icon name="font-case" slot="prefix"></wa-icon>
+
+    <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === theme.base ? '' : themeId">
+      <fonts-card :theme="themeId" size="small">
+        <template #extra>
+          <wa-badge v-if="themeId === theme.base" variant="neutral" appearance="outlined">This theme</wa-badge>
+        </template>
+      </fonts-card>
+    </wa-option>
+  </wa-select>
+</wa-details>
+{% endif %}
+<h2>Color</h2>
+
 <div class="index-grid">
-{% include 'page-card.njk' %}
+  {% if page.fileSlug === 'custom' %}
+    <palette-card :palette="computed.palette" subtitle="Color palette"></palette-card>
+  {% else %}
+    {% set themePage = page %}
+    {% set paletteURL = '/docs/palettes/' + palette + '/' %}
+    {% set page = paletteURL | getCollectionItemFromUrl %}
+    {% set pageSubtitle = "Default color palette" %}
+    {% include 'page-card.njk' %}
+    {% set page = themePage %}
+  {% endif %}
+  <wa-card class="wa-palette-{{ palette }}"          style="--header-background: var(--wa-color-{{ brand }})"
+          :class="`wa-palette-${computed.palette}`" :style="{'--header-background': palettes[computed.palette]?.colors[computed.brand]?.key}">
+    <div slot="header"></div>
+    <div class="page-name" v-content="capitalize(computed.brand)">{{ brand | capitalize }}</div>
+    <div class="wa-caption-s">{{ 'Brand color' if page.fileSlug === 'custom' else 'Default brand color' }}</div>
+  </wa-card>
 </div>
-{% set page = themePage %}
-
 {% endblock %}
 
 {% block afterContent %}
-{% markdown %}
-## How to use this theme
 
+<h2 id="usage">How to use this theme</h2>
+
+{% markdown %}
 You can import this theme from the Web Awesome CDN.
 
 {% set stylesheet = 'styles/themes/' + page.fileSlug + '.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
 
-### Remixing { #remixing }
+<wa-tab-group class="import-stylesheet-code">
+<wa-tab panel="html">In HTML</wa-tab>
+<wa-tab panel="css">In CSS</wa-tab>
+<wa-tab-panel name="html">
 
-If you want to combine the **colors** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
+Add the following code to the `<head>` of your page:
+```html { v-content:html="code.html.highlighted" }
+<link rel="stylesheet" href="{% cdnUrl stylesheet %}" />
+```
+</wa-tab-panel>
+<wa-tab-panel name="css">
 
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/color.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-To use the **typography** from this theme with another theme, you can import this CSS file *after* the other theme’s CSS file:
-
-{% set stylesheet = 'styles/themes/' + page.fileSlug + '/typography.css' %}
-{% include 'import-stylesheet-code.md.njk' %}
-
-<wa-callout variant="warning">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  Please note that not all combinations will look good — once you’re mixing and matching, you’re on your own!
-</wa-callout>
+Add the following code at the top of your CSS file:
+```css { v-content:html="code.css.highlighted" }
+@import url('{% cdnUrl stylesheet %}');
+```
+</wa-tab-panel>
+</wa-tab-group>
 
 ## Dark mode
 
@@ -138,6 +158,7 @@ You can apply the class to the `<html>` element on your page to activate the dar
 Web Awesome's themes have both light and dark styles built in.
 However, Web Awesome doesn't try to auto-detect the user's light/dark mode preference.
 This should be done at the application level.
+
 As a best practice, to provide a dark theme in your app, you should:
 
 - Check for [`prefers-color-scheme`](https://stackoverflow.com/a/57795495/567486) and use its value by default
@@ -146,5 +167,19 @@ As a best practice, to provide a dark theme in your app, you should:
 
 Web Awesome avoids using the `prefers-color-scheme` media query because not all apps support dark mode, and it would break things for the ones that don't.
 
+Assuming the user's preference is in a variable called `colorScheme` (values: `auto`, `light`, `dark`),
+you can use the following JS snippet to apply the `wa-dark` class to the `<html>` element accordingly:
+
+```js
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const applyDark = function (event = systemDark) {
+  const isDark = colorScheme === 'auto' ? event.matches : colorScheme === 'dark';
+  document.documentElement.classList.toggle('wa-dark', isDark);
+};
+systemDark.addEventListener('change', applyDark);
+applyDark();
+```
+
+</div> {# end theme app #}
 {% endmarkdown %}
 {% endblock %}

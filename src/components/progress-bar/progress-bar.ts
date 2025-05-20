@@ -1,7 +1,10 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { clamp } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-bar.css';
 
@@ -18,10 +21,11 @@ import styles from './progress-bar.css';
  * @csspart label - The progress bar's label.
  *
  * @cssproperty --indicator-color - The color of the indicator.
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [passthroughStyles, styles];
   private readonly localize = new LocalizeController(this);
 
   /** The current progress as a percentage, 0 to 100. */
@@ -32,6 +36,16 @@ export default class WaProgressBar extends WebAwesomeElement {
 
   /** A custom label for assistive devices. */
   @property() label = '';
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('value')) {
+      // Wait a cycle before setting it so Safari animates it.
+      // https://github.com/shoelace-style/webawesome/issues/356
+      requestAnimationFrame(() => {
+        this.style.setProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
+      });
+    }
+  }
 
   render() {
     return html`
@@ -45,7 +59,7 @@ export default class WaProgressBar extends WebAwesomeElement {
         aria-valuemax="100"
         aria-valuenow=${this.indeterminate ? '0' : this.value}
       >
-        <div part="indicator" class="indicator" style="--value: ${this.value}">
+        <div part="indicator" class="indicator">
           ${!this.indeterminate ? html` <slot part="label" class="label"></slot> ` : ''}
         </div>
       </div>

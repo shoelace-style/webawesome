@@ -9,6 +9,10 @@ icon: copy-button
 <wa-copy-button value="Web Awesome rocks!"></wa-copy-button>
 ```
 
+:::info
+Copy buttons use the browser's [`clipboard.writeText()`](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText) method, which requires a [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) (HTTPS) in most browsers.
+:::
+
 ## Examples
 
 ### Custom Labels

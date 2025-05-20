@@ -31,7 +31,7 @@ The [issue tracker](https://github.com/shoelace-style/webawesome-alpha/issues) i
 - Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome-alpha/discussions/categories/ideas) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
-- Please **do** use the issue tracker for feature requests, bug reports, and pull requests.
+- Please **do** use the issue tracker for bug reports and pull requests.
 
 Issues that do not follow these guidelines are subject to closure. There simply aren't enough resources for the author and contributors to troubleshoot personal support requests.
 
@@ -148,6 +148,27 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 
 ```
 [#1234]
+```
+
+### Frontmatter
+
+There's a number of frontmatter properties for doing different things in the Web Awesome documention.
+
+For example, to only show a page in development, use the `unpublished: true` key / value pair.
+
+```md
+---
+unpublished: true
+---
+```
+
+To build a page, but not add it to any search indexes and collections so they don't appear in the sidebar, use `unlisted: true, eleventyExcludeFromCollections: true` key / value pairs.
+
+```md
+---
+unlisted: true
+eleventyExcludeFromCollections: true
+---
 ```
 
 ## Best Practices

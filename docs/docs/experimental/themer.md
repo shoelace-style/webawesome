@@ -501,13 +501,13 @@ hasOutline: false
     </div>
     <wa-select name="theme" label="Pick a theme to start!" value="default">
       <wa-option value="default">Default</wa-option>
-      <wa-option data-alpha="remove" value="awesome">Awesome</wa-option>
-      <wa-option data-alpha="remove" value="premium">Premium</wa-option>
-      <wa-option data-alpha="remove" value="playful">Playful</wa-option>
-      <wa-option data-alpha="remove" value="brutalist">Brutalist</wa-option>
-      <wa-option data-alpha="remove" value="tailspin">Tailspin</wa-option>
-      <wa-option data-alpha="remove" value="glossy">Glossy</wa-option>
-      <wa-option data-alpha="remove" value="active">Active</wa-option>
+      <wa-option value="awesome">Awesome</wa-option>
+      <wa-option value="premium">Premium</wa-option>
+      <wa-option value="playful">Playful</wa-option>
+      <wa-option value="brutalist">Brutalist</wa-option>
+      <wa-option value="tailspin">Tailspin</wa-option>
+      <wa-option value="glossy">Glossy</wa-option>
+      <wa-option value="active">Active</wa-option>
       <wa-option value="classic">Classic</wa-option>
     </wa-select>
   </div>
@@ -576,10 +576,10 @@ hasOutline: false
       <wa-radio value="yellow"><span style="background-color:var(--wa-color-yellow-60);"></span></wa-radio>
       <wa-radio value="lime"><span style="background-color:var(--wa-color-lime-60);"></span></wa-radio>
       <wa-radio value="green"><span style="background-color:var(--wa-color-green-60);"></span></wa-radio>
-      <wa-radio value="teal"><span style="background-color:var(--wa-color-teal-60);"></span></wa-radio>
+      <wa-radio value="cyan"><span style="background-color:var(--wa-color-cyan-60);"></span></wa-radio>
       <wa-radio value="blue"><span style="background-color:var(--wa-color-blue-60);"></span></wa-radio>
       <wa-radio value="indigo"><span style="background-color:var(--wa-color-indigo-60);"></span></wa-radio>
-      <wa-radio value="violet"><span style="background-color:var(--wa-color-violet-60);"></span></wa-radio>
+      <wa-radio value="purple"><span style="background-color:var(--wa-color-purple-60);"></span></wa-radio>
       <wa-radio value="gray"><span style="background-color:var(--wa-color-gray-60);"></span></wa-radio>
     </wa-radio-group>
   </wa-details>
@@ -667,7 +667,7 @@ hasOutline: false
   </wa-details>
 </form>
 
-<wa-dialog id="icon-chooser" label="Browse Icons" with-header>
+<wa-dialog id="icon-chooser" label="Browse Icons">
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" autofocus placeholder="Search Icons" clearable style="flex: 1 1 auto;">
@@ -803,7 +803,7 @@ hasOutline: false
   const queue = [];
   let inputTimeout;
 
-  variantInput.addEventListener('wa-change', () => {
+  variantInput.addEventListener('change', () => {
     iconList.dataset.variant = variantInput.value;
   });
 
@@ -823,7 +823,7 @@ hasOutline: false
   });
 
   // Filter as the user types
-  input.addEventListener('wa-input', () => {
+  input.addEventListener('input', () => {
     clearTimeout(inputTimeout);
     inputTimeout = setTimeout(() => {
       [...iconList.children].map(item => {
@@ -1084,10 +1084,10 @@ hasOutline: false
     el.classList.add(`wa-theme-${theme}-${colorMode}`);
   }
 
-  colorModeSelect.addEventListener('wa-change', setColorMode);
+  colorModeSelect.addEventListener('change', setColorMode);
 
   // Theme Switcher
-  themeSelect.addEventListener('wa-change', event => {
+  themeSelect.addEventListener('change', event => {
     const theme = event.target.value
     const newStylesheet = Object.assign(document.createElement("link"), {
       // This media: "print" allows us to lazy load the stylesheet then hot swap it on load.
@@ -1132,14 +1132,14 @@ hasOutline: false
   });
 
   // Color Palette
-  colorSelect.addEventListener('wa-change', event => {
+  colorSelect.addEventListener('change', event => {
     const colorPalette = event.target.value;
 
     colorStylesheet.href = `/dist/styles/themes/color/${colorPalette}.css`;
   });
 
   // Brand Color
-  brandColor.addEventListener('wa-change', event => {
+  brandColor.addEventListener('change', event => {
     const documentStyles = document.documentElement.style
     documentStyles.setProperty('--wa-color-primary-95', `var(--wa-color-${event.target.value}-95)`);
     documentStyles.setProperty('--wa-color-primary-90', `var(--wa-color-${event.target.value}-90)`);
@@ -1223,7 +1223,7 @@ hasOutline: false
   })
 
   // Pre-generated logos
-  logoSelector.addEventListener('wa-change', event => {
+  logoSelector.addEventListener('change', event => {
     const value = event.currentTarget.value
 
     const projectLogo = previewContainer.querySelector("#project-logo");
@@ -1279,21 +1279,21 @@ hasOutline: false
     })
   }
 
-  themeSelect.addEventListener('wa-change', setLogoIcons);
+  themeSelect.addEventListener('change', setLogoIcons);
 
   // Project Name
-  container.querySelector('[name="project-name"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="project-name"]').addEventListener('input', event => {
     previewContainer.querySelector("#project-name").innerText = event.target.value || event.target.getAttribute("placeholder")
   })
 
   // Heading font weight
   resetHeadingFontWeightValue()
-  fontWeightHeading.addEventListener('wa-input', event => {
+  fontWeightHeading.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-heading', event.target.value);
   });
 
   // Heading text
-  fontFamilyHeading.addEventListener('wa-change', event => {
+  fontFamilyHeading.addEventListener('change', event => {
     let fontFamily;
     switch (event.target.value) {
       case 'assistant':
@@ -1351,7 +1351,7 @@ hasOutline: false
   })
 
   // Body text
-  fontFamilyBody.addEventListener('wa-change', event => {
+  fontFamilyBody.addEventListener('change', event => {
     let fontFamily;
     switch (event.target.value) {
       case 'assistant':
@@ -1404,7 +1404,7 @@ hasOutline: false
 
   // Body font weight
   resetBodyFontWeightValue()
-  fontWeightBody.addEventListener('wa-input', event => {
+  fontWeightBody.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-font-weight-body', event.target.value);
   });
 
@@ -1580,7 +1580,7 @@ hasOutline: false
   }
 
   // Swaps icons to the preferred set for the selected theme
-  themeSelect.addEventListener('wa-change', event => {
+  themeSelect.addEventListener('change', event => {
     setPreferredIcons();
     showIconStyleOptions();
     syncLogoIcon();
@@ -1599,32 +1599,32 @@ hasOutline: false
   });
 
   // Changes available Icon Styles and swaps icons based on the selected Icon Family
-  iconFamily.addEventListener('wa-change', event => {
+  iconFamily.addEventListener('change', event => {
     useFaIcons();
     showIconStyleOptions();
   });
 
   // Swaps icons based on the selected Icon Style
-  iconStyle.addEventListener('wa-change', useFaIcons);
+  iconStyle.addEventListener('change', useFaIcons);
 
 
   // Corners
-  container.querySelector('[name="corners"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="corners"]').addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-radius-scale', `${event.target.value}`);
   });
 
   // Border width
-  container.querySelector('[name="border-width"]').addEventListener('wa-input', event => {
+  container.querySelector('[name="border-width"]').addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-width-scale', `${event.target.value / 16}`);
   });
 
   // Border style
-  borderStyle.addEventListener('wa-input', event => {
+  borderStyle.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-border-style', event.target.value);
   });
 
   // Spacing style
-  spacing.addEventListener('wa-input', event => {
+  spacing.addEventListener('input', event => {
     document.documentElement.style.setProperty('--wa-space-scale', `${event.target.value}`);
   });
 
@@ -2139,7 +2139,7 @@ hasOutline: false
       </div>
     </section>
     <section class="strata message-composer">
-      <wa-card with-header with-footer class="card-header card-footer">
+      <wa-card class="card-header card-footer">
         <div slot="header">
           <div class="grouped-buttons">
             <wa-icon-button id="bold" name="bold" label="Bold"></wa-icon-button>

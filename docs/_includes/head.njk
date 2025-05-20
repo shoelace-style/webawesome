@@ -1,7 +1,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ description }}">
-{% if noindex %}<meta name="robots" content="noindex">{% endif %}
+{% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
 
 <title>{{ title }}</title>
 
@@ -23,14 +23,17 @@
 <script src="/assets/scripts/hydration-errors.js"></script>
 <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.10/+esm"></script>
+
+{# Internal components #}
+<script type="module" src="/assets/components/scoped.js"></script>
 
 {# Web Awesome #}
-<script type="module" src="/dist/webawesome.ssr-loader.js"></script>
+<script type="module" src="/dist/webawesome.loader.js"></script>
 
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
-{% if forceTheme %}
+{% if noTheme %}
+{% elif forceTheme %}
 <link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
 {% else %}
 <noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>
@@ -47,3 +50,6 @@
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 <link id="color-stylesheet" rel="stylesheet" href="/dist/styles/utilities.css" />
 <link rel="stylesheet" href="/dist/styles/forms.css" />
+
+{# Used by Web Awesome App to inject other assets into the head. #}
+{% server "head" %}

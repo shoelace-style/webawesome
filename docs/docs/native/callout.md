@@ -4,7 +4,7 @@ description: Callouts are used to display important messages inline.
 component: callout
 icon: callout
 snippets: '.wa-callout'
-noAlpha: true
+file: styles/native/callout.css
 ---
 
 ```html {.example}
@@ -56,7 +56,7 @@ Use the [variant utility classes](../utilities/color.md) to set the callout's co
 
 ### Appearance
 
-Use the [appearance utility classes](../utilities/appearance.md) to change the callout's visual appearance (the default is `outlined filled`).
+Use the [appearance utility classes](/docs/utilities/appearance) to change the callout's visual appearance (the default is `outlined filled`).
 
 ```html {.example}
 <article class="wa-callout wa-brand wa-outlined wa-accent">

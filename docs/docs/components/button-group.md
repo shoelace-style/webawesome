@@ -17,31 +17,38 @@ icon: button-group
 
 ### Button Sizes
 
-All button sizes are supported, but avoid mixing sizes within the same button group.
+Unless otherwise specified,
+the size of [buttons](/docs/components/button) will be determined by the Button Group's `size` attribute.
 
 ```html {.example}
-<wa-button-group label="Alignment">
-  <wa-button size="small">Left</wa-button>
-  <wa-button size="small">Center</wa-button>
-  <wa-button size="small">Right</wa-button>
+<wa-button-group size="small" label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
-<wa-button-group label="Alignment">
-  <wa-button size="medium">Left</wa-button>
-  <wa-button size="medium">Center</wa-button>
-  <wa-button size="medium">Right</wa-button>
+<wa-button-group size="medium" label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
-<wa-button-group label="Alignment">
-  <wa-button size="large">Left</wa-button>
-  <wa-button size="large">Center</wa-button>
-  <wa-button size="large">Right</wa-button>
+<wa-button-group size="large" label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 ```
+
+:::info
+While you can still set the size of [buttons](/docs/components/button) individually,
+and it will override the inherited size,
+it is rarely a good idea to mix sizes within the same button group.
+:::
 
 ### Vertical button groups
 
@@ -70,21 +77,21 @@ Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ### Theme Buttons
 
-Theme buttons are supported through the button's `variant` attribute.
+Theme buttons are supported through the button group's `variant` attribute.
 
 ```html {.example}
-<wa-button-group label="Alignment">
-  <wa-button variant="brand">Left</wa-button>
-  <wa-button variant="brand">Center</wa-button>
-  <wa-button variant="brand">Right</wa-button>
+<wa-button-group label="Alignment" variant="brand">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
-<wa-button-group label="Alignment">
-  <wa-button variant="success">Left</wa-button>
-  <wa-button variant="success">Center</wa-button>
-  <wa-button variant="success">Right</wa-button>
+<wa-button-group label="Alignment" variant="success">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
@@ -97,18 +104,28 @@ Theme buttons are supported through the button's `variant` attribute.
 
 <br /><br />
 
-<wa-button-group label="Alignment">
-  <wa-button variant="warning">Left</wa-button>
-  <wa-button variant="warning">Center</wa-button>
-  <wa-button variant="warning">Right</wa-button>
+<wa-button-group label="Alignment" variant="warning">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
-<wa-button-group label="Alignment">
-  <wa-button variant="danger">Left</wa-button>
-  <wa-button variant="danger">Center</wa-button>
-  <wa-button variant="danger">Right</wa-button>
+<wa-button-group label="Alignment" variant="danger">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
+</wa-button-group>
+```
+
+You can still use the buttons’ own `variant` attribute to override the inherited variant.
+
+```html {.example}
+<wa-button-group label="Alignment" variant="brand">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button variant="neutral">Right</wa-button>
 </wa-button-group>
 ```
 
@@ -150,7 +167,7 @@ Other elements can also be placed inside button groups:
 <wa-button-group label="Example Button Group">
   <wa-button>Button</wa-button>
   <button>Native Button</button>
-  <wa-dropdown hoist>
+  <wa-dropdown>
     <wa-button slot="trigger" caret>Dropdown</wa-button>
     <wa-menu>
       <wa-menu-item>Item 1</wa-menu-item>
@@ -168,7 +185,7 @@ Create a split button using a button and a dropdown. Use a [visually hidden](/do
 ```html {.example}
 <wa-button-group label="Example Button Group">
   <wa-button variant="brand">Save</wa-button>
-  <wa-dropdown placement="bottom-end" hoist>
+  <wa-dropdown placement="bottom-end">
     <wa-button slot="trigger" variant="brand" caret>
       <span class="wa-visually-hidden">More options</span>
     </wa-button>

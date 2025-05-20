@@ -27,6 +27,7 @@ See your theme's focus ring in action by navigating this form example with your 
 <style>
   form > * + * {
     display: block;
+    --display: block;
     width: fit-content;
     margin-block-start: var(--wa-space-m);
   }

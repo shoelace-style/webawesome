@@ -19,7 +19,7 @@ Localization is handled by the browser's [`Intl.NumberFormat` API](https://devel
   const formatter = container.querySelector('wa-format-number');
   const input = container.querySelector('wa-input');
 
-  input.addEventListener('wa-input', () => (formatter.value = input.value || 0));
+  input.addEventListener('input', () => (formatter.value = input.value || 0));
 </script>
 ```
 

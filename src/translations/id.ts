@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Kemajuan',
   remove: 'Hapus',
   resize: 'Ubah ukuran',
+  scrollableRegion: 'Area yang dapat digulir',
   scrollToEnd: 'Gulir ke akhir',
   scrollToStart: 'Gulir ke awal',
   selectAColorFromTheScreen: 'Pilih warna dari layar',

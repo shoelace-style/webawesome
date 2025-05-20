@@ -54,11 +54,11 @@ Popup is a low-level utility built specifically for positioning elements. Do not
   const active = container.querySelector('wa-switch[name="active"]');
   const arrow = container.querySelector('wa-switch[name="arrow"]');
 
-  select.addEventListener('wa-change', () => (popup.placement = select.value));
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
-  active.addEventListener('wa-change', () => (popup.active = active.checked));
-  arrow.addEventListener('wa-change', () => (popup.arrow = arrow.checked));
+  select.addEventListener('change', () => (popup.placement = select.value));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
+  active.addEventListener('change', () => (popup.active = active.checked));
+  arrow.addEventListener('change', () => (popup.arrow = arrow.checked));
 </script>
 
 <style>
@@ -145,7 +145,7 @@ Popups are inactive and hidden until the `active` attribute is applied. Removing
   const popup = container.querySelector('wa-popup');
   const active = container.querySelector('wa-switch');
 
-  active.addEventListener('wa-change', () => (popup.active = active.checked));
+  active.addEventListener('change', () => (popup.active = active.checked));
 </script>
 ```
 
@@ -233,7 +233,7 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
   const popup = container.querySelector('wa-popup');
   const select = container.querySelector('wa-select');
 
-  select.addEventListener('wa-change', () => (popup.placement = select.value));
+  select.addEventListener('change', () => (popup.placement = select.value));
 </script>
 ```
 
@@ -277,7 +277,7 @@ Use the `distance` attribute to change the distance between the popup and its an
   const popup = container.querySelector('wa-popup');
   const distance = container.querySelector('wa-slider');
 
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
 </script>
 ```
 
@@ -321,7 +321,7 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
   const popup = container.querySelector('wa-popup');
   const skidding = container.querySelector('wa-slider');
 
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
 </script>
 ```
 
@@ -409,9 +409,9 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
     const arrowPlacement = container.querySelector('[name="arrow-placement"]');
     const arrow = container.querySelector('[name="arrow"]');
 
-    placement.addEventListener('wa-change', () => (popup.placement = placement.value));
-    arrowPlacement.addEventListener('wa-change', () => (popup.arrowPlacement = arrowPlacement.value));
-    arrow.addEventListener('wa-change', () => (popup.arrow = arrow.checked));
+    placement.addEventListener('change', () => (popup.placement = placement.value));
+    arrowPlacement.addEventListener('change', () => (popup.arrowPlacement = arrowPlacement.value));
+    arrow.addEventListener('change', () => (popup.arrow = arrow.checked));
   </script>
 </div>
 ```
@@ -464,79 +464,24 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
   const fixed = container.querySelector('wa-switch');
   const sync = container.querySelector('wa-select');
 
-  sync.addEventListener('wa-change', () => (popup.sync = sync.value));
-</script>
-```
-
-### Positioning Strategy
-
-By default, the popup is positioned using an absolute positioning strategy. However, if your anchor is fixed or exists within a container that has `overflow: auto|hidden`, the popup risks being clipped. To work around this, you can use a fixed positioning strategy by setting the `strategy` attribute to `fixed`.
-
-The fixed positioning strategy reduces jumpiness when the anchor is fixed and allows the popup to break out containers that clip. When using this strategy, it's important to note that the content will be positioned relative to its [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#Identifying_the_containing_block), which is usually the viewport unless an ancestor uses a `transform`, `perspective`, or `filter`. [Refer to this page](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) for more details.
-
-In this example, you can see how the popup breaks out of the overflow container when it's fixed. The fixed positioning strategy tends to be less performant than absolute, so avoid using it unnecessarily.
-
-Toggle the switch and scroll the container to see the difference.
-
-```html {.example}
-<div class="popup-strategy">
-  <div class="overflow">
-    <wa-popup placement="top" strategy="fixed" active>
-      <span slot="anchor"></span>
-      <div class="box"></div>
-    </wa-popup>
-  </div>
-
-  <wa-switch checked>Fixed</wa-switch>
-</div>
-
-<style>
-  .popup-strategy .overflow {
-    position: relative;
-    height: 300px;
-    border: solid 2px var(--wa-color-surface-border);
-    overflow: auto;
-  }
-
-  .popup-strategy span[slot='anchor'] {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    border: dashed 2px var(--wa-color-neutral-fill-loud);
-    margin: 150px 50px;
-  }
-
-  .popup-strategy .box {
-    width: 100px;
-    height: 50px;
-    background: var(--wa-color-brand-fill-loud);
-    border-radius: var(--wa-border-radius-m);
-  }
-
-  .popup-strategy wa-switch {
-    margin-top: 1rem;
-  }
-</style>
-
-<script>
-  const container = document.querySelector('.popup-strategy');
-  const popup = container.querySelector('wa-popup');
-  const fixed = container.querySelector('wa-switch');
-
-  fixed.addEventListener('wa-change', () => (popup.strategy = fixed.checked ? 'fixed' : 'absolute'));
+  sync.addEventListener('change', () => (popup.sync = sync.value));
 </script>
 ```
 
 ### Flip
 
-When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view. To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
+When the popup doesn't have enough room in its preferred placement, it can automatically flip to keep it in view and visually connected to its anchor.
+To enable this, use the `flip` attribute. By default, the popup will flip to the opposite placement, but you can configure preferred fallback placements using `flip-fallback-placement` and `flip-fallback-strategy`. Additional options are available to control the flip behavior's boundary and padding.
+
+By default, flip takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
 
 Scroll the container to see how the popup flips to prevent clipping.
 
 ```html {.example}
 <div class="popup-flip">
   <div class="overflow">
-    <wa-popup placement="top" flip active>
+    <wa-popup placement="top" flip active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -575,7 +520,7 @@ Scroll the container to see how the popup flips to prevent clipping.
   const popup = container.querySelector('wa-popup');
   const flip = container.querySelector('wa-switch');
 
-  flip.addEventListener('wa-change', () => (popup.flip = flip.checked));
+  flip.addEventListener('change', () => (popup.flip = flip.checked));
 </script>
 ```
 
@@ -592,7 +537,7 @@ Scroll the container to see how the popup changes it's fallback placement to pre
 ```html {.example}
 <div class="popup-flip-fallbacks">
   <div class="overflow">
-    <wa-popup placement="top" flip flip-fallback-placements="right bottom" flip-fallback-strategy="initial" active>
+    <wa-popup placement="top" flip flip-fallback-placements="right bottom" flip-fallback-strategy="initial" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -626,14 +571,18 @@ Scroll the container to see how the popup changes it's fallback placement to pre
 
 ### Shift
 
-When a popup is longer than its anchor, it risks being clipped by an overflowing container. In this case, use the `shift` attribute to shift the popup along its axis and back into view. You can customize the shift behavior using `shiftBoundary` and `shift-padding`.
+When a popup is longer than its anchor, it risks overflowing.
+In this case, use the `shift` attribute to shift the popup along its axis and back into view. You can customize the shift behavior using `shiftBoundary` and `shift-padding`.
+
+By default, auto-size takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
 
 Toggle the switch to see the difference.
 
 ```html {.example}
 <div class="popup-shift">
   <div class="overflow">
-    <wa-popup placement="top" shift shift-padding="10" active>
+    <wa-popup placement="top" shift shift-padding="10" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -670,13 +619,17 @@ Toggle the switch to see the difference.
   const popup = container.querySelector('wa-popup');
   const shift = container.querySelector('wa-switch');
 
-  shift.addEventListener('wa-change', () => (popup.shift = shift.checked));
+  shift.addEventListener('change', () => (popup.shift = shift.checked));
 </script>
 ```
 
 ### Auto-size
 
-Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from getting clipped. Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.
+Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from overflowing.
+Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.
+
+By default, auto-size takes effect when the popup would overflow the viewport.
+You can use `boundary="scroll"` to make the popup resize when it overflows its nearest scrollable container instead.
 
 When using `auto-size`, one or both of `--auto-size-available-width` and `--auto-size-available-height` will be applied to the host element. These values determine the available space the popover has before clipping will occur. Since they cascade, you can use them to set a max-width/height on your popup's content and easily control its overflow.
 
@@ -685,7 +638,7 @@ Scroll the container to see the popup resize as its available space changes.
 ```html {.example}
 <div class="popup-auto-size">
   <div class="overflow">
-    <wa-popup placement="top" auto-size="both" auto-size-padding="10" active>
+    <wa-popup placement="top" auto-size="both" auto-size-padding="10" active boundary="scroll">
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -731,7 +684,7 @@ Scroll the container to see the popup resize as its available space changes.
   const popup = container.querySelector('wa-popup');
   const autoSize = container.querySelector('wa-switch');
 
-  autoSize.addEventListener('wa-change', () => (popup.autoSize = autoSize.checked ? 'both' : ''));
+  autoSize.addEventListener('change', () => (popup.autoSize = autoSize.checked ? 'both' : ''));
 </script>
 ```
 
@@ -782,9 +735,9 @@ When a gap exists between the anchor and the popup element, this option will add
   const hoverBridge = container.querySelector('wa-switch');
   const distance = container.querySelector('wa-slider[label="Distance"]');
   const skidding = container.querySelector('wa-slider[label="Skidding"]');
-  distance.addEventListener('wa-input', () => (popup.distance = distance.value));
-  skidding.addEventListener('wa-input', () => (popup.skidding = skidding.value));
-  hoverBridge.addEventListener('wa-change', () => (popup.hoverBridge = hoverBridge.checked));
+  distance.addEventListener('input', () => (popup.distance = distance.value));
+  skidding.addEventListener('input', () => (popup.skidding = skidding.value));
+  hoverBridge.addEventListener('change', () => (popup.hoverBridge = hoverBridge.checked));
 </script>
 ```
 
@@ -837,7 +790,7 @@ This example anchors a popup to the mouse cursor using a virtual element. As suc
   };
 
   // Only activate the popup when the switch is checked
-  enabled.addEventListener('wa-change', () => {
+  enabled.addEventListener('change', () => {
     popup.active = enabled.checked;
   });
 

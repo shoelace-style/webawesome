@@ -1,11 +1,11 @@
+import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
-import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/radio.css';
+import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
 import styles from './radio.css';
@@ -19,14 +19,15 @@ import styles from './radio.css';
  * @dependency wa-icon
  *
  * @slot - The radio's label.
+ * @slot hint - Text that describes how to use the checkbox. Alternatively, you can use the `hint` attribute.
  *
- * @event wa-blur - Emitted when the control loses focus.
- * @event wa-focus - Emitted when the control gains focus.
+ * @event blur - Emitted when the control loses focus.
+ * @event focus - Emitted when the control gains focus.
  *
- * @csspart base - The component's base wrapper.
  * @csspart control - The circular container that wraps the radio's checked state.
  * @csspart checked-icon - The checked icon.
  * @csspart label - The container that wraps the radio's label.
+ * @csspart hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The radio's background color.
  * @cssproperty --background-color-checked - The radio's background color when checked.
@@ -44,7 +45,7 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, nativeStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, nativeStyles, styles];
 
   @state() checked = false;
 
@@ -60,17 +61,20 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size so this
    * attribute can typically be omitted.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Disables the radio. */
   @property({ type: Boolean }) disabled = false;
+
+  /** The radio's hint. If you need to display HTML, use the `hint` slot instead. */
+  @property() hint = '';
+
+  private readonly hasSlotController = new HasSlotController(this, 'hint');
 
   constructor() {
     super();
     if (!isServer) {
       this.addEventListener('click', this.handleClick);
-      this.addEventListener('blur', this.handleBlur);
-      this.addEventListener('focus', this.handleFocus);
     }
   }
 
@@ -79,25 +83,25 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     this.setInitialAttributes();
   }
 
-  private handleBlur = () => {
-    this.dispatchEvent(new WaBlurEvent());
-  };
-
-  private handleFocus = () => {
-    this.dispatchEvent(new WaFocusEvent());
-  };
-
   private setInitialAttributes() {
     this.setAttribute('role', 'radio');
     this.tabIndex = 0;
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  @watch('checked')
-  handleCheckedChange() {
-    this.toggleCustomState('checked', this.checked);
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-    this.tabIndex = this.checked ? 0 : -1;
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.toggleCustomState('checked', this.checked);
+      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      this.tabIndex = this.checked ? 0 : -1;
+    }
+
+    if (changedProperties.has('disabled')) {
+      this.toggleCustomState('disabled', this.disabled);
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
   }
 
   /**
@@ -107,12 +111,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     // We override `setValue` because we don't want to set form values from here. We want to do that in "RadioGroup" itself.
   }
 
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    this.toggleCustomState('disabled', this.disabled);
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-  }
-
   private handleClick = () => {
     if (!this.disabled) {
       this.checked = true;
@@ -120,26 +118,30 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   };
 
   render() {
-    return html`
-      <span
-        part="base"
-        class=${classMap({
-          radio: true,
-          'radio--checked': this.checked,
-        })}
-      >
-        <span part="control" class="control">
-          ${this.checked
-            ? html`
-                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" part="checked-icon" class="checked-icon">
-                  <circle cx="8" cy="8" r="8" />
-                </svg>
-              `
-            : ''}
-        </span>
+    const hasHintSlot = isServer ? true : this.hasSlotController.test('hint');
+    const hasHint = this.hint ? true : !!hasHintSlot;
 
-        <slot part="label" class="label"></slot>
+    return html`
+      <span part="control" class="control">
+        ${this.checked
+          ? html`
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" part="checked-icon" class="checked-icon">
+                <circle cx="8" cy="8" r="8" />
+              </svg>
+            `
+          : ''}
       </span>
+
+      <slot part="label" class="label"></slot>
+
+      <slot
+        name="hint"
+        aria-hidden=${hasHint ? 'false' : 'true'}
+        class="${classMap({ 'has-slotted': hasHint })}"
+        id="hint"
+        part="hint"
+        >${this.hint}</slot
+      >
     `;
   }
 }

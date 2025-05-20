@@ -1,6 +1,9 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import appearanceStyles from '../../styles/utilities/appearance.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
 
 /**
@@ -19,22 +22,40 @@ import styles from './card.css';
  * @csspart body - The container that wraps the card's main content.
  * @csspart footer - The container that wraps the card's footer.
  *
- * @cssproperty --border-radius - The radius for the card's corners. Expects a single value. Defaults to `var(--wa-panel-border-radius)`.
- * @cssproperty --border-width - The width of the card's borders. Expects a single value. Defaults to `var(--wa-panel-border-width)`.
- * @cssproperty --spacing - The amount of space around and between sections of the card. Expects a single value.
+ * @cssproperty [--border-radius=var(--wa-panel-border-radius)] - The radius for the card's corners. Expects a single value.
+ * @cssproperty [--border-color=var(--wa-color-surface-border)] - The color of the card's borders. Expects a single value.
+ * @cssproperty [--inner-border-color=var(--wa-color-surface-border)] - The color of the card's inner borders, e.g. those separating headers and footers from the main content. Expects a single value.
+ * @cssproperty [--border-width=var(--wa-panel-border-width)] - The width of the card's borders. Expects a single value.
+ * @cssproperty [--spacing=var(--wa-space)] - The amount of space around and between sections of the card. Expects a single value.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, appearanceStyles, styles];
+
+  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+
+  /** The component's size. Will be inherited by any descendants with a `size` attribute. */
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+
+  /** The card's visual appearance. */
+  @property({ reflect: true })
+  appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'outlined';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-header', type: Boolean }) withHeader = false;
+  @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
   /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-image', type: Boolean }) withImage = false;
+  @property({ attribute: 'with-image', type: Boolean, reflect: true }) withImage = false;
 
   /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+  @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
+
+  updated() {
+    // Enable the respective slots when detected
+    if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
+    if (!this.withImage && this.hasSlotController.test('image')) this.withImage = true;
+    if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
+  }
 
   render() {
     return html`

@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Napredak',
   remove: 'Makni',
   resize: 'Promijeni veličinu',
+  scrollableRegion: 'Područje s mogućnošću pomicanja',
   scrollToEnd: 'Skrolaj do kraja',
   scrollToStart: 'Skrolaj na početak',
   selectAColorFromTheScreen: 'Odaberi boju sa ekrana',

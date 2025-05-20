@@ -1,14 +1,5 @@
-// Helper for view transitions
-export function domChange(fn, { behavior = 'smooth' } = {}) {
-  const canUseViewTransitions =
-    document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (canUseViewTransitions && behavior === 'smooth') {
-    document.startViewTransition(fn);
-  } else {
-    fn(true);
-  }
-}
+import { domChange } from './util/dom-change.js';
+export { domChange };
 
 export function nextFrame() {
   return new Promise(resolve => requestAnimationFrame(resolve));
@@ -28,7 +19,7 @@ export class ThemeAspect {
     });
 
     // Listen for selections
-    document.addEventListener('wa-change', event => {
+    document.addEventListener('change', event => {
       const picker = event.target.closest(this.picker);
       if (picker) {
         this.set(picker.value);
@@ -100,6 +91,7 @@ const colorScheme = new ThemeAspect({
     domChange(() => {
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
+      document.documentElement.dispatchEvent(new CustomEvent('wa-color-scheme-change', { detail: { dark } }));
     });
   },
 });
@@ -114,6 +106,6 @@ document.addEventListener('keydown', event => {
     !event.composedPath().some(el => ['input', 'textarea'].includes(el?.tagName?.toLowerCase()))
   ) {
     event.preventDefault();
-    colorScheme.set(theming.colorScheme.resolvedValue === 'dark' ? 'light' : 'dark');
+    colorScheme.set(colorScheme.get() === 'dark' ? 'light' : 'dark');
   }
 });

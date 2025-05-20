@@ -41,14 +41,18 @@ export const icons: { [key: string]: string } = Object.assign({}, ...Object.valu
 //
 const systemLibrary: IconLibrary = {
   name: 'system',
-  resolver: (name: string, family = 'classic', variant = 'solid') => {
-    if (family === 'classic') {
-      // Try given variant first, fall back to any variant
-      let svg = iconsByVariant[variant]?.[name];
+  resolver: (name: string, _family = 'classic', variant = 'solid') => {
+    // family is ignored for now
+    // Default to `regular` for unknown variants
+    variant = variant in iconsByVariant ? variant : 'regular';
 
-      if (svg) {
-        return dataUri(svg);
-      }
+    let icons = iconsByVariant[variant];
+
+    // Fall back to other variants if icon is not found in the variant requested
+    let svg = icons[name] ?? iconsByVariant.regular[name] ?? iconsByVariant.solid[name];
+
+    if (svg) {
+      return dataUri(svg);
     }
 
     return '';

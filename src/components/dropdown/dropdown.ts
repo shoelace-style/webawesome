@@ -11,6 +11,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import type WaButton from '../button/button.js';
 import type WaIconButton from '../icon-button/icon-button.js';
 import type WaMenu from '../menu/menu.js';
@@ -43,13 +44,11 @@ import styles from './dropdown.css';
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static shadowStyle = [sizeStyles, styles];
 
   @query('.dropdown') popup: WaPopup;
   @query('#trigger') trigger: HTMLSlotElement;
   @query('.panel') panel: HTMLSlotElement;
-
-  private closeWatcher: CloseWatcher | null;
 
   /**
    * Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you
@@ -97,12 +96,6 @@ export default class WaDropdown extends WebAwesomeElement {
   @property({ type: Number }) skidding = 0;
 
   /**
-   * Enable this option to prevent the panel from being clipped when the component is placed inside a container with
-   * `overflow: auto|scroll`. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.
-   */
-  @property({ type: Boolean }) hoist = false;
-
-  /**
    * Syncs the popup width or height to that of the trigger element.
    */
   @property({ reflect: true }) sync: 'width' | 'height' | 'both' | undefined = undefined;
@@ -147,7 +140,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open dropdown. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape' && !this.closeWatcher) {
+    if (this.open && event.key === 'Escape') {
       event.stopPropagation();
       this.hide();
       this.focusOnTrigger();
@@ -343,16 +336,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   addOpenListeners() {
     this.panel.addEventListener('wa-select', this.handlePanelSelect);
-    if ('CloseWatcher' in window) {
-      this.closeWatcher?.destroy();
-      this.closeWatcher = new CloseWatcher();
-      this.closeWatcher.onclose = () => {
-        this.hide();
-        this.focusOnTrigger();
-      };
-    } else {
-      this.panel.addEventListener('keydown', this.handleKeyDown);
-    }
+    this.panel.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
   }
@@ -364,7 +348,6 @@ export default class WaDropdown extends WebAwesomeElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
-    this.closeWatcher?.destroy();
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -426,7 +409,6 @@ export default class WaDropdown extends WebAwesomeElement {
         placement=${this.placement}
         distance=${this.distance}
         skidding=${this.skidding}
-        strategy=${this.hoist ? 'fixed' : 'absolute'}
         flip
         shift
         auto-size="vertical"

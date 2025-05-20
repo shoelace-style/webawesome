@@ -2,13 +2,12 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
-import { WaBlurEvent } from '../../events/blur.js';
-import { WaFocusEvent } from '../../events/focus.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-formassociated-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import nativeStyles from '../../styles/native/button.css';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -26,8 +25,8 @@ import styles from './button.css';
  * @dependency wa-icon
  * @dependency wa-spinner
  *
- * @event wa-blur - Emitted when the button loses focus.
- * @event wa-focus - Emitted when the button gains focus.
+ * @event blur - Emitted when the button loses focus.
+ * @event focus - Emitted when the button gains focus.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @slot - The button's label.
@@ -41,6 +40,7 @@ import styles from './button.css';
  * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
  * @cssproperty --background-color - The button's background color when the button is not being interacted with.
  * @cssproperty --background-color-active - The button's background color when active.
  * @cssproperty --background-color-hover - The button's background color on hover.
@@ -53,7 +53,8 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [passthroughStyles, variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static rectProxy = 'button';
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -68,15 +69,16 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
 
-  /** The button's theme variant. */
-  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
+  /** The button's theme variant. Defaults to `neutral` if not within another element with a variant. */
+  @property({ reflect: true, initial: 'neutral' })
+  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'inherit' = 'inherit';
 
   /** The button's visual appearance. */
   @property({ reflect: true, default: 'accent' })
   appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
 
   /** The button's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ type: Boolean, reflect: true }) caret = false;
@@ -109,7 +111,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) value: string | null = null;
 
   /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
-  @property() href = '';
+  @property({ reflect: true }) href = null;
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property() target: '_blank' | '_parent' | '_self' | '_top';
@@ -141,14 +143,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   /** Used to override the form owner's `target` attribute. */
   @property({ attribute: 'formtarget' }) formTarget: '_self' | '_blank' | '_parent' | '_top' | string;
-
-  private handleBlur() {
-    this.dispatchEvent(new WaBlurEvent());
-  }
-
-  private handleFocus() {
-    this.dispatchEvent(new WaFocusEvent());
-  }
 
   private handleClick() {
     const form = this.getForm();
@@ -233,17 +227,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     this.button.blur();
   }
 
-  getBoundingClientRect(): DOMRect {
-    let rect = super.getBoundingClientRect();
-    let buttonRect = this.button.getBoundingClientRect();
-
-    if (rect.width === 0 && buttonRect.width > 0) {
-      return buttonRect;
-    }
-
-    return rect;
-  }
-
   render() {
     const isLink = this.isLink();
     const tag = isLink ? literal`a` : literal`button`;
@@ -274,8 +257,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         role=${ifDefined(isLink ? undefined : 'button')}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         tabindex=${this.disabled ? '-1' : '0'}
-        @blur=${this.handleBlur}
-        @focus=${this.handleFocus}
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}
       >

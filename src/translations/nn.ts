@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Framdrift',
   remove: 'Fjern',
   resize: 'Endre storleik',
+  scrollableRegion: 'Rullbar region',
   scrollToEnd: 'Rull til slutten',
   scrollToStart: 'Rull til starten',
   selectAColorFromTheScreen: 'Vel ein farge frå skjermen',

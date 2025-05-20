@@ -123,6 +123,7 @@
      */
     &::part(label) {
       transition: all var(--wa-transition-normal);
+      pointer-events: none;
 
       position: absolute;
       left: calc(var(--wa-space) - 0.25em);

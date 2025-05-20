@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Folyamat',
   remove: 'Eltávolítás',
   resize: 'Átméretezés',
+  scrollableRegion: 'Görgethető terület',
   scrollToEnd: 'Görgessen a végére',
   scrollToStart: 'Görgessen az elejére',
   selectAColorFromTheScreen: 'Szín választása a képernyőről',

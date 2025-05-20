@@ -30,4 +30,10 @@
   --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
   --wa-form-control-background-color: transparent;
   --wa-form-control-value-line-height: var(--wa-line-height-normal);
+
+  /**
+   * Icons
+   */
+  --wa-icon-family: sharp;
+  --wa-icon-variant: regular;
 }

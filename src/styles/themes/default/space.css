@@ -14,4 +14,5 @@
   --wa-space-xl: calc(var(--wa-space-scale) * 1.5rem); /* 24px */
   --wa-space-2xl: calc(var(--wa-space-scale) * 2rem); /* 32px */
   --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
+  --wa-space-4xl: calc(var(--wa-space-scale) * 4rem); /* 64px */
 }

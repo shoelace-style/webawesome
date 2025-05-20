@@ -26,6 +26,7 @@ const translation: Translation = {
   progress: 'Edistyminen',
   remove: 'Poista',
   resize: 'Muuta kokoa',
+  scrollableRegion: 'Vieritettävä alue',
   scrollToEnd: 'Vieritä loppuun',
   scrollToStart: 'Vieritä alkuun',
   selectAColorFromTheScreen: 'Valitse väri näytöltä',

@@ -7,6 +7,7 @@ status: experimental
 component: progress-bar
 elements:
   "<progress>": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
+file: styles/native/progress.css
 ---
 
 

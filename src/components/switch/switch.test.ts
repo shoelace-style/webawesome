@@ -49,13 +49,13 @@ describe('<wa-switch>', () => {
         expect(el.checkValidity()).to.be.true;
       });
 
-      it('should emit wa-change and wa-input when clicked', async () => {
+      it('should emit change and input when clicked', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.click();
         await el.updateComplete;
 
@@ -64,13 +64,13 @@ describe('<wa-switch>', () => {
         expect(el.checked).to.be.true;
       });
 
-      it('should emit wa-change when toggled with spacebar', async () => {
+      it('should emit change when toggled with spacebar', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.focus();
         await sendKeys({ press: ' ' });
 
@@ -79,13 +79,13 @@ describe('<wa-switch>', () => {
         expect(el.checked).to.be.true;
       });
 
-      it('should emit wa-change and wa-input when toggled with the right arrow', async () => {
+      it('should emit change and input when toggled with the right arrow', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.focus();
         await sendKeys({ press: 'ArrowRight' });
         await el.updateComplete;
@@ -95,13 +95,13 @@ describe('<wa-switch>', () => {
         expect(el.checked).to.be.true;
       });
 
-      it('should emit wa-change and wa-input when toggled with the left arrow', async () => {
+      it('should emit change and input when toggled with the left arrow', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch checked></wa-switch> `);
         const changeHandler = sinon.spy();
         const inputHandler = sinon.spy();
 
-        el.addEventListener('wa-change', changeHandler);
-        el.addEventListener('wa-input', inputHandler);
+        el.addEventListener('change', changeHandler);
+        el.addEventListener('input', inputHandler);
         el.focus();
         await sendKeys({ press: 'ArrowLeft' });
         await el.updateComplete;
@@ -111,10 +111,10 @@ describe('<wa-switch>', () => {
         expect(el.checked).to.be.false;
       });
 
-      it('should not emit wa-change or wa-input when checked is set by JavaScript', async () => {
+      it('should not emit change or input when checked is set by JavaScript', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
-        el.addEventListener('wa-change', () => expect.fail('wa-change incorrectly emitted'));
-        el.addEventListener('wa-input', () => expect.fail('wa-change incorrectly emitted'));
+        el.addEventListener('change', () => expect.fail('change incorrectly emitted'));
+        el.addEventListener('input', () => expect.fail('input incorrectly emitted'));
         el.checked = true;
         await el.updateComplete;
         el.checked = false;

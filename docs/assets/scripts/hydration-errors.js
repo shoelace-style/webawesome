@@ -51,7 +51,7 @@
       <button class="diff-dialog-toggle">
         Show Hydration Mismatch
       </button>
-      <wa-dialog class="diff-dialog" with-header light-dismiss>
+      <wa-dialog class="diff-dialog" light-dismiss>
         <div class="diff-grid">
           <div>
             <div>Server</div>

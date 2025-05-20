@@ -1,5 +1,7 @@
 *.hbs
 *.md
+!docs/docs/patterns/**/*.md
+docs/docs/patterns/blog-news/post-list.md
 .cache
 .github
 cspell.json
@@ -13,3 +15,4 @@ package-lock.json
 tsconfig.json
 cdn
 _site
+docs/assets/scripts/prism-downloaded.js

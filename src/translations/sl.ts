@@ -28,6 +28,7 @@ const translation: Translation = {
   progress: 'Napredek',
   remove: 'Odstrani',
   resize: 'Spremeni velikost',
+  scrollableRegion: 'Področje za drsenje',
   scrollToEnd: 'Pomakni se na konec',
   scrollToStart: 'Pomakni se na začetek',
   selectAColorFromTheScreen: 'Izberite barvo z zaslona',

@@ -9,6 +9,8 @@ import { getTargetElement, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import nativeStyles from '../../styles/native/details.css';
+import passthroughStyles from '../../styles/shadow/passthrough.css';
+import appearanceStyles from '../../styles/utilities/appearance.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './details.css';
@@ -42,10 +44,11 @@ import styles from './details.css';
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
  * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
  * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static shadowStyle = [nativeStyles, styles];
+  static shadowStyle = [passthroughStyles, appearanceStyles, nativeStyles, styles];
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);
@@ -66,6 +69,9 @@ export default class WaDetails extends WebAwesomeElement {
 
   /** Disables the details so it can't be toggled. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /** The element's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
 
   firstUpdated() {
     this.body.style.height = this.open ? 'auto' : '0';
