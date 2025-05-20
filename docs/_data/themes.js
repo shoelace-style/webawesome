@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 // import { inlined } from '../../dist/components/icon/library.wa.js';
-const __dirname = path.resolve();
-const THEME_DIR = path.join(__dirname, 'dist/styles/themes/');
+const distDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join(path.resolve(), "dist")
+
+const THEME_DIR = path.join(distDirectory, 'styles', 'themes');
 
 const themeFiles = fs.readdirSync(THEME_DIR).filter(file => file.endsWith('.css') && !file.endsWith('base.css'));
 
