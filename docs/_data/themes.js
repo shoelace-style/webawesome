@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 // import { inlined } from '../../dist/components/icon/library.wa.js';
-const distDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join(path.resolve(), "dist")
+const distDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join(path.resolve(), 'dist');
 
 const THEME_DIR = path.join(distDirectory, 'styles', 'themes');
 
