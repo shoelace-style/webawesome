@@ -174,7 +174,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-15T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">Grids with Purpose: Mastering Layout in Web Design</span>
             </div>
@@ -195,7 +195,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-13T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">UI That Feels Right: The Psychology of Good Design</span>
             </div>
@@ -216,7 +216,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-12T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">Design Is Never Done: Why Iteration Always Matters</span>
             </div>
@@ -237,7 +237,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-11T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">Tiny Details Matter: The Power of Microinteractions</span>
             </div>
@@ -258,7 +258,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-10T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">From Wireframe to Wow: Building Functional Design</span>
             </div>
@@ -279,7 +279,7 @@ tags:
                 class="wa-caption-l"
                 month="long"
                 day="numeric"
-                date="2020-07-15T09:17:00-04:00"
+                date="2024-06-09T09:17:00-04:00"
               ></wa-format-date>
               <span class="wa-heading-m">Designing with Empathy: Creating for Real People</span>
             </div>
