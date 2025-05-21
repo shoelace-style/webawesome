@@ -508,7 +508,7 @@ hasOutline: false
       <wa-option value="tailspin">Tailspin</wa-option>
       <wa-option value="glossy">Glossy</wa-option>
       <wa-option value="active">Active</wa-option>
-      <wa-option value="classic">Classic</wa-option>
+      <wa-option value="shoelace">Shoelace</wa-option>
     </wa-select>
   </div>
   <wa-details summary="Branding">
@@ -545,8 +545,8 @@ hasOutline: false
         Standard<br>
         <span style="background-color: #545868;"></span><span style="background-color: #ef6982;"></span><span style="background-color: #fcc041;"></span><span style="background-color: #98bb4a;"></span><span style="background-color: #00ae5f;"></span><span style="background-color: #259af4;"></span><span style="background-color: #8f8aea;"></span><span style="background-color: #c07ad6;"></span>
       </wa-radio>
-      <wa-radio value="classic">
-        Classic<br>
+      <wa-radio value="shoelace">
+        Shoelace<br>
         <span style="background-color: #4f5967;"></span><span style="background-color: #ee6c6c;"></span><span style="background-color: #fbc129;"></span><span style="background-color: #7dc115;"></span><span style="background-color: #38a961;"></span><span style="background-color: #0d9ee0;"></span><span style="background-color: #818cf7;"></span><span style="background-color: #b976f9;"></span>
       </wa-radio>
       <wa-radio value="bright">
@@ -875,9 +875,9 @@ hasOutline: false
     let colorPalette;
 
     switch(themeSelect.value) {
-      case 'classic':
+      case 'shoelace':
       case 'tailspin':
-        colorPalette = 'classic';
+        colorPalette = 'shoelace';
         break;
       case 'awesome':
         colorPalette = 'bright';
@@ -1047,7 +1047,7 @@ hasOutline: false
       case 'tailspin':
       case 'playful':
       case 'brutalist':
-      case 'classic':
+      case 'shoelace':
       case 'awesome':
       case 'glossy':
       case 'active':
@@ -1495,7 +1495,7 @@ hasOutline: false
         iconStyle.value = 'solid';
         useFaIcons();
         break;
-      case 'classic':
+      case 'shoelace':
         iconFamily.value = 'custom';
         registerIconLibrary('default', {
           resolver: name => `/assets/icons/bootstrap/${name}.svg`,

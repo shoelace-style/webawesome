@@ -238,9 +238,10 @@ Internally, each component uses the [BEM methodology](http://getbem.com/) for cl
 
 ### Boolean Props
 
-Boolean props should _always_ default to `false`, otherwise there's no way for the user to unset them using only attributes. To keep the API as friendly and consistent as possible, use a property such as `noValue` and a corresponding kebab-case attribute such as `no-value`.
+Boolean props should _always_ default to `false`, otherwise there's no way for the user to unset them using only attributes. To keep the API as friendly and consistent as possible, use the following convention to show or hide optional content.
 
-When naming boolean props that hide or disable things, prefix them with `no-`, e.g. `no-spin-buttons` and avoid using other verbs such as `hide-` and `disable-` for consistency.
+- `with-*` - The content doesn't show by default, but will be shown when this attribute is present
+- `without-*` - The content shows by default, but will not be shown when this attribute is present
 
 ### Conditional Slots
 
@@ -279,6 +280,32 @@ This convention avoids the problem of browsers lowercasing attributes, causing s
 ### Change Events
 
 When change events are emitted by Web Awesome components, they should be named `wa-change` and they should only be emitted as a result of user input. Programmatic changes, such as setting `el.value = '…'` _should not_ result in a change event being emitted. This is consistent with how native form controls work.
+
+### Data Attribute Invokers
+
+Some components can be controlled using [data attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/data-*) that trigger specific behaviors. These controls must use the following convention:
+
+```html
+<button data-component="action id">
+  Button text
+</button>
+```
+
+The `data-component` portion corresponds to the component's name without the `wa-` prefix. For example, `data-dialog` must control a `<wa-dialog>` component.
+
+The `action` parameter is required and must be a concise, descriptive term indicating the intended behavior, e.g. `open` and `close`.
+
+The `id` parameter must point to the ID of the target component. The ID may be omitted if and only if the target component wraps the element with the `data-` attribute.
+
+```html
+<wa-dialog id="my-dialog">
+  Dialog content
+</wa-dialog>
+
+<button data-dialog="open my-dialog">
+  Open dialog
+</button>
+```
 
 ### CSS Custom Properties
 

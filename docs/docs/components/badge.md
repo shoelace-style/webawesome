@@ -89,22 +89,34 @@ Use the `pill` attribute to give badges rounded edges.
 <wa-badge variant="danger" pill>Danger</wa-badge>
 ```
 
-### Pulsating Badges
+### Drawing Attention
 
-Use the `pulse` attribute to draw attention to the badge with a subtle animation.
+Use the `attention` attribute to draw attention to the badge with a subtle animation. Supported effects are `bounce`, `pulse` and `none`.
 
 ```html {.example}
-<div class="badge-pulse">
-  <wa-badge variant="brand" pill pulse>1</wa-badge>
-  <wa-badge variant="success" pill pulse>1</wa-badge>
-  <wa-badge variant="neutral" pill pulse>1</wa-badge>
-  <wa-badge variant="warning" pill pulse>1</wa-badge>
-  <wa-badge variant="danger" pill pulse>1</wa-badge>
+<div class="badge-attention">
+  <wa-badge variant="brand" attention="pulse" pill>1</wa-badge>
+  <wa-badge variant="success" attention="pulse" pill>1</wa-badge>
+  <wa-badge variant="neutral" attention="pulse" pill>1</wa-badge>
+  <wa-badge variant="warning" attention="pulse" pill>1</wa-badge>
+  <wa-badge variant="danger" attention="pulse" pill>1</wa-badge>
+</div>
+
+<div class="badge-attention">
+  <wa-badge variant="brand" attention="bounce" pill>1</wa-badge>
+  <wa-badge variant="success" attention="bounce" pill>1</wa-badge>
+  <wa-badge variant="neutral" attention="bounce" pill>1</wa-badge>
+  <wa-badge variant="warning" attention="bounce" pill>1</wa-badge>
+  <wa-badge variant="danger" attention="bounce" pill>1</wa-badge>
 </div>
 
 <style>
-  .badge-pulse wa-badge:not(:last-of-type) {
-    margin-right: 1rem;
+  .badge-attention {
+    margin-block-end: var(--wa-space-m);
+
+    wa-badge:not(:last-of-type) {
+      margin-right: 1rem;
+    }
   }
 </style>
 ```
