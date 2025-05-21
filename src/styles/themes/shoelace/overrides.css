@@ -1,6 +1,6 @@
 :where(:root),
 :host,
-.wa-theme-classic {
+.wa-theme-shoelace {
   wa-avatar {
     --background-color: var(--wa-color-neutral-fill-loud);
     --text-color: var(--wa-color-neutral-on-loud);
