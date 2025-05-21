@@ -51,7 +51,7 @@ isPro: true
         </p>
       </li>
       <div class="wa-flank wa-gap-xl">
-        <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
+        <wa-divider orientation="vertical" style="height: auto; align-self: stretch"></wa-divider>
         <ul class="wa-stack">
           <li class="wa-stack wa-gap-2xs">
             <div class="wa-flank">

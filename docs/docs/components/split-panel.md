@@ -248,7 +248,7 @@ Create complex layouts that can be repositioned independently by nesting split p
     Start
   </div>
   <div slot="end">
-    <wa-split-panel vertical style="height: 400px;">
+    <wa-split-panel orientation="vertical" style="height: 400px;">
       <div
         slot="start"
         style="height: 100%; background: var(--wa-color-surface-lowered); display: flex; align-items: center; justify-content: center; overflow: hidden"
