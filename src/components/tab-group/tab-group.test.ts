@@ -244,7 +244,7 @@ describe('<wa-tab-group>', () => {
           // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
           // https://github.com/lit/lit/issues/4739
           const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(30)} </wa-tab-group>`);
-          tabGroup.noScrollControls = true;
+          tabGroup.withoutScrollControls = true;
 
           await aTimeout(0);
 
