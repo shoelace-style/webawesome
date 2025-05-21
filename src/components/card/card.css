@@ -65,7 +65,7 @@
 :host([appearance='plain']) .media {
   border-radius: var(--inner-border-radius);
 
-  &::slotted(img) {
+  &::slotted(*) {
     border-radius: inherit !important;
   }
 }
