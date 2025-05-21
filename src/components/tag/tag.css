@@ -4,6 +4,7 @@
   --size-l: var(--wa-font-size-m);
 
   display: inline-flex;
+  gap: 0.33em;
   border-radius: var(--wa-border-radius-m);
   align-items: center;
   background-color: var(--background-color, var(--wa-color-fill-quiet));
@@ -41,7 +42,6 @@
 /*
  * Pill modifier
  */
-
 :host([pill]) {
   border-radius: var(--wa-border-radius-pill);
 }

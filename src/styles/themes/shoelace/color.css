@@ -1,4 +1,4 @@
-@import url('../../color/classic.css');
+@import url('../../color/shoelace.css');
 @import url('../default/color.css');
 @import url('../../brand/blue.css');
 @import url('../../success/green.css');
@@ -8,7 +8,7 @@
 
 :where(:root),
 :host,
-.wa-theme-classic,
+.wa-theme-shoelace,
 .wa-light,
 .wa-dark .wa-invert {
   color-scheme: light;

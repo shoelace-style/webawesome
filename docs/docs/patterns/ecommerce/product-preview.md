@@ -24,7 +24,7 @@ isPro: true
       <div class="wa-stack wa-gap-xl">
         <div class="wa-cluster">
           <span class="wa-heading-2xl">$32</span>
-          <wa-divider vertical style="height: 2em"></wa-divider>
+          <wa-divider orientation="vertical" style="height: 2em"></wa-divider>
           <wa-rating label="Rating" value="3.75" readonly></wa-rating>
           <a href="" class="wa-caption-m">36 Reviews</a>
         </div>
