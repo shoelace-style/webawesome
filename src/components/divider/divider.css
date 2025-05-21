@@ -15,4 +15,5 @@
   height: 100%;
   border-left: solid var(--width) var(--color);
   margin: 0 var(--spacing);
+  min-block-size: 1lh;
 }
