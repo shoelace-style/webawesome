@@ -61,10 +61,10 @@ Use the `placeholder` attribute to add a placeholder.
 
 ### Clearable
 
-Use the `clearable` attribute to make the control clearable. The clear button only appears when an option is selected.
+Use the `with-clear` attribute to make the control clearable. The clear button only appears when an option is selected.
 
 ```html {.example}
-<wa-select clearable value="option-1">
+<wa-select with-clear value="option-1">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -109,10 +109,10 @@ Use the `disabled` attribute to disable a select.
 
 ### Multiple
 
-To allow multiple options to be selected, use the `multiple` attribute. It's a good practice to use `clearable` when this option is enabled. To set multiple values at once, set `value` to a space-delimited list of values.
+To allow multiple options to be selected, use the `multiple` attribute. It's a good practice to use `with-clear` when this option is enabled. To set multiple values at once, set `value` to a space-delimited list of values.
 
 ```html {.example}
-<wa-select label="Select a Few" value="option-1 option-2 option-3" multiple clearable>
+<wa-select label="Select a Few" value="option-1 option-2 option-3" multiple with-clear>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -142,7 +142,7 @@ Use the `value` attribute to set the initial selection.
 When using `multiple`, the `value` _attribute_ uses space-delimited values to select more than one option. Because of this, `<wa-option>` values cannot contain spaces. If you're accessing the `value` _property_ through Javascript, it will be an array.
 
 ```html {.example}
-<wa-select value="option-1 option-2" multiple clearable>
+<wa-select value="option-1 option-2" multiple with-clear>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -213,21 +213,21 @@ The preferred placement of the select's listbox can be set with the `placement` 
 Use the `prefix` slot to prepend an icon to the control.
 
 ```html {.example}
-<wa-select placeholder="Small" size="small" clearable>
+<wa-select placeholder="Small" size="small" with-clear>
   <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Medium" size="medium" clearable>
+<wa-select placeholder="Medium" size="medium" with-clear>
   <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Large" size="large" clearable>
+<wa-select placeholder="Large" size="large" with-clear>
   <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
@@ -240,21 +240,21 @@ Use the `prefix` slot to prepend an icon to the control.
 Use the `suffix` slot to append an icon to the control.
 
 ```html {.example}
-<wa-select placeholder="Small" size="small" clearable>
+<wa-select placeholder="Small" size="small" with-clear>
   <wa-icon name="house" slot="suffix"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Medium" size="medium" clearable>
+<wa-select placeholder="Medium" size="medium" with-clear>
   <wa-icon name="house" slot="suffix"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Large" size="large" clearable>
+<wa-select placeholder="Large" size="large" with-clear>
   <wa-icon name="house" slot="suffix"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>

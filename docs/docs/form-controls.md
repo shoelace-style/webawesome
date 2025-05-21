@@ -28,7 +28,7 @@ To make a field required, use the `required` attribute. Required fields will aut
 <form class="input-validation-required">
   <wa-input name="name" label="Name" required></wa-input>
   <br />
-  <wa-select label="Favorite Animal" clearable required>
+  <wa-select label="Favorite Animal" with-clear required>
     <wa-option value="birds">Birds</wa-option>
     <wa-option value="cats">Cats</wa-option>
     <wa-option value="dogs">Dogs</wa-option>

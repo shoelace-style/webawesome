@@ -130,7 +130,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /** Adds a clear button when the input is not empty. */
-  @property({ type: Boolean }) clearable = false;
+  @property({ attribute: 'with-clear', type: Boolean }) withClear = false;
 
   /** Placeholder text to show as a hint when the input is empty. */
   @property() placeholder = '';
@@ -145,7 +145,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'password-visible', type: Boolean }) passwordVisible = false;
 
   /** Hides the browser's built-in increment/decrement spin buttons for number inputs. */
-  @property({ attribute: 'no-spin-buttons', type: Boolean }) noSpinButtons = false;
+  @property({ attribute: 'without-spin-buttons', type: Boolean }) withoutSpinButtons = false;
 
   /**
    * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
@@ -388,7 +388,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
-    const hasClearIcon = this.clearable && !this.disabled && !this.readonly;
+    const hasClearIcon = this.withClear && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
       (isServer || this.hasUpdated) &&

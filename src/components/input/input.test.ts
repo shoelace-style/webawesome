@@ -32,10 +32,10 @@ describe('<wa-input>', () => {
         expect(el.pill).to.equal(false);
         expect(el.label).to.equal('');
         expect(el.hint).to.equal('');
-        expect(el.clearable).to.equal(false);
+        expect(el.withClear).to.equal(false);
         expect(el.passwordToggle).to.equal(false);
         expect(el.passwordVisible).to.equal(false);
-        expect(el.noSpinButtons).to.equal(false);
+        expect(el.withoutSpinButtons).to.equal(false);
         expect(el.placeholder).to.equal('');
         expect(el.disabled).to.equal(false);
         expect(el.readonly).to.equal(false);

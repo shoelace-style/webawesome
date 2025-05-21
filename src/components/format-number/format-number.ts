@@ -23,7 +23,7 @@ export default class WaFormatNumber extends WebAwesomeElement {
   @property() type: 'currency' | 'decimal' | 'percent' = 'decimal';
 
   /** Turns off grouping separators. */
-  @property({ attribute: 'no-grouping', type: Boolean }) noGrouping = false;
+  @property({ attribute: 'without-grouping', type: Boolean }) withoutGrouping = false;
 
   /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code to use when formatting. */
   @property() currency = 'USD';
@@ -55,7 +55,7 @@ export default class WaFormatNumber extends WebAwesomeElement {
       style: this.type,
       currency: this.currency,
       currencyDisplay: this.currencyDisplay,
-      useGrouping: !this.noGrouping,
+      useGrouping: !this.withoutGrouping,
       minimumIntegerDigits: this.minimumIntegerDigits,
       minimumFractionDigits: this.minimumFractionDigits,
       maximumFractionDigits: this.maximumFractionDigits,

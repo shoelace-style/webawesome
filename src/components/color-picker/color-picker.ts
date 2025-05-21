@@ -202,7 +202,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Removes the button that lets users toggle between format.   */
-  @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;
+  @property({ attribute: 'without-format-toggle', type: Boolean }) withoutFormatToggle = false;
 
   /** The name of the form control, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
@@ -1003,7 +1003,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           ></wa-input>
 
           <wa-button-group>
-            ${!this.noFormatToggle
+            ${!this.withoutFormatToggle
               ? html`
                   <wa-button
                     part="format-button"

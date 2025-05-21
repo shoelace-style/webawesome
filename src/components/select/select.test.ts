@@ -557,7 +557,7 @@ describe('<wa-select>', () => {
 
       it('should emit wa-clear when the clear button is clicked', async () => {
         const el = await fixture<WaSelect>(html`
-          <wa-select value="option-1" clearable>
+          <wa-select value="option-1" with-clear>
             <wa-option value="option-1">Option 1</wa-option>
             <wa-option value="option-2">Option 2</wa-option>
             <wa-option value="option-3">Option 3</wa-option>

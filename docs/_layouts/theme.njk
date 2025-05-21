@@ -28,7 +28,7 @@ if (location.pathname.endsWith('/custom/') && !location.search) {
     <wa-tooltip for="what-is-remixing">Customize this theme by changing its colors and/or remixing it with design elements from other themes!</wa-tooltip>
   </h4>
 
-  <wa-select name="palette" label="Color palette" clearable v-model="theme.palette">
+  <wa-select name="palette" label="Color palette" with-clear v-model="theme.palette">
     <wa-icon name="swatchbook" slot="prefix" variant="regular"></wa-icon>
     <wa-option v-for="(palette, paletteId) in palettes" :label="palette.title" :value="paletteId === baseTheme.palette ? '' : paletteId">
       <palette-card :palette="paletteId" size="small">
@@ -42,7 +42,7 @@ if (location.pathname.endsWith('/custom/') && !location.search) {
   <color-select :model-value="computed.brand" @update:model-value="value => theme.brand = value" label="Brand color"
                 :values="hues"></color-select>
 
-  <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" clearable v-model="theme.colors">
+  <wa-select name="colors" class="theme-colors-select" label="Color contrast from…" value="" with-clear v-model="theme.colors">
     <wa-icon name="palette" slot="prefix" variant="regular"></wa-icon>
     <template v-for="(themeMeta, themeId) in themes">
       <wa-option v-if="themeId !== 'custom'" :label="themeMeta.title" :value="themeId === computed.colors ? '' : themeId">
@@ -55,7 +55,7 @@ if (location.pathname.endsWith('/custom/') && !location.search) {
     </template>
   </wa-select>
 
-  <wa-select name="typography" label="Typography from…" clearable v-model="theme.typography">
+  <wa-select name="typography" label="Typography from…" with-clear v-model="theme.typography">
     <wa-icon name="font-case" slot="prefix"></wa-icon>
 
     <wa-option v-for="(themeMeta, themeId) in themes" :label="themeMeta.title" :value="themeId === theme.base ? '' : themeId">

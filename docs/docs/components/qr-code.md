@@ -12,7 +12,7 @@ QR codes are useful for providing small pieces of information to users who can q
   <wa-qr-code value="https://shoelace.style/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
   <br />
 
-  <wa-input maxlength="255" clearable label="Value">
+  <wa-input maxlength="255" with-clear label="Value">
     <wa-icon slot="prefix" name="link"></wa-icon>
   </wa-input>
 </div>

@@ -75,7 +75,7 @@ export default class WaTabGroup extends WebAwesomeElement {
   @property() activation: 'auto' | 'manual' = 'auto';
 
   /** Disables the scroll arrows that appear when tabs overflow. */
-  @property({ attribute: 'no-scroll-controls', type: Boolean }) noScrollControls = false;
+  @property({ attribute: 'without-scroll-controls', type: Boolean }) withoutScrollControls = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -365,9 +365,9 @@ export default class WaTabGroup extends WebAwesomeElement {
     }
   }
 
-  @watch('noScrollControls', { waitUntilFirstUpdate: true })
+  @watch('withoutScrollControls', { waitUntilFirstUpdate: true })
   updateScrollControls() {
-    if (this.noScrollControls) {
+    if (this.withoutScrollControls) {
       this.hasScrollControls = false;
     } else {
       // In most cases, we can compare scrollWidth to clientWidth to determine if scroll controls should show. However,

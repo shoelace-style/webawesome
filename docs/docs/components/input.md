@@ -43,10 +43,10 @@ Use the `placeholder` attribute to add a placeholder.
 
 ### Clearable
 
-Add the `clearable` attribute to add a clear button when the input has content.
+Add the `with-clear` attribute to add a clear button when the input has content.
 
 ```html {.example}
-<wa-input placeholder="Clearable" clearable></wa-input>
+<wa-input placeholder="Clearable" with-clear></wa-input>
 ```
 
 ### Toggle Password

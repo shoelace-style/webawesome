@@ -222,7 +222,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean }) disabled = false;
 
   /** Adds a clear button when the select is not empty. */
-  @property({ type: Boolean }) clearable = false;
+  @property({ attribute: 'with-clear', type: Boolean }) withClear = false;
 
   /**
    * Indicates whether or not the select is open. You can toggle this attribute to show and hide the menu, or you can
@@ -855,7 +855,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
-      (this.hasUpdated || isServer) && this.clearable && !this.disabled && this.value && this.value.length > 0;
+      (this.hasUpdated || isServer) && this.withClear && !this.disabled && this.value && this.value.length > 0;
     const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
 
     return html`

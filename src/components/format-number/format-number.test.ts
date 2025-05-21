@@ -51,7 +51,7 @@ describe('<wa-format-number>', () => {
       describe('noGrouping property', () => {
         it(`number has correct grouping format: no grouping`, async () => {
           const el = await fixture<WaFormatNumber>(html`
-            <wa-format-number value="1000" no-grouping></wa-format-number>
+            <wa-format-number value="1000" without-grouping></wa-format-number>
           `);
           const expected = new Intl.NumberFormat('en-US', { useGrouping: false }).format(1000);
           expect(el.shadowRoot?.textContent).to.equal(expected);

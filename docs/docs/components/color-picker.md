@@ -36,7 +36,7 @@ Use the `opacity` attribute to enable the opacity slider. When this is enabled, 
 
 Set the color picker's format with the `format` attribute. Valid options include `hex`, `rgb`, `hsl`, and `hsv`. Note that the color picker's input will accept any parsable format (including CSS color names) regardless of this option.
 
-To prevent users from toggling the format themselves, add the `no-format-toggle` attribute.
+To prevent users from toggling the format themselves, add the `without-format-toggle` attribute.
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 12ch;">

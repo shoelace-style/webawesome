@@ -98,7 +98,7 @@ input:focus {
 }
 
 /* Hide the built-in number spinner */
-:host([no-spin-buttons]) input[type='number'] {
+:host([without-spin-buttons]) input[type='number'] {
   -moz-appearance: textfield;
 
   &::-webkit-outer-spin-button,
