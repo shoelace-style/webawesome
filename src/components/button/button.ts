@@ -255,7 +255,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         @click=${this.handleClick}
       >
         <slot name="prefix" part="prefix" class="prefix"></slot>
-        <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
+        <slot part="label" class="label"></slot>
         <slot name="suffix" part="suffix" class="suffix"></slot>
         ${
           this.caret
