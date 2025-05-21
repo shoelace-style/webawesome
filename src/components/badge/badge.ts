@@ -39,7 +39,7 @@ export default class WaBadge extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) pill = false;
 
   /** Makes the badge pulsate to draw attention. */
-  @property({ type: Boolean, reflect: true }) pulse = false;
+  @property({ reflect: true }) attention: 'none' | 'pulse' = 'none';
 
   render() {
     return html` <slot part="base" role="status"></slot>`;

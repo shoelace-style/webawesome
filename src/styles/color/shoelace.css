@@ -3,7 +3,7 @@
 :where(:root),
 :host,
 :where([class^='wa-theme-'], [class*=' wa-theme-']),
-.wa-palette-classic {
+.wa-palette-shoelace {
   --wa-color-red-95: #fff0ef /* oklch(96.667% 0.01632 22.08) */;
   --wa-color-red-90: #ffdedc /* oklch(92.735% 0.03679 21.966) */;
   --wa-color-red-80: #ffb8b5 /* oklch(84.778% 0.083 21.686) */;
