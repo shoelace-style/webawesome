@@ -92,11 +92,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   /** The current value of the radio group, submitted as a name/value pair with form data. */
   @state()
-  set value(val: string | null) {
-    if (this._value === val) {
-      return;
-    }
-
+  set value(val: string | number | null) {
+    if (typeof val === 'number') val = String(val);
     this.valueHasChanged = true;
     this._value = val;
   }

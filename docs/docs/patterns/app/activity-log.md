@@ -66,7 +66,7 @@ description: 'Track and organize recent user actions or events.'
       <wa-format-date date="2025-04-01" month="short" day="numeric"></wa-format-date>
     </div>
   </article>
-  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <wa-divider orientation="vertical" style="height: 1em; margin-left: 1rem"></wa-divider>
   <article class="wa-flank" style="flex-wrap: nowrap">
     <wa-avatar style="--size: 2rem">
       <wa-icon slot="icon" name="seedling"></wa-icon>
@@ -76,7 +76,7 @@ description: 'Track and organize recent user actions or events.'
       <wa-format-date date="2025-05-29" month="short" day="numeric"></wa-format-date>
     </div>
   </article>
-  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <wa-divider orientation="vertical" style="height: 1em; margin-left: 1rem"></wa-divider>
   <article class="wa-flank" style="flex-wrap: nowrap">
     <wa-avatar style="--size: 2rem">
       <wa-icon slot="icon" name="tree-deciduous"></wa-icon>
@@ -86,7 +86,7 @@ description: 'Track and organize recent user actions or events.'
       <wa-format-date date="2025-09-15" month="short" day="numeric"></wa-format-date>
     </div>
   </article>
-  <wa-divider vertical style="height: 1em; margin-left: 1rem"></wa-divider>
+  <wa-divider orientation="vertical" style="height: 1em; margin-left: 1rem"></wa-divider>
   <article class="wa-flank" style="flex-wrap: nowrap">
     <wa-avatar style="--size: 2rem">
       <wa-icon slot="icon" name="crate-apple"></wa-icon>
@@ -218,7 +218,7 @@ description: 'Track and organize recent user actions or events.'
       </div>
     </wa-card>
     <div class="wa-flank wa-gap-xl">
-      <wa-divider vertical style="height: auto; align-self: stretch"></wa-divider>
+      <wa-divider orientation="vertical" style="height: auto; align-self: stretch"></wa-divider>
       <ul class="wa-stack">
         <li class="wa-stack wa-gap-2xs">
           <wa-card>

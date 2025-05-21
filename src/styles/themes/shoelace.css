@@ -1,16 +1,16 @@
-@import url('classic/color.css');
+@import url('shoelace/color.css');
 @import url('default/space.css');
 @import url('default/outlines.css');
-@import url('classic/typography.css');
+@import url('shoelace/typography.css');
 @import url('default/rounding.css');
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
-@import url('classic/overrides.css');
+@import url('shoelace/overrides.css');
 
 :where(:root),
 :host,
-.wa-theme-classic,
+.wa-theme-shoelace,
 .wa-dark,
 .wa-light,
 .wa-invert {
