@@ -717,13 +717,28 @@ table.colors {
   gap: 1rem;
 }
 
-.component-table td > * + * {
-  margin-block-start: var(--wa-space-s);
+/* Component API tables */
+wa-scroller:has(.component-table) {
+  margin-block-end: var(--wa-space-xl);
 }
 
-.table-scroll {
-  overflow-x: auto;
-  margin-block-end: var(--wa-flow-spacing);
+.component-table {
+  .table-name {
+    white-space: nowrap;
+  }
+
+  .table-arguments,
+  .table-description {
+    min-width: 40ch;
+  }
+
+  .table-reflect {
+    text-align: center;
+  }
+
+  code {
+    white-space: inherit;
+  }
 }
 
 /** desktop */
