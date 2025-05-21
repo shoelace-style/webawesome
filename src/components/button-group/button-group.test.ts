@@ -40,12 +40,14 @@ describe('<wa-button-group>', () => {
           `);
 
           const allButtons = group.querySelectorAll('wa-button');
-          const hasGroupClass = Array.from(allButtons).every(button => button.classList.contains('button'));
+          const hasGroupClass = Array.from(allButtons).every(button =>
+            button.classList.contains('wa-button-group__button'),
+          );
           expect(hasGroupClass).to.be.true;
 
-          expect(allButtons[0]).to.have.class('button-first');
-          expect(allButtons[1]).to.have.class('button-inner');
-          expect(allButtons[2]).to.have.class('button-last');
+          expect(allButtons[0]).to.have.class('wa-button-group__button-first');
+          expect(allButtons[1]).to.have.class('wa-button-group__button-inner');
+          expect(allButtons[2]).to.have.class('wa-button-group__button-last');
         });
       });
 

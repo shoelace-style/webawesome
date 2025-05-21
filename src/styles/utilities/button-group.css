@@ -2,6 +2,7 @@
   display: inline-flex;
   position: relative;
   isolation: isolate;
+  gap: 1px;
 
   > :hover,
   &::slotted(:hover) {
@@ -33,7 +34,6 @@
     --wa-border-inline-start-radius: 0;
 
     border-inline-start-color: var(--border-color, rgb(0 0 0 / 0.3));
-    margin-inline-start: calc(-1 * var(--border-width, 1px));
   }
 
   > :not(:last-child),
@@ -51,18 +51,16 @@
 
   > :not(:first-child),
   &::slotted(:not(:first-child)) {
+    --wa-border-block-start-radius: 0;
     border-start-start-radius: 0 !important;
     border-start-end-radius: 0 !important;
-    --wa-border-block-start-radius: 0;
-
     border-block-start-color: var(--border-color, rgb(0 0 0 / 0.3));
-    margin-block-start: calc(-1 * var(--border-width, 1px));
   }
 
   > :not(:last-child),
   &::slotted(:not(:last-child)) {
+    --wa-border-block-end-radius: 0;
     border-end-start-radius: 0 !important;
     border-end-end-radius: 0 !important;
-    --wa-border-block-end-radius: 0;
   }
 }

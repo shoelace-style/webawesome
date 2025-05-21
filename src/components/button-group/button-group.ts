@@ -39,8 +39,13 @@ export default class WaButtonGroup extends WebAwesomeElement {
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
-  @property({ reflect: true, initial: 'neutral' })
-  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'inherit' = 'inherit';
+  @property({ reflect: true, initial: 'neutral' }) variant:
+    | 'neutral'
+    | 'brand'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'inherit' = 'inherit';
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
@@ -83,13 +88,13 @@ export default class WaButtonGroup extends WebAwesomeElement {
       const button = findButton(el);
 
       if (button) {
-        button.classList.add('button');
-        button.classList.toggle('wa-button-group-horizontal', this.orientation === 'horizontal');
-        button.classList.toggle('wa-button-group-vertical', this.orientation === 'vertical');
-        button.classList.toggle('button-first', index === 0);
-        button.classList.toggle('button-inner', index > 0 && index < slottedElements.length - 1);
-        button.classList.toggle('button-last', index === slottedElements.length - 1);
-        button.classList.toggle('button-radio', button.tagName.toLowerCase() === 'wa-radio-button');
+        button.classList.add('wa-button-group__button');
+        button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
+        button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');
+        button.classList.toggle('wa-button-group__button-first', index === 0);
+        button.classList.toggle('wa-button-group__button-inner', index > 0 && index < slottedElements.length - 1);
+        button.classList.toggle('wa-button-group__button-last', index === slottedElements.length - 1);
+        button.classList.toggle('wa-button-group__button-radio', button.tagName.toLowerCase() === 'wa-radio-button');
       }
     });
   }

@@ -15,6 +15,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ## Next
 
 - 🚨 BREAKING: Removed the extra dash in the `<wa-carousel>` CSS part name `pagination-item--active` => `pagination-item-active`
+- Fixed `<wa-button-group>` so dividers properly show between buttons
 
 ## 3.0.0-alpha.13
 
