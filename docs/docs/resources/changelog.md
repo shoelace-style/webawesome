@@ -14,12 +14,14 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
 - 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
+- Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 
 ## 3.0.0-alpha.13
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparison>` and improved compatibility for non-image content
-- 🚨 BREAKING:  Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
+- 🚨 BREAKING: Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
 - Added [a theme builder](/docs/themes/edit/) to create your own themes
 - Added a new Blog & News pattern category
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)

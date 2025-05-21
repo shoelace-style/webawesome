@@ -19,7 +19,7 @@
     <h2>Slots</h2>
     <p>Learn more about <a href="/docs/usage/#slots">using slots</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -42,7 +42,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Properties #}
@@ -50,13 +50,13 @@
     <h2>Attributes & Properties</h2>
     <p>Learn more about <a href="/docs/usage/#attributes-and-properties">attributes and properties</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
             <th class="table-name">Name</th>
             <th class="table-description">Description</th>
-            <th class="table-reflects">Reflects</th>
+            <th class="table-reflect">Reflects</th>
           </tr>
         </thead>
         <tbody>
@@ -77,7 +77,7 @@
                   <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | inlineMarkdown | safe }}</code></small></div>
                 {% endif %}
               </td>
-              <td class="table-checkmark">
+              <td class="table-reflect">
                 {% if prop.reflects %}
                   <wa-icon name="check"></wa-icon>
                 {% endif %}
@@ -89,7 +89,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Methods #}
@@ -97,7 +97,7 @@
     <h2>Methods</h2>
     <p>Learn more about <a href="/docs/usage/#methods">methods</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -124,7 +124,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Events #}
@@ -132,7 +132,7 @@
     <h2>Events</h2>
     <p>Learn more about <a href="/docs/usage/#events">events</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -151,7 +151,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Custom Properties #}
@@ -159,7 +159,7 @@
     <h2>CSS custom properties</h2>
     <p>Learn more about <a href="/docs/customizing/#custom-properties">CSS custom properties</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -183,7 +183,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Custom States #}
@@ -191,7 +191,7 @@
     <h2>Custom States</h2>
     <p>Learn more about <a href="/docs/customizing/#custom-states">custom states</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -210,7 +210,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# CSS Parts #}
@@ -218,7 +218,7 @@
     <h2>CSS parts</h2>
     <p>Learn more about <a href="/docs/customizing/#css-parts">CSS parts</a>.</p>
 
-    <div class="table-scroll">
+    <wa-scroller>
       <table class="component-table">
         <thead>
           <tr>
@@ -235,7 +235,7 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
+    </wa-scroller>
   {% endif %}
 
   {# Dependencies #}
