@@ -20,6 +20,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a new Blog & News pattern category
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
 - Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
+- Added a default `gap` to `<wa-tag>` for better default spacing when used with icons [issue:677]
 - Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it
 - Fixed a bug in the Matter theme that prevented clicks on form control labels to not focus the control
 - Fixed a bug in `<wa-select>` that caused incorrect spacing of icons
