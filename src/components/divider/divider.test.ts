@@ -10,7 +10,7 @@ describe('<wa-divider>', () => {
         it('default properties', async () => {
           const el = await fixture<WaDivider>(html` <wa-divider></wa-divider> `);
 
-          expect(el.vertical).to.be.false;
+          expect(el.orientation).to.equal('horizontal');
           expect(el.getAttribute('role')).to.equal('separator');
           expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
         });
@@ -25,7 +25,7 @@ describe('<wa-divider>', () => {
         it('aria-orientation is updated', async () => {
           const el = await fixture<WaDivider>(html` <wa-divider></wa-divider> `);
 
-          el.vertical = true;
+          el.orientation = 'vertical';
           await elementUpdated(el);
 
           expect(el.getAttribute('aria-orientation')).to.equal('vertical');

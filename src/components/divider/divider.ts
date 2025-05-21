@@ -17,17 +17,17 @@ import styles from './divider.css';
 export default class WaDivider extends WebAwesomeElement {
   static shadowStyle = styles;
 
-  /** Draws the divider in a vertical orientation. */
-  @property({ type: Boolean, reflect: true }) vertical = false;
+  /** Sets the divider's orientation. */
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'separator');
   }
 
-  @watch('vertical')
+  @watch('orientation')
   handleVerticalChange() {
-    this.setAttribute('aria-orientation', this.vertical ? 'vertical' : 'horizontal');
+    this.setAttribute('aria-orientation', this.orientation);
   }
 }
 
