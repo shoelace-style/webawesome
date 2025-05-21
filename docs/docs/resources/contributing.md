@@ -238,7 +238,7 @@ Internally, each component uses the [BEM methodology](http://getbem.com/) for cl
 
 ### Boolean Props
 
-Boolean props should _always_ default to `false`, otherwise there's no way for the user to unset them using only attributes. To keep the API as friendly and consistent as possible, the following convention to show or hide optional content.
+Boolean props should _always_ default to `false`, otherwise there's no way for the user to unset them using only attributes. To keep the API as friendly and consistent as possible, use the following convention to show or hide optional content.
 
 - `with-*` - The content doesn't show by default, but will be shown when this attribute is present
 - `without-*` - The content shows by default, but will not be shown when this attribute is present
