@@ -7,7 +7,7 @@ let stylesheets = Array.from(document.querySelectorAll("link[rel=stylesheet][hre
   .join('\n');
 let includes = `${stylesheets}
   <script src="/dist/webawesome.loader.js" type="module"></script>
-  <link rel="stylesheet" href="./demo-page.css">`;
+  <link rel="stylesheet" href="/docs/components/page/demo-page.css">`;
 
 async function render() {
   await customElements.whenDefined('wa-checkbox');
