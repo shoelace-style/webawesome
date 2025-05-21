@@ -23,8 +23,8 @@
   border-radius: var(--wa-border-radius-pill);
 }
 
-/* Pulse modifier */
-:host([pulse]) {
+/* Attention */
+:host([attention='pulse']) {
   --pulse-color: var(--background-color);
 
   animation: pulse 1.5s infinite;
