@@ -14,7 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` to allow for additional effects in the future [issue:#940]
+- 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
 
 ## 3.0.0-alpha.13
 
