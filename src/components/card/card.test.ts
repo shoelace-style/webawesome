@@ -9,16 +9,16 @@ describe('<wa-card>', () => {
       describe('when provided no parameters', () => {
         it('should render the child content provided.', async () => {
           const el = await fixture<WaCard>(html`
-            <wa-card>This is just a basic card. No image, no header, and no footer. Just your content.</wa-card>
+            <wa-card>This is just a basic card. No media, no header, and no footer. Just your content.</wa-card>
           `);
           expect(el.innerText).to.eq(
-            'This is just a basic card. No image, no header, and no footer. Just your content.',
+            'This is just a basic card. No media, no header, and no footer. Just your content.',
           );
         });
 
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(html`
-            <wa-card>This is just a basic card. No image, no header, and no footer. Just your content.</wa-card>
+            <wa-card>This is just a basic card. No media, no header, and no footer. Just your content.</wa-card>
           `);
           await expect(el).to.be.accessible();
         });
@@ -120,12 +120,12 @@ describe('<wa-card>', () => {
         });
       });
 
-      describe('when provided an element in the slot "image" to render a image', () => {
+      describe('when provided an element in the slot "media" to render a media element', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaCard>(
             html`<wa-card>
               <img
-                slot="image"
+                slot="media"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 alt="A kitten walks towards camera on top of pallet."
               />
@@ -140,7 +140,7 @@ describe('<wa-card>', () => {
           const el = await fixture<WaCard>(
             html`<wa-card>
               <img
-                slot="image"
+                slot="media"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 alt="A kitten walks towards camera on top of pallet."
               />
@@ -153,18 +153,18 @@ describe('<wa-card>', () => {
           );
         });
 
-        it('accept "image" as an assigned child in the shadow root.', async () => {
+        it('accept "media" as an assigned child in the shadow root.', async () => {
           const el = await fixture<WaCard>(
             html`<wa-card>
               <img
-                slot="image"
+                slot="media"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 alt="A kitten walks towards camera on top of pallet."
               />
               This is a kitten, but not just any kitten. This kitten likes walking along pallets.
             </wa-card>`,
           );
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=image]')!;
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=media]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
 
           expect(childNodes.length).to.eq(1);

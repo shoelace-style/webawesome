@@ -163,7 +163,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1490410006060-e1dc82ab0a70?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
@@ -184,7 +184,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=5231&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
@@ -205,7 +205,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1581464668854-0da56c32393c?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
@@ -226,7 +226,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=5232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
@@ -247,7 +247,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1576595580361-90a855b84b20?q=80&w=4032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
@@ -268,7 +268,7 @@ tags:
       <wa-carousel-item>
         <a href="#" class="wa-link-plain">
           <wa-card with-image>
-            <div class="wa-frame:landscape" slot="image">
+            <div class="wa-frame:landscape" slot="media">
               <img
                 src="https://images.unsplash.com/photo-1539541417736-3d44c90da315?q=80&w=5338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Customer service reps"
