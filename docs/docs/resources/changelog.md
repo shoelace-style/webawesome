@@ -14,7 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
-- 🚨 BREAKING: Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform
+- 🚨 BREAKING: Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
 
 ## 3.0.0-alpha.13
 
