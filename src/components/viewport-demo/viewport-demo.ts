@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { getComputedStyle } from '../../internal/computedStyle.js';
+import { getComputedStyle } from '../../internal/computed-style.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon-button/icon-button.js';

@@ -4,7 +4,6 @@ description: Pages offer an easy way to scaffold entire page layouts using minim
 tags: [pro, organization, layout]
 isPro: true
 order: 0
-# icon: page
 ---
 
 The page component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
@@ -48,17 +47,14 @@ If you use [native styles](/docs/native/), this is already taken care of.
 ## Examples
 
 :::warning
-Open demos in a new tab to examine their behavior in different window sizes.
-The previews below use simulated zooming which, depending on your browser, may not be accurate.
+Open demos in a new tab to examine their behavior in different window sizes. The previews below use simulated zooming which, depending on your browser, may not be accurate.
 :::
 
 ### Documentation
 
-A sample documentation page using [all available slots](#slots).
-The navigation menu collapses into a drawer at a custom `mobile-breakpoint` of 920px.
-It can be opened using a button with `[data-toggle-nav]` that appears in the `subheader` slot. The `aside` slot is also hidden below 920px.
+A sample documentation page using [all available slots](#slots). The navigation menu collapses into a drawer at a custom `mobile-breakpoint` of 920px. It can be opened using a button with `[data-toggle-nav]` that appears in the `subheader` slot. The `aside` slot is also hidden below 920px.
 
-```html {.example viewport="1600"}
+```html {.example}
 <wa-page mobile-breakpoint="920">
   <div slot="banner" class="wa-body-s">
     <a href="#" class="wa-cluster wa-align-items-baseline wa-gap-xs" style="flex-wrap: nowrap;">
@@ -298,7 +294,7 @@ It can be opened using a button with `[data-toggle-nav]` that appears in the `su
 
 A sample media app page using `header`, `navigation-header`, `main-header`, and `main-footer` along with the default slot. The navigation menu collapses into a drawer at the default `mobile-breakpoint` and can be opened using a button with `[data-toggle-nav]` that appears in the `header` slot.
 
-```html {.example viewport="1600"}
+```html {.example}
 <wa-page class="wa-dark">
   <header slot="header">
     <div class="wa-cluster">
@@ -790,7 +786,8 @@ which takes either a number or a [CSS length](https://developer.mozilla.org/en-U
 ```html
 <wa-page mobile-breakpoint="600"> ... </wa-page>
 ```
-```html {.example viewport}
+
+```html {.example}
 <wa-page mobile-breakpoint="50ch">
   <div slot=navigation>Nav</div>
   <header slot=header>

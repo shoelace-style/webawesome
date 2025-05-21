@@ -1,4 +1,4 @@
-import { getComputedStyle } from './computedStyle.js';
+import { getComputedStyle } from './computed-style.js';
 
 const definedProperties = new Set();
 const initialValues: Record<string, string> = {

@@ -3,7 +3,7 @@ import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ElementStyleObserver } from 'style-observer';
 import componentStyles from '../styles/shadow/component.css';
-import { getComputedStyle } from './computedStyle.js';
+import { getComputedStyle } from './computed-style.js';
 
 // Augment Lit's module
 declare module 'lit' {
