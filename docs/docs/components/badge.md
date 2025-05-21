@@ -91,7 +91,7 @@ Use the `pill` attribute to give badges rounded edges.
 
 ### Drawing Attention
 
-Use the `attention` attribute to draw attention to the badge with a subtle animation. Supported options are `bounce`, `pulse` and `none`.
+Use the `attention` attribute to draw attention to the badge with a subtle animation. Supported effects are `bounce`, `pulse` and `none`.
 
 ```html {.example}
 <div class="badge-attention">
