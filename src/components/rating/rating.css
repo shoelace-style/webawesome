@@ -41,8 +41,8 @@
   padding: var(--symbol-spacing);
 }
 
-.symbol--active,
-.partial--filled {
+.symbol-active,
+.partial-filled {
   color: var(--symbol-color-active);
 }
 
@@ -50,7 +50,7 @@
   position: relative;
 }
 
-.partial--filled {
+.partial-filled {
   position: absolute;
   top: var(--symbol-spacing);
   left: var(--symbol-spacing);
@@ -61,16 +61,16 @@
   pointer-events: none;
 }
 
-.symbol--hover {
+.symbol-hover {
   scale: 1.2;
 }
 
-.rating--readonly .symbols {
+.rating-readonly .symbols {
   cursor: default;
 }
 
-:host([disabled]) .symbol--hover,
-.rating--readonly .symbol--hover {
+:host([disabled]) .symbol-hover,
+.rating-readonly .symbol-hover {
   scale: none;
 }
 
@@ -84,7 +84,7 @@
 
 /* Forced colors mode */
 @media (forced-colors: active) {
-  .symbol--active {
+  .symbol-active {
     color: SelectedItem;
   }
 }

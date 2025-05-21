@@ -20,7 +20,7 @@
   position: absolute;
 }
 
-.tab-group--has-scroll-controls .nav-container {
+.tab-group-has-scroll-controls .nav-container {
   position: relative;
   padding: 0 var(--wa-space-xl);
 }
@@ -52,15 +52,15 @@
    * Top
    */
 
-.tab-group--top {
+.tab-group-top {
   flex-direction: column;
 }
 
-.tab-group--top .nav-container {
+.tab-group-top .nav-container {
   order: 1;
 }
 
-.tab-group--top .nav {
+.tab-group-top .nav {
   display: flex;
   overflow-x: auto;
 
@@ -69,33 +69,33 @@
 }
 
 /* Hide scrollbar in Chrome/Safari */
-.tab-group--top .nav::-webkit-scrollbar {
+.tab-group-top .nav::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-.tab-group--top .tabs {
+.tab-group-top .tabs {
   flex: 1 1 auto;
   position: relative;
   flex-direction: row;
   border-bottom: solid var(--track-width) var(--track-color);
 }
 
-.tab-group--top .indicator {
+.tab-group-top .indicator {
   bottom: calc(-1 * var(--track-width));
   border-bottom: solid var(--track-width) var(--indicator-color);
 }
 
-.tab-group--top .body {
+.tab-group-top .body {
   order: 2;
 }
 
-.tab-group--top ::slotted(wa-tab[active]) {
+.tab-group-top ::slotted(wa-tab[active]) {
   border-block-end: solid var(--track-width) var(--indicator-color);
   margin-block-end: calc(-1 * var(--track-width));
 }
 
-.tab-group--top ::slotted(wa-tab-panel) {
+.tab-group-top ::slotted(wa-tab-panel) {
   --padding: var(--wa-space-m) 0;
 }
 
@@ -103,15 +103,15 @@
    * Bottom
    */
 
-.tab-group--bottom {
+.tab-group-bottom {
   flex-direction: column;
 }
 
-.tab-group--bottom .nav-container {
+.tab-group-bottom .nav-container {
   order: 2;
 }
 
-.tab-group--bottom .nav {
+.tab-group-bottom .nav {
   display: flex;
   overflow-x: auto;
 
@@ -120,33 +120,33 @@
 }
 
 /* Hide scrollbar in Chrome/Safari */
-.tab-group--bottom .nav::-webkit-scrollbar {
+.tab-group-bottom .nav::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-.tab-group--bottom .tabs {
+.tab-group-bottom .tabs {
   flex: 1 1 auto;
   position: relative;
   flex-direction: row;
   border-top: solid var(--track-width) var(--track-color);
 }
 
-.tab-group--bottom .indicator {
+.tab-group-bottom .indicator {
   top: calc(-1 * var(--track-width));
   border-top: solid var(--track-width) var(--indicator-color);
 }
 
-.tab-group--bottom .body {
+.tab-group-bottom .body {
   order: 1;
 }
 
-.tab-group--bottom ::slotted(wa-tab[active]) {
+.tab-group-bottom ::slotted(wa-tab[active]) {
   border-block-start: solid var(--track-width) var(--indicator-color);
   margin-block-start: calc(-1 * var(--track-width));
 }
 
-.tab-group--bottom ::slotted(wa-tab-panel) {
+.tab-group-bottom ::slotted(wa-tab-panel) {
   --padding: var(--wa-space-m) 0;
 }
 
@@ -154,36 +154,36 @@
    * Start
    */
 
-.tab-group--start {
+.tab-group-start {
   flex-direction: row;
 }
 
-.tab-group--start .nav-container {
+.tab-group-start .nav-container {
   order: 1;
 }
 
-.tab-group--start .tabs {
+.tab-group-start .tabs {
   flex: 0 0 auto;
   flex-direction: column;
   border-inline-end: solid var(--track-width) var(--track-color);
 }
 
-.tab-group--start .indicator {
+.tab-group-start .indicator {
   inset-inline-end: calc(-1 * var(--track-width));
   border-right: solid var(--track-width) var(--indicator-color);
 }
 
-.tab-group--start .body {
+.tab-group-start .body {
   flex: 1 1 auto;
   order: 2;
 }
 
-.tab-group--start ::slotted(wa-tab[active]) {
+.tab-group-start ::slotted(wa-tab[active]) {
   border-inline-end: solid var(--track-width) var(--indicator-color);
   margin-inline-end: calc(-1 * var(--track-width));
 }
 
-.tab-group--start ::slotted(wa-tab-panel) {
+.tab-group-start ::slotted(wa-tab-panel) {
   --padding: 0 var(--wa-space-m);
 }
 
@@ -191,35 +191,35 @@
    * End
    */
 
-.tab-group--end {
+.tab-group-end {
   flex-direction: row;
 }
 
-.tab-group--end .nav-container {
+.tab-group-end .nav-container {
   order: 2;
 }
 
-.tab-group--end .tabs {
+.tab-group-end .tabs {
   flex: 0 0 auto;
   flex-direction: column;
   border-left: solid var(--track-width) var(--track-color);
 }
 
-.tab-group--end .indicator {
+.tab-group-end .indicator {
   inset-inline-start: calc(-1 * var(--track-width));
   border-inline-start: solid var(--track-width) var(--indicator-color);
 }
 
-.tab-group--end .body {
+.tab-group-end .body {
   flex: 1 1 auto;
   order: 1;
 }
 
-.tab-group--end ::slotted(wa-tab[active]) {
+.tab-group-end ::slotted(wa-tab[active]) {
   border-inline-start: solid var(--track-width) var(--indicator-color);
   margin-inline-start: calc(-1 * var(--track-width));
 }
 
-.tab-group--end ::slotted(wa-tab-panel) {
+.tab-group-end ::slotted(wa-tab-panel) {
   --padding: 0 var(--wa-space-m);
 }

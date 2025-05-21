@@ -49,7 +49,7 @@ export default class WaTabPanel extends WebAwesomeElement {
         part="base"
         class=${classMap({
           'tab-panel': true,
-          'tab-panel--active': this.active,
+          'tab-panel-active': this.active,
         })}
       ></slot>
     `;

@@ -79,7 +79,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
         ? html`
             <a
               part="label"
-              class="label label--link"
+              class="label label-link"
               href="${this.href!}"
               target="${ifDefined(this.target ? this.target : undefined)}"
               rel=${ifDefined(this.target ? this.rel : undefined)}
@@ -90,14 +90,14 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
         : ''}
       ${this.renderType === 'button'
         ? html`
-            <button part="label" type="button" class="label label--button">
+            <button part="label" type="button" class="label label-button">
               <slot @slotchange=${this.handleSlotChange}></slot>
             </button>
           `
         : ''}
       ${this.renderType === 'dropdown'
         ? html`
-            <div part="label" class="label label--dropdown">
+            <div part="label" class="label label-dropdown">
               <slot @slotchange=${this.handleSlotChange}></slot>
             </div>
           `

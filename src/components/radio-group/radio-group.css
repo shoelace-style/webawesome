@@ -13,7 +13,7 @@
   padding: 0;
 }
 
-.radio-group--required .label::after {
+.radio-group-required .label::after {
   content: var(--wa-form-control-required-content);
   margin-inline-start: var(--wa-form-control-required-content-offset);
 }
@@ -36,7 +36,7 @@
 }
 
 /* When radio buttons are slotted */
-:host([orientation]) .form-control--has-radio-buttons [part~='form-control-input'] {
+:host([orientation]) .form-control-has-radio-buttons [part~='form-control-input'] {
   gap: 0;
   flex-wrap: nowrap;
 }
