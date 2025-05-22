@@ -53,7 +53,6 @@
     --wa-border-block-start-radius: 0;
     border-start-start-radius: 0 !important;
     border-start-end-radius: 0 !important;
-    border-block-start-color: var(--border-color, rgb(0 0 0 / 0.3));
   }
 
   > :not(:last-child),
