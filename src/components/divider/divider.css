@@ -13,6 +13,7 @@
 :host([orientation='vertical']) {
   display: inline-block;
   height: 100%;
-  border-left: solid var(--width) var(--color);
+  border-inline-start: solid var(--width) var(--color);
   margin: 0 var(--spacing);
+  min-block-size: 1lh;
 }

@@ -712,7 +712,7 @@ hasOutline: false
           border: none;
           border-radius: var(--wa-border-radius-circle);
         }
-        &::part(button--checked) {
+        &::part(button-checked) {
           background: var(--wa-color-brand-fill-loud);
         }
       }

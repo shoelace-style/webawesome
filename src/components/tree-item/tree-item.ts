@@ -254,10 +254,10 @@ export default class WaTreeItem extends WebAwesomeElement {
         part="base"
         class="${classMap({
           'tree-item': true,
-          'tree-item--expanded': this.expanded,
-          'tree-item--selected': this.selected,
-          'tree-item--leaf': this.isLeaf,
-          'tree-item--has-expand-button': showExpandButton,
+          'tree-item-expanded': this.expanded,
+          'tree-item-selected': this.selected,
+          'tree-item-leaf': this.isLeaf,
+          'tree-item-has-expand-button': showExpandButton,
         })}"
       >
         <div class="item" part="item">
@@ -267,7 +267,7 @@ export default class WaTreeItem extends WebAwesomeElement {
             part="expand-button"
             class=${classMap({
               'expand-button': true,
-              'expand-button--visible': showExpandButton,
+              'expand-button-visible': showExpandButton,
             })}
             aria-hidden="true"
           >

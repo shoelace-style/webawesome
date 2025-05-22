@@ -30,7 +30,7 @@ describe('<wa-rating>', () => {
         const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
         expect(base.getAttribute('aria-readonly')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' rating rating--readonly ');
+        expect(base.getAttribute('class')).to.equal(' rating rating-readonly ');
       });
 
       it('should be disabled with the disabled attribute', async () => {

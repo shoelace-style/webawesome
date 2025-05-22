@@ -46,7 +46,7 @@ describe('<wa-tab>', () => {
 
         expect(el.active).to.equal(true);
         expect(el.getAttribute('aria-selected')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' tab tab--active ');
+        expect(base.getAttribute('class')).to.equal(' tab tab-active ');
         expect(el.getAttribute('tabindex')).to.equal('0');
       });
     });

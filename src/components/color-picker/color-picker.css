@@ -50,7 +50,7 @@
   transition: scale var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.grid-handle--dragging {
+.grid-handle-dragging {
   cursor: none;
   scale: 1.5;
 }
@@ -162,7 +162,7 @@
   border: solid 0.0625rem rgba(0, 0, 0, 0.125);
 }
 
-.preview-color--copied {
+.preview-color-copied {
   animation: pulse 850ms;
 }
 
@@ -319,7 +319,7 @@
     inset 0 0 0 calc(var(--border-width) * 2) var(--wa-color-surface-default);
 }
 
-.trigger--empty:before {
+.trigger-empty:before {
   background-color: transparent;
 }
 
@@ -337,7 +337,7 @@
   cursor: not-allowed;
 }
 
-.form-control.form-control--has-label .label {
+.form-control.form-control-has-label .label {
   cursor: pointer;
   display: inline-block;
 }

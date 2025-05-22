@@ -863,7 +863,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         part="form-control"
         class=${classMap({
           'form-control': true,
-          'form-control--has-label': hasLabel,
+          'form-control-has-label': hasLabel,
         })}
       >
         <label

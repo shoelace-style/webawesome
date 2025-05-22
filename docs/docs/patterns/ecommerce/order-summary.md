@@ -102,7 +102,7 @@ isPro: true
         >Order placed
         <wa-format-date date="2025-02-26T09:00:00-04:00" month="long" day="numeric" year="numeric"></wa-format-date
       ></span>
-      <wa-divider orientation="vertical" style="height: 2em"></wa-divider>
+      <wa-divider orientation="vertical"></wa-divider>
       <span>Order # 45646456-4656-4542</span>
     </div>
     <wa-button size="small" appearance="outlined" pill>View Invoice</wa-button>

@@ -68,24 +68,24 @@ slot:not([name])::slotted(wa-icon) {
   transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-.tree-item--expanded .expand-button {
+.tree-item-expanded .expand-button {
   rotate: 90deg;
 }
 
-.tree-item--expanded:dir(rtl) .expand-button {
+.tree-item-expanded:dir(rtl) .expand-button {
   rotate: -90deg;
 }
 
-.tree-item--expanded slot[name='expand-icon'],
-.tree-item:not(.tree-item--expanded) slot[name='collapse-icon'] {
+.tree-item-expanded slot[name='expand-icon'],
+.tree-item:not(.tree-item-expanded) slot[name='collapse-icon'] {
   display: none;
 }
 
-.tree-item:not(.tree-item--has-expand-button) .expand-icon-slot {
+.tree-item:not(.tree-item-has-expand-button) .expand-icon-slot {
   display: none;
 }
 
-.expand-button--visible {
+.expand-button-visible {
   cursor: pointer;
 }
 
@@ -107,7 +107,7 @@ slot:not([name])::slotted(wa-icon) {
   z-index: 2;
 }
 
-:host(:not([aria-disabled='true'])) .tree-item--selected .item {
+:host(:not([aria-disabled='true'])) .tree-item-selected .item {
   background-color: var(--selection-background-color);
   border-inline-start-color: var(--selection-indicator-color);
 }
@@ -143,7 +143,7 @@ slot:not([name])::slotted(wa-icon) {
 }
 
 @media (forced-colors: active) {
-  :host(:not([aria-disabled='true'])) .tree-item--selected .item {
+  :host(:not([aria-disabled='true'])) .tree-item-selected .item {
     outline: dashed 1px SelectedItem;
   }
 }

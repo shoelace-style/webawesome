@@ -232,8 +232,8 @@ export default class WaRating extends WebAwesomeElement {
         part="base"
         class=${classMap({
           rating: true,
-          'rating--readonly': this.readonly,
-          'rating--disabled': this.disabled,
+          'rating-readonly': this.readonly,
+          'rating-disabled': this.disabled,
         })}
         role="slider"
         aria-label=${this.label}
@@ -263,7 +263,7 @@ export default class WaRating extends WebAwesomeElement {
                   class=${classMap({
                     symbol: true,
                     'partial-symbol-container': true,
-                    'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
+                    'symbol-hover': this.isHovering && Math.ceil(displayValue) === index + 1,
                   })}
                   role="presentation"
                 >
@@ -277,7 +277,7 @@ export default class WaRating extends WebAwesomeElement {
                     ${unsafeHTML(this.getSymbol(index + 1))}
                   </div>
                   <div
-                    class="partial--filled"
+                    class="partial-filled"
                     style=${styleMap({
                       clipPath: isRtl
                         ? `inset(0 0 0 ${100 - (displayValue - index) * 100}%)`
@@ -294,8 +294,8 @@ export default class WaRating extends WebAwesomeElement {
               <span
                 class=${classMap({
                   symbol: true,
-                  'symbol--hover': this.isHovering && Math.ceil(displayValue) === index + 1,
-                  'symbol--active': displayValue >= index + 1,
+                  'symbol-hover': this.isHovering && Math.ceil(displayValue) === index + 1,
+                  'symbol-active': displayValue >= index + 1,
                 })}
                 role="presentation"
               >

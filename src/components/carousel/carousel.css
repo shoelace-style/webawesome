@@ -54,7 +54,7 @@
   }
 }
 
-.slides--horizontal {
+.slides-horizontal {
   grid-auto-flow: column;
   grid-auto-columns: var(--slide-size);
   grid-auto-rows: 100%;
@@ -65,7 +65,7 @@
   overflow-y: hidden;
 }
 
-.slides--vertical {
+.slides-vertical {
   grid-auto-flow: row;
   grid-auto-columns: 100%;
   grid-auto-rows: var(--slide-size);
@@ -76,8 +76,8 @@
   overflow-x: hidden;
 }
 
-.slides--dragging,
-.slides--dropping {
+.slides-dragging,
+.slides-dropping {
   scroll-snap-type: unset;
 }
 
@@ -143,7 +143,7 @@
   transition: transform var(--wa-transition-slow);
 }
 
-.pagination-item--active {
+.pagination-item-active {
   background-color: var(--pagination-color-active);
   transform: scale(1.25);
 }

@@ -741,6 +741,21 @@ wa-scroller:has(.component-table) {
   }
 }
 
+.component-help {
+  display: flex;
+  width: 100%;
+  gap: var(--wa-space-m);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+  margin-block-start: var(--wa-space-xl);
+
+  strong {
+    font-size: var(--wa-font-size-s);
+    font-weight: var(--wa-font-weight-semibold);
+  }
+}
+
 /** desktop */
 @media screen and not (max-width: 768px) {
   /* Navigation sidebar */

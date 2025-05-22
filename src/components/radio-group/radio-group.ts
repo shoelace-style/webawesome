@@ -338,9 +338,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         part="form-control"
         class=${classMap({
           'form-control': true,
-          'form-control--radio-group': true,
-          'form-control--has-label': hasLabel,
-          'form-control--has-radio-buttons': this.hasRadioButtons,
+          'form-control-radio-group': true,
+          'form-control-has-label': hasLabel,
+          'form-control-has-radio-buttons': this.hasRadioButtons,
         })}
         role="radiogroup"
         aria-labelledby="label"

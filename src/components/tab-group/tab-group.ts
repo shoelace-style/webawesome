@@ -388,11 +388,11 @@ export default class WaTabGroup extends WebAwesomeElement {
         part="base"
         class=${classMap({
           'tab-group': true,
-          'tab-group--top': this.placement === 'top',
-          'tab-group--bottom': this.placement === 'bottom',
-          'tab-group--start': this.placement === 'start',
-          'tab-group--end': this.placement === 'end',
-          'tab-group--has-scroll-controls': this.hasScrollControls,
+          'tab-group-top': this.placement === 'top',
+          'tab-group-bottom': this.placement === 'bottom',
+          'tab-group-start': this.placement === 'start',
+          'tab-group-end': this.placement === 'end',
+          'tab-group-has-scroll-controls': this.hasScrollControls,
         })}
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
