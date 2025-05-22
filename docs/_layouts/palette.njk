@@ -68,7 +68,7 @@
   <wa-icon name="sliders-simple" slot="icon" variant="regular"></wa-icon>
    This palette has been tweaked.
    <div class="wa-cluster wa-gap-xs">
-    <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" removable @wa-remove="reset(param)" v-content="tweakHumanReadable"></wa-tag>
+    <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" with-remove @wa-remove="reset(param)" v-content="tweakHumanReadable"></wa-tag>
    </div>
 
   <wa-button @click="reset()" appearance="outlined" variant="danger">

@@ -78,13 +78,13 @@ Use the `pill` attribute to give tabs rounded edges.
 
 ### Removable
 
-Use the `removable` attribute to add a remove button to the tag.
+Use the `with-remove` attribute to add a remove button to the tag.
 
 ```html {.example}
 <div class="tags-removable">
-  <wa-tag size="small" removable>Small</wa-tag>
-  <wa-tag size="medium" removable>Medium</wa-tag>
-  <wa-tag size="large" removable>Large</wa-tag>
+  <wa-tag size="small" with-remove>Small</wa-tag>
+  <wa-tag size="medium" with-remove>Medium</wa-tag>
+  <wa-tag size="large" with-remove>Large</wa-tag>
 </div>
 
 <script>

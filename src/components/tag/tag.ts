@@ -52,7 +52,7 @@ export default class WaTag extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) pill = false;
 
   /** Makes the tag removable and shows a remove button. */
-  @property({ attribute: 'with-remove', type: Boolean }) withoutRemove = false;
+  @property({ attribute: 'with-remove', type: Boolean }) withRemove = false;
 
   private handleRemoveClick() {
     this.dispatchEvent(new WaRemoveEvent());
@@ -62,7 +62,7 @@ export default class WaTag extends WebAwesomeElement {
     return html`
       <slot part="content" class="content"></slot>
 
-      ${this.withoutRemove
+      ${this.withRemove
         ? html`
             <wa-icon-button
               part="remove-button"

@@ -273,7 +273,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
   placeholder="Select one"
   value="email phone"
   multiple
-  clearable
+  with-clear
   class="custom-tag"
 >
   <wa-option value="email">
@@ -301,7 +301,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 
     // You can return a string, a Lit Template, or an HTMLElement here
     return `
-      <wa-tag removable>
+      <wa-tag with-remove>
         <wa-icon name="${name}" style="padding-inline-end: .5rem;"></wa-icon>
         ${option.label}
       </wa-tag>

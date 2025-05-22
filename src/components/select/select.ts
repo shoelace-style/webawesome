@@ -286,7 +286,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           "
           ?pill=${this.pill}
           size=${this.size}
-          removable
+          with-remove
         >
           ${option.label}
         </wa-tag>
