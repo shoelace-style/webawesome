@@ -223,6 +223,22 @@ describe('<wa-icon>', () => {
           expect(svg?.getAttribute('fill')).to.equal('currentColor');
         });
 
+        it("Should properly produce a `<use>` element", async () => {
+          registerIconLibrary('sprite', {
+            resolver(name) {
+              return `/docs/assets/images/sprite.svg#${name}`;
+            },
+            mutator(svg) {
+              return svg.setAttribute('fill', 'currentColor');
+            },
+            spriteSheet: true,
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
+
+          expect(el.shadowRoot!.querySelector("use")!.getAttribute("href")).to.equal("/docs/assets/images/sprite.svg#bad-icon")
+        })
+
         // TODO: <use> svg icons don't emit a "load" or "error" event...if we can figure out how to get the event to emit errors.
         // Once we figure out how to emit errors / loading perhaps we can actually test this?
         it.skip("Should produce an error if the icon doesn't exist.", async () => {
