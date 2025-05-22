@@ -33,7 +33,6 @@
     border-end-start-radius: 0 !important;
     --wa-border-inline-start-radius: 0;
 
-    border-inline-start-color: var(--border-color, rgb(0 0 0 / 0.3));
   }
 
   > :not(:last-child),
