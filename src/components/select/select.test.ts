@@ -586,7 +586,6 @@ describe('<wa-select>', () => {
         const inputHandler = sinon.spy();
         const tag = el.shadowRoot!.querySelector('[part~="tag"]')!;
         const removeButton = tag.shadowRoot!.querySelector('[part~="remove-button"]')!;
-        console.log('*******', tag, removeButton);
 
         el.addEventListener('change', changeHandler);
         el.addEventListener('input', inputHandler);
