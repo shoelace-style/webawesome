@@ -195,7 +195,7 @@ isPro: true
                 </span>
                 <div class="wa-cluster wa-gap-2xs">
                   <wa-button appearance="plain" variant="brand" size="small">Download</wa-button>
-                  <wa-divider orientation="vertical" style="height: 1em"></wa-divider>
+                  <wa-divider orientation="vertical"></wa-divider>
                   <wa-button appearance="plain" variant="danger" size="small">Delete</wa-button>
                 </div>
               </div>
@@ -210,7 +210,7 @@ isPro: true
                 </span>
                 <div class="wa-cluster wa-gap-2xs">
                   <wa-button appearance="plain" variant="brand" size="small">Download</wa-button>
-                  <wa-divider orientation="vertical" style="height: 1em"></wa-divider>
+                  <wa-divider orientation="vertical"></wa-divider>
                   <wa-button appearance="plain" variant="danger" size="small">Delete</wa-button>
                 </div>
               </div>

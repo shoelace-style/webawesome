@@ -580,7 +580,7 @@ export default class WaPopup extends WebAwesomeElement {
         part="hover-bridge"
         class=${classMap({
           'popup-hover-bridge': true,
-          'popup-hover-bridge--visible': this.hoverBridge && this.active,
+          'popup-hover-bridge-visible': this.hoverBridge && this.active,
         })}
       ></span>
 
@@ -589,9 +589,9 @@ export default class WaPopup extends WebAwesomeElement {
         part="popup"
         class=${classMap({
           popup: true,
-          'popup--active': this.active,
-          'popup--fixed': !SUPPORTS_POPOVER,
-          'popup--has-arrow': this.arrow,
+          'popup-active': this.active,
+          'popup-fixed': !SUPPORTS_POPOVER,
+          'popup-has-arrow': this.arrow,
         })}
       >
         <slot></slot>

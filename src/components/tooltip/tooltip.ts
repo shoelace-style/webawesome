@@ -328,7 +328,7 @@ export default class WaTooltip extends WebAwesomeElement {
         "
         class=${classMap({
           tooltip: true,
-          'tooltip--open': this.open,
+          'tooltip-open': this.open,
         })}
         placement=${this.placement}
         distance=${this.distance}

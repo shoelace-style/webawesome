@@ -34,11 +34,11 @@
   }
 }
 
-.popup--fixed {
+.popup-fixed {
   position: fixed;
 }
 
-.popup:not(.popup--active) {
+.popup:not(.popup-active) {
   display: none;
 }
 
@@ -52,7 +52,7 @@
 }
 
 /* Hover bridge */
-.popup-hover-bridge:not(.popup-hover-bridge--visible) {
+.popup-hover-bridge:not(.popup-hover-bridge-visible) {
   display: none;
 }
 

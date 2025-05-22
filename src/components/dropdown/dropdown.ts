@@ -416,7 +416,7 @@ export default class WaDropdown extends WebAwesomeElement {
         sync=${ifDefined(this.sync ? this.sync : undefined)}
         class=${classMap({
           dropdown: true,
-          'dropdown--open': this.open,
+          'dropdown-open': this.open,
         })}
       >
         <div aria-hidden=${this.open ? 'false' : 'true'} aria-labelledby="dropdown">

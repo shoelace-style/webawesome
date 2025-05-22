@@ -248,9 +248,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.previewButton.focus();
 
     // Show copied animation
-    this.previewButton.classList.add('preview-color--copied');
+    this.previewButton.classList.add('preview-color-copied');
     this.previewButton.addEventListener('animationend', () => {
-      this.previewButton.classList.remove('preview-color--copied');
+      this.previewButton.classList.remove('preview-color-copied');
     });
   }
 
@@ -654,7 +654,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private handleAfterHide() {
-    this.previewButton.classList.remove('preview-color--copied');
+    this.previewButton.classList.remove('preview-color-copied');
     // Update validity so we get a new anchor.
     this.updateValidity();
   }
@@ -890,7 +890,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="grid-handle"
             class=${classMap({
               'grid-handle': true,
-              'grid-handle--dragging': this.isDraggingGridHandle,
+              'grid-handle-dragging': this.isDraggingGridHandle,
             })}
             style=${styleMap({
               top: `${gridHandleY}%`,
@@ -1098,7 +1098,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           class=${classMap({
             container: true,
             'form-control': true,
-            'form-control--has-label': hasLabel,
+            'form-control-has-label': hasLabel,
           })}
           part="trigger-container form-control"
           slot="trigger"
@@ -1130,7 +1130,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="trigger form-control-input"
             class=${classMap({
               trigger: true,
-              'trigger--empty': this.isEmpty,
+              'trigger-empty': this.isEmpty,
               'transparent-bg': true,
               'form-control-input': true,
             })}

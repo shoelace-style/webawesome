@@ -193,7 +193,7 @@ describe('<wa-breadcrumb-item>', () => {
           await expect(el).to.be.accessible();
           expect(el.shadowRoot!.querySelector('a')).to.be.null;
           expect(el.shadowRoot!.querySelector('button')).to.be.null;
-          expect(el.shadowRoot!.querySelector('.label--dropdown')).not.to.be.null;
+          expect(el.shadowRoot!.querySelector('.label-dropdown')).not.to.be.null;
         });
       });
     });

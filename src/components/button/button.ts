@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -61,11 +62,11 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   }
 
   assumeInteractionOn = ['click'];
+  private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
   private readonly localize = new LocalizeController(this);
 
   @query('.wa-button') button: HTMLButtonElement | HTMLLinkElement;
 
-  @state() visuallyHiddenLabel = false;
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
 
@@ -184,15 +185,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new WaInvalidEvent());
   }
 
-  private handleLabelSlotChange(event: Event) {
-    // If the only thing slotted in is a visually hidden element, we consider it a visually hidden label and apply a
-    // class so we can adjust styles accordingly.
-    const elements = (event.target as HTMLSlotElement).assignedElements({ flatten: true });
-    if (elements.length === 1 && elements[0].localName === 'wa-visually-hidden') {
-      this.visuallyHiddenLabel = true;
-    }
-  }
-
   private isButton() {
     return this.href ? false : true;
   }
@@ -243,7 +235,9 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           disabled: this.disabled,
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
-          'visually-hidden-label': this.visuallyHiddenLabel,
+          'has-label': this.hasSlotController.test('[default]'),
+          'has-prefix': this.hasSlotController.test('prefix'),
+          'has-suffix': this.hasSlotController.test('suffix'),
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${ifDefined(isLink ? undefined : this.type)}
@@ -261,7 +255,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         @click=${this.handleClick}
       >
         <slot name="prefix" part="prefix" class="prefix"></slot>
-        <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
+        <slot part="label" class="label"></slot>
         <slot name="suffix" part="suffix" class="suffix"></slot>
         ${
           this.caret

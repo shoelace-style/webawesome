@@ -36,7 +36,7 @@ import styles from './carousel.css';
  * @csspart scroll-container - The scroll container that wraps the slides.
  * @csspart pagination - The pagination indicators wrapper.
  * @csspart pagination-item - The pagination indicator.
- * @csspart pagination-item--active - Applied when the item is active.
+ * @csspart pagination-item-active - Applied when the item is active.
  * @csspart navigation - The navigation wrapper.
  * @csspart navigation-button - The navigation button.
  * @csspart navigation-button-previous - Applied to the previous button.
@@ -203,7 +203,7 @@ export default class WaCarousel extends WebAwesomeElement {
       if (isFocusInPagination) {
         this.updateComplete.then(() => {
           const activePaginationItem = this.shadowRoot?.querySelector<HTMLButtonElement>(
-            '[part~="pagination-item--active"]',
+            '[part~="pagination-item-active"]',
           );
 
           if (activePaginationItem) {
@@ -575,9 +575,9 @@ export default class WaCarousel extends WebAwesomeElement {
           part="scroll-container"
           class="${classMap({
             slides: true,
-            'slides--horizontal': this.orientation === 'horizontal',
-            'slides--vertical': this.orientation === 'vertical',
-            'slides--dragging': this.dragging,
+            'slides-horizontal': this.orientation === 'horizontal',
+            'slides-vertical': this.orientation === 'vertical',
+            'slides-dragging': this.dragging,
           })}"
           style="--slides-per-page: ${this.slidesPerPage};"
           aria-busy="${scrolling ? 'true' : 'false'}"
@@ -638,10 +638,10 @@ export default class WaCarousel extends WebAwesomeElement {
                   const isActive = index === currentPage;
                   return html`
                     <button
-                      part="pagination-item ${isActive ? 'pagination-item--active' : ''}"
+                      part="pagination-item ${isActive ? 'pagination-item-active' : ''}"
                       class="${classMap({
                         'pagination-item': true,
-                        'pagination-item--active': isActive,
+                        'pagination-item-active': isActive,
                       })}"
                       role="tab"
                       aria-selected="${isActive ? 'true' : 'false'}"

@@ -44,7 +44,7 @@ Use the `--spacing` custom property to change the amount of space between the di
 The default orientation for dividers is `horizontal`. Set `orientation` attribute to `vertical` to draw a vertical divider. The divider will span the full height of its container.
 
 ```html {.example}
-<div style="display: flex; align-items: center; height: 2rem;">
+<div style="display: flex; align-items: center;">
   First
   <wa-divider orientation="vertical"></wa-divider>
   Middle
