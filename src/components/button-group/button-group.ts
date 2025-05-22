@@ -1,10 +1,13 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import buttonGroupStyles from '../../styles/utilities/button-group.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
+import type WaButton from '../button/button.js';
+import type WaRadioButton from '../radio-button/radio-button.js';
 import styles from './button-group.css';
 
 /**
@@ -23,8 +26,8 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
-  /** @internal */
   @state() disableRole = false;
+  @state() hasOutlined = false;
 
   /**
    * A label to use for the button group. This won't be displayed on the screen, but it will be announced by assistive
@@ -82,12 +85,14 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   private updateClassNames() {
     const slottedElements = [...this.defaultSlot.assignedElements({ flatten: true })] as HTMLElement[];
+    this.hasOutlined = false;
 
     slottedElements.forEach(el => {
       const index = slottedElements.indexOf(el);
       const button = findButton(el);
 
       if (button) {
+        if ((button as WaButton).appearance === 'outlined') this.hasOutlined = true;
         button.classList.add('wa-button-group__button');
         button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');
@@ -103,7 +108,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
     return html`
       <slot
         part="base"
-        class="wa-button-group"
+        class=${classMap({ 'button-group': true, 'has-outlined': this.hasOutlined })}
         role="${this.disableRole ? 'presentation' : 'group'}"
         aria-label=${this.label}
         aria-orientation=${this.orientation}
@@ -121,7 +126,7 @@ function findButton(el: HTMLElement) {
   const selector = 'wa-button, wa-radio-button';
 
   // The button could be the target element or a child of it (e.g. a dropdown or tooltip anchor)
-  return el.closest(selector) ?? el.querySelector(selector);
+  return (el.closest(selector) ?? el.querySelector(selector)) as WaButton | WaRadioButton;
 }
 
 declare global {
