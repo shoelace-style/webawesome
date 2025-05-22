@@ -21,7 +21,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1560264357-8d9202250f21?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Group of customer service reps working on computers in a shared office space"
           />
@@ -34,7 +34,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="A hand pinching a pin on string, making connections between data on a corkboard"
           />
@@ -47,7 +47,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1561323587-7464f7689886?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="A chess board with all pieces in starting position"
           />
@@ -69,7 +69,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1493599124325-e628361046af?q=80&w=4470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Viewpoint from the middle of a forest, looking upwards towards the canopy of towering evergreen"
           />
@@ -82,7 +82,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1466629437334-b4f6603563c5?q=80&w=4478&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Sunset over a vast grassy field with many prominent wind turbines"
           />
@@ -95,7 +95,7 @@ tags: blog-news
       <a href="#">
         <wa-card with-image style="height: 100%">
           <img
-            slot="image"
+            slot="media"
             src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?q=80&w=4469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Viewpoint of two people side-by-side looking down towards their shoes, PASSION LED US HERE written on the sidewalk"
           />

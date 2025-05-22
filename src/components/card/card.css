@@ -37,9 +37,9 @@
 }
 
 /* Take care of top and bottom radii */
-.image,
-:host(:not([with-image])) .header,
-:host(:not([with-image], [with-header])) .body {
+.media,
+:host(:not([with-media])) .header,
+:host(:not([with-media], [with-header])) .body {
   border-start-start-radius: var(--inner-border-radius);
   border-start-end-radius: var(--inner-border-radius);
 }
@@ -50,10 +50,10 @@
   border-end-end-radius: var(--inner-border-radius);
 }
 
-.image {
+.media {
   display: flex;
 
-  &::slotted(img) {
+  &::slotted(*) {
     display: block;
     width: 100%;
     border-start-start-radius: inherit !important;
@@ -62,10 +62,10 @@
 }
 
 /* Round all corners for plain appearance */
-:host([appearance='plain']) .image {
+:host([appearance='plain']) .media {
   border-radius: var(--inner-border-radius);
 
-  &::slotted(img) {
+  &::slotted(*) {
     border-radius: inherit !important;
   }
 }
@@ -93,6 +93,6 @@
 
 :host(:not([with-header])) .header,
 :host(:not([with-footer])) .footer,
-:host(:not([with-image])) .image {
+:host(:not([with-media])) .media {
   display: none;
 }

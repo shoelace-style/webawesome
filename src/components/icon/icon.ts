@@ -119,6 +119,12 @@ export default class WaIcon extends WebAwesomeElement {
     let fileData: Response;
 
     if (library?.spriteSheet) {
+      // So this looks weird, but because of how SSR works, we need to first wait for the first update to complete.
+      // After the first update, *then* we can set `this.svg` so we can then query + mutate the element.
+      if (!this.hasUpdated) {
+        await this.updateComplete;
+      }
+
       this.svg = html`<svg part="svg">
         <use part="use" href="${url}"></use>
       </svg>`;

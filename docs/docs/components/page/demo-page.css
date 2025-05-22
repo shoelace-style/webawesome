@@ -14,7 +14,7 @@ wa-page {
   }
 }
 
-:is([slot='banner'], [slot='header'], [slot='subheader'], [slot='footer'], [slot*='navigation']) {
+:is([slot='banner'], [slot='header'], [slot='subheader'], [slot='footer'], [slot*='navigation'], [slot='menu']) {
   margin-inline-start: var(--wa-space-xs);
 }
 

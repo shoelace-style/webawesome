@@ -177,7 +177,7 @@ eleventyExcludeFromCollections: true
   <aside slot="aside">
     <h2 class="wa-heading-m">Discover More Birds</h2>
     <wa-card>
-      <div slot="image" class="wa-frame">
+      <div slot="media" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1635254859323-65b78408dcca?q=20" alt="" />
       </div>
       <div class="wa-stack wa-gap-3xs">
@@ -186,7 +186,7 @@ eleventyExcludeFromCollections: true
       </div>
     </wa-card>
     <wa-card>
-      <div slot="image" class="wa-frame">
+      <div slot="media" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1661350356618-f5915c7b6a3c?q=20" alt="" />
       </div>
       <div class="wa-stack wa-gap-3xs">
@@ -195,7 +195,7 @@ eleventyExcludeFromCollections: true
       </div>
     </wa-card>
     <wa-card>
-      <div slot="image" class="wa-frame">
+      <div slot="media" class="wa-frame">
         <img src="https://images.unsplash.com/photo-1660307777355-f08bced145d3?q=20" alt="" />
       </div>
       <div class="wa-stack wa-gap-3xs">

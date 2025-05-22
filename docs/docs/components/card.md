@@ -8,7 +8,7 @@ icon: card
 ```html {.example}
 <wa-card class="card-overview">
   <img
-    slot="image"
+    slot="media"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
     alt="A kitten sits patiently between a terracotta pot and decorative grasses."
   />
@@ -38,7 +38,7 @@ Basic cards aren't very exciting, but they can display any content you want them
 
 ```html {.example}
 <wa-card class="card-basic">
-  This is just a basic card. No image, no header, and no footer. Just your content.
+  This is just a basic card. No media, no header, and no footer. Just your content.
 </wa-card>
 
 <style>
@@ -96,23 +96,32 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 </style>
 ```
 
-### Images
+### Media
 
-Card images are displayed atop the card and will stretch to fit.
-If using SSR, you need to also use the `with-image` attribute to add an image to the card (if not, it is added automatically).
+Card media is displayed atop the card and will stretch to fit.
+If using SSR, you need to also use the `with-media` attribute to add a media section to the card (if not, it is added automatically).
 
 ```html {.example}
-<wa-card class="card-image">
-  <img
-    slot="image"
-    src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
-    alt="A kitten walks towards camera on top of pallet."
-  />
-  This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-</wa-card>
+<div class="wa-grid">
+  <wa-card class="card-media">
+    <img
+      slot="media"
+      src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
+      alt="A kitten walks towards camera on top of pallet."
+    />
+    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+  </wa-card>
+  <wa-card class="card-media">
+    <video slot="media" controls>
+      <source src="https://uploads.webawesome.com/dog-with-glasses.mp4">
+      <p>Your browser doesn't support HTML video</p>
+    </video>
+    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+  </wa-card>
+</div>
 
 <style>
-  .card-image {
+  .card-media {
     max-width: 300px;
   }
 </style>
@@ -161,7 +170,7 @@ Use the `appearance` attribute to change the card's visual appearance.
 <div class="wa-grid">
 <wa-card>
   <img
-    slot="image"
+    slot="media"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
     alt="A kitten sits patiently between a terracotta pot and decorative grasses."
   />
@@ -171,7 +180,7 @@ Use the `appearance` attribute to change the card's visual appearance.
 {% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
 <wa-card appearance="{{ appearance }}">
   <img
-    slot="image"
+    slot="media"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
     alt="A kitten sits patiently between a terracotta pot and decorative grasses."
   />
