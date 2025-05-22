@@ -94,7 +94,7 @@ isPro: true
     <a href="" class="wa-link-plain">
       <wa-card style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://img.fortawesome.com/cfa83f3c/outdoor-3x.jpg"
           alt="Two hikers wearing long canvas pants, weatherproof jackets, and backpacks"
         />
@@ -107,7 +107,7 @@ isPro: true
     <a href="" class="wa-link-plain">
       <wa-card style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://img.fortawesome.com/cfa83f3c/home.jpg"
           alt="Woman sitting on a couch in a bright home, wearing a thick knit sweater"
         />
@@ -120,7 +120,7 @@ isPro: true
     <a href="" class="wa-link-plain">
       <wa-card style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://img.fortawesome.com/cfa83f3c/fitness.jpg"
           alt="Athlete training in fitted active wear tee and shorts"
         />

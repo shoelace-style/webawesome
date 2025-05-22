@@ -2019,7 +2019,7 @@ hasOutline: false
     <section class="strata products grid-12-col">
       <wa-card class="card-image product-card">
         <wa-badge variant="brand" class="badge-stock">New</wa-badge>
-        <div slot="image" class="landscape-frame">
+        <div slot="media" class="landscape-frame">
           <img id="product-1" src="/assets/images/themer/default/morpheus.jpg" alt="" />
         </div>
         <div class="title-rating">
@@ -2042,7 +2042,7 @@ hasOutline: false
       </wa-card>
       <wa-card class="card-image product-card">
         <wa-badge variant="warning" class="badge-stock">Low Stock</wa-badge>
-        <div slot="image" class="landscape-frame">
+        <div slot="media" class="landscape-frame">
           <img id="product-2" src="/assets/images/themer/default/seraph.jpg" alt="" />
         </div>
         <div class="title-rating">
@@ -2064,7 +2064,7 @@ hasOutline: false
         </div>
       </wa-card>
       <wa-card class="card-image product-card">
-        <div slot="image" class="landscape-frame">
+        <div slot="media" class="landscape-frame">
           <img id="product-3" src="/assets/images/themer/default/keymaker.jpg" alt="" />
         </div>
         <div class="title-rating">

@@ -78,7 +78,7 @@ tags: blog-news
 ```html {.example}
 <wa-card with-image style="max-width: 45ch; margin: 0 auto">
   <img
-    slot="image"
+    slot="media"
     src="https://images.unsplash.com/photo-1595087012935-124877078142?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="mailbox"
   />

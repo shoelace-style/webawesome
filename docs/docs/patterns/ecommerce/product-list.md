@@ -113,9 +113,9 @@ isPro: true
 <div class="wa-grid" style="--min-column-size: 50ch">
   <div class="wa-grid">
     <a href="" class="wa-link-plain">
-      <wa-card>
+      <wa-card style="height: 100%;">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1622445272461-c6580cab8755?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Man in a relaxed fit, white, crew neck t-shirt (Photography by Mediamodifier)"
         />
@@ -132,9 +132,9 @@ isPro: true
       </wa-card>
     </a>
     <a href="" class="wa-link-plain">
-      <wa-card>
+      <wa-card style="height: 100%;">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Woman in a light heather t-shirt printed with sharp black ink (Photograph by Christian Bolt)"
         />
@@ -153,9 +153,9 @@ isPro: true
   </div>
   <div class="wa-grid">
     <a href="" class="wa-link-plain">
-      <wa-card>
+      <wa-card style="height: 100%;">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1567098260939-5d9cee055592?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Man in a black t-shirt printed with many-colored gradients (Photograph by Marcel)"
         />
@@ -172,9 +172,9 @@ isPro: true
       </wa-card>
     </a>
     <a href="" class="wa-link-plain">
-      <wa-card>
+      <wa-card style="height: 100%;">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1709185727063-c3caae752a64?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Woman in a black t-shirt with a bright white logo printed on the pocket (Photograph by SASI)"
         />

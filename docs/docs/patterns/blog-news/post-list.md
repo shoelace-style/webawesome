@@ -158,7 +158,7 @@ tags: blog-news
     <a href="#" class="wa-link-plain">
       <wa-card with-image style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1720170060678-7c30a36937cd?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />
@@ -183,7 +183,7 @@ tags: blog-news
     <a href="#" class="wa-link-plain">
       <wa-card with-image style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1507099985932-87a4520ed1d5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />
@@ -206,7 +206,7 @@ tags: blog-news
     <a href="#" class="wa-link-plain">
       <wa-card with-image style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1631775512414-160ae648c209?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />
@@ -231,7 +231,7 @@ tags: blog-news
     <a href="#" class="wa-link-plain">
       <wa-card with-image style="height: 100%">
         <img
-          slot="image"
+          slot="media"
           src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />

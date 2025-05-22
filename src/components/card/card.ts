@@ -15,9 +15,9 @@ import styles from './card.css';
  * @slot - The card's main content.
  * @slot header - An optional header for the card.
  * @slot footer - An optional footer for the card.
- * @slot image - An optional image to render at the start of the card.
+ * @slot media - An optional media section to render at the start of the card.
  *
- * @csspart image - The container that wraps the card's image.
+ * @csspart media - The container that wraps the card's media.
  * @csspart header - The container that wraps the card's header.
  * @csspart body - The container that wraps the card's main content.
  * @csspart footer - The container that wraps the card's footer.
@@ -32,7 +32,7 @@ import styles from './card.css';
 export default class WaCard extends WebAwesomeElement {
   static shadowStyle = [sizeStyles, appearanceStyles, styles];
 
-  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'media');
 
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
@@ -45,7 +45,7 @@ export default class WaCard extends WebAwesomeElement {
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
   /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
-  @property({ attribute: 'with-image', type: Boolean, reflect: true }) withImage = false;
+  @property({ attribute: 'with-media', type: Boolean, reflect: true }) withMedia = false;
 
   /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
@@ -53,13 +53,13 @@ export default class WaCard extends WebAwesomeElement {
   updated() {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
-    if (!this.withImage && this.hasSlotController.test('image')) this.withImage = true;
+    if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;
     if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
   }
 
   render() {
     return html`
-      <slot name="image" part="image" class="image"></slot>
+      <slot name="media" part="media" class="media"></slot>
       <slot name="header" part="header" class="header"></slot>
       <slot part="body" class="body"></slot>
       <slot name="footer" part="footer" class="footer"></slot>

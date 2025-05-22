@@ -27,5 +27,5 @@ Indeterminate:
 Use the `height` CSS property to set the progress bar's height.
 
 ```html {.example}
-<wa-progress-bar value="50" style="height: 6px;"></wa-progress-bar>
+<progress value="50" style="height: 6px;"></progress>
 ```
