@@ -747,7 +747,7 @@ wa-scroller:has(.component-table) {
   gap: var(--wa-space-m);
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin-block-start: var(--wa-space-xl);
 
   strong {
