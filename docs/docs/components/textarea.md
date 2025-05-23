@@ -8,7 +8,7 @@ native: input
 
 ```html {.example}
 <form action="about:blank" target="_blank">
-  <wa-textarea label="Type something', will ya" name="a" value="no"></wa-textarea>
+  <wa-textarea label="Type something', will ya" name="a"></wa-textarea>
 
   <button type="submit">Submit</button>
 </form>
