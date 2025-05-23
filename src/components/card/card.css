@@ -22,12 +22,11 @@
   color: var(--wa-color-text-normal);
 }
 
-:host(:is([appearance~='accent'], .wa-accent)) {
+:host(:is([appearance~='accent'])) {
   color: var(--text-color, var(--wa-color-text-normal));
 }
 
-:host([appearance~='filled']),
-:host(.wa-filled) {
+:host([appearance~='filled']) {
   --inner-border-color: oklab(from var(--outlined-border-color) l a b / 65%);
 }
 

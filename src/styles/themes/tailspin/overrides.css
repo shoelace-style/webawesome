@@ -20,14 +20,12 @@
   }
 
   :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
-      [appearance='plain'],
-      .wa-plain
+      [appearance='plain']
     ) {
     box-shadow: var(--wa-shadow-s);
   }
 
-  wa-callout,
-  .wa-callout {
+  wa-callout {
     border-radius: var(--wa-border-radius-m);
 
     &::part(icon) {

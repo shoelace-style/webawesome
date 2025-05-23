@@ -22,11 +22,11 @@
     --wa-form-control-border-radius: var(--wa-border-radius-pill);
     box-shadow: 0 0 transparent;
 
-    &:not([appearance~='plain'], .wa-plain) {
+    &:not([appearance~='plain']) {
       padding-inline: calc(var(--wa-space) * 1.5);
     }
 
-    &:not([appearance~='outlined'], [appearance~='plain'], .wa-outlined, .wa-plain):hover {
+    &:not([appearance~='outlined'], [appearance~='plain']):hover {
       box-shadow: var(--wa-shadow-s);
 
       &:active {
@@ -34,7 +34,7 @@
       }
     }
 
-    &:is([appearance~='outlined'], .wa-outlined) {
+    &:is([appearance~='outlined']) {
       --border-color: var(--wa-form-control-border-color);
     }
 
@@ -101,7 +101,7 @@
     /* Needed for floating label */
     position: relative;
 
-    &:is([appearance~='filled'], .wa-filled):not([appearance~='outlined'], .wa-outlined, [pill], .wa-pill) {
+    &:is([appearance~='filled']):not([appearance~='outlined'], [pill]) {
       --wa-focus-ring: ;
       --border-color: transparent transparent var(--wa-form-control-border-color) transparent;
 
@@ -152,7 +152,7 @@
     }
 
     /* Different positioning and appearance for filled */
-    &:where([appearance~='filled'], .wa-filled)[label]:not([placeholder]) {
+    &:where([appearance~='filled'])[label]:not([placeholder]) {
       &::part(base) {
         /* We want to move this down a bit to make space for the floating label */
         translate: 0 0.3em;

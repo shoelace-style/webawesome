@@ -19,7 +19,7 @@
       wa-button,
       wa-radio-button,
       .wa-button
-    ):not([appearance='plain'], .wa-plain) {
+    ):not([appearance='plain']) {
     box-shadow:
       inset 0 0 0 0.0625rem var(--border-color, var(--background-color, transparent)),
       var(--wa-theme-glossy-inner-shine),

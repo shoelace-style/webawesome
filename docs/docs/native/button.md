@@ -6,7 +6,6 @@ component: button
 icon: button
 snippets:
   '<button>': https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
-  '.wa-button': false
 file: styles/native/button.css
 ---
 
@@ -118,7 +117,6 @@ As expected, buttons can be given a custom width by setting the `width` CSS prop
 <button class="wa-size-m" style="width: 100%; margin-bottom: 1rem;">Medium</button>
 <button class="wa-size-l" style="width: 100%;">Large</button>
 ```
-<!--
 
 ### Loading
 
@@ -141,4 +139,4 @@ Use the `disabled` attribute to disable a button.
 <button class="wa-success" disabled>Success</button>
 <button class="wa-neutral" disabled>Neutral</button>
 <button class="wa-warning" disabled>Warning</button>
-``` -->
+```

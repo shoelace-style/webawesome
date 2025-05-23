@@ -7,7 +7,7 @@
       wa-button,
       wa-radio-group > wa-radio-button,
       .wa-button
-    ):not([appearance='plain'], .wa-plain) {
+    ):not([appearance='plain']) {
     :where(&),
     .wa-light &,
     .wa-dark .wa-invert & {
@@ -28,15 +28,14 @@
     text-transform: uppercase;
   }
 
-  wa-callout,
-  .wa-callout {
-    &:is([appearance~='outlined'], .wa-outlined) {
+  wa-callout {
+    &:is([appearance~='outlined']) {
       border-color: var(--wa-color-border-normal);
     }
-    &:not([appearance~='accent'], .wa-accent) {
+    &:not([appearance~='accent']) {
       color: var(--wa-color-text-normal);
     }
-    &:not([appearance~='accent'], .wa-accent) {
+    &:not([appearance~='accent']) {
       --icon-color: var(--wa-color-border-normal);
     }
   }

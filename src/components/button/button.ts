@@ -7,8 +7,6 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/button.css';
-import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -54,7 +52,7 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [passthroughStyles, variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [variantStyles, sizeStyles, styles, appearanceStyles];
   static rectProxy = 'button';
 
   static get validators() {
@@ -65,7 +63,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
   private readonly localize = new LocalizeController(this);
 
-  @query('.wa-button') button: HTMLButtonElement | HTMLLinkElement;
+  @query('.button') button: HTMLButtonElement | HTMLLinkElement;
 
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
@@ -230,7 +228,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         part="base"
         class=${classMap({
           button: true,
-          'wa-button': true,
           caret: this.caret,
           disabled: this.disabled,
           loading: this.loading,

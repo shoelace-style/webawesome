@@ -1,4 +1,3 @@
-@import url('native/button.css');
 @import url('native/callout.css');
 @import url('native/checkbox.css');
 @import url('native/input.css');
@@ -306,6 +305,119 @@
 
     /* Help text */
     --wa-color-text-quiet: var(--wa-color-success-on-quiet);
+  }
+
+  /* Buttons */
+  button,
+  input[type='button'],
+  input[type='reset'],
+  input[type='submit'] {
+    --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+    --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
+    --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
+
+    --border-color: transparent;
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    --border-width: max(1px, var(--wa-form-control-border-width));
+
+    --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+    --text-color-hover: var(--text-color);
+    --text-color-active: var(--text-color);
+
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-border-style);
+    border-width: var(--border-width);
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    transition-property: background, border, box-shadow, color;
+    transition-duration: var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+    cursor: pointer;
+    padding: 0 var(--wa-space, var(--wa-space-m));
+    font-family: inherit;
+    font-size: var(--wa-size, var(--wa-font-size-m));
+    font-weight: var(--wa-font-weight-action);
+    height: var(--wa-form-control-height);
+    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+
+    display: inline-flex;
+    background-color: var(--background-color);
+    border-color: var(--border-color, var(--background-color));
+    color: var(--text-color);
+  }
+
+  /* Interactive states for native buttons */
+  button:not(:disabled):hover,
+  input[type='button']:not(:disabled):hover,
+  input[type='reset']:not(:disabled):hover,
+  input[type='submit']:not(:disabled):hover {
+    background-color: var(--background-color-hover, var(--background-color));
+    border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
+    color: var(--text-color-hover, var(--text-color));
+  }
+
+  button:not(:disabled):active,
+  input[type='button']:not(:disabled):active,
+  input[type='reset']:not(:disabled):active,
+  input[type='submit']:not(:disabled):active {
+    background-color: var(--background-color-active, var(--background-color));
+    border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));
+    color: var(--text-color-active, var(--text-color));
+  }
+
+  /* Focus states */
+  button:focus,
+  input[type='button']:focus,
+  input[type='reset']:focus,
+  input[type='submit']:focus {
+    outline: none;
+  }
+
+  button:focus-visible,
+  input[type='button']:focus-visible,
+  input[type='reset']:focus-visible,
+  input[type='submit']:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+
+  /* Disabled state */
+  button:disabled,
+  input[type='button']:disabled,
+  input[type='reset']:disabled,
+  input[type='submit']:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* When disabled, prevent mouse events from bubbling up from children */
+  button:disabled *,
+  input[type='button']:disabled *,
+  input[type='reset']:disabled *,
+  input[type='submit']:disabled * {
+    pointer-events: none;
+  }
+
+  /* Keep it last so Safari doesn't stop parsing this block */
+  button::-moz-focus-inner,
+  input[type='button']::-moz-focus-inner,
+  input[type='reset']::-moz-focus-inner,
+  input[type='submit']::-moz-focus-inner {
+    border: 0;
+  }
+
+  /* Pill modifier for native buttons */
+  button.wa-pill,
+  input[type='button'].wa-pill,
+  input[type='reset'].wa-pill,
+  input[type='submit'].wa-pill {
+    border-radius: var(--wa-border-radius-pill);
   }
 
   /* Color picker */

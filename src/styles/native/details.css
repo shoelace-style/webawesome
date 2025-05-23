@@ -21,9 +21,7 @@ details:where(:not(:host *)),
   }
 }
 
-details.wa-plain,
-:host(wa-details[appearance='plain']),
-:host(wa-details.wa-plain) {
+:host(wa-details[appearance='plain']) {
   border-radius: 0;
 }
 

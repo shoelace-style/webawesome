@@ -7,7 +7,7 @@ const roles = ['fill', 'border', 'on'];
 const noise = ['loud', 'normal', 'quiet'];
 const defaults = {
   neutral: [
-    [':host(wa-button)', '.wa-button', 'button', "input[type='button']", "input[type='submit']"],
+    [':host(wa-button)', 'button', "input[type='button']", "input[type='submit']"],
     [':host(wa-tag)', '.wa-tag'],
   ],
   brand: [

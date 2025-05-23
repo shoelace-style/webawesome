@@ -14,20 +14,19 @@
     border-inline-start-color: var(--border-color, var(--wa-color-border-loud));
     border-inline-start-width: var(--wa-border-width-s);
 
-    &:not([appearance~='outlined'], .wa-outlined) {
+    &:not([appearance~='outlined']) {
       border-block-start-width: 0;
       border-block-end-width: 0;
       border-inline-end-width: 0;
     }
 
-    &:not([appearance~='accent'], .wa-accent) {
+    &:not([appearance~='accent']) {
       --icon-color: var(--wa-color-fill-loud);
       --text-color: var(--wa-color-text-normal);
     }
   }
 
-  wa-callout,
-  .wa-callout {
+  wa-callout {
     --spacing: var(--wa-space-s) var(--wa-space-m);
 
     &::part(icon) {

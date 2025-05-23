@@ -22,13 +22,7 @@
       }
     }
 
-    &:not(
-        wa-radio-button,
-        [appearance='outlined'],
-        [appearance~='plain'],
-        .wa-plain,
-        .wa-outlined:not(.wa-accent, .wa-filled)
-      ) {
+    &:not(wa-radio-button, [appearance='outlined'], [appearance~='plain']) {
       --gradient-top: oklab(from var(--background-color) calc(l - 0.1) a b);
       --gradient-middle: var(--background-color);
       --gradient-bottom: oklab(from var(--background-color) calc(l + 0.1) a b);
@@ -38,7 +32,7 @@
       --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--background-color) calc(l + 0.4) a b);
       text-shadow: 0 0.125em 0.125em oklab(from var(--background-color) calc(l - 0.1) a b);
 
-      &:is([appearance~='filled'], .wa-filled) {
+      &:is([appearance~='filled']) {
         --gradient-top: oklab(from var(--background-color) calc(l - 0.05) a b);
         --gradient-bottom: oklab(from var(--background-color) calc(l + 0.15) a b);
         --shadow-lower: inset 0 -0.125em 0.5em oklab(from var(--background-color) calc(l - 0.1) a b);
@@ -56,7 +50,7 @@
         box-shadow: var(--glow-outer), var(--shadow-lower), var(--shadow-upper);
       }
 
-      &:not([appearance~='outlined'], .wa-outlined) {
+      &:not([appearance~='outlined']) {
         &::part(base),
         :is(&) {
           padding-inline: calc(var(--wa-space) + var(--border-width));

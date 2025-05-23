@@ -196,10 +196,7 @@ For example, we can give all outlined callouts a thick left border, regardless o
 </wa-callout>
 
 <style>
-  wa-callout:is(
-    [appearance~="outlined"],
-    .wa-outlined
-  ) {
+  wa-callout:is([appearance~="outlined"]) {
     border-left-width: var(--wa-panel-border-radius);
   }
 </style>

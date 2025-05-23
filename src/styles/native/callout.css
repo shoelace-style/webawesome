@@ -13,8 +13,6 @@
   padding: var(--spacing);
 }
 
-:host([appearance~='accent']),
-:host(.wa-accent),
-.wa-callout.wa-accent {
+:host([appearance~='accent']) {
   font-weight: var(--wa-font-weight-semibold);
 }

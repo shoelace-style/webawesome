@@ -1,5 +1,4 @@
 /* 0 specificity. Safari doesn't like :where(:host()) so we need a separate rule. */
-:where(.wa-filled, .wa-plain, .wa-accent, .wa-outlined),
 :host {
   --border-color: transparent;
   --outlined-border-color: initial;
@@ -8,8 +7,6 @@
   --outlined-text-color-hover: initial;
 }
 
-.wa-outlined,
-:where(.wa-callout),
 :host([appearance~='outlined']) {
   --background-color: var(--outlined-background-color, transparent);
   --background-color-hover: var(--outlined-background-color-hover, var(--wa-color-fill-quiet));
@@ -25,7 +22,6 @@
   --text-color-hover: var(--outlined-text-color-hover, var(--text-color));
 }
 
-.wa-accent,
 :host([appearance~='accent']) {
   --background-color: var(--wa-color-fill-loud);
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
@@ -36,7 +32,6 @@
   --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
 }
 
-.wa-filled,
 :where(.wa-callout),
 :host([appearance~='filled']) {
   --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
@@ -49,7 +44,6 @@
   --text-color-hover: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
 }
 
-.wa-plain,
 :host([appearance~='plain']) {
   --background-color: transparent;
   --background-color-hover: var(--wa-color-fill-quiet);

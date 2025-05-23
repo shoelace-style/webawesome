@@ -9,8 +9,7 @@
     inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.15) /* inner shadow */;
 
   :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, .wa-button):not(
-      [appearance~='plain'],
-      .wa-plain
+      [appearance~='plain']
     ) {
     box-shadow:
       var(--wa-theme-active-shadow-pop-out),

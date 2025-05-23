@@ -42,16 +42,16 @@
     --spacing: var(--wa-space-l);
     font-size: var(--wa-size-smaller);
 
-    &:is([appearance~='outlined'], .wa-outlined) {
+    &:is([appearance~='outlined']) {
       border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s) var(--wa-border-width-s);
       border-color: var(--border-color, var(--wa-color-border-loud)) var(--wa-color-surface-border)
         var(--wa-color-surface-border) var(--wa-color-surface-border);
 
-      &:not([appearance~='accent'], .wa-accent) {
+      &:not([appearance~='accent']) {
         --border-color: var(--wa-color-fill-loud);
       }
     }
-    &:not([appearance~='accent'], .wa-accent) {
+    &:not([appearance~='accent']) {
       --icon-color: var(--wa-color-fill-loud);
       --text-color: var(--wa-color-text-normal);
     }
@@ -92,7 +92,7 @@
       wa-select,
       wa-textarea,
       .wa-text-field
-    ):not([appearance='filled'], .wa-filled) {
+    ):not([appearance='filled']) {
     --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
       color-mix(in oklab, var(--wa-color-focus), transparent 50%);
     --wa-focus-ring-offset: 0;
