@@ -2,6 +2,7 @@
 title: FAQ
 description: 'Empower users to learn more with a structured list of questions and answers.'
 isPro: true
+icon: faq
 ---
 
 ## With Flanked Heading & Description

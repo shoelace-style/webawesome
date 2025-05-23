@@ -2,6 +2,7 @@
 title: Empty State
 description: 'Guide users with helpful prompts and visuals when no content is available.'
 isPro: true
+icon: empty-state
 ---
 
 ## Simple

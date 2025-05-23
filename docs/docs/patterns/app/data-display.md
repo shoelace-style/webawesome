@@ -2,6 +2,7 @@
 title: Data Display
 description: 'Convey insights, metrics, and aggregate data at a glance.'
 isPro: true
+icon: data-display
 ---
 
 ## Simple
