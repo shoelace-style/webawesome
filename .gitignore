@@ -8,3 +8,5 @@ src/react
 cdn/
 yarn.lock
 _bundle_
+/packages/webawesome-pro
+/packages/webawesome-app
