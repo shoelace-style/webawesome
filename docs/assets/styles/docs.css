@@ -198,6 +198,11 @@ wa-badge.pro {
       opacity: 0;
     }
   }
+
+  wa-details {
+    --show-duration: 0;
+    --hide-duration: 0;
+  }
 }
 
 wa-icon-button.delete {
