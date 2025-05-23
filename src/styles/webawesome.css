@@ -1,5 +1,4 @@
 /* Native styles */
-@import url('native/base.css'); /* for speed */
 @import url('native.css');
 
 /* Web Awesome components */
