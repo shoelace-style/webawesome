@@ -209,9 +209,3 @@ You can override the default spacing for each slot with your own CSS. In this ex
 
 - `.wa-mobile-only` hides an element on the desktop view
 - `.wa-desktop-only` hides an element on the mobile view
-
-If you don’t want to use [native styles](/docs/native/), you can include this stylesheet in your project to use these:
-
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/components/page.css' %}" />
-```
