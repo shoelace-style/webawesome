@@ -17,11 +17,11 @@
   min-width: 20rem;
   max-width: 100%;
 
-  > :first-child {
+  > :first-child:not(dialog) {
     margin-block-start: 0;
   }
 
-  > :last-child {
+  > :last-child:not(dialog) {
     margin-block-end: 0;
   }
 }
