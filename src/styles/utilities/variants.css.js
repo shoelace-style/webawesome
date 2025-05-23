@@ -6,14 +6,8 @@ const variants = ['neutral', 'brand', 'success', 'warning', 'danger'];
 const roles = ['fill', 'border', 'on'];
 const noise = ['loud', 'normal', 'quiet'];
 const defaults = {
-  neutral: [
-    [':host(wa-button)', 'button', "input[type='button']", "input[type='submit']"],
-    [':host(wa-tag)', '.wa-tag'],
-  ],
-  brand: [
-    [':host(wa-callout)', '.wa-callout'],
-    [':host(wa-badge)', '.wa-badge'],
-  ],
+  neutral: [['button', "input[type='button']", "input[type='submit']"], [':host(wa-tag)']],
+  brand: [[':host(wa-callout)'], [':host(wa-badge)']],
 };
 const types = roles.map(layer => noise.map(priority => layer + '-' + priority)).flat();
 

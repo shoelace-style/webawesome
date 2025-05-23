@@ -32,7 +32,6 @@
   --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
 }
 
-:where(.wa-callout),
 :host([appearance~='filled']) {
   --background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
   --background-color-hover: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));

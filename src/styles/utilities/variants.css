@@ -84,9 +84,7 @@ input[type='submit'],
 }
 
 :host(wa-callout),
-.wa-callout,
-:host(wa-badge),
-.wa-badge {
+:host(wa-badge) {
   --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-brand-fill-loud));
   --wa-color-fill-normal: var(--wa-no-variant, var(--wa-color-brand-fill-normal));
   --wa-color-fill-quiet: var(--wa-no-variant, var(--wa-color-brand-fill-quiet));

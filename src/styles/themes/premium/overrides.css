@@ -7,14 +7,12 @@
 
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
-  wa-button,
-  .wa-button {
+  wa-button {
     font-size: var(--wa-size-smaller);
     text-transform: uppercase;
   }
 
-  wa-callout,
-  .wa-callout {
+  wa-callout {
     font-size: var(--wa-size-smaller);
   }
 
@@ -25,9 +23,7 @@
   }
 
   wa-badge,
-  .wa-badge,
-  wa-tag,
-  .wa-tag {
+  wa-tag {
     text-transform: uppercase;
   }
 
