@@ -8,7 +8,6 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/input.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
@@ -44,7 +43,7 @@ import styles from './textarea.css';
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [formControlStyles, appearanceStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

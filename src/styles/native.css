@@ -1,4 +1,6 @@
-@import url('native/input.css');
+/*
+ * TODO - unsplit and remove
+ */
 @import url('native/details.css');
 
 /* Web Awesome Native styles */
@@ -748,6 +750,106 @@
   input[type='reset'].wa-pill,
   input[type='submit'].wa-pill {
     border-radius: var(--wa-border-radius-pill);
+  }
+
+  /* Input & textarea */
+  textarea,
+  input:not(
+    /* Exclude inputs that don't accept text */
+    [type='button'],
+    [type='checkbox'],
+    [type='color'],
+    [type='file'],
+    [type='hidden'],
+    [type='image'],
+    [type='radio'],
+    [type='range'],
+    [type='reset'],
+    [type='submit']
+  ) {
+    /* Style native inputs */
+    border-color: var(--border-color, var(--wa-form-control-border-color));
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-form-control-border-style);
+    cursor: text;
+    color: var(--wa-form-control-value-color);
+    font-size: var(--wa-size);
+    font-family: inherit;
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+    vertical-align: middle;
+    width: 100%;
+    transition:
+      background-color var(--wa-transition-normal),
+      border var(--wa-transition-normal),
+      outline var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+
+    background-color: var(--background-color, var(--wa-form-control-background-color));
+    border-width: var(--border-width, var(--wa-form-control-border-width));
+    box-shadow: var(--box-shadow, initial);
+    padding: var(--wa-space-smaller) var(--wa-space);
+
+    /* Style focused inputs */
+    &:focus-within {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    /* Style disabled inputs */
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    /* Actual inputs */
+    &:autofill {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+        caret-color: var(--wa-form-control-value-color);
+      }
+    }
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+
+  input.wa-pill,
+  textarea.wa-pill {
+    border-radius: var(--wa-border-radius-pill) !important;
+  }
+
+  input::-webkit-search-decoration,
+  input::-webkit-search-cancel-button,
+  input::-webkit-search-results-button,
+  input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* Don't show the browser's password toggle in Edge */
+  ::-ms-reveal {
+    display: none;
+  }
+
+  /* Hide the built-in number spinner */
+  input[type='number'][without-spin-buttons] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      display: none;
+    }
   }
 
   /* Color picker */
