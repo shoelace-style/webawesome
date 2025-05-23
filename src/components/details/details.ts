@@ -8,7 +8,6 @@ import { animate, parseDuration } from '../../internal/animate.js';
 import { getTargetElement, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import nativeStyles from '../../styles/native/details.css';
 import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -48,7 +47,7 @@ import styles from './details.css';
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static shadowStyle = [passthroughStyles, appearanceStyles, nativeStyles, styles];
+  static shadowStyle = [passthroughStyles, appearanceStyles, styles];
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);
