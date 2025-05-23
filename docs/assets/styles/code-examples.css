@@ -16,7 +16,6 @@
   padding: 2rem 3.25rem 2rem 2rem;
   min-width: 20rem;
   max-width: 100%;
-  overflow: hidden;
 
   > :first-child {
     margin-block-start: 0;
