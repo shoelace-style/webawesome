@@ -302,6 +302,13 @@ h1.title {
   }
 }
 
+@media print {
+  /* Show URLs for printed links */
+  a:not(.anchor-heading)[href]::after {
+    content: ' (' attr(href) ')';
+  }
+}
+
 /* Callouts */
 .callout {
   display: flex;
