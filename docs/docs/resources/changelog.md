@@ -15,6 +15,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ## Next
 - 🚨 BREAKING: Greatly simplified how native styles work and removed redundant utilities
   - Removed `.wa-button`, `.wa-callout` classes
+  - Removed `themes/native/*.css` files; use `native.css` to opt into native styles
 
 - 🚨 BREAKING: Removed the extra dash in the `<wa-carousel>` CSS part name `pagination-item--active` => `pagination-item-active`
 - 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
