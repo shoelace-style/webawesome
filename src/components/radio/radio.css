@@ -1,21 +1,29 @@
 :host {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  --background-color: var(--wa-form-control-background-color);
+  --background-color-checked: var(--background-color);
+  --border-color: var(--wa-form-control-border-color);
+  --border-color-checked: var(--wa-form-control-activated-color);
+  --border-style: var(--wa-border-style);
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: none;
+  --checked-icon-color: var(--wa-form-control-activated-color);
+  --checked-icon-scale: 0.75;
+  --toggle-size: round(1lh, 1px);
+
+  color: var(--wa-form-control-value-color);
+  display: inline-flex;
+  flex-direction: row;
   align-items: top;
-  vertical-align: middle;
+  font-family: inherit;
+  font-weight: var(--wa-form-control-value-font-weight);
+  line-height: var(--wa-form-control-value-line-height);
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-:host(:focus-visible) {
+:host(:focus) {
   outline: none;
-}
-
-.checked-icon {
-  display: flex;
-  fill: currentColor;
-  width: var(--toggle-size);
-  height: var(--toggle-size);
-  scale: var(--checked-icon-scale);
 }
 
 /* When the control isn't checked, hide the circle for Windows High Contrast mode a11y */
@@ -28,6 +36,57 @@
 }
 
 [part~='hint'] {
-  grid-column: 2;
   margin-block-start: var(--wa-space-3xs);
+}
+
+.control {
+  flex: 0 0 auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  border-color: var(--border-color);
+  border-radius: 50%;
+  border-style: var(--border-style);
+  border-width: var(--border-width);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  color: transparent;
+  transition:
+    background var(--wa-transition-normal),
+    border-color var(--wa-transition-fast),
+    box-shadow var(--wa-transition-fast),
+    color var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
+
+  margin-inline-end: var(--wa-space-xs);
+}
+
+.checked-icon {
+  display: flex;
+  fill: currentColor;
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  scale: var(--checked-icon-scale);
+}
+
+/* Checked */
+:host(:state(checked)) .control {
+  color: var(--checked-icon-color);
+  border-color: var(--border-color-checked);
+  background-color: var(--background-color-checked);
+}
+
+/* Focus */
+:host(:focus-visible) .control {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+/* Disabled */
+:host([disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

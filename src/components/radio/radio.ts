@@ -4,7 +4,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/radio.css';
 import formControlStyles from '../../styles/shadow/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
@@ -45,7 +44,7 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   @state() checked = false;
 

@@ -1,6 +1,5 @@
 input[type='radio'],
-label:has(input[type='radio']),
-:host {
+label:has(input[type='radio']) {
   --background-color: var(--wa-form-control-background-color);
   --background-color-checked: var(--background-color);
   --border-color: var(--wa-form-control-border-color);
@@ -19,9 +18,6 @@ label:has(input[type='radio']),
   line-height: var(--wa-form-control-value-line-height);
   user-select: none;
   -webkit-user-select: none;
-}
-
-:host {
   width: fit-content;
 }
 
@@ -39,8 +35,7 @@ input[type='radio'] {
   }
 }
 
-input[type='radio'],
-:host .control {
+input[type='radio'] {
   flex: 0 0 auto;
   position: relative;
   display: inline-flex;
@@ -68,30 +63,26 @@ input[type='radio'],
 /* Set cursor for input and labels */
 input[type='radio'],
 label:has(input[type='radio']),
-input[type='radio'] + label,
-:host {
+input[type='radio'] + label {
   cursor: pointer;
 }
 
 /* Checked */
-input[type='radio']:checked,
-:host(:state(checked)) .control {
+input[type='radio']:checked {
   color: var(--checked-icon-color);
   border-color: var(--border-color-checked);
   background-color: var(--background-color-checked);
 }
 
 /* Focus */
-input[type='radio']:focus-visible,
-:host(:focus-visible) .control {
+input[type='radio']:focus-visible {
   outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 
 /* Disabled */
 input[type='radio']:disabled,
-label:has(input[type='radio']:disabled),
-:host([disabled]) {
+label:has(input[type='radio']:disabled) {
   opacity: 0.5;
   cursor: not-allowed;
 }
