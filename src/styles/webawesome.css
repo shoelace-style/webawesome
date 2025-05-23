@@ -1,8 +1,5 @@
 /* Native styles */
 @import url('native.css');
 
-/* Web Awesome components */
-@import url('components/page.css');
-
 /* CSS Utilities */
 @import url('utilities.css');
