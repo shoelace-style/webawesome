@@ -1,6 +1,5 @@
 @import url('native/input.css');
 @import url('native/details.css');
-@import url('native/dialog.css');
 @import url('native/select.css');
 
 /* Web Awesome Native styles */
@@ -276,6 +275,35 @@
       background: none;
       border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
     }
+  }
+
+  /* Dialog */
+  dialog {
+    flex-direction: column;
+    width: 31rem;
+    max-width: calc(100% - var(--wa-space-2xl));
+    background-color: var(--wa-color-surface-raised);
+    padding: var(--wa-space-xl);
+    border-radius: var(--wa-panel-border-radius);
+    border: none;
+    box-shadow: var(--wa-shadow-l);
+    transition: var(--wa-transition-slow, 200ms) var(--wa-transition-easing);
+
+    /* Center the dialog */
+    inset: 0;
+    margin: auto;
+
+    &[open] {
+      display: flex;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  dialog::backdrop {
+    background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
   }
 
   /* Forms */

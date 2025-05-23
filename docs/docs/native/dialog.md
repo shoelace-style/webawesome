@@ -11,14 +11,8 @@ file: styles/native/dialog.css
 
 ```html {.example}
 <dialog id="dialog-overview">
-	<header>
-		<h2>Dialog</h2>
-		<button data-dialog="close" class="wa-plain">✖️</button>
-	</header>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  <footer>
-	<button class="wa-brand" data-dialog="close">Close</button>
-  </footer>
+	<button type="button">Close</button>
 </dialog>
 
 <button>Open Dialog</button>
@@ -26,12 +20,9 @@ file: styles/native/dialog.css
 <script>
   const dialog = document.querySelector('#dialog-overview');
   const openButton = dialog.nextElementSibling;
+  const closeButton = dialog.querySelector('button');
 
   openButton.addEventListener('click', () => dialog.showModal());
-  dialog.addEventListener('click', event => {
-	if (event.target.closest('[data-dialog="close"]')) {
-		dialog.close();
-	}
-  });
+  closeButton.addEventListener('click', () => dialog.close());
 </script>
 ```
