@@ -25,8 +25,8 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
-const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
-const version = JSON.stringify(packageData.version.toString());
+const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
+const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
 let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
@@ -207,7 +207,7 @@ export async function build (options = {}) {
       bundle: true,
       splitting: true,
       minify: false,
-      plugins: [replace({ __WEBAWESOME_VERSION__: version })],
+      plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
       loader: {
         '.css': 'text',
       },
