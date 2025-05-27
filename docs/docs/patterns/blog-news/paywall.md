@@ -31,7 +31,7 @@ tags: blog-news
 
 ## Modal
 
-```html {.example viewport}
+```html {.example .viewport}
 <wa-dialog without-header label="Subscribe or continue with ads" class="dialog-deny-close" style="--width: 90ch;" open>
   <div class="wa-stack wa-gap-xl">
     <h2 class="wa-heading-m">Want to subscribe or continue using our Products for free with ads?</h2>
@@ -74,7 +74,7 @@ tags: blog-news
 
 ## Footer
 
-```html {.example viewport}
+```html {.example .viewport}
 <wa-drawer
   without-header
   label="Free article limit reached"
