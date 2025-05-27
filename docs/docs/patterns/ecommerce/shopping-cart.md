@@ -202,7 +202,7 @@ isPro: true
 ## Drawer
 
 ```html {.example viewport}
-<wa-drawer label="Shopping Cart" open>
+<wa-drawer label="Shopping Cart" id="shopping-card-drawer">
   <div class="wa-stack">
     <article class="wa-flank" style="--flank-size: 6rem">
       <div class="wa-frame wa-border-radius-m">
@@ -277,4 +277,13 @@ isPro: true
     </wa-button>
   </div>
 </wa-drawer>
+
+<wa-button>Show Drawer</wa-button>
+
+<script>
+  const drawer = document.getElementById('shopping-card-drawer');
+  const openButton = drawer.nextElementSibling;
+
+  openButton.addEventListener('click', () => (drawer.open = true));
+</script>
 ```
