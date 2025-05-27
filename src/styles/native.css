@@ -297,7 +297,7 @@
     background-color: var(--wa-color-surface-default);
     border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
     border-radius: var(--wa-panel-border-radius);
-    padding: var(--wa-space-m);
+    padding: 0;
     overflow-anchor: none;
 
     /* Print styles */
@@ -318,6 +318,7 @@
     user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
+    padding: var(--wa-space-m);
 
     &::marker,
     &::-webkit-details-marker {
@@ -350,6 +351,14 @@
 
   details[open] > summary::after {
     rotate: 90deg;
+  }
+
+  details[open] {
+    padding: 0 var(--wa-space-m) var(--wa-space-m) var(--wa-space-m);
+
+    summary {
+      margin-inline: calc(-1 * var(--wa-space-m));
+    }
   }
 
   details > :last-child {
