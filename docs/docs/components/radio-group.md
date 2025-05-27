@@ -29,7 +29,7 @@ Add descriptive hint to a radio group with the `hint` attribute. For hints that 
 
 ### Radio Buttons
 
-Set the `appearance` attribute to `button` to render a radio button.
+Set the `appearance` attribute to `button` on all radios to render a radio button group.
 
 ```html {.example}
 <wa-radio-group

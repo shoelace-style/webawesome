@@ -39,3 +39,10 @@
 [part~='hint'] {
   margin-block-start: var(--wa-space-xs);
 }
+
+/* Radios have the "button" appearance */
+:host fieldset.has-radio-buttons {
+  [part~='form-control-input'] {
+    gap: 0;
+  }
+}

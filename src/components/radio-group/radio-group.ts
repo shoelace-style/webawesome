@@ -57,6 +57,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
+  @state() hasRadioButtons = false;
+
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
   /**
@@ -126,6 +128,27 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  /**
+   * We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
+   * the first radio element.
+   */
+  get validationTarget() {
+    if (isServer) return undefined;
+
+    const radio = this.querySelector<WaRadio>(':is(wa-radio):not([disabled])');
+    if (!radio) return undefined;
+
+    return radio;
+  }
+
+  formResetCallback(...args: Parameters<WebAwesomeFormAssociatedElement['formResetCallback']>) {
+    this.value = this.defaultValue;
+
+    super.formResetCallback(...args);
+
+    this.syncRadioElements();
+  }
+
   private handleRadioClick = (e: Event) => {
     const clickedRadio = (e.target as HTMLElement).closest<WaRadio>('wa-radio');
 
@@ -138,17 +161,13 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     clickedRadio.checked = true;
 
     const radios = this.getAllRadios();
-    const hasRadioButtons = radios.some(radio => radio.tagName.toLowerCase() === 'wa-radio-button');
     for (const radio of radios) {
       if (clickedRadio === radio) {
         continue;
       }
 
       radio.checked = false;
-
-      if (!hasRadioButtons) {
-        radio.setAttribute('tabindex', '-1');
-      }
+      radio.setAttribute('tabindex', '-1');
     }
 
     if (this.value !== oldValue) {
@@ -167,15 +186,20 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private async syncRadioElements() {
     const radios = this.getAllRadios();
+    let hasRadioButtons = false;
 
     // Add data attributes to support styling
     radios.forEach((radio, index) => {
+      if (radio.appearance === 'button') hasRadioButtons = true;
       radio.toggleAttribute('data-wa-radio-horizontal', this.orientation !== 'vertical');
       radio.toggleAttribute('data-wa-radio-vertical', this.orientation === 'vertical');
       radio.toggleAttribute('data-wa-radio-first', index === 0);
       radio.toggleAttribute('data-wa-radio-inner', index !== 0 && index !== radios.length - 1);
       radio.toggleAttribute('data-wa-radio-last', index === radios.length - 1);
     });
+
+    // If at least one radio button exists, we assume it's a radio button group
+    this.hasRadioButtons = hasRadioButtons;
 
     await Promise.all(
       radios.map(async radio => {
@@ -194,29 +218,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  /**
-   * We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
-   * the first radio element.
-   */
-  get validationTarget() {
-    if (isServer) return undefined;
-
-    const radio = this.querySelector<WaRadio>(':is(wa-radio):not([disabled])');
-    if (!radio) return undefined;
-
-    return radio;
-  }
-
   @watch('value')
   handleValueChange() {
-    this.syncRadioElements();
-  }
-
-  formResetCallback(...args: Parameters<WebAwesomeFormAssociatedElement['formResetCallback']>) {
-    this.value = this.defaultValue;
-
-    super.formResetCallback(...args);
-
     this.syncRadioElements();
   }
 
@@ -303,6 +306,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control-radio-group': true,
           'form-control-has-label': hasLabel,
+          'has-radio-buttons': this.hasRadioButtons,
         })}
         role="radiogroup"
         aria-labelledby="label"
