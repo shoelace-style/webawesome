@@ -1,6 +1,6 @@
 ---
 title: Visual Tests
-description: TODO
+description: A visual reference for various components and utilities.
 layout: page
 wide: true
 ---
