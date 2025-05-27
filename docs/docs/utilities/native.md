@@ -24,9 +24,7 @@ Or, to _only_ include styles for native elements:
 
 ## Elements
 
-### Typography
-
-#### Headings
+### Headings
 
 Semantic heading elements with proper hierarchy and styling.
 
@@ -39,7 +37,7 @@ Semantic heading elements with proper hierarchy and styling.
 <h6>Heading 6</h6>
 ```
 
-#### Paragraphs
+### Paragraphs
 
 Standard paragraph text with optimal spacing and readability.
 
@@ -49,7 +47,7 @@ Standard paragraph text with optimal spacing and readability.
 <p>Cras pulvinar mattis nunc sed blandit libero. Facilisis magna etiam tempor orci. Scelerisque eleifend donec pretium vulputate sapien nec. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
 ```
 
-#### Blockquotes
+### Blockquotes
 
 Styled quotations that stand out from regular text.
 
@@ -60,7 +58,7 @@ Styled quotations that stand out from regular text.
 </blockquote>
 ```
 
-#### Lists
+### Lists
 
 Organized content in bulleted or numbered format with proper nesting support.
 
@@ -88,7 +86,7 @@ Organized content in bulleted or numbered format with proper nesting support.
 </ol>
 ```
 
-#### Definition Lists
+### Definition Lists
 
 Term and definition pairs for glossaries and descriptions.
 
@@ -103,7 +101,7 @@ Term and definition pairs for glossaries and descriptions.
 </dl>
 ```
 
-#### Details
+### Details
 
 Collapsible content sections with expand/collapse functionality.
 
@@ -114,7 +112,32 @@ Collapsible content sections with expand/collapse functionality.
 </details>
 ```
 
-#### Dialog
+```html {.example}
+<div class="wa-stack">
+<details>
+  <summary>Outlined (default)</summary>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</details>
+<details class="wa-filled">
+  <summary>Filled</summary>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</details>
+<details class="wa-filled wa-outlined">
+  <summary>Filled + Outlined</summary>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</details>
+<details class="wa-plain">
+  <summary>Plain</summary>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</details>
+</div>
+```
+
+### Dialog
 
 Modal dialog windows for alerts, confirmations, and overlays.
 
@@ -136,7 +159,7 @@ Modal dialog windows for alerts, confirmations, and overlays.
 </script>
 ```
 
-#### Inline Text
+### Inline Text
 
 Various text formatting elements for emphasis and semantic meaning.
 
@@ -159,7 +182,7 @@ Various text formatting elements for emphasis and semantic meaning.
 </div>
 ```
 
-#### Code Blocks
+### Code Blocks
 
 Formatted code snippets with proper syntax styling.
 
@@ -170,13 +193,23 @@ export function thing() {
 }
 ```
 
-#### Images
+### Images
 
 Responsive images with proper scaling and styling.
 
 ![A gray kitten lays next to a toy](https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 
-#### Tables
+### Progress Bars
+
+Visual indicators for task completion and loading states.
+
+```html {.example}
+<progress value="40" max="100"></progress>
+<br>
+<progress></progress>
+```
+
+### Tables
 
 Structured data presentation with clean styling and optional zebra striping.
 
@@ -262,11 +295,9 @@ You can use the `wa-zebra-rows` class to add alternating row colors to your tabl
 </table>
 ```
 
+## Form Controls
+
 ### Buttons
-
-Interactive elements for user actions with multiple styling variants.
-
-#### Variants
 
 Use the [variant utility classes](../utilities/color.md) to set the button's semantic variant.
 
@@ -277,8 +308,6 @@ Use the [variant utility classes](../utilities/color.md) to set the button's sem
 <button class="wa-warning">Warning</button>
 <button class="wa-danger">Danger</button>
 ```
-
-#### Appearance
 
 Use the [appearance utility classes](/docs/utilities/appearance) to change the button's visual appearance:
 
@@ -325,8 +354,6 @@ Use the [appearance utility classes](/docs/utilities/appearance) to change the b
 </div>
 ```
 
-#### Sizes
-
 Use the [size utility classes](../utilities/size.md) to change a button's size.
 
 ```html {.example}
@@ -335,58 +362,12 @@ Use the [size utility classes](../utilities/size.md) to change a button's size.
 <button class="wa-size-l">Large</button>
 ```
 
-#### Pill Buttons
-
 Use the `wa-pill` class to give buttons rounded edges.
 
 ```html {.example}
 <button class="wa-size-s wa-pill">Small</button>
 <button class="wa-size-m wa-pill">Medium</button>
 <button class="wa-size-l wa-pill">Large</button>
-```
-
-#### Link Buttons
-
-It's often helpful to have a link that looks like a button.
-This is possible by adding a `wa-button` class to your link.
-
-```html {.example}
-<a href="https://example.com/" class="wa-button">Link</a>
-<a href="https://example.com/" target="_blank" class="wa-button">New Window</a>
-<a href="/assets/images/logo.svg" download="shoelace.svg" class="wa-button">Download</a>
-```
-
-#### Setting a Custom Width
-
-As expected, buttons can be given a custom width by setting the `width` CSS property. This is useful for making buttons span the full width of their container on smaller screens.
-
-```html {.example}
-<button class="wa-size-s" style="width: 100%; margin-bottom: 1rem;">Small</button>
-<button class="wa-size-m" style="width: 100%; margin-bottom: 1rem;">Medium</button>
-<button class="wa-size-l" style="width: 100%;">Large</button>
-```
-
-#### Loading
-
-Use the `loading` attribute to make a button busy. The width will remain the same as before, preventing adjacent elements from moving around.
-
-```html {.example}
-<button class="wa-brand" loading>Brand</button>
-<button class="wa-success" loading>Success</button>
-<button class="wa-neutral" loading>Neutral</button>
-<button class="wa-warning" loading>Warning</button>
-<button class="wa-danger" loading>Danger</button>
-```
-
-#### Disabled
-
-Use the `disabled` attribute to disable a button.
-
-```html {.example}
-<button class="wa-brand" disabled>Brand</button>
-<button class="wa-success" disabled>Success</button>
-<button class="wa-neutral" disabled>Neutral</button>
-<button class="wa-warning" disabled>Warning</button>
 ```
 
 ### Checkboxes
@@ -437,16 +418,6 @@ Dropdown menus for choosing from a list of options.
 </label>
 ```
 
-### Progress Bars
-
-Visual indicators for task completion and loading states.
-
-```html {.example}
-<progress value="40" max="100"></progress>
-<br>
-<progress></progress>
-```
-
 ### Sliders
 
 Range inputs for selecting numeric values within a specified range.
@@ -481,12 +452,12 @@ Add the `wa-pill` class to an `<input>` to make it pill-shaped.
 <label>Input <input type="text" placeholder="placeholder" class="wa-pill"></label>
 ```
 
-### Textareas
+### Color Pickers
 
-Multi-line text input fields for longer content.
+Visual color selection interface with hex value input.
 
 ```html {.example}
-<label>Textarea <textarea placeholder="Type something"></textarea></label>
+<label>Input (color) <input type="color" value="#ff0066"></label>
 ```
 
 ### Date & Time Pickers
@@ -501,10 +472,10 @@ Specialized inputs for selecting dates, times, and datetime values.
 <label>Input (time) <input type="time"></label>
 ```
 
-### Color Pickers
+### Textareas
 
-Visual color selection interface with hex value input.
+Multi-line text input fields for longer content.
 
 ```html {.example}
-<label>Input (color) <input type="color" value="#ff0066"></label>
+<label>Textarea <textarea placeholder="Type something"></textarea></label>
 ```
