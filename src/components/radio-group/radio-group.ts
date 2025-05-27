@@ -7,7 +7,6 @@ import { RequiredValidator } from '../../internal/validators/required-validator.
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/shadow/form-control.css';
-import buttonGroupStyles from '../../styles/utilities/button-group.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../radio-button/radio-button.js';
 import type WaRadioButton from '../radio-button/radio-button.js';
@@ -41,7 +40,7 @@ import styles from './radio-group.css';
  */
 @customElement('wa-radio-group')
 export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, buttonGroupStyles, formControlStyles, styles];
+  static shadowStyle = [sizeStyles, formControlStyles, styles];
 
   static get validators() {
     const validators = isServer
