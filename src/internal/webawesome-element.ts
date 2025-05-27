@@ -2,7 +2,7 @@ import type { CSSResult, CSSResultGroup, PropertyDeclaration, PropertyValues } f
 import { LitElement, defaultConverter, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ElementStyleObserver } from 'style-observer';
-import componentStyles from '../styles/shadow/component.css';
+import componentStyles from '../styles/component/host.css';
 import { getComputedStyle } from './computed-style.js';
 
 // Augment Lit's module

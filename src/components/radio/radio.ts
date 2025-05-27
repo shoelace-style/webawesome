@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
 import styles from './radio.css';
