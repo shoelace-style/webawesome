@@ -13,13 +13,9 @@
   --wa-theme-glossy-lower-shade-active: inset 0 -1.125em 0 0 rgb(0 0 0 / 0.02);
   --wa-theme-glossy-bottom-shadow-active: inset 0 -0.125rem 0 0 rgb(255 255 255 / 0.04);
 
-  :is(
-      button,
-      input:where([type='button'], [type='reset'], [type='submit']),
-      wa-button,
-      wa-radio-button,
-      .wa-button
-    ):not([appearance='plain']) {
+  :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button, wa-radio-button):not(
+      [appearance='plain']
+    ) {
     box-shadow:
       inset 0 0 0 0.0625rem var(--border-color, var(--background-color, transparent)),
       var(--wa-theme-glossy-inner-shine),

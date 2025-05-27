@@ -1,7 +1,7 @@
 /* Radio button component styles with merged native styles */
 :host {
   --display: inline-flex;
-  --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+  --background-color: var(--wa-color-fill-soft, var(--wa-color-neutral-fill-loud));
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
 

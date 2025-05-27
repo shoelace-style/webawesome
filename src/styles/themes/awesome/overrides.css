@@ -5,8 +5,7 @@
       button,
       input:where([type='button'], [type='reset'], [type='submit']),
       wa-button,
-      wa-radio-group > wa-radio-button,
-      .wa-button
+      wa-radio-group > wa-radio-button
     ):not([appearance='plain']) {
     :where(&),
     .wa-light &,

@@ -17,8 +17,7 @@
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
   wa-button,
-  wa-radio-group > wa-radio-button,
-  .wa-button {
+  wa-radio-group > wa-radio-button {
     --wa-form-control-border-radius: var(--wa-border-radius-pill);
     box-shadow: 0 0 transparent;
 

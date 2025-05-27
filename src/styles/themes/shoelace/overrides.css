@@ -9,7 +9,6 @@
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
   wa-button,
-  .wa-button,
   wa-radio-button {
     font-size: var(--wa-size-smaller);
   }

@@ -18,7 +18,7 @@
   margin-inline-start: var(--wa-form-control-required-content-offset);
 }
 
-.wa-button-group {
+.button-group {
   display: flex;
 }
 

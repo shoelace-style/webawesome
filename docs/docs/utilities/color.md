@@ -2,12 +2,6 @@
 title: Color Variants
 description: Color utilities allow you to apply the brand, neutral, success, warning, and danger colors from your theme to any element.
 icon: tokens/color
-snippets:
-  - .wa-brand
-  - .wa-neutral
-  - .wa-success
-  - .wa-warning
-  - .wa-danger
 file: styles/utilities/variants.css
 ---
 

@@ -4,8 +4,7 @@
   button,
   input:where([type='button'], [type='reset'], [type='submit']),
   wa-button,
-  wa-radio-button,
-  .wa-button {
+  wa-radio-button {
     &:not([disabled]) {
       transition-property: all;
 

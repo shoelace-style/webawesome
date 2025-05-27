@@ -5,8 +5,7 @@
       button,
       input:where([type='button'], [type='reset'], [type='submit']),
       wa-button,
-      wa-radio-group > wa-radio-button,
-      .wa-button
+      wa-radio-group > wa-radio-button
     ):not([appearance='plain']) {
     --wa-transition-slow: 0;
     --wa-transition-normal: 0;
