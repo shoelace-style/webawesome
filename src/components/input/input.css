@@ -1,33 +1,25 @@
 :host {
-  /* Defaults for root element. */
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: initial;
   --outlined-background-color: var(--wa-form-control-background-color);
   --outlined-border-color: var(--wa-form-control-border-color);
   --outlined-text-color: var(--wa-form-control-value-color);
 
-  /* Defaults with 0 specificity. */
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
   border-width: 0;
 }
 
-.wa-text-field {
+.text-field {
   flex: auto;
   display: flex;
   align-items: stretch;
   justify-content: start;
   position: relative;
-
-  border-color: inherit;
-  border-style: inherit;
-  border-radius: inherit;
   transition: inherit;
-
   height: var(--wa-form-control-height);
-  padding-block: 0;
-
   border-color: var(--border-color, var(--wa-form-control-border-color));
   border-radius: var(--wa-form-control-border-radius);
   border-style: var(--wa-form-control-border-style);
+  border-width: var(--border-width);
   cursor: text;
   color: var(--wa-form-control-value-color);
   font-size: var(--wa-size);
@@ -42,7 +34,6 @@
     outline var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
   background-color: var(--background-color, var(--wa-form-control-background-color));
-  border-width: var(--border-width);
   box-shadow: var(--box-shadow);
   padding: var(--wa-space-smaller) var(--wa-space);
 
@@ -59,12 +50,12 @@
   }
 }
 
-:host([pill]) .wa-text-field {
+:host([pill]) .text-field {
   border-radius: var(--wa-border-radius-pill) !important;
 }
 
-.wa-text-field input,
-.wa-text-field textarea {
+.text-field input,
+.text-field textarea {
   /*
     Fixes an alignment issue with placeholders.
     https://github.com/shoelace-style/webawesome/issues/342

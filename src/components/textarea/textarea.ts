@@ -347,7 +347,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="wa-text-field textarea">
+      <div part="base" class="textarea">
         <textarea
           part="textarea"
           id="input"

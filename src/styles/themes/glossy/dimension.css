@@ -70,8 +70,7 @@
   textarea,
   wa-input,
   wa-select,
-  wa-textarea,
-  .wa-text-field {
+  wa-textarea {
     --wa-theme-glossy-upper-tint: inset 0 -1.25em 0 0 rgb(255 255 255 / 0.085);
     --wa-theme-glossy-lower-shade: inset 0 1.125em 0 0 rgb(0 0 0 / 0.02);
     --box-shadow: var(--wa-theme-glossy-upper-tint), var(--wa-theme-glossy-lower-shade);

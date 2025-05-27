@@ -399,7 +399,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="input" class="wa-text-field">
+      <div part="input" class="text-field">
         <slot name="prefix" part="prefix" class="prefix"></slot>
 
         <input

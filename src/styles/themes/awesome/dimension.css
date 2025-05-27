@@ -80,8 +80,7 @@
       textarea,
       wa-input,
       wa-select,
-      wa-textarea,
-      .wa-text-field
+      wa-textarea
     ):not(:focus, [appearance='filled']) {
     --box-shadow: inset var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
       var(--wa-color-shadow);

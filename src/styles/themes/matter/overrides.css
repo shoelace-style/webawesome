@@ -94,8 +94,7 @@
   textarea,
   wa-input,
   wa-select,
-  wa-textarea,
-  .wa-text-field {
+  wa-textarea {
     --wa-form-control-value-line-height: var(--wa-line-height-normal);
 
     /* Needed for floating label */
@@ -105,13 +104,13 @@
       --wa-focus-ring: ;
       --border-color: transparent transparent var(--wa-form-control-border-color) transparent;
 
-      &:where(input, textarea, wa-input, select, wa-textarea, .wa-text-field):focus,
+      &:where(input, textarea, wa-input, select, wa-textarea):focus,
       &:where(wa-select):focus-within {
         --border-color: transparent transparent var(--wa-color-focus) transparent;
         --box-shadow: inset 0 calc(var(--wa-form-control-border-width) * -2) 0 0 var(--wa-color-focus);
       }
 
-      &:where(input, select, textarea, .wa-text-field),
+      &:where(input, select, textarea),
       &::part(input),
       &::part(combobox) {
         border-radius: var(--wa-form-control-border-radius) var(--wa-form-control-border-radius) 0px 0px;

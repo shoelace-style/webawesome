@@ -76,8 +76,7 @@
     textarea,
     wa-input,
     wa-select,
-    wa-textarea,
-    .wa-text-field
+    wa-textarea
   ) {
     --border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
   }

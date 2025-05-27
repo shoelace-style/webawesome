@@ -89,8 +89,7 @@
       textarea,
       wa-input,
       wa-select,
-      wa-textarea,
-      .wa-text-field
+      wa-textarea
     ):not([appearance='filled']) {
     --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
       color-mix(in oklab, var(--wa-color-focus), transparent 50%);
