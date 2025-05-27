@@ -112,31 +112,6 @@ Collapsible content sections with expand/collapse functionality.
 </details>
 ```
 
-```html {.example}
-<div class="wa-stack">
-<details>
-  <summary>Outlined (default)</summary>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</details>
-<details class="wa-filled">
-  <summary>Filled</summary>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</details>
-<details class="wa-filled wa-outlined">
-  <summary>Filled + Outlined</summary>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</details>
-<details class="wa-plain">
-  <summary>Plain</summary>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</details>
-</div>
-```
-
 ### Dialog
 
 Modal dialog windows for alerts, confirmations, and overlays.
