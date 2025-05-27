@@ -92,9 +92,21 @@ const colorScheme = new ThemeAspect({
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
       document.documentElement.dispatchEvent(new CustomEvent('wa-color-scheme-change', { detail: { dark } }));
+      syncViewportDemoColorSchemes();
     });
   },
 });
+
+function syncViewportDemoColorSchemes() {
+  const isDark = document.documentElement.classList.contains('wa-dark');
+
+  // Update viewport demo color schemes in code examples
+  document.querySelectorAll('.code-example.is-viewport-demo wa-viewport-demo').forEach(demo => {
+    demo.querySelectorAll('iframe').forEach(iframe => {
+      iframe.contentWindow.document.documentElement?.classList?.toggle('wa-dark', isDark);
+    });
+  });
+}
 
 // Update the color scheme when the preference changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => colorScheme.set());
@@ -108,4 +120,13 @@ document.addEventListener('keydown', event => {
     event.preventDefault();
     colorScheme.set(colorScheme.get() === 'dark' ? 'light' : 'dark');
   }
+});
+
+// When rendering a code example with a viewport demo, set the theme to match initially
+document.querySelectorAll('.code-example.is-viewport-demo wa-viewport-demo iframe').forEach(iframe => {
+  const isDark = document.documentElement.classList.contains('wa-dark');
+
+  iframe.addEventListener('load', () => {
+    iframe.contentWindow.document.documentElement?.classList?.toggle('wa-dark', isDark);
+  });
 });

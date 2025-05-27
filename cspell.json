@@ -58,6 +58,8 @@
     "exportmaps",
     "exportparts",
     "fieldsets",
+    "focusin",
+    "focusout",
     "fontawesome",
     "formaction",
     "formdata",

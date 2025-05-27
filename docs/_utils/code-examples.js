@@ -1,5 +1,6 @@
 import { parse } from 'node-html-parser';
 import { v4 as uuid } from 'uuid';
+import { markdown } from '../_utils/markdown.js';
 
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
@@ -24,6 +25,7 @@ export function codeExamplesPlugin(options = {}) {
         const pre = code.closest('pre');
         const hasButtons = !code.classList.contains('no-buttons');
         const isOpen = code.classList.contains('open') || !hasButtons;
+        const isViewportDemo = code.classList.contains('viewport');
         const noEdit = code.classList.contains('no-edit');
         const id = `code-example-${uuid().slice(-12)}`;
         let preview = pre.textContent;
@@ -33,10 +35,29 @@ export function codeExamplesPlugin(options = {}) {
         root.querySelectorAll('script').forEach(script => script.setAttribute('type', 'module'));
         preview = root.toString();
 
+        const escapedHtml = markdown.utils.escapeHtml(`
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Web Awesome Demo</title>
+            <link rel="stylesheet" href="https://early.webawesome.com/webawesome@[version]/dist/styles/themes/default.css" />
+            <link rel="stylesheet" href="https://early.webawesome.com/webawesome@[version]/dist/styles/webawesome.css" />
+            <script type="module" src="https://early.webawesome.com/webawesome@[version]/dist/webawesome.loader.js"></script>
+          </head>
+          <body>
+            ${preview}
+          </body>
+          </html>
+        `);
+
         const codeExample = parse(`
-          <div class="code-example ${isOpen ? 'open' : ''}">
+          <div class="code-example ${isOpen ? 'open' : ''} ${isViewportDemo ? 'is-viewport-demo' : ''}">
             <div class="code-example-preview">
-              ${preview}
+
+              ${isViewportDemo ? ` <wa-viewport-demo><iframe srcdoc="${escapedHtml}"></iframe></wa-viewport-demo>` : preview}
+
               <div class="code-example-resizer" aria-hidden="true">
                 <wa-icon name="grip-lines-vertical"></wa-icon>
               </div>
