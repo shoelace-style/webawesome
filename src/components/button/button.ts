@@ -52,7 +52,8 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [variantStyles, sizeStyles, styles, appearanceStyles];
+  static shadowStyle = [styles, variantStyles, sizeStyles, appearanceStyles];
+  /* `styles` must come first so that utilities can successfully override the component's default styles */
   static rectProxy = 'button';
 
   static get validators() {
