@@ -1,26 +1,10 @@
 :host {
   --icon-color: var(--wa-color-text-quiet);
   --spacing: var(--wa-space-m);
-  --outlined-border-color: var(--wa-color-surface-border);
   --show-duration: 200ms;
   --hide-duration: 200ms;
-  --display: block;
 
-  background-color: var(--background-color, var(--wa-color-surface-default));
-  border: var(--wa-panel-border-width) var(--border-color, var(--wa-color-surface-border)) var(--wa-panel-border-style);
-  border-radius: var(--wa-panel-border-radius);
-  color: var(--text-color, inherit);
-  padding: var(--spacing);
-
-  /* Print styles */
-  @media print {
-    background: none;
-    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
-
-    summary {
-      list-style: none;
-    }
-  }
+  display: contents;
 }
 
 :host([appearance='plain']) {
@@ -51,19 +35,52 @@
 }
 
 details {
+  display: block;
+  overflow: hidden; /* Add this line */
   overflow-anchor: none;
+  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
+  background-color: var(--background-color, var(--wa-color-surface-default));
+  border-radius: var(--wa-panel-border-radius);
+  color: var(--text-color, inherit);
+  /* Remove this line: padding: var(--spacing); */
+
+  /* Print styles */
+  @media print {
+    background: none;
+    border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+
+    summary {
+      list-style: none;
+    }
+  }
 }
 
 :host([disabled]) details {
   opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  summary {
-    cursor: not-allowed;
+:host summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  padding: var(--spacing); /* Add padding here */
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
   }
 
-  summary:focus-visible {
+  &:focus {
     outline: none;
-    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
   }
 }
 
@@ -96,6 +113,8 @@ details {
 .content {
   display: block;
   padding-block-start: var(--spacing);
+  padding-inline: var(--spacing); /* Add horizontal padding */
+  padding-block-end: var(--spacing); /* Add bottom padding */
 }
 
 @keyframes show {
