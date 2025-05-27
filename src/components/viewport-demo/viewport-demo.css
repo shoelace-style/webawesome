@@ -36,7 +36,7 @@
 
   /* Style frame like a window */
   border: var(--viewport-bezel-width) solid transparent;
-  border-radius: calc(var(--wa-border-radius-m));
+  border-radius: var(--wa-border-radius-m);
 
   /* Window-like frame styling */
   --button-params: 0.4em / 0.5em 0.5em border-box;
@@ -49,13 +49,12 @@
       var(--button-params),
     var(--wa-color-gray-95);
   background-repeat: no-repeat;
-  box-shadow:
-    0 0 0 1px var(--wa-color-gray-90),
-    var(--wa-shadow-m);
 
   &.resized {
     aspect-ratio: var(--iframe-manual-aspect-ratio);
   }
+
+  background-color: var(--wa-color-neutral-fill-normal);
 
   /* User has not yet resized the viewport */
   &:not(.resized) ::slotted(iframe),
@@ -79,6 +78,7 @@ slot {
   scale: var(--zoom);
   transform-origin: top left;
   resize: var(--viewport-resize);
+  border-radius: var(--wa-border-radius-m);
   overflow: auto;
 
   /* The width and height specified here are only applied if the iframe is not manually resized */
@@ -91,7 +91,6 @@ slot {
 
   /* Divide with var(--zoom) to get lengths that stay constant regardless of zoom level */
   border: calc(1px / var(--zoom)) solid var(--wa-color-gray-90);
-  background: var(--viewport-background-color);
 }
 
 [part~='controls'] {
@@ -120,14 +119,9 @@ slot {
     display: none;
     vertical-align: -0.1em;
     font-size: 85%;
-    color: var(--wa-color-gray-70);
   }
 
   wa-icon-button {
-    &:not(:hover, :focus) {
-      opacity: 0.5;
-    }
-
     &::part(base) {
       padding: 0;
     }
@@ -137,9 +131,6 @@ slot {
     display: flex;
     align-items: center;
     gap: 0.3em;
-    font-weight: 600;
-    color: var(--wa-color-text-quiet);
-    opacity: 80%;
   }
 
   [part~='zoom-in'],
