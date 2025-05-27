@@ -219,6 +219,7 @@
   video {
     max-width: 100%;
     height: auto;
+    border-radius: var(--wa-border-radius-m);
   }
 
   embed,
