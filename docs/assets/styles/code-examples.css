@@ -50,7 +50,7 @@
   width: 1.75rem;
   font-size: 20px;
   color: var(--wa-color-text-quiet);
-  background-color: var(--wa-color-neutral-0, white);
+  background-color: var(--wa-color-neutral--wa-color-surface-default);
   border-left: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   border-top-right-radius: var(--wa-border-radius-l);
   cursor: ew-resize;
