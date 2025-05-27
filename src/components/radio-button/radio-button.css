@@ -1,18 +1,17 @@
 /* Radio button component styles with merged native styles */
 :host {
-  --display: inline-flex;
   --background-color: var(--wa-color-fill-soft, var(--wa-color-neutral-fill-loud));
   --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
   --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
-
   --border-color: transparent;
   --border-color-hover: var(--border-color);
   --border-color-active: var(--border-color);
   --border-width: var(--wa-form-control-border-width);
-
   --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
   --text-color-hover: var(--text-color);
   --text-color-active: var(--text-color);
+
+  display: contents;
 }
 
 /* Base button styles merged from native */
