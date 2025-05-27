@@ -52,7 +52,7 @@
     "create": "plop --plopfile scripts/plop/plopfile.js",
     "test": "CSR_ONLY=\"true\" web-test-runner --group default",
     "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
-    "test:contrast": "cd src/styles/color && node contrast.test.js",
+    "test:contrast": "node scripts/color-palette-contrast-test.js",
     "test:watch": "web-test-runner --watch --group default",
     "prettier": "prettier --check --log-level=warn .",
     "prettier:fix": "prettier --write --log-level=warn .",
