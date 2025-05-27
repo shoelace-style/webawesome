@@ -277,7 +277,7 @@ You can use the `wa-zebra-rows` class to add alternating row colors to your tabl
 Use the [variant utility classes](../utilities/color.md) to set the button's semantic variant.
 
 ```html {.example}
-<button class="wa-neutral">Neutral</button>
+<button class="wa-neutral"><wa-icon name="home"></wa-icon> Neutral</button>
 <button class="wa-brand">Brand</button>
 <button class="wa-success">Success</button>
 <button class="wa-warning">Warning</button>

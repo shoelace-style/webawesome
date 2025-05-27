@@ -34,6 +34,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
 - Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
+- Improved native `<button>` styles to properly space icons
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13

@@ -756,6 +756,8 @@
     --text-color-hover: var(--text-color);
     --text-color-active: var(--text-color);
 
+    display: flex; /* Display flex with gap for icon spacing */
+    gap: 0.5em;
     border-radius: var(--wa-form-control-border-radius);
     border-style: var(--wa-border-style);
     border-width: var(--border-width);
