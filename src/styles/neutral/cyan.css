@@ -1,36 +1,38 @@
-:where(:root),
-:host,
-:where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']),
-.wa-neutral-cyan {
-  --wa-color-neutral-95: var(--wa-color-cyan-95);
-  --wa-color-neutral-90: var(--wa-color-cyan-90);
-  --wa-color-neutral-80: var(--wa-color-cyan-80);
-  --wa-color-neutral-70: var(--wa-color-cyan-70);
-  --wa-color-neutral-60: var(--wa-color-cyan-60);
-  --wa-color-neutral-50: var(--wa-color-cyan-50);
-  --wa-color-neutral-40: var(--wa-color-cyan-40);
-  --wa-color-neutral-30: var(--wa-color-cyan-30);
-  --wa-color-neutral-20: var(--wa-color-cyan-20);
-  --wa-color-neutral-10: var(--wa-color-cyan-10);
-  --wa-color-neutral-05: var(--wa-color-cyan-05);
-  --wa-color-neutral: var(--wa-color-cyan);
+@layer wa-neutral {
+  :where(:root),
+  :host,
+  :where([class^='wa-theme-'], [class*=' wa-theme-']),
+  :where([class^='wa-palette-'], [class*=' wa-palette-']),
+  .wa-neutral-cyan {
+    --wa-color-neutral-95: var(--wa-color-cyan-95);
+    --wa-color-neutral-90: var(--wa-color-cyan-90);
+    --wa-color-neutral-80: var(--wa-color-cyan-80);
+    --wa-color-neutral-70: var(--wa-color-cyan-70);
+    --wa-color-neutral-60: var(--wa-color-cyan-60);
+    --wa-color-neutral-50: var(--wa-color-cyan-50);
+    --wa-color-neutral-40: var(--wa-color-cyan-40);
+    --wa-color-neutral-30: var(--wa-color-cyan-30);
+    --wa-color-neutral-20: var(--wa-color-cyan-20);
+    --wa-color-neutral-10: var(--wa-color-cyan-10);
+    --wa-color-neutral-05: var(--wa-color-cyan-05);
+    --wa-color-neutral: var(--wa-color-cyan);
 
-  --wa-color-neutral-lt-50: var(--wa-color-cyan-lt-50);
-  --wa-color-neutral-gte-50: var(--wa-color-cyan-gte-50);
+    --wa-color-neutral-lt-50: var(--wa-color-cyan-lt-50);
+    --wa-color-neutral-gte-50: var(--wa-color-cyan-gte-50);
 
-  --wa-color-neutral-lt-60: var(--wa-color-cyan-lt-60);
-  --wa-color-neutral-gte-60: var(--wa-color-cyan-gte-60);
+    --wa-color-neutral-lt-60: var(--wa-color-cyan-lt-60);
+    --wa-color-neutral-gte-60: var(--wa-color-cyan-gte-60);
 
-  --wa-color-neutral-lt-70: var(--wa-color-cyan-lt-70);
-  --wa-color-neutral-gte-70: var(--wa-color-cyan-gte-70);
+    --wa-color-neutral-lt-70: var(--wa-color-cyan-lt-70);
+    --wa-color-neutral-gte-70: var(--wa-color-cyan-gte-70);
 
-  --wa-color-neutral-max-50: var(--wa-color-cyan-max-50);
-  --wa-color-neutral-min-50: var(--wa-color-cyan-min-50);
-  --wa-color-neutral-max-60: var(--wa-color-cyan-max-60);
-  --wa-color-neutral-min-60: var(--wa-color-cyan-min-60);
-  --wa-color-neutral-max-70: var(--wa-color-cyan-max-70);
-  --wa-color-neutral-min-70: var(--wa-color-cyan-min-70);
+    --wa-color-neutral-max-50: var(--wa-color-cyan-max-50);
+    --wa-color-neutral-min-50: var(--wa-color-cyan-min-50);
+    --wa-color-neutral-max-60: var(--wa-color-cyan-max-60);
+    --wa-color-neutral-min-60: var(--wa-color-cyan-min-60);
+    --wa-color-neutral-max-70: var(--wa-color-cyan-max-70);
+    --wa-color-neutral-min-70: var(--wa-color-cyan-min-70);
 
-  --wa-color-neutral-on: var(--wa-color-cyan-on);
+    --wa-color-neutral-on: var(--wa-color-cyan-on);
+  }
 }
