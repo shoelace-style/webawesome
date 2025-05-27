@@ -1201,7 +1201,7 @@
     &::-webkit-progress-bar {
       background-color: var(
         --indicator-color
-      ); /* Chrome does not render a ::-webkit-progress-value for indeterminates */
+      ); /* Chrome does not render a ::-webkit-progress-value for indeterminate progress */
     }
   }
 
