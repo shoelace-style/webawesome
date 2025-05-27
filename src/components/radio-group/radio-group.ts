@@ -8,22 +8,19 @@ import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
-import '../radio-button/radio-button.js';
-import type WaRadioButton from '../radio-button/radio-button.js';
 import '../radio/radio.js';
 import type WaRadio from '../radio/radio.js';
 import styles from './radio-group.css';
 
 /**
- * @summary Radio groups are used to group multiple [radios](/docs/components/radio) or [radio buttons](/docs/components/radio-button) so they function as a single form control.
+ * @summary Radio groups are used to group multiple [radios](/docs/components/radio) so they function as a single form control.
  * @documentation https://backers.webawesome.com/docs/components/radio-group
  * @status stable
  * @since 2.0
  *
  * @dependency wa-radio
- * @dependency wa-radio-button
  *
- * @slot - The default slot where `<wa-radio>` or `<wa-radio-button>` elements are placed.
+ * @slot - The default slot where `<wa-radio>` elements are placed.
  * @slot label - The radio group's label. Required for proper accessibility. Alternatively, you can use the `label`
  *  attribute.
  * @slot hint - Text that describes how to use the radio group. Alternatively, you can use the `hint` attribute.
@@ -62,8 +59,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  @state() private hasRadioButtons = false;
-
   /**
    * The radio group's label. Required for proper accessibility. If you need to display HTML, use the `label` slot
    * instead.
@@ -100,7 +95,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. This size will be applied to all child radios and radio buttons, except when explicitly overridden. */
+  /** The radio group's size. This size will be applied to all child radios, except when explicitly overridden. */
   @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
@@ -132,7 +127,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   private handleRadioClick = (e: Event) => {
-    const clickedRadio = (e.target as HTMLElement).closest<WaRadio | WaRadioButton>('wa-radio, wa-radio-button');
+    const clickedRadio = (e.target as HTMLElement).closest<WaRadio>('wa-radio');
 
     if (!clickedRadio || clickedRadio.disabled) {
       return;
@@ -163,7 +158,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   };
 
   private getAllRadios() {
-    return [...this.querySelectorAll<WaRadio | WaRadioButton>('wa-radio, wa-radio-button')];
+    return [...this.querySelectorAll<WaRadio>('wa-radio')];
   }
 
   private handleLabelClick() {
@@ -172,9 +167,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private async syncRadioElements() {
     const radios = this.getAllRadios();
-
-    // Detect the presence of radio buttons
-    this.hasRadioButtons = radios.some(radio => radio.localName === 'wa-radio-button');
 
     // Add data attributes to support styling
     radios.forEach((radio, index) => {
@@ -186,7 +178,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     });
 
     await Promise.all(
-      // Sync the checked state and size
       radios.map(async radio => {
         await radio.updateComplete;
 
@@ -199,23 +190,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     );
 
     if (radios.length > 0 && !radios.some(radio => radio.checked)) {
-      if (this.hasRadioButtons) {
-        const buttonRadio = radios[0].shadowRoot?.querySelector('button');
-
-        if (buttonRadio) {
-          buttonRadio.setAttribute('tabindex', '0');
-        }
-      } else {
-        radios[0].setAttribute('tabindex', '0');
-      }
-    }
-
-    if (this.hasRadioButtons) {
-      const buttonGroup = this.shadowRoot?.querySelector('wa-button-group');
-
-      if (buttonGroup) {
-        buttonGroup.disableRole = true;
-      }
+      radios[0].setAttribute('tabindex', '0');
     }
   }
 
@@ -226,25 +201,14 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   get validationTarget() {
     if (isServer) return undefined;
 
-    const radio = this.querySelector<WaRadio | WaRadioButton>(':is(wa-radio, wa-radio-button):not([disabled])');
+    const radio = this.querySelector<WaRadio>(':is(wa-radio):not([disabled])');
     if (!radio) return undefined;
 
-    // If it's a radio button, return the internal button element
-    if (radio.localName === 'wa-radio-button') {
-      return radio.input || radio;
-    }
-
-    // Otherwise return the radio itself
     return radio;
   }
 
   @watch('value')
   handleValueChange() {
-    this.syncRadioElements();
-  }
-
-  @watch('size', { waitUntilFirstUpdate: true })
-  handleSizeChange() {
     this.syncRadioElements();
   }
 
@@ -339,7 +303,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control-radio-group': true,
           'form-control-has-label': hasLabel,
-          'form-control-has-radio-buttons': this.hasRadioButtons,
         })}
         role="radiogroup"
         aria-labelledby="label"
@@ -357,14 +320,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           <slot name="label">${this.label}</slot>
         </label>
 
-        <slot
-          part="form-control-input"
-          class=${classMap({
-            'wa-button-group': this.hasRadioButtons,
-            'wa-button-group-vertical': this.hasRadioButtons && this.orientation === 'vertical',
-          })}
-          @slotchange=${this.syncRadioElements}
-        ></slot>
+        <slot part="form-control-input" @slotchange=${this.syncRadioElements}></slot>
 
         <slot
           name="hint"

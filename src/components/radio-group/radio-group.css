@@ -35,12 +35,6 @@
   gap: var(--wa-space-m);
 }
 
-/* When radio buttons are slotted */
-:host([orientation]) .form-control-has-radio-buttons [part~='form-control-input'] {
-  gap: 0;
-  flex-wrap: nowrap;
-}
-
 /* Help text */
 [part~='hint'] {
   margin-block-start: var(--wa-space-xs);

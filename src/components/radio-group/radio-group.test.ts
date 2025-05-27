@@ -264,44 +264,6 @@ describe('<wa-radio-group>', () => {
         expect(radio2.size).to.equal('inherit');
         expect(radio2.getComputed('size')).to.equal('large');
       });
-
-      it('should apply the same size to all radio buttons', async () => {
-        const radioGroup = await fixture<WaRadioGroup>(html`
-          <wa-radio-group size="large">
-            <wa-radio-button id="radio-1" value="1"></wa-radio-button>
-            <wa-radio-button id="radio-2" value="2"></wa-radio-button>
-          </wa-radio-group>
-        `);
-        const [radio1, radio2] = radioGroup.querySelectorAll('wa-radio-button');
-
-        expect(radio1.size).to.equal('inherit');
-        expect(radio1.getComputed('size')).to.equal('large');
-        expect(radio2.size).to.equal('inherit');
-        expect(radio2.getComputed('size')).to.equal('large');
-      });
-
-      it('should update the computed size of all radio buttons when size changes', async () => {
-        const radioGroup = await fixture<WaRadioGroup>(html`
-          <wa-radio-group size="small">
-            <wa-radio-button id="radio-1" value="1"></wa-radio-button>
-            <wa-radio-button id="radio-2" value="2"></wa-radio-button>
-          </wa-radio-group>
-        `);
-        const [radio1, radio2] = radioGroup.querySelectorAll('wa-radio-button');
-
-        expect(radio1.size).to.equal('inherit');
-        expect(radio1.getComputed('size')).to.equal('small');
-        expect(radio2.size).to.equal('inherit');
-        expect(radio2.getComputed('size')).to.equal('small');
-
-        radioGroup.size = 'large';
-        await radioGroup.updateComplete;
-
-        expect(radio1.size).to.equal('inherit');
-        expect(radio1.getComputed('size')).to.equal('large');
-        expect(radio2.size).to.equal('inherit');
-        expect(radio2.getComputed('size')).to.equal('large');
-      });
     });
 
     describe('when handling focus', () => {

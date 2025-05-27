@@ -205,6 +205,10 @@ slot[name='suffix']::slotted(*),
 }
 
 /* Vertical orientation */
+:host(.wa-button-group__vertical) {
+  flex: 1 1 auto;
+}
+
 :host(.wa-button-group__vertical) .button {
   width: 100%;
   justify-content: start;

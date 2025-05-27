@@ -6,7 +6,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import type WaButton from '../button/button.js';
-import type WaRadioButton from '../radio-button/radio-button.js';
 import styles from './button-group.css';
 
 /**
@@ -125,7 +124,7 @@ function findButton(el: HTMLElement) {
   const selector = 'wa-button, wa-radio-button';
 
   // The button could be the target element or a child of it (e.g. a dropdown or tooltip anchor)
-  return (el.closest(selector) ?? el.querySelector(selector)) as WaButton | WaRadioButton;
+  return (el.closest(selector) ?? el.querySelector(selector)) as WaButton;
 }
 
 declare global {

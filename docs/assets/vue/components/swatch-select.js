@@ -5,7 +5,7 @@ import InfoTip from './info-tip.js';
 const template = `
 <wa-radio-group :label class="swatch-select" :class="'swatch-shape-' + shape" orientation="horizontal" :value @input="handleInput">
   <info-tip v-for="value in values">
-      <wa-radio-button :value :label="getLabel(value)" :style="{'--color': getColor(value)}"></wa-radio-button>
+      <wa-radio appearance="button" :value :label="getLabel(value)" :style="{'--color': getColor(value)}"></wa-radio>
       <template #content>
         {{ getLabel(value) }}
       </template>
