@@ -53,7 +53,7 @@ export function codeExamplesPlugin(options = {}) {
         `);
 
         const codeExample = parse(`
-          <div class="code-example ${isOpen ? 'open' : ''}">
+          <div class="code-example ${isOpen ? 'open' : ''} ${isViewportDemo ? 'is-viewport-demo' : ''}">
             <div class="code-example-preview">
 
               ${isViewportDemo ? ` <wa-viewport-demo><iframe srcdoc="${escapedHtml}"></iframe></wa-viewport-demo>` : preview}
