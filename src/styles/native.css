@@ -1,6 +1,5 @@
 /* Web Awesome Native styles */
 @layer wa-native {
-  /* Baseline styles for the root elements or multiple native elements at once */
   html {
     box-sizing: border-box;
     background-color: var(--wa-color-surface-default);
