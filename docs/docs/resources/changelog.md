@@ -13,6 +13,7 @@ During the alpha period, things might break! We take breaking changes very serio
 :::
 
 ## Next
+
 - 🚨 BREAKING: Greatly simplified how native styles work and removed redundant utilities
   - Removed `.wa-button`, `.wa-callout` classes
   - Removed `themes/native/*.css` files; use `native.css` to opt into native styles
