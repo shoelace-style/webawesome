@@ -1,338 +1,388 @@
-:where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']),
-:where([class^='wa-brand-'], [class*=' wa-brand-']),
-:where(:root),
-:host {
-  /**
+@layer wa-color {
+  :where([class^='wa-theme-'], [class*=' wa-theme-']),
+  :where([class^='wa-palette-'], [class*=' wa-palette-']),
+  :where([class^='wa-brand-'], [class*=' wa-brand-']),
+  :where(:root),
+  :host {
+    /**
    * Conditional tokens for use in color-mix()
    * --wa-color-{hue}-lt-N ➡️ 100% if key < N, 0% otherwise
    * --wa-color-{hue}-gte-N ➡️ 100% if key >= N, 0% otherwise
    */
 
-  --wa-color-red-lt-50: calc(clamp(0, 50 - var(--wa-color-red-key), 1) * 100%);
-  --wa-color-red-gte-50: calc(100% - var(--wa-color-red-lt-50));
-  --wa-color-red-lt-60: calc(clamp(0, 60 - var(--wa-color-red-key), 1) * 100%);
-  --wa-color-red-gte-60: calc(100% - var(--wa-color-red-lt-60));
-  --wa-color-red-lt-70: calc(clamp(0, 70 - var(--wa-color-red-key), 1) * 100%);
-  --wa-color-red-gte-70: calc(100% - var(--wa-color-red-lt-70));
+    --wa-color-red-lt-50: calc(clamp(0, 50 - var(--wa-color-red-key), 1) * 100%);
+    --wa-color-red-gte-50: calc(100% - var(--wa-color-red-lt-50));
+    --wa-color-red-lt-60: calc(clamp(0, 60 - var(--wa-color-red-key), 1) * 100%);
+    --wa-color-red-gte-60: calc(100% - var(--wa-color-red-lt-60));
+    --wa-color-red-lt-70: calc(clamp(0, 70 - var(--wa-color-red-key), 1) * 100%);
+    --wa-color-red-gte-70: calc(100% - var(--wa-color-red-lt-70));
 
-  --wa-color-orange-lt-50: calc(clamp(0, 50 - var(--wa-color-orange-key), 1) * 100%);
-  --wa-color-orange-gte-50: calc(100% - var(--wa-color-orange-lt-50));
-  --wa-color-orange-lt-60: calc(clamp(0, 60 - var(--wa-color-orange-key), 1) * 100%);
-  --wa-color-orange-gte-60: calc(100% - var(--wa-color-orange-lt-60));
-  --wa-color-orange-lt-70: calc(clamp(0, 70 - var(--wa-color-orange-key), 1) * 100%);
-  --wa-color-orange-gte-70: calc(100% - var(--wa-color-orange-lt-70));
+    --wa-color-orange-lt-50: calc(clamp(0, 50 - var(--wa-color-orange-key), 1) * 100%);
+    --wa-color-orange-gte-50: calc(100% - var(--wa-color-orange-lt-50));
+    --wa-color-orange-lt-60: calc(clamp(0, 60 - var(--wa-color-orange-key), 1) * 100%);
+    --wa-color-orange-gte-60: calc(100% - var(--wa-color-orange-lt-60));
+    --wa-color-orange-lt-70: calc(clamp(0, 70 - var(--wa-color-orange-key), 1) * 100%);
+    --wa-color-orange-gte-70: calc(100% - var(--wa-color-orange-lt-70));
 
-  --wa-color-yellow-lt-50: calc(clamp(0, 50 - var(--wa-color-yellow-key), 1) * 100%);
-  --wa-color-yellow-gte-50: calc(100% - var(--wa-color-yellow-lt-50));
-  --wa-color-yellow-lt-60: calc(clamp(0, 60 - var(--wa-color-yellow-key), 1) * 100%);
-  --wa-color-yellow-gte-60: calc(100% - var(--wa-color-yellow-lt-60));
-  --wa-color-yellow-lt-70: calc(clamp(0, 70 - var(--wa-color-yellow-key), 1) * 100%);
-  --wa-color-yellow-gte-70: calc(100% - var(--wa-color-yellow-lt-70));
+    --wa-color-yellow-lt-50: calc(clamp(0, 50 - var(--wa-color-yellow-key), 1) * 100%);
+    --wa-color-yellow-gte-50: calc(100% - var(--wa-color-yellow-lt-50));
+    --wa-color-yellow-lt-60: calc(clamp(0, 60 - var(--wa-color-yellow-key), 1) * 100%);
+    --wa-color-yellow-gte-60: calc(100% - var(--wa-color-yellow-lt-60));
+    --wa-color-yellow-lt-70: calc(clamp(0, 70 - var(--wa-color-yellow-key), 1) * 100%);
+    --wa-color-yellow-gte-70: calc(100% - var(--wa-color-yellow-lt-70));
 
-  --wa-color-green-lt-50: calc(clamp(0, 50 - var(--wa-color-green-key), 1) * 100%);
-  --wa-color-green-gte-50: calc(100% - var(--wa-color-green-lt-50));
-  --wa-color-green-lt-60: calc(clamp(0, 60 - var(--wa-color-green-key), 1) * 100%);
-  --wa-color-green-gte-60: calc(100% - var(--wa-color-green-lt-60));
-  --wa-color-green-lt-70: calc(clamp(0, 70 - var(--wa-color-green-key), 1) * 100%);
-  --wa-color-green-gte-70: calc(100% - var(--wa-color-green-lt-70));
+    --wa-color-green-lt-50: calc(clamp(0, 50 - var(--wa-color-green-key), 1) * 100%);
+    --wa-color-green-gte-50: calc(100% - var(--wa-color-green-lt-50));
+    --wa-color-green-lt-60: calc(clamp(0, 60 - var(--wa-color-green-key), 1) * 100%);
+    --wa-color-green-gte-60: calc(100% - var(--wa-color-green-lt-60));
+    --wa-color-green-lt-70: calc(clamp(0, 70 - var(--wa-color-green-key), 1) * 100%);
+    --wa-color-green-gte-70: calc(100% - var(--wa-color-green-lt-70));
 
-  --wa-color-cyan-lt-50: calc(clamp(0, 50 - var(--wa-color-cyan-key), 1) * 100%);
-  --wa-color-cyan-gte-50: calc(100% - var(--wa-color-cyan-lt-50));
-  --wa-color-cyan-lt-60: calc(clamp(0, 60 - var(--wa-color-cyan-key), 1) * 100%);
-  --wa-color-cyan-gte-60: calc(100% - var(--wa-color-cyan-lt-60));
-  --wa-color-cyan-lt-70: calc(clamp(0, 70 - var(--wa-color-cyan-key), 1) * 100%);
-  --wa-color-cyan-gte-70: calc(100% - var(--wa-color-cyan-lt-70));
+    --wa-color-cyan-lt-50: calc(clamp(0, 50 - var(--wa-color-cyan-key), 1) * 100%);
+    --wa-color-cyan-gte-50: calc(100% - var(--wa-color-cyan-lt-50));
+    --wa-color-cyan-lt-60: calc(clamp(0, 60 - var(--wa-color-cyan-key), 1) * 100%);
+    --wa-color-cyan-gte-60: calc(100% - var(--wa-color-cyan-lt-60));
+    --wa-color-cyan-lt-70: calc(clamp(0, 70 - var(--wa-color-cyan-key), 1) * 100%);
+    --wa-color-cyan-gte-70: calc(100% - var(--wa-color-cyan-lt-70));
 
-  --wa-color-blue-lt-50: calc(clamp(0, 50 - var(--wa-color-blue-key), 1) * 100%);
-  --wa-color-blue-gte-50: calc(100% - var(--wa-color-blue-lt-50));
-  --wa-color-blue-lt-60: calc(clamp(0, 60 - var(--wa-color-blue-key), 1) * 100%);
-  --wa-color-blue-gte-60: calc(100% - var(--wa-color-blue-lt-60));
-  --wa-color-blue-lt-70: calc(clamp(0, 70 - var(--wa-color-blue-key), 1) * 100%);
-  --wa-color-blue-gte-70: calc(100% - var(--wa-color-blue-lt-70));
+    --wa-color-blue-lt-50: calc(clamp(0, 50 - var(--wa-color-blue-key), 1) * 100%);
+    --wa-color-blue-gte-50: calc(100% - var(--wa-color-blue-lt-50));
+    --wa-color-blue-lt-60: calc(clamp(0, 60 - var(--wa-color-blue-key), 1) * 100%);
+    --wa-color-blue-gte-60: calc(100% - var(--wa-color-blue-lt-60));
+    --wa-color-blue-lt-70: calc(clamp(0, 70 - var(--wa-color-blue-key), 1) * 100%);
+    --wa-color-blue-gte-70: calc(100% - var(--wa-color-blue-lt-70));
 
-  --wa-color-indigo-lt-50: calc(clamp(0, 50 - var(--wa-color-indigo-key), 1) * 100%);
-  --wa-color-indigo-gte-50: calc(100% - var(--wa-color-indigo-lt-50));
-  --wa-color-indigo-lt-60: calc(clamp(0, 60 - var(--wa-color-indigo-key), 1) * 100%);
-  --wa-color-indigo-gte-60: calc(100% - var(--wa-color-indigo-lt-60));
-  --wa-color-indigo-lt-70: calc(clamp(0, 70 - var(--wa-color-indigo-key), 1) * 100%);
-  --wa-color-indigo-gte-70: calc(100% - var(--wa-color-indigo-lt-70));
+    --wa-color-indigo-lt-50: calc(clamp(0, 50 - var(--wa-color-indigo-key), 1) * 100%);
+    --wa-color-indigo-gte-50: calc(100% - var(--wa-color-indigo-lt-50));
+    --wa-color-indigo-lt-60: calc(clamp(0, 60 - var(--wa-color-indigo-key), 1) * 100%);
+    --wa-color-indigo-gte-60: calc(100% - var(--wa-color-indigo-lt-60));
+    --wa-color-indigo-lt-70: calc(clamp(0, 70 - var(--wa-color-indigo-key), 1) * 100%);
+    --wa-color-indigo-gte-70: calc(100% - var(--wa-color-indigo-lt-70));
 
-  --wa-color-purple-lt-50: calc(clamp(0, 50 - var(--wa-color-purple-key), 1) * 100%);
-  --wa-color-purple-gte-50: calc(100% - var(--wa-color-purple-lt-50));
-  --wa-color-purple-lt-60: calc(clamp(0, 60 - var(--wa-color-purple-key), 1) * 100%);
-  --wa-color-purple-gte-60: calc(100% - var(--wa-color-purple-lt-60));
-  --wa-color-purple-lt-70: calc(clamp(0, 70 - var(--wa-color-purple-key), 1) * 100%);
-  --wa-color-purple-gte-70: calc(100% - var(--wa-color-purple-lt-70));
+    --wa-color-purple-lt-50: calc(clamp(0, 50 - var(--wa-color-purple-key), 1) * 100%);
+    --wa-color-purple-gte-50: calc(100% - var(--wa-color-purple-lt-50));
+    --wa-color-purple-lt-60: calc(clamp(0, 60 - var(--wa-color-purple-key), 1) * 100%);
+    --wa-color-purple-gte-60: calc(100% - var(--wa-color-purple-lt-60));
+    --wa-color-purple-lt-70: calc(clamp(0, 70 - var(--wa-color-purple-key), 1) * 100%);
+    --wa-color-purple-gte-70: calc(100% - var(--wa-color-purple-lt-70));
 
-  --wa-color-pink-lt-50: calc(clamp(0, 50 - var(--wa-color-pink-key), 1) * 100%);
-  --wa-color-pink-gte-50: calc(100% - var(--wa-color-pink-lt-50));
-  --wa-color-pink-lt-60: calc(clamp(0, 60 - var(--wa-color-pink-key), 1) * 100%);
-  --wa-color-pink-gte-60: calc(100% - var(--wa-color-pink-lt-60));
-  --wa-color-pink-lt-70: calc(clamp(0, 70 - var(--wa-color-pink-key), 1) * 100%);
-  --wa-color-pink-gte-70: calc(100% - var(--wa-color-pink-lt-70));
+    --wa-color-pink-lt-50: calc(clamp(0, 50 - var(--wa-color-pink-key), 1) * 100%);
+    --wa-color-pink-gte-50: calc(100% - var(--wa-color-pink-lt-50));
+    --wa-color-pink-lt-60: calc(clamp(0, 60 - var(--wa-color-pink-key), 1) * 100%);
+    --wa-color-pink-gte-60: calc(100% - var(--wa-color-pink-lt-60));
+    --wa-color-pink-lt-70: calc(clamp(0, 70 - var(--wa-color-pink-key), 1) * 100%);
+    --wa-color-pink-gte-70: calc(100% - var(--wa-color-pink-lt-70));
 
-  --wa-color-gray-lt-50: calc(clamp(0, 50 - var(--wa-color-gray-key), 1) * 100%);
-  --wa-color-gray-gte-50: calc(100% - var(--wa-color-gray-lt-50));
-  --wa-color-gray-lt-60: calc(clamp(0, 60 - var(--wa-color-gray-key), 1) * 100%);
-  --wa-color-gray-gte-60: calc(100% - var(--wa-color-gray-lt-60));
-  --wa-color-gray-lt-70: calc(clamp(0, 70 - var(--wa-color-gray-key), 1) * 100%);
-  --wa-color-gray-gte-70: calc(100% - var(--wa-color-gray-lt-70));
+    --wa-color-gray-lt-50: calc(clamp(0, 50 - var(--wa-color-gray-key), 1) * 100%);
+    --wa-color-gray-gte-50: calc(100% - var(--wa-color-gray-lt-50));
+    --wa-color-gray-lt-60: calc(clamp(0, 60 - var(--wa-color-gray-key), 1) * 100%);
+    --wa-color-gray-gte-60: calc(100% - var(--wa-color-gray-lt-60));
+    --wa-color-gray-lt-70: calc(clamp(0, 70 - var(--wa-color-gray-key), 1) * 100%);
+    --wa-color-gray-gte-70: calc(100% - var(--wa-color-gray-lt-70));
 
-  /*
+    /*
    * Convenience tokens for common tint cutoffs
    * --wa-color-{hue}-N-max ➡️ var(--color-{hue}) if key <= N, var(--color-{hue}-N) otherwise
    * --wa-color-{hue}-N-min ➡️ var(--color-{hue}) if key >= N, var(--color-{hue}-N) otherwise
    */
 
-  --wa-color-red-max-50: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-50), var(--wa-color-red-50));
-  --wa-color-red-min-50: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-50), var(--wa-color-red-50));
-  --wa-color-red-max-60: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-60), var(--wa-color-red-60));
-  --wa-color-red-min-60: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-60), var(--wa-color-red-60));
-  --wa-color-red-max-70: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-70), var(--wa-color-red-70));
-  --wa-color-red-min-70: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-70), var(--wa-color-red-70));
+    --wa-color-red-max-50: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-50), var(--wa-color-red-50));
+    --wa-color-red-min-50: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-50), var(--wa-color-red-50));
+    --wa-color-red-max-60: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-60), var(--wa-color-red-60));
+    --wa-color-red-min-60: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-60), var(--wa-color-red-60));
+    --wa-color-red-max-70: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-lt-70), var(--wa-color-red-70));
+    --wa-color-red-min-70: color-mix(in oklab, var(--wa-color-red) var(--wa-color-red-gte-70), var(--wa-color-red-70));
 
-  --wa-color-orange-max-50: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-lt-50),
-    var(--wa-color-orange-50)
-  );
-  --wa-color-orange-min-50: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-gte-50),
-    var(--wa-color-orange-50)
-  );
-  --wa-color-orange-max-60: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-lt-60),
-    var(--wa-color-orange-60)
-  );
-  --wa-color-orange-min-60: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-gte-60),
-    var(--wa-color-orange-60)
-  );
-  --wa-color-orange-max-70: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-lt-70),
-    var(--wa-color-orange-70)
-  );
-  --wa-color-orange-min-70: color-mix(
-    in oklab,
-    var(--wa-color-orange) var(--wa-color-orange-gte-70),
-    var(--wa-color-orange-70)
-  );
+    --wa-color-orange-max-50: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-lt-50),
+      var(--wa-color-orange-50)
+    );
+    --wa-color-orange-min-50: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-gte-50),
+      var(--wa-color-orange-50)
+    );
+    --wa-color-orange-max-60: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-lt-60),
+      var(--wa-color-orange-60)
+    );
+    --wa-color-orange-min-60: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-gte-60),
+      var(--wa-color-orange-60)
+    );
+    --wa-color-orange-max-70: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-lt-70),
+      var(--wa-color-orange-70)
+    );
+    --wa-color-orange-min-70: color-mix(
+      in oklab,
+      var(--wa-color-orange) var(--wa-color-orange-gte-70),
+      var(--wa-color-orange-70)
+    );
 
-  --wa-color-yellow-max-50: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-lt-50),
-    var(--wa-color-yellow-50)
-  );
-  --wa-color-yellow-min-50: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-gte-50),
-    var(--wa-color-yellow-50)
-  );
-  --wa-color-yellow-max-60: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-lt-60),
-    var(--wa-color-yellow-60)
-  );
-  --wa-color-yellow-min-60: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-gte-60),
-    var(--wa-color-yellow-60)
-  );
-  --wa-color-yellow-max-70: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-lt-70),
-    var(--wa-color-yellow-70)
-  );
-  --wa-color-yellow-min-70: color-mix(
-    in oklab,
-    var(--wa-color-yellow) var(--wa-color-yellow-gte-70),
-    var(--wa-color-yellow-70)
-  );
+    --wa-color-yellow-max-50: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-lt-50),
+      var(--wa-color-yellow-50)
+    );
+    --wa-color-yellow-min-50: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-gte-50),
+      var(--wa-color-yellow-50)
+    );
+    --wa-color-yellow-max-60: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-lt-60),
+      var(--wa-color-yellow-60)
+    );
+    --wa-color-yellow-min-60: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-gte-60),
+      var(--wa-color-yellow-60)
+    );
+    --wa-color-yellow-max-70: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-lt-70),
+      var(--wa-color-yellow-70)
+    );
+    --wa-color-yellow-min-70: color-mix(
+      in oklab,
+      var(--wa-color-yellow) var(--wa-color-yellow-gte-70),
+      var(--wa-color-yellow-70)
+    );
 
-  --wa-color-green-max-50: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-lt-50),
-    var(--wa-color-green-50)
-  );
-  --wa-color-green-min-50: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-gte-50),
-    var(--wa-color-green-50)
-  );
-  --wa-color-green-max-60: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-lt-60),
-    var(--wa-color-green-60)
-  );
-  --wa-color-green-min-60: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-gte-60),
-    var(--wa-color-green-60)
-  );
-  --wa-color-green-max-70: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-lt-70),
-    var(--wa-color-green-70)
-  );
-  --wa-color-green-min-70: color-mix(
-    in oklab,
-    var(--wa-color-green) var(--wa-color-green-gte-70),
-    var(--wa-color-green-70)
-  );
+    --wa-color-green-max-50: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-lt-50),
+      var(--wa-color-green-50)
+    );
+    --wa-color-green-min-50: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-gte-50),
+      var(--wa-color-green-50)
+    );
+    --wa-color-green-max-60: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-lt-60),
+      var(--wa-color-green-60)
+    );
+    --wa-color-green-min-60: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-gte-60),
+      var(--wa-color-green-60)
+    );
+    --wa-color-green-max-70: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-lt-70),
+      var(--wa-color-green-70)
+    );
+    --wa-color-green-min-70: color-mix(
+      in oklab,
+      var(--wa-color-green) var(--wa-color-green-gte-70),
+      var(--wa-color-green-70)
+    );
 
-  --wa-color-cyan-max-50: color-mix(in oklab, var(--wa-color-cyan) var(--wa-color-cyan-lt-50), var(--wa-color-cyan-50));
-  --wa-color-cyan-min-50: color-mix(
-    in oklab,
-    var(--wa-color-cyan) var(--wa-color-cyan-gte-50),
-    var(--wa-color-cyan-50)
-  );
-  --wa-color-cyan-max-60: color-mix(in oklab, var(--wa-color-cyan) var(--wa-color-cyan-lt-60), var(--wa-color-cyan-60));
-  --wa-color-cyan-min-60: color-mix(
-    in oklab,
-    var(--wa-color-cyan) var(--wa-color-cyan-gte-60),
-    var(--wa-color-cyan-60)
-  );
-  --wa-color-cyan-max-70: color-mix(in oklab, var(--wa-color-cyan) var(--wa-color-cyan-lt-70), var(--wa-color-cyan-70));
-  --wa-color-cyan-min-70: color-mix(
-    in oklab,
-    var(--wa-color-cyan) var(--wa-color-cyan-gte-70),
-    var(--wa-color-cyan-70)
-  );
+    --wa-color-cyan-max-50: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-lt-50),
+      var(--wa-color-cyan-50)
+    );
+    --wa-color-cyan-min-50: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-gte-50),
+      var(--wa-color-cyan-50)
+    );
+    --wa-color-cyan-max-60: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-lt-60),
+      var(--wa-color-cyan-60)
+    );
+    --wa-color-cyan-min-60: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-gte-60),
+      var(--wa-color-cyan-60)
+    );
+    --wa-color-cyan-max-70: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-lt-70),
+      var(--wa-color-cyan-70)
+    );
+    --wa-color-cyan-min-70: color-mix(
+      in oklab,
+      var(--wa-color-cyan) var(--wa-color-cyan-gte-70),
+      var(--wa-color-cyan-70)
+    );
 
-  --wa-color-blue-max-50: color-mix(in oklab, var(--wa-color-blue) var(--wa-color-blue-lt-50), var(--wa-color-blue-50));
-  --wa-color-blue-min-50: color-mix(
-    in oklab,
-    var(--wa-color-blue) var(--wa-color-blue-gte-50),
-    var(--wa-color-blue-50)
-  );
-  --wa-color-blue-max-60: color-mix(in oklab, var(--wa-color-blue) var(--wa-color-blue-lt-60), var(--wa-color-blue-60));
-  --wa-color-blue-min-60: color-mix(
-    in oklab,
-    var(--wa-color-blue) var(--wa-color-blue-gte-60),
-    var(--wa-color-blue-60)
-  );
-  --wa-color-blue-max-70: color-mix(in oklab, var(--wa-color-blue) var(--wa-color-blue-lt-70), var(--wa-color-blue-70));
-  --wa-color-blue-min-70: color-mix(
-    in oklab,
-    var(--wa-color-blue) var(--wa-color-blue-gte-70),
-    var(--wa-color-blue-70)
-  );
+    --wa-color-blue-max-50: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-lt-50),
+      var(--wa-color-blue-50)
+    );
+    --wa-color-blue-min-50: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-gte-50),
+      var(--wa-color-blue-50)
+    );
+    --wa-color-blue-max-60: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-lt-60),
+      var(--wa-color-blue-60)
+    );
+    --wa-color-blue-min-60: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-gte-60),
+      var(--wa-color-blue-60)
+    );
+    --wa-color-blue-max-70: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-lt-70),
+      var(--wa-color-blue-70)
+    );
+    --wa-color-blue-min-70: color-mix(
+      in oklab,
+      var(--wa-color-blue) var(--wa-color-blue-gte-70),
+      var(--wa-color-blue-70)
+    );
 
-  --wa-color-indigo-max-50: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-lt-50),
-    var(--wa-color-indigo-50)
-  );
-  --wa-color-indigo-min-50: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-gte-50),
-    var(--wa-color-indigo-50)
-  );
-  --wa-color-indigo-max-60: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-lt-60),
-    var(--wa-color-indigo-60)
-  );
-  --wa-color-indigo-min-60: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-gte-60),
-    var(--wa-color-indigo-60)
-  );
-  --wa-color-indigo-max-70: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-lt-70),
-    var(--wa-color-indigo-70)
-  );
-  --wa-color-indigo-min-70: color-mix(
-    in oklab,
-    var(--wa-color-indigo) var(--wa-color-indigo-gte-70),
-    var(--wa-color-indigo-70)
-  );
+    --wa-color-indigo-max-50: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-lt-50),
+      var(--wa-color-indigo-50)
+    );
+    --wa-color-indigo-min-50: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-gte-50),
+      var(--wa-color-indigo-50)
+    );
+    --wa-color-indigo-max-60: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-lt-60),
+      var(--wa-color-indigo-60)
+    );
+    --wa-color-indigo-min-60: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-gte-60),
+      var(--wa-color-indigo-60)
+    );
+    --wa-color-indigo-max-70: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-lt-70),
+      var(--wa-color-indigo-70)
+    );
+    --wa-color-indigo-min-70: color-mix(
+      in oklab,
+      var(--wa-color-indigo) var(--wa-color-indigo-gte-70),
+      var(--wa-color-indigo-70)
+    );
 
-  --wa-color-purple-max-50: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-lt-50),
-    var(--wa-color-purple-50)
-  );
-  --wa-color-purple-min-50: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-gte-50),
-    var(--wa-color-purple-50)
-  );
-  --wa-color-purple-max-60: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-lt-60),
-    var(--wa-color-purple-60)
-  );
-  --wa-color-purple-min-60: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-gte-60),
-    var(--wa-color-purple-60)
-  );
-  --wa-color-purple-max-70: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-lt-70),
-    var(--wa-color-purple-70)
-  );
-  --wa-color-purple-min-70: color-mix(
-    in oklab,
-    var(--wa-color-purple) var(--wa-color-purple-gte-70),
-    var(--wa-color-purple-70)
-  );
+    --wa-color-purple-max-50: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-lt-50),
+      var(--wa-color-purple-50)
+    );
+    --wa-color-purple-min-50: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-gte-50),
+      var(--wa-color-purple-50)
+    );
+    --wa-color-purple-max-60: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-lt-60),
+      var(--wa-color-purple-60)
+    );
+    --wa-color-purple-min-60: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-gte-60),
+      var(--wa-color-purple-60)
+    );
+    --wa-color-purple-max-70: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-lt-70),
+      var(--wa-color-purple-70)
+    );
+    --wa-color-purple-min-70: color-mix(
+      in oklab,
+      var(--wa-color-purple) var(--wa-color-purple-gte-70),
+      var(--wa-color-purple-70)
+    );
 
-  --wa-color-pink-max-50: color-mix(in oklab, var(--wa-color-pink) var(--wa-color-pink-lt-50), var(--wa-color-pink-50));
-  --wa-color-pink-min-50: color-mix(
-    in oklab,
-    var(--wa-color-pink) var(--wa-color-pink-gte-50),
-    var(--wa-color-pink-50)
-  );
-  --wa-color-pink-max-60: color-mix(in oklab, var(--wa-color-pink) var(--wa-color-pink-lt-60), var(--wa-color-pink-60));
-  --wa-color-pink-min-60: color-mix(
-    in oklab,
-    var(--wa-color-pink) var(--wa-color-pink-gte-60),
-    var(--wa-color-pink-60)
-  );
-  --wa-color-pink-max-70: color-mix(in oklab, var(--wa-color-pink) var(--wa-color-pink-lt-70), var(--wa-color-pink-70));
-  --wa-color-pink-min-70: color-mix(
-    in oklab,
-    var(--wa-color-pink) var(--wa-color-pink-gte-70),
-    var(--wa-color-pink-70)
-  );
+    --wa-color-pink-max-50: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-lt-50),
+      var(--wa-color-pink-50)
+    );
+    --wa-color-pink-min-50: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-gte-50),
+      var(--wa-color-pink-50)
+    );
+    --wa-color-pink-max-60: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-lt-60),
+      var(--wa-color-pink-60)
+    );
+    --wa-color-pink-min-60: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-gte-60),
+      var(--wa-color-pink-60)
+    );
+    --wa-color-pink-max-70: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-lt-70),
+      var(--wa-color-pink-70)
+    );
+    --wa-color-pink-min-70: color-mix(
+      in oklab,
+      var(--wa-color-pink) var(--wa-color-pink-gte-70),
+      var(--wa-color-pink-70)
+    );
 
-  --wa-color-gray-max-50: color-mix(in oklab, var(--wa-color-gray) var(--wa-color-gray-lt-50), var(--wa-color-gray-50));
-  --wa-color-gray-min-50: color-mix(
-    in oklab,
-    var(--wa-color-gray) var(--wa-color-gray-gte-50),
-    var(--wa-color-gray-50)
-  );
-  --wa-color-gray-max-60: color-mix(in oklab, var(--wa-color-gray) var(--wa-color-gray-lt-60), var(--wa-color-gray-60));
-  --wa-color-gray-min-60: color-mix(
-    in oklab,
-    var(--wa-color-gray) var(--wa-color-gray-gte-60),
-    var(--wa-color-gray-60)
-  );
-  --wa-color-gray-max-70: color-mix(in oklab, var(--wa-color-gray) var(--wa-color-gray-lt-70), var(--wa-color-gray-70));
-  --wa-color-gray-min-70: color-mix(
-    in oklab,
-    var(--wa-color-gray) var(--wa-color-gray-gte-70),
-    var(--wa-color-gray-70)
-  );
+    --wa-color-gray-max-50: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-lt-50),
+      var(--wa-color-gray-50)
+    );
+    --wa-color-gray-min-50: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-gte-50),
+      var(--wa-color-gray-50)
+    );
+    --wa-color-gray-max-60: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-lt-60),
+      var(--wa-color-gray-60)
+    );
+    --wa-color-gray-min-60: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-gte-60),
+      var(--wa-color-gray-60)
+    );
+    --wa-color-gray-max-70: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-lt-70),
+      var(--wa-color-gray-70)
+    );
+    --wa-color-gray-min-70: color-mix(
+      in oklab,
+      var(--wa-color-gray) var(--wa-color-gray-gte-70),
+      var(--wa-color-gray-70)
+    );
 
-  /* Text color: white if key < 60, {hue}-10 otherwise */
+    /* Text color: white if key < 60, {hue}-10 otherwise */
 
-  --wa-color-red-on: color-mix(in oklab, var(--wa-color-red-10) var(--wa-color-red-gte-60), white);
-  --wa-color-orange-on: color-mix(in oklab, var(--wa-color-orange-10) var(--wa-color-orange-gte-60), white);
-  --wa-color-yellow-on: color-mix(in oklab, var(--wa-color-yellow-10) var(--wa-color-yellow-gte-60), white);
-  --wa-color-green-on: color-mix(in oklab, var(--wa-color-green-10) var(--wa-color-green-gte-60), white);
-  --wa-color-cyan-on: color-mix(in oklab, var(--wa-color-cyan-10) var(--wa-color-cyan-gte-60), white);
-  --wa-color-blue-on: color-mix(in oklab, var(--wa-color-blue-10) var(--wa-color-blue-gte-60), white);
-  --wa-color-indigo-on: color-mix(in oklab, var(--wa-color-indigo-10) var(--wa-color-indigo-gte-60), white);
-  --wa-color-purple-on: color-mix(in oklab, var(--wa-color-purple-10) var(--wa-color-purple-gte-60), white);
-  --wa-color-pink-on: color-mix(in oklab, var(--wa-color-pink-10) var(--wa-color-pink-gte-60), white);
-  --wa-color-gray-on: color-mix(in oklab, var(--wa-color-gray-10) var(--wa-color-gray-gte-60), white);
+    --wa-color-red-on: color-mix(in oklab, var(--wa-color-red-10) var(--wa-color-red-gte-60), white);
+    --wa-color-orange-on: color-mix(in oklab, var(--wa-color-orange-10) var(--wa-color-orange-gte-60), white);
+    --wa-color-yellow-on: color-mix(in oklab, var(--wa-color-yellow-10) var(--wa-color-yellow-gte-60), white);
+    --wa-color-green-on: color-mix(in oklab, var(--wa-color-green-10) var(--wa-color-green-gte-60), white);
+    --wa-color-cyan-on: color-mix(in oklab, var(--wa-color-cyan-10) var(--wa-color-cyan-gte-60), white);
+    --wa-color-blue-on: color-mix(in oklab, var(--wa-color-blue-10) var(--wa-color-blue-gte-60), white);
+    --wa-color-indigo-on: color-mix(in oklab, var(--wa-color-indigo-10) var(--wa-color-indigo-gte-60), white);
+    --wa-color-purple-on: color-mix(in oklab, var(--wa-color-purple-10) var(--wa-color-purple-gte-60), white);
+    --wa-color-pink-on: color-mix(in oklab, var(--wa-color-pink-10) var(--wa-color-pink-gte-60), white);
+    --wa-color-gray-on: color-mix(in oklab, var(--wa-color-gray-10) var(--wa-color-gray-gte-60), white);
+  }
 }

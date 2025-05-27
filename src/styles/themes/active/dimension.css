@@ -1,57 +1,59 @@
-:where(:root),
-:host,
-.wa-theme-active {
-  --wa-theme-active-shadow-pop-out: inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
-    inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
-    inset 0 -0.125rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */;
-  --wa-theme-active-shadow-punch-in: inset 0 0 0 0 transparent /* shine */,
-    inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.15) /* inner highlight */,
-    inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.15) /* inner shadow */;
+@layer wa-theme-active {
+  :where(:root),
+  :host,
+  .wa-theme-active {
+    --wa-theme-active-shadow-pop-out: inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
+      inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
+      inset 0 -0.125rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */;
+    --wa-theme-active-shadow-punch-in: inset 0 0 0 0 transparent /* shine */,
+      inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.15) /* inner highlight */,
+      inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.15) /* inner shadow */;
 
-  :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not([appearance~='plain']) {
-    box-shadow:
-      var(--wa-theme-active-shadow-pop-out),
-      inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
-
-    &:not([disabled], [loading]):active {
+    :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not([appearance~='plain']) {
       box-shadow:
-        var(--wa-theme-active-shadow-punch-in),
-        inset 0 0 0 var(--border-width) var(--border-color-active, var(--background-color-active, transparent));
+        var(--wa-theme-active-shadow-pop-out),
+        inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
+
+      &:not([disabled], [loading]):active {
+        box-shadow:
+          var(--wa-theme-active-shadow-punch-in),
+          inset 0 0 0 var(--border-width) var(--border-color-active, var(--background-color-active, transparent));
+      }
+
+      &::part(base),
+      :is(&) {
+        padding-inline: calc(var(--wa-space) + var(--border-width));
+        border-width: 0px;
+      }
     }
 
-    &::part(base),
-    :is(&) {
-      padding-inline: calc(var(--wa-space) + var(--border-width));
-      border-width: 0px;
+    wa-card {
+      box-shadow: var(--wa-theme-active-shadow-pop-out);
     }
-  }
 
-  wa-card {
-    box-shadow: var(--wa-theme-active-shadow-pop-out);
-  }
-
-  input:not([type='button'], [type='reset'], [type='submit'], :checked),
-  select,
-  textarea,
-  :is(wa-checkbox, wa-radio, wa-switch):not(:state(checked)),
-  wa-input,
-  wa-select,
-  wa-textarea {
-    &:not([appearance='filled']):not([disabled]) {
-      --box-shadow: inset var(--wa-shadow-s);
+    input:not([type='button'], [type='reset'], [type='submit'], :checked),
+    select,
+    textarea,
+    :is(wa-checkbox, wa-radio, wa-switch):not(:state(checked)),
+    wa-input,
+    wa-select,
+    wa-textarea {
+      &:not([appearance='filled']):not([disabled]) {
+        --box-shadow: inset var(--wa-shadow-s);
+      }
     }
-  }
-  input[type='range'],
-  wa-slider,
-  wa-switch {
-    --thumb-shadow: var(--wa-theme-active-shadow-pop-out);
-  }
+    input[type='range'],
+    wa-slider,
+    wa-switch {
+      --thumb-shadow: var(--wa-theme-active-shadow-pop-out);
+    }
 
-  wa-progress-bar {
-    box-shadow: inset var(--wa-shadow-s);
+    wa-progress-bar {
+      box-shadow: inset var(--wa-shadow-s);
 
-    &::part(indicator) {
-      box-shadow: inset 0 -0.5em 1em -0.5em oklch(from var(--indicator-color) calc(l - 0.1) c h);
+      &::part(indicator) {
+        box-shadow: inset 0 -0.5em 1em -0.5em oklch(from var(--indicator-color) calc(l - 0.1) c h);
+      }
     }
   }
 }
