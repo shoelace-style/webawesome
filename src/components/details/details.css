@@ -4,7 +4,7 @@
   --show-duration: 200ms;
   --hide-duration: 200ms;
 
-  display: contents;
+  display: block;
 }
 
 :host([appearance='plain']) {
@@ -36,13 +36,11 @@
 
 details {
   display: block;
-  overflow: hidden; /* Add this line */
   overflow-anchor: none;
   border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
   background-color: var(--background-color, var(--wa-color-surface-default));
   border-radius: var(--wa-panel-border-radius);
   color: var(--text-color, inherit);
-  /* Remove this line: padding: var(--spacing); */
 
   /* Print styles */
   @media print {

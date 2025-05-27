@@ -93,15 +93,18 @@ wa-page > header {
     margin: 0;
   }
 
-  h2:not(:first-child),
-  wa-details:not(:first-child) {
+  h2:not(:first-child) {
     margin-block-start: var(--wa-space-xs);
   }
 
   wa-details {
-    border: none;
-    background: none;
-    padding: 0;
+    --spacing: var(--wa-space-xs);
+
+    &::part(base) {
+      border: none;
+      background: none;
+      padding: 0;
+    }
   }
 
   ul {
