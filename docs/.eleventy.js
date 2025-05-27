@@ -35,8 +35,8 @@ const globalData = {
 
 export default function (eleventyConfig) {
   /**
-   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these passthrough extensions
-   * will also need to be updated in the Web Awesome App.
+   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
+   * passthrough extensions will also need to be updated in the Web Awesome App.
    */
   const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
@@ -44,11 +44,11 @@ export default function (eleventyConfig) {
   const passThrough = [...passThroughExtensions.map(ext => path.join(baseDir, '**/*.' + ext))];
 
   /**
-   * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
+   * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
+   * us able to still deploy the bare HTML files on Vercel until the app is ready.
    */
   const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
 
-  // Add template data
   for (let name in globalData) {
     eleventyConfig.addGlobalData(name, globalData[name]);
   }
@@ -135,6 +135,10 @@ export default function (eleventyConfig) {
   // Various text replacements
   eleventyConfig.addPlugin(
     replaceTextPlugin([
+      {
+        replace: /\[version\]/gs,
+        replaceWith: packageData.version,
+      },
       // Replace [issue:1234] with a link to the issue on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,

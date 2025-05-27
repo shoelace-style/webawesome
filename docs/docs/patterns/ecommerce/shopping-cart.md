@@ -201,7 +201,7 @@ isPro: true
 
 ## Drawer
 
-```html {.example viewport}
+```html {.example .viewport}
 <wa-drawer label="Shopping Cart" open>
   <div class="wa-stack">
     <article class="wa-flank" style="--flank-size: 6rem">
