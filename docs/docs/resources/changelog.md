@@ -33,6 +33,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
+- Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
