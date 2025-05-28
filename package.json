@@ -74,7 +74,7 @@
     "qr-creator": "^1.0.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "3.1.0",
+    "@11ty/eleventy": "^3.0.0",
     "@custom-elements-manifest/analyzer": "^0.10.4",
     "@lit-labs/eleventy-plugin-lit": "^1.0.5",
     "@lit-labs/testing": "^0.2.7",
