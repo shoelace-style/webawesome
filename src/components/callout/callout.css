@@ -1,5 +1,5 @@
 :host {
-  --icon-color: currentColor;
+  --icon-color: var(--text-color);
   --icon-size: var(--wa-font-size-l);
   --spacing: var(--wa-space-m);
 
@@ -11,12 +11,13 @@
   border-color: var(--border-color, transparent);
   border-style: var(--wa-panel-border-style);
   border-width: var(--wa-panel-border-width);
-  color: var(--text-color, var(--wa-color-on-normal));
+  color: var(--wa-color-text-normal);
+  gap: var(--spacing);
   padding: var(--spacing);
 }
 
 :host([appearance~='accent']) {
-  font-weight: var(--wa-font-weight-semibold);
+  color: var(--text-color, var(--wa-color-text-normal));
 }
 
 [part~='icon'] {
@@ -25,10 +26,6 @@
   align-items: center;
   color: var(--icon-color);
   font-size: var(--icon-size);
-
-  ::slotted(*) {
-    margin-inline-end: var(--spacing);
-  }
 }
 
 [part~='message'] {
