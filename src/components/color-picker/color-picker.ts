@@ -199,7 +199,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
 
   /** Determines the size of the color picker's trigger */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Removes the button that lets users toggle between format.   */
   @property({ attribute: 'without-format-toggle', type: Boolean }) withoutFormatToggle = false;
@@ -991,7 +991,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            value=${this.isEmpty ? '' : this.inputValue}
+            .value=${this.isEmpty ? '' : this.inputValue}
             ?required=${this.required}
             ?disabled=${this.disabled}
             aria-label=${this.localize.term('currentValue')}

@@ -35,7 +35,7 @@ export default class WaCard extends WebAwesomeElement {
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'media');
 
   /** The component's size. Will be inherited by any descendants with a `size` attribute. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The card's visual appearance. */
   @property({ reflect: true })

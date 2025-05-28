@@ -61,7 +61,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size so this
    * attribute can typically be omitted.
    */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Disables the radio. */
   @property({ type: Boolean }) disabled = false;
