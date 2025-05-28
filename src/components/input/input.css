@@ -37,7 +37,6 @@
   box-shadow: var(--box-shadow);
   padding: var(--wa-space-smaller) var(--wa-space);
 
-  /* Style focused inputs */
   &:focus-within {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
