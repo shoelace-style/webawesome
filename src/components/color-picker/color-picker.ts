@@ -520,32 +520,41 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private parseColor(colorString: string) {
+    if (!colorString || colorString.trim() === '') {
+      return null;
+    }
+
     const color = new TinyColor(colorString);
     if (!color.isValid) {
       return null;
     }
 
     const hslColor = color.toHsl();
+    const rgb = color.toRgb();
+    const hsvColor = color.toHsv();
+
+    // Checks for null RGB values
+    if (!rgb || rgb.r == null || rgb.g == null || rgb.b == null) {
+      return null;
+    }
+
     // Adjust saturation and lightness from 0-1 to 0-100
     const hsl = {
-      h: hslColor.h,
-      s: hslColor.s * 100,
-      l: hslColor.l * 100,
-      a: hslColor.a,
+      h: hslColor.h || 0,
+      s: (hslColor.s || 0) * 100,
+      l: (hslColor.l || 0) * 100,
+      a: hslColor.a || 0,
     };
-
-    const rgb = color.toRgb();
 
     const hex = color.toHexString();
     const hexa = color.toHex8String();
 
-    const hsvColor = color.toHsv();
     // Adjust saturation and value from 0-1 to 0-100
     const hsv = {
-      h: hsvColor.h,
-      s: hsvColor.s * 100,
-      v: hsvColor.v * 100,
-      a: hsvColor.a,
+      h: hsvColor.h || 0,
+      s: (hsvColor.s || 0) * 100,
+      v: (hsvColor.v || 0) * 100,
+      a: hsvColor.a || 0,
     };
 
     return {
@@ -589,9 +598,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         r: rgb.r,
         g: rgb.g,
         b: rgb.b,
-        a: rgb.a,
+        a: rgb.a || 0,
         string: this.setLetterCase(
-          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`,
+          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${(rgb.a || 0).toFixed(2).toString()})`,
         ),
       },
       hex: this.setLetterCase(hex),
