@@ -74,7 +74,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The button's visual appearance. */
-  @property({ reflect: true, default: 'accent' }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
 
   /** The button's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -101,16 +101,16 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
    * The name of the button, submitted as a name/value pair with form data, but only when this button is the submitter.
    * This attribute is ignored when `href` is present.
    */
-  @property({ reflect: true }) name: string | null = null;
+  @property({ reflect: true }) name: string;
 
   /**
    * The value of the button, submitted as a pair with the button's name as part of the form data, but only when this
    * button is the submitter. This attribute is ignored when `href` is present.
    */
-  @property({ reflect: true }) value: string | null = null;
+  @property({ reflect: true }) value: string;
 
   /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
-  @property({ reflect: true }) href = null;
+  @property({ reflect: true }) href: string;
 
   /** Tells the browser where to open the link. Only used when `href` is present. */
   @property() target: '_blank' | '_parent' | '_self' | '_top';
