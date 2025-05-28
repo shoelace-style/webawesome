@@ -5,7 +5,7 @@
  */
 export function capitalize(str) {
   str += '';
-  return str[0].toUpperCase() + str.slice(1);
+  return str[0]?.toUpperCase() + str.slice(1);
 }
 
 /**
@@ -29,7 +29,7 @@ export function slugify(str) {
  * @returns {string} The camel case string.
  */
 export function camelCase(str) {
-  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+  return str.replace(/-([a-z])/g, (_, letter) => letter?.toUpperCase());
 }
 
 /**
@@ -38,5 +38,5 @@ export function camelCase(str) {
  * @returns {string} The kebab case string.
  */
 export function kebabCase(str) {
-  return str.replace(/([A-Z])/g, '-$1').toLowerCase();
+  return str.replace(/([A-Z])/g, '-$1')?.toLowerCase();
 }
