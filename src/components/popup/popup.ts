@@ -109,7 +109,7 @@ export default class WaPopup extends WebAwesomeElement {
     | 'left-start'
     | 'left-end' = 'top';
 
-  /** Which bounding box to use for flipping, shifting, and auto-sizing? */
+  /** The bounding box to use for flipping, shifting, and auto-sizing. */
   @property() boundary: 'viewport' | 'scroll' = 'viewport';
 
   /** The distance in pixels from which to offset the panel away from its anchor. */
