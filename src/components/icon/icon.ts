@@ -43,26 +43,24 @@ interface IconSource {
 export default class WaIcon extends WebAwesomeElement {
   static shadowStyle = styles;
 
-  private initialRender = false;
-
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
-  @property({ cssProperty: '--wa-icon-name' }) name?: string;
+  @property() name?: string;
 
   /**
    * The family of icons to choose from. For Font Awesome Free (default), valid options include `classic` and `brands`.
    * For Font Awesome Pro subscribers, valid options include, `classic`, `sharp`, `duotone`, and `brands`. Custom icon
    * libraries may or may not use this property.
    */
-  @property({ cssProperty: '--wa-icon-family' }) family: string;
+  @property() family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
    * may or may not use this property.
    */
-  @property({ cssProperty: '--wa-icon-variant' }) variant: string;
+  @property() variant: string;
 
   /** Draws the icon in a fixed-width both. */
   @property({ attribute: 'fixed-width', type: Boolean, reflect: true }) fixedWidth: false;
@@ -80,7 +78,7 @@ export default class WaIcon extends WebAwesomeElement {
   @property() label = '';
 
   /** The name of a registered custom icon library. */
-  @property({ cssProperty: '--wa-icon-library', default: 'default' }) library = 'default';
+  @property() library = 'default';
 
   connectedCallback() {
     super.connectedCallback();
@@ -90,7 +88,6 @@ export default class WaIcon extends WebAwesomeElement {
 
   firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
-    this.initialRender = true;
     this.setIcon();
   }
 
@@ -200,11 +197,6 @@ export default class WaIcon extends WebAwesomeElement {
       iconCache.set(url, iconResolver);
     }
 
-    // If we haven't rendered yet, exit early. This avoids unnecessary work due to watching multiple props.
-    if (!this.initialRender) {
-      return;
-    }
-
     const svg = await iconResolver;
 
     if (svg === RETRYABLE_ERROR) {
@@ -237,7 +229,7 @@ export default class WaIcon extends WebAwesomeElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    // Sometimes (like with SSR -> hydration) mutators dont get applied due to race conditions. This ensures mutators get re-applied.
+    // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators get re-applied.
     const library = getIconLibrary(this.library);
 
     const svg = this.shadowRoot?.querySelector('svg');
@@ -251,7 +243,6 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    // @TODO: 16x16 is generally a safe bet. Perhaps be user setable?? `size="16x16"`, size="20x16". We just want to avoid "blowouts" with SSR.
     return html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
   }
 }

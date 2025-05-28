@@ -40,9 +40,4 @@
    * Component Groups
    */
   --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
-
-  /**
-   * Icons
-   */
-  --wa-icon-family: sharp;
 }

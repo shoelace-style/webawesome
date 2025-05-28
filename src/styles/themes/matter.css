@@ -39,9 +39,4 @@
   --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
 
   --wa-tooltip-arrow-size: 0rem;
-
-  /**
-   * Icons
-   */
-  --wa-icon-variant: regular;
 }
