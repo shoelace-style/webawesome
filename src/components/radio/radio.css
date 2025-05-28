@@ -73,25 +73,25 @@
     height: var(--toggle-size);
     scale: var(--checked-icon-scale);
   }
+}
 
-  /* Checked */
-  :host(:state(checked)) .control {
-    color: var(--checked-icon-color);
-    border-color: var(--border-color-checked);
-    background-color: var(--background-color-checked);
-  }
+/* Checked */
+:host(:state(checked)) .control {
+  color: var(--checked-icon-color);
+  border-color: var(--border-color-checked);
+  background-color: var(--background-color-checked);
+}
 
-  /* Focus */
-  :host(:focus-visible) .control {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
+/* Focus */
+:host(:focus-visible) .control {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
 
-  /* Disabled */
-  :host([disabled]) {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+/* Disabled */
+:host([disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Button appearance */
@@ -101,7 +101,7 @@
   background-color: var(--wa-color-surface-default);
   border: var(--border-width) var(--border-style) var(--wa-form-control-border-color);
   border-radius: var(--wa-border-radius-m);
-  padding: var(--wa-space-xs) var(--wa-space-s);
+  padding: 0 var(--wa-space);
   transition:
     background-color var(--wa-transition-fast),
     border-color var(--wa-transition-fast);
