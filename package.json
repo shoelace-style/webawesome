@@ -116,6 +116,7 @@
     "marked": "^11.1.0",
     "node-html-parser": "^6.1.13",
     "npm-check-updates": "^17.1.11",
+    "nunjucks": "^3.2.4",
     "ora": "^8.1.1",
     "pascal-case": "^3.1.2",
     "playwright": "^1.49.1",
