@@ -12,8 +12,8 @@
 
     wa-callout,
     wa-tag {
-      border-inline-start-color: var(--border-color, var(--wa-color-border-loud));
-      border-inline-start-width: var(--wa-border-width-s);
+      border-inline-start-color: var(--outlined-border-color, var(--wa-color-border-loud));
+      border-inline-start-width: var(--wa-border-width-m);
 
       &:not([appearance~='outlined']) {
         border-block-start-width: 0;
@@ -23,7 +23,6 @@
 
       &:not([appearance~='accent']) {
         --icon-color: var(--wa-color-fill-loud);
-        --text-color: var(--wa-color-text-normal);
       }
     }
 
