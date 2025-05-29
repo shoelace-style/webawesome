@@ -3,6 +3,7 @@
   --spacing: var(--wa-space-m);
   --show-duration: 200ms;
   --hide-duration: 200ms;
+  --outlined-border-color: var(--wa-color-surface-border);
 
   display: block;
 }
@@ -37,7 +38,7 @@
 details {
   display: block;
   overflow-anchor: none;
-  border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
+  border: var(--wa-panel-border-width) var(--border-color) var(--wa-panel-border-style);
   background-color: var(--background-color, var(--wa-color-surface-default));
   border-radius: var(--wa-panel-border-radius);
   color: var(--text-color, inherit);
