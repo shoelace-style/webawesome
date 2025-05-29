@@ -422,3 +422,34 @@ declare global {
     'wa-page': WaPage;
   }
 }
+
+//
+// Append a supporting light DOM styles for <wa-page>
+//
+const stylesheet = new CSSStyleSheet();
+
+stylesheet.replaceSync(`
+:is(html, body):has(wa-page) {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+  /**
+  Because headers are sticky, this is needed to make sure page fragment anchors scroll down past the headers / subheaders and are visible.
+  IE: \`<a href="#id-for-h2">\` anchors.
+  */
+  wa-page :is(*, *:after, *:before) {
+  scroll-margin-top: var(--scroll-margin-top);
+  }
+
+  wa-page[view='desktop'] [data-toggle-nav] {
+  display: none;
+  }
+
+  wa-page[view='mobile'] .wa-desktop-only, wa-page[view='desktop'] .wa-mobile-only {
+  display: none !important;
+  }
+`);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];

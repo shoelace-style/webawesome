@@ -74,7 +74,7 @@
 .swatch-select {
   padding: 2px;
 
-  wa-radio-button {
+  wa-radio {
     --swatch-border-color: color-mix(in oklab, canvastext, transparent 80%);
 
     &::part(base) {
@@ -93,7 +93,7 @@
     --border-radius: var(--wa-border-radius-circle);
   }
 
-  wa-radio-button:is([checked], :state(checked)) {
+  wa-radio:is([checked], :state(checked)) {
     --swatch-border-color: var(--wa-color-surface-default);
     &::part(base) {
       box-shadow:

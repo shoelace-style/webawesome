@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import url('../default/typography.css');
 
-:where(:root),
-:host,
-.wa-theme-mellow {
-  --wa-font-family-body: 'Mulish', sans-serif;
-  --wa-font-family-heading: 'Lora', serif;
-  --wa-font-family-longform: 'Lora', serif;
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-mellow {
+    --wa-font-family-body: 'Mulish', sans-serif;
+    --wa-font-family-heading: 'Lora', serif;
+    --wa-font-family-longform: 'Lora', serif;
 
-  --wa-font-weight-semibold: 600;
-  --wa-font-weight-bold: 700;
+    --wa-font-weight-semibold: 600;
+    --wa-font-weight-bold: 700;
+  }
 }

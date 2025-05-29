@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
 @import url('../default/typography.css');
 
-:where(:root),
-:host,
-.wa-theme-premium,
-.wa-light,
-.wa-dark .wa-invert {
-  --wa-font-family-body: 'DM Sans', sans-serif;
-  --wa-font-family-heading: 'Playfair Display', serif;
-  --wa-font-family-longform: 'Playfair', serif;
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-premium,
+  .wa-light,
+  .wa-dark .wa-invert {
+    --wa-font-family-body: 'DM Sans', sans-serif;
+    --wa-font-family-heading: 'Playfair Display', serif;
+    --wa-font-family-longform: 'Playfair', serif;
 
-  --wa-font-weight-heading: var(--wa-font-weight-semibold);
+    --wa-font-weight-heading: var(--wa-font-weight-semibold);
 
-  --wa-line-height-condensed: 1.1;
-  --wa-line-height-normal: 1.5;
-  --wa-line-height-expanded: 2;
+    --wa-line-height-condensed: 1.1;
+    --wa-line-height-normal: 1.5;
+    --wa-line-height-expanded: 2;
 
-  --wa-link-decoration-default: underline color-mix(in oklab, currentColor 40%, transparent);
+    --wa-link-decoration-default: underline color-mix(in oklab, currentColor 40%, transparent);
+  }
 }

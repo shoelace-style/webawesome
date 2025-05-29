@@ -1,36 +1,38 @@
-:where(:root),
-:host,
-:where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']),
-.wa-success-orange {
-  --wa-color-success-95: var(--wa-color-orange-95);
-  --wa-color-success-90: var(--wa-color-orange-90);
-  --wa-color-success-80: var(--wa-color-orange-80);
-  --wa-color-success-70: var(--wa-color-orange-70);
-  --wa-color-success-60: var(--wa-color-orange-60);
-  --wa-color-success-50: var(--wa-color-orange-50);
-  --wa-color-success-40: var(--wa-color-orange-40);
-  --wa-color-success-30: var(--wa-color-orange-30);
-  --wa-color-success-20: var(--wa-color-orange-20);
-  --wa-color-success-10: var(--wa-color-orange-10);
-  --wa-color-success-05: var(--wa-color-orange-05);
-  --wa-color-success: var(--wa-color-orange);
+@layer wa-success {
+  :where(:root),
+  :host,
+  :where([class^='wa-theme-'], [class*=' wa-theme-']),
+  :where([class^='wa-palette-'], [class*=' wa-palette-']),
+  .wa-success-orange {
+    --wa-color-success-95: var(--wa-color-orange-95);
+    --wa-color-success-90: var(--wa-color-orange-90);
+    --wa-color-success-80: var(--wa-color-orange-80);
+    --wa-color-success-70: var(--wa-color-orange-70);
+    --wa-color-success-60: var(--wa-color-orange-60);
+    --wa-color-success-50: var(--wa-color-orange-50);
+    --wa-color-success-40: var(--wa-color-orange-40);
+    --wa-color-success-30: var(--wa-color-orange-30);
+    --wa-color-success-20: var(--wa-color-orange-20);
+    --wa-color-success-10: var(--wa-color-orange-10);
+    --wa-color-success-05: var(--wa-color-orange-05);
+    --wa-color-success: var(--wa-color-orange);
 
-  --wa-color-success-lt-50: var(--wa-color-orange-lt-50);
-  --wa-color-success-gte-50: var(--wa-color-orange-gte-50);
+    --wa-color-success-lt-50: var(--wa-color-orange-lt-50);
+    --wa-color-success-gte-50: var(--wa-color-orange-gte-50);
 
-  --wa-color-success-lt-60: var(--wa-color-orange-lt-60);
-  --wa-color-success-gte-60: var(--wa-color-orange-gte-60);
+    --wa-color-success-lt-60: var(--wa-color-orange-lt-60);
+    --wa-color-success-gte-60: var(--wa-color-orange-gte-60);
 
-  --wa-color-success-lt-70: var(--wa-color-orange-lt-70);
-  --wa-color-success-gte-70: var(--wa-color-orange-gte-70);
+    --wa-color-success-lt-70: var(--wa-color-orange-lt-70);
+    --wa-color-success-gte-70: var(--wa-color-orange-gte-70);
 
-  --wa-color-success-max-50: var(--wa-color-orange-max-50);
-  --wa-color-success-min-50: var(--wa-color-orange-min-50);
-  --wa-color-success-max-60: var(--wa-color-orange-max-60);
-  --wa-color-success-min-60: var(--wa-color-orange-min-60);
-  --wa-color-success-max-70: var(--wa-color-orange-max-70);
-  --wa-color-success-min-70: var(--wa-color-orange-min-70);
+    --wa-color-success-max-50: var(--wa-color-orange-max-50);
+    --wa-color-success-min-50: var(--wa-color-orange-min-50);
+    --wa-color-success-max-60: var(--wa-color-orange-max-60);
+    --wa-color-success-min-60: var(--wa-color-orange-min-60);
+    --wa-color-success-max-70: var(--wa-color-orange-max-70);
+    --wa-color-success-min-70: var(--wa-color-orange-min-70);
 
-  --wa-color-success-on: var(--wa-color-orange-on);
+    --wa-color-success-on: var(--wa-color-orange-on);
+  }
 }

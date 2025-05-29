@@ -9,47 +9,49 @@
 @import url('awesome/dimension.css');
 @import url('awesome/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-awesome,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-awesome,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Spacing
    */
-  --wa-space-scale: 1.25;
+    --wa-space-scale: 1.25;
 
-  /**
+    /**
    * Borders
    */
-  --wa-border-width-scale: 2;
+    --wa-border-width-scale: 2;
 
-  /**
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 1.5;
+    --wa-border-radius-scale: 1.5;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-offset-y-scale: 2;
-  --wa-shadow-blur-scale: 0;
-  --wa-shadow-spread-scale: 0;
+    --wa-shadow-offset-y-scale: 2;
+    --wa-shadow-blur-scale: 0;
+    --wa-shadow-spread-scale: 0;
 
-  /**
+    /**
    * Transitions
    */
-  --wa-transition-easing: ease-in;
+    --wa-transition-easing: ease-in;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-background-color: var(--wa-color-surface-default);
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-  --wa-form-control-activated-color: var(--wa-color-neutral-border-loud);
+    --wa-form-control-background-color: var(--wa-color-surface-default);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-activated-color: var(--wa-color-neutral-border-loud);
 
-  --wa-form-control-label-color: var(--wa-color-text-normal);
-  --wa-form-control-label-font-weight: var(--wa-font-weight-bold);
-  --wa-form-control-label-line-height: var(--wa-line-height-normal);
+    --wa-form-control-label-color: var(--wa-color-text-normal);
+    --wa-form-control-label-font-weight: var(--wa-font-weight-bold);
+    --wa-form-control-label-line-height: var(--wa-line-height-normal);
+  }
 }

@@ -12,7 +12,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import { LocalizeController } from '../../utilities/localize.js';

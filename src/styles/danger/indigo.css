@@ -1,36 +1,38 @@
-:where(:root),
-:host,
-:where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']),
-.wa-danger-indigo {
-  --wa-color-danger-95: var(--wa-color-indigo-95);
-  --wa-color-danger-90: var(--wa-color-indigo-90);
-  --wa-color-danger-80: var(--wa-color-indigo-80);
-  --wa-color-danger-70: var(--wa-color-indigo-70);
-  --wa-color-danger-60: var(--wa-color-indigo-60);
-  --wa-color-danger-50: var(--wa-color-indigo-50);
-  --wa-color-danger-40: var(--wa-color-indigo-40);
-  --wa-color-danger-30: var(--wa-color-indigo-30);
-  --wa-color-danger-20: var(--wa-color-indigo-20);
-  --wa-color-danger-10: var(--wa-color-indigo-10);
-  --wa-color-danger-05: var(--wa-color-indigo-05);
-  --wa-color-danger: var(--wa-color-indigo);
+@layer wa-danger {
+  :where(:root),
+  :host,
+  :where([class^='wa-theme-'], [class*=' wa-theme-']),
+  :where([class^='wa-palette-'], [class*=' wa-palette-']),
+  .wa-danger-indigo {
+    --wa-color-danger-95: var(--wa-color-indigo-95);
+    --wa-color-danger-90: var(--wa-color-indigo-90);
+    --wa-color-danger-80: var(--wa-color-indigo-80);
+    --wa-color-danger-70: var(--wa-color-indigo-70);
+    --wa-color-danger-60: var(--wa-color-indigo-60);
+    --wa-color-danger-50: var(--wa-color-indigo-50);
+    --wa-color-danger-40: var(--wa-color-indigo-40);
+    --wa-color-danger-30: var(--wa-color-indigo-30);
+    --wa-color-danger-20: var(--wa-color-indigo-20);
+    --wa-color-danger-10: var(--wa-color-indigo-10);
+    --wa-color-danger-05: var(--wa-color-indigo-05);
+    --wa-color-danger: var(--wa-color-indigo);
 
-  --wa-color-danger-lt-50: var(--wa-color-indigo-lt-50);
-  --wa-color-danger-gte-50: var(--wa-color-indigo-gte-50);
+    --wa-color-danger-lt-50: var(--wa-color-indigo-lt-50);
+    --wa-color-danger-gte-50: var(--wa-color-indigo-gte-50);
 
-  --wa-color-danger-lt-60: var(--wa-color-indigo-lt-60);
-  --wa-color-danger-gte-60: var(--wa-color-indigo-gte-60);
+    --wa-color-danger-lt-60: var(--wa-color-indigo-lt-60);
+    --wa-color-danger-gte-60: var(--wa-color-indigo-gte-60);
 
-  --wa-color-danger-lt-70: var(--wa-color-indigo-lt-70);
-  --wa-color-danger-gte-70: var(--wa-color-indigo-gte-70);
+    --wa-color-danger-lt-70: var(--wa-color-indigo-lt-70);
+    --wa-color-danger-gte-70: var(--wa-color-indigo-gte-70);
 
-  --wa-color-danger-max-50: var(--wa-color-indigo-max-50);
-  --wa-color-danger-min-50: var(--wa-color-indigo-min-50);
-  --wa-color-danger-max-60: var(--wa-color-indigo-max-60);
-  --wa-color-danger-min-60: var(--wa-color-indigo-min-60);
-  --wa-color-danger-max-70: var(--wa-color-indigo-max-70);
-  --wa-color-danger-min-70: var(--wa-color-indigo-min-70);
+    --wa-color-danger-max-50: var(--wa-color-indigo-max-50);
+    --wa-color-danger-min-50: var(--wa-color-indigo-min-50);
+    --wa-color-danger-max-60: var(--wa-color-indigo-max-60);
+    --wa-color-danger-min-60: var(--wa-color-indigo-min-60);
+    --wa-color-danger-max-70: var(--wa-color-indigo-max-70);
+    --wa-color-danger-min-70: var(--wa-color-indigo-min-70);
 
-  --wa-color-danger-on: var(--wa-color-indigo-on);
+    --wa-color-danger-on: var(--wa-color-indigo-on);
+  }
 }

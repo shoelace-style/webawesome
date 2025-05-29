@@ -1,36 +1,38 @@
-:where(:root),
-:host,
-:where([class^='wa-theme-'], [class*=' wa-theme-']),
-:where([class^='wa-palette-'], [class*=' wa-palette-']),
-.wa-brand-blue {
-  --wa-color-brand-95: var(--wa-color-blue-95);
-  --wa-color-brand-90: var(--wa-color-blue-90);
-  --wa-color-brand-80: var(--wa-color-blue-80);
-  --wa-color-brand-70: var(--wa-color-blue-70);
-  --wa-color-brand-60: var(--wa-color-blue-60);
-  --wa-color-brand-50: var(--wa-color-blue-50);
-  --wa-color-brand-40: var(--wa-color-blue-40);
-  --wa-color-brand-30: var(--wa-color-blue-30);
-  --wa-color-brand-20: var(--wa-color-blue-20);
-  --wa-color-brand-10: var(--wa-color-blue-10);
-  --wa-color-brand-05: var(--wa-color-blue-05);
-  --wa-color-brand: var(--wa-color-blue);
+@layer wa-brand {
+  :where(:root),
+  :host,
+  :where([class^='wa-theme-'], [class*=' wa-theme-']),
+  :where([class^='wa-palette-'], [class*=' wa-palette-']),
+  .wa-brand-blue {
+    --wa-color-brand-95: var(--wa-color-blue-95);
+    --wa-color-brand-90: var(--wa-color-blue-90);
+    --wa-color-brand-80: var(--wa-color-blue-80);
+    --wa-color-brand-70: var(--wa-color-blue-70);
+    --wa-color-brand-60: var(--wa-color-blue-60);
+    --wa-color-brand-50: var(--wa-color-blue-50);
+    --wa-color-brand-40: var(--wa-color-blue-40);
+    --wa-color-brand-30: var(--wa-color-blue-30);
+    --wa-color-brand-20: var(--wa-color-blue-20);
+    --wa-color-brand-10: var(--wa-color-blue-10);
+    --wa-color-brand-05: var(--wa-color-blue-05);
+    --wa-color-brand: var(--wa-color-blue);
 
-  --wa-color-brand-lt-50: var(--wa-color-blue-lt-50);
-  --wa-color-brand-gte-50: var(--wa-color-blue-gte-50);
+    --wa-color-brand-lt-50: var(--wa-color-blue-lt-50);
+    --wa-color-brand-gte-50: var(--wa-color-blue-gte-50);
 
-  --wa-color-brand-lt-60: var(--wa-color-blue-lt-60);
-  --wa-color-brand-gte-60: var(--wa-color-blue-gte-60);
+    --wa-color-brand-lt-60: var(--wa-color-blue-lt-60);
+    --wa-color-brand-gte-60: var(--wa-color-blue-gte-60);
 
-  --wa-color-brand-lt-70: var(--wa-color-blue-lt-70);
-  --wa-color-brand-gte-70: var(--wa-color-blue-gte-70);
+    --wa-color-brand-lt-70: var(--wa-color-blue-lt-70);
+    --wa-color-brand-gte-70: var(--wa-color-blue-gte-70);
 
-  --wa-color-brand-max-50: var(--wa-color-blue-max-50);
-  --wa-color-brand-min-50: var(--wa-color-blue-min-50);
-  --wa-color-brand-max-60: var(--wa-color-blue-max-60);
-  --wa-color-brand-min-60: var(--wa-color-blue-min-60);
-  --wa-color-brand-max-70: var(--wa-color-blue-max-70);
-  --wa-color-brand-min-70: var(--wa-color-blue-min-70);
+    --wa-color-brand-max-50: var(--wa-color-blue-max-50);
+    --wa-color-brand-min-50: var(--wa-color-blue-min-50);
+    --wa-color-brand-max-60: var(--wa-color-blue-max-60);
+    --wa-color-brand-min-60: var(--wa-color-blue-min-60);
+    --wa-color-brand-max-70: var(--wa-color-blue-max-70);
+    --wa-color-brand-min-70: var(--wa-color-blue-min-70);
 
-  --wa-color-brand-on: var(--wa-color-blue-on);
+    --wa-color-brand-on: var(--wa-color-blue-on);
+  }
 }

@@ -1,21 +1,74 @@
 :host {
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: initial;
+  --outlined-background-color: var(--wa-form-control-background-color);
+  --outlined-border-color: var(--wa-form-control-border-color);
+  --outlined-text-color: var(--wa-form-control-value-color);
+
   border-width: 0;
 }
 
-.wa-text-field {
+.text-field {
   flex: auto;
   display: flex;
   align-items: stretch;
   justify-content: start;
   position: relative;
-
-  border-color: inherit;
-  border-style: inherit;
-  border-radius: inherit;
   transition: inherit;
-
   height: var(--wa-form-control-height);
-  padding-block: 0;
+  border-color: var(--border-color, var(--wa-form-control-border-color));
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-form-control-border-style);
+  border-width: var(--border-width);
+  cursor: text;
+  color: var(--wa-form-control-value-color);
+  font-size: var(--wa-size);
+  font-family: inherit;
+  font-weight: var(--wa-form-control-value-font-weight);
+  line-height: var(--wa-form-control-value-line-height);
+  vertical-align: middle;
+  width: 100%;
+  transition:
+    background-color var(--wa-transition-normal),
+    border var(--wa-transition-normal),
+    outline var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
+  background-color: var(--background-color, var(--wa-form-control-background-color));
+  box-shadow: var(--box-shadow);
+  padding: var(--wa-space-smaller) var(--wa-space);
+
+  &:focus-within {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+
+  /* Style disabled inputs */
+  &:has(:disabled) {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+:host([pill]) .text-field {
+  border-radius: var(--wa-border-radius-pill) !important;
+}
+
+.text-field input,
+.text-field textarea {
+  /*
+    Fixes an alignment issue with placeholders.
+    https://github.com/shoelace-style/webawesome/issues/342
+  */
+  height: 100%;
+
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  margin: 0;
+  cursor: inherit;
+  -webkit-appearance: none;
+  font: inherit;
 }
 
 input {
@@ -29,17 +82,51 @@ input {
   height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
   padding-block: 0;
   color: inherit;
+
+  &:autofill {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: none;
+      caret-color: var(--wa-form-control-value-color);
+    }
+  }
+
+  &::placeholder {
+    color: var(--wa-form-control-placeholder-color);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
-input::-webkit-search-decoration,
-input::-webkit-search-cancel-button,
-input::-webkit-search-results-button,
-input::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-}
+textarea {
+  &:autofill {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: none;
+      caret-color: var(--wa-form-control-value-color);
+    }
+  }
 
-input:focus {
-  outline: none;
+  &::placeholder {
+    color: var(--wa-form-control-placeholder-color);
+    user-select: none;
+    -webkit-user-select: none;
+  }
 }
 
 .prefix,

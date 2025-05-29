@@ -1,7 +1,7 @@
 import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
 import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import componentStyles from '../styles/shadow/component.css';
+import componentStyles from '../styles/component/host.css';
 
 // Augment Lit's module
 declare module 'lit' {
@@ -20,7 +20,7 @@ export default class WebAwesomeElement extends LitElement {
 
     try {
       this.internals = this.attachInternals();
-    } catch (_e) {
+    } catch {
       /* Need to tell people if they need a polyfill. */
       /* eslint-disable-next-line */
       console.error('Element internals are not supported in your browser. Consider using a polyfill');

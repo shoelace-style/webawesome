@@ -14,6 +14,10 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- 🚨 BREAKING: Greatly simplified how native styles work and removed redundant utilities
+  - Removed `.wa-button`, `.wa-callout` classes
+  - Removed `themes/native/*.css` files; use `native.css` to opt into native styles
+  - Clarified which utilities classes can be applied to which native elements
 - 🚨 BREAKING: Removed the extra dash in the `<wa-carousel>` CSS part name `pagination-item--active` => `pagination-item-active`
 - 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
 - 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
@@ -29,6 +33,10 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
+- Fixed the tooltip position in `<wa-slider>` when using RTL
+- Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
+- Improved CSS utilities and Native Styles to use [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for easier end user customization (no more specificity conflicts — your CSS wins!)
+- Improved native `<button>` styles to properly space icons
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
@@ -53,7 +61,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ### Enhancements
 
-- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/native/details).
+- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/utilities/native/details).
 - Added an `orange` scale to all color palettes
 - Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
 - Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
@@ -78,7 +86,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
 - Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
-- Fixed the missing indeterminate icon in [native checkbox styles](/docs/native/checkbox)
+- Fixed the missing indeterminate icon in [native checkbox styles](/docs/utilities/native/checkbox)
 - Fixed a bug in `<wa-radio>` where elements would stack instead of display inline
 - Docs fixes:
   - Fixed the search dialog's styles so it doesn't jump around as you search
@@ -224,13 +232,13 @@ You can find them in the first column of each color palette.
 ### Native styles
 
 - Added native styles for
-  [buttons](/docs/native/button),
-  [input fields](/docs/native/input),
-  [dialogs](/docs/native/dialog),
-  [details](/docs/native/details),
-  [tables](/docs/native/table),
-  [lists](/docs/native/lists),
-  and most [content elements](/docs/native/content).
+  [buttons](/docs/utilities/native/button),
+  [input fields](/docs/utilities/native/input),
+  [dialogs](/docs/utilities/native/dialog),
+  [details](/docs/utilities/native/details),
+  [tables](/docs/utilities/native/table),
+  [lists](/docs/utilities/native/lists),
+  and most [content elements](/docs/utilities/native/content).
 
 ### Style utilities
 

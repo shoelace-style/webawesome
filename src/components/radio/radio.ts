@@ -4,8 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/radio.css';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
 import styles from './radio.css';
@@ -45,7 +44,7 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   @state() checked = false;
 
@@ -56,6 +55,9 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
 
   /** The radio's value. When selected, the radio group will receive this value. */
   @property({ reflect: true }) value: string;
+
+  /** The radio's value. When selected, the radio group will receive this value. */
+  @property({ reflect: true }) appearance: 'default' | 'button' = 'default';
 
   /**
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size so this

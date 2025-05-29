@@ -1,88 +1,92 @@
-/**
+@layer wa-utilities {
+  /**
  * Shadow styles for elements that have a size attribute and for the size utility classes.
  */
 
-:host,
-:where(.wa-size-s, .wa-size-m, .wa-size-l) {
-  font-size: var(--wa-size, var(--wa-font-size-m));
-}
-
-:host {
-  /* Components are meant to override these */
-  --size-xs: var(--wa-font-size-xs);
-  --size-s: var(--wa-font-size-s);
-  --size-m: var(--wa-font-size-m);
-  --size-l: var(--wa-font-size-l);
-
-  --space-xs: var(--wa-space-xs);
-  --space-s: var(--wa-space-s);
-  --space-m: var(--wa-space-m);
-  --space-l: var(--wa-space-l);
-}
-
-:where(:root),
-:host,
-.wa-size-s,
-.wa-size-m,
-.wa-size-l {
-  --_wa-is-small: var(--wa-is-small, 0);
-  --_wa-is-medium: var(--wa-is-medium, 1);
-  --_wa-is-large: var(--wa-is-large, 0);
-
-  --_size-xs: var(--size-xs, var(--wa-font-size-xs));
-  --_size-s: var(--size-s, var(--wa-font-size-s));
-  --_size-m: var(--size-m, var(--wa-font-size-m));
-  --_size-l: var(--size-l, var(--wa-font-size-l));
-
-  --_space-xs: var(--space-xs, var(--wa-space-xs));
-  --_space-s: var(--space-s, var(--wa-space-s));
-  --_space-m: var(--space-m, var(--wa-space-m));
-  --_space-l: var(--space-l, var(--wa-space-l));
-
-  --wa-size: calc(
-    var(--_wa-is-small) * var(--_size-s) + var(--_wa-is-medium) * var(--_size-m) + var(--_wa-is-large) * var(--_size-l)
-  );
-  --wa-size-smaller: calc(
-    var(--_wa-is-small) * var(--_size-xs) + var(--_wa-is-medium) * var(--_size-s) + var(--_wa-is-large) * var(--_size-m)
-  );
-  --wa-space: calc(
-    var(--_wa-is-small) * var(--_space-s) + var(--_wa-is-medium) * var(--_space-m) + var(--_wa-is-large) *
-      var(--_space-l)
-  );
-  --wa-space-smaller: calc(
-    var(--_wa-is-small) * var(--_space-xs) + var(--_wa-is-medium) * var(--_space-s) + var(--_wa-is-large) *
-      var(--_space-m)
-  );
-
-  --_wa-form-control-height: calc(2 * var(--wa-space-smaller) + 1em * var(--wa-form-control-value-line-height));
-  --wa-form-control-height: var(--_wa-form-control-height);
-
-  @supports (height: round(1.2px, 1px)) {
-    --wa-form-control-height: round(var(--_wa-form-control-height), 1px);
+  :host,
+  :where(.wa-size-s, .wa-size-m, .wa-size-l) {
+    font-size: var(--wa-size, var(--wa-font-size-m));
   }
-}
 
-:host([size]),
-.wa-size-s,
-.wa-size-m,
-.wa-size-l {
-  --wa-is-small: 0;
-  --wa-is-medium: 0;
-  --wa-is-large: 0;
-}
+  :host {
+    /* Components are meant to override these */
+    --size-xs: var(--wa-font-size-xs);
+    --size-s: var(--wa-font-size-s);
+    --size-m: var(--wa-font-size-m);
+    --size-l: var(--wa-font-size-l);
 
-:host([size='small']),
-.wa-size-s {
-  --wa-is-small: 1;
-}
+    --space-xs: var(--wa-space-xs);
+    --space-s: var(--wa-space-s);
+    --space-m: var(--wa-space-m);
+    --space-l: var(--wa-space-l);
+  }
 
-:where(:root), /* Medium size is the default */
+  :where(:root),
+  :host,
+  .wa-size-s,
+  .wa-size-m,
+  .wa-size-l {
+    --_wa-is-small: var(--wa-is-small, 0);
+    --_wa-is-medium: var(--wa-is-medium, 1);
+    --_wa-is-large: var(--wa-is-large, 0);
+
+    --_size-xs: var(--size-xs, var(--wa-font-size-xs));
+    --_size-s: var(--size-s, var(--wa-font-size-s));
+    --_size-m: var(--size-m, var(--wa-font-size-m));
+    --_size-l: var(--size-l, var(--wa-font-size-l));
+
+    --_space-xs: var(--space-xs, var(--wa-space-xs));
+    --_space-s: var(--space-s, var(--wa-space-s));
+    --_space-m: var(--space-m, var(--wa-space-m));
+    --_space-l: var(--space-l, var(--wa-space-l));
+
+    --wa-size: calc(
+      var(--_wa-is-small) * var(--_size-s) + var(--_wa-is-medium) * var(--_size-m) + var(--_wa-is-large) *
+        var(--_size-l)
+    );
+    --wa-size-smaller: calc(
+      var(--_wa-is-small) * var(--_size-xs) + var(--_wa-is-medium) * var(--_size-s) + var(--_wa-is-large) *
+        var(--_size-m)
+    );
+    --wa-space: calc(
+      var(--_wa-is-small) * var(--_space-s) + var(--_wa-is-medium) * var(--_space-m) + var(--_wa-is-large) *
+        var(--_space-l)
+    );
+    --wa-space-smaller: calc(
+      var(--_wa-is-small) * var(--_space-xs) + var(--_wa-is-medium) * var(--_space-s) + var(--_wa-is-large) *
+        var(--_space-m)
+    );
+
+    --_wa-form-control-height: calc(2 * var(--wa-space-smaller) + 1em * var(--wa-form-control-value-line-height));
+    --wa-form-control-height: var(--_wa-form-control-height);
+
+    @supports (height: round(1.2px, 1px)) {
+      --wa-form-control-height: round(var(--_wa-form-control-height), 1px);
+    }
+  }
+
+  :host([size]),
+  .wa-size-s,
+  .wa-size-m,
+  .wa-size-l {
+    --wa-is-small: 0;
+    --wa-is-medium: 0;
+    --wa-is-large: 0;
+  }
+
+  :host([size='small']),
+  .wa-size-s {
+    --wa-is-small: 1;
+  }
+
+  :where(:root), /* Medium size is the default */
 :host([size='medium']),
 .wa-size-m {
-  --wa-is-medium: 1;
-}
+    --wa-is-medium: 1;
+  }
 
-:host([size='large']),
-.wa-size-l {
-  --wa-is-large: 1;
+  :host([size='large']),
+  .wa-size-l {
+    --wa-is-large: 1;
+  }
 }

@@ -9,24 +9,26 @@
 @import url('glossy/dimension.css');
 @import url('glossy/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-mellow,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-mellow,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Spacing
    */
-  --wa-space-scale: 1.125;
+    --wa-space-scale: 1.125;
 
-  /**
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 1.33;
+    --wa-border-radius-scale: 1.33;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-blur-scale: 3;
+    --wa-shadow-blur-scale: 3;
+  }
 }

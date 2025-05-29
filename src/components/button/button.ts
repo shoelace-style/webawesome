@@ -7,8 +7,6 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/button.css';
-import passthroughStyles from '../../styles/shadow/passthrough.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -48,13 +46,14 @@ import styles from './button.css';
  * @cssproperty --border-color - The color of the button's border when the button is not being interacted with.
  * @cssproperty --border-color-active - The color of the button's border when active.
  * @cssproperty --border-color-hover - The color of the button's border on hover.
+ * @cssproperty --box-shadow - The shadow effects around the edges of the button.
  * @cssproperty --text-color - The color of the button's label when the button is not being interacted with.
  * @cssproperty --text-color-active - The color of the button's label when active.
  * @cssproperty --text-color-hover - The color of the button's label on hover.
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [passthroughStyles, variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [styles, variantStyles, sizeStyles, appearanceStyles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -64,7 +63,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
   private readonly localize = new LocalizeController(this);
 
-  @query('.wa-button') button: HTMLButtonElement | HTMLLinkElement;
+  @query('.button') button: HTMLButtonElement | HTMLLinkElement;
 
   @state() invalid = false;
   @property() title = ''; // make reactive to pass through
@@ -228,7 +227,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         part="base"
         class=${classMap({
           button: true,
-          'wa-button': true,
           caret: this.caret,
           disabled: this.disabled,
           loading: this.loading,

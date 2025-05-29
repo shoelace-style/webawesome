@@ -2,7 +2,6 @@
 title: Rounding Utilities
 description: Border radius utilities set an element's border radius property.
 tags: ["utilities"]
-status: wip
 ---
 
 <style>

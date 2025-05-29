@@ -8,35 +8,37 @@
 @import url('default/groups.css');
 @import url('matter/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-matter,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-matter,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 1.33;
+    --wa-border-radius-scale: 1.33;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-blur-scale: 1.25;
-  --wa-shadow-offset-y-scale: 0.5;
-  --wa-shadow-spread-scale: 0;
+    --wa-shadow-blur-scale: 1.25;
+    --wa-shadow-offset-y-scale: 0.5;
+    --wa-shadow-spread-scale: 0;
 
-  /**
+    /**
    * Focus
    */
-  --wa-focus-ring-width: 0.125rem;
-  --wa-focus-ring-offset: 0rem;
+    --wa-focus-ring-width: 0.125rem;
+    --wa-focus-ring-offset: 0rem;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-border-radius: var(--wa-border-radius-s);
-  --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
+    --wa-form-control-border-radius: var(--wa-border-radius-s);
+    --wa-form-control-label-font-weight: var(--wa-font-weight-normal);
 
-  --wa-tooltip-arrow-size: 0rem;
+    --wa-tooltip-arrow-size: 0rem;
+  }
 }

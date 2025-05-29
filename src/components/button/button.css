@@ -1,7 +1,97 @@
-:host {
-  --display: inline-flex;
+@layer wa-component {
+  :host {
+    --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+    --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
+    --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
 
-  position: relative;
+    --border-color: transparent;
+    --border-color-hover: var(--border-color);
+    --border-color-active: var(--border-color);
+    --border-width: max(1px, var(--wa-form-control-border-width));
+
+    --box-shadow: initial;
+
+    --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+    --text-color-hover: var(--text-color);
+    --text-color-active: var(--text-color);
+
+    display: inline-block;
+    position: relative;
+  }
+}
+
+.button {
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-border-style);
+  border-width: var(--border-width);
+  box-shadow: var(--box-shadow);
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition-property: background, border, box-shadow, color;
+  transition-duration: var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
+  cursor: pointer;
+  padding: 0 var(--wa-space, var(--wa-space-m));
+  font-family: inherit;
+  font-size: var(--wa-size, var(--wa-font-size-m));
+  font-weight: var(--wa-font-weight-action);
+  line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+  height: var(--wa-form-control-height);
+  width: 100%;
+
+  display: inline-flex;
+  background-color: var(--background-color);
+  border-color: var(--border-color, var(--background-color));
+  color: var(--text-color);
+}
+
+/* Interactive states */
+.button:not(.disabled):not(.loading):hover {
+  background-color: var(--background-color-hover, var(--background-color));
+  border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
+  color: var(--text-color-hover, var(--text-color));
+}
+
+.button:not(.disabled):not(.loading):active {
+  background-color: var(--background-color-active, var(--background-color));
+  border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));
+  color: var(--text-color-active, var(--text-color));
+}
+
+/* Focus states */
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+/* Disabled state */
+.button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* When disabled, prevent mouse events from bubbling up from children */
+.button.disabled * {
+  pointer-events: none;
+}
+
+/* Keep it last so Safari doesn't stop parsing this block */
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+/* Pill modifier */
+:host([pill]) .button {
+  border-radius: var(--wa-border-radius-pill);
 }
 
 /*
@@ -38,7 +128,7 @@ wa-icon[part~='caret'] {
     height: 0.875em;
   }
 
-  .wa-button:has(&) .suffix {
+  .button:has(&) .suffix {
     display: none;
   }
 }
@@ -74,7 +164,6 @@ wa-icon[part~='caret'] {
 /*
  * Badges
  */
-
 button ::slotted(wa-badge) {
   border-color: var(--wa-color-surface-default);
   position: absolute;
@@ -97,6 +186,67 @@ slot[name='prefix']::slotted(*) {
 }
 
 slot[name='suffix']::slotted(*),
-.wa-button:not(.visually-hidden-label) [part~='caret'] {
+.button:not(.visually-hidden-label) [part~='caret'] {
   margin-inline-start: var(--wa-space);
+}
+
+/*
+ * Button group border radius modifications
+ */
+
+/* Remove border radius from all grouped buttons by default */
+:host(.wa-button-group__button) .button {
+  border-radius: 0;
+}
+
+/* Horizontal orientation */
+:host(.wa-button-group__horizontal.wa-button-group__button-first) .button {
+  border-start-start-radius: var(--wa-form-control-border-radius);
+  border-end-start-radius: var(--wa-form-control-border-radius);
+}
+
+:host(.wa-button-group__horizontal.wa-button-group__button-last) .button {
+  border-start-end-radius: var(--wa-form-control-border-radius);
+  border-end-end-radius: var(--wa-form-control-border-radius);
+}
+
+/* Vertical orientation */
+:host(.wa-button-group__vertical) {
+  flex: 1 1 auto;
+}
+
+:host(.wa-button-group__vertical) .button {
+  width: 100%;
+  justify-content: start;
+}
+
+:host(.wa-button-group__vertical.wa-button-group__button-first) .button {
+  border-start-start-radius: var(--wa-form-control-border-radius);
+  border-start-end-radius: var(--wa-form-control-border-radius);
+}
+
+:host(.wa-button-group__vertical.wa-button-group__button-last) .button {
+  border-end-start-radius: var(--wa-form-control-border-radius);
+  border-end-end-radius: var(--wa-form-control-border-radius);
+}
+
+/* Handle pill modifier for button groups */
+:host([pill]) .wa-button-group__horizontal.wa-button-group__button-first {
+  border-start-start-radius: var(--wa-border-radius-pill);
+  border-end-start-radius: var(--wa-border-radius-pill);
+}
+
+:host([pill]) .wa-button-group__horizontal.wa-button-group__button-last {
+  border-start-end-radius: var(--wa-border-radius-pill);
+  border-end-end-radius: var(--wa-border-radius-pill);
+}
+
+:host([pill]) .wa-button-group__vertical.wa-button-group__button-first {
+  border-start-start-radius: var(--wa-border-radius-pill);
+  border-start-end-radius: var(--wa-border-radius-pill);
+}
+
+:host([pill]) .wa-button-group__vertical.wa-button-group__button-last {
+  border-end-start-radius: var(--wa-border-radius-pill);
+  border-end-end-radius: var(--wa-border-radius-pill);
 }
