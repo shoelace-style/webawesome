@@ -9,10 +9,6 @@ on:
   pull_request:
     branches: [next]
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./packages/webawesome
 
 jobs:
   client_test:
@@ -35,10 +31,17 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run prettier
+        working-directory: ./packages/webawesome
+
       - name: Build
         run: npm run build
+        working-directory: ./packages/webawesome
+
       - name: Install Playwright
         run: npx playwright install --with-deps
+        working-directory: ./packages/webawesome
+
       - name: Run CSR tests
         # FAIL_FAST to fail on first failing test.
         run: FAIL_FAST="true" CSR_ONLY="true" npm run test
+        working-directory: ./packages/webawesome

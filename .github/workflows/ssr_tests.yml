@@ -8,11 +8,6 @@ on:
   #   branches: [next]
   workflow_dispatch:
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./packages/webawesome
-
 jobs:
   ssr_test:
     runs-on: ubuntu-latest
@@ -31,17 +26,17 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      # Just lint here too. Save some GH Action minutes and not need to use "depends_on" or anything.
-      - name: Lint
-        run: npm run prettier
 
       - name: Build
         run: npm run build
+        working-directory: ./packages/webawesome
 
       - name: Install Playwright
         run: npx playwright install --with-deps
+        working-directory: ./packages/webawesome
 
       - name: Run SSR tests
         # FAIL_FAST to fail on first failing test.
         run: FAIL_FAST="true" SSR_ONLY="true" npm run test
+        working-directory: ./packages/webawesome
 
