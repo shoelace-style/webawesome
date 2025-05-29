@@ -752,6 +752,8 @@
     --border-color-active: var(--border-color);
     --border-width: max(1px, var(--wa-form-control-border-width));
 
+    --box-shadow: none;
+
     --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     --text-color-hover: var(--text-color);
     --text-color-active: var(--text-color);
@@ -761,6 +763,7 @@
     border-radius: var(--wa-form-control-border-radius);
     border-style: var(--wa-border-style);
     border-width: var(--border-width);
+    box-shadow: var(--box-shadow);
     align-items: center;
     justify-content: center;
     text-decoration: none;
