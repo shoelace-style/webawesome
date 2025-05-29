@@ -61,6 +61,7 @@ cd webawesome/packages/webawesome
 npm install
 ```
 
+
 ### Developing
 
 Once you've cloned the repo, run the following command from the respective directory within `packages/*`
@@ -90,6 +91,12 @@ npm run create wa-tag-name
 ```
 
 This will generate a source file, a stylesheet, and a docs page for you. When you start the dev server, you'll find the new component in the "Components" section of the sidebar.
+
+### Adding additional packages
+
+Right now the only additional packages are in private repositories.
+
+To add additional packages from other repositories, run: `git clone <url> packages/<package-name>` to clone your repo into `packages/`.
 
 ### Contributing
 
