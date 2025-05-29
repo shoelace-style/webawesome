@@ -15,22 +15,24 @@
     --wa-ripple-start-opacity: 0.1;
     --wa-ripple-duration: calc(2 * var(--wa-transition-slow));
 
-    button,
-    input:where([type='button'], [type='reset'], [type='submit']),
     wa-button,
-    wa-radio-group > wa-radio-button {
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']) {
       --wa-form-control-border-radius: var(--wa-border-radius-pill);
-      box-shadow: 0 0 transparent;
+      --box-shadow: 0 0 transparent;
 
       &:not([appearance~='plain']) {
-        padding-inline: calc(var(--wa-space) * 1.5);
+        &:where(:not(wa-button)),
+        &::part(base) {
+          padding-inline: calc(var(--wa-space) * 1.5);
+        }
       }
 
       &:not([appearance~='outlined'], [appearance~='plain']):hover {
-        box-shadow: var(--wa-shadow-s);
+        --box-shadow: var(--wa-shadow-s);
 
         &:active {
-          box-shadow: 0 0 transparent;
+          --box-shadow: 0 0 transparent;
         }
       }
 
@@ -39,6 +41,7 @@
       }
 
       /* Ripple effect */
+      /* TODO: fix */
       --wa-ripple-progress: 1;
       --wa-ripple-progress-inv: calc(1 - var(--wa-ripple-progress));
       --wa-ripple-radius: calc(
