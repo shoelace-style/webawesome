@@ -1,44 +1,42 @@
-:where(:root),
-:host,
-.wa-theme-premium {
-  wa-rating {
-    --symbol-color-active: var(--wa-color-text-quiet);
-  }
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-premium {
+    wa-rating {
+      --symbol-color-active: var(--wa-color-text-quiet);
+    }
 
-  button,
-  input:where([type='button'], [type='reset'], [type='submit']),
-  wa-button,
-  .wa-button {
-    font-size: var(--wa-size-smaller);
-    text-transform: uppercase;
-  }
+    wa-button::part(base),
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']) {
+      font-size: var(--wa-size-smaller);
+      text-transform: uppercase;
+    }
 
-  wa-callout,
-  .wa-callout {
-    font-size: var(--wa-size-smaller);
-  }
+    wa-callout {
+      font-size: var(--wa-size-smaller);
+    }
 
-  input[type='checkbox'],
-  wa-checkbox,
-  wa-tree-item::part(checkbox__control) {
-    --checked-icon-color: var(--wa-color-surface-default);
-  }
+    input[type='checkbox'],
+    wa-checkbox,
+    wa-tree-item::part(checkbox__control) {
+      --checked-icon-color: var(--wa-color-surface-default);
+    }
 
-  wa-badge,
-  .wa-badge,
-  wa-tag,
-  .wa-tag {
-    text-transform: uppercase;
-  }
+    wa-badge,
+    wa-tag {
+      text-transform: uppercase;
+    }
 
-  input[type='radio'],
-  wa-radio {
-    --background-color-checked: var(--border-color-checked);
-    --checked-icon-color: var(--wa-color-surface-default);
-    --checked-icon-scale: 0.4;
-  }
+    input[type='radio'],
+    wa-radio {
+      --background-color-checked: var(--border-color-checked);
+      --checked-icon-color: var(--wa-color-surface-default);
+      --checked-icon-scale: 0.4;
+    }
 
-  wa-switch {
-    --thumb-color-checked: var(--wa-color-surface-default);
+    wa-switch {
+      --thumb-color-checked: var(--wa-color-surface-default);
+    }
   }
 }

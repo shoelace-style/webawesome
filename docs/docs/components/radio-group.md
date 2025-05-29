@@ -1,6 +1,6 @@
 ---
 title: Radio Group
-description: Radio groups are used to group multiple radios or radio buttons so they function as a single form control.
+description: Radio groups are used to group multiple radios so they function as a single form control.
 tags: [inputs, forms]
 icon: radio-group
 ---
@@ -29,7 +29,7 @@ Add descriptive hint to a radio group with the `hint` attribute. For hints that 
 
 ### Radio Buttons
 
-[Radio buttons](/docs/components/radio-button) offer an alternate way to display radio controls. In this case, an internal [button group](/docs/components/button-group) is used to group the buttons into a single, cohesive control.
+Set the `appearance` attribute to `button` on all radios to render a radio button group.
 
 ```html {.example}
 <wa-radio-group
@@ -39,9 +39,9 @@ Add descriptive hint to a radio group with the `hint` attribute. For hints that 
   name="a"
   value="1"
 >
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
+  <wa-radio appearance="button" value="1">Option 1</wa-radio>
+  <wa-radio appearance="button" value="2">Option 2</wa-radio>
+  <wa-radio appearance="button" value="3">Option 3</wa-radio>
 </wa-radio-group>
 
 <br>
@@ -54,9 +54,9 @@ Add descriptive hint to a radio group with the `hint` attribute. For hints that 
   value="1"
   style="max-width: 300px;"
 >
-  <wa-radio-button value="1">Option 1</wa-radio-button>
-  <wa-radio-button value="2">Option 2</wa-radio-button>
-  <wa-radio-button value="3">Option 3</wa-radio-button>
+  <wa-radio appearance="button" value="1">Option 1</wa-radio>
+  <wa-radio appearance="button" value="2">Option 2</wa-radio>
+  <wa-radio appearance="button" value="3">Option 3</wa-radio>
 </wa-radio-group>
 ```
 
@@ -92,7 +92,7 @@ The default orientation for radio items is `vertical`. Set the `orientation` to 
 
 ### Sizing Options
 
-The size of [Radios](/docs/components/radio) and [Radio Buttons](/docs/components/radio-button) will be determined by the Radio Group's `size` attribute.
+The size of [Radios](/docs/components/radio) will be determined by the Radio Group's `size` attribute.
 
 ```html {.example}
 <wa-radio-group label="Select an option" size="medium" value="medium" onchange="this.size = this.value">

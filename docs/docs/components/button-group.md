@@ -55,7 +55,7 @@ it is rarely a good idea to mix sizes within the same button group.
 Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ```html {.example}
-<wa-button-group orientation="vertical" label="Options" style="max-width: 80px;">
+<wa-button-group orientation="vertical" label="Options" style="max-width: 120px;">
   <wa-button>
     <wa-icon slot="prefix" name="plus"></wa-icon>
     New
@@ -157,16 +157,13 @@ Pill buttons are supported through the button's `pill` attribute.
 </wa-button-group>
 ```
 
-### Dropdowns and Native Buttons in Button Groups
+### Dropdowns in Button Groups
 
-Other elements can also be placed inside button groups:
-- Native buttons as long as their [native styles](/docs/native/button) are included
-- Dropdowns as long as the trigger is either a `<wa-button>`, or a `<button>` with [native styles](/docs/native/button) included.
+Dropdowns can be placed into button groups.
 
 ```html {.example}
 <wa-button-group label="Example Button Group">
   <wa-button>Button</wa-button>
-  <button>Native Button</button>
   <wa-dropdown>
     <wa-button slot="trigger" caret>Dropdown</wa-button>
     <wa-menu>
@@ -175,6 +172,7 @@ Other elements can also be placed inside button groups:
       <wa-menu-item>Item 3</wa-menu-item>
     </wa-menu>
   </wa-dropdown>
+  <wa-button>Button</wa-button>
 </wa-button-group>
 ```
 

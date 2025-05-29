@@ -1,7 +1,7 @@
 // Get a list of all CSS files in repo
 import chalk from 'chalk';
 import Color from 'colorjs.io';
-import palettes from './palettes.js';
+import palettes from '../src/styles/color/scripts/palettes.js';
 
 let targetContrasts = {
   40: 3,

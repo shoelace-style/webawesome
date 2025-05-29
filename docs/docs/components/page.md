@@ -41,7 +41,7 @@ body {
 ```
 
 :::info
-If you use [native styles](/docs/native/), this is already taken care of.
+If you use [native styles](/docs/utilities/native/), this is already taken care of.
 :::
 
 ## Examples
@@ -164,7 +164,7 @@ wa-page[view='desktop'] [data-toggle-nav] {
 ```
 
 :::info
-If you use [native styles](/docs/native/), this is already taken care for you, and the `data-toggle-nav` button is already hidden on wider screens.
+If you use [native styles](/docs/utilities/native/), this is already taken care for you, and the `data-toggle-nav` button is already hidden on wider screens.
 :::
 
 #### Custom Widths
@@ -205,13 +205,7 @@ You can override the default spacing for each slot with your own CSS. In this ex
 
 ## Utility classes
 
-[Native styles](/docs/native/) define a few useful defaults for `<wa-page>`, as well as two utility classes you can use for common responsive design tasks:
+[Native styles](/docs/utilities/native/) define a few useful defaults for `<wa-page>`, as well as two utility classes you can use for common responsive design tasks:
 
 - `.wa-mobile-only` hides an element on the desktop view
 - `.wa-desktop-only` hides an element on the mobile view
-
-If you don’t want to use [native styles](/docs/native/), you can include this stylesheet in your project to use these:
-
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/components/page.css' %}" />
-```

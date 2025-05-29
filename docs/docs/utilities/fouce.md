@@ -1,5 +1,5 @@
 ---
-title: Reduce FOUCE
+title: Reducing FOUCE
 description: Utility to improve the loading experience by hiding non-prerendered custom elements until they are registered.
 file: styles/utilities/fouce.css
 icon: spinner

@@ -1,37 +1,74 @@
 :host {
+  --border-width: var(--wa-form-control-border-width);
+  --box-shadow: initial;
+  --outlined-background-color: var(--wa-form-control-background-color);
+  --outlined-border-color: var(--wa-form-control-border-color);
+  --outlined-text-color: var(--wa-form-control-value-color);
+
   border-width: 0;
 }
 
-.wa-text-field {
-  display: grid;
-  align-items: center;
-  padding: 0;
-  border-color: inherit;
-  border-style: inherit;
-  border-radius: inherit;
-  transition: inherit;
-}
+/* Shared textarea and size-adjuster positioning */
+.textarea,
+.size-adjuster {
+  grid-area: 1 / 1 / 2 / 2;
+  margin: 0;
+  border: none;
+  outline: none;
+  cursor: inherit;
+  font: inherit;
+  background-color: var(--background-color, var(--wa-form-control-background-color));
+  border-color: var(--border-color, var(--wa-form-control-border-color));
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-form-control-border-style);
+  border-width: var(--border-width);
+  box-shadow: var(--box-shadow);
+  -webkit-appearance: none;
 
-textarea {
-  background-color: transparent;
-  color: inherit;
-
-  &[part] {
-    padding: var(--wa-space);
-    border-radius: inherit;
-    border: var(--border-width) solid transparent; /* make resizer look a little nicer */
+  &:focus-within {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 }
 
-textarea,
-.size-adjuster {
-  grid-area: 1 / 1 / 2 / 2;
+textarea {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  padding: var(--wa-space-smaller) var(--wa-space);
+  min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2 - (var(--wa-space-smaller) * 2));
+  box-shadow: none;
+  margin: 0;
+
+  &::placeholder {
+    color: var(--wa-form-control-placeholder-color);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  &:autofill {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: none;
+      caret-color: var(--wa-form-control-value-color);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .size-adjuster {
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
+  padding: 0;
 }
 
 textarea::-webkit-search-decoration,

@@ -20,7 +20,7 @@ describe('<wa-textarea>', () => {
       it('default properties', async () => {
         const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
 
-        expect(el.size).to.equal('inherit');
+        expect(el.size).to.equal('medium');
         expect(el.name).to.equal(null);
         expect(el.value).to.equal('');
         expect(el.defaultValue).to.equal('');

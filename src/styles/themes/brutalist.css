@@ -8,41 +8,38 @@
 @import url('default/groups.css');
 @import url('brutalist/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-brutalist,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-brutalist,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Spacing
    */
-  --wa-space-scale: 1.125;
+    --wa-space-scale: 1.125;
 
-  /**
+    /**
    * Borders
    */
-  --wa-border-width-scale: 2;
+    --wa-border-width-scale: 2;
 
-  /**
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 0;
+    --wa-border-radius-scale: 0;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-blur-scale: 0;
-  --wa-shadow-offset-x-scale: var(--wa-shadow-offset-y-scale);
-  --wa-shadow-offset-y-scale: 4;
+    --wa-shadow-blur-scale: 0;
+    --wa-shadow-offset-x-scale: var(--wa-shadow-offset-y-scale);
+    --wa-shadow-offset-y-scale: 4;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
-
-  /**
-   * Icons
-   */
-  --wa-icon-family: sharp;
+    --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
+  }
 }

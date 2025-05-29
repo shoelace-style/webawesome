@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import nativeStyles from '../../styles/native/callout.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
@@ -25,16 +24,10 @@ import styles from './callout.css';
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
-  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [variantStyles, appearanceStyles, sizeStyles, styles];
 
   /** The callout's theme variant. Defaults to `brand` if not within another element with a variant. */
-  @property({ reflect: true, initial: 'brand' }) variant:
-    | 'brand'
-    | 'neutral'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'inherit' = 'inherit';
+  @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' | 'brand' = 'brand';
 
   /** The callout's visual appearance. */
   @property({ reflect: true }) appearance:
@@ -46,7 +39,7 @@ export default class WaCallout extends WebAwesomeElement {
     | 'outlined accent' = 'outlined filled';
 
   /** The callout's size. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   render() {
     return html`

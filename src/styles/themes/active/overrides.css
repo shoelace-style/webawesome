@@ -1,10 +1,12 @@
-:where(:root),
-:host,
-.wa-theme-active {
-  input[type='radio'],
-  wa-radio {
-    --background-color-checked: var(--wa-form-control-activated-color);
-    --checked-icon-color: var(--wa-color-brand-on-loud);
-    --checked-icon-scale: 0.4;
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-active {
+    input[type='radio'],
+    wa-radio {
+      --background-color-checked: var(--wa-form-control-activated-color);
+      --checked-icon-color: var(--wa-color-brand-on-loud);
+      --checked-icon-scale: 0.4;
+    }
   }
 }

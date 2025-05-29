@@ -8,47 +8,44 @@
 @import url('default/groups.css');
 @import url('shoelace/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-shoelace,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-shoelace,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Focus
    */
-  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-    color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
+    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
+      color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
 
-  /**
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 0.7;
+    --wa-border-radius-scale: 0.7;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-offset-y-scale: 0.0625;
-  --wa-shadow-spread-scale: 0;
+    --wa-shadow-offset-y-scale: 0.0625;
+    --wa-shadow-spread-scale: 0;
 
-  /**
+    /**
    * Transitions
    */
-  --wa-transition-slow: 250ms;
-  --wa-transition-normal: 150ms;
-  --wa-transition-fast: 50ms;
+    --wa-transition-slow: 250ms;
+    --wa-transition-normal: 150ms;
+    --wa-transition-fast: 50ms;
 
-  /**
+    /**
    * Component Groups
    */
-  /* Form controls */
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+    /* Form controls */
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
-  /* Panels */
-  --wa-panel-border-radius: var(--wa-border-radius-m);
-
-  /**
-   * Icons
-   */
-  --wa-icon-variant: light;
+    /* Panels */
+    --wa-panel-border-radius: var(--wa-border-radius-m);
+  }
 }

@@ -23,7 +23,8 @@ wa-dropdown > .color.swatch {
     --track-color-inactive: transparent;
     --track-color-active: transparent;
     --thumb-color: var(--color-tweaked, var(--color));
-    --thumb-shadow: 0 0 0 var(--thumb-gap) var(--wa-color-surface-default),
+    --thumb-shadow:
+      0 0 0 var(--thumb-gap) var(--wa-color-surface-default),
       var(--wa-shadow-offset-x-m) var(--wa-shadow-offset-y-m) var(--wa-shadow-blur-m)
         calc(var(--wa-shadow-offset-x-m) * -1 + var(--thumb-gap)) var(--wa-color-shadow);
 

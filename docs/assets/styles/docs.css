@@ -93,15 +93,18 @@ wa-page > header {
     margin: 0;
   }
 
-  h2:not(:first-child),
-  wa-details:not(:first-child) {
+  h2:not(:first-child) {
     margin-block-start: var(--wa-space-xs);
   }
 
   wa-details {
-    border: none;
-    background: none;
-    padding: 0;
+    --spacing: var(--wa-space-xs);
+
+    &::part(base) {
+      border: none;
+      background: none;
+      padding: 0;
+    }
   }
 
   ul {
@@ -302,6 +305,13 @@ h1.title {
   }
 }
 
+@media print {
+  /* Show URLs for printed links */
+  a:not(.anchor-heading)[href]::after {
+    content: ' (' attr(href) ')';
+  }
+}
+
 /* Callouts */
 .callout {
   display: flex;
@@ -414,146 +424,6 @@ wa-card .page-name {
   grid-column: 1 / -1;
   margin-block-end: 0;
   margin-block-start: var(--wa-space-2xl);
-}
-
-/* Interactive cards */
-wa-card[role='button'][tabindex='0'],
-button,
-a[href],
-wa-option,
-wa-radio,
-wa-checkbox {
-  /* Disabled state */
-  &:is(:disabled, [disabled], [aria-disabled='true']) {
-    &:is(wa-card, :has(> wa-card)) {
-      opacity: 60%;
-      cursor: not-allowed;
-    }
-  }
-
-  &:where(:not(:disabled, [disabled], [aria-disabled='true'])) {
-    &:has(> wa-card) {
-      /* Parents only (not interactive <wa-card>) */
-      margin: calc(var(--wa-border-width-m) + 1px);
-      padding: 0;
-
-      /* Hover state */
-      &:hover,
-      &:state(hover),
-      &:state(current) {
-        /* Do not change the parent background as a hover effect (we style the card instead) */
-        background: transparent !important;
-      }
-
-      &::part(control),
-      &:is(wa-option)::part(checked-icon) {
-        --background-color-checked: var(--wa-color-brand-fill-loud);
-        --checked-icon-scale: 0.5;
-        --offset: var(--wa-space-2xs);
-
-        position: absolute;
-        inset: calc(var(--offset) + var(--wa-border-width-m));
-        inset-block-end: auto;
-        inset-inline-start: auto;
-        z-index: 1;
-        margin: 0;
-        background: var(--wa-color-brand-fill-loud);
-        color: var(--wa-color-brand-on-loud);
-      }
-
-      &::part(checked-icon) {
-        color: var(--wa-color-brand-on-loud);
-      }
-
-      &:is(wa-option)::part(checked-icon) {
-        inset-block-start: calc(var(--wa-space-smaller) - 0.5em);
-        inset-inline-end: calc(var(--wa-space-smaller) - 0.5em);
-        width: 1em;
-        height: 1em;
-        line-height: 1em;
-        padding: 0.4em;
-        border-radius: var(--wa-border-radius-circle);
-        text-align: center;
-        font-size: var(--wa-font-size-xs);
-      }
-    }
-
-    /* Hover state */
-    &:hover,
-    &:state(hover),
-    &:state(current) {
-      &:is(wa-card),
-      > wa-card {
-        --border-color: var(--wa-color-brand-border-loud);
-        border-color: var(--border-color);
-        box-shadow: 0 0 0 var(--wa-border-width-s) var(--border-color);
-      }
-    }
-
-    &:is(wa-card, :has(> wa-card)) {
-      /* Interactive card parent */
-      position: relative;
-      cursor: pointer;
-
-      /* Unselected state */
-      &:where(:not(:state(checked), :state(selected), [aria-checked='true'], [aria-selected='true'])) {
-        &::part(checked-icon),
-        &::part(control) {
-          display: none;
-        }
-      }
-    }
-
-    &:is(wa-card),
-    > wa-card {
-      /* The card itself */
-      box-shadow: none;
-    }
-  }
-}
-
-/* Selected cards */
-:state(selected),
-:state(checked),
-[aria-checked='true'],
-[aria-selected='true'] {
-  &:is(wa-card, :has(> wa-card)) {
-    background: transparent;
-  }
-
-  &:is(wa-card),
-  > wa-card {
-    --border-color: var(--wa-color-brand-border-loud);
-    box-shadow: 0 0 0 var(--wa-border-width-m) var(--border-color);
-
-    &::part(body) {
-      background: var(--wa-color-brand-fill-quiet);
-    }
-  }
-}
-
-wa-select:has(> wa-option > wa-card) {
-  &::part(listbox) {
-    --column-width: 1fr;
-    --columns: 1;
-    --gap: var(--wa-space-smaller);
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--column-width), 1fr));
-    width: calc(var(--columns) * var(--column-width) + (var(--columns) - 1) * var(--gap) + 2 * var(--wa-space));
-    max-width: var(--auto-size-available-width, 90vw);
-    gap: var(--gap);
-    padding: var(--wa-space-smaller) var(--wa-space);
-  }
-
-  > wa-option > wa-card {
-    --spacing: var(--wa-space-s);
-  }
-}
-
-wa-radio:has(> wa-card) {
-  grid-template-columns: 1fr;
-  width: auto;
 }
 
 /* Swatches */

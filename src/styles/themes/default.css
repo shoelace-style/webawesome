@@ -7,3 +7,7 @@
 @import url('default/shadows.css');
 @import url('default/transitions.css');
 @import url('default/groups.css');
+
+@layer wa-theme {
+  /* Nothing yet */
+}

@@ -3,11 +3,9 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import buttonGroupStyles from '../../styles/utilities/button-group.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import type WaButton from '../button/button.js';
-import type WaRadioButton from '../radio-button/radio-button.js';
 import styles from './button-group.css';
 
 /**
@@ -22,7 +20,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, variantStyles, buttonGroupStyles, styles];
+  static shadowStyle = [sizeStyles, variantStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
@@ -39,16 +37,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** The component's size. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
-  @property({ reflect: true, initial: 'neutral' }) variant:
-    | 'neutral'
-    | 'brand'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'inherit' = 'inherit';
+  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
@@ -93,6 +85,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
       if (button) {
         if ((button as WaButton).appearance === 'outlined') this.hasOutlined = true;
+        button.setAttribute('size', this.size);
         button.classList.add('wa-button-group__button');
         button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');
@@ -126,7 +119,7 @@ function findButton(el: HTMLElement) {
   const selector = 'wa-button, wa-radio-button';
 
   // The button could be the target element or a child of it (e.g. a dropdown or tooltip anchor)
-  return (el.closest(selector) ?? el.querySelector(selector)) as WaButton | WaRadioButton;
+  return (el.closest(selector) ?? el.querySelector(selector)) as WaButton;
 }
 
 declare global {

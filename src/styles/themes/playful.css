@@ -9,36 +9,38 @@
 @import url('playful/dimension.css');
 @import url('playful/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-playful,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-playful,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Borders
    */
-  --wa-border-width-scale: 3;
+    --wa-border-width-scale: 3;
 
-  /**
+    /**
    * Focus
    */
-  --wa-focus-ring-width: 0.25rem;
+    --wa-focus-ring-width: 0.25rem;
 
-  /**
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 2;
+    --wa-border-radius-scale: 2;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-blur-scale: 3;
-  --wa-shadow-offset-y-scale: 2;
+    --wa-shadow-blur-scale: 3;
+    --wa-shadow-offset-y-scale: 2;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-  --wa-form-control-border-radius: min(var(--wa-border-radius-pill), calc(var(--wa-form-control-height) * 0.6));
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-radius: min(var(--wa-border-radius-pill), calc(var(--wa-form-control-height) * 0.6));
+  }
 }

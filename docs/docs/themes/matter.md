@@ -74,7 +74,7 @@ If you want it to start from the position the button was clicked, you can use th
 document.addEventListener("mousedown", evt => {
 	let target = evt.target;
 
-	if (!target.matches?.('wa-button, button, .wa-button')) {
+	if (!target.matches?.('wa-button, button')) {
 		return;
 	}
 

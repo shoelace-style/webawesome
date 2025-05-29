@@ -8,40 +8,36 @@
 @import url('default/groups.css');
 @import url('mellow/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-mellow,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-mellow,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Spacing
    */
-  --wa-space-scale: 1.125;
+    --wa-space-scale: 1.125;
 
-  /**
+    /**
    * Borders
    */
-  --wa-border-width-scale: 1.5;
+    --wa-border-width-scale: 1.5;
 
-  /**
+    /**
    * Focus
    */
-  --wa-focus-ring-width: 0.25rem;
+    --wa-focus-ring-width: 0.25rem;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-offset-y-scale: 0;
+    --wa-shadow-offset-y-scale: 0;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
-
-  /**
-   * Icons
-   */
-  --wa-icon-family: duotone;
-  --wa-icon-variant: light;
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+  }
 }

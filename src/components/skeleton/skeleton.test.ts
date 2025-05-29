@@ -13,7 +13,7 @@ describe('<wa-skeleton>', () => {
 
         const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
 
-        expect(el.getAttribute('effect')).to.equal(null);
+        expect(el.getAttribute('effect')).to.equal('none');
         expect(indicator.getAttribute('class')).to.equal('indicator');
       });
 
@@ -22,7 +22,7 @@ describe('<wa-skeleton>', () => {
         const indicator = el.shadowRoot!.querySelector<HTMLElement>('[part~="indicator"]')!;
         const cs = getComputedStyle(indicator);
 
-        expect(el.getAttribute('effect')).to.equal(null);
+        expect(el.getAttribute('effect')).to.equal('none');
         expect(cs.animationName).to.equal('none');
       });
 

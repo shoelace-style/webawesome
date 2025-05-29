@@ -6,138 +6,140 @@
 @import url('../../danger/red.css');
 @import url('../../neutral/gray.css');
 
-:where(:root),
-:host,
-.wa-theme-active,
-.wa-light,
-.wa-dark .wa-invert {
-  color-scheme: light;
-  color: var(--wa-color-text-normal);
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-active,
+  .wa-light,
+  .wa-dark .wa-invert {
+    color-scheme: light;
+    color: var(--wa-color-text-normal);
 
-  /**
+    /**
    * Foundational Colors
    */
-  --wa-color-text-normal: var(--wa-color-neutral-05);
-  --wa-color-text-link: var(--wa-color-brand-40);
+    --wa-color-text-normal: var(--wa-color-neutral-05);
+    --wa-color-text-link: var(--wa-color-brand-40);
 
-  --wa-color-focus: var(--wa-color-blue-60);
+    --wa-color-focus: var(--wa-color-blue-60);
 
-  --wa-color-mix-hover: white 10%;
-  --wa-color-mix-active: black 5%;
+    --wa-color-mix-hover: white 10%;
+    --wa-color-mix-active: black 5%;
 
-  /**
+    /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
-  --wa-color-brand-fill-normal: var(--wa-color-brand-90);
-  --wa-color-brand-fill-loud: var(--wa-color-brand-min-70);
-  --wa-color-brand-border-quiet: var(--wa-color-brand-90);
-  --wa-color-brand-border-normal: var(--wa-color-brand-80);
-  --wa-color-brand-border-loud: var(--wa-color-brand-70);
-  --wa-color-brand-on-quiet: var(--wa-color-brand-40);
-  --wa-color-brand-on-normal: var(--wa-color-brand-30);
-  --wa-color-brand-on-loud: black;
+    --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
+    --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+    --wa-color-brand-fill-loud: var(--wa-color-brand-min-70);
+    --wa-color-brand-border-quiet: var(--wa-color-brand-90);
+    --wa-color-brand-border-normal: var(--wa-color-brand-80);
+    --wa-color-brand-border-loud: var(--wa-color-brand-70);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+    --wa-color-brand-on-normal: var(--wa-color-brand-30);
+    --wa-color-brand-on-loud: black;
 
-  --wa-color-success-fill-quiet: var(--wa-color-success-95);
-  --wa-color-success-fill-normal: var(--wa-color-success-90);
-  --wa-color-success-fill-loud: var(--wa-color-success-min-70);
-  --wa-color-success-border-quiet: var(--wa-color-success-90);
-  --wa-color-success-border-normal: var(--wa-color-success-80);
-  --wa-color-success-border-loud: var(--wa-color-success-70);
-  --wa-color-success-on-quiet: var(--wa-color-success-40);
-  --wa-color-success-on-normal: var(--wa-color-success-30);
-  --wa-color-success-on-loud: black;
+    --wa-color-success-fill-quiet: var(--wa-color-success-95);
+    --wa-color-success-fill-normal: var(--wa-color-success-90);
+    --wa-color-success-fill-loud: var(--wa-color-success-min-70);
+    --wa-color-success-border-quiet: var(--wa-color-success-90);
+    --wa-color-success-border-normal: var(--wa-color-success-80);
+    --wa-color-success-border-loud: var(--wa-color-success-70);
+    --wa-color-success-on-quiet: var(--wa-color-success-40);
+    --wa-color-success-on-normal: var(--wa-color-success-30);
+    --wa-color-success-on-loud: black;
 
-  --wa-color-warning-fill-quiet: var(--wa-color-warning-95);
-  --wa-color-warning-fill-normal: var(--wa-color-warning-90);
-  --wa-color-warning-fill-loud: var(--wa-color-warning-min-70);
-  --wa-color-warning-border-quiet: var(--wa-color-warning-90);
-  --wa-color-warning-border-normal: var(--wa-color-warning-80);
-  --wa-color-warning-border-loud: var(--wa-color-warning-70);
-  --wa-color-warning-on-quiet: var(--wa-color-warning-40);
-  --wa-color-warning-on-normal: var(--wa-color-warning-30);
-  --wa-color-warning-on-loud: black;
+    --wa-color-warning-fill-quiet: var(--wa-color-warning-95);
+    --wa-color-warning-fill-normal: var(--wa-color-warning-90);
+    --wa-color-warning-fill-loud: var(--wa-color-warning-min-70);
+    --wa-color-warning-border-quiet: var(--wa-color-warning-90);
+    --wa-color-warning-border-normal: var(--wa-color-warning-80);
+    --wa-color-warning-border-loud: var(--wa-color-warning-70);
+    --wa-color-warning-on-quiet: var(--wa-color-warning-40);
+    --wa-color-warning-on-normal: var(--wa-color-warning-30);
+    --wa-color-warning-on-loud: black;
 
-  --wa-color-danger-fill-quiet: var(--wa-color-danger-95);
-  --wa-color-danger-fill-normal: var(--wa-color-danger-90);
-  --wa-color-danger-fill-loud: var(--wa-color-danger-min-70);
-  --wa-color-danger-border-quiet: var(--wa-color-danger-90);
-  --wa-color-danger-border-normal: var(--wa-color-danger-80);
-  --wa-color-danger-border-loud: var(--wa-color-danger-70);
-  --wa-color-danger-on-quiet: var(--wa-color-danger-40);
-  --wa-color-danger-on-normal: var(--wa-color-danger-30);
-  --wa-color-danger-on-loud: black;
+    --wa-color-danger-fill-quiet: var(--wa-color-danger-95);
+    --wa-color-danger-fill-normal: var(--wa-color-danger-90);
+    --wa-color-danger-fill-loud: var(--wa-color-danger-min-70);
+    --wa-color-danger-border-quiet: var(--wa-color-danger-90);
+    --wa-color-danger-border-normal: var(--wa-color-danger-80);
+    --wa-color-danger-border-loud: var(--wa-color-danger-70);
+    --wa-color-danger-on-quiet: var(--wa-color-danger-40);
+    --wa-color-danger-on-normal: var(--wa-color-danger-30);
+    --wa-color-danger-on-loud: black;
 
-  --wa-color-neutral-fill-quiet: var(--wa-color-neutral-95);
-  --wa-color-neutral-fill-normal: var(--wa-color-neutral-90);
-  --wa-color-neutral-fill-loud: var(--wa-color-neutral-80);
-  --wa-color-neutral-border-quiet: var(--wa-color-neutral-90);
-  --wa-color-neutral-border-normal: var(--wa-color-neutral-80);
-  --wa-color-neutral-border-loud: var(--wa-color-neutral-70);
-  --wa-color-neutral-on-quiet: var(--wa-color-neutral-40);
-  --wa-color-neutral-on-normal: var(--wa-color-neutral-30);
-  --wa-color-neutral-on-loud: black;
-}
+    --wa-color-neutral-fill-quiet: var(--wa-color-neutral-95);
+    --wa-color-neutral-fill-normal: var(--wa-color-neutral-90);
+    --wa-color-neutral-fill-loud: var(--wa-color-neutral-80);
+    --wa-color-neutral-border-quiet: var(--wa-color-neutral-90);
+    --wa-color-neutral-border-normal: var(--wa-color-neutral-80);
+    --wa-color-neutral-border-loud: var(--wa-color-neutral-70);
+    --wa-color-neutral-on-quiet: var(--wa-color-neutral-40);
+    --wa-color-neutral-on-normal: var(--wa-color-neutral-30);
+    --wa-color-neutral-on-loud: black;
+  }
 
-.wa-dark,
-.wa-invert {
-  /**
+  .wa-dark,
+  .wa-invert {
+    /**
    * Foundational Colors
    */
-  --wa-color-surface-lowered: black;
+    --wa-color-surface-lowered: black;
 
-  --wa-color-text-link: var(--wa-color-brand-70);
+    --wa-color-text-link: var(--wa-color-brand-70);
 
-  /**
+    /**
    * Semantic Colors
    */
-  --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
-  --wa-color-brand-fill-normal: var(--wa-color-brand-20);
-  --wa-color-brand-fill-loud: var(--wa-color-brand-min-70);
-  --wa-color-brand-border-quiet: var(--wa-color-brand-20);
-  --wa-color-brand-border-normal: var(--wa-color-brand-30);
-  --wa-color-brand-border-loud: var(--wa-color-brand-60);
-  --wa-color-brand-on-quiet: var(--wa-color-brand-min-70);
-  --wa-color-brand-on-normal: var(--wa-color-brand-90);
-  --wa-color-brand-on-loud: black;
+    --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
+    --wa-color-brand-fill-normal: var(--wa-color-brand-20);
+    --wa-color-brand-fill-loud: var(--wa-color-brand-min-70);
+    --wa-color-brand-border-quiet: var(--wa-color-brand-20);
+    --wa-color-brand-border-normal: var(--wa-color-brand-30);
+    --wa-color-brand-border-loud: var(--wa-color-brand-60);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-min-70);
+    --wa-color-brand-on-normal: var(--wa-color-brand-90);
+    --wa-color-brand-on-loud: black;
 
-  --wa-color-success-fill-quiet: var(--wa-color-success-10);
-  --wa-color-success-fill-normal: var(--wa-color-success-20);
-  --wa-color-success-fill-loud: var(--wa-color-success-min-70);
-  --wa-color-success-border-quiet: var(--wa-color-success-20);
-  --wa-color-success-border-normal: var(--wa-color-success-30);
-  --wa-color-success-border-loud: var(--wa-color-success-40);
-  --wa-color-success-on-quiet: var(--wa-color-success-min-70);
-  --wa-color-success-on-normal: var(--wa-color-success-90);
-  --wa-color-success-on-loud: black;
+    --wa-color-success-fill-quiet: var(--wa-color-success-10);
+    --wa-color-success-fill-normal: var(--wa-color-success-20);
+    --wa-color-success-fill-loud: var(--wa-color-success-min-70);
+    --wa-color-success-border-quiet: var(--wa-color-success-20);
+    --wa-color-success-border-normal: var(--wa-color-success-30);
+    --wa-color-success-border-loud: var(--wa-color-success-40);
+    --wa-color-success-on-quiet: var(--wa-color-success-min-70);
+    --wa-color-success-on-normal: var(--wa-color-success-90);
+    --wa-color-success-on-loud: black;
 
-  --wa-color-warning-fill-quiet: var(--wa-color-warning-10);
-  --wa-color-warning-fill-normal: var(--wa-color-warning-20);
-  --wa-color-warning-fill-loud: var(--wa-color-warning-min-70);
-  --wa-color-warning-border-quiet: var(--wa-color-warning-20);
-  --wa-color-warning-border-normal: var(--wa-color-warning-30);
-  --wa-color-warning-border-loud: var(--wa-color-warning-60);
-  --wa-color-warning-on-quiet: var(--wa-color-warning-min-70);
-  --wa-color-warning-on-normal: var(--wa-color-warning-90);
-  --wa-color-warning-on-loud: black;
+    --wa-color-warning-fill-quiet: var(--wa-color-warning-10);
+    --wa-color-warning-fill-normal: var(--wa-color-warning-20);
+    --wa-color-warning-fill-loud: var(--wa-color-warning-min-70);
+    --wa-color-warning-border-quiet: var(--wa-color-warning-20);
+    --wa-color-warning-border-normal: var(--wa-color-warning-30);
+    --wa-color-warning-border-loud: var(--wa-color-warning-60);
+    --wa-color-warning-on-quiet: var(--wa-color-warning-min-70);
+    --wa-color-warning-on-normal: var(--wa-color-warning-90);
+    --wa-color-warning-on-loud: black;
 
-  --wa-color-danger-fill-quiet: var(--wa-color-danger-10);
-  --wa-color-danger-fill-normal: var(--wa-color-danger-20);
-  --wa-color-danger-fill-loud: var(--wa-color-danger-min-70);
-  --wa-color-danger-border-quiet: var(--wa-color-danger-20);
-  --wa-color-danger-border-normal: var(--wa-color-danger-30);
-  --wa-color-danger-border-loud: var(--wa-color-danger-60);
-  --wa-color-danger-on-quiet: var(--wa-color-danger-min-70);
-  --wa-color-danger-on-normal: var(--wa-color-danger-90);
-  --wa-color-danger-on-loud: black;
+    --wa-color-danger-fill-quiet: var(--wa-color-danger-10);
+    --wa-color-danger-fill-normal: var(--wa-color-danger-20);
+    --wa-color-danger-fill-loud: var(--wa-color-danger-min-70);
+    --wa-color-danger-border-quiet: var(--wa-color-danger-20);
+    --wa-color-danger-border-normal: var(--wa-color-danger-30);
+    --wa-color-danger-border-loud: var(--wa-color-danger-60);
+    --wa-color-danger-on-quiet: var(--wa-color-danger-min-70);
+    --wa-color-danger-on-normal: var(--wa-color-danger-90);
+    --wa-color-danger-on-loud: black;
 
-  --wa-color-neutral-fill-quiet: var(--wa-color-neutral-10);
-  --wa-color-neutral-fill-normal: var(--wa-color-neutral-20);
-  --wa-color-neutral-fill-loud: var(--wa-color-neutral-80);
-  --wa-color-neutral-border-quiet: var(--wa-color-neutral-20);
-  --wa-color-neutral-border-normal: var(--wa-color-neutral-30);
-  --wa-color-neutral-border-loud: var(--wa-color-neutral-60);
-  --wa-color-neutral-on-quiet: var(--wa-color-neutral-80);
-  --wa-color-neutral-on-normal: var(--wa-color-neutral-90);
-  --wa-color-neutral-on-loud: black;
+    --wa-color-neutral-fill-quiet: var(--wa-color-neutral-10);
+    --wa-color-neutral-fill-normal: var(--wa-color-neutral-20);
+    --wa-color-neutral-fill-loud: var(--wa-color-neutral-80);
+    --wa-color-neutral-border-quiet: var(--wa-color-neutral-20);
+    --wa-color-neutral-border-normal: var(--wa-color-neutral-30);
+    --wa-color-neutral-border-loud: var(--wa-color-neutral-60);
+    --wa-color-neutral-on-quiet: var(--wa-color-neutral-80);
+    --wa-color-neutral-on-normal: var(--wa-color-neutral-90);
+    --wa-color-neutral-on-loud: black;
+  }
 }

@@ -1,19 +1,16 @@
+import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { toLength, toPx } from '../../internal/css-values.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/utilities/visually-hidden.css';
-import styles from './page.css';
-import mobileStyles from './page.mobile.styles.js';
-
 import '../button/button.js';
 import '../drawer/drawer.js';
-import '../icon/icon.js';
-
-import type { PropertyValues } from 'lit';
 import type WaDrawer from '../drawer/drawer.js';
+import '../icon/icon.js';
+import styles from './page.css';
+import mobileStyles from './page.mobile.styles.js';
 
 if (typeof ResizeObserver === 'undefined') {
   globalThis.ResizeObserver = class {
@@ -26,6 +23,58 @@ if (typeof ResizeObserver === 'undefined') {
     // eslint-disable-next-line
     disconnect(..._args: Parameters<ResizeObserver['disconnect']>) {}
   };
+}
+
+//
+// TODO - the toPx and toLength functions aren't used anywhere else, and they're not named or documented well enough to
+// abstract into a utility as-is.
+//
+
+/** Converts a non-pixel value to a pixel value. */
+function toPx(value: string | number, element: HTMLElement | SVGElement = document.documentElement): number {
+  if (!Number.isNaN(Number(value))) {
+    return Number(value);
+  }
+
+  // If CSS.registerProperty isn't supported, try to parse as-is
+  if (!window.CSS || !CSS.registerProperty) {
+    if (typeof value === 'string' && value.endsWith('px')) {
+      return parseFloat(value);
+    }
+    return Number(value) || 0;
+  }
+
+  const resolver = '--wa-length-resolver';
+
+  // Register the property if not already done
+  if (!CSS.registerProperty.toString().includes(resolver)) {
+    try {
+      CSS.registerProperty({
+        name: resolver,
+        syntax: '<length>',
+        inherits: false,
+        initialValue: '0px',
+      });
+    } catch (e) {
+      // Property might already be registered
+    }
+  }
+
+  const previousValue = element.style.getPropertyValue(resolver);
+  element.style.setProperty(resolver, value as string);
+  const computedValue = getComputedStyle(element)?.getPropertyValue(resolver);
+  element.style.setProperty(resolver, previousValue);
+
+  if (computedValue?.endsWith('px')) {
+    return parseFloat(computedValue);
+  }
+
+  return Number(computedValue) || 0;
+}
+
+/** Converts a number or string to a CSS px value. Not used anywhere else, so consolidated here for the time being. */
+function toLength(px: number | string): string {
+  return Number.isNaN(Number(px)) ? (px as string) : `${px}px`;
 }
 
 /**
@@ -373,3 +422,34 @@ declare global {
     'wa-page': WaPage;
   }
 }
+
+//
+// Append a supporting light DOM styles for <wa-page>
+//
+const stylesheet = new CSSStyleSheet();
+
+stylesheet.replaceSync(`
+:is(html, body):has(wa-page) {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+  /**
+  Because headers are sticky, this is needed to make sure page fragment anchors scroll down past the headers / subheaders and are visible.
+  IE: \`<a href="#id-for-h2">\` anchors.
+  */
+  wa-page :is(*, *:after, *:before) {
+  scroll-margin-top: var(--scroll-margin-top);
+  }
+
+  wa-page[view='desktop'] [data-toggle-nav] {
+  display: none;
+  }
+
+  wa-page[view='mobile'] .wa-desktop-only, wa-page[view='desktop'] .wa-mobile-only {
+  display: none !important;
+  }
+`);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];

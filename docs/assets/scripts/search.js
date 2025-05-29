@@ -4,14 +4,7 @@ const lunr = res[0].default;
 const searchData = await res[1].json();
 const searchIndex = lunr.Index.load(searchData.searchIndex);
 const map = searchData.map;
-const searchDebounce = 100;
-const icons = {
-  component: 'puzzle-piece',
-  document: 'file',
-  home: 'house',
-  native: 'code',
-  theme: 'palette',
-};
+const searchDebounce = 200;
 let searchTimeout;
 
 // We're using Turbo, so references to these elements aren't guaranteed to remain intact
@@ -26,8 +19,12 @@ function getElements() {
 // Show the search dialog when slash (or CMD+K) is pressed and focus is not inside a form element
 document.addEventListener('keydown', event => {
   if (
-    (event.key === '/' || (event.key === 'k' && (event.metaKey || event.ctrlKey))) &&
-    !event.composedPath().some(el => ['input', 'textarea'].includes(el?.tagName?.toLowerCase()))
+    (event.key === 'k' && (event.metaKey || event.ctrlKey)) ||
+    (event.key === '/' &&
+      !event.composedPath().some(el => {
+        const tag = el?.tagName?.toLowerCase();
+        return tag === 'textarea' || (tag === 'input' && !['checkbox', 'radio'].includes(el.type));
+      }))
   ) {
     event.preventDefault();
     show();
@@ -48,7 +45,7 @@ function show() {
   input.addEventListener('input', handleInput);
   results.addEventListener('click', handleSelection);
   dialog.addEventListener('keydown', handleKeyDown);
-  dialog.addEventListener('wa-hide', hide, { once: true });
+  dialog.addEventListener('wa-hide', handleClose);
   dialog.open = true;
 }
 
@@ -58,7 +55,15 @@ function hide() {
   input.removeEventListener('input', handleInput);
   results.removeEventListener('click', handleSelection);
   dialog.removeEventListener('keydown', handleKeyDown);
+  dialog.removeEventListener('wa-hide', handleClose);
   dialog.open = false;
+}
+
+function handleClose() {
+  const { input } = getElements();
+
+  input.value = '';
+  updateResults();
 }
 
 function handleInput() {
@@ -66,14 +71,6 @@ function handleInput() {
 
   clearTimeout(searchTimeout);
   searchTimeout = setTimeout(() => updateResults(input.value), searchDebounce);
-}
-
-function handleClear() {
-  const { input } = getElements();
-
-  input.value = '';
-  input.focus();
-  updateResults();
 }
 
 function handleKeyDown(event) {
@@ -129,7 +126,12 @@ function handleSelection(event) {
   if (link) {
     event.preventDefault();
     hide();
-    location.href = link.href;
+
+    if (window.Turbo) {
+      Turbo.visit(link.href);
+    } else {
+      location.href = link.href;
+    }
   }
 }
 
@@ -139,11 +141,40 @@ async function updateResults(query = '') {
 
   try {
     const hasQuery = query.length > 0;
-    const searchTokens = query
-      .split(' ')
-      .map((term, index, arr) => `${term}${index === arr.length - 1 ? `* ${term}~1` : '~1'}`)
-      .join(' ');
-    const matches = hasQuery ? searchIndex.search(`${query} ${searchTokens}`) : [];
+    let matches = [];
+
+    if (hasQuery) {
+      // Track seen refs to avoid duplicates
+      const seenRefs = new Set();
+
+      // Start with a standard search to get the best "exact match" result
+      searchIndex.search(`${query}`).forEach(match => {
+        matches.push(match);
+        seenRefs.add(match.ref);
+      });
+
+      // Add wildcard matches if not already included
+      searchIndex.search(`${query}*`).forEach(match => {
+        if (!seenRefs.has(match.ref)) {
+          matches.push(match);
+          seenRefs.add(match.ref);
+        }
+      });
+
+      // Add fuzzy search matches last
+      const fuzzyTokens = query
+        .split(' ')
+        .map(term => `${term}~1`)
+        .join(' ');
+
+      searchIndex.search(fuzzyTokens).forEach(match => {
+        if (!seenRefs.has(match.ref)) {
+          matches.push(match);
+          seenRefs.add(match.ref);
+        }
+      });
+    }
+
     const hasResults = hasQuery && matches.length > 0;
 
     dialog.classList.toggle('has-results', hasQuery && hasResults);
@@ -159,17 +190,17 @@ async function updateResults(query = '') {
       const displayTitle = page.title ?? '';
       const displayDescription = page.description ?? '';
       const displayUrl = page.url.replace(/^\//, '');
-      let icon = icons.document;
+      let icon = 'file-text';
 
       li.classList.add('site-search-result');
       li.setAttribute('role', 'option');
       li.setAttribute('id', `search-result-item-${match.ref}`);
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
 
-      if (page.url === '/') icon = icons.home;
-      if (page.url.startsWith('/docs/native')) icon = icons.native;
-      if (page.url.startsWith('/docs/components')) icon = icons.component;
-      if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = icons.theme;
+      if (page.url === '/') icon = 'home';
+      if (page.url.startsWith('/docs/utilities/native')) icon = 'code';
+      if (page.url.startsWith('/docs/components')) icon = 'puzzle-piece';
+      if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = 'palette';
 
       a.href = page.url;
       a.innerHTML = `

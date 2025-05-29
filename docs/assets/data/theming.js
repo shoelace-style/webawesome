@@ -40,24 +40,6 @@ export const themeConfig = {
       return this.base;
     },
   },
-  icon: {
-    library: {
-      cssProperty: '--wa-icon-library',
-      default: 'default',
-    },
-    family: {
-      cssProperty: '--wa-icon-family',
-      default(baseTheme) {
-        return baseTheme?.icon?.family ?? 'classic';
-      },
-    },
-    style: {
-      cssProperty: '--wa-icon-variant',
-      default(baseTheme) {
-        return baseTheme?.icon?.style ?? 'solid';
-      },
-    },
-  },
   rounding: {
     cssProperty: '--wa-border-radius-scale',
     default(baseTheme) {

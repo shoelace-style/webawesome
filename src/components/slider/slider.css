@@ -1,6 +1,141 @@
 :host {
+  --thumb-color: var(--wa-form-control-activated-color);
+  --thumb-gap: calc(var(--thumb-size) * 0.125);
+  --thumb-shadow: initial;
+  --thumb-size: calc(1rem * var(--wa-form-control-value-line-height));
+
+  --track-color-active: var(--wa-color-neutral-fill-normal);
+  --track-color-inactive: var(--wa-color-neutral-fill-normal);
+  --track-active-offset: 0%;
+  --track-height: calc(var(--thumb-size) * 0.25);
   --tooltip-offset: calc(var(--wa-tooltip-arrow-size) * 1.375);
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
   min-height: max(var(--thumb-size), var(--track-height));
+}
+
+input[type='range'] {
+  --percent: 0%;
+  -webkit-appearance: none;
+  border-radius: calc(var(--track-height) / 2);
+  width: 100%;
+  height: var(--track-height);
+  line-height: var(--wa-form-control-height);
+  vertical-align: middle;
+  margin: 0;
+  --dir: right;
+
+  background-image: linear-gradient(
+    to var(--dir),
+    var(--track-color-inactive) min(var(--percent), var(--track-active-offset)),
+    var(--track-color-active) min(var(--percent), var(--track-active-offset)),
+    var(--track-color-active) max(var(--percent), var(--track-active-offset)),
+    var(--track-color-inactive) max(var(--percent), var(--track-active-offset))
+  );
+
+  &:dir(rtl) {
+    --dir: left;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: var(--track-height);
+    border-radius: 3px;
+    border: none;
+  }
+
+  &::-webkit-slider-thumb {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    border-radius: 50%;
+    background-color: var(--thumb-color);
+    box-shadow:
+      var(--thumb-shadow, 0 0 transparent),
+      0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
+    -webkit-appearance: none;
+    margin-top: calc(var(--thumb-size) / -2 + var(--track-height) / 2);
+    transition: var(--wa-transition-fast);
+    transition-property: width, height;
+  }
+
+  &:enabled {
+    &:focus-visible::-webkit-slider-thumb {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    &::-webkit-slider-thumb {
+      cursor: pointer;
+    }
+
+    &::-webkit-slider-thumb:active {
+      cursor: grabbing;
+    }
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::-moz-range-progress {
+    background-color: var(--track-color-active);
+    border-radius: 3px;
+    height: var(--track-height);
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: var(--track-height);
+    background-color: var(--track-color-inactive);
+    border-radius: 3px;
+    border: none;
+  }
+
+  &::-moz-range-thumb {
+    height: var(--thumb-size);
+    width: var(--thumb-size);
+    border-radius: 50%;
+    background-color: var(--thumb-color);
+    box-shadow:
+      var(--thumb-shadow, 0 0 transparent),
+      0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
+    transition-property: background-color, border-color, box-shadow, color;
+    transition-duration: var(--wa-transition-normal);
+    transition-timing-function: var(--wa-transition-easing);
+  }
+
+  &:enabled {
+    &:focus-visible::-moz-range-thumb {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    &::-moz-range-thumb {
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+/* States */
+/* nesting these styles yields broken results in Safari */
+input[type='range']:focus {
+  outline: none;
+}
+
+:host :has(:disabled) input[type='range'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &::-moz-range-thumb,
+  &::-webkit-slider-thumb {
+    cursor: not-allowed;
+  }
 }
 
 /* Tooltip output */
@@ -21,7 +156,7 @@
   transition: var(--wa-transition-normal) opacity;
   pointer-events: none;
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     width: 0;
@@ -31,6 +166,10 @@
     translate: calc(-1 * var(--wa-tooltip-arrow-size));
     border-inline: var(--wa-tooltip-arrow-size) solid transparent;
     border-block-start: var(--border-block);
+  }
+
+  &:dir(rtl)::after {
+    translate: var(--wa-tooltip-arrow-size);
   }
 
   &.visible {
@@ -43,10 +182,16 @@
   @media (forced-colors: active) {
     border: solid 1px transparent;
 
-    &:after {
+    &::after {
       display: none;
     }
   }
+}
+
+/* RTL tooltip positioning */
+:host(:dir(rtl)) .tooltip {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
 }
 
 /* Tooltip on bottom */
@@ -54,9 +199,15 @@
   inset-block-end: auto;
   inset-block-start: calc(50% + (var(--thumb-size) / 2) + var(--tooltip-offset));
 
-  &:after {
+  &::after {
     border-block-end: var(--border-block);
     inset-block-start: auto;
     inset-block-end: 100%;
   }
+}
+
+/* Bottom tooltip RTL fix */
+:host([tooltip='bottom']:dir(rtl)) .tooltip {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
 }
