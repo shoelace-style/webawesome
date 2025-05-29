@@ -217,10 +217,7 @@ describe('<wa-dropdown>', () => {
         expect(document.activeElement).to.equal(secondMenuItem);
       });
 
-      //
-      // TODO - Restore once https://github.com/shoelace-style/webawesome/pull/993 is merged
-      //
-      it.skip('should navigate to first focusable item on arrow navigation', async () => {
+      it('should navigate to first focusable item on arrow navigation', async () => {
         const el = await fixture<WaDropdown>(html`
           <wa-dropdown>
             <wa-button slot="trigger" caret>Toggle</wa-button>
@@ -295,10 +292,7 @@ describe('<wa-dropdown>', () => {
         expect(el.open).to.be.true;
       });
 
-      //
-      // TODO - Restore once https://github.com/shoelace-style/webawesome/pull/993 is merged
-      //
-      it.skip('should focus on menu items when clicking the trigger and arrowing through options', async () => {
+      it('should focus on menu items when clicking the trigger and arrowing through options', async () => {
         const el = await fixture<WaDropdown>(html`
           <wa-dropdown>
             <wa-button slot="trigger" caret>Toggle</wa-button>
