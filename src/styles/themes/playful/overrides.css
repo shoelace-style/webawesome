@@ -3,11 +3,13 @@
   :host,
   .wa-theme-playful {
     wa-badge,
-    button,
-    input:where([type='button'], [type='reset'], [type='submit']),
     wa-button,
-    wa-radio-group > wa-radio-button {
-      font-weight: var(--wa-font-weight-bold);
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']) {
+      &:where(:not(wa-button)),
+      &::part(base) {
+        font-weight: var(--wa-font-weight-bold);
+      }
     }
 
     wa-badge,

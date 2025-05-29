@@ -4,8 +4,7 @@
   .wa-theme-playful {
     button,
     input:where([type='button'], [type='reset'], [type='submit']),
-    wa-button,
-    wa-radio-button {
+    wa-button {
       &:not([disabled]) {
         transition-property: all;
 
@@ -22,7 +21,7 @@
         }
       }
 
-      &:not(wa-radio-button, [appearance='outlined'], [appearance~='plain']) {
+      &:not([appearance='outlined'], [appearance~='plain']) {
         --gradient-top: oklab(from var(--background-color) calc(l - 0.1) a b);
         --gradient-middle: var(--background-color);
         --gradient-bottom: oklab(from var(--background-color) calc(l + 0.1) a b);
@@ -30,7 +29,18 @@
           color-mix(in oklab, oklab(from var(--background-color) calc(l + 0.1) a b), transparent 70%);
         --shadow-lower: inset 0 -0.125em 0.5em oklab(from var(--background-color) calc(l - 0.2) a b);
         --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--background-color) calc(l + 0.4) a b);
-        text-shadow: 0 0.125em 0.125em oklab(from var(--background-color) calc(l - 0.1) a b);
+
+        &:where(:not(wa-button)),
+        &::part(base) {
+          background: linear-gradient(
+            180deg,
+            var(--gradient-top) 0%,
+            var(--gradient-middle) 51.88%,
+            var(--gradient-bottom) 100%
+          );
+          box-shadow: var(--glow-outer), var(--shadow-lower), var(--shadow-upper);
+          text-shadow: 0 0.125em 0.125em oklab(from var(--background-color) calc(l - 0.1) a b);
+        }
 
         &:is([appearance~='filled']) {
           --gradient-top: oklab(from var(--background-color) calc(l - 0.05) a b);
@@ -39,20 +49,9 @@
           --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--background-color) calc(l + 0.5) a b);
         }
 
-        &::part(base),
-        :is(&) {
-          background: linear-gradient(
-            180deg,
-            var(--gradient-top) 0%,
-            var(--gradient-middle) 51.88%,
-            var(--gradient-bottom) 100%
-          );
-          box-shadow: var(--glow-outer), var(--shadow-lower), var(--shadow-upper);
-        }
-
         &:not([appearance~='outlined']) {
-          &::part(base),
-          :is(&) {
+          &:where(:not(wa-button)),
+          &::part(base) {
             padding-inline: calc(var(--wa-space) + var(--border-width));
             border-width: 0px;
           }
@@ -60,8 +59,8 @@
 
         &:not([disabled]) {
           &:hover {
-            &::part(base),
-            :is(&) {
+            &:where(:not(wa-button)),
+            &::part(base) {
               background: linear-gradient(
                 180deg,
                 var(--gradient-bottom) 0%,
@@ -72,8 +71,8 @@
           }
 
           &:active {
-            &::part(base),
-            :is(&) {
+            &:where(:not(wa-button)),
+            &::part(base) {
               background: linear-gradient(
                 180deg,
                 color-mix(in oklab, var(--gradient-top), var(--wa-color-mix-active)) 0%,
