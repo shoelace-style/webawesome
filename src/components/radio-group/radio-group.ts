@@ -191,6 +191,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     // Add data attributes to support styling
     radios.forEach((radio, index) => {
       if (radio.appearance === 'button') hasRadioButtons = true;
+      radio.setAttribute('size', this.size);
       radio.toggleAttribute('data-wa-radio-horizontal', this.orientation !== 'vertical');
       radio.toggleAttribute('data-wa-radio-vertical', this.orientation === 'vertical');
       radio.toggleAttribute('data-wa-radio-first', index === 0);
