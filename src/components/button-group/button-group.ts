@@ -85,6 +85,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
       if (button) {
         if ((button as WaButton).appearance === 'outlined') this.hasOutlined = true;
+        button.setAttribute('size', this.size);
         button.classList.add('wa-button-group__button');
         button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');
