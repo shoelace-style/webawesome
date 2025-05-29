@@ -1,4 +1,3 @@
-/* This is the "dev" TS Config which includes typechecking for test. This is used by ESLint to provide TypeScript errors for test files */
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
@@ -34,8 +33,5 @@
       "mocha",
       "user-agent-data-types"
     ]
-  },
-  "include": [
-    "src"
-  ]
+  }
 }

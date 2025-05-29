@@ -1,4 +1,5 @@
 import * as path from 'node:path';
+import * as fs from "node:fs"
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
@@ -33,22 +34,22 @@ const globalData = {
   },
 };
 
-export default function (eleventyConfig) {
+export default async function (eleventyConfig) {
   /**
-   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
-   * passthrough extensions will also need to be updated in the Web Awesome App.
+   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these passthrough extensions
+   * will also need to be updated in the Web Awesome App.
    */
   const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
-  const baseDir = process.env.BASE_DIR || 'docs';
-  const passThrough = [...passThroughExtensions.map(ext => path.join(baseDir, '**/*.' + ext))];
+  const docsDir = path.join(process.env.BASE_DIR || ".", 'docs');
+  const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
 
   /**
-   * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
-   * us able to still deploy the bare HTML files on Vercel until the app is ready.
+   * This is the guard we use for now to make sure our final built files dont need a 2nd pass by the server. This keeps us able to still deploy the bare HTML files on Vercel until the app is ready.
    */
   const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
 
+  // Add template data
   for (let name in globalData) {
     eleventyConfig.addGlobalData(name, globalData[name]);
   }
@@ -124,7 +125,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(currentLink());
 
   // Add code examples for `<code class="example">` blocks
-  eleventyConfig.addPlugin(codeExamplesPlugin());
+  eleventyConfig.addPlugin(codeExamplesPlugin);
 
   // Highlight code blocks with Prism
   eleventyConfig.addPlugin(highlightCodePlugin());
@@ -135,10 +136,6 @@ export default function (eleventyConfig) {
   // Various text replacements
   eleventyConfig.addPlugin(
     replaceTextPlugin([
-      {
-        replace: /\[version\]/gs,
-        replaceWith: packageData.version,
-      },
       // Replace [issue:1234] with a link to the issue on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
@@ -156,15 +153,6 @@ export default function (eleventyConfig) {
       },
     ]),
   );
-
-  eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
-    if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
-      // Exclude "unpublished" pages from final builds.
-      return false;
-    }
-
-    return content;
-  });
 
   // Build the search index
   eleventyConfig.addPlugin(
@@ -184,9 +172,9 @@ export default function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
 
-  eleventyConfig.addPassthroughCopy({
-    'docs/assets': 'assets',
-  });
+
+  let assetsDir = path.join(process.env.BASE_DIR || "docs", "assets")
+  fs.cpSync(assetsDir, path.join(eleventyConfig.directories.output, "assets"), { recursive: true })
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
@@ -216,14 +204,16 @@ export default function (eleventyConfig) {
   //     componentModules,
   //   });
   // }
-
-  return {
-    markdownTemplateEngine: 'njk',
-    dir: {
-      input: 'docs',
-      includes: '_includes',
-      layouts: '_layouts',
-    },
-    templateFormats: ['njk', 'md'],
-  };
 }
+
+
+export const config = {
+  markdownTemplateEngine: 'njk',
+  dir: {
+    input: 'docs',
+    includes: '_includes',
+    layouts: '_layouts',
+  },
+  templateFormats: ['njk', 'md'],
+}
+

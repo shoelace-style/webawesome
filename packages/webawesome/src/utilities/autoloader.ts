@@ -13,7 +13,7 @@ const observer = new MutationObserver(mutations => {
 /** Starts the autoloader. */
 export function startLoader() {
   // Initial discovery
-  discover(document.body);
+  discover(document);
 
   // Listen for new undefined elements
   observer.observe(document.documentElement, { subtree: true, childList: true });
@@ -27,12 +27,12 @@ export function stopLoader() {
 /**
  * Checks a node for undefined elements and attempts to register them.
  */
-export async function discover(root: Element | ShadowRoot) {
+export async function discover(root: Document | Element | ShadowRoot) {
   const rootTagName = root instanceof Element ? root.tagName.toLowerCase() : '';
   const rootIsWebAwesomeComponent = rootTagName?.startsWith('wa-');
   const tags = [...root.querySelectorAll(':not(:defined)')]
     .map(el => el.tagName.toLowerCase())
-    .filter(tag => tag.startsWith('wa-'));
+    .filter(tag => tag.startsWith('wa-') && tag !== "wa-page");
 
   // If the root element is an undefined Web Awesome component, add it to the list
   if (rootIsWebAwesomeComponent && !customElements.get(rootTagName)) {
@@ -100,3 +100,4 @@ export function preventTurboFouce(timeout = 2000) {
     }
   });
 }
+

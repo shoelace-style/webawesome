@@ -30,6 +30,21 @@
 {# Web Awesome #}
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
+{# Fallback loading when using the free repo #}
+<link rel="preconnect" href="https://early.webawesome.com">
+<link type="modulepreload" href="{% cdnUrl 'components/page/page.js' %}">
+<script type="module">
+  document.addEventListener("wa-discovery-complete", loadLayout)
+  function loadLayout () {
+    if (!customElements.get("wa-layout")) {
+      import("{% cdnUrl 'components/page/page.js' %}")
+        .catch((e) => {
+        // known errors with dual registration. This is only a thing in the free repo.
+        })
+    }
+  }
+</script>
+
 <script type="module" src="/assets/scripts/theme-picker.js"></script>
 {# Preset Theme #}
 {% if noTheme %}

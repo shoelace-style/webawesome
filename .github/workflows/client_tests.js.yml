@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [next]
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./packages/webawesome
+
 jobs:
   client_test:
     runs-on: ubuntu-latest

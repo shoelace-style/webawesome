@@ -8,6 +8,11 @@ on:
   #   branches: [next]
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./packages/webawesome
+
 jobs:
   ssr_test:
     runs-on: ubuntu-latest

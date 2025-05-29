@@ -5,19 +5,20 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Helpful directories
-export const rootDir = dirname(__dirname);
-export const distDir = join(rootDir, 'dist');
-export const cdnDir = join(rootDir, 'dist-cdn');
-export const docsDir = join(rootDir, 'docs');
-export const siteDir = join(rootDir, '_site');
+// These are all functions because process.env can sometimes get evaluated in a weird order, so this lazy evals.
+export const getRootDir = () => process.env.ROOT_DIR || dirname(__dirname);
+export const getDistDir = () => process.env.DIST_DIR || join(getRootDir(), 'dist');
+export const getCdnDir = () => process.env.CDN_DIR || join(getRootDir(), 'dist-cdn');
+export const getDocsDir = () => process.env.DOCS_DIR || join(getRootDir(), 'docs');
+export const getSiteDir = () => process.env.SITE_DIR || join(getRootDir(), '_site');
 
 /**
  * Runs a script and returns a promise that resolves with the content of stdout when the script exits or rejects with
  * the content of stderr when the script exits with an error.
  */
-export function runScript(scriptPath, args = []) {
+export function runScript(scriptPath, args = [], options = {}) {
   return new Promise((resolve, reject) => {
-    const child = childProcess.fork(scriptPath, args, { silent: true });
+    const child = childProcess.fork(scriptPath, args, { silent: true, ...options });
     let wasInvoked = false;
     let stderr = '';
     let stdout = '';
@@ -56,3 +57,4 @@ export function runScript(scriptPath, args = []) {
     });
   });
 }
+

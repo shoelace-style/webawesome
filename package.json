@@ -1,78 +1,22 @@
 {
-  "name": "@shoelace-style/webawesome",
+  "name": "@webawesome/monorepo",
+  "private": true,
   "description": "A forward-thinking library of web components.",
   "version": "3.0.0-alpha.13",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
-  "customElements": "dist/custom-elements.json",
-  "web-types": "./dist/web-types.json",
   "type": "module",
-  "types": "dist/webawesome.d.ts",
-  "jsdelivr": "./dist/webawesome.loader.js",
-  "exports": {
-    ".": {
-      "types": "./dist/webawesome.d.ts",
-      "import": "./dist/webawesome.js"
-    },
-    "./dist/custom-elements.json": "./dist/custom-elements.json",
-    "./dist/webawesome.js": "./dist/webawesome.js",
-    "./dist/webawesome.loader.js": "./dist/webawesome.loader.js",
-    "./dist/themes": "./dist/themes",
-    "./dist/themes/*": "./dist/themes/*",
-    "./dist/components": "./dist/components",
-    "./dist/components/*": "./dist/components/*",
-    "./dist/react": "./dist/react/index.js",
-    "./dist/react/*": "./dist/react/*",
-    "./dist/translations": "./dist/translations",
-    "./dist/translations/*": "./dist/translations/*"
-  },
-  "files": [
-    "dist",
-    "cdn"
+  "workspaces": [
+    "packages/*"
   ],
-  "keywords": [
-    "web components",
-    "custom elements",
-    "components"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shoelace-style/webawesome.git"
-  },
-  "bugs": {
-    "url": "https://github.com/shoelace-style/webawesome/issues"
-  },
   "scripts": {
-    "start": "node scripts/build.js --develop",
-    "start:alpha": "echo 'This command has been deprecated. Use: \"npm start\"\n'",
-    "build": "node scripts/build.js",
-    "build:serve": "npm run build && npx http-server _site -p 4000",
-    "publish-alpha-cdn": "./publish-alpha-cdn.sh",
-    "create": "plop --plopfile scripts/plop/plopfile.js",
-    "test": "CSR_ONLY=\"true\" web-test-runner --group default",
-    "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
-    "test:contrast": "node scripts/color-palette-contrast-test.js",
-    "test:watch": "web-test-runner --watch --group default",
-    "prettier": "prettier --check --log-level=warn .",
-    "prettier:fix": "prettier --write --log-level=warn .",
-    "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
-    "verify": "npm run prettier && npm run build && npm run test",
-    "prepublishOnly": "npm run verify",
     "check-updates": "npx npm-check-updates --interactive --format group"
   },
   "engines": {
     "node": ">=14.17.0"
   },
-  "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
-    "@floating-ui/dom": "^1.6.13",
-    "@shoelace-style/animations": "^1.2.0",
-    "@shoelace-style/localize": "^3.2.1",
-    "composed-offset-position": "^0.0.6",
-    "lit": "^3.2.1",
-    "qr-creator": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",
     "@custom-elements-manifest/analyzer": "^0.10.4",
@@ -116,7 +60,6 @@
     "marked": "^11.1.0",
     "node-html-parser": "^6.1.13",
     "npm-check-updates": "^17.1.11",
-    "nunjucks": "^3.2.4",
     "ora": "^8.1.1",
     "pascal-case": "^3.1.2",
     "playwright": "^1.49.1",
@@ -142,3 +85,4 @@
     ]
   }
 }
+
