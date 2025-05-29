@@ -61,7 +61,7 @@ Start by [forking the repo](https://github.com/shoelace-style/webawesome/fork) o
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/webawesome
-cd webawesome/packages/webawesome
+cd webawesome
 npm install
 ```
 
@@ -70,6 +70,7 @@ npm install
 Once you've cloned the repo, run the following command from the respective directory within `packages/*`
 
 ```bash
+cd packages/webawesome
 npm start
 ```
 
@@ -80,6 +81,7 @@ This will spin up the dev server. After the initial build, a browser will open a
 To generate a production build, run the following command.
 
 ```bash
+cd packages/webawesome
 npm run build
 ```
 
@@ -90,6 +92,7 @@ You can also run `npm run build:serve` to start an [`http-server`](https://www.n
 To scaffold a new component, run the following command, replacing `wa-tag-name` with the desired tag name.
 
 ```bash
+cd packages/webawesome
 npm run create wa-tag-name
 ```
 
@@ -100,6 +103,8 @@ This will generate a source file, a stylesheet, and a docs page for you. When yo
 Right now the only additional packages are in private repositories.
 
 To add additional packages from other repositories, run: `git clone <url> packages/<package-name>` to clone your repo into `packages/`.
+
+Make sure to run `npm install` at the root of the monorepo after adding your package!
 
 ### Contributing
 
