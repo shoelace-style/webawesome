@@ -7,10 +7,9 @@
       --text-color: var(--wa-color-neutral-on-loud);
     }
 
+    wa-button::part(base),
     button,
-    input:where([type='button'], [type='reset'], [type='submit']),
-    wa-button,
-    wa-radio-button {
+    input:where([type='button'], [type='reset'], [type='submit']) {
       font-size: var(--wa-size-smaller);
     }
 
