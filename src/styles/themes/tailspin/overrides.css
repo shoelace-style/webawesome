@@ -20,8 +20,8 @@
       font-weight: var(--wa-font-weight-semibold);
     }
 
-    :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not([appearance='plain']) {
-      box-shadow: var(--wa-shadow-s);
+    :is(wa-button, button, input:where([type='button'], [type='reset'], [type='submit'])):not([appearance='plain']) {
+      --box-shadow: var(--wa-shadow-s);
     }
 
     wa-callout {
