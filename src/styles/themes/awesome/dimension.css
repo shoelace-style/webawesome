@@ -62,18 +62,22 @@
       }
     }
 
-    wa-radio-group > wa-radio-button {
-      &::part(base) {
-        --background-color-active: var(--border-color-active);
-        --border-color-active: var(--wa-color-neutral-border-loud);
-        --text-color-active: var(--wa-color-surface-default);
+    wa-radio[appearance='button'] {
+      &:state(checked) {
+        background-color: var(--wa-form-control-activated-color);
+        border-color: var(--wa-form-control-activated-color);
+        color: var(--wa-color-surface-default);
       }
-      &::part(checked) {
-        --background-color: var(--border-color);
-        --background-color-hover: var(--border-color);
-        --border-color: var(--wa-color-neutral-border-loud);
-        --text-color: var(--wa-color-surface-default);
-        --text-color-hover: var(--text-color);
+    }
+    wa-radio-group[orientation='horizontal'] wa-radio[appearance='button'] {
+      box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
+        var(--wa-form-control-border-color);
+      margin-bottom: var(--wa-shadow-offset-y-s);
+      margin-right: var(--wa-shadow-offset-x-s);
+
+      &:state(checked) {
+        box-shadow: initial;
+        transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
       }
     }
 

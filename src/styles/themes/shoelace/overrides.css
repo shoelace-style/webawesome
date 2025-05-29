@@ -8,27 +8,18 @@
     }
 
     wa-button::part(base),
+    wa-radio[appearance='button'],
     button,
     input:where([type='button'], [type='reset'], [type='submit']) {
       font-size: var(--wa-size-smaller);
     }
 
-    wa-radio-button {
-      &::part(base) {
-        --background-color-active: color-mix(in oklab, var(--background-color-hover), var(--wa-color-mix-active));
-        --background-color-hover: var(--wa-form-control-activated-color);
-        --border-color: var(--wa-form-control-border-color);
-        --border-color-active: var(--background-color-active);
-        --border-color-hover: var(--background-color-hover);
-        --text-color-active: var(--text-color-hover);
-        --text-color-hover: var(--wa-color-brand-on-loud);
-        --indicator-color: var(--wa-form-control-activated-color);
-      }
+    wa-radio[appearance='button'] {
+      font-weight: var(--wa-font-weight-action);
 
-      &::part(checked) {
-        --background-color: var(--wa-form-control-activated-color);
-        --border-color: var(--background-color);
-        --text-color: var(--wa-color-brand-on-loud);
+      &:state(checked) {
+        background-color: var(--wa-form-control-activated-color);
+        color: var(--wa-color-brand-on-loud);
       }
     }
 
