@@ -142,17 +142,33 @@ This will register the [Bootstrap Icons](https://icons.getbootstrap.com/) librar
 
 Icons in this library are licensed under the [MIT License](https://github.com/twbs/icons/blob/main/LICENSE).
 
-```html
+```html {.example}
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('default', {
+  registerIconLibrary('bootstrap', {
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
       return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
     }
   });
 </script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="bootstrap" name="backpack"></wa-icon>
+  <wa-icon library="bootstrap" name="cup-hot"></wa-icon>
+  <wa-icon library="bootstrap" name="envelope-heart"></wa-icon>
+  <wa-icon library="bootstrap" name="inboxes"></wa-icon>
+  <wa-icon library="bootstrap" name="lamp"></wa-icon>
+  <wa-icon library="bootstrap" name="piggy-bank"></wa-icon>
+  <br />
+  <wa-icon library="bootstrap" family="filled" name="backpack"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="cup-hot"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="envelope-heart"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="inboxes"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="lamp"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="piggy-bank"></wa-icon>
+</div>
 ```
 
 ### Boxicons
@@ -207,15 +223,6 @@ This will register the [Lucide](https://lucide.dev/) icon library using the jsDe
 Icons in this library are licensed under the [MIT License](https://github.com/lucide-icons/lucide/blob/master/LICENSE).
 
 ```html {.example}
-<div style="font-size: 24px;">
-  <wa-icon library="lucide" name="feather"></wa-icon>
-  <wa-icon library="lucide" name="pie-chart"></wa-icon>
-  <wa-icon library="lucide" name="settings"></wa-icon>
-  <wa-icon library="lucide" name="map-pin"></wa-icon>
-  <wa-icon library="lucide" name="printer"></wa-icon>
-  <wa-icon library="lucide" name="shopping-cart"></wa-icon>
-</div>
-
 <script type="module">
   import { registerIconLibrary } from '/dist/webawesome.js';
 
@@ -227,6 +234,15 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
     })    
   });
 </script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="lucide" name="feather"></wa-icon>
+  <wa-icon library="lucide" name="pie-chart"></wa-icon>
+  <wa-icon library="lucide" name="settings"></wa-icon>
+  <wa-icon library="lucide" name="map-pin"></wa-icon>
+  <wa-icon library="lucide" name="printer"></wa-icon>
+  <wa-icon library="lucide" name="shopping-cart"></wa-icon>
+</div>
 ```
 
 ### Heroicons
