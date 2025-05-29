@@ -32,7 +32,7 @@ export async function discover(root: Document | Element | ShadowRoot) {
   const rootIsWebAwesomeComponent = rootTagName?.startsWith('wa-');
   const tags = [...root.querySelectorAll(':not(:defined)')]
     .map(el => el.tagName.toLowerCase())
-    .filter(tag => tag.startsWith('wa-') && tag !== "wa-page");
+    .filter(tag => tag.startsWith('wa-'));
 
   // If the root element is an undefined Web Awesome component, add it to the list
   if (rootIsWebAwesomeComponent && !customElements.get(rootTagName)) {
