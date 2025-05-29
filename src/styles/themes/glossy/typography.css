@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('../default/typography.css');
 
-@layer wa-theme-glossy {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-glossy {

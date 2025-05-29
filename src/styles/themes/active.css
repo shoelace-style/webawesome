@@ -9,7 +9,7 @@
 @import url('active/dimension.css');
 @import url('active/overrides.css');
 
-@layer wa-theme-active {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-active,

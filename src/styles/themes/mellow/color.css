@@ -6,7 +6,7 @@
 @import url('../../danger/red.css');
 @import url('../../neutral/gray.css');
 
-@layer wa-theme-mellow {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-mellow,

@@ -1,4 +1,4 @@
-@layer wa-theme-premium {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-premium {

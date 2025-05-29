@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
 @import url('../default/typography.css');
 
-@layer wa-theme-brutalist {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-brutalist {

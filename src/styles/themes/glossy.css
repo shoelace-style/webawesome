@@ -9,7 +9,7 @@
 @import url('glossy/dimension.css');
 @import url('glossy/overrides.css');
 
-@layer wa-theme-glossy {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-mellow,

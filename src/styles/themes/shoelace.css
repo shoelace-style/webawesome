@@ -8,7 +8,7 @@
 @import url('default/groups.css');
 @import url('shoelace/overrides.css');
 
-@layer wa-theme-shoelace {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-shoelace,

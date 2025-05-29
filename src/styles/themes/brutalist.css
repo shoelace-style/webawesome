@@ -8,7 +8,7 @@
 @import url('default/groups.css');
 @import url('brutalist/overrides.css');
 
-@layer wa-theme-brutalist {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-brutalist,

@@ -1,7 +1,7 @@
 @import url('../default/typography.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-@layer wa-theme-tailspin {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-tailspin {

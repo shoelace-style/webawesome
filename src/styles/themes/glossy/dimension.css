@@ -1,4 +1,4 @@
-@layer wa-theme-glossy {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-glossy {

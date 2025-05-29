@@ -1,4 +1,4 @@
-@layer wa-theme-shoelace {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-shoelace {

@@ -9,7 +9,7 @@
 @import url('awesome/dimension.css');
 @import url('awesome/overrides.css');
 
-@layer wa-theme-awesome {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-awesome,

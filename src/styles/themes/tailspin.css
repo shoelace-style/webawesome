@@ -8,7 +8,7 @@
 @import url('default/groups.css');
 @import url('tailspin/overrides.css');
 
-@layer wa-theme-tailspin {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-tailspin,

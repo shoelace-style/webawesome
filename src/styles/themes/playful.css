@@ -9,7 +9,7 @@
 @import url('playful/dimension.css');
 @import url('playful/overrides.css');
 
-@layer wa-theme-playful {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-playful,

@@ -1,4 +1,4 @@
-@layer wa-theme-tailspin {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-tailspin {

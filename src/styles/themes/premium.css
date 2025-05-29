@@ -8,7 +8,7 @@
 @import url('default/groups.css');
 @import url('premium/overrides.css');
 
-@layer wa-theme-premium {
+@layer wa-theme {
   :where(:root),
   :host,
   .wa-theme-premium,

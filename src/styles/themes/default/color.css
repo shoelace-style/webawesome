@@ -4,7 +4,7 @@
 @import url('../../danger/red.css');
 @import url('../../neutral/gray.css');
 
-@layer wa-theme-default {
+@layer wa-theme {
   /**
  * Foundational Colors and Semantic Colors
  */
