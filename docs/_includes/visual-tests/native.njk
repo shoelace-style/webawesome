@@ -206,10 +206,147 @@
     <tr>
       <th><code>checked</code></th>
       <td>
-        <wa-checkbox checked>Checkbox</wa-checkbox>
+        <wa-checkbox checked>Checked</wa-checkbox>
       </td>
       <td>
-        <label><input type="checkbox" checked></input> Checkbox</label>
+        <label><input type="checkbox" checked></input> Checked</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-checkbox size="small">Small</wa-checkbox>
+      </td>
+      <td>
+        <label><input type="checkbox" class="wa-size-s"></input> Small</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-checkbox size="medium">Medium</wa-checkbox>
+      </td>
+      <td>
+        <label><input type="checkbox" class="wa-size-m"></input> Medium</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-checkbox size="large">Large</wa-checkbox>
+      </td>
+      <td>
+        <label><input type="checkbox" class="wa-size-l"></input> Large</label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Radio</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-radio&gt;</code></th>
+    <th><code>&lt;input type="radio"&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-radio>Radio</wa-radio>
+      </td>
+      <td>
+        <label><input type="radio"></input> Radio</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>checked</code></th>
+      <td>
+        <wa-radio-group value="1">
+          <wa-radio value="1">Checked</wa-radio>
+        </wa-radio-group>
+      </td>
+      <td>
+        <label><input type="radio" checked></input> Checked</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-radio size="small">Small</wa-radio>
+      </td>
+      <td>
+        <label><input type="radio" class="wa-size-s"></input> Small</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-radio size="medium">Medium</wa-radio>
+      </td>
+      <td>
+        <label><input type="radio" class="wa-size-m"></input> Medium</label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-radio size="large">Large</wa-radio>
+      </td>
+      <td>
+        <label><input type="radio" class="wa-size-l"></input> Large</label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Slider</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-slider&gt;</code></th>
+    <th><code>&lt;input type="range"&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-slider label="Slider"></wa-slider>
+      </td>
+      <td>
+        <label>Slider <input type="range"></input></label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Progress Bar</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-progress-bar&gt;</code></th>
+    <th><code>&lt;progress&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-progress-bar value="50" max="100"></wa-progress-bar>
+      </td>
+      <td>
+        <progress value="50" max="100"></progress>
       </td>
     </tr>
   </tbody>
@@ -234,6 +371,294 @@
       </td>
       <td>
         <label>Color Picker <input type="color" value="#ffa07a"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-color-picker label="Small" value="#ffa07a" size="small"></wa-color-picker>
+      </td>
+      <td>
+        <label>Small <input type="color" value="#ffa07a" class="wa-size-s"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-color-picker label="Medium" value="#ffa07a" size="medium"></wa-color-picker>
+      </td>
+      <td>
+        <label>Medium <input type="color" value="#ffa07a" class="wa-size-m"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-color-picker label="Large" value="#ffa07a" size="large"></wa-color-picker>
+      </td>
+      <td>
+        <label>Large <input type="color" value="#ffa07a" class="wa-size-l"></input></label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Input</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-input&gt;</code></th>
+    <th><code>&lt;input&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-input label="Input" placeholder="Placeholder"></wa-input>
+      </td>
+      <td>
+        <label>Input <input type="text" placeholder="Placeholder"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>type="password"</code></th>
+      <td>
+        <wa-input label="Password" type="password"></wa-input>
+      </td>
+      <td>
+        <label>Password <input type="password"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>type="date"</code></th>
+      <td>
+        <wa-input label="Date" type="date"></wa-input>
+      </td>
+      <td>
+        <label>Date <input type="date"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>type="time"</code></th>
+      <td>
+        <wa-input label="Time" type="time"></wa-input>
+      </td>
+      <td>
+        <label>Time <input type="time"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>filled</code></th>
+      <td>
+        <wa-input label="Filled" placeholder="Placeholder" appearance="filled"></wa-input>
+      </td>
+      <td>
+        <label>Filled <input type="text" placeholder="Placeholder" class="wa-filled"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-input label="Small" placeholder="Placeholder" size="small"></wa-input>
+      </td>
+      <td>
+        <label class="wa-size-s">Small <input type="text" placeholder="Placeholder"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-input label="Medium" placeholder="Placeholder" size="medium"></wa-input>
+      </td>
+      <td>
+        <label class="wa-size-m">Medium <input type="text" placeholder="Placeholder"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-input label="Large" placeholder="Placeholder" size="large"></wa-input>
+      </td>
+      <td>
+        <label class="wa-size-l">Large <input type="text" placeholder="Placeholder"></input></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>pill</code></th>
+      <td>
+        <wa-input label="Pill" placeholder="Placeholder" pill></wa-input>
+      </td>
+      <td>
+        <label class="wa-pill">Pill <input type="text" placeholder="Placeholder"></input></label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Select</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-select&gt;</code></th>
+    <th><code>&lt;select&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-select label="Select" value="1">
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label>Select 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>filled</code></th>
+      <td>
+        <wa-select label="Filled" value="1" appearance="filled">
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label class="wa-filled">Filled 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-select label="Small" value="1" size="small">
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label class="wa-size-s">Small 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-select label="Medium" value="1" size="medium">
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label class="wa-size-m">Medium 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-select label="Large" value="1" size="large">
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label class="wa-size-l">Large 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>pill</code></th>
+      <td>
+        <wa-select label="Pill" value="1" pill>
+          <wa-option value="1">Option</wa-option>
+        </wa-select>
+      </td>
+      <td>
+        <label class="wa-pill">Pill 
+          <select value="1">
+            <option value="1">Option</option>
+          </select>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<wa-divider></wa-divider>
+
+<h3>Textarea</h3>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <th></th>
+    <th><code>&lt;wa-textarea&gt;</code></th>
+    <th><code>&lt;textarea&gt;</code></th>
+  </thead>
+  <tbody>
+    <tr>
+      <th><em>default</em></th>
+      <td>
+        <wa-textarea label="Textarea" placeholder="Placeholder" rows="2"></wa-textarea>
+      </td>
+      <td>
+        <label>Textarea <textarea placeholder="Placeholder" rows="2"></textarea></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>filled</code></th>
+      <td>
+        <wa-textarea label="Filled" placeholder="Placeholder" appearance="filled" rows="2"></wa-textarea>
+      </td>
+      <td>
+        <label>Filled <textarea placeholder="Placeholder" class="wa-filled" rows="2"></textarea></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>small</code></th>
+      <td>
+        <wa-textarea label="Small" placeholder="Placeholder" size="small" rows="2"></wa-textarea>
+      </td>
+      <td>
+        <label class="wa-size-s">Small <textarea placeholder="Placeholder" rows="2"></textarea></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>medium</code></th>
+      <td>
+        <wa-textarea label="Medium" placeholder="Placeholder" size="medium" rows="2"></wa-textarea>
+      </td>
+      <td>
+        <label class="wa-size-m">Medium <textarea placeholder="Placeholder" rows="2"></textarea></label>
+      </td>
+    </tr>
+    <tr>
+      <th><code>large</code></th>
+      <td>
+        <wa-textarea label="Large" placeholder="Placeholder" size="large" rows="2"></wa-textarea>
+      </td>
+      <td>
+        <label class="wa-size-l">Large <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
   </tbody>
@@ -279,326 +704,6 @@
           <summary>تبديلني</summary>
           <p>استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن</p>
         </details>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Input</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-input&gt;</code></th>
-    <th><code>&lt;input&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-input label="Input" placeholder="Placeholder"></wa-input>
-      </td>
-      <td>
-        <label>Input <input type="text" placeholder="Placeholder"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>type="password"</code></th>
-      <td>
-        <wa-input label="Input (password)" type="password"></wa-input>
-      </td>
-      <td>
-        <label>Input (password) <input type="password"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>type="date"</code></th>
-      <td>
-        <wa-input label="Input (date)" type="date"></wa-input>
-      </td>
-      <td>
-        <label>Input (date) <input type="date"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>type="time"</code></th>
-      <td>
-        <wa-input label="Input (time)" type="time"></wa-input>
-      </td>
-      <td>
-        <label>Input (time) <input type="time"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>filled</code></th>
-      <td>
-        <wa-input label="Input (filled)" placeholder="Placeholder" appearance="filled"></wa-input>
-      </td>
-      <td>
-        <label>Input (filled) <input type="text" placeholder="Placeholder" class="wa-filled"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>small</code></th>
-      <td>
-        <wa-input label="Input (small)" placeholder="Placeholder" size="small"></wa-input>
-      </td>
-      <td>
-        <label class="wa-size-s">Input (small) <input type="text" placeholder="Placeholder"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>medium</code></th>
-      <td>
-        <wa-input label="Input (medium)" placeholder="Placeholder" size="medium"></wa-input>
-      </td>
-      <td>
-        <label class="wa-size-m">Input (medium) <input type="text" placeholder="Placeholder"></input></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>large</code></th>
-      <td>
-        <wa-input label="Input (large)" placeholder="Placeholder" size="large"></wa-input>
-      </td>
-      <td>
-        <label class="wa-size-l">Input (large) <input type="text" placeholder="Placeholder"></input></label>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Progress Bar</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-progress-bar&gt;</code></th>
-    <th><code>&lt;progress&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-progress-bar value="50" max="100"></wa-progress-bar>
-      </td>
-      <td>
-        <progress value="50" max="100"></progress>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Radio</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-radio&gt;</code></th>
-    <th><code>&lt;input type="radio"&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-radio>Radio</wa-radio>
-      </td>
-      <td>
-        <label><input type="radio"></input> Radio</label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>checked</code></th>
-      <td>
-        <wa-radio-group value="1">
-          <wa-radio value="1">Radio</wa-radio>
-        </wa-radio-group>
-      </td>
-      <td>
-        <label><input type="radio" checked></input> Radio</label>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Select</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-select&gt;</code></th>
-    <th><code>&lt;select&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-select label="Select" value="1">
-          <wa-option value="1">Option</wa-option>
-        </wa-select>
-      </td>
-      <td>
-        <label>Select 
-          <select value="1">
-            <option value="1">Option</option>
-          </select>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>filled</code></th>
-      <td>
-        <wa-select label="Select (filled)" value="1" appearance="filled">
-          <wa-option value="1">Option</wa-option>
-        </wa-select>
-      </td>
-      <td>
-        <label class="wa-filled">Select (filled) 
-          <select value="1">
-            <option value="1">Option</option>
-          </select>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>small</code></th>
-      <td>
-        <wa-select label="Select (small)" value="1" size="small">
-          <wa-option value="1">Option</wa-option>
-        </wa-select>
-      </td>
-      <td>
-        <label class="wa-size-s">Select (small) 
-          <select value="1">
-            <option value="1">Option</option>
-          </select>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>medium</code></th>
-      <td>
-        <wa-select label="Select (medium)" value="1" size="medium">
-          <wa-option value="1">Option</wa-option>
-        </wa-select>
-      </td>
-      <td>
-        <label class="wa-size-m">Select (medium) 
-          <select value="1">
-            <option value="1">Option</option>
-          </select>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>large</code></th>
-      <td>
-        <wa-select label="Select (large)" value="1" size="large">
-          <wa-option value="1">Option</wa-option>
-        </wa-select>
-      </td>
-      <td>
-        <label class="wa-size-l">Select (large) 
-          <select value="1">
-            <option value="1">Option</option>
-          </select>
-        </label>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Slider</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-slider&gt;</code></th>
-    <th><code>&lt;input type="range"&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-slider label="Slider"></wa-slider>
-      </td>
-      <td>
-        <label>Slider <input type="range"></input></label>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<wa-divider></wa-divider>
-
-<h3>Textarea</h3>
-
-<div class="table-scroll">
-<table>
-  <thead>
-    <th></th>
-    <th><code>&lt;wa-textarea&gt;</code></th>
-    <th><code>&lt;textarea&gt;</code></th>
-  </thead>
-  <tbody>
-    <tr>
-      <th><em>default</em></th>
-      <td>
-        <wa-textarea label="Textarea" placeholder="Placeholder" rows="2"></wa-textarea>
-      </td>
-      <td>
-        <label>Textarea <textarea placeholder="Placeholder" rows="2"></textarea></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>filled</code></th>
-      <td>
-        <wa-textarea label="Textarea (filled)" placeholder="Placeholder" appearance="filled" rows="2"></wa-textarea>
-      </td>
-      <td>
-        <label>Textarea (filled) <textarea placeholder="Placeholder" class="wa-filled" rows="2"></textarea></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>small</code></th>
-      <td>
-        <wa-textarea label="Textarea (small)" placeholder="Placeholder" size="small" rows="2"></wa-textarea>
-      </td>
-      <td>
-        <label class="wa-size-s">Textarea (small) <textarea placeholder="Placeholder" rows="2"></textarea></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>medium</code></th>
-      <td>
-        <wa-textarea label="Textarea (medium)" placeholder="Placeholder" size="medium" rows="2"></wa-textarea>
-      </td>
-      <td>
-        <label class="wa-size-m">Textarea (medium) <textarea placeholder="Placeholder" rows="2"></textarea></label>
-      </td>
-    </tr>
-    <tr>
-      <th><code>large</code></th>
-      <td>
-        <wa-textarea label="Textarea (large)" placeholder="Placeholder" size="large" rows="2"></wa-textarea>
-      </td>
-      <td>
-        <label class="wa-size-l">Textarea (large) <textarea placeholder="Placeholder" rows="2"></textarea></label>
       </td>
     </tr>
   </tbody>
