@@ -2,23 +2,19 @@
   :where(:root),
   :host,
   .wa-theme-awesome {
-    :is(
-        button,
-        input:where([type='button'], [type='reset'], [type='submit']),
-        wa-button,
-        wa-radio-group > wa-radio-button
-      ):not([appearance='plain']) {
-      :where(&),
-      .wa-light &,
-      .wa-dark .wa-invert & {
+    :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not(
+        [appearance='plain'],
+        .wa-plain
+      ) {
+      &[appearance~='outlined'],
+      &.wa-outlined {
         --border-color: var(--text-color);
-        --text-color-active: var(--background-color);
-      }
 
-      .wa-dark &,
-      .wa-invert & {
-        --border-color: var(--wa-color-border-quiet);
-        --text-color-active: var(--wa-color-on-quiet);
+        .wa-dark &,
+        .wa-invert & {
+          --border-color: var(--wa-color-border-quiet);
+          --text-color-active: var(--wa-color-on-quiet);
+        }
       }
     }
 
@@ -31,9 +27,6 @@
     wa-callout {
       &:is([appearance~='outlined']) {
         border-color: var(--wa-color-border-normal);
-      }
-      &:not([appearance~='accent']) {
-        color: var(--wa-color-text-normal);
       }
       &:not([appearance~='accent']) {
         --icon-color: var(--wa-color-border-normal);
