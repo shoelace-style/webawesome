@@ -9,7 +9,7 @@
     --border-color-active: var(--border-color);
     --border-width: max(1px, var(--wa-form-control-border-width));
 
-    --box-shadow: none;
+    --box-shadow: initial;
 
     --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     --text-color-hover: var(--text-color);
