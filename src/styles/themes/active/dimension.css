@@ -2,11 +2,12 @@
   :where(:root),
   :host,
   .wa-theme-active {
-    --wa-theme-active-shadow-pop-out: inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
+    --wa-theme-active-shadow-pop-out:
+      inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
       inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
       inset 0 -0.125rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */;
-    --wa-theme-active-shadow-punch-in: inset 0 0 0 0 transparent /* shine */,
-      inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.15) /* inner highlight */,
+    --wa-theme-active-shadow-punch-in:
+      inset 0 0 0 0 transparent /* shine */, inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.15) /* inner highlight */,
       inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.15) /* inner shadow */;
 
     :is(wa-button, button, input:where([type='button'], [type='reset'], [type='submit'])):not(

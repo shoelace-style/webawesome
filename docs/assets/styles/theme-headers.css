@@ -71,7 +71,8 @@ html.wa-theme-tailspin .preview-container {
   .hero {
     --hero-background-color: var(--wa-color-surface-default);
     --hero-lines-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), transparent 30%);
-    background: linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
+    background:
+      linear-gradient(to top, var(--wa-color-surface-lowered), transparent 40%),
       radial-gradient(circle at 10% 70%, color-mix(in oklab, var(--wa-color-red-50) 16%, transparent), transparent 30%),
       radial-gradient(
         circle at 40% 50%,
