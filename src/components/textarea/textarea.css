@@ -22,6 +22,7 @@
   border-radius: var(--wa-form-control-border-radius);
   border-style: var(--wa-form-control-border-style);
   border-width: var(--border-width);
+  box-shadow: var(--box-shadow);
   -webkit-appearance: none;
 
   &:focus-within {
