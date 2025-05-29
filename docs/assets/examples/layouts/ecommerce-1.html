@@ -1,11 +1,34 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    dfd
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="/dist/styles/themes/default.css" />
+  <link rel="stylesheet" href="/dist/styles/webawesome.css" />
+  <script type="module" src="/dist/webawesome.loader.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <wa-page>
+    <a href="#" slot="banner" style="background-color: var(--wa-color-warning-fill-normal)">Get in on our holiday
+      deals!</a>
+    <header slot="header" class="wa-cluster wa-desktop-only" style="justify-content: space-between">
+      <div style="background-color: black; height: 40px; width: 40px"></div>
+      <wa-input placeholder="Medium" size="medium" class="wa-desktop-only" style="width: 50%;">
+        <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
+      </wa-input>
+      <div class="wa-desktop-only"><wa-icon name="exclamation-triangle"></wa-icon><wa-icon
+          name="exclamation-triangle"></wa-icon></div>
+    </header>
+    <main>
+      Main
+    </main>
+    <footer slot="footer">Footer</footer>
+  </wa-page>
+</body>
+
 </html>
