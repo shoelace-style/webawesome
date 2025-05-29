@@ -111,7 +111,7 @@ Use the `size` attribute to change a callout's size.
 
 ```html {.example}
 <wa-callout size="large">
-  <wa-icon slot="icon" name="circle-info" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
   This is meant to be very emphasized.
 </wa-callout>
 <wa-callout size="medium">
