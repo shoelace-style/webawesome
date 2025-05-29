@@ -63,8 +63,7 @@
   button,
   input[type='button'],
   input[type='submit'],
-  :host(wa-tag),
-  .wa-tag {
+  :host(wa-tag) {
     --wa-color-fill-loud: var(--wa-no-variant, var(--wa-color-neutral-fill-loud));
     --wa-color-fill-normal: var(--wa-no-variant, var(--wa-color-neutral-fill-normal));
     --wa-color-fill-quiet: var(--wa-no-variant, var(--wa-color-neutral-fill-quiet));
