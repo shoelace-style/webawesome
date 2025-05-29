@@ -18,7 +18,8 @@
         [appearance~='plain'],
         .wa-plain
       ) {
-      --box-shadow: inset 0 0 0 0.0625rem var(--border-color, var(--background-color, transparent)),
+      --box-shadow:
+        inset 0 0 0 0.0625rem var(--border-color, var(--background-color, transparent)),
         var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), var(--wa-theme-glossy-upper-tint),
         var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow),
         inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
@@ -32,7 +33,8 @@
       }
 
       &:not([disabled]):active {
-        --box-shadow: inset 0 0 0 0.0625rem var(--border-color-active, var(--background-color-active, transparent)),
+        --box-shadow:
+          inset 0 0 0 0.0625rem var(--border-color-active, var(--background-color-active, transparent)),
           var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
           var(--wa-theme-glossy-upper-tint-active), var(--wa-theme-glossy-lower-shade-active),
           var(--wa-theme-glossy-bottom-shadow-active),
@@ -78,12 +80,14 @@
     wa-checkbox:is(:state(checked), :state(indeterminate)),
     wa-tree-item:is(:state(selected), :state(indeterminate))::part(checkbox__control),
     wa-radio:state(checked) {
-      --box-shadow: inset 0 0 0 1px var(--border-color-checked, var(--background-color, transparent)),
+      --box-shadow:
+        inset 0 0 0 1px var(--border-color-checked, var(--background-color, transparent)),
         var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), var(--wa-theme-glossy-bottom-shadow),
         inset 0 0 0 var(--border-width) var(--border-color-checked, var(--background-color, transparent));
 
       &:active {
-        --box-shadow: var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
+        --box-shadow:
+          var(--wa-theme-glossy-inner-shine-active), var(--wa-theme-glossy-top-highlight-active),
           var(--wa-theme-glossy-bottom-shadow-active);
       }
 
@@ -96,8 +100,8 @@
     input[type='range'],
     wa-slider,
     wa-switch {
-      --thumb-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight),
-        var(--wa-theme-glossy-bottom-shadow);
+      --thumb-shadow:
+        var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), var(--wa-theme-glossy-bottom-shadow);
     }
 
     progress,

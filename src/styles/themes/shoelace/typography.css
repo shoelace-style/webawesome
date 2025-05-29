@@ -4,8 +4,9 @@
   :where(:root),
   :host,
   .wa-theme-shoelace {
-    --wa-font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --wa-font-family-body:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol';
     --wa-font-family-heading: var(--wa-font-family-body);
     --wa-font-family-code: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
     --wa-font-family-longform: Georgia, 'Times New Roman', serif;
