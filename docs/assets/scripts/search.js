@@ -198,7 +198,7 @@ async function updateResults(query = '') {
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
 
       if (page.url === '/') icon = 'home';
-      if (page.url.startsWith('/docs/native')) icon = 'code';
+      if (page.url.startsWith('/docs/utilities/native')) icon = 'code';
       if (page.url.startsWith('/docs/components')) icon = 'puzzle-piece';
       if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = 'palette';
 

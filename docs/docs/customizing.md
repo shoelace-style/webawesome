@@ -133,7 +133,7 @@ Most (but not all) components expose parts. You can find them in each component'
 
 ## Native Elements
 
-If you're using [native styles](/docs/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
+If you're using [native styles](/docs/utilities/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 
 For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the custom properties required to style the component:
 ```html {.example}
