@@ -31,19 +31,39 @@ If that's not what you're trying to do, the [documentation website](https://weba
 
 Components are built with [LitElement](https://lit-element.polymer-project.org/), a custom elements base class that provides an intuitive API and reactive data binding. The build is a custom script with bundling powered by [esbuild](https://esbuild.github.io/).
 
+### Why is Web Awesome a monorepo?
+
+Web Awesome uses [NPM workspaces](https://docs.npmjs.com/cli/v11/using-npm/workspaces)
+
+By using a NPM workspaces and a monorepo, we can get consistent builds, shared configurations, and reduced duplication across repositories which reduces regressions and forces consistency across `webawesome`, `webawesome-pro`, and `webawesome-app`.
+
+Generally, if you plan to only work with the free version of `webawesome` it is easiest to go to `packages/webawesome` and run all commands from there.
+
+### Dependency philosophy
+
+Any dependencies intended to be used across all packages (IE: `prettier`, `eslint`) that are _NOT_ used at runtime (such as `lit`) should be in the root `devDependencies` of `package.json`.
+
+```bash
+npm install -D -w prettier
+```
+
+Any dependencies that will be used at runtime by a package should be part of the specific package's `"dependencies"` such as `lit`. This is required because if that dependency is not in the `packages/*/package.json`, it will not be installed when used via NPM.
+
+Individual packages are also free to install devDependencies as needed as long as they are specific to that package only.
+
 ### Forking the Repo
 
 Start by [forking the repo](https://github.com/shoelace-style/webawesome/fork) on GitHub, then clone it locally and install dependencies.
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/webawesome
-cd webawesome
+cd webawesome/packages/webawesome
 npm install
 ```
 
 ### Developing
 
-Once you've cloned the repo, run the following command.
+Once you've cloned the repo, run the following command from the respective directory within `packages/*`
 
 ```bash
 npm start
