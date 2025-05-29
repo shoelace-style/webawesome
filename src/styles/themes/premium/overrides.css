@@ -6,9 +6,9 @@
       --symbol-color-active: var(--wa-color-text-quiet);
     }
 
+    wa-button::part(base),
     button,
-    input:where([type='button'], [type='reset'], [type='submit']),
-    wa-button {
+    input:where([type='button'], [type='reset'], [type='submit']) {
       font-size: var(--wa-size-smaller);
       text-transform: uppercase;
     }
