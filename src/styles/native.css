@@ -971,14 +971,15 @@
 
   /* Color picker */
   input[type='color'] {
+    --border-width: var(--wa-form-control-border-width);
+    --trigger-border-radius: var(--wa-form-control-border-radius);
     display: block;
-    border-radius: var(--trigger-border-radius, var(--wa-form-control-border-radius));
+    border-radius: var(--trigger-border-radius);
     background: transparent;
-    padding: calc(var(--border-width, var(--wa-form-control-border-width)) * 2);
+    padding: calc(var(--border-width) * 2);
     width: var(--wa-form-control-height);
     height: var(--wa-form-control-height);
-    border: var(--border-width, var(--wa-form-control-border-width)) var(--wa-border-style)
-      var(--wa-form-control-border-color);
+    border: var(--border-width) var(--wa-border-style) var(--wa-form-control-border-color);
     cursor: pointer;
     forced-color-adjust: none;
 
@@ -989,12 +990,12 @@
 
     &::-webkit-color-swatch {
       border: none;
-      border-radius: inherit;
+      border-radius: calc(var(--trigger-border-radius) - var(--border-width) * 3);
     }
 
     &::-moz-color-swatch {
       border: none;
-      border-radius: inherit;
+      border-radius: calc(var(--trigger-border-radius) - var(--border-width) * 3);
     }
 
     &:focus-visible {
