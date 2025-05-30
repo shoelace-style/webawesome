@@ -31,6 +31,30 @@ If that's not what you're trying to do, the [documentation website](https://weba
 
 Components are built with [LitElement](https://lit-element.polymer-project.org/), a custom elements base class that provides an intuitive API and reactive data binding. The build is a custom script with bundling powered by [esbuild](https://esbuild.github.io/).
 
+### Understanding the Web Awesome monorepo
+
+Web Awesome uses [NPM workspaces](https://docs.npmjs.com/cli/v11/using-npm/workspaces) for its monorepo structure and is fairly minimal in what it provides.
+
+By using a NPM workspaces and a monorepo structure, we can get consistent builds, shared configurations, and reduced duplication across repositories which reduces regressions and forces consistency across `webawesome`, `webawesome-pro`, and `webawesome-app`.
+
+Generally, if you plan to only work with the free version of `webawesome` it is easiest to go to `packages/webawesome` and run all commands from there.
+
+### Where do NPM dependencies go?
+
+Any dependencies intended to be used across all packages (IE: `prettier`, `eslint`) that are _NOT_ used at runtime should be in the root `devDependencies` of `package.json`.
+
+```bash
+npm install -D -w prettier
+```
+
+Any dependencies that will be used at runtime by a package should be part of the specific package's `"dependencies"` such as `lit`. This is required because if that dependency is not in the `packages/*/package.json`, it will not be installed when used via NPM.
+
+Individual packages are also free to install devDependencies as needed as long as they are specific to that package only.
+
+To do install a package specific to a package, change your working directory to that package's root
+
+IE: `cd packages/webawesome && npm install <package-name>`
+
 ### Forking the Repo
 
 Start by [forking the repo](https://github.com/shoelace-style/webawesome/fork) on GitHub, then clone it locally and install dependencies.
@@ -43,9 +67,10 @@ npm install
 
 ### Developing
 
-Once you've cloned the repo, run the following command.
+Once you've cloned the repo, run the following command from the respective directory within `packages/*`
 
 ```bash
+cd packages/webawesome
 npm start
 ```
 
@@ -56,6 +81,7 @@ This will spin up the dev server. After the initial build, a browser will open a
 To generate a production build, run the following command.
 
 ```bash
+cd packages/webawesome
 npm run build
 ```
 
@@ -66,10 +92,19 @@ You can also run `npm run build:serve` to start an [`http-server`](https://www.n
 To scaffold a new component, run the following command, replacing `wa-tag-name` with the desired tag name.
 
 ```bash
+cd packages/webawesome
 npm run create wa-tag-name
 ```
 
 This will generate a source file, a stylesheet, and a docs page for you. When you start the dev server, you'll find the new component in the "Components" section of the sidebar.
+
+### Adding additional packages
+
+Right now the only additional packages are in private repositories.
+
+To add additional packages from other repositories, run: `git clone <url> packages/<package-name>` to clone your repo into `packages/`.
+
+Make sure to run `npm install` at the root of the monorepo after adding your package!
 
 ### Contributing
 
