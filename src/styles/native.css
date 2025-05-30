@@ -500,11 +500,12 @@
     --border-width: var(--wa-form-control-border-width);
     --box-shadow: none;
     --checked-icon-color: var(--wa-color-brand-on-loud);
-    --toggle-size: 1lh;
+    --toggle-size: var(--wa-form-control-toggle-size);
 
     color: var(--wa-form-control-value-color);
     display: inline-flex;
     font-family: inherit;
+    font-size: var(--wa-form-control-value-font-size);
     font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
     user-select: none;
@@ -519,11 +520,12 @@
     &:checked::after {
       background-color: currentColor;
       content: '';
-      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>')
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>')
         center no-repeat;
       position: absolute;
       height: 100%;
       width: 100%;
+      scale: var(--checked-icon-scale, 0.8);
     }
 
     &:indeterminate::after {
@@ -600,7 +602,7 @@
     --box-shadow: none;
     --checked-icon-color: var(--wa-form-control-activated-color);
     --checked-icon-scale: 0.75;
-    --toggle-size: round(1lh, 1px);
+    --toggle-size: var(--wa-form-control-toggle-size);
 
     color: var(--wa-form-control-value-color);
     display: inline-flex;
@@ -699,14 +701,14 @@
     color: var(--wa-form-control-value-color);
     cursor: pointer;
     font-family: inherit;
-    font-size: var(--wa-size);
     font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
     min-width: 0;
     overflow: hidden;
-    padding: var(--wa-space-smaller) var(--wa-space);
+    padding: 0 var(--wa-form-control-padding-inline);
     position: relative;
     vertical-align: middle;
+    min-height: var(--wa-form-control-height);
     width: 100%;
     transition:
       background-color var(--wa-transition-normal),
@@ -734,8 +736,12 @@
 
     background-image: var(--icon-caret), var(--icon-caret);
     background-repeat: no-repeat;
-    background-position: center right var(--wa-space);
+    background-position: center right var(--wa-form-control-padding-inline);
     background-blend-mode: hue, difference;
+  }
+
+  select.wa-pill {
+    border-radius: var(--wa-border-radius-pill) !important;
   }
 
   /* Buttons */
@@ -758,7 +764,6 @@
     --text-color-hover: var(--text-color);
     --text-color-active: var(--text-color);
 
-    display: flex; /* Display flex with gap for icon spacing */
     gap: 0.5em;
     border-radius: var(--wa-form-control-border-radius);
     border-style: var(--wa-border-style);
@@ -775,9 +780,8 @@
     transition-duration: var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
     cursor: pointer;
-    padding: 0 var(--wa-space, var(--wa-space-m));
+    padding: 0 var(--wa-form-control-padding-inline);
     font-family: inherit;
-    font-size: var(--wa-size, var(--wa-font-size-m));
     font-weight: var(--wa-font-weight-action);
     height: var(--wa-form-control-height);
     line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
@@ -877,11 +881,12 @@
     border-style: var(--wa-form-control-border-style);
     cursor: text;
     color: var(--wa-form-control-value-color);
-    font-size: var(--wa-size);
+    font-size: var(--wa-form-control-value-size);
     font-family: inherit;
     font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
     vertical-align: middle;
+    height: var(--wa-form-control-height);
     width: 100%;
     transition:
       background-color var(--wa-transition-normal),
@@ -892,7 +897,15 @@
     background-color: var(--background-color, var(--wa-form-control-background-color));
     border-width: var(--border-width, var(--wa-form-control-border-width));
     box-shadow: var(--box-shadow, initial);
-    padding: var(--wa-space-smaller) var(--wa-space);
+    padding: 0 var(--wa-form-control-padding-inline);
+
+    /* Textareas only */
+    &:not(input) {
+      line-height: var(--wa-line-height-normal);
+      height: auto;
+      min-height: var(--wa-form-control-height);
+      padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
+    }
 
     /* Style focused inputs */
     &:focus-within {
@@ -959,12 +972,13 @@
   /* Color picker */
   input[type='color'] {
     display: block;
-    border-radius: calc(infinity * 1px);
+    border-radius: var(--trigger-border-radius, var(--wa-form-control-border-radius));
     background: transparent;
-    padding: var(--wa-form-control-border-width);
-    width: calc(var(--wa-form-control-height) - 2px);
-    height: calc(var(--wa-form-control-height) - 2px);
-    border: var(--wa-form-control-border-width) var(--wa-border-style) var(--wa-form-control-border-color);
+    padding: calc(var(--border-width, var(--wa-form-control-border-width)) * 2);
+    width: var(--wa-form-control-height);
+    height: var(--wa-form-control-height);
+    border: var(--border-width, var(--wa-form-control-border-width)) var(--wa-border-style)
+      var(--wa-form-control-border-color);
     cursor: pointer;
     forced-color-adjust: none;
 

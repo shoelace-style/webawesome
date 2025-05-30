@@ -7,7 +7,6 @@
 :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)) {
   display: inline-block;
   color: var(--wa-form-control-label-color);
-  font-size: var(--wa-form-control-label-font-size);
   font-weight: var(--wa-form-control-label-font-weight);
   line-height: var(--wa-form-control-label-line-height);
   margin-block-end: var(--wa-space-xs);
@@ -23,10 +22,10 @@
 [part~='hint'] {
   display: block;
   color: var(--wa-form-control-hint-color);
-  font-size: var(--wa-form-control-hint-font-size);
   font-weight: var(--wa-form-control-hint-font-weight);
   line-height: var(--wa-form-control-hint-line-height);
   margin-block-start: var(--wa-space-xs);
+  font-size: var(--wa-font-size-smaller);
   line-height: var(--wa-form-control-label-line-height);
 
   &:not(.has-slotted) {

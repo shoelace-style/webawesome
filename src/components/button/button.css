@@ -36,9 +36,9 @@
   transition-duration: var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
   cursor: pointer;
-  padding: 0 var(--wa-space, var(--wa-space-m));
+  padding: 0 var(--wa-form-control-padding-inline);
   font-family: inherit;
-  font-size: var(--wa-size, var(--wa-font-size-m));
+  font-size: inherit;
   font-weight: var(--wa-font-weight-action);
   line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
   height: var(--wa-form-control-height);
@@ -182,12 +182,12 @@ button ::slotted(wa-badge) {
 */
 
 slot[name='prefix']::slotted(*) {
-  margin-inline-end: var(--wa-space);
+  margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
 slot[name='suffix']::slotted(*),
 .button:not(.visually-hidden-label) [part~='caret'] {
-  margin-inline-start: var(--wa-space);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 }
 
 /*

@@ -14,8 +14,7 @@
         --background-color-active: var(--border-color-active);
         --border-color-hover: var(--wa-color-shadow);
         --border-color-active: var(--wa-color-shadow);
-        --box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
-          var(--wa-color-shadow);
+        --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
 
         .wa-dark &,
         .wa-invert & {
@@ -50,6 +49,7 @@
       ) {
       &:where(:not(wa-button)),
       &::part(base) {
+        height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
         margin-bottom: var(--wa-shadow-offset-y-s);
         margin-right: var(--wa-shadow-offset-x-s);
       }
@@ -57,7 +57,7 @@
         &:where(:not(wa-button)),
         &::part(base) {
           box-shadow: none;
-          transform: translate(var(--wa-shadow-offset-x-s), max(var(--wa-shadow-offset-y-s), var(--border-width)));
+          transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
         }
       }
     }

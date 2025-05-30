@@ -38,8 +38,8 @@ textarea {
   background: transparent;
   font: inherit;
   color: inherit;
-  padding: var(--wa-space-smaller) var(--wa-space);
-  min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2 - (var(--wa-space-smaller) * 2));
+  padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
+  min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
   box-shadow: none;
   margin: 0;
 

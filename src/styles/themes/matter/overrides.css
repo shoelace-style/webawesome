@@ -24,7 +24,7 @@
       &:not([appearance~='plain']) {
         &:where(:not(wa-button)),
         &::part(base) {
-          padding-inline: calc(var(--wa-space) * 1.5);
+          padding-inline: calc(var(--wa-form-control-padding-inline) * 1.5);
         }
       }
 
@@ -128,7 +128,7 @@
         pointer-events: none;
 
         position: absolute;
-        left: calc(var(--wa-space) - 0.25em);
+        left: calc(var(--wa-form-control-padding-inline) - 0.25em);
         z-index: 1;
 
         /* State: out of the way by default */

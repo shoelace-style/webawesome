@@ -20,7 +20,7 @@
         box-shadow:
           var(--wa-theme-active-shadow-pop-out),
           inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
-        padding-inline: calc(var(--wa-space) + var(--border-width));
+        padding-inline: calc(var(--wa-form-control-padding-inline) + var(--border-width));
       }
 
       &:not([disabled], [loading]):active {

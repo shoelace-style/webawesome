@@ -8,7 +8,7 @@
   --box-shadow: none;
   --checked-icon-color: var(--wa-form-control-activated-color);
   --checked-icon-scale: 0.75;
-  --toggle-size: round(1lh, 1px);
+  --toggle-size: var(--wa-form-control-toggle-size);
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
@@ -101,7 +101,7 @@
   background-color: var(--wa-color-surface-default);
   border: var(--border-width) var(--border-style) var(--wa-form-control-border-color);
   border-radius: var(--wa-border-radius-m);
-  padding: 0 var(--wa-space);
+  padding: 0 var(--wa-form-control-padding-inline);
   transition:
     background-color var(--wa-transition-fast),
     border-color var(--wa-transition-fast);

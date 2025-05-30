@@ -22,7 +22,7 @@
   border-width: var(--border-width);
   cursor: text;
   color: var(--wa-form-control-value-color);
-  font-size: var(--wa-size);
+  font-size: var(--wa-form-control-value-font-size);
   font-family: inherit;
   font-weight: var(--wa-form-control-value-font-weight);
   line-height: var(--wa-form-control-value-line-height);
@@ -35,7 +35,7 @@
   transition-timing-function: var(--wa-transition-easing);
   background-color: var(--background-color, var(--wa-form-control-background-color));
   box-shadow: var(--box-shadow);
-  padding: var(--wa-space-smaller) var(--wa-space);
+  padding: 0 var(--wa-form-control-padding-inline);
 
   &:focus-within {
     outline: var(--wa-focus-ring);
@@ -142,11 +142,11 @@ textarea {
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--wa-space);
+  margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 }
 
 /*

@@ -28,7 +28,7 @@
       &::part(base) {
         border-width: 0px;
         margin-bottom: var(--wa-shadow-offset-y-s);
-        padding-inline: calc(var(--wa-space) + var(--border-width));
+        padding-inline: calc(var(--wa-form-control-padding-inline) + var(--border-width));
         transition: all var(--wa-transition-fast);
       }
 

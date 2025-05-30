@@ -52,7 +52,7 @@
         &:not([appearance~='outlined']) {
           &:where(:not(wa-button)),
           &::part(base) {
-            padding-inline: calc(var(--wa-space) + var(--border-width));
+            padding-inline: calc(var(--wa-form-control-padding-inline) + var(--border-width));
             border-width: 0px;
           }
         }

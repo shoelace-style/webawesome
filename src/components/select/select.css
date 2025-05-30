@@ -18,12 +18,11 @@ label:has(select),
   color: var(--wa-form-control-value-color);
   cursor: pointer;
   font-family: inherit;
-  font-size: var(--wa-size);
   font-weight: var(--wa-form-control-value-font-weight);
   line-height: var(--wa-form-control-value-line-height);
   min-width: 0;
   overflow: hidden;
-  padding: var(--wa-space-smaller) var(--wa-space);
+  padding: 0 var(--wa-form-control-padding-inline);
   position: relative;
   vertical-align: middle;
   width: 100%;
@@ -196,11 +195,11 @@ label:has(select),
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--wa-space);
+  margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
 :host([multiple]) .prefix::slotted(*) {
-  margin-inline: var(--wa-space);
+  margin-inline: var(--wa-form-control-padding-inline);
 }
 
 /* Clear button */
@@ -215,7 +214,7 @@ label:has(select),
   padding: 0;
   transition: color var(--wa-transition-normal);
   cursor: pointer;
-  margin-inline-start: var(--wa-space);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 
   &:focus {
     outline: none;
