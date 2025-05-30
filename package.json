@@ -11,7 +11,9 @@
     "packages/*"
   ],
   "scripts": {
-    "check-updates": "npx npm-check-updates --interactive --format group"
+    "check-updates": "npx npm-check-updates --interactive --format group",
+    "start": "cd packages/webawesome && npm run start",
+    "start:pro": "cd packages/webawesome-pro && npm run start"
   },
   "engines": {
     "node": ">=14.17.0"
