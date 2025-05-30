@@ -355,13 +355,7 @@ TL;DR – a component is a dependency if and only if it's rendered inside anothe
 
 Many Web Awesome components use other Web Awesome components internally. For example, `<wa-button>` uses both `<wa-icon>` and `<wa-spinner>` for its caret icon and loading state, respectively. Since these components appear in the button's shadow root, they are considered dependencies of Button. Since dependencies are automatically loaded, users only need to import the button and everything will work as expected.
 
-Contrast this to `<wa-select>` and `<wa-option>`. At first, one might assume that Option is a dependency of Select. After all, you can't really use Select without slotting in at least one Option. However, Option _is not_ a dependency of Select! The reason is because no Option is rendered in the Select's shadow root. Since the options are provided by the user, it's up to them to import both components independently.
-
-People often suggest that Web Awesome should auto-load Select + Option, Menu + Menu Item, Breadcrumb + Breadcrumb Item, etc. Although some components are designed to work together, they're technically not dependencies so eagerly loading them may not be desirable. What if someone wants to roll their own component with a superset of features? They wouldn't be able to if Web Awesome automatically imported it!
-
-Similarly, in the case of `<wa-radio-group>` there was originally only `<wa-radio>`, but now you can use either `<wa-radio>` or `<wa-radio-button>` as child elements. Which component(s) should be auto-loaded dependencies in this case? Had Radio been a dependency of Radio Group, users that only wanted Radio Buttons would be forced to register both with no way to opt out and no way to provide their own customized version.
-
-For non-dependencies, _the user_ should decide what gets registered, even if it comes with a minor inconvenience.
+The rule of thumb for dependencies is: if a component is rendered _inside_ a host element's shadow root OR if the component is required to be slotted in by the user (e.g. `<wa-radio-group>` + `<wa-radio>`), it's a dependency.
 
 ### Form Controls
 

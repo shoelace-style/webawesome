@@ -153,29 +153,29 @@ isPro: true
     </div>
     <div class="wa-stack">
       <wa-radio-group label="Color" name="color" value="black" orientation="horizontal">
-        <wa-radio-button id="radio-black" value="black">
+        <wa-radio appearance="button" id="radio-black" value="black">
           <wa-icon name="square" label="Black" style="color: black;"></wa-icon>
           <wa-tooltip for="radio-black">Black</wa-tooltip>
-        </wa-radio-button>
-        <wa-radio-button id="radio-gray" value="gray">
+        </wa-radio>
+        <wa-radio appearance="button" id="radio-gray" value="gray">
           <wa-icon name="square" label="Gray" style="color: gray;"></wa-icon>
           <wa-tooltip for="radio-gray">Gray</wa-tooltip>
-        </wa-radio-button>
-        <wa-radio-button id="radio-indigo" value="indigo">
+        </wa-radio>
+        <wa-radio appearance="button" id="radio-indigo" value="indigo">
           <wa-icon name="square" label="Indigo" style="color: indigo;"></wa-icon>
           <wa-tooltip for="radio-indigo">Indigo</wa-tooltip>
-        </wa-radio-button>
-        <wa-radio-button id="radio-olive" value="olive">
+        </wa-radio>
+        <wa-radio appearance="button" id="radio-olive" value="olive">
           <wa-icon name="square" label="Olive" style="color: olive;"></wa-icon>
           <wa-tooltip for="radio-olive">Olive</wa-tooltip>
-        </wa-radio-button>
+        </wa-radio>
       </wa-radio-group>
       <wa-radio-group label="Size" name="size" value="s" orientation="horizontal">
-        <wa-radio-button value="xs">XS</wa-radio-button>
-        <wa-radio-button value="s">S</wa-radio-button>
-        <wa-radio-button value="m">M</wa-radio-button>
-        <wa-radio-button value="l">L</wa-radio-button>
-        <wa-radio-button value="xl">XL</wa-radio-button>
+        <wa-radio appearance="button" value="xs">XS</wa-radio>
+        <wa-radio appearance="button" value="s">S</wa-radio>
+        <wa-radio appearance="button" value="m">M</wa-radio>
+        <wa-radio appearance="button" value="l">L</wa-radio>
+        <wa-radio appearance="button" value="xl">XL</wa-radio>
       </wa-radio-group>
       <wa-button variant="brand">
         <wa-icon slot="prefix" name="cart-plus" variant="solid"></wa-icon>
@@ -228,21 +228,21 @@ isPro: true
         <a href="#">144 Reviews</a>
       </div>
       <wa-radio-group label="Color" name="color" value="black" orientation="horizontal">
-        <wa-radio-button value="black">
+        <wa-radio appearance="button" value="black">
           <wa-icon slot="prefix" name="shirt" style="color: black;"></wa-icon>
           Vintage Black
-        </wa-radio-button>
-        <wa-radio-button value="gray">
+        </wa-radio>
+        <wa-radio appearance="button" value="gray">
           <wa-icon slot="prefix" name="shirt" style="color: gray;"></wa-icon>
           Faded Gray
-        </wa-radio-button>
+        </wa-radio>
       </wa-radio-group>
       <wa-radio-group label="Size" name="size" value="s" orientation="horizontal">
-        <wa-radio-button value="xs">XS</wa-radio-button>
-        <wa-radio-button value="s">S</wa-radio-button>
-        <wa-radio-button value="m">M</wa-radio-button>
-        <wa-radio-button value="l">L</wa-radio-button>
-        <wa-radio-button value="xl">XL</wa-radio-button>
+        <wa-radio appearance="button" value="xs">XS</wa-radio>
+        <wa-radio appearance="button" value="s">S</wa-radio>
+        <wa-radio appearance="button" value="m">M</wa-radio>
+        <wa-radio appearance="button" value="l">L</wa-radio>
+        <wa-radio appearance="button" value="xl">XL</wa-radio>
       </wa-radio-group>
       <wa-button variant="brand">
         <wa-icon slot="prefix" name="bag-shopping" variant="solid"></wa-icon>
@@ -329,25 +329,25 @@ isPro: true
         comfort. The relaxed fit and classic crew neckline make it a versatile staple for layering or wearing solo.
       </p>
       <wa-radio-group label="Color" name="color" value="sand" orientation="horizontal">
-        <wa-radio-button value="sand">
+        <wa-radio appearance="button" value="sand">
           <wa-icon slot="prefix" name="circle" style="color: burlywood;"></wa-icon>
           Sand
-        </wa-radio-button>
-        <wa-radio-button value="shale">
+        </wa-radio>
+        <wa-radio appearance="button" value="shale">
           <wa-icon slot="prefix" name="circle" style="color: silver;"></wa-icon>
           Shale
-        </wa-radio-button>
-        <wa-radio-button value="slate">
+        </wa-radio>
+        <wa-radio appearance="button" value="slate">
           <wa-icon slot="prefix" name="circle" style="color: dimgray;"></wa-icon>
           Slate
-        </wa-radio-button>
+        </wa-radio>
       </wa-radio-group>
       <wa-radio-group label="Size" name="size" value="s" orientation="horizontal">
-        <wa-radio-button value="xs">XS</wa-radio-button>
-        <wa-radio-button value="s">S</wa-radio-button>
-        <wa-radio-button value="m">M</wa-radio-button>
-        <wa-radio-button value="l">L</wa-radio-button>
-        <wa-radio-button value="xl">XL</wa-radio-button>
+        <wa-radio appearance="button" value="xs">XS</wa-radio>
+        <wa-radio appearance="button" value="s">S</wa-radio>
+        <wa-radio appearance="button" value="m">M</wa-radio>
+        <wa-radio appearance="button" value="l">L</wa-radio>
+        <wa-radio appearance="button" value="xl">XL</wa-radio>
       </wa-radio-group>
       <wa-button variant="brand">Add to Cart</wa-button>
     </div>

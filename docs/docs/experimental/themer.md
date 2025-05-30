@@ -524,10 +524,10 @@ hasOutline: false
     </div>
     <div>
       <wa-radio-group label="Need a logo?" name="project-logo-selector" value="shapes">
-        <wa-radio-button value="shapes"><wa-icon name="shapes"></wa-icon></wa-radio-button>
-        <wa-radio-button value="meteor"><wa-icon name="meteor"></wa-icon></wa-radio-button>
-        <wa-radio-button value="cat-space"><wa-icon name="cat-space"></wa-icon></wa-radio-button>
-        <wa-radio-button value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio-button>
+        <wa-radio appearance="button" value="shapes"><wa-icon name="shapes"></wa-icon></wa-radio>
+        <wa-radio appearance="button" value="meteor"><wa-icon name="meteor"></wa-icon></wa-radio>
+        <wa-radio appearance="button" value="cat-space"><wa-icon name="cat-space"></wa-icon></wa-radio>
+        <wa-radio appearance="button" value="puzzle-piece"><wa-icon name="puzzle-piece"></wa-icon></wa-radio>
           <wa-button value="[choose]" appearance="plain" id="icon-chooser-trigger" class="logo-chooser">
             <wa-tooltip for="icon-chooser-trigger" distance="-3" hoist>Browse Icons</wa-tooltip>
             <wa-icon name="ellipsis" library="fa-classic-regular"></wa-icon>
@@ -684,12 +684,12 @@ hasOutline: false
 
 <div id="color-mode-selector">
   <wa-radio-group class="hidden-label" label="Color mode" name="color-mode" value="light">
-    <wa-radio-button value="light">
+    <wa-radio appearance="button" value="light">
       <wa-icon name="sun" library="fa-classic-regular"></wa-icon>
-    </wa-radio-button>
-    <wa-radio-button value="dark">
+    </wa-radio>
+    <wa-radio appearance="button" value="dark">
       <wa-icon name="moon" library="fa-classic-regular"></wa-icon>
-    </wa-radio-button>
+    </wa-radio>
   </wa-radio-group>
 </div>
 
@@ -2239,10 +2239,10 @@ hasOutline: false
         <div>
           <div style="margin: var(--wa-space-3xl) 0">
             <wa-radio-group label="Choose a finish" name="finish" value="Matte" class="product-finish">
-              <wa-radio-button value="Matte">Matte</wa-radio-button>
-              <wa-radio-button value="Glossy">Glossy</wa-radio-button>
-              <wa-radio-button value="Pebbled" disabled>Pebbled</wa-radio-button>
-              <wa-radio-button value="Holo">Holo</wa-radio-button>
+              <wa-radio appearance="button" value="Matte">Matte</wa-radio>
+              <wa-radio appearance="button" value="Glossy">Glossy</wa-radio>
+              <wa-radio appearance="button" value="Pebbled" disabled>Pebbled</wa-radio>
+              <wa-radio appearance="button" value="Holo">Holo</wa-radio>
             </wa-radio-group>
           </div>
           <div style="display: flex; align-items: end; gap: 1rem;">

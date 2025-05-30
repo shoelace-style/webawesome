@@ -20,7 +20,7 @@ export default class WaSkeleton extends WebAwesomeElement {
   static shadowStyle = styles;
 
   /** Determines which effect the skeleton will use. */
-  @property({ reflect: true, default: 'none' }) effect: 'pulse' | 'sheen' | 'none' = 'none';
+  @property({ reflect: true }) effect: 'pulse' | 'sheen' | 'none' = 'none';
 
   render() {
     return html` <div part="indicator" class="indicator"></div> `;

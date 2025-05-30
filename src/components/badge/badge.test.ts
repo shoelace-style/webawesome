@@ -23,8 +23,8 @@ describe('<wa-badge>', () => {
 
         it('should default to square styling, with the brand color', async () => {
           const el = await fixture<WaBadge>(html` <wa-badge>Badge</wa-badge> `);
-          expect(el.getAttribute('variant')).to.eq(null);
-          expect(el.variant).to.eq('inherit');
+          expect(el.getAttribute('variant')).to.eq('brand');
+          expect(el.variant).to.eq('brand');
         });
       });
 

@@ -23,7 +23,7 @@ describe('<wa-input>', () => {
         const el = await fixture<WaInput>(html` <wa-input></wa-input> `);
 
         expect(el.type).to.equal('text');
-        expect(el.size).to.equal('inherit');
+        expect(el.size).to.equal('medium');
         expect(el.name).to.equal(null);
         expect(el.value).to.equal(null);
         expect(el.defaultValue).to.equal(null);

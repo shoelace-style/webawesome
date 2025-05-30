@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { clamp } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import passthroughStyles from '../../styles/shadow/passthrough.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-bar.css';
 
@@ -25,7 +24,7 @@ import styles from './progress-bar.css';
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {
-  static shadowStyle = [passthroughStyles, styles];
+  static shadowStyle = styles;
   private readonly localize = new LocalizeController(this);
 
   /** The current progress as a percentage, 0 to 100. */

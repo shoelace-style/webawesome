@@ -9,19 +9,21 @@
 @import url('active/dimension.css');
 @import url('active/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-active,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-active,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Rounding
    */
-  --wa-border-radius-scale: 2;
+    --wa-border-radius-scale: 2;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+  }
 }

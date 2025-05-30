@@ -1,19 +1,21 @@
-:where(:root),
-:host,
-.wa-theme-glossy {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    letter-spacing: -0.02em;
-  }
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-glossy {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      letter-spacing: -0.02em;
+    }
 
-  input[type='radio'],
-  wa-radio {
-    --background-color-checked: var(--border-color-checked);
-    --checked-icon-color: var(--wa-color-surface-default);
-    --checked-icon-scale: 0.4;
+    input[type='radio'],
+    wa-radio {
+      --background-color-checked: var(--border-color-checked);
+      --checked-icon-color: var(--wa-color-surface-default);
+      --checked-icon-scale: 0.4;
+    }
   }
 }

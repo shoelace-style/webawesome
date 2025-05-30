@@ -7,8 +7,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import sliderStyles from '../../styles/native/slider.css';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './slider.css';
 
@@ -46,7 +45,7 @@ import styles from './slider.css';
  */
 @customElement('wa-slider')
 export default class WaSlider extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sliderStyles, styles];
+  static shadowStyle = [formControlStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

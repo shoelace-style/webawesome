@@ -127,41 +127,6 @@ If using SSR, you need to also use the `with-media` attribute to add a media sec
 </style>
 ```
 
-### Sizing
-
-Use the `size` attribute to change a card's size.
-
-```html {.example}
-<div class="wa-stack">
-<wa-card size="small">
-  This is a small card.
-
-  <footer slot="footer" class="wa-split">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
-  </footer>
-</wa-card>
-
-<wa-card size="medium">
-  This is a medium card (default).
-
-  <footer slot="footer" class="wa-split">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
-  </footer>
-</wa-card>
-
-<wa-card size="large">
-  This is a large card.
-
-  <footer slot="footer" class="wa-split">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating></wa-rating>
-  </footer>
-</wa-card>
-</div>
-```
-
 ### Appearance
 
 Use the `appearance` attribute to change the card's visual appearance.

@@ -1,243 +1,246 @@
-/**
+@layer wa-theme {
+  /**
  * Component Styles
  */
-@property --wa-ripple-progress {
-  syntax: '<number>';
-  initial-value: 0;
-  inherits: false;
-}
+  @property --wa-ripple-progress {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: false;
+  }
 
-:where(:root),
-:host,
-.wa-theme-matter {
-  --wa-ripple-start-radius: 0.1em;
-  --wa-ripple-start-opacity: 0.1;
-  --wa-ripple-duration: calc(2 * var(--wa-transition-slow));
+  :where(:root),
+  :host,
+  .wa-theme-matter {
+    --wa-ripple-start-radius: 0.1em;
+    --wa-ripple-start-opacity: 0.1;
+    --wa-ripple-duration: calc(2 * var(--wa-transition-slow));
 
-  button,
-  input:where([type='button'], [type='reset'], [type='submit']),
-  wa-button,
-  wa-radio-group > wa-radio-button,
-  .wa-button {
-    --wa-form-control-border-radius: var(--wa-border-radius-pill);
-    box-shadow: 0 0 transparent;
+    wa-button,
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']) {
+      --wa-form-control-border-radius: var(--wa-border-radius-pill);
+      --box-shadow: 0 0 transparent;
 
-    &:not([appearance~='plain'], .wa-plain) {
-      padding-inline: calc(var(--wa-space) * 1.5);
-    }
+      &:not([appearance~='plain']) {
+        &:where(:not(wa-button)),
+        &::part(base) {
+          padding-inline: calc(var(--wa-space) * 1.5);
+        }
+      }
 
-    &:not([appearance~='outlined'], [appearance~='plain'], .wa-outlined, .wa-plain):hover {
-      box-shadow: var(--wa-shadow-s);
+      &:not([appearance~='outlined'], [appearance~='plain']):hover {
+        --box-shadow: var(--wa-shadow-s);
+
+        &:active {
+          --box-shadow: 0 0 transparent;
+        }
+      }
+
+      &:is([appearance~='outlined']) {
+        --border-color: var(--wa-form-control-border-color);
+      }
+
+      /* Ripple effect */
+      /* TODO: fix */
+      --wa-ripple-progress: 1;
+      --wa-ripple-progress-inv: calc(1 - var(--wa-ripple-progress));
+      --wa-ripple-radius: calc(
+        var(--wa-ripple-start-radius) * var(--wa-ripple-progress-inv) + 100% * var(--wa-ripple-progress)
+      );
+      --wa-ripple-opacity: calc(var(--wa-ripple-start-opacity) * var(--wa-ripple-progress-inv));
+      --wa-ripple-color: hsl(0 0% 100% / var(--wa-ripple-opacity));
+      --wa-ripple-center-x: calc(100% * var(--mouse-local-x, 0.5));
+      --wa-ripple-center-y: calc(100% * var(--mouse-local-y, 0.5));
+
+      background-image: radial-gradient(
+        circle at var(--wa-ripple-center-x) var(--wa-ripple-center-y),
+        var(--wa-ripple-color) var(--wa-ripple-radius),
+        transparent 0
+      );
+      transition:
+        var(--wa-transition-fast),
+        --wa-ripple-progress var(--wa-ripple-duration);
 
       &:active {
-        box-shadow: 0 0 transparent;
+        --wa-ripple-progress: 0;
+        --wa-ripple-duration: 0s;
       }
     }
 
-    &:is([appearance~='outlined'], .wa-outlined) {
-      --border-color: var(--wa-form-control-border-color);
+    input[type='checkbox'],
+    wa-checkbox,
+    wa-tree-item::part(checkbox__control) {
+      --border-radius: calc(var(--wa-border-radius-s) / 2);
     }
 
-    /* Ripple effect */
-    --wa-ripple-progress: 1;
-    --wa-ripple-progress-inv: calc(1 - var(--wa-ripple-progress));
-    --wa-ripple-radius: calc(
-      var(--wa-ripple-start-radius) * var(--wa-ripple-progress-inv) + 100% * var(--wa-ripple-progress)
-    );
-    --wa-ripple-opacity: calc(var(--wa-ripple-start-opacity) * var(--wa-ripple-progress-inv));
-    --wa-ripple-color: hsl(0 0% 100% / var(--wa-ripple-opacity));
-    --wa-ripple-center-x: calc(100% * var(--mouse-local-x, 0.5));
-    --wa-ripple-center-y: calc(100% * var(--mouse-local-y, 0.5));
-
-    background-image: radial-gradient(
-      circle at var(--wa-ripple-center-x) var(--wa-ripple-center-y),
-      var(--wa-ripple-color) var(--wa-ripple-radius),
-      transparent 0
-    );
-    transition:
-      var(--wa-transition-fast),
-      --wa-ripple-progress var(--wa-ripple-duration);
-
-    &:active {
-      --wa-ripple-progress: 0;
-      --wa-ripple-duration: 0s;
+    wa-icon-button::part(base) {
+      aspect-ratio: 1;
+      border-radius: var(--wa-border-radius-circle);
+      padding: 0.75em;
     }
-  }
 
-  input[type='checkbox'],
-  wa-checkbox,
-  wa-tree-item::part(checkbox__control) {
-    --border-radius: calc(var(--wa-border-radius-s) / 2);
-  }
+    input:where(
+        :not(
+          [type='button'],
+          [type='checkbox'],
+          [type='color'],
+          [type='file'],
+          [type='hidden'],
+          [type='image'],
+          [type='radio'],
+          [type='range'],
+          [type='reset'],
+          [type='submit']
+        )
+      ),
+    select,
+    textarea,
+    wa-input,
+    wa-select,
+    wa-textarea {
+      --wa-form-control-value-line-height: var(--wa-line-height-normal);
 
-  wa-icon-button::part(base) {
-    aspect-ratio: 1;
-    border-radius: var(--wa-border-radius-circle);
-    padding: 0.75em;
-  }
+      /* Needed for floating label */
+      position: relative;
 
-  input:where(
-      :not(
-        [type='button'],
-        [type='checkbox'],
-        [type='color'],
-        [type='file'],
-        [type='hidden'],
-        [type='image'],
-        [type='radio'],
-        [type='range'],
-        [type='reset'],
-        [type='submit']
-      )
-    ),
-  select,
-  textarea,
-  wa-input,
-  wa-select,
-  wa-textarea,
-  .wa-text-field {
-    --wa-form-control-value-line-height: var(--wa-line-height-normal);
+      &:is([appearance~='filled']):not([appearance~='outlined'], [pill]) {
+        --wa-focus-ring: ;
+        --border-color: transparent transparent var(--wa-form-control-border-color) transparent;
 
-    /* Needed for floating label */
-    position: relative;
+        &:where(input, textarea, wa-input, select, wa-textarea):focus,
+        &:where(wa-select):focus-within {
+          --border-color: transparent transparent var(--wa-color-focus) transparent;
+          --box-shadow: inset 0 calc(var(--wa-form-control-border-width) * -2) 0 0 var(--wa-color-focus);
+        }
 
-    &:is([appearance~='filled'], .wa-filled):not([appearance~='outlined'], .wa-outlined, [pill], .wa-pill) {
-      --wa-focus-ring: ;
-      --border-color: transparent transparent var(--wa-form-control-border-color) transparent;
-
-      &:where(input, textarea, wa-input, select, wa-textarea, .wa-text-field):focus,
-      &:where(wa-select):focus-within {
-        --border-color: transparent transparent var(--wa-color-focus) transparent;
-        --box-shadow: inset 0 calc(var(--wa-form-control-border-width) * -2) 0 0 var(--wa-color-focus);
+        &:where(input, select, textarea),
+        &::part(input),
+        &::part(combobox) {
+          border-radius: var(--wa-form-control-border-radius) var(--wa-form-control-border-radius) 0px 0px;
+        }
       }
 
-      &:where(input, select, textarea, .wa-text-field),
-      &::part(input),
-      &::part(combobox) {
-        border-radius: var(--wa-form-control-border-radius) var(--wa-form-control-border-radius) 0px 0px;
-      }
-    }
-
-    /**
+      /**
      * Floating labels
      */
-    &::part(label) {
-      transition: all var(--wa-transition-normal);
-      pointer-events: none;
+      &::part(label) {
+        transition: all var(--wa-transition-normal);
+        pointer-events: none;
 
-      position: absolute;
-      left: calc(var(--wa-space) - 0.25em);
-      z-index: 1;
+        position: absolute;
+        left: calc(var(--wa-space) - 0.25em);
+        z-index: 1;
 
-      /* State: out of the way by default */
-      top: -0.5lh;
-      font-size: var(--wa-size-smaller);
+        /* State: out of the way by default */
+        top: -0.5lh;
+        font-size: var(--wa-size-smaller);
 
-      background-color: var(--wa-form-control-background-color);
-      padding-inline: 0.25em;
-    }
+        background-color: var(--wa-form-control-background-color);
+        padding-inline: 0.25em;
+      }
 
-    &:focus::part(label) {
-      color: var(--wa-color-focus);
-    }
+      &:focus::part(label) {
+        color: var(--wa-color-focus);
+      }
 
-    /* State: placeholder-like when:
+      /* State: placeholder-like when:
      * - the input is empty
      * - the input is not focused
      * - there is no actual placeholder
      */
-    &:state(blank):not(:focus, [placeholder])::part(label) {
-      top: calc(var(--wa-form-control-height) / 2 - 0.5lh);
-      font-size: inherit;
+      &:state(blank):not(:focus, [placeholder])::part(label) {
+        top: calc(var(--wa-form-control-height) / 2 - 0.5lh);
+        font-size: inherit;
+      }
+
+      /* Different positioning and appearance for filled */
+      &:where([appearance~='filled'])[label]:not([placeholder]) {
+        &::part(base) {
+          /* We want to move this down a bit to make space for the floating label */
+          translate: 0 0.3em;
+        }
+
+        &::part(label) {
+          /* In filled inputs, the floating label stays within the input */
+          background-color: transparent;
+        }
+
+        &:not(:state(blank):not(:focus, [placeholder]))::part(label) {
+          top: 0;
+        }
+      }
     }
 
-    /* Different positioning and appearance for filled */
-    &:where([appearance~='filled'], .wa-filled)[label]:not([placeholder]) {
+    wa-menu-item,
+    wa-option {
+      --background-color-hover: color-mix(in oklch, var(--wa-color-surface-lowered), transparent);
+      --text-color-hover: var(--wa-color-text-normal);
       &::part(base) {
-        /* We want to move this down a bit to make space for the floating label */
-        translate: 0 0.3em;
-      }
-
-      &::part(label) {
-        /* In filled inputs, the floating label stays within the input */
-        background-color: transparent;
-      }
-
-      &:not(:state(blank):not(:focus, [placeholder]))::part(label) {
-        top: 0;
+        line-height: var(--wa-line-height-expanded);
       }
     }
-  }
 
-  wa-menu-item,
-  wa-option {
-    --background-color-hover: color-mix(in oklch, var(--wa-color-surface-lowered), transparent);
-    --text-color-hover: var(--wa-color-text-normal);
-    &::part(base) {
-      line-height: var(--wa-line-height-expanded);
-    }
-  }
+    progress,
+    wa-progress-bar {
+      height: 0.25rem;
 
-  progress,
-  wa-progress-bar {
-    height: 0.25rem;
-
-    &:where(progress),
-    &::part(base) {
-      border-radius: var(--wa-border-radius-square);
-    }
-  }
-
-  input:is([type='checkbox'], [type='radio']),
-  wa-checkbox,
-  wa-tree-item::part(checkbox__control),
-  wa-radio {
-    --border-width: var(--wa-border-width-m);
-    --checked-icon-scale: 0.65;
-
-    &::part(control) {
-      margin-inline-end: 0.75em;
-    }
-
-    &:hover {
-      --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
-      &:is(:checked, :indeterminate, :state(checked), :state(indeterminate)) {
-        --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color-checked), transparent 85%);
+      &:where(progress),
+      &::part(base) {
+        border-radius: var(--wa-border-radius-square);
       }
     }
-  }
 
-  input[type='range']:hover,
-  wa-slider:hover {
-    --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--thumb-color), transparent 85%);
-  }
+    input:is([type='checkbox'], [type='radio']),
+    wa-checkbox,
+    wa-tree-item::part(checkbox__control),
+    wa-radio {
+      --border-width: var(--wa-border-width-m);
+      --checked-icon-scale: 0.65;
 
-  wa-switch {
-    --background-color: var(--wa-color-surface-raised);
-    --border-width: var(--wa-border-width-m);
-    --height: 2em;
-    --width: calc(var(--height) * 1.625);
-    --thumb-size: 1.5em;
-    transition-property: all;
+      &::part(control) {
+        margin-inline-end: 0.75em;
+      }
 
-    &::part(control) {
-      margin-inline-end: 0.75em;
+      &:hover {
+        --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+        &:is(:checked, :indeterminate, :state(checked), :state(indeterminate)) {
+          --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color-checked), transparent 85%);
+        }
+      }
     }
 
-    &:hover {
-      --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+    input[type='range']:hover,
+    wa-slider:hover {
+      --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--thumb-color), transparent 85%);
     }
 
-    &:not(:state(checked))::part(thumb) {
-      transform: scale(0.7);
+    wa-switch {
+      --background-color: var(--wa-color-surface-raised);
+      --border-width: var(--wa-border-width-m);
+      --height: 2em;
+      --width: calc(var(--height) * 1.625);
+      --thumb-size: 1.5em;
+      transition-property: all;
+
+      &::part(control) {
+        margin-inline-end: 0.75em;
+      }
+
+      &:hover {
+        --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+      }
+
+      &:not(:state(checked))::part(thumb) {
+        transform: scale(0.7);
+      }
+
+      &:active::part(thumb) {
+        transform: scale(1.1);
+      }
     }
 
-    &:active::part(thumb) {
-      transform: scale(1.1);
+    wa-tag {
+      font-weight: var(--wa-font-weight-semibold);
     }
-  }
-
-  wa-tag {
-    font-weight: var(--wa-font-weight-semibold);
   }
 }

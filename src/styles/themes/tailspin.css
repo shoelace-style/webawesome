@@ -8,36 +8,38 @@
 @import url('default/groups.css');
 @import url('tailspin/overrides.css');
 
-:where(:root),
-:host,
-.wa-theme-tailspin,
-.wa-dark,
-.wa-light,
-.wa-invert {
-  /**
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-tailspin,
+  .wa-dark,
+  .wa-light,
+  .wa-invert {
+    /**
    * Spacing
    */
-  --wa-space-scale: 0.875;
+    --wa-space-scale: 0.875;
 
-  /**
+    /**
    * Focus
    */
-  --wa-focus-ring-width: 0.125rem;
-  --wa-focus-ring-offset: 0;
+    --wa-focus-ring-width: 0.125rem;
+    --wa-focus-ring-offset: 0;
 
-  /**
+    /**
    * Shadows
    */
-  --wa-shadow-offset-y-scale: 0.5;
-  --wa-shadow-offset-blur-scale: 0.5;
-  --wa-shadow-spread-scale: 0;
+    --wa-shadow-offset-y-scale: 0.5;
+    --wa-shadow-offset-blur-scale: 0.5;
+    --wa-shadow-spread-scale: 0;
 
-  /**
+    /**
    * Component Groups
    */
-  --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
-  --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
+    --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
+    --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
 
-  --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
-  --wa-form-control-label-line-height: var(--wa-line-height-normal);
+    --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
+    --wa-form-control-label-line-height: var(--wa-line-height-normal);
+  }
 }

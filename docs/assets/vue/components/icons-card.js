@@ -90,7 +90,7 @@ export default {
         let value = this.computed[key];
 
         if (key === 'library') {
-          titles[key] = iconLibraries[value].title;
+          titles[key] = iconLibraries[value]?.title;
         }
 
         titles[key] ??= capitalize(value);
@@ -113,6 +113,7 @@ export default {
       if (vary.length > 0) {
         for (let param of vary) {
           let allValues = library[param];
+          if (!allValues) return;
           let random = (allValues.random ??= []);
 
           while (random.length < TOTAL_ICONS) {

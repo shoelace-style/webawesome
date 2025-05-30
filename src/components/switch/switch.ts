@@ -8,7 +8,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './switch.css';
 
@@ -78,7 +78,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   /** The switch's size. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Disables the switch. */
   @property({ type: Boolean }) disabled = false;

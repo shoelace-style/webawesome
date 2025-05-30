@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap');
 @import url('../default/typography.css');
 
-:where(:root),
-:host,
-.wa-theme-matter {
-  --wa-font-family-body: 'Wix Madefor Text', sans-serif;
-  --wa-font-family-code: 'Roboto Mono', monospace;
-  --wa-font-family-longform: 'Roboto Serif', serif;
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-matter {
+    --wa-font-family-body: 'Wix Madefor Text', sans-serif;
+    --wa-font-family-code: 'Roboto Mono', monospace;
+    --wa-font-family-longform: 'Roboto Serif', serif;
 
-  --wa-font-weight-bold: 700;
-  --wa-font-weight-heading: var(--wa-font-weight-semibold);
+    --wa-font-weight-bold: 700;
+    --wa-font-weight-heading: var(--wa-font-weight-semibold);
 
-  --wa-link-decoration-default: underline;
+    --wa-link-decoration-default: underline;
+  }
 }

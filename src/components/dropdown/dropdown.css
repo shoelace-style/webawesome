@@ -40,6 +40,19 @@
   pointer-events: all;
 }
 
+/* Sizes */
+:host([size='small']) ::slotted(wa-menu) {
+  font-size: var(--wa-font-size-s);
+}
+
+:host([size='medium']) ::slotted(wa-menu) {
+  font-size: var(--wa-font-size-m);
+}
+
+:host([size='large']) ::slotted(wa-menu) {
+  font-size: var(--wa-font-size-l);
+}
+
 /* When users slot a menu, make sure it conforms to the popup's auto-size */
 ::slotted(wa-menu) {
   max-width: var(--auto-size-available-width) !important;

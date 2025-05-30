@@ -1,17 +1,6 @@
 {% extends '../_layouts/block.njk' %}
 {% set component = components[page.fileSlug] %}
 
-{# Component header #}
-{% block notes %}
-  {% if native %}
-  <wa-callout variant="success">
-    <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
-    Just want the styles?
-    Check out the <a href="/docs/native/{{ native }}/">{{ ('/docs/native/' + native + '/') | getTitleFromUrl }} native styles</a>!
-  </wa-callout>
-  {% endif %}
-{% endblock %}
-
 {# Component API #}
 {% block afterContent %}
   {# Slots #}

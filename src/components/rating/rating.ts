@@ -72,7 +72,7 @@ export default class WaRating extends WebAwesomeElement {
     '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
 
   /** The component's size. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   private getValueFromMousePosition(event: MouseEvent) {
     return this.getValueFromXCoordinate(event.clientX);

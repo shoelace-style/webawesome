@@ -16,13 +16,12 @@
   padding: 2rem 3.25rem 2rem 2rem;
   min-width: 20rem;
   max-width: 100%;
-  overflow: hidden;
 
-  > :first-child {
+  > :first-child:not(dialog) {
     margin-block-start: 0;
   }
 
-  > :last-child {
+  > :last-child:not(dialog) {
     margin-block-end: 0;
   }
 }

@@ -8,8 +8,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import nativeStyles from '../../styles/native/checkbox.css';
-import formControlStyles from '../../styles/shadow/form-control.css';
+import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import '../icon/icon.js';
 import styles from './checkbox.css';
@@ -56,7 +55,7 @@ import styles from './checkbox.css';
  */
 @customElement('wa-checkbox')
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, nativeStyles, styles];
+  static shadowStyle = [formControlStyles, sizeStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -98,7 +97,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   /** The checkbox's size. */
-  @property({ reflect: true, initial: 'medium' }) size: 'small' | 'medium' | 'large' | 'inherit' = 'inherit';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Disables the checkbox. */
   @property({ type: Boolean }) disabled = false;

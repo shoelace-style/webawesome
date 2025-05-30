@@ -1,67 +1,60 @@
-:where(:root),
-:host,
-.wa-theme-awesome {
-  :is(
-      button,
-      input:where([type='button'], [type='reset'], [type='submit']),
-      wa-button,
-      wa-radio-group > wa-radio-button,
-      .wa-button
-    ):not([appearance='plain'], .wa-plain) {
-    :where(&),
-    .wa-light &,
-    .wa-dark .wa-invert & {
-      --border-color: var(--text-color);
-      --text-color-active: var(--background-color);
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-awesome {
+    :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not(
+        [appearance='plain'],
+        .wa-plain
+      ) {
+      &[appearance~='outlined'],
+      &.wa-outlined {
+        --border-color: var(--text-color);
+
+        .wa-dark &,
+        .wa-invert & {
+          --border-color: var(--wa-color-border-quiet);
+          --text-color-active: var(--wa-color-on-quiet);
+        }
+      }
     }
 
-    .wa-dark &,
-    .wa-invert & {
-      --border-color: var(--wa-color-border-quiet);
-      --text-color-active: var(--wa-color-on-quiet);
+    wa-badge {
+      border-radius: var(--wa-border-radius-m);
+      font-weight: var(--wa-font-weight-bold);
+      text-transform: uppercase;
     }
-  }
 
-  wa-badge {
-    border-radius: var(--wa-border-radius-m);
-    font-weight: var(--wa-font-weight-bold);
-    text-transform: uppercase;
-  }
-
-  wa-callout,
-  .wa-callout {
-    &:is([appearance~='outlined'], .wa-outlined) {
-      border-color: var(--wa-color-border-normal);
+    wa-callout {
+      &:is([appearance~='outlined']) {
+        border-color: var(--wa-color-border-normal);
+      }
+      &:not([appearance~='accent']) {
+        --icon-color: var(--wa-color-border-normal);
+      }
     }
-    &:not([appearance~='accent'], .wa-accent) {
-      color: var(--wa-color-text-normal);
+
+    wa-card {
+      background-color: var(--wa-color-surface-raised);
     }
-    &:not([appearance~='accent'], .wa-accent) {
-      --icon-color: var(--wa-color-border-normal);
+    wa-card::part(header) {
+      border-bottom-style: dotted;
     }
-  }
+    wa-card::part(footer) {
+      border-top-style: dotted;
+    }
 
-  wa-card {
-    background-color: var(--wa-color-surface-raised);
-  }
-  wa-card::part(header) {
-    border-bottom-style: dotted;
-  }
-  wa-card::part(footer) {
-    border-top-style: dotted;
-  }
+    input[type='checkbox'],
+    wa-checkbox,
+    wa-tree-item::part(checkbox__control) {
+      --checked-icon-color: var(--wa-color-surface-default);
+    }
 
-  input[type='checkbox'],
-  wa-checkbox,
-  wa-tree-item::part(checkbox__control) {
-    --checked-icon-color: var(--wa-color-surface-default);
-  }
+    wa-switch {
+      --height: 1.5em;
+    }
 
-  wa-switch {
-    --height: 1.5em;
-  }
-
-  wa-tag {
-    font-weight: var(--wa-font-weight-bold);
+    wa-tag {
+      font-weight: var(--wa-font-weight-bold);
+    }
   }
 }
