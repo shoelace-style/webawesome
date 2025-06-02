@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "packages/webawesome/_site",
+  "buildCommand": "bash ./vercel.sh"
+}

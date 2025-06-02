@@ -4,5 +4,9 @@ _site
 dist/
 dist-cdn/
 node_modules
-src/react
+packages/**/*/src/react
 cdn/
+yarn.lock
+_bundle_
+/packages/webawesome-pro
+/packages/webawesome-app
