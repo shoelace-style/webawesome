@@ -44,7 +44,7 @@
     color var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
 
-  margin-inline-end: var(--wa-space-xs);
+  margin-inline-end: 0.5em;
 }
 
 :host [part~='base'] {

@@ -2,7 +2,7 @@
   --thumb-color: var(--wa-form-control-activated-color);
   --thumb-gap: calc(var(--thumb-size) * 0.125);
   --thumb-shadow: initial;
-  --thumb-size: calc(1rem * var(--wa-form-control-value-line-height));
+  --thumb-size: calc(1em * var(--wa-form-control-value-line-height));
 
   --track-color-active: var(--wa-color-neutral-fill-normal);
   --track-color-inactive: var(--wa-color-neutral-fill-normal);
@@ -22,6 +22,7 @@ input[type='range'] {
   border-radius: calc(var(--track-height) / 2);
   width: 100%;
   height: var(--track-height);
+  font-size: inherit;
   line-height: var(--wa-form-control-height);
   vertical-align: middle;
   margin: 0;
@@ -152,7 +153,7 @@ input[type='range']:focus {
   line-height: var(--wa-tooltip-line-height);
   color: var(--wa-tooltip-content-color);
   opacity: 0;
-  padding: var(--wa-space-2xs) var(--wa-space-xs);
+  padding: 0.25em 0.5em;
   transition: var(--wa-transition-normal) opacity;
   pointer-events: none;
 

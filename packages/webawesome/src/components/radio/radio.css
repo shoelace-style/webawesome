@@ -36,7 +36,7 @@
 }
 
 [part~='hint'] {
-  margin-block-start: var(--wa-space-3xs);
+  margin-block-start: 0.5em;
 }
 
 /* Default appearance */
@@ -63,7 +63,7 @@
       color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
 
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: 0.5em;
   }
 
   .checked-icon {
