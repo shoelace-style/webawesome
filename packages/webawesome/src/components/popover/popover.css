@@ -1,0 +1,65 @@
+:host {
+  --arrow-size: 0.375rem;
+  --max-width: 25rem;
+  --show-duration: 100ms;
+  --hide-duration: 100ms;
+
+  /* Internal calculated properties */
+  --arrow-diagonal-size: calc((var(--arrow-size) * sin(45deg)));
+
+  display: contents;
+
+  /** Defaults for inherited CSS properties */
+  font-size: var(--wa-popover-font-size);
+  line-height: var(--wa-popover-line-height);
+  text-align: start;
+  white-space: normal;
+}
+
+/* The <wa-popup> element */
+.popover {
+  --arrow-size: inherit;
+  --show-duration: inherit;
+  --hide-duration: inherit;
+
+  &::part(arrow) {
+    background-color: var(--wa-color-surface-default);
+
+    border-width: var(--wa-panel-border-width);
+    border-bottom: solid var(--wa-color-surface-border);
+    border-right: solid var(--wa-color-surface-border);
+  }
+}
+
+.popover[placement^='top']::part(popup) {
+  transform-origin: bottom;
+}
+
+.popover[placement^='bottom']::part(popup) {
+  transform-origin: top;
+}
+
+.popover[placement^='left']::part(popup) {
+  transform-origin: right;
+}
+
+.popover[placement^='right']::part(popup) {
+  transform-origin: left;
+}
+
+/* Body */
+.body {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: var(--max-width);
+  padding: var(--wa-space);
+  background-color: var(--wa-color-surface-default);
+  border: var(--wa-panel-border-width) solid var(--wa-color-surface-border);
+  border-radius: var(--wa-panel-border-radius);
+  border-style: var(--wa-panel-border-style);
+  box-shadow: var(--wa-shadow-s);
+  color: var(--wa-color-text-normal);
+  user-select: none;
+  -webkit-user-select: none;
+}
