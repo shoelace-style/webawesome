@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import componentStyles from '../../styles/component/host.css';
-import { LocalizeController } from '../../utilities/localize.js';
 import styles from './{{ tagWithoutPrefix tag }}.css';
 
 /**
@@ -13,8 +12,6 @@ import styles from './{{ tagWithoutPrefix tag }}.css';
  * @since 3.0
  *
  * @dependency wa-example
- *
- * @event wa-event-name - Emitted as an example.
  *
  * @slot - The default slot.
  * @slot example - An example slot.
@@ -26,8 +23,6 @@ import styles from './{{ tagWithoutPrefix tag }}.css';
  @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
   static shadowStyle = [componentStyles, styles];
-
-  private readonly localize = new LocalizeController(this);
 
   /** An example attribute. */
   @property() attr = 'example';
