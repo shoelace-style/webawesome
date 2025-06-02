@@ -26,7 +26,7 @@ import type { CSSResultGroup } from 'lit';
  */
  @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
+  static shadowStyle = styles;
 
   private readonly localize = new LocalizeController(this);
 
