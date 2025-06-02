@@ -23,7 +23,7 @@ wide: true
       background-color: color-mix(in oklch, var(--wa-color-fill-quiet), transparent 60%)
     }
   }
-  wa-divider {
+  div + wa-divider {
     --width: var(--wa-border-width-m);
     --spacing: var(--wa-space-3xl);
   }
