@@ -30,6 +30,7 @@ const openPopovers = new Set<WaPopover>();
  * @event wa-hide - Emitted when the popover begins to hide. Canceling this event will stop the popover from hiding.
  * @event wa-after-hide - Emitted after the popover has hidden and all animations are complete.
  *
+ * @csspart dialog - The native dialog element that contains the popover content.
  * @csspart body - The popover's body where its content is rendered.
  * @csspart popup - The internal `<wa-popup>` element that positions the popover.
  * @csspart popup__popup - The popup's exported `popup` part. Use this to target the popover's popup container.
@@ -45,6 +46,7 @@ export default class WaPopover extends WebAwesomeElement {
   static shadowStyle = styles;
   static dependencies = { 'wa-popup': WaPopup };
 
+  @query('dialog') dialog: HTMLDialogElement;
   @query('.body') body: HTMLElement;
   @query('wa-popup') popup: WaPopup;
 
@@ -97,17 +99,12 @@ export default class WaPopover extends WebAwesomeElement {
     // Cleanup events in case the popover is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     this.eventController.abort();
-
-    if (this.anchor) {
-      this.anchor.removeAttribute('aria-haspopup');
-    }
   }
 
   firstUpdated() {
-    this.body.hidden = !this.open;
-
     // If the popover is visible on init, update its position
     if (this.open) {
+      this.dialog.show();
       this.popup.active = true;
       this.popup.reposition();
     }
@@ -171,7 +168,8 @@ export default class WaPopover extends WebAwesomeElement {
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
       document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
 
-      this.body.hidden = false;
+      // Show the dialog non-modally
+      this.dialog.show();
       this.popup.active = true;
       openPopovers.add(this);
 
@@ -180,6 +178,9 @@ export default class WaPopover extends WebAwesomeElement {
         const elementToFocus = this.querySelector<HTMLElement>('[autofocus]');
         if (elementToFocus && typeof elementToFocus.focus === 'function') {
           elementToFocus.focus();
+        } else {
+          // Fall back to setting focus on the dialog
+          this.dialog.focus();
         }
       });
 
@@ -203,7 +204,7 @@ export default class WaPopover extends WebAwesomeElement {
 
       await animateWithClass(this.popup.popup, 'hide-with-scale');
       this.popup.active = false;
-      this.body.hidden = true;
+      this.dialog.close();
 
       this.dispatchEvent(new WaAfterHideEvent());
     }
@@ -227,13 +228,10 @@ export default class WaPopover extends WebAwesomeElement {
     const { signal } = this.eventController;
 
     if (newAnchor) {
-      // Add aria-haspopup="dialog" to the anchor element
-      newAnchor.setAttribute('aria-haspopup', 'dialog');
       newAnchor.addEventListener('click', this.handleAnchorClick, { signal });
     }
 
     if (oldAnchor) {
-      oldAnchor.removeAttribute('aria-haspopup');
       oldAnchor.removeEventListener('click', this.handleAnchorClick);
     }
 
@@ -277,28 +275,30 @@ export default class WaPopover extends WebAwesomeElement {
 
   render() {
     return html`
-      <wa-popup
-        part="popup"
-        exportparts="
-          popup:popup__popup,
-          arrow:popup__arrow
-        "
-        class=${classMap({
-          popover: true,
-          'popover-open': this.open,
-        })}
-        placement=${this.placement}
-        distance=${this.distance}
-        skidding=${this.skidding}
-        flip
-        shift
-        arrow
-        .anchor=${this.anchor}
-      >
-        <div part="body" class="body" @click=${this.handleBodyClick}>
-          <slot></slot>
-        </div>
-      </wa-popup>
+      <dialog part="dialog" class="dialog">
+        <wa-popup
+          part="popup"
+          exportparts="
+            popup:popup__popup,
+            arrow:popup__arrow
+          "
+          class=${classMap({
+            popover: true,
+            'popover-open': this.open,
+          })}
+          placement=${this.placement}
+          distance=${this.distance}
+          skidding=${this.skidding}
+          flip
+          shift
+          arrow
+          .anchor=${this.anchor}
+        >
+          <div part="body" class="body" @click=${this.handleBodyClick}>
+            <slot></slot>
+          </div>
+        </wa-popup>
+      </dialog>
     `;
   }
 }

@@ -16,15 +16,39 @@
   white-space: normal;
 }
 
+/* The native dialog element */
+.dialog {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  pointer-events: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &[open] {
+    display: block;
+  }
+}
+
 /* The <wa-popup> element */
 .popover {
   --arrow-size: inherit;
   --show-duration: inherit;
   --hide-duration: inherit;
 
+  pointer-events: auto;
+
   &::part(arrow) {
     background-color: var(--wa-color-surface-default);
-
     border-width: var(--wa-panel-border-width);
     border-bottom: solid var(--wa-color-surface-border);
     border-right: solid var(--wa-color-surface-border);
