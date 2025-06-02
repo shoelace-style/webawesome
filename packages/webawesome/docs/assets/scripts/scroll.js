@@ -48,7 +48,7 @@ window.addEventListener('scroll', updateScrollClass);
 window.addEventListener('turbo:render', updateScrollClass);
 updateScrollClass();
 
-// Restore scroll position after components are definedAdd commentMore actions
+// Restore scroll position after components are defined
 allDefined().then(() => {
   const navigationType = getNavigationType();
   const key = `wa-scroll-y-[${location.pathname}]`;
