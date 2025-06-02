@@ -48,7 +48,19 @@
   height: calc(var(--arrow-size-diagonal) * 2);
   rotate: 45deg;
   background: var(--arrow-color);
-  z-index: -1;
+  z-index: 3;
+}
+
+:host([placement~='left']) .arrow {
+  rotate: -45deg;
+}
+
+:host([placement~='right']) .arrow {
+  rotate: 135deg;
+}
+
+:host([placement~='bottom']) .arrow {
+  rotate: 225deg;
 }
 
 /* Hover bridge */
