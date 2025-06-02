@@ -49,9 +49,11 @@
 
   &::part(arrow) {
     background-color: var(--wa-color-surface-default);
-    border-width: var(--wa-panel-border-width);
-    border-bottom: solid var(--wa-color-surface-border);
-    border-right: solid var(--wa-color-surface-border);
+    border-top: none;
+    border-left: none;
+    border-bottom: solid var(--wa-panel-border-width) var(--wa-color-surface-border);
+    border-right: solid var(--wa-panel-border-width) var(--wa-color-surface-border);
+    box-shadow: none;
   }
 }
 
