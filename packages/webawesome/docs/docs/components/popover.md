@@ -3,7 +3,7 @@ title: Popover
 layout: component
 ---
 
-Popovers appear when a corresponding anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain interactive content such as links, buttons, and form controls. They are not modal, so no overlay is shown when open. Popovers will close when the user clicks outside of them or presses [[Escape]]. Only one popover can be open at a time.
+Popovers display interactive content when their anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and will close when you click outside or press [[Escape]]. Only one popover can be open at a time.
 
 ```html {.example}
 <wa-popover for="popover__overview">
@@ -20,7 +20,7 @@ Popovers appear when a corresponding anchor element is clicked. Unlike [tooltips
 
 ### Assigning an Anchor
 
-Popover anchors should be `<wa-button>` or `<button>` elements. Use the `for` attribute on the popover to link it to the anchor's `id`.
+Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover to its anchor by setting the `for` attribute to match the anchor's `id`.
 
 ```html {.example}
 <wa-button id="popover__anchor-button">Show Popover</wa-button>
@@ -39,14 +39,14 @@ Popover anchors should be `<wa-button>` or `<button>` elements. Use the `for` at
 ```
 
 :::warning
-The anchor element must be in the DOM when the popover is connected, otherwise the popover won't be attached and a warning will be shown in the console.
+Make sure the anchor element exists in the DOM before the popover connects. If it doesn't exist, the popover won't attach and you'll see a console warning.
 :::
 
 ### Opening and Closing
 
-Popovers will be shown when their anchor element is clicked. You can open and close a popover programmatically by obtaining a reference to it and setting the `open` property to `true` or `false`, respectively.
+Popovers show when you click their anchor element. You can also control them programmatically by setting the `open` property to `true` or `false`.
 
-As a convenience, you can add `data-popover="close"` to any button inside a popover to close it without additional JavaScript.
+Use `data-popover="close"` on any button inside a popover to close it automatically.
 
 ```html {.example}
 <wa-popover for="popover__opening">
@@ -59,7 +59,7 @@ As a convenience, you can add `data-popover="close"` to any button inside a popo
 
 ### Placement
 
-Use the `placement` attribute to change the preferred location of the popover in reference to its anchor. The popover will shift to a more optimal location if the preferred placement doesn't have enough room. The default placement is `top`.
+Use the `placement` attribute to set where the popover appears relative to its anchor. The popover will automatically reposition if there isn't enough space in the preferred location. The default placement is `top`.
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
@@ -79,7 +79,7 @@ Use the `placement` attribute to change the preferred location of the popover in
 
 ### Distance
 
-You can change the distance of the popover from the anchor by setting the `distance` attribute to the desired number of pixels.
+Use the `distance` attribute to control how far the popover appears from its anchor.
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
@@ -93,7 +93,7 @@ You can change the distance of the popover from the anchor by setting the `dista
 
 ### Arrow Size
 
-You can change the size of the popover's arrow with the `--arrow-size` custom property. Set it to `0` to remove the arrow.
+Use the `--arrow-size` custom property to change the size of the popover's arrow. Set it to `0` to remove the arrow entirely.
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
@@ -107,7 +107,7 @@ You can change the size of the popover's arrow with the `--arrow-size` custom pr
 
 ### Setting a Maximum Width
 
-Use the `--max-width` custom property to change the maximum width of the popover.
+Use the `--max-width` custom property to control the maximum width of the popover.
 
 ```html {.example}
 <wa-button id="popover__max-width">Toggle me</wa-button>
@@ -118,7 +118,7 @@ Use the `--max-width` custom property to change the maximum width of the popover
 
 ### Setting Focus
 
-To move focus to a specific form control when the popover opens, use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus) global attribute.
+Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus) global attribute to move focus to a specific form control when the popover opens.
 
 ```html {.example}
 <wa-popover for="popover__autofocus">
