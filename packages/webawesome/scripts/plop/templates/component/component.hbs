@@ -1,11 +1,9 @@
-import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit';
-import { LocalizeController } from '../../utilities/localize.js';
+import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
-import styles from './test-element.styles.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import type { CSSResultGroup } from 'lit';
+import componentStyles from '../../styles/component/host.css';
+import styles from './{{ tagWithoutPrefix tag }}.css';
 
 /**
  * @summary Short summary of the component's intended use.
@@ -14,8 +12,6 @@ import type { CSSResultGroup } from 'lit';
  * @since 3.0
  *
  * @dependency wa-example
- *
- * @event wa-event-name - Emitted as an example.
  *
  * @slot - The default slot.
  * @slot example - An example slot.
@@ -26,9 +22,7 @@ import type { CSSResultGroup } from 'lit';
  */
  @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
-  static styles: CSSResultGroup = [componentStyles, styles];
-
-  private readonly localize = new LocalizeController(this);
+  static shadowStyle = [componentStyles, styles];
 
   /** An example attribute. */
   @property() attr = 'example';

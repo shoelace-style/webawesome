@@ -125,7 +125,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPlugin(currentLink());
 
   // Add code examples for `<code class="example">` blocks
-  eleventyConfig.addPlugin(codeExamplesPlugin);
+  eleventyConfig.addPlugin(codeExamplesPlugin());
 
   // Highlight code blocks with Prism
   eleventyConfig.addPlugin(highlightCodePlugin());
@@ -136,6 +136,10 @@ export default async function (eleventyConfig) {
   // Various text replacements
   eleventyConfig.addPlugin(
     replaceTextPlugin([
+      {
+        replace: /\[version\]/gs,
+        replaceWith: packageData.version,
+      },
       // Replace [issue:1234] with a link to the issue on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
