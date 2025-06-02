@@ -1,6 +1,6 @@
 :host {
   display: inline-flex;
-  gap: var(--wa-form-control-padding-block);
+  gap: 0.75em;
   border-radius: var(--wa-border-radius-m);
   align-items: center;
   background-color: var(--background-color, var(--wa-color-fill-quiet));
@@ -8,14 +8,18 @@
   border-style: var(--wa-border-style);
   border-width: var(--wa-border-width-s);
   color: var(--text-color, var(--wa-color-on-normal));
-  font-size: var(--wa-font-size-smaller);
+  font-size: inherit;
   line-height: 1;
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
   height: calc(var(--wa-form-control-height) * 0.8);
   line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
-  padding: 0 var(--wa-form-control-padding-block);
+  padding: 0 0.75em;
+}
+
+.content {
+  font-size: var(--wa-font-size-smaller);
 }
 
 [part='remove-button'] {

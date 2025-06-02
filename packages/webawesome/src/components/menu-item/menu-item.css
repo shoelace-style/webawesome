@@ -9,7 +9,7 @@
   display: flex;
   align-items: stretch;
   font: inherit;
-  padding: var(--wa-space-xs) var(--wa-space-2xs);
+  padding: 0.5em 0.25em;
   line-height: var(--wa-line-height-condensed);
   transition: fill var(--wa-transition-normal) var(--wa-transition-easing);
   user-select: none;
@@ -41,7 +41,7 @@
   --indicator-color: currentColor;
   --track-width: round(0.0625em, 1px);
   position: absolute;
-  font-size: round(0.8em, 1px);
+  font-size: var(--wa-font-size-smaller);
   top: calc(50% - 0.5em);
   left: 0.6em;
   opacity: 1;
@@ -114,7 +114,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: round(0.8em, 1px);
+  font-size: var(--wa-font-size-smaller);
   width: 2em;
   visibility: hidden;
 }
