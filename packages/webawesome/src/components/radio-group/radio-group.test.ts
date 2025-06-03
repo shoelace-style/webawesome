@@ -106,11 +106,11 @@ describe('<wa-radio-group>', () => {
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.false;
 
-          await aTimeout(1)
+          await aTimeout(100)
           await clickOnElement(secondRadio);
           await secondRadio.updateComplete;
           await radioGroup.updateComplete
-          await aTimeout(1)
+          await aTimeout(100)
 
           expect(radioGroup.checkValidity()).to.be.true;
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
