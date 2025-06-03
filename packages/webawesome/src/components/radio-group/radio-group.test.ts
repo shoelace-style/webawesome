@@ -9,7 +9,7 @@ import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
 describe('<wa-radio-group>', () => {
-  // runFormControlBaseTests('wa-radio-group');
+  runFormControlBaseTests('wa-radio-group');
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
@@ -106,17 +106,12 @@ describe('<wa-radio-group>', () => {
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.false;
 
-          await aTimeout(100)
           // await clickOnElement(secondRadio);
           secondRadio.click()
           await secondRadio.updateComplete;
           await radioGroup.updateComplete
-          await aTimeout(100)
 
           expect(radioGroup.checkValidity()).to.be.true;
-          console.log([...radioGroup.internals.states])
-          console.log("has interacted: ", radioGroup.hasInteracted)
-          console.log("value: ", radioGroup.value)
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.true;
         });
@@ -137,7 +132,7 @@ describe('<wa-radio-group>', () => {
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.false;
 
-          await clickOnElement(secondRadio);
+          // await clickOnElement(secondRadio);
           secondRadio.click()
           await radioGroup.updateComplete;
           radioGroup.value = '';
