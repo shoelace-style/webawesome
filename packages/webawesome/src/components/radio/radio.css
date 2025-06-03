@@ -7,7 +7,7 @@
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: none;
   --checked-icon-color: var(--wa-form-control-activated-color);
-  --checked-icon-scale: 0.75;
+  --checked-icon-scale: 0.7;
   --toggle-size: var(--wa-form-control-toggle-size);
 
   color: var(--wa-form-control-value-color);
