@@ -3,9 +3,9 @@ import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
 // import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import { parse } from 'comment-parser';
 import fs from 'fs';
+import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
-import * as path from "node:path"
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
@@ -186,4 +186,3 @@ export default {
     // })
   ],
 };
-

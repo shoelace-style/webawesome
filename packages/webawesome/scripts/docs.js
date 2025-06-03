@@ -13,4 +13,3 @@ await deleteAsync(getSiteDir());
 
 // Write it
 await elev.write();
-
