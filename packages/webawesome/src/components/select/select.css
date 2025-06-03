@@ -6,7 +6,7 @@ label:has(select),
   --outlined-text-color: var(--wa-form-control-value-color);
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: initial;
-  --tag-max-length: 8ch;
+  --tag-max-size: 8ch;
 }
 
 /* Add ellipses to multi select options */
@@ -15,7 +15,7 @@ label:has(select),
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: var(--tag-max-length);
+  max-width: var(--tag-max-size);
 }
 
 :host .disabled [part~='combobox'] {

@@ -40,6 +40,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Added `--checked-icon-scale` to `<wa-checkbox>`
+- Added `--tag-max-size` to `<wa-select>` when using `multiple`
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
