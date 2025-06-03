@@ -20,7 +20,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, variantStyles, styles];
+  static css = [sizeStyles, variantStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 

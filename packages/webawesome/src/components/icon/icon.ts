@@ -41,7 +41,7 @@ interface IconSource {
  */
 @customElement('wa-icon')
 export default class WaIcon extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 

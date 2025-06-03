@@ -43,7 +43,7 @@ import styles from './textarea.css';
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, appearanceStyles, sizeStyles, styles];
+  static css = [formControlStyles, appearanceStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -270,7 +270,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('value')) {
-      this.toggleCustomState('blank', !this.value);
+      this.customStates.set('blank', !this.value);
     }
   }
 

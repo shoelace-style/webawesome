@@ -53,7 +53,7 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [styles, variantStyles, sizeStyles, appearanceStyles];
+  static css = [styles, variantStyles, sizeStyles, appearanceStyles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

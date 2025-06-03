@@ -501,12 +501,12 @@ describe('<wa-color-picker>', () => {
           const grid = el.shadowRoot!.querySelector('[part~="grid"]')!;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasCustomState('required')).to.be.true;
-          expect(el.hasCustomState('optional')).to.be.false;
-          expect(el.hasCustomState('invalid')).to.be.false;
-          expect(el.hasCustomState('valid')).to.be.true;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.false;
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.false;
+          expect(el.customStates.has('valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
 
           await clickOnElement(trigger);
           await aTimeout(500);
@@ -514,8 +514,8 @@ describe('<wa-color-picker>', () => {
           await el.updateComplete;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.true;
         });
 
         it('should receive the correct validation attributes ("states") when invalid', async () => {
@@ -523,12 +523,12 @@ describe('<wa-color-picker>', () => {
           const trigger = el.shadowRoot!.querySelector('[part~="trigger"]')!;
           const grid = el.shadowRoot!.querySelector('[part~="grid"]')!;
 
-          expect(el.hasCustomState('required')).to.be.true;
-          expect(el.hasCustomState('optional')).to.be.false;
-          expect(el.hasCustomState('invalid')).to.be.true;
-          expect(el.hasCustomState('valid')).to.be.false;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.false;
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.true;
+          expect(el.customStates.has('valid')).to.be.false;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
 
           await clickOnElement(trigger);
           await aTimeout(500);
@@ -536,8 +536,8 @@ describe('<wa-color-picker>', () => {
           await el.updateComplete;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.true;
         });
       });
     });

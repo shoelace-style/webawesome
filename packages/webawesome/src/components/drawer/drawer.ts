@@ -59,7 +59,7 @@ import styles from './drawer.css';
  */
 @customElement('wa-drawer')
 export default class WaDrawer extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header-actions', 'label');

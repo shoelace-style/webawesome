@@ -33,7 +33,7 @@ import styles from './rating.css';
  */
 @customElement('wa-rating')
 export default class WaRating extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, styles];
+  static css = [sizeStyles, styles];
 
   private readonly localize = new LocalizeController(this);
 

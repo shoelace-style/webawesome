@@ -26,7 +26,7 @@ import styles from './icon-button.css';
  */
 @customElement('wa-icon-button')
 export default class WaIconButton extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('.icon-button') button: HTMLButtonElement | HTMLLinkElement;
 

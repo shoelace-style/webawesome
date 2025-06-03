@@ -84,7 +84,7 @@ import styles from './select.css';
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [appearanceStyles, formControlStyles, sizeStyles, styles];
+  static css = [appearanceStyles, formControlStyles, sizeStyles, styles];
 
   static get validators() {
     const validators = isServer
@@ -739,7 +739,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('value')) {
-      this.toggleCustomState('blank', !this.value);
+      this.customStates.set('blank', !this.value);
     }
   }
 

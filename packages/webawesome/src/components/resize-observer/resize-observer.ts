@@ -17,7 +17,7 @@ import styles from './resize-observer.css';
  */
 @customElement('wa-resize-observer')
 export default class WaResizeObserver extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private resizeObserver: ResizeObserver;
   private observedElements: HTMLElement[] = [];

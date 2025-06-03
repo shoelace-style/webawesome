@@ -184,7 +184,7 @@ function runAllValidityTests(
             control.customError = 'MyError';
             await control.updateComplete;
             expect(control.validity.valid).to.equal(false);
-            expect(control.hasCustomState('invalid')).to.equal(true);
+            expect(control.customStates.has('invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');
           });
 
@@ -193,7 +193,7 @@ function runAllValidityTests(
             // expect(control.validity.valid).to.equal(true)
             control.setAttribute('custom-error', 'MyError');
             await control.updateComplete;
-            expect(control.hasCustomState('invalid')).to.equal(true);
+            expect(control.customStates.has('invalid')).to.equal(true);
             expect(control.validationMessage).to.equal('MyError');
           });
 
@@ -207,7 +207,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(true);
             // expect(control.hasAttribute("disabled")).to.equal(false)
             expect(control.matches(':disabled')).to.equal(true);
-            expect(control.hasCustomState('disabled')).to.equal(true);
+            expect(control.customStates.has('disabled')).to.equal(true);
 
             fieldset.disabled = false;
 
@@ -215,7 +215,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(false);
             expect(control.hasAttribute('disabled')).to.equal(false);
             expect(control.matches(':disabled')).to.equal(false);
-            expect(control.hasCustomState('disabled')).to.equal(false);
+            expect(control.customStates.has('disabled')).to.equal(false);
           });
 
           // it("This is the one edge case with ':disabled'. If you disable a fieldset, and then disable the element directly, it will not reflect the disabled attribute.", async () => {
@@ -246,7 +246,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(true);
             expect(control.hasAttribute('disabled')).to.equal(true);
             expect(control.matches(':disabled')).to.equal(true);
-            expect(control.hasCustomState('disabled')).to.equal(true);
+            expect(control.customStates.has('disabled')).to.equal(true);
 
             control.disabled = false;
             await control.updateComplete;
@@ -254,7 +254,7 @@ function runAllValidityTests(
             expect(control.disabled).to.equal(false);
             expect(control.hasAttribute('disabled')).to.equal(false);
             expect(control.matches(':disabled')).to.equal(false);
-            expect(control.hasCustomState('disabled')).to.equal(false);
+            expect(control.customStates.has('disabled')).to.equal(false);
           });
         }
       });

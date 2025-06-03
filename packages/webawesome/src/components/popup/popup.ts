@@ -68,7 +68,7 @@ const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popo
  */
 @customElement('wa-popup')
 export default class WaPopup extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private anchorEl: Element | VirtualElement | null;
   private cleanup: ReturnType<typeof autoUpdate> | undefined;

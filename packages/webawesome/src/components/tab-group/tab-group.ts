@@ -46,7 +46,7 @@ import styles from './tab-group.css';
  */
 @customElement('wa-tab-group')
 export default class WaTabGroup extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private activeTab?: WaTab;
   private mutationObserver: MutationObserver;

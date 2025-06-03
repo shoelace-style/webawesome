@@ -21,7 +21,7 @@ import styles from './breadcrumb.css';
  */
 @customElement('wa-breadcrumb')
 export default class WaBreadcrumb extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
   private separatorDir = this.localize.dir();

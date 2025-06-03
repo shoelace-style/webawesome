@@ -172,7 +172,7 @@ export class WebAwesomeFormAssociatedElement
     }
 
     if (changedProperties.has('disabled')) {
-      this.toggleCustomState('disabled', this.disabled);
+      this.customStates.set('disabled', this.disabled);
 
       if (this.hasAttribute('disabled') || (!isServer && !this.matches(':disabled'))) {
         this.toggleAttribute('disabled', this.disabled);
@@ -255,12 +255,12 @@ export class WebAwesomeFormAssociatedElement
     const isValid = this.internals.validity.valid;
     const hasInteracted = this.hasInteracted;
 
-    this.toggleCustomState('required', required);
-    this.toggleCustomState('optional', !required);
-    this.toggleCustomState('invalid', !isValid);
-    this.toggleCustomState('valid', isValid);
-    this.toggleCustomState('user-invalid', !isValid && hasInteracted);
-    this.toggleCustomState('user-valid', isValid && hasInteracted);
+    this.customStates.set('required', required);
+    this.customStates.set('optional', !required);
+    this.customStates.set('invalid', !isValid);
+    this.customStates.set('valid', isValid);
+    this.customStates.set('user-invalid', !isValid && hasInteracted);
+    this.customStates.set('user-valid', isValid && hasInteracted);
   }
 
   /**

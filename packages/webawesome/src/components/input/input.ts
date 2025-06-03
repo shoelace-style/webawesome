@@ -57,7 +57,7 @@ import styles from './input.css';
  */
 @customElement('wa-input')
 export default class WaInput extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, appearanceStyles, formControlStyles, styles];
+  static css = [sizeStyles, appearanceStyles, formControlStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -300,7 +300,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('value')) {
-      this.toggleCustomState('blank', !this.value);
+      this.customStates.set('blank', !this.value);
     }
   }
 

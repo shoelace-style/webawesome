@@ -45,7 +45,7 @@ import styles from './slider.css';
  */
 @customElement('wa-slider')
 export default class WaSlider extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, styles];
+  static css = [formControlStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

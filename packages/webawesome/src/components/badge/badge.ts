@@ -21,7 +21,7 @@ import styles from './badge.css';
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
-  static shadowStyle = [variantStyles, appearanceStyles, styles];
+  static css = [variantStyles, appearanceStyles, styles];
 
   /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';

@@ -35,7 +35,7 @@ import styles from './option.css';
  */
 @customElement('wa-option')
 export default class WaOption extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   // @ts-expect-error - Controller is currently unused
   private readonly localize = new LocalizeController(this);
@@ -130,9 +130,9 @@ export default class WaOption extends WebAwesomeElement {
     // We need this because Safari doesn't honor :hover styles while dragging
     // Test case: https://codepen.io/leaverou/pen/VYZOOjy
     if (event.type === 'mouseenter') {
-      this.toggleCustomState('hover', true);
+      this.customStates.set('hover', true);
     } else if (event.type === 'mouseleave') {
-      this.toggleCustomState('hover', false);
+      this.customStates.set('hover', false);
     }
   };
 
@@ -145,7 +145,7 @@ export default class WaOption extends WebAwesomeElement {
 
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-      this.toggleCustomState('selected', this.selected);
+      this.customStates.set('selected', this.selected);
     }
 
     if (changedProperties.has('value')) {
@@ -165,7 +165,7 @@ export default class WaOption extends WebAwesomeElement {
     }
 
     if (changedProperties.has('current')) {
-      this.toggleCustomState('current', this.current);
+      this.customStates.set('current', this.current);
     }
   }
 

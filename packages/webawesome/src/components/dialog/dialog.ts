@@ -54,7 +54,7 @@ import styles from './dialog.css';
  */
 @customElement('wa-dialog')
 export default class WaDialog extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header-actions', 'label');

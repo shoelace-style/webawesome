@@ -44,7 +44,7 @@ import styles from './dropdown.css';
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, styles];
+  static css = [sizeStyles, styles];
 
   @query('.dropdown') popup: WaPopup;
   @query('#trigger') trigger: HTMLSlotElement;

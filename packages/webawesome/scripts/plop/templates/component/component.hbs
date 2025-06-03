@@ -21,7 +21,7 @@ import styles from './{{ tagWithoutPrefix tag }}.css';
  */
  @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   /** An example attribute. */
   @property() attr = 'example';

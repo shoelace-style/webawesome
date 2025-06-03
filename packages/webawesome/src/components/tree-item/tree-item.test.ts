@@ -128,7 +128,7 @@ describe('<wa-tree-item>', () => {
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.hasCustomState('selected')).to.be.true;
+          expect(leafItem.customStates.has('selected')).to.be.true;
         });
       });
 
@@ -150,7 +150,7 @@ describe('<wa-tree-item>', () => {
           await leafItem.updateComplete;
 
           // Assert
-          expect(leafItem.hasCustomState('expanded')).to.be.true;
+          expect(leafItem.customStates.has('expanded')).to.be.true;
         });
       });
 

@@ -24,7 +24,7 @@ import styles from './breadcrumb-item.css';
  */
 @customElement('wa-breadcrumb-item')
 export default class WaBreadcrumbItem extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 

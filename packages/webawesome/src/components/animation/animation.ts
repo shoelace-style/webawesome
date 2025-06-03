@@ -23,7 +23,7 @@ import { animations } from './animations.js';
  */
 @customElement('wa-animation')
 export default class WaAnimation extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private animation?: Animation;
   private hasStarted = false;

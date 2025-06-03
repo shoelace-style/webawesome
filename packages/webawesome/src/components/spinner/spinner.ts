@@ -19,7 +19,7 @@ import styles from './spinner.css';
  */
 @customElement('wa-spinner')
 export default class WaSpinner extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
 

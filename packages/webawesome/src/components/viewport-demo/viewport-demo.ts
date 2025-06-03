@@ -70,7 +70,7 @@ export const viewportPropertyConverter = {
  */
 @customElement('wa-viewport-demo')
 export default class WaViewportDemo extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('[part~=frame]')
   private viewportElement: HTMLElement;

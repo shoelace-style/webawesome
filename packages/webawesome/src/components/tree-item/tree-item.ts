@@ -70,7 +70,7 @@ import styles from './tree-item.css';
  */
 @customElement('wa-tree-item')
 export default class WaTreeItem extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   static isTreeItem(node: Node) {
     return node instanceof Element && node.getAttribute('role') === 'treeitem';
@@ -188,23 +188,23 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   @watch('disabled')
   handleDisabledChange() {
-    this.toggleCustomState('disabled', this.disabled);
+    this.customStates.set('disabled', this.disabled);
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
   @watch('expanded')
   handleExpandedState() {
-    this.toggleCustomState('expanded', this.expanded);
+    this.customStates.set('expanded', this.expanded);
   }
 
   @watch('indeterminate')
   handleIndeterminateStateChange() {
-    this.toggleCustomState('indeterminate', this.indeterminate);
+    this.customStates.set('indeterminate', this.indeterminate);
   }
 
   @watch('selected')
   handleSelectedChange() {
-    this.toggleCustomState('selected', this.selected);
+    this.customStates.set('selected', this.selected);
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
   }
 
