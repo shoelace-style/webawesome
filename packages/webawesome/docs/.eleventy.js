@@ -41,7 +41,7 @@ export default async function (eleventyConfig) {
    */
   const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
-  const docsDir = path.join(process.env.BASE_DIR || ".", 'docs');
+  const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
   const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
 
   /**
