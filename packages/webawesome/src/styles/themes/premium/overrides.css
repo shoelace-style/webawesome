@@ -14,7 +14,7 @@
     }
 
     wa-callout {
-      font-size: var(--wa-size-smaller);
+      font-size: var(--wa-font-size-smaller);
     }
 
     input[type='checkbox'],

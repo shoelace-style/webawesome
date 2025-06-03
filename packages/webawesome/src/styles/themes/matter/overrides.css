@@ -133,7 +133,7 @@
 
         /* State: out of the way by default */
         top: -0.5lh;
-        font-size: var(--wa-size-smaller);
+        font-size: var(--wa-font-size-smaller);
 
         background-color: var(--wa-form-control-background-color);
         padding-inline: 0.25em;
