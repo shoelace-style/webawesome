@@ -36,7 +36,7 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 | `--wa-form-control-padding-block`           | `0.75em`                              |
 | `--wa-form-control-padding-inline`          | `1em`                                 |
 | `--wa-form-control-height`                  | `round(calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)), 1px)` |
-| `--wa-form-control-toggle-size`             | `round(1lh, 1px)`                     |
+| `--wa-form-control-toggle-size`             | `round(1.25em, 1px)`                  |
 
 ```html {.example}
 <form class="wa-stack">
