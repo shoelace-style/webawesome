@@ -75,14 +75,3 @@ Add the `size` attribute to the [Radio Group](/docs/components/radio-group) to c
 </wa-radio-group>
 ```
 
-### Hint
-
-Add descriptive hint to a switch with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
-
-```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
-  <wa-radio value="1" hint="What should the user know about radio 1?">Option 1</wa-radio>
-  <wa-radio value="2" hint="What should the user know about radio 2?">Option 2</wa-radio>
-  <wa-radio value="3" hint="What should the user know about radio 3?">Option 3</wa-radio>
-</wa-radio-group>
-```

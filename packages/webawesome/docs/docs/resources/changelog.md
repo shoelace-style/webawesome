@@ -31,6 +31,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - `<wa-tab-group no-scroll-controls>` => `<wa-tab-group without-scroll-controls>`
   - `<wa-tag removable>` => `<wa-tag with-remove>`
 - 🚨 BREAKING: removed the `size` attribute from `<wa-card>`; please set the size of child elements on the children directly
+- 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
