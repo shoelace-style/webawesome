@@ -14,7 +14,7 @@
   --slider-handle-size: calc(var(--slider-height) + 0.25rem);
   --swatch-border-radius: var(--wa-border-radius-m);
   --swatch-size: 1.5rem;
-  --trigger-border-radius: var(--wa-border-radius-circle);
+  --trigger-border-radius: var(--wa-form-control-border-radius);
 }
 
 .color-picker {
@@ -301,6 +301,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  font-size: inherit;
   forced-color-adjust: none;
   width: var(--wa-form-control-height);
   height: var(--wa-form-control-height);
@@ -318,7 +319,7 @@
   background-color: currentColor;
   box-shadow:
     inset 0 0 0 var(--border-width) var(--wa-form-control-border-color),
-    inset 0 0 0 calc(var(--border-width) * 2) var(--wa-color-surface-default);
+    inset 0 0 0 calc(var(--border-width) * 3) var(--wa-color-surface-default);
 }
 
 .trigger-empty:before {

@@ -2,7 +2,7 @@ import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { clickOnElement } from '../../internal/test.js';
+// import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaRadio from '../radio/radio.js';
@@ -106,8 +106,11 @@ describe('<wa-radio-group>', () => {
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.false;
 
-          await clickOnElement(secondRadio);
+          // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
+          // await clickOnElement(secondRadio);
+          secondRadio.click()
           await secondRadio.updateComplete;
+          await radioGroup.updateComplete
 
           expect(radioGroup.checkValidity()).to.be.true;
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
@@ -130,7 +133,10 @@ describe('<wa-radio-group>', () => {
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.false;
 
-          await clickOnElement(secondRadio);
+          // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
+          // await clickOnElement(secondRadio);
+          secondRadio.click()
+          await radioGroup.updateComplete;
           radioGroup.value = '';
           await radioGroup.updateComplete;
 

@@ -131,7 +131,7 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 
 ### Value-based Icons
 
-You can also use the `getSymbol` property to render different icons based on value.
+You can also use the `getSymbol` property to render different icons based on value and/or whether the icon is currently selected.
 
 ```html {.example}
 <wa-rating label="Rating" class="rating-emojis"></wa-rating>
@@ -142,7 +142,7 @@ You can also use the `getSymbol` property to render different icons based on val
   await customElements.whenDefined("wa-rating")
   await rating.updateComplete
 
-  rating.getSymbol = value => {
+  rating.getSymbol = (value, isSelected) => {
     const icons = ['face-angry', 'face-frown', 'face-meh', 'face-smile', 'face-laugh'];
     return `<wa-icon name="${icons[value - 1]}"></wa-icon>`;
   };

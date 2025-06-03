@@ -9,7 +9,7 @@
   display: inline-flex;
   align-items: center;
   font: inherit;
-  padding: var(--wa-space-m) var(--wa-space-l);
+  padding: 1em 1.5em;
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
@@ -17,11 +17,11 @@
   transition: color var(--wa-transition-fast) var(--wa-transition-easing);
 
   ::slotted(wa-icon:first-child) {
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: 0.5em;
   }
 
   ::slotted(wa-icon:last-child) {
-    margin-inline-start: var(--wa-space-xs);
+    margin-inline-start: 0.5em;
   }
 }
 

@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   font: inherit;
-  padding: var(--wa-space-xs) var(--wa-space-m) var(--wa-space-xs) var(--wa-space-2xs);
+  padding: 0.5em 1em 0.5em 0.25em;
   line-height: var(--wa-line-height-condensed);
   transition: fill var(--wa-transition-normal) var(--wa-transition-easing);
   cursor: pointer;
@@ -51,9 +51,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875em;
+  font-size: var(--wa-font-size-smaller);
   visibility: hidden;
-  width: var(--wa-space-xl);
+  width: 2em;
 }
 
 :host(:state(selected)) .check {
@@ -68,11 +68,11 @@
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--wa-space-xs);
+  margin-inline-end: 0.5em;
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space-xs);
+  margin-inline-start: 0.5em;
 }
 
 @media (forced-colors: active) {

@@ -6,15 +6,15 @@
       --symbol-color-active: var(--wa-color-text-quiet);
     }
 
-    wa-button::part(base),
+    wa-button::part(label),
     button,
     input:where([type='button'], [type='reset'], [type='submit']) {
-      font-size: var(--wa-size-smaller);
+      font-size: var(--wa-font-size-smaller);
       text-transform: uppercase;
     }
 
     wa-callout {
-      font-size: var(--wa-size-smaller);
+      font-size: var(--wa-font-size-smaller);
     }
 
     input[type='checkbox'],

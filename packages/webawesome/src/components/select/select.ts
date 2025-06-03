@@ -79,6 +79,7 @@ import styles from './select.css';
  * @cssproperty --border-color - The border color of the select's combobox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
+ * @cssproperty [--tag-max-size=10ch] - When using `multiple`, the max size of tags before their content is truncated.
  *
  * @cssstate blank - The select is empty.
  */

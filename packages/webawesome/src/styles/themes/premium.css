@@ -30,6 +30,7 @@
    */
     --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
     --wa-form-control-background-color: transparent;
-    --wa-form-control-value-line-height: var(--wa-line-height-normal);
+
+    --wa-form-control-toggle-size: round(1.5em, 1px);
   }
 }

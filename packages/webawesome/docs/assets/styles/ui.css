@@ -127,7 +127,7 @@
 
   > input {
     font: inherit;
-    margin-block: calc(-1 * var(--wa-space-smaller));
+    margin-block: 0.75em;
     field-sizing: content;
   }
 

@@ -4,6 +4,7 @@
 name: Client Tests
 
 on:
+  workflow_dispatch:
   push:
     branches: [next]
   pull_request:

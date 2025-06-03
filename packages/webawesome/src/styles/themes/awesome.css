@@ -17,11 +17,6 @@
   .wa-light,
   .wa-invert {
     /**
-   * Spacing
-   */
-    --wa-space-scale: 1.25;
-
-    /**
    * Borders
    */
     --wa-border-width-scale: 2;
@@ -53,5 +48,8 @@
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-bold);
     --wa-form-control-label-line-height: var(--wa-line-height-normal);
+
+    --wa-form-control-padding-block: 1em;
+    --wa-form-control-padding-inline: 1.25em;
   }
 }

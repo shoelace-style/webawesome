@@ -7,11 +7,11 @@
       --text-color: var(--wa-color-neutral-on-loud);
     }
 
-    wa-button::part(base),
+    wa-button::part(label),
     wa-radio[appearance='button'],
     button,
     input:where([type='button'], [type='reset'], [type='submit']) {
-      font-size: var(--wa-size-smaller);
+      font-size: var(--wa-font-size-smaller);
     }
 
     wa-radio[appearance='button'] {
@@ -29,7 +29,7 @@
 
     wa-callout {
       --spacing: var(--wa-space-l);
-      font-size: var(--wa-size-smaller);
+      font-size: var(--wa-font-size-smaller);
 
       &:is([appearance~='outlined']) {
         border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s)

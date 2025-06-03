@@ -79,7 +79,7 @@
   flex-direction: column;
   width: max-content;
   max-width: var(--max-width);
-  padding: var(--wa-space);
+  padding: var(--wa-space-l);
   background-color: var(--wa-color-surface-default);
   border: var(--wa-panel-border-width) solid var(--wa-color-surface-border);
   border-radius: var(--wa-panel-border-radius);

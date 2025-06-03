@@ -26,7 +26,7 @@ import styles from './card.css';
  * @cssproperty [--border-color=var(--wa-color-surface-border)] - The color of the card's borders. Expects a single value.
  * @cssproperty [--inner-border-color=var(--wa-color-surface-border)] - The color of the card's inner borders, e.g. those separating headers and footers from the main content. Expects a single value.
  * @cssproperty [--border-width=var(--wa-panel-border-width)] - The width of the card's borders. Expects a single value.
- * @cssproperty [--spacing=var(--wa-space)] - The amount of space around and between sections of the card. Expects a single value.
+ * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {

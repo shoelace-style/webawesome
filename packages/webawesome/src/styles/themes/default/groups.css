@@ -21,17 +21,29 @@
 
     --wa-form-control-label-color: var(--wa-color-text-normal);
     --wa-form-control-label-font-weight: var(--wa-font-weight-semibold);
-    --wa-form-control-label-line-height: var(--wa-line-height-normal);
+    --wa-form-control-label-line-height: var(--wa-line-height-condensed);
 
     --wa-form-control-value-color: var(--wa-color-text-normal);
     --wa-form-control-value-font-weight: var(--wa-font-weight-body);
     --wa-form-control-value-line-height: var(--wa-line-height-condensed);
 
-    --wa-form-control-placeholder-color: var(--wa-color-gray-60);
+    --wa-form-control-hint-color: var(--wa-color-text-quiet);
+    --wa-form-control-hint-font-weight: var(--wa-font-weight-body);
+    --wa-form-control-hint-line-height: var(--wa-line-height-normal);
+
+    --wa-form-control-placeholder-color: var(--wa-color-gray-50);
 
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: -0.1em;
+
+    --wa-form-control-padding-block: 0.75em;
+    --wa-form-control-padding-inline: 1em;
+    --wa-form-control-height: round(
+      calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)),
+      1px
+    );
+    --wa-form-control-toggle-size: round(1.25em, 1px);
 
     /* Panels */
     --wa-panel-border-style: var(--wa-border-style);

@@ -31,14 +31,27 @@ During the alpha period, things might break! We take breaking changes very serio
   - `<wa-tab-group no-scroll-controls>` => `<wa-tab-group without-scroll-controls>`
   - `<wa-tag removable>` => `<wa-tag with-remove>`
 - 🚨 BREAKING: removed the `size` attribute from `<wa-card>`; please set the size of child elements on the children directly
+- 🚨 BREAKING: Greatly simplified the sizing strategy across components and utilities
+  - Removed `--wa-size`, `--wa-size-smaller`, `--wa-size-larger`, `--wa-space`, `--wa-space-smaller`, and `--wa-space-larger`
+  - Added tokens for `--wa-form-control-padding-inline`, `--wa-form-control-padding-block`, and `--wa-form-control-toggle-size`
+  - Refactored default `--wa-font-size-*` values to use an apparent 1.125 ratio and round rendered values to the nearest whole pixel
+  - Added convenience tokens for `--wa-font-size-smaller` and `--wa-font-size-larger`
+  - Updated components to use relative `em` values for internal padding and margin wherever appropriate
+- 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
+- Added support for `name` in `<wa-details>` for exclusively opening one in a group
+- Added `--checked-icon-scale` to `<wa-checkbox>`
+- Added `--tag-max-size` to `<wa-select>` when using `multiple`
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
 - Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
+- Fixed a handful of bugs unify form control height across components and native elements
 - Improved CSS utilities and Native Styles to use [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for easier end user customization (no more specificity conflicts — your CSS wins!)
 - Improved native `<button>` styles to properly space icons
+- Improved button appearances in `<wa-color-picker>`
+- Improved `<wa-rating>` to have more accessible icons by default
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13

@@ -6,32 +6,7 @@ label:has(select),
   --outlined-text-color: var(--wa-form-control-value-color);
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: initial;
-}
-
-:host [part~='combobox'] {
-  background-color: var(--background-color, var(--wa-form-control-background-color));
-  border-color: var(--border-color, var(--wa-form-control-border-color));
-  border-radius: var(--wa-form-control-border-radius);
-  border-style: var(--wa-form-control-border-style);
-  border-width: var(--border-width);
-  box-shadow: var(--box-shadow);
-  color: var(--wa-form-control-value-color);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: var(--wa-size);
-  font-weight: var(--wa-form-control-value-font-weight);
-  line-height: var(--wa-form-control-value-line-height);
-  min-width: 0;
-  overflow: hidden;
-  padding: var(--wa-space-smaller) var(--wa-space);
-  position: relative;
-  vertical-align: middle;
-  width: 100%;
-  transition:
-    background-color var(--wa-transition-normal),
-    border var(--wa-transition-normal),
-    outline var(--wa-transition-fast);
-  transition-timing-function: var(--wa-transition-easing);
+  --tag-max-size: 10ch;
 }
 
 /* Add ellipses to multi select options */
@@ -40,7 +15,7 @@ label:has(select),
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 7ch;
+  max-width: var(--tag-max-size);
 }
 
 :host .disabled [part~='combobox'] {
@@ -86,21 +61,31 @@ label:has(select),
 
   min-height: var(--wa-form-control-height);
 
-  :host([size='small']) & {
-    &:not(.placeholder-visible *) {
-      padding-block: 2px;
-    }
-  }
+  background-color: var(--background-color, var(--wa-form-control-background-color));
+  border-color: var(--border-color, var(--wa-form-control-border-color));
+  border-radius: var(--wa-form-control-border-radius);
+  border-style: var(--wa-form-control-border-style);
+  border-width: var(--border-width);
+  box-shadow: var(--box-shadow);
+  color: var(--wa-form-control-value-color);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: var(--wa-form-control-value-font-weight);
+  line-height: var(--wa-form-control-value-line-height);
+  overflow: hidden;
+  padding: 0 var(--wa-form-control-padding-inline);
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+  transition:
+    background-color var(--wa-transition-normal),
+    border var(--wa-transition-normal),
+    outline var(--wa-transition-fast);
+  transition-timing-function: var(--wa-transition-easing);
 
-  :host([size='large']) & {
-    &:not(.placeholder-visible *) {
-      padding-block: 4px;
-    }
-  }
-
-  :host([multiple]) .select:not(.placeholder-visible) {
+  :host([multiple]) .select:not(.placeholder-visible) & {
     padding-inline-start: 0;
-    padding-block: 3px;
+    padding-block: calc(var(--wa-form-control-height) * 0.1 - var(--wa-form-control-border-width));
   }
 
   /* Pills */
@@ -160,16 +145,8 @@ label:has(select),
   flex: 1;
   align-items: center;
   flex-wrap: wrap;
-  margin-inline-start: var(--wa-space-2xs);
-  gap: 3px;
-
-  :host([size='small']) & {
-    gap: 2px;
-  }
-
-  :host([size='large']) & {
-    gap: 4px;
-  }
+  margin-inline-start: 0.25em;
+  gap: 0.25em;
 
   &::slotted(wa-tag) {
     cursor: pointer !important;
@@ -192,15 +169,15 @@ label:has(select),
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space-s);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--wa-space);
+  margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
 :host([multiple]) .prefix::slotted(*) {
-  margin-inline: var(--wa-space);
+  margin-inline: var(--wa-form-control-padding-inline);
 }
 
 /* Clear button */
@@ -215,7 +192,7 @@ label:has(select),
   padding: 0;
   transition: color var(--wa-transition-normal);
   cursor: pointer;
-  margin-inline-start: var(--wa-space);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 
   &:focus {
     outline: none;
@@ -238,7 +215,7 @@ label:has(select),
   color: var(--wa-color-neutral-on-quiet);
   transition: rotate var(--wa-transition-slow) ease;
   rotate: 0deg;
-  margin-inline-start: var(--wa-space-s);
+  margin-inline-start: var(--wa-form-control-padding-inline);
 
   .open & {
     rotate: -180deg;
@@ -256,7 +233,7 @@ label:has(select),
   border-radius: var(--wa-border-radius-m);
   border-style: var(--wa-border-style);
   border-width: var(--border-width);
-  padding-block: var(--wa-space-xs);
+  padding-block: 0.5em;
   padding-inline: 0;
   overflow: auto;
   overscroll-behavior: none;
@@ -266,15 +243,15 @@ label:has(select),
   max-height: var(--auto-size-available-height);
 
   &::slotted(wa-divider) {
-    --spacing: var(--wa-space-xs);
+    --spacing: 0.5em;
   }
 }
 
 slot:not([name])::slotted(small) {
   display: block;
-  font-size: var(--wa-font-size-s);
+  font-size: var(--wa-font-size-smaller);
   font-weight: var(--wa-font-weight-semibold);
   color: var(--wa-color-text-quiet);
-  padding-block: var(--wa-space-xs);
-  padding-inline: var(--wa-space-xl);
+  padding-block: 0.5em;
+  padding-inline: 2.25em;
 }

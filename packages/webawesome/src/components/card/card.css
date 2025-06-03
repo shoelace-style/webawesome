@@ -1,9 +1,5 @@
 :host {
-  --space-s: var(--wa-space-l);
-  --space-m: var(--wa-space-xl);
-  --space-l: var(--wa-space-2xl);
-
-  --spacing: var(--wa-space);
+  --spacing: var(--wa-space-l);
   --border-width: var(--wa-panel-border-width);
   --outlined-background-color: var(--wa-color-surface-default);
   --outlined-border-color: var(--wa-color-surface-border);
