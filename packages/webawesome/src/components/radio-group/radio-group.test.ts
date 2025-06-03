@@ -114,6 +114,8 @@ describe('<wa-radio-group>', () => {
 
           expect(radioGroup.checkValidity()).to.be.true;
           console.log([...radioGroup.internals.states])
+          console.log("has interacted: ", radioGroup.hasInteracted)
+          console.log("value: ", radioGroup.value)
           expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
           expect(radioGroup.hasCustomState('user-valid')).to.be.true;
         });
