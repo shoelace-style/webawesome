@@ -31,6 +31,6 @@
     --wa-form-control-activated-color: var(--wa-color-neutral-fill-loud);
     --wa-form-control-background-color: transparent;
 
-    --wa-form-control-toggle-size: 1.25em;
+    --wa-form-control-toggle-size: round(1.5em, 1px);
   }
 }
