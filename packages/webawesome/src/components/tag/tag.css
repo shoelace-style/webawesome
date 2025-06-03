@@ -1,6 +1,6 @@
 :host {
   display: inline-flex;
-  gap: 0.75em;
+  gap: 0.5em;
   border-radius: var(--wa-border-radius-m);
   align-items: center;
   background-color: var(--background-color, var(--wa-color-fill-quiet));

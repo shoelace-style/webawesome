@@ -500,6 +500,7 @@
     --border-width: var(--wa-form-control-border-width);
     --box-shadow: none;
     --checked-icon-color: var(--wa-color-brand-on-loud);
+    --checked-icon-scale: 0.8;
     --toggle-size: var(--wa-form-control-toggle-size);
 
     color: var(--wa-form-control-value-color);
@@ -525,7 +526,7 @@
       position: absolute;
       height: 100%;
       width: 100%;
-      scale: var(--checked-icon-scale, 0.8);
+      scale: var(--checked-icon-scale);
     }
 
     &:indeterminate::after {

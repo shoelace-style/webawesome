@@ -7,7 +7,7 @@
       --text-color: var(--wa-color-neutral-on-loud);
     }
 
-    wa-button::part(base),
+    wa-button::part(label),
     wa-radio[appearance='button'],
     button,
     input:where([type='button'], [type='reset'], [type='submit']) {
