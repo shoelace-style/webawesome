@@ -1017,6 +1017,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                   <wa-button
                     part="format-button"
                     size="small"
+                    appearance="outlined"
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
                       base:format-button__base,
@@ -1038,6 +1039,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                   <wa-button
                     part="eye-dropper-button"
                     size="small"
+                    appearance="outlined"
                     exportparts="
                       base:eye-dropper-button__base,
                       prefix:eye-dropper-button__prefix,

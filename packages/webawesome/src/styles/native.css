@@ -924,6 +924,10 @@
     }
   }
 
+  textarea {
+    resize: vertical;
+  }
+
   input.wa-pill,
   textarea.wa-pill {
     border-radius: var(--wa-border-radius-pill) !important;

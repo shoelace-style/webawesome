@@ -37,7 +37,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** The component's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large'; // unset by default to not override child elements
 
   /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
@@ -85,7 +85,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
       if (button) {
         if ((button as WaButton).appearance === 'outlined') this.hasOutlined = true;
-        button.setAttribute('size', this.size);
+        if (this.size) button.setAttribute('size', this.size);
         button.classList.add('wa-button-group__button');
         button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');

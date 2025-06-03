@@ -68,8 +68,11 @@ export default class WaRating extends WebAwesomeElement {
    * The function should return a string containing trusted HTML of the symbol to render at the specified value. Works
    * well with `<wa-icon>` elements.
    */
-  @property() getSymbol: (value: number) => string = () =>
-    '<wa-icon name="star" library="system" variant="solid"></wa-icon>';
+  @property() getSymbol: (value: number, isSelected: boolean) => string = (_value, isSelected) => {
+    return isSelected
+      ? '<wa-icon name="star" library="system" variant="solid"></wa-icon>'
+      : '<wa-icon name="star" library="system" variant="regular"></wa-icon>';
+  };
 
   /** The component's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
@@ -254,6 +257,8 @@ export default class WaRating extends WebAwesomeElement {
       >
         <span class="symbols">
           ${counter.map(index => {
+            const isSelected = displayValue >= index + 1;
+
             if (displayValue > index && displayValue < index + 1) {
               // Users can click the current value to clear the rating. When this happens, we set this.isHovering to
               // false to prevent the hover state from confusing them as they move the mouse out of the control. This
@@ -274,7 +279,7 @@ export default class WaRating extends WebAwesomeElement {
                         : `inset(0 0 0 ${(displayValue - index) * 100}%)`,
                     })}
                   >
-                    ${unsafeHTML(this.getSymbol(index + 1))}
+                    ${unsafeHTML(this.getSymbol(index + 1, false))}
                   </div>
                   <div
                     class="partial-filled"
@@ -284,7 +289,7 @@ export default class WaRating extends WebAwesomeElement {
                         : `inset(0 ${100 - (displayValue - index) * 100}% 0 0)`,
                     })}
                   >
-                    ${unsafeHTML(this.getSymbol(index + 1))}
+                    ${unsafeHTML(this.getSymbol(index + 1, true))}
                   </div>
                 </span>
               `;
@@ -299,7 +304,7 @@ export default class WaRating extends WebAwesomeElement {
                 })}
                 role="presentation"
               >
-                ${unsafeHTML(this.getSymbol(index + 1))}
+                ${unsafeHTML(this.getSymbol(index + 1, isSelected))}
               </span>
             `;
           })}

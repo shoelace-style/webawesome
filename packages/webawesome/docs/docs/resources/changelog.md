@@ -31,14 +31,18 @@ During the alpha period, things might break! We take breaking changes very serio
   - `<wa-tab-group no-scroll-controls>` => `<wa-tab-group without-scroll-controls>`
   - `<wa-tag removable>` => `<wa-tag with-remove>`
 - 🚨 BREAKING: removed the `size` attribute from `<wa-card>`; please set the size of child elements on the children directly
+- 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
+- Added support for `name` in `<wa-details>` for exclusively opening one in a group
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
 - Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
 - Improved CSS utilities and Native Styles to use [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for easier end user customization (no more specificity conflicts — your CSS wins!)
 - Improved native `<button>` styles to properly space icons
+- Improved button appearances in `<wa-color-picker>`
+- Improved `<wa-rating>` to have more accessible icons by default
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
