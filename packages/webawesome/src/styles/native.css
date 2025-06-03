@@ -435,7 +435,7 @@
 
     & + :is(input:not([type='checkbox'], [type='radio']), textarea, select),
     & > :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
-      margin-block-start: var(--wa-space-xs);
+      margin-block-start: 0.5em;
     }
   }
 
@@ -561,7 +561,7 @@
       color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
 
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: 0.5em;
   }
 
   /* Set cursor for input and labels */
@@ -651,7 +651,7 @@
       color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
 
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: 0.5em;
   }
 
   /* Set cursor for input and labels */
