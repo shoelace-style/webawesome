@@ -2,7 +2,6 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import componentStyles from '../../styles/component/host.css';
 import styles from './{{ tagWithoutPrefix tag }}.css';
 
 /**
@@ -22,7 +21,7 @@ import styles from './{{ tagWithoutPrefix tag }}.css';
  */
  @customElement("{{ tag }}")
 export default class {{ properCase tag }} extends WebAwesomeElement {
-  static shadowStyle = [componentStyles, styles];
+  static shadowStyle = styles;
 
   /** An example attribute. */
   @property() attr = 'example';
