@@ -995,43 +995,20 @@
 
   /* Slider */
   input[type='range'] {
-    --thumb-color: var(--wa-form-control-activated-color);
-    --thumb-gap: calc(var(--thumb-size) * 0.125);
-    --thumb-shadow: initial;
     --thumb-size: calc(1rem * var(--wa-form-control-value-line-height));
-
-    --track-color-active: var(--wa-color-neutral-fill-normal);
-    --track-color-inactive: var(--wa-color-neutral-fill-normal);
-    --track-active-offset: 0%;
     --track-height: calc(var(--thumb-size) * 0.25);
 
     display: flex;
     flex-direction: column;
     position: relative;
-  }
-
-  input[type='range'] {
-    --percent: 0%;
-    -webkit-appearance: none;
     border-radius: calc(var(--track-height) / 2);
     width: 100%;
     height: var(--track-height);
     line-height: var(--wa-form-control-height);
     vertical-align: middle;
     margin: 0;
-    --dir: right;
-
-    background-image: linear-gradient(
-      to var(--dir),
-      var(--track-color-inactive) min(var(--percent), var(--track-active-offset)),
-      var(--track-color-active) min(var(--percent), var(--track-active-offset)),
-      var(--track-color-active) max(var(--percent), var(--track-active-offset)),
-      var(--track-color-inactive) max(var(--percent), var(--track-active-offset))
-    );
-
-    &:dir(rtl) {
-      --dir: left;
-    }
+    background-color: var(--wa-color-neutral-fill-normal);
+    -webkit-appearance: none;
 
     &::-webkit-slider-runnable-track {
       width: 100%;
@@ -1044,14 +1021,12 @@
       width: var(--thumb-size);
       height: var(--thumb-size);
       border-radius: 50%;
-      background-color: var(--thumb-color);
-      box-shadow:
-        var(--thumb-shadow, 0 0 transparent),
-        0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
-      -webkit-appearance: none;
+      background-color: var(--wa-form-control-activated-color);
+      box-shadow: 0 0 0 calc(var(--thumb-size) * 0.125) var(--wa-color-surface-default);
       margin-top: calc(var(--thumb-size) / -2 + var(--track-height) / 2);
       transition: var(--wa-transition-fast);
       transition-property: width, height;
+      -webkit-appearance: none;
     }
 
     &:enabled {
@@ -1074,7 +1049,7 @@
     }
 
     &::-moz-range-progress {
-      background-color: var(--track-color-active);
+      background-color: var(--wa-color-neutral-fill-normal);
       border-radius: 3px;
       height: var(--track-height);
     }
@@ -1082,7 +1057,7 @@
     &::-moz-range-track {
       width: 100%;
       height: var(--track-height);
-      background-color: var(--track-color-inactive);
+      background-color: var(--wa-color-neutral-fill-normal);
       border-radius: 3px;
       border: none;
     }
@@ -1091,10 +1066,8 @@
       height: var(--thumb-size);
       width: var(--thumb-size);
       border-radius: 50%;
-      background-color: var(--thumb-color);
-      box-shadow:
-        var(--thumb-shadow, 0 0 transparent),
-        0 0 0 var(--thumb-gap) var(--wa-color-surface-default);
+      background-color: var(--wa-form-control-activated-color);
+      box-shadow: 0 0 0 calc(var(--thumb-size) * 0.125) var(--wa-color-surface-default);
       transition-property: background-color, border-color, box-shadow, color;
       transition-duration: var(--wa-transition-normal);
       transition-timing-function: var(--wa-transition-easing);
@@ -1114,6 +1087,10 @@
         cursor: grabbing;
       }
     }
+  }
+
+  label > input[type='range'] {
+    margin-block-start: var(--wa-space-l);
   }
 
   /* States */
