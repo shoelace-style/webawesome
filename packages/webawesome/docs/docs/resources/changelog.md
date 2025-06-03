@@ -39,6 +39,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
 - Improved CSS utilities and Native Styles to use [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for easier end user customization (no more specificity conflicts — your CSS wins!)
 - Improved native `<button>` styles to properly space icons
+- Improved button appearances in `<wa-color-picker>`
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
