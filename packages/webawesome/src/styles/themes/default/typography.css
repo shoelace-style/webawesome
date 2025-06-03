@@ -10,9 +10,9 @@
     --wa-font-family-code: ui-monospace, monospace;
     --wa-font-family-longform: ui-serif, serif;
 
-    /* The default type scale is based on the Major Second scale (x1.125),
-   * with each value rounded to the nearest whole pixel based on a 16px root font size.
-   * For larger font sizes, every other step on the scale is skipped in order to maximize variation.
+    /* Font sizes use a ratio of 1.125 to scale sizes proportionally.
+   * For larger font sizes, each size is twice 1.125x larger to maximize impact.
+   * Each value uses `rem` units and is rounded to the nearest whole pixel when rendered.
    * A multiplier is provided to uniformly increase or decrease all font sizes. */
     --wa-font-size-scale: 1;
     --wa-font-size-2xs: round(calc(var(--wa-font-size-xs) / 1.125), 1px); /* 11px */

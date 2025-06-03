@@ -17,21 +17,32 @@ Font families are assigned specific roles &mdash; like heading or code &mdash; t
 
 ## Font Size
 
-Font sizes use the Major Second type scale, rounded to the nearest whole pixel assuming a 16px root font size. To maximize variation in larger font sizes, every other step on the scale is skipped.
+Font sizes use a ratio of 1.125 to scale sizes proportionally. Starting with the medium (`m`) font size, smaller sizes (`s` through `2xs`) are 1.125x smaller as the sizes decrease, and larger sizes (`l` through `4xl`) are _twice_ 1.125x larger as sizes increase — here, the ratio is doubled to maximize impact between sizes.
 
-Each font size uses a `calc()` function with `--wa-font-size-scale` to scale all font sizes at once. By default, this multiplier is `1`. The table below lists the result of the calculation.
+Each value uses `rem` units and is rounded to the nearest whole pixel when rendered with [`round()`](https://developer.mozilla.org/en-US/docs/Web/CSS/round).
+
+You can use `--wa-font-size-scale` to increase or decrease all font sizes at once. By default, this multiplier is `1`. 
+
+The calculations for each size and the resulting pixel value (assuming a 16px root font size) are listed below.
 
 | Custom Property      | Default Value                     | Preview                                                    |
 | -------------------- | --------------------------------- | ---------------------------------------------------------- |
-| `--wa-font-size-2xs` | `0.6875rem` <small>(11px)</small> | <div style="font-size: var(--wa-font-size-2xs)">AaBb</div> |
-| `--wa-font-size-xs`  | `0.75rem` <small>(12px)</small>   | <div style="font-size: var(--wa-font-size-xs)">AaBb</div>  |
-| `--wa-font-size-s`   | `0.875rem` <small>(14px)</small>  | <div style="font-size: var(--wa-font-size-s)">AaBb</div>   |
-| `--wa-font-size-m`   | `1rem` <small>(16px)</small>      | <div style="font-size: var(--wa-font-size-m)">AaBb</div>   |
-| `--wa-font-size-l`   | `1.25rem` <small>(20px)</small>   | <div style="font-size: var(--wa-font-size-l)">AaBb</div>   |
-| `--wa-font-size-xl`  | `1.625rem` <small>(26px)</small>  | <div style="font-size: var(--wa-font-size-xl)">AaBb</div>  |
-| `--wa-font-size-2xl` | `2rem` <small>(32px)</small>      | <div style="font-size: var(--wa-font-size-2xl)">AaBb</div> |
-| `--wa-font-size-3xl` | `2.5625rem` <small>(41px)</small> | <div style="font-size: var(--wa-font-size-3xl)">AaBb</div> |
-| `--wa-font-size-4xl` | `3.25rem` <small>(52px)</small>   | <div style="font-size: var(--wa-font-size-4xl)">AaBb</div> |
+| `--wa-font-size-2xs` | `round(calc(var(--wa-font-size-xs) / 1.125), 1px)` <small>(11px)</small> | <div style="font-size: var(--wa-font-size-2xs)">AaBb</div> |
+| `--wa-font-size-xs`  | `round(calc(var(--wa-font-size-s) / 1.125), 1px)` <small>(12px)</small>   | <div style="font-size: var(--wa-font-size-xs)">AaBb</div>  |
+| `--wa-font-size-s`   | `round(calc(var(--wa-font-size-m) / 1.125), 1px)` <small>(14px)</small>  | <div style="font-size: var(--wa-font-size-s)">AaBb</div>   |
+| `--wa-font-size-m`   | `calc(1rem * var(--wa-font-size-scale))` <small>(16px)</small>      | <div style="font-size: var(--wa-font-size-m)">AaBb</div>   |
+| `--wa-font-size-l`   | `round(calc(var(--wa-font-size-m) * 1.125 * 1.125), 1px)` <small>(20px)</small>   | <div style="font-size: var(--wa-font-size-l)">AaBb</div>   |
+| `--wa-font-size-xl`  | `round(calc(var(--wa-font-size-l) * 1.125 * 1.125), 1px)` <small>(25px)</small>  | <div style="font-size: var(--wa-font-size-xl)">AaBb</div>  |
+| `--wa-font-size-2xl` | `round(calc(var(--wa-font-size-xl) * 1.125 * 1.125), 1px)` <small>(32px)</small>      | <div style="font-size: var(--wa-font-size-2xl)">AaBb</div> |
+| `--wa-font-size-3xl` | `round(calc(var(--wa-font-size-2xl) * 1.125 * 1.125), 1px)` <small>(41px)</small> | <div style="font-size: var(--wa-font-size-3xl)">AaBb</div> |
+| `--wa-font-size-4xl` | `round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125)` <small>(52px)</small>   | <div style="font-size: var(--wa-font-size-4xl)">AaBb</div> |
+
+You can also use these two custom properties make any font size proportionally smaller or larger to its parent.
+
+| Custom Property          | Default Value                           |
+| ------------------------ | --------------------------------------- |
+| `--wa-font-size-smaller` | `round(calc(1em / 1.125), 1px)`         |
+| `--wa-font-size-larger`  | `round(calc(1em * 1.125 * 1.125), 1px)` |
 
 ## Font Weight
 
