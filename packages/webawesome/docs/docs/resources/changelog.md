@@ -33,6 +33,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - 🚨 BREAKING: removed the `size` attribute from `<wa-card>`; please set the size of child elements on the children directly
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
+- Added support for `name` in `<wa-details>` for exclusively opening one in a group
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL

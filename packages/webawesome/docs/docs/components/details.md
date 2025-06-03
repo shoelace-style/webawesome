@@ -49,7 +49,7 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 </style>
 ```
 
-### HTML in summary
+### HTML in Summary
 
 To use HTML in the summary, use the `summary` slot.
 Links and other interactive elements will still retain their behavior:
@@ -67,7 +67,7 @@ Links and other interactive elements will still retain their behavior:
 </wa-details>
 ```
 
-### Right-to-Left languages
+### Right-to-Left Languages
 
 The details component automatically adapts to right-to-left languages:
 
@@ -104,40 +104,23 @@ Use the `appearance` attribute to change the element’s visual appearance.
 
 ### Grouping Details
 
-Details are designed to function independently, but you can simulate a group or "accordion" where only one is shown at a time by listening for the `wa-show` event.
+Use the `name` attribute to create accordion-like behavior where only one details element with the same name can be open at a time. This matches the behavior of native `<details>` elements.
 
 ```html {.example}
-<div class="details-group-example">
-  <wa-details summary="First" open>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+<div class="wa-stack">
+  <wa-details name="group-1" summary="Section 1" open>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
 
-  <wa-details summary="Second">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  <wa-details name="group-1" summary="Section 2">
+  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+  eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
   </wa-details>
 
-  <wa-details summary="Third">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  <wa-details name="group-1" summary="Section 3">
+  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+  corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
   </wa-details>
 </div>
-
-<script>
-  const container = document.querySelector('.details-group-example');
-
-  // Close all other details when one is shown
-  container.addEventListener('wa-show', event => {
-    if (event.target.localName === 'wa-details') {
-      [...container.querySelectorAll('wa-details')].map(details => (details.open = event.target === details));
-    }
-  });
-</script>
-
-<style>
-  .details-group-example wa-details:not(:last-of-type) {
-    margin-bottom: var(--wa-space-2xs);
-  }
-</style>
 ```
