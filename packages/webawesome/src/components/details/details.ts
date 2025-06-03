@@ -65,6 +65,9 @@ export default class WaDetails extends WebAwesomeElement {
   /** The summary to show in the header. If you need to display HTML, use the `summary` slot instead. */
   @property() summary: string;
 
+  /** Groups related details elements. When one opens, others with the same name will close. */
+  @property() name: string;
+
   /** Disables the details so it can't be toggled. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
@@ -138,6 +141,20 @@ export default class WaDetails extends WebAwesomeElement {
     }
   }
 
+  /** Closes other <wa-details> elements in the same document when they have the same name. */
+  private closeOthersWithSameName() {
+    if (!this.name) return;
+
+    const root = this.getRootNode() as Document | ShadowRoot;
+    const otherDetails = root.querySelectorAll(`wa-details[name="${this.name}"]`) as NodeListOf<WaDetails>;
+
+    otherDetails.forEach(detail => {
+      if (detail !== this && detail.open) {
+        detail.open = false;
+      }
+    });
+  }
+
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
     if (this.open) {
@@ -150,6 +167,9 @@ export default class WaDetails extends WebAwesomeElement {
         this.details.open = false;
         return;
       }
+
+      // Close other details with the same name
+      this.closeOthersWithSameName();
 
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
       // We can't animate to 'auto', so use the scroll height for now

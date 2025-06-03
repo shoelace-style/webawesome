@@ -1,5 +1,5 @@
 :host {
-  --symbol-color: var(--wa-color-neutral-fill-normal);
+  --symbol-color: var(--wa-color-neutral-on-quiet);
   --symbol-color-active: var(--wa-color-yellow-70);
   --symbol-spacing: 0.125em;
 
