@@ -51,8 +51,7 @@
   table,
   ul,
   video,
-  wa-callout,
-  wa-viewport-demo {
+  wa-callout {
     &:has(+ *) {
       margin: 0 0 var(--wa-space-xl) 0;
     }

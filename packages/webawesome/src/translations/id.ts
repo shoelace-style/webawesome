@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Tampilkan sandi',
   slideNum: slide => `Slide ${slide}`,
   toggleColorFormat: 'Beralih format warna',
+  zoomIn: 'Perbesar',
+  zoomOut: 'Perkecil',
 };
 
 registerTranslation(translation);

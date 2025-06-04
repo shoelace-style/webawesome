@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Laat wachtwoord zien',
   slideNum: slide => `Schuif ${slide}`,
   toggleColorFormat: 'Wissel kleurnotatie',
+  zoomIn: 'Inzoomen',
+  zoomOut: 'Uitzoomen',
 };
 
 registerTranslation(translation);
