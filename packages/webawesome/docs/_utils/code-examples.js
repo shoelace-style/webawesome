@@ -37,7 +37,7 @@ export function codeExamplesPlugin(options = {}) {
         const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
             <div class="code-example-preview">
-
+              ${preview}
               <div class="code-example-resizer" aria-hidden="true">
                 <wa-icon name="grip-lines-vertical"></wa-icon>
               </div>
