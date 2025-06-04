@@ -285,17 +285,17 @@ export default class WaDrawer extends WebAwesomeElement {
 // Watch for data-drawer="open *" clicks
 //
 document.addEventListener('click', (event: MouseEvent) => {
-  const dialogAttrEl = (event.target as Element).closest('[data-drawer]');
+  const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
 
-  if (dialogAttrEl instanceof Element) {
-    const [command, id] = parseSpaceDelimitedTokens(dialogAttrEl.getAttribute('data-drawer') || '');
+  if (drawerAttrEl instanceof Element) {
+    const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
 
     if (command === 'open' && id?.length) {
-      const doc = dialogAttrEl.getRootNode() as Document | ShadowRoot;
-      const dialog = doc.getElementById(id) as WaDrawer;
+      const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
+      const drawer = doc.getElementById(id) as WaDrawer;
 
-      if (dialog?.localName === 'wa-drawer') {
-        dialog.open = true;
+      if (drawer?.localName === 'wa-drawer') {
+        drawer.open = true;
       } else {
         console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
       }
