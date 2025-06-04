@@ -135,7 +135,9 @@ The header shows a functional close button by default. You can use the `header-a
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-header-actions">
-  <wa-icon-button class="new-window" slot="header-actions" name="arrow-up-right-from-square" variant="solid"></wa-icon-button>
+  <wa-button class="new-window" slot="header-actions" appearance="plain" size="small">
+    <wa-icon name="arrow-up-right-from-square" variant="solid" label="Open in new window"></wa-icon>
+  </wa-button>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>

@@ -23,7 +23,9 @@ unlisted: true
 
     <div class="title">
       <h1><editable-text :model-value="title" label="theme name" @submit="newTitle => save({title: newTitle})" blur="cancel"></editable-text></h1>
-      <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
+      <wa-button v-if="saved" class="delete" @click="deleteSaved" appearance="plain" size="small">
+        <wa-icon name="trash" label="Delete theme"></wa-icon>
+      </wa-button>
     </div>
 
     <wa-button v-if="tweaked || uid" @click="save()" :disabled="!unsavedChanges"

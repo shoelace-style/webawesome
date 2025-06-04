@@ -101,7 +101,9 @@ You can make a tab closable by adding a close button next to the tab and inside 
 <wa-tab-group class="tabs-closable">
   <wa-tab panel="general">General</wa-tab>
   <wa-tab panel="closable">Closable</wa-tab>
-  <wa-icon-button slot="nav" tabindex="-1" name="xmark" label="Close the closable tab"></wa-icon-button>
+  <wa-button slot="nav" tabindex="-1" appearance="plain" size="small">
+    <wa-icon name="xmark" label="Close the closable tab"></wa-icon>
+  </wa-button>
   <wa-tab panel="closable-2">Advanced</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
@@ -114,17 +116,17 @@ You can make a tab closable by adding a close button next to the tab and inside 
 <wa-button disabled>Restore tab</wa-button>
 
 <style>
-  .tabs-closable wa-icon-button {
+  .tabs-closable wa-button {
     position: relative;
-    left: -1rem;
-    top: .75rem;  }
+    left: -1.5em;
+    top: 0.675em;  }
 </style>
 
 <script>
   const tabGroup = document.querySelector('.tabs-closable');
   const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
   const closableTab = tabGroup.querySelectorAll('wa-tab')[1];
-  const closeButton = tabGroup.querySelector('wa-icon-button');
+  const closeButton = tabGroup.querySelector('wa-button');
   const restoreButton = tabGroup.nextElementSibling.nextElementSibling;
 
   // Remove the tab when the close button is clicked

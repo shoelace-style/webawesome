@@ -665,8 +665,6 @@ wa-scroller:has(.component-table) {
 .layout-theme {
   iframe {
     width: 100%;
-    min-height: 16lh;
-    height: 65vh;
-    max-height: 21lh;
+    height: 200vh;
   }
 }

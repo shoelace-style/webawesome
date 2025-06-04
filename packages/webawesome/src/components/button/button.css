@@ -114,11 +114,11 @@
 }
 
 .label {
-  display: inline-block;
+  display: flex;
 }
 
 .label::slotted(wa-icon) {
-  vertical-align: -2px;
+  align-self: center;
 }
 
 /*
