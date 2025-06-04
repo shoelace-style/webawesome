@@ -43,6 +43,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
 - Added `--checked-icon-scale` to `<wa-checkbox>`
 - Added `--tag-max-size` to `<wa-select>` when using `multiple`
+- Added support for `data-dialog="open <id>"` to `<wa-dialog>`
+- Added support for `data-drawer="open <id>"` to `<wa-drawer>`
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL

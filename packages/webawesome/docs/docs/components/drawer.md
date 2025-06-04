@@ -65,24 +65,28 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Dismissing Drawers
+### Opening and Closing Drawers Declaratively
 
-You can add the special `data-drawer="close"` attribute to a button inside the drawer to tell it to close without additional JavaScript. Alternatively, you can set the `open` property to `false` to close the drawer programmatically.
+You can open and close drawers with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-drawer="open id"` to any button on the page, where `id` is the ID of the drawer you want to open.
 
 ```html {.example}
-<wa-drawer label="Drawer" class="drawer-dismiss">
+<wa-drawer label="Drawer" id="drawer-opening">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button data-drawer="open drawer-opening">Open Drawer</wa-button>
+```
 
-<script>
-  const drawer = document.querySelector('.drawer-dismiss');
-  const openButton = drawer.nextElementSibling;
+Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to tell it to close.
 
-  openButton.addEventListener('click', () => drawer.open = true);
-</script>
+```html {.example}
+<wa-drawer label="Drawer" id="drawer-dismiss">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
+</wa-drawer>
+
+<wa-button data-drawer="open drawer-dismiss">Open Drawer</wa-button>
 ```
 
 ### Slide in From Start

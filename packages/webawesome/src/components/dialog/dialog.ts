@@ -6,6 +6,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
@@ -263,6 +264,28 @@ export default class WaDialog extends WebAwesomeElement {
     `;
   }
 }
+
+//
+// Watch for data-dialog="open *" clicks
+//
+document.addEventListener('click', (event: MouseEvent) => {
+  const dialogAttrEl = (event.target as Element).closest('[data-dialog]');
+
+  if (dialogAttrEl instanceof Element) {
+    const [command, id] = parseSpaceDelimitedTokens(dialogAttrEl.getAttribute('data-dialog') || '');
+
+    if (command === 'open' && id?.length) {
+      const doc = dialogAttrEl.getRootNode() as Document | ShadowRoot;
+      const dialog = doc.getElementById(id) as WaDialog;
+
+      if (dialog?.localName === 'wa-dialog') {
+        dialog.open = true;
+      } else {
+        console.warn(`A dialog with an ID of "${id}" could not be found in this document.`);
+      }
+    }
+  }
+});
 
 // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
 if (!isServer) {

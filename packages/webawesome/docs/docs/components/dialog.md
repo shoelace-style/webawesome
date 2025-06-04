@@ -67,24 +67,28 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Dismissing Dialogs
+### Opening and Closing Dialogs Declaratively
 
-You can add the special `data-dialog="close"` attribute to a button inside the dialog to tell it to close without additional JavaScript. Alternatively, you can set the `open` property to `false` to close the dialog programmatically.
+You can open and close dialogs with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-dialog="open id"` to any button on the page, where `id` is the ID of the dialog you want to open.
 
 ```html {.example}
-<wa-dialog label="Dialog" class="dialog-dismiss">
+<wa-dialog label="Dialog" id="dialog-opening">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
-<wa-button>Open Dialog</wa-button>
+<wa-button data-dialog="open dialog-opening">Open Dialog</wa-button>
+```
 
-<script>
-  const dialog = document.querySelector('.dialog-dismiss');
-  const openButton = dialog.nextElementSibling;
+Similarly, you can add `data-dialog="close"` to a button _inside_ of a dialog to tell it to close.
 
-  openButton.addEventListener('click', () => dialog.open = true);
-</script>
+```html {.example}
+<wa-dialog label="Dialog" id="dialog-dismiss">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
+</wa-dialog>
+
+<wa-button data-dialog="open dialog-dismiss">Open Dialog</wa-button>
 ```
 
 ### Custom Width
