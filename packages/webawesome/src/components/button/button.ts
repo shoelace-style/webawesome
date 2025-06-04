@@ -64,13 +64,15 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   private readonly localize = new LocalizeController(this);
 
   @query('.button') button: HTMLButtonElement | HTMLLinkElement;
+  @query('slot:not([name])') labelSlot: HTMLSlotElement;
 
   @state() invalid = false;
+  @state() isIconButton = false;
+
   @property() title = ''; // make reactive to pass through
 
   /** The button's theme variant. Defaults to `neutral` if not within another element with a variant. */
-  @property({ reflect: true })
-  variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
+  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The button's visual appearance. */
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
@@ -142,19 +144,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Used to override the form owner's `target` attribute. */
   @property({ attribute: 'formtarget' }) formTarget: '_self' | '_blank' | '_parent' | '_top' | string;
 
-  private handleClick() {
-    const form = this.getForm();
-
-    if (!form) return;
-
-    const lightDOMButton = this.constructLightDOMButton();
-
-    // form.append(lightDOMButton);
-    this.parentElement?.append(lightDOMButton);
-    lightDOMButton.click();
-    lightDOMButton.remove();
-  }
-
   private constructLightDOMButton() {
     const button = document.createElement('button');
     button.type = this.type;
@@ -178,8 +167,50 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     return button;
   }
 
+  private handleClick() {
+    const form = this.getForm();
+
+    if (!form) return;
+
+    const lightDOMButton = this.constructLightDOMButton();
+
+    // form.append(lightDOMButton);
+    this.parentElement?.append(lightDOMButton);
+    lightDOMButton.click();
+    lightDOMButton.remove();
+  }
+
   private handleInvalid() {
     this.dispatchEvent(new WaInvalidEvent());
+  }
+
+  private handleLabelSlotChange() {
+    const nodes = this.labelSlot.assignedNodes({ flatten: true });
+    let hasIconLabel = false;
+    let hasIcon = false;
+    let text = '';
+
+    // If there's only an icon and no text, it's an icon button
+    [...nodes].forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).localName === 'wa-icon') {
+        hasIcon = true;
+        if (!hasIconLabel) hasIconLabel = (node as HTMLElement).hasAttribute('label');
+      }
+
+      // Concatenate text nodes
+      if (node.nodeType === Node.TEXT_NODE) {
+        text += node.textContent;
+      }
+    });
+
+    this.isIconButton = text.trim() === '' && hasIcon;
+
+    if (this.isIconButton && !hasIconLabel) {
+      console.warn(
+        'Icon buttons must have a label for screen readers. Add <wa-icon label="..."> to remove this warning.',
+        this,
+      );
+    }
   }
 
   private isButton() {
@@ -234,6 +265,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           'has-label': this.hasSlotController.test('[default]'),
           'has-prefix': this.hasSlotController.test('prefix'),
           'has-suffix': this.hasSlotController.test('suffix'),
+          'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${ifDefined(isLink ? undefined : this.type)}
@@ -251,7 +283,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         @click=${this.handleClick}
       >
         <slot name="prefix" part="prefix" class="prefix"></slot>
-        <slot part="label" class="label"></slot>
+        <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
         <slot name="suffix" part="suffix" class="suffix"></slot>
         ${
           this.caret

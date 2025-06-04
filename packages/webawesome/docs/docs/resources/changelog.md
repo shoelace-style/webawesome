@@ -38,6 +38,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Added convenience tokens for `--wa-font-size-smaller` and `--wa-font-size-larger`
   - Updated components to use relative `em` values for internal padding and margin wherever appropriate
 - 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
+- 🚨 BREAKING: removed `<wa-icon-button>`; use `<wa-button><wa-icon name="..." label="..."></wa-icon></wa-button>` instead
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
