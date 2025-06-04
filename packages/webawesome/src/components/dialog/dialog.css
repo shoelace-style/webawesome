@@ -72,8 +72,13 @@
   flex: 0 0 auto;
   display: flex;
   flex-wrap: nowrap;
-  padding: var(--spacing);
+
+  padding-inline-start: var(--spacing);
   padding-block-end: 0;
+
+  /* Subtract the close button's padding so that the X is visually aligned with the edges of the dialog content */
+  padding-inline-end: calc(var(--spacing) - var(--wa-form-control-padding-block));
+  padding-block-start: calc(var(--spacing) - var(--wa-form-control-padding-block));
 }
 
 .title {
