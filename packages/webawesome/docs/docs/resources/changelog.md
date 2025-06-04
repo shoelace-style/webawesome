@@ -39,6 +39,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Updated components to use relative `em` values for internal padding and margin wherever appropriate
 - 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
+- Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
 - Added `--checked-icon-scale` to `<wa-checkbox>`
