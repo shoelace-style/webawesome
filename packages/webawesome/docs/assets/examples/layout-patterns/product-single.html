@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="wa-cloak">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="/dist/styles/themes/default.css" />
+  <link rel="stylesheet" href="/dist/styles/webawesome.css" />
+  <script type="module" src="/dist/webawesome.loader.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <wa-page>
+    <a href="#" slot="banner" style="background-color: var(--wa-color-warning-fill-normal)">Get in on our holiday
+      deals!</a>
+    <header slot="header" class="wa-cluster wa-desktop-only" style="justify-content: space-between">
+      <div style="background-color: black; height: 40px; width: 40px"></div>
+      <wa-input placeholder="Search the best shops in the country" size="medium" style="width: 50%;">
+        <wa-icon name="magnifying-glass" variant="solid" slot="suffix"></wa-icon>
+      </wa-input>
+      <div class="wa-cluster"><wa-icon name="circle-user"></wa-icon><wa-icon name="shopping-cart"></wa-icon></div>
+    </header>
+    <main style="margin: 0 auto; max-width: 140ch;">
+      <div class="wa-stack wa-gap-2xl">
+        <wa-carousel pagination navigation loop style="--aspect-ratio: 3 / 2;">
+          <wa-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1601379327928-bedfaf9da2d0?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Four folded and stacked knit sweaters in three colors (Photograph by Tijana Drndarski)" />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1519804270019-39e929a7afb5?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Knit sweater in sand color full view, showing waffle knit pattern, relaxed fit, and crew neckline (Photograph by Jonathan Zerger)" />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1519805614447-6f49142e6697?q=80&w=3633&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Knit sweater in sand color shoulder detail, showing relaxed fit on broader shoulders (Photograph by Jonathan Zerger)" />
+          </wa-carousel-item>
+          <wa-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1522230130022-498e355165c5?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Knit sweater in sand color sleeve detail, showing loose fit around the arms (Photograph by Jonathan Zerger)" />
+          </wa-carousel-item>
+        </wa-carousel>
+        <div class="wa-grid wa-gap-2xl" style="--min-column-size: 30ch;">
+          <div class="wa-stack">
+            <div class="wa-split">
+              <h3>Pullover Sweater</h3>
+              <span class="wa-body-xl">$140</span>
+            </div>
+            <wa-rating label="Rating" precision="0.5" value="4.5" readonly></wa-rating>
+            <p>Wrap yourself in warmth and effortless style with this wool knit Pullover Sweater. Designed for
+              unparalleled
+              comfort. The relaxed fit and classic crew neckline make it a versatile staple for layering or wearing
+              solo.</p>
+            <wa-radio-group label="Color" name="color" value="sand" orientation="horizontal">
+              <wa-radio-button value="sand">
+                <wa-icon slot="prefix" name="circle" style="color: burlywood;"></wa-icon>
+                Sand
+              </wa-radio-button>
+              <wa-radio-button value="shale">
+                <wa-icon slot="prefix" name="circle" style="color: silver;"></wa-icon>
+                Shale
+              </wa-radio-button>
+              <wa-radio-button value="slate">
+                <wa-icon slot="prefix" name="circle" style="color: dimgray;"></wa-icon>
+                Slate
+              </wa-radio-button>
+            </wa-radio-group>
+            <wa-radio-group label="Size" name="size" value="s" orientation="horizontal">
+              <wa-radio-button value="xs">XS</wa-radio-button>
+              <wa-radio-button value="s">S</wa-radio-button>
+              <wa-radio-button value="m">M</wa-radio-button>
+              <wa-radio-button value="l">L</wa-radio-button>
+              <wa-radio-button value="xl">XL</wa-radio-button>
+            </wa-radio-group>
+            <wa-drawer label="Drawer" id="drawer-overview">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
+            </wa-drawer>
+
+            <wa-button variant="brand">Add to Cart</wa-button>
+
+
+
+          </div>
+          <div class="wa-stack">
+            <wa-details summary="Size and Fit" open>
+              <ul class="wa-body-s">
+                <li>True to size with a relaxed fit</li>
+                <li>Fits all shoulder shapes, broad to narrow</li>
+                <li>No pinching in the arms or irritating seams</li>
+                <li>Ribbed cuffs and hem</li>
+              </ul>
+            </wa-details>
+            <wa-details summary="Materials and Care">
+              <ul class="wa-body-s">
+                <li>Durable Merino and Yak wool blend</li>
+                <li>Machine wash cold on delicate cycle</li>
+                <li>Lay flat to dry</li>
+                <li>Made with <wa-icon name="heart" label="love"></wa-icon> in Bentonville, USA</li>
+              </ul>
+            </wa-details>
+            <wa-details summary="Shipping">
+              <ul class="wa-body-s">
+                <li>Flat $9 shipping free for orders under $200.</li>
+                <li>Free shipping on orders over $200, anywhere in the world.</li>
+              </ul>
+            </wa-details>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </wa-page>
+  <script>
+    const drawer = document.querySelector('#drawer-overview');
+    const openButton = drawer.nextElementSibling;
+
+    openButton.addEventListener('click', () => drawer.open = true);
+  </script>
+</body>
+
+</html>
