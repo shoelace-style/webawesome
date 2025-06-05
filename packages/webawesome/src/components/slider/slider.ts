@@ -8,6 +8,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { SliderValidator } from '../../internal/validators/slider-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
+import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
@@ -67,7 +68,7 @@ import styles from './slider.css';
 export default class WaSlider extends WebAwesomeFormAssociatedElement {
   static formAssociated = true;
   static observeSlots = true;
-  static css = [formControlStyles, styles];
+  static css = [sizeStyles, formControlStyles, styles];
 
   static get validators() {
     return [...super.validators, SliderValidator()];
@@ -142,7 +143,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** The slider's size. */
-  @property({ reflect: true }) size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The starting value from which to draw the slider's fill, which is based on its current value. */
   @property({ attribute: 'indicator-offset', type: Number }) indicatorOffset: number;
@@ -780,11 +781,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     const hasDescription = this.hasSlotController.test('description');
 
     const sliderClasses = classMap({
-      xs: this.size === 'xs',
-      sm: this.size === 'sm',
-      md: this.size === 'md',
-      lg: this.size === 'lg',
-      xl: this.size === 'xl',
+      small: this.size === 'small',
+      medium: this.size === 'medium',
+      large: this.size === 'large',
       horizontal: this.orientation === 'horizontal',
       vertical: this.orientation === 'vertical',
       disabled: this.disabled,
@@ -839,10 +838,11 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
               id=${`tooltip${thumbId !== 'thumb' ? '-' + thumbId : ''}`}
               part="tooltip"
               exportparts="
-              tooltip:tooltip__tooltip,
-              content:tooltip__content,
-              arrow:tooltip__arrow
-            "
+                tooltip:tooltip__tooltip,
+                content:tooltip__content,
+                arrow:tooltip__arrow
+              "
+              trigger="manual"
               distance=${this.tooltipDistance}
               placement=${this.tooltipPlacement}
               for=${thumbId}

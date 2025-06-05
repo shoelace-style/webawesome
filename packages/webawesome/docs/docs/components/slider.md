@@ -189,7 +189,7 @@ slider.minValue = 30;
 slider.maxValue = 70;
 ```
 
-### Changing the orientation
+### Vertical Sliders
 
 Set the `orientation` attribute to `vertical` to create a vertical slider. Vertical sliders automatically center themselves and fill the available vertical space.
 
@@ -216,6 +216,7 @@ Range sliders can also be vertical.
     min-value="30"
     max-value="70"
     with-tooltip
+    tooltip-placement="right"
     id="slider__vertical-range"
   >
   </wa-slider>
@@ -235,19 +236,17 @@ Range sliders can also be vertical.
 </script>
 ```
 
-### Changing the size
+### Size
 
-Control the slider's size using the `size` attribute with options ranging from `xs` to `xl`.
+Control the slider's size using the `size` attribute. Valid options include `small`, `medium`, and `large`.
 
 ```html {.example}
-<wa-slider size="xs" value="50" label="Extra small"></wa-slider><br />
-<wa-slider size="sm" value="50" label="Small"></wa-slider><br />
-<wa-slider size="md" value="50" label="Medium"></wa-slider><br />
-<wa-slider size="lg" value="50" label="Large"></wa-slider><br />
-<wa-slider size="xl" value="50" label="Extra large"></wa-slider>
+<wa-slider size="small" value="50" label="Small"></wa-slider><br />
+<wa-slider size="medium" value="50" label="Medium"></wa-slider><br />
+<wa-slider size="large" value="50" label="Large"></wa-slider>
 ```
 
-### Changing the indicator's offset
+### Indicator Offset
 
 By default, the filled indicator extends from the minimum value to the current position. Use the `indicator-offset` attribute to change the starting point of this visual indicator.
 
@@ -287,123 +286,4 @@ Mark a slider as required using the `required` attribute. Users must interact wi
   <br />
   <button type="submit">Submit</button>
 </form>
-```
-
-### Using custom validation
-
-Set custom validation messages using the `setCustomValidity()` method. Pass an empty string to clear any custom validation errors.
-
-```html {.example}
-<form action="about:blank" method="get" target="_blank" id="slider__custom-validation">
-  <wa-slider
-    name="value"
-    label="Select a value"
-    hint="This field will be invalid until custom validation is removed"
-  ></wa-slider>
-  <br />
-  <button type="submit">Submit</button>
-</form>
-
-<script type="module">
-  import { allDefined } from '/dist/webawesome.js';
-
-  const form = document.getElementById('slider__custom-validation');
-  const slider = form.querySelector('wa-slider');
-
-  await allDefined();
-
-  slider.setCustomValidity('Not so fast, bubba!');
-</script>
-```
-
-### Styling validation
-
-Apply custom styles to valid and invalid sliders using the `:valid` and `:invalid` pseudo-classes.
-
-```html {.example}
-<form action="about:blank" method="get" target="_blank" class="slider__validation-pseudo">
-  <wa-slider name="value" label="Select a value" min="0" max="5" value="0" with-markers with-tooltip></wa-slider>
-  <br />
-  <button type="submit">Submit</button>
-  <button type="reset">Reset</button>
-</form>
-
-<style>
-  .slider__validation-pseudo {
-    wa-slider:valid {
-      outline: solid 2px var(--wa-color-success-border);
-      outline-offset: 1rem;
-    }
-
-    wa-slider:invalid {
-      outline: solid 2px var(--wa-color-danger-border);
-      outline-offset: 1rem;
-    }
-  }
-</style>
-
-<script type="module">
-  import { allDefined } from '/dist/webawesome.js';
-
-  const form = document.querySelector('.slider__validation-pseudo');
-  const slider = form.querySelector('wa-slider');
-  const validationMessage = 'Select a number greater than zero';
-
-  await allDefined();
-
-  slider.setCustomValidity(validationMessage);
-
-  async function updateValidity() {
-    await slider.updateComplete;
-    slider.setCustomValidity(slider.value > 0 ? '' : validationMessage);
-  }
-
-  slider.addEventListener('input', updateValidity);
-  form.addEventListener('reset', updateValidity);
-</script>
-```
-
-However, these selectors will match even before the user has had a chance to fill out the form. More often than not, you'll want to use the `user-valid` and `user-invalid` [custom states](#custom-states) instead. This way, validation styles are only shown _after_ the user interacts with the form control or when the form is submitted.
-
-```html {.example}
-<form action="about:blank" method="get" target="_blank" class="slider__validation-custom">
-  <wa-slider name="value" label="Select a value" min="0" max="5" value="0" with-markers with-tooltip></wa-slider>
-  <br />
-  <button type="submit">Submit</button>
-  <button type="reset">Reset</button>
-</form>
-
-<style>
-  .slider__validation-custom {
-    wa-slider:state(user-valid) {
-      outline: solid 2px var(--wa-color-success-border);
-      outline-offset: 1rem;
-    }
-
-    wa-slider:state(user-invalid) {
-      outline: solid 2px var(--wa-color-danger-border);
-      outline-offset: 1rem;
-    }
-  }
-</style>
-
-<script type="module">
-  import { allDefined } from '/dist/webawesome.js';
-
-  const form = document.querySelector('.slider__validation-custom');
-  const slider = form.querySelector('wa-slider');
-  const validationMessage = 'Select a number greater than zero';
-
-  await allDefined();
-
-  slider.setCustomValidity(validationMessage);
-
-  async function updateValidity() {
-    await slider.updateComplete;
-    slider.setCustomValidity(slider.value > 0 ? '' : validationMessage);
-  }
-
-  slider.addEventListener('input', updateValidity);
-  form.addEventListener('reset', updateValidity);
-</script>
 ```
