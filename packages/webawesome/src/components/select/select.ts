@@ -345,7 +345,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const isClearButton = target.closest('[part~="clear-button"]') !== null;
     const isButton = target.closest('wa-button') !== null;
 
-    // Ignore presses when the target is an icon button (e.g. the remove button in `<wa-tag>`)
+    // Ignore presses when the target is a button (e.g. the remove button in `<wa-tag>`)
     if (isClearButton || isButton) {
       return;
     }

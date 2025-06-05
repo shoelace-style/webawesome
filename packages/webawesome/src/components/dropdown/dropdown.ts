@@ -13,7 +13,6 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/utilities/size.css';
 import type WaButton from '../button/button.js';
-import type WaIconButton from '../icon-button/icon-button.js';
 import type WaMenu from '../menu/menu.js';
 import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
@@ -282,14 +281,13 @@ export default class WaDropdown extends WebAwesomeElement {
       switch (tagName) {
         // Web Awesome buttons have to update the internal button so it's announced correctly by screen readers
         case 'wa-button':
-        case 'wa-icon-button':
-          target = (accessibleTrigger as WaButton | WaIconButton).button;
+          target = (accessibleTrigger as WaButton).button;
 
           // Either the tag hasn't registered, or it hasn't rendered.
           // So, wait for the tag to register, and then try again.
           if (target === undefined || target === null) {
             customElements.whenDefined(tagName).then(async () => {
-              await (accessibleTrigger as WaButton | WaIconButton).updateComplete;
+              await (accessibleTrigger as WaButton).updateComplete;
               this.updateAccessibleTrigger();
             });
 
