@@ -111,8 +111,11 @@ You can change the tooltip's content by setting the `tooltipFormatter` property 
 The component adapts to right-to-left (RTL) languages as you would expect.
 
 ```html {.example}
-<wa-slider dir="rtl"
+<wa-slider
+  dir="rtl"
   label="مقدار"
   hint="التحكم في مستوى صوت الأغنية الحالية."
-  style="--track-color-active: var(--wa-color-brand-fill-loud)" value="10"></wa-slider>
+  style="--track-color-active: var(--wa-color-brand-fill-loud)"
+  value="10"
+></wa-slider>
 ```
