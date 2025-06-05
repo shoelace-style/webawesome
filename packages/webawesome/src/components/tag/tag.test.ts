@@ -31,7 +31,7 @@ describe('<wa-tag>', () => {
 
       it('should set removable by attribute', async () => {
         const el = await fixture<WaTag>(html` <wa-tag with-remove>Test</wa-tag> `);
-        const removeButton = el.shadowRoot!.querySelector('wa-icon-button');
+        const removeButton = el.shadowRoot!.querySelector('wa-button');
 
         expect(el.withRemove).to.be.true;
         expect(removeButton).to.exist;
@@ -40,7 +40,7 @@ describe('<wa-tag>', () => {
       describe('removable', () => {
         it('should emit remove event when remove button clicked', async () => {
           const el = await fixture<WaTag>(html` <wa-tag with-remove>Test</wa-tag> `);
-          const removeButton = el.shadowRoot!.querySelector('wa-icon-button');
+          const removeButton = el.shadowRoot!.querySelector('wa-button');
           const spy = sinon.spy();
 
           el.addEventListener('wa-remove', spy, { once: true });
