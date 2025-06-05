@@ -778,7 +778,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   render() {
     const hasLabel = this.hasSlotController.test('label');
-    const hasDescription = this.hasSlotController.test('description');
+    const hasHint = this.hasSlotController.test('hint');
 
     const sliderClasses = classMap({
       small: this.size === 'small',
@@ -798,7 +798,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     // Common UI fragments
-    const labelAndDescription = html`
+    const labelAndHint = html`
       <label
         id="label"
         part="label"
@@ -809,7 +809,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div id="hint" part="hint" class=${classMap({ vh: !hasDescription })}>
+      <div id="hint" part="hint" class=${classMap({ vh: !hasHint })}>
         <slot name="hint">${this.hint}</slot>
       </div>
     `;
@@ -863,7 +863,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       const maxThumbPosition = clamp(this.getPercentageFromValue(this.maxValue), 0, 100);
 
       return html`
-        ${labelAndDescription}
+        ${labelAndHint}
 
         <div id="slider" part="slider" class=${sliderClasses}>
           <div id="track" part="track">
@@ -936,7 +936,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       );
 
       return html`
-        ${labelAndDescription}
+        ${labelAndHint}
 
         <div
           id="slider"
@@ -953,7 +953,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             : this.localize.number(this.value)}
           aria-valuemax=${this.max}
           aria-labelledby="label"
-          aria-describedby="description"
+          aria-describedby="hint"
           tabindex=${this.disabled ? -1 : 0}
           @blur=${this.handleBlur}
           @focus=${this.handleFocus}
