@@ -13,6 +13,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './slider.css';
+import { submitOnEnter } from '../../internal/submit-on-enter.js';
 
 /**
  * <wa-slider>
@@ -79,7 +80,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
   private trackBoundingClientRect: DOMRect;
-  private valueWhenDraggingStarted: number | undefined;
+  private valueWhenDraggingStarted: number | undefined | null;
   private activeThumb: 'min' | 'max' | null = null;
   private lastTrackPosition: number | null = null; // Track last position for direction detection
 
@@ -111,10 +112,20 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The name of the slider. This will be submitted with the form as a name/value pair. */
   @property({ reflect: true }) name: string;
 
-  private _value: number | null = null;
+  /** The minimum value of a range selection. Used only when range attribute is set. */
+  @property({ type: Number, attribute: 'min-value' }) minValue = 0;
+
+  /** The maximum value of a range selection. Used only when range attribute is set. */
+  @property({ type: Number, attribute: 'max-value' }) maxValue = 50;
+
+  /** The default value of the form control. Primarily used for resetting the form control. */
+  @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number =
+    this.getAttribute('value') == null ?  this.minValue : Number(this.getAttribute("value"));
+
+  private _value: number = this.defaultValue;
 
   /** The current value of the slider, submitted as a name/value pair with form data. */
-  get value() {
+  get value(): number {
     if (this.valueHasChanged) {
       return this._value;
     }
@@ -124,7 +135,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   @state()
   set value(val: number | null) {
-    val = Number(val) ?? null;
+    val = Number(val) ?? this.minValue;
 
     if (this._value === val) {
       return;
@@ -134,15 +145,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
-  /** The minimum value of a range selection. Used only when range attribute is set. */
-  @property({ type: Number, attribute: 'min-value' }) minValue = 0;
-
-  /** The maximum value of a range selection. Used only when range attribute is set. */
-  @property({ type: Number, attribute: 'max-value' }) maxValue = 50;
-
-  /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number | null =
-    Number(this.getAttribute('value')) || this.minValue;
 
   /** Converts the slider to a range slider with two thumbs. */
   @property({ type: Boolean, reflect: true }) range = false;
@@ -209,16 +211,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
    * readers. Must be set with JavaScript. Property only.
    */
   @property({ attribute: false }) valueFormatter: (value: number) => string;
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('invalid', this.handleHostInvalid);
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('invalid', this.handleHostInvalid);
-  }
 
   firstUpdated() {
     // Setup dragging based on range or single thumb mode
@@ -434,9 +426,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     } else {
       this.value = parseFloat(this.getAttribute('value') ?? String(this.min));
     }
-    this.isInvalid = false;
     this.hasInteracted = false;
-    this.wasSubmitted = false;
     super.formResetCallback();
   }
 
@@ -507,16 +497,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     this.customStates.set('focused', true);
     this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
-  }
-
-  private handleHostInvalid() {
-    //
-    // We need to simulate the :user-invalid state when the form is submitted. Alas, there's no way to listen to form
-    // submit because validation occurs before the `formdata` and `submit` events. The only way I've found to hook into
-    // it is by listening to the `invalid` event on the host element, which is dispatched by the browser when the form
-    // is submitted and the form-associated custom element is invalid.
-    //
-    this.wasSubmitted = true;
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -591,15 +571,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
       // Handle form submission on Enter
       case 'Enter':
-        if (this.internals.form) {
-          const submitter = [...this.internals.form.elements].find((el: HTMLInputElement | HTMLButtonElement) => {
-            // The first submit button associated with the form will be the submitter. At this time, only native buttons
-            // can be submitters (see https://github.com/WICG/webcomponents/issues/814)
-            return ['button', 'input'].includes(el.localName) && el.type === 'submit';
-          }) as HTMLElement;
-
-          this.internals.form.requestSubmit(submitter);
-        }
+        submitOnEnter(event, this)
         return;
     }
 
