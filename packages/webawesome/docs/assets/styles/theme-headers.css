@@ -124,7 +124,7 @@ html.wa-theme-tailspin .preview-container {
     &::part(footer) {
       border: none;
     }
-    & wa-icon-button {
+    & wa-button {
       color: var(--wa-color-base-50);
     }
   }
@@ -226,11 +226,11 @@ html.wa-theme-brutalist .preview-container {
     --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-30), white 40%);
   }
 
-  .message-composer [slot='header'] wa-icon-button::part(base) {
+  .message-composer [slot='header'] wa-button::part(base) {
     color: var(--wa-color-neutral-on-loud);
   }
 
-  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
+  .message-composer .grouped-buttons wa-button::part(base):hover {
     background-color: var(--wa-color-neutral-fill-normal);
     color: var(--wa-color-text-normal);
   }
@@ -421,7 +421,7 @@ html.wa-theme-playful .preview-container {
     --wa-color-neutral-fill-quiet: var(--wa-color-gray-90);
   }
 
-  .message-composer wa-icon-button {
+  .message-composer wa-button {
     color: var(--wa-text-color-normal);
     font-size: var(--wa-font-size-l);
   }
@@ -662,12 +662,12 @@ html.wa-theme-premium .preview-container {
     --padding: var(--wa-space-s) var(--wa-space-xl);
   }
 
-  .message-composer .grouped-buttons wa-icon-button::part(base) {
+  .message-composer .grouped-buttons wa-button::part(base) {
     block-size: var(--wa-form-control-height-s);
     inline-size: var(--wa-form-control-height-s);
     justify-content: center;
   }
-  .message-composer .grouped-buttons wa-icon-button::part(base):hover {
+  .message-composer .grouped-buttons wa-button::part(base):hover {
     background-color: var(--wa-color-neutral-fill-normal);
     color: var(--wa-color-text-normal);
   }

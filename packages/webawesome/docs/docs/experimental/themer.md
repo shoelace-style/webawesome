@@ -1731,7 +1731,7 @@ hasOutline: false
     grid-column-end: col-end;
   }
 
-  .project-header wa-icon-button {
+  .project-header wa-button {
     color: inherit;
     font-size: var(--wa-font-size-l);
 
