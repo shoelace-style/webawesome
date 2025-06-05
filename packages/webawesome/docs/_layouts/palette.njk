@@ -41,10 +41,6 @@
       </wa-button>
       <wa-button @click="save()" :disabled="!unsavedChanges"
         :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
-        <span slot="prefix" class="icon-modifier">
-          <wa-icon name="sidebar" variant="regular"></wa-icon>
-          <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-        </span>
         <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
       </wa-button>
     </template>
@@ -75,10 +71,8 @@
     <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" with-remove @wa-remove="reset(param)" v-content="tweakHumanReadable"></wa-tag>
    </div>
 
-  <wa-button @click="reset()" appearance="outlined" variant="danger">
-    <span slot="prefix" class="icon-modifier">
-      <wa-icon name="circle-xmark" variant="regular"></wa-icon>
-    </span>
+  <wa-button @click="reset()" appearance="outlined" variant="danger" size="small">
+    <wa-icon slot="prefix" name="circle-xmark" variant="regular"></wa-icon>
     Reset
   </wa-button>
 </wa-callout>

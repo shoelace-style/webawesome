@@ -30,10 +30,6 @@ unlisted: true
 
     <wa-button v-if="tweaked || uid" @click="save()" :disabled="!unsavedChanges"
       :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
-      <span slot="prefix" class="icon-modifier">
-        <wa-icon name="sidebar" variant="regular"></wa-icon>
-        <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-      </span>
       <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
     </wa-button>
     <wa-button size="small" @click="ui.showCode = !showCode" appearance="outlined">

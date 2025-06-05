@@ -79,10 +79,12 @@ const sidebar = {
       let append = [...badges];
 
       if (entity.delete) {
-        let deleteButton = Object.assign(document.createElement('wa-icon-button'), {
-          name: 'trash',
-          label: 'Delete',
+        let deleteButton = Object.assign(document.createElement('wa-button'), {
+          appearance: 'plain',
+          variant: 'danger',
+          size: 'small',
           className: 'delete',
+          innerHTML: '<wa-icon name="trash" label="Delete"></wa-icon>',
         });
         deleteButton.addEventListener('click', () => entity.delete());
         append.push(deleteButton);
