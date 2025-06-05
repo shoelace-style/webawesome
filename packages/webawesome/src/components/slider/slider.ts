@@ -100,14 +100,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @query('#tooltip') tooltip: WaTooltip;
   @queryAll('wa-tooltip') tooltips: NodeListOf<WaTooltip>;
 
-  @state() isInvalid = false;
-  @state() hadUserInteraction = false;
-  @state() wasSubmitted = false;
-
   /**
    * The slider's label. If you need to provide HTML in the label, use the `label` slot instead.
    */
-  @property() label: string;
+  @property() label: string = '';
 
   /** The slider hint. If you need to display HTML, use the hint slot instead. */
   @property({ attribute: 'hint' }) hint = '';
@@ -115,14 +111,38 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The name of the slider. This will be submitted with the form as a name/value pair. */
   @property({ reflect: true }) name: string;
 
-  /** The slider's value. */
-  @property({ type: Number }) value = 0;
+  private _value: number | null = null;
+
+  /** The current value of the slider, submitted as a name/value pair with form data. */
+  get value() {
+    if (this.valueHasChanged) {
+      return this._value;
+    }
+
+    return this._value ?? this.defaultValue;
+  }
+
+  @state()
+  set value(val: number | null) {
+    val = Number(val) ?? null
+
+    if (this._value === val) {
+      return;
+    }
+
+    this.valueHasChanged = true;
+    this._value = val;
+  }
 
   /** The minimum value of a range selection. Used only when range attribute is set. */
   @property({ type: Number, attribute: 'min-value' }) minValue = 0;
 
   /** The maximum value of a range selection. Used only when range attribute is set. */
   @property({ type: Number, attribute: 'max-value' }) maxValue = 50;
+
+  /** The default value of the form control. Primarily used for resetting the form control. */
+  @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number | null = Number(this.getAttribute('value')) || this.minValue;
+
 
   /** Converts the slider to a range slider with two thumbs. */
   @property({ type: Boolean, reflect: true }) range = false;
@@ -133,7 +153,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   /** Disables the slider. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) disabled = false;
 
   /** Makes the slider a read-only field. */
   @property({ type: Boolean, reflect: true }) readonly = false;
@@ -151,7 +171,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
    * The form to associate this control with. If omitted, the closest containing `<form>` will be used. The value of
    * this attribute must be an ID of a form in the same document or shadow root.
    */
-  @property() form: string;
+  @property({ reflect: true }) form = null;
 
   /** The minimum value allowed. */
   @property({ type: Number }) min: number = 0;
@@ -218,7 +238,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         stop: () => {
           if (this.minValue !== this.valueWhenDraggingStarted) {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-            this.hadUserInteraction = true;
+            this.hasInteracted = true;
           }
           this.hideRangeTooltips();
           this.customStates.set('dragging', false);
@@ -241,7 +261,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         stop: () => {
           if (this.maxValue !== this.valueWhenDraggingStarted) {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-            this.hadUserInteraction = true;
+            this.hasInteracted = true;
           }
           this.hideRangeTooltips();
           this.customStates.set('dragging', false);
@@ -311,7 +331,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             const currentValue = this.activeThumb === 'min' ? this.minValue : this.maxValue;
             if (currentValue !== this.valueWhenDraggingStarted) {
               this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-              this.hadUserInteraction = true;
+              this.hasInteracted = true;
             }
           }
           this.hideRangeTooltips();
@@ -336,7 +356,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         stop: () => {
           if (this.value !== this.valueWhenDraggingStarted) {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-            this.hadUserInteraction = true;
+            this.hasInteracted = true;
           }
           this.hideTooltip();
           this.customStates.set('dragging', false);
@@ -347,8 +367,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
     // Handle range mode changes
     if (changedProperties.has('range')) {
       this.requestUpdate();
@@ -400,15 +418,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       }
     }
 
-    // Handle user interactions. When the form control's value has changed and lost focus (e.g. change event), we can
-    // show user-valid and user-invalid states. We also show it if the form has been submitted.
-    if (this.hadUserInteraction || this.wasSubmitted) {
-      this.customStates.set('user-invalid', this.isInvalid);
-      this.customStates.set('user-valid', !this.isInvalid);
-    } else {
-      this.customStates.set('user-invalid', false);
-      this.customStates.set('user-valid', false);
-    }
+    super.updated(changedProperties);
   }
 
   /** @internal Called when a containing fieldset is disabled. */
@@ -425,7 +435,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.value = parseFloat(this.getAttribute('value') ?? String(this.min));
     }
     this.isInvalid = false;
-    this.hadUserInteraction = false;
+    this.hasInteracted = false;
     this.wasSubmitted = false;
     super.formResetCallback();
   }
@@ -623,7 +633,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     // Dispatch events
     this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-    this.hadUserInteraction = true;
+    this.hasInteracted = true;
   }
 
   private handleLabelPointerDown(event: PointerEvent) {
