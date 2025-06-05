@@ -1,14 +1,11 @@
 import { domChange } from './util/dom-change.js';
 export { domChange };
 
-export function nextFrame() {
-  return new Promise(resolve => requestAnimationFrame(resolve));
-}
-
 export class ThemeAspect {
   constructor(options) {
     Object.assign(this, options);
     this.set();
+    this.syncIframes();
 
     // Update when local storage changes.
     // That way changes in one window will propagate to others (including iframes).
@@ -67,6 +64,30 @@ export class ThemeAspect {
     this.syncUI();
   }
 
+  async syncIframes() {
+    await customElements.whenDefined('wa-zoomable-frame');
+    await new Promise(requestAnimationFrame);
+
+    // Sync to wa-zoomable-frame iframes
+    let dark = this.computedValue === 'dark';
+    for (let zoomableEl of document.querySelectorAll('wa-zoomable-frame')) {
+      const iframe = zoomableEl.iframe;
+
+      const applyToIframe = () => {
+        try {
+          iframe.contentDocument.documentElement.classList.toggle('wa-dark', dark);
+        } catch (e) {
+          // Silently handle access issues
+        }
+      };
+
+      // Try immediately
+      applyToIframe();
+      // Also listen for load in case it wasn't ready
+      iframe.addEventListener('load', applyToIframe, { once: true });
+    }
+  }
+
   syncUI(container = document) {
     for (let picker of container.querySelectorAll(this.picker)) {
       picker.setAttribute('value', this.value);
@@ -87,12 +108,19 @@ const colorScheme = new ThemeAspect({
   },
 
   applyChange() {
-    // Toggle the dark mode class
-    domChange(() => {
+    // Toggle the dark mode class with view transition
+    const updateTheme = () => {
       let dark = this.computedValue === 'dark';
       document.documentElement.classList.toggle(`wa-dark`, dark);
       document.documentElement.dispatchEvent(new CustomEvent('wa-color-scheme-change', { detail: { dark } }));
-    });
+      this.syncIframes();
+    };
+
+    if (document.startViewTransition) {
+      document.startViewTransition(() => domChange(updateTheme));
+    } else {
+      domChange(updateTheme);
+    }
   },
 });
 
