@@ -46,6 +46,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Added tooltips showing current values with `with-tooltip`
   - Added customizable indicator offset with `indicator-offset` attribute
   - Added value formatting support with the `valueFormatter` property
+  - Improved the styling API to be consistent and more powerful (no more browser-specific selectors and pseudo elements to style)
   - Updated to use consistent `with-*` attribute naming pattern
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
