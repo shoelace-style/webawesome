@@ -35,7 +35,7 @@ export const SliderValidator = (): Validator<WaSlider> => {
       };
 
       // Check required validation first
-      if (element.required && !element.hadUserInteraction) {
+      if (element.required && !element.hasInteracted) {
         validity.isValid = false;
         validity.invalidKeys.push('valueMissing');
         validity.message = nativeRequiredRange.validationMessage || 'Please fill out this field.';
