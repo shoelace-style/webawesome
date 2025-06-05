@@ -116,14 +116,16 @@ slot {
   }
 
   wa-icon {
-    display: none;
-    vertical-align: -0.1em;
     font-size: 85%;
   }
 
-  wa-icon-button {
+  wa-button {
+    line-height: 1;
+
     &::part(base) {
       padding: 0;
+      height: 1em;
+      width: 1em;
     }
   }
 
