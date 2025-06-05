@@ -57,7 +57,9 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 <wa-card class="card-header">
   <div slot="header" class="wa-split">
     Header Title
-    <wa-icon-button name="gear" variant="solid" label="Settings" class="wa-size-m"></wa-icon-button>
+    <wa-button appearance="plain">
+      <wa-icon name="gear" variant="solid" label="Settings"></wa-icon>
+    </wa-button>
   </div>
 
   This card has a header. You can put all sorts of things in it!

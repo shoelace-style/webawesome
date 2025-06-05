@@ -12,8 +12,8 @@ import styles from './breadcrumb-item.css';
  * @since 2.0
  *
  * @slot - The breadcrumb item's label.
- * @slot prefix - An optional prefix, usually an icon or icon button.
- * @slot suffix - An optional suffix, usually an icon or icon button.
+ * @slot prefix - An optional prefix, usually an icon.
+ * @slot suffix - An optional suffix, usually an icon.
  * @slot separator - The separator to use for the breadcrumb item. This will only change the separator for this item. If
  * you want to change it for all items in the group, set the separator on `<wa-breadcrumb>` instead.
  *

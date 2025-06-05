@@ -45,11 +45,11 @@ wa-page > header {
       margin: 0;
     }
 
-    wa-icon-button {
+    wa-button {
       transition: var(--wa-transition-slow);
     }
 
-    &:not(:hover, :focus-within, :has(input)) wa-icon-button {
+    &:not(:hover, :focus-within, :has(input)) wa-button {
       opacity: 0;
     }
   }

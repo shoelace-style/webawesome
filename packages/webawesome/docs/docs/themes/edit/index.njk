@@ -23,15 +23,13 @@ unlisted: true
 
     <div class="title">
       <h1><editable-text :model-value="title" label="theme name" @submit="newTitle => save({title: newTitle})" blur="cancel"></editable-text></h1>
-      <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete theme" @click="deleteSaved"></wa-icon-button>
+      <wa-button v-if="saved" class="delete" @click="deleteSaved" appearance="plain" size="small">
+        <wa-icon name="trash" label="Delete theme"></wa-icon>
+      </wa-button>
     </div>
 
     <wa-button v-if="tweaked || uid" @click="save()" :disabled="!unsavedChanges"
       :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
-      <span slot="prefix" class="icon-modifier">
-        <wa-icon name="sidebar" variant="regular"></wa-icon>
-        <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-      </span>
       <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
     </wa-button>
     <wa-button size="small" @click="ui.showCode = !showCode" appearance="outlined">

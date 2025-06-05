@@ -36,13 +36,21 @@ Splits are especially helpful for navigation, header, and footer layouts.
 <div class="wa-flank">
   <div class="wa-split:column">
     <div class="wa-stack">
-      <wa-icon-button name="house" label="Home"></wa-icon-button>
-      <wa-icon-button name="calendar" label="Calendar"></wa-icon-button>
-      <wa-icon-button name="envelope" label="Mail"></wa-icon-button>
+      <wa-button appearance="plain">
+        <wa-icon name="house" label="Home"></wa-icon>
+      </wa-button>
+      <wa-button appearance="plain">
+        <wa-icon name="calendar" label="Calendar"></wa-icon>
+      </wa-button>
+      <wa-button appearance="plain">
+        <wa-icon name="envelope" label="Mail"></wa-icon>
+      </wa-button>
     </div>
     <div class="wa-stack">
       <wa-divider></wa-divider>
-      <wa-icon-button name="right-from-bracket" label="Sign Out"></wa-icon-button>
+      <wa-button appearance="plain">
+        <wa-icon name="right-from-bracket" label="Sign Out"></wa-icon>
+      </wa-button>
     </div>
   </div>
   <div class="placeholder">

@@ -7,7 +7,7 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import '../tab-panel/tab-panel.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
 import '../tab/tab.js';
@@ -20,7 +20,7 @@ import styles from './tab-group.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  * @dependency wa-tab
  * @dependency wa-tab-panel
  *
@@ -35,7 +35,7 @@ import styles from './tab-group.css';
  * @csspart nav - The tab group's navigation container where tabs are slotted in.
  * @csspart tabs - The container that wraps the tabs.
  * @csspart body - The tab group's body where tab panels are slotted in.
- * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, an `<wa-icon-button>`.
+ * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, a `<wa-button>`.
  * @csspart scroll-button-start - The starting scroll button.
  * @csspart scroll-button-end - The ending scroll button.
  * @csspart scroll-button__base - The scroll button's exported `base` part.
@@ -400,16 +400,20 @@ export default class WaTabGroup extends WebAwesomeElement {
         <div class="nav-container" part="nav">
           ${this.hasScrollControls
             ? html`
-                <wa-icon-button
+                <wa-button
                   part="scroll-button scroll-button-start"
                   exportparts="base:scroll-button__base"
                   class="scroll-button scroll-button-start"
-                  name=${isRtl ? 'chevron-right' : 'chevron-left'}
-                  library="system"
-                  variant="solid"
-                  label=${this.localize.term('scrollToStart')}
+                  appearance="plain"
                   @click=${this.handleScrollToStart}
-                ></wa-icon-button>
+                >
+                  <wa-icon
+                    name=${isRtl ? 'chevron-right' : 'chevron-left'}
+                    library="system"
+                    variant="solid"
+                    label=${this.localize.term('scrollToStart')}
+                  ></wa-icon>
+                </wa-button>
               `
             : ''}
 
@@ -422,16 +426,20 @@ export default class WaTabGroup extends WebAwesomeElement {
 
           ${this.hasScrollControls
             ? html`
-                <wa-icon-button
+                <wa-button
                   part="scroll-button scroll-button-end"
                   class="scroll-button scroll-button-end"
                   exportparts="base:scroll-button__base"
-                  name=${isRtl ? 'chevron-left' : 'chevron-right'}
-                  library="system"
-                  variant="solid"
-                  label=${this.localize.term('scrollToEnd')}
+                  appearance="plain"
                   @click=${this.handleScrollToEnd}
-                ></wa-icon-button>
+                >
+                  <wa-icon
+                    name=${isRtl ? 'chevron-left' : 'chevron-right'}
+                    library="system"
+                    variant="solid"
+                    label=${this.localize.term('scrollToEnd')}
+                  ></wa-icon>
+                </wa-button>
               `
             : ''}
         </div>

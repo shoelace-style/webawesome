@@ -4,11 +4,15 @@ const template = `
 <span class="editable-text">
 <template v-if="isEditing">
   <input ref="input" class="wa-size-s" :aria-label="label" :value="value" @input="handleInput" @keydown.enter="done" @keydown.esc="cancel" @blur="handleBlur" />
-  <wa-icon-button v-if="blur !== 'done'" name="check" label="Done editing" @click="done"></wa-icon-button>
+  <wa-button appearance="plain" v-if="blur !== 'done'" @click="done">
+    <wa-icon name="check" label="Done editing"></wa-icon>
+  </wa-button>
 </template>
 <template v-else>
   <span class="text" ref="wrapper" @focus="edit" @click="edit" tabindex="0">{{ value }}</span>
-  <wa-icon-button name="pencil" :label="'Edit ' + label" @click="edit"></wa-icon-button>
+  <wa-button appearance="plain" @click="edit">
+    <wa-icon name="pencil" :label="'Edit ' + label"></wa-icon>
+  </wa-button>
 </template>
 </span>
 `;

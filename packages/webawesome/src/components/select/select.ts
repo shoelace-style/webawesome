@@ -343,10 +343,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement;
     const isClearButton = target.closest('[part~="clear-button"]') !== null;
-    const isIconButton = target.closest('wa-icon-button') !== null;
+    const isButton = target.closest('wa-button') !== null;
 
-    // Ignore presses when the target is an icon button (e.g. the remove button in `<wa-tag>`)
-    if (isClearButton || isIconButton) {
+    // Ignore presses when the target is a button (e.g. the remove button in `<wa-tag>`)
+    if (isClearButton || isButton) {
       return;
     }
 
@@ -484,10 +484,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleComboboxMouseDown(event: MouseEvent) {
     const path = event.composedPath();
-    const isIconButton = path.some(el => el instanceof Element && el.tagName.toLowerCase() === 'wa-icon-button');
+    const isButton = path.some(el => el instanceof Element && el.tagName.toLowerCase() === 'wa-button');
 
     // Ignore disabled controls and clicks on tags (remove buttons)
-    if (this.disabled || isIconButton) {
+    if (this.disabled || isButton) {
       return;
     }
 
