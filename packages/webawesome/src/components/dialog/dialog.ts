@@ -11,7 +11,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './dialog.css';
 
 /**
@@ -20,7 +20,7 @@ import styles from './dialog.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The dialog's main content.
  * @slot label - The dialog's label. Alternatively, you can use the `label` attribute.

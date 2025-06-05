@@ -11,7 +11,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './drawer.css';
 
 /**
@@ -20,7 +20,7 @@ import styles from './drawer.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The drawer's main content.
  * @slot label - The drawer's label. Alternatively, you can use the `label` attribute.

@@ -33,12 +33,12 @@
   width: 1em;
 }
 
-:host(:hover) > wa-icon-button {
-  color: color-mix(in oklab, var(--text-color), var(--wa-color-mix-hover));
+:host(:hover) > [part='remove-button']::part(base) {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
 }
 
-:host(:active) > wa-icon-button {
-  color: color-mix(in oklab, var(--text-color), var(--wa-color-mix-active));
+:host(:active) > [part='remove-button']::part(base) {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
 }
 
 /*

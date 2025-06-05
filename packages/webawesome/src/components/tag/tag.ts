@@ -6,7 +6,7 @@ import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './tag.css';
 
 /**
@@ -15,7 +15,7 @@ import styles from './tag.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The tag's content.
  *

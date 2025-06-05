@@ -7,7 +7,7 @@ import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import '../tab-panel/tab-panel.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
 import '../tab/tab.js';
@@ -20,7 +20,7 @@ import styles from './tab-group.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  * @dependency wa-tab
  * @dependency wa-tab-panel
  *
