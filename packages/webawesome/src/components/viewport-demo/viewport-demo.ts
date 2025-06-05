@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { getComputedStyle } from '../../internal/computed-style.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './viewport-demo.css';
 
 export interface ViewportDimensions {
@@ -53,7 +53,7 @@ export const viewportPropertyConverter = {
  * @status experimental
  * @since 3.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The iframe (usually an `<iframe>` element).
  *
@@ -353,37 +353,23 @@ export default class WaViewportDemo extends WebAwesomeElement {
       <div id="viewport" part="frame" style=${styleMap(viewportStyle)} class=${classMap(viewportClasses)}>
         <span part="controls">
           ${resized
-            ? html`<wa-icon-button
-                name="arrow-rotate-left"
-                variant="regular"
-                label="Revert resizing"
+            ? html`<wa-button
+                appearance="plain"
                 @click=${() => this.iframe.removeAttribute('style')}
                 part="undo button"
-                >-</wa-icon-button
-              >`
+              >
+                <wa-icon name="arrow-rotate-left" variant="regular" label="Revert resizing"></wa-icon>
+              </wa-button>`
             : ''}
           ${dimensions}
           <span class="zoom">
-            <wa-icon-button
-              name="square-minus"
-              variant="regular"
-              label="Zoom out"
-              @click=${() => this.zoomOut()}
-              part="zoom-out button"
-              >-</wa-icon-button
-            >
-            <span class="zoom-level">
-              <wa-icon name="magnifying-glass-plus"></wa-icon>
-              ${Math.round(this.computedZoom * 100)}%
-            </span>
-            <wa-icon-button
-              name="square-plus"
-              variant="regular"
-              label="Zoom in"
-              @click=${() => this.zoomIn()}
-              part="zoom-in button"
-              >+</wa-icon-button
-            >
+            <wa-button appearance="plain" @click=${() => this.zoomOut()} part="zoom-out button">
+              <wa-icon name="square-minus" variant="regular" label="Zoom out"></wa-icon>
+            </wa-button>
+            <span class="zoom-level"> ${Math.round(this.computedZoom * 100)}% </span>
+            <wa-button appearance="plain" @click=${() => this.zoomIn()} part="zoom-in button">
+              <wa-icon name="square-plus" variant="regular" label="Zoom in"></wa-icon>
+            </wa-button>
           </span>
         </span>
         <slot @slotchange=${this.handleSlotChange}></slot>

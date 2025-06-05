@@ -89,6 +89,13 @@
   border: 0;
 }
 
+/* Icon buttons */
+.button.is-icon-button {
+  outline-offset: 2px;
+  width: var(--wa-form-control-height);
+  aspect-ratio: 1;
+}
+
 /* Pill modifier */
 :host([pill]) .button {
   border-radius: var(--wa-border-radius-pill);
@@ -107,11 +114,11 @@
 }
 
 .label {
-  display: inline-block;
+  display: flex;
 }
 
 .label::slotted(wa-icon) {
-  vertical-align: -2px;
+  align-self: center;
 }
 
 /*
@@ -164,6 +171,7 @@ wa-icon[part~='caret'] {
 /*
  * Badges
  */
+
 button ::slotted(wa-badge) {
   border-color: var(--wa-color-surface-default);
   position: absolute;

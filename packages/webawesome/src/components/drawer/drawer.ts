@@ -6,12 +6,13 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './drawer.css';
 
 /**
@@ -20,11 +21,11 @@ import styles from './drawer.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The drawer's main content.
  * @slot label - The drawer's label. Alternatively, you can use the `label` attribute.
- * @slot header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @slot header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @slot footer - The drawer's footer, usually one or more buttons representing various options.
  *
  * @event wa-show - Emitted when the drawer opens.
@@ -32,15 +33,15 @@ import styles from './drawer.css';
  * @event wa-hide - Emitted when the drawer closes.
  * @event wa-after-hide - Emitted after the drawer closes and all animations are complete.
  * @event {{ source: Element }} wa-hide - Emitted when the drawer is requesting to close. Calling
- *  `event.preventDefault()` will prevent the dialog from closing. You can inspect `event.detail.source` to see which
- *  element caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or
- *  the dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
+ *  `event.preventDefault()` will prevent the drawer from closing. You can inspect `event.detail.source` to see which
+ *  element caused the drawer to close. If the source is the drawer element itself, the user has pressed [[Escape]] or
+ *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
  *  behavior such as data loss.
  *
  * @csspart header - The drawer's header. This element wraps the title and header actions.
- * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
- * @csspart close-button - The close button, a `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
@@ -251,16 +252,20 @@ export default class WaDrawer extends WebAwesomeElement {
                 </h2>
                 <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>
-                  <wa-icon-button
+                  <wa-button
                     part="close-button"
                     exportparts="base:close-button__base"
                     class="close"
-                    name="xmark"
-                    label=${this.localize.term('close')}
-                    library="system"
-                    variant="solid"
+                    appearance="plain"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
-                  ></wa-icon-button>
+                  >
+                    <wa-icon
+                      name="xmark"
+                      label=${this.localize.term('close')}
+                      library="system"
+                      variant="solid"
+                    ></wa-icon>
+                  </wa-button>
                 </div>
               </header>
             `
@@ -279,6 +284,28 @@ export default class WaDrawer extends WebAwesomeElement {
     `;
   }
 }
+
+//
+// Watch for data-drawer="open *" clicks
+//
+document.addEventListener('click', (event: MouseEvent) => {
+  const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
+
+  if (drawerAttrEl instanceof Element) {
+    const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
+
+    if (command === 'open' && id?.length) {
+      const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
+      const drawer = doc.getElementById(id) as WaDrawer;
+
+      if (drawer?.localName === 'wa-drawer') {
+        drawer.open = true;
+      } else {
+        console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
+      }
+    }
+  }
+});
 
 if (!isServer) {
   // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688

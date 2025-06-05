@@ -67,24 +67,28 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Dismissing Dialogs
+### Opening and Closing Dialogs Declaratively
 
-You can add the special `data-dialog="close"` attribute to a button inside the dialog to tell it to close without additional JavaScript. Alternatively, you can set the `open` property to `false` to close the dialog programmatically.
+You can open and close dialogs with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-dialog="open id"` to any button on the page, where `id` is the ID of the dialog you want to open.
 
 ```html {.example}
-<wa-dialog label="Dialog" class="dialog-dismiss">
+<wa-dialog label="Dialog" id="dialog-opening">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
-<wa-button>Open Dialog</wa-button>
+<wa-button data-dialog="open dialog-opening">Open Dialog</wa-button>
+```
 
-<script>
-  const dialog = document.querySelector('.dialog-dismiss');
-  const openButton = dialog.nextElementSibling;
+Similarly, you can add `data-dialog="close"` to a button _inside_ of a dialog to tell it to close.
 
-  openButton.addEventListener('click', () => dialog.open = true);
-</script>
+```html {.example}
+<wa-dialog label="Dialog" id="dialog-dismiss">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
+</wa-dialog>
+
+<wa-button data-dialog="open dialog-dismiss">Open Dialog</wa-button>
 ```
 
 ### Custom Width
@@ -131,11 +135,13 @@ By design, a dialog's height will never exceed that of the viewport. As such, di
 
 ### Header Actions
 
-The header shows a functional close button by default. You can use the `header-actions` slot to add additional [icon buttons](/docs/components/icon-button) if needed.
+The header shows a functional close button by default. You can use the `header-actions` slot to add additional [buttons](/docs/components/button) if needed.
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-header-actions">
-  <wa-icon-button class="new-window" slot="header-actions" name="arrow-up-right-from-square" variant="solid"></wa-icon-button>
+  <wa-button class="new-window" slot="header-actions" appearance="plain">
+    <wa-icon name="arrow-up-right-from-square" variant="solid" label="Open in new window"></wa-icon>
+  </wa-button>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>

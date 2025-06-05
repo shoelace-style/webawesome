@@ -33,14 +33,14 @@
   <h1 class="title">
     <span v-content="title">{{ title }}</span>
     <template v-if="saved || tweaked">
-      <wa-icon-button name="pencil" label="Rename palette" @click="rename"></wa-icon-button>
-      <wa-icon-button v-if="saved" class="delete" name="trash" label="Delete palette" @click="deleteSaved"></wa-icon-button>
+      <wa-button appearance="plain" size="small" @click="rename">
+        <wa-icon name="pencil" label="Rename palette"></wa-icon>
+      </wa-button>
+      <wa-button appearance="plain" size="small" v-if="saved" class="delete" @click="deleteSaved">
+        <wa-icon name="trash" label="Delete palette"></wa-icon>
+      </wa-button>
       <wa-button @click="save()" :disabled="!unsavedChanges"
         :variant="unsavedChanges ? 'success' : 'neutral'" size="small" :appearance="unsavedChanges ? 'accent' : 'outlined'">
-        <span slot="prefix" class="icon-modifier">
-          <wa-icon name="sidebar" variant="regular"></wa-icon>
-          <wa-icon name="circle-plus" class="modifier" style="color: light-dark(var(--wa-color-green-70), var(--wa-color-green-60));"></wa-icon>
-        </span>
         <span v-content="unsavedChanges ? 'Save' : 'Saved'">Save</span>
       </wa-button>
     </template>
@@ -71,10 +71,8 @@
     <wa-tag v-for="tweakHumanReadable, param in tweaksHumanReadable" with-remove @wa-remove="reset(param)" v-content="tweakHumanReadable"></wa-tag>
    </div>
 
-  <wa-button @click="reset()" appearance="outlined" variant="danger">
-    <span slot="prefix" class="icon-modifier">
-      <wa-icon name="circle-xmark" variant="regular"></wa-icon>
-    </span>
+  <wa-button @click="reset()" appearance="outlined" variant="danger" size="small">
+    <wa-icon slot="prefix" name="circle-xmark" variant="regular"></wa-icon>
     Reset
   </wa-button>
 </wa-callout>
@@ -130,7 +128,9 @@
             @input="tweaking.grayChroma = true" @change="tweaking.grayChroma = false">
             <div slot="label">
               Gray colorfulness
-              <wa-icon-button @click="grayChroma = originalGrayChroma" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+              <wa-button appearance="plain" @click="grayChroma = originalGrayChroma" class="clear-button">
+                <wa-icon name="circle-xmark" label="Reset" variant="regular"></wa-icon>
+              </wa-button>
             </div>
           </wa-slider>
           <div class="label-min">Neutral</div>
@@ -149,7 +149,9 @@
           @change="tweaking.hue = tweaking.{{ hue }} = false">
           <div slot="label">
             Tweak {{ hue }} hue
-            <wa-icon-button @click="hueShifts.{{ hue }} = 0" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+            <wa-button appearance="plain" @click="hueShifts.{{ hue }} = 0" class="clear-button">
+              <wa-icon name="circle-xmark" label="Reset" variant="regular"></wa-icon>
+            </wa-button>
           </div>
         </wa-slider>
         <div class="label-min">More {{hueBefore}}</div>
@@ -193,7 +195,9 @@ style="--min: {{ chromaScaleBounds[0] }}; --max: {{ chromaScaleBounds[1] }};">
     @change="tweaking.chroma = false">
     <div slot="label">
       Overall colorfulness
-      <wa-icon-button @click="chromaScale = 1" class="clear-button" name="circle-xmark" library="system" variant="regular" label="Reset"></wa-icon-button>
+      <wa-button appearance="plain" @click="chromaScale = 1" class="clear-button">
+        <wa-icon name="circle-xmark" label="Reset" variant="regular"></wa-icon>
+      </wa-button>
     </div>
   </wa-slider>
   <div class="label-min">More muted</div>

@@ -6,7 +6,7 @@ import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './tag.css';
 
 /**
@@ -15,7 +15,7 @@ import styles from './tag.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The tag's content.
  *
@@ -23,7 +23,7 @@ import styles from './tag.css';
  *
  * @csspart base - The component's base wrapper.
  * @csspart content - The tag's content.
- * @csspart remove-button - The tag's remove button, an `<wa-icon-button>`.
+ * @csspart remove-button - The tag's remove button, a `<wa-button>`.
  * @csspart remove-button__base - The remove button's exported `base` part.
  */
 @customElement('wa-tag')
@@ -58,17 +58,16 @@ export default class WaTag extends WebAwesomeElement {
 
       ${this.withRemove
         ? html`
-            <wa-icon-button
+            <wa-button
               part="remove-button"
               exportparts="base:remove-button__base"
-              name="xmark"
-              library="system"
-              variant="solid"
-              label=${this.localize.term('remove')}
               class="remove"
+              appearance="plain"
               @click=${this.handleRemoveClick}
               tabindex="-1"
-            ></wa-icon-button>
+            >
+              <wa-icon name="xmark" library="system" variant="solid" label=${this.localize.term('remove')}></wa-icon>
+            </wa-button>
           `
         : ''}
     `;

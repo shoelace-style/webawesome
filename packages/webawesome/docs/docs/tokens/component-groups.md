@@ -96,6 +96,8 @@ Tooltip styles are shared between the [tooltip](/docs/components/tooltip) compon
 | `--wa-tooltip-line-height`   | `var(--wa-line-height-normal)`      |
 
 ```html {.example}
-<wa-icon-button id="bullseye-example" label="Button" name="bullseye"></wa-icon-button>
+<wa-button id="bullseye-example" appearance="plain">
+  <wa-icon label="Target" name="bullseye"></wa-icon>
+</wa-button>
 <wa-tooltip for="bullseye-example" open trigger="manual">This is a tooltip</wa-tooltip>
 ```

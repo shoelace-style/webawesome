@@ -103,6 +103,19 @@ It's often helpful to have a button that works like a link. This is possible by 
 <wa-button href="/assets/images/logo.svg" download="shoelace.svg">Download</wa-button>
 ```
 
+### Icon Buttons
+
+When only an [icon](/docs/components/icon) is slotted into the `label` slot, the button becomes an icon button. In this case, it's important to give the icon a label for users with assistive devices. Icon buttons can use any appearance or variant.
+
+```html {.example}
+<div class="wa-cluster">
+  <wa-button variant="neutral" appearance="accent"><wa-icon name="house" label="Home"></wa-icon></wa-button>
+  <wa-button variant="neutral" appearance="outlined"><wa-icon name="house" label="Home"></wa-icon></wa-button>
+  <wa-button variant="neutral" appearance="filled"><wa-icon name="house" label="Home"></wa-icon></wa-button>
+  <wa-button variant="neutral" appearance="plain"><wa-icon name="house" label="Home"></wa-icon></wa-button>
+</div>
+```
+
 ### Setting a Custom Width
 
 As expected, buttons can be given a custom width by setting the `width` CSS property. This is useful for making buttons span the full width of their container on smaller screens.
