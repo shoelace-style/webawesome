@@ -376,9 +376,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     } else {
       // Handle value for single thumb mode
       if (changedProperties.has('value')) {
-        if (this.value != null) {
-          this.value = clamp(this.value, this.min, this.max);
-        }
+        this.value = clamp(this.value, this.min, this.max);
         this.setValue(String(this.value));
       }
     }
