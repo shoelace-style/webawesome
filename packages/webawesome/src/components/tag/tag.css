@@ -33,8 +33,10 @@
   width: 1em;
 }
 
-:host(:hover) > [part='remove-button']::part(base) {
-  color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+@media (hover: hover) {
+  :host(:hover) > [part='remove-button']::part(base) {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
 }
 
 :host(:active) > [part='remove-button']::part(base) {

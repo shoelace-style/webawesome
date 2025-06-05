@@ -51,10 +51,12 @@
 }
 
 /* Interactive states */
-.button:not(.disabled):not(.loading):hover {
-  background-color: var(--background-color-hover, var(--background-color));
-  border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
-  color: var(--text-color-hover, var(--text-color));
+@media (hover: hover) {
+  .button:not(.disabled):not(.loading):hover {
+    background-color: var(--background-color-hover, var(--background-color));
+    border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
+    color: var(--text-color-hover, var(--text-color));
+  }
 }
 
 .button:not(.disabled):not(.loading):active {

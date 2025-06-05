@@ -25,8 +25,10 @@
   }
 }
 
-:host(:hover:not([disabled])) .tab {
-  color: currentColor;
+@media (hover: hover) {
+  :host(:hover:not([disabled])) .tab {
+    color: currentColor;
+  }
 }
 
 :host(:focus) {

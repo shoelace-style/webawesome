@@ -11,8 +11,10 @@
         /* Doesn't apply transform to buttons in dropdowns or button groups.
        * For dropdowns, this prevents the dropdown panel from shifting. */
         &:not(:where(wa-button-group &, wa-dropdown &, wa-radio-group &)) {
-          &:hover {
-            transform: scale(1.02);
+          @media (hover: hover) {
+            &:hover {
+              transform: scale(1.02);
+            }
           }
 
           &:active {
@@ -58,15 +60,17 @@
         }
 
         &:not([disabled]) {
-          &:hover {
-            &:where(:not(wa-button)),
-            &::part(base) {
-              background: linear-gradient(
-                180deg,
-                var(--gradient-bottom) 0%,
-                var(--gradient-middle) 51.88%,
-                var(--gradient-top) 100%
-              );
+          @media (hover: hover) {
+            &:hover {
+              &:where(:not(wa-button)),
+              &::part(base) {
+                background: linear-gradient(
+                  180deg,
+                  var(--gradient-bottom) 0%,
+                  var(--gradient-middle) 51.88%,
+                  var(--gradient-top) 100%
+                );
+              }
             }
           }
 
