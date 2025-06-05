@@ -73,12 +73,6 @@
       --border-radius: calc(var(--wa-border-radius-s) / 2);
     }
 
-    wa-icon-button::part(base) {
-      aspect-ratio: 1;
-      border-radius: var(--wa-border-radius-circle);
-      padding: 0.75em;
-    }
-
     input:where(
         :not(
           [type='button'],
