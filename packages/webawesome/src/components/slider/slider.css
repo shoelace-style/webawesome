@@ -161,7 +161,7 @@
   width: var(--marker-width);
   height: var(--marker-height);
   border-radius: 50%;
-  background-color: tomato;
+  background-color: var(--wa-color-surface-default);
 }
 
 .marker:first-of-type,

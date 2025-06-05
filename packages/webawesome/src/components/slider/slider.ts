@@ -5,6 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { SliderValidator } from '../../internal/validators/slider-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -68,6 +69,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   static observeSlots = true;
   static css = [formControlStyles, styles];
 
+  static get validators() {
+    return [...super.validators, SliderValidator()];
+  }
+
   private draggableTrack: DraggableElement;
   private draggableThumbMin: DraggableElement | null = null;
   private draggableThumbMax: DraggableElement | null = null;
@@ -77,8 +82,14 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   private valueWhenDraggingStarted: number | undefined;
   private activeThumb: 'min' | 'max' | null = null;
   private lastTrackPosition: number | null = null; // Track last position for direction detection
+
   protected get focusableAnchor() {
     return this.isRange ? this.thumbMin || this.slider : this.slider;
+  }
+
+  /** Override validation target to point to the focusable element */
+  get validationTarget() {
+    return this.focusableAnchor;
   }
 
   @query('#slider') slider: HTMLElement;
@@ -150,6 +161,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** The granularity the value must adhere to when incrementing and decrementing. */
   @property({ type: Number }) step: number = 1;
+
+  /** Makes the slider a required field. */
+  @property({ type: Boolean, reflect: true }) required = false;
 
   /** Tells the browser to focus the slider when the page loads or a dialog is shown. */
   @property({ type: Boolean }) autofocus: boolean;
@@ -333,8 +347,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    // Always be updating
-    this.updateValidity();
+    super.updated(changedProperties);
 
     // Handle range mode changes
     if (changedProperties.has('range')) {
@@ -354,7 +367,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       // Handle value for single thumb mode
       if (changedProperties.has('value')) {
         this.value = clamp(this.value, this.min, this.max);
-        this.internals.setFormValue(String(this.value));
+        this.setValue(String(this.value));
       }
     }
 
@@ -414,6 +427,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     this.isInvalid = false;
     this.hadUserInteraction = false;
     this.wasSubmitted = false;
+    super.formResetCallback();
   }
 
   /** Clamps a number to min/max while ensuring it's a valid step interval. */
@@ -703,31 +717,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       const formData = new FormData();
       formData.append(this.name || '', String(this.minValue));
       formData.append(this.name || '', String(this.maxValue));
-      this.internals.setFormValue(formData);
+      this.setValue(formData);
     }
-  }
-
-  /** Sets the form control's validity */
-  private async updateValidity() {
-    await this.updateComplete;
-
-    const validationMessage = this.internals.validity.customError ? this.internals.validationMessage : '';
-    const hasCustomValidity = validationMessage.length > 0;
-    const flags: ValidityStateFlags = {
-      badInput: false,
-      customError: hasCustomValidity,
-      patternMismatch: false,
-      rangeOverflow: false,
-      rangeUnderflow: false,
-      stepMismatch: false,
-      tooLong: false,
-      tooShort: false,
-      typeMismatch: false,
-      valueMissing: false,
-    };
-
-    this.isInvalid = hasCustomValidity;
-    this.internals.setValidity(flags, validationMessage, this.focusableAnchor);
   }
 
   /** Sets focus to the slider. */
