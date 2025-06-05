@@ -124,7 +124,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   @state()
   set value(val: number | null) {
-    val = Number(val) ?? null
+    val = Number(val) ?? null;
 
     if (this._value === val) {
       return;
@@ -141,8 +141,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ type: Number, attribute: 'max-value' }) maxValue = 50;
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number | null = Number(this.getAttribute('value')) || this.minValue;
-
+  @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number | null =
+    Number(this.getAttribute('value')) || this.minValue;
 
   /** Converts the slider to a range slider with two thumbs. */
   @property({ type: Boolean, reflect: true }) range = false;

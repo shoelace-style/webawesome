@@ -38,8 +38,8 @@ describe('<wa-slider>', () => {
         const el = await fixture<WaSlider>(html` <wa-slider disabled></wa-slider> `);
         const input = el.shadowRoot!.querySelector<HTMLElement>("[role='slider']")!;
 
-        expect(el.matches(":disabled")).to.be.true
-        expect(input.getAttribute("aria-disabled")).to.equal("true");
+        expect(el.matches(':disabled')).to.be.true;
+        expect(input.getAttribute('aria-disabled')).to.equal('true');
       });
 
       describe('when the value changes', () => {
