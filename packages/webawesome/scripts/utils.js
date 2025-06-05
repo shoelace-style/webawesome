@@ -11,6 +11,7 @@ export const getDistDir = () => process.env.DIST_DIR || join(getRootDir(), 'dist
 export const getCdnDir = () => process.env.CDN_DIR || join(getRootDir(), 'dist-cdn');
 export const getDocsDir = () => process.env.DOCS_DIR || join(getRootDir(), 'docs');
 export const getSiteDir = () => process.env.SITE_DIR || join(getRootDir(), '_site');
+export const getEleventyConfigPath = () => process.env.ELEVENTY_CONFIG_PATH || join(getDocsDir(), '.eleventy.js');
 
 /**
  * Runs a script and returns a promise that resolves with the content of stdout when the script exits or rejects with
@@ -57,4 +58,3 @@ export function runScript(scriptPath, args = [], options = {}) {
     });
   });
 }
-

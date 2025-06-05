@@ -108,9 +108,9 @@ describe('<wa-radio-group>', () => {
 
           // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
           // await clickOnElement(secondRadio);
-          secondRadio.click()
+          secondRadio.click();
           await secondRadio.updateComplete;
-          await radioGroup.updateComplete
+          await radioGroup.updateComplete;
 
           expect(radioGroup.checkValidity()).to.be.true;
           expect(radioGroup.customStates.has('user-invalid')).to.be.false;
@@ -135,7 +135,7 @@ describe('<wa-radio-group>', () => {
 
           // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
           // await clickOnElement(secondRadio);
-          secondRadio.click()
+          secondRadio.click();
           await radioGroup.updateComplete;
           radioGroup.value = '';
           await radioGroup.updateComplete;

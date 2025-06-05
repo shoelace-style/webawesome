@@ -8,8 +8,8 @@ import { getAllComponents } from './shared.js';
 
 const { outdir } = commandLineArgs({ name: 'outdir', type: String });
 
-const reactDir = path.join(process.env.ROOT_DIR || ".", 'src', 'react');
-const srcDir = process.env.ROOT_DIR ? path.join(process.env.ROOT_DIR, "src") : "."
+const reactDir = path.join(process.env.ROOT_DIR || '.', 'src', 'react');
+const srcDir = process.env.ROOT_DIR ? path.join(process.env.ROOT_DIR, 'src') : '.';
 
 // Clear build directory
 deleteSync(reactDir);
@@ -25,7 +25,7 @@ for await (const component of components) {
   const tagWithoutPrefix = component.tagName.replace(/^wa-/, '');
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');
-  const importPath = path.relative(srcDir, component.path)
+  const importPath = path.relative(srcDir, component.path);
 
   // We only want to wrap wa- prefixed events, because the others are native
   const eventsToWrap = component.events?.filter(event => event.name.startsWith('wa-')) || [];
@@ -81,4 +81,3 @@ for await (const component of components) {
 
 // Generate the index file
 fs.writeFileSync(path.join(reactDir, 'index.ts'), index.join('\n'), 'utf8');
-

@@ -54,7 +54,7 @@
     "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
     "test:contrast": "cd src/styles/color && node contrast.test.js",
     "test:watch": "web-test-runner --watch --group default",
-    "prettier": "prettier --check --log-level=warn --ignore-path=\"../../.prettierignore\".",
+    "prettier": "prettier --check --log-level=warn --ignore-path=\"../../.prettierignore\" .",
     "prettier:fix": "prettier --write --log-level=warn --ignore-path=\"../../.prettierignore\" .",
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress --config=\"../../cspell.json\"",
     "verify": "npm run prettier && npm run build && npm run test",

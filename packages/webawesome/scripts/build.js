@@ -8,19 +8,12 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import ora from 'ora';
 import { dirname, join, relative } from 'node:path';
 import process from 'node:process';
-import copy from 'recursive-copy';
 import { fileURLToPath } from 'node:url';
-import {
-  getCdnDir,
-  getDistDir,
-  getDocsDir,
-  getRootDir,
-  getSiteDir,
-  runScript,
-} from './utils.js';
+import ora from 'ora';
+import copy from 'recursive-copy';
+import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir, runScript } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -42,19 +35,18 @@ let buildContexts = {
 /**
  * @param {BuildOptions} [options={}]
  */
-export async function build (options = {}) {
+export async function build(options = {}) {
   if (!options.watchedSrcDirectories) {
-    options.watchedSrcDirectories = ['src']
+    options.watchedSrcDirectories = ['src'];
   }
 
   if (!options.watchedDocsDirectories) {
-    options.watchedDocsDirectories = [getDocsDir()]
+    options.watchedDocsDirectories = [getDocsDir()];
   }
 
-
   /**
-  * Runs the full build.
-  */
+   * Runs the full build.
+   */
   async function buildAll() {
     const start = Date.now();
 
@@ -92,8 +84,8 @@ export async function build (options = {}) {
   }
 
   /**
-  * Analyzes components and generates the custom elements manifest file.
-  */
+   * Analyzes components and generates the custom elements manifest file.
+   */
   function generateManifest() {
     spinner.start('Generating CEM');
 
@@ -113,14 +105,14 @@ export async function build (options = {}) {
   }
 
   /**
-  * Generates React wrappers for all components.
-  */
+   * Generates React wrappers for all components.
+   */
   function generateReactWrappers() {
     spinner.start('Generating React wrappers');
 
     try {
       // need to run  make-react from this directories.
-      execSync(`node ${join(__dirname, "make-react.js")} --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
+      execSync(`node ${join(__dirname, 'make-react.js')} --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
     } catch (error) {
       console.error(`\n\n${error.message}`);
 
@@ -134,8 +126,8 @@ export async function build (options = {}) {
   }
 
   /**
-  * Copies theme stylesheets to the dist.
-  */
+   * Copies theme stylesheets to the dist.
+   */
   async function generateStyles() {
     spinner.start('Copying stylesheets');
 
@@ -147,20 +139,20 @@ export async function build (options = {}) {
   }
 
   /**
-  * Runs TypeScript to generate types.
-  */
+   * Runs TypeScript to generate types.
+   */
   async function generateTypes() {
     spinner.start('Running the TypeScript compiler');
 
-    const cwd = process.cwd()
+    const cwd = process.cwd();
     try {
       if (process.env.ROOT_DIR) {
-        process.chdir(process.env.ROOT_DIR)
+        process.chdir(process.env.ROOT_DIR);
       }
       execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`);
-      process.chdir(cwd)
+      process.chdir(cwd);
     } catch (error) {
-      process.chdir(cwd)
+      process.chdir(cwd);
       if (!isDeveloping) {
         process.exit(1);
       }
@@ -173,12 +165,12 @@ export async function build (options = {}) {
   }
 
   /**
-  * Runs esbuild to generate the final dist.
-  */
+   * Runs esbuild to generate the final dist.
+   */
   async function generateBundle() {
     spinner.start('Bundling with esbuild');
 
-    const rootDir = process.env.ROOT_DIR || "."
+    const rootDir = process.env.ROOT_DIR || '.';
     // Bundled config
     const config = {
       format: 'esm',
@@ -246,8 +238,8 @@ export async function build (options = {}) {
   }
 
   /**
-  * Incrementally rebuilds the source files. Must be called only after `generateBundle()` has been called.
-  */
+   * Incrementally rebuilds the source files. Must be called only after `generateBundle()` has been called.
+   */
   async function regenerateBundle() {
     try {
       spinner.start('Re-bundling with esbuild');
@@ -266,12 +258,12 @@ export async function build (options = {}) {
   }
 
   /**
-  * Generates the documentation site.
-  */
+   * Generates the documentation site.
+   */
   async function generateDocs() {
     /**
-    * Used by the webawesome-app to skip doc generation since it will do its own.
-    */
+     * Used by the webawesome-app to skip doc generation since it will do its own.
+     */
     if (process.env.SKIP_ELEVENTY === 'true') {
       return;
     }
@@ -375,19 +367,19 @@ export async function build (options = {}) {
 
     // TODO: Should probably listen for all of these instead of just "change"
     const watchEvents = [
-      "change",
+      'change',
       // "unlink",
       // "add"
-    ]
+    ];
     // Rebuild and reload when source files change
-    options.watchedSrcDirectories.forEach((dir) => {
-      const watcher = bs.watch(join(dir, "**", "!(*.test).*"))
+    options.watchedSrcDirectories.forEach(dir => {
+      const watcher = bs.watch(join(dir, '**', '!(*.test).*'));
 
-      watchEvents.forEach((evt) => {
-        watcher.on(evt, handleWatchEvent(evt))
-      })
-      function handleWatchEvent (evt) {
-        return async (filename) => {
+      watchEvents.forEach(evt => {
+        watcher.on(evt, handleWatchEvent(evt));
+      });
+      function handleWatchEvent(evt) {
+        return async filename => {
           spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
 
           try {
@@ -401,8 +393,8 @@ export async function build (options = {}) {
               return;
             }
 
-            if (typeof options.onWatchEvent === "function") {
-              await options.onWatchEvent(evt, filename)
+            if (typeof options.onWatchEvent === 'function') {
+              await options.onWatchEvent(evt, filename);
             }
             await regenerateBundle();
 
@@ -427,29 +419,29 @@ export async function build (options = {}) {
               process.exit(1);
             }
           }
-        }
+        };
       }
-    })
+    });
 
     // Rebuild the docs and reload when the docs change
-    options.watchedDocsDirectories.forEach((dir) => {
-      const watcher = bs.watch(join(dir, "**", "*.*"))
+    options.watchedDocsDirectories.forEach(dir => {
+      const watcher = bs.watch(join(dir, '**', '*.*'));
 
-      watchEvents.forEach((evt) => {
-        watcher.on(evt, handleWatchEvent(evt))
-      })
+      watchEvents.forEach(evt => {
+        watcher.on(evt, handleWatchEvent(evt));
+      });
 
-      function handleWatchEvent (evt) {
-        return async (filename) => {
+      function handleWatchEvent(evt) {
+        return async filename => {
           spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
-          if (typeof options.onWatchEvent === "function") {
-            await options.onWatchEvent(evt, filename)
+          if (typeof options.onWatchEvent === 'function') {
+            await options.onWatchEvent(evt, filename);
           }
           await generateDocs();
           reload();
-        }
+        };
       }
-    })
+    });
   }
 
   //
@@ -468,22 +460,23 @@ export async function build (options = {}) {
 
   process.on('SIGINT', terminate);
   process.on('SIGTERM', terminate);
-  }
+}
 
 // https://exploringjs.com/nodejs-shell-scripting/ch_nodejs-path.html#detecting-if-module-is-main
 // Detects if this was called via node scripts/build.js
-function isRunAsMain () {
-  if (import.meta.url.startsWith('file:')) { // (A)
+function isRunAsMain() {
+  if (import.meta.url.startsWith('file:')) {
+    // (A)
     const modulePath = fileURLToPath(import.meta.url);
-    if (process.argv[1] === modulePath) { // (B)
-      return true
+    if (process.argv[1] === modulePath) {
+      // (B)
+      return true;
     }
   }
 
-  return false
+  return false;
 }
 
 if (isRunAsMain()) {
-  await build()
+  await build();
 }
-
