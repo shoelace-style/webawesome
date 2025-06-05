@@ -40,7 +40,9 @@ Frames are well-suited for images and image placeholders.
       <h3>The Lord of the Rings: The Fellowship of the Ring</h3>
       <span>J.R.R. Tolkien</span>
     </div>
-    <wa-icon-button id="options-menu" name="ellipsis"></wa-icon-button>
+    <wa-button id="options-menu" appearance="plain">
+      <wa-icon name="ellipsis" label="Options"></wa-icon>
+    </wa-button>
     <wa-tooltip for="options-menu">Options</wa-tooltip>
   </div>
 </div>
@@ -57,7 +59,9 @@ Frames are well-suited for images and image placeholders.
       <span class="wa-body-s">Kitten &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-icon-button id="fav-whitesocks" name="heart" variant="regular"></wa-icon-button>
+        <wa-button id="fav-whitesocks" appearance="plain" size="small">
+          <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
+        </wa-button>
         <wa-tooltip for="fav-whitesocks">Favorite</wa-tooltip>
       </div>
     </div>
@@ -74,7 +78,9 @@ Frames are well-suited for images and image placeholders.
       <span class="wa-body-s">Adult &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-icon-button id="fav-bumpkin" name="heart" variant="regular"></wa-icon-button>
+        <wa-button id="fav-bumpkin" appearance="plain" size="small">
+          <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
+        </wa-button>
         <wa-tooltip for="fav-bumpkin">Favorite</wa-tooltip>
       </div>
     </div>
@@ -88,7 +94,9 @@ Frames are well-suited for images and image placeholders.
       <span class="wa-body-s">Kitten &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-icon-button id="fav-swishtail" name="heart" variant="regular"></wa-icon-button>
+        <wa-button id="fav-swishtail" appearance="plain" size="small">
+          <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
+        </wa-button>
         <wa-tooltip for="fav-swishtail">Favorite</wa-tooltip>
       </div>
     </div>
@@ -102,7 +110,9 @@ Frames are well-suited for images and image placeholders.
       <span class="wa-body-s">Adult &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-icon-button id="fav-sharpears" name="heart" variant="regular"></wa-icon-button>
+        <wa-button id="fav-sharpears" appearance="plain" size="small">
+          <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
+        </wa-button>
         <wa-tooltip for="fav-sharpears">Favorite</wa-tooltip>
       </div>
     </div>
