@@ -5,6 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { SliderValidator } from '../../internal/validators/slider-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
@@ -13,7 +14,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './slider.css';
-import { submitOnEnter } from '../../internal/submit-on-enter.js';
 
 /**
  * <wa-slider>
@@ -120,7 +120,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number =
-    this.getAttribute('value') == null ?  this.minValue : Number(this.getAttribute("value"));
+    this.getAttribute('value') == null ? this.minValue : Number(this.getAttribute('value'));
 
   private _value: number = this.defaultValue;
 
@@ -144,7 +144,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     this.valueHasChanged = true;
     this._value = val;
   }
-
 
   /** Converts the slider to a range slider with two thumbs. */
   @property({ type: Boolean, reflect: true }) range = false;
@@ -571,7 +570,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
       // Handle form submission on Enter
       case 'Enter':
-        submitOnEnter(event, this)
+        submitOnEnter(event, this);
         return;
     }
 

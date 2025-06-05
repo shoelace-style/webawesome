@@ -5,6 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -14,7 +15,6 @@ import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './input.css';
-import { submitOnEnter } from '../../internal/submit-on-enter.js';
 
 /**
  * @summary Inputs collect data from the user.
@@ -245,7 +245,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
-    submitOnEnter(event, this)
+    submitOnEnter(event, this);
   }
 
   private handlePasswordToggle() {
