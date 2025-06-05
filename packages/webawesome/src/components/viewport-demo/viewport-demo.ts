@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { getComputedStyle } from '../../internal/computed-style.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './viewport-demo.css';
 
 export interface ViewportDimensions {
