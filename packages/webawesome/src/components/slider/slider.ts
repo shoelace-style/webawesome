@@ -34,7 +34,6 @@ import styles from './slider.css';
  * @event focus - Emitted when the control gains focus.
  * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
-
  *
  * @csspart label - The element that contains the sliders's label.
  * @csspart hint - The element that contains the slider's description.
