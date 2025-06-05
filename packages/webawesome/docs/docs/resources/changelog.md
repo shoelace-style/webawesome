@@ -38,6 +38,15 @@ During the alpha period, things might break! We take breaking changes very serio
   - Added convenience tokens for `--wa-font-size-smaller` and `--wa-font-size-larger`
   - Updated components to use relative `em` values for internal padding and margin wherever appropriate
 - 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
+- 🚨 BREAKING: redesigned `<wa-slider>` with extensive new functionality
+  - Added support for range sliders with dual thumbs using the `range` attribute
+  - Added vertical orientation support with `orientation="vertical"`
+  - Added visual markers at each step with `with-markers`
+  - Added contextual reference labels with `with-references` and the `reference` slot
+  - Added tooltips showing current values with `with-tooltip`
+  - Added customizable indicator offset with `indicator-offset` attribute
+  - Added value formatting support with the `valueFormatter` property
+  - Updated to use consistent `with-*` attribute naming pattern
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
@@ -52,7 +61,6 @@ During the alpha period, things might break! We take breaking changes very serio
 - Improved native `<button>` styles to properly space icons
 - Improved button appearances in `<wa-color-picker>`
 - Improved `<wa-rating>` to have more accessible icons by default
-- Improved `<wa-slider>` to support dual sliders, vertical sliders, and an improved styling API
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
