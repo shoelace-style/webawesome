@@ -141,19 +141,19 @@ Various text formatting elements for emphasis and semantic meaning.
 ```html {.example}
 <div class="two-columns">
   <p><strong>Bold</strong></p>
-  <p><em>Italics</em></p>
+  <p><em>Italic</em></p>
   <p><u>Underline</u></p>
+  <p><s>Strike-through</s></p>
   <p><del>Deleted</del></p>
   <p><ins>Inserted</ins></p>
-  <p><s>Strike-through</s></p>
   <p><small>Small</small></p>
-  <p><span>Text <sub>Sub</sub></span></p>
-  <p><span>Text <sup>Sup</sup></span></p>
+  <p><span>Subscript <sub>Sub</sub></span></p>
+  <p><span>Superscript <sup>Sup</sup></span></p>
   <p><abbr title="Abbreviation">Abbr.</abbr></p>
-  <p><kbd>Keyboard</kbd></p>
   <p><mark>Highlighted</mark></p>
   <p><a href="#">Link text</a></p>
   <p><code>Inline code</code></p>
+  <p><kbd>Keyboard</kbd></p>
 </div>
 ```
 
