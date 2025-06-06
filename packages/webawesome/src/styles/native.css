@@ -465,13 +465,16 @@
   }
   /* #endregion */
 
-  /* Dialog */
+  /* #region 
+  // Dialog
+  */
   dialog {
     flex-direction: column;
-    width: 31rem;
-    max-width: calc(100% - var(--wa-space-2xl));
+    align-items: start;
+    width: 32rem;
+    max-width: calc(100% - var(--wa-space-l));
     background-color: var(--wa-color-surface-raised);
-    padding: var(--wa-space-xl);
+    padding: var(--wa-space-l);
     border-radius: var(--wa-panel-border-radius);
     border: none;
     box-shadow: var(--wa-shadow-l);
@@ -493,6 +496,7 @@
   dialog::backdrop {
     background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
   }
+  /* #endregion */
 
   /* Forms */
   label {
