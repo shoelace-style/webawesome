@@ -17,6 +17,7 @@ import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import WaPopup from '../popup/popup.js'; // Added import for wa-popup
 import styles from './dropdown.css';
+import { live } from 'lit/directives/live.js';
 
 const openDropdowns = new Set<WaDropdown>();
 
@@ -112,15 +113,15 @@ export default class WaDropdown extends WebAwesomeElement {
     this.syncAriaAttributes();
   }
 
-  updated(changedProperties: PropertyValues) {
+  async updated(changedProperties: PropertyValues) {
     if (changedProperties.has('open')) {
       this.customStates.set('open', this.open);
 
       if (this.open) {
-        this.showMenu();
+        await this.showMenu();
       } else {
-        this.closeAllSubmenus();
-        this.hideMenu();
+        this.closeAllSubmenus()
+        await this.hideMenu();
       }
     }
 
@@ -221,7 +222,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    openDropdowns.forEach(dropdown => (dropdown.open = false));
+    openDropdowns.forEach(dropdown => dropdown !== this && (dropdown.open = false));
 
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
@@ -231,6 +232,8 @@ export default class WaDropdown extends WebAwesomeElement {
     document.addEventListener('pointerdown', this.handleDocumentPointerDown);
     document.addEventListener('mousemove', this.handleGlobalMouseMove);
 
+    // In case its still trying to hide, remove the class to cancel the hide animation.
+    this.menu.classList.remove('hide')
     await animateWithClass(this.menu, 'show'); // Animate the menu div
 
     const items = this.getItems();
@@ -258,13 +261,16 @@ export default class WaDropdown extends WebAwesomeElement {
     document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
 
+    this.menu.classList.remove('show')
     await animateWithClass(this.menu, 'hide'); // Animate before hiding
-    this.popup.active = false; // Hide using wa-popup
+
+    // Sometimes this ends up out of sync. So make sure it aligns with `open`
+    this.popup.active = this.open; // Hide using wa-popup
     this.dispatchEvent(new WaAfterHideEvent());
   }
 
   /** Handles key down events when the menu is open */
-  private handleDocumentKeyDown = (event: KeyboardEvent) => {
+  private handleDocumentKeyDown = async (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (event.key === 'Escape') {
@@ -374,7 +380,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     if (event.key === 'Tab') {
-      this.hideMenu();
+      await this.hideMenu();
     }
 
     if (
@@ -695,8 +701,12 @@ export default class WaDropdown extends WebAwesomeElement {
   }
 
   render() {
+    // On initial render, we want to use this.open, for everything else, we sync off of this.popup.active to get animations working.
+    let active = this.hasUpdated ? this.popup.active : this.open
+
+
     return html`
-      <wa-popup placement=${this.placement} distance=${this.distance} skidding=${this.skidding} active=${this.open}>
+      <wa-popup placement=${this.placement} distance=${this.distance} skidding=${this.skidding} ?active=${active}>
         <slot
           name="trigger"
           slot="anchor"
