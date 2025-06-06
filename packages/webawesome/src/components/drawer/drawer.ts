@@ -68,10 +68,7 @@ export default class WaDrawer extends WebAwesomeElement {
 
   @query('.drawer') drawer: HTMLDialogElement;
 
-  /**
-   * Indicates whether or not the drawer is open. You can toggle this attribute to show and hide the drawer, or you can
-   * use the `show()` and `hide()` methods and this attribute will reflect the drawer's open state.
-   */
+  /** Indicates whether or not the drawer is open. Toggle this attribute to show and hide the drawer. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /**

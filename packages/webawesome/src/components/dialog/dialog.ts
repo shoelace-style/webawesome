@@ -63,10 +63,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   @query('.dialog') dialog: HTMLDialogElement;
 
-  /**
-   * Indicates whether or not the dialog is open. You can toggle this attribute to show and hide the dialog, or you can
-   * use the `show()` and `hide()` methods and this attribute will reflect the dialog's open state.
-   */
+  /** Indicates whether or not the dialog is open. Toggle this attribute to show and hide the dialog. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /**
