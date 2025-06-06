@@ -456,3 +456,12 @@ Multi-line text input fields for longer content.
 ```html {.example}
 <label>Textarea <textarea placeholder="Type something"></textarea></label>
 ```
+
+### Fieldsets 
+
+```html {.example}
+<fieldset>
+  <legend>Legend</legend>
+  Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Tincidunt id aliquet risus feugiat in ante. Ac turpis egestas integer eget aliquet nibh praesent tristique magna.
+</fieldset>
+```
