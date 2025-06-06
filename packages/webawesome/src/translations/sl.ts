@@ -35,6 +35,8 @@ const translation: Translation = {
   showPassword: 'Prikaži geslo',
   slideNum: slide => `Diapozitiv ${slide}`,
   toggleColorFormat: 'Preklopi format barve',
+  zoomIn: 'Povečaj',
+  zoomOut: 'Pomanjšaj',
 };
 
 registerTranslation(translation);

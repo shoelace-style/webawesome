@@ -26,8 +26,10 @@
   transition: color var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-:host(:not(:last-of-type)) .label:hover {
-  color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+@media (hover: hover) {
+  :host(:not(:last-of-type)) .label:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
 }
 
 :host(:not(:last-of-type)) .label:active {

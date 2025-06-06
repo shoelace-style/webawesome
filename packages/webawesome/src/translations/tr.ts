@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Şifreyi göster',
   slideNum: slide => `Slayt ${slide}`,
   toggleColorFormat: 'Renk biçimini değiştir',
+  zoomIn: 'Yakınlaştır',
+  zoomOut: 'Uzaklaştır',
 };
 
 registerTranslation(translation);

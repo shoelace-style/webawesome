@@ -195,17 +195,21 @@
         margin-inline-end: 0.75em;
       }
 
-      &:hover {
-        --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
-        &:is(:checked, :indeterminate, :state(checked), :state(indeterminate)) {
-          --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color-checked), transparent 85%);
+      @media (hover: hover) {
+        &:hover {
+          --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+          &:is(:checked, :indeterminate, :state(checked), :state(indeterminate)) {
+            --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color-checked), transparent 85%);
+          }
         }
       }
     }
 
-    input[type='range']:hover,
-    wa-slider:hover {
-      --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--thumb-color), transparent 85%);
+    @media (hover: hover) {
+      input[type='range']:hover,
+      wa-slider:hover {
+        --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--thumb-color), transparent 85%);
+      }
     }
 
     wa-switch {
@@ -220,8 +224,10 @@
         margin-inline-end: 0.75em;
       }
 
-      &:hover {
-        --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+      @media (hover: hover) {
+        &:hover {
+          --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+        }
       }
 
       &:not(:state(checked))::part(thumb) {

@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Jelszó megjelenítése',
   slideNum: slide => `${slide}. dia`,
   toggleColorFormat: 'Színformátum változtatása',
+  zoomIn: 'Nagyítás',
+  zoomOut: 'Kicsinyítés',
 };
 
 registerTranslation(translation);

@@ -9,8 +9,10 @@ wa-copy-button.copy-button {
   border-radius: var(--wa-border-radius-m);
   padding: 0.25rem;
 
-  &:hover {
-    color: white;
+  @media (hover: hover) {
+    &:hover {
+      color: white;
+    }
   }
 
   &:focus-visible {

@@ -23,9 +23,11 @@
   outline: none;
 }
 
-:host(:not([disabled], :state(current)):is(:state(hover), :hover)) {
-  background-color: var(--background-color-hover);
-  color: var(--text-color-hover);
+@media (hover: hover) {
+  :host(:not([disabled], :state(current)):is(:state(hover), :hover)) {
+    background-color: var(--background-color-hover);
+    color: var(--text-color-hover);
+  }
 }
 
 :host(:state(current)),
