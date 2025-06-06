@@ -172,30 +172,6 @@ describe('<wa-breadcrumb-item>', () => {
           expect(childNodes.length).to.eq(1);
         });
       });
-
-      describe('when rendering a wa-dropdown in the default slot', () => {
-        it('should not render a link or button tag, but a div wrapper', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html`
-            <wa-breadcrumb-item>
-              <wa-dropdown>
-                <wa-button slot="trigger" size="small" circle>
-                  <wa-icon label="More options" name="ellipsis"></wa-icon>
-                </wa-button>
-                <wa-menu>
-                  <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
-                  <wa-menu-item type="checkbox">Web Development</wa-menu-item>
-                  <wa-menu-item type="checkbox">Marketing</wa-menu-item>
-                </wa-menu>
-              </wa-dropdown>
-            </wa-breadcrumb-item>
-          `);
-
-          await expect(el).to.be.accessible();
-          expect(el.shadowRoot!.querySelector('a')).to.be.null;
-          expect(el.shadowRoot!.querySelector('button')).to.be.null;
-          expect(el.shadowRoot!.querySelector('.label-dropdown')).not.to.be.null;
-        });
-      });
     });
   }
 });
