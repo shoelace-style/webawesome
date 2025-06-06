@@ -3,6 +3,7 @@ import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/d
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import { live } from 'lit/directives/live.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -17,7 +18,6 @@ import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import WaPopup from '../popup/popup.js'; // Added import for wa-popup
 import styles from './dropdown.css';
-import { live } from 'lit/directives/live.js';
 
 const openDropdowns = new Set<WaDropdown>();
 
@@ -120,7 +120,7 @@ export default class WaDropdown extends WebAwesomeElement {
       if (this.open) {
         await this.showMenu();
       } else {
-        this.closeAllSubmenus()
+        this.closeAllSubmenus();
         await this.hideMenu();
       }
     }
@@ -233,7 +233,7 @@ export default class WaDropdown extends WebAwesomeElement {
     document.addEventListener('mousemove', this.handleGlobalMouseMove);
 
     // In case its still trying to hide, remove the class to cancel the hide animation.
-    this.menu.classList.remove('hide')
+    this.menu.classList.remove('hide');
     await animateWithClass(this.menu, 'show'); // Animate the menu div
 
     const items = this.getItems();
@@ -261,7 +261,7 @@ export default class WaDropdown extends WebAwesomeElement {
     document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
 
-    this.menu.classList.remove('show')
+    this.menu.classList.remove('show');
     await animateWithClass(this.menu, 'hide'); // Animate before hiding
 
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
@@ -702,8 +702,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   render() {
     // On initial render, we want to use this.open, for everything else, we sync off of this.popup.active to get animations working.
-    let active = this.hasUpdated ? this.popup.active : this.open
-
+    let active = this.hasUpdated ? this.popup.active : this.open;
 
     return html`
       <wa-popup placement=${this.placement} distance=${this.distance} skidding=${this.skidding} ?active=${active}>
