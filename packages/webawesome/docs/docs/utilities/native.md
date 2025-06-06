@@ -77,16 +77,16 @@ Organized content in bulleted or numbered format with proper nesting support.
 <ol>
   <li>List item 1</li>
   <li>List item 2
-    <ul>
+    <ol>
       <li>Subitem a</li>
       <li>Subitem b</li>
-    </ul>
+    </ol>
   </li>
   <li>List item 3</li>
 </ol>
 ```
 
-### Definition Lists
+### Description Lists
 
 Term and definition pairs for glossaries and descriptions.
 

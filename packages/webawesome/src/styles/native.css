@@ -127,6 +127,33 @@
   /* #endregion */
 
   /* #region 
+  // Lists
+  */
+  ul,
+  ol {
+    padding: 0;
+    margin-inline-start: 1.125em;
+  }
+
+  li > ul,
+  li > ol {
+    margin-inline-start: 1.375em;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  li {
+    padding: 0;
+  }
+
+  dt {
+    font-weight: var(--wa-font-weight-bold);
+  }
+  /* #endregion */
+
+  /* #region 
   // Inline Text Elements
   */
   strong,
@@ -304,6 +331,60 @@
 
   iframe {
     border: none;
+  }
+  /* #endregion */
+
+  /* #region 
+  // Tables
+  */
+  table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+  }
+
+  caption {
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-bold);
+
+    &:has(+ *) {
+      margin-block-end: 0.75em;
+    }
+  }
+
+  tbody {
+    tr {
+      border-top: solid var(--wa-border-width-s) var(--wa-color-border-quiet);
+
+      :where(table.wa-zebra-rows) &:nth-child(odd) {
+        background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--wa-color-fill-quiet);
+
+          &,
+          + tr {
+            border-top-color: var(--wa-color-border-normal);
+          }
+        }
+      }
+    }
+  }
+
+  td,
+  th {
+    text-align: start;
+    padding: 0.75em;
+    vertical-align: top;
+  }
+
+  th {
+    font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-bold);
+    padding-block: 0.75em;
   }
   /* #endregion */
 
@@ -1138,81 +1219,6 @@
     &::-webkit-slider-thumb {
       cursor: not-allowed;
     }
-  }
-
-  /* Lists */
-  ul,
-  ol,
-  dl {
-    padding: 0;
-    margin: 0 0 var(--wa-space-xl) var(--wa-space-xl);
-  }
-
-  ul {
-    list-style: disc;
-  }
-
-  li {
-    padding: 0;
-  }
-
-  li > ul,
-  li > ol {
-    margin-block-end: 0;
-  }
-
-  /* Definition lists */
-  dt {
-    font-weight: var(--wa-font-weight-semibold);
-  }
-
-  dd {
-    margin-inline-start: var(--wa-space-m);
-  }
-
-  /* Tables */
-  table {
-    width: 100%;
-    border: none;
-    border-collapse: collapse;
-  }
-
-  caption {
-    color: var(--wa-color-text-quiet);
-  }
-
-  tbody {
-    tr {
-      border-top: solid var(--wa-border-width-s) var(--wa-color-border-quiet);
-
-      :where(table.wa-zebra-rows) &:nth-child(odd) {
-        background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--wa-color-fill-quiet);
-
-          &,
-          + tr {
-            border-top-color: var(--wa-color-border-normal);
-          }
-        }
-      }
-    }
-  }
-
-  td,
-  th {
-    text-align: start;
-    padding: var(--wa-space-s) var(--wa-space-s);
-    vertical-align: top;
-  }
-
-  th {
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-bold);
-    padding-block: var(--wa-space-xs);
   }
 
   /* Progress */
