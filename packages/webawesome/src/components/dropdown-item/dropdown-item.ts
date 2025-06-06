@@ -16,7 +16,6 @@ import styles from './dropdown-item.css';
  *
  * @event blur - Emitted when the dropdown item loses focus.
  * @event focus - Emitted when the dropdown item gains focus.
- * @event submenu-opening - Emitted when the item is about to open its submenu.
  *
  * @slot - The dropdown item's label.
  * @slot icon - An optional icon to display before the label.
@@ -43,6 +42,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** The type of menu item to render. */
   @property({ reflect: true }) variant: 'danger' | 'default' = 'default';
+
+  /**
+   * @internal The dropdown item's size.
+   */
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /**
    * @internal The controller will set this property to true when at least one checkbox exists in the dropdown. This

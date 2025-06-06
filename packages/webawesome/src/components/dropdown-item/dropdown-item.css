@@ -6,7 +6,6 @@
   border-radius: var(--wa-border-radius-s);
   isolation: isolate;
   color: var(--wa-color-neutral-on-quiet);
-  font-size: 0.9375em;
   line-height: var(--wa-line-height-normal);
   cursor: pointer;
   transition:
@@ -30,19 +29,24 @@
 }
 
 :host(:state(disabled)) {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-:host([variant='danger']:focus-visible) {
-  background-color: var(--wa-color-danger-fill-quiet);
-  color: var(--wa-color-danger-on-quiet);
+/* Sizes */
+:host([size='small']) {
+  font-size: var(--wa-font-size-s);
 }
 
-:host(:state(disabled)) {
-  opacity: 0.5;
+:host([size='medium']) {
+  font-size: var(--wa-font-size-m);
 }
 
-/* danger variant */
+:host([size='large']) {
+  font-size: var(--wa-font-size-l);
+}
+
+/* Danger variant */
 :host([variant='danger']),
 :host([variant='danger']) #details {
   color: var(--wa-color-danger-on-quiet);
