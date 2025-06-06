@@ -161,11 +161,13 @@ Various text formatting elements for emphasis and semantic meaning.
 
 Formatted code snippets with proper syntax styling.
 
-```
+```html {.example}
+<pre>
 // do a thing
 export function thing() {
   return true;
 }
+</pre>
 ```
 
 ### Images
