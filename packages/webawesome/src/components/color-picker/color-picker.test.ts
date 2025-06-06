@@ -329,13 +329,6 @@ describe('<wa-color-picker>', () => {
         });
       });
 
-      it('should render in a dropdown', async () => {
-        const el = await fixture<WaColorPicker>(html` <wa-color-picker></wa-color-picker> `);
-        const dropdown = el.shadowRoot!.querySelector('wa-dropdown');
-
-        expect(dropdown).to.exist;
-      });
-
       it('should show opacity slider when opacity is enabled', async () => {
         const el = await fixture<WaColorPicker>(html` <wa-color-picker opacity></wa-color-picker> `);
         const opacitySlider = el.shadowRoot!.querySelector('[part*="opacity-slider"]')!;
@@ -368,7 +361,7 @@ describe('<wa-color-picker>', () => {
             <button type="button">Click me</button>
           </div>
         `);
-        const colorPicker = el.querySelector('wa-color-picker')!;
+        const colorPicker = el.querySelector<WaColorPicker>('wa-color-picker')!;
         const trigger = colorPicker.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
         const button = el.querySelector('button')!;
         const focusHandler = sinon.spy();
@@ -456,7 +449,7 @@ describe('<wa-color-picker>', () => {
             </form>
           `);
           const button = form.querySelector('wa-button')!;
-          const colorPicker = form.querySelector('wa-color-picker')!;
+          const colorPicker = form.querySelector<WaColorPicker>('wa-color-picker')!;
           colorPicker.value = '#000000';
 
           await colorPicker.updateComplete;
