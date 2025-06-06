@@ -1,5 +1,6 @@
 :host {
   --show-duration: 50ms;
+  --hide-duration: 50ms;
   display: contents;
 }
 
@@ -25,7 +26,7 @@
   }
 
   &.hide {
-    animation: show var(--show-duration) ease reverse;
+    animation: show var(--hide-duration) ease reverse;
   }
 
   ::slotted(h1),
