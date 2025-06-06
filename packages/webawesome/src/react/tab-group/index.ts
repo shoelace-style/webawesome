@@ -14,7 +14,7 @@ const tagName = 'wa-tab-group';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  * @dependency wa-tab
  * @dependency wa-tab-panel
  *
@@ -29,7 +29,7 @@ const tagName = 'wa-tab-group';
  * @csspart nav - The tab group's navigation container where tabs are slotted in.
  * @csspart tabs - The container that wraps the tabs.
  * @csspart body - The tab group's body where tab panels are slotted in.
- * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, an `<wa-icon-button>`.
+ * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, a `<wa-button>`.
  * @csspart scroll-button-start - The starting scroll button.
  * @csspart scroll-button-end - The ending scroll button.
  * @csspart scroll-button__base - The scroll button's exported `base` part.

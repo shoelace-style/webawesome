@@ -14,11 +14,11 @@ const tagName = 'wa-dialog';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The dialog's main content.
  * @slot label - The dialog's label. Alternatively, you can use the `label` attribute.
- * @slot header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @slot header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @slot footer - The dialog's footer, usually one or more buttons representing various options.
  *
  * @event wa-show - Emitted when the dialog opens.
@@ -31,9 +31,9 @@ const tagName = 'wa-dialog';
  * @event wa-after-hide - Emitted after the dialog closes and all animations are complete.
  *
  * @csspart header - The dialog's header. This element wraps the title and header actions.
- * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The dialog's title.
- * @csspart close-button - The close button, a `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  * @csspart body - The dialog's body.
  * @csspart footer - The dialog's footer.

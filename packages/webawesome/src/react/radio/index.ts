@@ -13,7 +13,6 @@ const tagName = 'wa-radio';
  * @dependency wa-icon
  *
  * @slot - The radio's label.
- * @slot hint - Text that describes how to use the checkbox. Alternatively, you can use the `hint` attribute.
  *
  * @event blur - Emitted when the control loses focus.
  * @event focus - Emitted when the control gains focus.
@@ -21,7 +20,6 @@ const tagName = 'wa-radio';
  * @csspart control - The circular container that wraps the radio's checked state.
  * @csspart checked-icon - The checked icon.
  * @csspart label - The container that wraps the radio's label.
- * @csspart hint - The hint's wrapper.
  *
  * @cssproperty --background-color - The radio's background color.
  * @cssproperty --background-color-checked - The radio's background color when checked.

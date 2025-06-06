@@ -15,8 +15,6 @@ const tagName = 'wa-tab';
  * @cssproperty --active-tab-color - The color of the active tab's label.
  *
  * @csspart base - The component's base wrapper.
- * @csspart close-button - The close button, an `<wa-icon-button>`.
- * @csspart base - The close button's exported `base` part.
  */
 const reactWrapper = createComponent({
   tagName,

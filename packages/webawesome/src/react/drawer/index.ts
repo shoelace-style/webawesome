@@ -14,11 +14,11 @@ const tagName = 'wa-drawer';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The drawer's main content.
  * @slot label - The drawer's label. Alternatively, you can use the `label` attribute.
- * @slot header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @slot header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @slot footer - The drawer's footer, usually one or more buttons representing various options.
  *
  * @event wa-show - Emitted when the drawer opens.
@@ -26,15 +26,15 @@ const tagName = 'wa-drawer';
  * @event wa-hide - Emitted when the drawer closes.
  * @event wa-after-hide - Emitted after the drawer closes and all animations are complete.
  * @event {{ source: Element }} wa-hide - Emitted when the drawer is requesting to close. Calling
- *  `event.preventDefault()` will prevent the dialog from closing. You can inspect `event.detail.source` to see which
- *  element caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or
- *  the dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
+ *  `event.preventDefault()` will prevent the drawer from closing. You can inspect `event.detail.source` to see which
+ *  element caused the drawer to close. If the source is the drawer element itself, the user has pressed [[Escape]] or
+ *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
  *  behavior such as data loss.
  *
  * @csspart header - The drawer's header. This element wraps the title and header actions.
- * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
- * @csspart close-button - The close button, a `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
