@@ -300,11 +300,9 @@
       background-color: transparent;
       padding: 0;
     }
-  }
 
-  /* Remove solid background when printing */
-  @media print {
-    pre {
+    /* Print styles */
+    @media print {
       background: none;
       border: solid var(--wa-border-width-s) var(--wa-color-surface-border);
     }
@@ -388,13 +386,46 @@
   }
   /* #endregion */
 
-  /* Details */
+  /* #region 
+  // Details
+  */
   details {
     background-color: var(--wa-color-surface-default);
     border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
     border-radius: var(--wa-panel-border-radius);
     padding: 0;
     overflow-anchor: none;
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: pointer;
+      padding: var(--wa-space-m);
+
+      > * {
+        margin: 0;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline: var(--wa-focus-ring);
+        outline-offset: var(--wa-focus-ring-offset);
+      }
+    }
+
+    &[open] {
+      padding: 0 var(--wa-space-m) var(--wa-space-m) var(--wa-space-m);
+
+      summary {
+        margin-inline: calc(-1 * var(--wa-space-m));
+      }
+    }
 
     /* Print styles */
     @media print {
@@ -407,72 +438,32 @@
     }
   }
 
+  /* Replace the summary marker */
   details summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    user-select: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-    padding: var(--wa-space-m);
-
     &::marker,
     &::-webkit-details-marker {
       display: none;
     }
 
-    &:focus {
-      outline: none;
+    &::after {
+      content: '';
+      background-color: var(--wa-color-text-quiet);
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
+        center no-repeat;
+      width: 1rem;
+      height: 1rem;
+      rotate: 0deg;
     }
 
-    &:focus-visible {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
+    &:dir(rtl)::after {
+      rotate: 180deg;
     }
   }
 
-  details summary::after {
-    content: '';
-    background-color: currentColor;
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
-      center no-repeat;
-    width: 1rem;
-    height: 1rem;
-    rotate: 0deg;
-  }
-
-  details:dir(rtl) > summary::after {
-    rotate: 180deg;
-  }
-
-  details[open] > summary::after {
+  details[open] summary::after {
     rotate: 90deg;
   }
-
-  details[open] {
-    padding: 0 var(--wa-space-m) var(--wa-space-m) var(--wa-space-m);
-
-    summary {
-      margin-inline: calc(-1 * var(--wa-space-m));
-    }
-  }
-
-  details > :last-child {
-    margin-block-end: 0;
-  }
-
-  details[disabled] {
-    opacity: 0.5;
-  }
-
-  details[disabled] summary {
-    cursor: not-allowed;
-  }
-
-  details[disabled] summary:focus-visible {
-    outline: none;
-    box-shadow: none;
-  }
+  /* #endregion */
 
   /* Dialog */
   dialog {
