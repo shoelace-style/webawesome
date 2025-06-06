@@ -5,7 +5,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
-import type { WaSelectEvent } from '../../events/select.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
@@ -13,7 +12,6 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/utilities/size.css';
 import type WaButton from '../button/button.js';
-import type WaMenu from '../menu/menu.js';
 import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
 import styles from './dropdown.css';
@@ -132,7 +130,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   getMenu() {
     return this.panel.assignedElements({ flatten: true }).find(el => el.tagName.toLowerCase() === 'wa-menu') as
-      | WaMenu
+      | any
       | undefined;
   }
 
@@ -193,7 +191,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
   };
 
-  private handlePanelSelect = (event: WaSelectEvent) => {
+  private handlePanelSelect = (event: CustomEvent) => {
     const target = event.target as HTMLElement;
 
     // Hide the dropdown when a menu item is selected

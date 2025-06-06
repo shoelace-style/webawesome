@@ -1,9 +1,0 @@
-:host {
-  display: block;
-  color: var(--wa-color-text-quiet);
-  font-size: var(--wa-font-size-smaller);
-  font-weight: var(--wa-font-weight-semibold);
-  padding: 0.5em 2.25em;
-  -webkit-user-select: none;
-  user-select: none;
-}
