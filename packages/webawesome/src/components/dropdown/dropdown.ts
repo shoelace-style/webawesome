@@ -19,16 +19,35 @@ import styles from './dropdown.css';
 const openDropdowns = new Set<WaDropdown>();
 
 /**
- * @summary TODO - short summary of the component's intended use.
+ * @summary Dropdowns display a list of options that can be triggered by a button or other element. They support
+ *  keyboard navigation, submenus, and various customization options.
  * @documentation https://backers.webawesome.com/docs/components/dropdown
  * @status stable
  * @since 2.0
  *
  * @dependency wa-dropdown-item
  *
- * @slot - TODO - description here
+ * @event wa-show - Emitted when the dropdown is about to show.
+ * @event wa-after-show - Emitted after the dropdown has been shown.
+ * @event wa-hide - Emitted when the dropdown is about to hide.
+ * @event wa-after-hide - Emitted after the dropdown has been hidden.
+ * @event wa-select - Emitted when an item in the dropdown is selected.
  *
- * @csspart base - The component's base wrapper.
+ * @slot - The dropdown's items, typically <wa-dropdown-item> elements.
+ * @slot trigger - The element that triggers the dropdown, such as a <wa-button> or <button>.
+ *
+ * @csspart base - The component's host element.
+ * @csspart menu - The dropdown menu container.
+ *
+ * @cssproperty --show-duration - The duration of the show animation.
+ * @cssproperty --hide-duration - The duration of the hide animation.
+ * @cssproperty --menu-background-color - The background color of the dropdown menu.
+ * @cssproperty --menu-border-color - The border color of the dropdown menu.
+ * @cssproperty --menu-border-width - The border width of the dropdown menu.
+ * @cssproperty --menu-border-radius - The border radius of the dropdown menu.
+ * @cssproperty --menu-box-shadow - The box shadow of the dropdown menu.
+ * @cssproperty --menu-text-color - The text color of the dropdown menu items.
+ * @cssproperty --menu-padding - The padding of the dropdown menu.
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {

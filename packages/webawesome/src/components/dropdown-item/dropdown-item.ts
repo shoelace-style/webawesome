@@ -7,15 +7,28 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './dropdown-item.css';
 
 /**
- * @summary Short summary of the component's intended use.
+ * @summary Represents an individual item within a dropdown menu, supporting standard items, checkboxes, and submenus.
  * @documentation https://backers.webawesome.com/docs/components/dropdown-item
  * @status experimental
  * @since 3.0
  *
- * @dependency wa-example
+ * @dependency wa-icon
  *
- * @slot - TODO - description here
+ * @event blur - Emitted when the dropdown item loses focus.
+ * @event focus - Emitted when the dropdown item gains focus.
+ * @event submenu-opening - Emitted when the item is about to open its submenu.
  *
+ * @slot - The dropdown item's label.
+ * @slot icon - An optional icon to display before the label.
+ * @slot details - Additional content or details to display after the label.
+ * @slot submenu - Submenu items, typically <wa-dropdown-item> elements, to create a nested menu.
+ *
+ * @csspart checkmark - The checkmark icon (a <wa-icon> element) when the item is a checkbox.
+ * @csspart icon - The container for the icon slot.
+ * @csspart label - The container for the label slot.
+ * @csspart details - The container for the details slot.
+ * @csspart submenu-icon - The submenu indicator icon (a <wa-icon> element).
+ * @csspart submenu - The submenu container.
  */
 @customElement('wa-dropdown-item')
 export default class WaDropdownItem extends WebAwesomeElement {
