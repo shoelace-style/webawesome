@@ -221,7 +221,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    openDropdowns.forEach(dropdown => dropdown !== this && (dropdown.open = false));
+    openDropdowns.forEach(dropdown => (dropdown.open = false));
 
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
