@@ -19,6 +19,7 @@ export type { WaMutationEvent } from './mutation.js';
 export type { WaRemoveEvent } from './remove.js';
 export type { WaRepositionEvent } from './reposition.js';
 export type { WaResizeEvent } from './resize.js';
+export type { WaSelectEvent } from './select.js';
 export type { WaSelectionChangeEvent } from './selection-change.js';
 export type { WaShowEvent } from './show.js';
 export type { WaSlideChangeEvent } from './slide-change.js';
