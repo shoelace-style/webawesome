@@ -2,7 +2,7 @@
 import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
