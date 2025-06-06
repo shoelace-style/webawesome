@@ -48,10 +48,10 @@
         --box-shadow: inset var(--wa-shadow-s);
       }
     }
-    input[type='range'],
-    wa-slider,
-    wa-switch {
-      --thumb-shadow: var(--wa-theme-active-shadow-pop-out);
+
+    wa-slider::part(thumb),
+    wa-switch::part(thumb) {
+      box-shadow: var(--wa-theme-active-shadow-pop-out);
     }
 
     wa-progress-bar {

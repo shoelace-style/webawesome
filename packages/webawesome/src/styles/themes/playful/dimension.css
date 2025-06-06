@@ -110,23 +110,22 @@
       );
     }
 
-    input[type='range'],
     wa-progress-bar,
     wa-slider {
-      --shadow-lower: inset 0 -0.125em 0.5em
-        oklab(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l - 0.2) a b);
-      --shadow-upper: inset 0 0.125em 0.5em
-        oklab(from var(--indicator-color, var(--wa-form-control-activated-color)) calc(l + 0.4) a b);
-
-      --thumb-shadow: var(--wa-shadow-s), var(--shadow-lower), var(--shadow-upper);
-
-      &::part(indicator) {
-        box-shadow: var(--shadow-lower), var(--shadow-upper);
-      }
+      --shadow-lower: inset 0 -0.125em 0.5em oklab(from var(--wa-form-control-activated-color) calc(l - 0.2) a b);
+      --shadow-upper: inset 0 0.125em 0.5em oklab(from var(--wa-form-control-activated-color) calc(l + 0.4) a b);
     }
 
-    wa-switch[checked] {
-      --thumb-shadow: var(--wa-shadow-s);
+    wa-slider::part(thumb) {
+      box-shadow: var(--wa-shadow-s), var(--shadow-lower), var(--shadow-upper);
+    }
+
+    wa-progress-bar::part(indicator) {
+      box-shadow: var(--shadow-lower), var(--shadow-upper);
+    }
+
+    wa-switch[checked]::part(thumb) {
+      box-shadow: var(--wa-shadow-s);
     }
   }
 }

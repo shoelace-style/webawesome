@@ -5,6 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -12,7 +13,6 @@ import formControlStyles from '../../styles/component/form-control.css';
 import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
-import type WaButton from '../button/button.js';
 import '../icon/icon.js';
 import styles from './input.css';
 
@@ -245,51 +245,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
-    const hasModifier = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
-
-    // Pressing enter when focused on an input should submit the form like a native input, but we wait a tick before
-    // submitting to allow users to cancel the keydown event if they need to
-    if (event.key === 'Enter' && !hasModifier) {
-      setTimeout(() => {
-        //
-        // When using an Input Method Editor (IME), pressing enter will cause the form to submit unexpectedly. One way
-        // to check for this is to look at event.isComposing, which will be true when the IME is open.
-        //
-        // See https://github.com/shoelace-style/shoelace/pull/988
-        //
-        if (!event.defaultPrevented && !event.isComposing) {
-          const form = this.getForm();
-
-          if (!form) {
-            return;
-          }
-
-          const formElements = [...form.elements];
-
-          // If we're the only formElement, we submit like a native input.
-          if (formElements.length === 1) {
-            form.requestSubmit(null);
-            return;
-          }
-
-          const button = formElements.find(
-            (el: HTMLButtonElement) => el.type === 'submit' && !el.matches(':disabled'),
-          ) as undefined | HTMLButtonElement | WaButton;
-
-          // No button found, don't submit.
-          if (!button) {
-            return;
-          }
-
-          if (button.tagName.toLowerCase() === 'button') {
-            form.requestSubmit(button);
-          } else {
-            // requestSubmit() wont work with `<wa-button>`
-            button.click();
-          }
-        }
-      });
-    }
+    submitOnEnter(event, this);
   }
 
   private handlePasswordToggle() {

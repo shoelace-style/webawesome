@@ -21,9 +21,8 @@ describe('<wa-slider>', () => {
       it('default properties', async () => {
         const el = await fixture<WaSlider>(html` <wa-slider></wa-slider> `);
 
-        expect(el.name).to.equal('');
+        expect(el.name).to.equal(null);
         expect(el.value).to.equal(0);
-        expect(el.title).to.equal('');
         expect(el.label).to.equal('');
         expect(el.hint).to.equal('');
         expect(el.disabled).to.be.false;
@@ -31,22 +30,16 @@ describe('<wa-slider>', () => {
         expect(el.min).to.equal(0);
         expect(el.max).to.equal(100);
         expect(el.step).to.equal(1);
-        expect(el.tooltip).to.equal('top');
+        expect(el.tooltipPlacement).to.equal('top');
         expect(el.defaultValue).to.equal(0);
-      });
-
-      it('should have title if title attribute is set', async () => {
-        const el = await fixture<WaSlider>(html` <wa-slider title="Test"></wa-slider> `);
-        const input = el.shadowRoot!.querySelector('input')!;
-
-        expect(input.title).to.equal('Test');
       });
 
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaSlider>(html` <wa-slider disabled></wa-slider> `);
-        const input = el.shadowRoot!.querySelector<HTMLInputElement>('.control')!;
+        const input = el.shadowRoot!.querySelector<HTMLElement>("[role='slider']")!;
 
-        expect(input.disabled).to.be.true;
+        expect(el.matches(':disabled')).to.be.true;
+        expect(input.getAttribute('aria-disabled')).to.equal('true');
       });
 
       describe('when the value changes', () => {

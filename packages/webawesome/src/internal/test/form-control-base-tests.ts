@@ -162,6 +162,7 @@ function runAllValidityTests(
             const form = await fixture(html`<form id="${formId}"></form>`);
             const control = await createControl();
             expect(control.getForm()).to.equal(null);
+            // control.setAttribute("form", 'test-form');
             control.form = 'test-form';
             await control.updateComplete;
             expect(control.getForm()).to.equal(form);

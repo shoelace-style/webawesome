@@ -94,9 +94,8 @@
       --checked-icon-scale: 0.4;
     }
 
-    input[type='range'],
-    wa-slider {
-      --thumb-gap: 0;
+    wa-slider::part(thumb) {
+      border: none;
     }
 
     wa-switch {
