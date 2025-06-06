@@ -1,0 +1,91 @@
+:host {
+  --show-duration: 50ms;
+  display: contents;
+}
+
+#menu {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  width: max-content;
+  margin: 0;
+  padding: 0.25em;
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
+  border-radius: var(--wa-border-radius-m);
+  background-color: var(--wa-color-surface-default);
+  box-shadow: var(--wa-shadow-m);
+  color: var(--wa-color-neutral-on-quiet);
+  text-align: start;
+  user-select: none;
+
+  &.show {
+    animation: show var(--show-duration) ease;
+  }
+
+  &.hide {
+    animation: show var(--show-duration) ease reverse;
+  }
+
+  ::slotted(h1),
+  ::slotted(h2),
+  ::slotted(h3),
+  ::slotted(h4),
+  ::slotted(h5),
+  ::slotted(h6) {
+    display: block !important;
+    margin: 0.25em 0 !important;
+    padding: 0.25em 1em !important;
+    color: var(--wa-color-text-quiet) !important;
+    font-weight: var(--wa-font-weight-semibold) !important;
+    font-size: 0.75em !important;
+  }
+
+  ::slotted(wa-divider) {
+    --spacing: 0.25em; /* Component-specific, left as-is */
+  }
+}
+
+:host([data-placement^='top']) #menu {
+  transform-origin: bottom;
+}
+
+:host([data-placement^='bottom']) #menu {
+  transform-origin: top;
+}
+
+:host([data-placement^='left']) #menu {
+  transform-origin: right;
+}
+
+:host([data-placement^='right']) #menu {
+  transform-origin: left;
+}
+
+:host([data-placement='left-start']) #menu {
+  transform-origin: right top;
+}
+
+:host([data-placement='left-end']) #menu {
+  transform-origin: right bottom;
+}
+
+:host([data-placement='right-start']) #menu {
+  transform-origin: left top;
+}
+
+:host([data-placement='right-end']) #menu {
+  transform-origin: left bottom;
+}
+
+@keyframes show {
+  from {
+    scale: 0.9;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
