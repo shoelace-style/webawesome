@@ -149,13 +149,14 @@ export async function build(options = {}) {
       if (process.env.ROOT_DIR) {
         process.chdir(process.env.ROOT_DIR);
       }
-      execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`);
+      execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`, { stdio: "inherit" });
       process.chdir(cwd);
     } catch (error) {
       process.chdir(cwd);
       if (!isDeveloping) {
         process.exit(1);
       }
+
       return Promise.reject(error.stdout);
     }
 

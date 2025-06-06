@@ -14,6 +14,9 @@ export function animateWithClass(el: Element, className: string) {
     const controller = new AbortController();
     const { signal } = controller;
 
+    if (el.classList.contains(className)) {
+      return;
+    }
     el.classList.remove(className);
     el.classList.add(className);
 
