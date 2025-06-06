@@ -47,6 +47,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added `--tag-max-size` to `<wa-select>` when using `multiple`
 - Added support for `data-dialog="open <id>"` to `<wa-dialog>`
 - Added support for `data-drawer="open <id>"` to `<wa-drawer>`
+- Added `@media (hover: hover)` to component hover styles to prevent sticky hover states
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
@@ -61,8 +62,8 @@ During the alpha period, things might break! We take breaking changes very serio
 ## 3.0.0-alpha.13
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparison>` and improved compatibility for non-image content
-- 🚨 BREAKING:  Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
-- 🚨 BREAKING:  Renamed the `image` slot to `media` for a more appropriate naming convention
+- 🚨 BREAKING: Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
+- 🚨 BREAKING: Renamed the `image` slot to `media` for a more appropriate naming convention
 - Added [a theme builder](/docs/themes/edit/) to create your own themes
 - Added a new Blog & News pattern category
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
@@ -124,7 +125,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ### Design Tokens
 
 - Added `--wa-color-[hue]` tokens with the "core" color of each scale, regardless of which tint it lives on.
-You can find them in the first column of each color palette.
+  You can find them in the first column of each color palette.
 
 ### Themes
 
@@ -149,20 +150,21 @@ You can find them in the first column of each color palette.
 - Fixed an incorrect CSS value in the expand icon
 - Fixed a bug that prevented the description from being read by screen readers
 
-####  `<wa-option>`
+#### `<wa-option>`
 
 - `label` attribute to override the generated label (useful for rich content)
 - `defaultLabel` property
 - Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
 - Dropped `base` part for easier styling. CSS can now be applied directly to the element itself.
 
-####  `<wa-menu-item>`
+#### `<wa-menu-item>`
 
 - `label` attribute to override the generated label (useful for rich content)
 - `defaultLabel` property
 - Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
 
 #### `<wa-card>`
+
 - Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
 - Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
 - Fixed a bug that prevented slots from showing automatically without `with-` attributes
@@ -348,11 +350,11 @@ Here's a list of some of the things that have changed since Shoelace v2. For que
 - Removed `inline` from `<wa-color-picker>`
 - Removed `getFormControls()` since we now use Form Associated Custom Elements and can reliably access Web Awesome Elements via `formElement.elements`.
 - Removed `valueAsDate` from `<wa-input>`; use the following to mimic native behaviors:
-    setter: `waInput.value = new Date().toLocaleDateString()`
-    getter: `new Date(waInput.value)`
+  setter: `waInput.value = new Date().toLocaleDateString()`
+  getter: `new Date(waInput.value)`
 - Removed `valueAsNumber` from `<wa-input>`; use the following to mimic native behaviors:
-    setter: `waInput.value = 5.toString()`
-    getter: `Number(waInput.value)`
+  setter: `waInput.value = 5.toString()`
+  getter: `Number(waInput.value)`
 
 Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome-alpha/discussions)
 

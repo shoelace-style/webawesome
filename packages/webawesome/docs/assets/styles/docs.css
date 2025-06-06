@@ -495,8 +495,10 @@ table.colors {
   tbody {
     tr {
       border: none;
-      &:hover {
-        background: transparent;
+      @media (hover: hover) {
+        &:hover {
+          background: transparent;
+        }
       }
     }
 

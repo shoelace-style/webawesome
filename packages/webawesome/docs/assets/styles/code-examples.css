@@ -116,10 +116,12 @@
     padding: 0.5rem;
     cursor: pointer;
 
-    &:hover {
-      border-left: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet) !important; /* TODO - remove after native styles refactor */
-      background: var(--wa-color-surface-default) !important; /* TODO - remove after native styles refactor */
-      color: var(--wa-color-text-quiet) !important; /* TODO - remove after native styles refactor */
+    @media (hover: hover) {
+      &:hover {
+        border-left: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet) !important; /* TODO - remove after native styles refactor */
+        background: var(--wa-color-surface-default) !important; /* TODO - remove after native styles refactor */
+        color: var(--wa-color-text-quiet) !important; /* TODO - remove after native styles refactor */
+      }
     }
 
     &:first-of-type {
