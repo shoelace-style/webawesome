@@ -22,16 +22,17 @@
   text-align: center;
 }
 
-#slider {
-  /* Orientation */
+/* Add extra space between slider and label, when present */
+#label:has(*:not(:empty)) ~ #slider {
   &.horizontal {
     margin-block-start: 0.5em;
   }
-
   &.vertical {
     margin-block-end: 0.5em;
   }
+}
 
+#slider {
   &:focus {
     outline: none;
   }
