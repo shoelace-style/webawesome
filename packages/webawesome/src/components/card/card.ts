@@ -30,7 +30,7 @@ import styles from './card.css';
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, appearanceStyles, styles];
+  static css = [sizeStyles, appearanceStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'media');
 

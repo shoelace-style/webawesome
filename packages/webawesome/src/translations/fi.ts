@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Näytä salasana',
   slideNum: slide => `Dia ${slide}`,
   toggleColorFormat: 'Vaihda väriformaattia',
+  zoomIn: 'Lähennä',
+  zoomOut: 'Loitonna',
 };
 
 registerTranslation(translation);

@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'הראה סיסמה',
   slideNum: slide => `שקופית ${slide}`,
   toggleColorFormat: 'החלף פורמט צבע',
+  zoomIn: 'התקרב',
+  zoomOut: 'התרחק',
 };
 
 registerTranslation(translation);

@@ -24,7 +24,7 @@ import styles from './progress-bar.css';
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
   private readonly localize = new LocalizeController(this);
 
   /** The current progress as a percentage, 0 to 100. */

@@ -46,7 +46,7 @@ import styles from './details.css';
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
-  static shadowStyle = [appearanceStyles, styles];
+  static css = [appearanceStyles, styles];
 
   private detailsObserver: MutationObserver;
   private readonly localize = new LocalizeController(this);

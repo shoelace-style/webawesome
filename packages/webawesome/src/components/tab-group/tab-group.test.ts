@@ -19,7 +19,7 @@ interface ClientRectangles {
 
 const waitForScrollButtonsToBeRendered = async (tabGroup: WaTabGroup): Promise<void> => {
   await waitUntil(() => {
-    const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+    const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
     return scrollButtons?.length === 2;
   });
 };
@@ -234,7 +234,7 @@ describe('<wa-tab-group>', () => {
 
           await waitForScrollButtonsToBeRendered(tabGroup);
 
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons, 'Both scroll buttons should be shown').to.have.length(2);
 
           tabGroup.disconnectedCallback();
@@ -248,7 +248,7 @@ describe('<wa-tab-group>', () => {
 
           await aTimeout(0);
 
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
         });
 
@@ -259,7 +259,7 @@ describe('<wa-tab-group>', () => {
 
           await aTimeout(0);
 
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
         });
 
@@ -270,7 +270,7 @@ describe('<wa-tab-group>', () => {
 
           await aTimeout(0);
 
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
         });
 
@@ -281,7 +281,7 @@ describe('<wa-tab-group>', () => {
 
           await aTimeout(0);
 
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
         });
 
@@ -293,7 +293,7 @@ describe('<wa-tab-group>', () => {
           );
 
           await waitForScrollButtonsToBeRendered(tabGroup);
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-icon-button');
+          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(2);
 
           const firstTab = tabGroup.querySelector('[panel="tab-0"]');
@@ -303,7 +303,7 @@ describe('<wa-tab-group>', () => {
           expect(isElementVisibleFromOverflow(tabGroup, firstTab!)).to.be.true;
           expect(isElementVisibleFromOverflow(tabGroup, lastTab!)).to.be.false;
 
-          const scrollToRightButton = tabGroup.shadowRoot?.querySelector('wa-icon-button[part*="scroll-button-end"]');
+          const scrollToRightButton = tabGroup.shadowRoot?.querySelector('wa-button[part*="scroll-button-end"]');
           expect(scrollToRightButton).not.to.be.null;
           await clickOnElement(scrollToRightButton!);
 

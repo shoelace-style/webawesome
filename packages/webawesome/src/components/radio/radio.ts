@@ -40,7 +40,7 @@ import styles from './radio.css';
  */
 @customElement('wa-radio')
 export default class WaRadio extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static css = [formControlStyles, sizeStyles, styles];
 
   @state() checked = false;
 
@@ -86,13 +86,13 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.toggleCustomState('checked', this.checked);
+      this.customStates.set('checked', this.checked);
       this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
       this.tabIndex = this.checked ? 0 : -1;
     }
 
     if (changedProperties.has('disabled')) {
-      this.toggleCustomState('disabled', this.disabled);
+      this.customStates.set('disabled', this.disabled);
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
     }
   }

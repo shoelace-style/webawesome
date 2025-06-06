@@ -18,7 +18,7 @@ import { requestInclude } from './request.js';
  */
 @customElement('wa-include')
 export default class WaInclude extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   /**
    * The location of the HTML file to include. Be sure you trust the content you are including as it will be executed as

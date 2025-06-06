@@ -1731,7 +1731,7 @@ hasOutline: false
     grid-column-end: col-end;
   }
 
-  .project-header wa-icon-button {
+  .project-header wa-button {
     color: inherit;
     font-size: var(--wa-font-size-l);
 
@@ -2002,9 +2002,15 @@ hasOutline: false
         <span id="project-name" style="margin-inline-start: var(--wa-space-l);">Project Name</span>
       </h1>
       <div>
-        <wa-icon-button name="magnifying-glass" label="Search"></wa-icon-button>
-        <wa-icon-button name="user" label="Account"></wa-icon-button>
-        <wa-icon-button name="bag-shopping" label="Your Basket"></wa-icon-button>
+        <wa-button appearance="plain" size="small">
+          <wa-icon name="magnifying-glass" label="Search"></wa-icon>
+        </wa-button>
+          <wa-button appearance="plain" size="small">
+        <wa-icon name="user" label="Account"></wa-icon>
+        </wa-button>
+        <wa-button appearance="plain" size="small">
+          <wa-icon name="bag-shopping" label="Your Basket"></wa-icon>
+        </wa-button>
       </div>
     </header>
     <section class="strata hero">
@@ -2142,31 +2148,49 @@ hasOutline: false
       <wa-card class="card-header card-footer">
         <div slot="header">
           <div class="grouped-buttons">
-            <wa-icon-button id="bold" name="bold" label="Bold"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="bold"> 
+              <wa-icon name="bold" label="Bold"></wa-icon>
+            </wa-button>
             <wa-tooltip for="bold">Bold</wa-tooltip>
-            <wa-icon-button id="italic" name="italic" label="Italic"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="italic"> 
+              <wa-icon name="italic" label="Italic"></wa-icon>
+            </wa-button>
             <wa-tooltip for="italic">Italic</wa-tooltip>
-            <wa-icon-button id="strikethrough" name="strikethrough" label="strikethrough"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="strikethrough"> 
+              <wa-icon name="strikethrough" label="strikethrough"></wa-icon>
+            </wa-button>
             <wa-tooltip for="strikethrough">Strikethrough</wa-tooltip>
           </div>
           <div class="grouped-buttons">
-            <wa-icon-button id="link" name="link" label="Link"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="link"> 
+              <wa-icon name="link" label="Link"></wa-icon>
+            </wa-button>
             <wa-tooltip for="link">Link</wa-tooltip>
           </div>
           <div class="grouped-buttons">
-            <wa-icon-button id="list" name="list" label="Unordered List"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="list"> 
+              <wa-icon name="list" label="Unordered List"></wa-icon>
+            </wa-button>
             <wa-tooltip for="list">Unordered List</wa-tooltip>
-            <wa-icon-button id="list-ol" name="list-ol" label="Ordered List"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="list-ol"> 
+              <wa-icon name="list-ol" label="Ordered List"></wa-icon>
+            </wa-button>
             <wa-tooltip for="list-ol">Ordered List</wa-tooltip>
           </div>
           <div class="grouped-buttons">
-            <wa-icon-button id="block-quote" name="block-quote" label="Block Quote"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="block-quote"> 
+              <wa-icon name="block-quote" label="Block Quote"></wa-icon>
+            </wa-button>
             <wa-tooltip for="block-quote">Block Quote</wa-tooltip>
           </div>
           <div class="grouped-buttons">
-            <wa-icon-button id="code" name="code" label="Code"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="code"> 
+              <wa-icon name="code" label="Code"></wa-icon>
+            </wa-button>
             <wa-tooltip for="code">Code</wa-tooltip>
-            <wa-icon-button id="inline-code" name="terminal" label="Inline Code"></wa-icon-button>
+            <wa-button appearance="plain" size="small" id="inline-code"> 
+              <wa-icon name="terminal" label="Inline Code"></wa-icon>
+            </wa-button>
             <wa-tooltip for="inline-code">Inline Code</wa-tooltip>
           </div>
         </div>
@@ -2176,23 +2200,37 @@ hasOutline: false
         <div slot="footer">
           <div class="tools">
             <div class="grouped-buttons">
-              <wa-icon-button id="add-file" name="circle-plus" label="Add File"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="add-file">
+                <wa-icon name="circle-plus" label="Add File"></wa-icon>
+              </wa-button>
               <wa-tooltip for="add-file">Add File</wa-tooltip>
-              <wa-icon-button id="formatting" name="font-case" label="Open Formatting"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="formatting">
+                <wa-icon name="font-case" label="Open Formatting"></wa-icon>
+              </wa-button>
               <wa-tooltip for="formatting">Formatting</wa-tooltip>
-              <wa-icon-button id="emojis" name="face-smile" label="Emoji"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="emojis">
+                <wa-icon name="face-smile" label="Emoji"></wa-icon>
+              </wa-button>
               <wa-tooltip for="emojis">Emojis</wa-tooltip>
-              <wa-icon-button id="mention" name="at" label="Mention"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="mention">
+                <wa-icon name="at" label="Mention"></wa-icon>
+              </wa-button>
               <wa-tooltip for="mention">Mention</wa-tooltip>
             </div>
             <div class="grouped-buttons">
-              <wa-icon-button id="record-video" name="video" label="Video"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="record-video">
+                <wa-icon name="video" label="Video"></wa-icon>
+              </wa-button>
               <wa-tooltip for="record-video">Record Video</wa-tooltip>
-              <wa-icon-button id="record-audio" name="microphone" label="Microphone"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="record-audio">
+                <wa-icon name="microphone" label="Microphone"></wa-icon>
+              </wa-button>
               <wa-tooltip for="record-audio">Record Audio Clip</wa-tooltip>
             </div>
             <div class="grouped-buttons">
-              <wa-icon-button id="add-magic" name="sparkles" label="Magic"></wa-icon-button>
+              <wa-button appearance="plain" size="small" id="add-magic">
+                <wa-icon name="sparkles" label="Magic"></wa-icon>
+              </wa-button>
               <wa-tooltip for="add-magic">Add Magic</wa-tooltip>
             </div>
           </div>

@@ -9,9 +9,11 @@
   flex-wrap: wrap;
   gap: 1px;
 
-  > :hover,
-  &::slotted(:hover) {
-    z-index: 1;
+  @media (hover: hover) {
+    > :hover,
+    &::slotted(:hover) {
+      z-index: 1;
+    }
   }
 
   /* Focus and checked are always on top */

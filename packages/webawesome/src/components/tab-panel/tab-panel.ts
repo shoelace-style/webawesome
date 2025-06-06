@@ -21,7 +21,7 @@ let id = 0;
  */
 @customElement('wa-tab-panel')
 export default class WaTabPanel extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly attrId = ++id;
   private readonly componentId = `wa-tab-panel-${this.attrId}`;

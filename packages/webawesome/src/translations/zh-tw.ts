@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: '顯示密碼',
   slideNum: slide => `幻燈片 ${slide}`,
   toggleColorFormat: '切換顏色格式',
+  zoomIn: '放大',
+  zoomOut: '縮小',
 };
 
 registerTranslation(translation);

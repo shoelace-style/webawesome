@@ -198,8 +198,10 @@ label:has(select),
     outline: none;
   }
 
-  &:hover {
-    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  @media (hover: hover) {
+    &:hover {
+      color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+    }
   }
 
   &:active {

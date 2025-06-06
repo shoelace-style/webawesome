@@ -25,7 +25,7 @@ export interface MenuSelectEventDetail {
  */
 @customElement('wa-menu')
 export default class WaMenu extends WebAwesomeElement {
-  static shadowStyle = [sizeStyles, styles];
+  static css = [sizeStyles, styles];
 
   /** The component's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';

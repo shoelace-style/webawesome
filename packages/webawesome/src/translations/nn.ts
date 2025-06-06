@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Vis passord',
   slideNum: slide => `Visning ${slide}`,
   toggleColorFormat: 'Byt fargeformat',
+  zoomIn: 'Zoom inn',
+  zoomOut: 'Zoom ut',
 };
 
 registerTranslation(translation);

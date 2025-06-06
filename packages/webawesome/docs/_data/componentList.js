@@ -2,13 +2,13 @@
  * @module components Fetches components from custom-elements.json and exposes them in a saner format.
  */
 import { readFileSync } from 'fs';
-import { join, dirname, resolve } from 'path';
+import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const customElementsJSON = process.env.DIST_DIR
-  ? join(process.env.DIST_DIR, "custom-elements.json")
-  : resolve(__dirname, '../../dist/custom-elements.json')
+  ? join(process.env.DIST_DIR, 'custom-elements.json')
+  : resolve(__dirname, '../../dist/custom-elements.json');
 
 const manifest = JSON.parse(readFileSync(customElementsJSON), 'utf-8');
 
@@ -76,4 +76,3 @@ components.sort((a, b) => {
 });
 
 export default components;
-

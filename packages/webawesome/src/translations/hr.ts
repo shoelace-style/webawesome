@@ -33,6 +33,8 @@ const translation: Translation = {
   showPassword: 'Pokaži lozinku',
   slideNum: slide => `Slajd ${slide}`,
   toggleColorFormat: 'Zamijeni format boje',
+  zoomIn: 'Povećaj',
+  zoomOut: 'Smanji',
 };
 
 registerTranslation(translation);

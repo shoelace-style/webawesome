@@ -141,8 +141,10 @@
   border-start-end-radius: 0;
 }
 
-:host([appearance='button']:hover:not([disabled], :state(checked))) {
-  background-color: color-mix(in srgb, var(--wa-color-surface-default) 95%, var(--wa-color-mix-hover));
+@media (hover: hover) {
+  :host([appearance='button']:hover:not([disabled], :state(checked))) {
+    background-color: color-mix(in srgb, var(--wa-color-surface-default) 95%, var(--wa-color-mix-hover));
+  }
 }
 
 :host([appearance='button']:focus-visible) {

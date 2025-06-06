@@ -43,7 +43,7 @@ import { SubmenuController } from './submenu-controller.js';
  */
 @customElement('wa-menu-item')
 export default class WaMenuItem extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
 
@@ -133,7 +133,7 @@ export default class WaMenuItem extends WebAwesomeElement {
       this.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
     }
 
-    this.toggleCustomState('has-submenu', this.isSubmenu());
+    this.customStates.set('has-submenu', this.isSubmenu());
   }
 
   private handleHostClick = (event: MouseEvent) => {
@@ -201,7 +201,7 @@ export default class WaMenuItem extends WebAwesomeElement {
   render() {
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
     const isSubmenuExpanded = this.submenuController.isExpanded();
-    this.toggleCustomState('submenu-expanded', isSubmenuExpanded);
+    this.customStates.set('submenu-expanded', isSubmenuExpanded);
 
     this.internals.ariaHasPopup = this.isSubmenu() + '';
     this.internals.ariaExpanded = isSubmenuExpanded + '';

@@ -17,7 +17,7 @@ import styles from './mutation-observer.css';
  */
 @customElement('wa-mutation-observer')
 export default class WaMutationObserver extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private mutationObserver: MutationObserver;
 

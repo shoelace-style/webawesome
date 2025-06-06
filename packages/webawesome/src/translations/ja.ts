@@ -32,6 +32,8 @@ const translation: Translation = {
   showPassword: 'パスワードを表示',
   slideNum: slide => `スライド ${slide}`,
   toggleColorFormat: '色のフォーマットを切り替える',
+  zoomIn: 'ズームイン',
+  zoomOut: 'ズームアウト',
 };
 
 registerTranslation(translation);

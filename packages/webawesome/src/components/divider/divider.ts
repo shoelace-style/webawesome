@@ -15,7 +15,7 @@ import styles from './divider.css';
  */
 @customElement('wa-divider')
 export default class WaDivider extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   /** Sets the divider's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';

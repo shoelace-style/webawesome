@@ -1,0 +1,82 @@
+:host {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--wa-border-radius-m);
+}
+
+#frame-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% / var(--zoom));
+  height: calc(100% / var(--zoom));
+  transform: scale(var(--zoom));
+  transform-origin: 0 0;
+}
+
+#iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+  /* Prevent the iframe from being selected, e.g. by a double click. Doesn't affect selection withing the iframe. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#controls {
+  display: flex;
+  position: absolute;
+  bottom: 0.5em;
+  align-items: center;
+  font-weight: var(--wa-font-weight-semibold);
+  padding: 0.25em 0.5em;
+  gap: 0.5em;
+  border-radius: var(--wa-border-radius-s);
+  background: #000b;
+  color: white;
+  font-size: min(12px, 0.75em);
+  user-select: none;
+  -webkit-user-select: none;
+
+  &:dir(ltr) {
+    right: 0.5em;
+  }
+
+  &:dir(rtl) {
+    left: 0.5em;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 0.25em;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  span {
+    min-width: 4.5ch; /* extra space so numbers don't shift */
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+}

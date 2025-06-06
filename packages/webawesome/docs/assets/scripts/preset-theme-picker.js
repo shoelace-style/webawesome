@@ -1,4 +1,4 @@
-import { domChange, nextFrame, ThemeAspect } from './theme-picker.js';
+import { domChange, ThemeAspect } from './theme-picker.js';
 
 const presetTheme = new ThemeAspect({
   defaultValue: 'default',
@@ -33,7 +33,7 @@ const presetTheme = new ThemeAspect({
 
               if (instant) {
                 // If no VT, delay by 1 frame to make it smoother
-                await nextFrame();
+                await new Promise(requestAnimationFrame);
               }
 
               oldStylesheet.remove();

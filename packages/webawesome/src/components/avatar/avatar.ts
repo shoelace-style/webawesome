@@ -29,7 +29,7 @@ import styles from './avatar.css';
  */
 @customElement('wa-avatar')
 export default class WaAvatar extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @state() private hasError = false;
 

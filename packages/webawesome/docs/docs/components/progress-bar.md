@@ -38,15 +38,19 @@ Use the default slot to show a value.
   <wa-progress-bar value="50" id="progress-bar-demo">50%</wa-progress-bar>
 
   <div>
-    <wa-icon-button pill name="minus" label="Decrease"></wa-icon-button>
-    <wa-icon-button pill name="plus" label="Increase"></wa-icon-button>
+    <wa-button pill appearance="filled">
+      <wa-icon name="minus" label="Decrease"></wa-icon>
+    </wa-button>
+    <wa-button pill appearance="filled">
+      <wa-icon name="plus" label="Increase"></wa-icon>
+    </wa-button>
   </div>
 </div>
 
 <script>
   const progressBar = document.querySelector('#progress-bar-demo');
-  const subtractButton = document.querySelector('wa-icon-button[name="minus"]');
-  const addButton = document.querySelector('wa-icon-button[name="plus"]');
+  const subtractButton = document.querySelector('wa-button:has(wa-icon[name="minus"])');
+  const addButton = document.querySelector('wa-button:has(wa-icon[name="plus"])');
 
   addButton.addEventListener('click', () => {
     const value = Math.min(100, progressBar.value + 10);

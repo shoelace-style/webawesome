@@ -18,7 +18,7 @@ let QrCreator: _QrCreator.default;
  */
 @customElement('wa-qr-code')
 export default class WaQrCode extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('canvas') canvas: HTMLElement;
 

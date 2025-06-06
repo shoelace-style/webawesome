@@ -17,7 +17,7 @@ import styles from './skeleton.css';
  */
 @customElement('wa-skeleton')
 export default class WaSkeleton extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   /** Determines which effect the skeleton will use. */
   @property({ reflect: true }) effect: 'pulse' | 'sheen' | 'none' = 'none';

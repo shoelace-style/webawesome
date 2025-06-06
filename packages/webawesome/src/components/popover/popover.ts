@@ -1,3 +1,4 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -40,10 +41,12 @@ const openPopovers = new Set<WaPopover>();
  * @cssproperty [--max-width=25rem] - The maximum width of the popover's body content.
  * @cssproperty [--show-duration=100ms] - The speed of the show animation.
  * @cssproperty [--hide-duration=100ms] - The speed of the hide animation.
+ *
+ * @cssstate open - Applied when the popover is open.
  */
 @customElement('wa-popover')
 export default class WaPopover extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
   static dependencies = { 'wa-popup': WaPopup };
 
   @query('dialog') dialog: HTMLDialogElement;
@@ -107,6 +110,12 @@ export default class WaPopover extends WebAwesomeElement {
       this.dialog.show();
       this.popup.active = true;
       this.popup.reposition();
+    }
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('open')) {
+      this.customStates.set('open', this.open);
     }
   }
 

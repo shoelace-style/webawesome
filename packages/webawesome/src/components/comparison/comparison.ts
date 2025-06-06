@@ -38,7 +38,7 @@ import styles from './comparison.css';
  */
 @customElement('wa-comparison')
 export default class WaComparison extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
 
@@ -55,12 +55,12 @@ export default class WaComparison extends WebAwesomeElement {
 
     drag(this, {
       onMove: x => {
-        this.toggleCustomState('dragging', true);
+        this.customStates.set('dragging', true);
         this.position = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
         if (isRtl) this.position = 100 - this.position;
       },
       onStop: () => {
-        this.toggleCustomState('dragging', false);
+        this.customStates.set('dragging', false);
       },
       initialEvent: event,
     });

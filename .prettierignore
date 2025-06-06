@@ -1,18 +1,23 @@
+# Files are relative to .prettierignore at the root of this monorepo.
+# <https://github.com/prettier/prettier-vscode/issues/1252>
+
 *.hbs
 *.md
-!docs/docs/patterns/**/*.md
+!packages/webawesome/docs/docs/patterns/**/*.md
 docs/docs/patterns/blog-news/post-list.md
-.cache
+**/*/.cache
 .github
 cspell.json
-dist
-docs/search.json
-src/components/icon/icons
-src/react/index.ts
+packages/**/*/dist
+packages/**/*/dist-cdn
+packages/**/*/docs/search.json
+packages/**/*/src/components/icon/icons
+packages/**/*/src/react/index.ts
+**/*/package.json
+**/*/package-lock.json
+**/*/tsconfig.json
+**/*/tsconfig.prod.json
 node_modules
-package.json
-package-lock.json
-tsconfig.json
-cdn
-_site
-docs/assets/scripts/prism-downloaded.js
+
+packages/**/*/_site
+packages/webawesome/docs/assets/scripts/prism-downloaded.js

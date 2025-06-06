@@ -13,7 +13,7 @@ import styles from './menu-label.css';
  */
 @customElement('wa-menu-label')
 export default class WaMenuLabel extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   render() {
     return html`<slot></slot>`;
