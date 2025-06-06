@@ -60,10 +60,14 @@ export default class WaDropdown extends WebAwesomeElement {
   private userTypedTimeout: ReturnType<typeof setTimeout>;
   private openSubmenuStack: WaDropdownItem[] = [];
 
+  @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('#menu') private menu: HTMLDivElement;
 
   /** Opens or closes the dropdown. */
   @property({ type: Boolean, reflect: true }) open = false;
+
+  /** The dropdown's size. */
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /**
    * The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if
@@ -116,6 +120,10 @@ export default class WaDropdown extends WebAwesomeElement {
         this.hideMenu();
       }
     }
+
+    if (changedProperties.has('size')) {
+      this.syncItemSizes();
+    }
   }
 
   /** Gets all <wa-dropdown-item> elements slotted in the menu that aren't disabled. */
@@ -134,6 +142,14 @@ export default class WaDropdown extends WebAwesomeElement {
       el => el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu',
     ) as WaDropdownItem[];
     return includeDisabled ? items : items.filter(item => !item.disabled);
+  }
+
+  /** Syncs item sizes with the dropdown's size property. */
+  private syncItemSizes() {
+    const items = this.defaultSlot
+      .assignedElements({ flatten: true })
+      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+    items.forEach(item => (item.size = this.size));
   }
 
   /** Handles the submenu navigation stack */
@@ -536,6 +552,8 @@ export default class WaDropdown extends WebAwesomeElement {
   private async handleMenuSlotChange() {
     const items = this.getItems(true);
     await Promise.all(items.map(item => item.updateComplete));
+
+    this.syncItemSizes();
 
     // Check for checkboxes
     const hasCheckbox = items.some(item => item.type === 'checkbox');
