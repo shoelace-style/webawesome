@@ -206,9 +206,8 @@
     }
 
     @media (hover: hover) {
-      input[type='range']:hover,
-      wa-slider:hover {
-        --thumb-shadow: 0 0 0 0.5em color-mix(in oklab, var(--thumb-color), transparent 85%);
+      wa-slider:hover::part(thumb) {
+        box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--wa-form-control-activated-color), transparent 85%);
       }
     }
 
