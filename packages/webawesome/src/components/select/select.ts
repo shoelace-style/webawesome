@@ -79,12 +79,13 @@ import styles from './select.css';
  * @cssproperty --border-color - The border color of the select's combobox.
  * @cssproperty --border-width - The width of the select's borders, including the listbox.
  * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
+ * @cssproperty [--tag-max-size=10ch] - When using `multiple`, the max size of tags before their content is truncated.
  *
  * @cssstate blank - The select is empty.
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [appearanceStyles, formControlStyles, sizeStyles, styles];
+  static css = [appearanceStyles, formControlStyles, sizeStyles, styles];
 
   static get validators() {
     const validators = isServer
@@ -342,10 +343,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement;
     const isClearButton = target.closest('[part~="clear-button"]') !== null;
-    const isIconButton = target.closest('wa-icon-button') !== null;
+    const isButton = target.closest('wa-button') !== null;
 
-    // Ignore presses when the target is an icon button (e.g. the remove button in `<wa-tag>`)
-    if (isClearButton || isIconButton) {
+    // Ignore presses when the target is a button (e.g. the remove button in `<wa-tag>`)
+    if (isClearButton || isButton) {
       return;
     }
 
@@ -483,10 +484,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleComboboxMouseDown(event: MouseEvent) {
     const path = event.composedPath();
-    const isIconButton = path.some(el => el instanceof Element && el.tagName.toLowerCase() === 'wa-icon-button');
+    const isButton = path.some(el => el instanceof Element && el.tagName.toLowerCase() === 'wa-button');
 
     // Ignore disabled controls and clicks on tags (remove buttons)
-    if (this.disabled || isIconButton) {
+    if (this.disabled || isButton) {
       return;
     }
 
@@ -739,7 +740,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('value')) {
-      this.toggleCustomState('blank', !this.value);
+      this.customStates.set('blank', !this.value);
     }
   }
 

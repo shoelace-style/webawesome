@@ -3,7 +3,9 @@
     <wa-card>
       <div slot="header" class="wa-split">
         <h3 class="wa-heading-m">Your Cart</h3>
-        <wa-icon-button name="xmark" tabindex="-1"></wa-icon-button>
+        <wa-button appearance="plain" size="small" tabindex="-1">
+          <wa-icon name="xmark" label="Close"></wa-icon>
+        </wa-button>
       </div>
       <div class="wa-stack wa-gap-xl">
         <div class="wa-flank">
@@ -73,7 +75,9 @@
       <div class="wa-stack">
         <div class="wa-split">
           <h3 class="wa-heading-m">To-Do</h3>
-          <wa-icon-button tabindex="-1" name="plus" label="Add task"></wa-icon-button>
+          <wa-button appearance="plain" size="small" tabindex="-1">
+            <wa-icon name="plus" label="Add task"></wa-icon>
+          </wa-button>
         </div>
         <wa-checkbox tabindex="-1" checked>Umbrella for Adelard</wa-checkbox>
         <wa-checkbox tabindex="-1" checked>Waste-paper basket for Dora</wa-checkbox>
@@ -98,7 +102,9 @@
             </div>
             <span class="wa-caption-m">Samwise G</span>
           </div>
-          <wa-icon-button tabindex="-1" name="ellipsis" label="Options"></wa-icon-button>
+          <wa-button appearance="plain" size="small" tabindex="-1">
+            <wa-icon name="ellipsis" label="Options"></wa-icon>
+          </wa-button>
         </div>
         <div class="wa-stack wa-gap-2xs">
           <wa-progress-bar value="34" style="height: 0.5em"></wa-progress-bar>
@@ -108,9 +114,15 @@
           </div>
         </div>
         <div class="wa-grid wa-align-items-center" style="--min-column-size: 1em; justify-items: center;">
-          <wa-icon-button tabindex="-1" name="backward" label="Skip backward"></wa-icon-button>
-          <wa-icon-button tabindex="-1" name="pause" style="font-size: var(--wa-font-size-2xl);" label="Pause"></wa-icon-button>
-          <wa-icon-button tabindex="-1" name="forward" label="Skip forward"></wa-icon-button>
+          <wa-button appearance="plain" tabindex="-1">
+            <wa-icon name="backward" label="Skip backward"></wa-icon>
+          </wa-button>
+          <wa-button appearance="plain" size="large" tabindex="-1">
+            <wa-icon name="pause" label="Pause"></wa-icon>
+          </wa-button>
+          <wa-button appearance="plain" tabindex="-1">
+            <wa-icon name="forward" label="Skip forward"></wa-icon>
+          </wa-button>
         </div>
       </div>
     </wa-card>
@@ -253,7 +265,9 @@
           </div>
         </a>
         <wa-dropdown>
-          <wa-icon-button id="more-actions-2" slot="trigger" name="ellipsis-vertical" label="View menu" tabindex="-1"></wa-icon-button>
+          <wa-button id="more-actions-2" slot="trigger" appearance="plain" size="small" tabindex="-1">
+            <wa-icon name="ellipsis-vertical" label="View menu"></wa-icon>
+          </wa-button>
           <wa-menu>
             <wa-menu-item>Copy link</wa-menu-item>
             <wa-menu-item>Rename</wa-menu-item>

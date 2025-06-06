@@ -2,7 +2,7 @@ import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { clickOnElement } from '../../internal/test.js';
+// import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaRadio from '../radio/radio.js';
@@ -99,19 +99,22 @@ describe('<wa-radio-group>', () => {
           const secondRadio = radioGroup.querySelectorAll('wa-radio')[1];
 
           expect(radioGroup.checkValidity()).to.be.true;
-          expect(radioGroup.hasCustomState('required')).to.be.true;
-          expect(radioGroup.hasCustomState('optional')).to.be.false;
-          expect(radioGroup.hasCustomState('invalid')).to.be.false;
-          expect(radioGroup.hasCustomState('valid')).to.be.true;
-          expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-valid')).to.be.false;
+          expect(radioGroup.customStates.has('required')).to.be.true;
+          expect(radioGroup.customStates.has('optional')).to.be.false;
+          expect(radioGroup.customStates.has('invalid')).to.be.false;
+          expect(radioGroup.customStates.has('valid')).to.be.true;
+          expect(radioGroup.customStates.has('user-invalid')).to.be.false;
+          expect(radioGroup.customStates.has('user-valid')).to.be.false;
 
-          await clickOnElement(secondRadio);
+          // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
+          // await clickOnElement(secondRadio);
+          secondRadio.click();
           await secondRadio.updateComplete;
+          await radioGroup.updateComplete;
 
           expect(radioGroup.checkValidity()).to.be.true;
-          expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-valid')).to.be.true;
+          expect(radioGroup.customStates.has('user-invalid')).to.be.false;
+          expect(radioGroup.customStates.has('user-valid')).to.be.true;
         });
 
         it('should receive the correct validation attributes ("states") when invalid', async () => {
@@ -123,19 +126,22 @@ describe('<wa-radio-group>', () => {
           `);
           const secondRadio = radioGroup.querySelectorAll('wa-radio')[1];
 
-          expect(radioGroup.hasCustomState('required')).to.be.true;
-          expect(radioGroup.hasCustomState('optional')).to.be.false;
-          expect(radioGroup.hasCustomState('invalid')).to.be.true;
-          expect(radioGroup.hasCustomState('valid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-valid')).to.be.false;
+          expect(radioGroup.customStates.has('required')).to.be.true;
+          expect(radioGroup.customStates.has('optional')).to.be.false;
+          expect(radioGroup.customStates.has('invalid')).to.be.true;
+          expect(radioGroup.customStates.has('valid')).to.be.false;
+          expect(radioGroup.customStates.has('user-invalid')).to.be.false;
+          expect(radioGroup.customStates.has('user-valid')).to.be.false;
 
-          await clickOnElement(secondRadio);
+          // TODO: Go back to clickOnElement when we can determine why CI is not cleaning up elements.
+          // await clickOnElement(secondRadio);
+          secondRadio.click();
+          await radioGroup.updateComplete;
           radioGroup.value = '';
           await radioGroup.updateComplete;
 
-          expect(radioGroup.hasCustomState('user-invalid')).to.be.true;
-          expect(radioGroup.hasCustomState('user-valid')).to.be.false;
+          expect(radioGroup.customStates.has('user-invalid')).to.be.true;
+          expect(radioGroup.customStates.has('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
@@ -149,12 +155,12 @@ describe('<wa-radio-group>', () => {
           `);
           const radioGroup = el.querySelector<WaRadioGroup>('wa-radio-group')!;
 
-          expect(radioGroup.hasCustomState('required')).to.be.true;
-          expect(radioGroup.hasCustomState('optional')).to.be.false;
-          expect(radioGroup.hasCustomState('invalid')).to.be.true;
-          expect(radioGroup.hasCustomState('valid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-invalid')).to.be.false;
-          expect(radioGroup.hasCustomState('user-valid')).to.be.false;
+          expect(radioGroup.customStates.has('required')).to.be.true;
+          expect(radioGroup.customStates.has('optional')).to.be.false;
+          expect(radioGroup.customStates.has('invalid')).to.be.true;
+          expect(radioGroup.customStates.has('valid')).to.be.false;
+          expect(radioGroup.customStates.has('user-invalid')).to.be.false;
+          expect(radioGroup.customStates.has('user-valid')).to.be.false;
         });
 
         it('should show a constraint validation error when setCustomValidity() is called', async () => {

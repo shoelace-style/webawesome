@@ -52,7 +52,7 @@ import styles from './carousel.css';
  */
 @customElement('wa-carousel')
 export default class WaCarousel extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   /** When set, allows the user to navigate the carousel in the same direction indefinitely. */
   @property({ type: Boolean, reflect: true }) loop = false;

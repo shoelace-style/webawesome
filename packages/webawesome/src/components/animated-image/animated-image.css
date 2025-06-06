@@ -36,8 +36,10 @@ img[aria-hidden='true'] {
   transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
 }
 
-:host([play]:hover) .control-box {
-  opacity: 1;
+@media (hover: hover) {
+  :host([play]:hover) .control-box {
+    opacity: 1;
+  }
 }
 
 :host([play]:not(:hover)) .control-box {

@@ -6,7 +6,7 @@
   --border-style: var(--wa-form-control-border-style);
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: initial;
-  --height: calc(1em * var(--wa-form-control-value-line-height));
+  --height: var(--wa-form-control-toggle-size);
   --thumb-color: var(--wa-form-control-border-color);
   --thumb-color-checked: var(--wa-form-control-background-color);
   --thumb-shadow: initial;
@@ -14,6 +14,7 @@
   --width: calc(var(--height) * 1.75);
 
   display: inline-flex;
+  line-height: var(--wa-form-control-value-line-height);
 }
 
 label {

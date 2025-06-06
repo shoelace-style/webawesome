@@ -26,18 +26,18 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: var(--wa-space-s);
+  gap: 0.75em;
 }
 
 /* Horizontal */
 :host([orientation='horizontal']) [part~='form-control-input'] {
   flex-direction: row;
-  gap: var(--wa-space-m);
+  gap: 1em;
 }
 
 /* Help text */
 [part~='hint'] {
-  margin-block-start: var(--wa-space-xs);
+  margin-block-start: 0.5em;
 }
 
 /* Radios have the "button" appearance */

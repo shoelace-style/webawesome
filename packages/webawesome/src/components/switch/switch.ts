@@ -50,7 +50,7 @@ import styles from './switch.css';
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static css = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -170,7 +170,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       this.input.checked = this.checked; // force a sync update
     }
 
-    this.toggleCustomState('checked', this.checked);
+    this.customStates.set('checked', this.checked);
     this.updateValidity();
   }
 

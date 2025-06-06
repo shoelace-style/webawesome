@@ -21,9 +21,8 @@ describe('<wa-slider>', () => {
       it('default properties', async () => {
         const el = await fixture<WaSlider>(html` <wa-slider></wa-slider> `);
 
-        expect(el.name).to.equal('');
+        expect(el.name).to.equal(null);
         expect(el.value).to.equal(0);
-        expect(el.title).to.equal('');
         expect(el.label).to.equal('');
         expect(el.hint).to.equal('');
         expect(el.disabled).to.be.false;
@@ -31,22 +30,16 @@ describe('<wa-slider>', () => {
         expect(el.min).to.equal(0);
         expect(el.max).to.equal(100);
         expect(el.step).to.equal(1);
-        expect(el.tooltip).to.equal('top');
+        expect(el.tooltipPlacement).to.equal('top');
         expect(el.defaultValue).to.equal(0);
-      });
-
-      it('should have title if title attribute is set', async () => {
-        const el = await fixture<WaSlider>(html` <wa-slider title="Test"></wa-slider> `);
-        const input = el.shadowRoot!.querySelector('input')!;
-
-        expect(input.title).to.equal('Test');
       });
 
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaSlider>(html` <wa-slider disabled></wa-slider> `);
-        const input = el.shadowRoot!.querySelector<HTMLInputElement>('.control')!;
+        const input = el.shadowRoot!.querySelector<HTMLElement>("[role='slider']")!;
 
-        expect(input.disabled).to.be.true;
+        expect(el.matches(':disabled')).to.be.true;
+        expect(input.getAttribute('aria-disabled')).to.equal('true');
       });
 
       describe('when the value changes', () => {
@@ -133,18 +126,18 @@ describe('<wa-slider>', () => {
           await slider.updateComplete;
 
           expect(slider.checkValidity()).to.be.false;
-          expect(slider.hasCustomState('invalid')).to.be.true;
-          expect(slider.hasCustomState('valid')).to.be.false;
-          expect(slider.hasCustomState('user-invalid')).to.be.false;
-          expect(slider.hasCustomState('user-valid')).to.be.false;
+          expect(slider.customStates.has('invalid')).to.be.true;
+          expect(slider.customStates.has('valid')).to.be.false;
+          expect(slider.customStates.has('user-invalid')).to.be.false;
+          expect(slider.customStates.has('user-valid')).to.be.false;
 
           await clickOnElement(slider);
           await slider.updateComplete;
           slider.blur();
           await slider.updateComplete;
 
-          expect(slider.hasCustomState('user-invalid')).to.be.true;
-          expect(slider.hasCustomState('user-valid')).to.be.false;
+          expect(slider.customStates.has('user-invalid')).to.be.true;
+          expect(slider.customStates.has('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
@@ -154,10 +147,10 @@ describe('<wa-slider>', () => {
           slider.setCustomValidity('Invalid value');
           await slider.updateComplete;
 
-          expect(slider.hasCustomState('invalid')).to.be.true;
-          expect(slider.hasCustomState('valid')).to.be.false;
-          expect(slider.hasCustomState('user-invalid')).to.be.false;
-          expect(slider.hasCustomState('user-valid')).to.be.false;
+          expect(slider.customStates.has('invalid')).to.be.true;
+          expect(slider.customStates.has('valid')).to.be.false;
+          expect(slider.customStates.has('user-invalid')).to.be.false;
+          expect(slider.customStates.has('user-valid')).to.be.false;
         });
 
         it('should be present in form data when using the form attribute and located outside of a <form>', async () => {

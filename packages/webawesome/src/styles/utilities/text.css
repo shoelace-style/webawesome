@@ -106,10 +106,12 @@
     text-decoration: var(--wa-link-decoration-default);
     -webkit-text-decoration: var(--wa-link-decoration-default);
 
-    &:hover {
-      color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
-      text-decoration: var(--wa-link-decoration-hover);
-      -webkit-text-decoration: var(--wa-link-decoration-hover);
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
+        text-decoration: var(--wa-link-decoration-hover);
+        -webkit-text-decoration: var(--wa-link-decoration-hover);
+      }
     }
   }
 
@@ -117,9 +119,11 @@
     color: var(--wa-color-text-normal);
     text-decoration: none;
 
-    &:hover {
-      color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
-      text-decoration: none;
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+        text-decoration: none;
+      }
     }
   }
 }

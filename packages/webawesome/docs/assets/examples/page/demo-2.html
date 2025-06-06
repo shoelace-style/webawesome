@@ -12,7 +12,9 @@
     <wa-page class="wa-dark">
       <header slot="header">
         <div class="wa-cluster">
-          <wa-icon-button name="bars" label="Menu" data-toggle-nav></wa-icon-button>
+          <wa-button data-toggle-nav appearance="plain" size="small">
+            <wa-icon name="bars" label="Menu"></wa-icon>
+          </wa-button>
           <wa-icon name="record-vinyl"></wa-icon>
           <span class="wa-heading-m">radiogaga</span>
         </div>
@@ -30,7 +32,10 @@
         </wa-input>
         <div class="wa-split">
           <h2 class="wa-heading-s">For You</h2>
-          <wa-icon-button id="settings" name="gear" label="Settings"></wa-icon-button>
+          <wa-button id="settings" appearance="plain" size="small">
+            <wa-icon name="gear" label="Settings"></wa-icon>
+          </wa-button>
+          <wa-tooltip for="settings">Settings</wa-tooltip>
         </div>
       </div>
       <nav slot="navigation">
@@ -120,12 +125,18 @@
         </ul>
       </nav>
       <div slot="main-header">
-        <wa-icon-button id="back" name="chevron-left" label="Back"></wa-icon-button>
+        <wa-button id="back" appearance="plain" size="small">
+          <wa-icon name="chevron-left" label="Back"></wa-icon>
+        </wa-button>
         <wa-tooltip for="back" placement="bottom" distance="2">Back</wa-tooltip>
         <div class="wa-cluster">
-          <wa-icon-button id="favorite" name="heart" variant="regular" label="Favorite"></wa-icon-button>
+          <wa-button id="favorite" appearance="plain" size="small">
+            <wa-icon name="heart" label="Favorite" variant="regular"></wa-icon>
+          </wa-button>
           <wa-tooltip for="favorite" placement="bottom" distance="2">Favorite</wa-tooltip>
-          <wa-icon-button id="options" name="ellipsis" label="Options"></wa-icon-button>
+          <wa-button id="options" appearance="plain" size="small">
+            <wa-icon name="ellipsis" label="Options"></wa-icon>
+          </wa-button>
           <wa-tooltip for="options" placement="bottom" distance="2">Options</wa-tooltip>
         </div>
       </div>
@@ -152,10 +163,16 @@
               </div>
               <div id="play-controls" class="wa-split wa-gap-xl">
                 <div class="wa-cluster wa-gap-xl">
-                  <wa-icon-button name="play" label="Play"></wa-icon-button>
-                  <wa-icon-button name="shuffle" label="Shuffle"></wa-icon-button>
+                  <wa-button variant="brand" size="large">
+                    <wa-icon name="play" label="Play"></wa-icon>
+                  </wa-button>
+                  <wa-button appearance="plain">
+                    <wa-icon name="shuffle" label="Shuffle"></wa-icon>
+                  </wa-button>
                 </div>
-                <wa-icon-button name="plus" label="Add to Library"></wa-icon-button>
+                <wa-button appearance="plain">
+                  <wa-icon name="plus" label="Add to Library"></wa-icon>
+                </wa-button>
               </div>
             </div>
           </div>
@@ -167,7 +184,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:27</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -177,7 +196,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">2:36</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -187,7 +208,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">2:51</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -197,7 +220,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:05</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -207,7 +232,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">1:56</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -217,7 +244,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:32</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -227,7 +256,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">2:46</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -237,7 +268,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:27</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -247,7 +280,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">2:13</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -260,7 +295,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">2:55</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -273,7 +310,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:10</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
             <li class="wa-split">
@@ -286,7 +325,9 @@
               </span>
               <span class="wa-cluster">
                 <span class="wa-caption-m">3:22</span>
-                <wa-icon-button name="ellipsis" label="Song Options"></wa-icon-button>
+                <wa-button appearance="plain" size="small">
+                  <wa-icon name="ellipsis" label="Song Options"></wa-icon>
+                </wa-button>
               </span>
             </li>
           </ol>
@@ -380,8 +421,8 @@
           aspect-ratio: 1;
           color: var(--wa-color-brand-fill-loud);
           display: flex;
-          height: var(--flank-size);
           justify-content: center;
+          padding-block: 0.5em;
         }
         #recent wa-icon {
           border-radius: var(--wa-border-radius-s);
@@ -420,16 +461,14 @@
       [slot='main-header'] {
         background-color: var(--wa-color-surface-raised);
       }
-      #play-controls wa-icon-button::part(base) {
+      #play-controls wa-button::part(base) {
         border: var(--wa-border-width-l) var(--wa-border-style) currentColor;
         border-radius: var(--wa-border-radius-circle);
         font-size: 1.5rem;
       }
-      #play-controls wa-icon-button[name='play']::part(base) {
-        background-color: var(--wa-color-brand-fill-loud);
+      #play-controls wa-button:has(wa-icon[name='play'])::part(base) {
         border: none;
-        color: var(--wa-color-brand-on-loud);
-        font-size: 3rem;
+        font-size: 2.5rem;
         padding: 0.5em 0.45em 0.5em 0.55em;
       }
       [slot='main-footer'].wa-grid > * {

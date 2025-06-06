@@ -40,7 +40,7 @@ import styles from './tooltip.css';
  */
 @customElement('wa-tooltip')
 export default class WaTooltip extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
   static dependencies = { 'wa-popup': WaPopup };
 
   private hoverTimeout: number;

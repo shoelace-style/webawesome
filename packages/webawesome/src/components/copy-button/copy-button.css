@@ -17,12 +17,18 @@
   border-radius: var(--wa-border-radius-m);
   color: inherit;
   font-size: inherit;
-  padding: var(--wa-space-xs);
+  padding: 0.5em;
   cursor: pointer;
   transition: color var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-.button:hover:not([disabled]),
+@media (hover: hover) {
+  .button:hover:not([disabled]) {
+    background-color: var(--background-color-hover);
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+}
+
 .button:focus-visible:not([disabled]) {
   background-color: var(--background-color-hover);
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));

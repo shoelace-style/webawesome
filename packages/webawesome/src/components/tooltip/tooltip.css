@@ -2,7 +2,7 @@
   --background-color: var(--wa-tooltip-background-color);
   --border-radius: var(--wa-tooltip-border-radius);
   --max-width: 30ch;
-  --padding: var(--wa-space-2xs) var(--wa-space-xs);
+  --padding: 0.25em 0.5em;
 
   /** These styles are added so we don't interfere in the DOM. */
   display: inline-block;

@@ -331,12 +331,12 @@ describe('<wa-select>', () => {
           const secondOption = el.querySelectorAll('wa-option')[1];
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasCustomState('required')).to.be.true;
-          expect(el.hasCustomState('optional')).to.be.false;
-          expect(el.hasCustomState('invalid')).to.be.false;
-          expect(el.hasCustomState('valid')).to.be.true;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.false;
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.false;
+          expect(el.customStates.has('valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
 
           await el.show();
           await clickOnElement(secondOption);
@@ -345,8 +345,8 @@ describe('<wa-select>', () => {
           await el.updateComplete;
 
           expect(el.checkValidity()).to.be.true;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.true;
         });
 
         it('should receive the correct validation attributes ("states") when invalid', async () => {
@@ -359,12 +359,12 @@ describe('<wa-select>', () => {
           `);
           const secondOption = el.querySelectorAll('wa-option')[1];
 
-          expect(el.hasCustomState('required')).to.be.true;
-          expect(el.hasCustomState('optional')).to.be.false;
-          expect(el.hasCustomState('invalid')).to.be.true;
-          expect(el.hasCustomState('valid')).to.be.false;
-          expect(el.hasCustomState('user-invalid')).to.be.false;
-          expect(el.hasCustomState('user-valid')).to.be.false;
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.true;
+          expect(el.customStates.has('valid')).to.be.false;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
 
           await el.show();
           await clickOnElement(secondOption);
@@ -373,8 +373,8 @@ describe('<wa-select>', () => {
           el.blur();
           await el.updateComplete;
 
-          expect(el.hasCustomState('user-invalid')).to.be.true;
-          expect(el.hasCustomState('user-valid')).to.be.false;
+          expect(el.customStates.has('user-invalid')).to.be.true;
+          expect(el.customStates.has('user-valid')).to.be.false;
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
@@ -389,12 +389,12 @@ describe('<wa-select>', () => {
           `);
           const select = el.querySelector<WaSelect>('wa-select')!;
 
-          expect(select.hasCustomState('required')).to.be.true;
-          expect(select.hasCustomState('optional')).to.be.false;
-          expect(select.hasCustomState('invalid')).to.be.true;
-          expect(select.hasCustomState('valid')).to.be.false;
-          expect(select.hasCustomState('user-invalid')).to.be.false;
-          expect(select.hasCustomState('user-valid')).to.be.false;
+          expect(select.customStates.has('required')).to.be.true;
+          expect(select.customStates.has('optional')).to.be.false;
+          expect(select.customStates.has('invalid')).to.be.true;
+          expect(select.customStates.has('valid')).to.be.false;
+          expect(select.customStates.has('user-invalid')).to.be.false;
+          expect(select.customStates.has('user-valid')).to.be.false;
         });
       });
 

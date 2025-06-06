@@ -11,7 +11,8 @@
   --border-width: var(--wa-form-control-border-width);
   --box-shadow: none;
   --checked-icon-color: var(--wa-color-brand-on-loud);
-  --toggle-size: 1lh;
+  --checked-icon-scale: 0.8;
+  --toggle-size: var(--wa-form-control-toggle-size);
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
@@ -43,7 +44,7 @@
     color var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
 
-  margin-inline-end: var(--wa-space-xs);
+  margin-inline-end: 0.5em;
 }
 
 :host [part~='base'] {
@@ -86,6 +87,7 @@ input {
 
 [part~='icon'] {
   display: flex;
+  scale: var(--checked-icon-scale);
 
   /* Without this, Safari renders the icon slightly to the left */
   &::part(svg) {

@@ -20,7 +20,7 @@ import styles from './scroller.css';
  */
 @customElement('wa-scroller')
 export default class WaScroller extends WebAwesomeElement {
-  static shadowStyle = [styles];
+  static css = [styles];
 
   private readonly localize = new LocalizeController(this);
   private resizeObserver = new ResizeObserver(() => this.updateScroll());

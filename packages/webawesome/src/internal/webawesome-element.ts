@@ -1,7 +1,7 @@
 import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
 import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import componentStyles from '../styles/component/host.css';
+import hostStyles from '../styles/component/host.css';
 
 // Augment Lit's module
 declare module 'lit' {
@@ -15,6 +15,31 @@ declare module 'lit' {
 }
 
 export default class WebAwesomeElement extends LitElement {
+  /**
+   * One or more CSS files to include in the component's shadow root. Host styles are automatically prepended. We use
+   * this instead of Lit's styles property because we're importing CSS files as strings and need to convert them using
+   * unsafeCSS.
+   */
+  static css?: CSSResultGroup | CSSResult | string | (CSSResult | string)[];
+
+  /**
+   * Override the default styles property to fetch and convert string CSS files. Components can override this behavior
+   * by setting their own `static styles = []` property.
+   */
+  static get styles(): CSSResultGroup {
+    const styles = Array.isArray(this.css) ? this.css : this.css ? [this.css] : [];
+    return [hostStyles, ...styles].map(style => (typeof style === 'string' ? unsafeCSS(style) : style));
+  }
+
+  #hasRecordedInitialProperties = false;
+  initialReflectedProperties: Map<string, unknown> = new Map();
+  internals: ElementInternals;
+
+  // Make localization attributes reactive
+  @property() dir: string;
+  @property() lang: string;
+  @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
+
   constructor() {
     super();
 
@@ -26,51 +51,15 @@ export default class WebAwesomeElement extends LitElement {
       console.error('Element internals are not supported in your browser. Consider using a polyfill');
     }
 
-    this.toggleCustomState('wa-defined');
+    this.customStates.set('wa-defined', true);
 
     let Self = this.constructor as typeof WebAwesomeElement;
     for (let [property, spec] of Self.elementProperties) {
       if (spec.default === 'inherit' && spec.initial !== undefined && typeof property === 'string') {
-        this.toggleCustomState(`initial-${property}-${spec.initial}`);
+        this.customStates.set(`initial-${property}-${spec.initial}`, true);
       }
     }
   }
-
-  // Make localization attributes reactive
-  @property() dir: string;
-  @property() lang: string;
-
-  /**
-   * One or more styles for the element’s own shadow DOM.
-   * Shared component styles will automatically be added.
-   * If that is not desirable, the subclass can define its own styles property.
-   */
-  static shadowStyle?: CSSResultGroup | CSSResult | string | (CSSResult | string)[];
-
-  /** The base styles property will only get called if the subclass does not define a styles property of its own */
-  static get styles(): CSSResultGroup {
-    const shadowStyle = this.shadowStyle
-      ? Array.isArray(this.shadowStyle)
-        ? this.shadowStyle
-        : [this.shadowStyle]
-      : [];
-
-    // Convert any string styles to Lit’s CSSResult
-    const shadowStyles = [componentStyles, ...shadowStyle].map(style =>
-      typeof style === 'string' ? unsafeCSS(style) : style,
-    );
-
-    return shadowStyles;
-  }
-
-  @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
-
-  #hasRecordedInitialProperties = false;
-
-  // Store the constructor value of all `static properties = {}`
-  initialReflectedProperties: Map<string, unknown> = new Map();
-
-  internals: ElementInternals;
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
@@ -131,43 +120,26 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
-  /** Checks if states are supported by the element */
-  private hasStatesSupport(): boolean {
-    return Boolean(this.internals?.states);
-  }
-
-  /** Adds a custom state to the element. */
-  addCustomState(state: string) {
-    if (this.hasStatesSupport()) {
-      this.internals.states.add(state);
-    }
-  }
-
-  /** Removes a custom state from the element. */
-  deleteCustomState(state: string) {
-    if (this.hasStatesSupport()) {
-      this.internals.states.delete(state);
-    }
-  }
-
-  /** Toggles a custom state on the element. */
-  toggleCustomState(state: string, force?: boolean) {
-    if (typeof force === 'boolean') {
-      if (force) {
-        this.addCustomState(state);
+  /**
+   * Methods for setting and checking custom states.
+   */
+  public customStates = {
+    /** Adds or removes the specified custom state. */
+    set: (customState: string, active: boolean) => {
+      if (!Boolean(this.internals?.states)) return;
+      if (active) {
+        this.internals.states.add(customState);
       } else {
-        this.deleteCustomState(state);
+        this.internals.states.delete(customState);
       }
-      return;
-    }
+    },
 
-    this.toggleCustomState(state, !this.hasCustomState(state));
-  }
-
-  /** Determines if the element has the specified custom state. */
-  hasCustomState(state: string): boolean {
-    return this.hasStatesSupport() ? this.internals.states.has(state) : false;
-  }
+    /** Determines whether or not the element currently has the specified state. */
+    has: (customState: string) => {
+      if (!Boolean(this.internals?.states)) return false;
+      return this.internals.states.has(customState);
+    },
+  };
 
   /**
    * Given a native event, this function cancels it and dispatches it again from the host element using the desired

@@ -1,5 +1,5 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
-import * as fs from "node:fs"
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
@@ -41,7 +41,7 @@ export default async function (eleventyConfig) {
    */
   const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
-  const docsDir = path.join(process.env.BASE_DIR || ".", 'docs');
+  const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
   const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
 
   /**
@@ -176,9 +176,8 @@ export default async function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
 
-
-  let assetsDir = path.join(process.env.BASE_DIR || "docs", "assets")
-  fs.cpSync(assetsDir, path.join(eleventyConfig.directories.output, "assets"), { recursive: true })
+  let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
+  fs.cpSync(assetsDir, path.join(eleventyConfig.directories.output, 'assets'), { recursive: true });
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
@@ -210,7 +209,6 @@ export default async function (eleventyConfig) {
   // }
 }
 
-
 export const config = {
   markdownTemplateEngine: 'njk',
   dir: {
@@ -219,5 +217,4 @@ export const config = {
     layouts: '_layouts',
   },
   templateFormats: ['njk', 'md'],
-}
-
+};

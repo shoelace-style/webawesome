@@ -199,17 +199,17 @@ describe('<wa-checkbox>', () => {
 
           expect(checkbox.checkValidity()).to.be.false;
           expect(checkbox.checkValidity()).to.be.false;
-          expect(checkbox.hasCustomState('invalid')).to.be.true;
-          expect(checkbox.hasCustomState('valid')).to.be.false;
-          expect(checkbox.hasCustomState('user-invalid')).to.be.true;
-          expect(checkbox.hasCustomState('user-valid')).to.be.false;
+          expect(checkbox.customStates.has('invalid')).to.be.true;
+          expect(checkbox.customStates.has('valid')).to.be.false;
+          expect(checkbox.customStates.has('user-invalid')).to.be.true;
+          expect(checkbox.customStates.has('user-valid')).to.be.false;
 
           await clickOnElement(checkbox);
           await checkbox.updateComplete;
           await aTimeout(0);
 
-          expect(checkbox.hasCustomState('user-invalid')).to.be.true;
-          expect(checkbox.hasCustomState('user-valid')).to.be.false;
+          expect(checkbox.customStates.has('user-invalid')).to.be.true;
+          expect(checkbox.customStates.has('user-valid')).to.be.false;
         });
 
         it('should be invalid when required and unchecked', async () => {
@@ -244,12 +244,12 @@ describe('<wa-checkbox>', () => {
           `);
           const checkbox = el.querySelector<WaCheckbox>('wa-checkbox')!;
 
-          expect(checkbox.hasCustomState('required')).to.be.true;
-          expect(checkbox.hasCustomState('optional')).to.be.false;
-          expect(checkbox.hasCustomState('invalid')).to.be.true;
-          expect(checkbox.hasCustomState('valid')).to.be.false;
-          expect(checkbox.hasCustomState('user-invalid')).to.be.false;
-          expect(checkbox.hasCustomState('user-valid')).to.be.false;
+          expect(checkbox.customStates.has('required')).to.be.true;
+          expect(checkbox.customStates.has('optional')).to.be.false;
+          expect(checkbox.customStates.has('invalid')).to.be.true;
+          expect(checkbox.customStates.has('valid')).to.be.false;
+          expect(checkbox.customStates.has('user-invalid')).to.be.false;
+          expect(checkbox.customStates.has('user-valid')).to.be.false;
         });
       });
 

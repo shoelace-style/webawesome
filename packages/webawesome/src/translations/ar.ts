@@ -35,6 +35,8 @@ const translation: Translation = {
   showPassword: 'عرض كلمة المرور',
   slideNum: slide => `شريحة ${slide}`,
   toggleColorFormat: 'تغيير صيغة عرض  اللون',
+  zoomIn: 'تكبير',
+  zoomOut: 'تصغير',
 };
 
 registerTranslation(translation);

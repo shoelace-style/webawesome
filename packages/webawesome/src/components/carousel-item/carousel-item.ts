@@ -16,7 +16,7 @@ import styles from './carousel-item.css';
  */
 @customElement('wa-carousel-item')
 export default class WaCarouselItem extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   connectedCallback() {
     super.connectedCallback();

@@ -6,12 +6,13 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../icon-button/icon-button.js';
+import '../button/button.js';
 import styles from './dialog.css';
 
 /**
@@ -20,11 +21,11 @@ import styles from './dialog.css';
  * @status stable
  * @since 2.0
  *
- * @dependency wa-icon-button
+ * @dependency wa-button
  *
  * @slot - The dialog's main content.
  * @slot label - The dialog's label. Alternatively, you can use the `label` attribute.
- * @slot header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @slot header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @slot footer - The dialog's footer, usually one or more buttons representing various options.
  *
  * @event wa-show - Emitted when the dialog opens.
@@ -37,9 +38,9 @@ import styles from './dialog.css';
  * @event wa-after-hide - Emitted after the dialog closes and all animations are complete.
  *
  * @csspart header - The dialog's header. This element wraps the title and header actions.
- * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-icon-button>`.
+ * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The dialog's title.
- * @csspart close-button - The close button, a `<wa-icon-button>`.
+ * @csspart close-button - The close button, a `<wa-button>`.
  * @csspart close-button__base - The close button's exported `base` part.
  * @csspart body - The dialog's body.
  * @csspart footer - The dialog's footer.
@@ -54,7 +55,7 @@ import styles from './dialog.css';
  */
 @customElement('wa-dialog')
 export default class WaDialog extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header-actions', 'label');
@@ -62,10 +63,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   @query('.dialog') dialog: HTMLDialogElement;
 
-  /**
-   * Indicates whether or not the dialog is open. You can toggle this attribute to show and hide the dialog, or you can
-   * use the `show()` and `hide()` methods and this attribute will reflect the dialog's open state.
-   */
+  /** Indicates whether or not the dialog is open. Toggle this attribute to show and hide the dialog. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /**
@@ -235,16 +233,20 @@ export default class WaDialog extends WebAwesomeElement {
                 </h2>
                 <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>
-                  <wa-icon-button
+                  <wa-button
                     part="close-button"
                     exportparts="base:close-button__base"
                     class="close"
-                    name="xmark"
-                    label=${this.localize.term('close')}
-                    library="system"
-                    variant="solid"
+                    appearance="plain"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
-                  ></wa-icon-button>
+                  >
+                    <wa-icon
+                      name="xmark"
+                      label=${this.localize.term('close')}
+                      library="system"
+                      variant="solid"
+                    ></wa-icon>
+                  </wa-button>
                 </div>
               </header>
             `
@@ -263,6 +265,28 @@ export default class WaDialog extends WebAwesomeElement {
     `;
   }
 }
+
+//
+// Watch for data-dialog="open *" clicks
+//
+document.addEventListener('click', (event: MouseEvent) => {
+  const dialogAttrEl = (event.target as Element).closest('[data-dialog]');
+
+  if (dialogAttrEl instanceof Element) {
+    const [command, id] = parseSpaceDelimitedTokens(dialogAttrEl.getAttribute('data-dialog') || '');
+
+    if (command === 'open' && id?.length) {
+      const doc = dialogAttrEl.getRootNode() as Document | ShadowRoot;
+      const dialog = doc.getElementById(id) as WaDialog;
+
+      if (dialog?.localName === 'wa-dialog') {
+        dialog.open = true;
+      } else {
+        console.warn(`A dialog with an ID of "${id}" could not be found in this document.`);
+      }
+    }
+  }
+});
 
 // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
 if (!isServer) {

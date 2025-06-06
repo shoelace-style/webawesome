@@ -37,7 +37,7 @@ import styles from './radio-group.css';
  */
 @customElement('wa-radio-group')
 export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [sizeStyles, formControlStyles, styles];
+  static css = [sizeStyles, formControlStyles, styles];
 
   static get validators() {
     const validators = isServer

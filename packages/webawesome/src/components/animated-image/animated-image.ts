@@ -28,7 +28,7 @@ import styles from './animated-image.css';
  */
 @customElement('wa-animated-image')
 export default class WaAnimatedImage extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('.animated') animatedImage: HTMLImageElement;
 

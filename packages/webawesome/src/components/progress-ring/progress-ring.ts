@@ -25,7 +25,7 @@ import styles from './progress-ring.css';
  */
 @customElement('wa-progress-ring')
 export default class WaProgressRing extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private readonly localize = new LocalizeController(this);
 

@@ -35,7 +35,7 @@ import styles from './split-panel.css';
  */
 @customElement('wa-split-panel')
 export default class WaSplitPanel extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   private cachedPositionInPixels: number;
   private isCollapsed = false;

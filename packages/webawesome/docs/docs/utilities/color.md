@@ -7,11 +7,11 @@ file: styles/utilities/variants.css
 
 Some Web Awesome components, like `<wa-button>`, allow you to change the color by using a `variant` attribute:
 
-{% for component in componentsBy.attribute.variant %}
-{% if component.fileSlug != "icon" or component.fileSlug != "icon-button" -%}
-- <a href="../{{ component.url }}"><code>&lt;{{ component.tagName }}&gt;</code></a>
-{%- endif %}
-{%- endfor %}
+- [`<wa-badge>`](/docs/components/badge)
+- [`<wa-button>`](/docs/components/button)
+- [`<wa-button-group>`](/docs/components/button-group)
+- [`<wa-callout>`](/docs/components/callout)
+- [`<wa-tag>`](/docs/components/tag)
 
 You can create the same effect on any element by using the color variant utility classes:
 

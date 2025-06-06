@@ -45,7 +45,8 @@
     wa-carousel::part(pagination-item),
     wa-comparison::part(handle),
     wa-progress-bar::part(base),
-    wa-slider::part(base),
+    wa-slider::part(track),
+    wa-slider::part(thumb),
     input[type='range'],
     wa-switch::part(control),
     wa-switch::part(thumb) {

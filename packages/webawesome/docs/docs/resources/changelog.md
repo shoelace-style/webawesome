@@ -31,20 +31,49 @@ During the alpha period, things might break! We take breaking changes very serio
   - `<wa-tab-group no-scroll-controls>` => `<wa-tab-group without-scroll-controls>`
   - `<wa-tag removable>` => `<wa-tag with-remove>`
 - 🚨 BREAKING: removed the `size` attribute from `<wa-card>`; please set the size of child elements on the children directly
+- 🚨 BREAKING: Greatly simplified the sizing strategy across components and utilities
+  - Removed `--wa-size`, `--wa-size-smaller`, `--wa-size-larger`, `--wa-space`, `--wa-space-smaller`, and `--wa-space-larger`
+  - Added tokens for `--wa-form-control-padding-inline`, `--wa-form-control-padding-block`, and `--wa-form-control-toggle-size`
+  - Refactored default `--wa-font-size-*` values to use an apparent 1.125 ratio and round rendered values to the nearest whole pixel
+  - Added convenience tokens for `--wa-font-size-smaller` and `--wa-font-size-larger`
+  - Updated components to use relative `em` values for internal padding and margin wherever appropriate
+- 🚨 BREAKING: removed the `hint` property and slot from `<wa-radio>`; please apply hints directly to `<wa-radio-group>` instead
+- 🚨 BREAKING: redesigned `<wa-slider>` with extensive new functionality
+  - Added support for range sliders with dual thumbs using the `range` attribute
+  - Added vertical orientation support with `orientation="vertical"`
+  - Added visual markers at each step with `with-markers`
+  - Added contextual reference labels with `with-references` and the `reference` slot
+  - Added tooltips showing current values with `with-tooltip`
+  - Added customizable indicator offset with `indicator-offset` attribute
+  - Added value formatting support with the `valueFormatter` property
+  - Improved the styling API to be consistent and more powerful (no more browser-specific selectors and pseudo elements to style)
+  - Updated to use consistent `with-*` attribute naming pattern
+- 🚨 BREAKING: removed `<wa-icon-button>`; use `<wa-button><wa-icon name="..." label="..."></wa-icon></wa-button>` instead
+- Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
+- Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
+- Added support for `name` in `<wa-details>` for exclusively opening one in a group
+- Added `--checked-icon-scale` to `<wa-checkbox>`
+- Added `--tag-max-size` to `<wa-select>` when using `multiple`
+- Added support for `data-dialog="open <id>"` to `<wa-dialog>`
+- Added support for `data-drawer="open <id>"` to `<wa-drawer>`
+- Added `@media (hover: hover)` to component hover styles to prevent sticky hover states
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
 - Fixed a bug in `<wa-details>` and native `<details>` styles that made the summary hard to click [issue:684]
+- Fixed a handful of bugs unify form control height across components and native elements
 - Improved CSS utilities and Native Styles to use [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for easier end user customization (no more specificity conflicts — your CSS wins!)
 - Improved native `<button>` styles to properly space icons
+- Improved button appearances in `<wa-color-picker>`
+- Improved `<wa-rating>` to have more accessible icons by default
 - Removed the experimental `<wa-code-demo>` component
 
 ## 3.0.0-alpha.13
 
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparison>` and improved compatibility for non-image content
-- 🚨 BREAKING:  Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
-- 🚨 BREAKING:  Renamed the `image` slot to `media` for a more appropriate naming convention
+- 🚨 BREAKING: Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
+- 🚨 BREAKING: Renamed the `image` slot to `media` for a more appropriate naming convention
 - Added [a theme builder](/docs/themes/edit/) to create your own themes
 - Added a new Blog & News pattern category
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
@@ -106,7 +135,7 @@ During the alpha period, things might break! We take breaking changes very serio
 ### Design Tokens
 
 - Added `--wa-color-[hue]` tokens with the "core" color of each scale, regardless of which tint it lives on.
-You can find them in the first column of each color palette.
+  You can find them in the first column of each color palette.
 
 ### Themes
 
@@ -131,20 +160,21 @@ You can find them in the first column of each color palette.
 - Fixed an incorrect CSS value in the expand icon
 - Fixed a bug that prevented the description from being read by screen readers
 
-####  `<wa-option>`
+#### `<wa-option>`
 
 - `label` attribute to override the generated label (useful for rich content)
 - `defaultLabel` property
 - Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
 - Dropped `base` part for easier styling. CSS can now be applied directly to the element itself.
 
-####  `<wa-menu-item>`
+#### `<wa-menu-item>`
 
 - `label` attribute to override the generated label (useful for rich content)
 - `defaultLabel` property
 - Dropped `getTextLabel()` method (if you need dynamic labels, just set the `label` attribute dynamically)
 
 #### `<wa-card>`
+
 - Fixed a bug where child elements did not have correct rounding when headers and footers were absent.
 - Re-introduced `--border-color` so that the card itself can have a different border color than its inner borders.
 - Fixed a bug that prevented slots from showing automatically without `with-` attributes
@@ -330,11 +360,11 @@ Here's a list of some of the things that have changed since Shoelace v2. For que
 - Removed `inline` from `<wa-color-picker>`
 - Removed `getFormControls()` since we now use Form Associated Custom Elements and can reliably access Web Awesome Elements via `formElement.elements`.
 - Removed `valueAsDate` from `<wa-input>`; use the following to mimic native behaviors:
-    setter: `waInput.value = new Date().toLocaleDateString()`
-    getter: `new Date(waInput.value)`
+  setter: `waInput.value = new Date().toLocaleDateString()`
+  getter: `new Date(waInput.value)`
 - Removed `valueAsNumber` from `<wa-input>`; use the following to mimic native behaviors:
-    setter: `waInput.value = 5.toString()`
-    getter: `Number(waInput.value)`
+  setter: `waInput.value = 5.toString()`
+  getter: `Number(waInput.value)`
 
 Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome-alpha/discussions)
 

@@ -28,7 +28,7 @@
       &::part(base) {
         border-width: 0px;
         margin-bottom: var(--wa-shadow-offset-y-s);
-        padding-inline: calc(var(--wa-space) + var(--border-width));
+        padding-inline: calc(var(--wa-form-control-padding-inline) + var(--border-width));
         transition: all var(--wa-transition-fast);
       }
 
@@ -97,10 +97,9 @@
       }
     }
 
-    input[type='range'],
-    wa-slider,
-    wa-switch {
-      --thumb-shadow:
+    wa-slider::part(thumb),
+    wa-switch::part(thumb) {
+      box-shadow:
         var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), var(--wa-theme-glossy-bottom-shadow);
     }
 

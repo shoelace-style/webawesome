@@ -216,7 +216,6 @@ layout: page
     border-color: var(--wa-color-surface-border);
     border-radius: 0.75rem;
     color: var(--wa-color-text-normal);
-    display: block;
     height: 100%;
     line-height: var(--wa-line-height-normal);
     padding: 1.25rem;
@@ -240,7 +239,7 @@ layout: page
       font-weight: var(--wa-font-weight-normal);
     }
     &::part(label) {
-      width: 100%;
+      flex-direction: column;
     }
   }
   wa-callout {

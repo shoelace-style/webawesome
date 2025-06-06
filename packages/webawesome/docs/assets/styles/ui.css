@@ -5,10 +5,11 @@
 }
 
 .title {
-  wa-icon-button {
-    font-size: var(--wa-font-size-l);
-    color: var(--wa-color-text-quiet);
+  display: flex;
+  align-items: center;
+  gap: var(--wa-space-xs);
 
+  wa-button:has(wa-icon) {
     &:not(:hover, :focus) {
       opacity: 0.5;
     }
@@ -127,11 +128,11 @@
 
   > input {
     font: inherit;
-    margin-block: calc(-1 * var(--wa-space-smaller));
+    margin-block: 0.75em;
     field-sizing: content;
   }
 
-  wa-icon-button {
+  wa-button {
     font-size: 90%;
   }
 }

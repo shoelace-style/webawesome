@@ -73,7 +73,7 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  */
 @customElement('wa-tree')
 export default class WaTree extends WebAwesomeElement {
-  static shadowStyle = styles;
+  static css = styles;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('slot[name=expand-icon]') expandedIconSlot: HTMLSlotElement;

@@ -55,7 +55,7 @@ import styles from './checkbox.css';
  */
 @customElement('wa-checkbox')
 export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
-  static shadowStyle = [formControlStyles, sizeStyles, styles];
+  static css = [formControlStyles, sizeStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
@@ -156,14 +156,14 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
       this.input.indeterminate = this.indeterminate; // force a sync update
     }
 
-    this.toggleCustomState('checked', this.checked);
-    this.toggleCustomState('indeterminate', this.indeterminate);
+    this.customStates.set('checked', this.checked);
+    this.customStates.set('indeterminate', this.indeterminate);
     this.updateValidity();
   }
 
   @watch('disabled')
   handleDisabledChange() {
-    this.toggleCustomState('disabled', this.disabled);
+    this.customStates.set('disabled', this.disabled);
   }
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {

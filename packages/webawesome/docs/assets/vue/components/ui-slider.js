@@ -8,7 +8,9 @@ const template = `
       <div class="ui-slider-header">
         <label :for="sliderId">{{ label }}</label>
         <info-tip v-if="clearable && (value !== defaultValue ?? initialValue)" :text="'Reset to ' + valueFormatter(defaultValue ?? initialValue)">
-          <wa-icon-button @click="value = defaultValue ?? initialValue" class="clear-button" name="circle-xmark" library="system" variant="regular" :label="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)"></wa-icon-button>
+          <wa-button @click="value = defaultValue ?? initialValue" class="clear-button">
+            <wa-icon name="circle-xmark" library="system" variant="regular" :label="'Reset to ' + tooltipFormatter(defaultValue ?? initialValue)"></wa-icon>
+          </wa-button>
         </info-tip>
       </div>
       <info-tip v-if="$slots.min" :text="'Set to min (' + valueFormatter(min) + ')'">

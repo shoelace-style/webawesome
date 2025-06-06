@@ -128,7 +128,7 @@ function toLength(px: number | string): string {
  */
 @customElement('wa-page')
 export default class WaPage extends WebAwesomeElement {
-  static shadowStyle = [visuallyHidden, styles];
+  static css = [visuallyHidden, styles];
 
   private headerResizeObserver = this.slotResizeObserver('header');
   private subheaderResizeObserver = this.slotResizeObserver('subheader');

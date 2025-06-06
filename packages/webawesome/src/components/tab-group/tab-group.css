@@ -22,7 +22,7 @@
 
 .tab-group-has-scroll-controls .nav-container {
   position: relative;
-  padding: 0 var(--wa-space-xl);
+  padding: 0 1.5em;
 }
 
 .body {
@@ -37,7 +37,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: var(--wa-space-xl);
+  width: 1.5em;
 }
 
 .scroll-button-start {
@@ -96,7 +96,7 @@
 }
 
 .tab-group-top ::slotted(wa-tab-panel) {
-  --padding: var(--wa-space-m) 0;
+  --padding: var(--wa-space-xl) 0;
 }
 
 /*
@@ -147,7 +147,7 @@
 }
 
 .tab-group-bottom ::slotted(wa-tab-panel) {
-  --padding: var(--wa-space-m) 0;
+  --padding: var(--wa-space-xl) 0;
 }
 
 /*
@@ -184,7 +184,7 @@
 }
 
 .tab-group-start ::slotted(wa-tab-panel) {
-  --padding: 0 var(--wa-space-m);
+  --padding: 0 var(--wa-space-xl);
 }
 
 /*
@@ -221,5 +221,5 @@
 }
 
 .tab-group-end ::slotted(wa-tab-panel) {
-  --padding: 0 var(--wa-space-m);
+  --padding: 0 var(--wa-space-xl);
 }

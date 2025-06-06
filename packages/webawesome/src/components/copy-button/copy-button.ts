@@ -44,7 +44,7 @@ import styles from './copy-button.css';
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
-  static shadowStyle = [visuallyHidden, styles];
+  static css = [visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
 

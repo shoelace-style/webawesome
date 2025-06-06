@@ -9,7 +9,7 @@
   display: flex;
   align-items: stretch;
   font: inherit;
-  padding: var(--wa-space-xs) var(--wa-space-2xs);
+  padding: 0.5em 0.25em;
   line-height: var(--wa-line-height-condensed);
   transition: fill var(--wa-transition-normal) var(--wa-transition-easing);
   user-select: none;
@@ -39,11 +39,11 @@
 
 :host([loading]) wa-spinner {
   --indicator-color: currentColor;
-  --track-width: 0.0625rem;
+  --track-width: round(0.0625em, 1px);
   position: absolute;
-  font-size: 0.8em;
+  font-size: var(--wa-font-size-smaller);
   top: calc(50% - 0.5em);
-  left: 0.5rem;
+  left: 0.6em;
   opacity: 1;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .prefix::slotted(*) {
-  margin-inline-end: var(--wa-space-xs);
+  margin-inline-end: 0.5em;
 }
 
 .suffix {
@@ -71,7 +71,7 @@
 }
 
 .suffix::slotted(*) {
-  margin-inline-start: var(--wa-space-xs);
+  margin-inline-start: 0.5em;
 }
 
 /* Safe triangle */
@@ -114,8 +114,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875em;
-  width: var(--wa-space-xl);
+  font-size: var(--wa-font-size-smaller);
+  width: 2em;
   visibility: hidden;
 }
 
