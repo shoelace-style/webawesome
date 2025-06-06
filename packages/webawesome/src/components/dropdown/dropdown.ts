@@ -3,7 +3,6 @@ import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/d
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { live } from 'lit/directives/live.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
